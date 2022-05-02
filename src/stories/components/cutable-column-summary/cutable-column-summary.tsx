@@ -12,30 +12,30 @@ export enum CuStatusEnum {
   FormalSubmission = 'Formal Submission'
 }
 
-interface CutableColumnOneProps {
+interface CutableColumnSummaryProps {
   title: string,
   imageUrl?: string,
   status?: CuStatusEnum,
   statusModified?: Date,
 }
 
-export const CutableColumnOne = (props: CutableColumnOneProps) => {
+export const CutableColumnSummary = (props: CutableColumnSummaryProps) => {
   return <Container>
     <CircleContainer>
-      {props.imageUrl && <Avatar style={{ width: '50px', height: '50px' }} src={props.imageUrl}/>}
+      {props.imageUrl && <Avatar style={{ width: '48px', height: '48px' }} src={props.imageUrl}/>}
       {!props.imageUrl && <Avatar sx={{ bgcolor: getColorForString(props.title) }} style={{ width: '50px', height: '50px' }}>{getTwoInitials(props.title) || 'CU'}</Avatar>}
     </CircleContainer>
     <Content>
       <Title>{props.title}</Title>
       <Row>
-        {props.status && <Chip size={'small'} label={props.status} variant={'outlined'}/>}
+        {props.status && <Chip size={'small'} sx={{ borderRadius: '8px', borderColor: '#25273D' }} label={props.status} variant={'outlined'}/>}
         {props.statusModified && <SinceDate>Since {DateTime.fromJSDate(props.statusModified).toLocaleString(DateTime.DATE_MED)}</SinceDate>}
       </Row>
     </Content>
   </Container>;
 };
 
-export const Container = styled.div({
+const Container = styled.div({
   display: 'flex',
   height: '100px',
   alignItems: 'stretch',
@@ -45,29 +45,29 @@ export const Container = styled.div({
   cursor: 'pointer'
 });
 
-export const CircleContainer = styled.div({
+const CircleContainer = styled.div({
   marginRight: '10px',
 });
 
-export const Content = styled.div({
+const Content = styled.div({
   display: 'flex',
   flexDirection: 'column',
 });
 
-export const Title = styled.div({
+const Title = styled.div({
   fontSize: '14px',
   alignItems: 'center',
   marginBottom: '10px',
   maxWidth: '200px',
 });
 
-export const Row = styled.div({
+const Row = styled.div({
   display: 'flex',
   alignItems: 'center',
   flex: 1,
 });
 
-export const SinceDate = styled.span({
+const SinceDate = styled.span({
   color: 'gray',
   fontSize: '12px',
   textDecoration: 'underline',

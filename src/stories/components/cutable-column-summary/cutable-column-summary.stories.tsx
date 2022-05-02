@@ -1,13 +1,13 @@
 import React from 'react';
-import { CuStatusEnum, CutableColumnOne } from './cutable-column-one';
+import { CuStatusEnum, CutableColumnSummary } from './cutable-column-summary';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
-  title: 'Components/CUTable/ColumnOne',
-  component: CutableColumnOne
-} as ComponentMeta<typeof CutableColumnOne>;
+  title: 'Components/CUTable/ColumnSummary',
+  component: CutableColumnSummary
+} as ComponentMeta<typeof CutableColumnSummary>;
 
-const Template: ComponentStory<typeof CutableColumnOne> = (args) => <CutableColumnOne {...args} />;
+const Template: ComponentStory<typeof CutableColumnSummary> = (args) => <CutableColumnSummary {...args} />;
 
 export const WithImage = Template.bind({});
 WithImage.args = {
