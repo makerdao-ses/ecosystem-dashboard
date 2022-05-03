@@ -31,12 +31,12 @@ const Data = styled.div({
   justifyContent: 'space-between'
 });
 
-const Title = styled.div({
+export const Title = styled.div({
   fontSize: '12px',
   fontWeight: 400,
 });
 
-const Value = styled.div({
+export const Value = styled.div({
   display: 'flex',
   alignItems: 'flex-end',
   fontSize: '20px',
