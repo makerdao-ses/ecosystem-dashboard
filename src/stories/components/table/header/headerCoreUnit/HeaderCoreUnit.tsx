@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { TableCell, TableHead, TableRow } from '@mui/material';
-import ItemHeaderCoreUnit from '../ItemHeader/ItemHeaderCoreUnit';
 import './HeaderCore.scss';
+import ItemHeaderCoreUnit from '../itemHeader/ItemHeaderCoreUnit';
 
 interface HeadCell {
   label: string;

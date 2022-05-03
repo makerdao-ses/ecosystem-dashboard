@@ -1,6 +1,6 @@
 import React from 'react';
-import ArrowDown from '../../../Svg/ArrowDown';
-import ArrowUp from '../../../Svg/ArrowUp';
+import ArrowDown from '../../../svg/ArrowDown';
+import ArrowUp from '../../../svg/ArrowUp';
 import './ItemHeaderCoreUnit.scss';
 
 interface Props {

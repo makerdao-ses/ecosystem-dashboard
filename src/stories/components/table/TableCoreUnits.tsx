@@ -6,7 +6,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import './TableCore.scss';
-import HeaderCoreUnit from './Header/HeaderCoreUnit/HeaderCoreUnit';
+import HeaderCoreUnit from './header/headerCoreUnit/HeaderCoreUnit';
 
 interface Data {
   core: string;

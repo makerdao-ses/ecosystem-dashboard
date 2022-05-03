@@ -1,6 +1,6 @@
 import React from 'react';
-import TableCoreUnits from '../../../components/Table/TableCoreUnits';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import TableCoreUnits from './TableCoreUnits';
 
 export default {
   title: 'Components/Table/Table',
