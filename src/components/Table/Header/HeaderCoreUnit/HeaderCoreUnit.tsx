@@ -28,11 +28,13 @@ const headCells: readonly HeadCell[] = [
 const HeaderCoreUnit = () => {
   return (
     <TableHead className="head">
-      {headCells.map((headCell) => (
-        <TableCell key={headCell.label} padding='none'>
-          <ItemHeaderCoreUnit title={headCell.label} />
-        </TableCell>
-      ))}
+      <TableRow>
+        {headCells.map((headCell) => (
+          <TableCell key={headCell.label} padding="none">
+            <ItemHeaderCoreUnit title={headCell.label} />
+          </TableCell>
+        ))}
+      </TableRow>
     </TableHead>
   );
 };
