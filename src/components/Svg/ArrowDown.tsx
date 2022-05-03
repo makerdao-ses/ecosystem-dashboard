@@ -1,5 +1,4 @@
 import * as React from 'react';
-/* eslint-disable */
 interface Props {
   width?: number;
   height?: number;
@@ -12,7 +11,7 @@ const ArrowDown = ({
   width = 7,
   height = 6,
   isSelect = true,
-  onClick = () => {},
+  onClick,
   ...props
 }: Props) => {
   return (

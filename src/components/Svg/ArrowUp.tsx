@@ -1,5 +1,4 @@
 import * as React from 'react';
-/* eslint-disable */
 interface Props {
   width?: number;
   height?: number;
@@ -11,7 +10,7 @@ const ArrowUp = ({
   width = 7,
   height = 7,
   isSelect = true,
-  onClick = () => {},
+  onClick,
   ...props
 }: Props) => {
   return (

@@ -7,7 +7,7 @@ export default {
   component: TableCoreUnits,
 } as ComponentMeta<typeof TableCoreUnits>;
 
-const Template: ComponentStory<typeof TableCoreUnits> = (args) => (
+const Template: ComponentStory<typeof TableCoreUnits> = () => (
   <TableCoreUnits />
 );
 
