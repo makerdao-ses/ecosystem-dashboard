@@ -6,7 +6,8 @@ export interface CustomChartItem {
 }
 
 interface CustomBarChartProps {
-  items: Array<CustomChartItem>
+  items: Array<CustomChartItem>,
+  maxValue: number,
 }
 
 export const CustomBarChart = (props: CustomBarChartProps) => {
@@ -21,7 +22,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
   const calculateHeight = (value: number):number => {
     if (!value) return 0;
 
-    return value * maxItemHeight / maxItemHeight;
+    return value * maxItemHeight / props.maxValue;
   };
 
   return <svg width={width} height={50} viewBox={`0 0 ${width} 50`} transform={'scale(1, -1)'}>
@@ -31,7 +32,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
         y={5} width={12}
         rx={1}
         height={calculateHeight(item.value)}
-        fill={item.value <= maxItemHeight ? '#1AAB9B' : '#F75524'}>
+        fill={item.value <= props.maxValue ? '#1AAB9B' : '#F75524'}>
         <animate
           attributeName="height"
           from="0"

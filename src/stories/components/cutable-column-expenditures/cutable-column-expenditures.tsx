@@ -6,7 +6,8 @@ import { CustomPopover } from '../custom-popover/custom-popover';
 interface CutableColumnExpendituresProps {
   value: number,
   percent: number,
-  items: Array<CustomChartItem>
+  items: Array<CustomChartItem>,
+  budgetCap: number
 }
 
 export const CutableColumnExpenditures = (props: CutableColumnExpendituresProps) => {
@@ -21,7 +22,7 @@ export const CutableColumnExpenditures = (props: CutableColumnExpendituresProps)
         </Value>
     </CustomPopover>
     </Data>
-    <CustomBarChart items={props.items}/>
+    <CustomBarChart items={props.items} maxValue={props.budgetCap}/>
     <CustomPopover
       css={{ alignSelf: 'center' }}
       id={'mouse-over-popover-percent'}

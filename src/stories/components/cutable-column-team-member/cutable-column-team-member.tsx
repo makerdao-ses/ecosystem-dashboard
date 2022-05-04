@@ -16,7 +16,7 @@ interface CutableColumnTeamMemberProps {
 }
 
 export const CutableColumnTeamMember = (props: CutableColumnTeamMemberProps) => {
-  return <Container>
+  return <Container className="TeamMembers">
     <CustomPopover
       title={'FTEs = Full-Time Equivalents'}
       id={'popover-fulltime-equivalents'}

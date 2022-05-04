@@ -24,7 +24,7 @@ export const CutableColumnSummary = (props: CutableColumnSummaryProps) => {
   return <Container>
     <CircleContainer>
       {props.imageUrl && <Avatar style={{ width: '48px', height: '48px' }} src={props.imageUrl}/>}
-      {!props.imageUrl && <Avatar sx={{ bgcolor: getColorForString(props.title) }} style={{ width: '50px', height: '50px', fontSize: '1rem' }}>{getTwoInitials(props.title) || 'CU'}</Avatar>}
+      {!props.imageUrl && <Avatar sx={{ bgcolor: getColorForString(props.title) }} style={{ width: '48px', height: '48px', fontSize: '1rem' }}>{getTwoInitials(props.title) || 'CU'}</Avatar>}
     </CircleContainer>
     <Content>
       <Title>{props.title}</Title>
