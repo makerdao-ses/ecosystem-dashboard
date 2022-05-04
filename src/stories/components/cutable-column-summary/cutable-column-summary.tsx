@@ -50,7 +50,7 @@ const Container = styled.div({
   height: '100px',
   alignItems: 'stretch',
   boxSizing: 'border-box',
-  fontFamily: 'Roboto, Sans-serif',
+  fontFamily: 'Inter, sans-serif',
   padding: '13px',
   cursor: 'pointer'
 });

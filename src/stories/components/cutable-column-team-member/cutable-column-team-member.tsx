@@ -47,7 +47,8 @@ const Container = styled.div({
   display: 'flex',
   flex: 1,
   alignItems: 'center',
-  fontFamily: 'Roboto, sans-serif',
+  fontFamily: 'Inter, sans-serif',
+  fontWeight: 400,
   cursor: 'pointer',
 });
 

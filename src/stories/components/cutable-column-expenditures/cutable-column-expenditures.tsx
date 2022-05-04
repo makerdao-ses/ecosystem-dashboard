@@ -51,7 +51,7 @@ export const CutableColumnExpenditures = (props: CutableColumnExpendituresProps)
 const Container = styled.div({
   display: 'flex',
   alignItems: 'stretch',
-  fontFamily: 'Roboto, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   cursor: 'pointer',
 });
 

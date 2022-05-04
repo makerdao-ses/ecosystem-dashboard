@@ -23,7 +23,7 @@ const Container = styled.div({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  fontFamily: 'Roboto, sans-serif'
+  fontFamily: 'Inter, sans-serif'
 });
 
 const RoundedBox = styled.a({
