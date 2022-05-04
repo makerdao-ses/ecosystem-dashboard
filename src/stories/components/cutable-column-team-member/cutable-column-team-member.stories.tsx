@@ -9,8 +9,8 @@ export default {
 
 const Template: ComponentStory<typeof CutableColumnTeamMember> = (args) => <CutableColumnTeamMember {...args} />;
 
-export const Main = Template.bind({});
-Main.args = {
+export const Default = Template.bind({});
+Default.args = {
   members: [
     { name: 'John Doe' },
     { name: 'Billy Ferguson' },
