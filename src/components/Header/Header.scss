@@ -1,0 +1,73 @@
+.containerHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  background: #c4c4c4;
+}
+
+.logoToggleContainer {
+  height: 64px;
+  width: 260px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #b6b6b6;
+}
+.logo {
+  width: 112px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  background: #ededed;
+  border-radius: 5px;
+  align-items: center;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  margin-left: 32px;
+  margin-right: 66px;
+  color: #000000;
+}
+
+.rightSideHeader {
+  display: flex;
+  align-items: center;
+}
+
+.right {
+  width: 151px;
+  height: 27px;
+  background: #ededed;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 16px;
+}
+.right > p {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #000000;
+}
+
+.icons {
+  min-width: 160px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 34px;
+  padding: 5px;
+}
+
+p.titleBar {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  margin-left: 32px;
+  display: flex;
+  justify-content: flex-start;
+}
