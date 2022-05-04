@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { CustomBarChart, CustomChartItem } from '../custom-bar-chart/custom-bar-chart';
+import { CustomPopover } from '../custom-popover/custom-popover';
 
 interface CutableColumnExpendituresProps {
   value: number,
@@ -12,17 +13,45 @@ export const CutableColumnExpenditures = (props: CutableColumnExpendituresProps)
   return <Container>
     <Data>
       <Title>Last 3 months</Title>
-      <Value>{props.value.toLocaleString()}</Value>
+      <CustomPopover
+        id={'mouse-over-popover-total'}
+        title={'Actual Expenditure'}>
+        <Value>
+          {props.value.toLocaleString()}
+        </Value>
+    </CustomPopover>
     </Data>
     <CustomBarChart items={props.items}/>
-    <Value>{props.percent.toString()}%</Value>
+    <CustomPopover
+      css={{ alignSelf: 'center' }}
+      id={'mouse-over-popover-percent'}
+      title={
+        <PercentExplanation>
+          <Fraction>
+            <Actual>
+              Actual
+            </Actual>
+            <BudgetCap>
+              Budget Cap
+            </BudgetCap>
+          </Fraction>
+          <div>
+            over the last 3 months
+          </div>
+        </PercentExplanation>
+      }>
+      <Value>
+        {props.percent.toString()}%
+      </Value>
+    </CustomPopover>
   </Container>;
 };
 
 const Container = styled.div({
   display: 'flex',
   alignItems: 'stretch',
-  fontFamily: 'Roboto, sans-serif'
+  fontFamily: 'Roboto, sans-serif',
+  cursor: 'pointer',
 });
 
 const Data = styled.div({
@@ -42,4 +71,26 @@ export const Value = styled.div({
   fontSize: '20px',
   fontWeight: 400,
   paddingBottom: '5px',
+});
+
+const PercentExplanation = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+});
+
+const Fraction = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  marginRight: '14px'
+});
+
+const Actual = styled.div({
+  padding: '4px',
+  borderBottom: '1px solid black',
+  textAlign: 'center'
+});
+
+const BudgetCap = styled.div({
+  padding: '4px',
+  textAlign: 'center'
 });

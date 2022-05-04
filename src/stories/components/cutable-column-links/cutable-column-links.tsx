@@ -6,14 +6,15 @@ import discord from '../../../assets/img/discord.svg';
 import twitter from '../../../assets/img/twitter.svg';
 import youtube from '../../../assets/img/youtube.svg';
 import linkedin from '../../../assets/img/linkedin.svg';
+import { CustomPopover } from '../custom-popover/custom-popover';
 
 export enum LinkType {
-  WWW = 'www',
-  Forum = 'forum',
-  Discord = 'discord',
-  Twitter = 'twitter',
-  Youtube = 'youtube',
-  LinkedIn = 'linkedIn',
+  WWW = 'Website',
+  Forum = 'Forum',
+  Discord = 'Discord',
+  Twitter = 'Twitter',
+  Youtube = 'Youtube',
+  LinkedIn = 'LinkedIn',
 }
 
 export interface LinkModel {
@@ -46,9 +47,11 @@ const getImageForLink = (link: LinkModel) => {
 
 export const CutableColumnLinks = (props: CutableColumnLinksProps) => {
   return <Container>
-    {props.links.map((link, i) => <LinkImage key={`link-${i}`} href={link.href} target="_blank">
+    {props.links.map((link, i) => <CustomPopover key={`link-${i}`} title={link.linkType} id={`link-${i}`}>
+      <LinkImage href={link.href} target="_blank">
       <img alt={link.linkType} src={getImageForLink(link)}/>
-    </LinkImage>)}
+    </LinkImage>
+    </CustomPopover>)}
   </Container>;
 };
 

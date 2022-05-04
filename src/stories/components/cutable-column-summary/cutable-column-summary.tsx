@@ -4,6 +4,7 @@ import { Avatar, Chip } from '@mui/material';
 import { getColorForString } from '../../../core/utils/color-utils';
 import { getTwoInitials } from '../../../core/utils/string-utils';
 import { DateTime } from 'luxon';
+import { CustomPopover } from '../custom-popover/custom-popover';
 
 export enum CuStatusEnum {
   Accepted = 'Accepted',
@@ -23,13 +24,22 @@ export const CutableColumnSummary = (props: CutableColumnSummaryProps) => {
   return <Container>
     <CircleContainer>
       {props.imageUrl && <Avatar style={{ width: '48px', height: '48px' }} src={props.imageUrl}/>}
-      {!props.imageUrl && <Avatar sx={{ bgcolor: getColorForString(props.title) }} style={{ width: '50px', height: '50px' }}>{getTwoInitials(props.title) || 'CU'}</Avatar>}
+      {!props.imageUrl && <Avatar sx={{ bgcolor: getColorForString(props.title) }} style={{ width: '50px', height: '50px', fontSize: '1rem' }}>{getTwoInitials(props.title) || 'CU'}</Avatar>}
     </CircleContainer>
     <Content>
       <Title>{props.title}</Title>
       <Row>
         {props.status && <Chip size={'small'} sx={{ borderRadius: '8px', borderColor: '#25273D' }} label={props.status} variant={'outlined'}/>}
-        {props.statusModified && <SinceDate>Since {DateTime.fromJSDate(props.statusModified).toLocaleString(DateTime.DATE_MED)}</SinceDate>}
+        {props.statusModified && <CustomPopover
+               id={'mouse-over-popover-goto'}
+               title={'Go to MIPs Portal'}
+           >
+               <SinceDate
+                   href={'#'}
+               >
+                   Since {DateTime.fromJSDate(props.statusModified).toLocaleString(DateTime.DATE_MED)}
+               </SinceDate>
+           </CustomPopover>}
       </Row>
     </Content>
   </Container>;
@@ -67,7 +77,7 @@ const Row = styled.div({
   flex: 1,
 });
 
-const SinceDate = styled.span({
+const SinceDate = styled.a({
   color: 'gray',
   fontSize: '12px',
   textDecoration: 'underline',
