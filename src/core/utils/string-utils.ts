@@ -7,3 +7,9 @@ export const getTwoInitials = (name: string) => {
 
   return pieces.length > 1 ? pieces[0][0] + pieces[1][0] : pieces[0][0];
 };
+
+export const getMipTitle = (title: string) => {
+  if (!title) return '';
+  const pieces = title.trim().split(':');
+  return pieces;
+};
