@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { CustomPopover } from '../custom-popover/custom-popover';
 
 interface CutableColumnInitiativesProps {
   initiatives: string
@@ -7,9 +8,14 @@ interface CutableColumnInitiativesProps {
 
 export const CutableColumnInitiatives = (props: CutableColumnInitiativesProps) => {
   return <Container>
-    <RoundedBox href="#">
-      {props.initiatives}
-    </RoundedBox>
+    <CustomPopover
+      id="mouse-over-popover-initiatives"
+      title={'Click to see all initiatives'}
+    >
+      <RoundedBox href="#">
+        {props.initiatives}
+      </RoundedBox>
+    </CustomPopover>
   </Container>;
 };
 
@@ -17,7 +23,7 @@ const Container = styled.div({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  fontFamily: 'Roboto, sans-serif'
+  fontFamily: 'Inter, sans-serif'
 });
 
 const RoundedBox = styled.a({

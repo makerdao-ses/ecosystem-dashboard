@@ -9,9 +9,10 @@ export default {
 
 const Template: ComponentStory<typeof CutableColumnExpenditures> = (args) => <CutableColumnExpenditures {...args} />;
 
-export const Main = Template.bind({});
-Main.args = {
+export const Default = Template.bind({});
+Default.args = {
   value: 16500,
-  percent: 85,
-  items: [{ value: 28 }, { value: 23 }, { value: 41 }],
+  percent: 120,
+  items: [{ value: 45 }, { value: 76 }, { value: 91 }, { value: 120 }],
+  budgetCap: 100,
 };

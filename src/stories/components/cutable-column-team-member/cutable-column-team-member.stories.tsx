@@ -9,19 +9,18 @@ export default {
 
 const Template: ComponentStory<typeof CutableColumnTeamMember> = (args) => <CutableColumnTeamMember {...args} />;
 
-export const Main = Template.bind({});
-Main.args = {
+export const Default = Template.bind({});
+Default.args = {
+  fte: 4.5,
   members: [
     { name: 'John Doe' },
     { name: 'Billy Ferguson' },
     { name: 'Jackie Chang' },
-    { name: 'Nicholas Tesla' },
-    { name: 'Gustave Eiffel' },
-    { name: 'Thomas Edison' },
   ]
 };
 
 export const Empty = Template.bind({});
 Empty.args = {
+  fte: 1,
   members: []
 };
