@@ -1,6 +1,7 @@
 .TeamMembers {
-  .MuiAvatar-circular {
-    width: 32px !important;
-    height: 32px !important;
+  .MuiAvatar-root .MuiAvatar-circular .MuiAvatar-colorDefault,
+  .MuiAvatarGroup-avatar {
+    width: 32px;
+    height: 32px;
   }
 }
