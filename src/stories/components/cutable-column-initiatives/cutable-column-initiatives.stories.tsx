@@ -9,7 +9,7 @@ export default {
 
 const Template: ComponentStory<typeof CutableColumnInitiatives> = (args) => <CutableColumnInitiatives {...args} />;
 
-export const Main = Template.bind({});
-Main.args = {
+export const Default = Template.bind({});
+Default.args = {
   initiatives: '1'
 };
