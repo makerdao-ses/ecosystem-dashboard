@@ -10,7 +10,9 @@ export enum CuStatusEnum {
   Accepted = 'Accepted',
   Rejected = 'Rejected',
   RFC = 'RFC',
-  FormalSubmission = 'Formal Submission'
+  FormalSubmission = 'Formal Submission',
+  Obsolete = 'Obsolete',
+  Withdrawn = 'Withdrawn',
 }
 
 interface CutableColumnSummaryProps {
@@ -37,7 +39,7 @@ export const CutableColumnSummary = (props: CutableColumnSummaryProps) => {
                <SinceDate
                    href={'#'}
                >
-                   Since {DateTime.fromJSDate(props.statusModified).toLocaleString(DateTime.DATE_MED)}
+                   Since {DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}
                </SinceDate>
            </CustomPopover>}
       </Row>
