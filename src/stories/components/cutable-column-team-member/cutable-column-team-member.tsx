@@ -12,7 +12,8 @@ interface Member {
 }
 
 interface CutableColumnTeamMemberProps {
-  members: Member[]
+  members: Member[],
+  fte: number,
 }
 
 export const CutableColumnTeamMember = (props: CutableColumnTeamMemberProps) => {
@@ -23,7 +24,7 @@ export const CutableColumnTeamMember = (props: CutableColumnTeamMemberProps) => 
     >
       <Data>
         <Title>FTEs</Title>
-        <Value style={{ justifyContent: 'center' }}>{props.members.length}</Value>
+        <Value style={{ justifyContent: 'center' }}>{props.fte}</Value>
       </Data>
     </CustomPopover>
     <AvatarGroup max={5}>
