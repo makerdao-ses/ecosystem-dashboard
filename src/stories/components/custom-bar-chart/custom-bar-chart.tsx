@@ -10,6 +10,10 @@ interface CustomBarChartProps {
   maxValue: number,
 }
 
+const COLOR_GREEN = '#1AAB9B';
+const COLOR_RED = '#F75524';
+const COLOR_YELLOW = '#F6D211';
+
 export const CustomBarChart = (props: CustomBarChartProps) => {
   if (!props.items) return <span>Placeholder</span>;
 
@@ -19,10 +23,29 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
   const width = props.items.length * (itemWidth + itemSpace) + 2 * padding;
   const maxItemHeight = 30;
 
-  const calculateHeight = (value: number):number => {
+  const calculateHeight = (value: number): number => {
     if (!value) return 0;
 
     return value * maxItemHeight / props.maxValue;
+  };
+
+  const getColor = (value: number): string => {
+    const percent = value * 100 / props.maxValue;
+    let color = COLOR_RED;
+
+    if (percent > 50 && percent <= 75) {
+      color = COLOR_YELLOW;
+    }
+
+    if (percent > 75 && percent <= 90) {
+      color = COLOR_GREEN;
+    }
+
+    if (percent > 90 && percent <= 100) {
+      color = COLOR_YELLOW;
+    }
+
+    return color;
   };
 
   return <svg width={width} height={50} viewBox={`0 0 ${width} 50`} transform={'scale(1, -1)'}>
@@ -32,7 +55,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
         y={5} width={12}
         rx={1}
         height={calculateHeight(item.value)}
-        fill={item.value <= props.maxValue ? '#1AAB9B' : '#F75524'}>
+        fill={getColor(item.value)}>
         <animate
           attributeName="height"
           from="0"
