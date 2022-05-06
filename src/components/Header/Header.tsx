@@ -1,14 +1,15 @@
-/* eslint-disable */
-import { AppBar } from "@mui/material";
-import { Theme } from "@mui/material/styles";
-import { makeStyles } from "@mui/styles";
-import clsx from "clsx";
-import React from "react";
-import FeedBack from "../Svg/FeedBack";
-import Language from "../Svg/Language";
-import ThemeMode from "../Svg/ThemeMode";
-import Toggle from "../Svg/Toggle";
-import "./Header.scss";
+import { AppBar, Typography } from '@mui/material';
+import { Theme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
+import clsx from 'clsx';
+import React from 'react';
+import FeedBack from '../Svg/FeedBack';
+import Language from '../Svg/Language';
+import ThemeMode from '../Svg/ThemeMode';
+import Toggle from '../Svg/Toggle';
+import './Header.scss';
+import styled from '@emotion/styled';
+import Logo from '../../stories/components/svg/Logo';
 
 const useStyles = makeStyles((theme: Theme) => ({
   appBar: {
@@ -92,7 +93,7 @@ const ContainerHeader = styled.div({
   justifyContent: 'space-between',
   height: '64px',
   backgroundColor: '#c4c4c4;'
-})
+});
 
 const LogoToggleContainer = styled.div({
   height: '64px',
@@ -102,7 +103,7 @@ const LogoToggleContainer = styled.div({
   justifyContent: 'space-between',
   alignItems: 'center',
   backgroundColor: '#b6b6b6'
-})
+});
 
 const LogoContainer = styled.div({
   height: '32px',
@@ -112,16 +113,16 @@ const LogoContainer = styled.div({
   alignItems: 'center',
   backgroundColor: '#b6b6b6',
   marginLeft: '32px',
-})
+});
 
 const ToggleContainer = styled.div({
   marginRight: '32px',
-})
+});
 
 const ContainerRight = styled.div({
   display: 'flex',
   alignItems: 'center',
-})
+});
 
 const Links = styled.div({
   width: '151px',
@@ -132,8 +133,7 @@ const Links = styled.div({
   justifyContent: 'center',
   alignItems: 'center',
   marginRight: '16px',
-})
-
+});
 
 const IconContainer = styled.div({
   minWidth: '160px',
@@ -143,6 +143,6 @@ const IconContainer = styled.div({
   justifyContent: 'space-between',
   marginRight: '34px',
   padding: '5px'
-})
+});
 
 export default Header;
