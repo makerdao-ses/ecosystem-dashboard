@@ -11,12 +11,11 @@ interface Props {
   status: CuStatusEnum,
   statusModified: Date,
   mipTitle?: string
+  href?: string
 }
 
-const RelateMips = ({ status, statusModified, mipTitle = '' }: Props) => {
-  const pieces = getMipTitle(mipTitle) || [];
-  console.log('firts', (pieces[0]));
-  console.log('firts', (pieces[1]));
+const RelateMips = ({ status, statusModified, mipTitle, href = '' }: Props) => {
+  const pieces = getMipTitle(mipTitle || '') || [];
   return (
     <Content>
       <Row>
@@ -33,9 +32,9 @@ const RelateMips = ({ status, statusModified, mipTitle = '' }: Props) => {
         </CustomPopover>}
       </Row>
       <RowUnderLine>
-        <Typography color='#000000' fontFamily={'Inter, sans-serif'} fontSize={14} fontWeight={600}>{`${pieces[0]}: ${''}`}</Typography>
-        <Typography color='#000000' fontFamily={'Inter, sans-serif'} fontSize={14} sx={{ marginRight: '8px' }}>{`${pieces[1]}`} </Typography>
-        <ArrowLink />
+        {pieces[0] ? <Typography color='#000000' fontFamily={'Inter, sans-serif'} fontSize={14} fontWeight={600}>{`${pieces[0]} `}</Typography> : null}
+        {pieces[1] ? <Typography color='#000000' fontFamily={'Inter, sans-serif'} fontSize={14} sx={{ marginRight: '8px' }}>{`${pieces[1]}`} </Typography> : null}
+        {href && <ArrowLink href='#' />}
       </RowUnderLine>
     </Content>
   );

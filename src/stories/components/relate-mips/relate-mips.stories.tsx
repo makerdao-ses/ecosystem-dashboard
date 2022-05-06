@@ -19,5 +19,6 @@ export const WithData = Template.bind({});
 WithData.args = {
   status: CuStatusEnum.Accepted,
   statusModified: new Date(),
-  mipTitle: 'MIP-123: SES Sustainable Ecosystem Scaling'
+  mipTitle: 'MIP-123: SES Sustainable Ecosystem Scaling',
+  href: '#',
 };
