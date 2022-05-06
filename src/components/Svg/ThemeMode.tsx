@@ -1,6 +1,4 @@
-
 import * as React from 'react';
-/* eslint-disable */
 
 interface Props {
   width?: number;

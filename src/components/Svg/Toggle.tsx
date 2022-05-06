@@ -1,5 +1,5 @@
 import * as React from 'react';
-/* eslint-disable */
+
 interface Props {
   width?: number;
   height?: number;
@@ -11,12 +11,12 @@ const Toggle = ({
   width = 20,
   height = 16,
   fill = '#626472',
-  onClick = () => {},
+  onClick,
   ...props
 }: Props) => {
   return (
     <svg
-     style={{ cursor: "pointer", padding: "2px" }}
+     style={{ cursor: 'pointer', padding: '2px' }}
       onClick={onClick}
       width={width}
       height={height}

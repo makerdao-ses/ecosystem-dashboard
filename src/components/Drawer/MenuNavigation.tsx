@@ -1,22 +1,23 @@
-/* eslint-disable */
-import React, { useCallback, useState } from "react";
-import { Divider, Drawer } from "@mui/material";
-import { makeStyles } from "@material-ui/core/styles";
-import "./MenuNavigation.scss";
-import ItemMenu from "./ItemMenu/ItemMenu";
+import { Divider, Drawer } from '@mui/material';
+import { Theme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
+import React, { useCallback, useState } from 'react';
+import ItemMenu from './ItemMenu/ItemMenu';
+import './MenuNavigation.scss';
 
 const drawerWidth = 259;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   drawerHeader: {
-    display: "flex",
-    alignItems: "center",
+    display: 'flex',
+    alignItems: 'center',
     ...theme.mixins.toolbar,
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
   },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
+    zIndex: 10,
   },
   drawerPaper: {
     width: drawerWidth,
@@ -36,17 +37,17 @@ type Props = {
 const MenuNavigation = ({ open }: Props) => {
   const menuItems: MenuItem[] = [
     {
-      title: "Core Units",
+      title: 'Core Units',
       expanded: true,
     },
     {
-      title: "Strategic Initiatives",
+      title: 'Strategic Initiatives',
     },
     {
-      title: "Finances",
+      title: 'Finances',
     },
     {
-      title: "People",
+      title: 'People',
     },
   ];
 
@@ -61,7 +62,7 @@ const MenuNavigation = ({ open }: Props) => {
     const [exp, setExp] = useState(expanded);
     const toggle = useCallback(() => {
       setExp(!exp);
-      console.log("exp", exp);
+      console.log('exp', exp);
     }, [exp]);
 
     return (
@@ -101,7 +102,7 @@ const MenuNavigation = ({ open }: Props) => {
       open={open}
       PaperProps={{
         sx: {
-          backgroundColor: "#E4E4E4",
+          backgroundColor: '#E4E4E4',
         },
       }}
       classes={{

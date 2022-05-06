@@ -7,7 +7,7 @@ import { getColorForString } from '../../../core/utils/color-utils';
 import './cutable-column-team-member.scss';
 import { CustomPopover } from '../custom-popover/custom-popover';
 
-interface Member {
+export interface Member {
   name: string
 }
 

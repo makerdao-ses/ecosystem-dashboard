@@ -7,68 +7,88 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import './TableCore.scss';
 import HeaderCoreUnit from './header/headerCoreUnit/HeaderCoreUnit';
+import { gql, useQuery } from '@apollo/client';
+import { CuStatusEnum, CutableColumnSummary } from '../cutable-column-summary/cutable-column-summary';
+import { CutableColumnInitiatives } from '../cutable-column-initiatives/cutable-column-initiatives';
+import { CutableColumnExpenditures } from '../cutable-column-expenditures/cutable-column-expenditures';
+import { CustomChartItem } from '../custom-bar-chart/custom-bar-chart';
+import { CutableColumnTeamMember } from '../cutable-column-team-member/cutable-column-team-member';
+import { CutableColumnLinks, LinkModel, LinkType } from '../cutable-column-links/cutable-column-links';
 
-interface Data {
-  core: string;
-  initiatives: number;
-  expenditure: number;
-  team: number;
-  links: number;
+type DataCoreUnits = {
+  code: string,
+  id: string,
+  name: string,
 }
-
-function createData(
-  core: string,
-  initiatives: number,
-  expenditure: number,
-  team: number,
-  links: number
-): Data {
-  return {
-    core,
-    initiatives,
-    expenditure,
-    team,
-    links,
-  };
-}
-
-const rows = [
-  createData('Cupcake', 44, 3.7, 67, 4.3),
-  createData('Donut', 452, 25.0, 51, 4.9),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Honeycomb', 408, 3.2, 87, 6.5),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Jelly Bean', 375, 0.0, 94, 0.0),
-  createData('KitKat', 518, 26.0, 65, 7.0),
-  createData('Lollipop', 392, 0.2, 98, 0.0),
-  createData('Marshmallow', 318, 0, 81, 2.0),
-  createData('Nougat', 360, 19.0, 9, 37.0),
-  createData('Oreo', 437, 18.0, 63, 4.0),
-];
 
 const TableCoreUnits = () => {
+  const GETCoreUnits = gql`
+  query CoreUnits {
+    coreUnits {
+      id
+      code
+      name
+    }
+  }  
+`;
+  const { loading, error, data } = useQuery(GETCoreUnits);
+  const members = [{ name: 'John Doe' }, { name: 'Billy Ferguson' }, { name: 'Jackie Chang' }, { name: 'Nicholas Tesla' }];
+  const links: LinkModel[] = [{
+    href: 'https://www.google.com',
+    linkType: LinkType.WWW
+  }, {
+    href: 'https://www.google.com',
+    linkType: LinkType.Forum
+  }, {
+    href: 'https://www.google.com',
+    linkType: LinkType.Discord
+  }, {
+    href: 'https://www.google.com',
+    linkType: LinkType.Twitter
+  }, {
+    href: 'https://www.google.com',
+    linkType: LinkType.Youtube
+  }, {
+    href: 'https://www.google.com',
+    linkType: LinkType.LinkedIn
+  }];
+
+  const items: CustomChartItem[] = [{ value: 28 }, { value: 23 }, { value: 41 }];
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error! ${error.message}</p>;
   return (
     <TableContainer className="container-table">
-      <Table className="table">
+      <Table className='table'>
         <HeaderCoreUnit />
         <TableBody>
-          {rows.map((row, index) => {
+          {data?.coreUnits.map((row: DataCoreUnits, index: number) => {
             return (
               <TableRow key={index} style={{ margin: 5 }}>
-                <TableCell width="25%">{row.core}</TableCell>
-                <TableCell align="left" width="15%">
-                  {row.initiatives}
+                <TableCell width='35%' sx={{
+                  paddingBottom: '32px', paddingTop: '16px',
+                }}>
+                  <CutableColumnSummary title={row.name} status={CuStatusEnum.Accepted} statusModified={new Date()} />
                 </TableCell>
-                <TableCell align="left" width="20%">
-                  {row.expenditure}
+                <TableCell align='left' width="10%" sx={{
+                  paddingBottom: '0px', paddingTop: '0px',
+                }}>
+                  <div style={{ display: 'flex', width: '100%' }}>  <CutableColumnInitiatives initiatives='6' /></div>
                 </TableCell>
-                <TableCell align="left" width="20%">
-                  {row.team}
+                <TableCell align='left' width='20%' sx={{
+                  paddingBottom: '0px', paddingTop: '0px',
+                }}>
+                  <CutableColumnExpenditures items={items} percent={6} value={30} budgetCap={2} />
                 </TableCell>
-                <TableCell align="left" width="20%">
-                  {row.links}
+                <TableCell align='left' width="20%" sx={{
+                  paddingBottom: '0px', paddingTop: '0px',
+                }}>
+                  <CutableColumnTeamMember members={members} fte={4} />
+                </TableCell>
+                <TableCell align='left' width='20%' sx={{
+                  paddingBottom: '0px', paddingTop: '0px',
+                }}>
+                  <CutableColumnLinks links={links} />
                 </TableCell>
               </TableRow>
             );
