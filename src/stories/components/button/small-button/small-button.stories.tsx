@@ -13,3 +13,7 @@ export const Default = Template.bind({});
 Default.args = {
   title: 'Back',
 };
+export const BigText = Template.bind({});
+Default.args = {
+  title: 'Back to some place',
+};

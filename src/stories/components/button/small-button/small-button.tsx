@@ -1,13 +1,11 @@
 /* eslint-disable indent */
-
+import React from 'react';
 import styled from '@emotion/styled';
 import { Button } from '@mui/material';
-import React from 'react';
 
 interface Props {
     onClick?: () => void;
-    title?: string
-    color?: string
+    title?: string;
 }
 
 const SmallButton = ({ onClick, title = 'Back' }: Props) => {
@@ -18,8 +16,10 @@ const SmallButton = ({ onClick, title = 'Back' }: Props) => {
 
 const StyledSmallButton = styled(Button)`
 border-radius: 8px;
+display:flex ;
+flex-direction: row;
 background-color  : #C4C4C4 ;
-width: 45px;
+ min-width: 45px;
 height: 23px;
 font-family: 'Inter, sans-serif';
 font-style: normal;
@@ -30,7 +30,6 @@ color: #25273D;
 padding:4px 8px;
 :hover {
     background-color  : #C4C4C4 ;
-    color: #25273D;
 }
 `;
 
