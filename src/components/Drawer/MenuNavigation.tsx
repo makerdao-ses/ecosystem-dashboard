@@ -1,13 +1,14 @@
 /* eslint-disable */
-import React, { useCallback, useState } from "react";
 import { Divider, Drawer } from "@mui/material";
-import { makeStyles } from "@material-ui/core/styles";
-import "./MenuNavigation.scss";
+import { Theme } from "@mui/material/styles";
+import { makeStyles } from "@mui/styles";
+import React, { useCallback, useState } from "react";
 import ItemMenu from "./ItemMenu/ItemMenu";
+import "./MenuNavigation.scss";
 
 const drawerWidth = 259;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   drawerHeader: {
     display: "flex",
     alignItems: "center",
@@ -17,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
+    zIndex: 10,
   },
   drawerPaper: {
     width: drawerWidth,

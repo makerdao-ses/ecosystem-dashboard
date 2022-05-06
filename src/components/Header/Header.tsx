@@ -1,20 +1,16 @@
 /* eslint-disable */
-import React from 'react';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import { AppBar } from "@mui/material";
+import { Theme } from "@mui/material/styles";
+import { makeStyles } from "@mui/styles";
+import clsx from "clsx";
+import React from "react";
+import FeedBack from "../Svg/FeedBack";
+import Language from "../Svg/Language";
+import ThemeMode from "../Svg/ThemeMode";
+import Toggle from "../Svg/Toggle";
+import "./Header.scss";
 
-import AppBar from '@material-ui/core/AppBar';
-
-import Toggle from '../Svg/Toggle';
-import './Header.scss';
-import FeedBack from '../Svg/FeedBack';
-import Language from '../Svg/Language';
-import ThemeMode from '../Svg/ThemeMode';
-import { Typography } from '@mui/material';
-import Logo from '../../stories/components/svg/Logo';
-import styled from '@emotion/styled';
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['margin', 'width'], {
@@ -50,9 +46,8 @@ const Header = ({ open, setOpen }: Props) => {
 
   return (
     <AppBar
-      style={{ background: '#E5E5E5' }}
       elevation={0}
-      position='fixed'
+      position="fixed"
       className={clsx(classes.appBar, {
         [classes.appBarShift]: open,
       })}
