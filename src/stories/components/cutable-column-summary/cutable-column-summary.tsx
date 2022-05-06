@@ -5,15 +5,7 @@ import { getColorForString } from '../../../core/utils/color-utils';
 import { getTwoInitials } from '../../../core/utils/string-utils';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
-
-export enum CuStatusEnum {
-  Accepted = 'Accepted',
-  Rejected = 'Rejected',
-  RFC = 'RFC',
-  FormalSubmission = 'Formal Submission',
-  Obsolete = 'Obsolete',
-  Withdrawn = 'Withdrawn',
-}
+import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
 
 interface CutableColumnSummaryProps {
   title: string,
