@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import www from '../../../assets/img/www.svg';
-import forum from '../../../assets/img/forum.svg';
-import discord from '../../../assets/img/discord.svg';
-import twitter from '../../../assets/img/twitter.svg';
-import youtube from '../../../assets/img/youtube.svg';
-import linkedin from '../../../assets/img/linkedin.svg';
 import { CustomPopover } from '../custom-popover/custom-popover';
+import WWW from '../svg/www';
+import Forum from '../svg/forum';
+import Discord from '../svg/discord';
+import Youtube from '../svg/youtube';
+import Twitter from '../svg/twitter';
+import LinkedIn from '../svg/linkedin';
 
 export enum LinkType {
   WWW = 'Website',
@@ -29,19 +29,19 @@ interface CutableColumnLinksProps {
 const getImageForLink = (link: LinkModel) => {
   switch (link.linkType) {
     case LinkType.WWW:
-      return www;
+      return <WWW/>;
     case LinkType.Forum:
-      return forum;
+      return <Forum/>;
     case LinkType.Discord:
-      return discord;
+      return <Discord/>;
     case LinkType.Twitter:
-      return twitter;
+      return <Twitter/>;
     case LinkType.Youtube:
-      return youtube;
+      return <Youtube/>;
     case LinkType.LinkedIn:
-      return linkedin;
+      return <LinkedIn/>;
     default:
-      return www;
+      return <WWW/>;
   }
 };
 
@@ -49,7 +49,7 @@ export const CutableColumnLinks = (props: CutableColumnLinksProps) => {
   return <Container>
     {props.links.map((link, i) => <CustomPopover key={`link-${i}`} title={link.linkType} id={`link-${i}`}>
       <LinkImage href={link.href} target="_blank">
-      <img alt={link.linkType} src={getImageForLink(link)}/>
+      {getImageForLink(link)}
     </LinkImage>
     </CustomPopover>)}
   </Container>;
