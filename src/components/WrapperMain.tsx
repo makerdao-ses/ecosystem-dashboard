@@ -3,7 +3,6 @@ import { styled, Theme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 import { Route, Routes } from 'react-router-dom';
 import { EXAMPLE2_ROUTE, EXAMPLE_ROUTE, HOME_ROUTE } from '../config/routes';
-import { Counter } from '../stories/containers/counter/counter';
 import { Page } from '../stories/pages/page/Page';
 import MenuNavigation from './Drawer/MenuNavigation';
 import Header from './Header/Header';
@@ -62,7 +61,6 @@ function WrapperMain({ open, setOpen }: Props) {
           <Routes>
             <Route path={HOME_ROUTE} element={<Home />} />
             <Route path={EXAMPLE_ROUTE} element={<Page />} />
-            <Route path={EXAMPLE2_ROUTE} element={<Counter />} />
           </Routes>
         </Main>
       </div>

@@ -11,7 +11,7 @@ const Language = ({
   width = 28,
   height = 28,
   fill = '#898989',
-  onClick = () => {},
+  onClick,
   ...props
 }: Props) => {
   return (

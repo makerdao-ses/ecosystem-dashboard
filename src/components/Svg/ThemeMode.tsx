@@ -7,15 +7,13 @@ interface Props {
   onClick?: () => void;
 }
 
-
-
-const ThemeMode=({
+const ThemeMode = ({
   width = 28,
   height = 28,
   fill = '#898989',
-  onClick = () => {},
+  onClick,
   ...props
-}: Props)=> {
+}: Props) => {
   return (
     <svg
     style={{ cursor: 'pointer', padding: '2px' }}
@@ -34,7 +32,7 @@ const ThemeMode=({
         fill={fill}
       />
     </svg>
-  )
-}
+  );
+};
 
-export default ThemeMode
+export default ThemeMode;

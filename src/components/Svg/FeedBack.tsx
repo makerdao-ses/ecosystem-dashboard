@@ -11,7 +11,7 @@ const FeedBack = ({
   width = 23,
   height = 23,
   fill = '#898989',
-  onClick = () => {},
+  onClick,
   ...props
 }: Props) => {
   return (

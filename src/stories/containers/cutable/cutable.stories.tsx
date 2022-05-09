@@ -12,7 +12,7 @@ const store = configureStore({
 });
 
 const MockedState: CuTableState = {
-  items: [[], [], []],
+  items: [],
   status: 'idle'
 };
 
