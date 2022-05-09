@@ -1,6 +1,7 @@
 import React from 'react';
-import { CuStatusEnum, CutableColumnSummary } from './cutable-column-summary';
+import { CutableColumnSummary } from './cutable-column-summary';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
 
 export default {
   title: 'Components/CUTable/ColumnSummary',

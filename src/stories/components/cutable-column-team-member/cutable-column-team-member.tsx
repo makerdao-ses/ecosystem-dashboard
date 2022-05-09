@@ -7,7 +7,7 @@ import { getColorForString } from '../../../core/utils/color-utils';
 import './cutable-column-team-member.scss';
 import { CustomPopover } from '../custom-popover/custom-popover';
 
-interface Member {
+export interface Member {
   name: string
 }
 
@@ -48,7 +48,6 @@ const Container = styled.div({
   display: 'flex',
   flex: 1,
   alignItems: 'center',
-  fontFamily: 'Inter, sans-serif',
   fontWeight: 400,
   cursor: 'pointer',
 });

@@ -13,6 +13,6 @@ export const Default = Template.bind({});
 Default.args = {
   value: 16500,
   percent: 120,
-  items: [{ value: 45 }, { value: 76 }, { value: 91 }, { value: 120 }],
+  items: [{ value: 70 }, { value: 85 }, { value: 120 }],
   budgetCap: 100,
 };

@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { CustomPopover } from '../custom-popover/custom-popover';
 
 interface CutableColumnInitiativesProps {
-  initiatives: string
+  initiatives: number
 }
 
 export const CutableColumnInitiatives = (props: CutableColumnInitiativesProps) => {
@@ -23,7 +23,6 @@ const Container = styled.div({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  fontFamily: 'Inter, sans-serif'
 });
 
 const RoundedBox = styled.a({
