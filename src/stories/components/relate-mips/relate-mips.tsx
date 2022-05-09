@@ -3,9 +3,9 @@ import styled from '@emotion/styled';
 import { Chip, Typography } from '@mui/material';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
-import { CuStatusEnum } from '../cutable-column-summary/cutable-column-summary';
 import ArrowLink from '../svg/ArrowLink';
 import { getMipTitle } from '../../../core/utils/string-utils';
+import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
 
 export type RelateMipType = {
   status: CuStatusEnum,
