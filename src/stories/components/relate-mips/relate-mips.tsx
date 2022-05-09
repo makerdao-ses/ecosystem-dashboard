@@ -36,8 +36,8 @@ const RelateMips = ({ relateMips: { status, statusModified, href, mipTitle } }: 
         </CustomPopover>}
       </Row>
       <RowUnderLine>
-        {pieces[0] ? <Typography color='#000000' fontFamily={'Inter, sans-serif'} fontSize={14} fontWeight={600}>{`${pieces[0]} `}</Typography> : null}
-        {pieces[1] ? <Typography color='#000000' fontFamily={'Inter, sans-serif'} fontSize={14} sx={{ marginRight: '8px' }}>{`${pieces[1]}`} </Typography> : null}
+        {pieces[0] ? <Typography color='#000000' fontFamily={'Inter, sans-serif'} fontSize={12} fontWeight={600}>{`${pieces[0]} `}</Typography> : null}
+        {pieces[1] ? <Typography color='#000000' fontFamily={'Inter, sans-serif'} fontSize={12} sx={{ marginRight: '8px' }}>{`${pieces[1]}`} </Typography> : null}
         {!!href && <ArrowLink href={`${href}` || '#'} />}
       </RowUnderLine>
     </Content>

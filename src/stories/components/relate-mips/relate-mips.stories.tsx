@@ -23,7 +23,7 @@ WithData.args = {
   relateMips: {
     status: CuStatusEnum.Accepted,
     statusModified: new Date(),
-    mipTitle: 'MIP-123: SES Sustainable Ecosystem Scaling',
+    mipTitle: 'MIP40c3-SP1: Modify Core Unit Budget - Real-World Finance (RWF-001)',
     href: '#',
   } as RelateMipType,
 };
