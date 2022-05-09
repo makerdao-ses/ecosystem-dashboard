@@ -14,7 +14,7 @@ interface CustomTableProps {
 
 export const CustomTable = (props: CustomTableProps) => {
   return (
-    <TableContainer sx={{ border: '1px solid #C4C4C4' }}>
+    <TableContainer sx={{ border: '1px solid #C4C4C4', background: 'white' }}>
       <Table>
         <TableHead>
           <TableRow>

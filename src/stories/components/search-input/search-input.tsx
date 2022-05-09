@@ -16,7 +16,12 @@ export const SearchInput = (props: SearchInputProps) => {
 
   const [placeholder, setPlaceholder] = useState(props.placeholder);
 
-  return <FormControl sx={{ m: 1, width: '300px' }} variant="outlined" onFocus={() => setPlaceholder(props.label)} onBlur={() => setPlaceholder(props.placeholder)}>
+  return <FormControl
+    sx={{ m: 1, width: '300px', background: 'white' }}
+    variant="outlined"
+    onFocus={() => setPlaceholder(props.label)}
+    onBlur={() => setPlaceholder(props.placeholder)}
+  >
     <InputLabel htmlFor="outlined-adornment-password">{placeholder}</InputLabel>
     <OutlinedInput
       id="outlined-adornment-password"

@@ -11,18 +11,16 @@ import { CutableColumnInitiatives } from '../../components/cutable-column-initia
 import { CutableColumnExpenditures } from '../../components/cutable-column-expenditures/cutable-column-expenditures';
 import { CutableColumnTeamMember } from '../../components/cutable-column-team-member/cutable-column-team-member';
 import { CutableColumnLinks, LinkType } from '../../components/cutable-column-links/cutable-column-links';
-import { selectCuTableItems } from './cutable.slice';
-import { useAppSelector } from '../../../core/hooks/hooks';
 
 const statuses = getEnumValuesForSelect(CuStatusEnum);
 const categories = getEnumValuesForSelect(CuCategory);
 const headers = ['Core Units', 'Initiatives', 'Expenditure', 'Team Members', 'Links'];
 
 export const CUTable = () => {
-  const items = useAppSelector(selectCuTableItems);
+  const items = ['one', 'two', ['three']];
 
   const getItems = () => {
-    return items.map(x => [
+    return items.map(() => [
       // eslint-disable-next-line react/jsx-key
       <CutableColumnSummary
         title="SES Sustainable Ecosystem Scaling"
@@ -38,7 +36,7 @@ export const CUTable = () => {
       <CutableColumnExpenditures
         value={16500}
         percent={120}
-        items={[{ value: 45 }, { value: 76 }, { value: 91 }, { value: 120 }]}
+        items={[{ value: 55 }, { value: 90 }, { value: 120 }]}
         budgetCap={100}
       />,
       // eslint-disable-next-line react/jsx-key
