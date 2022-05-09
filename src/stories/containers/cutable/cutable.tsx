@@ -11,6 +11,7 @@ import { CutableColumnInitiatives } from '../../components/cutable-column-initia
 import { CutableColumnExpenditures } from '../../components/cutable-column-expenditures/cutable-column-expenditures';
 import { CutableColumnTeamMember } from '../../components/cutable-column-team-member/cutable-column-team-member';
 import { CutableColumnLinks, LinkType } from '../../components/cutable-column-links/cutable-column-links';
+import { Box } from '@mui/material';
 
 const statuses = getEnumValuesForSelect(CuStatusEnum);
 const categories = getEnumValuesForSelect(CuCategory);
@@ -80,23 +81,35 @@ export const CUTable = () => {
     ]);
   };
 
-  return <Container>
-    <Header>
-      <Title>Core Units: </Title>
-      <CustomMultiSelect label={'Status'} items={statuses}/>
-      <CustomMultiSelect label={'Category'} items={categories}/>
-      <Separator/>
-      <SearchInput label={'Search CUs'} placeholder={'Search CUs by name or Code'}/>
-    </Header>
-    <CustomTable
-      headers={headers}
-      items={getItems()}
-      headersAlign={['left', 'center', 'left', 'left', 'left']}
-    />
-  </Container>;
+  return <ContainerHome>
+    <Box
+      component="main"
+      sx={{
+        px: '12px',
+        flexGrow: 1,
+        height: '100vh',
+        overflow: 'auto',
+        mt: 4,
+        mb: 4
+      }}
+    >
+      <Header>
+        <Title>Core Units: </Title>
+        <CustomMultiSelect label={'Status'} items={statuses} />
+        <CustomMultiSelect label={'Category'} items={categories} />
+        <Separator />
+        <SearchInput label={'Search CUs'} placeholder={'Search CUs by name or Code'} />
+      </Header>
+      <CustomTable
+        headers={headers}
+        items={getItems()}
+        headersAlign={['left', 'center', 'left', 'left', 'left']}
+      />
+    </Box >
+  </ContainerHome>;
 };
 
-const Container = styled.div({
+const ContainerHome = styled.div({
   display: 'flex',
   flexDirection: 'column',
   fontFamily: 'Inter, sans-serif',
