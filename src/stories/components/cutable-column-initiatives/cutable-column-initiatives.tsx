@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { CustomPopover } from '../custom-popover/custom-popover';
 
 interface CutableColumnInitiativesProps {
-  initiatives: string
+  initiatives: number
 }
 
 export const CutableColumnInitiatives = (props: CutableColumnInitiativesProps) => {

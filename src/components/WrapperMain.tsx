@@ -1,5 +1,5 @@
 import React from 'react';
-import { createTheme, styled, Theme } from '@mui/material/styles';
+import { styled, Theme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 import { Route, Routes } from 'react-router-dom';
 import { EXAMPLE2_ROUTE, EXAMPLE_ROUTE, HOME_ROUTE } from '../config/routes';
@@ -45,7 +45,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     background: '#E4E4E4',
   },
 }));
-const theme = createTheme();
 
 type Props = {
   open: boolean;

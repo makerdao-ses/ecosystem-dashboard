@@ -3,7 +3,7 @@ import { CustomMultiSelect } from './custom-multi-select';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
-  title: 'Components/Generic/CustomMultiSelect',
+  title: 'Components/General/CustomMultiSelect',
   component: CustomMultiSelect
 } as ComponentMeta<typeof CustomMultiSelect>;
 
