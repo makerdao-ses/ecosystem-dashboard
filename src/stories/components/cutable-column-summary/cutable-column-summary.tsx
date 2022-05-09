@@ -44,7 +44,6 @@ const Container = styled.div({
   height: '100px',
   alignItems: 'stretch',
   boxSizing: 'border-box',
-  fontFamily: 'Inter, sans-serif',
   padding: '13px',
   cursor: 'pointer'
 });
