@@ -60,10 +60,11 @@ export const Sidebar = (props: SidebarProps) => {
         alignItems: 'center',
         justifyContent: 'flex-end',
         backgroundColor: 'primary.main',
-        px: [2],
+        pl: 3,
+        pr: 2,
       }}
     >
-      <Logo/>
+      <Logo style={{ marginLeft: '8px' }}/>
       <Typography sx={{ flexGrow: 1, ml: 2 }}/>
       <IconButton onClick={props.toggleDrawer}>
         <Toggle fill={'white'}/>
