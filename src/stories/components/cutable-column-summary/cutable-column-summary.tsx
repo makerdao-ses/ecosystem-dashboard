@@ -5,15 +5,7 @@ import { getColorForString } from '../../../core/utils/color-utils';
 import { getTwoInitials } from '../../../core/utils/string-utils';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
-
-export enum CuStatusEnum {
-  Accepted = 'Accepted',
-  Rejected = 'Rejected',
-  RFC = 'RFC',
-  FormalSubmission = 'Formal Submission',
-  Obsolete = 'Obsolete',
-  Withdrawn = 'Withdrawn',
-}
+import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
 
 interface CutableColumnSummaryProps {
   title: string,
@@ -52,7 +44,6 @@ const Container = styled.div({
   height: '100px',
   alignItems: 'stretch',
   boxSizing: 'border-box',
-  fontFamily: 'Inter, sans-serif',
   padding: '13px',
   cursor: 'pointer'
 });

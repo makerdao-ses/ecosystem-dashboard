@@ -20,7 +20,7 @@ export const CutableColumnExpenditures = (props: CutableColumnExpendituresProps)
         <Value>
           {props.value.toLocaleString()}
         </Value>
-    </CustomPopover>
+      </CustomPopover>
     </Data>
     <CustomBarChart items={props.items} maxValue={props.budgetCap}/>
     <CustomPopover
@@ -51,7 +51,6 @@ export const CutableColumnExpenditures = (props: CutableColumnExpendituresProps)
 const Container = styled.div({
   display: 'flex',
   alignItems: 'stretch',
-  fontFamily: 'Inter, sans-serif',
   cursor: 'pointer',
 });
 

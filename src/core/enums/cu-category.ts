@@ -1,0 +1,9 @@
+export enum CuCategory {
+  Technical = 'Technical',
+  Support = 'Support',
+  Operational = 'Operational',
+  Business = 'Business',
+  RWAs = 'RWAs',
+  Growth = 'Growth',
+  Finance = 'Finance'
+}

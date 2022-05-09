@@ -1,5 +1,5 @@
 export const getTwoInitials = (name: string) => {
-  if (!name) return '';
+  if (!name) { return ''; }
 
   name = name.toUpperCase().trim();
 

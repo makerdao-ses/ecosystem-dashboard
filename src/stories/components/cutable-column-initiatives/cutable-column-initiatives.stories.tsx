@@ -11,5 +11,5 @@ const Template: ComponentStory<typeof CutableColumnInitiatives> = (args) => <Cut
 
 export const Default = Template.bind({});
 Default.args = {
-  initiatives: '1'
+  initiatives: 1
 };
