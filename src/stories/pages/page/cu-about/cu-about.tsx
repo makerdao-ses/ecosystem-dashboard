@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { Divider, Typography } from '@mui/material';
 import SmallButton from '../../../components/button/small-button/small-button';
 import CardInfoMember, { CardInfoMemberType } from '../../../components/card-info-member/card-info-member';
-import { LinkModel } from '../../../components/cutable-column-links/cutable-column-links';
+import { LinkModel, LinkType } from '../../../components/cutable-column-links/cutable-column-links';
 import MdViewerContainer from '../../../components/markdown/md-view-container';
 import InsidePagination from '../../../components/pagination/InsidePagination';
 import TeamMember from '../../../components/team-members/team-member';
@@ -12,13 +12,94 @@ import RelateMips, { RelateMipType } from '../../../components/relate-mips/relat
 import BigButton from '../../../components/button/big-button/big-button';
 import { CuStatusEnum } from '../../../../core/enums/cu-status-enum';
 
-interface Props {
-  numbersMembers: CardInfoMemberType[];
-  links: LinkModel[];
-  relateMips: RelateMipType[];
-}
+const CuAbout = () => {
+  const src = 'https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/53/92/77/53927729-28a4-b94a-40d9-9abbc9583078/source/512x512bb.jpg';
+  const numbersMembers: CardInfoMemberType[] = [
+    { avatar: src, name: 'John Doe', username: 'forum @username', jobTitle: 'Research Expert', commitment: 'Full Time' },
+    { avatar: src, name: 'John Doe', username: 'forum @username', jobTitle: 'Research Expert', commitment: 'Full Time' },
+    { avatar: src, name: 'John Doe', username: 'forum @username', jobTitle: 'Research Expert', commitment: 'Full Time' },
+    { avatar: src, name: 'John Doe', username: 'forum @username', jobTitle: 'Research Expert', commitment: 'Full Time' },
+    { avatar: '', name: 'John Doe', username: 'forum @username', jobTitle: 'Research Expert', commitment: 'Full Time' },
+  ];
 
-const CuAbout = ({ links, numbersMembers, relateMips }: Props) => {
+  const links: LinkModel[] = [
+    {
+      linkType: LinkType.WWW,
+      href: '#',
+    },
+    {
+      linkType: LinkType.Forum,
+      href: '#',
+    },
+    {
+      linkType: LinkType.Discord,
+      href: '#',
+    },
+    {
+      linkType: LinkType.Twitter,
+      href: '#',
+    },
+    {
+      linkType: LinkType.Youtube,
+      href: '#',
+    },
+    {
+      linkType: LinkType.LinkedIn,
+      href: '#',
+    },
+  ];
+
+  const relateMips: RelateMipType[] = [{
+    status: CuStatusEnum.Rejected,
+    statusModified: new Date(),
+    href: '#',
+    mipTitle: 'MIP40c3-SP1: Modify Core Unit Budget - Real-World Finance (RWF-001)',
+  },
+  {
+    status: CuStatusEnum.Rejected,
+    statusModified: new Date(),
+    href: '#',
+    mipTitle: 'MIP41c4-SP29: Facilitator Onboarding for Maker Talent Core Unit (MT-001)',
+  },
+  {
+    status: CuStatusEnum.Rejected,
+    statusModified: new Date(),
+    href: '#',
+    mipTitle: 'MIP40c3-SP1: Modify Core Unit Budget - Real-World Finance (RWF-001)',
+  },
+  {
+    status: CuStatusEnum.Rejected,
+    statusModified: new Date(),
+    href: '#',
+    mipTitle: 'MIP41c4-SP29: Facilitator Onboarding for Maker Talent Core Unit (MT-001)',
+  },
+  {
+    status: CuStatusEnum.Rejected,
+    statusModified: new Date(),
+    href: '#',
+    mipTitle: 'MIP40c3-SP1: Modify Core Unit Budget - Real-World Finance (RWF-001)',
+  },
+  {
+    status: CuStatusEnum.Rejected,
+    statusModified: new Date(),
+    href: '#',
+    mipTitle: 'MIP41c4-SP29: Facilitator Onboarding for Maker Talent Core Unit (MT-001)',
+  },
+  {
+    status: CuStatusEnum.Rejected,
+    statusModified: new Date(),
+    href: '#',
+    mipTitle: 'MIP40c3-SP1: Modify Core Unit Budget - Real-World Finance (RWF-001)',
+  },
+  {
+    status: CuStatusEnum.Rejected,
+    statusModified: new Date(),
+    href: '#',
+    mipTitle: 'MIP41c4-SP29: Facilitator Onboarding for Maker Talent Core Unit (MT-001)',
+  },
+
+  ];
+
   return (
     <ContainerAbout>
       <NavigationHeader>

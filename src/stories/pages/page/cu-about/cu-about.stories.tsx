@@ -65,7 +65,7 @@ const relateMips: RelateMipType[] = [{
 
 ];
 
-const Template: ComponentStory<typeof CuAbout> = (args) => <CuAbout {...args} />;
+const Template: ComponentStory<typeof CuAbout> = () => <CuAbout />;
 
 export const CuAboutPage = Template.bind({});
 CuAboutPage.args = {
