@@ -1,8 +1,9 @@
 .img-container {
-  margin-left: 160px;
-  margin-right: 160px;
-  max-width: 769px;
-  max-height: 469px;
+  width: 769px;
+  height: 469px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 .img-container p {
   max-width: 152px;

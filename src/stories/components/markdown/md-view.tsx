@@ -63,18 +63,16 @@ export default MdViewerPage;
 const Container = styled.div`
   display: flex;
    flex-direction:'column';
-   padding-left: 32px;
-   padding-right:32px;
 `;
 
 const ViewerContainer = styled.div`
-   max-width:1116px;
+   width:1116px;
    background: #F9F9F9;
   text-align: justify;
-  padding-left: 30px;
-  padding-right: 30px;
   padding-bottom: 40px;
   padding-top: 11px;
   margin-bottom: 20px;
   box-sizing: border-box;
+  padding-left:32px ;
+  padding-right:32px ;
 `;

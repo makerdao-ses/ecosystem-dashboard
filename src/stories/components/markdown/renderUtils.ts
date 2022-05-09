@@ -29,7 +29,7 @@ const makerRender = ({
                 </div>`;
   },
   image(href: string, title: string) {
-    return `<div class='img-container'><img src=${href}  alt=${title} style='max-width:769px;max-height: 469px;'/></div>`;
+    return `<div class='img-container'><img src=${href}  alt=${title} style='width:769px;max-height: 469px;'/></div>`;
   },
   paragraph(text: string) {
     return `<p class='paragraph'>${text}</p>`;
