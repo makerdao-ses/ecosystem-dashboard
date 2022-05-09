@@ -1,8 +1,9 @@
-import * as React from 'react';
+import React, { CSSProperties } from 'react';
 
 interface Props {
   width?: number;
   height?: number;
+  style?: CSSProperties
 }
 
 const Logo = ({ width = 32, height = 32, ...props }: Props) => {
@@ -10,6 +11,7 @@ const Logo = ({ width = 32, height = 32, ...props }: Props) => {
     <svg
       width={width}
       height={height}
+      style={props.style}
       viewBox="0 0 32 32"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
