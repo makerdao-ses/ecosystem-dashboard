@@ -7,14 +7,18 @@ import { CuStatusEnum } from '../cutable-column-summary/cutable-column-summary';
 import ArrowLink from '../svg/ArrowLink';
 import { getMipTitle } from '../../../core/utils/string-utils';
 
-interface Props {
+export type RelateMipType = {
   status: CuStatusEnum,
   statusModified: Date,
   mipTitle?: string
-  href?: string
+  href: string
 }
 
-const RelateMips = ({ status, statusModified, mipTitle, href = '' }: Props) => {
+interface Props {
+  relateMips: RelateMipType
+}
+
+const RelateMips = ({ relateMips: { status, statusModified, href, mipTitle } }: Props) => {
   const pieces = getMipTitle(mipTitle || '') || [];
   return (
     <Content>
@@ -34,7 +38,7 @@ const RelateMips = ({ status, statusModified, mipTitle, href = '' }: Props) => {
       <RowUnderLine>
         {pieces[0] ? <Typography color='#000000' fontFamily={'Inter, sans-serif'} fontSize={14} fontWeight={600}>{`${pieces[0]} `}</Typography> : null}
         {pieces[1] ? <Typography color='#000000' fontFamily={'Inter, sans-serif'} fontSize={14} sx={{ marginRight: '8px' }}>{`${pieces[1]}`} </Typography> : null}
-        {href && <ArrowLink href='#' />}
+        {!!href && <ArrowLink href={`${href}` || '#'} />}
       </RowUnderLine>
     </Content>
   );

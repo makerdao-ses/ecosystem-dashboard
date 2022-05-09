@@ -5,16 +5,21 @@ import styled from '@emotion/styled';
 import { CutableColumnLinks, LinkModel, LinkType } from '../cutable-column-links/cutable-column-links';
 import { getTwoInitials } from '../../../core/utils/string-utils';
 
-interface Props {
-  avatar?: string;
-  name?: string;
-  username?: string;
-  jobTitle?: string;
-  commitment?: string;
+export type CardInfoMemberType = {
+  avatar: string;
+  name: string;
+  username: string;
+  jobTitle: string;
+  commitment: string;
 
 }
 
-const CardInfoMember = ({ avatar, name = '', username, jobTitle = '', commitment = '' }: Props) => {
+interface Props {
+  info: CardInfoMemberType;
+
+}
+
+const CardInfoMember = ({ info }: Props) => {
   const links: LinkModel[] = [{
     href: '#',
     linkType: LinkType.Forum,
@@ -37,19 +42,19 @@ const CardInfoMember = ({ avatar, name = '', username, jobTitle = '', commitment
       <Card sx={{ boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.08)', borderRadius: '8px', backgroundColor: '#F9F9F9' }} >
         <CardHeader
           sx={{ marginTop: '17px', paddingTop: '0px', paddingBottom: '0px' }}
-          avatar={!avatar ? <Avatar sx={{ bgcolor: 'black' }} style={{ width: '48px', height: '48px', fontSize: '1rem' }}>{getTwoInitials(name) || 'NM'}</Avatar> : <Avatar style={{ width: '48px', height: '48px' }} src={avatar} />}
-          title={<Typography fontSize={14} fontFamily={'Inter, sans-serif'}>{name}</Typography>}
-          subheader={<Typography fontSize={12} sx={{ marginLeft: '6px' }}>{username}</Typography>}
+          avatar={!info.avatar ? <Avatar sx={{ bgcolor: 'black' }} style={{ width: '48px', height: '48px', fontSize: '1rem' }}>{getTwoInitials(info.name || 'NM')}</Avatar> : <Avatar style={{ width: '48px', height: '48px' }} src={info.avatar} />}
+          title={<Typography fontSize={14} fontFamily={'Inter, sans-serif'}>{info.name}</Typography>}
+          subheader={<Typography fontSize={12} sx={{ marginLeft: '6px' }}>{info.username}</Typography>}
         />
         <CardContent>
           <CardContentPositionRow>
             <CardContentPositionColumn>
               <Typography color='#C4C4C4' fontFamily={'Inter, sans-serif'} fontSize={12}>Title</Typography>
-              <Typography color=' #000000' fontFamily={'Inter, sans-serif'} fontSize={14}>{jobTitle}</Typography>
+              <Typography color=' #000000' fontFamily={'Inter, sans-serif'} fontSize={14}>{info.jobTitle}</Typography>
             </CardContentPositionColumn>
             <CardContentPositionColumn>
               <Typography color='#C4C4C4' fontFamily={'Inter, sans-serif'} fontSize={12}>Commitment</Typography>
-              <Typography color=' #000000' fontFamily={'Inter, sans-serif'} fontSize={14}>{commitment}</Typography>
+              <Typography color=' #000000' fontFamily={'Inter, sans-serif'} fontSize={14}>{info.commitment}</Typography>
             </CardContentPositionColumn>
           </CardContentPositionRow>
           <Divider light sx={{ marginTop: '30px', color: '#C4C4C4' }} variant='fullWidth' />
