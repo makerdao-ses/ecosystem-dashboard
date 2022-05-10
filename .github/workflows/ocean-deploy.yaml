@@ -12,6 +12,10 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v1
+      - name: Install project
+        run: |
+          npm install
+          npm run build --prod
       - name: Copy file via scp
         uses: appleboy/scp-action@master
         env:
@@ -20,8 +24,8 @@ jobs:
           PORT: ${{ secrets.SSH_PORT }}
           PASSWORD: ${{ secrets.SSH_PASS }}
         with:
-          source: "./"
-          target: "/var/www/ses-dashboard/uploading/"
+          source: "./build"
+          target: "/var/www/ses-dashboard/uploading/build"
 
       - name: Executing remote command
         uses: appleboy/ssh-action@master
@@ -31,9 +35,6 @@ jobs:
           PORT: ${{ secrets.SSH_PORT }}
           PASSWORD: ${{ secrets.SSH_PASS }}
           script: |
-            cd /var/www/ses-dashboard/uploading/
-            yarn
-            yarn build --prod
             cd /var/www/ses-dashboard/
             rm -rf makerdao-ses-dashboard
             cd /var/www/ses-dashboard/uploading/
