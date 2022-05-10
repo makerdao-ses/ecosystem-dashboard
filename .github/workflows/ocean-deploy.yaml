@@ -26,7 +26,7 @@ jobs:
           PASSWORD: ${{ secrets.SSH_PASS }}
         with:
           source: "./build"
-          target: "/var/www/ses-dashboard/uploading/build"
+          target: "/var/www/ses-dashboard/build/"
 
       - name: Executing remote command
         uses: appleboy/ssh-action@master
@@ -36,9 +36,8 @@ jobs:
           PORT: ${{ secrets.SSH_PORT }}
           PASSWORD: ${{ secrets.SSH_PASS }}
           script: |
-            cd /var/www/ses-dashboard/
-            rm -rf makerdao-ses-dashboard
-            cd /var/www/ses-dashboard/uploading/
-            mv build/ /var/www/ses-dashboard/makerdao-ses-dashboard/build/
-            cd /var/www/ses-dashboard/
-            rm -rf uploading/
+            cd /var/www/ses-dashboard/makerdao-ses-dashboard/
+            ls
+            rm -rf /var/www/ses-dashboard/makerdao-ses-dashboard/build
+            mv /var/www/ses-dashboard/build/ /var/www/ses-dashboard/makerdao-ses-dashboard/build/
+            rm -rf /var/www/ses-dashboard/build
