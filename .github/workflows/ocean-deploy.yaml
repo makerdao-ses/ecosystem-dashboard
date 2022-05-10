@@ -36,8 +36,8 @@ jobs:
           PORT: ${{ secrets.SSH_PORT }}
           PASSWORD: ${{ secrets.SSH_PASS }}
           script: |
-            cd /var/www/ses-dashboard/makerdao-ses-dashboard/
-            ls
+            cd /var/www/ses-dashboard/
+            ls -la
             rm -rf /var/www/ses-dashboard/makerdao-ses-dashboard/build
             mv /var/www/ses-dashboard/build/ /var/www/ses-dashboard/makerdao-ses-dashboard/build/
             rm -rf /var/www/ses-dashboard/build
