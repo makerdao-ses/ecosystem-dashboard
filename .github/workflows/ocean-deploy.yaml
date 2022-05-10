@@ -39,5 +39,6 @@ jobs:
             cd /var/www/ses-dashboard/
             ls -la
             rm -rf /var/www/ses-dashboard/makerdao-ses-dashboard/build
-            mv /var/www/ses-dashboard/build/ /var/www/ses-dashboard/makerdao-ses-dashboard/build/
+            mkdir /var/www/ses-dashboard/makerdao-ses-dashboard
+            mv /var/www/ses-dashboard/build /var/www/ses-dashboard/makerdao-ses-dashboard/build
             rm -rf /var/www/ses-dashboard/build
