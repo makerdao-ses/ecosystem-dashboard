@@ -20,7 +20,6 @@
     "@types/react": "^18.0.8",
     "@types/react-dom": "^18.0.2",
     "emotion": "^11.0.0",
-    "formik": "^2.2.9",
     "graphql": "^16.4.0",
     "luxon": "^2.3.2",
     "react": "^18.1.0",
@@ -31,8 +30,7 @@
     "sass": "^1.51.0",
     "styled-components": "^5.3.5",
     "typescript": "^4.6.3",
-    "web-vitals": "^2.1.4",
-    "yup": "^0.32.11"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
