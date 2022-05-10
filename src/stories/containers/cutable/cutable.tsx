@@ -11,6 +11,7 @@ import { CutableColumnInitiatives } from '../../components/cutable-column-initia
 import { CutableColumnExpenditures } from '../../components/cutable-column-expenditures/cutable-column-expenditures';
 import { CutableColumnTeamMember } from '../../components/cutable-column-team-member/cutable-column-team-member';
 import { CutableColumnLinks, LinkType } from '../../components/cutable-column-links/cutable-column-links';
+import { Typography } from '@mui/material';
 
 const statuses = getEnumValuesForSelect(CuStatusEnum);
 const categories = getEnumValuesForSelect(CuCategory);
@@ -99,7 +100,6 @@ export const CUTable = () => {
 const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  fontFamily: 'Inter, sans-serif',
 });
 
 const Header = styled.div({
@@ -108,11 +108,11 @@ const Header = styled.div({
   marginBottom: '32px',
 });
 
-const Title = styled.span({
-  fontSize: '2rem',
+const Title = styled(Typography)(() => ({
+  fontSize: '1rem',
   fontWeight: 600,
   flex: 1,
-});
+}));
 
 const Separator = styled.span({
   width: '1px',

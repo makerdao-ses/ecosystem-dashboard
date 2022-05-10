@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { CustomBarChart, CustomChartItem } from '../custom-bar-chart/custom-bar-chart';
 import { CustomPopover } from '../custom-popover/custom-popover';
+import { Typography } from '@mui/material';
 
 interface CutableColumnExpendituresProps {
   value: number,
@@ -60,18 +61,18 @@ const Data = styled.div({
   justifyContent: 'space-between'
 });
 
-export const Title = styled.div({
+export const Title = styled(Typography)(() => ({
   fontSize: '12px',
   fontWeight: 400,
-});
+}));
 
-export const Value = styled.div({
+export const Value = styled(Typography)(() => ({
   display: 'flex',
   alignItems: 'flex-end',
   fontSize: '20px',
   fontWeight: 400,
   paddingBottom: '5px',
-});
+}));
 
 const PercentExplanation = styled.div({
   display: 'flex',

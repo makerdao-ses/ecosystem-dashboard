@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { CustomPopover } from '../custom-popover/custom-popover';
+import { Typography } from '@mui/material';
 
 interface CutableColumnInitiativesProps {
   initiatives: number
@@ -12,9 +13,11 @@ export const CutableColumnInitiatives = (props: CutableColumnInitiativesProps) =
       id="mouse-over-popover-initiatives"
       title={'Click to see all initiatives'}
     >
-      <RoundedBox href="#">
-        {props.initiatives}
-      </RoundedBox>
+      <a href="" style={{ textDecoration: 'none' }}>
+        <RoundedBox>
+          {props.initiatives}
+        </RoundedBox>
+      </a>
     </CustomPopover>
   </Container>;
 };
@@ -25,7 +28,7 @@ const Container = styled.div({
   justifyContent: 'center',
 });
 
-const RoundedBox = styled.a({
+const RoundedBox = styled(Typography)(() => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -35,4 +38,4 @@ const RoundedBox = styled.a({
   textDecoration: 'none',
   color: 'white',
   fontSize: '16px'
-});
+}));
