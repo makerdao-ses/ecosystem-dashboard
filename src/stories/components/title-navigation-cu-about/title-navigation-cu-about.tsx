@@ -36,7 +36,7 @@ export const TitleNavigationCuAbout = ({ title, status, statusModified, links = 
         </Row>
       </ContainerTitle>
       <ContainerLinks>
-        <CutableColumnLinks links={links} />
+        <CutableColumnLinks links={links} dark/>
       </ContainerLinks>
     </Container>
   );
@@ -48,7 +48,6 @@ const Container = styled.div({
   justifyContent: 'space-between',
   flex: 1,
   alignItems: 'center',
-  fontFamily: 'Inter, sans-serif',
   fontWeight: 400,
 });
 
@@ -60,7 +59,7 @@ const ContainerTitle = styled.div({
 });
 
 const TypographyTitle = styled(Typography)`
-  font-family: 'Inter, sans-serif';
+  font-family: 'Inter';
 font-style: normal;
 font-weight: 600;
 font-size: 18px;
@@ -68,7 +67,7 @@ line-height: 22px;
 color: #000000;
 `;
 const TypographySES = styled(Typography)`
-font-family: 'Inter, sans-serif';
+font-family: 'Inter';
 font-style: normal;
 font-weight: 700;
 font-size: 18px;
