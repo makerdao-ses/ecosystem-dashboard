@@ -4,7 +4,6 @@ import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
 import { CuCategory } from '../../../core/enums/cu-category';
 import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
 import { SearchInput } from '../../components/search-input/search-input';
-import { getEnumValuesForSelect } from '../../../core/utils/enum-utils';
 import { CustomTable } from '../../components/custom-table/custom-table';
 import { CutableColumnSummary } from '../../components/cutable-column-summary/cutable-column-summary';
 import { CutableColumnInitiatives } from '../../components/cutable-column-initiatives/cutable-column-initiatives';
@@ -13,8 +12,8 @@ import { CutableColumnTeamMember } from '../../components/cutable-column-team-me
 import { CutableColumnLinks, LinkType } from '../../components/cutable-column-links/cutable-column-links';
 import { Typography } from '@mui/material';
 
-const statuses = getEnumValuesForSelect(CuStatusEnum);
-const categories = getEnumValuesForSelect(CuCategory);
+const statuses = Object.values(CuStatusEnum) as string[];
+const categories = Object.values(CuCategory) as string[];
 const headers = ['Core Units', 'Initiatives', 'Expenditure', 'Team Members', 'Links'];
 
 export const CUTable = () => {

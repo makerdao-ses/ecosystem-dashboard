@@ -18,8 +18,8 @@ const FeedBack = ({
     <svg
     style={{ cursor: 'pointer', padding: '2px' }}
       onClick={onClick}
-      width={23}
-      height={23}
+      width={width}
+      height={height}
       viewBox='0 0 23 23'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'

@@ -11,7 +11,6 @@ const ThemeMode = ({
   width = 28,
   height = 28,
   fill = '#898989',
-  onClick,
   ...props
 }: Props) => {
   return (
