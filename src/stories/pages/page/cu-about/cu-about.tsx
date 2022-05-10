@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
 import { Divider, Typography } from '@mui/material';
 import SmallButton from '../../../components/button/small-button/small-button';
@@ -13,6 +13,20 @@ import BigButton from '../../../components/button/big-button/big-button';
 import { CuStatusEnum } from '../../../../core/enums/cu-status-enum';
 
 const CuAbout = () => {
+  const url = 'https://raw.githubusercontent.com/mact200590/Proyectos/master/example.md';
+  const handleClickPrevious = useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    () => {
+    },
+    [],
+  );
+  const handleClickNext = useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    () => {
+    },
+    [],
+  );
+
   const src = 'https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/53/92/77/53927729-28a4-b94a-40d9-9abbc9583078/source/512x512bb.jpg';
   const numbersMembers: CardInfoMemberType[] = [
     { avatar: src, name: 'John Doe', username: 'forum @username', jobTitle: 'Research Expert', commitment: 'Full Time' },
@@ -103,13 +117,13 @@ const CuAbout = () => {
   return (
     <ContainerAbout>
       <NavigationHeader>
-        <SmallButton /> <PaddingComponent><InsidePagination count={10} page={1} /></PaddingComponent>
+        <SmallButton /> <PaddingComponent><InsidePagination count={10} page={1} onClickLeft={handleClickPrevious} onClickRight={handleClickNext} /></PaddingComponent>
       </NavigationHeader>
       <ContainerTitle>
         <TitleNavigationCuAbout status={CuStatusEnum.Accepted} title='Sustainable Ecosystem Scaling' statusModified={new Date()} links={links} />
       </ContainerTitle>
       <MarkdownContainer>
-        <MdViewerContainer />
+        <MdViewerContainer url={url} />
       </MarkdownContainer>
       <TeamMemberContainer>
         <TeamMemberTitle>Team Size</TeamMemberTitle><TeamMember fte={7.5} />
@@ -221,7 +235,7 @@ color: #000000;
 const ContainerCards = styled.div`
 display: grid ;
 grid-template-columns: repeat(3, 1fr);
-column-gap: 85px;
+ column-gap: 32px;
 row-gap: 32px;
 grid-auto-rows: minmax(100px, auto);
 margin-left:32px ;

@@ -10,7 +10,6 @@ interface Props {
 const ArrowLeft = ({ height = 17, width = 16, onClick, ...props }: Props) => {
   return (
         <svg
-            style={{ cursor: 'pointer' }}
             cursor={onClick ? 'pointer' : 'default'}
             onClick={onClick}
             width={height}

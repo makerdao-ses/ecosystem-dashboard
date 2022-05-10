@@ -51,7 +51,6 @@ const MdViewerPage = ({ markdownText, mdUrl = '', headersLevel }: Props) => {
   return (
         <Container >
             <ViewerContainer
-                className="markDownContent"
                 dangerouslySetInnerHTML={{ __html: sanitizer(markdownText) }}
             />
         </Container>

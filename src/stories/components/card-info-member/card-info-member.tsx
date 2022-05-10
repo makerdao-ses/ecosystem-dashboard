@@ -6,7 +6,7 @@ import { CutableColumnLinks, LinkModel, LinkType } from '../cutable-column-links
 import { getTwoInitials } from '../../../core/utils/string-utils';
 
 export type CardInfoMemberType = {
-  avatar: string;
+  avatar?: string;
   name: string;
   username: string;
   jobTitle: string;

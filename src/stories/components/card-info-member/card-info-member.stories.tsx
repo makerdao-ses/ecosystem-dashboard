@@ -11,7 +11,12 @@ const Template: ComponentStory<typeof CardInfoMember> = (args) => <CardInfoMembe
 
 export const Default = Template.bind({});
 Default.args = {
-
+  info: {
+    name: 'Joe Dow',
+    username: 'forum @username',
+    commitment: 'Full Time',
+    jobTitle: 'Software Engineer',
+  }
 };
 
 export const AllData = Template.bind({});

@@ -6,17 +6,20 @@ import { marked } from 'marked';
 import MdViewerPage, { MarkDownHeaders } from './md-view';
 import makerRender from './renderUtils';
 
-const MdViewerContainer = () => {
+interface Props {
+  url: string;
+}
+
+const MdViewerContainer = ({ url }: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [markdownText, setMarkdownText] = useState<string>('');
   const [headersLevel, setHeadersLevel] = useState<MarkDownHeaders[]>([]);
-  const urlTest = 'https://raw.githubusercontent.com/mact200590/Proyectos/master/example.md';
 
   useEffect(() => {
     const fetchCreator = async() => {
       try {
         setLoading(true);
-        const response = await fetch(urlTest);
+        const response = await fetch(url);
         if (!response.ok) {
           console.log('firstError', response.status);
         } else {
@@ -57,11 +60,11 @@ const MdViewerContainer = () => {
   if (loading) return <CircularProgress color="inherit" />;
 
   return (
-        <MdViewerPage
-            markdownText={markdownText}
-            mdUrl={markdownText}
-            headersLevel={headersLevel}
-        />
+    <MdViewerPage
+      markdownText={markdownText}
+      mdUrl={markdownText}
+      headersLevel={headersLevel}
+    />
   );
 };
 
