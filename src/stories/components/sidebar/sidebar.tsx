@@ -10,6 +10,7 @@ import { styled } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
 import ItemMenu from './menuItem';
 import { menuItems } from './menu';
+import './sidebar.scss';
 
 const drawerWidth = 260;
 
@@ -78,14 +79,14 @@ export const Sidebar = (props: SidebarProps) => {
       <ul>
         <div
           style={{
-            marginLeft: `${beforeLevel * 20}px`,
+            marginLeft: `${beforeLevel * 10}px`,
           }}
         >
           <ItemMenu
             title={title}
             href="#"
+            icon={icon}
             onClick={toggle}
-            beforeLevel={beforeLevel}
           />
         </div>
         {
@@ -122,7 +123,7 @@ export const Sidebar = (props: SidebarProps) => {
     </Typography>
     <List component="nav">
       {menuItems.map((item, index) => (
-        <MenuItemsView menus={item} key={index}/>
+        <MenuItemsView menus={item} key={index} />
       ))}
 
     </List>

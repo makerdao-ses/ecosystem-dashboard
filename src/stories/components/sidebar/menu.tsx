@@ -3,6 +3,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import BatchPredictionIcon from '@mui/icons-material/BatchPrediction';
 import PaidIcon from '@mui/icons-material/Paid';
 import PeopleIcon from '@mui/icons-material/People';
+import VerticalRectangle from '../svg/VerticalRectangle';
 
 type MenuType = {
     title: string,
@@ -19,6 +20,7 @@ export const menuItems = [
     items: [
       {
         title: 'About',
+        icon: <VerticalRectangle />,
         items: [
           {
             title: 'About the Core Unit',
