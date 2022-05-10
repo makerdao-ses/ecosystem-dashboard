@@ -7,6 +7,7 @@ import Discord from '../svg/discord';
 import Youtube from '../svg/youtube';
 import Twitter from '../svg/twitter';
 import LinkedIn from '../svg/linkedin';
+import Gmail from '../svg/gmail';
 
 export enum LinkType {
   WWW = 'Website',
@@ -32,19 +33,21 @@ interface CutableColumnLinksProps {
 const getImageForLink = (link: LinkModel) => {
   switch (link.linkType) {
     case LinkType.WWW:
-      return <WWW/>;
+      return <WWW />;
     case LinkType.Forum:
-      return <Forum/>;
+      return <Forum />;
     case LinkType.Discord:
-      return <Discord/>;
+      return <Discord />;
     case LinkType.Twitter:
-      return <Twitter/>;
+      return <Twitter />;
     case LinkType.Youtube:
-      return <Youtube/>;
+      return <Youtube />;
     case LinkType.LinkedIn:
-      return <LinkedIn/>;
+      return <LinkedIn />;
+    case LinkType.Gmail:
+      return <Gmail />;
     default:
-      return <WWW/>;
+      return <WWW />;
   }
 };
 
@@ -52,8 +55,8 @@ export const CutableColumnLinks = (props: CutableColumnLinksProps) => {
   return <Container>
     {props.links.map((link, i) => <CustomPopover key={`link-${i}`} title={link.linkType} id={`link-${i}`}>
       <LinkImage href={link.href} target="_blank">
-      {getImageForLink(link)}
-    </LinkImage>
+        {getImageForLink(link)}
+      </LinkImage>
     </CustomPopover>)}
   </Container>;
 };

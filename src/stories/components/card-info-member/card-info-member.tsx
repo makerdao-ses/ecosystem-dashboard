@@ -22,7 +22,7 @@ interface Props {
 const CardInfoMember = ({ info }: Props) => {
   const links: LinkModel[] = [{
     href: '#',
-    linkType: LinkType.Forum,
+    linkType: LinkType.Gmail,
   }, {
     href: '#',
     linkType: LinkType.Forum
