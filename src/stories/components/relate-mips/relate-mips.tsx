@@ -35,9 +35,9 @@ const RelateMips = ({ relateMips: { status, statusModified, href, mipTitle } }: 
           </SinceDate>
         </CustomPopover>}
       </Row>
-      <RowUnderLine>
-        {pieces[0] ? <Typography color='#000000' fontFamily={'Inter, sans-serif'} fontSize={12} fontWeight={600}>{`${pieces[0]} `}</Typography> : null}
-        {pieces[1] ? <Typography color='#000000' fontFamily={'Inter, sans-serif'} fontSize={12} sx={{ marginRight: '8px' }}>{`${pieces[1]}`} </Typography> : null}
+      <RowUnderLine >
+        {pieces[0] ? <Typography color='#000000' fontFamily={'Inter, sans-serif'} fontSize={12} fontWeight={600} >{`${pieces[0]}:`}</Typography> : null}
+        {pieces[1] ? <Typography color='#000000' fontFamily={'Inter, sans-serif'} fontSize={12} sx={{ marginRight: '8px' }}>{` ${pieces[1]}`} </Typography> : null}
         {!!href && <ArrowLink href={`${href}` || '#'} />}
       </RowUnderLine>
     </Content>
@@ -60,9 +60,11 @@ const Row = styled.div({
   display: 'flex',
   alignItems: 'center',
   flex: 1,
+  whiteSpace: 'break-spaces',
 });
 const RowUnderLine = styled(Row)`
    text-decoration: underline;
+   margin-right:8px;
 `;
 
 const SinceDate = styled.a({
