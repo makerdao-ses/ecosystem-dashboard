@@ -1,21 +1,19 @@
 /* eslint-disable */
+import React from 'react';
 import styled from '@emotion/styled';
 import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
-import React from 'react';
-import { Link } from 'react-router-dom';
-// import './ItemMenu.scss';
 
 
 interface Props {
     title: string;
-    href: string;
+    id: string;
     icon?: JSX.Element;
     onClick?: () => void;
 }
 
-const ItemMenu = ({ title, href, onClick, icon }: Props) => {
+const ItemMenu = ({ title, id, onClick, icon }: Props) => {
     return (
-        <ListItemButton onClick={onClick}>
+        <ListItemButton onClick={onClick} id={id}>
             <CustomListItemIcon>
                 {icon}
             </CustomListItemIcon>
@@ -31,8 +29,8 @@ const CustomListItemIcon = styled(ListItemIcon)({
     marginLeft: '16px',
 });
 
-const TitleIcon=styled(ListItemText)`
-   white-space: normal; 
+const TitleIcon = styled(ListItemText)`
+   white-space: normal;
 `;
 
 export default ItemMenu;

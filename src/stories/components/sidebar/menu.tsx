@@ -5,30 +5,24 @@ import PaidIcon from '@mui/icons-material/Paid';
 import PeopleIcon from '@mui/icons-material/People';
 import VerticalRectangle from '../svg/VerticalRectangle';
 
-type MenuType = {
-    title: string,
-    id?: string,
-    expanded?: boolean,
-    icon?: JSX.Element,
-    items?: MenuType[],
-  }
-
 export const menuItems = [
   {
     title: 'Core Units',
+    id: 'core-units',
     icon: <DashboardIcon />,
     items: [
       {
         title: 'About',
+        id: 'about',
         icon: <VerticalRectangle />,
         items: [
           {
             title: 'About the Core Unit',
-            id: 'about-sustainable-ecosystem-scaling-core-unit',
+            id: 'about-the-core-unit',
           },
           {
             title: 'What we do',
-            id: ' what-we-do',
+            id: 'what-we-do',
           },
           {
             title: 'Team Size',
@@ -42,22 +36,27 @@ export const menuItems = [
       },
       {
         title: 'Initiatives',
+        id: 'initiatives',
       },
       {
         title: 'Finances',
+        id: 'core-units-finances',
       }
     ]
   },
   {
     title: 'Strategic Initiatives',
+    id: 'strategic-initiatives',
     icon: <BatchPredictionIcon />,
   },
   {
     title: 'Finances',
+    id: 'finances',
     icon: <PaidIcon />,
   },
   {
     title: 'People',
+    id: 'people',
     icon: <PeopleIcon />,
   }
 ];

@@ -1,105 +1,29 @@
-import React, { useCallback, useState } from 'react';
-import Toolbar from '@mui/material/Toolbar';
-import Logo from '../svg/logo';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import Toggle from '../svg/toggle';
+import { List } from '@mui/material';
 import Divider from '@mui/material/Divider';
-import { List, ListItemIcon } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import MuiDrawer from '@mui/material/Drawer';
-import ItemMenu from './menuItem';
+import IconButton from '@mui/material/IconButton';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import Logo from '../svg/logo';
+import Toggle from '../svg/toggle';
+import Drawer from './drawer';
 import { menuItems } from './menu';
+import ItemMenu from './menuItem';
 import './sidebar.scss';
-
-const drawerWidth = 260;
-
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    '& .MuiDrawer-paper': {
-      position: 'relative',
-      whiteSpace: 'nowrap',
-      width: drawerWidth,
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      boxSizing: 'border-box',
-      ...(!open && {
-        overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: 0,
-        [theme.breakpoints.up('sm')]: {
-          width: 0,
-        },
-      }),
-    },
-  }),
-);
-
-const CustomListItemIcon = styled(ListItemIcon)({
-  minWidth: '24px',
-  marginRight: '10px',
-  marginLeft: '16px',
-});
-
 interface SidebarProps {
   toggleDrawer: () => void,
   open: boolean
 }
 
 export const Sidebar = (props: SidebarProps) => {
-  type MenuType = {
-    title: string,
-    id?: string,
-    expanded?: boolean,
-    icon?: JSX.Element,
-    items?: MenuType[],
-  }
+  const [stack, setStack] = useState<string[]>([]);
+  const { hash } = useLocation();
+  console.log('pathname', hash);
 
-  type MenuItemsViewProps = {
-    menus: MenuType;
-    beforeLevel?: number;
-  };
-
-  const MenuItemsView = ({
-    menus: { title, items = [], expanded = false, icon, id },
-    beforeLevel = 0,
-  }: MenuItemsViewProps) => {
-    const [exp, setExp] = useState(expanded);
-    const toggle = useCallback(() => {
-      setExp(!exp);
-      console.log('exp', exp);
-    }, [exp]);
-
-    return (
-      <ul>
-        <div
-          style={{
-            marginLeft: `${beforeLevel * 10}px`,
-          }}
-        >
-          <ItemMenu
-            title={title}
-            href="#"
-            icon={icon}
-            onClick={toggle}
-          />
-        </div>
-        {
-          exp && !!items.length && items.map((menu) => (
-            <MenuItemsView
-              menus={menu}
-              key={Math.random()}
-              beforeLevel={beforeLevel + 1}
-            />
-          ))}
-      </ul>
-    );
-  };
+  useEffect(() => {
+    hash && setStack((hash.replace('#', '')).split('/').filter(Boolean));
+  }, [hash]);
 
   return (<Drawer variant="permanent" open={props.open}>
     <Toolbar
@@ -123,9 +47,82 @@ export const Sidebar = (props: SidebarProps) => {
     </Typography>
     <List component="nav">
       {menuItems.map((item, index) => (
-        <MenuItemsView menus={item} key={index} />
+        <MenuItemsView menus={item} key={index} stack={stack} setStack={setStack} />
       ))}
 
     </List>
   </Drawer>);
+};
+
+type MenuType = {
+  title: string,
+  id: string,
+  expanded?: boolean,
+  icon?: JSX.Element,
+  items?: MenuType[],
+}
+
+type MenuItemsViewProps = {
+  menus: MenuType;
+  beforeLevel?: number;
+  stack: string[];
+  setStack: (value: string[]) => void;
+};
+
+const MenuItemsView = ({
+  menus: { title, items = [], icon, id },
+  stack, setStack,
+  beforeLevel = 0,
+}: MenuItemsViewProps) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  console.log('location', location);
+  const toggle = useCallback(() => {
+    const lastIndex = stack.indexOf(id);
+    let newStack = [];
+    if (stack.includes(id)) {
+      newStack = [...stack].splice(0, lastIndex + 1);
+    } else {
+      newStack = [...stack, id];
+    }
+    // const newStack = stack.includes(id) ? stack.filter((item) => item !== id) : [...stack, id];
+    setStack(newStack);
+    navigate(`#${newStack.join('/')}`);
+  }, [stack, id, navigate]);
+
+  const isOpen = useMemo(() => {
+    return stack.includes(id);
+  }, [stack, id]);
+
+  const isCurrent = useMemo(() => {
+    return stack && stack[stack.length - 1] === id;
+  }, [stack, id]);
+
+  return (
+    <ul>
+      <div
+        style={{
+          marginLeft: `${beforeLevel * 10}px`,
+          textDecoration: isCurrent ? 'underline' : 'none',
+        }}
+      >
+        <ItemMenu
+          title={title}
+          id={id || '#'}
+          icon={icon}
+          onClick={toggle}
+        />
+      </div>
+      {
+        isOpen && !!items.length && items.map((menu) => (
+          <MenuItemsView
+            menus={menu}
+            key={Math.random()}
+            beforeLevel={beforeLevel + 1}
+            stack={stack}
+            setStack={setStack}
+          />
+        ))}
+    </ul>
+  );
 };
