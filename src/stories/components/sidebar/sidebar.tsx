@@ -1,17 +1,15 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import Toolbar from '@mui/material/Toolbar';
 import Logo from '../svg/logo';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Toggle from '../svg/toggle';
 import Divider from '@mui/material/Divider';
-import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import BatchPredictionIcon from '@mui/icons-material/BatchPrediction';
-import PaidIcon from '@mui/icons-material/Paid';
-import PeopleIcon from '@mui/icons-material/People';
+import { List, ListItemIcon } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
+import ItemMenu from './menuItem';
+import { menuItems } from './menu';
 
 const drawerWidth = 260;
 
@@ -53,6 +51,55 @@ interface SidebarProps {
 }
 
 export const Sidebar = (props: SidebarProps) => {
+  type MenuType = {
+    title: string,
+    id?: string,
+    expanded?: boolean,
+    icon?: JSX.Element,
+    items?: MenuType[],
+  }
+
+  type MenuItemsViewProps = {
+    menus: MenuType;
+    beforeLevel?: number;
+  };
+
+  const MenuItemsView = ({
+    menus: { title, items = [], expanded = false, icon, id },
+    beforeLevel = 0,
+  }: MenuItemsViewProps) => {
+    const [exp, setExp] = useState(expanded);
+    const toggle = useCallback(() => {
+      setExp(!exp);
+      console.log('exp', exp);
+    }, [exp]);
+
+    return (
+      <ul>
+        <div
+          style={{
+            marginLeft: `${beforeLevel * 20}px`,
+          }}
+        >
+          <ItemMenu
+            title={title}
+            href="#"
+            onClick={toggle}
+            beforeLevel={beforeLevel}
+          />
+        </div>
+        {
+          exp && !!items.length && items.map((menu) => (
+            <MenuItemsView
+              menus={menu}
+              key={Math.random()}
+              beforeLevel={beforeLevel + 1}
+            />
+          ))}
+      </ul>
+    );
+  };
+
   return (<Drawer variant="permanent" open={props.open}>
     <Toolbar
       sx={{
@@ -63,41 +110,21 @@ export const Sidebar = (props: SidebarProps) => {
         px: [2],
       }}
     >
-      <Logo/>
-      <Typography sx={{ flexGrow: 1, ml: 2 }}/>
+      <Logo />
+      <Typography sx={{ flexGrow: 1, ml: 2 }} />
       <IconButton onClick={props.toggleDrawer}>
-        <Toggle fill={'white'}/>
+        <Toggle fill={'white'} />
       </IconButton>
     </Toolbar>
-    <Divider/>
+    <Divider />
     <Typography sx={{ margin: '40px 32px 24px 32px' }}>
       MakerDAO
     </Typography>
     <List component="nav">
-      <ListItemButton>
-        <CustomListItemIcon>
-          <DashboardIcon/>
-        </CustomListItemIcon>
-        <ListItemText primary="Core Units" sx={{ py: 2 }}/>
-      </ListItemButton>
-      <ListItemButton>
-        <CustomListItemIcon>
-          <BatchPredictionIcon/>
-        </CustomListItemIcon>
-        <ListItemText primary="Strategic Initiatives" sx={{ py: 2 }}/>
-      </ListItemButton>
-      <ListItemButton>
-        <CustomListItemIcon>
-          <PaidIcon/>
-        </CustomListItemIcon>
-        <ListItemText primary="Finances" sx={{ py: 2 }}/>
-      </ListItemButton>
-      <ListItemButton>
-        <CustomListItemIcon>
-          <PeopleIcon/>
-        </CustomListItemIcon>
-        <ListItemText primary="People" sx={{ py: 2 }}/>
-      </ListItemButton>
+      {menuItems.map((item, index) => (
+        <MenuItemsView menus={item} key={index}/>
+      ))}
+
     </List>
   </Drawer>);
 };
