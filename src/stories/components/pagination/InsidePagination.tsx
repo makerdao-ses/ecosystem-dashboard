@@ -16,8 +16,8 @@ const InsidePagination = ({ page, count, onClickLeft, onClickRight }: Props) => 
   return (
     <Container>
       <PaginationLabel>
-        <Typography color='#000000' fontFamily={'Inter, sans-serif'} fontSize={12}>{`${page}`}</Typography>
-        <Typography color='#C4C4B' fontFamily={'Inter, sans-serif'} fontSize={12}>{` of ${count} Core Units`} </Typography>
+        <Typography color='#000000' fontFamily={'Inter'} fontSize={12}>{`${page}`}</Typography>
+        <Typography color='#C4C4B' fontFamily={'Inter'} fontSize={12}>{` of ${count} Core Units`} </Typography>
       </PaginationLabel>
       <Arrows>
         <ArrowLeft onClick={onClickLeft} /><ArrowRight onClick={onClickRight} />

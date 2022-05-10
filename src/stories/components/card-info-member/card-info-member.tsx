@@ -43,18 +43,18 @@ const CardInfoMember = ({ info }: Props) => {
         <CardHeader
           sx={{ marginTop: '17px', paddingTop: '0px', paddingBottom: '0px' }}
           avatar={!info.avatar ? <Avatar sx={{ bgcolor: 'black' }} style={{ width: '48px', height: '48px', fontSize: '1rem' }}>{getTwoInitials(info.name || 'NM')}</Avatar> : <Avatar style={{ width: '48px', height: '48px' }} src={info.avatar} />}
-          title={<Typography fontSize={14} fontFamily={'Inter, sans-serif'}>{info.name}</Typography>}
+          title={<Typography fontSize={14} fontFamily={'Inter'}>{info.name}</Typography>}
           subheader={<Typography fontSize={12} sx={{ marginLeft: '6px' }}>{info.username}</Typography>}
         />
         <CardContent>
           <CardContentPositionRow>
             <CardContentPositionColumn>
-              <Typography color='#C4C4C4' fontFamily={'Inter, sans-serif'} fontSize={12}>Title</Typography>
-              <Typography color=' #000000' fontFamily={'Inter, sans-serif'} fontSize={14}>{info.jobTitle}</Typography>
+              <Typography color='#C4C4C4' fontFamily={'Inter'} fontSize={12}>Title</Typography>
+              <Typography color=' #000000' fontFamily={'Inter'} fontSize={14}>{info.jobTitle}</Typography>
             </CardContentPositionColumn>
             <CardContentPositionColumn>
-              <Typography color='#C4C4C4' fontFamily={'Inter, sans-serif'} fontSize={12}>Commitment</Typography>
-              <Typography color=' #000000' fontFamily={'Inter, sans-serif'} fontSize={14}>{info.commitment}</Typography>
+              <Typography color='#C4C4C4' fontFamily={'Inter'} fontSize={12}>Commitment</Typography>
+              <Typography color=' #000000' fontFamily={'Inter'} fontSize={14}>{info.commitment}</Typography>
             </CardContentPositionColumn>
           </CardContentPositionRow>
           <Divider light sx={{ marginTop: '30px', color: '#C4C4C4' }} variant='fullWidth' />

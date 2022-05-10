@@ -28,24 +28,25 @@ interface CutableColumnLinksProps {
   links: LinkModel[]
   width?: number,
   height?: number;
+  dark?: boolean;
 }
 
-const getImageForLink = (link: LinkModel) => {
+const getImageForLink = (link: LinkModel, dark?: boolean) => {
   switch (link.linkType) {
     case LinkType.WWW:
-      return <WWW />;
+      return <WWW fill={dark ? '#626472' : '#C4C4C4'} />;
     case LinkType.Forum:
-      return <Forum />;
+      return <Forum fill={dark ? '#626472' : '#C4C4C4'} />;
     case LinkType.Discord:
-      return <Discord />;
+      return <Discord fill={dark ? '#626472' : '#C4C4C4'} />;
     case LinkType.Twitter:
-      return <Twitter />;
+      return <Twitter fill={dark ? '#626472' : '#C4C4C4'} />;
     case LinkType.Youtube:
-      return <Youtube />;
+      return <Youtube fill={dark ? '#626472' : '#C4C4C4'} />;
     case LinkType.LinkedIn:
-      return <LinkedIn />;
+      return <LinkedIn fill={dark ? '#626472' : '#C4C4C4'} />;
     case LinkType.Gmail:
-      return <Gmail />;
+      return <Gmail fill={dark ? '#626472' : '#C4C4C4'} />;
     default:
       return <WWW />;
   }
@@ -55,7 +56,7 @@ export const CutableColumnLinks = (props: CutableColumnLinksProps) => {
   return <Container>
     {props.links.map((link, i) => <CustomPopover key={`link-${i}`} title={link.linkType} id={`link-${i}`}>
       <LinkImage href={link.href} target="_blank">
-        {getImageForLink(link)}
+        {getImageForLink(link, props.dark)}
       </LinkImage>
     </CustomPopover>)}
   </Container>;

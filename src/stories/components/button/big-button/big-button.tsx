@@ -19,7 +19,7 @@ min-width: 512px;
 height: 32px;
 border:1px solid rgba(37, 39, 61, 0.75);
 border-radius: 8px;
-font-family: 'Inter, sans-serif';
+font-family: 'Inter';
 font-style: normal;
 font-weight: 500;
 font-size: 12px;

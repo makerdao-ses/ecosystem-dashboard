@@ -21,7 +21,7 @@ flex-direction: row;
 background-color  : #C4C4C4 ;
  min-width: 45px;
 height: 23px;
-font-family: 'Inter, sans-serif';
+font-family: 'Inter';
 font-style: normal;
 font-weight: 700;
 font-size: 12px;
