@@ -1,9 +1,9 @@
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { List } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Logo from '../svg/logo';
 import Toggle from '../svg/toggle';
@@ -32,11 +32,12 @@ export const Sidebar = (props: SidebarProps) => {
         alignItems: 'center',
         justifyContent: 'flex-end',
         backgroundColor: 'primary.main',
-        px: [2],
+        pl: 3,
+        pr: 2,
       }}
     >
-      <Logo />
-      <Typography sx={{ flexGrow: 1, ml: 2 }} />
+      <Logo style={{ marginLeft: '8px' }}/>
+      <Typography sx={{ flexGrow: 1, ml: 2 }}/>
       <IconButton onClick={props.toggleDrawer}>
         <Toggle fill={'white'} />
       </IconButton>
