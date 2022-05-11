@@ -16,7 +16,8 @@ interface Props {
     headersLevel: MarkDownHeaders[];
 }
 
-const MdViewerPage = ({ markdownText, mdUrl = '', headersLevel }: Props) => {
+const MdViewerPage = ({ markdownText, headersLevel }: Props) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [activeLink, setActiveLink] = useState('');
   const sanitizer = dompurify.sanitize;
 
