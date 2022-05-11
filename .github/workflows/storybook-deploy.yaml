@@ -1,7 +1,7 @@
 name: Deploy storybook
 on:
   push:
-    branches: [ SES-31-Create-deployments ]
+    branches: [ master ]
 jobs:
   deploy:
     runs-on: ubuntu-latest
