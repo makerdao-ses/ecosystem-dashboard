@@ -17,6 +17,15 @@ jobs:
           npm install -g yarn
           yarn
           yarn build --prod
+      - name: Executing remote command
+        uses: appleboy/ssh-action@master
+        with:
+          HOST: ${{ secrets.SSH_HOST }}
+          USERNAME: ${{ secrets.SSH_USER }}
+          PORT: ${{ secrets.SSH_PORT }}
+          PASSWORD: ${{ secrets.SSH_PASS }}
+          script: |
+            rm -rf /var/www/build
       - name: Copy file via scp
         uses: appleboy/scp-action@master
         env:
@@ -26,21 +35,4 @@ jobs:
           PASSWORD: ${{ secrets.SSH_PASS }}
         with:
           source: "./build"
-          target: "/var/www/ses-dashboard/"
-
-      - name: Executing remote command
-        uses: appleboy/ssh-action@master
-        with:
-          HOST: ${{ secrets.SSH_HOST }}
-          USERNAME: ${{ secrets.SSH_USER }}
-          PORT: ${{ secrets.SSH_PORT }}
-          PASSWORD: ${{ secrets.SSH_PASS }}
-          script: |
-            cd /var/www/ses-dashboard/
-            ls -la
-            cd /var/www/ses-dashboard/build
-            ls -la
-            rm -rf /var/www/ses-dashboard/makerdao-ses-dashboard
-            mkdir /var/www/ses-dashboard/makerdao-ses-dashboard
-            mv /var/www/ses-dashboard/build /var/www/ses-dashboard/makerdao-ses-dashboard/
-            rm -rf /var/www/ses-dashboard/build
+          target: "/var/www/"
