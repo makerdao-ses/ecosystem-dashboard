@@ -10,8 +10,7 @@ import { CutableColumnInitiatives } from '../../components/cutable-column-initia
 import { CutableColumnExpenditures } from '../../components/cutable-column-expenditures/cutable-column-expenditures';
 import { CutableColumnTeamMember } from '../../components/cutable-column-team-member/cutable-column-team-member';
 import { CutableColumnLinks, LinkType } from '../../components/cutable-column-links/cutable-column-links';
-import { Typography } from '@mui/material';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 const statuses = Object.values(CuStatusEnum) as string[];
 const categories = Object.values(CuCategory) as string[];

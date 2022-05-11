@@ -12,7 +12,7 @@ function App() {
       <DashboardWrapper>
         <Routes>
           <Route path={HOME_ROUTE} element={<CUTable/>}/>
-            <Route path={ABOUT_ROUTE} element={<CuAbout />} />
+          <Route path={ABOUT_ROUTE} element={<CuAbout />} />
         </Routes>
       </DashboardWrapper>
     </Router>
