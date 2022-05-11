@@ -84,7 +84,7 @@ export const CUTable = () => {
     <Box
       component="main"
       sx={{
-        px: '12px',
+        px: '32px',
         flexGrow: 1,
         overflow: 'auto',
         mt: 4,
