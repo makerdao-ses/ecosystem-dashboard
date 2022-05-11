@@ -86,7 +86,6 @@ export const CUTable = () => {
       sx={{
         px: '12px',
         flexGrow: 1,
-        height: '100vh',
         overflow: 'auto',
         mt: 4,
         mb: 4
