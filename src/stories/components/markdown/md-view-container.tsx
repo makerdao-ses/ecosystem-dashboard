@@ -1,39 +1,15 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { CircularProgress } from '@mui/material';
-
+import React, { useCallback, useState } from 'react';
 import { marked } from 'marked';
 
 import MdViewerPage, { MarkDownHeaders } from './md-view';
 import makerRender from './renderUtils';
 
 interface Props {
-  url: string;
+  markdown: string;
 }
 
-const MdViewerContainer = ({ url }: Props) => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [markdownText, setMarkdownText] = useState<string>('');
+const MdViewerContainer = ({ markdown }: Props) => {
   const [headersLevel, setHeadersLevel] = useState<MarkDownHeaders[]>([]);
-
-  useEffect(() => {
-    const fetchCreator = async() => {
-      try {
-        setLoading(true);
-        const response = await fetch(url);
-        if (!response.ok) {
-          console.log('firstError', response.status);
-        } else {
-          const parsed = await response.text();
-          setMarkdownText(marked.parse(parsed));
-        }
-        setLoading(false);
-      } catch (error) {
-        console.log('not-found');
-      }
-    };
-    fetchCreator();
-  }, []);
-
   const creatingIndexItems = useCallback(
     (level: number, htmlCleanedText: string, escapedText: string) => {
       const cleanedText = htmlCleanedText
@@ -53,16 +29,13 @@ const MdViewerContainer = ({ url }: Props) => {
     },
     [headersLevel],
   );
+  const parsed = marked.parse(markdown);
   marked.use({
     renderer: makerRender({ forEachHeading: creatingIndexItems }),
   });
-
-  if (loading) return <CircularProgress color="inherit" />;
-
   return (
     <MdViewerPage
-      markdownText={markdownText}
-      mdUrl={markdownText}
+      markdownText={parsed}
       headersLevel={headersLevel}
     />
   );

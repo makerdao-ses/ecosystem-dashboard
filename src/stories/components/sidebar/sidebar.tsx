@@ -19,7 +19,6 @@ interface SidebarProps {
 export const Sidebar = (props: SidebarProps) => {
   const [stack, setStack] = useState<string[]>([]);
   const { hash } = useLocation();
-  console.log('pathname', hash);
 
   useEffect(() => {
     hash && setStack((hash.replace('#', '')).split('/').filter(Boolean));
@@ -75,8 +74,6 @@ const MenuItemsView = ({
   stack, setStack,
   beforeLevel = 0,
 }: MenuItemsViewProps) => {
-  const location = useLocation();
-  console.log('location', location);
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const toggle = useCallback(() => {
   }, []);
