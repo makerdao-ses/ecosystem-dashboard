@@ -4,17 +4,16 @@ import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
 import { CuCategory } from '../../../core/enums/cu-category';
 import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
 import { SearchInput } from '../../components/search-input/search-input';
-import { getEnumValuesForSelect } from '../../../core/utils/enum-utils';
 import { CustomTable } from '../../components/custom-table/custom-table';
 import { CutableColumnSummary } from '../../components/cutable-column-summary/cutable-column-summary';
 import { CutableColumnInitiatives } from '../../components/cutable-column-initiatives/cutable-column-initiatives';
 import { CutableColumnExpenditures } from '../../components/cutable-column-expenditures/cutable-column-expenditures';
 import { CutableColumnTeamMember } from '../../components/cutable-column-team-member/cutable-column-team-member';
 import { CutableColumnLinks, LinkType } from '../../components/cutable-column-links/cutable-column-links';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
-const statuses = getEnumValuesForSelect(CuStatusEnum);
-const categories = getEnumValuesForSelect(CuCategory);
+const statuses = Object.values(CuStatusEnum) as string[];
+const categories = Object.values(CuCategory) as string[];
 const headers = ['Core Units', 'Initiatives', 'Expenditure', 'Team Members', 'Links'];
 
 export const CUTable = () => {
@@ -120,11 +119,11 @@ const Header = styled.div({
   marginBottom: '32px',
 });
 
-const Title = styled.span({
-  fontSize: '2rem',
+const Title = styled(Typography)(() => ({
+  fontSize: '1rem',
   fontWeight: 600,
   flex: 1,
-});
+}));
 
 const Separator = styled.span({
   width: '1px',
