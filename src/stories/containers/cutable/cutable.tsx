@@ -112,7 +112,6 @@ export const CUTable = () => {
 const ContainerHome = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  fontFamily: 'Inter',
 });
 
 const Header = styled.div({

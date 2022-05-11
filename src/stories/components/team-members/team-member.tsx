@@ -25,14 +25,12 @@ const Container = styled.div({
   display: 'flex',
   flex: 1,
   alignItems: 'center',
-  fontFamily: 'Inter',
   fontWeight: 400,
   cursor: 'pointer',
 
 });
 
 const StyleTypography = styled(Typography)`
-font-family:'Inter';
 font-style: normal;
 font-weight: 700;
 font-size: 20px;
@@ -42,7 +40,6 @@ text-decoration:underline;
 `;
 
 const Title = styled(Typography)`
-  font-family:'Inter';
 font-style: normal;
 font-weight: 700;
 font-size: 14px;

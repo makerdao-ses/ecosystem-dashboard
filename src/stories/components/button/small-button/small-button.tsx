@@ -3,13 +3,13 @@ import styled from '@emotion/styled';
 import { Button } from '@mui/material';
 
 interface Props {
-    onClick?: () => void;
-    title?: string;
+  onClick?: () => void;
+  title?: string;
 }
 
 const SmallButton = ({ onClick, title = 'Back' }: Props) => {
   return (
-        <StyledSmallButton onClick={onClick} >{title}</StyledSmallButton>
+    <StyledSmallButton onClick={onClick} >{title}</StyledSmallButton>
   );
 };
 
@@ -20,7 +20,6 @@ flex-direction: row;
 background-color  : #C4C4C4 ;
  min-width: 45px;
 height: 23px;
-font-family: 'Inter';
 font-style: normal;
 font-weight: 700;
 font-size: 12px;

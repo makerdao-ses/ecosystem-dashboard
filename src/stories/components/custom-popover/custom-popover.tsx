@@ -49,7 +49,7 @@ export const CustomPopover = (props: CustomPopoverProps) => {
     onClose={handlePopoverClose}
     disableRestoreFocus
   >
-    <Typography fontFamily={'Inter'} fontSize={10} sx={{ p: 1 }}>{props.title}</Typography>
+    <Typography fontSize={10} sx={{ p: 1 }}>{props.title}</Typography>
     </Popover>
   </React.Fragment>;
 };

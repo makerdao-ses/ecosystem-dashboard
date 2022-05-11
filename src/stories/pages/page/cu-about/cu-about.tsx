@@ -205,7 +205,6 @@ margin-left:32px ;
 `;
 
 const TeamMemberTitle = styled(Typography)`
- font-family: "Inter", sans-serif;
 font-style: normal;
 font-weight: 700;
 font-size: 16px;
@@ -224,7 +223,6 @@ margin-bottom: 32px;
 
 `;
 const ContactInfoTitle = styled(Typography)`
-font-family: "Inter", sans-serif;
 font-style: normal;
 font-weight: 700;
 font-size: 14px;
@@ -257,7 +255,6 @@ flex-direction: column;
 `;
 
 const TitleRelateMips = styled.div`
-  font-family: 'Inter';
 font-style: normal;
 font-weight: 700;
 font-size: 16px;

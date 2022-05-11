@@ -37,5 +37,4 @@ const Placeholder = styled.div({
   justifyContent: 'center',
   width: '100%',
   height: '600px',
-  fontFamily: 'Inter'
 });
