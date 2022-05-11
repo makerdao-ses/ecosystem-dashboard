@@ -1,58 +1,30 @@
-import React from 'react';
-import Toolbar from '@mui/material/Toolbar';
-import Logo from '../svg/logo';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import Toggle from '../svg/toggle';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { List } from '@mui/material';
 import Divider from '@mui/material/Divider';
-import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import BatchPredictionIcon from '@mui/icons-material/BatchPrediction';
-import PaidIcon from '@mui/icons-material/Paid';
-import PeopleIcon from '@mui/icons-material/People';
-import { styled } from '@mui/material/styles';
-import MuiDrawer from '@mui/material/Drawer';
-
-const drawerWidth = 260;
-
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    '& .MuiDrawer-paper': {
-      position: 'relative',
-      whiteSpace: 'nowrap',
-      width: drawerWidth,
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      boxSizing: 'border-box',
-      ...(!open && {
-        overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: 0,
-        [theme.breakpoints.up('sm')]: {
-          width: 0,
-        },
-      }),
-    },
-  }),
-);
-
-const CustomListItemIcon = styled(ListItemIcon)({
-  minWidth: '24px',
-  marginRight: '10px',
-  marginLeft: '16px',
-});
-
+import IconButton from '@mui/material/IconButton';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import { useLocation, useNavigate } from 'react-router-dom';
+import Logo from '../svg/logo';
+import Toggle from '../svg/toggle';
+import Drawer from './drawer';
+import { menuItems } from './menu';
+import ItemMenu from './menuItem';
+import './sidebar.scss';
 interface SidebarProps {
   toggleDrawer: () => void,
   open: boolean
 }
 
 export const Sidebar = (props: SidebarProps) => {
+  const [stack, setStack] = useState<string[]>([]);
+  const { hash } = useLocation();
+  console.log('pathname', hash);
+
+  useEffect(() => {
+    hash && setStack((hash.replace('#', '')).split('/').filter(Boolean));
+  }, [hash]);
+
   return (<Drawer variant="permanent" open={props.open}>
     <Toolbar
       sx={{
@@ -67,38 +39,91 @@ export const Sidebar = (props: SidebarProps) => {
       <Logo style={{ marginLeft: '8px' }}/>
       <Typography sx={{ flexGrow: 1, ml: 2 }}/>
       <IconButton onClick={props.toggleDrawer}>
-        <Toggle fill={'white'}/>
+        <Toggle fill={'white'} />
       </IconButton>
     </Toolbar>
-    <Divider/>
+    <Divider />
     <Typography sx={{ margin: '40px 32px 24px 32px' }}>
       MakerDAO
     </Typography>
     <List component="nav">
-      <ListItemButton>
-        <CustomListItemIcon>
-          <DashboardIcon/>
-        </CustomListItemIcon>
-        <ListItemText primary="Core Units" sx={{ py: 2 }}/>
-      </ListItemButton>
-      <ListItemButton>
-        <CustomListItemIcon>
-          <BatchPredictionIcon/>
-        </CustomListItemIcon>
-        <ListItemText primary="Strategic Initiatives" sx={{ py: 2 }}/>
-      </ListItemButton>
-      <ListItemButton>
-        <CustomListItemIcon>
-          <PaidIcon/>
-        </CustomListItemIcon>
-        <ListItemText primary="Finances" sx={{ py: 2 }}/>
-      </ListItemButton>
-      <ListItemButton>
-        <CustomListItemIcon>
-          <PeopleIcon/>
-        </CustomListItemIcon>
-        <ListItemText primary="People" sx={{ py: 2 }}/>
-      </ListItemButton>
+      {menuItems.map((item, index) => (
+        <MenuItemsView menus={item} key={index} stack={stack} setStack={setStack} />
+      ))}
+
     </List>
   </Drawer>);
+};
+
+type MenuType = {
+  title: string,
+  id: string,
+  expanded?: boolean,
+  icon?: JSX.Element,
+  items?: MenuType[],
+}
+
+type MenuItemsViewProps = {
+  menus: MenuType;
+  beforeLevel?: number;
+  stack: string[];
+  setStack: (value: string[]) => void;
+};
+
+const MenuItemsView = ({
+  menus: { title, items = [], icon, id },
+  stack, setStack,
+  beforeLevel = 0,
+}: MenuItemsViewProps) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  console.log('location', location);
+  const toggle = useCallback(() => {
+    const lastIndex = stack.indexOf(id);
+    let newStack = [];
+    if (stack.includes(id)) {
+      newStack = [...stack].splice(0, lastIndex + 1);
+    } else {
+      newStack = [...stack, id];
+    }
+    // const newStack = stack.includes(id) ? stack.filter((item) => item !== id) : [...stack, id];
+    setStack(newStack);
+    navigate(`#${newStack.join('/')}`);
+  }, [stack, id, navigate]);
+
+  const isOpen = useMemo(() => {
+    return stack.includes(id);
+  }, [stack, id]);
+
+  const isCurrent = useMemo(() => {
+    return stack && stack[stack.length - 1] === id;
+  }, [stack, id]);
+
+  return (
+    <ul>
+      <div
+        style={{
+          marginLeft: `${beforeLevel * 10}px`,
+          textDecoration: isCurrent ? 'underline' : 'none',
+        }}
+      >
+        <ItemMenu
+          title={title}
+          id={id || '#'}
+          icon={icon}
+          onClick={toggle}
+        />
+      </div>
+      {
+        isOpen && !!items.length && items.map((menu) => (
+          <MenuItemsView
+            menus={menu}
+            key={Math.random()}
+            beforeLevel={beforeLevel + 1}
+            stack={stack}
+            setStack={setStack}
+          />
+        ))}
+    </ul>
+  );
 };

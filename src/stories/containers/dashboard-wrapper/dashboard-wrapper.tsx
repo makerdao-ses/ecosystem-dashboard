@@ -3,7 +3,6 @@ import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Container from '@mui/material/Container';
 import mainTheme from '../../../core/styling/main-theme';
 import { Sidebar } from '../../components/sidebar/sidebar';
 import TopBar from '../../components/topbar/topbar';
@@ -33,13 +32,10 @@ export const DashboardWrapper = (props: DashboardWrapperProps) => {
             flexGrow: 1,
             height: '100vh',
             overflow: 'auto',
-            px: '12px'
           }}
         >
           <Toolbar />
-          <Container maxWidth={false} sx={{ mt: 4, mb: 4 }}>
             {props.children}
-          </Container>
         </Box>
       </Box>
     </ThemeProvider>

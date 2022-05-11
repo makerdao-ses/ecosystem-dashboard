@@ -7,6 +7,7 @@ import Discord from '../svg/discord';
 import Youtube from '../svg/youtube';
 import Twitter from '../svg/twitter';
 import LinkedIn from '../svg/linkedin';
+import Gmail from '../svg/gmail';
 
 export enum LinkType {
   WWW = 'Website',
@@ -15,33 +16,39 @@ export enum LinkType {
   Twitter = 'Twitter',
   Youtube = 'Youtube',
   LinkedIn = 'LinkedIn',
+  Gmail = 'Gmail',
 }
 
 export interface LinkModel {
   href: string,
-  linkType: LinkType
+  linkType: LinkType,
 }
 
 interface CutableColumnLinksProps {
   links: LinkModel[]
+  width?: number,
+  height?: number;
+  dark?: boolean;
 }
 
-const getImageForLink = (link: LinkModel) => {
+const getImageForLink = (link: LinkModel, dark?: boolean) => {
   switch (link.linkType) {
     case LinkType.WWW:
-      return <WWW/>;
+      return <WWW fill={dark ? '#626472' : '#C4C4C4'} />;
     case LinkType.Forum:
-      return <Forum/>;
+      return <Forum fill={dark ? '#626472' : '#C4C4C4'} />;
     case LinkType.Discord:
-      return <Discord/>;
+      return <Discord fill={dark ? '#626472' : '#C4C4C4'} />;
     case LinkType.Twitter:
-      return <Twitter/>;
+      return <Twitter fill={dark ? '#626472' : '#C4C4C4'} />;
     case LinkType.Youtube:
-      return <Youtube/>;
+      return <Youtube fill={dark ? '#626472' : '#C4C4C4'} />;
     case LinkType.LinkedIn:
-      return <LinkedIn/>;
+      return <LinkedIn fill={dark ? '#626472' : '#C4C4C4'} />;
+    case LinkType.Gmail:
+      return <Gmail fill={dark ? '#626472' : '#C4C4C4'} />;
     default:
-      return <WWW/>;
+      return <WWW />;
   }
 };
 
@@ -49,8 +56,8 @@ export const CutableColumnLinks = (props: CutableColumnLinksProps) => {
   return <Container>
     {props.links.map((link, i) => <CustomPopover key={`link-${i}`} title={link.linkType} id={`link-${i}`}>
       <LinkImage href={link.href} target="_blank">
-      {getImageForLink(link)}
-    </LinkImage>
+        {getImageForLink(link, props.dark)}
+      </LinkImage>
     </CustomPopover>)}
   </Container>;
 };
