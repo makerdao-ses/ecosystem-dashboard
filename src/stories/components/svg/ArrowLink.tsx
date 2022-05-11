@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 import * as React from 'react';
 interface Props {
     width?: number;
@@ -7,7 +6,7 @@ interface Props {
 }
 
 const ArrowLink = ({ width = 12, height = 16, href, ...props }: Props) => {
-    return (
+  return (
         <a href={href}>
             <svg
                 width={width}

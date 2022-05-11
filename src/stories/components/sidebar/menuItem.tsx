@@ -1,8 +1,6 @@
-/* eslint-disable */
 import React from 'react';
 import styled from '@emotion/styled';
 import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
-
 
 interface Props {
     title: string;
@@ -12,21 +10,20 @@ interface Props {
 }
 
 const ItemMenu = ({ title, id, onClick, icon }: Props) => {
-    return (
+  return (
         <ListItemButton onClick={onClick} id={id}>
             <CustomListItemIcon>
                 {icon}
             </CustomListItemIcon>
             <TitleIcon primary={title} />
         </ListItemButton>
-    );
+  );
 };
 
-
 const CustomListItemIcon = styled(ListItemIcon)({
-    minWidth: '24px',
-    marginRight: '10px',
-    marginLeft: '16px',
+  minWidth: '24px',
+  marginRight: '10px',
+  marginLeft: '16px',
 });
 
 const TitleIcon = styled(ListItemText)`

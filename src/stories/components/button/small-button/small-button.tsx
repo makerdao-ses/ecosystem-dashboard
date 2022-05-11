@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 import React from 'react';
 import styled from '@emotion/styled';
 import { Button } from '@mui/material';
@@ -9,9 +8,9 @@ interface Props {
 }
 
 const SmallButton = ({ onClick, title = 'Back' }: Props) => {
-    return (
+  return (
         <StyledSmallButton onClick={onClick} >{title}</StyledSmallButton>
-    );
+  );
 };
 
 const StyledSmallButton = styled(Button)`
