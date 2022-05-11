@@ -4,7 +4,7 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Logo from '../svg/logo';
 import Toggle from '../svg/toggle';
 import Drawer from './drawer';
@@ -36,8 +36,8 @@ export const Sidebar = (props: SidebarProps) => {
         pr: 2,
       }}
     >
-      <Logo style={{ marginLeft: '8px' }}/>
-      <Typography sx={{ flexGrow: 1, ml: 2 }}/>
+      <Logo style={{ marginLeft: '8px' }} />
+      <Typography sx={{ flexGrow: 1, ml: 2 }} />
       <IconButton onClick={props.toggleDrawer}>
         <Toggle fill={'white'} />
       </IconButton>
@@ -75,21 +75,11 @@ const MenuItemsView = ({
   stack, setStack,
   beforeLevel = 0,
 }: MenuItemsViewProps) => {
-  const navigate = useNavigate();
   const location = useLocation();
   console.log('location', location);
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   const toggle = useCallback(() => {
-    const lastIndex = stack.indexOf(id);
-    let newStack = [];
-    if (stack.includes(id)) {
-      newStack = [...stack].splice(0, lastIndex + 1);
-    } else {
-      newStack = [...stack, id];
-    }
-    // const newStack = stack.includes(id) ? stack.filter((item) => item !== id) : [...stack, id];
-    setStack(newStack);
-    navigate(`#${newStack.join('/')}`);
-  }, [stack, id, navigate]);
+  }, []);
 
   const isOpen = useMemo(() => {
     return stack.includes(id);
