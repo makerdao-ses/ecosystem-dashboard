@@ -13,6 +13,7 @@ interface HeaderProps {
   onCreateAccount: () => void;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const Header = ({ user, onLogin, onLogout, onCreateAccount }: HeaderProps) => (
   <header>
     <div className="wrapper">

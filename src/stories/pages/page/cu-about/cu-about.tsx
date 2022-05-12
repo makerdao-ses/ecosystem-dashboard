@@ -13,7 +13,7 @@ import BigButton from '../../../components/button/big-button/big-button';
 import { CuStatusEnum } from '../../../../core/enums/cu-status-enum';
 
 const CuAbout = () => {
-  const url = 'https://raw.githubusercontent.com/mact200590/Proyectos/master/example.md';
+  const markdownText = 'https://raw.githubusercontent.com/mact200590/Proyectos/master/example.md';
   const handleClickPrevious = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     () => {
@@ -123,7 +123,7 @@ const CuAbout = () => {
         <TitleNavigationCuAbout status={CuStatusEnum.Accepted} title='Sustainable Ecosystem Scaling' statusModified={new Date()} links={links} />
       </ContainerTitle>
       <MarkdownContainer>
-        <MdViewerContainer url={url} />
+        <MdViewerContainer markdown={markdownText} />
       </MarkdownContainer>
       <TeamMemberContainer>
         <TeamMemberTitle>Team Size</TeamMemberTitle><TeamMember fte={7.5} />
