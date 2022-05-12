@@ -12,7 +12,6 @@ export type MarkDownHeaders = {
 
 interface Props {
     markdownText: string;
-    mdUrl?: string;
     headersLevel: MarkDownHeaders[];
 }
 
