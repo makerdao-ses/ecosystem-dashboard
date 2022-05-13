@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../../core/store/store';
+import { CoreUnitDAO, fetchCoreUnits } from './cutable.api';
 
 export interface CuTableState {
-  items: [],
+  items: CoreUnitDAO[],
   status: string,
 }
 
@@ -11,16 +12,10 @@ const initialState: CuTableState = {
   status: 'idle',
 };
 
-const fetchItems = async() => {
-  return ['one', 'two', 'three', 'four', 'five'];
-};
-
 export const loadAsync = createAsyncThunk(
   'cuTable/loadItems',
   async() => {
-    const response = await fetchItems();
-
-    return response;
+    return await fetchCoreUnits();
   }
 );
 

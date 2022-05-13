@@ -1,8 +1,9 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import TitleNavigationCuAbout from './title-navigation-cu-about';
-import { LinkModel, LinkType } from '../cutable-column-links/cutable-column-links';
-import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
+import { LinkModel } from '../cutable-column-links/cutable-column-links';
+import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
+import { LinkType } from '../../../core/enums/link-type.enum';
 
 export default {
   title: 'Components/CUAbout/TitleNavigationCuAbout',

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { LinkType } from '../../../core/enums/link-type.enum';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import WWW from '../svg/www';
 import Forum from '../svg/forum';
@@ -8,16 +9,6 @@ import Youtube from '../svg/youtube';
 import Twitter from '../svg/twitter';
 import LinkedIn from '../svg/linkedin';
 import Gmail from '../svg/gmail';
-
-export enum LinkType {
-  WWW = 'Website',
-  Forum = 'Forum',
-  Discord = 'Discord',
-  Twitter = 'Twitter',
-  Youtube = 'Youtube',
-  LinkedIn = 'LinkedIn',
-  Gmail = 'Gmail',
-}
 
 export interface LinkModel {
   href: string,

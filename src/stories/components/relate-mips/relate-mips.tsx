@@ -5,7 +5,7 @@ import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import ArrowLink from '../svg/ArrowLink';
 import { getMipTitle } from '../../../core/utils/string-utils';
-import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
+import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 
 export type RelateMipType = {
   status: CuStatusEnum,

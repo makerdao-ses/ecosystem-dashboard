@@ -7,12 +7,12 @@ import { getColorForString } from '../../../core/utils/color-utils';
 import './cutable-column-team-member.scss';
 import { CustomPopover } from '../custom-popover/custom-popover';
 
-export interface Member {
+export interface FacilitatorModel {
   name: string
 }
 
 interface CutableColumnTeamMemberProps {
-  members: Member[],
+  members: FacilitatorModel[],
   fte: number,
 }
 
@@ -63,7 +63,7 @@ const MemberInfoContainer = styled.div({
   alignItems: 'center'
 });
 
-const MemberInfo = (props: { member: Member }) => {
+const MemberInfo = (props: { member: FacilitatorModel }) => {
   return <MemberInfoContainer>
     <Avatar
       sx={{ width: '32px', height: '32px', backgroundColor: getColorForString(props.member.name), fontSize: '1rem', marginRight: '8px' }}

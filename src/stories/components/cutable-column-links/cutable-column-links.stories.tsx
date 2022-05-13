@@ -1,6 +1,7 @@
 import React from 'react';
-import { CutableColumnLinks, LinkType } from './cutable-column-links';
+import { CutableColumnLinks } from './cutable-column-links';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { LinkType } from '../../../core/enums/link-type.enum';
 
 export default {
   title: 'Components/CUTable/ColumnLinks',

@@ -5,13 +5,13 @@ import { getColorForString } from '../../../core/utils/color-utils';
 import { getTwoInitials } from '../../../core/utils/string-utils';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
-import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
+import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 
 interface CutableColumnSummaryProps {
   title: string,
   imageUrl?: string,
   status?: CuStatusEnum,
-  statusModified?: Date,
+  statusModified?: Date | null,
 }
 
 export const CutableColumnSummary = (props: CutableColumnSummaryProps) => {

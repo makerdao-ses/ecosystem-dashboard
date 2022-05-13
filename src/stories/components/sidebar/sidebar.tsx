@@ -19,7 +19,6 @@ interface SidebarProps {
 export const Sidebar = (props: SidebarProps) => {
   const [stack, setStack] = useState<string[]>([]);
   const { hash } = useLocation();
-  console.log('pathname', hash);
 
   useEffect(() => {
     hash && setStack((hash.replace('#', '')).split('/').filter(Boolean));
@@ -76,8 +75,6 @@ const MenuItemsView = ({
   beforeLevel = 0,
 }: MenuItemsViewProps) => {
   const navigate = useNavigate();
-  const location = useLocation();
-  console.log('location', location);
   const toggle = useCallback(() => {
     const lastIndex = stack.indexOf(id);
     let newStack = [];

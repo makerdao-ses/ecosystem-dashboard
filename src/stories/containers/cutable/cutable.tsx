@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 import styled from '@emotion/styled';
-import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
+import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { CuCategory } from '../../../core/enums/cu-category';
 import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
 import { SearchInput } from '../../components/search-input/search-input';
@@ -9,76 +9,71 @@ import { CutableColumnSummary } from '../../components/cutable-column-summary/cu
 import { CutableColumnInitiatives } from '../../components/cutable-column-initiatives/cutable-column-initiatives';
 import { CutableColumnExpenditures } from '../../components/cutable-column-expenditures/cutable-column-expenditures';
 import { CutableColumnTeamMember } from '../../components/cutable-column-team-member/cutable-column-team-member';
-import { CutableColumnLinks, LinkType } from '../../components/cutable-column-links/cutable-column-links';
+import { CutableColumnLinks } from '../../components/cutable-column-links/cutable-column-links';
 import { Box, Typography } from '@mui/material';
+import {
+  CoreUnitDAO,
+  countInitiativesFromCoreUnit,
+  getFacilitatorsFromCoreUnit,
+  getFTEsFromCoreUnit,
+  getLinksFromCoreUnit,
+  getMipFromCoreUnit,
+  getSubmissionDateFromCuMip
+} from './cutable.api';
+import { useAppDispatch } from '../../../core/hooks/hooks';
+import { loadAsync, selectCuTableItems } from './cutable.slice';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../core/store/store';
 
 const statuses = Object.values(CuStatusEnum) as string[];
 const categories = Object.values(CuCategory) as string[];
 const headers = ['Core Units', 'Initiatives', 'Expenditure', 'Team Members', 'Links'];
 
 export const CUTable = () => {
-  const items = ['one', 'two', ['three']];
+  const data = useSelector((state: RootState) => selectCuTableItems(state));
+  const dispatch = useAppDispatch();
 
-  const getItems = () => {
-    return items.map(() => [
-      // eslint-disable-next-line react/jsx-key
-      <CutableColumnSummary
-        title="SES Sustainable Ecosystem Scaling"
-        status={CuStatusEnum.Accepted}
-        statusModified={new Date()}
-        imageUrl="https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/53/92/77/53927729-28a4-b94a-40d9-9abbc9583078/source/512x512bb.jpg"
-      />,
-      // eslint-disable-next-line react/jsx-key
-      <CutableColumnInitiatives
-        initiatives={3}
-      />,
-      // eslint-disable-next-line react/jsx-key
-      <CutableColumnExpenditures
-        value={16500}
-        percent={120}
-        items={[{ value: 55 }, { value: 90 }, { value: 120 }]}
-        budgetCap={100}
-      />,
-      // eslint-disable-next-line react/jsx-key
-      <CutableColumnTeamMember
-        members={[
-          { name: 'John Doe' },
-          { name: 'Billy Ferguson' },
-          { name: 'Jackie Chang' },
-        ]}
-        fte={3.5}
-      />,
-      // eslint-disable-next-line react/jsx-key
-      <CutableColumnLinks
-        links={[
-          {
-            linkType: LinkType.WWW,
-            href: '#',
-          },
-          {
-            linkType: LinkType.Forum,
-            href: '#',
-          },
-          {
-            linkType: LinkType.Discord,
-            href: '#',
-          },
-          {
-            linkType: LinkType.Twitter,
-            href: '#',
-          },
-          {
-            linkType: LinkType.Youtube,
-            href: '#',
-          },
-          {
-            linkType: LinkType.LinkedIn,
-            href: '#',
-          },
-        ]}
-      />
-    ]);
-  };
+  useEffect(() => {
+    dispatch(loadAsync());
+  }, []);
+
+  const items = useMemo(() => {
+    if (!data) return [];
+    console.log(data);
+    return data.map((coreUnit: CoreUnitDAO, i: number) => {
+      return [
+        <CutableColumnSummary
+          key={`summary-${i}`}
+          title={coreUnit.name}
+          status={getMipFromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum }
+          statusModified={getSubmissionDateFromCuMip(getMipFromCoreUnit(coreUnit))}
+          imageUrl={coreUnit.image}
+        />,
+        <CutableColumnInitiatives
+          key={`initiatives-${i}`}
+          initiatives={countInitiativesFromCoreUnit(coreUnit)}
+        />,
+        <CutableColumnExpenditures
+          key={`expenditures-${i}`}
+          value={16500}
+          percent={120}
+          items={[{ value: 55 }, { value: 90 }, { value: 120 }]}
+          budgetCap={100}
+        />,
+        <CutableColumnTeamMember
+          key={`teammember-${i}`}
+          members={
+            getFacilitatorsFromCoreUnit(coreUnit)
+          }
+          fte={getFTEsFromCoreUnit(coreUnit)}
+        />,
+        <CutableColumnLinks
+          key={`links-${i}`}
+          links={getLinksFromCoreUnit(coreUnit)}
+        />
+      ];
+    });
+  }, [data]);
 
   return <ContainerHome>
     <Box
@@ -100,7 +95,7 @@ export const CUTable = () => {
       </Header>
       <CustomTable
         headers={headers}
-        items={getItems()}
+        items={items}
         headersAlign={['left', 'center', 'left', 'left', 'left']}
       />
     </Box >

@@ -2,9 +2,10 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import CuAbout from './cu-about';
 import { CardInfoMemberType } from '../../../components/card-info-member/card-info-member';
-import { LinkModel, LinkType } from '../../../components/cutable-column-links/cutable-column-links';
+import { LinkModel } from '../../../components/cutable-column-links/cutable-column-links';
 import { RelateMipType } from '../../../components/relate-mips/relate-mips';
-import { CuStatusEnum } from '../../../../core/enums/cu-status-enum';
+import { CuStatusEnum } from '../../../../core/enums/cu-status.enum';
+import {LinkType} from "../../../../core/enums/link-type.enum";
 
 export default {
   title: 'Pages/CuAbout',

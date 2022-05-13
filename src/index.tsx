@@ -5,42 +5,17 @@ import { store } from './core/store/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  gql
-} from '@apollo/client';
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
-const client = new ApolloClient({
-  uri: 'https://48p1r2roz4.sse.codesandbox.io',
-  cache: new InMemoryCache()
-});
-
-client
-  .query({
-    query: gql`
-      query GetRates {
-        rates(currency: "USD") {
-          currency
-        }
-      }
-    `
-  })
-  .then(result => console.log(result));
-
 root.render(
-    <React.StrictMode>
-        <ApolloProvider client={client}>
-            <Provider store={store}>
-                <App/>
-            </Provider>
-        </ApolloProvider>
-    </React.StrictMode>
+  <React.StrictMode>
+    <Provider store={store}>
+      <App/>
+    </Provider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

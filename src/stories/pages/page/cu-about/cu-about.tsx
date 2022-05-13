@@ -3,14 +3,15 @@ import styled from '@emotion/styled';
 import { Divider, Typography } from '@mui/material';
 import SmallButton from '../../../components/button/small-button/small-button';
 import CardInfoMember, { CardInfoMemberType } from '../../../components/card-info-member/card-info-member';
-import { LinkModel, LinkType } from '../../../components/cutable-column-links/cutable-column-links';
+import { LinkModel } from '../../../components/cutable-column-links/cutable-column-links';
 import MdViewerContainer from '../../../components/markdown/md-view-container';
 import InsidePagination from '../../../components/pagination/InsidePagination';
 import TeamMember from '../../../components/team-members/team-member';
 import TitleNavigationCuAbout from '../../../components/title-navigation-cu-about/title-navigation-cu-about';
 import RelateMips, { RelateMipType } from '../../../components/relate-mips/relate-mips';
 import BigButton from '../../../components/button/big-button/big-button';
-import { CuStatusEnum } from '../../../../core/enums/cu-status-enum';
+import { CuStatusEnum } from '../../../../core/enums/cu-status.enum';
+import { LinkType } from '../../../../core/enums/link-type.enum';
 
 const CuAbout = () => {
   const url = 'https://raw.githubusercontent.com/mact200590/Proyectos/master/example.md';

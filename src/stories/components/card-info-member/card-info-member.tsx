@@ -2,8 +2,9 @@
 import React from 'react';
 import { Avatar, Box, Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
 import styled from '@emotion/styled';
-import { CutableColumnLinks, LinkModel, LinkType } from '../cutable-column-links/cutable-column-links';
+import { CutableColumnLinks, LinkModel } from '../cutable-column-links/cutable-column-links';
 import { getTwoInitials } from '../../../core/utils/string-utils';
+import { LinkType } from '../../../core/enums/link-type.enum';
 
 export type CardInfoMemberType = {
   avatar?: string;
