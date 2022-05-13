@@ -34,6 +34,9 @@ const makerRender = ({
   paragraph(text: string) {
     return `<p class='paragraph'>${text}</p>`;
   },
+  code(src: string) {
+    return `<code class='tag-code'>${src} </code>`;
+  },
 });
 
 export default makerRender;

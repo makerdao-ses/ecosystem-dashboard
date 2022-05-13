@@ -9,29 +9,13 @@ export default {
 
 const Template: ComponentStory<typeof MdViewerContainer> = (args) => <MdViewerContainer {...args} />;
 
-const markdownText = `### About Sustainable Ecosystem Scaling Core Unit
-Sustainable Ecosystem Scaling
-
-### What we do
-
-#### Mission  
-
-
-Sustainably grow the Maker Protocol's moats by systematically removing barriers between the decentralized workforce, capital, and work.      
-
-### Vision
-
-To support a decentralized, effective, and scalable economy on top of the Maker Protocol that continues to push forward its growth in a sustainable manner.
-
-This decentralized, effective, and scalable economy:
-Has the best and most successful onboarding experience for new participants, with the highest retention rate in the industry.
-Allows everyone to find the capital they need to work on the best projects which (1) optimally drive protocol growth and (2) are most fulfilling for its participants.
-Has resilient safety mechanisms in place that prevent protocol failure while leaving ample space for rapid innovation and experimentation.
-
-
-![The San Juan Mountains are beautiful!](https://ownsnap.com/wp-content/uploads/2021/10/dao1-1170x658-1.jpg "San Juan Mountains")`;
+const sentenceDescription = 'SES aims to sustainably grow the Maker Protocol’s moats by removing barriers between decentralized workforce, capital, and work.';
+const paragraphDescription = '**Vision**\n    \n    An effective, decentralized, and scalable ecosystem:\n    \n    1. The industry’s best on-boarding experience and retention rate\n    2. Easy to find the capital needed for the best projects to work on:\n        1. Optimal driving force for protocol growth\n        2. Most fulfilling for the project’s participants\n    3. Resilient safety mechanisms\n        1. Preventing protocol failure\n        2. Allow for rapid innovation and experimentation\n \n **Strategy**\n \n    - Opportunity & Risk Assessment\n        - Engage with the different DAO stakeholders and keep an open backlog accessible to the broader Community.\n        - Prioritize issues based on importance and risk and build a Road Map to tackle these issues.\n    - Research\n        - Research the opportunities and issues, with a data-centric approach.\n        - Explore solutions and frameworks that produce high-quality, repeatable results.\n    - Incubate\n        - Set groups for success into becoming a functional Core Unit answering a specific need for the DAO. Guide and support them through the process.\n        - Feedback the research through continuous improvement to accelerate the scale and improve the success rate of new Core Units.';
+const paragraphImage = 'https://gateway-proxy-bee-9-0.gateway.ethswarm.org/bzz/1fe299c01206d1d422cf79a60ea49b8a77b04382f8d25745842eb2a199eb4389';
 
 export const Default = Template.bind({});
 Default.args = {
-  markdown: markdownText
+  sentenceDescription,
+  paragraphDescription,
+  paragraphImage,
 };
