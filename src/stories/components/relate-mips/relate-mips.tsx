@@ -4,46 +4,51 @@ import { Chip, Typography } from '@mui/material';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import ArrowLink from '../svg/ArrowLink';
-import { getMipTitle } from '../../../core/utils/string-utils';
-import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
-
-export type RelateMipType = {
-  status: CuStatusEnum,
-  statusModified: Date,
-  mipTitle?: string
-  href: string
-}
+import { CuMipStatus, RelateMipsCuAbout } from '../../containers/cu-about/cu-about.api';
 
 interface Props {
-  relateMips: RelateMipType
+  relateMips: RelateMipsCuAbout
 }
 
-const RelateMips = ({ relateMips: { status, statusModified, href, mipTitle } }: Props) => {
-  const pieces = getMipTitle(mipTitle || '') || [];
+const RelateMips = ({ relateMips }: Props) => {
+  const getMipsStatus = (mip: RelateMipsCuAbout) => {
+    switch (mip.mipStatus) {
+      case CuMipStatus.Accepted:
+        return relateMips.accepted;
+      case CuMipStatus.Obsolete:
+        return relateMips.obsolete;
+      case CuMipStatus.FORMAL:
+        return relateMips.formalSubmission;
+      case CuMipStatus.Rejected:
+        return relateMips.rejected;
+      case CuMipStatus.RFC:
+        return relateMips.rfc;
+      default:
+        return relateMips.rejected;
+    }
+  };
   return (
     <Content>
       <Row>
-        {status && <Chip size={'small'} sx={{ borderRadius: '8px', borderColor: '#25273D' }} label={status} variant={'outlined'} />}
-        {statusModified && <CustomPopover
+        {relateMips.mipStatus && <Chip size={'small'} sx={{ borderRadius: '8px', borderColor: '#25273D' }} label={relateMips.mipStatus} variant={'outlined'} />}
+        {relateMips.mipStatus && <CustomPopover
           id={'mouse-over-popover-goto'}
           title={'Go to MIPs Portal'}
         >
           <SinceDate
-            href={'#'}
+            href={relateMips.mipUrl}
           >
-            Since {DateTime.fromJSDate(statusModified).toFormat('d-MMM-y').toUpperCase()}
+            Since {DateTime.fromJSDate(new Date(getMipsStatus(relateMips) || '')).toFormat('d-MMM-y')}
           </SinceDate>
         </CustomPopover>}
       </Row>
       <RowUnderLine>
-        {pieces[0] ? <Typography color='#000000' fontSize={12} fontWeight={600}>{`${pieces[0]}:`}</Typography> : null}
-        {pieces[1] ? <Typography color='#000000' fontSize={12} sx={{ marginRight: '8px' }}>{` ${pieces[1]}`} </Typography> : null}
-        {!!href && <ArrowLink href={`${href}` || '#'} />}
+        <Typography color='#000000' fontSize={12} fontWeight={600}>{relateMips.mipTitle}</Typography>
+        {!!relateMips.mipUrl && <ArrowLink href={`${relateMips.mipUrl}` || '#'} />}
       </RowUnderLine>
     </Content>
   );
 };
-
 export default RelateMips;
 const Content = styled.div({
   display: 'flex',

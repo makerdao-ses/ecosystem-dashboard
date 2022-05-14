@@ -4,16 +4,16 @@ import { Chip, Typography } from '@mui/material';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { CutableColumnLinks, LinkModel } from '../cutable-column-links/cutable-column-links';
-import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
+import { CuMipStatus } from '../../containers/cu-about/cu-about.api';
 
 interface Props {
-  title: string
-  status: CuStatusEnum,
+  title: string,
+  mipStatus: CuMipStatus,
   statusModified: Date,
-  links?: LinkModel[]
+  links: LinkModel[]
 }
 
-export const TitleNavigationCuAbout = ({ title, status, statusModified, links = [] }: Props) => {
+export const TitleNavigationCuAbout = ({ title, mipStatus, statusModified, links }: Props) => {
   return (
     <Container>
       <ContainerTitle>
@@ -22,7 +22,7 @@ export const TitleNavigationCuAbout = ({ title, status, statusModified, links = 
         <TypographyTitle>{title}</TypographyTitle>
 
         <Row>
-          {status && <Chip size={'small'} sx={{ borderRadius: '8px', borderColor: '#25273D' }} label={status} variant={'outlined'} />}
+          {mipStatus && <Chip size={'small'} sx={{ borderRadius: '8px', borderColor: '#25273D' }} label={mipStatus} variant={'outlined'} />}
           {statusModified && <CustomPopover
             id={'mouse-over-popover-goto'}
             title={'Go to MIPs Portal'}

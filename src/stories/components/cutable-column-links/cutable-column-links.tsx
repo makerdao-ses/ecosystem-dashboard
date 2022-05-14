@@ -31,7 +31,7 @@ interface CutableColumnLinksProps {
   dark?: boolean;
 }
 
-const getImageForLink = (link: LinkModel, dark?: boolean) => {
+const getImageForLink = (link: LinkModel, dark = false) => {
   switch (link.linkType) {
     case LinkType.WWW:
       return <WWW fill={dark ? '#626472' : '#C4C4C4'} />;
@@ -54,12 +54,12 @@ const getImageForLink = (link: LinkModel, dark?: boolean) => {
 
 export const CutableColumnLinks = (props: CutableColumnLinksProps) => {
   return <Container>
-    {props.links.map((link, i) => <CustomPopover key={`link-${i}`} title={link.linkType} id={`link-${i}`}>
-      <LinkImage href={link.href} target="_blank">
-        {getImageForLink(link, props.dark)}
-      </LinkImage>
-    </CustomPopover>)}
-  </Container>;
+  {props.links.map((link, i) => <CustomPopover key={`link-${i}`} title={link.linkType} id={`link-${i}`}>
+    <LinkImage href={link.href} target="_blank">
+      {getImageForLink(link, props.dark)}
+    </LinkImage>
+  </CustomPopover>)}
+</Container>;
 };
 
 const Container = styled.div({
@@ -67,10 +67,10 @@ const Container = styled.div({
   alignItems: 'center'
 });
 
-const LinkImage = styled.a({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: '32px',
-  height: '32px',
-});
+const LinkImage = styled.a`
+display:flex ;
+align-items: center;
+justify-content: center;
+width: 32px;
+height: 32px;
+`;
