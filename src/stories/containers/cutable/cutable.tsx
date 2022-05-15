@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import styled from '@emotion/styled';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
-import { CuCategory } from '../../../core/enums/cu-category';
+import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
 import { SearchInput } from '../../components/search-input/search-input';
 import { CustomTable } from '../../components/custom-table/custom-table';
@@ -26,7 +26,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../core/store/store';
 
 const statuses = Object.values(CuStatusEnum) as string[];
-const categories = Object.values(CuCategory) as string[];
+const categories = Object.values(CuCategoryEnum) as string[];
 const headers = ['Core Units', 'Initiatives', 'Expenditure', 'Team Members', 'Links'];
 
 export const CUTable = () => {

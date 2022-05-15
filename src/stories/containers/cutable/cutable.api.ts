@@ -1,7 +1,7 @@
 import { gql, request } from 'graphql-request';
 import { GraphQLEndpoint } from '../../../config/endpoints';
 import { DateTime } from 'luxon';
-import { LinkType } from '../../../core/enums/link-type.enum';
+import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
 import { LinkModel } from '../../components/cutable-column-links/cutable-column-links';
 import { FacilitatorModel } from '../../components/cutable-column-team-member/cutable-column-team-member';
 
@@ -44,6 +44,16 @@ export const GETCoreUnits = gql`
         }
       }
     }
+  `;
+
+const GetFacilitatorImageGQL = gql`
+  query CoreUnits($filter: ContributorFilter) {
+    contributor(filter: $filter) {
+      id
+      name
+      facilitatorImage
+    }
+  }
   `;
 
 export interface cuMipDao {
@@ -90,6 +100,22 @@ export const fetchCoreUnits = async() => {
   return result.coreUnits;
 };
 
+export const fetchFacilitatorImage = async(id: string) => {
+  if (!id) return null;
+
+  try {
+    const result = await request(GraphQLEndpoint, GetFacilitatorImageGQL, {
+      filter: {
+        id
+      }
+    });
+
+    return result.contributor[0];
+  } catch (e) {
+    console.log(`Couldn't get image for facilitator with Id ${id} ${e}`);
+  }
+};
+
 export const getMipFromCoreUnit = (cu: CoreUnitDAO) => {
   if (cu.cuMip?.length === 0) return null;
 
@@ -127,37 +153,37 @@ export const getLinksFromCoreUnit = (cu: CoreUnitDAO) => {
 
   if (sm.website) {
     result.push({
-      linkType: LinkType.WWW,
+      linkType: LinkTypeEnum.WWW,
       href: sm.website
     });
   }
   if (sm.forumTag) {
     result.push({
-      linkType: LinkType.Forum,
+      linkType: LinkTypeEnum.Forum,
       href: `https://forum.makerdao.com/search?q=${sm.forumTag}`
     });
   }
   if (sm.discord) {
     result.push({
-      linkType: LinkType.Discord,
+      linkType: LinkTypeEnum.Discord,
       href: sm.discord
     });
   }
   if (sm.twitter) {
     result.push({
-      linkType: LinkType.Twitter,
+      linkType: LinkTypeEnum.Twitter,
       href: sm.twitter
     });
   }
   if (sm.youtube) {
     result.push({
-      linkType: LinkType.Youtube,
+      linkType: LinkTypeEnum.Youtube,
       href: sm.youtube
     });
   }
   if (sm.linkedIn) {
     result.push({
-      linkType: LinkType.LinkedIn,
+      linkType: LinkTypeEnum.LinkedIn,
       href: sm.linkedIn
     });
   }
@@ -178,8 +204,10 @@ export const getFacilitatorsFromCoreUnit = (cu: CoreUnitDAO) => {
   if (cu.cuMip.length === 0) return result;
   if (cu.cuMip.every(x => x.mip41.length === 0)) return result;
 
-  console.log(cu.cuMip[2]);
-  return cu.cuMip[2].mip41.map(facilitator => ({
-    name: facilitator.facilitatorName
-  }) as FacilitatorModel);
+  result.push(...cu.cuMip[2].mip41.map(facilitator => ({
+    name: facilitator.facilitatorName,
+    id: facilitator.contributorId
+  }) as FacilitatorModel));
+
+  return result;
 };

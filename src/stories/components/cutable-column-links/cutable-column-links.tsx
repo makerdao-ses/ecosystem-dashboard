@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { LinkType } from '../../../core/enums/link-type.enum';
+import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import WWW from '../svg/www';
 import Forum from '../svg/forum';
@@ -12,7 +12,7 @@ import Gmail from '../svg/gmail';
 
 export interface LinkModel {
   href: string,
-  linkType: LinkType,
+  linkType: LinkTypeEnum,
 }
 
 interface CutableColumnLinksProps {
@@ -24,19 +24,19 @@ interface CutableColumnLinksProps {
 
 const getImageForLink = (link: LinkModel, dark?: boolean) => {
   switch (link.linkType) {
-    case LinkType.WWW:
+    case LinkTypeEnum.WWW:
       return <WWW fill={dark ? '#626472' : '#C4C4C4'} />;
-    case LinkType.Forum:
+    case LinkTypeEnum.Forum:
       return <Forum fill={dark ? '#626472' : '#C4C4C4'} />;
-    case LinkType.Discord:
+    case LinkTypeEnum.Discord:
       return <Discord fill={dark ? '#626472' : '#C4C4C4'} />;
-    case LinkType.Twitter:
+    case LinkTypeEnum.Twitter:
       return <Twitter fill={dark ? '#626472' : '#C4C4C4'} />;
-    case LinkType.Youtube:
+    case LinkTypeEnum.Youtube:
       return <Youtube fill={dark ? '#626472' : '#C4C4C4'} />;
-    case LinkType.LinkedIn:
+    case LinkTypeEnum.LinkedIn:
       return <LinkedIn fill={dark ? '#626472' : '#C4C4C4'} />;
-    case LinkType.Gmail:
+    case LinkTypeEnum.Gmail:
       return <Gmail fill={dark ? '#626472' : '#C4C4C4'} />;
     default:
       return <WWW />;

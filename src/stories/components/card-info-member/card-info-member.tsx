@@ -4,7 +4,7 @@ import { Avatar, Box, Card, CardContent, CardHeader, Divider, Typography } from 
 import styled from '@emotion/styled';
 import { CutableColumnLinks, LinkModel } from '../cutable-column-links/cutable-column-links';
 import { getTwoInitials } from '../../../core/utils/string-utils';
-import { LinkType } from '../../../core/enums/link-type.enum';
+import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
 
 export type CardInfoMemberType = {
   avatar?: string;
@@ -23,18 +23,18 @@ interface Props {
 const CardInfoMember = ({ info }: Props) => {
   const links: LinkModel[] = [{
     href: '#',
-    linkType: LinkType.Gmail,
+    linkType: LinkTypeEnum.Gmail,
   }, {
     href: '#',
-    linkType: LinkType.Forum
+    linkType: LinkTypeEnum.Forum
   },
   {
     href: '#',
-    linkType: LinkType.Twitter
+    linkType: LinkTypeEnum.Twitter
   },
   {
     href: '#',
-    linkType: LinkType.Discord
+    linkType: LinkTypeEnum.Discord
   },
   ];
 

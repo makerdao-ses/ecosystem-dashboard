@@ -5,7 +5,7 @@ import { CardInfoMemberType } from '../../../components/card-info-member/card-in
 import { LinkModel } from '../../../components/cutable-column-links/cutable-column-links';
 import { RelateMipType } from '../../../components/relate-mips/relate-mips';
 import { CuStatusEnum } from '../../../../core/enums/cu-status.enum';
-import {LinkType} from "../../../../core/enums/link-type.enum";
+import {LinkTypeEnum} from "../../../../core/enums/link-type.enum";
 
 export default {
   title: 'Pages/CuAbout',
@@ -26,27 +26,27 @@ const numbersMembers: CardInfoMemberType[] = [
 
 const links: LinkModel[] = [
   {
-    linkType: LinkType.WWW,
+    linkType: LinkTypeEnum.WWW,
     href: '#',
   },
   {
-    linkType: LinkType.Forum,
+    linkType: LinkTypeEnum.Forum,
     href: '#',
   },
   {
-    linkType: LinkType.Discord,
+    linkType: LinkTypeEnum.Discord,
     href: '#',
   },
   {
-    linkType: LinkType.Twitter,
+    linkType: LinkTypeEnum.Twitter,
     href: '#',
   },
   {
-    linkType: LinkType.Youtube,
+    linkType: LinkTypeEnum.Youtube,
     href: '#',
   },
   {
-    linkType: LinkType.LinkedIn,
+    linkType: LinkTypeEnum.LinkedIn,
     href: '#',
   },
 ];

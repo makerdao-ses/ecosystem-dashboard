@@ -1,4 +1,4 @@
-export enum LinkType {
+export enum LinkTypeEnum {
   WWW = 'Website',
   Forum = 'Forum',
   Discord = 'Discord',

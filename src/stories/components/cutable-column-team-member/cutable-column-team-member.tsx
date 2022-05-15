@@ -6,9 +6,19 @@ import { getTwoInitials } from '../../../core/utils/string-utils';
 import { getColorForString } from '../../../core/utils/color-utils';
 import './cutable-column-team-member.scss';
 import { CustomPopover } from '../custom-popover/custom-popover';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../core/store/store';
+import {
+  loadFacilitatorImage,
+  selectFacilitatorImages,
+  setFacilitatorImageAsPending
+} from '../../containers/cutable/cutable.slice';
+import { useAppDispatch } from '../../../core/hooks/hooks';
 
 export interface FacilitatorModel {
-  name: string
+  name: string,
+  imageUrl?: string,
+  id?: string,
 }
 
 interface CutableColumnTeamMemberProps {
@@ -17,6 +27,32 @@ interface CutableColumnTeamMemberProps {
 }
 
 export const CutableColumnTeamMember = (props: CutableColumnTeamMemberProps) => {
+  const facilitatorImages = useSelector((state: RootState) => selectFacilitatorImages(state));
+  const dispatch = useAppDispatch();
+
+  const getImageForMember = (id: string) => {
+    if (!id) return '';
+    if (facilitatorImages[id] == null) {
+      dispatch(setFacilitatorImageAsPending(id.toString()));
+      dispatch(loadFacilitatorImage(id.toString()));
+    } else {
+      return facilitatorImages[id];
+    }
+  };
+
+  const MemberInfo = (props: { member: FacilitatorModel }) => {
+    return <MemberInfoContainer>
+      <Avatar
+        sx={{ width: '32px', height: '32px', backgroundColor: getColorForString(props.member.name), fontSize: '1rem', marginRight: '8px' }}
+        alt={props.member.name}
+        src={getImageForMember(props.member?.id ?? '')}
+      >
+        {getTwoInitials(props.member.name)}
+      </Avatar>
+      <span>{props.member.name}</span>
+    </MemberInfoContainer>;
+  };
+
   return <Container className="TeamMembers">
     <CustomPopover
       title={'FTEs = Full-Time Equivalents'}
@@ -34,9 +70,11 @@ export const CutableColumnTeamMember = (props: CutableColumnTeamMemberProps) => 
         title={<MemberInfo member={member}/>}
         id={`${member.name}-${i}`}
       >
-          <Avatar
+        <Avatar
           sx={{ width: '32px', height: '32px', backgroundColor: getColorForString(member.name), fontSize: '1rem' }}
-          alt={member.name}>
+          alt={member.name}
+          src={getImageForMember(member?.id ?? '')}
+        >
           {getTwoInitials(member.name)}
         </Avatar>
       </CustomPopover>)}
@@ -62,14 +100,3 @@ const MemberInfoContainer = styled.div({
   display: 'flex',
   alignItems: 'center'
 });
-
-const MemberInfo = (props: { member: FacilitatorModel }) => {
-  return <MemberInfoContainer>
-    <Avatar
-      sx={{ width: '32px', height: '32px', backgroundColor: getColorForString(props.member.name), fontSize: '1rem', marginRight: '8px' }}
-      alt={props.member.name}>
-      {getTwoInitials(props.member.name)}
-    </Avatar>
-    <span>{props.member.name}</span>
-  </MemberInfoContainer>;
-};

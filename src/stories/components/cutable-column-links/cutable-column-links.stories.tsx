@@ -1,7 +1,7 @@
 import React from 'react';
 import { CutableColumnLinks } from './cutable-column-links';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { LinkType } from '../../../core/enums/link-type.enum';
+import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
 
 export default {
   title: 'Components/CUTable/ColumnLinks',
@@ -14,27 +14,27 @@ export const Default = Template.bind({});
 Default.args = {
   links: [
     {
-      linkType: LinkType.WWW,
+      linkType: LinkTypeEnum.WWW,
       href: '#',
     },
     {
-      linkType: LinkType.Forum,
+      linkType: LinkTypeEnum.Forum,
       href: '#',
     },
     {
-      linkType: LinkType.Discord,
+      linkType: LinkTypeEnum.Discord,
       href: '#',
     },
     {
-      linkType: LinkType.Twitter,
+      linkType: LinkTypeEnum.Twitter,
       href: '#',
     },
     {
-      linkType: LinkType.Youtube,
+      linkType: LinkTypeEnum.Youtube,
       href: '#',
     },
     {
-      linkType: LinkType.LinkedIn,
+      linkType: LinkTypeEnum.LinkedIn,
       href: '#',
     },
   ],
