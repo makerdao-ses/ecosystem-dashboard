@@ -12,18 +12,18 @@ import { CutableColumnTeamMember } from '../../components/cutable-column-team-me
 import { CutableColumnLinks } from '../../components/cutable-column-links/cutable-column-links';
 import { Box, Typography } from '@mui/material';
 import {
-  CoreUnitDAO,
   countInitiativesFromCoreUnit,
   getFacilitatorsFromCoreUnit,
   getFTEsFromCoreUnit,
   getLinksFromCoreUnit,
   getMipFromCoreUnit,
   getSubmissionDateFromCuMip
-} from './cutable.api';
+} from './cutable.accesor';
 import { useAppDispatch } from '../../../core/hooks/hooks';
 import { loadAsync, selectCuTableItems } from './cutable.slice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../core/store/store';
+import { CoreUnitDAO } from './cutable.api';
 
 const statuses = Object.values(CuStatusEnum) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];
