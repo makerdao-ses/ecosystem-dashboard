@@ -38,6 +38,7 @@ export const getLinksFromContributor = (contributor: ContributorCommitment) => {
       href: cont.twitterHandle
     });
   }
+  return links;
 };
 
 const CardInfoMember = ({ contributorCommitment }: Props) => {

@@ -9,38 +9,26 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  gql
 } from '@apollo/client';
+import { GraphQlEndpoint } from './config/endpoint';
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 const client = new ApolloClient({
-  uri: 'https://48p1r2roz4.sse.codesandbox.io',
+  uri: GraphQlEndpoint,
   cache: new InMemoryCache()
 });
 
-client
-  .query({
-    query: gql`
-      query GetRates {
-        rates(currency: "USD") {
-          currency
-        }
-      }
-    `
-  })
-  .then(result => console.log(result));
-
 root.render(
-    <React.StrictMode>
-        <ApolloProvider client={client}>
-            <Provider store={store}>
-                <App/>
-            </Provider>
-        </ApolloProvider>
-    </React.StrictMode>
+  <React.StrictMode>
+    <ApolloProvider client={client}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </ApolloProvider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

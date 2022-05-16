@@ -3,7 +3,7 @@ import cuTableReducer from '../../stories/containers/cutable/cutable.slice';
 
 export const store = configureStore({
   reducer: {
-    cuTable: cuTableReducer
+    cuTable: cuTableReducer,
   }
 });
 

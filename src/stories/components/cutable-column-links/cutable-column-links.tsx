@@ -54,12 +54,12 @@ const getImageForLink = (link: LinkModel, dark = false) => {
 
 export const CutableColumnLinks = (props: CutableColumnLinksProps) => {
   return <Container>
-  {props.links.map((link, i) => <CustomPopover key={`link-${i}`} title={link.linkType} id={`link-${i}`}>
-    <LinkImage href={link.href} target="_blank">
-      {getImageForLink(link, props.dark)}
-    </LinkImage>
-  </CustomPopover>)}
-</Container>;
+    {props.links.map((link, i) => <CustomPopover key={`link-${i}`} title={link.linkType} id={`link-${i}`}>
+      <LinkImage href={link.href} target="_blank">
+        {getImageForLink(link, props.dark)}
+      </LinkImage>
+    </CustomPopover>)}
+  </Container>;
 };
 
 const Container = styled.div({

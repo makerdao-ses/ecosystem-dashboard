@@ -3,40 +3,98 @@ import styled from '@emotion/styled';
 import { Chip, Typography } from '@mui/material';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
-import { CutableColumnLinks, LinkModel } from '../cutable-column-links/cutable-column-links';
-import { CuMipStatus } from '../../containers/cu-about/cu-about.api';
+import { CutableColumnLinks, LinkModel, LinkType } from '../cutable-column-links/cutable-column-links';
+import { CoreUnit, CuMip, CuMipStatus } from '../../containers/cu-about/cu-about.api';
 
 interface Props {
-  title: string,
-  mipStatus: CuMipStatus,
-  statusModified: Date,
-  links: LinkModel[]
+  coreUnit: CoreUnit;
 }
 
-export const TitleNavigationCuAbout = ({ title, mipStatus, statusModified, links }: Props) => {
+export const getMipsStatus = (mip: CuMip) => {
+  switch (mip.mipStatus) {
+    case CuMipStatus.Accepted:
+      return mip.accepted;
+    case CuMipStatus.Obsolete:
+      return mip.obsolete;
+    case CuMipStatus.FORMAL:
+      return mip.formalSubmission;
+    case CuMipStatus.Rejected:
+      return mip.rejected;
+    case CuMipStatus.RFC:
+      return mip.rfc;
+    default:
+      return mip.rejected;
+  }
+};
+
+export const getLinksCoreUnit = (cu: CoreUnit) => {
+  const links: LinkModel[] = [];
+  if (cu.socialMediaChannels.length === 0) return links;
+  const cont = cu.socialMediaChannels[0];
+  if (cont.website) {
+    links.push({
+      linkType: LinkType.WWW,
+      href: cont.website,
+    });
+  }
+  if (cont.forumTag) {
+    links.push({
+      linkType: LinkType.Forum,
+      href: cont.forumTag,
+    });
+  }
+  if (cont.discord) {
+    links.push({
+      linkType: LinkType.Discord,
+      href: cont.discord,
+    });
+  }
+  if (cont.twitter) {
+    links.push({
+      linkType: LinkType.Twitter,
+      href: cont.twitter,
+    });
+  }
+  if (cont.youtube) {
+    links.push({
+      linkType: LinkType.Youtube,
+      href: cont.youtube,
+    });
+  }
+  if (cont.linkedIn) {
+    links.push({
+      linkType: LinkType.LinkedIn,
+      href: cont.linkedIn,
+    });
+  }
+  return links;
+};
+
+export const TitleNavigationCuAbout = ({ coreUnit }: Props) => {
+  const mips = getMipsStatus(coreUnit.cuMip[0] || {} as CuMip);
   return (
     <Container>
       <ContainerTitle>
         <TypographySES>SES</TypographySES>
         <div style={{ width: '4px', height: '4px', backgroundColor: '#D8E0E3', display: 'flex', marginRight: '8px', marginLeft: '8px' }} />
-        <TypographyTitle>{title}</TypographyTitle>
+        <TypographyTitle>{coreUnit.name}</TypographyTitle>
 
         <Row>
-          {mipStatus && <Chip size={'small'} sx={{ borderRadius: '8px', borderColor: '#25273D' }} label={mipStatus} variant={'outlined'} />}
-          {statusModified && <CustomPopover
+          {coreUnit.cuMip[0].mipStatus && <Chip size={'small'} sx={{ borderRadius: '8px', borderColor: '#25273D' }} label={coreUnit.cuMip[0].mipStatus} variant={'outlined'} />}
+          {coreUnit.cuMip[0].mipStatus && <CustomPopover
             id={'mouse-over-popover-goto'}
             title={'Go to MIPs Portal'}
           >
             <SinceDate
               href={'#'}
             >
-              Since {DateTime.fromJSDate(statusModified).toFormat('d-MMM-y').toUpperCase()}
+              Since {DateTime.fromJSDate(new Date(mips || '')).toFormat('d-MMM-y')}
             </SinceDate>
           </CustomPopover>}
         </Row>
       </ContainerTitle>
       <ContainerLinks>
-        <CutableColumnLinks links={links} dark/>
+        <CutableColumnLinks links={getLinksCoreUnit(coreUnit)} dark />
       </ContainerLinks>
     </Container>
   );
