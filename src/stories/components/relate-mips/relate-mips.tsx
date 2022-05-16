@@ -4,7 +4,18 @@ import { Chip, Typography } from '@mui/material';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import ArrowLink from '../svg/ArrowLink';
-import { CuMipStatus, RelateMipsCuAbout } from '../../containers/cu-about/cu-about.api';
+import { CuMipStatus } from '../../containers/cu-about/cu-about.api';
+
+export interface RelateMipsCuAbout {
+  mipTitle: string;
+  mipUrl: string;
+  mipStatus: CuMipStatus;
+  accepted?: string;
+  obsolete?: string;
+  rfc?: string;
+  formalSubmission?: string;
+  rejected?: string;
+}
 
 interface Props {
   relateMips: RelateMipsCuAbout
