@@ -15,6 +15,13 @@ export const GETCoreUnits = gql`
           rfc
           rejected
           obsolete
+          mip40 {
+            mip40BudgetPeriod {
+              mip40BudgetLineItem {
+                budgetCap
+              }
+            }
+          }
           mip41 {
             facilitatorName
             contributorId
@@ -36,7 +43,12 @@ export const GETCoreUnits = gql`
             month
             ftes
           }
-          budgetStatus
+          budgetStatus,
+          budgetStatementWallet {
+            budgetStatementLineItem {
+              actual
+            }
+          }
         }
       }
     }
@@ -59,6 +71,13 @@ export interface cuMipDao {
   rfc: string,
   rejected: string,
   obsolete: string,
+  mip40: {
+    mip40BudgetPeriod: {
+      mip40BudgetLineItem: {
+        budgetCap: number
+      }[]
+    }[]
+  }[]
   mip41: {
     facilitatorName: string,
     contributorId: string
@@ -87,6 +106,11 @@ export interface CoreUnitDAO {
     budgetStatementFTEs: {
       month: string,
       ftes: number
+    }[],
+    budgetStatementWallet: {
+      budgetStatementLineItem: {
+        actual: number
+      }[]
     }[]
   }[]
 }

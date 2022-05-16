@@ -13,11 +13,15 @@ import { CutableColumnLinks } from '../../components/cutable-column-links/cutabl
 import { Box, Typography } from '@mui/material';
 import {
   countInitiativesFromCoreUnit,
+  getBudgetCapFromCoreUnit,
+  getExpenditureValuesFromCoreUnit,
   getFacilitatorsFromCoreUnit,
   getFTEsFromCoreUnit,
   getLinksFromCoreUnit,
   getMipFromCoreUnit,
-  getSubmissionDateFromCuMip
+  getPercentFromCoreUnit,
+  getSubmissionDateFromCuMip,
+  getValueFromCoreUnit
 } from './cutable.accesor';
 import { useAppDispatch } from '../../../core/hooks/hooks';
 import { loadAsync, selectCuTableItems } from './cutable.slice';
@@ -55,10 +59,10 @@ export const CUTable = () => {
         />,
         <CutableColumnExpenditures
           key={`expenditures-${i}`}
-          value={16500}
-          percent={120}
-          items={[{ value: 55 }, { value: 90 }, { value: 120 }]}
-          budgetCap={100}
+          value={getValueFromCoreUnit(coreUnit)}
+          percent={getPercentFromCoreUnit(coreUnit)}
+          items={getExpenditureValuesFromCoreUnit(coreUnit)}
+          budgetCap={getBudgetCapFromCoreUnit(coreUnit)}
         />,
         <CutableColumnTeamMember
           key={`teammember-${i}`}

@@ -15,7 +15,7 @@ const COLOR_RED = '#F75524';
 const COLOR_YELLOW = '#F6D211';
 
 export const CustomBarChart = (props: CustomBarChartProps) => {
-  if (!props.items) return <span>Placeholder</span>;
+  if (!props.items || props.maxValue <= 0) return <span></span>;
 
   const itemWidth = 12;
   const itemSpace = 8;

@@ -6,7 +6,7 @@ import { Typography } from '@mui/material';
 
 interface CutableColumnExpendituresProps {
   value: number,
-  percent: number,
+  percent?: number | null,
   items: Array<CustomChartItem>,
   budgetCap: number
 }
@@ -24,7 +24,7 @@ export const CutableColumnExpenditures = (props: CutableColumnExpendituresProps)
       </CustomPopover>
     </Data>
     <CustomBarChart items={props.items} maxValue={props.budgetCap}/>
-    <CustomPopover
+    {props.budgetCap > 0 && <CustomPopover
       css={{ alignSelf: 'center' }}
       id={'mouse-over-popover-percent'}
       title={
@@ -43,9 +43,9 @@ export const CutableColumnExpenditures = (props: CutableColumnExpendituresProps)
         </PercentExplanation>
       }>
       <Value>
-        {props.percent.toString()}%
+        {props.percent?.toString()}%
       </Value>
-    </CustomPopover>
+    </CustomPopover>}
   </Container>;
 };
 
