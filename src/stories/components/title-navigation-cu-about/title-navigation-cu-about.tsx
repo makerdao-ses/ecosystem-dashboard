@@ -4,7 +4,7 @@ import { Chip, Typography } from '@mui/material';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { CutableColumnLinks, LinkModel, LinkType } from '../cutable-column-links/cutable-column-links';
-import { CoreUnit, CuMip, CuMipStatus } from '../../containers/cu-about/cu-about.api';
+import { CoreUnit, CuMip, CuMipStatus } from './title-navigation-cu-about.stories';
 
 interface Props {
   coreUnit: CoreUnit;

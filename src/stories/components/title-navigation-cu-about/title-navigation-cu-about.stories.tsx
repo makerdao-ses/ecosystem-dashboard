@@ -1,7 +1,56 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import TitleNavigationCuAbout from './title-navigation-cu-about';
-import { CoreUnit, CuMipStatus } from '../../containers/cu-about/cu-about.api';
+
+export enum CuMipStatus {
+  RFC = 'RFC',
+  FORMAL = 'Formal',
+  SUBMISSION = 'Submission',
+  Accepted = 'Accepted',
+  Rejected = 'Rejected',
+  Obsolete = 'Obsolete',
+}
+
+export interface CuMip {
+  mipCode: string;
+  cuId: string;
+  rfc?: string;
+  formalSubmission: string;
+  accepted?: string;
+  rejected?: string;
+  mipStatus: CuMipStatus;
+  url: string;
+}
+interface BudgetStatementFTEs {
+  month: string
+  ftes: number
+}
+
+interface BudgetStatement {
+  budgetStatementFTEs:BudgetStatementFTEs []
+}
+export interface SocialMediaChannels {
+  cuCode: string;
+  forumTag: string;
+  twitter: string;
+  youtube: string;
+  discord: string;
+  linkedIn: string;
+  website: string;
+}
+
+export interface CoreUnit {
+  code: string;
+  name: string;
+  image: string;
+  category: [];
+  cuMip: CuMip[];
+  budgetStatements: BudgetStatement[];
+  socialMediaChannels: SocialMediaChannels[];
+  contributorCommitment: [];
+  cuGithubContribution: [];
+  roadMap: [];
+}
 
 export default {
   title: 'Components/CUAbout/TitleNavigationCuAbout',
@@ -14,9 +63,9 @@ Default.args = {
   coreUnit: {
     name: 'Sustainable Ecosystem Scaling',
     cuMip: [{
+      formalSubmission: '2020-01-01',
       mipStatus: CuMipStatus.Accepted,
       accepted: '2020-01-01',
-      obsolete: '2020-01-01',
       rejected: '2020-01-01',
       rfc: '2020-01-01',
     }] as CoreUnit['cuMip'],

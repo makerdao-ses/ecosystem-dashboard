@@ -1,6 +1,18 @@
 import React from 'react';
-import RelateMips, { RelateMipsCuAbout } from './relate-mips';
+import RelateMips from './relate-mips';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { CuMipStatus } from '../title-navigation-cu-about/title-navigation-cu-about.stories';
+
+export interface RelateMipsCuAbout {
+  mipTitle: string;
+  mipUrl: string;
+  mipStatus: CuMipStatus;
+  accepted?: string;
+  obsolete?: string;
+  rfc?: string;
+  formalSubmission?: string;
+  rejected?: string;
+}
 
 export default {
   title: 'Components/CUAbout/RelateMips',
@@ -20,10 +32,4 @@ WithData.args = {
     formalSubmission: '2021-05-01',
     rejected: ''
   } as RelateMipsCuAbout
-};
-
-export const Default = Template.bind({});
-Default.args = {
-  relateMips: {} as RelateMipsCuAbout,
-
 };
