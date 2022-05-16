@@ -4,8 +4,56 @@ import { Chip, Typography } from '@mui/material';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { CutableColumnLinks, LinkModel, LinkType } from '../cutable-column-links/cutable-column-links';
-import { CoreUnit, CuMip, CuMipStatus } from './title-navigation-cu-about.stories';
 
+export enum CuMipStatus {
+  RFC = 'RFC',
+  FORMAL = 'Formal',
+  SUBMISSION = 'Submission',
+  Accepted = 'Accepted',
+  Rejected = 'Rejected',
+  Obsolete = 'Obsolete',
+}
+
+export interface CuMip {
+  mipCode: string;
+  cuId: string;
+  rfc?: string;
+  formalSubmission: string;
+  accepted?: string;
+  rejected?: string;
+  mipStatus: CuMipStatus;
+  url: string;
+}
+interface BudgetStatementFTEs {
+  month: string
+  ftes: number
+}
+
+interface BudgetStatement {
+  budgetStatementFTEs:BudgetStatementFTEs []
+}
+export interface SocialMediaChannels {
+  cuCode: string;
+  forumTag: string;
+  twitter: string;
+  youtube: string;
+  discord: string;
+  linkedIn: string;
+  website: string;
+}
+
+export interface CoreUnit {
+  code: string;
+  name: string;
+  image: string;
+  category: [];
+  cuMip: CuMip[];
+  budgetStatements: BudgetStatement[];
+  socialMediaChannels: SocialMediaChannels[];
+  contributorCommitment: [];
+  cuGithubContribution: [];
+  roadMap: [];
+}
 interface Props {
   coreUnit: CoreUnit;
 }
@@ -14,8 +62,6 @@ export const getMipsStatus = (mip: CuMip) => {
   switch (mip.mipStatus) {
     case CuMipStatus.Accepted:
       return mip.accepted;
-    case CuMipStatus.Obsolete:
-      return mip.obsolete;
     case CuMipStatus.FORMAL:
       return mip.formalSubmission;
     case CuMipStatus.Rejected:

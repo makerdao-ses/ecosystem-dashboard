@@ -1,56 +1,6 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import TitleNavigationCuAbout from './title-navigation-cu-about';
-
-export enum CuMipStatus {
-  RFC = 'RFC',
-  FORMAL = 'Formal',
-  SUBMISSION = 'Submission',
-  Accepted = 'Accepted',
-  Rejected = 'Rejected',
-  Obsolete = 'Obsolete',
-}
-
-export interface CuMip {
-  mipCode: string;
-  cuId: string;
-  rfc?: string;
-  formalSubmission: string;
-  accepted?: string;
-  rejected?: string;
-  mipStatus: CuMipStatus;
-  url: string;
-}
-interface BudgetStatementFTEs {
-  month: string
-  ftes: number
-}
-
-interface BudgetStatement {
-  budgetStatementFTEs:BudgetStatementFTEs []
-}
-export interface SocialMediaChannels {
-  cuCode: string;
-  forumTag: string;
-  twitter: string;
-  youtube: string;
-  discord: string;
-  linkedIn: string;
-  website: string;
-}
-
-export interface CoreUnit {
-  code: string;
-  name: string;
-  image: string;
-  category: [];
-  cuMip: CuMip[];
-  budgetStatements: BudgetStatement[];
-  socialMediaChannels: SocialMediaChannels[];
-  contributorCommitment: [];
-  cuGithubContribution: [];
-  roadMap: [];
-}
+import TitleNavigationCuAbout, { CuMipStatus, CoreUnit } from './title-navigation-cu-about';
 
 export default {
   title: 'Components/CUAbout/TitleNavigationCuAbout',

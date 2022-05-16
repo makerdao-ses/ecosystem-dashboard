@@ -1,7 +1,7 @@
 import React from 'react';
 import RelateMips from './relate-mips';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { CuMipStatus } from '../title-navigation-cu-about/title-navigation-cu-about.stories';
+import { CuMipStatus } from '../title-navigation-cu-about/title-navigation-cu-about';
 
 export interface RelateMipsCuAbout {
   mipTitle: string;

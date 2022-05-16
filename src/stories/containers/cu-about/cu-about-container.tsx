@@ -6,11 +6,10 @@ import RelateMips from '../../components/relate-mips/relate-mips';
 import CardInfoMember from '../../components/card-info-member/card-info-member';
 import SmallButton from '../../components/button/small-button/small-button';
 import InsidePagination from '../../components/pagination/InsidePagination';
-import TitleNavigationCuAbout from '../../components/title-navigation-cu-about/title-navigation-cu-about';
+import TitleNavigationCuAbout, { CoreUnit, CuMipStatus } from '../../components/title-navigation-cu-about/title-navigation-cu-about';
 import MdViewerContainer from '../../components/markdown/md-view-container';
 import TeamMember from '../../components/team-members/team-member';
 import BigButton from '../../components/button/big-button/big-button';
-import { CoreUnit, CuMipStatus } from './cu-about.api';
 
 import { Commitment, ContributorCommitment } from './cu-about-contributor';
 
@@ -22,7 +21,6 @@ const CuAboutContainer = () => {
     cuMip: [{
       mipStatus: CuMipStatus.Accepted,
       accepted: '2020-01-01',
-      obsolete: '2020-01-01',
       rejected: '2020-01-01',
       rfc: '2020-01-01',
     }] as CoreUnit['cuMip'],
@@ -181,7 +179,7 @@ margin-left:33px ;
 
 const ContainerTitle = styled.div`
 display:flex ;
-margin-left:32px ;
+margin-left:44px ;
 margin-right:41px ;
 margin-top: 32px;
 margin-bottom: 24px;
