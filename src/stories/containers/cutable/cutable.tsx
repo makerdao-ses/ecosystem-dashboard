@@ -92,7 +92,7 @@ export const CUTable = () => {
       }}
     >
       <Header>
-        <Title>Core Units: </Title>
+        <Title>Core Units</Title>
         <CustomMultiSelect label={'Status'} items={statuses} />
         <CustomMultiSelect label={'Category'} items={categories} />
         <Separator />
