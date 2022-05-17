@@ -38,8 +38,8 @@ const CardInfoMember = ({ info }: Props) => {
   ];
 
   return (
-    <Box sx={{ maxWidth: 294, maxHeight: 182 }}>
-      <Card sx={{ boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.08)', borderRadius: '8px', backgroundColor: '#F9F9F9' }} >
+    <Box>
+      <Card sx={{ maxWidth: 294, maxHeight: 182, boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.08)', borderRadius: '8px', backgroundColor: '#F9F9F9' }} >
         <CardHeader
           sx={{ marginTop: '17px', paddingTop: '0px', paddingBottom: '0px' }}
           avatar={!info.avatar ? <Avatar sx={{ bgcolor: 'black', width: 40, height: 40 }} style={{ fontSize: '1rem' }}>{getTwoInitials(info.name || 'NM')}</Avatar> : <Avatar style={{ width: '40px', height: '40px' }} src={info.avatar} />}
@@ -58,7 +58,7 @@ const CardInfoMember = ({ info }: Props) => {
             </CardContentPositionColumn>
           </CardContentPositionRow>
           <Divider light sx={{ marginTop: '30px', color: '#C4C4C4' }} variant='fullWidth' />
-          <CardLinksFooter><CutableColumnLinks links={links} width={6} height={6} /></CardLinksFooter>
+          <CardLinksFooter><CutableColumnLinks links={links}/></CardLinksFooter>
         </CardContent>
       </Card>
     </Box>
