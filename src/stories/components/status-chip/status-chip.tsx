@@ -7,6 +7,6 @@ interface StatusChipProps {
 }
 
 export const StatusChip = (props: StatusChipProps) => {
-  return <Chip size={'small'} sx={{ borderRadius: '8px', borderColor: '#25273D', fontSize: '12px' }} label={props.status}
+  return <Chip size={'small'} sx={{ borderRadius: '8px', borderColor: '#25273D', fontSize: '12px', height: '19px' }} label={props.status}
                variant={'outlined'}/>;
 };
