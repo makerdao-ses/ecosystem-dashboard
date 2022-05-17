@@ -40,11 +40,11 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 const TopBar = (props: TopBarProps) => {
-  return <AppBar position="absolute" open={props.open}>
+  return <AppBar position="absolute" open={props.open} style={{ backgroundColor: '#C4C4C4' }}>
     <Toolbar
       sx={{
         pr: '24px',
-        backgroundColor: 'white',
+        backgroundColor: '#C4C4C4',
       }}
       color={'White'}
     >
@@ -69,13 +69,13 @@ const TopBar = (props: TopBarProps) => {
       >
       </Typography>
       <IconButton color="inherit" sx={{ marginRight: '24px' }}>
-        <FeedBack width={22} height={22}/>
+        <FeedBack width={22} height={22} />
       </IconButton>
       <IconButton color="inherit" sx={{ marginRight: '24px' }}>
-        <Language width={26.7} height={26.7}/>
+        <Language width={26.7} height={26.7} />
       </IconButton>
       <IconButton color="inherit">
-        <ThemeMode width={26.7} height={26.7}/>
+        <ThemeMode width={26.7} height={26.7} />
       </IconButton>
     </Toolbar>
   </AppBar>;
