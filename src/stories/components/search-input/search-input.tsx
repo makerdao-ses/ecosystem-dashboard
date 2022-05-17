@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { FormControl, InputAdornment, InputLabel, OutlinedInput, Typography } from '@mui/material';
+import { FormControl, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
 import { Search } from '@mui/icons-material';
-import styled from '@emotion/styled';
 import './search-input.scss';
 
 interface SearchInputProps {
