@@ -5,8 +5,7 @@ import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import ArrowLink from '../svg/ArrowLink';
 import { CuMipStatus } from '../title-navigation-cu-about/title-navigation-cu-about';
-import { RelateMipsCuAbout } from '../../containers/cu-about/cu-about-relate-mip';
-
+import { RelateMipsCuAbout } from '../../containers/cu-about/cu-about.api';
 interface Props {
   relateMips: RelateMipsCuAbout
 }

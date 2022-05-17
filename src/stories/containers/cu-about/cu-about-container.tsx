@@ -1,21 +1,29 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
 import { Divider, Typography } from '@mui/material';
-import RelateMips from '../../components/relate-mips/relate-mips';
-import CardInfoMember from '../../components/card-info-member/card-info-member';
-import SmallButton from '../../components/button/small-button/small-button';
-import InsidePagination from '../../components/pagination/InsidePagination';
-import TitleNavigationCuAbout, { CoreUnit, CuMipStatus } from '../../components/title-navigation-cu-about/title-navigation-cu-about';
-import MdViewerContainer from '../../components/markdown/md-view-container';
-import TeamMember from '../../components/team-members/team-member';
+import React, { useCallback, useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../core/hooks/hooks';
 import BigButton from '../../components/button/big-button/big-button';
-
+import SmallButton from '../../components/button/small-button/small-button';
+import CardInfoMember from '../../components/card-info-member/card-info-member';
+import MdViewerContainer from '../../components/markdown/md-view-container';
+import InsidePagination from '../../components/pagination/InsidePagination';
+import RelateMips from '../../components/relate-mips/relate-mips';
+import TeamMember from '../../components/team-members/team-member';
+import TitleNavigationCuAbout, { CoreUnit, CuMipStatus } from '../../components/title-navigation-cu-about/title-navigation-cu-about';
 import { Commitment, ContributorCommitment } from './cu-about-contributor';
-
-import { RelateMipsCuAbout } from './cu-about-relate-mip';
+import { cuAboutSelector, loadCoreUnitABout } from './cu-about-slice';
+import { RelateMipsCuAbout } from './cu-about.api';
 
 const CuAboutContainer = () => {
+  const coreUnitCode = 'SES-001';
+  const dispatch = useAppDispatch();
+  const { cuAbout, statusCoreUnit } = useAppSelector(cuAboutSelector);
+  console.log('cuAbout', cuAbout);
+  console.log('statusCoreUnit', statusCoreUnit);
+  useEffect(() => {
+    dispatch(loadCoreUnitABout(coreUnitCode));
+  }, [dispatch]);
   const coreUnit = {
     name: 'Sustainable Ecosystem Scaling',
     cuMip: [{
@@ -109,50 +117,50 @@ const CuAboutContainer = () => {
   const paragraphImage = 'https://gateway-proxy-bee-9-0.gateway.ethswarm.org/bzz/1fe299c01206d1d422cf79a60ea49b8a77b04382f8d25745842eb2a199eb4389';
   const fte = 7.5;
   return (
-        <ContainerAbout>
-            <NavigationHeader>
-                <SmallButton onClick={() => { }} /> <PaddingComponent><InsidePagination count={10} page={1} onClickLeft={handleClickPrevious} onClickRight={handleClickNext} /></PaddingComponent>
-            </NavigationHeader>
-            <ContainerTitle>
-                <TitleNavigationCuAbout coreUnit={coreUnit} />
-            </ContainerTitle>
-            <MarkdownContainer>
-                <MdViewerContainer sentenceDescription={sentenceDescription} paragraphDescription={paragraphDescription} paragraphImage={paragraphImage} />
-            </MarkdownContainer>
-            <TeamMemberContainer>
-                <TeamMemberTitle>Team Size</TeamMemberTitle><TeamMember fte={fte} />
-            </TeamMemberContainer>
-            <ContactInfoContainer>
-                <ContactInfoTitle>Contact Information</ContactInfoTitle>
-                <ContainerCards className='cards'>
-                    {contributors.map((contributor: ContributorCommitment, index: number) => {
-                      return (
-                            <CardContainer key={index}>
-                                <CardInfoMember contributorCommitment={contributor} />
-                            </CardContainer>
-                      );
-                    })}
-                </ContainerCards>
-            </ContactInfoContainer>
-            <Divider light sx={{ marginBottom: '32px', marginTop: '32px', color: '#D8E0E3', marginLeft: '32px', marginRight: '32px' }} variant='fullWidth' />
-            <CardRelateMipsContainer>
-                <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
-                <RelateMipCards>
-                    {relateMips.map((mip: RelateMipsCuAbout, index: number) => {
-                      return (
-                            <RelateMipCard key={index}>
-                                <RelateMips relateMips={mip} />
-                            </RelateMipCard>
+    <ContainerAbout>
+      <NavigationHeader>
+        <SmallButton onClick={() => { }} /> <PaddingComponent><InsidePagination count={10} page={1} onClickLeft={handleClickPrevious} onClickRight={handleClickNext} /></PaddingComponent>
+      </NavigationHeader>
+      <ContainerTitle>
+        <TitleNavigationCuAbout coreUnit={coreUnit} />
+      </ContainerTitle>
+      <MarkdownContainer>
+        <MdViewerContainer sentenceDescription={sentenceDescription} paragraphDescription={paragraphDescription} paragraphImage={paragraphImage} />
+      </MarkdownContainer>
+      <TeamMemberContainer>
+        <TeamMemberTitle>Team Size</TeamMemberTitle><TeamMember fte={fte} />
+      </TeamMemberContainer>
+      <ContactInfoContainer>
+        <ContactInfoTitle>Contact Information</ContactInfoTitle>
+        <ContainerCards className='cards'>
+          {contributors.map((contributor: ContributorCommitment, index: number) => {
+            return (
+              <CardContainer key={index}>
+                <CardInfoMember contributorCommitment={contributor} />
+              </CardContainer>
+            );
+          })}
+        </ContainerCards>
+      </ContactInfoContainer>
+      <Divider light sx={{ marginBottom: '32px', marginTop: '32px', color: '#D8E0E3', marginLeft: '32px', marginRight: '32px' }} variant='fullWidth' />
+      <CardRelateMipsContainer>
+        <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
+        <RelateMipCards>
+          {relateMips.map((mip: RelateMipsCuAbout, index: number) => {
+            return (
+              <RelateMipCard key={index}>
+                <RelateMips relateMips={mip} />
+              </RelateMipCard>
 
-                      );
-                    })}
-                </RelateMipCards>
-            </CardRelateMipsContainer>
-            <ButtonContainer>
-                <BigButton title='See less related MIPs' />
+            );
+          })}
+        </RelateMipCards>
+      </CardRelateMipsContainer>
+      <ButtonContainer>
+        <BigButton title='See less related MIPs' />
 
-            </ButtonContainer>
-        </ContainerAbout>
+      </ButtonContainer>
+    </ContainerAbout>
   );
 };
 

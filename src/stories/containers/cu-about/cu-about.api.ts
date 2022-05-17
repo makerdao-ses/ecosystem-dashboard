@@ -1,9 +1,20 @@
 import { request, gql } from 'graphql-request';
 import { GraphQlEndpoint } from '../../../config/endpoint';
+import { CuCategory } from '../../../core/enums/cu-category';
 import {
   LinkModel,
   LinkType,
 } from '../../components/cutable-column-links/cutable-column-links';
+import { CoreUnit } from '../../components/title-navigation-cu-about/title-navigation-cu-about';
+
+interface BudgetStatementFTEs {
+  month: string;
+  ftes: number;
+}
+
+interface BudgetStatement {
+  budgetStatementFTEs: BudgetStatementFTEs[];
+}
 
 export enum CuMipStatus {
   RFC = 'RFC',
@@ -12,44 +23,6 @@ export enum CuMipStatus {
   Accepted = 'Accepted',
   Rejected = 'Rejected',
   Obsolete = 'Obsolete',
-}
-
-type SocialMediaChannels = {
-  cuCode: string;
-  forumTag: string;
-  twitter: string;
-  youtube: string;
-  discord: string;
-  linkedIn: string;
-  website: string;
-};
-
-export type CuMip = {
-  mipCode: string;
-  cuId: string;
-  rfc: string;
-  formalSubmission: string;
-  accepted: string;
-  rejected: string;
-  obsolete: string;
-  mipStatus: CuMipStatus;
-  url: string;
-  mip39: [];
-  mip40: [];
-  mip41: [];
-};
-
-export interface CoreUnit {
-  code: string;
-  name: string;
-  image: string;
-  category: [];
-  cuMip: CuMip;
-  budgetStatements: [];
-  socialMediaChannels: SocialMediaChannels[];
-  contributorCommitment: [];
-  cuGithubContribution: [];
-  roadMap: [];
 }
 
 export interface RelateMipsCuAbout {
@@ -63,22 +36,118 @@ export interface RelateMipsCuAbout {
   rejected?: string;
 }
 
-export const getMipsStatus = (mip: CuMip) => {
-  switch (mip.mipStatus) {
-    case CuMipStatus.Accepted:
-      return CuMipStatus.Accepted;
-    case CuMipStatus.Obsolete:
-      return CuMipStatus.Obsolete;
-    case CuMipStatus.FORMAL:
-      return CuMipStatus.FORMAL;
-    case CuMipStatus.Rejected:
-      return CuMipStatus.Rejected;
-    case CuMipStatus.RFC:
-      return CuMipStatus.RFC;
-    default:
-      return CuMipStatus.Rejected;
+export interface CuMip {
+  mipCode: string;
+  cuId: string;
+  rfc?: string;
+  formalSubmission: string;
+  accepted?: string;
+  rejected?: string;
+  mipStatus: CuMipStatus;
+  url: string;
+}
+export enum Commitment {
+  FullTime = 'Full Time',
+  PartTime = 'Part Time',
+  Variable = 'Variable',
+  Inactive = 'Inactive',
+}
+
+export interface Contributor {
+  id: string;
+  name: string;
+  forumHandle: string;
+  discordHandle: string;
+  twitterHandle: string;
+  email: string;
+  facilitatorImage: string;
+}
+export interface ContributorCommitment {
+  id: string;
+  jobTitle: string;
+  commitment: Commitment;
+  contributor: Contributor[];
+}
+
+export interface SocialMediaChannels {
+  cuCode: string;
+  forumTag: string;
+  twitter: string;
+  youtube: string;
+  discord: string;
+  linkedIn: string;
+  website: string;
+}
+
+export interface CuAbout {
+  id: string;
+  code: string;
+  category: CuCategory[];
+  name: string;
+  sentenceDescription: string;
+  paragraphDescription: string;
+  paragraphImage: string;
+  socialMediaChannels: SocialMediaChannels[];
+  cuMip: CuMip[];
+  budgetStatements: BudgetStatement[];
+  contributorCommitment: ContributorCommitment[];
+}
+interface BudgetStatementFTEs {
+  month: string;
+  ftes: number;
+}
+interface BudgetStatement {
+  budgetStatementFTEs: BudgetStatementFTEs[];
+}
+
+export const GET_CU_ABOUT_BY_CODE = gql`
+  query CoreUnit($filter: CoreUnitFilter) {
+    coreUnit(filter: $filter) {
+      id
+      code
+      category
+      name
+      sentenceDescription
+      paragraphDescription
+      paragraphImage
+      socialMediaChannels {
+        discord
+        forumTag
+        linkedIn
+        twitter
+        website
+        youtube
+        linkedIn
+      }
+      cuMip {
+        mipStatus
+        accepted
+        obsolete
+        rejected
+        rfc
+        formalSubmission
+      }
+      budgetStatements {
+        budgetStatementFTEs {
+          ftes
+          month
+        }
+      }
+      contributorCommitment {
+        jobTitle
+        startDate
+        contributor {
+          name
+          discordHandle
+          email
+          facilitatorImage
+          forumHandle
+          twitterHandle
+        }
+      }
+    }
   }
-};
+`;
 
 export const getLinksCoreUnit = (cu: CoreUnit) => {
   const links: LinkModel[] = [];
@@ -120,37 +189,25 @@ export const getLinksCoreUnit = (cu: CoreUnit) => {
       href: cont.linkedIn,
     });
   }
+  return links;
 };
 
-export const GET_CU_ABOUT_BY_CODE = gql`
-  query CoreUnit($filter: CoreUnitFilter) {
-    coreUnit(filter: $filter) {
-      id
-      code
-      category
-      name
-      socialMediaChannels {
-        discord
-        forumTag
-        linkedIn
-        twitter
-        website
-        youtube
-        linkedIn
-      }
-    }
+export const getFTEsFromCoreUnitAbout = (cu: CuAbout) => {
+  if (cu.budgetStatements.length === 0) return 0;
+  if (
+    !cu.budgetStatements[0].budgetStatementFTEs ||
+    cu.budgetStatements[0].budgetStatementFTEs.length === 0
+  ) {
+    return 0;
   }
-`;
 
-interface CuAboutCodeByCode {
-  code: string;
-}
+  return cu.budgetStatements[0].budgetStatementFTEs[0].ftes;
+};
 
-export const fetchCoreUnitByCode = async({ code }: CuAboutCodeByCode) => {
-  const data = await request(GraphQlEndpoint, GET_CU_ABOUT_BY_CODE, {
+// eslint-disable-next-line space-before-function-paren
+export const fetchCoreUnitByCode = async (code: string) =>
+  request(GraphQlEndpoint, GET_CU_ABOUT_BY_CODE, {
     filter: {
       code,
     },
-  });
-  return (data.coreUnit as CoreUnit[]) || [];
-};
+  }) as Promise<CuAbout>;
