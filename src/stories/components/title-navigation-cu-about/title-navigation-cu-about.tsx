@@ -23,7 +23,7 @@ export const TitleNavigationCuAbout = ({ title, status, statusModified, links = 
         <TypographyTitle>{title}</TypographyTitle>
 
         <Row>
-          {status && <StatusChip status={status}/>}
+          {status && <StatusChip status={status} />}
           {statusModified && <CustomPopover
             id={'mouse-over-popover-goto'}
             title={'Go to MIPs Portal'}
@@ -37,7 +37,7 @@ export const TitleNavigationCuAbout = ({ title, status, statusModified, links = 
         </Row>
       </ContainerTitle>
       <ContainerLinks>
-        <CutableColumnLinks links={links} dark/>
+        <CutableColumnLinks links={links} dark />
       </ContainerLinks>
     </Container>
   );
@@ -82,8 +82,11 @@ const Row = styled.div({
 });
 
 const SinceDate = styled.a({
-  color: 'gray',
+  color: '#898989',
+  fontStyle: 'normal',
+  fontWeight: 400,
   fontSize: '12px',
+  lineHeight: '15px',
   textDecoration: 'underline',
   marginLeft: '10px'
 });

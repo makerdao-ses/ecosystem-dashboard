@@ -24,7 +24,7 @@ const RelateMips = ({ relateMips: { status, statusModified, href, mipTitle } }: 
   return (
     <Content>
       <Row>
-        {status && <StatusChip status={status}/>}
+        {status && <StatusChip status={status} />}
         {statusModified && <CustomPopover
           id={'mouse-over-popover-goto'}
           title={'Go to MIPs Portal'}
@@ -38,7 +38,7 @@ const RelateMips = ({ relateMips: { status, statusModified, href, mipTitle } }: 
       </Row>
       <RowUnderLine>
         {pieces[0] ? <Typography color='#000000' fontSize={12} fontWeight={600}>{`${pieces[0]}:`}</Typography> : null}
-        {pieces[1] ? <Typography color='#000000' fontSize={12} sx={{ marginRight: '8px' }}>{` ${pieces[1]}`} </Typography> : null}
+        {pieces[1] ? <Typography color='#000000' fontSize={12} fontWeight={600} sx={{ marginRight: '8px' }}>{` ${pieces[1]}`} </Typography> : null}
         {!!href && <ArrowLink href={`${href}` || '#'} />}
       </RowUnderLine>
     </Content>
@@ -69,8 +69,9 @@ const RowUnderLine = styled(Row)`
 `;
 
 const SinceDate = styled.a({
-  color: 'gray',
+  color: '#898989',
   fontSize: '12px',
   textDecoration: 'underline',
-  marginLeft: '10px'
+  marginLeft: '10px',
+  fontWeight: 500
 });
