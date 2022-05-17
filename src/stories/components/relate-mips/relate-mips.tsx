@@ -51,7 +51,7 @@ const Content = styled.div({
   flexDirection: 'column',
   padding: '8px 4px 16px 8px',
   width: '500px',
-  height: '75px',
+  gap: 18,
   backgroundColor: '#FCFCFC',
   boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.25)',
   borderRadius: '8px',
@@ -61,11 +61,15 @@ const Row = styled.div({
   display: 'flex',
   alignItems: 'center',
   flex: 1,
-  whiteSpace: 'break-spaces',
 });
-const RowUnderLine = styled(Row)`
+const RowUnderLine = styled.div`
+   display: flex;
+   align-items: center;
+   flex: 1;
    text-decoration: underline;
    margin-right:8px;
+   white-space: break-spaces;
+   
 `;
 
 const SinceDate = styled.a({

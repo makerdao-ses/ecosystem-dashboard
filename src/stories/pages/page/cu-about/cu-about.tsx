@@ -142,7 +142,7 @@ const CuAbout = () => {
           })}
         </ContainerCards>
       </ContactInfoContainer>
-      <Divider light sx={{ marginBottom: '32px', marginTop: '32px', color: '#D8E0E3', marginLeft: '32px', marginRight: '32px' }} variant='fullWidth' />
+      <Divider light sx={{ marginBottom: '32px', color: '#D8E0E3', marginLeft: '32px', marginRight: '32px' }} variant='fullWidth' />
       <CardRelateMipsContainer>
         <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
         <RelateMipCards>
@@ -202,7 +202,7 @@ const TeamMemberContainer = styled.div`
 display:flex ;
 justify-content: row;
 align-items:center ;
-margin-left:32px ;
+margin-left:64px ;
 
 `;
 
@@ -230,6 +230,7 @@ font-weight: 700;
 font-size: 14px;
 line-height: 17px;
 color: #000000;
+margin-left:32px ;
 `;
 
 const ContainerCards = styled.div`
