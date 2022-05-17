@@ -20,7 +20,7 @@ const Language = ({
       onClick={onClick}
       width={width}
       height={height}
-      viewBox='0 0 28 28'
+      viewBox={`0 0 ${width} ${height}`}
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
       {...props}

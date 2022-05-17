@@ -69,13 +69,13 @@ const TopBar = (props: TopBarProps) => {
       >
       </Typography>
       <IconButton color="inherit" sx={{ marginRight: '24px' }}>
-        <FeedBack />
+        <FeedBack width={22} height={22}/>
       </IconButton>
       <IconButton color="inherit" sx={{ marginRight: '24px' }}>
-        <Language />
+        <Language width={26.7} height={26.7}/>
       </IconButton>
       <IconButton color="inherit">
-        <ThemeMode />
+        <ThemeMode width={26.7} height={26.7}/>
       </IconButton>
     </Toolbar>
   </AppBar>;
