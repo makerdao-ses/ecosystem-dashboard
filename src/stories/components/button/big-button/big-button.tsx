@@ -24,7 +24,7 @@ font-weight: 500;
 font-size: 12px;
 line-height: 15px;
 text-align: center;
-
+text-transform:uppercase ;
 color: #000000;
 `;
 

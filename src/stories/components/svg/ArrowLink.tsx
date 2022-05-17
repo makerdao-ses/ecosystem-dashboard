@@ -5,7 +5,7 @@ interface Props {
     href?: string;
 }
 
-const ArrowLink = ({ width = 12, height = 16, href, ...props }: Props) => {
+const ArrowLink = ({ width = 16, height = 16, href, ...props }: Props) => {
   return (
         <a href={href}>
             <svg

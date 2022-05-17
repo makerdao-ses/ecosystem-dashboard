@@ -42,8 +42,8 @@ const CardInfoMember = ({ info }: Props) => {
       <Card sx={{ boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.08)', borderRadius: '8px', backgroundColor: '#F9F9F9' }} >
         <CardHeader
           sx={{ marginTop: '17px', paddingTop: '0px', paddingBottom: '0px' }}
-          avatar={!info.avatar ? <Avatar sx={{ bgcolor: 'black' }} style={{ width: '48px', height: '48px', fontSize: '1rem' }}>{getTwoInitials(info.name || 'NM')}</Avatar> : <Avatar style={{ width: '48px', height: '48px' }} src={info.avatar} />}
-          title={<Typography fontSize={14} >{info.name}</Typography>}
+          avatar={!info.avatar ? <Avatar sx={{ bgcolor: 'black', width: 40, height: 40 }} style={{ fontSize: '1rem' }}>{getTwoInitials(info.name || 'NM')}</Avatar> : <Avatar style={{ width: '40px', height: '40px' }} src={info.avatar} />}
+          title={<Typography fontSize={14} sx={{ color: '#000000' }}>{info.name}</Typography>}
           subheader={<Typography fontSize={12} sx={{ marginLeft: '6px' }}>{info.username}</Typography>}
         />
         <CardContent>
@@ -58,7 +58,7 @@ const CardInfoMember = ({ info }: Props) => {
             </CardContentPositionColumn>
           </CardContentPositionRow>
           <Divider light sx={{ marginTop: '30px', color: '#C4C4C4' }} variant='fullWidth' />
-          <CardLinksFooter><CutableColumnLinks links={links} width={16} height={16} /></CardLinksFooter>
+          <CardLinksFooter><CutableColumnLinks links={links} width={6} height={6} /></CardLinksFooter>
         </CardContent>
       </Card>
     </Box>
