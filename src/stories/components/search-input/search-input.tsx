@@ -25,7 +25,7 @@ export const SearchInput = (props: SearchInputProps) => {
     onBlur={() => setActive(false)}
   >
     <InputLabel
-      sx={{ fontSize: '14px', lineHeight: '14px' }}
+      sx={{ fontSize: '14px', lineHeight: '16px', top: '-2px' }}
       htmlFor="outlined-adornment-password">
       {active || value ? props.label : props.placeholder}
     </InputLabel>

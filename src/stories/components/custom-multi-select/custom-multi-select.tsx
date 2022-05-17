@@ -49,7 +49,7 @@ export const CustomMultiSelect = ({ withAll = true, ...props }: CustomSelectProp
   };
 
   return <FormControl sx={{ m: '10px 8px', width: 300, background: 'white', height: '' }}>
-    <InputLabel sx={{ fontSize: '14px', lineHeight: '14px' }} id="multiselect-status-label">{props.label}</InputLabel>
+    <InputLabel sx={{ fontSize: '14px', lineHeight: '16px', top: '-2px' }} id="multiselect-status-label">{props.label}</InputLabel>
     <Select
       labelId="multiselect-status-label"
       id="multiselect-status"
