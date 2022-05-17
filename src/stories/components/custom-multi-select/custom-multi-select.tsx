@@ -10,6 +10,7 @@ import {
   SelectChangeEvent
 } from '@mui/material';
 import CheckBoxOutlined from '@mui/icons-material/CheckBoxOutlined';
+import './custom-multi-select.scss';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -47,25 +48,25 @@ export const CustomMultiSelect = ({ withAll = true, ...props }: CustomSelectProp
     }
   };
 
-  return <FormControl sx={{ m: 1, width: 300, background: 'white', height: '' }}>
-    <InputLabel id="multiselect-status-label">{props.label}</InputLabel>
+  return <FormControl sx={{ m: '10px 8px', width: 300, background: 'white', height: '' }}>
+    <InputLabel sx={{ fontSize: '14px', lineHeight: '14px' }} id="multiselect-status-label">{props.label}</InputLabel>
     <Select
       labelId="multiselect-status-label"
       id="multiselect-status"
       multiple
       value={activeItems}
       onChange={handleChange}
-      input={<OutlinedInput label={props.label} />}
+      input={<OutlinedInput className={'CustomOutline'} sx={{ fontSize: '14px' }} label={props.label} />}
       renderValue={(selected) => selected.join(', ')}
       MenuProps={MenuProps}
     >
       {withAll && <MenuItem key={'All'} onClick={toggleAll}>
-        <CheckBoxOutlined sx={{ m: 1 }}/>
+        <CheckBoxOutlined sx={{ m: '6px' }}/>
         <ListItemText primary={'All'}/>
       </MenuItem>}
       {props.items.map((item) => (
         <MenuItem key={item} value={item}>
-          <Checkbox checked={activeItems.indexOf(item) > -1} />
+          <Checkbox sx={{ p: '6px' }} checked={activeItems.indexOf(item) > -1} />
           <ListItemText primary={item} />
         </MenuItem>
       ))}
