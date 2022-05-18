@@ -44,7 +44,7 @@ const TopBar = (props: TopBarProps) => {
     <Toolbar
       sx={{
         pr: '24px',
-        backgroundColor: '#C4C4C4',
+        backgroundColor: 'white',
       }}
       color={'White'}
     >
