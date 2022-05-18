@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Avatar, Chip, Typography } from '@mui/material';
+import { Avatar, Typography } from '@mui/material';
 import { getColorForString } from '../../../core/utils/color-utils';
 import { getTwoInitials } from '../../../core/utils/string-utils';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
-import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
+import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
+import { StatusChip } from '../status-chip/status-chip';
 
 interface CutableColumnSummaryProps {
   title: string,
@@ -27,8 +28,7 @@ export const CutableColumnSummary = (props: CutableColumnSummaryProps) => {
     <Content>
       <Title>{props.title}</Title>
       <Row>
-        {props.status && <Chip size={'small'} sx={{ borderRadius: '8px', borderColor: '#25273D' }} label={props.status}
-                               variant={'outlined'}/>}
+        {props.status && <StatusChip status={props.status}/>}
         {props.statusModified && <CustomPopover
             id={'mouse-over-popover-goto'}
             title={'Go to MIPs Portal'}

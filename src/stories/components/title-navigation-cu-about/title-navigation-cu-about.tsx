@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Chip, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { CutableColumnLinks, LinkModel } from '../cutable-column-links/cutable-column-links';
-import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
+import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
+import { StatusChip } from '../status-chip/status-chip';
 
 interface Props {
   title: string
@@ -22,7 +23,7 @@ export const TitleNavigationCuAbout = ({ title, status, statusModified, links = 
         <TypographyTitle>{title}</TypographyTitle>
 
         <Row>
-          {status && <Chip size={'small'} sx={{ borderRadius: '8px', borderColor: '#25273D' }} label={status} variant={'outlined'} />}
+          {status && <StatusChip status={status}/>}
           {statusModified && <CustomPopover
             id={'mouse-over-popover-goto'}
             title={'Go to MIPs Portal'}
