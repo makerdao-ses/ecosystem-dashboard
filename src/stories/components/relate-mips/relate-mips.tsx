@@ -49,9 +49,8 @@ export default RelateMips;
 const Content = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  padding: '8px 4px 16px 8px',
+  padding: '8px 4px 17px 8px',
   width: '500px',
-  gap: 18,
   backgroundColor: '#FCFCFC',
   boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.25)',
   borderRadius: '8px',
@@ -61,6 +60,7 @@ const Row = styled.div({
   display: 'flex',
   alignItems: 'center',
   flex: 1,
+  marginBottom: '18px'
 });
 const RowUnderLine = styled.div`
    display: flex;

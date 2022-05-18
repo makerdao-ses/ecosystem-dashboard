@@ -56,7 +56,7 @@ const getImageForLink = ({ width, height, dark, link }: any) => {
 export const CutableColumnLinks = ({ width, height, dark, links }: CutableColumnLinksProps) => {
   return <Container>
     {links.map((link, i) => <CustomPopover key={`link-${i}`} title={link.linkType} id={`link-${i}`}>
-      <LinkImage href={link.href} target="_blank" width={width} height={height}>
+      <LinkImage href={link.href} target="_blank" width={width ? width + 22 : undefined} height={height}>
         {getImageForLink({ link, dark, width, height })}
       </LinkImage>
     </CustomPopover>)}

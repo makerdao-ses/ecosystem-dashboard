@@ -44,7 +44,7 @@ const CardInfoMember = ({ info }: Props) => {
           sx={{ marginTop: '17px', paddingTop: '0px', paddingBottom: '0px' }}
           avatar={!info.avatar ? <Avatar sx={{ bgcolor: 'black', width: 40, height: 40 }} style={{ fontSize: '1rem' }}>{getTwoInitials(info.name || 'NM')}</Avatar> : <Avatar style={{ width: '40px', height: '40px' }} src={info.avatar} />}
           title={<Typography fontSize={14} sx={{ color: '#000000' }}>{info.name}</Typography>}
-          subheader={<Typography fontSize={12} sx={{ marginLeft: '6px' }}>{info.username}</Typography>}
+          subheader={<Typography fontSize={12} sx={{ marginLeft: '6px', color: '#000000' }}>{info.username}</Typography>}
         />
         <CardContent sx={{ '&:last-child': { pb: '10px' } }}>
           <CardContentPositionRow>
@@ -53,7 +53,7 @@ const CardInfoMember = ({ info }: Props) => {
               <Typography color=' #000000' fontSize={14}>{info.jobTitle}</Typography>
             </CardContentPositionColumn>
             <CardContentPositionColumn>
-              <Typography color='#C4C4C4' fontSize={12}>Commitment</Typography>
+              <Typography color='#C4C4C4' fontSize={12} sx={{ paddingRight: '50px' }}>Commitment</Typography>
               <Typography color=' #000000' fontSize={14}>{info.commitment}</Typography>
             </CardContentPositionColumn>
           </CardContentPositionRow>
@@ -76,7 +76,6 @@ const CardContentPositionColumn = styled.div({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-start',
-
 });
 
 const CardLinksFooter = styled.div({

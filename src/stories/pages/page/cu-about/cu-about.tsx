@@ -219,9 +219,7 @@ const ContactInfoContainer = styled.div`
 display:flex ;
 flex-direction:column ;
 min-height:182px ;
-/* padding-left:32px ; */
 margin-top:48px ;
-margin-bottom: 32px;
 
 `;
 const ContactInfoTitle = styled(Typography)`
@@ -237,7 +235,6 @@ const ContainerCards = styled.div`
 display: grid ;
 grid-template-columns: repeat(3, 1fr);
  column-gap: 32px;
-row-gap: 32px;
 grid-auto-rows: minmax(100px, auto);
 margin-left:32px ;
 margin-right: 32px;
@@ -245,7 +242,7 @@ margin-top: 32px;
 `;
 
 const CardContainer = styled.div`
-margin-bottom:24px ;
+margin-bottom:32px ;
 margin-top:24px ;
 `;
 
