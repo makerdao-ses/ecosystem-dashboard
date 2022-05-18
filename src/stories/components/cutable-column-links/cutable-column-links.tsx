@@ -31,32 +31,33 @@ interface CutableColumnLinksProps {
   dark?: boolean;
 }
 
-const getImageForLink = (link: LinkModel, dark?: boolean) => {
+const getImageForLink = ({ width, height, dark, link }: any) => {
+  const fill = dark ? '#626472' : '#C4C4C4';
   switch (link.linkType) {
     case LinkType.WWW:
-      return <WWW fill={dark ? '#626472' : '#C4C4C4'} />;
+      return <WWW fill={fill} width={width} height={height} />;
     case LinkType.Forum:
-      return <Forum fill={dark ? '#626472' : '#C4C4C4'} />;
+      return <Forum fill={fill} width={width} height={height} />;
     case LinkType.Discord:
-      return <Discord fill={dark ? '#626472' : '#C4C4C4'} />;
+      return <Discord fill={fill} width={width} height={height} />;
     case LinkType.Twitter:
-      return <Twitter fill={dark ? '#626472' : '#C4C4C4'} />;
+      return <Twitter fill={fill} width={width} height={height} />;
     case LinkType.Youtube:
-      return <Youtube fill={dark ? '#626472' : '#C4C4C4'} />;
+      return <Youtube fill={fill} width={width} height={height} />;
     case LinkType.LinkedIn:
-      return <LinkedIn fill={dark ? '#626472' : '#C4C4C4'} />;
+      return <LinkedIn fill={fill} width={width} height={height} />;
     case LinkType.Gmail:
-      return <Gmail fill={dark ? '#626472' : '#C4C4C4'} />;
+      return <Gmail fill={fill} width={width} height={height} />;
     default:
       return <WWW />;
   }
 };
 
-export const CutableColumnLinks = (props: CutableColumnLinksProps) => {
+export const CutableColumnLinks = ({ width, height, dark, links }: CutableColumnLinksProps) => {
   return <Container>
-    {props.links.map((link, i) => <CustomPopover key={`link-${i}`} title={link.linkType} id={`link-${i}`}>
-      <LinkImage href={link.href} target="_blank">
-        {getImageForLink(link, props.dark)}
+    {links.map((link, i) => <CustomPopover key={`link-${i}`} title={link.linkType} id={`link-${i}`}>
+      <LinkImage href={link.href} target="_blank" width={width} height={height}>
+        {getImageForLink({ link, dark, width, height })}
       </LinkImage>
     </CustomPopover>)}
   </Container>;
@@ -67,10 +68,14 @@ const Container = styled.div({
   alignItems: 'center'
 });
 
+type StickyLinkProps = {
+  width?: string | number,
+  height?: string | number,
+}
+
 const LinkImage = styled.a({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  width: '32px',
-  height: '32px',
-});
+},
+({ width = 32, height = 32 }: StickyLinkProps) => ({ width, height }));

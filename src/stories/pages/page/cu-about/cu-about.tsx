@@ -188,7 +188,7 @@ margin-left:33px ;
 const ContainerTitle = styled.div`
 display:flex ;
 margin-left:32px ;
-margin-right:41px ;
+margin-right:38px ;
 margin-top: 32px;
 margin-bottom: 24px;
 `;
@@ -202,7 +202,7 @@ const TeamMemberContainer = styled.div`
 display:flex ;
 justify-content: row;
 align-items:center ;
-margin-left:64px ;
+margin-left:32px ;
 
 `;
 
@@ -219,7 +219,7 @@ const ContactInfoContainer = styled.div`
 display:flex ;
 flex-direction:column ;
 min-height:182px ;
-padding-left:32px ;
+/* padding-left:32px ; */
 margin-top:48px ;
 margin-bottom: 32px;
 
