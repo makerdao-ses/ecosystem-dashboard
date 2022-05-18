@@ -43,7 +43,7 @@ export const CutableColumnExpenditures = (props: CutableColumnExpendituresProps)
         </PercentExplanation>
       }>
       <Value>
-        {props.percent?.toString()}%
+        {props.percent?.toFixed(2)}%
       </Value>
     </CustomPopover>}
   </Container>;

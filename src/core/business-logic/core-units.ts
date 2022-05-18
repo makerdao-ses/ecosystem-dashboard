@@ -1,9 +1,9 @@
 import { DateTime, Interval } from 'luxon';
-import { LinkModel } from '../stories/components/cutable-column-links/cutable-column-links';
-import { LinkTypeEnum } from '../core/enums/link-type.enum';
-import { FacilitatorModel } from '../stories/components/cutable-column-team-member/cutable-column-team-member';
-import { BudgetStatementDAO, CoreUnitDAO, CuMipDao, Mip40Dao } from '../stories/containers/cutable/cutable.api';
-import { CustomChartItem } from '../stories/components/custom-bar-chart/custom-bar-chart';
+import { LinkModel } from '../../stories/components/cutable-column-links/cutable-column-links';
+import { LinkTypeEnum } from '../enums/link-type.enum';
+import { FacilitatorModel } from '../../stories/components/cutable-column-team-member/cutable-column-team-member';
+import { BudgetStatementDAO, CoreUnitDAO, CuMipDao, Mip40Dao } from '../../stories/containers/cutable/cutable.api';
+import { CustomChartItem } from '../../stories/components/custom-bar-chart/custom-bar-chart';
 
 export const getMipFromCoreUnit = (cu: CoreUnitDAO) => {
   if (cu.cuMip?.length === 0) return null;
@@ -81,8 +81,8 @@ export const getLinksFromCoreUnit = (cu: CoreUnitDAO) => {
 };
 
 export const getFTEsFromCoreUnit = (cu: CoreUnitDAO) => {
-  if (cu.budgetStatements.length === 0) return 0;
-  if (!cu.budgetStatements[0].budgetStatementFTEs || cu.budgetStatements[0].budgetStatementFTEs.length === 0) return 0;
+  if (cu.budgetStatements?.length === 0) return 0;
+  if (!cu.budgetStatements[0]?.budgetStatementFTEs || cu.budgetStatements[0]?.budgetStatementFTEs?.length === 0) return 0;
 
   return cu.budgetStatements[0].budgetStatementFTEs[0].ftes;
 };
@@ -90,11 +90,12 @@ export const getFTEsFromCoreUnit = (cu: CoreUnitDAO) => {
 export const getFacilitatorsFromCoreUnit = (cu: CoreUnitDAO) => {
   const result = [] as FacilitatorModel[];
 
-  if (cu.cuMip.length === 0) return result;
-  if (cu.cuMip.every(x => x.mip41.length === 0)) return result;
+  if (cu.cuMip?.length === 0) return result;
+
+  if (cu.cuMip?.every(x => !x.mip41 || x.mip41?.length === 0)) return result;
 
   // TODO: Make sure to obtain the latest Mip41 to be able to obtain the proper value here
-  result.push(...cu.cuMip[2].mip41.map(facilitator => ({
+  result.push(...cu.cuMip[2]?.mip41?.map(facilitator => ({
     name: facilitator.facilitatorName,
     id: facilitator.contributorId
   }) as FacilitatorModel));
@@ -158,12 +159,12 @@ export const getExpenditureValueFromCoreUnit = (cu: CoreUnitDAO) => {
     }
   }
 
-  return result / 3;
+  return result;
 };
 
 export const getPercentFromCoreUnit = (cu: CoreUnitDAO) => {
   const value = getExpenditureValueFromCoreUnit(cu);
-  const budgetCap = getBudgetCapFromCoreUnit(cu);
+  const budgetCap = getBudgetCapFromCoreUnit(cu) * 3;
 
   if (value === 0) return 0;
   if (budgetCap === 0) return null;

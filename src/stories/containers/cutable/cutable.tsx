@@ -22,7 +22,7 @@ import {
   getPercentFromCoreUnit,
   getSubmissionDateFromCuMip,
   getExpenditureValueFromCoreUnit
-} from '../../../business-logic/core-units';
+} from '../../../core/business-logic/core-units';
 import { useAppDispatch } from '../../../core/hooks/hooks';
 import { loadAsync, selectCuTableItems } from './cutable.slice';
 import { useSelector } from 'react-redux';
