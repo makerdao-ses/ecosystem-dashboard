@@ -157,7 +157,7 @@ const CuAbout = () => {
         </RelateMipCards>
       </CardRelateMipsContainer>
       <ButtonContainer>
-        <BigButton title='See less related MIPs' />
+        <BigButton title='See fewer MIPs' />
 
       </ButtonContainer>
     </ContainerAbout>
