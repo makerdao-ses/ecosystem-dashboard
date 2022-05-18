@@ -26,6 +26,7 @@ font-size: 12px;
 line-height: 15px;
 color: #25273D;
 padding:4px 8px;
+text-transform:none ;
 :hover {
     background-color  : #C4C4C4 ;
 }
