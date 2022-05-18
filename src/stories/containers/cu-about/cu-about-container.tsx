@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import styled from '@emotion/styled';
 import { Divider, Typography } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../core/hooks/hooks';
 import BigButton from '../../components/button/big-button/big-button';
 import SmallButton from '../../components/button/small-button/small-button';
@@ -10,38 +10,20 @@ import MdViewerContainer from '../../components/markdown/md-view-container';
 import InsidePagination from '../../components/pagination/InsidePagination';
 import RelateMips from '../../components/relate-mips/relate-mips';
 import TeamMember from '../../components/team-members/team-member';
-import TitleNavigationCuAbout, { CoreUnit, CuMipStatus } from '../../components/title-navigation-cu-about/title-navigation-cu-about';
-import { Commitment, ContributorCommitment } from './cu-about-contributor';
-import { cuAboutSelector, loadCoreUnitABout } from './cu-about-slice';
-import { RelateMipsCuAbout } from './cu-about.api';
+import TitleNavigationCuAbout from '../../components/title-navigation-cu-about/title-navigation-cu-about';
+import { ContributorCommitment } from './cu-about-contributor';
+import { contributorCommitmentSelector, cuAboutSelector, CurrentCoreUnitAbout, loadCoreUnitABout, status } from './cu-about-slice';
+import { CuMip, getFTEsFromCoreUnitAbout } from './cu-about.api';
 
 const CuAboutContainer = () => {
+  const navigate = useNavigate();
   const coreUnitCode = 'SES-001';
   const dispatch = useAppDispatch();
-  const { cuAbout, statusCoreUnit } = useAppSelector(cuAboutSelector);
-  console.log('cuAbout', cuAbout);
-  console.log('statusCoreUnit', statusCoreUnit);
+  const { cuAbout, statusCoreUnit } = useAppSelector<CurrentCoreUnitAbout>(cuAboutSelector);
+  const contributors = useAppSelector<ContributorCommitment[]>(contributorCommitmentSelector);
   useEffect(() => {
     dispatch(loadCoreUnitABout(coreUnitCode));
   }, [dispatch]);
-  const coreUnit = {
-    name: 'Sustainable Ecosystem Scaling',
-    cuMip: [{
-      mipStatus: CuMipStatus.Accepted,
-      accepted: '2020-01-01',
-      rejected: '2020-01-01',
-      rfc: '2020-01-01',
-    }] as CoreUnit['cuMip'],
-    socialMediaChannels: [{
-      cuCode: 'CU-1',
-      discord: 'https://discord.gg/h7GKvqDyDP',
-      forumTag: 'ses-001',
-      linkedIn: 'https://www.linkedin.com/company/makerdao-ses/',
-      twitter: 'https://twitter.com/MakerDAO_SES',
-      website: 'https://www.makerdao.com/',
-      youtube: 'https://www.youtube.com/channel/UC9c35O2H6fq8fB2CGzzP1bw/about'
-    }] as CoreUnit['socialMediaChannels'],
-  } as CoreUnit;
 
   const handleClickPrevious = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -56,79 +38,33 @@ const CuAboutContainer = () => {
     [],
   );
 
-  const contributors: ContributorCommitment[] = [
-    {
-      id: '2',
-      jobTitle: 'Lead Developer',
-      commitment: Commitment.FullTime,
-      contributor: [
-        {
-          id: '0',
-          name: 'Petru',
-          email: 'Petru@ses.makerdao.network',
-          forumHandle: 'Petru_Catana',
-          twitterHandle: 'Petru_Catana',
-          discordHandle: 'catana | SES#2938',
-          facilitatorImage: ''
-        }
-      ]
+  const handleGoBack = useCallback(
+    () => {
+      navigate('/');
     },
-    {
-      id: '2',
-      jobTitle: 'Lead Developer',
-      commitment: Commitment.FullTime,
-      contributor: [
-        {
-          id: '0',
-          name: 'Petru',
-          email: 'Petru@ses.makerdao.network',
-          forumHandle: 'Petru_Catana',
-          twitterHandle: 'Petru_Catana',
-          discordHandle: 'catana | SES#2938',
-          facilitatorImage: ''
-        }
-      ]
-    },
-  ];
+    [navigate],
+  );
 
-  const relateMips = [{
-    mipTitle: 'MIP39c2-SP10: Adding Sustainable Ecosystem Scaling Core Unit',
-    mipUrl: 'https://mips.makerdao.com/mips/details/MIP39c2SP10',
-    mipStatus: 'Accepted',
-    accepted: '2021-05-25',
-    obsolete: '',
-    rfc: '2021-04-02',
-    formalSubmission: '2021-05-01',
-    rejected: ''
-  }, {
-    mipTitle: 'MIP39c2-SP10: Adding Sustainable Ecosystem Scaling Core Unit',
-    mipUrl: 'https://mips.makerdao.com/mips/details/MIP39c2SP10',
-    mipStatus: 'Accepted',
-    accepted: '2021-05-25',
-    obsolete: '',
-    rfc: '2021-04-02',
-    formalSubmission: '2021-05-01',
-    rejected: ''
-  },
-  ] as RelateMipsCuAbout[];
+  if (statusCoreUnit === status.loading) {
+    return <div>Loading...</div>;
+  }
+  if (statusCoreUnit === status.failed) {
+    return <div>Failed...</div>;
+  }
 
-  const sentenceDescription = 'SES aims to sustainably grow the Maker Protocol’s moats by removing barriers between decentralized workforce, capital, and work.';
-  const paragraphDescription = '**Vision**\n    \n    An effective, decentralized, and scalable ecosystem:\n    \n    1. The industry’s best on-boarding experience and retention rate\n    2. Easy to find the capital needed for the best projects to work on:\n        1. Optimal driving force for protocol growth\n        2. Most fulfilling for the project’s participants\n    3. Resilient safety mechanisms\n        1. Preventing protocol failure\n        2. Allow for rapid innovation and experimentation\n \n **Strategy**\n \n    - Opportunity & Risk Assessment\n        - Engage with the different DAO stakeholders and keep an open backlog accessible to the broader Community.\n        - Prioritize issues based on importance and risk and build a Road Map to tackle these issues.\n    - Research\n        - Research the opportunities and issues, with a data-centric approach.\n        - Explore solutions and frameworks that produce high-quality, repeatable results.\n    - Incubate\n        - Set groups for success into becoming a functional Core Unit answering a specific need for the DAO. Guide and support them through the process.\n        - Feedback the research through continuous improvement to accelerate the scale and improve the success rate of new Core Units.';
-  const paragraphImage = 'https://gateway-proxy-bee-9-0.gateway.ethswarm.org/bzz/1fe299c01206d1d422cf79a60ea49b8a77b04382f8d25745842eb2a199eb4389';
-  const fte = 7.5;
   return (
     <ContainerAbout>
       <NavigationHeader>
-        <SmallButton onClick={() => { }} /> <PaddingComponent><InsidePagination count={10} page={1} onClickLeft={handleClickPrevious} onClickRight={handleClickNext} /></PaddingComponent>
+        <SmallButton onClick={handleGoBack} /> <PaddingComponent><InsidePagination count={10} page={1} onClickLeft={handleClickPrevious} onClickRight={handleClickNext} /></PaddingComponent>
       </NavigationHeader>
       <ContainerTitle>
-        <TitleNavigationCuAbout coreUnit={coreUnit} />
+        <TitleNavigationCuAbout coreUnitAbout={cuAbout} />
       </ContainerTitle>
       <MarkdownContainer>
-        <MdViewerContainer sentenceDescription={sentenceDescription} paragraphDescription={paragraphDescription} paragraphImage={paragraphImage} />
+        <MdViewerContainer sentenceDescription={cuAbout.sentenceDescription} paragraphDescription={cuAbout.paragraphDescription} paragraphImage={cuAbout.paragraphImage} />
       </MarkdownContainer>
       <TeamMemberContainer>
-        <TeamMemberTitle>Team Size</TeamMemberTitle><TeamMember fte={fte} />
+        <TeamMemberTitle>Team Size</TeamMemberTitle><TeamMember fte={getFTEsFromCoreUnitAbout(cuAbout)} />
       </TeamMemberContainer>
       <ContactInfoContainer>
         <ContactInfoTitle>Contact Information</ContactInfoTitle>
@@ -146,7 +82,7 @@ const CuAboutContainer = () => {
       <CardRelateMipsContainer>
         <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
         <RelateMipCards>
-          {relateMips.map((mip: RelateMipsCuAbout, index: number) => {
+          {cuAbout.cuMip.map((mip: CuMip, index: number) => {
             return (
               <RelateMipCard key={index}>
                 <RelateMips relateMips={mip} />
@@ -158,7 +94,6 @@ const CuAboutContainer = () => {
       </CardRelateMipsContainer>
       <ButtonContainer>
         <BigButton title='See less related MIPs' />
-
       </ButtonContainer>
     </ContainerAbout>
   );

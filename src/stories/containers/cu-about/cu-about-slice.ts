@@ -1,7 +1,14 @@
 /* eslint-disable semi */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../../core/store/store';
-import { CuAbout, fetchCoreUnitByCode } from './cu-about.api';
+import {
+  Commitment,
+  ContributorCommitment,
+  CuAbout,
+  CuMipStatus,
+  fetchCoreUnitByCode,
+  SocialMediaChannels,
+} from './cu-about.api';
 
 export enum status {
   idle = 'idle',
@@ -19,7 +26,56 @@ export interface CurrentCoreUnitAbout {
 const initialState: CurrentCoreUnitAbout = {
   error: null,
   statusCoreUnit: status.idle,
-  cuAbout: {} as CuAbout,
+  cuAbout: {
+    paragraphDescription: '',
+    sentenceDescription: '',
+    paragraphImage: '',
+    cuMip: [
+      {
+        cuId: '',
+        formalSubmission: '',
+        mipCode: '',
+        mipStatus: CuMipStatus.Rejected,
+        rfc: '',
+      },
+    ],
+    budgetStatements: [
+      {
+        budgetStatementFTEs: [
+          {
+            ftes: 0,
+          },
+        ],
+      },
+    ],
+    contributorCommitment: [
+      {
+        id: '',
+        jobTitle: '',
+        commitment: Commitment.Inactive,
+        contributor: [
+          {
+            email: '',
+            forumHandle: '',
+            id: '',
+            facilitatorImage: '',
+            name: '',
+            discordHandle: '',
+            twitterHandle: '',
+          },
+        ],
+      },
+    ] as ContributorCommitment[],
+    socialMediaChannels: [{
+      cuCode: '',
+      forumTag: '',
+      twitter: '',
+      youtube: '',
+      discord: '',
+      linkedIn: '',
+      website: '',
+    }] as SocialMediaChannels[],
+  } as CuAbout,
 };
 
 export const loadCoreUnitABout = createAsyncThunk(
@@ -48,7 +104,15 @@ export const cuAboutSlice = createSlice({
   },
 });
 
-export const cuAboutSelector = (state: RootState) => (state.cuAbout);
-
+export const cuAboutSelector = (state: RootState) => state.cuAbout;
+// export const ftsSelector = (state: RootState) => {
+//   return (
+//     cuAboutSelector(state).cuAbout.budgetStatements[0].budgetStatementFTEs[0]
+//       .ftes || 0
+//   );
+// };
+export const contributorCommitmentSelector = (state: RootState) => {
+  return cuAboutSelector(state).cuAbout.contributorCommitment;
+};
 export const { clearCoreUNit } = cuAboutSlice.actions;
 export default cuAboutSlice.reducer;

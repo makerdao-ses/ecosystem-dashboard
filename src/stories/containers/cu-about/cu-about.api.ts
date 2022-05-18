@@ -37,14 +37,16 @@ export interface RelateMipsCuAbout {
 }
 
 export interface CuMip {
+  mipTitle: string;
   mipCode: string;
   cuId: string;
   rfc?: string;
   formalSubmission: string;
   accepted?: string;
   rejected?: string;
+  obsolete?: string;
   mipStatus: CuMipStatus;
-  url: string;
+  mipUrl?: string;
 }
 export enum Commitment {
   FullTime = 'Full Time',
@@ -120,12 +122,14 @@ export const GET_CU_ABOUT_BY_CODE = gql`
         linkedIn
       }
       cuMip {
+        mipTitle
         mipStatus
         accepted
         obsolete
         rejected
         rfc
         formalSubmission
+        mipUrl
       }
       budgetStatements {
         budgetStatementFTEs {
@@ -205,9 +209,11 @@ export const getFTEsFromCoreUnitAbout = (cu: CuAbout) => {
 };
 
 // eslint-disable-next-line space-before-function-paren
-export const fetchCoreUnitByCode = async (code: string) =>
-  request(GraphQlEndpoint, GET_CU_ABOUT_BY_CODE, {
+export const fetchCoreUnitByCode = async (code: string) => {
+  const res = (await request(GraphQlEndpoint, GET_CU_ABOUT_BY_CODE, {
     filter: {
       code,
     },
-  }) as Promise<CuAbout>;
+  })) as { coreUnit: CuAbout[] };
+  return res.coreUnit[0];
+};
