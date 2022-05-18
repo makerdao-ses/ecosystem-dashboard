@@ -8,6 +8,7 @@ export const GETCoreUnits = gql`
         code
         name
         image
+        category
         cuMip {
           formalSubmission
           mipStatus
@@ -21,7 +22,7 @@ export const GETCoreUnits = gql`
               budgetPeriodEnd
               mip40BudgetLineItem {
                 budgetCap
-              }
+              } 
             }
           }
           mip41 {
@@ -112,6 +113,7 @@ export interface CoreUnitDAO {
   code: string,
   name: string,
   image: string,
+  category: string[],
   cuMip: CuMipDao[]
   roadMap: {
     ownerCuId: string

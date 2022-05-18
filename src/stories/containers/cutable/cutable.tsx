@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
@@ -34,17 +34,39 @@ const categories = Object.values(CuCategoryEnum) as string[];
 const headers = ['Core Units', 'Initiatives', 'Expenditure', 'Team Members', 'Links'];
 
 export const CUTable = () => {
-  const data = useSelector((state: RootState) => selectCuTableItems(state));
+  const data: Array<CoreUnitDAO> = useSelector((state: RootState) => selectCuTableItems(state));
   const dispatch = useAppDispatch();
+  const [filteredStatuses, setFilteredStatuses] = useState<string[]>([]);
+  const [filteredCategories, setFilteredCategories] = useState<string[]>([]);
+  const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
     dispatch(loadAsync());
   }, []);
 
+  const filterData = () => {
+    const lowerCaseStatuses = filteredStatuses.map(x => x.toLowerCase());
+    const lowerCaseCategories = filteredCategories.map(x => x.toLowerCase());
+    return data.filter(data => {
+      let filterResult = true;
+
+      // Filter by status
+      filterResult = filterResult && (lowerCaseStatuses.length === 0 || lowerCaseStatuses.indexOf(data.cuMip[data.cuMip.length - 1]?.mipStatus?.toLowerCase() ?? 'non-present') > -1);
+
+      // Filter by categories
+      filterResult = filterResult && (lowerCaseCategories.length === 0 || data.category.some(x => lowerCaseCategories.indexOf(x.toLowerCase()) > -1));
+
+      // Filter by name
+      filterResult = filterResult && (searchText.trim().length === 0 || data.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1 || data.code.toLowerCase().indexOf(searchText.toLowerCase()) > -1);
+
+      return filterResult;
+    });
+  };
+
   const items = useMemo(() => {
-    if (!data) return [];
-    console.log(data);
-    return data.map((coreUnit: CoreUnitDAO, i: number) => {
+    const filteredData = filterData();
+    if (!filteredData) return [];
+    return filteredData.map((coreUnit: CoreUnitDAO, i: number) => {
       return [
         <CutableColumnSummary
           key={`summary-${i}`}
@@ -77,7 +99,7 @@ export const CUTable = () => {
         />
       ];
     });
-  }, [data]);
+  }, [data, filteredStatuses, filteredCategories, searchText]);
 
   return <ContainerHome>
     <Box
@@ -92,10 +114,10 @@ export const CUTable = () => {
     >
       <Header>
         <Title>Core Units</Title>
-        <CustomMultiSelect label={'Status'} items={statuses} />
-        <CustomMultiSelect label={'Category'} items={categories} />
+        <CustomMultiSelect label={'Status'} items={statuses} onChange={setFilteredStatuses}/>
+        <CustomMultiSelect label={'Category'} items={categories} onChange={setFilteredCategories}/>
         <Separator />
-        <SearchInput label={'Search CUs'} placeholder={'Search CUs by name or Code'} />
+        <SearchInput label={'Search CUs'} placeholder={'Search CUs by name or Code'} onChange={setSearchText}/>
       </Header>
       <CustomTable
         headers={headers}

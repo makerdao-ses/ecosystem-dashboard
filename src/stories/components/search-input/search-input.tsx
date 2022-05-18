@@ -6,13 +6,20 @@ import './search-input.scss';
 interface SearchInputProps {
   label: string,
   placeholder: string,
+  onChange?: (text: string) => void
 }
 
 export const SearchInput = (props: SearchInputProps) => {
   const [value, setValue] = useState('');
+  const [oldTimeout, setOldTimeout] = useState<NodeJS.Timeout>();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
+
+    oldTimeout && clearTimeout(oldTimeout);
+    setOldTimeout(setTimeout(() => {
+      props.onChange && props.onChange(event.target.value);
+    }, 600));
   };
 
   const [active, setActive] = useState(false);
