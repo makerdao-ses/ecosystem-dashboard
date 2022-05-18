@@ -17,6 +17,8 @@ export const GETCoreUnits = gql`
           obsolete
           mip40 {
             mip40BudgetPeriod {
+              budgetPeriodStart
+              budgetPeriodEnd
               mip40BudgetLineItem {
                 budgetCap
               }
@@ -39,6 +41,7 @@ export const GETCoreUnits = gql`
           website
         }
         budgetStatements {
+          month
           budgetStatementFTEs {
             month
             ftes
@@ -64,23 +67,43 @@ const GetFacilitatorImageGQL = gql`
   }
   `;
 
-export interface cuMipDao {
+export interface Mip40BudgetPeriodDao {
+  budgetPeriodStart: string,
+  budgetPeriodEnd: string,
+  mip40BudgetLineItem: {
+    budgetCap: number
+  }[]
+}
+
+export interface Mip40Dao {
+  mip40BudgetPeriod: Mip40BudgetPeriodDao[]
+}
+
+export interface CuMipDao {
   mipStatus: string,
   accepted: string,
   formalSubmission: string,
   rfc: string,
   rejected: string,
   obsolete: string,
-  mip40: {
-    mip40BudgetPeriod: {
-      mip40BudgetLineItem: {
-        budgetCap: number
-      }[]
-    }[]
-  }[]
+  mip40: Mip40Dao[]
   mip41: {
     facilitatorName: string,
     contributorId: string
+  }[]
+}
+
+export interface BudgetStatementDAO {
+  month: string,
+  budgetStatus: string,
+  budgetStatementFTEs: {
+    month: string,
+    ftes: number
+  }[],
+  budgetStatementWallet: {
+    budgetStatementLineItem: {
+      actual: number
+    }[]
   }[]
 }
 
@@ -89,7 +112,7 @@ export interface CoreUnitDAO {
   code: string,
   name: string,
   image: string,
-  cuMip: cuMipDao[]
+  cuMip: CuMipDao[]
   roadMap: {
     ownerCuId: string
   }[],
@@ -101,18 +124,7 @@ export interface CoreUnitDAO {
     linkedIn: string,
     website: string,
   }[],
-  budgetStatements: {
-    budgetStatus: string,
-    budgetStatementFTEs: {
-      month: string,
-      ftes: number
-    }[],
-    budgetStatementWallet: {
-      budgetStatementLineItem: {
-        actual: number
-      }[]
-    }[]
-  }[]
+  budgetStatements: BudgetStatementDAO[]
 }
 
 export const fetchCoreUnits = async() => {

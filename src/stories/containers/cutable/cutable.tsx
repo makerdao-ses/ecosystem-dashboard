@@ -14,15 +14,15 @@ import { Box, Typography } from '@mui/material';
 import {
   countInitiativesFromCoreUnit,
   getBudgetCapFromCoreUnit,
-  getExpenditureValuesFromCoreUnit,
+  getLast3ExpenditureValuesFromCoreUnit,
   getFacilitatorsFromCoreUnit,
   getFTEsFromCoreUnit,
   getLinksFromCoreUnit,
   getMipFromCoreUnit,
   getPercentFromCoreUnit,
   getSubmissionDateFromCuMip,
-  getValueFromCoreUnit
-} from './cutable.accesor';
+  getExpenditureValueFromCoreUnit
+} from '../../../business-logic/core-units';
 import { useAppDispatch } from '../../../core/hooks/hooks';
 import { loadAsync, selectCuTableItems } from './cutable.slice';
 import { useSelector } from 'react-redux';
@@ -59,9 +59,9 @@ export const CUTable = () => {
         />,
         <CutableColumnExpenditures
           key={`expenditures-${i}`}
-          value={getValueFromCoreUnit(coreUnit)}
+          value={getExpenditureValueFromCoreUnit(coreUnit)}
           percent={getPercentFromCoreUnit(coreUnit)}
-          items={getExpenditureValuesFromCoreUnit(coreUnit)}
+          items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
           budgetCap={getBudgetCapFromCoreUnit(coreUnit)}
         />,
         <CutableColumnTeamMember

@@ -1,9 +1,9 @@
-import { DateTime } from 'luxon';
-import { LinkModel } from '../../components/cutable-column-links/cutable-column-links';
-import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
-import { FacilitatorModel } from '../../components/cutable-column-team-member/cutable-column-team-member';
-import { CoreUnitDAO, cuMipDao } from './cutable.api';
-import { CustomChartItem } from '../../components/custom-bar-chart/custom-bar-chart';
+import { DateTime, Interval } from 'luxon';
+import { LinkModel } from '../stories/components/cutable-column-links/cutable-column-links';
+import { LinkTypeEnum } from '../core/enums/link-type.enum';
+import { FacilitatorModel } from '../stories/components/cutable-column-team-member/cutable-column-team-member';
+import { BudgetStatementDAO, CoreUnitDAO, CuMipDao, Mip40Dao } from '../stories/containers/cutable/cutable.api';
+import { CustomChartItem } from '../stories/components/custom-bar-chart/custom-bar-chart';
 
 export const getMipFromCoreUnit = (cu: CoreUnitDAO) => {
   if (cu.cuMip?.length === 0) return null;
@@ -11,7 +11,7 @@ export const getMipFromCoreUnit = (cu: CoreUnitDAO) => {
   return cu.cuMip[cu.cuMip.length - 1];
 };
 
-export const getSubmissionDateFromCuMip = (mip: cuMipDao | null) => {
+export const getSubmissionDateFromCuMip = (mip: CuMipDao | null) => {
   if (!mip) return null;
 
   try {
@@ -102,32 +102,67 @@ export const getFacilitatorsFromCoreUnit = (cu: CoreUnitDAO) => {
   return result;
 };
 
+const getBudgetCapForMip40onMonth = (mip40: Mip40Dao, month: DateTime) => {
+  const budgetPeriod = mip40?.mip40BudgetPeriod?.find(bp => {
+    const start = DateTime.fromFormat(bp.budgetPeriodStart, 'y-MM-dd');
+    const end = DateTime.fromFormat(bp.budgetPeriodEnd, 'y-MM-dd');
+    const interval = Interval.fromDateTimes(start, end);
+    return interval.contains(month);
+  });
+
+  let result = 0;
+  if (!budgetPeriod) return result;
+
+  // eslint-disable-next-line no-return-assign
+  budgetPeriod.mip40BudgetLineItem.forEach((lineItem) => result += lineItem.budgetCap);
+
+  return result;
+};
+
 export const getBudgetCapFromCoreUnit = (cu: CoreUnitDAO) => {
   let result = 0;
   if (cu.cuMip.length === 0) return result;
 
-  // TODO: Make sure to obtain the latest Mip40 to be able to obtain the proper value here
+  let dateToCheck = DateTime.now();
   for (let i = 0; i < 3; i++) {
-    result += cu.cuMip[0]?.mip40[0]?.mip40BudgetPeriod[0]?.mip40BudgetLineItem[i]?.budgetCap ?? 0;
+    dateToCheck = dateToCheck.minus({ months: 1 });
+    result += cu.cuMip[cu.cuMip.length - 1]?.mip40.reduce((p, c) => getBudgetCapForMip40onMonth(c, dateToCheck) + p, 0);
   }
 
+  // The result should be an average of the 3 months because they could be in different periods
   return result / 3;
 };
 
-export const getValueFromCoreUnit = (cu: CoreUnitDAO) => {
+const sumAllLineItemsFromBudgetStatement = (budgetStatement: BudgetStatementDAO) => {
+  let result = 0;
+
+  budgetStatement?.budgetStatementWallet.forEach(wallet => {
+    wallet.budgetStatementLineItem.forEach(lineItem => {
+      result += lineItem?.actual ?? 0;
+    });
+  });
+
+  return result;
+};
+
+export const getExpenditureValueFromCoreUnit = (cu: CoreUnitDAO) => {
   let result = 0;
   if (cu.cuMip.length === 0) return result;
 
-  // TODO: Make sure to obtain the latest budget statement to obtain the proper value here
+  let dateToCheck = DateTime.now();
   for (let i = 0; i < 3; i++) {
-    result += cu.budgetStatements[0]?.budgetStatementWallet[0]?.budgetStatementLineItem[i]?.actual ?? 0;
+    dateToCheck = dateToCheck.minus({ months: 1 });
+    const temp = cu.budgetStatements.find(bs => bs.month.indexOf(dateToCheck.toFormat('y-MM')) > -1);
+    if (temp) {
+      result += sumAllLineItemsFromBudgetStatement(temp);
+    }
   }
 
   return result / 3;
 };
 
 export const getPercentFromCoreUnit = (cu: CoreUnitDAO) => {
-  const value = getValueFromCoreUnit(cu);
+  const value = getExpenditureValueFromCoreUnit(cu);
   const budgetCap = getBudgetCapFromCoreUnit(cu);
 
   if (value === 0) return 0;
@@ -136,14 +171,18 @@ export const getPercentFromCoreUnit = (cu: CoreUnitDAO) => {
   return value / budgetCap * 100;
 };
 
-export const getExpenditureValuesFromCoreUnit = (cu: CoreUnitDAO) => {
+export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDAO) => {
   const result = [] as CustomChartItem[];
   if (cu.cuMip.length === 0) return result;
 
-  // TODO: Make sure to obtain the latest budget statement to obtain the proper value here
+  let dateToCheck = DateTime.now();
   for (let i = 0; i < 3; i++) {
-    result.push({ value: cu.budgetStatements[0]?.budgetStatementWallet[0]?.budgetStatementLineItem[i]?.actual ?? 0 });
+    dateToCheck = dateToCheck.minus({ months: 1 });
+    const temp = cu.budgetStatements.find(bs => bs.month.indexOf(dateToCheck.toFormat('y-MM')) > -1);
+    if (temp) {
+      result.push({ value: sumAllLineItemsFromBudgetStatement(temp) });
+    }
   }
-  console.log(result);
+
   return result;
 };
