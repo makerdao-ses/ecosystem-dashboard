@@ -5,7 +5,7 @@ import { getColorForString } from '../../../core/utils/color-utils';
 import { getTwoInitials } from '../../../core/utils/string-utils';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
-import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
+import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { StatusChip } from '../status-chip/status-chip';
 
 interface CutableColumnSummaryProps {
