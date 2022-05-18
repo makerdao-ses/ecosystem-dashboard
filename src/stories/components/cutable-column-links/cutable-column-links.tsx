@@ -8,6 +8,7 @@ import Youtube from '../svg/youtube';
 import Twitter from '../svg/twitter';
 import LinkedIn from '../svg/linkedin';
 import Gmail from '../svg/gmail';
+import { Box } from '@mui/material';
 
 export enum LinkType {
   WWW = 'Website',
@@ -29,6 +30,7 @@ interface CutableColumnLinksProps {
   width?: number,
   height?: number;
   dark?: boolean;
+  spacingsRight?: number
 }
 
 const getImageForLink = ({ width, height, dark, link }: any) => {
@@ -53,14 +55,17 @@ const getImageForLink = ({ width, height, dark, link }: any) => {
   }
 };
 
-export const CutableColumnLinks = ({ width, height, dark, links }: CutableColumnLinksProps) => {
+export const CutableColumnLinks = ({ width, height, dark, links, spacingsRight }: CutableColumnLinksProps) => {
   return <Container>
     {links.map((link, i) => <CustomPopover key={`link-${i}`} title={link.linkType} id={`link-${i}`}>
-      <LinkImage href={link.href} target="_blank" width={width ? width + 22 : undefined} height={height}>
-        {getImageForLink({ link, dark, width, height })}
-      </LinkImage>
-    </CustomPopover>)}
-  </Container>;
+      <Box sx={{ mr: `${spacingsRight}px` || '0px' }}>
+        <LinkImage href={link.href} target="_blank" width={width} height={height} >
+          {getImageForLink({ link, dark, width, height })}
+        </LinkImage>
+      </Box>
+    </CustomPopover>)
+    }
+  </Container >;
 };
 
 const Container = styled.div({
@@ -69,8 +74,8 @@ const Container = styled.div({
 });
 
 type StickyLinkProps = {
-  width?: string | number,
-  height?: string | number,
+  width?: number,
+  height?: number,
 }
 
 const LinkImage = styled.a({

@@ -58,7 +58,7 @@ const CardInfoMember = ({ info }: Props) => {
             </CardContentPositionColumn>
           </CardContentPositionRow>
           <Divider light sx={{ marginTop: '30px', marginBottom: '11px', color: '#C4C4C4' }} variant='fullWidth' />
-          <CardLinksFooter><CutableColumnLinks links={links} width={16} height={16} /></CardLinksFooter>
+          <CardLinksFooter><CutableColumnLinks links={links} width={16} height={16} spacingsRight={22}/></CardLinksFooter>
         </CardContent>
       </Card>
     </Box>
