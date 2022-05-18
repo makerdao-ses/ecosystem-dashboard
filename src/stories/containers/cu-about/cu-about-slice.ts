@@ -1,11 +1,12 @@
 /* eslint-disable semi */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
 import { RootState } from '../../../core/store/store';
 import {
   Commitment,
   ContributorCommitment,
   CuAbout,
-  CuMipStatus,
+  CuMip,
   fetchCoreUnitByCode,
   SocialMediaChannels,
 } from './cu-about.api';
@@ -27,6 +28,10 @@ const initialState: CurrentCoreUnitAbout = {
   error: null,
   statusCoreUnit: status.idle,
   cuAbout: {
+    id: '',
+    name: '',
+    code: '',
+    category: [],
     paragraphDescription: '',
     sentenceDescription: '',
     paragraphImage: '',
@@ -35,15 +40,21 @@ const initialState: CurrentCoreUnitAbout = {
         cuId: '',
         formalSubmission: '',
         mipCode: '',
-        mipStatus: CuMipStatus.Rejected,
+        mipStatus: CuStatusEnum.Rejected,
         rfc: '',
+        accepted: '',
+        mipTitle: '',
+        mipUrl: '',
+        obsolete: '',
+        rejected: '',
       },
-    ],
+    ] as CuMip[],
     budgetStatements: [
       {
         budgetStatementFTEs: [
           {
             ftes: 0,
+            month: '',
           },
         ],
       },
@@ -66,15 +77,17 @@ const initialState: CurrentCoreUnitAbout = {
         ],
       },
     ] as ContributorCommitment[],
-    socialMediaChannels: [{
-      cuCode: '',
-      forumTag: '',
-      twitter: '',
-      youtube: '',
-      discord: '',
-      linkedIn: '',
-      website: '',
-    }] as SocialMediaChannels[],
+    socialMediaChannels: [
+      {
+        cuCode: '',
+        forumTag: '',
+        twitter: '',
+        youtube: '',
+        discord: '',
+        linkedIn: '',
+        website: '',
+      },
+    ] as SocialMediaChannels[],
   } as CuAbout,
 };
 

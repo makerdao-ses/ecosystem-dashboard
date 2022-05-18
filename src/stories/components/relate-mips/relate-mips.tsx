@@ -1,11 +1,20 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Chip, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import ArrowLink from '../svg/ArrowLink';
-import { CuMipStatus } from '../title-navigation-cu-about/title-navigation-cu-about';
-import { CuMip, RelateMipsCuAbout } from '../../containers/cu-about/cu-about.api';
+import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
+import { StatusChip } from '../status-chip/status-chip';
+import { CuMip } from '../../containers/cu-about/cu-about.api';
+
+export type RelateMipType = {
+  status: CuStatusEnum,
+  statusModified: Date,
+  mipTitle?: string
+  href: string
+}
+
 interface Props {
   relateMips: CuMip
 }
@@ -13,15 +22,15 @@ interface Props {
 const RelateMips = ({ relateMips }: Props) => {
   const getMipsStatus = (mip: CuMip) => {
     switch (mip.mipStatus) {
-      case CuMipStatus.Accepted:
+      case CuStatusEnum.Accepted:
         return relateMips.accepted;
-      case CuMipStatus.Obsolete:
+      case CuStatusEnum.Obsolete:
         return relateMips.obsolete;
-      case CuMipStatus.FORMAL:
+      case CuStatusEnum.FormalSubmission:
         return relateMips.formalSubmission;
-      case CuMipStatus.Rejected:
+      case CuStatusEnum.Rejected:
         return relateMips.rejected;
-      case CuMipStatus.RFC:
+      case CuStatusEnum.RFC:
         return relateMips.rfc;
       default:
         return relateMips.rejected;
@@ -30,8 +39,8 @@ const RelateMips = ({ relateMips }: Props) => {
   return (
     <Content>
       <Row>
-        {relateMips.mipStatus && <Chip size={'small'} sx={{ borderRadius: '8px', borderColor: '#25273D' }} label={relateMips.mipStatus} variant={'outlined'} />}
-        {relateMips.mipStatus && <CustomPopover
+        {relateMips.mipStatus && <StatusChip status={relateMips.mipStatus}/>}
+        {relateMips && <CustomPopover
           id={'mouse-over-popover-goto'}
           title={'Go to MIPs Portal'}
         >

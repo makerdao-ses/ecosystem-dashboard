@@ -1,6 +1,7 @@
 import { request, gql } from 'graphql-request';
 import { GraphQlEndpoint } from '../../../config/endpoint';
 import { CuCategory } from '../../../core/enums/cu-category';
+import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
 import {
   LinkModel,
   LinkType,
@@ -45,7 +46,7 @@ export interface CuMip {
   accepted?: string;
   rejected?: string;
   obsolete?: string;
-  mipStatus: CuMipStatus;
+  mipStatus: CuStatusEnum;
   mipUrl?: string;
 }
 export enum Commitment {

@@ -1,7 +1,8 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import TitleNavigationCuAbout, { CuMipStatus } from './title-navigation-cu-about';
+import TitleNavigationCuAbout from './title-navigation-cu-about';
 import { CuAbout, CuMip, SocialMediaChannels } from '../../containers/cu-about/cu-about.api';
+import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
 
 export default {
   title: 'Components/CUAbout/TitleNavigationCuAbout',
@@ -34,7 +35,7 @@ Default.args = {
         rfc: '2020-01-01',
         obsolete: '2020-01-01',
         mipUrl: 'https://makerdao.com/',
-        mipStatus: CuMipStatus.Obsolete,
+        mipStatus: CuStatusEnum.Obsolete,
       }
     ] as CuMip[],
     budgetStatements: [],

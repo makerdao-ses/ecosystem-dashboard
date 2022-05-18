@@ -1,19 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Chip, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { CutableColumnLinks, LinkModel, LinkType } from '../cutable-column-links/cutable-column-links';
 import { CuAbout, CuMip } from '../../containers/cu-about/cu-about.api';
-
-export enum CuMipStatus {
-  RFC = 'RFC',
-  FORMAL = 'Formal',
-  SUBMISSION = 'Submission',
-  Accepted = 'Accepted',
-  Rejected = 'Rejected',
-  Obsolete = 'Obsolete',
-}
+import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
+import { StatusChip } from '../status-chip/status-chip';
 
 interface BudgetStatementFTEs {
   month: string
@@ -51,13 +44,13 @@ interface Props {
 
 export const getMipsStatus = (mip: CuMip) => {
   switch (mip.mipStatus) {
-    case CuMipStatus.Accepted:
+    case CuStatusEnum.Accepted:
       return mip.accepted;
-    case CuMipStatus.FORMAL:
+    case CuStatusEnum.FormalSubmission:
       return mip.formalSubmission;
-    case CuMipStatus.Rejected:
+    case CuStatusEnum.Rejected:
       return mip.rejected;
-    case CuMipStatus.RFC:
+    case CuStatusEnum.RFC:
       return mip.rfc;
     default:
       return mip.rejected;
@@ -117,8 +110,8 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
         <TypographyTitle>{coreUnitAbout.name}</TypographyTitle>
 
         <Row>
-          {coreUnitAbout.cuMip[0].mipStatus && <Chip size={'small'} sx={{ borderRadius: '8px', borderColor: '#25273D' }} label={coreUnitAbout.cuMip[0].mipStatus} variant={'outlined'} />}
-          {coreUnitAbout.cuMip[0].mipStatus && <CustomPopover
+          {coreUnitAbout.cuMip[0].mipStatus && <StatusChip status={coreUnitAbout.cuMip[0].mipStatus}/>}
+          {mips && <CustomPopover
             id={'mouse-over-popover-goto'}
             title={'Go to MIPs Portal'}
           >
