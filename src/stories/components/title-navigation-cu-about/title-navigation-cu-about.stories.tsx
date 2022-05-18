@@ -1,6 +1,7 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import TitleNavigationCuAbout, { CuMipStatus, CoreUnit } from './title-navigation-cu-about';
+import TitleNavigationCuAbout, { CuMipStatus } from './title-navigation-cu-about';
+import { CuAbout, CuMip, SocialMediaChannels } from '../../containers/cu-about/cu-about.api';
 
 export default {
   title: 'Components/CUAbout/TitleNavigationCuAbout',
@@ -10,23 +11,33 @@ export default {
 const Template: ComponentStory<typeof TitleNavigationCuAbout> = (args) => <TitleNavigationCuAbout {...args} />;
 export const Default = Template.bind({});
 Default.args = {
-  coreUnit: {
+  coreUnitAbout: {
+    id: '1',
+    code: 'SES-001',
+    category: [],
     name: 'Sustainable Ecosystem Scaling',
-    cuMip: [{
-      formalSubmission: '2020-01-01',
-      mipStatus: CuMipStatus.Accepted,
-      accepted: '2020-01-01',
-      rejected: '2020-01-01',
-      rfc: '2020-01-01',
-    }] as CoreUnit['cuMip'],
+    sentenceDescription: '',
+    paragraphDescription: '',
+    paragraphImage: '',
     socialMediaChannels: [{
-      cuCode: 'CU-1',
       discord: 'https://discord.gg/h7GKvqDyDP',
       forumTag: 'ses-001',
       linkedIn: 'https://www.linkedin.com/company/makerdao-ses/',
-      twitter: 'https://twitter.com/MakerDAO_SES',
-      website: 'https://www.makerdao.com/',
-      youtube: 'https://www.youtube.com/channel/UC9c35O2H6fq8fB2CGzzP1bw/about'
-    }] as CoreUnit['socialMediaChannels'],
-  } as CoreUnit,
+      twitter: '',
+      youtube: 'https://www.youtube.com/channel/UC9c35O2H6fq8fB2CGzzP1bw/about',
+    }] as SocialMediaChannels[],
+    cuMip: [
+      {
+        mipCode: 'MIP-1',
+        accepted: '2020-01-01',
+        rejected: '2020-01-01',
+        rfc: '2020-01-01',
+        obsolete: '2020-01-01',
+        mipUrl: 'https://makerdao.com/',
+        mipStatus: CuMipStatus.Obsolete,
+      }
+    ] as CuMip[],
+    budgetStatements: [],
+    contributorCommitment: [],
+  } as CuAbout
 };

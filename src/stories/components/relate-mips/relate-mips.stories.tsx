@@ -1,18 +1,7 @@
 import React from 'react';
 import RelateMips from './relate-mips';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { CuMipStatus } from '../title-navigation-cu-about/title-navigation-cu-about';
-
-export interface RelateMipsCuAbout {
-  mipTitle: string;
-  mipUrl: string;
-  mipStatus: CuMipStatus;
-  accepted?: string;
-  obsolete?: string;
-  rfc?: string;
-  formalSubmission?: string;
-  rejected?: string;
-}
+import { CuMip } from '../../containers/cu-about/cu-about.api';
 
 export default {
   title: 'Components/CUAbout/RelateMips',
@@ -31,5 +20,5 @@ WithData.args = {
     rfc: '2021-04-02',
     formalSubmission: '2021-05-01',
     rejected: ''
-  } as RelateMipsCuAbout
+  } as CuMip
 };

@@ -4,6 +4,7 @@ import { Chip, Typography } from '@mui/material';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { CutableColumnLinks, LinkModel, LinkType } from '../cutable-column-links/cutable-column-links';
+import { CuAbout, CuMip } from '../../containers/cu-about/cu-about.api';
 
 export enum CuMipStatus {
   RFC = 'RFC',
@@ -14,16 +15,6 @@ export enum CuMipStatus {
   Obsolete = 'Obsolete',
 }
 
-export interface CuMip {
-  mipCode: string;
-  cuId: string;
-  rfc?: string;
-  formalSubmission: string;
-  accepted?: string;
-  rejected?: string;
-  mipStatus: CuMipStatus;
-  url: string;
-}
 interface BudgetStatementFTEs {
   month: string
   ftes: number
@@ -55,7 +46,7 @@ export interface CoreUnit {
   roadMap: [];
 }
 interface Props {
-  coreUnit: CoreUnit;
+  coreUnitAbout: CuAbout;
 }
 
 export const getMipsStatus = (mip: CuMip) => {
@@ -73,7 +64,7 @@ export const getMipsStatus = (mip: CuMip) => {
   }
 };
 
-export const getLinksCoreUnit = (cu: CoreUnit) => {
+export const getLinksCoreUnit = (cu: CuAbout) => {
   const links: LinkModel[] = [];
   if (cu.socialMediaChannels.length === 0) return links;
   const cont = cu.socialMediaChannels[0];
@@ -116,18 +107,18 @@ export const getLinksCoreUnit = (cu: CoreUnit) => {
   return links;
 };
 
-export const TitleNavigationCuAbout = ({ coreUnit }: Props) => {
-  const mips = getMipsStatus(coreUnit.cuMip[0] || {} as CuMip);
+export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
+  const mips = getMipsStatus(coreUnitAbout.cuMip[0] || {} as CuMip);
   return (
     <Container>
       <ContainerTitle>
         <TypographySES>SES</TypographySES>
         <div style={{ width: '4px', height: '4px', backgroundColor: '#D8E0E3', display: 'flex', marginRight: '8px', marginLeft: '8px' }} />
-        <TypographyTitle>{coreUnit.name}</TypographyTitle>
+        <TypographyTitle>{coreUnitAbout.name}</TypographyTitle>
 
         <Row>
-          {coreUnit.cuMip[0].mipStatus && <Chip size={'small'} sx={{ borderRadius: '8px', borderColor: '#25273D' }} label={coreUnit.cuMip[0].mipStatus} variant={'outlined'} />}
-          {coreUnit.cuMip[0].mipStatus && <CustomPopover
+          {coreUnitAbout.cuMip[0].mipStatus && <Chip size={'small'} sx={{ borderRadius: '8px', borderColor: '#25273D' }} label={coreUnitAbout.cuMip[0].mipStatus} variant={'outlined'} />}
+          {coreUnitAbout.cuMip[0].mipStatus && <CustomPopover
             id={'mouse-over-popover-goto'}
             title={'Go to MIPs Portal'}
           >
@@ -140,7 +131,7 @@ export const TitleNavigationCuAbout = ({ coreUnit }: Props) => {
         </Row>
       </ContainerTitle>
       <ContainerLinks>
-        <CutableColumnLinks links={getLinksCoreUnit(coreUnit)} dark />
+        <CutableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} dark />
       </ContainerLinks>
     </Container>
   );
