@@ -5,28 +5,16 @@ import { store } from './core/store/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-} from '@apollo/client';
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
-const client = new ApolloClient({
-  uri: 'https://ecosystem-dashboard.herokuapp.com/graphql',
-  cache: new InMemoryCache()
-});
-
 root.render(
     <React.StrictMode>
-        <ApolloProvider client={client}>
             <Provider store={store}>
                 <App/>
             </Provider>
-        </ApolloProvider>
     </React.StrictMode>
 );
 
