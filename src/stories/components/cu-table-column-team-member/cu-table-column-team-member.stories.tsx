@@ -46,7 +46,8 @@ Default.args = {
     { name: 'John Doe' },
     { name: 'Billy Ferguson' },
     { name: 'Jackie Chang' },
-  ]
+  ],
+  facilitatorImages: {},
 };
 
 export const Empty = Template.bind({});
@@ -57,5 +58,6 @@ Empty.decorators = [
 ];
 Empty.args = {
   fte: 1,
-  members: []
+  members: [],
+  facilitatorImages: {}
 };
