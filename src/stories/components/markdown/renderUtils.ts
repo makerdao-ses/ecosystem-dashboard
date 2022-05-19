@@ -1,9 +1,10 @@
 import './markdown.scss';
+import { createElement as h } from 'react';
 
 const makerRender = ({
   forEachHeading,
 }: {
-  forEachHeading: (
+  forEachHeading?: (
     level: number,
     htmlCleanedText: string,
     escapedText: string
@@ -14,7 +15,6 @@ const makerRender = ({
 
     const htmlCleanedText = text.replace(/<[^<>]+>/gm, '');
 
-    forEachHeading(level, htmlCleanedText, escapedText);
     return `<div class='titleMarkdown'>
       <h${level} class='show-link'>
       <a class='link margin-left--20' href='#${escapedText}' target='_parent'><span class='hide'></span></a>${htmlCleanedText}</h${level}>
@@ -31,12 +31,13 @@ const makerRender = ({
   image(href: string, title: string) {
     return `<div class='img-container'><img src=${href}  alt=${title} style='width:769px;max-height: 469px;'/></div>`;
   },
-  paragraph(text: string) {
-    return `<p class='paragraph'>${text}</p>`;
-  },
-  code(src: string) {
-    return `<code class='tag-code'>${src} </code>`;
-  },
 });
 
 export default makerRender;
+
+export const customRenderer = {
+  image(href: string, title: string): JSX.Element {
+    const img = h('img', { src: href, style: { border: '1px solid red' } });
+    return h('div', { className: 'img-container' }, [img, img]);
+  },
+};

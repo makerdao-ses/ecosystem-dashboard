@@ -41,7 +41,7 @@ const MdViewerContainer = ({ sentenceDescription, paragraphDescription, paragrap
   });
   return (
     <MdViewerPage
-      paragraphImage={image}
+      paragraphImage={convertImg}
       sentenceDescription={sentence}
       paragraphDescription={paragraph}
       headersLevel={headersLevel}

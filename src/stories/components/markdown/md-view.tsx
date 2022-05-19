@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import dompurify from 'dompurify';
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
+import Markdown from 'marked-react';
+import { customRenderer } from './renderUtils';
 
 export type MarkDownHeaders = {
   level: number;
@@ -63,9 +65,7 @@ const MdViewerPage = ({ title = 'About the Core Unit', subTitle = 'What we do', 
       <div
         dangerouslySetInnerHTML={{ __html: sanitizer(`${paragraphDescription}`) }}
       />
-      <div
-        dangerouslySetInnerHTML={{ __html: sanitizer(`${paragraphImage}`) }}
-      />
+      <Markdown value={paragraphImage} renderer={customRenderer as never}/>
     </ViewerContainer>
   );
 };
