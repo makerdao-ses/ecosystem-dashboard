@@ -9,12 +9,11 @@
   max-width: 152px;
 }
 .paragraph {
-  font-family: "Inter";
+  font-family: 'FT Base',sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
-  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  line-height: 19px;
   color: #000000;
 }
 
@@ -26,7 +25,13 @@
   line-height: 19px;
   color: #000000;
 }
-.tag-code{
+.tag-code {
   font-family: inherit;
   white-space: pre-wrap;
+  font-family: "FT Base", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #000000;
 }
