@@ -14,18 +14,18 @@ const BigButton = ({ onClick, title = 'Back' }: Props) => {
   );
 };
 
-const StyledBigButton = styled(Button)`
-min-width: 512px;
-height: 32px;
-border:1px solid rgba(37, 39, 61, 0.75);
-border-radius: 8px;
-font-style: normal;
-font-weight: 500;
-font-size: 12px;
-line-height: 15px;
-text-align: center;
-
-color: #000000;
-`;
+const StyledBigButton = styled(Button)({
+  minWidth: '512px',
+  height: '32px',
+  border: '1px solid rgba(37, 39, 61, 0.75)',
+  borderRadius: '8px',
+  fontStyle: 'normal',
+  fontWeight: '500',
+  fontSize: '12px',
+  lineHeight: '15px',
+  textAlign: 'center',
+  textTransform: 'none',
+  color: '#000000',
+});
 
 export default BigButton;

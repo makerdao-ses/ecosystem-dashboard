@@ -30,24 +30,24 @@ const Container = styled.div({
 
 });
 
-const StyleTypography = styled(Typography)`
-font-style: normal;
-font-weight: 700;
-font-size: 20px;
-line-height: 24px;
-color: #25273D;
-text-decoration:underline;
-`;
+const StyleTypography = styled(Typography)({
+  fontStyle: 'normal',
+  fontWeight: 700,
+  fontSize: '20px',
+  lineHeight: '24px',
+  color: '#25273D',
+  textDecoration: 'underline'
+});
 
-const Title = styled(Typography)`
-font-style: normal;
-font-weight: 700;
-font-size: 14px;
-line-height: 17px;
-color: #000000;
-margin-left:16px ;
-text-align:center ;
-`;
+const Title = styled(Typography)({
+  fontStyle: 'normal',
+  fontWeight: 700,
+  fontSize: '14px',
+  lineHeight: '17px',
+  color: '#000000',
+  marginLeft: '16px',
+  textAlign: 'center'
+});
 
 const Data = styled.div({
   display: 'flex',
