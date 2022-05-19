@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Avatar, Box, Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
 import styled from '@emotion/styled';
@@ -12,7 +11,6 @@ export type CardInfoMemberType = {
   username: string;
   jobTitle: string;
   commitment: string;
-
 }
 
 interface Props {
@@ -58,8 +56,8 @@ const CardInfoMember = ({ info }: Props) => {
               <Typography color=' #000000' fontSize={14}>{info.commitment}</Typography>
             </CardContentPositionColumn>
           </CardContentPositionRow>
-          <Divider light sx={{ marginTop: '30px', color: '#C4C4C4' }} variant='fullWidth' />
-          <CardLinksFooter><CuTableColumnLinks links={links} width={16} height={16} /></CardLinksFooter>
+          <Divider light sx={{ marginTop: '30px', marginBottom: '11px', color: '#C4C4C4' }} variant='fullWidth' />
+          <CardLinksFooter><CuTableColumnLinks links={links} width={16} height={16} spacingsRight={22}/></CardLinksFooter>
         </CardContent>
       </Card>
     </Box>
@@ -84,4 +82,5 @@ const CardLinksFooter = styled.div({
   flexDirection: 'row',
   justifyContent: 'center',
 });
+
 export default CardInfoMember;
