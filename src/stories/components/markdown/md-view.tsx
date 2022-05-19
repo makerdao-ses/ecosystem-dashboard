@@ -57,15 +57,11 @@ const MdViewerPage = ({ title = 'About the Core Unit', subTitle = 'What we do', 
 
   return (
     <ViewerContainer>
-      <TypographyStyle>{title}</TypographyStyle>
-      <div
-        dangerouslySetInnerHTML={{ __html: sanitizer(`${sentenceDescription}`) }}
-      />
-      <TypographyStyle>{subTitle}</TypographyStyle>
-      <div
-        dangerouslySetInnerHTML={{ __html: sanitizer(`${paragraphDescription}`) }}
-      />
-      <Markdown value={paragraphImage} renderer={customRenderer as never}/>
+      <TypographyStyleSentence>{title}</TypographyStyleSentence>
+        <Markdown value={sentenceDescription} renderer={customRenderer} />
+      <TypographyStyleDescription>{subTitle}</TypographyStyleDescription>
+      <Markdown value={paragraphDescription} renderer={customRenderer} />
+      <Markdown value={paragraphImage} renderer={customRenderer} />
     </ViewerContainer>
   );
 };
@@ -84,10 +80,21 @@ const ViewerContainer = styled.div({
   paddingRight: '32px'
 });
 
-const TypographyStyle = styled(Typography)({
+const TypographyStyleSentence = styled(Typography)({
   fontSize: '16px',
   fontStyle: 'normal',
   fontWeight: 700,
   lineHeight: '19px',
-  color: '#000000'
+  color: '#000000',
+  marginBottom: '16px'
+});
+
+const TypographyStyleDescription = styled(Typography)({
+  fontSize: '16px',
+  fontStyle: 'normal',
+  fontWeight: 700,
+  lineHeight: '19px',
+  color: '#000000',
+  marginBottom: '32px',
+  marginTop: '32px'
 });

@@ -1,8 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { marked } from 'marked';
-
 import MdViewerPage, { MarkDownHeaders } from './md-view';
-import makerRender from './renderUtils';
 
 interface Props {
   sentenceDescription: string;
@@ -33,17 +30,11 @@ const MdViewerContainer = ({ sentenceDescription, paragraphDescription, paragrap
   );
 
   const convertImg = `![Image](${paragraphImage})`;
-  const sentence = marked.parse(sentenceDescription);
-  const paragraph = marked.parse(paragraphDescription);
-  const image = marked.parse(convertImg);
-  marked.use({
-    renderer: makerRender({ forEachHeading: creatingIndexItems }),
-  });
   return (
     <MdViewerPage
       paragraphImage={convertImg}
-      sentenceDescription={sentence}
-      paragraphDescription={paragraph}
+      sentenceDescription={sentenceDescription}
+      paragraphDescription={paragraphDescription}
       headersLevel={headersLevel}
     />
   );
