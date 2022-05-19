@@ -6,7 +6,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - ESLint
 - Apollo Client
 - Material UI, emotion and styled components
-- Formik and YUP
 - Sass
 - React-router-dom
 
