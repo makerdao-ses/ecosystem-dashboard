@@ -1,8 +1,8 @@
 import { DateTime, Interval } from 'luxon';
-import { LinkModel } from '../../stories/components/cutable-column-links/cutable-column-links';
+import { LinkModel } from '../../stories/components/cu-table-column-links/cu-table-column-links';
 import { LinkTypeEnum } from '../enums/link-type.enum';
-import { FacilitatorModel } from '../../stories/components/cutable-column-team-member/cutable-column-team-member';
-import { BudgetStatementDAO, CoreUnitDAO, CuMipDao, Mip40Dao } from '../../stories/containers/cutable/cutable.api';
+import { FacilitatorModel } from '../../stories/components/cu-table-column-team-member/cu-table-column-team-member';
+import { BudgetStatementDAO, CoreUnitDAO, CuMipDao, Mip40Dao } from '../../stories/containers/cu-table/cu-table.api';
 import { CustomChartItem } from '../../stories/components/custom-bar-chart/custom-bar-chart';
 
 export const getMipFromCoreUnit = (cu: CoreUnitDAO) => {

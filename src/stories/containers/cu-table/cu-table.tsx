@@ -5,11 +5,11 @@ import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
 import { SearchInput } from '../../components/search-input/search-input';
 import { CustomTable } from '../../components/custom-table/custom-table';
-import { CutableColumnSummary } from '../../components/cutable-column-summary/cutable-column-summary';
-import { CutableColumnInitiatives } from '../../components/cutable-column-initiatives/cutable-column-initiatives';
-import { CutableColumnExpenditures } from '../../components/cutable-column-expenditures/cutable-column-expenditures';
-import { CutableColumnTeamMember } from '../../components/cutable-column-team-member/cutable-column-team-member';
-import { CutableColumnLinks } from '../../components/cutable-column-links/cutable-column-links';
+import { CuTableColumnSummary } from '../../components/cu-table-column-summary/cu-table-column-summary';
+import { CuTableColumnInitiatives } from '../../components/cu-table-column-initiatives/cu-table-column-initiatives';
+import { CuTableColumnExpenditures } from '../../components/cu-table-column-expenditures/cu-table-column-expenditures';
+import { CuTableColumnTeamMember } from '../../components/cu-table-column-team-member/cu-table-column-team-member';
+import { CuTableColumnLinks } from '../../components/cu-table-column-links/cu-table-column-links';
 import { Box, Typography } from '@mui/material';
 import {
   countInitiativesFromCoreUnit,
@@ -24,16 +24,16 @@ import {
   getExpenditureValueFromCoreUnit
 } from '../../../core/business-logic/core-units';
 import { useAppDispatch } from '../../../core/hooks/hooks';
-import { loadAsync, selectCuTableItems } from './cutable.slice';
+import { loadCuTableItemsAsync, selectCuTableItems } from './cu-table.slice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../core/store/store';
-import { CoreUnitDAO } from './cutable.api';
+import { CoreUnitDAO } from './cu-table.api';
 
 const statuses = Object.values(CuStatusEnum) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];
 const headers = ['Core Units', 'Initiatives', 'Expenditure', 'Team Members', 'Links'];
 
-export const CUTable = () => {
+export const CuTable = () => {
   const data: Array<CoreUnitDAO> = useSelector((state: RootState) => selectCuTableItems(state));
   const dispatch = useAppDispatch();
   const [filteredStatuses, setFilteredStatuses] = useState<string[]>([]);
@@ -41,7 +41,7 @@ export const CUTable = () => {
   const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
-    dispatch(loadAsync());
+    dispatch(loadCuTableItemsAsync());
   }, []);
 
   const filterData = () => {
@@ -68,32 +68,32 @@ export const CUTable = () => {
     if (!filteredData) return [];
     return filteredData.map((coreUnit: CoreUnitDAO, i: number) => {
       return [
-        <CutableColumnSummary
+        <CuTableColumnSummary
           key={`summary-${i}`}
           title={coreUnit.name}
           status={getMipFromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum }
           statusModified={getSubmissionDateFromCuMip(getMipFromCoreUnit(coreUnit))}
           imageUrl={coreUnit.image}
         />,
-        <CutableColumnInitiatives
+        <CuTableColumnInitiatives
           key={`initiatives-${i}`}
           initiatives={countInitiativesFromCoreUnit(coreUnit)}
         />,
-        <CutableColumnExpenditures
+        <CuTableColumnExpenditures
           key={`expenditures-${i}`}
           value={getExpenditureValueFromCoreUnit(coreUnit)}
           percent={getPercentFromCoreUnit(coreUnit)}
           items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
           budgetCap={getBudgetCapFromCoreUnit(coreUnit)}
         />,
-        <CutableColumnTeamMember
+        <CuTableColumnTeamMember
           key={`teammember-${i}`}
           members={
             getFacilitatorsFromCoreUnit(coreUnit)
           }
           fte={getFTEsFromCoreUnit(coreUnit)}
         />,
-        <CutableColumnLinks
+        <CuTableColumnLinks
           key={`links-${i}`}
           links={getLinksFromCoreUnit(coreUnit)}
         />

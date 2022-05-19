@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { Divider, Typography } from '@mui/material';
 import SmallButton from '../../../components/button/small-button/small-button';
 import CardInfoMember, { CardInfoMemberType } from '../../../components/card-info-member/card-info-member';
-import { LinkModel } from '../../../components/cutable-column-links/cutable-column-links';
+import { LinkModel } from '../../../components/cu-table-column-links/cu-table-column-links';
 import MdViewerContainer from '../../../components/markdown/md-view-container';
 import InsidePagination from '../../../components/pagination/InsidePagination';
 import TeamMember from '../../../components/team-members/team-member';

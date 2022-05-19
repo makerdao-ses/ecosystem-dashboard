@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
-import { CutableColumnLinks, LinkModel } from '../cutable-column-links/cutable-column-links';
+import { CuTableColumnLinks, LinkModel } from '../cu-table-column-links/cu-table-column-links';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { StatusChip } from '../status-chip/status-chip';
 
@@ -37,7 +37,7 @@ export const TitleNavigationCuAbout = ({ title, status, statusModified, links = 
         </Row>
       </ContainerTitle>
       <ContainerLinks>
-        <CutableColumnLinks links={links} dark/>
+        <CuTableColumnLinks links={links} dark/>
       </ContainerLinks>
     </Container>
   );

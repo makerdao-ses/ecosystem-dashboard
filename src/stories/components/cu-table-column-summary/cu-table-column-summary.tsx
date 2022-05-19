@@ -8,14 +8,14 @@ import { CustomPopover } from '../custom-popover/custom-popover';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { StatusChip } from '../status-chip/status-chip';
 
-interface CutableColumnSummaryProps {
+interface CuTableColumnSummaryProps {
   title: string,
   imageUrl?: string,
   status?: CuStatusEnum,
   statusModified?: Date | null,
 }
 
-export const CutableColumnSummary = (props: CutableColumnSummaryProps) => {
+export const CuTableColumnSummary = (props: CuTableColumnSummaryProps) => {
   return <Container>
     <CircleContainer>
       {props.imageUrl && <Avatar style={{ width: '48px', height: '48px' }} src={props.imageUrl}/>}

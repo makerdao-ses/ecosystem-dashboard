@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../../core/store/store';
-import { CoreUnitDAO, fetchCoreUnits, fetchFacilitatorImage } from './cutable.api';
+import { CoreUnitDAO, fetchCoreUnits, fetchFacilitatorImage } from './cu-table.api';
 
 export interface CuTableState {
   items: CoreUnitDAO[],
@@ -14,7 +14,7 @@ const initialState: CuTableState = {
   facilitatorImages: {}
 };
 
-export const loadAsync = createAsyncThunk(
+export const loadCuTableItemsAsync = createAsyncThunk(
   'cuTable/loadItems',
   async() => {
     return await fetchCoreUnits();
@@ -40,9 +40,9 @@ export const cuTableSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(loadAsync.pending, (state) => {
+    builder.addCase(loadCuTableItemsAsync.pending, (state) => {
       state.status = 'loading';
-    }).addCase(loadAsync.fulfilled, (state, action) => {
+    }).addCase(loadCuTableItemsAsync.fulfilled, (state, action) => {
       state.status = 'idle';
       state.items = action.payload as [];
     }).addCase(loadFacilitatorImage.fulfilled, (state, action) => {

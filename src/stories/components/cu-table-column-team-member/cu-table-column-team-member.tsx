@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Title, Value } from '../cutable-column-expenditures/cutable-column-expenditures';
+import { Title, Value } from '../cu-table-column-expenditures/cu-table-column-expenditures';
 import { AvatarGroup, Avatar } from '@mui/material';
 import { getTwoInitials } from '../../../core/utils/string-utils';
 import { getColorForString } from '../../../core/utils/color-utils';
-import './cutable-column-team-member.scss';
+import './cu-table-column-team-member.scss';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../core/store/store';
@@ -12,7 +12,7 @@ import {
   loadFacilitatorImage,
   selectFacilitatorImages,
   setFacilitatorImageAsPending
-} from '../../containers/cutable/cutable.slice';
+} from '../../containers/cu-table/cu-table.slice';
 import { useAppDispatch } from '../../../core/hooks/hooks';
 
 export interface FacilitatorModel {
@@ -21,12 +21,12 @@ export interface FacilitatorModel {
   id?: string,
 }
 
-interface CutableColumnTeamMemberProps {
+interface CuTableColumnTeamMemberProps {
   members: FacilitatorModel[],
   fte: number,
 }
 
-export const CutableColumnTeamMember = (props: CutableColumnTeamMemberProps) => {
+export const CuTableColumnTeamMember = (props: CuTableColumnTeamMemberProps) => {
   const facilitatorImages = useSelector((state: RootState) => selectFacilitatorImages(state));
   const dispatch = useAppDispatch();
 

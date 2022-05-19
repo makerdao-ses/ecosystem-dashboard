@@ -4,14 +4,14 @@ import { CustomBarChart, CustomChartItem } from '../custom-bar-chart/custom-bar-
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { Typography } from '@mui/material';
 
-interface CutableColumnExpendituresProps {
+interface CuTableColumnExpendituresProps {
   value: number,
   percent?: number | null,
   items: Array<CustomChartItem>,
   budgetCap: number
 }
 
-export const CutableColumnExpenditures = (props: CutableColumnExpendituresProps) => {
+export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps) => {
   return <Container>
     <Data>
       <Title>Last 3 months</Title>

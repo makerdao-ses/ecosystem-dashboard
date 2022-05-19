@@ -1,9 +1,9 @@
 import React from 'react';
-import { CutableColumnTeamMember } from './cutable-column-team-member';
+import { CuTableColumnTeamMember } from './cu-table-column-team-member';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import cuTableReducer, { CuTableState } from '../../containers/cutable/cutable.slice';
+import cuTableReducer, { CuTableState } from '../../containers/cu-table/cu-table.slice';
 
 const store = configureStore({
   reducer: {
@@ -29,10 +29,10 @@ const Mockstore = ({ children }) => (
 
 export default {
   title: 'Components/CUTable/ColumnTeamMember',
-  components: CutableColumnTeamMember
-} as ComponentMeta<typeof CutableColumnTeamMember>;
+  components: CuTableColumnTeamMember
+} as ComponentMeta<typeof CuTableColumnTeamMember>;
 
-const Template: ComponentStory<typeof CutableColumnTeamMember> = (args) => <CutableColumnTeamMember {...args} />;
+const Template: ComponentStory<typeof CuTableColumnTeamMember> = (args) => <CuTableColumnTeamMember {...args} />;
 
 export const Default = Template.bind({});
 Default.decorators = [

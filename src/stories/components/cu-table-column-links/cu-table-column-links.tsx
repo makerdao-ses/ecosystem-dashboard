@@ -15,7 +15,7 @@ export interface LinkModel {
   linkType: LinkTypeEnum,
 }
 
-interface CutableColumnLinksProps {
+interface CuTableColumnLinksProps {
   links: LinkModel[]
   width?: number,
   height?: number;
@@ -43,7 +43,7 @@ const getImageForLink = (link: LinkModel, dark?: boolean) => {
   }
 };
 
-export const CutableColumnLinks = (props: CutableColumnLinksProps) => {
+export const CuTableColumnLinks = (props: CuTableColumnLinksProps) => {
   return <Container>
     {props.links.map((link, i) => <CustomPopover key={`link-${i}`} title={link.linkType} id={`link-${i}`}>
       <LinkImage href={link.href} target="_blank">

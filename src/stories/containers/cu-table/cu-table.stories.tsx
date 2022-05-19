@@ -1,10 +1,10 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { CUTable } from './cutable';
+import { CuTable } from './cu-table';
 import { Provider } from 'react-redux';
 import { configureStore, createSlice } from '@reduxjs/toolkit';
-import { CuTableState } from './cutable.slice';
-import { BudgetStatementDAO, CoreUnitDAO, CuMipDao } from './cutable.api';
+import { CuTableState } from './cu-table.slice';
+import { BudgetStatementDAO, CoreUnitDAO, CuMipDao } from './cu-table.api';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 
 const store = configureStore({
@@ -134,11 +134,11 @@ const Mockstore = ({ children }) => (
 
 export default {
   title: 'Containers/CUTable',
-  components: CUTable,
+  components: CuTable,
   excludeStories: /.*MockedState$/,
-} as ComponentMeta<typeof CUTable>;
+} as ComponentMeta<typeof CuTable>;
 
-const Template: ComponentStory<typeof CUTable> = () => <CUTable />;
+const Template: ComponentStory<typeof CuTable> = () => <CuTable />;
 
 export const Default = Template.bind({});
 Default.decorators = [

@@ -2,7 +2,7 @@
 import React from 'react';
 import { Avatar, Box, Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
 import styled from '@emotion/styled';
-import { CutableColumnLinks, LinkModel } from '../cutable-column-links/cutable-column-links';
+import { CuTableColumnLinks, LinkModel } from '../cu-table-column-links/cu-table-column-links';
 import { getTwoInitials } from '../../../core/utils/string-utils';
 import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
 
@@ -59,7 +59,7 @@ const CardInfoMember = ({ info }: Props) => {
             </CardContentPositionColumn>
           </CardContentPositionRow>
           <Divider light sx={{ marginTop: '30px', color: '#C4C4C4' }} variant='fullWidth' />
-          <CardLinksFooter><CutableColumnLinks links={links} width={16} height={16} /></CardLinksFooter>
+          <CardLinksFooter><CuTableColumnLinks links={links} width={16} height={16} /></CardLinksFooter>
         </CardContent>
       </Card>
     </Box>
