@@ -61,18 +61,18 @@ const Data = styled.div({
   justifyContent: 'space-between'
 });
 
-export const Title = styled(Typography)(() => ({
+export const Title = styled(Typography)({
   fontSize: '12px',
   fontWeight: 400,
-}));
+});
 
-export const Value = styled(Typography)(() => ({
+export const Value = styled(Typography)({
   display: 'flex',
   alignItems: 'flex-end',
   fontSize: '20px',
   fontWeight: 400,
   paddingBottom: '5px',
-}));
+});
 
 const PercentExplanation = styled.div({
   display: 'flex',

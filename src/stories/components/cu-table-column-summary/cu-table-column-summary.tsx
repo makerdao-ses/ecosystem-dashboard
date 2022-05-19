@@ -61,12 +61,12 @@ const Content = styled.div({
   flexDirection: 'column',
 });
 
-const Title = styled(Typography)(() => ({
+const Title = styled(Typography)({
   fontSize: '14px',
   alignItems: 'center',
   marginBottom: '10px',
   maxWidth: '200px',
-}));
+});
 
 const Row = styled.div({
   display: 'flex',
@@ -74,9 +74,9 @@ const Row = styled.div({
   flex: 1,
 });
 
-const SinceDate = styled(Typography)(() => ({
+const SinceDate = styled(Typography)({
   color: 'gray',
   fontSize: '12px',
   textDecoration: 'underline',
   marginLeft: '10px'
-}));
+});

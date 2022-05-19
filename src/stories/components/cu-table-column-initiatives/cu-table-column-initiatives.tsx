@@ -28,7 +28,7 @@ const Container = styled.div({
   justifyContent: 'center',
 });
 
-const RoundedBox = styled(Typography)(() => ({
+const RoundedBox = styled(Typography)({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -38,4 +38,4 @@ const RoundedBox = styled(Typography)(() => ({
   textDecoration: 'none',
   color: 'white',
   fontSize: '16px'
-}));
+});

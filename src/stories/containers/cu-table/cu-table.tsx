@@ -139,11 +139,11 @@ const Header = styled.div({
   marginBottom: '32px',
 });
 
-const Title = styled(Typography)(() => ({
+const Title = styled(Typography)({
   fontSize: '1rem',
   fontWeight: 600,
   flex: 1,
-}));
+});
 
 const Separator = styled.span({
   width: '1px',

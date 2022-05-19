@@ -49,7 +49,7 @@ export const getLinksFromCoreUnit = (cu: CoreUnitDAO) => {
   if (sm.forumTag) {
     result.push({
       linkType: LinkTypeEnum.Forum,
-      href: `https://forum.makerdao.com/search?q=${sm.forumTag}`
+      href: sm.forumTag
     });
   }
   if (sm.discord) {
