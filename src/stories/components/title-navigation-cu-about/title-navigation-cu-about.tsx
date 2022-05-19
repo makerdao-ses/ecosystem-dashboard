@@ -60,20 +60,21 @@ const ContainerTitle = styled.div({
   marginLeft: '12px',
 });
 
-const TypographyTitle = styled(Typography)`
-font-style: normal;
-font-weight: 600;
-font-size: 18px;
-line-height: 22px;
-color: #000000;
-`;
-const TypographySES = styled(Typography)`
-font-style: normal;
-font-weight: 700;
-font-size: 18px;
-line-height: 22px;
-color: #9FAFB9;
-`;
+const TypographyTitle = styled(Typography)({
+  fontStyle: 'normal',
+  fontWeight: 600,
+  fontSize: '18px',
+  lineHeight: '22px',
+  color: '#000000'
+});
+
+const TypographySES = styled(Typography)({
+  fontStyle: 'normal',
+  fontWeight: 700,
+  fontSize: '18px',
+  lineHeight: '22px',
+  color: '#9FAFB9'
+});
 
 const Row = styled.div({
   display: 'flex',

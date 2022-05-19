@@ -13,23 +13,23 @@ const SmallButton = ({ onClick, title = 'Back' }: Props) => {
   );
 };
 
-const StyledSmallButton = styled(Button)`
-border-radius: 8px;
-display:flex ;
-flex-direction: row;
-background-color  : #C4C4C4 ;
- min-width: 45px;
-height: 23px;
-font-style: normal;
-font-weight: 700;
-font-size: 12px;
-line-height: 15px;
-color: #25273D;
-padding:4px 8px;
-text-transform:none ;
-:hover {
-    background-color  : #C4C4C4 ;
-}
-`;
+const StyledSmallButton = styled(Button)({
+  display: 'flex',
+  borderRadius: '8px',
+  flexDirection: 'row',
+  backgroundColor: '#C4C4C4',
+  minWidth: '45px',
+  height: '23px',
+  fontStyle: 'normal',
+  fontWeight: 700,
+  fontSize: '12px',
+  lineHeight: '15px',
+  color: '#25273D',
+  padding: '4px 8px',
+  textTransform: 'none',
+  ':hover': {
+    backgroundColor: '#C4C4C4'
+  }
+});
 
 export default SmallButton;

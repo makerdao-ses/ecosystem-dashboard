@@ -62,15 +62,16 @@ const Row = styled.div({
   flex: 1,
   marginBottom: '18px'
 });
-const RowUnderLine = styled.div`
-   display: flex;
-   align-items: center;
-   flex: 1;
-   text-decoration: underline;
-   margin-right:8px;
-   white-space: break-spaces;
-   
-`;
+
+const RowUnderLine = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  flex: 1,
+  textDecoration: 'underline',
+  marginRight: '8px',
+  whiteSpace: 'break-spaces'
+
+});
 
 const SinceDate = styled.a({
   color: '#898989',
