@@ -56,12 +56,12 @@ const MdViewerPage = ({ title = 'About the Core Unit', subTitle = 'What we do', 
   }, []);
 
   return (
-    <ViewerContainer>
+    <ViewerContainer key={sentenceDescription}>
       <TypographyStyleSentence>{title}</TypographyStyleSentence>
-        <Markdown value={sentenceDescription} renderer={customRenderer} />
+        <Markdown value={sentenceDescription} renderer={customRenderer} key={sentenceDescription}/>
       <TypographyStyleDescription>{subTitle}</TypographyStyleDescription>
-      <Markdown value={paragraphDescription} renderer={customRenderer} />
-      <Markdown value={paragraphImage} renderer={customRenderer} />
+      <Markdown value={paragraphDescription} renderer={customRenderer} key={paragraphDescription}/>
+      <Markdown value={paragraphImage} renderer={customRenderer} key={paragraphImage}/>
     </ViewerContainer>
   );
 };
