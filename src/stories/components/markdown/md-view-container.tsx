@@ -9,6 +9,7 @@ interface Props {
 
 const MdViewerContainer = ({ sentenceDescription, paragraphDescription, paragraphImage }: Props) => {
   const [headersLevel, setHeadersLevel] = useState<MarkDownHeaders[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const creatingIndexItems = useCallback(
     (level: number, htmlCleanedText: string, escapedText: string) => {
       const cleanedText = htmlCleanedText

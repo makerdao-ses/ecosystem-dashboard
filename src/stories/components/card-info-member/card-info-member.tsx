@@ -46,7 +46,7 @@ const CardInfoMember = ({ info }: Props) => {
           title={<Typography fontSize={14} sx={{ color: '#000000' }}>{info.name}</Typography>}
           subheader={<Typography fontSize={12} sx={{ marginLeft: '6px', color: '#000000' }}>{info.username}</Typography>}
         />
-        <CardContent sx={{ '&:last-child': { pb: '10px' } }}>
+        <CardContent sx={{ '&:last-child': { pb: '10px' }, paddingRight: '0px' }}>
           <CardContentPositionRow>
             <CardContentPositionColumn>
               <Typography color='#C4C4C4' fontSize={12}>Title</Typography>
@@ -58,7 +58,7 @@ const CardInfoMember = ({ info }: Props) => {
             </CardContentPositionColumn>
           </CardContentPositionRow>
           <Divider light sx={{ marginTop: '30px', marginBottom: '11px', color: '#C4C4C4' }} variant='fullWidth' />
-          <CardLinksFooter><CutableColumnLinks links={links} width={16} height={16} spacingsRight={22}/></CardLinksFooter>
+          <CardLinksFooter><CutableColumnLinks links={links} width={10} height={10} spacingsRight={22} /></CardLinksFooter>
         </CardContent>
       </Card>
     </Box>
