@@ -33,7 +33,7 @@ interface CutableColumnLinksProps {
   spacingsRight?: number
 }
 
-const getImageForLink = ({ width, height, dark, link }: any) => {
+const getImageForLink = (link: LinkModel, width?: number, height?: number, dark?: boolean) => {
   const fill = dark ? '#626472' : '#C4C4C4';
   switch (link.linkType) {
     case LinkType.WWW:
@@ -60,7 +60,7 @@ export const CutableColumnLinks = ({ width, height, dark, links, spacingsRight }
     {links.map((link, i) => <CustomPopover key={`link-${i}`} title={link.linkType} id={`link-${i}`}>
       <Box sx={{ mr: `${spacingsRight}px` || '0px' }}>
         <LinkImage href={link.href} target="_blank" width={width} height={height} >
-          {getImageForLink({ link, dark, width, height })}
+          {getImageForLink(link, width, height, dark)}
         </LinkImage>
       </Box>
     </CustomPopover>)

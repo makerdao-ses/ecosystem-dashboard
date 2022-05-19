@@ -9,7 +9,6 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  gql
 } from '@apollo/client';
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
