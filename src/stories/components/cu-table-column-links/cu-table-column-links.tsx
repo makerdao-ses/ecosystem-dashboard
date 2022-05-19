@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import WWW from '../svg/www';
 import Forum from '../svg/forum';
@@ -9,6 +8,8 @@ import Youtube from '../svg/youtube';
 import Twitter from '../svg/twitter';
 import LinkedIn from '../svg/linkedin';
 import Gmail from '../svg/gmail';
+import { Box } from '@mui/material';
+import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
 
 export interface LinkModel {
   href: string,
@@ -20,37 +21,42 @@ interface CuTableColumnLinksProps {
   width?: number,
   height?: number;
   dark?: boolean;
+  spacingsRight?: number
 }
 
-const getImageForLink = (link: LinkModel, dark?: boolean) => {
+const getImageForLink = (link: LinkModel, width?: number, height?: number, dark?: boolean) => {
+  const fill = dark ? '#626472' : '#C4C4C4';
   switch (link.linkType) {
     case LinkTypeEnum.WWW:
-      return <WWW fill={dark ? '#626472' : '#C4C4C4'} />;
+      return <WWW fill={fill} width={width} height={height} />;
     case LinkTypeEnum.Forum:
-      return <Forum fill={dark ? '#626472' : '#C4C4C4'} />;
+      return <Forum fill={fill} width={width} height={height} />;
     case LinkTypeEnum.Discord:
-      return <Discord fill={dark ? '#626472' : '#C4C4C4'} />;
+      return <Discord fill={fill} width={width} height={height} />;
     case LinkTypeEnum.Twitter:
-      return <Twitter fill={dark ? '#626472' : '#C4C4C4'} />;
+      return <Twitter fill={fill} width={width} height={height} />;
     case LinkTypeEnum.Youtube:
-      return <Youtube fill={dark ? '#626472' : '#C4C4C4'} />;
+      return <Youtube fill={fill} width={width} height={height} />;
     case LinkTypeEnum.LinkedIn:
-      return <LinkedIn fill={dark ? '#626472' : '#C4C4C4'} />;
+      return <LinkedIn fill={fill} width={width} height={height} />;
     case LinkTypeEnum.Gmail:
-      return <Gmail fill={dark ? '#626472' : '#C4C4C4'} />;
+      return <Gmail fill={fill} width={width} height={height} />;
     default:
       return <WWW />;
   }
 };
 
-export const CuTableColumnLinks = (props: CuTableColumnLinksProps) => {
+export const CuTableColumnLinks = ({ width, height, dark, links, spacingsRight }: CuTableColumnLinksProps) => {
   return <Container>
-    {props.links.map((link, i) => <CustomPopover key={`link-${i}`} title={link.linkType} id={`link-${i}`}>
-      <LinkImage href={link.href} target="_blank">
-        {getImageForLink(link, props.dark)}
-      </LinkImage>
-    </CustomPopover>)}
-  </Container>;
+    {links.map((link, i) => <CustomPopover key={`link-${i}`} title={link.linkType} id={`link-${i}`}>
+      <Box sx={{ mr: `${spacingsRight}px` || '0px' }}>
+        <LinkImage href={link.href} target="_blank" width={width} height={height} >
+          {getImageForLink(link, width, height, dark)}
+        </LinkImage>
+      </Box>
+    </CustomPopover>)
+    }
+  </Container >;
 };
 
 const Container = styled.div({
@@ -58,10 +64,14 @@ const Container = styled.div({
   alignItems: 'center'
 });
 
+type StickyLinkProps = {
+  width?: number,
+  height?: number,
+}
+
 const LinkImage = styled.a({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  width: '32px',
-  height: '32px',
-});
+},
+({ width = 32, height = 32 }: StickyLinkProps) => ({ width, height }));
