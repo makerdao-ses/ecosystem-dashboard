@@ -24,7 +24,7 @@ const RelateMips = ({ relateMips: { status, statusModified, href, mipTitle } }: 
   return (
     <Content>
       <Row>
-        {status && <StatusChip status={status}/>}
+        {status && <StatusChip status={status} />}
         {statusModified && <CustomPopover
           id={'mouse-over-popover-goto'}
           title={'Go to MIPs Portal'}
@@ -38,7 +38,7 @@ const RelateMips = ({ relateMips: { status, statusModified, href, mipTitle } }: 
       </Row>
       <RowUnderLine>
         {pieces[0] ? <Typography color='#000000' fontSize={12} fontWeight={600}>{`${pieces[0]}:`}</Typography> : null}
-        {pieces[1] ? <Typography color='#000000' fontSize={12} sx={{ marginRight: '8px' }}>{` ${pieces[1]}`} </Typography> : null}
+        {pieces[1] ? <Typography color='#000000' fontSize={12} fontWeight={600} sx={{ marginRight: '8px' }}>{` ${pieces[1]}`} </Typography> : null}
         {!!href && <ArrowLink href={`${href}` || '#'} />}
       </RowUnderLine>
     </Content>
@@ -49,9 +49,8 @@ export default RelateMips;
 const Content = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  padding: '8px 4px 16px 8px',
+  padding: '8px 4px 17px 8px',
   width: '500px',
-  height: '75px',
   backgroundColor: '#FCFCFC',
   boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.25)',
   borderRadius: '8px',
@@ -61,16 +60,23 @@ const Row = styled.div({
   display: 'flex',
   alignItems: 'center',
   flex: 1,
-  whiteSpace: 'break-spaces',
+  marginBottom: '18px'
 });
-const RowUnderLine = styled(Row)`
-   text-decoration: underline;
-   margin-right:8px;
-`;
+
+const RowUnderLine = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  flex: 1,
+  textDecoration: 'underline',
+  marginRight: '8px',
+  whiteSpace: 'break-spaces'
+
+});
 
 const SinceDate = styled.a({
-  color: 'gray',
+  color: '#898989',
   fontSize: '12px',
   textDecoration: 'underline',
-  marginLeft: '10px'
+  marginLeft: '10px',
+  fontWeight: 500
 });

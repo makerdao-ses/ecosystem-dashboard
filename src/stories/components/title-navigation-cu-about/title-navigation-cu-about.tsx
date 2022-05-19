@@ -23,7 +23,7 @@ export const TitleNavigationCuAbout = ({ title, status, statusModified, links = 
         <TypographyTitle>{title}</TypographyTitle>
 
         <Row>
-          {status && <StatusChip status={status}/>}
+          {status && <StatusChip status={status} />}
           {statusModified && <CustomPopover
             id={'mouse-over-popover-goto'}
             title={'Go to MIPs Portal'}
@@ -57,22 +57,24 @@ const ContainerTitle = styled.div({
   flexDirection: 'row',
   justifyContent: 'flex-start',
   alignItems: 'center',
+  marginLeft: '12px',
 });
 
-const TypographyTitle = styled(Typography)`
-font-style: normal;
-font-weight: 600;
-font-size: 18px;
-line-height: 22px;
-color: #000000;
-`;
-const TypographySES = styled(Typography)`
-font-style: normal;
-font-weight: 700;
-font-size: 18px;
-line-height: 22px;
-color: #9FAFB9;
-`;
+const TypographyTitle = styled(Typography)({
+  fontStyle: 'normal',
+  fontWeight: 600,
+  fontSize: '18px',
+  lineHeight: '22px',
+  color: '#000000'
+});
+
+const TypographySES = styled(Typography)({
+  fontStyle: 'normal',
+  fontWeight: 700,
+  fontSize: '18px',
+  lineHeight: '22px',
+  color: '#9FAFB9'
+});
 
 const Row = styled.div({
   display: 'flex',
@@ -82,8 +84,11 @@ const Row = styled.div({
 });
 
 const SinceDate = styled.a({
-  color: 'gray',
+  color: '#898989',
+  fontStyle: 'normal',
+  fontWeight: 400,
   fontSize: '12px',
+  lineHeight: '15px',
   textDecoration: 'underline',
   marginLeft: '10px'
 });
