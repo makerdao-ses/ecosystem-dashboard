@@ -6,15 +6,6 @@ import { getTwoInitials } from '../../../core/utils/string-utils';
 import { getColorForString } from '../../../core/utils/color-utils';
 import './cu-table-column-team-member.scss';
 import { CustomPopover } from '../custom-popover/custom-popover';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../core/store/store';
-import {
-  loadFacilitatorImage,
-  selectFacilitatorImages,
-  setFacilitatorImageAsPending
-} from '../../containers/cu-table/cu-table.slice';
-import { useAppDispatch } from '../../../core/hooks/hooks';
-
 export interface FacilitatorModel {
   name: string,
   imageUrl?: string,
@@ -23,29 +14,17 @@ export interface FacilitatorModel {
 
 interface CuTableColumnTeamMemberProps {
   members: FacilitatorModel[],
+  facilitatorImages: {[id:string]: string},
   fte: number,
 }
 
-export const CuTableColumnTeamMember = (props: CuTableColumnTeamMemberProps) => {
-  const facilitatorImages = useSelector((state: RootState) => selectFacilitatorImages(state));
-  const dispatch = useAppDispatch();
-
-  const getImageForMember = (id: string) => {
-    if (!id) return '';
-    if (facilitatorImages[id] == null) {
-      dispatch(setFacilitatorImageAsPending(id.toString()));
-      dispatch(loadFacilitatorImage(id.toString()));
-    } else {
-      return facilitatorImages[id];
-    }
-  };
-
+export const CuTableColumnTeamMember = ({ facilitatorImages, ...props }: CuTableColumnTeamMemberProps) => {
   const MemberInfo = (props: { member: FacilitatorModel }) => {
     return <MemberInfoContainer>
       <Avatar
         sx={{ width: '32px', height: '32px', backgroundColor: getColorForString(props.member.name), fontSize: '1rem', marginRight: '8px' }}
         alt={props.member.name}
-        src={getImageForMember(props.member?.id ?? '')}
+        src={facilitatorImages[props.member?.id ?? '']}
       >
         {getTwoInitials(props.member.name)}
       </Avatar>
@@ -73,7 +52,7 @@ export const CuTableColumnTeamMember = (props: CuTableColumnTeamMemberProps) => 
         <Avatar
           sx={{ width: '32px', height: '32px', backgroundColor: getColorForString(member.name), fontSize: '1rem' }}
           alt={member.name}
-          src={getImageForMember(member?.id ?? '')}
+          src={facilitatorImages[member?.id ?? '']}
         >
           {getTwoInitials(member.name)}
         </Avatar>

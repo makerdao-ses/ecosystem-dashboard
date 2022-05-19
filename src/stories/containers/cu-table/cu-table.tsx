@@ -24,7 +24,13 @@ import {
   getExpenditureValueFromCoreUnit
 } from '../../../core/business-logic/core-units';
 import { useAppDispatch } from '../../../core/hooks/hooks';
-import { loadCuTableItemsAsync, selectCuTableItems } from './cu-table.slice';
+import {
+  loadCuTableItemsAsync,
+  loadFacilitatorImage,
+  selectCuTableItems,
+  selectFacilitatorImages,
+  setFacilitatorImageAsPending
+} from './cu-table.slice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../core/store/store';
 import { CoreUnitDAO } from './cu-table.api';
@@ -35,7 +41,10 @@ const headers = ['Core Units', 'Initiatives', 'Expenditure', 'Team Members', 'Li
 
 export const CuTable = () => {
   const data: Array<CoreUnitDAO> = useSelector((state: RootState) => selectCuTableItems(state));
+  const facilitatorImages = useSelector((state: RootState) => selectFacilitatorImages(state));
+
   const dispatch = useAppDispatch();
+
   const [filteredStatuses, setFilteredStatuses] = useState<string[]>([]);
   const [filteredCategories, setFilteredCategories] = useState<string[]>([]);
   const [searchText, setSearchText] = useState('');
@@ -62,6 +71,19 @@ export const CuTable = () => {
       return filterResult;
     });
   };
+
+  useEffect(() => {
+    data.forEach(coreUnit => {
+      const facilitators = getFacilitatorsFromCoreUnit(coreUnit);
+      facilitators.forEach(facilitator => {
+        const id = facilitator?.id?.toString();
+        if (id && facilitatorImages[id] == null) {
+          dispatch(setFacilitatorImageAsPending(id));
+          dispatch(loadFacilitatorImage(id));
+        }
+      });
+    });
+  }, [data]);
 
   const items = useMemo(() => {
     const filteredData = filterData();
@@ -92,6 +114,7 @@ export const CuTable = () => {
             getFacilitatorsFromCoreUnit(coreUnit)
           }
           fte={getFTEsFromCoreUnit(coreUnit)}
+          facilitatorImages={facilitatorImages}
         />,
         <CuTableColumnLinks
           key={`links-${i}`}
@@ -99,7 +122,7 @@ export const CuTable = () => {
         />
       ];
     });
-  }, [data, filteredStatuses, filteredCategories, searchText]);
+  }, [data, filteredStatuses, filteredCategories, searchText, facilitatorImages]);
 
   return <ContainerHome>
     <Box
