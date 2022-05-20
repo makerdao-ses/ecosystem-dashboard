@@ -1,22 +1,37 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Title, Value } from '../cutable-column-expenditures/cutable-column-expenditures';
+import { Title, Value } from '../cu-table-column-expenditures/cu-table-column-expenditures';
 import { AvatarGroup, Avatar } from '@mui/material';
 import { getTwoInitials } from '../../../core/utils/string-utils';
 import { getColorForString } from '../../../core/utils/color-utils';
-import './cutable-column-team-member.scss';
+import './cu-table-column-team-member.scss';
 import { CustomPopover } from '../custom-popover/custom-popover';
-
-export interface Member {
-  name: string
+export interface FacilitatorModel {
+  name: string,
+  imageUrl?: string,
+  id?: string,
 }
 
-interface CutableColumnTeamMemberProps {
-  members: Member[],
+interface CuTableColumnTeamMemberProps {
+  members: FacilitatorModel[],
+  facilitatorImages: {[id:string]: string},
   fte: number,
 }
 
-export const CutableColumnTeamMember = (props: CutableColumnTeamMemberProps) => {
+export const CuTableColumnTeamMember = ({ facilitatorImages, ...props }: CuTableColumnTeamMemberProps) => {
+  const MemberInfo = (props: { member: FacilitatorModel }) => {
+    return <MemberInfoContainer>
+      <Avatar
+        sx={{ width: '32px', height: '32px', backgroundColor: getColorForString(props.member.name), fontSize: '1rem', marginRight: '8px' }}
+        alt={props.member.name}
+        src={facilitatorImages[props.member?.id ?? '']}
+      >
+        {getTwoInitials(props.member.name)}
+      </Avatar>
+      <span>{props.member.name}</span>
+    </MemberInfoContainer>;
+  };
+
   return <Container className="TeamMembers">
     <CustomPopover
       title={'FTEs = Full-Time Equivalents'}
@@ -34,9 +49,11 @@ export const CutableColumnTeamMember = (props: CutableColumnTeamMemberProps) => 
         title={<MemberInfo member={member}/>}
         id={`${member.name}-${i}`}
       >
-          <Avatar
+        <Avatar
           sx={{ width: '32px', height: '32px', backgroundColor: getColorForString(member.name), fontSize: '1rem' }}
-          alt={member.name}>
+          alt={member.name}
+          src={facilitatorImages[member?.id ?? '']}
+        >
           {getTwoInitials(member.name)}
         </Avatar>
       </CustomPopover>)}
@@ -62,14 +79,3 @@ const MemberInfoContainer = styled.div({
   display: 'flex',
   alignItems: 'center'
 });
-
-const MemberInfo = (props: { member: Member }) => {
-  return <MemberInfoContainer>
-    <Avatar
-      sx={{ width: '32px', height: '32px', backgroundColor: getColorForString(props.member.name), fontSize: '1rem', marginRight: '8px' }}
-      alt={props.member.name}>
-      {getTwoInitials(props.member.name)}
-    </Avatar>
-    <span>{props.member.name}</span>
-  </MemberInfoContainer>;
-};

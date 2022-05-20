@@ -1,6 +1,7 @@
 /* eslint-disable semi */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
+import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
+// import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
 import { RootState } from '../../../core/store/store';
 import {
   Commitment,

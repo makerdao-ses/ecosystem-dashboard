@@ -5,29 +5,16 @@ import { store } from './core/store/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-} from '@apollo/client';
-import { GraphQlEndpoint } from './config/endpoint';
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
-const client = new ApolloClient({
-  uri: GraphQlEndpoint,
-  cache: new InMemoryCache()
-});
-
 root.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </ApolloProvider>
+    <Provider store={store}>
+      <App/>
+    </Provider>
   </React.StrictMode>
 );
 

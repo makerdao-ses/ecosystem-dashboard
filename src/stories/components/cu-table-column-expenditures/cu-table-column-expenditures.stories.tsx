@@ -1,13 +1,13 @@
 import React from 'react';
-import { CutableColumnExpenditures } from './cutable-column-expenditures';
+import { CuTableColumnExpenditures } from './cu-table-column-expenditures';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
   title: 'Components/CUTable/ColumnExpenditures',
-  component: CutableColumnExpenditures
-} as ComponentMeta<typeof CutableColumnExpenditures>;
+  component: CuTableColumnExpenditures
+} as ComponentMeta<typeof CuTableColumnExpenditures>;
 
-const Template: ComponentStory<typeof CutableColumnExpenditures> = (args) => <CutableColumnExpenditures {...args} />;
+const Template: ComponentStory<typeof CuTableColumnExpenditures> = (args) => <CuTableColumnExpenditures {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

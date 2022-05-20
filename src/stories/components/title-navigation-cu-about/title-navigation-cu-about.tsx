@@ -3,10 +3,11 @@ import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
-import { CutableColumnLinks, LinkModel, LinkType } from '../cutable-column-links/cutable-column-links';
-import { CuAbout, CuMip } from '../../containers/cu-about/cu-about.api';
-import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
+import { CuTableColumnLinks, LinkModel } from '../cu-table-column-links/cu-table-column-links';
+import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { StatusChip } from '../status-chip/status-chip';
+import { CuAbout, CuMip } from '../../containers/cu-about/cu-about.api';
+import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
 
 interface BudgetStatementFTEs {
   month: string
@@ -63,37 +64,37 @@ export const getLinksCoreUnit = (cu: CuAbout) => {
   const cont = cu.socialMediaChannels[0];
   if (cont.website) {
     links.push({
-      linkType: LinkType.WWW,
+      linkType: LinkTypeEnum.WWW,
       href: cont.website,
     });
   }
   if (cont.forumTag) {
     links.push({
-      linkType: LinkType.Forum,
+      linkType: LinkTypeEnum.Forum,
       href: cont.forumTag,
     });
   }
   if (cont.discord) {
     links.push({
-      linkType: LinkType.Discord,
+      linkType: LinkTypeEnum.Discord,
       href: cont.discord,
     });
   }
   if (cont.twitter) {
     links.push({
-      linkType: LinkType.Twitter,
+      linkType: LinkTypeEnum.Twitter,
       href: cont.twitter,
     });
   }
   if (cont.youtube) {
     links.push({
-      linkType: LinkType.Youtube,
+      linkType: LinkTypeEnum.Youtube,
       href: cont.youtube,
     });
   }
   if (cont.linkedIn) {
     links.push({
-      linkType: LinkType.LinkedIn,
+      linkType: LinkTypeEnum.LinkedIn,
       href: cont.linkedIn,
     });
   }
@@ -110,8 +111,8 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
         <TypographyTitle>{coreUnitAbout.name}</TypographyTitle>
 
         <Row>
-          {coreUnitAbout.cuMip[0].mipStatus && <StatusChip status={coreUnitAbout.cuMip[0].mipStatus}/>}
-          {mips && <CustomPopover
+          {mips && <StatusChip status={mips as CuStatusEnum} />}
+          {coreUnitAbout.cuMip[0].mipStatus && <CustomPopover
             id={'mouse-over-popover-goto'}
             title={'Go to MIPs Portal'}
           >
@@ -124,7 +125,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
         </Row>
       </ContainerTitle>
       <ContainerLinks>
-        <CutableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} dark />
+        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} dark/>
       </ContainerLinks>
     </Container>
   );
@@ -144,22 +145,24 @@ const ContainerTitle = styled.div({
   flexDirection: 'row',
   justifyContent: 'flex-start',
   alignItems: 'center',
+  marginLeft: '12px',
 });
 
-const TypographyTitle = styled(Typography)`
-font-style: normal;
-font-weight: 600;
-font-size: 18px;
-line-height: 22px;
-color: #000000;
-`;
-const TypographySES = styled(Typography)`
-font-style: normal;
-font-weight: 700;
-font-size: 18px;
-line-height: 22px;
-color: #9FAFB9;
-`;
+const TypographyTitle = styled(Typography)({
+  fontStyle: 'normal',
+  fontWeight: 600,
+  fontSize: '18px',
+  lineHeight: '22px',
+  color: '#000000'
+});
+
+const TypographySES = styled(Typography)({
+  fontStyle: 'normal',
+  fontWeight: 700,
+  fontSize: '18px',
+  lineHeight: '22px',
+  color: '#9FAFB9'
+});
 
 const Row = styled.div({
   display: 'flex',
@@ -169,8 +172,11 @@ const Row = styled.div({
 });
 
 const SinceDate = styled.a({
-  color: 'gray',
+  color: '#898989',
+  fontStyle: 'normal',
+  fontWeight: 400,
   fontSize: '12px',
+  lineHeight: '15px',
   textDecoration: 'underline',
   marginLeft: '10px'
 });

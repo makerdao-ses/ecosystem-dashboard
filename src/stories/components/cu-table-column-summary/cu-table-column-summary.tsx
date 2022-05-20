@@ -5,17 +5,17 @@ import { getColorForString } from '../../../core/utils/color-utils';
 import { getTwoInitials } from '../../../core/utils/string-utils';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
-import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
+import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { StatusChip } from '../status-chip/status-chip';
 
-interface CutableColumnSummaryProps {
+interface CuTableColumnSummaryProps {
   title: string,
   imageUrl?: string,
   status?: CuStatusEnum,
-  statusModified?: Date,
+  statusModified?: Date | null,
 }
 
-export const CutableColumnSummary = (props: CutableColumnSummaryProps) => {
+export const CuTableColumnSummary = (props: CuTableColumnSummaryProps) => {
   return <Container>
     <CircleContainer>
       {props.imageUrl && <Avatar style={{ width: '48px', height: '48px' }} src={props.imageUrl}/>}
@@ -61,12 +61,12 @@ const Content = styled.div({
   flexDirection: 'column',
 });
 
-const Title = styled(Typography)(() => ({
+const Title = styled(Typography)({
   fontSize: '14px',
   alignItems: 'center',
   marginBottom: '10px',
   maxWidth: '200px',
-}));
+});
 
 const Row = styled.div({
   display: 'flex',
@@ -74,9 +74,9 @@ const Row = styled.div({
   flex: 1,
 });
 
-const SinceDate = styled(Typography)(() => ({
+const SinceDate = styled(Typography)({
   color: 'gray',
   fontSize: '12px',
   textDecoration: 'underline',
   marginLeft: '10px'
-}));
+});

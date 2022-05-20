@@ -27,6 +27,7 @@ interface CustomSelectProps {
   items: string[],
   label: string,
   withAll?: boolean,
+  onChange?: (items: string[]) => void,
 }
 
 export const CustomMultiSelect = ({ withAll = true, ...props }: CustomSelectProps) => {
@@ -38,13 +39,16 @@ export const CustomMultiSelect = ({ withAll = true, ...props }: CustomSelectProp
     } = event;
 
     setActiveItems(typeof value === 'string' ? value.split(',') : value);
+    props.onChange && props.onChange(typeof value === 'string' ? value.split(',') : value);
   };
 
   const toggleAll = () => {
     if (activeItems.length === props.items.length) {
       setActiveItems([]);
+      props.onChange && props.onChange([]);
     } else {
       setActiveItems(props.items);
+      props.onChange && props.onChange(props.items);
     }
   };
 

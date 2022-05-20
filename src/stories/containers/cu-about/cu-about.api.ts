@@ -1,11 +1,9 @@
 import { request, gql } from 'graphql-request';
 import { GraphQlEndpoint } from '../../../config/endpoint';
-import { CuCategory } from '../../../core/enums/cu-category';
-import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
-import {
-  LinkModel,
-  LinkType,
-} from '../../components/cutable-column-links/cutable-column-links';
+import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
+import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
+import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
+import { LinkModel } from '../../components/cu-table-column-links/cu-table-column-links';
 import { CoreUnit } from '../../components/title-navigation-cu-about/title-navigation-cu-about';
 
 interface BudgetStatementFTEs {
@@ -85,7 +83,7 @@ export interface SocialMediaChannels {
 export interface CuAbout {
   id: string;
   code: string;
-  category: CuCategory[];
+  category: CuCategoryEnum[];
   name: string;
   sentenceDescription: string;
   paragraphDescription: string;
@@ -160,37 +158,37 @@ export const getLinksCoreUnit = (cu: CoreUnit) => {
   const cont = cu.socialMediaChannels[0];
   if (cont.website) {
     links.push({
-      linkType: LinkType.WWW,
+      linkType: LinkTypeEnum.WWW,
       href: cont.website,
     });
   }
   if (cont.forumTag) {
     links.push({
-      linkType: LinkType.Forum,
+      linkType: LinkTypeEnum.Forum,
       href: cont.forumTag,
     });
   }
   if (cont.discord) {
     links.push({
-      linkType: LinkType.Discord,
+      linkType: LinkTypeEnum.Discord,
       href: cont.discord,
     });
   }
   if (cont.twitter) {
     links.push({
-      linkType: LinkType.Twitter,
+      linkType: LinkTypeEnum.Twitter,
       href: cont.twitter,
     });
   }
   if (cont.youtube) {
     links.push({
-      linkType: LinkType.Youtube,
+      linkType: LinkTypeEnum.Youtube,
       href: cont.youtube,
     });
   }
   if (cont.linkedIn) {
     links.push({
-      linkType: LinkType.LinkedIn,
+      linkType: LinkTypeEnum.LinkedIn,
       href: cont.linkedIn,
     });
   }
