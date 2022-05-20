@@ -62,7 +62,7 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
           title={<Typography fontSize={14} >{contributor.name}</Typography>}
           subheader={<Typography fontSize={12} sx={{ marginLeft: '6px' }}>{`forum: @${contributor.forumHandle}`}</Typography>}
         />
-        <CardContent sx={{ '&:last-child': { pb: '10px' } }}>
+        <CardContent sx={{ '&:last-child': { pb: '10px' }, paddingRight: '0px' }}>
           <CardContentPositionRow>
             <CardContentPositionColumn>
               <Typography color='#C4C4C4' fontSize={12}>Title</Typography>

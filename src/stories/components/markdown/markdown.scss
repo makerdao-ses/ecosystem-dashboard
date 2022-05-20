@@ -5,28 +5,27 @@
   display: flex;
   justify-content: center;
 }
-.img-container p {
-  max-width: 152px;
-}
+
 .paragraph {
-  font-family: "Inter";
+  font-family: 'FT Base',sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
-  font-family: "Inter", sans-serif;
-  color: #000000;
-}
-
-.titleMarkdown {
-  font-family: "Inter", sans-serif;
-  font-style: normal;
-  font-weight: 700;
   font-size: 16px;
   line-height: 19px;
   color: #000000;
 }
-.tag-code{
-  font-family: inherit;
+
+.tag-code {
   white-space: pre-wrap;
+  font-family: "FT Base", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #000000;
+}
+
+img.img-container{
+  display: block;
+  margin: 0 auto;
 }
