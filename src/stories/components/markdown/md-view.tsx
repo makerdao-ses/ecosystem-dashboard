@@ -1,8 +1,9 @@
 
 import React, { useEffect, useState } from 'react';
-import dompurify from 'dompurify';
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
+import Markdown from 'marked-react';
+import { customRenderer } from './renderUtils';
 
 export type MarkDownHeaders = {
   level: number;
@@ -23,7 +24,6 @@ interface Props {
 const MdViewerPage = ({ title = 'About the Core Unit', subTitle = 'What we do', sentenceDescription, paragraphDescription, paragraphImage, headersLevel }: Props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [activeLink, setActiveLink] = useState('');
-  const sanitizer = dompurify.sanitize;
 
   useEffect(() => {
     const ids = headersLevel.map((header) => header.id);
@@ -54,18 +54,12 @@ const MdViewerPage = ({ title = 'About the Core Unit', subTitle = 'What we do', 
   }, []);
 
   return (
-    <ViewerContainer>
-      <TypographyStyle>{title}</TypographyStyle>
-      <div
-        dangerouslySetInnerHTML={{ __html: sanitizer(`${sentenceDescription}`) }}
-      />
-      <TypographyStyle>{subTitle}</TypographyStyle>
-      <div
-        dangerouslySetInnerHTML={{ __html: sanitizer(`${paragraphDescription}`) }}
-      />
-      <div
-        dangerouslySetInnerHTML={{ __html: sanitizer(`${paragraphImage}`) }}
-      />
+    <ViewerContainer key={sentenceDescription}>
+      <TypographyStyleSentence>{title}</TypographyStyleSentence>
+        <Markdown value={sentenceDescription} renderer={customRenderer} key={sentenceDescription}/>
+      <TypographyStyleDescription>{subTitle}</TypographyStyleDescription>
+      <Markdown value={paragraphDescription} renderer={customRenderer} key={paragraphDescription}/>
+      <Markdown value={paragraphImage} renderer={customRenderer} key={paragraphImage}/>
     </ViewerContainer>
   );
 };
@@ -84,10 +78,22 @@ const ViewerContainer = styled.div({
   paddingRight: '32px'
 });
 
-const TypographyStyle = styled(Typography)({
-  fontSize: '16px',
+const TypographyStyleSentence = styled(Typography)({
+  fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
-  fontWeight: 700,
-  lineHeight: '19px',
-  color: '#000000'
+  fontWeight: 500,
+  fontsize: '20px',
+  lineHeight: '24px',
+  letterSpacing: '0.4px',
+  color: '#000000',
+});
+
+const TypographyStyleDescription = styled(Typography)({
+  fontFamily: 'FT Base ,sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 500,
+  fontSize: '20px',
+  lineHeight: '24px',
+  letterSpacing: '0.4px',
+  color: '#000000',
 });

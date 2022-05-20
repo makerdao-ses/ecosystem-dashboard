@@ -1,8 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { marked } from 'marked';
-
 import MdViewerPage, { MarkDownHeaders } from './md-view';
-import makerRender from './renderUtils';
 
 interface Props {
   sentenceDescription: string;
@@ -12,6 +9,7 @@ interface Props {
 
 const MdViewerContainer = ({ sentenceDescription, paragraphDescription, paragraphImage }: Props) => {
   const [headersLevel, setHeadersLevel] = useState<MarkDownHeaders[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const creatingIndexItems = useCallback(
     (level: number, htmlCleanedText: string, escapedText: string) => {
       const cleanedText = htmlCleanedText
@@ -33,17 +31,11 @@ const MdViewerContainer = ({ sentenceDescription, paragraphDescription, paragrap
   );
 
   const convertImg = `![Image](${paragraphImage})`;
-  const sentence = marked.parse(sentenceDescription);
-  const paragraph = marked.parse(paragraphDescription);
-  const image = marked.parse(convertImg);
-  marked.use({
-    renderer: makerRender({ forEachHeading: creatingIndexItems }),
-  });
   return (
     <MdViewerPage
-      paragraphImage={image}
-      sentenceDescription={sentence}
-      paragraphDescription={paragraph}
+      paragraphImage={convertImg}
+      sentenceDescription={sentenceDescription}
+      paragraphDescription={paragraphDescription}
       headersLevel={headersLevel}
     />
   );

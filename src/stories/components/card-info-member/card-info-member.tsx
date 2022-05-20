@@ -45,7 +45,7 @@ const CardInfoMember = ({ info }: Props) => {
           title={<Typography fontSize={14} sx={{ color: '#000000' }}>{info.name}</Typography>}
           subheader={<Typography fontSize={12} sx={{ marginLeft: '6px', color: '#000000' }}>{info.username}</Typography>}
         />
-        <CardContent sx={{ '&:last-child': { pb: '10px' } }}>
+        <CardContent sx={{ '&:last-child': { pb: '10px' }, paddingRight: '0px' }}>
           <CardContentPositionRow>
             <CardContentPositionColumn>
               <Typography color='#C4C4C4' fontSize={12}>Title</Typography>
