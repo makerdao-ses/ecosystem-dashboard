@@ -1,7 +1,5 @@
-/* eslint-disable semi */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
-// import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
 import { RootState } from '../../../core/store/store';
 import {
   Commitment,
@@ -119,12 +117,6 @@ export const cuAboutSlice = createSlice({
 });
 
 export const cuAboutSelector = (state: RootState) => state.cuAbout;
-// export const ftsSelector = (state: RootState) => {
-//   return (
-//     cuAboutSelector(state).cuAbout.budgetStatements[0].budgetStatementFTEs[0]
-//       .ftes || 0
-//   );
-// };
 export const contributorCommitmentSelector = (state: RootState) => {
   return cuAboutSelector(state).cuAbout.contributorCommitment;
 };

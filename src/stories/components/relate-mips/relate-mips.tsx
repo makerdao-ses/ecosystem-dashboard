@@ -7,6 +7,7 @@ import ArrowLink from '../svg/ArrowLink';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { StatusChip } from '../status-chip/status-chip';
 import { CuMip } from '../../containers/cu-about/cu-about.api';
+import { getMipTitle } from '../../../core/utils/string-utils';
 
 export type RelateMipType = {
   status: CuStatusEnum,
@@ -20,6 +21,7 @@ interface Props {
 }
 
 const RelateMips = ({ relateMips }: Props) => {
+  const pieces = getMipTitle(relateMips.mipTitle || '');
   const getMipsStatus = (mip: CuMip) => {
     switch (mip.mipStatus) {
       case CuStatusEnum.Accepted:
@@ -52,7 +54,7 @@ const RelateMips = ({ relateMips }: Props) => {
         </CustomPopover>}
       </Row>
       <RowUnderLine>
-        <Typography color='#000000' fontSize={12} fontWeight={600}>{relateMips.mipTitle}</Typography>
+     <Typography color='#000000' fontSize={12} fontWeight={600} sx={{ marginRight: '8px' }}>{relateMips.mipTitle} </Typography>
         {!!relateMips.mipUrl && <ArrowLink href={`${relateMips.mipUrl}` || '#'} />}
       </RowUnderLine>
     </Content>

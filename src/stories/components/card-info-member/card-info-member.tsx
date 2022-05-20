@@ -58,7 +58,7 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
       <Card sx={{ width: 294, height: 182, boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.08)', borderRadius: '8px', backgroundColor: '#F9F9F9' }} >
         <CardHeader
           sx={{ marginTop: '17px', paddingTop: '0px', paddingBottom: '0px' }}
-          avatar={!contributor.facilitatorImage ? <Avatar sx={{ bgcolor: 'black' }} style={{ width: '48px', height: '48px', fontSize: '1rem' }}>{getTwoInitials(contributor?.name || 'NM')}</Avatar> : <Avatar style={{ width: '48px', height: '48px' }} src={contributor.facilitatorImage} />}
+          avatar={!contributor.facilitatorImage ? <Avatar sx={{ bgcolor: 'black' }} style={{ width: '40px', height: '40px', fontSize: '1rem' }}>{getTwoInitials(contributor?.name || 'NM')}</Avatar> : <Avatar style={{ width: '40px', height: '40px' }} src={contributor.facilitatorImage} />}
           title={<Typography fontSize={14} >{contributor.name}</Typography>}
           subheader={<Typography fontSize={12} sx={{ marginLeft: '6px' }}>{`forum: @${contributor.forumHandle}`}</Typography>}
         />
@@ -69,12 +69,12 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
               <Typography color=' #000000' fontSize={14}>{contributorCommitment.jobTitle}</Typography>
             </CardContentPositionColumn>
             <CardContentPositionColumn>
-              <Typography color='#C4C4C4' fontSize={12}>Commitment</Typography>
+              <Typography color='#C4C4C4' fontSize={12} sx={{ paddingRight: '50px' }}>Commitment</Typography>
               <Typography color=' #000000' fontSize={14}>{contributorCommitment.commitment}</Typography>
             </CardContentPositionColumn>
           </CardContentPositionRow>
           <Divider light sx={{ marginTop: '30px', marginBottom: '11px', color: '#C4C4C4' }} variant='fullWidth' />
-          <CardLinksFooter><CuTableColumnLinks links={links} width={16} height={16} spacingsRight={22}/></CardLinksFooter>
+          <CardLinksFooter><CuTableColumnLinks links={links} width={10} height={10} spacingsRight={22}/></CardLinksFooter>
         </CardContent>
       </Card>
     </Box>
