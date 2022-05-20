@@ -57,7 +57,6 @@ const ContainerTitle = styled.div({
   flexDirection: 'row',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  marginLeft: '12px',
 });
 
 const TypographyTitle = styled(Typography)({
