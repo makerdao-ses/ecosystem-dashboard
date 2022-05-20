@@ -247,6 +247,10 @@ const ContainerCards = styled.div({
   marginLeft: '32px',
   marginRight: '32px',
   marginTop: '32px',
+  '@media(max-width: 1440px)': {
+    fontSize: '40px',
+    gridTemplateColumns: 'repeat(2,1fr)',
+  }
 });
 
 const CardContainer = styled.div({
