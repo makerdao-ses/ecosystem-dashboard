@@ -4,14 +4,14 @@ import { CustomBarChart, CustomChartItem } from '../custom-bar-chart/custom-bar-
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { Typography } from '@mui/material';
 
-interface CutableColumnExpendituresProps {
+interface CuTableColumnExpendituresProps {
   value: number,
-  percent: number,
+  percent?: number | null,
   items: Array<CustomChartItem>,
   budgetCap: number
 }
 
-export const CutableColumnExpenditures = (props: CutableColumnExpendituresProps) => {
+export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps) => {
   return <Container>
     <Data>
       <Title>Last 3 months</Title>
@@ -24,7 +24,7 @@ export const CutableColumnExpenditures = (props: CutableColumnExpendituresProps)
       </CustomPopover>
     </Data>
     <CustomBarChart items={props.items} maxValue={props.budgetCap}/>
-    <CustomPopover
+    {props.budgetCap > 0 && <CustomPopover
       css={{ alignSelf: 'center' }}
       id={'mouse-over-popover-percent'}
       title={
@@ -43,9 +43,9 @@ export const CutableColumnExpenditures = (props: CutableColumnExpendituresProps)
         </PercentExplanation>
       }>
       <Value>
-        {props.percent.toString()}%
+        {props.percent?.toFixed(2)}%
       </Value>
-    </CustomPopover>
+    </CustomPopover>}
   </Container>;
 };
 
@@ -61,18 +61,18 @@ const Data = styled.div({
   justifyContent: 'space-between'
 });
 
-export const Title = styled(Typography)(() => ({
+export const Title = styled(Typography)({
   fontSize: '12px',
   fontWeight: 400,
-}));
+});
 
-export const Value = styled(Typography)(() => ({
+export const Value = styled(Typography)({
   display: 'flex',
   alignItems: 'flex-end',
   fontSize: '20px',
   fontWeight: 400,
   paddingBottom: '5px',
-}));
+});
 
 const PercentExplanation = styled.div({
   display: 'flex',

@@ -3,14 +3,15 @@ import styled from '@emotion/styled';
 import { Divider, Typography } from '@mui/material';
 import SmallButton from '../../../components/button/small-button/small-button';
 import CardInfoMember, { CardInfoMemberType } from '../../../components/card-info-member/card-info-member';
-import { LinkModel, LinkType } from '../../../components/cutable-column-links/cutable-column-links';
+import { LinkModel } from '../../../components/cu-table-column-links/cu-table-column-links';
 import MdViewerContainer from '../../../components/markdown/md-view-container';
 import InsidePagination from '../../../components/pagination/InsidePagination';
 import TeamMember from '../../../components/team-members/team-member';
 import TitleNavigationCuAbout from '../../../components/title-navigation-cu-about/title-navigation-cu-about';
 import RelateMips, { RelateMipType } from '../../../components/relate-mips/relate-mips';
 import BigButton from '../../../components/button/big-button/big-button';
-import { CuStatusEnum } from '../../../../core/enums/cu-status-enum';
+import { CuStatusEnum } from '../../../../core/enums/cu-status.enum';
+import { LinkTypeEnum } from '../../../../core/enums/link-type.enum';
 
 const CuAbout = () => {
   const sentenceDescription = 'SES aims to sustainably grow the Maker Protocol’s moats by removing barriers between decentralized workforce, capital, and work.';
@@ -40,27 +41,27 @@ const CuAbout = () => {
 
   const links: LinkModel[] = [
     {
-      linkType: LinkType.WWW,
+      linkType: LinkTypeEnum.WWW,
       href: '#',
     },
     {
-      linkType: LinkType.Forum,
+      linkType: LinkTypeEnum.Forum,
       href: '#',
     },
     {
-      linkType: LinkType.Discord,
+      linkType: LinkTypeEnum.Discord,
       href: '#',
     },
     {
-      linkType: LinkType.Twitter,
+      linkType: LinkTypeEnum.Twitter,
       href: '#',
     },
     {
-      linkType: LinkType.Youtube,
+      linkType: LinkTypeEnum.Youtube,
       href: '#',
     },
     {
-      linkType: LinkType.LinkedIn,
+      linkType: LinkTypeEnum.LinkedIn,
       href: '#',
     },
   ];

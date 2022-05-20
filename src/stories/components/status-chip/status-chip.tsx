@@ -1,6 +1,6 @@
 import React from 'react';
 import { Chip } from '@mui/material';
-import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
+import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 
 interface StatusChipProps {
   status: CuStatusEnum;
