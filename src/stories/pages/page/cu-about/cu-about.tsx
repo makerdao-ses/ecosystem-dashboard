@@ -247,7 +247,7 @@ const ContainerCards = styled.div({
   marginLeft: '32px',
   marginRight: '32px',
   marginTop: '32px',
-  '@media(max-width: 1440px)': {
+  '@media(max-width: 1439px)': {
     fontSize: '40px',
     gridTemplateColumns: 'repeat(2,1fr)',
   }
