@@ -1,6 +1,5 @@
 
 import React, { useEffect, useState } from 'react';
-import dompurify from 'dompurify';
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 import Markdown from 'marked-react';
@@ -25,7 +24,6 @@ interface Props {
 const MdViewerPage = ({ title = 'About the Core Unit', subTitle = 'What we do', sentenceDescription, paragraphDescription, paragraphImage, headersLevel }: Props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [activeLink, setActiveLink] = useState('');
-  const sanitizer = dompurify.sanitize;
 
   useEffect(() => {
     const ids = headersLevel.map((header) => header.id);
