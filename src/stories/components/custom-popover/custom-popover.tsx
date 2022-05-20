@@ -1,6 +1,7 @@
 import React, { CSSProperties } from 'react';
-import { Popover, Typography } from '@mui/material';
+import { Popover } from '@mui/material';
 import './custom-popover.scss';
+import styled from '@emotion/styled';
 
 interface CustomPopoverProps {
   title: JSX.Element | string,
@@ -49,7 +50,12 @@ export const CustomPopover = (props: CustomPopoverProps) => {
     onClose={handlePopoverClose}
     disableRestoreFocus
   >
-    <Typography fontSize={10} sx={{ p: 1 }}>{props.title}</Typography>
+    <Container>{props.title}</Container>
     </Popover>
   </React.Fragment>;
 };
+
+const Container = styled.div({
+  fontSize: '10px',
+  padding: '8px'
+});

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { StatusChip } from './status-chip';
-import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
+import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 
 export default {
   title: 'Components/General/StatusChip',

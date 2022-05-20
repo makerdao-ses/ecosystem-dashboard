@@ -1,4 +1,4 @@
-export enum CuCategory {
+export enum CuCategoryEnum {
   Technical = 'Technical',
   Support = 'Support',
   Operational = 'Operational',

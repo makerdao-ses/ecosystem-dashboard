@@ -3,11 +3,11 @@ import styled from '@emotion/styled';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { Typography } from '@mui/material';
 
-interface CutableColumnInitiativesProps {
+interface CuTableColumnInitiativesProps {
   initiatives: number
 }
 
-export const CutableColumnInitiatives = (props: CutableColumnInitiativesProps) => {
+export const CuTableColumnInitiatives = (props: CuTableColumnInitiativesProps) => {
   return <Container>
     <CustomPopover
       id="mouse-over-popover-initiatives"
@@ -28,7 +28,7 @@ const Container = styled.div({
   justifyContent: 'center',
 });
 
-const RoundedBox = styled(Typography)(() => ({
+const RoundedBox = styled(Typography)({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -38,4 +38,4 @@ const RoundedBox = styled(Typography)(() => ({
   textDecoration: 'none',
   color: 'white',
   fontSize: '16px'
-}));
+});

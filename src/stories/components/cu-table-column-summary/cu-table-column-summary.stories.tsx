@@ -1,14 +1,14 @@
 import React from 'react';
-import { CutableColumnSummary } from './cutable-column-summary';
+import { CuTableColumnSummary } from './cu-table-column-summary';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { CuStatusEnum } from '../../../core/enums/cu-status-enum';
+import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 
 export default {
   title: 'Components/CUTable/ColumnSummary',
-  component: CutableColumnSummary
-} as ComponentMeta<typeof CutableColumnSummary>;
+  component: CuTableColumnSummary
+} as ComponentMeta<typeof CuTableColumnSummary>;
 
-const Template: ComponentStory<typeof CutableColumnSummary> = (args) => <CutableColumnSummary {...args} />;
+const Template: ComponentStory<typeof CuTableColumnSummary> = (args) => <CuTableColumnSummary {...args} />;
 
 export const WithImage = Template.bind({});
 WithImage.args = {

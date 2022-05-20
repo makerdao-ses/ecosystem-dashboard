@@ -9,23 +9,14 @@ import Twitter from '../svg/twitter';
 import LinkedIn from '../svg/linkedin';
 import Gmail from '../svg/gmail';
 import { Box } from '@mui/material';
-
-export enum LinkType {
-  WWW = 'Website',
-  Forum = 'Forum',
-  Discord = 'Discord',
-  Twitter = 'Twitter',
-  Youtube = 'Youtube',
-  LinkedIn = 'LinkedIn',
-  Gmail = 'Gmail',
-}
+import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
 
 export interface LinkModel {
   href: string,
-  linkType: LinkType,
+  linkType: LinkTypeEnum,
 }
 
-interface CutableColumnLinksProps {
+interface CuTableColumnLinksProps {
   links: LinkModel[]
   width?: number,
   height?: number;
@@ -36,26 +27,26 @@ interface CutableColumnLinksProps {
 const getImageForLink = (link: LinkModel, width?: number, height?: number, dark?: boolean) => {
   const fill = dark ? '#626472' : '#C4C4C4';
   switch (link.linkType) {
-    case LinkType.WWW:
+    case LinkTypeEnum.WWW:
       return <WWW fill={fill} width={width} height={height} />;
-    case LinkType.Forum:
+    case LinkTypeEnum.Forum:
       return <Forum fill={fill} width={width} height={height} />;
-    case LinkType.Discord:
+    case LinkTypeEnum.Discord:
       return <Discord fill={fill} width={width} height={height} />;
-    case LinkType.Twitter:
+    case LinkTypeEnum.Twitter:
       return <Twitter fill={fill} width={width} height={height} />;
-    case LinkType.Youtube:
+    case LinkTypeEnum.Youtube:
       return <Youtube fill={fill} width={width} height={height} />;
-    case LinkType.LinkedIn:
+    case LinkTypeEnum.LinkedIn:
       return <LinkedIn fill={fill} width={width} height={height} />;
-    case LinkType.Gmail:
+    case LinkTypeEnum.Gmail:
       return <Gmail fill={fill} width={width} height={height} />;
     default:
       return <WWW />;
   }
 };
 
-export const CutableColumnLinks = ({ width, height, dark, links, spacingsRight }: CutableColumnLinksProps) => {
+export const CuTableColumnLinks = ({ width, height, dark, links, spacingsRight }: CuTableColumnLinksProps) => {
   return <Container>
     {links.map((link, i) => <CustomPopover key={`link-${i}`} title={link.linkType} id={`link-${i}`}>
       <Box sx={{ mr: `${spacingsRight}px` || '0px' }}>
