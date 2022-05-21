@@ -56,10 +56,10 @@ const MdViewerPage = ({ title = 'About the Core Unit', subTitle = 'What we do', 
   return (
     <ViewerContainer key={sentenceDescription}>
       <TypographyStyleSentence>{title}</TypographyStyleSentence>
-        <Markdown value={sentenceDescription} renderer={customRenderer} key={sentenceDescription}/>
+      <Markdown value={sentenceDescription} renderer={customRenderer} key={sentenceDescription} />
       <TypographyStyleDescription>{subTitle}</TypographyStyleDescription>
-      <Markdown value={paragraphDescription} renderer={customRenderer} key={paragraphDescription}/>
-      <Markdown value={paragraphImage} renderer={customRenderer} key={paragraphImage}/>
+      <Markdown value={paragraphDescription} renderer={customRenderer} key={paragraphDescription} />
+      <Markdown value={paragraphImage} renderer={customRenderer} key={paragraphImage} />
     </ViewerContainer>
   );
 };
@@ -79,21 +79,19 @@ const ViewerContainer = styled.div({
 });
 
 const TypographyStyleSentence = styled(Typography)({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter',
   fontStyle: 'normal',
-  fontWeight: 500,
-  fontsize: '20px',
-  lineHeight: '24px',
-  letterSpacing: '0.4px',
-  color: '#000000',
+  fontWeight: 700,
+  fontSize: '16px',
+  lineHeight: '19px',
+  color: '#000000'
 });
 
 const TypographyStyleDescription = styled(Typography)({
-  fontFamily: 'FT Base ,sans-serif',
+  fontFamily: 'Inter',
   fontStyle: 'normal',
-  fontWeight: 500,
-  fontSize: '20px',
-  lineHeight: '24px',
-  letterSpacing: '0.4px',
-  color: '#000000',
+  fontWeight: 700,
+  fontSize: '16px',
+  lineHeight: '19px',
+  color: '#000000'
 });

@@ -128,39 +128,41 @@ const CuAbout = () => {
       <MarkdownContainer>
         <MdViewerContainer paragraphDescription={paragraphDescription} paragraphImage={paragraphImage} sentenceDescription={sentenceDescription} />
       </MarkdownContainer>
-      <TeamMemberContainer>
-        <TeamMemberTitle>Team Size</TeamMemberTitle><TeamMember fte={7.5} />
-      </TeamMemberContainer>
-      <ContactInfoContainer>
-        <ContactInfoTitle>Contact Information</ContactInfoTitle>
-        <ContainerCards className='cards'>
-          {numbersMembers.map((card: CardInfoMemberType, index: number) => {
-            return (
-              <CardContainer key={index}>
-                <CardInfoMember info={card} />
-              </CardContainer>
-            );
-          })}
-        </ContainerCards>
-      </ContactInfoContainer>
-      <Divider light sx={{ marginBottom: '32px', color: '#D8E0E3', marginLeft: '32px', marginRight: '32px' }} variant='fullWidth' />
-      <CardRelateMipsContainer>
-        <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
-        <RelateMipCards>
-          {relateMips.map((mip: RelateMipType, index: number) => {
-            return (
-              <RelateMipCard key={index}>
-                <RelateMips relateMips={mip} />
-              </RelateMipCard>
+      <BoxContainer>
+        <TeamMemberContainer>
+          <TeamMemberTitle>Team Size</TeamMemberTitle><TeamMember fte={7.5} />
+        </TeamMemberContainer>
+        <ContactInfoContainer>
+          <ContactInfoTitle>Contact Information</ContactInfoTitle>
+          <ContainerCards className='cards'>
+            {numbersMembers.map((card: CardInfoMemberType, index: number) => {
+              return (
+                <CardContainer key={index}>
+                  <CardInfoMember info={card} />
+                </CardContainer>
+              );
+            })}
+          </ContainerCards>
+        </ContactInfoContainer>
+        <Divider light sx={{ marginBottom: '32px', color: '#D8E0E3', marginLeft: '32px', marginRight: '32px' }} variant='fullWidth' />
+        <CardRelateMipsContainer>
+          <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
+          <RelateMipCards>
+            {relateMips.map((mip: RelateMipType, index: number) => {
+              return (
+                <RelateMipCard key={index}>
+                  <RelateMips relateMips={mip} />
+                </RelateMipCard>
 
-            );
-          })}
-        </RelateMipCards>
-      </CardRelateMipsContainer>
-      <ButtonContainer>
-        <BigButton title='See fewer MIPs' />
+              );
+            })}
+          </RelateMipCards>
+        </CardRelateMipsContainer>
+        <ButtonContainer>
+          <BigButton title='See fewer MIPs' />
 
-      </ButtonContainer>
+        </ButtonContainer>
+      </BoxContainer>
     </ContainerAbout>
   );
 };
@@ -179,7 +181,7 @@ const NavigationHeader = styled.div({
   alignItems: 'center',
   backgroundColor: '#F5F5F5',
   height: '48px',
-  paddingLeft: '44px'
+  paddingLeft: '32px'
 
 });
 
@@ -196,6 +198,11 @@ const ContainerTitle = styled.div({
 });
 
 const MarkdownContainer = styled.div({
+  marginLeft: '32px',
+  marginRight: '32px'
+});
+
+const BoxContainer = styled.div({
   marginLeft: '32px',
   marginRight: '32px'
 });
@@ -235,11 +242,15 @@ const ContactInfoTitle = styled(Typography)({
 const ContainerCards = styled.div({
   display: 'grid',
   gridTemplateColumns: 'repeat(3,1fr)',
-  columnGap: '32px',
+  columnGap: '85px',
   gridAutoRows: 'minmax(100px,auto)',
   marginLeft: '32px',
   marginRight: '32px',
-  marginTop: '32px'
+  marginTop: '32px',
+  '@media(max-width: 1439px)': {
+    fontSize: '40px',
+    gridTemplateColumns: 'repeat(2,1fr)',
+  }
 });
 
 const CardContainer = styled.div({
