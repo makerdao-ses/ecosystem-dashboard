@@ -15,7 +15,7 @@ interface BudgetStatementFTEs {
 }
 
 interface BudgetStatement {
-  budgetStatementFTEs:BudgetStatementFTEs []
+  budgetStatementFTEs: BudgetStatementFTEs[]
 }
 export interface SocialMediaChannels {
   cuCode: string;
@@ -102,17 +102,18 @@ export const getLinksCoreUnit = (cu: CuAbout) => {
 };
 
 export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
-  const mips = getMipsStatus(coreUnitAbout.cuMip[0] || {} as CuMip);
+  if (!coreUnitAbout || !coreUnitAbout.cuMip.length) return null;
+  const mips = getMipsStatus(coreUnitAbout.cuMip[0]);
+  const mipStatus = coreUnitAbout.cuMip[0].mipStatus;
   return (
     <Container>
       <ContainerTitle>
         <TypographySES>SES</TypographySES>
         <div style={{ width: '4px', height: '4px', backgroundColor: '#D8E0E3', display: 'flex', marginRight: '8px', marginLeft: '8px' }} />
-        <TypographyTitle>{coreUnitAbout.name}</TypographyTitle>
-
+      {mips && <TypographyTitle>{mips}</TypographyTitle>}
         <Row>
           {mips && <StatusChip status={mips as CuStatusEnum} />}
-          {coreUnitAbout.cuMip[0].mipStatus && <CustomPopover
+          {mipStatus && <CustomPopover
             id={'mouse-over-popover-goto'}
             title={'Go to MIPs Portal'}
           >
@@ -125,7 +126,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
         </Row>
       </ContainerTitle>
       <ContainerLinks>
-        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} dark/>
+        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} dark />
       </ContainerLinks>
     </Container>
   );

@@ -52,14 +52,13 @@ const MdViewerPage = ({ title = 'About the Core Unit', subTitle = 'What we do', 
       window.removeEventListener('scroll', onScroll);
     };
   }, []);
-
   return (
-    <ViewerContainer key={sentenceDescription}>
+    <ViewerContainer>
       <TypographyStyleSentence>{title}</TypographyStyleSentence>
-        <Markdown value={sentenceDescription} renderer={customRenderer} key={sentenceDescription}/>
+      {sentenceDescription && <Markdown value={sentenceDescription} renderer={customRenderer} />}
       <TypographyStyleDescription>{subTitle}</TypographyStyleDescription>
-      <Markdown value={paragraphDescription} renderer={customRenderer} key={paragraphDescription}/>
-      <Markdown value={paragraphImage} renderer={customRenderer} key={paragraphImage}/>
+      {paragraphDescription && <Markdown value={paragraphDescription} renderer={customRenderer} />}
+      {paragraphImage !== '![Image](null)' && <Markdown value={paragraphImage} renderer={customRenderer} />}
     </ViewerContainer>
   );
 };

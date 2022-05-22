@@ -17,7 +17,7 @@ import { CuMip, getFTEsFromCoreUnitAbout } from './cu-about.api';
 
 const CuAboutContainer = () => {
   const navigate = useNavigate();
-  const coreUnitCode = 'SES-001';
+  const coreUnitCode = 'PE-001';
   const dispatch = useAppDispatch();
   const { cuAbout, statusCoreUnit } = useAppSelector<CurrentCoreUnitAbout>(cuAboutSelector);
   const contributors = useAppSelector<ContributorCommitment[]>(contributorCommitmentSelector);
@@ -75,8 +75,10 @@ const CuAboutContainer = () => {
                 <CardInfoMember contributorCommitment={contributor} />
               </CardContainer>
             );
-          })}
+          })
+          }
         </ContainerCards>
+        {contributors.length === 0 && <ContainerNoData>No data to Show</ContainerNoData>}
       </ContactInfoContainer>
       <Divider light sx={{ marginBottom: '32px', marginTop: '32px', color: '#D8E0E3', marginLeft: '32px', marginRight: '32px' }} variant='fullWidth' />
       <CardRelateMipsContainer>
@@ -90,130 +92,141 @@ const CuAboutContainer = () => {
 
             );
           })}
+          {cuAbout.cuMip.length === 0 && <ContainerNoRelateMIps>There is not Mips relate</ContainerNoRelateMIps>}
         </RelateMipCards>
       </CardRelateMipsContainer>
-      <ButtonContainer>
+      {cuAbout.cuMip.length !== 0 && <ButtonContainer>
         <BigButton title='See less related MIPs' />
-      </ButtonContainer>
+      </ButtonContainer>}
     </ContainerAbout>
   );
 };
 
 export default CuAboutContainer;
 
-const ContainerAbout = styled.div`
-display:flex;
-flex-direction:column;
-background-color:#F9F9F9 ;
-`;
+const ContainerAbout = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  backgroundColor: '#F9F9F9',
+});
 
-const NavigationHeader = styled.div`
-display:flex ;
-justify-content:row ;
-align-items:center ;
-background-color:#F5F5F5 ;
-height:48px ;
-padding-left: 44px;
-`;
+const NavigationHeader = styled.div({
+  display: 'flex',
+  justifyContent: 'row',
+  alignItems: 'center',
+  backgroundColor: '#F5F5F5',
+  height: '48px',
+  paddingLeft: '32px',
+});
 
-const PaddingComponent = styled.div`
-margin-left:33px ;
-`;
+const PaddingComponent = styled.div({
+  paddingLeft: '32px',
+});
 
-const ContainerTitle = styled.div`
-display:flex ;
-margin-left:44px ;
-margin-right:41px ;
-margin-top: 32px;
-margin-bottom: 24px;
-`;
+const ContainerTitle = styled.div({
+  display: 'flex',
+  marginLeft: '44px',
+  marginRight: '41px',
+  marginTop: '32px',
+  marginBottom: '24px',
+});
+const MarkdownContainer = styled.div({
+  marginLeft: '32px',
+  marginRight: '32px',
+});
+const TeamMemberContainer = styled.div({
+  display: 'flex',
+  justifyContent: 'row',
+  alignItems: 'center',
+  marginLeft: '32px',
 
-const MarkdownContainer = styled.div`
-margin-left :32px ;
-margin-right:32px ;
-`;
+});
 
-const TeamMemberContainer = styled.div`
-display:flex ;
-justify-content: row;
-align-items:center ;
-margin-left:32px ;
+const TeamMemberTitle = styled(Typography)({
+  fontStyle: 'normal',
+  fontWeight: '700',
+  fontSize: '16px',
+  lineHeight: '19px',
+  marginRight: '16px',
+  color: '#000000',
+});
 
-`;
+const ContactInfoContainer = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  minHeight: '182px',
+  paddingLeft: '32px',
+  marginTop: '48px',
+  marginBottom: '32px',
+});
 
-const TeamMemberTitle = styled(Typography)`
-font-style: normal;
-font-weight: 700;
-font-size: 16px;
-line-height: 19px;
-margin-right:16px ;
-color: #000000;
-`;
+const ContactInfoTitle = styled(Typography)({
+  fontStyle: 'normal',
+  fontWeight: 700,
+  fontSize: '14px',
+  lineHeight: '17px',
+  color: '#000000',
+});
 
-const ContactInfoContainer = styled.div`
-display:flex ;
-flex-direction:column ;
-min-height:182px ;
-padding-left:32px ;
-margin-top:48px ;
-margin-bottom: 32px;
+const ContainerCards = styled.div({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(3, 1fr)',
+  columnGap: '32px',
+  gridAutoRows: 'minmax(100px, auto)',
+  marginLeft: '32px',
+  marginRight: '32px',
+  marginTop: '32px',
+});
 
-`;
-const ContactInfoTitle = styled(Typography)`
-font-style: normal;
-font-weight: 700;
-font-size: 14px;
-line-height: 17px;
-color: #000000;
-`;
+const CardContainer = styled.div({
+  marginBottom: '24px',
+  marginTop: '24px',
+});
 
-const ContainerCards = styled.div`
-display: grid ;
-grid-template-columns: repeat(3, 1fr);
- column-gap: 32px;
-row-gap: 32px;
-grid-auto-rows: minmax(100px, auto);
-margin-left:32px ;
-margin-right: 32px;
-margin-top: 32px;
-`;
+const CardRelateMipsContainer = styled.div({
+  marginLeft: '32px',
+  marginRight: '32px',
+  marginBottom: '33px',
+  display: 'flex',
+  flexDirection: 'column',
+});
 
-const CardContainer = styled.div`
-margin-bottom:24px ;
-margin-top:24px ;
-`;
+const TitleRelateMips = styled.div({
+  fontStyle: 'normal',
+  fontWeight: 700,
+  fontSize: '16px',
+  lineHeight: '19px',
+  marginBottom: '24px',
+  color: '#000000',
+});
 
-const CardRelateMipsContainer = styled.div`
-margin-left:32px ;
-margin-right:32px ;
-margin-bottom:33px ;
-display: flex;
-flex-direction: column;
-`;
+const RelateMipCards = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  marginTop: '24px',
 
-const TitleRelateMips = styled.div`
-font-style: normal;
-font-weight: 700;
-font-size: 16px;
-line-height: 19px;
-margin-bottom:24px ;
-color: #000000;
-`;
+});
 
-const RelateMipCards = styled.div`
-display:flex ;
-flex-direction:column;
-margin-top:24px ;
+const RelateMipCard = styled.div({
+  marginBottom: '24px',
+});
 
-`;
+const ButtonContainer = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  marginBottom: '26px',
+});
 
-const RelateMipCard = styled.div`
-margin-bottom: 24px ;
-`;
+const ContainerNoData = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  width: '100%',
+});
 
-const ButtonContainer = styled.div`
-display: flex;
-flex-direction: row;
-justify-content: center;
-margin-bottom: 26px;
-`;
+const ContainerNoRelateMIps = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+});
