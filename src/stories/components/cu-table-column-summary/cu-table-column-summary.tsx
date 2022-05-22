@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
 import { Avatar, Typography } from '@mui/material';
 import { getColorForString } from '../../../core/utils/color-utils';
@@ -13,10 +13,18 @@ interface CuTableColumnSummaryProps {
   imageUrl?: string,
   status?: CuStatusEnum,
   statusModified?: Date | null,
+  code:string,
+  handleClick: (code:string) => void,
 }
 
 export const CuTableColumnSummary = (props: CuTableColumnSummaryProps) => {
-  return <Container>
+  const memoizedCallback = useCallback(
+    () => {
+      props.handleClick(props.code);
+    },
+    []
+  );
+  return <Container onClick={memoizedCallback}>
     <CircleContainer>
       {props.imageUrl && <Avatar style={{ width: '48px', height: '48px' }} src={props.imageUrl}/>}
       {!props.imageUrl && <Avatar sx={{ bgcolor: getColorForString(props.title) }} style={{

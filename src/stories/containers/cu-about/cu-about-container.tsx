@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Divider, Typography } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../core/hooks/hooks';
 import BigButton from '../../components/button/big-button/big-button';
 import SmallButton from '../../components/button/small-button/small-button';
@@ -17,12 +17,13 @@ import { CuMip, getFTEsFromCoreUnitAbout } from './cu-about.api';
 
 const CuAboutContainer = () => {
   const navigate = useNavigate();
-  const coreUnitCode = 'PE-001';
+  const { code } = useParams();
+  const coreUnitCode = code;
   const dispatch = useAppDispatch();
   const { cuAbout, statusCoreUnit } = useAppSelector<CurrentCoreUnitAbout>(cuAboutSelector);
   const contributors = useAppSelector<ContributorCommitment[]>(contributorCommitmentSelector);
   useEffect(() => {
-    dispatch(loadCoreUnitABout(coreUnitCode));
+    dispatch(loadCoreUnitABout(coreUnitCode || ''));
   }, [dispatch]);
 
   const handleClickPrevious = useCallback(

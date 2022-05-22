@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
@@ -34,12 +34,20 @@ import {
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../core/store/store';
 import { CoreUnitDAO } from './cu-table.api';
+import { useNavigate } from 'react-router-dom';
 
 const statuses = Object.values(CuStatusEnum) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];
 const headers = ['Core Units', 'Initiatives', 'Expenditure', 'Team Members', 'Links'];
 
 export const CuTable = () => {
+  const navigate = useNavigate();
+  const handleClickNavigate = useCallback(
+    (code: string) => {
+      navigate('/about/' + code);
+    },
+    [],
+  );
   const data: Array<CoreUnitDAO> = useSelector((state: RootState) => selectCuTableItems(state));
   const facilitatorImages = useSelector((state: RootState) => selectFacilitatorImages(state));
 
@@ -93,9 +101,11 @@ export const CuTable = () => {
         <CuTableColumnSummary
           key={`summary-${i}`}
           title={coreUnit.name}
-          status={getMipFromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum }
+          status={getMipFromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum}
           statusModified={getSubmissionDateFromCuMip(getMipFromCoreUnit(coreUnit))}
           imageUrl={coreUnit.image}
+          code={coreUnit.code}
+          handleClick={handleClickNavigate}
         />,
         <CuTableColumnInitiatives
           key={`initiatives-${i}`}
@@ -137,10 +147,10 @@ export const CuTable = () => {
     >
       <Header>
         <Title>Core Units</Title>
-        <CustomMultiSelect label={'Status'} items={statuses} onChange={setFilteredStatuses}/>
-        <CustomMultiSelect label={'Category'} items={categories} onChange={setFilteredCategories}/>
+        <CustomMultiSelect label={'Status'} items={statuses} onChange={setFilteredStatuses} />
+        <CustomMultiSelect label={'Category'} items={categories} onChange={setFilteredCategories} />
         <Separator />
-        <SearchInput label={'Search CUs'} placeholder={'Search CUs by name or Code'} onChange={setSearchText}/>
+        <SearchInput label={'Search CUs'} placeholder={'Search CUs by name or Code'} onChange={setSearchText} />
       </Header>
       <CustomTable
         headers={headers}

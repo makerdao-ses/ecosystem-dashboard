@@ -23,7 +23,7 @@ export const CustomTable = (props: CustomTableProps) => {
         </TableHead>
         <TableBody>
           {props.items?.map((row, i) => <TableRow key={i}>
-            {row.map((item, j) => <TableCell key={`${i}-${j}`}>{item}</TableCell>)}
+            {row.map((item, j) => <TableCell key={`${i}-${j}`} style={{ border: '2px solid red' }} onClick={() => { console.log(item); }}>{item}</TableCell>)}
           </TableRow>)}
         </TableBody>
       </Table>
