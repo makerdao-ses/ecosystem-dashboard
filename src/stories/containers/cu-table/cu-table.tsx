@@ -33,7 +33,7 @@ import {
 } from './cu-table.slice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../core/store/store';
-import { CoreUnitDAO } from './cu-table.api';
+import { CoreUnitDao } from './cu-table.api';
 import { SortEnum } from '../../../core/enums/sort.enum';
 import { sortAlphaNum } from '../../../core/utils/sort-utils';
 
@@ -43,7 +43,7 @@ const headers = ['Core Units', 'Initiatives', 'Expenditure', 'Team Members', 'Li
 const sortInitialState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled, SortEnum.Disabled];
 
 export const CuTable = () => {
-  const data: Array<CoreUnitDAO> = useSelector((state: RootState) => selectCuTableItems(state));
+  const data: Array<CoreUnitDao> = useSelector((state: RootState) => selectCuTableItems(state));
   const facilitatorImages = useSelector((state: RootState) => selectFacilitatorImages(state));
 
   const dispatch = useAppDispatch();
@@ -89,13 +89,13 @@ export const CuTable = () => {
     }
   };
 
-  const sortData = (items: CoreUnitDAO[]) => {
+  const sortData = (items: CoreUnitDao[]) => {
     if (headersSort[sortColumn] === SortEnum.Disabled) return items;
 
     const multiplier = headersSort[sortColumn] === SortEnum.Asc ? 1 : -1;
-    const nameSort = (a: CoreUnitDAO, b: CoreUnitDAO) => sortAlphaNum(a.name, b.name) * multiplier;
-    const initiativesSort = (a: CoreUnitDAO, b: CoreUnitDAO) => (countInitiativesFromCoreUnit(a) - countInitiativesFromCoreUnit(b)) * multiplier;
-    const expendituresSort = (a: CoreUnitDAO, b: CoreUnitDAO) => (getExpenditureValueFromCoreUnit(a) - getExpenditureValueFromCoreUnit(b)) * multiplier;
+    const nameSort = (a: CoreUnitDao, b: CoreUnitDao) => sortAlphaNum(a.name, b.name) * multiplier;
+    const initiativesSort = (a: CoreUnitDao, b: CoreUnitDao) => (countInitiativesFromCoreUnit(a) - countInitiativesFromCoreUnit(b)) * multiplier;
+    const expendituresSort = (a: CoreUnitDao, b: CoreUnitDao) => (getExpenditureValueFromCoreUnit(a) - getExpenditureValueFromCoreUnit(b)) * multiplier;
 
     const sortAlg = [nameSort, initiativesSort, expendituresSort];
     items.sort(sortAlg[sortColumn]);
@@ -118,7 +118,7 @@ export const CuTable = () => {
     const filteredData = filterData();
     if (!filteredData) return [];
     if (sortColumn > -1) sortData(filteredData);
-    return filteredData.map((coreUnit: CoreUnitDAO, i: number) => {
+    return filteredData.map((coreUnit: CoreUnitDao, i: number) => {
       return [
         <CuTableColumnSummary
           key={`summary-${i}`}

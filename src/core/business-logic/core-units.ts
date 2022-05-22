@@ -2,10 +2,10 @@ import { DateTime, Interval } from 'luxon';
 import { LinkModel } from '../../stories/components/cu-table-column-links/cu-table-column-links';
 import { LinkTypeEnum } from '../enums/link-type.enum';
 import { FacilitatorModel } from '../../stories/components/cu-table-column-team-member/cu-table-column-team-member';
-import { BudgetStatementDAO, CoreUnitDAO, CuMipDao, Mip40Dao } from '../../stories/containers/cu-table/cu-table.api';
+import { BudgetStatementDao, CoreUnitDao, CuMipDao, Mip40Dao } from '../../stories/containers/cu-table/cu-table.api';
 import { CustomChartItem } from '../../stories/components/custom-bar-chart/custom-bar-chart';
 
-export const getMipFromCoreUnit = (cu: CoreUnitDAO) => {
+export const getMipFromCoreUnit = (cu: CoreUnitDao) => {
   if (cu.cuMip?.length === 0) return null;
 
   return cu.cuMip[cu.cuMip.length - 1];
@@ -25,7 +25,7 @@ export const getSubmissionDateFromCuMip = (mip: CuMipDao | null) => {
   }
 };
 
-export const countInitiativesFromCoreUnit = (cu: CoreUnitDAO) => {
+export const countInitiativesFromCoreUnit = (cu: CoreUnitDao) => {
   if (cu.roadMap.length === 0) return 0;
 
   return cu.roadMap.reduce((pv, cv) => {
@@ -33,7 +33,7 @@ export const countInitiativesFromCoreUnit = (cu: CoreUnitDAO) => {
   }, 0);
 };
 
-export const getLinksFromCoreUnit = (cu: CoreUnitDAO) => {
+export const getLinksFromCoreUnit = (cu: CoreUnitDao) => {
   const result = [] as LinkModel[];
 
   if (cu.socialMediaChannels.length === 0) return result;
@@ -80,22 +80,21 @@ export const getLinksFromCoreUnit = (cu: CoreUnitDAO) => {
   return result;
 };
 
-export const getFTEsFromCoreUnit = (cu: CoreUnitDAO) => {
+export const getFTEsFromCoreUnit = (cu: CoreUnitDao) => {
   if (cu.budgetStatements?.length === 0) return 0;
   if (!cu.budgetStatements[0]?.budgetStatementFTEs || cu.budgetStatements[0]?.budgetStatementFTEs?.length === 0) return 0;
 
   return cu.budgetStatements[0].budgetStatementFTEs[0].ftes;
 };
 
-export const getFacilitatorsFromCoreUnit = (cu: CoreUnitDAO) => {
+export const getFacilitatorsFromCoreUnit = (cu: CoreUnitDao) => {
   const result = [] as FacilitatorModel[];
 
   if (cu.cuMip?.length === 0) return result;
 
   if (cu.cuMip?.every(x => !x.mip41 || x.mip41?.length === 0)) return result;
 
-  // TODO: Make sure to obtain the latest Mip41 to be able to obtain the proper value here
-  result.push(...cu.cuMip[2]?.mip41?.map(facilitator => ({
+  result.push(...cu.cuMip[cu.cuMip.length - 1]?.mip41?.map(facilitator => ({
     name: facilitator.facilitatorName,
     id: facilitator.contributorId
   }) as FacilitatorModel));
@@ -120,7 +119,7 @@ const getBudgetCapForMip40onMonth = (mip40: Mip40Dao, month: DateTime) => {
   return result;
 };
 
-export const getBudgetCapFromCoreUnit = (cu: CoreUnitDAO) => {
+export const getBudgetCapFromCoreUnit = (cu: CoreUnitDao) => {
   let result = 0;
   if (cu.cuMip.length === 0) return result;
 
@@ -134,7 +133,7 @@ export const getBudgetCapFromCoreUnit = (cu: CoreUnitDAO) => {
   return result / 3;
 };
 
-const sumAllLineItemsFromBudgetStatement = (budgetStatement: BudgetStatementDAO) => {
+const sumAllLineItemsFromBudgetStatement = (budgetStatement: BudgetStatementDao) => {
   let result = 0;
 
   budgetStatement?.budgetStatementWallet.forEach(wallet => {
@@ -146,7 +145,7 @@ const sumAllLineItemsFromBudgetStatement = (budgetStatement: BudgetStatementDAO)
   return result;
 };
 
-export const getExpenditureValueFromCoreUnit = (cu: CoreUnitDAO) => {
+export const getExpenditureValueFromCoreUnit = (cu: CoreUnitDao) => {
   let result = 0;
   if (cu.cuMip.length === 0) return result;
 
@@ -162,7 +161,7 @@ export const getExpenditureValueFromCoreUnit = (cu: CoreUnitDAO) => {
   return result;
 };
 
-export const getPercentFromCoreUnit = (cu: CoreUnitDAO) => {
+export const getPercentFromCoreUnit = (cu: CoreUnitDao) => {
   const value = getExpenditureValueFromCoreUnit(cu);
   const budgetCap = getBudgetCapFromCoreUnit(cu) * 3;
 
@@ -172,7 +171,7 @@ export const getPercentFromCoreUnit = (cu: CoreUnitDAO) => {
   return value / budgetCap * 100;
 };
 
-export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDAO) => {
+export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDao) => {
   const result = [] as CustomChartItem[];
   if (cu.cuMip.length === 0) return result;
 
