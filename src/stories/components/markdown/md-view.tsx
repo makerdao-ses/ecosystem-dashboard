@@ -78,21 +78,19 @@ const ViewerContainer = styled.div({
 });
 
 const TypographyStyleSentence = styled(Typography)({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter',
   fontStyle: 'normal',
-  fontWeight: 500,
-  fontsize: '20px',
-  lineHeight: '24px',
-  letterSpacing: '0.4px',
-  color: '#000000',
+  fontWeight: 700,
+  fontSize: '16px',
+  lineHeight: '19px',
+  color: '#000000'
 });
 
 const TypographyStyleDescription = styled(Typography)({
-  fontFamily: 'FT Base ,sans-serif',
+  fontFamily: 'Inter',
   fontStyle: 'normal',
-  fontWeight: 500,
-  fontSize: '20px',
-  lineHeight: '24px',
-  letterSpacing: '0.4px',
-  color: '#000000',
+  fontWeight: 700,
+  fontSize: '16px',
+  lineHeight: '19px',
+  color: '#000000'
 });
