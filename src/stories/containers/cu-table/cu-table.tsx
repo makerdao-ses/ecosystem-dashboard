@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Box, Typography } from '@mui/material';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
@@ -15,6 +15,7 @@ import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { useAppDispatch } from '../../../core/hooks/hooks';
 import { RootState } from '../../../core/store/store';
+import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
 import { CuTableColumnExpenditures } from '../../components/cu-table-column-expenditures/cu-table-column-expenditures';
 import { CuTableColumnInitiatives } from '../../components/cu-table-column-initiatives/cu-table-column-initiatives';
 import { CuTableColumnLinks } from '../../components/cu-table-column-links/cu-table-column-links';
@@ -36,14 +37,6 @@ const statuses = Object.values(CuStatusEnum) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];
 const headers = ['Core Units', 'Initiatives', 'Expenditure', 'Team Members', 'Links'];
 
-const getArrayParam = (key: string, filters: URLSearchParams) => {
-  return (filters.get(key) || '').split(',').filter((v) => v !== '');
-};
-
-const getStringParam = (key: string, filters: URLSearchParams) => {
-  return (filters.get(key) || '');
-};
-
 export const CuTable = () => {
   const [filters] = useSearchParams();
   const navigate = useNavigate();
@@ -59,24 +52,10 @@ export const CuTable = () => {
     dispatch(loadCuTableItemsAsync());
   }, []);
 
-  const filterData = useCallback(() => {
-    const lowerCaseStatuses = filteredStatuses.map(x => x.toLowerCase());
-    const lowerCaseCategories = filteredCategories.map(x => x.toLowerCase());
-    return data.filter(data => {
-      let filterResult = true;
-
-      // Filter by status
-      filterResult = filterResult && (lowerCaseStatuses.length === 0 || lowerCaseStatuses.indexOf(data.cuMip[data.cuMip.length - 1]?.mipStatus?.toLowerCase() ?? 'non-present') > -1);
-
-      // Filter by categories
-      filterResult = filterResult && (lowerCaseCategories.length === 0 || data.category.some(x => lowerCaseCategories.indexOf(x.toLowerCase()) > -1));
-
-      // Filter by name
-      filterResult = filterResult && (searchText.trim().length === 0 || data.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1 || data.code.toLowerCase().indexOf(searchText.toLowerCase()) > -1);
-
-      return filterResult;
-    });
-  }, [data, filteredCategories, filteredStatuses, searchText]);
+  const filteredData = useMemo(() =>
+    filterData({
+      data, filteredStatuses, filteredCategories, searchText
+    }), [data, filteredCategories, filteredStatuses, searchText]);
 
   useEffect(() => {
     data.forEach(coreUnit => {
@@ -107,8 +86,11 @@ export const CuTable = () => {
     });
   }, [filters, navigate]);
 
+  const onClickRow = useCallback((id: string) => () => {
+    navigate(`/about/${id}?${filters.toString()}`);
+  }, [filters, navigate]);
+
   const items = useMemo(() => {
-    const filteredData = filterData();
     if (!filteredData) return [];
     return filteredData.map((coreUnit: CoreUnitDAO, i: number) => {
       return [
@@ -118,6 +100,7 @@ export const CuTable = () => {
           status={getMipFromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum}
           statusModified={getSubmissionDateFromCuMip(getMipFromCoreUnit(coreUnit))}
           imageUrl={coreUnit.image}
+          onClick={onClickRow(coreUnit.code)}
 
         />,
         <CuTableColumnInitiatives
@@ -145,7 +128,7 @@ export const CuTable = () => {
         />
       ];
     });
-  }, [filterData, facilitatorImages]);
+  }, [filteredData, onClickRow, facilitatorImages]);
 
   return <ContainerHome>
     <Box

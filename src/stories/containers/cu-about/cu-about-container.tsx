@@ -1,8 +1,11 @@
 import styled from '@emotion/styled';
 import { Divider, Typography } from '@mui/material';
-import React, { useCallback, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useCallback, useEffect, useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../core/hooks/hooks';
+import { RootState } from '../../../core/store/store';
+import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
 import BigButton from '../../components/button/big-button/big-button';
 import SmallButton from '../../components/button/small-button/small-button';
 import CardInfoMember from '../../components/card-info-member/card-info-member';
@@ -11,32 +14,49 @@ import InsidePagination from '../../components/pagination/InsidePagination';
 import RelateMips from '../../components/relate-mips/relate-mips';
 import TeamMember from '../../components/team-members/team-member';
 import TitleNavigationCuAbout from '../../components/title-navigation-cu-about/title-navigation-cu-about';
+import { CoreUnitDAO } from '../cu-table/cu-table.api';
+import { loadCuTableItemsAsync, selectCuTableItems } from '../cu-table/cu-table.slice';
 import { ContributorCommitment } from './cu-about-contributor';
 import { contributorCommitmentSelector, cuAboutSelector, CurrentCoreUnitAbout, loadCoreUnitABout, status } from './cu-about-slice';
 import { CuMip, getFTEsFromCoreUnitAbout } from './cu-about.api';
 
 const CuAboutContainer = () => {
+  const [filters] = useSearchParams();
+  const data: Array<CoreUnitDAO> = useSelector((state: RootState) => selectCuTableItems(state));
   const navigate = useNavigate();
-  const params = useParams();
-  const coreUnitCode = params.code;
+  const { code: coreUnitCode } = useParams();
   const dispatch = useAppDispatch();
   const { cuAbout, statusCoreUnit } = useAppSelector<CurrentCoreUnitAbout>(cuAboutSelector);
   const contributors = useAppSelector<ContributorCommitment[]>(contributorCommitmentSelector);
+
+  useEffect(() => {
+    dispatch(loadCuTableItemsAsync());
+  }, []);
+
   useEffect(() => {
     dispatch(loadCoreUnitABout(coreUnitCode || ''));
   }, [dispatch, coreUnitCode]);
 
-  const handleClickPrevious = useCallback(
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    () => {
+  const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', filters), [filters]);
+  const filteredCategories = useMemo(() => getArrayParam('filteredCategories', filters), [filters]);
+  const searchText = useMemo(() => getStringParam('searchText', filters), [filters]);
+
+  const filteredData = useMemo(() =>
+    filterData({
+      data, filteredStatuses, filteredCategories, searchText
+    }), [data, filteredCategories, filteredStatuses, searchText]);
+
+  const page = useMemo(() => filteredData.findIndex(item => item.code === coreUnitCode) + 1, [coreUnitCode, filteredData]);
+
+  const changeCoreUnitCode = useCallback(
+    (direct: -1 | 1) => () => {
+      const index = filteredData.findIndex(item => item.code === coreUnitCode);
+      const newIndex = index + direct;
+      if (newIndex >= 0 && newIndex < filteredData.length) {
+        navigate(`/about/${filteredData[newIndex].code}?${filters.toString()}`);
+      }
     },
-    [],
-  );
-  const handleClickNext = useCallback(
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    () => {
-    },
-    [],
+    [coreUnitCode, filteredData, filters, navigate],
   );
 
   const handleGoBack = useCallback(
@@ -56,7 +76,7 @@ const CuAboutContainer = () => {
   return (
     <ContainerAbout>
       <NavigationHeader>
-        <SmallButton onClick={handleGoBack} /> <PaddingComponent><InsidePagination count={10} page={1} onClickLeft={handleClickPrevious} onClickRight={handleClickNext} /></PaddingComponent>
+        <SmallButton onClick={handleGoBack} /> <PaddingComponent><InsidePagination count={filteredData.length} page={page} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} /></PaddingComponent>
       </NavigationHeader>
       <ContainerTitle>
         <TitleNavigationCuAbout coreUnitAbout={cuAbout} />
