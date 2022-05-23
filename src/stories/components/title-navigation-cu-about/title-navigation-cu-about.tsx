@@ -102,15 +102,15 @@ export const getLinksCoreUnit = (cu: CuAbout) => {
 };
 
 export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
-  if (!coreUnitAbout || !coreUnitAbout.cuMip.length) return null;
-  const mips = getMipsStatus(coreUnitAbout.cuMip[0]);
-  const mipStatus = coreUnitAbout.cuMip[0].mipStatus;
+  if (!coreUnitAbout || !coreUnitAbout.cuMip) return null;
+  const mips = getMipsStatus(coreUnitAbout.cuMip[0] || '');
+  const mipStatus = coreUnitAbout.cuMip[0] && coreUnitAbout.cuMip[0].mipStatus;
   return (
     <Container>
       <ContainerTitle>
         <TypographySES>SES</TypographySES>
         <div style={{ width: '4px', height: '4px', backgroundColor: '#D8E0E3', display: 'flex', marginRight: '8px', marginLeft: '8px' }} />
-      {mips && <TypographyTitle>{mips}</TypographyTitle>}
+        {coreUnitAbout.name && <TypographyTitle>{coreUnitAbout.name}</TypographyTitle>}
         <Row>
           {mips && <StatusChip status={mips as CuStatusEnum} />}
           {mipStatus && <CustomPopover

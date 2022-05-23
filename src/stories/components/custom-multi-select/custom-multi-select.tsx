@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   Checkbox,
   FormControl,
@@ -28,19 +28,21 @@ interface CustomSelectProps {
   label: string,
   withAll?: boolean,
   onChange?: (items: string[]) => void,
+  handleChangeUrlFilter?: (items: string[]) => void,
 }
 
-export const CustomMultiSelect = ({ withAll = true, ...props }: CustomSelectProps) => {
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+export const CustomMultiSelect = ({ withAll = true, handleChangeUrlFilter = () => { }, ...props }: CustomSelectProps) => {
   const [activeItems, setActiveItems] = React.useState<string[]>([]);
 
-  const handleChange = (event: SelectChangeEvent<typeof activeItems>) => {
+  const handleChange = useCallback((event: SelectChangeEvent<typeof activeItems>) => {
     const {
       target: { value },
     } = event;
-
+    handleChangeUrlFilter(typeof value === 'string' ? value.split(',') : value);
     setActiveItems(typeof value === 'string' ? value.split(',') : value);
     props.onChange && props.onChange(typeof value === 'string' ? value.split(',') : value);
-  };
+  }, [handleChangeUrlFilter, props]);
 
   const toggleAll = () => {
     if (activeItems.length === props.items.length) {

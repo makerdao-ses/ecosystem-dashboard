@@ -13,20 +13,12 @@ interface CuTableColumnSummaryProps {
   imageUrl?: string,
   status?: CuStatusEnum,
   statusModified?: Date | null,
-  code:string,
-  handleClick: (code:string) => void,
 }
 
 export const CuTableColumnSummary = (props: CuTableColumnSummaryProps) => {
-  const memoizedCallback = useCallback(
-    () => {
-      props.handleClick(props.code);
-    },
-    []
-  );
-  return <Container onClick={memoizedCallback}>
+  return <Container>
     <CircleContainer>
-      {props.imageUrl && <Avatar style={{ width: '48px', height: '48px' }} src={props.imageUrl}/>}
+      {props.imageUrl && <Avatar style={{ width: '48px', height: '48px' }} src={props.imageUrl} />}
       {!props.imageUrl && <Avatar sx={{ bgcolor: getColorForString(props.title) }} style={{
         width: '48px',
         height: '48px',
@@ -36,14 +28,14 @@ export const CuTableColumnSummary = (props: CuTableColumnSummaryProps) => {
     <Content>
       <Title>{props.title}</Title>
       <Row>
-        {props.status && <StatusChip status={props.status}/>}
+        {props.status && <StatusChip status={props.status} />}
         {props.statusModified && <CustomPopover
-            id={'mouse-over-popover-goto'}
-            title={'Go to MIPs Portal'}
+          id={'mouse-over-popover-goto'}
+          title={'Go to MIPs Portal'}
         >
-            <SinceDate>
-                Since {DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}
-            </SinceDate>
+          <SinceDate>
+            Since {DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}
+          </SinceDate>
         </CustomPopover>}
       </Row>
     </Content>

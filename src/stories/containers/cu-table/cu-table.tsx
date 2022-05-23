@@ -34,7 +34,7 @@ import {
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../core/store/store';
 import { CoreUnitDAO } from './cu-table.api';
-import { useNavigate } from 'react-router-dom';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 
 const statuses = Object.values(CuStatusEnum) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];
@@ -42,12 +42,6 @@ const headers = ['Core Units', 'Initiatives', 'Expenditure', 'Team Members', 'Li
 
 export const CuTable = () => {
   const navigate = useNavigate();
-  const handleClickNavigate = useCallback(
-    (code: string) => {
-      navigate('/about/' + code);
-    },
-    [],
-  );
   const data: Array<CoreUnitDAO> = useSelector((state: RootState) => selectCuTableItems(state));
   const facilitatorImages = useSelector((state: RootState) => selectFacilitatorImages(state));
 
@@ -61,7 +55,7 @@ export const CuTable = () => {
     dispatch(loadCuTableItemsAsync());
   }, []);
 
-  const filterData = () => {
+  const filterData = useCallback(() => {
     const lowerCaseStatuses = filteredStatuses.map(x => x.toLowerCase());
     const lowerCaseCategories = filteredCategories.map(x => x.toLowerCase());
     return data.filter(data => {
@@ -78,7 +72,7 @@ export const CuTable = () => {
 
       return filterResult;
     });
-  };
+  }, [data, filteredCategories, filteredStatuses, searchText]);
 
   useEffect(() => {
     data.forEach(coreUnit => {
@@ -91,7 +85,29 @@ export const CuTable = () => {
         }
       });
     });
-  }, [data]);
+  }, [data, dispatch, facilitatorImages]);
+
+  const handleChangeUrlFilterStatus = useCallback((value: string[]) => {
+    navigate({
+      pathname: '/',
+      search: `?${createSearchParams(`filteredStatuses=${value.join(',')}&&filteredCategories=${filteredCategories.join(',')}&&searchText=${searchText}`)}`,
+    });
+  }, [filteredCategories, navigate, searchText]);
+
+  const handleChangeUrlFilterCategory = useCallback(
+    (value: string[]) => {
+      navigate({
+        pathname: '/',
+        search: `?${createSearchParams(`filteredStatuses=${filteredStatuses}&&filteredCategories=${value.join(',')}&&searchText=${searchText}`)}`,
+      });
+    }, [filteredStatuses, navigate, searchText]);
+
+  const handleSearchText = useCallback((value: string) => {
+    navigate({
+      pathname: '/',
+      search: `?${createSearchParams(`filteredStatuses=${filteredStatuses}&&filteredCategories=${filteredCategories}&&searchText=${value}`)}`,
+    });
+  }, [filteredCategories, filteredStatuses, navigate]);
 
   const items = useMemo(() => {
     const filteredData = filterData();
@@ -104,8 +120,7 @@ export const CuTable = () => {
           status={getMipFromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum}
           statusModified={getSubmissionDateFromCuMip(getMipFromCoreUnit(coreUnit))}
           imageUrl={coreUnit.image}
-          code={coreUnit.code}
-          handleClick={handleClickNavigate}
+
         />,
         <CuTableColumnInitiatives
           key={`initiatives-${i}`}
@@ -132,7 +147,7 @@ export const CuTable = () => {
         />
       ];
     });
-  }, [data, filteredStatuses, filteredCategories, searchText, facilitatorImages]);
+  }, [filterData, facilitatorImages]);
 
   return <ContainerHome>
     <Box
@@ -147,10 +162,10 @@ export const CuTable = () => {
     >
       <Header>
         <Title>Core Units</Title>
-        <CustomMultiSelect label={'Status'} items={statuses} onChange={setFilteredStatuses} />
-        <CustomMultiSelect label={'Category'} items={categories} onChange={setFilteredCategories} />
+        <CustomMultiSelect label={'Status'} items={statuses} onChange={setFilteredStatuses} handleChangeUrlFilter={handleChangeUrlFilterStatus} />
+        <CustomMultiSelect label={'Category'} items={categories} onChange={setFilteredCategories} handleChangeUrlFilter={handleChangeUrlFilterCategory} />
         <Separator />
-        <SearchInput label={'Search CUs'} placeholder={'Search CUs by name or Code'} onChange={setSearchText} />
+        <SearchInput label={'Search CUs'} placeholder={'Search CUs by name or Code'} onChange={setSearchText} handleSearchText={handleSearchText} />
       </Header>
       <CustomTable
         headers={headers}
@@ -184,3 +199,6 @@ const Separator = styled.span({
   backgroundColor: '#D3D4D8',
   margin: 'auto 24px'
 });
+function search(arg0: { pathname: string; }, arg1: { replace: true; }, search: any, arg3: string) {
+  throw new Error('Function not implemented.');
+}

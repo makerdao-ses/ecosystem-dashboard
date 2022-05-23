@@ -17,14 +17,14 @@ import { CuMip, getFTEsFromCoreUnitAbout } from './cu-about.api';
 
 const CuAboutContainer = () => {
   const navigate = useNavigate();
-  const { code } = useParams();
-  const coreUnitCode = code;
+  const params = useParams();
+  const coreUnitCode = params.code;
   const dispatch = useAppDispatch();
   const { cuAbout, statusCoreUnit } = useAppSelector<CurrentCoreUnitAbout>(cuAboutSelector);
   const contributors = useAppSelector<ContributorCommitment[]>(contributorCommitmentSelector);
   useEffect(() => {
     dispatch(loadCoreUnitABout(coreUnitCode || ''));
-  }, [dispatch]);
+  }, [dispatch, coreUnitCode]);
 
   const handleClickPrevious = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-empty-function
