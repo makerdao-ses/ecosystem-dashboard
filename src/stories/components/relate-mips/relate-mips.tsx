@@ -21,7 +21,6 @@ interface Props {
 }
 
 const RelateMips = ({ relateMips }: Props) => {
-  const pieces = getMipTitle(relateMips.mipTitle || '');
   const getMipsStatus = (mip: CuMip) => {
     switch (mip.mipStatus) {
       case CuStatusEnum.Accepted:

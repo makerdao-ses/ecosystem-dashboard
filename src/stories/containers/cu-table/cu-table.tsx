@@ -50,7 +50,7 @@ export const CuTable = () => {
 
   useEffect(() => {
     dispatch(loadCuTableItemsAsync());
-  }, []);
+  }, [dispatch]);
 
   const filteredData = useMemo(() =>
     filterData({
@@ -180,6 +180,3 @@ const Separator = styled.span({
   backgroundColor: '#D3D4D8',
   margin: 'auto 24px'
 });
-function search(arg0: { pathname: string; }, arg1: { replace: true; }, search: any, arg3: string) {
-  throw new Error('Function not implemented.');
-}

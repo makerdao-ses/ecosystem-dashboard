@@ -31,7 +31,7 @@ const CuAboutContainer = () => {
 
   useEffect(() => {
     dispatch(loadCuTableItemsAsync());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(loadCoreUnitABout(coreUnitCode || ''));

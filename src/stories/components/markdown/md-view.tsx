@@ -51,7 +51,7 @@ const MdViewerPage = ({ title = 'About the Core Unit', subTitle = 'What we do', 
     return () => {
       window.removeEventListener('scroll', onScroll);
     };
-  }, []);
+  }, [headersLevel]);
   return (
     <ViewerContainer>
       <TypographyStyleSentence>{title}</TypographyStyleSentence>

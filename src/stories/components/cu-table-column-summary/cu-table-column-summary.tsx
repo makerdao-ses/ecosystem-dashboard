@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { Avatar, Typography } from '@mui/material';
 import { getColorForString } from '../../../core/utils/color-utils';

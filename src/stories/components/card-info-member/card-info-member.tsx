@@ -6,14 +6,6 @@ import { getTwoInitials } from '../../../core/utils/string-utils';
 import { ContributorCommitment } from '../../containers/cu-about/cu-about-contributor';
 import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
 
-export type CardInfoMemberType = {
-  avatar?: string;
-  name: string;
-  username: string;
-  jobTitle: string;
-  commitment: string;
-}
-
 interface Props {
   contributorCommitment: ContributorCommitment;
 }
@@ -52,6 +44,7 @@ export const getLinksFromContributor = (contributor: ContributorCommitment) => {
 const CardInfoMember = ({ contributorCommitment }: Props) => {
   const contributor = contributorCommitment.contributor[0] || [];
   const links = getLinksFromContributor(contributorCommitment) || [];
+  console.log('contributorCommitment', contributorCommitment);
 
   return (
     <Box>
@@ -74,7 +67,7 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
             </CardContentPositionColumn>
           </CardContentPositionRow>
           <Divider light sx={{ marginTop: '30px', marginBottom: '11px', color: '#C4C4C4' }} variant='fullWidth' />
-          <CardLinksFooter><CuTableColumnLinks links={links} width={10} height={10} spacingsRight={22}/></CardLinksFooter>
+          <CardLinksFooter><CuTableColumnLinks links={links} width={10} height={10} spacingsRight={22} /></CardLinksFooter>
         </CardContent>
       </Card>
     </Box>
