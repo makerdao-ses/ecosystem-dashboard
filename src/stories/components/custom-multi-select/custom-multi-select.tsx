@@ -28,21 +28,20 @@ interface CustomSelectProps {
   label: string,
   withAll?: boolean,
   onChange?: (items: string[]) => void,
-  handleChangeUrlFilter?: (items: string[]) => void,
+  initialActiveItems?: string[],
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-export const CustomMultiSelect = ({ withAll = true, handleChangeUrlFilter = () => { }, ...props }: CustomSelectProps) => {
-  const [activeItems, setActiveItems] = React.useState<string[]>([]);
+export const CustomMultiSelect = ({ withAll = true, initialActiveItems = [], ...props }: CustomSelectProps) => {
+  const [activeItems, setActiveItems] = React.useState<string[]>(initialActiveItems);
 
   const handleChange = useCallback((event: SelectChangeEvent<typeof activeItems>) => {
     const {
       target: { value },
     } = event;
-    handleChangeUrlFilter(typeof value === 'string' ? value.split(',') : value);
     setActiveItems(typeof value === 'string' ? value.split(',') : value);
     props.onChange && props.onChange(typeof value === 'string' ? value.split(',') : value);
-  }, [handleChangeUrlFilter, props]);
+  }, [props]);
 
   const toggleAll = () => {
     if (activeItems.length === props.items.length) {
@@ -67,8 +66,8 @@ export const CustomMultiSelect = ({ withAll = true, handleChangeUrlFilter = () =
       MenuProps={MenuProps}
     >
       {withAll && <MenuItem key={'All'} onClick={toggleAll}>
-        <CheckBoxOutlined sx={{ m: '6px' }}/>
-        <ListItemText primary={'All'}/>
+        <CheckBoxOutlined sx={{ m: '6px' }} />
+        <ListItemText primary={'All'} />
       </MenuItem>}
       {props.items.map((item) => (
         <MenuItem key={item} value={item}>

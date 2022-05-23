@@ -1,29 +1,29 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
-import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
-import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
-import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
-import { SearchInput } from '../../components/search-input/search-input';
-import { CustomTable } from '../../components/custom-table/custom-table';
-import { CuTableColumnSummary } from '../../components/cu-table-column-summary/cu-table-column-summary';
-import { CuTableColumnInitiatives } from '../../components/cu-table-column-initiatives/cu-table-column-initiatives';
-import { CuTableColumnExpenditures } from '../../components/cu-table-column-expenditures/cu-table-column-expenditures';
-import { CuTableColumnTeamMember } from '../../components/cu-table-column-team-member/cu-table-column-team-member';
-import { CuTableColumnLinks } from '../../components/cu-table-column-links/cu-table-column-links';
 import { Box, Typography } from '@mui/material';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   countInitiativesFromCoreUnit,
-  getBudgetCapFromCoreUnit,
-  getLast3ExpenditureValuesFromCoreUnit,
-  getFacilitatorsFromCoreUnit,
-  getFTEsFromCoreUnit,
-  getLinksFromCoreUnit,
+  getBudgetCapFromCoreUnit, getExpenditureValueFromCoreUnit, getFacilitatorsFromCoreUnit,
+  getFTEsFromCoreUnit, getLast3ExpenditureValuesFromCoreUnit, getLinksFromCoreUnit,
   getMipFromCoreUnit,
   getPercentFromCoreUnit,
-  getSubmissionDateFromCuMip,
-  getExpenditureValueFromCoreUnit
+  getSubmissionDateFromCuMip
 } from '../../../core/business-logic/core-units';
+import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
+import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { useAppDispatch } from '../../../core/hooks/hooks';
+import { RootState } from '../../../core/store/store';
+import { CuTableColumnExpenditures } from '../../components/cu-table-column-expenditures/cu-table-column-expenditures';
+import { CuTableColumnInitiatives } from '../../components/cu-table-column-initiatives/cu-table-column-initiatives';
+import { CuTableColumnLinks } from '../../components/cu-table-column-links/cu-table-column-links';
+import { CuTableColumnSummary } from '../../components/cu-table-column-summary/cu-table-column-summary';
+import { CuTableColumnTeamMember } from '../../components/cu-table-column-team-member/cu-table-column-team-member';
+import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
+import { CustomTable } from '../../components/custom-table/custom-table';
+import { SearchInput } from '../../components/search-input/search-input';
+import { CoreUnitDAO } from './cu-table.api';
 import {
   loadCuTableItemsAsync,
   loadFacilitatorImage,
@@ -31,25 +31,29 @@ import {
   selectFacilitatorImages,
   setFacilitatorImageAsPending
 } from './cu-table.slice';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../core/store/store';
-import { CoreUnitDAO } from './cu-table.api';
-import { createSearchParams, useNavigate } from 'react-router-dom';
 
 const statuses = Object.values(CuStatusEnum) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];
 const headers = ['Core Units', 'Initiatives', 'Expenditure', 'Team Members', 'Links'];
 
+const getArrayParam = (key: string, filters: URLSearchParams) => {
+  return (filters.get(key) || '').split(',').filter((v) => v !== '');
+};
+
+const getStringParam = (key: string, filters: URLSearchParams) => {
+  return (filters.get(key) || '');
+};
+
 export const CuTable = () => {
+  const [filters] = useSearchParams();
   const navigate = useNavigate();
   const data: Array<CoreUnitDAO> = useSelector((state: RootState) => selectCuTableItems(state));
   const facilitatorImages = useSelector((state: RootState) => selectFacilitatorImages(state));
-
   const dispatch = useAppDispatch();
 
-  const [filteredStatuses, setFilteredStatuses] = useState<string[]>([]);
-  const [filteredCategories, setFilteredCategories] = useState<string[]>([]);
-  const [searchText, setSearchText] = useState('');
+  const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', filters), [filters]);
+  const filteredCategories = useMemo(() => getArrayParam('filteredCategories', filters), [filters]);
+  const searchText = useMemo(() => getStringParam('searchText', filters), [filters]);
 
   useEffect(() => {
     dispatch(loadCuTableItemsAsync());
@@ -87,27 +91,21 @@ export const CuTable = () => {
     });
   }, [data, dispatch, facilitatorImages]);
 
-  const handleChangeUrlFilterStatus = useCallback((value: string[]) => {
+  const handleChangeUrlFilterArrays = useCallback((key: string) => (value: string[]) => {
+    filters.set(key, value.join(','));
     navigate({
       pathname: '/',
-      search: `?${createSearchParams(`filteredStatuses=${value.join(',')}&&filteredCategories=${filteredCategories.join(',')}&&searchText=${searchText}`)}`,
+      search: `?${filters.toString()}`,
     });
-  }, [filteredCategories, navigate, searchText]);
+  }, [filters, navigate]);
 
-  const handleChangeUrlFilterCategory = useCallback(
-    (value: string[]) => {
-      navigate({
-        pathname: '/',
-        search: `?${createSearchParams(`filteredStatuses=${filteredStatuses}&&filteredCategories=${value.join(',')}&&searchText=${searchText}`)}`,
-      });
-    }, [filteredStatuses, navigate, searchText]);
-
-  const handleSearchText = useCallback((value: string) => {
+  const handleChangeUrlFilterString = useCallback((key: string) => (value: string) => {
+    filters.set(key, value);
     navigate({
       pathname: '/',
-      search: `?${createSearchParams(`filteredStatuses=${filteredStatuses}&&filteredCategories=${filteredCategories}&&searchText=${value}`)}`,
+      search: `?${filters.toString()}`,
     });
-  }, [filteredCategories, filteredStatuses, navigate]);
+  }, [filters, navigate]);
 
   const items = useMemo(() => {
     const filteredData = filterData();
@@ -162,10 +160,10 @@ export const CuTable = () => {
     >
       <Header>
         <Title>Core Units</Title>
-        <CustomMultiSelect label={'Status'} items={statuses} onChange={setFilteredStatuses} handleChangeUrlFilter={handleChangeUrlFilterStatus} />
-        <CustomMultiSelect label={'Category'} items={categories} onChange={setFilteredCategories} handleChangeUrlFilter={handleChangeUrlFilterCategory} />
+        <CustomMultiSelect label={'Status'} initialActiveItems={filteredStatuses} items={statuses} onChange={handleChangeUrlFilterArrays('filteredStatuses')} />
+        <CustomMultiSelect label={'Category'} initialActiveItems={filteredCategories} items={categories} onChange={handleChangeUrlFilterArrays('filteredCategories')} />
         <Separator />
-        <SearchInput label={'Search CUs'} placeholder={'Search CUs by name or Code'} onChange={setSearchText} handleSearchText={handleSearchText} />
+        <SearchInput value={searchText} label={'Search CUs'} placeholder={'Search CUs by name or Code'} onChange={handleChangeUrlFilterString('searchText')} />
       </Header>
       <CustomTable
         headers={headers}
