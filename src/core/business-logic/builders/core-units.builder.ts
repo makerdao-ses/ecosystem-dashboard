@@ -24,6 +24,11 @@ export class CoreUnitsBuilder {
     } as CoreUnitDao;
   }
 
+  withId(id: string): CoreUnitsBuilder {
+    this._coreUnit.id = id;
+    return this;
+  }
+
   withName(name: string): CoreUnitsBuilder {
     this._coreUnit.name = name;
     return this;

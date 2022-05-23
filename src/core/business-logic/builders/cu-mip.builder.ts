@@ -1,4 +1,6 @@
 import { CuMipDao, Mip40Dao, Mip41Dao } from '../../../stories/containers/cu-table/cu-table.api';
+import { setCuMipStatusModifiedDate } from '../core-units';
+import { CuStatusEnum } from '../../enums/cu-status.enum';
 
 export class CuMipBuilder {
   private readonly _cuMip: CuMipDao;
@@ -16,8 +18,9 @@ export class CuMipBuilder {
     } as CuMipDao;
   }
 
-  withStatus(status: string): CuMipBuilder {
+  withStatus(status: CuStatusEnum, date: string): CuMipBuilder {
     this._cuMip.mipStatus = status;
+    setCuMipStatusModifiedDate(this._cuMip, status, date);
     return this;
   }
 
@@ -29,5 +32,9 @@ export class CuMipBuilder {
   addMip41(mip41: Mip41Dao): CuMipBuilder {
     this._cuMip.mip41.push(mip41);
     return this;
+  }
+
+  build(): CuMipDao {
+    return this._cuMip;
   }
 }

@@ -4,6 +4,25 @@ import { LinkTypeEnum } from '../enums/link-type.enum';
 import { FacilitatorModel } from '../../stories/components/cu-table-column-team-member/cu-table-column-team-member';
 import { BudgetStatementDao, CoreUnitDao, CuMipDao, Mip40Dao } from '../../stories/containers/cu-table/cu-table.api';
 import { CustomChartItem } from '../../stories/components/custom-bar-chart/custom-bar-chart';
+import { CuStatusEnum } from '../enums/cu-status.enum';
+
+export const setCuMipStatusModifiedDate = (mip: CuMipDao, status: CuStatusEnum, date: string) => {
+  let index = status.toLowerCase();
+
+  if (status === CuStatusEnum.FormalSubmission) index = 'formalSubmission';
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  mip[index] = date;
+};
+
+export const getCuMipStatusModifiedDate = (mip: CuMipDao, status: CuStatusEnum) => {
+  let index = status.toLowerCase();
+
+  if (status === CuStatusEnum.FormalSubmission) index = 'formalSubmission';
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  return mip[index];
+};
 
 export const getMipFromCoreUnit = (cu: CoreUnitDao) => {
   if (cu.cuMip?.length === 0) return null;
@@ -17,7 +36,8 @@ export const getSubmissionDateFromCuMip = (mip: CuMipDao | null) => {
   try {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const date = mip[mip.mipStatus.toLowerCase()];
+    const date = getCuMipStatusModifiedDate(mip, mip.mipStatus);
+    if (!date) return null;
     return DateTime.fromFormat(date, 'yyyy-MM-dd').toJSDate();
   } catch (e) {
     console.error(e);
