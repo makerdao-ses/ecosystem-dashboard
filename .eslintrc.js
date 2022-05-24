@@ -21,6 +21,7 @@ module.exports = {
   rules: {
     semi: ['error', 'always'],
     'space-before-function-paren': ['error', 'never'],
-    'comma-dangle': ['error', 'only-multiline']
+    'comma-dangle': ['error', 'only-multiline'],
+    'object-property-newline': ['error', { allowAllPropertiesOnSameLine: false }]
   }
 };

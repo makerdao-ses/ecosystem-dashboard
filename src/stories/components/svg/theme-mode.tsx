@@ -15,7 +15,10 @@ const ThemeMode = ({
 }: Props) => {
   return (
     <svg
-    style={{ cursor: 'pointer', padding: '2px' }}
+    style={{
+      cursor: 'pointer',
+      padding: '2px'
+    }}
       width={width}
       height={height}
       viewBox="0 0 28 28"

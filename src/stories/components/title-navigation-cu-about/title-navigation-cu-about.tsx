@@ -109,7 +109,14 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
     <Container>
       <ContainerTitle>
         <TypographySES>SES</TypographySES>
-        <div style={{ width: '4px', height: '4px', backgroundColor: '#D8E0E3', display: 'flex', marginRight: '8px', marginLeft: '8px' }} />
+        <div style={{
+          width: '4px',
+          height: '4px',
+          backgroundColor: '#D8E0E3',
+          display: 'flex',
+          marginRight: '8px',
+          marginLeft: '8px'
+        }} />
         {coreUnitAbout.name && <TypographyTitle>{coreUnitAbout.name}</TypographyTitle>}
         <Row>
           {mips && <StatusChip status={mips as CuStatusEnum} />}

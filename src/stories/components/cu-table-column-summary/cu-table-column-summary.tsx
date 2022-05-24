@@ -19,7 +19,10 @@ interface CuTableColumnSummaryProps {
 export const CuTableColumnSummary = (props: CuTableColumnSummaryProps) => {
   return <Container onClick={props.onClick}>
     <CircleContainer>
-      {props.imageUrl && <Avatar style={{ width: '48px', height: '48px' }} src={props.imageUrl} />}
+      {props.imageUrl && <Avatar style={{
+        width: '48px',
+        height: '48px'
+      }} src={props.imageUrl} />}
       {!props.imageUrl && <Avatar sx={{ bgcolor: getColorForString(props.title) }} style={{
         width: '48px',
         height: '48px',

@@ -22,7 +22,13 @@ export const CuTableColumnTeamMember = ({ facilitatorImages, ...props }: CuTable
   const MemberInfo = (props: { member: FacilitatorModel }) => {
     return <MemberInfoContainer>
       <Avatar
-        sx={{ width: '32px', height: '32px', backgroundColor: getColorForString(props.member.name), fontSize: '1rem', marginRight: '8px' }}
+        sx={{
+          width: '32px',
+          height: '32px',
+          backgroundColor: getColorForString(props.member.name),
+          fontSize: '1rem',
+          marginRight: '8px'
+        }}
         alt={props.member.name}
         src={facilitatorImages[props.member?.id ?? '']}
       >
@@ -50,7 +56,12 @@ export const CuTableColumnTeamMember = ({ facilitatorImages, ...props }: CuTable
         id={`${member.name}-${i}`}
       >
         <Avatar
-          sx={{ width: '32px', height: '32px', backgroundColor: getColorForString(member.name), fontSize: '1rem' }}
+          sx={{
+            width: '32px',
+            height: '32px',
+            backgroundColor: getColorForString(member.name),
+            fontSize: '1rem'
+          }}
           alt={member.name}
           src={facilitatorImages[member?.id ?? '']}
         >
