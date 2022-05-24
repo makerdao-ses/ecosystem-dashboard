@@ -286,8 +286,11 @@ const RelateMipCard = styled.div({
 });
 
 const ButtonContainer = styled.div({
-  display: 'flex',
+  display: 'block',
   flexDirection: 'row',
   justifyContent: 'center',
-  marginBottom: '26px'
+  marginBottom: '26px',
+  textAlign: 'center',
+  marginRight: 'auto',
+  marginLeft: 'auto',
 });

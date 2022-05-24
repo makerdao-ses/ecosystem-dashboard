@@ -1,12 +1,16 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Logo from '../svg/logo';
-import menuItems, { MenuType } from './menu-items';
+import { MenuType } from './menu-items';
 import { Button, IconButton, Link } from '@mui/material';
 import { Chat, Language } from '@mui/icons-material';
 import ThemeMode from '../svg/theme-mode';
 
-const Header = () => {
+interface Props {
+  menuItems: MenuType[];
+}
+
+const Header = ({ menuItems }: Props) => {
   return (
     <Container>
 
@@ -53,12 +57,13 @@ const Header = () => {
 };
 
 const Container = styled.div({
+  height: '64px',
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
-  height: '64px',
   backgroundColor: '#C4C4C4',
-  width: '100%',
+  paddingRight: '32px',
+  paddingLeft: '32px',
 });
 
 const LeftPart = styled.div({
@@ -67,7 +72,6 @@ const LeftPart = styled.div({
 });
 
 const LogoContainer = styled.div({
-  marginLeft: '32px',
   marginTop: '13px',
   marginBottom: '13px',
   marginRight: '64px',
@@ -82,7 +86,9 @@ const Navigation = styled.div({
 
 const RightPart = styled.div({
   display: 'flex',
-  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  // backgroundColor: '#C4C4C4',
+  alignItems: 'center',
 });
 
 const ItemMenuStyle = styled(Link)({
@@ -102,15 +108,16 @@ const ItemMenuStyle = styled(Link)({
 const IconsContainer = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  width: '160px',
-  marginRight: '32px',
+  height: '32px',
+  // alignItems: 'center',
+  // backgroundColor: '#C4C4C4',
 });
 
 const OtherIcons = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  alignItems: 'center',
-  marginRight: '20px',
+  // alignItems: 'center',
+  paddingRight: '20px',
 });
 
 const ButtonStyle = styled(Button)({
