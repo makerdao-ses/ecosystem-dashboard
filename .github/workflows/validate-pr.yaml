@@ -1,8 +1,8 @@
 name: Validating PR
 on:
-  push:
+  pull_request:
     branches:
-      - SES-48-Configure-eslint
+      - master
 jobs:
   validate-pr:
     runs-on: ubuntu-latest
