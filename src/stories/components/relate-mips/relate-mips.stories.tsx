@@ -1,7 +1,7 @@
 import React from 'react';
-import RelateMips, { RelateMipType } from './relate-mips';
+import RelateMips from './relate-mips';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
+import { CuMip } from '../../containers/cu-about/cu-about.api';
 
 export default {
   title: 'Components/CUAbout/RelateMips',
@@ -9,21 +9,16 @@ export default {
 } as ComponentMeta<typeof RelateMips>;
 
 const Template: ComponentStory<typeof RelateMips> = (args) => <RelateMips {...args} />;
-export const Default = Template.bind({});
-Default.args = {
-  relateMips: {
-    status: CuStatusEnum.Accepted,
-    statusModified: new Date(),
-  } as RelateMipType,
-
-};
-
 export const WithData = Template.bind({});
 WithData.args = {
   relateMips: {
-    status: CuStatusEnum.Accepted,
-    statusModified: new Date(),
-    mipTitle: 'MIP40c3-SP1: Modify Core Unit Budget - Real-World Finance (RWF-001)',
-    href: '#',
-  } as RelateMipType,
+    mipTitle: 'MIP39c2-SP10: Adding Sustainable Ecosystem Scaling Core Unit',
+    mipUrl: 'https://mips.makerdao.com/mips/details/MIP39c2SP10',
+    mipStatus: 'Accepted',
+    accepted: '2021-05-25',
+    obsolete: '',
+    rfc: '2021-04-02',
+    formalSubmission: '2021-05-01',
+    rejected: ''
+  } as CuMip
 };

@@ -13,12 +13,13 @@ interface CuTableColumnSummaryProps {
   imageUrl?: string,
   status?: CuStatusEnum,
   statusModified?: Date | null,
+  onClick?: () => void,
 }
 
 export const CuTableColumnSummary = (props: CuTableColumnSummaryProps) => {
-  return <Container>
+  return <Container onClick={props.onClick}>
     <CircleContainer>
-      {props.imageUrl && <Avatar style={{ width: '48px', height: '48px' }} src={props.imageUrl}/>}
+      {props.imageUrl && <Avatar style={{ width: '48px', height: '48px' }} src={props.imageUrl} />}
       {!props.imageUrl && <Avatar sx={{ bgcolor: getColorForString(props.title) }} style={{
         width: '48px',
         height: '48px',
@@ -28,10 +29,10 @@ export const CuTableColumnSummary = (props: CuTableColumnSummaryProps) => {
     <Content>
       <Title>{props.title}</Title>
       <Row>
-        {props.status && <StatusChip status={props.status}/>}
+        {props.status && <StatusChip status={props.status} />}
         {props.statusModified && <CustomPopover
-            id={'mouse-over-popover-goto'}
-            title={'Go to MIPs Portal'}
+          id={'mouse-over-popover-goto'}
+          title={'Go to MIPs Portal'}
         >
           {props.statusModified && <SinceDate>
             Since {DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}
