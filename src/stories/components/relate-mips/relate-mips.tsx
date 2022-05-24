@@ -39,7 +39,7 @@ const RelateMips = ({ relateMips }: Props) => {
   return (
     <Content>
       <Row>
-        {relateMips && <StatusChip status={getMipsStatus(relateMips) as CuStatusEnum} />}
+        {relateMips && <StatusChip status={relateMips.mipStatus as CuStatusEnum} />}
         {relateMips.mipStatus && <CustomPopover
           id={'mouse-over-popover-goto'}
           title={'Go to MIPs Portal'}

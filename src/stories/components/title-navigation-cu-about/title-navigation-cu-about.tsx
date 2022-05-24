@@ -119,7 +119,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
         }} />
         {coreUnitAbout.name && <TypographyTitle>{coreUnitAbout.name}</TypographyTitle>}
         <Row>
-          {mips && <StatusChip status={mips as CuStatusEnum} />}
+          {mips && <StatusChip status={mipStatus as CuStatusEnum} />}
           {mipStatus && <CustomPopover
             id={'mouse-over-popover-goto'}
             title={'Go to MIPs Portal'}

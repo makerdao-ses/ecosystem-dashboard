@@ -19,11 +19,11 @@ export interface CuMip {
   mipTitle: string;
   mipCode: string;
   cuId: string;
-  rfc?: string;
+  rfc?: string ;
   formalSubmission: string;
-  accepted?: string;
-  rejected?: string;
-  obsolete?: string;
+  accepted: string ;
+  rejected: string ;
+  obsolete: string ;
   mipStatus: CuStatusEnum;
   mipUrl?: string;
 }
@@ -86,7 +86,6 @@ export const GET_CU_ABOUT_BY_CODE = gql`
     coreUnit(filter: $filter) {
       id
       code
-      category
       name
       sentenceDescription
       paragraphDescription
@@ -98,7 +97,6 @@ export const GET_CU_ABOUT_BY_CODE = gql`
         twitter
         website
         youtube
-        linkedIn
       }
       cuMip {
         mipTitle
