@@ -16,7 +16,10 @@ const FeedBack = ({
 }: Props) => {
   return (
     <svg
-    style={{ cursor: 'pointer', padding: '2px' }}
+    style={{
+      cursor: 'pointer',
+      padding: '2px'
+    }}
       onClick={onClick}
       width={width}
       height={height}

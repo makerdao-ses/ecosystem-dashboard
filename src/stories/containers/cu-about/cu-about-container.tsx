@@ -43,7 +43,10 @@ const CuAboutContainer = () => {
 
   const filteredData = useMemo(() =>
     filterData({
-      data, filteredStatuses, filteredCategories, searchText
+      data,
+      filteredStatuses,
+      filteredCategories,
+      searchText
     }), [data, filteredCategories, filteredStatuses, searchText]);
 
   const page = useMemo(() => filteredData.findIndex(item => item.code === coreUnitCode) + 1, [coreUnitCode, filteredData]);
@@ -101,7 +104,13 @@ const CuAboutContainer = () => {
         </ContainerCards>
         {contributors.length === 0 && <ContainerNoData>No data to Show</ContainerNoData>}
       </ContactInfoContainer>
-      <Divider light sx={{ marginBottom: '32px', marginTop: '32px', color: '#D8E0E3', marginLeft: '32px', marginRight: '32px' }} variant='fullWidth' />
+      <Divider light sx={{
+        marginBottom: '32px',
+        marginTop: '32px',
+        color: '#D8E0E3',
+        marginLeft: '32px',
+        marginRight: '32px'
+      }} variant='fullWidth' />
       <CardRelateMipsContainer>
         <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
         <RelateMipCards>

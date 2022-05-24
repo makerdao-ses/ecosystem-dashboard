@@ -64,7 +64,10 @@ export const CuTable = () => {
 
   const filteredData = useMemo(() =>
     filterData({
-      data, filteredStatuses, filteredCategories, searchText
+      data,
+      filteredStatuses,
+      filteredCategories,
+      searchText
     }), [data, filteredCategories, filteredStatuses, searchText]);
 
   const setSort = (index: number, prevStatus: SortEnum) => {
