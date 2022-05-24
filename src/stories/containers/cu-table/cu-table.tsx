@@ -54,6 +54,9 @@ export const CuTable = () => {
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', filters), [filters]);
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', filters), [filters]);
   const searchText = useMemo(() => getStringParam('searchText', filters), [filters]);
+  // const [filteredStatuses, setFilteredStatuses] = useState<string[]>([]);
+  // const [filteredCategories, setFilteredCategories] = useState<string[]>([]);
+  // const [searchText, setSearchText] = useState('');
   const [headersSort, setHeadersSort] = useState(sortInitialState);
   const [sortColumn, setSortColumn] = useState(-1);
 
@@ -162,7 +165,7 @@ export const CuTable = () => {
         />
       ];
     });
-  }, [filteredData, sortColumn, sortData, onClickRow, facilitatorImages]);
+  }, [data, filteredStatuses, filteredCategories, searchText, facilitatorImages, headersSort]);
 
   return <ContainerHome>
     <Box
