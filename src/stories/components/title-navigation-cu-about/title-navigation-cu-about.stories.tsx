@@ -1,39 +1,13 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import TitleNavigationCuAbout from './title-navigation-cu-about';
-import { LinkModel } from '../cu-table-column-links/cu-table-column-links';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
-import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
 import { CuAbout, CuMip, SocialMediaChannels } from '../../containers/cu-about/cu-about.api';
 
 export default {
   title: 'Components/CUAbout/TitleNavigationCuAbout',
   component: TitleNavigationCuAbout
 } as ComponentMeta<typeof TitleNavigationCuAbout>;
-const links: LinkModel[] = [{
-  href: '#',
-  linkType: LinkTypeEnum.WWW,
-},
-{
-  href: '#',
-  linkType: LinkTypeEnum.Forum,
-},
-{
-  href: '#',
-  linkType: LinkTypeEnum.Discord,
-},
-{
-  href: '#',
-  linkType: LinkTypeEnum.Twitter,
-},
-{
-  href: '#',
-  linkType: LinkTypeEnum.Youtube,
-},
-{
-  href: '#',
-  linkType: LinkTypeEnum.LinkedIn,
-}];
 
 const Template: ComponentStory<typeof TitleNavigationCuAbout> = (args) => <TitleNavigationCuAbout {...args} />;
 export const Default = Template.bind({});
