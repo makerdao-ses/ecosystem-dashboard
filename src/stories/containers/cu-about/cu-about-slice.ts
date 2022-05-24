@@ -23,7 +23,7 @@ export interface CurrentCoreUnitAbout {
   error: null;
 }
 
-const initialState: CurrentCoreUnitAbout = {
+export const initialState: CurrentCoreUnitAbout = {
   error: null,
   statusCoreUnit: status.idle,
   cuAbout: {

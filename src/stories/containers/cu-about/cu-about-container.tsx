@@ -3,7 +3,7 @@ import { Divider, Typography } from '@mui/material';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../../core/hooks/hooks';
+import { useAppDispatch } from '../../../core/hooks/hooks';
 import { RootState } from '../../../core/store/store';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
 import BigButton from '../../components/button/big-button/big-button';
@@ -17,7 +17,7 @@ import TitleNavigationCuAbout from '../../components/title-navigation-cu-about/t
 import { CoreUnitDao } from '../cu-table/cu-table.api';
 import { loadCuTableItemsAsync, selectCuTableItems } from '../cu-table/cu-table.slice';
 import { ContributorCommitment } from './cu-about-contributor';
-import { contributorCommitmentSelector, cuAboutSelector, CurrentCoreUnitAbout, loadCoreUnitABout, status } from './cu-about-slice';
+import { contributorCommitmentSelector, cuAboutSelector, loadCoreUnitABout, status } from './cu-about-slice';
 import { CuMip, getFTEsFromCoreUnitAbout } from './cu-about.api';
 
 const CuAboutContainer = () => {
@@ -26,8 +26,8 @@ const CuAboutContainer = () => {
   const navigate = useNavigate();
   const { code: coreUnitCode } = useParams();
   const dispatch = useAppDispatch();
-  const { cuAbout, statusCoreUnit } = useAppSelector<CurrentCoreUnitAbout>(cuAboutSelector);
-  const contributors = useAppSelector<ContributorCommitment[]>(contributorCommitmentSelector);
+  const { cuAbout, statusCoreUnit } = useSelector((state: RootState) => cuAboutSelector(state));
+  const contributors = useSelector((state: RootState) => contributorCommitmentSelector(state));
 
   useEffect(() => {
     dispatch(loadCuTableItemsAsync());

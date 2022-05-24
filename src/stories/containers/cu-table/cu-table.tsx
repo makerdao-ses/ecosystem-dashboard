@@ -1,6 +1,6 @@
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { Box, Typography } from '@mui/material';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   countInitiativesFromCoreUnit,
@@ -54,9 +54,7 @@ export const CuTable = () => {
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', filters), [filters]);
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', filters), [filters]);
   const searchText = useMemo(() => getStringParam('searchText', filters), [filters]);
-  // const [filteredStatuses, setFilteredStatuses] = useState<string[]>([]);
-  // const [filteredCategories, setFilteredCategories] = useState<string[]>([]);
-  // const [searchText, setSearchText] = useState('');
+
   const [headersSort, setHeadersSort] = useState(sortInitialState);
   const [sortColumn, setSortColumn] = useState(-1);
 
