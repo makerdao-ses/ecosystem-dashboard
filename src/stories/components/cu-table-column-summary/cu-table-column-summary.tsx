@@ -33,9 +33,9 @@ export const CuTableColumnSummary = (props: CuTableColumnSummaryProps) => {
             id={'mouse-over-popover-goto'}
             title={'Go to MIPs Portal'}
         >
-            <SinceDate>
-                Since {DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}
-            </SinceDate>
+          {props.statusModified && <SinceDate>
+            Since {DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}
+          </SinceDate>}
         </CustomPopover>}
       </Row>
     </Content>

@@ -14,14 +14,14 @@ import { Box, Typography } from '@mui/material';
 import {
   countInitiativesFromCoreUnit,
   getBudgetCapFromCoreUnit,
-  getLast3ExpenditureValuesFromCoreUnit,
+  getExpenditureValueFromCoreUnit,
   getFacilitatorsFromCoreUnit,
   getFTEsFromCoreUnit,
+  getLast3ExpenditureValuesFromCoreUnit,
   getLinksFromCoreUnit,
   getMipFromCoreUnit,
   getPercentFromCoreUnit,
-  getSubmissionDateFromCuMip,
-  getExpenditureValueFromCoreUnit
+  getSubmissionDateFromCuMip
 } from '../../../core/business-logic/core-units';
 import { useAppDispatch } from '../../../core/hooks/hooks';
 import {
@@ -33,14 +33,17 @@ import {
 } from './cu-table.slice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../core/store/store';
-import { CoreUnitDAO } from './cu-table.api';
+import { CoreUnitDao } from './cu-table.api';
+import { SortEnum } from '../../../core/enums/sort.enum';
+import { sortAlphaNum } from '../../../core/utils/sort-utils';
 
 const statuses = Object.values(CuStatusEnum) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];
 const headers = ['Core Units', 'Initiatives', 'Expenditure', 'Team Members', 'Links'];
+const sortInitialState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled, SortEnum.Disabled];
 
 export const CuTable = () => {
-  const data: Array<CoreUnitDAO> = useSelector((state: RootState) => selectCuTableItems(state));
+  const data: Array<CoreUnitDao> = useSelector((state: RootState) => selectCuTableItems(state));
   const facilitatorImages = useSelector((state: RootState) => selectFacilitatorImages(state));
 
   const dispatch = useAppDispatch();
@@ -48,6 +51,8 @@ export const CuTable = () => {
   const [filteredStatuses, setFilteredStatuses] = useState<string[]>([]);
   const [filteredCategories, setFilteredCategories] = useState<string[]>([]);
   const [searchText, setSearchText] = useState('');
+  const [headersSort, setHeadersSort] = useState(sortInitialState);
+  const [sortColumn, setSortColumn] = useState(-1);
 
   useEffect(() => {
     dispatch(loadCuTableItemsAsync());
@@ -72,6 +77,30 @@ export const CuTable = () => {
     });
   };
 
+  const setSort = (index: number, prevStatus: SortEnum) => {
+    if (prevStatus === 3) {
+      setHeadersSort(sortInitialState);
+      setSortColumn(-1);
+    } else {
+      const temp = [...sortInitialState];
+      temp[index] = prevStatus + 1;
+      setHeadersSort(temp);
+      setSortColumn(index);
+    }
+  };
+
+  const sortData = (items: CoreUnitDao[]) => {
+    if (headersSort[sortColumn] === SortEnum.Disabled) return items;
+
+    const multiplier = headersSort[sortColumn] === SortEnum.Asc ? 1 : -1;
+    const nameSort = (a: CoreUnitDao, b: CoreUnitDao) => sortAlphaNum(a.name, b.name) * multiplier;
+    const initiativesSort = (a: CoreUnitDao, b: CoreUnitDao) => (countInitiativesFromCoreUnit(a) - countInitiativesFromCoreUnit(b)) * multiplier;
+    const expendituresSort = (a: CoreUnitDao, b: CoreUnitDao) => (getExpenditureValueFromCoreUnit(a) - getExpenditureValueFromCoreUnit(b)) * multiplier;
+
+    const sortAlg = [nameSort, initiativesSort, expendituresSort];
+    items.sort(sortAlg[sortColumn]);
+  };
+
   useEffect(() => {
     data.forEach(coreUnit => {
       const facilitators = getFacilitatorsFromCoreUnit(coreUnit);
@@ -88,7 +117,8 @@ export const CuTable = () => {
   const items = useMemo(() => {
     const filteredData = filterData();
     if (!filteredData) return [];
-    return filteredData.map((coreUnit: CoreUnitDAO, i: number) => {
+    if (sortColumn > -1) sortData(filteredData);
+    return filteredData.map((coreUnit: CoreUnitDao, i: number) => {
       return [
         <CuTableColumnSummary
           key={`summary-${i}`}
@@ -122,7 +152,7 @@ export const CuTable = () => {
         />
       ];
     });
-  }, [data, filteredStatuses, filteredCategories, searchText, facilitatorImages]);
+  }, [data, filteredStatuses, filteredCategories, searchText, facilitatorImages, headersSort]);
 
   return <ContainerHome>
     <Box
@@ -145,7 +175,9 @@ export const CuTable = () => {
       <CustomTable
         headers={headers}
         items={items}
-        headersAlign={['left', 'center', 'left', 'left', 'left']}
+        headersAlign={['flex-start', 'center', 'flex-start', 'flex-start', 'flex-start']}
+        headersSort={headersSort}
+        sortFunction={setSort}
       />
     </Box >
   </ContainerHome>;

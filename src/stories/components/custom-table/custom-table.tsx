@@ -1,24 +1,33 @@
 import React from 'react';
+import styled from '@emotion/styled';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import { TableHead, TableRow } from '@mui/material';
-import styled from '@emotion/styled';
+import { CustomTableHeader } from '../custom-table-header/custom-table-header';
+import { SortEnum } from '../../../core/enums/sort.enum';
 
 interface CustomTableProps {
   headers: string[],
   items?: (JSX.Element | string)[][],
-  headersAlign?: ('left' | 'right' | 'inherit' | 'center' | 'justify')[]
+  headersAlign?: ('flex-start' | 'center' | 'flex-end')[],
+  headersSort?: SortEnum[],
+  sortFunction?: (index: number, previousSort: SortEnum) => void,
 }
 
-export const CustomTable = (props: CustomTableProps) => {
+export const CustomTable = ({ headersSort = [], ...props }: CustomTableProps) => {
   return (
     <TableContainer sx={{ border: '1px solid #C4C4C4', background: 'white' }}>
       <Table>
         <TableHead>
           <TableRow>
-            {props.headers?.map((header, i) => <TableCell key={`header-${i}`} align={props.headersAlign && props.headersAlign[i] ? props.headersAlign[i] : 'left'}>{header}</TableCell>)}
+            {props.headers?.map((header, i) =>
+              <TableCell
+                key={`header-${i}`}
+                onClick={() => headersSort && headersSort[i] && headersSort[i] !== SortEnum.Disabled && props.sortFunction && props.sortFunction(i, headersSort[i])}>
+                <CustomTableHeader align={props.headersAlign && props.headersAlign[i]} state={headersSort[i]} title={header}/>
+              </TableCell>)}
           </TableRow>
         </TableHead>
         <TableBody>
