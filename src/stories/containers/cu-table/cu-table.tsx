@@ -1,29 +1,31 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
-import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
-import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
-import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
-import { SearchInput } from '../../components/search-input/search-input';
-import { CustomTable } from '../../components/custom-table/custom-table';
-import { CuTableColumnSummary } from '../../components/cu-table-column-summary/cu-table-column-summary';
-import { CuTableColumnInitiatives } from '../../components/cu-table-column-initiatives/cu-table-column-initiatives';
-import { CuTableColumnExpenditures } from '../../components/cu-table-column-expenditures/cu-table-column-expenditures';
-import { CuTableColumnTeamMember } from '../../components/cu-table-column-team-member/cu-table-column-team-member';
-import { CuTableColumnLinks } from '../../components/cu-table-column-links/cu-table-column-links';
 import { Box, Typography } from '@mui/material';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   countInitiativesFromCoreUnit,
   getBudgetCapFromCoreUnit,
-  getLast3ExpenditureValuesFromCoreUnit,
+  getExpenditureValueFromCoreUnit,
   getFacilitatorsFromCoreUnit,
   getFTEsFromCoreUnit,
+  getLast3ExpenditureValuesFromCoreUnit,
   getLinksFromCoreUnit,
   getMipFromCoreUnit,
   getPercentFromCoreUnit,
-  getSubmissionDateFromCuMip,
-  getExpenditureValueFromCoreUnit
+  getSubmissionDateFromCuMip
 } from '../../../core/business-logic/core-units';
+import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
+import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { useAppDispatch } from '../../../core/hooks/hooks';
+import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
+import { CuTableColumnExpenditures } from '../../components/cu-table-column-expenditures/cu-table-column-expenditures';
+import { CuTableColumnInitiatives } from '../../components/cu-table-column-initiatives/cu-table-column-initiatives';
+import { CuTableColumnLinks } from '../../components/cu-table-column-links/cu-table-column-links';
+import { CuTableColumnSummary } from '../../components/cu-table-column-summary/cu-table-column-summary';
+import { CuTableColumnTeamMember } from '../../components/cu-table-column-team-member/cu-table-column-team-member';
+import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
+import { CustomTable } from '../../components/custom-table/custom-table';
+import { SearchInput } from '../../components/search-input/search-input';
 import {
   loadCuTableItemsAsync,
   loadFacilitatorImage,
@@ -33,44 +35,61 @@ import {
 } from './cu-table.slice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../core/store/store';
-import { CoreUnitDAO } from './cu-table.api';
+import { CoreUnitDao } from './cu-table.api';
+import { SortEnum } from '../../../core/enums/sort.enum';
+import { sortAlphaNum } from '../../../core/utils/sort-utils';
 
 const statuses = Object.values(CuStatusEnum) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];
 const headers = ['Core Units', 'Initiatives', 'Expenditure', 'Team Members', 'Links'];
+const sortInitialState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled, SortEnum.Disabled];
 
 export const CuTable = () => {
-  const data: Array<CoreUnitDAO> = useSelector((state: RootState) => selectCuTableItems(state));
+  const [filters] = useSearchParams();
+  const navigate = useNavigate();
+  const data: Array<CoreUnitDao> = useSelector((state: RootState) => selectCuTableItems(state));
   const facilitatorImages = useSelector((state: RootState) => selectFacilitatorImages(state));
-
   const dispatch = useAppDispatch();
 
-  const [filteredStatuses, setFilteredStatuses] = useState<string[]>([]);
-  const [filteredCategories, setFilteredCategories] = useState<string[]>([]);
-  const [searchText, setSearchText] = useState('');
+  const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', filters), [filters]);
+  const filteredCategories = useMemo(() => getArrayParam('filteredCategories', filters), [filters]);
+  const searchText = useMemo(() => getStringParam('searchText', filters), [filters]);
+
+  const [headersSort, setHeadersSort] = useState(sortInitialState);
+  const [sortColumn, setSortColumn] = useState(-1);
 
   useEffect(() => {
     dispatch(loadCuTableItemsAsync());
-  }, []);
+  }, [dispatch]);
 
-  const filterData = () => {
-    const lowerCaseStatuses = filteredStatuses.map(x => x.toLowerCase());
-    const lowerCaseCategories = filteredCategories.map(x => x.toLowerCase());
-    return data.filter(data => {
-      let filterResult = true;
+  const filteredData = useMemo(() =>
+    filterData({
+      data, filteredStatuses, filteredCategories, searchText
+    }), [data, filteredCategories, filteredStatuses, searchText]);
 
-      // Filter by status
-      filterResult = filterResult && (lowerCaseStatuses.length === 0 || lowerCaseStatuses.indexOf(data.cuMip[data.cuMip.length - 1]?.mipStatus?.toLowerCase() ?? 'non-present') > -1);
-
-      // Filter by categories
-      filterResult = filterResult && (lowerCaseCategories.length === 0 || data.category.some(x => lowerCaseCategories.indexOf(x.toLowerCase()) > -1));
-
-      // Filter by name
-      filterResult = filterResult && (searchText.trim().length === 0 || data.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1 || data.code.toLowerCase().indexOf(searchText.toLowerCase()) > -1);
-
-      return filterResult;
-    });
+  const setSort = (index: number, prevStatus: SortEnum) => {
+    if (prevStatus === 3) {
+      setHeadersSort(sortInitialState);
+      setSortColumn(-1);
+    } else {
+      const temp = [...sortInitialState];
+      temp[index] = prevStatus + 1;
+      setHeadersSort(temp);
+      setSortColumn(index);
+    }
   };
+
+  const sortData = useCallback((items: CoreUnitDao[]) => {
+    if (headersSort[sortColumn] === SortEnum.Disabled) return items;
+
+    const multiplier = headersSort[sortColumn] === SortEnum.Asc ? 1 : -1;
+    const nameSort = (a: CoreUnitDao, b: CoreUnitDao) => sortAlphaNum(a.name, b.name) * multiplier;
+    const initiativesSort = (a: CoreUnitDao, b: CoreUnitDao) => (countInitiativesFromCoreUnit(a) - countInitiativesFromCoreUnit(b)) * multiplier;
+    const expendituresSort = (a: CoreUnitDao, b: CoreUnitDao) => (getExpenditureValueFromCoreUnit(a) - getExpenditureValueFromCoreUnit(b)) * multiplier;
+
+    const sortAlg = [nameSort, initiativesSort, expendituresSort];
+    items.sort(sortAlg[sortColumn]);
+  }, [headersSort, sortColumn]);
 
   useEffect(() => {
     data.forEach(coreUnit => {
@@ -83,19 +102,41 @@ export const CuTable = () => {
         }
       });
     });
-  }, [data]);
+  }, [data, dispatch, facilitatorImages]);
+
+  const handleChangeUrlFilterArrays = useCallback((key: string) => (value: string[]) => {
+    filters.set(key, value.join(','));
+    navigate({
+      pathname: '/',
+      search: `?${filters.toString()}`,
+    });
+  }, [filters, navigate]);
+
+  const handleChangeUrlFilterString = useCallback((key: string) => (value: string) => {
+    filters.set(key, value);
+    navigate({
+      pathname: '/',
+      search: `?${filters.toString()}`,
+    });
+  }, [filters, navigate]);
+
+  const onClickRow = useCallback((id: string) => () => {
+    navigate(`/about/${id}?${filters.toString()}`);
+  }, [filters, navigate]);
 
   const items = useMemo(() => {
-    const filteredData = filterData();
     if (!filteredData) return [];
-    return filteredData.map((coreUnit: CoreUnitDAO, i: number) => {
+    if (sortColumn > -1) sortData(filteredData);
+    return filteredData.map((coreUnit: CoreUnitDao, i: number) => {
       return [
         <CuTableColumnSummary
           key={`summary-${i}`}
           title={coreUnit.name}
-          status={getMipFromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum }
+          status={getMipFromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum}
           statusModified={getSubmissionDateFromCuMip(getMipFromCoreUnit(coreUnit))}
           imageUrl={coreUnit.image}
+          onClick={onClickRow(coreUnit.code)}
+
         />,
         <CuTableColumnInitiatives
           key={`initiatives-${i}`}
@@ -122,7 +163,7 @@ export const CuTable = () => {
         />
       ];
     });
-  }, [data, filteredStatuses, filteredCategories, searchText, facilitatorImages]);
+  }, [data, filteredStatuses, filteredCategories, searchText, facilitatorImages, headersSort]);
 
   return <ContainerHome>
     <Box
@@ -137,15 +178,17 @@ export const CuTable = () => {
     >
       <Header>
         <Title>Core Units</Title>
-        <CustomMultiSelect label={'Status'} items={statuses} onChange={setFilteredStatuses}/>
-        <CustomMultiSelect label={'Category'} items={categories} onChange={setFilteredCategories}/>
+        <CustomMultiSelect label={'Status'} initialActiveItems={filteredStatuses} items={statuses} onChange={handleChangeUrlFilterArrays('filteredStatuses')} />
+        <CustomMultiSelect label={'Category'} initialActiveItems={filteredCategories} items={categories} onChange={handleChangeUrlFilterArrays('filteredCategories')} />
         <Separator />
-        <SearchInput label={'Search CUs'} placeholder={'Search CUs by name or Code'} onChange={setSearchText}/>
+        <SearchInput value={searchText} label={'Search CUs'} placeholder={'Search CUs by name or Code'} onChange={handleChangeUrlFilterString('searchText')} />
       </Header>
       <CustomTable
         headers={headers}
         items={items}
-        headersAlign={['left', 'center', 'left', 'left', 'left']}
+        headersAlign={['flex-start', 'center', 'flex-start', 'flex-start', 'flex-start']}
+        headersSort={headersSort}
+        sortFunction={setSort}
       />
     </Box >
   </ContainerHome>;

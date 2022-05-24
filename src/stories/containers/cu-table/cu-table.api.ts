@@ -80,6 +80,11 @@ export interface Mip40Dao {
   mip40BudgetPeriod: Mip40BudgetPeriodDao[]
 }
 
+export interface Mip41Dao {
+  facilitatorName: string,
+  contributorId: string
+}
+
 export interface CuMipDao {
   mipStatus: string,
   accepted: string,
@@ -88,45 +93,52 @@ export interface CuMipDao {
   rejected: string,
   obsolete: string,
   mip40: Mip40Dao[]
-  mip41: {
-    facilitatorName: string,
-    contributorId: string
-  }[]
+  mip41: Mip41Dao[]
 }
 
-export interface BudgetStatementDAO {
+export interface BudgetStatementFteDao {
+  month: string,
+  ftes: number
+}
+
+export interface BudgetStatementLineItemDao {
+  actual: number
+}
+
+export interface BudgetStatementWalletDao {
+  budgetStatementLineItem: BudgetStatementLineItemDao[]
+}
+
+export interface BudgetStatementDao {
   month: string,
   budgetStatus: string,
-  budgetStatementFTEs: {
-    month: string,
-    ftes: number
-  }[],
-  budgetStatementWallet: {
-    budgetStatementLineItem: {
-      actual: number
-    }[]
-  }[]
+  budgetStatementFTEs: BudgetStatementFteDao[],
+  budgetStatementWallet: BudgetStatementWalletDao[]
 }
 
-export interface CoreUnitDAO {
+export interface SocialMediaChannelDAO {
+  forumTag: string,
+  twitter: string,
+  youtube: string,
+  discord: string,
+  linkedIn: string,
+  website: string,
+}
+
+export interface RoadMapDao {
+  ownerCuId: string
+}
+
+export interface CoreUnitDao {
   id: string,
   code: string,
   name: string,
   image: string,
   category: string[],
   cuMip: CuMipDao[]
-  roadMap: {
-    ownerCuId: string
-  }[],
-  socialMediaChannels: {
-    forumTag: string,
-    twitter: string,
-    youtube: string,
-    discord: string,
-    linkedIn: string,
-    website: string,
-  }[],
-  budgetStatements: BudgetStatementDAO[]
+  roadMap: RoadMapDao[],
+  socialMediaChannels: SocialMediaChannelDAO[],
+  budgetStatements: BudgetStatementDao[]
 }
 
 export const fetchCoreUnits = async() => {

@@ -4,113 +4,14 @@ import { CuTable } from './cu-table';
 import { Provider } from 'react-redux';
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 import { CuTableState } from './cu-table.slice';
-import { BudgetStatementDAO, CoreUnitDAO, CuMipDao } from './cu-table.api';
-import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
+import { initialState } from './cu-table.stories.states';
+import { MemoryRouter } from 'react-router-dom';
 
 const store = configureStore({
   reducer: {
     cuTable: createSlice({
       name: 'cuTable',
-      initialState: {
-        items: [
-          {
-            name: 'Test Core Unit',
-            code: 'T-001',
-            category: [CuCategoryEnum.Finance],
-            cuMip: [
-              {
-                mipStatus: 'Accepted',
-                mip40: [
-                  {
-                    mip40BudgetPeriod: [
-                      {
-                        budgetPeriodStart: '2022-01-01',
-                        budgetPeriodEnd: '2023-01-01',
-                        mip40BudgetLineItem: [
-                          {
-                            budgetCap: 1000
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              } as CuMipDao
-            ],
-            budgetStatements: [
-              {
-                month: '2022-04-01',
-                budgetStatementWallet: [
-                  {
-                    budgetStatementLineItem: [
-                      {
-                        actual: 100
-                      },
-                      {
-                        actual: 100
-                      },
-                      {
-                        actual: 100
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                month: '2022-03-01',
-                budgetStatementWallet: [
-                  {
-                    budgetStatementLineItem: [
-                      {
-                        actual: 300
-                      },
-                      {
-                        actual: 100
-                      },
-                      {
-                        actual: 600
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                month: '2022-02-01',
-                budgetStatementWallet: [
-                  {
-                    budgetStatementLineItem: [
-                      {
-                        actual: 200
-                      },
-                      {
-                        actual: 100
-                      },
-                      {
-                        actual: 600
-                      }
-                    ]
-                  }
-                ]
-              },
-            ] as BudgetStatementDAO[],
-            id: 'Test-ID',
-            socialMediaChannels: [
-              {
-                forumTag: 'some-tag',
-                linkedIn: 'https://linkedin.com',
-                youtube: 'https://youtube.com',
-                twitter: '',
-                discord: '',
-                website: ''
-              }
-            ],
-            roadMap: [],
-            image: ''
-          } as CoreUnitDAO
-        ] as CoreUnitDAO[],
-        status: 'idle',
-        facilitatorImages: {}
-      },
+      initialState,
       reducers: {}
     }).reducer
   }
@@ -144,6 +45,6 @@ export const Default = Template.bind({});
 Default.decorators = [
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-  (story) => <Mockstore cuTable={MockedState}>{story()}</Mockstore>
+  (story) => <MemoryRouter><Mockstore cuTable={MockedState}>{story()}</Mockstore></MemoryRouter>
 ];
 Default.args = {};
