@@ -7,7 +7,6 @@ import ArrowLink from '../svg/ArrowLink';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { StatusChip } from '../status-chip/status-chip';
 import { CuMip } from '../../containers/cu-about/cu-about.api';
-import { getMipTitle } from '../../../core/utils/string-utils';
 
 export type RelateMipType = {
   status: CuStatusEnum,
