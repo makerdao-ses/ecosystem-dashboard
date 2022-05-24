@@ -1,4 +1,4 @@
-import { CoreUnitDAO } from '../../stories/containers/cu-table/cu-table.api';
+import { CoreUnitDao } from '../../stories/containers/cu-table/cu-table.api';
 
 export const filterData = ({
   filteredStatuses = [],
@@ -9,7 +9,7 @@ export const filterData = ({
   filteredStatuses?: string[];
   filteredCategories?: string[];
   searchText?: string;
-  data: CoreUnitDAO[];
+  data: CoreUnitDao[];
 }) => {
   const lowerCaseStatuses = filteredStatuses.map((x) => x.toLowerCase());
   const lowerCaseCategories = filteredCategories.map((x) => x.toLowerCase());

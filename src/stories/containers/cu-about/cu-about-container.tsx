@@ -14,7 +14,7 @@ import InsidePagination from '../../components/pagination/InsidePagination';
 import RelateMips from '../../components/relate-mips/relate-mips';
 import TeamMember from '../../components/team-members/team-member';
 import TitleNavigationCuAbout from '../../components/title-navigation-cu-about/title-navigation-cu-about';
-import { CoreUnitDAO } from '../cu-table/cu-table.api';
+import { CoreUnitDao } from '../cu-table/cu-table.api';
 import { loadCuTableItemsAsync, selectCuTableItems } from '../cu-table/cu-table.slice';
 import { ContributorCommitment } from './cu-about-contributor';
 import { contributorCommitmentSelector, cuAboutSelector, CurrentCoreUnitAbout, loadCoreUnitABout, status } from './cu-about-slice';
@@ -22,7 +22,7 @@ import { CuMip, getFTEsFromCoreUnitAbout } from './cu-about.api';
 
 const CuAboutContainer = () => {
   const [filters] = useSearchParams();
-  const data: Array<CoreUnitDAO> = useSelector((state: RootState) => selectCuTableItems(state));
+  const data: Array<CoreUnitDao> = useSelector((state: RootState) => selectCuTableItems(state));
   const navigate = useNavigate();
   const { code: coreUnitCode } = useParams();
   const dispatch = useAppDispatch();

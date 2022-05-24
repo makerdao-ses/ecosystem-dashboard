@@ -1,0 +1,25 @@
+name: Validating PR
+on:
+  pull_request:
+    branches:
+      - master
+jobs:
+  validate-pr:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ v16.x ]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v1
+      - name: Install project
+        run: |
+          npm install -g yarn
+          yarn
+      - name: Validate
+        run: |
+          yarn run eslint src/**/*{.ts,.tsx}
+          yarn test 
+          yarn build --prod
+        env:
+          CI: true

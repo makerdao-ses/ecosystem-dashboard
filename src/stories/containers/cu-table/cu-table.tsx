@@ -1,12 +1,15 @@
 import styled from '@emotion/styled';
 import { Box, Typography } from '@mui/material';
-import React, { useCallback, useEffect, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   countInitiativesFromCoreUnit,
-  getBudgetCapFromCoreUnit, getExpenditureValueFromCoreUnit, getFacilitatorsFromCoreUnit,
-  getFTEsFromCoreUnit, getLast3ExpenditureValuesFromCoreUnit, getLinksFromCoreUnit,
+  getBudgetCapFromCoreUnit,
+  getExpenditureValueFromCoreUnit,
+  getFacilitatorsFromCoreUnit,
+  getFTEsFromCoreUnit,
+  getLast3ExpenditureValuesFromCoreUnit,
+  getLinksFromCoreUnit,
   getMipFromCoreUnit,
   getPercentFromCoreUnit,
   getSubmissionDateFromCuMip
@@ -14,7 +17,6 @@ import {
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { useAppDispatch } from '../../../core/hooks/hooks';
-import { RootState } from '../../../core/store/store';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
 import { CuTableColumnExpenditures } from '../../components/cu-table-column-expenditures/cu-table-column-expenditures';
 import { CuTableColumnInitiatives } from '../../components/cu-table-column-initiatives/cu-table-column-initiatives';
@@ -24,7 +26,6 @@ import { CuTableColumnTeamMember } from '../../components/cu-table-column-team-m
 import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
 import { CustomTable } from '../../components/custom-table/custom-table';
 import { SearchInput } from '../../components/search-input/search-input';
-import { CoreUnitDAO } from './cu-table.api';
 import {
   loadCuTableItemsAsync,
   loadFacilitatorImage,
@@ -32,21 +33,29 @@ import {
   selectFacilitatorImages,
   setFacilitatorImageAsPending
 } from './cu-table.slice';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../core/store/store';
+import { CoreUnitDao } from './cu-table.api';
+import { SortEnum } from '../../../core/enums/sort.enum';
+import { sortAlphaNum } from '../../../core/utils/sort-utils';
 
 const statuses = Object.values(CuStatusEnum) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];
 const headers = ['Core Units', 'Initiatives', 'Expenditure', 'Team Members', 'Links'];
+const sortInitialState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled, SortEnum.Disabled];
 
 export const CuTable = () => {
   const [filters] = useSearchParams();
   const navigate = useNavigate();
-  const data: Array<CoreUnitDAO> = useSelector((state: RootState) => selectCuTableItems(state));
+  const data: Array<CoreUnitDao> = useSelector((state: RootState) => selectCuTableItems(state));
   const facilitatorImages = useSelector((state: RootState) => selectFacilitatorImages(state));
   const dispatch = useAppDispatch();
 
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', filters), [filters]);
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', filters), [filters]);
   const searchText = useMemo(() => getStringParam('searchText', filters), [filters]);
+  const [headersSort, setHeadersSort] = useState(sortInitialState);
+  const [sortColumn, setSortColumn] = useState(-1);
 
   useEffect(() => {
     dispatch(loadCuTableItemsAsync());
@@ -56,6 +65,30 @@ export const CuTable = () => {
     filterData({
       data, filteredStatuses, filteredCategories, searchText
     }), [data, filteredCategories, filteredStatuses, searchText]);
+
+  const setSort = (index: number, prevStatus: SortEnum) => {
+    if (prevStatus === 3) {
+      setHeadersSort(sortInitialState);
+      setSortColumn(-1);
+    } else {
+      const temp = [...sortInitialState];
+      temp[index] = prevStatus + 1;
+      setHeadersSort(temp);
+      setSortColumn(index);
+    }
+  };
+
+  const sortData = useCallback((items: CoreUnitDao[]) => {
+    if (headersSort[sortColumn] === SortEnum.Disabled) return items;
+
+    const multiplier = headersSort[sortColumn] === SortEnum.Asc ? 1 : -1;
+    const nameSort = (a: CoreUnitDao, b: CoreUnitDao) => sortAlphaNum(a.name, b.name) * multiplier;
+    const initiativesSort = (a: CoreUnitDao, b: CoreUnitDao) => (countInitiativesFromCoreUnit(a) - countInitiativesFromCoreUnit(b)) * multiplier;
+    const expendituresSort = (a: CoreUnitDao, b: CoreUnitDao) => (getExpenditureValueFromCoreUnit(a) - getExpenditureValueFromCoreUnit(b)) * multiplier;
+
+    const sortAlg = [nameSort, initiativesSort, expendituresSort];
+    items.sort(sortAlg[sortColumn]);
+  }, [headersSort, sortColumn]);
 
   useEffect(() => {
     data.forEach(coreUnit => {
@@ -92,7 +125,8 @@ export const CuTable = () => {
 
   const items = useMemo(() => {
     if (!filteredData) return [];
-    return filteredData.map((coreUnit: CoreUnitDAO, i: number) => {
+    if (sortColumn > -1) sortData(filteredData);
+    return filteredData.map((coreUnit: CoreUnitDao, i: number) => {
       return [
         <CuTableColumnSummary
           key={`summary-${i}`}
@@ -128,7 +162,7 @@ export const CuTable = () => {
         />
       ];
     });
-  }, [filteredData, onClickRow, facilitatorImages]);
+  }, [filteredData, sortColumn, sortData, onClickRow, facilitatorImages]);
 
   return <ContainerHome>
     <Box
@@ -151,7 +185,9 @@ export const CuTable = () => {
       <CustomTable
         headers={headers}
         items={items}
-        headersAlign={['left', 'center', 'left', 'left', 'left']}
+        headersAlign={['flex-start', 'center', 'flex-start', 'flex-start', 'flex-start']}
+        headersSort={headersSort}
+        sortFunction={setSort}
       />
     </Box >
   </ContainerHome>;
