@@ -18,7 +18,7 @@ jobs:
           yarn
       - name: Validate
         run: |
-          yarn run eslint --fix src/**/*{.ts,.tsx}
+          yarn run eslint src/**/*{.ts,.tsx}
           yarn test 
           yarn build --prod
         env:
