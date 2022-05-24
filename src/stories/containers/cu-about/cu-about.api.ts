@@ -15,26 +15,6 @@ interface BudgetStatement {
   budgetStatementFTEs: BudgetStatementFTEs[];
 }
 
-export enum CuMipStatus {
-  RFC = 'RFC',
-  FORMAL = 'Formal',
-  SUBMISSION = 'Submission',
-  Accepted = 'Accepted',
-  Rejected = 'Rejected',
-  Obsolete = 'Obsolete',
-}
-
-export interface RelateMipsCuAbout {
-  mipTitle: string;
-  mipUrl: string;
-  mipStatus: CuMipStatus;
-  accepted?: string;
-  obsolete?: string;
-  rfc?: string;
-  formalSubmission?: string;
-  rejected?: string;
-}
-
 export interface CuMip {
   mipTitle: string;
   mipCode: string;
@@ -208,8 +188,7 @@ export const getFTEsFromCoreUnitAbout = (cu: CuAbout) => {
   return cu.budgetStatements[0].budgetStatementFTEs[0].ftes;
 };
 
-// eslint-disable-next-line space-before-function-paren
-export const fetchCoreUnitByCode = async (code: string) => {
+export const fetchCoreUnitByCode = async(code: string) => {
   const res = (await request(GraphQlEndpoint, GET_CU_ABOUT_BY_CODE, {
     filter: {
       code,

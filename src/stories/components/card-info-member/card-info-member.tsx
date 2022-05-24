@@ -44,8 +44,6 @@ export const getLinksFromContributor = (contributor: ContributorCommitment) => {
 const CardInfoMember = ({ contributorCommitment }: Props) => {
   const contributor = contributorCommitment.contributor[0] || [];
   const links = getLinksFromContributor(contributorCommitment) || [];
-  console.log('contributorCommitment', contributorCommitment);
-
   return (
     <Box>
       <Card sx={{ width: 294, height: 182, boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.08)', borderRadius: '8px', backgroundColor: '#F9F9F9' }} >
