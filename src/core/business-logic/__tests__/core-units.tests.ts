@@ -24,7 +24,6 @@ const currentMinus2Month = DateTime.now().set({ day: 1 }).minus({ month: 2 }).to
 const currentMinus3Month = DateTime.now().set({ day: 1 }).minus({ month: 3 }).toFormat('y-MM-dd');
 
 test('Get date for status on CuMip', () => {
-  console.log(currentMonth);
   const mipDao = (new CuMipBuilder()).withStatus(CuStatusEnum.Withdrawn, currentMinus2Month).build();
   expect(getCuMipStatusModifiedDate(mipDao, CuStatusEnum.Withdrawn)).toBe(currentMinus2Month);
 
