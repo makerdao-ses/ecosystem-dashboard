@@ -32,23 +32,32 @@ const Header = ({ menuItems }: Props) => {
       </LeftPart>
       <RightPart>
         <OtherIcons>
-          <ButtonStyle href="/" variant="outlined" sx={{ marginRight: '16px', padding: '0px', textTransform: 'none', border: 'none' }}>
+          <ButtonStyle href="/" variant="outlined" sx={{
+            marginRight: '16px',
+            padding: '0px',
+            textTransform: 'none',
+            border: 'none'
+          }}>
             Lorem Ipsum link
           </ButtonStyle>
 
-          <ButtonStyle href="/" variant="outlined" sx={{ padding: '0px', textTransform: 'none', border: 'none' }}>
+          <ButtonStyle href="/" variant="outlined" sx={{
+            padding: '0px',
+            textTransform: 'none',
+            border: 'none'
+          }}>
             Lorem Ipsum link
           </ButtonStyle>
         </OtherIcons>
         <IconsContainer>
           <IconButton color="inherit" sx={{ marginRight: '24px' }}>
-            <Chat width={22} height={22} sx={{ fill: '#898989' }} />
+            <Chat sx={{ fill: '#898989', width: '22px', height: '22px' }} />
           </IconButton>
           <IconButton color="inherit" sx={{ marginRight: '24px' }}>
-            <Language width={26.7} height={26.7} sx={{ fill: '#898989' }} />
+            <Language sx={{ fill: '#898989', width: '26.67px', height: '26.67px' }} />
           </IconButton>
           <IconButton color="inherit">
-            <ThemeMode width={26.7} height={26.7} />
+            <ThemeMode width={22.67} height={22.67} />
           </IconButton>
         </IconsContainer>
       </RightPart>

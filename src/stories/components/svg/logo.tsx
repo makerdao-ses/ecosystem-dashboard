@@ -7,7 +7,7 @@ interface Props {
   fill?: string;
 }
 
-const Logo = ({ width = 32, height = 32, fill = '"#fff"', ...props }: Props) => {
+const Logo = ({ width = 32, height = 32, fill = '#fff', ...props }: Props) => {
   return (
     <svg
       width={width}
