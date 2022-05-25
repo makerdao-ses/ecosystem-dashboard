@@ -51,10 +51,18 @@ const Header = ({ menuItems }: Props) => {
         </OtherIcons>
         <IconsContainer>
           <IconButton color="inherit" sx={{ marginRight: '24px' }}>
-            <Chat sx={{ fill: '#898989', width: '22px', height: '22px' }} />
+            <Chat sx={{
+              fill: '#898989',
+              width: '22px',
+              height: '22px'
+            }} />
           </IconButton>
           <IconButton color="inherit" sx={{ marginRight: '24px' }}>
-            <Language sx={{ fill: '#898989', width: '26.67px', height: '26.67px' }} />
+            <Language sx={{
+              fill: '#898989',
+              width: '26.67px',
+              height: '26.67px'
+            }} />
           </IconButton>
           <IconButton color="inherit">
             <ThemeMode width={22.67} height={22.67} />
@@ -96,7 +104,6 @@ const Navigation = styled.div({
 const RightPart = styled.div({
   display: 'flex',
   justifyContent: 'flex-start',
-  // backgroundColor: '#C4C4C4',
   alignItems: 'center',
 });
 
@@ -118,14 +125,11 @@ const IconsContainer = styled.div({
   display: 'flex',
   flexDirection: 'row',
   height: '32px',
-  // alignItems: 'center',
-  // backgroundColor: '#C4C4C4',
 });
 
 const OtherIcons = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  // alignItems: 'center',
   paddingRight: '20px',
 });
 
