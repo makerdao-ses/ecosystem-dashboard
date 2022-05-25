@@ -201,10 +201,12 @@ export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDao) => {
     const temp = cu.budgetStatements.find(bs => bs.month.indexOf(dateToCheck.toFormat('y-MM')) > -1);
     if (temp) {
       result.push({ value: sumAllLineItemsFromBudgetStatement(temp) });
+    } else {
+      result.push({ value: 0 });
     }
   }
 
-  return result;
+  return result.reverse();
 };
 
 export const getMipUrlFromCoreUnit = (cu: CoreUnitDao) => {
