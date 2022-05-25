@@ -36,6 +36,7 @@ const CuAboutContainer = () => {
 
   useEffect(() => {
     dispatch(loadCoreUnitABout(coreUnitCode || ''));
+    setShowThreeMIPs(true);
   }, [dispatch, coreUnitCode]);
 
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', filters), [filters]);
