@@ -11,6 +11,7 @@ import {
   getLast3ExpenditureValuesFromCoreUnit,
   getLinksFromCoreUnit,
   getMipFromCoreUnit,
+  getMipUrlFromCoreUnit,
   getPercentFromCoreUnit,
   getSubmissionDateFromCuMip
 } from '../../../core/business-logic/core-units';
@@ -139,6 +140,7 @@ export const CuTable = () => {
           status={getMipFromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum}
           statusModified={getSubmissionDateFromCuMip(getMipFromCoreUnit(coreUnit))}
           imageUrl={coreUnit.image}
+          mipUrl={getMipUrlFromCoreUnit(coreUnit)}
           onClick={onClickRow(coreUnit.code)}
 
         />,

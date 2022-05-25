@@ -206,3 +206,8 @@ export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDao) => {
 
   return result;
 };
+
+export const getMipUrlFromCoreUnit = (cu: CoreUnitDao) => {
+  if (cu?.cuMip.length === 0) return '';
+  return cu?.cuMip[0].mipUrl ?? '';
+};

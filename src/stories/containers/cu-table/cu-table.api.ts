@@ -10,8 +10,9 @@ export const GETCoreUnits = gql`
         image
         category
         cuMip {
-          formalSubmission
           mipStatus
+          mipUrl
+          formalSubmission
           accepted
           rfc
           rejected
@@ -87,6 +88,7 @@ export interface Mip41Dao {
 
 export interface CuMipDao {
   mipStatus: string,
+  mipUrl: string,
   accepted: string,
   formalSubmission: string,
   rfc: string,
