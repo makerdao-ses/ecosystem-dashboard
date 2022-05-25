@@ -66,9 +66,9 @@ const CuAboutContainer = () => {
 
   const handleGoBack = useCallback(
     () => {
-      navigate('/');
+      navigate(`/?${filters.toString()}`);
     },
-    [navigate],
+    [filters, navigate],
   );
 
   const resultMips = useMemo(() => {
