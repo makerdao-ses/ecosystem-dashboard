@@ -35,7 +35,7 @@ export const CustomTable = ({ headersSort = [], ...props }: CustomTableProps) =>
         </TableHead>
         <TableBody>
           {props.items?.map((row, i) => <TableRow key={i}>
-            {row.map((item, j) => <TableCell key={`${i}-${j}`}>{item}</TableCell>)}
+            {row.map((item, j) => <TableCell key={`${i}-${j}`} onClick={() => { console.log(item); }}>{item}</TableCell>)}
           </TableRow>)}
         </TableBody>
       </Table>

@@ -6,15 +6,105 @@ import { CustomPopover } from '../custom-popover/custom-popover';
 import { CuTableColumnLinks, LinkModel } from '../cu-table-column-links/cu-table-column-links';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { StatusChip } from '../status-chip/status-chip';
+import { CuAbout, CuMip } from '../../containers/cu-about/cu-about.api';
+import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
 
-interface Props {
-  title: string
-  status: CuStatusEnum,
-  statusModified: Date,
-  links?: LinkModel[]
+interface BudgetStatementFTEs {
+  month: string
+  ftes: number
 }
 
-export const TitleNavigationCuAbout = ({ title, status, statusModified, links = [] }: Props) => {
+interface BudgetStatement {
+  budgetStatementFTEs: BudgetStatementFTEs[]
+}
+export interface SocialMediaChannels {
+  cuCode: string;
+  forumTag: string;
+  twitter: string;
+  youtube: string;
+  discord: string;
+  linkedIn: string;
+  website: string;
+}
+
+export interface CoreUnit {
+  code: string;
+  name: string;
+  image: string;
+  category: [];
+  cuMip: CuMip[];
+  budgetStatements: BudgetStatement[];
+  socialMediaChannels: SocialMediaChannels[];
+  contributorCommitment: [];
+  cuGithubContribution: [];
+  roadMap: [];
+}
+interface Props {
+  coreUnitAbout: CuAbout;
+}
+
+export const getMipsStatus = (mip: CuMip) => {
+  switch (mip.mipStatus) {
+    case CuStatusEnum.Accepted:
+      return mip.accepted;
+    case CuStatusEnum.FormalSubmission:
+      return mip.formalSubmission;
+    case CuStatusEnum.Rejected:
+      return mip.rejected;
+    case CuStatusEnum.RFC:
+      return mip.rfc;
+    default:
+      return mip.rejected;
+  }
+};
+
+export const getLinksCoreUnit = (cu: CuAbout) => {
+  const links: LinkModel[] = [];
+  if (cu.socialMediaChannels.length === 0) return links;
+  const cont = cu.socialMediaChannels[0];
+  if (cont.website) {
+    links.push({
+      linkType: LinkTypeEnum.WWW,
+      href: cont.website,
+    });
+  }
+  if (cont.forumTag) {
+    links.push({
+      linkType: LinkTypeEnum.Forum,
+      href: cont.forumTag,
+    });
+  }
+  if (cont.discord) {
+    links.push({
+      linkType: LinkTypeEnum.Discord,
+      href: cont.discord,
+    });
+  }
+  if (cont.twitter) {
+    links.push({
+      linkType: LinkTypeEnum.Twitter,
+      href: cont.twitter,
+    });
+  }
+  if (cont.youtube) {
+    links.push({
+      linkType: LinkTypeEnum.Youtube,
+      href: cont.youtube,
+    });
+  }
+  if (cont.linkedIn) {
+    links.push({
+      linkType: LinkTypeEnum.LinkedIn,
+      href: cont.linkedIn,
+    });
+  }
+  return links;
+};
+
+export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
+  if (!coreUnitAbout || !coreUnitAbout.cuMip) return null;
+  const mips = getMipsStatus(coreUnitAbout.cuMip[0] || '');
+  const mipStatus = coreUnitAbout.cuMip[0] && coreUnitAbout.cuMip[0].mipStatus;
   return (
     <Container>
       <ContainerTitle>
@@ -27,24 +117,23 @@ export const TitleNavigationCuAbout = ({ title, status, statusModified, links = 
           marginRight: '8px',
           marginLeft: '8px'
         }} />
-        <TypographyTitle>{title}</TypographyTitle>
-
+        {coreUnitAbout.name && <TypographyTitle>{coreUnitAbout.name}</TypographyTitle>}
         <Row>
-          {status && <StatusChip status={status} />}
-          {statusModified && <CustomPopover
+          {mips && <StatusChip status={mips as CuStatusEnum} />}
+          {mipStatus && <CustomPopover
             id={'mouse-over-popover-goto'}
             title={'Go to MIPs Portal'}
           >
             <SinceDate
               href={'#'}
             >
-              Since {DateTime.fromJSDate(statusModified).toFormat('d-MMM-y').toUpperCase()}
+              Since {DateTime.fromJSDate(new Date(mips || '')).toFormat('d-MMM-y')}
             </SinceDate>
           </CustomPopover>}
         </Row>
       </ContainerTitle>
       <ContainerLinks>
-        <CuTableColumnLinks links={links} dark/>
+        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} dark />
       </ContainerLinks>
     </Container>
   );

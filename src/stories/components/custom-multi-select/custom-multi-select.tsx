@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   Checkbox,
   FormControl,
@@ -28,19 +28,20 @@ interface CustomSelectProps {
   label: string,
   withAll?: boolean,
   onChange?: (items: string[]) => void,
+  initialActiveItems?: string[],
 }
 
-export const CustomMultiSelect = ({ withAll = true, ...props }: CustomSelectProps) => {
-  const [activeItems, setActiveItems] = React.useState<string[]>([]);
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+export const CustomMultiSelect = ({ withAll = true, initialActiveItems = [], ...props }: CustomSelectProps) => {
+  const [activeItems, setActiveItems] = React.useState<string[]>(initialActiveItems);
 
-  const handleChange = (event: SelectChangeEvent<typeof activeItems>) => {
+  const handleChange = useCallback((event: SelectChangeEvent<typeof activeItems>) => {
     const {
       target: { value },
     } = event;
-
     setActiveItems(typeof value === 'string' ? value.split(',') : value);
     props.onChange && props.onChange(typeof value === 'string' ? value.split(',') : value);
-  };
+  }, [props]);
 
   const toggleAll = () => {
     if (activeItems.length === props.items.length) {
@@ -74,8 +75,8 @@ export const CustomMultiSelect = ({ withAll = true, ...props }: CustomSelectProp
       MenuProps={MenuProps}
     >
       {withAll && <MenuItem key={'All'} onClick={toggleAll}>
-        <CheckBoxOutlined sx={{ m: '6px' }}/>
-        <ListItemText primary={'All'}/>
+        <CheckBoxOutlined sx={{ m: '6px' }} />
+        <ListItemText primary={'All'} />
       </MenuItem>}
       {props.items.map((item) => (
         <MenuItem key={item} value={item}>

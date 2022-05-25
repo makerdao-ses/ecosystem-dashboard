@@ -35,9 +35,7 @@ export const Sidebar = (props: SidebarProps) => {
         pr: 2,
       }}
     >
-      <Logo style={{
-        marginLeft: '8px',
-      }} />
+      <Logo style={{ marginLeft: '8px' }} />
       <Typography sx={{
         flexGrow: 1,
         ml: 2

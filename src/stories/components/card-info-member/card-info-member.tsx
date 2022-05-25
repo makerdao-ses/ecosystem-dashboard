@@ -3,39 +3,47 @@ import { Avatar, Box, Card, CardContent, CardHeader, Divider, Typography } from 
 import styled from '@emotion/styled';
 import { CuTableColumnLinks, LinkModel } from '../cu-table-column-links/cu-table-column-links';
 import { getTwoInitials } from '../../../core/utils/string-utils';
+import { ContributorCommitment } from '../../containers/cu-about/cu-about-contributor';
 import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
 
-export type CardInfoMemberType = {
-  avatar?: string;
-  name: string;
-  username: string;
-  jobTitle: string;
-  commitment: string;
-}
-
 interface Props {
-  info: CardInfoMemberType;
-
+  contributorCommitment: ContributorCommitment;
 }
 
-const CardInfoMember = ({ info }: Props) => {
-  const links: LinkModel[] = [{
-    href: '#',
-    linkType: LinkTypeEnum.Gmail,
-  }, {
-    href: '#',
-    linkType: LinkTypeEnum.Forum
-  },
-  {
-    href: '#',
-    linkType: LinkTypeEnum.Twitter
-  },
-  {
-    href: '#',
-    linkType: LinkTypeEnum.Discord
-  },
-  ];
+export const getLinksFromContributor = (contributor: ContributorCommitment) => {
+  const links: LinkModel[] = [];
+  if (contributor.contributor.length === 0) return links;
+  const cont = contributor.contributor[0];
+  if (cont.email) {
+    links.push({
+      linkType: LinkTypeEnum.Gmail,
+      href: cont.email
+    });
+  }
+  if (cont.forumHandle) {
+    links.push({
+      linkType: LinkTypeEnum.Forum,
+      href: cont.forumHandle
+    });
+  }
+  if (cont.discordHandle) {
+    links.push({
+      linkType: LinkTypeEnum.Discord,
+      href: cont.discordHandle
+    });
+  }
+  if (cont.twitterHandle) {
+    links.push({
+      linkType: LinkTypeEnum.Twitter,
+      href: cont.twitterHandle
+    });
+  }
+  return links;
+};
 
+const CardInfoMember = ({ contributorCommitment }: Props) => {
+  const contributor = contributorCommitment.contributor[0] || [];
+  const links = getLinksFromContributor(contributorCommitment) || [];
   return (
     <Box>
       <Card sx={{
@@ -51,21 +59,18 @@ const CardInfoMember = ({ info }: Props) => {
             paddingTop: '0px',
             paddingBottom: '0px'
           }}
-          avatar={!info.avatar
-            ? <Avatar sx={{
-              bgcolor: 'black',
-              width: 40,
-              height: 40
-            }} style={{ fontSize: '1rem' }}>{getTwoInitials(info.name || 'NM')}</Avatar>
+          avatar={!contributor.facilitatorImage
+            ? <Avatar sx={{ bgcolor: 'black' }} style={{
+              width: '40px',
+              height: '40px',
+              fontSize: '1rem'
+            }}>{getTwoInitials(contributor?.name || 'NM')}</Avatar>
             : <Avatar style={{
               width: '40px',
               height: '40px'
-            }} src={info.avatar} />}
-          title={<Typography fontSize={14} sx={{ color: '#000000' }}>{info.name}</Typography>}
-          subheader={<Typography fontSize={12} sx={{
-            marginLeft: '6px',
-            color: '#000000'
-          }}>{info.username}</Typography>}
+            }} src={contributor.facilitatorImage} />}
+          title={<Typography fontSize={14} >{contributor.name}</Typography>}
+          subheader={<Typography fontSize={12} sx={{ marginLeft: '6px' }}>{`forum: @${contributor.forumHandle}`}</Typography>}
         />
         <CardContent sx={{
           '&:last-child': { pb: '10px' },
@@ -74,11 +79,11 @@ const CardInfoMember = ({ info }: Props) => {
           <CardContentPositionRow>
             <CardContentPositionColumn>
               <Typography color='#C4C4C4' fontSize={12}>Title</Typography>
-              <Typography color=' #000000' fontSize={14}>{info.jobTitle}</Typography>
+              <Typography color=' #000000' fontSize={14}>{contributorCommitment.jobTitle}</Typography>
             </CardContentPositionColumn>
             <CardContentPositionColumn>
               <Typography color='#C4C4C4' fontSize={12} sx={{ paddingRight: '50px' }}>Commitment</Typography>
-              <Typography color=' #000000' fontSize={14}>{info.commitment}</Typography>
+              <Typography color=' #000000' fontSize={14}>{contributorCommitment.commitment}</Typography>
             </CardContentPositionColumn>
           </CardContentPositionRow>
           <Divider light sx={{
@@ -86,7 +91,7 @@ const CardInfoMember = ({ info }: Props) => {
             marginBottom: '11px',
             color: '#C4C4C4'
           }} variant='fullWidth' />
-          <CardLinksFooter><CuTableColumnLinks links={links} width={10} height={10} spacingsRight={22}/></CardLinksFooter>
+          <CardLinksFooter><CuTableColumnLinks links={links} width={10} height={10} spacingsRight={22} /></CardLinksFooter>
         </CardContent>
       </Card>
     </Box>
