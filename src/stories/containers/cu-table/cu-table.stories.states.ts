@@ -6,6 +6,12 @@ import { BudgetStatementBuilder } from '../../../core/business-logic/builders/bu
 import { BudgetStatementWalletBuilder } from '../../../core/business-logic/builders/budget-statement-wallet.builder';
 import { BudgetStatementFteBuilder } from '../../../core/business-logic/builders/budget-statement-fte.builder';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
+import { DateTime } from 'luxon';
+
+const currentMinus1Month = DateTime.now().set({ day: 1 }).minus({ month: 1 }).toFormat('y-MM-dd');
+const currentMinus2Month = DateTime.now().set({ day: 1 }).minus({ month: 2 }).toFormat('y-MM-dd');
+const currentMinus3Month = DateTime.now().set({ day: 1 }).minus({ month: 3 }).toFormat('y-MM-dd');
+const currentPlus1Month = DateTime.now().set({ day: 1 }).plus({ month: 1 }).toFormat('y-MM-dd');
 
 export const initialState = {
   items: [
@@ -17,17 +23,17 @@ export const initialState = {
       .addCategory(CuCategoryEnum.Business)
       .addCuMip(
         (new CuMipBuilder())
-          .withStatus(CuStatusEnum.Accepted, '2022-04-01')
+          .withStatus(CuStatusEnum.Accepted, currentMinus1Month)
           .addMip40(
             (new Mip40Builder())
-              .addPeriodWithLineItems('2022-03-01', '2022-06-01', [1000, 1100, 1000])
+              .addPeriodWithLineItems(currentMinus2Month, currentPlus1Month, [1000, 1100, 1000])
               .build()
           )
           .build()
       )
       .addBudgetStatement(
         (new BudgetStatementBuilder())
-          .withMonth('2022-04-01')
+          .withMonth(currentMinus1Month)
           .addBudgetStatementWallet(
             (new BudgetStatementWalletBuilder())
               .withLineItems([1200, 100, 400])
@@ -35,7 +41,7 @@ export const initialState = {
           )
           .addBudgetStatementFTE(
             (new BudgetStatementFteBuilder())
-              .withMonth('2022-04-01')
+              .withMonth(currentMinus1Month)
               .withFtes(3.5)
               .build()
           )
@@ -43,7 +49,7 @@ export const initialState = {
       )
       .addBudgetStatement(
         (new BudgetStatementBuilder())
-          .withMonth('2022-03-01')
+          .withMonth(currentMinus2Month)
           .addBudgetStatementWallet(
             (new BudgetStatementWalletBuilder())
               .withLineItems([900, 100, 100])
@@ -53,7 +59,7 @@ export const initialState = {
       )
       .addBudgetStatement(
         (new BudgetStatementBuilder())
-          .withMonth('2022-02-01')
+          .withMonth(currentMinus3Month)
           .addBudgetStatementWallet(
             (new BudgetStatementWalletBuilder())
               .withLineItems([200, 300, 100])
@@ -87,17 +93,17 @@ export const initialState = {
       .addCategory(CuCategoryEnum.Business)
       .addCuMip(
         (new CuMipBuilder())
-          .withStatus(CuStatusEnum.Accepted, '2022-04-01')
+          .withStatus(CuStatusEnum.Accepted, currentMinus1Month)
           .addMip40(
             (new Mip40Builder())
-              .addPeriodWithLineItems('2022-03-01', '2022-06-01', [500, 510, 500])
+              .addPeriodWithLineItems(currentMinus2Month, currentPlus1Month, [500, 510, 500])
               .build()
           )
           .build()
       )
       .addBudgetStatement(
         (new BudgetStatementBuilder())
-          .withMonth('2022-04-01')
+          .withMonth(currentMinus1Month)
           .addBudgetStatementWallet(
             (new BudgetStatementWalletBuilder())
               .withLineItems([200, 100, 400])
@@ -105,7 +111,7 @@ export const initialState = {
           )
           .addBudgetStatementFTE(
             (new BudgetStatementFteBuilder())
-              .withMonth('2022-04-01')
+              .withMonth(currentMinus1Month)
               .withFtes(2.5)
               .build()
           )
@@ -113,7 +119,7 @@ export const initialState = {
       )
       .addBudgetStatement(
         (new BudgetStatementBuilder())
-          .withMonth('2022-03-01')
+          .withMonth(currentMinus2Month)
           .addBudgetStatementWallet(
             (new BudgetStatementWalletBuilder())
               .withLineItems([100, 100, 100])
@@ -147,17 +153,17 @@ export const initialState = {
       .addCategory(CuCategoryEnum.Business)
       .addCuMip(
         (new CuMipBuilder())
-          .withStatus(CuStatusEnum.Accepted, '2022-04-01')
+          .withStatus(CuStatusEnum.Accepted, currentMinus1Month)
           .addMip40(
             (new Mip40Builder())
-              .addPeriodWithLineItems('2022-03-01', '2022-06-01', [500, 510, 500])
+              .addPeriodWithLineItems(currentMinus2Month, currentPlus1Month, [500, 510, 500])
               .build()
           )
           .build()
       )
       .addBudgetStatement(
         (new BudgetStatementBuilder())
-          .withMonth('2022-04-01')
+          .withMonth(currentMinus1Month)
           .addBudgetStatementWallet(
             (new BudgetStatementWalletBuilder())
               .withLineItems([200, 100, 400])
@@ -165,7 +171,7 @@ export const initialState = {
           )
           .addBudgetStatementFTE(
             (new BudgetStatementFteBuilder())
-              .withMonth('2022-04-01')
+              .withMonth(currentMinus1Month)
               .withFtes(7.5)
               .build()
           )
@@ -173,7 +179,7 @@ export const initialState = {
       )
       .addBudgetStatement(
         (new BudgetStatementBuilder())
-          .withMonth('2022-02-01')
+          .withMonth(currentMinus3Month)
           .addBudgetStatementWallet(
             (new BudgetStatementWalletBuilder())
               .withLineItems([100, 100, 100])
@@ -201,17 +207,17 @@ export const initialState = {
       .addCategory(CuCategoryEnum.Business)
       .addCuMip(
         (new CuMipBuilder())
-          .withStatus(CuStatusEnum.Accepted, '2022-04-01')
+          .withStatus(CuStatusEnum.Accepted, currentMinus1Month)
           .addMip40(
             (new Mip40Builder())
-              .addPeriodWithLineItems('2022-03-01', '2022-06-01', [500, 510, 500])
+              .addPeriodWithLineItems(currentMinus2Month, currentPlus1Month, [500, 510, 500])
               .build()
           )
           .build()
       )
       .addBudgetStatement(
         (new BudgetStatementBuilder())
-          .withMonth('2022-04-01')
+          .withMonth(currentMinus1Month)
           .addBudgetStatementWallet(
             (new BudgetStatementWalletBuilder())
               .withLineItems([1200, 100, 400])
@@ -219,7 +225,7 @@ export const initialState = {
           )
           .addBudgetStatementFTE(
             (new BudgetStatementFteBuilder())
-              .withMonth('2022-04-01')
+              .withMonth(currentMinus1Month)
               .withFtes(3.5)
               .build()
           )
@@ -254,17 +260,17 @@ export const initialState = {
       .addCategory(CuCategoryEnum.Business)
       .addCuMip(
         (new CuMipBuilder())
-          .withStatus(CuStatusEnum.Accepted, '2022-04-01')
+          .withStatus(CuStatusEnum.Accepted, currentMinus1Month)
           .addMip40(
             (new Mip40Builder())
-              .addPeriodWithLineItems('2022-03-01', '2022-06-01', [500, 510, 500])
+              .addPeriodWithLineItems(currentMinus2Month, currentPlus1Month, [500, 510, 500])
               .build()
           )
           .build()
       )
       .addBudgetStatement(
         (new BudgetStatementBuilder())
-          .withMonth('2022-03-01')
+          .withMonth(currentMinus2Month)
           .addBudgetStatementWallet(
             (new BudgetStatementWalletBuilder())
               .withLineItems([400, 100, 400])
@@ -272,7 +278,7 @@ export const initialState = {
           )
           .addBudgetStatementFTE(
             (new BudgetStatementFteBuilder())
-              .withMonth('2022-04-01')
+              .withMonth(currentMinus1Month)
               .withFtes(10)
               .build()
           )
@@ -301,17 +307,17 @@ export const initialState = {
       .addCategory(CuCategoryEnum.Business)
       .addCuMip(
         (new CuMipBuilder())
-          .withStatus(CuStatusEnum.Accepted, '2022-04-01')
+          .withStatus(CuStatusEnum.Accepted, currentMinus1Month)
           .addMip40(
             (new Mip40Builder())
-              .addPeriodWithLineItems('2022-03-01', '2022-06-01', [500, 510, 500])
+              .addPeriodWithLineItems(currentMinus2Month, currentPlus1Month, [500, 510, 500])
               .build()
           )
           .build()
       )
       .addBudgetStatement(
         (new BudgetStatementBuilder())
-          .withMonth('2022-02-01')
+          .withMonth(currentMinus3Month)
           .addBudgetStatementWallet(
             (new BudgetStatementWalletBuilder())
               .withLineItems([200, 100, 400])
@@ -319,7 +325,7 @@ export const initialState = {
           )
           .addBudgetStatementFTE(
             (new BudgetStatementFteBuilder())
-              .withMonth('2022-04-01')
+              .withMonth(currentMinus1Month)
               .withFtes(4.5)
               .build()
           )
@@ -327,6 +333,24 @@ export const initialState = {
       )
       .addRoadMap({
         ownerCuId: '6',
+      })
+      .addSocialMediaChannel({
+        forumTag: 'some-tag',
+        linkedIn: 'https://linkedin.com',
+        youtube: 'https://youtube.com',
+        twitter: '',
+        discord: '',
+        website: ''
+      })
+      .build(),
+    // -- Core Unit --
+    (new CoreUnitsBuilder())
+      .withId('7')
+      .withName('Core Unit 7')
+      .withCode('CU7')
+      .addCategory(CuCategoryEnum.Business)
+      .addRoadMap({
+        ownerCuId: '7',
       })
       .addSocialMediaChannel({
         forumTag: 'some-tag',

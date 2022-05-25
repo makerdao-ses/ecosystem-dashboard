@@ -1,0 +1,310 @@
+import {
+  countInitiativesFromCoreUnit,
+  getBudgetCapFromCoreUnit,
+  getCuMipStatusModifiedDate, getExpenditureValueFromCoreUnit,
+  getFacilitatorsFromCoreUnit,
+  getFTEsFromCoreUnit, getLast3ExpenditureValuesFromCoreUnit,
+  getLinksFromCoreUnit,
+  getMipFromCoreUnit, getPercentFromCoreUnit,
+  getSubmissionDateFromCuMip
+} from '../core-units';
+import { CuMipBuilder } from '../builders/cu-mip.builder';
+import { CuStatusEnum } from '../../enums/cu-status.enum';
+import { CoreUnitsBuilder } from '../builders/core-units.builder';
+import { DateTime } from 'luxon';
+import { BudgetStatementBuilder } from '../builders/budget-statement.builder';
+import { BudgetStatementFteBuilder } from '../builders/budget-statement-fte.builder';
+import { Mip41Builder } from '../builders/mip-41.builder';
+import { Mip40Builder } from '../builders/mip-40.builder';
+import { BudgetStatementWalletBuilder } from '../builders/budget-statement-wallet.builder';
+
+const currentMonth = DateTime.now().toFormat('y-MM-dd');
+const currentMinus1Month = DateTime.now().set({ day: 1 }).minus({ month: 1 }).toFormat('y-MM-dd');
+const currentMinus2Month = DateTime.now().set({ day: 1 }).minus({ month: 2 }).toFormat('y-MM-dd');
+const currentMinus3Month = DateTime.now().set({ day: 1 }).minus({ month: 3 }).toFormat('y-MM-dd');
+
+test('Get date for status on CuMip', () => {
+  console.log(currentMonth);
+  const mipDao = (new CuMipBuilder()).withStatus(CuStatusEnum.Withdrawn, currentMinus2Month).build();
+  expect(getCuMipStatusModifiedDate(mipDao, CuStatusEnum.Withdrawn)).toBe(currentMinus2Month);
+
+  expect(getCuMipStatusModifiedDate(mipDao, CuStatusEnum.Withdrawn)).not.toEqual(currentMinus1Month);
+
+  expect(getCuMipStatusModifiedDate(mipDao, CuStatusEnum.RFC)).toBe('');
+});
+
+test('Get Mip from Core Unit', () => {
+  const mipDao = (new CuMipBuilder()).build();
+  const coreUnit = (new CoreUnitsBuilder()).addCuMip(mipDao).build();
+
+  expect(getMipFromCoreUnit(coreUnit)).toBe(mipDao);
+  expect(getMipFromCoreUnit(coreUnit)).not.toBeNull();
+});
+
+test('Get Date as Datetime from CuMip', () => {
+  const date = currentMinus2Month;
+  const mipDao = (new CuMipBuilder()).withStatus(CuStatusEnum.Withdrawn, date).build();
+  expect(getCuMipStatusModifiedDate(mipDao, CuStatusEnum.Withdrawn)).toBe(date);
+
+  const expectedDate = DateTime.fromFormat(date, 'yyyy-MM-dd').toJSDate();
+  expect(getSubmissionDateFromCuMip(mipDao)?.toDateString()).toBe(expectedDate.toDateString());
+});
+
+test('Get initiatives from Core Unit', () => {
+  const coreUnit = (new CoreUnitsBuilder())
+    .withId('1')
+    .addRoadMap({
+      ownerCuId: '1'
+    })
+    .addRoadMap({
+      ownerCuId: '1'
+    })
+    .build();
+
+  expect(countInitiativesFromCoreUnit(coreUnit)).toBe(2);
+});
+
+test('Get links from Core Unit', () => {
+  const forumUrl = 'https://some-tag-url';
+  const linkedInUrl = 'https://linkedin.com';
+  const youtubeUrl = 'https://youtube.com';
+  const twitterUrl = 'https://twitter.com';
+
+  const coreUnit = (new CoreUnitsBuilder())
+    .addSocialMediaChannel({
+      forumTag: forumUrl,
+      linkedIn: linkedInUrl,
+      youtube: youtubeUrl,
+      twitter: twitterUrl,
+      discord: '',
+      website: ''
+    })
+    .build();
+
+  const result = getLinksFromCoreUnit(coreUnit);
+  expect(result.length).toEqual(4);
+  expect(result[0].href).toEqual(forumUrl);
+  expect(result[1].href).toEqual(twitterUrl);
+  expect(result[2].href).toEqual(youtubeUrl);
+  expect(result[3].href).toEqual(linkedInUrl);
+});
+
+test('Get FTEs from Core Unit', () => {
+  const coreUnit = (new CoreUnitsBuilder())
+    .addBudgetStatement((new BudgetStatementBuilder())
+      .addBudgetStatementFTE(new BudgetStatementFteBuilder()
+        .withFtes(4.5).build()
+      ).build()
+    ).build();
+
+  expect(getFTEsFromCoreUnit(coreUnit)).toBe(4.5);
+});
+
+test('Get Facilitator from Core Unit', () => {
+  const coreUnit = (new CoreUnitsBuilder())
+    .addCuMip(
+      (new CuMipBuilder())
+        .addMip41((new Mip41Builder()
+          .withFacilitatorName('Facilitator')
+          .build()))
+        .build()
+    )
+    .build();
+
+  const result = getFacilitatorsFromCoreUnit(coreUnit);
+  expect(result.length).toEqual(1);
+  expect(result[0].name).toBe('Facilitator');
+});
+
+test('Get Budget Cap for Core Unit', () => {
+  let coreUnit = (new CoreUnitsBuilder())
+    .addCuMip((new CuMipBuilder())
+      .addMip40((new Mip40Builder())
+        .addPeriodWithLineItems(currentMinus3Month, currentMonth, [500, 300, 100])
+        .build())
+      .build())
+    .build();
+
+  expect(getBudgetCapFromCoreUnit(coreUnit)).toBe(900);
+
+  coreUnit = (new CoreUnitsBuilder())
+    .addCuMip((new CuMipBuilder())
+      .addMip40((new Mip40Builder())
+        .addPeriodWithLineItems(currentMinus3Month, currentMonth, [100, 100, 100])
+        .build())
+      .build())
+    .build();
+
+  expect(getBudgetCapFromCoreUnit(coreUnit)).toBe(300);
+
+  coreUnit = (new CoreUnitsBuilder())
+    .addCuMip((new CuMipBuilder())
+      .addMip40((new Mip40Builder())
+        .addPeriodWithLineItems(currentMinus3Month, currentMinus2Month, [100, 200, 100])
+        .addPeriodWithLineItems(currentMinus2Month, currentMinus1Month, [200])
+        .addPeriodWithLineItems(currentMinus1Month, currentMonth, [600])
+        .build())
+      .build())
+    .build();
+
+  expect(getBudgetCapFromCoreUnit(coreUnit)).toBe(400);
+});
+
+test('Get expenditure value from Core Unit', () => {
+  let coreUnit = (new CoreUnitsBuilder())
+    .addBudgetStatement((new BudgetStatementBuilder())
+      .withMonth(currentMinus1Month)
+      .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
+        .withLineItems([500, 300, 100])
+        .build())
+      .build())
+    .addBudgetStatement((new BudgetStatementBuilder())
+      .withMonth(currentMinus2Month)
+      .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
+        .withLineItems([100, 100, 100])
+        .build())
+      .build())
+    .build();
+
+  expect(getExpenditureValueFromCoreUnit(coreUnit)).toBe(1200);
+
+  coreUnit = (new CoreUnitsBuilder())
+    .addBudgetStatement((new BudgetStatementBuilder())
+      .withMonth('2022-01-01')
+      .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
+        .withLineItems([500, 300, 100])
+        .build())
+      .build())
+    .addBudgetStatement((new BudgetStatementBuilder())
+      .withMonth('2022-11-01')
+      .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
+        .withLineItems([100, 100, 100])
+        .build())
+      .build())
+    .build();
+
+  expect(getExpenditureValueFromCoreUnit(coreUnit)).toBe(0);
+});
+
+test('Get percent from Core Unit', () => {
+  let coreUnit = (new CoreUnitsBuilder())
+    .addBudgetStatement((new BudgetStatementBuilder())
+      .withMonth(currentMinus3Month)
+      .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
+        .withLineItems([500, 300, 100])
+        .build())
+      .build())
+    .addBudgetStatement((new BudgetStatementBuilder())
+      .withMonth(currentMinus2Month)
+      .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
+        .withLineItems([900])
+        .build())
+      .build())
+    .addBudgetStatement((new BudgetStatementBuilder())
+      .withMonth(currentMinus1Month)
+      .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
+        .withLineItems([300, 600])
+        .build())
+      .build())
+    .addCuMip((new CuMipBuilder())
+      .addMip40((new Mip40Builder())
+        .addPeriodWithLineItems(currentMinus3Month, currentMonth, [500, 300, 100])
+        .build())
+      .build())
+    .build();
+
+  expect(getPercentFromCoreUnit(coreUnit)).toBe(100);
+
+  coreUnit = (new CoreUnitsBuilder())
+    .addBudgetStatement((new BudgetStatementBuilder())
+      .withMonth(currentMinus3Month)
+      .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
+        .withLineItems([300, 100, 50])
+        .build())
+      .build())
+    .addBudgetStatement((new BudgetStatementBuilder())
+      .withMonth(currentMinus2Month)
+      .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
+        .withLineItems([450])
+        .build())
+      .build())
+    .addBudgetStatement((new BudgetStatementBuilder())
+      .withMonth(currentMinus1Month)
+      .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
+        .withLineItems([300, 150])
+        .build())
+      .build())
+    .addCuMip((new CuMipBuilder())
+      .addMip40((new Mip40Builder())
+        .addPeriodWithLineItems(currentMinus3Month, currentMonth, [500, 300, 100])
+        .build())
+      .build())
+    .build();
+
+  expect(getPercentFromCoreUnit(coreUnit)).toBe(50);
+});
+
+test('Get last 3 expenditure values from Core Unit', () => {
+  let coreUnit = (new CoreUnitsBuilder())
+    .addBudgetStatement((new BudgetStatementBuilder())
+      .withMonth(currentMinus3Month)
+      .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
+        .withLineItems([500, 300, 100])
+        .build())
+      .build())
+    .addBudgetStatement((new BudgetStatementBuilder())
+      .withMonth(currentMinus2Month)
+      .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
+        .withLineItems([800])
+        .build())
+      .build())
+    .addBudgetStatement((new BudgetStatementBuilder())
+      .withMonth(currentMinus1Month)
+      .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
+        .withLineItems([100, 600])
+        .build())
+      .build())
+    .build();
+
+  let result = getLast3ExpenditureValuesFromCoreUnit(coreUnit);
+  expect(result.length).toBe(3);
+  expect(result[0].value).toBe(900);
+  expect(result[1].value).toBe(800);
+  expect(result[2].value).toBe(700);
+
+  coreUnit = (new CoreUnitsBuilder())
+    .addBudgetStatement((new BudgetStatementBuilder())
+      .withMonth(currentMinus3Month)
+      .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
+        .withLineItems([500, 300, 100])
+        .build())
+      .build())
+    .addBudgetStatement((new BudgetStatementBuilder())
+      .withMonth(currentMinus1Month)
+      .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
+        .withLineItems([100, 600])
+        .build())
+      .build())
+    .build();
+
+  result = getLast3ExpenditureValuesFromCoreUnit(coreUnit);
+  expect(result.length).toBe(3);
+  expect(result[0].value).toBe(900);
+  expect(result[1].value).toBe(0);
+  expect(result[2].value).toBe(700);
+
+  coreUnit = (new CoreUnitsBuilder())
+    .addBudgetStatement((new BudgetStatementBuilder())
+      .withMonth(currentMinus3Month)
+      .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
+        .withLineItems([500])
+        .build())
+      .build())
+    .build();
+
+  result = getLast3ExpenditureValuesFromCoreUnit(coreUnit);
+  expect(result.length).toBe(3);
+  expect(result[0].value).toBe(500);
+  expect(result[1].value).toBe(0);
+  expect(result[2].value).toBe(0);
+});

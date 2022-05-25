@@ -19,4 +19,8 @@ export class Mip41Builder {
     this._mip41.contributorId = contributorId;
     return this;
   }
+
+  public build(): Mip41Dao {
+    return this._mip41;
+  }
 }

@@ -167,7 +167,7 @@ const sumAllLineItemsFromBudgetStatement = (budgetStatement: BudgetStatementDao)
 
 export const getExpenditureValueFromCoreUnit = (cu: CoreUnitDao) => {
   let result = 0;
-  if (cu.cuMip.length === 0) return result;
+  if (cu.budgetStatements.length === 0) return result;
 
   let dateToCheck = DateTime.now();
   for (let i = 0; i < 3; i++) {
@@ -193,7 +193,7 @@ export const getPercentFromCoreUnit = (cu: CoreUnitDao) => {
 
 export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDao) => {
   const result = [] as CustomChartItem[];
-  if (cu.cuMip.length === 0) return result;
+  if (cu.budgetStatements.length === 0) return result;
 
   let dateToCheck = DateTime.now();
   for (let i = 0; i < 3; i++) {
