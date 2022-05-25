@@ -11,6 +11,7 @@ export default {
 
 const Template: ComponentStory<typeof TitleNavigationCuAbout> = (args) => <TitleNavigationCuAbout {...args} />;
 export const Default = Template.bind({});
+export const DataWith = Template.bind({});
 Default.args = {
   coreUnitAbout: {
     id: '1',
@@ -30,13 +31,46 @@ Default.args = {
     cuMip: [
       {
         mipCode: 'MIP-1',
-        accepted: new Date(),
-        rejected: new Date(),
-        formalSubmission: new Date(),
-        rfc: new Date(),
-        obsolete: new Date(),
+        accepted: '2019-06-11',
+        rejected: '2019-06-11',
+        formalSubmission: '2019-06-11',
+        rfc: '2019-06-11',
+        obsolete: '2019-06-11',
         mipUrl: 'https://makerdao.com/',
         mipStatus: CuStatusEnum.Accepted,
+      }
+    ] as CuMip[],
+    budgetStatements: [],
+    contributorCommitment: [],
+  } as CuAbout
+};
+
+DataWith.args = {
+  coreUnitAbout: {
+    id: '1',
+    code: 'SES-001',
+    category: [],
+    name: 'Sustainable Ecosystem Scaling',
+    sentenceDescription: '',
+    paragraphDescription: '',
+    paragraphImage: '',
+    socialMediaChannels: [{
+      discord: 'https://discord.gg/h7GKvqDyDP',
+      forumTag: 'ses-001',
+      linkedIn: 'https://www.linkedin.com/company/makerdao-ses/',
+      twitter: '',
+      youtube: 'https://www.youtube.com/channel/UC9c35O2H6fq8fB2CGzzP1bw/about',
+    }] as SocialMediaChannels[],
+    cuMip: [
+      {
+        mipCode: 'MIP-1',
+        accepted: '2021-06-11',
+        rejected: '2021-06-11',
+        formalSubmission: '2019-06-11',
+        rfc: '2021-06-11',
+        obsolete: '2022-06-11',
+        mipUrl: 'https://makerdao.com/',
+        mipStatus: CuStatusEnum.Obsolete,
       }
     ] as CuMip[],
     budgetStatements: [],
