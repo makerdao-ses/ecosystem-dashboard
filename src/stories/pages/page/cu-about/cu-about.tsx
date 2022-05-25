@@ -32,11 +32,41 @@ const CuAbout = () => {
 
   const src = 'https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/53/92/77/53927729-28a4-b94a-40d9-9abbc9583078/source/512x512bb.jpg';
   const numbersMembers: CardInfoMemberType[] = [
-    { avatar: src, name: 'John Doe', username: 'forum @username', jobTitle: 'Research Expert', commitment: 'Full Time' },
-    { avatar: src, name: 'John Doe', username: 'forum @username', jobTitle: 'Research Expert', commitment: 'Full Time' },
-    { avatar: src, name: 'John Doe', username: 'forum @username', jobTitle: 'Research Expert', commitment: 'Full Time' },
-    { avatar: src, name: 'John Doe', username: 'forum @username', jobTitle: 'Research Expert', commitment: 'Full Time' },
-    { avatar: '', name: 'John Doe', username: 'forum @username', jobTitle: 'Research Expert', commitment: 'Full Time' },
+    {
+      avatar: src,
+      name: 'John Doe',
+      username: 'forum @username',
+      jobTitle: 'Research Expert',
+      commitment: 'Full Time'
+    },
+    {
+      avatar: src,
+      name: 'John Doe',
+      username: 'forum @username',
+      jobTitle: 'Research Expert',
+      commitment: 'Full Time'
+    },
+    {
+      avatar: src,
+      name: 'John Doe',
+      username: 'forum @username',
+      jobTitle: 'Research Expert',
+      commitment: 'Full Time'
+    },
+    {
+      avatar: src,
+      name: 'John Doe',
+      username: 'forum @username',
+      jobTitle: 'Research Expert',
+      commitment: 'Full Time'
+    },
+    {
+      avatar: '',
+      name: 'John Doe',
+      username: 'forum @username',
+      jobTitle: 'Research Expert',
+      commitment: 'Full Time'
+    },
   ];
 
   const links: LinkModel[] = [
@@ -144,7 +174,12 @@ const CuAbout = () => {
             })}
           </ContainerCards>
         </ContactInfoContainer>
-        <Divider light sx={{ marginBottom: '32px', color: '#D8E0E3', marginLeft: '32px', marginRight: '32px' }} variant='fullWidth' />
+        <Divider light sx={{
+          marginBottom: '32px',
+          color: '#D8E0E3',
+          marginLeft: '32px',
+          marginRight: '32px'
+        }} variant='fullWidth' />
         <CardRelateMipsContainer>
           <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
           <RelateMipCards>

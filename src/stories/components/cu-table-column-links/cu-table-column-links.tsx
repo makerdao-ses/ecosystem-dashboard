@@ -74,4 +74,7 @@ const LinkImage = styled.a({
   alignItems: 'center',
   justifyContent: 'center',
 },
-({ width = 32, height = 32 }: StickyLinkProps) => ({ width, height }));
+({ width = 32, height = 32 }: StickyLinkProps) => ({
+  width,
+  height
+}));

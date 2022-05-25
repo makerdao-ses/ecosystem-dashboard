@@ -35,8 +35,13 @@ export const Sidebar = (props: SidebarProps) => {
         pr: 2,
       }}
     >
-      <Logo style={{ marginLeft: '8px' }} />
-      <Typography sx={{ flexGrow: 1, ml: 2 }} />
+      <Logo style={{
+        marginLeft: '8px',
+      }} />
+      <Typography sx={{
+        flexGrow: 1,
+        ml: 2
+      }} />
       <IconButton onClick={props.toggleDrawer}>
         <Toggle fill={'white'} />
       </IconButton>

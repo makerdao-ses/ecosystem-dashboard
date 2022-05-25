@@ -19,7 +19,14 @@ export const TitleNavigationCuAbout = ({ title, status, statusModified, links = 
     <Container>
       <ContainerTitle>
         <TypographySES>SES</TypographySES>
-        <div style={{ width: '4px', height: '4px', backgroundColor: '#D8E0E3', display: 'flex', marginRight: '8px', marginLeft: '8px' }} />
+        <div style={{
+          width: '4px',
+          height: '4px',
+          backgroundColor: '#D8E0E3',
+          display: 'flex',
+          marginRight: '8px',
+          marginLeft: '8px'
+        }} />
         <TypographyTitle>{title}</TypographyTitle>
 
         <Row>

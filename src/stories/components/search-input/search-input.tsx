@@ -25,13 +25,21 @@ export const SearchInput = (props: SearchInputProps) => {
   const [active, setActive] = useState(false);
 
   return <FormControl
-    sx={{ m: '10px 8px', width: '300px', background: 'white' }}
+    sx={{
+      m: '10px 8px',
+      width: '300px',
+      background: 'white'
+    }}
     variant="outlined"
     onFocus={() => setActive(true)}
     onBlur={() => setActive(false)}
   >
     <InputLabel
-      sx={{ fontSize: '14px', lineHeight: '16px', top: '-2px' }}
+      sx={{
+        fontSize: '14px',
+        lineHeight: '16px',
+        top: '-2px'
+      }}
       htmlFor="outlined-adornment-password">
       {active || value ? props.label : props.placeholder}
     </InputLabel>
