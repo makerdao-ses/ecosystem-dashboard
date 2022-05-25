@@ -105,6 +105,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
   if (!coreUnitAbout || !coreUnitAbout.cuMip) return null;
   const mips = getMipsStatus(coreUnitAbout.cuMip[0] || '');
   const mipStatus = coreUnitAbout.cuMip[0] && coreUnitAbout.cuMip[0].mipStatus;
+  const newDate = DateTime.fromFormat(mips?.toString() || '', 'yyyy-MM-dd').toJSDate();
   return (
     <Container>
       <ContainerTitle>
@@ -127,7 +128,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
             <SinceDate
               href={'#'}
             >
-              Since {DateTime.fromJSDate(new Date(mips || '')).toFormat('d-MMM-y')}
+              Since {DateTime.fromJSDate(newDate).toFormat('d-MMM-y')}
             </SinceDate>
           </CustomPopover>}
         </Row>

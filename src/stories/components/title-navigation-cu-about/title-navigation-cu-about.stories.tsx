@@ -30,12 +30,13 @@ Default.args = {
     cuMip: [
       {
         mipCode: 'MIP-1',
-        accepted: '2020-01-01',
-        rejected: '2020-01-01',
-        rfc: '2020-01-01',
-        obsolete: '2020-01-01',
+        accepted: new Date(),
+        rejected: new Date(),
+        formalSubmission: new Date(),
+        rfc: new Date(),
+        obsolete: new Date(),
         mipUrl: 'https://makerdao.com/',
-        mipStatus: CuStatusEnum.Obsolete,
+        mipStatus: CuStatusEnum.Accepted,
       }
     ] as CuMip[],
     budgetStatements: [],

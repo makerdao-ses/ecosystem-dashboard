@@ -19,11 +19,11 @@ export interface CuMip {
   mipTitle: string;
   mipCode: string;
   cuId: string;
-  rfc?: string ;
-  formalSubmission: string;
-  accepted: string ;
-  rejected: string ;
-  obsolete: string ;
+  rfc?: Date | null;
+  formalSubmission?: Date | null;
+  accepted?: Date | null;
+  rejected?: Date | null;
+  obsolete?: Date | null;
   mipStatus: CuStatusEnum;
   mipUrl?: string;
 }

@@ -36,6 +36,7 @@ const RelateMips = ({ relateMips }: Props) => {
         return relateMips.rejected;
     }
   };
+  const newDate = DateTime.fromFormat(getMipsStatus(relateMips || new Date())?.toString() || '', 'yyyy-MM-dd').toJSDate();
   return (
     <Content>
       <Row>
@@ -47,7 +48,7 @@ const RelateMips = ({ relateMips }: Props) => {
           <SinceDate
             href={relateMips.mipUrl}
           >
-            Since {DateTime.fromJSDate(new Date(getMipsStatus(relateMips) || '')).toFormat('d-MMM-y')}
+            Since {DateTime.fromJSDate(new Date(newDate)).toFormat('d-MMM-y')}
           </SinceDate>
         </CustomPopover>}
       </Row>
