@@ -144,13 +144,18 @@ export const getBudgetCapFromCoreUnit = (cu: CoreUnitDao) => {
   if (cu.cuMip.length === 0) return result;
 
   let dateToCheck = DateTime.now();
+  let divisor = 0;
   for (let i = 0; i < 3; i++) {
     dateToCheck = dateToCheck.minus({ months: 1 });
-    result += cu.cuMip[cu.cuMip.length - 1]?.mip40.reduce((p, c) => getBudgetCapForMip40onMonth(c, dateToCheck) + p, 0);
+    result += cu.cuMip[cu.cuMip.length - 1]?.mip40.reduce((p, c) => {
+      const value = getBudgetCapForMip40onMonth(c, dateToCheck);
+      if (value > 0) divisor += 1;
+      return value + p;
+    }, 0);
   }
 
-  // The result should be an average of the 3 months because they could be in different periods
-  return result / 3;
+  if (divisor === 0) return 0;
+  return result / divisor;
 };
 
 const sumAllLineItemsFromBudgetStatement = (budgetStatement: BudgetStatementDao) => {
@@ -181,9 +186,25 @@ export const getExpenditureValueFromCoreUnit = (cu: CoreUnitDao) => {
   return result;
 };
 
+export const getExpenditureAmountFromCoreUnit = (cu: CoreUnitDao) => {
+  let result = 0;
+  if (cu.budgetStatements.length === 0) return result;
+
+  let dateToCheck = DateTime.now();
+  for (let i = 0; i < 3; i++) {
+    dateToCheck = dateToCheck.minus({ months: 1 });
+    const temp = cu.budgetStatements.find(bs => bs.month.indexOf(dateToCheck.toFormat('y-MM')) > -1);
+    if (temp) {
+      result += 1;
+    }
+  }
+
+  return result;
+};
+
 export const getPercentFromCoreUnit = (cu: CoreUnitDao) => {
   const value = getExpenditureValueFromCoreUnit(cu);
-  const budgetCap = getBudgetCapFromCoreUnit(cu) * 3;
+  const budgetCap = getBudgetCapFromCoreUnit(cu) * getExpenditureAmountFromCoreUnit(cu);
 
   if (value === 0) return 0;
   if (budgetCap === 0) return null;
