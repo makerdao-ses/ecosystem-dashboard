@@ -116,7 +116,6 @@ export const GET_CU_ABOUT_BY_CODE = gql`
       }
       contributorCommitment {
         jobTitle
-        startDate
         commitment
         contributor {
           name
