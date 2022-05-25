@@ -20,7 +20,9 @@ export const CustomTable = ({ headersSort = [], ...props }: CustomTableProps) =>
   return (
     <TableContainer sx={{
       border: '1px solid #C4C4C4',
-      background: 'white'
+      background: 'white',
+      maxHeight: 'calc(100vh - 240px)',
+      overflowY: 'scroll'
     }}>
       <Table>
         <TableHead>
