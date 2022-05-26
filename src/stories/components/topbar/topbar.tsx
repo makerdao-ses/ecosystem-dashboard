@@ -69,7 +69,7 @@ const TopBar = (props: TopBarProps) => {
       >
       </Typography>
       <IconButton color="inherit" sx={{ marginRight: '24px' }}>
-        <FeedBack width={22} height={22} />
+        <FeedBack width={22} height={22} fill='#898989' />
       </IconButton>
       <IconButton color="inherit" sx={{ marginRight: '24px' }}>
         <Language width={26.7} height={26.7} />
