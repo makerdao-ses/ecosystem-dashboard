@@ -3,11 +3,12 @@ interface Props {
     width?: number;
     height?: number;
     href?: string;
+    target?: string;
 }
 
-const ArrowLink = ({ width = 16, height = 16, href, ...props }: Props) => {
+const ArrowLink = ({ width = 16, height = 16, href, target, ...props }: Props) => {
   return (
-        <a href={href}>
+        <a href={href} target={target}>
             <svg
                 width={width}
                 height={height}

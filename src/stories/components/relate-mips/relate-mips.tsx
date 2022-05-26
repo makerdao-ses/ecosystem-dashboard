@@ -54,7 +54,7 @@ const RelateMips = ({ relateMips }: Props) => {
       </Row>
       <RowUnderLine>
      <Typography color='#000000' fontSize={12} fontWeight={600} sx={{ marginRight: '8px' }}>{relateMips.mipTitle} </Typography>
-        {!!relateMips.mipUrl && <ArrowLink href={`${relateMips.mipUrl}` || '#'} />}
+        {!!relateMips.mipUrl && <ArrowLink href={`${relateMips.mipUrl}` || '#'} target="_blank"/>}
       </RowUnderLine>
     </Content>
   );
