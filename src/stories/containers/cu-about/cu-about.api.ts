@@ -1,5 +1,5 @@
 import { request, gql } from 'graphql-request';
-import { GRAPHQL_ENDPOINT } from '../../../config/endpoint';
+import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
