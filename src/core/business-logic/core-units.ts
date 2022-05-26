@@ -5,6 +5,7 @@ import { FacilitatorModel } from '../../stories/components/cu-table-column-team-
 import { BudgetStatementDao, CoreUnitDao, CuMipDao, Mip40Dao } from '../../stories/containers/cu-table/cu-table.api';
 import { CustomChartItem } from '../../stories/components/custom-bar-chart/custom-bar-chart';
 import { CuStatusEnum } from '../enums/cu-status.enum';
+import { RoadmapStatusEnum } from '../enums/roadmap-status.enum';
 
 export const setCuMipStatusModifiedDate = (mip: CuMipDao, status: CuStatusEnum, date: string) => {
   let index = status.toLowerCase();
@@ -49,7 +50,7 @@ export const countInitiativesFromCoreUnit = (cu: CoreUnitDao) => {
   if (cu.roadMap.length === 0) return 0;
 
   return cu.roadMap.reduce((pv, cv) => {
-    return pv + (cv.ownerCuId === cu.id ? 1 : 0);
+    return pv + (cv.ownerCuId === cu.id && cv.roadmapStatus === RoadmapStatusEnum.InProgress ? 1 : 0);
   }, 0);
 };
 

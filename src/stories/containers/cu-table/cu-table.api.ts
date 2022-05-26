@@ -33,6 +33,7 @@ export const GETCoreUnits = gql`
         }
         roadMap {
           ownerCuId
+          roadmapStatus
         }
         socialMediaChannels {
           forumTag
@@ -129,6 +130,7 @@ export interface SocialMediaChannelDAO {
 
 export interface RoadMapDao {
   ownerCuId: string
+  roadmapStatus: string,
 }
 
 export interface CoreUnitDao {

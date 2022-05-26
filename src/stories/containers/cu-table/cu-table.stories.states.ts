@@ -12,6 +12,8 @@ import {
   CURRENT_MINUS_3_MONTH,
   CURRENT_PLUS_1_MONTH
 } from '../../../core/utils/test.utils';
+import { RoadmapBuilder } from '../../../core/business-logic/builders/roadmap.builder';
+import { RoadmapStatusEnum } from '../../../core/enums/roadmap-status.enum';
 
 export const initialState = {
   items: [
@@ -67,15 +69,24 @@ export const initialState = {
           )
           .build()
       )
-      .addRoadMap({
-        ownerCuId: '1',
-      })
-      .addRoadMap({
-        ownerCuId: '1',
-      })
-      .addRoadMap({
-        ownerCuId: '',
-      })
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('1')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('1')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('1')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
       .addSocialMediaChannel({
         forumTag: 'some-tag',
         linkedIn: 'https://linkedin.com',
@@ -127,15 +138,24 @@ export const initialState = {
           )
           .build()
       )
-      .addRoadMap({
-        ownerCuId: '2',
-      })
-      .addRoadMap({
-        ownerCuId: '2',
-      })
-      .addRoadMap({
-        ownerCuId: '2',
-      })
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('2')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('2')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('2')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
       .addSocialMediaChannel({
         forumTag: 'some-tag',
         linkedIn: '',
@@ -187,9 +207,12 @@ export const initialState = {
           )
           .build()
       )
-      .addRoadMap({
-        ownerCuId: '3',
-      })
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('3')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
       .addSocialMediaChannel({
         forumTag: 'some-tag',
         linkedIn: 'https://linkedin.com',
@@ -231,18 +254,30 @@ export const initialState = {
           )
           .build()
       )
-      .addRoadMap({
-        ownerCuId: '4',
-      })
-      .addRoadMap({
-        ownerCuId: '4',
-      })
-      .addRoadMap({
-        ownerCuId: '4',
-      })
-      .addRoadMap({
-        ownerCuId: '4',
-      })
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('4')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('4')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('4')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('4')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
       .addSocialMediaChannel({
         forumTag: 'some-tag',
         linkedIn: 'https://linkedin.com',
@@ -284,12 +319,18 @@ export const initialState = {
           )
           .build()
       )
-      .addRoadMap({
-        ownerCuId: '5',
-      })
-      .addRoadMap({
-        ownerCuId: '5',
-      })
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('5')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('5')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
       .addSocialMediaChannel({
         forumTag: '',
         linkedIn: 'https://linkedin.com',
@@ -331,9 +372,12 @@ export const initialState = {
           )
           .build()
       )
-      .addRoadMap({
-        ownerCuId: '6',
-      })
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('6')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
       .addSocialMediaChannel({
         forumTag: 'some-tag',
         linkedIn: 'https://linkedin.com',
@@ -349,9 +393,12 @@ export const initialState = {
       .withName('Core Unit 7')
       .withCode('CU7')
       .addCategory(CuCategoryEnum.Business)
-      .addRoadMap({
-        ownerCuId: '7',
-      })
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('7')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
       .addSocialMediaChannel({
         forumTag: 'some-tag',
         linkedIn: 'https://linkedin.com',

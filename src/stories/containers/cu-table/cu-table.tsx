@@ -142,7 +142,6 @@ export const CuTable = () => {
           imageUrl={coreUnit.image}
           mipUrl={getMipUrlFromCoreUnit(coreUnit)}
           onClick={onClickRow(coreUnit.code)}
-
         />,
         <CuTableColumnInitiatives
           key={`initiatives-${i}`}

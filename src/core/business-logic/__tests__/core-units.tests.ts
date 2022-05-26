@@ -1,11 +1,14 @@
 import {
   countInitiativesFromCoreUnit,
   getBudgetCapFromCoreUnit,
-  getCuMipStatusModifiedDate, getExpenditureValueFromCoreUnit,
+  getCuMipStatusModifiedDate,
+  getExpenditureValueFromCoreUnit,
   getFacilitatorsFromCoreUnit,
-  getFTEsFromCoreUnit, getLast3ExpenditureValuesFromCoreUnit,
+  getFTEsFromCoreUnit,
+  getLast3ExpenditureValuesFromCoreUnit,
   getLinksFromCoreUnit,
-  getMipFromCoreUnit, getPercentFromCoreUnit,
+  getMipFromCoreUnit,
+  getPercentFromCoreUnit,
   getSubmissionDateFromCuMip
 } from '../core-units';
 import { CuMipBuilder } from '../builders/cu-mip.builder';
@@ -23,6 +26,8 @@ import {
   CURRENT_MINUS_2_MONTH,
   CURRENT_MINUS_3_MONTH
 } from '../../utils/test.utils';
+import { RoadmapBuilder } from '../builders/roadmap.builder';
+import { RoadmapStatusEnum } from '../../enums/roadmap-status.enum';
 
 test('Get date for status on CuMip', () => {
   const mipDao = (new CuMipBuilder()).withStatus(CuStatusEnum.Withdrawn, CURRENT_MINUS_2_MONTH).build();
@@ -53,12 +58,18 @@ test('Get Date as Datetime from CuMip', () => {
 test('Get initiatives from Core Unit', () => {
   const coreUnit = (new CoreUnitsBuilder())
     .withId('1')
-    .addRoadMap({
-      ownerCuId: '1'
-    })
-    .addRoadMap({
-      ownerCuId: '1'
-    })
+    .addRoadMap(
+      (new RoadmapBuilder())
+        .withOwnerCuId('1')
+        .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+        .build()
+    )
+    .addRoadMap(
+      (new RoadmapBuilder())
+        .withOwnerCuId('1')
+        .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+        .build()
+    )
     .build();
 
   expect(countInitiativesFromCoreUnit(coreUnit)).toBe(2);
