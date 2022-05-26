@@ -3,7 +3,6 @@ import RelateMips from './relate-mips';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { CuMip } from '../../containers/cu-about/cu-about.api';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
-import { DateTime } from 'luxon';
 
 export default {
   title: 'Components/CUAbout/RelateMips',
