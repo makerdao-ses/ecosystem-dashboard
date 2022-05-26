@@ -1,5 +1,5 @@
 import { request, gql } from 'graphql-request';
-import { GraphQlEndpoint } from '../../../config/endpoint';
+import { GRAPHQL_ENDPOINT } from '../../../config/endpoint';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
@@ -186,7 +186,7 @@ export const getFTEsFromCoreUnitAbout = (cu: CuAbout) => {
 };
 
 export const fetchCoreUnitByCode = async(code: string) => {
-  const res = (await request(GraphQlEndpoint, GET_CU_ABOUT_BY_CODE, {
+  const res = (await request(GRAPHQL_ENDPOINT, GET_CU_ABOUT_BY_CODE, {
     filter: {
       code,
     },

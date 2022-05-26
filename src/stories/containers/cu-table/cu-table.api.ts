@@ -1,5 +1,5 @@
 import { gql, request } from 'graphql-request';
-import { GraphQLEndpoint } from '../../../config/endpoints';
+import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
 
 export const GETCoreUnits = gql`
     query CoreUnits {
@@ -10,8 +10,9 @@ export const GETCoreUnits = gql`
         image
         category
         cuMip {
-          formalSubmission
           mipStatus
+          mipUrl
+          formalSubmission
           accepted
           rfc
           rejected
@@ -32,6 +33,7 @@ export const GETCoreUnits = gql`
         }
         roadMap {
           ownerCuId
+          roadmapStatus
         }
         socialMediaChannels {
           forumTag
@@ -87,6 +89,7 @@ export interface Mip41Dao {
 
 export interface CuMipDao {
   mipStatus: string,
+  mipUrl: string,
   accepted: string,
   formalSubmission: string,
   rfc: string,
@@ -127,6 +130,7 @@ export interface SocialMediaChannelDAO {
 
 export interface RoadMapDao {
   ownerCuId: string
+  roadmapStatus: string,
 }
 
 export interface CoreUnitDao {
@@ -142,7 +146,7 @@ export interface CoreUnitDao {
 }
 
 export const fetchCoreUnits = async() => {
-  const result = await request(GraphQLEndpoint, GETCoreUnits);
+  const result = await request(GRAPHQL_ENDPOINT, GETCoreUnits);
   return result.coreUnits;
 };
 
@@ -150,7 +154,7 @@ export const fetchFacilitatorImage = async(id: string) => {
   if (!id) return null;
 
   try {
-    const result = await request(GraphQLEndpoint, GetFacilitatorImageGQL, {
+    const result = await request(GRAPHQL_ENDPOINT, GetFacilitatorImageGQL, {
       filter: {
         id
       }

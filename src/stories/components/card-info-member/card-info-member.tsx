@@ -2,7 +2,7 @@ import React from 'react';
 import { Avatar, Box, Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
 import styled from '@emotion/styled';
 import { CuTableColumnLinks, LinkModel } from '../cu-table-column-links/cu-table-column-links';
-import { getTwoInitials } from '../../../core/utils/string-utils';
+import { getTwoInitials } from '../../../core/utils/string.utils';
 import { ContributorCommitment } from '../../containers/cu-about/cu-about-contributor';
 import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
 

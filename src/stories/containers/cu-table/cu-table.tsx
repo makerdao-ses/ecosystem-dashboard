@@ -11,6 +11,7 @@ import {
   getLast3ExpenditureValuesFromCoreUnit,
   getLinksFromCoreUnit,
   getMipFromCoreUnit,
+  getMipUrlFromCoreUnit,
   getPercentFromCoreUnit,
   getSubmissionDateFromCuMip
 } from '../../../core/business-logic/core-units';
@@ -37,12 +38,12 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../core/store/store';
 import { CoreUnitDao } from './cu-table.api';
 import { SortEnum } from '../../../core/enums/sort.enum';
-import { sortAlphaNum } from '../../../core/utils/sort-utils';
+import { sortAlphaNum } from '../../../core/utils/sort.utils';
 
 const statuses = Object.values(CuStatusEnum) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];
 const headers = ['Core Units', 'Initiatives', 'Expenditure', 'Team Members', 'Links'];
-const sortInitialState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled, SortEnum.Disabled];
+const sortInitialState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled];
 
 export const CuTable = () => {
   const [filters] = useSearchParams();
@@ -89,9 +90,10 @@ export const CuTable = () => {
     const nameSort = (a: CoreUnitDao, b: CoreUnitDao) => sortAlphaNum(a.name, b.name) * multiplier;
     const initiativesSort = (a: CoreUnitDao, b: CoreUnitDao) => (countInitiativesFromCoreUnit(a) - countInitiativesFromCoreUnit(b)) * multiplier;
     const expendituresSort = (a: CoreUnitDao, b: CoreUnitDao) => (getExpenditureValueFromCoreUnit(a) - getExpenditureValueFromCoreUnit(b)) * multiplier;
+    const teamMembersSort = (a: CoreUnitDao, b: CoreUnitDao) => (getFTEsFromCoreUnit(a) - getFTEsFromCoreUnit(b)) * multiplier;
 
-    const sortAlg = [nameSort, initiativesSort, expendituresSort];
-    items.sort(sortAlg[sortColumn]);
+    const sortAlg = [nameSort, initiativesSort, expendituresSort, teamMembersSort];
+    return [...items].sort(sortAlg[sortColumn]);
   }, [headersSort, sortColumn]);
 
   useEffect(() => {
@@ -105,7 +107,7 @@ export const CuTable = () => {
         }
       });
     });
-  }, [data, dispatch, facilitatorImages]);
+  }, [data]);
 
   const handleChangeUrlFilterArrays = useCallback((key: string) => (value: string[]) => {
     filters.set(key, value.join(','));
@@ -129,8 +131,8 @@ export const CuTable = () => {
 
   const items = useMemo(() => {
     if (!filteredData) return [];
-    if (sortColumn > -1) sortData(filteredData);
-    return filteredData.map((coreUnit: CoreUnitDao, i: number) => {
+    const sortedData = sortData(filteredData);
+    return sortedData.map((coreUnit: CoreUnitDao, i: number) => {
       return [
         <CuTableColumnSummary
           key={`summary-${i}`}
@@ -138,8 +140,8 @@ export const CuTable = () => {
           status={getMipFromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum}
           statusModified={getSubmissionDateFromCuMip(getMipFromCoreUnit(coreUnit))}
           imageUrl={coreUnit.image}
+          mipUrl={getMipUrlFromCoreUnit(coreUnit)}
           onClick={onClickRow(coreUnit.code)}
-
         />,
         <CuTableColumnInitiatives
           key={`initiatives-${i}`}
@@ -181,10 +183,25 @@ export const CuTable = () => {
     >
       <Header>
         <Title>Core Units</Title>
-        <CustomMultiSelect label={'Status'} initialActiveItems={filteredStatuses} items={statuses} onChange={handleChangeUrlFilterArrays('filteredStatuses')} />
-        <CustomMultiSelect label={'Category'} initialActiveItems={filteredCategories} items={categories} onChange={handleChangeUrlFilterArrays('filteredCategories')} />
+        <CustomMultiSelect
+          label={'Status'}
+          initialActiveItems={filteredStatuses}
+          items={statuses}
+          onChange={handleChangeUrlFilterArrays('filteredStatuses')}
+        />
+        <CustomMultiSelect
+          label={'Category'}
+          initialActiveItems={filteredCategories}
+          items={categories}
+          onChange={handleChangeUrlFilterArrays('filteredCategories')}
+        />
         <Separator />
-        <SearchInput value={searchText} label={'Search CUs'} placeholder={'Search CUs by name or Code'} onChange={handleChangeUrlFilterString('searchText')} />
+        <SearchInput
+          value={searchText}
+          label={'Search CUs'}
+          placeholder={'Search CUs by name or Code'}
+          onChange={handleChangeUrlFilterString('searchText')}
+        />
       </Header>
       <CustomTable
         headers={headers}

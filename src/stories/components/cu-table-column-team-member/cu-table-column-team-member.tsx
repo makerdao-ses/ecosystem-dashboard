@@ -2,8 +2,8 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Title, Value } from '../cu-table-column-expenditures/cu-table-column-expenditures';
 import { AvatarGroup, Avatar } from '@mui/material';
-import { getTwoInitials } from '../../../core/utils/string-utils';
-import { getColorForString } from '../../../core/utils/color-utils';
+import { getTwoInitials } from '../../../core/utils/string.utils';
+import { getColorForString } from '../../../core/utils/color.utils';
 import './cu-table-column-team-member.scss';
 import { CustomPopover } from '../custom-popover/custom-popover';
 export interface FacilitatorModel {

@@ -34,6 +34,11 @@ export class CoreUnitsBuilder {
     return this;
   }
 
+  withImage(image: string): CoreUnitsBuilder {
+    this._coreUnit.image = image;
+    return this;
+  }
+
   withCode(code: string): CoreUnitsBuilder {
     this._coreUnit.code = code;
     return this;

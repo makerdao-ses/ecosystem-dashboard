@@ -6,6 +6,14 @@ import { BudgetStatementBuilder } from '../../../core/business-logic/builders/bu
 import { BudgetStatementWalletBuilder } from '../../../core/business-logic/builders/budget-statement-wallet.builder';
 import { BudgetStatementFteBuilder } from '../../../core/business-logic/builders/budget-statement-fte.builder';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
+import {
+  CURRENT_MINUS_1_MONTH,
+  CURRENT_MINUS_2_MONTH,
+  CURRENT_MINUS_3_MONTH,
+  CURRENT_PLUS_1_MONTH
+} from '../../../core/utils/test.utils';
+import { RoadmapBuilder } from '../../../core/business-logic/builders/roadmap.builder';
+import { RoadmapStatusEnum } from '../../../core/enums/roadmap-status.enum';
 
 export const initialState = {
   items: [
@@ -13,20 +21,21 @@ export const initialState = {
       .withId('1')
       .withName('Core Unit 1')
       .withCode('CU1')
+      .withImage('https://cdn.w600.comps.canstockphoto.com/online-stock-images_csp25890854.jpg')
       .addCategory(CuCategoryEnum.Business)
       .addCuMip(
         (new CuMipBuilder())
-          .withStatus(CuStatusEnum.Accepted, '2022-04-01')
+          .withStatus(CuStatusEnum.Accepted, CURRENT_MINUS_1_MONTH)
           .addMip40(
             (new Mip40Builder())
-              .addPeriodWithLineItems('2022-03-01', '2022-06-01', [1000, 1100, 1000])
+              .addPeriodWithLineItems(CURRENT_MINUS_2_MONTH, CURRENT_PLUS_1_MONTH, [1000, 1100, 1000])
               .build()
           )
           .build()
       )
       .addBudgetStatement(
         (new BudgetStatementBuilder())
-          .withMonth('2022-04-01')
+          .withMonth(CURRENT_MINUS_1_MONTH)
           .addBudgetStatementWallet(
             (new BudgetStatementWalletBuilder())
               .withLineItems([1200, 100, 400])
@@ -34,7 +43,7 @@ export const initialState = {
           )
           .addBudgetStatementFTE(
             (new BudgetStatementFteBuilder())
-              .withMonth('2022-04-01')
+              .withMonth(CURRENT_MINUS_1_MONTH)
               .withFtes(3.5)
               .build()
           )
@@ -42,17 +51,17 @@ export const initialState = {
       )
       .addBudgetStatement(
         (new BudgetStatementBuilder())
-          .withMonth('2022-03-01')
+          .withMonth(CURRENT_MINUS_2_MONTH)
           .addBudgetStatementWallet(
             (new BudgetStatementWalletBuilder())
-              .withLineItems([100, 100, 100])
+              .withLineItems([900, 100, 100])
               .build()
           )
           .build()
       )
       .addBudgetStatement(
         (new BudgetStatementBuilder())
-          .withMonth('2022-02-01')
+          .withMonth(CURRENT_MINUS_3_MONTH)
           .addBudgetStatementWallet(
             (new BudgetStatementWalletBuilder())
               .withLineItems([200, 300, 100])
@@ -60,15 +69,315 @@ export const initialState = {
           )
           .build()
       )
-      .addRoadMap({
-        ownerCuId: '1',
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('1')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('1')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('1')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
+      .addSocialMediaChannel({
+        forumTag: 'some-tag',
+        linkedIn: 'https://linkedin.com',
+        youtube: 'https://youtube.com',
+        twitter: 'https://twitter.com',
+        discord: '',
+        website: ''
       })
-      .addRoadMap({
-        ownerCuId: '1',
+      .build(),
+    // -- Core Unit --
+    (new CoreUnitsBuilder())
+      .withId('2')
+      .withName('Core Unit 2')
+      .withCode('CU2')
+      .addCategory(CuCategoryEnum.Business)
+      .addCuMip(
+        (new CuMipBuilder())
+          .withStatus(CuStatusEnum.Accepted, CURRENT_MINUS_1_MONTH)
+          .addMip40(
+            (new Mip40Builder())
+              .addPeriodWithLineItems(CURRENT_MINUS_2_MONTH, CURRENT_PLUS_1_MONTH, [500, 510, 500])
+              .build()
+          )
+          .build()
+      )
+      .addBudgetStatement(
+        (new BudgetStatementBuilder())
+          .withMonth(CURRENT_MINUS_1_MONTH)
+          .addBudgetStatementWallet(
+            (new BudgetStatementWalletBuilder())
+              .withLineItems([200, 100, 400])
+              .build()
+          )
+          .addBudgetStatementFTE(
+            (new BudgetStatementFteBuilder())
+              .withMonth(CURRENT_MINUS_1_MONTH)
+              .withFtes(2.5)
+              .build()
+          )
+          .build()
+      )
+      .addBudgetStatement(
+        (new BudgetStatementBuilder())
+          .withMonth(CURRENT_MINUS_2_MONTH)
+          .addBudgetStatementWallet(
+            (new BudgetStatementWalletBuilder())
+              .withLineItems([100, 100, 100])
+              .build()
+          )
+          .build()
+      )
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('2')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('2')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('2')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
+      .addSocialMediaChannel({
+        forumTag: 'some-tag',
+        linkedIn: '',
+        youtube: '',
+        twitter: '',
+        discord: '',
+        website: ''
       })
-      .addRoadMap({
-        ownerCuId: '',
+      .build(),
+    // -- Core Unit --
+    (new CoreUnitsBuilder())
+      .withId('3')
+      .withName('Core Unit 3')
+      .withCode('CU3')
+      .addCategory(CuCategoryEnum.Business)
+      .addCuMip(
+        (new CuMipBuilder())
+          .withStatus(CuStatusEnum.Accepted, CURRENT_MINUS_1_MONTH)
+          .addMip40(
+            (new Mip40Builder())
+              .addPeriodWithLineItems(CURRENT_MINUS_2_MONTH, CURRENT_PLUS_1_MONTH, [500, 510, 500])
+              .build()
+          )
+          .build()
+      )
+      .addBudgetStatement(
+        (new BudgetStatementBuilder())
+          .withMonth(CURRENT_MINUS_1_MONTH)
+          .addBudgetStatementWallet(
+            (new BudgetStatementWalletBuilder())
+              .withLineItems([200, 100, 400])
+              .build()
+          )
+          .addBudgetStatementFTE(
+            (new BudgetStatementFteBuilder())
+              .withMonth(CURRENT_MINUS_1_MONTH)
+              .withFtes(7.5)
+              .build()
+          )
+          .build()
+      )
+      .addBudgetStatement(
+        (new BudgetStatementBuilder())
+          .withMonth(CURRENT_MINUS_3_MONTH)
+          .addBudgetStatementWallet(
+            (new BudgetStatementWalletBuilder())
+              .withLineItems([100, 100, 100])
+              .build()
+          )
+          .build()
+      )
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('3')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
+      .addSocialMediaChannel({
+        forumTag: 'some-tag',
+        linkedIn: 'https://linkedin.com',
+        youtube: '',
+        twitter: '',
+        discord: '',
+        website: ''
       })
+      .build(),
+    // -- Core Unit --
+    (new CoreUnitsBuilder())
+      .withId('4')
+      .withName('Core Unit 4')
+      .withCode('CU4')
+      .addCategory(CuCategoryEnum.Business)
+      .addCuMip(
+        (new CuMipBuilder())
+          .withStatus(CuStatusEnum.Accepted, CURRENT_MINUS_1_MONTH)
+          .addMip40(
+            (new Mip40Builder())
+              .addPeriodWithLineItems(CURRENT_MINUS_2_MONTH, CURRENT_PLUS_1_MONTH, [500, 510, 500])
+              .build()
+          )
+          .build()
+      )
+      .addBudgetStatement(
+        (new BudgetStatementBuilder())
+          .withMonth(CURRENT_MINUS_1_MONTH)
+          .addBudgetStatementWallet(
+            (new BudgetStatementWalletBuilder())
+              .withLineItems([1200, 100, 400])
+              .build()
+          )
+          .addBudgetStatementFTE(
+            (new BudgetStatementFteBuilder())
+              .withMonth(CURRENT_MINUS_1_MONTH)
+              .withFtes(3.5)
+              .build()
+          )
+          .build()
+      )
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('4')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('4')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('4')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('4')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
+      .addSocialMediaChannel({
+        forumTag: 'some-tag',
+        linkedIn: 'https://linkedin.com',
+        youtube: 'https://youtube.com',
+        twitter: '',
+        discord: 'http://discord.com',
+        website: ''
+      })
+      .build(),
+    // -- Core Unit --
+    (new CoreUnitsBuilder())
+      .withId('5')
+      .withName('Core Unit 5')
+      .withCode('CU5')
+      .addCategory(CuCategoryEnum.Business)
+      .addCuMip(
+        (new CuMipBuilder())
+          .withStatus(CuStatusEnum.Accepted, CURRENT_MINUS_1_MONTH)
+          .addMip40(
+            (new Mip40Builder())
+              .addPeriodWithLineItems(CURRENT_MINUS_2_MONTH, CURRENT_PLUS_1_MONTH, [500, 510, 500])
+              .build()
+          )
+          .build()
+      )
+      .addBudgetStatement(
+        (new BudgetStatementBuilder())
+          .withMonth(CURRENT_MINUS_2_MONTH)
+          .addBudgetStatementWallet(
+            (new BudgetStatementWalletBuilder())
+              .withLineItems([400, 100, 400])
+              .build()
+          )
+          .addBudgetStatementFTE(
+            (new BudgetStatementFteBuilder())
+              .withMonth(CURRENT_MINUS_1_MONTH)
+              .withFtes(10)
+              .build()
+          )
+          .build()
+      )
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('5')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('5')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
+      .addSocialMediaChannel({
+        forumTag: '',
+        linkedIn: 'https://linkedin.com',
+        youtube: 'https://youtube.com',
+        twitter: '',
+        discord: '',
+        website: ''
+      })
+      .build(),
+    // -- Core Unit --
+    (new CoreUnitsBuilder())
+      .withId('6')
+      .withName('Core Unit 6')
+      .withCode('CU6')
+      .addCategory(CuCategoryEnum.Business)
+      .addCuMip(
+        (new CuMipBuilder())
+          .withStatus(CuStatusEnum.Accepted, CURRENT_MINUS_1_MONTH)
+          .addMip40(
+            (new Mip40Builder())
+              .addPeriodWithLineItems(CURRENT_MINUS_2_MONTH, CURRENT_PLUS_1_MONTH, [500, 510, 500])
+              .build()
+          )
+          .build()
+      )
+      .addBudgetStatement(
+        (new BudgetStatementBuilder())
+          .withMonth(CURRENT_MINUS_3_MONTH)
+          .addBudgetStatementWallet(
+            (new BudgetStatementWalletBuilder())
+              .withLineItems([200, 100, 400])
+              .build()
+          )
+          .addBudgetStatementFTE(
+            (new BudgetStatementFteBuilder())
+              .withMonth(CURRENT_MINUS_1_MONTH)
+              .withFtes(4.5)
+              .build()
+          )
+          .build()
+      )
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('6')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
+          .build()
+      )
       .addSocialMediaChannel({
         forumTag: 'some-tag',
         linkedIn: 'https://linkedin.com',
@@ -78,46 +387,18 @@ export const initialState = {
         website: ''
       })
       .build(),
+    // -- Core Unit --
     (new CoreUnitsBuilder())
-      .withId('2')
-      .withName('Core Unit 2')
-      .withCode('CU2')
+      .withId('7')
+      .withName('Core Unit 7')
+      .withCode('CU7')
       .addCategory(CuCategoryEnum.Business)
-      .addCuMip(
-        (new CuMipBuilder())
-          .withStatus(CuStatusEnum.Accepted, '2022-04-01')
-          .addMip40(
-            (new Mip40Builder())
-              .addPeriodWithLineItems('2022-03-01', '2022-06-01', [500, 510, 500])
-              .build()
-          )
+      .addRoadMap(
+        (new RoadmapBuilder())
+          .withOwnerCuId('7')
+          .withRoadmapStatus(RoadmapStatusEnum.InProgress)
           .build()
       )
-      .addBudgetStatement(
-        (new BudgetStatementBuilder())
-          .withMonth('2022-04-01')
-          .addBudgetStatementWallet(
-            (new BudgetStatementWalletBuilder())
-              .withLineItems([1200, 100, 400])
-              .build()
-          )
-          .addBudgetStatementFTE(
-            (new BudgetStatementFteBuilder())
-              .withMonth('2022-04-01')
-              .withFtes(3.5)
-              .build()
-          )
-          .build()
-      )
-      .addRoadMap({
-        ownerCuId: '2',
-      })
-      .addRoadMap({
-        ownerCuId: '2',
-      })
-      .addRoadMap({
-        ownerCuId: '2',
-      })
       .addSocialMediaChannel({
         forumTag: 'some-tag',
         linkedIn: 'https://linkedin.com',

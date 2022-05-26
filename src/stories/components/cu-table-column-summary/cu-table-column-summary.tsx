@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Avatar, Typography } from '@mui/material';
-import { getColorForString } from '../../../core/utils/color-utils';
-import { getTwoInitials } from '../../../core/utils/string-utils';
+import { getColorForString } from '../../../core/utils/color.utils';
+import { getTwoInitials } from '../../../core/utils/string.utils';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
@@ -14,6 +14,7 @@ interface CuTableColumnSummaryProps {
   status?: CuStatusEnum,
   statusModified?: Date | null,
   onClick?: () => void,
+  mipUrl?: string,
 }
 
 export const CuTableColumnSummary = (props: CuTableColumnSummaryProps) => {
@@ -37,7 +38,7 @@ export const CuTableColumnSummary = (props: CuTableColumnSummaryProps) => {
           id={'mouse-over-popover-goto'}
           title={'Go to MIPs Portal'}
         >
-          {props.statusModified && <SinceDate>
+          {props.statusModified && <SinceDate href={props.mipUrl} target="_blank" onClick={(evt) => evt.stopPropagation()}>
             Since {DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}
           </SinceDate>}
         </CustomPopover>}
@@ -78,7 +79,7 @@ const Row = styled.div({
   flex: 1,
 });
 
-const SinceDate = styled(Typography)({
+const SinceDate = styled.a({
   color: 'gray',
   fontSize: '12px',
   textDecoration: 'underline',

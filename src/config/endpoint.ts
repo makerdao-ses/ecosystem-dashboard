@@ -1,1 +1,1 @@
-export const GraphQlEndpoint = 'https://ecosystem-dashboard.herokuapp.com/graphql';
+export const GRAPHQL_ENDPOINT = 'https://ecosystem-dashboard.herokuapp.com/graphql';
