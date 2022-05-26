@@ -2,6 +2,8 @@ import React from 'react';
 import RelateMips from './relate-mips';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { CuMip } from '../../containers/cu-about/cu-about.api';
+import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
+import { DateTime } from 'luxon';
 
 export default {
   title: 'Components/CUAbout/RelateMips',
@@ -14,11 +16,13 @@ WithData.args = {
   relateMips: {
     mipTitle: 'MIP39c2-SP10: Adding Sustainable Ecosystem Scaling Core Unit',
     mipUrl: 'https://mips.makerdao.com/mips/details/MIP39c2SP10',
-    mipStatus: 'Accepted',
-    accepted: '2021-05-25',
-    obsolete: '',
-    rfc: '2021-04-02',
-    formalSubmission: '2021-05-01',
-    rejected: ''
+    mipStatus: CuStatusEnum.Accepted,
+    accepted: '2019-06-11',
+    obsolete: '2019-06-11',
+    rfc: '2019-06-11',
+    cuId: '1',
+    mipCode: 'MIP39c2-SP10',
+    formalSubmission: '2019-06-11',
+    rejected: '2019-06-11',
   } as CuMip
 };

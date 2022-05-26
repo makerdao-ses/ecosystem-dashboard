@@ -20,9 +20,9 @@ export interface CuMip {
   mipCode: string;
   cuId: string;
   rfc?: string;
-  formalSubmission: string;
+  formalSubmission?: string
   accepted?: string;
-  rejected?: string;
+  rejected?: string
   obsolete?: string;
   mipStatus: CuStatusEnum;
   mipUrl?: string;
@@ -86,7 +86,6 @@ export const GET_CU_ABOUT_BY_CODE = gql`
     coreUnit(filter: $filter) {
       id
       code
-      category
       name
       sentenceDescription
       paragraphDescription
@@ -98,7 +97,6 @@ export const GET_CU_ABOUT_BY_CODE = gql`
         twitter
         website
         youtube
-        linkedIn
       }
       cuMip {
         mipTitle
@@ -118,7 +116,6 @@ export const GET_CU_ABOUT_BY_CODE = gql`
       }
       contributorCommitment {
         jobTitle
-        startDate
         commitment
         contributor {
           name

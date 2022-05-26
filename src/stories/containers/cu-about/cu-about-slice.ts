@@ -37,15 +37,15 @@ export const initialState: CurrentCoreUnitAbout = {
     cuMip: [
       {
         cuId: '',
-        formalSubmission: '',
+        formalSubmission: '2019-06-11',
         mipCode: '',
-        mipStatus: CuStatusEnum.Rejected,
-        rfc: '',
-        accepted: '',
+        mipStatus: CuStatusEnum.Accepted,
+        rfc: '2019-06-11',
+        accepted: '2019-06-11',
         mipTitle: '',
         mipUrl: '',
-        obsolete: '',
-        rejected: '',
+        obsolete: '2019-06-11',
+        rejected: '2019-06-11',
       },
     ] as CuMip[],
     budgetStatements: [

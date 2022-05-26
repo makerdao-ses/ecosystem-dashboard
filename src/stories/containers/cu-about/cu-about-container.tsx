@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Divider, Typography } from '@mui/material';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useAppDispatch } from '../../../core/hooks/hooks';
@@ -22,6 +22,7 @@ import { CuMip, getFTEsFromCoreUnitAbout } from './cu-about.api';
 
 const CuAboutContainer = () => {
   const [filters] = useSearchParams();
+  const [showThreeMIPs, setShowThreeMIPs] = useState<boolean>(true);
   const data: Array<CoreUnitDao> = useSelector((state: RootState) => selectCuTableItems(state));
   const navigate = useNavigate();
   const { code: coreUnitCode } = useParams();
@@ -35,6 +36,7 @@ const CuAboutContainer = () => {
 
   useEffect(() => {
     dispatch(loadCoreUnitABout(coreUnitCode || ''));
+    setShowThreeMIPs(true);
   }, [dispatch, coreUnitCode]);
 
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', filters), [filters]);
@@ -64,10 +66,19 @@ const CuAboutContainer = () => {
 
   const handleGoBack = useCallback(
     () => {
-      navigate('/');
+      navigate(`/?${filters.toString()}`);
     },
-    [navigate],
+    [filters, navigate],
   );
+
+  const resultMips = useMemo(() => {
+    const result = cuAbout.cuMip.length > 3 && showThreeMIPs ? cuAbout.cuMip.slice(0, 3) : cuAbout.cuMip;
+    return result;
+  }, [cuAbout.cuMip, showThreeMIPs]);
+
+  const onClickLessMips = () => {
+    setShowThreeMIPs(!showThreeMIPs);
+  };
 
   if (statusCoreUnit === status.loading) {
     return <div>Loading...</div>;
@@ -114,7 +125,7 @@ const CuAboutContainer = () => {
       <CardRelateMipsContainer>
         <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
         <RelateMipCards>
-          {cuAbout.cuMip.map((mip: CuMip, index: number) => {
+          {resultMips.map((mip: CuMip, index: number) => {
             return (
               <RelateMipCard key={index}>
                 <RelateMips relateMips={mip} />
@@ -122,11 +133,11 @@ const CuAboutContainer = () => {
 
             );
           })}
-          {cuAbout.cuMip.length === 0 && <ContainerNoRelateMIps>There is not Mips relate</ContainerNoRelateMIps>}
+          {cuAbout.cuMip.length === 0 && <ContainerNoRelateMIps>There are not related MIPs</ContainerNoRelateMIps>}
         </RelateMipCards>
       </CardRelateMipsContainer>
-      {cuAbout.cuMip.length !== 0 && <ButtonContainer>
-        <BigButton title='See less related MIPs' />
+      {cuAbout.cuMip.length > 3 && <ButtonContainer>
+        <BigButton title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'} onClick={onClickLessMips} />
       </ButtonContainer>}
     </ContainerAbout>
   );
