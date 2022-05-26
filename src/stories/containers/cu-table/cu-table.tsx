@@ -174,11 +174,12 @@ export const CuTable = () => {
     <Box
       component="main"
       sx={{
-        px: '32px',
+        px: '163px',
         flexGrow: 1,
         overflow: 'auto',
         mt: 4,
-        mb: 4
+        mb: 4,
+        marginTop: '96px',
       }}
     >
       <Header>
