@@ -17,17 +17,18 @@ import { BudgetStatementFteBuilder } from '../builders/budget-statement-fte.buil
 import { Mip41Builder } from '../builders/mip-41.builder';
 import { Mip40Builder } from '../builders/mip-40.builder';
 import { BudgetStatementWalletBuilder } from '../builders/budget-statement-wallet.builder';
-
-const currentMonth = DateTime.now().toFormat('y-MM-dd');
-const currentMinus1Month = DateTime.now().set({ day: 1 }).minus({ month: 1 }).toFormat('y-MM-dd');
-const currentMinus2Month = DateTime.now().set({ day: 1 }).minus({ month: 2 }).toFormat('y-MM-dd');
-const currentMinus3Month = DateTime.now().set({ day: 1 }).minus({ month: 3 }).toFormat('y-MM-dd');
+import {
+  CURRENT_MONTH,
+  CURRENT_MINUS_1_MONTH,
+  CURRENT_MINUS_2_MONTH,
+  CURRENT_MINUS_3_MONTH
+} from '../../utils/test.utils';
 
 test('Get date for status on CuMip', () => {
-  const mipDao = (new CuMipBuilder()).withStatus(CuStatusEnum.Withdrawn, currentMinus2Month).build();
-  expect(getCuMipStatusModifiedDate(mipDao, CuStatusEnum.Withdrawn)).toBe(currentMinus2Month);
+  const mipDao = (new CuMipBuilder()).withStatus(CuStatusEnum.Withdrawn, CURRENT_MINUS_2_MONTH).build();
+  expect(getCuMipStatusModifiedDate(mipDao, CuStatusEnum.Withdrawn)).toBe(CURRENT_MINUS_2_MONTH);
 
-  expect(getCuMipStatusModifiedDate(mipDao, CuStatusEnum.Withdrawn)).not.toEqual(currentMinus1Month);
+  expect(getCuMipStatusModifiedDate(mipDao, CuStatusEnum.Withdrawn)).not.toEqual(CURRENT_MINUS_1_MONTH);
 
   expect(getCuMipStatusModifiedDate(mipDao, CuStatusEnum.RFC)).toBe('');
 });
@@ -41,7 +42,7 @@ test('Get Mip from Core Unit', () => {
 });
 
 test('Get Date as Datetime from CuMip', () => {
-  const date = currentMinus2Month;
+  const date = CURRENT_MINUS_2_MONTH;
   const mipDao = (new CuMipBuilder()).withStatus(CuStatusEnum.Withdrawn, date).build();
   expect(getCuMipStatusModifiedDate(mipDao, CuStatusEnum.Withdrawn)).toBe(date);
 
@@ -119,7 +120,7 @@ test('Get Budget Cap for Core Unit', () => {
   let coreUnit = (new CoreUnitsBuilder())
     .addCuMip((new CuMipBuilder())
       .addMip40((new Mip40Builder())
-        .addPeriodWithLineItems(currentMinus3Month, currentMonth, [500, 300, 100])
+        .addPeriodWithLineItems(CURRENT_MINUS_3_MONTH, CURRENT_MONTH, [500, 300, 100])
         .build())
       .build())
     .build();
@@ -129,7 +130,7 @@ test('Get Budget Cap for Core Unit', () => {
   coreUnit = (new CoreUnitsBuilder())
     .addCuMip((new CuMipBuilder())
       .addMip40((new Mip40Builder())
-        .addPeriodWithLineItems(currentMinus3Month, currentMonth, [100, 100, 100])
+        .addPeriodWithLineItems(CURRENT_MINUS_3_MONTH, CURRENT_MONTH, [100, 100, 100])
         .build())
       .build())
     .build();
@@ -139,9 +140,9 @@ test('Get Budget Cap for Core Unit', () => {
   coreUnit = (new CoreUnitsBuilder())
     .addCuMip((new CuMipBuilder())
       .addMip40((new Mip40Builder())
-        .addPeriodWithLineItems(currentMinus3Month, currentMinus2Month, [100, 200, 100])
-        .addPeriodWithLineItems(currentMinus2Month, currentMinus1Month, [200])
-        .addPeriodWithLineItems(currentMinus1Month, currentMonth, [600])
+        .addPeriodWithLineItems(CURRENT_MINUS_3_MONTH, CURRENT_MINUS_2_MONTH, [100, 200, 100])
+        .addPeriodWithLineItems(CURRENT_MINUS_2_MONTH, CURRENT_MINUS_1_MONTH, [200])
+        .addPeriodWithLineItems(CURRENT_MINUS_1_MONTH, CURRENT_MONTH, [600])
         .build())
       .build())
     .build();
@@ -152,13 +153,13 @@ test('Get Budget Cap for Core Unit', () => {
 test('Get expenditure value from Core Unit', () => {
   let coreUnit = (new CoreUnitsBuilder())
     .addBudgetStatement((new BudgetStatementBuilder())
-      .withMonth(currentMinus1Month)
+      .withMonth(CURRENT_MINUS_1_MONTH)
       .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
         .withLineItems([500, 300, 100])
         .build())
       .build())
     .addBudgetStatement((new BudgetStatementBuilder())
-      .withMonth(currentMinus2Month)
+      .withMonth(CURRENT_MINUS_2_MONTH)
       .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
         .withLineItems([100, 100, 100])
         .build())
@@ -188,26 +189,26 @@ test('Get expenditure value from Core Unit', () => {
 test('Get percent from Core Unit', () => {
   let coreUnit = (new CoreUnitsBuilder())
     .addBudgetStatement((new BudgetStatementBuilder())
-      .withMonth(currentMinus3Month)
+      .withMonth(CURRENT_MINUS_3_MONTH)
       .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
         .withLineItems([500, 300, 100])
         .build())
       .build())
     .addBudgetStatement((new BudgetStatementBuilder())
-      .withMonth(currentMinus2Month)
+      .withMonth(CURRENT_MINUS_2_MONTH)
       .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
         .withLineItems([900])
         .build())
       .build())
     .addBudgetStatement((new BudgetStatementBuilder())
-      .withMonth(currentMinus1Month)
+      .withMonth(CURRENT_MINUS_1_MONTH)
       .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
         .withLineItems([300, 600])
         .build())
       .build())
     .addCuMip((new CuMipBuilder())
       .addMip40((new Mip40Builder())
-        .addPeriodWithLineItems(currentMinus3Month, currentMonth, [500, 300, 100])
+        .addPeriodWithLineItems(CURRENT_MINUS_3_MONTH, CURRENT_MONTH, [500, 300, 100])
         .build())
       .build())
     .build();
@@ -216,26 +217,26 @@ test('Get percent from Core Unit', () => {
 
   coreUnit = (new CoreUnitsBuilder())
     .addBudgetStatement((new BudgetStatementBuilder())
-      .withMonth(currentMinus3Month)
+      .withMonth(CURRENT_MINUS_3_MONTH)
       .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
         .withLineItems([300, 100, 50])
         .build())
       .build())
     .addBudgetStatement((new BudgetStatementBuilder())
-      .withMonth(currentMinus2Month)
+      .withMonth(CURRENT_MINUS_2_MONTH)
       .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
         .withLineItems([450])
         .build())
       .build())
     .addBudgetStatement((new BudgetStatementBuilder())
-      .withMonth(currentMinus1Month)
+      .withMonth(CURRENT_MINUS_1_MONTH)
       .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
         .withLineItems([300, 150])
         .build())
       .build())
     .addCuMip((new CuMipBuilder())
       .addMip40((new Mip40Builder())
-        .addPeriodWithLineItems(currentMinus3Month, currentMonth, [500, 300, 100])
+        .addPeriodWithLineItems(CURRENT_MINUS_3_MONTH, CURRENT_MONTH, [500, 300, 100])
         .build())
       .build())
     .build();
@@ -246,19 +247,19 @@ test('Get percent from Core Unit', () => {
 test('Get last 3 expenditure values from Core Unit', () => {
   let coreUnit = (new CoreUnitsBuilder())
     .addBudgetStatement((new BudgetStatementBuilder())
-      .withMonth(currentMinus3Month)
+      .withMonth(CURRENT_MINUS_3_MONTH)
       .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
         .withLineItems([500, 300, 100])
         .build())
       .build())
     .addBudgetStatement((new BudgetStatementBuilder())
-      .withMonth(currentMinus2Month)
+      .withMonth(CURRENT_MINUS_2_MONTH)
       .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
         .withLineItems([800])
         .build())
       .build())
     .addBudgetStatement((new BudgetStatementBuilder())
-      .withMonth(currentMinus1Month)
+      .withMonth(CURRENT_MINUS_1_MONTH)
       .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
         .withLineItems([100, 600])
         .build())
@@ -273,13 +274,13 @@ test('Get last 3 expenditure values from Core Unit', () => {
 
   coreUnit = (new CoreUnitsBuilder())
     .addBudgetStatement((new BudgetStatementBuilder())
-      .withMonth(currentMinus3Month)
+      .withMonth(CURRENT_MINUS_3_MONTH)
       .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
         .withLineItems([500, 300, 100])
         .build())
       .build())
     .addBudgetStatement((new BudgetStatementBuilder())
-      .withMonth(currentMinus1Month)
+      .withMonth(CURRENT_MINUS_1_MONTH)
       .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
         .withLineItems([100, 600])
         .build())
@@ -294,7 +295,7 @@ test('Get last 3 expenditure values from Core Unit', () => {
 
   coreUnit = (new CoreUnitsBuilder())
     .addBudgetStatement((new BudgetStatementBuilder())
-      .withMonth(currentMinus3Month)
+      .withMonth(CURRENT_MINUS_3_MONTH)
       .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
         .withLineItems([500])
         .build())

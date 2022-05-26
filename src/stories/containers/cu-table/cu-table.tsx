@@ -38,7 +38,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../core/store/store';
 import { CoreUnitDao } from './cu-table.api';
 import { SortEnum } from '../../../core/enums/sort.enum';
-import { sortAlphaNum } from '../../../core/utils/sort-utils';
+import { sortAlphaNum } from '../../../core/utils/sort.utils';
 
 const statuses = Object.values(CuStatusEnum) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];

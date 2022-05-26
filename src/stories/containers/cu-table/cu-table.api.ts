@@ -1,5 +1,5 @@
 import { gql, request } from 'graphql-request';
-import { GraphQLEndpoint } from '../../../config/endpoints';
+import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
 
 export const GETCoreUnits = gql`
     query CoreUnits {
@@ -144,7 +144,7 @@ export interface CoreUnitDao {
 }
 
 export const fetchCoreUnits = async() => {
-  const result = await request(GraphQLEndpoint, GETCoreUnits);
+  const result = await request(GRAPHQL_ENDPOINT, GETCoreUnits);
   return result.coreUnits;
 };
 
@@ -152,7 +152,7 @@ export const fetchFacilitatorImage = async(id: string) => {
   if (!id) return null;
 
   try {
-    const result = await request(GraphQLEndpoint, GetFacilitatorImageGQL, {
+    const result = await request(GRAPHQL_ENDPOINT, GetFacilitatorImageGQL, {
       filter: {
         id
       }

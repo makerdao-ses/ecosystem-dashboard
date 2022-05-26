@@ -1,5 +1,5 @@
 import request, { gql } from 'graphql-request';
-import { GraphQlEndpoint } from '../../../config/endpoint';
+import { GRAPHQL_ENDPOINT } from '../../../config/endpoint';
 
 export const GET_CONTRIBUTORS = gql`
   query ContributorCommitment($filter: ContributorCommitmentFilter) {
@@ -46,7 +46,7 @@ interface PropsContributors {
 }
 
 export const fetchContributors = async({ cuId }: PropsContributors) => {
-  const data = await request(GraphQlEndpoint, GET_CONTRIBUTORS, {
+  const data = await request(GRAPHQL_ENDPOINT, GET_CONTRIBUTORS, {
     filter: {
       cuId,
     },
