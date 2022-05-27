@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   Checkbox,
   FormControl,
@@ -31,9 +31,8 @@ interface CustomSelectProps {
   initialActiveItems?: string[],
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
 export const CustomMultiSelect = ({ withAll = true, initialActiveItems = [], ...props }: CustomSelectProps) => {
-  const [activeItems, setActiveItems] = React.useState<string[]>(initialActiveItems);
+  const [activeItems, setActiveItems] = useState(initialActiveItems);
 
   const handleChange = useCallback((event: SelectChangeEvent<typeof activeItems>) => {
     const {
