@@ -75,7 +75,9 @@ const Header = ({ menuItems }: Props) => {
 
 const Container = styled.div({
   height: '64px',
-  display: 'flex',
+  position: 'fixed',
+  width: '100%',
+  zIndex: '2',
   flexDirection: 'row',
   justifyContent: 'space-between',
   backgroundColor: '#C4C4C4',
@@ -102,9 +104,11 @@ const Navigation = styled.div({
 });
 
 const RightPart = styled.div({
+  position: 'absolute',
   display: 'flex',
-  justifyContent: 'flex-start',
   alignItems: 'center',
+  right: '32px',
+  top: '16px',
 });
 
 const ItemMenuStyle = styled(Link)({

@@ -11,5 +11,5 @@ test('renders learn react link', () => {
     </Provider>
   );
 
-  expect(getByText(/Makerdao/i)).toBeInTheDocument();
+  expect(getByText(/Finances/i)).toBeInTheDocument();
 });
