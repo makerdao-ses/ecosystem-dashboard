@@ -36,19 +36,21 @@ const RelateMips = ({ relateMips }: Props) => {
         return relateMips.rejected;
     }
   };
-  const newDate = DateTime.fromFormat(getMipsStatus(relateMips || new Date())?.toString() || '', 'yyyy-MM-dd').toJSDate();
+  const mips = getMipsStatus(relateMips || '');
+  const mipStatus = relateMips.mipStatus;
+  const newDate = mips ? DateTime.fromFormat(mips || '', 'yyyy-MM-dd').toJSDate() : null;
   return (
     <Content>
       <Row>
-        {relateMips && <StatusChip status={relateMips.mipStatus as CuStatusEnum} />}
-        {relateMips.mipStatus && <CustomPopover
+        {mipStatus && <StatusChip status={mipStatus as CuStatusEnum} />}
+        {newDate && <CustomPopover
           id={'mouse-over-popover-goto'}
           title={'Go to MIPs Portal'}
         >
           <SinceDate
             href={relateMips.mipUrl}
           >
-            Since {DateTime.fromJSDate(new Date(newDate)).toFormat('d-MMM-y')}
+            Since {DateTime.fromJSDate(newDate).toFormat('d-MMM-y')}
           </SinceDate>
         </CustomPopover>}
       </Row>
