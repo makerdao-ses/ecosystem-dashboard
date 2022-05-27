@@ -1,5 +1,5 @@
 import { request, gql } from 'graphql-request';
-import { GRAPHQL_ENDPOINT } from '../../../config/endpoint';
+import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
@@ -11,7 +11,7 @@ interface BudgetStatementFTEs {
   ftes: number;
 }
 
-interface BudgetStatement {
+export interface BudgetStatement {
   budgetStatementFTEs: BudgetStatementFTEs[];
 }
 
@@ -51,7 +51,6 @@ export interface ContributorCommitment {
 }
 
 export interface SocialMediaChannels {
-  cuCode: string;
   forumTag: string;
   twitter: string;
   youtube: string;
@@ -76,9 +75,6 @@ export interface CuAbout {
 interface BudgetStatementFTEs {
   month: string;
   ftes: number;
-}
-interface BudgetStatement {
-  budgetStatementFTEs: BudgetStatementFTEs[];
 }
 
 export const GET_CU_ABOUT_BY_CODE = gql`

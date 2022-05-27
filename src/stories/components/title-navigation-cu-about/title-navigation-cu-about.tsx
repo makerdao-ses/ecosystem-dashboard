@@ -8,6 +8,7 @@ import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { StatusChip } from '../status-chip/status-chip';
 import { CuAbout, CuMip } from '../../containers/cu-about/cu-about.api';
 import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
+import { getMipsStatus } from '../../../core/business-logic/core-unit-about';
 
 interface BudgetStatementFTEs {
   month: string
@@ -42,21 +43,6 @@ export interface CoreUnit {
 interface Props {
   coreUnitAbout: CuAbout;
 }
-
-export const getMipsStatus = (mip: CuMip) => {
-  switch (mip.mipStatus) {
-    case CuStatusEnum.Accepted:
-      return mip.accepted;
-    case CuStatusEnum.FormalSubmission:
-      return mip.formalSubmission;
-    case CuStatusEnum.Rejected:
-      return mip.rejected;
-    case CuStatusEnum.RFC:
-      return mip.rfc;
-    default:
-      return mip.rejected;
-  }
-};
 
 export const getLinksCoreUnit = (cu: CuAbout) => {
   const links: LinkModel[] = [];

@@ -78,7 +78,6 @@ export const initialState: CurrentCoreUnitAbout = {
     ] as ContributorCommitment[],
     socialMediaChannels: [
       {
-        cuCode: '',
         forumTag: '',
         twitter: '',
         youtube: '',

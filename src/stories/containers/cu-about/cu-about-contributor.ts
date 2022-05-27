@@ -1,5 +1,5 @@
 import request, { gql } from 'graphql-request';
-import { GRAPHQL_ENDPOINT } from '../../../config/endpoint';
+import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
 
 export const GET_CONTRIBUTORS = gql`
   query ContributorCommitment($filter: ContributorCommitmentFilter) {
