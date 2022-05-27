@@ -1,7 +1,11 @@
-import { BudgetStatement, ContributorCommitment, CuAbout, CuMip, SocialMediaChannels } from '../../../../stories/containers/cu-about/cu-about.api';
 import {
-  BudgetStatementDao,
-} from '../../../../stories/containers/cu-table/cu-table.api';
+  BudgetStatement,
+  ContributorCommitment,
+  CuAbout,
+  CuMip,
+  SocialMediaChannels,
+} from '../../../../stories/containers/cu-about/cu-about.api';
+import { BudgetStatementDao } from '../../../../stories/containers/cu-table/cu-table.api';
 import { CuCategoryEnum } from '../../../enums/cu-category.enum';
 
 export class CoreUnitsAboutBuilder {
@@ -38,17 +42,38 @@ export class CoreUnitsAboutBuilder {
     return this;
   }
 
+  withSentenceDescription(sentenceDescription: string): CoreUnitsAboutBuilder {
+    this._coreUnitAbout.sentenceDescription = sentenceDescription;
+    return this;
+  }
+
+  withParagraphDescription(
+    paragraphDescription: string
+  ): CoreUnitsAboutBuilder {
+    this._coreUnitAbout.paragraphDescription = paragraphDescription;
+    return this;
+  }
+
+  withParagraphImage(paragraphImage: string): CoreUnitsAboutBuilder {
+    this._coreUnitAbout.paragraphImage = paragraphImage;
+    return this;
+  }
+
   addCategory(category: CuCategoryEnum) {
     this._coreUnitAbout.category.push(category);
     return this;
   }
 
-  addBudgetStatement(budgetStatement: BudgetStatementDao): CoreUnitsAboutBuilder {
+  addBudgetStatement(
+    budgetStatement: BudgetStatementDao
+  ): CoreUnitsAboutBuilder {
     this._coreUnitAbout.budgetStatements.push(budgetStatement);
     return this;
   }
 
-  addSocialMediaChannel(socialMediaChannel: SocialMediaChannels): CoreUnitsAboutBuilder {
+  addSocialMediaChannel(
+    socialMediaChannel: SocialMediaChannels
+  ): CoreUnitsAboutBuilder {
     this._coreUnitAbout.socialMediaChannels.push(socialMediaChannel);
     return this;
   }

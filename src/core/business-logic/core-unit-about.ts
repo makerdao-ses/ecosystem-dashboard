@@ -1,4 +1,6 @@
-import { CuMip } from '../../stories/containers/cu-about/cu-about.api';
+import {
+  CuMip
+} from '../../stories/containers/cu-about/cu-about.api';
 import { CuStatusEnum } from '../enums/cu-status.enum';
 
 export const getMipsStatus = (mip: CuMip) => {
@@ -14,4 +16,8 @@ export const getMipsStatus = (mip: CuMip) => {
     default:
       return mip.rejected;
   }
+};
+
+export const getMarkdownInformation = (text: string | undefined) => {
+  return text || '';
 };

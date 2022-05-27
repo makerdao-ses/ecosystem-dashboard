@@ -20,9 +20,9 @@ export interface CuMip {
   mipCode: string;
   cuId: string;
   rfc?: string;
-  formalSubmission?: string
+  formalSubmission?: string;
   accepted?: string;
-  rejected?: string
+  rejected?: string;
   obsolete?: string;
   mipStatus: CuStatusEnum;
   mipUrl?: string;
