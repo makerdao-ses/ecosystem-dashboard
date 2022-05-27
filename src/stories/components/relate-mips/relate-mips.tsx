@@ -92,5 +92,6 @@ const SinceDate = styled.a({
   fontSize: '12px',
   textDecoration: 'underline',
   marginLeft: '10px',
-  fontWeight: 500
+  fontWeight: 500,
+  marginRight: '8px',
 });
