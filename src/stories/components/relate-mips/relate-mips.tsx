@@ -55,8 +55,9 @@ const RelateMips = ({ relateMips }: Props) => {
         </CustomPopover>}
       </Row>
       <RowUnderLine>
-        <Typography color='#000000' fontSize={12} fontWeight={600} sx={{ marginRight: '8px' }}>{relateMips.mipTitle} </Typography>
-        {!!relateMips.mipUrl && <ArrowLink href={`${relateMips.mipUrl}` || '#'} target="_blank" />}
+        <Typography color='#000000' fontSize={12} fontWeight={600} sx={{ marginRight: '19px' }}>{relateMips.mipTitle}
+          <ArrowLinkContainer><ArrowLink href={`${relateMips.mipUrl}` || '#'} target="_blank" /></ArrowLinkContainer>
+        </Typography>
       </RowUnderLine>
     </Content>
   );
@@ -66,7 +67,7 @@ const Content = styled.div({
   display: 'flex',
   flexDirection: 'column',
   padding: '8px 4px 17px 8px',
-  width: 'fit-content',
+  width: '500px',
   backgroundColor: '#FCFCFC',
   boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.25)',
   borderRadius: '8px',
@@ -80,13 +81,11 @@ const Row = styled.div({
 });
 
 const RowUnderLine = styled.div({
-  display: 'flex',
+  display: 'inline-block',
   alignItems: 'center',
-  flex: 1,
+  verticalAlign: 'middle',
   textDecoration: 'underline',
-  marginRight: '8px',
-  whiteSpace: 'break-spaces'
-
+  whiteSpace: 'pre-wrap',
 });
 
 const SinceDate = styled.a({
@@ -96,4 +95,10 @@ const SinceDate = styled.a({
   marginLeft: '10px',
   fontWeight: 500,
   marginRight: '8px',
+});
+
+const ArrowLinkContainer = styled.span({
+  marginLeft: '9px',
+  alignItems: 'center',
+  verticalAlign: 'middle',
 });
