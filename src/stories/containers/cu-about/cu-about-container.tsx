@@ -148,6 +148,7 @@ export default CuAboutContainer;
 const ContainerAbout = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  marginTop: '64px',
   backgroundColor: '#F9F9F9',
 });
 
