@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Avatar, Typography } from '@mui/material';
+import { Avatar, Theme, Typography } from '@mui/material';
 import { getColorForString } from '../../../core/utils/color.utils';
 import { getTwoInitials } from '../../../core/utils/string.utils';
 import { DateTime } from 'luxon';
@@ -79,9 +79,10 @@ const Row = styled.div({
   flex: 1,
 });
 
-const SinceDate = styled.a({
+const SinceDate = styled.a(({ theme }) => ({
   color: 'gray',
   fontSize: '12px',
   textDecoration: 'underline',
-  marginLeft: '10px'
-});
+  marginLeft: '10px',
+  fontFamily: (theme as Theme).typography.fontFamily
+}));
