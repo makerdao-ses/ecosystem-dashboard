@@ -13,3 +13,8 @@ export const Default = Template.bind({});
 Default.args = {
   initiatives: 1
 };
+
+export const WithZero = Template.bind({});
+WithZero.args = {
+  initiatives: 0
+};
