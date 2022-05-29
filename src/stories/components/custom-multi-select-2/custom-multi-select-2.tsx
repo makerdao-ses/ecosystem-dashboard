@@ -15,13 +15,13 @@ interface CustomMultiSelect2Props {
 }
 
 export const CustomMultiSelect2 = ({ withAll = true, initialActiveItems = [], ...props }: CustomMultiSelect2Props) => {
-  const [visible, setVisible] = useState(false);
+  const [popupVisible, setPopupVisible] = useState(false);
   const [activeItems, setActiveItems] = React.useState<string[]>(initialActiveItems);
 
-  const refOutsideClick = useRef();
+  const refOutsideClick = useRef<HTMLDivElement>(null);
 
   useOutsideClick(refOutsideClick, () => {
-    visible && setVisible(false);
+    popupVisible && setPopupVisible(false);
   });
 
   const toggleItem = (item: string) => {
@@ -37,7 +37,7 @@ export const CustomMultiSelect2 = ({ withAll = true, initialActiveItems = [], ..
     }
   };
 
-  const toggleVisible = () => setVisible(!visible);
+  const toggleVisible = () => setPopupVisible(!popupVisible);
 
   const toggleAll = () => {
     if (activeItems.length === props.items.length) {
@@ -49,16 +49,17 @@ export const CustomMultiSelect2 = ({ withAll = true, initialActiveItems = [], ..
     }
   };
 
-  return <SelectWrapper>
+  return <SelectWrapper ref={refOutsideClick}>
     <SelectContainer
+      focus={popupVisible}
       className="no-select"
       onClick={toggleVisible}>
-      <Label>{props.label}</Label>
+      <Label>{props.label} {activeItems.length > 0 ? `(${activeItems.length})` : ''}</Label>
       <IconWrapper>
         <SelectChevronDown/>
       </IconWrapper>
     </SelectContainer>
-    {visible && <PopupContainer>
+    {popupVisible && <PopupContainer>
       {withAll && <MenuItem key={'All'} onClick={toggleAll}>
         <CheckBoxOutlined sx={{ m: '6px' }}/>
         <ListItemText
@@ -85,18 +86,19 @@ const SelectWrapper = styled.div({
   width: 'fit-content',
 });
 
-const SelectContainer = styled.div({
+const SelectContainer = styled.div<{ focus: boolean }>((props) => ({
   display: 'flex',
   position: 'relative',
   alignItems: 'center',
-  border: '1px solid #D4D9E1',
+  border: `1px solid ${props.focus ? '#25273D' : '#D4D9E1'}`,
   borderRadius: '22px',
   height: '48px',
   width: 'fit-content',
   padding: '15px 40px 15px 15px',
   boxSizing: 'border-box',
   cursor: 'pointer',
-});
+  transition: 'all .3s ease'
+}));
 
 const Label = styled(Typography)({
   fontFamily: 'SF Pro Text, sans-serif',
