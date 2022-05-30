@@ -23,7 +23,7 @@ export const MARKDOWN_SENTENCE_DESCRIPTION =
 export const MARKDOWN_PARAGRAPH_DESCRIPTION = '## Responsibilities\n\n_The Protocol Engineering Team’s responsibility is to extend the functionality of the Maker protocol, assist with the maintenance and operation of existing smart contracts and ensure the safety and correctness of protocol design and implementation';
 export const MARKDOWN_PARAGRAPH_IMAGE = 'https://gateway-proxy-bee-9-0.gateway.ethswarm.org/bzz/6b6b084402b6cccb9e892ff2563a7b836259103e02a0cac59057a14d3ac9f0ef';
 
-export const contributorCommitmentOne: ContributorCommitment = {
+export const CONTRIBUTOR_COMMITMENT_ONE: ContributorCommitment = {
   id: 'ESE-001',
   jobTitle: 'Lead Developer',
   commitment: Commitment.FullTime,
@@ -39,7 +39,7 @@ export const contributorCommitmentOne: ContributorCommitment = {
     }
   ] as Contributor[],
 };
-export const contributorCommitmentTwo: ContributorCommitment = {
+export const CONTRIBUTOR_COMMITMENT_TWO: ContributorCommitment = {
   id: 'ESE-001',
   jobTitle: 'Data Analyst',
   commitment: Commitment.FullTime,

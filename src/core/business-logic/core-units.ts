@@ -8,7 +8,7 @@ import { CuStatusEnum } from '../enums/cu-status.enum';
 import { RoadmapStatusEnum } from '../enums/roadmap-status.enum';
 import { CuAbout, CuMip } from '../../stories/containers/cu-about/cu-about.api';
 
-export const setCuMipStatusModifiedDate = (mip: CuMipDao, status: CuStatusEnum, date: string) => {
+export const setCuMipStatusModifiedDate = (mip: CuMipDao | CuMip, status: CuStatusEnum, date: string) => {
   let index = status.toLowerCase();
 
   if (status === CuStatusEnum.FormalSubmission) index = 'formalSubmission';

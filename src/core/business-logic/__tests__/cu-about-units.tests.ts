@@ -1,8 +1,9 @@
 import { CuStatusEnum } from '../../enums/cu-status.enum';
 import { LinkTypeEnum } from '../../enums/link-type.enum';
 import {
-  contributorCommitmentOne,
-  contributorCommitmentTwo,
+  CONTRIBUTOR_COMMITMENT_ONE,
+  CONTRIBUTOR_COMMITMENT_TWO,
+  CURRENT_MONTH,
   MARKDOWN_PARAGRAPH_DESCRIPTION,
   MARKDOWN_PARAGRAPH_IMAGE,
   MARKDOWN_SENTENCE_DESCRIPTION,
@@ -14,10 +15,11 @@ import {
   getMarkdownInformation,
   getMipsStatus,
 } from '../core-unit-about';
+import { getRelateMipObjectFromCoreUnit } from '../core-units';
 describe('first', () => {
   test('Get date for status on CuMip', () => {
     const result = new CuMipAboutBuilder()
-      .withStatus(CuStatusEnum.Accepted)
+      .withStatus(CuStatusEnum.Accepted, CURRENT_MONTH)
       .build();
     expect(getMipsStatus(result)).toBe(result.accepted);
   });
@@ -41,11 +43,15 @@ describe('first', () => {
 
   test('Get the links from ContributorCommitment', () => {
     const result = new CoreUnitsAboutBuilder()
-      .addContributorCommitment(contributorCommitmentOne)
-      .addContributorCommitment(contributorCommitmentTwo)
+      .addContributorCommitment(CONTRIBUTOR_COMMITMENT_ONE)
+      .addContributorCommitment(CONTRIBUTOR_COMMITMENT_TWO)
       .build();
-    const linksCardOne = getLinksFromContributor(result.contributorCommitment[0]);
-    const linksCardTwo = getLinksFromContributor(result.contributorCommitment[1]);
+    const linksCardOne = getLinksFromContributor(
+      result.contributorCommitment[0]
+    );
+    const linksCardTwo = getLinksFromContributor(
+      result.contributorCommitment[1]
+    );
     expect(linksCardOne.length).toBe(4);
     expect(linksCardTwo.length).toBe(4);
     expect(linksCardOne[0].linkType).toBe(LinkTypeEnum.Gmail);

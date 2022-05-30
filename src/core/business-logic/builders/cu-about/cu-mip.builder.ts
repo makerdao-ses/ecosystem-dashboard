@@ -1,7 +1,6 @@
-// import { CuMip } from '../../../../stories/containers/cu-about/cu-about.api';
 import { CuMip } from '../../../../stories/containers/cu-about/cu-about.api';
 import { CuStatusEnum } from '../../../enums/cu-status.enum';
-// import { CuStatusEnum } from '../../../enums/cu-status.enum';
+import { setCuMipStatusModifiedDate } from '../../core-units';
 
 export class CuMipAboutBuilder {
   private readonly _cuMip: CuMip;
@@ -21,8 +20,9 @@ export class CuMipAboutBuilder {
     } as CuMip;
   }
 
-  withStatus(status: CuStatusEnum): CuMipAboutBuilder {
+  withStatus(status: CuStatusEnum, date: string): CuMipAboutBuilder {
     this._cuMip.mipStatus = status;
+    setCuMipStatusModifiedDate(this._cuMip, status, date);
     return this;
   }
 
