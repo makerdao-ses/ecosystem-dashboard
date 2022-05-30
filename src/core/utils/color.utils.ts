@@ -1,3 +1,5 @@
+import { CuCategoryEnum } from '../enums/cu-category.enum';
+
 export const getColorForString = (value: string): string => {
   let hash = 0;
   let i;
@@ -14,4 +16,35 @@ export const getColorForString = (value: string): string => {
   }
 
   return color;
+};
+
+export const getColorCategory = (category: CuCategoryEnum) => {
+  switch (category) {
+    case CuCategoryEnum.Technical:
+      return {
+        color: '#546978',
+        background: 'rgba(246, 245, 255, 0.5)',
+      };
+    case CuCategoryEnum.Growth:
+      return {
+        color: '#DC5D00',
+        background: 'rgba(255, 245, 245, 0.5);',
+      };
+    case CuCategoryEnum.Support:
+      return {
+        color: '#1AAB9B',
+        background: 'rgba(245, 255, 246, 0.5)',
+      };
+
+    case CuCategoryEnum.Operational:
+      return {
+        color: '#9055AF',
+        background: 'rgba(250, 245, 255, 0.5)',
+      };
+    default:
+      return {
+        color: '#25273D',
+        background: 'white',
+      };
+  }
 };
