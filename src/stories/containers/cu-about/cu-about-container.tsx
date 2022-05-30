@@ -1,9 +1,10 @@
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { Divider, Typography } from '@mui/material';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { getMarkdownInformation } from '../../../core/business-logic/core-unit-about';
+import { getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-units';
 import { useAppDispatch } from '../../../core/hooks/hooks';
 import { RootState } from '../../../core/store/store';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
@@ -20,6 +21,7 @@ import { loadCuTableItemsAsync, selectCuTableItems } from '../cu-table/cu-table.
 import { ContributorCommitment } from './cu-about-contributor';
 import { contributorCommitmentSelector, cuAboutSelector, loadCoreUnitABout, status } from './cu-about-slice';
 import { CuMip, getFTEsFromCoreUnitAbout } from './cu-about.api';
+import _ from 'lodash';
 
 const CuAboutContainer = () => {
   const [filters] = useSearchParams();
@@ -72,14 +74,16 @@ const CuAboutContainer = () => {
     [filters, navigate],
   );
 
-  const resultMips = useMemo(() => {
-    const result = cuAbout.cuMip.length > 3 && showThreeMIPs ? cuAbout.cuMip.slice(0, 3) : cuAbout.cuMip;
-    return result;
-  }, [cuAbout.cuMip, showThreeMIPs]);
-
   const onClickLessMips = () => {
     setShowThreeMIPs(!showThreeMIPs);
   };
+
+  const relateMipsOrder = useMemo(() => {
+    const buildNewArray = cuAbout.cuMip.map((mip: CuMip) => getRelateMipObjectFromCoreUnit(mip));
+    const order = _.sortBy(buildNewArray, ['orderBy', 'dateMip']).reverse();
+    const resultArrayThreeElements = order.length > 3 && showThreeMIPs ? order.slice(0, 3) : order;
+    return resultArrayThreeElements;
+  }, [cuAbout.cuMip, showThreeMIPs]);
 
   if (statusCoreUnit === status.loading) {
     return <div>Loading...</div>;
@@ -126,7 +130,7 @@ const CuAboutContainer = () => {
       <CardRelateMipsContainer>
         <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
         <RelateMipCards>
-          {resultMips.map((mip: CuMip, index: number) => {
+          {relateMipsOrder.map((mip: CuMip, index: number) => {
             return (
               <RelateMipCard key={index}>
                 <RelateMips relateMips={mip} />

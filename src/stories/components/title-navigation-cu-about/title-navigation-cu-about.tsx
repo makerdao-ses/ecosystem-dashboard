@@ -91,7 +91,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
   if (!coreUnitAbout || !coreUnitAbout.cuMip) return null;
   const mips = getMipsStatus(coreUnitAbout.cuMip[0] || '');
   const mipStatus = coreUnitAbout.cuMip[0] && coreUnitAbout.cuMip[0].mipStatus;
-  const newDate = DateTime.fromFormat(mips?.toString() || '', 'yyyy-MM-dd').toJSDate();
+  const newDate = mips ? DateTime.fromFormat(mips || '', 'yyyy-MM-dd').toJSDate() : null;
   return (
     <Container>
       <ContainerTitle>
@@ -107,15 +107,17 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
         {coreUnitAbout.name && <TypographyTitle>{coreUnitAbout.name}</TypographyTitle>}
         <Row>
           {mips && <StatusChip status={mipStatus as CuStatusEnum} />}
-          {mipStatus && <CustomPopover
+          {newDate && <CustomPopover
             id={'mouse-over-popover-goto'}
             title={'Go to MIPs Portal'}
           >
-            <SinceDate
-              href={'#'}
-            >
-              Since {DateTime.fromJSDate(newDate).toFormat('d-MMM-y')}
-            </SinceDate>
+            {newDate &&
+              <SinceDate
+                href={'#'}
+              >
+                Since {DateTime.fromJSDate(newDate).toFormat('d-MMM-y')}
+              </SinceDate>
+            }
           </CustomPopover>}
         </Row>
       </ContainerTitle>
