@@ -1,12 +1,19 @@
 import { CuStatusEnum } from '../../enums/cu-status.enum';
+import { LinkTypeEnum } from '../../enums/link-type.enum';
 import {
+  contributorCommitmentOne,
+  contributorCommitmentTwo,
   MARKDOWN_PARAGRAPH_DESCRIPTION,
   MARKDOWN_PARAGRAPH_IMAGE,
   MARKDOWN_SENTENCE_DESCRIPTION,
 } from '../../utils/test.utils';
 import { CoreUnitsAboutBuilder } from '../builders/cu-about/cu-about.builder';
 import { CuMipAboutBuilder } from '../builders/cu-about/cu-mip.builder';
-import { getMarkdownInformation, getMipsStatus } from '../core-unit-about';
+import {
+  getLinksFromContributor,
+  getMarkdownInformation,
+  getMipsStatus,
+} from '../core-unit-about';
 describe('first', () => {
   test('Get date for status on CuMip', () => {
     const result = new CuMipAboutBuilder()
@@ -30,5 +37,20 @@ describe('first', () => {
     expect(getMarkdownInformation(result.paragraphImage)).toEqual(
       MARKDOWN_PARAGRAPH_IMAGE
     );
+  });
+
+  test('Get the links from ContributorCommitment', () => {
+    const result = new CoreUnitsAboutBuilder()
+      .addContributorCommitment(contributorCommitmentOne)
+      .addContributorCommitment(contributorCommitmentTwo)
+      .build();
+    const linksCardOne = getLinksFromContributor(result.contributorCommitment[0]);
+    const linksCardTwo = getLinksFromContributor(result.contributorCommitment[1]);
+    expect(linksCardOne.length).toBe(4);
+    expect(linksCardTwo.length).toBe(4);
+    expect(linksCardOne[0].linkType).toBe(LinkTypeEnum.Gmail);
+    expect(linksCardOne[1].linkType).toBe(LinkTypeEnum.Forum);
+    expect(linksCardOne[2].linkType).toBe(LinkTypeEnum.Discord);
+    expect(linksCardOne[3].linkType).toBe(LinkTypeEnum.Twitter);
   });
 });

@@ -83,6 +83,13 @@ export class CoreUnitsAboutBuilder {
     return this;
   }
 
+  addContributorCommitment(
+    contributor: ContributorCommitment
+  ): CoreUnitsAboutBuilder {
+    this._coreUnitAbout.contributorCommitment.push(contributor);
+    return this;
+  }
+
   build(): CuAbout {
     return this._coreUnitAbout;
   }
