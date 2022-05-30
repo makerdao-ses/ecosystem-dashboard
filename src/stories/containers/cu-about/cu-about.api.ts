@@ -63,8 +63,9 @@ export interface SocialMediaChannels {
 export interface CuAbout {
   id: string;
   code: string;
-  category: CuCategoryEnum[];
   name: string;
+  image?: string;
+  category: CuCategoryEnum[];
   sentenceDescription: string;
   paragraphDescription: string;
   paragraphImage: string;
@@ -87,6 +88,8 @@ export const GET_CU_ABOUT_BY_CODE = gql`
       id
       code
       name
+      image
+      category
       sentenceDescription
       paragraphDescription
       paragraphImage
