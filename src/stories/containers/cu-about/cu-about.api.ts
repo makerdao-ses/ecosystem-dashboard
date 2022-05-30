@@ -168,19 +168,6 @@ export const getLinksCoreUnit = (cu: CoreUnit) => {
   }
   return links;
 };
-
-export const getFTEsFromCoreUnitAbout = (cu: CuAbout) => {
-  if (cu.budgetStatements.length === 0) return 0;
-  if (
-    !cu.budgetStatements[0].budgetStatementFTEs ||
-    cu.budgetStatements[0].budgetStatementFTEs.length === 0
-  ) {
-    return 0;
-  }
-
-  return cu.budgetStatements[0].budgetStatementFTEs[0].ftes;
-};
-
 export const fetchCoreUnitByCode = async(code: string) => {
   const res = (await request(GRAPHQL_ENDPOINT, GET_CU_ABOUT_BY_CODE, {
     filter: {

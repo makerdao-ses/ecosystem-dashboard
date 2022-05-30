@@ -6,7 +6,7 @@ import { BudgetStatementDao, CoreUnitDao, CuMipDao, Mip40Dao } from '../../stori
 import { CustomChartItem } from '../../stories/components/custom-bar-chart/custom-bar-chart';
 import { CuStatusEnum } from '../enums/cu-status.enum';
 import { RoadmapStatusEnum } from '../enums/roadmap-status.enum';
-import { CuMip } from '../../stories/containers/cu-about/cu-about.api';
+import { CuAbout, CuMip } from '../../stories/containers/cu-about/cu-about.api';
 
 export const setCuMipStatusModifiedDate = (mip: CuMipDao, status: CuStatusEnum, date: string) => {
   let index = status.toLowerCase();
@@ -101,7 +101,7 @@ export const getLinksFromCoreUnit = (cu: CoreUnitDao) => {
   return result;
 };
 
-export const getFTEsFromCoreUnit = (cu: CoreUnitDao) => {
+export const getFTEsFromCoreUnit = (cu: CoreUnitDao | CuAbout) => {
   if (cu.budgetStatements?.length === 0) return 0;
   if (!cu.budgetStatements[0]?.budgetStatementFTEs || cu.budgetStatements[0]?.budgetStatementFTEs?.length === 0) return 0;
 
