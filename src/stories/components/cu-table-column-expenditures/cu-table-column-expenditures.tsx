@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { CustomBarChart, CustomChartItem } from '../custom-bar-chart/custom-bar-chart';
+import { CustomBarChart } from '../custom-bar-chart/custom-bar-chart';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { Typography } from '@mui/material';
+import { CustomChartItemModel } from '../../../core/models/custom-chart-item.model';
 
 interface CuTableColumnExpendituresProps {
   value: number,
   percent?: number | null,
-  items: Array<CustomChartItem>,
+  items: Array<CustomChartItemModel>,
   budgetCap: number
 }
 

@@ -6,11 +6,7 @@ import { getTwoInitials } from '../../../core/utils/string.utils';
 import { getColorForString } from '../../../core/utils/color.utils';
 import './cu-table-column-team-member.scss';
 import { CustomPopover } from '../custom-popover/custom-popover';
-export interface FacilitatorModel {
-  name: string,
-  imageUrl?: string,
-  id?: string,
-}
+import { FacilitatorModel } from '../../../core/models/facilitator.model';
 
 interface CuTableColumnTeamMemberProps {
   members: FacilitatorModel[],
@@ -21,7 +17,9 @@ interface CuTableColumnTeamMemberProps {
 export const CuTableColumnTeamMember = ({ facilitatorImages, ...props }: CuTableColumnTeamMemberProps) => {
   const MemberInfo = (props: { member: FacilitatorModel }) => {
     return <MemberInfoContainer>
-      <Circle key={props.member.name} name={props.member.name}>
+      <Circle key={props.member.name}
+              name={props.member.name}
+              image={facilitatorImages[props.member?.id ?? '']}>
         {getTwoInitials(props.member.name)}
       </Circle>
       <span>{props.member.name}</span>
@@ -39,10 +37,13 @@ export const CuTableColumnTeamMember = ({ facilitatorImages, ...props }: CuTable
       </Data>
     </CustomPopover>
     <CirclesWrapper>
-      {props.members.map((member, i) => <CustomPopover key={member.name + i} title={<MemberInfo member={member}/>} id={member.name + i}>
-        <Circle name={member.name} style={{
-          marginLeft: i === 0 ? 0 : '-9px'
-        }}>
+      {props.members.map((member, i) => <CustomPopover
+        key={member.name + i}
+        title={<MemberInfo member={member}/>}
+        id={member.name + i}>
+        <Circle name={member.name}
+                style={{ marginLeft: i === 0 ? 0 : '-9px' }}
+                image={facilitatorImages[member?.id ?? '']}>
         {getTwoInitials(member.name)}
       </Circle>
       </CustomPopover>)}
@@ -77,7 +78,7 @@ const CirclesWrapper = styled.div({
   display: 'flex',
 });
 
-const Circle = styled.div<{ name: string }>(({ theme, name }) => ({
+const Circle = styled.div<{ name: string, image: string }>(({ theme, name, image }) => ({
   width: '32px',
   height: '32px',
   borderRadius: '50%',
@@ -88,8 +89,9 @@ const Circle = styled.div<{ name: string }>(({ theme, name }) => ({
   fontFamily: (theme as Theme).typography.fontFamily,
   fontWeight: 900,
   fontSize: '14px',
-  color: 'white',
-  background: getColorForString(name)
+  color: image ? 'transparent' : 'white',
+  background: `${image ? `url(${image})` : getColorForString(name)}`,
+  backgroundSize: '32px',
 }));
 
 const Value = styled(Typography)({

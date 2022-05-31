@@ -1,11 +1,11 @@
 import { DateTime, Interval } from 'luxon';
 import { LinkModel } from '../../stories/components/cu-table-column-links/cu-table-column-links';
 import { LinkTypeEnum } from '../enums/link-type.enum';
-import { FacilitatorModel } from '../../stories/components/cu-table-column-team-member/cu-table-column-team-member';
 import { BudgetStatementDao, CoreUnitDao, CuMipDao, Mip40Dao } from '../../stories/containers/cu-table/cu-table.api';
-import { CustomChartItem } from '../../stories/components/custom-bar-chart/custom-bar-chart';
 import { CuStatusEnum } from '../enums/cu-status.enum';
 import { RoadmapStatusEnum } from '../enums/roadmap-status.enum';
+import { FacilitatorModel } from '../models/facilitator.model';
+import { CustomChartItemModel } from '../models/custom-chart-item.model';
 
 export const setCuMipStatusModifiedDate = (mip: CuMipDao, status: CuStatusEnum, date: string) => {
   let index = status.toLowerCase();
@@ -214,7 +214,7 @@ export const getPercentFromCoreUnit = (cu: CoreUnitDao) => {
 };
 
 export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDao) => {
-  const result = [] as CustomChartItem[];
+  const result = [] as CustomChartItemModel[];
   if (cu.budgetStatements.length === 0) return result;
 
   let dateToCheck = DateTime.now();

@@ -1,12 +1,8 @@
 import React from 'react';
-
-export interface CustomChartItem {
-  label?: string,
-  value: number,
-}
+import { CustomChartItemModel } from '../../../core/models/custom-chart-item.model';
 
 interface CustomBarChartProps {
-  items: Array<CustomChartItem>,
+  items: Array<CustomChartItemModel>,
   maxValue: number,
 }
 
