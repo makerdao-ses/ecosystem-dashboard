@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Divider, Typography } from '@mui/material';
+import { Container, Divider, Typography } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
@@ -92,53 +92,54 @@ const CuAboutContainer = () => {
       <NavigationHeader>
         <SmallButton onClick={handleGoBack} /> <PaddingComponent><InsidePagination count={filteredData.length} page={page} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} /></PaddingComponent>
       </NavigationHeader>
-      <ContainerTitle>
-        <TitleNavigationCuAbout coreUnitAbout={cuAbout} />
-      </ContainerTitle>
-      <MarkdownContainer>
-        <MdViewerContainer sentenceDescription={cuAbout.sentenceDescription} paragraphDescription={cuAbout.paragraphDescription} paragraphImage={cuAbout.paragraphImage} />
-      </MarkdownContainer>
-      <TeamMemberContainer>
-        <TeamMemberTitle>Team Size</TeamMemberTitle><TeamMember fte={getFTEsFromCoreUnitAbout(cuAbout)} />
-      </TeamMemberContainer>
-      <ContactInfoContainer>
-        <ContactInfoTitle>Contact Information</ContactInfoTitle>
-        <ContainerCards className='cards'>
-          {contributors.map((contributor: ContributorCommitment, index: number) => {
-            return (
-              <CardContainer key={index}>
-                <CardInfoMember contributorCommitment={contributor} />
-              </CardContainer>
-            );
-          })
-          }
-        </ContainerCards>
-        {contributors.length === 0 && <ContainerNoData>No data to Show</ContainerNoData>}
-      </ContactInfoContainer>
-      <Divider light sx={{
-        marginBottom: '32px',
-        marginTop: '32px',
-        color: '#D8E0E3',
-        marginLeft: '32px',
-        marginRight: '32px'
-      }} variant='fullWidth' />
-      <CardRelateMipsContainer>
-        <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
-        <RelateMipCards>
-          {resultMips.map((mip: CuMip, index: number) => {
-            return (
-              <RelateMipCard key={index}>
-                <RelateMips relateMips={mip} />
-              </RelateMipCard>
+      <ContainerAllData disableGutters>
+        <ContainerTitle>
+          <TitleNavigationCuAbout coreUnitAbout={cuAbout} />
+        </ContainerTitle>
+        <MarkdownContainer>
+          <MdViewerContainer sentenceDescription={cuAbout.sentenceDescription} paragraphDescription={cuAbout.paragraphDescription} paragraphImage={cuAbout.paragraphImage} />
+        </MarkdownContainer>
+        <TeamMemberContainer>
+          <TeamMemberTitle>Team Size</TeamMemberTitle><TeamMember fte={getFTEsFromCoreUnitAbout(cuAbout)} />
+        </TeamMemberContainer>
+        <ContactInfoContainer>
+          <ContactInfoTitle>Contact Information</ContactInfoTitle>
+          <ContainerCards className='cards'>
+            {contributors.map((contributor: ContributorCommitment, index: number) => {
+              return (
+                <div key={index}>
+                  <CardInfoMember contributorCommitment={contributor} />
+                </div>
+              );
+            })
+            }
+          </ContainerCards>
+          {contributors.length === 0 && <ContainerNoData>No data to Show</ContainerNoData>}
+        </ContactInfoContainer>
+        <CardRelateMipsContainer>
+          <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
+          <RelateMipCards>
+            {resultMips.map((mip: CuMip, index: number) => {
+              return (
+                <RelateMipCard key={index}>
+                  <RelateMips relateMips={mip} />
+                </RelateMipCard>
 
-            );
-          })}
-          {cuAbout.cuMip.length === 0 && <ContainerNoRelateMIps>There are not related MIPs</ContainerNoRelateMIps>}
-        </RelateMipCards>
-      </CardRelateMipsContainer>
-      {cuAbout.cuMip.length > 3 && <ButtonContainer>
-        <BigButton title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'} onClick={onClickLessMips} />
-      </ButtonContainer>}
+              );
+            })}
+            {cuAbout.cuMip.length === 0 && <ContainerNoRelateMIps>There are not related MIPs</ContainerNoRelateMIps>}
+          </RelateMipCards>
+        </CardRelateMipsContainer>
+        {cuAbout.cuMip.length > 3 && <ButtonContainer>
+          <Divider sx={{
+            bgcolor: '#D4D9E1',
+            width: '192px'
+          }} /> <BigButton title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'} onClick={onClickLessMips} /> <Divider sx={{
+            bgcolor: '#D4D9E1',
+            width: '705px'
+          }} />
+        </ButtonContainer>}
+      </ContainerAllData>
     </ContainerAbout>
   );
 };
@@ -167,14 +168,10 @@ const PaddingComponent = styled.div({
 
 const ContainerTitle = styled.div({
   display: 'flex',
-  marginLeft: '44px',
-  marginRight: '41px',
   marginTop: '32px',
-  marginBottom: '24px',
 });
 const MarkdownContainer = styled.div({
-  marginLeft: '32px',
-  marginRight: '32px',
+  marginTop: '40px',
 });
 const TeamMemberContainer = styled.div({
   display: 'flex',
@@ -220,11 +217,6 @@ const ContainerCards = styled.div({
   marginTop: '32px',
 });
 
-const CardContainer = styled.div({
-  marginBottom: '24px',
-  marginTop: '24px',
-});
-
 const CardRelateMipsContainer = styled.div({
   marginLeft: '32px',
   marginRight: '32px',
@@ -256,8 +248,9 @@ const RelateMipCard = styled.div({
 const ButtonContainer = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'center',
-  marginBottom: '26px',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  marginBottom: '44px',
 });
 
 const ContainerNoData = styled.div({
@@ -271,4 +264,9 @@ const ContainerNoRelateMIps = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
+});
+
+const ContainerAllData = styled(Container)({
+  marginRight: '128px',
+  marginLeft: '128px',
 });
