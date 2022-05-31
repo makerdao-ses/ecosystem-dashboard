@@ -10,22 +10,23 @@ interface Props {
 
 const BigButton = ({ onClick, title = 'Back' }: Props) => {
   return (
-    <StyledBigButton onClick={onClick} >{title}</StyledBigButton>
+    <StyledBigButton onClick={onClick}>{title}</StyledBigButton>
   );
 };
 
 const StyledBigButton = styled(Button)({
-  minWidth: '512px',
-  height: '32px',
-  border: '1px solid rgba(37, 39, 61, 0.75)',
-  borderRadius: '8px',
+  width: '287px',
+  height: '30px',
+  border: '1px solid #D4D9E1',
+  borderRadius: '6px',
   fontStyle: 'normal',
   fontWeight: '500',
   fontSize: '12px',
-  lineHeight: '15px',
+  lineHeight: '14px',
   textAlign: 'center',
-  textTransform: 'none',
-  color: '#000000',
+  textTransform: 'uppercase',
+  color: '#708390',
+  padding: ' 8px 64px',
 });
 
 export default BigButton;
