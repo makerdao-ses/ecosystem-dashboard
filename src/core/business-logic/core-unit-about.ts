@@ -5,6 +5,7 @@ import {
 } from '../../stories/containers/cu-about/cu-about.api';
 import { CuStatusEnum } from '../enums/cu-status.enum';
 import { LinkTypeEnum } from '../enums/link-type.enum';
+import { getCuMipStatusModifiedDate } from './core-units';
 
 export const getMipsStatus = (mip: CuMip) => {
   if (!mip) return undefined;
@@ -57,4 +58,15 @@ export const getLinksFromContributor = (contributor: ContributorCommitment) => {
     });
   }
   return links;
+};
+export const getRelateMipObjectFromCoreUnit = (cu: CuMip) => {
+  const dateMip = getCuMipStatusModifiedDate(cu, cu.mipStatus);
+  return {
+    ...cu,
+    mipTitle: cu.mipTitle,
+    mipStatus: cu.mipStatus,
+    dateMip,
+    mipUrl: cu.mipUrl,
+    orderBy: cu.mipStatus === CuStatusEnum.FormalSubmission || cu.mipStatus === CuStatusEnum.RFC || cu.mipStatus === CuStatusEnum.Accepted ? 1 : 0,
+  } as CuMip;
 };

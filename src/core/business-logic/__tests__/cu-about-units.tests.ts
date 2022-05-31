@@ -15,7 +15,7 @@ import {
   getMarkdownInformation,
   getMipsStatus,
 } from '../core-unit-about';
-import { getRelateMipObjectFromCoreUnit } from '../core-units';
+
 describe('first', () => {
   test('Get date for status on CuMip', () => {
     const result = new CuMipAboutBuilder()

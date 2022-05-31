@@ -8,8 +8,7 @@ import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { StatusChip } from '../status-chip/status-chip';
 import { CuAbout, CuMip } from '../../containers/cu-about/cu-about.api';
 import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
-import { getMipsStatus } from '../../../core/business-logic/core-unit-about';
-import { getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-units';
+import { getMipsStatus, getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-unit-about';
 import _ from 'lodash';
 
 interface BudgetStatementFTEs {

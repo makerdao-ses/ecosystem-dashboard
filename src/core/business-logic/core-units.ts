@@ -235,15 +235,3 @@ export const getMipUrlFromCoreUnit = (cu: CoreUnitDao) => {
   if (cu?.cuMip.length === 0) return '';
   return cu?.cuMip[0].mipUrl ?? '';
 };
-
-export const getRelateMipObjectFromCoreUnit = (cu: CuMip) => {
-  const dateMip = getCuMipStatusModifiedDate(cu, cu.mipStatus);
-  return {
-    ...cu,
-    mipTitle: cu.mipTitle,
-    mipStatus: cu.mipStatus,
-    dateMip,
-    mipUrl: cu.mipUrl,
-    orderBy: cu.mipStatus === CuStatusEnum.FormalSubmission || cu.mipStatus === CuStatusEnum.RFC || cu.mipStatus === CuStatusEnum.Accepted ? 1 : 0,
-  } as CuMip;
-};
