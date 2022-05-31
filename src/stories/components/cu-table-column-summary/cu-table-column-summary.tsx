@@ -6,7 +6,7 @@ import { CustomPopover } from '../custom-popover/custom-popover';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { StatusChip } from '../status-chip/status-chip';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
-import ArrowLink from '../svg/ArrowLink';
+import { LinkIcon } from '../svg/link-icon';
 
 interface CuTableColumnSummaryProps {
   title: string,
@@ -26,19 +26,26 @@ export const CuTableColumnSummary = (props: CuTableColumnSummaryProps) => {
         height={'48px'}
         name={props.title || 'Core Unit'}
         image={props.imageUrl}
-        style={{ filter: 'drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))' }}/>
+        style={{ filter: 'drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))' }}
+      />
     </CircleContainer>
     <Content>
-      <Title><Code>{props.code}</Code>{props.title}</Title>
+      <TitleWrapper>
+        <Code>{props.code}</Code>
+        <Title>{props.title}</Title>
+      </TitleWrapper>
       <Row>
         {props.status && <StatusChip status={props.status} />}
         {props.statusModified && <CustomPopover
           id={'mouse-over-popover-goto'}
           title={'Go to MIPs Portal'}
         >
-          {props.statusModified && <SinceDate href={props.mipUrl} target="_blank" onClick={(evt) => evt.stopPropagation()}>
-            Since {DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}
-              <ArrowLink width={6} height={6}/>
+          {props.statusModified && <SinceDate
+              href={props.mipUrl}
+              target="_blank"
+              onClick={(evt) => evt.stopPropagation()}>
+              Since {DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}
+              <LinkIcon style={{ marginLeft: '5px' }}/>
           </SinceDate>}
         </CustomPopover>}
       </Row>
@@ -48,7 +55,6 @@ export const CuTableColumnSummary = (props: CuTableColumnSummaryProps) => {
 
 const Container = styled.div({
   display: 'flex',
-  height: '100px',
   alignItems: 'stretch',
   boxSizing: 'border-box',
   padding: '13px',
@@ -75,20 +81,25 @@ const Code = styled.span(({ theme }) => ({
   marginRight: '5px',
 }));
 
+const TitleWrapper = styled.div({
+  display: 'flex'
+});
+
 const Title = styled(Typography)(({ theme }) => ({
   fontFamily: (theme as Theme).typography.fontFamily,
-  fontSize: '14px',
+  fontSize: '16px',
   alignItems: 'center',
-  marginBottom: '10px',
-  maxWidth: '250px',
+  maxWidth: '200px',
   fontWeight: 400,
-  color: '#231536'
+  color: '#231536',
+  lineHeight: '19px',
 }));
 
 const Row = styled.div({
   display: 'flex',
   alignItems: 'center',
   flex: 1,
+  marginTop: '8px',
 });
 
 const SinceDate = styled.a(({ theme }) => ({
@@ -101,5 +112,5 @@ const SinceDate = styled.a(({ theme }) => ({
   textTransform: 'uppercase',
   color: '#447AFB',
   textDecoration: 'none',
-  marginLeft: '10px',
+  marginLeft: '4px',
 }));
