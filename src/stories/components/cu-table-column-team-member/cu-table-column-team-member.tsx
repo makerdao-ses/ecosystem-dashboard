@@ -1,27 +1,28 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Title } from '../cu-table-column-expenditures/cu-table-column-expenditures';
-import { Theme, Typography } from '@mui/material';
-import { getTwoInitials } from '../../../core/utils/string.utils';
-import { getColorForString } from '../../../core/utils/color.utils';
+import { Typography } from '@mui/material';
 import './cu-table-column-team-member.scss';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { FacilitatorModel } from '../../../core/models/facilitator.model';
+import { CircleAvatar } from '../circle-avatar/circle-avatar';
 
 interface CuTableColumnTeamMemberProps {
   members: FacilitatorModel[],
-  facilitatorImages: {[id:string]: string},
+  facilitatorImages: { [id: string]: string },
   fte: number,
 }
 
 export const CuTableColumnTeamMember = ({ facilitatorImages, ...props }: CuTableColumnTeamMemberProps) => {
   const MemberInfo = (props: { member: FacilitatorModel }) => {
     return <MemberInfoContainer>
-      <Circle key={props.member.name}
-              name={props.member.name}
-              image={facilitatorImages[props.member?.id ?? '']}>
-        {getTwoInitials(props.member.name)}
-      </Circle>
+      <CircleAvatar key={props.member.name}
+                    name={props.member.name}
+                    image={facilitatorImages[props.member?.id ?? '']}
+                    fontSize={'14px'}
+                    width={'32px'}
+                    style={{ border: '2px solid #E7FCFA' }}
+                    height={'32px'}/>
       <span>{props.member.name}</span>
     </MemberInfoContainer>;
   };
@@ -41,11 +42,16 @@ export const CuTableColumnTeamMember = ({ facilitatorImages, ...props }: CuTable
         key={member.name + i}
         title={<MemberInfo member={member}/>}
         id={member.name + i}>
-        <Circle name={member.name}
-                style={{ marginLeft: i === 0 ? 0 : '-9px' }}
-                image={facilitatorImages[member?.id ?? '']}>
-        {getTwoInitials(member.name)}
-      </Circle>
+        <CircleAvatar key={member.name}
+                      name={member.name}
+                      fontSize={'14px'}
+                      width={'32px'}
+                      height={'32px'}
+                      style={{
+                        marginLeft: i === 0 ? 0 : '-9px',
+                        border: '2px solid #E7FCFA'
+                      }}
+                      image={facilitatorImages[member?.id ?? '']}/>
       </CustomPopover>)}
     </CirclesWrapper>
   </Container>;
@@ -77,22 +83,6 @@ const MemberInfoContainer = styled.div({
 const CirclesWrapper = styled.div({
   display: 'flex',
 });
-
-const Circle = styled.div<{ name: string, image: string }>(({ theme, name, image }) => ({
-  width: '32px',
-  height: '32px',
-  borderRadius: '50%',
-  border: '2px solid #E7FCFA',
-  display: 'block',
-  textAlign: 'center',
-  lineHeight: '30px',
-  fontFamily: (theme as Theme).typography.fontFamily,
-  fontWeight: 900,
-  fontSize: '14px',
-  color: image ? 'transparent' : 'white',
-  background: `${image ? `url(${image})` : getColorForString(name)}`,
-  backgroundSize: '32px',
-}));
 
 const Value = styled(Typography)({
   fontWeight: 600,

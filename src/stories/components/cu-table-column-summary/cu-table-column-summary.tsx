@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Avatar, Theme, Typography } from '@mui/material';
-import { getColorForString } from '../../../core/utils/color.utils';
+import { Theme, Typography } from '@mui/material';
 import { getTwoInitials } from '../../../core/utils/string.utils';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { StatusChip } from '../status-chip/status-chip';
+import { CircleAvatar } from '../circle-avatar/circle-avatar';
 
 interface CuTableColumnSummaryProps {
   title: string,
@@ -20,15 +20,12 @@ interface CuTableColumnSummaryProps {
 export const CuTableColumnSummary = (props: CuTableColumnSummaryProps) => {
   return <Container onClick={props.onClick}>
     <CircleContainer>
-      {props.imageUrl && <Avatar style={{
-        width: '48px',
-        height: '48px'
-      }} src={props.imageUrl} />}
-      {!props.imageUrl && <Avatar sx={{ bgcolor: getColorForString(props.title) }} style={{
-        width: '48px',
-        height: '48px',
-        fontSize: '1rem'
-      }}>{getTwoInitials(props.title) || 'CU'}</Avatar>}
+      <CircleAvatar
+        width={'48px'}
+        height={'48px'}
+        name={props.title || 'Core Unit'}
+        image={props.imageUrl}
+        style={{ filter: 'drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))' }}/>
     </CircleContainer>
     <Content>
       <Title>{props.title}</Title>
