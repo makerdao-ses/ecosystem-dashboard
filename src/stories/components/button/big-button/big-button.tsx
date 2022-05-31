@@ -15,7 +15,7 @@ const BigButton = ({ onClick, title = 'Back' }: Props) => {
 };
 
 const StyledBigButton = styled(Button)({
-  width: '287px',
+  minWidth: '287px',
   height: '30px',
   border: '1px solid #D4D9E1',
   borderRadius: '6px',

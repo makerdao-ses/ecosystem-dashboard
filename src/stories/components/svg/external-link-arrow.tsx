@@ -5,11 +5,12 @@ interface Props {
   height?: number;
   fill?: string;
   href?: string
+  target?: string
 }
 
-const ExternalLinkArrow = ({ fill = '#447AFB', width = 10, height = 11, href = '', ...props }: Props) => {
+const ExternalLinkArrow = ({ fill = '#447AFB', width = 10, target = '_blank', height = 11, href = '', ...props }: Props) => {
   return (
-    <a href={href}>
+    <a href={href} target={target}>
       <svg
         width={width}
         height={height}
