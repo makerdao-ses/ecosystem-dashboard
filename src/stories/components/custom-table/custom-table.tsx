@@ -1,10 +1,5 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import { TableHead, TableRow } from '@mui/material';
 import { CustomTableHeader } from '../custom-table-header/custom-table-header';
 import { SortEnum } from '../../../core/enums/sort.enum';
 
@@ -12,28 +7,25 @@ interface CustomTableProps {
   headers: string[],
   items?: (JSX.Element | string)[][],
   headersAlign?: ('flex-start' | 'center' | 'flex-end')[],
+  headersStyles?: CSSProperties[],
   headersSort?: SortEnum[],
   sortFunction?: (index: number, previousSort: SortEnum) => void,
 }
 
-export const CustomTable = ({ headersSort = [], ...props }: CustomTableProps) => {
+export const CustomTable = ({ headersSort = [], headersStyles = [], ...props }: CustomTableProps) => {
   return (
-    <TableContainer sx={{
-      border: '1px solid #C4C4C4',
-      background: 'white',
-      maxHeight: 'calc(100vh - 240px)',
-      overflowY: 'scroll'
-    }}>
+    <TableContainer>
       <Table>
         <TableHead>
-          <TableRow>
+          <TableHeadRow>
             {props.headers?.map((header, i) =>
               <TableCell
                 key={`header-${i}`}
+                style={headersStyles[i] ?? {}}
                 onClick={() => headersSort && headersSort[i] && headersSort[i] !== SortEnum.Disabled && props.sortFunction && props.sortFunction(i, headersSort[i])}>
                 <CustomTableHeader align={props.headersAlign && props.headersAlign[i]} state={headersSort[i]} title={header}/>
               </TableCell>)}
-          </TableRow>
+          </TableHeadRow>
         </TableHead>
         <TableBody>
           {props.items?.map((row, i) => <TableRow key={i}>
@@ -51,4 +43,45 @@ const Placeholder = styled.div({
   justifyContent: 'center',
   width: '100%',
   height: '600px',
+});
+
+const TableContainer = styled.div({
+  background: 'white',
+  maxHeight: 'calc(100vh - 240px)',
+  overflowY: 'scroll',
+  display: 'flex'
+});
+
+const Table = styled.table({
+  borderCollapse: 'separate',
+  borderSpacing: '0px 8px',
+  tableLayout: 'fixed',
+  flex: '1',
+  padding: '2px 4px',
+});
+
+const TableHead = styled.thead({
+  padding: '16px',
+  height: '52px',
+  background: '#F7F8F9',
+});
+
+const TableRow = styled.tr({});
+
+const TableHeadRow = styled.tr({
+  borderTopLeftRadius: '5px',
+  borderTopRightRadius: '5px',
+  boxShadow: '0px 20px 40px -40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+});
+
+const TableCell = styled.td({});
+
+const TableBody = styled.tbody({
+  background: '#F7F8F966',
+  '> tr': {
+    display: 'table-row',
+    background: '#FFFFFF',
+    boxShadow: '0px 20px 40px -40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
+    marginBottom: '10px',
+  }
 });

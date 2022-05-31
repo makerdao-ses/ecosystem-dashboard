@@ -2,7 +2,6 @@ import React, { CSSProperties } from 'react';
 import { getColorForString } from '../../../core/utils/color.utils';
 import { Theme, useTheme } from '@mui/material';
 import { getTwoInitials } from '../../../core/utils/string.utils';
-import styled from '@emotion/styled';
 
 interface CircleAvatarProps {
   width: string,
@@ -10,7 +9,8 @@ interface CircleAvatarProps {
   name: string,
   image?: string
   fontSize?: string,
-  style?: CSSProperties
+  style?: CSSProperties,
+  imageStyle?: CSSProperties,
 }
 
 export const CircleAvatar = ({ width = '32px', height = '32px', fontSize = '16px', ...props }: CircleAvatarProps) => {
@@ -36,7 +36,8 @@ export const CircleAvatar = ({ width = '32px', height = '32px', fontSize = '16px
     style={{
       width,
       height,
-      borderRadius: '50%'
+      borderRadius: '50%',
+      ...props.imageStyle
     }}/>
     : getTwoInitials(props.name)}</div>;
 };

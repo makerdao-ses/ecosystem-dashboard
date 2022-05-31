@@ -104,7 +104,7 @@ export const initialState = {
       .addCategory(CuCategoryEnum.Business)
       .addCuMip(
         (new CuMipBuilder())
-          .withStatus(CuStatusEnum.Accepted, CURRENT_MINUS_1_MONTH)
+          .withStatus(CuStatusEnum.Rejected, CURRENT_MINUS_1_MONTH)
           .addMip40(
             (new Mip40Builder())
               .addPeriodWithLineItems(CURRENT_MINUS_2_MONTH, CURRENT_PLUS_1_MONTH, [500, 510, 500])
@@ -173,7 +173,7 @@ export const initialState = {
       .addCategory(CuCategoryEnum.Business)
       .addCuMip(
         (new CuMipBuilder())
-          .withStatus(CuStatusEnum.Accepted, CURRENT_MINUS_1_MONTH)
+          .withStatus(CuStatusEnum.Withdrawn, CURRENT_MINUS_1_MONTH)
           .addMip40(
             (new Mip40Builder())
               .addPeriodWithLineItems(CURRENT_MINUS_2_MONTH, CURRENT_PLUS_1_MONTH, [500, 510, 500])
@@ -230,7 +230,7 @@ export const initialState = {
       .addCategory(CuCategoryEnum.Business)
       .addCuMip(
         (new CuMipBuilder())
-          .withStatus(CuStatusEnum.Accepted, CURRENT_MINUS_1_MONTH)
+          .withStatus(CuStatusEnum.RFC, CURRENT_MINUS_1_MONTH)
           .addMip40(
             (new Mip40Builder())
               .addPeriodWithLineItems(CURRENT_MINUS_2_MONTH, CURRENT_PLUS_1_MONTH, [500, 510, 500])
@@ -295,7 +295,7 @@ export const initialState = {
       .addCategory(CuCategoryEnum.Business)
       .addCuMip(
         (new CuMipBuilder())
-          .withStatus(CuStatusEnum.Accepted, CURRENT_MINUS_1_MONTH)
+          .withStatus(CuStatusEnum.FormalSubmission, CURRENT_MINUS_1_MONTH)
           .addMip40(
             (new Mip40Builder())
               .addPeriodWithLineItems(CURRENT_MINUS_2_MONTH, CURRENT_PLUS_1_MONTH, [500, 510, 500])
@@ -348,7 +348,7 @@ export const initialState = {
       .addCategory(CuCategoryEnum.Business)
       .addCuMip(
         (new CuMipBuilder())
-          .withStatus(CuStatusEnum.Accepted, CURRENT_MINUS_1_MONTH)
+          .withStatus(CuStatusEnum.Obsolete, CURRENT_MINUS_1_MONTH)
           .addMip40(
             (new Mip40Builder())
               .addPeriodWithLineItems(CURRENT_MINUS_2_MONTH, CURRENT_PLUS_1_MONTH, [500, 510, 500])

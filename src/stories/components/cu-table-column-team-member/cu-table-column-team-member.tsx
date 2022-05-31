@@ -21,7 +21,7 @@ export const CuTableColumnTeamMember = ({ facilitatorImages, ...props }: CuTable
                     image={facilitatorImages[props.member?.id ?? '']}
                     fontSize={'14px'}
                     width={'32px'}
-                    style={{ border: '2px solid #E7FCFA' }}
+                    imageStyle={{ border: '2px solid #E7FCFA' }}
                     height={'32px'}/>
       <span>{props.member.name}</span>
     </MemberInfoContainer>;
@@ -47,7 +47,7 @@ export const CuTableColumnTeamMember = ({ facilitatorImages, ...props }: CuTable
                       fontSize={'14px'}
                       width={'32px'}
                       height={'32px'}
-                      style={{
+                      imageStyle={{
                         marginLeft: i === 0 ? 0 : '-9px',
                         border: '2px solid #E7FCFA'
                       }}
@@ -75,6 +75,7 @@ const Data = styled.div({
 const MemberInfoContainer = styled.div({
   display: 'flex',
   alignItems: 'center',
+  overflow: 'hidden',
   '> span': {
     marginLeft: '10.5px'
   }

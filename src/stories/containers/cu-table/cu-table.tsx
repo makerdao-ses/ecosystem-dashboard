@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { CSSProperties, useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { Box, Typography } from '@mui/material';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -44,6 +44,7 @@ const statuses = Object.values(CuStatusEnum) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];
 const headers = ['Core Units', 'Initiatives', 'Expenditure', 'Team Members', 'Links'];
 const sortInitialState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled];
+const headerStyles: CSSProperties[] = [{ paddingLeft: '80px' }, {}, {}, {}, {}];
 
 export const CuTable = () => {
   const [filters] = useSearchParams();
@@ -211,6 +212,7 @@ export const CuTable = () => {
         items={items}
         headersAlign={['flex-start', 'center', 'flex-start', 'flex-start', 'flex-start']}
         headersSort={headersSort}
+        headersStyles={headerStyles}
         sortFunction={setSort}
       />
     </Box >
