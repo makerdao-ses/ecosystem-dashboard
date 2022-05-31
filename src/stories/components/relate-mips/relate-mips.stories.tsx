@@ -29,7 +29,7 @@ WithData.args = {
 export const DataWithLargeText = Template.bind({});
 DataWithLargeText.args = {
   relateMips: {
-    mipTitle: 'MIP40c3-SP1:Modify Core Unit Budget - Real-World Finance (RWF-001) Other Data Here',
+    mipTitle: 'MIP40c3-SP1:Modify Core Unit Budget - Real-World Finance (RWF-001) Other Data Here Real-World Finance (RWF-001) Other Data HereReal-World Finance (RWF-001) Other Data HereReal-World Finance (RWF-001) Other Data HereReal-World Finance (RWF-001) Other Data Here',
     mipUrl: 'https://mips.makerdao.com/mips/details/MIP39c2SP10 ',
     mipStatus: CuStatusEnum.Accepted,
     accepted: '2019-06-11',

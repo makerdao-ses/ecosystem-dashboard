@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Typography } from '@mui/material';
+import { Typography, Theme } from '@mui/material';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
@@ -41,7 +41,6 @@ const RelateMips = ({ relateMips }: Props) => {
   const mipStatus = relateMips.mipStatus;
   const newDate = mips ? DateTime.fromFormat(mips || '', 'yyyy-MM-dd').toJSDate() : null;
   const pieces = getMipTitle(relateMips.mipTitle);
-  console.log('pieces', pieces);
   return (
     <Content>
       <Row>
@@ -52,6 +51,8 @@ const RelateMips = ({ relateMips }: Props) => {
         >
           <SinceDate
             href={relateMips.mipUrl}
+            target="_blank"
+            onClick={(evt) => evt.stopPropagation()}
           >
             Since {DateTime.fromJSDate(newDate).toFormat('d-MMM-y')}
           </SinceDate>
@@ -59,20 +60,20 @@ const RelateMips = ({ relateMips }: Props) => {
       </Row>
       {pieces.length === 2 && <RowUnderLine>
         <Typography color='#231536' fontSize={16} fontWeight={600} sx={{
-          marginRight: '4px',
-          lineHeight: '16px',
-          minWidth: '120px',
+          lineHeight: '22px',
+          minWidth: '125px',
           display: 'inline-block',
-        }}>{`${pieces[0]} :`}</Typography>
+          marginRight: '4px',
+        }}>{`${pieces[0]}:`}</Typography>
         <ContainerIconTypography>
-        <Typography color='#447AFB' fontSize={16} sx={{
-          display: 'inline',
-          lineHeight: '19px',
-        }}>{pieces[1]}</Typography>
-        <ArrowLinkContainer>  <ExternalLinkArrow href={`${relateMips.mipUrl}` || '#'} /></ArrowLinkContainer>
+          <Typography color='#447AFB' fontSize={16} sx={{
+            display: 'inline',
+            lineHeight: '19px',
+          }}>{pieces[1]}</Typography>
+          <ArrowLinkContainer>  <ExternalLinkArrow href={`${relateMips.mipUrl}` || '#'} /></ArrowLinkContainer>
         </ContainerIconTypography>
       </RowUnderLine>}
-      {pieces.length === 1 && <RowUnderLine>{relateMips.mipTitle}</RowUnderLine>}
+      {pieces.length === 1 && <RowUnderLine><Typography> {relateMips.mipTitle}</Typography><ArrowLinkContainer>  <ExternalLinkArrow href={`${relateMips.mipUrl}` || '#'} /></ArrowLinkContainer></RowUnderLine>}
     </Content>
   );
 };
@@ -89,6 +90,7 @@ const Content = styled.div({
 
 const Row = styled.div({
   display: 'flex',
+  flexDirection: 'row',
   alignItems: 'center',
   flex: 1,
   marginBottom: '18px'
@@ -98,18 +100,21 @@ const RowUnderLine = styled.div({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'flex-start',
-  wordWrap: 'normal',
-  paddingBottom: '16px'
+  alignSelf: 'stretch',
+  width: '640px',
 });
-
-const SinceDate = styled.a({
-  color: '#898989',
-  fontSize: '12px',
-  textDecoration: 'underline',
-  marginLeft: '10px',
+const SinceDate = styled.a(({ theme }) => ({
+  fontFamily: (theme as Theme).typography.fontFamily,
+  fontStyle: 'normal',
   fontWeight: 500,
-  marginRight: '8px',
-});
+  fontSize: '12px',
+  lineHeight: '14px',
+  letterSpacing: '1px',
+  textTransform: 'uppercase',
+  color: '#447AFB',
+  textDecoration: 'none',
+  marginLeft: '4px',
+}));
 
 const ArrowLinkContainer = styled.span({
   display: 'inline',
