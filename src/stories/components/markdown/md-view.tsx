@@ -70,11 +70,7 @@ const ViewerContainer = styled.div({
   flexDirection: 'column',
   backgroundColor: '#F9F9F9',
   textAlign: 'justify',
-  paddingTop: '11px',
-  marginBottom: '48px',
   boxSizing: 'border-box',
-  paddingLeft: '32px',
-  paddingRight: '32px'
 });
 
 const TypographyStyleSentence = styled(Typography)({
