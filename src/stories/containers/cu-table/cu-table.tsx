@@ -166,6 +166,7 @@ export const CuTable = () => {
         <CuTableColumnLinks
           key={`links-${i}`}
           links={getLinksFromCoreUnit(coreUnit)}
+          spacingsRight={16}
         />
       ];
     });
