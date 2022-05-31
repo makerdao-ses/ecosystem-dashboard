@@ -25,7 +25,7 @@ interface CuTableColumnLinksProps {
 }
 
 const getImageForLink = (link: LinkModel, width?: number, height?: number, dark?: boolean) => {
-  const fill = dark ? '#626472' : '#C4C4C4';
+  const fill = dark ? '#211634' : '#C4C4C4';
   switch (link.linkType) {
     case LinkTypeEnum.WWW:
       return <WWW fill={fill} width={width} height={height} />;
