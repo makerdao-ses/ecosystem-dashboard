@@ -31,6 +31,7 @@ import {
   loadCuTableItemsAsync,
   loadFacilitatorImage,
   selectCuTableItems,
+  selectCuTableStatus,
   selectFacilitatorImages,
   setFacilitatorImageAsPending
 } from './cu-table.slice';
@@ -51,6 +52,7 @@ export const CuTable = () => {
   const navigate = useNavigate();
   const data: Array<CoreUnitDao> = useSelector((state: RootState) => selectCuTableItems(state));
   const facilitatorImages = useSelector((state: RootState) => selectFacilitatorImages(state));
+  const status = useSelector((state: RootState) => selectCuTableStatus(state));
   const dispatch = useAppDispatch();
 
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', filters), [filters]);
@@ -214,6 +216,7 @@ export const CuTable = () => {
         headersSort={headersSort}
         headersStyles={headerStyles}
         sortFunction={setSort}
+        loading={status === 'loading'}
       />
     </Box >
   </ContainerHome>;
