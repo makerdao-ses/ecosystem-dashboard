@@ -8,18 +8,18 @@ export interface MenuType{
 const menuItems:MenuType[] = [
   {
     title: 'Core Units',
-    link: '/core-units',
-    marginRight: '64px'
+    link: '/',
+    marginRight: '30px'
   },
   {
     title: 'Strategic Initiatives',
     link: '/strategic-initiatives',
-    marginRight: '64px'
+    marginRight: '30px'
   },
   {
     title: 'Finances',
     link: '/finances',
-    marginRight: '64px'
+    marginRight: '30px'
   },
   {
     title: 'People',

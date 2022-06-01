@@ -2,8 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Logo from '../svg/logo';
 import { MenuType } from './menu-items';
-import { Button, IconButton, Link } from '@mui/material';
-import { Chat, Language } from '@mui/icons-material';
+import { IconButton, Link } from '@mui/material';
 import ThemeMode from '../svg/theme-mode';
 
 interface Props {
@@ -12,12 +11,27 @@ interface Props {
 
 const Header = ({ menuItems }: Props) => {
   return (
-    <Container>
+    <Container >
 
       <LeftPart>
-        <LogoContainer>
-          <Logo width={38} height={38} fill='#211634' />
-        </LogoContainer>
+
+        <ContainerLogoSelect>
+          <LogoContainer>
+            <Logo fill='#211634' />
+          </LogoContainer>
+          <div style={{
+            width: '130px',
+            height: '26px',
+            background: '#211634',
+            marginRight: '16px',
+          }} />
+          <div style={{
+            width: '26px',
+            height: '26px',
+            background: '#211634',
+          }} />
+        </ContainerLogoSelect>
+
         <Navigation>
           {menuItems.map((menu: MenuType) => {
             return (<ItemMenuStyle key={
@@ -31,39 +45,7 @@ const Header = ({ menuItems }: Props) => {
 
       </LeftPart>
       <RightPart>
-        <OtherIcons>
-          <ButtonStyle href="/" variant="outlined" sx={{
-            marginRight: '16px',
-            padding: '0px',
-            textTransform: 'none',
-            border: 'none'
-          }}>
-            Lorem Ipsum link
-          </ButtonStyle>
-
-          <ButtonStyle href="/" variant="outlined" sx={{
-            padding: '0px',
-            textTransform: 'none',
-            border: 'none'
-          }}>
-            Lorem Ipsum link
-          </ButtonStyle>
-        </OtherIcons>
         <IconsContainer>
-          <IconButton color="inherit" sx={{ marginRight: '24px' }}>
-            <Chat sx={{
-              fill: '#898989',
-              width: '22px',
-              height: '22px'
-            }} />
-          </IconButton>
-          <IconButton color="inherit" sx={{ marginRight: '24px' }}>
-            <Language sx={{
-              fill: '#898989',
-              width: '26.67px',
-              height: '26.67px'
-            }} />
-          </IconButton>
           <IconButton color="inherit">
             <ThemeMode width={22.67} height={22.67} />
           </IconButton>
@@ -76,13 +58,11 @@ const Header = ({ menuItems }: Props) => {
 const Container = styled.div({
   height: '64px',
   position: 'fixed',
-  width: '100%',
+  width: window.innerWidth,
   zIndex: '2',
   flexDirection: 'row',
   justifyContent: 'space-between',
   backgroundColor: '#C4C4C4',
-  paddingRight: '32px',
-  paddingLeft: '32px',
 });
 
 const LeftPart = styled.div({
@@ -90,10 +70,20 @@ const LeftPart = styled.div({
   flexDirection: 'row',
 });
 
+const ContainerLogoSelect = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  width: '316px',
+  marginRight: '32px',
+  alignItems: 'center',
+  paddingRight: '32px',
+  paddingLeft: '32px',
+});
+
 const LogoContainer = styled.div({
   marginTop: '13px',
   marginBottom: '13px',
-  marginRight: '64px',
+  marginRight: '32px',
 });
 
 const Navigation = styled.div({
@@ -117,7 +107,7 @@ const ItemMenuStyle = styled(Link)({
   fontWeight: 400,
   fontSize: '16px',
   lineHeight: '19px',
-  color: '#25273D',
+  color: '#25273D;',
   letterSpacing: '0.4px',
   cursor: 'pointer',
   '&:hover': {
@@ -129,27 +119,6 @@ const IconsContainer = styled.div({
   display: 'flex',
   flexDirection: 'row',
   height: '32px',
-});
-
-const OtherIcons = styled.div({
-  display: 'flex',
-  flexDirection: 'row',
-  paddingRight: '20px',
-});
-
-const ButtonStyle = styled(Button)({
-  width: '151px',
-  height: '27px',
-  display: 'flex',
-  borderRadius: '5px',
-  backgroundColor: '#EDEDED',
-  color: '#000000',
-  borderColor: 'none',
-  fontFamily: 'Inter',
-  fontStyle: 'normal',
-  fontWeight: 400,
-  fontSize: '16px',
-  lineHeight: '19px',
 });
 
 export default Header;
