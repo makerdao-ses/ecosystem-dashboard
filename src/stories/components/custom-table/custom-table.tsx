@@ -2,6 +2,7 @@ import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
 import { CustomTableHeader } from '../custom-table-header/custom-table-header';
 import { SortEnum } from '../../../core/enums/sort.enum';
+import { LoadingSpinner } from '../loading-spinner/loading-spinner';
 
 interface CustomTableProps {
   headers: string[],
@@ -10,6 +11,7 @@ interface CustomTableProps {
   headersStyles?: CSSProperties[],
   headersSort?: SortEnum[],
   sortFunction?: (index: number, previousSort: SortEnum) => void,
+  loading?: boolean,
 }
 
 export const CustomTable = ({ headersSort = [], headersStyles = [], ...props }: CustomTableProps) => {
@@ -33,7 +35,7 @@ export const CustomTable = ({ headersSort = [], headersStyles = [], ...props }: 
           </TableRow>)}
         </TableBody>
       </Table>
-      {(!props.items || props.items.length === 0) && <Placeholder>There is no data to show</Placeholder>}
+      {(!props.items || props.items.length === 0) && <Placeholder>{!props.loading ? <Loading><LoadingSpinner/> <LoadingText>Loading</LoadingText></Loading> : 'There is no data to show'}</Placeholder>}
     </TableContainer>);
 };
 
@@ -49,7 +51,8 @@ const TableContainer = styled.div({
   background: 'white',
   maxHeight: 'calc(100vh - 240px)',
   overflowY: 'scroll',
-  display: 'flex'
+  display: 'flex',
+  flexDirection: 'column'
 });
 
 const Table = styled.table({
@@ -84,4 +87,13 @@ const TableBody = styled.tbody({
     boxShadow: '0px 20px 40px -40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
     marginBottom: '10px',
   }
+});
+
+const Loading = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+});
+
+const LoadingText = styled.span({
+  marginLeft: '8px'
 });
