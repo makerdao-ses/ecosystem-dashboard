@@ -38,8 +38,8 @@ import { RootState } from '../../../core/store/store';
 import { CoreUnitDao } from './cu-table.api';
 import { SortEnum } from '../../../core/enums/sort.enum';
 import { sortAlphaNum } from '../../../core/utils/sort.utils';
-import { CustomMultiSelect2 } from '../../components/custom-multi-select-2/custom-multi-select-2';
-import { SearchInput2 } from '../../components/search-input-2/search-input-2';
+import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
+import { SearchInput } from '../../components/search-input/search-input';
 import { CustomButton } from '../../components/custom-button/custom-button';
 
 const statuses = Object.values(CuStatusEnum) as string[];
@@ -205,7 +205,7 @@ export const CuTable = () => {
           style={{ marginRight: '16px' }}
           onClick={clearFilters}
         />
-        <CustomMultiSelect2
+        <CustomMultiSelect
           label={'Status'}
           activeItems={filteredStatuses}
           items={statuses}
@@ -215,7 +215,7 @@ export const CuTable = () => {
           }}
           style={{ marginRight: '16px' }}
         />
-        <CustomMultiSelect2
+        <CustomMultiSelect
           label={'Category'}
           activeItems={filteredCategories}
           items={categories}
@@ -226,7 +226,7 @@ export const CuTable = () => {
           style={{ marginRight: '16px' }}
         />
         <Separator />
-        <SearchInput2
+        <SearchInput
           value={searchText}
           placeholder={'Search CUs by name or Code'}
           onChange={(value: string) => {

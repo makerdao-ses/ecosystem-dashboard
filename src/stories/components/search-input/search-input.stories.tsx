@@ -11,6 +11,5 @@ const Template: ComponentStory<typeof SearchInput> = (args) => <SearchInput {...
 
 export const Default = Template.bind({});
 Default.args = {
-  label: 'Short Label',
-  placeholder: 'Really long placeholder'
+  placeholder: 'Placeholder'
 };

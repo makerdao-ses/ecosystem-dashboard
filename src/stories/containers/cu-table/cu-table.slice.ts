@@ -47,6 +47,8 @@ export const cuTableSlice = createSlice({
       state.items = action.payload as [];
     }).addCase(loadFacilitatorImage.fulfilled, (state, action) => {
       state.facilitatorImages[action.payload.id] = action.payload?.facilitatorImage?.trim() ?? '';
+    }).addCase(loadCuTableItemsAsync.rejected, (state) => {
+      state.status = 'idle';
     });
   }
 });

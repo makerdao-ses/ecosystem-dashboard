@@ -1,88 +1,124 @@
-import React, { useCallback, useState } from 'react';
-import {
-  Checkbox,
-  FormControl,
-  InputLabel,
-  ListItemText,
-  MenuItem,
-  OutlinedInput,
-  Select,
-  SelectChangeEvent
-} from '@mui/material';
+import React, { CSSProperties, useRef, useState } from 'react';
+import styled from '@emotion/styled';
+import { SelectChevronDown } from '../svg/select-chevron-down';
+import { Checkbox, ListItemText, MenuItem, Typography } from '@mui/material';
 import CheckBoxOutlined from '@mui/icons-material/CheckBoxOutlined';
 import './custom-multi-select.scss';
+import useOutsideClick from '../../../core/utils/use-outside-click';
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-
-interface CustomSelectProps {
-  items: string[],
+interface CustomMultiSelectProps {
   label: string,
+  items: string[],
   withAll?: boolean,
   onChange?: (items: string[]) => void,
-  initialActiveItems?: string[],
+  style?: CSSProperties,
+  activeItems: string[],
 }
 
-export const CustomMultiSelect = ({ withAll = true, initialActiveItems = [], ...props }: CustomSelectProps) => {
-  const [activeItems, setActiveItems] = useState(initialActiveItems);
+export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }: CustomMultiSelectProps) => {
+  const [popupVisible, setPopupVisible] = useState(false);
 
-  const handleChange = useCallback((event: SelectChangeEvent<typeof activeItems>) => {
-    const {
-      target: { value },
-    } = event;
-    setActiveItems(typeof value === 'string' ? value.split(',') : value);
-    props.onChange && props.onChange(typeof value === 'string' ? value.split(',') : value);
-  }, [props]);
+  const refOutsideClick = useRef<HTMLDivElement>(null);
+
+  useOutsideClick(refOutsideClick, () => {
+    popupVisible && setPopupVisible(false);
+  });
+
+  const toggleItem = (item: string) => {
+    const pos = activeItems.indexOf(item);
+    if (pos > -1) {
+      const temp = [...activeItems];
+      temp.splice(pos, 1);
+      props.onChange && props.onChange(temp);
+    } else {
+      const temp = [...activeItems];
+      temp.push(item);
+      props.onChange && props.onChange(temp);
+    }
+  };
+
+  const toggleVisible = () => setPopupVisible(!popupVisible);
 
   const toggleAll = () => {
     if (activeItems.length === props.items.length) {
-      setActiveItems([]);
       props.onChange && props.onChange([]);
     } else {
-      setActiveItems(props.items);
       props.onChange && props.onChange(props.items);
     }
   };
 
-  return <FormControl sx={{
-    m: '10px 8px',
-    width: 300,
-    background: 'white',
-    height: ''
-  }}>
-    <InputLabel sx={{
-      fontSize: '14px',
-      lineHeight: '16px',
-      top: '-2px'
-    }} id="multiselect-status-label">{props.label}</InputLabel>
-    <Select
-      labelId="multiselect-status-label"
-      id="multiselect-status"
-      multiple
-      value={activeItems}
-      onChange={handleChange}
-      input={<OutlinedInput className={'CustomOutline'} sx={{ fontSize: '14px' }} label={props.label} />}
-      renderValue={(selected) => selected.join(', ')}
-      MenuProps={MenuProps}
-    >
+  return <SelectWrapper ref={refOutsideClick} style={props.style}>
+    <SelectContainer
+      focus={popupVisible}
+      className="no-select"
+      onClick={toggleVisible}>
+      <Label>{props.label} {activeItems.length > 0 ? `(${activeItems.length})` : ''}</Label>
+      <IconWrapper>
+        <SelectChevronDown/>
+      </IconWrapper>
+    </SelectContainer>
+    {popupVisible && <PopupContainer>
       {withAll && <MenuItem key={'All'} onClick={toggleAll}>
-        <CheckBoxOutlined sx={{ m: '6px' }} />
-        <ListItemText primary={'All'} />
+        <CheckBoxOutlined sx={{ m: '6px' }}/>
+        <ListItemText
+            primary={'All'}
+            sx={{ fontSize: '8px' }}/>
       </MenuItem>}
       {props.items.map((item) => (
-        <MenuItem key={item} value={item}>
-          <Checkbox sx={{ p: '6px' }} checked={activeItems.indexOf(item) > -1} />
+        <MenuItem key={item} value={item} onClick={() => toggleItem(item)}>
+          <Checkbox
+            sx={{ p: '6px' }}
+            checked={activeItems.indexOf(item) > -1}
+            onChange={() => toggleItem(item)} />
           <ListItemText primary={item} />
         </MenuItem>
       ))}
-    </Select>
-  </FormControl>;
+    </PopupContainer>}
+  </SelectWrapper>;
 };
+
+const SelectWrapper = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  position: 'relative',
+  width: 'fit-content',
+});
+
+const SelectContainer = styled.div<{ focus: boolean }>((props) => ({
+  display: 'flex',
+  position: 'relative',
+  alignItems: 'center',
+  border: `1px solid ${props.focus ? '#25273D' : '#D4D9E1'}`,
+  borderRadius: '22px',
+  height: '48px',
+  width: 'fit-content',
+  padding: '15px 40px 15px 15px',
+  boxSizing: 'border-box',
+  cursor: 'pointer',
+  transition: 'all .3s ease'
+}));
+
+const Label = styled(Typography)({
+  fontFamily: 'SF Pro Text, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 500,
+  fontSize: '14px',
+  lineHeight: '18px',
+});
+
+const IconWrapper = styled.div({
+  position: 'absolute',
+  right: '19px',
+  marginTop: '-4px'
+});
+
+const PopupContainer = styled.div({
+  minWidth: '100%',
+  width: 'fit-content',
+  height: '200px',
+  background: 'white',
+  overflowY: 'scroll',
+  boxShadow: '0px 20px 40px #dbe3ed66, 0px 1px 3px #bebebe40',
+  position: 'absolute',
+  top: '50px'
+});
