@@ -47,6 +47,10 @@ export const CuTableColumnTeamMember = ({ facilitatorImages, ...props }: CuTable
                       fontSize={'14px'}
                       width={'32px'}
                       height={'32px'}
+                      style={{
+                        marginLeft: i === 0 || (facilitatorImages[member?.id ?? '']) ? 0 : '-9px',
+                        border: !(facilitatorImages[member?.id ?? '']) ? '2px solid #E7FCFA' : 'none'
+                      }}
                       imageStyle={{
                         marginLeft: i === 0 ? 0 : '-9px',
                         border: '2px solid #E7FCFA'
