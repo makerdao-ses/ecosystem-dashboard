@@ -28,7 +28,7 @@ export const initialState = {
           .withStatus(CuStatusEnum.Accepted, CURRENT_MINUS_1_MONTH)
           .addMip40(
             (new Mip40Builder())
-              .addPeriodWithLineItems(CURRENT_MINUS_2_MONTH, CURRENT_PLUS_1_MONTH, [1000, 1100, 1000])
+              .addPeriodWithLineItems(CURRENT_MINUS_2_MONTH, CURRENT_PLUS_1_MONTH, [700, 400, 1000])
               .build()
           )
           .build()
@@ -133,7 +133,7 @@ export const initialState = {
           .withMonth(CURRENT_MINUS_2_MONTH)
           .addBudgetStatementWallet(
             (new BudgetStatementWalletBuilder())
-              .withLineItems([100, 100, 100])
+              .withLineItems([1000, 100, 100])
               .build()
           )
           .build()
@@ -186,7 +186,7 @@ export const initialState = {
           .withMonth(CURRENT_MINUS_1_MONTH)
           .addBudgetStatementWallet(
             (new BudgetStatementWalletBuilder())
-              .withLineItems([200, 100, 400])
+              .withLineItems([500, 100, 400])
               .build()
           )
           .addBudgetStatementFTE(

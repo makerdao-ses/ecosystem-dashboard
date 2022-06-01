@@ -25,28 +25,30 @@ export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps)
       </CustomPopover>
     </Data>
     <CustomBarChart items={props.items} maxValue={props.budgetCap}/>
-    {props.budgetCap > 0 && <CustomPopover
-      css={{ alignSelf: 'center' }}
-      id={'mouse-over-popover-percent'}
-      title={
-        <PercentExplanation>
-          <Fraction>
-            <Actual>
-              Actual
-            </Actual>
-            <BudgetCap>
-              Budget Cap
-            </BudgetCap>
-          </Fraction>
-          <div>
-            over the last 3 months
-          </div>
-        </PercentExplanation>
-      }>
-      <Value>
-        {props.percent?.toFixed(2)}%
-      </Value>
-    </CustomPopover>}
+    {props.budgetCap > 0 && <ValueWrapper>
+        <CustomPopover
+            css={{ alignSelf: 'center' }}
+            id={'mouse-over-popover-percent'}
+            title={
+              <PercentExplanation>
+                <Fraction>
+                  <Actual>
+                    Actual
+                  </Actual>
+                  <BudgetCap>
+                    Budget Cap
+                  </BudgetCap>
+                </Fraction>
+                <div>
+                  over the last 3 months
+                </div>
+              </PercentExplanation>
+            }>
+            <Percent>
+              {props.percent?.toFixed(2)}%
+            </Percent>
+        </CustomPopover>
+    </ValueWrapper>}
   </Container>;
 };
 
@@ -59,20 +61,32 @@ const Container = styled.div({
 const Data = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'space-between'
+  justifyContent: 'flex-end'
 });
 
 export const Title = styled(Typography)({
   fontSize: '12px',
+  color: '#434358',
   fontWeight: 400,
+  marginBottom: '8px',
+});
+
+const ValueWrapper = styled.div({
+  alignSelf: 'flex-end'
 });
 
 export const Value = styled(Typography)({
   display: 'flex',
   alignItems: 'flex-end',
-  fontSize: '20px',
+  fontSize: '14px',
+  fontWeight: 600,
+  paddingBottom: 0,
+});
+
+const Percent = styled(Typography)({
   fontWeight: 400,
-  paddingBottom: '5px',
+  fontSize: '16px',
+  color: '#25273D',
 });
 
 const PercentExplanation = styled.div({

@@ -7,8 +7,9 @@ interface CustomBarChartProps {
 }
 
 const COLOR_GREEN = '#1AAB9B';
-const COLOR_RED = '#F75524';
-const COLOR_YELLOW = '#F6D211';
+const COLOR_RED = '#CB3A0D';
+const COLOR_YELLOW = '#FDC134';
+const COLOR_GRAY = '#D8E0E3';
 
 export const CustomBarChart = (props: CustomBarChartProps) => {
   if (!props.items || props.maxValue <= 0) return <span></span>;
@@ -51,8 +52,8 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
           x={(i * 20) + padding + 2.5}
           y={5} width={12}
           rx={1}
-          height={calculateHeight(item.value)}
-          fill={getColor(item.value)}>
+          height={item.value > 0 ? calculateHeight(item.value) : 10}
+          fill={item.value > 0 ? getColor(item.value) : COLOR_GRAY}>
           <animate
             attributeName="height"
             from="0"
@@ -66,14 +67,14 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
         </rect>
       )}
       <line
-        strokeDasharray={'4,2'}
+        strokeDasharray={'4,3'}
         x1={padding}
         x2={width - padding}
         y1={maxItemHeight + 5}
         y2={maxItemHeight + 5}
-        fill={'black'}
+        fill={'#447AFB'}
         strokeWidth={'1px'}
-        stroke={'black'}
+        stroke={'#447AFB'}
       >
         <animate
           attributeName="opacity"
