@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Avatar, Typography } from '@mui/material';
+import { Avatar, Theme, Typography } from '@mui/material';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { CuTableColumnLinks, LinkModel } from '../cu-table-column-links/cu-table-column-links';
@@ -196,15 +196,18 @@ const Row = styled.div({
   marginLeft: '32px',
 });
 
-const SinceDate = styled.a({
-  color: '#898989',
+const SinceDate = styled.a(({ theme }) => ({
+  fontFamily: (theme as Theme).typography.fontFamily,
   fontStyle: 'normal',
-  fontWeight: 400,
+  fontWeight: 500,
   fontSize: '12px',
-  lineHeight: '15px',
-  textDecoration: 'underline',
-  marginLeft: '10px'
-});
+  lineHeight: '14px',
+  letterSpacing: '1px',
+  textTransform: 'uppercase',
+  color: '#447AFB',
+  textDecoration: 'none',
+  marginLeft: '4px',
+}));
 
 const ContainerLinks = styled.div({
   display: 'flex',

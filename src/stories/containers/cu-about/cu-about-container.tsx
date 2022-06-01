@@ -120,6 +120,7 @@ const CuAboutContainer = () => {
           </ContainerCards>
           {contributors.length === 0 && <ContainerNoData>No data to Show</ContainerNoData>}
         </ContactInfoContainer>
+        <Divider sx={{ marginTop: '32px' }} />
         <CardRelateMipsContainer>
           <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
           <RelateMipCards>
@@ -135,13 +136,8 @@ const CuAboutContainer = () => {
           </RelateMipCards>
         </CardRelateMipsContainer>
         {cuAbout.cuMip.length > 3 && <ButtonContainer>
-          <Divider sx={{
-            bgcolor: '#D4D9E1',
-            width: '192px'
-          }} /> <BigButton title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'} onClick={onClickLessMips} /> <Divider sx={{
-            bgcolor: '#D4D9E1',
-            width: '705px'
-          }} />
+          <DividerStyle /> <BigButton title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'} onClick={onClickLessMips} />
+          <DividerStyle />
         </ButtonContainer>}
       </ContainerAllData>
     </ContainerAbout>
@@ -222,11 +218,14 @@ const ContainerCards = styled.div({
 });
 
 const CardRelateMipsContainer = styled.div({
-  marginLeft: '32px',
-  marginRight: '32px',
-  marginBottom: '33px',
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'center',
+  marginTop: '32px',
+  marginBottom: '64px',
+  // marginLeft: '32px',
+  // marginRight: '32px',
+
 });
 
 const TitleRelateMips = styled.div({
@@ -252,9 +251,10 @@ const RelateMipCard = styled.div({
 const ButtonContainer = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'flex-start',
+  justifyContent: 'center',
   alignItems: 'center',
   marginBottom: '44px',
+  overflow: 'hidden',
 });
 
 const ContainerNoData = styled.div({
@@ -273,4 +273,10 @@ const ContainerNoRelateMIps = styled.div({
 const ContainerAllData = styled(Container)({
   marginRight: '128px',
   marginLeft: '128px',
+  border: '2px solid red',
+});
+
+const DividerStyle = styled(Divider)({
+  width: '100%',
+  bgcolor: '#D4D9E1',
 });
