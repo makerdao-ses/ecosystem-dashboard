@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 
 interface CustomButtonProps {
   label: string,
-  disabled?: boolean
+  disabled?: boolean,
+  style?: CSSProperties,
+  onClick?: () => void,
 }
 
 export const CustomButton = (props: CustomButtonProps) => {
-  return <Container type="button" disabled={props.disabled}>
+  return <Container type="button" disabled={props.disabled} onClick={() => props.onClick && props.onClick()} style={props.style}>
     <Text className={props.disabled ? 'disabled' : ''}>{props.label}</Text>
   </Container>;
 };

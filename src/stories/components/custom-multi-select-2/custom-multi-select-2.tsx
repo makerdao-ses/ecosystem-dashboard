@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { CSSProperties, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import { SelectChevronDown } from '../svg/select-chevron-down';
 import { Checkbox, ListItemText, MenuItem, Typography } from '@mui/material';
@@ -11,12 +11,12 @@ interface CustomMultiSelect2Props {
   items: string[],
   withAll?: boolean,
   onChange?: (items: string[]) => void,
-  initialActiveItems?: string[],
+  style?: CSSProperties,
+  activeItems: string[],
 }
 
-export const CustomMultiSelect2 = ({ withAll = true, initialActiveItems = [], ...props }: CustomMultiSelect2Props) => {
+export const CustomMultiSelect2 = ({ withAll = true, activeItems = [], ...props }: CustomMultiSelect2Props) => {
   const [popupVisible, setPopupVisible] = useState(false);
-  const [activeItems, setActiveItems] = React.useState<string[]>(initialActiveItems);
 
   const refOutsideClick = useRef<HTMLDivElement>(null);
 
@@ -29,11 +29,11 @@ export const CustomMultiSelect2 = ({ withAll = true, initialActiveItems = [], ..
     if (pos > -1) {
       const temp = [...activeItems];
       temp.splice(pos, 1);
-      setActiveItems(temp);
+      props.onChange && props.onChange(temp);
     } else {
       const temp = [...activeItems];
       temp.push(item);
-      setActiveItems(temp);
+      props.onChange && props.onChange(temp);
     }
   };
 
@@ -41,15 +41,13 @@ export const CustomMultiSelect2 = ({ withAll = true, initialActiveItems = [], ..
 
   const toggleAll = () => {
     if (activeItems.length === props.items.length) {
-      setActiveItems([]);
       props.onChange && props.onChange([]);
     } else {
-      setActiveItems(props.items);
       props.onChange && props.onChange(props.items);
     }
   };
 
-  return <SelectWrapper ref={refOutsideClick}>
+  return <SelectWrapper ref={refOutsideClick} style={props.style}>
     <SelectContainer
       focus={popupVisible}
       className="no-select"
