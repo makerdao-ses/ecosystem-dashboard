@@ -204,6 +204,7 @@ export const CuTable = () => {
           label={'Clear Filters'}
           style={{ marginRight: '16px' }}
           onClick={clearFilters}
+          disabled={filteredCategories.length === 0 && filteredStatuses.length === 0 && searchText.length === 0}
         />
         <CustomMultiSelect
           label={'Status'}
