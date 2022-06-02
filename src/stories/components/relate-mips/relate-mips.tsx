@@ -7,6 +7,7 @@ import ArrowLink from '../svg/ArrowLink';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { StatusChip } from '../status-chip/status-chip';
 import { CuMip } from '../../containers/cu-about/cu-about.api';
+import { getMipsStatus } from '../../../core/business-logic/core-unit-about';
 
 export type RelateMipType = {
   status: CuStatusEnum,
@@ -20,25 +21,9 @@ interface Props {
 }
 
 const RelateMips = ({ relateMips }: Props) => {
-  const getMipsStatus = (mip: CuMip) => {
-    switch (mip.mipStatus) {
-      case CuStatusEnum.Accepted:
-        return relateMips.accepted;
-      case CuStatusEnum.Obsolete:
-        return relateMips.obsolete;
-      case CuStatusEnum.FormalSubmission:
-        return relateMips.formalSubmission;
-      case CuStatusEnum.Rejected:
-        return relateMips.rejected;
-      case CuStatusEnum.RFC:
-        return relateMips.rfc;
-      default:
-        return relateMips.rejected;
-    }
-  };
   const mips = getMipsStatus(relateMips || '');
   const mipStatus = relateMips.mipStatus;
-  const newDate = mips ? DateTime.fromFormat(mips || '', 'yyyy-MM-dd').toJSDate() : null;
+  const newDate = DateTime.fromFormat(mips || '', 'yyyy-MM-dd').toJSDate();
   return (
     <Content>
       <Row>
