@@ -1,9 +1,10 @@
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { Divider, Typography } from '@mui/material';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-units';
+import { getMarkdownInformation, getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-unit-about';
+import { getFTEsFromCoreUnit } from '../../../core/business-logic/core-units';
 import { useAppDispatch } from '../../../core/hooks/hooks';
 import { RootState } from '../../../core/store/store';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
@@ -19,7 +20,7 @@ import { CoreUnitDao } from '../cu-table/cu-table.api';
 import { loadCuTableItemsAsync, selectCuTableItems } from '../cu-table/cu-table.slice';
 import { ContributorCommitment } from './cu-about-contributor';
 import { contributorCommitmentSelector, cuAboutSelector, loadCoreUnitABout, status } from './cu-about-slice';
-import { CuMip, getFTEsFromCoreUnitAbout } from './cu-about.api';
+import { CuMip } from './cu-about.api';
 import _ from 'lodash';
 
 const CuAboutContainer = () => {
@@ -100,10 +101,10 @@ const CuAboutContainer = () => {
         <TitleNavigationCuAbout coreUnitAbout={cuAbout} />
       </ContainerTitle>
       <MarkdownContainer>
-        <MdViewerContainer sentenceDescription={cuAbout.sentenceDescription} paragraphDescription={cuAbout.paragraphDescription} paragraphImage={cuAbout.paragraphImage} />
+        <MdViewerContainer sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)} paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)} paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)} />
       </MarkdownContainer>
       <TeamMemberContainer>
-        <TeamMemberTitle>Team Size</TeamMemberTitle><TeamMember fte={getFTEsFromCoreUnitAbout(cuAbout)} />
+        <TeamMemberTitle>Team Size</TeamMemberTitle><TeamMember fte={getFTEsFromCoreUnit(cuAbout)} />
       </TeamMemberContainer>
       <ContactInfoContainer>
         <ContactInfoTitle>Contact Information</ContactInfoTitle>

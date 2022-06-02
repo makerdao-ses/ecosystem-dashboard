@@ -8,6 +8,8 @@ import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { StatusChip } from '../status-chip/status-chip';
 import { CuAbout, CuMip } from '../../containers/cu-about/cu-about.api';
 import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
+import { getMipsStatus, getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-unit-about';
+import _ from 'lodash';
 
 interface BudgetStatementFTEs {
   month: string
@@ -42,21 +44,6 @@ export interface CoreUnit {
 interface Props {
   coreUnitAbout: CuAbout;
 }
-
-export const getMipsStatus = (mip: CuMip) => {
-  switch (mip.mipStatus) {
-    case CuStatusEnum.Accepted:
-      return mip.accepted;
-    case CuStatusEnum.FormalSubmission:
-      return mip.formalSubmission;
-    case CuStatusEnum.Rejected:
-      return mip.rejected;
-    case CuStatusEnum.RFC:
-      return mip.rfc;
-    default:
-      return mip.rejected;
-  }
-};
 
 export const getLinksCoreUnit = (cu: CuAbout) => {
   const links: LinkModel[] = [];
@@ -102,10 +89,12 @@ export const getLinksCoreUnit = (cu: CuAbout) => {
 };
 
 export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
-  if (!coreUnitAbout || !coreUnitAbout.cuMip) return null;
-  const mips = getMipsStatus(coreUnitAbout.cuMip[0] || '');
-  const mipStatus = coreUnitAbout.cuMip[0] && coreUnitAbout.cuMip[0].mipStatus;
-  const newDate = mips ? DateTime.fromFormat(mips || '', 'yyyy-MM-dd').toJSDate() : null;
+  if (!coreUnitAbout || coreUnitAbout.cuMip.length === 0) return null;
+  const buildNewArray = coreUnitAbout.cuMip.map((mip: CuMip) => getRelateMipObjectFromCoreUnit(mip));
+  const orderMips = _.sortBy(buildNewArray, ['orderBy', 'dateMip']).reverse();
+  const mips = getMipsStatus(orderMips[0]);
+  const mipStatus = orderMips[0].mipStatus;
+  const newDate = DateTime.fromFormat(mips || '', 'yyyy-MM-dd').toJSDate();
   return (
     <Container>
       <ContainerTitle>
@@ -120,7 +109,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
         }} />
         {coreUnitAbout.name && <TypographyTitle>{coreUnitAbout.name}</TypographyTitle>}
         <Row>
-          {mips && <StatusChip status={mipStatus as CuStatusEnum} />}
+          {mipStatus && <StatusChip status={mipStatus as CuStatusEnum} />}
           {newDate && <CustomPopover
             id={'mouse-over-popover-goto'}
             title={'Go to MIPs Portal'}
