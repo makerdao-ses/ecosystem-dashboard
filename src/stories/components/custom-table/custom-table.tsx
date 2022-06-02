@@ -49,8 +49,6 @@ const Placeholder = styled.div({
 
 const TableContainer = styled.div({
   background: 'white',
-  maxHeight: 'calc(100vh - 240px)',
-  overflowY: 'scroll',
   display: 'flex',
   flexDirection: 'column'
 });

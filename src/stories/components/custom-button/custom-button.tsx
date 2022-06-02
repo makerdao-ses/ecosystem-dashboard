@@ -27,7 +27,7 @@ const Container = styled.button({
   padding: '15px 16px',
   boxSizing: 'border-box',
   cursor: 'pointer',
-  '&:active:not(:disabled)': {
+  '&:hover:not(:disabled)': {
     borderColor: '#25273D'
   },
   '.disabled': {
