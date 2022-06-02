@@ -1,49 +1,18 @@
 import React from 'react';
 import { Avatar, Box, Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
 import styled from '@emotion/styled';
-import { CuTableColumnLinks, LinkModel } from '../cu-table-column-links/cu-table-column-links';
+import { CuTableColumnLinks } from '../cu-table-column-links/cu-table-column-links';
 import { getTwoInitials } from '../../../core/utils/string.utils';
 import { ContributorCommitment } from '../../containers/cu-about/cu-about-contributor';
-import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
+import { getLinksFromContributor } from '../../../core/business-logic/core-unit-about';
 
 interface Props {
   contributorCommitment: ContributorCommitment;
 }
 
-export const getLinksFromContributor = (contributor: ContributorCommitment) => {
-  const links: LinkModel[] = [];
-  if (contributor.contributor.length === 0) return links;
-  const cont = contributor.contributor[0];
-  if (cont.email) {
-    links.push({
-      linkType: LinkTypeEnum.Gmail,
-      href: cont.email
-    });
-  }
-  if (cont.forumHandle) {
-    links.push({
-      linkType: LinkTypeEnum.Forum,
-      href: cont.forumHandle
-    });
-  }
-  if (cont.discordHandle) {
-    links.push({
-      linkType: LinkTypeEnum.Discord,
-      href: cont.discordHandle
-    });
-  }
-  if (cont.twitterHandle) {
-    links.push({
-      linkType: LinkTypeEnum.Twitter,
-      href: cont.twitterHandle
-    });
-  }
-  return links;
-};
-
 const CardInfoMember = ({ contributorCommitment }: Props) => {
   const contributor = contributorCommitment.contributor[0] || [];
-  const links = getLinksFromContributor(contributorCommitment) || [];
+  const links = getLinksFromContributor(contributorCommitment);
   return (
     <Box>
       <Card sx={{
