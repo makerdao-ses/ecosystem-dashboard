@@ -8,7 +8,7 @@ export interface MenuType{
 const menuItems:MenuType[] = [
   {
     title: 'Core Units',
-    link: '/core-units',
+    link: '/',
     marginRight: '64px'
   },
   {

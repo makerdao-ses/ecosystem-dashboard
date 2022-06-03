@@ -22,7 +22,7 @@ const Header = ({ menuItems }: Props) => {
           {menuItems.map((menu: MenuType) => {
             return (<ItemMenuStyle key={
               menu.title
-            } sx={{ marginRight: menu.marginRight }} underline='none'>
+            } sx={{ marginRight: menu.marginRight }} underline='none' href={menu.link}>
               {menu.title}
             </ItemMenuStyle>);
           })}

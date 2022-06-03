@@ -66,7 +66,7 @@ export default RelateMips;
 const Content = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  padding: '8px 4px 17px 8px',
+  padding: '16px',
   width: '672px',
   backgroundColor: '#FCFCFC',
   boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.25)',
