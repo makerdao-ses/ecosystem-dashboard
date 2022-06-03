@@ -50,4 +50,5 @@ const Chip = styled.div(({ theme }) => ({
   padding: '0 8px',
   height: '22px',
   fontFamily: (theme as Theme).typography.fontFamily,
+  width: 'fit-content',
 }));

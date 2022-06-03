@@ -1,39 +1,28 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Title, Value } from '../cu-table-column-expenditures/cu-table-column-expenditures';
-import { AvatarGroup, Avatar } from '@mui/material';
-import { getTwoInitials } from '../../../core/utils/string.utils';
-import { getColorForString } from '../../../core/utils/color.utils';
+import { Title } from '../cu-table-column-expenditures/cu-table-column-expenditures';
+import { Typography } from '@mui/material';
 import './cu-table-column-team-member.scss';
 import { CustomPopover } from '../custom-popover/custom-popover';
-export interface FacilitatorModel {
-  name: string,
-  imageUrl?: string,
-  id?: string,
-}
+import { FacilitatorModel } from '../../../core/models/facilitator.model';
+import { CircleAvatar } from '../circle-avatar/circle-avatar';
 
 interface CuTableColumnTeamMemberProps {
   members: FacilitatorModel[],
-  facilitatorImages: {[id:string]: string},
+  facilitatorImages: { [id: string]: string },
   fte: number,
 }
 
 export const CuTableColumnTeamMember = ({ facilitatorImages, ...props }: CuTableColumnTeamMemberProps) => {
   const MemberInfo = (props: { member: FacilitatorModel }) => {
     return <MemberInfoContainer>
-      <Avatar
-        sx={{
-          width: '32px',
-          height: '32px',
-          backgroundColor: getColorForString(props.member.name),
-          fontSize: '1rem',
-          marginRight: '8px'
-        }}
-        alt={props.member.name}
-        src={facilitatorImages[props.member?.id ?? '']}
-      >
-        {getTwoInitials(props.member.name)}
-      </Avatar>
+      <CircleAvatar key={props.member.name}
+                    name={props.member.name}
+                    image={facilitatorImages[props.member?.id ?? '']}
+                    fontSize={'14px'}
+                    width={'32px'}
+                    imageStyle={{ border: '2px solid #E7FCFA' }}
+                    height={'32px'}/>
       <span>{props.member.name}</span>
     </MemberInfoContainer>;
   };
@@ -48,27 +37,27 @@ export const CuTableColumnTeamMember = ({ facilitatorImages, ...props }: CuTable
         <Value style={{ justifyContent: 'center' }}>{props.fte}</Value>
       </Data>
     </CustomPopover>
-    <AvatarGroup max={5}>
+    <CirclesWrapper>
       {props.members.map((member, i) => <CustomPopover
-        css={{ marginLeft: '-8px' }}
         key={member.name + i}
         title={<MemberInfo member={member}/>}
-        id={`${member.name}-${i}`}
-      >
-        <Avatar
-          sx={{
-            width: '32px',
-            height: '32px',
-            backgroundColor: getColorForString(member.name),
-            fontSize: '1rem'
-          }}
-          alt={member.name}
-          src={facilitatorImages[member?.id ?? '']}
-        >
-          {getTwoInitials(member.name)}
-        </Avatar>
+        id={member.name + i}>
+        <CircleAvatar key={member.name}
+                      name={member.name}
+                      fontSize={'14px'}
+                      width={'32px'}
+                      height={'32px'}
+                      style={{
+                        marginLeft: i === 0 || (facilitatorImages[member?.id ?? '']) ? 0 : '-9px',
+                        border: !(facilitatorImages[member?.id ?? '']) ? '2px solid #E7FCFA' : 'none'
+                      }}
+                      imageStyle={{
+                        marginLeft: i === 0 ? 0 : '-9px',
+                        border: '2px solid #E7FCFA'
+                      }}
+                      image={facilitatorImages[member?.id ?? '']}/>
       </CustomPopover>)}
-    </AvatarGroup>
+    </CirclesWrapper>
   </Container>;
 };
 
@@ -83,10 +72,26 @@ const Container = styled.div({
 const Data = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'center',
   marginRight: '16px',
 });
 
 const MemberInfoContainer = styled.div({
   display: 'flex',
-  alignItems: 'center'
+  alignItems: 'center',
+  overflow: 'hidden',
+  '> span': {
+    marginLeft: '10.5px'
+  }
+});
+
+const CirclesWrapper = styled.div({
+  display: 'flex',
+});
+
+const Value = styled(Typography)({
+  fontWeight: 600,
+  fontSize: '14px',
+  lineHeight: '17px',
+  color: '#25273D',
 });

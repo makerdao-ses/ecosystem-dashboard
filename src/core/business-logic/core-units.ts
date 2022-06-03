@@ -1,14 +1,14 @@
 import { DateTime, Interval } from 'luxon';
 import { LinkModel } from '../../stories/components/cu-table-column-links/cu-table-column-links';
 import { LinkTypeEnum } from '../enums/link-type.enum';
-import { FacilitatorModel } from '../../stories/components/cu-table-column-team-member/cu-table-column-team-member';
 import { BudgetStatementDao, CoreUnitDao, CuMipDao, Mip40Dao } from '../../stories/containers/cu-table/cu-table.api';
-import { CustomChartItem } from '../../stories/components/custom-bar-chart/custom-bar-chart';
 import { CuStatusEnum } from '../enums/cu-status.enum';
 import { RoadmapStatusEnum } from '../enums/roadmap-status.enum';
-import { CuMip } from '../../stories/containers/cu-about/cu-about.api';
+import { FacilitatorModel } from '../models/facilitator.model';
+import { CustomChartItemModel } from '../models/custom-chart-item.model';
+import { CuAbout, CuMip } from '../../stories/containers/cu-about/cu-about.api';
 
-export const setCuMipStatusModifiedDate = (mip: CuMipDao, status: CuStatusEnum, date: string) => {
+export const setCuMipStatusModifiedDate = (mip: CuMipDao | CuMip, status: CuStatusEnum, date: string) => {
   let index = status.toLowerCase();
 
   if (status === CuStatusEnum.FormalSubmission) index = 'formalSubmission';
@@ -101,7 +101,7 @@ export const getLinksFromCoreUnit = (cu: CoreUnitDao) => {
   return result;
 };
 
-export const getFTEsFromCoreUnit = (cu: CoreUnitDao) => {
+export const getFTEsFromCoreUnit = (cu: CoreUnitDao | CuAbout) => {
   if (cu.budgetStatements?.length === 0) return 0;
   if (!cu.budgetStatements[0]?.budgetStatementFTEs || cu.budgetStatements[0]?.budgetStatementFTEs?.length === 0) return 0;
 
@@ -214,7 +214,7 @@ export const getPercentFromCoreUnit = (cu: CoreUnitDao) => {
 };
 
 export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDao) => {
-  const result = [] as CustomChartItem[];
+  const result = [] as CustomChartItemModel[];
   if (cu.budgetStatements.length === 0) return result;
 
   let dateToCheck = DateTime.now();
@@ -234,16 +234,4 @@ export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDao) => {
 export const getMipUrlFromCoreUnit = (cu: CoreUnitDao) => {
   if (cu?.cuMip.length === 0) return '';
   return cu?.cuMip[0].mipUrl ?? '';
-};
-
-export const getRelateMipObjectFromCoreUnit = (cu: CuMip) => {
-  const dateMip = getCuMipStatusModifiedDate(cu, cu.mipStatus);
-  return {
-    ...cu,
-    mipTitle: cu.mipTitle,
-    mipStatus: cu.mipStatus,
-    dateMip,
-    mipUrl: cu.mipUrl,
-    orderBy: cu.mipStatus === CuStatusEnum.FormalSubmission || cu.mipStatus === CuStatusEnum.RFC || cu.mipStatus === CuStatusEnum.Accepted ? 1 : 0,
-  } as CuMip;
 };
