@@ -4,12 +4,16 @@ import Logo from '../svg/logo';
 import { MenuType } from './menu-items';
 import { IconButton, Link } from '@mui/material';
 import ThemeMode from '../svg/theme-mode';
+import SelectLink from './select-link-website/select-link';
+import Dashboard from '../svg/dash-board';
+import { WebSiteLinks } from './select-link-website/menu-items';
 
 interface Props {
   menuItems: MenuType[];
+  links: WebSiteLinks[]
 }
 
-const Header = ({ menuItems }: Props) => {
+const Header = ({ menuItems, links }: Props) => {
   return (
     <Container >
 
@@ -19,17 +23,8 @@ const Header = ({ menuItems }: Props) => {
           <LogoContainer>
             <Logo fill='#211634' />
           </LogoContainer>
-          <div style={{
-            width: '130px',
-            height: '26px',
-            background: '#211634',
-            marginRight: '16px',
-          }} />
-          <div style={{
-            width: '26px',
-            height: '26px',
-            background: '#211634',
-          }} />
+          <Dashboard />
+          <SelectLink links={links} />
         </ContainerLogoSelect>
 
         <Navigation>
