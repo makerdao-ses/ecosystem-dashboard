@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react';
-import { Popover } from '@mui/material';
+import { Popover, Theme } from '@mui/material';
 import './custom-popover.scss';
 import styled from '@emotion/styled';
 
@@ -55,7 +55,8 @@ export const CustomPopover = (props: CustomPopoverProps) => {
   </React.Fragment>;
 };
 
-const Container = styled.div({
+const Container = styled.div(({ theme }) => ({
   fontSize: '10px',
-  padding: '8px'
-});
+  padding: '8px',
+  fontFamily: (theme as Theme).typography.fontFamily
+}));

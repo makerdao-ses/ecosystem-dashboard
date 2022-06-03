@@ -29,7 +29,7 @@ export const filterData = ({
     filterResult =
       filterResult &&
       (lowerCaseCategories.length === 0 ||
-        data.category.some(
+        data.category?.some(
           (x) => lowerCaseCategories.indexOf(x.toLowerCase()) > -1
         ));
 

@@ -10,7 +10,7 @@ export interface CuTableState {
 
 const initialState: CuTableState = {
   items: [],
-  status: 'idle',
+  status: 'loading',
   facilitatorImages: {}
 };
 
@@ -47,6 +47,8 @@ export const cuTableSlice = createSlice({
       state.items = action.payload as [];
     }).addCase(loadFacilitatorImage.fulfilled, (state, action) => {
       state.facilitatorImages[action.payload.id] = action.payload?.facilitatorImage?.trim() ?? '';
+    }).addCase(loadCuTableItemsAsync.rejected, (state) => {
+      state.status = 'idle';
     });
   }
 });
@@ -55,5 +57,6 @@ export const { clearTable, setFacilitatorImageAsPending } = cuTableSlice.actions
 
 export const selectCuTableItems = (state: RootState) => state.cuTable.items;
 export const selectFacilitatorImages = (state: RootState) => state.cuTable.facilitatorImages;
+export const selectCuTableStatus = (state: RootState) => state.cuTable.status;
 
 export default cuTableSlice.reducer;

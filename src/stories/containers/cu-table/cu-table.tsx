@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { CSSProperties, useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { Box, Typography } from '@mui/material';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -24,13 +24,12 @@ import { CuTableColumnInitiatives } from '../../components/cu-table-column-initi
 import { CuTableColumnLinks } from '../../components/cu-table-column-links/cu-table-column-links';
 import { CuTableColumnSummary } from '../../components/cu-table-column-summary/cu-table-column-summary';
 import { CuTableColumnTeamMember } from '../../components/cu-table-column-team-member/cu-table-column-team-member';
-import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
 import { CustomTable } from '../../components/custom-table/custom-table';
-import { SearchInput } from '../../components/search-input/search-input';
 import {
   loadCuTableItemsAsync,
   loadFacilitatorImage,
   selectCuTableItems,
+  selectCuTableStatus,
   selectFacilitatorImages,
   setFacilitatorImageAsPending
 } from './cu-table.slice';
@@ -39,22 +38,27 @@ import { RootState } from '../../../core/store/store';
 import { CoreUnitDao } from './cu-table.api';
 import { SortEnum } from '../../../core/enums/sort.enum';
 import { sortAlphaNum } from '../../../core/utils/sort.utils';
+import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
+import { SearchInput } from '../../components/search-input/search-input';
+import { CustomButton } from '../../components/custom-button/custom-button';
 
 const statuses = Object.values(CuStatusEnum) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];
 const headers = ['Core Units', 'Initiatives', 'Expenditure', 'Team Members', 'Links'];
 const sortInitialState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled];
+const headerStyles: CSSProperties[] = [{ paddingLeft: '80px' }, {}, {}, {}, {}];
 
 export const CuTable = () => {
   const [filters] = useSearchParams();
   const navigate = useNavigate();
   const data: Array<CoreUnitDao> = useSelector((state: RootState) => selectCuTableItems(state));
   const facilitatorImages = useSelector((state: RootState) => selectFacilitatorImages(state));
+  const status = useSelector((state: RootState) => selectCuTableStatus(state));
   const dispatch = useAppDispatch();
 
-  const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', filters), [filters]);
-  const filteredCategories = useMemo(() => getArrayParam('filteredCategories', filters), [filters]);
-  const searchText = useMemo(() => getStringParam('searchText', filters), [filters]);
+  const [filteredStatuses, setFilteredStatuses] = useState(getArrayParam('filteredStatuses', filters));
+  const [filteredCategories, setFilteredCategories] = useState(getArrayParam('filteredCategories', filters));
+  const [searchText, setSearchText] = useState(getStringParam('searchText', filters));
 
   const [headersSort, setHeadersSort] = useState(sortInitialState);
   const [sortColumn, setSortColumn] = useState(-1);
@@ -109,6 +113,16 @@ export const CuTable = () => {
     });
   }, [data]);
 
+  const clearFilters = () => {
+    setFilteredStatuses([]);
+    setFilteredCategories([]);
+    setSearchText('');
+    navigate({
+      pathname: '/',
+      search: '',
+    });
+  };
+
   const handleChangeUrlFilterArrays = useCallback((key: string) => (value: string[]) => {
     filters.set(key, value.join(','));
     navigate({
@@ -142,6 +156,7 @@ export const CuTable = () => {
           imageUrl={coreUnit.image}
           mipUrl={getMipUrlFromCoreUnit(coreUnit)}
           onClick={onClickRow(coreUnit.code)}
+          code={coreUnit.code}
         />,
         <CuTableColumnInitiatives
           key={`initiatives-${i}`}
@@ -165,6 +180,7 @@ export const CuTable = () => {
         <CuTableColumnLinks
           key={`links-${i}`}
           links={getLinksFromCoreUnit(coreUnit)}
+          spacingsRight={16}
         />
       ];
     });
@@ -184,24 +200,41 @@ export const CuTable = () => {
     >
       <Header>
         <Title>Core Units</Title>
-        <CustomMultiSelect
-          label={'Status'}
-          initialActiveItems={filteredStatuses}
-          items={statuses}
-          onChange={handleChangeUrlFilterArrays('filteredStatuses')}
+        <CustomButton
+          label="Clear Filters"
+          style={{ marginRight: '16px' }}
+          onClick={clearFilters}
+          disabled={filteredCategories.length === 0 && filteredStatuses.length === 0 && searchText.length === 0}
         />
         <CustomMultiSelect
-          label={'Category'}
-          initialActiveItems={filteredCategories}
+          label="Status"
+          activeItems={filteredStatuses}
+          items={statuses}
+          onChange={(value: string[]) => {
+            setFilteredStatuses(value);
+            handleChangeUrlFilterArrays('filteredStatuses')(value);
+          }}
+          style={{ marginRight: '16px' }}
+        />
+        <CustomMultiSelect
+          label="Category"
+          activeItems={filteredCategories}
           items={categories}
-          onChange={handleChangeUrlFilterArrays('filteredCategories')}
+          onChange={(value: string[]) => {
+            setFilteredCategories(value);
+            handleChangeUrlFilterArrays('filteredCategories')(value);
+          }}
+          style={{ marginRight: '16px' }}
         />
         <Separator />
         <SearchInput
           value={searchText}
-          label={'Search CUs'}
-          placeholder={'Search CUs by name or Code'}
-          onChange={handleChangeUrlFilterString('searchText')}
+          placeholder="Search CUs by name or Code"
+          onChange={(value: string) => {
+            setSearchText(value);
+            handleChangeUrlFilterString('searchText')(value);
+          }}
+          style={{ marginLeft: '16px' }}
         />
       </Header>
       <CustomTable
@@ -209,7 +242,9 @@ export const CuTable = () => {
         items={items}
         headersAlign={['flex-start', 'center', 'flex-start', 'flex-start', 'flex-start']}
         headersSort={headersSort}
+        headersStyles={headerStyles}
         sortFunction={setSort}
+        loading={status === 'loading'}
       />
     </Box >
   </ContainerHome>;
@@ -227,14 +262,14 @@ const Header = styled.div({
 });
 
 const Title = styled(Typography)({
-  fontSize: '1rem',
-  fontWeight: 600,
+  fontSize: '32px',
+  fontWeight: 500,
   flex: 1,
+  fontStyle: 'normal',
 });
 
 const Separator = styled.span({
   width: '1px',
   height: '40px',
   backgroundColor: '#D3D4D8',
-  margin: 'auto 24px'
 });
