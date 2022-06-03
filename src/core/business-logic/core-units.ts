@@ -7,6 +7,7 @@ import { RoadmapStatusEnum } from '../enums/roadmap-status.enum';
 import { FacilitatorModel } from '../models/facilitator.model';
 import { CustomChartItemModel } from '../models/custom-chart-item.model';
 import { CuAbout, CuMip } from '../../stories/containers/cu-about/cu-about.api';
+import _ from 'lodash';
 
 export const setCuMipStatusModifiedDate = (mip: CuMipDao | CuMip, status: CuStatusEnum, date: string) => {
   let index = status.toLowerCase();
@@ -140,23 +141,17 @@ const getBudgetCapForMip40onMonth = (mip40: Mip40Dao, month: DateTime) => {
   return result;
 };
 
-export const getBudgetCapFromCoreUnit = (cu: CoreUnitDao) => {
-  let result = 0;
+export const getBudgetCapsFromCoreUnit = (cu: CoreUnitDao) => {
+  const result: number[] = [];
   if (cu.cuMip.length === 0) return result;
 
   let dateToCheck = DateTime.now();
-  let divisor = 0;
   for (let i = 0; i < 3; i++) {
     dateToCheck = dateToCheck.minus({ months: 1 });
-    result += cu.cuMip[cu.cuMip.length - 1]?.mip40.reduce((p, c) => {
-      const value = getBudgetCapForMip40onMonth(c, dateToCheck);
-      if (value > 0) divisor += 1;
-      return value + p;
-    }, 0);
+    result.push(cu.cuMip[cu.cuMip.length - 1]?.mip40.reduce((p, c) => getBudgetCapForMip40onMonth(c, dateToCheck) + p, 0));
   }
 
-  if (divisor === 0) return 0;
-  return result / divisor;
+  return result.reverse();
 };
 
 const sumAllLineItemsFromBudgetStatement = (budgetStatement: BudgetStatementDao) => {
@@ -205,7 +200,7 @@ export const getExpenditureAmountFromCoreUnit = (cu: CoreUnitDao) => {
 
 export const getPercentFromCoreUnit = (cu: CoreUnitDao) => {
   const value = getExpenditureValueFromCoreUnit(cu);
-  const budgetCap = getBudgetCapFromCoreUnit(cu) * getExpenditureAmountFromCoreUnit(cu);
+  const budgetCap = _.sum(getBudgetCapsFromCoreUnit(cu));
 
   if (value === 0) return 0;
   if (budgetCap === 0) return null;

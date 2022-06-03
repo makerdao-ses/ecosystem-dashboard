@@ -28,7 +28,8 @@ export const initialState = {
           .withStatus(CuStatusEnum.Accepted, CURRENT_MINUS_1_MONTH)
           .addMip40(
             (new Mip40Builder())
-              .addPeriodWithLineItems(CURRENT_MINUS_2_MONTH, CURRENT_PLUS_1_MONTH, [700, 400, 1000])
+              .addPeriodWithLineItems(CURRENT_MINUS_3_MONTH, CURRENT_MINUS_1_MONTH, [700, 400, 1000])
+              .addPeriodWithLineItems(CURRENT_MINUS_1_MONTH, CURRENT_PLUS_1_MONTH, [700, 400, 600])
               .build()
           )
           .build()
@@ -107,7 +108,8 @@ export const initialState = {
           .withStatus(CuStatusEnum.Rejected, CURRENT_MINUS_1_MONTH)
           .addMip40(
             (new Mip40Builder())
-              .addPeriodWithLineItems(CURRENT_MINUS_2_MONTH, CURRENT_PLUS_1_MONTH, [500, 510, 500])
+              .addPeriodWithLineItems(CURRENT_MINUS_2_MONTH, CURRENT_MINUS_1_MONTH, [500, 510, 500])
+              .addPeriodWithLineItems(CURRENT_MINUS_1_MONTH, CURRENT_PLUS_1_MONTH, [500, 510, 1000])
               .build()
           )
           .build()
@@ -176,7 +178,8 @@ export const initialState = {
           .withStatus(CuStatusEnum.Withdrawn, CURRENT_MINUS_1_MONTH)
           .addMip40(
             (new Mip40Builder())
-              .addPeriodWithLineItems(CURRENT_MINUS_2_MONTH, CURRENT_PLUS_1_MONTH, [500, 510, 500])
+              .addPeriodWithLineItems(CURRENT_MINUS_3_MONTH, CURRENT_MINUS_1_MONTH, [500, 510, 500])
+              .addPeriodWithLineItems(CURRENT_MINUS_3_MONTH, CURRENT_PLUS_1_MONTH, [500, 510])
               .build()
           )
           .build()
@@ -233,7 +236,7 @@ export const initialState = {
           .withStatus(CuStatusEnum.RFC, CURRENT_MINUS_1_MONTH)
           .addMip40(
             (new Mip40Builder())
-              .addPeriodWithLineItems(CURRENT_MINUS_2_MONTH, CURRENT_PLUS_1_MONTH, [500, 510, 500])
+              .addPeriodWithLineItems(CURRENT_MINUS_1_MONTH, CURRENT_PLUS_1_MONTH, [500, 510, 500])
               .build()
           )
           .build()
@@ -298,7 +301,7 @@ export const initialState = {
           .withStatus(CuStatusEnum.FormalSubmission, CURRENT_MINUS_1_MONTH)
           .addMip40(
             (new Mip40Builder())
-              .addPeriodWithLineItems(CURRENT_MINUS_2_MONTH, CURRENT_PLUS_1_MONTH, [500, 510, 500])
+              .addPeriodWithLineItems(CURRENT_MINUS_3_MONTH, CURRENT_PLUS_1_MONTH, [500, 510, 500])
               .build()
           )
           .build()
@@ -351,7 +354,7 @@ export const initialState = {
           .withStatus(CuStatusEnum.Obsolete, CURRENT_MINUS_1_MONTH)
           .addMip40(
             (new Mip40Builder())
-              .addPeriodWithLineItems(CURRENT_MINUS_2_MONTH, CURRENT_PLUS_1_MONTH, [500, 510, 500])
+              .addPeriodWithLineItems(CURRENT_MINUS_3_MONTH, CURRENT_MINUS_2_MONTH, [500, 510, 500])
               .build()
           )
           .build()

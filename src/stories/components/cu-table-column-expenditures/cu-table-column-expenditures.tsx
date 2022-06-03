@@ -9,7 +9,7 @@ interface CuTableColumnExpendituresProps {
   value: number,
   percent?: number | null,
   items: Array<CustomChartItemModel>,
-  budgetCap: number
+  budgetCaps: number[]
 }
 
 export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps) => {
@@ -24,8 +24,8 @@ export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps)
         </Value>
       </CustomPopover>
     </Data>
-    <CustomBarChart items={props.items} maxValue={props.budgetCap}/>
-    {props.budgetCap > 0 && <ValueWrapper>
+    <CustomBarChart items={props.items} maxValues={props.budgetCaps}/>
+    {props.budgetCaps.length > 0 && <ValueWrapper>
         <CustomPopover
             css={{ alignSelf: 'center' }}
             id={'mouse-over-popover-percent'}

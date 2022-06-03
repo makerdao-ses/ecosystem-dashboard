@@ -4,7 +4,7 @@ import { Box, Typography } from '@mui/material';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   countInitiativesFromCoreUnit,
-  getBudgetCapFromCoreUnit,
+  getBudgetCapsFromCoreUnit,
   getExpenditureValueFromCoreUnit,
   getFacilitatorsFromCoreUnit,
   getFTEsFromCoreUnit,
@@ -41,6 +41,7 @@ import { sortAlphaNum } from '../../../core/utils/sort.utils';
 import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
 import { SearchInput } from '../../components/search-input/search-input';
 import { CustomButton } from '../../components/custom-button/custom-button';
+import { useDebounce } from '../../../core/utils/use-debounce';
 
 const statuses = Object.values(CuStatusEnum) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];
@@ -59,6 +60,14 @@ export const CuTable = () => {
   const [filteredStatuses, setFilteredStatuses] = useState(getArrayParam('filteredStatuses', filters));
   const [filteredCategories, setFilteredCategories] = useState(getArrayParam('filteredCategories', filters));
   const [searchText, setSearchText] = useState(getStringParam('searchText', filters));
+  const [debouncedSearchText, setDebouncedSearchText] = useState(searchText);
+
+  const debounce = useDebounce();
+  useEffect(() => {
+    debounce(() => {
+      setDebouncedSearchText(searchText);
+    }, 300);
+  }, [searchText]);
 
   const [headersSort, setHeadersSort] = useState(sortInitialState);
   const [sortColumn, setSortColumn] = useState(-1);
@@ -167,7 +176,7 @@ export const CuTable = () => {
           value={getExpenditureValueFromCoreUnit(coreUnit)}
           percent={getPercentFromCoreUnit(coreUnit)}
           items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
-          budgetCap={getBudgetCapFromCoreUnit(coreUnit)}
+          budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
         />,
         <CuTableColumnTeamMember
           key={`teammember-${i}`}
@@ -184,7 +193,7 @@ export const CuTable = () => {
         />
       ];
     });
-  }, [data, filteredStatuses, filteredCategories, searchText, facilitatorImages, headersSort]);
+  }, [data, filteredStatuses, filteredCategories, debouncedSearchText, facilitatorImages, headersSort]);
 
   return <ContainerHome>
     <Box
