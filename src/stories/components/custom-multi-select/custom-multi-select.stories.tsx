@@ -11,13 +11,6 @@ const Template: ComponentStory<typeof CustomMultiSelect> = (args) => <CustomMult
 
 export const Default = Template.bind({});
 Default.args = {
-  items: ['Apple', 'Orange', 'Banana', 'Strawberry'],
   label: 'Custom MultiSelect',
-};
-
-export const WithoutAll = Template.bind({});
-WithoutAll.args = {
-  items: ['Apple', 'Orange', 'Banana', 'Strawberry'],
-  label: 'Custom MultiSelect',
-  withAll: false
+  items: ['Apple', 'Orange', 'Banana', 'Anan', 'Strawberry']
 };

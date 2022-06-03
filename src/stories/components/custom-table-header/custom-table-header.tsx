@@ -15,8 +15,8 @@ export const CustomTableHeader = (props: CustomTableHeaderProps) => {
   return <Container className="no-select" align={props.align}>
     <Typography>{props.title}</Typography>
     {props.state !== SortEnum.Disabled && <Arrows>
-      <ArrowUp fill={props.state === SortEnum.Asc ? 'black' : 'lightgray'}/>
-      <ArrowDown fill={props.state === SortEnum.Desc ? 'black' : 'lightgray'}/>
+      <ArrowUp fill={props.state === SortEnum.Asc ? '#231536' : '#708390'}/>
+      <ArrowDown fill={props.state === SortEnum.Desc ? '#231536' : '#708390'}/>
     </Arrows>}
   </Container>;
 };
@@ -30,7 +30,7 @@ const Container = styled.div<{align?: string}>((props) => ({
 const Arrows = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  margin: '0 6px',
+  margin: '0 8px',
   cursor: 'pointer',
   boxSizing: 'unset',
 });
