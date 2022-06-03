@@ -18,6 +18,8 @@ export const getMipsStatus = (mip: CuMip) => {
       return mip.rejected;
     case CuStatusEnum.RFC:
       return mip.rfc;
+    case CuStatusEnum.Obsolete:
+      return mip.obsolete;
     default:
       return undefined;
   }

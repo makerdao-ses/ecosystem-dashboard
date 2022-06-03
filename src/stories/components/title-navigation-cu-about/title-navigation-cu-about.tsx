@@ -201,7 +201,8 @@ const SinceDate = styled.a(({ theme }) => ({
 const ContainerLinks = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'flex-start',
+  justifyContent: 'flex-end',
+  alignItems: 'flex-end',
   width: '272px',
 });
 const CircleContainer = styled.div({

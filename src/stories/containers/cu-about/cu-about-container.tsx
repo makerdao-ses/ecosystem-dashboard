@@ -178,8 +178,7 @@ const TeamMemberContainer = styled.div({
   display: 'flex',
   justifyContent: 'row',
   alignItems: 'center',
-  marginLeft: '32px',
-
+  marginTop: '32px',
 });
 
 const TeamMemberTitle = styled(Typography)({
@@ -195,9 +194,7 @@ const ContactInfoContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
   minHeight: '182px',
-  paddingLeft: '32px',
-  marginTop: '48px',
-  marginBottom: '32px',
+  marginTop: '32px',
 });
 
 const ContactInfoTitle = styled(Typography)({
@@ -224,8 +221,6 @@ const CardRelateMipsContainer = styled.div({
   alignItems: 'center',
   marginTop: '32px',
   marginBottom: '64px',
-  // marginLeft: '32px',
-  // marginRight: '32px',
 
 });
 
@@ -274,7 +269,6 @@ const ContainerNoRelateMIps = styled.div({
 const ContainerAllData = styled(Container)({
   marginRight: '128px',
   marginLeft: '128px',
-  border: '2px solid red',
 });
 
 const DividerStyle = styled(Divider)({
