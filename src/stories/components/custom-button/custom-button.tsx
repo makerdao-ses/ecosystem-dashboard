@@ -10,7 +10,7 @@ interface CustomButtonProps {
 }
 
 export const CustomButton = (props: CustomButtonProps) => {
-  return <Container type="button" disabled={props.disabled} onClick={() => props.onClick && props.onClick()} style={props.style}>
+  return <Container type="button" disabled={props.disabled} onClick={props.onClick} style={props.style}>
     <Text className={props.disabled ? 'disabled' : ''}>{props.label}</Text>
   </Container>;
 };

@@ -201,13 +201,13 @@ export const CuTable = () => {
       <Header>
         <Title>Core Units</Title>
         <CustomButton
-          label={'Clear Filters'}
+          label="Clear Filters"
           style={{ marginRight: '16px' }}
           onClick={clearFilters}
           disabled={filteredCategories.length === 0 && filteredStatuses.length === 0 && searchText.length === 0}
         />
         <CustomMultiSelect
-          label={'Status'}
+          label="Status"
           activeItems={filteredStatuses}
           items={statuses}
           onChange={(value: string[]) => {
@@ -217,7 +217,7 @@ export const CuTable = () => {
           style={{ marginRight: '16px' }}
         />
         <CustomMultiSelect
-          label={'Category'}
+          label="Category"
           activeItems={filteredCategories}
           items={categories}
           onChange={(value: string[]) => {
@@ -229,7 +229,7 @@ export const CuTable = () => {
         <Separator />
         <SearchInput
           value={searchText}
-          placeholder={'Search CUs by name or Code'}
+          placeholder="Search CUs by name or Code"
           onChange={(value: string) => {
             setSearchText(value);
             handleChangeUrlFilterString('searchText')(value);
