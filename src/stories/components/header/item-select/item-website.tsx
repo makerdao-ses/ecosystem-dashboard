@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Typography } from '@mui/material';
+import { Link, Typography } from '@mui/material';
 import React, { ReactNode } from 'react';
 
 interface Props {
@@ -9,24 +9,26 @@ interface Props {
   fontSize?: number
   color?: string
   fontWeight?: number
+  link?: string
 }
 
-export const ItemWebSite = ({ background = '', fontSize = 16, fontWeight = 700, color = '#FFFFFF', ...props }: Props) => {
+export const ItemWebSite = ({ background = '', fontSize = 16, fontWeight = 700, color = '#FFFFFF', link = '#', ...props }: Props) => {
   return (
-    <Container>
+    <ContainerLink href={link} target='_blank'>
       <ContainerLogo>{props.logo}</ContainerLogo>
       <ContainerText background={background}>
-        <Typography fontSize={fontSize} color={color} fontWeight={fontWeight}>{props.title}</Typography>
+        <Typography fontSize={fontSize} color={color} fontWeight={fontWeight} >{props.title}</Typography>
       </ContainerText>
-    </Container>
+    </ContainerLink>
   );
 };
 
-const Container = styled.div({
+const ContainerLink = styled(Link)({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
   height: 'fit-content',
+  textDecoration: 'none',
 });
 const ContainerLogo = styled.div({
   display: 'flex',
