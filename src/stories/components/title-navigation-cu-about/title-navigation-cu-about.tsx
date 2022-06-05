@@ -136,11 +136,9 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
         </ContainerTitle>
         <CategoryContainer>{coreUnitAbout.category && coreUnitAbout.category.map((item) => <CategoryChip key={item} category={item} style={{ marginRight: '16px' }} />)}</CategoryContainer>
       </ContainerColum>
-      <ContainerLinksSpace>
-        <ContainerLinks>
-          <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} dark spacingsRight={29} />
-        </ContainerLinks>
-      </ContainerLinksSpace>
+      <ContainerLinks>
+        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} dark spacingsRight={29} />
+      </ContainerLinks>
     </Container>
   );
 };
@@ -201,9 +199,9 @@ const SinceDate = styled.a(({ theme }) => ({
 const ContainerLinks = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'flex-end',
+  justifyContent: 'flex-start',
   alignItems: 'flex-end',
-  width: '272px',
+  height: '68px',
 });
 const CircleContainer = styled.div({
   marginRight: '10px',
@@ -215,13 +213,6 @@ const ContainerColum = styled.div({
   justifyContent: 'flex-start',
   alignItems: 'flex-start',
   width: '100%',
-});
-
-const ContainerLinksSpace = styled.div({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  height: '100%',
 });
 
 const CategoryContainer = styled.div({

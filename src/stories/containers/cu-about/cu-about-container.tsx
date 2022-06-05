@@ -9,7 +9,6 @@ import { useAppDispatch } from '../../../core/hooks/hooks';
 import { RootState } from '../../../core/store/store';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
 import BigButton from '../../components/button/big-button/big-button';
-import SmallButton from '../../components/button/small-button/small-button';
 import CardInfoMember from '../../components/card-info-member/card-info-member';
 import MdViewerContainer from '../../components/markdown/md-view-container';
 import InsidePagination from '../../components/pagination/InsidePagination';
@@ -22,6 +21,7 @@ import { ContributorCommitment } from './cu-about-contributor';
 import { contributorCommitmentSelector, cuAboutSelector, loadCoreUnitABout, status } from './cu-about-slice';
 import { CuMip } from './cu-about.api';
 import _ from 'lodash';
+import BreadCrumb from '../../components/pagination/bread-crumb';
 
 const CuAboutContainer = () => {
   const [filters] = useSearchParams();
@@ -67,13 +67,6 @@ const CuAboutContainer = () => {
     [coreUnitCode, filteredData, filters, navigate],
   );
 
-  const handleGoBack = useCallback(
-    () => {
-      navigate(`/?${filters.toString()}`);
-    },
-    [filters, navigate],
-  );
-
   const onClickLessMips = () => {
     setShowThreeMIPs(!showThreeMIPs);
   };
@@ -95,14 +88,16 @@ const CuAboutContainer = () => {
   return (
     <ContainerAbout>
       <NavigationHeader>
-        <SmallButton onClick={handleGoBack} /> <PaddingComponent><InsidePagination count={filteredData.length} page={page} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} /></PaddingComponent>
+        <BreadCrumb count={filteredData.length} breadcrumbs={[cuAbout.name] || []} isCoreUnit />
+        <InsidePagination count={filteredData.length} page={page} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} />
       </NavigationHeader>
       <ContainerAllData disableGutters>
         <ContainerTitle>
           <TitleNavigationCuAbout coreUnitAbout={cuAbout} />
         </ContainerTitle>
+        <Typography fontSize={16} lineHeight='19px' sx={{ marginTop: '16px' }}>{cuAbout.sentenceDescription || ''}</Typography>
         <MarkdownContainer>
-          <MdViewerContainer sentenceDescription={cuAbout.sentenceDescription} paragraphDescription={cuAbout.paragraphDescription} paragraphImage={cuAbout.paragraphImage} />
+          <MdViewerContainer sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)} paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)} paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)} />
         </MarkdownContainer>
         <TeamMemberContainer>
           <TeamMemberTitle>Team Size</TeamMemberTitle><TeamMember fte={getFTEsFromCoreUnit(cuAbout)} />
@@ -151,28 +146,24 @@ const ContainerAbout = styled.div({
   display: 'flex',
   flexDirection: 'column',
   marginTop: '64px',
-  backgroundColor: '#F9F9F9',
 });
 
 const NavigationHeader = styled.div({
   display: 'flex',
-  justifyContent: 'row',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
   alignItems: 'center',
-  backgroundColor: '#F5F5F5',
-  height: '48px',
+  height: '74px',
   paddingLeft: '32px',
-});
-
-const PaddingComponent = styled.div({
-  paddingLeft: '32px',
+  paddingRight: '32px',
 });
 
 const ContainerTitle = styled.div({
   display: 'flex',
-  marginTop: '32px',
+  flexDirection: 'column',
 });
 const MarkdownContainer = styled.div({
-  marginTop: '40px',
+  marginTop: '32px',
 });
 const TeamMemberContainer = styled.div({
   display: 'flex',
@@ -274,4 +265,8 @@ const ContainerAllData = styled(Container)({
 const DividerStyle = styled(Divider)({
   width: '100%',
   bgcolor: '#D4D9E1',
+});
+
+const ContainerNavigation = styled.div({
+  marginTop: '32px',
 });
