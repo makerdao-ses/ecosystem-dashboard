@@ -59,7 +59,10 @@ export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }
       </IconWrapper>
     </SelectContainer>
     {popupVisible && <PopupContainer>
-      {withAll && <MenuItem key={'All'} onClick={toggleAll}>
+      {withAll && <MenuItem key={'All'} onClick={(e) => {
+        e.stopPropagation();
+        toggleAll();
+      }}>
         {activeItems.length === props.items.length ? <CheckBoxOutlined sx={{ m: '6px' }}/> : <CheckBoxOutlineBlankOutlined sx={{ m: '6px' }}/>}
         <ListItemText
             primary={'All'}
