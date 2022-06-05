@@ -1,7 +1,12 @@
 import { DateTime, Interval } from 'luxon';
 import { LinkModel } from '../../stories/components/cu-table-column-links/cu-table-column-links';
 import { LinkTypeEnum } from '../enums/link-type.enum';
-import { BudgetStatementDao, CoreUnitDao, CuMipDao, Mip40Dao } from '../../stories/containers/cu-table/cu-table.api';
+import {
+  BudgetStatementDao,
+  CoreUnitDao,
+  CuMipDao,
+  Mip40BudgetPeriodDao
+} from '../../stories/containers/cu-table/cu-table.api';
 import { CuStatusEnum } from '../enums/cu-status.enum';
 import { RoadmapStatusEnum } from '../enums/roadmap-status.enum';
 import { FacilitatorModel } from '../models/facilitator.model';
@@ -124,21 +129,33 @@ export const getFacilitatorsFromCoreUnit = (cu: CoreUnitDao) => {
   return result;
 };
 
-const getBudgetCapForMip40onMonth = (mip40: Mip40Dao, month: DateTime) => {
-  const budgetPeriod = mip40?.mip40BudgetPeriod?.find(bp => {
-    const start = DateTime.fromFormat(bp.budgetPeriodStart, 'y-MM-dd');
-    const end = DateTime.fromFormat(bp.budgetPeriodEnd, 'y-MM-dd');
-    const interval = Interval.fromDateTimes(start, end);
-    return interval.contains(month);
-  });
+const checkDateOnPeriod = (period: Mip40BudgetPeriodDao, date: DateTime) => {
+  if (!period) return false;
+  const start = DateTime.fromFormat(period.budgetPeriodStart, 'y-MM-dd');
+  const end = DateTime.fromFormat(period.budgetPeriodEnd, 'y-MM-dd');
+  const interval = Interval.fromDateTimes(start, end);
 
-  let result = 0;
-  if (!budgetPeriod) return result;
+  return interval.contains(date);
+};
 
-  // eslint-disable-next-line no-return-assign
-  budgetPeriod.mip40BudgetLineItem.forEach((lineItem) => result += lineItem.budgetCap);
+const findBudgetPeriod = (cu: CoreUnitDao, date: DateTime): Mip40BudgetPeriodDao | null => {
+  for (let i = 0; i < cu.cuMip?.length ?? 0; i++) {
+    const mip = cu.cuMip[i];
 
-  return result;
+    for (let j = 0; j < mip.mip40?.length ?? 0; j++) {
+      const mip40 = mip.mip40[j];
+
+      for (let k = 0; k < mip40.mip40BudgetPeriod?.length ?? 0; k++) {
+        const period = mip40.mip40BudgetPeriod[k];
+
+        if (checkDateOnPeriod(period, date)) {
+          return period;
+        }
+      }
+    }
+  }
+
+  return null;
 };
 
 export const getBudgetCapsFromCoreUnit = (cu: CoreUnitDao) => {
@@ -146,9 +163,14 @@ export const getBudgetCapsFromCoreUnit = (cu: CoreUnitDao) => {
   if (cu.cuMip.length === 0) return result;
 
   let dateToCheck = DateTime.now();
+  let budgetPeriod;
   for (let i = 0; i < 3; i++) {
     dateToCheck = dateToCheck.minus({ months: 1 });
-    result.push(cu.cuMip[cu.cuMip.length - 1]?.mip40.reduce((p, c) => getBudgetCapForMip40onMonth(c, dateToCheck) + p, 0));
+    // Check the period found before to avoid re-surfing the array
+    if (!budgetPeriod || !checkDateOnPeriod(budgetPeriod, dateToCheck)) {
+      budgetPeriod = findBudgetPeriod(cu, dateToCheck);
+    }
+    result.push(budgetPeriod?.mip40BudgetLineItem?.reduce((p, c) => (c.budgetCap ?? 0) + p, 0) ?? 0);
   }
 
   return result.reverse();

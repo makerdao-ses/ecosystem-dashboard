@@ -13,7 +13,7 @@ const COLOR_YELLOW = '#FDC134';
 const COLOR_GRAY = '#D8E0E3';
 
 export const CustomBarChart = (props: CustomBarChartProps) => {
-  if (!props.items || props.maxValues.length === 0) return <span/>;
+  if (!props.items || props.maxValues.length === 0 || props.items.every(x => x.value === 0 || x.value === null || x.value === undefined)) return <span/>;
 
   const itemWidth = 12;
   const itemSpace = 8;
@@ -58,7 +58,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
           y="5"
           width="12"
           rx="1"
-          height={item.value > 0 ? calculateHeight(item.value) : 10}
+          height={item.value > 0 ? calculateHeight(item.value) : 16}
           fill={item.value > 0 ? getColor(item.value, i) : COLOR_GRAY}>
           <animate
             attributeName="height"
