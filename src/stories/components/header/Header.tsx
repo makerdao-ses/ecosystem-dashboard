@@ -77,7 +77,7 @@ const Container = styled.div({
   height: '64px',
   position: 'fixed',
   width: '100%',
-  zIndex: '2',
+  zIndex: '4',
   flexDirection: 'row',
   justifyContent: 'space-between',
   backgroundColor: '#C4C4C4',
