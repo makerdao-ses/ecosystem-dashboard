@@ -50,29 +50,36 @@ const Header = ({ menuItems, links }: Props) => {
   );
 };
 
-const Container = styled.div({
-  height: '64px',
+const Container = styled.header({
   position: 'fixed',
-  width: window.innerWidth,
-  zIndex: '2',
+  display: 'flex',
   flexDirection: 'row',
+  width: window.innerWidth,
+  height: '64px',
+  zIndex: '2',
   justifyContent: 'space-between',
-  backgroundColor: '#C4C4C4',
+  background: 'url(/assets/img/bg-header.png)',
+  borderBottom: '1px solid #E7FCFA',
+  backdropFilter: 'blur(30px)',
 });
 
 const LeftPart = styled.div({
   display: 'flex',
   flexDirection: 'row',
+  alignItems: 'center',
+  height: '100%',
 });
 
 const ContainerLogoSelect = styled.div({
   display: 'flex',
   flexDirection: 'row',
+  height: '100%',
   width: '316px',
   marginRight: '32px',
   alignItems: 'center',
   paddingRight: '32px',
   paddingLeft: '32px',
+  background: 'url(/assets/img/bg-logo.png)',
 });
 
 const LogoContainer = styled.div({
@@ -84,20 +91,18 @@ const LogoContainer = styled.div({
 const Navigation = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  marginBottom: '22px',
-  marginTop: '22px',
+  height: '100%',
+  alignItems: 'center',
 });
 
 const RightPart = styled.div({
-  position: 'absolute',
   display: 'flex',
   alignItems: 'center',
-  right: '32px',
-  top: '16px',
+  paddingRight: '32px',
 });
 
 const ItemMenuStyle = styled(Link)({
-  fontFamily: 'Inter',
+  fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '16px',

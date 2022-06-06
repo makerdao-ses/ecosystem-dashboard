@@ -10,14 +10,15 @@ interface Props {
   color?: string
   fontWeight?: number
   link?: string
+  fontFamily?: string
 }
 
-export const ItemWebSite = ({ background = '', fontSize = 16, fontWeight = 700, color = '#FFFFFF', link = '#', ...props }: Props) => {
+export const ItemWebSite = ({ background = '', fontSize = 16, fontWeight = 700, color = '#FFFFFF', link = '#', fontFamily = 'Inter', ...props }: Props) => {
   return (
     <ContainerLink href={link} target='_blank'>
       <ContainerLogo>{props.logo}</ContainerLogo>
       <ContainerText background={background}>
-        <Typography fontSize={fontSize} color={color} fontWeight={fontWeight} >{props.title}</Typography>
+        <Typography fontSize={fontSize} color={color} fontWeight={fontWeight} fontFamily={fontFamily }>{props.title}</Typography>
       </ContainerText>
     </ContainerLink>
   );

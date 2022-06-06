@@ -64,7 +64,7 @@ const SelectLink = ({ links }: Props) => {
                 borderRadius: '22px',
               }
             }} key={link.title}>
-            <ItemWebSite title={link.title} logo={link.logo} background={link.background} color={link.color} fontSize={link.fontSize} fontWeight={link.fontWeight} link={link.link} />
+            <ItemWebSite title={link.title} logo={link.logo} background={link.background} color={link.color} fontSize={link.fontSize} fontWeight={link.fontWeight} link={link.link} fontFamily={link.fontFamily} />
           </MenuItem >;
         })}
       </Menu>
