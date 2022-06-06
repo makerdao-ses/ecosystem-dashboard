@@ -53,10 +53,10 @@ const Header = ({ menuItems, links }: Props) => {
 const Container = styled.header({
   position: 'fixed',
   display: 'flex',
+  width: '100%',
+  zIndex: '4',
   flexDirection: 'row',
-  width: window.innerWidth,
   height: '64px',
-  zIndex: '2',
   justifyContent: 'space-between',
   background: 'url(/assets/img/bg-header.png)',
   borderBottom: '1px solid #E7FCFA',

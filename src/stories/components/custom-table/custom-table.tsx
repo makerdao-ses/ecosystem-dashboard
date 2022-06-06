@@ -55,7 +55,7 @@ const TableContainer = styled.div({
 
 const Table = styled.table({
   borderCollapse: 'separate',
-  borderSpacing: '0px 8px',
+  borderSpacing: '0px 16px',
   tableLayout: 'fixed',
   flex: '1',
   padding: '2px 4px',
@@ -64,16 +64,26 @@ const Table = styled.table({
 const TableHead = styled.thead({
   padding: '16px',
   height: '52px',
-  background: '#F7F8F9',
+  position: 'relative',
+  zIndex: 1,
+  '&:after': {
+    content: '""',
+    width: '100%',
+    height: '52px',
+    background: '#F7F8F9',
+    borderTopLeftRadius: '5px',
+    borderTopRightRadius: '5px',
+    position: 'absolute',
+    boxSizing: 'border-box',
+    top: '-6px',
+    zIndex: -1,
+    filter: 'drop-shadow(0px 20px 40px rgba(190, 190, 190, 0.25))',
+  }
 });
 
 const TableRow = styled.tr({});
 
-const TableHeadRow = styled.tr({
-  borderTopLeftRadius: '5px',
-  borderTopRightRadius: '5px',
-  boxShadow: '0px 20px 40px -40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-});
+const TableHeadRow = styled.tr({});
 
 const TableCell = styled.td({});
 
@@ -82,8 +92,7 @@ const TableBody = styled.tbody({
   '> tr': {
     display: 'table-row',
     background: '#FFFFFF',
-    boxShadow: '0px 20px 40px -40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
-    marginBottom: '10px',
+    filter: 'drop-shadow(0px 20px 40px rgba(190, 190, 190, 0.25))',
   }
 });
 

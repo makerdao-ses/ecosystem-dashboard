@@ -125,7 +125,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
         </Row>
       </ContainerTitle>
       <ContainerLinks>
-        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} dark />
+        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#626472'} />
       </ContainerLinks>
     </Container>
   );

@@ -29,7 +29,7 @@ const mainTheme = createTheme({
   },
   typography: {
     fontSize: 14,
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: 'FT Base, sans-serif',
   },
 });
 

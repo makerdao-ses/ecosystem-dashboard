@@ -20,12 +20,11 @@ interface CuTableColumnLinksProps {
   links: LinkModel[]
   width?: number,
   height?: number;
-  dark?: boolean;
-  spacingsRight?: number
+  spacingsRight?: number,
+  fill?: string;
 }
 
-const getImageForLink = (link: LinkModel, width?: number, height?: number, dark?: boolean) => {
-  const fill = dark ? '#626472' : '#D1DEE6';
+const getImageForLink = (link: LinkModel, fill: string, width?: number, height?: number) => {
   switch (link.linkType) {
     case LinkTypeEnum.WWW:
       return <WWW fill={fill} width={width} height={height} />;
@@ -46,7 +45,7 @@ const getImageForLink = (link: LinkModel, width?: number, height?: number, dark?
   }
 };
 
-export const CuTableColumnLinks = ({ width, height, dark, links, spacingsRight }: CuTableColumnLinksProps) => {
+export const CuTableColumnLinks = ({ width, height, links, spacingsRight, fill = '#C4C4C4' }: CuTableColumnLinksProps) => {
   return <Container>
     {links.map((link, i) => <CustomPopover
       key={`link-${i}`}
@@ -58,7 +57,7 @@ export const CuTableColumnLinks = ({ width, height, dark, links, spacingsRight }
           target="_blank"
           width={width}
           height={height}>
-          {getImageForLink(link, width, height, dark)}
+          {getImageForLink(link, fill, width, height)}
         </LinkImage>
       </Box>
     </CustomPopover>)

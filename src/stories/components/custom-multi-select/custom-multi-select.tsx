@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { SelectChevronDown } from '../svg/select-chevron-down';
 import { Checkbox, ListItemText, MenuItem, Typography } from '@mui/material';
 import CheckBoxOutlined from '@mui/icons-material/CheckBoxOutlined';
+import CheckBoxOutlineBlankOutlined from '@mui/icons-material/CheckBoxOutlineBlankOutlined';
 import './custom-multi-select.scss';
 import useOutsideClick from '../../../core/utils/use-outside-click';
 
@@ -58,8 +59,11 @@ export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }
       </IconWrapper>
     </SelectContainer>
     {popupVisible && <PopupContainer>
-      {withAll && <MenuItem key={'All'} onClick={toggleAll}>
-        <CheckBoxOutlined sx={{ m: '6px' }}/>
+      {withAll && <MenuItem key={'All'} onClick={(e) => {
+        e.stopPropagation();
+        toggleAll();
+      }}>
+        {activeItems.length === props.items.length ? <CheckBoxOutlined sx={{ m: '6px' }}/> : <CheckBoxOutlineBlankOutlined sx={{ m: '6px' }}/>}
         <ListItemText
             primary={'All'}
             sx={{ fontSize: '8px' }}/>
@@ -82,6 +86,7 @@ const SelectWrapper = styled.div({
   flexDirection: 'column',
   position: 'relative',
   width: 'fit-content',
+  zIndex: 2,
 });
 
 const SelectContainer = styled.div<{ focus: boolean }>((props) => ({
@@ -120,5 +125,6 @@ const PopupContainer = styled.div({
   overflowY: 'scroll',
   boxShadow: '0px 20px 40px #dbe3ed66, 0px 1px 3px #bebebe40',
   position: 'absolute',
-  top: '50px'
+  top: '50px',
+  zIndex: 3,
 });

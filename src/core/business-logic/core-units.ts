@@ -1,12 +1,18 @@
 import { DateTime, Interval } from 'luxon';
 import { LinkModel } from '../../stories/components/cu-table-column-links/cu-table-column-links';
 import { LinkTypeEnum } from '../enums/link-type.enum';
-import { BudgetStatementDao, CoreUnitDao, CuMipDao, Mip40Dao } from '../../stories/containers/cu-table/cu-table.api';
+import {
+  BudgetStatementDao,
+  CoreUnitDao,
+  CuMipDao,
+  Mip40BudgetPeriodDao
+} from '../../stories/containers/cu-table/cu-table.api';
 import { CuStatusEnum } from '../enums/cu-status.enum';
 import { RoadmapStatusEnum } from '../enums/roadmap-status.enum';
 import { FacilitatorModel } from '../models/facilitator.model';
 import { CustomChartItemModel } from '../models/custom-chart-item.model';
 import { CuAbout, CuMip } from '../../stories/containers/cu-about/cu-about.api';
+import _ from 'lodash';
 
 export const setCuMipStatusModifiedDate = (mip: CuMipDao | CuMip, status: CuStatusEnum, date: string) => {
   let index = status.toLowerCase();
@@ -123,40 +129,51 @@ export const getFacilitatorsFromCoreUnit = (cu: CoreUnitDao) => {
   return result;
 };
 
-const getBudgetCapForMip40onMonth = (mip40: Mip40Dao, month: DateTime) => {
-  const budgetPeriod = mip40?.mip40BudgetPeriod?.find(bp => {
-    const start = DateTime.fromFormat(bp.budgetPeriodStart, 'y-MM-dd');
-    const end = DateTime.fromFormat(bp.budgetPeriodEnd, 'y-MM-dd');
-    const interval = Interval.fromDateTimes(start, end);
-    return interval.contains(month);
-  });
+const checkDateOnPeriod = (period: Mip40BudgetPeriodDao, date: DateTime) => {
+  if (!period) return false;
+  const start = DateTime.fromFormat(period.budgetPeriodStart, 'y-MM-dd');
+  const end = DateTime.fromFormat(period.budgetPeriodEnd, 'y-MM-dd');
+  const interval = Interval.fromDateTimes(start, end);
 
-  let result = 0;
-  if (!budgetPeriod) return result;
-
-  // eslint-disable-next-line no-return-assign
-  budgetPeriod.mip40BudgetLineItem.forEach((lineItem) => result += lineItem.budgetCap);
-
-  return result;
+  return interval.contains(date);
 };
 
-export const getBudgetCapFromCoreUnit = (cu: CoreUnitDao) => {
-  let result = 0;
+const findBudgetPeriod = (cu: CoreUnitDao, date: DateTime): Mip40BudgetPeriodDao | null => {
+  for (let i = 0; i < cu.cuMip?.length ?? 0; i++) {
+    const mip = cu.cuMip[i];
+
+    for (let j = 0; j < mip.mip40?.length ?? 0; j++) {
+      const mip40 = mip.mip40[j];
+
+      for (let k = 0; k < mip40.mip40BudgetPeriod?.length ?? 0; k++) {
+        const period = mip40.mip40BudgetPeriod[k];
+
+        if (checkDateOnPeriod(period, date)) {
+          return period;
+        }
+      }
+    }
+  }
+
+  return null;
+};
+
+export const getBudgetCapsFromCoreUnit = (cu: CoreUnitDao) => {
+  const result: number[] = [];
   if (cu.cuMip.length === 0) return result;
 
   let dateToCheck = DateTime.now();
-  let divisor = 0;
+  let budgetPeriod;
   for (let i = 0; i < 3; i++) {
     dateToCheck = dateToCheck.minus({ months: 1 });
-    result += cu.cuMip[cu.cuMip.length - 1]?.mip40.reduce((p, c) => {
-      const value = getBudgetCapForMip40onMonth(c, dateToCheck);
-      if (value > 0) divisor += 1;
-      return value + p;
-    }, 0);
+    // Check the period found before to avoid re-surfing the array
+    if (!budgetPeriod || !checkDateOnPeriod(budgetPeriod, dateToCheck)) {
+      budgetPeriod = findBudgetPeriod(cu, dateToCheck);
+    }
+    result.push(budgetPeriod?.mip40BudgetLineItem?.reduce((p, c) => (c.budgetCap ?? 0) + p, 0) ?? 0);
   }
 
-  if (divisor === 0) return 0;
-  return result / divisor;
+  return result.reverse();
 };
 
 const sumAllLineItemsFromBudgetStatement = (budgetStatement: BudgetStatementDao) => {
@@ -205,7 +222,7 @@ export const getExpenditureAmountFromCoreUnit = (cu: CoreUnitDao) => {
 
 export const getPercentFromCoreUnit = (cu: CoreUnitDao) => {
   const value = getExpenditureValueFromCoreUnit(cu);
-  const budgetCap = getBudgetCapFromCoreUnit(cu) * getExpenditureAmountFromCoreUnit(cu);
+  const budgetCap = _.sum(getBudgetCapsFromCoreUnit(cu));
 
   if (value === 0) return 0;
   if (budgetCap === 0) return null;
