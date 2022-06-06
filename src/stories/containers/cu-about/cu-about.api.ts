@@ -46,6 +46,7 @@ export interface Contributor {
 export interface ContributorCommitment {
   id: string;
   jobTitle: string;
+  startDate: string;
   commitment: Commitment;
   contributor: Contributor[];
 }
@@ -116,6 +117,7 @@ export const GET_CU_ABOUT_BY_CODE = gql`
       contributorCommitment {
         jobTitle
         commitment
+        startDate
         contributor {
           name
           discordHandle

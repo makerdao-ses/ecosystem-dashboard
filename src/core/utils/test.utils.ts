@@ -27,6 +27,7 @@ export const CONTRIBUTOR_COMMITMENT_ONE: ContributorCommitment = {
   id: 'ESE-001',
   jobTitle: 'Lead Developer',
   commitment: Commitment.FullTime,
+  startDate: CURRENT_MINUS_1_MONTH,
   contributor: [
     {
       id: '0',
@@ -43,6 +44,7 @@ export const CONTRIBUTOR_COMMITMENT_TWO: ContributorCommitment = {
   id: 'ESE-001',
   jobTitle: 'Data Analyst',
   commitment: Commitment.FullTime,
+  startDate: CURRENT_MINUS_1_MONTH,
   contributor: [
     {
       id: '1',

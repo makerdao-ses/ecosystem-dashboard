@@ -37,6 +37,7 @@ export interface Contributor {
 export interface ContributorCommitment {
   id: string;
   jobTitle: string;
+  startDate: string;
   commitment: Commitment;
   contributor: Contributor[];
 }
