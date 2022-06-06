@@ -190,6 +190,7 @@ export const CuTable = () => {
           key={`links-${i}`}
           links={getLinksFromCoreUnit(coreUnit)}
           spacingsRight={16}
+          fill="#D1DEE6"
         />
       ];
     });
