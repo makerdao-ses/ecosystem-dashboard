@@ -1,6 +1,6 @@
 import {
   countInitiativesFromCoreUnit,
-  getBudgetCapFromCoreUnit,
+  getBudgetCapsFromCoreUnit,
   getCuMipStatusModifiedDate,
   getExpenditureValueFromCoreUnit,
   getFacilitatorsFromCoreUnit,
@@ -136,7 +136,7 @@ test('Get Budget Cap for Core Unit', () => {
       .build())
     .build();
 
-  expect(getBudgetCapFromCoreUnit(coreUnit)).toBe(900);
+  expect(getBudgetCapsFromCoreUnit(coreUnit)).toEqual([900, 900, 900]);
 
   coreUnit = (new CoreUnitsBuilder())
     .addCuMip((new CuMipBuilder())
@@ -146,7 +146,7 @@ test('Get Budget Cap for Core Unit', () => {
       .build())
     .build();
 
-  expect(getBudgetCapFromCoreUnit(coreUnit)).toBe(300);
+  expect(getBudgetCapsFromCoreUnit(coreUnit)).toEqual([300, 300, 300]);
 
   coreUnit = (new CoreUnitsBuilder())
     .addCuMip((new CuMipBuilder())
@@ -158,7 +158,7 @@ test('Get Budget Cap for Core Unit', () => {
       .build())
     .build();
 
-  expect(getBudgetCapFromCoreUnit(coreUnit)).toBe(400);
+  expect(getBudgetCapsFromCoreUnit(coreUnit)).toEqual([400, 200, 600]);
 });
 
 test('Get expenditure value from Core Unit', () => {
