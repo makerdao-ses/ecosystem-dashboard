@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon';
 import { Commitment, Contributor, ContributorCommitment } from '../../stories/containers/cu-about/cu-about.api';
+import { CuJobEnum } from '../enums/cu-job.enum';
 
 export const CURRENT_MONTH = DateTime.now().toFormat('y-MM-dd');
 export const CURRENT_MINUS_1_MONTH = DateTime.now()
@@ -25,7 +26,7 @@ export const MARKDOWN_PARAGRAPH_IMAGE = 'https://gateway-proxy-bee-9-0.gateway.e
 
 export const CONTRIBUTOR_COMMITMENT_ONE: ContributorCommitment = {
   id: 'ESE-001',
-  jobTitle: 'Lead Developer',
+  jobTitle: 'Lead Developer' as CuJobEnum,
   commitment: Commitment.FullTime,
   startDate: CURRENT_MINUS_1_MONTH,
   contributor: [
@@ -42,9 +43,9 @@ export const CONTRIBUTOR_COMMITMENT_ONE: ContributorCommitment = {
 };
 export const CONTRIBUTOR_COMMITMENT_TWO: ContributorCommitment = {
   id: 'ESE-001',
-  jobTitle: 'Data Analyst',
-  commitment: Commitment.FullTime,
+  jobTitle: 'Data Analyst' as CuJobEnum,
   startDate: CURRENT_MINUS_1_MONTH,
+  commitment: Commitment.FullTime,
   contributor: [
     {
       id: '1',

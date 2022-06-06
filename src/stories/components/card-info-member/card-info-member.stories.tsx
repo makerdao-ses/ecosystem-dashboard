@@ -2,6 +2,7 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import CardInfoMember from './card-info-member';
 import { Commitment, ContributorCommitment } from '../../containers/cu-about/cu-about-contributor';
+import { CuJobEnum } from '../../../core/enums/cu-job.enum';
 
 export default {
   title: 'Components/CUAbout/CardInfoMember',
@@ -14,7 +15,8 @@ export const AllData = Template.bind({});
 AllData.args = {
   contributorCommitment: {
     id: '1',
-    jobTitle: 'Software Engineer',
+    jobTitle: 'Software Engineer' as CuJobEnum,
+    startDate: '2019-01-01',
     commitment: Commitment.FullTime,
     contributor: [{
       id: '1',
@@ -32,11 +34,12 @@ export const Default = Template.bind({});
 Default.args = {
   contributorCommitment: {
     id: '1',
-    jobTitle: 'Software Engineer',
+    startDate: '2019-01-01',
+    jobTitle: 'Software Engineer' as CuJobEnum,
     commitment: Commitment.FullTime,
     contributor: [{
       discordHandle: '',
       forumHandle: '',
-    }] as ContributorCommitment['contributor']
+    }]
   } as ContributorCommitment
 };

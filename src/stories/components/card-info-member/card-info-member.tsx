@@ -1,11 +1,12 @@
 import React from 'react';
-import { Avatar, Box, Card, CardActions, CardContent, CardHeader, Divider, Typography } from '@mui/material';
+import { Avatar, Box, Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
 import styled from '@emotion/styled';
 import { CuTableColumnLinks } from '../cu-table-column-links/cu-table-column-links';
 import { getTwoInitials } from '../../../core/utils/string.utils';
 import { ContributorCommitment } from '../../containers/cu-about/cu-about-contributor';
 import { getLinksFromContributor } from '../../../core/business-logic/core-unit-about';
 import { DateTime } from 'luxon';
+import { getColorJobPosition } from '../../../core/utils/color.utils';
 
 interface Props {
   contributorCommitment: ContributorCommitment;
@@ -15,6 +16,8 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
   const since = DateTime.now().diff(DateTime.fromISO(contributorCommitment.startDate || ''), 'years').toFormat('y');
   const contributor = contributorCommitment.contributor[0] || [];
   const links = getLinksFromContributor(contributorCommitment);
+  const { color } = getColorJobPosition(contributorCommitment.jobTitle);
+  console.log(typeof contributorCommitment.startDate);
   return (
     <Box>
       <Card sx={{
@@ -34,25 +37,38 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
               padding: '0px',
             }}
             avatar={!contributor.facilitatorImage
-              ? <Avatar sx={{ bgcolor: 'black' }} style={{
-                width: '40px',
-                height: '40px',
-                fontSize: '1rem'
+              ? <Avatar sx={{
+                bgcolor: 'black',
+
+              }} style={{
+                width: '48px',
+                height: '48px',
+                fontSize: '20px',
+                color: 'white',
+                marginRight: '8px',
+                border: '3px solid #E7FCFA',
+
               }}>{getTwoInitials(contributor?.name || 'NM')}</Avatar>
-              : <Avatar style={{
-                width: '40px',
-                height: '40px'
+              : <Avatar sx={{
+                marginRight: '0px',
+              }} style={{
+                width: '48px',
+                height: '48px',
+                border: '3px solid #E7FCFA',
+                marginRight: '8px',
+
               }} src={contributor.facilitatorImage} />}
-            title={<Typography fontSize={20} color='#231536' lineHeight='24px' fontWeight={500}>{contributor.name}</Typography>}
-            subheader={<Typography fontSize={14} sx={{
-              marginLeft: '6px',
-              marginTop: '8px',
-              lineHeight: '130%'
-            }}>{`forum: @${contributor.forumHandle}`}</Typography>}
+          title={<Typography fontSize={20} color='#231536' lineHeight='24px' fontWeight={500}>{contributor.name}</Typography>}
+          subheader={<Typography fontSize={14} sx={{
+            marginLeft: '6px',
+            marginTop: '8px',
+            lineHeight: '130%'
+          }}>{`forum: @${contributor.forumHandle}`}</Typography>}
           />
           <Typography sx={{
             marginTop: '24px',
-            marginBottom: '24px'
+            marginBottom: '24px',
+            color,
           }}>{contributorCommitment.jobTitle}</Typography>
 
           <CardContentPositionRow>
@@ -62,16 +78,15 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
             </CardContentPositionColumn>
             <CardContentPositionColumn>
               <TypographyStyled color='#708390' >Commitment</TypographyStyled>
-              <TypographyStyled color=' #000000'>{contributorCommitment.commitment}</TypographyStyled>
+              <TypographyStyled color=' #231536'>{contributorCommitment.commitment}</TypographyStyled>
             </CardContentPositionColumn>
           </CardContentPositionRow>
         </CardContent>
         <Divider light sx={{
-          marginTop: '30px',
-          marginBottom: '11px',
+          marginBottom: '8px',
           color: '#C4C4C4'
         }} variant='fullWidth' />
-        <CardLinksFooter><CuTableColumnLinks links={links} width={10} height={10} spacingsRight={22} /></CardLinksFooter>
+        <CardLinksFooter><CuTableColumnLinks links={links} width={16} height={16} spacingsRight={22} /></CardLinksFooter>
       </Card>
     </Box >
   );

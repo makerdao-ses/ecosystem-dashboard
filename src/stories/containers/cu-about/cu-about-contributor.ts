@@ -1,5 +1,6 @@
 import request, { gql } from 'graphql-request';
 import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
+import { CuJobEnum } from '../../../core/enums/cu-job.enum';
 
 export const GET_CONTRIBUTORS = gql`
   query ContributorCommitment($filter: ContributorCommitmentFilter) {
@@ -7,6 +8,7 @@ export const GET_CONTRIBUTORS = gql`
       id
       jobTitle
       commitment
+      startDate
       contributor {
         id
         name
@@ -36,7 +38,7 @@ export interface Contributor {
 }
 export interface ContributorCommitment {
   id: string;
-  jobTitle: string;
+  jobTitle: CuJobEnum;
   startDate: string;
   commitment: Commitment;
   contributor: Contributor[];

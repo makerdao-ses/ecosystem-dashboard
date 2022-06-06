@@ -67,7 +67,7 @@ export const CuTableColumnLinks = ({ width, height, links, spacingsRight, fill =
 
 const Container = styled.div({
   display: 'flex',
-  alignItems: 'center'
+  alignItems: 'center',
 });
 
 type StickyLinkProps = {

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Avatar, Theme, Typography } from '@mui/material';
+import { Theme, Typography } from '@mui/material';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { CuTableColumnLinks, LinkModel } from '../cu-table-column-links/cu-table-column-links';
@@ -8,11 +8,10 @@ import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { StatusChip } from '../status-chip/status-chip';
 import { CuAbout, CuMip } from '../../containers/cu-about/cu-about.api';
 import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
-import { getColorForString } from '../../../core/utils/color.utils';
-import { getTwoInitials } from '../../../core/utils/string.utils';
 import { CategoryChip } from '../category-chip/category-chip';
 import { getMipsStatus, getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-unit-about';
 import _ from 'lodash';
+import { CircleAvatar } from '../circle-avatar/circle-avatar';
 
 interface BudgetStatementFTEs {
   month: string
@@ -101,15 +100,13 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
   return (
     <Container>
       <CircleContainer>
-        {coreUnitAbout.image && <Avatar style={{
-          width: '68px',
-          height: '68px'
-        }} src={coreUnitAbout.image} />}
-        {!coreUnitAbout.image && <Avatar sx={{ bgcolor: getColorForString(coreUnitAbout.name) }} style={{
-          width: '68px',
-          height: '68px',
-          fontSize: '1rem'
-        }}>{getTwoInitials(coreUnitAbout.name) || 'CU'}</Avatar>}
+        <CircleAvatar
+          width={'68px'}
+          height={'68px'}
+          name={coreUnitAbout.name || 'Core Unit'}
+          image={coreUnitAbout.image}
+          style={{ filter: 'drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))' }}
+        />
       </CircleContainer>
       <ContainerColum>
         <ContainerTitle>
@@ -137,7 +134,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
         <CategoryContainer>{coreUnitAbout.category && coreUnitAbout.category.map((item) => <CategoryChip key={item} category={item} style={{ marginRight: '16px' }} />)}</CategoryContainer>
       </ContainerColum>
       <ContainerLinks>
-        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#211634'} spacingsRight={29}/>
+        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#211634'} spacingsRight={29} />
       </ContainerLinks>
     </Container>
   );
@@ -148,7 +145,7 @@ const Container = styled.div({
   flex: 1,
   flexDirection: 'row',
   justifyContent: 'flex-start',
-  alignItems: 'flex-end',
+  alignItems: 'flex-start',
   fontWeight: 400,
 });
 
