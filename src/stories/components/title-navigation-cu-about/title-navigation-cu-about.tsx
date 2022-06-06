@@ -137,7 +137,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
         <CategoryContainer>{coreUnitAbout.category && coreUnitAbout.category.map((item) => <CategoryChip key={item} category={item} style={{ marginRight: '16px' }} />)}</CategoryContainer>
       </ContainerColum>
       <ContainerLinks>
-        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} dark spacingsRight={29} />
+        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#211634'} spacingsRight={29}/>
       </ContainerLinks>
     </Container>
   );

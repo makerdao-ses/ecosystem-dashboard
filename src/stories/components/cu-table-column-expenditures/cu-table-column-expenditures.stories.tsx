@@ -14,5 +14,5 @@ Default.args = {
   value: 16500,
   percent: 120,
   items: [{ value: 70 }, { value: 85 }, { value: 120 }],
-  budgetCap: 100,
+  budgetCaps: [90, 80, 100],
 };
