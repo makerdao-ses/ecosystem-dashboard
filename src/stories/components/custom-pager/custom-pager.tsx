@@ -39,10 +39,13 @@ const Label = styled.div({
 });
 
 const Arrows = styled.div({
-  display: 'flex'
+  display: 'flex',
+  alignItems: 'center'
 });
 
 const IconWrapper = styled.div({
+  display: 'flex',
+  alignItems: 'center',
   marginRight: '8px',
   cursor: 'pointer',
 });

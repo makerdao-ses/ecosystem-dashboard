@@ -11,5 +11,5 @@ const Template: ComponentStory<typeof CustomPager> = (args) => <CustomPager {...
 
 export const Default = Template.bind({});
 Default.args = {
-  label: 'Custom button'
+  label: 'Custom pager'
 };
