@@ -14,21 +14,33 @@ interface Props {
 const BreadCrumb = ({ isCoreUnit = false, count, breadcrumbs }: Props) => {
   return (
     <Stack spacing={2}>
-      <Breadcrumbs separator={<ArrowRight fill='#D1DEE6' />} aria-label="breadcrumb">
+      <BreadcrumbsStyle separator={<ArrowRight fill='#D1DEE6' />} aria-label="breadcrumb">
         {isCoreUnit && <Typography key="1" color="inherit">
           {`Core Units (${count})`}
         </Typography>}
 
         {breadcrumbs && breadcrumbs.map((crumb, index) => {
-          return <TypographyStyle key={index} color="inherit" >
+          return <TypographyStyle key={index}>
             {crumb}
           </TypographyStyle>;
         })}
 
-      </Breadcrumbs>
+      </BreadcrumbsStyle>
     </Stack>
   );
 };
+
+const BreadcrumbsStyle = styled(Breadcrumbs)({
+  '& .MuiBreadcrumbs-li': {
+    '&:last-child p': {
+      color: '#231536',
+      fontStyle: 'normal',
+      fontWeight: 500,
+      fontSize: '16px',
+      lineHeight: '19px',
+    }
+  }
+});
 
 const TypographyStyle = styled(Typography)({
   fontStyle: 'normal',
@@ -37,13 +49,6 @@ const TypographyStyle = styled(Typography)({
   lineHeight: '19px',
   letterSpacing: '0.4px',
   color: ' #708390',
-  '&:last-child': {
-    color: '#231536',
-    fontStyle: 'normal',
-    fontWeight: 500,
-    fontSize: '16px',
-    lineHeight: '19px',
-  }
 });
 
 export default BreadCrumb;

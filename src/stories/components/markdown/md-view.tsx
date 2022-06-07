@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { Typography } from '@mui/material';
+import { Theme, Typography } from '@mui/material';
 import Markdown from 'marked-react';
 import { customRenderer } from './renderUtils';
 
@@ -21,7 +21,7 @@ interface Props {
   headersLevel: MarkDownHeaders[];
 }
 
-const MdViewerPage = ({ title = 'About the Core Unit', subTitle = 'What we do', sentenceDescription, paragraphDescription, paragraphImage, headersLevel }: Props) => {
+const MdViewerPage = ({ subTitle = 'What we do', paragraphDescription, paragraphImage, headersLevel }: Props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [activeLink, setActiveLink] = useState('');
 
@@ -54,8 +54,6 @@ const MdViewerPage = ({ title = 'About the Core Unit', subTitle = 'What we do', 
   }, [headersLevel]);
   return (
     <ViewerContainer>
-      <TypographyStyleSentence>{title}</TypographyStyleSentence>
-      {sentenceDescription && <Markdown value={sentenceDescription} renderer={customRenderer} />}
       <TypographyStyleDescription>{subTitle}</TypographyStyleDescription>
       {paragraphDescription && <Markdown value={paragraphDescription} renderer={customRenderer} />}
       {paragraphImage !== '![Image](null)' && <Markdown value={paragraphImage} renderer={customRenderer} />}
@@ -68,25 +66,14 @@ export default MdViewerPage;
 const ViewerContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  backgroundColor: '#F9F9F9',
   textAlign: 'justify',
   boxSizing: 'border-box',
 });
 
-const TypographyStyleSentence = styled(Typography)({
-  fontFamily: 'Inter',
+const TypographyStyleDescription = styled(Typography)(({ theme }) => ({
+  fontFamily: (theme as Theme).typography.fontFamily,
   fontStyle: 'normal',
   fontWeight: 700,
   fontSize: '16px',
-  lineHeight: '19px',
-  color: '#000000'
-});
-
-const TypographyStyleDescription = styled(Typography)({
-  fontFamily: 'Inter',
-  fontStyle: 'normal',
-  fontWeight: 700,
-  fontSize: '16px',
-  lineHeight: '19px',
-  color: '#000000'
-});
+  lineHeight: '19px'
+}));
