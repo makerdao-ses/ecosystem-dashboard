@@ -23,47 +23,45 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
       <Card sx={{
         boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.08)',
         borderRadius: '8px',
-        backgroundColor: '#F9F9F9',
+        backgroundColor: '#FFFFFF',
+        width: '311px',
       }} >
 
         <CardContent sx={{
-          paddingLeft: '16px',
-          paddingRight: '16px',
-          paddingTop: '16px',
-          paddingBottom: '16px',
+          margin: '16px',
+          padding: '0px',
         }}>
           <CardHeader
             sx={{
               padding: '0px',
+              '& .MuiCardHeader-avatar': {
+                marginRight: '0px',
+              }
+
             }}
             avatar={!contributor.facilitatorImage
               ? <Avatar sx={{
                 bgcolor: 'black',
-
+                marginRight: '21px',
               }} style={{
-                width: '48px',
-                height: '48px',
+                width: '54px',
+                height: '54px',
                 fontSize: '20px',
                 color: 'white',
-                marginRight: '8px',
                 border: '3px solid #E7FCFA',
 
               }}>{getTwoInitials(contributor?.name || 'NM')}</Avatar>
               : <Avatar sx={{
                 marginRight: '0px',
               }} style={{
-                width: '48px',
-                height: '48px',
+                width: '54px',
+                height: '54px',
                 border: '3px solid #E7FCFA',
-                marginRight: '8px',
-
               }} src={contributor.facilitatorImage} />}
-          title={<Typography fontSize={20} color='#231536' lineHeight='24px' fontWeight={500}>{contributor.name}</Typography>}
-          subheader={<Typography fontSize={14} sx={{
-            marginLeft: '6px',
-            marginTop: '8px',
-            lineHeight: '130%'
-          }}>{`forum: @${contributor.forumHandle}`}</Typography>}
+            title={<Typography fontSize={20} color='#231536' lineHeight='24px' fontWeight={500}>{contributor.name}</Typography>}
+            subheader={<Typography fontSize={14} sx={{
+              marginTop: '8px',
+            }}>{contributor.forumHandle}</Typography>}
           />
           <Typography sx={{
             marginTop: '24px',
@@ -86,7 +84,7 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
           marginBottom: '8px',
           color: '#C4C4C4'
         }} variant='fullWidth' />
-        <CardLinksFooter><CuTableColumnLinks links={links} width={16} height={16} spacingsRight={22} /></CardLinksFooter>
+        <CardLinksFooter><CuTableColumnLinks links={links} width={16} height={16} spacingsRight={19} /></CardLinksFooter>
       </Card>
     </Box >
   );
@@ -96,7 +94,6 @@ const CardContentPositionRow = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
-
 });
 
 const CardContentPositionColumn = styled.div({

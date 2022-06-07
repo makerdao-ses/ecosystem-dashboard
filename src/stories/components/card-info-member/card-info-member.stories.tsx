@@ -15,13 +15,13 @@ export const AllData = Template.bind({});
 AllData.args = {
   contributorCommitment: {
     id: '1',
-    jobTitle: 'Software Engineer' as CuJobEnum,
+    jobTitle: 'Team Lead' as CuJobEnum,
     startDate: '2019-01-01',
     commitment: Commitment.FullTime,
     contributor: [{
       id: '1',
-      name: 'Nathan',
-      forumHandle: 'nathan',
+      name: 'Wouter Kampmann',
+      forumHandle: 'wouter@ses.makerdao.network',
       discordHandle: 'https://discord.gg/h7GKvqDyDP',
       twitterHandle: 'https://twitter.com/MakerDAO_SES',
       email: 'Jack@ses.makerdao.network',
@@ -35,11 +35,13 @@ Default.args = {
   contributorCommitment: {
     id: '1',
     startDate: '2019-01-01',
-    jobTitle: 'Software Engineer' as CuJobEnum,
+    jobTitle: 'Facilitator' as CuJobEnum,
     commitment: Commitment.FullTime,
     contributor: [{
+      name: 'Juan Julien',
+      forumHandle: 'juan@ses.makerdao.network',
       discordHandle: '',
-      forumHandle: '',
+      email: 'juan@ses.makerdao.network',
     }]
   } as ContributorCommitment
 };
