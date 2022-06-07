@@ -22,6 +22,7 @@ import { contributorCommitmentSelector, cuAboutSelector, loadCoreUnitABout, stat
 import { CuMip } from './cu-about.api';
 import _ from 'lodash';
 import BreadCrumb from '../../components/pagination/bread-crumb';
+import NavigationCard from '../../components/card-navegation/card-navigation';
 
 const CuAboutContainer = () => {
   const [filters] = useSearchParams();
@@ -78,6 +79,9 @@ const CuAboutContainer = () => {
     return resultArrayThreeElements;
   }, [cuAbout.cuMip, showThreeMIPs]);
 
+  const list = ['Overview', 'Transparency Reports', 'Onchain Setup', 'Budget Governance'];
+  const description = 'View all Finances of the (SES-01) Sustainable Ecosystem Scaling';
+
   if (statusCoreUnit === status.loading) {
     return <div>Loading...</div>;
   }
@@ -91,50 +95,63 @@ const CuAboutContainer = () => {
         <BreadCrumb count={filteredData.length} breadcrumbs={[cuAbout.name] || []} isCoreUnit />
         <InsidePagination count={filteredData.length} page={page} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} />
       </NavigationHeader>
-      <ContainerAllData disableGutters>
-        <ContainerTitle>
-          <TitleNavigationCuAbout coreUnitAbout={cuAbout} />
-        </ContainerTitle>
+      <ContainerTitle>
+        <TitleNavigationCuAbout coreUnitAbout={cuAbout} />
         <Typography fontSize={16} lineHeight='19px' sx={{ marginTop: '16px' }}>{cuAbout.sentenceDescription || ''}</Typography>
-        <MarkdownContainer>
-          <MdViewerContainer sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)} paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)} paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)} />
-        </MarkdownContainer>
-        <TeamMemberContainer>
-          <TeamMemberTitle>Team Size</TeamMemberTitle><TeamMember fte={getFTEsFromCoreUnit(cuAbout)} />
-        </TeamMemberContainer>
-        <ContactInfoContainer>
-          <ContactInfoTitle>Contact Information</ContactInfoTitle>
-          <ContainerCards className='cards'>
-            {contributors.map((contributor: ContributorCommitment, index: number) => {
-              return (
-                <div key={index}>
-                  <CardInfoMember contributorCommitment={contributor} />
-                </div>
-              );
-            })
-            }
-          </ContainerCards>
-          {contributors.length === 0 && <ContainerNoData>No data to Show</ContainerNoData>}
-        </ContactInfoContainer>
-        <Divider sx={{ marginTop: '32px' }} />
-        <CardRelateMipsContainer>
-          <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
-          <RelateMipCards>
-            {relateMipsOrder.map((mip: CuMip, index: number) => {
-              return (
-                <RelateMipCard key={index}>
-                  <RelateMips relateMips={mip} />
-                </RelateMipCard>
+      </ContainerTitle>
+      <ContainerAllData disableGutters>
+        <div style={{
+          minWidth: '715px',
+        }}>
+          <MarkdownContainer>
+            <MdViewerContainer sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)} paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)} paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)} />
+          </MarkdownContainer>
+          <TeamMemberContainer>
+            <TeamMemberTitle>Team Size</TeamMemberTitle><TeamMember fte={getFTEsFromCoreUnit(cuAbout)} />
+          </TeamMemberContainer>
+          <ContactInfoContainer>
+            <ContactInfoTitle>Contact Information</ContactInfoTitle>
+            <ContainerCards>
+              {contributors.map((contributor: ContributorCommitment, index: number) => {
+                return (
+                  <div key={index} style={{ marginBottom: '32px' }}>
+                    <CardInfoMember contributorCommitment={contributor} />
+                  </div>
+                );
+              })
+              }
+            </ContainerCards>
+            {contributors.length === 0 && <ContainerNoData>No data to Show</ContainerNoData>}
+          </ContactInfoContainer>
+          <Divider sx={{ marginTop: '32px' }} />
+          <CardRelateMipsContainer>
+            <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
+            <RelateMipCards>
+              {relateMipsOrder.map((mip: CuMip, index: number) => {
+                return (
+                  <RelateMipCard key={index}>
+                    <RelateMips relateMips={mip} />
+                  </RelateMipCard>
 
-              );
-            })}
-            {cuAbout.cuMip.length === 0 && <ContainerNoRelateMIps>There are not related MIPs</ContainerNoRelateMIps>}
-          </RelateMipCards>
-        </CardRelateMipsContainer>
-        {cuAbout.cuMip.length > 3 && <ButtonContainer>
-          <DividerStyle /> <BigButton title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'} onClick={onClickLessMips} />
-          <DividerStyle />
-        </ButtonContainer>}
+                );
+              })}
+              {cuAbout.cuMip.length === 0 && <ContainerNoRelateMIps>There are not related MIPs</ContainerNoRelateMIps>}
+            </RelateMipCards>
+          </CardRelateMipsContainer>
+          {cuAbout.cuMip.length > 3 && <ButtonContainer>
+            <DividerStyle /> <BigButton title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'} onClick={onClickLessMips} />
+            <DividerStyle />
+          </ButtonContainer>}
+        </div>
+        <div style={{
+          display: 'flex',
+          marginLeft: '64px',
+          marginTop: '24px',
+          flexDirection: 'column',
+        }}>
+          <div style={{ marginBottom: '127px' }}> <NavigationCard description={description} image='/assets/img/card-initiatives.png' list={list} titleLinkPage='View All' title='Initiatives' /></div>
+          <NavigationCard description={description} image='/assets/img/card-finances.png' list={list} titleLinkPage='View All' title='Finances' />
+        </div>
       </ContainerAllData>
     </ContainerAbout>
   );
@@ -161,6 +178,10 @@ const NavigationHeader = styled.div({
 const ContainerTitle = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  paddingLeft: '128px',
+  paddingRight: '128px',
+  paddingBottom: '24px',
+  borderBottom: '1px solid #B6EDE7',
 });
 const MarkdownContainer = styled.div({
   marginTop: '32px',
@@ -185,7 +206,8 @@ const ContactInfoContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
   minHeight: '182px',
-  marginTop: '32px',
+  marginTop: '36px',
+  marginBottom: '32px',
 });
 
 const ContactInfoTitle = styled(Typography)({
@@ -194,16 +216,16 @@ const ContactInfoTitle = styled(Typography)({
   fontSize: '14px',
   lineHeight: '17px',
   color: '#000000',
+  marginBottom: '32px',
 });
 
 const ContainerCards = styled.div({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(3, 1fr)',
-  columnGap: '32px',
-  gridAutoRows: 'minmax(100px, auto)',
-  marginLeft: '32px',
-  marginRight: '32px',
-  marginTop: '32px',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'flex-start',
+  flexWrap: 'wrap',
+  padding: '0px',
 });
 
 const CardRelateMipsContainer = styled.div({
@@ -220,13 +242,15 @@ const TitleRelateMips = styled.div({
   fontWeight: 700,
   fontSize: '16px',
   lineHeight: '19px',
-  marginBottom: '24px',
+  marginBottom: '32px',
   color: '#000000',
 });
 
 const RelateMipCards = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
   marginTop: '24px',
 
 });
@@ -258,6 +282,8 @@ const ContainerNoRelateMIps = styled.div({
 });
 
 const ContainerAllData = styled(Container)({
+  display: 'flex',
+  flexDirection: 'row',
   marginRight: '128px',
   marginLeft: '128px',
 });
@@ -265,8 +291,4 @@ const ContainerAllData = styled(Container)({
 const DividerStyle = styled(Divider)({
   width: '100%',
   bgcolor: '#D4D9E1',
-});
-
-const ContainerNavigation = styled.div({
-  marginTop: '32px',
 });
