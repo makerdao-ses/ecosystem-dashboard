@@ -6,7 +6,7 @@ import { CustomPopover } from '../custom-popover/custom-popover';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { StatusChip } from '../status-chip/status-chip';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
-import { LinkIcon } from '../svg/link-icon';
+import { CustomLink } from '../custom-link/custom-link';
 
 interface CuTableColumnSummaryProps {
   title: string,
@@ -40,13 +40,12 @@ export const CuTableColumnSummary = (props: CuTableColumnSummaryProps) => {
           id={'mouse-over-popover-goto'}
           title={'Go to MIPs Portal'}
         >
-          {props.statusModified && <SinceDate
+          {props.statusModified && <CustomLink
               href={props.mipUrl}
-              target="_blank"
-              onClick={(evt) => evt.stopPropagation()}>
-              Since {DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}
-              <LinkIcon style={{ marginLeft: '5px' }}/>
-          </SinceDate>}
+              style={{ marginLeft: '4px' }}
+              target="_blank">
+            {`Since ${DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}`}
+          </CustomLink>}
         </CustomPopover>}
       </Row>
     </Content>
@@ -101,16 +100,3 @@ const Row = styled.div({
   flex: 1,
   marginTop: '8px',
 });
-
-const SinceDate = styled.a(({ theme }) => ({
-  fontFamily: (theme as Theme).typography.fontFamily,
-  fontStyle: 'normal',
-  fontWeight: 500,
-  fontSize: '12px',
-  lineHeight: '14px',
-  letterSpacing: '1px',
-  textTransform: 'uppercase',
-  color: '#447AFB',
-  textDecoration: 'none',
-  marginLeft: '4px',
-}));
