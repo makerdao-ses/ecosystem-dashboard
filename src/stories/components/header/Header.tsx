@@ -2,22 +2,31 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Logo from '../svg/logo';
 import { MenuType } from './menu-items';
-import { Button, IconButton, Link } from '@mui/material';
-import { Chat, Language } from '@mui/icons-material';
+import { IconButton, Link } from '@mui/material';
 import ThemeMode from '../svg/theme-mode';
+import SelectLink from './select-link-website/select-link';
+import Dashboard from '../svg/dash-board';
+import { WebSiteLinks } from './select-link-website/menu-items';
 
 interface Props {
   menuItems: MenuType[];
+  links: WebSiteLinks[]
 }
 
-const Header = ({ menuItems }: Props) => {
+const Header = ({ menuItems, links }: Props) => {
   return (
-    <Container>
+    <Container >
 
       <LeftPart>
-        <LogoContainer>
-          <Logo width={38} height={38} fill='#211634' />
-        </LogoContainer>
+
+        <ContainerLogoSelect>
+          <LogoContainer>
+            <Logo fill='#211634' />
+          </LogoContainer>
+          <Dashboard />
+          <SelectLink links={links} />
+        </ContainerLogoSelect>
+
         <Navigation>
           {menuItems.map((menu: MenuType) => {
             return (<ItemMenuStyle key={
@@ -31,39 +40,7 @@ const Header = ({ menuItems }: Props) => {
 
       </LeftPart>
       <RightPart>
-        <OtherIcons>
-          <ButtonStyle href="/" variant="outlined" sx={{
-            marginRight: '16px',
-            padding: '0px',
-            textTransform: 'none',
-            border: 'none'
-          }}>
-            Lorem Ipsum link
-          </ButtonStyle>
-
-          <ButtonStyle href="/" variant="outlined" sx={{
-            padding: '0px',
-            textTransform: 'none',
-            border: 'none'
-          }}>
-            Lorem Ipsum link
-          </ButtonStyle>
-        </OtherIcons>
         <IconsContainer>
-          <IconButton color="inherit" sx={{ marginRight: '24px' }}>
-            <Chat sx={{
-              fill: '#898989',
-              width: '22px',
-              height: '22px'
-            }} />
-          </IconButton>
-          <IconButton color="inherit" sx={{ marginRight: '24px' }}>
-            <Language sx={{
-              fill: '#898989',
-              width: '26.67px',
-              height: '26.67px'
-            }} />
-          </IconButton>
           <IconButton color="inherit">
             <ThemeMode width={22.67} height={22.67} />
           </IconButton>
@@ -73,51 +50,64 @@ const Header = ({ menuItems }: Props) => {
   );
 };
 
-const Container = styled.div({
-  height: '64px',
+const Container = styled.header({
   position: 'fixed',
+  display: 'flex',
   width: '100%',
   zIndex: '4',
   flexDirection: 'row',
+  height: '64px',
   justifyContent: 'space-between',
-  backgroundColor: '#C4C4C4',
-  paddingRight: '32px',
-  paddingLeft: '32px',
+  background: 'url(/assets/img/bg-header.png)',
+  borderBottom: '1px solid #E7FCFA',
+  backdropFilter: 'blur(30px)',
 });
 
 const LeftPart = styled.div({
   display: 'flex',
   flexDirection: 'row',
+  alignItems: 'center',
+  height: '100%',
+});
+
+const ContainerLogoSelect = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  height: '100%',
+  width: '316px',
+  marginRight: '32px',
+  alignItems: 'center',
+  paddingRight: '32px',
+  paddingLeft: '32px',
+  background: 'url(/assets/img/bg-logo.png)',
 });
 
 const LogoContainer = styled.div({
   marginTop: '13px',
   marginBottom: '13px',
-  marginRight: '64px',
+  marginRight: '32px',
 });
 
 const Navigation = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  marginBottom: '22px',
-  marginTop: '22px',
+  height: '100%',
+  alignItems: 'center',
 });
 
 const RightPart = styled.div({
-  position: 'absolute',
   display: 'flex',
   alignItems: 'center',
-  right: '32px',
-  top: '16px',
+  paddingRight: '32px',
 });
 
 const ItemMenuStyle = styled(Link)({
-  fontFamily: 'Inter',
+  fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '16px',
   lineHeight: '19px',
-  color: '#25273D',
+  color: '#25273D;',
   letterSpacing: '0.4px',
   cursor: 'pointer',
   '&:hover': {
@@ -129,27 +119,6 @@ const IconsContainer = styled.div({
   display: 'flex',
   flexDirection: 'row',
   height: '32px',
-});
-
-const OtherIcons = styled.div({
-  display: 'flex',
-  flexDirection: 'row',
-  paddingRight: '20px',
-});
-
-const ButtonStyle = styled(Button)({
-  width: '151px',
-  height: '27px',
-  display: 'flex',
-  borderRadius: '5px',
-  backgroundColor: '#EDEDED',
-  color: '#000000',
-  borderColor: 'none',
-  fontFamily: 'Inter',
-  fontStyle: 'normal',
-  fontWeight: 400,
-  fontSize: '16px',
-  lineHeight: '19px',
 });
 
 export default Header;
