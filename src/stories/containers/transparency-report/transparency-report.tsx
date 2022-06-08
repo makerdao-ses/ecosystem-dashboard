@@ -4,6 +4,7 @@ import { Tabs } from '../../components/tabs/tabs';
 import { CustomPager } from '../../components/custom-pager/custom-pager';
 import { CustomLink } from '../../components/custom-link/custom-link';
 import { InnerTable } from '../../components/inner-table/inner-table';
+import { Breadcrumbs } from '../../components/breadcrumbs/breadcrumbs';
 
 const mainIndexItems = ['SES-Sustainable Ecosystem Scaling', 'Initiatives', 'Finances'];
 const secondIndexItems = ['Overview', 'Transparency Reports', 'Onchain Setup', 'Budget Governance'];
@@ -29,6 +30,8 @@ export const TransparencyReport = () => {
   const [thirdIndex, setThirdIndex] = useState(0);
 
   return <Container>
+    <Breadcrumbs items={[<>Core Units <b>(3)</b></>, 'SES - Sustainable Ecosystem Scaling ', 'Finances']}/>
+    <Placeholder/>
     <InnerPage>
       <Tabs
         items={mainIndexItems}
@@ -116,6 +119,7 @@ export const TransparencyReport = () => {
 
 const Container = styled.div({
   display: 'flex',
+  flexDirection: 'column',
   alignItems: 'center',
   maxWidth: '2000px',
   flex: 1,
@@ -178,4 +182,12 @@ const StatusValue = styled.div({
 
 const Spacer = styled.div({
   flex: '1',
+});
+
+const Placeholder = styled.div({
+  borderBottom: '1px solid #B6EDE7',
+  flex: 1,
+  minHeight: '145px',
+  width: '100%',
+  marginBottom: '32px',
 });

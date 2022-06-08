@@ -17,9 +17,11 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
 
 const Container = styled.div({
   display: 'flex',
+  flex: 1,
   padding: '27px 32px',
   boxSizing: 'border-box',
-  height: '74px'
+  height: '74px',
+  alignSelf: 'flex-start',
 });
 
 const Crumb = styled.div((props: { first:boolean, last: boolean }) => ({
