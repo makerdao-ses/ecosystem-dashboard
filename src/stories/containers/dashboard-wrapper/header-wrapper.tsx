@@ -16,20 +16,7 @@ export const HeaderWrapper = (props: HeaderWrapperProps) => {
       <Header menuItems={menuItems} links={itemsWebSiteLinks}/>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <Box
-          component="main"
-          sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'light'
-                ? 'white'
-                : theme.palette.grey[900],
-            flexGrow: 1,
-            height: '100vh',
-            overflow: 'auto',
-          }}
-        >
-          {props.children}
-        </Box>
+        {props.children}
       </Box>
     </ThemeProvider>
   );

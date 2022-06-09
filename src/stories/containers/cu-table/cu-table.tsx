@@ -197,17 +197,6 @@ export const CuTable = () => {
   }, [data, filteredStatuses, filteredCategories, debouncedSearchText, facilitatorImages, headersSort]);
 
   return <ContainerHome>
-    <Box
-      component="main"
-      sx={{
-        px: '163px',
-        flexGrow: 1,
-        overflow: 'auto',
-        mt: 4,
-        mb: 4,
-        marginTop: '96px',
-      }}
-    >
       <Header>
         <Title>Core Units</Title>
         <CustomButton
@@ -256,13 +245,15 @@ export const CuTable = () => {
         sortFunction={setSort}
         loading={status === 'loading'}
       />
-    </Box >
   </ContainerHome>;
 };
 
 const ContainerHome = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  padding: '0 128px',
+  marginTop: '86px',
+  width: '100%',
 });
 
 const Header = styled.div({
