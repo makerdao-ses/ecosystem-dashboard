@@ -35,6 +35,10 @@ const Container = styled.button({
   }
 });
 
-const Text = styled(Typography)({
-  fontSize: '14px'
+const Text = styled.div({
+  fontSize: '14px',
+  fontFamily: 'SF Pro Text, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 500,
+  color: '#231536'
 });
