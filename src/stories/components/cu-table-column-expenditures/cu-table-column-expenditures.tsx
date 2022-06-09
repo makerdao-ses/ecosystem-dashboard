@@ -57,6 +57,7 @@ const Container = styled.div({
   alignItems: 'stretch',
   cursor: 'pointer',
   marginTop: '2px',
+  marginLeft: '32px',
 });
 
 const Data = styled.div({
