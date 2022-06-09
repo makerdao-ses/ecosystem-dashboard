@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Title } from '../cu-table-column-expenditures/cu-table-column-expenditures';
-import { Typography } from '@mui/material';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { FacilitatorModel } from '../../../core/models/facilitator.model';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
@@ -72,7 +71,7 @@ const Data = styled.div({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  marginRight: '16px',
+  marginRight: '8px',
 });
 
 const MemberInfoContainer = styled.div({
@@ -88,9 +87,10 @@ const CirclesWrapper = styled.div({
   display: 'flex',
 });
 
-const Value = styled(Typography)({
+const Value = styled.div({
+  fontFamily: 'SF Pro Display, sans-serif',
   fontWeight: 600,
   fontSize: '14px',
   lineHeight: '17px',
-  color: '#25273D',
+  color: '#231536',
 });

@@ -152,9 +152,15 @@ test('Get Budget Cap for Core Unit', () => {
     .addCuMip((new CuMipBuilder())
       .addMip40((new Mip40Builder())
         .addPeriodWithLineItems(CURRENT_MINUS_3_MONTH, CURRENT_MINUS_2_MONTH, [100, 200, 100])
-        .addPeriodWithLineItems(CURRENT_MINUS_2_MONTH, CURRENT_MINUS_1_MONTH, [200])
-        .addPeriodWithLineItems(CURRENT_MINUS_1_MONTH, CURRENT_MONTH, [600])
         .build())
+      .addMip40((new Mip40Builder())
+        .addPeriodWithLineItems(CURRENT_MINUS_2_MONTH, CURRENT_MINUS_1_MONTH, [200])
+        .build()
+      )
+      .addMip40((new Mip40Builder())
+        .addPeriodWithLineItems(CURRENT_MINUS_1_MONTH, CURRENT_MONTH, [600])
+        .build()
+      )
       .build())
     .build();
 
