@@ -25,10 +25,14 @@ export const NavigationCard = ({ description, image, list = [], title = '', titl
         </div>
       </ArrowTittleStyle>
       }
-      <Box sx={{ width: 405 }}>
+      <Box sx={{
+        maxWidth: 405,
+        maxHeight: '293px'
+      }}>
         <CardContainer sx={{
           p: '15px',
-        }}>
+        }
+        } >
           <FiCardActionArea>
             <FiCardMedia
               sx={{
@@ -52,7 +56,7 @@ export const NavigationCard = ({ description, image, list = [], title = '', titl
             </TypographyStyle>
           </FiCardActions>
         </CardContainer>
-      </Box>
+      </Box >
     </>
   );
 };
@@ -89,7 +93,7 @@ const ListItemStyle = styled.li(({ theme }) => ({
   fontSize: '20px',
   lineHeight: '24px',
   marginBottom: '19px',
-  '&:first-child': {
+  '&:first-of-type': {
     marginTop: '24px',
   },
   '&:last-child': {
