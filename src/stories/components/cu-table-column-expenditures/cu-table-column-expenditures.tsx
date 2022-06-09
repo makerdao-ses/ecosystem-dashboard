@@ -58,6 +58,7 @@ const Container = styled.div({
   cursor: 'pointer',
   marginTop: '2px',
   marginLeft: '32px',
+  justifyContent: 'center',
 });
 
 const Data = styled.div({
