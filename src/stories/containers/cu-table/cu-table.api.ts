@@ -21,9 +21,11 @@ export const GETCoreUnits = gql`
             mip40BudgetPeriod {
               budgetPeriodStart
               budgetPeriodEnd
+            }
+            mip40Wallet {
               mip40BudgetLineItem {
                 budgetCap
-              } 
+              }
             }
           }
           mip41 {
@@ -72,14 +74,20 @@ const GetFacilitatorImageGQL = gql`
 
 export interface Mip40BudgetPeriodDao {
   budgetPeriodStart: string,
-  budgetPeriodEnd: string,
-  mip40BudgetLineItem: {
-    budgetCap: number
-  }[]
+  budgetPeriodEnd: string
+}
+
+export interface Mip40BudgetLineItem {
+  budgetCap: number;
+}
+
+export interface Mip40WalletDao {
+  mip40BudgetLineItem: Mip40BudgetLineItem[]
 }
 
 export interface Mip40Dao {
   mip40BudgetPeriod: Mip40BudgetPeriodDao[]
+  mip40Wallet: Mip40WalletDao[]
 }
 
 export interface Mip41Dao {

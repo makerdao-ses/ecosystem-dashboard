@@ -5,7 +5,8 @@ import {
   BudgetStatementDao,
   CoreUnitDao,
   CuMipDao,
-  Mip40BudgetPeriodDao
+  Mip40BudgetPeriodDao,
+  Mip40Dao, Mip40WalletDao
 } from '../../stories/containers/cu-table/cu-table.api';
 import { CuStatusEnum } from '../enums/cu-status.enum';
 import { RoadmapStatusEnum } from '../enums/roadmap-status.enum';
@@ -138,7 +139,7 @@ const checkDateOnPeriod = (period: Mip40BudgetPeriodDao, date: DateTime) => {
   return interval.contains(date);
 };
 
-const findBudgetPeriod = (cu: CoreUnitDao, date: DateTime): Mip40BudgetPeriodDao | null => {
+const findMip40 = (cu: CoreUnitDao, date: DateTime): Mip40Dao | null => {
   for (let i = 0; i < cu.cuMip?.length ?? 0; i++) {
     const mip = cu.cuMip[i];
 
@@ -149,7 +150,7 @@ const findBudgetPeriod = (cu: CoreUnitDao, date: DateTime): Mip40BudgetPeriodDao
         const period = mip40.mip40BudgetPeriod[k];
 
         if (checkDateOnPeriod(period, date)) {
-          return period;
+          return mip40;
         }
       }
     }
@@ -158,19 +159,23 @@ const findBudgetPeriod = (cu: CoreUnitDao, date: DateTime): Mip40BudgetPeriodDao
   return null;
 };
 
+const sumLineItems = (wallet: Mip40WalletDao) => {
+  return wallet.mip40BudgetLineItem.reduce((p, c) => (c.budgetCap ?? 0) + p, 0);
+};
+
 export const getBudgetCapsFromCoreUnit = (cu: CoreUnitDao) => {
   const result: number[] = [];
   if (cu.cuMip.length === 0) return result;
 
   let dateToCheck = DateTime.now();
-  let budgetPeriod;
+  let mip40;
   for (let i = 0; i < 3; i++) {
     dateToCheck = dateToCheck.minus({ months: 1 });
     // Check the period found before to avoid re-surfing the array
-    if (!budgetPeriod || !checkDateOnPeriod(budgetPeriod, dateToCheck)) {
-      budgetPeriod = findBudgetPeriod(cu, dateToCheck);
+    if (!mip40 || !checkDateOnPeriod(mip40.mip40BudgetPeriod[0], dateToCheck)) {
+      mip40 = findMip40(cu, dateToCheck);
     }
-    result.push(budgetPeriod?.mip40BudgetLineItem?.reduce((p, c) => (c.budgetCap ?? 0) + p, 0) ?? 0);
+    result.push(mip40?.mip40Wallet?.reduce((p, c) => (sumLineItems(c) ?? 0) + p, 0) ?? 0);
   }
 
   return result.reverse();
