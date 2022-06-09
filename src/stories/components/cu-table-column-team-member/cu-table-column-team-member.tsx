@@ -72,7 +72,7 @@ const Data = styled.div({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  marginRight: '16px',
+  marginRight: '8px',
 });
 
 const MemberInfoContainer = styled.div({
@@ -88,9 +88,10 @@ const CirclesWrapper = styled.div({
   display: 'flex',
 });
 
-const Value = styled(Typography)({
+const Value = styled.div({
+  fontFamily: 'SF Pro Display, sans-serif',
   fontWeight: 600,
   fontSize: '14px',
   lineHeight: '17px',
-  color: '#25273D',
+  color: '#231536',
 });

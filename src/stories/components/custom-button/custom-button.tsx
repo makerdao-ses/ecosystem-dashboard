@@ -1,6 +1,5 @@
 import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
-import { Typography } from '@mui/material';
 
 interface CustomButtonProps {
   label: string,
@@ -22,16 +21,17 @@ const Container = styled.button({
   height: '48px',
   border: '1px solid #D4D9E1',
   borderRadius: '22px',
-  background: 'transparent',
+  background: 'white',
   transition: 'all .3s ease',
   padding: '15px 16px',
   boxSizing: 'border-box',
   cursor: 'pointer',
+  color: '#231536',
   '&:hover:not(:disabled)': {
-    borderColor: '#25273D'
+    borderColor: '#231536'
   },
   '.disabled': {
-    color: '#D4D9E1'
+    color: '#9FAFB9'
   }
 });
 

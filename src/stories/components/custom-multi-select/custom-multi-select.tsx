@@ -1,7 +1,7 @@
 import React, { CSSProperties, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import { SelectChevronDown } from '../svg/select-chevron-down';
-import { Checkbox, ListItemText, MenuItem, Typography } from '@mui/material';
+import { Checkbox, ListItemText, MenuItem } from '@mui/material';
 import CheckBoxOutlined from '@mui/icons-material/CheckBoxOutlined';
 import CheckBoxOutlineBlankOutlined from '@mui/icons-material/CheckBoxOutlineBlankOutlined';
 import './custom-multi-select.scss';
@@ -93,22 +93,24 @@ const SelectContainer = styled.div<{ focus: boolean }>((props) => ({
   display: 'flex',
   position: 'relative',
   alignItems: 'center',
-  border: `1px solid ${props.focus ? '#25273D' : '#D4D9E1'}`,
+  border: `1px solid ${props.focus ? '#231536' : '#D4D9E1'}`,
   borderRadius: '22px',
   height: '48px',
   width: 'fit-content',
   padding: '15px 40px 15px 15px',
   boxSizing: 'border-box',
   cursor: 'pointer',
-  transition: 'all .3s ease'
+  transition: 'all .3s ease',
+  background: 'white',
 }));
 
-const Label = styled(Typography)({
+const Label = styled.div({
   fontFamily: 'SF Pro Text, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '14px',
   lineHeight: '18px',
+  color: '#231536',
 });
 
 const IconWrapper = styled.div({

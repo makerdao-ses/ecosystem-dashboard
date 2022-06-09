@@ -15,7 +15,7 @@ interface CuTableColumnExpendituresProps {
 export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps) => {
   return <Container>
     <Data>
-      <Title>Last 3 months</Title>
+      <Title>Last 3 Months</Title>
       <CustomPopover
         id={'mouse-over-popover-total'}
         title={'Actual Expenditure'}>
@@ -75,18 +75,21 @@ const ValueWrapper = styled.div({
   alignSelf: 'flex-end'
 });
 
-export const Value = styled(Typography)({
+export const Value = styled.div({
+  fontFamily: 'SF Pro Display, sans-serif',
+  fontWeight: 600,
+  fontSize: '14px',
+  color: '#231536',
   display: 'flex',
   alignItems: 'flex-end',
-  fontSize: '14px',
-  fontWeight: 600,
   paddingBottom: 0,
 });
 
-const Percent = styled(Typography)({
+const Percent = styled.div({
+  fontFamily: 'SF Pro Display, sans-serif',
   fontWeight: 400,
   fontSize: '16px',
-  color: '#25273D',
+  color: '#231536',
 });
 
 const PercentExplanation = styled.div({

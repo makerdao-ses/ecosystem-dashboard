@@ -85,7 +85,9 @@ const TableRow = styled.tr({});
 
 const TableHeadRow = styled.tr({});
 
-const TableCell = styled.td({});
+const TableCell = styled.td({
+  color: '#231536'
+});
 
 const TableBody = styled.tbody({
   background: '#F7F8F966',

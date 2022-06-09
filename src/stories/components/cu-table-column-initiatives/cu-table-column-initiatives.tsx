@@ -28,10 +28,13 @@ const Container = styled.div({
   justifyContent: 'center',
 });
 
-const RoundedBox = styled(Typography)({
+const RoundedBox = styled.div({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  fontSize: '14px',
+  fontFamily: 'SF Pro Text, sans-serif',
+  fontWeight: 500,
   width: '58px',
   height: '34px',
   background: '#ECF1F3',

@@ -51,7 +51,7 @@ export const CuTableColumnLinks = ({ width, height, links, spacingsRight, fill =
       key={`link-${i}`}
       title={link.linkType}
       id={`link-${i}`}>
-      <Box sx={{ mr: `${spacingsRight}px` || '0px' }}>
+      <Box sx={{ mr: `${spacingsRight ?? 0}px` }}>
         <LinkImage
           href={link.href}
           target="_blank"
@@ -67,7 +67,8 @@ export const CuTableColumnLinks = ({ width, height, links, spacingsRight, fill =
 
 const Container = styled.div({
   display: 'flex',
-  alignItems: 'center'
+  alignItems: 'center',
+  justifyContent: 'flex-end',
 });
 
 type StickyLinkProps = {
