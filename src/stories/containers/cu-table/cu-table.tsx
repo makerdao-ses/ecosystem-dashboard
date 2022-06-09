@@ -201,7 +201,10 @@ export const CuTable = () => {
         <Title>Core Units</Title>
         <CustomButton
           label="Clear Filters"
-          style={{ marginRight: '16px' }}
+          style={{
+            marginRight: '16px',
+            width: '114px'
+          }}
           onClick={clearFilters}
           disabled={filteredCategories.length === 0 && filteredStatuses.length === 0 && searchText.length === 0}
         />
