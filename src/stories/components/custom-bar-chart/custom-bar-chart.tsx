@@ -13,7 +13,7 @@ const COLOR_YELLOW = '#FDC134';
 const COLOR_GRAY = '#D8E0E3';
 
 export const CustomBarChart = (props: CustomBarChartProps) => {
-  if (!props.items || props.maxValues.length === 0 || props.items.every(x => x.value === 0 || x.value === null || x.value === undefined)) return <span/>;
+  if (!props.items || props.maxValues.length === 0 || props.items.every(x => !x.value) || props.maxValues.every(cap => !cap)) return <span/>;
 
   const itemWidth = 12;
   const itemSpace = 8;

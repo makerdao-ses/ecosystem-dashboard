@@ -44,9 +44,9 @@ export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps)
                 </div>
               </PercentExplanation>
             }>
-            <Percent>
-              {props.percent?.toFixed(2)}%
-            </Percent>
+          {!!props.percent && <Percent>
+            {props.percent?.toFixed(2)}%
+          </Percent>}
         </CustomPopover>
     </ValueWrapper>}
   </Container>;

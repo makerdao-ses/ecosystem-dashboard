@@ -230,7 +230,7 @@ export const getPercentFromCoreUnit = (cu: CoreUnitDao) => {
   const budgetCap = _.sum(getBudgetCapsFromCoreUnit(cu));
 
   if (value === 0) return 0;
-  if (budgetCap === 0) return null;
+  if (budgetCap === 0) return 0;
 
   return value / budgetCap * 100;
 };

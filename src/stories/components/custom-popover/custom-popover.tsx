@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 
 interface CustomPopoverProps {
   title: JSX.Element | string,
-  children: JSX.Element | JSX.Element[],
+  children: JSX.Element | JSX.Element[] | boolean,
   id: string,
   css?: CSSProperties
 }
