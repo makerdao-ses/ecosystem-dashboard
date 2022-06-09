@@ -1,6 +1,5 @@
 import React, { CSSProperties, useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
-import { Box, Typography } from '@mui/material';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   countInitiativesFromCoreUnit,
@@ -189,30 +188,23 @@ export const CuTable = () => {
         <CuTableColumnLinks
           key={`links-${i}`}
           links={getLinksFromCoreUnit(coreUnit)}
-          spacingsRight={16}
-          fill="#D1DEE6"
+          spacingsRight={22}
+          fill="#708390"
         />
       ];
     });
   }, [data, filteredStatuses, filteredCategories, debouncedSearchText, facilitatorImages, headersSort]);
 
   return <ContainerHome>
-    <Box
-      component="main"
-      sx={{
-        px: '163px',
-        flexGrow: 1,
-        overflow: 'auto',
-        mt: 4,
-        mb: 4,
-        marginTop: '96px',
-      }}
-    >
       <Header>
         <Title>Core Units</Title>
         <CustomButton
           label="Clear Filters"
-          style={{ marginRight: '16px' }}
+          style={{
+            marginRight: '16px',
+            width: '114px',
+            border: 'none'
+          }}
           onClick={clearFilters}
           disabled={filteredCategories.length === 0 && filteredStatuses.length === 0 && searchText.length === 0}
         />
@@ -227,7 +219,7 @@ export const CuTable = () => {
           style={{ marginRight: '16px' }}
         />
         <CustomMultiSelect
-          label="Category"
+          label="CU Category"
           activeItems={filteredCategories}
           items={categories}
           onChange={(value: string[]) => {
@@ -239,7 +231,7 @@ export const CuTable = () => {
         <Separator />
         <SearchInput
           value={searchText}
-          placeholder="Search CUs by name or Code"
+          placeholder="Search"
           onChange={(value: string) => {
             setSearchText(value);
             handleChangeUrlFilterString('searchText')(value);
@@ -250,19 +242,21 @@ export const CuTable = () => {
       <CustomTable
         headers={headers}
         items={items}
-        headersAlign={['flex-start', 'center', 'flex-start', 'flex-start', 'flex-start']}
+        headersAlign={['flex-start', 'center', 'flex-start', 'flex-start', 'center']}
         headersSort={headersSort}
         headersStyles={headerStyles}
         sortFunction={setSort}
         loading={status === 'loading'}
       />
-    </Box >
   </ContainerHome>;
 };
 
 const ContainerHome = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  padding: '0 128px',
+  marginTop: '86px',
+  width: '100%',
 });
 
 const Header = styled.div({
@@ -271,15 +265,17 @@ const Header = styled.div({
   marginBottom: '32px',
 });
 
-const Title = styled(Typography)({
-  fontSize: '32px',
+const Title = styled.div({
+  fontFamily: 'FT Base, sans-serif',
+  fontSize: '24px',
   fontWeight: 500,
+  letterSpacing: '0.4px',
   flex: 1,
-  fontStyle: 'normal',
+  color: '#231536'
 });
 
 const Separator = styled.span({
   width: '1px',
-  height: '40px',
-  backgroundColor: '#D3D4D8',
+  height: '32px',
+  backgroundColor: '#D4D9E1',
 });

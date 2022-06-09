@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { CustomPopover } from '../custom-popover/custom-popover';
-import { Typography } from '@mui/material';
 
 interface CuTableColumnInitiativesProps {
   initiatives: number
@@ -28,10 +27,13 @@ const Container = styled.div({
   justifyContent: 'center',
 });
 
-const RoundedBox = styled(Typography)({
+const RoundedBox = styled.div({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  fontSize: '14px',
+  fontFamily: 'SF Pro Text, sans-serif',
+  fontWeight: 500,
   width: '58px',
   height: '34px',
   background: '#ECF1F3',

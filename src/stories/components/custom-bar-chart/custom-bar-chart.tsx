@@ -13,12 +13,9 @@ const COLOR_YELLOW = '#FDC134';
 const COLOR_GRAY = '#D8E0E3';
 
 export const CustomBarChart = (props: CustomBarChartProps) => {
-  if (!props.items || props.maxValues.length === 0 || props.items.every(x => x.value === 0 || x.value === null || x.value === undefined)) return <span/>;
+  if (!props.items || props.maxValues.length === 0 || props.items.every(x => !x.value) || props.maxValues.every(cap => !cap)) return <span/>;
 
-  const itemWidth = 12;
-  const itemSpace = 8;
-  const padding = 15;
-  const width = props.items.length * (itemWidth + itemSpace) + 2 * padding;
+  const padding = 8;
   const maxItemHeight = 30;
 
   const calculateHeight = (value: number): number => {
@@ -49,7 +46,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
     return color;
   };
 
-  return <svg width={width} height={50} viewBox={`0 0 ${width} 50`}>
+  return <svg width={60} height={50} viewBox={'0 0 60 50'} style={{ marginRight: '8px' }}>
     <g transform={'scale(1, -1) translate(0, -50)'}>
       {props.items.map((item: CustomChartItemModel, i: number) =>
         <rect

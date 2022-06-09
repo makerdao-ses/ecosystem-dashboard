@@ -85,14 +85,16 @@ const TableRow = styled.tr({});
 
 const TableHeadRow = styled.tr({});
 
-const TableCell = styled.td({});
+const TableCell = styled.td({
+  color: '#231536'
+});
 
 const TableBody = styled.tbody({
   background: '#F7F8F966',
   '> tr': {
     display: 'table-row',
     background: '#FFFFFF',
-    filter: 'drop-shadow(0px 20px 40px rgba(190, 190, 190, 0.25))',
+    filter: 'drop-shadow(0px 20px 40px rgba(160, 160, 190, 0.25))',
   }
 });
 

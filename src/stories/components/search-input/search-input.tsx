@@ -46,8 +46,8 @@ const Input = styled.input({
   padding: '15px 45px 15px 16px',
   boxSizing: 'border-box',
   transition: 'all .3s ease',
-  '&:focus': {
-    borderColor: '#25273D'
+  '&::placeholder': {
+    color: '#B0BCC0'
   }
 });
 
