@@ -13,7 +13,8 @@ interface CuTableColumnExpendituresProps {
 }
 
 export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps) => {
-  return <Container>
+  return <Wrapper>
+    <Container>
     <Data>
       <Title>Last 3 Months</Title>
       <CustomPopover
@@ -49,15 +50,20 @@ export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps)
           </Percent>}
         </CustomPopover>
     </ValueWrapper>}
-  </Container>;
+    </Container>
+  </Wrapper>;
 };
 
 const Container = styled.div({
   display: 'flex',
   alignItems: 'stretch',
+  minWidth: '204px',
   cursor: 'pointer',
+});
+
+const Wrapper = styled.div({
+  display: 'flex',
   marginTop: '2px',
-  marginLeft: '32px',
   justifyContent: 'center',
 });
 
