@@ -56,6 +56,7 @@ const Container = styled.div({
   display: 'flex',
   alignItems: 'stretch',
   cursor: 'pointer',
+  marginTop: '2px',
 });
 
 const Data = styled.div({
