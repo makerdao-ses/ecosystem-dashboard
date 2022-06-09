@@ -271,11 +271,13 @@ const Header = styled.div({
   marginBottom: '32px',
 });
 
-const Title = styled(Typography)({
-  fontSize: '32px',
+const Title = styled.div({
+  fontFamily: 'FT Base, sans-serif',
+  fontSize: '24px',
   fontWeight: 500,
+  letterSpacing: '0.4px',
   flex: 1,
-  fontStyle: 'normal',
+  color: '#231536'
 });
 
 const Separator = styled.span({
