@@ -242,7 +242,7 @@ export const CuTable = () => {
       <CustomTable
         headers={headers}
         items={items}
-        headersAlign={['flex-start', 'center', 'flex-start', 'flex-start', 'center']}
+        headersAlign={['flex-start', 'center', 'center', 'flex-start', 'center']}
         headersSort={headersSort}
         headersStyles={headerStyles}
         sortFunction={setSort}
