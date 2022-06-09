@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Title } from '../cu-table-column-expenditures/cu-table-column-expenditures';
-import { Typography } from '@mui/material';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { FacilitatorModel } from '../../../core/models/facilitator.model';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';

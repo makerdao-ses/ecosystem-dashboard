@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { CustomPopover } from '../custom-popover/custom-popover';
-import { Typography } from '@mui/material';
 
 interface CuTableColumnInitiativesProps {
   initiatives: number
