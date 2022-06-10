@@ -1,19 +1,22 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Logo from '../svg/logo';
-import { MenuType } from './menu-items';
-import { IconButton, Link } from '@mui/material';
+import { IconButton } from '@mui/material';
 import ThemeMode from '../svg/theme-mode';
 import SelectLink from './select-link-website/select-link';
 import Dashboard from '../svg/dash-board';
 import { WebSiteLinks } from './select-link-website/menu-items';
+import { useLocation } from 'react-router-dom';
+import { MenuType } from './menu-items';
 
 interface Props {
   menuItems: MenuType[];
-  links: WebSiteLinks[]
+  links: WebSiteLinks[];
 }
 
 const Header = ({ menuItems, links }: Props) => {
+  const location = useLocation();
+  console.log('menu.paths?.includes(location.pathname', location.pathname);
   return (
     <Container >
 
@@ -28,16 +31,23 @@ const Header = ({ menuItems, links }: Props) => {
         </ContainerLogoSelect>
 
         <Navigation>
-          {menuItems.map((menu: MenuType) => {
-            return (<ItemMenuStyle key={
-              menu.title
-            } sx={{ marginRight: menu.marginRight }} underline='none' href={menu.link}>
-              {menu.title}
+          {menuItems.map(({ marginRight, link, title }: MenuType) => {
+            let isActive = false;
+            if (location.pathname === '/' || location.pathname.includes('about')) {
+              isActive = link === '/';
+            } else {
+              isActive = location.pathname.includes(link) && link !== '/';
+            }
+
+            return (<ItemMenuStyle
+              key={
+                title
+              } style={{ marginRight }} href={link}
+              active={isActive}>
+              {title}
             </ItemMenuStyle>);
           })}
-
         </Navigation>
-
       </LeftPart>
       <RightPart>
         <IconsContainer>
@@ -101,19 +111,22 @@ const RightPart = styled.div({
   paddingRight: '32px',
 });
 
-const ItemMenuStyle = styled(Link)({
+const ItemMenuStyle = styled.a<{ active: boolean, marginRight?: string }>((props) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '16px',
   lineHeight: '19px',
-  color: '#25273D;',
+  transform: 'none',
+  marginRight: props.marginRight,
+  color: props.active ? '#1AAB9B' : '#231536',
   letterSpacing: '0.4px',
+  textDecoration: 'none',
   cursor: 'pointer',
   '&:hover': {
     color: '#1dc1ae',
   },
-});
+}));
 
 const IconsContainer = styled.div({
   display: 'flex',
