@@ -215,7 +215,8 @@ const ContainerColum = styled.div({
 const CategoryContainer = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  marginTop: '16px'
+  marginTop: '16px',
+  height: '22px',
 });
 
 const ContainerSeparateData = styled.div({

@@ -91,17 +91,26 @@ const CuAboutContainer = () => {
 
   return (
     <ContainerAbout>
-      <NavigationHeader>
-        <BreadCrumb count={filteredData.length} breadcrumbs={[cuAbout.name] || []} isCoreUnit />
-        <InsidePagination count={filteredData.length} page={page} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} />
-      </NavigationHeader>
-      <ContainerTitle>
-        <TitleNavigationCuAbout coreUnitAbout={cuAbout} />
-        <Typography fontSize={16} lineHeight='19px' sx={{ marginTop: '16px' }}>{cuAbout.sentenceDescription || ''}</Typography>
-      </ContainerTitle>
+      <div style={{
+        position: 'sticky',
+        top: 64,
+        width: '100%',
+        backgroundImage: 'url(/assets/img/subheader.png)',
+        backgroundSize: 'cover',
+        zIndex: 4,
+      }}>
+        <NavigationHeader>
+          <BreadCrumb count={filteredData.length} breadcrumbs={[cuAbout.name] || []} isCoreUnit />
+          <InsidePagination count={filteredData.length} page={page} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} />
+        </NavigationHeader>
+        <ContainerTitle>
+          <TitleNavigationCuAbout coreUnitAbout={cuAbout} />
+          <Typography fontSize={16} lineHeight='19px' sx={{ marginTop: '16px' }}>{cuAbout.sentenceDescription || ''}</Typography>
+        </ContainerTitle>
+      </div>
       <ContainerAllData disableGutters>
         <div style={{
-          minWidth: '715px',
+          maxWidth: '715px',
         }}>
           <MarkdownContainer>
             <MdViewerContainer sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)} paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)} paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)} />
@@ -143,14 +152,14 @@ const CuAboutContainer = () => {
             <DividerStyle />
           </ButtonContainer>}
         </div>
-        <div style={{
-          display: 'flex',
-          marginLeft: '64px',
-          marginTop: '24px',
-          flexDirection: 'column',
-        }}>
-          <div style={{ marginBottom: '127px' }}> <NavigationCard description={description} image='/assets/img/card-initiatives.png' list={list} titleLinkPage='View All' title='Initiatives' /></div>
-          <NavigationCard description={description} image='/assets/img/card-finances.png' list={list} titleLinkPage='View All' title='Finances' />
+        <div >
+          <div style={{
+            position: 'sticky',
+            top: 280,
+          }}>
+            <div style={{ marginBottom: '32px' }}> <NavigationCard description={description} image='/assets/img/card-initiatives.png' list={list} titleLinkPage='View All' title='Initiatives' /></div>
+            <NavigationCard description={description} image='/assets/img/card-finances.png' list={list} titleLinkPage='View All' title='Finances' />
+          </div>
         </div>
       </ContainerAllData>
     </ContainerAbout>
@@ -163,6 +172,10 @@ const ContainerAbout = styled.div({
   display: 'flex',
   flexDirection: 'column',
   marginTop: '64px',
+  width: '100%',
+  background: 'url(/assets/img/bg-page.png)',
+  backgroundAttachment: 'fixed',
+  backgroundSize: 'cover',
 });
 
 const NavigationHeader = styled.div({
@@ -222,6 +235,7 @@ const ContactInfoTitle = styled(Typography)({
 const ContainerCards = styled.div({
   display: 'flex',
   flexDirection: 'row',
+  maxWidth: '715px',
   justifyContent: 'space-between',
   alignItems: 'flex-start',
   flexWrap: 'wrap',
@@ -284,6 +298,7 @@ const ContainerNoRelateMIps = styled.div({
 const ContainerAllData = styled(Container)({
   display: 'flex',
   flexDirection: 'row',
+  justifyContent: 'space-between',
   marginRight: '128px',
   marginLeft: '128px',
 });

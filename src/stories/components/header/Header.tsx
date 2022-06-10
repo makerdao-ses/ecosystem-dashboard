@@ -54,13 +54,12 @@ const Container = styled.header({
   position: 'fixed',
   display: 'flex',
   width: '100%',
-  zIndex: '4',
+  zIndex: 4,
   flexDirection: 'row',
   height: '64px',
   justifyContent: 'space-between',
   background: 'url(/assets/img/bg-header.png)',
   borderBottom: '1px solid #E7FCFA',
-  backdropFilter: 'blur(30px)',
 });
 
 const LeftPart = styled.div({
