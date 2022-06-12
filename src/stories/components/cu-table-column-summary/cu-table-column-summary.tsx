@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Theme, Typography } from '@mui/material';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
@@ -70,8 +69,8 @@ const Content = styled.div({
   flexDirection: 'column',
 });
 
-const Code = styled.span(({ theme }) => ({
-  fontFamily: (theme as Theme).typography.fontFamily,
+const Code = styled.span(({
+  fontFamily: 'SF Pro Display, sans-serif',
   fontWeight: 800,
   fontSize: '14px',
   letterSpacing: '0.3px',
@@ -84,8 +83,8 @@ const TitleWrapper = styled.div({
   display: 'flex'
 });
 
-const Title = styled(Typography)(({ theme }) => ({
-  fontFamily: (theme as Theme).typography.fontFamily,
+const Title = styled.div(({
+  fontFamily: 'FT Base, sans-serif',
   fontSize: '16px',
   alignItems: 'center',
   maxWidth: '200px',
@@ -99,4 +98,17 @@ const Row = styled.div({
   alignItems: 'center',
   flex: 1,
   marginTop: '8px',
+});
+
+const SinceDate = styled.a({
+  fontFamily: 'FT Base, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 500,
+  fontSize: '12px',
+  lineHeight: '14px',
+  letterSpacing: '1px',
+  textTransform: 'uppercase',
+  color: '#447AFB',
+  textDecoration: 'none',
+  marginLeft: '4px',
 });
