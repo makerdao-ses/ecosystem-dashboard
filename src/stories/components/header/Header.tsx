@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
 import Logo from '../svg/logo';
 import { IconButton } from '@mui/material';
@@ -6,7 +6,7 @@ import ThemeMode from '../svg/theme-mode';
 import SelectLink from './select-link-website/select-link';
 import Dashboard from '../svg/dash-board';
 import { WebSiteLinks } from './select-link-website/menu-items';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { MenuType } from './menu-items';
 
 interface Props {
@@ -15,8 +15,15 @@ interface Props {
 }
 
 const Header = ({ menuItems, links }: Props) => {
+  const navigate = useNavigate();
   const location = useLocation();
-  console.log('menu.paths?.includes(location.pathname', location.pathname);
+  const onClick = useCallback(
+    (link: string) => () => {
+      window.open(link, '_blank');
+    },
+    [navigate],
+  );
+
   return (
     <Container >
 
@@ -27,7 +34,7 @@ const Header = ({ menuItems, links }: Props) => {
             <Logo fill='#211634' />
           </LogoContainer>
           <Dashboard />
-          <SelectLink links={links} />
+          <SelectLink links={links} onClick={onClick} />
         </ContainerLogoSelect>
 
         <Navigation>
