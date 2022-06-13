@@ -17,7 +17,6 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
   const contributor = contributorCommitment.contributor[0] || [];
   const links = getLinksFromContributor(contributorCommitment);
   const { color } = getColorJobPosition(contributorCommitment.jobTitle);
-  console.log(typeof contributorCommitment.startDate);
   return (
     <Box>
       <Card sx={{

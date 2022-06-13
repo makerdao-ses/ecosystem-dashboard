@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
-import { Divider, Typography, Container } from '@mui/material';
+import { Divider, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { getMarkdownInformation, getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-unit-about';
@@ -92,8 +92,8 @@ const CuAboutContainer = () => {
   return (
     <ContainerAbout>
       <div style={{
-        position: 'sticky',
-        top: 64,
+        position: 'fixed',
+        top: 63,
         width: '100%',
         backgroundImage: 'url(/assets/img/subheader.png)',
         backgroundSize: 'cover',
@@ -111,6 +111,7 @@ const CuAboutContainer = () => {
       <ContainerAllData>
         <div style={{
           width: '60.39%',
+          marginTop: '190px',
         }}>
           <MarkdownContainer>
             <MdViewerContainer sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)} paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)} paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)} />
@@ -156,8 +157,8 @@ const CuAboutContainer = () => {
           width: '39.61%',
         }}>
           <div style={{
-            position: 'sticky',
-            top: 280,
+            position: 'fixed',
+            top: 285,
           }}>
             <ContainerCard>
               <NavigationCard description={description} image='/assets/img/card-initiatives.png' list={list} titleLinkPage='View All' title='Initiatives' />
