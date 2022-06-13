@@ -108,9 +108,9 @@ const CuAboutContainer = () => {
           <Typography fontSize={16} lineHeight='19px' sx={{ marginTop: '16px' }}>{cuAbout.sentenceDescription || ''}</Typography>
         </ContainerTitle>
       </div>
-      <ContainerAllData disableGutters>
+      <ContainerAllData>
         <div style={{
-          maxWidth: '715px',
+          width: '60.39%',
         }}>
           <MarkdownContainer>
             <MdViewerContainer sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)} paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)} paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)} />
@@ -152,17 +152,23 @@ const CuAboutContainer = () => {
             <DividerStyle />
           </ButtonContainer>}
         </div>
-        <div >
+        <div style={{
+          width: '39.61%',
+        }}>
           <div style={{
             position: 'sticky',
             top: 280,
           }}>
-            <div style={{ marginBottom: '32px' }}> <NavigationCard description={description} image='/assets/img/card-initiatives.png' list={list} titleLinkPage='View All' title='Initiatives' /></div>
-            <NavigationCard description={description} image='/assets/img/card-finances.png' list={list} titleLinkPage='View All' title='Finances' />
+            <ContainerCard>
+              <NavigationCard description={description} image='/assets/img/card-initiatives.png' list={list} titleLinkPage='View All' title='Initiatives' />
+            </ContainerCard>
+            <ContainerCard>
+              <NavigationCard description={description} image='/assets/img/card-finances.png' list={list} titleLinkPage='View All' title='Finances' />
+            </ContainerCard>
           </div>
         </div>
       </ContainerAllData>
-    </ContainerAbout>
+    </ContainerAbout >
   );
 };
 
@@ -176,6 +182,13 @@ const ContainerAbout = styled.div({
   background: 'url(/assets/img/bg-page.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
+});
+
+const ContainerCard = styled.div({
+  marginBottom: '32px',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-end'
 });
 
 const NavigationHeader = styled.div({
@@ -295,7 +308,8 @@ const ContainerNoRelateMIps = styled.div({
   justifyContent: 'center',
 });
 
-const ContainerAllData = styled(Container)({
+const ContainerAllData = styled.div({
+  maxWidth: '100%',
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',

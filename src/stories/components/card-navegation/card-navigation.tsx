@@ -26,7 +26,7 @@ export const NavigationCard = ({ description, image, list = [], title = '', titl
       </ArrowTittleStyle>
       }
       <Box sx={{
-        maxWidth: '405px',
+        maxWidth: '86.38%',
         maxHeight: '293px'
       }}>
         <CardContainer sx={{
