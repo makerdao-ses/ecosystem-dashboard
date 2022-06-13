@@ -4,7 +4,7 @@ import { ChevronLeft } from '../svg/chevron-left';
 import { ChevronRight } from '../svg/chevron-right';
 
 interface CustomPagerProps {
-  label: string,
+  label: JSX.Element | string,
   onNext?: () => void,
   onPrev?: () => void,
 }
