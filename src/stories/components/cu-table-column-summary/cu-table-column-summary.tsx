@@ -69,7 +69,7 @@ const Content = styled.div({
   flexDirection: 'column',
 });
 
-const Code = styled.span(({
+const Code = styled.span({
   fontFamily: 'SF Pro Display, sans-serif',
   fontWeight: 800,
   fontSize: '14px',
@@ -77,7 +77,7 @@ const Code = styled.span(({
   textTransform: 'uppercase',
   color: '#9FAFB9',
   marginRight: '5px',
-}));
+});
 
 const TitleWrapper = styled.div({
   display: 'flex'
@@ -98,17 +98,4 @@ const Row = styled.div({
   alignItems: 'center',
   flex: 1,
   marginTop: '8px',
-});
-
-const SinceDate = styled.a({
-  fontFamily: 'FT Base, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 500,
-  fontSize: '12px',
-  lineHeight: '14px',
-  letterSpacing: '1px',
-  textTransform: 'uppercase',
-  color: '#447AFB',
-  textDecoration: 'none',
-  marginLeft: '4px',
 });
