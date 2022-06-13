@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
-import { Link, Typography } from '@mui/material';
-import React, { CSSProperties, ReactNode } from 'react';
-import VotingPortal from '../../../svg/voting-portal';
+import { Typography } from '@mui/material';
+import React, { ReactNode } from 'react';
 
 interface Props {
   title: string
