@@ -5,7 +5,7 @@ export const customRenderer = {
   image(href: string) {
     return <img src={href} className='img-container' style={{
       width: '660px',
-      maxHeight: '308px'
+      height: '308px'
     }} key={href} />;
   },
   paragraph(text: string) {

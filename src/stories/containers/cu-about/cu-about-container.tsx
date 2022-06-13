@@ -105,13 +105,17 @@ const CuAboutContainer = () => {
         </NavigationHeader>
         <ContainerTitle>
           <TitleNavigationCuAbout coreUnitAbout={cuAbout} />
-          <Typography fontSize={16} lineHeight='19px' sx={{ marginTop: '16px' }}>{cuAbout.sentenceDescription || ''}</Typography>
+          <Typography fontSize={16} lineHeight='19px' sx={{
+            marginTop: '16px'
+          }}>{cuAbout.sentenceDescription || ''}</Typography>
         </ContainerTitle>
       </div>
       <ContainerAllData>
         <div style={{
           width: '60.39%',
-          marginTop: '190px',
+          display: 'flex',
+          flexDirection: 'column',
+          marginTop: 210,
         }}>
           <MarkdownContainer>
             <MdViewerContainer sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)} paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)} paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)} />
@@ -158,7 +162,7 @@ const CuAboutContainer = () => {
         }}>
           <div style={{
             position: 'fixed',
-            top: 285,
+            top: 300,
           }}>
             <ContainerCard>
               <NavigationCard description={description} image='/assets/img/card-initiatives.png' list={list} titleLinkPage='View All' title='Initiatives' />
@@ -208,6 +212,7 @@ const ContainerTitle = styled.div({
   paddingLeft: '128px',
   paddingRight: '128px',
   paddingBottom: '24px',
+  height: '135px',
   borderBottom: '1px solid #B6EDE7',
 });
 const MarkdownContainer = styled.div({
