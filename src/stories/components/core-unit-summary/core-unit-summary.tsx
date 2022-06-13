@@ -7,48 +7,71 @@ import { StatusChip } from '../status-chip/status-chip';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { CustomLink } from '../custom-link/custom-link';
 import { CuTableColumnLinks, LinkModel } from '../cu-table-column-links/cu-table-column-links';
+import { DateTime } from 'luxon';
 
 interface CoreUnitSummaryProps {
   title: string,
   code: string,
-  imageUrl: string,
+  imageUrl?: string,
   categories: CuCategoryEnum[],
   status: CuStatusEnum,
-  mipUrl: string,
+  mipUrl?: string,
   links: LinkModel[],
+  description: string,
+  statusModified?: Date
 }
 
 export const CoreUnitSummary = (props: CoreUnitSummaryProps) => {
-  return <Container>
-    <CircleContainer>
-      <CircleAvatar
-        width={'64px'}
-        height={'64px'}
-        name={props.title || 'Core Unit'}
-        image={props.imageUrl}
-        style={{ filter: 'drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))' }}
-      />
-    </CircleContainer>
-    <Data>
-      <TitleWrapper>
-        <Code>{props.code}</Code>
-        <Title>{props.title}</Title>
-        <StatusChip status={props.status} style={{ marginRight: '4px' }}/>
-        <CustomLink href={props.mipUrl}>SINCE 25-MAY-2022</CustomLink>
-        <Separator/>
-        <LinksWrapper>
-          <CuTableColumnLinks links={props.links} fill={'#708390'}/>
-        </LinksWrapper>
-      </TitleWrapper>
-      <Categories>
-        {props.categories?.map((category) => <CategoryChip key={category} category={category} style={{ marginRight: '16px' }}/>)}
-      </Categories>
-    </Data>
-  </Container>;
+  return <OverallWrapper>
+    <Wrapper>
+      <Container>
+      <CircleContainer>
+        <CircleAvatar
+          width={'64px'}
+          height={'64px'}
+          name={props.title || 'Core Unit'}
+          image={props.imageUrl}
+          style={{ filter: 'drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))' }}
+        />
+      </CircleContainer>
+      <Data>
+        <TitleWrapper>
+          <Code>{props.code}</Code>
+          <Title>{props.title}</Title>
+          <StatusChip status={props.status} style={{ marginRight: '4px' }}/>
+          {props.statusModified && <CustomLink href={props.mipUrl}>
+            {`Since ${DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}`}
+          </CustomLink>}
+          <Separator/>
+          <LinksWrapper>
+            <CuTableColumnLinks links={props.links} fill={'#708390'}/>
+          </LinksWrapper>
+        </TitleWrapper>
+        <Categories>
+          {props.categories?.map((category) => <CategoryChip key={category} category={category} style={{ marginRight: '16px' }}/>)}
+        </Categories>
+      </Data>
+    </Container>
+    <Text>{props.description}</Text>
+  </Wrapper>
+  </OverallWrapper>;
 };
 
+const OverallWrapper = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
+const Wrapper = styled.div({
+  width: '100%',
+  maxWidth: '1184px',
+  margin: '24px 0',
+});
+
 const Container = styled.div({
-  display: 'flex'
+  display: 'flex',
+  marginBottom: '16px'
 });
 
 const CircleContainer = styled.div({
@@ -56,7 +79,7 @@ const CircleContainer = styled.div({
 });
 
 const Data = styled.div({
-  marginRight: '24px',
+  width: '100%',
 });
 
 const TitleWrapper = styled.div({
@@ -95,4 +118,12 @@ const LinksWrapper = styled.div({
 
 const Separator = styled.div({
   flex: 1,
+});
+
+const Text = styled.div({
+  fontFamily: 'FT Base, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 400,
+  fontSize: '16px',
+  color: '#231536',
 });

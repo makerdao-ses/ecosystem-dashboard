@@ -16,7 +16,13 @@ export const Default = Template.bind({});
 Default.args = {
   code: 'COD',
   title: 'Core Unit 1',
-  categories: [CuCategoryEnum.Support, CuCategoryEnum.Business, CuCategoryEnum.Support, CuCategoryEnum.Support, CuCategoryEnum.Finances],
+  categories: [
+    CuCategoryEnum.Support,
+    CuCategoryEnum.Business,
+    CuCategoryEnum.Growth,
+    CuCategoryEnum.Operational,
+    CuCategoryEnum.Finances
+  ],
   status: CuStatusEnum.Accepted,
   links: [
     {
@@ -43,5 +49,7 @@ Default.args = {
       href: '#',
       linkType: LinkTypeEnum.Gmail
     },
-  ]
+  ],
+  description: 'The aim of SES is to sustainably grow the Maker Protocol\'s moats by systematically removing barriers between the decentralized workforce, capital, and work.',
+  imageUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/53/92/77/53927729-28a4-b94a-40d9-9abbc9583078/source/512x512bb.jpg'
 };

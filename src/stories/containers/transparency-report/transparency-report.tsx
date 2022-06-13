@@ -5,6 +5,10 @@ import { CustomPager } from '../../components/custom-pager/custom-pager';
 import { CustomLink } from '../../components/custom-link/custom-link';
 import { InnerTable } from '../../components/inner-table/inner-table';
 import { Breadcrumbs } from '../../components/breadcrumbs/breadcrumbs';
+import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
+import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
+import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
+import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
 
 const mainIndexItems = ['SES-Sustainable Ecosystem Scaling', 'Initiatives', 'Finances'];
 const secondIndexItems = ['Overview', 'Transparency Reports', 'Onchain Setup', 'Budget Governance'];
@@ -31,7 +35,36 @@ export const TransparencyReport = () => {
 
   return <Container>
     <Breadcrumbs items={[<>Core Units <b>(3)</b></>, 'SES - Sustainable Ecosystem Scaling ', 'Finances']}/>
-    <Placeholder/>
+    <SummaryWrapper>
+      <CoreUnitSummary
+        title={'Core Unit 1'}
+        code={'COD'}
+        categories={[
+          CuCategoryEnum.Support,
+          CuCategoryEnum.Business,
+          CuCategoryEnum.Growth,
+          CuCategoryEnum.Operational,
+          CuCategoryEnum.Finances
+        ]}
+        status={CuStatusEnum.Accepted}
+        links={[
+          {
+            href: '#',
+            linkType: LinkTypeEnum.WWW
+          },
+          {
+            href: '#',
+            linkType: LinkTypeEnum.Forum
+          },
+          {
+            href: '#',
+            linkType: LinkTypeEnum.Discord
+          },
+        ]}
+        description={'The aim of SES is to sustainably grow the Maker Protocol\'s moats by systematically removing barriers between the decentralized workforce, capital, and work.'}
+        imageUrl={'https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/53/92/77/53927729-28a4-b94a-40d9-9abbc9583078/source/512x512bb.jpg'}
+      />
+    </SummaryWrapper>
     <InnerPage>
       <Tabs
         items={mainIndexItems}
@@ -121,7 +154,7 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  maxWidth: '2000px',
+  marginTop: '64px',
   flex: 1,
 });
 
@@ -184,10 +217,9 @@ const Spacer = styled.div({
   flex: '1',
 });
 
-const Placeholder = styled.div({
+const SummaryWrapper = styled.div({
   borderBottom: '1px solid #B6EDE7',
   flex: 1,
-  minHeight: '145px',
   width: '100%',
   marginBottom: '32px',
 });
