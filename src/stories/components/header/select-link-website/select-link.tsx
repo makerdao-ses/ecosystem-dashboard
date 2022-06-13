@@ -8,9 +8,10 @@ import { WebSiteLinks } from './menu-items';
 
 interface Props {
   links: WebSiteLinks[] | [];
+  onClick: (link: string) => () => void;
 }
 
-const SelectLink = ({ links }: Props) => {
+const SelectLink = ({ links, onClick }: Props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -42,6 +43,8 @@ const SelectLink = ({ links }: Props) => {
             marginTop: '20px',
             paddingLeft: '16px',
             paddingRight: '16px',
+            height: '335px',
+            width: '257px',
             background: '#FFFFFF',
             position: 'absolute',
           },
@@ -56,15 +59,20 @@ const SelectLink = ({ links }: Props) => {
       >
         {links.map((link: WebSiteLinks) => {
           return <MenuItem
+            onClick={onClick(link.link)}
             disableGutters={true}
             sx={{
               padding: '16px',
               '&:hover': {
                 background: '#ECF1F3',
                 borderRadius: '22px',
+              },
+              marginBottom: '9.15px',
+              '&:last-child': {
+                marginBottom: '0px',
               }
-            }} key={link.title}>
-            <ItemWebSite title={link.title} logo={link.logo} background={link.background} color={link.color} fontSize={link.fontSize} fontWeight={link.fontWeight} link={link.link} fontFamily={link.fontFamily} />
+            }} key={link.id}>
+            <ItemWebSite title={link.title || ''} logo={link.logo} background={link.background} color={link.color} fontSize={link.fontSize} fontWeight={link.fontWeight} link={link.link} fontFamily={link.fontFamily} padding={link.padding} subtract={link.subtract}/>
           </MenuItem >;
         })}
       </Menu>
