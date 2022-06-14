@@ -95,7 +95,7 @@ const CuAboutContainer = () => {
         position: 'fixed',
         top: 63,
         width: '100%',
-        backgroundImage: 'url(/assets/img/subheader.png)',
+        backgroundImage: 'url(/assets/img/Subheader.png)',
         backgroundSize: 'cover',
         zIndex: 4,
       }}>
