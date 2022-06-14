@@ -1,28 +1,61 @@
-import React from 'react';
-import { Chip } from '@mui/material';
+import React, { CSSProperties } from 'react';
+import styled from '@emotion/styled';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
-import { getColorCategory } from '../../../core/utils/color.utils';
 
-interface CategoryChipProps {
+interface StatusChipProps {
   category: CuCategoryEnum;
-  size?: 'small' | 'medium' | undefined;
-  style?: React.CSSProperties
+  style?: CSSProperties;
 }
 
-export const CategoryChip = ({ category, style = {}, size = 'small' }: CategoryChipProps) => {
-  const { color, background } = getColorCategory(category);
-  return <Chip size={size} sx={{
-    borderRadius: '12px',
-    borderColor: color,
-    color,
-    backgroundColor: background,
-    fontSize: '11px',
-    height: '22px',
-    fontStyle: 'normal',
-    fontWeight: 400,
-    lineHeight: '22px'
-  }}
-    style={style}
-    label={category}
-    variant={'outlined'} />;
+const colors = {
+  Technical: {
+    color: '#546978',
+    background: 'rgba(246, 245, 255, 0.5)'
+  },
+  Support: {
+    color: '#1AAB9B',
+    background: 'rgba(245, 255, 246, 0.5)'
+  },
+  Operational: {
+    color: '#9055AF',
+    background: 'rgba(250, 245, 255, 0.5)'
+  },
+  Business: {
+    color: '#F08B04',
+    background: 'rgba(255, 251, 245, 0.5)'
+  },
+  RWAs: {
+    color: '#2DC1B1',
+    background: 'rgba(245, 255, 249, 0.5)'
+  },
+  Growth: {
+    color: '#DC5D00',
+    background: 'rgba(255, 245, 245, 0.5)'
+  },
+  Finance: {
+    color: '#447AFB',
+    background: 'rgba(247, 255, 245, 0.52)'
+  }
 };
+
+export const CategoryChip = (props: StatusChipProps) => {
+  return <Chip style={{
+    color: colors[props.category].color,
+    borderColor: colors[props.category].color,
+    background: colors[props.category].background,
+    ...props.style
+  }}>{props.category}</Chip>;
+};
+
+const Chip = styled.div({
+  fontFamily: 'FT Base, sans-serif',
+  display: 'flex',
+  alignItems: 'center',
+  fontWeight: 400,
+  fontSize: '11px',
+  borderRadius: '12px',
+  padding: '0 8px',
+  height: '22px',
+  width: 'fit-content',
+  border: '1px solid black',
+});
