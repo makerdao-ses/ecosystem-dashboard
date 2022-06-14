@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
-import { Theme } from '@mui/material';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 
 interface StatusChipProps {
   status: CuStatusEnum;
+  style?: CSSProperties;
 }
 
 const colors = {
@@ -38,10 +38,12 @@ export const StatusChip = (props: StatusChipProps) => {
   return <Chip style={{
     color: colors[props.status].color,
     background: colors[props.status].background,
+    ...props.style,
   }}>{props.status}</Chip>;
 };
 
-const Chip = styled.div(({ theme }) => ({
+const Chip = styled.div({
+  fontFamily: 'FT Base, sans-serif',
   display: 'flex',
   alignItems: 'center',
   fontWeight: 400,
@@ -49,6 +51,5 @@ const Chip = styled.div(({ theme }) => ({
   borderRadius: '12px',
   padding: '0 8px',
   height: '22px',
-  fontFamily: (theme as Theme).typography.fontFamily,
   width: 'fit-content',
-}));
+});
