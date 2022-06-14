@@ -32,9 +32,14 @@ const colors = {
     color: '#DC5D00',
     background: 'rgba(255, 245, 245, 0.5)'
   },
-  Finances: {
+  Finance: {
     color: '#447AFB',
     background: 'rgba(247, 255, 245, 0.52)'
+  },
+  // TODO: Add correct color when it's ready
+  Legal: {
+    color: '#546978',
+    background: 'rgba(246, 245, 255, 0.5)'
   }
 };
 

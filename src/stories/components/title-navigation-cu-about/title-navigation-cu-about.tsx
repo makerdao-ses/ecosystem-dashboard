@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Typography } from '@mui/material';
+import { Theme, Typography } from '@mui/material';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { CuTableColumnLinks, LinkModel } from '../cu-table-column-links/cu-table-column-links';
@@ -8,8 +8,10 @@ import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { StatusChip } from '../status-chip/status-chip';
 import { CuAbout, CuMip } from '../../containers/cu-about/cu-about.api';
 import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
+import { CategoryChip } from '../category-chip/category-chip';
 import { getMipsStatus, getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-unit-about';
 import _ from 'lodash';
+import { CircleAvatar } from '../circle-avatar/circle-avatar';
 
 interface BudgetStatementFTEs {
   month: string
@@ -97,35 +99,42 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
   const newDate = DateTime.fromFormat(mips || '', 'yyyy-MM-dd').toJSDate();
   return (
     <Container>
-      <ContainerTitle>
-        <TypographySES>SES</TypographySES>
-        <div style={{
-          width: '4px',
-          height: '4px',
-          backgroundColor: '#D8E0E3',
-          display: 'flex',
-          marginRight: '8px',
-          marginLeft: '8px'
-        }} />
-        {coreUnitAbout.name && <TypographyTitle>{coreUnitAbout.name}</TypographyTitle>}
-        <Row>
-          {mipStatus && <StatusChip status={mipStatus as CuStatusEnum} />}
-          {newDate && <CustomPopover
-            id={'mouse-over-popover-goto'}
-            title={'Go to MIPs Portal'}
-          >
-            {newDate &&
-              <SinceDate
-                href={'#'}
+      <CircleContainer>
+        <CircleAvatar
+          width={'68px'}
+          height={'68px'}
+          name={coreUnitAbout.name || 'Core Unit'}
+          image={coreUnitAbout.image}
+          style={{ filter: 'drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))' }}
+        />
+      </CircleContainer>
+      <ContainerColum>
+        <ContainerTitle>
+          <ContainerSeparateData>
+            <TypographySES>SES</TypographySES>
+            {coreUnitAbout.name && <TypographyTitle>{coreUnitAbout.name}</TypographyTitle>}
+
+            {mips && <StatusChip status={mipStatus as CuStatusEnum} />}
+            <Row>
+              {newDate && <CustomPopover
+                id={'mouse-over-popover-goto'}
+                title={'Go to MIPs Portal'}
               >
-                Since {DateTime.fromJSDate(newDate).toFormat('d-MMM-y')}
-              </SinceDate>
-            }
-          </CustomPopover>}
-        </Row>
-      </ContainerTitle>
+                {newDate &&
+                  <SinceDate
+                    href={'#'}
+                  >
+                    Since {DateTime.fromJSDate(newDate).toFormat('d-MMM-y')}
+                  </SinceDate>
+                }
+              </CustomPopover>}
+            </Row>
+          </ContainerSeparateData>
+        </ContainerTitle>
+        <CategoryContainer>{coreUnitAbout.category && coreUnitAbout.category.map((item) => <CategoryChip key={item} category={item} style={{ marginRight: '16px' }} />)}</CategoryContainer>
+      </ContainerColum>
       <ContainerLinks>
-        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#626472'} />
+        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#211634'} spacingsRight={29} />
       </ContainerLinks>
     </Container>
   );
@@ -133,56 +142,87 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
 
 const Container = styled.div({
   display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-between',
   flex: 1,
-  alignItems: 'center',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
   fontWeight: 400,
 });
 
 const ContainerTitle = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
+  justifyContent: 'space-between',
+  alignItems: 'flex-end',
 });
 
 const TypographyTitle = styled(Typography)({
   fontStyle: 'normal',
   fontWeight: 600,
-  fontSize: '18px',
-  lineHeight: '22px',
-  color: '#000000'
+  fontSize: '24px',
+  lineHeight: '29px',
+  color: '#000000',
+  marginLeft: '16px',
+  marginRight: '24px'
 });
 
 const TypographySES = styled(Typography)({
   fontStyle: 'normal',
-  fontWeight: 700,
-  fontSize: '18px',
-  lineHeight: '22px',
+  fontWeight: 500,
+  fontSize: '24px',
+  lineHeight: '29px',
   color: '#9FAFB9'
 });
 
 const Row = styled.div({
   display: 'flex',
   alignItems: 'center',
-  flex: 1,
   marginLeft: '32px',
 });
 
-const SinceDate = styled.a({
-  color: '#898989',
+const SinceDate = styled.a(({ theme }) => ({
+  fontFamily: (theme as Theme).typography.fontFamily,
   fontStyle: 'normal',
-  fontWeight: 400,
+  fontWeight: 500,
   fontSize: '12px',
-  lineHeight: '15px',
-  textDecoration: 'underline',
-  marginLeft: '10px'
-});
+  lineHeight: '14px',
+  letterSpacing: '1px',
+  textTransform: 'uppercase',
+  color: '#447AFB',
+  textDecoration: 'none',
+  marginLeft: '4px',
+}));
 
 const ContainerLinks = styled.div({
   display: 'flex',
-  alignItems: 'center'
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-end',
+  height: '68px',
+});
+const CircleContainer = styled.div({
+  marginRight: '10px',
+});
+
+const ContainerColum = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
+  width: '100%',
+});
+
+const CategoryContainer = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  marginTop: '16px',
+  height: '22px',
+});
+
+const ContainerSeparateData = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'flex-end',
 });
 
 export default TitleNavigationCuAbout;

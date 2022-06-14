@@ -1,6 +1,7 @@
 import { request, gql } from 'graphql-request';
 import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
+import { CuJobEnum } from '../../../core/enums/cu-job.enum';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
 import { LinkModel } from '../../components/cu-table-column-links/cu-table-column-links';
@@ -45,7 +46,8 @@ export interface Contributor {
 }
 export interface ContributorCommitment {
   id: string;
-  jobTitle: string;
+  jobTitle: CuJobEnum;
+  startDate: string;
   commitment: Commitment;
   contributor: Contributor[];
 }
@@ -62,8 +64,9 @@ export interface SocialMediaChannels {
 export interface CuAbout {
   id: string;
   code: string;
-  category: CuCategoryEnum[];
   name: string;
+  image?: string;
+  category: CuCategoryEnum[];
   sentenceDescription: string;
   paragraphDescription: string;
   paragraphImage: string;
@@ -83,6 +86,8 @@ export const GET_CU_ABOUT_BY_CODE = gql`
       id
       code
       name
+      image
+      category
       sentenceDescription
       paragraphDescription
       paragraphImage
@@ -113,6 +118,7 @@ export const GET_CU_ABOUT_BY_CODE = gql`
       contributorCommitment {
         jobTitle
         commitment
+        startDate
         contributor {
           name
           discordHandle

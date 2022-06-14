@@ -1,32 +1,32 @@
 .img-container {
-  width: 769px;
-  height: 469px;
+  width: 660px;
+  height: 380px;
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
 .paragraph {
-  font-family: 'Inter';
+  font-family: 'FT Base, sans-serif';
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 17px;
   color: #000000;
 }
 
 .tag-code {
   white-space: pre-wrap;
-  font-family: 'Inter';
+  font-family: 'FT Base, sans-serif';
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 17px;
-  
   color: #000000;
+  
 }
 
-img.img-container{
+img.img-container {
   display: block;
   margin: 0 auto;
 }
