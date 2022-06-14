@@ -6,22 +6,23 @@ interface InnerTableProps {
   items?: (JSX.Element | string)[][],
   headersAlign?: ('left' | 'center' | 'right')[],
   style?: CSSProperties,
-  lastRowStyle?: CSSProperties,
+  rowStyles?: CSSProperties[],
+  minWidth?: number
 }
 
-export const InnerTable = ({ headersAlign = [], ...props }: InnerTableProps) => {
+export const InnerTable = ({ headersAlign = [], minWidth = 160, ...props }: InnerTableProps) => {
   return <Container style={props.style}>
     <Table>
       <TableHead>
         <tr>
-          {props.headers.map((header, i) => <HeadCell key={`header-${i}`} style={{ textAlign: headersAlign[i] ?? 'left' }}>
+          {props.headers.map((header, i) => <HeadCell minWidth={minWidth} key={`header-${i}`} style={{ textAlign: headersAlign[i] ?? 'left' }}>
             {header}
           </HeadCell>)}
         </tr>
       </TableHead>
       <tbody>
-        {props.items?.map((row, i) => <tr key={i} style={i === (props.items?.length ?? 0) - 1 ? props.lastRowStyle : {}}>
-          {row.map((item, j) => <td key={`${i}-${j}`} style={{ textAlign: headersAlign[i] ?? 'left' }}>{item}</td>)}
+        {props.items?.map((row, i) => <tr key={i} style={props.rowStyles ? props.rowStyles[i] : {}}>
+          {row.map((item, j) => <TableCell key={`${i}-${j}`} textAlign={ headersAlign[j] ?? 'left' }>{item}</TableCell>)}
         </tr>)}
       </tbody>
     </Table>
@@ -41,6 +42,10 @@ const Table = styled.table({
   flex: '1',
 });
 
+const TableCell = styled.td<{ textAlign: 'left' | 'center' | 'right' }>(({ textAlign }) => ({
+  textAlign
+}));
+
 const TableHead = styled.thead({
   fontFamily: 'FT Base, sans-serif',
   fontWeight: 500,
@@ -52,7 +57,7 @@ const TableHead = styled.thead({
   borderBottom: '1px solid #D4D9E1',
 });
 
-const HeadCell = styled.th({
+const HeadCell = styled.th<{ minWidth: number }>(({ minWidth }) => ({
   padding: '24px 16px',
-  width: '160px',
-});
+  minWidth: `${minWidth}px`,
+}));
