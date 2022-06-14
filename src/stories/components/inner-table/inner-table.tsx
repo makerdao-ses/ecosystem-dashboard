@@ -6,6 +6,7 @@ interface InnerTableProps {
   items?: (JSX.Element | string)[][],
   headersAlign?: ('left' | 'center' | 'right')[],
   style?: CSSProperties,
+  lastRowStyle?: CSSProperties,
 }
 
 export const InnerTable = ({ headersAlign = [], ...props }: InnerTableProps) => {
@@ -19,7 +20,7 @@ export const InnerTable = ({ headersAlign = [], ...props }: InnerTableProps) => 
         </tr>
       </TableHead>
       <tbody>
-        {props.items?.map((row, i) => <tr key={i}>
+        {props.items?.map((row, i) => <tr key={i} style={i === (props.items?.length ?? 0) - 1 ? props.lastRowStyle : {}}>
           {row.map((item, j) => <td key={`${i}-${j}`} style={{ textAlign: headersAlign[i] ?? 'left' }}>{item}</td>)}
         </tr>)}
       </tbody>

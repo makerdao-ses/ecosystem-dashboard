@@ -3,30 +3,16 @@ import styled from '@emotion/styled';
 import { Tabs } from '../../components/tabs/tabs';
 import { CustomPager } from '../../components/custom-pager/custom-pager';
 import { CustomLink } from '../../components/custom-link/custom-link';
-import { InnerTable } from '../../components/inner-table/inner-table';
 import { Breadcrumbs } from '../../components/breadcrumbs/breadcrumbs';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
-
-const mainIndexItems = ['SES-Sustainable Ecosystem Scaling', 'Initiatives', 'Finances'];
-const secondIndexItems = ['Overview', 'Transparency Reports', 'Onchain Setup', 'Budget Governance'];
-const thirdIndexItems = ['Actuals', 'Forecast', 'MKR Vesting', 'Transfer Requests', 'Audit Reports'];
-
-const TableCell = styled.div({
-  fontFamily: 'FT Base, sans-serif',
-  fontWeight: 400,
-  fontSize: 16,
-  padding: '24px 16px',
-  color: '#25273D',
-});
-
-const firstTableItems = [
-  [<TableCell key={1}>Permanent Team</TableCell>, <TableCell key={1}>134,468</TableCell>, <TableCell key={1}>132,897</TableCell>, <TableCell key={1}>1,571</TableCell>, <TableCell key={1}>138,754</TableCell>, <TableCell key={1}><CustomLink href={'#'} style={{ marginRight: '16px' }}>Etherscan</CustomLink><CustomLink href={'#'}>Gnosis</CustomLink></TableCell>],
-  [<TableCell key={1}>Incubation Program</TableCell>, <TableCell key={1}>134,468</TableCell>, <TableCell key={1}>132,897</TableCell>, <TableCell key={1}>1,571</TableCell>, <TableCell key={1}>138,754</TableCell>, <TableCell key={1}><CustomLink href={'#'} style={{ marginRight: '16px' }}>Etherscan</CustomLink><CustomLink href={'#'}>Gnosis</CustomLink></TableCell>],
-  [<TableCell key={1}>Grants Program</TableCell>, <TableCell key={1}>134,468</TableCell>, <TableCell key={1}>132,897</TableCell>, <TableCell key={1}>1,571</TableCell>, <TableCell key={1}>138,754</TableCell>, <TableCell key={1}><CustomLink href={'#'} style={{ marginRight: '16px' }}>Etherscan</CustomLink><CustomLink href={'#'}>Gnosis</CustomLink></TableCell>],
-];
+import { TransparencyActuals } from './transparency-actuals/transparency-actuals';
+import { TransparencyForecast } from './transparency-forecast/transparency-forecast';
+import { TransparencyMkrVesting } from './transparency-mkr-vesting/transparency-mkr-vesting';
+import { TransparencyTransferRequest } from './transparency-transfer-request/transparency-transfer-request';
+import { TransparencyAudit } from './transparency-audit/transparency-audit';
 
 export const TransparencyReport = () => {
   const [mainIndex, setMainIndex] = useState(0);
@@ -34,7 +20,12 @@ export const TransparencyReport = () => {
   const [thirdIndex, setThirdIndex] = useState(0);
 
   return <Container>
-    <Breadcrumbs items={[<>Core Units <b>(3)</b></>, 'SES - Sustainable Ecosystem Scaling ', 'Finances']}/>
+    <BreadcrumbWrapper>
+      <Breadcrumbs items={[<>Core Units <b>(3)</b></>, 'SES - Sustainable Ecosystem Scaling', 'Finances']}/>
+      <CustomPager
+        label={<BreadcrumbPagerLabel><b>1</b> of 3 Core Units </BreadcrumbPagerLabel>}
+      />
+    </BreadcrumbWrapper>
     <SummaryWrapper>
       <CoreUnitSummary
         title={'Core Unit 1'}
@@ -67,14 +58,14 @@ export const TransparencyReport = () => {
     </SummaryWrapper>
     <InnerPage>
       <Tabs
-        items={mainIndexItems}
+        items={['SES-Sustainable Ecosystem Scaling', 'Initiatives', 'Finances']}
         currentIndex={mainIndex}
         onChange={setMainIndex}
         style={{ marginBottom: '48px' }}
       />
 
       <Tabs
-        items={secondIndexItems}
+        items={['Overview', 'Transparency Reports', 'Onchain Setup', 'Budget Governance']}
         currentIndex={secondIndex}
         onChange={setSecondIndex}
         style={{
@@ -106,46 +97,18 @@ export const TransparencyReport = () => {
       </CustomLink>
 
       <Tabs
-        items={thirdIndexItems}
+        items={['Actuals', 'Forecast', 'MKR Vesting', 'Transfer Requests', 'Audit Reports']}
         currentIndex={thirdIndex}
         onChange={setThirdIndex}
         style={{
           margin: '32px 0',
         }}
       />
-
-      <Title style={{
-        marginBottom: '32px'
-      }}>
-        May 2022 Total
-      </Title>
-
-      <InnerTable
-        headers={['Budget', 'Forecast', 'Actuals', 'Difference', 'Payments', 'External Links']}
-        items={firstTableItems}
-        style={{ marginBottom: '62px' }}
-      />
-
-      <Title style={{
-        marginBottom: '32px'
-      }}>
-        May 2022 Breakdown
-      </Title>
-
-      <Tabs
-        items={['Permanent team', 'Incubation', 'Grants']}
-        currentIndex={thirdIndex}
-        onChange={setThirdIndex}
-        style={{
-          marginBottom: '32px',
-        }}
-      />
-
-      <InnerTable
-        headers={['Permanent', 'Forecast', 'Actuals', 'Difference', 'Payments', 'External Links']}
-        items={firstTableItems}
-        style={{ marginBottom: '62px' }}
-      />
+    {thirdIndex === 0 && <TransparencyActuals/>}
+    {thirdIndex === 1 && <TransparencyForecast/>}
+    {thirdIndex === 2 && <TransparencyMkrVesting/>}
+    {thirdIndex === 3 && <TransparencyTransferRequest/>}
+    {thirdIndex === 4 && <TransparencyAudit/>}
     </InnerPage>
   </Container>;
 };
@@ -166,7 +129,7 @@ const InnerPage = styled.div({
   textAlign: 'left',
 });
 
-const Title = styled.div({
+export const Title = styled.div({
   fontFamily: 'FT Base, sans-serif',
   fontWeight: 500,
   fontSize: '20px',
@@ -222,4 +185,25 @@ const SummaryWrapper = styled.div({
   flex: 1,
   width: '100%',
   marginBottom: '32px',
+});
+
+const BreadcrumbWrapper = styled.div({
+  display: 'flex',
+  justifyContent: 'space-between',
+  width: '100%',
+  paddingRight: '22px',
+});
+
+const BreadcrumbPagerLabel = styled.div({
+  fontFamily: 'FT Base, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 400,
+  fontSize: '16px',
+  lineHeight: '19px',
+  letterSpacing: '0.4px',
+  color: '#626472',
+  b: {
+    color: '#231536',
+    fontWeight: 700,
+  }
 });
