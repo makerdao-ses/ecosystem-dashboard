@@ -5,7 +5,6 @@ import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 import { CurrentCoreUnitAbout, initialState } from './cu-about-slice';
-// import { initialState as cuTableInitialState } from '../../../containers/cu-table/cu-table.stories.states';
 import { initialState as cuTableInitialState } from '../../containers/cu-table/cu-table.stories.states';
 
 export default {
