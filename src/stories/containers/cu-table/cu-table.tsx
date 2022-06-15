@@ -199,7 +199,7 @@ export const CuTable = () => {
       <Header>
         <Title>Core Units</Title>
         <CustomButton
-          label="Clear Filters"
+          label="Reset Filters"
           style={{
             marginRight: '16px',
             width: '114px',
