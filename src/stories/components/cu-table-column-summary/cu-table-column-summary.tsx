@@ -57,7 +57,6 @@ const Container = styled.div({
   boxSizing: 'border-box',
   padding: '13px',
   cursor: 'pointer',
-  minWidth: '300px'
 });
 
 const CircleContainer = styled.div({
@@ -77,6 +76,7 @@ const Code = styled.span({
   textTransform: 'uppercase',
   color: '#9FAFB9',
   marginRight: '5px',
+  whiteSpace: 'nowrap',
 });
 
 const TitleWrapper = styled.div({
@@ -87,10 +87,10 @@ const Title = styled.div(({
   fontFamily: 'FT Base, sans-serif',
   fontSize: '16px',
   alignItems: 'center',
-  maxWidth: '200px',
   fontWeight: 400,
   color: '#231536',
   lineHeight: '19px',
+  whiteSpace: 'nowrap',
 }));
 
 const Row = styled.div({
