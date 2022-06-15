@@ -23,9 +23,12 @@ export const CustomTable = ({ headersSort = [], headersStyles = [], ...props }: 
             {props.headers?.map((header, i) =>
               <TableCell
                 key={`header-${i}`}
-                style={headersStyles[i] ?? {}}
                 onClick={() => headersSort && headersSort[i] && headersSort[i] !== SortEnum.Disabled && props.sortFunction && props.sortFunction(i, headersSort[i])}>
-                <CustomTableHeader align={props.headersAlign && props.headersAlign[i]} state={headersSort[i]} title={header}/>
+                <CustomTableHeader
+                  style={headersStyles[i] ?? {}}
+                  align={props.headersAlign && props.headersAlign[i]}
+                  state={headersSort[i]}
+                  title={header}/>
               </TableCell>)}
           </TableHeadRow>
         </TableHead>

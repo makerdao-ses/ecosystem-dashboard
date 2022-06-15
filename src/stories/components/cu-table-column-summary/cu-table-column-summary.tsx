@@ -58,7 +58,6 @@ const Container = styled.div({
   boxSizing: 'border-box',
   padding: '13px',
   cursor: 'pointer',
-  minWidth: '300px'
 });
 
 const CircleContainer = styled.div({
@@ -88,7 +87,6 @@ const Title = styled.div(({
   fontFamily: 'FT Base, sans-serif',
   fontSize: '16px',
   alignItems: 'center',
-  maxWidth: '200px',
   fontWeight: 400,
   color: '#231536',
   lineHeight: '19px',
