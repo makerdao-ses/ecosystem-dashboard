@@ -25,7 +25,8 @@ export const CustomTableHeader = (props: CustomTableHeaderProps) => {
 const Container = styled.div<{align?: string}>((props) => ({
   display: 'flex',
   cursor: 'pointer',
-  justifyContent: props.align ?? 'flex-start'
+  justifyContent: props.align ?? 'flex-start',
+  whiteSpace: 'nowrap'
 }));
 
 const Arrows = styled.div({

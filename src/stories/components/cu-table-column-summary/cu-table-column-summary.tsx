@@ -77,6 +77,7 @@ const Code = styled.span(({
   textTransform: 'uppercase',
   color: '#9FAFB9',
   marginRight: '5px',
+  whiteSpace: 'nowrap',
 }));
 
 const TitleWrapper = styled.div({
@@ -90,6 +91,7 @@ const Title = styled.div(({
   fontWeight: 400,
   color: '#231536',
   lineHeight: '19px',
+  whiteSpace: 'nowrap',
 }));
 
 const Row = styled.div({
