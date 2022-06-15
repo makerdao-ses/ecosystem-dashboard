@@ -80,7 +80,8 @@ const TableHead = styled.thead({
     boxSizing: 'border-box',
     top: '-6px',
     zIndex: -1,
-    filter: 'drop-shadow(0px 20px 40px rgba(190, 190, 190, 0.25))',
+    filter: 'drop-shadow(0px 20px 40px rgba(190, 190, 190, .25))  drop-shadow(0px 1px 3px rgba(190, 190, 190, 0.25))',
+    boxShadow: 'inset .25px -.25px .25px .25px rgba(190, 190, 190, 0.25)',
   }
 });
 
@@ -97,7 +98,7 @@ const TableBody = styled.tbody({
   '> tr': {
     display: 'table-row',
     background: '#FFFFFF',
-    filter: 'drop-shadow(0px 20px 40px rgba(160, 160, 190, 0.25))',
+    filter: 'drop-shadow(0px 0px 40px rgba(219, 227, 237, 0.4)) drop-shadow(0px 1px 3px rgba(190, 190, 190, 0.25))',
   }
 });
 
