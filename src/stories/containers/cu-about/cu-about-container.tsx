@@ -9,7 +9,6 @@ import { useAppDispatch } from '../../../core/hooks/hooks';
 import { RootState } from '../../../core/store/store';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
 import BigButton from '../../components/button/big-button/big-button';
-import SmallButton from '../../components/button/small-button/small-button';
 import CardInfoMember from '../../components/card-info-member/card-info-member';
 import MdViewerContainer from '../../components/markdown/md-view-container';
 import InsidePagination from '../../components/pagination/InsidePagination';
@@ -22,6 +21,8 @@ import { ContributorCommitment } from './cu-about-contributor';
 import { contributorCommitmentSelector, cuAboutSelector, loadCoreUnitABout, status } from './cu-about-slice';
 import { CuMip } from './cu-about.api';
 import _ from 'lodash';
+import BreadCrumb from '../../components/pagination/bread-crumb';
+import NavigationCard from '../../components/card-navegation/card-navigation';
 
 const CuAboutContainer = () => {
   const [filters] = useSearchParams();
@@ -67,13 +68,6 @@ const CuAboutContainer = () => {
     [coreUnitCode, filteredData, filters, navigate],
   );
 
-  const handleGoBack = useCallback(
-    () => {
-      navigate(`/?${filters.toString()}`);
-    },
-    [filters, navigate],
-  );
-
   const onClickLessMips = () => {
     setShowThreeMIPs(!showThreeMIPs);
   };
@@ -85,6 +79,9 @@ const CuAboutContainer = () => {
     return resultArrayThreeElements;
   }, [cuAbout.cuMip, showThreeMIPs]);
 
+  const list = ['Overview', 'Transparency Reports', 'Onchain Setup', 'Budget Governance'];
+  const description = 'View all Finances of the (SES-01) Sustainable Ecosystem Scaling';
+
   if (statusCoreUnit === status.loading) {
     return <div>Loading...</div>;
   }
@@ -94,57 +91,89 @@ const CuAboutContainer = () => {
 
   return (
     <ContainerAbout>
-      <NavigationHeader>
-        <SmallButton onClick={handleGoBack} /> <PaddingComponent><InsidePagination count={filteredData.length} page={page} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} /></PaddingComponent>
-      </NavigationHeader>
-      <ContainerTitle>
-        <TitleNavigationCuAbout coreUnitAbout={cuAbout} />
-      </ContainerTitle>
-      <MarkdownContainer>
-        <MdViewerContainer sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)} paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)} paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)} />
-      </MarkdownContainer>
-      <TeamMemberContainer>
-        <TeamMemberTitle>Team Size</TeamMemberTitle><TeamMember fte={getFTEsFromCoreUnit(cuAbout)} />
-      </TeamMemberContainer>
-      <ContactInfoContainer>
-        <ContactInfoTitle>Contact Information</ContactInfoTitle>
-        <ContainerCards className='cards'>
-          {contributors.map((contributor: ContributorCommitment, index: number) => {
-            return (
-              <CardContainer key={index}>
-                <CardInfoMember contributorCommitment={contributor} />
-              </CardContainer>
-            );
-          })
-          }
-        </ContainerCards>
-        {contributors.length === 0 && <ContainerNoData>No data to Show</ContainerNoData>}
-      </ContactInfoContainer>
-      <Divider light sx={{
-        marginBottom: '32px',
-        marginTop: '32px',
-        color: '#D8E0E3',
-        marginLeft: '32px',
-        marginRight: '32px'
-      }} variant='fullWidth' />
-      <CardRelateMipsContainer>
-        <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
-        <RelateMipCards>
-          {relateMipsOrder.map((mip: CuMip, index: number) => {
-            return (
-              <RelateMipCard key={index}>
-                <RelateMips relateMips={mip} />
-              </RelateMipCard>
+      <div style={{
+        position: 'fixed',
+        top: 63,
+        width: '100%',
+        backgroundImage: 'url(/assets/img/Subheader.png)',
+        backgroundSize: 'cover',
+        zIndex: 4,
+      }}>
+        <NavigationHeader>
+          <BreadCrumb count={filteredData.length} breadcrumbs={[cuAbout.name] || []} isCoreUnit />
+          <InsidePagination count={filteredData.length} page={page} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} />
+        </NavigationHeader>
+        <ContainerTitle>
+          <TitleNavigationCuAbout coreUnitAbout={cuAbout} />
+          <Typography fontSize={16} lineHeight='19px' sx={{
+            marginTop: '16px'
+          }}>{cuAbout.sentenceDescription || ''}</Typography>
+        </ContainerTitle>
+      </div>
+      <ContainerAllData>
+        <div style={{
+          width: '60.39%',
+          display: 'flex',
+          flexDirection: 'column',
+          marginTop: 210,
+        }}>
+          <MarkdownContainer>
+            <MdViewerContainer sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)} paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)} paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)} />
+          </MarkdownContainer>
+          <TeamMemberContainer>
+            <TeamMemberTitle>Team Size</TeamMemberTitle><TeamMember fte={getFTEsFromCoreUnit(cuAbout)} />
+          </TeamMemberContainer>
+          <ContactInfoContainer>
+            <ContactInfoTitle>Contact Information</ContactInfoTitle>
+            <ContainerCards>
+              {contributors.map((contributor: ContributorCommitment, index: number) => {
+                return (
+                  <div key={index} style={{ marginBottom: '32px' }}>
+                    <CardInfoMember contributorCommitment={contributor} />
+                  </div>
+                );
+              })
+              }
+            </ContainerCards>
+            {contributors.length === 0 && <ContainerNoData>No data to Show</ContainerNoData>}
+          </ContactInfoContainer>
+          <Divider sx={{ marginTop: '32px' }} />
+          <CardRelateMipsContainer>
+            <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
+            <RelateMipCards>
+              {relateMipsOrder.map((mip: CuMip, index: number) => {
+                return (
+                  <RelateMipCard key={index}>
+                    <RelateMips relateMips={mip} />
+                  </RelateMipCard>
 
-            );
-          })}
-          {cuAbout.cuMip.length === 0 && <ContainerNoRelateMIps>There are not related MIPs</ContainerNoRelateMIps>}
-        </RelateMipCards>
-      </CardRelateMipsContainer>
-      {cuAbout.cuMip.length > 3 && <ButtonContainer>
-        <BigButton title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'} onClick={onClickLessMips} />
-      </ButtonContainer>}
-    </ContainerAbout>
+                );
+              })}
+              {cuAbout.cuMip.length === 0 && <ContainerNoRelateMIps>There are not related MIPs</ContainerNoRelateMIps>}
+            </RelateMipCards>
+          </CardRelateMipsContainer>
+          {cuAbout.cuMip.length > 3 && <ButtonContainer>
+            <DividerStyle /> <BigButton title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'} onClick={onClickLessMips} />
+            <DividerStyle />
+          </ButtonContainer>}
+        </div>
+        <div style={{
+          width: '39.61%',
+        }}>
+          <div style={{
+            position: 'fixed',
+            top: 300,
+          }}>
+            <ContainerCard>
+              <NavigationCard description={description} image='/assets/img/card-initiatives.png' list={list} titleLinkPage='View All' title='Initiatives' />
+            </ContainerCard>
+            <ContainerCard>
+              <NavigationCard description={description} image='/assets/img/card-finances.png' list={list} titleLinkPage='View All' title='Finances' />
+            </ContainerCard>
+          </div>
+        </div>
+      </ContainerAllData>
+    </ContainerAbout >
   );
 };
 
@@ -154,39 +183,46 @@ const ContainerAbout = styled.div({
   display: 'flex',
   flexDirection: 'column',
   marginTop: '64px',
-  backgroundColor: '#F9F9F9',
+  width: '100%',
+  background: 'url(/assets/img/bg-page.png)',
+  backgroundAttachment: 'fixed',
+  backgroundSize: 'cover',
+});
+
+const ContainerCard = styled.div({
+  marginBottom: '32px',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-end'
 });
 
 const NavigationHeader = styled.div({
   display: 'flex',
-  justifyContent: 'row',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
   alignItems: 'center',
-  backgroundColor: '#F5F5F5',
-  height: '48px',
+  height: '74px',
   paddingLeft: '32px',
-});
-
-const PaddingComponent = styled.div({
-  paddingLeft: '32px',
+  paddingRight: '32px',
 });
 
 const ContainerTitle = styled.div({
   display: 'flex',
-  marginLeft: '44px',
-  marginRight: '41px',
-  marginTop: '32px',
-  marginBottom: '24px',
+  flexDirection: 'column',
+  paddingLeft: '128px',
+  paddingRight: '128px',
+  paddingBottom: '24px',
+  height: '135px',
+  borderBottom: '1px solid #B6EDE7',
 });
 const MarkdownContainer = styled.div({
-  marginLeft: '32px',
-  marginRight: '32px',
+  marginTop: '32px',
 });
 const TeamMemberContainer = styled.div({
   display: 'flex',
   justifyContent: 'row',
   alignItems: 'center',
-  marginLeft: '32px',
-
+  marginTop: '32px',
 });
 
 const TeamMemberTitle = styled(Typography)({
@@ -202,8 +238,7 @@ const ContactInfoContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
   minHeight: '182px',
-  paddingLeft: '32px',
-  marginTop: '48px',
+  marginTop: '36px',
   marginBottom: '32px',
 });
 
@@ -213,29 +248,26 @@ const ContactInfoTitle = styled(Typography)({
   fontSize: '14px',
   lineHeight: '17px',
   color: '#000000',
+  marginBottom: '32px',
 });
 
 const ContainerCards = styled.div({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(3, 1fr)',
-  columnGap: '32px',
-  gridAutoRows: 'minmax(100px, auto)',
-  marginLeft: '32px',
-  marginRight: '32px',
-  marginTop: '32px',
-});
-
-const CardContainer = styled.div({
-  marginBottom: '24px',
-  marginTop: '24px',
+  display: 'flex',
+  flexDirection: 'row',
+  maxWidth: '715px',
+  justifyContent: 'space-between',
+  alignItems: 'flex-start',
+  flexWrap: 'wrap',
+  padding: '0px',
 });
 
 const CardRelateMipsContainer = styled.div({
-  marginLeft: '32px',
-  marginRight: '32px',
-  marginBottom: '33px',
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'center',
+  marginTop: '32px',
+  marginBottom: '64px',
+
 });
 
 const TitleRelateMips = styled.div({
@@ -243,13 +275,15 @@ const TitleRelateMips = styled.div({
   fontWeight: 700,
   fontSize: '16px',
   lineHeight: '19px',
-  marginBottom: '24px',
+  marginBottom: '32px',
   color: '#000000',
 });
 
 const RelateMipCards = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
   marginTop: '24px',
 
 });
@@ -262,7 +296,9 @@ const ButtonContainer = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
-  marginBottom: '26px',
+  alignItems: 'center',
+  marginBottom: '44px',
+  overflow: 'hidden',
 });
 
 const ContainerNoData = styled.div({
@@ -276,4 +312,18 @@ const ContainerNoRelateMIps = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
+});
+
+const ContainerAllData = styled.div({
+  maxWidth: '100%',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  marginRight: '128px',
+  marginLeft: '128px',
+});
+
+const DividerStyle = styled(Divider)({
+  width: '100%',
+  bgcolor: '#D4D9E1',
 });

@@ -16,6 +16,7 @@ Default.args = {
   coreUnitAbout: {
     id: '1',
     code: 'SES-001',
+    image: 'https://api.gateway.ethswarm.org/bzz/efb3bbb702ecec395c08db27647158dc42928edc52e7a4f43dd0f444a24aa01d/',
     category: [],
     name: 'Sustainable Ecosystem Scaling',
     sentenceDescription: '',
@@ -49,7 +50,7 @@ DataWith.args = {
   coreUnitAbout: {
     id: '1',
     code: 'SES-001',
-    category: [],
+    category: ['Technical', 'Support', 'Operational'],
     name: 'Sustainable Ecosystem Scaling',
     sentenceDescription: '',
     paragraphDescription: '',

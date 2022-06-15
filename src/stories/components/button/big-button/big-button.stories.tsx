@@ -11,7 +11,7 @@ const Template: ComponentStory<typeof BigButton> = (args) => <BigButton {...args
 
 export const Default = Template.bind({});
 Default.args = {
-  title: 'Back',
+  title: 'See more related MIPs',
 };
 
 export const AllData = Template.bind({});

@@ -16,8 +16,8 @@ const InsidePagination = ({ page, count, onClickLeft, onClickRight }: Props) => 
   return (
     <Container>
       <PaginationLabel>
-        <Typography color='#000000' fontSize={12}>{`${page}`}</Typography>
-        <Typography color='#C4C4B' fontSize={12}>{` of ${count} Core Units`} </Typography>
+        <StyleActualCoreUnit >{`${page}`}</StyleActualCoreUnit>
+        <StyleTextCoreUnit>{` of ${count} Core Units`} </StyleTextCoreUnit>
       </PaginationLabel>
       <Arrows>
         <ArrowLeft onClick={onClickLeft} /><ArrowRight onClick={onClickRight} />
@@ -39,7 +39,6 @@ const PaginationLabel = styled.div({
   display: 'flex',
   flexDirection: 'row',
   flex: 1,
-  backgroundColor: '#C4C4C4',
   borderRadius: '8px',
   padding: '4px 8px',
   alignItems: 'center',
@@ -50,6 +49,26 @@ const Arrows = styled.div({
   flexDirection: 'row',
   justifyContent: 'start',
   marginLeft: '8px',
+});
+
+const StyleActualCoreUnit = styled(Typography)({
+  fontFamily: 'FT Base, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 700,
+  fontSize: '16px',
+  lineHeight: '19px',
+  letterSpacing: '0.4px',
+  color: '#231536',
+});
+
+const StyleTextCoreUnit = styled(Typography)({
+  fontFamily: 'FT Base, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 400,
+  fontSize: '16px',
+  lineHeight: '19px',
+  letterSpacing: '0.4px',
+  color: '#626472',
 });
 
 export default InsidePagination;

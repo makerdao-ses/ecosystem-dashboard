@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { CuJobEnum } from '../../../core/enums/cu-job.enum';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { RootState } from '../../../core/store/store';
 import {
@@ -61,7 +62,8 @@ export const initialState: CurrentCoreUnitAbout = {
     contributorCommitment: [
       {
         id: '',
-        jobTitle: '',
+        jobTitle: '' as CuJobEnum,
+        startDate: '',
         commitment: Commitment.Inactive,
         contributor: [
           {
