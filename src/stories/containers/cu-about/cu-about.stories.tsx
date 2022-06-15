@@ -6,10 +6,14 @@ import { Provider } from 'react-redux';
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 import { CurrentCoreUnitAbout, initialState } from './cu-about-slice';
 import { initialState as cuTableInitialState } from '../../containers/cu-table/cu-table.stories.states';
+import { HeaderWrapper } from '../dashboard-wrapper/header-wrapper';
 
 export default {
   title: 'Containers/CuAboutContainer',
   component: CuAboutContainer,
+  parameters: {
+    layout: 'fullscreen',
+  }
 } as ComponentMeta<typeof CuAboutContainer>;
 const Template: ComponentStory<typeof CuAboutContainer> = () => <CuAboutContainer />;
 export const CuAboutPage = Template.bind({});
@@ -43,6 +47,6 @@ const Mockstore = ({ children }) => (
 CuAboutPage.decorators = [
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  (story) => <MemoryRouter><Mockstore cuAbout={MockedState}>{story()}</Mockstore></MemoryRouter>
+  (story) => <MemoryRouter><HeaderWrapper><Mockstore cuAbout={MockedState}>{story()}</Mockstore></HeaderWrapper></MemoryRouter>
 ];
 CuAboutPage.args = {};

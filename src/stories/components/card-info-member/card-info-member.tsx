@@ -60,7 +60,7 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
             title={<Typography fontSize={20} color='#231536' lineHeight='24px' fontWeight={500}>{contributor.name}</Typography>}
             subheader={<Typography fontSize={14} sx={{
               marginTop: '8px',
-            }}>{contributor.forumHandle}</Typography>}
+            }}>{contributor.email}</Typography>}
           />
           <Typography sx={{
             marginTop: '24px',
