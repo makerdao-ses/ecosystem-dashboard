@@ -39,7 +39,6 @@ Default.args = {
   ],
   links: [
     {
-      title: 'Voting Portal',
       logo: <Logo />,
       background: '#231635',
       fontSize: 16,
@@ -47,6 +46,8 @@ Default.args = {
       link: 'https://vote.makerdao.com/',
       marginTop: '32px',
       marginBottom: '32px',
+      subtract: <Makerdao />,
+      id: 'Voting Portal',
     },
     {
       title: 'Forum',
@@ -56,6 +57,7 @@ Default.args = {
       color: '#1AAB9B',
       link: 'https://forum.makerdao.com/',
       marginBottom: '32px',
+      id: 'Forum',
     },
   ]
 };

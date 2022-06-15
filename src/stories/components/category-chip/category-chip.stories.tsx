@@ -12,5 +12,5 @@ const Template: ComponentStory<typeof CategoryChip> = (args) => <CategoryChip {.
 
 export const Default = Template.bind({});
 Default.args = {
-  category: CuCategoryEnum.Finances
+  category: CuCategoryEnum.Finance
 };

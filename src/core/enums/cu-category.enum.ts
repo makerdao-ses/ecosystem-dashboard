@@ -5,5 +5,5 @@ export enum CuCategoryEnum {
   Business = 'Business',
   RWAs = 'RWAs',
   Growth = 'Growth',
-  Finances = 'Finances'
+  Finance = 'Finance'
 }

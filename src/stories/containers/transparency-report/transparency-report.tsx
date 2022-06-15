@@ -35,7 +35,7 @@ export const TransparencyReport = () => {
           CuCategoryEnum.Business,
           CuCategoryEnum.Growth,
           CuCategoryEnum.Operational,
-          CuCategoryEnum.Finances
+          CuCategoryEnum.Finance,
         ]}
         status={CuStatusEnum.Accepted}
         links={[
