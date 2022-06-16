@@ -15,7 +15,7 @@ const Container = styled.div<{ negative?: boolean }>(({ negative = false }) => (
   fontFamily: 'FT Base, sans-serif',
   fontWeight: 400,
   fontSize: 16,
-  padding: '24px 16px',
+  padding: '16px',
   color: negative ? '#F75524' : '#25273D',
   '> b': {
     fontWeight: 700

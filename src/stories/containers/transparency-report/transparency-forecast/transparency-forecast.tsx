@@ -20,7 +20,7 @@ const secondTableItems = [
   [<TableCell key={1}>Contractor Fees</TableCell>, <TableCell key={2}>109,669</TableCell>, <TableCell key={3}>109,669</TableCell>, <TableCell key={4}>109,669</TableCell>, <TableCell key={5}>Lower exchange rate costs.</TableCell>, <TableCell key={6}>109,669</TableCell>],
   [<TableCell key={1}><b>Non-Headcount Expenses Subtotal</b></TableCell>, '', '', '', '', ''],
   [<TableCell key={1}>Contingency Buffer</TableCell>, <TableCell key={2}>0</TableCell>, <TableCell key={3}>0</TableCell>, <TableCell key={4}>0</TableCell>, '', <TableCell key={6}>0</TableCell>],
-  [<TableTotalCell key={1}>Total</TableTotalCell>, <TableTotalCell key={2}>134,468</TableTotalCell>, <TableTotalCell key={3}>134,468</TableTotalCell>, <TableTotalCell key={4}>134,468</TableTotalCell>, '', <TableTotalCell key={5}>134,468</TableTotalCell>]
+  [<TableCell key={1}><b>Total</b></TableCell>, <TableCell key={2}><b>134,468</b></TableCell>, <TableCell key={3}><b>134,468</b></TableCell>, <TableCell key={4}><b>134,468</b></TableCell>, '', <TableCell key={5}><b>134,468</b></TableCell>]
 ];
 
 const thirdTableItems = [
@@ -68,7 +68,6 @@ export const TransparencyForecast = () => {
         items={secondTableItems}
         style={{ marginBottom: '62px' }}
         headersAlign={['left', 'right', 'right', 'right', 'left', 'right']}
-        rowStyles={[{ background: '#F6F8F9' }, {}, { background: '#F6F8F9' }, {}, { background: '#434358' }]}
     />}
 
     {thirdIndex === 1 && <InnerTable
