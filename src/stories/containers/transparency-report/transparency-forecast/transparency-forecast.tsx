@@ -6,7 +6,6 @@ import styled from '@emotion/styled';
 import { WalletTableCell } from '../../../components/wallet-table-cell/wallet-table-cell';
 import { TableCell } from '../../../components/table-cell/table-cell';
 import { CustomLink } from '../../../components/custom-link/custom-link';
-import { TableTotalCell } from '../../../components/table-total-cell/table-total-cell';
 
 const firstTableItems = [
   [<WalletTableCell key={1} name={'Permanent Team'} wallet={'0x232b…8482'} walletUrl={'#'}/>, <TableCell key={1}>134,468</TableCell>, <TableCell key={1}>132,897</TableCell>, <TableCell key={1}>1,571</TableCell>, <TableCell key={1}>138,754</TableCell>, <TableCell key={1}><CustomLink href={'#'} style={{ marginRight: '16px' }}>Etherscan</CustomLink><CustomLink href={'#'}>Gnosis</CustomLink></TableCell>],
