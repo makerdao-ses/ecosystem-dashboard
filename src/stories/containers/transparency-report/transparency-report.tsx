@@ -15,7 +15,6 @@ import { TransparencyTransferRequest } from './transparency-transfer-request/tra
 import { TransparencyAudit } from './transparency-audit/transparency-audit';
 
 export const TransparencyReport = () => {
-  const [mainIndex, setMainIndex] = useState(0);
   const [secondIndex, setSecondIndex] = useState(1);
   const [thirdIndex, setThirdIndex] = useState(0);
 
@@ -57,13 +56,6 @@ export const TransparencyReport = () => {
       />
     </SummaryWrapper>
     <InnerPage>
-      <Tabs
-        items={['SES-Sustainable Ecosystem Scaling', 'Initiatives', 'Finances']}
-        currentIndex={mainIndex}
-        onChange={setMainIndex}
-        style={{ marginBottom: '48px' }}
-      />
-
       <Tabs
         items={['Overview', 'Transparency Reports', 'Onchain Setup', 'Budget Governance']}
         currentIndex={secondIndex}
@@ -119,6 +111,9 @@ const Container = styled.div({
   alignItems: 'center',
   marginTop: '64px',
   flex: 1,
+  background: 'url(/assets/img/bg-page.png)',
+  backgroundAttachment: 'fixed',
+  backgroundSize: 'cover',
 });
 
 const InnerPage = styled.div({

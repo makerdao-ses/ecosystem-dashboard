@@ -35,6 +35,7 @@ export const WalletTableCell = (props: WalletTableCellProps) => {
 const Container = styled.div({
   display: 'flex',
   alignItems: 'center',
+  height: '72px',
 });
 
 const Data = styled.div({});
