@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react';
 import { Popover, Theme } from '@mui/material';
-import './custom-popover.scss';
+import './custom-popover.module.scss';
 import styled from '@emotion/styled';
 
 interface CustomPopoverProps {
@@ -33,24 +33,24 @@ export const CustomPopover = (props: CustomPopoverProps) => {
       {props.children}
     </div>
     <Popover
-    id={props.id}
-    sx={{
-      pointerEvents: 'none',
-    }}
-    open={open}
-    anchorEl={anchorEl}
-    anchorOrigin={{
-      vertical: 'bottom',
-      horizontal: 'center',
-    }}
-    transformOrigin={{
-      vertical: 'top',
-      horizontal: 'left',
-    }}
-    onClose={handlePopoverClose}
-    disableRestoreFocus
-  >
-    <Container>{props.title}</Container>
+      id={props.id}
+      sx={{
+        pointerEvents: 'none',
+      }}
+      open={open}
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'center',
+      }}
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'left',
+      }}
+      onClose={handlePopoverClose}
+      disableRestoreFocus
+    >
+      <Container>{props.title}</Container>
     </Popover>
   </React.Fragment>;
 };
