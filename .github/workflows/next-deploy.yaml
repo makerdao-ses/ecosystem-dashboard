@@ -42,5 +42,6 @@ jobs:
           PASSWORD: ${{ secrets.SSH_PASS }}
           script: |
             cd /var/www/next/app
+            yarn
             yarn build
             pm2 start "yarn start" --name next-js

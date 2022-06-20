@@ -26,7 +26,6 @@ jobs:
           PASSWORD: ${{ secrets.SSH_PASS }}
           script: |
             rm -rf /var/www/next/storybook-static/
-            mkdir /var/www/next
       - name: Copy file via scp
         uses: appleboy/scp-action@master
         env:
