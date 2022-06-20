@@ -1,4 +1,4 @@
-name: Deploy to Staging
+name: Deploy Next-JS
 on:
   push:
     branches: [ SES-62-migrate-project-to-next-js ]
@@ -40,6 +40,7 @@ jobs:
           PORT: ${{ secrets.SSH_PORT }}
           PASSWORD: ${{ secrets.SSH_PASS }}
           script: |
+            npm install -g yarn
             cd /var/www/next/app
             yarn
             yarn build
