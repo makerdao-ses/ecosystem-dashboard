@@ -12,6 +12,11 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v1
+      - name: Install project
+        run: |
+          npm install -g yarn
+          yarn
+          yarn build
       - name: Executing remote command
         uses: appleboy/ssh-action@master
         with:
@@ -40,8 +45,4 @@ jobs:
           PORT: ${{ secrets.SSH_PORT }}
           PASSWORD: ${{ secrets.SSH_PASS }}
           script: |
-            npm install -g yarn
-            cd /var/www/next/app
-            yarn
-            yarn build
             pm2 start yarn --name "next-js" -- start
