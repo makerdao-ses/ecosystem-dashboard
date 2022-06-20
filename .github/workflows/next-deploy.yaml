@@ -45,5 +45,4 @@ jobs:
           PORT: ${{ secrets.SSH_PORT }}
           PASSWORD: ${{ secrets.SSH_PASS }}
           script: |
-            cd /var/www/next/app
             pm2 start next-js
