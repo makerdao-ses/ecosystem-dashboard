@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Box, CardActionArea, CardActions, IconButton, Theme } from '@mui/material';
+import { Box, CardActionArea, CardActions, IconButton } from '@mui/material';
 import styled from '@emotion/styled';
 import ArrowRight from '../svg/ArrowRight';
 interface Props {
@@ -86,8 +86,8 @@ const FiCardActions = styled(CardActions)({
   position: 'relative'
 });
 
-const ListItemStyle = styled.li(({ theme }) => ({
-  fontFamily: (theme as Theme).typography.fontFamily,
+const ListItemStyle = styled.li({
+  fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '20px',
@@ -99,7 +99,7 @@ const ListItemStyle = styled.li(({ theme }) => ({
   '&:last-child': {
     marginBottom: '24px',
   }
-}));
+});
 
 const UnorderedList = styled.ul({
   marginTop: '0px',

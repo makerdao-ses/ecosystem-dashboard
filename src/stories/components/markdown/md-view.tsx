@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { Theme, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import Markdown from 'marked-react';
 import { customRenderer } from './renderUtils';
 
@@ -70,10 +70,10 @@ const ViewerContainer = styled.div({
   boxSizing: 'border-box',
 });
 
-const TypographyStyleDescription = styled(Typography)(({ theme }) => ({
-  fontFamily: (theme as Theme).typography.fontFamily,
+const TypographyStyleDescription = styled(Typography)({
+  fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
   fontSize: '16px',
   lineHeight: '19px'
-}));
+});

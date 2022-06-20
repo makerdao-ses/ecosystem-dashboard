@@ -4,7 +4,6 @@ import { SelectChevronDown } from '../svg/select-chevron-down';
 import { Checkbox, ListItemText, MenuItem } from '@mui/material';
 import CheckBoxOutlined from '@mui/icons-material/CheckBoxOutlined';
 import CheckBoxOutlineBlankOutlined from '@mui/icons-material/CheckBoxOutlineBlankOutlined';
-import './custom-multi-select.scss';
 import useOutsideClick from '../../../core/utils/use-outside-click';
 
 interface CustomMultiSelectProps {
