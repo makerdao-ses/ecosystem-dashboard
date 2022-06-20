@@ -1,7 +1,7 @@
 name: Deploy storybook
 on:
   push:
-    branches: [ SES-62-migrate-project-to-next-js ]
+    branches: [ master ]
 jobs:
   deploy:
     runs-on: ubuntu-latest
