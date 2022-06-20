@@ -1,0 +1,38 @@
+name: Deploy storybook
+on:
+  push:
+    branches: [ SES-62-proper-migration ]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [v16.x]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v1
+      - name: Install project
+        run: |
+          npm install -g yarn
+          yarn
+          yarn build-storybook
+      - name: Executing remote command
+        uses: appleboy/ssh-action@master
+        with:
+          HOST: ${{ secrets.SSH_HOST }}
+          USERNAME: ${{ secrets.SSH_USER }}
+          PORT: ${{ secrets.SSH_PORT }}
+          PASSWORD: ${{ secrets.SSH_PASS }}
+          script: |
+            rm -rf /var/www/next/storybook-static/
+      - name: Copy file via scp
+        uses: appleboy/scp-action@master
+        env:
+          HOST: ${{ secrets.SSH_HOST }}
+          USERNAME: ${{ secrets.SSH_USER }}
+          PORT: ${{ secrets.SSH_PORT }}
+          PASSWORD: ${{ secrets.SSH_PASS }}
+        with:
+          source: "./storybook-static/"
+          target: "/var/www/next/"
