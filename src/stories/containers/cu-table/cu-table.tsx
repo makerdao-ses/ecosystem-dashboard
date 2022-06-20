@@ -46,7 +46,7 @@ const statuses = Object.values(CuStatusEnum) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];
 const headers = ['Core Units', 'Initiatives', 'Expenditure', 'Team Members', 'Links'];
 const sortInitialState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled];
-const headerStyles: CSSProperties[] = [{ paddingLeft: '80px' }, { paddingLeft: '20px' }, { marginLeft: '-35px' }, {}, {}];
+const headerStyles: CSSProperties[] = [{ paddingLeft: '80px' }, { paddingLeft: '40px' }, { marginLeft: '-40px' }, {}, {}];
 
 export const CuTable = () => {
   const [filters] = useSearchParams();
