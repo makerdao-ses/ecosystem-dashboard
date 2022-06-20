@@ -20,7 +20,6 @@ jobs:
           PORT: ${{ secrets.SSH_PORT }}
           PASSWORD: ${{ secrets.SSH_PASS }}
           script: |
-            pm2 stop next-js
             pm2 delete next-js
             rm -rf /var/www/next/app
       - name: Copy file via scp
@@ -44,4 +43,4 @@ jobs:
             cd /var/www/next/app
             yarn
             yarn build
-            pm2 start "yarn start" --name next-js
+            pm2 start yarn --name "next-js" -- start
