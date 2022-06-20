@@ -160,17 +160,14 @@ const CuAboutContainer = () => {
         <div style={{
           width: '39.61%',
         }}>
-          <div style={{
-            position: 'fixed',
-            top: 300,
-          }}>
+          <ContainerScroll>
             <ContainerCard>
               <NavigationCard description={description} image='/assets/img/card-initiatives.png' list={list} titleLinkPage='View All' title='Initiatives' />
             </ContainerCard>
             <ContainerCard>
               <NavigationCard description={description} image='/assets/img/card-finances.png' list={list} titleLinkPage='View All' title='Finances' />
             </ContainerCard>
-          </div>
+          </ContainerScroll>
         </div>
       </ContainerAllData>
     </ContainerAbout >
@@ -326,4 +323,15 @@ const ContainerAllData = styled.div({
 const DividerStyle = styled(Divider)({
   width: '100%',
   bgcolor: '#D4D9E1',
+});
+
+const ContainerScroll = styled.div({
+  position: 'fixed',
+  top: 290,
+  height: '560px',
+  '&:: -webkit-scrollbar': {
+    width: '0px',
+    background: 'transparent',
+  },
+  overflowY: 'auto',
 });
