@@ -24,6 +24,6 @@ yarn-debug.log*
 yarn-error.log*
 
 storybook-static
-
+.next
 # ides
 .idea
