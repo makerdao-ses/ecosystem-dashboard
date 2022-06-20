@@ -19,7 +19,7 @@ jobs:
       - name: Validate
         run: |
           yarn run eslint src/**/*{.ts,.tsx}
-          yarn test 
-          yarn build --prod
+          yarn jest 
+          yarn build
         env:
           CI: true
