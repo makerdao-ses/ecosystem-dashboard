@@ -1,6 +1,5 @@
 import React, { CSSProperties } from 'react';
 import { Popover } from '@mui/material';
-import './custom-popover.scss';
 import styled from '@emotion/styled';
 
 interface CustomPopoverProps {
