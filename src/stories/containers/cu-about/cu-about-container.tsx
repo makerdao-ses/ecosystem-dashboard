@@ -23,12 +23,14 @@ import { CuMip } from './cu-about.api';
 import _ from 'lodash';
 import BreadCrumb from '../../components/pagination/bread-crumb';
 import NavigationCard from '../../components/card-navegation/card-navigation';
+import { useRouter } from 'next/router';
+import { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next';
 
 const CuAboutContainer = () => {
-  const [filters] = useSearchParams();
+  // const [filters] = useSearchParams();
+  const router = useRouter();
   const [showThreeMIPs, setShowThreeMIPs] = useState<boolean>(true);
   const data: Array<CoreUnitDao> = useSelector((state: RootState) => selectCuTableItems(state));
-  const navigate = useNavigate();
   const { code: coreUnitCode } = useParams();
   const dispatch = useAppDispatch();
   const { cuAbout, statusCoreUnit } = useSelector((state: RootState) => cuAboutSelector(state));
@@ -39,13 +41,13 @@ const CuAboutContainer = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(loadCoreUnitABout(coreUnitCode || ''));
+    // dispatch(loadCoreUnitABout(coreUnitCode || ''));
     setShowThreeMIPs(true);
   }, [dispatch, coreUnitCode]);
 
-  const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', filters), [filters]);
-  const filteredCategories = useMemo(() => getArrayParam('filteredCategories', filters), [filters]);
-  const searchText = useMemo(() => getStringParam('searchText', filters), [filters]);
+  const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
+  const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
+  const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
 
   const filteredData = useMemo(() =>
     filterData({
@@ -62,10 +64,10 @@ const CuAboutContainer = () => {
       const index = filteredData.findIndex(item => item.code === coreUnitCode);
       const newIndex = index + direct;
       if (newIndex >= 0 && newIndex < filteredData.length) {
-        navigate(`/about/${filteredData[newIndex].code}?${filters.toString()}`);
+        router.push(`/about/${filteredData[newIndex].code}?${router.query}`);
       }
     },
-    [coreUnitCode, filteredData, filters, navigate],
+    [coreUnitCode, filteredData, router],
   );
 
   const onClickLessMips = () => {
@@ -126,7 +128,7 @@ const CuAboutContainer = () => {
           <ContactInfoContainer>
             <ContactInfoTitle>Contact Information</ContactInfoTitle>
             <ContainerCards>
-              {contributors.map((contributor: ContributorCommitment, index: number) => {
+              {contributors && contributors.map((contributor: ContributorCommitment, index: number) => {
                 return (
                   <div key={index} style={{ marginBottom: '32px' }}>
                     <CardInfoMember contributorCommitment={contributor} />
@@ -135,7 +137,7 @@ const CuAboutContainer = () => {
               })
               }
             </ContainerCards>
-            {contributors.length === 0 && <ContainerNoData>No data to Show</ContainerNoData>}
+            {contributors && contributors.length === 0 && <ContainerNoData>No data to Show</ContainerNoData>}
           </ContactInfoContainer>
           <Divider sx={{ marginTop: '32px' }} />
           <CardRelateMipsContainer>
@@ -149,10 +151,10 @@ const CuAboutContainer = () => {
 
                 );
               })}
-              {cuAbout.cuMip.length === 0 && <ContainerNoRelateMIps>There are not related MIPs</ContainerNoRelateMIps>}
+              {cuAbout && cuAbout.cuMip && cuAbout.cuMip.length === 0 && <ContainerNoRelateMIps>There are not related MIPs</ContainerNoRelateMIps>}
             </RelateMipCards>
           </CardRelateMipsContainer>
-          {cuAbout.cuMip.length > 3 && <ButtonContainer>
+          {cuAbout && cuAbout.cuMip && cuAbout.cuMip.length > 3 && <ButtonContainer>
             <DividerStyle /> <BigButton title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'} onClick={onClickLessMips} />
             <DividerStyle />
           </ButtonContainer>}
