@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint-fix": "yarn run eslint --fix stories/**/*{.ts,.tsx}",
+    "lint-fix": "yarn run eslint --fix src/**/*{.ts,.tsx}",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
