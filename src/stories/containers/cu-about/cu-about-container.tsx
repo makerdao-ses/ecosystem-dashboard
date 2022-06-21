@@ -61,7 +61,7 @@ const CuAboutContainer = () => {
       const index = filteredData.findIndex(item => item.code === code);
       const newIndex = index + direct;
       if (newIndex >= 0 && newIndex < filteredData.length) {
-        router.push(`/about/${filteredData[newIndex].code}?${router.query}`);
+        router.push(`/about/${filteredData[newIndex].code}?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
       }
     },
     [code, filteredData, router],
