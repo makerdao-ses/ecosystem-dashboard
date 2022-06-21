@@ -156,7 +156,7 @@ export const cuAboutSlice = createSlice({
   initialState,
   reducers: {
     clearCoreUNit: (state) => {
-      state.cuAbout = {} as CuAbout;
+      state.cuAbout = initialState.cuAbout as CuAbout;
       state.statusCoreUnit = status.idle;
     },
   },
@@ -172,7 +172,7 @@ export const cuAboutSlice = createSlice({
   },
 });
 
-export const cuAboutSelector = (state: RootState) => state.cuAbout;
+export const cuAboutSelector = (state: RootState) => state.cuAbout || initialState.cuAbout;
 export const contributorCommitmentSelector = (state: RootState) => {
   return cuAboutSelector(state).cuAbout.contributorCommitment;
 };

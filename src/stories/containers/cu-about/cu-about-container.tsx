@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { Divider, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { getMarkdownInformation, getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-unit-about';
 import { getFTEsFromCoreUnit } from '../../../core/business-logic/core-units';
 import { useAppDispatch } from '../../../core/hooks/hooks';
@@ -23,29 +22,29 @@ import { CuMip } from './cu-about.api';
 import _ from 'lodash';
 import BreadCrumb from '../../components/pagination/bread-crumb';
 import NavigationCard from '../../components/card-navegation/card-navigation';
+import { useRouter } from 'next/router';
 
 const CuAboutContainer = () => {
-  const [filters] = useSearchParams();
+  const router = useRouter();
+  const query = router.query;
+  const code = query.code as string;
   const [showThreeMIPs, setShowThreeMIPs] = useState<boolean>(true);
   const data: Array<CoreUnitDao> = useSelector((state: RootState) => selectCuTableItems(state));
-  const navigate = useNavigate();
-  const { code: coreUnitCode } = useParams();
   const dispatch = useAppDispatch();
   const { cuAbout, statusCoreUnit } = useSelector((state: RootState) => cuAboutSelector(state));
   const contributors = useSelector((state: RootState) => contributorCommitmentSelector(state));
-
   useEffect(() => {
     dispatch(loadCuTableItemsAsync());
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(loadCoreUnitABout(coreUnitCode || ''));
+    dispatch(loadCoreUnitABout(code || ''));
     setShowThreeMIPs(true);
-  }, [dispatch, coreUnitCode]);
+  }, [dispatch, code]);
 
-  const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', filters), [filters]);
-  const filteredCategories = useMemo(() => getArrayParam('filteredCategories', filters), [filters]);
-  const searchText = useMemo(() => getStringParam('searchText', filters), [filters]);
+  const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
+  const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
+  const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
 
   const filteredData = useMemo(() =>
     filterData({
@@ -55,17 +54,17 @@ const CuAboutContainer = () => {
       searchText
     }), [data, filteredCategories, filteredStatuses, searchText]);
 
-  const page = useMemo(() => filteredData.findIndex(item => item.code === coreUnitCode) + 1, [coreUnitCode, filteredData]);
+  const page = useMemo(() => filteredData.findIndex(item => item.code === code) + 1, [code, filteredData]);
 
   const changeCoreUnitCode = useCallback(
     (direct: -1 | 1) => () => {
-      const index = filteredData.findIndex(item => item.code === coreUnitCode);
+      const index = filteredData.findIndex(item => item.code === code);
       const newIndex = index + direct;
       if (newIndex >= 0 && newIndex < filteredData.length) {
-        navigate(`/about/${filteredData[newIndex].code}?${filters.toString()}`);
+        router.push(`/about/${filteredData[newIndex].code}?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
       }
     },
-    [coreUnitCode, filteredData, filters, navigate],
+    [code, filteredData, router],
   );
 
   const onClickLessMips = () => {
@@ -126,7 +125,7 @@ const CuAboutContainer = () => {
           <ContactInfoContainer>
             <ContactInfoTitle>Contact Information</ContactInfoTitle>
             <ContainerCards>
-              {contributors.map((contributor: ContributorCommitment, index: number) => {
+              {contributors && contributors.map((contributor: ContributorCommitment, index: number) => {
                 return (
                   <div key={index} style={{ marginBottom: '32px' }}>
                     <CardInfoMember contributorCommitment={contributor} />
@@ -135,7 +134,7 @@ const CuAboutContainer = () => {
               })
               }
             </ContainerCards>
-            {contributors.length === 0 && <ContainerNoData>No data to Show</ContainerNoData>}
+            {contributors && contributors.length === 0 && <ContainerNoData>No data to Show</ContainerNoData>}
           </ContactInfoContainer>
           <Divider sx={{ marginTop: '32px' }} />
           <CardRelateMipsContainer>
@@ -149,10 +148,10 @@ const CuAboutContainer = () => {
 
                 );
               })}
-              {cuAbout.cuMip.length === 0 && <ContainerNoRelateMIps>There are not related MIPs</ContainerNoRelateMIps>}
+              {cuAbout && cuAbout.cuMip && cuAbout.cuMip.length === 0 && <ContainerNoRelateMIps>There are not related MIPs</ContainerNoRelateMIps>}
             </RelateMipCards>
           </CardRelateMipsContainer>
-          {cuAbout.cuMip.length > 3 && <ButtonContainer>
+          {cuAbout && cuAbout.cuMip && cuAbout.cuMip.length > 3 && <ButtonContainer>
             <DividerStyle /> <BigButton title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'} onClick={onClickLessMips} />
             <DividerStyle />
           </ButtonContainer>}

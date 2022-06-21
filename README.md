@@ -1,6 +1,6 @@
 # Makerdao SES Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 ### After bootstrapping it was also added:
 - Storybook
 - ESLint
@@ -11,7 +11,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Getting started
 
 ### To run in development mode use:
-### `yarn start`
+### `yarn dev`
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 

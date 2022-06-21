@@ -1,6 +1,5 @@
 import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
-import { Theme } from '@mui/material';
 import { LinkIcon } from '../svg/link-icon';
 
 interface CustomLinkProps {
@@ -24,12 +23,12 @@ export const CustomLink = ({ target = '_blank', iconWidth = 6, iconHeight = 6, f
     fontWeight={fontWeight}
     onClick={(evt) => evt.stopPropagation()}>
     {props.children}
-    {withArrow && <LinkIcon width={iconWidth} height={iconHeight} style={{ marginLeft: '5px' }}/>}
+    {withArrow && <LinkIcon width={iconWidth} height={iconHeight} style={{ marginLeft: '5px' }} />}
   </Container>;
 };
 
-const Container = styled.a<{ fontSize: number, fontWeight: number }>(({ theme, fontSize, fontWeight }) => ({
-  fontFamily: (theme as Theme).typography.fontFamily,
+const Container = styled.a<{ fontSize: number, fontWeight: number }>(({ fontSize, fontWeight }) => ({
+  fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight,
   fontSize: `${fontSize}px`,

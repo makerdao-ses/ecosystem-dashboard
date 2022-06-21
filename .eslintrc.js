@@ -4,7 +4,6 @@ module.exports = {
     es2021: true
   },
   extends: [
-    'plugin:react/recommended',
     'standard',
     'plugin:@typescript-eslint/recommended',
     'plugin:storybook/recommended',
@@ -22,6 +21,6 @@ module.exports = {
     semi: ['error', 'always'],
     'space-before-function-paren': ['error', 'never'],
     'comma-dangle': ['error', 'only-multiline'],
-    'object-property-newline': ['error', { allowAllPropertiesOnSameLine: false }]
+    'object-property-newline': ['error', { allowAllPropertiesOnSameLine: false }],
   }
 };

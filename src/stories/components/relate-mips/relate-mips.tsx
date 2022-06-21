@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Typography, Theme } from '@mui/material';
+import { Typography } from '@mui/material';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
@@ -88,8 +88,9 @@ const RowUnderLine = styled.div({
   alignSelf: 'stretch',
   width: '640px',
 });
-const SinceDate = styled.a(({ theme }) => ({
-  fontFamily: (theme as Theme).typography.fontFamily,
+
+const SinceDate = styled.a({
+  fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '12px',
@@ -99,12 +100,13 @@ const SinceDate = styled.a(({ theme }) => ({
   color: '#447AFB',
   textDecoration: 'none',
   marginLeft: '4px',
-}));
+});
 
 const ArrowLinkContainer = styled.span({
   display: 'inline',
   marginLeft: '9px',
 });
+
 const ContainerIconTypography = styled.div({
   display: 'inline',
   alignItems: 'center',

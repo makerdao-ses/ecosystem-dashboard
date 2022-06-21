@@ -1,3 +1,23 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded {
+  border-radius: 3px 10px 10px 10px;
+}
+
 .lds-ring {
   display: inline-block;
   position: relative;

@@ -28,7 +28,7 @@ export const CustomTable = ({ headersSort = [], headersStyles = [], ...props }: 
                   style={headersStyles[i] ?? {}}
                   align={props.headersAlign && props.headersAlign[i]}
                   state={headersSort[i]}
-                  title={header}/>
+                  title={header} />
               </TableCell>)}
           </TableHeadRow>
         </TableHead>
@@ -38,7 +38,7 @@ export const CustomTable = ({ headersSort = [], headersStyles = [], ...props }: 
           </TableRow>)}
         </TableBody>
       </Table>
-      {(!props.items || props.items.length === 0) && <Placeholder>{props.loading ? <Loading><LoadingSpinner/> <LoadingText>Loading</LoadingText></Loading> : 'There is no data to show'}</Placeholder>}
+      {(!props.items || props.items.length === 0) && <Placeholder>{props.loading ? <Loading><LoadingSpinner /> <LoadingText>Loading</LoadingText></Loading> : 'There is no data to show'}</Placeholder>}
     </TableContainer>);
 };
 
