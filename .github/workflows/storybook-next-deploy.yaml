@@ -1,7 +1,7 @@
 name: Deploy storybook
 on:
   push:
-    branches: [ SES-62-proper-migration ]
+    branches: [ master ]
 jobs:
   deploy:
     runs-on: ubuntu-latest
