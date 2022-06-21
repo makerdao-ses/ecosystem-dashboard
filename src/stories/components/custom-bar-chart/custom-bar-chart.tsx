@@ -13,7 +13,7 @@ const COLOR_YELLOW = '#FDC134';
 const COLOR_GRAY = '#D8E0E3';
 
 export const CustomBarChart = (props: CustomBarChartProps) => {
-  if (!props.items || props.maxValues.length === 0 || props.items.every(x => !x.value) || props.maxValues.every(cap => !cap)) return <span/>;
+  if (!props.items) return <span/>;
 
   const padding = 8;
   const maxItemHeight = 30;
@@ -25,6 +25,10 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
 
     if (highestCap === 0) return 0;
     return value * maxItemHeight / highestCap;
+  };
+
+  const isValueValid = (value: number): boolean => {
+    return value > 0 && !!_.max(props.maxValues);
   };
 
   const getColor = (value: number, pos: number): string => {
@@ -55,8 +59,8 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
           y="5"
           width="12"
           rx="1"
-          height={item.value > 0 ? calculateHeight(item.value) : 16}
-          fill={item.value > 0 ? getColor(item.value, i) : COLOR_GRAY}>
+          height={isValueValid(item.value) ? calculateHeight(item.value) : 16}
+          fill={isValueValid(item.value) ? getColor(item.value, i) : COLOR_GRAY}>
           <animate
             attributeName="height"
             from="0"

@@ -237,12 +237,13 @@ export const getPercentFromCoreUnit = (cu: CoreUnitDao) => {
 
 export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDao) => {
   const result = [] as CustomChartItemModel[];
-  if (cu.budgetStatements.length === 0) return result;
+  if (cu.budgetStatements.length === 0) return new Array(3).fill({ value: 0 });
 
   let dateToCheck = DateTime.now();
   for (let i = 0; i < 3; i++) {
     dateToCheck = dateToCheck.minus({ months: 1 });
     const temp = cu.budgetStatements.find(bs => bs.month.indexOf(dateToCheck.toFormat('y-MM')) > -1);
+
     if (temp) {
       result.push({ value: sumAllLineItemsFromBudgetStatement(temp) });
     } else {
