@@ -1,4 +1,4 @@
-name: Deploy storybook
+name: Deploy Next-JS
 on:
   push:
     branches: [ master ]
@@ -16,7 +16,7 @@ jobs:
         run: |
           npm install -g yarn
           yarn
-          yarn build-storybook
+          yarn build
       - name: Executing remote command
         uses: appleboy/ssh-action@master
         with:
@@ -25,7 +25,8 @@ jobs:
           PORT: ${{ secrets.SSH_PORT }}
           PASSWORD: ${{ secrets.SSH_PASS }}
           script: |
-            rm -rf /var/www/storybook-static/
+            pm2 stop next-js
+            rm -rf /var/www/next/app
       - name: Copy file via scp
         uses: appleboy/scp-action@master
         env:
@@ -34,5 +35,14 @@ jobs:
           PORT: ${{ secrets.SSH_PORT }}
           PASSWORD: ${{ secrets.SSH_PASS }}
         with:
-          source: "./storybook-static/"
-          target: "/var/www/"
+          source: "./"
+          target: "/var/www/next/app"
+      - name: Initializing server
+        uses: appleboy/ssh-action@master
+        with:
+          HOST: ${{ secrets.SSH_HOST }}
+          USERNAME: ${{ secrets.SSH_USER }}
+          PORT: ${{ secrets.SSH_PORT }}
+          PASSWORD: ${{ secrets.SSH_PASS }}
+          script: |
+            pm2 start next-js

@@ -4,6 +4,7 @@ import Magnifier from '../svg/magnifier';
 
 interface SearchInputProps {
   value?: string,
+  defaultValue?: string,
   placeholder: string,
   onChange?: (text: string) => void
   style?: CSSProperties,
@@ -18,7 +19,8 @@ export const SearchInput = (props: SearchInputProps) => {
 
   return <Container style={props.style}>
     <InputWrapper>
-      <Input onChange={handleChange} placeholder={props.placeholder} onFocus={() => setFocus(true)} onBlur={() => setFocus(false)} focus={focus || !!props.value} value={props.value}/>
+      <IconWrapper><Magnifier /></IconWrapper>
+      <Input onChange={handleChange} placeholder={props.placeholder} onFocus={() => setFocus(true)} onBlur={() => setFocus(false)} focus={focus || !!props.value} value={props.value} defaultValue={props.defaultValue}/>
       <IconWrapper><Magnifier/></IconWrapper>
     </InputWrapper>
   </Container>;

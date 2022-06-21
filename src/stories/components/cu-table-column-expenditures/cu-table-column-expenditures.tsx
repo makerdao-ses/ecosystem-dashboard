@@ -26,7 +26,7 @@ export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps)
       </CustomPopover>
     </Data>
     <CustomBarChart items={props.items} maxValues={props.budgetCaps}/>
-    {props.budgetCaps.length > 0 && <ValueWrapper>
+    <ValueWrapper>
         <CustomPopover
             css={{ alignSelf: 'center' }}
             id={'mouse-over-popover-percent'}
@@ -45,11 +45,11 @@ export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps)
                 </div>
               </PercentExplanation>
             }>
-          {!!props.percent && <Percent>
+          <Percent>
             {props.percent?.toFixed(2)}%
-          </Percent>}
+          </Percent>
         </CustomPopover>
-    </ValueWrapper>}
+    </ValueWrapper>
     </Container>
   </Wrapper>;
 };

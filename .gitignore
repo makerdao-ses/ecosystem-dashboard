@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 .yarn
+.next
 
 # testing
 /coverage
@@ -24,6 +25,6 @@ yarn-debug.log*
 yarn-error.log*
 
 storybook-static
-
+.next
 # ides
 .idea

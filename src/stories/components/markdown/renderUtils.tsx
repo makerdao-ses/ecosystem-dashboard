@@ -1,5 +1,5 @@
 import React from 'react';
-import './markdown.scss';
+import './markdown.module.scss';
 
 export const customRenderer = {
   image(href: string) {

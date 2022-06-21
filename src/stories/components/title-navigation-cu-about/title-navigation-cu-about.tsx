@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Theme, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { CuTableColumnLinks, LinkModel } from '../cu-table-column-links/cu-table-column-links';
@@ -134,7 +134,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
         <CategoryContainer>{coreUnitAbout.category && coreUnitAbout.category.map((item) => <CategoryChip key={item} category={item} style={{ marginRight: '16px' }} />)}</CategoryContainer>
       </ContainerColum>
       <ContainerLinks>
-        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#708390'} spacingsRight={29} />
+        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#211634'} spacingsRight={29} />
       </ContainerLinks>
     </Container>
   );
@@ -180,8 +180,8 @@ const Row = styled.div({
   marginLeft: '4px',
 });
 
-const SinceDate = styled.a(({ theme }) => ({
-  fontFamily: (theme as Theme).typography.fontFamily,
+const SinceDate = styled.a({
+  fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '12px',
@@ -191,7 +191,7 @@ const SinceDate = styled.a(({ theme }) => ({
   color: '#447AFB',
   textDecoration: 'none',
   marginLeft: '4px',
-}));
+});
 
 const ContainerLinks = styled.div({
   display: 'flex',
@@ -200,6 +200,7 @@ const ContainerLinks = styled.div({
   alignItems: 'flex-end',
   height: '68px',
 });
+
 const CircleContainer = styled.div({
   marginRight: '16px',
 });

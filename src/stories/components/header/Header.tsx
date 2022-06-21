@@ -6,8 +6,8 @@ import ThemeMode from '../svg/theme-mode';
 import SelectLink from './select-link-website/select-link';
 import Dashboard from '../svg/dash-board';
 import { WebSiteLinks } from './select-link-website/menu-items';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { MenuType } from './menu-items';
+import { useRouter } from 'next/router';
 
 interface Props {
   menuItems: MenuType[];
@@ -15,13 +15,13 @@ interface Props {
 }
 
 const Header = ({ menuItems, links }: Props) => {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const router = useRouter();
+  // const location = useLocation();
   const onClick = useCallback(
     (link: string) => () => {
       window.open(link, '_blank');
     },
-    [navigate],
+    [router],
   );
 
   return (
@@ -40,10 +40,10 @@ const Header = ({ menuItems, links }: Props) => {
         <Navigation>
           {menuItems.map(({ marginRight, link, title }: MenuType) => {
             let isActive = false;
-            if (location.pathname === '/' || location.pathname.includes('about')) {
+            if (router.pathname === '/' || router.pathname.includes('about')) {
               isActive = link === '/';
             } else {
-              isActive = location.pathname.includes(link) && link !== '/';
+              isActive = router.pathname.includes(link) && link !== '/';
             }
 
             return (<ItemMenuStyle
