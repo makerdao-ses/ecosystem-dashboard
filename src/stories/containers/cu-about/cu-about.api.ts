@@ -73,7 +73,7 @@ export interface CuAbout {
   socialMediaChannels: SocialMediaChannels[];
   cuMip: CuMip[];
   budgetStatements: BudgetStatement[];
-  contributorCommitment?: ContributorCommitment[];
+  contributorCommitment: ContributorCommitment[];
 }
 interface BudgetStatementFTEs {
   month: string;
