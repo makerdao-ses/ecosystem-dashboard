@@ -105,7 +105,7 @@ const CuAboutContainer = () => {
         </NavigationHeader>
         <ContainerTitle>
           <TitleNavigationCuAbout coreUnitAbout={cuAbout} />
-          <Typography fontSize={16} lineHeight='19px' sx={{
+          <Typography fontSize={16} lineHeight='19px' color='#231536' sx={{
             marginTop: '16px'
           }}>{cuAbout.sentenceDescription || ''}</Typography>
         </ContainerTitle>
@@ -162,10 +162,10 @@ const CuAboutContainer = () => {
         }}>
           <ContainerScroll>
             <ContainerCard>
-              <NavigationCard description={description} image='/assets/img/card-initiatives.png' list={list} titleLinkPage='View All' title='Initiatives' />
+              <NavigationCard description={description} image='/assets/img/card-initiatives.png' list={list} titleLinkPage='View all' title='Initiatives' />
             </ContainerCard>
             <ContainerCard>
-              <NavigationCard description={description} image='/assets/img/card-finances.png' list={list} titleLinkPage='View All' title='Finances' />
+              <NavigationCard description={description} image='/assets/img/card-finances.png' list={list} titleLinkPage='View all' title='Finances' />
             </ContainerCard>
           </ContainerScroll>
         </div>
@@ -224,11 +224,11 @@ const TeamMemberContainer = styled.div({
 
 const TeamMemberTitle = styled(Typography)({
   fontStyle: 'normal',
-  fontWeight: '700',
-  fontSize: '16px',
+  fontWeight: 500,
+  fontSize: '20px',
   lineHeight: '19px',
-  marginRight: '16px',
-  color: '#000000',
+  marginRight: '8px',
+  color: '#231536',
 });
 
 const ContactInfoContainer = styled.div({
@@ -242,9 +242,9 @@ const ContactInfoContainer = styled.div({
 const ContactInfoTitle = styled(Typography)({
   fontStyle: 'normal',
   fontWeight: 700,
-  fontSize: '14px',
+  fontSize: '16px',
   lineHeight: '17px',
-  color: '#000000',
+  color: '#231536',
   marginBottom: '32px',
 });
 

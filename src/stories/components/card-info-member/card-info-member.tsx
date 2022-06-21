@@ -19,73 +19,74 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
   const { color } = getColorJobPosition(contributorCommitment.jobTitle);
   return (
     <Box>
-      <Card sx={{
-        boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.08)',
-        borderRadius: '8px',
-        backgroundColor: '#FFFFFF',
-        width: '311px',
-      }} >
+    <Card sx={{
+      boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.08)',
+      borderRadius: '8px',
+      backgroundColor: '#FFFFFF',
+      width: '311px',
+      height: '232px',
+    }} >
 
-        <CardContent sx={{
-          margin: '16px',
-          padding: '0px',
-        }}>
-          <CardHeader
-            sx={{
-              padding: '0px',
-              '& .MuiCardHeader-avatar': {
-                marginRight: '0px',
-              }
+      <CardContent sx={{
+        margin: '16px',
+        padding: '0px',
+      }}>
+        <CardHeader
+          sx={{
+            padding: '0px',
+            '& .MuiCardHeader-avatar': {
+              marginRight: '0px',
+            }
 
-            }}
-            avatar={!contributor.facilitatorImage
-              ? <Avatar sx={{
-                bgcolor: 'black',
-                marginRight: '21px',
-              }} style={{
-                width: '54px',
-                height: '54px',
-                fontSize: '20px',
-                color: 'white',
-                border: '3px solid #E7FCFA',
+          }}
+          avatar={!contributor.facilitatorImage
+            ? <Avatar sx={{
+              bgcolor: 'black',
+              marginRight: '21px',
+            }} style={{
+              width: '54px',
+              height: '54px',
+              fontSize: '20px',
+              color: 'white',
+              border: '3px solid #E7FCFA',
 
-              }}>{getTwoInitials(contributor?.name || 'NM')}</Avatar>
-              : <Avatar sx={{
-                marginRight: '0px',
-              }} style={{
-                width: '54px',
-                height: '54px',
-                border: '3px solid #E7FCFA',
-              }} src={contributor.facilitatorImage} />}
-            title={<Typography fontSize={20} color='#231536' lineHeight='24px' fontWeight={500}>{contributor.name}</Typography>}
-            subheader={<Typography fontSize={14} sx={{
-              marginTop: '8px',
-            }}>{contributor.email}</Typography>}
-          />
-          <Typography sx={{
-            marginTop: '24px',
-            marginBottom: '24px',
-            color,
-          }}>{contributorCommitment.jobTitle}</Typography>
+            }}>{getTwoInitials(contributor?.name || 'NM')}</Avatar>
+            : <Avatar sx={{
+              marginRight: '0px',
+            }} style={{
+              width: '54px',
+              height: '54px',
+              border: '3px solid #E7FCFA',
+            }} src={contributor.facilitatorImage} />}
+          title={<Typography fontSize={20} color='#231536' lineHeight='24px' fontWeight={500}>{contributor.name}</Typography>}
+          subheader={<Typography fontSize={14} sx={{
+            marginTop: '8px',
+          }}>{contributor.email}</Typography>}
+        />
+        <Typography sx={{
+          marginTop: '24px',
+          marginBottom: '24px',
+          color,
+        }}>{contributorCommitment.jobTitle}</Typography>
 
-          <CardContentPositionRow>
-            <CardContentPositionColumn>
-              <TypographyStyled color='#708390'>Since</TypographyStyled>
-              <TypographyStyled color='#231536'>{`${since} Years`}</TypographyStyled>
-            </CardContentPositionColumn>
-            <CardContentPositionColumn>
-              <TypographyStyled color='#708390' >Commitment</TypographyStyled>
-              <TypographyStyled color=' #231536'>{contributorCommitment.commitment}</TypographyStyled>
-            </CardContentPositionColumn>
-          </CardContentPositionRow>
-        </CardContent>
-        <Divider light sx={{
-          marginBottom: '8px',
-          color: '#C4C4C4'
-        }} variant='fullWidth' />
-        <CardLinksFooter><CuTableColumnLinks links={links} width={16} height={16} spacingsRight={19} /></CardLinksFooter>
-      </Card>
-    </Box >
+        <CardContentPositionRow>
+          <CardContentPositionColumn>
+            <TypographyStyled color='#708390'>Since</TypographyStyled>
+            <TypographyStyled color='#231536'>{`${since} Years`}</TypographyStyled>
+          </CardContentPositionColumn>
+          <CardContentPositionColumn>
+            <TypographyStyled color='#708390' >Commitment</TypographyStyled>
+            <TypographyStyled color=' #231536'>{contributorCommitment.commitment}</TypographyStyled>
+          </CardContentPositionColumn>
+        </CardContentPositionRow>
+      </CardContent>
+      <Divider light sx={{
+        marginBottom: '8px',
+        color: '#C4C4C4'
+      }} variant='fullWidth' />
+      <CardLinksFooter><CuTableColumnLinks links={links} width={16} height={16} spacingsRight={19} /></CardLinksFooter>
+    </Card>
+   </Box >
   );
 };
 

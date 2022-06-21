@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { CustomPopover } from '../custom-popover/custom-popover';
-import { Typography } from '@mui/material';
+import { Divider, Typography } from '@mui/material';
 
 interface Props {
   fte: number,
@@ -14,7 +14,7 @@ const TeamMember = ({ fte }: Props) => {
       id={'popover-fulltime equivalent'}
     >
       <Data>
-        <StyleTypography >{fte}</StyleTypography>
+        <ContainerRow> <StyleTypography >{fte}</StyleTypography> <Divider sx={{ bgcolor: '#231536' }} /></ContainerRow>
         <Title>FTEs</Title>
       </Data>
     </CustomPopover>
@@ -32,20 +32,20 @@ const Container = styled.div({
 
 const StyleTypography = styled(Typography)({
   fontStyle: 'normal',
+  fontFamily: 'Inter,sanserif',
   fontWeight: 700,
   fontSize: '20px',
   lineHeight: '24px',
-  color: '#25273D',
-  textDecoration: 'underline'
+  color: '#231536',
 });
 
 const Title = styled(Typography)({
   fontStyle: 'normal',
-  fontWeight: 700,
-  fontSize: '14px',
+  fontWeight: 500,
+  fontSize: '20px',
   lineHeight: '17px',
-  color: '#000000',
-  marginLeft: '16px',
+  color: '#231536',
+  marginLeft: '8px',
   textAlign: 'center'
 });
 
@@ -54,6 +54,14 @@ const Data = styled.div({
   flexDirection: 'row',
   justifyContent: 'flex-start',
   alignItems: 'center',
+});
+
+const ContainerRow = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  padding: '4px 8px',
+  borderRadius: '6px',
 });
 
 export default TeamMember;

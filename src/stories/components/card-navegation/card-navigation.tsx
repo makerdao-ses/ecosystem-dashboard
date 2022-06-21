@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Box, CardActionArea, CardActions, IconButton, Theme } from '@mui/material';
+import { Box, CardActionArea, CardActions, Theme } from '@mui/material';
 import styled from '@emotion/styled';
 import ArrowRight from '../svg/ArrowRight';
 interface Props {
@@ -18,16 +18,21 @@ export const NavigationCard = ({ description, image, list = [], title = '', titl
   return (
     <>
       {!!title && <ArrowTittleStyle>
-        <Typography color='#000000' fontSize={24} lineHeight='29px' fontWeight={500}>{title}</Typography>
-        <div style={{ display: 'flex' }}>
-          <Typography textAlign='right' fontStyle='norma' fontWeight={400} fontSize={20} color='#211634'>{titleLinkPage}</Typography>
-          <IconButton><ArrowRight width={16} height={16} /></IconButton>
+        <Typography color='#231536' fontSize={24} lineHeight='29px' fontWeight={500}>{title}</Typography>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <Typography textAlign='right' fontStyle='norma' fontWeight={400} fontSize={20} color='#231536'>{titleLinkPage}</Typography>
+          <ArrowRight width={16} height={16} style={{ marginLeft: '22px' }} />
         </div>
       </ArrowTittleStyle>
       }
       <Box sx={{
         maxWidth: '86.38%',
-        maxHeight: '293px'
+        maxHeight: '293px',
       }}>
         <CardContainer sx={{
           p: '15px',
@@ -113,6 +118,7 @@ const TypographyStyle = styled(Typography)({
   fontSize: '14px',
   lineHeight: '18px',
   marginTop: '16px',
+  color: '#231536',
 });
 
 const ArrowTittleStyle = styled.div({

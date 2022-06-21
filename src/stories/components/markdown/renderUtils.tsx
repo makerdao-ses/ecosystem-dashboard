@@ -9,9 +9,15 @@ export const customRenderer = {
     }} key={href} />;
   },
   paragraph(text: string) {
-    return <p className='paragraph' style={{ backgroundColor: 'white' }} key={text}>{text}</p>;
+    return <p className='paragraph' style={{
+      backgroundColor: 'white',
+      color: '#231536',
+    }} key={text}>{text}</p>;
   },
   code(text: string) {
-    return <code className='tag-code' key={text} style={{ backgroundColor: 'white' }}>{text}</code>;
+    return <code className='tag-code' key={text} style={{
+      backgroundColor: 'white',
+      color: '#231536',
+    }}>{text}</code>;
   },
 };

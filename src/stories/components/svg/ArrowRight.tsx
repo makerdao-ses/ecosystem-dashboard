@@ -5,11 +5,13 @@ interface Props {
     height?: number;
     onClick?: () => void;
     fill?: string;
+    style?: React.CSSProperties;
 }
 
-const ArrowRight = ({ width = 16, height = 17, fill = '#1AAB9B', onClick, ...props }: Props) => {
+const ArrowRight = ({ width = 16, height = 17, fill = '#1AAB9B', onClick, style = {}, ...props }: Props) => {
   return (
         <svg
+            style={style}
             cursor={onClick ? 'pointer' : 'default'}
             width={width}
             onClick={onClick}

@@ -73,7 +73,8 @@ const ViewerContainer = styled.div({
 const TypographyStyleDescription = styled(Typography)(({ theme }) => ({
   fontFamily: (theme as Theme).typography.fontFamily,
   fontStyle: 'normal',
-  fontWeight: 700,
-  fontSize: '16px',
-  lineHeight: '19px'
+  fontWeight: 500,
+  fontSize: '20px',
+  lineHeight: '19px',
+  color: '#231536',
 }));
