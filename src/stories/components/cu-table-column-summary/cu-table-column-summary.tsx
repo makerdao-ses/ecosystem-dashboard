@@ -57,6 +57,7 @@ const Container = styled.div({
   boxSizing: 'border-box',
   padding: '13px',
   cursor: 'pointer',
+  maxWidth: '340px'
 });
 
 const CircleContainer = styled.div({
