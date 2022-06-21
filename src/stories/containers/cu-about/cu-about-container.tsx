@@ -38,8 +38,10 @@ const CuAboutContainer = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(loadCoreUnitABout(code || ''));
-    setShowThreeMIPs(true);
+    if (code) {
+      dispatch(loadCoreUnitABout(code || ''));
+      setShowThreeMIPs(true);
+    }
   }, [dispatch, code]);
 
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
