@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, useState } from 'react';
 import styled from '@emotion/styled';
 import Magnifier from '../svg/magnifier';
 
@@ -15,10 +15,13 @@ export const SearchInput = (props: SearchInputProps) => {
     props.onChange && props.onChange(event.target.value);
   };
 
+  const [focus, setFocus] = useState(false);
+
   return <Container style={props.style}>
     <InputWrapper>
-      <Input onChange={handleChange} placeholder={props.placeholder} value={props.value} defaultValue={props.defaultValue} />
       <IconWrapper><Magnifier /></IconWrapper>
+      <Input onChange={handleChange} placeholder={props.placeholder} onFocus={() => setFocus(true)} onBlur={() => setFocus(false)} focus={focus || !!props.value} value={props.value} defaultValue={props.defaultValue}/>
+      <IconWrapper><Magnifier/></IconWrapper>
     </InputWrapper>
   </Container>;
 };
@@ -33,7 +36,7 @@ const InputWrapper = styled.div({
   alignItems: 'center'
 });
 
-const Input = styled.input({
+const Input = styled.input<{ focus: boolean }>((props) => ({
   fontFamily: 'SF Pro Text, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
@@ -42,7 +45,7 @@ const Input = styled.input({
   outline: 'none',
   width: '320px',
   height: '48px',
-  border: '1px solid #D4D9E1',
+  border: `1px solid ${props.focus ? '#231536' : '#D4D9E1'}`,
   borderRadius: '22px',
   padding: '15px 45px 15px 16px',
   boxSizing: 'border-box',
@@ -50,7 +53,7 @@ const Input = styled.input({
   '&::placeholder': {
     color: '#B0BCC0'
   }
-});
+}));
 
 const IconWrapper = styled.div({
   position: 'absolute',

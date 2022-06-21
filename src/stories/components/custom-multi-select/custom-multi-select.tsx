@@ -50,7 +50,7 @@ export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }
 
   return <SelectWrapper ref={refOutsideClick} style={props.style}>
     <SelectContainer
-      focus={popupVisible}
+      focus={popupVisible || activeItems.length > 0}
       className="no-select"
       onClick={toggleVisible}>
       <Label>{props.label} {activeItems.length > 0 ? `(${activeItems.length})` : ''}</Label>
