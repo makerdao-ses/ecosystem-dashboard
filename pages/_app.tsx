@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app';
 import { store } from '../src/core/store/store';
 import { HeaderWrapper } from '../src/stories/containers/dashboard-wrapper/header-wrapper';
 import Head from 'next/head';
+import '../styles/globals.scss';
 
 function MyApp({
   Component, pageProps,
