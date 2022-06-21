@@ -4,6 +4,7 @@ import { SelectChevronDown } from '../svg/select-chevron-down';
 import { Checkbox, ListItemText, MenuItem } from '@mui/material';
 import CheckBoxOutlined from '@mui/icons-material/CheckBoxOutlined';
 import CheckBoxOutlineBlankOutlined from '@mui/icons-material/CheckBoxOutlineBlankOutlined';
+import './custom-multi-select.module.scss';
 import useOutsideClick from '../../../core/utils/use-outside-click';
 
 interface CustomMultiSelectProps {
@@ -49,7 +50,7 @@ export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }
 
   return <SelectWrapper ref={refOutsideClick} style={props.style}>
     <SelectContainer
-      focus={popupVisible}
+      focus={popupVisible || activeItems.length > 0}
       className="no-select"
       onClick={toggleVisible}>
       <Label>{props.label} {activeItems.length > 0 ? `(${activeItems.length})` : ''}</Label>

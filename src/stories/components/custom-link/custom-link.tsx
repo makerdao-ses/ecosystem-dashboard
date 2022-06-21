@@ -23,7 +23,7 @@ export const CustomLink = ({ target = '_blank', iconWidth = 6, iconHeight = 6, f
     fontWeight={fontWeight}
     onClick={(evt) => evt.stopPropagation()}>
     {props.children}
-    {withArrow && <LinkIcon width={iconWidth} height={iconHeight} style={{ marginLeft: '5px' }}/>}
+    {withArrow && <LinkIcon width={iconWidth} height={iconHeight} style={{ marginLeft: '5px' }} />}
   </Container>;
 };
 

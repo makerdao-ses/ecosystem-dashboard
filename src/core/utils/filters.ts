@@ -1,3 +1,5 @@
+/* eslint-disable no-template-curly-in-string */
+import { ParsedUrlQuery } from 'querystring';
 import { CoreUnitDao } from '../../stories/containers/cu-table/cu-table.api';
 
 export const filterData = ({
@@ -44,10 +46,21 @@ export const filterData = ({
   });
 };
 
-export const getArrayParam = (key: string, filters: URLSearchParams) => {
-  return (filters.get(key) || '').split(',').filter((v) => v !== '');
+export const getArrayParam = (key: string, urlSearchParams: ParsedUrlQuery) => {
+  if (!urlSearchParams || !key) return [];
+  let filters: string[] = [];
+
+  if (urlSearchParams[key]) {
+    filters = (urlSearchParams[`${key}`] as string).split(',');
+  }
+
+  return filters;
 };
 
-export const getStringParam = (key: string, filters: URLSearchParams) => {
-  return (filters.get(key) || '');
+export const getStringParam = (
+  key: string,
+  urlSearchParams: ParsedUrlQuery
+) => {
+  if (!urlSearchParams) return '';
+  return (urlSearchParams[`${key}`] as string) || '';
 };

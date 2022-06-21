@@ -1,6 +1,5 @@
 import React, { CSSProperties, useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
-import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   countInitiativesFromCoreUnit,
   getBudgetCapsFromCoreUnit,
@@ -41,32 +40,27 @@ import { CustomMultiSelect } from '../../components/custom-multi-select/custom-m
 import { SearchInput } from '../../components/search-input/search-input';
 import { CustomButton } from '../../components/custom-button/custom-button';
 import { useDebounce } from '../../../core/utils/use-debounce';
+import { useRouter } from 'next/router';
+import { stringify } from 'querystring';
 
 const statuses = Object.values(CuStatusEnum) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];
 const headers = ['Core Units', 'Initiatives', 'Expenditure', 'Team Members', 'Links'];
 const sortInitialState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled];
-const headerStyles: CSSProperties[] = [{ paddingLeft: '80px' }, { paddingLeft: '20px' }, { marginLeft: '-35px' }, {}, {}];
+const headerStyles: CSSProperties[] = [{ paddingLeft: '80px' }, { paddingLeft: '35px' }, { marginLeft: '-40px' }, {}, {}];
 
 export const CuTable = () => {
-  const [filters] = useSearchParams();
-  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const debounce = useDebounce();
+
+  const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
+  const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
+
+  const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
   const data: Array<CoreUnitDao> = useSelector((state: RootState) => selectCuTableItems(state));
   const facilitatorImages = useSelector((state: RootState) => selectFacilitatorImages(state));
   const status = useSelector((state: RootState) => selectCuTableStatus(state));
-  const dispatch = useAppDispatch();
-
-  const [filteredStatuses, setFilteredStatuses] = useState(getArrayParam('filteredStatuses', filters));
-  const [filteredCategories, setFilteredCategories] = useState(getArrayParam('filteredCategories', filters));
-  const [searchText, setSearchText] = useState(getStringParam('searchText', filters));
-  const [debouncedSearchText, setDebouncedSearchText] = useState(searchText);
-
-  const debounce = useDebounce();
-  useEffect(() => {
-    debounce(() => {
-      setDebouncedSearchText(searchText);
-    }, 300);
-  }, [searchText]);
 
   const [headersSort, setHeadersSort] = useState(sortInitialState);
   const [sortColumn, setSortColumn] = useState(-1);
@@ -75,13 +69,12 @@ export const CuTable = () => {
     dispatch(loadCuTableItemsAsync());
   }, [dispatch]);
 
-  const filteredData = useMemo(() =>
-    filterData({
-      data,
-      filteredStatuses,
-      filteredCategories,
-      searchText
-    }), [data, filteredCategories, filteredStatuses, searchText]);
+  const filteredData = useMemo(() => filterData({
+    data,
+    filteredStatuses,
+    filteredCategories,
+    searchText
+  }), [data, filteredCategories, filteredStatuses, searchText]);
 
   const setSort = (index: number, prevStatus: SortEnum) => {
     if (prevStatus === 3) {
@@ -119,37 +112,28 @@ export const CuTable = () => {
         }
       });
     });
-  }, [data]);
+  }, [data, dispatch, facilitatorImages]);
 
   const clearFilters = () => {
-    setFilteredStatuses([]);
-    setFilteredCategories([]);
-    setSearchText('');
-    navigate({
+    router.push({
       pathname: '/',
       search: '',
     });
   };
 
-  const handleChangeUrlFilterArrays = useCallback((key: string) => (value: string[]) => {
-    filters.set(key, value.join(','));
-    navigate({
+  const handleChangeUrlFilterArrays = useCallback((key: string) => (value: string[] | string) => {
+    const search = router.query;
+    search[key] = Array.isArray(value) ? value.join(',') : (value || '');
+    router.push({
       pathname: '/',
-      search: `?${filters.toString()}`,
+      search: stringify(search),
     });
-  }, [filters, navigate]);
-
-  const handleChangeUrlFilterString = useCallback((key: string) => (value: string) => {
-    filters.set(key, value);
-    navigate({
-      pathname: '/',
-      search: `?${filters.toString()}`,
-    });
-  }, [filters, navigate]);
+  }, [router]);
 
   const onClickRow = useCallback((id: string) => () => {
-    navigate(`/about/${id}?${filters.toString()}`);
-  }, [filters, navigate]);
+    console.log('router.query', filteredStatuses, filteredCategories, searchText);
+    router.push(`/about/${id}?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
+  }, [filteredCategories, filteredStatuses, router, searchText]);
 
   const items = useMemo(() => {
     if (!filteredData) return [];
@@ -193,61 +177,71 @@ export const CuTable = () => {
         />
       ];
     });
-  }, [data, filteredStatuses, filteredCategories, debouncedSearchText, facilitatorImages, headersSort]);
+  }, [filteredData, sortData, onClickRow, facilitatorImages]);
 
   return <ContainerHome>
-      <Header>
-        <Title>Core Units</Title>
-        <CustomButton
-          label="Reset Filters"
-          style={{
-            marginRight: '16px',
-            width: '114px',
-            border: 'none'
-          }}
-          onClick={clearFilters}
-          disabled={filteredCategories.length === 0 && filteredStatuses.length === 0 && searchText.length === 0}
-        />
-        <CustomMultiSelect
-          label="Status"
-          activeItems={filteredStatuses}
-          items={statuses}
-          onChange={(value: string[]) => {
-            setFilteredStatuses(value);
-            handleChangeUrlFilterArrays('filteredStatuses')(value);
-          }}
-          style={{ marginRight: '16px' }}
-        />
-        <CustomMultiSelect
-          label="CU Category"
-          activeItems={filteredCategories}
-          items={categories}
-          onChange={(value: string[]) => {
-            setFilteredCategories(value);
-            handleChangeUrlFilterArrays('filteredCategories')(value);
-          }}
-          style={{ marginRight: '16px' }}
-        />
-        <Separator />
-        <SearchInput
-          value={searchText}
-          placeholder="Search"
-          onChange={(value: string) => {
-            setSearchText(value);
-            handleChangeUrlFilterString('searchText')(value);
-          }}
-          style={{ marginLeft: '16px' }}
-        />
-      </Header>
-      <CustomTable
-        headers={headers}
-        items={items}
-        headersAlign={['flex-start', 'center', 'center', 'flex-start', 'center']}
-        headersSort={headersSort}
-        headersStyles={headerStyles}
-        sortFunction={setSort}
-        loading={status === 'loading'}
+    <Header>
+      <Title>Core Units</Title>
+      <CustomButton
+        label="Reset Filters"
+        style={{
+          marginRight: '16px',
+          width: '114px',
+          border: 'none'
+        }}
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        onClick={clearFilters}
+        disabled={filteredStatuses && filteredStatuses.length === 0}
       />
+      <CustomMultiSelect
+        label="Status"
+        activeItems={filteredStatuses}
+        items={statuses}
+        onChange={(value: string[]) => {
+          handleChangeUrlFilterArrays('filteredStatuses')(value);
+        }}
+        style={{ marginRight: '16px' }}
+      />
+      <CustomMultiSelect
+        label="CU Category"
+        activeItems={filteredCategories}
+        items={categories}
+        onChange={(value: string[]) => {
+          handleChangeUrlFilterArrays('filteredCategories')(value);
+        }}
+        style={{ marginRight: '16px' }}
+      />
+      <Separator />
+      {router.isReady && <SearchInput
+        defaultValue={searchText}
+        placeholder="Search"
+        onChange={(value: string) => {
+          debounce(() => {
+            handleChangeUrlFilterArrays('searchText')(value);
+          }, 300);
+        }}
+        style={{ marginLeft: '16px' }}
+      />}
+      {!router.isReady && <SearchInput
+        defaultValue={searchText}
+        placeholder="Search"
+        onChange={(value: string) => {
+          debounce(() => {
+            handleChangeUrlFilterArrays('searchText')(value);
+          }, 300);
+        }}
+        style={{ marginLeft: '16px' }}
+      />}
+    </Header>
+    <CustomTable
+      headers={headers}
+      items={items}
+      headersAlign={['flex-start', 'center', 'center', 'flex-start', 'center']}
+      headersSort={headersSort}
+      headersStyles={headerStyles}
+      sortFunction={setSort}
+      loading={status === 'loading'}
+    />
   </ContainerHome>;
 };
 
