@@ -1,6 +1,5 @@
 import React, { CSSProperties, useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
-import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   countInitiativesFromCoreUnit,
   getBudgetCapsFromCoreUnit,
@@ -54,22 +53,14 @@ export const CuTable = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const debounce = useDebounce();
-  // console.log('getArrayParam router', router);
+
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
-  // const [searchText, setSearchText] = useState(getStringParam('searchText', router.query));
+
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
-  // const debouncedSearchText = useMemo(() => searchText, [searchText]);
-  // const [debouncedSearchText, setDebouncedSearchText] = useState(searchText);
   const data: Array<CoreUnitDao> = useSelector((state: RootState) => selectCuTableItems(state));
   const facilitatorImages = useSelector((state: RootState) => selectFacilitatorImages(state));
   const status = useSelector((state: RootState) => selectCuTableStatus(state));
-  // console.log('desde la funcion ', getArrayParam('filteredStatuses', query));
-  // useEffect(() => {
-  //   debounce(() => {
-  //     getStringParam('searchText', router.query);
-  //   }, 300);
-  // }, [debounce, router.query]);
 
   const [headersSort, setHeadersSort] = useState(sortInitialState);
   const [sortColumn, setSortColumn] = useState(-1);
@@ -78,21 +69,12 @@ export const CuTable = () => {
     dispatch(loadCuTableItemsAsync());
   }, [dispatch]);
 
-  const filteredData = useMemo(() => {
-    console.log({
-      data,
-      filteredStatuses,
-      filteredCategories,
-      searchText
-    });
-
-    return filterData({
-      data,
-      filteredStatuses,
-      filteredCategories,
-      searchText
-    });
-  }, [data, filteredCategories, filteredStatuses, searchText]);
+  const filteredData = useMemo(() => filterData({
+    data,
+    filteredStatuses,
+    filteredCategories,
+    searchText
+  }), [data, filteredCategories, filteredStatuses, searchText]);
 
   const setSort = (index: number, prevStatus: SortEnum) => {
     if (prevStatus === 3) {
@@ -133,9 +115,6 @@ export const CuTable = () => {
   }, [data, dispatch, facilitatorImages]);
 
   const clearFilters = () => {
-    // setFilteredStatuses([]);
-    // setFilteredCategories([]);
-    // setSearchText('');
     router.push({
       pathname: '/',
       search: '',
@@ -152,35 +131,13 @@ export const CuTable = () => {
   }, [router]);
 
   const onClickRow = useCallback((id: string) => () => {
-    router.push(`/about/${id}?${router.query.toString()}`);
-  }, [router]);
-
-  const setFilteredStatuses = useCallback(
-    (value: string[]) => {
-      router.push({
-        pathname: '/',
-        search: `?filteredStatuses=${value.join(',')}`,
-      });
-    },
-    [router],
-  );
-  const setFilteredCategories = useCallback((value: string[]) => {
-    router.push({
-      pathname: '/',
-      search: `?filteredCategories=${value.join(',')}`,
-    });
-  }, [router]);
-
-  const setSearchText = useCallback((value: string) => {
-    router.push({
-      pathname: '/',
-      search: `?searchText=${value}`,
-    });
-  }, [router]);
+    console.log('router.query', filteredStatuses, filteredCategories, searchText);
+    router.push(`/about/${id}?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
+  }, [filteredCategories, filteredStatuses, router, searchText]);
 
   const items = useMemo(() => {
     if (!filteredData) return [];
-    const sortedData = sortData(data);
+    const sortedData = sortData(filteredData);
     return sortedData.map((coreUnit: CoreUnitDao, i: number) => {
       return [
         <CuTableColumnSummary
@@ -220,7 +177,7 @@ export const CuTable = () => {
         />
       ];
     });
-  }, [filteredData, sortData, data, onClickRow, facilitatorImages]);
+  }, [filteredData, sortData, onClickRow, facilitatorImages]);
 
   return <ContainerHome>
     <Header>
@@ -241,31 +198,40 @@ export const CuTable = () => {
         activeItems={filteredStatuses}
         items={statuses}
         onChange={(value: string[]) => {
-          setFilteredStatuses(value);
           handleChangeUrlFilterArrays('filteredStatuses')(value);
         }}
         style={{ marginRight: '16px' }}
       />
       <CustomMultiSelect
         label="CU Category"
-        activeItems={filteredCategories || []}
+        activeItems={filteredCategories}
         items={categories}
         onChange={(value: string[]) => {
-          setFilteredCategories(value);
           handleChangeUrlFilterArrays('filteredCategories')(value);
         }}
         style={{ marginRight: '16px' }}
       />
       <Separator />
-      <SearchInput
-        value={searchText}
+      {router.isReady && <SearchInput
+        defaultValue={searchText}
         placeholder="Search"
         onChange={(value: string) => {
-          setSearchText(value);
-          handleChangeUrlFilterArrays('searchText')(value);
+          debounce(() => {
+            handleChangeUrlFilterArrays('searchText')(value);
+          }, 300);
         }}
         style={{ marginLeft: '16px' }}
-      />
+      />}
+      {!router.isReady && <SearchInput
+        defaultValue={searchText}
+        placeholder="Search"
+        onChange={(value: string) => {
+          debounce(() => {
+            handleChangeUrlFilterArrays('searchText')(value);
+          }, 300);
+        }}
+        style={{ marginLeft: '16px' }}
+      />}
     </Header>
     <CustomTable
       headers={headers}

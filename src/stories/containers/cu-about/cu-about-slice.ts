@@ -174,7 +174,7 @@ export const cuAboutSlice = createSlice({
 
 export const cuAboutSelector = (state: RootState) => state.cuAbout;
 export const contributorCommitmentSelector = (state: RootState) => {
-  return cuAboutSelector(state).cuAbout && cuAboutSelector(state).cuAbout.contributorCommitment;
+  return cuAboutSelector(state).cuAbout.contributorCommitment;
 };
 export const { clearCoreUNit } = cuAboutSlice.actions;
 export default cuAboutSlice.reducer;
