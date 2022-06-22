@@ -18,6 +18,11 @@ export const customRenderer = {
     return <code className='tag-code' key={text} style={{
       backgroundColor: 'white',
       color: '#231536',
+      fontFamily: 'FT Base, sans-serif',
+      fontStyle: 'normal',
+      fontWeight: 400,
+      fontSize: '16px',
+      lineHeight: '19px',
     }}>{text}</code>;
   },
 };
