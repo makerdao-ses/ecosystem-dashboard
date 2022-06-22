@@ -158,10 +158,10 @@ const ContainerTitle = styled.div({
 
 const TypographyTitle = styled(Typography)({
   fontStyle: 'normal',
-  fontWeight: 600,
+  fontWeight: 500,
   fontSize: '24px',
   lineHeight: '29px',
-  color: '#000000',
+  color: '#231536',
   marginLeft: '16px',
   marginRight: '24px'
 });
@@ -177,7 +177,7 @@ const TypographySES = styled(Typography)({
 const Row = styled.div({
   display: 'flex',
   alignItems: 'center',
-  marginLeft: '32px',
+  marginLeft: '4px',
 });
 
 const SinceDate = styled.a({
@@ -202,7 +202,7 @@ const ContainerLinks = styled.div({
 });
 
 const CircleContainer = styled.div({
-  marginRight: '10px',
+  marginRight: '16px',
 });
 
 const ContainerColum = styled.div({

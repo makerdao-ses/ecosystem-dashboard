@@ -2,8 +2,8 @@ import * as React from 'react';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import ArrowRight from '../svg/ArrowRight';
 import styled from '@emotion/styled';
+import { BreadcrumbSeparator } from '../svg/breadcrumb-separator';
 
 interface Props {
   count?: number;
@@ -14,8 +14,8 @@ interface Props {
 const BreadCrumb = ({ isCoreUnit = false, count, breadcrumbs }: Props) => {
   return (
     <Stack spacing={2}>
-      <BreadcrumbsStyle separator={<ArrowRight fill='#D1DEE6' />} aria-label="breadcrumb">
-        {isCoreUnit && <Typography key="1" color="inherit">
+      <BreadcrumbsStyle separator={<BreadcrumbSeparator />} aria-label="breadcrumb">
+        {isCoreUnit && <Typography key="1" color='#708390'>
           {`Core Units (${count})`}
         </Typography>}
 

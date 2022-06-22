@@ -1,6 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { CuJobEnum } from '../../../core/enums/cu-job.enum';
-import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { RootState } from '../../../core/store/store';
 import {
   ContributorCommitment,

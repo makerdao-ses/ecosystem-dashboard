@@ -24,6 +24,7 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
         borderRadius: '8px',
         backgroundColor: '#FFFFFF',
         width: '311px',
+        height: '232px',
       }} >
 
         <CardContent sx={{
@@ -58,15 +59,17 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
                 border: '3px solid #E7FCFA',
               }} src={contributor.facilitatorImage} />}
             title={<Typography fontSize={20} color='#231536' lineHeight='24px' fontWeight={500}>{contributor.name}</Typography>}
-            subheader={<Typography fontSize={14} sx={{
+            subheader={<TypographyEmail sx={{
               marginTop: '8px',
-            }}>{contributor.email}</Typography>}
+            }}>{contributor.email}</TypographyEmail>}
           />
-          <Typography sx={{
+          <TypographyJobTitle sx={{
             marginTop: '24px',
             marginBottom: '24px',
+            marginLeft: '8px',
             color,
-          }}>{contributorCommitment.jobTitle}</Typography>
+
+          }}>{contributorCommitment.jobTitle}</TypographyJobTitle>
 
           <CardContentPositionRow>
             <CardContentPositionColumn>
@@ -80,10 +83,10 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
           </CardContentPositionRow>
         </CardContent>
         <Divider light sx={{
-          marginBottom: '8px',
+          marginBottom: '11px',
           color: '#C4C4C4'
         }} variant='fullWidth' />
-        <CardLinksFooter><CuTableColumnLinks links={links} width={16} height={16} spacingsRight={19} /></CardLinksFooter>
+        <CardLinksFooter><CuTableColumnLinks links={links} width={10} height={10} spacingsRight={22} /></CardLinksFooter>
       </Card>
     </Box >
   );
@@ -116,4 +119,17 @@ const TypographyStyled = styled(Typography)<{ color: string }>((props) => ({
   fontSize: '14px',
   lineHeight: '22px'
 }));
+
+const TypographyEmail = styled(Typography)({
+  fontSize: '14px',
+  fontFamily: 'SF Pro Text, sans-serif',
+  color: '#231536'
+});
+
+const TypographyJobTitle = styled(Typography)({
+  fontSize: '11px',
+  fontWeight: 600,
+  fontFamily: 'SF Pro Text, sans-serif',
+});
+
 export default CardInfoMember;
