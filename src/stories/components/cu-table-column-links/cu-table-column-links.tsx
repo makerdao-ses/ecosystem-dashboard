@@ -47,11 +47,12 @@ const getImageForLink = (link: LinkModel, fill: string, width?: number, height?:
 
 export const CuTableColumnLinks = ({ width, height, links, spacingsRight, fill = '#C4C4C4' }: CuTableColumnLinksProps) => {
   return <Container>
-    {links.map((link, i) => <CustomPopover
+    {links.map((link, i) => <Box
       key={`link-${i}`}
+      sx={{ mr: `${spacingsRight ?? 0}px` }}>
+      <CustomPopover
       title={link.linkType}
       id={`link-${i}`}>
-      <Box sx={{ mr: `${spacingsRight ?? 0}px` }}>
         <LinkImage
           href={link.href}
           target="_blank"
@@ -59,8 +60,8 @@ export const CuTableColumnLinks = ({ width, height, links, spacingsRight, fill =
           height={height}>
           {getImageForLink(link, fill, width, height)}
         </LinkImage>
-      </Box>
-    </CustomPopover>)
+      </CustomPopover>
+    </Box>)
     }
   </Container >;
 };

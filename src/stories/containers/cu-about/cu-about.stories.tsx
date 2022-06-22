@@ -1,7 +1,6 @@
 import React from 'react';
 import CuAboutContainer from './cu-about-container';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 import { CurrentCoreUnitAbout, initialState } from './cu-about-slice';
@@ -47,6 +46,6 @@ const Mockstore = ({ children }) => (
 CuAboutPage.decorators = [
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  (story) => <MemoryRouter><HeaderWrapper><Mockstore cuAbout={MockedState}>{story()}</Mockstore></HeaderWrapper></MemoryRouter>
+  (story) => <HeaderWrapper><Mockstore cuAbout={MockedState}>{story()}</Mockstore></HeaderWrapper>
 ];
 CuAboutPage.args = {};

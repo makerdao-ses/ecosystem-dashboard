@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 import { CuTableState } from './cu-table.slice';
 import { initialState } from './cu-table.stories.states';
-import { MemoryRouter } from 'react-router-dom';
 
 const store = configureStore({
   reducer: {
@@ -45,6 +44,6 @@ export const Default = Template.bind({});
 Default.decorators = [
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-  (story) => <MemoryRouter><Mockstore cuTable={MockedState}>{story()}</Mockstore></MemoryRouter>
+  (story) => <Mockstore cuTable={MockedState}>{story()}</Mockstore>
 ];
 Default.args = {};
