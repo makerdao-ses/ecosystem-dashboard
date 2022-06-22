@@ -248,9 +248,11 @@ export const CuTable = () => {
 const ContainerHome = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  padding: '0 128px',
-  marginTop: '86px',
+  padding: '22px 128px 0',
+  marginTop: '64px',
   width: '100%',
+  height: 'calc(100vh - 64px)',
+  overflowY: 'scroll',
 });
 
 const Header = styled.div({
