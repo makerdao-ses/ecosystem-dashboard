@@ -44,16 +44,12 @@ const RelateMips = ({ relateMips }: Props) => {
         </CustomPopover>}
       </Row>
       {pieces.length === 2 && <RowUnderLine>
-        <Typography color='#231536' fontSize={16} fontWeight={600} sx={{
-          lineHeight: '22px',
-          minWidth: '125px',
-          display: 'inline-block',
-          marginRight: '4px',
-        }}>{`${pieces[0]}:`}</Typography>
+        <StyleMipNumber color='#231536' fontSize={16} fontWeight={600}>{`${pieces[0]}:`}</StyleMipNumber>
         <ContainerIconTypography>
           <Typography color='#447AFB' fontSize={16} sx={{
             display: 'inline',
             lineHeight: '19px',
+            fontWeight: 500,
           }}>{pieces[1]}</Typography>
           <ArrowLinkContainer>  <ExternalLinkArrow href={`${relateMips.mipUrl}` || '#'} /></ArrowLinkContainer>
         </ContainerIconTypography>
@@ -67,10 +63,10 @@ const Content = styled.div({
   display: 'flex',
   flexDirection: 'column',
   padding: '16px',
-  width: '672px',
-  backgroundColor: '#FCFCFC',
-  boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.25)',
-  borderRadius: '8px',
+  width: '620px',
+  backgroundColor: '#FFFFFF',
+  boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
+  borderRadius: '6px',
 });
 
 const Row = styled.div({
@@ -78,7 +74,7 @@ const Row = styled.div({
   flexDirection: 'row',
   alignItems: 'center',
   flex: 1,
-  marginBottom: '18px'
+  marginBottom: '32px'
 });
 
 const RowUnderLine = styled.div({
@@ -86,7 +82,6 @@ const RowUnderLine = styled.div({
   flexDirection: 'row',
   alignItems: 'flex-start',
   alignSelf: 'stretch',
-  width: '640px',
 });
 
 const SinceDate = styled.a({
@@ -97,7 +92,7 @@ const SinceDate = styled.a({
   lineHeight: '14px',
   letterSpacing: '1px',
   textTransform: 'uppercase',
-  color: '#447AFB',
+  color: '#9FAFB9',
   textDecoration: 'none',
   marginLeft: '4px',
 });
@@ -110,4 +105,12 @@ const ArrowLinkContainer = styled.span({
 const ContainerIconTypography = styled.div({
   display: 'inline',
   alignItems: 'center',
+});
+
+const StyleMipNumber = styled(Typography)({
+  lineHeight: '22px',
+  minWidth: '125px',
+  display: 'inline-block',
+  marginRight: '4px',
+  fontFamily: 'SF Pro Text, sans-serif'
 });

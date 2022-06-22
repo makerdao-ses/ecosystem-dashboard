@@ -274,7 +274,7 @@ const TitleRelateMips = styled.div({
   fontSize: '16px',
   lineHeight: '19px',
   marginBottom: '32px',
-  color: '#000000',
+  color: '#231536',
 });
 
 const RelateMipCards = styled.div({
