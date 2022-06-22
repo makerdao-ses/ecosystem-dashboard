@@ -180,68 +180,70 @@ export const CuTable = () => {
   }, [filteredData, sortData, onClickRow, facilitatorImages]);
 
   return <ContainerHome>
-    <Header>
-      <Title>Core Units</Title>
-      <CustomButton
-        label="Reset Filters"
-        style={{
-          marginRight: '16px',
-          width: '114px',
-          border: 'none'
-        }}
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        onClick={clearFilters}
-        disabled={filteredStatuses && filteredStatuses.length === 0}
+    <Wrapper>
+      <Header>
+        <Title>Core Units</Title>
+        <CustomButton
+          label="Reset Filters"
+          style={{
+            marginRight: '16px',
+            width: '114px',
+            border: 'none'
+          }}
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
+          onClick={clearFilters}
+          disabled={filteredStatuses && filteredStatuses.length === 0}
+        />
+        <CustomMultiSelect
+          label="Status"
+          activeItems={filteredStatuses}
+          items={statuses}
+          onChange={(value: string[]) => {
+            handleChangeUrlFilterArrays('filteredStatuses')(value);
+          }}
+          style={{ marginRight: '16px' }}
+        />
+        <CustomMultiSelect
+          label="CU Category"
+          activeItems={filteredCategories}
+          items={categories}
+          onChange={(value: string[]) => {
+            handleChangeUrlFilterArrays('filteredCategories')(value);
+          }}
+          style={{ marginRight: '16px' }}
+        />
+        <Separator/>
+        {router.isReady && <SearchInput
+            defaultValue={searchText}
+            placeholder="Search"
+            onChange={(value: string) => {
+              debounce(() => {
+                handleChangeUrlFilterArrays('searchText')(value);
+              }, 300);
+            }}
+            style={{ marginLeft: '16px' }}
+        />}
+        {!router.isReady && <SearchInput
+            defaultValue={searchText}
+            placeholder="Search"
+            onChange={(value: string) => {
+              debounce(() => {
+                handleChangeUrlFilterArrays('searchText')(value);
+              }, 300);
+            }}
+            style={{ marginLeft: '16px' }}
+        />}
+      </Header>
+      <CustomTable
+        headers={headers}
+        items={items}
+        headersAlign={['flex-start', 'center', 'center', 'flex-start', 'center']}
+        headersSort={headersSort}
+        headersStyles={headerStyles}
+        sortFunction={setSort}
+        loading={status === 'loading'}
       />
-      <CustomMultiSelect
-        label="Status"
-        activeItems={filteredStatuses}
-        items={statuses}
-        onChange={(value: string[]) => {
-          handleChangeUrlFilterArrays('filteredStatuses')(value);
-        }}
-        style={{ marginRight: '16px' }}
-      />
-      <CustomMultiSelect
-        label="CU Category"
-        activeItems={filteredCategories}
-        items={categories}
-        onChange={(value: string[]) => {
-          handleChangeUrlFilterArrays('filteredCategories')(value);
-        }}
-        style={{ marginRight: '16px' }}
-      />
-      <Separator />
-      {router.isReady && <SearchInput
-        defaultValue={searchText}
-        placeholder="Search"
-        onChange={(value: string) => {
-          debounce(() => {
-            handleChangeUrlFilterArrays('searchText')(value);
-          }, 300);
-        }}
-        style={{ marginLeft: '16px' }}
-      />}
-      {!router.isReady && <SearchInput
-        defaultValue={searchText}
-        placeholder="Search"
-        onChange={(value: string) => {
-          debounce(() => {
-            handleChangeUrlFilterArrays('searchText')(value);
-          }, 300);
-        }}
-        style={{ marginLeft: '16px' }}
-      />}
-    </Header>
-    <CustomTable
-      headers={headers}
-      items={items}
-      headersAlign={['flex-start', 'center', 'center', 'flex-start', 'center']}
-      headersSort={headersSort}
-      headersStyles={headerStyles}
-      sortFunction={setSort}
-      loading={status === 'loading'}
-    />
+    </Wrapper>
   </ContainerHome>;
 };
 
@@ -253,6 +255,13 @@ const ContainerHome = styled.div({
   width: '100%',
   height: 'calc(100vh - 64px)',
   overflowY: 'scroll',
+});
+
+const Wrapper = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  maxWidth: '1440px',
+  margin: '0 auto',
 });
 
 const Header = styled.div({
