@@ -56,7 +56,7 @@ describe('first', () => {
     expect(linksCardTwo.length).toBe(4);
     expect(linksCardOne[0].linkType).toBe(LinkTypeEnum.Gmail);
     expect(linksCardOne[1].linkType).toBe(LinkTypeEnum.Forum);
-    expect(linksCardOne[2].linkType).toBe(LinkTypeEnum.Discord);
-    expect(linksCardOne[3].linkType).toBe(LinkTypeEnum.Twitter);
+    expect(linksCardOne[2].linkType).toBe(LinkTypeEnum.Twitter);
+    expect(linksCardOne[3].linkType).toBe(LinkTypeEnum.Discord);
   });
 });
