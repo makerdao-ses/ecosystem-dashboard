@@ -56,7 +56,13 @@ const MdViewerPage = ({ subTitle = 'What we do', paragraphDescription, paragraph
     <ViewerContainer>
       <TypographyStyleDescription>{subTitle}</TypographyStyleDescription>
       {paragraphDescription && <Markdown value={paragraphDescription} renderer={customRenderer} />}
-      {paragraphImage !== '![Image](null)' && <Markdown value={paragraphImage} renderer={customRenderer} />}
+      {(paragraphImage !== '![Image]()')
+        ? <Markdown value={paragraphImage} renderer={customRenderer} />
+        : <div style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center'
+        }}>No img to show</div>}
     </ViewerContainer>
   );
 };
@@ -77,4 +83,5 @@ const TypographyStyleDescription = styled(Typography)({
   fontSize: '20px',
   lineHeight: '19px',
   color: '#231536',
+  marginBottom: '16px'
 });

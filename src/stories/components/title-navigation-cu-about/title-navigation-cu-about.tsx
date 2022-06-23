@@ -134,7 +134,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
         <CategoryContainer>{coreUnitAbout.category && coreUnitAbout.category.map((item) => <CategoryChip key={item} category={item} style={{ marginRight: '16px' }} />)}</CategoryContainer>
       </ContainerColum>
       <ContainerLinks>
-        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#211634'} spacingsRight={29} />
+        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#708390'} spacingsRight={29} />
       </ContainerLinks>
     </Container>
   );
@@ -142,7 +142,6 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
 
 const Container = styled.div({
   display: 'flex',
-  flex: 1,
   flexDirection: 'row',
   justifyContent: 'flex-start',
   alignItems: 'flex-start',

@@ -20,12 +20,12 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
   return (
     <Box>
       <Card sx={{
-        boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.08)',
-        borderRadius: '8px',
+        boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
         backgroundColor: '#FFFFFF',
+        borderRadius: '6px',
         width: '311px',
         height: '232px',
-      }} >
+      }} square>
 
         <CardContent sx={{
           margin: '16px',
@@ -58,7 +58,7 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
                 height: '54px',
                 border: '3px solid #E7FCFA',
               }} src={contributor.facilitatorImage} />}
-            title={<Typography fontSize={20} color='#231536' lineHeight='24px' fontWeight={500}>{contributor.name}</Typography>}
+            title={<TypographyName>{contributor.name}</TypographyName>}
             subheader={<TypographyEmail sx={{
               marginTop: '8px',
             }}>{contributor.email}</TypographyEmail>}
@@ -88,7 +88,7 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
         }} variant='fullWidth' />
         <CardLinksFooter><CuTableColumnLinks links={links} width={10} height={10} spacingsRight={22} /></CardLinksFooter>
       </Card>
-    </Box >
+    </Box>
   );
 };
 
@@ -129,6 +129,14 @@ const TypographyEmail = styled(Typography)({
 const TypographyJobTitle = styled(Typography)({
   fontSize: '11px',
   fontWeight: 600,
+  fontFamily: 'SF Pro Text, sans-serif',
+});
+
+const TypographyName = styled(Typography)({
+  fontSize: '20px',
+  color: '#231536',
+  lineHeight: '24px',
+  fontWeight: 500,
   fontFamily: 'SF Pro Text, sans-serif',
 });
 

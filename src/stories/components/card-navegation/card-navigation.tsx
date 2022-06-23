@@ -13,8 +13,10 @@ interface Props {
   list?: string[];
   title?: string;
   titleLinkPage?: string;
+  onClick?: () => void
 }
-export const NavigationCard = ({ description, image, list = [], title = '', titleLinkPage = '' }: Props) => {
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+export const NavigationCard = ({ description, image, list = [], title = '', titleLinkPage = '', onClick = () => { } }: Props) => {
   return (
     <>
       {!!title && <ArrowTittleStyle>
@@ -22,16 +24,16 @@ export const NavigationCard = ({ description, image, list = [], title = '', titl
         <div style={{
           display: 'flex',
           flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center'
+          alignItems: 'center',
+          marginLeft: '198px'
         }}>
-          <Typography textAlign='right' fontStyle='norma' fontWeight={400} fontSize={20} color='#231536'>{titleLinkPage}</Typography>
-          <ArrowRight width={16} height={16} style={{ marginLeft: '22px' }} />
+          <Typography textAlign='right' fontStyle='normal' fontWeight={400} fontSize={20} color='#231536'>{titleLinkPage}</Typography>
+          <ArrowRight width={16} height={16} style={{ marginLeft: '22px' }} onClick={onClick} />
         </div>
       </ArrowTittleStyle>
       }
       <Box sx={{
-        maxWidth: '86.38%',
+        maxWidth: '88.38%',
         maxHeight: '293px',
       }}>
         <CardContainer sx={{
@@ -72,6 +74,7 @@ const CardContainer = styled(Card)({
 
 const FiCardActionArea = styled(CardActionArea)({
   position: 'relative',
+  width: '373px'
 });
 
 const FiCardMedia = styled(CardMedia)({
@@ -79,7 +82,7 @@ const FiCardMedia = styled(CardMedia)({
   top: 0,
   right: 0,
   height: '100%',
-  width: '100%'
+  width: '100%',
 });
 
 const FiCardContent = styled(CardContent)({
@@ -124,10 +127,8 @@ const TypographyStyle = styled(Typography)({
 const ArrowTittleStyle = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'space-between',
   alignItems: 'end',
   marginBottom: '32px',
-  width: '405px',
 });
 
 export default NavigationCard;
