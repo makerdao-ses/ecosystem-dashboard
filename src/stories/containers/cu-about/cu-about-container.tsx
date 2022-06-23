@@ -25,6 +25,7 @@ import NavigationCard from '../../components/card-navegation/card-navigation';
 import { useRouter } from 'next/router';
 
 const CuAboutContainer = () => {
+  const [hiddenTextDescription, setHiddenTextDescription] = useState(true);
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;
@@ -48,6 +49,28 @@ const CuAboutContainer = () => {
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
 
+  const handleScroll = () => {
+    const element = document.getElementById('hidden-element');
+    if (element != null) {
+      console.log('window.scrollY', window.scrollY, window.pageYOffset);
+      const bound = element?.getBoundingClientRect();
+      console.log('bound', bound.top, bound.y);
+      if (bound && bound?.y < 276) {
+        setHiddenTextDescription(false);
+      } else {
+        setHiddenTextDescription(true);
+      }
+      console.log('Scrolling...');
+    }
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, true);
+
+    // Remove the event listener
+    return () => {
+      window.removeEventListener('scroll', handleScroll, true);
+    };
+  }, []);
   const filteredData = useMemo(() =>
     filterData({
       data,
@@ -104,73 +127,73 @@ const CuAboutContainer = () => {
           <BreadCrumb count={filteredData.length} breadcrumbs={[cuAbout.name] || []} isCoreUnit />
           <InsidePagination count={filteredData.length} page={page} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} />
         </NavigationHeader>
-        <ContainerTitle>
+        <ContainerTitle stateHidden={hiddenTextDescription}>
           <TitleNavigationCuAbout coreUnitAbout={cuAbout} />
-          <Typography fontSize={16} lineHeight='19px' color='#231536' sx={{
+          {hiddenTextDescription && <Typography fontSize={16} lineHeight='19px' color='#231536' sx={{
             marginTop: '16px'
-          }}>{cuAbout.sentenceDescription || ''}</Typography>
+          }}>{cuAbout.sentenceDescription || ''}</Typography>}
         </ContainerTitle>
       </div>
-        <ContainerAllData>
-          <div style={{
-            width: '60.39%',
-            display: 'flex',
-            flexDirection: 'column',
-            marginTop: 210,
-          }}>
-            <MarkdownContainer>
-              <MdViewerContainer sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)} paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)} paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)} />
-            </MarkdownContainer>
-            <TeamMemberContainer>
-              <TeamMemberTitle>Team Size</TeamMemberTitle><TeamMember fte={getFTEsFromCoreUnit(cuAbout)} />
-            </TeamMemberContainer>
-            <ContactInfoContainer>
-              <ContactInfoTitle>Contact Information</ContactInfoTitle>
-              <ContainerCards>
-                {contributors && contributors.map((contributor: ContributorCommitment, index: number) => {
-                  return (
-                    <div key={index} style={{ marginBottom: '32px' }}>
-                      <CardInfoMember contributorCommitment={contributor} />
-                    </div>
-                  );
-                })
-                }
-              </ContainerCards>
-              {contributors && contributors.length === 0 && <ContainerNoData>No data to Show</ContainerNoData>}
-            </ContactInfoContainer>
-            <Divider sx={{ marginTop: '32px' }} />
-            <CardRelateMipsContainer>
-              <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
-              <RelateMipCards>
-                {relateMipsOrder.map((mip: CuMip, index: number) => {
-                  return (
-                    <RelateMipCard key={index}>
-                      <RelateMips relateMips={mip} />
-                    </RelateMipCard>
+      <ContainerAllData>
+        <div style={{
+          width: '60.39%',
+          display: 'flex',
+          flexDirection: 'column',
+          marginTop: 210,
+        }}>
+          <MarkdownContainer>
+            <MdViewerContainer sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)} paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)} paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)} />
+          </MarkdownContainer>
+          <TeamMemberContainer>
+            <TeamMemberTitle>Team Size</TeamMemberTitle><TeamMember fte={getFTEsFromCoreUnit(cuAbout)} />
+          </TeamMemberContainer>
+          <ContactInfoContainer>
+            <ContactInfoTitle>Contact Information</ContactInfoTitle>
+            <ContainerCards>
+              {contributors && contributors.map((contributor: ContributorCommitment, index: number) => {
+                return (
+                  <div key={index} style={{ marginBottom: '32px' }}>
+                    <CardInfoMember contributorCommitment={contributor} />
+                  </div>
+                );
+              })
+              }
+            </ContainerCards>
+            {contributors && contributors.length === 0 && <ContainerNoData>No data to Show</ContainerNoData>}
+          </ContactInfoContainer>
+          <Divider sx={{ marginTop: '32px' }} />
+          <CardRelateMipsContainer>
+            <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
+            <RelateMipCards>
+              {relateMipsOrder.map((mip: CuMip, index: number) => {
+                return (
+                  <RelateMipCard key={index}>
+                    <RelateMips relateMips={mip} />
+                  </RelateMipCard>
 
-                  );
-                })}
-                {cuAbout && cuAbout.cuMip && cuAbout.cuMip.length === 0 && <ContainerNoRelateMIps>There are not related MIPs</ContainerNoRelateMIps>}
-              </RelateMipCards>
-            </CardRelateMipsContainer>
-            {cuAbout && cuAbout.cuMip && cuAbout.cuMip.length > 3 && <ButtonContainer>
-              <DividerStyle /> <BigButton title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'} onClick={onClickLessMips} />
-              <DividerStyle />
-            </ButtonContainer>}
-          </div>
-          <div style={{
-            width: '39.61%',
-          }}>
-            <ContainerScroll>
-              <ContainerCard>
-                <NavigationCard description={description} image='/assets/img/card-initiatives.png' list={list} titleLinkPage='View all' title='Initiatives' />
-              </ContainerCard>
-              <ContainerCard>
-                <NavigationCard description={description} image='/assets/img/card-finances.png' list={list} titleLinkPage='View all' title='Finances' />
-              </ContainerCard>
-            </ContainerScroll>
-          </div>
-        </ContainerAllData>
+                );
+              })}
+              {cuAbout && cuAbout.cuMip && cuAbout.cuMip.length === 0 && <ContainerNoRelateMIps>There are not related MIPs</ContainerNoRelateMIps>}
+            </RelateMipCards>
+          </CardRelateMipsContainer>
+          {cuAbout && cuAbout.cuMip && cuAbout.cuMip.length > 3 && <ButtonContainer>
+            <DividerStyle /> <BigButton title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'} onClick={onClickLessMips} />
+            <DividerStyle />
+          </ButtonContainer>}
+        </div>
+        <div style={{
+          width: '39.61%',
+        }}>
+          <ContainerScroll>
+            <ContainerCard>
+              <NavigationCard description={description} image='/assets/img/card-initiatives.png' list={list} titleLinkPage='View all' title='Initiatives' />
+            </ContainerCard>
+            <ContainerCard>
+              <NavigationCard description={description} image='/assets/img/card-finances.png' list={list} titleLinkPage='View all' title='Finances' />
+            </ContainerCard>
+          </ContainerScroll>
+        </div>
+      </ContainerAllData>
     </ContainerAbout >
   );
 };
@@ -206,15 +229,16 @@ const NavigationHeader = styled.div({
   paddingRight: '32px',
 });
 
-const ContainerTitle = styled.div({
+const ContainerTitle = styled.div<{ stateHidden?: boolean }>((props) => ({
   display: 'flex',
   flexDirection: 'column',
   paddingLeft: '128px',
   paddingRight: '128px',
-  paddingBottom: '24px',
-  height: '135px',
-  borderBottom: '1px solid #B6EDE7',
-});
+  paddingBottom: props.stateHidden ? '24px' : '32px',
+  height: props.stateHidden ? '135px' : '103px',
+  borderBottom: props.stateHidden ? '1px solid #B6EDE7' : 'none',
+}));
+
 const MarkdownContainer = styled.div({
   marginTop: '32px',
 });
@@ -267,6 +291,7 @@ const CardRelateMipsContainer = styled.div({
   alignItems: 'center',
   marginTop: '32px',
   marginBottom: '64px',
+  width: '715px'
 
 });
 
