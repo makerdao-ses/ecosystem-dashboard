@@ -216,7 +216,7 @@ const ContainerCard = styled.div({
   marginBottom: '32px',
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'flex-end'
+  marginLeft: '64px',
 });
 
 const NavigationHeader = styled.div({
