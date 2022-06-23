@@ -260,6 +260,7 @@ const ContainerHome = styled.div({
 const Wrapper = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  width: '100%',
   maxWidth: '1440px',
   margin: '0 auto',
 });
