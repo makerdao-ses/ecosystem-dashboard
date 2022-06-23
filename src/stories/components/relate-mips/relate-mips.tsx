@@ -54,7 +54,7 @@ const RelateMips = ({ relateMips }: Props) => {
           <ArrowLinkContainer>  <ExternalLinkArrow href={`${relateMips.mipUrl}` || '#'} /></ArrowLinkContainer>
         </ContainerIconTypography>
       </RowUnderLine>}
-      {pieces.length === 1 && <RowUnderLine><Typography> {relateMips.mipTitle}</Typography><ArrowLinkContainer>  <ExternalLinkArrow href={`${relateMips.mipUrl}` || '#'} /></ArrowLinkContainer></RowUnderLine>}
+      {pieces.length === 1 && <RowUnderLine><Typography color='#447AFB'> {relateMips.mipTitle}</Typography><ArrowLinkContainer>  <ExternalLinkArrow href={`${relateMips.mipUrl}` || '#'} /></ArrowLinkContainer></RowUnderLine>}
     </Content>
   );
 };

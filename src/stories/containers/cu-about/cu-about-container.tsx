@@ -134,66 +134,69 @@ const CuAboutContainer = () => {
           }}>{cuAbout.sentenceDescription || ''}</Typography>}
         </ContainerTitle>
       </div>
-      <ContainerAllData>
-        <div style={{
-          width: '60.39%',
-          display: 'flex',
-          flexDirection: 'column',
-          marginTop: 210,
-        }}>
-          <MarkdownContainer>
-            <MdViewerContainer sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)} paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)} paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)} />
-          </MarkdownContainer>
-          <TeamMemberContainer>
-            <TeamMemberTitle>Team Size</TeamMemberTitle><TeamMember fte={getFTEsFromCoreUnit(cuAbout)} />
-          </TeamMemberContainer>
-          <ContactInfoContainer>
-            <ContactInfoTitle>Contact Information</ContactInfoTitle>
-            <ContainerCards>
-              {contributors && contributors.map((contributor: ContributorCommitment, index: number) => {
-                return (
-                  <div key={index} style={{ marginBottom: '32px' }}>
-                    <CardInfoMember contributorCommitment={contributor} />
-                  </div>
-                );
-              })
-              }
-            </ContainerCards>
-            {contributors && contributors.length === 0 && <ContainerNoData>No data to Show</ContainerNoData>}
-          </ContactInfoContainer>
-          <Divider sx={{ marginTop: '32px' }} />
-          <CardRelateMipsContainer>
-            <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
-            <RelateMipCards>
-              {relateMipsOrder.map((mip: CuMip, index: number) => {
-                return (
-                  <RelateMipCard key={index}>
-                    <RelateMips relateMips={mip} />
-                  </RelateMipCard>
+      <Wrapper>
+        <ContainerAllData>
+          <div style={{
+            width: '60.39%',
+            display: 'flex',
+            flexDirection: 'column',
+            marginTop: 210,
+          }}>
 
-                );
-              })}
-              {cuAbout && cuAbout.cuMip && cuAbout.cuMip.length === 0 && <ContainerNoRelateMIps>There are not related MIPs</ContainerNoRelateMIps>}
-            </RelateMipCards>
-          </CardRelateMipsContainer>
-          {cuAbout && cuAbout.cuMip && cuAbout.cuMip.length > 3 && <ButtonContainer>
-            <DividerStyle /> <BigButton title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'} onClick={onClickLessMips} />
-            <DividerStyle />
-          </ButtonContainer>}
-        </div>
-        <div style={{
-          width: '39.61%',
-        }}>
-          <ContainerScroll>
-            <ContainerCard>
-              <NavigationCard description={description} image='/assets/img/card-initiatives.png' list={list} titleLinkPage='View all' title='Initiatives' />
-            </ContainerCard>
-            <ContainerCard>
-              <NavigationCard description={description} image='/assets/img/card-finances.png' list={list} titleLinkPage='View all' title='Finances' />
-            </ContainerCard>
-          </ContainerScroll>
-        </div>
-      </ContainerAllData>
+            <MarkdownContainer>
+              <MdViewerContainer sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)} paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)} paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)} />
+            </MarkdownContainer>
+            <TeamMemberContainer>
+              <TeamMemberTitle>Team Size</TeamMemberTitle><TeamMember fte={getFTEsFromCoreUnit(cuAbout)} />
+            </TeamMemberContainer>
+            <ContactInfoContainer>
+              <ContactInfoTitle>Contact Information</ContactInfoTitle>
+              <ContainerCards>
+                {contributors && contributors.map((contributor: ContributorCommitment, index: number) => {
+                  return (
+                    <div key={index} style={{ marginBottom: '32px' }}>
+                      <CardInfoMember contributorCommitment={contributor} />
+                    </div>
+                  );
+                })
+                }
+              </ContainerCards>
+              {contributors && contributors.length === 0 && <ContainerNoData>No data to Show</ContainerNoData>}
+            </ContactInfoContainer>
+            <Divider sx={{ marginTop: '32px' }} />
+            <CardRelateMipsContainer>
+              <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
+              <RelateMipCards>
+                {relateMipsOrder.map((mip: CuMip, index: number) => {
+                  return (
+                    <RelateMipCard key={index}>
+                      <RelateMips relateMips={mip} />
+                    </RelateMipCard>
+
+                  );
+                })}
+                {cuAbout && cuAbout.cuMip && cuAbout.cuMip.length === 0 && <ContainerNoRelateMIps>There are not related MIPs</ContainerNoRelateMIps>}
+              </RelateMipCards>
+            </CardRelateMipsContainer>
+            {cuAbout && cuAbout.cuMip && cuAbout.cuMip.length > 3 && <ButtonContainer>
+              <DividerStyle /> <BigButton title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'} onClick={onClickLessMips} />
+              <DividerStyle />
+            </ButtonContainer>}
+          </div>
+          <div style={{
+            width: '39.61%',
+          }}>
+            <ContainerScroll>
+              <ContainerCard>
+                <NavigationCard description={description} image='/assets/img/card-initiatives.png' list={list} titleLinkPage='View all' title='Initiatives' />
+              </ContainerCard>
+              <ContainerCard>
+                <NavigationCard description={description} image='/assets/img/card-finances.png' list={list} titleLinkPage='View all' title='Finances' />
+              </ContainerCard>
+            </ContainerScroll>
+          </div>
+        </ContainerAllData>
+      </Wrapper>
     </ContainerAbout >
   );
 };
@@ -363,4 +366,12 @@ const ContainerScroll = styled.div({
     background: 'transparent',
   },
   overflowY: 'auto',
+});
+
+const Wrapper = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  maxWidth: '1440px',
+  margin: '0 auto',
 });
