@@ -208,8 +208,6 @@ const ContainerAbout = styled.div({
   background: 'url(/assets/img/bg-page.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
-  height: 'calc(100vh - 64px)',
-  overflowY: 'scroll',
 });
 
 const ContainerCard = styled.div({
@@ -354,9 +352,8 @@ const DividerStyle = styled(Divider)({
 });
 
 const ContainerScroll = styled.div({
-  position: 'fixed',
+  position: 'sticky',
   top: 290,
-  marginRight: '128px',
   height: '620px',
   '&:: -webkit-scrollbar': {
     width: '0px',
