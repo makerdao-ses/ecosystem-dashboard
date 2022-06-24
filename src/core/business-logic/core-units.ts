@@ -2,12 +2,13 @@ import { DateTime, Interval } from 'luxon';
 import { LinkModel } from '../../stories/components/cu-table-column-links/cu-table-column-links';
 import { LinkTypeEnum } from '../enums/link-type.enum';
 import {
-  BudgetStatementDao,
-  CoreUnitDao,
-  CuMipDao,
-  Mip40BudgetPeriodDao,
-  Mip40Dao, Mip40WalletDao
-} from '../../stories/containers/cu-table/cu-table.api';
+  BudgetStatementDto,
+  CoreUnitDto,
+  CuMipDto,
+  Mip40BudgetPeriodDto,
+  Mip40Dto,
+  Mip40WalletDto
+} from '../models/dto/core-unit.dto';
 import { CuStatusEnum } from '../enums/cu-status.enum';
 import { RoadmapStatusEnum } from '../enums/roadmap-status.enum';
 import { FacilitatorModel } from '../models/facilitator.model';
@@ -15,7 +16,7 @@ import { CustomChartItemModel } from '../models/custom-chart-item.model';
 import { CuAbout, CuMip } from '../../stories/containers/cu-about/cu-about.api';
 import _ from 'lodash';
 
-export const setCuMipStatusModifiedDate = (mip: CuMipDao | CuMip, status: CuStatusEnum, date: string) => {
+export const setCuMipStatusModifiedDate = (mip: CuMipDto | CuMip, status: CuStatusEnum, date: string) => {
   let index = status.toLowerCase();
 
   if (status === CuStatusEnum.FormalSubmission) index = 'formalSubmission';
@@ -24,7 +25,7 @@ export const setCuMipStatusModifiedDate = (mip: CuMipDao | CuMip, status: CuStat
   mip[index] = date;
 };
 
-export const getCuMipStatusModifiedDate = (mip: CuMipDao | CuMip, status: CuStatusEnum) => {
+export const getCuMipStatusModifiedDate = (mip: CuMipDto | CuMip, status: CuStatusEnum) => {
   let index = status.toLowerCase();
   if (status === CuStatusEnum.FormalSubmission) index = 'formalSubmission';
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -32,13 +33,13 @@ export const getCuMipStatusModifiedDate = (mip: CuMipDao | CuMip, status: CuStat
   return mip[index];
 };
 
-export const getMipFromCoreUnit = (cu: CoreUnitDao) => {
+export const getMipFromCoreUnit = (cu: CoreUnitDto) => {
   if (cu.cuMip?.length === 0) return null;
 
   return cu.cuMip[cu.cuMip.length - 1];
 };
 
-export const getSubmissionDateFromCuMip = (mip: CuMipDao | null) => {
+export const getSubmissionDateFromCuMip = (mip: CuMipDto | null) => {
   if (!mip) return null;
 
   try {
@@ -53,7 +54,7 @@ export const getSubmissionDateFromCuMip = (mip: CuMipDao | null) => {
   }
 };
 
-export const countInitiativesFromCoreUnit = (cu: CoreUnitDao) => {
+export const countInitiativesFromCoreUnit = (cu: CoreUnitDto) => {
   if (cu.roadMap.length === 0) return 0;
 
   return cu.roadMap.reduce((pv, cv) => {
@@ -61,7 +62,7 @@ export const countInitiativesFromCoreUnit = (cu: CoreUnitDao) => {
   }, 0);
 };
 
-export const getLinksFromCoreUnit = (cu: CoreUnitDao) => {
+export const getLinksFromCoreUnit = (cu: CoreUnitDto) => {
   const result = [] as LinkModel[];
 
   if (cu.socialMediaChannels.length === 0) return result;
@@ -108,14 +109,14 @@ export const getLinksFromCoreUnit = (cu: CoreUnitDao) => {
   return result;
 };
 
-export const getFTEsFromCoreUnit = (cu: CoreUnitDao | CuAbout) => {
+export const getFTEsFromCoreUnit = (cu: CoreUnitDto | CuAbout) => {
   if (cu.budgetStatements?.length === 0) return 0;
   if (!cu.budgetStatements[0]?.budgetStatementFTEs || cu.budgetStatements[0]?.budgetStatementFTEs?.length === 0) return 0;
 
   return cu.budgetStatements[0].budgetStatementFTEs[0].ftes;
 };
 
-export const getFacilitatorsFromCoreUnit = (cu: CoreUnitDao) => {
+export const getFacilitatorsFromCoreUnit = (cu: CoreUnitDto) => {
   const result = [] as FacilitatorModel[];
 
   if (cu.cuMip?.length === 0) return result;
@@ -130,7 +131,7 @@ export const getFacilitatorsFromCoreUnit = (cu: CoreUnitDao) => {
   return result;
 };
 
-const checkDateOnPeriod = (period: Mip40BudgetPeriodDao, date: DateTime) => {
+const checkDateOnPeriod = (period: Mip40BudgetPeriodDto, date: DateTime) => {
   if (!period) return false;
   const start = DateTime.fromFormat(period.budgetPeriodStart, 'y-MM-dd');
   const end = DateTime.fromFormat(period.budgetPeriodEnd, 'y-MM-dd');
@@ -139,7 +140,7 @@ const checkDateOnPeriod = (period: Mip40BudgetPeriodDao, date: DateTime) => {
   return interval.contains(date);
 };
 
-const findMip40 = (cu: CoreUnitDao, date: DateTime): Mip40Dao | null => {
+const findMip40 = (cu: CoreUnitDto, date: DateTime): Mip40Dto | null => {
   for (let i = 0; i < cu.cuMip?.length ?? 0; i++) {
     const mip = cu.cuMip[i];
 
@@ -159,11 +160,11 @@ const findMip40 = (cu: CoreUnitDao, date: DateTime): Mip40Dao | null => {
   return null;
 };
 
-const sumLineItems = (wallet: Mip40WalletDao) => {
+const sumLineItems = (wallet: Mip40WalletDto) => {
   return wallet.mip40BudgetLineItem.reduce((p, c) => (c.budgetCap ?? 0) + p, 0);
 };
 
-export const getBudgetCapsFromCoreUnit = (cu: CoreUnitDao) => {
+export const getBudgetCapsFromCoreUnit = (cu: CoreUnitDto) => {
   const result: number[] = [];
   if (cu.cuMip.length === 0) return result;
 
@@ -181,7 +182,7 @@ export const getBudgetCapsFromCoreUnit = (cu: CoreUnitDao) => {
   return result.reverse();
 };
 
-const sumAllLineItemsFromBudgetStatement = (budgetStatement: BudgetStatementDao) => {
+const sumAllLineItemsFromBudgetStatement = (budgetStatement: BudgetStatementDto) => {
   let result = 0;
 
   budgetStatement?.budgetStatementWallet.forEach(wallet => {
@@ -193,7 +194,7 @@ const sumAllLineItemsFromBudgetStatement = (budgetStatement: BudgetStatementDao)
   return result;
 };
 
-export const getExpenditureValueFromCoreUnit = (cu: CoreUnitDao) => {
+export const getExpenditureValueFromCoreUnit = (cu: CoreUnitDto) => {
   let result = 0;
   if (cu.budgetStatements.length === 0) return result;
 
@@ -209,7 +210,7 @@ export const getExpenditureValueFromCoreUnit = (cu: CoreUnitDao) => {
   return result;
 };
 
-export const getExpenditureAmountFromCoreUnit = (cu: CoreUnitDao) => {
+export const getExpenditureAmountFromCoreUnit = (cu: CoreUnitDto) => {
   let result = 0;
   if (cu.budgetStatements.length === 0) return result;
 
@@ -225,7 +226,7 @@ export const getExpenditureAmountFromCoreUnit = (cu: CoreUnitDao) => {
   return result;
 };
 
-export const getPercentFromCoreUnit = (cu: CoreUnitDao) => {
+export const getPercentFromCoreUnit = (cu: CoreUnitDto) => {
   const value = getExpenditureValueFromCoreUnit(cu);
   const budgetCap = _.sum(getBudgetCapsFromCoreUnit(cu));
 
@@ -235,7 +236,7 @@ export const getPercentFromCoreUnit = (cu: CoreUnitDao) => {
   return value / budgetCap * 100;
 };
 
-export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDao) => {
+export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDto) => {
   const result = [] as CustomChartItemModel[];
   if (cu.budgetStatements.length === 0) return new Array(3).fill({ value: 0 });
 
@@ -254,7 +255,7 @@ export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDao) => {
   return result.reverse();
 };
 
-export const getMipUrlFromCoreUnit = (cu: CoreUnitDao) => {
+export const getMipUrlFromCoreUnit = (cu: CoreUnitDto) => {
   if (cu?.cuMip.length === 0) return '';
   return cu?.cuMip[0].mipUrl ?? '';
 };
