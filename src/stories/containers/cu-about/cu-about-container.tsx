@@ -52,15 +52,12 @@ const CuAboutContainer = () => {
   const handleScroll = () => {
     const element = document.getElementById('hidden-element');
     if (element != null) {
-      console.log('window.scrollY', window.scrollY, window.pageYOffset);
       const bound = element?.getBoundingClientRect();
-      console.log('bound', bound.top, bound.y);
       if (bound && bound?.y < 276) {
         setHiddenTextDescription(false);
       } else {
         setHiddenTextDescription(true);
       }
-      console.log('Scrolling...');
     }
   };
   useEffect(() => {
