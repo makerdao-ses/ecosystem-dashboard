@@ -54,7 +54,7 @@ const MdViewerPage = ({ subTitle = 'What we do', paragraphDescription, paragraph
   }, [headersLevel]);
   return (
     <ViewerContainer>
-      <TypographyStyleDescription>{subTitle}</TypographyStyleDescription>
+      <TypographyStyleDescription id='hidden-element'>{subTitle}</TypographyStyleDescription>
       {paragraphDescription && <Markdown value={paragraphDescription} renderer={customRenderer} />}
       {(paragraphImage !== '![Image]()')
         ? <Markdown value={paragraphImage} renderer={customRenderer} />

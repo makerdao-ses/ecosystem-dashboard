@@ -33,8 +33,13 @@ export const NavigationCard = ({ description, image, list = [], title = '', titl
       </ArrowTittleStyle>
       }
       <Box sx={{
-        maxWidth: '88.38%',
-        maxHeight: '293px',
+        height: '293px',
+        width: '405px',
+        '& .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
+          borderRadius: '6px',
+          backgroundColor: '#FFFFFF',
+          boxShadow: '0px 20px 40px -40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
+        },
       }}>
         <CardContainer sx={{
           p: '15px',
