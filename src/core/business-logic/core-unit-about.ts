@@ -47,16 +47,16 @@ export const getLinksFromContributor = (contributor: ContributorCommitment) => {
       href: cont.forumHandle,
     });
   }
-  if (cont.discordHandle) {
-    links.push({
-      linkType: LinkTypeEnum.Discord,
-      href: cont.discordHandle,
-    });
-  }
   if (cont.twitterHandle) {
     links.push({
       linkType: LinkTypeEnum.Twitter,
       href: cont.twitterHandle,
+    });
+  }
+  if (cont.discordHandle) {
+    links.push({
+      linkType: LinkTypeEnum.Discord,
+      href: cont.discordHandle,
     });
   }
   return links;
