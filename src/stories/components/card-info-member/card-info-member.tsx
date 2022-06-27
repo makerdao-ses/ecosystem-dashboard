@@ -52,7 +52,7 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
 
               }}>{getTwoInitials(contributor?.name || 'NM')}</Avatar>
               : <Avatar sx={{
-                marginRight: '0px',
+                marginRight: '21px',
               }} style={{
                 width: '54px',
                 height: '54px',
