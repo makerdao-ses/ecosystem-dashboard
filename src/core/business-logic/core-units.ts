@@ -33,7 +33,8 @@ export const getCuMipStatusModifiedDate = (mip: CuMipDto | CuMip, status: CuStat
   return mip[index];
 };
 
-export const getMipFromCoreUnit = (cu: CoreUnitDto) => {
+export const getMipFromCoreUnit = (cu?: CoreUnitDto | null) => {
+  if (!cu) return null;
   if (cu.cuMip?.length === 0) return null;
 
   return cu.cuMip[cu.cuMip.length - 1];

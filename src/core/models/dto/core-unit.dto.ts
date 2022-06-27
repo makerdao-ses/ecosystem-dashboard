@@ -39,7 +39,8 @@ export interface BudgetStatementFteDto {
 }
 
 export interface BudgetStatementLineItemDto {
-  actual: number
+  actual: number,
+  forecast: number,
 }
 
 export interface BudgetStatementWalletDto {
@@ -72,6 +73,7 @@ export interface CoreUnitDto {
   code: string,
   name: string,
   image: string,
+  sentenceDescription: string,
   category: string[],
   cuMip: CuMipDto[]
   roadMap: RoadMapDto[],
