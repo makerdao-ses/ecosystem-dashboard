@@ -19,11 +19,10 @@ const Footer = ({ governesses, products, developer }: Props) => {
     }}>
       <ContainerImage />
       <ContainerFooter>
-
         <ContainerColumOne ><FooterContact title='Contact MakerDAO' subtitle='Official Community Channels' logo={<Logo />} links={iconsContact} /></ContainerColumOne>
         <ContainerColumTwo>
-          <DescriptionFooter title='Governance' children={governesses} />
-          <DescriptionFooter title='Products & Tools' children={products} />
+          <DescriptionFooter title='Governance' children={governesses} style={{ marginRight: '65.86px' }} />
+          <DescriptionFooter title='Products & Tools' children={products} style={{ marginRight: '65.19px' }} />
           <DescriptionFooter title='Developer' children={developer} color='#333333' />
         </ContainerColumTwo>
         <ContainerColumThree>
@@ -46,6 +45,7 @@ const ContainerImage = styled.div({
   backgroundPosition: 'center bottom',
   backgroundRepeat: 'no-repeat',
   position: 'absolute',
+  // marginTop: '40px'
 });
 
 const ContainerFooter = styled.footer({
@@ -70,7 +70,7 @@ const ContainerColumOne = styled.div({
 const ContainerColumTwo = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'space-between',
+  // justifyContent: 'space-between',
   width: '40%'
 
 });

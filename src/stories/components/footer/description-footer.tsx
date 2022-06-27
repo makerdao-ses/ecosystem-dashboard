@@ -6,11 +6,12 @@ interface Props {
   title: string
   children: string[]
   color?: string
+  style?: React.CSSProperties
 }
 
-const DescriptionFooter = ({ title, children, color }: Props) => {
+const DescriptionFooter = ({ title, children, color, style = {} }: Props) => {
   return (
-    <div>
+    <div style={style}>
       <StyleTitle color={color}>{title}</StyleTitle>
       {children && children.map((item) => {
         return <StyleChildren key={item}>{item}</StyleChildren>;

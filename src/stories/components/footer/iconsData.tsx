@@ -52,7 +52,6 @@ export const iconsContact = [{
   icon: <Github />,
   href: 'https://github.com/makerdao',
   title: 'Reddit',
-  spacingsRight: 24
 },
 ] as TypeIconFooter[];
 
@@ -60,38 +59,38 @@ export const iconsSupport = [{
   icon: <WWW fill='#333333' />,
   href: '#',
   title: 'Website',
-  spacingsRight: 24
+  spacingsRight: 16
 
 },
 {
   icon: <Forum fill='#333333' />,
   href: 'https://forum.makerdao.com/',
   title: 'Twitter',
-  spacingsRight: 24
+  spacingsRight: 16
 },
 {
   icon: <Discord fill='#333333' />,
   href: 'https://discord.com/invite/RBRumCpEDH',
   title: 'Youtube',
-  spacingsRight: 24
+  spacingsRight: 16
 },
 {
   icon: <Twitter fill='#333333' />,
   href: 'https://twitter.com/MakerDAO',
   title: 'Reddit',
-  spacingsRight: 24
+  spacingsRight: 16
 },
 {
   icon: <Youtube fill='#333333' />,
   href: 'https://www.youtube.com/MakerDAO',
   title: 'Telegram',
-  spacingsRight: 24
+  spacingsRight: 16
 },
 {
   icon: <LinkedIn fill='#333333' />,
   href: 'https://www.linkedin.com/company/makerdao-ses/',
   title: 'Reddit',
-  spacingsRight: 24
+  spacingsRight: 16
 },
 ] as TypeIconFooter[];
 
