@@ -14,17 +14,17 @@ import { TransparencyMkrVesting } from './transparency-mkr-vesting/transparency-
 import { TransparencyTransferRequest } from './transparency-transfer-request/transparency-transfer-request';
 import { TransparencyAudit } from './transparency-audit/transparency-audit';
 import { useRouter } from 'next/router';
+import { getLinksFromCoreUnit, getMipFromCoreUnit } from '../../../core/business-logic/core-units';
 import { useTransparencyReportViewModel } from './transparency-report.mvvm';
-import { getMipFromCoreUnit } from '../../../core/business-logic/core-units';
 
 export const TransparencyReport = () => {
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;
 
-  const { data: cu, isLoading, error } = useTransparencyReportViewModel(code);
+  const { data, isLoading, error } = useTransparencyReportViewModel(code);
 
-  console.log(cu);
+  const cu = data && data.coreUnit[0];
 
   const [secondIndex, setSecondIndex] = useState(1);
   const [thirdIndex, setThirdIndex] = useState(0);
@@ -40,30 +40,11 @@ export const TransparencyReport = () => {
       {(!isLoading && cu) && <CoreUnitSummary
         title={cu.name}
         code={cu.code}
-        categories={[
-          CuCategoryEnum.Support,
-          CuCategoryEnum.Business,
-          CuCategoryEnum.Growth,
-          CuCategoryEnum.Operational,
-          CuCategoryEnum.Finance,
-        ]}
+        categories={cu.category}
         status={getMipFromCoreUnit(cu)?.mipStatus as CuStatusEnum}
-        links={[
-          {
-            href: '#',
-            linkType: LinkTypeEnum.WWW
-          },
-          {
-            href: '#',
-            linkType: LinkTypeEnum.Forum
-          },
-          {
-            href: '#',
-            linkType: LinkTypeEnum.Discord
-          },
-        ]}
-        description={'The aim of SES is to sustainably grow the Maker Protocol\'s moats by systematically removing barriers between the decentralized workforce, capital, and work.'}
-        imageUrl={'https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/53/92/77/53927729-28a4-b94a-40d9-9abbc9583078/source/512x512bb.jpg'}
+        links={getLinksFromCoreUnit(cu)}
+        description={cu.sentenceDescription}
+        imageUrl={cu.image}
       />}
     </SummaryWrapper>
     <InnerPage>

@@ -1,17 +1,12 @@
-import { fetchWalletsForCoreUnit } from './transparency-report.api';
-import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
-import { useEffect, useState } from 'react';
+import useSWR from 'swr';
+import { CORE_UNIT_REQUEST, fetcher } from './transparency-report.api';
 
 export const useTransparencyReportViewModel = (code: string) => {
-  const [error, setError] = useState(null);
-  const [data, setData] = useState([]);
-
-  const fetchCoreUnit = () => fetchWalletsForCoreUnit(code);
+  const { data, error } = useSWR(CORE_UNIT_REQUEST(code), fetcher);
 
   return {
-    data: data && data.length > 0 ? data[0] as CoreUnitDto : null,
+    data,
     isLoading: !error && !data,
     error,
-    fetchCoreUnit,
   };
 };
