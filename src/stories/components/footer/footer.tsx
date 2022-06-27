@@ -45,7 +45,6 @@ const ContainerImage = styled.div({
   backgroundPosition: 'center bottom',
   backgroundRepeat: 'no-repeat',
   position: 'absolute',
-  // marginTop: '40px'
 });
 
 const ContainerFooter = styled.footer({
@@ -70,7 +69,7 @@ const ContainerColumOne = styled.div({
 const ContainerColumTwo = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  // justifyContent: 'space-between',
+  justifyContent: 'space-between',
   width: '40%'
 
 });
