@@ -208,6 +208,7 @@ const ContainerAbout = styled.div({
   background: 'url(/assets/img/bg-page.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
+  marginBottom: '130px'
 });
 
 const ContainerCard = styled.div({
