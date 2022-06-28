@@ -33,7 +33,7 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
       <LeftPart>
         <ContainerLogoSelect themeMode={themeMode}>
           <LogoContainer>
-            <Logo fill={themeMode === 'dark' ? theme.palette.primary.main : '#211634'} />
+            <Logo fill={themeMode === 'dark' ? '#6EDBD0' : '#211634'} />
           </LogoContainer>
           <Dashboard fill={themeMode === 'dark' ? '#6EDBD0' : '#211634'} />
           <SelectLink links={links} onClick={onClick} fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'} background={themeMode === 'dark' ? '#31424E' : '#ECF1F3'} />
