@@ -1,13 +1,13 @@
-import { BudgetStatementFteDao } from '../../../stories/containers/cu-table/cu-table.api';
+import { BudgetStatementFteDto } from '../../models/dto/core-unit.dto';
 
 export class BudgetStatementFteBuilder {
-  private readonly _budgetStatementFte: BudgetStatementFteDao;
+  private readonly _budgetStatementFte: BudgetStatementFteDto;
 
   constructor() {
     this._budgetStatementFte = {
       ftes: 0,
       month: '',
-    } as BudgetStatementFteDao;
+    } as BudgetStatementFteDto;
   }
 
   withMonth(month: string): BudgetStatementFteBuilder {
@@ -20,7 +20,7 @@ export class BudgetStatementFteBuilder {
     return this;
   }
 
-  build(): BudgetStatementFteDao {
+  build(): BudgetStatementFteDto {
     return this._budgetStatementFte;
   }
 }

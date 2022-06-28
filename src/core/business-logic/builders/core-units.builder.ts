@@ -1,14 +1,14 @@
 import {
-  BudgetStatementDao,
-  CoreUnitDao,
-  CuMipDao,
-  RoadMapDao,
-  SocialMediaChannelDAO
-} from '../../../stories/containers/cu-table/cu-table.api';
+  BudgetStatementDto,
+  CoreUnitDto,
+  CuMipDto,
+  RoadMapDto,
+  SocialMediaChannelDto
+} from '../../models/dto/core-unit.dto';
 import { CuCategoryEnum } from '../../enums/cu-category.enum';
 
 export class CoreUnitsBuilder {
-  private readonly _coreUnit: CoreUnitDao;
+  private readonly _coreUnit: CoreUnitDto;
 
   constructor() {
     this._coreUnit = {
@@ -17,11 +17,11 @@ export class CoreUnitsBuilder {
       image: '',
       id: '',
       category: [] as string[],
-      budgetStatements: [] as BudgetStatementDao[],
-      socialMediaChannels: [] as SocialMediaChannelDAO[],
-      cuMip: [] as CuMipDao[],
-      roadMap: [] as RoadMapDao[]
-    } as CoreUnitDao;
+      budgetStatements: [] as BudgetStatementDto[],
+      socialMediaChannels: [] as SocialMediaChannelDto[],
+      cuMip: [] as CuMipDto[],
+      roadMap: [] as RoadMapDto[]
+    } as CoreUnitDto;
   }
 
   withId(id: string): CoreUnitsBuilder {
@@ -49,27 +49,27 @@ export class CoreUnitsBuilder {
     return this;
   }
 
-  addBudgetStatement(budgetStatement: BudgetStatementDao): CoreUnitsBuilder {
+  addBudgetStatement(budgetStatement: BudgetStatementDto): CoreUnitsBuilder {
     this._coreUnit.budgetStatements.push(budgetStatement);
     return this;
   }
 
-  addSocialMediaChannel(socialMediaChannel: SocialMediaChannelDAO): CoreUnitsBuilder {
+  addSocialMediaChannel(socialMediaChannel: SocialMediaChannelDto): CoreUnitsBuilder {
     this._coreUnit.socialMediaChannels.push(socialMediaChannel);
     return this;
   }
 
-  addCuMip(cuMip: CuMipDao): CoreUnitsBuilder {
+  addCuMip(cuMip: CuMipDto): CoreUnitsBuilder {
     this._coreUnit.cuMip.push(cuMip);
     return this;
   }
 
-  addRoadMap(roadMap: RoadMapDao): CoreUnitsBuilder {
+  addRoadMap(roadMap: RoadMapDto): CoreUnitsBuilder {
     this._coreUnit.roadMap.push(roadMap);
     return this;
   }
 
-  build(): CoreUnitDao {
+  build(): CoreUnitDto {
     return this._coreUnit;
   }
 }

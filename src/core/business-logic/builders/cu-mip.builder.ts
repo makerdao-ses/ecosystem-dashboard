@@ -1,21 +1,21 @@
-import { CuMipDao, Mip40Dao, Mip41Dao } from '../../../stories/containers/cu-table/cu-table.api';
 import { setCuMipStatusModifiedDate } from '../core-units';
 import { CuStatusEnum } from '../../enums/cu-status.enum';
+import { CuMipDto, Mip40Dto, Mip41Dto } from '../../models/dto/core-unit.dto';
 
 export class CuMipBuilder {
-  private readonly _cuMip: CuMipDao;
+  private readonly _cuMip: CuMipDto;
 
   constructor() {
     this._cuMip = {
       mipStatus: '',
-      mip40: [] as Mip40Dao[],
-      mip41: [] as Mip41Dao[],
+      mip40: [] as Mip40Dto[],
+      mip41: [] as Mip41Dto[],
       accepted: '',
       rejected: '',
       rfc: '',
       formalSubmission: '',
       obsolete: '',
-    } as CuMipDao;
+    } as CuMipDto;
   }
 
   withStatus(status: CuStatusEnum, date: string): CuMipBuilder {
@@ -24,17 +24,17 @@ export class CuMipBuilder {
     return this;
   }
 
-  addMip40(mip40: Mip40Dao): CuMipBuilder {
+  addMip40(mip40: Mip40Dto): CuMipBuilder {
     this._cuMip.mip40.push(mip40);
     return this;
   }
 
-  addMip41(mip41: Mip41Dao): CuMipBuilder {
+  addMip41(mip41: Mip41Dto): CuMipBuilder {
     this._cuMip.mip41.push(mip41);
     return this;
   }
 
-  build(): CuMipDao {
+  build(): CuMipDto {
     return this._cuMip;
   }
 }

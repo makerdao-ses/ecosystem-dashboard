@@ -40,7 +40,7 @@ export interface BudgetStatementFteDto {
 
 export interface BudgetStatementLineItemDto {
   actual: number,
-  forecast: number,
+  forecast?: number,
 }
 
 export interface BudgetStatementWalletDto {
