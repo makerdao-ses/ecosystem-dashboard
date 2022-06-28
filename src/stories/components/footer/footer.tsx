@@ -41,7 +41,7 @@ const ContainerImage = styled.div({
   zIndex: -1,
   transform: 'translate(-50%)',
   backgroundImage: 'url(/assets/img/bg_footer_light.jpeg)',
-  backgroundSize: '100% 400px',
+  backgroundSize: '100% 100%',
   backgroundPosition: 'center bottom',
   backgroundRepeat: 'no-repeat',
   position: 'absolute',
