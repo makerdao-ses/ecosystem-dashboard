@@ -1,13 +1,13 @@
-import { RoadMapDao } from '../../../stories/containers/cu-table/cu-table.api';
+import { RoadMapDto } from '../../models/dto/core-unit.dto';
 
 export class RoadmapBuilder {
-  private readonly _roadmap: RoadMapDao;
+  private readonly _roadmap: RoadMapDto;
 
   constructor() {
     this._roadmap = {
       ownerCuId: '',
       roadmapStatus: '',
-    } as RoadMapDao;
+    } as RoadMapDto;
   }
 
   withOwnerCuId(ownerCuId: string): RoadmapBuilder {
@@ -20,7 +20,7 @@ export class RoadmapBuilder {
     return this;
   }
 
-  build(): RoadMapDao {
+  build(): RoadMapDto {
     return this._roadmap;
   }
 }

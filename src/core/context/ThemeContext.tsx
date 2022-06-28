@@ -6,6 +6,8 @@ import useLocalStorage from '../hooks/useLocalStorage';
 import menuItems from '../../stories/components/header/menu-items';
 import { itemsWebSiteLinks } from '../../stories/components/header/select-link-website/menu-items';
 import Header from '../../stories/components/header/Header';
+import Footer from '../../stories/components/footer/footer';
+import { developer, governesses, products } from '../../stories/components/footer/iconsData';
 
 const DARK_SCHEME_QUERY = '(prefers-color-scheme: dark)';
 
@@ -40,9 +42,9 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
       toggleTheme
     }}>
       <MuiThemeProvider theme={themeMode === 'light' ? lightTheme : darkTheme}>
-      <Header menuItems={menuItems} links={itemsWebSiteLinks} themeMode={themeMode} toggleTheme={toggleTheme} />
+        <Header menuItems={menuItems} links={itemsWebSiteLinks} themeMode={themeMode} toggleTheme={toggleTheme} />
         {children}
-
+        <Footer developer={developer} governesses={governesses} products={products} />
       </MuiThemeProvider>
     </ThemeContext.Provider>
   );

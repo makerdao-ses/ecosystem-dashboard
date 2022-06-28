@@ -33,7 +33,6 @@ import {
 } from './cu-table.slice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../core/store/store';
-import { CoreUnitDao } from './cu-table.api';
 import { SortEnum } from '../../../core/enums/sort.enum';
 import { sortAlphaNum } from '../../../core/utils/sort.utils';
 import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
@@ -42,6 +41,7 @@ import { CustomButton } from '../../components/custom-button/custom-button';
 import { useDebounce } from '../../../core/utils/use-debounce';
 import { useRouter } from 'next/router';
 import { stringify } from 'querystring';
+import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 const statuses = Object.values(CuStatusEnum) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];
@@ -58,7 +58,7 @@ export const CuTable = () => {
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
 
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
-  const data: Array<CoreUnitDao> = useSelector((state: RootState) => selectCuTableItems(state));
+  const data: Array<CoreUnitDto> = useSelector((state: RootState) => selectCuTableItems(state));
   const facilitatorImages = useSelector((state: RootState) => selectFacilitatorImages(state));
   const status = useSelector((state: RootState) => selectCuTableStatus(state));
 
@@ -88,14 +88,14 @@ export const CuTable = () => {
     }
   };
 
-  const sortData = useCallback((items: CoreUnitDao[]) => {
+  const sortData = useCallback((items: CoreUnitDto[]) => {
     if (headersSort[sortColumn] === SortEnum.Disabled) return items;
 
     const multiplier = headersSort[sortColumn] === SortEnum.Asc ? 1 : -1;
-    const nameSort = (a: CoreUnitDao, b: CoreUnitDao) => sortAlphaNum(a.name, b.name) * multiplier;
-    const initiativesSort = (a: CoreUnitDao, b: CoreUnitDao) => (countInitiativesFromCoreUnit(a) - countInitiativesFromCoreUnit(b)) * multiplier;
-    const expendituresSort = (a: CoreUnitDao, b: CoreUnitDao) => (getExpenditureValueFromCoreUnit(a) - getExpenditureValueFromCoreUnit(b)) * multiplier;
-    const teamMembersSort = (a: CoreUnitDao, b: CoreUnitDao) => (getFTEsFromCoreUnit(a) - getFTEsFromCoreUnit(b)) * multiplier;
+    const nameSort = (a: CoreUnitDto, b: CoreUnitDto) => sortAlphaNum(a.name, b.name) * multiplier;
+    const initiativesSort = (a: CoreUnitDto, b: CoreUnitDto) => (countInitiativesFromCoreUnit(a) - countInitiativesFromCoreUnit(b)) * multiplier;
+    const expendituresSort = (a: CoreUnitDto, b: CoreUnitDto) => (getExpenditureValueFromCoreUnit(a) - getExpenditureValueFromCoreUnit(b)) * multiplier;
+    const teamMembersSort = (a: CoreUnitDto, b: CoreUnitDto) => (getFTEsFromCoreUnit(a) - getFTEsFromCoreUnit(b)) * multiplier;
 
     const sortAlg = [nameSort, initiativesSort, expendituresSort, teamMembersSort];
     return [...items].sort(sortAlg[sortColumn]);
@@ -138,7 +138,7 @@ export const CuTable = () => {
   const items = useMemo(() => {
     if (!filteredData) return [];
     const sortedData = sortData(filteredData);
-    return sortedData.map((coreUnit: CoreUnitDao, i: number) => {
+    return sortedData.map((coreUnit: CoreUnitDto, i: number) => {
       return [
         <CuTableColumnSummary
           key={`summary-${i}`}
@@ -212,26 +212,26 @@ export const CuTable = () => {
           }}
           style={{ marginRight: '16px' }}
         />
-        <Separator/>
+        <Separator />
         {router.isReady && <SearchInput
-            defaultValue={searchText}
-            placeholder="Search"
-            onChange={(value: string) => {
-              debounce(() => {
-                handleChangeUrlFilterArrays('searchText')(value);
-              }, 300);
-            }}
-            style={{ marginLeft: '16px' }}
+          defaultValue={searchText}
+          placeholder="Search"
+          onChange={(value: string) => {
+            debounce(() => {
+              handleChangeUrlFilterArrays('searchText')(value);
+            }, 300);
+          }}
+          style={{ marginLeft: '16px' }}
         />}
         {!router.isReady && <SearchInput
-            defaultValue={searchText}
-            placeholder="Search"
-            onChange={(value: string) => {
-              debounce(() => {
-                handleChangeUrlFilterArrays('searchText')(value);
-              }, 300);
-            }}
-            style={{ marginLeft: '16px' }}
+          defaultValue={searchText}
+          placeholder="Search"
+          onChange={(value: string) => {
+            debounce(() => {
+              handleChangeUrlFilterArrays('searchText')(value);
+            }, 300);
+          }}
+          style={{ marginLeft: '16px' }}
         />}
       </Header>
       <CustomTable
@@ -253,8 +253,7 @@ const ContainerHome = styled.div({
   padding: '22px 128px 0',
   marginTop: '64px',
   width: '100%',
-  height: 'calc(100vh - 64px)',
-  overflowY: 'scroll',
+  marginBottom: '121px',
 });
 
 const Wrapper = styled.div({

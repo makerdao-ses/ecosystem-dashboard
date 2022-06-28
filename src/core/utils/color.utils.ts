@@ -5,7 +5,7 @@ export const getColorForString = (value: string): string => {
   let hash = 0;
   let i;
 
-  for (i = 0; i < value.length; i += 1) {
+  for (i = 0; i < value?.length; i += 1) {
     hash = value.charCodeAt(i) + ((hash << 5) - hash);
   }
 

@@ -5,8 +5,8 @@ import {
   CuMip,
   SocialMediaChannels,
 } from '../../../../stories/containers/cu-about/cu-about.api';
-import { BudgetStatementDao } from '../../../../stories/containers/cu-table/cu-table.api';
 import { CuCategoryEnum } from '../../../enums/cu-category.enum';
+import { BudgetStatementDto } from '../../../models/dto/core-unit.dto';
 
 export class CoreUnitsAboutBuilder {
   private readonly _coreUnitAbout: CuAbout;
@@ -65,7 +65,7 @@ export class CoreUnitsAboutBuilder {
   }
 
   addBudgetStatement(
-    budgetStatement: BudgetStatementDao
+    budgetStatement: BudgetStatementDto
   ): CoreUnitsAboutBuilder {
     this._coreUnitAbout.budgetStatements.push(budgetStatement);
     return this;

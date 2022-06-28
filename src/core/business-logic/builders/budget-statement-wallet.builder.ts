@@ -1,11 +1,11 @@
-import { BudgetStatementLineItemDao, BudgetStatementWalletDao } from '../../../stories/containers/cu-table/cu-table.api';
+import { BudgetStatementLineItemDto, BudgetStatementWalletDto } from '../../models/dto/core-unit.dto';
 
 export class BudgetStatementWalletBuilder {
-  private readonly _wallet: BudgetStatementWalletDao;
+  private readonly _wallet: BudgetStatementWalletDto;
 
   constructor() {
     this._wallet = {
-      budgetStatementLineItem: [] as BudgetStatementLineItemDao[],
+      budgetStatementLineItem: [] as BudgetStatementLineItemDto[],
     };
   }
 

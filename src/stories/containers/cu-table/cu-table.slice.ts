@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../../core/store/store';
-import { CoreUnitDao, fetchCoreUnits, fetchFacilitatorImage } from './cu-table.api';
+import { fetchCoreUnits, fetchFacilitatorImage } from './cu-table.api';
+import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 export interface CuTableState {
-  items: CoreUnitDao[],
+  items: CoreUnitDto[],
   facilitatorImages: {[id:string]: string}
   status: string,
 }
