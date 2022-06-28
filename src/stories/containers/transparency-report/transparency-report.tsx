@@ -5,9 +5,7 @@ import { CustomPager } from '../../components/custom-pager/custom-pager';
 import { CustomLink } from '../../components/custom-link/custom-link';
 import { Breadcrumbs } from '../../components/breadcrumbs/breadcrumbs';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
-import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
-import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
 import { TransparencyActuals } from './transparency-actuals/transparency-actuals';
 import { TransparencyForecast } from './transparency-forecast/transparency-forecast';
 import { TransparencyMkrVesting } from './transparency-mkr-vesting/transparency-mkr-vesting';
@@ -22,7 +20,7 @@ export const TransparencyReport = () => {
   const query = router.query;
   const code = query.code as string;
 
-  const { data, isLoading, error } = useTransparencyReportViewModel(code);
+  const { data, isLoading } = useTransparencyReportViewModel(code);
 
   const cu = data && data.coreUnit[0];
 
