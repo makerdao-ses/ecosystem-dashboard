@@ -22,15 +22,15 @@ const Footer = ({ governesses, products, developer }: Props) => {
         <ContainerColumOne ><FooterContact title='Contact MakerDAO' subtitle='Official Community Channels' logo={<Logo />} links={iconsContact} /></ContainerColumOne>
         <ContainerColumTwo>
           <DescriptionFooter title='Governance' children={governesses} style={{
-            width: '161px',
-            marginRight: '59px'
+            width: '143px',
+            marginRight: '82.84px'
           }} />
           <DescriptionFooter title='Products & Tools' children={products} style={{
-            width: '137.55px',
-            marginRight: '60px'
+            width: '147.55px',
+            marginRight: '82.84px'
           }} />
           <DescriptionFooter title='Developer' children={developer} color='#333333' style={{
-            width: '176.99px'
+            width: '129.99px'
           }} />
         </ContainerColumTwo>
         <ContainerColumThree>
@@ -77,7 +77,7 @@ const ContainerColumTwo = styled.div({
   display: 'flex',
   flexDirection: 'row',
   width: '594.54px',
-  marginRight: '65.14px',
+  marginRight: '82.84px',
 
 });
 const ContainerColumThree = styled.div({
