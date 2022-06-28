@@ -1,6 +1,6 @@
 /* eslint-disable no-template-curly-in-string */
 import { ParsedUrlQuery } from 'querystring';
-import { CoreUnitDao } from '../../stories/containers/cu-table/cu-table.api';
+import { CoreUnitDto } from '../models/dto/core-unit.dto';
 
 export const filterData = ({
   filteredStatuses = [],
@@ -11,7 +11,7 @@ export const filterData = ({
   filteredStatuses?: string[];
   filteredCategories?: string[];
   searchText?: string;
-  data: CoreUnitDao[];
+  data: CoreUnitDto[];
 }) => {
   const lowerCaseStatuses = filteredStatuses.map((x) => x.toLowerCase());
   const lowerCaseCategories = filteredCategories.map((x) => x.toLowerCase());

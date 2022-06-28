@@ -1,19 +1,15 @@
-import {
-  BudgetStatementDao,
-  BudgetStatementFteDao,
-  BudgetStatementWalletDao
-} from '../../../stories/containers/cu-table/cu-table.api';
+import { BudgetStatementDto, BudgetStatementFteDto, BudgetStatementWalletDto } from '../../models/dto/core-unit.dto';
 
 export class BudgetStatementBuilder {
-  private readonly _budgetStatement: BudgetStatementDao;
+  private readonly _budgetStatement: BudgetStatementDto;
 
   constructor() {
     this._budgetStatement = {
       month: '',
-      budgetStatementFTEs: [] as BudgetStatementFteDao[],
-      budgetStatementWallet: [] as BudgetStatementWalletDao[],
+      budgetStatementFTEs: [] as BudgetStatementFteDto[],
+      budgetStatementWallet: [] as BudgetStatementWalletDto[],
       budgetStatus: '',
-    } as BudgetStatementDao;
+    } as BudgetStatementDto;
   }
 
   withMonth(month: string): BudgetStatementBuilder {
@@ -26,17 +22,17 @@ export class BudgetStatementBuilder {
     return this;
   }
 
-  addBudgetStatementFTE(budgetStatementFTE: BudgetStatementFteDao): BudgetStatementBuilder {
+  addBudgetStatementFTE(budgetStatementFTE: BudgetStatementFteDto): BudgetStatementBuilder {
     this._budgetStatement.budgetStatementFTEs.push(budgetStatementFTE);
     return this;
   }
 
-  addBudgetStatementWallet(budgetStatementWallet: BudgetStatementWalletDao): BudgetStatementBuilder {
+  addBudgetStatementWallet(budgetStatementWallet: BudgetStatementWalletDto): BudgetStatementBuilder {
     this._budgetStatement.budgetStatementWallet.push(budgetStatementWallet);
     return this;
   }
 
-  build(): BudgetStatementDao {
+  build(): BudgetStatementDto {
     return this._budgetStatement;
   }
 }

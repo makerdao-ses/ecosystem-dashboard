@@ -5,16 +5,25 @@ import { CustomPager } from '../../components/custom-pager/custom-pager';
 import { CustomLink } from '../../components/custom-link/custom-link';
 import { Breadcrumbs } from '../../components/breadcrumbs/breadcrumbs';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
-import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
-import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
 import { TransparencyActuals } from './transparency-actuals/transparency-actuals';
 import { TransparencyForecast } from './transparency-forecast/transparency-forecast';
 import { TransparencyMkrVesting } from './transparency-mkr-vesting/transparency-mkr-vesting';
 import { TransparencyTransferRequest } from './transparency-transfer-request/transparency-transfer-request';
 import { TransparencyAudit } from './transparency-audit/transparency-audit';
+import { useRouter } from 'next/router';
+import { getLinksFromCoreUnit, getMipFromCoreUnit } from '../../../core/business-logic/core-units';
+import { useTransparencyReportViewModel } from './transparency-report.mvvm';
 
 export const TransparencyReport = () => {
+  const router = useRouter();
+  const query = router.query;
+  const code = query.code as string;
+
+  const { data, isLoading } = useTransparencyReportViewModel(code);
+
+  const cu = data && data.coreUnit[0];
+
   const [secondIndex, setSecondIndex] = useState(1);
   const [thirdIndex, setThirdIndex] = useState(0);
 
@@ -26,34 +35,15 @@ export const TransparencyReport = () => {
       />
     </BreadcrumbWrapper>
     <SummaryWrapper>
-      <CoreUnitSummary
-        title={'Core Unit 1'}
-        code={'COD'}
-        categories={[
-          CuCategoryEnum.Support,
-          CuCategoryEnum.Business,
-          CuCategoryEnum.Growth,
-          CuCategoryEnum.Operational,
-          CuCategoryEnum.Finance,
-        ]}
-        status={CuStatusEnum.Accepted}
-        links={[
-          {
-            href: '#',
-            linkType: LinkTypeEnum.WWW
-          },
-          {
-            href: '#',
-            linkType: LinkTypeEnum.Forum
-          },
-          {
-            href: '#',
-            linkType: LinkTypeEnum.Discord
-          },
-        ]}
-        description={'The aim of SES is to sustainably grow the Maker Protocol\'s moats by systematically removing barriers between the decentralized workforce, capital, and work.'}
-        imageUrl={'https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/53/92/77/53927729-28a4-b94a-40d9-9abbc9583078/source/512x512bb.jpg'}
-      />
+      {(!isLoading && cu) && <CoreUnitSummary
+        title={cu.name}
+        code={cu.code}
+        categories={cu.category}
+        status={getMipFromCoreUnit(cu)?.mipStatus as CuStatusEnum}
+        links={getLinksFromCoreUnit(cu)}
+        description={cu.sentenceDescription}
+        imageUrl={cu.image}
+      />}
     </SummaryWrapper>
     <InnerPage>
       <Tabs

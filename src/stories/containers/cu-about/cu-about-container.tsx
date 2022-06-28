@@ -14,7 +14,6 @@ import InsidePagination from '../../components/pagination/InsidePagination';
 import RelateMips from '../../components/relate-mips/relate-mips';
 import TeamMember from '../../components/team-members/team-member';
 import TitleNavigationCuAbout from '../../components/title-navigation-cu-about/title-navigation-cu-about';
-import { CoreUnitDao } from '../cu-table/cu-table.api';
 import { loadCuTableItemsAsync, selectCuTableItems } from '../cu-table/cu-table.slice';
 import { ContributorCommitment } from './cu-about-contributor';
 import { contributorCommitmentSelector, cuAboutSelector, loadCoreUnitABout, status } from './cu-about-slice';
@@ -23,6 +22,7 @@ import _ from 'lodash';
 import BreadCrumb from '../../components/pagination/bread-crumb';
 import NavigationCard from '../../components/card-navegation/card-navigation';
 import { useRouter } from 'next/router';
+import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 const CuAboutContainer = () => {
   const [hiddenTextDescription, setHiddenTextDescription] = useState(true);
@@ -30,7 +30,7 @@ const CuAboutContainer = () => {
   const query = router.query;
   const code = query.code as string;
   const [showThreeMIPs, setShowThreeMIPs] = useState<boolean>(true);
-  const data: Array<CoreUnitDao> = useSelector((state: RootState) => selectCuTableItems(state));
+  const data: Array<CoreUnitDto> = useSelector((state: RootState) => selectCuTableItems(state));
   const dispatch = useAppDispatch();
   const { cuAbout, statusCoreUnit } = useSelector((state: RootState) => cuAboutSelector(state));
   const contributors = useSelector((state: RootState) => contributorCommitmentSelector(state));
