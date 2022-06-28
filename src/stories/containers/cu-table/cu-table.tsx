@@ -212,26 +212,26 @@ export const CuTable = () => {
           }}
           style={{ marginRight: '16px' }}
         />
-        <Separator/>
+        <Separator />
         {router.isReady && <SearchInput
-            defaultValue={searchText}
-            placeholder="Search"
-            onChange={(value: string) => {
-              debounce(() => {
-                handleChangeUrlFilterArrays('searchText')(value);
-              }, 300);
-            }}
-            style={{ marginLeft: '16px' }}
+          defaultValue={searchText}
+          placeholder="Search"
+          onChange={(value: string) => {
+            debounce(() => {
+              handleChangeUrlFilterArrays('searchText')(value);
+            }, 300);
+          }}
+          style={{ marginLeft: '16px' }}
         />}
         {!router.isReady && <SearchInput
-            defaultValue={searchText}
-            placeholder="Search"
-            onChange={(value: string) => {
-              debounce(() => {
-                handleChangeUrlFilterArrays('searchText')(value);
-              }, 300);
-            }}
-            style={{ marginLeft: '16px' }}
+          defaultValue={searchText}
+          placeholder="Search"
+          onChange={(value: string) => {
+            debounce(() => {
+              handleChangeUrlFilterArrays('searchText')(value);
+            }, 300);
+          }}
+          style={{ marginLeft: '16px' }}
         />}
       </Header>
       <CustomTable
@@ -253,8 +253,7 @@ const ContainerHome = styled.div({
   padding: '22px 128px 0',
   marginTop: '64px',
   width: '100%',
-  height: 'calc(100vh - 64px)',
-  overflowY: 'scroll',
+  marginBottom: '121px',
 });
 
 const Wrapper = styled.div({
