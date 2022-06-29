@@ -37,9 +37,9 @@ const StyleChildren = styled(Typography)({
   fontWeight: 400,
   fontSize: '16px',
   lineHeight: '32px',
-
   letterSpacing: '0.4px',
-  color: '#333333'
+  color: '#333333',
+  marginBottom: '16px'
 });
 
 export default DescriptionFooter;
