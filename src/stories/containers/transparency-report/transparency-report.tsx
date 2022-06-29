@@ -49,7 +49,6 @@ export const TransparencyReport = () => {
       <Tabs
         items={['Overview', 'Transparency Reports', 'Onchain Setup', 'Budget Governance']}
         currentIndex={secondIndex}
-        onChange={setSecondIndex}
         style={{
           marginBottom: '64px',
           flex: '0'

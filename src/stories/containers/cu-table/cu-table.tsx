@@ -131,7 +131,6 @@ export const CuTable = () => {
   }, [router]);
 
   const onClickRow = useCallback((id: string) => () => {
-    console.log('router.query', filteredStatuses, filteredCategories, searchText);
     router.push(`/about/${id}?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
   }, [filteredCategories, filteredStatuses, router, searchText]);
 
