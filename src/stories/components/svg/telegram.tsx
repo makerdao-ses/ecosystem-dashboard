@@ -7,7 +7,7 @@ interface Props {
     onClick?: () => void;
 }
 
-const Telegram = ({ fill = '#333', height = 18, width = 20, onClick, ...props }: Props) => {
+const Telegram = ({ fill = '#333', height = 18, width = 20, ...props }: Props) => {
   return (
         <svg
             width={width}
