@@ -37,7 +37,7 @@ export const TransparencyActuals = () => {
     <Title style={{
       marginBottom: '32px'
     }}>
-      May 2022 Total
+      May 2022 Totals
     </Title>
 
     <InnerTable

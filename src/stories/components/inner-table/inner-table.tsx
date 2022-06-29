@@ -58,6 +58,6 @@ const TableHead = styled.thead({
 
 const HeadCell = styled.th<{ minWidth: number }>(({ minWidth }) => ({
   padding: '24px 16px',
-  minWidth: `${minWidth}px`,
+  minWidth: `${minWidth - 32}px`,
   fontWeight: '500',
 }));
