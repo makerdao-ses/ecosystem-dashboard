@@ -25,11 +25,8 @@ import { CuTableColumnTeamMember } from '../../components/cu-table-column-team-m
 import { CustomTable } from '../../components/custom-table/custom-table';
 import {
   loadCuTableItemsAsync,
-  loadFacilitatorImage,
   selectCuTableItems,
   selectCuTableStatus,
-  selectFacilitatorsDescription,
-  setFacilitatorImageAsPending
 } from './cu-table.slice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../core/store/store';
@@ -59,7 +56,6 @@ export const CuTable = () => {
 
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
   const data: Array<CoreUnitDto> = useSelector((state: RootState) => selectCuTableItems(state));
-  const facilitatorsDescription = useSelector((state: RootState) => selectFacilitatorsDescription(state));
   const status = useSelector((state: RootState) => selectCuTableStatus(state));
 
   const [headersSort, setHeadersSort] = useState(sortInitialState);
@@ -100,19 +96,6 @@ export const CuTable = () => {
     const sortAlg = [nameSort, initiativesSort, expendituresSort, teamMembersSort];
     return [...items].sort(sortAlg[sortColumn]);
   }, [headersSort, sortColumn]);
-
-  useEffect(() => {
-    data.forEach(coreUnit => {
-      const facilitators = getFacilitatorsFromCoreUnit(coreUnit);
-      facilitators.forEach(facilitator => {
-        const id = facilitator?.id?.toString();
-        if (id && facilitatorsDescription[id] == null) {
-          dispatch(setFacilitatorImageAsPending(id));
-          dispatch(loadFacilitatorImage(id));
-        }
-      });
-    });
-  }, [data, dispatch, facilitatorsDescription]);
 
   const clearFilters = () => {
     router.push({
@@ -167,7 +150,6 @@ export const CuTable = () => {
             getFacilitatorsFromCoreUnit(coreUnit)
           }
           fte={getFTEsFromCoreUnit(coreUnit)}
-          facilitatorsDescription={facilitatorsDescription}
         />,
         <CuTableColumnLinks
           key={`links-${i}`}
@@ -177,7 +159,7 @@ export const CuTable = () => {
         />
       ];
     });
-  }, [filteredData, sortData, onClickRow, facilitatorsDescription]);
+  }, [filteredData, sortData, onClickRow]);
 
   return <ContainerHome>
     <Wrapper>

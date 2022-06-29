@@ -7,21 +7,20 @@ import { CircleAvatar } from '../circle-avatar/circle-avatar';
 
 interface CuTableColumnTeamMemberProps {
   members: FacilitatorModel[],
-  facilitatorsDescription: { [id: string]: { name: string, image: string} },
   fte: number,
 }
 
-export const CuTableColumnTeamMember = ({ facilitatorsDescription, ...props }: CuTableColumnTeamMemberProps) => {
+export const CuTableColumnTeamMember = ({ ...props }: CuTableColumnTeamMemberProps) => {
   const MemberInfo = (props: { member: FacilitatorModel }) => {
     return <MemberInfoContainer>
-      <CircleAvatar key={facilitatorsDescription[props.member?.id ?? '']?.name ?? ''}
-                    name={facilitatorsDescription[props.member?.id ?? '']?.name ?? ''}
-                    image={facilitatorsDescription[props.member?.id ?? '']?.image ?? ''}
+      <CircleAvatar key={props.member.name}
+                    name={props.member.name}
+                    image={props.member.facilitatorImage}
                     fontSize={'14px'}
                     width={'32px'}
                     imageStyle={{ border: '2px solid #E7FCFA' }}
                     height={'32px'}/>
-      <span>{facilitatorsDescription[props.member?.id ?? '']?.name}</span>
+      <span>{props.member.name}</span>
     </MemberInfoContainer>;
   };
 
@@ -40,20 +39,20 @@ export const CuTableColumnTeamMember = ({ facilitatorsDescription, ...props }: C
         key={member.name + i}
         title={<MemberInfo member={member}/>}
         id={member.name + i}>
-        <CircleAvatar key={member.name}
+        <CircleAvatar key={member.id}
                       name={member.name}
                       fontSize={'14px'}
                       width={'32px'}
                       height={'32px'}
                       style={{
-                        marginLeft: i === 0 || (facilitatorsDescription[member?.id ?? '']) ? 0 : '-9px',
-                        border: !(facilitatorsDescription[member?.id ?? '']) ? '2px solid #E7FCFA' : 'none'
+                        marginLeft: i === 0 || (member.facilitatorImage) ? 0 : '-9px',
+                        border: !(member.facilitatorImage) ? '2px solid #E7FCFA' : 'none'
                       }}
                       imageStyle={{
                         marginLeft: i === 0 ? 0 : '-9px',
                         border: '2px solid #E7FCFA'
                       }}
-                      image={facilitatorsDescription[member?.id ?? '']?.image ?? ''}/>
+                      image={member.facilitatorImage}/>
       </CustomPopover>)}
     </CirclesWrapper>
   </Container>;

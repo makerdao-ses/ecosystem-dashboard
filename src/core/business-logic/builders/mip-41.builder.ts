@@ -5,18 +5,23 @@ export class Mip41Builder {
 
   constructor() {
     this._mip41 = {
-      facilitatorName: '',
-      contributorId: ''
+      id: '',
+      name: '',
+      forumHandle: '',
+      discordHandle: '',
+      twitterHandle: '',
+      email: '',
+      facilitatorImage: '',
     } as Mip41Dto;
   }
 
   public withFacilitatorName(facilitatorName: string): Mip41Builder {
-    this._mip41.facilitatorName = facilitatorName;
+    this._mip41.name = facilitatorName;
     return this;
   }
 
   public withContributorId(contributorId: string): Mip41Builder {
-    this._mip41.contributorId = contributorId;
+    this._mip41.id = contributorId;
     return this;
   }
 
