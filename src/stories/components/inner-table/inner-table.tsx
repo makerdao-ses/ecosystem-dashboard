@@ -48,7 +48,6 @@ const TableCell = styled.td<{ textAlign: 'left' | 'center' | 'right' }>(({ textA
 
 const TableHead = styled.thead({
   fontFamily: 'FT Base, sans-serif',
-  fontWeight: 500,
   fontSize: '12px',
   lineHeight: '14px',
   letterSpacing: '1px',
@@ -60,4 +59,5 @@ const TableHead = styled.thead({
 const HeadCell = styled.th<{ minWidth: number }>(({ minWidth }) => ({
   padding: '24px 16px',
   minWidth: `${minWidth}px`,
+  fontWeight: '500',
 }));

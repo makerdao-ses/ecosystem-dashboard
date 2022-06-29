@@ -82,6 +82,7 @@ const Container = styled.div({
 const Title = styled.div({
   display: 'flex',
   justifyContent: 'space-between',
+  alignItems: 'center',
 });
 
 const Box = styled.div({
