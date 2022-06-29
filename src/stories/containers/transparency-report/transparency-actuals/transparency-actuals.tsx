@@ -61,9 +61,9 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       currentBudgetStatement.budgetStatementWallet?.forEach(wallet => {
         result.push([
           <WalletTableCell key={1} name={wallet.name} wallet={'0x232b…8482'} walletUrl={'#'}/>,
-          <TableCell key={2}>{getWalletForecast(wallet).toFixed(2)}</TableCell>,
-          <TableCell key={3}>{getWalletActual(wallet).toFixed(2)}</TableCell>,
-          <TableCell key={3} negative={getWalletDifference(wallet) < 0}>{getWalletDifference(wallet).toFixed(2)}</TableCell>,
+          <TableCell key={2}>{getWalletForecast(wallet).toLocaleString()}</TableCell>,
+          <TableCell key={3}>{getWalletActual(wallet).toLocaleString()}</TableCell>,
+          <TableCell key={3} negative={getWalletDifference(wallet) < 0}>{getWalletDifference(wallet).toLocaleString()}</TableCell>,
           <TableCell key={5}>0</TableCell>,
           <TableCell key={6}>
             <CustomLink fontFamily={'SF Pro Display, sans-serif'} fontSize={16} href={'#'} style={{ marginRight: '16px' }}>Etherscan</CustomLink>
@@ -74,9 +74,9 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
 
       result.push([
         <TableCell key={1}><b>Total</b></TableCell>,
-        <TableCell key={2}><b>{budgetTotalForecast.toFixed(2)}</b></TableCell>,
-        <TableCell key={3}><b>{budgetTotalActual.toFixed(2)}</b></TableCell>,
-        <TableCell key={4}><b>{budgetTotalDifference.toFixed(2)}</b></TableCell>,
+        <TableCell key={2}><b>{budgetTotalForecast.toLocaleString()}</b></TableCell>,
+        <TableCell key={3}><b>{budgetTotalActual.toLocaleString()}</b></TableCell>,
+        <TableCell key={4}><b>{budgetTotalDifference.toLocaleString()}</b></TableCell>,
         <TableCell key={5}><b>0</b></TableCell>,
         <TableCell key={6}><b></b></TableCell>,
       ]);
@@ -108,9 +108,9 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     for (const groupedKey in grouped) {
       result.push([
           <TableCell key={1}>{grouped[groupedKey][0].budgetCategory}</TableCell>,
-          <TableCell key={2} negative={getGroupForecast(grouped[groupedKey]) < 0}>{getGroupForecast(grouped[groupedKey]).toFixed(2)}</TableCell>,
-          <TableCell key={3} negative={getGroupActual(grouped[groupedKey]) < 0}>{getGroupActual(grouped[groupedKey]).toFixed(2)}</TableCell>,
-          <TableCell key={4} negative={getGroupDifference(grouped[groupedKey]) < 0}>{getGroupDifference(grouped[groupedKey]).toFixed(2)}</TableCell>,
+          <TableCell key={2} negative={getGroupForecast(grouped[groupedKey]) < 0}>{getGroupForecast(grouped[groupedKey]).toLocaleString()}</TableCell>,
+          <TableCell key={3} negative={getGroupActual(grouped[groupedKey]) < 0}>{getGroupActual(grouped[groupedKey]).toLocaleString()}</TableCell>,
+          <TableCell key={4} negative={getGroupDifference(grouped[groupedKey]) < 0}>{getGroupDifference(grouped[groupedKey]).toLocaleString()}</TableCell>,
           <TableCell key={5}/>,
           <TableCell key={6}>0</TableCell>
       ]);
@@ -118,9 +118,9 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
 
     result.push([
         <TableCell key={1}><b>Total</b></TableCell>,
-        <TableCell key={2} negative={getWalletActual(currentWallet) < 0}><b>{getWalletForecast(currentWallet).toFixed()}</b></TableCell>,
-        <TableCell key={3} negative={getWalletActual(currentWallet) < 0}><b>{getWalletActual(currentWallet).toFixed()}</b></TableCell>,
-        <TableCell key={4} negative={getWalletDifference(currentWallet) < 0}><b>{getWalletDifference(currentWallet).toFixed()}</b></TableCell>,
+        <TableCell key={2} negative={getWalletActual(currentWallet) < 0}><b>{getWalletForecast(currentWallet).toLocaleString()}</b></TableCell>,
+        <TableCell key={3} negative={getWalletActual(currentWallet) < 0}><b>{getWalletActual(currentWallet).toLocaleString()}</b></TableCell>,
+        <TableCell key={4} negative={getWalletDifference(currentWallet) < 0}><b>{getWalletDifference(currentWallet).toLocaleString()}</b></TableCell>,
         <TableCell key={1}><b/></TableCell>,
         <TableCell key={1}><b>0</b></TableCell>,
     ]);
