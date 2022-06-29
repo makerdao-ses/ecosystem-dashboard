@@ -11,27 +11,25 @@ interface Props {
   image?: string;
   icon?: string;
   list?: string[];
-  title?: string;
+  title: string;
   titleLinkPage?: string;
   onClick?: () => void
 }
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-export const NavigationCard = ({ description, image, list = [], title = '', titleLinkPage = '', onClick = () => { } }: Props) => {
+export const NavigationCard = ({ description, image, list = [], title, titleLinkPage = '', onClick = () => { } }: Props) => {
   return (
-    <>
-      {!!title && <ArrowTittleStyle>
+    <div>
+      <ArrowTittleStyle>
         <Typography color='#231536' fontSize={24} lineHeight='29px' fontWeight={500}>{title}</Typography>
         <div style={{
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'center',
-          marginLeft: '198px'
         }}>
           <Typography textAlign='right' fontStyle='normal' fontWeight={400} fontSize={20} color='#231536'>{titleLinkPage}</Typography>
           <ArrowRight width={16} height={16} style={{ marginLeft: '22px' }} onClick={onClick} />
         </div>
       </ArrowTittleStyle>
-      }
       <Box sx={{
         height: '293px',
         width: '405px',
@@ -69,7 +67,7 @@ export const NavigationCard = ({ description, image, list = [], title = '', titl
           </FiCardActions>
         </CardContainer>
       </Box >
-    </>
+    </div>
   );
 };
 
@@ -132,8 +130,10 @@ const TypographyStyle = styled(Typography)({
 const ArrowTittleStyle = styled.div({
   display: 'flex',
   flexDirection: 'row',
+  justifyContent: 'space-between',
   alignItems: 'end',
   marginBottom: '32px',
+
 });
 
 export default NavigationCard;
