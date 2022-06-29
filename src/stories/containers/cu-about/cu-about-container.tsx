@@ -359,7 +359,7 @@ const DividerStyle = styled(Divider)({
 const ContainerScroll = styled.div({
   position: 'sticky',
   top: 290,
-  height: '620px',
+  height: '820px',
   '&:: -webkit-scrollbar': {
     width: '0px',
     background: 'transparent',
