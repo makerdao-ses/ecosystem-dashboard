@@ -5,14 +5,14 @@ import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 export interface CuTableState {
   items: CoreUnitDto[],
-  facilitatorImages: {[id:string]: string}
+  facilitatorsDescription: {[id:string]: { image: string, name: string }}
   status: string,
 }
 
 const initialState: CuTableState = {
   items: [],
   status: 'loading',
-  facilitatorImages: {}
+  facilitatorsDescription: {}
 };
 
 export const loadCuTableItemsAsync = createAsyncThunk(
@@ -37,7 +37,10 @@ export const cuTableSlice = createSlice({
       state.items = [];
     },
     setFacilitatorImageAsPending: (state, action: PayloadAction<string>) => {
-      state.facilitatorImages[action.payload] = '';
+      state.facilitatorsDescription[action.payload] = {
+        image: '',
+        name: ''
+      };
     }
   },
   extraReducers: (builder) => {
@@ -47,7 +50,10 @@ export const cuTableSlice = createSlice({
       state.status = 'idle';
       state.items = action.payload as [];
     }).addCase(loadFacilitatorImage.fulfilled, (state, action) => {
-      state.facilitatorImages[action.payload.id] = action.payload?.facilitatorImage?.trim() ?? '';
+      state.facilitatorsDescription[action.payload.id] = {
+        image: action.payload?.facilitatorImage?.trim() ?? '',
+        name: action.payload?.name ?? '',
+      };
     }).addCase(loadCuTableItemsAsync.rejected, (state) => {
       state.status = 'idle';
     });
@@ -57,7 +63,7 @@ export const cuTableSlice = createSlice({
 export const { clearTable, setFacilitatorImageAsPending } = cuTableSlice.actions;
 
 export const selectCuTableItems = (state: RootState) => state.cuTable.items;
-export const selectFacilitatorImages = (state: RootState) => state.cuTable.facilitatorImages;
+export const selectFacilitatorsDescription = (state: RootState) => state.cuTable.facilitatorsDescription;
 export const selectCuTableStatus = (state: RootState) => state.cuTable.status;
 
 export default cuTableSlice.reducer;

@@ -19,7 +19,7 @@ const store = configureStore({
 const MockedState: CuTableState = {
   items: [],
   status: 'idle',
-  facilitatorImages: {}
+  facilitatorsDescription: {}
 };
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

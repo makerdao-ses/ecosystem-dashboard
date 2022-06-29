@@ -413,5 +413,5 @@ export const initialState = {
       .build(),
   ],
   status: 'idle',
-  facilitatorImages: {}
+  facilitatorsDescription: {}
 };
