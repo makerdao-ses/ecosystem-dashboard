@@ -5,14 +5,13 @@ import React from 'react';
 interface Props {
   title: string
   children: string[]
-  color?: string
   style?: React.CSSProperties
 }
 
-const DescriptionFooter = ({ title, children, color, style = {} }: Props) => {
+const DescriptionFooter = ({ title, children, style = {} }: Props) => {
   return (
     <div style={style}>
-      <StyleTitle color={color}>{title}</StyleTitle>
+      <StyleTitle>{title}</StyleTitle>
       {children && children.map((item) => {
         return <StyleChildren key={item}>{item}</StyleChildren>;
       })}
@@ -20,8 +19,8 @@ const DescriptionFooter = ({ title, children, color, style = {} }: Props) => {
   );
 };
 
-const StyleTitle = styled(Typography)<{ color?: string }>(({ color }) => ({
-  color: color || '#000000',
+const StyleTitle = styled(Typography)({
+  color: '#000000',
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
@@ -29,7 +28,7 @@ const StyleTitle = styled(Typography)<{ color?: string }>(({ color }) => ({
   lineHeight: '18px',
   marginBottom: '16px',
   letterSpacing: '0.4px'
-}));
+});
 
 const StyleChildren = styled(Typography)({
   fontFamily: 'FT Base, sans-serif',
