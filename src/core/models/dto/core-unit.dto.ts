@@ -1,5 +1,5 @@
 export interface Mip40BudgetPeriodDto {
-  budgetPeriodStart: string,
+  budgetPeriodStart: string;
   budgetPeriodEnd: string
 }
 
@@ -31,61 +31,63 @@ export interface Mip41Dto {
 }
 
 export interface CuMipDto {
-  mipStatus: string,
-  mipUrl: string,
-  accepted: string,
-  formalSubmission: string,
-  rfc: string,
-  rejected: string,
-  obsolete: string,
+  mipStatus: string;
+  mipUrl: string;
+  accepted: string;
+  formalSubmission: string;
+  rfc: string;
+  rejected: string;
+  obsolete: string;
   mip40: Mip40Dto[]
   mip41: Mip41Dto[]
 }
 
 export interface BudgetStatementFteDto {
-  month: string,
+  month: string;
   ftes: number
 }
 
 export interface BudgetStatementLineItemDto {
-  actual: number,
-  forecast?: number,
+  actual: number;
+  forecast?: number;
+  budgetCategory?: string;
 }
 
 export interface BudgetStatementWalletDto {
-  budgetStatementLineItem: BudgetStatementLineItemDto[]
+  name: string;
+  budgetStatementLineItem: BudgetStatementLineItemDto[];
 }
 
 export interface BudgetStatementDto {
-  month: string,
-  budgetStatus: string,
-  budgetStatementFTEs: BudgetStatementFteDto[],
+  month: string;
+  budgetStatus: string;
+  budgetStatementFTEs: BudgetStatementFteDto[];
   budgetStatementWallet: BudgetStatementWalletDto[]
 }
 
 export interface SocialMediaChannelDto {
-  forumTag: string,
-  twitter: string,
-  youtube: string,
-  discord: string,
-  linkedIn: string,
-  website: string,
+  forumTag: string;
+  twitter: string;
+  youtube: string;
+  discord: string;
+  linkedIn: string;
+  website: string;
 }
 
 export interface RoadMapDto {
   ownerCuId: string
-  roadmapStatus: string,
+  roadmapStatus: string;
 }
 
 export interface CoreUnitDto {
-  id: string,
-  code: string,
-  name: string,
-  image: string,
-  sentenceDescription: string,
-  category: string[],
+  id: string;
+  code: string;
+  name: string;
+  image: string;
+  sentenceDescription: string;
+  category: string[];
   cuMip: CuMipDto[]
-  roadMap: RoadMapDto[],
-  socialMediaChannels: SocialMediaChannelDto[],
+  roadMap: RoadMapDto[];
+  socialMediaChannels: SocialMediaChannelDto[];
   budgetStatements: BudgetStatementDto[]
 }
