@@ -103,6 +103,10 @@ const CuAboutContainer = () => {
   const list = ['Overview', 'Transparency Reports', 'Onchain Setup', 'Budget Governance'];
   const description = 'View all Finances of the (SES-01) Sustainable Ecosystem Scaling';
 
+  const onClickFinances = useCallback(() => {
+    router.push(`/finances/${code}/transparency?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
+  }, [filteredCategories, filteredStatuses, router, searchText, code]);
+
   if (statusCoreUnit === status.loading) {
     return <div>Loading...</div>;
   }
@@ -188,7 +192,7 @@ const CuAboutContainer = () => {
                 <NavigationCard description={description} image='/assets/img/card-initiatives.png' list={list} titleLinkPage='View all' title='Initiatives' />
               </ContainerCard>
               <ContainerCard>
-                <NavigationCard description={description} image='/assets/img/card-finances.png' list={list} titleLinkPage='View all' title='Finances' />
+                <NavigationCard onClick={onClickFinances} description={description} image='/assets/img/card-finances.png' list={list} titleLinkPage='View all' title='Finances' />
               </ContainerCard>
             </ContainerScroll>
           </div>

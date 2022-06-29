@@ -2,7 +2,7 @@ import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
 
 interface TabsProps {
-  items: string[],
+  items?: string[],
   currentIndex: number,
   onChange?: (index: number) => void,
   style?: CSSProperties
@@ -10,7 +10,7 @@ interface TabsProps {
 
 export const Tabs = (props: TabsProps) => {
   return <Container className="no-select" style={props.style}>
-    {props.items.map((item, i) => <Tab
+    {props.items?.map((item, i) => <Tab
       key={`${item}-${i}`}
       active={i === props.currentIndex}
       onClick={() => props.onChange && props.onChange(i)}>

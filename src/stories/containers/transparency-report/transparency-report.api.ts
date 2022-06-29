@@ -24,11 +24,13 @@ export const CORE_UNIT_REQUEST = (code: string) => ({
           website
         }
         budgetStatements {
+          month
           budgetStatementWallet {
             name
             budgetStatementLineItem {
               actual
               forecast
+              budgetCategory
             }
           }
         }
