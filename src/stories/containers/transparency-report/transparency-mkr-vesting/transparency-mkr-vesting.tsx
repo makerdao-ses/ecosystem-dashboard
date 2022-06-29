@@ -5,24 +5,24 @@ import { InnerTable } from '../../../components/inner-table/inner-table';
 import { TableCell } from '../../../components/table-cell/table-cell';
 
 const tableItems = [
-  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell key={2}>427.07 MKR</TableCell>, <TableCell key={3}>427.07 MKR</TableCell>, <TableCell key={4}>0</TableCell>, ''],
-  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell key={2}>427.07 MKR</TableCell>, <TableCell key={3}>427.07 MKR</TableCell>, <TableCell key={4}>0</TableCell>, ''],
-  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell key={2}>427.07 MKR</TableCell>, <TableCell key={3}>427.07 MKR</TableCell>, <TableCell key={4}>0</TableCell>, ''],
-  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell key={2}>427.07 MKR</TableCell>, <TableCell key={3}>427.07 MKR</TableCell>, <TableCell key={4}>0</TableCell>, ''],
-  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell key={2}>427.07 MKR</TableCell>, <TableCell key={3}>427.07 MKR</TableCell>, <TableCell key={4}>0</TableCell>, ''],
-  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell key={2}>427.07 MKR</TableCell>, <TableCell key={3}>427.07 MKR</TableCell>, <TableCell key={4}>0</TableCell>, ''],
-  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell key={2}>427.07 MKR</TableCell>, <TableCell key={3}>427.07 MKR</TableCell>, <TableCell key={4}>0</TableCell>, ''],
-  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell key={2}>427.07 MKR</TableCell>, <TableCell key={3}>427.07 MKR</TableCell>, <TableCell key={4}>0</TableCell>, ''],
-  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell key={2}>427.07 MKR</TableCell>, <TableCell key={3}>427.07 MKR</TableCell>, <TableCell key={4}>0</TableCell>, ''],
-  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell key={2}>427.07 MKR</TableCell>, <TableCell key={3}>427.07 MKR</TableCell>, <TableCell key={4}>0</TableCell>, ''],
-  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell key={2}>427.07 MKR</TableCell>, <TableCell key={3}>427.07 MKR</TableCell>, <TableCell key={4}>0</TableCell>, ''],
-  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell key={2}>427.07 MKR</TableCell>, <TableCell key={3}>427.07 MKR</TableCell>, <TableCell key={4}>0</TableCell>, ''],
+  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, ''],
+  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, ''],
+  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, ''],
+  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, ''],
+  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, ''],
+  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, ''],
+  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, ''],
+  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, ''],
+  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, ''],
+  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, ''],
+  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, ''],
+  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, ''],
   [<TableCell key={1}><b>Total</b></TableCell>, <TableCell key={2}><b>1,666.71 MKR</b></TableCell>, <TableCell key={3}><b>1,666.71 MKR</b></TableCell>, <TableCell key={4}><b>0</b></TableCell>, ''],
 ];
 
 export const TransparencyMkrVesting = () => {
   return <Container>
-    <Title>MKR Vesting Overview</Title>
+    <Title marginBottom={32}>MKR Vesting Overview</Title>
     <TotalFte>
       <span>Total FTE</span>
       <u>10</u>
@@ -63,6 +63,7 @@ const TotalFte = styled.div({
     paddingBottom: '2px',
     lineHeight: '24px',
     textDecoration: 'none',
+    color: '#25273D',
     borderBottom: '1px solid #231536'
   }
 });
