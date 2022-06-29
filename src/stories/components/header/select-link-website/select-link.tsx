@@ -33,6 +33,7 @@ const SelectLink = ({ links, onClick, fill = '', background = '' }: Props) => {
           onClick={handleClick}
         ><ArrowSelect fill={fill} /></IconButton></ContainerIcon>
       <Menu
+       disableScrollLock={true}
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
