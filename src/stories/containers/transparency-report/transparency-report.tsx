@@ -81,7 +81,9 @@ export const TransparencyReport = () => {
 
       <CustomLink
         href="#"
-        style={{ margin: '0' }}>
+        style={{ margin: '0' }}
+        fontSize={16}
+      >
         Source
       </CustomLink>
 
@@ -121,15 +123,15 @@ const InnerPage = styled.div({
   textAlign: 'left',
 });
 
-export const Title = styled.div({
+export const Title = styled.div<{ marginBottom?: number }>(({ marginBottom = 16 }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontWeight: 500,
   fontSize: '20px',
   lineHeight: '24px',
   letterSpacing: '0.4px',
-  color: '#000000',
-  marginBottom: '16px'
-});
+  color: '#231536',
+  marginBottom: `${marginBottom}px`
+}));
 
 const Paragraph = styled.div({
   fontFamily: 'FT Base, sans-serif',

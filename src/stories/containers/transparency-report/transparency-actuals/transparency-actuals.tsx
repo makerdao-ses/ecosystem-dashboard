@@ -66,8 +66,8 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           <TableCell key={3} negative={getWalletDifference(wallet) < 0}>{getWalletDifference(wallet).toFixed(2)}</TableCell>,
           <TableCell key={5}>0</TableCell>,
           <TableCell key={6}>
-            <CustomLink href={'#'} style={{ marginRight: '16px' }}>Etherscan</CustomLink>
-            <CustomLink href={'#'}>Gnosis</CustomLink>
+            <CustomLink fontFamily={'SF Pro Display, sans-serif'} fontSize={16} href={'#'} style={{ marginRight: '16px' }}>Etherscan</CustomLink>
+            <CustomLink fontFamily={'SF Pro Display, sans-serif'} fontSize={16} href={'#'}>Gnosis</CustomLink>
           </TableCell>
         ]);
       });
@@ -108,8 +108,8 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     for (const groupedKey in grouped) {
       result.push([
           <TableCell key={1}>{grouped[groupedKey][0].budgetCategory}</TableCell>,
-          <TableCell key={2}>{getGroupForecast(grouped[groupedKey]).toFixed(2)}</TableCell>,
-          <TableCell key={3}>{getGroupActual(grouped[groupedKey]).toFixed(2)}</TableCell>,
+          <TableCell key={2} negative={getGroupForecast(grouped[groupedKey]) < 0}>{getGroupForecast(grouped[groupedKey]).toFixed(2)}</TableCell>,
+          <TableCell key={3} negative={getGroupActual(grouped[groupedKey]) < 0}>{getGroupActual(grouped[groupedKey]).toFixed(2)}</TableCell>,
           <TableCell key={4} negative={getGroupDifference(grouped[groupedKey]) < 0}>{getGroupDifference(grouped[groupedKey]).toFixed(2)}</TableCell>,
           <TableCell key={5}/>,
           <TableCell key={6}>0</TableCell>
@@ -118,9 +118,11 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
 
     result.push([
         <TableCell key={1}><b>Total</b></TableCell>,
-        <TableCell key={2}><b>{getWalletForecast(currentWallet).toFixed()}</b></TableCell>,
-        <TableCell key={3}><b>{getWalletActual(currentWallet).toFixed()}</b></TableCell>,
+        <TableCell key={2} negative={getWalletActual(currentWallet) < 0}><b>{getWalletForecast(currentWallet).toFixed()}</b></TableCell>,
+        <TableCell key={3} negative={getWalletActual(currentWallet) < 0}><b>{getWalletActual(currentWallet).toFixed()}</b></TableCell>,
         <TableCell key={4} negative={getWalletDifference(currentWallet) < 0}><b>{getWalletDifference(currentWallet).toFixed()}</b></TableCell>,
+        <TableCell key={1}><b/></TableCell>,
+        <TableCell key={1}><b>0</b></TableCell>,
     ]);
 
     return result;
@@ -142,27 +144,29 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       />
     </>}
 
-    <Title style={{
-      marginBottom: '32px'
-    }}>
-      {props.currentMonth.toFormat('MMM yyyy')} Breakdown
-    </Title>
+    {!!mainTableItems.length && <>
+      <Title style={{
+        marginBottom: '32px'
+      }}>
+        {props.currentMonth.toFormat('MMM yyyy')} Breakdown
+      </Title>
 
-    <Tabs
-      items={breakdownHeaders}
-      currentIndex={thirdIndex}
-      onChange={setThirdIndex}
-      style={{
-        marginBottom: '32px',
-      }}
-    />
+      <Tabs
+        items={breakdownHeaders}
+        currentIndex={thirdIndex}
+        onChange={setThirdIndex}
+        style={{
+          marginBottom: '32px',
+        }}
+      />
 
-    <InnerTable
-      headers={['Budget Category', 'Forecast', 'Actuals', 'Difference', 'Diff. Reason', 'Payments']}
-      items={breakdownTableItems}
-      style={{ marginBottom: '62px' }}
-      headersAlign={['left', 'right', 'right', 'right', 'left', 'right']}
-    />
+      <InnerTable
+        headers={['Budget Category', 'Forecast', 'Actuals', 'Difference', 'Diff. Reason', 'Payments']}
+        items={breakdownTableItems}
+        style={{ marginBottom: '62px' }}
+        headersAlign={['left', 'right', 'right', 'right', 'left', 'right']}
+      />
+    </>}
   </Container>;
 };
 

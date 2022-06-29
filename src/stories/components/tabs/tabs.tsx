@@ -28,7 +28,7 @@ const Container = styled.div({
 
 const Tab = styled.div((props: { active: boolean }) => ({
   fontFamily: 'SF Pro Text, sans-serif',
-  color: props.active ? '#1AAB9B' : '#7E7E88',
+  color: props.active ? '#1AAB9B' : '#708390',
   fontSize: '16px',
   fontWeight: 400,
   marginRight: '32px',
