@@ -269,7 +269,7 @@ const ContactInfoTitle = styled(Typography)({
   fontStyle: 'normal',
   fontWeight: 700,
   fontSize: '16px',
-  lineHeight: '17px',
+  lineHeight: '19px',
   color: '#231536',
   marginBottom: '32px',
 });
