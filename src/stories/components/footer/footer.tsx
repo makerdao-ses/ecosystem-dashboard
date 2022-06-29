@@ -21,8 +21,8 @@ const Footer = ({ governesses, products, developer }: Props) => {
       <ContainerFooter>
         <ContainerColumOne ><FooterContact title='Contact MakerDAO' subtitle='Official Community Channels' logo={<Logo />} links={iconsContact} /></ContainerColumOne>
         <ContainerColumTwo>
-          <DescriptionFooter title='Governance' children={governesses} style={{ marginRight: '65.86px' }} />
-          <DescriptionFooter title='Products & Tools' children={products} style={{ marginRight: '65.19px' }} />
+          <DescriptionFooter title='Governance' children={governesses} />
+          <DescriptionFooter title='Products & Tools' children={products} />
           <DescriptionFooter title='Developer' children={developer} color='#333333' />
         </ContainerColumTwo>
         <ContainerColumThree>
@@ -59,7 +59,7 @@ const ContainerFooter = styled.footer({
   paddingTop: '64px',
   paddingBottom: '64px',
   paddingLeft: '64.86px',
-  paddingRight: '32px',
+  paddingRight: '64.86px',
 
 });
 
