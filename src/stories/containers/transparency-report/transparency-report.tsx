@@ -14,6 +14,8 @@ import { TransparencyAudit } from './transparency-audit/transparency-audit';
 import { useRouter } from 'next/router';
 import { getLinksFromCoreUnit, getMipFromCoreUnit } from '../../../core/business-logic/core-units';
 import { useTransparencyReportViewModel } from './transparency-report.mvvm';
+import { DateTime } from 'luxon';
+import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 export const TransparencyReport = () => {
   const router = useRouter();
@@ -22,10 +24,12 @@ export const TransparencyReport = () => {
 
   const { data, isLoading } = useTransparencyReportViewModel(code);
 
-  const cu = data && data.coreUnit[0];
+  const cu = data && data.coreUnit[0] as CoreUnitDto;
 
-  const [secondIndex, setSecondIndex] = useState(1);
+  const secondIndex = 1;
   const [thirdIndex, setThirdIndex] = useState(0);
+
+  const [currentMonth, setCurrentMonth] = useState(DateTime.now());
 
   return <Container>
     <BreadcrumbWrapper>
@@ -49,7 +53,6 @@ export const TransparencyReport = () => {
       <Tabs
         items={['Overview', 'Transparency Reports', 'Onchain Setup', 'Budget Governance']}
         currentIndex={secondIndex}
-        onChange={setSecondIndex}
         style={{
           marginBottom: '64px',
           flex: '0'
@@ -66,7 +69,11 @@ export const TransparencyReport = () => {
       </Paragraph>
 
       <PagerBar>
-        <CustomPager label="MAY 2022"/>
+        <CustomPager
+          label={currentMonth.toFormat('MMM yyyy')}
+          onPrev={() => setCurrentMonth(currentMonth.minus({ month: 1 })) }
+          onNext={() => setCurrentMonth(currentMonth.plus({ month: 1 })) }
+        />
         <Spacer/>
         <StatusTitle>Status</StatusTitle>
         <StatusValue>FINAL</StatusValue>
@@ -88,7 +95,7 @@ export const TransparencyReport = () => {
           margin: '32px 0',
         }}
       />
-    {thirdIndex === 0 && <TransparencyActuals/>}
+    {thirdIndex === 0 && <TransparencyActuals currentMonth={currentMonth} budgetStatements={cu?.budgetStatements} />}
     {thirdIndex === 1 && <TransparencyForecast/>}
     {thirdIndex === 2 && <TransparencyMkrVesting/>}
     {thirdIndex === 3 && <TransparencyTransferRequest/>}

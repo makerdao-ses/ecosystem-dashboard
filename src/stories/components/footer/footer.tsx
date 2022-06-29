@@ -23,7 +23,7 @@ const Footer = ({ governesses, products, developer }: Props) => {
         <ContainerColumTwo>
           <DescriptionFooter title='Governance' children={governesses} />
           <DescriptionFooter title='Products & Tools' children={products} />
-          <DescriptionFooter title='Developer' children={developer} color='#333333' />
+          <DescriptionFooter title='Developer' children={developer} />
         </ContainerColumTwo>
         <ContainerColumThree>
           <FooterContact title='Contact MakerDAO SES for support' subtitle='Sustainable Ecosystem Scalling' logo={<SesLogo />} links={iconsSupport} />

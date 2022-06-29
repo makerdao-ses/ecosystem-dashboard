@@ -41,7 +41,7 @@ const StyleTitle = styled(Typography)({
   fontSize: '15px',
   lineHeight: '18px',
   letterSpacing: '0.4px',
-  color: '#333333'
+  color: '#000000',
 });
 
 const StyleDescription = styled(Typography)({
