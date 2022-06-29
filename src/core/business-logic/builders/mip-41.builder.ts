@@ -1,27 +1,17 @@
-import { Mip41Dto } from '../../models/dto/core-unit.dto';
+import { ContributorDto, Mip41Dto } from '../../models/dto/core-unit.dto';
 
 export class Mip41Builder {
   private readonly _mip41: Mip41Dto;
 
   constructor() {
     this._mip41 = {
-      id: '',
-      name: '',
-      forumHandle: '',
-      discordHandle: '',
-      twitterHandle: '',
-      email: '',
-      facilitatorImage: '',
+      contributor: []
     } as Mip41Dto;
   }
 
-  public withFacilitatorName(facilitatorName: string): Mip41Builder {
-    this._mip41.name = facilitatorName;
-    return this;
-  }
+  public addContributor(contributor: ContributorDto) {
+    this._mip41.contributor.push(contributor);
 
-  public withContributorId(contributorId: string): Mip41Builder {
-    this._mip41.id = contributorId;
     return this;
   }
 

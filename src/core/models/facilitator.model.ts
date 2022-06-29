@@ -1,9 +1,9 @@
 export interface FacilitatorModel {
-  id: string;
+  id?: string;
   name: string;
-  forumHandle: string;
-  discordHandle: string;
-  twitterHandle: string;
-  email: string;
-  facilitatorImage: string;
+  forumHandle?: string;
+  discordHandle?: string;
+  twitterHandle?: string;
+  email?: string;
+  facilitatorImage?: string;
 }
