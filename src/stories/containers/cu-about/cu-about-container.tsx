@@ -25,6 +25,7 @@ import { useRouter } from 'next/router';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 const CuAboutContainer = () => {
+  const [hiddenTextDescription, setHiddenTextDescription] = useState(true);
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;
@@ -48,6 +49,25 @@ const CuAboutContainer = () => {
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
 
+  const handleScroll = () => {
+    const element = document.getElementById('hidden-element');
+    if (element != null) {
+      const bound = element?.getBoundingClientRect();
+      if (bound && bound?.y < 276) {
+        setHiddenTextDescription(false);
+      } else {
+        setHiddenTextDescription(true);
+      }
+    }
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, true);
+
+    // Remove the event listener
+    return () => {
+      window.removeEventListener('scroll', handleScroll, true);
+    };
+  }, []);
   const filteredData = useMemo(() =>
     filterData({
       data,
@@ -108,13 +128,14 @@ const CuAboutContainer = () => {
           <BreadCrumb count={filteredData.length} breadcrumbs={[cuAbout.name] || []} isCoreUnit />
           <InsidePagination count={filteredData.length} page={page} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} />
         </NavigationHeader>
-        <ContainerTitle>
+        <ContainerTitle stateHidden={hiddenTextDescription}>
           <TitleNavigationCuAbout coreUnitAbout={cuAbout} />
-          <Typography fontSize={16} lineHeight='19px' color='#231536' sx={{
+          {hiddenTextDescription && <Typography fontSize={16} lineHeight='19px' color='#231536' sx={{
             marginTop: '16px'
-          }}>{cuAbout.sentenceDescription || ''}</Typography>
+          }}>{cuAbout.sentenceDescription || ''}</Typography>}
         </ContainerTitle>
       </div>
+      <Wrapper>
         <ContainerAllData>
           <div style={{
             width: '60.39%',
@@ -122,6 +143,7 @@ const CuAboutContainer = () => {
             flexDirection: 'column',
             marginTop: 210,
           }}>
+
             <MarkdownContainer>
               <MdViewerContainer sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)} paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)} paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)} />
             </MarkdownContainer>
@@ -175,6 +197,7 @@ const CuAboutContainer = () => {
             </ContainerScroll>
           </div>
         </ContainerAllData>
+      </Wrapper>
     </ContainerAbout >
   );
 };
@@ -189,15 +212,14 @@ const ContainerAbout = styled.div({
   background: 'url(/assets/img/bg-page.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
-  height: 'calc(100vh - 64px)',
-  overflowY: 'scroll',
+  marginBottom: '130px'
 });
 
 const ContainerCard = styled.div({
   marginBottom: '32px',
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'flex-end'
+  marginLeft: '64px',
 });
 
 const NavigationHeader = styled.div({
@@ -210,15 +232,16 @@ const NavigationHeader = styled.div({
   paddingRight: '32px',
 });
 
-const ContainerTitle = styled.div({
+const ContainerTitle = styled.div<{ stateHidden?: boolean }>((props) => ({
   display: 'flex',
   flexDirection: 'column',
   paddingLeft: '128px',
   paddingRight: '128px',
-  paddingBottom: '24px',
-  height: '135px',
-  borderBottom: '1px solid #B6EDE7',
-});
+  paddingBottom: props.stateHidden ? '24px' : '32px',
+  height: props.stateHidden ? '135px' : '103px',
+  borderBottom: props.stateHidden ? '1px solid #B6EDE7' : 'none',
+}));
+
 const MarkdownContainer = styled.div({
   marginTop: '32px',
 });
@@ -271,6 +294,7 @@ const CardRelateMipsContainer = styled.div({
   alignItems: 'center',
   marginTop: '32px',
   marginBottom: '64px',
+  width: '715px'
 
 });
 
@@ -333,13 +357,20 @@ const DividerStyle = styled(Divider)({
 });
 
 const ContainerScroll = styled.div({
-  position: 'fixed',
+  position: 'sticky',
   top: 290,
-  marginRight: '128px',
   height: '620px',
   '&:: -webkit-scrollbar': {
     width: '0px',
     background: 'transparent',
   },
   overflowY: 'auto',
+});
+
+const Wrapper = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  maxWidth: '1440px',
+  margin: '0 auto',
 });

@@ -32,6 +32,7 @@ export const CustomPopover = (props: CustomPopoverProps) => {
       {props.children}
     </div>
     <Popover
+       disableScrollLock
       id={props.id}
       sx={{
         pointerEvents: 'none',

@@ -16,9 +16,18 @@ export interface Mip40Dto {
   mip40Wallet: Mip40WalletDto[]
 }
 
+export interface ContributorDto {
+  id: string;
+  name: string;
+  forumHandle: string;
+  discordHandle: string;
+  twitterHandle: string;
+  email: string;
+  facilitatorImage: string;
+}
+
 export interface Mip41Dto {
-  facilitatorName: string,
-  contributorId: string
+  contributor: ContributorDto[];
 }
 
 export interface CuMipDto {

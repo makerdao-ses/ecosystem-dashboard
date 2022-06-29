@@ -25,11 +25,8 @@ import { CuTableColumnTeamMember } from '../../components/cu-table-column-team-m
 import { CustomTable } from '../../components/custom-table/custom-table';
 import {
   loadCuTableItemsAsync,
-  loadFacilitatorImage,
   selectCuTableItems,
   selectCuTableStatus,
-  selectFacilitatorImages,
-  setFacilitatorImageAsPending
 } from './cu-table.slice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../core/store/store';
@@ -59,7 +56,6 @@ export const CuTable = () => {
 
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
   const data: Array<CoreUnitDto> = useSelector((state: RootState) => selectCuTableItems(state));
-  const facilitatorImages = useSelector((state: RootState) => selectFacilitatorImages(state));
   const status = useSelector((state: RootState) => selectCuTableStatus(state));
 
   const [headersSort, setHeadersSort] = useState(sortInitialState);
@@ -100,19 +96,6 @@ export const CuTable = () => {
     const sortAlg = [nameSort, initiativesSort, expendituresSort, teamMembersSort];
     return [...items].sort(sortAlg[sortColumn]);
   }, [headersSort, sortColumn]);
-
-  useEffect(() => {
-    data.forEach(coreUnit => {
-      const facilitators = getFacilitatorsFromCoreUnit(coreUnit);
-      facilitators.forEach(facilitator => {
-        const id = facilitator?.id?.toString();
-        if (id && facilitatorImages[id] == null) {
-          dispatch(setFacilitatorImageAsPending(id));
-          dispatch(loadFacilitatorImage(id));
-        }
-      });
-    });
-  }, [data, dispatch, facilitatorImages]);
 
   const clearFilters = () => {
     router.push({
@@ -166,7 +149,6 @@ export const CuTable = () => {
             getFacilitatorsFromCoreUnit(coreUnit)
           }
           fte={getFTEsFromCoreUnit(coreUnit)}
-          facilitatorImages={facilitatorImages}
         />,
         <CuTableColumnLinks
           key={`links-${i}`}
@@ -176,7 +158,7 @@ export const CuTable = () => {
         />
       ];
     });
-  }, [filteredData, sortData, onClickRow, facilitatorImages]);
+  }, [filteredData, sortData, onClickRow]);
 
   return <ContainerHome>
     <Wrapper>
@@ -211,26 +193,26 @@ export const CuTable = () => {
           }}
           style={{ marginRight: '16px' }}
         />
-        <Separator/>
+        <Separator />
         {router.isReady && <SearchInput
-            defaultValue={searchText}
-            placeholder="Search"
-            onChange={(value: string) => {
-              debounce(() => {
-                handleChangeUrlFilterArrays('searchText')(value);
-              }, 300);
-            }}
-            style={{ marginLeft: '16px' }}
+          defaultValue={searchText}
+          placeholder="Search"
+          onChange={(value: string) => {
+            debounce(() => {
+              handleChangeUrlFilterArrays('searchText')(value);
+            }, 300);
+          }}
+          style={{ marginLeft: '16px' }}
         />}
         {!router.isReady && <SearchInput
-            defaultValue={searchText}
-            placeholder="Search"
-            onChange={(value: string) => {
-              debounce(() => {
-                handleChangeUrlFilterArrays('searchText')(value);
-              }, 300);
-            }}
-            style={{ marginLeft: '16px' }}
+          defaultValue={searchText}
+          placeholder="Search"
+          onChange={(value: string) => {
+            debounce(() => {
+              handleChangeUrlFilterArrays('searchText')(value);
+            }, 300);
+          }}
+          style={{ marginLeft: '16px' }}
         />}
       </Header>
       <CustomTable
@@ -252,8 +234,7 @@ const ContainerHome = styled.div({
   padding: '22px 128px 0',
   marginTop: '64px',
   width: '100%',
-  height: 'calc(100vh - 64px)',
-  overflowY: 'scroll',
+  marginBottom: '121px',
 });
 
 const Wrapper = styled.div({

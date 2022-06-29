@@ -28,6 +28,7 @@ import {
 } from '../../utils/test.utils';
 import { RoadmapBuilder } from '../builders/roadmap.builder';
 import { RoadmapStatusEnum } from '../../enums/roadmap-status.enum';
+import { ContributorDto } from '../../models/dto/core-unit.dto';
 
 test('Get date for status on CuMip', () => {
   const mipDao = (new CuMipBuilder()).withStatus(CuStatusEnum.Withdrawn, CURRENT_MINUS_2_MONTH).build();
@@ -116,7 +117,15 @@ test('Get Facilitator from Core Unit', () => {
     .addCuMip(
       (new CuMipBuilder())
         .addMip41((new Mip41Builder()
-          .withFacilitatorName('Facilitator')
+          .addContributor({
+            name: 'Facilitator',
+            id: '1',
+            discordHandle: '',
+            email: '',
+            facilitatorImage: '',
+            forumHandle: '',
+            twitterHandle: ''
+          } as ContributorDto)
           .build()))
         .build()
     )
