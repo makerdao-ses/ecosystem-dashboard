@@ -124,10 +124,16 @@ export const getFacilitatorsFromCoreUnit = (cu: CoreUnitDto) => {
 
   if (cu.cuMip?.every(x => !x.mip41 || x.mip41?.length === 0)) return result;
 
-  result.push(...cu.cuMip[cu.cuMip.length - 1]?.mip41?.map(facilitator => ({
-    name: facilitator.facilitatorName,
-    id: facilitator.contributorId
-  }) as FacilitatorModel));
+  try {
+    const mip41 = cu.cuMip[cu.cuMip.length - 1]?.mip41;
+    const contributor = mip41 && mip41.length && mip41[0].contributor;
+
+    if (contributor) {
+      result.push(...contributor);
+    }
+  } catch (e) {
+    console.log(e);
+  }
 
   return result;
 };

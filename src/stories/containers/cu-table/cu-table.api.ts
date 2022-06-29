@@ -29,8 +29,16 @@ export const GETCoreUnits = gql`
             }
           }
           mip41 {
-            facilitatorName
             contributorId
+            contributor {
+              id
+              name
+              forumHandle
+              discordHandle
+              twitterHandle
+              email
+              facilitatorImage
+            }
           }
         }
         roadMap {
@@ -62,33 +70,7 @@ export const GETCoreUnits = gql`
     }
   `;
 
-const GetFacilitatorImageGQL = gql`
-  query CoreUnits($filter: ContributorFilter) {
-    contributor(filter: $filter) {
-      id
-      name
-      facilitatorImage
-    }
-  }
-  `;
-
 export const fetchCoreUnits = async() => {
   const result = await request(GRAPHQL_ENDPOINT, GETCoreUnits);
   return result.coreUnits;
-};
-
-export const fetchFacilitatorImage = async(id: string) => {
-  if (!id) return null;
-
-  try {
-    const result = await request(GRAPHQL_ENDPOINT, GetFacilitatorImageGQL, {
-      filter: {
-        id
-      }
-    });
-
-    return result.contributor[0];
-  } catch (e) {
-    console.log(`Couldn't get image for facilitator with Id ${id} ${e}`);
-  }
 };

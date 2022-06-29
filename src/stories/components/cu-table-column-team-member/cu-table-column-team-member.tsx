@@ -7,16 +7,15 @@ import { CircleAvatar } from '../circle-avatar/circle-avatar';
 
 interface CuTableColumnTeamMemberProps {
   members: FacilitatorModel[],
-  facilitatorImages: { [id: string]: string },
   fte: number,
 }
 
-export const CuTableColumnTeamMember = ({ facilitatorImages, ...props }: CuTableColumnTeamMemberProps) => {
+export const CuTableColumnTeamMember = ({ ...props }: CuTableColumnTeamMemberProps) => {
   const MemberInfo = (props: { member: FacilitatorModel }) => {
     return <MemberInfoContainer>
       <CircleAvatar key={props.member.name}
                     name={props.member.name}
-                    image={facilitatorImages[props.member?.id ?? '']}
+                    image={props.member.facilitatorImage}
                     fontSize={'14px'}
                     width={'32px'}
                     imageStyle={{ border: '2px solid #E7FCFA' }}
@@ -40,20 +39,20 @@ export const CuTableColumnTeamMember = ({ facilitatorImages, ...props }: CuTable
         key={member.name + i}
         title={<MemberInfo member={member}/>}
         id={member.name + i}>
-        <CircleAvatar key={member.name}
+        <CircleAvatar key={member.id}
                       name={member.name}
                       fontSize={'14px'}
                       width={'32px'}
                       height={'32px'}
                       style={{
-                        marginLeft: i === 0 || (facilitatorImages[member?.id ?? '']) ? 0 : '-9px',
-                        border: !(facilitatorImages[member?.id ?? '']) ? '2px solid #E7FCFA' : 'none'
+                        marginLeft: i === 0 || (member.facilitatorImage) ? 0 : '-9px',
+                        border: !(member.facilitatorImage) ? '2px solid #E7FCFA' : 'none'
                       }}
                       imageStyle={{
                         marginLeft: i === 0 ? 0 : '-9px',
                         border: '2px solid #E7FCFA'
                       }}
-                      image={facilitatorImages[member?.id ?? '']}/>
+                      image={member.facilitatorImage}/>
       </CustomPopover>)}
     </CirclesWrapper>
   </Container>;

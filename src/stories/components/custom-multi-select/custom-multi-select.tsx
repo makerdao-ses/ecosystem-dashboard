@@ -111,6 +111,7 @@ const Label = styled.div({
   fontSize: '14px',
   lineHeight: '18px',
   color: '#231536',
+  whiteSpace: 'nowrap'
 });
 
 const IconWrapper = styled.div({

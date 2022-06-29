@@ -11,26 +11,28 @@ interface CustomLinkProps {
   style?: CSSProperties;
   fontSize?: number;
   fontWeight?: number;
+  fontFamily?: string;
   withArrow?: boolean;
 }
 
-export const CustomLink = ({ target = '_blank', iconWidth = 6, iconHeight = 6, fontSize = 12, fontWeight = 500, withArrow = true, ...props }: CustomLinkProps) => {
+export const CustomLink = ({ target = '_blank', iconWidth = 6, iconHeight = 6, fontSize = 12, fontWeight = 500, withArrow = true, fontFamily = 'FT Base, sans-serif', ...props }: CustomLinkProps) => {
   return <Container
     href={props.href}
     target={target}
     style={props.style}
     fontSize={fontSize}
     fontWeight={fontWeight}
+    fontFamily={fontFamily}
     onClick={(evt) => evt.stopPropagation()}>
     {props.children}
     {withArrow && <LinkIcon width={iconWidth} height={iconHeight} style={{ marginLeft: '5px' }} />}
   </Container>;
 };
 
-const Container = styled.a<{ fontSize: number, fontWeight: number }>(({ fontSize, fontWeight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+const Container = styled.a<{ fontSize: number, fontWeight: number, fontFamily: string }>(({ fontSize, fontWeight, fontFamily }) => ({
   fontStyle: 'normal',
   fontWeight,
+  fontFamily,
   fontSize: `${fontSize}px`,
   lineHeight: '14px',
   letterSpacing: '1px',

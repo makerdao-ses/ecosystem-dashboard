@@ -19,7 +19,7 @@ export const FooterContact = ({ title, subtitle, logo, links }: Props) => {
         <StyleDescription>{subtitle}</StyleDescription>
 
       </ContainerText>
-      <div> <FooterLinks links={links} /></div>
+      <div style={{ display: 'flex' }}> <FooterLinks links={links} /></div>
       <ContainerLogo >{logo}</ContainerLogo>
     </Container>
   );
@@ -31,7 +31,7 @@ const Container = styled.div({
 });
 
 const ContainerText = styled.div({
-  marginBottom: '25px'
+  marginBottom: '16px'
 });
 
 const StyleTitle = styled(Typography)({
@@ -55,7 +55,7 @@ const StyleDescription = styled(Typography)({
 });
 
 const ContainerLogo = styled.div({
-  marginTop: '38px'
+  marginTop: '32px'
 });
 
 export default FooterContact;

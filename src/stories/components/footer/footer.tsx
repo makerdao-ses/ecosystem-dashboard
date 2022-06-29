@@ -54,26 +54,25 @@ const ContainerFooter = styled.footer({
   boxSizing: 'border-box',
   margin: '0px',
   minWidth: '0px',
-  gap: '32px',
   width: '100%',
-  paddingTop: '64px',
-  paddingBottom: '64px',
+  paddingTop: '43.85px',
+  paddingBottom: '81px',
   paddingLeft: '64.86px',
   paddingRight: '64.86px',
-
 });
-
 const ContainerColumOne = styled.div({
-  width: '23%'
+  width: '289.64px',
+  marginRight: '59.27px',
+
 });
 const ContainerColumTwo = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'space-between',
-  width: '40%'
+  width: '594.54px',
+  marginRight: '82.84px',
 
 });
 const ContainerColumThree = styled.div({
-  width: '23%'
+  width: '272px',
 });
 export default Footer;
