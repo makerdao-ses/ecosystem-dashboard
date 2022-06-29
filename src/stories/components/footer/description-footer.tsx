@@ -27,7 +27,7 @@ const StyleTitle = styled(Typography)<{ color?: string }>(({ color }) => ({
   fontWeight: 500,
   fontSize: '15px',
   lineHeight: '18px',
-  marginBottom: '14px',
+  marginBottom: '16px',
   letterSpacing: '0.4px'
 }));
 

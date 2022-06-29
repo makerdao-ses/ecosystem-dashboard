@@ -52,14 +52,13 @@ const ContainerFooter = styled.footer({
   flexDirection: 'row',
   justifyContent: 'space-between',
   boxSizing: 'border-box',
-  justifyContent: 'space-between',
   margin: '0px',
   minWidth: '0px',
   width: '100%',
   paddingTop: '43.85px',
-  paddingBottom: '81px',
-  paddingLeft: '98.86px',
-  paddingRight: '98.23px',
+  paddingBottom: '32px',
+  paddingLeft: '64.86px',
+  paddingRight: '64.23px',
 });
 
 const ContainerColumOne = styled.div({
@@ -70,7 +69,6 @@ const ContainerColumTwo = styled.div({
   flexDirection: 'row',
   justifyContent: 'space-between',
   width: '40%',
-  marginRight: '82.84px',
 
 });
 const ContainerColumThree = styled.div({
