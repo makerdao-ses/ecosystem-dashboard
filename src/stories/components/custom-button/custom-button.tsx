@@ -40,5 +40,6 @@ const Text = styled.div({
   fontFamily: 'SF Pro Text, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
-  color: '#231536'
+  color: '#231536',
+  whiteSpace: 'nowrap',
 });
