@@ -50,6 +50,7 @@ const ContainerImage = styled.div({
 const ContainerFooter = styled.footer({
   display: 'flex',
   flexDirection: 'row',
+  justifyContent: 'space-between',
   boxSizing: 'border-box',
   justifyContent: 'space-between',
   margin: '0px',
