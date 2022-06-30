@@ -51,6 +51,7 @@ export interface BudgetStatementLineItemDto {
   actual: number;
   forecast?: number;
   budgetCategory?: string;
+  headcountExpense?: boolean;
 }
 
 export interface BudgetStatementWalletDto {

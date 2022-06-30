@@ -97,32 +97,56 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     return getGroupForecast(group) - getGroupActual(group);
   };
 
+  const addBreakdownItemsToArray = (result: JSX.Element[][], items: BudgetStatementLineItemDto[]) => {
+    const grouped = _.groupBy(items, item => item.budgetCategory);
+
+    for (const groupedKey in grouped) {
+      result.push([
+        <TableCell key={1}>{grouped[groupedKey][0].budgetCategory}</TableCell>,
+        <TableCell key={2} negative={getGroupForecast(grouped[groupedKey]) < 0}>{getGroupForecast(grouped[groupedKey]).toLocaleString()}</TableCell>,
+        <TableCell key={3} negative={getGroupActual(grouped[groupedKey]) < 0}>{getGroupActual(grouped[groupedKey]).toLocaleString()}</TableCell>,
+        <TableCell key={4} negative={getGroupDifference(grouped[groupedKey]) < 0}>{getGroupDifference(grouped[groupedKey]).toLocaleString()}</TableCell>,
+        <TableCell key={5}/>,
+        <TableCell key={6}>0</TableCell>
+      ]);
+    }
+  };
+
   const breakdownTableItems = useMemo(() => {
     const result: JSX.Element[][] = [];
     if (!currentBudgetStatement?.budgetStatementWallet?.length) { return result; }
 
     const currentWallet = currentBudgetStatement?.budgetStatementWallet[thirdIndex];
 
-    const grouped = _.groupBy(currentWallet.budgetStatementLineItem, item => item.budgetCategory);
+    result.push([
+      <TableCell key={1}><b>Headcount Expenses Subtotal</b></TableCell>,
+      <TableCell key={2}/>,
+      <TableCell key={3}/>,
+      <TableCell key={4}/>,
+      <TableCell key={5}/>,
+      <TableCell key={6}/>,
+    ]);
 
-    for (const groupedKey in grouped) {
-      result.push([
-          <TableCell key={1}>{grouped[groupedKey][0].budgetCategory}</TableCell>,
-          <TableCell key={2} negative={getGroupForecast(grouped[groupedKey]) < 0}>{getGroupForecast(grouped[groupedKey]).toLocaleString()}</TableCell>,
-          <TableCell key={3} negative={getGroupActual(grouped[groupedKey]) < 0}>{getGroupActual(grouped[groupedKey]).toLocaleString()}</TableCell>,
-          <TableCell key={4} negative={getGroupDifference(grouped[groupedKey]) < 0}>{getGroupDifference(grouped[groupedKey]).toLocaleString()}</TableCell>,
-          <TableCell key={5}/>,
-          <TableCell key={6}>0</TableCell>
-      ]);
-    }
+    addBreakdownItemsToArray(result, currentWallet.budgetStatementLineItem.filter(item => item.headcountExpense));
+
+    result.push([
+      <TableCell key={1}><b>Non-Headcount Expenses Subtotal</b></TableCell>,
+      <TableCell key={2}/>,
+      <TableCell key={3}/>,
+      <TableCell key={4}/>,
+      <TableCell key={5}/>,
+      <TableCell key={6}/>,
+    ]);
+
+    addBreakdownItemsToArray(result, currentWallet.budgetStatementLineItem.filter(item => !item.headcountExpense));
 
     result.push([
         <TableCell key={1}><b>Total</b></TableCell>,
         <TableCell key={2} negative={getWalletActual(currentWallet) < 0}><b>{getWalletForecast(currentWallet).toLocaleString()}</b></TableCell>,
         <TableCell key={3} negative={getWalletActual(currentWallet) < 0}><b>{getWalletActual(currentWallet).toLocaleString()}</b></TableCell>,
         <TableCell key={4} negative={getWalletDifference(currentWallet) < 0}><b>{getWalletDifference(currentWallet).toLocaleString()}</b></TableCell>,
-        <TableCell key={1}><b/></TableCell>,
-        <TableCell key={1}><b>0</b></TableCell>,
+        <TableCell key={5}/>,
+        <TableCell key={6}><b>0</b></TableCell>,
     ]);
 
     return result;
