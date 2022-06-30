@@ -83,7 +83,7 @@ const CuAboutContainer = () => {
       const index = filteredData.findIndex(item => item.code === code);
       const newIndex = index + direct;
       if (newIndex >= 0 && newIndex < filteredData.length) {
-        router.push(`/about/${filteredData[newIndex].code}?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
+        router.push(`/core-unit/${filteredData[newIndex].code}?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
       }
     },
     [code, filteredData, router],
@@ -104,7 +104,7 @@ const CuAboutContainer = () => {
   const description = 'View all Finances of the (SES-01) Sustainable Ecosystem Scaling';
 
   const onClickFinances = useCallback(() => {
-    router.push(`/finances/${code}/transparency?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
+    router.push(`/core-unit/${code}/finances/transparency?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
   }, [filteredCategories, filteredStatuses, router, searchText, code]);
 
   if (statusCoreUnit === status.loading) {
