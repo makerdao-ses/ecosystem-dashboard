@@ -32,6 +32,7 @@ export const CORE_UNIT_REQUEST = (code: string) => ({
               forecast
               budgetCategory
               headcountExpense
+              comments
             }
           }
         }

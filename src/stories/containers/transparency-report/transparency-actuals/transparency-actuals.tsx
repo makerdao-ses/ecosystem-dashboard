@@ -78,7 +78,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         <TableCell key={3}><b>{budgetTotalActual.toLocaleString()}</b></TableCell>,
         <TableCell key={4}><b>{budgetTotalDifference.toLocaleString()}</b></TableCell>,
         <TableCell key={5}><b>0</b></TableCell>,
-        <TableCell key={6}><b></b></TableCell>,
+        <TableCell key={6}/>,
       ]);
     }
 
@@ -106,7 +106,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         <TableCell key={2} negative={getGroupForecast(grouped[groupedKey]) < 0}>{getGroupForecast(grouped[groupedKey]).toLocaleString()}</TableCell>,
         <TableCell key={3} negative={getGroupActual(grouped[groupedKey]) < 0}>{getGroupActual(grouped[groupedKey]).toLocaleString()}</TableCell>,
         <TableCell key={4} negative={getGroupDifference(grouped[groupedKey]) < 0}>{getGroupDifference(grouped[groupedKey]).toLocaleString()}</TableCell>,
-        <TableCell key={5}/>,
+        <TableCell key={5}>{grouped[groupedKey].comments}</TableCell>,
         <TableCell key={6}>0</TableCell>
       ]);
     }
