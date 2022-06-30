@@ -5,6 +5,7 @@ export class BudgetStatementWalletBuilder {
 
   constructor() {
     this._wallet = {
+      name: '',
       budgetStatementLineItem: [] as BudgetStatementLineItemDto[],
     };
   }

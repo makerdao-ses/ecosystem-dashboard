@@ -21,9 +21,9 @@ const Footer = ({ governesses, products, developer }: Props) => {
       <ContainerFooter>
         <ContainerColumOne ><FooterContact title='Contact MakerDAO' subtitle='Official Community Channels' logo={<Logo />} links={iconsContact} /></ContainerColumOne>
         <ContainerColumTwo>
-          <DescriptionFooter title='Governance' children={governesses} style={{ marginRight: '65.86px' }} />
-          <DescriptionFooter title='Products & Tools' children={products} style={{ marginRight: '65.19px' }} />
-          <DescriptionFooter title='Developer' children={developer} color='#333333' />
+          <DescriptionFooter title='Governance' children={governesses} />
+          <DescriptionFooter title='Products & Tools' children={products} />
+          <DescriptionFooter title='Developer' children={developer} />
         </ContainerColumTwo>
         <ContainerColumThree>
           <FooterContact title='Contact MakerDAO SES for support' subtitle='Sustainable Ecosystem Scalling' logo={<SesLogo />} links={iconsSupport} />
@@ -41,7 +41,7 @@ const ContainerImage = styled.div({
   zIndex: -1,
   transform: 'translate(-50%)',
   backgroundImage: 'url(/assets/img/bg_footer_light.jpeg)',
-  backgroundSize: '100% 400px',
+  backgroundSize: '100% 100%',
   backgroundPosition: 'center bottom',
   backgroundRepeat: 'no-repeat',
   position: 'absolute',
@@ -54,13 +54,11 @@ const ContainerFooter = styled.footer({
   boxSizing: 'border-box',
   margin: '0px',
   minWidth: '0px',
-  gap: '32px',
   width: '100%',
-  paddingTop: '64px',
-  paddingBottom: '64px',
+  paddingTop: '43.85px',
+  paddingBottom: '32px',
   paddingLeft: '64.86px',
-  paddingRight: '32px',
-
+  paddingRight: '64.23px',
 });
 
 const ContainerColumOne = styled.div({
@@ -70,10 +68,10 @@ const ContainerColumTwo = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
-  width: '40%'
+  width: '40%',
 
 });
 const ContainerColumThree = styled.div({
-  width: '23%'
+  width: '23%',
 });
 export default Footer;

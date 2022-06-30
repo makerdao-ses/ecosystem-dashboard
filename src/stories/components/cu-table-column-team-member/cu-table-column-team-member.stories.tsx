@@ -14,7 +14,6 @@ const store = configureStore({
 const MockedState: CuTableState = {
   items: [],
   status: 'idle',
-  facilitatorImages: {}
 };
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -47,7 +46,6 @@ Default.args = {
     { name: 'Billy Ferguson' },
     { name: 'Jackie Chang' },
   ],
-  facilitatorImages: {},
 };
 
 export const Empty = Template.bind({});
@@ -59,5 +57,4 @@ Empty.decorators = [
 Empty.args = {
   fte: 1,
   members: [],
-  facilitatorImages: {}
 };
