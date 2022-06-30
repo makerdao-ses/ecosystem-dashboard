@@ -7,15 +7,20 @@ interface InnerTableProps {
   headersAlign?: ('left' | 'center' | 'right')[],
   style?: CSSProperties,
   rowStyles?: CSSProperties[],
-  minWidth?: number
+  minWidth?: number,
+  headerWidths?: string[],
+  headerStyles?: CSSProperties[],
 }
 
-export const InnerTable = ({ headersAlign = [], minWidth = 160, ...props }: InnerTableProps) => {
+export const InnerTable = ({ headersAlign = [], minWidth = 160, headerWidths = [], headerStyles = [], ...props }: InnerTableProps) => {
   return <Container style={props.style}>
     <Table>
       <TableHead>
         <tr>
-          {props.headers.map((header, i) => <HeadCell minWidth={minWidth} key={`header-${i}`} style={{ textAlign: headersAlign[i] ?? 'left' }}>
+          {props.headers.map((header, i) => <HeadCell width={headerWidths[i] ?? 'unset'} minWidth={minWidth} key={`header-${i}`} style={{
+            textAlign: headersAlign[i] ?? 'left',
+            ...headerStyles[i]
+          }} >
             {header}
           </HeadCell>)}
         </tr>
@@ -56,8 +61,9 @@ const TableHead = styled.thead({
   borderBottom: '1px solid #D4D9E1',
 });
 
-const HeadCell = styled.th<{ minWidth: number }>(({ minWidth }) => ({
+const HeadCell = styled.th<{ minWidth: number, width: string }>(({ minWidth, width }) => ({
   padding: '24px 16px',
-  minWidth: `${minWidth - 32}px`,
+  minWidth: `${minWidth}px`,
+  width,
   fontWeight: '500',
 }));

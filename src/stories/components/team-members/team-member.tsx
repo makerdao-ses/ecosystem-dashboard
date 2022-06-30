@@ -43,7 +43,7 @@ const Title = styled(Typography)({
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '20px',
-  lineHeight: '17px',
+  lineHeight: '24px',
   color: '#231536',
   marginLeft: '8px',
   textAlign: 'center'
