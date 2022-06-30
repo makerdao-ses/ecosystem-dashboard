@@ -273,7 +273,7 @@ const ContactInfoTitle = styled(Typography)({
   fontStyle: 'normal',
   fontWeight: 700,
   fontSize: '16px',
-  lineHeight: '17px',
+  lineHeight: '19px',
   color: '#231536',
   marginBottom: '32px',
 });
@@ -359,7 +359,7 @@ const DividerStyle = styled(Divider)({
 const ContainerScroll = styled.div({
   position: 'sticky',
   top: 290,
-  height: '620px',
+  height: '820px',
   '&:: -webkit-scrollbar': {
     width: '0px',
     background: 'transparent',

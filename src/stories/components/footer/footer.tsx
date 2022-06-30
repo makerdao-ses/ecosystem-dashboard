@@ -21,17 +21,9 @@ const Footer = ({ governesses, products, developer }: Props) => {
       <ContainerFooter>
         <ContainerColumOne ><FooterContact title='Contact MakerDAO' subtitle='Official Community Channels' logo={<Logo />} links={iconsContact} /></ContainerColumOne>
         <ContainerColumTwo>
-          <DescriptionFooter title='Governance' children={governesses} style={{
-            width: '143px',
-            marginRight: '82.84px'
-          }} />
-          <DescriptionFooter title='Products & Tools' children={products} style={{
-            width: '147.55px',
-            marginRight: '82.84px'
-          }} />
-          <DescriptionFooter title='Developer' children={developer} color='#333333' style={{
-            width: '129.99px'
-          }} />
+          <DescriptionFooter title='Governance' children={governesses} />
+          <DescriptionFooter title='Products & Tools' children={products} />
+          <DescriptionFooter title='Developer' children={developer} />
         </ContainerColumTwo>
         <ContainerColumThree>
           <FooterContact title='Contact MakerDAO SES for support' subtitle='Sustainable Ecosystem Scalling' logo={<SesLogo />} links={iconsSupport} />
@@ -64,24 +56,22 @@ const ContainerFooter = styled.footer({
   minWidth: '0px',
   width: '100%',
   paddingTop: '43.85px',
-  paddingBottom: '81px',
+  paddingBottom: '32px',
   paddingLeft: '64.86px',
-  paddingRight: '98.23px',
+  paddingRight: '64.23px',
 });
 
 const ContainerColumOne = styled.div({
-  width: '289.64px',
-  marginRight: '59.27px',
-
+  width: '23%'
 });
 const ContainerColumTwo = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  width: '594.54px',
-  marginRight: '82.84px',
+  justifyContent: 'space-between',
+  width: '40%',
 
 });
 const ContainerColumThree = styled.div({
-  width: '272px',
+  width: '23%',
 });
 export default Footer;

@@ -46,11 +46,7 @@ const RelateMips = ({ relateMips }: Props) => {
       {pieces.length === 2 && <RowUnderLine>
         <StyleMipNumber color='#231536' fontSize={16} fontWeight={600}>{`${pieces[0]}:`}</StyleMipNumber>
         <ContainerIconTypography>
-          <Typography color='#447AFB' fontSize={16} sx={{
-            display: 'inline',
-            lineHeight: '19px',
-            fontWeight: 500,
-          }}>{pieces[1]}</Typography>
+          <StyleTitle >{pieces[1]}</StyleTitle>
           <ArrowLinkContainer>  <ExternalLinkArrow href={`${relateMips.mipUrl}` || '#'} /></ArrowLinkContainer>
         </ContainerIconTypography>
       </RowUnderLine>}
@@ -112,5 +108,14 @@ const StyleMipNumber = styled(Typography)({
   minWidth: '125px',
   display: 'inline-block',
   marginRight: '4px',
+  fontFamily: 'SF Pro Text, sans-serif'
+});
+
+const StyleTitle = styled(Typography)({
+  color: '#447AFB',
+  fontSize: '16px',
+  display: 'inline',
+  lineHeight: '19px',
+  fontWeight: 500,
   fontFamily: 'SF Pro Text, sans-serif'
 });
