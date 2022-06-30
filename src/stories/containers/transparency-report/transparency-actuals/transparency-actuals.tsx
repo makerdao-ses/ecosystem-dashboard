@@ -97,6 +97,10 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     return getGroupForecast(group) - getGroupActual(group);
   };
 
+  const getCommentsFromCategory = (group: BudgetStatementLineItemDto[]) => {
+    return group.reduce((current, next) => `${current} ${next.comments}`, '');
+  };
+
   const addBreakdownItemsToArray = (result: JSX.Element[][], items: BudgetStatementLineItemDto[]) => {
     const grouped = _.groupBy(items, item => item.budgetCategory);
 
@@ -106,7 +110,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         <TableCell key={2} negative={getGroupForecast(grouped[groupedKey]) < 0}>{getGroupForecast(grouped[groupedKey]).toLocaleString()}</TableCell>,
         <TableCell key={3} negative={getGroupActual(grouped[groupedKey]) < 0}>{getGroupActual(grouped[groupedKey]).toLocaleString()}</TableCell>,
         <TableCell key={4} negative={getGroupDifference(grouped[groupedKey]) < 0}>{getGroupDifference(grouped[groupedKey]).toLocaleString()}</TableCell>,
-        <TableCell key={5}>{grouped[groupedKey].comments}</TableCell>,
+        <TableCell key={5}>{getCommentsFromCategory(grouped[groupedKey])}</TableCell>,
         <TableCell key={6}>0</TableCell>
       ]);
     }
@@ -120,22 +124,12 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
 
     result.push([
       <TableCell key={1}><b>Headcount Expenses Subtotal</b></TableCell>,
-      <TableCell key={2}/>,
-      <TableCell key={3}/>,
-      <TableCell key={4}/>,
-      <TableCell key={5}/>,
-      <TableCell key={6}/>,
     ]);
 
     addBreakdownItemsToArray(result, currentWallet.budgetStatementLineItem.filter(item => item.headcountExpense));
 
     result.push([
       <TableCell key={1}><b>Non-Headcount Expenses Subtotal</b></TableCell>,
-      <TableCell key={2}/>,
-      <TableCell key={3}/>,
-      <TableCell key={4}/>,
-      <TableCell key={5}/>,
-      <TableCell key={6}/>,
     ]);
 
     addBreakdownItemsToArray(result, currentWallet.budgetStatementLineItem.filter(item => !item.headcountExpense));
