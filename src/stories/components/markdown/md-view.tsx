@@ -61,8 +61,9 @@ const MdViewerPage = ({ subTitle = 'What we do', paragraphDescription, paragraph
         : <div style={{
           display: 'flex',
           flexDirection: 'row',
-          justifyContent: 'center'
-        }}>No img to show</div>}
+          justifyContent: 'center',
+          marginTop: '64px'
+        }}>No data to Show</div>}
     </ViewerContainer>
   );
 };
