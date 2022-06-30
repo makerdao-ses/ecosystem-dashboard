@@ -30,7 +30,10 @@ export const TransparencyMkrVesting = () => {
     <InnerTable
       headers={['Vesting Date', 'MKR Amount', 'Last month', 'difference', 'reason(s)']}
       headersAlign={['left', 'right', 'right', 'right', 'left']}
+      headerStyles={[{}, {}, {}, {}, { paddingLeft: '38px' }]}
       items={tableItems}
+      minWidth={200}
+      headerWidths={['200px', '200px', '200px', '200px', '99%']}
       style={{ marginBottom: '32px' }}
     />
     <Text>
