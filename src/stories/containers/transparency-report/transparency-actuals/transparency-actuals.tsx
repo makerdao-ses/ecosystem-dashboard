@@ -55,7 +55,8 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     return budgetTotalForecast - budgetTotalActual;
   }, [currentBudgetStatement]);
 
-  const formatAddressForOutput = (address: string) => {
+  const formatAddressForOutput = (address: string | undefined) => {
+    if (!address) { return ''; }
     return `${address.slice(0, 5)}..${address.slice(address.length - 5, address.length - 1)}`;
   };
 
@@ -64,7 +65,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     if (currentBudgetStatement) {
       currentBudgetStatement.budgetStatementWallet?.forEach(wallet => {
         result.push([
-          <WalletTableCell key={1} name={wallet.name} wallet={formatAddressForOutput(wallet.address)} walletUrl={'#'}/>,
+          <WalletTableCell key={1} name={wallet.name} wallet={formatAddressForOutput(wallet.address)}/>,
           <TableCell key={2}>{Math.abs(getWalletForecast(wallet)).toLocaleString()}</TableCell>,
           <TableCell key={3}>{Math.abs(getWalletActual(wallet)).toLocaleString()}</TableCell>,
           <TableCell key={3} negative={getWalletDifference(wallet) < 0}>{Math.abs(getWalletDifference(wallet)).toLocaleString()}</TableCell>,

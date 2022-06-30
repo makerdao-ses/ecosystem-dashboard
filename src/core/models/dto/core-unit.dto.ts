@@ -57,7 +57,7 @@ export interface BudgetStatementLineItemDto {
 
 export interface BudgetStatementWalletDto {
   name: string;
-  address: string;
+  address?: string;
   budgetStatementLineItem: BudgetStatementLineItemDto[];
 }
 
