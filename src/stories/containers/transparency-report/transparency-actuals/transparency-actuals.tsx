@@ -140,6 +140,8 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       headers={['Budget', 'Forecast', 'Actuals', 'Difference', 'Payments', 'External Links']}
       items={mainTableItems}
       headersAlign={['left', 'right', 'right', 'right', 'right', 'left']}
+      minWidth={120}
+      headerWidths={['200px', 'unset', 'unset', 'unset', 'unset', '30%']}
       style={{ marginBottom: '62px' }}
       />
     </>}
