@@ -133,6 +133,7 @@ const ArrowTittleStyle = styled.div({
   justifyContent: 'space-between',
   alignItems: 'end',
   marginBottom: '32px',
+
 });
 
 export default NavigationCard;

@@ -12,6 +12,5 @@ const Template: ComponentStory<typeof WalletTableCell> = (args) => <WalletTableC
 export const Default = Template.bind({});
 Default.args = {
   wallet: '0x232b…8482',
-  walletUrl: '#',
   name: 'Permanent Team',
 };

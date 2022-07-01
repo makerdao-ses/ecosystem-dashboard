@@ -27,10 +27,13 @@ export const CORE_UNIT_REQUEST = (code: string) => ({
           month
           budgetStatementWallet {
             name
+            address
             budgetStatementLineItem {
               actual
               forecast
               budgetCategory
+              headcountExpense
+              comments
             }
           }
         }

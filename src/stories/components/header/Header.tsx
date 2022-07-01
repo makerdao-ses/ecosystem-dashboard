@@ -1,22 +1,26 @@
 import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
 import Logo from '../svg/logo';
-import { IconButton } from '@mui/material';
-import ThemeMode from '../svg/theme-mode';
+import { useTheme } from '@mui/material';
 import SelectLink from './select-link-website/select-link';
 import Dashboard from '../svg/dash-board';
 import { WebSiteLinks } from './select-link-website/menu-items';
 import { MenuType } from './menu-items';
 import { useRouter } from 'next/router';
+import ThemeSwitcherButton from '../button/switch-button/switch-buttom';
+import { ThemeMode } from '../../../core/context/ThemeContext';
 
 interface Props {
   menuItems: MenuType[];
   links: WebSiteLinks[];
+  themeMode: ThemeMode
+  toggleTheme: () => void
 }
 
-const Header = ({ menuItems, links }: Props) => {
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
+  const theme = useTheme();
   const router = useRouter();
-  // const location = useLocation();
   const onClick = useCallback(
     (link: string) => () => {
       window.open(link, '_blank');
@@ -25,28 +29,27 @@ const Header = ({ menuItems, links }: Props) => {
   );
 
   return (
-    <Container >
-
+    <Container themeMode={themeMode}>
       <LeftPart>
-
-        <ContainerLogoSelect>
+        <ContainerLogoSelect themeMode={themeMode}>
           <LogoContainer>
-            <Logo fill='#211634' />
+            <Logo fill={themeMode === 'dark' ? '#6EDBD0' : '#211634'} />
           </LogoContainer>
-          <Dashboard />
-          <SelectLink links={links} onClick={onClick} />
+          <Dashboard fill={themeMode === 'dark' ? '#6EDBD0' : '#211634'} />
+          <SelectLink links={links} onClick={onClick} fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'} background={themeMode === 'dark' ? '#31424E' : '#ECF1F3'} />
         </ContainerLogoSelect>
 
         <Navigation>
           {menuItems.map(({ marginRight, link, title }: MenuType) => {
             let isActive = false;
-            if (router.pathname === '/' || router.pathname.includes('about')) {
+            if (router.pathname === '/' || router.pathname.includes('core-unit')) {
               isActive = link === '/';
             } else {
               isActive = router.pathname.includes(link) && link !== '/';
             }
 
             return (<ItemMenuStyle
+              themeMode={themeMode}
               key={
                 title
               } style={{ marginRight }} href={link}
@@ -57,17 +60,13 @@ const Header = ({ menuItems, links }: Props) => {
         </Navigation>
       </LeftPart>
       <RightPart>
-        <IconsContainer>
-          <IconButton color="inherit">
-            <ThemeMode width={22.67} height={22.67} />
-          </IconButton>
-        </IconsContainer>
+        <ThemeSwitcherButton themeMode={themeMode} toggleTheme={toggleTheme} />
       </RightPart>
     </Container >
   );
 };
 
-const Container = styled.header({
+const Container = styled.header<{ themeMode: string }>((props) => ({
   position: 'fixed',
   display: 'flex',
   width: '100%',
@@ -75,9 +74,9 @@ const Container = styled.header({
   flexDirection: 'row',
   height: '64px',
   justifyContent: 'space-between',
-  background: 'url(/assets/img/bg-header.png)',
+  background: props.themeMode === 'light' ? 'url(/assets/img/bg-header.png)' : 'url(/assets/img/bg-header-dark.png)',
   borderBottom: '1px solid #E7FCFA',
-});
+}));
 
 const LeftPart = styled.div({
   display: 'flex',
@@ -86,7 +85,7 @@ const LeftPart = styled.div({
   height: '100%',
 });
 
-const ContainerLogoSelect = styled.div({
+const ContainerLogoSelect = styled.div<{ themeMode: string }>((props) => ({
   display: 'flex',
   flexDirection: 'row',
   height: '100%',
@@ -95,8 +94,8 @@ const ContainerLogoSelect = styled.div({
   alignItems: 'center',
   paddingRight: '32px',
   paddingLeft: '32px',
-  background: 'url(/assets/img/bg-logo.png)',
-});
+  background: props.themeMode === 'light' ? 'url(/assets/img/bg-logo.png)' : 'url(/assets/img/bg-logo-dark.png)',
+}));
 
 const LogoContainer = styled.div({
   marginTop: '13px',
@@ -117,7 +116,7 @@ const RightPart = styled.div({
   paddingRight: '32px',
 });
 
-const ItemMenuStyle = styled.a<{ active: boolean, marginRight?: string }>((props) => ({
+const ItemMenuStyle = styled.a<{ active: boolean, marginRight?: string, themeMode: string }>((props) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
@@ -125,7 +124,7 @@ const ItemMenuStyle = styled.a<{ active: boolean, marginRight?: string }>((props
   lineHeight: '19px',
   transform: 'none',
   marginRight: props.marginRight,
-  color: props.active ? '#1AAB9B' : '#231536',
+  color: props.active ? '#1AAB9B' : (props.themeMode === 'light' && !props.active) ? '#25273D' : '#D2D4EF',
   letterSpacing: '0.4px',
   textDecoration: 'none',
   cursor: 'pointer',
@@ -133,11 +132,5 @@ const ItemMenuStyle = styled.a<{ active: boolean, marginRight?: string }>((props
     color: '#1dc1ae',
   },
 }));
-
-const IconsContainer = styled.div({
-  display: 'flex',
-  flexDirection: 'row',
-  height: '32px',
-});
 
 export default Header;

@@ -51,10 +51,13 @@ export interface BudgetStatementLineItemDto {
   actual: number;
   forecast?: number;
   budgetCategory?: string;
+  headcountExpense?: boolean;
+  comments?: string;
 }
 
 export interface BudgetStatementWalletDto {
   name: string;
+  address?: string;
   budgetStatementLineItem: BudgetStatementLineItemDto[];
 }
 
