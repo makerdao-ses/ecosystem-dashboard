@@ -9,9 +9,11 @@ import { WebSiteLinks } from './menu-items';
 interface Props {
   links: WebSiteLinks[] | [];
   onClick: (link: string) => () => void;
+  fill?: string;
+  background?: string
 }
 
-const SelectLink = ({ links, onClick }: Props) => {
+const SelectLink = ({ links, onClick, fill = '', background = '' }: Props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -22,15 +24,16 @@ const SelectLink = ({ links, onClick }: Props) => {
   };
   return (
     <div>
-      <ContainerIcon>
+      <ContainerIcon background={background}>
         <IconButton
           id="basic-button"
           aria-controls={open ? 'basic-menu' : undefined}
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
           onClick={handleClick}
-        ><ArrowSelect /></IconButton></ContainerIcon>
+        ><ArrowSelect fill={fill} /></IconButton></ContainerIcon>
       <Menu
+       disableScrollLock={true}
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
@@ -72,7 +75,7 @@ const SelectLink = ({ links, onClick }: Props) => {
                 marginBottom: '0px',
               }
             }} key={link.id}>
-            <ItemWebSite title={link.title || ''} logo={link.logo} background={link.background} color={link.color} fontSize={link.fontSize} fontWeight={link.fontWeight} link={link.link} fontFamily={link.fontFamily} padding={link.padding} subtract={link.subtract}/>
+            <ItemWebSite title={link.title || ''} logo={link.logo} background={link.background} color={link.color} fontSize={link.fontSize} fontWeight={link.fontWeight} link={link.link} fontFamily={link.fontFamily} padding={link.padding} subtract={link.subtract} />
           </MenuItem >;
         })}
       </Menu>
@@ -80,12 +83,12 @@ const SelectLink = ({ links, onClick }: Props) => {
   );
 };
 
-const ContainerIcon = styled.div({
+const ContainerIcon = styled.div<{ background: string }>((props) => ({
   width: 26,
   height: 26,
   marginLeft: '16px',
   borderRadius: '6px',
-  background: '#ECF1F3',
-});
+  background: props.background || '#ECF1F3',
+}));
 
 export default SelectLink;

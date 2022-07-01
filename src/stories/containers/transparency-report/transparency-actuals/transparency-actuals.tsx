@@ -55,30 +55,35 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     return budgetTotalForecast - budgetTotalActual;
   }, [currentBudgetStatement]);
 
+  const formatAddressForOutput = (address: string | undefined) => {
+    if (!address) { return ''; }
+    return `${address.slice(0, 5)}..${address.slice(address.length - 5, address.length - 1)}`;
+  };
+
   const mainTableItems = useMemo(() => {
     const result: JSX.Element[][] = [];
     if (currentBudgetStatement) {
       currentBudgetStatement.budgetStatementWallet?.forEach(wallet => {
         result.push([
-          <WalletTableCell key={1} name={wallet.name} wallet={'0x232b…8482'} walletUrl={'#'}/>,
-          <TableCell key={2}>{getWalletForecast(wallet).toLocaleString()}</TableCell>,
-          <TableCell key={3}>{getWalletActual(wallet).toLocaleString()}</TableCell>,
-          <TableCell key={3} negative={getWalletDifference(wallet) < 0}>{getWalletDifference(wallet).toLocaleString()}</TableCell>,
+          <WalletTableCell key={1} name={wallet.name} wallet={formatAddressForOutput(wallet.address)}/>,
+          <TableCell key={2}>{Math.abs(getWalletForecast(wallet)).toLocaleString()}</TableCell>,
+          <TableCell key={3}>{Math.abs(getWalletActual(wallet)).toLocaleString()}</TableCell>,
+          <TableCell key={3} negative={getWalletDifference(wallet) < 0}>{Math.abs(getWalletDifference(wallet)).toLocaleString()}</TableCell>,
           <TableCell key={5}>0</TableCell>,
           <TableCell key={6}>
-            <CustomLink fontFamily={'SF Pro Display, sans-serif'} fontSize={16} href={'#'} style={{ marginRight: '16px' }}>Etherscan</CustomLink>
-            <CustomLink fontFamily={'SF Pro Display, sans-serif'} fontSize={16} href={'#'}>Gnosis</CustomLink>
+            <CustomLink fontFamily={'SF Pro Display, sans-serif'} fontSize={16} href={`https://etherscan.io/address/${wallet.address}`} style={{ marginRight: '16px' }}>Etherscan</CustomLink>
+            <CustomLink fontFamily={'SF Pro Display, sans-serif'} fontSize={16} href={`https://gnosis-safe.io/app/eth:${wallet.address}`}>Gnosis</CustomLink>
           </TableCell>
         ]);
       });
 
       result.push([
         <TableCell key={1}><b>Total</b></TableCell>,
-        <TableCell key={2} fontFamily={'SF Pro Display, sans-serif'}><b>{budgetTotalForecast.toLocaleString()}</b></TableCell>,
-        <TableCell key={3} fontFamily={'SF Pro Display, sans-serif'}><b>{budgetTotalActual.toLocaleString()}</b></TableCell>,
-        <TableCell key={4} fontFamily={'SF Pro Display, sans-serif'}><b>{budgetTotalDifference.toLocaleString()}</b></TableCell>,
+        <TableCell key={2} fontFamily={'SF Pro Display, sans-serif'}><b>{Math.abs(budgetTotalForecast).toLocaleString()}</b></TableCell>,
+        <TableCell key={3} fontFamily={'SF Pro Display, sans-serif'}><b>{Math.abs(budgetTotalActual).toLocaleString()}</b></TableCell>,
+        <TableCell key={4} fontFamily={'SF Pro Display, sans-serif'}><b>{Math.abs(budgetTotalDifference).toLocaleString()}</b></TableCell>,
         <TableCell key={5} fontFamily={'SF Pro Display, sans-serif'}><b>0</b></TableCell>,
-        <TableCell key={6}><b></b></TableCell>,
+        <TableCell key={6}/>,
       ]);
     }
 
@@ -97,32 +102,50 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     return getGroupForecast(group) - getGroupActual(group);
   };
 
+  const getCommentsFromCategory = (group: BudgetStatementLineItemDto[]) => {
+    return group.reduce((current, next) => `${current} ${next.comments}`, '');
+  };
+
+  const addBreakdownItemsToArray = (result: JSX.Element[][], items: BudgetStatementLineItemDto[]) => {
+    const grouped = _.groupBy(items, item => item.budgetCategory);
+
+    for (const groupedKey in grouped) {
+      result.push([
+        <TableCell key={1}>{grouped[groupedKey][0].budgetCategory}</TableCell>,
+        <TableCell key={2} negative={getGroupForecast(grouped[groupedKey]) < 0}>{Math.abs(getGroupForecast(grouped[groupedKey])).toLocaleString()}</TableCell>,
+        <TableCell key={3} negative={getGroupActual(grouped[groupedKey]) < 0}>{Math.abs(getGroupActual(grouped[groupedKey])).toLocaleString()}</TableCell>,
+        <TableCell key={4} negative={getGroupDifference(grouped[groupedKey]) < 0}>{Math.abs(getGroupDifference(grouped[groupedKey])).toLocaleString()}</TableCell>,
+        <TableCell key={5}>{getCommentsFromCategory(grouped[groupedKey])}</TableCell>,
+        <TableCell key={6}>0</TableCell>
+      ]);
+    }
+  };
+
   const breakdownTableItems = useMemo(() => {
     const result: JSX.Element[][] = [];
     if (!currentBudgetStatement?.budgetStatementWallet?.length) { return result; }
 
     const currentWallet = currentBudgetStatement?.budgetStatementWallet[thirdIndex];
 
-    const grouped = _.groupBy(currentWallet.budgetStatementLineItem, item => item.budgetCategory);
+    result.push([
+      <TableCell key={1}><b>Headcount Expenses Subtotal</b></TableCell>,
+    ]);
 
-    for (const groupedKey in grouped) {
-      result.push([
-          <TableCell key={1}>{grouped[groupedKey][0].budgetCategory}</TableCell>,
-          <TableCell key={2} fontFamily={'SF Pro Display, sans-serif'}negative={getGroupForecast(grouped[groupedKey]) < 0}>{getGroupForecast(grouped[groupedKey]).toLocaleString()}</TableCell>,
-          <TableCell key={3} fontFamily={'SF Pro Display, sans-serif'}negative={getGroupActual(grouped[groupedKey]) < 0}>{getGroupActual(grouped[groupedKey]).toLocaleString()}</TableCell>,
-          <TableCell key={4} fontFamily={'SF Pro Display, sans-serif'}negative={getGroupDifference(grouped[groupedKey]) < 0}>{getGroupDifference(grouped[groupedKey]).toLocaleString()}</TableCell>,
-          <TableCell key={5}/>,
-          <TableCell key={6} fontFamily={'SF Pro Display, sans-serif'}>0</TableCell>
-      ]);
-    }
+    addBreakdownItemsToArray(result, currentWallet.budgetStatementLineItem.filter(item => item.headcountExpense));
+
+    result.push([
+      <TableCell key={1}><b>Non-Headcount Expenses Subtotal</b></TableCell>,
+    ]);
+
+    addBreakdownItemsToArray(result, currentWallet.budgetStatementLineItem.filter(item => !item.headcountExpense));
 
     result.push([
         <TableCell key={1}><b>Total</b></TableCell>,
-        <TableCell key={2} fontFamily={'SF Pro Display, sans-serif'} negative={getWalletActual(currentWallet) < 0}><b>{getWalletForecast(currentWallet).toLocaleString()}</b></TableCell>,
-        <TableCell key={3} fontFamily={'SF Pro Display, sans-serif'} negative={getWalletActual(currentWallet) < 0}><b>{getWalletActual(currentWallet).toLocaleString()}</b></TableCell>,
-        <TableCell key={4} fontFamily={'SF Pro Display, sans-serif'} negative={getWalletDifference(currentWallet) < 0}><b>{getWalletDifference(currentWallet).toLocaleString()}</b></TableCell>,
-        <TableCell key={1}><b/></TableCell>,
-        <TableCell key={1} fontFamily={'SF Pro Display, sans-serif'}><b>0</b></TableCell>,
+        <TableCell key={2} fontFamily={'SF Pro Display, sans-serif'} negative={getWalletActual(currentWallet) < 0}><b>{Math.abs(getWalletForecast(currentWallet)).toLocaleString()}</b></TableCell>,
+        <TableCell key={3} fontFamily={'SF Pro Display, sans-serif'} negative={getWalletActual(currentWallet) < 0}><b>{Math.abs(getWalletActual(currentWallet)).toLocaleString()}</b></TableCell>,
+        <TableCell key={4} fontFamily={'SF Pro Display, sans-serif'} negative={getWalletDifference(currentWallet) < 0}><b>{Math.abs(getWalletDifference(currentWallet)).toLocaleString()}</b></TableCell>,
+        <TableCell key={5}/>,
+        <TableCell key={6}><b>0</b></TableCell>,
     ]);
 
     return result;

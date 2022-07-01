@@ -114,7 +114,7 @@ export const CuTable = () => {
   }, [router]);
 
   const onClickRow = useCallback((id: string) => () => {
-    router.push(`/about/${id}?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
+    router.push(`/core-unit/${id}?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
   }, [filteredCategories, filteredStatuses, router, searchText]);
 
   const items = useMemo(() => {

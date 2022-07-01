@@ -58,9 +58,8 @@ const ContainerFooter = styled.footer({
   paddingTop: '43.85px',
   paddingBottom: '32px',
   paddingLeft: '64.86px',
-  paddingRight: '64.23px',
+  paddingRight: '64.86px',
 });
-
 const ContainerColumOne = styled.div({
   width: '23%'
 });
