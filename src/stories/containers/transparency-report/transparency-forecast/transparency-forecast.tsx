@@ -6,6 +6,9 @@ import styled from '@emotion/styled';
 import { WalletTableCell } from '../../../components/wallet-table-cell/wallet-table-cell';
 import { TableCell } from '../../../components/table-cell/table-cell';
 import { CustomLink } from '../../../components/custom-link/custom-link';
+import { DateTime } from 'luxon';
+import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
+import { useTransparencyForecastMvvm } from './transparency-forecast.mvvm';
 
 const firstTableItems = [
   [<WalletTableCell key={1} name={'Permanent Team'} wallet={'0x232b…8482'}/>, <TableCell key={1}>134,468</TableCell>, <TableCell key={1}>134,468</TableCell>, <TableCell key={1}>134,468</TableCell>, <TableCell key={1}>132,897</TableCell>, <TableCell key={1}>1,571</TableCell>, <TableCell key={1}>138,754</TableCell>, <TableCell key={1}><CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={'#'} style={{ marginRight: '16px' }}>Etherscan</CustomLink><CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={'#'}>Gnosis</CustomLink></TableCell>],
@@ -30,21 +33,32 @@ const thirdTableItems = [
   [<TableCell key={1}><b>Total</b></TableCell>, '', <TableCell key={2}><b>134,468</b></TableCell>, <TableCell key={3}><b>134,468</b></TableCell>, <TableCell key={4}><b>134,468</b></TableCell>, '', <TableCell key={5}><b>134,468</b></TableCell>]
 ];
 
-export const TransparencyForecast = () => {
+interface TransparencyForecastProps {
+  currentMonth: DateTime;
+  budgetStatement: BudgetStatementDto[];
+}
+
+export const TransparencyForecast = (props: TransparencyForecastProps) => {
   const [thirdIndex, setThirdIndex] = useState(0);
+
+  const {
+    forecastTableHeaders
+  } = useTransparencyForecastMvvm(props.currentMonth, props.budgetStatement);
 
   return <Container>
     <Title style={{
       marginBottom: '32px'
     }}>
-      May 2022 Totals
+      {props.currentMonth.toFormat('MMM yyyy')} Totals
     </Title>
 
     <InnerTable
-      headers={['Wallet', 'June', 'July', 'August', '3 Months', 'Monthly Budget', 'Quarterly Budget Cap', 'External Links']}
+      headers={forecastTableHeaders}
       items={firstTableItems}
       minWidth={80}
       headersAlign={['left', 'right', 'right', 'right', 'right', 'right', 'right', 'left']}
+      headerWidths={['unset', 'unset', 'unset', 'unset', 'unset', 'unset', 'unset', '224px']}
+      headerStyles={[{}, {}, {}, {}, { paddingLeft: 0 }, { paddingLeft: 0 }, { paddingLeft: 0 }, {}]}
       style={{ marginBottom: '62px' }}
     />
 

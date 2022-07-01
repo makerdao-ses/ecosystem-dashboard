@@ -7,7 +7,7 @@ import _ from 'lodash';
 import { useMemo } from 'react';
 import { DateTime } from 'luxon';
 
-export const useTransparencyMvvm = (thirdIndex: number, setThirdIndex: (index: number) => void, propsCurrentMonth: DateTime, budgetStatements?: BudgetStatementDto[]) => {
+export const useTransparencyActualsMvvm = (thirdIndex: number, setThirdIndex: (index: number) => void, propsCurrentMonth: DateTime, budgetStatements?: BudgetStatementDto[]) => {
   const getWalletForecast = (wallet: BudgetStatementWalletDto) => {
     return _.sumBy(wallet?.budgetStatementLineItem, i => i.forecast ?? 0);
   };

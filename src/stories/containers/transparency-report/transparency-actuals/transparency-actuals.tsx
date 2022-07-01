@@ -12,7 +12,7 @@ import {
   BudgetStatementLineItemDto,
 } from '../../../../core/models/dto/core-unit.dto';
 import _ from 'lodash';
-import { useTransparencyMvvm } from './transparency-actuals.mvvm';
+import { useTransparencyActualsMvvm } from './transparency-actuals.mvvm';
 
 interface TransparencyActualsProps {
   currentMonth: DateTime;
@@ -35,7 +35,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     getGroupDifference,
     getCommentsFromCategory,
     breakdownHeaders
-  } = useTransparencyMvvm(thirdIndex, setThirdIndex, props.currentMonth, props.budgetStatements);
+  } = useTransparencyActualsMvvm(thirdIndex, setThirdIndex, props.currentMonth, props.budgetStatements);
 
   const mainTableItems = useMemo(() => {
     const result: JSX.Element[][] = [];
@@ -122,7 +122,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       <Title style={{
         marginBottom: '32px'
       }}>
-      {props.currentMonth.toFormat('MMM yyyy')} Total
+      {props.currentMonth.toFormat('MMM yyyy')} Totals
     </Title>
 
       <InnerTable
@@ -130,7 +130,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       items={mainTableItems}
       headersAlign={['left', 'right', 'right', 'right', 'right', 'left']}
       minWidth={120}
-      headerWidths={['200px', 'unset', 'unset', 'unset', 'unset', '30%']}
+      headerWidths={['210px', 'unset', 'unset', 'unset', 'unset', '30%']}
       style={{ marginBottom: '62px' }}
       />
     </>}
