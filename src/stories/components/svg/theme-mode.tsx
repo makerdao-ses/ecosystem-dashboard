@@ -7,14 +7,17 @@ interface Props {
   onClick?: () => void;
 }
 
-const ThemeMode = ({
+const MoonMode = ({
   width = 21,
   height = 21,
   fill = '#211634',
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  onClick = () => {},
   ...props
 }: Props) => {
   return (
     <svg
+      onClick={onClick}
       style={{
         cursor: 'pointer',
         padding: '2px'
@@ -34,4 +37,4 @@ const ThemeMode = ({
   );
 };
 
-export default ThemeMode;
+export default MoonMode;
