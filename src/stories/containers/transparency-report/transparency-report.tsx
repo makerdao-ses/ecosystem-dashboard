@@ -83,6 +83,7 @@ export const TransparencyReport = () => {
         href="#"
         style={{ margin: '0' }}
         fontSize={16}
+        fontFamily={'SF Pro Display, sans-serif'}
       >
         Source
       </CustomLink>
