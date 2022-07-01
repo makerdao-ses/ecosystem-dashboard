@@ -142,7 +142,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       headersAlign={['left', 'right', 'right', 'right', 'right', 'left']}
       minWidth={120}
       headerWidths={['200px', 'unset', 'unset', 'unset', 'unset', '30%']}
-      style={{ marginBottom: '62px' }}
+      style={{ marginBottom: '64px' }}
       />
     </>}
 
@@ -165,7 +165,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       <InnerTable
         headers={['Budget Category', 'Forecast', 'Actuals', 'Difference', 'Diff. Reason', 'Payments']}
         items={breakdownTableItems}
-        style={{ marginBottom: '62px' }}
+        style={{ marginBottom: '64px' }}
         headersAlign={['left', 'right', 'right', 'right', 'left', 'right']}
       />
     </>}
