@@ -27,7 +27,6 @@ const StyleTitle = styled(Typography)({
   fontSize: '15px',
   lineHeight: '18px',
   marginBottom: '16px',
-  letterSpacing: '0.4px'
 });
 
 const StyleChildren = styled(Typography)({
@@ -35,8 +34,7 @@ const StyleChildren = styled(Typography)({
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '16px',
-  lineHeight: '32px',
-  letterSpacing: '0.4px',
+  lineHeight: '19.02px',
   color: '#333333',
   marginBottom: '16px'
 });

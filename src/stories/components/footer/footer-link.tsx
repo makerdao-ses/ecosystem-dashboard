@@ -29,7 +29,8 @@ export const FooterLinks = ({ links }: CuTableColumnLinksProps) => {
           href={link.href}
           target="_blank"
           width={link.width}
-          height={link.height}>
+          height={link.height}
+        >
           {link.icon}
         </LinkImage>
       </CustomPopover>
@@ -41,7 +42,7 @@ export const FooterLinks = ({ links }: CuTableColumnLinksProps) => {
 const Container = styled.div({
   display: 'flex',
   alignItems: 'center',
-  width: '298px'
+  width: '289.64px',
 });
 
 type StickyLinkProps = {
