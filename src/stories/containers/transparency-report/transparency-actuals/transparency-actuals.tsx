@@ -74,10 +74,10 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
 
       result.push([
         <TableCell key={1}><b>Total</b></TableCell>,
-        <TableCell key={2}><b>{budgetTotalForecast.toLocaleString()}</b></TableCell>,
-        <TableCell key={3}><b>{budgetTotalActual.toLocaleString()}</b></TableCell>,
-        <TableCell key={4}><b>{budgetTotalDifference.toLocaleString()}</b></TableCell>,
-        <TableCell key={5}><b>0</b></TableCell>,
+        <TableCell key={2} fontFamily={'SF Pro Display, sans-serif'}><b>{budgetTotalForecast.toLocaleString()}</b></TableCell>,
+        <TableCell key={3} fontFamily={'SF Pro Display, sans-serif'}><b>{budgetTotalActual.toLocaleString()}</b></TableCell>,
+        <TableCell key={4} fontFamily={'SF Pro Display, sans-serif'}><b>{budgetTotalDifference.toLocaleString()}</b></TableCell>,
+        <TableCell key={5} fontFamily={'SF Pro Display, sans-serif'}><b>0</b></TableCell>,
         <TableCell key={6}><b></b></TableCell>,
       ]);
     }
@@ -108,21 +108,21 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     for (const groupedKey in grouped) {
       result.push([
           <TableCell key={1}>{grouped[groupedKey][0].budgetCategory}</TableCell>,
-          <TableCell key={2} negative={getGroupForecast(grouped[groupedKey]) < 0}>{getGroupForecast(grouped[groupedKey]).toLocaleString()}</TableCell>,
-          <TableCell key={3} negative={getGroupActual(grouped[groupedKey]) < 0}>{getGroupActual(grouped[groupedKey]).toLocaleString()}</TableCell>,
-          <TableCell key={4} negative={getGroupDifference(grouped[groupedKey]) < 0}>{getGroupDifference(grouped[groupedKey]).toLocaleString()}</TableCell>,
+          <TableCell key={2} fontFamily={'SF Pro Display, sans-serif'}negative={getGroupForecast(grouped[groupedKey]) < 0}>{getGroupForecast(grouped[groupedKey]).toLocaleString()}</TableCell>,
+          <TableCell key={3} fontFamily={'SF Pro Display, sans-serif'}negative={getGroupActual(grouped[groupedKey]) < 0}>{getGroupActual(grouped[groupedKey]).toLocaleString()}</TableCell>,
+          <TableCell key={4} fontFamily={'SF Pro Display, sans-serif'}negative={getGroupDifference(grouped[groupedKey]) < 0}>{getGroupDifference(grouped[groupedKey]).toLocaleString()}</TableCell>,
           <TableCell key={5}/>,
-          <TableCell key={6}>0</TableCell>
+          <TableCell key={6} fontFamily={'SF Pro Display, sans-serif'}>0</TableCell>
       ]);
     }
 
     result.push([
         <TableCell key={1}><b>Total</b></TableCell>,
-        <TableCell key={2} negative={getWalletActual(currentWallet) < 0}><b>{getWalletForecast(currentWallet).toLocaleString()}</b></TableCell>,
-        <TableCell key={3} negative={getWalletActual(currentWallet) < 0}><b>{getWalletActual(currentWallet).toLocaleString()}</b></TableCell>,
-        <TableCell key={4} negative={getWalletDifference(currentWallet) < 0}><b>{getWalletDifference(currentWallet).toLocaleString()}</b></TableCell>,
+        <TableCell key={2} fontFamily={'SF Pro Display, sans-serif'} negative={getWalletActual(currentWallet) < 0}><b>{getWalletForecast(currentWallet).toLocaleString()}</b></TableCell>,
+        <TableCell key={3} fontFamily={'SF Pro Display, sans-serif'} negative={getWalletActual(currentWallet) < 0}><b>{getWalletActual(currentWallet).toLocaleString()}</b></TableCell>,
+        <TableCell key={4} fontFamily={'SF Pro Display, sans-serif'} negative={getWalletDifference(currentWallet) < 0}><b>{getWalletDifference(currentWallet).toLocaleString()}</b></TableCell>,
         <TableCell key={1}><b/></TableCell>,
-        <TableCell key={1}><b>0</b></TableCell>,
+        <TableCell key={1} fontFamily={'SF Pro Display, sans-serif'}><b>0</b></TableCell>,
     ]);
 
     return result;
