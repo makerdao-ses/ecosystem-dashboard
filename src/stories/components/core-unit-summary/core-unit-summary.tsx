@@ -47,7 +47,7 @@ export const CoreUnitSummary = (props: CoreUnitSummaryProps) => {
           </CustomLink>}
           <Separator/>
           <LinksWrapper>
-            <CuTableColumnLinks links={props.links} fill={'#708390'}/>
+            <CuTableColumnLinks spacingsLeft={29} links={props.links} fill={'#708390'}/>
           </LinksWrapper>
         </TitleWrapper>
         <Categories>
