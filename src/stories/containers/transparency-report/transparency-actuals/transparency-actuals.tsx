@@ -133,7 +133,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       <Title style={{
         marginBottom: '32px'
       }}>
-      {props.currentMonth.toFormat('MMM yyyy')} Total
+      {props.currentMonth.toFormat('MMM yyyy')} Totals
     </Title>
 
       <InnerTable
