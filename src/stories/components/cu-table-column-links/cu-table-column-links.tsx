@@ -22,6 +22,7 @@ interface CuTableColumnLinksProps {
   height?: number;
   spacingsRight?: number,
   fill?: string;
+  lastChild?: boolean
 }
 
 const getImageForLink = (link: LinkModel, fill: string, width?: number, height?: number) => {
@@ -45,14 +46,16 @@ const getImageForLink = (link: LinkModel, fill: string, width?: number, height?:
   }
 };
 
-export const CuTableColumnLinks = ({ width, height, links, spacingsRight, fill = '#C4C4C4' }: CuTableColumnLinksProps) => {
+export const CuTableColumnLinks = ({ width, height, links, spacingsRight, fill = '#C4C4C4', lastChild = false }: CuTableColumnLinksProps) => {
   return <Container>
-    {links.map((link, i) => <Box
+    {links.map((link, i) => <StyleBox lastChild={lastChild}
       key={`link-${i}`}
-      sx={{ mr: `${spacingsRight ?? 0}px` }}>
+      sx={{
+        mr: `${spacingsRight ?? 0}px`,
+      }}>
       <CustomPopover
-      title={link.linkType}
-      id={`link-${i}`}>
+        title={link.linkType}
+        id={`link-${i}`}>
         <LinkImage
           href={link.href}
           target="_blank"
@@ -61,7 +64,7 @@ export const CuTableColumnLinks = ({ width, height, links, spacingsRight, fill =
           {getImageForLink(link, fill, width, height)}
         </LinkImage>
       </CustomPopover>
-    </Box>)
+    </StyleBox>)
     }
   </Container >;
 };
@@ -85,4 +88,11 @@ const LinkImage = styled.a({
 ({ width = 32, height = 32 }: StickyLinkProps) => ({
   width,
   height
+}));
+
+const StyleBox = styled(Box)<{ lastChild?: boolean }>((props) => ({
+  '&:last-child': props.lastChild && {
+    marginRight: '6px',
+    width: 19,
+  },
 }));

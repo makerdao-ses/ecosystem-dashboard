@@ -131,7 +131,7 @@ const CuAboutContainer = () => {
         <ContainerTitle stateHidden={hiddenTextDescription}>
           <TitleNavigationCuAbout coreUnitAbout={cuAbout} />
           {hiddenTextDescription && <Typography fontSize={16} lineHeight='19px' color='#231536' sx={{
-            marginTop: '16px'
+            marginTop: '16px',
           }}>{cuAbout.sentenceDescription || ''}</Typography>}
         </ContainerTitle>
       </div>
@@ -230,6 +230,7 @@ const NavigationHeader = styled.div({
   height: '74px',
   paddingLeft: '32px',
   paddingRight: '32px',
+  marginBottom: '16px'
 });
 
 const ContainerTitle = styled.div<{ stateHidden?: boolean }>((props) => ({
@@ -238,8 +239,9 @@ const ContainerTitle = styled.div<{ stateHidden?: boolean }>((props) => ({
   paddingLeft: '128px',
   paddingRight: '128px',
   paddingBottom: props.stateHidden ? '24px' : '32px',
-  height: props.stateHidden ? '135px' : '103px',
+  height: props.stateHidden ? '135px' : '108px',
   borderBottom: props.stateHidden ? '1px solid #B6EDE7' : 'none',
+  paddingTop: '8px'
 }));
 
 const MarkdownContainer = styled.div({
@@ -273,7 +275,7 @@ const ContactInfoTitle = styled(Typography)({
   fontStyle: 'normal',
   fontWeight: 700,
   fontSize: '16px',
-  lineHeight: '17px',
+  lineHeight: '19px',
   color: '#231536',
   marginBottom: '32px',
 });
@@ -358,7 +360,8 @@ const DividerStyle = styled(Divider)({
 
 const ContainerScroll = styled.div({
   position: 'sticky',
-  top: 290,
+  top: 240,
+  paddingTop: '60px',
   height: '620px',
   '&:: -webkit-scrollbar': {
     width: '0px',
