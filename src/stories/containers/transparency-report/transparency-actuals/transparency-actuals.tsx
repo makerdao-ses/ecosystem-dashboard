@@ -56,10 +56,10 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
 
       result.push([
         <TableCell key={1}><b>Total</b></TableCell>,
-        <TableCell key={2}><b>{Math.abs(budgetTotalForecast).toLocaleString()}</b></TableCell>,
-        <TableCell key={3}><b>{Math.abs(budgetTotalActual).toLocaleString()}</b></TableCell>,
-        <TableCell key={4}><b>{Math.abs(budgetTotalDifference).toLocaleString()}</b></TableCell>,
-        <TableCell key={5}><b>0</b></TableCell>,
+        <TableCell key={2} fontFamily={'SF Pro Display, sans-serif'}><b>{Math.abs(budgetTotalForecast).toLocaleString()}</b></TableCell>,
+        <TableCell key={3} fontFamily={'SF Pro Display, sans-serif'}><b>{Math.abs(budgetTotalActual).toLocaleString()}</b></TableCell>,
+        <TableCell key={4} fontFamily={'SF Pro Display, sans-serif'}><b>{Math.abs(budgetTotalDifference).toLocaleString()}</b></TableCell>,
+        <TableCell key={5} fontFamily={'SF Pro Display, sans-serif'}><b>0</b></TableCell>,
         <TableCell key={6}/>,
       ]);
     }
@@ -131,7 +131,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       headersAlign={['left', 'right', 'right', 'right', 'right', 'left']}
       minWidth={120}
       headerWidths={['210px', 'unset', 'unset', 'unset', 'unset', '30%']}
-      style={{ marginBottom: '62px' }}
+      style={{ marginBottom: '64px' }}
       />
     </>}
 
@@ -154,7 +154,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       <InnerTable
         headers={['Budget Category', 'Forecast', 'Actuals', 'Difference', 'Diff. Reason', 'Payments']}
         items={breakdownTableItems}
-        style={{ marginBottom: '62px' }}
+        style={{ marginBottom: '64px' }}
         headersAlign={['left', 'right', 'right', 'right', 'left', 'right']}
       />
     </>}

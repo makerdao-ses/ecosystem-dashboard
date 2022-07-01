@@ -20,13 +20,13 @@ export const NavigationCard = ({ description, image, list = [], title, titleLink
   return (
     <div>
       <ArrowTittleStyle>
-        <Typography color='#231536' fontSize={24} lineHeight='29px' fontWeight={500}>{title}</Typography>
+        <Typography color='#231536' fontSize={24} lineHeight='29px' fontWeight={500} letterSpacing='0.4px'>{title}</Typography>
         <div style={{
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'center',
         }}>
-          <Typography textAlign='right' fontStyle='normal' fontWeight={400} fontSize={20} color='#231536'>{titleLinkPage}</Typography>
+          <Typography textAlign='right' fontStyle='normal' fontWeight={400} fontSize={20} color='#231536' letterSpacing='0.4px'>{titleLinkPage}</Typography>
           <ArrowRight width={16} height={16} style={{ marginLeft: '22px' }} onClick={onClick} />
         </div>
       </ArrowTittleStyle>
@@ -133,6 +133,7 @@ const ArrowTittleStyle = styled.div({
   justifyContent: 'space-between',
   alignItems: 'end',
   marginBottom: '32px',
+
 });
 
 export default NavigationCard;
