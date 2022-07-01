@@ -7,7 +7,6 @@ interface WalletTableCellProps {
   imgUrl?: string,
   name: string,
   wallet: string,
-  walletUrl: string
 }
 
 export const WalletTableCell = (props: WalletTableCellProps) => {
@@ -22,7 +21,7 @@ export const WalletTableCell = (props: WalletTableCellProps) => {
     <Data>
       <Label>{props.name}</Label>
       <CustomLink
-        href={props.walletUrl}
+        style={{ pointerEvents: 'none' }}
         fontSize={14}
         fontWeight={400}
         withArrow={false}>

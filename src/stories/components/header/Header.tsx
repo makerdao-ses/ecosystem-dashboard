@@ -40,7 +40,7 @@ const Header = ({ menuItems, links }: Props) => {
         <Navigation>
           {menuItems.map(({ marginRight, link, title }: MenuType) => {
             let isActive = false;
-            if (router.pathname === '/' || router.pathname.includes('about')) {
+            if (router.pathname === '/' || router.pathname.includes('core-unit')) {
               isActive = link === '/';
             } else {
               isActive = router.pathname.includes(link) && link !== '/';
