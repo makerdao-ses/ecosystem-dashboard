@@ -13,6 +13,13 @@ export const CORE_UNIT_REQUEST = (code: string) => ({
         sentenceDescription
         cuMip {
           mipStatus
+          mipUrl
+          formalSubmission
+          accepted
+          rfc
+          rejected
+          obsolete
+          mipStatus
         }
         category
         socialMediaChannels {
