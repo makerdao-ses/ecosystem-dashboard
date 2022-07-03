@@ -42,6 +42,7 @@ export const CORE_UNIT_REQUEST = (code: string) => ({
               headcountExpense
               comments
               month
+              budgetCap
             }
           }
         }

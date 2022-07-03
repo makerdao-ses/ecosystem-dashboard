@@ -1,21 +1,15 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
+import { DateTime } from 'luxon';
+import styled from '@emotion/styled';
 import { Title } from '../transparency-report';
 import { InnerTable } from '../../../components/inner-table/inner-table';
 import { Tabs } from '../../../components/tabs/tabs';
-import styled from '@emotion/styled';
 import { WalletTableCell } from '../../../components/wallet-table-cell/wallet-table-cell';
 import { TableCell } from '../../../components/table-cell/table-cell';
 import { CustomLink } from '../../../components/custom-link/custom-link';
-import { DateTime } from 'luxon';
 import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 import { useTransparencyForecastMvvm } from './transparency-forecast.mvvm';
-
-const firstTableItems = [
-  [<WalletTableCell key={1} name={'Permanent Team'} wallet={'0x232b…8482'}/>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>134,468</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>134,468</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>134,468</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>132,897</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>1,571</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>138,754</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}><CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={'#'} style={{ marginRight: '16px' }}>Etherscan</CustomLink><CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={'#'}>Gnosis</CustomLink></TableCell>],
-  [<WalletTableCell key={1} name={'Incubation Program'} wallet={'0x232b…8482'}/>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>134,468</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>134,468</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>134,468</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>132,897</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1} negative>5,571</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>138,754</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}><CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={'#'} style={{ marginRight: '16px' }}>Etherscan</CustomLink><CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={'#'}>Gnosis</CustomLink></TableCell>],
-  [<WalletTableCell key={1} name={'Grants Program'} wallet={'0x232b…8482'}/>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>134,468</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>134,468</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>134,468</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>132,897</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>1,571</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>138,754</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}><CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={'#'} style={{ marginRight: '16px' }}>Etherscan</CustomLink><CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={'#'}>Gnosis</CustomLink></TableCell>],
-  [<TableCell key={1}><b>Total</b></TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}><b>260,344</b></TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}><b>260,344</b></TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}><b>260,344</b></TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}><b>260,344</b></TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}><b>260,344</b></TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={5}><b>260,344</b></TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={6}/>]
-];
+import { formatAddressForOutput } from '../../../../core/utils/string.utils';
 
 const secondTableItems = [
   [<TableCell key={1}><b>Headcount Expenses Subtotal</b></TableCell>, '', '', '', '', ''],
@@ -35,15 +29,61 @@ const thirdTableItems = [
 
 interface TransparencyForecastProps {
   currentMonth: DateTime;
-  budgetStatement: BudgetStatementDto[];
+  budgetStatements: BudgetStatementDto[];
 }
 
 export const TransparencyForecast = (props: TransparencyForecastProps) => {
   const [thirdIndex, setThirdIndex] = useState(0);
 
   const {
-    forecastTableHeaders
-  } = useTransparencyForecastMvvm(props.currentMonth, props.budgetStatement);
+    getForecastForMonthOnWalletOnBudgetStatement,
+    getBudgetCapForMonthOnWalletOnBudgetStatement,
+    getForecastSumOfMonthsOnWallet,
+    getBudgetCapSumOfMonthsOnWallet,
+    getForecastSumForMonth,
+    getForecastSumForMonths,
+    getBudgetCapForMonthOnBudgetStatement,
+    getTotalQuarterlyBudgetCapOnBudgetStatement,
+    forecastTableHeaders,
+    firstMonth,
+    secondMonth,
+    thirdMonth,
+  } = useTransparencyForecastMvvm(props.currentMonth);
+
+  const forecastTableItems: JSX.Element[][] = useMemo(() => {
+    const result: JSX.Element[][] = [];
+
+    if (!props.budgetStatements || props.budgetStatements.length === 0) return result;
+
+    props.budgetStatements[0].budgetStatementWallet.forEach(wallet => {
+      result.push([
+          <WalletTableCell key={1} name={wallet.name} wallet={formatAddressForOutput(wallet.address ?? '')}/>,
+          <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>{getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address ?? '', firstMonth).toLocaleString()}</TableCell>,
+          <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>{getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address ?? '', secondMonth).toLocaleString()}</TableCell>,
+          <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>{getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address ?? '', thirdMonth).toLocaleString()}</TableCell>,
+          <TableCell fontFamily={'SF Pro Display, sans-serif'} key={5}>{getForecastSumOfMonthsOnWallet(props.budgetStatements, wallet?.address ?? '', [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</TableCell>,
+          <TableCell fontFamily={'SF Pro Display, sans-serif'} key={6}>{getBudgetCapForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address ?? '', props.currentMonth).toLocaleString()}</TableCell>,
+          <TableCell fontFamily={'SF Pro Display, sans-serif'} key={7}>{getBudgetCapSumOfMonthsOnWallet(props.budgetStatements, wallet?.address ?? '', [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</TableCell>,
+          <TableCell key={8}>
+            <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://etherscan.io/address/${wallet.address}`} style={{ marginRight: '16px' }}>Etherscan</CustomLink>
+            <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://gnosis-safe.io/app/eth:${wallet.address}`}>Gnosis</CustomLink>
+          </TableCell>
+      ]);
+    });
+
+    result.push([
+      <TableCell key={1}><b>Total</b></TableCell>,
+      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}><b>{getForecastSumForMonth(props.budgetStatements, firstMonth).toLocaleString()}</b></TableCell>,
+      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}><b>{getForecastSumForMonth(props.budgetStatements, secondMonth).toLocaleString()}</b></TableCell>,
+      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}><b>{getForecastSumForMonth(props.budgetStatements, thirdMonth).toLocaleString()}</b></TableCell>,
+      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={5}><b>{getForecastSumForMonths(props.budgetStatements, [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</b></TableCell>,
+      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={6}><b>{getBudgetCapForMonthOnBudgetStatement(props.budgetStatements, props.currentMonth).toLocaleString()}</b></TableCell>,
+      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={7}><b>{getTotalQuarterlyBudgetCapOnBudgetStatement(props.budgetStatements, [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</b></TableCell>,
+      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={8}/>,
+    ]);
+
+    return result;
+  }, [props.currentMonth, props.budgetStatements]);
 
   return <Container>
     <Title style={{
@@ -54,7 +94,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
 
     <InnerTable
       headers={forecastTableHeaders}
-      items={firstTableItems}
+      items={forecastTableItems}
       minWidth={80}
       headersAlign={['left', 'right', 'right', 'right', 'right', 'right', 'right', 'left']}
       headerWidths={['unset', 'unset', 'unset', 'unset', 'unset', 'unset', 'unset', '224px']}
@@ -65,7 +105,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     <Title style={{
       marginBottom: '32px'
     }}>
-      May 2022 Breakdown
+      {props.currentMonth.toFormat('MMM yyyy')} Breakdown
     </Title>
 
     <Tabs

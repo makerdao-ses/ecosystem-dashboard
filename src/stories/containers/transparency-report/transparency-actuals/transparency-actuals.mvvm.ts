@@ -43,11 +43,6 @@ export const useTransparencyActualsMvvm = (thirdIndex: number, setThirdIndex: (i
     return budgetTotalForecast - budgetTotalActual;
   }, [currentBudgetStatement]);
 
-  const formatAddressForOutput = (address: string | undefined) => {
-    if (!address) { return ''; }
-    return `${address.slice(0, 5)}..${address.slice(address.length - 5, address.length - 1)}`;
-  };
-
   const getGroupForecast = (group: BudgetStatementLineItemDto[]) => {
     return _.sumBy(group.filter(item => item.month === currentMonth), item => item.forecast ?? 0);
   };
@@ -66,7 +61,6 @@ export const useTransparencyActualsMvvm = (thirdIndex: number, setThirdIndex: (i
 
   return {
     currentBudgetStatement,
-    formatAddressForOutput,
     getWalletForecast,
     getWalletActual,
     getWalletDifference,

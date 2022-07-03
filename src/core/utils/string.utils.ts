@@ -13,3 +13,8 @@ export const getMipTitle = (title: string) => {
   const pieces = title.trim().split(':');
   return pieces;
 };
+
+export const formatAddressForOutput = (address: string | undefined) => {
+  if (!address) { return ''; }
+  return `${address.slice(0, 5)}..${address.slice(address.length - 5, address.length - 1)}`;
+};

@@ -13,6 +13,7 @@ import {
 } from '../../../../core/models/dto/core-unit.dto';
 import _ from 'lodash';
 import { useTransparencyActualsMvvm } from './transparency-actuals.mvvm';
+import { formatAddressForOutput } from '../../../../core/utils/string.utils';
 
 interface TransparencyActualsProps {
   currentMonth: DateTime;
@@ -23,7 +24,6 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
 
   const {
     currentBudgetStatement,
-    formatAddressForOutput,
     getWalletForecast,
     getWalletActual,
     getWalletDifference,
