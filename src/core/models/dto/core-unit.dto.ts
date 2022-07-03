@@ -53,6 +53,7 @@ export interface BudgetStatementLineItemDto {
   budgetCategory?: string;
   headcountExpense?: boolean;
   comments?: string;
+  month?: string;
 }
 
 export interface BudgetStatementWalletDto {

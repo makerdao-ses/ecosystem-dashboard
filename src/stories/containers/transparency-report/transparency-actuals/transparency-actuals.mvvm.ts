@@ -8,12 +8,14 @@ import { useMemo } from 'react';
 import { DateTime } from 'luxon';
 
 export const useTransparencyActualsMvvm = (thirdIndex: number, setThirdIndex: (index: number) => void, propsCurrentMonth: DateTime, budgetStatements?: BudgetStatementDto[]) => {
+  const currentMonth = useMemo(() => propsCurrentMonth.toFormat('yyyy-MM-01'), [propsCurrentMonth]);
+
   const getWalletForecast = (wallet: BudgetStatementWalletDto) => {
-    return _.sumBy(wallet?.budgetStatementLineItem, i => i.forecast ?? 0);
+    return _.sumBy(wallet?.budgetStatementLineItem.filter(item => item.month === currentMonth), i => i.forecast ?? 0);
   };
 
   const getWalletActual = (wallet: BudgetStatementWalletDto) => {
-    return _.sumBy(wallet?.budgetStatementLineItem, i => i.actual ?? 0);
+    return _.sumBy(wallet?.budgetStatementLineItem.filter(item => item.month === currentMonth), i => i.actual ?? 0);
   };
 
   const getWalletDifference = (wallet: BudgetStatementWalletDto) => {
@@ -21,7 +23,6 @@ export const useTransparencyActualsMvvm = (thirdIndex: number, setThirdIndex: (i
   };
 
   const currentBudgetStatement = useMemo(() => {
-    const currentMonth = propsCurrentMonth.toFormat('yyyy-MM-01');
     setThirdIndex(0);
     return budgetStatements?.find(x => x.month === currentMonth) ?? null;
   }, [propsCurrentMonth]);
@@ -31,11 +32,11 @@ export const useTransparencyActualsMvvm = (thirdIndex: number, setThirdIndex: (i
   }, [currentBudgetStatement]);
 
   const budgetTotalForecast = useMemo(() => {
-    return _.sumBy(currentBudgetStatement?.budgetStatementWallet, wallet => _.sumBy(wallet.budgetStatementLineItem, item => item?.forecast ?? 0));
+    return _.sumBy(currentBudgetStatement?.budgetStatementWallet, wallet => _.sumBy(wallet.budgetStatementLineItem.filter(item => item.month === currentMonth), item => item?.forecast ?? 0));
   }, [currentBudgetStatement]);
 
   const budgetTotalActual = useMemo(() => {
-    return _.sumBy(currentBudgetStatement?.budgetStatementWallet, wallet => _.sumBy(wallet.budgetStatementLineItem, item => item?.actual ?? 0));
+    return _.sumBy(currentBudgetStatement?.budgetStatementWallet, wallet => _.sumBy(wallet.budgetStatementLineItem.filter(item => item.month === currentMonth), item => item?.actual ?? 0));
   }, [currentBudgetStatement]);
 
   const budgetTotalDifference = useMemo(() => {
@@ -48,11 +49,11 @@ export const useTransparencyActualsMvvm = (thirdIndex: number, setThirdIndex: (i
   };
 
   const getGroupForecast = (group: BudgetStatementLineItemDto[]) => {
-    return _.sumBy(group, item => item.forecast ?? 0);
+    return _.sumBy(group.filter(item => item.month === currentMonth), item => item.forecast ?? 0);
   };
 
   const getGroupActual = (group: BudgetStatementLineItemDto[]) => {
-    return _.sumBy(group, item => item.actual ?? 0);
+    return _.sumBy(group.filter(item => item.month === currentMonth), item => item.actual ?? 0);
   };
 
   const getGroupDifference = (group: BudgetStatementLineItemDto[]) => {
@@ -60,7 +61,7 @@ export const useTransparencyActualsMvvm = (thirdIndex: number, setThirdIndex: (i
   };
 
   const getCommentsFromCategory = (group: BudgetStatementLineItemDto[]) => {
-    return group.reduce((current, next) => `${current} ${next.comments}`, '');
+    return group.filter(item => item.month === currentMonth).reduce((current, next) => `${current} ${next.comments}`, '');
   };
 
   return {
