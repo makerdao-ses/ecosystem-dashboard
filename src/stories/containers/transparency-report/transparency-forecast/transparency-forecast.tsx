@@ -10,22 +10,7 @@ import { CustomLink } from '../../../components/custom-link/custom-link';
 import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 import { useTransparencyForecastMvvm } from './transparency-forecast.mvvm';
 import { formatAddressForOutput } from '../../../../core/utils/string.utils';
-
-const secondTableItems = [
-  [<TableCell key={1}><b>Headcount Expenses Subtotal</b></TableCell>, '', '', '', '', ''],
-  [<TableCell key={1}>Contractor Fees</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>109,669</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>109,669</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>109,669</TableCell>, <TableCell key={5}>Lower exchange rate costs.</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={6}>109,669</TableCell>],
-  [<TableCell key={1}><b>Non-Headcount Expenses Subtotal</b></TableCell>, '', '', '', '', ''],
-  [<TableCell key={1}>Contingency Buffer</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>0</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>0</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, '', <TableCell fontFamily={'SF Pro Display, sans-serif'} key={6}>0</TableCell>],
-  [<TableCell key={1}><b>Total</b></TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}><b>134,468</b></TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}><b>134,468</b></TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}><b>134,468</b></TableCell>, '', <TableCell fontFamily={'SF Pro Display, sans-serif'} key={5}><b>134,468</b></TableCell>]
-];
-
-const thirdTableItems = [
-  [<TableCell key={1}><b>Headcount Expenses Subtotal</b></TableCell>, '', '', '', '', '', ''],
-  [<TableCell key={1}>Chaos Labs</TableCell>, <TableCell key={2}>Contractor Fees</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>109,669</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>109,669</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>109,669</TableCell>, <TableCell key={5}>Lower exchange rate costs.</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={6}>109,669</TableCell>],
-  [<TableCell key={1}><b>Non-Headcount Expenses Subtotal</b></TableCell>, '', '', '', '', '', ''],
-  [<TableCell key={1}>Contingency Buffer</TableCell>, '', <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>0</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>0</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, '', <TableCell fontFamily={'SF Pro Display, sans-serif'} key={6}>0</TableCell>],
-  [<TableCell key={1}><b>Total</b></TableCell>, '', <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}><b>134,468</b></TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}><b>134,468</b></TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}><b>134,468</b></TableCell>, '', <TableCell fontFamily={'SF Pro Display, sans-serif'} key={5}><b>134,468</b></TableCell>]
-];
+import _ from 'lodash';
 
 interface TransparencyForecastProps {
   currentMonth: DateTime;
@@ -48,7 +33,13 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     firstMonth,
     secondMonth,
     thirdMonth,
-  } = useTransparencyForecastMvvm(props.currentMonth);
+    breakdownTabs,
+    getLineItemsForWalletOnMonth,
+    getLineItemForecastSumForMonth,
+    getLineItemForecastSumForMonths,
+    getBudgetCapForMonthOnLineItem,
+    getTotalQuarterlyBudgetCapOnLineItem
+  } = useTransparencyForecastMvvm(props.currentMonth, props.budgetStatements);
 
   const forecastTableItems: JSX.Element[][] = useMemo(() => {
     const result: JSX.Element[][] = [];
@@ -85,6 +76,75 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     return result;
   }, [props.currentMonth, props.budgetStatements]);
 
+  const breakdownHeaders = useMemo(() => {
+    return ['Budget Category', firstMonth.toFormat('MMMM'), secondMonth.toFormat('MMMM'), thirdMonth.toFormat('MMMM'), '3 Months', 'Monthly Budget', 'Quarterly Budget Cap'];
+  }, [props.currentMonth, props.budgetStatements]);
+
+  const breakdownItems = useMemo(() => {
+    const result: JSX.Element[][] = [];
+
+    if (!props.budgetStatements || props.budgetStatements.length === 0) return result;
+    if (!props.budgetStatements[0]?.budgetStatementWallet?.length) {
+      return result;
+    }
+
+    const currentWalletAddress = props.budgetStatements[0]?.budgetStatementWallet[thirdIndex]?.address ?? '';
+
+    const ungrouped = [
+      ...getLineItemsForWalletOnMonth(firstMonth, currentWalletAddress),
+      ...getLineItemsForWalletOnMonth(secondMonth, currentWalletAddress),
+      ...getLineItemsForWalletOnMonth(thirdMonth, currentWalletAddress),
+    ];
+
+    result.push([
+      <TableCell key={1}><b>Headcount Expenses Subtotal</b></TableCell>,
+    ]);
+
+    const groupedHeadCount = _.groupBy(ungrouped.filter(x => x.headcountExpense), item => item.budgetCategory);
+
+    for (const groupedKey in groupedHeadCount) {
+      result.push([
+        <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>{groupedKey}</TableCell>,
+        <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>{getLineItemForecastSumForMonth(groupedHeadCount[groupedKey], firstMonth).toLocaleString()}</TableCell>,
+        <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>{getLineItemForecastSumForMonth(groupedHeadCount[groupedKey], secondMonth).toLocaleString()}</TableCell>,
+        <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>{getLineItemForecastSumForMonth(groupedHeadCount[groupedKey], thirdMonth).toLocaleString()}</TableCell>,
+        <TableCell fontFamily={'SF Pro Display, sans-serif'} key={5}>{getLineItemForecastSumForMonths(groupedHeadCount[groupedKey], [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</TableCell>,
+        <TableCell fontFamily={'SF Pro Display, sans-serif'} key={6}>{getBudgetCapForMonthOnLineItem(groupedHeadCount[groupedKey], props.currentMonth).toLocaleString()}</TableCell>,
+        <TableCell fontFamily={'SF Pro Display, sans-serif'} key={7}>{getTotalQuarterlyBudgetCapOnLineItem(groupedHeadCount[groupedKey], [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</TableCell>,
+      ]);
+    }
+
+    result.push([
+      <TableCell key={1}><b>Non-Headcount Expenses Subtotal</b></TableCell>,
+    ]);
+
+    const groupedNonHeadCount = _.groupBy(ungrouped.filter(x => !x.headcountExpense), item => item.budgetCategory);
+
+    for (const groupedKey in groupedNonHeadCount) {
+      result.push([
+        <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>{groupedKey}</TableCell>,
+        <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>{getLineItemForecastSumForMonth(groupedNonHeadCount[groupedKey], firstMonth).toLocaleString()}</TableCell>,
+        <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>{getLineItemForecastSumForMonth(groupedNonHeadCount[groupedKey], secondMonth).toLocaleString()}</TableCell>,
+        <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>{getLineItemForecastSumForMonth(groupedNonHeadCount[groupedKey], thirdMonth).toLocaleString()}</TableCell>,
+        <TableCell fontFamily={'SF Pro Display, sans-serif'} key={5}>{getLineItemForecastSumForMonths(groupedNonHeadCount[groupedKey], [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</TableCell>,
+        <TableCell fontFamily={'SF Pro Display, sans-serif'} key={6}>{getBudgetCapForMonthOnLineItem(groupedNonHeadCount[groupedKey], props.currentMonth).toLocaleString()}</TableCell>,
+        <TableCell fontFamily={'SF Pro Display, sans-serif'} key={7}>{getTotalQuarterlyBudgetCapOnLineItem(groupedNonHeadCount[groupedKey], [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</TableCell>,
+      ]);
+    }
+
+    result.push([
+      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}><b>Total</b></TableCell>,
+      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}><b>{getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, firstMonth).toLocaleString()}</b></TableCell>,
+      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}><b>{getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, secondMonth).toLocaleString()}</b></TableCell>,
+      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}><b>{getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, thirdMonth).toLocaleString()}</b></TableCell>,
+      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={5}><b>{getForecastSumOfMonthsOnWallet(props.budgetStatements, currentWalletAddress, [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</b></TableCell>,
+      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={6}><b>{getBudgetCapForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth).toLocaleString()}</b></TableCell>,
+      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={7}><b>{getBudgetCapSumOfMonthsOnWallet(props.budgetStatements, currentWalletAddress, [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</b></TableCell>,
+    ]);
+
+    return result;
+  }, [props.currentMonth, props.budgetStatements, thirdIndex]);
+
   return <Container>
     <Title style={{
       marginBottom: '32px'
@@ -109,7 +169,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     </Title>
 
     <Tabs
-      items={['Permanent team', 'Incubation', 'Grants']}
+      items={breakdownTabs}
       currentIndex={thirdIndex}
       onChange={setThirdIndex}
       style={{
@@ -117,28 +177,13 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
       }}
     />
 
-    {thirdIndex === 0 && <InnerTable
-        headers={['Budget Category', 'Forecast', 'Actuals', 'Difference', 'Diff. Reason', 'Payments']}
-        items={secondTableItems}
+    <InnerTable
+        headers={breakdownHeaders}
+        items={breakdownItems}
         style={{ marginBottom: '64px' }}
-        headersAlign={['left', 'right', 'right', 'right', 'left', 'right']}
-    />}
-
-    {thirdIndex === 1 && <InnerTable
-        headers={['Group', 'budget category', 'forecast', 'actuals', 'difference', 'diff. reason', 'payments']}
-        headersAlign={['left', 'left', 'right', 'right', 'right', 'left', 'right']}
-        items={thirdTableItems}
         minWidth={80}
-        style={{ marginBottom: '64px' }}
-    />}
-
-    {thirdIndex === 2 && <InnerTable
-        headers={['Group', 'budget category', 'forecast', 'actuals', 'difference', 'diff. reason', 'payments']}
-        headersAlign={['left', 'left', 'right', 'right', 'right', 'left', 'right']}
-        minWidth={80}
-        items={thirdTableItems}
-        style={{ marginBottom: '64px' }}
-    />}
+        headersAlign={['left', 'right', 'right', 'right', 'right', 'right', 'right']}
+    />
   </Container>;
 };
 

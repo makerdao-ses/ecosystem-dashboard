@@ -1,9 +1,9 @@
 import { DateTime } from 'luxon';
-import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
+import { BudgetStatementDto, BudgetStatementLineItemDto } from '../../../../core/models/dto/core-unit.dto';
 import _ from 'lodash';
 import { useMemo } from 'react';
 
-export const useTransparencyForecastMvvm = (currentMonth: DateTime) => {
+export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetStatements: BudgetStatementDto[]) => {
   const firstMonth = useMemo(() => currentMonth.plus({ month: 1 }), [currentMonth]);
   const secondMonth = useMemo(() => currentMonth.plus({ month: 2 }), [currentMonth]);
   const thirdMonth = useMemo(() => currentMonth.plus({ month: 3 }), [currentMonth]);
@@ -61,7 +61,7 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime) => {
     let result = 0;
 
     months.forEach(month => {
-      result += getForecastForMonthOnWalletOnBudgetStatement(budgetStatements, walletAddress, month);
+      result += getBudgetCapForMonthOnWalletOnBudgetStatement(budgetStatements, walletAddress, month);
     });
 
     return result;
@@ -101,6 +101,37 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime) => {
     return result;
   };
 
+  const breakdownTabs = useMemo(() => {
+    if (!propBudgetStatements || propBudgetStatements.length === 0) return [];
+    return propBudgetStatements[0].budgetStatementWallet?.map(wallet => wallet.name);
+  }, [propBudgetStatements, currentMonth]);
+
+  const getLineItemsForWalletOnMonth = (month: DateTime, walletAddress: string) => {
+    const budgetStatement = propBudgetStatements?.find(bs => bs.month === month.toFormat('yyyy-MM-01'));
+
+    if (!budgetStatement) return [];
+
+    return budgetStatement.budgetStatementWallet?.find(wallet => wallet.address === walletAddress)?.budgetStatementLineItem ?? [];
+  };
+
+  const getLineItemForecastSumForMonth = (items: BudgetStatementLineItemDto[], month: DateTime) => {
+    return _.sumBy(items.filter(item => item.month === month.toFormat('yyyy-MM-01')), item => item.forecast ?? 0);
+  };
+
+  const getLineItemForecastSumForMonths = (items: BudgetStatementLineItemDto[], months: DateTime[]) => {
+    const formattedMonths = months.map(x => x.toFormat('yyyy-MM-01'));
+    return _.sumBy(items.filter(item => formattedMonths.indexOf(item.month ?? '') > -1), item => item.forecast ?? 0);
+  };
+
+  const getBudgetCapForMonthOnLineItem = (items: BudgetStatementLineItemDto[], month: DateTime) => {
+    return _.sumBy(items.filter(item => item.month === month.toFormat('yyyy-MM-01')), item => item.budgetCap ?? 0);
+  };
+
+  const getTotalQuarterlyBudgetCapOnLineItem = (items: BudgetStatementLineItemDto[], months: DateTime[]) => {
+    const formattedMonths = months.map(x => x.toFormat('yyyy-MM-01'));
+    return _.sumBy(items.filter(item => formattedMonths.indexOf(item.month ?? '') > -1), item => item.budgetCap ?? 0);
+  };
+
   return {
     getForecastForMonthOnWalletOnBudgetStatement,
     getBudgetCapForMonthOnWalletOnBudgetStatement,
@@ -114,5 +145,11 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime) => {
     firstMonth,
     secondMonth,
     thirdMonth,
+    breakdownTabs,
+    getLineItemsForWalletOnMonth,
+    getLineItemForecastSumForMonth,
+    getLineItemForecastSumForMonths,
+    getBudgetCapForMonthOnLineItem,
+    getTotalQuarterlyBudgetCapOnLineItem
   };
 };
