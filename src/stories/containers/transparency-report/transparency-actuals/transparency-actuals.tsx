@@ -10,9 +10,10 @@ import { DateTime } from 'luxon';
 import {
   BudgetStatementDto,
   BudgetStatementLineItemDto,
-  BudgetStatementWalletDto
 } from '../../../../core/models/dto/core-unit.dto';
 import _ from 'lodash';
+import { useTransparencyActualsMvvm } from './transparency-actuals.mvvm';
+import { formatAddressForOutput } from '../../../../core/utils/string.utils';
 
 interface TransparencyActualsProps {
   currentMonth: DateTime;
@@ -21,44 +22,20 @@ interface TransparencyActualsProps {
 export const TransparencyActuals = (props: TransparencyActualsProps) => {
   const [thirdIndex, setThirdIndex] = useState(0);
 
-  const getWalletForecast = (wallet: BudgetStatementWalletDto) => {
-    return _.sumBy(wallet?.budgetStatementLineItem, i => i.forecast ?? 0);
-  };
-
-  const getWalletActual = (wallet: BudgetStatementWalletDto) => {
-    return _.sumBy(wallet?.budgetStatementLineItem, i => i.actual ?? 0);
-  };
-
-  const getWalletDifference = (wallet: BudgetStatementWalletDto) => {
-    return (getWalletForecast(wallet) - getWalletActual(wallet));
-  };
-
-  const currentBudgetStatement = useMemo(() => {
-    const currentMonth = props.currentMonth.toFormat('yyyy-MM-01');
-    setThirdIndex(0);
-    return props.budgetStatements?.find(x => x.month === currentMonth) ?? null;
-  }, [props.currentMonth]);
-
-  const breakdownHeaders = useMemo(() => {
-    return currentBudgetStatement?.budgetStatementWallet?.map(wallet => wallet.name);
-  }, [currentBudgetStatement]);
-
-  const budgetTotalForecast = useMemo(() => {
-    return _.sumBy(currentBudgetStatement?.budgetStatementWallet, wallet => _.sumBy(wallet.budgetStatementLineItem, item => item?.forecast ?? 0));
-  }, [currentBudgetStatement]);
-
-  const budgetTotalActual = useMemo(() => {
-    return _.sumBy(currentBudgetStatement?.budgetStatementWallet, wallet => _.sumBy(wallet.budgetStatementLineItem, item => item?.actual ?? 0));
-  }, [currentBudgetStatement]);
-
-  const budgetTotalDifference = useMemo(() => {
-    return budgetTotalForecast - budgetTotalActual;
-  }, [currentBudgetStatement]);
-
-  const formatAddressForOutput = (address: string | undefined) => {
-    if (!address) { return ''; }
-    return `${address.slice(0, 5)}..${address.slice(address.length - 5, address.length - 1)}`;
-  };
+  const {
+    currentBudgetStatement,
+    getWalletForecast,
+    getWalletActual,
+    getWalletDifference,
+    budgetTotalForecast,
+    budgetTotalActual,
+    budgetTotalDifference,
+    getGroupForecast,
+    getGroupActual,
+    getGroupDifference,
+    getCommentsFromCategory,
+    breakdownHeaders
+  } = useTransparencyActualsMvvm(thirdIndex, setThirdIndex, props.currentMonth, props.budgetStatements);
 
   const mainTableItems = useMemo(() => {
     const result: JSX.Element[][] = [];
@@ -90,22 +67,6 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     return result;
   }, [currentBudgetStatement]);
 
-  const getGroupForecast = (group: BudgetStatementLineItemDto[]) => {
-    return _.sumBy(group, item => item.forecast ?? 0);
-  };
-
-  const getGroupActual = (group: BudgetStatementLineItemDto[]) => {
-    return _.sumBy(group, item => item.actual ?? 0);
-  };
-
-  const getGroupDifference = (group: BudgetStatementLineItemDto[]) => {
-    return getGroupForecast(group) - getGroupActual(group);
-  };
-
-  const getCommentsFromCategory = (group: BudgetStatementLineItemDto[]) => {
-    return group.reduce((current, next) => `${current} ${next.comments}`, '');
-  };
-
   const addBreakdownItemsToArray = (result: JSX.Element[][], items: BudgetStatementLineItemDto[]) => {
     const grouped = _.groupBy(items, item => item.budgetCategory);
 
@@ -123,7 +84,9 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
 
   const breakdownTableItems = useMemo(() => {
     const result: JSX.Element[][] = [];
-    if (!currentBudgetStatement?.budgetStatementWallet?.length) { return result; }
+    if (!currentBudgetStatement?.budgetStatementWallet?.length) {
+      return result;
+    }
 
     const currentWallet = currentBudgetStatement?.budgetStatementWallet[thirdIndex];
 
@@ -140,12 +103,15 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     addBreakdownItemsToArray(result, currentWallet.budgetStatementLineItem.filter(item => !item.headcountExpense));
 
     result.push([
-        <TableCell key={1}><b>Total</b></TableCell>,
-        <TableCell key={2} fontFamily={'SF Pro Display, sans-serif'} negative={getWalletActual(currentWallet) < 0}><b>{Math.abs(getWalletForecast(currentWallet)).toLocaleString()}</b></TableCell>,
-        <TableCell key={3} fontFamily={'SF Pro Display, sans-serif'} negative={getWalletActual(currentWallet) < 0}><b>{Math.abs(getWalletActual(currentWallet)).toLocaleString()}</b></TableCell>,
-        <TableCell key={4} fontFamily={'SF Pro Display, sans-serif'} negative={getWalletDifference(currentWallet) < 0}><b>{Math.abs(getWalletDifference(currentWallet)).toLocaleString()}</b></TableCell>,
-        <TableCell key={5}/>,
-        <TableCell key={6}><b>0</b></TableCell>,
+      <TableCell key={1}><b>Total</b></TableCell>,
+      <TableCell key={2}
+                 negative={getWalletActual(currentWallet) < 0}><b>{Math.abs(getWalletForecast(currentWallet)).toLocaleString()}</b></TableCell>,
+      <TableCell key={3}
+                 negative={getWalletActual(currentWallet) < 0}><b>{Math.abs(getWalletActual(currentWallet)).toLocaleString()}</b></TableCell>,
+      <TableCell key={4}
+                 negative={getWalletDifference(currentWallet) < 0}><b>{Math.abs(getWalletDifference(currentWallet)).toLocaleString()}</b></TableCell>,
+      <TableCell key={5}/>,
+      <TableCell key={6}><b>0</b></TableCell>,
     ]);
 
     return result;
@@ -164,7 +130,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       items={mainTableItems}
       headersAlign={['left', 'right', 'right', 'right', 'right', 'left']}
       minWidth={120}
-      headerWidths={['200px', 'unset', 'unset', 'unset', 'unset', '30%']}
+      headerWidths={['210px', 'unset', 'unset', 'unset', 'unset', '30%']}
       style={{ marginBottom: '64px' }}
       />
     </>}
