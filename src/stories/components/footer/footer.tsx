@@ -19,17 +19,20 @@ const Footer = ({ governesses, products, developer }: Props) => {
     }}>
       <ContainerImage />
       <ContainerFooter>
-        <ContainerColumOne ><FooterContact title='Contact MakerDAO' subtitle='Official Community Channels' logo={<Logo />} links={iconsContact} /></ContainerColumOne>
-        <ContainerColumTwo>
-          <DescriptionFooter title='Governance' children={governesses} />
-          <DescriptionFooter title='Products & Tools' children={products} />
-          <DescriptionFooter title='Developer' children={developer} />
-        </ContainerColumTwo>
-        <ContainerColumThree>
+        <ContainerColumOne ><FooterContact title='Contact MakerDAO' subtitle='Official Community Channels' logo={<Logo width={37.43} height={19.06}
+        />} links={iconsContact} /></ContainerColumOne>
+        <ContainerColumTwo> <DescriptionFooter title='Governance' children={governesses} style={{
+        }} /></ContainerColumTwo>
+        <ContainerColumThree>  <DescriptionFooter title='Products & Tools' children={products} style={{
+
+        }} /></ContainerColumThree>
+        <ContainerColumFour> <DescriptionFooter title='Developer' children={developer} style={{
+        }} /> </ContainerColumFour>
+        <ContainerColumLast>
           <FooterContact title='Contact MakerDAO SES for support' subtitle='Sustainable Ecosystem Scalling' logo={<SesLogo />} links={iconsSupport} />
-        </ContainerColumThree>
+        </ContainerColumLast>
       </ContainerFooter >
-    </div>
+    </div >
 
   );
 };
@@ -55,22 +58,26 @@ const ContainerFooter = styled.footer({
   margin: '0px',
   minWidth: '0px',
   width: '100%',
-  paddingTop: '43.85px',
-  paddingBottom: '32px',
-  paddingLeft: '64.86px',
-  paddingRight: '64.86px',
+  paddingTop: '42.85px',
+  paddingLeft: '63.67px',
+  paddingRight: '64.23px',
+  paddingBottom: '54.81px',
 });
 const ContainerColumOne = styled.div({
-  width: '23%'
+  width: '289.64px'
 });
 const ContainerColumTwo = styled.div({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  width: '40%',
-
+  width: '143px'
 });
 const ContainerColumThree = styled.div({
-  width: '23%',
+  width: '147px'
+});
+const ContainerColumFour = styled.div({
+  width: '129px'
+
+});
+
+const ContainerColumLast = styled.div({
+  width: '272px',
 });
 export default Footer;
