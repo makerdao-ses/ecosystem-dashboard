@@ -18,7 +18,7 @@ export const TransparencyTransferRequest = () => {
       headers={['Wallet', '3 Month Forecast', 'current Balance', 'Transfer Request', 'Multi Sig Address']}
       items={firstTableItems}
       headersAlign={['left', 'right', 'right', 'right', 'right', 'left']}
-      style={{ marginBottom: '62px' }}
+      style={{ marginBottom: '64px' }}
     />
   </Container>;
 };

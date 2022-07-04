@@ -8,26 +8,26 @@ import { TableCell } from '../../../components/table-cell/table-cell';
 import { CustomLink } from '../../../components/custom-link/custom-link';
 
 const firstTableItems = [
-  [<WalletTableCell key={1} name={'Permanent Team'} wallet={'0x232b…8482'}/>, <TableCell key={1}>134,468</TableCell>, <TableCell key={1}>134,468</TableCell>, <TableCell key={1}>134,468</TableCell>, <TableCell key={1}>132,897</TableCell>, <TableCell key={1}>1,571</TableCell>, <TableCell key={1}>138,754</TableCell>, <TableCell key={1}><CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={'#'} style={{ marginRight: '16px' }}>Etherscan</CustomLink><CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={'#'}>Gnosis</CustomLink></TableCell>],
-  [<WalletTableCell key={1} name={'Incubation Program'} wallet={'0x232b…8482'}/>, <TableCell key={1}>134,468</TableCell>, <TableCell key={1}>134,468</TableCell>, <TableCell key={1}>134,468</TableCell>, <TableCell key={1}>132,897</TableCell>, <TableCell key={1} negative>5,571</TableCell>, <TableCell key={1}>138,754</TableCell>, <TableCell key={1}><CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={'#'} style={{ marginRight: '16px' }}>Etherscan</CustomLink><CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={'#'}>Gnosis</CustomLink></TableCell>],
-  [<WalletTableCell key={1} name={'Grants Program'} wallet={'0x232b…8482'}/>, <TableCell key={1}>134,468</TableCell>, <TableCell key={1}>134,468</TableCell>, <TableCell key={1}>134,468</TableCell>, <TableCell key={1}>132,897</TableCell>, <TableCell key={1}>1,571</TableCell>, <TableCell key={1}>138,754</TableCell>, <TableCell key={1}><CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={'#'} style={{ marginRight: '16px' }}>Etherscan</CustomLink><CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={'#'}>Gnosis</CustomLink></TableCell>],
-  [<TableCell key={1}><b>Total</b></TableCell>, <TableCell key={2}><b>260,344</b></TableCell>, <TableCell key={3}><b>260,344</b></TableCell>, <TableCell key={3}><b>260,344</b></TableCell>, <TableCell key={3}><b>260,344</b></TableCell>, <TableCell key={4}><b>260,344</b></TableCell>, <TableCell key={5}><b>260,344</b></TableCell>, <TableCell key={6}/>]
+  [<WalletTableCell key={1} name={'Permanent Team'} wallet={'0x232b…8482'}/>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>134,468</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>134,468</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>134,468</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>132,897</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>1,571</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>138,754</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}><CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={'#'} style={{ marginRight: '16px' }}>Etherscan</CustomLink><CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={'#'}>Gnosis</CustomLink></TableCell>],
+  [<WalletTableCell key={1} name={'Incubation Program'} wallet={'0x232b…8482'}/>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>134,468</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>134,468</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>134,468</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>132,897</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1} negative>5,571</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>138,754</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}><CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={'#'} style={{ marginRight: '16px' }}>Etherscan</CustomLink><CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={'#'}>Gnosis</CustomLink></TableCell>],
+  [<WalletTableCell key={1} name={'Grants Program'} wallet={'0x232b…8482'}/>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>134,468</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>134,468</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>134,468</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>132,897</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>1,571</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>138,754</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}><CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={'#'} style={{ marginRight: '16px' }}>Etherscan</CustomLink><CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={'#'}>Gnosis</CustomLink></TableCell>],
+  [<TableCell key={1}><b>Total</b></TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}><b>260,344</b></TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}><b>260,344</b></TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}><b>260,344</b></TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}><b>260,344</b></TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}><b>260,344</b></TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={5}><b>260,344</b></TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={6}/>]
 ];
 
 const secondTableItems = [
   [<TableCell key={1}><b>Headcount Expenses Subtotal</b></TableCell>, '', '', '', '', ''],
-  [<TableCell key={1}>Contractor Fees</TableCell>, <TableCell key={2}>109,669</TableCell>, <TableCell key={3}>109,669</TableCell>, <TableCell key={4}>109,669</TableCell>, <TableCell key={5}>Lower exchange rate costs.</TableCell>, <TableCell key={6}>109,669</TableCell>],
+  [<TableCell key={1}>Contractor Fees</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>109,669</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>109,669</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>109,669</TableCell>, <TableCell key={5}>Lower exchange rate costs.</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={6}>109,669</TableCell>],
   [<TableCell key={1}><b>Non-Headcount Expenses Subtotal</b></TableCell>, '', '', '', '', ''],
-  [<TableCell key={1}>Contingency Buffer</TableCell>, <TableCell key={2}>0</TableCell>, <TableCell key={3}>0</TableCell>, <TableCell key={4}>0</TableCell>, '', <TableCell key={6}>0</TableCell>],
-  [<TableCell key={1}><b>Total</b></TableCell>, <TableCell key={2}><b>134,468</b></TableCell>, <TableCell key={3}><b>134,468</b></TableCell>, <TableCell key={4}><b>134,468</b></TableCell>, '', <TableCell key={5}><b>134,468</b></TableCell>]
+  [<TableCell key={1}>Contingency Buffer</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>0</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>0</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, '', <TableCell fontFamily={'SF Pro Display, sans-serif'} key={6}>0</TableCell>],
+  [<TableCell key={1}><b>Total</b></TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}><b>134,468</b></TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}><b>134,468</b></TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}><b>134,468</b></TableCell>, '', <TableCell fontFamily={'SF Pro Display, sans-serif'} key={5}><b>134,468</b></TableCell>]
 ];
 
 const thirdTableItems = [
   [<TableCell key={1}><b>Headcount Expenses Subtotal</b></TableCell>, '', '', '', '', '', ''],
-  [<TableCell key={1}>Chaos Labs</TableCell>, <TableCell key={2}>Contractor Fees</TableCell>, <TableCell key={2}>109,669</TableCell>, <TableCell key={3}>109,669</TableCell>, <TableCell key={4}>109,669</TableCell>, <TableCell key={5}>Lower exchange rate costs.</TableCell>, <TableCell key={6}>109,669</TableCell>],
+  [<TableCell key={1}>Chaos Labs</TableCell>, <TableCell key={2}>Contractor Fees</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>109,669</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>109,669</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>109,669</TableCell>, <TableCell key={5}>Lower exchange rate costs.</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={6}>109,669</TableCell>],
   [<TableCell key={1}><b>Non-Headcount Expenses Subtotal</b></TableCell>, '', '', '', '', '', ''],
-  [<TableCell key={1}>Contingency Buffer</TableCell>, '', <TableCell key={2}>0</TableCell>, <TableCell key={3}>0</TableCell>, <TableCell key={4}>0</TableCell>, '', <TableCell key={6}>0</TableCell>],
-  [<TableCell key={1}><b>Total</b></TableCell>, '', <TableCell key={2}><b>134,468</b></TableCell>, <TableCell key={3}><b>134,468</b></TableCell>, <TableCell key={4}><b>134,468</b></TableCell>, '', <TableCell key={5}><b>134,468</b></TableCell>]
+  [<TableCell key={1}>Contingency Buffer</TableCell>, '', <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>0</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>0</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, '', <TableCell fontFamily={'SF Pro Display, sans-serif'} key={6}>0</TableCell>],
+  [<TableCell key={1}><b>Total</b></TableCell>, '', <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}><b>134,468</b></TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}><b>134,468</b></TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}><b>134,468</b></TableCell>, '', <TableCell fontFamily={'SF Pro Display, sans-serif'} key={5}><b>134,468</b></TableCell>]
 ];
 
 export const TransparencyForecast = () => {
@@ -45,7 +45,7 @@ export const TransparencyForecast = () => {
       items={firstTableItems}
       minWidth={80}
       headersAlign={['left', 'right', 'right', 'right', 'right', 'right', 'right', 'left']}
-      style={{ marginBottom: '62px' }}
+      style={{ marginBottom: '64px' }}
     />
 
     <Title style={{
@@ -66,7 +66,7 @@ export const TransparencyForecast = () => {
     {thirdIndex === 0 && <InnerTable
         headers={['Budget Category', 'Forecast', 'Actuals', 'Difference', 'Diff. Reason', 'Payments']}
         items={secondTableItems}
-        style={{ marginBottom: '62px' }}
+        style={{ marginBottom: '64px' }}
         headersAlign={['left', 'right', 'right', 'right', 'left', 'right']}
     />}
 
@@ -75,7 +75,7 @@ export const TransparencyForecast = () => {
         headersAlign={['left', 'left', 'right', 'right', 'right', 'left', 'right']}
         items={thirdTableItems}
         minWidth={80}
-        style={{ marginBottom: '62px' }}
+        style={{ marginBottom: '64px' }}
     />}
 
     {thirdIndex === 2 && <InnerTable
@@ -83,7 +83,7 @@ export const TransparencyForecast = () => {
         headersAlign={['left', 'left', 'right', 'right', 'right', 'left', 'right']}
         minWidth={80}
         items={thirdTableItems}
-        style={{ marginBottom: '62px' }}
+        style={{ marginBottom: '64px' }}
     />}
   </Container>;
 };

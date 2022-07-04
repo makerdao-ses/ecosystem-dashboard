@@ -2,14 +2,14 @@ import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
 
 interface InnerTableProps {
-  headers: string[],
-  items?: (JSX.Element | string)[][],
-  headersAlign?: ('left' | 'center' | 'right')[],
-  style?: CSSProperties,
-  rowStyles?: CSSProperties[],
-  minWidth?: number,
-  headerWidths?: string[],
-  headerStyles?: CSSProperties[],
+  headers: string[];
+  items?: (JSX.Element | string)[][];
+  headersAlign?: ('left' | 'center' | 'right')[];
+  style?: CSSProperties;
+  rowStyles?: CSSProperties[];
+  minWidth?: number;
+  headerWidths?: string[];
+  headerStyles?: CSSProperties[];
 }
 
 export const InnerTable = ({ headersAlign = [], minWidth = 160, headerWidths = [], headerStyles = [], ...props }: InnerTableProps) => {
