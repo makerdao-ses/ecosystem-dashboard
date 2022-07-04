@@ -19,7 +19,10 @@ export const FooterContact = ({ title, subtitle, logo, links }: Props) => {
         <StyleDescription>{subtitle}</StyleDescription>
 
       </ContainerText>
-      <div style={{ display: 'flex' }}> <FooterLinks links={links} /></div>
+      <div style={{
+        display: 'flex',
+        paddingLeft: '6.13px'
+      }}> <FooterLinks links={links} /></div>
       <ContainerLogo >{logo}</ContainerLogo>
     </Container>
   );
