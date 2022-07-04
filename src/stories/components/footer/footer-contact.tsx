@@ -50,8 +50,8 @@ const StyleDescription = styled(Typography)({
   fontWeight: 400,
   fontSize: '16px',
   lineHeight: '19px',
+  color: '#333333',
   letterSpacing: '0.4px',
-  color: '#333333'
 });
 
 const ContainerLogo = styled.div({
