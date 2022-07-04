@@ -18,7 +18,7 @@ interface CoreUnitSummaryProps {
   mipUrl?: string,
   links: LinkModel[],
   description: string,
-  statusModified?: Date
+  statusModified?: string
 }
 
 export const CoreUnitSummary = (props: CoreUnitSummaryProps) => {
@@ -38,13 +38,16 @@ export const CoreUnitSummary = (props: CoreUnitSummaryProps) => {
         <TitleWrapper>
           <Code>{props.code}</Code>
           <Title>{props.title}</Title>
-          <StatusChip status={props.status} style={{ marginRight: '4px' }}/>
+          <StatusChip status={props.status} style={{
+            marginRight: '4px',
+            marginLeft: '24px'
+          }}/>
           {props.statusModified && <CustomLink href={props.mipUrl}>
-            {`Since ${DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}`}
+            {`Since ${DateTime.fromFormat(props.statusModified, 'yyyy-MM-dd').toFormat('d-MMM-y').toUpperCase()}`}
           </CustomLink>}
           <Separator/>
           <LinksWrapper>
-            <CuTableColumnLinks links={props.links} fill={'#708390'}/>
+            <CuTableColumnLinks spacingsLeft={29} links={props.links} fill={'#708390'}/>
           </LinksWrapper>
         </TitleWrapper>
         <Categories>

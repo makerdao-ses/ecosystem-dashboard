@@ -2,14 +2,14 @@ import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
 
 interface InnerTableProps {
-  headers: string[],
-  items?: (JSX.Element | string)[][],
-  headersAlign?: ('left' | 'center' | 'right')[],
-  style?: CSSProperties,
-  rowStyles?: CSSProperties[],
-  minWidth?: number,
-  headerWidths?: string[],
-  headerStyles?: CSSProperties[],
+  headers: string[];
+  items?: (JSX.Element | string)[][];
+  headersAlign?: ('left' | 'center' | 'right')[];
+  style?: CSSProperties;
+  rowStyles?: CSSProperties[];
+  minWidth?: number;
+  headerWidths?: string[];
+  headerStyles?: CSSProperties[];
 }
 
 export const InnerTable = ({ headersAlign = [], minWidth = 160, headerWidths = [], headerStyles = [], ...props }: InnerTableProps) => {
@@ -48,7 +48,7 @@ const Table = styled.table({
 });
 
 const TableCell = styled.td<{ textAlign: 'left' | 'center' | 'right' }>(({ textAlign }) => ({
-  textAlign
+  textAlign,
 }));
 
 const TableHead = styled.thead({
@@ -59,6 +59,7 @@ const TableHead = styled.thead({
   textTransform: 'uppercase',
   color: '#708390',
   borderBottom: '1px solid #D4D9E1',
+  whiteSpace: 'nowrap'
 });
 
 const HeadCell = styled.th<{ minWidth: number, width: string }>(({ minWidth, width }) => ({

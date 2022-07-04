@@ -12,7 +12,11 @@ import { TransparencyMkrVesting } from './transparency-mkr-vesting/transparency-
 import { TransparencyTransferRequest } from './transparency-transfer-request/transparency-transfer-request';
 import { TransparencyAudit } from './transparency-audit/transparency-audit';
 import { useRouter } from 'next/router';
-import { getLinksFromCoreUnit, getMipFromCoreUnit } from '../../../core/business-logic/core-units';
+import {
+  getCuMipStatusModifiedDate,
+  getLinksFromCoreUnit,
+  getMipFromCoreUnit
+} from '../../../core/business-logic/core-units';
 import { useTransparencyReportViewModel } from './transparency-report.mvvm';
 import { DateTime } from 'luxon';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
@@ -46,6 +50,7 @@ export const TransparencyReport = () => {
         status={getMipFromCoreUnit(cu)?.mipStatus as CuStatusEnum}
         links={getLinksFromCoreUnit(cu)}
         description={cu.sentenceDescription}
+        statusModified={getCuMipStatusModifiedDate(getMipFromCoreUnit(cu), getMipFromCoreUnit(cu)?.mipStatus as CuStatusEnum)}
         imageUrl={cu.image}
       />}
     </SummaryWrapper>
@@ -83,6 +88,7 @@ export const TransparencyReport = () => {
         href="#"
         style={{ margin: '0' }}
         fontSize={16}
+        fontFamily={'SF Pro Display, sans-serif'}
       >
         Source
       </CustomLink>
@@ -96,7 +102,7 @@ export const TransparencyReport = () => {
         }}
       />
     {thirdIndex === 0 && <TransparencyActuals currentMonth={currentMonth} budgetStatements={cu?.budgetStatements} />}
-    {thirdIndex === 1 && <TransparencyForecast/>}
+    {thirdIndex === 1 && <TransparencyForecast currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>}
     {thirdIndex === 2 && <TransparencyMkrVesting/>}
     {thirdIndex === 3 && <TransparencyTransferRequest/>}
     {thirdIndex === 4 && <TransparencyAudit/>}
