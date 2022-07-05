@@ -59,7 +59,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         <TableCell key={1}><b>Total</b></TableCell>,
         <TableCell key={2} fontFamily={'SF Pro Display, sans-serif'}><b>{Math.abs(budgetTotalForecast).toLocaleString()}</b></TableCell>,
         <TableCell key={3} fontFamily={'SF Pro Display, sans-serif'}><b>{Math.abs(budgetTotalActual).toLocaleString()}</b></TableCell>,
-        <TableCell key={4} fontFamily={'SF Pro Display, sans-serif'}><b>{Math.abs(budgetTotalDifference).toLocaleString()}</b></TableCell>,
+        <TableCell key={4} fontFamily={'SF Pro Display, sans-serif'} negative={budgetTotalDifference < 0}><b>{Math.abs(budgetTotalDifference).toLocaleString()}</b></TableCell>,
         <TableCell key={5} fontFamily={'SF Pro Display, sans-serif'}><b>0</b></TableCell>,
         <TableCell key={6}/>,
       ]);
@@ -72,6 +72,10 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     const grouped = _.groupBy(items, item => item.budgetCategory);
 
     for (const groupedKey in grouped) {
+      if (Math.abs(getGroupForecast(grouped[groupedKey])) + Math.abs(getGroupActual(grouped[groupedKey])) + Math.abs(getGroupDifference(grouped[groupedKey])) === 0) {
+        continue;
+      }
+
       result.push([
         <TableCell key={1}>{grouped[groupedKey][0].budgetCategory}</TableCell>,
         <TableCell key={2} negative={getGroupForecast(grouped[groupedKey]) < 0}>{Math.abs(getGroupForecast(grouped[groupedKey])).toLocaleString()}</TableCell>,
