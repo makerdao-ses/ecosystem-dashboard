@@ -118,7 +118,6 @@ export const iconsSupport = [{
   icon: <LinkedIn fill='#211634' />,
   href: 'https://www.linkedin.com/company/makerdao-ses/',
   title: 'LinkedIn',
-  spacingsRight: 6,
   width: 19,
   height: 19
 },

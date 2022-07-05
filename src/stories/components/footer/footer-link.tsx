@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { Box } from '@mui/material';
@@ -14,11 +14,11 @@ export type TypeIconFooter = {
 
 interface CuTableColumnLinksProps {
   links: TypeIconFooter[]
-
+  styleLinks?: CSSProperties
 }
 
-export const FooterLinks = ({ links }: CuTableColumnLinksProps) => {
-  return <Container>
+export const FooterLinks = ({ links, styleLinks }: CuTableColumnLinksProps) => {
+  return <Container style={styleLinks}>
     {links.map((link, i) => <Box
       key={`link-${i}`}
       sx={{ mr: `${link.spacingsRight ?? 0}px` }}>
@@ -42,7 +42,6 @@ export const FooterLinks = ({ links }: CuTableColumnLinksProps) => {
 const Container = styled.div({
   display: 'flex',
   alignItems: 'center',
-  width: '289.64px',
 });
 
 type StickyLinkProps = {
