@@ -19,7 +19,10 @@ export const FooterContact = ({ title, subtitle, logo, links }: Props) => {
         <StyleDescription>{subtitle}</StyleDescription>
 
       </ContainerText>
-      <div style={{ display: 'flex' }}> <FooterLinks links={links} /></div>
+      <div style={{
+        display: 'flex',
+        paddingLeft: '6.13px'
+      }}> <FooterLinks links={links} /></div>
       <ContainerLogo >{logo}</ContainerLogo>
     </Container>
   );
@@ -50,8 +53,8 @@ const StyleDescription = styled(Typography)({
   fontWeight: 400,
   fontSize: '16px',
   lineHeight: '19.2px',
+  color: '#333333',
   letterSpacing: '0.4px',
-  color: '#333333'
 });
 
 const ContainerLogo = styled.div({

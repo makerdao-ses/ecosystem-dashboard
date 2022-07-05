@@ -40,4 +40,5 @@ const Container = styled.a<{ fontSize: number, fontWeight: number, fontFamily: s
   textDecoration: 'none',
   marginLeft: '4px',
   cursor: 'pointer',
+  whiteSpace: 'nowrap',
 }));

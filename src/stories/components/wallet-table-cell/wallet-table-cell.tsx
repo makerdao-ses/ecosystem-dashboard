@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
 import { CustomLink } from '../custom-link/custom-link';
+import { capitalizeSentence } from '../../../core/utils/string.utils';
 
 interface WalletTableCellProps {
   imgUrl?: string,
@@ -19,13 +20,13 @@ export const WalletTableCell = (props: WalletTableCellProps) => {
       style={{ margin: '0 16px' }}
     />
     <Data>
-      <Label>{props.name}</Label>
+      <Label>{capitalizeSentence(props.name)}</Label>
       <CustomLink
         style={{ pointerEvents: 'none' }}
         fontSize={14}
         fontWeight={400}
         withArrow={false}>
-        {props.wallet}
+        {props.wallet.toLowerCase()}
       </CustomLink>
     </Data>
   </Container>;

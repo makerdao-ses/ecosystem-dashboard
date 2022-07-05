@@ -19,7 +19,7 @@ const Footer = ({ governesses, products, developer }: Props) => {
     }}>
       <ContainerImage />
       <ContainerFooter>
-        <ContainerColumOne ><FooterContact title='Contact MakerDAO' subtitle='Official Community Channels' logo={<Logo width={37.43} height={19.06}
+        <ContainerColumOne ><FooterContact title='Contact MakerDAO' subtitle='Official Community Channels' logo={<Logo width={37} height={20}
         />} links={iconsContact} /></ContainerColumOne>
         <ContainerColumTwo> <DescriptionFooter title='Governance' children={governesses} style={{
         }} /></ContainerColumTwo>
@@ -64,7 +64,7 @@ const ContainerFooter = styled.footer({
   paddingBottom: '54.81px',
 });
 const ContainerColumOne = styled.div({
-  width: '289.64px'
+  width: '320.01px',
 });
 const ContainerColumTwo = styled.div({
   width: '143px'
