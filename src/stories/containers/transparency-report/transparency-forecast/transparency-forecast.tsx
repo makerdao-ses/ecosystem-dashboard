@@ -104,6 +104,15 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     const groupedHeadCount = _.groupBy(ungrouped.filter(x => x.headcountExpense), item => item.budgetCategory);
 
     for (const groupedKey in groupedHeadCount) {
+      if (Math.abs(getLineItemForecastSumForMonth(groupedHeadCount[groupedKey], firstMonth)) +
+        Math.abs(getLineItemForecastSumForMonth(groupedHeadCount[groupedKey], secondMonth)) +
+        Math.abs(getLineItemForecastSumForMonth(groupedHeadCount[groupedKey], thirdMonth)) +
+        Math.abs(getLineItemForecastSumForMonths(groupedHeadCount[groupedKey], [firstMonth, secondMonth, thirdMonth])) +
+        Math.abs(getBudgetCapForMonthOnLineItem(groupedHeadCount[groupedKey], props.currentMonth)) +
+        Math.abs(getTotalQuarterlyBudgetCapOnLineItem(groupedHeadCount[groupedKey], [firstMonth, secondMonth, thirdMonth])) === 0
+      ) {
+        continue;
+      }
       result.push([
         <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>{groupedKey}</TableCell>,
         <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>{getLineItemForecastSumForMonth(groupedHeadCount[groupedKey], firstMonth).toLocaleString()}</TableCell>,
@@ -122,6 +131,15 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     const groupedNonHeadCount = _.groupBy(ungrouped.filter(x => !x.headcountExpense), item => item.budgetCategory);
 
     for (const groupedKey in groupedNonHeadCount) {
+      if (Math.abs(getLineItemForecastSumForMonth(groupedNonHeadCount[groupedKey], firstMonth)) +
+        Math.abs(getLineItemForecastSumForMonth(groupedNonHeadCount[groupedKey], secondMonth)) +
+        Math.abs(getLineItemForecastSumForMonth(groupedNonHeadCount[groupedKey], thirdMonth)) +
+        Math.abs(getLineItemForecastSumForMonths(groupedNonHeadCount[groupedKey], [firstMonth, secondMonth, thirdMonth])) +
+        Math.abs(getBudgetCapForMonthOnLineItem(groupedNonHeadCount[groupedKey], props.currentMonth)) +
+        Math.abs(getTotalQuarterlyBudgetCapOnLineItem(groupedNonHeadCount[groupedKey], [firstMonth, secondMonth, thirdMonth])) === 0
+      ) {
+        continue;
+      }
       result.push([
         <TableCell fontFamily={'SF Pro Display, sans-serif'} key={1}>{groupedKey}</TableCell>,
         <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>{getLineItemForecastSumForMonth(groupedNonHeadCount[groupedKey], firstMonth).toLocaleString()}</TableCell>,
