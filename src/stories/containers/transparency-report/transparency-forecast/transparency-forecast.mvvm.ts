@@ -6,6 +6,8 @@ import {
 } from '../../../../core/models/dto/core-unit.dto';
 import _ from 'lodash';
 import { useMemo } from 'react';
+import { capitalizeSentence } from '../../../../core/utils/string.utils';
+import { API_MONTH_FORMAT } from '../../../../core/utils/date.utils';
 
 export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetStatements: BudgetStatementDto[]) => {
   const firstMonth = useMemo(() => currentMonth.plus({ month: 1 }), [currentMonth]);
@@ -30,13 +32,14 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetSt
   const wallets: BudgetStatementWalletDto[] = useMemo(() => {
     const dict: {[id: string]: BudgetStatementWalletDto} = {};
 
-    const budgetStatement = propBudgetStatements.find(bs => bs.month === currentMonth.toFormat('yyyy-MM-01'));
+    const budgetStatement = propBudgetStatements.find(bs => bs.month === currentMonth.toFormat(API_MONTH_FORMAT));
 
     if (!budgetStatement || !budgetStatement.budgetStatementWallet) return [];
 
     budgetStatement.budgetStatementWallet.forEach(wallet => {
       if (wallet.address) {
         if (!dict[wallet.address.toLowerCase()]) {
+          wallet.name = capitalizeSentence(wallet.name);
           dict[wallet.address.toLowerCase()] = wallet;
         }
       }
@@ -45,32 +48,34 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetSt
     return Object.values(dict);
   }, [currentMonth, propBudgetStatements]);
 
-  const getForecastForMonthOnWalletOnBudgetStatement = (budgetStatements: BudgetStatementDto[], walletAddress: string, currentMonth: DateTime, month: DateTime) => {
-    const budgetStatement = budgetStatements.find(x => x.month === currentMonth.toFormat('yyyy-MM-01')) ?? null;
+  const getForecastForMonthOnWalletOnBudgetStatement = (budgetStatements: BudgetStatementDto[], walletAddress: string | undefined, currentMonth: DateTime, month: DateTime) => {
+    const budgetStatement = budgetStatements.find(x => x.month === currentMonth.toFormat(API_MONTH_FORMAT)) ?? null;
 
-    if (!budgetStatement) return 0;
-
-    const wallet = budgetStatement?.budgetStatementWallet?.find(x => x.address === walletAddress) ?? null;
-
-    if (!wallet) return 0;
-
-    return _.sumBy(wallet?.budgetStatementLineItem.filter(item => item.month === month.toFormat('yyyy-MM-01')), i => i.forecast ?? 0);
-  };
-
-  const getBudgetCapForMonthOnWalletOnBudgetStatement = (budgetStatements: BudgetStatementDto[], walletAddress: string, month: DateTime) => {
-    const budgetStatement = budgetStatements.find(x => x.month === month.toFormat('yyyy-MM-01')) ?? null;
-
-    if (!budgetStatement) return 0;
+    if (!budgetStatement || !walletAddress) return 0;
 
     const wallet = budgetStatement?.budgetStatementWallet?.find(x => x.address === walletAddress) ?? null;
 
     if (!wallet) return 0;
 
-    return _.sumBy(wallet?.budgetStatementLineItem.filter(item => item.month === month.toFormat('yyyy-MM-01')), i => i.budgetCap ?? 0);
+    return _.sumBy(wallet?.budgetStatementLineItem.filter(item => item.month === month.toFormat(API_MONTH_FORMAT)), i => i.forecast ?? 0);
   };
 
-  const getForecastSumOfMonthsOnWallet = (budgetStatements: BudgetStatementDto[], walletAddress: string, currentMonth: DateTime, months: DateTime[]) => {
+  const getBudgetCapForMonthOnWalletOnBudgetStatement = (budgetStatements: BudgetStatementDto[], walletAddress: string | undefined, month: DateTime) => {
+    const budgetStatement = budgetStatements.find(x => x.month === month.toFormat(API_MONTH_FORMAT)) ?? null;
+
+    if (!budgetStatement || !walletAddress) return 0;
+
+    const wallet = budgetStatement?.budgetStatementWallet?.find(x => x.address === walletAddress) ?? null;
+
+    if (!wallet) return 0;
+
+    return _.sumBy(wallet?.budgetStatementLineItem.filter(item => item.month === month.toFormat(API_MONTH_FORMAT)), i => i.budgetCap ?? 0);
+  };
+
+  const getForecastSumOfMonthsOnWallet = (budgetStatements: BudgetStatementDto[], walletAddress: string | undefined, currentMonth: DateTime, months: DateTime[]) => {
     let result = 0;
+
+    if (!walletAddress) return result;
 
     months.forEach(month => {
       result += getForecastForMonthOnWalletOnBudgetStatement(budgetStatements, walletAddress, currentMonth, month);
@@ -79,8 +84,10 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetSt
     return result;
   };
 
-  const getBudgetCapSumOfMonthsOnWallet = (budgetStatements: BudgetStatementDto[], walletAddress: string, months: DateTime[]) => {
+  const getBudgetCapSumOfMonthsOnWallet = (budgetStatements: BudgetStatementDto[], walletAddress: string | undefined, months: DateTime[]) => {
     let result = 0;
+
+    if (!walletAddress) return result;
 
     months.forEach(month => {
       result += getBudgetCapForMonthOnWalletOnBudgetStatement(budgetStatements, walletAddress, month);
@@ -90,7 +97,7 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetSt
   };
 
   const getForecastSumForMonth = (budgetStatements: BudgetStatementDto[], month: DateTime) => {
-    const formattedMonth = month.toFormat('yyyy-MM-01');
+    const formattedMonth = month.toFormat(API_MONTH_FORMAT);
     const budgetStatement = budgetStatements.find(x => x.month === formattedMonth) ?? null;
 
     return _.sumBy(budgetStatement?.budgetStatementWallet, wallet => _.sumBy(wallet?.budgetStatementLineItem?.filter(item => item.month === formattedMonth), item => item.forecast ?? 0));
@@ -107,7 +114,7 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetSt
   };
 
   const getBudgetCapForMonthOnBudgetStatement = (budgetStatements: BudgetStatementDto[], month: DateTime) => {
-    const formattedMonth = month.toFormat('yyyy-MM-01');
+    const formattedMonth = month.toFormat(API_MONTH_FORMAT);
     const budgetStatement = budgetStatements.find(x => x.month === formattedMonth) ?? null;
 
     return _.sumBy(budgetStatement?.budgetStatementWallet, wallet => _.sumBy(wallet?.budgetStatementLineItem?.filter(item => item.month === formattedMonth), item => item.budgetCap ?? 0));
@@ -129,7 +136,7 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetSt
   }, [propBudgetStatements, currentMonth]);
 
   const getLineItemsForWalletOnMonth = (budgetStatements: BudgetStatementDto[], month: DateTime, walletAddress: string) => {
-    const budgetStatement = budgetStatements?.find(bs => bs.month === month.toFormat('yyyy-MM-01'));
+    const budgetStatement = budgetStatements?.find(bs => bs.month === month.toFormat(API_MONTH_FORMAT));
 
     if (!budgetStatement) return [];
 
@@ -137,20 +144,20 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetSt
   };
 
   const getLineItemForecastSumForMonth = (items: BudgetStatementLineItemDto[], month: DateTime) => {
-    return _.sumBy(items.filter(item => item.month === month.toFormat('yyyy-MM-01')), item => item.forecast ?? 0);
+    return _.sumBy(items.filter(item => item.month === month.toFormat(API_MONTH_FORMAT)), item => item.forecast ?? 0);
   };
 
   const getLineItemForecastSumForMonths = (items: BudgetStatementLineItemDto[], months: DateTime[]) => {
-    const formattedMonths = months.map(x => x.toFormat('yyyy-MM-01'));
+    const formattedMonths = months.map(x => x.toFormat(API_MONTH_FORMAT));
     return _.sumBy(items.filter(item => formattedMonths.indexOf(item.month ?? '') > -1), item => item.forecast ?? 0);
   };
 
   const getBudgetCapForMonthOnLineItem = (items: BudgetStatementLineItemDto[], month: DateTime) => {
-    return _.sumBy(items.filter(item => item.month === month.toFormat('yyyy-MM-01')), item => item.budgetCap ?? 0);
+    return _.sumBy(items.filter(item => item.month === month.toFormat(API_MONTH_FORMAT)), item => item.budgetCap ?? 0);
   };
 
   const getTotalQuarterlyBudgetCapOnLineItem = (items: BudgetStatementLineItemDto[], months: DateTime[]) => {
-    const formattedMonths = months.map(x => x.toFormat('yyyy-MM-01'));
+    const formattedMonths = months.map(x => x.toFormat(API_MONTH_FORMAT));
     return _.sumBy(items.filter(item => formattedMonths.indexOf(item.month ?? '') > -1), item => item.budgetCap ?? 0);
   };
 

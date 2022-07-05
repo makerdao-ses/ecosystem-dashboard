@@ -50,12 +50,12 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     wallets.forEach(wallet => {
       result.push([
           <WalletTableCell key={1} name={wallet.name} wallet={formatAddressForOutput(wallet.address ?? '')}/>,
-          <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>{getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address ?? '', props.currentMonth, firstMonth).toLocaleString()}</TableCell>,
-          <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>{getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address ?? '', props.currentMonth, secondMonth).toLocaleString()}</TableCell>,
-          <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>{getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address ?? '', props.currentMonth, thirdMonth).toLocaleString()}</TableCell>,
-          <TableCell fontFamily={'SF Pro Display, sans-serif'} key={5}>{getForecastSumOfMonthsOnWallet(props.budgetStatements, wallet?.address ?? '', props.currentMonth, [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</TableCell>,
-          <TableCell fontFamily={'SF Pro Display, sans-serif'} key={6}>{getBudgetCapForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address ?? '', props.currentMonth).toLocaleString()}</TableCell>,
-          <TableCell fontFamily={'SF Pro Display, sans-serif'} key={7}>{getBudgetCapSumOfMonthsOnWallet(props.budgetStatements, wallet?.address ?? '', [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</TableCell>,
+          <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>{getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, firstMonth).toLocaleString()}</TableCell>,
+          <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>{getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, secondMonth).toLocaleString()}</TableCell>,
+          <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>{getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, thirdMonth).toLocaleString()}</TableCell>,
+          <TableCell fontFamily={'SF Pro Display, sans-serif'} key={5}>{getForecastSumOfMonthsOnWallet(props.budgetStatements, wallet?.address, props.currentMonth, [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</TableCell>,
+          <TableCell fontFamily={'SF Pro Display, sans-serif'} key={6}>{getBudgetCapForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth).toLocaleString()}</TableCell>,
+          <TableCell fontFamily={'SF Pro Display, sans-serif'} key={7}>{getBudgetCapSumOfMonthsOnWallet(props.budgetStatements, wallet?.address, [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</TableCell>,
           <TableCell key={8}>
             <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://etherscan.io/address/${wallet.address}`} style={{ marginRight: '16px' }}>Etherscan</CustomLink>
             <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://gnosis-safe.io/app/eth:${wallet.address}`}>Gnosis</CustomLink>
