@@ -54,8 +54,8 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
           <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>{getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, secondMonth).toLocaleString()}</TableCell>,
           <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>{getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, thirdMonth).toLocaleString()}</TableCell>,
           <TableCell fontFamily={'SF Pro Display, sans-serif'} key={5}>{getForecastSumOfMonthsOnWallet(props.budgetStatements, wallet?.address, props.currentMonth, [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</TableCell>,
-          <TableCell fontFamily={'SF Pro Display, sans-serif'} key={6}>{getBudgetCapForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth).toLocaleString()}</TableCell>,
-          <TableCell fontFamily={'SF Pro Display, sans-serif'} key={7}>{getBudgetCapSumOfMonthsOnWallet(props.budgetStatements, wallet?.address, [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</TableCell>,
+          <TableCell fontFamily={'SF Pro Display, sans-serif'} key={6}>{getBudgetCapForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, props.currentMonth).toLocaleString()}</TableCell>,
+          <TableCell fontFamily={'SF Pro Display, sans-serif'} key={7}>{getBudgetCapSumOfMonthsOnWallet(props.budgetStatements, wallet?.address, props.currentMonth, [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</TableCell>,
           <TableCell key={8}>
             <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://etherscan.io/address/${wallet.address}`} style={{ marginRight: '16px' }}>Etherscan</CustomLink>
             <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://gnosis-safe.io/app/eth:${wallet.address}`}>Gnosis</CustomLink>
@@ -65,11 +65,11 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
 
     result.push([
       <TableCell key={1}><b>Total</b></TableCell>,
-      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}><b>{getForecastSumForMonth(props.budgetStatements, firstMonth).toLocaleString()}</b></TableCell>,
-      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}><b>{getForecastSumForMonth(props.budgetStatements, secondMonth).toLocaleString()}</b></TableCell>,
-      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}><b>{getForecastSumForMonth(props.budgetStatements, thirdMonth).toLocaleString()}</b></TableCell>,
-      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={5}><b>{getForecastSumForMonths(props.budgetStatements, [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</b></TableCell>,
-      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={6}><b>{getBudgetCapForMonthOnBudgetStatement(props.budgetStatements, props.currentMonth).toLocaleString()}</b></TableCell>,
+      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}><b>{getForecastSumForMonth(props.budgetStatements, props.currentMonth, firstMonth).toLocaleString()}</b></TableCell>,
+      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}><b>{getForecastSumForMonth(props.budgetStatements, props.currentMonth, secondMonth).toLocaleString()}</b></TableCell>,
+      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}><b>{getForecastSumForMonth(props.budgetStatements, props.currentMonth, thirdMonth).toLocaleString()}</b></TableCell>,
+      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={5}><b>{getForecastSumForMonths(props.budgetStatements, props.currentMonth, [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</b></TableCell>,
+      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={6}><b>{getBudgetCapForMonthOnBudgetStatement(props.budgetStatements, props.currentMonth, props.currentMonth).toLocaleString()}</b></TableCell>,
       <TableCell fontFamily={'SF Pro Display, sans-serif'} key={7}><b>{getTotalQuarterlyBudgetCapOnBudgetStatement(props.budgetStatements, [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</b></TableCell>,
       <TableCell fontFamily={'SF Pro Display, sans-serif'} key={8}/>,
     ]);
@@ -92,9 +92,9 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     const currentWalletAddress = wallets[thirdIndex]?.address ?? '';
 
     const ungrouped = [
-      ...getLineItemsForWalletOnMonth(props.budgetStatements, firstMonth, currentWalletAddress),
-      ...getLineItemsForWalletOnMonth(props.budgetStatements, secondMonth, currentWalletAddress),
-      ...getLineItemsForWalletOnMonth(props.budgetStatements, thirdMonth, currentWalletAddress),
+      ...getLineItemsForWalletOnMonth(props.budgetStatements, props.currentMonth, firstMonth, currentWalletAddress),
+      ...getLineItemsForWalletOnMonth(props.budgetStatements, props.currentMonth, secondMonth, currentWalletAddress),
+      ...getLineItemsForWalletOnMonth(props.budgetStatements, props.currentMonth, thirdMonth, currentWalletAddress),
     ];
 
     result.push([
@@ -139,8 +139,8 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
       <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}><b>{getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, secondMonth).toLocaleString()}</b></TableCell>,
       <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}><b>{getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, thirdMonth).toLocaleString()}</b></TableCell>,
       <TableCell fontFamily={'SF Pro Display, sans-serif'} key={5}><b>{getForecastSumOfMonthsOnWallet(props.budgetStatements, currentWalletAddress, props.currentMonth, [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</b></TableCell>,
-      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={6}><b>{getBudgetCapForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth).toLocaleString()}</b></TableCell>,
-      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={7}><b>{getBudgetCapSumOfMonthsOnWallet(props.budgetStatements, currentWalletAddress, [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</b></TableCell>,
+      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={6}><b>{getBudgetCapForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, props.currentMonth).toLocaleString()}</b></TableCell>,
+      <TableCell fontFamily={'SF Pro Display, sans-serif'} key={7}><b>{getBudgetCapSumOfMonthsOnWallet(props.budgetStatements, currentWalletAddress, props.currentMonth, [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</b></TableCell>,
     ]);
 
     return result;
