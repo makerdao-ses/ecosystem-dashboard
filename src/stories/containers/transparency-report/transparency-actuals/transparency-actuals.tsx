@@ -34,13 +34,14 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     getGroupActual,
     getGroupDifference,
     getCommentsFromCategory,
-    breakdownHeaders
+    breakdownHeaders,
+    wallets
   } = useTransparencyActualsMvvm(thirdIndex, setThirdIndex, props.currentMonth, props.budgetStatements);
 
   const mainTableItems = useMemo(() => {
     const result: JSX.Element[][] = [];
     if (currentBudgetStatement) {
-      currentBudgetStatement.budgetStatementWallet?.forEach(wallet => {
+      wallets.forEach(wallet => {
         result.push([
           <WalletTableCell key={1} name={wallet.name} wallet={formatAddressForOutput(wallet.address)}/>,
           <TableCell key={2}>{Math.abs(getWalletForecast(wallet)).toLocaleString()}</TableCell>,
@@ -84,23 +85,23 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
 
   const breakdownTableItems = useMemo(() => {
     const result: JSX.Element[][] = [];
-    if (!currentBudgetStatement?.budgetStatementWallet?.length) {
+    if (!wallets) {
       return result;
     }
 
-    const currentWallet = currentBudgetStatement?.budgetStatementWallet[thirdIndex];
+    const currentWallet = wallets[thirdIndex];
 
     result.push([
       <TableCell key={1}><b>Headcount Expenses Subtotal</b></TableCell>,
     ]);
 
-    addBreakdownItemsToArray(result, currentWallet.budgetStatementLineItem.filter(item => item.headcountExpense));
+    addBreakdownItemsToArray(result, currentWallet?.budgetStatementLineItem?.filter(item => item.headcountExpense));
 
     result.push([
       <TableCell key={1}><b>Non-Headcount Expenses Subtotal</b></TableCell>,
     ]);
 
-    addBreakdownItemsToArray(result, currentWallet.budgetStatementLineItem.filter(item => !item.headcountExpense));
+    addBreakdownItemsToArray(result, currentWallet?.budgetStatementLineItem?.filter(item => !item.headcountExpense));
 
     result.push([
       <TableCell key={1}><b>Total</b></TableCell>,
