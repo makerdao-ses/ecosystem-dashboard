@@ -10,6 +10,24 @@ import { DateTime } from 'luxon';
 export const useTransparencyActualsMvvm = (thirdIndex: number, setThirdIndex: (index: number) => void, propsCurrentMonth: DateTime, budgetStatements?: BudgetStatementDto[]) => {
   const currentMonth = useMemo(() => propsCurrentMonth.toFormat('yyyy-MM-01'), [propsCurrentMonth]);
 
+  const wallets: BudgetStatementWalletDto[] = useMemo(() => {
+    const dict: {[id: string]: BudgetStatementWalletDto} = {};
+
+    const budgetStatement = budgetStatements?.find(bs => bs.month === propsCurrentMonth.toFormat('yyyy-MM-01'));
+
+    if (!budgetStatement || !budgetStatement.budgetStatementWallet) return [];
+
+    budgetStatement.budgetStatementWallet.forEach(wallet => {
+      if (wallet.address) {
+        if (!dict[wallet.address.toLowerCase()]) {
+          dict[wallet.address.toLowerCase()] = wallet;
+        }
+      }
+    });
+
+    return Object.values(dict);
+  }, [propsCurrentMonth, budgetStatements]);
+
   const getWalletForecast = (wallet: BudgetStatementWalletDto) => {
     return _.sumBy(wallet?.budgetStatementLineItem.filter(item => item.month === currentMonth), i => i.forecast ?? 0);
   };
@@ -28,7 +46,7 @@ export const useTransparencyActualsMvvm = (thirdIndex: number, setThirdIndex: (i
   }, [propsCurrentMonth]);
 
   const breakdownHeaders = useMemo(() => {
-    return currentBudgetStatement?.budgetStatementWallet?.map(wallet => wallet.name);
+    return wallets.map(wallet => wallet.name);
   }, [currentBudgetStatement]);
 
   const budgetTotalForecast = useMemo(() => {
@@ -71,6 +89,7 @@ export const useTransparencyActualsMvvm = (thirdIndex: number, setThirdIndex: (i
     getGroupActual,
     getGroupDifference,
     getCommentsFromCategory,
-    breakdownHeaders
+    breakdownHeaders,
+    wallets
   };
 };
