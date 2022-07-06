@@ -97,7 +97,7 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetSt
   };
 
   const getForecastSumForMonth = (budgetStatements: BudgetStatementDto[], currentMonth: DateTime, month: DateTime) => {
-    const budgetStatement = budgetStatements.find(x => x.month === currentMonth.toFormat(API_MONTH_FORMAT)) ?? null;
+    const budgetStatement = budgetStatements?.find(x => x.month === currentMonth.toFormat(API_MONTH_FORMAT)) ?? null;
 
     return _.sumBy(budgetStatement?.budgetStatementWallet, wallet => _.sumBy(wallet?.budgetStatementLineItem?.filter(item => item.month === month.toFormat(API_MONTH_FORMAT)), item => item.forecast ?? 0));
   };
@@ -113,7 +113,7 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetSt
   };
 
   const getBudgetCapForMonthOnBudgetStatement = (budgetStatements: BudgetStatementDto[], currentMonth: DateTime, month: DateTime) => {
-    const budgetStatement = budgetStatements.find(x => x.month === currentMonth.toFormat(API_MONTH_FORMAT)) ?? null;
+    const budgetStatement = budgetStatements?.find(x => x.month === currentMonth.toFormat(API_MONTH_FORMAT)) ?? null;
 
     return _.sumBy(budgetStatement?.budgetStatementWallet, wallet => _.sumBy(wallet?.budgetStatementLineItem?.filter(item => item.month === month.toFormat(API_MONTH_FORMAT)), item => item.budgetCap ?? 0));
   };

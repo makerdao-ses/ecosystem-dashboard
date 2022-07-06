@@ -35,6 +35,7 @@ export const CORE_UNIT_REQUEST = (code: string) => ({
           budgetStatementWallet {
             name
             address
+            currentBalance
             budgetStatementLineItem {
               actual
               forecast
@@ -44,6 +45,15 @@ export const CORE_UNIT_REQUEST = (code: string) => ({
               month
               budgetCap
             }
+            budgetStatementTransferRequest {
+              requestAmount
+            }
+          }
+          budgetStatementMKRVest {
+            mkrAmount
+            mkrAmountOld
+            vestingDate
+            comments
           }
         }
       }

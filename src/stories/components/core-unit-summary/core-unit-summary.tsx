@@ -40,14 +40,15 @@ export const CoreUnitSummary = (props: CoreUnitSummaryProps) => {
           <Title>{props.title}</Title>
           <StatusChip status={props.status} style={{
             marginRight: '4px',
-            marginLeft: '24px'
+            marginLeft: '24px',
+            marginBottom: '2px',
           }}/>
-          {props.statusModified && <CustomLink href={props.mipUrl}>
-            {`Since ${DateTime.fromFormat(props.statusModified, 'yyyy-MM-dd').toFormat('d-MMM-y').toUpperCase()}`}
+          {props.statusModified && <CustomLink href={props.mipUrl} style={{ marginBottom: '5px' }}>
+            {`SINCE ${DateTime.fromFormat(props.statusModified, 'yyyy-MM-dd').toFormat('d-MMM-y').toUpperCase()}`}
           </CustomLink>}
           <Separator/>
           <LinksWrapper>
-            <CuTableColumnLinks spacingsLeft={29} links={props.links} fill={'#708390'}/>
+            <CuTableColumnLinks spacingsLeft={22} links={props.links} fill={'#708390'}/>
           </LinksWrapper>
         </TitleWrapper>
         <Categories>
@@ -88,7 +89,7 @@ const Data = styled.div({
 const TitleWrapper = styled.div({
   display: 'flex',
   marginBottom: '16px',
-  alignItems: 'center',
+  alignItems: 'flex-end',
 });
 
 const Categories = styled.div({
