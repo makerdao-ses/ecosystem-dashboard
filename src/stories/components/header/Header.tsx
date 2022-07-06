@@ -9,6 +9,8 @@ import { useRouter } from 'next/router';
 import ThemeSwitcherButton from '../button/switch-button/switch-buttom';
 import { ThemeMode } from '../../../core/context/ThemeContext';
 import EXPENSES from '../svg/expenses';
+import { CustomLink } from '../custom-link/custom-link';
+import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
 
 interface Props {
   menuItems: MenuType[];
@@ -57,6 +59,20 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
               {title}
             </ItemMenuStyle>);
           })}
+          <CustomLink children='How to Submit Expenses'
+            fontWeight={500}
+            fontSize={16}
+            style={{
+              fontFamily: 'SF Pro Display, sans serif',
+              color: '#447AFB',
+              fontStyle: 'normal',
+              lineHeight: '19px',
+              letterSpacing: '0.3px'
+            }}
+            marginLeft='7px'
+            target={HOW_TO_SUBMIT_EXPENSES}
+            withArrow
+          />
         </Navigation>
       </LeftPart>
       <RightPart>
