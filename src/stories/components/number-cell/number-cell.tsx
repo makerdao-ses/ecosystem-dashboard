@@ -1,18 +1,18 @@
 import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
 
-interface TableCellProps {
+interface NumberCellProps {
   negative?: boolean;
   children?: string | JSX.Element | JSX.Element[];
   style?: CSSProperties;
   fontFamily?: string;
 }
 
-export const TableCell = (props: TableCellProps) => {
+export const NumberCell = (props: NumberCellProps) => {
   return <Container fontFamily={props.fontFamily} style={props.style} negative={props.negative}>{props.children}</Container>;
 };
 
-const Container = styled.div<{ negative?: boolean, fontFamily?: string}>(({ negative = false, fontFamily = 'FT Base, sans-serif' }) => ({
+const Container = styled.div<{ negative?: boolean, fontFamily?: string}>(({ negative = false, fontFamily = 'SF Pro Display, sans-serif' }) => ({
   fontFamily,
   fontWeight: 400,
   fontSize: 16,
