@@ -198,6 +198,7 @@ const ContainerLinks = styled.div({
   justifyContent: 'flex-start',
   alignItems: 'flex-end',
   height: '68px',
+  marginRight: '6px',
 });
 
 const CircleContainer = styled.div({

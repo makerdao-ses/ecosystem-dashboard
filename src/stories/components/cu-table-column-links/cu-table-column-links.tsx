@@ -94,7 +94,12 @@ const LinkImage = styled.a({
 
 const StyleBox = styled(Box)<{ lastChild?: boolean }>((props) => ({
   '&:last-child': props.lastChild && {
-    marginRight: '6px',
+    marginRight: '0px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     width: 19,
+    height: 19,
+
   },
 }));
