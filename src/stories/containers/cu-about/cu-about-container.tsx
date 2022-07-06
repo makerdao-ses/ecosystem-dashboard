@@ -123,17 +123,19 @@ const CuAboutContainer = () => {
         backgroundImage: 'url(/assets/img/Subheader.png)',
         backgroundSize: 'cover',
         zIndex: 4,
+        borderBottom: hiddenTextDescription ? '1px solid #B6EDE7' : 'none',
+        paddingBottom: hiddenTextDescription ? '24px' : '32px',
       }}>
         <NavigationHeader>
           <BreadCrumb count={filteredData.length} breadcrumbs={[cuAbout.name] || []} isCoreUnit />
           <InsidePagination count={filteredData.length} page={page} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} />
         </NavigationHeader>
-        <ContainerTitle stateHidden={hiddenTextDescription}>
+        <Wrapper> <ContainerTitle>
           <TitleNavigationCuAbout coreUnitAbout={cuAbout} />
           {hiddenTextDescription && <Typography fontSize={16} lineHeight='19px' color='#231536' fontFamily={'FT Base, sans-serif'} sx={{
             marginTop: '16px',
           }}>{cuAbout.sentenceDescription || ''}</Typography>}
-        </ContainerTitle>
+        </ContainerTitle>  </Wrapper>
       </div>
       <Wrapper>
         <ContainerAllData>
@@ -238,10 +240,8 @@ const ContainerTitle = styled.div<{ stateHidden?: boolean }>((props) => ({
   flexDirection: 'column',
   paddingLeft: '128px',
   paddingRight: '128px',
-  paddingBottom: props.stateHidden ? '24px' : '32px',
   height: props.stateHidden ? '135px' : '108px',
-  borderBottom: props.stateHidden ? '1px solid #B6EDE7' : 'none',
-  paddingTop: '8px'
+  paddingTop: '8px',
 }));
 
 const MarkdownContainer = styled.div({
