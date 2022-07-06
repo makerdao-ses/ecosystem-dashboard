@@ -30,14 +30,13 @@ export const TransparencyReport = () => {
 
   const cu = data && data.coreUnit[0] as CoreUnitDto;
 
-  const secondIndex = 1;
   const [thirdIndex, setThirdIndex] = useState(0);
 
   const [currentMonth, setCurrentMonth] = useState(DateTime.now());
 
   return <Container>
     <BreadcrumbWrapper>
-      <Breadcrumbs items={[<>Core Units <b>(3)</b></>, 'SES - Sustainable Ecosystem Scaling', 'Finances']}/>
+      <Breadcrumbs items={[<>Core Units <b>(3)</b></>, 'SES - Sustainable Ecosystem Scaling', 'Expense Reports']} />
       <CustomPager
         label={<BreadcrumbPagerLabel><b>1</b> of 3 Core Units </BreadcrumbPagerLabel>}
       />
@@ -55,15 +54,7 @@ export const TransparencyReport = () => {
       />}
     </SummaryWrapper>
     <InnerPage>
-      <Tabs
-        items={['Overview', 'Transparency Reports', 'Onchain Setup', 'Budget Governance']}
-        currentIndex={secondIndex}
-        style={{
-          marginBottom: '64px',
-          flex: '0'
-        }}
-      />
-      <Title>Transparency Reports</Title>
+      <Title>Expense Reports</Title>
 
       <Paragraph>
         Every month, the SES Core Unit submits a transparency report
@@ -76,10 +67,10 @@ export const TransparencyReport = () => {
       <PagerBar>
         <CustomPager
           label={currentMonth.toFormat('MMM yyyy')}
-          onPrev={() => setCurrentMonth(currentMonth.minus({ month: 1 })) }
-          onNext={() => setCurrentMonth(currentMonth.plus({ month: 1 })) }
+          onPrev={() => setCurrentMonth(currentMonth.minus({ month: 1 }))}
+          onNext={() => setCurrentMonth(currentMonth.plus({ month: 1 }))}
         />
-        <Spacer/>
+        <Spacer />
         <StatusTitle>Status</StatusTitle>
         <StatusValue>FINAL</StatusValue>
       </PagerBar>
@@ -101,11 +92,11 @@ export const TransparencyReport = () => {
           margin: '32px 0',
         }}
       />
-    {thirdIndex === 0 && <TransparencyActuals currentMonth={currentMonth} budgetStatements={cu?.budgetStatements} />}
-    {thirdIndex === 1 && <TransparencyForecast currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>}
-    {thirdIndex === 2 && <TransparencyMkrVesting currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>}
-    {thirdIndex === 3 && <TransparencyTransferRequest currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>}
-    {thirdIndex === 4 && <TransparencyAudit/>}
+      {thirdIndex === 0 && <TransparencyActuals currentMonth={currentMonth} budgetStatements={cu?.budgetStatements} />}
+      {thirdIndex === 1 && <TransparencyForecast currentMonth={currentMonth} budgetStatements={cu?.budgetStatements} />}
+      {thirdIndex === 2 && <TransparencyMkrVesting currentMonth={currentMonth} budgetStatements={cu?.budgetStatements} />}
+      {thirdIndex === 3 && <TransparencyTransferRequest currentMonth={currentMonth} budgetStatements={cu?.budgetStatements} />}
+      {thirdIndex === 4 && <TransparencyAudit />}
     </InnerPage>
   </Container>;
 };
@@ -132,6 +123,7 @@ const InnerPage = styled.div({
 export const Title = styled.div<{ marginBottom?: number }>(({ marginBottom = 16 }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontWeight: 500,
+  fontStyle: 'normal',
   fontSize: '20px',
   lineHeight: '24px',
   letterSpacing: '0.4px',

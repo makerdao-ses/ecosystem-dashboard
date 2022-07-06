@@ -163,7 +163,7 @@ export const CuTable = () => {
   return <ContainerHome>
     <Wrapper>
       <Header>
-        <Title>Core Units</Title>
+        <Title>Core Units Expenses</Title>
         <CustomButton
           label="Reset Filters"
           style={{
@@ -255,6 +255,7 @@ const Title = styled.div({
   fontFamily: 'FT Base, sans-serif',
   fontSize: '24px',
   fontWeight: 500,
+  lineHeight: '29px',
   letterSpacing: '0.4px',
   flex: 1,
   color: '#231536'

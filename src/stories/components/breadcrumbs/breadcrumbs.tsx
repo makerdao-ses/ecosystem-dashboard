@@ -26,7 +26,7 @@ const Container = styled.div({
 
 const Crumb = styled.div((props: { first:boolean, last: boolean }) => ({
   fontFamily: 'FT Base, sans-serif',
-  fontWeight: 400,
+  fontWeight: 500,
   fontSize: '16px',
   lineHeight: '19px',
   textAlign: 'center',
