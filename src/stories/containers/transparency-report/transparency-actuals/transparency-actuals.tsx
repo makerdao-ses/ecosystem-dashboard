@@ -136,7 +136,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       items={mainTableItems}
       headersAlign={['left', 'right', 'right', 'right', 'right', 'left']}
       minWidth={120}
-      headerWidths={['210px', 'unset', 'unset', 'unset', 'unset', '30%']}
+      headerWidths={['234px', '160px', '160px', '160px', '160px', '310px']}
       style={{ marginBottom: '64px' }}
       />
     </>}
@@ -161,7 +161,9 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         headers={['Budget Category', 'Forecast', 'Actuals', 'Difference', 'Diff. Reason', 'Payments']}
         items={breakdownTableItems}
         style={{ marginBottom: '64px' }}
+        headerWidths={['260px', '160px', '160px', '160px', '286px', '158px']}
         headersAlign={['left', 'right', 'right', 'right', 'left', 'right']}
+        minWidth={100}
       />
     </>}
   </Container>;

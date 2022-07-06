@@ -177,7 +177,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
       items={forecastTableItems}
       minWidth={80}
       headersAlign={['left', 'right', 'right', 'right', 'right', 'right', 'right', 'left']}
-      headerWidths={['unset', 'unset', 'unset', 'unset', 'unset', 'unset', 'unset', '224px']}
+      headerWidths={['190px', '105px', '105px', '105px', '116px', '140px', '200px', '224px']}
       headerStyles={[{}, {}, {}, {}, { paddingLeft: 0 }, { paddingLeft: 0 }, { paddingLeft: 0 }, {}]}
       style={{ marginBottom: '64px' }}
     />
@@ -202,6 +202,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
         items={breakdownItems}
         style={{ marginBottom: '64px' }}
         minWidth={80}
+        headerWidths={['260px', '141px', '141px', '141px', '116px', '141px', '241px', '219px']}
         headersAlign={['left', 'right', 'right', 'right', 'right', 'right', 'right']}
     />
   </Container>;
