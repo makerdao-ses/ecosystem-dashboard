@@ -170,7 +170,8 @@ const TypographySES = styled(Typography)({
   fontWeight: 500,
   fontSize: '24px',
   lineHeight: '29px',
-  color: '#9FAFB9'
+  color: '#9FAFB9',
+  fontFamily: 'FT Base, sans-serif',
 });
 
 const Row = styled.div({

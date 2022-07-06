@@ -15,7 +15,7 @@ const BreadCrumb = ({ isCoreUnit = false, count, breadcrumbs }: Props) => {
   return (
     <Stack spacing={2}>
       <BreadcrumbsStyle separator={<BreadcrumbSeparator />} aria-label="breadcrumb">
-        {isCoreUnit && <Typography key="1" color='#708390'>
+        {isCoreUnit && <Typography key="1" color='#708390' fontFamily={'FT Base, sans-serif'}>
           {`Core Units (${count})`}
         </Typography>}
 
@@ -49,6 +49,7 @@ const TypographyStyle = styled(Typography)({
   lineHeight: '19px',
   letterSpacing: '0.4px',
   color: ' #708390',
+  fontFamily: 'FT Base, sans-serif'
 });
 
 export default BreadCrumb;

@@ -130,7 +130,7 @@ const CuAboutContainer = () => {
         </NavigationHeader>
         <ContainerTitle stateHidden={hiddenTextDescription}>
           <TitleNavigationCuAbout coreUnitAbout={cuAbout} />
-          {hiddenTextDescription && <Typography fontSize={16} lineHeight='19px' color='#231536' sx={{
+          {hiddenTextDescription && <Typography fontSize={16} lineHeight='19px' color='#231536' fontFamily={'FT Base, sans-serif'} sx={{
             marginTop: '16px',
           }}>{cuAbout.sentenceDescription || ''}</Typography>}
         </ContainerTitle>
@@ -261,6 +261,7 @@ const TeamMemberTitle = styled(Typography)({
   lineHeight: '19px',
   marginRight: '8px',
   color: '#231536',
+  fontFamily: 'FT Base, sans-serif'
 });
 
 const ContactInfoContainer = styled.div({
@@ -278,6 +279,7 @@ const ContactInfoTitle = styled(Typography)({
   lineHeight: '19px',
   color: '#231536',
   marginBottom: '32px',
+  fontFamily: 'FT Base, sans-serif'
 });
 
 const ContainerCards = styled.div({
