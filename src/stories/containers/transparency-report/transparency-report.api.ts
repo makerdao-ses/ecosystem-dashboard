@@ -35,6 +35,7 @@ export const CORE_UNIT_REQUEST = (code: string) => ({
           budgetStatementWallet {
             name
             address
+            currentBalance
             budgetStatementLineItem {
               actual
               forecast
@@ -43,6 +44,9 @@ export const CORE_UNIT_REQUEST = (code: string) => ({
               comments
               month
               budgetCap
+            }
+            budgetStatementTransferRequest {
+              requestAmount
             }
           }
         }

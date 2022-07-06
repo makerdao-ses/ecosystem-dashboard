@@ -1,23 +1,58 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { WalletTableCell } from '../../../components/wallet-table-cell/wallet-table-cell';
 import { TableCell } from '../../../components/table-cell/table-cell';
 import { CustomLink } from '../../../components/custom-link/custom-link';
 import { InnerTable } from '../../../components/inner-table/inner-table';
 import styled from '@emotion/styled';
 import { NumberCell } from '../../../components/number-cell/number-cell';
+import { DateTime } from 'luxon';
+import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
+import { useTransparencyForecastMvvm } from '../transparency-forecast/transparency-forecast.mvvm';
+import { useTransparencyTransferRequestMvvm } from './transparency-transfer-request.mvvm';
+import { formatAddressForOutput } from '../../../../core/utils/string.utils';
 
-const firstTableItems = [
-  [<WalletTableCell key={1} name={'Permanent Team'} wallet={'0x232b…8482'}/>, <NumberCell key={1}>134,468</NumberCell>, <NumberCell key={1}>1,571</NumberCell>, <NumberCell key={1}>138,754</NumberCell>, <NumberCell key={1}><CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={'#'} style={{ marginRight: '16px' }}>Etherscan</CustomLink><CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={'#'}>Gnosis</CustomLink></NumberCell>],
-  [<WalletTableCell key={1} name={'Incubation Program'} wallet={'0x232b…8482'}/>, <NumberCell key={1}>134,468</NumberCell>, <NumberCell key={1} negative>5,571</NumberCell>, <NumberCell key={1}>138,754</NumberCell>, <NumberCell key={1}><CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={'#'} style={{ marginRight: '16px' }}>Etherscan</CustomLink><CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={'#'}>Gnosis</CustomLink></NumberCell>],
-  [<WalletTableCell key={1} name={'Grants Program'} wallet={'0x232b…8482'}/>, <NumberCell key={1}>134,468</NumberCell>, <NumberCell key={1}>1,571</NumberCell>, <NumberCell key={1}>138,754</NumberCell>, <NumberCell key={1}><CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={'#'} style={{ marginRight: '16px' }}>Etherscan</CustomLink><CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={'#'}>Gnosis</CustomLink></NumberCell>],
-  [<TableCell key={1}><b>Total</b></TableCell>, <NumberCell key={2}><b>260,344</b></NumberCell>, <NumberCell key={4}><b>260,344</b></NumberCell>, <NumberCell key={5}><b>260,344</b></NumberCell>, <NumberCell key={6}/>]
-];
+interface TransparencyTransferRequestProps {
+  currentMonth: DateTime;
+  budgetStatements: BudgetStatementDto[];
+}
 
-export const TransparencyTransferRequest = () => {
+export const TransparencyTransferRequest = (props: TransparencyTransferRequestProps) => {
+  const {
+    firstMonth,
+    secondMonth,
+    thirdMonth,
+    getForecastSumOfMonthsOnWallet,
+    wallets
+  } = useTransparencyForecastMvvm(props.currentMonth, props.budgetStatements);
+
+  const {
+    getCurrentBalanceForMonthOnWallet,
+    getTransferRequestForMonthOnWallet
+  } = useTransparencyTransferRequestMvvm(props.currentMonth, props.budgetStatements);
+
+  const mainItems = useMemo(() => {
+    const result: JSX.Element[][] = [];
+
+    wallets.forEach(wallet => {
+      result.push([
+        <WalletTableCell wallet={formatAddressForOutput(wallet?.address ?? '')} name={wallet.name} key={1}/>,
+        <NumberCell key={2}>{getForecastSumOfMonthsOnWallet(props.budgetStatements, wallet?.address, props.currentMonth, [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</NumberCell>,
+        <NumberCell key={3}>{getCurrentBalanceForMonthOnWallet(wallet?.address).toLocaleString()}</NumberCell>,
+        <NumberCell key={4}>{getTransferRequestForMonthOnWallet(wallet?.address).toLocaleString()}</NumberCell>,
+        <TableCell key={5}>
+          <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://etherscan.io/address/${wallet.address}`} style={{ marginRight: '16px' }}>Etherscan</CustomLink>
+          <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://gnosis-safe.io/app/eth:${wallet.address}`}>Gnosis</CustomLink>
+        </TableCell>,
+      ]);
+    });
+
+    return result;
+  }, [props.currentMonth, props.budgetStatements]);
+
   return <Container>
     <InnerTable
       headers={['Wallet', '3 Month Forecast', 'current Balance', 'Transfer Request', 'Multi Sig Address']}
-      items={firstTableItems}
+      items={mainItems}
       headersAlign={['left', 'right', 'right', 'right', 'left']}
       headerWidths={['200px', '210px', '210px', '210px', '354px']}
       style={{ marginBottom: '64px' }}

@@ -57,10 +57,16 @@ export interface BudgetStatementLineItemDto {
   budgetCap?: number;
 }
 
+export interface BudgetStatementWalletTransferRequestDto {
+  requestAmount: number;
+}
+
 export interface BudgetStatementWalletDto {
   name: string;
   address?: string;
+  currentBalance?: number;
   budgetStatementLineItem: BudgetStatementLineItemDto[];
+  budgetStatementTransferRequest?: BudgetStatementWalletTransferRequestDto[]
 }
 
 export interface BudgetStatementDto {
