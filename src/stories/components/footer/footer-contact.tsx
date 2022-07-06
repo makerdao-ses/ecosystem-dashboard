@@ -52,7 +52,7 @@ const StyleDescription = styled(Typography)({
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '16px',
-  lineHeight: '19px',
+  lineHeight: '19.2px',
   color: '#333333',
   letterSpacing: '0.4px',
 });
