@@ -103,7 +103,7 @@ export const TransparencyReport = () => {
       />
     {thirdIndex === 0 && <TransparencyActuals currentMonth={currentMonth} budgetStatements={cu?.budgetStatements} />}
     {thirdIndex === 1 && <TransparencyForecast currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>}
-    {thirdIndex === 2 && <TransparencyMkrVesting/>}
+    {thirdIndex === 2 && <TransparencyMkrVesting currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>}
     {thirdIndex === 3 && <TransparencyTransferRequest currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>}
     {thirdIndex === 4 && <TransparencyAudit/>}
     </InnerPage>

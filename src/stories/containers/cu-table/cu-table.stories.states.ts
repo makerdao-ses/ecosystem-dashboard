@@ -39,7 +39,7 @@ export const initialState = {
           .withMonth(CURRENT_MINUS_1_MONTH)
           .addBudgetStatementWallet(
             (new BudgetStatementWalletBuilder())
-              .withLineItems([1200, 100, 400])
+              .withLineItems([1200, 100, 400], CURRENT_MINUS_1_MONTH)
               .build()
           )
           .addBudgetStatementFTE(
@@ -55,7 +55,7 @@ export const initialState = {
           .withMonth(CURRENT_MINUS_2_MONTH)
           .addBudgetStatementWallet(
             (new BudgetStatementWalletBuilder())
-              .withLineItems([900, 100, 100])
+              .withLineItems([900, 100, 100], CURRENT_MINUS_2_MONTH)
               .build()
           )
           .build()
@@ -65,7 +65,7 @@ export const initialState = {
           .withMonth(CURRENT_MINUS_3_MONTH)
           .addBudgetStatementWallet(
             (new BudgetStatementWalletBuilder())
-              .withLineItems([200, 300, 100])
+              .withLineItems([200, 300, 100], CURRENT_MINUS_3_MONTH)
               .build()
           )
           .build()
@@ -119,7 +119,7 @@ export const initialState = {
           .withMonth(CURRENT_MINUS_1_MONTH)
           .addBudgetStatementWallet(
             (new BudgetStatementWalletBuilder())
-              .withLineItems([200, 100, 400])
+              .withLineItems([200, 100, 400], CURRENT_MINUS_1_MONTH)
               .build()
           )
           .addBudgetStatementFTE(
@@ -135,7 +135,7 @@ export const initialState = {
           .withMonth(CURRENT_MINUS_2_MONTH)
           .addBudgetStatementWallet(
             (new BudgetStatementWalletBuilder())
-              .withLineItems([1000, 100, 100])
+              .withLineItems([1000, 100, 100], CURRENT_MINUS_2_MONTH)
               .build()
           )
           .build()
@@ -189,7 +189,7 @@ export const initialState = {
           .withMonth(CURRENT_MINUS_1_MONTH)
           .addBudgetStatementWallet(
             (new BudgetStatementWalletBuilder())
-              .withLineItems([500, 100, 400])
+              .withLineItems([500, 100, 400], CURRENT_MINUS_1_MONTH)
               .build()
           )
           .addBudgetStatementFTE(
@@ -205,7 +205,7 @@ export const initialState = {
           .withMonth(CURRENT_MINUS_3_MONTH)
           .addBudgetStatementWallet(
             (new BudgetStatementWalletBuilder())
-              .withLineItems([100, 100, 100])
+              .withLineItems([100, 100, 100], CURRENT_MINUS_3_MONTH)
               .build()
           )
           .build()
@@ -246,7 +246,7 @@ export const initialState = {
           .withMonth(CURRENT_MINUS_1_MONTH)
           .addBudgetStatementWallet(
             (new BudgetStatementWalletBuilder())
-              .withLineItems([1200, 100, 400])
+              .withLineItems([1200, 100, 400], CURRENT_MINUS_1_MONTH)
               .build()
           )
           .addBudgetStatementFTE(
@@ -311,7 +311,7 @@ export const initialState = {
           .withMonth(CURRENT_MINUS_2_MONTH)
           .addBudgetStatementWallet(
             (new BudgetStatementWalletBuilder())
-              .withLineItems([400, 100, 400])
+              .withLineItems([400, 100, 400], CURRENT_MINUS_2_MONTH)
               .build()
           )
           .addBudgetStatementFTE(
@@ -364,7 +364,7 @@ export const initialState = {
           .withMonth(CURRENT_MINUS_3_MONTH)
           .addBudgetStatementWallet(
             (new BudgetStatementWalletBuilder())
-              .withLineItems([200, 100, 400])
+              .withLineItems([200, 100, 400], CURRENT_MINUS_3_MONTH)
               .build()
           )
           .addBudgetStatementFTE(

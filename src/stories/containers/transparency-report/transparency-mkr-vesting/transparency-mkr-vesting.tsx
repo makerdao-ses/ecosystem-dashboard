@@ -3,6 +3,8 @@ import styled from '@emotion/styled';
 import { Title } from '../transparency-report';
 import { InnerTable } from '../../../components/inner-table/inner-table';
 import { TableCell } from '../../../components/table-cell/table-cell';
+import { DateTime } from 'luxon';
+import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 
 const tableItems = [
   [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, ''],
@@ -20,7 +22,12 @@ const tableItems = [
   [<TableCell key={1}><b>Total</b></TableCell>, <TableCell key={2}><b>1,666.71 MKR</b></TableCell>, <TableCell key={3}><b>1,666.71 MKR</b></TableCell>, <TableCell key={4}><b>0</b></TableCell>, ''],
 ];
 
-export const TransparencyMkrVesting = () => {
+interface TransparencyMkrVestingProps {
+  currentMonth: DateTime;
+  budgetStatements: BudgetStatementDto[];
+}
+
+export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
   return <Container>
     <Title marginBottom={32}>MKR Vesting Overview</Title>
     <TotalFte>
