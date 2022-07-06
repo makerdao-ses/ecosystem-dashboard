@@ -33,7 +33,7 @@ export const TransparencyMkrVesting = () => {
       headerStyles={[{}, {}, {}, {}, { paddingLeft: '38px' }]}
       items={tableItems}
       minWidth={200}
-      headerWidths={['200px', '200px', '200px', '200px', '99%']}
+      headerWidths={['200px', '210px', '210px', '210px', '354px']}
       style={{ marginBottom: '32px' }}
     />
     <Text>
