@@ -3,12 +3,12 @@ import styled from '@emotion/styled';
 import Logo from '../svg/logo';
 import { useTheme } from '@mui/material';
 import SelectLink from './select-link-website/select-link';
-import Dashboard from '../svg/dash-board';
 import { WebSiteLinks } from './select-link-website/menu-items';
 import { MenuType } from './menu-items';
 import { useRouter } from 'next/router';
 import ThemeSwitcherButton from '../button/switch-button/switch-buttom';
 import { ThemeMode } from '../../../core/context/ThemeContext';
+import EXPENSES from '../svg/expenses';
 
 interface Props {
   menuItems: MenuType[];
@@ -35,7 +35,7 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
           <LogoContainer>
             <Logo fill={themeMode === 'dark' ? '#6EDBD0' : '#211634'} />
           </LogoContainer>
-          <Dashboard fill={themeMode === 'dark' ? '#6EDBD0' : '#211634'} />
+          <EXPENSES fill={themeMode === 'dark' ? '#6EDBD0' : '#211634'} />
           <SelectLink links={links} onClick={onClick} fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'} background={themeMode === 'dark' ? '#31424E' : '#ECF1F3'} />
         </ContainerLogoSelect>
 
