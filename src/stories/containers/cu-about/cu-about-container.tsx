@@ -365,6 +365,8 @@ const ContainerScroll = styled.div({
   top: 240,
   paddingTop: '60px',
   height: '620px',
+  scrollbarWidth: 'none',
+  scrollbarColor: 'transparent',
   '&:: -webkit-scrollbar': {
     width: '0px',
     background: 'transparent',
