@@ -2,6 +2,7 @@ import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import { API_MONTH_FORMAT } from '../../../../core/utils/date.utils';
+import _ from 'lodash';
 
 export const useTransparencyMkrVesting = (currentMonth: DateTime, budgetStatements: BudgetStatementDto[]) => {
   const mkrVestings = useMemo(() => {
