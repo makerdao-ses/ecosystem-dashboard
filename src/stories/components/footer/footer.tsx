@@ -19,7 +19,10 @@ const Footer = ({ governesses, products, developer }: Props) => {
     }}>
       <ContainerImage />
       <ContainerFooter>
-        <ContainerColumOne ><FooterContact title='Contact MakerDAO' subtitle='Official Community Channels' logo={<Logo width={37} height={20}
+        <ContainerColumOne ><FooterContact title='Contact MakerDAO' subtitle='Official Community Channels' style={{
+          paddingLeft: '6px',
+          paddingRight: '6.3px',
+        }} logo={<Logo width={37} height={20}
         />} links={iconsContact} /></ContainerColumOne>
         <ContainerColumTwo> <DescriptionFooter title='Governance' children={governesses} style={{
         }} /></ContainerColumTwo>
@@ -29,7 +32,12 @@ const Footer = ({ governesses, products, developer }: Props) => {
         <ContainerColumFour> <DescriptionFooter title='Developer' children={developer} style={{
         }} /> </ContainerColumFour>
         <ContainerColumLast>
-          <FooterContact title='Contact MakerDAO SES for support' subtitle='Sustainable Ecosystem Scalling' logo={<SesLogo />} links={iconsSupport} />
+          <FooterContact title='Contact MakerDAO SES for support' subtitle='Sustainable Ecosystem Scalling' style={{
+            paddingLeft: '6.13px',
+            paddingRight: '6px',
+          }}
+            logo={<SesLogo />} links={iconsSupport}
+          />
         </ContainerColumLast>
       </ContainerFooter >
     </div >
@@ -58,9 +66,9 @@ const ContainerFooter = styled.footer({
   margin: '0px',
   minWidth: '0px',
   width: '100%',
-  paddingTop: '42.85px',
+  paddingTop: '40px',
   paddingLeft: '63.67px',
-  paddingRight: '64.23px',
+  paddingRight: '64.18px',
   paddingBottom: '54.81px',
 });
 const ContainerColumOne = styled.div({

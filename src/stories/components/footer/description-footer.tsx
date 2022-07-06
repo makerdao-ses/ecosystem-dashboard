@@ -20,13 +20,14 @@ const DescriptionFooter = ({ title, children, style = {} }: Props) => {
 };
 
 const StyleTitle = styled(Typography)({
-  color: '#000000',
+  color: '#231536',
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '15px',
   lineHeight: '18px',
   marginBottom: '16px',
+  letterSpacing: '0.4px'
 });
 
 const StyleChildren = styled(Typography)({
@@ -35,7 +36,7 @@ const StyleChildren = styled(Typography)({
   fontWeight: 400,
   fontSize: '16px',
   lineHeight: '19.02px',
-  color: '#333333',
+  color: '#231536',
   marginBottom: '16px'
 });
 
