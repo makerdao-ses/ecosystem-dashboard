@@ -66,10 +66,10 @@ const ContainerFooter = styled.footer({
   margin: '0px',
   minWidth: '0px',
   width: '100%',
-  paddingTop: '40px',
-  paddingLeft: '63.67px',
-  paddingRight: '64.18px',
-  paddingBottom: '54.81px',
+  paddingTop: '40.07px',
+  paddingLeft: '63.77px',
+  paddingRight: '64.23px',
+  paddingBottom: '57.59px',
 });
 const ContainerColumOne = styled.div({
   width: '320.01px',
