@@ -1,26 +1,12 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
 import { Title } from '../transparency-report';
 import { InnerTable } from '../../../components/inner-table/inner-table';
 import { TableCell } from '../../../components/table-cell/table-cell';
 import { DateTime } from 'luxon';
 import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
-
-const tableItems = [
-  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, ''],
-  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, ''],
-  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, ''],
-  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, ''],
-  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, ''],
-  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, ''],
-  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, ''],
-  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, ''],
-  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, ''],
-  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, ''],
-  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, ''],
-  [<TableCell key={1}>01 - Jun - 2022</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={2}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={3}>427.07 MKR</TableCell>, <TableCell fontFamily={'SF Pro Display, sans-serif'} key={4}>0</TableCell>, ''],
-  [<TableCell key={1}><b>Total</b></TableCell>, <TableCell key={2}><b>1,666.71 MKR</b></TableCell>, <TableCell key={3}><b>1,666.71 MKR</b></TableCell>, <TableCell key={4}><b>0</b></TableCell>, ''],
-];
+import { useTransparencyMkrVesting } from './transparency-mkr-vesting.mvvm';
+import { NumberCell } from '../../../components/number-cell/number-cell';
 
 interface TransparencyMkrVestingProps {
   currentMonth: DateTime;
@@ -28,6 +14,36 @@ interface TransparencyMkrVestingProps {
 }
 
 export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
+  const {
+    mkrVestings,
+    totalAmount,
+    totalOldAmount
+  } = useTransparencyMkrVesting(props.currentMonth, props.budgetStatements);
+
+  const items = useMemo(() => {
+    const result: JSX.Element[][] = [];
+
+    mkrVestings?.forEach(mkr => {
+      result.push([
+        <TableCell>{mkr.vestingDate}</TableCell>,
+        <NumberCell>{mkr.mkrAmount?.toLocaleString()}</NumberCell>,
+        <NumberCell>{mkr.mkrAmountOld?.toLocaleString()}</NumberCell>,
+        <NumberCell>{(Number(mkr.mkrAmount) - Number(mkr.mkrAmountOld)).toLocaleString()}</NumberCell>,
+        <NumberCell>{mkr.comments}</NumberCell>,
+      ]);
+    });
+
+    result.push([
+      <TableCell><b>Total</b></TableCell>,
+      <NumberCell><b>{totalAmount.toLocaleString()}</b></NumberCell>,
+      <NumberCell><b>{totalOldAmount.toLocaleString()}</b></NumberCell>,
+      <NumberCell><b>{(Number(totalAmount) - Number(totalOldAmount)).toLocaleString()}</b></NumberCell>,
+      <NumberCell/>
+    ]);
+
+    return result;
+  }, [props.currentMonth, props.budgetStatements]);
+
   return <Container>
     <Title marginBottom={32}>MKR Vesting Overview</Title>
     <TotalFte>
@@ -38,7 +54,7 @@ export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
       headers={['Vesting Date', 'MKR Amount', 'Last month', 'difference', 'reason(s)']}
       headersAlign={['left', 'right', 'right', 'right', 'left']}
       headerStyles={[{}, {}, {}, {}, { paddingLeft: '38px' }]}
-      items={tableItems}
+      items={items}
       minWidth={200}
       headerWidths={['200px', '210px', '210px', '210px', '354px']}
       style={{ marginBottom: '32px' }}

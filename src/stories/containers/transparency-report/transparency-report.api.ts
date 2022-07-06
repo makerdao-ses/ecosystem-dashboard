@@ -49,6 +49,12 @@ export const CORE_UNIT_REQUEST = (code: string) => ({
               requestAmount
             }
           }
+          budgetStatementMKRVest {
+            mkrAmount
+            mkrAmountOld
+            vestingDate
+            comments
+          }
         }
       }
     }

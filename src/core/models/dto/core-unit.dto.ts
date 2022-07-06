@@ -69,11 +69,19 @@ export interface BudgetStatementWalletDto {
   budgetStatementTransferRequest?: BudgetStatementWalletTransferRequestDto[]
 }
 
+export interface BudgetStatementMKRVestDto {
+  mkrAmount: number;
+  mkrAmountOld: number;
+  vestingDate: string;
+  comments: string;
+}
+
 export interface BudgetStatementDto {
   month: string;
   budgetStatus: string;
   budgetStatementFTEs: BudgetStatementFteDto[];
-  budgetStatementWallet: BudgetStatementWalletDto[]
+  budgetStatementWallet: BudgetStatementWalletDto[];
+  budgetStatementMKRVest?: BudgetStatementMKRVestDto[];
 }
 
 export interface SocialMediaChannelDto {
