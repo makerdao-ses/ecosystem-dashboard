@@ -51,12 +51,12 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     wallets.forEach(wallet => {
       result.push([
           <WalletTableCell key={1} name={wallet.name} wallet={formatAddressForOutput(wallet.address ?? '')} address={wallet.address}/>,
-          <NumberCell key={2}>{getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, firstMonth).toLocaleString()}</NumberCell>,
-          <NumberCell key={3}>{getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, secondMonth).toLocaleString()}</NumberCell>,
-          <NumberCell key={4}>{getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, thirdMonth).toLocaleString()}</NumberCell>,
-          <NumberCell key={5}>{getForecastSumOfMonthsOnWallet(props.budgetStatements, wallet?.address, props.currentMonth, [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</NumberCell>,
-          <NumberCell key={6}>{getBudgetCapForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, props.currentMonth).toLocaleString()}</NumberCell>,
-          <NumberCell key={7}>{getBudgetCapSumOfMonthsOnWallet(props.budgetStatements, wallet?.address, props.currentMonth, [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</NumberCell>,
+          <NumberCell key={2} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, firstMonth)}/>,
+          <NumberCell key={3} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, secondMonth)}/>,
+          <NumberCell key={4} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, thirdMonth)}/>,
+          <NumberCell key={5} value={getForecastSumOfMonthsOnWallet(props.budgetStatements, wallet?.address, props.currentMonth, [firstMonth, secondMonth, thirdMonth])}/>,
+          <NumberCell key={6} value={getBudgetCapForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, props.currentMonth)}/>,
+          <NumberCell key={7} value={getBudgetCapSumOfMonthsOnWallet(props.budgetStatements, wallet?.address, props.currentMonth, [firstMonth, secondMonth, thirdMonth])}/>,
           <TableCell key={8}>
             <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://etherscan.io/address/${wallet.address}`} style={{ marginRight: '16px' }}>Etherscan</CustomLink>
             <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://gnosis-safe.io/app/eth:${wallet.address}`}>Gnosis</CustomLink>
@@ -66,13 +66,13 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
 
     result.push([
       <TableCell key={1}><b>Total</b></TableCell>,
-      <NumberCell key={2}><b>{getForecastSumForMonth(props.budgetStatements, props.currentMonth, firstMonth).toLocaleString()}</b></NumberCell>,
-      <NumberCell key={3}><b>{getForecastSumForMonth(props.budgetStatements, props.currentMonth, secondMonth).toLocaleString()}</b></NumberCell>,
-      <NumberCell key={4}><b>{getForecastSumForMonth(props.budgetStatements, props.currentMonth, thirdMonth).toLocaleString()}</b></NumberCell>,
-      <NumberCell key={5}><b>{getForecastSumForMonths(props.budgetStatements, props.currentMonth, [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</b></NumberCell>,
-      <NumberCell key={6}><b>{getBudgetCapForMonthOnBudgetStatement(props.budgetStatements, props.currentMonth, props.currentMonth).toLocaleString()}</b></NumberCell>,
-      <NumberCell key={7}><b>{getTotalQuarterlyBudgetCapOnBudgetStatement(props.budgetStatements, [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</b></NumberCell>,
-      <NumberCell key={8}/>,
+      <NumberCell key={2} value={getForecastSumForMonth(props.budgetStatements, props.currentMonth, firstMonth)} bold/>,
+      <NumberCell key={3} value={getForecastSumForMonth(props.budgetStatements, props.currentMonth, secondMonth)} bold/>,
+      <NumberCell key={4} value={getForecastSumForMonth(props.budgetStatements, props.currentMonth, thirdMonth)}/>,
+      <NumberCell key={5} value={getForecastSumForMonths(props.budgetStatements, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} bold/>,
+      <NumberCell key={6} value={getBudgetCapForMonthOnBudgetStatement(props.budgetStatements, props.currentMonth, props.currentMonth)} bold/>,
+      <NumberCell key={7} value={getTotalQuarterlyBudgetCapOnBudgetStatement(props.budgetStatements, [firstMonth, secondMonth, thirdMonth])} bold/>,
+      <TableCell key={8} />,
     ]);
 
     return result;
@@ -99,7 +99,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     ];
 
     result.push([
-      <TableCell key={1}><b>Headcount Expenses Subtotal</b></TableCell>,
+      <TableCell key={1}><b>Headcount Expenses</b></TableCell>,
     ]);
 
     const groupedHeadCount = _.groupBy(ungrouped.filter(x => x.headcountExpense), item => item.budgetCategory);
@@ -116,17 +116,17 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
       }
       result.push([
         <TableCell key={1}>{groupedKey}</TableCell>,
-        <NumberCell key={2}>{getLineItemForecastSumForMonth(groupedHeadCount[groupedKey], firstMonth).toLocaleString()}</NumberCell>,
-        <NumberCell key={3}>{getLineItemForecastSumForMonth(groupedHeadCount[groupedKey], secondMonth).toLocaleString()}</NumberCell>,
-        <NumberCell key={4}>{getLineItemForecastSumForMonth(groupedHeadCount[groupedKey], thirdMonth).toLocaleString()}</NumberCell>,
-        <NumberCell key={5}>{getLineItemForecastSumForMonths(groupedHeadCount[groupedKey], [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</NumberCell>,
-        <NumberCell key={6}>{getBudgetCapForMonthOnLineItem(groupedHeadCount[groupedKey], props.currentMonth).toLocaleString()}</NumberCell>,
-        <NumberCell key={7}>{getTotalQuarterlyBudgetCapOnLineItem(groupedHeadCount[groupedKey], [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</NumberCell>,
+        <NumberCell key={2} value={getLineItemForecastSumForMonth(groupedHeadCount[groupedKey], firstMonth)}/>,
+        <NumberCell key={3} value={getLineItemForecastSumForMonth(groupedHeadCount[groupedKey], secondMonth)}/>,
+        <NumberCell key={4} value={getLineItemForecastSumForMonth(groupedHeadCount[groupedKey], thirdMonth)}/>,
+        <NumberCell key={5} value={getLineItemForecastSumForMonths(groupedHeadCount[groupedKey], [firstMonth, secondMonth, thirdMonth])}/>,
+        <NumberCell key={6} value={getBudgetCapForMonthOnLineItem(groupedHeadCount[groupedKey], props.currentMonth)}/>,
+        <NumberCell key={7} value={getTotalQuarterlyBudgetCapOnLineItem(groupedHeadCount[groupedKey], [firstMonth, secondMonth, thirdMonth])}/>,
       ]);
     }
 
     result.push([
-      <TableCell key={1}><b>Non-Headcount Expenses Subtotal</b></TableCell>,
+      <TableCell key={1}><b>Non-Headcount Expenses</b></TableCell>,
     ]);
 
     const groupedNonHeadCount = _.groupBy(ungrouped.filter(x => !x.headcountExpense), item => item.budgetCategory);
@@ -143,23 +143,23 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
       }
       result.push([
         <TableCell key={1}>{groupedKey}</TableCell>,
-        <NumberCell key={2}>{getLineItemForecastSumForMonth(groupedNonHeadCount[groupedKey], firstMonth).toLocaleString()}</NumberCell>,
-        <NumberCell key={3}>{getLineItemForecastSumForMonth(groupedNonHeadCount[groupedKey], secondMonth).toLocaleString()}</NumberCell>,
-        <NumberCell key={4}>{getLineItemForecastSumForMonth(groupedNonHeadCount[groupedKey], thirdMonth).toLocaleString()}</NumberCell>,
-        <NumberCell key={5}>{getLineItemForecastSumForMonths(groupedNonHeadCount[groupedKey], [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</NumberCell>,
-        <NumberCell key={6}>{getBudgetCapForMonthOnLineItem(groupedNonHeadCount[groupedKey], props.currentMonth).toLocaleString()}</NumberCell>,
-        <NumberCell key={7}>{getTotalQuarterlyBudgetCapOnLineItem(groupedNonHeadCount[groupedKey], [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</NumberCell>,
+        <NumberCell key={2} value={getLineItemForecastSumForMonth(groupedNonHeadCount[groupedKey], firstMonth)}/>,
+        <NumberCell key={3} value={getLineItemForecastSumForMonth(groupedNonHeadCount[groupedKey], secondMonth)}/>,
+        <NumberCell key={4} value={getLineItemForecastSumForMonth(groupedNonHeadCount[groupedKey], thirdMonth)}/>,
+        <NumberCell key={5} value={getLineItemForecastSumForMonths(groupedNonHeadCount[groupedKey], [firstMonth, secondMonth, thirdMonth])}/>,
+        <NumberCell key={6} value={getBudgetCapForMonthOnLineItem(groupedNonHeadCount[groupedKey], props.currentMonth)}/>,
+        <NumberCell key={7} value={getTotalQuarterlyBudgetCapOnLineItem(groupedNonHeadCount[groupedKey], [firstMonth, secondMonth, thirdMonth])}/>,
       ]);
     }
 
     result.push([
       <TableCell key={1}><b>Total</b></TableCell>,
-      <NumberCell key={2}><b>{getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, firstMonth).toLocaleString()}</b></NumberCell>,
-      <NumberCell key={3}><b>{getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, secondMonth).toLocaleString()}</b></NumberCell>,
-      <NumberCell key={4}><b>{getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, thirdMonth).toLocaleString()}</b></NumberCell>,
-      <NumberCell key={5}><b>{getForecastSumOfMonthsOnWallet(props.budgetStatements, currentWalletAddress, props.currentMonth, [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</b></NumberCell>,
-      <NumberCell key={6}><b>{getBudgetCapForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, props.currentMonth).toLocaleString()}</b></NumberCell>,
-      <NumberCell key={7}><b>{getBudgetCapSumOfMonthsOnWallet(props.budgetStatements, currentWalletAddress, props.currentMonth, [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</b></NumberCell>,
+      <NumberCell key={2} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, firstMonth)} bold/>,
+      <NumberCell key={3} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, secondMonth)} bold/>,
+      <NumberCell key={4} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, thirdMonth)} bold/>,
+      <NumberCell key={5} value={getForecastSumOfMonthsOnWallet(props.budgetStatements, currentWalletAddress, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} bold/>,
+      <NumberCell key={6} value={getBudgetCapForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, props.currentMonth)} bold/>,
+      <NumberCell key={7} value={getBudgetCapSumOfMonthsOnWallet(props.budgetStatements, currentWalletAddress, props.currentMonth, [firstMonth, secondMonth, thirdMonth])}/>,
     ]);
 
     return result;
