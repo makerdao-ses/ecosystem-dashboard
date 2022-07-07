@@ -29,7 +29,7 @@ export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
         <NumberCell value={mkr.mkrAmount}/>,
         <NumberCell value={mkr.mkrAmountOld}/>,
         <NumberCell value={(Number(mkr.mkrAmount) - Number(mkr.mkrAmountOld))}/>,
-        <TableCell>{mkr.comments}</TableCell>,
+        <TableCell style={{ paddingLeft: '36px' }}>{mkr.comments}</TableCell>,
       ]);
     });
 

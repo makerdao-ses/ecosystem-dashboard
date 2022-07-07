@@ -68,7 +68,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
       <TableCell key={1}><b>Total</b></TableCell>,
       <NumberCell key={2} value={getForecastSumForMonth(props.budgetStatements, props.currentMonth, firstMonth)} bold/>,
       <NumberCell key={3} value={getForecastSumForMonth(props.budgetStatements, props.currentMonth, secondMonth)} bold/>,
-      <NumberCell key={4} value={getForecastSumForMonth(props.budgetStatements, props.currentMonth, thirdMonth)}/>,
+      <NumberCell key={4} value={getForecastSumForMonth(props.budgetStatements, props.currentMonth, thirdMonth)} bold/>,
       <NumberCell key={5} value={getForecastSumForMonths(props.budgetStatements, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} bold/>,
       <NumberCell key={6} value={getBudgetCapForMonthOnBudgetStatement(props.budgetStatements, props.currentMonth, props.currentMonth)} bold/>,
       <NumberCell key={7} value={getTotalQuarterlyBudgetCapOnBudgetStatement(props.budgetStatements, [firstMonth, secondMonth, thirdMonth])} bold/>,
@@ -159,7 +159,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
       <NumberCell key={4} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, thirdMonth)} bold/>,
       <NumberCell key={5} value={getForecastSumOfMonthsOnWallet(props.budgetStatements, currentWalletAddress, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} bold/>,
       <NumberCell key={6} value={getBudgetCapForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, props.currentMonth)} bold/>,
-      <NumberCell key={7} value={getBudgetCapSumOfMonthsOnWallet(props.budgetStatements, currentWalletAddress, props.currentMonth, [firstMonth, secondMonth, thirdMonth])}/>,
+      <NumberCell key={7} value={getBudgetCapSumOfMonthsOnWallet(props.budgetStatements, currentWalletAddress, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} bold/>,
     ]);
 
     return result;
