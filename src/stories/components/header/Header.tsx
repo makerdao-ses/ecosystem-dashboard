@@ -30,12 +30,18 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
     [router],
   );
 
+  const handleGoHome = useCallback(
+    () => {
+      router.push('/');
+    },
+    [router],
+  );
   return (
     <Container themeMode={themeMode}>
       <LeftPart>
         <ContainerLogoSelect themeMode={themeMode}>
           <LogoContainer>
-            <Logo fill={themeMode === 'dark' ? '#6EDBD0' : '#211634'} />
+            <Logo fill={themeMode === 'dark' ? '#6EDBD0' : '#211634'} onClick={handleGoHome} />
           </LogoContainer>
           <EXPENSES fill={themeMode === 'dark' ? '#6EDBD0' : '#211634'} />
           <SelectLink links={links} onClick={onClick} fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'} background={themeMode === 'dark' ? '#31424E' : '#ECF1F3'} />
