@@ -6,11 +6,12 @@ interface CustomButtonProps {
   disabled?: boolean,
   style?: CSSProperties,
   onClick?: () => void,
+  widthText?:string
 }
 
 export const CustomButton = (props: CustomButtonProps) => {
   return <Container type="button" disabled={props.disabled} onClick={props.onClick} style={props.style}>
-    <Text className={props.disabled ? 'disabled' : ''}>{props.label}</Text>
+    <Text className={props.disabled ? 'disabled' : ''} width={props.widthText}>{props.label}</Text>
   </Container>;
 };
 
@@ -35,11 +36,12 @@ const Container = styled.button({
   }
 });
 
-const Text = styled.div({
+const Text = styled.div<{ width?: string }>(({ width = 'fit-content' }) => ({
   fontSize: '14px',
   fontFamily: 'SF Pro Text, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
   color: '#231536',
   whiteSpace: 'nowrap',
-});
+  width,
+}));

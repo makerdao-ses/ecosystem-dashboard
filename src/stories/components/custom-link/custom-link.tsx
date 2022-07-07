@@ -30,7 +30,7 @@ export const CustomLink = ({ target = '_blank', iconWidth = 6, iconHeight = 6, f
   </Container>;
 };
 
-const Container = styled.a<{ fontSize: number, fontWeight: number, fontFamily: string }>(({ fontSize, fontWeight, fontFamily }) => ({
+const Container = styled.a<{ fontSize: number, fontWeight: number, fontFamily: string, marginLeft?: string }>(({ fontSize, fontWeight, fontFamily, marginLeft = '4px' }) => ({
   fontStyle: 'normal',
   fontWeight,
   fontFamily,
@@ -39,7 +39,7 @@ const Container = styled.a<{ fontSize: number, fontWeight: number, fontFamily: s
   letterSpacing: '1px',
   color: '#447AFB',
   textDecoration: 'none',
-  marginLeft: '4px',
+  marginLeft,
   cursor: 'pointer',
   whiteSpace: 'nowrap',
 }));
