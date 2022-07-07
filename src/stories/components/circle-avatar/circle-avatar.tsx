@@ -2,19 +2,25 @@ import React, { CSSProperties } from 'react';
 import { getColorForString } from '../../../core/utils/color.utils';
 import { Theme, useTheme } from '@mui/material';
 import { getTwoInitials } from '../../../core/utils/string.utils';
+import Identicon from 'identicon.js';
 
 interface CircleAvatarProps {
-  width: string,
-  height: string,
-  name: string,
-  image?: string
-  fontSize?: string,
-  style?: CSSProperties,
-  imageStyle?: CSSProperties,
+  width: string;
+  height: string;
+  name: string;
+  image?: string;
+  fontSize?: string;
+  style?: CSSProperties;
+  imageStyle?: CSSProperties;
+  identIcon?: boolean;
 }
 
-export const CircleAvatar = ({ width = '32px', height = '32px', fontSize = '16px', ...props }: CircleAvatarProps) => {
+export const CircleAvatar = ({ width = '32px', height = '32px', fontSize = '16px', identIcon = false, ...props }: CircleAvatarProps) => {
   const theme = useTheme();
+  const identIconImage = identIcon && new Identicon(props.name, {
+    format: 'svg',
+    margin: 0.2
+  }).toString();
 
   return <div style={{
     width,
@@ -28,9 +34,11 @@ export const CircleAvatar = ({ width = '32px', height = '32px', fontSize = '16px
     color: props.image ? 'transparent' : 'white',
     background: `${getColorForString(props.name)} ${height}`,
     ...props.style
-  }}>{props.image
+  }}>{props.image || identIcon
     ? <img
-    src={props.image}
+    src={identIcon
+      ? `data:image/svg+xml;base64,${identIconImage}`
+      : props.image}
     alt={getTwoInitials(props.name)}
     style={{
       width,

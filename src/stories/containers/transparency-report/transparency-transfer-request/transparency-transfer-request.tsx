@@ -35,7 +35,7 @@ export const TransparencyTransferRequest = (props: TransparencyTransferRequestPr
 
     wallets.forEach(wallet => {
       result.push([
-        <WalletTableCell wallet={formatAddressForOutput(wallet?.address ?? '')} name={wallet.name} key={1}/>,
+        <WalletTableCell wallet={formatAddressForOutput(wallet?.address ?? '')} name={wallet.name} address={wallet.address} key={1}/>,
         <NumberCell key={2}>{getForecastSumOfMonthsOnWallet(props.budgetStatements, wallet?.address, props.currentMonth, [firstMonth, secondMonth, thirdMonth]).toLocaleString()}</NumberCell>,
         <NumberCell key={3}>{getCurrentBalanceForMonthOnWallet(wallet?.address).toLocaleString()}</NumberCell>,
         <NumberCell key={4}>{getTransferRequestForMonthOnWallet(wallet?.address).toLocaleString()}</NumberCell>,

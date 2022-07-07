@@ -44,7 +44,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     if (currentBudgetStatement) {
       wallets.forEach(wallet => {
         result.push([
-          <WalletTableCell key={1} name={wallet.name} wallet={formatAddressForOutput(wallet.address)}/>,
+          <WalletTableCell key={1} name={wallet.name} wallet={formatAddressForOutput(wallet.address)} address={wallet.address}/>,
           <NumberCell key={2}>{Math.abs(getWalletForecast(wallet)).toLocaleString()}</NumberCell>,
           <NumberCell key={3}>{Math.abs(getWalletActual(wallet)).toLocaleString()}</NumberCell>,
           <NumberCell key={3} negative={getWalletDifference(wallet) < 0}>{Math.abs(getWalletDifference(wallet)).toLocaleString()}</NumberCell>,

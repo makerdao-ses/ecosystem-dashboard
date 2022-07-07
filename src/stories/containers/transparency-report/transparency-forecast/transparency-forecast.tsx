@@ -50,7 +50,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
 
     wallets.forEach(wallet => {
       result.push([
-          <WalletTableCell key={1} name={wallet.name} wallet={formatAddressForOutput(wallet.address ?? '')}/>,
+          <WalletTableCell key={1} name={wallet.name} wallet={formatAddressForOutput(wallet.address ?? '')} address={wallet.address}/>,
           <NumberCell key={2}>{getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, firstMonth).toLocaleString()}</NumberCell>,
           <NumberCell key={3}>{getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, secondMonth).toLocaleString()}</NumberCell>,
           <NumberCell key={4}>{getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, thirdMonth).toLocaleString()}</NumberCell>,
