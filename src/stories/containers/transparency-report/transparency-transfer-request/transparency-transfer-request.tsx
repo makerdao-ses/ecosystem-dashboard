@@ -52,8 +52,8 @@ export const TransparencyTransferRequest = (props: TransparencyTransferRequestPr
     result.push([
       <TableCell key={1}><b>Total</b></TableCell>,
       <NumberCell key={2} value={getForecastSumForMonths(props.budgetStatements, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} bold/>,
-      <NumberCell key={3} value={getTransferRequestForMonth} bold/>,
-      <NumberCell key={4} value={getCurrentBalanceForMonth} bold/>,
+      <NumberCell key={3} value={getCurrentBalanceForMonth} bold/>,
+      <NumberCell key={4} value={getTransferRequestForMonth} bold/>,
       <TableCell key={5}/>,
     ]);
 
