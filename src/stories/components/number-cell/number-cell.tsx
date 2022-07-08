@@ -1,24 +1,24 @@
 import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
+import { formatNumber } from '../../../core/utils/string.utils';
 
 interface NumberCellProps {
-  negative?: boolean;
-  children?: string | JSX.Element | JSX.Element[];
   style?: CSSProperties;
   fontFamily?: string;
+  value: number;
+  bold?: boolean;
 }
 
 export const NumberCell = (props: NumberCellProps) => {
-  return <Container fontFamily={props.fontFamily} style={props.style} negative={props.negative}>{props.children}</Container>;
+  return <Container fontFamily={props.fontFamily} style={{
+    fontWeight: props.bold ? 700 : 400,
+    ...props.style
+  }} negative={props.value < 0}>{formatNumber(props.value)}</Container>;
 };
 
 const Container = styled.div<{ negative?: boolean, fontFamily?: string}>(({ negative = false, fontFamily = 'SF Pro Display, sans-serif' }) => ({
   fontFamily,
-  fontWeight: 400,
   fontSize: 16,
   padding: '16px',
-  color: negative ? '#F75524' : '#231536',
-  '> b': {
-    fontWeight: 700,
-  }
+  color: negative ? '#F75524' : '#231536'
 }));

@@ -1,5 +1,6 @@
 import useSWR from 'swr';
-import { CORE_UNIT_REQUEST, fetcher } from './transparency-report.api';
+import { CORE_UNIT_REQUEST } from './transparency-report.api';
+import { fetcher } from '../../../core/utils/fetcher';
 
 export const useTransparencyReportViewModel = (code: string) => {
   const { data, error } = useSWR(code ? CORE_UNIT_REQUEST(code) : null, fetcher);

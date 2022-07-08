@@ -16,7 +16,7 @@ import TeamMember from '../../components/team-members/team-member';
 import TitleNavigationCuAbout from '../../components/title-navigation-cu-about/title-navigation-cu-about';
 import { loadCuTableItemsAsync, selectCuTableItems } from '../cu-table/cu-table.slice';
 import { ContributorCommitment } from './cu-about-contributor';
-import { contributorCommitmentSelector, cuAboutSelector, loadCoreUnitABout, status } from './cu-about-slice';
+import { contributorCommitmentSelector, cuAboutSelector, loadCoreUnitAbout, status } from './cu-about-slice';
 import { CuMip } from './cu-about.api';
 import _ from 'lodash';
 import BreadCrumb from '../../components/pagination/bread-crumb';
@@ -40,7 +40,7 @@ const CuAboutContainer = () => {
 
   useEffect(() => {
     if (code) {
-      dispatch(loadCoreUnitABout(code || ''));
+      dispatch(loadCoreUnitAbout(code || ''));
       setShowThreeMIPs(true);
     }
   }, [dispatch, code]);
@@ -123,17 +123,19 @@ const CuAboutContainer = () => {
         backgroundImage: 'url(/assets/img/Subheader.png)',
         backgroundSize: 'cover',
         zIndex: 4,
+        borderBottom: hiddenTextDescription ? '1px solid #B6EDE7' : 'none',
+        paddingBottom: hiddenTextDescription ? '24px' : '32px',
       }}>
         <NavigationHeader>
           <BreadCrumb count={filteredData.length} breadcrumbs={[cuAbout.name] || []} isCoreUnit />
           <InsidePagination count={filteredData.length} page={page} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} />
         </NavigationHeader>
-        <ContainerTitle stateHidden={hiddenTextDescription}>
+        <Wrapper> <ContainerTitle>
           <TitleNavigationCuAbout coreUnitAbout={cuAbout} />
           {hiddenTextDescription && <Typography fontSize={16} lineHeight='19px' color='#231536' fontFamily={'FT Base, sans-serif'} sx={{
             marginTop: '16px',
           }}>{cuAbout.sentenceDescription || ''}</Typography>}
-        </ContainerTitle>
+        </ContainerTitle>  </Wrapper>
       </div>
       <Wrapper>
         <ContainerAllData>
@@ -168,10 +170,10 @@ const CuAboutContainer = () => {
             <CardRelateMipsContainer>
               <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
               <RelateMipCards>
-                {relateMipsOrder.map((mip: CuMip, index: number) => {
+                {relateMipsOrder.map((mip: unknown, index: number) => {
                   return (
                     <RelateMipCard key={index}>
-                      <RelateMips relateMips={mip} />
+                      <RelateMips relateMips={mip as CuMip} />
                     </RelateMipCard>
 
                   );
@@ -238,10 +240,8 @@ const ContainerTitle = styled.div<{ stateHidden?: boolean }>((props) => ({
   flexDirection: 'column',
   paddingLeft: '128px',
   paddingRight: '128px',
-  paddingBottom: props.stateHidden ? '24px' : '32px',
   height: props.stateHidden ? '135px' : '108px',
-  borderBottom: props.stateHidden ? '1px solid #B6EDE7' : 'none',
-  paddingTop: '8px'
+  paddingTop: '8px',
 }));
 
 const MarkdownContainer = styled.div({

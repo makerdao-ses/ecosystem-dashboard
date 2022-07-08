@@ -30,3 +30,9 @@ export const capitalizeSentence = (sentence: string) => {
 
   return words.map(w => capitalizeWord(w)).join(' ');
 };
+
+export const formatNumber = (number: number) => {
+  return number.toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+  });
+};

@@ -6,8 +6,9 @@ import {
 import { CuStatusEnum } from '../enums/cu-status.enum';
 import { LinkTypeEnum } from '../enums/link-type.enum';
 import { getCuMipStatusModifiedDate } from './core-units';
+import { CuMipDto } from '../models/dto/core-unit.dto';
 
-export const getMipsStatus = (mip: CuMip) => {
+export const getMipsStatus = (mip: CuMip | CuMipDto) => {
   if (!mip) return undefined;
   switch (mip.mipStatus) {
     case CuStatusEnum.Accepted:
@@ -61,7 +62,7 @@ export const getLinksFromContributor = (contributor: ContributorCommitment) => {
   }
   return links;
 };
-export const getRelateMipObjectFromCoreUnit = (cu: CuMip) => {
+export const getRelateMipObjectFromCoreUnit = (cu: CuMip | CuMipDto) => {
   const dateMip = getCuMipStatusModifiedDate(cu, cu.mipStatus);
   return {
     ...cu,
@@ -70,5 +71,5 @@ export const getRelateMipObjectFromCoreUnit = (cu: CuMip) => {
     dateMip,
     mipUrl: cu.mipUrl,
     orderBy: cu.mipStatus === CuStatusEnum.FormalSubmission || cu.mipStatus === CuStatusEnum.RFC || cu.mipStatus === CuStatusEnum.Accepted ? 1 : 0,
-  } as CuMip;
+  } as unknown;
 };

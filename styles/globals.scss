@@ -1,5 +1,11 @@
 @font-face {
   font-family: 'FT Base';
+  src: url('../assets/fonts/FT_Base/FTBase-Bold.otf');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'FT Base';
   src: url('../assets/fonts/FT_Base/FTBase-Medium.otf');
   font-weight: 500;
   font-style: normal;
@@ -20,19 +26,51 @@
 @font-face {
   font-family: 'SF Pro Display';
   src: url('../assets/fonts/SF_PRO_display/SF-Pro-Display-Bold.otf');
+  font-style: normal;
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'SF Pro Display';
   src: url('../assets/fonts/SF_PRO_display/SF-Pro-Display-Medium.otf');
+  font-style: normal;
+  font-weight: 500;
+}
+@font-face {
+  font-family: 'SF Pro Display';
   src: url('../assets/fonts/SF_PRO_display/SF-Pro-Display-Regular.otf');
+  font-style: normal;
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'SF Pro Display';
   src: url('../assets/fonts/SF_PRO_display/SF-Pro-Display-Light.otf');
   font-style: normal;
+  font-weight: 300;
 }
 
 @font-face {
   font-family: 'SF Pro Text';
   src: url('../assets/fonts/SF_Pro_Text/SF-Pro-Text-Bold.otf');
+  font-style: normal;
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'SF Pro Text';
   src: url('../assets/fonts/SF_Pro_Text/SF-Pro-Text-Medium.otf');
+  font-style: normal;
+  font-weight: 500;
+}
+@font-face {
+  font-family: 'SF Pro Text';
   src: url('../assets/fonts/SF_Pro_Text/SF-Pro-Text-Regular.otf');
+  font-style: normal;
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'SF Pro Text';
   src: url('../assets/fonts/SF_Pro_Text/SF-Pro-Text-Light.otf');
   font-style: normal;
+  font-weight: 300;
 }
 
 html,
