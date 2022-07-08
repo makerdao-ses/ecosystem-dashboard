@@ -49,7 +49,7 @@ export const initialState: CurrentCoreUnitAbout = {
   } as CuAbout,
 };
 
-export const loadCoreUnitABout = createAsyncThunk(
+export const loadCoreUnitAbout = createAsyncThunk(
   'CoreUnit/loadCoreUnitABout',
   (coreUnitId: string) => {
     return fetchCoreUnitByCode(coreUnitId);
@@ -67,10 +67,10 @@ export const cuAboutSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(loadCoreUnitABout.pending, (state) => {
+      .addCase(loadCoreUnitAbout.pending, (state) => {
         state.statusCoreUnit = status.loading;
       })
-      .addCase(loadCoreUnitABout.fulfilled, (state, action) => {
+      .addCase(loadCoreUnitAbout.fulfilled, (state, action) => {
         if (action.payload) {
           state.statusCoreUnit = status.idle;
           state.cuAbout = action.payload;
