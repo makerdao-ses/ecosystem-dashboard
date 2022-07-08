@@ -19,6 +19,7 @@ import { NumberCell } from '../../../components/number-cell/number-cell';
 interface TransparencyActualsProps {
   currentMonth: DateTime;
   budgetStatements?: BudgetStatementDto[];
+  code: string;
 }
 export const TransparencyActuals = (props: TransparencyActualsProps) => {
   const [thirdIndex, setThirdIndex] = useState(0);
@@ -37,7 +38,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     getCommentsFromCategory,
     breakdownHeaders,
     wallets
-  } = useTransparencyActualsMvvm(thirdIndex, setThirdIndex, props.currentMonth, props.budgetStatements);
+  } = useTransparencyActualsMvvm(thirdIndex, setThirdIndex, props.currentMonth, props.budgetStatements, props.code);
 
   const mainTableItems = useMemo(() => {
     const result: JSX.Element[][] = [];

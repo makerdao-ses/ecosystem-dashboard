@@ -9,6 +9,7 @@ import { CuMip } from '../../containers/cu-about/cu-about.api';
 import ExternalLinkArrow from '../svg/external-link-arrow';
 import { getMipTitle } from '../../../core/utils/string.utils';
 import { getMipsStatus } from '../../../core/business-logic/core-unit-about';
+import { CuMipDto } from '../../../core/models/dto/core-unit.dto';
 
 export type RelateMipType = {
   status: CuStatusEnum,
@@ -18,7 +19,7 @@ export type RelateMipType = {
 }
 
 interface Props {
-  relateMips: CuMip
+  relateMips: CuMip | CuMipDto
 }
 
 const RelateMips = ({ relateMips }: Props) => {

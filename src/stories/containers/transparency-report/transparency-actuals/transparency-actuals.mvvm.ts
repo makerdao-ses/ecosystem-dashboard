@@ -9,7 +9,7 @@ import { DateTime } from 'luxon';
 import { capitalizeSentence } from '../../../../core/utils/string.utils';
 import { API_MONTH_FORMAT } from '../../../../core/utils/date.utils';
 
-export const useTransparencyActualsMvvm = (thirdIndex: number, setThirdIndex: (index: number) => void, propsCurrentMonth: DateTime, budgetStatements?: BudgetStatementDto[]) => {
+export const useTransparencyActualsMvvm = (thirdIndex: number, setThirdIndex: (index: number) => void, propsCurrentMonth: DateTime, budgetStatements: BudgetStatementDto[] | undefined, code: string) => {
   const currentMonth = useMemo(() => propsCurrentMonth.toFormat(API_MONTH_FORMAT), [propsCurrentMonth]);
 
   const wallets: BudgetStatementWalletDto[] = useMemo(() => {
@@ -29,7 +29,7 @@ export const useTransparencyActualsMvvm = (thirdIndex: number, setThirdIndex: (i
     });
 
     return Object.values(dict);
-  }, [propsCurrentMonth, budgetStatements]);
+  }, [propsCurrentMonth, budgetStatements, code]);
 
   const getWalletForecast = (wallet: BudgetStatementWalletDto) => {
     return _.sumBy(wallet?.budgetStatementLineItem.filter(item => item.month === currentMonth), i => i.forecast ?? 0);
@@ -46,23 +46,23 @@ export const useTransparencyActualsMvvm = (thirdIndex: number, setThirdIndex: (i
   const currentBudgetStatement = useMemo(() => {
     setThirdIndex(0);
     return budgetStatements?.find(x => x.month === currentMonth) ?? null;
-  }, [propsCurrentMonth]);
+  }, [propsCurrentMonth, code]);
 
   const breakdownHeaders = useMemo(() => {
     return wallets.map(wallet => wallet.name);
-  }, [currentBudgetStatement]);
+  }, [currentBudgetStatement, code]);
 
   const budgetTotalForecast = useMemo(() => {
     return _.sumBy(currentBudgetStatement?.budgetStatementWallet, wallet => _.sumBy(wallet.budgetStatementLineItem.filter(item => item.month === currentMonth), item => item?.forecast ?? 0));
-  }, [currentBudgetStatement]);
+  }, [currentBudgetStatement, code]);
 
   const budgetTotalActual = useMemo(() => {
     return _.sumBy(currentBudgetStatement?.budgetStatementWallet, wallet => _.sumBy(wallet.budgetStatementLineItem.filter(item => item.month === currentMonth), item => item?.actual ?? 0));
-  }, [currentBudgetStatement]);
+  }, [currentBudgetStatement, code]);
 
   const budgetTotalDifference = useMemo(() => {
     return budgetTotalForecast - budgetTotalActual;
-  }, [currentBudgetStatement]);
+  }, [currentBudgetStatement, code]);
 
   const getGroupForecast = (group: BudgetStatementLineItemDto[]) => {
     return _.sumBy(group.filter(item => item.month === currentMonth), item => item.forecast ?? 0);

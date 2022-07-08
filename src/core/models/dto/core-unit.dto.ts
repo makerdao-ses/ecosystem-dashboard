@@ -31,6 +31,9 @@ export interface Mip41Dto {
 }
 
 export interface CuMipDto {
+  mipTitle: string;
+  mipCode: string;
+  dateMip: Date;
   mipStatus: string;
   mipUrl: string;
   accepted: string;

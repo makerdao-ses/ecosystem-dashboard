@@ -3,11 +3,11 @@ import styled from '@emotion/styled';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 
 interface StatusChipProps {
-  category: CuCategoryEnum;
+  category: CuCategoryEnum | string;
   style?: CSSProperties;
 }
 
-const colors = {
+const colors: {[id: string]: any} = {
   Technical: {
     color: '#546978',
     background: 'rgba(246, 245, 255, 0.5)'

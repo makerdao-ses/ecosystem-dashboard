@@ -12,6 +12,7 @@ import { CategoryChip } from '../category-chip/category-chip';
 import { getMipsStatus, getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-unit-about';
 import _ from 'lodash';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
+import { CoreUnitDto, CuMipDto } from '../../../core/models/dto/core-unit.dto';
 
 interface BudgetStatementFTEs {
   month: string
@@ -44,10 +45,10 @@ export interface CoreUnit {
   roadMap: [];
 }
 interface Props {
-  coreUnitAbout: CuAbout;
+  coreUnitAbout?: CuAbout | CoreUnitDto;
 }
 
-export const getLinksCoreUnit = (cu: CuAbout) => {
+export const getLinksCoreUnit = (cu: CuAbout | CoreUnitDto) => {
   const links: LinkModel[] = [];
   if (cu.socialMediaChannels.length === 0) return links;
   const cont = cu.socialMediaChannels[0];
@@ -92,10 +93,10 @@ export const getLinksCoreUnit = (cu: CuAbout) => {
 
 export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
   if (!coreUnitAbout || coreUnitAbout.cuMip.length === 0) return null;
-  const buildNewArray = coreUnitAbout.cuMip.map((mip: CuMip) => getRelateMipObjectFromCoreUnit(mip));
+  const buildNewArray = coreUnitAbout?.cuMip?.map((mip) => getRelateMipObjectFromCoreUnit(mip));
   const orderMips = _.sortBy(buildNewArray, ['orderBy', 'dateMip']).reverse();
-  const mips = getMipsStatus(orderMips[0]);
-  const mipStatus = orderMips[0].mipStatus;
+  const mips = getMipsStatus(orderMips[0] as CuMip);
+  const mipStatus = (orderMips[0] as CuMip).mipStatus;
   const newDate = DateTime.fromFormat(mips || '', 'yyyy-MM-dd').toJSDate();
   return (
     <Container>
@@ -111,7 +112,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
       <ContainerColum>
         <ContainerTitle>
           <ContainerSeparateData>
-            <TypographySES>SES</TypographySES>
+            <TypographySES>{coreUnitAbout.code}</TypographySES>
             {coreUnitAbout.name && <TypographyTitle>{coreUnitAbout.name}</TypographyTitle>}
 
             {mips && <StatusChip status={mipStatus as CuStatusEnum} />}
