@@ -9,7 +9,11 @@ import { useRouter } from 'next/router';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { useCoreUnitSummaryViewModel } from './core-unit-summary.mvvm';
 
-export const CoreUnitSummary = () => {
+interface CoreUnitSummaryProps {
+  trailingAddress?: string[];
+}
+
+export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) => {
   const [hiddenTextDescription, setHiddenTextDescription] = useState(true);
   const router = useRouter();
   const query = router.query;
@@ -74,7 +78,7 @@ export const CoreUnitSummary = () => {
     paddingBottom: hiddenTextDescription ? '24px' : '32px',
   }}>
     <NavigationHeader>
-      <BreadCrumb count={filteredData.length} breadcrumbs={[cu?.name ?? '']} isCoreUnit />
+      <BreadCrumb count={filteredData.length} breadcrumbs={[cu?.name ?? '', ...trailingAddress]} isCoreUnit />
       <InsidePagination count={filteredData.length} page={page} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} />
     </NavigationHeader>
     <Wrapper>
@@ -83,7 +87,8 @@ export const CoreUnitSummary = () => {
       {hiddenTextDescription && <Typography fontSize={16} lineHeight='19px' color='#231536' fontFamily={'FT Base, sans-serif'} sx={{
         marginTop: '16px',
       }}>{cu?.sentenceDescription || ''}</Typography>}
-    </ContainerTitle>  </Wrapper>
+    </ContainerTitle>
+    </Wrapper>
   </div>;
 };
 

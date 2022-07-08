@@ -29,7 +29,7 @@ export const TransparencyReport = () => {
   const [currentMonth, setCurrentMonth] = useState(DateTime.now());
 
   return <Container>
-    <CoreUnitSummary/>
+    <CoreUnitSummary trailingAddress={['Finances']}/>
     <InnerPage>
       <Tabs
         items={['Overview', 'Transparency Reports', 'Onchain Setup', 'Budget Governance']}
