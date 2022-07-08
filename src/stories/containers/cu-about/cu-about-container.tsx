@@ -71,14 +71,14 @@ const CuAboutContainer = () => {
 
   return (
     <ContainerAbout>
-      <CoreUnitSummary/>
+      <CoreUnitSummary />
       <Wrapper>
         <ContainerAllData>
           <div style={{
             width: '60.39%',
             display: 'flex',
             flexDirection: 'column',
-            marginTop: 210,
+            marginTop: 220,
           }}>
 
             <MarkdownContainer>
@@ -297,7 +297,7 @@ const DividerStyle = styled(Divider)({
 
 const ContainerScroll = styled.div({
   position: 'sticky',
-  top: 240,
+  top: 250,
   paddingTop: '60px',
   height: '620px',
   scrollbarWidth: 'none',
