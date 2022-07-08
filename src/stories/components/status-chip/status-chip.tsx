@@ -43,7 +43,7 @@ export const StatusChip = (props: StatusChipProps) => {
 };
 
 const Chip = styled.div({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'SF Pro Text, sans-serif',
   display: 'flex',
   alignItems: 'center',
   fontWeight: 400,

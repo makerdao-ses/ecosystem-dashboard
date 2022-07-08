@@ -50,7 +50,7 @@ const RelateMips = ({ relateMips }: Props) => {
           <ArrowLinkContainer>  <ExternalLinkArrow href={`${relateMips.mipUrl}` || '#'} /></ArrowLinkContainer>
         </ContainerIconTypography>
       </RowUnderLine>}
-      {pieces.length === 1 && <RowUnderLine><Typography color='#447AFB'> {relateMips.mipTitle}</Typography><ArrowLinkContainer>  <ExternalLinkArrow href={`${relateMips.mipUrl}` || '#'} /></ArrowLinkContainer></RowUnderLine>}
+      {pieces.length === 1 && <RowUnderLine><Typography color='#447AFB' fontFamily={'SF Pro Display, sans-serif'}> {relateMips.mipTitle}</Typography><ArrowLinkContainer>  <ExternalLinkArrow href={`${relateMips.mipUrl}` || '#'} /></ArrowLinkContainer></RowUnderLine>}
     </Content>
   );
 };
@@ -117,5 +117,5 @@ const StyleTitle = styled(Typography)({
   display: 'inline',
   lineHeight: '19px',
   fontWeight: 500,
-  fontFamily: 'SF Pro Text, sans-serif'
+  fontFamily: 'SF Pro Display, sans-serif'
 });

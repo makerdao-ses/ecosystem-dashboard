@@ -1,8 +1,45 @@
+@font-face {
+  font-family: 'FT Base';
+  src: url('../assets/fonts/FT_Base/FTBase-Medium.otf');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'FT Base';
+  src: url('../assets/fonts/FT_Base/FTBase-Regular.otf');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'FT Base';
+  src: url('../assets/fonts/FT_Base/FTBase-Light.otf');
+  font-style: normal;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('../assets/fonts/SF_PRO_display/SF-Pro-Display-Bold.otf');
+  src: url('../assets/fonts/SF_PRO_display/SF-Pro-Display-Medium.otf');
+  src: url('../assets/fonts/SF_PRO_display/SF-Pro-Display-Regular.otf');
+  src: url('../assets/fonts/SF_PRO_display/SF-Pro-Display-Light.otf');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('../assets/fonts/SF_Pro_Text/SF-Pro-Text-Bold.otf');
+  src: url('../assets/fonts/SF_Pro_Text/SF-Pro-Text-Medium.otf');
+  src: url('../assets/fonts/SF_Pro_Text/SF-Pro-Text-Regular.otf');
+  src: url('../assets/fonts/SF_Pro_Text/SF-Pro-Text-Light.otf');
+  font-style: normal;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, sans-serif;
+  font-family: FT Base, sans-serif;
 }
 
 a {

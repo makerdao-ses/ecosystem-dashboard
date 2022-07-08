@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { FooterLinks, TypeIconFooter } from './footer-link';
 
 interface Props {
@@ -8,18 +8,18 @@ interface Props {
   subtitle: string
   logo: JSX.Element
   links: TypeIconFooter[]
+  style?: CSSProperties
 
 }
 
-export const FooterContact = ({ title, subtitle, logo, links }: Props) => {
+export const FooterContact = ({ title, subtitle, logo, links, style }: Props) => {
   return (
     <Container>
       <ContainerText >
         <StyleTitle sx={{ marginBottom: '16px' }}>{title}</StyleTitle>
         <StyleDescription>{subtitle}</StyleDescription>
-
       </ContainerText>
-      <div style={{ display: 'flex' }}> <FooterLinks links={links} /></div>
+      <FooterLinks links={links} styleLinks={style} />
       <ContainerLogo >{logo}</ContainerLogo>
     </Container>
   );
@@ -27,7 +27,7 @@ export const FooterContact = ({ title, subtitle, logo, links }: Props) => {
 
 const Container = styled.div({
   display: 'flex',
-  flexDirection: 'column'
+  flexDirection: 'column',
 });
 
 const ContainerText = styled.div({
@@ -41,7 +41,7 @@ const StyleTitle = styled(Typography)({
   fontSize: '15px',
   lineHeight: '18px',
   letterSpacing: '0.4px',
-  color: '#000000',
+  color: '#231536',
 });
 
 const StyleDescription = styled(Typography)({
@@ -49,9 +49,9 @@ const StyleDescription = styled(Typography)({
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '16px',
-  lineHeight: '19px',
+  color: '#231536',
+  lineHeight: '19.2px',
   letterSpacing: '0.4px',
-  color: '#333333'
 });
 
 const ContainerLogo = styled.div({
