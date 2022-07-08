@@ -20,11 +20,40 @@ export type WebSiteLinks = {
   padding?: string
   subtract?: ReactNode | JSX.Element,
   id: string
+  description: string
+  height?: string
 }
 
 export const itemsWebSiteLinks: WebSiteLinks[] = [
+
   {
-    logo: <Logo />,
+    title: 'makerburn.com',
+    description: 'Easily view onchain data that surfaces key protocol health metrics.',
+    logo: <MakerBurn />,
+    color: '#000000',
+    fontFamily: 'Cantarell,sans-serif',
+    lineHeight: 26,
+    fontSize: 18,
+    fontWeight: 500,
+    link: 'https://makerburn.com/#/',
+    marginBottom: '32px',
+    id: 'MakerBurn',
+  },
+  {
+    title: 'Forum',
+    description: 'Get up to date on the latest discussions within the Maker community.',
+    logo: <Makerdao />,
+    fontSize: 24,
+    fontWeight: 400,
+    color: '#1AAB9B',
+    link: 'https://forum.makerdao.com/',
+    marginBottom: '32px',
+    fontFamily: 'SF Pro Display, sans-serif',
+    id: 'Forum',
+  },
+  {
+    logo: <Logo width={48} height={24.71} />,
+    description: 'See how MKR holders are having their voice heard through protocol governance.',
     background: '#231635',
     fontSize: '16px',
     lineHeight: '19px',
@@ -37,21 +66,12 @@ export const itemsWebSiteLinks: WebSiteLinks[] = [
     padding: '4px 8px',
     subtract: <VotingPortal />,
     id: 'Voting Portal',
+    height: '120px',
+  },
 
-  },
   {
-    title: 'Forum',
-    logo: <Makerdao />,
-    fontSize: 24,
-    fontWeight: 400,
-    color: '#1AAB9B',
-    link: 'https://forum.makerdao.com/',
-    marginBottom: '32px',
-    fontFamily: 'SF Pro Display, sans-serif',
-    id: 'Forum',
-  },
-  {
-    logo: <Logo fill='#1AAB9B' />,
+    logo: <Logo fill='#1AAB9B' width={48} height={24.71} />,
+    description: 'Understand the formalized decision making process that underpins Maker Governance.',
     background: '#1AAB9B',
     fontSize: '16px',
     fontWeight: 500,
@@ -63,17 +83,6 @@ export const itemsWebSiteLinks: WebSiteLinks[] = [
     padding: '4px 12px',
     subtract: <MipsPortal />,
     id: 'MIPs Portal',
+    height: '120px',
   },
-  {
-    title: 'makerburn.com',
-    logo: <MakerBurn />,
-    color: '#000000',
-    fontFamily: 'Cantarell,sans-serif',
-    lineHeight: 26,
-    fontSize: 18,
-    fontWeight: 500,
-    link: 'https://makerburn.com/#/',
-    marginBottom: '32px',
-    id: 'MakerBurn',
-  }
 ];

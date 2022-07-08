@@ -44,7 +44,7 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
             <Logo fill={themeMode === 'dark' ? '#6EDBD0' : '#211634'} onClick={handleGoHome} />
           </LogoContainer>
           <EXPENSES fill={themeMode === 'dark' ? '#6EDBD0' : '#211634'} />
-          <SelectLink links={links} onClick={onClick} fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'} background={themeMode === 'dark' ? '#31424E' : '#ECF1F3'} />
+          <SelectLink links={links} fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'} background={themeMode === 'dark' ? '#31424E' : '#ECF1F3'} onClick={onClick}/>
         </ContainerLogoSelect>
 
         <Navigation>
