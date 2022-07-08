@@ -88,7 +88,7 @@ const Title = styled.div({
 const Box = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'space-between',
+  gap: '32px',
   padding: '16px',
   background: '#FFFFFF',
   boxShadow: '0px 20px 40px -40px rgba(219, 227, 237, .4), 0px 1px 3px rgba(190, 190, 190, .4);',
