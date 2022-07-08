@@ -28,16 +28,9 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
 
   const cu = data?.find(cu => cu.code === code);
 
-  const handleScroll = () => {
-    const element = document.getElementById('hidden-element');
-    if (element != null) {
-      const bound = element?.getBoundingClientRect();
-      if (bound && bound?.y < 276) {
-        setHiddenTextDescription(false);
-      } else {
-        setHiddenTextDescription(true);
-      }
-    }
+  const handleScroll = (event: any) => {
+    const scrollPosition = event?.target?.scrollingElement?.scrollTop ?? 0;
+    setHiddenTextDescription(scrollPosition < 50);
   };
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, true);
