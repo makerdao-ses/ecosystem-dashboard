@@ -5,9 +5,10 @@ import { CustomLink } from '../custom-link/custom-link';
 import { capitalizeSentence } from '../../../core/utils/string.utils';
 
 interface WalletTableCellProps {
-  imgUrl?: string,
-  name: string,
-  wallet: string,
+  imgUrl?: string;
+  name: string;
+  wallet: string;
+  address?: string;
 }
 
 export const WalletTableCell = (props: WalletTableCellProps) => {
@@ -15,9 +16,10 @@ export const WalletTableCell = (props: WalletTableCellProps) => {
     <CircleAvatar
       width={'32px'}
       height={'32px'}
-      name={props.name}
+      name={props.address ?? ''}
       image={props.imgUrl}
       style={{ margin: '0 16px' }}
+      identIcon
     />
     <Data>
       <Label>{capitalizeSentence(props.name)}</Label>

@@ -26,7 +26,7 @@ export const setCuMipStatusModifiedDate = (mip: CuMipDto | CuMip, status: CuStat
   mip[index] = date;
 };
 
-export const getCuMipStatusModifiedDate = (mip: CuMipDto | CuMip | null, status: CuStatusEnum) => {
+export const getCuMipStatusModifiedDate = (mip: CuMipDto | CuMip | null, status: CuStatusEnum | string) => {
   if (!mip) return '';
   let index = status.toLowerCase();
   if (status === CuStatusEnum.FormalSubmission) index = 'formalSubmission';
