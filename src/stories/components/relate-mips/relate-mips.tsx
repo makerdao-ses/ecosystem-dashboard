@@ -45,7 +45,7 @@ const RelateMips = ({ relateMips }: Props) => {
         </CustomPopover>}
       </Row>
       {pieces.length === 2 && <RowUnderLine>
-        <StyleMipNumber color='#231536' fontSize={16} fontWeight={600}>{`${pieces[0]}:`}</StyleMipNumber>
+        <StyleMipNumber>{`${pieces[0]}:`}</StyleMipNumber>
         <ContainerIconTypography>
           <StyleTitle >{pieces[1]}</StyleTitle>
           <ArrowLinkContainer>
@@ -107,11 +107,15 @@ const ContainerIconTypography = styled.div({
 });
 
 const StyleMipNumber = styled(Typography)({
-  lineHeight: '22px',
-  minWidth: '125px',
+  fontSize: '16px',
+  minWidth: '135px',
   display: 'inline-block',
   marginRight: '4px',
-  fontFamily: 'SF Pro Text, sans-serif'
+  fontFamily: 'SF Pro Text, sans-serif',
+  color: '#231536',
+  fontWeight: 600,
+  paddingTop: '3px',
+  lineHeight: '22px'
 });
 
 const StyleTitle = styled(Typography)({
@@ -119,6 +123,7 @@ const StyleTitle = styled(Typography)({
   fontSize: '16px',
   display: 'inline',
   lineHeight: '19px',
+  letterSpacing: '0.3px',
   fontWeight: 500,
-  fontFamily: 'SF Pro Display, sans-serif'
+  fontFamily: 'SF Pro Display, sans-serif',
 });

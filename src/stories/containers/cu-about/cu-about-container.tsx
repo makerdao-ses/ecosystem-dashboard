@@ -6,31 +6,26 @@ import { getMarkdownInformation, getRelateMipObjectFromCoreUnit } from '../../..
 import { getFTEsFromCoreUnit } from '../../../core/business-logic/core-units';
 import { useAppDispatch } from '../../../core/hooks/hooks';
 import { RootState } from '../../../core/store/store';
-import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
+import { getArrayParam, getStringParam } from '../../../core/utils/filters';
 import BigButton from '../../components/button/big-button/big-button';
 import CardInfoMember from '../../components/card-info-member/card-info-member';
 import MdViewerContainer from '../../components/markdown/md-view-container';
-import InsidePagination from '../../components/pagination/InsidePagination';
 import RelateMips from '../../components/relate-mips/relate-mips';
 import TeamMember from '../../components/team-members/team-member';
-import TitleNavigationCuAbout from '../../components/title-navigation-cu-about/title-navigation-cu-about';
-import { loadCuTableItemsAsync, selectCuTableItems } from '../cu-table/cu-table.slice';
+import { loadCuTableItemsAsync } from '../cu-table/cu-table.slice';
 import { ContributorCommitment } from './cu-about-contributor';
 import { contributorCommitmentSelector, cuAboutSelector, loadCoreUnitAbout, status } from './cu-about-slice';
 import { CuMip } from './cu-about.api';
 import _ from 'lodash';
-import BreadCrumb from '../../components/pagination/bread-crumb';
 import NavigationCard from '../../components/card-navegation/card-navigation';
 import { useRouter } from 'next/router';
-import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
 
 const CuAboutContainer = () => {
-  const [hiddenTextDescription, setHiddenTextDescription] = useState(true);
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;
   const [showThreeMIPs, setShowThreeMIPs] = useState<boolean>(true);
-  const data: Array<CoreUnitDto> = useSelector((state: RootState) => selectCuTableItems(state));
   const dispatch = useAppDispatch();
   const { cuAbout, statusCoreUnit } = useSelector((state: RootState) => cuAboutSelector(state));
   const contributors = useSelector((state: RootState) => contributorCommitmentSelector(state));
@@ -48,46 +43,6 @@ const CuAboutContainer = () => {
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
-
-  const handleScroll = () => {
-    const element = document.getElementById('hidden-element');
-    if (element != null) {
-      const bound = element?.getBoundingClientRect();
-      if (bound && bound?.y < 276) {
-        setHiddenTextDescription(false);
-      } else {
-        setHiddenTextDescription(true);
-      }
-    }
-  };
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll, true);
-
-    // Remove the event listener
-    return () => {
-      window.removeEventListener('scroll', handleScroll, true);
-    };
-  }, []);
-  const filteredData = useMemo(() =>
-    filterData({
-      data,
-      filteredStatuses,
-      filteredCategories,
-      searchText
-    }), [data, filteredCategories, filteredStatuses, searchText]);
-
-  const page = useMemo(() => filteredData.findIndex(item => item.code === code) + 1, [code, filteredData]);
-
-  const changeCoreUnitCode = useCallback(
-    (direct: -1 | 1) => () => {
-      const index = filteredData.findIndex(item => item.code === code);
-      const newIndex = index + direct;
-      if (newIndex >= 0 && newIndex < filteredData.length) {
-        router.push(`/core-unit/${filteredData[newIndex].code}?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
-      }
-    },
-    [code, filteredData, router],
-  );
 
   const onClickLessMips = () => {
     setShowThreeMIPs(!showThreeMIPs);
@@ -116,27 +71,7 @@ const CuAboutContainer = () => {
 
   return (
     <ContainerAbout>
-      <div style={{
-        position: 'fixed',
-        top: 63,
-        width: '100%',
-        backgroundImage: 'url(/assets/img/Subheader.png)',
-        backgroundSize: 'cover',
-        zIndex: 4,
-        borderBottom: hiddenTextDescription ? '1px solid #B6EDE7' : 'none',
-        paddingBottom: hiddenTextDescription ? '24px' : '32px',
-      }}>
-        <NavigationHeader>
-          <BreadCrumb count={filteredData.length} breadcrumbs={[cuAbout.name] || []} isCoreUnit />
-          <InsidePagination count={filteredData.length} page={page} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} />
-        </NavigationHeader>
-        <Wrapper> <ContainerTitle>
-          <TitleNavigationCuAbout coreUnitAbout={cuAbout} />
-          {hiddenTextDescription && <Typography fontSize={16} lineHeight='19px' color='#231536' fontFamily={'FT Base, sans-serif'} sx={{
-            marginTop: '16px',
-          }}>{cuAbout.sentenceDescription || ''}</Typography>}
-        </ContainerTitle>  </Wrapper>
-      </div>
+      <CoreUnitSummary/>
       <Wrapper>
         <ContainerAllData>
           <div style={{
