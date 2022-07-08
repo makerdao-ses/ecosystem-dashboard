@@ -112,7 +112,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
       <ContainerColum>
         <ContainerTitle>
           <ContainerSeparateData>
-            <TypographySES>SES</TypographySES>
+            <TypographySES>{coreUnitAbout.code}</TypographySES>
             {coreUnitAbout.name && <TypographyTitle>{coreUnitAbout.name}</TypographyTitle>}
 
             {mips && <StatusChip status={mipStatus as CuStatusEnum} />}
