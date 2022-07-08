@@ -44,11 +44,11 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     if (currentBudgetStatement) {
       wallets.forEach(wallet => {
         result.push([
-          <WalletTableCell key={1} name={wallet.name} wallet={formatAddressForOutput(wallet.address)}/>,
-          <NumberCell key={2}>{Math.abs(getWalletForecast(wallet)).toLocaleString()}</NumberCell>,
-          <NumberCell key={3}>{Math.abs(getWalletActual(wallet)).toLocaleString()}</NumberCell>,
-          <NumberCell key={3} negative={getWalletDifference(wallet) < 0}>{Math.abs(getWalletDifference(wallet)).toLocaleString()}</NumberCell>,
-          <NumberCell key={5}>0</NumberCell>,
+          <WalletTableCell key={1} name={wallet.name} wallet={formatAddressForOutput(wallet.address)} address={wallet.address}/>,
+          <NumberCell key={2} value={getWalletForecast(wallet)}/>,
+          <NumberCell key={3} value={getWalletActual(wallet)}/>,
+          <NumberCell key={3} value={getWalletDifference(wallet)}/>,
+          <NumberCell key={5} value={0}/>,
           <TableCell key={6}>
             <CustomLink fontFamily={'SF Pro Display, sans-serif'} fontSize={16} href={`https://etherscan.io/address/${wallet.address}`} style={{ marginRight: '16px' }}>Etherscan</CustomLink>
             <CustomLink fontFamily={'SF Pro Display, sans-serif'} fontSize={16} href={`https://gnosis-safe.io/app/eth:${wallet.address}`}>Gnosis</CustomLink>
@@ -58,10 +58,10 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
 
       result.push([
         <TableCell key={1}><b>Total</b></TableCell>,
-        <NumberCell key={2}><b>{Math.abs(budgetTotalForecast).toLocaleString()}</b></NumberCell>,
-        <NumberCell key={3}><b>{Math.abs(budgetTotalActual).toLocaleString()}</b></NumberCell>,
-        <NumberCell key={4} negative={budgetTotalDifference < 0}><b>{Math.abs(budgetTotalDifference).toLocaleString()}</b></NumberCell>,
-        <NumberCell key={5}><b>0</b></NumberCell>,
+        <NumberCell key={2} value={budgetTotalForecast} bold/>,
+        <NumberCell key={3} value={budgetTotalActual} bold/>,
+        <NumberCell key={4} value={budgetTotalDifference} bold/>,
+        <NumberCell key={5} value={0} bold/>,
         <TableCell key={6}/>,
       ]);
     }
@@ -79,11 +79,11 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
 
       result.push([
         <TableCell key={1}>{grouped[groupedKey][0].budgetCategory}</TableCell>,
-        <NumberCell key={2} negative={getGroupForecast(grouped[groupedKey]) < 0}>{Math.abs(getGroupForecast(grouped[groupedKey])).toLocaleString()}</NumberCell>,
-        <NumberCell key={3} negative={getGroupActual(grouped[groupedKey]) < 0}>{Math.abs(getGroupActual(grouped[groupedKey])).toLocaleString()}</NumberCell>,
-        <NumberCell key={4} negative={getGroupDifference(grouped[groupedKey]) < 0}>{Math.abs(getGroupDifference(grouped[groupedKey])).toLocaleString()}</NumberCell>,
+        <NumberCell key={2} value={getGroupForecast(grouped[groupedKey])}/>,
+        <NumberCell key={3} value={getGroupActual(grouped[groupedKey])}/>,
+        <NumberCell key={4} value={getGroupDifference(grouped[groupedKey])}/>,
         <TableCell key={5}>{getCommentsFromCategory(grouped[groupedKey])}</TableCell>,
-        <NumberCell key={6}>0</NumberCell>
+        <NumberCell key={6} value={0}/>
       ]);
     }
   };
@@ -97,27 +97,24 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     const currentWallet = wallets[thirdIndex];
 
     result.push([
-      <TableCell key={1}><b>Headcount Expenses Subtotal</b></TableCell>,
+      <TableCell key={1}><b>Headcount Expenses</b></TableCell>,
     ]);
 
     addBreakdownItemsToArray(result, currentWallet?.budgetStatementLineItem?.filter(item => item.headcountExpense));
 
     result.push([
-      <TableCell key={1}><b>Non-Headcount Expenses Subtotal</b></TableCell>,
+      <TableCell key={1}><b>Non-Headcount Expenses</b></TableCell>,
     ]);
 
     addBreakdownItemsToArray(result, currentWallet?.budgetStatementLineItem?.filter(item => !item.headcountExpense));
 
     result.push([
       <TableCell key={1}><b>Total</b></TableCell>,
-      <NumberCell key={2}
-                 negative={getWalletActual(currentWallet) < 0}><b>{Math.abs(getWalletForecast(currentWallet)).toLocaleString()}</b></NumberCell>,
-      <NumberCell key={3}
-                 negative={getWalletActual(currentWallet) < 0}><b>{Math.abs(getWalletActual(currentWallet)).toLocaleString()}</b></NumberCell>,
-      <NumberCell key={4}
-                 negative={getWalletDifference(currentWallet) < 0}><b>{Math.abs(getWalletDifference(currentWallet)).toLocaleString()}</b></NumberCell>,
-      <NumberCell key={5}/>,
-      <NumberCell key={6}><b>0</b></NumberCell>,
+      <NumberCell key={2} value={getWalletForecast(currentWallet)} bold/>,
+      <NumberCell key={3} value={getWalletActual(currentWallet)} bold/>,
+      <NumberCell key={4} value={getWalletDifference(currentWallet)} bold/>,
+      <TableCell key={5} />,
+      <NumberCell key={6} value={0} bold/>,
     ]);
 
     return result;

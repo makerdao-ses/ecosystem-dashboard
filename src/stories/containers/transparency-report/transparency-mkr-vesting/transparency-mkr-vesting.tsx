@@ -26,19 +26,19 @@ export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
     mkrVestings?.forEach(mkr => {
       result.push([
         <TableCell>{mkr.vestingDate}</TableCell>,
-        <NumberCell>{mkr.mkrAmount?.toLocaleString()}</NumberCell>,
-        <NumberCell>{mkr.mkrAmountOld?.toLocaleString()}</NumberCell>,
-        <NumberCell>{(Number(mkr.mkrAmount) - Number(mkr.mkrAmountOld)).toLocaleString()}</NumberCell>,
-        <NumberCell>{mkr.comments}</NumberCell>,
+        <NumberCell value={mkr.mkrAmount}/>,
+        <NumberCell value={mkr.mkrAmountOld}/>,
+        <NumberCell value={(Number(mkr.mkrAmount) - Number(mkr.mkrAmountOld))}/>,
+        <TableCell style={{ paddingLeft: '36px' }}>{mkr.comments}</TableCell>,
       ]);
     });
 
     result.push([
       <TableCell><b>Total</b></TableCell>,
-      <NumberCell><b>{totalAmount.toLocaleString()}</b></NumberCell>,
-      <NumberCell><b>{totalOldAmount.toLocaleString()}</b></NumberCell>,
-      <NumberCell><b>{(Number(totalAmount) - Number(totalOldAmount)).toLocaleString()}</b></NumberCell>,
-      <NumberCell/>
+      <NumberCell value={Number(totalAmount)} bold/>,
+      <NumberCell value={Number(totalOldAmount)} bold/>,
+      <NumberCell value={(Number(totalAmount) - Number(totalOldAmount))} bold/>,
+      <TableCell/>
     ]);
 
     return result;
