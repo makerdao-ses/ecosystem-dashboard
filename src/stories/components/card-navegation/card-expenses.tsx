@@ -4,11 +4,15 @@ import React from 'react';
 import { CustomButton } from '../custom-button/custom-button';
 import InformationCard from './information-card';
 
-const CardExpenses = () => {
+interface Props {
+  onClick: () => void
+}
+
+const CardExpenses = ({ onClick }: Props) => {
   return (
     <InformationCard title='Expenses' height='134px'>
       <TypographyDescription marginBottom={'24px'}>
-      View all expenses of the (SES-01) Sustainable Ecosystem Scaling
+        View all expenses of the (SES-01) Sustainable Ecosystem Scaling
       </TypographyDescription>
       <CustomButton widthText='100%' label='View Expenses' style={{
         textAlign: 'center',
@@ -23,7 +27,7 @@ const CardExpenses = () => {
         fontSize: '14px',
         lineHeight: '18px',
         width: '100%'
-      }} />
+      }} onClick={onClick} />
     </InformationCard>
   );
 };

@@ -44,7 +44,7 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
             <Logo fill={themeMode === 'dark' ? '#6EDBD0' : '#211634'} onClick={handleGoHome} />
           </LogoContainer>
           <EXPENSES fill={themeMode === 'dark' ? '#6EDBD0' : '#211634'} />
-          <SelectLink links={links} fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'} background={themeMode === 'dark' ? '#31424E' : '#ECF1F3'} onClick={onClick}/>
+          <SelectLink links={links} fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'} background={themeMode === 'dark' ? '#31424E' : '#ECF1F3'} onClick={onClick} />
         </ContainerLogoSelect>
 
         <Navigation>
@@ -68,6 +68,7 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
           <CustomLink children='How to Submit Expenses'
             fontWeight={500}
             fontSize={16}
+            href={HOW_TO_SUBMIT_EXPENSES}
             style={{
               fontFamily: 'SF Pro Display, sans serif',
               color: '#447AFB',
@@ -76,8 +77,7 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
               letterSpacing: '0.3px'
             }}
             marginLeft='7px'
-            target={HOW_TO_SUBMIT_EXPENSES}
-            withArrow
+          withArrow
           />
         </Navigation>
       </LeftPart>
