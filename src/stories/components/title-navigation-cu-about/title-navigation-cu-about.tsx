@@ -163,7 +163,8 @@ const TypographyTitle = styled(Typography)({
   lineHeight: '29px',
   color: '#231536',
   marginLeft: '16px',
-  marginRight: '24px'
+  marginRight: '24px',
+  fontFamily: 'FT Base, sans-serif',
 });
 
 const TypographySES = styled(Typography)({
