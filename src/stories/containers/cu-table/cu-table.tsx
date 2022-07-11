@@ -42,9 +42,9 @@ import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 const statuses = Object.values(CuStatusEnum) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];
-const headers = ['Core Units', 'Initiatives', 'Expenditure', 'Team Members', 'Links'];
+const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
 const sortInitialState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled];
-const headerStyles: CSSProperties[] = [{ paddingLeft: '80px' }, { paddingLeft: '35px' }, { marginLeft: '-40px' }, {}, {}];
+const headerStyles: CSSProperties[] = [{ paddingLeft: '63.5px' }, { paddingLeft: '43px' }, {}, {}];
 
 export const CuTable = () => {
   const dispatch = useAppDispatch();
@@ -132,10 +132,6 @@ export const CuTable = () => {
           onClick={onClickRow(coreUnit.code)}
           code={coreUnit.code}
         />,
-        <CuTableColumnInitiatives
-          key={`initiatives-${i}`}
-          initiatives={countInitiativesFromCoreUnit(coreUnit)}
-        />,
         <CuTableColumnExpenditures
           key={`expenditures-${i}`}
           value={getExpenditureValueFromCoreUnit(coreUnit)}
@@ -218,7 +214,7 @@ export const CuTable = () => {
       <CustomTable
         headers={headers}
         items={items}
-        headersAlign={['flex-start', 'center', 'center', 'flex-start', 'center']}
+        headersAlign={['flex-start', 'flex-start', 'flex-start', 'center']}
         headersSort={headersSort}
         headersStyles={headerStyles}
         sortFunction={setSort}

@@ -14,12 +14,12 @@ export const CuTableColumnTeamMember = ({ ...props }: CuTableColumnTeamMemberPro
   const MemberInfo = (props: { member: FacilitatorModel }) => {
     return <MemberInfoContainer>
       <CircleAvatar key={props.member.name}
-                    name={props.member.name}
-                    image={props.member.facilitatorImage}
-                    fontSize={'14px'}
-                    width={'32px'}
-                    imageStyle={{ border: '2px solid #E7FCFA' }}
-                    height={'32px'}/>
+        name={props.member.name}
+        image={props.member.facilitatorImage}
+        fontSize={'14px'}
+        width={'32px'}
+        imageStyle={{ border: '2px solid #E7FCFA' }}
+        height={'32px'} />
       <span>{props.member.name}</span>
     </MemberInfoContainer>;
   };
@@ -37,22 +37,22 @@ export const CuTableColumnTeamMember = ({ ...props }: CuTableColumnTeamMemberPro
     <CirclesWrapper>
       {props.members.map((member, i) => <CustomPopover
         key={member.name + i}
-        title={<MemberInfo member={member}/>}
+        title={<MemberInfo member={member} />}
         id={member.name + i}>
         <CircleAvatar key={member.id}
-                      name={member.name}
-                      fontSize={'14px'}
-                      width={'32px'}
-                      height={'32px'}
-                      style={{
-                        marginLeft: i === 0 || (member.facilitatorImage) ? 0 : '-9px',
-                        border: !(member.facilitatorImage) ? '2px solid #E7FCFA' : 'none'
-                      }}
-                      imageStyle={{
-                        marginLeft: i === 0 ? 0 : '-9px',
-                        border: '2px solid #E7FCFA'
-                      }}
-                      image={member.facilitatorImage}/>
+          name={member.name}
+          fontSize={'14px'}
+          width={'32px'}
+          height={'32px'}
+          style={{
+            marginLeft: i === 0 || (member.facilitatorImage) ? 0 : '-9px',
+            border: !(member.facilitatorImage) ? '2px solid #E7FCFA' : 'none'
+          }}
+          imageStyle={{
+            marginLeft: i === 0 ? 0 : '-9px',
+            border: '2px solid #E7FCFA'
+          }}
+          image={member.facilitatorImage} />
       </CustomPopover>)}
     </CirclesWrapper>
   </Container>;
@@ -60,6 +60,7 @@ export const CuTableColumnTeamMember = ({ ...props }: CuTableColumnTeamMemberPro
 
 const Container = styled.div({
   display: 'flex',
+  paddingLeft: '16px',
   flex: 1,
   alignItems: 'center',
   fontWeight: 400,

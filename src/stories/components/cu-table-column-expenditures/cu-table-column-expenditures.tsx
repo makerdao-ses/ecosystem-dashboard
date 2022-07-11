@@ -15,41 +15,41 @@ interface CuTableColumnExpendituresProps {
 export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps) => {
   return <Wrapper>
     <Container>
-    <Data>
-      <Title>Last 3 Months</Title>
-      <CustomPopover
-        id={'mouse-over-popover-total'}
-        title={'Actual Expenditure'}>
-        <Value>
-          {props.value.toLocaleString()}
-        </Value>
-      </CustomPopover>
-    </Data>
-    <CustomBarChart items={props.items} maxValues={props.budgetCaps}/>
-    <ValueWrapper>
+      <Data>
+        <Title>Last 3 Months</Title>
         <CustomPopover
-            css={{ alignSelf: 'center' }}
-            id={'mouse-over-popover-percent'}
-            title={
-              <PercentExplanation>
-                <Fraction>
-                  <Actual>
-                    Actual
-                  </Actual>
-                  <BudgetCap>
-                    Budget Cap
-                  </BudgetCap>
-                </Fraction>
-                <div>
-                  over the last 3 months
-                </div>
-              </PercentExplanation>
-            }>
+          id={'mouse-over-popover-total'}
+          title={'Actual Expenditure'}>
+          <Value>
+            {props.value.toLocaleString()}
+          </Value>
+        </CustomPopover>
+      </Data>
+      <CustomBarChart items={props.items} maxValues={props.budgetCaps} />
+      <ValueWrapper>
+        <CustomPopover
+          css={{ alignSelf: 'center' }}
+          id={'mouse-over-popover-percent'}
+          title={
+            <PercentExplanation>
+              <Fraction>
+                <Actual>
+                  Actual
+                </Actual>
+                <BudgetCap>
+                  Budget Cap
+                </BudgetCap>
+              </Fraction>
+              <div>
+                over the last 3 months
+              </div>
+            </PercentExplanation>
+          }>
           <Percent>
             {props.percent?.toFixed(2)}%
           </Percent>
         </CustomPopover>
-    </ValueWrapper>
+      </ValueWrapper>
     </Container>
   </Wrapper>;
 };
@@ -57,8 +57,11 @@ export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps)
 const Container = styled.div({
   display: 'flex',
   alignItems: 'stretch',
-  minWidth: '204px',
+  // minWidth: '204px',
+  minWidth: '246px',
   cursor: 'pointer',
+  paddingLeft: '27px',
+  paddingRight: '24px'
 });
 
 const Wrapper = styled.div({
