@@ -60,7 +60,7 @@ export const CuTableColumnTeamMember = ({ ...props }: CuTableColumnTeamMemberPro
 
 const Container = styled.div({
   display: 'flex',
-  paddingLeft: '16px',
+  paddingLeft: '32px',
   flex: 1,
   alignItems: 'center',
   fontWeight: 400,

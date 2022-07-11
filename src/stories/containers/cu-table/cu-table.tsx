@@ -44,7 +44,10 @@ const statuses = Object.values(CuStatusEnum) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
 const sortInitialState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled];
-const headerStyles: CSSProperties[] = [{ paddingLeft: '63.5px' }, { paddingLeft: '43px' }, {}, {}];
+const headerStyles: CSSProperties[] = [{ paddingLeft: '63.5px' }, {
+  paddingLeft: '43px',
+  marginRight: '70px',
+}, {}, {}];
 
 export const CuTable = () => {
   const dispatch = useAppDispatch();
@@ -214,7 +217,7 @@ export const CuTable = () => {
       <CustomTable
         headers={headers}
         items={items}
-        headersAlign={['flex-start', 'flex-start', 'flex-start', 'center']}
+        headersAlign={['flex-start', 'flex-start', 'flex-end', 'center']}
         headersSort={headersSort}
         headersStyles={headerStyles}
         sortFunction={setSort}

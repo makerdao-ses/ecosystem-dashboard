@@ -28,7 +28,7 @@ export const TransparencyReport = () => {
   const [currentMonth, setCurrentMonth] = useState(DateTime.now());
 
   return <Container>
-    <CoreUnitSummary trailingAddress={['Finances']}/>
+    <CoreUnitSummary trailingAddress={['Expense Reports']}/>
     <InnerPage>
       <Title>Expense Reports</Title>
 

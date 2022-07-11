@@ -57,11 +57,10 @@ export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps)
 const Container = styled.div({
   display: 'flex',
   alignItems: 'stretch',
-  // minWidth: '204px',
   minWidth: '246px',
   cursor: 'pointer',
   paddingLeft: '27px',
-  paddingRight: '24px'
+  paddingRight: '24px',
 });
 
 const Wrapper = styled.div({
