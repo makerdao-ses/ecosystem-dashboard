@@ -90,7 +90,6 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
       position: 'relative',
       borderBottom: hiddenTextDescription ? '1px solid #B6EDE7' : 'none',
       width: '100%',
-      height: '1px',
       marginTop: '24px',
     }} />
   </div>;
@@ -112,7 +111,7 @@ const ContainerTitle = styled.div<{ stateHidden?: boolean, descriptionLength: nu
   flexDirection: 'column',
   paddingLeft: '128px',
   paddingRight: '128px',
-  height: stateHidden || descriptionLength < 169 ? '108px' : '135px',
+  height: stateHidden || descriptionLength < 169 ? '108px' : '130px',
   paddingTop: '8px'
 }));
 

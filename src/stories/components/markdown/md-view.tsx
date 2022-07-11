@@ -56,14 +56,9 @@ const MdViewerPage = ({ subTitle = 'What we do', paragraphDescription, paragraph
     <ViewerContainer>
       <TypographyStyleDescription id='hidden-element'>{subTitle}</TypographyStyleDescription>
       {paragraphDescription && <Markdown value={paragraphDescription} renderer={customRenderer} />}
-      {(paragraphImage !== '![Image]()')
-        ? <Markdown value={paragraphImage} renderer={customRenderer} />
-        : <div style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'center',
-          marginTop: '64px'
-        }}>No data to Show</div>}
+      {(paragraphImage !== '![Image]()') &&
+        <Markdown value={paragraphImage} renderer={customRenderer} />
+      }
     </ViewerContainer>
   );
 };

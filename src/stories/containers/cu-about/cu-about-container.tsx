@@ -100,7 +100,6 @@ const CuAboutContainer = () => {
                 })
                 }
               </ContainerCards>
-              {contributors && contributors.length === 0 && <ContainerNoData>No data to Show</ContainerNoData>}
             </ContactInfoContainer>
             <Divider sx={{ marginTop: '32px' }} />
             <CardRelateMipsContainer>
