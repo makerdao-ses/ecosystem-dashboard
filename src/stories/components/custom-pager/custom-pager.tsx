@@ -11,7 +11,6 @@ interface CustomPagerProps {
 
 export const CustomPager = (props: CustomPagerProps) => {
   return <Container className="no-select">
-    <Label>{props.label}</Label>
     <Arrows>
       <IconWrapper onClick={props.onPrev}>
         <ChevronLeft/>
@@ -20,6 +19,7 @@ export const CustomPager = (props: CustomPagerProps) => {
         <ChevronRight/>
       </IconWrapper>
     </Arrows>
+    <Label>{props.label}</Label>
   </Container>;
 };
 
@@ -35,12 +35,13 @@ const Label = styled.div({
   lineHeight: '24px',
   letterSpacing: '0.4px',
   color: '#9FAFB9',
-  marginRight: '16px',
+  marginRight: '8px',
 });
 
 const Arrows = styled.div({
   display: 'flex',
-  alignItems: 'center'
+  alignItems: 'center',
+  marginTop: '4px',
 });
 
 const IconWrapper = styled.div({

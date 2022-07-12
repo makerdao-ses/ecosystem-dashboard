@@ -82,6 +82,7 @@ export interface BudgetStatementMKRVestDto {
 export interface BudgetStatementDto {
   month: string;
   budgetStatus: string;
+  publicationUrl: string;
   budgetStatementFTEs: BudgetStatementFteDto[];
   budgetStatementWallet: BudgetStatementWalletDto[];
   budgetStatementMKRVest?: BudgetStatementMKRVestDto[];

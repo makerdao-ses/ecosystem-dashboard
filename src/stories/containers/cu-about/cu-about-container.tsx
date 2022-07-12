@@ -58,6 +58,7 @@ const CuAboutContainer = () => {
 
   const list = ['Overview', 'Transparency Reports', 'Onchain Setup', 'Budget Governance'];
   const description = 'View all Finances of the (SES-01) Sustainable Ecosystem Scaling';
+  const descriptionLength = cuAbout.sentenceDescription.length || 0;
 
   const onClickFinances = useCallback(() => {
     router.push(`/core-unit/${code}/finances/transparency?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
@@ -79,7 +80,7 @@ const CuAboutContainer = () => {
             width: '60.39%',
             display: 'flex',
             flexDirection: 'column',
-            marginTop: 220,
+            marginTop: descriptionLength > 169 ? 246 : 223,
           }}>
 
             <MarkdownContainer>
@@ -100,7 +101,6 @@ const CuAboutContainer = () => {
                 })
                 }
               </ContainerCards>
-              {contributors && contributors.length === 0 && <ContainerNoData>No data to Show</ContainerNoData>}
             </ContactInfoContainer>
             <Divider sx={{ marginTop: '32px' }} />
             <CardRelateMipsContainer>
@@ -125,7 +125,7 @@ const CuAboutContainer = () => {
           <div style={{
             width: '39.61%',
           }}>
-            <ContainerScroll>
+            <ContainerScroll descriptionLength={descriptionLength}>
               <ContainerCard>
                 <CardExpenses onClick={onClickFinances} />
               </ContainerCard>
@@ -296,9 +296,9 @@ const DividerStyle = styled(Divider)({
   bgcolor: '#D4D9E1',
 });
 
-const ContainerScroll = styled.div({
+const ContainerScroll = styled.div<{ descriptionLength: number }>(({ descriptionLength }) => ({
   position: 'sticky',
-  top: 250,
+  top: descriptionLength > 169 ? 274 : 250,
   paddingTop: '60px',
   height: '620px',
   scrollbarWidth: 'none',
@@ -308,7 +308,7 @@ const ContainerScroll = styled.div({
     background: 'transparent',
   },
   overflowY: 'auto',
-});
+}));
 
 const Wrapper = styled.div({
   display: 'flex',
