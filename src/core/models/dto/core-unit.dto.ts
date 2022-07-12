@@ -83,7 +83,7 @@ export interface BudgetStatementMKRVestDto {
 
 export interface BudgetStatementDto {
   month: string;
-  budgetStatus: BudgetStatusEnum;
+  budgetStatus: string;
   publicationUrl: string;
   budgetStatementFTEs: BudgetStatementFteDto[];
   budgetStatementWallet: BudgetStatementWalletDto[];
