@@ -63,7 +63,7 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
   const descriptionLength = cu?.sentenceDescription?.length || 0;
 
   return <div style={{
-    position: 'fixed',
+    position: 'sticky',
     top: 63,
     width: '100%',
     backgroundImage: 'url(/assets/img/Subheader.png)',
