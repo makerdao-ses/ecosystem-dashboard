@@ -31,7 +31,6 @@ export const TransparencyReport = () => {
 
   const cu = data && data.coreUnit[0] as CoreUnitDto;
 
-  const secondIndex = 1;
   const [thirdIndex, setThirdIndex] = useState(0);
 
   const [currentMonth, setCurrentMonth] = useState(DateTime.now());
@@ -41,24 +40,25 @@ export const TransparencyReport = () => {
   }, [cu, currentMonth]);
 
   return <Container>
-    <CoreUnitSummary trailingAddress={['Finances']}/>
+    <CoreUnitSummary trailingAddress={['Expense Reports']}/>
     <InnerPage>
-      <Tabs
-        items={['Overview', 'Transparency Reports', 'Onchain Setup', 'Budget Governance']}
-        currentIndex={secondIndex}
-        style={{
-          marginBottom: '64px',
-          flex: '0'
-        }}
-      />
-      <Title>Transparency Reports</Title>
+      <Title>Expense Reports</Title>
 
       <Paragraph>
-        Every month, the SES Core Unit submits a transparency report
-        for MakerDAO governance with a detailed budget update.
-        If the core unit works with an auditor, the transparency report
-        is reviewed by the auditor before the core units operational
+        Every month, the SES Core Unit submits a transparency report for MakerDAO governance with a detailed budget update.
+        If the core unit works with an auditor, the transparency report is reviewed by the auditor before the core unit's operational
         wallet is topped up to replenish its runway.
+        <p style={{ marginBottom: 0 }}>
+          <span>Is this your core unit? Learn</span>
+          <CustomLink
+            href={''}
+            iconHeight={10}
+            iconWidth={10}
+            fontSize={16}
+            fontFamily={'SF Pro Display, sans-serif'}>
+            how to submit your expenses here
+          </CustomLink>
+        </p>
       </Paragraph>
 
       <PagerBar>
@@ -73,6 +73,8 @@ export const TransparencyReport = () => {
             margin: '0 0 6px 0',
             alignSelf: 'flex-end',
           }}
+          iconHeight={10}
+          iconWidth={10}
           fontSize={16}
           fontFamily={'SF Pro Display, sans-serif'}
         >
