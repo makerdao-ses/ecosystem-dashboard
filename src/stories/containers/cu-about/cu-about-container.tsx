@@ -80,7 +80,6 @@ const CuAboutContainer = () => {
             width: '60.39%',
             display: 'flex',
             flexDirection: 'column',
-            marginTop: descriptionLength > 169 ? 246 : 223,
           }}>
 
             <MarkdownContainer>
@@ -159,26 +158,6 @@ const ContainerCard = styled.div({
   flexDirection: 'column',
   marginLeft: '64px',
 });
-
-const NavigationHeader = styled.div({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  height: '74px',
-  paddingLeft: '32px',
-  paddingRight: '32px',
-  marginBottom: '16px'
-});
-
-const ContainerTitle = styled.div<{ stateHidden?: boolean }>((props) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  paddingLeft: '128px',
-  paddingRight: '128px',
-  height: props.stateHidden ? '135px' : '108px',
-  paddingTop: '8px',
-}));
 
 const MarkdownContainer = styled.div({
   marginTop: '32px',
@@ -268,14 +247,6 @@ const ButtonContainer = styled.div({
   marginBottom: '44px',
   overflow: 'hidden',
 });
-
-const ContainerNoData = styled.div({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'center',
-  width: '100%',
-});
-
 const ContainerNoRelateMIps = styled.div({
   display: 'flex',
   flexDirection: 'row',
@@ -298,8 +269,8 @@ const DividerStyle = styled(Divider)({
 
 const ContainerScroll = styled.div<{ descriptionLength: number }>(({ descriptionLength }) => ({
   position: 'sticky',
-  top: descriptionLength > 169 ? 274 : 250,
-  paddingTop: '60px',
+  top: 250,
+  paddingTop: '36px',
   height: '620px',
   scrollbarWidth: 'none',
   scrollbarColor: 'transparent',
