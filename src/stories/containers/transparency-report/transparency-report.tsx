@@ -55,19 +55,21 @@ export const TransparencyReport = () => {
           onPrev={() => setCurrentMonth(currentMonth.minus({ month: 1 })) }
           onNext={() => setCurrentMonth(currentMonth.plus({ month: 1 })) }
         />
+        <CustomLink
+          href="#"
+          style={{
+            margin: '0 0 6px 0',
+            alignSelf: 'flex-end',
+          }}
+          fontSize={16}
+          fontFamily={'SF Pro Display, sans-serif'}
+        >
+          Source
+        </CustomLink>
         <Spacer/>
         <StatusTitle>Status</StatusTitle>
         <StatusValue>FINAL</StatusValue>
       </PagerBar>
-
-      <CustomLink
-        href="#"
-        style={{ margin: '0' }}
-        fontSize={16}
-        fontFamily={'SF Pro Display, sans-serif'}
-      >
-        Source
-      </CustomLink>
 
       <Tabs
         items={['Actuals', 'Forecast', 'MKR Vesting', 'Transfer Requests', 'Audit Reports']}
