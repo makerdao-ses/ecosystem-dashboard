@@ -113,7 +113,7 @@ const Container = styled.div({
 
 const InnerPage = styled.div({
   display: 'block',
-  margin: '20px auto 0',
+  margin: '32px auto 0',
   width: '100%',
   maxWidth: '1184px',
   textAlign: 'left',
