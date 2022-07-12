@@ -1,3 +1,5 @@
+import { BudgetStatusEnum } from '../../enums/budget-status.enum';
+
 export interface Mip40BudgetPeriodDto {
   budgetPeriodStart: string;
   budgetPeriodEnd: string
@@ -81,7 +83,8 @@ export interface BudgetStatementMKRVestDto {
 
 export interface BudgetStatementDto {
   month: string;
-  budgetStatus: string;
+  budgetStatus: BudgetStatusEnum;
+  publicationUrl: string;
   budgetStatementFTEs: BudgetStatementFteDto[];
   budgetStatementWallet: BudgetStatementWalletDto[];
   budgetStatementMKRVest?: BudgetStatementMKRVestDto[];

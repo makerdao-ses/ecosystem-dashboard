@@ -19,7 +19,10 @@ export const CustomLink = ({ target = '_blank', iconWidth = 6, iconHeight = 6, f
   return <Container
     href={props.href}
     target={target}
-    style={props.style}
+    style={{
+      pointerEvents: props.href ? 'all' : 'none',
+      ...props.style
+    }}
     fontSize={fontSize}
     fontWeight={fontWeight}
     fontFamily={fontFamily}

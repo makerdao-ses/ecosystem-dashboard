@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { Tabs } from '../../components/tabs/tabs';
 import { CustomPager } from '../../components/custom-pager/custom-pager';
@@ -11,8 +11,16 @@ import { TransparencyAudit } from './transparency-audit/transparency-audit';
 import { useRouter } from 'next/router';
 import { useTransparencyReportViewModel } from './transparency-report.mvvm';
 import { DateTime } from 'luxon';
-import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import { BudgetStatementDto, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
+import { API_MONTH_FORMAT } from '../../../core/utils/date.utils';
+
+const colors: {[key: string]: string} = {
+  Draft: '#7C6B95',
+  Final: '#1AAB9B',
+  AwaitingCorrections: '#FDC134',
+  SubmittedToAuditor: 'FF78F2',
+};
 
 export const TransparencyReport = () => {
   const router = useRouter();
@@ -27,6 +35,10 @@ export const TransparencyReport = () => {
   const [thirdIndex, setThirdIndex] = useState(0);
 
   const [currentMonth, setCurrentMonth] = useState(DateTime.now());
+
+  const currentBudgetStatement = useMemo(() => {
+    return cu?.budgetStatements?.find((bs: BudgetStatementDto) => bs.month === currentMonth.toFormat(API_MONTH_FORMAT));
+  }, [cu, currentMonth]);
 
   return <Container>
     <CoreUnitSummary trailingAddress={['Finances']}/>
@@ -56,7 +68,7 @@ export const TransparencyReport = () => {
           onNext={() => setCurrentMonth(currentMonth.plus({ month: 1 })) }
         />
         <CustomLink
-          href="#"
+          href={currentBudgetStatement?.publicationUrl ?? null}
           style={{
             margin: '0 0 6px 0',
             alignSelf: 'flex-end',
@@ -68,7 +80,7 @@ export const TransparencyReport = () => {
         </CustomLink>
         <Spacer/>
         <StatusTitle>Status</StatusTitle>
-        <StatusValue>FINAL</StatusValue>
+        <StatusValue color={colors[currentBudgetStatement?.budgetStatus] ?? ''}>{currentBudgetStatement?.budgetStatus ?? '-'}</StatusValue>
       </PagerBar>
 
       <Tabs
@@ -145,14 +157,15 @@ const StatusTitle = styled.div({
   margin: '3px 8px 0 0',
 });
 
-const StatusValue = styled.div({
+const StatusValue = styled.div<{ color: string }>(({ color }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
+  textDecoration: 'uppercase',
   fontWeight: 500,
   fontSize: '20px',
   letterSpacing: '0.4px',
-  color: '#1AAB9B',
-});
+  color: color ?? '#1AAB9B',
+}));
 
 const Spacer = styled.div({
   flex: '1',
