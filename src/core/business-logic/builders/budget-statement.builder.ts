@@ -1,4 +1,5 @@
 import { BudgetStatementDto, BudgetStatementFteDto, BudgetStatementWalletDto } from '../../models/dto/core-unit.dto';
+import { BudgetStatusEnum } from '../../enums/budget-status.enum';
 
 export class BudgetStatementBuilder {
   private readonly _budgetStatement: BudgetStatementDto;
@@ -8,7 +9,8 @@ export class BudgetStatementBuilder {
       month: '',
       budgetStatementFTEs: [] as BudgetStatementFteDto[],
       budgetStatementWallet: [] as BudgetStatementWalletDto[],
-      budgetStatus: '',
+      budgetStatus: BudgetStatusEnum.Draft,
+      publicationUrl: '',
     } as BudgetStatementDto;
   }
 

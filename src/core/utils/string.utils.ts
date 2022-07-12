@@ -32,7 +32,15 @@ export const capitalizeSentence = (sentence: string) => {
 };
 
 export const formatNumber = (number: number) => {
-  return number.toLocaleString('en-US', {
+  return number?.toLocaleString('en-US', {
     minimumFractionDigits: 2,
   });
+};
+
+export const formatCode = (code: string) => {
+  if (!code) return '';
+  const parts = code.split('-');
+  if (!parts.length) return code;
+
+  return parts[0];
 };

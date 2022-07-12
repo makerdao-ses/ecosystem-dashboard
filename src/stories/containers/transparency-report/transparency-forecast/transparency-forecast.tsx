@@ -200,7 +200,6 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     <InnerTable
         headers={breakdownHeaders}
         items={breakdownItems}
-        style={{ marginBottom: '64px' }}
         minWidth={80}
         headerWidths={['260px', '141px', '141px', '141px', '116px', '141px', '241px', '219px']}
         headersAlign={['left', 'right', 'right', 'right', 'right', 'right', 'right']}
