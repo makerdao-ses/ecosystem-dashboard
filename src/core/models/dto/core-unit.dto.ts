@@ -1,5 +1,3 @@
-import { BudgetStatusEnum } from '../../enums/budget-status.enum';
-
 export interface Mip40BudgetPeriodDto {
   budgetPeriodStart: string;
   budgetPeriodEnd: string

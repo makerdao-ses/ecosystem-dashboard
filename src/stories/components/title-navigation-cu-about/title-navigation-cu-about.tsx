@@ -13,6 +13,7 @@ import { getMipsStatus, getRelateMipObjectFromCoreUnit } from '../../../core/bus
 import _ from 'lodash';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import { formatCode } from '../../../core/utils/string.utils';
 
 interface BudgetStatementFTEs {
   month: string
@@ -99,13 +100,6 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
   const mipStatus = (orderMips[0] as CuMip).mipStatus;
   const newDate = DateTime.fromFormat(mips || '', 'yyyy-MM-dd').toJSDate();
 
-  const formatCode = (code: string) => {
-    if (!code) return '';
-    const parts = code.split('-');
-    if (!parts.length) return code;
-
-    return parts[0];
-  };
   return (
     <Container>
       <CircleContainer>

@@ -36,3 +36,11 @@ export const formatNumber = (number: number) => {
     minimumFractionDigits: 2,
   });
 };
+
+export const formatCode = (code: string) => {
+  if (!code) return '';
+  const parts = code.split('-');
+  if (!parts.length) return code;
+
+  return parts[0];
+};
