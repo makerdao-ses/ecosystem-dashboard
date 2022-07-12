@@ -12,6 +12,8 @@ export const customRenderer = {
     return <p className='paragraph' style={{
       backgroundColor: 'white',
       color: '#231536',
+      lineHeight: '19px',
+      fontFamily: 'FT Base, sans-serif',
     }} key={text}>{text}</p>;
   },
   code(text: string) {
