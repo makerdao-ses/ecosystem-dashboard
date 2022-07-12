@@ -66,7 +66,6 @@ export const TransparencyTransferRequest = (props: TransparencyTransferRequestPr
       items={mainItems}
       headersAlign={['left', 'right', 'right', 'right', 'left']}
       headerWidths={['200px', '210px', '210px', '210px', '354px']}
-      style={{ marginBottom: '64px' }}
     />
   </Container>;
 };

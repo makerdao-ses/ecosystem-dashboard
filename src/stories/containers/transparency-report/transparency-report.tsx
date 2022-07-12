@@ -104,7 +104,7 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  marginTop: '64px',
+  margin: '64px 0 128px',
   flex: 1,
   background: 'url(/assets/img/bg-page.png)',
   backgroundAttachment: 'fixed',
