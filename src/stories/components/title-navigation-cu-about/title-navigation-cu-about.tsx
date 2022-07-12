@@ -12,7 +12,7 @@ import { CategoryChip } from '../category-chip/category-chip';
 import { getMipsStatus, getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-unit-about';
 import _ from 'lodash';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
-import { CoreUnitDto, CuMipDto } from '../../../core/models/dto/core-unit.dto';
+import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 interface BudgetStatementFTEs {
   month: string
@@ -98,6 +98,14 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
   const mips = getMipsStatus(orderMips[0] as CuMip);
   const mipStatus = (orderMips[0] as CuMip).mipStatus;
   const newDate = DateTime.fromFormat(mips || '', 'yyyy-MM-dd').toJSDate();
+
+  const formatCode = (code: string) => {
+    if (!code) return '';
+    const parts = code.split('-');
+    if (!parts.length) return code;
+
+    return parts[0];
+  };
   return (
     <Container>
       <CircleContainer>
@@ -112,7 +120,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
       <ContainerColum>
         <ContainerTitle>
           <ContainerSeparateData>
-            <TypographySES>{coreUnitAbout.code}</TypographySES>
+            <TypographySES>{formatCode(coreUnitAbout.code)}</TypographySES>
             {coreUnitAbout.name && <TypographyTitle>{coreUnitAbout.name}</TypographyTitle>}
 
             {mips && <StatusChip status={mipStatus as CuStatusEnum} />}
