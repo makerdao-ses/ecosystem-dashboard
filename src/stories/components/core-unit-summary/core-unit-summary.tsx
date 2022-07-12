@@ -60,6 +60,8 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
     },
     [code, filteredData, router]);
 
+  const descriptionLength = cu?.sentenceDescription?.length || 0;
+
   return <div style={{
     position: 'fixed',
     top: 63,
@@ -67,21 +69,29 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
     backgroundImage: 'url(/assets/img/Subheader.png)',
     backgroundSize: 'cover',
     zIndex: 4,
-    borderBottom: hiddenTextDescription ? '1px solid #B6EDE7' : 'none',
-    paddingBottom: hiddenTextDescription ? '24px' : '32px',
+
   }}>
     <NavigationHeader>
       <BreadCrumb count={filteredData.length} breadcrumbs={[cu?.name ?? '', ...trailingAddress]} isCoreUnit />
       <InsidePagination count={filteredData.length} page={page} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} />
     </NavigationHeader>
     <Wrapper>
-      <ContainerTitle>
-      <TitleNavigationCuAbout coreUnitAbout={cu} />
-      {hiddenTextDescription && <Typography fontSize={16} lineHeight='19px' color='#231536' fontFamily={'FT Base, sans-serif'} sx={{
-        marginTop: '16px',
-      }}>{cu?.sentenceDescription || ''}</Typography>}
-    </ContainerTitle>
+      <ContainerTitle descriptionLength={descriptionLength}>
+        <TitleNavigationCuAbout coreUnitAbout={cu} />
+        {hiddenTextDescription &&
+          <div> <Typography fontSize={16} lineHeight='19px' color='#231536' fontFamily={'FT Base, sans-serif'} sx={{
+            marginTop: '16px',
+            height: '42px',
+          }}>{cu?.sentenceDescription || ''}</Typography>
+          </div>}
+      </ContainerTitle>
     </Wrapper>
+    <div style={{
+      position: 'relative',
+      borderBottom: hiddenTextDescription ? '1px solid #B6EDE7' : 'none',
+      width: '100%',
+      marginTop: '24px',
+    }} />
   </div>;
 };
 
@@ -96,14 +106,12 @@ const NavigationHeader = styled.div({
   marginBottom: '16px'
 });
 
-const ContainerTitle = styled.div<{ stateHidden?: boolean }>((props) => ({
+const ContainerTitle = styled.div<{ stateHidden?: boolean, descriptionLength: number }>(({ stateHidden, descriptionLength }) => ({
   display: 'flex',
   flexDirection: 'column',
   paddingLeft: '128px',
   paddingRight: '128px',
-  paddingBottom: props.stateHidden ? '24px' : '32px',
-  height: props.stateHidden ? '135px' : '108px',
-  borderBottom: props.stateHidden ? '1px solid #B6EDE7' : 'none',
+  height: stateHidden || descriptionLength < 169 ? '108px' : '130px',
   paddingTop: '8px'
 }));
 
