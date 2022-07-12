@@ -38,6 +38,7 @@ const BreadcrumbsStyle = styled(Breadcrumbs)({
       fontWeight: 500,
       fontSize: '16px',
       lineHeight: '19px',
+      fontFamily: 'FT Base, sans-serif'
     }
   }
 });
