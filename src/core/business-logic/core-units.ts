@@ -13,7 +13,7 @@ import { CuStatusEnum } from '../enums/cu-status.enum';
 import { RoadmapStatusEnum } from '../enums/roadmap-status.enum';
 import { FacilitatorModel } from '../models/facilitator.model';
 import { CustomChartItemModel } from '../models/custom-chart-item.model';
-import { CuAbout, CuMip } from '../../stories/containers/cu-about/cu-about.api';
+import { BudgetStatement, CuAbout, CuMip } from '../../stories/containers/cu-about/cu-about.api';
 import _ from 'lodash';
 import { API_MONTH_FORMAT } from '../utils/date.utils';
 
@@ -113,11 +113,16 @@ export const getLinksFromCoreUnit = (cu: CoreUnitDto) => {
   return result;
 };
 
+const getLatestBudgetStatementWithFTE = (budgetStatements: BudgetStatementDto[]): BudgetStatementDto | null => {
+  if (!budgetStatements || budgetStatements.length === 0) return null;
+  const filtered = budgetStatements.filter(bs => bs.budgetStatementFTEs.length > 0);
+  return filtered.length ? filtered[0] : null;
+};
+
 export const getFTEsFromCoreUnit = (cu: CoreUnitDto | CuAbout) => {
   if (cu.budgetStatements?.length === 0) return 0;
-  if (!cu.budgetStatements[0]?.budgetStatementFTEs || cu.budgetStatements[0]?.budgetStatementFTEs?.length === 0) return 0;
 
-  return cu.budgetStatements[0].budgetStatementFTEs[0].ftes;
+  return getLatestBudgetStatementWithFTE(cu.budgetStatements as BudgetStatementDto[])?.budgetStatementFTEs[0]?.ftes ?? 0;
 };
 
 export const getFacilitatorsFromCoreUnit = (cu: CoreUnitDto) => {
