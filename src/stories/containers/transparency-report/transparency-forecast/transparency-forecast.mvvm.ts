@@ -32,7 +32,7 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetSt
   const wallets: BudgetStatementWalletDto[] = useMemo(() => {
     const dict: {[id: string]: BudgetStatementWalletDto} = {};
 
-    const budgetStatement = propBudgetStatements.find(bs => bs.month === currentMonth.toFormat(API_MONTH_FORMAT));
+    const budgetStatement = propBudgetStatements?.find(bs => bs.month === currentMonth.toFormat(API_MONTH_FORMAT));
 
     if (!budgetStatement || !budgetStatement.budgetStatementWallet) return [];
 

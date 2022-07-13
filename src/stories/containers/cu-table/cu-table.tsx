@@ -8,7 +8,7 @@ import {
   getFTEsFromCoreUnit,
   getLast3ExpenditureValuesFromCoreUnit,
   getLinksFromCoreUnit,
-  getMipFromCoreUnit,
+  getLatestMip39FromCoreUnit,
   getMipUrlFromCoreUnit,
   getPercentFromCoreUnit,
   getSubmissionDateFromCuMip
@@ -125,8 +125,8 @@ export const CuTable = () => {
         <CuTableColumnSummary
           key={`summary-${i}`}
           title={coreUnit.name}
-          status={getMipFromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum}
-          statusModified={getSubmissionDateFromCuMip(getMipFromCoreUnit(coreUnit))}
+          status={getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum}
+          statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
           imageUrl={coreUnit.image}
           mipUrl={getMipUrlFromCoreUnit(coreUnit)}
           onClick={onClickRow(coreUnit.code)}
