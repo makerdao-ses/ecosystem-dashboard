@@ -5,11 +5,15 @@ interface Props {
   height?: number;
   style?: CSSProperties
   fill?: string;
+  onClick?: () => void
 }
 
-const Logo = ({ width = 48, height = 25, fill = '#211634', ...props }: Props) => {
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const Logo = ({ width = 48, height = 25, fill = '#211634', onClick = () => { }, ...props }: Props) => {
   return (
     <svg
+      cursor='pointer'
+      onClick={onClick}
       width={width}
       height={height}
       viewBox="0 0 48 25"

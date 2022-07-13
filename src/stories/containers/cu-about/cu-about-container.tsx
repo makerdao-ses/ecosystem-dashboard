@@ -17,9 +17,10 @@ import { ContributorCommitment } from './cu-about-contributor';
 import { contributorCommitmentSelector, cuAboutSelector, loadCoreUnitAbout, status } from './cu-about-slice';
 import { CuMip } from './cu-about.api';
 import _ from 'lodash';
-import NavigationCard from '../../components/card-navegation/card-navigation';
 import { useRouter } from 'next/router';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
+import CardExpenses from '../../components/card-navegation/card-expenses';
+import CardSomeThingWrong from '../../components/card-navegation/card-somethig-wrong';
 
 const CuAboutContainer = () => {
   const router = useRouter();
@@ -125,10 +126,10 @@ const CuAboutContainer = () => {
           }}>
             <ContainerScroll descriptionLength={descriptionLength}>
               <ContainerCard>
-                <NavigationCard description={description} image='/assets/img/card-initiatives.png' list={list} titleLinkPage='View all' title='Initiatives' />
+                <CardExpenses onClick={onClickFinances} />
               </ContainerCard>
               <ContainerCard>
-                <NavigationCard onClick={onClickFinances} description={description} image='/assets/img/card-finances.png' list={list} titleLinkPage='View all' title='Finances' />
+                <CardSomeThingWrong />
               </ContainerCard>
             </ContainerScroll>
           </div>
