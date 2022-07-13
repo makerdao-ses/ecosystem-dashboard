@@ -17,6 +17,7 @@ export const GETCoreUnits = gql`
           rfc
           rejected
           obsolete
+          mipCode
           mip40 {
             mip40BudgetPeriod {
               budgetPeriodStart

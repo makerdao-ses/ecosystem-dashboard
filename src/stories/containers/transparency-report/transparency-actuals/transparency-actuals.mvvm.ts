@@ -46,7 +46,7 @@ export const useTransparencyActualsMvvm = (thirdIndex: number, setThirdIndex: (i
   const currentBudgetStatement = useMemo(() => {
     setThirdIndex(0);
     return budgetStatements?.find(x => x.month === currentMonth) ?? null;
-  }, [propsCurrentMonth, code]);
+  }, [propsCurrentMonth, code, budgetStatements]);
 
   const breakdownHeaders = useMemo(() => {
     return wallets.map(wallet => wallet.name);

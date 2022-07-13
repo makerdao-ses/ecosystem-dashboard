@@ -17,7 +17,8 @@ export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
   const {
     mkrVestings,
     totalAmount,
-    totalOldAmount
+    totalOldAmount,
+    FTEs,
   } = useTransparencyMkrVesting(props.currentMonth, props.budgetStatements);
 
   const items = useMemo(() => {
@@ -48,7 +49,7 @@ export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
     <Title marginBottom={32}>MKR Vesting Overview</Title>
     <TotalFte>
       <span>Total FTE</span>
-      <u>10</u>
+      <u>{FTEs}</u>
     </TotalFte>
     <InnerTable
       headers={['Vesting Date', 'MKR Amount', 'Last month', 'difference', 'reason(s)']}

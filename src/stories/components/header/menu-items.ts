@@ -9,7 +9,7 @@ const menuItems:MenuType[] = [
   {
     title: 'Core Units',
     link: '/',
-    marginRight: '30px'
+    marginRight: '32px'
   },
 ];
 

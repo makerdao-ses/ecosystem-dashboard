@@ -64,8 +64,8 @@ export const TransparencyReport = () => {
       <PagerBar>
         <CustomPager
           label={currentMonth.toFormat('MMM yyyy')}
-          onPrev={() => setCurrentMonth(currentMonth.minus({ month: 1 })) }
-          onNext={() => setCurrentMonth(currentMonth.plus({ month: 1 })) }
+          onPrev={() => setCurrentMonth(currentMonth.minus({ month: 1 }))}
+          onNext={() => setCurrentMonth(currentMonth.plus({ month: 1 }))}
         />
         <CustomLink
           href={currentBudgetStatement?.publicationUrl ?? null}
@@ -106,7 +106,8 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  margin: '64px 0 128px',
+  marginTop: '64px',
+  paddingBottom: '128px',
   flex: 1,
   background: 'url(/assets/img/bg-page.png)',
   backgroundAttachment: 'fixed',
@@ -124,6 +125,7 @@ const InnerPage = styled.div({
 export const Title = styled.div<{ marginBottom?: number }>(({ marginBottom = 16 }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontWeight: 500,
+  fontStyle: 'normal',
   fontSize: '20px',
   lineHeight: '24px',
   letterSpacing: '0.4px',
