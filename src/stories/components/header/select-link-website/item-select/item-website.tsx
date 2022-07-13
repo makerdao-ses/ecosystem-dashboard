@@ -20,7 +20,7 @@ interface Props {
 
 }
 
-export const ItemWebSite = ({ fontSize = 16, fontWeight = 700, color = '#FFFFFF', fontFamily = 'Inter', subtract = '', description, height = '134px', onClick, ...props }: Props) => {
+export const ItemWebSite = ({ fontSize = 16, fontWeight = 700, color = '#FFFFFF', fontFamily = 'SF Pro Display, sans-serif', subtract = '', description, height = '134px', onClick, ...props }: Props) => {
   return (
     <Container height={height}>
       <ContainerRow>
