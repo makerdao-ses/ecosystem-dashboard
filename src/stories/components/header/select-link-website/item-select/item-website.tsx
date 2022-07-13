@@ -15,7 +15,7 @@ interface Props {
   subtract?: ReactNode | JSX.Element
 }
 
-export const ItemWebSite = ({ background = '', fontSize = 16, fontWeight = 700, color = '#FFFFFF', link = '#', fontFamily = 'Inter', subtract = '', ...props }: Props) => {
+export const ItemWebSite = ({ background = '', fontSize = 16, fontWeight = 700, color = '#FFFFFF', link = '#', fontFamily = 'SF Pro Display, sans-serif', subtract = '', ...props }: Props) => {
   return (
     <ContainerLink href={link} target='_blank'>
       <ContainerLogo>{props.logo}</ContainerLogo>
