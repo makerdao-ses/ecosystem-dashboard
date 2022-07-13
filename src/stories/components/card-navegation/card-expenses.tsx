@@ -10,7 +10,7 @@ interface Props {
 
 const CardExpenses = ({ onClick }: Props) => {
   return (
-    <InformationCard title='Expenses' height='134px'>
+    <InformationCard title='Expenses' height='134px' fontSize='24px' lineHeight='29px'>
       <TypographyDescription marginBottom={'24px'}>
         View all expenses of the (SES-01) Sustainable Ecosystem Scaling
       </TypographyDescription>
@@ -37,8 +37,8 @@ export default CardExpenses;
 const TypographyDescription = styled(Typography)<{ marginBottom?: string }>((props) => ({
   fontFamily: 'SF Pro Text, sans serif',
   fontStyle: 'normal',
-  fontWeight: 400,
-  fontSize: '14px',
+  fontWeight: 500,
+  fontSize: '15px',
   lineHeight: '18px',
   color: '#231536',
   marginBottom: props.marginBottom || '0px'
