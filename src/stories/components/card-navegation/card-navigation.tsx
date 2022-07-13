@@ -26,7 +26,7 @@ export const NavigationCard = ({ description, image, list = [], title, titleLink
           flexDirection: 'row',
           alignItems: 'center',
         }}>
-          <Typography textAlign='right' fontStyle='normal' fontWeight={400} fontSize={20} color='#231536' letterSpacing='0.4px' fontFamily={'FT Base, sans-serif'}>{titleLinkPage}</Typography>
+          <Typography textAlign='right' fontStyle='normal' fontWeight={400} fontSize={14} color='#231536' letterSpacing='0.4px' fontFamily={'FT Base, sans-serif'}>{titleLinkPage}</Typography>
           <ArrowRight width={16} height={16} style={{ marginLeft: '22px' }} onClick={onClick} />
         </div>
       </ArrowTittleStyle>

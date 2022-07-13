@@ -3,6 +3,8 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import ItemWebSite from './item-website';
 import Logo from '../../../svg/logo';
 import Makerdao from '../../../svg/makerdao';
+import VotingPortal from '../../../svg/voting-portal';
+import MakerBurn from '../../../svg/maker-burn';
 
 export default {
   title: 'Components/General/ItemWebSite',
@@ -15,28 +17,31 @@ const Template: ComponentStory<typeof ItemWebSite> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  title: 'Voting Portal',
-  logo: <Logo />,
-  color: '#FFFFFF',
-  background: '#231635',
-  fontSize: 16,
-  fontWeight: 700,
+  title: 'makerburn.com',
+  description: 'Easily view onchain data that surfaces key protocol health metrics.',
+  logo: <MakerBurn />,
+  color: '#000000',
+  fontFamily: 'Cantarell,sans-serif',
+  link: 'https://makerburn.com/#/',
+  height: '120px',
 };
 export const DataDifferentColor = Template.bind({});
 DataDifferentColor.args = {
-  title: 'Voting Portal',
-  logo: <Logo fill='#1AAB9B'/>,
-  color: '#FFFFFF',
-  background: '#1AAB9B',
-  fontSize: 16,
-  fontWeight: 700,
+  title: 'Forum',
+  description: 'Get up to date on the latest discussions within the Maker community.',
+  logo: <Makerdao />,
+  color: '#1AAB9B',
+  link: 'https://forum.makerdao.com/',
+  fontFamily: 'SF Pro Display, sans-serif',
 };
 
 export const CircularLogo = Template.bind({});
 CircularLogo.args = {
-  title: 'Forum',
-  logo: <Makerdao />,
-  color: '#1AAB9B',
-  fontSize: 16,
-  fontWeight: 700,
+  logo: <Logo width={48} height={24.71} />,
+  description: 'See how MKR holders are having their voice heard through protocol governance.',
+  background: '#231635',
+  fontSize: '16px',
+  link: 'https://vote.makerdao.com/',
+  subtract: <VotingPortal />,
+  height: '120px',
 };

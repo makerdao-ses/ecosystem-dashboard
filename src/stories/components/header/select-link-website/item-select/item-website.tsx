@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 import React, { ReactNode } from 'react';
+import { CustomButton } from '../../../custom-button/custom-button';
 
 interface Props {
   title: string
@@ -13,40 +14,72 @@ interface Props {
   fontFamily?: string
   padding?: string
   subtract?: ReactNode | JSX.Element
+  description: string
+  height?: string
+  onClick: () => void;
+
 }
 
-export const ItemWebSite = ({ background = '', fontSize = 16, fontWeight = 700, color = '#FFFFFF', link = '#', fontFamily = 'Inter', subtract = '', ...props }: Props) => {
+export const ItemWebSite = ({ fontSize = 16, fontWeight = 700, color = '#FFFFFF', fontFamily = 'Inter', subtract = '', description, height = '134px', onClick, ...props }: Props) => {
   return (
-    <ContainerLink href={link} target='_blank'>
-      <ContainerLogo>{props.logo}</ContainerLogo>
-      {props.title && <ContainerText background={background} padding={props.padding}>
-        <Typography fontSize={fontSize} color={color} fontWeight={fontWeight} fontFamily={fontFamily} >{props.title}</Typography>
-      </ContainerText>}
-      <ContainerSubtract>{subtract}</ContainerSubtract>
-    </ContainerLink>
+    <Container height={height}>
+      <ContainerRow>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center'
+        }}>
+          <ContainerLogo>{props.logo}</ContainerLogo>
+          {props.title &&
+            <Typography fontSize={fontSize} color={color} fontWeight={fontWeight} fontFamily={fontFamily} >{props.title}</Typography>
+          }
+          {subtract && <ContainerSubtract>{subtract}</ContainerSubtract>}
+        </div>
+        <div>  <CustomButton label='Visit Website' onClick={onClick} style={{
+          width: '137px',
+          height: '34px',
+          padding: '8px 24px'
+        }} /></div>      </ContainerRow>
+      <ContainerTextDescription>
+        <TypographyDescription sx={{
+        }}>{description}</TypographyDescription>
+      </ContainerTextDescription>
+    </Container>
   );
 };
 
-const ContainerLink = styled.a({
+const Container = styled.div<{ height?: string }>(({ height }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  background: '#FFFFFF',
+  border: '1px solid #D2D4EF',
+  borderRadius: '6px',
+  padding: '16px 24px',
+  width: '497px',
+  height,
+}));
+
+const ContainerRow = styled.div({
   display: 'flex',
   flexDirection: 'row',
+  justifyContent: 'space-between',
   alignItems: 'center',
-  height: 'fit-content',
-  textDecoration: 'none',
+  width: '100%',
 });
-
 const ContainerLogo = styled.div({
   display: 'flex',
   alignItems: 'center',
   marginRight: '16px',
 });
-const ContainerText = styled.div<{ background?: string, padding?: string }>((props) => ({
-  background: props.background || 'none',
+
+const ContainerTextDescription = styled.div({
   display: 'flex',
-  alignItems: 'center',
-  borderRadius: '4px',
-  padding: props.padding || 0,
-}));
+  marginTop: '16px',
+  wordWrap: 'break-word',
+  whiteSpace: 'initial'
+});
+
 const ContainerSubtract = styled.div<{ background?: string, padding?: string }>((props) => ({
   background: props.background || 'none',
   display: 'flex',
@@ -54,5 +87,13 @@ const ContainerSubtract = styled.div<{ background?: string, padding?: string }>(
   borderRadius: '6px',
   padding: props.padding || 0,
 }));
+const TypographyDescription = styled(Typography)({
+  fontFamily: 'FT Base, sans serif',
+  fontStyle: 'normal',
+  fontWeight: 400,
+  fontSize: '16px',
+  lineHeight: '19px',
+  color: '#231536'
+});
 
 export default ItemWebSite;
