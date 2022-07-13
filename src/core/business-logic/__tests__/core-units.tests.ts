@@ -7,7 +7,7 @@ import {
   getFTEsFromCoreUnit,
   getLast3ExpenditureValuesFromCoreUnit,
   getLinksFromCoreUnit,
-  getMipFromCoreUnit,
+  getLatestMip39FromCoreUnit,
   getPercentFromCoreUnit,
   getSubmissionDateFromCuMip
 } from '../core-units';
@@ -39,12 +39,12 @@ test('Get date for status on CuMip', () => {
   expect(getCuMipStatusModifiedDate(mipDao, CuStatusEnum.RFC)).toBe('');
 });
 
-test('Get Mip from Core Unit', () => {
+test('Get latest Mip39 from Core Unit', () => {
   const mipDao = (new CuMipBuilder()).build();
+  mipDao.mipCode = 'MIP39';
   const coreUnit = (new CoreUnitsBuilder()).addCuMip(mipDao).build();
 
-  expect(getMipFromCoreUnit(coreUnit)).toBe(mipDao);
-  expect(getMipFromCoreUnit(coreUnit)).not.toBeNull();
+  expect(getLatestMip39FromCoreUnit(coreUnit)).toBe(mipDao);
 });
 
 test('Get Date as Datetime from CuMip', () => {

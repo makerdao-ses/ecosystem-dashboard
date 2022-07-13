@@ -35,11 +35,12 @@ export const getCuMipStatusModifiedDate = (mip: CuMipDto | CuMip | null, status:
   return mip[index];
 };
 
-export const getMipFromCoreUnit = (cu?: CoreUnitDto | null) => {
+export const getLatestMip39FromCoreUnit = (cu?: CoreUnitDto | null) => {
   if (!cu) return null;
-  if (cu.cuMip?.length === 0) return null;
+  const mip39s = cu.cuMip?.filter(mip => mip.mipCode?.indexOf('MIP39') > -1) ?? [];
+  if (mip39s.length === 0) return null;
 
-  return cu.cuMip[cu.cuMip.length - 1];
+  return mip39s[mip39s.length - 1];
 };
 
 export const getSubmissionDateFromCuMip = (mip: CuMipDto | null) => {
