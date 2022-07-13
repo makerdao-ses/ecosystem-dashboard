@@ -3,73 +3,36 @@ import styled from '@emotion/styled';
 import { Download } from '../../../components/svg/download';
 import { AuditStatusChip } from '../../../components/audit-status-chip/audit-status-chip';
 import { AuditStatusEnum } from '../../../../core/enums/audit-status.enum';
+import { useTransparencyAuditMvvm } from './transparency-audit.mvvm';
+import { DateTime } from 'luxon';
+import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 
-export const TransparencyAudit = () => {
+interface TransparencyAuditProps {
+  currentMonth: DateTime;
+  budgetStatements?: BudgetStatementDto[];
+  code: string;
+}
+
+export const TransparencyAudit = (props: TransparencyAuditProps) => {
+  const { items, getDate, getTime, getFilenameFromUrl } = useTransparencyAuditMvvm();
+
   return <Container>
-    <Box>
+    {items.map(item => <Box key={item.reportUrl}>
       <Title>
         <DateAndTime>
-          <span>25-NOV-2021</span>
-          <span>19:31</span>
+          <span>{getDate(item.timestamp)}</span>
+          <span>{getTime(item.timestamp)}</span>
         </DateAndTime>
         <Text>
           <span>Status</span>
-          <AuditStatusChip status={AuditStatusEnum.Escalated}/>
+          <AuditStatusChip status={item.auditStatus as AuditStatusEnum}/>
         </Text>
       </Title>
-      <DownloadText>
-        <span>SES_AUDIT_REPORT-05_14_2022.PDF</span>
+      <DownloadText onClick={() => item.reportUrl && window.open(item.reportUrl, '_blank')}>
+        <span>{getFilenameFromUrl(item.reportUrl)}</span>
         <Download/>
       </DownloadText>
-    </Box>
-    <Box>
-      <Title>
-        <DateAndTime>
-          <span>25-NOV-2021</span>
-          <span>19:31</span>
-        </DateAndTime>
-        <Text>
-          <span>Status</span>
-          <AuditStatusChip status={AuditStatusEnum.ActionRequired}/>
-        </Text>
-      </Title>
-      <DownloadText>
-        <span>SES_AUDIT_REPORT-05_14_2022.PDF</span>
-        <Download/>
-      </DownloadText>
-    </Box>
-    <Box>
-      <Title>
-        <DateAndTime>
-          <span>25-NOV-2021</span>
-          <span>19:31</span>
-        </DateAndTime>
-        <Text>
-          <span>Status</span>
-          <AuditStatusChip status={AuditStatusEnum.ApprovedWithComments}/>
-        </Text>
-      </Title>
-      <DownloadText>
-        <span>SES_AUDIT_REPORT-05_14_2022.PDF</span>
-        <Download/>
-      </DownloadText>
-    </Box>
-    <Box>
-      <Title>
-        <DateAndTime>
-          <span>25-NOV-2021</span>
-          <span>19:31</span>
-        </DateAndTime>
-        <Text>
-          <span>Status</span>
-          <AuditStatusChip status={AuditStatusEnum.Approved}/>
-        </Text>
-      </Title>
-      <DownloadText>
-        <span>SES_AUDIT_REPORT-05_14_2022.PDF</span>
-        <Download/>
-      </DownloadText>
-    </Box>
+    </Box>)}
   </Container>;
 };
 

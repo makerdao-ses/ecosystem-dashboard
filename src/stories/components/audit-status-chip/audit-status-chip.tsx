@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuditStatusEnum } from '../../../core/enums/audit-status.enum';
+import { AuditStatusEnum, getAuditStatusLabel } from '../../../core/enums/audit-status.enum';
 import styled from '@emotion/styled';
 
 interface AuditStatusChipProps {
@@ -11,7 +11,7 @@ const colors = {
     color: '#1AAB9B',
     background: 'rgba(245, 255, 246, 0.5)'
   },
-  'Approved with Comments': {
+  ApprovedWithComments: {
     color: '#447AFB',
     background: 'rgba(247, 255, 245, 0.52)'
   },
@@ -19,7 +19,7 @@ const colors = {
     color: '#F08B04',
     background: 'rgba(255, 251, 245, 0.5)'
   },
-  'Action Required': {
+  NeedActionsBeforeApproval: {
     color: '#9055AF',
     background: 'rgba(250, 245, 255, 0.5)'
   },
@@ -27,10 +27,10 @@ const colors = {
 
 export const AuditStatusChip = (props: AuditStatusChipProps) => {
   return <Chip style={{
-    color: colors[props.status].color,
-    background: colors[props.status].background,
-    borderColor: colors[props.status].color
-  }}>{props.status}</Chip>;
+    color: colors[props.status]?.color,
+    background: colors[props.status]?.background,
+    borderColor: colors[props.status]?.color
+  }}>{getAuditStatusLabel(props.status)}</Chip>;
 };
 
 const Chip = styled.div({
