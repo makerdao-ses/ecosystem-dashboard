@@ -14,6 +14,7 @@ import { DateTime } from 'luxon';
 import { BudgetStatementDto, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
 import { API_MONTH_FORMAT } from '../../../core/utils/date.utils';
+import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
 
 const colors: {[key: string]: string} = {
   Draft: '#7C6B95',
@@ -51,7 +52,7 @@ export const TransparencyReport = () => {
         <p style={{ marginBottom: 0 }}>
           <span>Is this your core unit? Learn</span>
           <CustomLink
-            href={''}
+            href={HOW_TO_SUBMIT_EXPENSES}
             iconHeight={10}
             iconWidth={10}
             fontSize={16}
