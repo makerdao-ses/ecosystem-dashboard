@@ -14,6 +14,7 @@ import _ from 'lodash';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { formatCode } from '../../../core/utils/string.utils';
+import { CustomLink } from '../custom-link/custom-link';
 
 interface BudgetStatementFTEs {
   month: string
@@ -119,9 +120,14 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
 
             {mips && <StatusChip status={mipStatus as CuStatusEnum} />}
             <Row>
-              {newDate && <CustomPopover
-                id={'mouse-over-popover-goto'}
-                title={'Go to MIPs Portal'}
+              {newDate && <CustomLink
+                href={'#'}
+                withArrow
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  height: '22px'
+                }}
               >
                 {newDate &&
                   <SinceDate
@@ -130,14 +136,14 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
                     Since {DateTime.fromJSDate(newDate).toFormat('d-MMM-y')}
                   </SinceDate>
                 }
-              </CustomPopover>}
+              </CustomLink>}
             </Row>
           </ContainerSeparateData>
         </ContainerTitle>
         <CategoryContainer>{coreUnitAbout.category && coreUnitAbout.category.map((item) => <CategoryChip key={item} category={item} style={{ marginRight: '16px' }} />)}</CategoryContainer>
       </ContainerColum>
       <ContainerLinks>
-        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#708390'} spacingsRight={29} lastChild/>
+        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#708390'} spacingsRight={29} lastChild />
       </ContainerLinks>
     </Container>
   );
