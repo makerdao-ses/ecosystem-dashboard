@@ -10,7 +10,6 @@ import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 interface TransparencyAuditProps {
   currentMonth: DateTime;
   budgetStatements?: BudgetStatementDto[];
-  code: string;
 }
 
 export const TransparencyAudit = (props: TransparencyAuditProps) => {
