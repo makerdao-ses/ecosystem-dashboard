@@ -79,6 +79,12 @@ export interface BudgetStatementMKRVestDto {
   comments: string;
 }
 
+export interface AuditReportDto {
+  auditStatus: string;
+  reportUrl: string;
+  timestamp: string;
+}
+
 export interface BudgetStatementDto {
   month: string;
   budgetStatus: string;

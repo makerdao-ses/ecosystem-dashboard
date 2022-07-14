@@ -1,6 +1,6 @@
 
 import styled from '@emotion/styled';
-import { IconButton, Menu, MenuItem } from '@mui/material';
+import { IconButton, Menu, MenuItem, Typography } from '@mui/material';
 import React from 'react';
 import ArrowSelect from '../../svg/arrow-select';
 import ItemWebSite from './item-select/item-website';
@@ -13,7 +13,7 @@ interface Props {
   background?: string
 }
 
-const SelectLink = ({ links, onClick, fill = '', background = '' }: Props) => {
+const SelectLink = ({ links, fill = '', onClick, background = '' }: Props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -33,7 +33,7 @@ const SelectLink = ({ links, onClick, fill = '', background = '' }: Props) => {
           onClick={handleClick}
         ><ArrowSelect fill={fill} /></IconButton></ContainerIcon>
       <Menu
-       disableScrollLock={true}
+        disableScrollLock={true}
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
@@ -43,16 +43,19 @@ const SelectLink = ({ links, onClick, fill = '', background = '' }: Props) => {
         }}
         sx={{
           '& .MuiMenu-paper': {
-            marginTop: '20px',
-            paddingLeft: '16px',
-            paddingRight: '16px',
-            height: '335px',
-            width: '257px',
+            padding: '24px',
+            minHeight: '711px',
+            width: '545px',
             background: '#FFFFFF',
             position: 'absolute',
+            boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
           },
           '& .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
             borderRadius: '22px',
+          },
+          '& .MuiMenu-list': {
+            paddingTop: '0px',
+            paddingBottom: '0px',
           },
         }}
         transformOrigin={{
@@ -60,22 +63,26 @@ const SelectLink = ({ links, onClick, fill = '', background = '' }: Props) => {
           horizontal: 'right',
         }}
       >
+        <StyleTitle sx={{
+          paddingBottom: '16px'
+        }}>Essential MakerDAO Governance Websites </StyleTitle>
+        <Typography sx={{ paddingBottom: '24px' }}>The five websites to gather all relevant data and information for Maker Governance. </Typography>
         {links.map((link: WebSiteLinks) => {
           return <MenuItem
-            onClick={onClick(link.link)}
             disableGutters={true}
+            disableTouchRipple={true}
             sx={{
-              padding: '16px',
+              paddingBottom: '16px',
+              paddingTop: '0px',
               '&:hover': {
-                background: '#ECF1F3',
-                borderRadius: '22px',
+                background: 'none',
+                cursor: 'default'
               },
-              marginBottom: '9.15px',
               '&:last-child': {
-                marginBottom: '0px',
-              }
+                paddingBottom: '0px',
+              },
             }} key={link.id}>
-            <ItemWebSite title={link.title || ''} logo={link.logo} background={link.background} color={link.color} fontSize={link.fontSize} fontWeight={link.fontWeight} link={link.link} fontFamily={link.fontFamily} padding={link.padding} subtract={link.subtract} />
+            <ItemWebSite height={link.height} title={link.title || ''} logo={link.logo} background={link.background} color={link.color} fontSize={link.fontSize} fontWeight={link.fontWeight} link={link.link} fontFamily={link.fontFamily} padding={link.padding} subtract={link.subtract} description={link.description} onClick={onClick(link.link)} />
           </MenuItem >;
         })}
       </Menu>
@@ -90,5 +97,15 @@ const ContainerIcon = styled.div<{ background: string }>((props) => ({
   borderRadius: '6px',
   background: props.background || '#ECF1F3',
 }));
+
+const StyleTitle = styled(Typography)({
+  fontFamily: 'FT Base, sans serif',
+  fontStyle: 'normal',
+  fontWeight: 500,
+  fontSize: '24px',
+  lineHeight: '29px',
+  letterSpacing: '0.4px',
+  color: '#231536'
+});
 
 export default SelectLink;

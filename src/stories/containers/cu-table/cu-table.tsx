@@ -8,7 +8,7 @@ import {
   getFTEsFromCoreUnit,
   getLast3ExpenditureValuesFromCoreUnit,
   getLinksFromCoreUnit,
-  getMipFromCoreUnit,
+  getLatestMip39FromCoreUnit,
   getMipUrlFromCoreUnit,
   getPercentFromCoreUnit,
   getSubmissionDateFromCuMip
@@ -42,9 +42,12 @@ import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 const statuses = Object.values(CuStatusEnum) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];
-const headers = ['Core Units', 'Initiatives', 'Expenditure', 'Team Members', 'Links'];
+const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
 const sortInitialState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled];
-const headerStyles: CSSProperties[] = [{ paddingLeft: '80px' }, { paddingLeft: '35px' }, { marginLeft: '-40px' }, {}, {}];
+const headerStyles: CSSProperties[] = [{ paddingLeft: '63.5px' }, {
+  paddingLeft: '43px',
+  marginRight: '70px',
+}, {}, {}];
 
 export const CuTable = () => {
   const dispatch = useAppDispatch();
@@ -125,16 +128,12 @@ export const CuTable = () => {
         <CuTableColumnSummary
           key={`summary-${i}`}
           title={coreUnit.name}
-          status={getMipFromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum}
-          statusModified={getSubmissionDateFromCuMip(getMipFromCoreUnit(coreUnit))}
+          status={getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum}
+          statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
           imageUrl={coreUnit.image}
           mipUrl={getMipUrlFromCoreUnit(coreUnit)}
           onClick={onClickRow(coreUnit.code)}
           code={coreUnit.code}
-        />,
-        <CuTableColumnInitiatives
-          key={`initiatives-${i}`}
-          initiatives={countInitiativesFromCoreUnit(coreUnit)}
         />,
         <CuTableColumnExpenditures
           key={`expenditures-${i}`}
@@ -163,7 +162,7 @@ export const CuTable = () => {
   return <ContainerHome>
     <Wrapper>
       <Header>
-        <Title>Core Units</Title>
+        <Title>Core Units Expenses</Title>
         <CustomButton
           label="Reset Filters"
           style={{
@@ -218,7 +217,7 @@ export const CuTable = () => {
       <CustomTable
         headers={headers}
         items={items}
-        headersAlign={['flex-start', 'center', 'center', 'flex-start', 'center']}
+        headersAlign={['flex-start', 'flex-start', 'flex-end', 'center']}
         headersSort={headersSort}
         headersStyles={headerStyles}
         sortFunction={setSort}
@@ -255,6 +254,7 @@ const Title = styled.div({
   fontFamily: 'FT Base, sans-serif',
   fontSize: '24px',
   fontWeight: 500,
+  lineHeight: '29px',
   letterSpacing: '0.4px',
   flex: 1,
   color: '#231536'

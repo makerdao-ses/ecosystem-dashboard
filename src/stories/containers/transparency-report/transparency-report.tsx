@@ -14,6 +14,7 @@ import { DateTime } from 'luxon';
 import { BudgetStatementDto, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
 import { API_MONTH_FORMAT } from '../../../core/utils/date.utils';
+import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
 
 const colors: {[key: string]: string} = {
   Draft: '#7C6B95',
@@ -51,7 +52,7 @@ export const TransparencyReport = () => {
         <p style={{ marginBottom: 0 }}>
           <span>Is this your core unit? Learn</span>
           <CustomLink
-            href={''}
+            href={HOW_TO_SUBMIT_EXPENSES}
             iconHeight={10}
             iconWidth={10}
             fontSize={16}
@@ -64,8 +65,8 @@ export const TransparencyReport = () => {
       <PagerBar>
         <CustomPager
           label={currentMonth.toFormat('MMM yyyy')}
-          onPrev={() => setCurrentMonth(currentMonth.minus({ month: 1 })) }
-          onNext={() => setCurrentMonth(currentMonth.plus({ month: 1 })) }
+          onPrev={() => setCurrentMonth(currentMonth.minus({ month: 1 }))}
+          onNext={() => setCurrentMonth(currentMonth.plus({ month: 1 }))}
         />
         <CustomLink
           href={currentBudgetStatement?.publicationUrl ?? null}
@@ -97,7 +98,7 @@ export const TransparencyReport = () => {
     {thirdIndex === 1 && <TransparencyForecast currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>}
     {thirdIndex === 2 && <TransparencyMkrVesting currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>}
     {thirdIndex === 3 && <TransparencyTransferRequest currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>}
-    {thirdIndex === 4 && <TransparencyAudit/>}
+    {thirdIndex === 4 && <TransparencyAudit currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>}
     </InnerPage>
   </Container>;
 };
@@ -106,7 +107,8 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  margin: '64px 0 128px',
+  marginTop: '64px',
+  paddingBottom: '128px',
   flex: 1,
   background: 'url(/assets/img/bg-page.png)',
   backgroundAttachment: 'fixed',
@@ -124,6 +126,7 @@ const InnerPage = styled.div({
 export const Title = styled.div<{ marginBottom?: number }>(({ marginBottom = 16 }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontWeight: 500,
+  fontStyle: 'normal',
   fontSize: '20px',
   lineHeight: '24px',
   letterSpacing: '0.4px',

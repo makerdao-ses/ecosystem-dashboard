@@ -31,6 +31,10 @@ export const CORE_UNIT_REQUEST = (code: string) => ({
           month
           budgetStatus
           publicationUrl
+          budgetStatementFTEs {
+            month
+            ftes
+          }
           budgetStatementWallet {
             name
             address
