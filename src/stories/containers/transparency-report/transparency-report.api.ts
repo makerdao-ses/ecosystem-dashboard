@@ -35,6 +35,11 @@ export const CORE_UNIT_REQUEST = (code: string) => ({
             month
             ftes
           }
+          auditReport {
+            reportUrl
+            timestamp
+            auditStatus
+          }
           budgetStatementWallet {
             name
             address
