@@ -1,24 +1,28 @@
 import styled from '@emotion/styled';
 import { Box, Typography } from '@mui/material';
-import React from 'react';
+import React, { CSSProperties } from 'react';
 
 interface Props {
   title: string
   children: (string | JSX.Element)[]
   height: string
+  fontSize?: string
+  lineHeight?: string
+  fontWeight?: number
+  letterSpacing?: string
 }
 
-const InformationCard = ({ title, children, height }: Props) => {
+const InformationCard = ({ title, children, height, fontSize = '20px', lineHeight = '24px', fontWeight = 500, letterSpacing = '0.4px' }: Props) => {
   return (
     <>
       <Typography sx={{
         marginBottom: '16px',
         fontFamily: 'FT Base,sans-serif',
         fontStyle: 'normal',
-        fontWeight: 500,
-        fontSize: '20px',
-        lineHeight: '24px',
-        letterSpacing: '0.4px',
+        fontWeight,
+        fontSize,
+        lineHeight,
+        letterSpacing,
         color: '#231536'
       }}>{title}</Typography>
       <Container height={height}>
