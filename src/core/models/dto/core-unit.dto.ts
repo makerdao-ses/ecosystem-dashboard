@@ -92,6 +92,7 @@ export interface BudgetStatementDto {
   budgetStatementFTEs: BudgetStatementFteDto[];
   budgetStatementWallet: BudgetStatementWalletDto[];
   budgetStatementMKRVest?: BudgetStatementMKRVestDto[];
+  auditReport: AuditReportDto[];
 }
 
 export interface SocialMediaChannelDto {

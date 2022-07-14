@@ -1,37 +1,12 @@
-import { AuditStatusEnum } from '../../../../core/enums/audit-status.enum';
-import { AuditReportDto } from '../../../../core/models/dto/core-unit.dto';
 import { DateTime } from 'luxon';
 
 export const useTransparencyAuditMvvm = () => {
-  const items = [
-    {
-      auditStatus: AuditStatusEnum.Escalated,
-      reportUrl: 'https://SES_AUDIT_REPORT-05_14_2022.PDF',
-      timestamp: '1657705670',
-    },
-    {
-      auditStatus: AuditStatusEnum.NeedActionsBeforeApproval,
-      reportUrl: 'https://SES_AUDIT_REPORT-05_14_2022.PDF',
-      timestamp: '1657705670',
-    },
-    {
-      auditStatus: AuditStatusEnum.ApprovedWithComments,
-      reportUrl: 'https://SES_AUDIT_REPORT-05_14_2022.PDF',
-      timestamp: '1657705670',
-    },
-    {
-      auditStatus: AuditStatusEnum.Approved,
-      reportUrl: 'https://SES_AUDIT_REPORT-05_14_2022.PDF',
-      timestamp: '1657705670',
-    },
-  ] as AuditReportDto[];
-
   const getDate = (timestamp: string) => {
-    return DateTime.fromSeconds(Number(timestamp)).toFormat('dd-MMM-yyyy');
+    return DateTime.fromSeconds(Number(timestamp) / 1000).toFormat('dd-MMM-y');
   };
 
   const getTime = (timestamp: string) => {
-    return DateTime.fromSeconds(Number(timestamp)).toFormat('hh:mm');
+    return DateTime.fromSeconds(Number(timestamp) / 1000).toFormat('hh:mm');
   };
 
   const getFilenameFromUrl = (url: string) => {
@@ -42,7 +17,6 @@ export const useTransparencyAuditMvvm = () => {
   };
 
   return {
-    items,
     getDate,
     getTime,
     getFilenameFromUrl,

@@ -4,19 +4,17 @@ import { Download } from '../../../components/svg/download';
 import { AuditStatusChip } from '../../../components/audit-status-chip/audit-status-chip';
 import { AuditStatusEnum } from '../../../../core/enums/audit-status.enum';
 import { useTransparencyAuditMvvm } from './transparency-audit.mvvm';
-import { DateTime } from 'luxon';
 import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 
 interface TransparencyAuditProps {
-  currentMonth: DateTime;
-  budgetStatements?: BudgetStatementDto[];
+  budgetStatement?: BudgetStatementDto;
 }
 
 export const TransparencyAudit = (props: TransparencyAuditProps) => {
-  const { items, getDate, getTime, getFilenameFromUrl } = useTransparencyAuditMvvm();
+  const { getDate, getTime, getFilenameFromUrl } = useTransparencyAuditMvvm();
 
   return <Container>
-    {items.map(item => <Box key={item.reportUrl}>
+    {props.budgetStatement?.auditReport?.map(item => <Box key={item.reportUrl}>
       <Title>
         <DateAndTime>
           <span>{getDate(item.timestamp)}</span>
@@ -74,7 +72,7 @@ const DateAndTime = styled.div({
   }
 });
 
-const DownloadText = styled.div({
+const DownloadText = styled.a({
   display: 'flex',
   alignItems: 'center',
   fontFamily: 'FT Base, sans-serif',
@@ -83,6 +81,7 @@ const DownloadText = styled.div({
   letterSpacing: '1px',
   textTransform: 'uppercase',
   color: '#447AFB',
+  cursor: 'pointer',
   '> span': {
     marginRight: '14px'
   }
