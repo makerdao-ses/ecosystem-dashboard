@@ -1,7 +1,6 @@
 name: Staging deployment
 on:
-  push:
-    branches: [ SES-73-create-the-environments ]
+  workflow_dispatch
 jobs:
   deploy:
     runs-on: ubuntu-latest
