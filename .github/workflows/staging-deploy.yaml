@@ -1,10 +1,10 @@
-name: Deploy Next-JS
-on:
-  push:
-    branches: [ master ]
+name: Deploy Staging
+  on:
+    workflow_dispatch
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: staging
     strategy:
       matrix:
         node-version: [v16.x]
@@ -12,6 +12,10 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v1
+      - name: Configure environment variables
+        run: |
+          rm .env
+          echo -e "NEXT_PUBLIC_GRAPHQL_ENDPOINT=${{GRAPHQL_API_URL}}" >> .env
       - name: Install project
         run: |
           npm install -g yarn
