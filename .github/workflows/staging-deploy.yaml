@@ -1,0 +1,46 @@
+name: Staging deployment
+on:
+  workflow_dispatch
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: staging
+    strategy:
+      matrix:
+        node-version: [v16.x]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v1
+      - name: Configure environment variables
+        run: |
+          rm .env
+          echo -e NEXT_PUBLIC_GRAPHQL_ENDPOINT=${{ secrets.GRAPHQL_API_URL }} >> .env
+      - name: Install project
+        run: |
+          npm install -g yarn
+          yarn
+          yarn build
+      - name: Copy file via scp
+        uses: appleboy/scp-action@master
+        env:
+          HOST: ${{ secrets.SSH_HOST }}
+          USERNAME: ${{ secrets.SSH_USER }}
+          PORT: ${{ secrets.SSH_PORT }}
+          PASSWORD: ${{ secrets.SSH_PASS }}
+        with:
+          source: "./"
+          target: "/var/www/next/app-staging-tmp"
+      - name: Executing remote command
+        uses: appleboy/ssh-action@master
+        with:
+          HOST: ${{ secrets.SSH_HOST }}
+          USERNAME: ${{ secrets.SSH_USER }}
+          PORT: ${{ secrets.SSH_PORT }}
+          PASSWORD: ${{ secrets.SSH_PASS }}
+          script: |
+            pm2 stop next-js-staging
+            mv /var/www/next/app-staging /var/www/next/app-staging-del
+            mv /var/www/next/app-staging-tmp /var/www/next/app-staging
+            pm2 start next-js-staging
+            rm -rf /var/www/next/app-staging-del
+            rm -rf /var/www/next/app-staging-tmp
