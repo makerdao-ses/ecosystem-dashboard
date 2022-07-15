@@ -63,10 +63,8 @@ const SelectLink = ({ links, fill = '', onClick, background = '' }: Props) => {
           horizontal: 'right',
         }}
       >
-        <StyleTitle sx={{
-          paddingBottom: '16px'
-        }}>Essential MakerDAO Governance Websites </StyleTitle>
-        <Typography sx={{ paddingBottom: '24px' }}>The five websites to gather all relevant data and information for Maker Governance. </Typography>
+        <StyleTitle>Essential MakerDAO Governance Websites </StyleTitle>
+        <StyleDescription >Websites to gather all relevant data and information for Maker Governance.</StyleDescription>
         {links.map((link: WebSiteLinks) => {
           return <MenuItem
             disableGutters={true}
@@ -82,7 +80,7 @@ const SelectLink = ({ links, fill = '', onClick, background = '' }: Props) => {
                 paddingBottom: '0px',
               },
             }} key={link.id}>
-            <ItemWebSite height={link.height} title={link.title || ''} logo={link.logo} background={link.background} color={link.color} fontSize={link.fontSize} fontWeight={link.fontWeight} link={link.link} fontFamily={link.fontFamily} padding={link.padding} subtract={link.subtract} description={link.description} onClick={onClick(link.link)} />
+            <ItemWebSite height={link.height} title={link.title || ''} logo={link.logo} background={link.background} color={link.color} fontSize={link.fontSize} fontWeight={link.fontWeight} link={link.link} fontFamily={link.fontFamily} padding={link.padding} subtract={link.subtract} description={link.description} onClick={onClick(link.link)} letterSpacing={link.letterSpacing} lineHeight={link.lineHeight}/>
           </MenuItem >;
         })}
       </Menu>
@@ -99,13 +97,25 @@ const ContainerIcon = styled.div<{ background: string }>((props) => ({
 }));
 
 const StyleTitle = styled(Typography)({
-  fontFamily: 'FT Base, sans serif',
+  fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '24px',
   lineHeight: '29px',
   letterSpacing: '0.4px',
-  color: '#231536'
+  color: '#231536',
+  paddingBottom: '16px'
+});
+
+const StyleDescription = styled(Typography)({
+  fontFamily: 'FT Base, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 400,
+  fontSize: '16px',
+  lineHeight: '19px',
+  color: '#231536',
+  paddingBottom: '24px',
+  letterSpacing: '0px',
 });
 
 export default SelectLink;
