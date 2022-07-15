@@ -44,7 +44,7 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
             <Logo fill={themeMode === 'dark' ? '#6EDBD0' : '#211634'} onClick={handleGoHome} />
           </LogoContainer>
           <EXPENSES fill={themeMode === 'dark' ? '#6EDBD0' : '#211634'} />
-          <SelectLink links={links} fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'} background={themeMode === 'dark' ? '#31424E' : '#ECF1F3'} onClick={onClick} />
+          <SelectLink links={links} themeMode={themeMode} fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'} onClick={onClick} />
         </ContainerLogoSelect>
 
         <Navigation>
@@ -74,10 +74,13 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
               color: '#447AFB',
               fontStyle: 'normal',
               lineHeight: '19px',
-              letterSpacing: '0.3px'
+              letterSpacing: '0.3px',
+              marginLeft: '0px'
             }}
             marginLeft='7px'
-          withArrow
+            withArrow
+            iconHeight={10}
+            iconWidth={10}
           />
         </Navigation>
       </LeftPart>

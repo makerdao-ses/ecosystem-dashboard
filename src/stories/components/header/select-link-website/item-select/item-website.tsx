@@ -16,8 +16,9 @@ interface Props {
   subtract?: ReactNode | JSX.Element
   description: string
   height?: string
+  letterSpacing?: string
   onClick: () => void;
-
+  lineHeight?:string
 }
 
 export const ItemWebSite = ({ fontSize = 16, fontWeight = 700, color = '#FFFFFF', fontFamily = 'SF Pro Display, sans-serif', subtract = '', description, height = '134px', onClick, ...props }: Props) => {
@@ -31,7 +32,7 @@ export const ItemWebSite = ({ fontSize = 16, fontWeight = 700, color = '#FFFFFF'
         }}>
           <ContainerLogo>{props.logo}</ContainerLogo>
           {props.title &&
-            <Typography fontSize={fontSize} color={color} fontWeight={fontWeight} fontFamily={fontFamily} >{props.title}</Typography>
+            <Typography fontSize={fontSize} color={color} fontWeight={fontWeight} fontFamily={fontFamily} letterSpacing={props.letterSpacing} lineHeight={props.lineHeight}>{props.title}</Typography>
           }
           {subtract && <ContainerSubtract>{subtract}</ContainerSubtract>}
         </div>
