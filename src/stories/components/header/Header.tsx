@@ -74,10 +74,13 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
               color: '#447AFB',
               fontStyle: 'normal',
               lineHeight: '19px',
-              letterSpacing: '0.3px'
+              letterSpacing: '0.3px',
+              marginLeft: '0px'
             }}
             marginLeft='7px'
-          withArrow
+            withArrow
+            iconHeight={10}
+            iconWidth={10}
           />
         </Navigation>
       </LeftPart>
