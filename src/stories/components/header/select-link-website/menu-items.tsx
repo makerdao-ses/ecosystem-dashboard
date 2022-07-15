@@ -16,7 +16,7 @@ export type WebSiteLinks = {
   marginTop?: string
   marginBottom?: string
   fontFamily?: string
-  lineHeight?: number | string
+  lineHeight?: string
   padding?: string
   subtract?: ReactNode | JSX.Element,
   id: string
