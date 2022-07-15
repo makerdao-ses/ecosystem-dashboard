@@ -234,6 +234,15 @@ const ContainerHome = styled.div({
   marginTop: '64px',
   width: '100%',
   marginBottom: '121px',
+  '@media (min-width: 1440px)': {
+    padding: '22px 128px 0'
+  },
+  '@media (min-width: 1280px)': {
+    padding: '22px 48px 0'
+  },
+  '@media (min-width: 1194px)': {
+    padding: '22px 32px 0'
+  }
 });
 
 const Wrapper = styled.div({
