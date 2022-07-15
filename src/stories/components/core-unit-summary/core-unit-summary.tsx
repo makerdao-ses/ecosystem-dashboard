@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import BreadCrumb from '../pagination/bread-crumb';
 import InsidePagination from '../pagination/InsidePagination';
 import TitleNavigationCuAbout from '../title-navigation-cu-about/title-navigation-cu-about';
@@ -8,6 +8,7 @@ import { filterData, getArrayParam, getStringParam } from '../../../core/utils/f
 import { useRouter } from 'next/router';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { useCoreUnitSummaryViewModel } from './core-unit-summary.mvvm';
+import _ from 'lodash';
 
 interface CoreUnitSummaryProps {
   trailingAddress?: string[];
@@ -28,10 +29,14 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
 
   const cu = data?.find(cu => cu.code === code);
 
-  const handleScroll = (event: any) => {
-    const scrollPosition = event?.target?.scrollingElement?.scrollTop ?? 0;
-    setHiddenTextDescription(scrollPosition < 50);
+  const ref = useRef(null);
+
+  const debounceFunction = _.debounce(() => setHiddenTextDescription(((ref?.current as any)?.offsetTop ?? 0) <= 65), 20);
+
+  const handleScroll = () => {
+    debounceFunction();
   };
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, true);
 
@@ -40,6 +45,7 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
       window.removeEventListener('scroll', handleScroll, true);
     };
   }, []);
+
   const filteredData = useMemo(() =>
     filterData({
       data,
@@ -60,9 +66,7 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
     },
     [code, filteredData, router]);
 
-  const descriptionLength = cu?.sentenceDescription?.length || 0;
-
-  return <div style={{
+  return <div ref={ref} style={{
     position: 'sticky',
     top: 63,
     width: '100%',
@@ -76,12 +80,11 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
       <InsidePagination count={filteredData.length} page={page} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} />
     </NavigationHeader>
     <Wrapper>
-      <ContainerTitle descriptionLength={descriptionLength}>
+      <ContainerTitle>
         <TitleNavigationCuAbout coreUnitAbout={cu} />
         {hiddenTextDescription &&
           <div> <Typography fontSize={16} lineHeight='19px' color='#231536' fontFamily={'FT Base, sans-serif'} sx={{
             marginTop: '16px',
-            height: '42px',
           }}>{cu?.sentenceDescription || ''}</Typography>
           </div>}
       </ContainerTitle>
@@ -106,14 +109,15 @@ const NavigationHeader = styled.div({
   marginBottom: '16px'
 });
 
-const ContainerTitle = styled.div<{ stateHidden?: boolean, descriptionLength: number }>(({ stateHidden, descriptionLength }) => ({
+const ContainerTitle = styled.div({
   display: 'flex',
   flexDirection: 'column',
   paddingLeft: '128px',
   paddingRight: '128px',
-  height: stateHidden || descriptionLength < 169 ? '108px' : '130px',
+  height: 'fit-content',
+  transition: 'all .3s ease',
   paddingTop: '8px'
-}));
+});
 
 const Wrapper = styled.div({
   display: 'flex',
