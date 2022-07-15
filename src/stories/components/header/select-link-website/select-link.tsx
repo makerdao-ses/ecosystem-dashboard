@@ -1,8 +1,11 @@
 
 import styled from '@emotion/styled';
 import { IconButton, Menu, MenuItem, Typography } from '@mui/material';
-import React from 'react';
+import { constants } from 'buffer';
+import React, { useMemo } from 'react';
+import { ThemeMode } from '../../../../core/context/ThemeContext';
 import ArrowSelect from '../../svg/arrow-select';
+import ArrowSelectUp from '../../svg/arrow-select-up';
 import ItemWebSite from './item-select/item-website';
 import { WebSiteLinks } from './menu-items';
 
@@ -10,10 +13,11 @@ interface Props {
   links: WebSiteLinks[] | [];
   onClick: (link: string) => () => void;
   fill?: string;
-  background?: string
+  themeMode: ThemeMode
+
 }
 
-const SelectLink = ({ links, fill = '', onClick, background = '' }: Props) => {
+const SelectLink = ({ links, fill = '', themeMode, onClick }: Props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -22,6 +26,11 @@ const SelectLink = ({ links, fill = '', onClick, background = '' }: Props) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  console.log('open', open);
+  const background = useMemo(() => {
+    return themeMode === 'light' && open ? '#B6EDE7' : themeMode === 'light' && !open ? '#ECF1F3' : themeMode === 'dark' && open ? '#31424E' : '#31424E';
+  }, [themeMode, open]);
+
   return (
     <div>
       <ContainerIcon background={background}>
@@ -31,7 +40,7 @@ const SelectLink = ({ links, fill = '', onClick, background = '' }: Props) => {
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
           onClick={handleClick}
-        ><ArrowSelect fill={fill} /></IconButton></ContainerIcon>
+        >{open ? <ArrowSelectUp fill={'#6EDBD0'} /> : <ArrowSelect fill={fill} />}</IconButton></ContainerIcon>
       <Menu
         disableScrollLock={true}
         id="basic-menu"
@@ -80,7 +89,7 @@ const SelectLink = ({ links, fill = '', onClick, background = '' }: Props) => {
                 paddingBottom: '0px',
               },
             }} key={link.id}>
-            <ItemWebSite height={link.height} title={link.title || ''} logo={link.logo} background={link.background} color={link.color} fontSize={link.fontSize} fontWeight={link.fontWeight} link={link.link} fontFamily={link.fontFamily} padding={link.padding} subtract={link.subtract} description={link.description} onClick={onClick(link.link)} letterSpacing={link.letterSpacing} lineHeight={link.lineHeight}/>
+            <ItemWebSite height={link.height} title={link.title || ''} logo={link.logo} background={link.background} color={link.color} fontSize={link.fontSize} fontWeight={link.fontWeight} link={link.link} fontFamily={link.fontFamily} padding={link.padding} subtract={link.subtract} description={link.description} onClick={onClick(link.link)} letterSpacing={link.letterSpacing} lineHeight={link.lineHeight} />
           </MenuItem >;
         })}
       </Menu>
