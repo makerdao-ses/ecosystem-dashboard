@@ -16,12 +16,13 @@ export type WebSiteLinks = {
   marginTop?: string
   marginBottom?: string
   fontFamily?: string
-  lineHeight?: number | string
+  lineHeight?: string
   padding?: string
   subtract?: ReactNode | JSX.Element,
   id: string
   description: string
   height?: string
+  letterSpacing?: string
 }
 
 export const itemsWebSiteLinks: WebSiteLinks[] = [
@@ -31,8 +32,8 @@ export const itemsWebSiteLinks: WebSiteLinks[] = [
     description: 'Easily view onchain data that surfaces key protocol health metrics.',
     logo: <MakerBurn />,
     color: '#000000',
-    fontFamily: 'Cantarell,sans-serif',
-    lineHeight: 26,
+    fontFamily: 'Cantarell',
+    lineHeight: '26px',
     fontSize: 18,
     fontWeight: 500,
     link: 'https://makerburn.com/#/',
@@ -50,6 +51,7 @@ export const itemsWebSiteLinks: WebSiteLinks[] = [
     marginBottom: '32px',
     fontFamily: 'SF Pro Display, sans-serif',
     id: 'Forum',
+    letterSpacing: '3px',
   },
   {
     logo: <Logo width={48} height={24.71} />,
