@@ -39,6 +39,7 @@ import { useDebounce } from '../../../core/utils/use-debounce';
 import { useRouter } from 'next/router';
 import { stringify } from 'querystring';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import { formatCode } from '../../../core/utils/string.utils';
 
 const statuses = Object.values(CuStatusEnum) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];
@@ -133,7 +134,7 @@ export const CuTable = () => {
           imageUrl={coreUnit.image}
           mipUrl={getMipUrlFromCoreUnit(coreUnit)}
           onClick={onClickRow(coreUnit.code)}
-          code={coreUnit.code}
+          code={formatCode(coreUnit.code)}
         />,
         <CuTableColumnExpenditures
           key={`expenditures-${i}`}
