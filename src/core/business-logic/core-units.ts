@@ -13,7 +13,7 @@ import { CuStatusEnum } from '../enums/cu-status.enum';
 import { RoadmapStatusEnum } from '../enums/roadmap-status.enum';
 import { FacilitatorModel } from '../models/facilitator.model';
 import { CustomChartItemModel } from '../models/custom-chart-item.model';
-import { BudgetStatement, CuAbout, CuMip } from '../../stories/containers/cu-about/cu-about.api';
+import { CuAbout, CuMip } from '../../stories/containers/cu-about/cu-about.api';
 import _ from 'lodash';
 import { API_MONTH_FORMAT } from '../utils/date.utils';
 

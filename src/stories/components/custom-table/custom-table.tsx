@@ -23,6 +23,7 @@ export const CustomTable = ({ headersSort = [], headersStyles = [], ...props }: 
             {props.headers?.map((header, i) =>
               <TableCell
                 key={`header-${i}`}
+                style={{ justifyContent: props.headersAlign && props.headersAlign[i] }}
                 onClick={() => headersSort && headersSort[i] && headersSort[i] !== SortEnum.Disabled && props.sortFunction && props.sortFunction(i, headersSort[i])}>
                 <CustomTableHeader
                   style={headersStyles[i] ?? {}}
@@ -53,47 +54,47 @@ const Placeholder = styled.div({
 const TableContainer = styled.div({
   background: 'white',
   display: 'flex',
-  flexDirection: 'column'
-});
-
-const Table = styled.table({
-  borderCollapse: 'separate',
-  borderSpacing: '0px 16px',
-  tableLayout: 'fixed',
-  flex: '1',
-  padding: '2px 4px',
-});
-
-const TableHead = styled.thead({
-  padding: '16px',
-  height: '52px',
-  position: 'relative',
-  zIndex: 1,
-  '&:after': {
-    content: '""',
-    width: '100%',
-    height: '52px',
-    background: '#F7F8F9',
-    borderTopLeftRadius: '5px',
-    borderTopRightRadius: '5px',
-    position: 'absolute',
+  flexDirection: 'column',
+  '& *': {
     boxSizing: 'border-box',
-    top: '-6px',
-    zIndex: -1,
-    filter: 'drop-shadow(0px 20px 40px rgba(190, 190, 190, .25))  drop-shadow(0px 1px 3px rgba(190, 190, 190, 0.25))',
-    boxShadow: 'inset .25px -.25px .25px .25px rgba(190, 190, 190, 0.25)',
   }
 });
 
-const TableRow = styled.tr({});
-
-const TableHeadRow = styled.tr({});
-
-const TableCell = styled.td({
-  color: '#231536'
+const Table = styled.div({
+  borderCollapse: 'separate',
+  tableLayout: 'fixed',
+  flex: '1',
 });
 
-const TableBody = styled.tbody({
+const TableHead = styled.div({
+  position: 'relative',
+  zIndex: 1,
+  background: '#F7F8F9',
+  padding: '16px 0',
+  borderTopLeftRadius: '5px',
+  borderTopRightRadius: '5px',
+  boxShadow: 'inset .25px -.25px .25px .25px rgba(190, 190, 190, 0.25), 0px 20px 40px rgba(190, 190, 190, .25), 0px 1px 3px rgba(190, 190, 190, 0.25)',
+});
+
+const TableRow = styled.div({
+  display: 'inline-grid',
+  gridTemplateColumns: '400px 215px 205px 358px',
+  marginTop: '16px',
+  boxShadow: '0px 0px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
+});
+
+const TableHeadRow = styled.div({
+  display: 'inline-grid',
+  gridTemplateColumns: '400px 215px 205px 358px'
+});
+
+const TableCell = styled.div({
+  color: '#231536',
+  display: 'flex',
+  alignItems: 'center',
+});
+
+const TableBody = styled.div({
   background: '#F7F8F966',
   '> tr': {
     display: 'table-row',

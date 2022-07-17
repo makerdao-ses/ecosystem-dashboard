@@ -1,7 +1,6 @@
 import React, { CSSProperties, useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import {
-  countInitiativesFromCoreUnit,
   getBudgetCapsFromCoreUnit,
   getExpenditureValueFromCoreUnit,
   getFacilitatorsFromCoreUnit,
@@ -18,7 +17,6 @@ import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { useAppDispatch } from '../../../core/hooks/hooks';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
 import { CuTableColumnExpenditures } from '../../components/cu-table-column-expenditures/cu-table-column-expenditures';
-import { CuTableColumnInitiatives } from '../../components/cu-table-column-initiatives/cu-table-column-initiatives';
 import { CuTableColumnLinks } from '../../components/cu-table-column-links/cu-table-column-links';
 import { CuTableColumnSummary } from '../../components/cu-table-column-summary/cu-table-column-summary';
 import { CuTableColumnTeamMember } from '../../components/cu-table-column-team-member/cu-table-column-team-member';
@@ -45,10 +43,8 @@ const statuses = Object.values(CuStatusEnum) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
 const sortInitialState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled];
-const headerStyles: CSSProperties[] = [{ paddingLeft: '63.5px' }, {
-  paddingLeft: '43px',
-  marginRight: '70px',
-}, {}, {}];
+const headerStyles: CSSProperties[] = [{ paddingLeft: '63.5px' }, {}, {}, {}];
+const headersAlign: ('flex-start' | 'center' | 'flex-end')[] = ['flex-start', 'flex-start', 'center', 'center'];
 
 export const CuTable = () => {
   const dispatch = useAppDispatch();
@@ -136,13 +132,15 @@ export const CuTable = () => {
           onClick={onClickRow(coreUnit.code)}
           code={formatCode(coreUnit.code)}
         />,
-        <CuTableColumnExpenditures
-          key={`expenditures-${i}`}
-          value={getExpenditureValueFromCoreUnit(coreUnit)}
-          percent={getPercentFromCoreUnit(coreUnit)}
-          items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
-          budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
-        />,
+        <div style={{ display: 'block' }}>
+          <CuTableColumnExpenditures
+            key={`expenditures-${i}`}
+            value={getExpenditureValueFromCoreUnit(coreUnit)}
+            percent={getPercentFromCoreUnit(coreUnit)}
+            items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
+            budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
+          />
+        </div>,
         <CuTableColumnTeamMember
           key={`teammember-${i}`}
           members={
@@ -150,12 +148,18 @@ export const CuTable = () => {
           }
           fte={getFTEsFromCoreUnit(coreUnit)}
         />,
-        <CuTableColumnLinks
-          key={`links-${i}`}
-          links={getLinksFromCoreUnit(coreUnit)}
-          spacingsRight={22}
-          fill="#708390"
-        />
+        <div style={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          flex: 1,
+        }}>
+          <CuTableColumnLinks
+            key={`links-${i}`}
+            links={getLinksFromCoreUnit(coreUnit)}
+            spacingsRight={22}
+            fill="#708390"
+          />
+        </div>
       ];
     });
   }, [filteredData, sortData, onClickRow]);
@@ -218,7 +222,7 @@ export const CuTable = () => {
       <CustomTable
         headers={headers}
         items={items}
-        headersAlign={['flex-start', 'flex-start', 'flex-end', 'center']}
+        headersAlign={headersAlign}
         headersSort={headersSort}
         headersStyles={headerStyles}
         sortFunction={setSort}
@@ -250,7 +254,7 @@ const Wrapper = styled.div({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  maxWidth: '1440px',
+  maxWidth: '1180px',
   margin: '0 auto',
 });
 
