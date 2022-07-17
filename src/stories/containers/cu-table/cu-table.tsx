@@ -93,11 +93,11 @@ export const CuTable = () => {
 
     const multiplier = headersSort[sortColumn] === SortEnum.Asc ? 1 : -1;
     const nameSort = (a: CoreUnitDto, b: CoreUnitDto) => sortAlphaNum(a.name, b.name) * multiplier;
-    const initiativesSort = (a: CoreUnitDto, b: CoreUnitDto) => (countInitiativesFromCoreUnit(a) - countInitiativesFromCoreUnit(b)) * multiplier;
     const expendituresSort = (a: CoreUnitDto, b: CoreUnitDto) => (getExpenditureValueFromCoreUnit(a) - getExpenditureValueFromCoreUnit(b)) * multiplier;
     const teamMembersSort = (a: CoreUnitDto, b: CoreUnitDto) => (getFTEsFromCoreUnit(a) - getFTEsFromCoreUnit(b)) * multiplier;
+    const linksSort = (a: CoreUnitDto, b: CoreUnitDto) => (getLinksFromCoreUnit(a).length - getLinksFromCoreUnit(b).length) * multiplier;
 
-    const sortAlg = [nameSort, initiativesSort, expendituresSort, teamMembersSort];
+    const sortAlg = [nameSort, expendituresSort, teamMembersSort, linksSort];
     return [...items].sort(sortAlg[sortColumn]);
   }, [headersSort, sortColumn]);
 
