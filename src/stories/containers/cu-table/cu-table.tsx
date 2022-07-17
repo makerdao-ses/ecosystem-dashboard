@@ -39,6 +39,7 @@ import { useDebounce } from '../../../core/utils/use-debounce';
 import { useRouter } from 'next/router';
 import { stringify } from 'querystring';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import { formatCode } from '../../../core/utils/string.utils';
 
 const statuses = Object.values(CuStatusEnum) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];
@@ -92,11 +93,11 @@ export const CuTable = () => {
 
     const multiplier = headersSort[sortColumn] === SortEnum.Asc ? 1 : -1;
     const nameSort = (a: CoreUnitDto, b: CoreUnitDto) => sortAlphaNum(a.name, b.name) * multiplier;
-    const initiativesSort = (a: CoreUnitDto, b: CoreUnitDto) => (countInitiativesFromCoreUnit(a) - countInitiativesFromCoreUnit(b)) * multiplier;
     const expendituresSort = (a: CoreUnitDto, b: CoreUnitDto) => (getExpenditureValueFromCoreUnit(a) - getExpenditureValueFromCoreUnit(b)) * multiplier;
     const teamMembersSort = (a: CoreUnitDto, b: CoreUnitDto) => (getFTEsFromCoreUnit(a) - getFTEsFromCoreUnit(b)) * multiplier;
+    const linksSort = (a: CoreUnitDto, b: CoreUnitDto) => (getLinksFromCoreUnit(a).length - getLinksFromCoreUnit(b).length) * multiplier;
 
-    const sortAlg = [nameSort, initiativesSort, expendituresSort, teamMembersSort];
+    const sortAlg = [nameSort, expendituresSort, teamMembersSort, linksSort];
     return [...items].sort(sortAlg[sortColumn]);
   }, [headersSort, sortColumn]);
 
@@ -133,7 +134,7 @@ export const CuTable = () => {
           imageUrl={coreUnit.image}
           mipUrl={getMipUrlFromCoreUnit(coreUnit)}
           onClick={onClickRow(coreUnit.code)}
-          code={coreUnit.code}
+          code={formatCode(coreUnit.code)}
         />,
         <CuTableColumnExpenditures
           key={`expenditures-${i}`}

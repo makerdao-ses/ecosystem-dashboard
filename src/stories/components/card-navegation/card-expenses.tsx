@@ -27,7 +27,9 @@ const CardExpenses = ({ onClick }: Props) => {
         fontSize: '14px',
         lineHeight: '18px',
         width: '100%'
-      }} onClick={onClick} />
+      }} onClick={onClick} styleText={{
+        color: '#1AAB9B',
+      }}/>
     </InformationCard>
   );
 };
@@ -40,6 +42,7 @@ const TypographyDescription = styled(Typography)<{ marginBottom?: string }>((pro
   fontWeight: 500,
   fontSize: '15px',
   lineHeight: '18px',
-  color: '#231536',
+  color: '#546978 ',
+  letterSpacing: '0.4px',
   marginBottom: props.marginBottom || '0px'
 }));

@@ -6,12 +6,13 @@ interface CustomButtonProps {
   disabled?: boolean,
   style?: CSSProperties,
   onClick?: () => void,
-  widthText?:string
+  widthText?:string,
+  styleText?:CSSProperties
 }
 
 export const CustomButton = (props: CustomButtonProps) => {
   return <Container type="button" disabled={props.disabled} onClick={props.onClick} style={props.style}>
-    <Text className={props.disabled ? 'disabled' : ''} width={props.widthText}>{props.label}</Text>
+    <Text className={props.disabled ? 'disabled' : ''} width={props.widthText} style={props.styleText}>{props.label}</Text>
   </Container>;
 };
 

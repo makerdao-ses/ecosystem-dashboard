@@ -10,9 +10,10 @@ interface Props {
   lineHeight?: string
   fontWeight?: number
   letterSpacing?: string
+  color?: string
 }
 
-const InformationCard = ({ title, children, height, fontSize = '20px', lineHeight = '24px', fontWeight = 500, letterSpacing = '0.4px' }: Props) => {
+const InformationCard = ({ title, children, height, fontSize = '20px', lineHeight = '24px', fontWeight = 500, letterSpacing = '0.4px', color = '#231536' }: Props) => {
   return (
     <>
       <Typography sx={{
@@ -23,7 +24,7 @@ const InformationCard = ({ title, children, height, fontSize = '20px', lineHeigh
         fontSize,
         lineHeight,
         letterSpacing,
-        color: '#231536'
+        color,
       }}>{title}</Typography>
       <Container height={height}>
         {children}

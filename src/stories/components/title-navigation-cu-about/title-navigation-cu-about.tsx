@@ -2,7 +2,6 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 import { DateTime } from 'luxon';
-import { CustomPopover } from '../custom-popover/custom-popover';
 import { CuTableColumnLinks, LinkModel } from '../cu-table-column-links/cu-table-column-links';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { StatusChip } from '../status-chip/status-chip';

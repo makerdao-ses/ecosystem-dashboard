@@ -1,33 +1,23 @@
 import * as React from 'react';
+import { CSSProperties } from 'react';
 interface Props {
   width?: number;
   height?: number;
-  onClick?: () => void;
   fill?: string;
+  style?: CSSProperties;
 }
 
 const ArrowUp = ({
-  width = 7,
-  height = 7,
-  onClick,
+  width = 8,
+  height = 6,
   fill = 'white',
   ...props
 }: Props) => {
   return (
-    <svg
-      style={{ padding: '2px' }}
-      onClick={onClick}
-      width={width}
-      height={height}
-      viewBox='0 0 7 6'
-      xmlns='http://www.w3.org/2000/svg'
-      {...props}
-    >
-      <path
-        d='M3.5.5l3.031 5.25H.47L3.5.5z'
-        fill={fill}
-      />
+    <svg width={width} height={height} viewBox="0 0 8 6" fill="none" style={props.style} xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 0L7.4641 6H0.535898L4 0Z" fill={fill}/>
     </svg>
+
   );
 };
 
