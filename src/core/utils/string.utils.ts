@@ -16,7 +16,7 @@ export const getMipTitle = (title: string) => {
 
 export const formatAddressForOutput = (address: string | undefined) => {
   if (!address) { return ''; }
-  return `${address.slice(0, 5)}..${address.slice(address.length - 5, address.length - 1)}`;
+  return `${address.slice(0, 5)}..${address.slice(address.length - 5, address.length)}`;
 };
 
 export const capitalizeWord = (word: string) => {
