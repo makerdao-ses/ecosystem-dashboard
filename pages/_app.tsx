@@ -9,7 +9,7 @@ import { NextPage } from 'next';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import { ThemeProvider } from '../src/core/context/ThemeContext';
 import { FeatureFlagsProvider } from '../src/core/context/FeatureFlagsProvider';
-import { enabledFeatures } from '../src/core/context/flags';
+import { flagsProduction } from '../feature-flags/feature-flags.production';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -34,7 +34,7 @@ function MyApp(props: MyAppProps) {
             <title>MakerDao - Dashboard</title>
             <link rel="icon" href="/favicon.svg" />
           </Head>
-          <FeatureFlagsProvider enabledFeatures={enabledFeatures}>
+          <FeatureFlagsProvider enabledFeatures={flagsProduction}>
             <Component {...pageProps} />
           </FeatureFlagsProvider>
         </Provider>

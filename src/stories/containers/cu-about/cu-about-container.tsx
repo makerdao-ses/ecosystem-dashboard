@@ -21,7 +21,7 @@ import { useRouter } from 'next/router';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
 import CardExpenses from '../../components/card-navegation/card-expenses';
 import CardSomeThingWrong from '../../components/card-navegation/card-somethig-wrong';
-import { useFlagsActive } from '../../../core/context/useFlagsActive';
+import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 
 const CuAboutContainer = () => {
   const [isEnabled] = useFlagsActive();

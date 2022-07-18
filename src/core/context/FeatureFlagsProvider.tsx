@@ -1,6 +1,6 @@
 import React from 'react';
+import { FeatureFlags } from '../../../feature-flags/interface-feature-flags';
 import { FeatureFlagsContext } from './FeatureFlagsContext';
-import { FeatureFlags } from './flags';
 
 type Props = {
   children: React.ReactNode | JSX.Element | JSX.Element[] | string;
