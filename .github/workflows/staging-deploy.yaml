@@ -1,10 +1,6 @@
 name: Staging deployment
 on:
   workflow_dispatch:
-    branches-ignore:
-      - '**'
-    tags:
-      - 'releases/release_**'
 jobs:
   deploy:
     runs-on: ubuntu-latest
