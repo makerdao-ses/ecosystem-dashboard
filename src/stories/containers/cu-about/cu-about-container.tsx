@@ -21,6 +21,7 @@ import { useRouter } from 'next/router';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
 import CardExpenses from '../../components/card-navegation/card-expenses';
 import CardSomeThingWrong from '../../components/card-navegation/card-somethig-wrong';
+import lightTheme from '../../../../styles/theme/light';
 
 const CuAboutContainer = () => {
   const router = useRouter();
@@ -55,10 +56,6 @@ const CuAboutContainer = () => {
     const resultArrayThreeElements = order.length > 3 && showThreeMIPs ? order.slice(0, 3) : order;
     return resultArrayThreeElements;
   }, [cuAbout.cuMip, showThreeMIPs]);
-
-  const list = ['Overview', 'Transparency Reports', 'Onchain Setup', 'Budget Governance'];
-  const description = 'View all Finances of the (SES-01) Sustainable Ecosystem Scaling';
-  const descriptionLength = cuAbout.sentenceDescription.length || 0;
 
   const onClickFinances = useCallback(() => {
     router.push(`/core-unit/${code}/finances/transparency?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
@@ -124,7 +121,7 @@ const CuAboutContainer = () => {
           <div style={{
             width: '39.61%',
           }}>
-            <ContainerScroll descriptionLength={descriptionLength}>
+            <ContainerScroll>
               <ContainerCard>
                 <CardExpenses onClick={onClickFinances} />
               </ContainerCard>
@@ -260,6 +257,14 @@ const ContainerAllData = styled.div({
   justifyContent: 'space-between',
   marginRight: '128px',
   marginLeft: '128px',
+  [lightTheme.breakpoints.up('desktop_1920')]: {
+    marginRight: '0px',
+    marginLeft: '0px',
+  },
+  [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
+    marginRight: '48px',
+    marginLeft: '48px',
+  },
 });
 
 const DividerStyle = styled(Divider)({
@@ -267,7 +272,7 @@ const DividerStyle = styled(Divider)({
   bgcolor: '#D4D9E1',
 });
 
-const ContainerScroll = styled.div<{ descriptionLength: number }>(({ descriptionLength }) => ({
+const ContainerScroll = styled.div({
   position: 'sticky',
   top: 250,
   paddingTop: '36px',
@@ -279,7 +284,7 @@ const ContainerScroll = styled.div<{ descriptionLength: number }>(({ description
     background: 'transparent',
   },
   overflowY: 'auto',
-}));
+});
 
 const Wrapper = styled.div({
   display: 'flex',
@@ -287,4 +292,14 @@ const Wrapper = styled.div({
   width: '100%',
   maxWidth: '1440px',
   margin: '0 auto',
+  [lightTheme.breakpoints.up('desktop_1920')]: {
+    maxWidth: '1184px',
+    marginLeft: '0px',
+    marginRight: '0px',
+    margin: '0 auto',
+  },
+  [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
+    marginRight: '0px',
+    marginLeft: '0px',
+  },
 });

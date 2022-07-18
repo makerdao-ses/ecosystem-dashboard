@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { useCoreUnitSummaryViewModel } from './core-unit-summary.mvvm';
 import _ from 'lodash';
+import lightTheme from '../../../../styles/theme/light';
 
 interface CoreUnitSummaryProps {
   trailingAddress?: string[];
@@ -116,7 +117,11 @@ const ContainerTitle = styled.div({
   paddingRight: '128px',
   height: 'fit-content',
   transition: 'all .3s ease',
-  paddingTop: '8px'
+  paddingTop: '8px',
+  [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
+    paddingLeft: '48px',
+    paddingRight: '48px',
+  },
 });
 
 const Wrapper = styled.div({
