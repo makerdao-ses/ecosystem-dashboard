@@ -77,7 +77,7 @@ const TableHead = styled.div({
 });
 
 const TableRow = styled.div({
-  display: 'inline-grid',
+  display: 'grid',
   gridTemplateColumns: '400px 215px 205px 358px',
   marginTop: '16px',
   boxShadow: '0px 0px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
@@ -96,11 +96,6 @@ const TableCell = styled.div({
 
 const TableBody = styled.div({
   background: '#F7F8F966',
-  '> tr': {
-    display: 'table-row',
-    background: '#FFFFFF',
-    filter: 'drop-shadow(0px 0px 40px rgba(219, 227, 237, 0.4)) drop-shadow(0px 1px 3px rgba(190, 190, 190, 0.25))',
-  }
 });
 
 const Loading = styled.div({

@@ -38,6 +38,7 @@ import { useRouter } from 'next/router';
 import { stringify } from 'querystring';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { formatCode } from '../../../core/utils/string.utils';
+import { CoreUnitCard } from '../../components/core-unit-card/core-unit-card';
 
 const statuses = Object.values(CuStatusEnum) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];
@@ -164,70 +165,81 @@ export const CuTable = () => {
     });
   }, [filteredData, sortData, onClickRow]);
 
+  const itemsList = useMemo(() => {
+    return filteredData.map((cu, i) => <CoreUnitCard key={`card-${i}`} coreUnit={cu} onClick={onClickRow}/>);
+  }, [filteredData, onClickRow]);
+
   return <ContainerHome>
     <Wrapper>
       <Header>
         <Title>Core Units Expenses</Title>
-        <CustomButton
-          label="Reset Filters"
-          style={{
-            marginRight: '16px',
-            width: '114px',
-            border: 'none'
-          }}
-          // eslint-disable-next-line @typescript-eslint/no-empty-function
-          onClick={clearFilters}
-          disabled={filteredStatuses && filteredStatuses.length === 0}
-        />
-        <CustomMultiSelect
-          label="Status"
-          activeItems={filteredStatuses}
-          items={statuses}
-          onChange={(value: string[]) => {
-            handleChangeUrlFilterArrays('filteredStatuses')(value);
-          }}
-          style={{ marginRight: '16px' }}
-        />
-        <CustomMultiSelect
-          label="CU Category"
-          activeItems={filteredCategories}
-          items={categories}
-          onChange={(value: string[]) => {
-            handleChangeUrlFilterArrays('filteredCategories')(value);
-          }}
-          style={{ marginRight: '16px' }}
-        />
-        <Separator />
-        {router.isReady && <SearchInput
-          defaultValue={searchText}
-          placeholder="Search"
-          onChange={(value: string) => {
-            debounce(() => {
-              handleChangeUrlFilterArrays('searchText')(value);
-            }, 300);
-          }}
-          style={{ marginLeft: '16px' }}
-        />}
-        {!router.isReady && <SearchInput
-          defaultValue={searchText}
-          placeholder="Search"
-          onChange={(value: string) => {
-            debounce(() => {
-              handleChangeUrlFilterArrays('searchText')(value);
-            }, 300);
-          }}
-          style={{ marginLeft: '16px' }}
-        />}
+        <Filters>
+          <CustomButton
+            label="Reset Filters"
+            style={{
+              marginRight: '16px',
+              width: '114px',
+              border: 'none'
+            }}
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
+            onClick={clearFilters}
+            disabled={filteredStatuses && filteredStatuses.length === 0}
+          />
+          <CustomMultiSelect
+            label="Status"
+            activeItems={filteredStatuses}
+            items={statuses}
+            onChange={(value: string[]) => {
+              handleChangeUrlFilterArrays('filteredStatuses')(value);
+            }}
+            style={{ marginRight: '16px' }}
+          />
+          <CustomMultiSelect
+            label="CU Category"
+            activeItems={filteredCategories}
+            items={categories}
+            onChange={(value: string[]) => {
+              handleChangeUrlFilterArrays('filteredCategories')(value);
+            }}
+            style={{ marginRight: '16px' }}
+          />
+          <Separator />
+          {router.isReady && <SearchInput
+            defaultValue={searchText}
+            placeholder="Search"
+            onChange={(value: string) => {
+              debounce(() => {
+                handleChangeUrlFilterArrays('searchText')(value);
+              }, 300);
+            }}
+            style={{ marginLeft: '16px' }}
+          />}
+          {!router.isReady && <SearchInput
+            defaultValue={searchText}
+            placeholder="Search"
+            onChange={(value: string) => {
+              debounce(() => {
+                handleChangeUrlFilterArrays('searchText')(value);
+              }, 300);
+            }}
+            style={{ marginLeft: '16px' }}
+          />}
+        </Filters>
       </Header>
-      <CustomTable
-        headers={headers}
-        items={items}
-        headersAlign={headersAlign}
-        headersSort={headersSort}
-        headersStyles={headerStyles}
-        sortFunction={setSort}
-        loading={status === 'loading'}
-      />
+      <TableWrapper>
+        <CustomTable
+          headers={headers}
+          items={items}
+          headersAlign={headersAlign}
+          headersSort={headersSort}
+          headersStyles={headerStyles}
+          sortFunction={setSort}
+          loading={status === 'loading'}
+        />
+      </TableWrapper>
+      <ListWrapper>
+        {itemsList}
+      </ListWrapper>
     </Wrapper>
   </ContainerHome>;
 };
@@ -235,7 +247,7 @@ export const CuTable = () => {
 const ContainerHome = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  padding: '22px 128px 0',
+  padding: '22px 32px 0',
   marginTop: '64px',
   width: '100%',
   marginBottom: '121px',
@@ -258,6 +270,21 @@ const Wrapper = styled.div({
   margin: '0 auto',
 });
 
+const TableWrapper = styled.div({
+  display: 'none',
+  '@media (min-width: 1180px)': {
+    display: 'flex'
+  }
+});
+
+const ListWrapper = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  '@media (min-width: 1180px)': {
+    display: 'none'
+  }
+});
+
 const Header = styled.div({
   display: 'flex',
   alignItems: 'center',
@@ -278,4 +305,11 @@ const Separator = styled.span({
   width: '1px',
   height: '32px',
   backgroundColor: '#D4D9E1',
+});
+
+const Filters = styled.div({
+  display: 'flex',
+  '@media (max-width: 1180px)': {
+    display: 'none'
+  }
 });

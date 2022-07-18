@@ -61,6 +61,8 @@ const Chip = styled.div({
   borderRadius: '12px',
   padding: '0 8px',
   height: '22px',
+  lineHeight: '22px',
   width: 'fit-content',
   border: '1px solid black',
+  boxSizing: 'border-box',
 });

@@ -64,7 +64,9 @@ const Container = styled.div({
   alignItems: 'center',
   fontWeight: 400,
   cursor: 'pointer',
-  paddingLeft: '40px',
+  '@media (min-width: 838px)': {
+    paddingLeft: '40px',
+  }
 });
 
 const Data = styled.div({
