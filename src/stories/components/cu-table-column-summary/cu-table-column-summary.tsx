@@ -63,7 +63,10 @@ const Container = styled.div({
 });
 
 const CircleContainer = styled.div({
-  marginRight: '16px',
+  marginRight: '8px',
+  '@media (min-width: 835px)': {
+    marginRight: '16px',
+  }
 });
 
 const Content = styled.div({

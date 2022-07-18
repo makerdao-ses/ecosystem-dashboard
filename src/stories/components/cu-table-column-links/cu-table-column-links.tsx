@@ -20,10 +20,10 @@ interface CuTableColumnLinksProps {
   links: LinkModel[];
   width?: number;
   height?: number;
-  spacingsRight?: number;
-  spacingsLeft?: number;
+  spacings?: number;
   fill?: string;
   lastChild?: boolean;
+  align?: 'flex-start' | 'center' | 'flex-end';
 }
 
 const getImageForLink = (link: LinkModel, fill: string, width?: number, height?: number) => {
@@ -47,14 +47,10 @@ const getImageForLink = (link: LinkModel, fill: string, width?: number, height?:
   }
 };
 
-export const CuTableColumnLinks = ({ width, height, links, spacingsRight, spacingsLeft, fill = '#C4C4C4', lastChild = false }: CuTableColumnLinksProps) => {
-  return <Container>
+export const CuTableColumnLinks = ({ width, height, links, align = 'flex-end', spacings, fill = '#C4C4C4', lastChild = false }: CuTableColumnLinksProps) => {
+  return <Container spacings={spacings} align={align}>
     {links.map((link, i) => <StyleBox lastChild={lastChild}
-      key={`link-${i}`}
-      sx={{
-        ml: `${spacingsLeft ?? 0}px`,
-        mr: `${spacingsRight ?? 0}px`,
-      }}>
+      key={`link-${i}`}>
       <CustomPopover
         title={link.linkType}
         id={`link-${i}`}>
@@ -71,11 +67,12 @@ export const CuTableColumnLinks = ({ width, height, links, spacingsRight, spacin
   </Container >;
 };
 
-const Container = styled.div({
+const Container = styled.div<{ spacings?: number, align: string}>(({ spacings, align }) => ({
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'flex-end',
-});
+  justifyContent: align,
+  gap: `${spacings ?? 0}px`
+}));
 
 type StickyLinkProps = {
   width?: number,
@@ -94,12 +91,10 @@ const LinkImage = styled.a({
 
 const StyleBox = styled(Box)<{ lastChild?: boolean }>((props) => ({
   '&:last-child': props.lastChild && {
-    marginRight: '0px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     width: 19,
     height: 19,
-
   },
 }));

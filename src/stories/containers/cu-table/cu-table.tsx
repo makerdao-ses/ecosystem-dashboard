@@ -157,7 +157,7 @@ export const CuTable = () => {
           <CuTableColumnLinks
             key={`links-${i}`}
             links={getLinksFromCoreUnit(coreUnit)}
-            spacingsRight={22}
+            spacings={22}
             fill="#708390"
           />
         </div>

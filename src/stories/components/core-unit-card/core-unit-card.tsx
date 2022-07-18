@@ -40,7 +40,7 @@ export const CoreUnitCard = ({ coreUnit, onClick }: CoreUnitCardProps) => {
       />
     </Summary>
     <Expenditure>
-      <Title style={{ marginBottom: '18px' }}>Expenditure</Title>
+      <Title style={{ marginBottom: '11px' }}>Expenditure</Title>
       <CuTableColumnExpenditures
         value={getExpenditureValueFromCoreUnit(coreUnit)}
         percent={getPercentFromCoreUnit(coreUnit)}
@@ -65,7 +65,7 @@ export const CoreUnitCard = ({ coreUnit, onClick }: CoreUnitCardProps) => {
     <Links>
       <CuTableColumnLinks
         links={getLinksFromCoreUnit(coreUnit)}
-        spacingsLeft={16}
+        spacings={16}
         fill="#708390"
       />
     </Links>
@@ -121,11 +121,22 @@ const Summary = styled.div({
 });
 
 const Expenditure = styled.div({
-  gridArea: 'expenditure'
+  gridArea: 'expenditure',
+  paddingTop: '19px',
+  '@media (min-width: 435px)': {
+    paddingTop: '0',
+  }
 });
 
 const Team = styled.div({
-  gridArea: 'team'
+  gridArea: 'team',
+  paddingTop: '28px',
+  '@media (min-width: 435px) and (max-width: 635px)': {
+    paddingTop: '0',
+  },
+  '@media (min-width: 835px)': {
+    paddingTop: '0',
+  }
 });
 
 const Line = styled.div({
