@@ -122,20 +122,26 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
               {newDate && <CustomLink
                 href={'#'}
                 withArrow
+                styleIcon={{
+                  marginTop: '3px',
+                }}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  height: '22px'
+                  height: '22px',
+                  fontFamily: 'FT Base, sans-serif',
+                  fontStyle: 'normal',
+                  fontWeight: 500,
+                  fontSize: '12px',
+                  lineHeight: '14px',
+                  letterSpacing: '1px',
+                  textTransform: 'uppercase',
+                  color: '#447AFB',
+                  textDecoration: 'none',
+                  marginLeft: '4px',
                 }}
-              >
-                {newDate &&
-                  <SinceDate
-                    href={'#'}
-                  >
-                    Since {DateTime.fromJSDate(newDate).toFormat('d-MMM-y')}
-                  </SinceDate>
-                }
-              </CustomLink>}
+                children={`Since ${DateTime.fromJSDate(newDate).toFormat('d-MMM-y')}`}
+              />}
             </Row>
           </ContainerSeparateData>
         </ContainerTitle>

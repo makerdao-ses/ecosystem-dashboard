@@ -31,7 +31,7 @@ const Container = styled.div({
 });
 
 const ContainerText = styled.div({
-  marginBottom: '16px'
+  marginBottom: '24px'
 });
 
 const StyleTitle = styled(Typography)({
