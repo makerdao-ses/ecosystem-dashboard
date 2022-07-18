@@ -24,10 +24,10 @@ jobs:
       - name: Copy file via scp
         uses: appleboy/scp-action@master
         env:
-          HOST: ${{ secrets.SSH_HOST }}
-          USERNAME: ${{ secrets.SSH_USER }}
+          HOST: ${{ secrets.SSH_HOST_PRODUCTION }}
+          USERNAME: ${{ secrets.SSH_USER_PRODUCTION }}
           PORT: ${{ secrets.SSH_PORT }}
-          PASSWORD: ${{ secrets.SSH_PASS }}
+          PASSWORD: ${{ secrets.SSH_PASS_PRODUCTION }}
         with:
           source: "./"
           target: "/var/www/next/app-production-tmp"
