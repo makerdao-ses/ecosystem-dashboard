@@ -32,6 +32,11 @@ const RelateMips = ({ relateMips }: Props) => {
       <Row>
         {mipStatus && <StatusChip status={mipStatus as CuStatusEnum} />}
         {newDate && <CustomPopover
+          css={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
+          }}
           id={'mouse-over-popover-goto'}
           title={'Go to MIPs Portal'}
         >
@@ -73,7 +78,7 @@ const Row = styled.div({
   flexDirection: 'row',
   alignItems: 'center',
   flex: 1,
-  marginBottom: '32px'
+  marginBottom: '32px',
 });
 
 const RowUnderLine = styled.div({

@@ -7,9 +7,10 @@ interface Props {
   style?: CSSProperties;
 }
 
-export const LinkIcon = ({ fill = '#447AFB', height = 6, width = 6, ...props }: Props) => {
+export const LinkIcon = ({ fill = '#447AFB', height = 6, width = 6, style = {}, ...props }: Props) => {
   return (
     <svg
+      style={style}
       width={width}
       height={height}
       viewBox="0 0 6 6"

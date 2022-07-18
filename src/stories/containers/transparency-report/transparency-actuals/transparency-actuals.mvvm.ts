@@ -39,6 +39,10 @@ export const useTransparencyActualsMvvm = (thirdIndex: number, setThirdIndex: (i
     return _.sumBy(wallet?.budgetStatementLineItem.filter(item => item.month === currentMonth), i => i.actual ?? 0);
   };
 
+  const getWalletPayment = (wallet: BudgetStatementWalletDto) => {
+    return _.sumBy(wallet?.budgetStatementLineItem.filter(item => item.month === currentMonth), i => i.payment ?? 0);
+  };
+
   const getWalletDifference = (wallet: BudgetStatementWalletDto) => {
     return (getWalletForecast(wallet) - getWalletActual(wallet));
   };
@@ -58,6 +62,10 @@ export const useTransparencyActualsMvvm = (thirdIndex: number, setThirdIndex: (i
 
   const budgetTotalActual = useMemo(() => {
     return _.sumBy(currentBudgetStatement?.budgetStatementWallet, wallet => _.sumBy(wallet.budgetStatementLineItem.filter(item => item.month === currentMonth), item => item?.actual ?? 0));
+  }, [currentBudgetStatement, code]);
+
+  const budgetTotalPayment = useMemo(() => {
+    return _.sumBy(currentBudgetStatement?.budgetStatementWallet, wallet => _.sumBy(wallet.budgetStatementLineItem.filter(item => item.month === currentMonth), item => item?.payment ?? 0));
   }, [currentBudgetStatement, code]);
 
   const budgetTotalDifference = useMemo(() => {
@@ -85,9 +93,11 @@ export const useTransparencyActualsMvvm = (thirdIndex: number, setThirdIndex: (i
     getWalletForecast,
     getWalletActual,
     getWalletDifference,
+    getWalletPayment,
     budgetTotalForecast,
     budgetTotalActual,
     budgetTotalDifference,
+    budgetTotalPayment,
     getGroupForecast,
     getGroupActual,
     getGroupDifference,
