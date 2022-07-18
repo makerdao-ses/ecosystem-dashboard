@@ -53,6 +53,7 @@ export interface BudgetStatementFteDto {
 export interface BudgetStatementLineItemDto {
   actual: number;
   forecast?: number;
+  payment?: number;
   budgetCategory?: string;
   headcountExpense?: boolean;
   comments?: string;

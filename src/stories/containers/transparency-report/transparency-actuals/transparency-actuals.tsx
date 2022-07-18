@@ -29,9 +29,11 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     getWalletForecast,
     getWalletActual,
     getWalletDifference,
+    getWalletPayment,
     budgetTotalForecast,
     budgetTotalActual,
     budgetTotalDifference,
+    budgetTotalPayment,
     getGroupForecast,
     getGroupActual,
     getGroupDifference,
@@ -49,7 +51,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           <NumberCell key={2} value={getWalletForecast(wallet)}/>,
           <NumberCell key={3} value={getWalletActual(wallet)}/>,
           <NumberCell key={3} value={getWalletDifference(wallet)}/>,
-          <NumberCell key={5} value={0}/>,
+          <NumberCell key={5} value={getWalletPayment(wallet)}/>,
           <TableCell key={6}>
             <CustomLink fontFamily={'SF Pro Display, sans-serif'} fontSize={16} href={`https://etherscan.io/address/${wallet.address}`} style={{ marginRight: '16px' }}>Etherscan</CustomLink>
             <CustomLink fontFamily={'SF Pro Display, sans-serif'} fontSize={16} href={`https://gnosis-safe.io/app/eth:${wallet.address}`}>Gnosis</CustomLink>
@@ -62,7 +64,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         <NumberCell key={2} value={budgetTotalForecast} bold/>,
         <NumberCell key={3} value={budgetTotalActual} bold/>,
         <NumberCell key={4} value={budgetTotalDifference} bold/>,
-        <NumberCell key={5} value={0} bold/>,
+        <NumberCell key={5} value={budgetTotalPayment} bold/>,
         <TableCell key={6}/>,
       ]);
     }
