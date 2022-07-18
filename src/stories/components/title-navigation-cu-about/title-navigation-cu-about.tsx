@@ -47,6 +47,7 @@ export interface CoreUnit {
 }
 interface Props {
   coreUnitAbout?: CuAbout | CoreUnitDto;
+  matches?: boolean;
 }
 
 export const getLinksCoreUnit = (cu: CuAbout | CoreUnitDto) => {

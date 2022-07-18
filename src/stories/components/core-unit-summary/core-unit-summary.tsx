@@ -122,6 +122,10 @@ const ContainerTitle = styled.div({
     paddingLeft: '48px',
     paddingRight: '48px',
   },
+  [lightTheme.breakpoints.between('desktop_1194', 'desktop_1280')]: {
+    paddingLeft: '32px',
+    paddingRight: '32px',
+  },
 });
 
 const Wrapper = styled.div({

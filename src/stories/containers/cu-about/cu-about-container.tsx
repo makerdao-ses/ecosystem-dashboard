@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
-import { Divider, Typography } from '@mui/material';
+import { Divider, Typography, useMediaQuery } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { getMarkdownInformation, getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-unit-about';
 import { getFTEsFromCoreUnit } from '../../../core/business-logic/core-units';
@@ -31,10 +31,12 @@ const CuAboutContainer = () => {
   const dispatch = useAppDispatch();
   const { cuAbout, statusCoreUnit } = useSelector((state: RootState) => cuAboutSelector(state));
   const contributors = useSelector((state: RootState) => contributorCommitmentSelector(state));
+
+  const matchesDesktop1194 = useMediaQuery(lightTheme.breakpoints.between('desktop_1194', 'desktop_1280'));
+
   useEffect(() => {
     dispatch(loadCuTableItemsAsync());
   }, [dispatch]);
-
   useEffect(() => {
     if (code) {
       dispatch(loadCoreUnitAbout(code || ''));
@@ -74,7 +76,7 @@ const CuAboutContainer = () => {
       <Wrapper>
         <ContainerAllData>
           <div style={{
-            width: '60.39%',
+            width: !matchesDesktop1194 ? '60.39%' : '100%',
             display: 'flex',
             flexDirection: 'column',
           }}>
@@ -118,6 +120,7 @@ const CuAboutContainer = () => {
               <DividerStyle />
             </ButtonContainer>}
           </div>
+
           <div style={{
             width: '39.61%',
           }}>
@@ -130,6 +133,7 @@ const CuAboutContainer = () => {
               </ContainerCard>
             </ContainerScroll>
           </div>
+
         </ContainerAllData>
       </Wrapper>
     </ContainerAbout >
@@ -146,7 +150,7 @@ const ContainerAbout = styled.div({
   background: 'url(/assets/img/bg-page.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
-  marginBottom: '130px'
+  marginBottom: '130px',
 });
 
 const ContainerCard = styled.div({
@@ -154,6 +158,9 @@ const ContainerCard = styled.div({
   display: 'flex',
   flexDirection: 'column',
   marginLeft: '64px',
+  [lightTheme.breakpoints.between('desktop_1194', 'desktop_1280')]: {
+    marginLeft: '32px',
+  },
 });
 
 const MarkdownContainer = styled.div({
@@ -264,6 +271,10 @@ const ContainerAllData = styled.div({
   [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
     marginRight: '48px',
     marginLeft: '48px',
+  },
+  [lightTheme.breakpoints.between('desktop_1194', 'desktop_1280')]: {
+    marginRight: '32px',
+    marginLeft: '32px',
   },
 });
 
