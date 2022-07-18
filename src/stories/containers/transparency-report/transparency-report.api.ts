@@ -52,6 +52,7 @@ export const CORE_UNIT_REQUEST = (code: string) => ({
               comments
               month
               budgetCap
+              payment
             }
             budgetStatementTransferRequest {
               requestAmount
