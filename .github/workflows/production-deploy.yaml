@@ -34,10 +34,10 @@ jobs:
       - name: Executing remote command
         uses: appleboy/ssh-action@master
         with:
-          HOST: ${{ secrets.SSH_HOST }}
-          USERNAME: ${{ secrets.SSH_USER }}
+          HOST: ${{ secrets.SSH_HOST_PRODUCTION }}
+          USERNAME: ${{ secrets.SSH_USER_PRODUCTION }}
           PORT: ${{ secrets.SSH_PORT }}
-          PASSWORD: ${{ secrets.SSH_PASS }}
+          PASSWORD: ${{ secrets.SSH_PASS_PRODUCTION }}
           script: |
             pm2 stop next-js-production
             mv /var/www/next/app-production /var/www/next/app-production-del
