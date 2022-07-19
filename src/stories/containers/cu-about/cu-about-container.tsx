@@ -21,8 +21,10 @@ import { useRouter } from 'next/router';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
 import CardExpenses from '../../components/card-navegation/card-expenses';
 import CardSomeThingWrong from '../../components/card-navegation/card-somethig-wrong';
+import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 
 const CuAboutContainer = () => {
+  const [isEnabled] = useFlagsActive();
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;
@@ -56,8 +58,6 @@ const CuAboutContainer = () => {
     return resultArrayThreeElements;
   }, [cuAbout.cuMip, showThreeMIPs]);
 
-  const list = ['Overview', 'Transparency Reports', 'Onchain Setup', 'Budget Governance'];
-  const description = 'View all Finances of the (SES-01) Sustainable Ecosystem Scaling';
   const descriptionLength = cuAbout.sentenceDescription.length || 0;
 
   const onClickFinances = useCallback(() => {
@@ -124,14 +124,14 @@ const CuAboutContainer = () => {
           <div style={{
             width: '39.61%',
           }}>
-            <ContainerScroll descriptionLength={descriptionLength}>
+            {isEnabled('FEATURE_CARD_NAVIGATION') && <ContainerScroll descriptionLength={descriptionLength}>
               <ContainerCard>
                 <CardExpenses onClick={onClickFinances} />
               </ContainerCard>
               <ContainerCard>
                 <CardSomeThingWrong />
               </ContainerCard>
-            </ContainerScroll>
+            </ContainerScroll>}
           </div>
         </ContainerAllData>
       </Wrapper>
