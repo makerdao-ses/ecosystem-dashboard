@@ -1,5 +1,5 @@
-import { FeatureFlags } from './interface-feature-flags';
+import { FeatureFlagsInterface } from './feature-flags.interface';
 
-export const flagsDevelopment: FeatureFlags = {
-  FEATURE_CARD_NAVIGATION: false,
+export const flagsDevelopment: FeatureFlagsInterface = {
+  FEATURE_CARD_NAVIGATION: true,
 };

@@ -32,6 +32,7 @@ const CuAboutContainer = () => {
   const dispatch = useAppDispatch();
   const { cuAbout, statusCoreUnit } = useSelector((state: RootState) => cuAboutSelector(state));
   const contributors = useSelector((state: RootState) => contributorCommitmentSelector(state));
+
   useEffect(() => {
     dispatch(loadCuTableItemsAsync());
   }, [dispatch]);

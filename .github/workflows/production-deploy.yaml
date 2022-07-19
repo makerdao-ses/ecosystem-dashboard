@@ -14,7 +14,7 @@ jobs:
       - name: Configure environment variables
         run: |
           rm .env
-          echo -e NEXT_PUBLIC_GRAPHQL_ENDPOINT=${{ secrets.GRAPHQL_API_URL }} >> .env
+          echo -e "NEXT_PUBLIC_GRAPHQL_ENDPOINT=${{ secrets.GRAPHQL_API_URL }}\nNEXT_PUBLIC_ENVIRONMENT=production" >> .env
       - name: Install project
         run: |
           npm install -g yarn

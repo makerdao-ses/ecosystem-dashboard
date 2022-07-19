@@ -1,6 +1,6 @@
 import React from 'react';
-import { FeatureFlags } from '../../../feature-flags/interface-feature-flags';
-export const FeatureFlagsContext = React.createContext({
+import { FeatureFlagsInterface } from '../../../feature-flags/feature-flags.interface';
 
-  enabledFeatures: {} as FeatureFlags,
+export const FeatureFlagsContext = React.createContext({
+  enabledFeatures: {} as FeatureFlagsInterface,
 });
