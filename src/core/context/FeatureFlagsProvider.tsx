@@ -1,10 +1,10 @@
 import React from 'react';
-import { FeatureFlags } from '../../../feature-flags/interface-feature-flags';
+import { FeatureFlagsInterface } from '../../../feature-flags/feature-flags.interface';
 import { FeatureFlagsContext } from './FeatureFlagsContext';
 
 type Props = {
   children: React.ReactNode | JSX.Element | JSX.Element[] | string;
-  enabledFeatures: FeatureFlags;
+  enabledFeatures: FeatureFlagsInterface;
 }
 
 export const FeatureFlagsProvider = ({ children, enabledFeatures }: Props) => {
