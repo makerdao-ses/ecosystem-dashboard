@@ -271,14 +271,6 @@ const ContainerScroll = styled.div<{ descriptionLength: number }>(({ description
   position: 'sticky',
   top: 250,
   paddingTop: '36px',
-  height: '620px',
-  scrollbarWidth: 'none',
-  scrollbarColor: 'transparent',
-  '&:: -webkit-scrollbar': {
-    width: '0px',
-    background: 'transparent',
-  },
-  overflowY: 'auto',
 }));
 
 const Wrapper = styled.div({
