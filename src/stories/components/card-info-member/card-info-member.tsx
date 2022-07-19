@@ -125,14 +125,19 @@ const TypographyStyled = styled(Typography)<{ color: string }>((props) => ({
 
 const TypographyEmail = styled(Typography)({
   fontSize: '14px',
+  fontWeight: 400,
+  fontStyle: 'normal',
   fontFamily: 'SF Pro Text, sans-serif',
   color: '#231536',
+  lineHeight: '18.2px',
 });
 
 const TypographyJobTitle = styled(Typography)({
   fontSize: '11px',
   fontWeight: 600,
   fontFamily: 'SF Pro Text, sans-serif',
+  lineHeight: '22px',
+  fontStyle: 'normal',
 });
 
 const TypographyName = styled(Typography)({
@@ -140,6 +145,7 @@ const TypographyName = styled(Typography)({
   color: '#231536',
   lineHeight: '24px',
   fontWeight: 500,
+  letterSpacing: '0.3px',
   fontFamily: 'SF Pro Text, sans-serif',
 });
 
