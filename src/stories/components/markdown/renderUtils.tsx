@@ -6,8 +6,6 @@ import './markdown.module.scss';
 export const customRenderer = {
   image(href: string) {
     return <div style={{ width: '100%' }}><ImageTag src={href} className='img-container' style={{
-      width: '660px',
-      height: '308px'
     }} key={href} /></div>;
   },
   paragraph(text: string) {
@@ -40,7 +38,15 @@ export const customRenderer = {
 };
 
 const ImageTag = styled.img({
+  width: '660px',
+  height: '308px',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    display: 'block',
+    margin: '0 auto',
+  },
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    width: '327px',
+    height: '152px',
     display: 'block',
     margin: '0 auto',
   },

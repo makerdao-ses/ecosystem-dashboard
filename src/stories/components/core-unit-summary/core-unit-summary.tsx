@@ -13,10 +13,9 @@ import lightTheme from '../../../../styles/theme/light';
 
 interface CoreUnitSummaryProps {
   trailingAddress?: string[];
-  matches834?: boolean;
 }
 
-export const CoreUnitSummary = ({ trailingAddress = [], matches834 }: CoreUnitSummaryProps) => {
+export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) => {
   const [hiddenTextDescription, setHiddenTextDescription] = useState(true);
   const router = useRouter();
   const query = router.query;
@@ -83,7 +82,7 @@ export const CoreUnitSummary = ({ trailingAddress = [], matches834 }: CoreUnitSu
     </NavigationHeader>
     <Wrapper>
       <ContainerTitle>
-        <TitleNavigationCuAbout coreUnitAbout={cu} matches834={matches834} />
+        <TitleNavigationCuAbout coreUnitAbout={cu} />
         {hiddenTextDescription &&
           <div> <TypographyDescription
           >{cu?.sentenceDescription || ''}</TypographyDescription>

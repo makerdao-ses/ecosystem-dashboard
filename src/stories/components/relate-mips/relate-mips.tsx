@@ -10,6 +10,7 @@ import ExternalLinkArrow from '../svg/external-link-arrow';
 import { getMipTitle } from '../../../core/utils/string.utils';
 import { getMipsStatus } from '../../../core/business-logic/core-unit-about';
 import { CuMipDto } from '../../../core/models/dto/core-unit.dto';
+import lightTheme from '../../../../styles/theme/light';
 
 export type RelateMipType = {
   status: CuStatusEnum,
@@ -71,6 +72,10 @@ const Content = styled.div({
   backgroundColor: '#FFFFFF',
   boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
   borderRadius: '6px',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    width: '343px',
+
+  },
 });
 
 const Row = styled.div({
