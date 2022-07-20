@@ -39,5 +39,4 @@ jobs:
             mv /var/www/next/app /var/www/next/app-del
             mv /var/www/next/app-tmp /var/www/next/app
             pm2 start next-js
-            rm -rf /var/www/next/app-tmp
             rm -rf /var/www/next/app-del
