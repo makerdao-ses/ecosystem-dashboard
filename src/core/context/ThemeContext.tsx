@@ -62,5 +62,5 @@ export {
 const Container = styled.div({
   display: 'flex',
   background: 'white',
-  minHeight: 'calc(100vh - 244px)',
+  minHeight: 'calc(100vh - 320px)',
 });
