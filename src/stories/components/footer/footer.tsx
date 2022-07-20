@@ -14,9 +14,7 @@ interface Props {
 
 const Footer = ({ governesses, products, developer }: Props) => {
   return (
-    <div style={{
-      position: 'relative',
-    }}>
+    <FooterWrapper>
       <ContainerImage />
       <ContainerFooter>
         <ContainerColumOne>
@@ -61,10 +59,16 @@ const Footer = ({ governesses, products, developer }: Props) => {
           />
         </ContainerColumLast>
       </ContainerFooter >
-    </div >
-
+    </FooterWrapper >
   );
 };
+
+const FooterWrapper = styled.footer({
+  position: 'relative',
+  bottom: 0,
+  width: '100%',
+  height: 'fit-content',
+});
 
 const ContainerImage = styled.div({
   width: '100%',
@@ -79,7 +83,7 @@ const ContainerImage = styled.div({
   position: 'absolute',
 });
 
-const ContainerFooter = styled.footer({
+const ContainerFooter = styled.div({
   display: 'flex',
   flexDirection: 'row',
   flexWrap: 'wrap',

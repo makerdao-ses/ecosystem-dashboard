@@ -26,7 +26,6 @@ function MyApp(props: MyAppProps) {
     <CacheProvider value={emotionCache}>
       <ThemeProvider>
         <Provider store={store}>
-
           <Head>
             <title>MakerDao - Dashboard</title>
             <link rel="icon" href="/favicon.svg" />
