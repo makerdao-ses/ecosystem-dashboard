@@ -60,7 +60,7 @@ export const CoreUnitCard = ({ coreUnit, onClick }: CoreUnitCardProps) => {
     <Line>
     </Line>
     <Categories>
-      {coreUnit.category?.map((category) => <CategoryChip key={category} category={category} style={{ marginRight: '16px' }}/>)}
+      {coreUnit.category?.map((category) => <CategoryChip key={category} category={category} />)}
     </Categories>
     <Links>
       <CuTableColumnLinks
@@ -80,6 +80,7 @@ const Container = styled.div({
   background: 'white',
   padding: '24px 16px 13px 16px',
   gridTemplateColumns: 'auto',
+  minWidth: '340px',
   gridTemplateAreas:
     `"summary"
      "expenditure"
@@ -97,14 +98,14 @@ const Container = styled.div({
        "categories categories" 
        "links links"`,
   },
-  '@media (min-width: 635px)': {
+  '@media (min-width: 685px)': {
     gridTemplateColumns: '3.5fr 2fr',
     gridTemplateAreas:
       `"summary expenditure"
        "team team"
        "line line"
-       "categories categories" 
-       "links links"`,
+       "categories links"
+       `,
   },
   '@media (min-width: 835px)': {
     gridTemplateColumns: '3.5fr 2fr 1fr',
@@ -131,7 +132,7 @@ const Expenditure = styled.div({
 const Team = styled.div({
   gridArea: 'team',
   paddingTop: '28px',
-  '@media (min-width: 435px) and (max-width: 635px)': {
+  '@media (min-width: 435px) and (max-width: 685px)': {
     paddingTop: '0',
   },
   '@media (min-width: 835px)': {
@@ -154,13 +155,25 @@ const Categories = styled.div({
   display: 'flex',
   alignItems: 'center',
   marginBottom: '16px',
+  justifyContent: 'center',
+  gap: '16px',
+  '@media (min-width: 685px)': {
+    margin: '0',
+    justifyContent: 'left',
+  },
   '@media (min-width: 835px)': {
     margin: '0',
   }
 });
 
 const Links = styled.div({
-  gridArea: 'links'
+  gridArea: 'links',
+  display: 'flex',
+  justifyContent: 'center',
+  '@media (min-width: 685px)': {
+    margin: '0',
+    justifyContent: 'right',
+  },
 });
 
 const Title = styled.div({
