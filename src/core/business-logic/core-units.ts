@@ -216,7 +216,7 @@ export const getExpenditureValueFromCoreUnit = (cu: CoreUnitDto) => {
   let dateToCheck = DateTime.now();
   for (let i = 0; i < 3; i++) {
     dateToCheck = dateToCheck.minus({ months: 1 });
-    const temp = cu.budgetStatements.find(bs => bs.month === dateToCheck.toFormat(API_MONTH_FORMAT));
+    const temp = cu.budgetStatements?.find(bs => bs.month === dateToCheck.toFormat(API_MONTH_FORMAT));
     if (temp) {
       result += sumAllLineItemsFromBudgetStatement(temp, dateToCheck);
     }
@@ -232,7 +232,7 @@ export const getExpenditureAmountFromCoreUnit = (cu: CoreUnitDto) => {
   let dateToCheck = DateTime.now();
   for (let i = 0; i < 3; i++) {
     dateToCheck = dateToCheck.minus({ months: 1 });
-    const temp = cu.budgetStatements.find(bs => bs.month === dateToCheck.toFormat(API_MONTH_FORMAT));
+    const temp = cu.budgetStatements?.find(bs => bs.month === dateToCheck.toFormat(API_MONTH_FORMAT));
     if (temp) {
       result += 1;
     }
@@ -258,7 +258,7 @@ export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDto) => {
   let dateToCheck = DateTime.now();
   for (let i = 0; i < 3; i++) {
     dateToCheck = dateToCheck.minus({ months: 1 });
-    const temp = cu.budgetStatements.find(bs => bs.month === dateToCheck.toFormat(API_MONTH_FORMAT));
+    const temp = cu.budgetStatements?.find(bs => bs.month === dateToCheck.toFormat(API_MONTH_FORMAT));
 
     if (temp) {
       result.push({ value: sumAllLineItemsFromBudgetStatement(temp, dateToCheck) });

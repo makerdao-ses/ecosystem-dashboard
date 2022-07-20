@@ -6,7 +6,7 @@ import _ from 'lodash';
 
 export const useTransparencyMkrVesting = (currentMonth: DateTime, budgetStatements: BudgetStatementDto[]) => {
   const currentBudgetStatement = useMemo(() => {
-    return budgetStatements.find(bs => bs.month === currentMonth.toFormat(API_MONTH_FORMAT));
+    return budgetStatements?.find(bs => bs.month === currentMonth.toFormat(API_MONTH_FORMAT));
   }, [currentMonth, budgetStatements]);
 
   const mkrVestings = useMemo(() => {
