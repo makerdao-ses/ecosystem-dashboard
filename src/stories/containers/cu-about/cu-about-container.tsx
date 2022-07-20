@@ -32,7 +32,7 @@ const CuAboutContainer = () => {
   const { cuAbout, statusCoreUnit } = useSelector((state: RootState) => cuAboutSelector(state));
   const contributors = useSelector((state: RootState) => contributorCommitmentSelector(state));
 
-  const matchesDesktop1194 = useMediaQuery(lightTheme.breakpoints.between('desktop_1194', 'desktop_1280'));
+  const table834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
 
   useEffect(() => {
     dispatch(loadCuTableItemsAsync());
@@ -58,7 +58,6 @@ const CuAboutContainer = () => {
     const resultArrayThreeElements = order.length > 3 && showThreeMIPs ? order.slice(0, 3) : order;
     return resultArrayThreeElements;
   }, [cuAbout.cuMip, showThreeMIPs]);
-
   const onClickFinances = useCallback(() => {
     router.push(`/core-unit/${code}/finances/transparency?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
   }, [filteredCategories, filteredStatuses, router, searchText, code]);
@@ -72,17 +71,17 @@ const CuAboutContainer = () => {
 
   return (
     <ContainerAbout>
-      <CoreUnitSummary />
+      <CoreUnitSummary matches834={table834} />
       <Wrapper>
         <ContainerAllData>
           <div style={{
-            width: !matchesDesktop1194 ? '60.39%' : '100%',
+            width: table834 ? '100%' : '60.39%',
             display: 'flex',
             flexDirection: 'column',
           }}>
 
             <MarkdownContainer>
-              <MdViewerContainer sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)} paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)} paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)} />
+              <MdViewerContainer showButton={table834} sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)} paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)} paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)} onClick={onClickFinances} />
             </MarkdownContainer>
             <TeamMemberContainer>
               <TeamMemberTitle>Team Size</TeamMemberTitle><TeamMember fte={getFTEsFromCoreUnit(cuAbout)} />
@@ -119,9 +118,10 @@ const CuAboutContainer = () => {
               <DividerStyle /> <BigButton title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'} onClick={onClickLessMips} />
               <DividerStyle />
             </ButtonContainer>}
+            {table834 && <CardSomeThingWrong width='770px' />}
           </div>
 
-          <div style={{
+          {!table834 && <div style={{
             width: '39.61%',
           }}>
             <ContainerScroll>
@@ -132,7 +132,7 @@ const CuAboutContainer = () => {
                 <CardSomeThingWrong />
               </ContainerCard>
             </ContainerScroll>
-          </div>
+          </div>}
 
         </ContainerAllData>
       </Wrapper>
@@ -180,7 +180,12 @@ const TeamMemberTitle = styled(Typography)({
   lineHeight: '19px',
   marginRight: '8px',
   color: '#231536',
-  fontFamily: 'FT Base, sans-serif'
+  fontFamily: 'FT Base, sans-serif',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    fontSize: '20px',
+    lineHeight: '24px',
+    letterSpacing: '0.4px'
+  },
 });
 
 const ContactInfoContainer = styled.div({
@@ -198,7 +203,8 @@ const ContactInfoTitle = styled(Typography)({
   lineHeight: '19px',
   color: '#231536',
   marginBottom: '32px',
-  fontFamily: 'FT Base, sans-serif'
+  fontFamily: 'FT Base, sans-serif',
+  width: '100%',
 });
 
 const ContainerCards = styled.div({
@@ -209,6 +215,9 @@ const ContainerCards = styled.div({
   alignItems: 'flex-start',
   flexWrap: 'wrap',
   padding: '0px',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    maxWidth: '100%',
+  },
 });
 
 const CardRelateMipsContainer = styled.div({
@@ -248,7 +257,7 @@ const ButtonContainer = styled.div({
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
-  marginBottom: '44px',
+  marginBottom: '32px',
   overflow: 'hidden',
 });
 const ContainerNoRelateMIps = styled.div({
@@ -273,6 +282,10 @@ const ContainerAllData = styled.div({
     marginLeft: '48px',
   },
   [lightTheme.breakpoints.between('desktop_1194', 'desktop_1280')]: {
+    marginRight: '32px',
+    marginLeft: '32px',
+  },
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     marginRight: '32px',
     marginLeft: '32px',
   },
