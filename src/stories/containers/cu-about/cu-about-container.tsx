@@ -22,6 +22,7 @@ import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-su
 import CardExpenses from '../../components/card-navegation/card-expenses';
 import CardSomeThingWrong from '../../components/card-navegation/card-somethig-wrong';
 import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
+import { formatCode } from '../../../core/utils/string.utils';
 
 const CuAboutContainer = () => {
   const [isEnabled] = useFlagsActive();
@@ -127,7 +128,7 @@ const CuAboutContainer = () => {
           }}>
             {isEnabled('FEATURE_CARD_NAVIGATION') && <ContainerScroll descriptionLength={descriptionLength}>
               <ContainerCard>
-                <CardExpenses onClick={onClickFinances} />
+                <CardExpenses onClick={onClickFinances} code={formatCode(cuAbout.code)} name={cuAbout.name || ''} />
               </ContainerCard>
               <ContainerCard>
                 <CardSomeThingWrong />
