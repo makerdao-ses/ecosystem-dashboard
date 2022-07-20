@@ -114,8 +114,12 @@ export const CuTable = () => {
     });
   }, [router]);
 
-  const onClickRow = useCallback((id: string) => () => {
-    router.push(`/core-unit/${id}?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
+  const onClickRow = useCallback((code: string) => () => {
+    router.push(`/core-unit/${code}?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
+  }, [filteredCategories, filteredStatuses, router, searchText]);
+
+  const onClickFinances = useCallback((code: string) => {
+    router.push(`/core-unit/${code}/finances/transparency?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
   }, [filteredCategories, filteredStatuses, router, searchText]);
 
   const items = useMemo(() => {
@@ -133,7 +137,7 @@ export const CuTable = () => {
           onClick={onClickRow(coreUnit.code)}
           code={formatCode(coreUnit.code)}
         />,
-        <div style={{ display: 'block' }}>
+        <div style={{ display: 'block' }} onClick={() => onClickFinances(coreUnit.code)}>
           <CuTableColumnExpenditures
             key={`expenditures-${i}`}
             value={getExpenditureValueFromCoreUnit(coreUnit)}
