@@ -43,4 +43,3 @@ jobs:
             mv /var/www/next/app-production-tmp /var/www/next/app-production
             pm2 start next-js-production
             rm -rf /var/www/next/app-production-del
-            rm -rf /var/www/next/app-production-tmp

@@ -43,4 +43,3 @@ jobs:
             mv /var/www/next/app-staging-tmp /var/www/next/app-staging
             pm2 start next-js-staging
             rm -rf /var/www/next/app-staging-del
-            rm -rf /var/www/next/app-staging-tmp
