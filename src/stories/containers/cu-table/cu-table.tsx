@@ -12,7 +12,6 @@ import {
   getPercentFromCoreUnit,
   getSubmissionDateFromCuMip
 } from '../../../core/business-logic/core-units';
-import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { useAppDispatch } from '../../../core/hooks/hooks';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
@@ -30,18 +29,13 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../core/store/store';
 import { SortEnum } from '../../../core/enums/sort.enum';
 import { sortAlphaNum } from '../../../core/utils/sort.utils';
-import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
-import { SearchInput } from '../../components/search-input/search-input';
 import { CustomButton } from '../../components/custom-button/custom-button';
-import { useDebounce } from '../../../core/utils/use-debounce';
 import { useRouter } from 'next/router';
-import { stringify } from 'querystring';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { formatCode } from '../../../core/utils/string.utils';
 import { CoreUnitCard } from '../../components/core-unit-card/core-unit-card';
+import { Filters } from './cu-table-filters';
 
-const statuses = Object.values(CuStatusEnum) as string[];
-const categories = Object.values(CuCategoryEnum) as string[];
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
 const sortInitialState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled];
 const headerStyles: CSSProperties[] = [{ paddingLeft: '63.5px' }, {}, {}, {}];
@@ -50,7 +44,6 @@ const headersAlign: ('flex-start' | 'center' | 'flex-end')[] = ['flex-start', 'f
 export const CuTable = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const debounce = useDebounce();
 
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
@@ -61,6 +54,7 @@ export const CuTable = () => {
 
   const [headersSort, setHeadersSort] = useState(sortInitialState);
   const [sortColumn, setSortColumn] = useState(-1);
+  const [filtersPopup, setFiltersPopup] = useState(false);
 
   useEffect(() => {
     dispatch(loadCuTableItemsAsync());
@@ -72,6 +66,13 @@ export const CuTable = () => {
     filteredCategories,
     searchText
   }), [data, filteredCategories, filteredStatuses, searchText]);
+
+  const clearFilters = () => {
+    router.push({
+      pathname: '/',
+      search: '',
+    });
+  };
 
   const setSort = (index: number, prevStatus: SortEnum) => {
     if (prevStatus === 3) {
@@ -97,22 +98,6 @@ export const CuTable = () => {
     const sortAlg = [nameSort, expendituresSort, teamMembersSort, linksSort];
     return [...items].sort(sortAlg[sortColumn]);
   }, [headersSort, sortColumn]);
-
-  const clearFilters = () => {
-    router.push({
-      pathname: '/',
-      search: '',
-    });
-  };
-
-  const handleChangeUrlFilterArrays = useCallback((key: string) => (value: string[] | string) => {
-    const search = router.query;
-    search[key] = Array.isArray(value) ? value.join(',') : (value || '');
-    router.push({
-      pathname: '/',
-      search: stringify(search),
-    });
-  }, [router]);
 
   const onClickRow = useCallback((code: string) => () => {
     router.push(`/core-unit/${code}?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
@@ -177,8 +162,10 @@ export const CuTable = () => {
   return <ContainerHome>
     <Wrapper>
       <Header>
-        <Title>Core Units Expenses</Title>
-        <FilterButtonWrapper>
+        <Title>Core Units</Title>
+        <FilterButtonWrapper
+          onClick={() => setFiltersPopup(!filtersPopup)}
+        >
           <CustomButton
             label={'Filters'}
             style={{
@@ -187,58 +174,14 @@ export const CuTable = () => {
             }}
           />
         </FilterButtonWrapper>
-        <Filters>
-          <CustomButton
-            label="Reset Filters"
-            style={{
-              marginRight: '16px',
-              width: '114px',
-              border: 'none'
-            }}
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
-            onClick={clearFilters}
-            disabled={filteredStatuses && filteredStatuses.length === 0}
-          />
-          <CustomMultiSelect
-            label="Status"
-            activeItems={filteredStatuses}
-            items={statuses}
-            onChange={(value: string[]) => {
-              handleChangeUrlFilterArrays('filteredStatuses')(value);
-            }}
-            style={{ marginRight: '16px' }}
-          />
-          <CustomMultiSelect
-            label="CU Category"
-            activeItems={filteredCategories}
-            items={categories}
-            onChange={(value: string[]) => {
-              handleChangeUrlFilterArrays('filteredCategories')(value);
-            }}
-            style={{ marginRight: '16px' }}
-          />
-          <Separator />
-          {router.isReady && <SearchInput
-            defaultValue={searchText}
-            placeholder="Search"
-            onChange={(value: string) => {
-              debounce(() => {
-                handleChangeUrlFilterArrays('searchText')(value);
-              }, 300);
-            }}
-            style={{ marginLeft: '16px' }}
-          />}
-          {!router.isReady && <SearchInput
-            defaultValue={searchText}
-            placeholder="Search"
-            onChange={(value: string) => {
-              debounce(() => {
-                handleChangeUrlFilterArrays('searchText')(value);
-              }, 300);
-            }}
-            style={{ marginLeft: '16px' }}
-          />}
-        </Filters>
+        <Filters
+          filtersPopup={filtersPopup}
+          filteredStatuses={filteredStatuses}
+          filteredCategories={filteredCategories}
+          searchText={searchText}
+          setFiltersPopup={() => setFiltersPopup(!filtersPopup)}
+          clearFilters={clearFilters}
+        />
       </Header>
       <TableWrapper>
         <CustomTable
@@ -303,6 +246,10 @@ const Header = styled.div({
   display: 'flex',
   alignItems: 'center',
   marginBottom: '32px',
+  '@media (min-width: 835px) and (max-width: 1180px)': {
+    flexDirection: 'column',
+    alignItems: 'flex-start'
+  }
 });
 
 const Title = styled.div({
@@ -315,21 +262,8 @@ const Title = styled.div({
   color: '#231536'
 });
 
-const Separator = styled.span({
-  width: '1px',
-  height: '32px',
-  backgroundColor: '#D4D9E1',
-});
-
-const Filters = styled.div({
-  display: 'none',
-  '@media (min-width: 1180px)': {
-    display: 'flex'
-  }
-});
-
 const FilterButtonWrapper = styled.div({
-  '@media (min-width: 1180px)': {
+  '@media (min-width: 835px)': {
     display: 'none'
   }
 });
