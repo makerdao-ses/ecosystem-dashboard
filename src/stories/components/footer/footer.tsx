@@ -19,23 +19,44 @@ const Footer = ({ governesses, products, developer }: Props) => {
     }}>
       <ContainerImage />
       <ContainerFooter>
-        <ContainerColumOne ><FooterContact title='Contact MakerDAO' subtitle='Official Community Channels' style={{
-          paddingLeft: '6px',
-          paddingRight: '6.3px',
-        }} logo={<Logo width={37} height={20}
-        />} links={iconsContact} /></ContainerColumOne>
-        <ContainerColumTwo> <DescriptionFooter title='Governance' children={governesses} style={{
-        }} /></ContainerColumTwo>
-        <ContainerColumThree>  <DescriptionFooter title='Products & Tools' children={products} style={{
-
-        }} /></ContainerColumThree>
-        <ContainerColumFour> <DescriptionFooter title='Developer' children={developer} style={{
-        }} /> </ContainerColumFour>
+        <ContainerColumOne>
+          <FooterContact
+            title="Contact MakerDAO"
+            subtitle="Official Community Channels"
+            style={{
+              paddingLeft: '6px',
+              paddingRight: '6.3px',
+            }}
+            logo={<Logo width={37} height={20}/>}
+            links={iconsContact}
+          />
+        </ContainerColumOne>
+        <ContainerColumTwo>
+          <DescriptionFooter
+            title="Governance"
+            children={governesses}
+          />
+        </ContainerColumTwo>
+        <ContainerColumThree>
+          <DescriptionFooter
+            title="Products & Tools"
+            children={products}
+          />
+        </ContainerColumThree>
+        <ContainerColumFour>
+          <DescriptionFooter
+            title="Developer"
+            children={developer}
+           />
+        </ContainerColumFour>
         <ContainerColumLast>
-          <FooterContact title='Contact MakerDAO SES for support' subtitle='Sustainable Ecosystem Scalling' style={{
-            paddingLeft: '6.13px',
-            paddingRight: '6px',
-          }}
+          <FooterContact
+            title="Contact MakerDAO SES for support"
+            subtitle="Sustainable Ecosystem Scaling"
+            style={{
+              paddingLeft: '6.13px',
+              paddingRight: '6px',
+            }}
             logo={<SesLogo />} links={iconsSupport}
           />
         </ContainerColumLast>
@@ -61,6 +82,7 @@ const ContainerImage = styled.div({
 const ContainerFooter = styled.footer({
   display: 'flex',
   flexDirection: 'row',
+  flexWrap: 'wrap',
   justifyContent: 'space-between',
   boxSizing: 'border-box',
   margin: '0px',
@@ -71,21 +93,47 @@ const ContainerFooter = styled.footer({
   paddingRight: '64.23px',
   paddingBottom: '57.59px',
 });
-const ContainerColumOne = styled.div({
-  width: '320.01px',
-});
-const ContainerColumTwo = styled.div({
-  width: '143px'
-});
-const ContainerColumThree = styled.div({
-  width: '147px'
-});
-const ContainerColumFour = styled.div({
-  width: '129px'
 
+const ContainerColumOne = styled.div({
+  order: 4,
+  width: '320.01px',
+  '@media (min-width: 835px)': {
+    order: 1,
+  }
+});
+
+const ContainerColumTwo = styled.div({
+  order: 1,
+  width: '143px',
+  marginBottom: '32px',
+  '@media (min-width: 835px)': {
+    margin: 0,
+    order: 2,
+  }
+});
+
+const ContainerColumThree = styled.div({
+  order: 2,
+  width: '147px',
+  marginBottom: '32px',
+  '@media (min-width: 835px)': {
+    order: 3,
+    margin: 0
+  }
+});
+
+const ContainerColumFour = styled.div({
+  order: 3,
+  width: '129px',
+  marginBottom: '32px',
+  '@media (min-width: 835px)': {
+    order: 4,
+    margin: 0,
+  }
 });
 
 const ContainerColumLast = styled.div({
-  width: '272px',
+  order: 5,
+  width: '272px'
 });
 export default Footer;
