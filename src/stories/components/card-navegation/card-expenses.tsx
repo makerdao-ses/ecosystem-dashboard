@@ -5,14 +5,16 @@ import { CustomButton } from '../custom-button/custom-button';
 import InformationCard from './information-card';
 
 interface Props {
-  onClick: () => void
+  onClick: () => void,
+  code: string
+  name: string
 }
 
-const CardExpenses = ({ onClick }: Props) => {
+const CardExpenses = ({ onClick, code, name }: Props) => {
   return (
     <InformationCard title='Expenses' height='134px' fontSize='24px' lineHeight='29px'>
       <TypographyDescription marginBottom={'24px'}>
-        View all expenses of the (SES-01) Sustainable Ecosystem Scaling
+        {`View all expenses of the ${code} ${name}`}
       </TypographyDescription>
       <CustomButton widthText='100%' label='View Expenses' style={{
         textAlign: 'center',
@@ -29,7 +31,7 @@ const CardExpenses = ({ onClick }: Props) => {
         width: '100%'
       }} onClick={onClick} styleText={{
         color: '#1AAB9B',
-      }}/>
+      }} />
     </InformationCard>
   );
 };
