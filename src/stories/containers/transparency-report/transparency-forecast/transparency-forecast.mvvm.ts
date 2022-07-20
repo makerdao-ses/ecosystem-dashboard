@@ -49,7 +49,7 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetSt
   }, [currentMonth, propBudgetStatements]);
 
   const getForecastForMonthOnWalletOnBudgetStatement = (budgetStatements: BudgetStatementDto[], walletAddress: string | undefined, currentMonth: DateTime, month: DateTime) => {
-    const budgetStatement = budgetStatements.find(x => x.month === currentMonth.toFormat(API_MONTH_FORMAT)) ?? null;
+    const budgetStatement = budgetStatements?.find(x => x.month === currentMonth.toFormat(API_MONTH_FORMAT)) ?? null;
 
     if (!budgetStatement || !walletAddress) return 0;
 
@@ -61,7 +61,7 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetSt
   };
 
   const getBudgetCapForMonthOnWalletOnBudgetStatement = (budgetStatements: BudgetStatementDto[], walletAddress: string | undefined, currentMonth: DateTime, month: DateTime) => {
-    const budgetStatement = budgetStatements.find(x => x.month === currentMonth?.toFormat(API_MONTH_FORMAT)) ?? null;
+    const budgetStatement = budgetStatements?.find(x => x.month === currentMonth?.toFormat(API_MONTH_FORMAT)) ?? null;
 
     if (!budgetStatement || !walletAddress) return 0;
 

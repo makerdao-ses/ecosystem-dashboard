@@ -18,7 +18,7 @@ interface Props {
   height?: string
   letterSpacing?: string
   onClick: () => void;
-  lineHeight?:string
+  lineHeight?: string
 }
 
 export const ItemWebSite = ({ fontSize = 16, fontWeight = 700, color = '#FFFFFF', fontFamily = 'SF Pro Display, sans-serif', subtract = '', description, height = '134px', onClick, ...props }: Props) => {
@@ -39,8 +39,10 @@ export const ItemWebSite = ({ fontSize = 16, fontWeight = 700, color = '#FFFFFF'
         <div>  <CustomButton label='Visit Website' onClick={onClick} style={{
           width: '137px',
           height: '34px',
-          padding: '8px 24px'
-        }} /></div>      </ContainerRow>
+          padding: '8px 24px',
+        }} styleText={{
+          color: '#31424E'
+        }}/></div>      </ContainerRow>
       <ContainerTextDescription>
         <TypographyDescription sx={{
         }}>{description}</TypographyDescription>

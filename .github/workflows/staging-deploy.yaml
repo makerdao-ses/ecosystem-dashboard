@@ -1,10 +1,6 @@
 name: Staging deployment
 on:
   workflow_dispatch:
-    branches-ignore:
-      - '**'
-    tags:
-      - 'releases/release_**'
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -18,7 +14,7 @@ jobs:
       - name: Configure environment variables
         run: |
           rm .env
-          echo -e NEXT_PUBLIC_GRAPHQL_ENDPOINT=${{ secrets.GRAPHQL_API_URL }} >> .env
+          echo -e "NEXT_PUBLIC_GRAPHQL_ENDPOINT=${{ secrets.GRAPHQL_API_URL }}\nNEXT_PUBLIC_ENVIRONMENT=staging" >> .env
       - name: Install project
         run: |
           npm install -g yarn
@@ -47,4 +43,3 @@ jobs:
             mv /var/www/next/app-staging-tmp /var/www/next/app-staging
             pm2 start next-js-staging
             rm -rf /var/www/next/app-staging-del
-            rm -rf /var/www/next/app-staging-tmp

@@ -62,7 +62,7 @@ export const TransparencyReport = () => {
         </p>
       </Paragraph>
 
-      <PagerBar>
+      <PagerBar className="no-select">
         <CustomPager
           label={currentMonth.toFormat('MMM yyyy')}
           onPrev={() => setCurrentMonth(currentMonth.minus({ month: 1 }))}

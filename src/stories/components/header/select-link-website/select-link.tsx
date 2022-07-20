@@ -26,7 +26,6 @@ const SelectLink = ({ links, fill = '', themeMode, onClick }: Props) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  console.log('open', open);
   const background = useMemo(() => {
     return themeMode === 'light' && open ? '#B6EDE7' : themeMode === 'light' && !open ? '#ECF1F3' : themeMode === 'dark' && open ? '#31424E' : '#31424E';
   }, [themeMode, open]);
@@ -40,7 +39,7 @@ const SelectLink = ({ links, fill = '', themeMode, onClick }: Props) => {
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
           onClick={handleClick}
-        >{open ? <ArrowSelectUp fill={'#6EDBD0'} /> : <ArrowSelect fill={fill} />}</IconButton></ContainerIcon>
+        >{open ? <ArrowSelectUp fill={'#1AAB9B'} /> : <ArrowSelect fill={fill} />}</IconButton></ContainerIcon>
       <Menu
         disableScrollLock={true}
         id="basic-menu"

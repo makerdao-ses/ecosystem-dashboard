@@ -55,13 +55,18 @@ const Container = styled.div({
   display: 'flex',
   alignItems: 'stretch',
   boxSizing: 'border-box',
-  padding: '13px',
   cursor: 'pointer',
-  maxWidth: '328px'
+  padding: '13px 0',
+  '@media (min-width: 835px)': {
+    padding: '13px',
+  }
 });
 
 const CircleContainer = styled.div({
-  marginRight: '16px',
+  marginRight: '8px',
+  '@media (min-width: 835px)': {
+    marginRight: '16px',
+  }
 });
 
 const Content = styled.div({

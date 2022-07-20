@@ -21,7 +21,9 @@ export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps)
           id={'mouse-over-popover-total'}
           title={'Actual Expenditure'}>
           <Value>
-            {props.value.toLocaleString()}
+            {props.value.toLocaleString('en-US', {
+              maximumFractionDigits: 0,
+            })}
           </Value>
         </CustomPopover>
       </Data>
@@ -46,7 +48,7 @@ export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps)
             </PercentExplanation>
           }>
           <Percent>
-            {props.percent?.toFixed(2)}%
+            {props.percent?.toFixed(0)}%
           </Percent>
         </CustomPopover>
       </ValueWrapper>
@@ -57,16 +59,13 @@ export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps)
 const Container = styled.div({
   display: 'flex',
   alignItems: 'stretch',
-  minWidth: '246px',
   cursor: 'pointer',
-  paddingLeft: '27px',
-  paddingRight: '24px',
+  justifyContent: 'flex-start',
 });
 
 const Wrapper = styled.div({
   display: 'flex',
   marginTop: '2px',
-  justifyContent: 'center',
 });
 
 const Data = styled.div({

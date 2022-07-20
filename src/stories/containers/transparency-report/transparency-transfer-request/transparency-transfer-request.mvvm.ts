@@ -8,7 +8,7 @@ export const useTransparencyTransferRequestMvvm = (currentMonth: DateTime, budge
     if (!walletAddress) return 0;
 
     let result = 0;
-    const budgetStatement = budgetStatements.find(x => x.month === currentMonth.toFormat(API_MONTH_FORMAT));
+    const budgetStatement = budgetStatements?.find(x => x.month === currentMonth.toFormat(API_MONTH_FORMAT));
 
     if (!budgetStatement || !budgetStatement.budgetStatementWallet) return result;
 
@@ -25,7 +25,7 @@ export const useTransparencyTransferRequestMvvm = (currentMonth: DateTime, budge
 
   const getTransferRequestForMonth = useMemo(() => {
     let result = 0;
-    const budgetStatement = budgetStatements.find(x => x.month === currentMonth.toFormat(API_MONTH_FORMAT));
+    const budgetStatement = budgetStatements?.find(x => x.month === currentMonth.toFormat(API_MONTH_FORMAT));
 
     if (!budgetStatement || !budgetStatement.budgetStatementWallet) return result;
 
@@ -41,7 +41,7 @@ export const useTransparencyTransferRequestMvvm = (currentMonth: DateTime, budge
   const getCurrentBalanceForMonthOnWallet = (walletAddress: string | undefined) => {
     if (!walletAddress) return 0;
 
-    const budgetStatement = budgetStatements.find(x => x.month === currentMonth.toFormat(API_MONTH_FORMAT));
+    const budgetStatement = budgetStatements?.find(x => x.month === currentMonth.toFormat(API_MONTH_FORMAT));
 
     if (!budgetStatement || !budgetStatement.budgetStatementWallet) return 0;
 
@@ -55,7 +55,7 @@ export const useTransparencyTransferRequestMvvm = (currentMonth: DateTime, budge
   const getCurrentBalanceForMonth = useMemo(() => {
     let result = 0;
 
-    const budgetStatement = budgetStatements.find(x => x.month === currentMonth.toFormat(API_MONTH_FORMAT));
+    const budgetStatement = budgetStatements?.find(x => x.month === currentMonth.toFormat(API_MONTH_FORMAT));
 
     if (!budgetStatement || !budgetStatement.budgetStatementWallet) return 0;
 

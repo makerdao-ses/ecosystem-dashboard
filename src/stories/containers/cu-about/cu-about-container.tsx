@@ -22,8 +22,11 @@ import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-su
 import CardExpenses from '../../components/card-navegation/card-expenses';
 import CardSomeThingWrong from '../../components/card-navegation/card-somethig-wrong';
 import lightTheme from '../../../../styles/theme/light';
+import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
+import { formatCode } from '../../../core/utils/string.utils';
 
 const CuAboutContainer = () => {
+  const [isEnabled] = useFlagsActive();
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;
@@ -58,6 +61,9 @@ const CuAboutContainer = () => {
     const resultArrayThreeElements = order.length > 3 && showThreeMIPs ? order.slice(0, 3) : order;
     return resultArrayThreeElements;
   }, [cuAbout.cuMip, showThreeMIPs]);
+
+  const descriptionLength = cuAbout.sentenceDescription.length || 0;
+
   const onClickFinances = useCallback(() => {
     router.push(`/core-unit/${code}/finances/transparency?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
   }, [filteredCategories, filteredStatuses, router, searchText, code]);
@@ -124,16 +130,15 @@ const CuAboutContainer = () => {
           {!table834 && <div style={{
             width: '39.61%',
           }}>
-            <ContainerScroll>
+            {isEnabled('FEATURE_CARD_NAVIGATION') && <ContainerScroll>
               <ContainerCard>
-                <CardExpenses onClick={onClickFinances} />
+                <CardExpenses onClick={onClickFinances} code={formatCode(cuAbout.code)} name={cuAbout.name || ''} />
               </ContainerCard>
               <ContainerCard>
                 <CardSomeThingWrong />
               </ContainerCard>
-            </ContainerScroll>
+            </ContainerScroll>}
           </div>}
-
         </ContainerAllData>
       </Wrapper>
     </ContainerAbout >
@@ -300,14 +305,6 @@ const ContainerScroll = styled.div({
   position: 'sticky',
   top: 250,
   paddingTop: '36px',
-  height: '620px',
-  scrollbarWidth: 'none',
-  scrollbarColor: 'transparent',
-  '&:: -webkit-scrollbar': {
-    width: '0px',
-    background: 'transparent',
-  },
-  overflowY: 'auto',
 });
 
 const Wrapper = styled.div({

@@ -18,6 +18,14 @@ export const customRenderer = {
       fontFamily: 'FT Base, sans-serif',
     }} key={text}>{text}</p>;
   },
+  list(text: string) {
+    return <p className='ol_tags' style={{
+      backgroundColor: 'white',
+      color: '#231536',
+      lineHeight: '19px',
+      fontFamily: 'FT Base, sans-serif',
+    }} key={text}>{text}</p>;
+  },
   code(text: string) {
     return <code className='tag-code' key={text} style={{
       backgroundColor: 'white',

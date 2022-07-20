@@ -123,39 +123,33 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout, matches834 = false }: Pr
               {newDate && <CustomLink
                 href={'#'}
                 withArrow
+                styleIcon={{
+                  marginTop: '3px',
+                }}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  height: '22px'
+                  height: '22px',
+                  fontFamily: 'FT Base, sans-serif',
+                  fontStyle: 'normal',
+                  fontWeight: 500,
+                  fontSize: '12px',
+                  lineHeight: '14px',
+                  letterSpacing: '1px',
+                  textTransform: 'uppercase',
+                  color: '#447AFB',
+                  textDecoration: 'none',
+                  marginLeft: '4px',
                 }}
-              >
-                {newDate &&
-                  <SinceDate
-                    href={'#'}
-                  >
-                    Since {DateTime.fromJSDate(newDate).toFormat('d-MMM-y')}
-                  </SinceDate>
-                }
-              </CustomLink>}
+                children={`Since ${DateTime.fromJSDate(newDate).toFormat('d-MMM-y')}`}
+              />}
             </Row>
           </ContainerSeparateData>
         </ContainerTitle>
-        <div style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          width: '100%',
-          marginTop: '16px',
-          height: '32px',
-        }}><CategoryContainer>{coreUnitAbout.category && coreUnitAbout.category.map((item) => <CategoryChip key={item} category={item} style={{ marginRight: '16px' }} />)}</CategoryContainer>
-          {matches834 && <ContainerLinks>
-            <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#708390'} spacingsRight={29} lastChild />
-          </ContainerLinks>}
-        </div>
       </ContainerColum>
-      {!matches834 && <ContainerLinks>
-         <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#708390'} spacingsRight={29} lastChild />
-      </ContainerLinks>}
+      <ContainerLinks>
+        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#708390'} spacings={29} lastChild />
+      </ContainerLinks>
     </Container>
   );
 };

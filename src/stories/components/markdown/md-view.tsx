@@ -80,9 +80,9 @@ const MdViewerPage = ({ subTitle = 'What we do', paragraphDescription, paragraph
           }} />
         </ContainerResponsive>
         : <TypographyStyleDescription id='hidden-element'>{subTitle}</TypographyStyleDescription>}
-      {paragraphDescription && <Markdown value={paragraphDescription} renderer={customRenderer} />}
+      {paragraphDescription && <Markdown value={paragraphDescription} renderer={customRenderer} key={paragraphDescription}/>}
       {(paragraphImage !== '![Image]()') &&
-        <Markdown value={paragraphImage} renderer={customRenderer} />
+        <Markdown value={paragraphImage} renderer={customRenderer} key={paragraphImage}/>
       }
     </ViewerContainer>
   );

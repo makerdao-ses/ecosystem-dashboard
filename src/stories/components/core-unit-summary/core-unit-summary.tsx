@@ -77,7 +77,7 @@ export const CoreUnitSummary = ({ trailingAddress = [], matches834 }: CoreUnitSu
     zIndex: 4,
 
   }}>
-    <NavigationHeader>
+    <NavigationHeader className="no-select">
       <BreadCrumb count={filteredData.length} breadcrumbs={[cu?.name ?? '', ...trailingAddress]} isCoreUnit />
       <InsidePagination count={filteredData.length} page={page} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} />
     </NavigationHeader>

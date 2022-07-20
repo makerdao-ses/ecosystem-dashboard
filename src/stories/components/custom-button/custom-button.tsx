@@ -6,8 +6,8 @@ interface CustomButtonProps {
   disabled?: boolean,
   style?: CSSProperties,
   onClick?: () => void,
-  widthText?:string,
-  styleText?:CSSProperties
+  widthText?: string,
+  styleText?: CSSProperties
 }
 
 export const CustomButton = (props: CustomButtonProps) => {
@@ -19,6 +19,7 @@ export const CustomButton = (props: CustomButtonProps) => {
 const Container = styled.button({
   display: 'flex',
   alignItems: 'center',
+  justifyContent: 'center',
   width: 'fit-content',
   height: '48px',
   border: '1px solid #D4D9E1',

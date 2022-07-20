@@ -1,7 +1,6 @@
 import React, { CSSProperties, useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import {
-  countInitiativesFromCoreUnit,
   getBudgetCapsFromCoreUnit,
   getExpenditureValueFromCoreUnit,
   getFacilitatorsFromCoreUnit,
@@ -13,12 +12,10 @@ import {
   getPercentFromCoreUnit,
   getSubmissionDateFromCuMip
 } from '../../../core/business-logic/core-units';
-import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { useAppDispatch } from '../../../core/hooks/hooks';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
 import { CuTableColumnExpenditures } from '../../components/cu-table-column-expenditures/cu-table-column-expenditures';
-import { CuTableColumnInitiatives } from '../../components/cu-table-column-initiatives/cu-table-column-initiatives';
 import { CuTableColumnLinks } from '../../components/cu-table-column-links/cu-table-column-links';
 import { CuTableColumnSummary } from '../../components/cu-table-column-summary/cu-table-column-summary';
 import { CuTableColumnTeamMember } from '../../components/cu-table-column-team-member/cu-table-column-team-member';
@@ -32,27 +29,21 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../core/store/store';
 import { SortEnum } from '../../../core/enums/sort.enum';
 import { sortAlphaNum } from '../../../core/utils/sort.utils';
-import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
-import { SearchInput } from '../../components/search-input/search-input';
 import { CustomButton } from '../../components/custom-button/custom-button';
-import { useDebounce } from '../../../core/utils/use-debounce';
 import { useRouter } from 'next/router';
-import { stringify } from 'querystring';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import { formatCode } from '../../../core/utils/string.utils';
+import { CoreUnitCard } from '../../components/core-unit-card/core-unit-card';
+import { Filters } from './cu-table-filters';
 
-const statuses = Object.values(CuStatusEnum) as string[];
-const categories = Object.values(CuCategoryEnum) as string[];
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
 const sortInitialState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled];
-const headerStyles: CSSProperties[] = [{ paddingLeft: '63.5px' }, {
-  paddingLeft: '43px',
-  marginRight: '70px',
-}, {}, {}];
+const headerStyles: CSSProperties[] = [{ paddingLeft: '63.5px' }, {}, {}, {}];
+const headersAlign: ('flex-start' | 'center' | 'flex-end')[] = ['flex-start', 'flex-start', 'center', 'center'];
 
 export const CuTable = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const debounce = useDebounce();
 
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
@@ -63,6 +54,7 @@ export const CuTable = () => {
 
   const [headersSort, setHeadersSort] = useState(sortInitialState);
   const [sortColumn, setSortColumn] = useState(-1);
+  const [filtersPopup, setFiltersPopup] = useState(false);
 
   useEffect(() => {
     dispatch(loadCuTableItemsAsync());
@@ -74,6 +66,13 @@ export const CuTable = () => {
     filteredCategories,
     searchText
   }), [data, filteredCategories, filteredStatuses, searchText]);
+
+  const clearFilters = () => {
+    router.push({
+      pathname: '/',
+      search: '',
+    });
+  };
 
   const setSort = (index: number, prevStatus: SortEnum) => {
     if (prevStatus === 3) {
@@ -92,32 +91,20 @@ export const CuTable = () => {
 
     const multiplier = headersSort[sortColumn] === SortEnum.Asc ? 1 : -1;
     const nameSort = (a: CoreUnitDto, b: CoreUnitDto) => sortAlphaNum(a.name, b.name) * multiplier;
-    const initiativesSort = (a: CoreUnitDto, b: CoreUnitDto) => (countInitiativesFromCoreUnit(a) - countInitiativesFromCoreUnit(b)) * multiplier;
     const expendituresSort = (a: CoreUnitDto, b: CoreUnitDto) => (getExpenditureValueFromCoreUnit(a) - getExpenditureValueFromCoreUnit(b)) * multiplier;
     const teamMembersSort = (a: CoreUnitDto, b: CoreUnitDto) => (getFTEsFromCoreUnit(a) - getFTEsFromCoreUnit(b)) * multiplier;
+    const linksSort = (a: CoreUnitDto, b: CoreUnitDto) => (getLinksFromCoreUnit(a).length - getLinksFromCoreUnit(b).length) * multiplier;
 
-    const sortAlg = [nameSort, initiativesSort, expendituresSort, teamMembersSort];
+    const sortAlg = [nameSort, expendituresSort, teamMembersSort, linksSort];
     return [...items].sort(sortAlg[sortColumn]);
   }, [headersSort, sortColumn]);
 
-  const clearFilters = () => {
-    router.push({
-      pathname: '/',
-      search: '',
-    });
-  };
+  const onClickRow = useCallback((code: string) => () => {
+    router.push(`/core-unit/${code}?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
+  }, [filteredCategories, filteredStatuses, router, searchText]);
 
-  const handleChangeUrlFilterArrays = useCallback((key: string) => (value: string[] | string) => {
-    const search = router.query;
-    search[key] = Array.isArray(value) ? value.join(',') : (value || '');
-    router.push({
-      pathname: '/',
-      search: stringify(search),
-    });
-  }, [router]);
-
-  const onClickRow = useCallback((id: string) => () => {
-    router.push(`/core-unit/${id}?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
+  const onClickFinances = useCallback((code: string) => {
+    router.push(`/core-unit/${code}/finances/transparency?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
   }, [filteredCategories, filteredStatuses, router, searchText]);
 
   const items = useMemo(() => {
@@ -133,15 +120,17 @@ export const CuTable = () => {
           imageUrl={coreUnit.image}
           mipUrl={getMipUrlFromCoreUnit(coreUnit)}
           onClick={onClickRow(coreUnit.code)}
-          code={coreUnit.code}
+          code={formatCode(coreUnit.code)}
         />,
-        <CuTableColumnExpenditures
-          key={`expenditures-${i}`}
-          value={getExpenditureValueFromCoreUnit(coreUnit)}
-          percent={getPercentFromCoreUnit(coreUnit)}
-          items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
-          budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
-        />,
+        <div style={{ display: 'block' }} onClick={() => onClickFinances(coreUnit.code)}>
+          <CuTableColumnExpenditures
+            key={`expenditures-${i}`}
+            value={getExpenditureValueFromCoreUnit(coreUnit)}
+            percent={getPercentFromCoreUnit(coreUnit)}
+            items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
+            budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
+          />
+        </div>,
         <CuTableColumnTeamMember
           key={`teammember-${i}`}
           members={
@@ -149,80 +138,65 @@ export const CuTable = () => {
           }
           fte={getFTEsFromCoreUnit(coreUnit)}
         />,
-        <CuTableColumnLinks
-          key={`links-${i}`}
-          links={getLinksFromCoreUnit(coreUnit)}
-          spacingsRight={22}
-          fill="#708390"
-        />
+        <div style={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          flex: 1,
+          paddingRight: '22px',
+        }}>
+          <CuTableColumnLinks
+            key={`links-${i}`}
+            links={getLinksFromCoreUnit(coreUnit)}
+            spacings={22}
+            fill="#708390"
+          />
+        </div>
       ];
     });
   }, [filteredData, sortData, onClickRow]);
 
+  const itemsList = useMemo(() => {
+    return filteredData.map((cu, i) => <CoreUnitCard key={`card-${i}`} coreUnit={cu} onClick={() => onClickRow(cu.code)} onClickFinances={() => onClickFinances(cu.code)}/>);
+  }, [filteredData, onClickRow]);
+
   return <ContainerHome>
     <Wrapper>
       <Header>
-        <Title>Core Units Expenses</Title>
-        <CustomButton
-          label="Reset Filters"
-          style={{
-            marginRight: '16px',
-            width: '114px',
-            border: 'none'
-          }}
-          // eslint-disable-next-line @typescript-eslint/no-empty-function
-          onClick={clearFilters}
-          disabled={filteredStatuses && filteredStatuses.length === 0}
+        <Title>Core Units</Title>
+        <FilterButtonWrapper
+          onClick={() => setFiltersPopup(!filtersPopup)}
+        >
+          <CustomButton
+            label={'Filters'}
+            style={{
+              height: '34px',
+              width: '90px',
+            }}
+          />
+        </FilterButtonWrapper>
+        <Filters
+          filtersPopup={filtersPopup}
+          filteredStatuses={filteredStatuses}
+          filteredCategories={filteredCategories}
+          searchText={searchText}
+          setFiltersPopup={() => setFiltersPopup(!filtersPopup)}
+          clearFilters={clearFilters}
         />
-        <CustomMultiSelect
-          label="Status"
-          activeItems={filteredStatuses}
-          items={statuses}
-          onChange={(value: string[]) => {
-            handleChangeUrlFilterArrays('filteredStatuses')(value);
-          }}
-          style={{ marginRight: '16px' }}
-        />
-        <CustomMultiSelect
-          label="CU Category"
-          activeItems={filteredCategories}
-          items={categories}
-          onChange={(value: string[]) => {
-            handleChangeUrlFilterArrays('filteredCategories')(value);
-          }}
-          style={{ marginRight: '16px' }}
-        />
-        <Separator />
-        {router.isReady && <SearchInput
-          defaultValue={searchText}
-          placeholder="Search"
-          onChange={(value: string) => {
-            debounce(() => {
-              handleChangeUrlFilterArrays('searchText')(value);
-            }, 300);
-          }}
-          style={{ marginLeft: '16px' }}
-        />}
-        {!router.isReady && <SearchInput
-          defaultValue={searchText}
-          placeholder="Search"
-          onChange={(value: string) => {
-            debounce(() => {
-              handleChangeUrlFilterArrays('searchText')(value);
-            }, 300);
-          }}
-          style={{ marginLeft: '16px' }}
-        />}
       </Header>
-      <CustomTable
-        headers={headers}
-        items={items}
-        headersAlign={['flex-start', 'flex-start', 'flex-end', 'center']}
-        headersSort={headersSort}
-        headersStyles={headerStyles}
-        sortFunction={setSort}
-        loading={status === 'loading'}
-      />
+      <TableWrapper>
+        <CustomTable
+          headers={headers}
+          items={items}
+          headersAlign={headersAlign}
+          headersSort={headersSort}
+          headersStyles={headerStyles}
+          sortFunction={setSort}
+          loading={status === 'loading'}
+        />
+      </TableWrapper>
+      <ListWrapper>
+        {itemsList}
+      </ListWrapper>
     </Wrapper>
   </ContainerHome>;
 };
@@ -230,24 +204,52 @@ export const CuTable = () => {
 const ContainerHome = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  padding: '22px 128px 0',
+  padding: '22px 16px 0',
   marginTop: '64px',
   width: '100%',
   marginBottom: '121px',
+  '@media (min-width: 1440px)': {
+    padding: '22px 128px 0'
+  },
+  '@media (min-width: 1280px)': {
+    padding: '22px 48px 0'
+  },
+  '@media (min-width: 435px)': {
+    padding: '22px 32px 0'
+  }
 });
 
 const Wrapper = styled.div({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  maxWidth: '1440px',
+  maxWidth: '1180px',
   margin: '0 auto',
+});
+
+const TableWrapper = styled.div({
+  display: 'none',
+  '@media (min-width: 1180px)': {
+    display: 'flex'
+  }
+});
+
+const ListWrapper = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  '@media (min-width: 1180px)': {
+    display: 'none'
+  }
 });
 
 const Header = styled.div({
   display: 'flex',
   alignItems: 'center',
   marginBottom: '32px',
+  '@media (min-width: 835px) and (max-width: 1180px)': {
+    flexDirection: 'column',
+    alignItems: 'flex-start'
+  }
 });
 
 const Title = styled.div({
@@ -260,8 +262,8 @@ const Title = styled.div({
   color: '#231536'
 });
 
-const Separator = styled.span({
-  width: '1px',
-  height: '32px',
-  backgroundColor: '#D4D9E1',
+const FilterButtonWrapper = styled.div({
+  '@media (min-width: 835px)': {
+    display: 'none'
+  }
 });
