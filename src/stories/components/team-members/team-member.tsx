@@ -47,7 +47,8 @@ const Title = styled(Typography)({
   color: '#231536',
   marginLeft: '8px',
   textAlign: 'center',
-  fontFamily: 'FT Base, sans-serif'
+  fontFamily: 'FT Base, sans-serif',
+  letterSpacing: '0.4px',
 });
 
 const Data = styled.div({

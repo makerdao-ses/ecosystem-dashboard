@@ -47,7 +47,7 @@ export interface CoreUnit {
 }
 interface Props {
   coreUnitAbout?: CuAbout | CoreUnitDto;
-  matches?: boolean;
+  matches834?: boolean;
 }
 
 export const getLinksCoreUnit = (cu: CuAbout | CoreUnitDto) => {
@@ -93,7 +93,7 @@ export const getLinksCoreUnit = (cu: CuAbout | CoreUnitDto) => {
   return links;
 };
 
-export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
+export const TitleNavigationCuAbout = ({ coreUnitAbout, matches834 = false }: Props) => {
   if (!coreUnitAbout || coreUnitAbout.cuMip.length === 0) return null;
   const buildNewArray = coreUnitAbout?.cuMip?.map((mip) => getRelateMipObjectFromCoreUnit(mip));
   const orderMips = _.sortBy(buildNewArray, ['orderBy', 'dateMip']).reverse();
@@ -140,11 +140,22 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
             </Row>
           </ContainerSeparateData>
         </ContainerTitle>
-        <CategoryContainer>{coreUnitAbout.category && coreUnitAbout.category.map((item) => <CategoryChip key={item} category={item} style={{ marginRight: '16px' }} />)}</CategoryContainer>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          width: '100%',
+          marginTop: '16px',
+          height: '32px',
+        }}><CategoryContainer>{coreUnitAbout.category && coreUnitAbout.category.map((item) => <CategoryChip key={item} category={item} style={{ marginRight: '16px' }} />)}</CategoryContainer>
+          {matches834 && <ContainerLinks>
+            <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#708390'} spacingsRight={29} lastChild />
+          </ContainerLinks>}
+        </div>
       </ContainerColum>
-      <ContainerLinks>
-        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#708390'} spacingsRight={29} lastChild />
-      </ContainerLinks>
+      {!matches834 && <ContainerLinks>
+         <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#708390'} spacingsRight={29} lastChild />
+      </ContainerLinks>}
     </Container>
   );
 };
@@ -227,8 +238,7 @@ const ContainerColum = styled.div({
 const CategoryContainer = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  marginTop: '16px',
-  height: '22px',
+  justifyContent: 'space-between',
 });
 
 const ContainerSeparateData = styled.div({

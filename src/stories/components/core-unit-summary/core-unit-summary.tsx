@@ -13,9 +13,10 @@ import lightTheme from '../../../../styles/theme/light';
 
 interface CoreUnitSummaryProps {
   trailingAddress?: string[];
+  matches834?: boolean;
 }
 
-export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) => {
+export const CoreUnitSummary = ({ trailingAddress = [], matches834 }: CoreUnitSummaryProps) => {
   const [hiddenTextDescription, setHiddenTextDescription] = useState(true);
   const router = useRouter();
   const query = router.query;
@@ -82,11 +83,10 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
     </NavigationHeader>
     <Wrapper>
       <ContainerTitle>
-        <TitleNavigationCuAbout coreUnitAbout={cu} />
+        <TitleNavigationCuAbout coreUnitAbout={cu} matches834={matches834} />
         {hiddenTextDescription &&
-          <div> <Typography fontSize={16} lineHeight='19px' color='#231536' fontFamily={'FT Base, sans-serif'} sx={{
-            marginTop: '16px',
-          }}>{cu?.sentenceDescription || ''}</Typography>
+          <div> <TypographyDescription
+          >{cu?.sentenceDescription || ''}</TypographyDescription>
           </div>}
       </ContainerTitle>
     </Wrapper>
@@ -126,6 +126,10 @@ const ContainerTitle = styled.div({
     paddingLeft: '32px',
     paddingRight: '32px',
   },
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    paddingLeft: '32px',
+    paddingRight: '32px',
+  },
 });
 
 const Wrapper = styled.div({
@@ -134,4 +138,15 @@ const Wrapper = styled.div({
   width: '100%',
   maxWidth: '1440px',
   margin: '0 auto',
+});
+
+const TypographyDescription = styled(Typography)({
+  fontSize: '16px',
+  lineHeight: '19px',
+  color: '#231536',
+  fontFamily: 'FT Base, sans-serif',
+  marginTop: '16px',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    marginTop: '16px',
+  },
 });
