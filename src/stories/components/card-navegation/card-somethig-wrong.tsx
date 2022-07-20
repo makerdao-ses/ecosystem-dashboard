@@ -17,19 +17,20 @@ const CardSomeThingWrong = ({ width, height = '208px' }: Props) => {
       <TypographyDescription marginBottom={'8px'}>Is this your core unit?
       </TypographyDescription>
       <TypographyDescription marginBottom={'16px'}>
-        We are still collecting all the relevant information.<br/>
-        If you see something that needs updating, don’t hesitate to contact us.
+        We are still collecting all the relevant information.<br />
+        If you see something that needs updating, don't hesitate to contact us.
       </TypographyDescription>
-      <div style={{
-        marginBottom: '16px'
-      }}>
         <CustomLink
           style={{
+            flexWrap: 'wrap',
             color: '#447AFB',
             letterSpacing: '0.3px',
             lineHeight: '19px',
             marginBottom: '16px',
-            marginLeft: '0px'
+            marginLeft: '0px',
+            whiteSpace: 'break-spaces',
+            display: 'inline-block',
+
           }}
           fontSize={16}
           fontWeight={500}
@@ -37,7 +38,7 @@ const CardSomeThingWrong = ({ width, height = '208px' }: Props) => {
           iconHeight={10}
           marginLeft='7px'
           fontFamily='SF Pro Display, sans-serif'
-        >Join SES discord #dashboard-reporting channel</CustomLink></div>
+        >Join SES discord #dashboard-reporting channel</CustomLink><br/>
       <CustomLink style={{
         color: '#447AFB',
         letterSpacing: '0.3px',

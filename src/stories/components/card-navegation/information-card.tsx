@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Box, Typography } from '@mui/material';
-import React, { CSSProperties } from 'react';
+import React from 'react';
+import lightTheme from '../../../../styles/theme/light';
 
 interface Props {
   title: string
@@ -41,4 +42,11 @@ const Container = styled(Box)<{ width?: string }>(({ width }) => ({
   borderRadius: '6px',
   padding: '16px 16px 24px 16px',
   width: width || '405px',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    width: '100%',
+  },
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    width: '100%',
+    height: '227px',
+  },
 }));

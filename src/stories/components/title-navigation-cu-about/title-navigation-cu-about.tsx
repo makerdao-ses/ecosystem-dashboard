@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Typography } from '@mui/material';
+import { Typography, useMediaQuery } from '@mui/material';
 import { DateTime } from 'luxon';
 import { CuTableColumnLinks, LinkModel } from '../cu-table-column-links/cu-table-column-links';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
@@ -14,6 +14,7 @@ import { CircleAvatar } from '../circle-avatar/circle-avatar';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { formatCode } from '../../../core/utils/string.utils';
 import { CustomLink } from '../custom-link/custom-link';
+import lightTheme from '../../../../styles/theme/light';
 
 interface BudgetStatementFTEs {
   month: string
@@ -93,13 +94,14 @@ export const getLinksCoreUnit = (cu: CuAbout | CoreUnitDto) => {
   return links;
 };
 
-export const TitleNavigationCuAbout = ({ coreUnitAbout, matches834 = false }: Props) => {
+export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
   if (!coreUnitAbout || coreUnitAbout.cuMip.length === 0) return null;
   const buildNewArray = coreUnitAbout?.cuMip?.map((mip) => getRelateMipObjectFromCoreUnit(mip));
   const orderMips = _.sortBy(buildNewArray, ['orderBy', 'dateMip']).reverse();
   const mips = getMipsStatus(orderMips[0] as CuMip);
   const mipStatus = (orderMips[0] as CuMip).mipStatus;
   const newDate = DateTime.fromFormat(mips || '', 'yyyy-MM-dd').toJSDate();
+  const matches834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
 
   return (
     <Container>
@@ -146,10 +148,15 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout, matches834 = false }: Pr
             </Row>
           </ContainerSeparateData>
         </ContainerTitle>
+        <ResponsiveContainer><CategoryContainer>{coreUnitAbout.category && coreUnitAbout.category.map((item) => <CategoryChip key={item} category={item} style={{ marginRight: '16px' }} />)}</CategoryContainer>
+          {matches834 && <ContainerLinks>
+            <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#708390'} spacings={29} lastChild />
+          </ContainerLinks>}
+        </ResponsiveContainer>
       </ContainerColum>
-      <ContainerLinks>
+      {!matches834 && <ContainerLinks>
         <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#708390'} spacings={29} lastChild />
-      </ContainerLinks>
+      </ContainerLinks>}
     </Container>
   );
 };
@@ -239,6 +246,15 @@ const ContainerSeparateData = styled.div({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'flex-end',
+});
+
+const ResponsiveContainer = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  width: '100%',
+  marginTop: '16px',
+  height: '32px',
 });
 
 export default TitleNavigationCuAbout;
