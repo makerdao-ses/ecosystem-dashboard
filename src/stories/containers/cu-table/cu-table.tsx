@@ -252,7 +252,7 @@ export const CuTable = () => {
 const ContainerHome = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  padding: '22px 32px 0',
+  padding: '22px 16px 0',
   marginTop: '64px',
   width: '100%',
   marginBottom: '121px',
@@ -262,7 +262,7 @@ const ContainerHome = styled.div({
   '@media (min-width: 1280px)': {
     padding: '22px 48px 0'
   },
-  '@media (min-width: 1194px)': {
+  '@media (min-width: 435px)': {
     padding: '22px 32px 0'
   }
 });

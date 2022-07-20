@@ -88,10 +88,13 @@ const ContainerFooter = styled.footer({
   margin: '0px',
   minWidth: '0px',
   width: '100%',
-  paddingTop: '40.07px',
-  paddingLeft: '63.77px',
-  paddingRight: '64.23px',
-  paddingBottom: '57.59px',
+  padding: '40px 16px 57px',
+  '@media (min-width: 435px)': {
+    padding: '40px 32px 57px',
+  },
+  '@media (min-width: 835px)': {
+    padding: '40px 64px 57px',
+  }
 });
 
 const ContainerColumOne = styled.div({
