@@ -13,7 +13,7 @@ import { CuStatusEnum } from '../enums/cu-status.enum';
 import { RoadmapStatusEnum } from '../enums/roadmap-status.enum';
 import { FacilitatorModel } from '../models/facilitator.model';
 import { CustomChartItemModel } from '../models/custom-chart-item.model';
-import { BudgetStatement, CuAbout, CuMip } from '../../stories/containers/cu-about/cu-about.api';
+import { CuAbout, CuMip } from '../../stories/containers/cu-about/cu-about.api';
 import _ from 'lodash';
 import { API_MONTH_FORMAT } from '../utils/date.utils';
 
@@ -216,7 +216,7 @@ export const getExpenditureValueFromCoreUnit = (cu: CoreUnitDto) => {
   let dateToCheck = DateTime.now();
   for (let i = 0; i < 3; i++) {
     dateToCheck = dateToCheck.minus({ months: 1 });
-    const temp = cu.budgetStatements.find(bs => bs.month === dateToCheck.toFormat(API_MONTH_FORMAT));
+    const temp = cu.budgetStatements?.find(bs => bs.month === dateToCheck.toFormat(API_MONTH_FORMAT));
     if (temp) {
       result += sumAllLineItemsFromBudgetStatement(temp, dateToCheck);
     }
@@ -232,7 +232,7 @@ export const getExpenditureAmountFromCoreUnit = (cu: CoreUnitDto) => {
   let dateToCheck = DateTime.now();
   for (let i = 0; i < 3; i++) {
     dateToCheck = dateToCheck.minus({ months: 1 });
-    const temp = cu.budgetStatements.find(bs => bs.month === dateToCheck.toFormat(API_MONTH_FORMAT));
+    const temp = cu.budgetStatements?.find(bs => bs.month === dateToCheck.toFormat(API_MONTH_FORMAT));
     if (temp) {
       result += 1;
     }
@@ -258,7 +258,7 @@ export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDto) => {
   let dateToCheck = DateTime.now();
   for (let i = 0; i < 3; i++) {
     dateToCheck = dateToCheck.minus({ months: 1 });
-    const temp = cu.budgetStatements.find(bs => bs.month === dateToCheck.toFormat(API_MONTH_FORMAT));
+    const temp = cu.budgetStatements?.find(bs => bs.month === dateToCheck.toFormat(API_MONTH_FORMAT));
 
     if (temp) {
       result.push({ value: sumAllLineItemsFromBudgetStatement(temp, dateToCheck) });

@@ -89,7 +89,7 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
           marginBottom: '11px',
           color: '#C4C4C4'
         }} variant='fullWidth' />
-        <CardLinksFooter><CuTableColumnLinks links={links} width={10} height={10} spacingsRight={22} /></CardLinksFooter>
+        <CardLinksFooter><CuTableColumnLinks links={links} width={10} height={10} spacings={22} /></CardLinksFooter>
       </Card>
     </Box >
   );

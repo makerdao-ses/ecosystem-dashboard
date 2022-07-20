@@ -20,7 +20,7 @@ export const HeaderWrapper = ({ children, themeMode, toggleTheme }: HeaderWrappe
       <Header menuItems={menuItems} links={itemsWebSiteLinks} themeMode={themeMode} toggleTheme={toggleTheme} />
       <Container>
         <CssBaseline />
-        {children}
+          {children}
       </Container>
       <Footer developer={developer} governesses={governesses} products={products} />
     </>

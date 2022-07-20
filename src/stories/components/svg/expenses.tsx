@@ -6,7 +6,7 @@ interface Props {
     fill?: string
 }
 
-const EXPENSES = ({ width = 130, height = 26, fill = '#211634', ...props }: Props) => {
+const Expenses = ({ width = 130, height = 26, fill = '#211634', ...props }: Props) => {
   return (
     <svg
     width={width}
@@ -26,4 +26,4 @@ const EXPENSES = ({ width = 130, height = 26, fill = '#211634', ...props }: Prop
   );
 };
 
-export default EXPENSES;
+export default Expenses;
