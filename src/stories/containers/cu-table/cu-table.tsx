@@ -178,6 +178,15 @@ export const CuTable = () => {
     <Wrapper>
       <Header>
         <Title>Core Units Expenses</Title>
+        <FilterButtonWrapper>
+          <CustomButton
+            label={'Filters'}
+            style={{
+              height: '34px',
+              width: '90px',
+            }}
+          />
+        </FilterButtonWrapper>
         <Filters>
           <CustomButton
             label="Reset Filters"
@@ -313,8 +322,14 @@ const Separator = styled.span({
 });
 
 const Filters = styled.div({
-  display: 'flex',
-  '@media (max-width: 1180px)': {
+  display: 'none',
+  '@media (min-width: 1180px)': {
+    display: 'flex'
+  }
+});
+
+const FilterButtonWrapper = styled.div({
+  '@media (min-width: 1180px)': {
     display: 'none'
   }
 });
