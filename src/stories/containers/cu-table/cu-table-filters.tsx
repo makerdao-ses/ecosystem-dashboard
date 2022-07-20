@@ -137,6 +137,9 @@ const Container = styled.div({
   '@media (min-width: 835px)': {
     display: 'flex !important',
     gap: '16px',
+  },
+  '@media (min-width: 835px) and (max-width: 1180px)': {
+    alignSelf: 'flex-end'
   }
 });
 

@@ -156,7 +156,7 @@ export const CuTable = () => {
   }, [filteredData, sortData, onClickRow]);
 
   const itemsList = useMemo(() => {
-    return filteredData.map((cu, i) => <CoreUnitCard key={`card-${i}`} coreUnit={cu} onClick={onClickRow}/>);
+    return filteredData.map((cu, i) => <CoreUnitCard key={`card-${i}`} coreUnit={cu} onClick={() => onClickRow(cu.code)} onClickFinances={() => onClickFinances(cu.code)}/>);
   }, [filteredData, onClickRow]);
 
   return <ContainerHome>

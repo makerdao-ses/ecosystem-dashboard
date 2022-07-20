@@ -22,10 +22,11 @@ import { CategoryChip } from '../category-chip/category-chip';
 
 interface CoreUnitCardProps {
   coreUnit: CoreUnitDto;
-  onClick?: (code: string) => void;
+  onClick?: () => void;
+  onClickFinances?: () => void;
 }
 
-export const CoreUnitCard = ({ coreUnit, onClick }: CoreUnitCardProps) => {
+export const CoreUnitCard = ({ coreUnit, onClick, onClickFinances }: CoreUnitCardProps) => {
   return <Container>
     <Summary>
       <Title>Core Unit</Title>
@@ -35,11 +36,11 @@ export const CoreUnitCard = ({ coreUnit, onClick }: CoreUnitCardProps) => {
         statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
         imageUrl={coreUnit.image}
         mipUrl={getMipUrlFromCoreUnit(coreUnit)}
-        onClick={() => onClick && onClick(coreUnit.code)}
+        onClick={onClick}
         code={formatCode(coreUnit.code)}
       />
     </Summary>
-    <Expenditure>
+    <Expenditure onClick={onClickFinances}>
       <Title style={{ marginBottom: '11px' }}>Expenditure</Title>
       <CuTableColumnExpenditures
         value={getExpenditureValueFromCoreUnit(coreUnit)}
