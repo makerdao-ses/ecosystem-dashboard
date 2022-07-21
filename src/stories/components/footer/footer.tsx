@@ -68,6 +68,7 @@ const FooterWrapper = styled.footer({
   bottom: 0,
   width: '100%',
   height: 'fit-content',
+  minWidth: '360px',
 });
 
 const ContainerImage = styled.div({
@@ -90,7 +91,6 @@ const ContainerFooter = styled.div({
   justifyContent: 'space-between',
   boxSizing: 'border-box',
   margin: '0px',
-  minWidth: '0px',
   width: '100%',
   padding: '40px 16px 57px',
   '@media (min-width: 435px)': {
