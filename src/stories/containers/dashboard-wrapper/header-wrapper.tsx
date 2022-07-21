@@ -3,7 +3,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 import styled from '@emotion/styled';
 import { ThemeMode } from '../../../core/context/ThemeContext';
-import Header from '../../components/header/Header';
+import Header from '../../components/header/header';
 import menuItems from '../../components/header/menu-items';
 import { itemsWebSiteLinks } from '../../components/header/select-link-website/menu-items';
 import Footer from '../../components/footer/footer';

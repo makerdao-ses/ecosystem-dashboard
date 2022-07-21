@@ -5,7 +5,7 @@ import darkTheme from '../../../styles/theme/dark';
 import useLocalStorage from '../hooks/useLocalStorage';
 import menuItems from '../../stories/components/header/menu-items';
 import { itemsWebSiteLinks } from '../../stories/components/header/select-link-website/menu-items';
-import Header from '../../stories/components/header/Header';
+import Header from '../../stories/components/header/header';
 import Footer from '../../stories/components/footer/footer';
 import { developer, governesses, products } from '../../stories/components/footer/iconsData';
 import styled from '@emotion/styled';

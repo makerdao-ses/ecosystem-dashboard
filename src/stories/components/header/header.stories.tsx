@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import Header from './Header';
+import Header from './header';
 import { itemsWebSiteLinks } from './select-link-website/menu-items';
 // import Logo from '../svg/logo';
 // import Makerdao from '../svg/makerdao';

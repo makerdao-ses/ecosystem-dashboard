@@ -123,7 +123,7 @@ const ContainerLogoSelect = styled.div<{ themeMode: string }>((props) => ({
   alignItems: 'center',
   paddingLeft: '32px',
   background: props.themeMode === 'light' ? 'url(/assets/img/bg-logo.png)' : 'url(/assets/img/bg-logo-dark.png)',
-  '@media (min-width: 635)': {
+  '@media (min-width: 635px)': {
     width: '316px',
     paddingRight: '32px',
   }
