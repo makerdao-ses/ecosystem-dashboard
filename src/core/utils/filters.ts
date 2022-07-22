@@ -1,6 +1,7 @@
 /* eslint-disable no-template-curly-in-string */
 import { ParsedUrlQuery } from 'querystring';
 import { CoreUnitDto } from '../models/dto/core-unit.dto';
+import { getLatestMip39FromCoreUnit } from '../business-logic/core-units';
 
 export const filterData = ({
   filteredStatuses = [],
@@ -23,7 +24,7 @@ export const filterData = ({
       filterResult &&
       (lowerCaseStatuses.length === 0 ||
         lowerCaseStatuses.indexOf(
-          data.cuMip[data.cuMip.length - 1]?.mipStatus?.toLowerCase() ??
+          getLatestMip39FromCoreUnit(data)?.mipStatus?.toLowerCase() ??
             'non-present'
         ) > -1);
 
