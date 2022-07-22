@@ -36,6 +36,8 @@ const CuAboutContainer = () => {
   const contributors = useSelector((state: RootState) => contributorCommitmentSelector(state));
 
   const table834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
+  const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+  const LessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
 
   useEffect(() => {
     dispatch(loadCuTableItemsAsync());
@@ -62,8 +64,6 @@ const CuAboutContainer = () => {
     return resultArrayThreeElements;
   }, [cuAbout.cuMip, showThreeMIPs]);
 
-  const descriptionLength = cuAbout.sentenceDescription.length || 0;
-
   const onClickFinances = useCallback(() => {
     router.push(`/core-unit/${code}/finances/transparency?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
   }, [filteredCategories, filteredStatuses, router, searchText, code]);
@@ -77,17 +77,17 @@ const CuAboutContainer = () => {
 
   return (
     <ContainerAbout>
-      <CoreUnitSummary matches834={table834} />
+      <CoreUnitSummary />
       <Wrapper>
         <ContainerAllData>
           <div style={{
-            width: table834 ? '100%' : '60.39%',
+            width: phone || table834 || LessPhone ? '100%' : '60.39%',
             display: 'flex',
             flexDirection: 'column',
           }}>
 
             <MarkdownContainer>
-              <MdViewerContainer showButton={table834} sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)} paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)} paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)} onClick={onClickFinances} />
+              <MdViewerContainer showButton={table834 || phone} sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)} paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)} paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)} onClick={onClickFinances} />
             </MarkdownContainer>
             <TeamMemberContainer>
               <TeamMemberTitle>Team Size</TeamMemberTitle><TeamMember fte={getFTEsFromCoreUnit(cuAbout)} />
@@ -124,10 +124,10 @@ const CuAboutContainer = () => {
               <DividerStyle /> <BigButton title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'} onClick={onClickLessMips} />
               <DividerStyle />
             </ButtonContainer>}
-            {table834 && <CardSomeThingWrong width='770px' />}
+            {(table834 || phone) && <CardSomeThingWrong width='770px' />}
           </div>
 
-          {!table834 && <div style={{
+          {!(table834 || phone || LessPhone) && <div style={{
             width: '39.61%',
           }}>
             {isEnabled('FEATURE_CARD_NAVIGATION') && <ContainerScroll>
@@ -220,9 +220,18 @@ const ContainerCards = styled.div({
   alignItems: 'flex-start',
   flexWrap: 'wrap',
   padding: '0px',
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     maxWidth: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
+  // [lightTheme.breakpoints.down('table_375')]: {
+  //   maxWidth: '100%',
+  //   display: 'flex',
+  //   flexDirection: 'column',
+  //   alignItems: 'center',
+  // },
 });
 
 const CardRelateMipsContainer = styled.div({
@@ -231,8 +240,16 @@ const CardRelateMipsContainer = styled.div({
   alignItems: 'center',
   marginTop: '32px',
   marginBottom: '64px',
-  width: '715px'
-
+  width: '715px',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    width: '100%',
+  },
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    width: '100%',
+  },
+  // [lightTheme.breakpoints.down('table_375')]: {
+  //   width: '100%',
+  // },
 });
 
 const TitleRelateMips = styled.div({
@@ -250,7 +267,9 @@ const RelateMipCards = styled.div({
   justifyContent: 'center',
   alignItems: 'center',
   marginTop: '24px',
-
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    width: '100%',
+  },
 });
 
 const RelateMipCard = styled.div({
@@ -278,6 +297,7 @@ const ContainerAllData = styled.div({
   justifyContent: 'space-between',
   marginRight: '128px',
   marginLeft: '128px',
+  // border: '2px solid black',
   [lightTheme.breakpoints.up('desktop_1920')]: {
     marginRight: '0px',
     marginLeft: '0px',
@@ -293,6 +313,10 @@ const ContainerAllData = styled.div({
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     marginRight: '32px',
     marginLeft: '32px',
+  },
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    marginRight: '16px',
+    marginLeft: '16px',
   },
 });
 

@@ -48,7 +48,6 @@ export interface CoreUnit {
 }
 interface Props {
   coreUnitAbout?: CuAbout | CoreUnitDto;
-  matches834?: boolean;
 }
 
 export const getLinksCoreUnit = (cu: CuAbout | CoreUnitDto) => {
@@ -95,13 +94,15 @@ export const getLinksCoreUnit = (cu: CuAbout | CoreUnitDto) => {
 };
 
 export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
+  const phoneDimensions = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+  const tableDimensions = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
+  const lessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
   if (!coreUnitAbout || coreUnitAbout.cuMip.length === 0) return null;
   const buildNewArray = coreUnitAbout?.cuMip?.map((mip) => getRelateMipObjectFromCoreUnit(mip));
   const orderMips = _.sortBy(buildNewArray, ['orderBy', 'dateMip']).reverse();
   const mips = getMipsStatus(orderMips[0] as CuMip);
   const mipStatus = (orderMips[0] as CuMip).mipStatus;
   const newDate = DateTime.fromFormat(mips || '', 'yyyy-MM-dd').toJSDate();
-  const matches834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
 
   return (
     <Container>
@@ -117,44 +118,59 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
       <ContainerColum>
         <ContainerTitle>
           <ContainerSeparateData>
-            <TypographySES>{formatCode(coreUnitAbout.code)}</TypographySES>
-            {coreUnitAbout.name && <TypographyTitle>{coreUnitAbout.name}</TypographyTitle>}
-
-            {mips && <StatusChip status={mipStatus as CuStatusEnum} />}
-            <Row>
-              {newDate && <CustomLink
-                href={'#'}
-                withArrow
-                styleIcon={{
-                  marginTop: '3px',
-                }}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  height: '22px',
-                  fontFamily: 'FT Base, sans-serif',
-                  fontStyle: 'normal',
-                  fontWeight: 500,
-                  fontSize: '12px',
-                  lineHeight: '14px',
-                  letterSpacing: '1px',
-                  textTransform: 'uppercase',
-                  color: '#447AFB',
-                  textDecoration: 'none',
-                  marginLeft: '4px',
-                }}
-                children={`Since ${DateTime.fromJSDate(newDate).toFormat('d-MMM-y')}`}
-              />}
-            </Row>
+            <ResponsiveTitle>
+              <TypographySES>{formatCode(coreUnitAbout.code)}</TypographySES>
+              {coreUnitAbout.name && <TypographyTitle>{coreUnitAbout.name}</TypographyTitle>}
+            </ResponsiveTitle>
+            <div style={{
+              display: 'flex',
+              flexDirection: 'row'
+            }}>
+              {mips && <StatusChip status={mipStatus as CuStatusEnum} />}
+              <Row>
+                {newDate && <CustomLink
+                  href={'#'}
+                  withArrow
+                  styleIcon={{
+                    marginTop: '3px',
+                  }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    height: '22px',
+                    fontFamily: 'FT Base, sans-serif',
+                    fontStyle: 'normal',
+                    fontWeight: 500,
+                    fontSize: '12px',
+                    lineHeight: '14px',
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase',
+                    color: '#447AFB',
+                    textDecoration: 'none',
+                    marginLeft: '4px',
+                  }}
+                  children={`Since ${DateTime.fromJSDate(newDate).toFormat('d-MMM-y')}`}
+                />}
+              </Row>
+            </div>
           </ContainerSeparateData>
         </ContainerTitle>
-        <ResponsiveContainer><CategoryContainer>{coreUnitAbout.category && coreUnitAbout.category.map((item) => <CategoryChip key={item} category={item} style={{ marginRight: '16px' }} />)}</CategoryContainer>
-          {matches834 && <ContainerLinks>
-            <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#708390'} spacings={29} lastChild />
+        <div style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'flex-start',
+          justifyContent: 'space-between',
+          width: '100%',
+        }}>  <CategoryContainer>{coreUnitAbout.category && coreUnitAbout.category.map((item) => <CategoryChip key={item} category={item} style={{ marginRight: phoneDimensions || tableDimensions ? '8px' : '16px' }} />)}</CategoryContainer>
+          {tableDimensions && <ContainerLinks>
+            <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#708390'} lastChild align='flex-start' spacings={18} />
           </ContainerLinks>}
-        </ResponsiveContainer>
+        </div>
+        {(phoneDimensions || lessPhone) && <ContainerLinks>
+          <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#708390'} lastChild align='flex-start' spacings={18} />
+        </ContainerLinks>}
       </ContainerColum>
-      {!matches834 && <ContainerLinks>
+      {!(phoneDimensions || lessPhone || tableDimensions) && <ContainerLinks>
         <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#708390'} spacings={29} lastChild />
       </ContainerLinks>}
     </Container>
@@ -185,6 +201,15 @@ const TypographyTitle = styled(Typography)({
   marginLeft: '16px',
   marginRight: '24px',
   fontFamily: 'FT Base, sans-serif',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    fontFamily: 'FT Base, sans-serif',
+    fontStyle: 'normal',
+    fontWeight: 700,
+    fontSize: '16px',
+    lineHeight: '19px',
+    marginLeft: '4px',
+    marginRight: '0px',
+  },
 });
 
 const TypographySES = styled(Typography)({
@@ -194,24 +219,17 @@ const TypographySES = styled(Typography)({
   lineHeight: '29px',
   color: '#9FAFB9',
   fontFamily: 'FT Base, sans-serif',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    fontWeight: 700,
+    fontSize: '16px',
+    lineHeight: '19px',
+  },
+
 });
 
 const Row = styled.div({
   display: 'flex',
   alignItems: 'center',
-  marginLeft: '4px',
-});
-
-const SinceDate = styled.a({
-  fontFamily: 'FT Base, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 500,
-  fontSize: '12px',
-  lineHeight: '14px',
-  letterSpacing: '1px',
-  textTransform: 'uppercase',
-  color: '#447AFB',
-  textDecoration: 'none',
   marginLeft: '4px',
 });
 
@@ -222,10 +240,27 @@ const ContainerLinks = styled.div({
   alignItems: 'flex-end',
   height: '68px',
   marginRight: '6px',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    width: '272px',
+    alignItems: 'flex-start',
+    height: 'fit-content',
+  },
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    width: '272px',
+    alignItems: 'flex-start',
+    height: 'fit-content',
+  },
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    height: 'fit-content',
+  },
+
 });
 
 const CircleContainer = styled.div({
   marginRight: '16px',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    display: 'none',
+  },
 });
 
 const ContainerColum = styled.div({
@@ -239,22 +274,35 @@ const ContainerColum = styled.div({
 const CategoryContainer = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'space-between',
+  marginTop: '16px',
+  height: '22px',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    marginBottom: '8px',
+  },
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    marginTop: '0px',
+  },
+
 });
 
 const ContainerSeparateData = styled.div({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'flex-end',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start'
+  },
 });
 
-const ResponsiveContainer = styled.div({
+const ResponsiveTitle = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'space-between',
-  width: '100%',
-  marginTop: '16px',
-  height: '32px',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    width: '100%',
+    marginBottom: '2px'
+  },
 });
 
 export default TitleNavigationCuAbout;

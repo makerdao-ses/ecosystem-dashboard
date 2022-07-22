@@ -129,6 +129,10 @@ const ContainerTitle = styled.div({
     paddingLeft: '32px',
     paddingRight: '32px',
   },
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    paddingLeft: '16px',
+    paddingRight: '16px',
+  },
 });
 
 const Wrapper = styled.div({
@@ -147,5 +151,13 @@ const TypographyDescription = styled(Typography)({
   marginTop: '16px',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     marginTop: '16px',
+  },
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    marginTop: '8px',
+    width: '100%',
+    fontStyle: 'normal',
+    fontWeight: 400,
+    fontSize: '12px',
+    lineHeight: '14px'
   },
 });
