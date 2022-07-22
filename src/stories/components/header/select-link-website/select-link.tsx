@@ -78,9 +78,9 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
             vertical: 'top',
             horizontal: 'right',
           }}
-        >
-          <StyleTitle>Essential MakerDAO Governance Websites </StyleTitle>
-          <StyleDescription >Websites to gather all relevant data and information for Maker Governance.</StyleDescription>
+      >
+        <StyleTitle>Essential MakerDAO Governance Websites </StyleTitle>
+        <StyleDescription >Websites to gather all relevant data and information for Maker Governance.</StyleDescription>
           {links.map((link: WebSiteLinks) => {
             return <MenuItem
               disableGutters={true}
@@ -95,7 +95,8 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
                 '&:last-child': {
                   paddingBottom: '0px',
                 },
-              }} key={link.id}>
+              }}
+              key={link.id}>
               <ItemWebSite
                 height={link.height}
                 title={link.title || ''}

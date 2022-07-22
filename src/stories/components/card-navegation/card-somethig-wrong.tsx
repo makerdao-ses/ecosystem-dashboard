@@ -2,6 +2,7 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 import React from 'react';
+import { SES_DASHBOARD, TYPE_FORM } from '../../../core/utils/const';
 import { CustomLink } from '../custom-link/custom-link';
 import InformationCard from './information-card';
 
@@ -20,6 +21,7 @@ const CardSomeThingWrong = () => {
         marginBottom: '16px'
       }}>
         <CustomLink
+        href={SES_DASHBOARD}
           style={{
             color: '#447AFB',
             letterSpacing: '0.3px',
@@ -41,6 +43,7 @@ const CardSomeThingWrong = () => {
         marginBottom: '16px',
         marginLeft: '0px'
       }}
+      href={TYPE_FORM}
         iconWidth={10}
         iconHeight={10}
         fontSize={16}
