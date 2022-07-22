@@ -69,7 +69,6 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
           })}
           <ItemMenuResponsive>
             <TopBarSelect
-              options={['Core Units']}
               selectedOption={'Core Units'}
             />
           </ItemMenuResponsive>
@@ -126,20 +125,27 @@ const ContainerLogoSelect = styled.div<{ themeMode: string }>((props) => ({
   flexDirection: 'row',
   height: '100%',
   width: 'fit-content',
-  marginRight: '32px',
+  marginRight: '16px',
   alignItems: 'center',
-  paddingLeft: '32px',
+  paddingLeft: '16px',
   background: props.themeMode === 'light' ? 'url(/assets/img/bg-logo.png)' : 'url(/assets/img/bg-logo-dark.png)',
+  '@media (min-width: 435px)': {
+    paddingRight: '32px',
+    marginRight: '32px',
+    paddingLeft: '32px',
+  },
   '@media (min-width: 635px)': {
     width: '316px',
-    paddingRight: '32px',
-  }
+  },
 }));
 
 const LogoContainer = styled.div({
   marginTop: '13px',
   marginBottom: '13px',
-  marginRight: '32px',
+  marginRight: '16px',
+  '@media (min-width: 435px)': {
+    marginRight: '32px',
+  }
 });
 
 const Navigation = styled.div({
@@ -152,7 +158,10 @@ const Navigation = styled.div({
 const RightPart = styled.div({
   display: 'flex',
   alignItems: 'center',
-  paddingRight: '32px',
+  paddingRight: '16px',
+  '@media (min-width: 435px)': {
+    paddingRight: '32px',
+  }
 });
 
 const ItemMenuStyle = styled.a<{ active: boolean, marginRight?: string, themeMode: string }>((props) => ({

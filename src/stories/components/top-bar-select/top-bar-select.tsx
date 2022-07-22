@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
 import React, { useState } from 'react';
+import styled from '@emotion/styled';
 import { SelectChevronDown } from '../svg/select-chevron-down';
 import { Close } from '../svg/close';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
