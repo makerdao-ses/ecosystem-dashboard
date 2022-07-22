@@ -32,22 +32,62 @@ export const ItemWebSite = ({ fontSize = 16, fontWeight = 700, color = '#FFFFFF'
         }}>
           <ContainerLogo>{props.logo}</ContainerLogo>
           {props.title &&
-            <Typography fontSize={fontSize} color={color} fontWeight={fontWeight} fontFamily={fontFamily} letterSpacing={props.letterSpacing} lineHeight={props.lineHeight}>{props.title}</Typography>
+            <Typography
+                fontSize={fontSize}
+                color={color}
+                fontWeight={fontWeight}
+                fontFamily={fontFamily}
+                letterSpacing={props.letterSpacing}
+                lineHeight={props.lineHeight}>
+              {props.title}
+            </Typography>
           }
           {subtract && <ContainerSubtract>{subtract}</ContainerSubtract>}
         </div>
-        <div>  <CustomButton label='Visit Website' onClick={onClick} style={{
-          width: '137px',
-          height: '34px',
-          padding: '8px 24px'
-        }} /></div>      </ContainerRow>
+        <LinkWrapper>
+          <CustomButton
+            label="Visit Website"
+            onClick={onClick}
+            style={{
+              width: '137px',
+              height: '34px',
+              padding: '8px 24px'
+            }} />
+        </LinkWrapper>
+      </ContainerRow>
       <ContainerTextDescription>
         <TypographyDescription sx={{
         }}>{description}</TypographyDescription>
       </ContainerTextDescription>
+      <BottomLinkWrapper>
+        <CustomButton
+          label="Visit Website"
+          onClick={onClick}
+          style={{
+            width: '137px',
+            height: '34px',
+            padding: '8px 24px'
+          }} />
+      </BottomLinkWrapper>
     </Container>
   );
 };
+
+const LinkWrapper = styled.div({
+  display: 'none',
+  '@media (min-width: 635px)': {
+    display: 'flex',
+  }
+});
+
+const BottomLinkWrapper = styled.div({
+  display: 'flex',
+  marginTop: '24px',
+  alignSelf: 'flex-end',
+  '@media (min-width: 635px)': {
+    display: 'none',
+  }
+});
 
 const Container = styled.div<{ height?: string }>(({ height }) => ({
   display: 'flex',
@@ -57,8 +97,14 @@ const Container = styled.div<{ height?: string }>(({ height }) => ({
   border: '1px solid #D2D4EF',
   borderRadius: '6px',
   padding: '16px 24px',
-  width: '497px',
-  height,
+  width: '100%',
+  height: 'fit-content',
+  marginBottom: '16px',
+  '@media (min-width: 635px)': {
+    width: '497px',
+    height,
+    margin: 0,
+  }
 }));
 
 const ContainerRow = styled.div({

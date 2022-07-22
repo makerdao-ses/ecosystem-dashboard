@@ -45,7 +45,7 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
           </LogoContainer>
           <LogoLinksWrapper>
             <Expenses fill={themeMode === 'dark' ? '#6EDBD0' : '#211634'} />
-            <SelectLink links={links} themeMode={themeMode} fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'} onClick={onClick} />
+            <SelectLink links={links} themeMode={themeMode} fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'} onClick={onClick} toggleTheme={toggleTheme}/>
           </LogoLinksWrapper>
         </ContainerLogoSelect>
 
@@ -95,7 +95,10 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
         </Navigation>
       </LeftPart>
       <RightPart>
-        <ThemeSwitcherButton themeMode={themeMode} toggleTheme={toggleTheme} />
+        <ThemeSwitcherButtonWrapper>
+          <ThemeSwitcherButton themeMode={themeMode} toggleTheme={toggleTheme} />
+        </ThemeSwitcherButtonWrapper>
+        <SelectLink links={links} themeMode={themeMode} fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'} onClick={onClick} responsive={true} toggleTheme={toggleTheme} />
       </RightPart>
     </Container >
   );
@@ -202,6 +205,13 @@ const LogoLinksWrapper = styled.div({
   display: 'none',
   '@media (min-width: 635px)': {
     display: 'flex',
+  }
+});
+
+const ThemeSwitcherButtonWrapper = styled.div({
+  display: 'none',
+  '@media (min-width: 635px)': {
+    display: 'block'
   }
 });
 

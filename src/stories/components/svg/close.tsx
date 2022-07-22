@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface ChevronRightProps {
+interface CloseProps {
   width?: number;
   height?: number;
   fill?: string;
@@ -8,7 +8,7 @@ interface ChevronRightProps {
   onClick?: () => void;
 }
 
-export const Close = ({ fill = '#231536', width = 20, height = 20, ...props }: ChevronRightProps) => {
+export const Close = ({ fill = '#231536', width = 20, height = 20, ...props }: CloseProps) => {
   return <svg
     width={width}
     height={height}
