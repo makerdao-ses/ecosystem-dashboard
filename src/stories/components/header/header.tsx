@@ -10,6 +10,7 @@ import { ThemeMode } from '../../../core/context/ThemeContext';
 import Expenses from '../svg/expenses';
 import { CustomLink } from '../custom-link/custom-link';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
+import { TopBarSelect } from '../top-bar-select/top-bar-select';
 
 interface Props {
   menuItems: MenuType[];
@@ -59,13 +60,19 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
 
             return (<ItemMenuStyle
               themeMode={themeMode}
-              key={
-                title
-              } style={{ marginRight }} href={link}
+              key={title}
+              style={{ marginRight }}
+              href={link}
               active={isActive}>
               {title}
             </ItemMenuStyle>);
           })}
+          <ItemMenuResponsive>
+            <TopBarSelect
+              options={['Core Units']}
+              selectedOption={'Core Units'}
+            />
+          </ItemMenuResponsive>
           <LinkWrapper>
             <CustomLink
               children='How to Submit Expenses'
@@ -149,6 +156,7 @@ const RightPart = styled.div({
 });
 
 const ItemMenuStyle = styled.a<{ active: boolean, marginRight?: string, themeMode: string }>((props) => ({
+  display: 'none',
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
@@ -163,7 +171,16 @@ const ItemMenuStyle = styled.a<{ active: boolean, marginRight?: string, themeMod
   '&:hover': {
     color: '#1dc1ae',
   },
+  '@media (min-width: 835px)': {
+    display: 'block'
+  }
 }));
+
+const ItemMenuResponsive = styled.div({
+  '@media (min-width: 835px)': {
+    display: 'none'
+  }
+});
 
 const LinkWrapper = styled.div({
   display: 'none',

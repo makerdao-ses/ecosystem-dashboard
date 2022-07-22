@@ -2,12 +2,12 @@ import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
 
 interface CustomButtonProps {
-  label: string,
-  disabled?: boolean,
-  style?: CSSProperties,
-  onClick?: () => void,
-  widthText?: string,
-  styleText?: CSSProperties
+  label: string | JSX.Element;
+  disabled?: boolean;
+  style?: CSSProperties;
+  onClick?: () => void;
+  widthText?: string;
+  styleText?: CSSProperties;
 }
 
 export const CustomButton = (props: CustomButtonProps) => {

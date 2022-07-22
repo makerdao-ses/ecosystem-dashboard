@@ -1,7 +1,5 @@
-
 import styled from '@emotion/styled';
 import { IconButton, Menu, MenuItem, Typography } from '@mui/material';
-import { constants } from 'buffer';
 import React, { useMemo } from 'react';
 import { ThemeMode } from '../../../../core/context/ThemeContext';
 import ArrowSelect from '../../svg/arrow-select';
@@ -14,7 +12,6 @@ interface Props {
   onClick: (link: string) => () => void;
   fill?: string;
   themeMode: ThemeMode
-
 }
 
 const SelectLink = ({ links, fill = '', themeMode, onClick }: Props) => {
@@ -26,7 +23,6 @@ const SelectLink = ({ links, fill = '', themeMode, onClick }: Props) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  console.log('open', open);
   const background = useMemo(() => {
     return themeMode === 'light' && open ? '#B6EDE7' : themeMode === 'light' && !open ? '#ECF1F3' : themeMode === 'dark' && open ? '#31424E' : '#31424E';
   }, [themeMode, open]);
@@ -41,58 +37,58 @@ const SelectLink = ({ links, fill = '', themeMode, onClick }: Props) => {
           aria-expanded={open ? 'true' : undefined}
           onClick={handleClick}
         >{open ? <ArrowSelectUp fill={'#6EDBD0'} /> : <ArrowSelect fill={fill} />}</IconButton></ContainerIcon>
-      <Menu
-        disableScrollLock={true}
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-        sx={{
-          '& .MuiMenu-paper': {
-            padding: '24px',
-            minHeight: '711px',
-            width: '545px',
-            background: '#FFFFFF',
-            position: 'absolute',
-            boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-          },
-          '& .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
-            borderRadius: '22px',
-          },
-          '& .MuiMenu-list': {
-            paddingTop: '0px',
-            paddingBottom: '0px',
-          },
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-      >
-        <StyleTitle>Essential MakerDAO Governance Websites </StyleTitle>
-        <StyleDescription >Websites to gather all relevant data and information for Maker Governance.</StyleDescription>
-        {links.map((link: WebSiteLinks) => {
-          return <MenuItem
-            disableGutters={true}
-            disableTouchRipple={true}
-            sx={{
-              paddingBottom: '16px',
+        <Menu
+          disableScrollLock={true}
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            'aria-labelledby': 'basic-button',
+          }}
+          sx={{
+            '& .MuiMenu-paper': {
+              padding: '24px',
+              minHeight: '711px',
+              width: '545px',
+              background: '#FFFFFF',
+              position: 'absolute',
+              boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+            },
+            '& .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
+              borderRadius: '22px',
+            },
+            '& .MuiMenu-list': {
               paddingTop: '0px',
-              '&:hover': {
-                background: 'none',
-                cursor: 'default'
-              },
-              '&:last-child': {
-                paddingBottom: '0px',
-              },
-            }} key={link.id}>
-            <ItemWebSite height={link.height} title={link.title || ''} logo={link.logo} background={link.background} color={link.color} fontSize={link.fontSize} fontWeight={link.fontWeight} link={link.link} fontFamily={link.fontFamily} padding={link.padding} subtract={link.subtract} description={link.description} onClick={onClick(link.link)} letterSpacing={link.letterSpacing} lineHeight={link.lineHeight} />
-          </MenuItem >;
-        })}
-      </Menu>
+              paddingBottom: '0px',
+            },
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+        >
+          <StyleTitle>Essential MakerDAO Governance Websites </StyleTitle>
+          <StyleDescription >Websites to gather all relevant data and information for Maker Governance.</StyleDescription>
+          {links.map((link: WebSiteLinks) => {
+            return <MenuItem
+              disableGutters={true}
+              disableTouchRipple={true}
+              sx={{
+                paddingBottom: '16px',
+                paddingTop: '0px',
+                '&:hover': {
+                  background: 'none',
+                  cursor: 'default'
+                },
+                '&:last-child': {
+                  paddingBottom: '0px',
+                },
+              }} key={link.id}>
+              <ItemWebSite height={link.height} title={link.title || ''} logo={link.logo} background={link.background} color={link.color} fontSize={link.fontSize} fontWeight={link.fontWeight} link={link.link} fontFamily={link.fontFamily} padding={link.padding} subtract={link.subtract} description={link.description} onClick={onClick(link.link)} letterSpacing={link.letterSpacing} lineHeight={link.lineHeight} />
+            </MenuItem >;
+          })}
+        </Menu>
     </div >
   );
 };
