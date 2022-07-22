@@ -8,7 +8,6 @@ import ItemWebSite from './item-select/item-website';
 import { WebSiteLinks } from './menu-items';
 import { ThreeDots } from '../../svg/three-dots';
 import { Close } from '../../svg/close';
-import ThemeSwitcherButton from '../../button/switch-button/switch-buttom';
 import MoonMode from '../../svg/theme-mode';
 import ToggleDarkMode from '../../svg/toggle-dark';
 
