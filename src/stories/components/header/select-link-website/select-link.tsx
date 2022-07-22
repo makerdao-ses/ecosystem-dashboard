@@ -47,7 +47,7 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
           onClick={handleClick}
-        >{open ? <ArrowSelectUp fill={'#6EDBD0'} /> : <ArrowSelect fill={fill} />}</IconButton></ContainerIcon>
+        >{open ? <ArrowSelectUp fill={'#1AAB9B'} /> : <ArrowSelect fill={fill} />}</IconButton></ContainerIcon>
         <Menu
           disableScrollLock={true}
           id="basic-menu"
