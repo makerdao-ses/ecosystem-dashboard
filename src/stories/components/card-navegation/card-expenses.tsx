@@ -14,7 +14,7 @@ const CardExpenses = ({ onClick, code, name }: Props) => {
   return (
     <InformationCard title='Expenses' height='134px' fontSize='24px' lineHeight='29px'>
       <TypographyDescription marginBottom={'24px'}>
-        {`View all expenses of the ${code} ${name}`}
+        {`View all expenses of the (${code}) ${name}`}
       </TypographyDescription>
       <CustomButton widthText='100%' label='View Expenses' style={{
         textAlign: 'center',

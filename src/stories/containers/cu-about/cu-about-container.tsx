@@ -64,6 +64,8 @@ const CuAboutContainer = () => {
     return resultArrayThreeElements;
   }, [cuAbout.cuMip, showThreeMIPs]);
 
+  const descriptionLength = cuAbout.sentenceDescription.length || 0;
+
   const onClickFinances = useCallback(() => {
     router.push(`/core-unit/${code}/finances/transparency?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
   }, [filteredCategories, filteredStatuses, router, searchText, code]);

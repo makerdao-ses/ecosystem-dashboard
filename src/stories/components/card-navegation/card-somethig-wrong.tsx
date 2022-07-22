@@ -2,6 +2,7 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 import React from 'react';
+import { SES_DASHBOARD, TYPE_FORM } from '../../../core/utils/const';
 import { CustomLink } from '../custom-link/custom-link';
 import InformationCard from './information-card';
 
@@ -21,6 +22,7 @@ const CardSomeThingWrong = ({ width, height = '208px' }: Props) => {
         If you see something that needs updating, don't hesitate to contact us.
       </TypographyDescription>
         <CustomLink
+        href={SES_DASHBOARD}
           style={{
             flexWrap: 'wrap',
             color: '#447AFB',
@@ -46,6 +48,7 @@ const CardSomeThingWrong = ({ width, height = '208px' }: Props) => {
         marginBottom: '16px',
         marginLeft: '0px'
       }}
+      href={TYPE_FORM}
         iconWidth={10}
         iconHeight={10}
         fontSize={16}
