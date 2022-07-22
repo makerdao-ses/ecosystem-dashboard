@@ -104,6 +104,10 @@ const ContainerFooter = styled.div({
 const ContainerColumOne = styled.div({
   order: 4,
   width: '320.01px',
+  marginBottom: '32px',
+  '@media (min-width: 435px)': {
+    margin: 0
+  },
   '@media (min-width: 835px)': {
     order: 1,
   }

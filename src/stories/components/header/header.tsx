@@ -146,7 +146,10 @@ const LogoContainer = styled.div({
   marginTop: '13px',
   marginBottom: '13px',
   marginRight: '16px',
-  '@media (min-width: 435px)': {
+  '@media (min-width: 435px) and (max-width: 635px)': {
+    marginRight: '0px',
+  },
+  '@media (min-width: 635px)': {
     marginRight: '32px',
   }
 });

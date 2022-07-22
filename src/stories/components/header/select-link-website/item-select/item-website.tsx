@@ -96,7 +96,7 @@ const Container = styled.div<{ height?: string }>(({ height }) => ({
   background: '#FFFFFF',
   border: '1px solid #D2D4EF',
   borderRadius: '6px',
-  padding: '16px 24px',
+  padding: '16px',
   width: '100%',
   height: 'fit-content',
   marginBottom: '16px',
@@ -104,6 +104,7 @@ const Container = styled.div<{ height?: string }>(({ height }) => ({
     width: '497px',
     height,
     margin: 0,
+    padding: '16px 24px',
   }
 }));
 
