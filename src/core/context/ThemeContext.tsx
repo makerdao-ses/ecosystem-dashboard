@@ -23,7 +23,7 @@ const useThemeContext = () => useContext(ThemeContext);
 const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const isDarkOS = useMediaQuery(DARK_SCHEME_QUERY);
 
-  const [themeMode, setThemeMode] = useLocalStorage<ThemeMode>('themeMode', isDarkOS ? 'light' : 'dark');
+  const [themeMode, setThemeMode] = useLocalStorage<ThemeMode>('themeMode', isDarkOS ? 'dark' : 'light');
 
   const toggleTheme = () => {
     switch (themeMode) {
