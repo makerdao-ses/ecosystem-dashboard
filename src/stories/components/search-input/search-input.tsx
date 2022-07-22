@@ -20,8 +20,18 @@ export const SearchInput = (props: SearchInputProps) => {
   return <Container style={props.style}>
     <InputWrapper>
       <IconWrapper><Magnifier /></IconWrapper>
-      <Input onChange={handleChange} placeholder={props.placeholder} onFocus={() => setFocus(true)} onBlur={() => setFocus(false)} focus={focus || !!props.value} value={props.value} defaultValue={props.defaultValue}/>
-      <IconWrapper><Magnifier/></IconWrapper>
+      <Input
+        onChange={handleChange}
+        placeholder={props.placeholder}
+        onFocus={() => setFocus(true)}
+        onBlur={() => setFocus(false)}
+        focus={focus || !!props.value}
+        value={props.value}
+        defaultValue={props.defaultValue}
+      />
+      <IconWrapper>
+        <Magnifier/>
+      </IconWrapper>
     </InputWrapper>
   </Container>;
 };
