@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 import React from 'react';
-import ArrowLeft from '../svg/ArrowLeft';
-import ArrowRight from '../svg/ArrowRight';
+import ArrowMobileLeft from '../svg/ArrowMobileLeft';
+import ArrowMobileRight from '../svg/ArrowMobileRight';
 import { BreadcrumbSeparator } from '../svg/breadcrumb-separator';
 import ThereDots from '../svg/there-dots';
 
@@ -23,16 +23,20 @@ const BreadCrumbMobile = ({ title, count = 0, page = 0, onClickLeft, onClickRigh
         alignItems: 'center'
       }}>
         <ThereDots style={{ marginRight: '8px' }} />
-        <BreadcrumbSeparator style={{ marginRight: '4px' }} width={5} height={10} fill='#D1DEE6'/>
-        <Typography>{title}</Typography>
+        <BreadcrumbSeparator style={{ marginRight: '4px' }} width={5} height={10} fill='#D1DEE6' />
+        <StyleTitle>{title}</StyleTitle>
       </div>
-      <Arrows>
-      <PaginationLabel>
-        <StyleActualCoreUnit >{`${page}`}</StyleActualCoreUnit>
-        <StyleTextCoreUnit>{` of ${count}`} </StyleTextCoreUnit>
-      </PaginationLabel>
-        <ArrowLeft onClick={onClickLeft} /><ArrowRight onClick={onClickRight} />
-      </Arrows>
+      <RightPart>
+        <PaginationLabel>
+          <StyleActualCoreUnit >{`${page}`}</StyleActualCoreUnit>
+          <StyleTextCoreUnit>{` of ${count}`} </StyleTextCoreUnit>
+        </PaginationLabel>
+        <Arrows>
+          <ArrowMobileLeft onClick={onClickLeft} width={6} height={10} style={{
+            marginRight: '15px'
+          }}/>
+          <ArrowMobileRight onClick={onClickRight} width={5} height={10} /></Arrows>
+      </RightPart>
     </Container>
   );
 };
@@ -47,7 +51,7 @@ const Container = styled.div({
   background: '#ECF1F3',
   borderRadius: '6px',
 });
-const Arrows = styled.div({
+const RightPart = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'start',
@@ -60,18 +64,24 @@ const PaginationLabel = styled.div({
   flexDirection: 'row',
   flex: 1,
   borderRadius: '8px',
-  padding: '4px 8px',
+  marginRight: '7px',
   alignItems: 'center',
   whiteSpace: 'break-spaces',
+});
+
+const Arrows = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
 });
 
 const StyleActualCoreUnit = styled(Typography)({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
-  fontSize: '16px',
-  lineHeight: '19px',
-  letterSpacing: '0.4px',
+  fontSize: '12px',
+  lineHeight: '24px',
+  letterSpacing: 'none',
   color: '#231536',
 });
 
@@ -79,9 +89,18 @@ const StyleTextCoreUnit = styled(Typography)({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
-  fontSize: '16px',
-  lineHeight: '19px',
-  letterSpacing: '0.4px',
+  fontSize: '12px',
+  lineHeight: '24px',
   color: '#626472',
+});
+
+const StyleTitle = styled(Typography)({
+  fontFamily: 'FT Base, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 500,
+  fontSize: '12px',
+  lineHeight: '14px',
+  textAlign: 'center',
+  color: '#231536'
 });
 export default BreadCrumbMobile;
