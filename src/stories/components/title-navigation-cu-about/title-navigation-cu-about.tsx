@@ -48,6 +48,7 @@ export interface CoreUnit {
 }
 interface Props {
   coreUnitAbout?: CuAbout | CoreUnitDto;
+  hiddenTextDescription?: boolean;
 }
 
 export const getLinksCoreUnit = (cu: CuAbout | CoreUnitDto) => {
@@ -93,7 +94,7 @@ export const getLinksCoreUnit = (cu: CuAbout | CoreUnitDto) => {
   return links;
 };
 
-export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
+export const TitleNavigationCuAbout = ({ coreUnitAbout, hiddenTextDescription }: Props) => {
   const phoneDimensions = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const tableDimensions = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const lessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
@@ -122,7 +123,13 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
               <TypographySES>{formatCode(coreUnitAbout.code)}</TypographySES>
               {coreUnitAbout.name && <TypographyTitle>{coreUnitAbout.name}</TypographyTitle>}
             </ResponsiveTitle>
-            <div style={{
+            {(phoneDimensions || lessPhone) && <div style={{
+
+              borderBottom: !hiddenTextDescription ? '1px solid #B6EDE7' : 'none',
+              width: '100%',
+              marginTop: '16px',
+            }} />}
+            {!(phoneDimensions && !hiddenTextDescription) && <div style={{
               display: 'flex',
               flexDirection: 'row'
             }}>
@@ -152,21 +159,15 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
                   children={`Since ${DateTime.fromJSDate(newDate).toFormat('d-MMM-y')}`}
                 />}
               </Row>
-            </div>
+            </div>}
           </ContainerSeparateData>
         </ContainerTitle>
-        <div style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'flex-start',
-          justifyContent: 'space-between',
-          width: '100%',
-        }}>  <CategoryContainer>{coreUnitAbout.category && coreUnitAbout.category.map((item) => <CategoryChip key={item} category={item} style={{ marginRight: phoneDimensions || tableDimensions ? '8px' : '16px' }} />)}</CategoryContainer>
+        <ContainerCategoryConditional>{(!(phoneDimensions || lessPhone) || hiddenTextDescription) && <CategoryContainer>{coreUnitAbout.category && coreUnitAbout.category.map((item) => <CategoryChip key={item} category={item} style={{ marginRight: phoneDimensions || tableDimensions ? '8px' : '16px' }} />)}</CategoryContainer>}
           {tableDimensions && <ContainerLinks>
             <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#708390'} lastChild align='flex-start' spacings={18} />
           </ContainerLinks>}
-        </div>
-        {(phoneDimensions || lessPhone) && <ContainerLinks>
+        </ContainerCategoryConditional>
+        {((phoneDimensions || lessPhone) && hiddenTextDescription) && <ContainerLinks>
           <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#708390'} lastChild align='flex-start' spacings={18} />
         </ContainerLinks>}
       </ContainerColum>
@@ -190,6 +191,9 @@ const ContainerTitle = styled.div({
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'flex-end',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    width: '100%',
+  },
 });
 
 const TypographyTitle = styled(Typography)({
@@ -276,32 +280,48 @@ const CategoryContainer = styled.div({
   flexDirection: 'row',
   marginTop: '16px',
   height: '22px',
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-    marginBottom: '8px',
-  },
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     marginTop: '0px',
   },
-
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    marginBottom: '8px',
+  },
+});
+const ContainerCategoryConditional = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'flex-start',
+  justifyContent: 'space-between',
+  width: '100%',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    marginTop: '16px',
+  },
 });
 
 const ContainerSeparateData = styled.div({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'flex-end',
+  width: '100%',
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+    width: '100%',
   },
 });
 
 const ResponsiveTitle = styled.div({
   display: 'flex',
   flexDirection: 'row',
+  width: '100%',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     width: '100%',
-    marginBottom: '2px'
+    marginBottom: '2px',
+  },
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    width: '100%',
+    marginBottom: '2px',
   },
 });
 

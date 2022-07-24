@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import BreadCrumb from '../pagination/bread-crumb';
 import InsidePagination from '../pagination/InsidePagination';
 import TitleNavigationCuAbout from '../title-navigation-cu-about/title-navigation-cu-about';
-import { Typography } from '@mui/material';
+import { Typography, useMediaQuery } from '@mui/material';
 import styled from '@emotion/styled';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
 import { useRouter } from 'next/router';
@@ -10,12 +10,15 @@ import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { useCoreUnitSummaryViewModel } from './core-unit-summary.mvvm';
 import _ from 'lodash';
 import lightTheme from '../../../../styles/theme/light';
+import BreadCrumbMobile from '../pagination/bread-crumb-mobile';
 
 interface CoreUnitSummaryProps {
   trailingAddress?: string[];
 }
 
 export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) => {
+  const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+  const lessThanPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
   const [hiddenTextDescription, setHiddenTextDescription] = useState(true);
   const router = useRouter();
   const query = router.query;
@@ -76,13 +79,20 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
     zIndex: 4,
 
   }}>
-    <NavigationHeader className="no-select">
+
+    {!(phone || lessThanPhone) && <NavigationHeader className="no-select">
       <BreadCrumb count={filteredData.length} breadcrumbs={[cu?.name ?? '', ...trailingAddress]} isCoreUnit />
       <InsidePagination count={filteredData.length} page={page} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} />
-    </NavigationHeader>
+    </NavigationHeader>}
+    {(phone || lessThanPhone) && <div style={{
+      margin: '16px',
+    }}><div style={{
+    }}><BreadCrumbMobile title={cu?.name || ''} count={filteredData.length} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} page={page} /></div>
+    </div>}
+
     <Wrapper>
       <ContainerTitle>
-        <TitleNavigationCuAbout coreUnitAbout={cu} />
+        <TitleNavigationCuAbout coreUnitAbout={cu} hiddenTextDescription={hiddenTextDescription} />
         {hiddenTextDescription &&
           <div> <TypographyDescription
           >{cu?.sentenceDescription || ''}</TypographyDescription>
@@ -106,7 +116,7 @@ const NavigationHeader = styled.div({
   height: '74px',
   paddingLeft: '32px',
   paddingRight: '32px',
-  marginBottom: '16px'
+  marginBottom: '16px',
 });
 
 const ContainerTitle = styled.div({
@@ -132,6 +142,7 @@ const ContainerTitle = styled.div({
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     paddingLeft: '16px',
     paddingRight: '16px',
+    paddingTop: '0px',
   },
 });
 

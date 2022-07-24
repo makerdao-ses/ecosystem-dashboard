@@ -5,8 +5,7 @@ import './markdown.module.scss';
 
 export const customRenderer = {
   image(href: string) {
-    return <div style={{ width: '100%' }}><ImageTag src={href} className='img-container' style={{
-    }} key={href} /></div>;
+    return <div style={{ width: '100%' }}><ImageTag src={href} className='img-container' key={href} /></div>;
   },
   paragraph(text: string) {
     return <p className='paragraph' style={{

@@ -226,12 +226,6 @@ const ContainerCards = styled.div({
     flexDirection: 'column',
     alignItems: 'center',
   },
-  // [lightTheme.breakpoints.down('table_375')]: {
-  //   maxWidth: '100%',
-  //   display: 'flex',
-  //   flexDirection: 'column',
-  //   alignItems: 'center',
-  // },
 });
 
 const CardRelateMipsContainer = styled.div({
@@ -247,9 +241,6 @@ const CardRelateMipsContainer = styled.div({
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     width: '100%',
   },
-  // [lightTheme.breakpoints.down('table_375')]: {
-  //   width: '100%',
-  // },
 });
 
 const TitleRelateMips = styled.div({
@@ -297,7 +288,6 @@ const ContainerAllData = styled.div({
   justifyContent: 'space-between',
   marginRight: '128px',
   marginLeft: '128px',
-  // border: '2px solid black',
   [lightTheme.breakpoints.up('desktop_1920')]: {
     marginRight: '0px',
     marginLeft: '0px',
