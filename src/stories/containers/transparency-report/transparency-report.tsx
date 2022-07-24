@@ -15,6 +15,7 @@ import { BudgetStatementDto, CoreUnitDto } from '../../../core/models/dto/core-u
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
 import { API_MONTH_FORMAT } from '../../../core/utils/date.utils';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
+import { formatCode } from '../../../core/utils/string.utils';
 
 const colors: {[key: string]: string} = {
   Draft: '#7C6B95',
@@ -46,7 +47,7 @@ export const TransparencyReport = () => {
       <Title>Expense Reports</Title>
 
       <Paragraph>
-        Every month, the SES Core Unit submits a transparency report for MakerDAO governance with a detailed budget update.
+        Every month, the {formatCode(code)} Core Unit submits a transparency report for MakerDAO governance with a detailed budget update.
         If the core unit works with an auditor, the transparency report is reviewed by the auditor before the core unit's operational
         wallet is topped up to replenish its runway.
         <p style={{ marginBottom: 0 }}>

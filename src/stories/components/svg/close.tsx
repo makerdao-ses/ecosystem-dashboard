@@ -1,17 +1,21 @@
 import React from 'react';
 
-interface ChevronRightProps {
-  width?: number,
-  height?: number,
-  fill?: string
+interface CloseProps {
+  width?: number;
+  height?: number;
+  fill?: string;
+  style?: React.CSSProperties;
+  onClick?: () => void;
 }
 
-export const Close = ({ fill = '#231536', width = 20, height = 20 }: ChevronRightProps) => {
+export const Close = ({ fill = '#231536', width = 20, height = 20, ...props }: CloseProps) => {
   return <svg
     width={width}
     height={height}
     viewBox="0 0 20 20"
     fill="none"
+    style={props.style}
+    onClick={props.onClick}
     xmlns="http://www.w3.org/2000/svg">
     <path
       fillRule="evenodd"

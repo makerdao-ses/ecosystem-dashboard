@@ -246,6 +246,7 @@ const Header = styled.div({
   display: 'flex',
   alignItems: 'center',
   marginBottom: '32px',
+  minWidth: '330px',
   '@media (min-width: 835px) and (max-width: 1180px)': {
     flexDirection: 'column',
     alignItems: 'flex-start'

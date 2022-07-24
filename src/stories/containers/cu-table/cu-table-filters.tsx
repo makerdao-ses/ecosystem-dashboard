@@ -76,6 +76,7 @@ export const Filters = (props: FilterProps) => {
             handleChangeUrlFilterArrays('searchText')(value);
           }, 300);
         }}
+        style={{ marginLeft: '16px' }}
     />}
     {!router.isReady && <SearchInput
         defaultValue={props.searchText}
