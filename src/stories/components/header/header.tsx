@@ -10,6 +10,7 @@ import { ThemeMode } from '../../../core/context/ThemeContext';
 import Expenses from '../svg/expenses';
 import { CustomLink } from '../custom-link/custom-link';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
+import { TopBarSelect } from '../top-bar-select/top-bar-select';
 
 interface Props {
   menuItems: MenuType[];
@@ -44,7 +45,7 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
           </LogoContainer>
           <LogoLinksWrapper>
             <Expenses fill={themeMode === 'dark' ? '#6EDBD0' : '#211634'} />
-            <SelectLink links={links} themeMode={themeMode} fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'} onClick={onClick} />
+            <SelectLink links={links} themeMode={themeMode} fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'} onClick={onClick} toggleTheme={toggleTheme}/>
           </LogoLinksWrapper>
         </ContainerLogoSelect>
 
@@ -59,13 +60,18 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
 
             return (<ItemMenuStyle
               themeMode={themeMode}
-              key={
-                title
-              } style={{ marginRight }} href={link}
+              key={title}
+              style={{ marginRight }}
+              href={link}
               active={isActive}>
               {title}
             </ItemMenuStyle>);
           })}
+          <ItemMenuResponsive>
+            <TopBarSelect
+              selectedOption={'Core Units'}
+            />
+          </ItemMenuResponsive>
           <LinkWrapper>
             <CustomLink
               children='How to Submit Expenses'
@@ -89,7 +95,10 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
         </Navigation>
       </LeftPart>
       <RightPart>
-        <ThemeSwitcherButton themeMode={themeMode} toggleTheme={toggleTheme} />
+        <ThemeSwitcherButtonWrapper>
+          <ThemeSwitcherButton themeMode={themeMode} toggleTheme={toggleTheme} />
+        </ThemeSwitcherButtonWrapper>
+        <SelectLink links={links} themeMode={themeMode} fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'} onClick={onClick} responsive={true} toggleTheme={toggleTheme} />
       </RightPart>
     </Container >
   );
@@ -119,20 +128,30 @@ const ContainerLogoSelect = styled.div<{ themeMode: string }>((props) => ({
   flexDirection: 'row',
   height: '100%',
   width: 'fit-content',
-  marginRight: '32px',
+  marginRight: '16px',
   alignItems: 'center',
-  paddingLeft: '32px',
+  paddingLeft: '16px',
   background: props.themeMode === 'light' ? 'url(/assets/img/bg-logo.png)' : 'url(/assets/img/bg-logo-dark.png)',
-  '@media (min-width: 635)': {
-    width: '316px',
+  '@media (min-width: 435px)': {
     paddingRight: '32px',
-  }
+    marginRight: '32px',
+    paddingLeft: '32px',
+  },
+  '@media (min-width: 635px)': {
+    width: '316px',
+  },
 }));
 
 const LogoContainer = styled.div({
   marginTop: '13px',
   marginBottom: '13px',
-  marginRight: '32px',
+  marginRight: '16px',
+  '@media (min-width: 435px) and (max-width: 635px)': {
+    marginRight: '0px',
+  },
+  '@media (min-width: 635px)': {
+    marginRight: '32px',
+  }
 });
 
 const Navigation = styled.div({
@@ -145,10 +164,14 @@ const Navigation = styled.div({
 const RightPart = styled.div({
   display: 'flex',
   alignItems: 'center',
-  paddingRight: '32px',
+  paddingRight: '16px',
+  '@media (min-width: 435px)': {
+    paddingRight: '32px',
+  }
 });
 
 const ItemMenuStyle = styled.a<{ active: boolean, marginRight?: string, themeMode: string }>((props) => ({
+  display: 'none',
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
@@ -163,7 +186,16 @@ const ItemMenuStyle = styled.a<{ active: boolean, marginRight?: string, themeMod
   '&:hover': {
     color: '#1dc1ae',
   },
+  '@media (min-width: 835px)': {
+    display: 'block'
+  }
 }));
+
+const ItemMenuResponsive = styled.div({
+  '@media (min-width: 835px)': {
+    display: 'none'
+  }
+});
 
 const LinkWrapper = styled.div({
   display: 'none',
@@ -176,6 +208,13 @@ const LogoLinksWrapper = styled.div({
   display: 'none',
   '@media (min-width: 635px)': {
     display: 'flex',
+  }
+});
+
+const ThemeSwitcherButtonWrapper = styled.div({
+  display: 'none',
+  '@media (min-width: 635px)': {
+    display: 'block'
   }
 });
 

@@ -6,8 +6,8 @@ import MoonMode from '../../svg/theme-mode';
 import ToggleDarkMode from '../../svg/toggle-dark';
 
 interface Props {
-  themeMode: ThemeMode
-  toggleTheme: () => void
+  themeMode: ThemeMode;
+  toggleTheme: () => void;
 }
 
 const ThemeSwitcherButton = ({ themeMode, toggleTheme, ...rest }: IconButtonProps & Props) => {
@@ -19,7 +19,7 @@ const ThemeSwitcherButton = ({ themeMode, toggleTheme, ...rest }: IconButtonProp
         {...rest}
         onClick={toggleTheme}
       >
-        {themeMode === 'light' ? <MoonMode /> : <ToggleDarkMode />}
+        {themeMode === 'light' ? <MoonMode/> : <ToggleDarkMode/>}
       </IconButton>
     </Tooltip>
   );

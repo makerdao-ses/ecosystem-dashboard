@@ -68,6 +68,7 @@ const FooterWrapper = styled.footer({
   bottom: 0,
   width: '100%',
   height: 'fit-content',
+  minWidth: '360px',
 });
 
 const ContainerImage = styled.div({
@@ -90,7 +91,6 @@ const ContainerFooter = styled.div({
   justifyContent: 'space-between',
   boxSizing: 'border-box',
   margin: '0px',
-  minWidth: '0px',
   width: '100%',
   padding: '40px 16px 57px',
   '@media (min-width: 435px)': {
@@ -104,6 +104,10 @@ const ContainerFooter = styled.div({
 const ContainerColumOne = styled.div({
   order: 4,
   width: '320.01px',
+  marginBottom: '32px',
+  '@media (min-width: 435px)': {
+    margin: 0
+  },
   '@media (min-width: 835px)': {
     order: 1,
   }
