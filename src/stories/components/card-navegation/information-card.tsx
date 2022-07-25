@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Box, Typography } from '@mui/material';
-import React, { CSSProperties } from 'react';
+import React from 'react';
 
 interface Props {
   title: string

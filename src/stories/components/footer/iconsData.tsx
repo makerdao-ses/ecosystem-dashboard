@@ -1,5 +1,4 @@
 import ChatFooter from '../svg/chat-footer';
-import Discord from '../svg/discord';
 import DiscordFooter from '../svg/discord-footer';
 import DiscordSupport from '../svg/discord-support-footer';
 import Forum from '../svg/forum';
