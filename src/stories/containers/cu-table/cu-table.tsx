@@ -38,7 +38,7 @@ import { Filters } from './cu-table-filters';
 
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
 const sortInitialState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled];
-const headerStyles: CSSProperties[] = [{ paddingLeft: '63.5px' }, {}, {}, {}];
+const headerStyles: CSSProperties[] = [{ paddingLeft: '79.5px' }, {}, {}, {}];
 const headersAlign: ('flex-start' | 'center' | 'flex-end')[] = ['flex-start', 'flex-start', 'center', 'center'];
 
 export const CuTable = () => {
