@@ -33,6 +33,7 @@ const Container = styled.div<{ minWidth: number }>(({ minWidth }) => ({
   boxSizing: 'border-box',
   transition: 'all .3s ease',
   minWidth: minWidth ? `${minWidth}px` : 'unset',
+  borderBottom: '2px solid #ECF1F3',
   '& > input': {
     position: 'absolute',
     opacity: 1,
@@ -42,6 +43,9 @@ const Container = styled.div<{ minWidth: number }>(({ minWidth }) => ({
   },
   '&:hover': {
     background: '#EDEFFF',
+  },
+  '@media (min-width: 835px)': {
+    border: 'none'
   }
 }));
 

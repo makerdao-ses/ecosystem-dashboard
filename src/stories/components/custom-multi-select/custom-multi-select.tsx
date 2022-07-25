@@ -80,9 +80,13 @@ export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }
 const SelectWrapper = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'center',
   position: 'relative',
   width: 'fit-content',
   zIndex: 2,
+  '@media (min-width: 835px)': {
+    alignItems: 'flex-start',
+  }
 });
 
 const SelectContainer = styled.div<{ focus: boolean }>((props) => ({
@@ -119,11 +123,15 @@ const IconWrapper = styled.div({
 const PopupContainer = styled.div({
   minWidth: '100%',
   width: 'fit-content',
-  height: '200px',
   background: 'white',
-  overflowY: 'scroll',
-  boxShadow: '0px 20px 40px #dbe3ed66, 0px 1px 3px #bebebe40',
-  position: 'absolute',
-  top: '50px',
-  zIndex: 3,
+  height: 'fit-content',
+  marginTop: '16px',
+  '@media (min-width: 835px)': {
+    height: '200px',
+    boxShadow: '0px 20px 40px #dbe3ed66, 0px 1px 3px #bebebe40',
+    overflowY: 'scroll',
+    position: 'absolute',
+    top: '50px',
+    zIndex: 3,
+  }
 });
