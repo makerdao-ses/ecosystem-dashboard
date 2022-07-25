@@ -231,7 +231,6 @@ const ContainerCards = styled.div({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    border: '2px solid green'
   },
 });
 
