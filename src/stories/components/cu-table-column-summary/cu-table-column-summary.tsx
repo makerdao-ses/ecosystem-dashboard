@@ -43,7 +43,7 @@ export const CuTableColumnSummary = (props: CuTableColumnSummaryProps) => {
               href={props.mipUrl}
               style={{ marginLeft: '4px' }}
               target="_blank">
-            {`Since ${DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}`}
+            {`SINCE ${DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}`}
           </CustomLink>}
         </CustomPopover>}
       </Row>
