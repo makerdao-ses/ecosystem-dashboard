@@ -100,6 +100,7 @@ const Title = styled.div(({
   color: '#231536',
   lineHeight: '19px',
   whiteSpace: 'nowrap',
+  marginBottom: '2px',
 }));
 
 const Row = styled.div({
