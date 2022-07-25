@@ -20,7 +20,7 @@ export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps)
         <CustomPopover
           id={'mouse-over-popover-total'}
           title={'Actual Expenditure'}>
-          <Value>
+          <Value style={{ justifyContent: props.value ? 'flex-start' : 'center' }}>
             {props.value.toLocaleString('en-US', {
               maximumFractionDigits: 0,
             })}
