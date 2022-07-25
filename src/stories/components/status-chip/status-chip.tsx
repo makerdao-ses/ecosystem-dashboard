@@ -3,11 +3,15 @@ import styled from '@emotion/styled';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 
 interface StatusChipProps {
-  status: CuStatusEnum;
+  status: CuStatusEnum | string;
   style?: CSSProperties;
 }
 
-const colors = {
+const colors: {[id: string]: any} = {
+  All: {
+    color: '#5D48FF',
+    background: '#F7F5FF'
+  },
   Accepted: {
     color: '#02CB9B',
     background: '#EBFFFA'

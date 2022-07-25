@@ -1,19 +1,24 @@
 import React, { CSSProperties, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import { SelectChevronDown } from '../svg/select-chevron-down';
-import { Checkbox, ListItemText, MenuItem } from '@mui/material';
-import CheckBoxOutlined from '@mui/icons-material/CheckBoxOutlined';
-import CheckBoxOutlineBlankOutlined from '@mui/icons-material/CheckBoxOutlineBlankOutlined';
 import './custom-multi-select.module.scss';
 import useOutsideClick from '../../../core/utils/use-outside-click';
+import { SelectItem } from '../select-item/select-item';
+
+export interface MultiSelectItem {
+  id: string;
+  content: string | JSX.Element;
+  count: number;
+}
 
 interface CustomMultiSelectProps {
-  label: string,
-  items: string[],
-  withAll?: boolean,
-  onChange?: (items: string[]) => void,
-  style?: CSSProperties,
-  activeItems: string[],
+  label: string;
+  items: MultiSelectItem[];
+  withAll?: boolean;
+  customAll?: string | JSX.Element;
+  onChange?: (items: string[]) => void;
+  style?: CSSProperties;
+  activeItems: string[];
 }
 
 export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }: CustomMultiSelectProps) => {
@@ -44,7 +49,7 @@ export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }
     if (activeItems.length === props.items.length) {
       props.onChange && props.onChange([]);
     } else {
-      props.onChange && props.onChange(props.items);
+      props.onChange && props.onChange(props.items.map(item => item.id));
     }
   };
 
@@ -59,23 +64,9 @@ export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }
       </IconWrapper>
     </SelectContainer>
     {popupVisible && <PopupContainer>
-      {withAll && <MenuItem key={'All'} onClick={(e) => {
-        e.stopPropagation();
-        toggleAll();
-      }}>
-        {activeItems.length === props.items.length ? <CheckBoxOutlined sx={{ m: '6px' }}/> : <CheckBoxOutlineBlankOutlined sx={{ m: '6px' }}/>}
-        <ListItemText
-            primary={'All'}
-            sx={{ fontSize: '8px' }}/>
-      </MenuItem>}
-      {props.items.map((item) => (
-        <MenuItem key={item} value={item} onClick={() => toggleItem(item)}>
-          <Checkbox
-            sx={{ p: '6px' }}
-            checked={activeItems.indexOf(item) > -1}
-            onChange={() => toggleItem(item)} />
-          <ListItemText primary={item} />
-        </MenuItem>
+      {withAll && <SelectItem checked={activeItems.length === props.items.length} onClick={() => toggleAll()} label={props.customAll ? props.customAll : 'All'} count={22} minWidth={180}/>}
+      {props.items.map((item, i) => (
+        <SelectItem key={`item-${i}`} checked={activeItems.indexOf(item.id) > -1} onClick={() => toggleItem(item.id)} label={item.content} count={22} minWidth={180}/>
       ))}
     </PopupContainer>}
   </SelectWrapper>;
