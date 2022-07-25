@@ -257,12 +257,19 @@ const ContainerLinks = styled.div({
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     height: 'fit-content',
   },
+  [lightTheme.breakpoints.down('table_375')]: {
+    height: 'fit-content',
+    marginTop: '4px',
+  },
 
 });
 
 const CircleContainer = styled.div({
   marginRight: '16px',
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    display: 'none',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
     display: 'none',
   },
 });
@@ -304,6 +311,12 @@ const ContainerSeparateData = styled.div({
   alignItems: 'flex-end',
   width: '100%',
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    width: '100%',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',

@@ -49,4 +49,8 @@ const ImageTag = styled.img({
     display: 'block',
     margin: '0 auto',
   },
+  [lightTheme.breakpoints.down('table_375')]: {
+    width: 'fit-content',
+    height: 'auto',
+  },
 });

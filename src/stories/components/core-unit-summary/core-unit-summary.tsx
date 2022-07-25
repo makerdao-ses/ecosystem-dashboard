@@ -77,6 +77,12 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
     backgroundImage: 'url(/assets/img/Subheader.png)',
     backgroundSize: 'cover',
     zIndex: 4,
+    [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+      zIndex: 4,
+    },
+    [lightTheme.breakpoints.down('table_375')]: {
+      zIndex: 4,
+    },
 
   }}>
 
@@ -140,6 +146,11 @@ const ContainerTitle = styled.div({
     paddingRight: '32px',
   },
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    paddingLeft: '16px',
+    paddingRight: '16px',
+    paddingTop: '0px',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
     paddingLeft: '16px',
     paddingRight: '16px',
     paddingTop: '0px',

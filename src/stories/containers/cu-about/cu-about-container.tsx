@@ -80,11 +80,7 @@ const CuAboutContainer = () => {
       <CoreUnitSummary />
       <Wrapper>
         <ContainerAllData>
-          <div style={{
-            width: phone || table834 || LessPhone ? '100%' : '60.39%',
-            display: 'flex',
-            flexDirection: 'column',
-          }}>
+          <ContainerResponsive>
 
             <MarkdownContainer>
               <MdViewerContainer showButton={table834 || phone} sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)} paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)} paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)} onClick={onClickFinances} />
@@ -97,9 +93,9 @@ const CuAboutContainer = () => {
               <ContainerCards>
                 {contributors && contributors.map((contributor: ContributorCommitment, index: number) => {
                   return (
-                    <div key={index} style={{ marginBottom: '32px' }}>
+                    <CardInfoContainer>
                       <CardInfoMember contributorCommitment={contributor} />
-                    </div>
+                    </CardInfoContainer>
                   );
                 })
                 }
@@ -125,7 +121,7 @@ const CuAboutContainer = () => {
               <DividerStyle />
             </ButtonContainer>}
             {(table834 || phone) && <CardSomeThingWrong width='770px' />}
-          </div>
+          </ContainerResponsive>
 
           {!(table834 || phone || LessPhone) && <div style={{
             width: '39.61%',
@@ -156,6 +152,10 @@ const ContainerAbout = styled.div({
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
   marginBottom: '130px',
+  [lightTheme.breakpoints.down('table_375')]: {
+    width: '100%',
+    minWidth: '360px',
+  },
 });
 
 const ContainerCard = styled.div({
@@ -226,6 +226,13 @@ const ContainerCards = styled.div({
     flexDirection: 'column',
     alignItems: 'center',
   },
+  [lightTheme.breakpoints.down('table_375')]: {
+    maxWidth: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    border: '2px solid green'
+  },
 });
 
 const CardRelateMipsContainer = styled.div({
@@ -239,6 +246,9 @@ const CardRelateMipsContainer = styled.div({
     width: '100%',
   },
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    width: '100%',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
     width: '100%',
   },
 });
@@ -308,6 +318,10 @@ const ContainerAllData = styled.div({
     marginRight: '16px',
     marginLeft: '16px',
   },
+  [lightTheme.breakpoints.down('table_375')]: {
+    marginRight: '16px',
+    marginLeft: '16px',
+  },
 });
 
 const DividerStyle = styled(Divider)({
@@ -336,5 +350,30 @@ const Wrapper = styled.div({
   [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
     marginRight: '0px',
     marginLeft: '0px',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
+    width: '100%',
+  },
+});
+
+const ContainerResponsive = styled.div({
+  width: '60.39%',
+  display: 'flex',
+  flexDirection: 'column',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    width: '100%',
+  },
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    width: '100%',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
+    width: '100%',
+  },
+});
+
+const CardInfoContainer = styled.div({
+  marginBottom: '32px',
+  [lightTheme.breakpoints.down('table_375')]: {
+    width: '100%',
   },
 });

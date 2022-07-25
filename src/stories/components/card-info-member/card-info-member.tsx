@@ -7,6 +7,7 @@ import { ContributorCommitment } from '../../containers/cu-about/cu-about-contri
 import { getLinksFromContributor } from '../../../core/business-logic/core-unit-about';
 import { DateTime } from 'luxon';
 import { getColorJobPosition } from '../../../core/utils/color.utils';
+import lightTheme from '../../../../styles/theme/light';
 
 interface Props {
   contributorCommitment: ContributorCommitment;
@@ -18,14 +19,10 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
   const links = getLinksFromContributor(contributorCommitment);
   const { color } = getColorJobPosition(contributorCommitment.jobTitle);
   return (
-    <Box>
-      <Card sx={{
-        boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
-        backgroundColor: '#FFFFFF',
-        borderRadius: '6px',
-        width: '335px',
-        height: '232px',
-      }} square>
+    <Box sx={{
+      width: '100%',
+    }}>
+      <Container square>
 
         <CardContent sx={{
           margin: '16px',
@@ -84,16 +81,27 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
               <TypographyStyled color=' #231536'>{contributorCommitment.commitment}</TypographyStyled>
             </CardContentPositionColumn>
           </CardContentPositionRow>
-        </CardContent>
+         </CardContent>
         <Divider light sx={{
           marginBottom: '11px',
           color: '#C4C4C4'
         }} variant='fullWidth' />
         <CardLinksFooter><CuTableColumnLinks links={links} width={10} height={10} spacings={22} /></CardLinksFooter>
-      </Card>
+      </Container>
     </Box >
   );
 };
+
+const Container = styled(Card)({
+  boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
+  backgroundColor: '#FFFFFF',
+  borderRadius: '6px',
+  width: '335px',
+  height: '232px',
+  [lightTheme.breakpoints.down('table_375')]: {
+    width: '100%',
+  },
+});
 
 const CardContentPositionRow = styled.div({
   display: 'flex',

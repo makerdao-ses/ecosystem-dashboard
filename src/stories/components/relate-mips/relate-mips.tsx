@@ -74,7 +74,9 @@ const Content = styled.div({
   borderRadius: '6px',
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     width: '343px',
-
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
+    maxWidth: '360px',
   },
 });
 
