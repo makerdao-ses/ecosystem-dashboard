@@ -1,13 +1,15 @@
 import React, { useCallback } from 'react';
 import { CustomButton } from '../../components/custom-button/custom-button';
 import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
-import { SearchInput } from '../../components/search-input/search-input';
-import styled from '@emotion/styled';
 import { stringify } from 'querystring';
 import { useRouter } from 'next/router';
 import { useDebounce } from '../../../core/utils/use-debounce';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
+import { StatusChip } from '../../components/status-chip/status-chip';
+import { CategoryChip } from '../../components/category-chip/category-chip';
+import { SearchInput } from '../../components/search-input/search-input';
+import styled from '@emotion/styled';
 import { Close } from '../../components/svg/close';
 
 interface FilterProps {
@@ -17,6 +19,8 @@ interface FilterProps {
   searchText: string;
   setFiltersPopup: () => void;
   clearFilters: () => void;
+  statusCount: {[id: string]: number};
+  categoriesCount: {[id: string]: number};
 }
 
 const statuses = Object.values(CuStatusEnum) as string[];
@@ -54,7 +58,16 @@ export const Filters = (props: FilterProps) => {
     <CustomMultiSelect
       label="Status"
       activeItems={props.filteredStatuses}
-      items={statuses}
+      customAll={{
+        id: 'All',
+        content: <StatusChip status={'All'}/>,
+        count: props.statusCount.All
+      }}
+      items={statuses.map((stat) => ({
+        id: stat,
+        content: <StatusChip status={stat as CuStatusEnum}/>,
+        count: props.statusCount[stat],
+      }))}
       onChange={(value: string[]) => {
         handleChangeUrlFilterArrays('filteredStatuses')(value);
       }}
@@ -62,7 +75,16 @@ export const Filters = (props: FilterProps) => {
     <CustomMultiSelect
       label="CU Category"
       activeItems={props.filteredCategories}
-      items={categories}
+      customAll={{
+        id: 'All',
+        content: <CategoryChip category={'All'}/>,
+        count: props.categoriesCount.All
+      }}
+      items={categories.map(cat => ({
+        id: cat,
+        content: <CategoryChip category={cat as CuCategoryEnum}/>,
+        count: props.categoriesCount[cat]
+      }))}
       onChange={(value: string[]) => {
         handleChangeUrlFilterArrays('filteredCategories')(value);
       }}

@@ -26,7 +26,7 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
           marginBottom: '22px'
         }}
       />
-      {menuItems.map((item, i) => <LinkWrapper key={item.title} onClick={() => setPopup(false)}><Link href={item.link}>{item.title}</Link></LinkWrapper>)}
+      {menuItems.map((item) => <LinkWrapper key={item.title} onClick={() => setPopup(false)}><Link href={item.link}>{item.title}</Link></LinkWrapper>)}
       <Link
         href={HOW_TO_SUBMIT_EXPENSES}
         target="_blank"

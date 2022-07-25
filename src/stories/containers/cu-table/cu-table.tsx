@@ -35,6 +35,7 @@ import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { formatCode } from '../../../core/utils/string.utils';
 import { CoreUnitCard } from '../../components/core-unit-card/core-unit-card';
 import { Filters } from './cu-table-filters';
+import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
 const sortInitialState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled];
@@ -60,12 +61,30 @@ export const CuTable = () => {
     dispatch(loadCuTableItemsAsync());
   }, [dispatch]);
 
-  const filteredData = useMemo(() => filterData({
+  const { filteredData, statusesFiltered, categoriesFiltered } = useMemo(() => filterData({
     data,
     filteredStatuses,
     filteredCategories,
     searchText
   }), [data, filteredCategories, filteredStatuses, searchText]);
+
+  const categoriesCount = useMemo(() => {
+    const result: {[id: string]: number} = {};
+    Object.values(CuCategoryEnum).forEach(cat => {
+      result[cat] = categoriesFiltered?.filter(cu => cu.category?.indexOf(cat) > -1).length;
+    });
+    result.All = categoriesFiltered.length;
+    return result;
+  }, [filteredData]);
+
+  const statusCount = useMemo(() => {
+    const result: {[id: string]: number} = {};
+    Object.values(CuStatusEnum).forEach(cat => {
+      result[cat] = statusesFiltered?.filter(cu => getLatestMip39FromCoreUnit(cu)?.mipStatus === cat).length;
+    });
+    result.All = statusesFiltered.length;
+    return result;
+  }, [filteredData]);
 
   const clearFilters = () => {
     router.push({
@@ -178,6 +197,8 @@ export const CuTable = () => {
           filtersPopup={filtersPopup}
           filteredStatuses={filteredStatuses}
           filteredCategories={filteredCategories}
+          categoriesCount={categoriesCount}
+          statusCount={statusCount}
           searchText={searchText}
           setFiltersPopup={() => setFiltersPopup(!filtersPopup)}
           clearFilters={clearFilters}

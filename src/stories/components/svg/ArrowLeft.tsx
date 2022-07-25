@@ -5,7 +5,6 @@ interface Props {
     height?: number;
     onClick?: () => void;
     fill?: string;
-
 }
 
 const ArrowLeft = ({ height = 17, width = 16, fill = '#1AAB9B', onClick, ...props }: Props) => {

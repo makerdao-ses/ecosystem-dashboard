@@ -269,11 +269,11 @@ const DividerStyle = styled(Divider)({
   bgcolor: '#D4D9E1',
 });
 
-const ContainerScroll = styled.div<{ descriptionLength: number }>(({ descriptionLength }) => ({
+const ContainerScroll = styled.div<{ descriptionLength: number }>({
   position: 'sticky',
   top: 250,
   paddingTop: '36px',
-}));
+});
 
 const Wrapper = styled.div({
   display: 'flex',
