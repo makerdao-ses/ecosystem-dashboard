@@ -61,7 +61,7 @@ export const CuTable = () => {
     dispatch(loadCuTableItemsAsync());
   }, [dispatch]);
 
-  const filteredData = useMemo(() => filterData({
+  const { filteredData, statusesFiltered, categoriesFiltered } = useMemo(() => filterData({
     data,
     filteredStatuses,
     filteredCategories,
@@ -71,18 +71,18 @@ export const CuTable = () => {
   const categoriesCount = useMemo(() => {
     const result: {[id: string]: number} = {};
     Object.values(CuCategoryEnum).forEach(cat => {
-      result[cat] = filteredData?.filter(cu => cu.category?.indexOf(cat) > -1).length;
+      result[cat] = categoriesFiltered?.filter(cu => cu.category?.indexOf(cat) > -1).length;
     });
-    result.All = filteredData.length;
+    result.All = categoriesFiltered.length;
     return result;
   }, [filteredData]);
 
   const statusCount = useMemo(() => {
     const result: {[id: string]: number} = {};
     Object.values(CuStatusEnum).forEach(cat => {
-      result[cat] = filteredData?.filter(cu => getLatestMip39FromCoreUnit(cu)?.mipStatus === cat).length;
+      result[cat] = statusesFiltered?.filter(cu => getLatestMip39FromCoreUnit(cu)?.mipStatus === cat).length;
     });
-    result.All = filteredData.length;
+    result.All = statusesFiltered.length;
     return result;
   }, [filteredData]);
 
