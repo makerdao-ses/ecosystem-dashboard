@@ -56,7 +56,11 @@ export const Filters = (props: FilterProps) => {
     <CustomMultiSelect
       label="Status"
       activeItems={props.filteredStatuses}
-      customAll={<StatusChip status={'All'}/>}
+      customAll={{
+        id: 'All',
+        content: <StatusChip status={'All'}/>,
+        count: 2
+      }}
       items={statuses.map((stat) => ({
         id: stat,
         content: <StatusChip status={stat as CuStatusEnum}/>,
@@ -69,7 +73,11 @@ export const Filters = (props: FilterProps) => {
     <CustomMultiSelect
       label="CU Category"
       activeItems={props.filteredCategories}
-      customAll={<CategoryChip category={'All'}/>}
+      customAll={{
+        id: 'All',
+        content: <CategoryChip category={'All'}/>,
+        count: 2
+      }}
       items={categories.map(cat => ({
         id: cat,
         content: <CategoryChip category={cat as CuCategoryEnum}/>,

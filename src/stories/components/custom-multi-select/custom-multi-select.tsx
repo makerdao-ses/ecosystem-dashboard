@@ -15,7 +15,7 @@ interface CustomMultiSelectProps {
   label: string;
   items: MultiSelectItem[];
   withAll?: boolean;
-  customAll?: string | JSX.Element;
+  customAll?: MultiSelectItem;
   onChange?: (items: string[]) => void;
   style?: CSSProperties;
   activeItems: string[];
@@ -64,9 +64,14 @@ export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }
       </IconWrapper>
     </SelectContainer>
     {popupVisible && <PopupContainer>
-      {withAll && <SelectItem checked={activeItems.length === props.items.length} onClick={() => toggleAll()} label={props.customAll ? props.customAll : 'All'} count={22} minWidth={180}/>}
+      {withAll && <SelectItem
+          checked={activeItems.length === props.items.length}
+          onClick={() => toggleAll()}
+          label={props.customAll?.content ? props.customAll.content : 'All'}
+          count={props.customAll?.count ?? props.items.length}
+          minWidth={180}/>}
       {props.items.map((item, i) => (
-        <SelectItem key={`item-${i}`} checked={activeItems.indexOf(item.id) > -1} onClick={() => toggleItem(item.id)} label={item.content} count={22} minWidth={180}/>
+        <SelectItem key={`item-${i}`} checked={activeItems.indexOf(item.id) > -1} onClick={() => toggleItem(item.id)} label={item.content} count={item.count} minWidth={180}/>
       ))}
     </PopupContainer>}
   </SelectWrapper>;
