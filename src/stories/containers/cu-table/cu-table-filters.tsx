@@ -19,6 +19,8 @@ interface FilterProps {
   searchText: string;
   setFiltersPopup: () => void;
   clearFilters: () => void;
+  statusCount: {[id: string]: number};
+  categoriesCount: {[id: string]: number};
 }
 
 const statuses = Object.values(CuStatusEnum) as string[];
@@ -59,12 +61,12 @@ export const Filters = (props: FilterProps) => {
       customAll={{
         id: 'All',
         content: <StatusChip status={'All'}/>,
-        count: 2
+        count: props.statusCount.All
       }}
       items={statuses.map((stat) => ({
         id: stat,
         content: <StatusChip status={stat as CuStatusEnum}/>,
-        count: 1,
+        count: props.statusCount[stat],
       }))}
       onChange={(value: string[]) => {
         handleChangeUrlFilterArrays('filteredStatuses')(value);
@@ -76,12 +78,12 @@ export const Filters = (props: FilterProps) => {
       customAll={{
         id: 'All',
         content: <CategoryChip category={'All'}/>,
-        count: 2
+        count: props.categoriesCount.All
       }}
       items={categories.map(cat => ({
         id: cat,
         content: <CategoryChip category={cat as CuCategoryEnum}/>,
-        count: 1
+        count: props.categoriesCount[cat]
       }))}
       onChange={(value: string[]) => {
         handleChangeUrlFilterArrays('filteredCategories')(value);
