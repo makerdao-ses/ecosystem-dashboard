@@ -141,7 +141,13 @@ export const CuTable = () => {
           onClick={onClickRow(coreUnit.code)}
           code={formatCode(coreUnit.code)}
         />,
-        <div style={{ display: 'block' }} onClick={() => onClickFinances(coreUnit.code)}>
+        <div
+          style={{
+            display: 'block',
+            paddingLeft: '8px',
+          }}
+          onClick={() => onClickFinances(coreUnit.code)}
+        >
           <CuTableColumnExpenditures
             key={`expenditures-${i}`}
             value={getExpenditureValueFromCoreUnit(coreUnit)}
