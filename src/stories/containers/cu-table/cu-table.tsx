@@ -167,7 +167,7 @@ export const CuTable = () => {
           display: 'flex',
           justifyContent: 'flex-end',
           flex: 1,
-          paddingRight: '22px',
+          paddingRight: '16px',
         }}>
           <CuTableColumnLinks
             key={`links-${i}`}
