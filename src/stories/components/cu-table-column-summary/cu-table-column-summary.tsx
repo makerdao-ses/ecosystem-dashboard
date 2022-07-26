@@ -107,5 +107,5 @@ const Row = styled.div({
   display: 'flex',
   alignItems: 'center',
   flex: 1,
-  marginTop: '8px',
+  marginTop: '7px',
 });
