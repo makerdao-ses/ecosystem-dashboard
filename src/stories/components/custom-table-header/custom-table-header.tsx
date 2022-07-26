@@ -3,7 +3,6 @@ import ArrowUp from '../svg/arrow-up';
 import ArrowDown from '../svg/arrow-down';
 import styled from '@emotion/styled';
 import { SortEnum } from '../../../core/enums/sort.enum';
-import { Typography } from '@mui/material';
 
 export interface CustomTableHeaderProps {
   state: SortEnum;
