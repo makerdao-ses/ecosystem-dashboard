@@ -1,11 +1,7 @@
 export const getTwoInitials = (name: string) => {
-  if (!name) { return ''; }
+  const [, w1, w2] = /(\w+)[^a-zA-Z]*(\w*)?/.exec(name) ?? [];
 
-  name = name.toUpperCase().trim();
-
-  const pieces = name.split(' ');
-
-  return pieces.length > 1 ? pieces[0][0] + pieces[1][0] : pieces[0][0];
+  return `${(w1 && w1[0].toUpperCase()) ?? ''}${(w2 && w2[0].toUpperCase()) ?? ''}`;
 };
 
 export const getMipTitle = (title: string) => {
