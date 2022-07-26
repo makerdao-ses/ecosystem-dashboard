@@ -234,7 +234,7 @@ const ContainerHome = styled.div({
   padding: '22px 16px 0',
   marginTop: '64px',
   width: '100%',
-  marginBottom: '121px',
+  marginBottom: '122.5px',
   '@media (min-width: 1440px)': {
     padding: '22px 128px 0'
   },
