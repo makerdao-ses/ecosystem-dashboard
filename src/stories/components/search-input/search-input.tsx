@@ -3,11 +3,11 @@ import styled from '@emotion/styled';
 import Magnifier from '../svg/magnifier';
 
 interface SearchInputProps {
-  value?: string,
-  defaultValue?: string,
-  placeholder: string,
-  onChange?: (text: string) => void
-  style?: CSSProperties,
+  value?: string;
+  defaultValue?: string;
+  placeholder: string;
+  onChange?: (text: string) => void;
+  style?: CSSProperties;
 }
 
 export const SearchInput = (props: SearchInputProps) => {

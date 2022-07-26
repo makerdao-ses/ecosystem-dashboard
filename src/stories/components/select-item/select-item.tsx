@@ -19,7 +19,7 @@ export const SelectItem = ({ checked = false, minWidth = 0, ...props }: SelectIt
     {checked && <CheckboxOn/>}
     <Label>{props.label}</Label>
     <Number active={checked}>{props.count}</Number>
-    <input type="checkbox" checked onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}/>
+    <input type="checkbox" checked onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} readOnly/>
   </Container>;
 };
 
