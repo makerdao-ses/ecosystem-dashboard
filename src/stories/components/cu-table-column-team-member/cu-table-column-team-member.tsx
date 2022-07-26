@@ -93,6 +93,6 @@ const Value = styled.div({
   fontFamily: 'SF Pro Display, sans-serif',
   fontWeight: 600,
   fontSize: '14px',
-  lineHeight: '17px',
+  lineHeight: '18px',
   color: '#231536',
 });
