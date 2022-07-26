@@ -93,7 +93,7 @@ const CuAboutContainer = () => {
               <ContainerCards>
                 {contributors && contributors.map((contributor: ContributorCommitment, index: number) => {
                   return (
-                    <CardInfoContainer>
+                    <CardInfoContainer key={index}>
                       <CardInfoMember contributorCommitment={contributor} />
                     </CardInfoContainer>
                   );

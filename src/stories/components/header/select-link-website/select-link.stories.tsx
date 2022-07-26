@@ -17,7 +17,7 @@ const Template: ComponentStory<typeof SelectLink> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onClick: (link: string) => () => { },
+  onClick: () => () => { },
   links: [
     {
       title: 'Voting Portal',

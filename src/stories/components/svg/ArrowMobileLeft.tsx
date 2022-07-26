@@ -15,7 +15,7 @@ const ArrowMobileLeft = ({ fill = '#1AAB9B', height = 10, onClick = () => { }, s
       style={style}
       width={width}
       height={height}
-      onClick={onClick} 
+      onClick={onClick}
       viewBox="0 0 6 10"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

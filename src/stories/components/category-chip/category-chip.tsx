@@ -7,7 +7,11 @@ interface StatusChipProps {
   style?: CSSProperties;
 }
 
-const colors: {[id: string]: any} = {
+interface StringArray {
+  [index: string]: string;
+}
+
+const colors: {[id: string]: StringArray} = {
   Technical: {
     color: '#546978',
     background: 'rgba(246, 245, 255, 0.5)'
