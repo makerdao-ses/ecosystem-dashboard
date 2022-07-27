@@ -63,7 +63,7 @@ export const Filters = (props: FilterProps) => {
       }}
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       onClick={props.clearFilters}
-      disabled={props.filteredStatuses && !props.filteredStatuses.length && props.filteredCategories && !props.filteredCategories.length && !props.searchText}
+      disabled={props.filteredStatuses && !props.filteredStatuses.length && props.filteredCategories && !props.filteredCategories.length}
     />
     <SmallSeparator/>
     <CustomMultiSelect
