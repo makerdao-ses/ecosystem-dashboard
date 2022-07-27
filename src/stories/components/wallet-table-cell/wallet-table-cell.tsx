@@ -26,7 +26,8 @@ export const WalletTableCell = (props: WalletTableCellProps) => {
       <CustomLink
         style={{
           pointerEvents: 'none',
-          lineHeight: '15px'
+          lineHeight: '15px',
+          margin: 0,
         }}
         fontSize={14}
         fontWeight={400}
