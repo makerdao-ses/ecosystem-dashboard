@@ -125,9 +125,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
 
   return <Container>
     {!!mainTableItems.length && <>
-      <Title style={{
-        marginBottom: '32px'
-      }}>
+      <Title marginBottom={24}>
       {props.currentMonth.toFormat('MMM yyyy')} Totals
     </Title>
 
@@ -142,9 +140,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     </>}
 
     {!!mainTableItems.length && <>
-      <Title style={{
-        marginBottom: '32px'
-      }}>
+      <Title marginBottom={24}>
         {props.currentMonth.toFormat('MMM yyyy')} Breakdown
       </Title>
 
