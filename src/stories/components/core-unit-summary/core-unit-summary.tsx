@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import BreadCrumb from '../pagination/bread-crumb';
 import InsidePagination from '../pagination/InsidePagination';
 import TitleNavigationCuAbout from '../title-navigation-cu-about/title-navigation-cu-about';
 import { Typography } from '@mui/material';
@@ -9,6 +8,7 @@ import { useRouter } from 'next/router';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { useCoreUnitSummaryViewModel } from './core-unit-summary.mvvm';
 import _ from 'lodash';
+import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
 
 interface CoreUnitSummaryProps {
   trailingAddress?: string[];
@@ -54,6 +54,7 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
       searchText
     }), [data, filteredCategories, filteredStatuses, searchText]);
 
+  const currentCoreUnit = filteredData?.find(item => item.code === code) as CoreUnitDto;
   const page = useMemo(() => filteredData?.findIndex(item => item.code === code) + 1, [code, filteredData]);
 
   const changeCoreUnitCode = useCallback(
@@ -76,7 +77,20 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
 
   }}>
     <NavigationHeader className="no-select">
-      <BreadCrumb count={filteredData.length} breadcrumbs={[cu?.name ?? '', ...trailingAddress]} isCoreUnit />
+      <Breadcrumbs items={[
+        {
+          label: <span>Core Units <b>({filteredData.length})</b></span>,
+          url: `/?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
+        },
+        {
+          label: currentCoreUnit?.name,
+          url: `/core-unit/${code}/?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
+        },
+        ...trailingAddress.map(adr => ({
+          label: adr,
+          url: ''
+        }))
+      ]}/>
       <InsidePagination count={filteredData.length} page={page} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} />
     </NavigationHeader>
     <Wrapper>
