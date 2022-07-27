@@ -141,7 +141,7 @@ const Paragraph = styled.div({
   fontWeight: 400,
   fontSize: '16px',
   lineHeight: '19px',
-  color: '#000000',
+  color: '#231536',
   marginBottom: '64px',
 });
 
