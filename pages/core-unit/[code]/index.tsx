@@ -14,12 +14,12 @@ export const getServerSideProps: GetServerSideProps = async(context: GetServerSi
   const { query } = context;
   const code = query.code as string;
   const cuAbout = await fetchCoreUnitByCode(code);
-
+  const contributorCommitment = cuAbout.contributorCommitment;
   return {
     props: {
       code,
       cuAbout: cuAbout || {},
-      con: cuAbout.contributorCommitment || [],
+      contributors: contributorCommitment || [],
     }
   };
 };

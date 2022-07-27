@@ -14,18 +14,26 @@ export const customRenderer = {
       color: '#231536',
       lineHeight: '19px',
       fontFamily: 'FT Base, sans-serif',
-    }} key={text}>{text}</p>;
+    }} key={Math.random()}>{text}</p>;
   },
   list(text: string) {
-    return <p className='ol_tags' style={{
+    return <ul className='ol_tags' style={{
       backgroundColor: 'white',
       color: '#231536',
       lineHeight: '19px',
       fontFamily: 'FT Base, sans-serif',
-    }} key={text}>{text}</p>;
+    }} key={Math.random()}>{text}</ul>;
+  },
+  listitem(text: string) {
+    return <li className='ol_' style={{
+      backgroundColor: 'white',
+      color: '#231536',
+      lineHeight: '19px',
+      fontFamily: 'FT Base, sans-serif',
+    }} key={Math.random()}>{text}</li>;
   },
   code(text: string) {
-    return <code className='tag-code' key={text} style={{
+    return <code className='tag-code' key={Math.random()} style={{
       backgroundColor: 'white',
       color: '#231536',
       fontFamily: 'FT Base, sans-serif',
