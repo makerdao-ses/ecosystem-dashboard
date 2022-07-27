@@ -69,7 +69,7 @@ export const TransparencyReport = () => {
           onPrev={() => setCurrentMonth(currentMonth.minus({ month: 1 }))}
           onNext={() => setCurrentMonth(currentMonth.plus({ month: 1 }))}
         />
-        <CustomLink
+        {currentBudgetStatement?.publicationUrl && <CustomLink
           href={currentBudgetStatement?.publicationUrl ?? null}
           style={{
             margin: '0 0 6px 0',
@@ -81,7 +81,7 @@ export const TransparencyReport = () => {
           fontFamily={'SF Pro Display, sans-serif'}
         >
           Source
-        </CustomLink>
+        </CustomLink>}
         <Spacer/>
         <StatusTitle>Status</StatusTitle>
         <StatusValue color={colors[currentBudgetStatement?.budgetStatus] ?? ''}>{currentBudgetStatement?.budgetStatus ?? '-'}</StatusValue>
