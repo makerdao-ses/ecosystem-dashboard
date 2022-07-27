@@ -24,7 +24,10 @@ export const WalletTableCell = (props: WalletTableCellProps) => {
     <Data>
       <Label>{capitalizeSentence(props.name)}</Label>
       <CustomLink
-        style={{ pointerEvents: 'none' }}
+        style={{
+          pointerEvents: 'none',
+          lineHeight: '15px'
+        }}
         fontSize={14}
         fontWeight={400}
         withArrow={false}>
@@ -40,14 +43,15 @@ const Container = styled.div({
   height: '72px',
 });
 
-const Data = styled.div({});
+const Data = styled.div({
+  height: '40px'
+});
 
 const Label = styled.div({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '16px',
-  lineHeight: '19px',
+  lineHeight: '17px',
   color: '#231536',
-  marginBottom: '4px'
 });
