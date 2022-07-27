@@ -1,21 +1,17 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { Divider, Typography } from '@mui/material';
-import { useSelector } from 'react-redux';
+
 import { getMarkdownInformation, getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-unit-about';
 import { getFTEsFromCoreUnit } from '../../../core/business-logic/core-units';
-import { useAppDispatch } from '../../../core/hooks/hooks';
-import { RootState } from '../../../core/store/store';
 import { getArrayParam, getStringParam } from '../../../core/utils/filters';
 import BigButton from '../../components/button/big-button/big-button';
 import CardInfoMember from '../../components/card-info-member/card-info-member';
 import MdViewerContainer from '../../components/markdown/md-view-container';
 import RelateMips from '../../components/relate-mips/relate-mips';
 import TeamMember from '../../components/team-members/team-member';
-import { loadCuTableItemsAsync } from '../cu-table/cu-table.slice';
 import { ContributorCommitment } from './cu-about-contributor';
-import { contributorCommitmentSelector, cuAboutSelector, loadCoreUnitAbout, status } from './cu-about-slice';
-import { CuMip } from './cu-about.api';
+import { CuAbout, CuMip } from './cu-about.api';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
@@ -24,27 +20,21 @@ import CardSomeThingWrong from '../../components/card-navegation/card-somethig-w
 import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { formatCode } from '../../../core/utils/string.utils';
 
-const CuAboutContainer = () => {
+interface Props {
+  cuAbout: CuAbout;
+  code: string;
+  contributors: ContributorCommitment[]
+}
+
+const CuAboutContainer = ({ code, cuAbout, contributors }: Props) => {
   const [isEnabled] = useFlagsActive();
   const router = useRouter();
-  const query = router.query;
-  const code = query.code as string;
   const [showThreeMIPs, setShowThreeMIPs] = useState<boolean>(true);
-  const dispatch = useAppDispatch();
-  const { cuAbout, statusCoreUnit } = useSelector((state: RootState) => cuAboutSelector(state));
-  const contributors = useSelector((state: RootState) => contributorCommitmentSelector(state));
-
-  useEffect(() => {
-    dispatch(loadCuTableItemsAsync());
-  }, [dispatch]);
-
   useEffect(() => {
     if (code) {
-      dispatch(loadCoreUnitAbout(code || ''));
       setShowThreeMIPs(true);
     }
-  }, [dispatch, code]);
-
+  }, [code]);
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
@@ -65,13 +55,6 @@ const CuAboutContainer = () => {
   const onClickFinances = useCallback(() => {
     router.push(`/core-unit/${code}/finances/transparency?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
   }, [filteredCategories, filteredStatuses, router, searchText, code]);
-
-  if (statusCoreUnit === status.loading) {
-    return <div>Loading...</div>;
-  }
-  if (statusCoreUnit === status.failed) {
-    return <div>Failed...</div>;
-  }
 
   return (
     <ContainerAbout>
