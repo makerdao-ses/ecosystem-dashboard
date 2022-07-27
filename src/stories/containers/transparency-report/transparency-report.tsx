@@ -65,7 +65,7 @@ export const TransparencyReport = () => {
 
       <PagerBar className="no-select">
         <CustomPager
-          label={currentMonth.toFormat('MMM yyyy')}
+          label={currentMonth.toFormat('MMM yyyy').toUpperCase()}
           onPrev={() => setCurrentMonth(currentMonth.minus({ month: 1 }))}
           onNext={() => setCurrentMonth(currentMonth.plus({ month: 1 }))}
         />
