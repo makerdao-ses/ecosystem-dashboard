@@ -91,6 +91,11 @@ export const CuTable = () => {
       pathname: '/',
       search: '',
     });
+
+    const input = document.querySelector('#search-input');
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    input.value = '';
   };
 
   const setSort = (index: number, prevStatus: SortEnum) => {

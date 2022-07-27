@@ -39,17 +39,6 @@ export const Filters = (props: FilterProps) => {
     });
   }, [router]);
 
-  const searchInput = useMemo(() => <SearchInput
-    defaultValue={props.searchText}
-    placeholder="Search"
-    onChange={(value: string) => {
-      debounce(() => {
-        handleChangeUrlFilterArrays('searchText')(value);
-      }, 300);
-    }}
-    style={{ marginLeft: '16px' }}
-  />, [router.isReady]);
-
   return <Container
     style={{
       display: props.filtersPopup ? 'flex' : 'none'
@@ -63,7 +52,7 @@ export const Filters = (props: FilterProps) => {
       }}
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       onClick={props.clearFilters}
-      disabled={props.filteredStatuses && !props.filteredStatuses.length && props.filteredCategories && !props.filteredCategories.length}
+      disabled={props.filteredStatuses && !props.filteredStatuses.length && props.filteredCategories && !props.filteredCategories.length && !props.searchText}
     />
     <SmallSeparator/>
     <CustomMultiSelect
@@ -103,7 +92,26 @@ export const Filters = (props: FilterProps) => {
       }}
     />
     <Separator />
-    {searchInput}
+    {router.isReady && <SearchInput
+      defaultValue={props.searchText}
+      placeholder="Search"
+      onChange={(value: string) => {
+        debounce(() => {
+          handleChangeUrlFilterArrays('searchText')(value);
+        }, 300);
+      }}
+      style={{ marginLeft: '16px' }}
+    />}
+    {!router.isReady && <SearchInput
+        defaultValue={props.searchText}
+        placeholder="Search"
+        onChange={(value: string) => {
+          debounce(() => {
+            handleChangeUrlFilterArrays('searchText')(value);
+          }, 300);
+        }}
+        style={{ marginLeft: '16px' }}
+    />}
     <CloseButton onClick={() => props.setFiltersPopup && props.setFiltersPopup()}>
       <Close/>
     </CloseButton>

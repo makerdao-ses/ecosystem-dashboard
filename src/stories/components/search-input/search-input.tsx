@@ -21,6 +21,7 @@ export const SearchInput = (props: SearchInputProps) => {
     <InputWrapper>
       <IconWrapper><Magnifier /></IconWrapper>
       <Input
+        id="search-input"
         onChange={handleChange}
         placeholder={props.placeholder}
         onFocus={() => setFocus(true)}
