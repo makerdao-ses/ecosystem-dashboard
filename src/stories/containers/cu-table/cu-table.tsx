@@ -6,8 +6,8 @@ import {
   getFacilitatorsFromCoreUnit,
   getFTEsFromCoreUnit,
   getLast3ExpenditureValuesFromCoreUnit,
-  getLinksFromCoreUnit,
   getLatestMip39FromCoreUnit,
+  getLinksFromCoreUnit,
   getMipUrlFromCoreUnit,
   getPercentFromCoreUnit,
   getSubmissionDateFromCuMip
@@ -20,11 +20,7 @@ import { CuTableColumnLinks } from '../../components/cu-table-column-links/cu-ta
 import { CuTableColumnSummary } from '../../components/cu-table-column-summary/cu-table-column-summary';
 import { CuTableColumnTeamMember } from '../../components/cu-table-column-team-member/cu-table-column-team-member';
 import { CustomTable } from '../../components/custom-table/custom-table';
-import {
-  loadCuTableItemsAsync,
-  selectCuTableItems,
-  selectCuTableStatus,
-} from './cu-table.slice';
+import { loadCuTableItemsAsync, selectCuTableItems, selectCuTableStatus } from './cu-table.slice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../core/store/store';
 import { SortEnum } from '../../../core/enums/sort.enum';
@@ -38,6 +34,7 @@ import { Filters } from './cu-table-filters';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
+const sortNeutralState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled];
 const sortInitialState = [SortEnum.Asc, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled];
 const headerStyles: CSSProperties[] = [{ paddingLeft: '79.5px' }, {}, {}, {}];
 const headersAlign: ('flex-start' | 'center' | 'flex-end')[] = ['flex-start', 'flex-start', 'center', 'center'];
@@ -100,10 +97,10 @@ export const CuTable = () => {
 
   const setSort = (index: number, prevStatus: SortEnum) => {
     if (prevStatus === 3) {
-      setHeadersSort(sortInitialState);
+      setHeadersSort(sortNeutralState);
       setSortColumn(-1);
     } else {
-      const temp = [...sortInitialState];
+      const temp = [...sortNeutralState];
       temp[index] = prevStatus + 1;
       setHeadersSort(temp);
       setSortColumn(index);
