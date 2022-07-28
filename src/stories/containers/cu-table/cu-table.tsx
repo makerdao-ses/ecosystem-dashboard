@@ -38,7 +38,7 @@ import { Filters } from './cu-table-filters';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
-const sortInitialState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled];
+const sortInitialState = [SortEnum.Asc, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled];
 const headerStyles: CSSProperties[] = [{ paddingLeft: '79.5px' }, {}, {}, {}];
 const headersAlign: ('flex-start' | 'center' | 'flex-end')[] = ['flex-start', 'flex-start', 'center', 'center'];
 
@@ -54,7 +54,7 @@ export const CuTable = () => {
   const status = useSelector((state: RootState) => selectCuTableStatus(state));
 
   const [headersSort, setHeadersSort] = useState(sortInitialState);
-  const [sortColumn, setSortColumn] = useState(-1);
+  const [sortColumn, setSortColumn] = useState(0);
   const [filtersPopup, setFiltersPopup] = useState(false);
 
   useEffect(() => {
