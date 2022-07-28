@@ -54,7 +54,6 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
       searchText
     }), [data, filteredCategories, filteredStatuses, searchText]);
 
-  const currentCoreUnit = filteredData?.find(item => item.code === code) as CoreUnitDto;
   const page = useMemo(() => filteredData?.findIndex(item => item.code === code) + 1, [code, filteredData]);
 
   const changeCoreUnitCode = useCallback(
@@ -67,15 +66,7 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
     },
     [code, filteredData, router]);
 
-  return <div ref={ref} style={{
-    position: 'sticky',
-    top: 63,
-    width: '100%',
-    backgroundImage: 'url(/assets/img/Subheader.png)',
-    backgroundSize: 'cover',
-    zIndex: 4,
-
-  }}>
+  return <Container ref={ref}>
     <NavigationHeader className="no-select">
       <Breadcrumbs items={[
         {
@@ -83,7 +74,7 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
           url: `/?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
         },
         {
-          label: currentCoreUnit?.name,
+          label: cu?.name ?? '',
           url: `/core-unit/${code}/?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
         },
         ...trailingAddress.map(adr => ({
@@ -109,8 +100,17 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
       width: '100%',
       marginTop: '24px',
     }} />
-  </div>;
+  </Container>;
 };
+
+const Container = styled.div({
+  position: 'sticky',
+  top: 63,
+  width: '100%',
+  backgroundImage: 'url(/assets/img/Subheader.png)',
+  backgroundSize: 'cover',
+  zIndex: 4,
+});
 
 const NavigationHeader = styled.div({
   display: 'flex',
@@ -126,8 +126,7 @@ const NavigationHeader = styled.div({
 const ContainerTitle = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  paddingLeft: '128px',
-  paddingRight: '128px',
+  width: '100%',
   height: 'fit-content',
   transition: 'all .3s ease',
   paddingTop: '8px'
@@ -136,7 +135,8 @@ const ContainerTitle = styled.div({
 const Wrapper = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'center',
   width: '100%',
-  maxWidth: '1440px',
+  maxWidth: '1184px',
   margin: '0 auto',
 });
