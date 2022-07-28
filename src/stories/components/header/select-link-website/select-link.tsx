@@ -239,7 +239,7 @@ const ThreeDotsButton = styled.button({
   }
 });
 
-const CloseWrapper = styled.button({
+const CloseWrapper = styled.div({
   alignSelf: 'flex-end',
   marginBottom: '22px',
 });
