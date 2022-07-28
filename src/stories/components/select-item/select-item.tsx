@@ -15,8 +15,7 @@ export const SelectItem = ({ checked = false, minWidth = 0, ...props }: SelectIt
   const [focused, setFocused] = useState(false);
 
   return <Container className="no-select" onClick={props.onClick} minWidth={minWidth}>
-    {!checked && <CheckboxOff style={{ padding: '2px' }} fill={focused ? '#708390' : '#9FAFB9'}/>}
-    {checked && <CheckboxOn/>}
+    {checked ? <CheckboxOn/> : <CheckboxOff style={{ padding: '2px' }} fill={focused ? '#708390' : '#9FAFB9'}/>}
     <Label>{props.label}</Label>
     <Number active={checked}>{props.count}</Number>
     <input type="checkbox" checked onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} readOnly/>

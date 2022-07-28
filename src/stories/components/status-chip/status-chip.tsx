@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 
 interface StatusChipProps {
-  status: CuStatusEnum | string;
+  status: CuStatusEnum | 'All';
   style?: CSSProperties;
 }
 
