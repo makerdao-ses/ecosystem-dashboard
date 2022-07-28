@@ -12,5 +12,26 @@ const Template: ComponentStory<typeof CustomMultiSelect> = (args) => <CustomMult
 export const Default = Template.bind({});
 Default.args = {
   label: 'Custom MultiSelect',
-  items: ['Apple', 'Orange', 'Banana', 'Anan', 'Strawberry']
+  items: [
+    {
+      id: 'Apple',
+      count: 0,
+      content: 'Apple',
+    },
+    {
+      id: 'Orange',
+      count: 0,
+      content: 'Orange',
+    },
+    {
+      id: 'Mango',
+      count: 0,
+      content: 'Mango',
+    },
+    {
+      id: 'Banana',
+      count: 0,
+      content: 'Banana',
+    },
+  ],
 };
