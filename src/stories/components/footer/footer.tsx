@@ -6,10 +6,15 @@ import DescriptionFooter from './description-footer';
 import FooterContact from './footer-contact';
 import { iconsContact, iconsSupport } from './iconsData';
 
+export interface LinkInterface {
+  title: string;
+  url: string;
+}
+
 interface Props {
-  governesses: string[],
-  products: string[],
-  developer: string[]
+  governesses: LinkInterface[],
+  products: LinkInterface[],
+  developer: LinkInterface[]
 }
 
 const Footer = ({ governesses, products, developer }: Props) => {
@@ -148,4 +153,5 @@ const ContainerColumLast = styled.div({
   order: 5,
   width: '272px'
 });
+
 export default Footer;
