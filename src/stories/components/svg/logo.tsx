@@ -12,7 +12,6 @@ interface Props {
 const Logo = ({ width = 48, height = 25, fill = '#211634', onClick = () => { }, ...props }: Props) => {
   return (
     <svg
-      cursor='pointer'
       onClick={onClick}
       width={width}
       height={height}

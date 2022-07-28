@@ -41,9 +41,16 @@ export const CuTableColumnSummary = (props: CuTableColumnSummaryProps) => {
         >
           {props.statusModified && <CustomLink
               href={props.mipUrl}
-              style={{ marginLeft: '4px' }}
+              style={{
+                display: 'flex',
+                alignItems: 'flex-end',
+                margin: '0 0 2px 4px'
+              }}
+              styleIcon={{
+                marginBottom: '2px'
+              }}
               target="_blank">
-            {`Since ${DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}`}
+            {`SINCE ${DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}`}
           </CustomLink>}
         </CustomPopover>}
       </Row>
@@ -97,11 +104,12 @@ const Title = styled.div(({
   color: '#231536',
   lineHeight: '19px',
   whiteSpace: 'nowrap',
+  marginBottom: '2px',
 }));
 
 const Row = styled.div({
   display: 'flex',
   alignItems: 'center',
   flex: 1,
-  marginTop: '8px',
+  marginTop: '7px',
 });

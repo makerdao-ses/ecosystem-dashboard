@@ -1,11 +1,9 @@
-import ChatFooter from '../svg/chat-footer';
 import DiscordFooter from '../svg/discord-footer';
 import DiscordSupport from '../svg/discord-support-footer';
 import Forum from '../svg/forum';
 import Github from '../svg/github';
 import LinkedIn from '../svg/linkedin';
 import Reddit from '../svg/reddit';
-import Telegram from '../svg/telegram';
 import Twitter from '../svg/twitter';
 import TwitterFooter from '../svg/twitter-footer';
 import WWW from '../svg/www';
@@ -36,23 +34,6 @@ export const iconsContact = [{
   spacingsRight: 28,
   width: 20,
   height: 20
-},
-{
-  icon: <Telegram />,
-  href: '#',
-  title: 'Telegram',
-  spacingsRight: 28.45,
-  width: 19.55,
-  height: 17
-},
-
-{
-  icon: <ChatFooter />,
-  href: '#',
-  title: 'Chat',
-  spacingsRight: 28,
-  width: 20,
-  height: 16.15,
 },
 {
   icon: <Youtube fill='#211634' />,
@@ -122,6 +103,80 @@ export const iconsSupport = [{
 },
 ] as TypeIconFooter[];
 
-export const governesses = ['Forum', 'Operation Manual', 'Governance FAQs', 'Gov Tracking Sheet', 'Monthly Gov Cycle', 'Weekly Gov Cycle'];
-export const products = ['Service Status', 'Oasis', 'Auctions Dashboard', ' Migrate Dashboard', ' MakerBurn', 'DAI Stats'];
-export const developer = ['Whitepaper', 'Technical Docs', 'API docs', 'Developer Guides', 'Brand Assets', ' Oracle Feeds'];
+export const governesses = [
+  {
+    title: 'Forum',
+    url: 'https://forum.makerdao.com/'
+  },
+  {
+    title: 'Operation Manual',
+    url: 'https://manual.makerdao.com/'
+  },
+  {
+    title: 'Governance FAQs',
+    url: 'https://makerdao.world/en/learn/governance/'
+  },
+  {
+    title: 'Gov Tracking Sheet',
+    url: 'https://docs.google.com/spreadsheets/d/1LWNlv6hr8oXebk8rvXZBPRVDjN-3OrzI0IgLwBVk0vM/edit#gid=0'
+  },
+  {
+    title: 'Monthly Gov Cycle',
+    url: 'https://manual.makerdao.com/governance/governance-cycle/monthly-governance-cycle'
+  },
+  {
+    title: 'Weekly Gov Cycle',
+    url: 'https://manual.makerdao.com/governance/governance-cycle/weekly-governance-cycle'
+  }];
+
+export const products = [
+  {
+    title: 'Service Status',
+    url: 'https://makerdao.statuspage.io/'
+  },
+  {
+    title: 'Auctions Dashboard',
+    url: 'https://unified-auctions.makerdao.com/'
+  },
+  {
+    title: 'Migrate Dashboard',
+    url: 'https://migrate.makerdao.com/'
+  },
+  {
+    title: 'MakerBurn',
+    url: 'https://makerburn.com/#/'
+  },
+  {
+    title: 'DAI Stats',
+    url: 'https://daistats.com/'
+  },
+  {
+    title: 'Terms',
+    url: 'https://vote.makerdao.com/terms'
+  }];
+
+export const developer = [
+  {
+    title: 'Whitepaper',
+    url: 'https://makerdao.com/en/whitepaper/'
+  },
+  {
+    title: 'Technical Docs',
+    url: 'https://docs.makerdao.com/'
+  },
+  {
+    title: 'API docs',
+    url: 'https://vote.makerdao.com/api-docs'
+  },
+  {
+    title: 'Developer Guides',
+    url: 'https://github.com/makerdao/developerguides'
+  },
+  {
+    title: 'Brand Assets',
+    url: 'https://www.notion.so/makerdao/Maker-Brand-ac517c82ff9a43089d0db5bb2ee045a4'
+  },
+  {
+    title: 'Oracle Feeds',
+    url: 'https://makerdao.com/en/feeds/'
+  }];

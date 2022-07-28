@@ -6,10 +6,15 @@ import DescriptionFooter from './description-footer';
 import FooterContact from './footer-contact';
 import { iconsContact, iconsSupport } from './iconsData';
 
+export interface LinkInterface {
+  title: string;
+  url: string;
+}
+
 interface Props {
-  governesses: string[],
-  products: string[],
-  developer: string[]
+  governesses: LinkInterface[],
+  products: LinkInterface[],
+  developer: LinkInterface[]
 }
 
 const Footer = ({ governesses, products, developer }: Props) => {
@@ -55,7 +60,8 @@ const Footer = ({ governesses, products, developer }: Props) => {
               paddingLeft: '6.13px',
               paddingRight: '6px',
             }}
-            logo={<SesLogo />} links={iconsSupport}
+            logo={<SesLogo />}
+            links={iconsSupport}
           />
         </ContainerColumLast>
       </ContainerFooter >
@@ -92,12 +98,12 @@ const ContainerFooter = styled.div({
   boxSizing: 'border-box',
   margin: '0px',
   width: '100%',
-  padding: '40px 16px 57px',
+  padding: '40px 16px 74px',
   '@media (min-width: 435px)': {
-    padding: '40px 32px 57px',
+    padding: '40px 32px 74px',
   },
   '@media (min-width: 835px)': {
-    padding: '40px 64px 57px',
+    padding: '40px 64px 74px',
   }
 });
 
@@ -147,4 +153,5 @@ const ContainerColumLast = styled.div({
   order: 5,
   width: '272px'
 });
+
 export default Footer;

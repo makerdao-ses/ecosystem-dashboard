@@ -17,9 +17,9 @@ export const CuTableColumnTeamMember = ({ ...props }: CuTableColumnTeamMemberPro
         name={props.member.name}
         image={props.member.facilitatorImage}
         fontSize={'14px'}
-        width={'32px'}
         imageStyle={{ border: '2px solid #E7FCFA' }}
-        height={'32px'} />
+        width={'36px'}
+        height={'36px'} />
       <span>{props.member.name}</span>
     </MemberInfoContainer>;
   };
@@ -42,8 +42,8 @@ export const CuTableColumnTeamMember = ({ ...props }: CuTableColumnTeamMemberPro
         <CircleAvatar key={member.id}
           name={member.name}
           fontSize={'14px'}
-          width={'32px'}
-          height={'32px'}
+          width={'36px'}
+          height={'36px'}
           style={{
             marginLeft: i === 0 || (member.facilitatorImage) ? 0 : '-9px',
             border: !(member.facilitatorImage) ? '2px solid #E7FCFA' : 'none'
@@ -93,6 +93,6 @@ const Value = styled.div({
   fontFamily: 'SF Pro Display, sans-serif',
   fontWeight: 600,
   fontSize: '14px',
-  lineHeight: '17px',
+  lineHeight: '18px',
   color: '#231536',
 });

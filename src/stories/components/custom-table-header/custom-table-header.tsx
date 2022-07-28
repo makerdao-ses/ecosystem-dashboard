@@ -3,7 +3,6 @@ import ArrowUp from '../svg/arrow-up';
 import ArrowDown from '../svg/arrow-down';
 import styled from '@emotion/styled';
 import { SortEnum } from '../../../core/enums/sort.enum';
-import { Typography } from '@mui/material';
 
 export interface CustomTableHeaderProps {
   state: SortEnum;
@@ -14,13 +13,21 @@ export interface CustomTableHeaderProps {
 
 export const CustomTableHeader = (props: CustomTableHeaderProps) => {
   return <Container className="no-select" align={props.align} style={props.style}>
-    <Typography>{props.title}</Typography>
+    <Label>{props.title}</Label>
     {props.state !== SortEnum.Disabled && <Arrows>
       <ArrowUp fill={props.state === SortEnum.Asc ? '#231536' : '#708390'} style={{ margin: '4px 0' }}/>
       <ArrowDown fill={props.state === SortEnum.Desc ? '#231536' : '#708390'}/>
     </Arrows>}
   </Container>;
 };
+
+const Label = styled.div({
+  fontFamily: 'FT Base, sans-serif',
+  fontSize: '16px',
+  color: '#231536',
+  fontWeight: 400,
+  letterSpacing: '0.05rem',
+});
 
 const Container = styled.div<{align?: string}>((props) => ({
   display: 'flex',

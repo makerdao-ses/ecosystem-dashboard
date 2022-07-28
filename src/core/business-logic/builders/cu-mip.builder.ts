@@ -7,7 +7,7 @@ export class CuMipBuilder {
 
   constructor() {
     this._cuMip = {
-      mipStatus: '',
+      mipStatus: 'Accepted',
       mip40: [] as Mip40Dto[],
       mip41: [] as Mip41Dto[],
       accepted: '',

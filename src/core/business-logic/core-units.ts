@@ -156,8 +156,10 @@ const checkDateOnPeriod = (period: Mip40BudgetPeriodDto, date: DateTime) => {
 };
 
 const findMip40 = (cu: CoreUnitDto, date: DateTime): Mip40Dto | null => {
-  for (let i = 0; i < cu.cuMip?.length ?? 0; i++) {
-    const mip = cu.cuMip[i];
+  const cuMips = cu.cuMip?.filter(mip => mip.mipStatus === CuStatusEnum.Accepted) ?? [];
+
+  for (let i = 0; i < cuMips.length ?? 0; i++) {
+    const mip = cuMips[i];
 
     for (let j = 0; j < mip.mip40?.length ?? 0; j++) {
       const mip40 = mip.mip40[j];

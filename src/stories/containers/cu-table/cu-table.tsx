@@ -6,8 +6,8 @@ import {
   getFacilitatorsFromCoreUnit,
   getFTEsFromCoreUnit,
   getLast3ExpenditureValuesFromCoreUnit,
-  getLinksFromCoreUnit,
   getLatestMip39FromCoreUnit,
+  getLinksFromCoreUnit,
   getMipUrlFromCoreUnit,
   getPercentFromCoreUnit,
   getSubmissionDateFromCuMip
@@ -20,11 +20,7 @@ import { CuTableColumnLinks } from '../../components/cu-table-column-links/cu-ta
 import { CuTableColumnSummary } from '../../components/cu-table-column-summary/cu-table-column-summary';
 import { CuTableColumnTeamMember } from '../../components/cu-table-column-team-member/cu-table-column-team-member';
 import { CustomTable } from '../../components/custom-table/custom-table';
-import {
-  loadCuTableItemsAsync,
-  selectCuTableItems,
-  selectCuTableStatus,
-} from './cu-table.slice';
+import { loadCuTableItemsAsync, selectCuTableItems, selectCuTableStatus } from './cu-table.slice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../core/store/store';
 import { SortEnum } from '../../../core/enums/sort.enum';
@@ -38,8 +34,9 @@ import { Filters } from './cu-table-filters';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
-const sortInitialState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled];
-const headerStyles: CSSProperties[] = [{ paddingLeft: '63.5px' }, {}, {}, {}];
+const sortNeutralState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled];
+const sortInitialState = [SortEnum.Asc, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled];
+const headerStyles: CSSProperties[] = [{ paddingLeft: '79.5px' }, {}, {}, {}];
 const headersAlign: ('flex-start' | 'center' | 'flex-end')[] = ['flex-start', 'flex-start', 'center', 'center'];
 
 export const CuTable = () => {
@@ -54,8 +51,15 @@ export const CuTable = () => {
   const status = useSelector((state: RootState) => selectCuTableStatus(state));
 
   const [headersSort, setHeadersSort] = useState(sortInitialState);
-  const [sortColumn, setSortColumn] = useState(-1);
+  const [sortColumn, setSortColumn] = useState(0);
   const [filtersPopup, setFiltersPopup] = useState(false);
+
+  const toggleFiltersPopup = () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    document.querySelector('body').style.overflow = filtersPopup ? 'auto' : 'hidden';
+    setFiltersPopup(!filtersPopup);
+  };
 
   useEffect(() => {
     dispatch(loadCuTableItemsAsync());
@@ -91,14 +95,19 @@ export const CuTable = () => {
       pathname: '/',
       search: '',
     });
+
+    const input = document.querySelector('#search-input');
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    input.value = '';
   };
 
   const setSort = (index: number, prevStatus: SortEnum) => {
     if (prevStatus === 3) {
-      setHeadersSort(sortInitialState);
+      setHeadersSort(sortNeutralState);
       setSortColumn(-1);
     } else {
-      const temp = [...sortInitialState];
+      const temp = [...sortNeutralState];
       temp[index] = prevStatus + 1;
       setHeadersSort(temp);
       setSortColumn(index);
@@ -132,7 +141,7 @@ export const CuTable = () => {
     return sortedData.map((coreUnit: CoreUnitDto, i: number) => {
       return [
         <CuTableColumnSummary
-          key={`summary-${i}`}
+          key={`summary-${coreUnit.code}`}
           title={coreUnit.name}
           status={getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum}
           statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
@@ -141,7 +150,13 @@ export const CuTable = () => {
           onClick={onClickRow(coreUnit.code)}
           code={formatCode(coreUnit.code)}
         />,
-        <div style={{ display: 'block' }} onClick={() => onClickFinances(coreUnit.code)}>
+        <div
+          style={{
+            display: 'block',
+            paddingLeft: '8px',
+          }}
+          onClick={() => onClickFinances(coreUnit.code)}
+        >
           <CuTableColumnExpenditures
             key={`expenditures-${i}`}
             value={getExpenditureValueFromCoreUnit(coreUnit)}
@@ -161,12 +176,12 @@ export const CuTable = () => {
           display: 'flex',
           justifyContent: 'flex-end',
           flex: 1,
-          paddingRight: '22px',
+          paddingRight: '16px',
         }}>
           <CuTableColumnLinks
             key={`links-${i}`}
             links={getLinksFromCoreUnit(coreUnit)}
-            spacings={22}
+            spacings={16}
             fill="#708390"
           />
         </div>
@@ -183,7 +198,7 @@ export const CuTable = () => {
       <Header>
         <Title>Core Units</Title>
         <FilterButtonWrapper
-          onClick={() => setFiltersPopup(!filtersPopup)}
+          onClick={toggleFiltersPopup}
         >
           <CustomButton
             label={'Filters'}
@@ -200,7 +215,7 @@ export const CuTable = () => {
           categoriesCount={categoriesCount}
           statusCount={statusCount}
           searchText={searchText}
-          setFiltersPopup={() => setFiltersPopup(!filtersPopup)}
+          setFiltersPopup={toggleFiltersPopup}
           clearFilters={clearFilters}
         />
       </Header>
@@ -228,7 +243,7 @@ const ContainerHome = styled.div({
   padding: '22px 16px 0',
   marginTop: '64px',
   width: '100%',
-  marginBottom: '121px',
+  marginBottom: '122.5px',
   '@media (min-width: 1440px)': {
     padding: '22px 128px 0'
   },

@@ -11,5 +11,16 @@ const Template: ComponentStory<typeof Breadcrumbs> = (args) => <Breadcrumbs {...
 
 export const Default = Template.bind({});
 Default.args = {
-  items: [<>Core Units <b>(3)</b></>, 'SES - Sustainable Ecosystem Scaling ', 'Finances']
+  items: [{
+    label: <>Core Units <b>(3)</b></>,
+    url: '#'
+  },
+  {
+    label: 'SES - Sustainable Ecosystem Scaling ',
+    url: '#',
+  },
+  {
+    label: 'Finances',
+    url: ''
+  }]
 };

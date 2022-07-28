@@ -9,7 +9,6 @@ interface Props {
   logo: JSX.Element
   links: TypeIconFooter[]
   style?: CSSProperties
-
 }
 
 export const FooterContact = ({ title, subtitle, logo, links, style }: Props) => {
@@ -20,7 +19,7 @@ export const FooterContact = ({ title, subtitle, logo, links, style }: Props) =>
         <StyleDescription>{subtitle}</StyleDescription>
       </ContainerText>
       <FooterLinks links={links} styleLinks={style} />
-      <ContainerLogo >{logo}</ContainerLogo>
+      <ContainerLogo>{logo}</ContainerLogo>
     </Container>
   );
 };
@@ -55,7 +54,7 @@ const StyleDescription = styled(Typography)({
 });
 
 const ContainerLogo = styled.div({
-  marginTop: '32px'
+  marginTop: '38px'
 });
 
 export default FooterContact;
