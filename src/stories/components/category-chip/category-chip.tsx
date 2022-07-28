@@ -7,7 +7,11 @@ interface StatusChipProps {
   style?: CSSProperties;
 }
 
-const colors: {[id: string]: any} = {
+const colors: {[id: string] : any} = {
+  All: {
+    color: '#5D48FF',
+    background: '#F7F5FF'
+  },
   Technical: {
     color: '#546978',
     background: 'rgba(246, 245, 255, 0.5)'

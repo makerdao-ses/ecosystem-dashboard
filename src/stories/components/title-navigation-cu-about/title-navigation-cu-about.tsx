@@ -195,19 +195,6 @@ const Row = styled.div({
   marginLeft: '4px',
 });
 
-const SinceDate = styled.a({
-  fontFamily: 'FT Base, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 500,
-  fontSize: '12px',
-  lineHeight: '14px',
-  letterSpacing: '1px',
-  textTransform: 'uppercase',
-  color: '#447AFB',
-  textDecoration: 'none',
-  marginLeft: '4px',
-});
-
 const ContainerLinks = styled.div({
   display: 'flex',
   flexDirection: 'column',
