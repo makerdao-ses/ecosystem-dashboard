@@ -137,7 +137,7 @@ export const CuTable = () => {
     return sortedData.map((coreUnit: CoreUnitDto, i: number) => {
       return [
         <CuTableColumnSummary
-          key={`summary-${i}`}
+          key={`summary-${coreUnit.code}`}
           title={coreUnit.name}
           status={getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum}
           statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
