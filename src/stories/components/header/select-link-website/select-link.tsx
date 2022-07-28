@@ -123,13 +123,11 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
           <ThreeDots/>
         </ThreeDotsButton>
       {popup && <Container>
-        <Close
-            onClick={() => setPopup(false)}
-            style={{
-              alignSelf: 'flex-end',
-              marginBottom: '22px'
-            }}
-        />
+        <CloseWrapper>
+          <Close
+              onClick={() => setPopup(false)}
+          />
+        </CloseWrapper>
         <div onClick={toggleTheme}>
             <DarkModeText>Dark Mode</DarkModeText>
             <IconButton>
@@ -239,6 +237,11 @@ const ThreeDotsButton = styled.button({
   '@media (min-width: 635px)': {
     display: 'none'
   }
+});
+
+const CloseWrapper = styled.button({
+  alignSelf: 'flex-end',
+  marginBottom: '22px',
 });
 
 export default SelectLink;
