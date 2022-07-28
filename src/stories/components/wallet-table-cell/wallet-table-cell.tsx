@@ -25,12 +25,12 @@ export const WalletTableCell = (props: WalletTableCellProps) => {
       <Label>{capitalizeSentence(props.name)}</Label>
       <CustomLink
         style={{
-          pointerEvents: 'none',
           lineHeight: '15px',
           margin: 0,
         }}
         fontSize={14}
         fontWeight={400}
+        href={props.address}
         withArrow={false}>
         {props.wallet.toLowerCase()}
       </CustomLink>
