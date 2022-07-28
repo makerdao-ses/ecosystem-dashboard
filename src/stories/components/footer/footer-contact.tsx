@@ -54,7 +54,7 @@ const StyleDescription = styled(Typography)({
 });
 
 const ContainerLogo = styled.div({
-  marginTop: '32px'
+  marginTop: '38px'
 });
 
 export default FooterContact;
