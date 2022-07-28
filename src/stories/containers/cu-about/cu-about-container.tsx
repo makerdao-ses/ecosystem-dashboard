@@ -23,6 +23,7 @@ import CardExpenses from '../../components/card-navegation/card-expenses';
 import CardSomeThingWrong from '../../components/card-navegation/card-somethig-wrong';
 import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { formatCode } from '../../../core/utils/string.utils';
+import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 
 const CuAboutContainer = () => {
   const [isEnabled] = useFlagsActive();
@@ -56,7 +57,9 @@ const CuAboutContainer = () => {
   const relateMipsOrder = useMemo(() => {
     const buildNewArray = cuAbout.cuMip.map((mip: CuMip) => getRelateMipObjectFromCoreUnit(mip));
     const order = _.sortBy(buildNewArray, ['orderBy', 'dateMip']).reverse();
-    const resultArrayThreeElements = order.length > 3 && showThreeMIPs ? order.slice(0, 3) : order;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const countNumberAccepted = order.filter((mip: any) => mip.mipStatus === CuStatusEnum.Accepted);
+    const resultArrayThreeElements = showThreeMIPs ? order.slice(0, countNumberAccepted.length) : order;
     return resultArrayThreeElements;
   }, [cuAbout.cuMip, showThreeMIPs]);
 
