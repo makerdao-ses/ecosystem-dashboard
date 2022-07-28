@@ -38,23 +38,6 @@ export const iconsContact = [{
   height: 20
 },
 {
-  icon: <Telegram />,
-  href: '#',
-  title: 'Telegram',
-  spacingsRight: 28.45,
-  width: 19.55,
-  height: 17
-},
-
-{
-  icon: <ChatFooter />,
-  href: '#',
-  title: 'Chat',
-  spacingsRight: 28,
-  width: 20,
-  height: 16.15,
-},
-{
   icon: <Youtube fill='#211634' />,
   href: 'https://www.youtube.com/MakerDAO',
   title: 'Youtube',
@@ -123,5 +106,5 @@ export const iconsSupport = [{
 ] as TypeIconFooter[];
 
 export const governesses = ['Forum', 'Operation Manual', 'Governance FAQs', 'Gov Tracking Sheet', 'Monthly Gov Cycle', 'Weekly Gov Cycle'];
-export const products = ['Service Status', 'Oasis', 'Auctions Dashboard', ' Migrate Dashboard', ' MakerBurn', 'DAI Stats'];
+export const products = ['Service Status', 'Auctions Dashboard', ' Migrate Dashboard', ' MakerBurn', 'DAI Stats', 'Terms'];
 export const developer = ['Whitepaper', 'Technical Docs', 'API docs', 'Developer Guides', 'Brand Assets', ' Oracle Feeds'];

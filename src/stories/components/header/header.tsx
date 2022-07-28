@@ -146,6 +146,7 @@ const LogoContainer = styled.div({
   marginTop: '13px',
   marginBottom: '13px',
   marginRight: '16px',
+  cursor: 'pointer',
   '@media (min-width: 435px) and (max-width: 635px)': {
     marginRight: '0px',
   },

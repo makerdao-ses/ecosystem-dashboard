@@ -55,7 +55,8 @@ const Footer = ({ governesses, products, developer }: Props) => {
               paddingLeft: '6.13px',
               paddingRight: '6px',
             }}
-            logo={<SesLogo />} links={iconsSupport}
+            logo={<SesLogo />}
+            links={iconsSupport}
           />
         </ContainerColumLast>
       </ContainerFooter >
