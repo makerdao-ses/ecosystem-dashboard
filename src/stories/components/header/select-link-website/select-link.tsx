@@ -33,6 +33,12 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
   };
 
   const [popup, setPopup] = useState(false);
+  const togglePopup = () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    document.querySelector('body').style.overflow = popup ? 'auto' : 'hidden';
+    setPopup(!popup);
+  };
 
   const background = useMemo(() => {
     return themeMode === 'light' && open ? '#B6EDE7' : themeMode === 'light' && !open ? '#ECF1F3' : themeMode === 'dark' && open ? '#31424E' : '#31424E';
@@ -118,14 +124,14 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
           })}
         </Menu>
         <ThreeDotsButton
-          onClick={() => setPopup(!popup)}
+          onClick={togglePopup}
         >
           <ThreeDots/>
         </ThreeDotsButton>
       {popup && <Container>
         <CloseWrapper>
           <Close
-              onClick={() => setPopup(false)}
+              onClick={togglePopup}
           />
         </CloseWrapper>
         <div onClick={toggleTheme}>
@@ -185,6 +191,7 @@ const Container = styled.div({
   flexDirection: 'column',
   alignItems: 'center',
   padding: '22px',
+  overflowY: 'auto',
   '@media (min-width: 635px)': {
     display: 'none'
   }
@@ -234,6 +241,7 @@ const ThreeDotsButton = styled.button({
   boxSizing: 'border-box',
   border: '1px solid #D4D9E1',
   borderRadius: '50%',
+  cursor: 'pointer',
   '@media (min-width: 635px)': {
     display: 'none'
   }
@@ -242,6 +250,7 @@ const ThreeDotsButton = styled.button({
 const CloseWrapper = styled.div({
   alignSelf: 'flex-end',
   marginBottom: '22px',
+  cursor: 'pointer',
 });
 
 export default SelectLink;

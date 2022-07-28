@@ -39,70 +39,59 @@ export const Filters = (props: FilterProps) => {
     });
   }, [router]);
 
-  return <Container
-    style={{
-      display: props.filtersPopup ? 'flex' : 'none'
-    }}
-  >
-    <CustomButton
-      label="Reset Filters"
-      style={{
-        width: '114px',
-        border: 'none'
-      }}
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      onClick={props.clearFilters}
-      disabled={props.filteredStatuses && !props.filteredStatuses.length && props.filteredCategories && !props.filteredCategories.length && !props.searchText}
-    />
-    <SmallSeparator/>
-    <CustomMultiSelect
-      label="Status"
-      activeItems={props.filteredStatuses}
-      customAll={{
-        id: 'All',
-        content: <StatusChip status={'All'}/>,
-        count: props.statusCount.All
-      }}
-      items={statuses.map((stat) => ({
-        id: stat,
-        content: <StatusChip status={stat as CuStatusEnum}/>,
-        count: props.statusCount[stat],
-      }))}
-      maxWidth={100}
-      onChange={(value: string[]) => {
-        handleChangeUrlFilterArrays('filteredStatuses')(value);
-      }}
-    />
-    <CustomMultiSelect
-      label="CU Category"
-      activeItems={props.filteredCategories}
-      customAll={{
-        id: 'All',
-        content: <CategoryChip category={'All'}/>,
-        count: props.categoriesCount.All
-      }}
-      items={categories.map(cat => ({
-        id: cat,
-        content: <CategoryChip category={cat as CuCategoryEnum}/>,
-        count: props.categoriesCount[cat]
-      }))}
-      maxWidth={143}
-      onChange={(value: string[]) => {
-        handleChangeUrlFilterArrays('filteredCategories')(value);
-      }}
-    />
-    <Separator />
-    {router.isReady && <SearchInput
-      defaultValue={props.searchText}
-      placeholder="Search"
-      onChange={(value: string) => {
-        debounce(() => {
-          handleChangeUrlFilterArrays('searchText')(value);
-        }, 300);
-      }}
-      style={{ marginLeft: '16px' }}
-    />}
-    {!router.isReady && <SearchInput
+  return <Wrapper style={{
+    display: props.filtersPopup ? 'flex' : 'none'
+  }}>
+      <Container>
+      <CustomButton
+        label="Reset Filters"
+        style={{
+          width: '114px',
+          border: 'none'
+        }}
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        onClick={props.clearFilters}
+        disabled={props.filteredStatuses && !props.filteredStatuses.length && props.filteredCategories && !props.filteredCategories.length && !props.searchText}
+      />
+      <SmallSeparator/>
+      <CustomMultiSelect
+        label="Status"
+        activeItems={props.filteredStatuses}
+        customAll={{
+          id: 'All',
+          content: <StatusChip status={'All'}/>,
+          count: props.statusCount.All
+        }}
+        items={statuses.map((stat) => ({
+          id: stat,
+          content: <StatusChip status={stat as CuStatusEnum}/>,
+          count: props.statusCount[stat],
+        }))}
+        maxWidth={100}
+        onChange={(value: string[]) => {
+          handleChangeUrlFilterArrays('filteredStatuses')(value);
+        }}
+      />
+      <CustomMultiSelect
+        label="CU Category"
+        activeItems={props.filteredCategories}
+        customAll={{
+          id: 'All',
+          content: <CategoryChip category={'All'}/>,
+          count: props.categoriesCount.All
+        }}
+        items={categories.map(cat => ({
+          id: cat,
+          content: <CategoryChip category={cat as CuCategoryEnum}/>,
+          count: props.categoriesCount[cat]
+        }))}
+        maxWidth={143}
+        onChange={(value: string[]) => {
+          handleChangeUrlFilterArrays('filteredCategories')(value);
+        }}
+      />
+      <Separator />
+      {router.isReady && <SearchInput
         defaultValue={props.searchText}
         placeholder="Search"
         onChange={(value: string) => {
@@ -111,11 +100,22 @@ export const Filters = (props: FilterProps) => {
           }, 300);
         }}
         style={{ marginLeft: '16px' }}
-    />}
-    <CloseButton onClick={() => props.setFiltersPopup && props.setFiltersPopup()}>
-      <Close/>
-    </CloseButton>
-  </Container>;
+      />}
+      {!router.isReady && <SearchInput
+          defaultValue={props.searchText}
+          placeholder="Search"
+          onChange={(value: string) => {
+            debounce(() => {
+              handleChangeUrlFilterArrays('searchText')(value);
+            }, 300);
+          }}
+          style={{ marginLeft: '16px' }}
+      />}
+      <CloseButton onClick={() => props.setFiltersPopup && props.setFiltersPopup()}>
+        <Close/>
+      </CloseButton>
+    </Container>
+  </Wrapper>;
 };
 
 const Separator = styled.span({
@@ -144,33 +144,47 @@ const SmallSeparator = styled.span({
   }
 });
 
-const Container = styled.div({
+const Wrapper = styled.div({
   display: 'none',
   '@media (max-width: 835px)': {
     top: 0,
     left: 0,
     zIndex: 100,
     position: 'fixed',
+    height: '100vh',
+    overscrollBehavior: 'auto',
+    overflowY: 'scroll',
     width: '100%',
-    height: '100%',
     background: 'white',
-    flexDirection: 'column-reverse',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    gap: '24px'
   },
   '@media (min-width: 835px)': {
     display: 'flex !important',
-    gap: '16px',
   },
   '@media (min-width: 835px) and (max-width: 1180px)': {
     alignSelf: 'flex-end'
   }
 });
 
+const Container = styled.div({
+  display: 'flex',
+  '@media (max-width: 835px)': {
+    position: 'relative',
+    height: 'calc(100vh + 20px)',
+    width: '100%',
+    flexDirection: 'column-reverse',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    gap: '24px'
+  },
+  '@media (min-width: 835px)': {
+    gap: '16px',
+  },
+});
+
 const CloseButton = styled.div({
   alignSelf: 'flex-end',
   margin: '22px 22px 30px 0',
+  cursor: 'pointer',
   '@media (min-width: 835px)': {
     display: 'none'
   }

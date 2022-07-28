@@ -54,6 +54,13 @@ export const CuTable = () => {
   const [sortColumn, setSortColumn] = useState(0);
   const [filtersPopup, setFiltersPopup] = useState(false);
 
+  const toggleFiltersPopup = () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    document.querySelector('body').style.overflow = filtersPopup ? 'auto' : 'hidden';
+    setFiltersPopup(!filtersPopup);
+  };
+
   useEffect(() => {
     dispatch(loadCuTableItemsAsync());
   }, [dispatch]);
@@ -191,7 +198,7 @@ export const CuTable = () => {
       <Header>
         <Title>Core Units</Title>
         <FilterButtonWrapper
-          onClick={() => setFiltersPopup(!filtersPopup)}
+          onClick={toggleFiltersPopup}
         >
           <CustomButton
             label={'Filters'}
@@ -208,7 +215,7 @@ export const CuTable = () => {
           categoriesCount={categoriesCount}
           statusCount={statusCount}
           searchText={searchText}
-          setFiltersPopup={() => setFiltersPopup(!filtersPopup)}
+          setFiltersPopup={toggleFiltersPopup}
           clearFilters={clearFilters}
         />
       </Header>

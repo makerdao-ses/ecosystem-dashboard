@@ -13,17 +13,24 @@ interface TopBarSelectProps {
 
 export const TopBarSelect = (props: TopBarSelectProps) => {
   const [popup, setPopup] = useState(false);
+  const togglePopup = () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    document.querySelector('body').style.overflow = popup ? 'auto' : 'hidden';
+    setPopup(!popup);
+  };
 
   return <>
-    <Button onClick={() => setPopup(!popup)}>
+    <Button onClick={togglePopup}>
       {props.selectedOption} <SelectChevronDown style={{ marginLeft: '11px' }} fill="#1AAB9B"/>
     </Button>
     {popup && <Popup>
       <Close
-        onClick={() => setPopup(false)}
+        onClick={togglePopup}
         style={{
           alignSelf: 'flex-end',
-          marginBottom: '22px'
+          marginBottom: '22px',
+          cursor: 'pointer',
         }}
       />
       {menuItems.map((item) => <LinkWrapper key={item.title} onClick={() => setPopup(false)}><Link href={item.link}>{item.title}</Link></LinkWrapper>)}
