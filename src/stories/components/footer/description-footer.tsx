@@ -32,6 +32,7 @@ const StyleTitle = styled(Typography)({
 });
 
 const StyleChildren = styled.a({
+  display: 'block',
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
