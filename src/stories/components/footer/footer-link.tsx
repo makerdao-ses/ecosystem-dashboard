@@ -36,7 +36,7 @@ export const FooterLinks = ({ links, styleLinks }: CuTableColumnLinksProps) => {
       </CustomPopover>
     </Box>)
     }
-  </Container >;
+  </Container>;
 };
 
 const Container = styled.div({

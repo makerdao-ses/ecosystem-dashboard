@@ -13,6 +13,7 @@ const CORE_UNITS_REQUEST = {
         category
         sentenceDescription
         cuMip {
+          mipCode
           mipStatus
           mipUrl
           formalSubmission

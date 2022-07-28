@@ -46,7 +46,7 @@ export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
   }, [props.currentMonth, props.budgetStatements]);
 
   return <Container>
-    <Title marginBottom={32}>MKR Vesting Overview</Title>
+    <Title marginBottom={24}>MKR Vesting Overview</Title>
     <TotalFte>
       <span>Total FTE</span>
       <u>{FTEs}</u>

@@ -166,9 +166,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
   }, [props.currentMonth, props.budgetStatements, thirdIndex]);
 
   return <Container>
-    <Title style={{
-      marginBottom: '32px'
-    }}>
+    <Title marginBottom={24}>
       {props.currentMonth.toFormat('MMM yyyy')} Totals
     </Title>
 
@@ -182,9 +180,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
       style={{ marginBottom: '64px' }}
     />
 
-    <Title style={{
-      marginBottom: '32px'
-    }}>
+    <Title marginBottom={24}>
       {props.currentMonth.toFormat('MMM yyyy')} Breakdown
     </Title>
 

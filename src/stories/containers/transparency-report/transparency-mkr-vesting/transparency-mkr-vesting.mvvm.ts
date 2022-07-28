@@ -28,7 +28,6 @@ export const useTransparencyMkrVesting = (currentMonth: DateTime, budgetStatemen
   }, [currentMonth, budgetStatements]);
 
   const FTEs = useMemo(() => {
-    console.log(currentBudgetStatement);
     return _.first(currentBudgetStatement?.budgetStatementFTEs)?.ftes ?? 0;
   }, [currentMonth, budgetStatements]);
 

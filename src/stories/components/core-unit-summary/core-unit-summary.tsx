@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import BreadCrumb from '../pagination/bread-crumb';
 import InsidePagination from '../pagination/InsidePagination';
 import TitleNavigationCuAbout from '../title-navigation-cu-about/title-navigation-cu-about';
 import { Typography, useMediaQuery } from '@mui/material';
@@ -11,6 +10,7 @@ import { useCoreUnitSummaryViewModel } from './core-unit-summary.mvvm';
 import _ from 'lodash';
 import lightTheme from '../../../../styles/theme/light';
 import BreadCrumbMobile from '../pagination/bread-crumb-mobile';
+import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
 
 interface CoreUnitSummaryProps {
   trailingAddress?: string[];
@@ -71,24 +71,22 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
     },
     [code, filteredData, router]);
 
-  return <div ref={ref} style={{
-    position: 'sticky',
-    top: 63,
-    width: '100%',
-    backgroundImage: 'url(/assets/img/Subheader.png)',
-    backgroundSize: 'cover',
-    zIndex: 4,
-    [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-      zIndex: 4,
-    },
-    [lightTheme.breakpoints.down('table_375')]: {
-      zIndex: 4,
-    },
-
-  }}>
-
+  return <Container ref={ref}>
     {!(phone || lessThanPhone) && <NavigationHeader className="no-select">
-      <BreadCrumb count={filteredData.length} breadcrumbs={[cu?.name ?? '', ...trailingAddress]} isCoreUnit />
+      <Breadcrumbs items={[
+        {
+          label: <span>Core Units <b>({filteredData.length})</b></span>,
+          url: `/?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
+        },
+        {
+          label: cu?.name ?? '',
+          url: `/core-unit/${code}/?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
+        },
+        ...trailingAddress.map(adr => ({
+          label: adr,
+          url: ''
+        }))
+      ]}/>
       <InsidePagination count={filteredData.length} page={page} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} />
     </NavigationHeader>}
     {(phone || lessThanPhone) && <div style={{
@@ -112,8 +110,17 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
       width: '100%',
       marginTop: '24px',
     }} />
-  </div>;
+  </Container>;
 };
+
+const Container = styled.div({
+  position: 'sticky',
+  top: 63,
+  width: '100%',
+  backgroundImage: 'url(/assets/img/Subheader.png)',
+  backgroundSize: 'cover',
+  zIndex: 4,
+});
 
 const NavigationHeader = styled.div({
   display: 'flex',
@@ -129,8 +136,7 @@ const NavigationHeader = styled.div({
 const ContainerTitle = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  paddingLeft: '128px',
-  paddingRight: '128px',
+  width: '100%',
   height: 'fit-content',
   transition: 'all .3s ease',
   paddingTop: '8px',
@@ -161,9 +167,13 @@ const ContainerTitle = styled.div({
 const Wrapper = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'center',
   width: '100%',
-  maxWidth: '1440px',
+  maxWidth: '1184px',
   margin: '0 auto',
+  [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
+    maxWidth: '100%',
+  },
 });
 
 const TypographyDescription = styled(Typography)({
