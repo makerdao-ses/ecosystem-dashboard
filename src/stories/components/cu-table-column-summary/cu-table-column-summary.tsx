@@ -6,6 +6,7 @@ import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { StatusChip } from '../status-chip/status-chip';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
 import { CustomLink } from '../custom-link/custom-link';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface CuTableColumnSummaryProps {
   title: string,
@@ -18,6 +19,7 @@ interface CuTableColumnSummaryProps {
 }
 
 export const CuTableColumnSummary = (props: CuTableColumnSummaryProps) => {
+  const isLight = useThemeContext().themeMode === 'light';
   return <Container onClick={props.onClick}>
     <CircleContainer>
       <CircleAvatar
@@ -25,13 +27,13 @@ export const CuTableColumnSummary = (props: CuTableColumnSummaryProps) => {
         height={'48px'}
         name={props.title || 'Core Unit'}
         image={props.imageUrl}
-        style={{ filter: 'drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))' }}
+        style={{ filter: isLight ? 'drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))' : 'drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))' }}
       />
     </CircleContainer>
     <Content>
       <TitleWrapper>
-        <Code>{props.code}</Code>
-        <Title>{props.title}</Title>
+        <Code isLight={isLight}>{props.code}</Code>
+        <Title isLight={isLight}>{props.title}</Title>
       </TitleWrapper>
       <Row>
         {props.status && <StatusChip status={props.status} />}
@@ -40,16 +42,16 @@ export const CuTableColumnSummary = (props: CuTableColumnSummaryProps) => {
           title={'Go to MIPs Portal'}
         >
           {props.statusModified && <CustomLink
-              href={props.mipUrl}
-              style={{
-                display: 'flex',
-                alignItems: 'flex-end',
-                margin: '0 0 2px 4px'
-              }}
-              styleIcon={{
-                marginBottom: '2px'
-              }}
-              target="_blank">
+            href={props.mipUrl}
+            style={{
+              display: 'flex',
+              alignItems: 'flex-end',
+              margin: '0 0 2px 4px'
+            }}
+            styleIcon={{
+              marginBottom: '2px'
+            }}
+            target="_blank">
             {`SINCE ${DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}`}
           </CustomLink>}
         </CustomPopover>}
@@ -81,27 +83,27 @@ const Content = styled.div({
   flexDirection: 'column',
 });
 
-const Code = styled.span({
+const Code = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'SF Pro Display, sans-serif',
   fontWeight: 800,
   fontSize: '14px',
   letterSpacing: '0.3px',
   textTransform: 'uppercase',
-  color: '#9FAFB9',
+  color: isLight ? '#9FAFB9' : '#546978',
   marginRight: '5px',
   whiteSpace: 'nowrap',
-});
+}));
 
 const TitleWrapper = styled.div({
   display: 'flex'
 });
 
-const Title = styled.div(({
+const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontSize: '16px',
   alignItems: 'center',
   fontWeight: 400,
-  color: '#231536',
+  color: isLight ? '#231536' : '#FFFFFF',
   lineHeight: '19px',
   whiteSpace: 'nowrap',
   marginBottom: '2px',
