@@ -14,7 +14,6 @@ interface Props {
   page?: number;
   onClickRight?: () => void;
   onClickLeft?: () => void;
-  isMobile?: boolean;
   items: {
     label: string | JSX.Element,
     url: string,
@@ -22,7 +21,7 @@ interface Props {
   }[];
 }
 
-const BreadCrumbMobile = ({ title, count = 0, page = 0, onClickLeft, onClickRight, items = [], isMobile }: Props) => {
+const BreadCrumbMobile = ({ title, count = 0, page = 0, onClickLeft, onClickRight, items = [] }: Props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -41,7 +40,6 @@ const BreadCrumbMobile = ({ title, count = 0, page = 0, onClickLeft, onClickRigh
         flexDirection: 'row',
         alignItems: 'center',
       }}>
-        {/* <ContainerIcon> */}
         <IconButton
         sx={{
           marginRight: '8px',
@@ -56,9 +54,6 @@ const BreadCrumbMobile = ({ title, count = 0, page = 0, onClickLeft, onClickRigh
           ? <ThreeDotsWithCircleGreen />
           : <ThereDots width={12}
             height={3} />}</IconButton>
-
-        {/* </ContainerIcon> */}
-
         <Menu
           disableScrollLock={true}
           id="fade-button"
