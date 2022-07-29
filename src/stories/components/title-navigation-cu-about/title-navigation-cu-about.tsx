@@ -214,6 +214,13 @@ const TypographyTitle = styled(Typography)({
     marginLeft: '4px',
     marginRight: '0px',
   },
+  [lightTheme.breakpoints.down('table_375')]: {
+    fontWeight: 700,
+    fontSize: '16px',
+    lineHeight: '19px',
+    marginLeft: '4px',
+    marginRight: '0px',
+  },
 });
 
 const TypographySES = styled(Typography)({
@@ -224,6 +231,11 @@ const TypographySES = styled(Typography)({
   color: '#9FAFB9',
   fontFamily: 'FT Base, sans-serif',
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    fontWeight: 700,
+    fontSize: '16px',
+    lineHeight: '19px',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
     fontWeight: 700,
     fontSize: '16px',
     lineHeight: '19px',

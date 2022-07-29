@@ -91,8 +91,26 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
     </NavigationHeader>}
     {(phone || lessThanPhone) && <div style={{
       margin: '16px',
-    }}><div style={{
-    }}><BreadCrumbMobile title={cu?.name || ''} count={filteredData.length} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} page={page} /></div>
+    }}><div>
+        <BreadCrumbMobile
+          items={[
+            {
+              style: {
+                color: '#25273D',
+              },
+              label: cu?.name ?? '',
+              url: `/core-unit/${code}/?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
+            },
+            ...trailingAddress.map(adr => ({
+              label: adr,
+              url: ''
+            })),
+            {
+              label: <span>Core Units <Value>({page})</Value></span>,
+              url: `/?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
+            },
+          ]}
+          title={cu?.name || ''} count={filteredData.length} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} page={page} /></div>
     </div>}
 
     <Wrapper>
@@ -119,7 +137,7 @@ const Container = styled.div({
   width: '100%',
   backgroundImage: 'url(/assets/img/Subheader.png)',
   backgroundSize: 'cover',
-  zIndex: 4,
+  zIndex: 3,
 });
 
 const NavigationHeader = styled.div({
@@ -193,4 +211,13 @@ const TypographyDescription = styled(Typography)({
     fontSize: '12px',
     lineHeight: '14px'
   },
+});
+
+const Value = styled.b({
+  fontFamily: 'FT Base, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 700,
+  fontSize: '16px',
+  lineHeight: '19px',
+  color: '#708390'
 });
