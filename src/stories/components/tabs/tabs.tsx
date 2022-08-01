@@ -9,21 +9,41 @@ interface TabsProps {
 }
 
 export const Tabs = (props: TabsProps) => {
-  return <Container className="no-select" style={props.style}>
-    {props.items?.map((item, i) => <Tab
-      key={`${item}-${i}`}
-      active={i === props.currentIndex}
-      onClick={() => props.onChange && props.onChange(i)}>
-      {item}
-    </Tab>)}
-  </Container>;
+  return <Wrapper className="no-select" style={props.style}>
+    <Container>
+      {props.items?.map((item, i) => <Tab
+        key={`${item}-${i}`}
+        active={i === props.currentIndex}
+        onClick={() => props.onChange && props.onChange(i)}>
+        {item}
+      </Tab>)}
+    </Container>
+  </Wrapper>;
 };
+
+const Wrapper = styled.div({
+  width: 'calc(100vw + 32px)',
+  overflowX: 'scroll',
+  '-ms-overflow-style': 'none',
+  scrollbarHeight: 'none',
+  '&::-webkit-scrollbar': {
+    display: 'none'
+  },
+  '@media (min-width: 835px)': {
+    width: '100%',
+  }
+});
 
 const Container = styled.div({
   fontFamily: 'SF Pro Text, sans-serif',
   display: 'flex',
   borderBottom: '1px solid #B6EDE7',
   flex: 1,
+  width: 'fit-content',
+  gap: '32px',
+  '@media (min-width: 835px)': {
+    width: '100%'
+  }
 });
 
 const Tab = styled.div((props: { active: boolean }) => ({
@@ -31,9 +51,9 @@ const Tab = styled.div((props: { active: boolean }) => ({
   color: props.active ? '#1AAB9B' : '#708390',
   fontSize: '16px',
   fontWeight: 400,
-  marginRight: '32px',
   paddingBottom: '12px',
   borderBottom: `2px solid ${props.active ? '#1AAB9B' : 'white'}`,
   cursor: 'pointer',
-  transition: 'all .3s ease'
+  transition: 'all .3s ease',
+  whiteSpace: 'nowrap',
 }));

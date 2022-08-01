@@ -104,12 +104,16 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
 };
 
 const Container = styled.div({
-  position: 'sticky',
+  display: 'none',
+  position: 'relative',
   top: 63,
   width: '100%',
   backgroundImage: 'url(/assets/img/Subheader.png)',
   backgroundSize: 'cover',
   zIndex: 4,
+  '@media (min-width: 835px)': {
+    display: 'block'
+  }
 });
 
 const NavigationHeader = styled.div({

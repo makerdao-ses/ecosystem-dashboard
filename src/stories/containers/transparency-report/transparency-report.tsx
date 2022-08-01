@@ -95,11 +95,11 @@ export const TransparencyReport = () => {
           margin: '32px 0',
         }}
       />
-    {thirdIndex === 0 && <TransparencyActuals code={code} currentMonth={currentMonth} budgetStatements={cu?.budgetStatements} />}
-    {thirdIndex === 1 && <TransparencyForecast currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>}
-    {thirdIndex === 2 && <TransparencyMkrVesting currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>}
-    {thirdIndex === 3 && <TransparencyTransferRequest currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>}
-    {thirdIndex === 4 && <TransparencyAudit budgetStatement={currentBudgetStatement}/>}
+     {/* {thirdIndex === 0 && <TransparencyActuals code={code} currentMonth={currentMonth} budgetStatements={cu?.budgetStatements} />} */}
+     {/* {thirdIndex === 1 && <TransparencyForecast currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>} */}
+     {/* {thirdIndex === 2 && <TransparencyMkrVesting currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>} */}
+     {/* {thirdIndex === 3 && <TransparencyTransferRequest currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>} */}
+     {/* {thirdIndex === 4 && <TransparencyAudit budgetStatement={currentBudgetStatement}/>} */}
     </InnerPage>
   </Container>;
 };
@@ -114,6 +114,10 @@ const Container = styled.div({
   background: 'url(/assets/img/bg-page.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
+  padding: '0 16px',
+  '@media (min-width: 835px)': {
+    padding: '0 32px',
+  },
 });
 
 const InnerPage = styled.div({
