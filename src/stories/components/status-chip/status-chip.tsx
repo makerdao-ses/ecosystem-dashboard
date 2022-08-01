@@ -7,6 +7,7 @@ interface StatusChipProps {
   style?: CSSProperties;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const colors: {[id: string]: any} = {
   All: {
     color: '#5D48FF',
