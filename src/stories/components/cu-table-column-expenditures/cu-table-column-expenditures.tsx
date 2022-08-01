@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { CustomBarChart } from '../custom-bar-chart/custom-bar-chart';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { CustomChartItemModel } from '../../../core/models/custom-chart-item.model';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface CuTableColumnExpendituresProps {
   value: number,
@@ -12,15 +13,16 @@ interface CuTableColumnExpendituresProps {
 }
 
 export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps) => {
+  const isLight = useThemeContext().themeMode === 'light';
   return <Wrapper>
     <Container>
       <DataWrapper>
         <Data>
-          <Title>Last 3 Months</Title>
+          <Title isLight={isLight}>Last 3 Months</Title>
           <CustomPopover
             id="mouse-over-popover-total"
             title="Actual Expenditure">
-            <Value style={{ justifyContent: props.value ? 'flex-start' : 'center' }}>
+            <Value isLight={isLight} style={{ justifyContent: props.value ? 'flex-start' : 'center' }}>
               {props.value.toLocaleString('en-US', {
                 maximumFractionDigits: 0,
               })}
@@ -81,28 +83,28 @@ const Data = styled.div({
   justifyContent: 'flex-end'
 });
 
-export const Title = styled.span({
+export const Title = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: '12px',
-  color: '#434358',
+  color: isLight ? '#434358' : '#9FAFB9',
   fontWeight: 400,
   marginBottom: '8px',
   lineHeight: '13px',
-});
+}));
 
 const ValueWrapper = styled.div({
   alignSelf: 'flex-end'
 });
 
-export const Value = styled.span({
+export const Value = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'SF Pro Display, sans-serif',
   fontWeight: 600,
   fontSize: '14px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#EDEFFF',
   display: 'flex',
   alignItems: 'flex-end',
   paddingBottom: 0,
   lineHeight: '16px',
-});
+}));
 
 const Percent = styled.div({
   fontFamily: 'SF Pro Display, sans-serif',
