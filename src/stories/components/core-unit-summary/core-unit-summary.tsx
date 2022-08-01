@@ -31,6 +31,7 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
 
   const ref = useRef(null);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const debounceFunction = _.debounce(() => setHiddenTextDescription(((ref?.current as any)?.offsetTop ?? 0) <= 65), 27);
 
   const handleScroll = () => {
