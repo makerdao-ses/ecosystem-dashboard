@@ -50,7 +50,7 @@ export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps)
               </div>
             </PercentExplanation>
           }>
-          <Percent>
+          <Percent isLight={isLight}>
             {props.percent?.toFixed(0)}%
           </Percent>
         </CustomPopover>
@@ -106,12 +106,12 @@ export const Value = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   lineHeight: '16px',
 }));
 
-const Percent = styled.div({
+const Percent = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'SF Pro Display, sans-serif',
   fontWeight: 400,
   fontSize: '16px',
-  color: '#231536',
-});
+  color: isLight ? '#231536' : '#EDEFFF',
+}));
 
 const PercentExplanation = styled.div({
   display: 'flex',

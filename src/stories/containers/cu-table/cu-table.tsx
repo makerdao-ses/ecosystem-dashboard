@@ -185,6 +185,7 @@ export const CuTable = () => {
             links={getLinksFromCoreUnit(coreUnit)}
             spacings={16}
             fill="#708390"
+            fillDark='#D2D4EF'
           />
         </div>
       ];
@@ -246,7 +247,6 @@ const ContainerHome = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   marginTop: '64px',
   width: '100%',
   background: isLight ? '#FFFFFF' : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
-  paddingBottom: '122.5px',
   '@media (min-width: 1440px)': {
     padding: '22px 128px 0'
   },
@@ -264,6 +264,8 @@ const Wrapper = styled.div({
   width: '100%',
   maxWidth: '1180px',
   margin: '0 auto',
+  paddingBottom: '8px',
+
 });
 
 const TableWrapper = styled.div({
