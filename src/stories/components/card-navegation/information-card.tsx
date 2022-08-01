@@ -1,11 +1,13 @@
 import styled from '@emotion/styled';
 import { Box, Typography } from '@mui/material';
 import React from 'react';
+import lightTheme from '../../../../styles/theme/light';
 
 interface Props {
   title: string
   children: (string | JSX.Element)[]
   height: string
+  width?: string
   fontSize?: string
   lineHeight?: string
   fontWeight?: number
@@ -13,7 +15,7 @@ interface Props {
   color?: string
 }
 
-const InformationCard = ({ title, children, height, fontSize = '20px', lineHeight = '24px', fontWeight = 500, letterSpacing = '0.4px', color = '#231536' }: Props) => {
+const InformationCard = ({ title, children, height, fontSize = '20px', lineHeight = '24px', fontWeight = 500, letterSpacing = '0.4px', color = '#231536', width = '405px' }: Props) => {
   return (
     <>
       <Typography sx={{
@@ -26,7 +28,7 @@ const InformationCard = ({ title, children, height, fontSize = '20px', lineHeigh
         letterSpacing,
         color,
       }}>{title}</Typography>
-      <Container height={height}>
+      <Container height={height} width={width}>
         {children}
       </Container>
     </>
@@ -34,10 +36,17 @@ const InformationCard = ({ title, children, height, fontSize = '20px', lineHeigh
 };
 export default InformationCard;
 
-const Container = styled(Box)({
+const Container = styled(Box)<{ width?: string }>(({ width }) => ({
   background: '#FFFFFF',
   boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
   borderRadius: '6px',
   padding: '16px 16px 24px 16px',
-  width: '405px',
-});
+  width: width || '405px',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    width: '100%',
+  },
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    width: '100%',
+    height: '227px',
+  },
+}));

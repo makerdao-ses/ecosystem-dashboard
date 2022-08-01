@@ -5,9 +5,11 @@ interface Props {
   sentenceDescription: string;
   paragraphDescription: string;
   paragraphImage: string;
+  showButton?: boolean;
+  onClick: () => void;
 }
 
-const MdViewerContainer = ({ sentenceDescription, paragraphDescription, paragraphImage }: Props) => {
+const MdViewerContainer = ({ sentenceDescription, paragraphDescription, paragraphImage, showButton, onClick }: Props) => {
   const [headersLevel, setHeadersLevel] = useState<MarkDownHeaders[]>([]);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const creatingIndexItems = useCallback(
@@ -37,6 +39,8 @@ const MdViewerContainer = ({ sentenceDescription, paragraphDescription, paragrap
       sentenceDescription={sentenceDescription}
       paragraphDescription={paragraphDescription}
       headersLevel={headersLevel}
+      showButton={showButton}
+      onClick={onClick}
     />
   );
 };

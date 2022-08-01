@@ -32,7 +32,7 @@ export const itemsWebSiteLinks: WebSiteLinks[] = [
     description: 'Easily view onchain data that surfaces key protocol health metrics.',
     logo: <MakerBurn />,
     color: '#000000',
-    fontFamily: 'Cantarell',
+    fontFamily: 'Cantarell,sans-serif',
     lineHeight: '26px',
     fontSize: 18,
     fontWeight: 500,
