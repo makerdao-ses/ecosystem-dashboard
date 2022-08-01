@@ -68,7 +68,7 @@ export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }
         <SelectChevronDown fill={isLight ? '25273D' : '#ADAFD4'} />
       </IconWrapper>
     </SelectContainer>
-    {popupVisible && <PopupContainer>
+    {popupVisible && <PopupContainer isLight={isLight}>
       {withAll && <SelectItem
         checked={activeItems.length === props.items.length}
         onClick={() => toggleAll()}
@@ -125,18 +125,18 @@ const IconWrapper = styled.div({
   marginTop: '-4px'
 });
 
-const PopupContainer = styled.div({
+const PopupContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   minWidth: '100%',
   width: 'fit-content',
-  background: 'white',
+  background: isLight ? 'white' : '#000A13',
   height: 'fit-content',
   marginTop: '16px',
   '@media (min-width: 835px)': {
     height: '200px',
-    boxShadow: '0px 20px 40px #dbe3ed66, 0px 1px 3px #bebebe40',
+    boxShadow: isLight ? '0px 20px 40px #dbe3ed66, 0px 1px 3px #bebebe40' : 'none',
     overflowY: 'scroll',
     position: 'absolute',
     top: '50px',
     zIndex: 3,
   }
-});
+}));
