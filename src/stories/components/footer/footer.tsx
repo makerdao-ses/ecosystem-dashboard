@@ -61,7 +61,7 @@ const Footer = ({ governesses, products, developer, isLight }: Props) => {
               paddingLeft: '6.13px',
               paddingRight: '6px',
             }}
-            logo={<SesLogo />}
+            logo={<SesLogo fill={isLight ? '#211634' : '#D1DEE6'} />}
             links={iconsSupport}
           />
         </ContainerColumLast>
@@ -84,7 +84,7 @@ const ContainerImage = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   left: '50%',
   zIndex: -1,
   transform: 'translate(-50%)',
-  backgroundImage: isLight ? 'url(/assets/img/bg_footer_light.jpeg)' : 'url(/assets/img/bg-footer-dark.png)',
+  backgroundImage: isLight ? 'url(/assets/img/bg_footer_light.jpeg)' : 'url(/assets/img/bg-footer-dark.jpg)',
   backgroundSize: '100% 100%',
   backgroundPosition: 'center bottom',
   backgroundRepeat: 'no-repeat',
