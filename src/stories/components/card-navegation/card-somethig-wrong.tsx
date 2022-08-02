@@ -1,7 +1,6 @@
 
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
-import { is } from 'immer/dist/internal';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SES_DASHBOARD, TYPE_FORM } from '../../../core/utils/const';
