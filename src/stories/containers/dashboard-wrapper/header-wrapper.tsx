@@ -13,16 +13,17 @@ interface HeaderWrapperProps {
   children?: JSX.Element | JSX.Element[];
   themeMode: ThemeMode
   toggleTheme: () => void
+  isLight: boolean
 }
-export const HeaderWrapper = ({ children, themeMode, toggleTheme }: HeaderWrapperProps) => {
+export const HeaderWrapper = ({ children, themeMode, toggleTheme, isLight }: HeaderWrapperProps) => {
   return (
     <>
       <Header menuItems={menuItems} links={itemsWebSiteLinks} themeMode={themeMode} toggleTheme={toggleTheme} />
       <Container>
         <CssBaseline />
-          {children}
+        {children}
       </Container>
-      <Footer developer={developer} governesses={governesses} products={products} />
+      <Footer developer={developer} governesses={governesses} products={products} isLight={isLight} />
     </>
   );
 };

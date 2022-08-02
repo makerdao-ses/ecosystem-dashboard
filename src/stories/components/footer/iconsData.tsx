@@ -11,16 +11,17 @@ import Youtube from '../svg/youtube';
 import { TypeIconFooter } from './footer-link';
 
 export const iconsContact = [{
-  icon: <DiscordFooter />,
+  icon: <DiscordFooter fill='#231536' fillDark='#D1DEE6' />,
   href: 'https://discord.com/invite/RBRumCpEDH',
   title: 'Discord',
   spacingsRight: 27,
   width: 21,
-  height: 16
+  height: 16,
+  fill: '#e53935',
 
 },
 {
-  icon: <TwitterFooter />,
+  icon: <TwitterFooter fill='#231536' fillDark='#D1DEE6' />,
   href: 'https://twitter.com/MakerDAO',
   title: 'Twitter',
   width: 20,
@@ -28,7 +29,7 @@ export const iconsContact = [{
   spacingsRight: 28,
 },
 {
-  icon: <Reddit />,
+  icon: <Reddit fill='#231536' fillDark='#D1DEE6' />,
   href: 'https://www.reddit.com/r/MakerDAO/',
   title: 'Reddit',
   spacingsRight: 28,
@@ -36,7 +37,7 @@ export const iconsContact = [{
   height: 20
 },
 {
-  icon: <Youtube fill='#211634' />,
+  icon: <Youtube fill='#231536' fillDark='#D1DEE6' />,
   href: 'https://www.youtube.com/MakerDAO',
   title: 'Youtube',
   spacingsRight: 27.55,
@@ -44,7 +45,7 @@ export const iconsContact = [{
   height: 14
 },
 {
-  icon: <Github />,
+  icon: <Github fill='#231536' fillDark='#D1DEE6' />,
   href: 'https://github.com/makerdao',
   title: 'Github',
   width: 20.15,
@@ -53,54 +54,55 @@ export const iconsContact = [{
 },
 ] as TypeIconFooter[];
 
-export const iconsSupport = [{
-  icon: <WWW fill='#211634' />,
-  href: '#',
-  title: 'Website',
-  spacingsRight: 28.14,
-  width: 19.73,
-  height: 20
+export const iconsSupport = [
+  {
+    icon: <WWW fill='#231536' fillDark='#D1DEE6' />,
+    href: '#',
+    title: 'Website',
+    spacingsRight: 28.14,
+    width: 19.73,
+    height: 20
 
-},
-{
-  icon: <Forum fill='#211634' />,
-  href: 'https://forum.makerdao.com/',
-  title: 'Forum',
-  spacingsRight: 29,
-  width: 20,
-  height: 20
-},
-{
-  icon: <DiscordSupport fill='#211634' />,
-  href: 'https://discord.com/invite/RBRumCpEDH',
-  title: 'Discord',
-  spacingsRight: 29.5,
-  width: 17.5,
-  height: 20
-},
-{
-  icon: <Twitter fill='#211634' />,
-  href: 'https://twitter.com/MakerDAO',
-  title: 'Twitter',
-  spacingsRight: 28,
-  width: 20,
-  height: 20
-},
-{
-  icon: <Youtube fill='#211634' />,
-  href: 'https://www.youtube.com/MakerDAO',
-  title: 'Youtube',
-  spacingsRight: 29,
-  width: 20,
-  height: 14
-},
-{
-  icon: <LinkedIn fill='#211634' />,
-  href: 'https://www.linkedin.com/company/makerdao-ses/',
-  title: 'LinkedIn',
-  width: 19,
-  height: 19
-},
+  },
+  {
+    icon: <Forum fill='#231536' fillDark='#D1DEE6' />,
+    href: 'https://forum.makerdao.com/',
+    title: 'Forum',
+    spacingsRight: 29,
+    width: 20,
+    height: 20
+  },
+  {
+    icon: <DiscordSupport fill='#231536' fillDark='#D1DEE6' />,
+    href: 'https://discord.com/invite/RBRumCpEDH',
+    title: 'Discord',
+    spacingsRight: 29.5,
+    width: 17.5,
+    height: 20
+  },
+  {
+    icon: <Twitter fill='#231536' fillDark='#D1DEE6' />,
+    href: 'https://twitter.com/MakerDAO',
+    title: 'Twitter',
+    spacingsRight: 28,
+    width: 20,
+    height: 20
+  },
+  {
+    icon: <Youtube fill='#231536' fillDark='#D1DEE6' />,
+    href: 'https://www.youtube.com/MakerDAO',
+    title: 'Youtube',
+    spacingsRight: 29,
+    width: 20,
+    height: 14
+  },
+  {
+    icon: <LinkedIn fill='#231536' fillDark='#D1DEE6' />,
+    href: 'https://www.linkedin.com/company/makerdao-ses/',
+    title: 'LinkedIn',
+    width: 19,
+    height: 19
+  },
 ] as TypeIconFooter[];
 
 export const governesses = [

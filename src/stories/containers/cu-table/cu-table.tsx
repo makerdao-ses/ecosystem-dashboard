@@ -32,6 +32,7 @@ import { formatCode } from '../../../core/utils/string.utils';
 import { CoreUnitCard } from '../../components/core-unit-card/core-unit-card';
 import { Filters } from './cu-table-filters';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
 const sortNeutralState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled];
@@ -42,6 +43,7 @@ const headersAlign: ('flex-start' | 'center' | 'flex-end')[] = ['flex-start', 'f
 export const CuTable = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const isLight = useThemeContext().themeMode === 'light';
 
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
@@ -73,7 +75,7 @@ export const CuTable = () => {
   }), [data, filteredCategories, filteredStatuses, searchText]);
 
   const categoriesCount = useMemo(() => {
-    const result: {[id: string]: number} = {};
+    const result: { [id: string]: number } = {};
     Object.values(CuCategoryEnum).forEach(cat => {
       result[cat] = categoriesFiltered?.filter(cu => cu.category?.indexOf(cat) > -1).length;
     });
@@ -82,7 +84,7 @@ export const CuTable = () => {
   }, [filteredData]);
 
   const statusCount = useMemo(() => {
-    const result: {[id: string]: number} = {};
+    const result: { [id: string]: number } = {};
     Object.values(CuStatusEnum).forEach(cat => {
       result[cat] = statusesFiltered?.filter(cu => getLatestMip39FromCoreUnit(cu)?.mipStatus === cat).length;
     });
@@ -183,6 +185,7 @@ export const CuTable = () => {
             links={getLinksFromCoreUnit(coreUnit)}
             spacings={16}
             fill="#708390"
+            fillDark='#D2D4EF'
           />
         </div>
       ];
@@ -190,13 +193,13 @@ export const CuTable = () => {
   }, [filteredData, sortData, onClickRow]);
 
   const itemsList = useMemo(() => {
-    return filteredData.map((cu, i) => <CoreUnitCard key={`card-${i}`} coreUnit={cu} onClick={() => onClickRow(cu.code)} onClickFinances={() => onClickFinances(cu.code)}/>);
+    return filteredData.map((cu, i) => <CoreUnitCard key={`card-${i}`} coreUnit={cu} onClick={() => onClickRow(cu.code)} onClickFinances={() => onClickFinances(cu.code)} />);
   }, [filteredData, onClickRow]);
 
-  return <ContainerHome>
+  return <ContainerHome isLight={isLight}>
     <Wrapper>
       <Header>
-        <Title>Core Units</Title>
+        <Title isLight={isLight}>Core Units</Title>
         <FilterButtonWrapper
           onClick={toggleFiltersPopup}
         >
@@ -237,13 +240,13 @@ export const CuTable = () => {
   </ContainerHome>;
 };
 
-const ContainerHome = styled.div({
+const ContainerHome = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   padding: '22px 16px 0',
   marginTop: '64px',
   width: '100%',
-  marginBottom: '122.5px',
+  background: isLight ? '#FFFFFF' : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
   '@media (min-width: 1440px)': {
     padding: '22px 128px 0'
   },
@@ -253,7 +256,7 @@ const ContainerHome = styled.div({
   '@media (min-width: 435px)': {
     padding: '22px 32px 0'
   }
-});
+}));
 
 const Wrapper = styled.div({
   display: 'flex',
@@ -261,6 +264,8 @@ const Wrapper = styled.div({
   width: '100%',
   maxWidth: '1180px',
   margin: '0 auto',
+  paddingBottom: '8px',
+
 });
 
 const TableWrapper = styled.div({
@@ -289,15 +294,15 @@ const Header = styled.div({
   }
 });
 
-const Title = styled.div({
+const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
-  fontSize: '24px',
+  fontSize: isLight ? '24px' : '32px',
   fontWeight: 500,
-  lineHeight: '29px',
+  lineHeight: isLight ? '29px' : '38px',
   letterSpacing: '0.4px',
   flex: 1,
-  color: '#231536'
-});
+  color: isLight ? '#231536' : '#D2D4EF',
+}));
 
 const FilterButtonWrapper = styled.div({
   '@media (min-width: 835px)': {
