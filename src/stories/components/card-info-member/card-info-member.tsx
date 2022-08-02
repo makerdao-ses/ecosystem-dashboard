@@ -9,6 +9,7 @@ import { DateTime } from 'luxon';
 import { getColorJobPosition } from '../../../core/utils/color.utils';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { CustomPopover } from '../custom-popover/custom-popover';
 
 interface Props {
   contributorCommitment: ContributorCommitment;
@@ -58,10 +59,30 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
               }} src={contributor.facilitatorImage} />}
             title={<TypographyName isLight={isLight}>{contributor.name}</TypographyName>}
             subheader={
-              <TypographyEmail isLight={isLight} sx={{
-                marginTop: '8px',
+              <>
+                {contributor && contributor.email && contributor.email.length >= 40
+                  ? <CustomPopover
+                    title={contributor.email}
+                    id={'mouse-over-popover-goto'}>
+                    <TypographyEmail isLight={isLight}
+                      style={{
 
-              }}>{contributor.email}</TypographyEmail>
+                        textOverflow: 'ellipsis',
+                        overflow: 'hidden',
+                        width: '207px',
+                      }}>
+                      {contributor.email}
+                    </TypographyEmail>
+                  </CustomPopover>
+                  : <TypographyEmail isLight={isLight}
+                    style={{
+                      textOverflow: 'ellipsis',
+                      overflow: 'hidden',
+                    }}>
+                    {contributor.email}
+                  </TypographyEmail>}
+
+              </>
             }
           />
           <TypographyJobTitle sx={{
@@ -136,6 +157,7 @@ const TypographyStyled = styled(Typography)<{ color: string }>((props) => ({
 const TypographyEmail = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
   fontWeight: 400,
   fontStyle: 'normal',
+  fontSize: '14px',
   fontFamily: 'SF Pro Text, sans-serif',
   color: isLight ? '#231536' : '#D2D4EF',
   lineHeight: '18.2px',
