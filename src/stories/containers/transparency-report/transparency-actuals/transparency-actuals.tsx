@@ -22,6 +22,9 @@ interface TransparencyActualsProps {
   budgetStatements?: BudgetStatementDto[];
   code: string;
 }
+
+const mainTableHeaders = ['Budget', 'Forecast', 'Actuals', 'Difference', 'Payments', 'External Links'];
+
 export const TransparencyActuals = (props: TransparencyActualsProps) => {
   const [thirdIndex, setThirdIndex] = useState(0);
 
@@ -67,38 +70,10 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         <NumberCell key={3} value={budgetTotalActual} bold/>,
         <NumberCell key={4} value={budgetTotalDifference} bold/>,
         <NumberCell key={5} value={budgetTotalPayment} bold/>,
-        <TableCell key={6}/>,
       ]);
     }
 
     return result;
-  }, [currentBudgetStatement]);
-
-  const mainTableCards = useMemo(() => {
-    return <>
-      {wallets.map(wallet => <TransparencyCard
-        header={<WalletTableCell key={1} name={wallet.name} wallet={formatAddressForOutput(wallet.address)} address={wallet.address}/>}
-        headers={['Forecast', 'Actuals', 'Difference', 'Payments']}
-        items={[<NumberCell key={2} value={getWalletForecast(wallet)}/>,
-          <NumberCell key={3} value={getWalletActual(wallet)}/>,
-          <NumberCell key={3} value={getWalletDifference(wallet)}/>,
-          <NumberCell key={5} value={getWalletPayment(wallet)}/>]}
-        footer={<>
-          <CustomLink fontFamily={'SF Pro Display, sans-serif'} fontSize={16} href={`https://etherscan.io/address/${wallet.address}`} style={{ marginRight: '16px' }}>Etherscan</CustomLink>
-          <CustomLink fontFamily={'SF Pro Display, sans-serif'} fontSize={16} href={`https://gnosis-safe.io/app/eth:${wallet.address}`}>Gnosis</CustomLink>
-        </>}
-      />)}
-      <TransparencyCard
-        header={<TableCell><b>Total</b></TableCell>}
-        headers={['Forecast', 'Actuals', 'Difference', 'Payments']}
-        items={[
-          <NumberCell key={2} value={budgetTotalForecast} bold/>,
-          <NumberCell key={3} value={budgetTotalActual} bold/>,
-          <NumberCell key={4} value={budgetTotalDifference} bold/>,
-          <NumberCell key={5} value={budgetTotalPayment} bold/>,
-        ]}
-      />
-    </>;
   }, [currentBudgetStatement]);
 
   const getBreakdownItems = (items: BudgetStatementLineItemDto[]) => {
@@ -182,7 +157,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
 
       <TableWrapper>
         <InnerTable
-          headers={['Budget', 'Forecast', 'Actuals', 'Difference', 'Payments', 'External Links']}
+          headers={mainTableHeaders}
           items={mainTableItems}
           headersAlign={['left', 'right', 'right', 'right', 'right', 'left']}
           minWidth={120}
@@ -192,7 +167,12 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       </TableWrapper>
 
       <CardsWrapper>
-        {mainTableCards}
+        {mainTableItems.map(item => <TransparencyCard
+          header={item[0]}
+          headers={mainTableHeaders.slice(1, 5)}
+          items={item.slice(1)}
+          footer={item[5]}
+        />)}
       </CardsWrapper>
     </>}
 

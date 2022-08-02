@@ -58,7 +58,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
           <NumberCell key={5} value={getForecastSumOfMonthsOnWallet(props.budgetStatements, wallet?.address, props.currentMonth, [firstMonth, secondMonth, thirdMonth])}/>,
           <NumberCell key={6} value={getBudgetCapForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, props.currentMonth)}/>,
           <NumberCell key={7} value={getBudgetCapSumOfMonthsOnWallet(props.budgetStatements, wallet?.address, props.currentMonth, [firstMonth, secondMonth, thirdMonth])}/>,
-          <TableCell key={8}>
+          <TableCell key={8} responsivePadding={'0'}>
             <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://etherscan.io/address/${wallet.address}`} style={{ marginRight: '16px' }}>Etherscan</CustomLink>
             <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://gnosis-safe.io/app/eth:${wallet.address}`}>Gnosis</CustomLink>
           </TableCell>
@@ -73,43 +73,9 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
       <NumberCell key={5} value={getForecastSumForMonths(props.budgetStatements, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} bold/>,
       <NumberCell key={6} value={getBudgetCapForMonthOnBudgetStatement(props.budgetStatements, props.currentMonth, props.currentMonth)} bold/>,
       <NumberCell key={7} value={getTotalQuarterlyBudgetCapOnBudgetStatement(props.budgetStatements, [firstMonth, secondMonth, thirdMonth])} bold/>,
-      <TableCell key={8} />,
     ]);
 
     return result;
-  }, [props.currentMonth, props.budgetStatements]);
-
-  const forecastCardItems = useMemo(() => {
-    return <>
-      {wallets.map(wallet => <TransparencyCard
-        header={<WalletTableCell name={wallet.name} wallet={formatAddressForOutput(wallet.address ?? '')} address={wallet.address}/>}
-        headers={forecastTableHeaders.slice(1, 7)}
-        items={[
-          <NumberCell key={2} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, firstMonth)}/>,
-          <NumberCell key={3} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, secondMonth)}/>,
-          <NumberCell key={4} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, thirdMonth)}/>,
-          <NumberCell key={5} value={getForecastSumOfMonthsOnWallet(props.budgetStatements, wallet?.address, props.currentMonth, [firstMonth, secondMonth, thirdMonth])}/>,
-          <NumberCell key={6} value={getBudgetCapForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, props.currentMonth)}/>,
-          <NumberCell key={7} value={getBudgetCapSumOfMonthsOnWallet(props.budgetStatements, wallet?.address, props.currentMonth, [firstMonth, secondMonth, thirdMonth])}/>,
-        ]}
-        footer={<>
-          <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://etherscan.io/address/${wallet.address}`} style={{ marginRight: '16px' }}>Etherscan</CustomLink>
-          <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://gnosis-safe.io/app/eth:${wallet.address}`}>Gnosis</CustomLink>
-        </>}
-      />)}
-      <TransparencyCard
-        header={<TableCell key={1}><b>Total</b></TableCell>}
-        headers={forecastTableHeaders.slice(1, 7)}
-        items={[
-          <NumberCell key={2} value={getForecastSumForMonth(props.budgetStatements, props.currentMonth, firstMonth)} bold/>,
-          <NumberCell key={3} value={getForecastSumForMonth(props.budgetStatements, props.currentMonth, secondMonth)} bold/>,
-          <NumberCell key={4} value={getForecastSumForMonth(props.budgetStatements, props.currentMonth, thirdMonth)} bold/>,
-          <NumberCell key={5} value={getForecastSumForMonths(props.budgetStatements, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} bold/>,
-          <NumberCell key={6} value={getBudgetCapForMonthOnBudgetStatement(props.budgetStatements, props.currentMonth, props.currentMonth)} bold/>,
-          <NumberCell key={7} value={getTotalQuarterlyBudgetCapOnBudgetStatement(props.budgetStatements, [firstMonth, secondMonth, thirdMonth])} bold/>,
-        ]}
-      />
-    </>;
   }, [props.currentMonth, props.budgetStatements]);
 
   const breakdownHeaders = useMemo(() => {
@@ -211,7 +177,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
         headers={cardHeaders}
         items={item.slice(1)}
       />)}
-      {<TransparencyCard
+      <TransparencyCard
         header={<TableCell key={1}><b>Total</b></TableCell>}
         headers={cardHeaders}
         items={[
@@ -222,7 +188,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
           <NumberCell key={6} value={getBudgetCapForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, props.currentMonth)} bold/>,
           <NumberCell key={7} value={getBudgetCapSumOfMonthsOnWallet(props.budgetStatements, currentWalletAddress, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} bold/>,
         ]}
-      />}
+      />
     </>;
   }, [props.currentMonth, props.budgetStatements, thirdIndex]);
 
@@ -244,7 +210,12 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     </TableWrapper>
 
     <CardsWrapper>
-      {forecastCardItems}
+      {forecastTableItems.map(item => <TransparencyCard
+        header={item[0]}
+        headers={breakdownHeaders.slice(1, 7)}
+        items={item.slice(1, 7)}
+        footer={item[7]}
+      />)}
     </CardsWrapper>
 
     <Title marginBottom={24}>
