@@ -15,6 +15,7 @@ import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { formatCode } from '../../../core/utils/string.utils';
 import { CustomLink } from '../custom-link/custom-link';
 import lightTheme from '../../../../styles/theme/light';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface BudgetStatementFTEs {
   month: string
@@ -95,6 +96,7 @@ export const getLinksCoreUnit = (cu: CuAbout | CoreUnitDto) => {
 };
 
 export const TitleNavigationCuAbout = ({ coreUnitAbout, hiddenTextDescription }: Props) => {
+  const isLight = useThemeContext().themeMode === 'light';
   const phoneDimensions = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const tableDimensions = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const lessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
@@ -120,8 +122,8 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout, hiddenTextDescription }:
         <ContainerTitle>
           <ContainerSeparateData>
             <ResponsiveTitle>
-              <TypographySES>{formatCode(coreUnitAbout.code)}</TypographySES>
-              {coreUnitAbout.name && <TypographyTitle>{coreUnitAbout.name}</TypographyTitle>}
+              <TypographySES isLight={isLight}>{formatCode(coreUnitAbout.code)}</TypographySES>
+              {coreUnitAbout.name && <TypographyTitle isLight={isLight}>{coreUnitAbout.name}</TypographyTitle>}
             </ResponsiveTitle>
             {(phoneDimensions || lessPhone) && <div style={{
 
@@ -172,7 +174,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout, hiddenTextDescription }:
         </ContainerLinks>}
       </ContainerColum>
       {!(phoneDimensions || lessPhone || tableDimensions) && <ContainerLinks>
-        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#708390'} spacings={29} lastChild />
+        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#708390'} spacings={29} lastChild fillDark='#ADAFD4'/>
       </ContainerLinks>}
     </Container>
   );
@@ -196,12 +198,12 @@ const ContainerTitle = styled.div({
   },
 });
 
-const TypographyTitle = styled(Typography)({
+const TypographyTitle = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '24px',
   lineHeight: '29px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#E2D8EE',
   marginLeft: '16px',
   marginRight: '24px',
   fontFamily: 'FT Base, sans-serif',
@@ -221,14 +223,14 @@ const TypographyTitle = styled(Typography)({
     marginLeft: '4px',
     marginRight: '0px',
   },
-});
+}));
 
-const TypographySES = styled(Typography)({
+const TypographySES = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '24px',
   lineHeight: '29px',
-  color: '#9FAFB9',
+  color: isLight ? '#9FAFB9' : '#546978',
   fontFamily: 'FT Base, sans-serif',
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     fontWeight: 700,
@@ -241,7 +243,7 @@ const TypographySES = styled(Typography)({
     lineHeight: '19px',
   },
 
-});
+}));
 
 const Row = styled.div({
   display: 'flex',

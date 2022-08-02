@@ -8,12 +8,14 @@ import { getLinksFromContributor } from '../../../core/business-logic/core-unit-
 import { DateTime } from 'luxon';
 import { getColorJobPosition } from '../../../core/utils/color.utils';
 import lightTheme from '../../../../styles/theme/light';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface Props {
   contributorCommitment: ContributorCommitment;
 }
 
 const CardInfoMember = ({ contributorCommitment }: Props) => {
+  const isLight = useThemeContext().themeMode === 'light';
   const since = DateTime.now().diff(DateTime.fromISO(contributorCommitment.startDate || ''), 'years').toFormat('y');
   const contributor = contributorCommitment.contributor[0] || [];
   const links = getLinksFromContributor(contributorCommitment);
@@ -22,7 +24,7 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
     <Box sx={{
       width: '100%',
     }}>
-      <Container square>
+      <Container square isLight={isLight}>
 
         <CardContent sx={{
           margin: '16px',
@@ -54,10 +56,9 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
                 height: '54px',
                 border: '3px solid #E7FCFA',
               }} src={contributor.facilitatorImage} />}
-            title={<TypographyName>{contributor.name}</TypographyName>}
+            title={<TypographyName isLight={isLight}>{contributor.name}</TypographyName>}
             subheader={
-              <TypographyEmail sx={{
-
+              <TypographyEmail isLight={isLight} sx={{
                 marginTop: '8px',
 
               }}>{contributor.email}</TypographyEmail>
@@ -73,35 +74,36 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
 
           <CardContentPositionRow>
             <CardContentPositionColumn>
-              <TypographyStyled color='#708390'>Since</TypographyStyled>
-              <TypographyStyled color='#231536'>{`${since} Years`}</TypographyStyled>
+              <TypographyStyled color='#708390' >Since</TypographyStyled>
+              <TypographyStyled color={isLight ? '#231536' : '#D2D4EF'}>{`${since} Years`}</TypographyStyled>
             </CardContentPositionColumn>
             <CardContentPositionColumn>
               <TypographyStyled color='#708390' >Commitment</TypographyStyled>
-              <TypographyStyled color=' #231536'>{contributorCommitment.commitment}</TypographyStyled>
+              <TypographyStyled color={isLight ? '#231536' : '#D2D4EF'}>{contributorCommitment.commitment}</TypographyStyled>
             </CardContentPositionColumn>
           </CardContentPositionRow>
-         </CardContent>
+        </CardContent>
         <Divider light sx={{
           marginBottom: '11px',
-          color: '#C4C4C4'
+          height: '1px',
+          bgcolor: isLight ? '#D4D9E1' : '#405361',
         }} variant='fullWidth' />
-        <CardLinksFooter><CuTableColumnLinks links={links} width={10} height={10} spacings={22} /></CardLinksFooter>
+        <CardLinksFooter><CuTableColumnLinks links={links} width={10} height={10} spacings={22} fillDark='#9FAFB9' /></CardLinksFooter>
       </Container>
     </Box >
   );
 };
 
-const Container = styled(Card)({
+const Container = styled(Card)<{ isLight: boolean }>(({ isLight }) => ({
   boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
-  backgroundColor: '#FFFFFF',
+  backgroundColor: isLight ? '#FFFFFF' : '#10191F',
   borderRadius: '6px',
   width: '335px',
   height: '232px',
   [lightTheme.breakpoints.down('table_375')]: {
     width: '100%',
   },
-});
+}));
 
 const CardContentPositionRow = styled.div({
   display: 'flex',
@@ -131,14 +133,13 @@ const TypographyStyled = styled(Typography)<{ color: string }>((props) => ({
   lineHeight: '22px'
 }));
 
-const TypographyEmail = styled(Typography)({
-  fontSize: '14px',
+const TypographyEmail = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
   fontWeight: 400,
   fontStyle: 'normal',
   fontFamily: 'SF Pro Text, sans-serif',
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   lineHeight: '18.2px',
-});
+}));
 
 const TypographyJobTitle = styled(Typography)({
   fontSize: '11px',
@@ -148,13 +149,13 @@ const TypographyJobTitle = styled(Typography)({
   fontStyle: 'normal',
 });
 
-const TypographyName = styled(Typography)({
+const TypographyName = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: '20px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   lineHeight: '24px',
   fontWeight: 500,
   letterSpacing: '0.3px',
   fontFamily: 'SF Pro Text, sans-serif',
-});
+}));
 
 export default CardInfoMember;
