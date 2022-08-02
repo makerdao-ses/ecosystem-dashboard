@@ -10,6 +10,7 @@ interface CustomLinkProps {
   iconHeight?: number;
   style?: CSSProperties;
   fontSize?: number;
+  fontSizeMobile?: number;
   fontWeight?: number;
   fontFamily?: string;
   withArrow?: boolean;
@@ -37,6 +38,7 @@ export const CustomLink = ({
       ...props.style
     }}
     fontSize={fontSize}
+    fontSizeMobile={props.fontSizeMobile}
     fontWeight={fontWeight}
     fontFamily={fontFamily}
     onClick={(evt) => evt.stopPropagation()}>
@@ -51,11 +53,11 @@ export const CustomLink = ({
   </Container>;
 };
 
-const Container = styled.a<{ fontSize: number, fontWeight: number, fontFamily: string, marginLeft?: string }>(({ fontSize, fontWeight, fontFamily, marginLeft = '4px' }) => ({
+const Container = styled.a<{ fontSize: number, fontSizeMobile?: number, fontWeight: number, fontFamily: string, marginLeft?: string }>(({ fontSize, fontSizeMobile, fontWeight, fontFamily, marginLeft = '4px' }) => ({
   fontStyle: 'normal',
   fontWeight,
   fontFamily,
-  fontSize: `${fontSize}px`,
+  fontSize: `${fontSizeMobile || fontSize}px`,
   lineHeight: '14px',
   letterSpacing: '1px',
   color: '#447AFB',
@@ -63,4 +65,7 @@ const Container = styled.a<{ fontSize: number, fontWeight: number, fontFamily: s
   marginLeft,
   cursor: 'pointer',
   whiteSpace: 'nowrap',
+  '@media (min-width: 835px)': {
+    fontSize: `${fontSize}px`
+  }
 }));

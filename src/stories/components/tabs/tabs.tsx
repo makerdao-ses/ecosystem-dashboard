@@ -22,7 +22,7 @@ export const Tabs = (props: TabsProps) => {
 };
 
 const Wrapper = styled.div({
-  width: 'calc(100vw + 32px)',
+  width: 'calc(100vw - 32px)',
   overflowX: 'scroll',
   '-ms-overflow-style': 'none',
   scrollbarHeight: 'none',
@@ -49,11 +49,14 @@ const Container = styled.div({
 const Tab = styled.div((props: { active: boolean }) => ({
   fontFamily: 'SF Pro Text, sans-serif',
   color: props.active ? '#1AAB9B' : '#708390',
-  fontSize: '16px',
+  fontSize: '14px',
   fontWeight: 400,
   paddingBottom: '12px',
   borderBottom: `2px solid ${props.active ? '#1AAB9B' : 'white'}`,
   cursor: 'pointer',
   transition: 'all .3s ease',
   whiteSpace: 'nowrap',
+  '@media (min-width: 835px)': {
+    fontSize: '16px',
+  }
 }));

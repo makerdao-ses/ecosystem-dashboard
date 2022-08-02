@@ -57,6 +57,7 @@ export const TransparencyReport = () => {
             iconHeight={10}
             iconWidth={10}
             fontSize={16}
+            fontSizeMobile={14}
             fontFamily={'SF Pro Display, sans-serif'}>
             how to submit your expenses here
           </CustomLink>
@@ -64,27 +65,31 @@ export const TransparencyReport = () => {
       </Paragraph>
 
       <PagerBar className="no-select">
-        <CustomPager
-          label={currentMonth.toFormat('MMM yyyy').toUpperCase()}
-          onPrev={() => setCurrentMonth(currentMonth.minus({ month: 1 }))}
-          onNext={() => setCurrentMonth(currentMonth.plus({ month: 1 }))}
-        />
-        {currentBudgetStatement?.publicationUrl && <CustomLink
-          href={currentBudgetStatement?.publicationUrl ?? null}
-          style={{
-            margin: '0 0 6px 0',
-            alignSelf: 'flex-end',
-          }}
-          iconHeight={10}
-          iconWidth={10}
-          fontSize={16}
-          fontFamily={'SF Pro Display, sans-serif'}
-        >
-          Source
-        </CustomLink>}
+        <PagerBarLeft>
+          <CustomPager
+            label={currentMonth.toFormat('MMM yyyy').toUpperCase()}
+            onPrev={() => setCurrentMonth(currentMonth.minus({ month: 1 }))}
+            onNext={() => setCurrentMonth(currentMonth.plus({ month: 1 }))}
+          />
+          {currentBudgetStatement?.publicationUrl && <CustomLink
+            href={currentBudgetStatement?.publicationUrl ?? null}
+            style={{
+              margin: '0 0 10px 0',
+              alignSelf: 'flex-end',
+            }}
+            iconHeight={10}
+            iconWidth={10}
+            fontSize={16}
+            fontFamily={'SF Pro Display, sans-serif'}
+          >
+            Source
+          </CustomLink>}
+        </PagerBarLeft>
         <Spacer/>
-        <StatusTitle>Status</StatusTitle>
-        <StatusValue color={colors[currentBudgetStatement?.budgetStatus] ?? ''}>{currentBudgetStatement?.budgetStatus ?? '-'}</StatusValue>
+        <StatusBar>
+          <StatusTitle>Status</StatusTitle>
+          <StatusValue color={colors[currentBudgetStatement?.budgetStatus] ?? ''}>{currentBudgetStatement?.budgetStatus ?? '-'}</StatusValue>
+        </StatusBar>
       </PagerBar>
 
       <Tabs
@@ -132,27 +137,48 @@ export const Title = styled.div<{ marginBottom?: number }>(({ marginBottom = 16 
   fontFamily: 'FT Base, sans-serif',
   fontWeight: 500,
   fontStyle: 'normal',
-  fontSize: '20px',
+  fontSize: '16px',
   lineHeight: '24px',
   letterSpacing: '0.4px',
   color: '#231536',
-  marginBottom: `${marginBottom}px`
+  marginBottom: `${marginBottom}px`,
+  '@media (min-width: 835px)': {
+    fontSize: '20px',
+  }
 }));
 
 const Paragraph = styled.div({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
-  fontSize: '16px',
+  fontSize: '14px',
   lineHeight: '19px',
   color: '#231536',
   marginBottom: '64px',
+  '@media (min-width: 835px)': {
+    fontSize: '16px'
+  }
 });
 
 const PagerBar = styled.div({
   display: 'flex',
-  alignItems: 'center',
+  alignItems: 'flex-start',
   flex: 1,
+  '@media (min-width: 835px)': {
+    alignItems: 'center',
+  }
+});
+
+const PagerBarLeft = styled.div({
+  display: 'block',
+  '@media (min-width: 835px)': {
+    display: 'flex',
+  }
+});
+
+const StatusBar = styled.div({
+  display: 'flex',
+  alignItems: 'center'
 });
 
 const StatusTitle = styled.div({
