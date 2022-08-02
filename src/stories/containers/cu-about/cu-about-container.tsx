@@ -104,7 +104,7 @@ const CuAboutContainer = () => {
                 }
               </ContainerCards>
             </ContactInfoContainer>
-            <Divider sx={{ marginTop: '32px' }} />
+            <Divider />
             <CardRelateMipsContainer>
               <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
               <RelateMipCards>
@@ -201,7 +201,6 @@ const ContactInfoContainer = styled.div({
   flexDirection: 'column',
   minHeight: '182px',
   marginTop: '36px',
-  marginBottom: '32px',
 });
 
 const ContactInfoTitle = styled(Typography)({
@@ -260,7 +259,7 @@ const TitleRelateMips = styled.div({
   fontWeight: 700,
   fontSize: '16px',
   lineHeight: '19px',
-  marginBottom: '32px',
+  marginBottom: '36px',
   color: '#231536',
 });
 
@@ -269,7 +268,6 @@ const RelateMipCards = styled.div({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  marginTop: '24px',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     width: '100%',
   },
