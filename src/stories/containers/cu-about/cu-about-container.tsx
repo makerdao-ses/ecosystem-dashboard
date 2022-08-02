@@ -25,9 +25,11 @@ import lightTheme from '../../../../styles/theme/light';
 import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { formatCode } from '../../../core/utils/string.utils';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 const CuAboutContainer = () => {
   const [isEnabled] = useFlagsActive();
+  const isLight = useThemeContext().themeMode === 'light';
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;
@@ -120,8 +122,12 @@ const CuAboutContainer = () => {
               </RelateMipCards>
             </CardRelateMipsContainer>
             {cuAbout && cuAbout.cuMip && cuAbout.cuMip.length > 3 && <ButtonContainer>
-              <DividerStyle /> <BigButton title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'} onClick={onClickLessMips} />
-              <DividerStyle />
+              <DividerStyle sx={{
+                bgcolor: isLight ? '#D4D9E1' : '#405361',
+              }} /> <BigButton title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'} onClick={onClickLessMips} />
+              <DividerStyle sx={{
+                bgcolor: isLight ? '#D4D9E1' : '#405361',
+              }} />
             </ButtonContainer>}
             {(table834 || phone) && <CardSomeThingWrong width='770px' />}
           </ContainerResponsive>
@@ -328,7 +334,6 @@ const ContainerAllData = styled.div({
 
 const DividerStyle = styled(Divider)({
   width: '100%',
-  bgcolor: '#D4D9E1',
 });
 
 const ContainerScroll = styled.div({
