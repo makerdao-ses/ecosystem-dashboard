@@ -1,7 +1,9 @@
 
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
+import { is } from 'immer/dist/internal';
 import React from 'react';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SES_DASHBOARD, TYPE_FORM } from '../../../core/utils/const';
 import { CustomLink } from '../custom-link/custom-link';
 import InformationCard from './information-card';
@@ -12,35 +14,36 @@ interface Props {
 }
 
 const CardSomeThingWrong = ({ width, height = '208px' }: Props) => {
+  const isLight = useThemeContext().themeMode === 'light';
   return (
-    <InformationCard title='Something Wrong on this Page?' height={height} width={width}>
+    <InformationCard title='Something Wrong on this Page?' height={height} width={width} color={isLight ? '#231536' : '#D2D4EF'}>
 
-      <TypographyDescription marginBottom={'8px'}>Is this your core unit?
+      <TypographyDescription marginBottom={'8px'} isLight={isLight}>Is this your core unit?
       </TypographyDescription>
-      <TypographyDescription marginBottom={'16px'}>
+      <TypographyDescription marginBottom={'16px'} isLight={isLight}>
         We are still collecting all the relevant information.<br />
         If you see something that needs updating, don't hesitate to contact us.
       </TypographyDescription>
-        <CustomLink
+      <CustomLink
         href={SES_DASHBOARD}
-          style={{
-            flexWrap: 'wrap',
-            color: '#447AFB',
-            letterSpacing: '0.3px',
-            lineHeight: '19px',
-            marginBottom: '16px',
-            marginLeft: '0px',
-            whiteSpace: 'break-spaces',
-            display: 'inline-block',
+        style={{
+          flexWrap: 'wrap',
+          color: '#447AFB',
+          letterSpacing: '0.3px',
+          lineHeight: '19px',
+          marginBottom: '16px',
+          marginLeft: '0px',
+          whiteSpace: 'break-spaces',
+          display: 'inline-block',
 
-          }}
-          fontSize={16}
-          fontWeight={500}
-          iconWidth={10}
-          iconHeight={10}
-          marginLeft='7px'
-          fontFamily='SF Pro Display, sans-serif'
-        >Join SES discord #dashboard-reporting channel</CustomLink><br/>
+        }}
+        fontSize={16}
+        fontWeight={500}
+        iconWidth={10}
+        iconHeight={10}
+        marginLeft='7px'
+        fontFamily='SF Pro Display, sans-serif'
+      >Join SES discord #dashboard-reporting channel</CustomLink><br />
       <CustomLink style={{
         color: '#447AFB',
         letterSpacing: '0.3px',
@@ -48,7 +51,7 @@ const CardSomeThingWrong = ({ width, height = '208px' }: Props) => {
         marginBottom: '16px',
         marginLeft: '0px'
       }}
-      href={TYPE_FORM}
+        href={TYPE_FORM}
         iconWidth={10}
         iconHeight={10}
         fontSize={16}
@@ -61,13 +64,13 @@ const CardSomeThingWrong = ({ width, height = '208px' }: Props) => {
 
 export default CardSomeThingWrong;
 
-const TypographyDescription = styled(Typography)<{ marginBottom?: string }>((props) => ({
+const TypographyDescription = styled(Typography)<{ marginBottom?: string, isLight: boolean }>(({ isLight, marginBottom }) => ({
   fontFamily: 'SF Pro Text, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '15px',
   lineHeight: '18px',
   letterSpacing: ' 0.4px',
-  color: '#546978',
-  marginBottom: props.marginBottom || '0px'
+  color: isLight ? '#546978 ' : '#FFFFFF',
+  marginBottom: marginBottom || '0px'
 }));
