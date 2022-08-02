@@ -100,8 +100,8 @@ export const TransparencyReport = () => {
           margin: '32px 0',
         }}
       />
-      {thirdIndex === 0 && <TransparencyActuals code={code} currentMonth={currentMonth} budgetStatements={cu?.budgetStatements} />}
-      {/* {thirdIndex === 1 && <TransparencyForecast currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>} */}
+     {thirdIndex === 0 && <TransparencyActuals code={code} currentMonth={currentMonth} budgetStatements={cu?.budgetStatements} />}
+     {thirdIndex === 1 && <TransparencyForecast currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>}
      {/* {thirdIndex === 2 && <TransparencyMkrVesting currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>} */}
      {/* {thirdIndex === 3 && <TransparencyTransferRequest currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>} */}
      {/* {thirdIndex === 4 && <TransparencyAudit budgetStatement={currentBudgetStatement}/>} */}
@@ -205,4 +205,18 @@ const StatusValue = styled.div<{ color: string }>(({ color }) => ({
 
 const Spacer = styled.div({
   flex: '1',
+});
+
+export const TableWrapper = styled.div({
+  display: 'none',
+  '@media (min-width: 835px)': {
+    display: 'block'
+  }
+});
+
+export const CardsWrapper = styled.div({
+  display: 'block',
+  '@media (min-width: 835px)': {
+    display: 'none'
+  }
 });

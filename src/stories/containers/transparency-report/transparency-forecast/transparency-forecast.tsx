@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { DateTime } from 'luxon';
 import styled from '@emotion/styled';
-import { Title } from '../transparency-report';
+import { CardsWrapper, TableWrapper, Title } from '../transparency-report';
 import { InnerTable } from '../../../components/inner-table/inner-table';
 import { Tabs } from '../../../components/tabs/tabs';
 import { WalletTableCell } from '../../../components/wallet-table-cell/wallet-table-cell';
@@ -12,6 +12,7 @@ import { useTransparencyForecastMvvm } from './transparency-forecast.mvvm';
 import { formatAddressForOutput } from '../../../../core/utils/string.utils';
 import _ from 'lodash';
 import { NumberCell } from '../../../components/number-cell/number-cell';
+import { TransparencyCard } from '../../../components/transparency-card/transparency-card';
 
 interface TransparencyForecastProps {
   currentMonth: DateTime;
@@ -77,6 +78,39 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
 
     return result;
   }, [props.currentMonth, props.budgetStatements]);
+
+  const forecastCardItems = useMemo(() => {
+    return <>
+      {wallets.map(wallet => <TransparencyCard
+        header={<WalletTableCell name={wallet.name} wallet={formatAddressForOutput(wallet.address ?? '')} address={wallet.address}/>}
+        headers={forecastTableHeaders.slice(1, 7)}
+        items={[
+          <NumberCell key={2} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, firstMonth)}/>,
+          <NumberCell key={3} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, secondMonth)}/>,
+          <NumberCell key={4} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, thirdMonth)}/>,
+          <NumberCell key={5} value={getForecastSumOfMonthsOnWallet(props.budgetStatements, wallet?.address, props.currentMonth, [firstMonth, secondMonth, thirdMonth])}/>,
+          <NumberCell key={6} value={getBudgetCapForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, props.currentMonth)}/>,
+          <NumberCell key={7} value={getBudgetCapSumOfMonthsOnWallet(props.budgetStatements, wallet?.address, props.currentMonth, [firstMonth, secondMonth, thirdMonth])}/>,
+        ]}
+        footer={<>
+          <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://etherscan.io/address/${wallet.address}`} style={{ marginRight: '16px' }}>Etherscan</CustomLink>
+          <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://gnosis-safe.io/app/eth:${wallet.address}`}>Gnosis</CustomLink>
+        </>}
+      />)}
+      <TransparencyCard
+        header={<TableCell key={1}><b>Total</b></TableCell>}
+        headers={forecastTableHeaders.slice(1, 7)}
+        items={[
+          <NumberCell key={2} value={getForecastSumForMonth(props.budgetStatements, props.currentMonth, firstMonth)} bold/>,
+          <NumberCell key={3} value={getForecastSumForMonth(props.budgetStatements, props.currentMonth, secondMonth)} bold/>,
+          <NumberCell key={4} value={getForecastSumForMonth(props.budgetStatements, props.currentMonth, thirdMonth)} bold/>,
+          <NumberCell key={5} value={getForecastSumForMonths(props.budgetStatements, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} bold/>,
+          <NumberCell key={6} value={getBudgetCapForMonthOnBudgetStatement(props.budgetStatements, props.currentMonth, props.currentMonth)} bold/>,
+          <NumberCell key={7} value={getTotalQuarterlyBudgetCapOnBudgetStatement(props.budgetStatements, [firstMonth, secondMonth, thirdMonth])} bold/>,
+        ]}
+      />
+    </>;
+  }, []);
 
   const breakdownHeaders = useMemo(() => {
     return ['Budget Category', firstMonth.toFormat('MMMM'), secondMonth.toFormat('MMMM'), thirdMonth.toFormat('MMMM'), '3 Months', 'Monthly Budget', 'Quarterly Budget Cap'];
@@ -170,15 +204,21 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
       {props.currentMonth.toFormat('MMM yyyy')} Totals
     </Title>
 
-    <InnerTable
-      headers={forecastTableHeaders}
-      items={forecastTableItems}
-      minWidth={80}
-      headersAlign={['left', 'right', 'right', 'right', 'right', 'right', 'right', 'left']}
-      headerWidths={['190px', '105px', '105px', '105px', '116px', '140px', '200px', '224px']}
-      headerStyles={[{}, {}, {}, {}, { paddingLeft: 0 }, { paddingLeft: 0 }, { paddingLeft: 0 }, {}]}
-      style={{ marginBottom: '64px' }}
-    />
+    <TableWrapper>
+      <InnerTable
+        headers={forecastTableHeaders}
+        items={forecastTableItems}
+        minWidth={80}
+        headersAlign={['left', 'right', 'right', 'right', 'right', 'right', 'right', 'left']}
+        headerWidths={['190px', '105px', '105px', '105px', '116px', '140px', '200px', '224px']}
+        headerStyles={[{}, {}, {}, {}, { paddingLeft: 0 }, { paddingLeft: 0 }, { paddingLeft: 0 }, {}]}
+        style={{ marginBottom: '64px' }}
+      />
+    </TableWrapper>
+
+    <CardsWrapper>
+      {forecastCardItems}
+    </CardsWrapper>
 
     <Title marginBottom={24}>
       {props.currentMonth.toFormat('MMM yyyy')} Breakdown
@@ -193,13 +233,15 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
       }}
     />
 
-    <InnerTable
-        headers={breakdownHeaders}
-        items={breakdownItems}
-        minWidth={80}
-        headerWidths={['260px', '141px', '141px', '141px', '116px', '141px', '241px', '219px']}
-        headersAlign={['left', 'right', 'right', 'right', 'right', 'right', 'right']}
-    />
+    <TableWrapper>
+      <InnerTable
+          headers={breakdownHeaders}
+          items={breakdownItems}
+          minWidth={80}
+          headerWidths={['260px', '141px', '141px', '141px', '116px', '141px', '241px', '219px']}
+          headersAlign={['left', 'right', 'right', 'right', 'right', 'right', 'right']}
+      />
+    </TableWrapper>
   </Container>;
 };
 

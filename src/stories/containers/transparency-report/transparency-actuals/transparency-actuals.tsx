@@ -15,6 +15,7 @@ import { useTransparencyActualsMvvm } from './transparency-actuals.mvvm';
 import { formatAddressForOutput } from '../../../../core/utils/string.utils';
 import { NumberCell } from '../../../components/number-cell/number-cell';
 import { TransparencyCard } from '../../../components/transparency-card/transparency-card';
+import { CardsWrapper, TableWrapper } from '../transparency-report';
 
 interface TransparencyActualsProps {
   currentMonth: DateTime;
@@ -229,20 +230,6 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
 const Container = styled.div({
   display: 'flex',
   flexDirection: 'column'
-});
-
-const TableWrapper = styled.div({
-  display: 'none',
-  '@media (min-width: 835px)': {
-    display: 'block'
-  }
-});
-
-const CardsWrapper = styled.div({
-  display: 'block',
-  '@media (min-width: 835px)': {
-    display: 'none'
-  }
 });
 
 const Title = styled.div<{ fontSize?: string }>(({ fontSize = '16px' }) => ({
