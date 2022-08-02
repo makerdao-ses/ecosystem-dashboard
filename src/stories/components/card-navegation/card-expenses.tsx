@@ -20,7 +20,7 @@ const CardExpenses = ({ onClick, code, name }: Props) => {
       </TypographyDescription>
       <CustomButton widthText='100%' label='View Expenses' style={{
         textAlign: 'center',
-        background: '#E7FCFA',
+        background: isLight ? '#E7FCFA' : 'none',
         border: '1px solid #1AAB9B',
         borderRadius: '22px',
         height: ' 34px',

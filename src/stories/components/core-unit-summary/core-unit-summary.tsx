@@ -11,12 +11,14 @@ import _ from 'lodash';
 import lightTheme from '../../../../styles/theme/light';
 import BreadCrumbMobile from '../pagination/bread-crumb-mobile';
 import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface CoreUnitSummaryProps {
   trailingAddress?: string[];
 }
 
 export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) => {
+  const isLight = useThemeContext().themeMode === 'light';
   const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const lessThanPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
   const [hiddenTextDescription, setHiddenTextDescription] = useState(true);
@@ -71,11 +73,11 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
     },
     [code, filteredData, router]);
 
-  return <Container ref={ref}>
-    {!(phone || lessThanPhone) && <NavigationHeader className="no-select">
+  return <Container ref={ref} isLight={isLight}>
+    {!(phone || lessThanPhone) && <NavigationHeader className="no-select" isLight={isLight}>
       <Breadcrumbs items={[
         {
-          label: <span>Core Units <b>({filteredData.length})</b></span>,
+          label: <CoreUnitStyle isLight={isLight}>Core Units <b>({filteredData.length})</b></CoreUnitStyle>,
           url: `/?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
         },
         {
@@ -86,7 +88,7 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
           label: adr,
           url: ''
         }))
-      ]}/>
+      ]} />
       <InsidePagination count={filteredData.length} page={page} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} />
     </NavigationHeader>}
     {(phone || lessThanPhone) && <div style={{
@@ -117,30 +119,30 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
       <ContainerTitle>
         <TitleNavigationCuAbout coreUnitAbout={cu} hiddenTextDescription={hiddenTextDescription} />
         {hiddenTextDescription &&
-          <div> <TypographyDescription
+          <div> <TypographyDescription isLight={isLight}
           >{cu?.sentenceDescription || ''}</TypographyDescription>
           </div>}
       </ContainerTitle>
     </Wrapper>
     <div style={{
       position: 'relative',
-      borderBottom: hiddenTextDescription ? '1px solid #B6EDE7' : 'none',
+      borderBottom: hiddenTextDescription && isLight ? '1px solid #B6EDE7' : hiddenTextDescription && !isLight ? '1px solid #027265' : 'none',
       width: '100%',
       marginTop: '24px',
     }} />
   </Container>;
 };
 
-const Container = styled.div({
+const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   position: 'sticky',
-  top: 63,
+  top: 60,
   width: '100%',
-  backgroundImage: 'url(/assets/img/Subheader.png)',
+  backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
   backgroundSize: 'cover',
   zIndex: 3,
-});
+}));
 
-const NavigationHeader = styled.div({
+const NavigationHeader = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
@@ -149,7 +151,9 @@ const NavigationHeader = styled.div({
   paddingLeft: '32px',
   paddingRight: '32px',
   marginBottom: '16px',
-});
+  background: isLight ? 'none' : 'url(/assets/img/overlay.png)',
+  backgroundSize: 'cover',
+}));
 
 const ContainerTitle = styled.div({
   display: 'flex',
@@ -194,10 +198,10 @@ const Wrapper = styled.div({
   },
 });
 
-const TypographyDescription = styled(Typography)({
+const TypographyDescription = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: '16px',
   lineHeight: '19px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#E2D8EE',
   fontFamily: 'FT Base, sans-serif',
   marginTop: '16px',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
@@ -211,7 +215,7 @@ const TypographyDescription = styled(Typography)({
     fontSize: '12px',
     lineHeight: '14px'
   },
-});
+}));
 
 const Value = styled.b({
   fontFamily: 'FT Base, sans-serif',
@@ -221,3 +225,7 @@ const Value = styled.b({
   lineHeight: '19px',
   color: '#708390'
 });
+
+const CoreUnitStyle = styled.span<{ isLight: boolean }>(({ isLight }) => ({
+  color: isLight ? '#708390' : '#787A9B',
+}));

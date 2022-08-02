@@ -113,7 +113,6 @@ const Container = styled.header<{ themeMode: string }>((props) => ({
   height: '64px',
   justifyContent: 'space-between',
   background: props.themeMode === 'light' ? 'url(/assets/img/bg-header.png)' : 'url(/assets/img/bg-header-dark.png)',
-  borderBottom: '1px solid #E7FCFA',
 }));
 
 const LeftPart = styled.div({
