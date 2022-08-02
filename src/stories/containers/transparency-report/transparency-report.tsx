@@ -100,8 +100,8 @@ export const TransparencyReport = () => {
           margin: '32px 0',
         }}
       />
-     {/* {thirdIndex === 0 && <TransparencyActuals code={code} currentMonth={currentMonth} budgetStatements={cu?.budgetStatements} />} */}
-     {/* {thirdIndex === 1 && <TransparencyForecast currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>} */}
+      {thirdIndex === 0 && <TransparencyActuals code={code} currentMonth={currentMonth} budgetStatements={cu?.budgetStatements} />}
+      {/* {thirdIndex === 1 && <TransparencyForecast currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>} */}
      {/* {thirdIndex === 2 && <TransparencyMkrVesting currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>} */}
      {/* {thirdIndex === 3 && <TransparencyTransferRequest currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>} */}
      {/* {thirdIndex === 4 && <TransparencyAudit budgetStatement={currentBudgetStatement}/>} */}
