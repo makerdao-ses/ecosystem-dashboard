@@ -40,7 +40,7 @@ export default InformationCard;
 
 const Container = styled(Box)<{ width?: string, isLight: boolean }>(({ width, isLight }) => ({
   background: isLight ? '#FFFFFF' : '#10191F',
-  boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
+  boxShadow: isLight ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
   borderRadius: '6px',
   padding: '16px 16px 24px 16px',
   width: width || '405px',
