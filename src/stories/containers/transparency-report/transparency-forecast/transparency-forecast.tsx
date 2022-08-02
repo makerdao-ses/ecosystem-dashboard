@@ -7,7 +7,7 @@ import { Tabs } from '../../../components/tabs/tabs';
 import { WalletTableCell } from '../../../components/wallet-table-cell/wallet-table-cell';
 import { TableCell } from '../../../components/table-cell/table-cell';
 import { CustomLink } from '../../../components/custom-link/custom-link';
-import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
+import { BudgetStatementDto, BudgetStatementLineItemDto } from '../../../../core/models/dto/core-unit.dto';
 import { useTransparencyForecastMvvm } from './transparency-forecast.mvvm';
 import { formatAddressForOutput } from '../../../../core/utils/string.utils';
 import _ from 'lodash';
@@ -110,11 +110,37 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
         ]}
       />
     </>;
-  }, []);
+  }, [props.currentMonth, props.budgetStatements]);
 
   const breakdownHeaders = useMemo(() => {
     return ['Budget Category', firstMonth.toFormat('MMMM'), secondMonth.toFormat('MMMM'), thirdMonth.toFormat('MMMM'), '3 Months', 'Monthly Budget', 'Quarterly Budget Cap'];
   }, [props.currentMonth, props.budgetStatements]);
+
+  const getBreakdownItemsForGroup = (grouped: { [id:string]: BudgetStatementLineItemDto[]}) => {
+    const result = [];
+    for (const groupedKey in grouped) {
+      if (Math.abs(getLineItemForecastSumForMonth(grouped[groupedKey], firstMonth)) +
+        Math.abs(getLineItemForecastSumForMonth(grouped[groupedKey], secondMonth)) +
+        Math.abs(getLineItemForecastSumForMonth(grouped[groupedKey], thirdMonth)) +
+        Math.abs(getLineItemForecastSumForMonths(grouped[groupedKey], [firstMonth, secondMonth, thirdMonth])) +
+        Math.abs(getBudgetCapForMonthOnLineItem(grouped[groupedKey], props.currentMonth)) +
+        Math.abs(getTotalQuarterlyBudgetCapOnLineItem(grouped[groupedKey], [firstMonth, secondMonth, thirdMonth])) === 0
+      ) {
+        continue;
+      }
+      result.push([
+        <TableCell key={1}>{groupedKey}</TableCell>,
+        <NumberCell key={2} value={getLineItemForecastSumForMonth(grouped[groupedKey], firstMonth)}/>,
+        <NumberCell key={3} value={getLineItemForecastSumForMonth(grouped[groupedKey], secondMonth)}/>,
+        <NumberCell key={4} value={getLineItemForecastSumForMonth(grouped[groupedKey], thirdMonth)}/>,
+        <NumberCell key={5} value={getLineItemForecastSumForMonths(grouped[groupedKey], [firstMonth, secondMonth, thirdMonth])}/>,
+        <NumberCell key={6} value={getBudgetCapForMonthOnLineItem(grouped[groupedKey], props.currentMonth)}/>,
+        <NumberCell key={7} value={getTotalQuarterlyBudgetCapOnLineItem(grouped[groupedKey], [firstMonth, secondMonth, thirdMonth])}/>,
+      ]);
+    }
+
+    return result;
+  };
 
   const breakdownItems = useMemo(() => {
     const result: JSX.Element[][] = [];
@@ -138,26 +164,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
 
     const groupedHeadCount = _.groupBy(ungrouped.filter(x => x.headcountExpense), item => item.budgetCategory);
 
-    for (const groupedKey in groupedHeadCount) {
-      if (Math.abs(getLineItemForecastSumForMonth(groupedHeadCount[groupedKey], firstMonth)) +
-        Math.abs(getLineItemForecastSumForMonth(groupedHeadCount[groupedKey], secondMonth)) +
-        Math.abs(getLineItemForecastSumForMonth(groupedHeadCount[groupedKey], thirdMonth)) +
-        Math.abs(getLineItemForecastSumForMonths(groupedHeadCount[groupedKey], [firstMonth, secondMonth, thirdMonth])) +
-        Math.abs(getBudgetCapForMonthOnLineItem(groupedHeadCount[groupedKey], props.currentMonth)) +
-        Math.abs(getTotalQuarterlyBudgetCapOnLineItem(groupedHeadCount[groupedKey], [firstMonth, secondMonth, thirdMonth])) === 0
-      ) {
-        continue;
-      }
-      result.push([
-        <TableCell key={1}>{groupedKey}</TableCell>,
-        <NumberCell key={2} value={getLineItemForecastSumForMonth(groupedHeadCount[groupedKey], firstMonth)}/>,
-        <NumberCell key={3} value={getLineItemForecastSumForMonth(groupedHeadCount[groupedKey], secondMonth)}/>,
-        <NumberCell key={4} value={getLineItemForecastSumForMonth(groupedHeadCount[groupedKey], thirdMonth)}/>,
-        <NumberCell key={5} value={getLineItemForecastSumForMonths(groupedHeadCount[groupedKey], [firstMonth, secondMonth, thirdMonth])}/>,
-        <NumberCell key={6} value={getBudgetCapForMonthOnLineItem(groupedHeadCount[groupedKey], props.currentMonth)}/>,
-        <NumberCell key={7} value={getTotalQuarterlyBudgetCapOnLineItem(groupedHeadCount[groupedKey], [firstMonth, secondMonth, thirdMonth])}/>,
-      ]);
-    }
+    result.push(...getBreakdownItemsForGroup(groupedHeadCount));
 
     result.push([
       <TableCell key={1}><b>Non-Headcount Expenses</b></TableCell>,
@@ -165,26 +172,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
 
     const groupedNonHeadCount = _.groupBy(ungrouped.filter(x => !x.headcountExpense), item => item.budgetCategory);
 
-    for (const groupedKey in groupedNonHeadCount) {
-      if (Math.abs(getLineItemForecastSumForMonth(groupedNonHeadCount[groupedKey], firstMonth)) +
-        Math.abs(getLineItemForecastSumForMonth(groupedNonHeadCount[groupedKey], secondMonth)) +
-        Math.abs(getLineItemForecastSumForMonth(groupedNonHeadCount[groupedKey], thirdMonth)) +
-        Math.abs(getLineItemForecastSumForMonths(groupedNonHeadCount[groupedKey], [firstMonth, secondMonth, thirdMonth])) +
-        Math.abs(getBudgetCapForMonthOnLineItem(groupedNonHeadCount[groupedKey], props.currentMonth)) +
-        Math.abs(getTotalQuarterlyBudgetCapOnLineItem(groupedNonHeadCount[groupedKey], [firstMonth, secondMonth, thirdMonth])) === 0
-      ) {
-        continue;
-      }
-      result.push([
-        <TableCell key={1}>{groupedKey}</TableCell>,
-        <NumberCell key={2} value={getLineItemForecastSumForMonth(groupedNonHeadCount[groupedKey], firstMonth)}/>,
-        <NumberCell key={3} value={getLineItemForecastSumForMonth(groupedNonHeadCount[groupedKey], secondMonth)}/>,
-        <NumberCell key={4} value={getLineItemForecastSumForMonth(groupedNonHeadCount[groupedKey], thirdMonth)}/>,
-        <NumberCell key={5} value={getLineItemForecastSumForMonths(groupedNonHeadCount[groupedKey], [firstMonth, secondMonth, thirdMonth])}/>,
-        <NumberCell key={6} value={getBudgetCapForMonthOnLineItem(groupedNonHeadCount[groupedKey], props.currentMonth)}/>,
-        <NumberCell key={7} value={getTotalQuarterlyBudgetCapOnLineItem(groupedNonHeadCount[groupedKey], [firstMonth, secondMonth, thirdMonth])}/>,
-      ]);
-    }
+    result.push(...getBreakdownItemsForGroup(groupedNonHeadCount));
 
     result.push([
       <TableCell key={1}><b>Total</b></TableCell>,
@@ -197,6 +185,45 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     ]);
 
     return result;
+  }, [props.currentMonth, props.budgetStatements, thirdIndex]);
+
+  const breakdownCards = useMemo(() => {
+    const currentWalletAddress = wallets[thirdIndex]?.address ?? '';
+
+    const ungrouped = [
+      ...getLineItemsForWalletOnMonth(props.budgetStatements, props.currentMonth, firstMonth, currentWalletAddress),
+      ...getLineItemsForWalletOnMonth(props.budgetStatements, props.currentMonth, secondMonth, currentWalletAddress),
+      ...getLineItemsForWalletOnMonth(props.budgetStatements, props.currentMonth, thirdMonth, currentWalletAddress),
+    ];
+
+    const cardHeaders = breakdownHeaders.slice(1, 7);
+
+    return <>
+      <Title>Headcount Expenses</Title>
+      {getBreakdownItemsForGroup(_.groupBy(ungrouped.filter(x => x.headcountExpense), item => item.budgetCategory)).map(item => <TransparencyCard
+        header={item[0]}
+        headers={cardHeaders}
+        items={item.slice(1)}
+      />)}
+      <Title>Non-Headcount Expenses</Title>
+      {getBreakdownItemsForGroup(_.groupBy(ungrouped.filter(x => !x.headcountExpense), item => item.budgetCategory)).map(item => <TransparencyCard
+        header={item[0]}
+        headers={cardHeaders}
+        items={item.slice(1)}
+      />)}
+      {<TransparencyCard
+        header={<TableCell key={1}><b>Total</b></TableCell>}
+        headers={cardHeaders}
+        items={[
+          <NumberCell key={2} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, firstMonth)} bold/>,
+          <NumberCell key={3} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, secondMonth)} bold/>,
+          <NumberCell key={4} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, thirdMonth)} bold/>,
+          <NumberCell key={5} value={getForecastSumOfMonthsOnWallet(props.budgetStatements, currentWalletAddress, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} bold/>,
+          <NumberCell key={6} value={getBudgetCapForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, props.currentMonth)} bold/>,
+          <NumberCell key={7} value={getBudgetCapSumOfMonthsOnWallet(props.budgetStatements, currentWalletAddress, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} bold/>,
+        ]}
+      />}
+    </>;
   }, [props.currentMonth, props.budgetStatements, thirdIndex]);
 
   return <Container>
@@ -242,6 +269,10 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
           headersAlign={['left', 'right', 'right', 'right', 'right', 'right', 'right']}
       />
     </TableWrapper>
+
+    <CardsWrapper>
+      {breakdownCards}
+    </CardsWrapper>
   </Container>;
 };
 
