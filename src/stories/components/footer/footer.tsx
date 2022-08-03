@@ -14,13 +14,14 @@ export interface LinkInterface {
 interface Props {
   governesses: LinkInterface[],
   products: LinkInterface[],
-  developer: LinkInterface[]
+  developer: LinkInterface[],
+  isLight: boolean,
 }
 
-const Footer = ({ governesses, products, developer }: Props) => {
+const Footer = ({ governesses, products, developer, isLight }: Props) => {
   return (
     <FooterWrapper>
-      <ContainerImage />
+      <ContainerImage isLight={isLight} />
       <ContainerFooter>
         <ContainerColumOne>
           <FooterContact
@@ -30,7 +31,7 @@ const Footer = ({ governesses, products, developer }: Props) => {
               paddingLeft: '6px',
               paddingRight: '6.3px',
             }}
-            logo={<Logo width={37} height={20}/>}
+            logo={<Logo width={37} height={20} fill={isLight ? '#211634' : '#D1DEE6'} />}
             links={iconsContact}
           />
         </ContainerColumOne>
@@ -50,7 +51,7 @@ const Footer = ({ governesses, products, developer }: Props) => {
           <DescriptionFooter
             title="Developer"
             children={developer}
-           />
+          />
         </ContainerColumFour>
         <ContainerColumLast>
           <FooterContact
@@ -60,7 +61,7 @@ const Footer = ({ governesses, products, developer }: Props) => {
               paddingLeft: '6.13px',
               paddingRight: '6px',
             }}
-            logo={<SesLogo />}
+            logo={<SesLogo fill={isLight ? '#211634' : '#D1DEE6'} />}
             links={iconsSupport}
           />
         </ContainerColumLast>
@@ -77,18 +78,18 @@ const FooterWrapper = styled.footer({
   minWidth: '360px',
 });
 
-const ContainerImage = styled.div({
+const ContainerImage = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   width: '100%',
   height: '100%',
   left: '50%',
   zIndex: -1,
   transform: 'translate(-50%)',
-  backgroundImage: 'url(/assets/img/bg_footer_light.jpeg)',
+  backgroundImage: isLight ? 'url(/assets/img/bg_footer_light.jpeg)' : 'url(/assets/img/bg-footer-dark.jpg)',
   backgroundSize: '100% 100%',
   backgroundPosition: 'center bottom',
   backgroundRepeat: 'no-repeat',
   position: 'absolute',
-});
+}));
 
 const ContainerFooter = styled.div({
   display: 'flex',

@@ -4,6 +4,7 @@ import { Title } from '../cu-table-column-expenditures/cu-table-column-expenditu
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { FacilitatorModel } from '../../../core/models/facilitator.model';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface CuTableColumnTeamMemberProps {
   members: FacilitatorModel[],
@@ -11,6 +12,7 @@ interface CuTableColumnTeamMemberProps {
 }
 
 export const CuTableColumnTeamMember = ({ ...props }: CuTableColumnTeamMemberProps) => {
+  const isLight = useThemeContext().themeMode === 'light';
   const MemberInfo = (props: { member: FacilitatorModel }) => {
     return <MemberInfoContainer>
       <CircleAvatar key={props.member.name}
@@ -30,8 +32,8 @@ export const CuTableColumnTeamMember = ({ ...props }: CuTableColumnTeamMemberPro
       id={'popover-fulltime-equivalents'}
     >
       <Data>
-        <Title>FTEs</Title>
-        <Value style={{ justifyContent: 'center' }}>{props.fte}</Value>
+        <Title isLight={isLight}>FTEs</Title>
+        <Value isLight={isLight} style={{ justifyContent: 'center' }}>{props.fte}</Value>
       </Data>
     </CustomPopover>
     <CirclesWrapper>
@@ -89,10 +91,10 @@ const CirclesWrapper = styled.div({
   display: 'flex',
 });
 
-const Value = styled.div({
+const Value = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'SF Pro Display, sans-serif',
   fontWeight: 600,
   fontSize: '14px',
   lineHeight: '18px',
-  color: '#231536',
-});
+  color: isLight ? '#231536' : '#EDEFFF',
+}));

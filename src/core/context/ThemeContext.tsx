@@ -43,12 +43,12 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
       toggleTheme
     }}>
       <MuiThemeProvider theme={themeMode === 'light' ? lightTheme : darkTheme}>
-      <Header menuItems={menuItems} links={itemsWebSiteLinks} themeMode={themeMode} toggleTheme={toggleTheme} />
-      <Container>
-        <CssBaseline />
-        {children}
-      </Container>
-      <Footer developer={developer} governesses={governesses} products={products} />
+        <Header menuItems={menuItems} links={itemsWebSiteLinks} themeMode={themeMode} toggleTheme={toggleTheme} />
+        <Container>
+          <CssBaseline />
+          {children}
+        </Container>
+        <Footer developer={developer} governesses={governesses} products={products} isLight={themeMode === 'light'} />
       </MuiThemeProvider>
     </ThemeContext.Provider>
   );

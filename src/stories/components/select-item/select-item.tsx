@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import CheckboxOff from '../svg/checkbox-off';
 import CheckboxOn from '../svg/checkbox-on';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface SelectItemProps {
   label: string | JSX.Element;
@@ -12,17 +13,18 @@ interface SelectItemProps {
 }
 
 export const SelectItem = ({ checked = false, minWidth = 0, ...props }: SelectItemProps) => {
+  const isLight = useThemeContext().themeMode === 'light';
   const [focused, setFocused] = useState(false);
 
-  return <Container className="no-select" onClick={props.onClick} minWidth={minWidth}>
-    {checked ? <CheckboxOn/> : <CheckboxOff style={{ padding: '2px' }} fill={focused ? '#708390' : '#9FAFB9'}/>}
+  return <Container className="no-select" onClick={props.onClick} minWidth={minWidth} isLight={isLight}>
+    {checked ? <CheckboxOn fill={isLight ? '#1AAB9B' : '#7C6B95'} fillBorderArrow={isLight ? '#B6EDE7' : '#ADAFD4'} /> : <CheckboxOff style={{ padding: '2px' }} fill={focused ? '#708390' : '#9FAFB9'} />}
     <Label>{props.label}</Label>
-    <Number active={checked}>{props.count}</Number>
-    <input type="checkbox" checked onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} readOnly/>
+    <Number active={checked} isLight={isLight}>{props.count}</Number>
+    <input type="checkbox" checked onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} readOnly />
   </Container>;
 };
 
-const Container = styled.div<{ minWidth: number }>(({ minWidth }) => ({
+const Container = styled.div<{ minWidth: number, isLight: boolean }>(({ minWidth, isLight }) => ({
   display: 'flex',
   alignItems: 'center',
   position: 'relative',
@@ -41,7 +43,7 @@ const Container = styled.div<{ minWidth: number }>(({ minWidth }) => ({
     width: '0',
   },
   '&:hover': {
-    background: '#EDEFFF',
+    background: isLight ? '#EDEFFF' : '#25273D',
   },
   '@media (min-width: 835px)': {
     border: 'none'
@@ -56,9 +58,9 @@ const Label = styled.span({
   fontWeight: 400,
 });
 
-const Number = styled.span<{ active: boolean }>(({ active }) => ({
+const Number = styled.span<{ active: boolean, isLight: boolean }>(({ active, isLight }) => ({
   fontFamily: 'SF Pro Text',
   fontWeight: 500,
   fontSize: '14px',
-  color: active ? '#48495F' : '#9FAFB9',
+  color: active && isLight ? '#48495F' : !active && isLight ? '#9FAFB9' : active && !isLight ? '#D2D4EF' : '#787A9B',
 }));

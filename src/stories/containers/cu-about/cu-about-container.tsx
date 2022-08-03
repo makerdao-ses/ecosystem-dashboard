@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
-import { Divider, Typography } from '@mui/material';
+import { Divider, Typography, useMediaQuery } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { getMarkdownInformation, getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-unit-about';
 import { getFTEsFromCoreUnit } from '../../../core/business-logic/core-units';
@@ -21,6 +21,7 @@ import { useRouter } from 'next/router';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
 import CardExpenses from '../../components/card-navegation/card-expenses';
 import CardSomeThingWrong from '../../components/card-navegation/card-somethig-wrong';
+import lightTheme from '../../../../styles/theme/light';
 import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { formatCode } from '../../../core/utils/string.utils';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
@@ -35,10 +36,13 @@ const CuAboutContainer = () => {
   const { cuAbout, statusCoreUnit } = useSelector((state: RootState) => cuAboutSelector(state));
   const contributors = useSelector((state: RootState) => contributorCommitmentSelector(state));
 
+  const table834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
+  const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+  const LessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
+
   useEffect(() => {
     dispatch(loadCuTableItemsAsync());
   }, [dispatch]);
-
   useEffect(() => {
     if (code) {
       dispatch(loadCoreUnitAbout(code || ''));
@@ -63,8 +67,6 @@ const CuAboutContainer = () => {
     return resultArrayThreeElements;
   }, [cuAbout.cuMip, showThreeMIPs]);
 
-  const descriptionLength = cuAbout.sentenceDescription.length || 0;
-
   const onClickFinances = useCallback(() => {
     router.push(`/core-unit/${code}/finances/transparency?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
   }, [filteredCategories, filteredStatuses, router, searchText, code]);
@@ -81,14 +83,10 @@ const CuAboutContainer = () => {
       <CoreUnitSummary />
       <Wrapper>
         <ContainerAllData>
-          <div style={{
-            width: '60.39%',
-            display: 'flex',
-            flexDirection: 'column',
-          }}>
+          <ContainerResponsive>
 
             <MarkdownContainer>
-              <MdViewerContainer sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)} paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)} paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)} />
+              <MdViewerContainer showButton={table834 || phone} sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)} paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)} paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)} onClick={onClickFinances} />
             </MarkdownContainer>
             <TeamMemberContainer>
               <TeamMemberTitle>Team Size</TeamMemberTitle><TeamMember fte={getFTEsFromCoreUnit(cuAbout)} />
@@ -98,15 +96,15 @@ const CuAboutContainer = () => {
               <ContainerCards>
                 {contributors && contributors.map((contributor: ContributorCommitment, index: number) => {
                   return (
-                    <div key={index} style={{ marginBottom: '32px' }}>
+                    <CardInfoContainer key={index}>
                       <CardInfoMember contributorCommitment={contributor} />
-                    </div>
+                    </CardInfoContainer>
                   );
                 })
                 }
               </ContainerCards>
             </ContactInfoContainer>
-            <Divider sx={{ marginTop: '32px' }} />
+            <Divider />
             <CardRelateMipsContainer>
               <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
               <RelateMipCards>
@@ -125,11 +123,13 @@ const CuAboutContainer = () => {
               <DividerStyle /> <BigButton title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'} onClick={onClickLessMips} />
               <DividerStyle />
             </ButtonContainer>}
-          </div>
-          <div style={{
+            {(table834 || phone) && <CardSomeThingWrong width='770px' />}
+          </ContainerResponsive>
+
+          {!(table834 || phone || LessPhone) && <div style={{
             width: '39.61%',
           }}>
-            {isEnabled('FEATURE_CARD_NAVIGATION') && <ContainerScroll descriptionLength={descriptionLength}>
+            {isEnabled('FEATURE_CARD_NAVIGATION') && <ContainerScroll>
               <ContainerCard>
                 <CardExpenses onClick={onClickFinances} code={formatCode(cuAbout.code)} name={cuAbout.name || ''} />
               </ContainerCard>
@@ -137,7 +137,7 @@ const CuAboutContainer = () => {
                 <CardSomeThingWrong />
               </ContainerCard>
             </ContainerScroll>}
-          </div>
+          </div>}
         </ContainerAllData>
       </Wrapper>
     </ContainerAbout >
@@ -154,7 +154,11 @@ const ContainerAbout = styled.div({
   background: 'url(/assets/img/bg-page.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
-  marginBottom: '130px'
+  marginBottom: '130px',
+  [lightTheme.breakpoints.down('table_375')]: {
+    width: '100%',
+    minWidth: '360px',
+  },
 });
 
 const ContainerCard = styled.div({
@@ -162,6 +166,9 @@ const ContainerCard = styled.div({
   display: 'flex',
   flexDirection: 'column',
   marginLeft: '64px',
+  [lightTheme.breakpoints.between('desktop_1194', 'desktop_1280')]: {
+    marginLeft: '32px',
+  },
 });
 
 const MarkdownContainer = styled.div({
@@ -181,7 +188,12 @@ const TeamMemberTitle = styled(Typography)({
   lineHeight: '19px',
   marginRight: '8px',
   color: '#231536',
-  fontFamily: 'FT Base, sans-serif'
+  fontFamily: 'FT Base, sans-serif',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    fontSize: '20px',
+    lineHeight: '24px',
+    letterSpacing: '0.4px'
+  },
 });
 
 const ContactInfoContainer = styled.div({
@@ -189,7 +201,6 @@ const ContactInfoContainer = styled.div({
   flexDirection: 'column',
   minHeight: '182px',
   marginTop: '36px',
-  marginBottom: '32px',
 });
 
 const ContactInfoTitle = styled(Typography)({
@@ -199,7 +210,8 @@ const ContactInfoTitle = styled(Typography)({
   lineHeight: '19px',
   color: '#231536',
   marginBottom: '32px',
-  fontFamily: 'FT Base, sans-serif'
+  fontFamily: 'FT Base, sans-serif',
+  width: '100%',
 });
 
 const ContainerCards = styled.div({
@@ -210,6 +222,18 @@ const ContainerCards = styled.div({
   alignItems: 'flex-start',
   flexWrap: 'wrap',
   padding: '0px',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    maxWidth: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
+    maxWidth: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
 });
 
 const CardRelateMipsContainer = styled.div({
@@ -218,8 +242,16 @@ const CardRelateMipsContainer = styled.div({
   alignItems: 'center',
   marginTop: '32px',
   marginBottom: '64px',
-  width: '715px'
-
+  width: '715px',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    width: '100%',
+  },
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    width: '100%',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
+    width: '100%',
+  },
 });
 
 const TitleRelateMips = styled.div({
@@ -227,7 +259,7 @@ const TitleRelateMips = styled.div({
   fontWeight: 700,
   fontSize: '16px',
   lineHeight: '19px',
-  marginBottom: '32px',
+  marginBottom: '36px',
   color: '#231536',
 });
 
@@ -236,8 +268,9 @@ const RelateMipCards = styled.div({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  marginTop: '24px',
-
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    width: '100%',
+  },
 });
 
 const RelateMipCard = styled.div({
@@ -249,7 +282,7 @@ const ButtonContainer = styled.div({
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
-  marginBottom: '44px',
+  marginBottom: '32px',
   overflow: 'hidden',
 });
 const ContainerNoRelateMIps = styled.div({
@@ -265,6 +298,30 @@ const ContainerAllData = styled.div({
   justifyContent: 'space-between',
   marginRight: '128px',
   marginLeft: '128px',
+  [lightTheme.breakpoints.up('desktop_1920')]: {
+    marginRight: '0px',
+    marginLeft: '0px',
+  },
+  [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
+    marginRight: '48px',
+    marginLeft: '48px',
+  },
+  [lightTheme.breakpoints.between('desktop_1194', 'desktop_1280')]: {
+    marginRight: '32px',
+    marginLeft: '32px',
+  },
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    marginRight: '32px',
+    marginLeft: '32px',
+  },
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    marginRight: '16px',
+    marginLeft: '16px',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
+    marginRight: '16px',
+    marginLeft: '16px',
+  },
 });
 
 const DividerStyle = styled(Divider)({
@@ -272,7 +329,7 @@ const DividerStyle = styled(Divider)({
   bgcolor: '#D4D9E1',
 });
 
-const ContainerScroll = styled.div<{ descriptionLength: number }>({
+const ContainerScroll = styled.div({
   position: 'sticky',
   top: 250,
   paddingTop: '36px',
@@ -284,4 +341,39 @@ const Wrapper = styled.div({
   width: '100%',
   maxWidth: '1440px',
   margin: '0 auto',
+  [lightTheme.breakpoints.up('desktop_1920')]: {
+    maxWidth: '1184px',
+    marginLeft: '0px',
+    marginRight: '0px',
+    margin: '0 auto',
+  },
+  [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
+    marginRight: '0px',
+    marginLeft: '0px',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
+    width: '100%',
+  },
+});
+
+const ContainerResponsive = styled.div({
+  width: '60.39%',
+  display: 'flex',
+  flexDirection: 'column',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    width: '100%',
+  },
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    width: '100%',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
+    width: '100%',
+  },
+});
+
+const CardInfoContainer = styled.div({
+  marginBottom: '32px',
+  [lightTheme.breakpoints.down('table_375')]: {
+    width: '100%',
+  },
 });

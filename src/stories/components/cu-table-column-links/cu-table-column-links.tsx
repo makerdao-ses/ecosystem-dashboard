@@ -22,32 +22,33 @@ interface CuTableColumnLinksProps {
   height?: number;
   spacings?: number;
   fill?: string;
+  fillDark?: string;
   lastChild?: boolean;
   align?: 'flex-start' | 'center' | 'flex-end';
 }
 
-const getImageForLink = (link: LinkModel, fill: string, width?: number, height?: number) => {
+const getImageForLink = (link: LinkModel, fill: string, width?: number, height?: number, fillDark?: string) => {
   switch (link.linkType) {
     case LinkTypeEnum.WWW:
-      return <WWW fill={fill} width={width} height={height} />;
+      return <WWW fill={fill} width={width} height={height} fillDark={fillDark} />;
     case LinkTypeEnum.Forum:
-      return <Forum fill={fill} width={width} height={height} />;
+      return <Forum fill={fill} width={width} height={height} fillDark={fillDark}/>;
     case LinkTypeEnum.Discord:
-      return <Discord fill={fill} width={width} height={height} />;
+      return <Discord fill={fill} width={width} height={height} fillDark={fillDark}/>;
     case LinkTypeEnum.Twitter:
-      return <Twitter fill={fill} width={width} height={height} />;
+      return <Twitter fill={fill} width={width} height={height} fillDark={fillDark}/>;
     case LinkTypeEnum.Youtube:
-      return <Youtube fill={fill} width={width} height={height} />;
+      return <Youtube fill={fill} width={width} height={height} fillDark={fillDark}/>;
     case LinkTypeEnum.LinkedIn:
-      return <LinkedIn fill={fill} width={width} height={height} />;
+      return <LinkedIn fill={fill} width={width} height={height} fillDark={fillDark}/>;
     case LinkTypeEnum.Gmail:
-      return <Gmail fill={fill} width={width} height={height} />;
+      return <Gmail fill={fill} width={width} height={height} fillDark={fillDark}/>;
     default:
       return <WWW />;
   }
 };
 
-export const CuTableColumnLinks = ({ width, height, links, align = 'flex-end', spacings, fill = '#C4C4C4', lastChild = false }: CuTableColumnLinksProps) => {
+export const CuTableColumnLinks = ({ width, height, links, align = 'flex-end', spacings, fill = '#C4C4C4', lastChild = false, fillDark }: CuTableColumnLinksProps) => {
   return <Container spacings={spacings} align={align}>
     {links.map((link, i) => <StyleBox lastChild={lastChild}
       key={`link-${i}`}>
@@ -59,7 +60,7 @@ export const CuTableColumnLinks = ({ width, height, links, align = 'flex-end', s
           target="_blank"
           width={width}
           height={height}>
-          {getImageForLink(link, fill, width, height)}
+          {getImageForLink(link, fill, width, height, fillDark)}
         </LinkImage>
       </CustomPopover>
     </StyleBox>)
@@ -67,7 +68,7 @@ export const CuTableColumnLinks = ({ width, height, links, align = 'flex-end', s
   </Container >;
 };
 
-const Container = styled.div<{ spacings?: number, align: string}>(({ spacings, align }) => ({
+const Container = styled.div<{ spacings?: number, align: string }>(({ spacings, align }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: align,

@@ -1,6 +1,7 @@
 import React, { CSSProperties, useState } from 'react';
 import styled from '@emotion/styled';
 import Magnifier from '../svg/magnifier';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface SearchInputProps {
   value?: string;
@@ -11,6 +12,7 @@ interface SearchInputProps {
 }
 
 export const SearchInput = (props: SearchInputProps) => {
+  const isLight = useThemeContext().themeMode === 'light';
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     props.onChange && props.onChange(event.target.value);
   };
@@ -19,8 +21,9 @@ export const SearchInput = (props: SearchInputProps) => {
 
   return <Container style={props.style}>
     <InputWrapper>
-      <IconWrapper><Magnifier /></IconWrapper>
+      <IconWrapper><Magnifier fill={isLight ? '#25273D' : '#ADAFD4'} /></IconWrapper>
       <Input
+        isLight={isLight}
         id="search-input"
         onChange={handleChange}
         placeholder={props.placeholder}
@@ -31,7 +34,7 @@ export const SearchInput = (props: SearchInputProps) => {
         defaultValue={props.defaultValue}
       />
       <IconWrapper>
-        <Magnifier/>
+        <Magnifier />
       </IconWrapper>
     </InputWrapper>
   </Container>;
@@ -47,7 +50,7 @@ const InputWrapper = styled.div({
   alignItems: 'center'
 });
 
-const Input = styled.input<{ focus: boolean }>((props) => ({
+const Input = styled.input<{ focus: boolean, isLight: boolean }>(({ focus, isLight }) => ({
   fontFamily: 'SF Pro Text, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
@@ -56,13 +59,14 @@ const Input = styled.input<{ focus: boolean }>((props) => ({
   outline: 'none',
   width: '320px',
   height: '48px',
-  border: `1px solid ${props.focus ? '#231536' : '#D4D9E1'}`,
+  border: `1px solid ${focus ? '#231536' : '#D4D9E1'}`,
   borderRadius: '22px',
   padding: '15px 45px 15px 16px',
   boxSizing: 'border-box',
   transition: 'all .3s ease',
+  backgroundColor: isLight ? '#FFFFFF' : '#10191F',
   '&::placeholder': {
-    color: '#B0BCC0'
+    color: isLight ? '#B0BCC0' : '#D2D4EF',
   }
 }));
 
