@@ -36,19 +36,10 @@ export const InnerTable = ({ headersAlign = [], minWidth = 160, headerWidths = [
   </>;
 };
 
-const CardsWrapper = styled.div({
-  display: 'flex',
-  flexDirection: 'column',
-});
-
 const Container = styled.div({
-  display: 'none',
   background: '#FFFFFF',
   boxShadow: '0px 20px 40px -40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
   borderRadius: '6px',
-  '@media (min-width: 835)': {
-    display: 'flex'
-  }
 });
 
 const Table = styled.table({
