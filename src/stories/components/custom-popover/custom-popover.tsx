@@ -65,7 +65,7 @@ export const CustomPopover = ({
 };
 
 const Container = styled.div({
-  fontSize: '10px',
+  fontSize: '14px',
   padding: '16px',
   fontFamily: 'FT Base, sans-serif',
 });
