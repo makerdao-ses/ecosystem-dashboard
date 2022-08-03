@@ -33,6 +33,8 @@ import { CoreUnitCard } from '../../components/core-unit-card/core-unit-card';
 import { Filters } from './cu-table-filters';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { CustomPopover } from '../../components/custom-popover/custom-popover';
+import { CategoryChip } from '../../components/category-chip/category-chip';
 
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
 const sortNeutralState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled];
@@ -142,7 +144,34 @@ export const CuTable = () => {
     const sortedData = sortData(filteredData);
     return sortedData.map((coreUnit: CoreUnitDto, i: number) => {
       return [
-        <CuTableColumnSummary
+        <CustomPopover
+          popupStyle={{ padding: 0 }}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left'
+          }}
+          title={
+          <>
+            <CuTableColumnSummary
+              key={`summary-${coreUnit.code}`}
+              title={coreUnit.name}
+              status={getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum}
+              statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
+              imageUrl={coreUnit.image}
+              mipUrl={getMipUrlFromCoreUnit(coreUnit)}
+              onClick={onClickRow(coreUnit.code)}
+              code={formatCode(coreUnit.code)}
+            />
+            <Padded>
+              <CategoriesTitle>Categories</CategoriesTitle>
+              <CategoriesRow>
+                {coreUnit?.category?.map(cat => <CategoryChip category={cat}/>)}
+              </CategoriesRow>
+            </Padded>
+          </>
+          }
+          id={coreUnit.code}>
+          <CuTableColumnSummary
           key={`summary-${coreUnit.code}`}
           title={coreUnit.name}
           status={getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum}
@@ -151,7 +180,8 @@ export const CuTable = () => {
           mipUrl={getMipUrlFromCoreUnit(coreUnit)}
           onClick={onClickRow(coreUnit.code)}
           code={formatCode(coreUnit.code)}
-        />,
+          />
+        </CustomPopover>,
         <div
           style={{
             display: 'block',
@@ -303,6 +333,23 @@ const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   flex: 1,
   color: isLight ? '#231536' : '#D2D4EF',
 }));
+
+const CategoriesTitle = styled.div({
+  fontFamily: 'SF Pro Display',
+  fontWeight: 400,
+  fontSize: '14px',
+  color: '#708390',
+  marginBottom: '8px',
+});
+
+const CategoriesRow = styled.div({
+  display: 'flex',
+  gap: '16px'
+});
+
+const Padded = styled.div({
+  padding: '0 16px 16px'
+});
 
 const FilterButtonWrapper = styled.div({
   '@media (min-width: 835px)': {

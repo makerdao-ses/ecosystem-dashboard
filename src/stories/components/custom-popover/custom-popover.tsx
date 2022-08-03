@@ -8,9 +8,18 @@ interface CustomPopoverProps {
   id: string;
   css?: CSSProperties;
   popupStyle?: CSSProperties;
+  anchorOrigin?: {
+    vertical: 'bottom' | 'center' | 'top',
+    horizontal: 'left' | 'center' | 'right',
+  };
 }
 
-export const CustomPopover = (props: CustomPopoverProps) => {
+export const CustomPopover = ({
+  anchorOrigin = {
+    vertical: 'bottom',
+    horizontal: 'center',
+  }, ...props
+}: CustomPopoverProps) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -42,10 +51,7 @@ export const CustomPopover = (props: CustomPopoverProps) => {
       }}
       open={open}
       anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'center',
-      }}
+      anchorOrigin={anchorOrigin}
       transformOrigin={{
         vertical: 'top',
         horizontal: 'left',
