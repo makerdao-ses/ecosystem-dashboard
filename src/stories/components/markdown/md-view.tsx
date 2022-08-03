@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 import Markdown from 'marked-react';
-import { customRenderer } from './renderUtils';
+import { customRenderer, customRendererDark } from './renderUtils';
 import { CustomButton } from '../custom-button/custom-button';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 
@@ -82,10 +82,8 @@ const MdViewerPage = ({ subTitle = 'What we do', paragraphDescription, paragraph
           }} />
         </ContainerResponsive>
         : <TypographyStyleDescription isLight={isLight} id='hidden-element'>{subTitle}</TypographyStyleDescription>}
-      {paragraphDescription && <Markdown value={paragraphDescription} renderer={customRenderer} key={paragraphDescription} />}
-      {(paragraphImage !== '![Image]()') &&
-        <Markdown value={paragraphImage} renderer={customRenderer} key={paragraphImage} />
-      }
+      {paragraphDescription && isLight ? <Markdown value={paragraphDescription} renderer={customRenderer} key={paragraphDescription} /> : <Markdown value={paragraphDescription} renderer={customRendererDark} key={paragraphDescription} />}
+      {((paragraphImage !== '![Image]()') && isLight) ? <Markdown value={paragraphImage} renderer={customRenderer} key={paragraphImage} /> : <Markdown value={paragraphImage} renderer={customRenderer} key={paragraphImage} />}
     </ViewerContainer>
   );
 };

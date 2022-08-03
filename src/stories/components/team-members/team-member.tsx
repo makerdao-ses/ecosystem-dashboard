@@ -16,7 +16,7 @@ const TeamMember = ({ fte }: Props) => {
       id={'popover-fulltime equivalent'}
     >
       <Data>
-        <ContainerRow> <StyleTypography isLight={isLight}>{fte}</StyleTypography> <Divider sx={{ bgcolor: '#231536' }} /></ContainerRow>
+        <ContainerRow> <StyleTypography isLight={isLight}>{fte}</StyleTypography> <Divider sx={{ bgcolor: isLight ? '#231536' : '#D2D4EF' }} /></ContainerRow>
         <Title isLight={isLight}>FTEs</Title>
       </Data>
     </CustomPopover>
