@@ -41,8 +41,10 @@ export const TransparencyReport = () => {
     return cu?.budgetStatements?.find((bs: BudgetStatementDto) => bs.month === currentMonth.toFormat(API_MONTH_FORMAT));
   }, [cu, currentMonth]);
 
-  return <Container>
+  return <Wrapper>
     <CoreUnitSummary trailingAddress={['Expense Reports']}/>
+    <Container>
+
     <InnerPage>
       <Title>Expense Reports</Title>
 
@@ -106,7 +108,8 @@ export const TransparencyReport = () => {
     {thirdIndex === 3 && <TransparencyTransferRequest currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>}
     {thirdIndex === 4 && <TransparencyAudit budgetStatement={currentBudgetStatement}/>}
     </InnerPage>
-  </Container>;
+  </Container>
+  </Wrapper>;
 };
 
 const Container = styled.div({
@@ -123,6 +126,12 @@ const Container = styled.div({
   '@media (min-width: 835px)': {
     padding: '0 32px',
   },
+});
+
+const Wrapper = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
 });
 
 const InnerPage = styled.div({
