@@ -248,13 +248,13 @@ const ContainerHome = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   width: '100%',
   background: isLight ? '#FFFFFF' : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
   '@media (min-width: 1440px)': {
-    padding: '22px 128px 0'
+    padding: '22px 128px 128px'
   },
   '@media (min-width: 1280px)': {
-    padding: '22px 48px 0'
+    padding: '22px 48px 128px'
   },
   '@media (min-width: 435px)': {
-    padding: '22px 32px 0'
+    padding: '22px 32px 128px'
   }
 }));
 
