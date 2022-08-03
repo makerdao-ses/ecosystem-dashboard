@@ -148,7 +148,7 @@ const SmallSeparator = styled.span<{ isLight: boolean }>(({ isLight }) => ({
 
 const Wrapper = styled.div({
   display: 'none',
-  '@media (max-width: 834px)': {
+  '@media (max-width: 833px)': {
     top: 0,
     left: 0,
     zIndex: 100,
@@ -169,7 +169,7 @@ const Wrapper = styled.div({
 
 const Container = styled.div({
   display: 'flex',
-  '@media (max-width: 834px)': {
+  '@media (max-width: 833px)': {
     position: 'relative',
     height: 'calc(100vh + 20px)',
     width: '100%',
