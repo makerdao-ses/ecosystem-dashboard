@@ -15,7 +15,7 @@ interface Props {
 const CardSomeThingWrong = ({ width, height = '208px' }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
   return (
-    <InformationCard title='Something Wrong on this Page?' height={height} width={width} color={isLight ? '#231536' : '#D2D4EF'} fontSize='24px'>
+    <InformationCard title='Something Wrong on this Page?' height={height} width={width} color={isLight ? '#231536' : '#D2D4EF'} fontSize='20px'>
 
       <TypographyDescription marginBottom={'8px'} isLight={isLight}>Is this your core unit?
       </TypographyDescription>
@@ -70,6 +70,6 @@ const TypographyDescription = styled(Typography)<{ marginBottom?: string, isLigh
   fontSize: '15px',
   lineHeight: '18px',
   letterSpacing: ' 0.4px',
-  color: isLight ? '#546978 ' : '#FFFFFF',
+  color: isLight ? '#546978 ' : '#9FAFB9',
   marginBottom: marginBottom || '0px'
 }));

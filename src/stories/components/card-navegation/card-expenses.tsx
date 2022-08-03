@@ -46,7 +46,7 @@ const TypographyDescription = styled(Typography)<{ marginBottom?: string, isLigh
   fontWeight: 500,
   fontSize: '15px',
   lineHeight: '18px',
-  color: isLight ? '#546978 ' : '#FFFFFF',
+  color: isLight ? '#546978 ' : '#9FAFB9',
   letterSpacing: '0.4px',
   marginBottom: marginBottom || '0px'
 }));
