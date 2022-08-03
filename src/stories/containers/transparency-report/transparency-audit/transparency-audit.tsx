@@ -50,7 +50,7 @@ const Box = styled.div({
   borderRadius: '6px',
   width: '100%',
   marginBottom: '32px',
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     height: '118px',
     maxWidth: '560px',
     gridTemplateAreas: `
@@ -81,7 +81,7 @@ const DateAndTime = styled.div({
   borderTop: '1px solid #D4D9E1',
   width: '100%',
   justifyContent: 'center',
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     justifySelf: 'flex-start',
     margin: 0,
     padding: 0,
@@ -106,7 +106,7 @@ const DownloadText = styled.a({
   '> span': {
     marginRight: '14px'
   },
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     justifyContent: 'flex-start'
   }
 });
@@ -124,7 +124,7 @@ const Text = styled.div({
   '> span': {
     marginRight: '8px'
   },
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     justifyContent: 'flex-end',
     justifySelf: 'flex-end',
     margin: 0

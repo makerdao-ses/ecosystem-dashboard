@@ -123,7 +123,7 @@ const Container = styled.div({
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
   padding: '0 16px',
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     padding: '0 32px',
   },
 });
@@ -151,7 +151,7 @@ export const Title = styled.div<{ marginBottom?: number }>(({ marginBottom = 16 
   letterSpacing: '0.4px',
   color: '#231536',
   marginBottom: `${marginBottom}px`,
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     fontSize: '20px',
   }
 }));
@@ -164,7 +164,7 @@ const Paragraph = styled.div({
   lineHeight: '19px',
   color: '#231536',
   marginBottom: '64px',
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     fontSize: '16px'
   }
 });
@@ -173,14 +173,14 @@ const PagerBar = styled.div({
   display: 'flex',
   alignItems: 'flex-start',
   flex: 1,
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     alignItems: 'center',
   }
 });
 
 const PagerBarLeft = styled.div({
   display: 'block',
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     display: 'flex',
   }
 });
@@ -218,14 +218,14 @@ const Spacer = styled.div({
 
 export const TableWrapper = styled.div({
   display: 'none',
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     display: 'block'
   }
 });
 
 export const CardsWrapper = styled.div({
   display: 'block',
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     display: 'none'
   }
 });

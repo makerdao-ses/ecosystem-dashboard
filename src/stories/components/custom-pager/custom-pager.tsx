@@ -27,7 +27,7 @@ const Container = styled.div({
   display: 'flex',
   alignItems: 'center',
   flexDirection: 'row-reverse',
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     flexDirection: 'row'
   }
 });
@@ -40,7 +40,7 @@ const Label = styled.div({
   letterSpacing: '0.4px',
   color: '#9FAFB9',
   marginRight: '16px',
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     fontSize: '20px',
     margin: '8px',
   }

@@ -29,7 +29,7 @@ const Wrapper = styled.div({
   '&::-webkit-scrollbar': {
     display: 'none'
   },
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     width: '100%',
   }
 });
@@ -54,7 +54,7 @@ const Tab = styled.div((props: { active: boolean }) => ({
   cursor: 'pointer',
   transition: 'all .3s ease',
   whiteSpace: 'nowrap',
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     fontSize: '16px',
   }
 }));

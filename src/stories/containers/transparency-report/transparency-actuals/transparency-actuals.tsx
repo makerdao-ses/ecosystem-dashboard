@@ -221,7 +221,7 @@ const Title = styled.div<{ fontSize?: string }>(({ fontSize = '16px' }) => ({
   letterSpacing: '0.4px',
   color: '#231536',
   marginBottom: '16px',
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     fontSize: '20px',
     marginBottom: '24px',
   }
