@@ -110,7 +110,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
        "categories links"
        `,
   },
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     gridTemplateColumns: '3.5fr 2fr 1fr',
     gridTemplateAreas:
       `"summary expenditure team"
@@ -138,7 +138,7 @@ const Team = styled.div({
   '@media (min-width: 435px) and (max-width: 685px)': {
     paddingTop: '0',
   },
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     paddingTop: '0',
   }
 });
@@ -148,7 +148,7 @@ const Line = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   height: 1,
   background: isLight ? '#D4D9E1' : '#405361',
   margin: '16px 0',
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     margin: '16px 0 8px',
   }
 }));
@@ -164,7 +164,7 @@ const Categories = styled.div({
     margin: '0',
     justifyContent: 'left',
   },
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     margin: '0',
   }
 });

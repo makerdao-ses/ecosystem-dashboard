@@ -41,8 +41,10 @@ export const TransparencyReport = () => {
     return cu?.budgetStatements?.find((bs: BudgetStatementDto) => bs.month === currentMonth.toFormat(API_MONTH_FORMAT));
   }, [cu, currentMonth]);
 
-  return <Container>
+  return <Wrapper>
     <CoreUnitSummary trailingAddress={['Expense Reports']}/>
+    <Container>
+
     <InnerPage>
       <Title>Expense Reports</Title>
 
@@ -57,6 +59,7 @@ export const TransparencyReport = () => {
             iconHeight={10}
             iconWidth={10}
             fontSize={16}
+            fontSizeMobile={14}
             fontFamily={'SF Pro Display, sans-serif'}>
             how to submit your expenses here
           </CustomLink>
@@ -64,27 +67,31 @@ export const TransparencyReport = () => {
       </Paragraph>
 
       <PagerBar className="no-select">
-        <CustomPager
-          label={currentMonth.toFormat('MMM yyyy').toUpperCase()}
-          onPrev={() => setCurrentMonth(currentMonth.minus({ month: 1 }))}
-          onNext={() => setCurrentMonth(currentMonth.plus({ month: 1 }))}
-        />
-        {currentBudgetStatement?.publicationUrl && <CustomLink
-          href={currentBudgetStatement?.publicationUrl ?? null}
-          style={{
-            margin: '0 0 6px 0',
-            alignSelf: 'flex-end',
-          }}
-          iconHeight={10}
-          iconWidth={10}
-          fontSize={16}
-          fontFamily={'SF Pro Display, sans-serif'}
-        >
-          Source
-        </CustomLink>}
+        <PagerBarLeft>
+          <CustomPager
+            label={currentMonth.toFormat('MMM yyyy').toUpperCase()}
+            onPrev={() => setCurrentMonth(currentMonth.minus({ month: 1 }))}
+            onNext={() => setCurrentMonth(currentMonth.plus({ month: 1 }))}
+          />
+          {currentBudgetStatement?.publicationUrl && <CustomLink
+            href={currentBudgetStatement?.publicationUrl ?? null}
+            style={{
+              margin: '0 0 10px 0',
+              alignSelf: 'flex-end',
+            }}
+            iconHeight={10}
+            iconWidth={10}
+            fontSize={16}
+            fontFamily={'SF Pro Display, sans-serif'}
+          >
+            Source
+          </CustomLink>}
+        </PagerBarLeft>
         <Spacer/>
-        <StatusTitle>Status</StatusTitle>
-        <StatusValue color={colors[currentBudgetStatement?.budgetStatus] ?? ''}>{currentBudgetStatement?.budgetStatus ?? '-'}</StatusValue>
+        <StatusBar>
+          <StatusTitle>Status</StatusTitle>
+          <StatusValue color={colors[currentBudgetStatement?.budgetStatus] ?? ''}>{currentBudgetStatement?.budgetStatus ?? '-'}</StatusValue>
+        </StatusBar>
       </PagerBar>
 
       <Tabs
@@ -94,14 +101,15 @@ export const TransparencyReport = () => {
         style={{
           margin: '32px 0',
         }}
-      />
+    />
     {thirdIndex === 0 && <TransparencyActuals code={code} currentMonth={currentMonth} budgetStatements={cu?.budgetStatements} />}
     {thirdIndex === 1 && <TransparencyForecast currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>}
     {thirdIndex === 2 && <TransparencyMkrVesting currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>}
     {thirdIndex === 3 && <TransparencyTransferRequest currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>}
     {thirdIndex === 4 && <TransparencyAudit budgetStatement={currentBudgetStatement}/>}
     </InnerPage>
-  </Container>;
+  </Container>
+  </Wrapper>;
 };
 
 const Container = styled.div({
@@ -114,6 +122,16 @@ const Container = styled.div({
   background: 'url(/assets/img/bg-page.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
+  padding: '0 16px',
+  '@media (min-width: 834px)': {
+    padding: '0 32px',
+  },
+});
+
+const Wrapper = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
 });
 
 const InnerPage = styled.div({
@@ -128,27 +146,48 @@ export const Title = styled.div<{ marginBottom?: number }>(({ marginBottom = 16 
   fontFamily: 'FT Base, sans-serif',
   fontWeight: 500,
   fontStyle: 'normal',
-  fontSize: '20px',
+  fontSize: '16px',
   lineHeight: '24px',
   letterSpacing: '0.4px',
   color: '#231536',
-  marginBottom: `${marginBottom}px`
+  marginBottom: `${marginBottom}px`,
+  '@media (min-width: 834px)': {
+    fontSize: '20px',
+  }
 }));
 
 const Paragraph = styled.div({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
-  fontSize: '16px',
+  fontSize: '14px',
   lineHeight: '19px',
   color: '#231536',
   marginBottom: '64px',
+  '@media (min-width: 834px)': {
+    fontSize: '16px'
+  }
 });
 
 const PagerBar = styled.div({
   display: 'flex',
-  alignItems: 'center',
+  alignItems: 'flex-start',
   flex: 1,
+  '@media (min-width: 834px)': {
+    alignItems: 'center',
+  }
+});
+
+const PagerBarLeft = styled.div({
+  display: 'block',
+  '@media (min-width: 834px)': {
+    display: 'flex',
+  }
+});
+
+const StatusBar = styled.div({
+  display: 'flex',
+  alignItems: 'center'
 });
 
 const StatusTitle = styled.div({
@@ -175,4 +214,18 @@ const StatusValue = styled.div<{ color: string }>(({ color }) => ({
 
 const Spacer = styled.div({
   flex: '1',
+});
+
+export const TableWrapper = styled.div({
+  display: 'none',
+  '@media (min-width: 834px)': {
+    display: 'block'
+  }
+});
+
+export const CardsWrapper = styled.div({
+  display: 'block',
+  '@media (min-width: 834px)': {
+    display: 'none'
+  }
 });

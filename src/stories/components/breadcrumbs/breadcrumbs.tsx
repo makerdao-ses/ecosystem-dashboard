@@ -18,7 +18,7 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
       }}>
         <Crumb last={i === props.items.length - 1} first={i === 0}>{item.label}</Crumb>
       </Link>
-      {i !== props.items.length - 1 && <BreadcrumbSeparator/>}
+      {(i !== props.items.length - 1) && <BreadcrumbSeparator/>}
     </>)}
   </Container>;
 };

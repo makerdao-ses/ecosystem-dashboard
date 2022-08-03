@@ -10,11 +10,15 @@ import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 import { useTransparencyForecastMvvm } from '../transparency-forecast/transparency-forecast.mvvm';
 import { useTransparencyTransferRequestMvvm } from './transparency-transfer-request.mvvm';
 import { formatAddressForOutput } from '../../../../core/utils/string.utils';
+import { CardsWrapper, TableWrapper } from '../transparency-report';
+import { TransparencyCard } from '../../../components/transparency-card/transparency-card';
 
 interface TransparencyTransferRequestProps {
   currentMonth: DateTime;
   budgetStatements: BudgetStatementDto[];
 }
+
+const headers = ['Wallet', '3 Month Forecast', 'current Balance', 'Transfer Request', 'Multi Sig Address'];
 
 export const TransparencyTransferRequest = (props: TransparencyTransferRequestProps) => {
   const {
@@ -42,7 +46,7 @@ export const TransparencyTransferRequest = (props: TransparencyTransferRequestPr
         <NumberCell key={2} value={getForecastSumOfMonthsOnWallet(props.budgetStatements, wallet?.address, props.currentMonth, [firstMonth, secondMonth, thirdMonth])}/>,
         <NumberCell key={3} value={getCurrentBalanceForMonthOnWallet(wallet?.address)}/>,
         <NumberCell key={4} value={getTransferRequestForMonthOnWallet(wallet?.address)}/>,
-        <TableCell key={5}>
+        <TableCell key={5} responsivePadding={'0'}>
           <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://etherscan.io/address/${wallet.address}`} style={{ marginRight: '16px' }}>Etherscan</CustomLink>
           <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://gnosis-safe.io/app/eth:${wallet.address}`}>Gnosis</CustomLink>
         </TableCell>,
@@ -54,19 +58,29 @@ export const TransparencyTransferRequest = (props: TransparencyTransferRequestPr
       <NumberCell key={2} value={getForecastSumForMonths(props.budgetStatements, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} bold/>,
       <NumberCell key={3} value={getCurrentBalanceForMonth} bold/>,
       <NumberCell key={4} value={getTransferRequestForMonth} bold/>,
-      <TableCell key={5}/>,
     ]);
 
     return result;
   }, [props.currentMonth, props.budgetStatements]);
 
   return <Container>
-    <InnerTable
-      headers={['Wallet', '3 Month Forecast', 'current Balance', 'Transfer Request', 'Multi Sig Address']}
-      items={mainItems}
-      headersAlign={['left', 'right', 'right', 'right', 'left']}
-      headerWidths={['200px', '210px', '210px', '210px', '354px']}
-    />
+    <TableWrapper>
+      <InnerTable
+        headers={headers}
+        items={mainItems}
+        headersAlign={['left', 'right', 'right', 'right', 'left']}
+        headerWidths={['200px', '210px', '210px', '210px', '354px']}
+      />
+    </TableWrapper>
+
+    <CardsWrapper>
+      {mainItems.map(item => <TransparencyCard
+        header={item[0]}
+        headers={headers.slice(1, 4)}
+        items={item.slice(1)}
+        footer={item[4]}
+      />)}
+    </CardsWrapper>
   </Container>;
 };
 

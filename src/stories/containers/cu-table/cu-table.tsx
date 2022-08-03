@@ -199,7 +199,7 @@ export const CuTable = () => {
   return <ContainerHome isLight={isLight}>
     <Wrapper>
       <Header>
-        <Title isLight={isLight}>Core Units</Title>
+        <Title isLight={isLight}>Core Units Expenses</Title>
         <FilterButtonWrapper
           onClick={toggleFiltersPopup}
         >
@@ -288,7 +288,7 @@ const Header = styled.div({
   alignItems: 'center',
   marginBottom: '32px',
   minWidth: '330px',
-  '@media (min-width: 835px) and (max-width: 1180px)': {
+  '@media (min-width: 834px) and (max-width: 1180px)': {
     flexDirection: 'column',
     alignItems: 'flex-start'
   }
@@ -305,7 +305,7 @@ const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 }));
 
 const FilterButtonWrapper = styled.div({
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     display: 'none'
   }
 });
