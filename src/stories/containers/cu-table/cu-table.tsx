@@ -161,6 +161,7 @@ export const CuTable = () => {
               mipUrl={getMipUrlFromCoreUnit(coreUnit)}
               onClick={onClickRow(coreUnit.code)}
               code={formatCode(coreUnit.code)}
+              logoDimension={'68px'}
             />
             <Padded>
               <CategoriesTitle>Categories</CategoriesTitle>
