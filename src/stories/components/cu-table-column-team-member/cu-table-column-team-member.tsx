@@ -2,29 +2,18 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Title } from '../cu-table-column-expenditures/cu-table-column-expenditures';
 import { CustomPopover } from '../custom-popover/custom-popover';
-import { FacilitatorModel } from '../../../core/models/facilitator.model';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import CardInfoMember from '../card-info-member/card-info-member';
+import { ContributorCommitmentDto } from '../../../core/models/dto/core-unit.dto';
 
 interface CuTableColumnTeamMemberProps {
-  members: FacilitatorModel[],
-  fte: number,
+  members: ContributorCommitmentDto[];
+  fte: number;
 }
 
 export const CuTableColumnTeamMember = ({ ...props }: CuTableColumnTeamMemberProps) => {
   const isLight = useThemeContext().themeMode === 'light';
-  const MemberInfo = (props: { member: FacilitatorModel }) => {
-    return <MemberInfoContainer>
-      <CircleAvatar key={props.member.name}
-        name={props.member.name}
-        image={props.member.facilitatorImage}
-        fontSize={'14px'}
-        imageStyle={{ border: '2px solid #E7FCFA' }}
-        width={'36px'}
-        height={'36px'} />
-      <span>{props.member.name}</span>
-    </MemberInfoContainer>;
-  };
 
   return <Container className="TeamMembers">
     <CustomPopover
@@ -38,25 +27,31 @@ export const CuTableColumnTeamMember = ({ ...props }: CuTableColumnTeamMemberPro
       </Data>
     </CustomPopover>
     <CirclesWrapper>
-      {props.members.map((member, i) => <CustomPopover
-        key={member.name + i}
-        title={<MemberInfo member={member} />}
-        id={member.name + i}>
-        <CircleAvatar key={member.id}
-          name={member.name}
-          fontSize={'14px'}
-          width={'36px'}
-          height={'36px'}
-          style={{
-            marginLeft: i === 0 || (member.facilitatorImage) ? 0 : '-9px',
-            border: !(member.facilitatorImage) ? '2px solid #E7FCFA' : 'none'
+      {props.members.map((member, i) => {
+        return <CustomPopover
+          key={member.contributor[0].name + i}
+          popupStyle={{
+            padding: 0,
           }}
-          imageStyle={{
-            marginLeft: i === 0 ? 0 : '-9px',
-            border: '2px solid #E7FCFA'
-          }}
-          image={member.facilitatorImage} />
-      </CustomPopover>)}
+          title={<CardInfoMember contributorCommitment={member}/>}
+          id={member.contributor[0].name + i}>
+          <CircleAvatar key={member.id}
+                        name={member.contributor[0].name}
+                        fontSize={'14px'}
+                        width={'36px'}
+                        height={'36px'}
+                        style={{
+                          boxSizing: 'border-box',
+                          marginLeft: i === 0 ? 0 : '-9px',
+                          border: member.contributor[0]?.facilitatorImage ? 'none' : '2px solid #E7FCFA',
+                        }}
+                        imageStyle={{
+                          marginLeft: i === 0 ? 0 : '-9px',
+                          border: '2px solid #E7FCFA'
+                        }}
+                        image={member.contributor[0].facilitatorImage?.trim()}/>
+        </CustomPopover>;
+      })}
     </CirclesWrapper>
   </Container>;
 };
@@ -77,15 +72,6 @@ const Data = styled.div({
   flexDirection: 'column',
   alignItems: 'center',
   marginRight: '8px',
-});
-
-const MemberInfoContainer = styled.div({
-  display: 'flex',
-  alignItems: 'center',
-  overflow: 'hidden',
-  '> span': {
-    marginLeft: '10.5px'
-  }
 });
 
 const CirclesWrapper = styled.div({

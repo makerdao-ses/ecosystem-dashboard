@@ -8,9 +8,10 @@ import { getLinksFromContributor } from '../../../core/business-logic/core-unit-
 import { DateTime } from 'luxon';
 import { getColorJobPosition } from '../../../core/utils/color.utils';
 import lightTheme from '../../../../styles/theme/light';
+import { ContributorCommitmentDto } from '../../../core/models/dto/core-unit.dto';
 
 interface Props {
-  contributorCommitment: ContributorCommitment;
+  contributorCommitment: ContributorCommitment | ContributorCommitmentDto;
 }
 
 const CardInfoMember = ({ contributorCommitment }: Props) => {
