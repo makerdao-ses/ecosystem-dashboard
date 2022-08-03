@@ -166,15 +166,15 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout, hiddenTextDescription }:
         </ContainerTitle>
         <ContainerCategoryConditional>{(!(phoneDimensions || lessPhone) || hiddenTextDescription) && <CategoryContainer>{coreUnitAbout.category && coreUnitAbout.category.map((item) => <CategoryChip key={item} category={item} style={{ marginRight: phoneDimensions || tableDimensions ? '8px' : '16px' }} />)}</CategoryContainer>}
           {tableDimensions && <ContainerLinks>
-            <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#708390'} lastChild align='flex-start' spacings={18} />
+            <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill='#708390' lastChild align='flex-start' spacings={18} fillDark='#ADAFD4'/>
           </ContainerLinks>}
         </ContainerCategoryConditional>
         {((phoneDimensions || lessPhone) && hiddenTextDescription) && <ContainerLinks>
-          <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#708390'} lastChild align='flex-start' spacings={18} />
+          <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill='#708390' lastChild align='flex-start' spacings={18} fillDark='#ADAFD4'/>
         </ContainerLinks>}
       </ContainerColum>
       {!(phoneDimensions || lessPhone || tableDimensions) && <ContainerLinks>
-        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#708390'} spacings={29} lastChild fillDark='#ADAFD4'/>
+        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill='#708390' spacings={29} lastChild fillDark='#ADAFD4'/>
       </ContainerLinks>}
     </Container>
   );

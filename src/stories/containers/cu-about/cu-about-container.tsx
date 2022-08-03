@@ -156,7 +156,7 @@ const ContainerAbout = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   flexDirection: 'column',
   marginTop: '64px',
   width: '100%',
-  backgroundColor: isLight ? '#F5F5F5' : '#000000',
+  backgroundColor: isLight ? '#FFFFFF' : '#000000',
   backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
