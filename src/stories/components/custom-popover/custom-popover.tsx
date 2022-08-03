@@ -3,10 +3,11 @@ import { Popover } from '@mui/material';
 import styled from '@emotion/styled';
 
 interface CustomPopoverProps {
-  title: JSX.Element | string,
-  children: JSX.Element | JSX.Element[] | boolean,
-  id: string,
-  css?: CSSProperties
+  title: JSX.Element | string;
+  children: JSX.Element | JSX.Element[] | boolean;
+  id: string;
+  css?: CSSProperties;
+  popupStyle?: CSSProperties;
 }
 
 export const CustomPopover = (props: CustomPopoverProps) => {
@@ -32,10 +33,12 @@ export const CustomPopover = (props: CustomPopoverProps) => {
       {props.children}
     </div>
     <Popover
-       disableScrollLock
+      disableScrollLock
       id={props.id}
       sx={{
         pointerEvents: 'none',
+        border: '1px solid #D4D9E1',
+        boxShadow: 'none'
       }}
       open={open}
       anchorEl={anchorEl}
@@ -50,13 +53,13 @@ export const CustomPopover = (props: CustomPopoverProps) => {
       onClose={handlePopoverClose}
       disableRestoreFocus
     >
-      <Container>{props.title}</Container>
+      <Container style={props.popupStyle}>{props.title}</Container>
     </Popover>
   </React.Fragment>;
 };
 
 const Container = styled.div({
   fontSize: '10px',
-  padding: '8px',
+  padding: '16px',
   fontFamily: 'FT Base, sans-serif',
 });

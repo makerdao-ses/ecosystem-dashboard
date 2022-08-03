@@ -28,8 +28,9 @@ export const CuTableColumnTeamMember = ({ ...props }: CuTableColumnTeamMemberPro
 
   return <Container className="TeamMembers">
     <CustomPopover
-      title={'FTEs = Full-Time Equivalents'}
+      title={'Full Time Equivalents'}
       id={'popover-fulltime-equivalents'}
+      popupStyle={{ padding: '16px' }}
     >
       <Data>
         <Title isLight={isLight}>FTEs</Title>

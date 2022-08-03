@@ -21,7 +21,16 @@ export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps)
           <Title isLight={isLight}>Last 3 Months</Title>
           <CustomPopover
             id="mouse-over-popover-total"
-            title="Actual Expenditure">
+            title={<TotalPopup>
+              <PopupTitle>
+                {props.value.toLocaleString('en-US', {
+                  maximumFractionDigits: 0,
+                })}
+              </PopupTitle>
+              <Label>
+                Actual Expenditure
+              </Label>
+            </TotalPopup>}>
             <Value isLight={isLight} style={{ justifyContent: props.value ? 'flex-start' : 'center' }}>
               {props.value.toLocaleString('en-US', {
                 maximumFractionDigits: 0,
@@ -81,6 +90,24 @@ const Data = styled.div({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-end'
+});
+
+const TotalPopup = styled.div({
+  display: 'block'
+});
+
+const PopupTitle = styled.div({
+  fontSize: '16px',
+  fontWeight: 700,
+  fontFamily: 'SF Pro Display, sans-serif',
+  color: '#231536'
+});
+
+const Label = styled.div({
+  fontSize: '14px',
+  fontWeight: 400,
+  fontFamily: 'FT Base, sans-serif',
+  color: '#231536'
 });
 
 export const Title = styled.span<{ isLight: boolean }>(({ isLight }) => ({
