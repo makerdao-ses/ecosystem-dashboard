@@ -45,7 +45,7 @@ const Container = styled.div<{ minWidth: number, isLight: boolean }>(({ minWidth
   '&:hover': {
     background: isLight ? '#EDEFFF' : '#25273D',
   },
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     border: 'none'
   }
 }));

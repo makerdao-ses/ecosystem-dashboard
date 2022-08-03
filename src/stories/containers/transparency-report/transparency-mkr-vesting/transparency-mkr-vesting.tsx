@@ -1,17 +1,20 @@
 import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
-import { Title } from '../transparency-report';
+import { CardsWrapper, TableWrapper, Title } from '../transparency-report';
 import { InnerTable } from '../../../components/inner-table/inner-table';
 import { TableCell } from '../../../components/table-cell/table-cell';
 import { DateTime } from 'luxon';
 import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 import { useTransparencyMkrVesting } from './transparency-mkr-vesting.mvvm';
 import { NumberCell } from '../../../components/number-cell/number-cell';
+import { TransparencyCard } from '../../../components/transparency-card/transparency-card';
 
 interface TransparencyMkrVestingProps {
   currentMonth: DateTime;
   budgetStatements: BudgetStatementDto[];
 }
+
+const headers = ['Vesting Date', 'MKR Amount', 'Last month', 'difference', 'reason(s)'];
 
 export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
   const {
@@ -47,22 +50,36 @@ export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
 
   return <Container>
     <Title marginBottom={24}>MKR Vesting Overview</Title>
+
     <TotalFte>
       <span>Total FTE</span>
       <u>{FTEs}</u>
     </TotalFte>
-    <InnerTable
-      headers={['Vesting Date', 'MKR Amount', 'Last month', 'difference', 'reason(s)']}
-      headersAlign={['left', 'right', 'right', 'right', 'left']}
-      headerStyles={[{}, {}, {}, {}, { paddingLeft: '38px' }]}
-      items={items}
-      minWidth={200}
-      headerWidths={['200px', '210px', '210px', '210px', '354px']}
-      style={{ marginBottom: '32px' }}
-    />
+
+    <TableWrapper>
+      <InnerTable
+        headers={headers}
+        headersAlign={['left', 'right', 'right', 'right', 'left']}
+        headerStyles={[{}, {}, {}, {}, { paddingLeft: '38px' }]}
+        items={items}
+        minWidth={200}
+        headerWidths={['200px', '210px', '210px', '210px', '354px']}
+        style={{ marginBottom: '32px' }}
+      />
+    </TableWrapper>
+
+    <CardsWrapper>
+      {items.map(item => <TransparencyCard
+        header={item[0]}
+        headers={headers.slice(1)}
+        items={item.slice(1)}
+      />)}
+    </CardsWrapper>
+
     <Text>
       This Overview is based on MIP40c3-SP17, SES’ MKR Incentive Proposal.
     </Text>
+
     <Text style={{ marginBottom: '90px' }}>
       The Difference column indicates any changes in the MKR vesting amounts compared to last month, with the Reason(s) column indicating why the amounts
       changed. Reasons may include: New hires, FTE changes, Promotions, or Terminations.
