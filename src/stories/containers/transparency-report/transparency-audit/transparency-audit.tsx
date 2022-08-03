@@ -46,7 +46,7 @@ const Box = styled.div({
     `,
   padding: '16px',
   background: '#FFFFFF',
-  boxShadow: '0px 20px 40px -40px rgba(219, 227, 237, .4), 0px 1px 3px rgba(190, 190, 190, .4);',
+  boxShadow: '0px 0px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
   borderRadius: '6px',
   width: '100%',
   marginBottom: '32px',
@@ -128,6 +128,5 @@ const Text = styled.div({
     justifyContent: 'flex-end',
     justifySelf: 'flex-end',
     margin: 0
-
   }
 });
