@@ -39,11 +39,9 @@ const Container = styled.div({
   display: 'flex',
   borderBottom: '1px solid #B6EDE7',
   flex: 1,
-  width: 'fit-content',
+  minWidth: 'fit-content',
   gap: '32px',
-  '@media (min-width: 835px)': {
-    width: '100%'
-  }
+  width: '100%',
 });
 
 const Tab = styled.div((props: { active: boolean }) => ({
