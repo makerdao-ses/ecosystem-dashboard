@@ -1,43 +1,49 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 import React from 'react';
+import { useThemeContext } from '../../../core/context/ThemeContext';
+import { LinkInterface } from './footer';
 
 interface Props {
   title: string
-  children: string[]
+  children: LinkInterface[]
   style?: React.CSSProperties
 }
 
 const DescriptionFooter = ({ title, children, style = {} }: Props) => {
+  const isLight = useThemeContext().themeMode === 'light';
+  console.log('isLight', isLight);
   return (
     <div style={style}>
-      <StyleTitle>{title}</StyleTitle>
+      <StyleTitle isLight={isLight}>{title}</StyleTitle>
       {children && children.map((item) => {
-        return <StyleChildren key={item}>{item}</StyleChildren>;
+        return <StyleChildren href={item.url} target="_blank" key={item.title} isLight={isLight}>{item.title}</StyleChildren>;
       })}
     </div>
   );
 };
 
-const StyleTitle = styled(Typography)({
-  color: '#231536',
+const StyleTitle = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '15px',
   lineHeight: '18px',
   marginBottom: '16px',
-  letterSpacing: '0.4px'
-});
+  letterSpacing: '0.4px',
+  color: isLight ? '#231536' : '#D1DEE6'
+}));
 
-const StyleChildren = styled(Typography)({
+const StyleChildren = styled.a<{ isLight: boolean }>(({ isLight }) => ({
+  display: 'block',
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '16px',
   lineHeight: '19.02px',
-  color: '#231536',
-  marginBottom: '16px'
-});
+  color: isLight ? '#231536' : '#D1DEE6',
+  marginBottom: '16px',
+  textDecoration: 'none',
+}));
 
 export default DescriptionFooter;

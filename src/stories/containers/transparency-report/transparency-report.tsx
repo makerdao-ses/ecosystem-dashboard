@@ -65,11 +65,11 @@ export const TransparencyReport = () => {
 
       <PagerBar className="no-select">
         <CustomPager
-          label={currentMonth.toFormat('MMM yyyy')}
+          label={currentMonth.toFormat('MMM yyyy').toUpperCase()}
           onPrev={() => setCurrentMonth(currentMonth.minus({ month: 1 }))}
           onNext={() => setCurrentMonth(currentMonth.plus({ month: 1 }))}
         />
-        <CustomLink
+        {currentBudgetStatement?.publicationUrl && <CustomLink
           href={currentBudgetStatement?.publicationUrl ?? null}
           style={{
             margin: '0 0 6px 0',
@@ -81,7 +81,7 @@ export const TransparencyReport = () => {
           fontFamily={'SF Pro Display, sans-serif'}
         >
           Source
-        </CustomLink>
+        </CustomLink>}
         <Spacer/>
         <StatusTitle>Status</StatusTitle>
         <StatusValue color={colors[currentBudgetStatement?.budgetStatus] ?? ''}>{currentBudgetStatement?.budgetStatus ?? '-'}</StatusValue>
@@ -141,7 +141,7 @@ const Paragraph = styled.div({
   fontWeight: 400,
   fontSize: '16px',
   lineHeight: '19px',
-  color: '#000000',
+  color: '#231536',
   marginBottom: '64px',
 });
 

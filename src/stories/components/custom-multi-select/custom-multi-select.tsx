@@ -1,22 +1,30 @@
 import React, { CSSProperties, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import { SelectChevronDown } from '../svg/select-chevron-down';
-import { Checkbox, ListItemText, MenuItem } from '@mui/material';
-import CheckBoxOutlined from '@mui/icons-material/CheckBoxOutlined';
-import CheckBoxOutlineBlankOutlined from '@mui/icons-material/CheckBoxOutlineBlankOutlined';
 import './custom-multi-select.module.scss';
 import useOutsideClick from '../../../core/utils/use-outside-click';
+import { SelectItem } from '../select-item/select-item';
+import { useThemeContext } from '../../../core/context/ThemeContext';
+
+export interface MultiSelectItem {
+  id: string;
+  content: string | JSX.Element;
+  count: number;
+}
 
 interface CustomMultiSelectProps {
-  label: string,
-  items: string[],
-  withAll?: boolean,
-  onChange?: (items: string[]) => void,
-  style?: CSSProperties,
-  activeItems: string[],
+  label: string;
+  items: MultiSelectItem[];
+  withAll?: boolean;
+  customAll?: MultiSelectItem;
+  onChange?: (items: string[]) => void;
+  style?: CSSProperties;
+  activeItems: string[];
+  maxWidth?: number;
 }
 
 export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }: CustomMultiSelectProps) => {
+  const isLight = useThemeContext().themeMode === 'light';
   const [popupVisible, setPopupVisible] = useState(false);
 
   const refOutsideClick = useRef<HTMLDivElement>(null);
@@ -44,38 +52,31 @@ export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }
     if (activeItems.length === props.items.length) {
       props.onChange && props.onChange([]);
     } else {
-      props.onChange && props.onChange(props.items);
+      props.onChange && props.onChange(props.items.map(item => item.id));
     }
   };
 
   return <SelectWrapper ref={refOutsideClick} style={props.style}>
     <SelectContainer
+      isLight={isLight}
       focus={popupVisible || activeItems.length > 0}
       className="no-select"
+      style={{ maxWidth: props.maxWidth && !activeItems.length ? `${props.maxWidth}px` : 'unset' }}
       onClick={toggleVisible}>
-      <Label>{props.label} {activeItems.length > 0 ? `(${activeItems.length})` : ''}</Label>
+      <Label isLight={isLight}>{props.label} {activeItems.length > 0 ? `(${activeItems.length})` : ''}</Label>
       <IconWrapper>
-        <SelectChevronDown/>
+        <SelectChevronDown fill={isLight ? '25273D' : '#ADAFD4'} />
       </IconWrapper>
     </SelectContainer>
-    {popupVisible && <PopupContainer>
-      {withAll && <MenuItem key={'All'} onClick={(e) => {
-        e.stopPropagation();
-        toggleAll();
-      }}>
-        {activeItems.length === props.items.length ? <CheckBoxOutlined sx={{ m: '6px' }}/> : <CheckBoxOutlineBlankOutlined sx={{ m: '6px' }}/>}
-        <ListItemText
-            primary={'All'}
-            sx={{ fontSize: '8px' }}/>
-      </MenuItem>}
-      {props.items.map((item) => (
-        <MenuItem key={item} value={item} onClick={() => toggleItem(item)}>
-          <Checkbox
-            sx={{ p: '6px' }}
-            checked={activeItems.indexOf(item) > -1}
-            onChange={() => toggleItem(item)} />
-          <ListItemText primary={item} />
-        </MenuItem>
+    {popupVisible && <PopupContainer isLight={isLight}>
+      {withAll && <SelectItem
+        checked={activeItems.length === props.items.length}
+        onClick={() => toggleAll()}
+        label={props.customAll?.content ? props.customAll.content : 'All'}
+        count={props.customAll?.count ?? props.items.length}
+        minWidth={180} />}
+      {props.items.map((item, i) => (
+        <SelectItem key={`item-${i}`} checked={activeItems.indexOf(item.id) > -1} onClick={() => toggleItem(item.id)} label={item.content} count={item.count} minWidth={180} />
       ))}
     </PopupContainer>}
   </SelectWrapper>;
@@ -84,12 +85,16 @@ export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }
 const SelectWrapper = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'center',
   position: 'relative',
   width: 'fit-content',
   zIndex: 2,
+  '@media (min-width: 835px)': {
+    alignItems: 'flex-start',
+  }
 });
 
-const SelectContainer = styled.div<{ focus: boolean }>((props) => ({
+const SelectContainer = styled.div<{ focus: boolean, isLight: boolean }>((props) => ({
   display: 'flex',
   position: 'relative',
   alignItems: 'center',
@@ -101,18 +106,18 @@ const SelectContainer = styled.div<{ focus: boolean }>((props) => ({
   boxSizing: 'border-box',
   cursor: 'pointer',
   transition: 'all .3s ease',
-  background: 'white',
+  background: props.isLight ? 'white' : '#10191F',
 }));
 
-const Label = styled.div({
+const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'SF Pro Text, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '14px',
   lineHeight: '18px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   whiteSpace: 'nowrap'
-});
+}));
 
 const IconWrapper = styled.div({
   position: 'absolute',
@@ -120,14 +125,25 @@ const IconWrapper = styled.div({
   marginTop: '-4px'
 });
 
-const PopupContainer = styled.div({
+const PopupContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   minWidth: '100%',
   width: 'fit-content',
-  height: '200px',
-  background: 'white',
-  overflowY: 'scroll',
-  boxShadow: '0px 20px 40px #dbe3ed66, 0px 1px 3px #bebebe40',
-  position: 'absolute',
-  top: '50px',
-  zIndex: 3,
-});
+  background: isLight ? 'white' : '#000A13',
+  height: 'fit-content',
+  marginTop: '16px',
+  padding: isLight ? 'none' : '16px',
+  '@media (min-width: 835px)': {
+    height: '200px',
+    boxShadow: isLight ? '0px 20px 40px #dbe3ed66, 0px 1px 3px #bebebe40' : 'none',
+    position: 'absolute',
+    top: '50px',
+    zIndex: 3,
+    overflowY: 'scroll',
+    '::-webkit-scrollbar': {
+      opacity: !isLight ? 0 : 'none',
+      width: !isLight ? 0 : 'none',
+      backgroundColor: !isLight ? 'transparent' : 'none'
+    }
+
+  }
+}));

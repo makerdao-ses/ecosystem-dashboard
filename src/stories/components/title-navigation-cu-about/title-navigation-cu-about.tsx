@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Typography } from '@mui/material';
+import { Typography, useMediaQuery } from '@mui/material';
 import { DateTime } from 'luxon';
 import { CuTableColumnLinks, LinkModel } from '../cu-table-column-links/cu-table-column-links';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
@@ -14,6 +14,7 @@ import { CircleAvatar } from '../circle-avatar/circle-avatar';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { formatCode } from '../../../core/utils/string.utils';
 import { CustomLink } from '../custom-link/custom-link';
+import lightTheme from '../../../../styles/theme/light';
 
 interface BudgetStatementFTEs {
   month: string
@@ -47,6 +48,7 @@ export interface CoreUnit {
 }
 interface Props {
   coreUnitAbout?: CuAbout | CoreUnitDto;
+  hiddenTextDescription?: boolean;
 }
 
 export const getLinksCoreUnit = (cu: CuAbout | CoreUnitDto) => {
@@ -92,7 +94,10 @@ export const getLinksCoreUnit = (cu: CuAbout | CoreUnitDto) => {
   return links;
 };
 
-export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
+export const TitleNavigationCuAbout = ({ coreUnitAbout, hiddenTextDescription }: Props) => {
+  const phoneDimensions = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+  const tableDimensions = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
+  const lessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
   if (!coreUnitAbout || coreUnitAbout.cuMip.length === 0) return null;
   const buildNewArray = coreUnitAbout?.cuMip?.map((mip) => getRelateMipObjectFromCoreUnit(mip));
   const orderMips = _.sortBy(buildNewArray, ['orderBy', 'dateMip']).reverse();
@@ -114,42 +119,61 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
       <ContainerColum>
         <ContainerTitle>
           <ContainerSeparateData>
-            <TypographySES>{formatCode(coreUnitAbout.code)}</TypographySES>
-            {coreUnitAbout.name && <TypographyTitle>{coreUnitAbout.name}</TypographyTitle>}
+            <ResponsiveTitle>
+              <TypographySES>{formatCode(coreUnitAbout.code)}</TypographySES>
+              {coreUnitAbout.name && <TypographyTitle>{coreUnitAbout.name}</TypographyTitle>}
+            </ResponsiveTitle>
+            {(phoneDimensions || lessPhone) && <div style={{
 
-            {mips && <StatusChip status={mipStatus as CuStatusEnum} />}
-            <Row>
-              {newDate && <CustomLink
-                href={'#'}
-                withArrow
-                styleIcon={{
-                  marginTop: '3px',
-                }}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  height: '22px',
-                  fontFamily: 'FT Base, sans-serif',
-                  fontStyle: 'normal',
-                  fontWeight: 500,
-                  fontSize: '12px',
-                  lineHeight: '14px',
-                  letterSpacing: '1px',
-                  textTransform: 'uppercase',
-                  color: '#447AFB',
-                  textDecoration: 'none',
-                  marginLeft: '4px',
-                }}
-                children={`Since ${DateTime.fromJSDate(newDate).toFormat('d-MMM-y')}`}
-              />}
-            </Row>
+              borderBottom: !hiddenTextDescription ? '1px solid #B6EDE7' : 'none',
+              width: '100%',
+              marginTop: '16px',
+            }} />}
+            {!(phoneDimensions && !hiddenTextDescription) && <div style={{
+              display: 'flex',
+              flexDirection: 'row'
+            }}>
+              {mips && <StatusChip status={mipStatus as CuStatusEnum} />}
+              <Row>
+                {newDate && <CustomLink
+                  href={'#'}
+                  withArrow
+                  styleIcon={{
+                    marginTop: '3px',
+                  }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    height: '22px',
+                    fontFamily: 'FT Base, sans-serif',
+                    fontStyle: 'normal',
+                    fontWeight: 500,
+                    fontSize: '12px',
+                    lineHeight: '14px',
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase',
+                    color: '#447AFB',
+                    textDecoration: 'none',
+                    marginLeft: '4px',
+                  }}
+                  children={`Since ${DateTime.fromJSDate(newDate).toFormat('d-MMM-y')}`}
+                />}
+              </Row>
+            </div>}
           </ContainerSeparateData>
         </ContainerTitle>
-        <CategoryContainer>{coreUnitAbout.category && coreUnitAbout.category.map((item) => <CategoryChip key={item} category={item} style={{ marginRight: '16px' }} />)}</CategoryContainer>
+        <ContainerCategoryConditional>{(!(phoneDimensions || lessPhone) || hiddenTextDescription) && <CategoryContainer>{coreUnitAbout.category && coreUnitAbout.category.map((item) => <CategoryChip key={item} category={item} style={{ marginRight: phoneDimensions || tableDimensions ? '8px' : '16px' }} />)}</CategoryContainer>}
+          {tableDimensions && <ContainerLinks>
+            <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#708390'} lastChild align='flex-start' spacings={18} />
+          </ContainerLinks>}
+        </ContainerCategoryConditional>
+        {((phoneDimensions || lessPhone) && hiddenTextDescription) && <ContainerLinks>
+          <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#708390'} lastChild align='flex-start' spacings={18} />
+        </ContainerLinks>}
       </ContainerColum>
-      <ContainerLinks>
+      {!(phoneDimensions || lessPhone || tableDimensions) && <ContainerLinks>
         <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill={'#708390'} spacings={29} lastChild />
-      </ContainerLinks>
+      </ContainerLinks>}
     </Container>
   );
 };
@@ -167,6 +191,9 @@ const ContainerTitle = styled.div({
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'flex-end',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    width: '100%',
+  },
 });
 
 const TypographyTitle = styled(Typography)({
@@ -178,6 +205,22 @@ const TypographyTitle = styled(Typography)({
   marginLeft: '16px',
   marginRight: '24px',
   fontFamily: 'FT Base, sans-serif',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    fontFamily: 'FT Base, sans-serif',
+    fontStyle: 'normal',
+    fontWeight: 700,
+    fontSize: '16px',
+    lineHeight: '19px',
+    marginLeft: '4px',
+    marginRight: '0px',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
+    fontWeight: 700,
+    fontSize: '16px',
+    lineHeight: '19px',
+    marginLeft: '4px',
+    marginRight: '0px',
+  },
 });
 
 const TypographySES = styled(Typography)({
@@ -187,24 +230,22 @@ const TypographySES = styled(Typography)({
   lineHeight: '29px',
   color: '#9FAFB9',
   fontFamily: 'FT Base, sans-serif',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    fontWeight: 700,
+    fontSize: '16px',
+    lineHeight: '19px',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
+    fontWeight: 700,
+    fontSize: '16px',
+    lineHeight: '19px',
+  },
+
 });
 
 const Row = styled.div({
   display: 'flex',
   alignItems: 'center',
-  marginLeft: '4px',
-});
-
-const SinceDate = styled.a({
-  fontFamily: 'FT Base, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 500,
-  fontSize: '12px',
-  lineHeight: '14px',
-  letterSpacing: '1px',
-  textTransform: 'uppercase',
-  color: '#447AFB',
-  textDecoration: 'none',
   marginLeft: '4px',
 });
 
@@ -215,10 +256,34 @@ const ContainerLinks = styled.div({
   alignItems: 'flex-end',
   height: '68px',
   marginRight: '6px',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    width: '272px',
+    alignItems: 'flex-start',
+    height: 'fit-content',
+  },
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    width: '272px',
+    alignItems: 'flex-start',
+    height: 'fit-content',
+  },
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    height: 'fit-content',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
+    height: 'fit-content',
+    marginTop: '4px',
+  },
+
 });
 
 const CircleContainer = styled.div({
   marginRight: '16px',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    display: 'none',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
+    display: 'none',
+  },
 });
 
 const ContainerColum = styled.div({
@@ -234,12 +299,55 @@ const CategoryContainer = styled.div({
   flexDirection: 'row',
   marginTop: '16px',
   height: '22px',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    marginTop: '0px',
+  },
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    marginBottom: '8px',
+  },
+});
+const ContainerCategoryConditional = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'flex-start',
+  justifyContent: 'space-between',
+  width: '100%',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    marginTop: '16px',
+  },
 });
 
 const ContainerSeparateData = styled.div({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'flex-end',
+  width: '100%',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    width: '100%',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    width: '100%',
+  },
+});
+
+const ResponsiveTitle = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  width: '100%',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    width: '100%',
+    marginBottom: '2px',
+  },
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    width: '100%',
+    marginBottom: '2px',
+  },
 });
 
 export default TitleNavigationCuAbout;

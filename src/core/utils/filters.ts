@@ -1,7 +1,27 @@
-/* eslint-disable no-template-curly-in-string */
 import { ParsedUrlQuery } from 'querystring';
 import { CoreUnitDto } from '../models/dto/core-unit.dto';
 import { getLatestMip39FromCoreUnit } from '../business-logic/core-units';
+
+const filterStatus = (lowerCaseStatuses: string[], data: CoreUnitDto) => {
+  return (lowerCaseStatuses.length === 0 ||
+    lowerCaseStatuses.indexOf(
+      getLatestMip39FromCoreUnit(data)?.mipStatus?.toLowerCase() ??
+      'non-present'
+    ) > -1);
+};
+
+const filterCategories = (lowerCaseCategories: string[], data: CoreUnitDto) => {
+  return (lowerCaseCategories.length === 0 ||
+    data.category?.some(
+      (x) => lowerCaseCategories.indexOf(x.toLowerCase()) > -1
+    ));
+};
+
+const filterByNameAndCode = (searchText: string, data: CoreUnitDto) => {
+  return (searchText.trim().length === 0 ||
+  data.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1 ||
+  data.code.toLowerCase().indexOf(searchText.toLowerCase()) > -1);
+};
 
 export const filterData = ({
   filteredStatuses = [],
@@ -16,35 +36,37 @@ export const filterData = ({
 }) => {
   const lowerCaseStatuses = filteredStatuses.map((x) => x.toLowerCase());
   const lowerCaseCategories = filteredCategories.map((x) => x.toLowerCase());
-  return data.filter((data) => {
-    let filterResult = true;
+  return {
+    filteredData: data.filter((data) => {
+      let filterResult = true;
 
-    // Filter by status
-    filterResult =
-      filterResult &&
-      (lowerCaseStatuses.length === 0 ||
-        lowerCaseStatuses.indexOf(
-          getLatestMip39FromCoreUnit(data)?.mipStatus?.toLowerCase() ??
-            'non-present'
-        ) > -1);
+      filterResult = filterResult && filterStatus(lowerCaseStatuses, data);
 
-    // Filter by categories
-    filterResult =
-      filterResult &&
-      (lowerCaseCategories.length === 0 ||
-        data.category?.some(
-          (x) => lowerCaseCategories.indexOf(x.toLowerCase()) > -1
-        ));
+      filterResult = filterResult && filterCategories(lowerCaseCategories, data);
 
-    // Filter by name
-    filterResult =
-      filterResult &&
-      (searchText.trim().length === 0 ||
-        data.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1 ||
-        data.code.toLowerCase().indexOf(searchText.toLowerCase()) > -1);
+      filterResult = filterResult && filterByNameAndCode(searchText, data);
 
-    return filterResult;
-  });
+      return filterResult;
+    }),
+    statusesFiltered: data.filter((data) => {
+      let filterResult = true;
+
+      filterResult = filterResult && filterCategories(lowerCaseCategories, data);
+
+      filterResult = filterResult && filterByNameAndCode(searchText, data);
+
+      return filterResult;
+    }),
+    categoriesFiltered: data.filter((data) => {
+      let filterResult = true;
+
+      filterResult = filterResult && filterStatus(lowerCaseStatuses, data);
+
+      filterResult = filterResult && filterByNameAndCode(searchText, data);
+
+      return filterResult;
+    })
+  };
 };
 
 export const getArrayParam = (key: string, urlSearchParams: ParsedUrlQuery) => {

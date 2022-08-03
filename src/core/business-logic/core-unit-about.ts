@@ -70,6 +70,6 @@ export const getRelateMipObjectFromCoreUnit = (cu: CuMip | CuMipDto) => {
     mipStatus: cu.mipStatus,
     dateMip,
     mipUrl: cu.mipUrl,
-    orderBy: cu.mipStatus === CuStatusEnum.FormalSubmission || cu.mipStatus === CuStatusEnum.RFC || cu.mipStatus === CuStatusEnum.Accepted ? 1 : 0,
+    orderBy: cu.mipStatus === CuStatusEnum.Accepted ? 2 : cu.mipStatus === CuStatusEnum.FormalSubmission || cu.mipStatus === CuStatusEnum.RFC ? 1 : 0,
   } as unknown;
 };

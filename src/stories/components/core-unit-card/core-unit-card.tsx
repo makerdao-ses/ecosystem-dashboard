@@ -19,6 +19,7 @@ import { CuTableColumnExpenditures } from '../cu-table-column-expenditures/cu-ta
 import { CuTableColumnTeamMember } from '../cu-table-column-team-member/cu-table-column-team-member';
 import { CuTableColumnLinks } from '../cu-table-column-links/cu-table-column-links';
 import { CategoryChip } from '../category-chip/category-chip';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface CoreUnitCardProps {
   coreUnit: CoreUnitDto;
@@ -27,7 +28,8 @@ interface CoreUnitCardProps {
 }
 
 export const CoreUnitCard = ({ coreUnit, onClick, onClickFinances }: CoreUnitCardProps) => {
-  return <Container>
+  const isLight = useThemeContext().themeMode === 'light';
+  return <Container isLight={isLight}>
     <Summary>
       <Title>Core Unit</Title>
       <CuTableColumnSummary
@@ -58,7 +60,7 @@ export const CoreUnitCard = ({ coreUnit, onClick, onClickFinances }: CoreUnitCar
         fte={getFTEsFromCoreUnit(coreUnit)}
       />
     </Team>
-    <Line>
+    <Line isLight={isLight}>
     </Line>
     <Categories>
       {coreUnit.category?.map((category) => <CategoryChip key={category} category={category} />)}
@@ -73,12 +75,12 @@ export const CoreUnitCard = ({ coreUnit, onClick, onClickFinances }: CoreUnitCar
   </Container>;
 };
 
-const Container = styled.div({
+const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'grid',
   gridTemplateRows: 'auto',
   marginBottom: '32px',
-  boxShadow: '0px 0px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
-  background: 'white',
+  boxShadow: isLight ? '0px 0px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : '0px 20px 40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+  background: isLight ? '#FFFFFF' : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
   padding: '24px 16px 13px 16px',
   gridTemplateColumns: 'auto',
   minWidth: '340px',
@@ -115,7 +117,7 @@ const Container = styled.div({
        "line line line"
        "categories links links"`,
   },
-});
+}));
 
 const Summary = styled.div({
   gridArea: 'summary',
@@ -141,15 +143,15 @@ const Team = styled.div({
   }
 });
 
-const Line = styled.div({
+const Line = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   gridArea: 'line',
   height: 1,
-  background: '#D4D9E1',
+  background: isLight ? '#D4D9E1' : '#405361',
   margin: '16px 0',
   '@media (min-width: 835px)': {
     margin: '16px 0 8px',
   }
-});
+}));
 
 const Categories = styled.div({
   gridArea: 'categories',

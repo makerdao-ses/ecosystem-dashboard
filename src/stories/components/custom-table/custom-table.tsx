@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { CustomTableHeader } from '../custom-table-header/custom-table-header';
 import { SortEnum } from '../../../core/enums/sort.enum';
 import { LoadingSpinner } from '../loading-spinner/loading-spinner';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface CustomTableProps {
   headers: string[],
@@ -15,10 +16,11 @@ interface CustomTableProps {
 }
 
 export const CustomTable = ({ headersSort = [], headersStyles = [], ...props }: CustomTableProps) => {
+  const isLight = useThemeContext().themeMode === 'light';
   return (
-    <TableContainer>
+    <TableContainer isLight={isLight}>
       <Table>
-        <TableHead>
+        <TableHead isLight={isLight}>
           <TableHeadRow>
             {props.headers?.map((header, i) =>
               <TableCell
@@ -33,8 +35,8 @@ export const CustomTable = ({ headersSort = [], headersStyles = [], ...props }: 
               </TableCell>)}
           </TableHeadRow>
         </TableHead>
-        <TableBody>
-          {props.items?.map((row, i) => <TableRow key={i}>
+        <TableBody isLight={isLight}>
+          {props.items?.map((row, i) => <TableRow key={i} isLight={isLight}>
             {row.map((item, j) => <TableCell key={`${i}-${j}`} onClick={() => { console.log(item); }}>{item}</TableCell>)}
           </TableRow>)}
         </TableBody>
@@ -51,14 +53,14 @@ const Placeholder = styled.div({
   height: '600px',
 });
 
-const TableContainer = styled.div({
-  background: 'white',
+const TableContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  background: isLight ? 'white' : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
   display: 'flex',
   flexDirection: 'column',
   '& *': {
     boxSizing: 'border-box',
   }
-});
+}));
 
 const Table = styled.div({
   borderCollapse: 'separate',
@@ -66,22 +68,23 @@ const Table = styled.div({
   flex: '1',
 });
 
-const TableHead = styled.div({
+const TableHead = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   position: 'relative',
   zIndex: 1,
-  background: '#F7F8F9',
+  background: isLight ? '#F7F8F9' : '#25273D',
   padding: '16px 0',
   borderTopLeftRadius: '5px',
   borderTopRightRadius: '5px',
-  boxShadow: 'inset .25px -.25px .25px .25px rgba(190, 190, 190, 0.25), 0px 20px 40px rgba(190, 190, 190, .25), 0px 1px 3px rgba(190, 190, 190, 0.25)',
-});
+  boxShadow: isLight ? 'inset .25px -.25px .25px .25px rgba(190, 190, 190, 0.25), 0px 20px 40px rgba(190, 190, 190, .25), 0px 1px 3px rgba(190, 190, 190, 0.25)' : '0px 20px 40px rgba(7, 22, 40, 0.4)',
+}));
 
-const TableRow = styled.div({
+const TableRow = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  background: isLight ? 'white' : '#10191F',
   display: 'grid',
   gridTemplateColumns: '400px 215px 205px 358px',
   marginTop: '16px',
-  boxShadow: '0px 0px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
-});
+  boxShadow: isLight ? '0px 0px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : '0px 20px 40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+}));
 
 const TableHeadRow = styled.div({
   display: 'inline-grid',
@@ -94,9 +97,9 @@ const TableCell = styled.div({
   alignItems: 'center',
 });
 
-const TableBody = styled.div({
-  background: '#F7F8F966',
-});
+const TableBody = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  background: isLight ? '#F7F8F966' : 'none',
+}));
 
 const Loading = styled.div({
   display: 'flex',

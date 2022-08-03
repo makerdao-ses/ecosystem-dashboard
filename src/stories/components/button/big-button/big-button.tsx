@@ -26,9 +26,9 @@ const StyledBigButton = styled(Button)({
   textAlign: 'center',
   textTransform: 'uppercase',
   color: '#708390',
-  padding: ' 8px 64px',
+  padding: '8px 64px',
   letterSpacing: '0px',
-  fontFamily: 'FT Base, sans-serif'
+  fontFamily: 'FT Base, sans-serif',
 });
 
 export default BigButton;

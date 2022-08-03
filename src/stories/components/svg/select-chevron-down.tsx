@@ -12,7 +12,7 @@ export const SelectChevronDown = ({ width = 10, height = 6, fill = '#25273D', ..
     width={`${width}px`}
     height={`${height}px`}
     viewBox="0 0 10 6"
-    fill="none"
+    fill={fill}
     style={props.style}
     xmlns="http://www.w3.org/2000/svg">
     <path
