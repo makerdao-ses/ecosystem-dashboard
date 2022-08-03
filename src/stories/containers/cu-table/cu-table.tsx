@@ -199,7 +199,7 @@ export const CuTable = () => {
   return <ContainerHome isLight={isLight}>
     <Wrapper>
       <Header>
-        <Title isLight={isLight}>Core Units</Title>
+        <Title isLight={isLight}>Core Units Expenses</Title>
         <FilterButtonWrapper
           onClick={toggleFiltersPopup}
         >
