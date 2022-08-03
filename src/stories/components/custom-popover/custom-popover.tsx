@@ -12,9 +12,11 @@ interface CustomPopoverProps {
     vertical: 'bottom' | 'center' | 'top',
     horizontal: 'left' | 'center' | 'right',
   };
+  leaveOnChildrenMouseOut?: boolean;
 }
 
 export const CustomPopover = ({
+  leaveOnChildrenMouseOut = false,
   anchorOrigin = {
     vertical: 'bottom',
     horizontal: 'center',
@@ -38,14 +40,15 @@ export const CustomPopover = ({
       aria-owns={props.id}
       aria-haspopup="true"
       onMouseEnter={handlePopoverOpen}
-      onMouseLeave={handlePopoverClose}>
+      onClick={handlePopoverClose}
+      onMouseLeave={() => !leaveOnChildrenMouseOut && handlePopoverClose()}>
       {props.children}
     </div>
     <Popover
       disableScrollLock
       id={props.id}
       sx={{
-        pointerEvents: 'none',
+        pointerEvents: leaveOnChildrenMouseOut ? 'auto' : 'none',
         border: '1px solid #D4D9E1',
         boxShadow: 'none'
       }}
@@ -58,8 +61,11 @@ export const CustomPopover = ({
       }}
       onClose={handlePopoverClose}
       disableRestoreFocus
-    >
-      <Container style={props.popupStyle}>{props.title}</Container>
+      >
+      <Container
+        style={props.popupStyle}
+        onMouseLeave={() => leaveOnChildrenMouseOut && handlePopoverClose()}
+      >{props.title}</Container>
     </Popover>
   </React.Fragment>;
 };
