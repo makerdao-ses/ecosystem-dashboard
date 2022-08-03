@@ -89,7 +89,7 @@ const SelectWrapper = styled.div({
   position: 'relative',
   width: 'fit-content',
   zIndex: 2,
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     alignItems: 'flex-start',
   }
 });
@@ -132,7 +132,7 @@ const PopupContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   height: 'fit-content',
   marginTop: '16px',
   padding: isLight ? 'none' : '16px',
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     height: '200px',
     boxShadow: isLight ? '0px 20px 40px #dbe3ed66, 0px 1px 3px #bebebe40' : 'none',
     position: 'absolute',

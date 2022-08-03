@@ -13,32 +13,42 @@ interface InnerTableProps {
 }
 
 export const InnerTable = ({ headersAlign = [], minWidth = 160, headerWidths = [], headerStyles = [], ...props }: InnerTableProps) => {
-  return <Container style={props.style}>
-    <Table>
-      <TableHead>
-        <tr>
-          {props.headers.map((header, i) => <HeadCell width={headerWidths[i] ?? 'unset'} minWidth={minWidth} key={`header-${i}`} style={{
-            textAlign: headersAlign[i] ?? 'left',
-            ...headerStyles[i]
-          }} >
-            {header}
-          </HeadCell>)}
-        </tr>
-      </TableHead>
-      <tbody>
-        {props.items?.map((row, i) => <tr key={i} style={props.rowStyles ? props.rowStyles[i] : {}}>
-          {row.map((item, j) => <TableCell key={`${i}-${j}`} textAlign={ headersAlign[j] ?? 'left' }>{item}</TableCell>)}
-        </tr>)}
-      </tbody>
-    </Table>
-  </Container>;
+  return <>
+    <Container style={props.style}>
+      <Table>
+        <TableHead>
+          <tr>
+            {props.headers.map((header, i) => <HeadCell width={headerWidths[i] ?? 'unset'} minWidth={minWidth} key={`header-${i}`} style={{
+              textAlign: headersAlign[i] ?? 'left',
+              ...headerStyles[i]
+            }} >
+              {header}
+            </HeadCell>)}
+          </tr>
+        </TableHead>
+        <tbody>
+          {props.items?.map((row, i) => <tr key={i} style={props.rowStyles ? props.rowStyles[i] : {}}>
+            {row.map((item, j) => <TableCell key={`${i}-${j}`} textAlign={ headersAlign[j] ?? 'left' }>{item}</TableCell>)}
+          </tr>)}
+        </tbody>
+      </Table>
+    </Container>
+  </>;
 };
 
-const Container = styled.div({
+const CardsWrapper = styled.div({
   display: 'flex',
+  flexDirection: 'column',
+});
+
+const Container = styled.div({
+  display: 'none',
   background: '#FFFFFF',
   boxShadow: '0px 20px 40px -40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
   borderRadius: '6px',
+  '@media (min-width: 835)': {
+    display: 'flex'
+  }
 });
 
 const Table = styled.table({

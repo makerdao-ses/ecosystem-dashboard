@@ -103,7 +103,7 @@ const ContainerFooter = styled.div({
   '@media (min-width: 435px)': {
     padding: '40px 32px 74px',
   },
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     padding: '40px 64px 74px',
   }
 });
@@ -115,7 +115,7 @@ const ContainerColumOne = styled.div({
   '@media (min-width: 435px)': {
     margin: 0
   },
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     order: 1,
   }
 });
@@ -124,7 +124,7 @@ const ContainerColumTwo = styled.div({
   order: 1,
   width: '143px',
   marginBottom: '32px',
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     margin: 0,
     order: 2,
   }
@@ -134,7 +134,7 @@ const ContainerColumThree = styled.div({
   order: 2,
   width: '147px',
   marginBottom: '32px',
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     order: 3,
     margin: 0
   }
@@ -144,7 +144,7 @@ const ContainerColumFour = styled.div({
   order: 3,
   width: '129px',
   marginBottom: '32px',
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     order: 4,
     margin: 0,
   }
