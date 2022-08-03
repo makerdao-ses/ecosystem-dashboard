@@ -32,22 +32,11 @@ const CuAboutContainer = ({ code, cuAbout, contributors }: Props) => {
   const [isEnabled] = useFlagsActive();
   const router = useRouter();
   const [showThreeMIPs, setShowThreeMIPs] = useState<boolean>(true);
-  // const dispatch = useAppDispatch();
-  // const { cuAbout, statusCoreUnit } = useSelector((state: RootState) => cuAboutSelector(state));
-  // const contributors = useSelector((state: RootState) => contributorCommitmentSelector(state));
 
   const table834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const LessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
 
-  // useEffect(() => {
-  //   dispatch(loadCuTableItemsAsync());
-  // }, [dispatch]);
-  useEffect(() => {
-    if (code) {
-      setShowThreeMIPs(true);
-    }
-  }, [code]);
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
