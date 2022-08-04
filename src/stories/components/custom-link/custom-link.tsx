@@ -1,7 +1,6 @@
 import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
 import { LinkIcon } from '../svg/link-icon';
-import { padding } from '@mui/system';
 
 interface CustomLinkProps {
   children: JSX.Element | JSX.Element[] | string,
