@@ -98,7 +98,7 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
           items={[
             {
               style: {
-                color: '#25273D',
+                color: isLight ? '#25273D' : '#D2D4EF',
               },
               label: cu?.name ?? '',
               url: `/core-unit/${code}/?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
@@ -108,7 +108,7 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
               url: ''
             })),
             {
-              label: <span>Core Units <Value>({page})</Value></span>,
+              label: <span >Core Units <Value isLight={isLight}>({page})</Value></span>,
               url: `/?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
             },
           ]}
@@ -217,14 +217,14 @@ const TypographyDescription = styled(Typography)<{ isLight: boolean }>(({ isLigh
   },
 }));
 
-const Value = styled.b({
+const Value = styled.b<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
   fontSize: '16px',
   lineHeight: '19px',
-  color: '#708390'
-});
+  color: isLight ? '#708390' : '#48495F'
+}));
 
 const CoreUnitStyle = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#708390' : '#787A9B',
