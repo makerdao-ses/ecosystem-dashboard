@@ -67,7 +67,7 @@ const Container = styled.div({
   boxSizing: 'border-box',
   cursor: 'pointer',
   padding: '24px 0',
-  '@media (min-width: 834px)': {
+  '@media (min-width: 1180px)': {
     padding: '24px 16px'
   }
 });
