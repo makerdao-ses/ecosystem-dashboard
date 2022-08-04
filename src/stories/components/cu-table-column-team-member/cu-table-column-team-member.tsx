@@ -33,7 +33,6 @@ export const CuTableColumnTeamMember = ({ ...props }: CuTableColumnTeamMemberPro
           popupStyle={{
             padding: 0,
           }}
-          leaveOnChildrenMouseOut={true}
           title={<CardInfoMember contributorCommitment={member}/>}
           id={member.contributor[0].name + i}>
           <CircleAvatar key={member.id}
