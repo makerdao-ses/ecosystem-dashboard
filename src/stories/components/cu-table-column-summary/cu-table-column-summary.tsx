@@ -68,7 +68,7 @@ const Container = styled.div({
   cursor: 'pointer',
   padding: '24px 0',
   '@media (min-width: 834px)': {
-    padding: '24px 16px',
+    padding: '24px 16px'
   }
 });
 
