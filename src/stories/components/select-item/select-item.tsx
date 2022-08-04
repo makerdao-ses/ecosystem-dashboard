@@ -37,7 +37,7 @@ const Container = styled.div<{ minWidth: number, isLight: boolean }>(({ minWidth
   borderBottom: '2px solid #ECF1F3',
   '& > input': {
     position: 'absolute',
-    opacity: 1,
+    opacity: 0,
     cursor: 'pointer',
     height: '0',
     width: '0',
