@@ -31,7 +31,7 @@ const Footer = ({ governesses, products, developer, isLight }: Props) => {
               paddingLeft: '6px',
               paddingRight: '6.3px',
             }}
-            logo={<Logo width={37} height={20} fill={isLight ? '#211634' : '#D1DEE6'} />}
+            logo={<Logo width={37} height={20} fill={'#211634'} fillDark='#D1DEE6'/>}
             links={iconsContact}
           />
         </ContainerColumOne>

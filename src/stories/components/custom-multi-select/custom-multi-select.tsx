@@ -118,6 +118,7 @@ const SelectWrapper = styled.div({
   alignItems: 'center',
   position: 'relative',
   width: 'fit-content',
+  // border: '2px solid red',
   zIndex: 2,
   '@media (min-width: 834px)': {
     alignItems: 'flex-start',

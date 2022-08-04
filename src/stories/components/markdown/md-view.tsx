@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 import Markdown from 'marked-react';
-import { customRenderer } from './renderUtils';
+import { customRenderer, customRendererDark } from './renderUtils';
 import { CustomButton } from '../custom-button/custom-button';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 export type MarkDownHeaders = {
   level: number;
@@ -27,6 +28,7 @@ interface Props {
 const MdViewerPage = ({ subTitle = 'What we do', paragraphDescription, paragraphImage, headersLevel, showButton = false, onClick }: Props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [activeLink, setActiveLink] = useState('');
+  const isLight = useThemeContext().themeMode === 'light';
 
   useEffect(() => {
     const ids = headersLevel.map((header) => header.id);
@@ -59,7 +61,7 @@ const MdViewerPage = ({ subTitle = 'What we do', paragraphDescription, paragraph
     <ViewerContainer>
       {showButton
         ? <ContainerResponsive>
-          <TypographyStyleDescription id='hidden-element'>{subTitle}</TypographyStyleDescription>
+          <TypographyStyleDescription isLight={isLight} id='hidden-element'>{subTitle}</TypographyStyleDescription>
           <CustomButton widthText='100%' label='Expenses' style={{
             textAlign: 'center',
             background: '#E7FCFA',
@@ -79,11 +81,9 @@ const MdViewerPage = ({ subTitle = 'What we do', paragraphDescription, paragraph
             color: '#1AAB9B',
           }} />
         </ContainerResponsive>
-        : <TypographyStyleDescription id='hidden-element'>{subTitle}</TypographyStyleDescription>}
-      {paragraphDescription && <Markdown value={paragraphDescription} renderer={customRenderer} key={paragraphDescription}/>}
-      {(paragraphImage !== '![Image]()') &&
-        <Markdown value={paragraphImage} renderer={customRenderer} key={paragraphImage}/>
-      }
+        : <TypographyStyleDescription isLight={isLight} id='hidden-element'>{subTitle}</TypographyStyleDescription>}
+      {paragraphDescription && isLight ? <Markdown value={paragraphDescription} renderer={customRenderer} key={paragraphDescription} /> : <Markdown value={paragraphDescription} renderer={customRendererDark} key={paragraphDescription} />}
+      {((paragraphImage !== '![Image]()') && isLight) ? <Markdown value={paragraphImage} renderer={customRenderer} key={paragraphImage} /> : <Markdown value={paragraphImage} renderer={customRenderer} key={paragraphImage} />}
     </ViewerContainer>
   );
 };
@@ -97,15 +97,15 @@ const ViewerContainer = styled.div({
   boxSizing: 'border-box',
 });
 
-const TypographyStyleDescription = styled(Typography)({
+const TypographyStyleDescription = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '20px',
-  lineHeight: '19px',
-  color: '#231536',
+  lineHeight: isLight ? '19px' : '24px',
+  color: isLight ? '#231536' : ' #D2D4EF;',
   marginBottom: '16px'
-});
+}));
 
 const ContainerResponsive = styled.div({
   display: 'flex',
