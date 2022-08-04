@@ -64,7 +64,8 @@ export const CustomMultiSelect = ({
     <SelectWrapper ref={refOutsideClick} style={props.style}>
       <SelectContainer
         isLight={isLight}
-        focus={popupVisible || activeItems.length > 0}
+        focus={popupVisible}
+        active={activeItems.length > 0}
         className="no-select"
         style={{
           maxWidth:
@@ -74,12 +75,13 @@ export const CustomMultiSelect = ({
         }}
         onClick={toggleVisible}
       >
-        <Label focus={popupVisible || activeItems.length > 0} isLight={isLight}>
+        <Label active={activeItems.length > 0} isLight={isLight}>
           {props.label} {activeItems.length > 0 ? `${activeItems.length}` : ''}
         </Label>
         <IconWrapper>
           <SelectChevronDown
-            fill={isLight ? (popupVisible || activeItems.length > 0 ? '#1AAB9B' : '#25273D') : '#ADAFD4'}
+            style={{ transform: popupVisible ? 'scaleY(-1)' : '' }}
+            fill={isLight ? (activeItems.length > 0 ? '#1AAB9B' : '#25273D') : '#ADAFD4'}
           />
         </IconWrapper>
       </SelectContainer>
@@ -122,12 +124,12 @@ const SelectWrapper = styled.div({
   },
 });
 
-const SelectContainer = styled.div<{ focus: boolean; isLight: boolean }>(
+const SelectContainer = styled.div<{ focus: boolean; active: boolean; isLight: boolean }>(
   (props) => ({
     display: 'flex',
     position: 'relative',
     alignItems: 'center',
-    border: `1px solid ${props.focus ? '#1AAB9B' : '#D4D9E1'}`,
+    border: `1px solid ${props.active ? '#1AAB9B' : props.focus ? '#231536' : '#D4D9E1'}`,
     borderRadius: '22px',
     height: '48px',
     width: 'fit-content',
@@ -139,14 +141,14 @@ const SelectContainer = styled.div<{ focus: boolean; isLight: boolean }>(
   })
 );
 
-const Label = styled.div<{ focus: boolean; isLight: boolean }>(
-  ({ focus, isLight }) => ({
+const Label = styled.div<{ active: boolean; isLight: boolean }>(
+  ({ active, isLight }) => ({
     fontFamily: 'SF Pro Text, sans-serif',
     fontStyle: 'normal',
     fontWeight: 500,
     fontSize: '14px',
     lineHeight: '18px',
-    color: isLight ? (focus ? '#1AAB9B' : '#231536') : '#D2D4EF',
+    color: isLight ? (active ? '#1AAB9B' : '#231536') : '#D2D4EF',
     whiteSpace: 'nowrap',
   })
 );
