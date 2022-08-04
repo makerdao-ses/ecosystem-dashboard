@@ -21,7 +21,16 @@ export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps)
           <Title isLight={isLight}>Last 3 Months</Title>
           <CustomPopover
             id="mouse-over-popover-total"
-            title="Actual Expenditure">
+            title={<TotalPopup>
+              <PopupTitle>
+                {props.value.toLocaleString('en-US', {
+                  maximumFractionDigits: 0,
+                })}
+              </PopupTitle>
+              <Label>
+                Actual Expenditure
+              </Label>
+            </TotalPopup>}>
             <Value isLight={isLight} style={{ justifyContent: props.value ? 'flex-start' : 'center' }}>
               {props.value.toLocaleString('en-US', {
                 maximumFractionDigits: 0,
@@ -36,19 +45,17 @@ export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps)
           css={{ alignSelf: 'center' }}
           id={'mouse-over-popover-percent'}
           title={
-            <PercentExplanation>
-              <Fraction>
-                <Actual>
-                  Actual
-                </Actual>
-                <BudgetCap>
-                  Budget Cap
-                </BudgetCap>
-              </Fraction>
-              <div>
+            <TotalPopup>
+              <PopupTitle>
+                {props.percent?.toFixed(0)}%
+              </PopupTitle>
+              <Label>
+                <b>Actuals/BudgetCap</b>
+              </Label>
+              <Label>
                 over the last 3 months
-              </div>
-            </PercentExplanation>
+              </Label>
+            </TotalPopup>
           }>
           <Percent isLight={isLight}>
             {props.percent?.toFixed(0)}%
@@ -83,6 +90,24 @@ const Data = styled.div({
   justifyContent: 'flex-end'
 });
 
+const TotalPopup = styled.div({
+  display: 'block'
+});
+
+const PopupTitle = styled.div({
+  fontSize: '16px',
+  fontWeight: 700,
+  fontFamily: 'SF Pro Display, sans-serif',
+  color: '#231536'
+});
+
+const Label = styled.div({
+  fontSize: '14px',
+  fontWeight: 400,
+  fontFamily: 'FT Base, sans-serif',
+  color: '#231536'
+});
+
 export const Title = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: '12px',
   color: isLight ? '#434358' : '#9FAFB9',
@@ -112,25 +137,3 @@ const Percent = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: '16px',
   color: isLight ? '#231536' : '#EDEFFF',
 }));
-
-const PercentExplanation = styled.div({
-  display: 'flex',
-  alignItems: 'center',
-});
-
-const Fraction = styled.div({
-  display: 'flex',
-  flexDirection: 'column',
-  marginRight: '14px'
-});
-
-const Actual = styled.div({
-  padding: '4px',
-  borderBottom: '1px solid black',
-  textAlign: 'center'
-});
-
-const BudgetCap = styled.div({
-  padding: '4px',
-  textAlign: 'center'
-});

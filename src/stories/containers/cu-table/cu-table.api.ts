@@ -68,6 +68,20 @@ export const GETCoreUnits = gql`
             }
           }
         }
+        contributorCommitment {
+          cuCode
+          commitment
+          startDate
+          jobTitle,
+          contributor {
+            discordHandle
+            email
+            facilitatorImage
+            forumHandle
+            githubUrl
+            name
+          }
+        }
       }
     }
   `;

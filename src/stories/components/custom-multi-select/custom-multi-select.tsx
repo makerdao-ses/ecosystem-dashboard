@@ -126,6 +126,9 @@ const IconWrapper = styled.div({
 });
 
 const PopupContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '4px',
   minWidth: '100%',
   width: 'fit-content',
   background: isLight ? 'white' : '#000A13',
@@ -144,6 +147,5 @@ const PopupContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
       width: !isLight ? 0 : 'none',
       backgroundColor: !isLight ? 'transparent' : 'none'
     }
-
   }
 }));

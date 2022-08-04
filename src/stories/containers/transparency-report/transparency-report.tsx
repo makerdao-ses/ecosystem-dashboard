@@ -124,7 +124,7 @@ const Container = styled.div({
   backgroundSize: 'cover',
   padding: '0 16px',
   '@media (min-width: 834px)': {
-    padding: '0 32px',
+    padding: '0 32px 128px',
   },
 });
 

@@ -101,7 +101,6 @@ export const Filters = (props: FilterProps) => {
             handleChangeUrlFilterArrays('searchText')(value);
           }, 300);
         }}
-        style={{ marginLeft: '16px' }}
       />}
       {!router.isReady && <SearchInput
         defaultValue={props.searchText}
@@ -111,7 +110,6 @@ export const Filters = (props: FilterProps) => {
             handleChangeUrlFilterArrays('searchText')(value);
           }, 300);
         }}
-        style={{ marginLeft: '16px' }}
       />}
       <CloseButton onClick={() => props.setFiltersPopup && props.setFiltersPopup()}>
         <Close />
@@ -123,7 +121,7 @@ export const Filters = (props: FilterProps) => {
 const Separator = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   height: '1px',
   width: 'calc(100vw - 64px)',
-  margin: '0 32px',
+  margin: '0 16px',
   backgroundColor: isLight ? '#D4D9E1' : '#48495F',
   alignSelf: 'center',
   '@media (min-width: 834px)': {
@@ -131,9 +129,6 @@ const Separator = styled.span<{ isLight: boolean }>(({ isLight }) => ({
     height: '32px',
     margin: 0,
   },
-  '@media (min-width: 834px) and (max-width: 1180px)': {
-    alignSelf: 'flex-end'
-  }
 }));
 
 const SmallSeparator = styled.span<{ isLight: boolean }>(({ isLight }) => ({
