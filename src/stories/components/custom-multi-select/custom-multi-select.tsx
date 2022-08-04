@@ -70,13 +70,18 @@ export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }
     </SelectContainer>
     {popupVisible && <PopupContainer isLight={isLight}>
       {withAll && <SelectItem
+        style={{
+          marginBottom: isLight ? 0 : '4px',
+        }}
         checked={activeItems.length === props.items.length}
         onClick={() => toggleAll()}
         label={props.customAll?.content ? props.customAll.content : 'All'}
         count={props.customAll?.count ?? props.items.length}
         minWidth={180} />}
       {props.items.map((item, i) => (
-        <SelectItem key={`item-${i}`} checked={activeItems.indexOf(item.id) > -1} onClick={() => toggleItem(item.id)} label={item.content} count={item.count} minWidth={180} />
+        <SelectItem style={{
+          marginBottom: isLight ? 0 : '4px',
+        }} key={`item-${i}`} checked={activeItems.indexOf(item.id) > -1} onClick={() => toggleItem(item.id)} label={item.content} count={item.count} minWidth={180} />
       ))}
     </PopupContainer>}
   </SelectWrapper>;
@@ -88,6 +93,7 @@ const SelectWrapper = styled.div({
   alignItems: 'center',
   position: 'relative',
   width: 'fit-content',
+  // border: '2px solid red',
   zIndex: 2,
   '@media (min-width: 834px)': {
     alignItems: 'flex-start',

@@ -42,20 +42,22 @@ export const Filters = (props: FilterProps) => {
   }, [router]);
 
   return <Wrapper style={{
-    display: props.filtersPopup ? 'flex' : 'none'
+    display: props.filtersPopup ? 'flex' : 'none',
+    background: isLight ? 'white' : 'none',
   }}>
     <Container>
       <CustomButton
         label="Reset Filters"
         style={{
           width: '114px',
-          border: 'none'
+          border: 'none',
+          background: isLight ? 'none' : 'none',
         }}
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         onClick={props.clearFilters}
         disabled={props.filteredStatuses && !props.filteredStatuses.length && props.filteredCategories && !props.filteredCategories.length && !props.searchText}
       />
-      <SmallSeparator isLight={isLight}/>
+      <SmallSeparator isLight={isLight} />
       <CustomMultiSelect
         label="Status"
         activeItems={props.filteredStatuses}

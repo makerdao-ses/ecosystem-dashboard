@@ -93,6 +93,27 @@ export const getColorJobPosition = (job: CuJobEnum) => {
       return {
         color: '#F08B04',
       };
+    case CuJobEnum.DataAnalyst:
+      return {
+        color: '#1DC1AE',
+      };
+    case CuJobEnum.Contributor:
+      return {
+        color: '#D44C96',
+      };
+    case CuJobEnum.Legal:
+      return {
+        color: '#FF8237',
+      };
+    case CuJobEnum.Product:
+      return {
+        color: '#02CB9B',
+      };
+    case CuJobEnum.Developer:
+      return {
+        color: '#34AAFF',
+      };
+
     default:
       return {
         color: '#000000',

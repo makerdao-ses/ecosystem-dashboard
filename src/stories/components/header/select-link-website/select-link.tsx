@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { IconButton, Menu, MenuItem, Typography } from '@mui/material';
 import React, { useMemo, useState } from 'react';
-import { ThemeMode } from '../../../../core/context/ThemeContext';
+import { ThemeMode, useThemeContext } from '../../../../core/context/ThemeContext';
 import ArrowSelect from '../../svg/arrow-select';
 import ArrowSelectUp from '../../svg/arrow-select-up';
 import ItemWebSite from './item-select/item-website';
@@ -21,6 +21,7 @@ interface Props {
 }
 
 const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, toggleTheme }: Props) => {
+  const isLight = useThemeContext().themeMode === 'light';
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -54,95 +55,97 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
           aria-expanded={open ? 'true' : undefined}
           onClick={handleClick}
         >{open ? <ArrowSelectUp fill={'#1AAB9B'} /> : <ArrowSelect fill={fill} />}</IconButton></ContainerIcon>
-        <Menu
-          disableScrollLock={true}
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            'aria-labelledby': 'basic-button',
-          }}
-          sx={{
-            '& .MuiMenu-paper': {
-              padding: '24px',
-              minHeight: '711px',
-              width: '545px',
-              background: '#FFFFFF',
-              position: 'absolute',
-              boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-            },
-            '& .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
-              borderRadius: '22px',
-            },
-            '& .MuiMenu-list': {
-              paddingTop: '0px',
-              paddingBottom: '0px',
-            },
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
+      <Menu
+        disableScrollLock={true}
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+        sx={{
+          '& .MuiMenu-paper': {
+            padding: '24px',
+            minHeight: '711px',
+            width: '545px',
+            background: isLight ? '#FFFFFF' : '#000A13',
+            position: 'absolute',
+            boxShadow: isLight ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : 'none',
+          },
+          '& .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
+            borderRadius: '22px',
+          },
+          '& .MuiMenu-list': {
+            paddingTop: '0px',
+            paddingBottom: '0px',
+          },
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
       >
-        <StyleTitle>Essential MakerDAO Governance Websites </StyleTitle>
-        <StyleDescription >Websites to gather all relevant data and information for Maker Governance.</StyleDescription>
-          {links.map((link: WebSiteLinks, i: number) => {
-            return <MenuItem
-              disableGutters={true}
-              disableTouchRipple={true}
-              sx={{
-                paddingBottom: '16px',
-                paddingTop: '0px',
-                '&:hover': {
-                  background: 'none',
-                  cursor: 'default'
-                },
-                '&:last-child': {
-                  paddingBottom: '0px',
-                },
-              }}
-              key={`key-${i}`}>
-              <ItemWebSite
-                height={link.height}
-                title={link.title || ''}
-                logo={link.logo}
-                background={link.background}
-                color={link.color}
-                fontSize={link.fontSize}
-                fontWeight={link.fontWeight}
-                link={link.link}
-                fontFamily={link.fontFamily}
-                padding={link.padding}
-                subtract={link.subtract}
-                description={link.description}
-                onClick={onClick(link.link)}
-                letterSpacing={link.letterSpacing}
-                lineHeight={link.lineHeight}
-              />
-            </MenuItem >;
-          })}
-        </Menu>
-        <ThreeDotsButton
-          onClick={togglePopup}
-        >
-          <ThreeDots/>
-        </ThreeDotsButton>
-      {popup && <Container>
+        <StyleTitle isLight={isLight}>Essential MakerDAO Governance Websites </StyleTitle>
+        <StyleDescription isLight={isLight}>Websites to gather all relevant data and information for Maker Governance.</StyleDescription>
+        {links.map((link: WebSiteLinks, i: number) => {
+          return <MenuItem
+            disableGutters={true}
+            disableTouchRipple={true}
+            sx={{
+              paddingBottom: '16px',
+              paddingTop: '0px',
+              '&:hover': {
+                background: 'none',
+                cursor: 'default'
+              },
+              '&:last-child': {
+                paddingBottom: '0px',
+              },
+            }}
+            key={`key-${i}`}>
+            <ItemWebSite
+              height={link.height}
+              title={link.title || ''}
+              logo={link.logo}
+              background={link.background}
+              color={link.color}
+              fontSize={link.fontSize}
+              fontWeight={link.fontWeight}
+              link={link.link}
+              fontFamily={link.fontFamily}
+              padding={link.padding}
+              subtract={link.subtract}
+              description={link.description}
+              onClick={onClick(link.link)}
+              letterSpacing={link.letterSpacing}
+              lineHeight={link.lineHeight}
+              colorDark={link.colorDark}
+            />
+          </MenuItem >;
+        })}
+      </Menu>
+      <ThreeDotsButton isLight={isLight}
+        onClick={togglePopup}
+      >
+        {<ThreeDots />}
+      </ThreeDotsButton>
+      {popup && <Container isLight={isLight}>
         <CloseWrapper>
           <Close
-              onClick={togglePopup}
+            onClick={togglePopup}
           />
         </CloseWrapper>
         <div onClick={toggleTheme}>
-            <DarkModeText>Dark Mode</DarkModeText>
-            <IconButton>
-              {themeMode === 'light' ? <MoonMode width={16} height={16} /> : <ToggleDarkMode width={16} height={16} />}
-            </IconButton>
+          <DarkModeText isLight={isLight}>Dark Mode</DarkModeText>
+          <IconButton>
+            {themeMode === 'light' ? <MoonMode width={16} height={16} /> : <ToggleDarkMode width={16} height={16} />}
+          </IconButton>
         </div>
 
-        <Line />
-
+        <Line isLight={isLight} />
+        <StyleTitle isLight={isLight}>Essential MakerDAO Governance Websites </StyleTitle>
+        <StyleDescription isLight={isLight}>Websites to gather all relevant data and information for Maker Governance.</StyleDescription>
         {links.map((link: WebSiteLinks, i: number) => <ItemWebSite
           key={`link-${i}`}
           height={link.height}
@@ -160,33 +163,33 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
           onClick={onClick(link.link)}
           letterSpacing={link.letterSpacing}
           lineHeight={link.lineHeight}
-          />)}
+          colorDark={link.colorDark}
+        />)}
       </Container>}
     </div>
   );
 };
 
-const Line = styled.div({
+const Line = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'SF Pro Text',
-  height: '1px',
   width: '100%',
-  background: '#D4D9E1',
   margin: '18px 0 32px',
-});
+  border: isLight ? ' 1px solid #D4D9E1' : '1px solid #405361',
+}));
 
-const DarkModeText = styled.span({
+const DarkModeText = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   marginRight: '2px',
   fontSize: '14px',
-  color: '#31424E',
-});
+  color: isLight ? '#31424E' : '#D2D4EF',
+}));
 
-const Container = styled.div({
+const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   position: 'fixed',
   top: 0,
   left: 0,
   width: '100%',
   height: '100%',
-  background: 'white',
+  background: isLight ? 'white' : '#000A13',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -195,49 +198,49 @@ const Container = styled.div({
   '@media (min-width: 635px)': {
     display: 'none'
   }
-});
+}));
 
-const ContainerIcon = styled.div<{ background: string }>((props) => ({
+const ContainerIcon = styled.div<{ background: string }>(({ background }) => ({
   display: 'none',
   width: 26,
   height: 26,
   marginLeft: '16px',
   borderRadius: '6px',
-  background: props.background || '#ECF1F3',
+  background: background || '#ECF1F3',
   '@media (min-width: 635px)': {
     display: 'block'
   }
 }));
 
-const StyleTitle = styled(Typography)({
+const StyleTitle = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '24px',
   lineHeight: '29px',
   letterSpacing: '0.4px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#EDEFFF',
   paddingBottom: '16px'
-});
+}));
 
-const StyleDescription = styled(Typography)({
+const StyleDescription = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '16px',
   lineHeight: '19px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#EDEFFF',
   paddingBottom: '24px',
   letterSpacing: '0px',
-});
+}));
 
-const ThreeDotsButton = styled.button({
+const ThreeDotsButton = styled.button<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   width: '35px',
   height: '35px',
-  background: 'white',
+  background: isLight ? 'white' : '#31424E',
   boxSizing: 'border-box',
   border: '1px solid #D4D9E1',
   borderRadius: '50%',
@@ -245,7 +248,7 @@ const ThreeDotsButton = styled.button({
   '@media (min-width: 635px)': {
     display: 'none'
   }
-});
+}));
 
 const CloseWrapper = styled.div({
   alignSelf: 'flex-end',

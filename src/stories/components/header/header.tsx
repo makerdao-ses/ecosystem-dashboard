@@ -41,11 +41,11 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
       <LeftPart>
         <ContainerLogoSelect themeMode={themeMode}>
           <LogoContainer>
-            <Logo fill={themeMode === 'dark' ? '#6EDBD0' : '#211634'} onClick={handleGoHome} />
+            <Logo fill='#211634' fillDark='#6EDBD0' onClick={handleGoHome} />
           </LogoContainer>
           <LogoLinksWrapper>
             <Expenses fill={themeMode === 'dark' ? '#6EDBD0' : '#211634'} />
-            <SelectLink links={links} themeMode={themeMode} fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'} onClick={onClick} toggleTheme={toggleTheme}/>
+            <SelectLink links={links} themeMode={themeMode} fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'} onClick={onClick} toggleTheme={toggleTheme} />
           </LogoLinksWrapper>
         </ContainerLogoSelect>
 
@@ -84,7 +84,7 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
                 fontStyle: 'normal',
                 lineHeight: '19px',
                 letterSpacing: '0.3px',
-                marginLeft: '0px'
+                marginLeft: '0px',
               }}
               marginLeft='7px'
               withArrow
@@ -113,7 +113,6 @@ const Container = styled.header<{ themeMode: string }>((props) => ({
   height: '64px',
   justifyContent: 'space-between',
   background: props.themeMode === 'light' ? 'url(/assets/img/bg-header.png)' : 'url(/assets/img/bg-header-dark.png)',
-  borderBottom: '1px solid #E7FCFA',
 }));
 
 const LeftPart = styled.div({

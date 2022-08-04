@@ -16,6 +16,8 @@ interface CustomLinkProps {
   withArrow?: boolean;
   marginLeft?: string
   styleIcon?: CSSProperties;
+  padding?: string;
+  border?: string
 }
 
 export const CustomLink = ({
@@ -28,9 +30,13 @@ export const CustomLink = ({
   fontFamily = 'FT Base, sans-serif',
   marginLeft = '5px',
   styleIcon = {},
+  border = 'none',
+  padding = '0px',
   ...props
 }: CustomLinkProps) => {
   return <Container
+    padding={padding}
+    border={border}
     href={props.href}
     target={target}
     style={{
@@ -44,17 +50,19 @@ export const CustomLink = ({
     onClick={(evt) => evt.stopPropagation()}>
     {props.children}
     {withArrow && <LinkIcon
-        width={iconWidth}
-        height={iconHeight}
-        style={{
-          marginLeft,
-          ...styleIcon
-        }} />}
+      width={iconWidth}
+      height={iconHeight}
+      style={{
+        marginLeft,
+        ...styleIcon
+      }} />}
   </Container>;
 };
 
-const Container = styled.a<{ fontSize: number, fontSizeMobile?: number, fontWeight: number, fontFamily: string, marginLeft?: string }>(({ fontSize, fontSizeMobile, fontWeight, fontFamily, marginLeft = '4px' }) => ({
+const Container = styled.a<{ fontSize: number, fontSizeMobile?: number, fontWeight: number, fontFamily: string, marginLeft?: string, padding: string, border?: string }>(({ fontSize, fontSizeMobile, fontWeight, fontFamily, marginLeft = '4px', padding, border }) => ({
   fontStyle: 'normal',
+  border,
+  padding,
   fontWeight,
   fontFamily,
   fontSize: `${fontSizeMobile || fontSize}px`,
@@ -63,6 +71,7 @@ const Container = styled.a<{ fontSize: number, fontSizeMobile?: number, fontWeig
   color: '#447AFB',
   textDecoration: 'none',
   marginLeft,
+  // border: '2px solid red',
   cursor: 'pointer',
   whiteSpace: 'nowrap',
   '@media (min-width: 834px)': {
