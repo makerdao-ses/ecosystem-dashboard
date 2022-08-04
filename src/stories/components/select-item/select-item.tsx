@@ -28,7 +28,7 @@ const Container = styled.div<{ minWidth: number, isLight: boolean }>(({ minWidth
   display: 'flex',
   alignItems: 'center',
   position: 'relative',
-  padding: '11px 8px',
+  padding: '8px',
   cursor: 'pointer',
   borderRadius: '6px',
   boxSizing: 'border-box',
@@ -37,7 +37,7 @@ const Container = styled.div<{ minWidth: number, isLight: boolean }>(({ minWidth
   borderBottom: '2px solid #ECF1F3',
   '& > input': {
     position: 'absolute',
-    opacity: 1,
+    opacity: 0,
     cursor: 'pointer',
     height: '0',
     width: '0',

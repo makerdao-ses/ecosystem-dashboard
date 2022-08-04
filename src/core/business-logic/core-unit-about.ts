@@ -6,7 +6,7 @@ import {
 import { CuStatusEnum } from '../enums/cu-status.enum';
 import { LinkTypeEnum } from '../enums/link-type.enum';
 import { getCuMipStatusModifiedDate } from './core-units';
-import { CuMipDto } from '../models/dto/core-unit.dto';
+import { ContributorCommitmentDto, CuMipDto } from '../models/dto/core-unit.dto';
 
 export const getMipsStatus = (mip: CuMip | CuMipDto) => {
   if (!mip) return undefined;
@@ -30,7 +30,7 @@ export const getMarkdownInformation = (text: string | undefined) => {
   return text || '';
 };
 
-export const getLinksFromContributor = (contributor: ContributorCommitment) => {
+export const getLinksFromContributor = (contributor: ContributorCommitment | ContributorCommitmentDto) => {
   const links: LinkModel[] = [];
   if (!contributor) return links;
   if (contributor && contributor.contributor.length === 0) return links;

@@ -140,3 +140,9 @@ a {
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
 }
+
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded {
+  border-radius: 10px;
+  box-shadow: none ;
+  border: 1px solid #D4D9E1;
+}

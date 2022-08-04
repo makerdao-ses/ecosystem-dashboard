@@ -28,7 +28,8 @@ import {
 } from '../../utils/test.utils';
 import { RoadmapBuilder } from '../builders/roadmap.builder';
 import { RoadmapStatusEnum } from '../../enums/roadmap-status.enum';
-import { ContributorDto } from '../../models/dto/core-unit.dto';
+import { ContributorCommitmentDto, ContributorDto } from '../../models/dto/core-unit.dto';
+import { CuJobEnum } from '../../enums/cu-job.enum';
 
 test('Get date for status on CuMip', () => {
   const mipDao = (new CuMipBuilder()).withStatus(CuStatusEnum.Withdrawn, CURRENT_MINUS_2_MONTH).build();
@@ -114,26 +115,25 @@ test('Get FTEs from Core Unit', () => {
 
 test('Get Facilitator from Core Unit', () => {
   const coreUnit = (new CoreUnitsBuilder())
-    .addCuMip(
-      (new CuMipBuilder())
-        .addMip41((new Mip41Builder()
-          .addContributor({
-            name: 'Facilitator',
-            id: '1',
-            discordHandle: '',
-            email: '',
-            facilitatorImage: '',
-            forumHandle: '',
-            twitterHandle: ''
-          } as ContributorDto)
-          .build()))
-        .build()
-    )
+    .addContributorCommitment({
+      commitment: 'commitment',
+      id: 'id',
+      jobTitle: CuJobEnum.Facilitator,
+      contributor: [{
+        discordHandle: '',
+        email: '',
+        name: 'Facilitator',
+        facilitatorImage: '',
+        forumHandle: '',
+        twitterHandle: '',
+        id: '',
+      }]
+    } as ContributorCommitmentDto)
     .build();
 
   const result = getFacilitatorsFromCoreUnit(coreUnit);
   expect(result.length).toEqual(1);
-  expect(result[0].name).toBe('Facilitator');
+  expect(result[0].contributor[0].name).toBe('Facilitator');
 });
 
 test('Get Budget Cap for Core Unit', () => {
