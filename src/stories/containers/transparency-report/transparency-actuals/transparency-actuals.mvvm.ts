@@ -88,6 +88,10 @@ export const useTransparencyActualsMvvm = (thirdIndex: number, setThirdIndex: (i
     return group.filter(item => item.month === currentMonth).reduce((current, next) => `${current} ${next.comments}`, '');
   };
 
+  const getGroupPayment = (group: BudgetStatementLineItemDto[]) => {
+    return _.sumBy(group.filter(item => item.month === currentMonth), item => item.payment ?? 0);
+  };
+
   return {
     currentBudgetStatement,
     getWalletForecast,
@@ -102,6 +106,7 @@ export const useTransparencyActualsMvvm = (thirdIndex: number, setThirdIndex: (i
     getGroupActual,
     getGroupDifference,
     getCommentsFromCategory,
+    getGroupPayment,
     breakdownHeaders,
     wallets
   };

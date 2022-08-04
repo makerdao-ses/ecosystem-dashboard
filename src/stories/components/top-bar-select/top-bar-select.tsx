@@ -102,7 +102,7 @@ const Popup = styled.div({
   top: 0,
   left: 0,
   zIndex: 5,
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     display: 'none',
   }
 });

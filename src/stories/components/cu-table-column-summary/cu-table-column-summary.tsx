@@ -66,14 +66,14 @@ const Container = styled.div({
   boxSizing: 'border-box',
   cursor: 'pointer',
   padding: '13px 0',
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     padding: '13px',
   }
 });
 
 const CircleContainer = styled.div({
   marginRight: '8px',
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     marginRight: '16px',
   }
 });

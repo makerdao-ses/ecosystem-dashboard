@@ -126,12 +126,12 @@ const Separator = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   margin: '0 32px',
   backgroundColor: isLight ? '#D4D9E1' : '#48495F',
   alignSelf: 'center',
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     width: '1px',
     height: '32px',
     margin: 0,
   },
-  '@media (min-width: 835px) and (max-width: 1180px)': {
+  '@media (min-width: 834px) and (max-width: 1180px)': {
     alignSelf: 'flex-end'
   }
 }));
@@ -141,14 +141,14 @@ const SmallSeparator = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   width: '64px',
   backgroundColor: isLight ? '#D4D9E1' : '#48495F',
   alignSelf: 'center',
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     display: 'none'
   }
 }));
 
 const Wrapper = styled.div({
   display: 'none',
-  '@media (max-width: 835px)': {
+  '@media (max-width: 833px)': {
     top: 0,
     left: 0,
     zIndex: 100,
@@ -159,17 +159,17 @@ const Wrapper = styled.div({
     width: '100%',
     background: 'white',
   },
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     display: 'flex !important',
   },
-  '@media (min-width: 835px) and (max-width: 1180px)': {
+  '@media (min-width: 834px) and (max-width: 1180px)': {
     alignSelf: 'flex-end'
   }
 });
 
 const Container = styled.div({
   display: 'flex',
-  '@media (max-width: 835px)': {
+  '@media (max-width: 833px)': {
     position: 'relative',
     height: 'calc(100vh + 20px)',
     width: '100%',
@@ -178,7 +178,7 @@ const Container = styled.div({
     justifyContent: 'flex-end',
     gap: '24px'
   },
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     gap: '16px',
   },
 });
@@ -187,7 +187,7 @@ const CloseButton = styled.div({
   alignSelf: 'flex-end',
   margin: '22px 22px 30px 0',
   cursor: 'pointer',
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
     display: 'none'
   }
 });
