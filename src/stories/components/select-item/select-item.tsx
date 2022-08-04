@@ -28,7 +28,7 @@ const Container = styled.div<{ minWidth: number, isLight: boolean }>(({ minWidth
   display: 'flex',
   alignItems: 'center',
   position: 'relative',
-  padding: '11px 8px',
+  padding: '8px',
   cursor: 'pointer',
   borderRadius: '6px',
   boxSizing: 'border-box',
