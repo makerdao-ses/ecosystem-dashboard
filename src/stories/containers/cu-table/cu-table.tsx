@@ -323,6 +323,7 @@ const Header = styled.div({
   minWidth: '330px',
   '@media (min-width: 834px) and (max-width: 1180px)': {
     flexDirection: 'column',
+    gap: '24px',
     alignItems: 'flex-start'
   }
 });
