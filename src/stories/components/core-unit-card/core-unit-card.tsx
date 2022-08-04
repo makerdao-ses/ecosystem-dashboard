@@ -31,7 +31,7 @@ export const CoreUnitCard = ({ coreUnit, onClick, onClickFinances }: CoreUnitCar
   const isLight = useThemeContext().themeMode === 'light';
   return <Container isLight={isLight}>
     <Summary>
-      <Title>Core Unit</Title>
+      <Title hideSmall>Core Unit</Title>
       <CuTableColumnSummary
         title={coreUnit.name}
         status={getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum}
@@ -81,7 +81,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   marginBottom: '32px',
   boxShadow: isLight ? '0px 0px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : '0px 20px 40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
   background: isLight ? '#FFFFFF' : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
-  padding: '24px 16px 13px 16px',
+  padding: '24px 16px 16px',
   gridTemplateColumns: 'auto',
   minWidth: '340px',
   gridTemplateAreas:
@@ -134,7 +134,7 @@ const Expenditure = styled.div({
 
 const Team = styled.div({
   gridArea: 'team',
-  paddingTop: '28px',
+  paddingTop: '32px',
   '@media (min-width: 435px) and (max-width: 685px)': {
     paddingTop: '0',
   },
@@ -147,7 +147,7 @@ const Line = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   gridArea: 'line',
   height: 1,
   background: isLight ? '#D4D9E1' : '#405361',
-  margin: '16px 0',
+  margin: '32px 0 16px',
   '@media (min-width: 834px)': {
     margin: '16px 0 8px',
   }
@@ -179,10 +179,14 @@ const Links = styled.div({
   },
 });
 
-const Title = styled.div({
+const Title = styled.div<{ hideSmall?: boolean }>(({ hideSmall = false }) => ({
+  display: hideSmall ? 'none' : 'block',
   fontFamily: 'SF Pro Text',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '14px',
   color: '#708390',
-});
+  '@media (min-width: 834px)': {
+    display: 'block'
+  }
+}));

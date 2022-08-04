@@ -6,43 +6,82 @@ import { LoadingSpinner } from '../loading-spinner/loading-spinner';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface CustomTableProps {
-  headers: string[],
-  items?: (JSX.Element | string)[][],
-  headersAlign?: ('flex-start' | 'center' | 'flex-end')[],
-  headersStyles?: CSSProperties[],
-  headersSort?: SortEnum[],
-  sortFunction?: (index: number, previousSort: SortEnum) => void,
-  loading?: boolean,
+  headers: string[];
+  items?: (JSX.Element | string)[][];
+  headersAlign?: ('flex-start' | 'center' | 'flex-end')[];
+  headersStyles?: CSSProperties[];
+  headersSort?: SortEnum[];
+  sortFunction?: (index: number, previousSort: SortEnum) => void;
+  loading?: boolean;
 }
 
-export const CustomTable = ({ headersSort = [], headersStyles = [], ...props }: CustomTableProps) => {
+export const CustomTable = ({
+  headersSort = [],
+  headersStyles = [],
+  ...props
+}: CustomTableProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   return (
     <TableContainer isLight={isLight}>
       <Table>
         <TableHead isLight={isLight}>
           <TableHeadRow>
-            {props.headers?.map((header, i) =>
+            {props.headers?.map((header, i) => (
               <TableCell
                 key={`header-${i}`}
-                style={{ justifyContent: props.headersAlign && props.headersAlign[i] }}
-                onClick={() => headersSort && headersSort[i] && headersSort[i] !== SortEnum.Disabled && props.sortFunction && props.sortFunction(i, headersSort[i])}>
+                style={{
+                  justifyContent: props.headersAlign && props.headersAlign[i],
+                }}
+                onClick={() =>
+                  headersSort &&
+                  headersSort[i] &&
+                  headersSort[i] !== SortEnum.Disabled &&
+                  props.sortFunction &&
+                  props.sortFunction(i, headersSort[i])
+                }
+              >
                 <CustomTableHeader
                   style={headersStyles[i] ?? {}}
                   align={props.headersAlign && props.headersAlign[i]}
                   state={headersSort[i]}
-                  title={header} />
-              </TableCell>)}
+                  title={header}
+                />
+              </TableCell>
+            ))}
           </TableHeadRow>
         </TableHead>
         <TableBody isLight={isLight}>
-          {props.items?.map((row, i) => <TableRow key={i} isLight={isLight}>
-            {row.map((item, j) => <TableCell key={`${i}-${j}`} onClick={() => { console.log(item); }}>{item}</TableCell>)}
-          </TableRow>)}
+          {props.items?.map((row, i) => (
+            <TableRow key={i} isLight={isLight}>
+              {row.map((item, j) => (
+                <TableCell
+                  key={`${i}-${j}`}
+                  onClick={() => {
+                    console.log(item);
+                  }}
+                >
+                  {item}
+                </TableCell>
+              ))}
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
-      {(!props.items || props.items.length === 0) && <Placeholder>{props.loading ? <Loading><LoadingSpinner /> <LoadingText>Loading</LoadingText></Loading> : 'There is no data to show'}</Placeholder>}
-    </TableContainer>);
+      {(!props.items || props.items.length === 0) && (
+        <Placeholder>
+          {props.loading
+            ? (
+            <Loading>
+              <LoadingSpinner /> <LoadingText>Loading</LoadingText>
+            </Loading>
+              )
+            : (
+                'There is no data to show'
+              )}
+        </Placeholder>
+      )}
+    </TableContainer>
+  );
 };
 
 const Placeholder = styled.div({
@@ -54,12 +93,16 @@ const Placeholder = styled.div({
 });
 
 const TableContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  background: isLight ? 'white' : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
+  background: isLight
+    ? 'white'
+    : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
   display: 'flex',
   flexDirection: 'column',
+  boxSizing: 'border-box',
+  width: '100%',
   '& *': {
     boxSizing: 'border-box',
-  }
+  },
 }));
 
 const Table = styled.div({
@@ -72,10 +115,12 @@ const TableHead = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   position: 'relative',
   zIndex: 1,
   background: isLight ? '#F7F8F9' : '#25273D',
-  padding: '16px 0',
+  padding: '14px 0',
   borderTopLeftRadius: '5px',
   borderTopRightRadius: '5px',
-  boxShadow: isLight ? 'inset .25px -.25px .25px .25px rgba(190, 190, 190, 0.25), 0px 20px 40px rgba(190, 190, 190, .25), 0px 1px 3px rgba(190, 190, 190, 0.25)' : '0px 20px 40px rgba(7, 22, 40, 0.4)',
+  boxShadow: isLight
+    ? 'inset .25px -.25px .25px .25px rgba(190, 190, 190, 0.25), 0px 20px 40px rgba(190, 190, 190, .25), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+    : '0px 20px 40px rgba(7, 22, 40, 0.4)',
 }));
 
 const TableRow = styled.div<{ isLight: boolean }>(({ isLight }) => ({
@@ -83,12 +128,20 @@ const TableRow = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'grid',
   gridTemplateColumns: '400px 215px 205px 358px',
   marginTop: '16px',
-  boxShadow: isLight ? '0px 0px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : '0px 20px 40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+  boxShadow: isLight
+    ? '0px 0px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+    : '0px 20px 40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+  '@media (min-width: 1180px) and (max-width: 1280px)': {
+    gridTemplateColumns: '360px 215px 205px 340px',
+  },
 }));
 
 const TableHeadRow = styled.div({
   display: 'inline-grid',
-  gridTemplateColumns: '400px 215px 205px 358px'
+  gridTemplateColumns: '400px 215px 205px 358px',
+  '@media (min-width: 1180px) and (max-width: 1280px)': {
+    gridTemplateColumns: '360px 215px 205px 340px',
+  },
 });
 
 const TableCell = styled.div({
@@ -107,5 +160,5 @@ const Loading = styled.div({
 });
 
 const LoadingText = styled.span({
-  marginLeft: '8px'
+  marginLeft: '8px',
 });
