@@ -128,7 +128,7 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
       <ThreeDotsButton isLight={isLight}
         onClick={togglePopup}
       >
-        {<ThreeDots />}
+        {<ThreeDots fill='#231536' fillDark='#EDEFFF'/>}
       </ThreeDotsButton>
       {popup && <Container isLight={isLight}>
         <CloseWrapper>

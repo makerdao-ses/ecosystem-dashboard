@@ -61,7 +61,9 @@ export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }
       isLight={isLight}
       focus={popupVisible || activeItems.length > 0}
       className="no-select"
-      style={{ maxWidth: props.maxWidth && !activeItems.length ? `${props.maxWidth}px` : 'unset' }}
+      style={{
+        maxWidth: props.maxWidth && !activeItems.length ? `${props.maxWidth}px` : 'unset',
+      }}
       onClick={toggleVisible}>
       <Label isLight={isLight}>{props.label} {activeItems.length > 0 ? `(${activeItems.length})` : ''}</Label>
       <IconWrapper>
