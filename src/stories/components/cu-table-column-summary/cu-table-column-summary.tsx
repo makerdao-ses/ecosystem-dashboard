@@ -66,9 +66,9 @@ const Container = styled.div({
   alignItems: 'stretch',
   boxSizing: 'border-box',
   cursor: 'pointer',
-  padding: '13px 0',
+  padding: '24px 0',
   '@media (min-width: 834px)': {
-    padding: '13px',
+    padding: '24px 16px',
   }
 });
 
