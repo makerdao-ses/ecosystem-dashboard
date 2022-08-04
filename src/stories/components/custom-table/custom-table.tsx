@@ -57,6 +57,8 @@ const TableContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   background: isLight ? 'white' : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
   display: 'flex',
   flexDirection: 'column',
+  boxSizing: 'border-box',
+  width: '100%',
   '& *': {
     boxSizing: 'border-box',
   }
@@ -72,7 +74,7 @@ const TableHead = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   position: 'relative',
   zIndex: 1,
   background: isLight ? '#F7F8F9' : '#25273D',
-  padding: '16px 0',
+  padding: '14px 0',
   borderTopLeftRadius: '5px',
   borderTopRightRadius: '5px',
   boxShadow: isLight ? 'inset .25px -.25px .25px .25px rgba(190, 190, 190, 0.25), 0px 20px 40px rgba(190, 190, 190, .25), 0px 1px 3px rgba(190, 190, 190, 0.25)' : '0px 20px 40px rgba(7, 22, 40, 0.4)',
