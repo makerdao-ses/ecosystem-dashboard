@@ -262,7 +262,7 @@ const Wrapper = styled.div({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  maxWidth: '1180px',
+  maxWidth: '1184px',
   margin: '0 auto',
   paddingBottom: '8px',
 
