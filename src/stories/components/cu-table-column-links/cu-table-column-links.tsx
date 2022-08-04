@@ -54,6 +54,9 @@ export const CuTableColumnLinks = ({ width, height, links, align = 'flex-end', s
       key={`link-${i}`}>
       <CustomPopover
         title={link.linkType}
+        popupStyle={{
+          padding: '16px',
+        }}
         id={`link-${i}`}>
         <LinkImage
           href={link.href}

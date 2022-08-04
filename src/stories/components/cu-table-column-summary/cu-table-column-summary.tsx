@@ -9,22 +9,23 @@ import { CustomLink } from '../custom-link/custom-link';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface CuTableColumnSummaryProps {
-  title: string,
-  imageUrl?: string,
-  status?: CuStatusEnum,
-  statusModified?: Date | null,
-  onClick?: () => void,
-  mipUrl?: string,
-  code: string,
+  title: string;
+  imageUrl?: string;
+  status?: CuStatusEnum;
+  statusModified?: Date | null;
+  onClick?: () => void;
+  mipUrl?: string;
+  code: string;
+  logoDimension?: string;
 }
 
-export const CuTableColumnSummary = (props: CuTableColumnSummaryProps) => {
+export const CuTableColumnSummary = ({ logoDimension = '48px', ...props }: CuTableColumnSummaryProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   return <Container onClick={props.onClick}>
     <CircleContainer>
       <CircleAvatar
-        width={'48px'}
-        height={'48px'}
+        width={logoDimension}
+        height={logoDimension}
         name={props.title || 'Core Unit'}
         image={props.imageUrl}
         style={{ filter: isLight ? 'drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))' : 'drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))' }}
@@ -65,9 +66,9 @@ const Container = styled.div({
   alignItems: 'stretch',
   boxSizing: 'border-box',
   cursor: 'pointer',
-  padding: '13px 0',
+  padding: '24px 0',
   '@media (min-width: 834px)': {
-    padding: '13px',
+    padding: '24px 16px',
   }
 });
 

@@ -10,9 +10,10 @@ import { getColorJobPosition } from '../../../core/utils/color.utils';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CustomPopover } from '../custom-popover/custom-popover';
+import { ContributorCommitmentDto } from '../../../core/models/dto/core-unit.dto';
 
 interface Props {
-  contributorCommitment: ContributorCommitment;
+  contributorCommitment: ContributorCommitment | ContributorCommitmentDto;
 }
 
 const CardInfoMember = ({ contributorCommitment }: Props) => {

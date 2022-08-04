@@ -26,8 +26,9 @@ export const CircleAvatar = ({ width = '32px', height = '32px', fontSize = '16px
   return <div style={{
     width,
     height,
-    textAlign: 'center',
-    lineHeight: height,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     fontSize,
     fontFamily: (theme as Theme).typography.fontFamily,
     fontWeight: 900,
