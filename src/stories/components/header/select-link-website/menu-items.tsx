@@ -23,6 +23,7 @@ export type WebSiteLinks = {
   description: string
   height?: string
   letterSpacing?: string
+  colorDark?: string
 }
 
 export const itemsWebSiteLinks: WebSiteLinks[] = [
@@ -32,6 +33,7 @@ export const itemsWebSiteLinks: WebSiteLinks[] = [
     description: 'Easily view onchain data that surfaces key protocol health metrics.',
     logo: <MakerBurn />,
     color: '#000000',
+    colorDark: '#FFFFFF',
     fontFamily: 'Cantarell,sans-serif',
     lineHeight: '26px',
     fontSize: 18,
@@ -47,6 +49,7 @@ export const itemsWebSiteLinks: WebSiteLinks[] = [
     fontSize: 24,
     fontWeight: 400,
     color: '#1AAB9B',
+    colorDark: '#1AAB9B',
     link: 'https://forum.makerdao.com/',
     marginBottom: '32px',
     fontFamily: 'SF Pro Display, sans-serif',
@@ -54,25 +57,25 @@ export const itemsWebSiteLinks: WebSiteLinks[] = [
     letterSpacing: '3px',
   },
   {
-    logo: <Logo width={48} height={24.71} />,
+    logo: <Logo width={48} height={24.71} fillDark='#FFFFFF' />,
     description: 'See how MKR holders are having their voice heard through protocol governance.',
     background: '#231635',
     fontSize: '16px',
     lineHeight: '19px',
     fontWeight: 700,
-    color: '#FFFFFF',
+    color: 'red',
     link: 'https://vote.makerdao.com/',
     marginTop: '32px',
     marginBottom: '32px',
     fontFamily: 'SF Pro Display, sans-serif',
     padding: '4px 8px',
-    subtract: <VotingPortal />,
+    subtract: <VotingPortal fillDark='#D2D4EF' />,
     id: 'Voting Portal',
     height: '120px',
   },
 
   {
-    logo: <Logo fill='#1AAB9B' width={48} height={24.71} />,
+    logo: <Logo fill='#1AAB9B' width={48} height={24.71} fillDark='#1AAB9B' />,
     description: 'Understand the formalized decision making process that underpins Maker Governance.',
     background: '#1AAB9B',
     fontSize: '16px',
