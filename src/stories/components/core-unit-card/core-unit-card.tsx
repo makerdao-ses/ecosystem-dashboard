@@ -179,7 +179,7 @@ const Links = styled.div({
   },
 });
 
-const Title = styled.div<{ hideSmall: boolean }>(({ hideSmall }) => ({
+const Title = styled.div<{ hideSmall?: boolean }>(({ hideSmall = false }) => ({
   display: hideSmall ? 'none' : 'block',
   fontFamily: 'SF Pro Text',
   fontStyle: 'normal',
