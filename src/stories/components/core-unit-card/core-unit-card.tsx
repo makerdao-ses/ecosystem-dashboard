@@ -31,7 +31,7 @@ export const CoreUnitCard = ({ coreUnit, onClick, onClickFinances }: CoreUnitCar
   const isLight = useThemeContext().themeMode === 'light';
   return <Container isLight={isLight}>
     <Summary>
-      <Title>Core Unit</Title>
+      <Title hideSmall>Core Unit</Title>
       <CuTableColumnSummary
         title={coreUnit.name}
         status={getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum}
@@ -134,7 +134,7 @@ const Expenditure = styled.div({
 
 const Team = styled.div({
   gridArea: 'team',
-  paddingTop: '28px',
+  paddingTop: '32px',
   '@media (min-width: 435px) and (max-width: 685px)': {
     paddingTop: '0',
   },
@@ -147,7 +147,7 @@ const Line = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   gridArea: 'line',
   height: 1,
   background: isLight ? '#D4D9E1' : '#405361',
-  margin: '16px 0',
+  margin: '32px 0 16px',
   '@media (min-width: 834px)': {
     margin: '16px 0 8px',
   }
@@ -179,10 +179,14 @@ const Links = styled.div({
   },
 });
 
-const Title = styled.div({
+const Title = styled.div<{ hideSmall: boolean }>(({ hideSmall }) => ({
+  display: hideSmall ? 'none' : 'block',
   fontFamily: 'SF Pro Text',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '14px',
   color: '#708390',
-});
+  '@media (min-width: 834px)': {
+    display: 'block'
+  }
+}));
