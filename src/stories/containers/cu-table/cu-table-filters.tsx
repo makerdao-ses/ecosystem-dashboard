@@ -43,7 +43,7 @@ export const Filters = (props: FilterProps) => {
 
   return <Wrapper style={{
     display: props.filtersPopup ? 'flex' : 'none',
-    background: isLight ? 'white' : '#000A13'
+    background: isLight ? 'white' : 'none',
   }}>
     <Container>
       <CustomButton
@@ -51,7 +51,7 @@ export const Filters = (props: FilterProps) => {
         style={{
           width: '114px',
           border: 'none',
-          background: isLight ? 'none' : '#000A13',
+          background: isLight ? 'none' : 'none',
         }}
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         onClick={props.clearFilters}

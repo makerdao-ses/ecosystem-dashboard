@@ -151,36 +151,36 @@ export const CuTable = () => {
             horizontal: 'left'
           }}
           title={
-          <>
-            <CuTableColumnSummary
-              key={`summary-${coreUnit.code}`}
-              title={coreUnit.name}
-              status={getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum}
-              statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
-              imageUrl={coreUnit.image}
-              mipUrl={getMipUrlFromCoreUnit(coreUnit)}
-              onClick={onClickRow(coreUnit.code)}
-              code={formatCode(coreUnit.code)}
-              logoDimension={'68px'}
-            />
-            <Padded>
-              <CategoriesTitle>Categories</CategoriesTitle>
-              <CategoriesRow>
-                {coreUnit?.category?.map(cat => <CategoryChip category={cat}/>)}
-              </CategoriesRow>
-            </Padded>
-          </>
+            <>
+              <CuTableColumnSummary
+                key={`summary-${coreUnit.code}`}
+                title={coreUnit.name}
+                status={getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum}
+                statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
+                imageUrl={coreUnit.image}
+                mipUrl={getMipUrlFromCoreUnit(coreUnit)}
+                onClick={onClickRow(coreUnit.code)}
+                code={formatCode(coreUnit.code)}
+                logoDimension={'68px'}
+              />
+              <Padded>
+                <CategoriesTitle>Categories</CategoriesTitle>
+                <CategoriesRow>
+                  {coreUnit?.category?.map(cat => <CategoryChip category={cat} />)}
+                </CategoriesRow>
+              </Padded>
+            </>
           }
           id={coreUnit.code}>
           <CuTableColumnSummary
-          key={`summary-${coreUnit.code}`}
-          title={coreUnit.name}
-          status={getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum}
-          statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
-          imageUrl={coreUnit.image}
-          mipUrl={getMipUrlFromCoreUnit(coreUnit)}
-          onClick={onClickRow(coreUnit.code)}
-          code={formatCode(coreUnit.code)}
+            key={`summary-${coreUnit.code}`}
+            title={coreUnit.name}
+            status={getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum}
+            statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
+            imageUrl={coreUnit.image}
+            mipUrl={getMipUrlFromCoreUnit(coreUnit)}
+            onClick={onClickRow(coreUnit.code)}
+            code={formatCode(coreUnit.code)}
           />
         </CustomPopover>,
         <div
@@ -315,6 +315,7 @@ const ListWrapper = styled.div({
 });
 
 const Header = styled.div({
+  background: 'none',
   display: 'flex',
   alignItems: 'center',
   marginBottom: '32px',
