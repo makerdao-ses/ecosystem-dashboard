@@ -60,8 +60,8 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           <NumberCell key={3} value={getWalletDifference(wallet)} />,
           <NumberCell key={5} value={getWalletPayment(wallet)} />,
           <TableCell key={6}>
-             <CustomLink fontFamily={'SF Pro Display, sans-serif'} href={`https://etherscan.io/address/${wallet.address}`} style={{ marginRight: '16px' }} fontSize={16} fontSizeMobile={14} lineHeight='19px' lineHeightMobile='17px'>Etherscan</CustomLink>
-             <CustomLink fontFamily={'SF Pro Display, sans-serif'} href={`https://gnosis-safe.io/app/eth:${wallet.address}`} fontSize={16} fontSizeMobile={14} lineHeight='19px' lineHeightMobile='17px'>Gnosis</CustomLink>
+            <CustomLink fontFamily={'SF Pro Display, sans-serif'} href={`https://etherscan.io/address/${wallet.address}`} style={{ marginRight: '16px' }} fontSize={16} fontSizeMobile={14}>Etherscan</CustomLink>
+            <CustomLink fontFamily={'SF Pro Display, sans-serif'} href={`https://gnosis-safe.io/app/eth:${wallet.address}`} fontSize={16} fontSizeMobile={14} >Gnosis</CustomLink>
           </TableCell>
         ]);
       });

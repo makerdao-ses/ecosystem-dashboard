@@ -61,8 +61,8 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
         <NumberCell key={6} value={getBudgetCapForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, props.currentMonth)} />,
         <NumberCell key={7} value={getBudgetCapSumOfMonthsOnWallet(props.budgetStatements, wallet?.address, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} />,
         <TableCell key={8} responsivePadding={'0'}>
-          <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://etherscan.io/address/${wallet.address}`} style={{ marginRight: '16px' }} lineHeight='19px' >Etherscan</CustomLink>
-          <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://gnosis-safe.io/app/eth:${wallet.address}`} lineHeight='19px' >Gnosis</CustomLink>
+          <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://etherscan.io/address/${wallet.address}`} style={{ marginRight: '16px' }}>Etherscan</CustomLink>
+          <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://gnosis-safe.io/app/eth:${wallet.address}`} >Gnosis</CustomLink>
         </TableCell>
       ]);
     });
