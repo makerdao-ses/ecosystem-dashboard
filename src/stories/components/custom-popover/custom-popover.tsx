@@ -49,7 +49,6 @@ export const CustomPopover = ({
       id={props.id}
       sx={{
         pointerEvents: leaveOnChildrenMouseOut ? 'auto' : 'none',
-        border: 'none',
         boxShadow: 'none'
       }}
       open={open}
