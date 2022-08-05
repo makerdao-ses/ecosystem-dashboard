@@ -10,6 +10,7 @@ interface WalletTableCellProps {
   name: string;
   wallet: string;
   address?: string;
+
 }
 
 export const WalletTableCell = (props: WalletTableCellProps) => {
@@ -27,8 +28,8 @@ export const WalletTableCell = (props: WalletTableCellProps) => {
       <Label isLight={isLight}>{capitalizeSentence(props.name)}</Label>
       <CustomLink
         style={{
-          lineHeight: '15px',
           margin: 0,
+          lineHeight: '17px',
         }}
         fontSize={14}
         fontWeight={400}
@@ -54,7 +55,11 @@ const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
-  fontSize: '16px',
+  fontSize: '14px',
   lineHeight: '17px',
   color: isLight ? '#231536' : '#D2D4EF',
+  '@media (min-width: 834px)': {
+    fontSize: '16px',
+    lineHeight: '19px'
+  }
 }));

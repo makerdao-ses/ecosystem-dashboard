@@ -50,6 +50,7 @@ const Tab = styled.div<{ active: boolean, isLight: boolean }>(({ active, isLight
   fontFamily: 'SF Pro Text, sans-serif',
   color: active && isLight ? '#1AAB9B' : isLight && !active ? '#405361' : !isLight && active ? '#1AAB9B' : '#708390',
   fontSize: '14px',
+  lineHeight: '18px',
   fontWeight: 400,
   paddingBottom: '12px',
   borderBottom: isLight && active ? '2px solid #1AAB9B' : isLight && !active ? 'white' : !isLight && active ? '2px solid #1AAB9B' : '#405361',
@@ -58,5 +59,6 @@ const Tab = styled.div<{ active: boolean, isLight: boolean }>(({ active, isLight
   whiteSpace: 'nowrap',
   '@media (min-width: 834px)': {
     fontSize: '16px',
+    lineHeight: '18px',
   }
 }));

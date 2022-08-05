@@ -60,8 +60,8 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           <NumberCell key={3} value={getWalletDifference(wallet)} />,
           <NumberCell key={5} value={getWalletPayment(wallet)} />,
           <TableCell key={6}>
-            <CustomLink fontFamily={'SF Pro Display, sans-serif'} fontSize={16} href={`https://etherscan.io/address/${wallet.address}`} style={{ marginRight: '16px' }} lineHeight='19px'>Etherscan</CustomLink>
-            <CustomLink fontFamily={'SF Pro Display, sans-serif'} fontSize={16} href={`https://gnosis-safe.io/app/eth:${wallet.address}`} lineHeight='19px'>Gnosis</CustomLink>
+             <CustomLink fontFamily={'SF Pro Display, sans-serif'} href={`https://etherscan.io/address/${wallet.address}`} style={{ marginRight: '16px' }} fontSize={16} fontSizeMobile={14} lineHeight='19px' lineHeightMobile='17px'>Etherscan</CustomLink>
+             <CustomLink fontFamily={'SF Pro Display, sans-serif'} href={`https://gnosis-safe.io/app/eth:${wallet.address}`} fontSize={16} fontSizeMobile={14} lineHeight='19px' lineHeightMobile='17px'>Gnosis</CustomLink>
           </TableCell>
         ]);
       });
@@ -214,17 +214,18 @@ const Container = styled.div({
   flexDirection: 'column'
 });
 
-const Title = styled.div<{ fontSize?: string, isLight: boolean }>(({ fontSize = '16px', isLight }) => ({
+const Title = styled.div<{ fontSize?: string, isLight: boolean, lineHeight?: string }>(({ fontSize = '16px', isLight, lineHeight = '19px' }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontWeight: 500,
   fontStyle: 'normal',
   fontSize,
-  lineHeight: '24px',
+  lineHeight,
   letterSpacing: '0.4px',
   color: isLight ? '#231536' : '#D2D4EF',
   marginBottom: '16px',
   '@media (min-width: 834px)': {
     fontSize: '20px',
     marginBottom: '24px',
+    lineHeight: '24px',
   }
 }));

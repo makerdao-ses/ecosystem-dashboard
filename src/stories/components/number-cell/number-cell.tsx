@@ -18,9 +18,14 @@ export const NumberCell = (props: NumberCellProps) => {
   }} negative={props.value < 0}>{formatNumber(props.value)}</Container>;
 };
 
-const Container = styled.div<{ negative?: boolean, fontFamily?: string, isLight:boolean}>(({ negative = false, fontFamily = 'SF Pro Display, sans-serif', isLight }) => ({
+const Container = styled.div<{ negative?: boolean, fontFamily?: string, isLight: boolean }>(({ negative = false, fontFamily = 'SF Pro Display, sans-serif', isLight }) => ({
   fontFamily,
-  fontSize: 16,
+  fontSize: '14px',
+  lineHeight: '17px',
   padding: '16px',
   color: isLight && negative ? '#F75524' : isLight && !negative ? '#231536' : !isLight && negative ? '#F75524' : '#D2D4EF',
+  '@media (min-width: 834px)': {
+    fontSize: '16px',
+    lineHeight: '19px',
+  }
 }));

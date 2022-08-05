@@ -99,25 +99,35 @@ const TotalFte = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontStyle: 'normal',
   fontWeight: 700,
   fontSize: '16px',
+  lineHeight: '19px',
   color: isLight ? '#231536' : '#D2D4EF',
   marginBottom: '36px',
   '> span': {
     marginRight: '16px'
   },
   '> u': {
-    fontSize: '20px',
+    fontSize: '16px',
     paddingBottom: '2px',
-    lineHeight: '24px',
+    lineHeight: '19px',
     textDecoration: 'none',
     color: isLight ? '#25273D' : '#708390',
     borderBottom: '1px solid #231536'
+  },
+  '@media (min-width: 834px)': {
+    fontSize: '20px',
+    lineHeight: '24px',
   }
 }));
 
 const Text = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontWeight: 400,
-  fontSize: '16px',
+  fontSize: '14px',
+  lineHeight: '17px',
   color: isLight ? '#231536' : '#D2D4EF',
-  marginBottom: '16px'
+  marginBottom: '16px',
+  '@media (min-width: 834px)': {
+    fontSize: '16px',
+    lineHeight: '19px',
+  }
 }));

@@ -19,6 +19,7 @@ const Container = styled.div<{ negative?: boolean, fontFamily?: string, responsi
   fontFamily,
   fontWeight: 400,
   fontSize: 16,
+  lineHeight: '19px',
   padding: responsivePadding || '16px',
   color: isLight && negative ? '#F75524' : isLight && !negative ? '#231536' : !isLight && negative ? '#F75524' : '#D2D4EF',
   '> b': {
@@ -26,5 +27,7 @@ const Container = styled.div<{ negative?: boolean, fontFamily?: string, responsi
   },
   '@media (min-width: 825px)': {
     padding: '16px',
+    lineHeight: '16px'
+
   }
 }));

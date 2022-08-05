@@ -156,12 +156,13 @@ export const Title = styled.div<{ marginBottom?: number, isLight: boolean }>(({ 
   fontWeight: 500,
   fontStyle: 'normal',
   fontSize: '16px',
-  lineHeight: '24px',
+  lineHeight: '19px',
   letterSpacing: '0.4px',
   color: isLight ? '#231536' : '#D2D4EF',
   marginBottom: `${marginBottom}px`,
   '@media (min-width: 834px)': {
     fontSize: '20px',
+    lineHeight: '24px',
   }
 }));
 
@@ -170,11 +171,12 @@ const Paragraph = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '14px',
-  lineHeight: '19px',
+  lineHeight: '17px',
   color: isLight ? '#231536' : '#D2D4EF',
   marginBottom: '64px',
   '@media (min-width: 834px)': {
-    fontSize: '16px'
+    fontSize: '16px',
+    lineHeight: '19px',
   }
 }));
 
