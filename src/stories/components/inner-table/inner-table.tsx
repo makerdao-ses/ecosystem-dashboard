@@ -52,7 +52,6 @@ const Table = styled.table({
 
 const TableCell = styled.td<{ textAlign: 'left' | 'center' | 'right' }>(({ textAlign }) => ({
   textAlign,
-  // color: 'blue',
 }));
 
 const TableHead = styled.thead<{ isLight: boolean }>(({ isLight }) => ({
