@@ -60,8 +60,8 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           <NumberCell key={3} value={getWalletDifference(wallet)} />,
           <NumberCell key={5} value={getWalletPayment(wallet)} />,
           <TableCell key={6}>
-            <CustomLink fontFamily={'SF Pro Display, sans-serif'} fontSize={16} href={`https://etherscan.io/address/${wallet.address}`} style={{ marginRight: '16px' }}>Etherscan</CustomLink>
-            <CustomLink fontFamily={'SF Pro Display, sans-serif'} fontSize={16} href={`https://gnosis-safe.io/app/eth:${wallet.address}`}>Gnosis</CustomLink>
+            <CustomLink fontFamily={'SF Pro Display, sans-serif'} fontSize={16} href={`https://etherscan.io/address/${wallet.address}`} style={{ marginRight: '16px' }} lineHeight='19px'>Etherscan</CustomLink>
+            <CustomLink fontFamily={'SF Pro Display, sans-serif'} fontSize={16} href={`https://gnosis-safe.io/app/eth:${wallet.address}`} lineHeight='19px'>Gnosis</CustomLink>
           </TableCell>
         ]);
       });
@@ -136,7 +136,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     const currentWallet = wallets[thirdIndex];
 
     return <>
-      <Title fontSize="14px" isLight={isLight}>Headcount ExpensesPPPPPPP</Title>
+      <Title fontSize="14px" isLight={isLight}>Headcount Expenses</Title>
       {getBreakdownItems(currentWallet?.budgetStatementLineItem?.filter(item => item.headcountExpense)).map(item => <TransparencyCard
         header={item[0]}
         headers={['Forecast', 'Actuals', 'Difference', 'Diff. Reason']}

@@ -13,6 +13,7 @@ import { formatAddressForOutput } from '../../../../core/utils/string.utils';
 import _ from 'lodash';
 import { NumberCell } from '../../../components/number-cell/number-cell';
 import { TransparencyCard } from '../../../components/transparency-card/transparency-card';
+import { useThemeContext } from '../../../../core/context/ThemeContext';
 
 interface TransparencyForecastProps {
   currentMonth: DateTime;
@@ -21,6 +22,7 @@ interface TransparencyForecastProps {
 
 export const TransparencyForecast = (props: TransparencyForecastProps) => {
   const [thirdIndex, setThirdIndex] = useState(0);
+  const isLight = useThemeContext().themeMode === 'light';
 
   const {
     getForecastForMonthOnWalletOnBudgetStatement,
@@ -51,28 +53,28 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
 
     wallets.forEach(wallet => {
       result.push([
-          <WalletTableCell key={1} name={wallet.name} wallet={formatAddressForOutput(wallet.address ?? '')} address={wallet.address}/>,
-          <NumberCell key={2} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, firstMonth)}/>,
-          <NumberCell key={3} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, secondMonth)}/>,
-          <NumberCell key={4} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, thirdMonth)}/>,
-          <NumberCell key={5} value={getForecastSumOfMonthsOnWallet(props.budgetStatements, wallet?.address, props.currentMonth, [firstMonth, secondMonth, thirdMonth])}/>,
-          <NumberCell key={6} value={getBudgetCapForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, props.currentMonth)}/>,
-          <NumberCell key={7} value={getBudgetCapSumOfMonthsOnWallet(props.budgetStatements, wallet?.address, props.currentMonth, [firstMonth, secondMonth, thirdMonth])}/>,
-          <TableCell key={8} responsivePadding={'0'}>
-            <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://etherscan.io/address/${wallet.address}`} style={{ marginRight: '16px' }}>Etherscan</CustomLink>
-            <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://gnosis-safe.io/app/eth:${wallet.address}`}>Gnosis</CustomLink>
-          </TableCell>
+        <WalletTableCell key={1} name={wallet.name} wallet={formatAddressForOutput(wallet.address ?? '')} address={wallet.address} />,
+        <NumberCell key={2} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, firstMonth)} />,
+        <NumberCell key={3} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, secondMonth)} />,
+        <NumberCell key={4} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, thirdMonth)} />,
+        <NumberCell key={5} value={getForecastSumOfMonthsOnWallet(props.budgetStatements, wallet?.address, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} />,
+        <NumberCell key={6} value={getBudgetCapForMonthOnWalletOnBudgetStatement(props.budgetStatements, wallet?.address, props.currentMonth, props.currentMonth)} />,
+        <NumberCell key={7} value={getBudgetCapSumOfMonthsOnWallet(props.budgetStatements, wallet?.address, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} />,
+        <TableCell key={8} responsivePadding={'0'}>
+          <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://etherscan.io/address/${wallet.address}`} style={{ marginRight: '16px' }} lineHeight='19px' >Etherscan</CustomLink>
+          <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://gnosis-safe.io/app/eth:${wallet.address}`} lineHeight='19px' >Gnosis</CustomLink>
+        </TableCell>
       ]);
     });
 
     result.push([
       <TableCell key={1}><b>Total</b></TableCell>,
-      <NumberCell key={2} value={getForecastSumForMonth(props.budgetStatements, props.currentMonth, firstMonth)} bold/>,
-      <NumberCell key={3} value={getForecastSumForMonth(props.budgetStatements, props.currentMonth, secondMonth)} bold/>,
-      <NumberCell key={4} value={getForecastSumForMonth(props.budgetStatements, props.currentMonth, thirdMonth)} bold/>,
-      <NumberCell key={5} value={getForecastSumForMonths(props.budgetStatements, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} bold/>,
-      <NumberCell key={6} value={getBudgetCapForMonthOnBudgetStatement(props.budgetStatements, props.currentMonth, props.currentMonth)} bold/>,
-      <NumberCell key={7} value={getTotalQuarterlyBudgetCapOnBudgetStatement(props.budgetStatements, [firstMonth, secondMonth, thirdMonth])} bold/>,
+      <NumberCell key={2} value={getForecastSumForMonth(props.budgetStatements, props.currentMonth, firstMonth)} bold />,
+      <NumberCell key={3} value={getForecastSumForMonth(props.budgetStatements, props.currentMonth, secondMonth)} bold />,
+      <NumberCell key={4} value={getForecastSumForMonth(props.budgetStatements, props.currentMonth, thirdMonth)} bold />,
+      <NumberCell key={5} value={getForecastSumForMonths(props.budgetStatements, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} bold />,
+      <NumberCell key={6} value={getBudgetCapForMonthOnBudgetStatement(props.budgetStatements, props.currentMonth, props.currentMonth)} bold />,
+      <NumberCell key={7} value={getTotalQuarterlyBudgetCapOnBudgetStatement(props.budgetStatements, [firstMonth, secondMonth, thirdMonth])} bold />,
     ]);
 
     return result;
@@ -82,7 +84,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     return ['Budget Category', firstMonth.toFormat('MMMM'), secondMonth.toFormat('MMMM'), thirdMonth.toFormat('MMMM'), '3 Months', 'Monthly Budget', 'Quarterly Budget Cap'];
   }, [props.currentMonth, props.budgetStatements]);
 
-  const getBreakdownItemsForGroup = (grouped: { [id:string]: BudgetStatementLineItemDto[]}) => {
+  const getBreakdownItemsForGroup = (grouped: { [id: string]: BudgetStatementLineItemDto[] }) => {
     const result = [];
     for (const groupedKey in grouped) {
       if (Math.abs(getLineItemForecastSumForMonth(grouped[groupedKey], firstMonth)) +
@@ -96,12 +98,12 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
       }
       result.push([
         <TableCell key={1}>{groupedKey}</TableCell>,
-        <NumberCell key={2} value={getLineItemForecastSumForMonth(grouped[groupedKey], firstMonth)}/>,
-        <NumberCell key={3} value={getLineItemForecastSumForMonth(grouped[groupedKey], secondMonth)}/>,
-        <NumberCell key={4} value={getLineItemForecastSumForMonth(grouped[groupedKey], thirdMonth)}/>,
-        <NumberCell key={5} value={getLineItemForecastSumForMonths(grouped[groupedKey], [firstMonth, secondMonth, thirdMonth])}/>,
-        <NumberCell key={6} value={getBudgetCapForMonthOnLineItem(grouped[groupedKey], props.currentMonth)}/>,
-        <NumberCell key={7} value={getTotalQuarterlyBudgetCapOnLineItem(grouped[groupedKey], [firstMonth, secondMonth, thirdMonth])}/>,
+        <NumberCell key={2} value={getLineItemForecastSumForMonth(grouped[groupedKey], firstMonth)} />,
+        <NumberCell key={3} value={getLineItemForecastSumForMonth(grouped[groupedKey], secondMonth)} />,
+        <NumberCell key={4} value={getLineItemForecastSumForMonth(grouped[groupedKey], thirdMonth)} />,
+        <NumberCell key={5} value={getLineItemForecastSumForMonths(grouped[groupedKey], [firstMonth, secondMonth, thirdMonth])} />,
+        <NumberCell key={6} value={getBudgetCapForMonthOnLineItem(grouped[groupedKey], props.currentMonth)} />,
+        <NumberCell key={7} value={getTotalQuarterlyBudgetCapOnLineItem(grouped[groupedKey], [firstMonth, secondMonth, thirdMonth])} />,
       ]);
     }
 
@@ -142,12 +144,12 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
 
     result.push([
       <TableCell key={1}><b>Total</b></TableCell>,
-      <NumberCell key={2} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, firstMonth)} bold/>,
-      <NumberCell key={3} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, secondMonth)} bold/>,
-      <NumberCell key={4} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, thirdMonth)} bold/>,
-      <NumberCell key={5} value={getForecastSumOfMonthsOnWallet(props.budgetStatements, currentWalletAddress, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} bold/>,
-      <NumberCell key={6} value={getBudgetCapForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, props.currentMonth)} bold/>,
-      <NumberCell key={7} value={getBudgetCapSumOfMonthsOnWallet(props.budgetStatements, currentWalletAddress, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} bold/>,
+      <NumberCell key={2} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, firstMonth)} bold />,
+      <NumberCell key={3} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, secondMonth)} bold />,
+      <NumberCell key={4} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, thirdMonth)} bold />,
+      <NumberCell key={5} value={getForecastSumOfMonthsOnWallet(props.budgetStatements, currentWalletAddress, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} bold />,
+      <NumberCell key={6} value={getBudgetCapForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, props.currentMonth)} bold />,
+      <NumberCell key={7} value={getBudgetCapSumOfMonthsOnWallet(props.budgetStatements, currentWalletAddress, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} bold />,
     ]);
 
     return result;
@@ -165,13 +167,13 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     const cardHeaders = breakdownHeaders.slice(1, 7);
 
     return <>
-      <Title>Headcount Expenses</Title>
+      <Title isLight={isLight}>Headcount Expenses</Title>
       {getBreakdownItemsForGroup(_.groupBy(ungrouped.filter(x => x.headcountExpense), item => item.budgetCategory)).map(item => <TransparencyCard
         header={item[0]}
         headers={cardHeaders}
         items={item.slice(1)}
       />)}
-      <Title>Non-Headcount Expenses</Title>
+      <Title isLight={isLight}>Non-Headcount Expenses</Title>
       {getBreakdownItemsForGroup(_.groupBy(ungrouped.filter(x => !x.headcountExpense), item => item.budgetCategory)).map(item => <TransparencyCard
         header={item[0]}
         headers={cardHeaders}
@@ -181,19 +183,19 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
         header={<TableCell key={1}><b>Total</b></TableCell>}
         headers={cardHeaders}
         items={[
-          <NumberCell key={2} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, firstMonth)} bold/>,
-          <NumberCell key={3} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, secondMonth)} bold/>,
-          <NumberCell key={4} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, thirdMonth)} bold/>,
-          <NumberCell key={5} value={getForecastSumOfMonthsOnWallet(props.budgetStatements, currentWalletAddress, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} bold/>,
-          <NumberCell key={6} value={getBudgetCapForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, props.currentMonth)} bold/>,
-          <NumberCell key={7} value={getBudgetCapSumOfMonthsOnWallet(props.budgetStatements, currentWalletAddress, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} bold/>,
+          <NumberCell key={2} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, firstMonth)} bold />,
+          <NumberCell key={3} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, secondMonth)} bold />,
+          <NumberCell key={4} value={getForecastForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, thirdMonth)} bold />,
+          <NumberCell key={5} value={getForecastSumOfMonthsOnWallet(props.budgetStatements, currentWalletAddress, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} bold />,
+          <NumberCell key={6} value={getBudgetCapForMonthOnWalletOnBudgetStatement(props.budgetStatements, currentWalletAddress, props.currentMonth, props.currentMonth)} bold />,
+          <NumberCell key={7} value={getBudgetCapSumOfMonthsOnWallet(props.budgetStatements, currentWalletAddress, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} bold />,
         ]}
       />
     </>;
   }, [props.currentMonth, props.budgetStatements, thirdIndex]);
 
   return <Container>
-    <Title marginBottom={24}>
+    <Title isLight={isLight} marginBottom={24}>
       {props.currentMonth.toFormat('MMM yyyy')} Totals
     </Title>
 
@@ -218,7 +220,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
       />)}
     </CardsWrapper>
 
-    <Title marginBottom={24}>
+    <Title isLight={isLight} marginBottom={24}>
       {props.currentMonth.toFormat('MMM yyyy')} Breakdown
     </Title>
 
@@ -233,11 +235,11 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
 
     <TableWrapper>
       <InnerTable
-          headers={breakdownHeaders}
-          items={breakdownItems}
-          minWidth={80}
-          headerWidths={['260px', '141px', '141px', '141px', '116px', '141px', '241px', '219px']}
-          headersAlign={['left', 'right', 'right', 'right', 'right', 'right', 'right']}
+        headers={breakdownHeaders}
+        items={breakdownItems}
+        minWidth={80}
+        headerWidths={['260px', '141px', '141px', '141px', '116px', '141px', '241px', '219px']}
+        headersAlign={['left', 'right', 'right', 'right', 'right', 'right', 'right']}
       />
     </TableWrapper>
 
