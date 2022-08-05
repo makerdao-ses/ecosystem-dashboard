@@ -75,6 +75,7 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
           },
           '& .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
             borderRadius: '22px',
+            border: 'none',
           },
           '& .MuiMenu-list': {
             paddingTop: '0px',
@@ -128,7 +129,7 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
       <ThreeDotsButton isLight={isLight}
         onClick={togglePopup}
       >
-        {<ThreeDots />}
+        {<ThreeDots fill='#231536' fillDark='#EDEFFF' />}
       </ThreeDotsButton>
       {popup && <Container isLight={isLight}>
         <CloseWrapper>

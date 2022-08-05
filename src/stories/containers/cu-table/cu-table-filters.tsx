@@ -43,9 +43,8 @@ export const Filters = (props: FilterProps) => {
 
   return <Wrapper style={{
     display: props.filtersPopup ? 'flex' : 'none',
-    background: isLight ? 'white' : 'none',
   }}>
-    <Container>
+    <Container isLight={isLight}>
       <CustomButton
         label="Reset Filters"
         style={{
@@ -164,8 +163,9 @@ const Wrapper = styled.div({
   }
 });
 
-const Container = styled.div({
+const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
+  backgroundColor: isLight ? 'white' : 'none',
   '@media (max-width: 833px)': {
     position: 'relative',
     height: 'calc(100vh + 20px)',
@@ -173,12 +173,13 @@ const Container = styled.div({
     flexDirection: 'column-reverse',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    gap: '24px'
+    gap: '24px',
+    background: !isLight ? '#000A13' : 'none'
   },
   '@media (min-width: 834px)': {
     gap: '16px',
   },
-});
+}));
 
 const CloseButton = styled.div({
   alignSelf: 'flex-end',

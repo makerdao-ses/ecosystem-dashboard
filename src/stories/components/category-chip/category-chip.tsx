@@ -14,7 +14,7 @@ const colors: { [id: string]: any } = {
     color: '#5D48FF',
     background: '#F7F5FF',
     colorDark: '#5D48FF',
-    backgroundDark: '#432cff33'
+    backgroundDark: '#715fff26'
   },
   Technical: {
     color: '#546978',
