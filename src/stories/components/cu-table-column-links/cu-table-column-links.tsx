@@ -32,17 +32,17 @@ const getImageForLink = (link: LinkModel, fill: string, width?: number, height?:
     case LinkTypeEnum.WWW:
       return <WWW fill={fill} width={width} height={height} fillDark={fillDark} />;
     case LinkTypeEnum.Forum:
-      return <Forum fill={fill} width={width} height={height} fillDark={fillDark}/>;
+      return <Forum fill={fill} width={width} height={height} fillDark={fillDark} />;
     case LinkTypeEnum.Discord:
-      return <Discord fill={fill} width={width} height={height} fillDark={fillDark}/>;
+      return <Discord fill={fill} width={width} height={height} fillDark={fillDark} />;
     case LinkTypeEnum.Twitter:
-      return <Twitter fill={fill} width={width} height={height} fillDark={fillDark}/>;
+      return <Twitter fill={fill} width={width} height={height} fillDark={fillDark} />;
     case LinkTypeEnum.Youtube:
-      return <Youtube fill={fill} width={width} height={height} fillDark={fillDark}/>;
+      return <Youtube fill={fill} width={width} height={height} fillDark={fillDark} />;
     case LinkTypeEnum.LinkedIn:
-      return <LinkedIn fill={fill} width={width} height={height} fillDark={fillDark}/>;
+      return <LinkedIn fill={fill} width={width} height={height} fillDark={fillDark} />;
     case LinkTypeEnum.Gmail:
-      return <Gmail fill={fill} width={width} height={height} fillDark={fillDark}/>;
+      return <Gmail fill={fill} width={width} height={height} fillDark={fillDark} />;
     default:
       return <WWW />;
   }
@@ -75,7 +75,7 @@ const Container = styled.div<{ spacings?: number, align: string }>(({ spacings, 
   display: 'flex',
   alignItems: 'center',
   justifyContent: align,
-  gap: `${spacings ?? 0}px`
+  gap: `${spacings ?? 0}px`,
 }));
 
 type StickyLinkProps = {
