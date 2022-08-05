@@ -112,6 +112,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   },
   '@media (min-width: 834px)': {
     gridTemplateColumns: '3.5fr 2fr 1fr',
+    paddingBottom: '8px',
     gridTemplateAreas:
       `"summary expenditure team"
        "line line line"
