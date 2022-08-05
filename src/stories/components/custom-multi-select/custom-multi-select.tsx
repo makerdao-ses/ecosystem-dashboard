@@ -118,19 +118,17 @@ const SelectWrapper = styled.div({
   alignItems: 'center',
   position: 'relative',
   width: 'fit-content',
-  // border: '2px solid red',
   zIndex: 2,
   '@media (min-width: 834px)': {
     alignItems: 'flex-start',
   },
 });
-
 const SelectContainer = styled.div<{ focus: boolean; active: boolean; isLight: boolean }>(
-  (props) => ({
+  ({ active, focus, isLight }) => ({
     display: 'flex',
     position: 'relative',
     alignItems: 'center',
-    border: `1px solid ${props.active ? '#1AAB9B' : props.focus ? '#231536' : '#D4D9E1'}`,
+    border: isLight && active ? '1px solid #1AAB9B' : isLight && focus ? '1px solid #231536' : !isLight && active ? '1px solid #787A9B' : !isLight && focus ? '1px solid #343442' : isLight && !active ? '1px solid#D4D9E1' : '1px solid #343442',
     borderRadius: '22px',
     height: '48px',
     width: 'fit-content',
@@ -138,7 +136,7 @@ const SelectContainer = styled.div<{ focus: boolean; active: boolean; isLight: b
     boxSizing: 'border-box',
     cursor: 'pointer',
     transition: 'all .3s ease',
-    background: props.isLight ? 'white' : '#10191F',
+    background: isLight ? 'white' : '#10191F',
   })
 );
 

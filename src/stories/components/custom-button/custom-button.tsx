@@ -36,7 +36,7 @@ const Container = styled.button<{ isLight: boolean }>(({ isLight }) => ({
     borderColor: '#231536',
   },
   '.disabled': {
-    color: '#9FAFB9',
+    color: isLight ? '#9FAFB9' : '#48495F',
   }
 }));
 
@@ -45,7 +45,7 @@ const Text = styled.div<{ width?: string, isLight: boolean }>(({ width = 'fit-co
   fontFamily: 'SF Pro Text, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
-  color: isLight ? '#231536' : '#546978',
+  color: isLight ? '#231536' : '#D2D4EF',
   whiteSpace: 'nowrap',
   width,
 }));

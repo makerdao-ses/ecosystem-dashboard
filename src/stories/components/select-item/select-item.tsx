@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import CheckboxOff from '../svg/checkbox-off';
 import CheckboxOn from '../svg/checkbox-on';
@@ -10,24 +10,23 @@ interface SelectItemProps {
   checked?: boolean;
   onClick?: () => void;
   minWidth?: number;
-  style?: CSSProperties;
 }
 
-export const SelectItem = ({ checked = false, minWidth = 0, style = {}, ...props }: SelectItemProps) => {
+export const SelectItem = ({ checked = false, minWidth = 0, ...props }: SelectItemProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   const [focused, setFocused] = useState(false);
 
-  return <Container className="no-select" onClick={props.onClick} minWidth={minWidth} isLight={isLight} style={style}>
-    {checked ? <CheckboxOn fill={isLight ? '#1AAB9B' : '#7C6B95'} fillBorderArrow={isLight ? '#B6EDE7' : '#ADAFD4'} /> : <CheckboxOff style={{ padding: '2px' }} fill={focused ? '#708390' : '#9FAFB9'} />}
+  return <Container className="no-select" onClick={props.onClick} minWidth={minWidth} isLight={isLight} checked={checked}>
+    {checked ? <CheckboxOn fill={isLight ? '#1AAB9B' : '#7C6B95'} fillBorderArrow={isLight ? '#B6EDE7' : '#D2D4EF'} /> : <CheckboxOff style={{ padding: '2px' }} fill={focused ? '#708390' : '#9FAFB9'} />}
     <Label>{props.label}</Label>
     <Number active={checked} isLight={isLight}>{props.count}</Number>
     <input type="checkbox" checked onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} readOnly />
   </Container>;
 };
 
-const Container = styled.div<{ minWidth: number, isLight: boolean }>(({ minWidth, isLight }) => ({
+const Container = styled.div<{ minWidth: number, isLight: boolean, checked: boolean }>(({ minWidth, isLight, checked }) => ({
   display: 'flex',
-  backgroundColor: isLight ? 'none' : '#000A13',
+  backgroundColor: isLight && checked ? 'none' : isLight && !checked ? 'none' : !isLight && !checked ? '#000A13' : '#231536',
   alignItems: 'center',
   position: 'relative',
   padding: '8px',
