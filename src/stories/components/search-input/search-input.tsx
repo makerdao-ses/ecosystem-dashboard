@@ -72,5 +72,6 @@ const Input = styled.input<{ focus: boolean, isLight: boolean }>(({ focus, isLig
 
 const IconWrapper = styled.div({
   position: 'absolute',
-  right: '22px'
+  right: '22px',
+  display: 'flex',
 });
