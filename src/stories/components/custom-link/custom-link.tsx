@@ -71,7 +71,6 @@ const Container = styled.a<{ fontSize: number, fontSizeMobile?: number, fontWeig
   color: '#447AFB',
   textDecoration: 'none',
   marginLeft,
-  // border: '2px solid red',
   cursor: 'pointer',
   whiteSpace: 'nowrap',
   '@media (min-width: 834px)': {
