@@ -87,6 +87,7 @@ export const TransparencyReport = () => {
               style={{
                 margin: '0 0 10px 0',
                 alignSelf: 'flex-end',
+                lineHeight: '19px',
               }}
               iconHeight={10}
               iconWidth={10}
@@ -209,7 +210,7 @@ const StatusTitle = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   lineHeight: '14px',
   letterSpacing: '1px',
   textTransform: 'uppercase',
-  color: isLight ? 'black' : '#D2D4EF',
+  color: isLight ? '#231536' : '#D2D4EF',
   margin: '3px 8px 0 0',
 }));
 
@@ -218,9 +219,14 @@ const StatusValue = styled.div<{ color: string }>(({ color }) => ({
   fontStyle: 'normal',
   textDecoration: 'uppercase',
   fontWeight: 500,
-  fontSize: '20px',
+  fontSize: '16px',
+  lineHeight: '19px',
   letterSpacing: '0.4px',
   color: color ?? '#1AAB9B',
+  '@media (min-width: 834px)': {
+    fontSize: '20px',
+    lineHeight: '24px',
+  }
 }));
 
 const Spacer = styled.div({
