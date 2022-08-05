@@ -18,7 +18,7 @@ interface CustomLinkProps {
   styleIcon?: CSSProperties;
   padding?: string;
   border?: string;
-  lineHeight?: string;
+  lineHeight?: string
 }
 
 export const CustomLink = ({
@@ -33,10 +33,10 @@ export const CustomLink = ({
   styleIcon = {},
   border = 'none',
   padding = '0px',
-  lineHeight,
   ...props
 }: CustomLinkProps) => {
   return <Container
+
     padding={padding}
     border={border}
     href={props.href}
@@ -49,7 +49,6 @@ export const CustomLink = ({
     fontSizeMobile={props.fontSizeMobile}
     fontWeight={fontWeight}
     fontFamily={fontFamily}
-    lineHeight={lineHeight}
     onClick={(evt) => evt.stopPropagation()}>
     {props.children}
     {withArrow && <LinkIcon
@@ -62,14 +61,14 @@ export const CustomLink = ({
   </Container>;
 };
 
-const Container = styled.a<{ fontSize: number, fontSizeMobile?: number, fontWeight: number, fontFamily: string, marginLeft?: string, padding: string, border?: string, lineHeight?: string }>(({ fontSize, fontSizeMobile, fontWeight, fontFamily, marginLeft = '4px', padding, border, lineHeight = '14px' }) => ({
+const Container = styled.a<{ fontSize: number, fontSizeMobile?: number, fontWeight: number, fontFamily: string, marginLeft?: string, padding: string, border?: string, lineHeight?: string }>(({ fontSize, fontSizeMobile, fontWeight, fontFamily, marginLeft = '4px', padding, border, lineHeight }) => ({
   fontStyle: 'normal',
   border,
   padding,
   fontWeight,
   fontFamily,
   fontSize: `${fontSizeMobile || fontSize}px`,
-  lineHeight,
+  lineHeight: lineHeight || '17px',
   letterSpacing: '1px',
   color: '#447AFB',
   textDecoration: 'none',
@@ -77,6 +76,7 @@ const Container = styled.a<{ fontSize: number, fontSizeMobile?: number, fontWeig
   cursor: 'pointer',
   whiteSpace: 'nowrap',
   '@media (min-width: 834px)': {
-    fontSize: `${fontSize}px`
+    fontSize: `${fontSize}px`,
+    lineHeight: '19px'
   }
 }));
