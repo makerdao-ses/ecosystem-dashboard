@@ -49,7 +49,6 @@ export const CustomPopover = ({
       id={props.id}
       sx={{
         pointerEvents: leaveOnChildrenMouseOut ? 'auto' : 'none',
-        border: '1px solid #D4D9E1',
         boxShadow: 'none'
       }}
       open={open}
@@ -61,7 +60,7 @@ export const CustomPopover = ({
       }}
       onClose={handlePopoverClose}
       disableRestoreFocus
-      >
+    >
       <Container
         style={props.popupStyle}
         onMouseLeave={() => leaveOnChildrenMouseOut && handlePopoverClose()}
