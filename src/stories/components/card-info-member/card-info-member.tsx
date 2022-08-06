@@ -146,7 +146,7 @@ const CardLinksFooter = styled.div({
   marginBottom: '8px',
 });
 
-const TypographyStyled = styled(Typography)<{ color: string }>((props) => ({
+const TypographyStyled = styled(Typography)<{ color: string}>((props) => ({
   color: props.color,
   fontFamily: 'SF Pro Text, sans-serif',
   fontStyle: 'normal',
