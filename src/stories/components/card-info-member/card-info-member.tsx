@@ -96,12 +96,12 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
 
           <CardContentPositionRow>
             <CardContentPositionColumn>
-              <TypographyStyled color='#708390' >Since</TypographyStyled>
-              <TypographyStyled color={isLight ? '#231536' : '#D2D4EF'}>{`${since} Years`}</TypographyStyled>
+              <TypographyStyled mb={0} color='#708390' style={{ paddingBottom: '4px' }} >Since</TypographyStyled>
+              <TypographyStyled mb={0} color={isLight ? '#231536' : '#D2D4EF'} >{`${since} Years`}</TypographyStyled>
             </CardContentPositionColumn>
             <CardContentPositionColumn>
-              <TypographyStyled color='#708390' >Commitment</TypographyStyled>
-              <TypographyStyled color={isLight ? '#231536' : '#D2D4EF'}>{contributorCommitment.commitment}</TypographyStyled>
+              <TypographyStyled mb={0} color='#708390' style={{ paddingBottom: '4px' }} >Commitment</TypographyStyled>
+              <TypographyStyled mb={0} color={isLight ? '#231536' : '#D2D4EF'} >{contributorCommitment.commitment}</TypographyStyled>
             </CardContentPositionColumn>
           </CardContentPositionRow>
         </CardContent>
@@ -131,6 +131,7 @@ const CardContentPositionRow = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
+  height: '47px',
 });
 
 const CardContentPositionColumn = styled.div({
@@ -146,7 +147,7 @@ const CardLinksFooter = styled.div({
   marginBottom: '8px',
 });
 
-const TypographyStyled = styled(Typography)<{ color: string}>((props) => ({
+const TypographyStyled = styled(Typography)<{ color: string }>((props) => ({
   color: props.color,
   fontFamily: 'SF Pro Text, sans-serif',
   fontStyle: 'normal',
