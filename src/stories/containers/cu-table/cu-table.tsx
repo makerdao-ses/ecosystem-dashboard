@@ -329,6 +329,7 @@ export const CuTable = () => {
               style={{
                 height: '34px',
                 width: '90px',
+                border: isLight ? '1px solid #D4D9E1' : '1px solid #343442',
               }}
             />
           </FilterButtonWrapper>
