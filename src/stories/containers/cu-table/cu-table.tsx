@@ -49,6 +49,7 @@ import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CustomPopover } from '../../components/custom-popover/custom-popover';
 import { CategoryChip } from '../../components/category-chip/category-chip';
+import { TablePlaceholder } from '../../components/custom-table/placeholder';
 
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
 const sortNeutralState = [
@@ -343,18 +344,24 @@ export const CuTable = () => {
             clearFilters={clearFilters}
           />
         </Header>
-        <TableWrapper>
-          <CustomTable
-            headers={headers}
-            items={items}
-            headersAlign={headersAlign}
-            headersSort={headersSort}
-            headersStyles={headerStyles}
-            sortFunction={setSort}
-            loading={status === 'loading'}
-          />
-        </TableWrapper>
-        <ListWrapper>{itemsList}</ListWrapper>
+        {!!items?.length && status !== 'loading' && (
+          <>
+            <TableWrapper>
+              <CustomTable
+                headers={headers}
+                items={items}
+                headersAlign={headersAlign}
+                headersSort={headersSort}
+                headersStyles={headerStyles}
+                sortFunction={setSort}
+                loading={status === 'loading'}
+              />
+            </TableWrapper>
+            <ListWrapper>{itemsList}</ListWrapper>
+          </>
+        )}
+
+        {!items?.length && status !== 'loading' && <TablePlaceholder />}
       </Wrapper>
     </ContainerHome>
   );
