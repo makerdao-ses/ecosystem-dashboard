@@ -17,7 +17,7 @@ interface CustomLinkProps {
   marginLeft?: string
   styleIcon?: CSSProperties;
   padding?: string;
-  border?: string
+  border?: string;
 }
 
 export const CustomLink = ({
@@ -59,7 +59,7 @@ export const CustomLink = ({
   </Container>;
 };
 
-const Container = styled.a<{ fontSize: number, fontSizeMobile?: number, fontWeight: number, fontFamily: string, marginLeft?: string, padding: string, border?: string }>(({ fontSize, fontSizeMobile, fontWeight, fontFamily, marginLeft = '4px', padding, border }) => ({
+const Container = styled.a<{ fontSize: number, fontSizeMobile?: number, fontWeight: number, fontFamily: string, marginLeft?: string, padding: string, border?: string}>(({ fontSize, fontSizeMobile, fontWeight, fontFamily, marginLeft = '4px', padding, border }) => ({
   fontStyle: 'normal',
   border,
   padding,
@@ -71,7 +71,6 @@ const Container = styled.a<{ fontSize: number, fontSizeMobile?: number, fontWeig
   color: '#447AFB',
   textDecoration: 'none',
   marginLeft,
-  // border: '2px solid red',
   cursor: 'pointer',
   whiteSpace: 'nowrap',
   '@media (min-width: 834px)': {
