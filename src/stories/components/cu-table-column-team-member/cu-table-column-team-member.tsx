@@ -56,7 +56,6 @@ export const CuTableColumnTeamMember = ({
                     : '2px solid #E7FCFA',
                 }}
                 imageStyle={{
-                  marginLeft: i === 0 ? 0 : '-9px',
                   border: '2px solid #E7FCFA',
                 }}
                 image={member.contributor[0].facilitatorImage?.trim()}
