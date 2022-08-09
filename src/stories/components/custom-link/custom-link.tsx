@@ -17,7 +17,8 @@ interface CustomLinkProps {
   marginLeft?: string
   styleIcon?: CSSProperties;
   padding?: string;
-  border?: string
+  border?: string;
+  lineHeight?: string
 }
 
 export const CustomLink = ({
@@ -35,6 +36,7 @@ export const CustomLink = ({
   ...props
 }: CustomLinkProps) => {
   return <Container
+
     padding={padding}
     border={border}
     href={props.href}
@@ -59,22 +61,22 @@ export const CustomLink = ({
   </Container>;
 };
 
-const Container = styled.a<{ fontSize: number, fontSizeMobile?: number, fontWeight: number, fontFamily: string, marginLeft?: string, padding: string, border?: string }>(({ fontSize, fontSizeMobile, fontWeight, fontFamily, marginLeft = '4px', padding, border }) => ({
+const Container = styled.a<{ fontSize: number, fontSizeMobile?: number, fontWeight: number, fontFamily: string, marginLeft?: string, padding: string, border?: string, lineHeight?: string }>(({ fontSize, fontSizeMobile, fontWeight, fontFamily, marginLeft = '4px', padding, border, lineHeight }) => ({
   fontStyle: 'normal',
   border,
   padding,
   fontWeight,
   fontFamily,
   fontSize: `${fontSizeMobile || fontSize}px`,
-  lineHeight: '14px',
+  lineHeight: lineHeight || '17px',
   letterSpacing: '1px',
   color: '#447AFB',
   textDecoration: 'none',
   marginLeft,
-  // border: '2px solid red',
   cursor: 'pointer',
   whiteSpace: 'nowrap',
   '@media (min-width: 834px)': {
-    fontSize: `${fontSize}px`
+    fontSize: `${fontSize}px`,
+    lineHeight: '19px'
   }
 }));

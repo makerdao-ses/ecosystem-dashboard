@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface Props {
   header: JSX.Element | string;
@@ -9,7 +10,8 @@ interface Props {
 }
 
 export const TransparencyCard = (props: Props) => {
-  return <Container>
+  const isLight = useThemeContext().themeMode === 'light';
+  return <Container isLight={isLight}>
     <HeaderWrapper>
       {props.header}
     </HeaderWrapper>
@@ -17,29 +19,31 @@ export const TransparencyCard = (props: Props) => {
       <Label>{header}</Label>
       {props.items[i] ?? ''}
     </Row>)}
-    {props.footer && <FooterWrapper>{props.footer}</FooterWrapper>}
+    {props.footer && <FooterWrapper isLight={isLight}>{props.footer}</FooterWrapper>}
   </Container>;
 };
 
-const Container = styled.div({
+const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'block',
-  boxShadow: '0px 0px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
-  background: 'white',
+  boxShadow: isLight ? '0px 0px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : 'none',
+  background: isLight ? 'white' : '#10191F',
   padding: '24px 16px 10px 16px',
   marginBottom: '24px',
-});
+  borderRadius: '6px',
+}));
 
 const HeaderWrapper = styled.div({
   margin: '-16px 0 0 -16px',
+  color: 'red'
 });
 
-const FooterWrapper = styled.div({
+const FooterWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   justifyContent: 'center',
-  borderTop: '1px solid #D4D9E1',
+  borderTop: isLight ? '1px solid #D4D9E1' : '1px solid #405361',
   marginTop: '16px',
   padding: '8px 0 0',
-});
+}));
 
 const Row = styled.div({
   display: 'flex',
