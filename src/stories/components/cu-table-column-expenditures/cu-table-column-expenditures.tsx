@@ -7,10 +7,10 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ColumnExpendituresSkeleton } from './cu-table-column-expenditures-skeleton';
 
 interface CuTableColumnExpendituresProps {
-  value: number;
+  value?: number;
   percent?: number | null;
-  items: Array<CustomChartItemModel>;
-  budgetCaps: number[];
+  items?: Array<CustomChartItemModel>;
+  budgetCaps?: number[];
   isLoading?: boolean;
 }
 
@@ -19,7 +19,7 @@ export const CuTableColumnExpenditures = ({
   ...props
 }: CuTableColumnExpendituresProps) => {
   const isLight = useThemeContext().themeMode === 'light';
-  return isLoading
+  return !isLoading
     ? (
     <Wrapper>
       <Container>

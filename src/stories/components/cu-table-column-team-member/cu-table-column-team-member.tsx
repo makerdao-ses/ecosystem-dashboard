@@ -9,8 +9,8 @@ import { ContributorCommitmentDto } from '../../../core/models/dto/core-unit.dto
 import { ColumnTeamMemberSkeleton } from './cu-table-column-team-member-skeleton';
 
 interface CuTableColumnTeamMemberProps {
-  members: ContributorCommitmentDto[];
-  fte: number;
+  members?: ContributorCommitmentDto[];
+  fte?: number;
   isLoading?: boolean;
 }
 
@@ -20,7 +20,7 @@ export const CuTableColumnTeamMember = ({
 }: CuTableColumnTeamMemberProps) => {
   const isLight = useThemeContext().themeMode === 'light';
 
-  return isLoading
+  return !isLoading
     ? (
     <Container className="TeamMembers">
       <CustomPopover

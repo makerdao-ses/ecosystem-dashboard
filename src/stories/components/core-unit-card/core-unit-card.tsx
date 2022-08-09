@@ -21,8 +21,8 @@ import { CuTableColumnTeamMember } from '../cu-table-column-team-member/cu-table
 import { CuTableColumnLinks } from '../cu-table-column-links/cu-table-column-links';
 import { CategoryChip } from '../category-chip/category-chip';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import Skeleton from '@mui/material/Skeleton';
 import { CategoriesSkeleton } from './categories-skeleton';
+import Skeleton from '@mui/material/Skeleton';
 
 interface CoreUnitCardProps {
   coreUnit: CoreUnitDto;
@@ -38,19 +38,61 @@ export const CoreUnitCard = ({
   isLoading = false,
 }: CoreUnitCardProps) => {
   const isLight = useThemeContext().themeMode === 'light';
+  if (isLoading) {
+    return (
+      <Container isLight={isLight}>
+        <Summary>
+          <Skeleton
+            variant="rectangular"
+            width={100}
+            height={20}
+            style={{ borderRadius: '4px' }}
+          />
+          <CuTableColumnSummary isLoading />
+        </Summary>
+        <Expenditure onClick={onClickFinances}>
+          <Skeleton
+            variant="rectangular"
+            width={100}
+            height={20}
+            style={{ borderRadius: '4px' }}
+          />
+          <CuTableColumnExpenditures isLoading />
+        </Expenditure>
+        <Team>
+          <Skeleton
+            variant="rectangular"
+            width={100}
+            height={20}
+            style={{
+              borderRadius: '4px',
+              marginBottom: '16px'
+            }}
+          />
+          <CuTableColumnTeamMember isLoading />
+        </Team>
+        <Line isLight={isLight} />
+        <CategoriesSkeleton />
+        <Links>
+          <CuTableColumnLinks isLoading />
+        </Links>
+      </Container>
+    );
+  }
+
   return (
     <Container isLight={isLight}>
       <Summary>
         <Title hideSmall>Core Unit</Title>
         <CuTableColumnSummary
-          title={coreUnit.name}
+          title={coreUnit?.name}
           status={
             getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum
           }
           statusModified={getSubmissionDateFromCuMip(
             getLatestMip39FromCoreUnit(coreUnit)
           )}
-          imageUrl={coreUnit.image}
+          imageUrl={coreUnit?.image}
           mipUrl={getMipUrlFromCoreUnit(coreUnit)}
           onClick={onClick}
           code={formatCode(coreUnit.code)}
@@ -73,7 +115,7 @@ export const CoreUnitCard = ({
         />
       </Team>
       <Line isLight={isLight} />
-      {isLoading
+      {!isLoading
         ? (
         <Categories>
           {coreUnit.category?.map((category) => (
@@ -148,7 +190,7 @@ const Summary = styled.div({
 const Expenditure = styled.div({
   gridArea: 'expenditure',
   paddingTop: '19px',
-  '@media (min-width: 435px)': {
+  '@media (min-width: 635px)': {
     paddingTop: '0',
   },
 });
@@ -157,7 +199,7 @@ const Team = styled.div({
   gridArea: 'team',
   paddingTop: '32px',
   '@media (min-width: 435px) and (max-width: 685px)': {
-    paddingTop: '0',
+    paddingTop: '19px',
   },
   '@media (min-width: 834px)': {
     paddingTop: '0',

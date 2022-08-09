@@ -18,7 +18,7 @@ export interface LinkModel {
 }
 
 interface CuTableColumnLinksProps {
-  links: LinkModel[];
+  links?: LinkModel[];
   width?: number;
   height?: number;
   spacings?: number;
@@ -101,10 +101,10 @@ export const CuTableColumnLinks = ({
   fillDark,
   isLoading = false,
 }: CuTableColumnLinksProps) => {
-  return isLoading
+  return !isLoading
     ? (
     <Container spacings={spacings} align={align}>
-      {links.map((link, i) => (
+      {links?.map((link, i) => (
         <StyleBox lastChild={lastChild} key={`link-${i}`}>
           <CustomPopover
             title={link.linkType}

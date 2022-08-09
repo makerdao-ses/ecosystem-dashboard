@@ -10,13 +10,13 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ColumnSummarySkeleton } from './cu-table-column-summary-skeleton';
 
 interface CuTableColumnSummaryProps {
-  title: string;
+  title?: string;
   imageUrl?: string;
   status?: CuStatusEnum;
   statusModified?: Date | null;
   onClick?: () => void;
   mipUrl?: string;
-  code: string;
+  code?: string;
   logoDimension?: string;
   isLoading?: boolean;
 }
@@ -27,7 +27,7 @@ export const CuTableColumnSummary = ({
   ...props
 }: CuTableColumnSummaryProps) => {
   const isLight = useThemeContext().themeMode === 'light';
-  return isLoading
+  return !isLoading
     ? <Container onClick={props.onClick}>
       <CircleContainer>
         <CircleAvatar

@@ -213,6 +213,15 @@ export const CuTable = () => {
   );
 
   const items = useMemo(() => {
+    if (status === 'loading') {
+      return new Array(10).fill([
+        <CuTableColumnSummary isLoading/>,
+        <CuTableColumnExpenditures isLoading/>,
+        <CuTableColumnTeamMember isLoading/>,
+        <CuTableColumnLinks isLoading/>
+      ]);
+    }
+
     if (!filteredData) return [];
     const sortedData = sortData(filteredData);
     return sortedData.map((coreUnit: CoreUnitDto, i: number) => {
@@ -309,6 +318,9 @@ export const CuTable = () => {
   }, [filteredData, sortData, onClickRow]);
 
   const itemsList = useMemo(() => {
+    if (status === 'loading') {
+      return new Array(4).fill(<CoreUnitCard coreUnit={{} as CoreUnitDto} isLoading/>);
+    }
     return filteredData.map((cu, i) => (
       <CoreUnitCard
         key={`card-${i}`}
@@ -344,7 +356,7 @@ export const CuTable = () => {
             clearFilters={clearFilters}
           />
         </Header>
-        {!!items?.length && status !== 'loading' && (
+        {!!items?.length && (
           <>
             <TableWrapper>
               <CustomTable
