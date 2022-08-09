@@ -2,30 +2,34 @@ import React from 'react';
 import Image from 'next/image';
 import styled from '@emotion/styled';
 import PlaceholderImg from '../../../../public/assets/img/table-placeholder.png';
+import PlaceholderImgDark from '../../../../public/assets/img/table-placeholder-dark.png';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 export const TablePlaceholder = () => {
+  const isLight = useThemeContext().themeMode === 'light';
   return (
-    <Container>
+    <Container isLight={isLight}>
       <ImageWrapper>
-        <Image src={PlaceholderImg} alt="There are no elements" layout="fill" />
+        <Image src={isLight ? PlaceholderImg : PlaceholderImgDark} alt="There are no elements" layout="fill" />
       </ImageWrapper>
-      <Title>No Results Found</Title>
-      <Description>
+      <Title isLight={isLight}>No Results Found</Title>
+      <Description isLight={isLight}>
         There are no core units available with this combination of filters.
       </Description>
     </Container>
   );
 };
 
-const Container = styled.div({
+const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
   width: '100%',
-  background: '#FFFFFF',
-  boxShadow:
-    '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
+  background: isLight ? '#FFFFFF' : 'linear-gradient(180deg, #001020 -17.77%, #000000 63.95%)',
+  boxShadow: isLight
+    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+    : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
   borderRadius: '20px',
   height: '100%',
   padding: '64px 32px 32px 32px',
@@ -33,34 +37,34 @@ const Container = styled.div({
     height: '768px',
     padding: '64px 0',
   }
-});
+}));
 
-const Title = styled.div({
+const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base',
   fontWeight: 500,
   lineHeight: '58px',
-  color: '#9FAFB9',
+  color: isLight ? '#9FAFB9' : '#D1DEE6',
   fontSize: '24px',
   margin: '64px 0 16px',
   '@media (min-width: 834px)': {
     fontSize: '48px',
     margin: '96px 0 32px',
   }
-});
+}));
 
-const Description = styled.div({
+const Description = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '16px',
   lineHeight: '19px',
   textAlign: 'center',
-  color: '#708390',
+  color: isLight ? '#708390' : '#9FAFB9',
   maxWidth: '240px',
   '@media (min-width: 834px)': {
     maxWidth: '380px'
   }
-});
+}));
 
 const ImageWrapper = styled.div({
   position: 'relative',
