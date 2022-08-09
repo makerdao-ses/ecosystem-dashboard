@@ -36,7 +36,7 @@ export const CuTableColumnTeamMember = ({
         </Data>
       </CustomPopover>
       <CirclesWrapper>
-        {props.members.map((member, i) => {
+        {props.members?.map((member, i) => {
           return (
             <CustomPopover
               key={member.contributor[0].name + i}

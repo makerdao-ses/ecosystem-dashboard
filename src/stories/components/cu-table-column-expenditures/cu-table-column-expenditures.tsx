@@ -31,7 +31,7 @@ export const CuTableColumnExpenditures = ({
               title={
                 <TotalPopup>
                   <PopupTitle>
-                    {props.value.toLocaleString('en-US', {
+                    {props.value?.toLocaleString('en-US', {
                       maximumFractionDigits: 0,
                     })}
                   </PopupTitle>
@@ -45,7 +45,7 @@ export const CuTableColumnExpenditures = ({
                   justifyContent: props.value ? 'flex-start' : 'center',
                 }}
               >
-                {props.value.toLocaleString('en-US', {
+                {props.value?.toLocaleString('en-US', {
                   maximumFractionDigits: 0,
                 })}
               </Value>
