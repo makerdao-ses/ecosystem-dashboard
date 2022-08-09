@@ -2,7 +2,6 @@ import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
 import { CustomTableHeader } from '../custom-table-header/custom-table-header';
 import { SortEnum } from '../../../core/enums/sort.enum';
-import { LoadingSpinner } from '../loading-spinner/loading-spinner';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface CustomTableProps {
@@ -67,30 +66,9 @@ export const CustomTable = ({
           ))}
         </TableBody>
       </Table>
-      {(!props.items || props.items.length === 0) && (
-        <Placeholder>
-          {props.loading
-            ? (
-            <Loading>
-              <LoadingSpinner /> <LoadingText>Loading</LoadingText>
-            </Loading>
-              )
-            : (
-                'There is no data to show'
-              )}
-        </Placeholder>
-      )}
     </TableContainer>
   );
 };
-
-const Placeholder = styled.div({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: '100%',
-  height: '600px',
-});
 
 const TableContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   background: isLight
@@ -153,12 +131,3 @@ const TableCell = styled.div({
 const TableBody = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   background: isLight ? '#F7F8F966' : 'none',
 }));
-
-const Loading = styled.div({
-  display: 'flex',
-  alignItems: 'center',
-});
-
-const LoadingText = styled.span({
-  marginLeft: '8px',
-});
