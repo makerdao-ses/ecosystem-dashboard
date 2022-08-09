@@ -7,58 +7,77 @@ import { StatusChip } from '../status-chip/status-chip';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
 import { CustomLink } from '../custom-link/custom-link';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { ColumnSummarySkeleton } from './cu-table-column-summary-skeleton';
 
 interface CuTableColumnSummaryProps {
-  title: string;
+  title?: string;
   imageUrl?: string;
   status?: CuStatusEnum;
   statusModified?: Date | null;
   onClick?: () => void;
   mipUrl?: string;
-  code: string;
+  code?: string;
   logoDimension?: string;
+  isLoading?: boolean;
 }
 
-export const CuTableColumnSummary = ({ logoDimension = '48px', ...props }: CuTableColumnSummaryProps) => {
+export const CuTableColumnSummary = ({
+  logoDimension = '48px',
+  isLoading = false,
+  ...props
+}: CuTableColumnSummaryProps) => {
   const isLight = useThemeContext().themeMode === 'light';
-  return <Container onClick={props.onClick}>
-    <CircleContainer>
-      <CircleAvatar
-        width={logoDimension}
-        height={logoDimension}
-        name={props.title || 'Core Unit'}
-        image={props.imageUrl}
-        style={{ filter: isLight ? 'drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))' : 'drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))' }}
-      />
-    </CircleContainer>
-    <Content>
-      <TitleWrapper>
-        <Code isLight={isLight}>{props.code}</Code>
-        <Title isLight={isLight}>{props.title}</Title>
-      </TitleWrapper>
-      <Row>
-        {props.status && <StatusChip status={props.status} />}
-        {props.statusModified && <CustomPopover
-          id={'mouse-over-popover-goto'}
-          title={'Go to MIPs Portal'}
-        >
-          {props.statusModified && <CustomLink
-            href={props.mipUrl}
-            style={{
-              display: 'flex',
-              alignItems: 'flex-end',
-              margin: '0 0 2px 4px'
-            }}
-            styleIcon={{
-              marginBottom: '2px'
-            }}
-            target="_blank">
-            {`SINCE ${DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}`}
-          </CustomLink>}
-        </CustomPopover>}
-      </Row>
-    </Content>
-  </Container>;
+  return !isLoading
+    ? <Container onClick={props.onClick}>
+      <CircleContainer>
+        <CircleAvatar
+          width={logoDimension}
+          height={logoDimension}
+          name={props.title || 'Core Unit'}
+          image={props.imageUrl}
+          style={{
+            boxShadow: isLight
+              ? '2px 4px 7px rgba(26, 171, 155, 0.25)'
+              : '2px 4px 7px rgba(26, 171, 155, 0.25)',
+          }}
+        />
+      </CircleContainer>
+      <Content>
+        <TitleWrapper>
+          <Code isLight={isLight}>{props.code}</Code>
+          <Title isLight={isLight}>{props.title}</Title>
+        </TitleWrapper>
+        <Row>
+          {props.status && <StatusChip status={props.status} />}
+          {props.statusModified && (
+            <CustomPopover
+              id={'mouse-over-popover-goto'}
+              title={'Go to MIPs Portal'}
+            >
+              {props.statusModified && (
+                <CustomLink
+                  href={props.mipUrl}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'flex-end',
+                    margin: '0 0 2px 4px',
+                  }}
+                  styleIcon={{
+                    marginBottom: '2px',
+                  }}
+                  target="_blank"
+                >
+                  {`SINCE ${DateTime.fromJSDate(props.statusModified)
+                    .toFormat('d-MMM-y')
+                    .toUpperCase()}`}
+                </CustomLink>
+              )}
+            </CustomPopover>
+          )}
+        </Row>
+      </Content>
+    </Container>
+    : <ColumnSummarySkeleton/>;
 };
 
 const Container = styled.div({
@@ -70,18 +89,18 @@ const Container = styled.div({
     padding: '24px 0',
   },
   '@media (min-width: 1180px)': {
-    padding: '24px 16px'
-  }
+    padding: '24px 16px',
+  },
 });
 
 const CircleContainer = styled.div({
   marginRight: '8px',
   '@media (min-width: 834px)': {
     marginRight: '16px',
-  }
+  },
 });
 
-const Content = styled.div({
+const Content = styled.section({
   display: 'flex',
   flexDirection: 'column',
 });
@@ -98,7 +117,7 @@ const Code = styled.span<{ isLight: boolean }>(({ isLight }) => ({
 }));
 
 const TitleWrapper = styled.div({
-  display: 'flex'
+  display: 'flex',
 });
 
 const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
@@ -112,7 +131,7 @@ const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   marginBottom: '2px',
 }));
 
-const Row = styled.div({
+const Row = styled.section({
   display: 'flex',
   alignItems: 'center',
   flex: 1,
