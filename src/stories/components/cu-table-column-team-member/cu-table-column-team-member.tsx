@@ -6,18 +6,22 @@ import { CircleAvatar } from '../circle-avatar/circle-avatar';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import CardInfoMember from '../card-info-member/card-info-member';
 import { ContributorCommitmentDto } from '../../../core/models/dto/core-unit.dto';
+import { ColumnTeamMemberSkeleton } from './cu-table-column-team-member-skeleton';
 
 interface CuTableColumnTeamMemberProps {
   members: ContributorCommitmentDto[];
   fte: number;
+  isLoading?: boolean;
 }
 
 export const CuTableColumnTeamMember = ({
+  isLoading = false,
   ...props
 }: CuTableColumnTeamMemberProps) => {
   const isLight = useThemeContext().themeMode === 'light';
 
-  return (
+  return isLoading
+    ? (
     <Container className="TeamMembers">
       <CustomPopover
         title={'Full Time Equivalents'}
@@ -66,7 +70,10 @@ export const CuTableColumnTeamMember = ({
         })}
       </CirclesWrapper>
     </Container>
-  );
+      )
+    : (
+    <ColumnTeamMemberSkeleton />
+      );
 };
 
 const Container = styled.div({
@@ -77,7 +84,7 @@ const Container = styled.div({
   cursor: 'pointer',
   '@media (min-width: 834px)': {
     paddingLeft: '40px',
-  }
+  },
 });
 
 const Data = styled.div({

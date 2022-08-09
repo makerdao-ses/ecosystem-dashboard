@@ -4,66 +4,78 @@ import { CustomBarChart } from '../custom-bar-chart/custom-bar-chart';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { CustomChartItemModel } from '../../../core/models/custom-chart-item.model';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { ColumnExpendituresSkeleton } from './cu-table-column-expenditures-skeleton';
 
 interface CuTableColumnExpendituresProps {
-  value: number,
-  percent?: number | null,
-  items: Array<CustomChartItemModel>,
-  budgetCaps: number[]
+  value: number;
+  percent?: number | null;
+  items: Array<CustomChartItemModel>;
+  budgetCaps: number[];
+  isLoading?: boolean;
 }
 
-export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps) => {
+export const CuTableColumnExpenditures = ({
+  isLoading = false,
+  ...props
+}: CuTableColumnExpendituresProps) => {
   const isLight = useThemeContext().themeMode === 'light';
-  return <Wrapper>
-    <Container>
-      <DataWrapper>
-        <Data>
-          <Title isLight={isLight}>Last 3 Months</Title>
-          <CustomPopover
-            id="mouse-over-popover-total"
-            title={<TotalPopup>
-              <PopupTitle>
+  return isLoading
+    ? (
+    <Wrapper>
+      <Container>
+        <DataWrapper>
+          <Data>
+            <Title isLight={isLight}>Last 3 Months</Title>
+            <CustomPopover
+              id="mouse-over-popover-total"
+              title={
+                <TotalPopup>
+                  <PopupTitle>
+                    {props.value.toLocaleString('en-US', {
+                      maximumFractionDigits: 0,
+                    })}
+                  </PopupTitle>
+                  <Label>Actual Expenditure</Label>
+                </TotalPopup>
+              }
+            >
+              <Value
+                isLight={isLight}
+                style={{
+                  justifyContent: props.value ? 'flex-start' : 'center',
+                }}
+              >
                 {props.value.toLocaleString('en-US', {
                   maximumFractionDigits: 0,
                 })}
-              </PopupTitle>
-              <Label>
-                Actual Expenditure
-              </Label>
-            </TotalPopup>}>
-            <Value isLight={isLight} style={{ justifyContent: props.value ? 'flex-start' : 'center' }}>
-              {props.value.toLocaleString('en-US', {
-                maximumFractionDigits: 0,
-              })}
-            </Value>
+              </Value>
+            </CustomPopover>
+          </Data>
+        </DataWrapper>
+        <CustomBarChart items={props.items} maxValues={props.budgetCaps} />
+        <ValueWrapper>
+          <CustomPopover
+            css={{ alignSelf: 'center' }}
+            id={'mouse-over-popover-percent'}
+            title={
+              <TotalPopup>
+                <PopupTitle>{props.percent?.toFixed(0)}%</PopupTitle>
+                <Label>
+                  <b>Actuals/BudgetCap</b>
+                </Label>
+                <Label>over the last 3 months</Label>
+              </TotalPopup>
+            }
+          >
+            <Percent isLight={isLight}>{props.percent?.toFixed(0)}%</Percent>
           </CustomPopover>
-        </Data>
-      </DataWrapper>
-      <CustomBarChart items={props.items} maxValues={props.budgetCaps} />
-      <ValueWrapper>
-        <CustomPopover
-          css={{ alignSelf: 'center' }}
-          id={'mouse-over-popover-percent'}
-          title={
-            <TotalPopup>
-              <PopupTitle>
-                {props.percent?.toFixed(0)}%
-              </PopupTitle>
-              <Label>
-                <b>Actuals/BudgetCap</b>
-              </Label>
-              <Label>
-                over the last 3 months
-              </Label>
-            </TotalPopup>
-          }>
-          <Percent isLight={isLight}>
-            {props.percent?.toFixed(0)}%
-          </Percent>
-        </CustomPopover>
-      </ValueWrapper>
-    </Container>
-  </Wrapper>;
+        </ValueWrapper>
+      </Container>
+    </Wrapper>
+      )
+    : (
+    <ColumnExpendituresSkeleton />
+      );
 };
 
 const Container = styled.div({
@@ -87,25 +99,25 @@ const DataWrapper = styled.div({
 const Data = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'flex-end'
+  justifyContent: 'flex-end',
 });
 
 const TotalPopup = styled.div({
-  display: 'block'
+  display: 'block',
 });
 
 const PopupTitle = styled.div({
   fontSize: '16px',
   fontWeight: 700,
   fontFamily: 'SF Pro Display, sans-serif',
-  color: '#231536'
+  color: '#231536',
 });
 
 const Label = styled.div({
   fontSize: '14px',
   fontWeight: 400,
   fontFamily: 'FT Base, sans-serif',
-  color: '#231536'
+  color: '#231536',
 });
 
 export const Title = styled.span<{ isLight: boolean }>(({ isLight }) => ({
@@ -117,7 +129,7 @@ export const Title = styled.span<{ isLight: boolean }>(({ isLight }) => ({
 }));
 
 const ValueWrapper = styled.div({
-  alignSelf: 'flex-end'
+  alignSelf: 'flex-end',
 });
 
 export const Value = styled.span<{ isLight: boolean }>(({ isLight }) => ({

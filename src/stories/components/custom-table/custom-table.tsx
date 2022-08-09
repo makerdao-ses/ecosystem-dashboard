@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import { CustomTableHeader } from '../custom-table-header/custom-table-header';
 import { SortEnum } from '../../../core/enums/sort.enum';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { TablePlaceholder } from './placeholder';
 
 interface CustomTableProps {
   headers: string[];
