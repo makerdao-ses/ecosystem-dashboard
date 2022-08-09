@@ -10,6 +10,7 @@ import LinkedIn from '../svg/linkedin';
 import Gmail from '../svg/gmail';
 import { Box } from '@mui/material';
 import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 export interface LinkModel {
   href: string,
@@ -32,30 +33,35 @@ const getImageForLink = (link: LinkModel, fill: string, width?: number, height?:
     case LinkTypeEnum.WWW:
       return <WWW fill={fill} width={width} height={height} fillDark={fillDark} />;
     case LinkTypeEnum.Forum:
-      return <Forum fill={fill} width={width} height={height} fillDark={fillDark}/>;
+      return <Forum fill={fill} width={width} height={height} fillDark={fillDark} />;
     case LinkTypeEnum.Discord:
-      return <Discord fill={fill} width={width} height={height} fillDark={fillDark}/>;
+      return <Discord fill={fill} width={width} height={height} fillDark={fillDark} />;
     case LinkTypeEnum.Twitter:
-      return <Twitter fill={fill} width={width} height={height} fillDark={fillDark}/>;
+      return <Twitter fill={fill} width={width} height={height} fillDark={fillDark} />;
     case LinkTypeEnum.Youtube:
-      return <Youtube fill={fill} width={width} height={height} fillDark={fillDark}/>;
+      return <Youtube fill={fill} width={width} height={height} fillDark={fillDark} />;
     case LinkTypeEnum.LinkedIn:
-      return <LinkedIn fill={fill} width={width} height={height} fillDark={fillDark}/>;
+      return <LinkedIn fill={fill} width={width} height={height} fillDark={fillDark} />;
     case LinkTypeEnum.Gmail:
-      return <Gmail fill={fill} width={width} height={height} fillDark={fillDark}/>;
+      return <Gmail fill={fill} width={width} height={height} fillDark={fillDark} />;
     default:
       return <WWW />;
   }
 };
 
 export const CuTableColumnLinks = ({ width, height, links, align = 'flex-end', spacings, fill = '#C4C4C4', lastChild = false, fillDark }: CuTableColumnLinksProps) => {
+  const isLight = useThemeContext().themeMode === 'light';
   return <Container spacings={spacings} align={align}>
     {links.map((link, i) => <StyleBox lastChild={lastChild}
       key={`link-${i}`}>
       <CustomPopover
+
         title={link.linkType}
         popupStyle={{
           padding: '16px',
+          background: isLight ? 'white' : '#000A13',
+          color: isLight ? '#231536' : '#D2D4EF',
+          boxShadow: isLight ? 'none' : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
         }}
         id={`link-${i}`}>
         <LinkImage

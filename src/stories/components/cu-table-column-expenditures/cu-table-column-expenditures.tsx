@@ -20,14 +20,18 @@ export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps)
         <Data>
           <Title isLight={isLight}>Last 3 Months</Title>
           <CustomPopover
+            popupStyle={{
+              background: isLight ? 'white' : '#000A13',
+              boxShadow: isLight ? 'none' : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
+            }}
             id="mouse-over-popover-total"
             title={<TotalPopup>
-              <PopupTitle>
+              <PopupTitle isLight={isLight}>
                 {props.value.toLocaleString('en-US', {
                   maximumFractionDigits: 0,
                 })}
               </PopupTitle>
-              <Label>
+              <Label isLight={isLight}>
                 Actual Expenditure
               </Label>
             </TotalPopup>}>
@@ -42,17 +46,20 @@ export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps)
       <CustomBarChart items={props.items} maxValues={props.budgetCaps} />
       <ValueWrapper>
         <CustomPopover
+          popupStyle={{
+            background: isLight ? 'white' : '#000A13',
+          }}
           css={{ alignSelf: 'center' }}
           id={'mouse-over-popover-percent'}
           title={
             <TotalPopup>
-              <PopupTitle>
+              <PopupTitle isLight={isLight}>
                 {props.percent?.toFixed(0)}%
               </PopupTitle>
-              <Label>
+              <Label isLight={isLight}>
                 <b>Actuals/BudgetCap</b>
               </Label>
-              <Label>
+              <Label isLight={isLight}>
                 over the last 3 months
               </Label>
             </TotalPopup>
@@ -94,21 +101,21 @@ const TotalPopup = styled.div({
   display: 'block'
 });
 
-const PopupTitle = styled.div({
+const PopupTitle = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   fontSize: '16px',
   fontWeight: 700,
   fontFamily: 'SF Pro Display, sans-serif',
-  color: '#231536'
-});
+  color: isLight ? '#231536' : '#D2D4EF',
+}));
 
-const Label = styled.div({
+const Label = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   fontSize: '14px',
   fontWeight: 400,
   fontFamily: 'FT Base, sans-serif',
-  color: '#231536'
-});
+  color: isLight ? '#231536' : '#D2D4EF'
+}));
 
-export const Title = styled.span<{ isLight: boolean }>(({ isLight }) => ({
+export const Title = styled.span<{ isLight?: boolean }>(({ isLight }) => ({
   fontSize: '12px',
   color: isLight ? '#434358' : '#9FAFB9',
   fontWeight: 400,
@@ -120,7 +127,7 @@ const ValueWrapper = styled.div({
   alignSelf: 'flex-end'
 });
 
-export const Value = styled.span<{ isLight: boolean }>(({ isLight }) => ({
+export const Value = styled.span<{ isLight?: boolean }>(({ isLight }) => ({
   fontFamily: 'SF Pro Display, sans-serif',
   fontWeight: 600,
   fontSize: '14px',
@@ -131,7 +138,7 @@ export const Value = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   lineHeight: '16px',
 }));
 
-const Percent = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const Percent = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   fontFamily: 'SF Pro Display, sans-serif',
   fontWeight: 400,
   fontSize: '16px',

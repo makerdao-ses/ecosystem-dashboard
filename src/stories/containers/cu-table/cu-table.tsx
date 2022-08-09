@@ -217,7 +217,12 @@ export const CuTable = () => {
     return sortedData.map((coreUnit: CoreUnitDto, i: number) => {
       return [
         <CustomPopover
-          popupStyle={{ padding: 0 }}
+          popupStyle={{
+            padding: 0,
+            background: isLight ? 'none' : '#000A13',
+            border: isLight ? 'none' : '1px solid #231536',
+            boxShadow: isLight ? 'none' : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
+          }}
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'left',
@@ -305,7 +310,7 @@ export const CuTable = () => {
         </div>,
       ];
     });
-  }, [filteredData, sortData, onClickRow]);
+  }, [filteredData, sortData, onClickRow, isLight]);
 
   const itemsList = useMemo(() => {
     return filteredData.map((cu, i) => (
@@ -436,6 +441,7 @@ const CategoriesTitle = styled.div({
   fontSize: '14px',
   color: '#708390',
   marginBottom: '8px',
+  lineHeight: '22px',
 });
 
 const CategoriesRow = styled.div({

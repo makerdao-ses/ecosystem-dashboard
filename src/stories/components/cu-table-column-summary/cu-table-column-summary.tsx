@@ -41,13 +41,20 @@ export const CuTableColumnSummary = ({ logoDimension = '48px', ...props }: CuTab
         {props.statusModified && <CustomPopover
           id={'mouse-over-popover-goto'}
           title={'Go to MIPs Portal'}
+          popupStyle={{
+            color: isLight ? '#231536' : '#D2D4EF',
+            background: isLight ? 'white' : '#000A13',
+            boxShadow: '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
+          }
+
+          }
         >
           {props.statusModified && <CustomLink
             href={props.mipUrl}
             style={{
               display: 'flex',
               alignItems: 'flex-end',
-              margin: '0 0 2px 4px'
+              margin: '0 0 2px 4px',
             }}
             styleIcon={{
               marginBottom: '2px'
@@ -95,6 +102,7 @@ const Code = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#9FAFB9' : '#546978',
   marginRight: '5px',
   whiteSpace: 'nowrap',
+  lineHeight: '17px',
 }));
 
 const TitleWrapper = styled.div({
