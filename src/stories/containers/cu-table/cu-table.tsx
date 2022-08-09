@@ -49,6 +49,7 @@ import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CustomPopover } from '../../components/custom-popover/custom-popover';
 import { CategoryChip } from '../../components/category-chip/category-chip';
+import { TablePlaceholder } from '../../components/custom-table/placeholder';
 
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
 const sortNeutralState = [
@@ -212,6 +213,15 @@ export const CuTable = () => {
   );
 
   const items = useMemo(() => {
+    if (status === 'loading') {
+      return new Array(10).fill([
+        <CuTableColumnSummary isLoading/>,
+        <CuTableColumnExpenditures isLoading/>,
+        <CuTableColumnTeamMember isLoading/>,
+        <CuTableColumnLinks isLoading/>
+      ]);
+    }
+
     if (!filteredData) return [];
     const sortedData = sortData(filteredData);
     return sortedData.map((coreUnit: CoreUnitDto, i: number) => {
@@ -308,6 +318,9 @@ export const CuTable = () => {
   }, [filteredData, sortData, onClickRow]);
 
   const itemsList = useMemo(() => {
+    if (status === 'loading') {
+      return new Array(4).fill(<CoreUnitCard coreUnit={{} as CoreUnitDto} isLoading/>);
+    }
     return filteredData.map((cu, i) => (
       <CoreUnitCard
         key={`card-${i}`}
@@ -344,18 +357,24 @@ export const CuTable = () => {
             clearFilters={clearFilters}
           />
         </Header>
-        <TableWrapper>
-          <CustomTable
-            headers={headers}
-            items={items}
-            headersAlign={headersAlign}
-            headersSort={headersSort}
-            headersStyles={headerStyles}
-            sortFunction={setSort}
-            loading={status === 'loading'}
-          />
-        </TableWrapper>
-        <ListWrapper>{itemsList}</ListWrapper>
+        {!!items?.length && (
+          <>
+            <TableWrapper>
+              <CustomTable
+                headers={headers}
+                items={items}
+                headersAlign={headersAlign}
+                headersSort={headersSort}
+                headersStyles={headerStyles}
+                sortFunction={setSort}
+                loading={status === 'loading'}
+              />
+            </TableWrapper>
+            <ListWrapper>{itemsList}</ListWrapper>
+          </>
+        )}
+
+        {!items?.length && status !== 'loading' && <TablePlaceholder />}
       </Wrapper>
     </ContainerHome>
   );
