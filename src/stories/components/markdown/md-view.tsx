@@ -17,7 +17,7 @@ export type MarkDownHeaders = {
 interface Props {
   sentenceDescription: string;
   paragraphDescription: string;
-  paragraphImage: string;
+  paragraphImage: string | null;
   title?: string;
   subTitle?: string;
   headersLevel: MarkDownHeaders[];
@@ -83,7 +83,8 @@ const MdViewerPage = ({ subTitle = 'What we do', paragraphDescription, paragraph
         </ContainerResponsive>
         : <TypographyStyleDescription isLight={isLight} id='hidden-element'>{subTitle}</TypographyStyleDescription>}
       {paragraphDescription && isLight ? <Markdown value={paragraphDescription} renderer={customRenderer} key={paragraphDescription} /> : <Markdown value={paragraphDescription} renderer={customRendererDark} key={paragraphDescription} />}
-      {((paragraphImage !== '![Image]()') && isLight) ? <Markdown value={paragraphImage} renderer={customRenderer} key={paragraphImage} /> : <Markdown value={paragraphImage} renderer={customRenderer} key={paragraphImage} />}
+      {(paragraphImage && isLight) && <Markdown value={paragraphImage} renderer={customRenderer} key={paragraphImage} />}
+      {(paragraphImage && !isLight) && <Markdown value={paragraphImage} renderer={customRenderer} key={paragraphImage} />}
     </ViewerContainer>
   );
 };
