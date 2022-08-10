@@ -335,9 +335,9 @@ export const CuTable = () => {
   return (
     <ContainerHome isLight={isLight}>
     <Head>
-      <title>MakerDAO Ecosystem Performance Dashboard I Maker Expenses</title>
+      <title>Sustainable Ecosystem Scaling Core Unit | Maker Expenses</title>
       <link rel="icon" href="/favicon.png" />
-      <meta name="description" content="Learn about the Sustainable Ecosystem Scaling Core Unit at MakerDAO: their finances, expense reports, and more." />
+      <meta name="description" content="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO." />
       <meta name="robots" content="index,follow"/>
     </Head>
       <Wrapper>

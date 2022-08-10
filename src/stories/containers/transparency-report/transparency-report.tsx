@@ -52,12 +52,12 @@ export const TransparencyReport = () => {
   }, [cu, currentMonth]);
 
   return <Wrapper>
-    <Head>
-      <title>Sustainable Ecosystem Scaling Core Unit I Finances</title>
-      <link rel="icon" href="/favicon.png" />
-      <meta name="description" content="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO." />
-      <meta name="robots" content="index,follow"/>
-    </Head>
+  <Head>
+    <title>MakerDAO Ecosystem Performance Dashboard | Finances</title>
+    <link rel="icon" href="/favicon.png" />
+    <meta name="description" content="Learn about the Sustainable Ecosystem Scaling Core Unit at MakerDAO: their finances, expense reports, and more." />
+    <meta name="robots" content="index,follow"/>
+  </Head>
     <CoreUnitSummary trailingAddress={['Expense Reports']} />
     <Container isLight={isLight}>
 
