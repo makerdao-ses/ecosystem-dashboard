@@ -12,6 +12,7 @@ import { SearchInput } from '../../components/search-input/search-input';
 import styled from '@emotion/styled';
 import { Close } from '../../components/svg/close';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { Divider } from '@mui/material';
 
 interface FilterProps {
   filtersPopup: boolean;
@@ -119,7 +120,7 @@ export const Filters = (props: FilterProps) => {
   </Wrapper>;
 };
 
-const Separator = styled.span<{ isLight: boolean }>(({ isLight }) => ({
+const Separator = styled(Divider)<{ isLight: boolean }>(({ isLight }) => ({
   height: '1px',
   width: 'calc(100vw - 64px)',
   margin: '0 16px',
@@ -132,7 +133,7 @@ const Separator = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   },
 }));
 
-const SmallSeparator = styled.span<{ isLight: boolean }>(({ isLight }) => ({
+const SmallSeparator = styled(Divider)<{ isLight: boolean }>(({ isLight }) => ({
   height: '1px',
   width: '64px',
   backgroundColor: isLight ? '#D4D9E1' : '#48495F',
