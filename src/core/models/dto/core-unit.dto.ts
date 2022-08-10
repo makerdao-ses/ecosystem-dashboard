@@ -122,6 +122,7 @@ export interface RoadMapDto {
 
 export interface CoreUnitDto {
   id: string;
+  shortCode: string;
   code: string;
   name: string;
   image: string;

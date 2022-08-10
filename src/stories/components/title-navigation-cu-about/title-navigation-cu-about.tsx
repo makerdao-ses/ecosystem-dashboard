@@ -129,7 +129,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout, hiddenTextDescription }:
 
               borderBottom: !hiddenTextDescription ? '1px solid #B6EDE7' : 'none',
               width: '100%',
-              marginTop: '16px',
+              marginTop: !hiddenTextDescription ? '16px' : '0px',
             }} />}
             {!(phoneDimensions && !hiddenTextDescription) && <div style={{
               display: 'flex',
@@ -138,7 +138,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout, hiddenTextDescription }:
               {mips && <StatusChip status={mipStatus as CuStatusEnum} />}
               <Row>
                 {newDate && <CustomLink
-                  href={'#'}
+                  href={coreUnitAbout.cuMip[0].mipUrl || '#'}
                   withArrow
                   styleIcon={{
                     marginTop: '3px',
@@ -166,15 +166,15 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout, hiddenTextDescription }:
         </ContainerTitle>
         <ContainerCategoryConditional>{(!(phoneDimensions || lessPhone) || hiddenTextDescription) && <CategoryContainer>{coreUnitAbout.category && coreUnitAbout.category.map((item) => <CategoryChip key={item} category={item} style={{ marginRight: phoneDimensions || tableDimensions ? '8px' : '16px' }} />)}</CategoryContainer>}
           {tableDimensions && <ContainerLinks>
-            <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill='#708390' lastChild align='flex-start' spacings={18} fillDark='#ADAFD4'/>
+            <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill='#708390' align='flex-start' spacings={16} fillDark='#ADAFD4' />
           </ContainerLinks>}
         </ContainerCategoryConditional>
         {((phoneDimensions || lessPhone) && hiddenTextDescription) && <ContainerLinks>
-          <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill='#708390' lastChild align='flex-start' spacings={18} fillDark='#ADAFD4'/>
+          <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill='#708390' align='flex-start' spacings={16} fillDark='#ADAFD4' />
         </ContainerLinks>}
       </ContainerColum>
       {!(phoneDimensions || lessPhone || tableDimensions) && <ContainerLinks>
-        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill='#708390' spacings={29} lastChild fillDark='#ADAFD4'/>
+        <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill='#708390' spacings={16} fillDark='#ADAFD4' />
       </ContainerLinks>}
     </Container>
   );
@@ -305,7 +305,12 @@ const CategoryContainer = styled.div({
     marginTop: '0px',
   },
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-    marginBottom: '8px',
+    marginBottom: '16px',
+    marginTop: '20px',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
+    marginBottom: '16px',
+    marginTop: '20px',
   },
 });
 const ContainerCategoryConditional = styled.div({
@@ -344,11 +349,11 @@ const ResponsiveTitle = styled.div({
   width: '100%',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     width: '100%',
-    marginBottom: '2px',
+    marginBottom: '6px',
   },
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     width: '100%',
-    marginBottom: '2px',
+    marginBottom: '6px',
   },
 });
 

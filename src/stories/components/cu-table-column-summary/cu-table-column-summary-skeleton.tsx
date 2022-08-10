@@ -9,7 +9,10 @@ export const ColumnSummarySkeleton = () => {
         variant="circular"
         width={56}
         height={56}
-        style={{ marginRight: '11px' }}
+        style={{
+          marginRight: '11px',
+          background: '#ECF1F3'
+        }}
       />
       <div>
         <Skeleton
@@ -18,7 +21,8 @@ export const ColumnSummarySkeleton = () => {
           height={28}
           style={{
             borderRadius: '8px',
-            marginBottom: '8px'
+            marginBottom: '8px',
+            background: '#ECF1F3',
           }}
         />
         <Row>
@@ -28,14 +32,18 @@ export const ColumnSummarySkeleton = () => {
             height={18}
             style={{
               borderRadius: '4px',
-              marginRight: '4px'
+              marginRight: '4px',
+              background: '#ECF1F3',
             }}
           />
           <Skeleton
             variant="rectangular"
             width={174}
             height={18}
-            style={{ borderRadius: '4px' }}
+            style={{
+              borderRadius: '4px',
+              background: '#ECF1F3'
+            }}
           />
         </Row>
       </div>
@@ -48,7 +56,7 @@ const ContainerSkeleton = styled.div({
   padding: '21px 0',
   '@media (min-width: 834px)': {
     padding: '21px 22px 21px 13px',
-  }
+  },
 });
 
 const Row = styled.div({

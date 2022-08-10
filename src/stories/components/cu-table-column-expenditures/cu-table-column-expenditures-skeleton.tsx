@@ -12,35 +12,41 @@ export const ColumnExpendituresSkeleton = () => {
           height={18}
           style={{
             borderRadius: '4px',
-            marginBottom: '5px'
+            marginBottom: '5px',
+            background: '#ECF1F3',
           }}
         />
         <Skeleton
           variant="rectangular"
           width={58}
           height={18}
-          style={{ borderRadius: '4px' }}
+          style={{
+            borderRadius: '4px',
+            background: '#ECF1F3'
+          }}
         />
       </div>
       <Skeleton
-          variant="rectangular"
-          width={60}
-          height={41}
-          style={{
-            borderRadius: '8px',
-            marginBottom: '5px'
-          }}
-        />
+        variant="rectangular"
+        width={60}
+        height={41}
+        style={{
+          borderRadius: '8px',
+          marginBottom: '5px',
+          background: '#ECF1F3',
+        }}
+      />
       <Skeleton
-          variant="rectangular"
-          width={33}
-          height={18}
-          style={{
-            borderRadius: '4px',
-            marginBottom: '5px',
-            alignSelf: 'flex-end'
-          }}
-        />
+        variant="rectangular"
+        width={33}
+        height={18}
+        style={{
+          borderRadius: '4px',
+          marginBottom: '5px',
+          alignSelf: 'flex-end',
+          background: '#ECF1F3',
+        }}
+      />
     </Container>
   );
 };
@@ -51,5 +57,5 @@ const Container = styled.div({
   margin: '21px 0',
   '@media (min-width: 1180px)': {
     margin: '34px 0px 23px',
-  }
+  },
 });

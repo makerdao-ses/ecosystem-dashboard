@@ -8,6 +8,7 @@ const CORE_UNITS_REQUEST = {
    coreUnits {
         id
         code
+        shortCode
         name
         image
         category
