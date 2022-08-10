@@ -171,7 +171,7 @@ const ContainerCard = styled.div({
   marginBottom: '32px',
   display: 'flex',
   flexDirection: 'column',
-  marginLeft: '64px',
+  marginLeft: '68px',
   [lightTheme.breakpoints.between('desktop_1194', 'desktop_1280')]: {
     marginLeft: '32px',
   },
@@ -206,7 +206,7 @@ const ContactInfoContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
   minHeight: '182px',
-  marginTop: '36px',
+  marginTop: '32px',
 });
 
 const ContactInfoTitle = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
@@ -247,7 +247,7 @@ const CardRelateMipsContainer = styled.div({
   flexDirection: 'column',
   alignItems: 'center',
   marginTop: '32px',
-  marginBottom: '64px',
+  marginBottom: '40px',
   width: '715px',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     width: '100%',
@@ -337,7 +337,7 @@ const DividerStyle = styled(Divider)({
 const ContainerScroll = styled.div({
   position: 'sticky',
   top: 250,
-  paddingTop: '36px',
+  paddingTop: '34px',
 });
 
 const Wrapper = styled.div({

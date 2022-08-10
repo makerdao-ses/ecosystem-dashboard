@@ -103,31 +103,31 @@ export const CuTableColumnLinks = ({
 }: CuTableColumnLinksProps) => {
   return !isLoading
     ? (
-    <Container spacings={spacings} align={align}>
-      {links?.map((link, i) => (
-        <StyleBox lastChild={lastChild} key={`link-${i}`}>
-          <CustomPopover
-            title={link.linkType}
-            popupStyle={{
-              padding: '16px',
-            }}
-            id={`link-${i}`}
-          >
-            <LinkImage
-              href={link.href}
-              target="_blank"
-              width={width}
-              height={height}
+      <Container spacings={spacings} align={align}>
+        {links?.map((link, i) => (
+          <StyleBox lastChild={lastChild} key={`link-${i}`}>
+            <CustomPopover
+              title={link.linkType}
+              popupStyle={{
+                padding: '16px',
+              }}
+              id={`link-${i}`}
             >
-              {getImageForLink(link, fill, width, height, fillDark)}
-            </LinkImage>
-          </CustomPopover>
-        </StyleBox>
-      ))}
-    </Container>
+              <LinkImage
+                href={link.href}
+                target="_blank"
+                width={width}
+                height={height}
+              >
+                {getImageForLink(link, fill, width, height, fillDark)}
+              </LinkImage>
+            </CustomPopover>
+          </StyleBox>
+        ))}
+      </Container>
       )
     : (
-    <ColumnLinksSkeleton />
+      <ColumnLinksSkeleton />
       );
 };
 

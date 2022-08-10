@@ -10,31 +10,31 @@ export const customRenderer = {
     }}><ImageTag src={href} className='img-container' key={Math.random()} /></div>;
   },
   paragraph(text: string) {
-    return <p className='paragraph' style={{
+    return <ResponsiveParagraph className='paragraph' style={{
       backgroundColor: 'transparent',
       color: '#231536',
       lineHeight: '19px',
       fontFamily: 'FT Base, sans-serif',
-    }} key={Math.random()}>{text}</p>;
+    }} key={Math.random()}>{text}</ResponsiveParagraph>;
   },
   list(text: string) {
-    return <ul className='ol_tags' style={{
+    return <ResponsiveList className='ol_tags' style={{
       backgroundColor: 'transparent',
       color: '#231536',
       lineHeight: '19px',
       fontFamily: 'FT Base, sans-serif',
-    }} key={Math.random()}>{text}</ul>;
+    }} key={Math.random()}>{text}</ResponsiveList>;
   },
   listitem(text: string) {
-    return <li className='ol_' style={{
+    return <ResponsiveItem className='ol_' style={{
       backgroundColor: 'transparent',
       color: '#231536',
       lineHeight: '19px',
       fontFamily: 'FT Base, sans-serif',
-    }} key={Math.random()}>{text}</li>;
+    }} key={Math.random()}>{text}</ResponsiveItem>;
   },
   code(text: string) {
-    return <code className='tag-code' key={Math.random()} style={{
+    return <ResponsiveCode className='tag-code' key={Math.random()} style={{
       backgroundColor: 'transparent',
       color: '#231536',
       fontFamily: 'FT Base, sans-serif',
@@ -42,7 +42,7 @@ export const customRenderer = {
       fontWeight: 400,
       fontSize: '16px',
       lineHeight: '19px',
-    }}>{text}</code>;
+    }}>{text}</ResponsiveCode>;
   },
 };
 
@@ -53,31 +53,31 @@ export const customRendererDark = {
     }}><ImageTag src={href} className='img-container' key={href} /></div>;
   },
   paragraph(text: string) {
-    return <p className='paragraph' style={{
+    return <ResponsiveParagraph className='paragraph' style={{
       backgroundColor: 'transparent',
       color: '#D2D4EF',
       lineHeight: '19px',
       fontFamily: 'FT Base, sans-serif',
-    }} key={Math.random()}>{text}</p>;
+    }} key={Math.random()}>{text}</ResponsiveParagraph>;
   },
   list(text: string) {
-    return <ul className='ol_tags' style={{
+    return <ResponsiveList className='ol_tags' style={{
       backgroundColor: 'transparent',
       color: '#D2D4EF',
       lineHeight: '19px',
       fontFamily: 'FT Base, sans-serif',
-    }} key={Math.random()}>{text}</ul>;
+    }} key={Math.random()}>{text}</ResponsiveList>;
   },
   listitem(text: string) {
-    return <li className='ol_' style={{
+    return <ResponsiveItem className='ol_' style={{
       backgroundColor: 'transparent',
       color: '#D2D4EF',
       lineHeight: '19px',
       fontFamily: 'FT Base, sans-serif',
-    }} key={Math.random()}>{text}</li>;
+    }} key={Math.random()}>{text}</ResponsiveItem>;
   },
   code(text: string) {
-    return <code className='tag-code' key={Math.random()} style={{
+    return <ResponsiveCode className='tag-code' key={Math.random()} style={{
       backgroundColor: 'transparent',
       color: '#D2D4EF',
       fontFamily: 'FT Base, sans-serif',
@@ -85,7 +85,7 @@ export const customRendererDark = {
       fontWeight: 400,
       fontSize: '16px',
       lineHeight: '19px',
-    }}>{text}</code>;
+    }}>{text}</ResponsiveCode>;
   },
 };
 
@@ -105,5 +105,49 @@ const ImageTag = styled.img({
   [lightTheme.breakpoints.down('table_375')]: {
     width: 'fit-content',
     height: 'auto',
+  },
+});
+
+const ResponsiveParagraph = styled.p({
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    fontSize: '14px',
+    lineHeight: '17px',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
+    fontSize: '14px',
+    lineHeight: '17px',
+  },
+});
+
+const ResponsiveList = styled.ul({
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    fontSize: '14px',
+    lineHeight: '17px',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
+    fontSize: '14px',
+    lineHeight: '17px',
+  },
+});
+
+const ResponsiveItem = styled.li({
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    fontSize: '14px',
+    lineHeight: '17px',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
+    fontSize: '14px',
+    lineHeight: '17px',
+  },
+});
+
+const ResponsiveCode = styled.code({
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    fontSize: '14px',
+    lineHeight: '17px',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
+    fontSize: '14px',
+    lineHeight: '17px',
   },
 });

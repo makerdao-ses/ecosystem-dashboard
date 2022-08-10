@@ -134,9 +134,7 @@ const BreadCrumbMobile = ({ title, count = 0, page = 0, onClickLeft, onClickRigh
           <StyleTextCoreUnit isLight={isLight}>{` of ${count}`} </StyleTextCoreUnit>
         </PaginationLabel>
         <Arrows>
-          <ArrowMobileLeft onClick={onClickLeft} width={6} height={10} style={{
-            marginRight: '4px'
-          }} />
+          <ArrowMobileLeft onClick={onClickLeft} width={6} height={10} />
           <ArrowMobileRight onClick={onClickRight} width={5} height={10} /></Arrows>
       </RightPart>
     </Container >
@@ -174,6 +172,7 @@ const PaginationLabel = styled.div({
 const Arrows = styled.div({
   display: 'flex',
   flexDirection: 'row',
+  gap: '19px',
   alignItems: 'center',
 });
 
