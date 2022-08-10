@@ -56,6 +56,7 @@ export const TransparencyReport = () => {
     <title>MakerDAO Ecosystem Performance Dashboard | Finances</title>
     <link rel="icon" href="/favicon.png" />
     <meta name="description" content="Learn about the Sustainable Ecosystem Scaling Core Unit at MakerDAO: their finances, expense reports, and more." />
+    <meta name="og:description" content="Learn about the Sustainable Ecosystem Scaling Core Unit at MakerDAO: their finances, expense reports, and more." />
     <meta name="robots" content="index,follow"/>
   </Head>
     <CoreUnitSummary trailingAddress={['Expense Reports']} />
