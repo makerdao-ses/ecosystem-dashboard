@@ -12,36 +12,42 @@ export const ColumnTeamMemberSkeleton = () => {
           height={18}
           style={{
             borderRadius: '4px',
-            marginBottom: '5px'
+            marginBottom: '5px',
+            background: '#ECF1F3',
           }}
         />
         <Skeleton
           variant="rectangular"
           width={33}
           height={20}
-          style={{ borderRadius: '4px' }}
+          style={{
+            borderRadius: '4px',
+            background: '#ECF1F3'
+          }}
         />
       </div>
       <Skeleton
-          variant="circular"
-          width={41}
-          height={41}
-          style={{
-            marginBottom: '5px',
-            border: '2px solid white'
-          }}
-        />
+        variant="circular"
+        width={41}
+        height={41}
+        style={{
+          marginBottom: '5px',
+          border: '2px solid white',
+          background: '#ECF1F3',
+        }}
+      />
       <Skeleton
-          variant="circular"
-          width={41}
-          height={41}
-          style={{
-            marginBottom: '5px',
-            alignSelf: 'flex-end',
-            border: '2px solid white',
-            marginLeft: '-19px'
-          }}
-        />
+        variant="circular"
+        width={41}
+        height={41}
+        style={{
+          marginBottom: '5px',
+          alignSelf: 'flex-end',
+          border: '2px solid white',
+          marginLeft: '-19px',
+          background: '#ECF1F3',
+        }}
+      />
     </Container>
   );
 };
@@ -53,5 +59,5 @@ const Container = styled.div({
   '@media (min-width: 1180px)': {
     justifyContent: 'center',
     padding: '32px 0 29px 50px',
-  }
+  },
 });
