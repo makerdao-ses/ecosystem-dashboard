@@ -31,8 +31,10 @@ function MyApp(props: MyAppProps) {
       <ThemeProvider>
         <Provider store={store}>
           <Head>
-            <title>MakerDao - Dashboard</title>
+            <title>MakerDAO - Dashboard</title>
             <link rel="icon" href="/favicon.svg" />
+            <meta name='mobile-web-app-capable' content='yes'/>
+            <meta name='apple-mobile-web-app-capable' content='yes'/>
           </Head>
           <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
             <Component {...pageProps} />
