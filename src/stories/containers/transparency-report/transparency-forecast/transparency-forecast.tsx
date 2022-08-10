@@ -208,6 +208,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
         headerWidths={['190px', '105px', '105px', '105px', '116px', '140px', '200px', '224px']}
         headerStyles={[{}, {}, {}, {}, { paddingLeft: 0 }, { paddingLeft: 0 }, { paddingLeft: 0 }, {}]}
         style={{ marginBottom: '64px' }}
+        addedRows={1}
       />
     </TableWrapper>
 
@@ -240,6 +241,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
         minWidth={80}
         headerWidths={['260px', '141px', '141px', '141px', '116px', '141px', '241px', '219px']}
         headersAlign={['left', 'right', 'right', 'right', 'right', 'right', 'right']}
+        addedRows={3}
       />
     </TableWrapper>
 

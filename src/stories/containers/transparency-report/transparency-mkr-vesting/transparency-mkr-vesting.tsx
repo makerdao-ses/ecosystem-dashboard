@@ -67,6 +67,7 @@ export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
         minWidth={200}
         headerWidths={['200px', '210px', '210px', '210px', '354px']}
         style={{ marginBottom: '32px' }}
+        addedRows={1}
       />
     </TableWrapper>
 
