@@ -1,6 +1,6 @@
 import { gql } from 'graphql-request';
 
-export const CORE_UNIT_REQUEST = (code: string) => ({
+export const CORE_UNIT_REQUEST = (shortCode: string) => ({
   query: gql`
     query CoreUnit($filter: CoreUnitFilter) {
       coreUnit(filter: $filter) {
@@ -48,7 +48,7 @@ export const CORE_UNIT_REQUEST = (code: string) => ({
   `,
   filter: {
     filter: {
-      code
+      shortCode
     }
   }
 });
