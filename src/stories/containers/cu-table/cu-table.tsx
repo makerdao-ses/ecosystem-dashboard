@@ -206,7 +206,7 @@ export const CuTable = () => {
   const onClickFinances = useCallback(
     (code: string) => {
       router.push(
-        `/core-unit/${code}/finances/transparency?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
+        `/core-unit/${code}/finances/reports?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
       );
     },
     [filteredCategories, filteredStatuses, router, searchText]
