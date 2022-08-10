@@ -61,14 +61,14 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
       searchText
     }), [data, filteredCategories, filteredStatuses, searchText]);
 
-  const page = useMemo(() => filteredData?.findIndex(item => item.code === code) + 1, [code, filteredData]);
+  const page = useMemo(() => filteredData?.findIndex(item => item.shortCode === code) + 1, [code, filteredData]);
 
   const changeCoreUnitCode = useCallback(
     (direct: -1 | 1) => () => {
-      const index = filteredData?.findIndex(item => item.code === code);
+      const index = filteredData?.findIndex(item => item.shortCode === code);
       const newIndex = index + direct;
       if (newIndex >= 0 && newIndex < filteredData?.length) {
-        router.push(`${router.route.replace('[code]', filteredData[newIndex].code)}?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
+        router.push(`${router.route.replace('[code]', filteredData[newIndex].shortCode)}?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
       }
     },
     [code, filteredData, router]);
