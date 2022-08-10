@@ -337,6 +337,7 @@ export const CuTable = () => {
     <Head>
       <title>Sustainable Ecosystem Scaling Core Unit | Maker Expenses</title>
       <link rel="icon" href="/favicon.png" />
+      <meta property='og:site_name' content="Sustainable Ecosystem Scaling Core Unit | Maker Expenses"/>
       <meta name="description" content="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO." />
       <meta name="og:description" content="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO." />
       <meta name="robots" content="index,follow"/>
