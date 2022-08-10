@@ -76,6 +76,7 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
           '& .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
             borderRadius: '22px',
             border: 'none',
+            marginTop: '50px'
           },
           '& .MuiMenu-list': {
             paddingTop: '0px',
@@ -84,8 +85,13 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
         }}
         transformOrigin={{
           vertical: 'top',
-          horizontal: 'right',
+          horizontal: 'center',
         }}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        anchorReference='none'
       >
         <StyleTitle isLight={isLight}>Essential MakerDAO Governance Websites </StyleTitle>
         <StyleDescription isLight={isLight}>Websites to gather all relevant data and information for Maker Governance.</StyleDescription>
