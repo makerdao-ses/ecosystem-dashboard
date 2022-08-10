@@ -26,7 +26,9 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   width: '100%',
+  border: isLight ? '8px solid #F6F8F9' : '8px solid #10191F',
   background: isLight ? '#FFFFFF' : 'linear-gradient(180deg, #001020 -17.77%, #000000 63.95%)',
+  backgroundColor: isLight ? 'none' : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
   boxShadow: isLight
     ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
     : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
