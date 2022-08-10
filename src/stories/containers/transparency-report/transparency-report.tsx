@@ -17,6 +17,7 @@ import { API_MONTH_FORMAT } from '../../../core/utils/date.utils';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
 import { formatCode } from '../../../core/utils/string.utils';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import Head from 'next/head';
 
 const colors: { [key: string]: string } = {
   Draft: '#7C6B95',
@@ -51,6 +52,12 @@ export const TransparencyReport = () => {
   }, [cu, currentMonth]);
 
   return <Wrapper>
+    <Head>
+      <title>Sustainable Ecosystem Scaling Core Unit I Finances</title>
+      <link rel="icon" href="/favicon.png" />
+      <meta name="description" content="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO." />
+      <meta name="robots" content="index,follow"/>
+    </Head>
     <CoreUnitSummary trailingAddress={['Expense Reports']} />
     <Container isLight={isLight}>
 

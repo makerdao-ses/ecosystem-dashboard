@@ -50,6 +50,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CustomPopover } from '../../components/custom-popover/custom-popover';
 import { CategoryChip } from '../../components/category-chip/category-chip';
 import { TablePlaceholder } from '../../components/custom-table/placeholder';
+import Head from 'next/head';
 
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
 const sortNeutralState = [
@@ -206,7 +207,7 @@ export const CuTable = () => {
   const onClickFinances = useCallback(
     (code: string) => {
       router.push(
-        `/core-unit/${code}/finances/transparency?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
+        `/core-unit/${code}/finances/reports?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
       );
     },
     [filteredCategories, filteredStatuses, router, searchText]
@@ -333,6 +334,12 @@ export const CuTable = () => {
 
   return (
     <ContainerHome isLight={isLight}>
+    <Head>
+      <title>MakerDAO Ecosystem Performance Dashboard I Maker Expenses</title>
+      <link rel="icon" href="/favicon.png" />
+      <meta name="description" content="Learn about the Sustainable Ecosystem Scaling Core Unit at MakerDAO: their finances, expense reports, and more." />
+      <meta name="robots" content="index,follow"/>
+    </Head>
       <Wrapper>
         <Header>
           <Title isLight={isLight}>Core Units Expenses</Title>

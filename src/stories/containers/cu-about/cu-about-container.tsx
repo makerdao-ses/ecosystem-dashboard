@@ -70,7 +70,7 @@ const CuAboutContainer = () => {
   }, [cuAbout.cuMip, showThreeMIPs]);
 
   const onClickFinances = useCallback(() => {
-    router.push(`/core-unit/${code}/finances/transparency?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
+    router.push(`/core-unit/${code}/finances/reports?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
   }, [filteredCategories, filteredStatuses, router, searchText, code]);
 
   if (statusCoreUnit === status.loading) {
