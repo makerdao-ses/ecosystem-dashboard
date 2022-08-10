@@ -24,7 +24,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  justifyContent: 'center',
+  justifyContent: 'flex-start',
   width: '100%',
   border: isLight ? '8px solid #F6F8F9' : '8px solid #10191F',
   background: isLight ? '#FFFFFF' : 'linear-gradient(180deg, #001020 -17.77%, #000000 63.95%)',

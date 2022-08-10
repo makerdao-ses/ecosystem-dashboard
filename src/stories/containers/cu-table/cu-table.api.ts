@@ -5,6 +5,7 @@ export const GETCoreUnits = gql`
     query CoreUnits {
       coreUnits {
         id
+        shortCode
         code
         name
         image
