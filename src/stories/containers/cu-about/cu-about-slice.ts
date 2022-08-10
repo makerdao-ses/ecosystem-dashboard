@@ -25,6 +25,7 @@ export const initialState: CurrentCoreUnitAbout = {
   error: null,
   statusCoreUnit: status.idle,
   cuAbout: {
+    shortCode: '',
     id: '',
     name: '',
     code: '',

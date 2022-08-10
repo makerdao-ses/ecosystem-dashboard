@@ -33,7 +33,7 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
 
-  const cu = data?.find(cu => cu.code === code);
+  const cu = data?.find(cu => cu.shortCode === code);
 
   const ref = useRef(null);
 

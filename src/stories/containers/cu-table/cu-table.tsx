@@ -247,8 +247,8 @@ export const CuTable = () => {
                 )}
                 imageUrl={coreUnit.image}
                 mipUrl={getMipUrlFromCoreUnit(coreUnit)}
-                onClick={onClickRow(coreUnit.code)}
-                code={formatCode(coreUnit.code)}
+                onClick={onClickRow(coreUnit.shortCode)}
+                code={formatCode(coreUnit.shortCode)}
                 logoDimension={'68px'}
               />
               <Padded>
@@ -274,8 +274,8 @@ export const CuTable = () => {
             )}
             imageUrl={coreUnit.image}
             mipUrl={getMipUrlFromCoreUnit(coreUnit)}
-            onClick={onClickRow(coreUnit.code)}
-            code={formatCode(coreUnit.code)}
+            onClick={onClickRow(coreUnit.shortCode)}
+            code={formatCode(coreUnit.shortCode)}
           />
         </CustomPopover>,
         <div
@@ -283,7 +283,7 @@ export const CuTable = () => {
             display: 'block',
             paddingLeft: '8px',
           }}
-          onClick={() => onClickFinances(coreUnit.code)}
+          onClick={() => onClickFinances(coreUnit.shortCode)}
         >
           <CuTableColumnExpenditures
             key={`expenditures-${i}`}
@@ -326,8 +326,8 @@ export const CuTable = () => {
       <CoreUnitCard
         key={`card-${i}`}
         coreUnit={cu}
-        onClick={onClickRow(cu.code)}
-        onClickFinances={() => onClickFinances(cu.code)}
+        onClick={onClickRow(cu.shortCode)}
+        onClickFinances={() => onClickFinances(cu.shortCode)}
       />
     ));
   }, [filteredData, onClickRow]);
@@ -338,6 +338,7 @@ export const CuTable = () => {
       <title>Sustainable Ecosystem Scaling Core Unit | Maker Expenses</title>
       <link rel="icon" href="/favicon.png" />
       <meta name="description" content="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO." />
+      <meta name="og:description" content="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO." />
       <meta name="robots" content="index,follow"/>
     </Head>
       <Wrapper>
