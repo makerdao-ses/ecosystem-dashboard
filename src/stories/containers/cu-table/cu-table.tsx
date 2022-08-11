@@ -324,7 +324,7 @@ export const CuTable = () => {
     }
     return filteredData.map((cu, i) => (
       <CoreUnitCard
-        key={`card-${i}`}
+        key={`card-${cu.code}`}
         coreUnit={cu}
         onClick={onClickRow(cu.shortCode)}
         onClickFinances={() => onClickFinances(cu.shortCode)}
