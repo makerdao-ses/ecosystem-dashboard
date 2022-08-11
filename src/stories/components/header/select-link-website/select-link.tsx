@@ -249,7 +249,7 @@ const ThreeDotsButton = styled.button<{ isLight: boolean }>(({ isLight }) => ({
   height: '35px',
   background: isLight ? 'white' : 'transparent',
   boxSizing: 'border-box',
-  border: '1px solid #D4D9E1',
+  border: isLight ? '1px solid #D4D9E1' : '1px solid #31424E;',
   borderRadius: '50%',
   cursor: 'pointer',
   '@media (min-width: 635px)': {
