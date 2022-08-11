@@ -41,6 +41,9 @@ const RelateMips = ({ relateMips }: Props) => {
             flexDirection: 'column',
             alignItems: 'center'
           }}
+          popupStyle={{
+            color: isLight ? '#231536' : '#D2D4EF',
+          }}
           id={'mouse-over-popover-goto'}
           title={'Go to MIPs Portal'}
         >

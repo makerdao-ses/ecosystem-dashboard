@@ -30,12 +30,12 @@ export const CuTableColumnExpenditures = ({
               id="mouse-over-popover-total"
               title={
                 <TotalPopup>
-                  <PopupTitle>
+                  <PopupTitle isLight={isLight}>
                     {props.value?.toLocaleString('en-US', {
                       maximumFractionDigits: 0,
                     })}
                   </PopupTitle>
-                  <Label>Actual Expenditure</Label>
+                  <Label isLight={isLight}>Actual Expenditure</Label>
                 </TotalPopup>
               }
             >
@@ -59,11 +59,11 @@ export const CuTableColumnExpenditures = ({
             id={'mouse-over-popover-percent'}
             title={
               <TotalPopup>
-                <PopupTitle>{props.percent?.toFixed(0)}%</PopupTitle>
-                <Label>
+                <PopupTitle isLight={isLight}>{props.percent?.toFixed(0)}%</PopupTitle>
+                <Label isLight={isLight}>
                   <b>Actuals/BudgetCap</b>
                 </Label>
-                <Label>over the last 3 months</Label>
+                <Label isLight={isLight}>over the last 3 months</Label>
               </TotalPopup>
             }
           >
@@ -106,21 +106,21 @@ const TotalPopup = styled.div({
   display: 'block',
 });
 
-const PopupTitle = styled.div({
+const PopupTitle = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   fontSize: '16px',
   fontWeight: 700,
   fontFamily: 'SF Pro Display, sans-serif',
-  color: '#231536',
-});
+  color: isLight ? '#231536' : '#D2D4EF',
+}));
 
-const Label = styled.div({
+const Label = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   fontSize: '14px',
   fontWeight: 400,
   fontFamily: 'FT Base, sans-serif',
-  color: '#231536',
-});
+  color: isLight ? '#231536' : '#D2D4EF'
+}));
 
-export const Title = styled.span<{ isLight: boolean }>(({ isLight }) => ({
+export const Title = styled.span<{ isLight?: boolean }>(({ isLight }) => ({
   fontSize: '12px',
   color: isLight ? '#434358' : '#9FAFB9',
   fontWeight: 400,
@@ -132,7 +132,7 @@ const ValueWrapper = styled.div({
   alignSelf: 'flex-end',
 });
 
-export const Value = styled.span<{ isLight: boolean }>(({ isLight }) => ({
+export const Value = styled.span<{ isLight?: boolean }>(({ isLight }) => ({
   fontFamily: 'SF Pro Display, sans-serif',
   fontWeight: 600,
   fontSize: '14px',
@@ -143,7 +143,7 @@ export const Value = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   lineHeight: '16px',
 }));
 
-const Percent = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const Percent = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   fontFamily: 'SF Pro Display, sans-serif',
   fontWeight: 400,
   fontSize: '16px',
