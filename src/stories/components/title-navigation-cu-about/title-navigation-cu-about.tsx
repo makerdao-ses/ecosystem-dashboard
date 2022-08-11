@@ -164,7 +164,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout, hiddenTextDescription }:
             </div>}
           </ContainerSeparateData>
         </ContainerTitle>
-        <ContainerCategoryConditional>{(!(phoneDimensions || lessPhone) || hiddenTextDescription) && <CategoryContainer>{coreUnitAbout.category && coreUnitAbout.category.map((item) => <CategoryChip key={item} category={item} style={{ marginRight: phoneDimensions || tableDimensions ? '8px' : '16px' }} />)}</CategoryContainer>}
+        <ContainerCategoryConditional>{(!(phoneDimensions || lessPhone) || hiddenTextDescription) && <CategoryContainer>{coreUnitAbout.category && coreUnitAbout.category.map((item) => <CategoryChip key={item} category={item} />)}</CategoryContainer>}
           {tableDimensions && <ContainerLinks>
             <CuTableColumnLinks links={getLinksCoreUnit(coreUnitAbout)} fill='#708390' align='flex-start' spacings={16} fillDark='#ADAFD4' />
           </ContainerLinks>}
@@ -300,17 +300,21 @@ const CategoryContainer = styled.div({
   display: 'flex',
   flexDirection: 'row',
   marginTop: '16px',
+  gap: '16px',
   height: '22px',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     marginTop: '0px',
+    gap: '8px',
   },
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     marginBottom: '16px',
     marginTop: '20px',
+    gap: '8px',
   },
   [lightTheme.breakpoints.down('table_375')]: {
     marginBottom: '16px',
     marginTop: '20px',
+    gap: '8px'
   },
 });
 const ContainerCategoryConditional = styled.div({
