@@ -430,7 +430,7 @@ const ResponsiveTitle = styled.div({
   },
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     width: '100%',
-    marginBottom: '6px',
+    marginBottom: '2px',
   },
 });
 

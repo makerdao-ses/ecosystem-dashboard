@@ -114,7 +114,6 @@ const Container = styled.header<{ isLight: boolean }>(({ isLight }) => ({
   height: '64px',
   justifyContent: 'space-between',
   background: isLight ? 'url(/assets/img/bg-header.png)' : 'url(/assets/img/bg-header-dark.png)',
-  borderBottom: isLight ? '1px solid #E7FCFA' : 'none',
 }));
 
 const LeftPart = styled.div({
