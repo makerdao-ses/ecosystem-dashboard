@@ -17,6 +17,7 @@ import { NumberCell } from '../../../components/number-cell/number-cell';
 import { TransparencyCard } from '../../../components/transparency-card/transparency-card';
 import { CardsWrapper, TableWrapper } from '../transparency-report';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
+import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
 
 interface TransparencyActualsProps {
   currentMonth: DateTime;
@@ -235,61 +236,103 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         {props.currentMonth.toFormat('MMM yyyy')} Totals
       </Title>
 
-      <TableWrapper>
-        <InnerTable
-          headers={mainTableHeaders}
-          items={mainTableItems}
-          headersAlign={['left', 'right', 'right', 'right', 'right', 'left']}
-          minWidth={120}
-          headerWidths={['234px', '160px', '160px', '160px', '160px', '310px']}
-          style={{ marginBottom: '64px' }}
-          addedRows={1}
-        />
-      </TableWrapper>
+      {mainTableItems.length - 1 <= 0
+        ? (
+        <TransparencyEmptyTable />
+          )
+        : (
+        <>
+          <TableWrapper>
+            <InnerTable
+              headers={mainTableHeaders}
+              items={mainTableItems}
+              headersAlign={[
+                'left',
+                'right',
+                'right',
+                'right',
+                'right',
+                'left',
+              ]}
+              minWidth={120}
+              headerWidths={[
+                '234px',
+                '160px',
+                '160px',
+                '160px',
+                '160px',
+                '310px',
+              ]}
+              style={{ marginBottom: '64px' }}
+            />
+          </TableWrapper>
 
-      <CardsWrapper>
-        {mainTableItems.map((item) => (
-          <TransparencyCard
-            header={item[0]}
-            headers={mainTableHeaders.slice(1, 5)}
-            items={item.slice(1)}
-            footer={item[5]}
-          />
-        ))}
-      </CardsWrapper>
+          <CardsWrapper>
+            {mainTableItems.map((item) => (
+              <TransparencyCard
+                header={item[0]}
+                headers={mainTableHeaders.slice(1, 5)}
+                items={item.slice(1)}
+                footer={item[5]}
+              />
+            ))}
+          </CardsWrapper>
+        </>
+          )}
 
       <Title isLight={isLight}>
         {props.currentMonth.toFormat('MMM yyyy')} Breakdown
       </Title>
 
-      <Tabs
-        items={breakdownHeaders}
-        currentIndex={thirdIndex}
-        onChange={setThirdIndex}
-        style={{
-          marginBottom: '32px',
-        }}
-      />
+      {breakdownTableItems.length - 3 <= 0
+        ? (
+        <TransparencyEmptyTable breakdown />
+          )
+        : (
+        <>
+          <Tabs
+            items={breakdownHeaders}
+            currentIndex={thirdIndex}
+            onChange={setThirdIndex}
+            style={{
+              marginBottom: '32px',
+            }}
+          />
 
-      <TableWrapper>
-        <InnerTable
-          headers={[
-            'Budget Category',
-            'Forecast',
-            'Actuals',
-            'Difference',
-            'Diff. Reason',
-            'Payments',
-          ]}
-          items={breakdownTableItems}
-          headerWidths={['260px', '160px', '160px', '160px', '286px', '158px']}
-          headersAlign={['left', 'right', 'right', 'right', 'left', 'right']}
-          minWidth={100}
-          addedRows={3}
-        />
-      </TableWrapper>
+          <TableWrapper>
+            <InnerTable
+              headers={[
+                'Budget Category',
+                'Forecast',
+                'Actuals',
+                'Difference',
+                'Diff. Reason',
+                'Payments',
+              ]}
+              items={breakdownTableItems}
+              headerWidths={[
+                '260px',
+                '160px',
+                '160px',
+                '160px',
+                '286px',
+                '158px',
+              ]}
+              headersAlign={[
+                'left',
+                'right',
+                'right',
+                'right',
+                'left',
+                'right',
+              ]}
+              minWidth={100}
+            />
+          </TableWrapper>
 
-      <CardsWrapper>{breakdownCardItems}</CardsWrapper>
+          <CardsWrapper>{breakdownCardItems}</CardsWrapper>
+        </>
+          )}
     </Container>
   );
 };

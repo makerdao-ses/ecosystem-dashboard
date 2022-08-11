@@ -26,6 +26,7 @@ import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { formatCode } from '../../../core/utils/string.utils';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import Head from 'next/head';
 
 const CuAboutContainer = () => {
   const [isEnabled] = useFlagsActive();
@@ -82,6 +83,14 @@ const CuAboutContainer = () => {
 
   return (
     <ContainerAbout isLight={isLight}>
+    <Head>
+      <title>About Sustainable Ecosystem Scaling Core Unit at MakerDAO</title>
+      <link rel="icon" href="/favicon.png" />
+      <meta property='og:site_name' content="About Sustainable Ecosystem Scaling Core Unit at MakerDAO"/>
+      <meta name="description" content="Learn about the Sustainable Ecosystem Scaling Core Unit at MakerDAO: their mandate, vision, mission, strategy, and more." />
+      <meta name="og:description" content="Learn about the Sustainable Ecosystem Scaling Core Unit at MakerDAO: their mandate, vision, mission, strategy, and more." />
+      <meta name="robots" content="index,follow"/>
+    </Head>
       <CoreUnitSummary />
       <Wrapper>
         <ContainerAllData>
@@ -105,7 +114,9 @@ const CuAboutContainer = () => {
                 }
               </ContainerCards>
             </ContactInfoContainer>
-            <Divider />
+            <Divider sx={{
+              bgcolor: isLight ? '#D4D9E1' : '#405361',
+            }} />
             <CardRelateMipsContainer>
               <TitleRelateMips isLight={isLight}>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
               <RelateMipCards>
