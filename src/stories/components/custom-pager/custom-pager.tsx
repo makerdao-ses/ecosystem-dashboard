@@ -36,12 +36,13 @@ const Label = styled.div({
   fontFamily: 'FT Base, sans-serif',
   fontWeight: 500,
   fontSize: '16px',
-  lineHeight: '24px',
+  lineHeight: '19px',
   letterSpacing: '0.4px',
   color: '#9FAFB9',
   marginRight: '16px',
   '@media (min-width: 834px)': {
     fontSize: '20px',
+    lineHeight: '24px',
     margin: '8px',
   }
 });

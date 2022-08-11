@@ -42,22 +42,22 @@ export const TransparencyTransferRequest = (props: TransparencyTransferRequestPr
 
     wallets.forEach(wallet => {
       result.push([
-        <WalletTableCell wallet={formatAddressForOutput(wallet?.address ?? '')} name={wallet.name} address={wallet.address} key={1}/>,
-        <NumberCell key={2} value={getForecastSumOfMonthsOnWallet(props.budgetStatements, wallet?.address, props.currentMonth, [firstMonth, secondMonth, thirdMonth])}/>,
-        <NumberCell key={3} value={getCurrentBalanceForMonthOnWallet(wallet?.address)}/>,
-        <NumberCell key={4} value={getTransferRequestForMonthOnWallet(wallet?.address)}/>,
+        <WalletTableCell wallet={formatAddressForOutput(wallet?.address ?? '')} name={wallet.name} address={wallet.address} key={1} />,
+        <NumberCell key={2} value={getForecastSumOfMonthsOnWallet(props.budgetStatements, wallet?.address, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} />,
+        <NumberCell key={3} value={getCurrentBalanceForMonthOnWallet(wallet?.address)} />,
+        <NumberCell key={4} value={getTransferRequestForMonthOnWallet(wallet?.address)} />,
         <TableCell key={5} responsivePadding={'0'}>
-          <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://etherscan.io/address/${wallet.address}`} style={{ marginRight: '16px' }}>Etherscan</CustomLink>
-          <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://gnosis-safe.io/app/eth:${wallet.address}`}>Gnosis</CustomLink>
+          <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://etherscan.io/address/${wallet.address}`} style={{ marginRight: '16px' }} lineHeight='19px'>Etherscan</CustomLink>
+          <CustomLink fontSize={16} fontFamily={'SF Pro Display, sans-serif'} href={`https://gnosis-safe.io/app/eth:${wallet.address}`} lineHeight='19px'>Gnosis</CustomLink>
         </TableCell>,
       ]);
     });
 
     result.push([
       <TableCell key={1}><b>Total</b></TableCell>,
-      <NumberCell key={2} value={getForecastSumForMonths(props.budgetStatements, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} bold/>,
-      <NumberCell key={3} value={getCurrentBalanceForMonth} bold/>,
-      <NumberCell key={4} value={getTransferRequestForMonth} bold/>,
+      <NumberCell key={2} value={getForecastSumForMonths(props.budgetStatements, props.currentMonth, [firstMonth, secondMonth, thirdMonth])} bold />,
+      <NumberCell key={3} value={getCurrentBalanceForMonth} bold />,
+      <NumberCell key={4} value={getTransferRequestForMonth} bold />,
     ]);
 
     return result;
@@ -70,6 +70,7 @@ export const TransparencyTransferRequest = (props: TransparencyTransferRequestPr
         items={mainItems}
         headersAlign={['left', 'right', 'right', 'right', 'left']}
         headerWidths={['200px', '210px', '210px', '210px', '354px']}
+        addedRows={1}
       />
     </TableWrapper>
 

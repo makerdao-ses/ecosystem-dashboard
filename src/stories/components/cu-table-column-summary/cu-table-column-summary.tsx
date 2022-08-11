@@ -7,19 +7,25 @@ import { StatusChip } from '../status-chip/status-chip';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
 import { CustomLink } from '../custom-link/custom-link';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { ColumnSummarySkeleton } from './cu-table-column-summary-skeleton';
 
 interface CuTableColumnSummaryProps {
-  title: string;
+  title?: string;
   imageUrl?: string;
   status?: CuStatusEnum;
   statusModified?: Date | null;
   onClick?: () => void;
   mipUrl?: string;
-  code: string;
+  code?: string;
   logoDimension?: string;
+  isLoading?: boolean;
 }
 
-export const CuTableColumnSummary = ({ logoDimension = '48px', ...props }: CuTableColumnSummaryProps) => {
+export const CuTableColumnSummary = ({
+  logoDimension = '48px',
+  isLoading = false,
+  ...props
+}: CuTableColumnSummaryProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   return <Container onClick={props.onClick}>
     <CircleContainer>
@@ -75,18 +81,18 @@ const Container = styled.div({
     padding: '24px 0',
   },
   '@media (min-width: 1180px)': {
-    padding: '24px 16px'
-  }
+    padding: '24px 16px',
+  },
 });
 
 const CircleContainer = styled.div({
   marginRight: '8px',
   '@media (min-width: 834px)': {
     marginRight: '16px',
-  }
+  },
 });
 
-const Content = styled.div({
+const Content = styled.section({
   display: 'flex',
   flexDirection: 'column',
 });
@@ -104,7 +110,7 @@ const Code = styled.span<{ isLight: boolean }>(({ isLight }) => ({
 }));
 
 const TitleWrapper = styled.div({
-  display: 'flex'
+  display: 'flex',
 });
 
 const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
@@ -118,7 +124,7 @@ const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   marginBottom: '2px',
 }));
 
-const Row = styled.div({
+const Row = styled.section({
   display: 'flex',
   alignItems: 'center',
   flex: 1,

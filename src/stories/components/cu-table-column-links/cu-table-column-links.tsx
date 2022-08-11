@@ -10,15 +10,15 @@ import LinkedIn from '../svg/linkedin';
 import Gmail from '../svg/gmail';
 import { Box } from '@mui/material';
 import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
-import { useThemeContext } from '../../../core/context/ThemeContext';
+import { ColumnLinksSkeleton } from './cu-table-column-links-skeleton';
 
 export interface LinkModel {
-  href: string,
-  linkType: LinkTypeEnum,
+  href: string;
+  linkType: LinkTypeEnum;
 }
 
 interface CuTableColumnLinksProps {
-  links: LinkModel[];
+  links?: LinkModel[];
   width?: number;
   height?: number;
   spacings?: number;
@@ -26,78 +26,136 @@ interface CuTableColumnLinksProps {
   fillDark?: string;
   lastChild?: boolean;
   align?: 'flex-start' | 'center' | 'flex-end';
+  isLoading?: boolean;
 }
 
-const getImageForLink = (link: LinkModel, fill: string, width?: number, height?: number, fillDark?: string) => {
+const getImageForLink = (
+  link: LinkModel,
+  fill: string,
+  width?: number,
+  height?: number,
+  fillDark?: string
+) => {
   switch (link.linkType) {
     case LinkTypeEnum.WWW:
-      return <WWW fill={fill} width={width} height={height} fillDark={fillDark} />;
+      return (
+        <WWW fill={fill} width={width} height={height} fillDark={fillDark} />
+      );
     case LinkTypeEnum.Forum:
-      return <Forum fill={fill} width={width} height={height} fillDark={fillDark} />;
+      return (
+        <Forum fill={fill} width={width} height={height} fillDark={fillDark} />
+      );
     case LinkTypeEnum.Discord:
-      return <Discord fill={fill} width={width} height={height} fillDark={fillDark} />;
+      return (
+        <Discord
+          fill={fill}
+          width={width}
+          height={height}
+          fillDark={fillDark} 
+        />
+      );
     case LinkTypeEnum.Twitter:
-      return <Twitter fill={fill} width={width} height={height} fillDark={fillDark} />;
+      return (
+        <Twitter
+          fill={fill}
+          width={width}
+          height={height}
+          fillDark={fillDark} 
+        />
+      );
     case LinkTypeEnum.Youtube:
-      return <Youtube fill={fill} width={width} height={height} fillDark={fillDark} />;
+      return (
+        <Youtube
+          fill={fill}
+          width={width}
+          height={height}
+          fillDark={fillDark} 
+        />
+      );
     case LinkTypeEnum.LinkedIn:
-      return <LinkedIn fill={fill} width={width} height={height} fillDark={fillDark} />;
+      return (
+        <LinkedIn
+          fill={fill}
+          width={width}
+          height={height}
+          fillDark={fillDark}
+        />
+      );
     case LinkTypeEnum.Gmail:
-      return <Gmail fill={fill} width={width} height={height} fillDark={fillDark} />;
+      return (
+        <Gmail fill={fill} width={width} height={height} fillDark={fillDark} />
+      );
     default:
       return <WWW />;
   }
 };
 
-export const CuTableColumnLinks = ({ width, height, links, align = 'flex-end', spacings, fill = '#C4C4C4', lastChild = false, fillDark }: CuTableColumnLinksProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
-  return <Container spacings={spacings} align={align}>
-    {links.map((link, i) => <StyleBox lastChild={lastChild}
-      key={`link-${i}`}>
-      <CustomPopover
-
-        title={link.linkType}
-        popupStyle={{
-          padding: '16px',
-          background: isLight ? 'white' : '#000A13',
-          color: isLight ? '#231536' : '#D2D4EF',
-          boxShadow: isLight ? 'none' : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
-        }}
-        id={`link-${i}`}>
-        <LinkImage
-          href={link.href}
-          target="_blank"
-          width={width}
-          height={height}>
-          {getImageForLink(link, fill, width, height, fillDark)}
-        </LinkImage>
-      </CustomPopover>
-    </StyleBox>)
-    }
-  </Container >;
+export const CuTableColumnLinks = ({
+  width,
+  height,
+  links,
+  align = 'flex-end',
+  spacings,
+  fill = '#C4C4C4',
+  lastChild = false,
+  fillDark,
+  isLoading = false,
+}: CuTableColumnLinksProps) => {
+  return !isLoading
+    ? (
+      <Container spacings={spacings} align={align}>
+        {links?.map((link, i) => (
+          <StyleBox lastChild={lastChild} key={`link-${i}`}>
+            <CustomPopover
+              title={link.linkType}
+              popupStyle={{
+                padding: '16px',
+              }}
+              id={`link-${i}`}
+            >
+              <LinkImage
+                href={link.href}
+                target="_blank"
+                width={width}
+                height={height}
+              >
+                {getImageForLink(link, fill, width, height, fillDark)}
+              </LinkImage>
+            </CustomPopover>
+          </StyleBox>
+        ))}
+      </Container>
+      )
+    : (
+      <ColumnLinksSkeleton />
+      );
 };
 
-const Container = styled.div<{ spacings?: number, align: string }>(({ spacings, align }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: align,
-  gap: `${spacings ?? 0}px`
-}));
+const Container = styled.div<{ spacings?: number; align: string }>(
+  ({ spacings, align }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: align,
+    gap: `${spacings ?? 0}px`,
+  })
+);
 
 type StickyLinkProps = {
-  width?: number,
-  height?: number,
-}
+  width?: number;
+  height?: number;
+};
 
-const LinkImage = styled.a({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-},
-({ width = 32, height = 32 }: StickyLinkProps) => ({
-  width,
-  height
-}));
+const LinkImage = styled.a(
+  {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  ({ width = 32, height = 32 }: StickyLinkProps) => ({
+    width,
+    height,
+  })
+);
 
 const StyleBox = styled(Box)<{ lastChild?: boolean }>((props) => ({
   '&:last-child': props.lastChild && {

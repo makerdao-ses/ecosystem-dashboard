@@ -12,6 +12,7 @@ import { getMipsStatus } from '../../../core/business-logic/core-unit-about';
 import { CuMipDto } from '../../../core/models/dto/core-unit.dto';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { CustomLink } from '../custom-link/custom-link';
 
 export type RelateMipType = {
   status: CuStatusEnum,
@@ -59,14 +60,22 @@ const RelateMips = ({ relateMips }: Props) => {
       {pieces.length === 2 && <RowUnderLine>
         <StyleMipNumber isLight={isLight}>{`${pieces[0]}:`}</StyleMipNumber>
         <ContainerIconTypography>
-          <StyleTitle >{pieces[1]}</StyleTitle>
-          <ArrowLinkContainer>
-            <ExternalLinkArrow href={`${relateMips.mipUrl}` || '#'} />
-          </ArrowLinkContainer>
+          <CustomLink href={relateMips.mipUrl} withArrow iconWidth={10} iconHeight={10} marginLeft='7px' style={{
+            whiteSpace: 'pre-line',
+            fontFamily: 'SF Pro Display, sans-serif',
+            fontStyle: 'normal',
+            fontWeight: 500,
+            fontSize: '16px',
+            lineHeight: '19px',
+            letterSpacing: '0.3px',
+            color: '#447AFB'
+          }}>
+            {pieces[1]}
+          </CustomLink>
         </ContainerIconTypography>
       </RowUnderLine>}
       {pieces.length === 1 && <RowUnderLine><Typography color='#447AFB' fontFamily={'SF Pro Display, sans-serif'}> {relateMips.mipTitle}</Typography><ArrowLinkContainer>  <ExternalLinkArrow href={`${relateMips.mipUrl}` || '#'} /></ArrowLinkContainer></RowUnderLine>}
-    </Content>
+    </Content >
   );
 };
 export default RelateMips;
@@ -135,13 +144,3 @@ const StyleMipNumber = styled(Typography)<{ isLight: boolean }>(({ isLight }) =>
   paddingTop: '3px',
   lineHeight: '22px'
 }));
-
-const StyleTitle = styled(Typography)({
-  color: '#447AFB',
-  fontSize: '16px',
-  display: 'inline',
-  lineHeight: '19px',
-  letterSpacing: '0.3px',
-  fontWeight: 500,
-  fontFamily: 'SF Pro Display, sans-serif',
-});

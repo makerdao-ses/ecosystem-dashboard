@@ -32,7 +32,8 @@ const MdViewerContainer = ({ sentenceDescription, paragraphDescription, paragrap
     [headersLevel],
   );
 
-  const convertImg = `![Image](${paragraphImage})`;
+  // eslint-disable-next-line no-extra-boolean-cast
+  const convertImg = !!paragraphImage ? `![Image](${paragraphImage})` : null;
   return (
     <MdViewerPage
       paragraphImage={convertImg}

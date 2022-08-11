@@ -49,6 +49,8 @@ import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CustomPopover } from '../../components/custom-popover/custom-popover';
 import { CategoryChip } from '../../components/category-chip/category-chip';
+import { TablePlaceholder } from '../../components/custom-table/placeholder';
+import Head from 'next/head';
 
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
 const sortNeutralState = [
@@ -205,13 +207,22 @@ export const CuTable = () => {
   const onClickFinances = useCallback(
     (code: string) => {
       router.push(
-        `/core-unit/${code}/finances/transparency?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
+        `/core-unit/${code}/finances/reports?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
       );
     },
     [filteredCategories, filteredStatuses, router, searchText]
   );
 
   const items = useMemo(() => {
+    if (status === 'loading') {
+      return new Array(10).fill([
+        <CuTableColumnSummary isLoading/>,
+        <CuTableColumnExpenditures isLoading/>,
+        <CuTableColumnTeamMember isLoading/>,
+        <CuTableColumnLinks isLoading/>
+      ]);
+    }
+
     if (!filteredData) return [];
     const sortedData = sortData(filteredData);
     return sortedData.map((coreUnit: CoreUnitDto, i: number) => {
@@ -238,8 +249,8 @@ export const CuTable = () => {
                 )}
                 imageUrl={coreUnit.image}
                 mipUrl={getMipUrlFromCoreUnit(coreUnit)}
-                onClick={onClickRow(coreUnit.code)}
-                code={formatCode(coreUnit.code)}
+                onClick={onClickRow(coreUnit.shortCode)}
+                code={formatCode(coreUnit.shortCode)}
                 logoDimension={'68px'}
               />
               <Padded>
@@ -265,8 +276,8 @@ export const CuTable = () => {
             )}
             imageUrl={coreUnit.image}
             mipUrl={getMipUrlFromCoreUnit(coreUnit)}
-            onClick={onClickRow(coreUnit.code)}
-            code={formatCode(coreUnit.code)}
+            onClick={onClickRow(coreUnit.shortCode)}
+            code={formatCode(coreUnit.shortCode)}
           />
         </CustomPopover>,
         <div
@@ -274,7 +285,7 @@ export const CuTable = () => {
             display: 'block',
             paddingLeft: '8px',
           }}
-          onClick={() => onClickFinances(coreUnit.code)}
+          onClick={() => onClickFinances(coreUnit.shortCode)}
         >
           <CuTableColumnExpenditures
             key={`expenditures-${i}`}
@@ -310,18 +321,29 @@ export const CuTable = () => {
   }, [filteredData, sortData, onClickRow, isLight]);
 
   const itemsList = useMemo(() => {
+    if (status === 'loading') {
+      return new Array(4).fill(<CoreUnitCard coreUnit={{} as CoreUnitDto} isLoading/>);
+    }
     return filteredData.map((cu, i) => (
       <CoreUnitCard
         key={`card-${i}`}
         coreUnit={cu}
-        onClick={onClickRow(cu.code)}
-        onClickFinances={() => onClickFinances(cu.code)}
+        onClick={onClickRow(cu.shortCode)}
+        onClickFinances={() => onClickFinances(cu.shortCode)}
       />
     ));
   }, [filteredData, onClickRow]);
 
   return (
     <ContainerHome isLight={isLight}>
+    <Head>
+      <title>Sustainable Ecosystem Scaling Core Unit | Maker Expenses</title>
+      <link rel="icon" href="/favicon.png" />
+      <meta property='og:site_name' content="Sustainable Ecosystem Scaling Core Unit | Maker Expenses"/>
+      <meta name="description" content="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO." />
+      <meta name="og:description" content="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO." />
+      <meta name="robots" content="index,follow"/>
+    </Head>
       <Wrapper>
         <Header>
           <Title isLight={isLight}>Core Units Expenses</Title>
@@ -345,18 +367,24 @@ export const CuTable = () => {
             clearFilters={clearFilters}
           />
         </Header>
-        <TableWrapper>
-          <CustomTable
-            headers={headers}
-            items={items}
-            headersAlign={headersAlign}
-            headersSort={headersSort}
-            headersStyles={headerStyles}
-            sortFunction={setSort}
-            loading={status === 'loading'}
-          />
-        </TableWrapper>
-        <ListWrapper>{itemsList}</ListWrapper>
+        {!!items?.length && (
+          <>
+            <TableWrapper>
+              <CustomTable
+                headers={headers}
+                items={items}
+                headersAlign={headersAlign}
+                headersSort={headersSort}
+                headersStyles={headerStyles}
+                sortFunction={setSort}
+                loading={status === 'loading'}
+              />
+            </TableWrapper>
+            <ListWrapper>{itemsList}</ListWrapper>
+          </>
+        )}
+
+        {!items?.length && status !== 'loading' && <TablePlaceholder />}
       </Wrapper>
     </ContainerHome>
   );
@@ -424,7 +452,7 @@ const Header = styled.div({
 
 const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
-  fontSize: '20px',
+  fontSize: '24px',
   fontWeight: 500,
   lineHeight: isLight ? '29px' : '38px',
   letterSpacing: '0.4px',

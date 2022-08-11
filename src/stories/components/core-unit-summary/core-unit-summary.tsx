@@ -33,7 +33,7 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
 
-  const cu = data?.find(cu => cu.code === code);
+  const cu = data?.find(cu => cu.shortCode === code);
 
   const ref = useRef(null);
 
@@ -61,14 +61,14 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
       searchText
     }), [data, filteredCategories, filteredStatuses, searchText]);
 
-  const page = useMemo(() => filteredData?.findIndex(item => item.code === code) + 1, [code, filteredData]);
+  const page = useMemo(() => filteredData?.findIndex(item => item.shortCode === code) + 1, [code, filteredData]);
 
   const changeCoreUnitCode = useCallback(
     (direct: -1 | 1) => () => {
-      const index = filteredData?.findIndex(item => item.code === code);
+      const index = filteredData?.findIndex(item => item.shortCode === code);
       const newIndex = index + direct;
       if (newIndex >= 0 && newIndex < filteredData?.length) {
-        router.push(`${router.route.replace('[code]', filteredData[newIndex].code)}?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
+        router.push(`${router.route.replace('[code]', filteredData[newIndex].shortCode)}?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
       }
     },
     [code, filteredData, router]);
@@ -124,18 +124,13 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
           </div>}
       </ContainerTitle>
     </Wrapper>
-    <div style={{
-      position: 'relative',
-      borderBottom: hiddenTextDescription && isLight ? '1px solid #B6EDE7' : hiddenTextDescription && !isLight ? '1px solid #027265' : 'none',
-      width: '100%',
-      marginTop: '24px',
-    }} />
+    <ContainerResponsiveMobile hiddenTextDescription={hiddenTextDescription} isLight={isLight} />
   </Container>;
 };
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   position: 'sticky',
-  top: 60,
+  top: 64,
   width: '100%',
   backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
   backgroundSize: 'cover',
@@ -228,4 +223,15 @@ const Value = styled.b<{ isLight: boolean }>(({ isLight }) => ({
 
 const CoreUnitStyle = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#708390' : '#787A9B',
+}));
+
+const ContainerResponsiveMobile = styled.div<{ isLight: boolean, hiddenTextDescription: boolean }>(({ isLight, hiddenTextDescription }) => ({
+  position: 'relative',
+  borderBottom: hiddenTextDescription && isLight ? '1px solid #B6EDE7' : hiddenTextDescription && !isLight ? '1px solid #027265' : 'none',
+  width: '100%',
+  marginTop: '24px',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    marginTop: hiddenTextDescription ? '16px' : '0px',
+  },
+
 }));

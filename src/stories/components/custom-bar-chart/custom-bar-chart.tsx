@@ -3,8 +3,8 @@ import { CustomChartItemModel } from '../../../core/models/custom-chart-item.mod
 import _ from 'lodash';
 
 interface CustomBarChartProps {
-  items: Array<CustomChartItemModel>,
-  maxValues: number[],
+  items?: Array<CustomChartItemModel>,
+  maxValues?: number[],
 }
 
 const COLOR_GREEN = '#1AAB9B';
@@ -32,6 +32,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
   };
 
   const getColor = (value: number, pos: number): string => {
+    if (!props.maxValues) return COLOR_RED;
     const percent = value * 100 / props.maxValues[pos];
     let color = COLOR_RED;
 
@@ -73,7 +74,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
           />
         </rect>
       )}
-      {props.maxValues.map((cap: number, i: number) => {
+      {props.maxValues?.map((cap: number, i: number) => {
         if (cap === 0) return <line key={`cap-${i}`}/>;
         return <line
             key={`cap-${i}`}
