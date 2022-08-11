@@ -121,7 +121,7 @@ export const TransparencyTransferRequest = (
 
   return (
     <Container>
-      {!mainItems.length
+      {mainItems.length - 1 <= 0
         ? (
         <TransparencyEmptyTable />
           )

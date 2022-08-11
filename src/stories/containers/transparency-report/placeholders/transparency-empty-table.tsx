@@ -35,6 +35,7 @@ export const TransparencyEmptyTable = ({ breakdown = false }: Props) => {
                 <CellBlock
                   style={{
                     borderRadius: '50%',
+                    minWidth: '42px',
                     maxWidth: '42px',
                     height: '42px',
                     marginRight: '5px',
@@ -44,6 +45,7 @@ export const TransparencyEmptyTable = ({ breakdown = false }: Props) => {
                   style={{
                     marginRight: '20px',
                     maxWidth: '126px',
+                    minWidth: '126px',
                     width: '100%',
                   }}
                 >
@@ -97,6 +99,7 @@ export const TransparencyEmptyTable = ({ breakdown = false }: Props) => {
             <CellBlock
               style={{
                 maxWidth: '137px',
+                minWidth: '137px',
                 marginRight: '151px',
               }}
             />
@@ -320,6 +323,7 @@ const Line = styled.div({
 });
 
 const CellBlock = styled.div({
+  display: 'none',
   width: '100%',
   flex: 1,
   maxWidth: '126px',
@@ -327,4 +331,7 @@ const CellBlock = styled.div({
   background: 'rgba(45, 193, 177, 0.2)',
   borderRadius: '6px',
   marginRight: '32px',
+  '@media (min-width: 834px)': {
+    display: 'flex',
+  },
 });
