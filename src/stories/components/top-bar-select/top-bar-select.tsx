@@ -57,6 +57,7 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
             fontStyle: 'normal',
             lineHeight: '19px',
             letterSpacing: '0.3px',
+            borderRadius: '6px',
             marginLeft: '0px',
             border: isLight ? 'none' : '1px solid #1E2C37'
           }}
