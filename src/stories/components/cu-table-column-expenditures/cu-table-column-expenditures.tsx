@@ -20,10 +20,7 @@ export const CuTableColumnExpenditures = (props: CuTableColumnExpendituresProps)
         <Data>
           <Title isLight={isLight}>Last 3 Months</Title>
           <CustomPopover
-            popupStyle={{
-              background: isLight ? 'white' : '#000A13',
-              boxShadow: isLight ? 'none' : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
-            }}
+
             id="mouse-over-popover-total"
             title={<TotalPopup>
               <PopupTitle isLight={isLight}>

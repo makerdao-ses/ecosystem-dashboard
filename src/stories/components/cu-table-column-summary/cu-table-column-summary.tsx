@@ -43,8 +43,6 @@ export const CuTableColumnSummary = ({ logoDimension = '48px', ...props }: CuTab
           title={'Go to MIPs Portal'}
           popupStyle={{
             color: isLight ? '#231536' : '#D2D4EF',
-            background: isLight ? 'white' : '#000A13',
-            boxShadow: '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
           }
 
           }

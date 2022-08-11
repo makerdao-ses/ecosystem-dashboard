@@ -219,9 +219,6 @@ export const CuTable = () => {
         <CustomPopover
           popupStyle={{
             padding: 0,
-            background: isLight ? 'none' : '#000A13',
-            border: isLight ? 'none' : '1px solid #231536',
-            boxShadow: isLight ? 'none' : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
           }}
           anchorOrigin={{
             vertical: 'bottom',
