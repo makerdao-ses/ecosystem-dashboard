@@ -34,7 +34,7 @@ export const SearchInput = (props: SearchInputProps) => {
         defaultValue={props.defaultValue}
       />
       <IconWrapper>
-        <Magnifier />
+        <Magnifier fill={isLight ? '#25273D' : '#ADAFD4'} />
       </IconWrapper>
     </InputWrapper>
   </Container>;

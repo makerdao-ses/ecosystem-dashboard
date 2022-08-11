@@ -12,7 +12,6 @@ interface InnerTableProps {
   minWidth?: number;
   headerWidths?: string[];
   headerStyles?: CSSProperties[];
-  addedRows?: number;
 }
 
 export const InnerTable = ({
@@ -20,16 +19,10 @@ export const InnerTable = ({
   minWidth = 160,
   headerWidths = [],
   headerStyles = [],
-  addedRows = 0,
   ...props
 }: InnerTableProps) => {
   const isLight = useThemeContext().themeMode === 'light';
-  return !((props.items?.length ?? 0) - addedRows)
-    ? (
-    <TransparencyEmptyTable />
-      )
-    : (
-    <Container style={props.style} isLight={isLight}>
+  return <Container style={props.style} isLight={isLight}>
       <Table>
         <TableHead isLight={isLight}>
           <tr>
@@ -63,8 +56,7 @@ export const InnerTable = ({
           ))}
         </tbody>
       </Table>
-    </Container>
-      );
+    </Container>;
 };
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({

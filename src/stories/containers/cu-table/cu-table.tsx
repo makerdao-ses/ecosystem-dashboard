@@ -324,7 +324,7 @@ export const CuTable = () => {
     }
     return filteredData.map((cu, i) => (
       <CoreUnitCard
-        key={`card-${i}`}
+        key={`card-${cu.code}`}
         coreUnit={cu}
         onClick={onClickRow(cu.shortCode)}
         onClickFinances={() => onClickFinances(cu.shortCode)}
@@ -351,6 +351,7 @@ export const CuTable = () => {
               style={{
                 height: '34px',
                 width: '90px',
+                border: isLight ? '1px solid #D4D9E1' : '1px solid #343442',
               }}
             />
           </FilterButtonWrapper>

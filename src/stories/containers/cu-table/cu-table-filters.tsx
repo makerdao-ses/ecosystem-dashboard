@@ -12,6 +12,7 @@ import { SearchInput } from '../../components/search-input/search-input';
 import styled from '@emotion/styled';
 import { Close } from '../../components/svg/close';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { Divider } from '@mui/material';
 
 interface FilterProps {
   filtersPopup: boolean;
@@ -41,7 +42,7 @@ export const Filters = (props: FilterProps) => {
     });
   }, [router]);
 
-  return <Wrapper style={{
+  return <Wrapper isLight={isLight} style={{
     display: props.filtersPopup ? 'flex' : 'none',
   }}>
     <Container isLight={isLight}>
@@ -119,7 +120,7 @@ export const Filters = (props: FilterProps) => {
   </Wrapper>;
 };
 
-const Separator = styled.span<{ isLight: boolean }>(({ isLight }) => ({
+const Separator = styled(Divider)<{ isLight: boolean }>(({ isLight }) => ({
   height: '1px',
   width: 'calc(100vw - 64px)',
   margin: '0 16px',
@@ -132,17 +133,17 @@ const Separator = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   },
 }));
 
-const SmallSeparator = styled.span<{ isLight: boolean }>(({ isLight }) => ({
+const SmallSeparator = styled(Divider)<{ isLight: boolean }>(({ isLight }) => ({
   height: '1px',
   width: '64px',
   backgroundColor: isLight ? '#D4D9E1' : '#48495F',
   alignSelf: 'center',
-  '@media (min-width: 834px)': {
+  '@media (min-width: 833px)': {
     display: 'none'
   }
 }));
 
-const Wrapper = styled.div({
+const Wrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'none',
   '@media (max-width: 833px)': {
     top: 0,
@@ -153,7 +154,7 @@ const Wrapper = styled.div({
     overscrollBehavior: 'auto',
     overflowY: 'scroll',
     width: '100%',
-    background: 'white',
+    background: isLight ? 'white' : '#000A13',
   },
   '@media (min-width: 834px)': {
     display: 'flex !important',
@@ -161,7 +162,7 @@ const Wrapper = styled.div({
   '@media (min-width: 834px) and (max-width: 1180px)': {
     alignSelf: 'flex-end'
   }
-});
+}));
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
