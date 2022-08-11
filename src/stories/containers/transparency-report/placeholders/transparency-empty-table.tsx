@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { useThemeContext } from '../../../../core/context/ThemeContext';
 
 export const TransparencyEmptyTable = () => {
+  const isLight = useThemeContext().themeMode === 'light';
   return (
-    <Wrapper>
-      <Container>
+    <Wrapper >
+      <Container isLight={isLight}>
         <Row>
           <CellBlock
             style={{
@@ -110,7 +112,7 @@ const Title = styled.div({
   zIndex: 1,
 });
 
-const Container = styled.div({
+const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'block',
   position: 'absolute',
   width: '100%',
@@ -124,11 +126,10 @@ const Container = styled.div({
     left: 0,
     width: '100%',
     height: '100%',
-    background:
-      'radial-gradient(white, rgba(255,255,255,0.9), rgba(255,255,255,0.9), rgba(255,255,255,0.6), rgba(255,255,255,0.1))',
+    background: isLight ? 'radial-gradient(white, rgba(255,255,255,0.9), rgba(255,255,255,0.9), rgba(255,255,255,0.6), rgba(255,255,255,0.1))' : 'radial-gradient(#10191F, rgb(16,25,31,100%), rgb(16,25,31,80%), rgb(16,25,31,50%),rgb(16,25,31,20%))',
     backgroundRepeat: 'no-repeat',
   },
-});
+}));
 
 const Row = styled.div({
   display: 'flex',
@@ -151,3 +152,4 @@ const CellBlock = styled.div({
   borderRadius: '6px',
   marginRight: '32px',
 });
+// #2DC1B1
