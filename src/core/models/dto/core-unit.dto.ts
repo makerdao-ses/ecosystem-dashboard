@@ -1,3 +1,5 @@
+import { CuJobEnum } from '../../enums/cu-job.enum';
+
 export interface Mip40BudgetPeriodDto {
   budgetPeriodStart: string;
   budgetPeriodEnd: string
@@ -28,6 +30,14 @@ export interface ContributorDto {
 
 export interface Mip41Dto {
   contributor: ContributorDto[];
+}
+
+export interface ContributorCommitmentDto {
+  id: string;
+  commitment: string;
+  startDate: string;
+  jobTitle: CuJobEnum;
+  contributor: ContributorDto[]
 }
 
 export interface CuMipDto {
@@ -112,6 +122,7 @@ export interface RoadMapDto {
 
 export interface CoreUnitDto {
   id: string;
+  shortCode: string;
   code: string;
   name: string;
   image: string;
@@ -120,5 +131,6 @@ export interface CoreUnitDto {
   cuMip: CuMipDto[]
   roadMap: RoadMapDto[];
   socialMediaChannels: SocialMediaChannelDto[];
-  budgetStatements: BudgetStatementDto[]
+  budgetStatements: BudgetStatementDto[];
+  contributorCommitment: ContributorCommitmentDto[];
 }

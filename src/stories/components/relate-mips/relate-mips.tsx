@@ -11,6 +11,8 @@ import { getMipTitle } from '../../../core/utils/string.utils';
 import { getMipsStatus } from '../../../core/business-logic/core-unit-about';
 import { CuMipDto } from '../../../core/models/dto/core-unit.dto';
 import lightTheme from '../../../../styles/theme/light';
+import { useThemeContext } from '../../../core/context/ThemeContext';
+import { CustomLink } from '../custom-link/custom-link';
 
 export type RelateMipType = {
   status: CuStatusEnum,
@@ -24,12 +26,13 @@ interface Props {
 }
 
 const RelateMips = ({ relateMips }: Props) => {
+  const isLight = useThemeContext().themeMode === 'light';
   const mips = getMipsStatus(relateMips || '');
   const mipStatus = relateMips.mipStatus;
   const newDate = mips ? DateTime.fromFormat(mips || '', 'yyyy-MM-dd').toJSDate() : null;
   const pieces = getMipTitle(relateMips.mipTitle);
   return (
-    <Content>
+    <Content isLight={isLight}>
       <Row>
         {mipStatus && <StatusChip status={mipStatus as CuStatusEnum} />}
         {newDate && <CustomPopover
@@ -42,6 +45,7 @@ const RelateMips = ({ relateMips }: Props) => {
           title={'Go to MIPs Portal'}
         >
           <SinceDate
+            isLight={isLight}
             href={relateMips.mipUrl}
             target="_blank"
             onClick={(evt) => evt.stopPropagation()}
@@ -51,26 +55,34 @@ const RelateMips = ({ relateMips }: Props) => {
         </CustomPopover>}
       </Row>
       {pieces.length === 2 && <RowUnderLine>
-        <StyleMipNumber>{`${pieces[0]}:`}</StyleMipNumber>
+        <StyleMipNumber isLight={isLight}>{`${pieces[0]}:`}</StyleMipNumber>
         <ContainerIconTypography>
-          <StyleTitle >{pieces[1]}</StyleTitle>
-          <ArrowLinkContainer>
-            <ExternalLinkArrow href={`${relateMips.mipUrl}` || '#'} />
-          </ArrowLinkContainer>
+          <CustomLink href={relateMips.mipUrl} withArrow iconWidth={10} iconHeight={10} marginLeft='7px' style={{
+            whiteSpace: 'pre-line',
+            fontFamily: 'SF Pro Display, sans-serif',
+            fontStyle: 'normal',
+            fontWeight: 500,
+            fontSize: '16px',
+            lineHeight: '19px',
+            letterSpacing: '0.3px',
+            color: '#447AFB'
+          }}>
+            {pieces[1]}
+          </CustomLink>
         </ContainerIconTypography>
       </RowUnderLine>}
       {pieces.length === 1 && <RowUnderLine><Typography color='#447AFB' fontFamily={'SF Pro Display, sans-serif'}> {relateMips.mipTitle}</Typography><ArrowLinkContainer>  <ExternalLinkArrow href={`${relateMips.mipUrl}` || '#'} /></ArrowLinkContainer></RowUnderLine>}
-    </Content>
+    </Content >
   );
 };
 export default RelateMips;
-const Content = styled.div({
+const Content = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   padding: '16px',
   width: '620px',
-  backgroundColor: '#FFFFFF',
-  boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
+  backgroundColor: isLight ? '#FFFFFF' : '#10191F',
+  boxShadow: isLight ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
   borderRadius: '6px',
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     width: '343px',
@@ -78,7 +90,7 @@ const Content = styled.div({
   [lightTheme.breakpoints.down('table_375')]: {
     maxWidth: '360px',
   },
-});
+}));
 
 const Row = styled.div({
   display: 'flex',
@@ -95,7 +107,7 @@ const RowUnderLine = styled.div({
   alignSelf: 'stretch',
 });
 
-const SinceDate = styled.a({
+const SinceDate = styled.a<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
@@ -103,10 +115,10 @@ const SinceDate = styled.a({
   lineHeight: '14px',
   letterSpacing: '1px',
   textTransform: 'uppercase',
-  color: '#9FAFB9',
+  color: isLight ? '#9FAFB9' : '#708390',
   textDecoration: 'none',
   marginLeft: '4px',
-});
+}));
 
 const ArrowLinkContainer = styled.span({
   display: 'inline',
@@ -118,24 +130,14 @@ const ContainerIconTypography = styled.div({
   alignItems: 'center',
 });
 
-const StyleMipNumber = styled(Typography)({
+const StyleMipNumber = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: '16px',
   minWidth: '135px',
   display: 'inline-block',
   marginRight: '4px',
   fontFamily: 'SF Pro Text, sans-serif',
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   fontWeight: 600,
   paddingTop: '3px',
   lineHeight: '22px'
-});
-
-const StyleTitle = styled(Typography)({
-  color: '#447AFB',
-  fontSize: '16px',
-  display: 'inline',
-  lineHeight: '19px',
-  letterSpacing: '0.3px',
-  fontWeight: 500,
-  fontFamily: 'SF Pro Display, sans-serif',
-});
+}));

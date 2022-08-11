@@ -6,7 +6,7 @@ import { WebSiteLinks } from './select-link-website/menu-items';
 import { MenuType } from './menu-items';
 import { useRouter } from 'next/router';
 import ThemeSwitcherButton from '../button/switch-button/switch-buttom';
-import { ThemeMode } from '../../../core/context/ThemeContext';
+import { ThemeMode, useThemeContext } from '../../../core/context/ThemeContext';
 import Expenses from '../svg/expenses';
 import { CustomLink } from '../custom-link/custom-link';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
@@ -21,6 +21,7 @@ interface Props {
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
+  const isLight = useThemeContext().themeMode === 'light';
   const router = useRouter();
   const onClick = useCallback(
     (link: string) => () => {
@@ -37,15 +38,15 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
   );
 
   return (
-    <Container themeMode={themeMode}>
+    <Container isLight={isLight} >
       <LeftPart>
-        <ContainerLogoSelect themeMode={themeMode}>
+        <ContainerLogoSelect isLight={isLight}>
           <LogoContainer>
-            <Logo fill={themeMode === 'dark' ? '#6EDBD0' : '#211634'} onClick={handleGoHome} />
+            <Logo fill='#211634' fillDark='#6EDBD0' onClick={handleGoHome} />
           </LogoContainer>
           <LogoLinksWrapper>
             <Expenses fill={themeMode === 'dark' ? '#6EDBD0' : '#211634'} />
-            <SelectLink links={links} themeMode={themeMode} fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'} onClick={onClick} toggleTheme={toggleTheme}/>
+            <SelectLink links={links} themeMode={themeMode} fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'} onClick={onClick} toggleTheme={toggleTheme} />
           </LogoLinksWrapper>
         </ContainerLogoSelect>
 
@@ -59,7 +60,7 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
             }
 
             return (<ItemMenuStyle
-              themeMode={themeMode}
+              isLight={isLight}
               key={title}
               style={{ marginRight }}
               href={link}
@@ -84,7 +85,7 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
                 fontStyle: 'normal',
                 lineHeight: '19px',
                 letterSpacing: '0.3px',
-                marginLeft: '0px'
+                marginLeft: '0px',
               }}
               marginLeft='7px'
               withArrow
@@ -104,7 +105,7 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
   );
 };
 
-const Container = styled.header<{ themeMode: string }>((props) => ({
+const Container = styled.header<{ isLight: boolean }>(({ isLight }) => ({
   position: 'fixed',
   display: 'flex',
   width: '100%',
@@ -112,8 +113,8 @@ const Container = styled.header<{ themeMode: string }>((props) => ({
   flexDirection: 'row',
   height: '64px',
   justifyContent: 'space-between',
-  background: props.themeMode === 'light' ? 'url(/assets/img/bg-header.png)' : 'url(/assets/img/bg-header-dark.png)',
-  borderBottom: '1px solid #E7FCFA',
+  background: isLight ? 'url(/assets/img/bg-header.png)' : 'url(/assets/img/bg-header-dark.png)',
+  borderBottom: isLight ? '1px solid #E7FCFA' : 'none',
 }));
 
 const LeftPart = styled.div({
@@ -123,7 +124,7 @@ const LeftPart = styled.div({
   height: '100%',
 });
 
-const ContainerLogoSelect = styled.div<{ themeMode: string }>((props) => ({
+const ContainerLogoSelect = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'row',
   height: '100%',
@@ -131,7 +132,7 @@ const ContainerLogoSelect = styled.div<{ themeMode: string }>((props) => ({
   marginRight: '16px',
   alignItems: 'center',
   paddingLeft: '16px',
-  background: props.themeMode === 'light' ? 'url(/assets/img/bg-logo.png)' : 'url(/assets/img/bg-logo-dark.png)',
+  background: isLight ? 'url(/assets/img/bg-logo.png)' : 'url(/assets/img/bg-logo-dark.png)',
   '@media (min-width: 435px)': {
     paddingRight: '32px',
     marginRight: '32px',
@@ -171,7 +172,7 @@ const RightPart = styled.div({
   }
 });
 
-const ItemMenuStyle = styled.a<{ active: boolean, marginRight?: string, themeMode: string }>((props) => ({
+const ItemMenuStyle = styled.a<{ active: boolean, marginRight?: string, isLight: boolean }>(({ active, isLight, marginRight }) => ({
   display: 'none',
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
@@ -179,8 +180,8 @@ const ItemMenuStyle = styled.a<{ active: boolean, marginRight?: string, themeMod
   fontSize: '16px',
   lineHeight: '19px',
   transform: 'none',
-  marginRight: props.marginRight,
-  color: props.active ? '#1AAB9B' : (props.themeMode === 'light' && !props.active) ? '#25273D' : '#D2D4EF',
+  marginRight,
+  color: active && isLight ? '#1AAB9B' : (isLight && !active) ? '#25273D' : !(isLight && active) ? '#2DC1B1' : '#D2D4EF',
   letterSpacing: '0.4px',
   textDecoration: 'none',
   cursor: 'pointer',

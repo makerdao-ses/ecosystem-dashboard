@@ -5,6 +5,7 @@ export const GETCoreUnits = gql`
     query CoreUnits {
       coreUnits {
         id
+        shortCode
         code
         name
         image
@@ -66,6 +67,20 @@ export const GETCoreUnits = gql`
               actual
               month
             }
+          }
+        }
+        contributorCommitment {
+          cuCode
+          commitment
+          startDate
+          jobTitle,
+          contributor {
+            discordHandle
+            email
+            facilitatorImage
+            forumHandle
+            githubUrl
+            name
           }
         }
       }

@@ -16,15 +16,25 @@ import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-su
 import { API_MONTH_FORMAT } from '../../../core/utils/date.utils';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
 import { formatCode } from '../../../core/utils/string.utils';
+import { useThemeContext } from '../../../core/context/ThemeContext';
+import Head from 'next/head';
 
-const colors: {[key: string]: string} = {
+const colors: { [key: string]: string } = {
   Draft: '#7C6B95',
   Final: '#1AAB9B',
   AwaitingCorrections: '#FDC134',
-  SubmittedToAuditor: 'FF78F2',
+  SubmittedToAuditor: '#FF78F2',
+};
+
+const colorsDarkColors: { [key: string]: string } = {
+  Draft: '#9055AF',
+  Final: '#2DC1B1',
+  AwaitingCorrections: '#FDC134',
+  SubmittedToAuditor: '#FF78F2',
 };
 
 export const TransparencyReport = () => {
+  const isLight = useThemeContext().themeMode === 'light';
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;
@@ -42,91 +52,100 @@ export const TransparencyReport = () => {
   }, [cu, currentMonth]);
 
   return <Wrapper>
-    <CoreUnitSummary trailingAddress={['Expense Reports']}/>
-    <Container>
+  <Head>
+    <title>MakerDAO Ecosystem Performance Dashboard | Finances</title>
+    <link rel="icon" href="/favicon.png" />
+    <meta property='og:site_name' content="MakerDAO Ecosystem Performance Dashboard | Finances"/>
+    <meta name="description" content="Learn about the Sustainable Ecosystem Scaling Core Unit at MakerDAO: their finances, expense reports, and more." />
+    <meta name="og:description" content="Learn about the Sustainable Ecosystem Scaling Core Unit at MakerDAO: their finances, expense reports, and more." />
+    <meta name="robots" content="index,follow"/>
+  </Head>
+    <CoreUnitSummary trailingAddress={['Expense Reports']} />
+    <Container isLight={isLight}>
 
-    <InnerPage>
-      <Title>Expense Reports</Title>
+      <InnerPage>
+        <Title isLight={isLight}>Expense Reports</Title>
 
-      <Paragraph>
-        Every month, the {formatCode(code)} Core Unit submits a transparency report for MakerDAO governance with a detailed budget update.
-        If the core unit works with an auditor, the transparency report is reviewed by the auditor before the core unit's operational
-        wallet is topped up to replenish its runway.
-        <p style={{ marginBottom: 0 }}>
-          <span>Is this your core unit? Learn</span>
-          <CustomLink
-            href={HOW_TO_SUBMIT_EXPENSES}
-            iconHeight={10}
-            iconWidth={10}
-            fontSize={16}
-            fontSizeMobile={14}
-            fontFamily={'SF Pro Display, sans-serif'}>
-            how to submit your expenses here
-          </CustomLink>
-        </p>
-      </Paragraph>
+        <Paragraph isLight={isLight}>
+          Every month, the {formatCode(code)} Core Unit submits a transparency report for MakerDAO governance with a detailed budget update.
+          If the core unit works with an auditor, the transparency report is reviewed by the auditor before the core unit's operational
+          wallet is topped up to replenish its runway.
+          <p style={{ marginBottom: 0 }}>
+            <span>Is this your core unit? Learn</span>
+            <CustomLink
+              href={HOW_TO_SUBMIT_EXPENSES}
+              iconHeight={10}
+              iconWidth={10}
+              fontSize={16}
+              fontSizeMobile={14}
+              fontFamily={'SF Pro Display, sans-serif'}>
+              how to submit your expenses here
+            </CustomLink>
+          </p>
+        </Paragraph>
 
-      <PagerBar className="no-select">
-        <PagerBarLeft>
-          <CustomPager
-            label={currentMonth.toFormat('MMM yyyy').toUpperCase()}
-            onPrev={() => setCurrentMonth(currentMonth.minus({ month: 1 }))}
-            onNext={() => setCurrentMonth(currentMonth.plus({ month: 1 }))}
-          />
-          {currentBudgetStatement?.publicationUrl && <CustomLink
-            href={currentBudgetStatement?.publicationUrl ?? null}
-            style={{
-              margin: '0 0 10px 0',
-              alignSelf: 'flex-end',
-            }}
-            iconHeight={10}
-            iconWidth={10}
-            fontSize={16}
-            fontFamily={'SF Pro Display, sans-serif'}
-          >
-            Source
-          </CustomLink>}
-        </PagerBarLeft>
-        <Spacer/>
-        <StatusBar>
-          <StatusTitle>Status</StatusTitle>
-          <StatusValue color={colors[currentBudgetStatement?.budgetStatus] ?? ''}>{currentBudgetStatement?.budgetStatus ?? '-'}</StatusValue>
-        </StatusBar>
-      </PagerBar>
+        <PagerBar className="no-select">
+          <PagerBarLeft>
+            <CustomPager
+              label={currentMonth.toFormat('MMM yyyy').toUpperCase()}
+              onPrev={() => setCurrentMonth(currentMonth.minus({ month: 1 }))}
+              onNext={() => setCurrentMonth(currentMonth.plus({ month: 1 }))}
+            />
+            {currentBudgetStatement?.publicationUrl && <CustomLink
+              href={currentBudgetStatement?.publicationUrl ?? null}
+              style={{
+                margin: '0 0 10px 0',
+                alignSelf: 'flex-end',
+                lineHeight: '19px',
+              }}
+              iconHeight={10}
+              iconWidth={10}
+              fontSize={16}
+              fontFamily={'SF Pro Display, sans-serif'}
+            >
+              Source
+            </CustomLink>}
+          </PagerBarLeft>
+          <Spacer />
+          <StatusBar>
+            <StatusTitle isLight={isLight}>Status</StatusTitle>
+            <StatusValue color={isLight ? colors[currentBudgetStatement?.budgetStatus] : colorsDarkColors[currentBudgetStatement?.budgetStatus]}>{currentBudgetStatement?.budgetStatus ?? '-'}</StatusValue>
+          </StatusBar>
+        </PagerBar>
 
-      <Tabs
-        items={['Actuals', 'Forecast', 'MKR Vesting', 'Transfer Requests', 'Audit Reports']}
-        currentIndex={thirdIndex}
-        onChange={setThirdIndex}
-        style={{
-          margin: '32px 0',
-        }}
-    />
-    {thirdIndex === 0 && <TransparencyActuals code={code} currentMonth={currentMonth} budgetStatements={cu?.budgetStatements} />}
-    {thirdIndex === 1 && <TransparencyForecast currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>}
-    {thirdIndex === 2 && <TransparencyMkrVesting currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>}
-    {thirdIndex === 3 && <TransparencyTransferRequest currentMonth={currentMonth} budgetStatements={cu?.budgetStatements}/>}
-    {thirdIndex === 4 && <TransparencyAudit budgetStatement={currentBudgetStatement}/>}
-    </InnerPage>
-  </Container>
+        <Tabs
+          items={['Actuals', 'Forecast', 'MKR Vesting', 'Transfer Requests', 'Audit Reports']}
+          currentIndex={thirdIndex}
+          onChange={setThirdIndex}
+          style={{
+            margin: '32px 0',
+          }}
+        />
+        {thirdIndex === 0 && <TransparencyActuals code={code} currentMonth={currentMonth} budgetStatements={cu?.budgetStatements} />}
+        {thirdIndex === 1 && <TransparencyForecast currentMonth={currentMonth} budgetStatements={cu?.budgetStatements} />}
+        {thirdIndex === 2 && <TransparencyMkrVesting currentMonth={currentMonth} budgetStatements={cu?.budgetStatements} />}
+        {thirdIndex === 3 && <TransparencyTransferRequest currentMonth={currentMonth} budgetStatements={cu?.budgetStatements} />}
+        {thirdIndex === 4 && <TransparencyAudit budgetStatement={currentBudgetStatement} />}
+      </InnerPage>
+    </Container>
   </Wrapper>;
 };
 
-const Container = styled.div({
-  display: 'flex',
+const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   flexDirection: 'column',
   alignItems: 'center',
   marginTop: '64px',
   paddingBottom: '128px',
   flex: 1,
-  background: 'url(/assets/img/bg-page.png)',
+  backgroundColor: isLight ? '#FFFFFF' : '#000000',
+  backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
   padding: '0 16px',
   '@media (min-width: 834px)': {
-    padding: '0 32px',
+    padding: '0 32px 128px',
   },
-});
+}));
 
 const Wrapper = styled.div({
   display: 'flex',
@@ -142,32 +161,34 @@ const InnerPage = styled.div({
   textAlign: 'left',
 });
 
-export const Title = styled.div<{ marginBottom?: number }>(({ marginBottom = 16 }) => ({
+export const Title = styled.div<{ marginBottom?: number, isLight: boolean }>(({ marginBottom = 16, isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontWeight: 500,
   fontStyle: 'normal',
   fontSize: '16px',
-  lineHeight: '24px',
+  lineHeight: '19px',
   letterSpacing: '0.4px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   marginBottom: `${marginBottom}px`,
   '@media (min-width: 834px)': {
     fontSize: '20px',
+    lineHeight: '24px',
   }
 }));
 
-const Paragraph = styled.div({
+const Paragraph = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '14px',
-  lineHeight: '19px',
-  color: '#231536',
+  lineHeight: '17px',
+  color: isLight ? '#231536' : '#D2D4EF',
   marginBottom: '64px',
   '@media (min-width: 834px)': {
-    fontSize: '16px'
+    fontSize: '16px',
+    lineHeight: '19px',
   }
-});
+}));
 
 const PagerBar = styled.div({
   display: 'flex',
@@ -190,7 +211,7 @@ const StatusBar = styled.div({
   alignItems: 'center'
 });
 
-const StatusTitle = styled.div({
+const StatusTitle = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
@@ -198,18 +219,23 @@ const StatusTitle = styled.div({
   lineHeight: '14px',
   letterSpacing: '1px',
   textTransform: 'uppercase',
-  color: 'black',
+  color: isLight ? '#231536' : '#D2D4EF',
   margin: '3px 8px 0 0',
-});
+}));
 
 const StatusValue = styled.div<{ color: string }>(({ color }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   textDecoration: 'uppercase',
   fontWeight: 500,
-  fontSize: '20px',
+  fontSize: '16px',
+  lineHeight: '19px',
   letterSpacing: '0.4px',
   color: color ?? '#1AAB9B',
+  '@media (min-width: 834px)': {
+    fontSize: '20px',
+    lineHeight: '24px',
+  }
 }));
 
 const Spacer = styled.div({

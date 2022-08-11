@@ -1,5 +1,6 @@
 import {
   BudgetStatementDto,
+  ContributorCommitmentDto,
   CoreUnitDto,
   CuMipDto,
   RoadMapDto,
@@ -20,7 +21,8 @@ export class CoreUnitsBuilder {
       budgetStatements: [] as BudgetStatementDto[],
       socialMediaChannels: [] as SocialMediaChannelDto[],
       cuMip: [] as CuMipDto[],
-      roadMap: [] as RoadMapDto[]
+      roadMap: [] as RoadMapDto[],
+      contributorCommitment: [] as ContributorCommitmentDto[],
     } as CoreUnitDto;
   }
 
@@ -66,6 +68,11 @@ export class CoreUnitsBuilder {
 
   addRoadMap(roadMap: RoadMapDto): CoreUnitsBuilder {
     this._coreUnit.roadMap.push(roadMap);
+    return this;
+  }
+
+  addContributorCommitment(contributorCommitment: ContributorCommitmentDto): CoreUnitsBuilder {
+    this._coreUnit.contributorCommitment.push(contributorCommitment);
     return this;
   }
 

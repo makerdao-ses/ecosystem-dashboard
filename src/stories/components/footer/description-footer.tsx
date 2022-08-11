@@ -12,7 +12,6 @@ interface Props {
 
 const DescriptionFooter = ({ title, children, style = {} }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
-  console.log('isLight', isLight);
   return (
     <div style={style}>
       <StyleTitle isLight={isLight}>{title}</StyleTitle>

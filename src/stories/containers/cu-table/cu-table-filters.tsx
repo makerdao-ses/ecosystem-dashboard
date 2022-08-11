@@ -42,20 +42,21 @@ export const Filters = (props: FilterProps) => {
   }, [router]);
 
   return <Wrapper style={{
-    display: props.filtersPopup ? 'flex' : 'none'
+    display: props.filtersPopup ? 'flex' : 'none',
   }}>
-    <Container>
+    <Container isLight={isLight}>
       <CustomButton
         label="Reset Filters"
         style={{
           width: '114px',
-          border: 'none'
+          border: 'none',
+          background: isLight ? 'none' : 'none',
         }}
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         onClick={props.clearFilters}
         disabled={props.filteredStatuses && !props.filteredStatuses.length && props.filteredCategories && !props.filteredCategories.length && !props.searchText}
       />
-      <SmallSeparator isLight={isLight}/>
+      <SmallSeparator isLight={isLight} />
       <CustomMultiSelect
         label="Status"
         activeItems={props.filteredStatuses}
@@ -101,7 +102,6 @@ export const Filters = (props: FilterProps) => {
             handleChangeUrlFilterArrays('searchText')(value);
           }, 300);
         }}
-        style={{ marginLeft: '16px' }}
       />}
       {!router.isReady && <SearchInput
         defaultValue={props.searchText}
@@ -111,7 +111,6 @@ export const Filters = (props: FilterProps) => {
             handleChangeUrlFilterArrays('searchText')(value);
           }, 300);
         }}
-        style={{ marginLeft: '16px' }}
       />}
       <CloseButton onClick={() => props.setFiltersPopup && props.setFiltersPopup()}>
         <Close />
@@ -123,7 +122,7 @@ export const Filters = (props: FilterProps) => {
 const Separator = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   height: '1px',
   width: 'calc(100vw - 64px)',
-  margin: '0 32px',
+  margin: '0 16px',
   backgroundColor: isLight ? '#D4D9E1' : '#48495F',
   alignSelf: 'center',
   '@media (min-width: 834px)': {
@@ -131,9 +130,6 @@ const Separator = styled.span<{ isLight: boolean }>(({ isLight }) => ({
     height: '32px',
     margin: 0,
   },
-  '@media (min-width: 834px) and (max-width: 1180px)': {
-    alignSelf: 'flex-end'
-  }
 }));
 
 const SmallSeparator = styled.span<{ isLight: boolean }>(({ isLight }) => ({
@@ -167,8 +163,9 @@ const Wrapper = styled.div({
   }
 });
 
-const Container = styled.div({
+const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
+  backgroundColor: isLight ? 'white' : 'none',
   '@media (max-width: 833px)': {
     position: 'relative',
     height: 'calc(100vh + 20px)',
@@ -176,12 +173,13 @@ const Container = styled.div({
     flexDirection: 'column-reverse',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    gap: '24px'
+    gap: '24px',
+    background: !isLight ? '#000A13' : 'none'
   },
   '@media (min-width: 834px)': {
     gap: '16px',
   },
-});
+}));
 
 const CloseButton = styled.div({
   alignSelf: 'flex-end',
