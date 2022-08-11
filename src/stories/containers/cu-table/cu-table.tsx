@@ -228,7 +228,9 @@ export const CuTable = () => {
     return sortedData.map((coreUnit: CoreUnitDto, i: number) => {
       return [
         <CustomPopover
-          popupStyle={{ padding: 0 }}
+          popupStyle={{
+            padding: 0,
+          }}
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'left',
@@ -316,7 +318,7 @@ export const CuTable = () => {
         </div>,
       ];
     });
-  }, [filteredData, sortData, onClickRow]);
+  }, [filteredData, sortData, onClickRow, isLight]);
 
   const itemsList = useMemo(() => {
     if (status === 'loading') {
@@ -465,6 +467,7 @@ const CategoriesTitle = styled.div({
   fontSize: '14px',
   color: '#708390',
   marginBottom: '8px',
+  lineHeight: '22px',
 });
 
 const CategoriesRow = styled.div({

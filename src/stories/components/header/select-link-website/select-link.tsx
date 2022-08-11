@@ -144,9 +144,9 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
           />
         </CloseWrapper>
         <div onClick={toggleTheme}>
-          <DarkModeText isLight={isLight}>Dark Mode</DarkModeText>
+          <DarkModeText isLight={isLight}>{isLight ? 'Dark Mode' : 'Light Mode'}</DarkModeText>
           <IconButton>
-            {themeMode === 'light' ? <MoonMode width={16} height={16} /> : <ToggleDarkMode width={16} height={16} />}
+            {isLight ? <MoonMode width={16} height={16} /> : <ToggleDarkMode width={16} height={16} />}
           </IconButton>
         </div>
 

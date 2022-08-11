@@ -162,8 +162,8 @@ const ContainerTitle = styled.div({
     paddingRight: '48px',
   },
   [lightTheme.breakpoints.between('desktop_1194', 'desktop_1280')]: {
-    paddingLeft: '32px',
-    paddingRight: '32px',
+    paddingLeft: '27px',
+    paddingRight: '27px',
   },
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     paddingLeft: '32px',

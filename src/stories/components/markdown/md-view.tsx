@@ -64,7 +64,7 @@ const MdViewerPage = ({ subTitle = 'What we do', paragraphDescription, paragraph
           <TypographyStyleDescription isLight={isLight} id='hidden-element'>{subTitle}</TypographyStyleDescription>
           <CustomButton widthText='100%' label='Expenses' style={{
             textAlign: 'center',
-            background: '#E7FCFA',
+            background: isLight ? '#E7FCFA' : 'transparent',
             border: '1px solid #1AAB9B',
             borderRadius: '22px',
             height: '34px',

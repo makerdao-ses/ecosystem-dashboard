@@ -114,7 +114,9 @@ const CuAboutContainer = () => {
                 }
               </ContainerCards>
             </ContactInfoContainer>
-            <Divider />
+            <Divider sx={{
+              bgcolor: isLight ? '#D4D9E1' : '#405361',
+            }} />
             <CardRelateMipsContainer>
               <TitleRelateMips isLight={isLight}>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
               <RelateMipCards>
