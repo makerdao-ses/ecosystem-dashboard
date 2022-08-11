@@ -86,9 +86,9 @@ const CuAboutContainer = () => {
     <Head>
       <title>About Sustainable Ecosystem Scaling Core Unit at MakerDAO</title>
       <link rel="icon" href="/favicon.png" />
-      <meta property='og:site_name' content="About Sustainable Ecosystem Scaling Core Unit at MakerDAO"/>
-      <meta name="description" content="Learn about the Sustainable Ecosystem Scaling Core Unit at MakerDAO: their mandate, vision, mission, strategy, and more." />
-      <meta name="og:description" content="Learn about the Sustainable Ecosystem Scaling Core Unit at MakerDAO: their mandate, vision, mission, strategy, and more." />
+      <meta property='og:site_name' content={`About ${cuAbout.name} Core Unit at MakerDAO`}/>
+      <meta name="description" content={`Learn about the ${cuAbout.name} Core Unit at MakerDAO: their mandate, vision, mission, strategy, and more.`} />
+      <meta name="og:description" content={`Learn about the ${cuAbout.name} Core Unit at MakerDAO: their mandate, vision, mission, strategy, and more.`} />
       <meta name="robots" content="index,follow"/>
     </Head>
       <CoreUnitSummary />

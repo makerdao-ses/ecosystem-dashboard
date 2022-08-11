@@ -41,7 +41,7 @@ export const TransparencyReport = () => {
 
   const { data } = useTransparencyReportViewModel(code);
 
-  const cu = data && data.coreUnit[0] as CoreUnitDto;
+  const cu: CoreUnitDto = data && data.coreUnit[0] as CoreUnitDto;
 
   const [thirdIndex, setThirdIndex] = useState(0);
 
@@ -56,8 +56,8 @@ export const TransparencyReport = () => {
     <title>MakerDAO Ecosystem Performance Dashboard | Finances</title>
     <link rel="icon" href="/favicon.png" />
     <meta property='og:site_name' content="MakerDAO Ecosystem Performance Dashboard | Finances"/>
-    <meta name="description" content="Learn about the Sustainable Ecosystem Scaling Core Unit at MakerDAO: their finances, expense reports, and more." />
-    <meta name="og:description" content="Learn about the Sustainable Ecosystem Scaling Core Unit at MakerDAO: their finances, expense reports, and more." />
+    <meta name="description" content={`Learn about the ${cu.name} Core Unit at MakerDAO: their finances, expense reports, and more.`} />
+    <meta name="og:description" content={`Learn about the ${cu.name} Core Unit at MakerDAO: their finances, expense reports, and more.`} />
     <meta name="robots" content="index,follow"/>
   </Head>
     <CoreUnitSummary trailingAddress={['Expense Reports']} />
