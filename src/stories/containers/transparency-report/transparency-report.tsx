@@ -109,7 +109,7 @@ export const TransparencyReport = () => {
           <Spacer />
           <StatusBar>
             <StatusTitle isLight={isLight}>Status</StatusTitle>
-            <StatusValue color={isLight ? colors[currentBudgetStatement?.budgetStatus] : colorsDarkColors[currentBudgetStatement?.budgetStatus]}>{currentBudgetStatement?.budgetStatus ?? '-'}</StatusValue>
+            <StatusValue color={isLight ? colors[currentBudgetStatement?.budgetStatus ?? ''] : colorsDarkColors[currentBudgetStatement?.budgetStatus ?? '']}>{currentBudgetStatement?.budgetStatus ?? '-'}</StatusValue>
           </StatusBar>
         </PagerBar>
 
