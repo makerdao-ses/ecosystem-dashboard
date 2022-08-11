@@ -30,12 +30,12 @@ export const CuTableColumnExpenditures = ({
               id="mouse-over-popover-total"
               title={
                 <TotalPopup>
-                  <PopupTitle>
+                  <PopupTitle isLight={isLight}>
                     {props.value?.toLocaleString('en-US', {
                       maximumFractionDigits: 0,
                     })}
                   </PopupTitle>
-                  <Label>Actual Expenditure</Label>
+                  <Label isLight={isLight}>Actual Expenditure</Label>
                 </TotalPopup>
               }
             >
@@ -59,11 +59,11 @@ export const CuTableColumnExpenditures = ({
             id={'mouse-over-popover-percent'}
             title={
               <TotalPopup>
-                <PopupTitle>{props.percent?.toFixed(0)}%</PopupTitle>
-                <Label>
+                <PopupTitle isLight={isLight}>{props.percent?.toFixed(0)}%</PopupTitle>
+                <Label isLight={isLight}>
                   <b>Actuals/BudgetCap</b>
                 </Label>
-                <Label>over the last 3 months</Label>
+                <Label isLight={isLight}>over the last 3 months</Label>
               </TotalPopup>
             }
           >

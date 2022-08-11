@@ -27,49 +27,60 @@ export const CuTableColumnSummary = ({
   ...props
 }: CuTableColumnSummaryProps) => {
   const isLight = useThemeContext().themeMode === 'light';
-  return <Container onClick={props.onClick}>
-    <CircleContainer>
-      <CircleAvatar
-        width={logoDimension}
-        height={logoDimension}
-        name={props.title || 'Core Unit'}
-        image={props.imageUrl}
-        style={{ filter: isLight ? 'drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))' : 'drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))' }}
-      />
-    </CircleContainer>
-    <Content>
-      <TitleWrapper>
-        <Code isLight={isLight}>{props.code}</Code>
-        <Title isLight={isLight}>{props.title}</Title>
-      </TitleWrapper>
-      <Row>
-        {props.status && <StatusChip status={props.status} />}
-        {props.statusModified && <CustomPopover
-          id={'mouse-over-popover-goto'}
-          title={'Go to MIPs Portal'}
-          popupStyle={{
-            color: isLight ? '#231536' : '#D2D4EF',
-          }
-
-          }
-        >
-          {props.statusModified && <CustomLink
-            href={props.mipUrl}
-            style={{
-              display: 'flex',
-              alignItems: 'flex-end',
-              margin: '0 0 2px 4px',
-            }}
-            styleIcon={{
-              marginBottom: '2px'
-            }}
-            target="_blank">
-            {`SINCE ${DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}`}
-          </CustomLink>}
-        </CustomPopover>}
-      </Row>
-    </Content>
-  </Container>;
+  return !isLoading
+    ? <Container onClick={props.onClick}>
+      <CircleContainer>
+        <CircleAvatar
+          width={logoDimension}
+          height={logoDimension}
+          name={props.title || 'Core Unit'}
+          image={props.imageUrl}
+          style={{
+            boxShadow: isLight
+              ? '2px 4px 7px rgba(26, 171, 155, 0.25)'
+              : '2px 4px 7px rgba(26, 171, 155, 0.25)',
+          }}
+        />
+      </CircleContainer>
+      <Content>
+        <TitleWrapper>
+          <Code isLight={isLight}>{props.code}</Code>
+          <Title isLight={isLight}>{props.title}</Title>
+        </TitleWrapper>
+        <Row>
+          {props.status && <StatusChip status={props.status} />}
+          {props.statusModified && (
+            <CustomPopover
+              id={'mouse-over-popover-goto'}
+              title={'Go to MIPs Portal'}
+              popupStyle={{
+                color: isLight ? '#231536' : '#D2D4EF',
+              }}
+            >
+              {props.statusModified && (
+                <CustomLink
+                  href={props.mipUrl}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'flex-end',
+                    margin: '0 0 2px 4px',
+                  }}
+                  styleIcon={{
+                    marginBottom: '2px',
+                  }}
+                  target="_blank"
+                >
+                  {`SINCE ${DateTime.fromJSDate(props.statusModified)
+                    .toFormat('d-MMM-y')
+                    .toUpperCase()}`}
+                </CustomLink>
+              )}
+            </CustomPopover>
+          )}
+        </Row>
+      </Content>
+    </Container>
+    : <ColumnSummarySkeleton />;
 };
 
 const Container = styled.div({
@@ -106,7 +117,6 @@ const Code = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#9FAFB9' : '#546978',
   marginRight: '5px',
   whiteSpace: 'nowrap',
-  lineHeight: '17px',
 }));
 
 const TitleWrapper = styled.div({
