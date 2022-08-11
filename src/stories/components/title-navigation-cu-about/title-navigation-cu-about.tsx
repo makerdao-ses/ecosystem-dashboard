@@ -209,10 +209,6 @@ export const TitleNavigationCuAbout = ({
                   <CategoryChip
                     key={item}
                     category={item}
-                    style={{
-                      marginRight:
-                        phoneDimensions || tableDimensions ? '8px' : '16px',
-                    }}
                   />
                 ))}
             </CategoryContainer>
