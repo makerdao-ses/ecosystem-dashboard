@@ -51,6 +51,7 @@ import { CustomPopover } from '../../components/custom-popover/custom-popover';
 import { CategoryChip } from '../../components/category-chip/category-chip';
 import { TablePlaceholder } from '../../components/custom-table/placeholder';
 import Head from 'next/head';
+import { CuTableHeaderSkeleton } from '../../components/cu-table-header-skeleton/header-skeleton';
 
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
 const sortNeutralState = [
@@ -343,28 +344,31 @@ export const CuTable = () => {
       <meta name="robots" content="index,follow"/>
     </Head>
       <Wrapper>
-        <Header>
-          <Title isLight={isLight}>Core Units Expenses</Title>
-          <FilterButtonWrapper onClick={toggleFiltersPopup}>
-            <CustomButton
-              label={'Filters'}
-              style={{
-                height: '34px',
-                width: '90px',
-              }}
+        {
+          status === 'loading'
+            ? <CuTableHeaderSkeleton />
+            : <Header>
+            <Title isLight={isLight}>Core Units Expenses</Title>
+            <FilterButtonWrapper onClick={toggleFiltersPopup}>
+              <CustomButton
+                label={'Filters'}
+                style={{
+                  height: '34px',
+                  width: '90px',
+                }}
+              />
+            </FilterButtonWrapper>
+            <Filters
+              filtersPopup={filtersPopup}
+              filteredStatuses={filteredStatuses}
+              filteredCategories={filteredCategories}
+              categoriesCount={categoriesCount}
+              statusCount={statusCount}
+              searchText={searchText}
+              setFiltersPopup={toggleFiltersPopup}
+              clearFilters={clearFilters}
             />
-          </FilterButtonWrapper>
-          <Filters
-            filtersPopup={filtersPopup}
-            filteredStatuses={filteredStatuses}
-            filteredCategories={filteredCategories}
-            categoriesCount={categoriesCount}
-            statusCount={statusCount}
-            searchText={searchText}
-            setFiltersPopup={toggleFiltersPopup}
-            clearFilters={clearFilters}
-          />
-        </Header>
+        </Header>}
         {!!items?.length && (
           <>
             <TableWrapper>
