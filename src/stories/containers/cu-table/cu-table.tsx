@@ -324,7 +324,7 @@ export const CuTable = () => {
     if (status === 'loading') {
       return new Array(4).fill(<CoreUnitCard coreUnit={{} as CoreUnitDto} isLoading/>);
     }
-    return filteredData.map((cu, i) => (
+    return filteredData.map((cu) => (
       <CoreUnitCard
         key={`card-${cu.code}`}
         coreUnit={cu}

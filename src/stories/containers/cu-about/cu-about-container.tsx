@@ -1,13 +1,11 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { Divider, Typography, useMediaQuery } from '@mui/material';
-import { useSelector } from 'react-redux';
 import { getMarkdownInformation, getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-unit-about';
 import { getFTEsFromCoreUnit } from '../../../core/business-logic/core-units';
 import { getArrayParam, getStringParam } from '../../../core/utils/filters';
 import BigButton from '../../components/button/big-button/big-button';
 import CardInfoMember from '../../components/card-info-member/card-info-member';
-import MdViewerContainer from '../../components/markdown/md-view-container';
 import RelateMips from '../../components/relate-mips/relate-mips';
 import TeamMember from '../../components/team-members/team-member';
 import { ContributorCommitment } from './cu-about-contributor';
@@ -23,6 +21,8 @@ import { formatCode } from '../../../core/utils/string.utils';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
+const MdViewerContainer = dynamic(() => import('../../components/markdown/md-view-container'), { ssr: false });
 
 interface Props {
   cuAbout: CuAbout;
