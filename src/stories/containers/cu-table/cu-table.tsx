@@ -228,7 +228,9 @@ export const CuTable = () => {
     return sortedData.map((coreUnit: CoreUnitDto, i: number) => {
       return [
         <CustomPopover
-          popupStyle={{ padding: 0 }}
+          popupStyle={{
+            padding: 0,
+          }}
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'left',
@@ -316,7 +318,7 @@ export const CuTable = () => {
         </div>,
       ];
     });
-  }, [filteredData, sortData, onClickRow]);
+  }, [filteredData, sortData, onClickRow, isLight]);
 
   const itemsList = useMemo(() => {
     if (status === 'loading') {
@@ -324,7 +326,7 @@ export const CuTable = () => {
     }
     return filteredData.map((cu, i) => (
       <CoreUnitCard
-        key={`card-${i}`}
+        key={`card-${cu.code}`}
         coreUnit={cu}
         onClick={onClickRow(cu.shortCode)}
         onClickFinances={() => onClickFinances(cu.shortCode)}
@@ -351,6 +353,7 @@ export const CuTable = () => {
               style={{
                 height: '34px',
                 width: '90px',
+                border: isLight ? '1px solid #D4D9E1' : '1px solid #343442',
               }}
             />
           </FilterButtonWrapper>
@@ -464,6 +467,7 @@ const CategoriesTitle = styled.div({
   fontSize: '14px',
   color: '#708390',
   marginBottom: '8px',
+  lineHeight: '22px',
 });
 
 const CategoriesRow = styled.div({

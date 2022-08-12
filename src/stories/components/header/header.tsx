@@ -42,7 +42,7 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
       <LeftPart>
         <ContainerLogoSelect isLight={isLight}>
           <LogoContainer>
-            <Logo fill='#211634' fillDark='#6EDBD0' onClick={handleGoHome} />
+            <Logo fill='#211634' fillDark='#1aab9b' onClick={handleGoHome} />
           </LogoContainer>
           <LogoLinksWrapper>
             <Expenses fill={themeMode === 'dark' ? '#6EDBD0' : '#211634'} />
@@ -114,7 +114,6 @@ const Container = styled.header<{ isLight: boolean }>(({ isLight }) => ({
   height: '64px',
   justifyContent: 'space-between',
   background: isLight ? 'url(/assets/img/bg-header.png)' : 'url(/assets/img/bg-header-dark.png)',
-  borderBottom: isLight ? '1px solid #E7FCFA' : 'none',
 }));
 
 const LeftPart = styled.div({

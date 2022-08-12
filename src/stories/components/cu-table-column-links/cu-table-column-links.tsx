@@ -11,6 +11,7 @@ import Gmail from '../svg/gmail';
 import { Box } from '@mui/material';
 import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
 import { ColumnLinksSkeleton } from './cu-table-column-links-skeleton';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 export interface LinkModel {
   href: string;
@@ -101,6 +102,7 @@ export const CuTableColumnLinks = ({
   fillDark,
   isLoading = false,
 }: CuTableColumnLinksProps) => {
+  const isLight = useThemeContext().themeMode === 'light';
   return !isLoading
     ? (
       <Container spacings={spacings} align={align}>
@@ -110,6 +112,9 @@ export const CuTableColumnLinks = ({
               title={link.linkType}
               popupStyle={{
                 padding: '16px',
+
+                color: isLight ? '#231536' : '#D2D4EF',
+
               }}
               id={`link-${i}`}
             >

@@ -53,6 +53,9 @@ export const CuTableColumnSummary = ({
             <CustomPopover
               id={'mouse-over-popover-goto'}
               title={'Go to MIPs Portal'}
+              popupStyle={{
+                color: isLight ? '#231536' : '#D2D4EF',
+              }}
             >
               {props.statusModified && (
                 <CustomLink
@@ -77,7 +80,7 @@ export const CuTableColumnSummary = ({
         </Row>
       </Content>
     </Container>
-    : <ColumnSummarySkeleton/>;
+    : <ColumnSummarySkeleton />;
 };
 
 const Container = styled.div({

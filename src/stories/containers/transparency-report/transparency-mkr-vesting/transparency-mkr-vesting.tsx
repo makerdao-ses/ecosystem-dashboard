@@ -9,90 +9,110 @@ import { useTransparencyMkrVesting } from './transparency-mkr-vesting.mvvm';
 import { NumberCell } from '../../../components/number-cell/number-cell';
 import { TransparencyCard } from '../../../components/transparency-card/transparency-card';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
+import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
 
 interface TransparencyMkrVestingProps {
   currentMonth: DateTime;
   budgetStatements: BudgetStatementDto[];
 }
 
-const headers = ['Vesting Date', 'MKR Amount', 'Last month', 'difference', 'reason(s)'];
+const headers = [
+  'Vesting Date',
+  'MKR Amount',
+  'Last month',
+  'difference',
+  'reason(s)',
+];
 
 export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
-  const {
-    mkrVestings,
-    totalAmount,
-    totalOldAmount,
-    FTEs,
-  } = useTransparencyMkrVesting(props.currentMonth, props.budgetStatements);
+  const { mkrVestings, totalAmount, totalOldAmount, FTEs } =
+    useTransparencyMkrVesting(props.currentMonth, props.budgetStatements);
   const isLight = useThemeContext().themeMode === 'light';
 
   const items = useMemo(() => {
     const result: JSX.Element[][] = [];
 
-    mkrVestings?.forEach(mkr => {
+    mkrVestings?.forEach((mkr) => {
       result.push([
         <TableCell>{mkr.vestingDate}</TableCell>,
         <NumberCell value={mkr.mkrAmount} />,
         <NumberCell value={mkr.mkrAmountOld} />,
-        <NumberCell value={(Number(mkr.mkrAmount) - Number(mkr.mkrAmountOld))} />,
+        <NumberCell value={Number(mkr.mkrAmount) - Number(mkr.mkrAmountOld)} />,
         <TableCell style={{ paddingLeft: '36px' }}>{mkr.comments}</TableCell>,
       ]);
     });
 
     result.push([
-      <TableCell><b>Total</b></TableCell>,
+      <TableCell>
+        <b>Total</b>
+      </TableCell>,
       <NumberCell value={Number(totalAmount)} bold />,
       <NumberCell value={Number(totalOldAmount)} bold />,
-      <NumberCell value={(Number(totalAmount) - Number(totalOldAmount))} bold />,
-      <TableCell />
+      <NumberCell value={Number(totalAmount) - Number(totalOldAmount)} bold />,
+      <TableCell />,
     ]);
 
     return result;
   }, [props.currentMonth, props.budgetStatements]);
 
-  return <Container>
-    <Title isLight={isLight} marginBottom={24}>MKR Vesting Overview</Title>
+  return (
+    <Container>
+      <Title isLight={isLight} marginBottom={24}>
+        MKR Vesting Overview
+      </Title>
 
-    <TotalFte isLight={isLight}>
-      <span>Total FTE</span>
-      <u>{FTEs}</u>
-    </TotalFte>
+      <TotalFte isLight={isLight}>
+        <span>Total FTE</span>
+        <u>{FTEs}</u>
+      </TotalFte>
 
-    <TableWrapper>
-      <InnerTable
-        headers={headers}
-        headersAlign={['left', 'right', 'right', 'right', 'left']}
-        headerStyles={[{}, {}, {}, {}, { paddingLeft: '38px' }]}
-        items={items}
-        minWidth={200}
-        headerWidths={['200px', '210px', '210px', '210px', '354px']}
-        style={{ marginBottom: '32px' }}
-        addedRows={1}
-      />
-    </TableWrapper>
+      {items.length - 1 <= 0
+        ? (
+        <TransparencyEmptyTable />
+          )
+        : (
+        <>
+          <TableWrapper>
+            <InnerTable
+              headers={headers}
+              headersAlign={['left', 'right', 'right', 'right', 'left']}
+              headerStyles={[{}, {}, {}, {}, { paddingLeft: '38px' }]}
+              items={items}
+              minWidth={200}
+              headerWidths={['200px', '210px', '210px', '210px', '354px']}
+              style={{ marginBottom: '32px' }}
+            />
+          </TableWrapper>
 
-    <CardsWrapper>
-      {items.map(item => <TransparencyCard
-        header={item[0]}
-        headers={headers.slice(1)}
-        items={item.slice(1)}
-      />)}
-    </CardsWrapper>
+          <CardsWrapper>
+            {items.map((item) => (
+              <TransparencyCard
+                header={item[0]}
+                headers={headers.slice(1)}
+                items={item.slice(1)}
+              />
+            ))}
+          </CardsWrapper>
 
-    <Text isLight={isLight}>
-      This Overview is based on MIP40c3-SP17, SES’ MKR Incentive Proposal.
-    </Text>
+          <Text isLight={isLight}>
+            This Overview is based on MIP40c3-SP17, SES’ MKR Incentive Proposal.
+          </Text>
 
-    <Text isLight={isLight} style={{ marginBottom: '90px' }}>
-      The Difference column indicates any changes in the MKR vesting amounts compared to last month, with the Reason(s) column indicating why the amounts
-      changed. Reasons may include: New hires, FTE changes, Promotions, or Terminations.
-    </Text>
-  </Container>;
+          <Text isLight={isLight} style={{ marginBottom: '90px' }}>
+            The Difference column indicates any changes in the MKR vesting
+            amounts compared to last month, with the Reason(s) column indicating
+            why the amounts changed. Reasons may include: New hires, FTE
+            changes, Promotions, or Terminations.
+          </Text>
+        </>
+          )}
+    </Container>
+  );
 };
 
 const Container = styled.div({
   display: 'flex',
-  flexDirection: 'column'
+  flexDirection: 'column',
 });
 
 const TotalFte = styled.div<{ isLight: boolean }>(({ isLight }) => ({
@@ -104,7 +124,7 @@ const TotalFte = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   marginBottom: '36px',
   '> span': {
-    marginRight: '16px'
+    marginRight: '16px',
   },
   '> u': {
     fontSize: '16px',
@@ -112,12 +132,12 @@ const TotalFte = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     lineHeight: '19px',
     textDecoration: 'none',
     color: isLight ? '#25273D' : '#708390',
-    borderBottom: '1px solid #231536'
+    borderBottom: '1px solid #231536',
   },
   '@media (min-width: 834px)': {
     fontSize: '20px',
     lineHeight: '24px',
-  }
+  },
 }));
 
 const Text = styled.div<{ isLight: boolean }>(({ isLight }) => ({
@@ -130,5 +150,5 @@ const Text = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   '@media (min-width: 834px)': {
     fontSize: '16px',
     lineHeight: '19px',
-  }
+  },
 }));
