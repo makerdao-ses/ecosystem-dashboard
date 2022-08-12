@@ -26,7 +26,7 @@ export const TransparencyEmptyTable = ({ breakdown = false }: Props) => {
             </Row>
             <Line />
             {new Array(3).fill('').map((_, i) => (
-              <Row style={{ marginBottom: i === 2 ? '17px' : '30px' }}>
+              <Row key={`key-${i}`} style={{ marginBottom: i === 2 ? '17px' : '30px' }}>
                 <Row
                   style={{
                     gap: '0',
@@ -310,6 +310,7 @@ export const TransparencyEmptyTable = ({ breakdown = false }: Props) => {
             </Row>
             {new Array(4).fill('').map((_, i) => (
               <Row
+                key={`key-${i}`} 
                 style={{
                   justifyContent: 'space-between',
                 }}
@@ -347,6 +348,7 @@ export const TransparencyEmptyTable = ({ breakdown = false }: Props) => {
             </Row>
             {new Array(3).fill('').map((_, i) => (
               <Row
+                key={`key-${i}`}
                 style={{
                   justifyContent: 'space-between',
                 }}
