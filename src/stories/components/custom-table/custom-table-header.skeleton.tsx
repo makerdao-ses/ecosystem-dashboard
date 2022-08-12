@@ -2,9 +2,13 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Skeleton from '@mui/material/Skeleton';
 
-export const CustomTableHeaderSkeleton = () => {
+interface HeaderSkeletonProps {
+  isLight: boolean;
+}
+
+export const CustomTableHeaderSkeleton = ({ isLight }: HeaderSkeletonProps) => {
   return (
-    <Container>
+    <Container isLight={isLight}>
       <Skeleton
         variant="rectangular"
         width={122}
@@ -63,11 +67,12 @@ export const CustomTableHeaderSkeleton = () => {
   );
 };
 
-const Container = styled.div({
+const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   padding: '10px 91px 10px 93px',
-  background: '#FFFFFF',
-  boxShadow:
-    '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
+  background: isLight ? '#FFFFFF' : '#25273D',
+  boxShadow: isLight
+    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+    : 'none',
   width: '100%',
-});
+}));

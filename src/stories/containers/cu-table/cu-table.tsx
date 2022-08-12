@@ -217,10 +217,10 @@ export const CuTable = () => {
   const items = useMemo(() => {
     if (status === 'loading') {
       return new Array(10).fill([
-        <CuTableColumnSummary isLoading/>,
-        <CuTableColumnExpenditures isLoading/>,
-        <CuTableColumnTeamMember isLoading/>,
-        <CuTableColumnLinks isLoading/>
+        <CuTableColumnSummary isLoading />,
+        <CuTableColumnExpenditures isLoading />,
+        <CuTableColumnTeamMember isLoading />,
+        <CuTableColumnLinks isLoading />,
       ]);
     }
 
@@ -229,7 +229,9 @@ export const CuTable = () => {
     return sortedData.map((coreUnit: CoreUnitDto, i: number) => {
       return [
         <CustomPopover
-          popupStyle={{ padding: 0 }}
+          popupStyle={{
+            padding: 0,
+          }}
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'left',
@@ -317,15 +319,17 @@ export const CuTable = () => {
         </div>,
       ];
     });
-  }, [filteredData, sortData, onClickRow]);
+  }, [filteredData, sortData, onClickRow, isLight]);
 
   const itemsList = useMemo(() => {
     if (status === 'loading') {
-      return new Array(4).fill(<CoreUnitCard coreUnit={{} as CoreUnitDto} isLoading/>);
+      return new Array(4).fill(
+        <CoreUnitCard coreUnit={{} as CoreUnitDto} isLoading />
+      );
     }
     return filteredData.map((cu, i) => (
       <CoreUnitCard
-        key={`card-${i}`}
+        key={`card-${cu.code}`}
         coreUnit={cu}
         onClick={onClickRow(cu.shortCode)}
         onClickFinances={() => onClickFinances(cu.shortCode)}
@@ -335,19 +339,30 @@ export const CuTable = () => {
 
   return (
     <ContainerHome isLight={isLight}>
-    <Head>
-      <title>Sustainable Ecosystem Scaling Core Unit | Maker Expenses</title>
-      <link rel="icon" href="/favicon.png" />
-      <meta property='og:site_name' content="Sustainable Ecosystem Scaling Core Unit | Maker Expenses"/>
-      <meta name="description" content="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO." />
-      <meta name="og:description" content="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO." />
-      <meta name="robots" content="index,follow"/>
-    </Head>
+      <Head>
+        <title>Sustainable Ecosystem Scaling Core Unit | Maker Expenses</title>
+        <link rel="icon" href="/favicon.png" />
+        <meta
+          property="og:site_name"
+          content="Sustainable Ecosystem Scaling Core Unit | Maker Expenses"
+        />
+        <meta
+          name="description"
+          content="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
+        />
+        <meta
+          name="og:description"
+          content="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
+        />
+        <meta name="robots" content="index,follow" />
+      </Head>
       <Wrapper>
-        {
-          status === 'loading'
-            ? <CuTableHeaderSkeleton />
-            : <Header>
+        {status === 'loading'
+          ? (
+          <CuTableHeaderSkeleton />
+            )
+          : (
+          <Header>
             <Title isLight={isLight}>Core Units Expenses</Title>
             <FilterButtonWrapper onClick={toggleFiltersPopup}>
               <CustomButton
@@ -355,6 +370,7 @@ export const CuTable = () => {
                 style={{
                   height: '34px',
                   width: '90px',
+                  border: isLight ? '1px solid #D4D9E1' : '1px solid #343442',
                 }}
               />
             </FilterButtonWrapper>
@@ -368,7 +384,8 @@ export const CuTable = () => {
               setFiltersPopup={toggleFiltersPopup}
               clearFilters={clearFilters}
             />
-        </Header>}
+          </Header>
+            )}
         {!!items?.length && (
           <>
             <TableWrapper>
@@ -468,6 +485,7 @@ const CategoriesTitle = styled.div({
   fontSize: '14px',
   color: '#708390',
   marginBottom: '8px',
+  lineHeight: '22px',
 });
 
 const CategoriesRow = styled.div({

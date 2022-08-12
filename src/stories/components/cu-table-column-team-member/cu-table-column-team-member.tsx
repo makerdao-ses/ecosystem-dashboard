@@ -26,7 +26,10 @@ export const CuTableColumnTeamMember = ({
       <CustomPopover
         title={'Full Time Equivalents'}
         id={'popover-fulltime-equivalents'}
-        popupStyle={{ padding: '16px' }}
+        popupStyle={{
+          padding: '16px',
+          color: isLight ? '#231536' : '#D2D4EF',
+        }}
       >
         <Data>
           <Title isLight={isLight}>FTEs</Title>

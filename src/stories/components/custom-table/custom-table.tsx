@@ -26,7 +26,7 @@ export const CustomTable = ({
       <Table>
         {props.loading
           ? (
-          <CustomTableHeaderSkeleton />
+          <CustomTableHeaderSkeleton isLight={isLight} />
             )
           : (
           <TableHead isLight={isLight}>

@@ -130,7 +130,7 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   position: 'sticky',
-  top: 64,
+  top: 63,
   width: '100%',
   backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
   backgroundSize: 'cover',
@@ -162,8 +162,8 @@ const ContainerTitle = styled.div({
     paddingRight: '48px',
   },
   [lightTheme.breakpoints.between('desktop_1194', 'desktop_1280')]: {
-    paddingLeft: '32px',
-    paddingRight: '32px',
+    paddingLeft: '27px',
+    paddingRight: '27px',
   },
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     paddingLeft: '32px',
