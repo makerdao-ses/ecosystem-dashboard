@@ -25,9 +25,12 @@ import lightTheme from '../../../../styles/theme/light';
 import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { formatCode } from '../../../core/utils/string.utils';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
+import { useThemeContext } from '../../../core/context/ThemeContext';
+import Head from 'next/head';
 
 const CuAboutContainer = () => {
   const [isEnabled] = useFlagsActive();
+  const isLight = useThemeContext().themeMode === 'light';
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;
@@ -68,7 +71,7 @@ const CuAboutContainer = () => {
   }, [cuAbout.cuMip, showThreeMIPs]);
 
   const onClickFinances = useCallback(() => {
-    router.push(`/core-unit/${code}/finances/transparency?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
+    router.push(`/core-unit/${code}/finances/reports?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
   }, [filteredCategories, filteredStatuses, router, searchText, code]);
 
   if (statusCoreUnit === status.loading) {
@@ -79,20 +82,27 @@ const CuAboutContainer = () => {
   }
 
   return (
-    <ContainerAbout>
+    <ContainerAbout isLight={isLight}>
+    <Head>
+      <title>About Sustainable Ecosystem Scaling Core Unit at MakerDAO</title>
+      <link rel="icon" href="/favicon.png" />
+      <meta property='og:site_name' content="About Sustainable Ecosystem Scaling Core Unit at MakerDAO"/>
+      <meta name="description" content="Learn about the Sustainable Ecosystem Scaling Core Unit at MakerDAO: their mandate, vision, mission, strategy, and more." />
+      <meta name="og:description" content="Learn about the Sustainable Ecosystem Scaling Core Unit at MakerDAO: their mandate, vision, mission, strategy, and more." />
+      <meta name="robots" content="index,follow"/>
+    </Head>
       <CoreUnitSummary />
       <Wrapper>
         <ContainerAllData>
           <ContainerResponsive>
-
             <MarkdownContainer>
               <MdViewerContainer showButton={table834 || phone} sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)} paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)} paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)} onClick={onClickFinances} />
             </MarkdownContainer>
             <TeamMemberContainer>
-              <TeamMemberTitle>Team Size</TeamMemberTitle><TeamMember fte={getFTEsFromCoreUnit(cuAbout)} />
+              <TeamMemberTitle isLight={isLight}>Team Size</TeamMemberTitle><TeamMember fte={getFTEsFromCoreUnit(cuAbout)} />
             </TeamMemberContainer>
             <ContactInfoContainer>
-              <ContactInfoTitle>Contact Information</ContactInfoTitle>
+              <ContactInfoTitle isLight={isLight}>Contact Information</ContactInfoTitle>
               <ContainerCards>
                 {contributors && contributors.map((contributor: ContributorCommitment, index: number) => {
                   return (
@@ -104,9 +114,11 @@ const CuAboutContainer = () => {
                 }
               </ContainerCards>
             </ContactInfoContainer>
-            <Divider />
+            <Divider sx={{
+              bgcolor: isLight ? '#D4D9E1' : '#405361',
+            }} />
             <CardRelateMipsContainer>
-              <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
+              <TitleRelateMips isLight={isLight}>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
               <RelateMipCards>
                 {relateMipsOrder.map((mip: unknown, index: number) => {
                   return (
@@ -120,8 +132,12 @@ const CuAboutContainer = () => {
               </RelateMipCards>
             </CardRelateMipsContainer>
             {cuAbout && cuAbout.cuMip && cuAbout.cuMip.length > 3 && <ButtonContainer>
-              <DividerStyle /> <BigButton title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'} onClick={onClickLessMips} />
-              <DividerStyle />
+              <DividerStyle sx={{
+                bgcolor: isLight ? '#D4D9E1' : '#405361',
+              }} /> <BigButton title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'} onClick={onClickLessMips} />
+              <DividerStyle sx={{
+                bgcolor: isLight ? '#D4D9E1' : '#405361',
+              }} />
             </ButtonContainer>}
             {(table834 || phone) && <CardSomeThingWrong width='770px' />}
           </ContainerResponsive>
@@ -146,26 +162,27 @@ const CuAboutContainer = () => {
 
 export default CuAboutContainer;
 
-const ContainerAbout = styled.div({
+const ContainerAbout = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   marginTop: '64px',
   width: '100%',
-  background: 'url(/assets/img/bg-page.png)',
+  backgroundColor: isLight ? '#FFFFFF' : '#000000',
+  backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
-  marginBottom: '130px',
+  paddingBottom: '128px',
   [lightTheme.breakpoints.down('table_375')]: {
     width: '100%',
     minWidth: '360px',
   },
-});
+}));
 
 const ContainerCard = styled.div({
   marginBottom: '32px',
   display: 'flex',
   flexDirection: 'column',
-  marginLeft: '64px',
+  marginLeft: '68px',
   [lightTheme.breakpoints.between('desktop_1194', 'desktop_1280')]: {
     marginLeft: '32px',
   },
@@ -181,38 +198,38 @@ const TeamMemberContainer = styled.div({
   marginTop: '32px',
 });
 
-const TeamMemberTitle = styled(Typography)({
+const TeamMemberTitle = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '20px',
   lineHeight: '19px',
   marginRight: '8px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   fontFamily: 'FT Base, sans-serif',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     fontSize: '20px',
     lineHeight: '24px',
     letterSpacing: '0.4px'
   },
-});
+}));
 
 const ContactInfoContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
   minHeight: '182px',
-  marginTop: '36px',
+  marginTop: '32px',
 });
 
-const ContactInfoTitle = styled(Typography)({
+const ContactInfoTitle = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
   fontStyle: 'normal',
   fontWeight: 700,
   fontSize: '16px',
   lineHeight: '19px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   marginBottom: '32px',
   fontFamily: 'FT Base, sans-serif',
   width: '100%',
-});
+}));
 
 const ContainerCards = styled.div({
   display: 'flex',
@@ -241,7 +258,7 @@ const CardRelateMipsContainer = styled.div({
   flexDirection: 'column',
   alignItems: 'center',
   marginTop: '32px',
-  marginBottom: '64px',
+  marginBottom: '40px',
   width: '715px',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     width: '100%',
@@ -254,14 +271,14 @@ const CardRelateMipsContainer = styled.div({
   },
 });
 
-const TitleRelateMips = styled.div({
+const TitleRelateMips = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontStyle: 'normal',
   fontWeight: 700,
   fontSize: '16px',
   lineHeight: '19px',
   marginBottom: '36px',
-  color: '#231536',
-});
+  color: isLight ? '#231536' : '#D2D4EF',
+}));
 
 const RelateMipCards = styled.div({
   display: 'flex',
@@ -326,13 +343,12 @@ const ContainerAllData = styled.div({
 
 const DividerStyle = styled(Divider)({
   width: '100%',
-  bgcolor: '#D4D9E1',
 });
 
 const ContainerScroll = styled.div({
   position: 'sticky',
   top: 250,
-  paddingTop: '36px',
+  paddingTop: '34px',
 });
 
 const Wrapper = styled.div({

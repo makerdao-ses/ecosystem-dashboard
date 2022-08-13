@@ -1,6 +1,7 @@
 import React, { CSSProperties } from 'react';
 import { Popover } from '@mui/material';
 import styled from '@emotion/styled';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface CustomPopoverProps {
   title: JSX.Element | string;
@@ -22,6 +23,7 @@ export const CustomPopover = ({
     horizontal: 'center',
   }, ...props
 }: CustomPopoverProps) => {
+  const isLight = useThemeContext().themeMode === 'light';
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -49,8 +51,13 @@ export const CustomPopover = ({
       id={props.id}
       sx={{
         pointerEvents: leaveOnChildrenMouseOut ? 'auto' : 'none',
-        border: '1px solid #D4D9E1',
-        boxShadow: 'none'
+        boxShadow: 'none',
+        '& .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
+          background: isLight ? 'white' : '#000A13',
+          border: isLight ? '1px solid #D4D9E1' : '1px solid #231536',
+          boxShadow: isLight ? 'none' : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
+          borderRadius: '6px',
+        }
       }}
       open={open}
       anchorEl={anchorEl}
@@ -61,9 +68,14 @@ export const CustomPopover = ({
       }}
       onClose={handlePopoverClose}
       disableRestoreFocus
-      >
+    >
       <Container
-        style={props.popupStyle}
+        style={{
+          borderRadius: '6px',
+          ...props.popupStyle
+        }
+
+        }
         onMouseLeave={() => leaveOnChildrenMouseOut && handlePopoverClose()}
       >{props.title}</Container>
     </Popover>

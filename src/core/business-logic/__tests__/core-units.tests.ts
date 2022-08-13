@@ -17,7 +17,6 @@ import { CoreUnitsBuilder } from '../builders/core-units.builder';
 import { DateTime } from 'luxon';
 import { BudgetStatementBuilder } from '../builders/budget-statement.builder';
 import { BudgetStatementFteBuilder } from '../builders/budget-statement-fte.builder';
-import { Mip41Builder } from '../builders/mip-41.builder';
 import { Mip40Builder } from '../builders/mip-40.builder';
 import { BudgetStatementWalletBuilder } from '../builders/budget-statement-wallet.builder';
 import {
@@ -28,7 +27,7 @@ import {
 } from '../../utils/test.utils';
 import { RoadmapBuilder } from '../builders/roadmap.builder';
 import { RoadmapStatusEnum } from '../../enums/roadmap-status.enum';
-import { ContributorCommitmentDto, ContributorDto } from '../../models/dto/core-unit.dto';
+import { ContributorCommitmentDto } from '../../models/dto/core-unit.dto';
 import { CuJobEnum } from '../../enums/cu-job.enum';
 
 test('Get date for status on CuMip', () => {

@@ -15,6 +15,7 @@ export const DataWith = Template.bind({});
 Default.args = {
   coreUnitAbout: {
     id: '1',
+    shortCode: 'SES',
     code: 'SES-001',
     image: 'https://api.gateway.ethswarm.org/bzz/efb3bbb702ecec395c08db27647158dc42928edc52e7a4f43dd0f444a24aa01d/',
     category: [],
@@ -49,6 +50,7 @@ Default.args = {
 DataWith.args = {
   coreUnitAbout: {
     id: '1',
+    shortCode: 'SES',
     code: 'SES-001',
     category: ['Technical', 'Support', 'Operational'],
     name: 'Sustainable Ecosystem Scaling',

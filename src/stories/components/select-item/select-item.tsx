@@ -16,16 +16,17 @@ export const SelectItem = ({ checked = false, minWidth = 0, ...props }: SelectIt
   const isLight = useThemeContext().themeMode === 'light';
   const [focused, setFocused] = useState(false);
 
-  return <Container className="no-select" onClick={props.onClick} minWidth={minWidth} isLight={isLight}>
-    {checked ? <CheckboxOn fill={isLight ? '#1AAB9B' : '#7C6B95'} fillBorderArrow={isLight ? '#B6EDE7' : '#ADAFD4'} /> : <CheckboxOff style={{ padding: '2px' }} fill={focused ? '#708390' : '#9FAFB9'} />}
+  return <Container className="no-select" onClick={props.onClick} minWidth={minWidth} isLight={isLight} checked={checked}>
+    {checked ? <CheckboxOn fill={isLight ? '#1AAB9B' : '#7C6B95'} fillBorderArrow={isLight ? '#B6EDE7' : '#D2D4EF'} /> : <CheckboxOff style={{ padding: '2px' }} fill={focused ? '#708390' : '#9FAFB9'} />}
     <Label>{props.label}</Label>
     <Number active={checked} isLight={isLight}>{props.count}</Number>
     <input type="checkbox" checked onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} readOnly />
   </Container>;
 };
 
-const Container = styled.div<{ minWidth: number, isLight: boolean }>(({ minWidth, isLight }) => ({
+const Container = styled.div<{ minWidth: number, isLight: boolean, checked: boolean }>(({ minWidth, isLight, checked }) => ({
   display: 'flex',
+  backgroundColor: isLight && checked ? 'none' : isLight && !checked ? 'none' : !isLight && !checked ? '#000A13' : '#231536',
   alignItems: 'center',
   position: 'relative',
   padding: '8px',
@@ -33,8 +34,9 @@ const Container = styled.div<{ minWidth: number, isLight: boolean }>(({ minWidth
   borderRadius: '6px',
   boxSizing: 'border-box',
   transition: 'all .3s ease',
+  border: isLight ? 'none' : '1px solid #231536',
   minWidth: minWidth ? `${minWidth}px` : 'unset',
-  borderBottom: '2px solid #ECF1F3',
+  borderBottom: isLight ? '2px solid #ECF1F3' : '1px solid #231536',
   '& > input': {
     position: 'absolute',
     opacity: 0,

@@ -34,7 +34,7 @@ export const SearchInput = (props: SearchInputProps) => {
         defaultValue={props.defaultValue}
       />
       <IconWrapper>
-        <Magnifier />
+        <Magnifier fill={isLight ? '#25273D' : '#ADAFD4'} />
       </IconWrapper>
     </InputWrapper>
   </Container>;
@@ -72,5 +72,6 @@ const Input = styled.input<{ focus: boolean, isLight: boolean }>(({ focus, isLig
 
 const IconWrapper = styled.div({
   position: 'absolute',
-  right: '22px'
+  right: '22px',
+  display: 'flex',
 });
