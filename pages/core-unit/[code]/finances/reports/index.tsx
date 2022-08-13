@@ -12,6 +12,12 @@ export const getServerSideProps = async(
   const { data }: { data: { coreUnit: CoreUnitDto[] } } =
     await useTransparencyReportViewModel(code);
 
+  if (data && data.coreUnit.length === 0) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     props: {
       cu: data && data.coreUnit[0],
