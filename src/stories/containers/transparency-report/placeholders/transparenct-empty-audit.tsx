@@ -1,32 +1,59 @@
 import styled from '@emotion/styled';
+import { url } from 'inspector';
 import React from 'react';
 
 export const TransparencyEmptyAudit = () => {
-  return <Wrapper>
-    <Title>
-      No Data Provided
-    </Title>
-    <Container>
-      <Row>
-        <CellBlock />
-        <CellBlock />
-      </Row>
-      <Row>
-        <CellBlock />
-        <CellBlock />
-      </Row>
-    </Container>
-  </Wrapper>;
+  return (
+    <>
+      <Wrapper>
+        <Title>No Data Provided</Title>
+        <Container>
+          <Row>
+            <CellBlock />
+            <CellBlock />
+          </Row>
+          <Row>
+            <CellBlock />
+            <CellBlock />
+          </Row>
+        </Container>
+      </Wrapper>
+      <MobileWrapper>
+        <img
+          src="/assets/img/bg-placeholder-transparency.svg"
+          alt="placeholder"
+        />
+      </MobileWrapper>
+    </>
+  );
 };
 
-const Wrapper = styled.div({
+const MobileWrapper = styled.div({
   display: 'flex',
+  background: 'url(/assets/img/bg-placeholderp-transparency.svg) no-repeat',
+  width: '100%',
+  height: 'fit-content',
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: '100%',
+  img: {
+    width: '100%',
+  },
+  '@media (min-width: 834px)': {
+    display: 'none',
+  },
+});
+
+const Wrapper = styled.div({
+  display: 'none',
   alignItems: 'center',
   justifyContent: 'center',
   position: 'relative',
   height: '268px',
   marginTop: '32px',
   flex: 1,
+  '@media (min-width: 834px)': {
+    display: 'flex',
+  },
 });
 
 const Container = styled.div({
