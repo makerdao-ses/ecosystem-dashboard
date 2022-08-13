@@ -35,7 +35,7 @@ const colorsDarkColors: { [key: string]: string } = {
   SubmittedToAuditor: '#FF78F2',
 };
 
-export const TransparencyReport = ({ cu }: {cu: CoreUnitDto}) => {
+export const TransparencyReport = ({ coreUnit: cu }: {coreUnit: CoreUnitDto}) => {
   const isLight = useThemeContext().themeMode === 'light';
   const router = useRouter();
   const query = router.query;
@@ -127,8 +127,8 @@ export const TransparencyReport = ({ cu }: {cu: CoreUnitDto}) => {
               <StatusValue
                 color={
                   isLight
-                    ? colors[currentBudgetStatement?.budgetStatus]
-                    : colorsDarkColors[currentBudgetStatement?.budgetStatus]
+                    ? colors[currentBudgetStatement?.budgetStatus ?? '']
+                    : colorsDarkColors[currentBudgetStatement?.budgetStatus ?? '']
                 }
               >
                 {currentBudgetStatement?.budgetStatus ?? '-'}

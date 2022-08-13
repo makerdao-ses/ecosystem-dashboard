@@ -9,7 +9,8 @@ export const getServerSideProps = async(
 ) => {
   const { query } = context;
   const code = query.code as string;
-  const { data }: { data: any } = await useTransparencyReportViewModel(code);
+  const { data }: { data: { coreUnit: CoreUnitDto[] } } =
+    await useTransparencyReportViewModel(code);
 
   return {
     props: {
@@ -19,7 +20,7 @@ export const getServerSideProps = async(
 };
 
 const Transparency = ({ cu }: { cu: CoreUnitDto }) => {
-  return <TransparencyReport cu={cu} />;
+  return <TransparencyReport coreUnit={cu} />;
 };
 
 export default Transparency;

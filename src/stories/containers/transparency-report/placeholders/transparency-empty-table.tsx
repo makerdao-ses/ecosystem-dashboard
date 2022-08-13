@@ -310,7 +310,7 @@ export const TransparencyEmptyTable = ({ breakdown = false }: Props) => {
             </Row>
             {new Array(4).fill('').map((_, i) => (
               <Row
-                key={`key-${i}`} 
+                key={`key-${i}`}
                 style={{
                   justifyContent: 'space-between',
                 }}
