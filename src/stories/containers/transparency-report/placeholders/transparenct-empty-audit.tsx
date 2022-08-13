@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { url } from 'inspector';
 import React from 'react';
 
 export const TransparencyEmptyAudit = () => {
