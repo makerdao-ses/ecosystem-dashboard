@@ -5,6 +5,7 @@ import './custom-multi-select.module.scss';
 import useOutsideClick from '../../../core/utils/use-outside-click';
 import { SelectItem } from '../select-item/select-item';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import SimpleBar from 'simplebar-react';
 
 export interface MultiSelectItem {
   id: string;
@@ -81,31 +82,44 @@ export const CustomMultiSelect = ({
         <IconWrapper>
           <SelectChevronDown
             style={{ transform: popupVisible ? 'scaleY(-1)' : '' }}
-            fill={isLight ? (activeItems.length > 0 ? '#1AAB9B' : '#25273D') : '#ADAFD4'}
+            fill={
+              isLight
+                ? activeItems.length > 0
+                  ? '#1AAB9B'
+                  : '#25273D'
+                : '#ADAFD4'
+            }
           />
         </IconWrapper>
       </SelectContainer>
       {popupVisible && (
         <PopupContainer isLight={isLight}>
-          {withAll && (
-            <SelectItem
-              checked={activeItems.length === props.items.length}
-              onClick={() => toggleAll()}
-              label={props.customAll?.content ? props.customAll.content : 'All'}
-              count={props.customAll?.count ?? props.items.length}
-              minWidth={180}
-            />
-          )}
-          {props.items.map((item, i) => (
-            <SelectItem
-              key={`item-${i}`}
-              checked={activeItems.indexOf(item.id) > -1}
-              onClick={() => toggleItem(item.id)}
-              label={item.content}
-              count={item.count}
-              minWidth={180}
-            />
-          ))}
+          <SimpleBar
+            className="filter-popup-scroll"
+            scrollbarMaxSize={32}
+          >
+            {withAll && (
+              <SelectItem
+                checked={activeItems.length === props.items.length}
+                onClick={() => toggleAll()}
+                label={
+                  props.customAll?.content ? props.customAll.content : 'All'
+                }
+                count={props.customAll?.count ?? props.items.length}
+                minWidth={180}
+              />
+            )}
+            {props.items.map((item, i) => (
+              <SelectItem
+                key={`item-${i}`}
+                checked={activeItems.indexOf(item.id) > -1}
+                onClick={() => toggleItem(item.id)}
+                label={item.content}
+                count={item.count}
+                minWidth={180}
+              />
+            ))}
+          </SimpleBar>
         </PopupContainer>
       )}
     </SelectWrapper>
@@ -124,25 +138,38 @@ const SelectWrapper = styled.div({
   },
 });
 
-const SelectContainer = styled.div<{ focus: boolean; active: boolean; isLight: boolean }>(
-  ({ active, focus, isLight }) => ({
-    display: 'flex',
-    position: 'relative',
-    alignItems: 'center',
-    border: isLight && active ? '1px solid #1AAB9B' : isLight && focus ? '1px solid #231536' : !isLight && active ? '1px solid #787A9B' : !isLight && focus ? '1px solid #343442' : isLight && !active ? '1px solid#D4D9E1' : '1px solid #343442',
-    borderRadius: '22px',
-    height: '48px',
-    width: 'fit-content',
-    padding: '15px 40px 15px 15px',
-    boxSizing: 'border-box',
-    cursor: 'pointer',
-    transition: 'all .3s ease',
-    background: isLight ? 'white' : '#10191F',
-    '&:hover': {
-      border: isLight ? '1px solid #231536' : '1px solid #343442'
-    }
-  })
-);
+const SelectContainer = styled.div<{
+  focus: boolean;
+  active: boolean;
+  isLight: boolean;
+}>(({ active, focus, isLight }) => ({
+  display: 'flex',
+  position: 'relative',
+  alignItems: 'center',
+  border:
+    isLight && active
+      ? '1px solid #1AAB9B'
+      : isLight && focus
+        ? '1px solid #231536'
+        : !isLight && active
+            ? '1px solid #787A9B'
+            : !isLight && focus
+                ? '1px solid #343442'
+                : isLight && !active
+                  ? '1px solid#D4D9E1'
+                  : '1px solid #343442',
+  borderRadius: '22px',
+  height: '48px',
+  width: 'fit-content',
+  padding: '15px 40px 15px 15px',
+  boxSizing: 'border-box',
+  cursor: 'pointer',
+  transition: 'all .3s ease',
+  background: isLight ? 'white' : '#10191F',
+  '&:hover': {
+    border: isLight ? '1px solid #231536' : '1px solid #343442',
+  },
+}));
 
 const Label = styled.div<{ active: boolean; isLight: boolean }>(
   ({ active, isLight }) => ({
@@ -180,7 +207,6 @@ const PopupContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     position: 'absolute',
     top: '50px',
     zIndex: 3,
-    overflowY: 'scroll',
     '::-webkit-scrollbar': {
       opacity: !isLight ? 0 : 'none',
       width: !isLight ? 0 : 'none',
