@@ -98,6 +98,7 @@ export const CustomMultiSelect = ({
             className="filter-popup-scroll"
             scrollbarMaxSize={32}
           >
+            <ItemsContainer>
             {withAll && (
               <SelectItem
                 checked={activeItems.length === props.items.length}
@@ -119,6 +120,7 @@ export const CustomMultiSelect = ({
                 minWidth={180}
               />
             ))}
+            </ItemsContainer>
           </SimpleBar>
         </PopupContainer>
       )}
@@ -171,6 +173,13 @@ const SelectContainer = styled.div<{
   },
 }));
 
+const ItemsContainer = styled.div({
+  marginRight: '16px',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '4px'
+});
+
 const Label = styled.div<{ active: boolean; isLight: boolean }>(
   ({ active, isLight }) => ({
     fontFamily: 'SF Pro Text, sans-serif',
@@ -197,10 +206,9 @@ const PopupContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   width: 'fit-content',
   background: isLight ? 'white' : '#000A13',
   height: 'fit-content',
-  marginTop: '16px',
-  padding: isLight ? 'none' : '16px',
+  padding: '16px 0 16px 16px',
   '@media (min-width: 834px)': {
-    height: '200px',
+    background: 'white',
     boxShadow: isLight
       ? '0px 20px 40px #dbe3ed66, 0px 1px 3px #bebebe40'
       : 'none',
