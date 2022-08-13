@@ -123,6 +123,7 @@ const SelectWrapper = styled.div({
     alignItems: 'flex-start',
   },
 });
+
 const SelectContainer = styled.div<{ focus: boolean; active: boolean; isLight: boolean }>(
   ({ active, focus, isLight }) => ({
     display: 'flex',
@@ -137,6 +138,9 @@ const SelectContainer = styled.div<{ focus: boolean; active: boolean; isLight: b
     cursor: 'pointer',
     transition: 'all .3s ease',
     background: isLight ? 'white' : '#10191F',
+    '&:hover': {
+      border: isLight ? '1px solid #231536' : '1px solid #343442'
+    }
   })
 );
 
