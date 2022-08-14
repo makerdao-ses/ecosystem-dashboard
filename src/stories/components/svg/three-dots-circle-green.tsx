@@ -6,10 +6,11 @@ interface Props {
     fill?: string;
     style?: React.CSSProperties;
     onClick?: () => void;
+    fillThereDots?: string
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-const ThreeDotsWithCircleGreen = ({ width = 16, height = 16, fill = '#B6EDE7', style = {}, onClick = () => { }, ...props }: Props) => {
+const ThreeDotsWithCircleGreen = ({ width = 16, height = 16, fill = '#B6EDE7', fillThereDots = '#1AAB9B', style = {}, onClick = () => { }, ...props }: Props) => {
   return (
         <svg
             onClick={onClick}
@@ -26,7 +27,7 @@ const ThreeDotsWithCircleGreen = ({ width = 16, height = 16, fill = '#B6EDE7', s
                 fillRule="evenodd"
                 clipRule="evenodd"
                 d="M5 8.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm4.5 0a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm3 1.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
-                fill="#1AAB9B"
+                fill={fillThereDots}
             />
         </svg>
   );

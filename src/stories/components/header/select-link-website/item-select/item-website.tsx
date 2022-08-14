@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 import React, { ReactNode } from 'react';
+import { useThemeContext } from '../../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../custom-button/custom-button';
 
 interface Props {
@@ -8,7 +9,7 @@ interface Props {
   logo: ReactNode | JSX.Element
   background?: string
   fontSize?: number | string
-  color?: string | string
+  color?: string
   fontWeight?: number
   link?: string
   fontFamily?: string
@@ -19,11 +20,13 @@ interface Props {
   letterSpacing?: string
   onClick: () => void;
   lineHeight?: string
+  colorDark?: string
 }
 
-export const ItemWebSite = ({ fontSize = 16, fontWeight = 700, color = '#FFFFFF', fontFamily = 'SF Pro Display, sans-serif', subtract = '', description, height = '134px', onClick, ...props }: Props) => {
+export const ItemWebSite = ({ fontSize = 16, fontWeight = 700, color = '#FFFFFF', fontFamily = 'SF Pro Display, sans-serif', colorDark, subtract = '', description, height = '134px', onClick, ...props }: Props) => {
+  const isLight = useThemeContext().themeMode === 'light';
   return (
-    <Container height={height}>
+    <Container height={height} isLight={isLight}>
       <ContainerRow>
         <div style={{
           display: 'flex',
@@ -33,12 +36,12 @@ export const ItemWebSite = ({ fontSize = 16, fontWeight = 700, color = '#FFFFFF'
           <ContainerLogo>{props.logo}</ContainerLogo>
           {props.title &&
             <Typography
-                fontSize={fontSize}
-                color={color}
-                fontWeight={fontWeight}
-                fontFamily={fontFamily}
-                letterSpacing={props.letterSpacing}
-                lineHeight={props.lineHeight}>
+              fontSize={fontSize}
+              color={isLight ? color : colorDark}
+              fontWeight={fontWeight}
+              fontFamily={fontFamily}
+              letterSpacing={props.letterSpacing}
+              lineHeight={props.lineHeight}>
               {props.title}
             </Typography>
           }
@@ -51,14 +54,14 @@ export const ItemWebSite = ({ fontSize = 16, fontWeight = 700, color = '#FFFFFF'
             style={{
               width: '137px',
               height: '34px',
-              padding: '8px 24px'
+              padding: '8px 24px',
             }} styleText={{
-              color: '#31424E'
-            }}/>
+              color: isLight ? '#31424E' : '#D2D4EF'
+            }} />
         </LinkWrapper>
       </ContainerRow>
       <ContainerTextDescription>
-        <TypographyDescription sx={{
+        <TypographyDescription isLight={isLight} sx={{
         }}>{description}</TypographyDescription>
       </ContainerTextDescription>
       <BottomLinkWrapper>
@@ -91,12 +94,12 @@ const BottomLinkWrapper = styled.div({
   }
 });
 
-const Container = styled.div<{ height?: string }>(({ height }) => ({
+const Container = styled.div<{ height?: string, isLight: boolean }>(({ height, isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-start',
-  background: '#FFFFFF',
-  border: '1px solid #D2D4EF',
+  background: isLight ? '#FFFFFF' : '#10191F',
+  border: isLight ? '1px solid #D2D4EF' : '1px solid #405361',
   borderRadius: '6px',
   padding: '16px',
   width: '100%',
@@ -130,20 +133,20 @@ const ContainerTextDescription = styled.div({
   whiteSpace: 'initial'
 });
 
-const ContainerSubtract = styled.div<{ background?: string, padding?: string }>((props) => ({
-  background: props.background || 'none',
+const ContainerSubtract = styled.div<{ background?: string, padding?: string }>(({ background, padding }) => ({
+  background: background || 'none',
   display: 'flex',
   alignItems: 'center',
   borderRadius: '6px',
-  padding: props.padding || 0,
+  padding: padding || 0,
 }));
-const TypographyDescription = styled(Typography)({
+const TypographyDescription = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '16px',
   lineHeight: '19px',
-  color: '#231536'
-});
+  color: isLight ? '#231536' : '#EDEFFF'
+}));
 
 export default ItemWebSite;

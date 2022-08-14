@@ -31,8 +31,16 @@ function MyApp(props: MyAppProps) {
       <ThemeProvider>
         <Provider store={store}>
           <Head>
-            <title>MakerDao - Dashboard</title>
-            <link rel="icon" href="/favicon.svg" />
+            <title>MakerDAO - Dashboard</title>
+            <link rel="icon" href="/favicon.png" />
+            <meta name='mobile-web-app-capable' content='yes'/>
+            <meta name='apple-mobile-web-app-capable' content='yes'/>
+
+            <link rel='apple-touch-icon' href='favicon_152x152.png'/>
+            <meta name='msapplication-square150x150logo' content='favicon_152x152.png'/>
+
+            <meta property="og:image" content="https://expenses-dev.makerdao.network/favicon.png"/>
+            <meta name="twitter:image" content="https://expenses-dev.makerdao.network/favicon.png"/>
           </Head>
           <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
             <Component {...pageProps} />

@@ -11,7 +11,6 @@ import {
 } from '../models/dto/core-unit.dto';
 import { CuStatusEnum } from '../enums/cu-status.enum';
 import { RoadmapStatusEnum } from '../enums/roadmap-status.enum';
-import { FacilitatorModel } from '../models/facilitator.model';
 import { CustomChartItemModel } from '../models/custom-chart-item.model';
 import { CuAbout, CuMip } from '../../stories/containers/cu-about/cu-about.api';
 import _ from 'lodash';
@@ -116,7 +115,7 @@ export const getLinksFromCoreUnit = (cu: CoreUnitDto) => {
 const getLatestBudgetStatementWithFTE = (budgetStatements: BudgetStatementDto[]): BudgetStatementDto | null => {
   if (!budgetStatements || budgetStatements.length === 0) return null;
   const filtered = budgetStatements.filter(bs => bs.budgetStatementFTEs.length > 0);
-  return filtered.length ? filtered[0] : null;
+  return filtered.length ? filtered[filtered.length - 1] : null;
 };
 
 export const getFTEsFromCoreUnit = (cu: CoreUnitDto | CuAbout) => {
@@ -126,24 +125,7 @@ export const getFTEsFromCoreUnit = (cu: CoreUnitDto | CuAbout) => {
 };
 
 export const getFacilitatorsFromCoreUnit = (cu: CoreUnitDto) => {
-  const result = [] as FacilitatorModel[];
-
-  if (cu.cuMip?.length === 0) return result;
-
-  if (cu.cuMip?.every(x => !x.mip41 || x.mip41?.length === 0)) return result;
-
-  try {
-    const mip41 = cu.cuMip[cu.cuMip.length - 1]?.mip41;
-    const contributor = mip41 && mip41.length && mip41[0].contributor;
-
-    if (contributor) {
-      result.push(...contributor);
-    }
-  } catch (e) {
-    console.log(e);
-  }
-
-  return result;
+  return cu?.contributorCommitment?.filter(cc => cc.jobTitle === 'Facilitator');
 };
 
 const checkDateOnPeriod = (period: Mip40BudgetPeriodDto, date: DateTime) => {

@@ -63,6 +63,7 @@ export interface SocialMediaChannels {
 
 export interface CuAbout {
   id: string;
+  shortCode: string;
   code: string;
   name: string;
   image?: string;
@@ -84,6 +85,7 @@ export const GET_CU_ABOUT_BY_CODE = gql`
   query CoreUnit($filter: CoreUnitFilter) {
     coreUnit(filter: $filter) {
       id
+      shortCode
       code
       name
       image
@@ -174,10 +176,10 @@ export const getLinksCoreUnit = (cu: CoreUnit) => {
   }
   return links;
 };
-export const fetchCoreUnitByCode = async(code: string) => {
+export const fetchCoreUnitByCode = async(shortCode: string) => {
   const res = (await request(GRAPHQL_ENDPOINT, GET_CU_ABOUT_BY_CODE, {
     filter: {
-      code,
+      shortCode,
     },
   })) as { coreUnit: CuAbout[] };
   return res.coreUnit[0];

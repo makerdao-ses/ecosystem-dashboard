@@ -11,12 +11,14 @@ import _ from 'lodash';
 import lightTheme from '../../../../styles/theme/light';
 import BreadCrumbMobile from '../pagination/bread-crumb-mobile';
 import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface CoreUnitSummaryProps {
   trailingAddress?: string[];
 }
 
 export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) => {
+  const isLight = useThemeContext().themeMode === 'light';
   const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const lessThanPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
   const [hiddenTextDescription, setHiddenTextDescription] = useState(true);
@@ -31,7 +33,7 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
 
-  const cu = data?.find(cu => cu.code === code);
+  const cu = data?.find(cu => cu.shortCode === code);
 
   const ref = useRef(null);
 
@@ -59,23 +61,23 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
       searchText
     }), [data, filteredCategories, filteredStatuses, searchText]);
 
-  const page = useMemo(() => filteredData?.findIndex(item => item.code === code) + 1, [code, filteredData]);
+  const page = useMemo(() => filteredData?.findIndex(item => item.shortCode === code) + 1, [code, filteredData]);
 
   const changeCoreUnitCode = useCallback(
     (direct: -1 | 1) => () => {
-      const index = filteredData?.findIndex(item => item.code === code);
+      const index = filteredData?.findIndex(item => item.shortCode === code);
       const newIndex = index + direct;
       if (newIndex >= 0 && newIndex < filteredData?.length) {
-        router.push(`${router.route.replace('[code]', filteredData[newIndex].code)}?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
+        router.push(`${router.route.replace('[code]', filteredData[newIndex].shortCode)}?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
       }
     },
     [code, filteredData, router]);
 
-  return <Container ref={ref}>
-    {!(phone || lessThanPhone) && <NavigationHeader className="no-select">
+  return <Container ref={ref} isLight={isLight}>
+    {!(phone || lessThanPhone) && <NavigationHeader className="no-select" isLight={isLight}>
       <Breadcrumbs items={[
         {
-          label: <span>Core Units <b>({filteredData.length})</b></span>,
+          label: <CoreUnitStyle isLight={isLight}>Core Units <b>({filteredData.length})</b></CoreUnitStyle>,
           url: `/?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
         },
         {
@@ -86,7 +88,7 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
           label: adr,
           url: ''
         }))
-      ]}/>
+      ]} />
       <InsidePagination count={filteredData.length} page={page} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} />
     </NavigationHeader>}
     {(phone || lessThanPhone) && <div style={{
@@ -96,7 +98,7 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
           items={[
             {
               style: {
-                color: '#25273D',
+                color: isLight ? '#25273D' : '#D2D4EF',
               },
               label: cu?.name ?? '',
               url: `/core-unit/${code}/?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
@@ -106,7 +108,7 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
               url: ''
             })),
             {
-              label: <span>Core Units <Value>({page})</Value></span>,
+              label: <span >Core Units <Value isLight={isLight}>({page})</Value></span>,
               url: `/?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
             },
           ]}
@@ -117,30 +119,25 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
       <ContainerTitle>
         <TitleNavigationCuAbout coreUnitAbout={cu} hiddenTextDescription={hiddenTextDescription} />
         {hiddenTextDescription &&
-          <div> <TypographyDescription
+          <div> <TypographyDescription isLight={isLight}
           >{cu?.sentenceDescription || ''}</TypographyDescription>
           </div>}
       </ContainerTitle>
     </Wrapper>
-    <div style={{
-      position: 'relative',
-      borderBottom: hiddenTextDescription ? '1px solid #B6EDE7' : 'none',
-      width: '100%',
-      marginTop: '24px',
-    }} />
+    <ContainerResponsiveMobile hiddenTextDescription={hiddenTextDescription} isLight={isLight} />
   </Container>;
 };
 
-const Container = styled.div({
+const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   position: 'sticky',
   top: 63,
   width: '100%',
-  backgroundImage: 'url(/assets/img/Subheader.png)',
+  backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
   backgroundSize: 'cover',
   zIndex: 3,
-});
+}));
 
-const NavigationHeader = styled.div({
+const NavigationHeader = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
@@ -149,7 +146,9 @@ const NavigationHeader = styled.div({
   paddingLeft: '32px',
   paddingRight: '32px',
   marginBottom: '16px',
-});
+  background: isLight ? 'none' : 'url(/assets/img/overlay.png)',
+  backgroundSize: 'cover',
+}));
 
 const ContainerTitle = styled.div({
   display: 'flex',
@@ -163,8 +162,8 @@ const ContainerTitle = styled.div({
     paddingRight: '48px',
   },
   [lightTheme.breakpoints.between('desktop_1194', 'desktop_1280')]: {
-    paddingLeft: '32px',
-    paddingRight: '32px',
+    paddingLeft: '27px',
+    paddingRight: '27px',
   },
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     paddingLeft: '32px',
@@ -194,10 +193,10 @@ const Wrapper = styled.div({
   },
 });
 
-const TypographyDescription = styled(Typography)({
+const TypographyDescription = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: '16px',
   lineHeight: '19px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#E2D8EE',
   fontFamily: 'FT Base, sans-serif',
   marginTop: '16px',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
@@ -211,13 +210,28 @@ const TypographyDescription = styled(Typography)({
     fontSize: '12px',
     lineHeight: '14px'
   },
-});
+}));
 
-const Value = styled.b({
+const Value = styled.b<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
   fontSize: '16px',
   lineHeight: '19px',
-  color: '#708390'
-});
+  color: isLight ? '#708390' : '#48495F'
+}));
+
+const CoreUnitStyle = styled.span<{ isLight: boolean }>(({ isLight }) => ({
+  color: isLight ? '#708390' : '#787A9B',
+}));
+
+const ContainerResponsiveMobile = styled.div<{ isLight: boolean, hiddenTextDescription: boolean }>(({ isLight, hiddenTextDescription }) => ({
+  position: 'relative',
+  borderBottom: hiddenTextDescription && isLight ? '1px solid #B6EDE7' : hiddenTextDescription && !isLight ? '1px solid #027265' : 'none',
+  width: '100%',
+  marginTop: '24px',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    marginTop: hiddenTextDescription ? '16px' : '0px',
+  },
+
+}));
