@@ -49,7 +49,7 @@ export const CuTableColumnSummary = ({
           <Title isLight={isLight}>{props.title}</Title>
         </TitleWrapper>
         <Row>
-          {props.status && <StatusChip status={props.status} />}
+          {props.status && <StatusChip status={props.status} style={{ marginLeft: '-2px' }} />}
           {props.statusModified && (
             <CustomPopover
               id={'mouse-over-popover-goto'}

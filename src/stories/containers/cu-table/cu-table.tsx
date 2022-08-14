@@ -254,7 +254,6 @@ export const CuTable = () => {
                 logoDimension={'68px'}
                 style={{
                   width: '372px',
-                  height: '184px'
                 }}
               />
               <Padded>
