@@ -161,11 +161,11 @@ const InnerPage = styled.div({
   textAlign: 'left',
 });
 
-export const Title = styled.div<{ marginBottom?: number, isLight: boolean }>(({ marginBottom = 16, isLight }) => ({
+export const Title = styled.div<{ marginBottom?: number, isLight: boolean, fontSize?: string, responsiveMarginBottom?: number }>(({ marginBottom = 16, fontSize = '16px', isLight, responsiveMarginBottom }) => ({
   fontFamily: 'FT Base, sans-serif',
-  fontWeight: 500,
+  fontWeight: 700,
   fontStyle: 'normal',
-  fontSize: '16px',
+  fontSize,
   lineHeight: '19px',
   letterSpacing: '0.4px',
   color: isLight ? '#231536' : '#D2D4EF',
@@ -173,6 +173,7 @@ export const Title = styled.div<{ marginBottom?: number, isLight: boolean }>(({ 
   '@media (min-width: 834px)': {
     fontSize: '20px',
     lineHeight: '24px',
+    marginBottom: `${responsiveMarginBottom || marginBottom}px`,
   }
 }));
 

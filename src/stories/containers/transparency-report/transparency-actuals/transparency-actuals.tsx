@@ -15,7 +15,7 @@ import { useTransparencyActualsMvvm } from './transparency-actuals.mvvm';
 import { formatAddressForOutput } from '../../../../core/utils/string.utils';
 import { NumberCell } from '../../../components/number-cell/number-cell';
 import { TransparencyCard } from '../../../components/transparency-card/transparency-card';
-import { CardsWrapper, TableWrapper } from '../transparency-report';
+import { CardsWrapper, TableWrapper, Title } from '../transparency-report';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
 
@@ -232,7 +232,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
 
   return (
     <Container>
-      <Title isLight={isLight}>
+      <Title isLight={isLight} responsiveMarginBottom={16}>
         {props.currentMonth.toFormat('MMM yyyy')} Totals
       </Title>
 
@@ -341,23 +341,3 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
 });
-
-const Title = styled.div<{
-  fontSize?: string;
-  isLight: boolean;
-  lineHeight?: string;
-}>(({ fontSize = '16px', isLight, lineHeight = '19px' }) => ({
-  fontFamily: 'FT Base, sans-serif',
-  fontWeight: 500,
-  fontStyle: 'normal',
-  fontSize,
-  lineHeight,
-  letterSpacing: '0.4px',
-  color: isLight ? '#231536' : '#D2D4EF',
-  marginBottom: '16px',
-  '@media (min-width: 834px)': {
-    fontSize: '20px',
-    marginBottom: '24px',
-    lineHeight: '24px',
-  },
-}));
