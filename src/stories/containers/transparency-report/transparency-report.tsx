@@ -227,8 +227,8 @@ const StatusTitle = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 const StatusValue = styled.div<{ color: string }>(({ color }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
-  textDecoration: 'uppercase',
-  fontWeight: 500,
+  textTransform: 'uppercase',
+  fontWeight: 700,
   fontSize: '16px',
   lineHeight: '19px',
   letterSpacing: '0.4px',
