@@ -93,7 +93,7 @@ const Data = styled.div({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  marginRight: '8px',
+  marginRight: '10px',
 });
 
 const CirclesWrapper = styled.div({
