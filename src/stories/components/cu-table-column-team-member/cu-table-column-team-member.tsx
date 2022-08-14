@@ -58,9 +58,7 @@ export const CuTableColumnTeamMember = ({
                 style={{
                   boxSizing: 'border-box',
                   marginLeft: i === 0 ? 0 : '-9px',
-                  border: member.contributor[0]?.facilitatorImage
-                    ? 'none'
-                    : '2px solid #E7FCFA',
+                  border: '2px solid #E7FCFA',
                 }}
                 imageStyle={{
                   border: '2px solid #E7FCFA',
