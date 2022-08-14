@@ -24,7 +24,7 @@ const Container = styled.div<{ negative?: boolean, fontFamily?: string, isLight:
   lineHeight: '17px',
   padding: '16px',
   color: isLight && negative ? '#F75524' : isLight && !negative ? '#231536' : !isLight && negative ? '#F75524' : '#D2D4EF',
-  '@media (min-width: 834px)': {
+  '@media (min-width: 1194px)': {
     fontSize: '16px',
     lineHeight: '19px',
   }
