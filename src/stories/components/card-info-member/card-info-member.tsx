@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Box, Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
+import { Box, Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
 import styled from '@emotion/styled';
 import { CuTableColumnLinks } from '../cu-table-column-links/cu-table-column-links';
 import { getTwoInitials } from '../../../core/utils/string.utils';
@@ -77,11 +77,8 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
             }
           />
           <TypographyJobTitle sx={{
-            marginTop: '24px',
-            marginBottom: '24px',
-            marginLeft: '8px',
+            margin: '24px 0',
             color,
-
           }}>{contributorCommitment.jobTitle}</TypographyJobTitle>
 
           <CardContentPositionRow>
