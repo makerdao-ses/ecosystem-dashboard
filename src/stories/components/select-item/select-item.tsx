@@ -49,7 +49,7 @@ const Container = styled.div<{ minWidth: number, isLight: boolean, checked: bool
     background: isLight ? checked ? '#EDEFFF' : '#F6F8F9' : '#25273D',
   },
   '&:hover .number': {
-    color: '#708390'
+    color: isLight ? '#708390' : '#ADAFD4'
   },
   '@media (min-width: 834px)': {
     border: 'none'
