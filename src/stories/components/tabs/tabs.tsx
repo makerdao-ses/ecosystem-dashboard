@@ -27,7 +27,7 @@ const Wrapper = styled.div({
   width: 'calc(100vw - 32px)',
   overflowX: 'scroll',
   '-ms-overflow-style': 'none',
-  scrollbarHeight: 'none',
+  scrollbarWidth: 'none',
   '&::-webkit-scrollbar': {
     display: 'none'
   },
