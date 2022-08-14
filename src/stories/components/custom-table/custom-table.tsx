@@ -112,6 +112,9 @@ const TableRow = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   '@media (min-width: 1180px) and (max-width: 1280px)': {
     gridTemplateColumns: '360px 215px 205px 340px',
   },
+  ':hover': {
+    background: isLight ? '#ECF1F3' : '#1E2C37'
+  }
 }));
 
 const TableHeadRow = styled.div({
