@@ -169,7 +169,7 @@ const SelectContainer = styled.div<{
   transition: 'all .3s ease',
   background: isLight ? 'white' : '#10191F',
   '&:hover': {
-    border: isLight ? '1px solid #231536' : '1px solid #343442',
+    border: isLight ? '1px solid #231536' : '1px solid #787A9B',
   },
 }));
 
