@@ -78,7 +78,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           <NumberCell key={3} value={getWalletActual(wallet)} />,
           <NumberCell key={3} value={getWalletDifference(wallet)} />,
           <NumberCell key={5} value={getWalletPayment(wallet)} />,
-          <TableCell key={6}>
+          <TableCell key={6} responsivePadding="4px">
             <CustomLink
               fontFamily={'SF Pro Display, sans-serif'}
               href={`https://etherscan.io/address/${wallet.address}`}
@@ -136,7 +136,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         <TableCell key={5}>
           {getCommentsFromCategory(grouped[groupedKey])}
         </TableCell>,
-        <NumberCell key={6} value={getGroupPayment(grouped[groupedKey])} />,
+        <NumberCell key={6} value={getGroupPayment(grouped[groupedKey])} responsivePadding="4px"/>,
       ]);
     }
 
