@@ -19,6 +19,7 @@ interface CuTableColumnSummaryProps {
   code?: string;
   logoDimension?: string;
   isLoading?: boolean;
+  style?: React.CSSProperties;
 }
 
 export const CuTableColumnSummary = ({
@@ -28,7 +29,7 @@ export const CuTableColumnSummary = ({
 }: CuTableColumnSummaryProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   return !isLoading
-    ? <Container onClick={props.onClick}>
+    ? <Container onClick={props.onClick} style={props.style}>
       <CircleContainer>
         <CircleAvatar
           width={logoDimension}

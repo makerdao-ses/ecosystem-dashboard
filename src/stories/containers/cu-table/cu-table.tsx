@@ -252,6 +252,10 @@ export const CuTable = () => {
                 onClick={onClickRow(coreUnit.shortCode)}
                 code={formatCode(coreUnit.shortCode)}
                 logoDimension={'68px'}
+                style={{
+                  width: '372px',
+                  height: '184px'
+                }}
               />
               <Padded>
                 <CategoriesTitle>Categories</CategoriesTitle>
