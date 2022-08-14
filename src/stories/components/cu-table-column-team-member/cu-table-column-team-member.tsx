@@ -58,10 +58,6 @@ export const CuTableColumnTeamMember = ({
                 style={{
                   boxSizing: 'border-box',
                   marginLeft: i === 0 ? 0 : '-9px',
-                  border: '2px solid #E7FCFA',
-                }}
-                imageStyle={{
-                  border: '2px solid #E7FCFA',
                 }}
                 image={member.contributor[0].facilitatorImage?.trim()}
               />

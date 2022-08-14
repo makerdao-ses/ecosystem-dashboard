@@ -13,9 +13,10 @@ interface CircleAvatarProps {
   style?: CSSProperties;
   imageStyle?: CSSProperties;
   identIcon?: boolean;
+  border?: string;
 }
 
-export const CircleAvatar = ({ width = '32px', height = '32px', fontSize = '16px', identIcon = false, ...props }: CircleAvatarProps) => {
+export const CircleAvatar = ({ width = '32px', height = '32px', fontSize = '16px', identIcon = false, border = '2px solid #E7FCFA', ...props }: CircleAvatarProps) => {
   const [loaded, setLoaded] = useState(false);
   const theme = useTheme();
   const identIconImage = identIcon && new Identicon(props.name, {
@@ -34,6 +35,7 @@ export const CircleAvatar = ({ width = '32px', height = '32px', fontSize = '16px
     fontWeight: 900,
     borderRadius: '50%',
     color: props.image && loaded ? 'transparent' : 'white',
+    border: props.image && loaded ? 'none' : border,
     background: `${getColorForString(props.name)} ${height}`,
     position: 'relative',
     ...props.style
@@ -48,12 +50,13 @@ export const CircleAvatar = ({ width = '32px', height = '32px', fontSize = '16px
           width,
           height,
           borderRadius: '50%',
-          ...props.imageStyle,
+          border,
           position: 'absolute',
           top: 0,
           left: 0,
           zIndex: 1,
-          visibility: loaded ? 'visible' : 'hidden'
+          visibility: loaded ? 'visible' : 'hidden',
+          ...props.imageStyle,
         }}
       />}
     {getTwoInitials(props.name)}</div>;
