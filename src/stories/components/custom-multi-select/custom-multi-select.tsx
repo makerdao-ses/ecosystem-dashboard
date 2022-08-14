@@ -187,7 +187,7 @@ const Label = styled.div<{ active: boolean; isLight: boolean }>(
     fontWeight: 500,
     fontSize: '14px',
     lineHeight: '18px',
-    color: isLight ? (active ? '#1AAB9B' : '#231536') : '#D2D4EF',
+    color: isLight ? (active ? '#1AAB9B' : '#231536') : '#E2D8EE',
     whiteSpace: 'nowrap',
   })
 );
@@ -208,7 +208,6 @@ const PopupContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   height: 'fit-content',
   padding: '16px 0 16px 16px',
   '@media (min-width: 834px)': {
-    background: 'white',
     boxShadow: isLight
       ? '0px 20px 40px #dbe3ed66, 0px 1px 3px #bebebe40'
       : 'none',
