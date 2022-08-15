@@ -69,7 +69,7 @@ const CuAboutContainer = ({ code, cuAbout, contributors }: Props) => {
         <title>{`About ${cuAbout.name} Core Unit at MakerDAO`}</title>
         <link rel="icon" href={cuAbout.image} />
         <meta
-          property="og:site_name"
+          property="og:title"
           content={`About ${cuAbout.name} Core Unit at MakerDAO`}
         />
         {/* Twitter */}
