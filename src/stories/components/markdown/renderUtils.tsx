@@ -103,8 +103,10 @@ const ImageTag = styled.img({
     margin: '0 auto',
   },
   [lightTheme.breakpoints.down('table_375')]: {
-    width: 'fit-content',
-    height: 'auto',
+    width: '327px',
+    height: '152px',
+    display: 'block',
+    margin: '0 auto',
   },
 });
 
