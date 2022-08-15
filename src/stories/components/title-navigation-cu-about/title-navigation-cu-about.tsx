@@ -209,10 +209,6 @@ export const TitleNavigationCuAbout = ({
                   <CategoryChip
                     key={item}
                     category={item}
-                    style={{
-                      marginRight:
-                        phoneDimensions || tableDimensions ? '8px' : '16px',
-                    }}
                   />
                 ))}
             </CategoryContainer>
@@ -377,17 +373,21 @@ const CategoryContainer = styled.div({
   display: 'flex',
   flexDirection: 'row',
   marginTop: '16px',
+  gap: '16px',
   height: '22px',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     marginTop: '0px',
+    gap: '8px',
   },
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     marginBottom: '16px',
     marginTop: '20px',
+    gap: '8px',
   },
   [lightTheme.breakpoints.down('table_375')]: {
     marginBottom: '16px',
     marginTop: '20px',
+    gap: '8px'
   },
 });
 const ContainerCategoryConditional = styled.div({
