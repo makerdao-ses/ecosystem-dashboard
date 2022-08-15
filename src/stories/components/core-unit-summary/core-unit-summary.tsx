@@ -130,7 +130,7 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   position: 'sticky',
-  top: 63,
+  top: 64,
   width: '100%',
   backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
   backgroundSize: 'cover',
