@@ -1,13 +1,13 @@
-import useSWR from 'swr';
 import { CORE_UNIT_REQUEST } from './transparency-report.api';
-import { fetcher } from '../../../core/utils/fetcher';
+import { request } from 'graphql-request';
+import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
 
-export const useTransparencyReportViewModel = (code: string) => {
-  const { data, error } = useSWR(code ? CORE_UNIT_REQUEST(code) : null, fetcher);
+export const useTransparencyReportViewModel = async(code: string) => {
+  const { query, filter } = CORE_UNIT_REQUEST(code);
+  const data = await request(GRAPHQL_ENDPOINT, query, filter);
 
   return {
     data,
-    isLoading: !error && !data,
-    error,
+    isLoading: false,
   };
 };

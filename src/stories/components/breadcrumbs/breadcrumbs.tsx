@@ -16,7 +16,7 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
   return (
     <Container>
       {props.items.map((item, i) => (
-        <>
+        <div key={item.label.toString()}>
           <Link
             key={item.label.toString() + i}
             href={item.url}
@@ -36,7 +36,7 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
           {i !== props.items.length - 1 && (
             <BreadcrumbSeparator fillDark="#787A9B" fill="#D1DEE6" />
           )}
-        </>
+        </div>
       ))}
     </Container>
   );
