@@ -24,7 +24,7 @@ export const CircleAvatar = ({ width = '32px', height = '32px', fontSize = '16px
     margin: 0.2
   }).toString();
 
-  return <div style={{
+  return <div className="circle-avatar" style={{
     width,
     height,
     display: 'flex',

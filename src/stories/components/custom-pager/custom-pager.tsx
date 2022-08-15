@@ -34,7 +34,7 @@ const Container = styled.div({
 
 const Label = styled.div({
   fontFamily: 'FT Base, sans-serif',
-  fontWeight: 500,
+  fontWeight: 700,
   fontSize: '16px',
   lineHeight: '19px',
   letterSpacing: '0.4px',

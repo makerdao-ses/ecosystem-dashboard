@@ -119,7 +119,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
             [firstMonth, secondMonth, thirdMonth]
           )}
         />,
-        <TableCell key={8} responsivePadding={'0'}>
+        <TableCell key={8} responsivePadding="4px">
           <CustomLink
             fontSize={16}
             fontFamily={'SF Pro Display, sans-serif'}

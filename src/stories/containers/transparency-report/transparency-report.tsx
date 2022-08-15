@@ -216,22 +216,21 @@ const InnerPage = styled.div({
   textAlign: 'left',
 });
 
-export const Title = styled.div<{ marginBottom?: number; isLight: boolean }>(
-  ({ marginBottom = 16, isLight }) => ({
-    fontFamily: 'FT Base, sans-serif',
-    fontWeight: 500,
-    fontStyle: 'normal',
-    fontSize: '16px',
-    lineHeight: '19px',
-    letterSpacing: '0.4px',
-    color: isLight ? '#231536' : '#D2D4EF',
-    marginBottom: `${marginBottom}px`,
-    '@media (min-width: 834px)': {
-      fontSize: '20px',
-      lineHeight: '24px',
-    },
-  })
-);
+export const Title = styled.div<{ marginBottom?: number, isLight: boolean, fontSize?: string, responsiveMarginBottom?: number }>(({ marginBottom = 16, fontSize = '16px', isLight, responsiveMarginBottom }) => ({
+  fontFamily: 'FT Base, sans-serif',
+  fontWeight: 700,
+  fontStyle: 'normal',
+  fontSize,
+  lineHeight: '19px',
+  letterSpacing: '0.4px',
+  color: isLight ? '#231536' : '#D2D4EF',
+  marginBottom: `${marginBottom}px`,
+  '@media (min-width: 834px)': {
+    fontSize: '20px',
+    lineHeight: '24px',
+    marginBottom: `${responsiveMarginBottom || marginBottom}px`,
+  }
+}));
 
 const Paragraph = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
@@ -283,8 +282,8 @@ const StatusTitle = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 const StatusValue = styled.div<{ color: string }>(({ color }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
-  textDecoration: 'uppercase',
-  fontWeight: 500,
+  textTransform: 'uppercase',
+  fontWeight: 700,
   fontSize: '16px',
   lineHeight: '19px',
   letterSpacing: '0.4px',
