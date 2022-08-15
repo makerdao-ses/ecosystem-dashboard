@@ -48,6 +48,8 @@ const CuAboutContainer = ({ code, cuAbout, contributors }: Props) => {
     setShowThreeMIPs(!showThreeMIPs);
   };
 
+  // https://ea82-167-58-254-66.sa.ngrok.io/core-unit/DUX?filteredStatuses=&filteredCategories=&searchText=
+
   const relateMipsOrder = useMemo(() => {
     const buildNewArray = cuAbout.cuMip.map((mip: CuMip) => getRelateMipObjectFromCoreUnit(mip));
     const order = _.sortBy(buildNewArray, ['orderBy', 'dateMip']).reverse();
@@ -63,14 +65,30 @@ const CuAboutContainer = ({ code, cuAbout, contributors }: Props) => {
 
   return (
     <ContainerAbout isLight={isLight}>
-    <Head>
-      <title>About Sustainable Ecosystem Scaling Core Unit at MakerDAO</title>
-      <link rel="icon" href="/favicon.png" />
-      <meta property='og:site_name' content="About Sustainable Ecosystem Scaling Core Unit at MakerDAO"/>
-      <meta name="description" content="Learn about the Sustainable Ecosystem Scaling Core Unit at MakerDAO: their mandate, vision, mission, strategy, and more." />
-      <meta name="og:description" content="Learn about the Sustainable Ecosystem Scaling Core Unit at MakerDAO: their mandate, vision, mission, strategy, and more." />
-      <meta name="robots" content="index,follow"/>
-    </Head>
+      <Head>
+        <title>{`About ${cuAbout.name} Core Unit at MakerDAO`}</title>
+        <link rel="icon" href={cuAbout.image} />
+        <meta
+          property="og:site_name"
+          content={`About ${cuAbout.name} Core Unit at MakerDAO`}
+        />
+        {/* Twitter */}
+        <meta name="twitter:title" content={`About ${cuAbout.name} Core Unit at MakerDAO`} />
+        <meta name="twitter:description" content={`Learn about the ${cuAbout.name} Core Unit at MakerDAO: their mandate, vision, mission, strategy, and more.`} />
+        <meta name="twitter:image" content={cuAbout.image} />
+        {/* Others */}
+        <meta
+          name="description"
+          content={`Learn about the ${cuAbout.name} Core Unit at MakerDAO: their mandate, vision, mission, strategy, and more.`}
+        />
+        <meta property="og:image" content={cuAbout.image} />
+        <meta
+          name="og:description"
+          content={`Learn about the ${cuAbout.name} Core Unit at MakerDAO: their mandate, vision, mission, strategy, and more.`}
+        />
+        <meta name="robots" content="index,follow" />
+
+      </Head>
       <CoreUnitSummary />
       <Wrapper>
         <ContainerAllData>
