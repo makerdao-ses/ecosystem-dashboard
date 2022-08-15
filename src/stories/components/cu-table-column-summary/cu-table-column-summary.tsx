@@ -19,6 +19,7 @@ interface CuTableColumnSummaryProps {
   code?: string;
   logoDimension?: string;
   isLoading?: boolean;
+  style?: React.CSSProperties;
 }
 
 export const CuTableColumnSummary = ({
@@ -28,7 +29,7 @@ export const CuTableColumnSummary = ({
 }: CuTableColumnSummaryProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   return !isLoading
-    ? <Container onClick={props.onClick}>
+    ? <Container onClick={props.onClick} style={props.style}>
       <CircleContainer>
         <CircleAvatar
           width={logoDimension}
@@ -48,7 +49,7 @@ export const CuTableColumnSummary = ({
           <Title isLight={isLight}>{props.title}</Title>
         </TitleWrapper>
         <Row>
-          {props.status && <StatusChip status={props.status} />}
+          {props.status && <StatusChip status={props.status} style={{ marginLeft: '-2px' }} />}
           {props.statusModified && (
             <CustomPopover
               id={'mouse-over-popover-goto'}

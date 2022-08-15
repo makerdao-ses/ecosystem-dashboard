@@ -17,8 +17,7 @@ export const getServerSideProps: GetServerSideProps = async(context: GetServerSi
   const cuAbout = await fetchCoreUnitByCode(code);
   const contributorCommitment = cuAbout.contributorCommitment;
 
-  console.log('cuAbout', cuAbout);
-  if (_.isEmpty(cuAbout) && contributorCommitment.length === 0) {
+  if (_.isEmpty(cuAbout)) {
     return {
       notFound: true,
     };

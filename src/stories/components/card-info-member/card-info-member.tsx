@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Box, Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
+import { Box, Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
 import styled from '@emotion/styled';
 import { CuTableColumnLinks } from '../cu-table-column-links/cu-table-column-links';
 import { getTwoInitials } from '../../../core/utils/string.utils';
@@ -11,6 +11,7 @@ import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { ContributorCommitmentDto } from '../../../core/models/dto/core-unit.dto';
+import { CircleAvatar } from '../circle-avatar/circle-avatar';
 
 interface Props {
   contributorCommitment: ContributorCommitment | ContributorCommitmentDto;
@@ -39,25 +40,14 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
                 marginRight: '0px',
               },
             }}
-            avatar={!contributor.facilitatorImage
-              ? <Avatar sx={{
-                bgcolor: 'black',
-                marginRight: '21px',
-              }} style={{
-                width: '54px',
-                height: '54px',
-                fontSize: '20px',
-                color: 'white',
-                border: '3px solid #E7FCFA',
-
-              }}>{getTwoInitials(contributor?.name || 'NM')}</Avatar>
-              : <Avatar sx={{
-                marginRight: '21px',
-              }} style={{
-                width: '54px',
-                height: '54px',
-                border: '3px solid #E7FCFA',
-              }} src={contributor.facilitatorImage} />}
+            avatar={<CircleAvatar
+                      width="48px"
+                      height="48px"
+                      style={{ marginRight: '24px' }}
+                      name={getTwoInitials(contributor?.name)}
+                      image={contributor?.facilitatorImage}
+                      border="3px solid #E7FCFA"
+                      />}
             title={<TypographyName isLight={isLight}>{contributor.name}</TypographyName>}
             subheader={
               <>
@@ -87,10 +77,8 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
             }
           />
           <TypographyJobTitle sx={{
-            marginTop: '24px',
-            marginBottom: '24px',
+            margin: '24px 0',
             color,
-
           }}>{contributorCommitment.jobTitle}</TypographyJobTitle>
 
           <CardContentPositionRow>

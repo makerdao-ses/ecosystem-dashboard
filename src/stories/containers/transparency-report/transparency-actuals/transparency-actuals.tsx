@@ -15,7 +15,7 @@ import { useTransparencyActualsMvvm } from './transparency-actuals.mvvm';
 import { formatAddressForOutput } from '../../../../core/utils/string.utils';
 import { NumberCell } from '../../../components/number-cell/number-cell';
 import { TransparencyCard } from '../../../components/transparency-card/transparency-card';
-import { CardsWrapper, TableWrapper } from '../transparency-report';
+import { CardsWrapper, TableWrapper, Title } from '../transparency-report';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
 
@@ -78,7 +78,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           <NumberCell key={3} value={getWalletActual(wallet)} />,
           <NumberCell key={3} value={getWalletDifference(wallet)} />,
           <NumberCell key={5} value={getWalletPayment(wallet)} />,
-          <TableCell key={6}>
+          <TableCell key={6} responsivePadding="4px">
             <CustomLink
               fontFamily={'SF Pro Display, sans-serif'}
               href={`https://etherscan.io/address/${wallet.address}`}
@@ -136,7 +136,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         <TableCell key={5}>
           {getCommentsFromCategory(grouped[groupedKey])}
         </TableCell>,
-        <NumberCell key={6} value={getGroupPayment(grouped[groupedKey])} />,
+        <NumberCell key={6} value={getGroupPayment(grouped[groupedKey])} responsivePadding="4px"/>,
       ]);
     }
 
@@ -205,8 +205,9 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           currentWallet?.budgetStatementLineItem?.filter(
             (item) => item.headcountExpense
           )
-        ).map((item) => (
+        ).map((item, i) => (
           <TransparencyCard
+            key={`item-${i}`}
             header={item[0]}
             headers={['Forecast', 'Actuals', 'Difference', 'Diff. Reason']}
             items={item.slice(1)}
@@ -219,8 +220,9 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           currentWallet?.budgetStatementLineItem?.filter(
             (item) => !item.headcountExpense
           )
-        ).map((item) => (
+        ).map((item, i) => (
           <TransparencyCard
+            key={`item-${i}`}
             header={item[0]}
             headers={['Forecast', 'Actuals', 'Difference', 'Diff. Reason']}
             items={item.slice(1)}
@@ -232,7 +234,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
 
   return (
     <Container>
-      <Title isLight={isLight}>
+      <Title isLight={isLight} responsiveMarginBottom={16}>
         {props.currentMonth.toFormat('MMM yyyy')} Totals
       </Title>
 
@@ -268,8 +270,9 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           </TableWrapper>
 
           <CardsWrapper>
-            {mainTableItems.map((item) => (
+            {mainTableItems.map((item, i) => (
               <TransparencyCard
+                key={`item-${i}`}
                 header={item[0]}
                 headers={mainTableHeaders.slice(1, 5)}
                 items={item.slice(1)}
@@ -341,23 +344,3 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
 });
-
-const Title = styled.div<{
-  fontSize?: string;
-  isLight: boolean;
-  lineHeight?: string;
-}>(({ fontSize = '16px', isLight, lineHeight = '19px' }) => ({
-  fontFamily: 'FT Base, sans-serif',
-  fontWeight: 500,
-  fontStyle: 'normal',
-  fontSize,
-  lineHeight,
-  letterSpacing: '0.4px',
-  color: isLight ? '#231536' : '#D2D4EF',
-  marginBottom: '16px',
-  '@media (min-width: 834px)': {
-    fontSize: '20px',
-    marginBottom: '24px',
-    lineHeight: '24px',
-  },
-}));

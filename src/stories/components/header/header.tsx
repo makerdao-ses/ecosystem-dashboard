@@ -187,20 +187,20 @@ const ItemMenuStyle = styled.a<{ active: boolean, marginRight?: string, isLight:
   '&:hover': {
     color: '#1dc1ae',
   },
-  '@media (min-width: 834px)': {
+  '@media (min-width: 1194px)': {
     display: 'block'
   }
 }));
 
 const ItemMenuResponsive = styled.div({
-  '@media (min-width: 834px)': {
+  '@media (min-width: 1194px)': {
     display: 'none'
   }
 });
 
 const LinkWrapper = styled.div({
   display: 'none',
-  '@media (min-width: 834px)': {
+  '@media (min-width: 1194px)': {
     display: 'flex',
   }
 });
