@@ -1,5 +1,6 @@
 import { NextPage, GetServerSideProps, InferGetServerSidePropsType, GetServerSidePropsContext } from 'next';
 import React from 'react';
+import _ from 'lodash';
 
 import CuAboutContainer from '../../../src/stories/containers/cu-about/cu-about-container';
 import { CuAbout, fetchCoreUnitByCode } from '../../../src/stories/containers/cu-about/cu-about.api';
@@ -15,6 +16,14 @@ export const getServerSideProps: GetServerSideProps = async(context: GetServerSi
   const code = query.code as string;
   const cuAbout = await fetchCoreUnitByCode(code);
   const contributorCommitment = cuAbout.contributorCommitment;
+
+  console.log('cuAbout', cuAbout);
+  if (_.isEmpty(cuAbout) && contributorCommitment.length === 0) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     props: {
       code,
