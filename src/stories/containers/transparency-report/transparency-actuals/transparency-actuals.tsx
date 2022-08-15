@@ -205,8 +205,9 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           currentWallet?.budgetStatementLineItem?.filter(
             (item) => item.headcountExpense
           )
-        ).map((item) => (
+        ).map((item, i) => (
           <TransparencyCard
+            key={`item-${i}`}
             header={item[0]}
             headers={['Forecast', 'Actuals', 'Difference', 'Diff. Reason']}
             items={item.slice(1)}
@@ -219,8 +220,9 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           currentWallet?.budgetStatementLineItem?.filter(
             (item) => !item.headcountExpense
           )
-        ).map((item) => (
+        ).map((item, i) => (
           <TransparencyCard
+            key={`item-${i}`}
             header={item[0]}
             headers={['Forecast', 'Actuals', 'Difference', 'Diff. Reason']}
             items={item.slice(1)}
@@ -268,8 +270,9 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           </TableWrapper>
 
           <CardsWrapper>
-            {mainTableItems.map((item) => (
+            {mainTableItems.map((item, i) => (
               <TransparencyCard
+                key={`item-${i}`}
                 header={item[0]}
                 headers={mainTableHeaders.slice(1, 5)}
                 items={item.slice(1)}

@@ -1,8 +1,9 @@
 import React from 'react';
 import CuAboutContainer from '../../../containers/cu-about/cu-about-container';
-const CuAbout = () => {
+import { CuAbout } from '../../../containers/cu-about/cu-about.api';
+const CuAboutPageTesting = () => {
   return (
-    <CuAboutContainer />);
+    <CuAboutContainer cuAbout={{} as CuAbout} code='SES-001' contributors={[]}/>);
 };
 
-export default CuAbout;
+export default CuAboutPageTesting;
