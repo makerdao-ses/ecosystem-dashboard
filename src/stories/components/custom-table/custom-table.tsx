@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { CustomTableHeader } from '../custom-table-header/custom-table-header';
 import { SortEnum } from '../../../core/enums/sort.enum';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { CustomTableHeaderSkeleton } from './custom-table-header.skeleton';
 
 interface CustomTableProps {
   headers: string[];
@@ -23,32 +24,38 @@ export const CustomTable = ({
   return (
     <TableContainer isLight={isLight}>
       <Table>
-        <TableHead isLight={isLight}>
-          <TableHeadRow>
-            {props.headers?.map((header, i) => (
-              <TableCell
-                key={`header-${i}`}
-                style={{
-                  justifyContent: props.headersAlign && props.headersAlign[i],
-                }}
-                onClick={() =>
-                  headersSort &&
-                  headersSort[i] &&
-                  headersSort[i] !== SortEnum.Disabled &&
-                  props.sortFunction &&
-                  props.sortFunction(i, headersSort[i])
-                }
-              >
-                <CustomTableHeader
-                  style={headersStyles[i] ?? {}}
-                  align={props.headersAlign && props.headersAlign[i]}
-                  state={headersSort[i]}
-                  title={header}
-                />
-              </TableCell>
-            ))}
-          </TableHeadRow>
-        </TableHead>
+        {props.loading
+          ? (
+          <CustomTableHeaderSkeleton isLight={isLight} />
+            )
+          : (
+          <TableHead isLight={isLight}>
+            <TableHeadRow>
+              {props.headers?.map((header, i) => (
+                <TableCell
+                  key={`header-${i}`}
+                  style={{
+                    justifyContent: props.headersAlign && props.headersAlign[i],
+                  }}
+                  onClick={() =>
+                    headersSort &&
+                    headersSort[i] &&
+                    headersSort[i] !== SortEnum.Disabled &&
+                    props.sortFunction &&
+                    props.sortFunction(i, headersSort[i])
+                  }
+                >
+                  <CustomTableHeader
+                    style={headersStyles[i] ?? {}}
+                    align={props.headersAlign && props.headersAlign[i]}
+                    state={headersSort[i]}
+                    title={header}
+                  />
+                </TableCell>
+              ))}
+            </TableHeadRow>
+          </TableHead>
+            )}
         <TableBody isLight={isLight}>
           {props.items?.map((row, i) => (
             <TableRow key={i} isLight={isLight}>

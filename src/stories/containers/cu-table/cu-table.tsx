@@ -51,6 +51,7 @@ import { CustomPopover } from '../../components/custom-popover/custom-popover';
 import { CategoryChip } from '../../components/category-chip/category-chip';
 import { TablePlaceholder } from '../../components/custom-table/placeholder';
 import Head from 'next/head';
+import { CuTableHeaderSkeleton } from '../../components/cu-table-header-skeleton/header-skeleton';
 
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
 const sortNeutralState = [
@@ -216,10 +217,10 @@ export const CuTable = () => {
   const items = useMemo(() => {
     if (status === 'loading') {
       return new Array(10).fill([
-        <CuTableColumnSummary isLoading/>,
-        <CuTableColumnExpenditures isLoading/>,
-        <CuTableColumnTeamMember isLoading/>,
-        <CuTableColumnLinks isLoading/>
+        <CuTableColumnSummary isLoading />,
+        <CuTableColumnExpenditures isLoading />,
+        <CuTableColumnTeamMember isLoading />,
+        <CuTableColumnLinks isLoading />,
       ]);
     }
 
@@ -322,9 +323,11 @@ export const CuTable = () => {
 
   const itemsList = useMemo(() => {
     if (status === 'loading') {
-      return new Array(4).fill(<CoreUnitCard coreUnit={{} as CoreUnitDto} isLoading/>);
+      return new Array(4).fill(
+        <CoreUnitCard coreUnit={{} as CoreUnitDto} isLoading />
+      );
     }
-    return filteredData.map(cu => (
+    return filteredData.map((cu) => (
       <CoreUnitCard
         key={`card-${cu.code}`}
         coreUnit={cu}
@@ -336,38 +339,53 @@ export const CuTable = () => {
 
   return (
     <ContainerHome isLight={isLight}>
-    <Head>
-      <title>Sustainable Ecosystem Scaling Core Unit | Maker Expenses</title>
-      <link rel="icon" href="/favicon.png" />
-      <meta property='og:site_name' content="Sustainable Ecosystem Scaling Core Unit | Maker Expenses"/>
-      <meta name="description" content="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO." />
-      <meta name="og:description" content="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO." />
-      <meta name="robots" content="index,follow"/>
-    </Head>
+      <Head>
+        <title>Sustainable Ecosystem Scaling Core Unit | Maker Expenses</title>
+        <link rel="icon" href="/favicon.png" />
+        <meta
+          property="og:site_name"
+          content="Sustainable Ecosystem Scaling Core Unit | Maker Expenses"
+        />
+        <meta
+          name="description"
+          content="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
+        />
+        <meta
+          name="og:description"
+          content="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
+        />
+        <meta name="robots" content="index,follow" />
+      </Head>
       <Wrapper>
-        <Header>
-          <Title isLight={isLight}>Core Units Expenses</Title>
-          <FilterButtonWrapper onClick={toggleFiltersPopup}>
-            <CustomButton
-              label={'Filters'}
-              style={{
-                height: '34px',
-                width: '90px',
-                border: isLight ? '1px solid #D4D9E1' : '1px solid #343442',
-              }}
+        {status === 'loading'
+          ? (
+          <CuTableHeaderSkeleton />
+            )
+          : (
+          <Header>
+            <Title isLight={isLight}>Core Units Expenses</Title>
+            <FilterButtonWrapper onClick={toggleFiltersPopup}>
+              <CustomButton
+                label={'Filters'}
+                style={{
+                  height: '34px',
+                  width: '90px',
+                  border: isLight ? '1px solid #D4D9E1' : '1px solid #343442',
+                }}
+              />
+            </FilterButtonWrapper>
+            <Filters
+              filtersPopup={filtersPopup}
+              filteredStatuses={filteredStatuses}
+              filteredCategories={filteredCategories}
+              categoriesCount={categoriesCount}
+              statusCount={statusCount}
+              searchText={searchText}
+              setFiltersPopup={toggleFiltersPopup}
+              clearFilters={clearFilters}
             />
-          </FilterButtonWrapper>
-          <Filters
-            filtersPopup={filtersPopup}
-            filteredStatuses={filteredStatuses}
-            filteredCategories={filteredCategories}
-            categoriesCount={categoriesCount}
-            statusCount={statusCount}
-            searchText={searchText}
-            setFiltersPopup={toggleFiltersPopup}
-            clearFilters={clearFilters}
-          />
-        </Header>
+          </Header>
+            )}
         {!!items?.length && (
           <>
             <TableWrapper>
