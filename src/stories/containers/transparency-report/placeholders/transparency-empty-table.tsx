@@ -306,7 +306,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     left: 0,
     width: '100%',
     height: '100%',
-    background: isLight ? 'radial-gradient(white, rgba(255,255,255,0.9), rgba(255,255,255,0.9), rgba(255,255,255,0.6), rgba(255,255,255,0.1))' : 'radial-gradient(#10191F, rgb(16,25,31,100%), rgb(16,25,31,80%), rgb(16,25,31,50%),rgb(16,25,31,20%))',
+    background: isLight ? 'radial-gradient(white, rgba(255,255,255,0.9), rgba(255,255,255,0.9), rgba(255,255,255,0.6), rgba(255,255,255,0.1))' : 'radial-gradient(black, rgba(16, 25, 31,0.9) 60%, rgba(16, 25, 31,0.9) 40%, rgba(16, 25, 31,0.9) 40%, rgba(16, 25, 31,0.1))',
     backgroundRepeat: 'no-repeat',
   },
 }));
