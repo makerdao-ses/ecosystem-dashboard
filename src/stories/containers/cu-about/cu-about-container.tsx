@@ -47,9 +47,6 @@ const CuAboutContainer = ({ code, cuAbout, contributors }: Props) => {
   const onClickLessMips = () => {
     setShowThreeMIPs(!showThreeMIPs);
   };
-
-  // https://ea82-167-58-254-66.sa.ngrok.io/core-unit/DUX?filteredStatuses=&filteredCategories=&searchText=
-
   const relateMipsOrder = useMemo(() => {
     const buildNewArray = cuAbout.cuMip.map((mip: CuMip) => getRelateMipObjectFromCoreUnit(mip));
     const order = _.sortBy(buildNewArray, ['orderBy', 'dateMip']).reverse();
