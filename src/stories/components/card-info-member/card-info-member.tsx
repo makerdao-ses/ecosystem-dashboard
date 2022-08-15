@@ -89,7 +89,6 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
           <TypographyJobTitle sx={{
             marginTop: '24px',
             marginBottom: '24px',
-            marginLeft: '8px',
             color,
 
           }}>{contributorCommitment.jobTitle}</TypographyJobTitle>
