@@ -345,6 +345,7 @@ export const CuTable = () => {
       <Head>
         <title>Sustainable Ecosystem Scaling Core Unit | Maker Expenses</title>
         <link rel="icon" href="/favicon.png" />
+        <link rel="manifest" href="/manifest.json" />
         <meta
           property="og:site_name"
           content="Sustainable Ecosystem Scaling Core Unit | Maker Expenses"
@@ -357,6 +358,17 @@ export const CuTable = () => {
           name="og:description"
           content="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
         />
+        <link rel="icon" href="/favicon.png" />
+        <meta name='mobile-web-app-capable' content='yes' />
+        <meta name='apple-mobile-web-app-capable' content='yes' />
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/icons/apple-touch-icon-size-1024x1024.png" />
+        <link rel="apple-touch-icon" sizes="512x512" href="/icons/apple-touch-icon-size-512.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon-size-180.png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="/icons/apple-touch-icon-size-120.png" />
+        <link rel="shortcut icon" sizes="196x196" href="/icons/apple-touch-icon-size-1024x1024.png" />
+        <meta name="Android-MakerDAO-Expenses-bars-color-square-1024x1024" content="/icons/Android-MakerDAO-Expenses-bars-color-square-1024x1024.png" />
+        <meta name="Android-MakerDAO-Expenses-bars-color-square-512x512" content="/icons/Android-MakerDAO-Expenses-bars-color-square-512x512.png" />
+        <meta name="Android-MakerDAO-Expenses-bars-color-square-192x192" content="/icons/Android-MakerDAO-Expenses-bars-color-square-192x192.png" />
         <meta property="og:image" content="https://expenses-dev.makerdao.network/favicon.png" />
         <meta name="twitter:image" content="https://expenses-dev.makerdao.network/favicon.png" />
         <meta name="robots" content="index,follow" />
