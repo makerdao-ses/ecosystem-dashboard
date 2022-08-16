@@ -91,7 +91,7 @@ const CuAboutContainer = ({ code, cuAbout, contributors }: Props) => {
         <ContainerAllData>
           <ContainerResponsive>
             <MarkdownContainer>
-              <MdViewerContainer showButton={table834 || phone} sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)} paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)} paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)} onClick={onClickFinances} />
+              <MdViewerContainer showButton={table834 || phone || LessPhone} sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)} paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)} paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)} onClick={onClickFinances} />
             </MarkdownContainer>
             <TeamMemberContainer>
               <TeamMemberTitle isLight={isLight}>Team Size</TeamMemberTitle><TeamMember fte={getFTEsFromCoreUnit(cuAbout)} />
@@ -134,7 +134,7 @@ const CuAboutContainer = ({ code, cuAbout, contributors }: Props) => {
                 bgcolor: isLight ? '#D4D9E1' : '#405361',
               }} />
             </ButtonContainer>}
-            {(table834 || phone) && <CardSomeThingWrong width='770px' />}
+            {(table834 || phone || LessPhone) && <CardSomeThingWrong width={table834 || phone ? '770px' : 'fit-contet'} />}
           </ContainerResponsive>
 
           {!(table834 || phone || LessPhone) && <div style={{
