@@ -10,6 +10,7 @@ import { ThemeProvider } from '../src/core/context/ThemeContext';
 import { FeatureFlagsProvider } from '../src/core/context/FeatureFlagsProvider';
 import { CURRENT_ENVIRONMENT } from '../src/config/endpoints';
 import { featureFlags } from '../feature-flags/feature-flags';
+import { SEOHead } from '../src/stories/components/seo-head/seo-head';
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -26,19 +27,21 @@ function MyApp(props: MyAppProps) {
   return (
     <ThemeProvider>
       <Provider store={store}>
-        <Head>
+        <SEOHead title="MakerDAO - Dashboard" description="" />
+        {/* <Head>
           <title>MakerDAO - Dashboard</title>
-          <link rel="icon" href="/favicon.png" />
-          <meta name='mobile-web-app-capable' content='yes' />
-          <meta name='apple-mobile-web-app-capable' content='yes' />
-          <link rel='apple-touch-icon' href='favicon_152x152.png' />
-          <meta name='msapplication-square150x150logo' content='favicon_152x152.png' />
-        </Head>
-        <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
-          <Component {...pageProps} />
-        </FeatureFlagsProvider>
-      </Provider>
-    </ThemeProvider>
+          <link rel="icon" type="image/ico" href="/favicon.ico" />
+          <meta name='mobile-web-app-capable' content='yes'/>
+          <meta name='apple-mobile-web-app-capable' content='yes'/>
+
+          <link rel='apple-touch-icon' href='favicon_152x152.png'/>
+          <meta name='msapplication-square150x150logo' content='favicon_152x152.png'/>
+          </Head> */}
+          <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
+            <Component {...pageProps} />
+          </FeatureFlagsProvider>
+        </Provider>
+      </ThemeProvider>
   );
 }
 

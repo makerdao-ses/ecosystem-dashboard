@@ -22,6 +22,7 @@ import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
+import { SEOHead } from '../../components/seo-head/seo-head';
 const MdViewerContainer = dynamic(() => import('../../components/markdown/md-view-container'), { ssr: false });
 
 interface Props {
@@ -62,30 +63,13 @@ const CuAboutContainer = ({ code, cuAbout, contributors }: Props) => {
 
   return (
     <ContainerAbout isLight={isLight}>
-      <Head>
-        <title>{`About ${cuAbout.name} Core Unit at MakerDAO`}</title>
-        <link rel="icon" href={cuAbout.image} />
-        <meta
-          property="og:title"
-          content={`About ${cuAbout.name} Core Unit at MakerDAO`}
-        />
-        {/* Twitter */}
-        <meta name="twitter:title" content={`About ${cuAbout.name} Core Unit at MakerDAO`} />
-        <meta name="twitter:description" content={`Learn about the ${cuAbout.name} Core Unit at MakerDAO: their mandate, vision, mission, strategy, and more.`} />
-        <meta name="twitter:image" content={cuAbout.image} />
-        {/* Others */}
-        <meta
-          name="description"
-          content={`Learn about the ${cuAbout.name} Core Unit at MakerDAO: their mandate, vision, mission, strategy, and more.`}
-        />
-        <meta property="og:image" content={cuAbout.image} />
-        <meta
-          name="og:description"
-          content={`Learn about the ${cuAbout.name} Core Unit at MakerDAO: their mandate, vision, mission, strategy, and more.`}
-        />
-        <meta name="robots" content="index,follow" />
+      <SEOHead
+        title={`About ${cuAbout.name} Core Unit at MakerDAO`}
+        description={`Learn about the ${cuAbout.name} Core Unit at MakerDAO: their mandate, vision, mission, strategy, and more.`}
+        image={cuAbout.image}
+        favicon={cuAbout.image}
+      />
 
-      </Head>
       <CoreUnitSummary />
       <Wrapper>
         <ContainerAllData>
