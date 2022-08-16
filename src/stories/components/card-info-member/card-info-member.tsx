@@ -44,7 +44,7 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
                       width="48px"
                       height="48px"
                       style={{ marginRight: '24px' }}
-                      name={getTwoInitials(contributor?.name)}
+                      name={contributor?.name}
                       image={contributor?.facilitatorImage}
                       border="3px solid #E7FCFA"
                       />}
