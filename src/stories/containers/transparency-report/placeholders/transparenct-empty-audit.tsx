@@ -3,11 +3,12 @@ import React from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 
 export const TransparencyEmptyAudit = () => {
+  const isLight = useThemeContext().themeMode === 'light';
   return (
     <>
       <Wrapper>
         <Title>No Data Provided</Title>
-        <Container>
+        <Container isLight={isLight}>
           <Row>
             <CellBlock />
             <CellBlock />
