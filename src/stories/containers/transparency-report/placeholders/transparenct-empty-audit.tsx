@@ -21,7 +21,7 @@ export const TransparencyEmptyAudit = () => {
       </Wrapper>
       <MobileWrapper>
         <img
-          src="/assets/img/bg-placeholder-transparency.svg"
+          src={isLight ? '/assets/img/bg-placeholder-transparency.svg' : '/assets/img/bg-placeholder-transparency-dark.svg'}
           alt="placeholder"
         />
       </MobileWrapper>
