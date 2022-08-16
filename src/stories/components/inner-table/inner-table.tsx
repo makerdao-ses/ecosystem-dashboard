@@ -1,7 +1,6 @@
 import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { TransparencyEmptyTable } from '../../containers/transparency-report/placeholders/transparency-empty-table';
 
 interface InnerTableProps {
   headers: string[];
