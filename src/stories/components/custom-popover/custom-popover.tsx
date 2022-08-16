@@ -55,7 +55,7 @@ export const CustomPopover = ({
         '& .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
           background: isLight ? 'white' : '#000A13',
           border: isLight ? '1px solid #D4D9E1' : '1px solid #231536',
-          boxShadow: isLight ? 'none' : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
+          boxShadow: isLight ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
           borderRadius: '6px',
         }
       }}
@@ -73,9 +73,7 @@ export const CustomPopover = ({
         style={{
           borderRadius: '6px',
           ...props.popupStyle
-        }
-
-        }
+        }}
         onMouseLeave={() => leaveOnChildrenMouseOut && handlePopoverClose()}
       >{props.title}</Container>
     </Popover>
