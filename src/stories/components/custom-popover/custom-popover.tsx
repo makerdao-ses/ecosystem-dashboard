@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface CustomPopoverProps {
-  title: JSX.Element | string;
+  title?: JSX.Element | string;
   children: JSX.Element | JSX.Element[] | boolean;
   id: string;
   css?: CSSProperties;

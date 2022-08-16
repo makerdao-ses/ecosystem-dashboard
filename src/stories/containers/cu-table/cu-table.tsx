@@ -228,16 +228,21 @@ export const CuTable = () => {
     const sortedData = sortData(filteredData);
     return sortedData.map((coreUnit: CoreUnitDto, i: number) => {
       return [
-        <CustomPopover
-          popupStyle={{
-            padding: 0,
-          }}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-          title={
-            <>
+          <CuTableColumnSummary
+            key={`summary-${coreUnit.code}`}
+            title={coreUnit.name}
+            status={
+              getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum
+            }
+            statusModified={getSubmissionDateFromCuMip(
+              getLatestMip39FromCoreUnit(coreUnit)
+            )}
+            imageUrl={coreUnit.image}
+            mipUrl={getMipUrlFromCoreUnit(coreUnit)}
+            onClick={onClickRow(coreUnit.shortCode)}
+            code={formatCode(coreUnit.shortCode)}
+            popupChild={
+              <>
               <CuTableColumnSummary
                 key={`summary-${coreUnit.code}`}
                 title={coreUnit.name}
@@ -266,24 +271,8 @@ export const CuTable = () => {
                 </CategoriesRow>
               </Padded>
             </>
-          }
-          id={coreUnit.code}
-        >
-          <CuTableColumnSummary
-            key={`summary-${coreUnit.code}`}
-            title={coreUnit.name}
-            status={
-              getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum
             }
-            statusModified={getSubmissionDateFromCuMip(
-              getLatestMip39FromCoreUnit(coreUnit)
-            )}
-            imageUrl={coreUnit.image}
-            mipUrl={getMipUrlFromCoreUnit(coreUnit)}
-            onClick={onClickRow(coreUnit.shortCode)}
-            code={formatCode(coreUnit.shortCode)}
-          />
-        </CustomPopover>,
+          />,
         <div
           style={{
             display: 'block',
