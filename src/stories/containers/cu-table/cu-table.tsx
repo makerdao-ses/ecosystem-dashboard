@@ -340,6 +340,37 @@ export const CuTable = () => {
     ));
   }, [filteredData, onClickRow]);
 
+  const siteHeader = useMemo(() => {
+    if (status === 'loading') {
+      return <CuTableHeaderSkeleton />;
+    }
+    return (
+      <Header>
+        <Title isLight={isLight}>Core Units Expenses</Title>
+        <FilterButtonWrapper onClick={toggleFiltersPopup}>
+          <CustomButton
+            label={'Filters'}
+            style={{
+              height: '34px',
+              width: '90px',
+              border: isLight ? '1px solid #D4D9E1' : '1px solid #343442',
+            }}
+          />
+        </FilterButtonWrapper>
+        <Filters
+          filtersPopup={filtersPopup}
+          filteredStatuses={filteredStatuses}
+          filteredCategories={filteredCategories}
+          categoriesCount={categoriesCount}
+          statusCount={statusCount}
+          searchText={searchText}
+          setFiltersPopup={toggleFiltersPopup}
+          clearFilters={clearFilters}
+        />
+      </Header>
+    );
+  }, [filteredData, isLight]);
+
   return (
     <ContainerHome isLight={isLight}>
       <Head>
@@ -362,35 +393,7 @@ export const CuTable = () => {
         <meta name="robots" content="index,follow" />
       </Head>
       <Wrapper>
-        {status === 'loading'
-          ? (
-            <CuTableHeaderSkeleton />
-            )
-          : (
-            <Header>
-              <Title isLight={isLight}>Core Units Expenses</Title>
-              <FilterButtonWrapper onClick={toggleFiltersPopup}>
-                <CustomButton
-                  label={'Filters'}
-                  style={{
-                    height: '34px',
-                    width: '90px',
-                    border: isLight ? '1px solid #D4D9E1' : '1px solid #343442',
-                  }}
-                />
-              </FilterButtonWrapper>
-              <Filters
-                filtersPopup={filtersPopup}
-                filteredStatuses={filteredStatuses}
-                filteredCategories={filteredCategories}
-                categoriesCount={categoriesCount}
-                statusCount={statusCount}
-                searchText={searchText}
-                setFiltersPopup={toggleFiltersPopup}
-                clearFilters={clearFilters}
-              />
-            </Header>
-            )}
+        {siteHeader}
         {!!items?.length && (
           <>
             <TableWrapper>
