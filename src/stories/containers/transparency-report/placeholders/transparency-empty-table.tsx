@@ -9,10 +9,11 @@ interface Props {
 export const TransparencyEmptyTable = ({ breakdown = false }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
   return (
-    <Wrapper>
-      {!breakdown
-        ? (
-          <Container isLight={isLight}>
+    <>
+      <Wrapper>
+        {!breakdown
+          ? (
+          <Container>
             <Row>
               <CellBlock
                 style={{
@@ -27,7 +28,7 @@ export const TransparencyEmptyTable = ({ breakdown = false }: Props) => {
             </Row>
             <Line />
             {new Array(3).fill('').map((_, i) => (
-              <Row style={{ marginBottom: i === 2 ? '17px' : '30px' }}>
+              <Row key={`key-${i}`} style={{ marginBottom: i === 2 ? '17px' : '30px' }}>
                 <Row
                   style={{
                     gap: '0',
@@ -94,9 +95,9 @@ export const TransparencyEmptyTable = ({ breakdown = false }: Props) => {
               />
             </Row>
           </Container>
-          )
-        : (
-          <Container isLight={isLight}>
+            )
+          : (
+          <Container>
             <Row>
               <CellBlock
                 style={{
@@ -263,42 +264,201 @@ export const TransparencyEmptyTable = ({ breakdown = false }: Props) => {
               />
             </Row>
           </Container>
-          )}
-      <Title>No Data Provided</Title>
-    </Wrapper>
+            )}
+        <Title>No Data Provided</Title>
+      </Wrapper>
+      <MobileWrapper breakdown={breakdown}>
+        {!breakdown
+          ? (
+          <Container>
+            <Row
+              style={{
+                gap: '0',
+                maxWidth: '238px',
+              }}
+            >
+              <CellBlock
+                style={{
+                  borderRadius: '50%',
+                  minWidth: '42px',
+                  maxWidth: '42px',
+                  height: '42px',
+                  marginRight: '5px',
+                }}
+              />
+              <div
+                style={{
+                  marginRight: '20px',
+                  maxWidth: '126px',
+                  minWidth: '126px',
+                  width: '100%',
+                  marginBottom: '36px',
+                }}
+              >
+                <CellBlock
+                  style={{
+                    height: '22px',
+                    marginBottom: '6px',
+                    marginRight: '0',
+                  }}
+                />
+                <CellBlock
+                  style={{
+                    height: '16px',
+                    marginRight: '0',
+                  }}
+                />
+              </div>
+            </Row>
+            {new Array(4).fill('').map((_, i) => (
+              <Row
+                key={`key-${i}`}
+                style={{
+                  justifyContent: 'space-between',
+                }}
+              >
+                <CellBlock
+                  style={{
+                    maxWidth: '105px',
+                    height: '24px',
+                    borderRadius: 0,
+                  }}
+                />
+                <CellBlock
+                  style={{
+                    maxWidth: '105px',
+                    height: '24px',
+                    borderRadius: 0,
+                    marginRight: 0,
+                  }}
+                />
+              </Row>
+            ))}
+          </Container>
+            )
+          : (
+          <Container>
+            <Row>
+              <CellBlock
+                style={{
+                  maxWidth: '152px',
+                  height: '24px',
+                  marginBottom: '18px',
+                  borderRadius: 0,
+                }}
+              />
+            </Row>
+            {new Array(3).fill('').map((_, i) => (
+              <Row
+                key={`key-${i}`}
+                style={{
+                  justifyContent: 'space-between',
+                }}
+              >
+                <CellBlock
+                  style={{
+                    maxWidth: '105px',
+                    height: '24px',
+                    borderRadius: 0,
+                  }}
+                />
+                <CellBlock
+                  style={{
+                    maxWidth: '105px',
+                    height: '24px',
+                    borderRadius: 0,
+                    marginRight: '0',
+                  }}
+                />
+              </Row>
+            ))}
+            <Row
+              style={{
+                marginBottom: '15px',
+                justifyContent: 'space-between',
+              }}
+            >
+              <CellBlock
+                style={{
+                  maxWidth: '105px',
+                  height: '24px',
+                  marginRight: '23px',
+                  borderRadius: 0,
+                }}
+              />
+              <CellBlock
+                style={{
+                  maxWidth: '167px',
+                  height: '24px',
+                  borderRadius: 0,
+                  marginRight: '0',
+                }}
+              />
+            </Row>
+          </Container>
+            )}
+        <Title>No Data Provided</Title>
+      </MobileWrapper>
+    </>
   );
 };
 
-const Wrapper = styled.div({
+const MobileWrapper = styled.div<{ breakdown: boolean }>(({ breakdown = false }) => ({
   display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  position: 'relative',
+  width: '100%',
+  height: breakdown ? '215px' : '265px',
+  marginBottom: '64px',
+  '@media (min-width: 834px)': {
+    display: 'none',
+  },
+}));
+
+const Wrapper = styled.div({
+  display: 'none',
   alignItems: 'center',
   justifyContent: 'center',
   position: 'relative',
   height: '329px',
   width: '100%',
   marginBottom: '64px',
-  alignSelf: 'center',
+  '@media (min-width: 834px)': {
+    display: 'flex',
+  },
 });
 
 const Title = styled.div({
   fontFamily: 'FT Base',
   fontStyle: 'normal',
   fontWeight: 500,
-  fontSize: '32px',
+  fontSize: '24px',
   lineHeight: '38px',
   textAlign: 'center',
   letterSpacing: '0.4px',
   color: '#9FAFB9',
   zIndex: 1,
+  '@media (min-width: 834px)': {
+    fontSize: '32px',
+  }
 });
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'block',
   position: 'absolute',
   width: '100%',
+  height: '100%',
   top: 0,
   left: 0,
   padding: '16px 0px 13px 16px',
+  '@media (max-width: 833px)': {
+    boxSizing: 'border-box',
+    padding: '16px 24px',
+    background: 'white',
+    borderRadius: '6px',
+    filter: 'drop-shadow(0px 20px 40px rgba(219, 227, 237, 0.4)) drop-shadow(0px 1px 3px rgba(190, 190, 190, 0.25))',
+  },
   '::before': {
     content: '""',
     position: 'absolute',
@@ -306,7 +466,8 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     left: 0,
     width: '100%',
     height: '100%',
-    background: isLight ? 'radial-gradient(white, rgba(255,255,255,0.9), rgba(255,255,255,0.9), rgba(255,255,255,0.6), rgba(255,255,255,0.1))' : 'radial-gradient(black, rgba(16, 25, 31,0.9) 60%, rgba(16, 25, 31,0.9) 40%, rgba(16, 25, 31,0.9) 40%, rgba(16, 25, 31,0.1))',
+    background:
+      'radial-gradient(white, rgba(255,255,255, 1), rgba(255,255,255,0.9), rgba(255,255,255,0.8), rgba(255,255,255,0.4))',
     backgroundRepeat: 'no-repeat',
   },
 }));
@@ -324,16 +485,17 @@ const Line = styled.div({
 });
 
 const CellBlock = styled.div({
-  display: 'none',
+  boxSizing: 'border-box',
+  display: 'flex',
   width: '100%',
   flex: 1,
   maxWidth: '126px',
   height: '32px',
-  background: 'rgba(45, 193, 177, 0.2)',
+  background: 'rgba(45, 193, 177, 0.4)',
   borderRadius: '6px',
   marginRight: '32px',
-  '@media (min-width: 834px)': {
-    display: 'flex',
+  '@media (max-width: 833px)': {
+    marginBottom: '15px',
   },
 });
 // #2DC1B1

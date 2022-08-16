@@ -15,18 +15,19 @@ interface SelectItemProps {
 export const SelectItem = ({ checked = false, minWidth = 0, ...props }: SelectItemProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   const [focused, setFocused] = useState(false);
+  const [hover, setHover] = useState(false);
 
-  return <Container className="no-select" onClick={props.onClick} minWidth={minWidth} isLight={isLight} checked={checked}>
-    {checked ? <CheckboxOn fill={isLight ? '#1AAB9B' : '#7C6B95'} fillBorderArrow={isLight ? '#B6EDE7' : '#D2D4EF'} /> : <CheckboxOff style={{ padding: '2px' }} fill={focused ? '#708390' : '#9FAFB9'} />}
+  return <Container className="no-select" onClick={props.onClick} minWidth={minWidth} isLight={isLight} checked={checked} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+    {checked ? <CheckboxOn fill={isLight ? '#1AAB9B' : '#7C6B95'} fillBorderArrow={isLight ? '#B6EDE7' : '#D2D4EF'} /> : <CheckboxOff style={{ padding: '2px' }} fill={hover ? '#708390' : focused ? '#708390' : '#9FAFB9'} />}
     <Label>{props.label}</Label>
-    <Number active={checked} isLight={isLight}>{props.count}</Number>
+    <Number className="number" active={checked} isLight={isLight}>{props.count}</Number>
     <input type="checkbox" checked onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} readOnly />
   </Container>;
 };
 
 const Container = styled.div<{ minWidth: number, isLight: boolean, checked: boolean }>(({ minWidth, isLight, checked }) => ({
   display: 'flex',
-  backgroundColor: isLight && checked ? 'none' : isLight && !checked ? 'none' : !isLight && !checked ? '#000A13' : '#231536',
+  backgroundColor: isLight && checked ? '#EDEFFF' : isLight && !checked ? 'none' : !isLight && !checked ? '#000A13' : '#231536',
   alignItems: 'center',
   position: 'relative',
   padding: '8px',
@@ -45,7 +46,10 @@ const Container = styled.div<{ minWidth: number, isLight: boolean, checked: bool
     width: '0',
   },
   '&:hover': {
-    background: isLight ? '#EDEFFF' : '#25273D',
+    background: isLight ? checked ? '#EDEFFF' : '#F6F8F9' : '#25273D',
+  },
+  '&:hover .number': {
+    color: isLight ? '#708390' : '#ADAFD4'
   },
   '@media (min-width: 834px)': {
     border: 'none'

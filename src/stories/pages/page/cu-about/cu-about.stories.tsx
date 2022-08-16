@@ -4,19 +4,19 @@ import { MemoryRouter } from 'react-router-dom';
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 import { CurrentCoreUnitAbout, initialState } from '../../../containers/cu-about/cu-about-slice';
 import { initialState as cuTableInitialState } from '../../../containers/cu-table/cu-table.stories.states';
-import CuAbout from './cu-about';
 import { Provider } from 'react-redux';
+import CuAboutPageTesting from './cu-about';
 
 export default {
   title: 'Pages/CuAbout',
-  component: CuAbout,
+  component: CuAboutPageTesting,
   parameters: {
     // More on Story layout: https://storybook.js.org/docs/react/configure/story-layout
     layout: 'fullscreen',
   },
-} as ComponentMeta<typeof CuAbout>;
+} as ComponentMeta<typeof CuAboutPageTesting>;
 
-const Template: ComponentStory<typeof CuAbout> = () => <CuAbout />;
+const Template: ComponentStory<typeof CuAboutPageTesting> = () => <CuAboutPageTesting />;
 
 const store = configureStore({
   reducer: {

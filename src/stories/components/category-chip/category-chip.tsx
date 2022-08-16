@@ -90,4 +90,5 @@ const Chip = styled.div({
   width: 'fit-content',
   border: '1px solid black',
   boxSizing: 'border-box',
+  paddingBottom: '2px'
 });
