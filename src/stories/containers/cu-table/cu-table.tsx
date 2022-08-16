@@ -50,8 +50,8 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CustomPopover } from '../../components/custom-popover/custom-popover';
 import { CategoryChip } from '../../components/category-chip/category-chip';
 import { TablePlaceholder } from '../../components/custom-table/placeholder';
-import Head from 'next/head';
 import { CuTableHeaderSkeleton } from '../../components/cu-table-header-skeleton/header-skeleton';
+import { SEOHead } from '../../components/seo-head/seo-head';
 
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
 const sortNeutralState = [
@@ -373,25 +373,11 @@ export const CuTable = () => {
 
   return (
     <ContainerHome isLight={isLight}>
-      <Head>
-        <title>Sustainable Ecosystem Scaling Core Unit | Maker Expenses</title>
-        <link rel="icon" href="/favicon.png" />
-        <meta
-          property="og:site_name"
-          content="Sustainable Ecosystem Scaling Core Unit | Maker Expenses"
-        />
-        <meta
-          name="description"
-          content="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
-        />
-        <meta
-          name="og:description"
-          content="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
-        />
-        <meta property="og:image" content="https://expenses-dev.makerdao.network/favicon.png" />
-        <meta name="twitter:image" content="https://expenses-dev.makerdao.network/favicon.png" />
-        <meta name="robots" content="index,follow" />
-      </Head>
+      <SEOHead
+        title="Sustainable Ecosystem Scaling Core Unit | Maker Expenses"
+        description="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
+        image="https://expenses-dev.makerdao.network/favicon.png"
+      />
       <Wrapper>
         {siteHeader}
         {!!items?.length && (

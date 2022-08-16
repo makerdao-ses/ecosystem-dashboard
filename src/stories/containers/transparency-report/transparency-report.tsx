@@ -19,7 +19,7 @@ import { API_MONTH_FORMAT } from '../../../core/utils/date.utils';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
 import { formatCode } from '../../../core/utils/string.utils';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import Head from 'next/head';
+import { SEOHead } from '../../components/seo-head/seo-head';
 
 const colors: { [key: string]: string } = {
   Draft: '#7C6B95',
@@ -54,23 +54,10 @@ export const TransparencyReport = ({ coreUnit: cu }: {coreUnit: CoreUnitDto}) =>
 
   return (
     <Wrapper>
-      <Head>
-        <title>MakerDAO Ecosystem Performance Dashboard | Finances</title>
-        <link rel="icon" href="/favicon.png" />
-        <meta
-          property="og:site_name"
-          content="MakerDAO Ecosystem Performance Dashboard | Finances"
-        />
-        <meta
-          name="description"
-          content={`Learn about the ${cu.name} Core Unit at MakerDAO: their finances, expense reports, and more.`}
-        />
-        <meta
-          name="og:description"
-          content={`Learn about the ${cu.name} Core Unit at MakerDAO: their finances, expense reports, and more.`}
-        />
-        <meta name="robots" content="index,follow" />
-      </Head>
+      <SEOHead
+        title="MakerDAO Ecosystem Performance Dashboard | Finances"
+        description={`Learn about the ${cu.name} Core Unit at MakerDAO: their finances, expense reports, and more.`}
+      />
       <CoreUnitSummary trailingAddress={['Expense Reports']} />
       <Container isLight={isLight}>
         <InnerPage>
