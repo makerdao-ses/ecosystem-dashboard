@@ -163,12 +163,14 @@ export const getBudgetCapsFromCoreUnit = (cu: CoreUnitDto) => {
 
   let mip40;
   for (const dateToCheck of getLast3MonthsWithData(cu.budgetStatements)) {
+    console.log(dateToCheck.toFormat('yyyy-MM-dd'));
     // Check the period found before to avoid re-surfing the array
     if (!mip40 || !checkDateOnPeriod(mip40.mip40BudgetPeriod[0], dateToCheck)) {
       mip40 = findMip40(cu, dateToCheck);
     }
     result.push(mip40?.mip40Wallet?.reduce((p, c) => (sumLineItems(c) ?? 0) + p, 0) ?? 0);
   }
+  console.log(result);
 
   return result.reverse();
 };
