@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Cantarell&family=Lobster&display=swap');
+@import 'simplebar/dist/simplebar.min.css';
 
 @font-face {
   font-family: 'FT Base';
@@ -139,4 +140,20 @@ a {
   -moz-user-select: none; /* Old versions of Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
+}
+
+.simplebar-scrollbar::before {
+  width: 4px;
+  margin-left: 4px;
+  background: #1AAB9B;
+}
+
+.filter-popup-scroll {
+  width: 212px;
+  height: max-content;
+  background: 'white';
+
+  @media (min-width: 834px) {
+    height: 240px;
+  }
 }

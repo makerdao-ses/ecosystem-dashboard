@@ -24,7 +24,7 @@ export const CuTableColumnTeamMember = ({
     ? (
     <Container className="TeamMembers">
       <CustomPopover
-        title={'Full Time Equivalents'}
+        title={'Full Time Employees'}
         id={'popover-fulltime-equivalents'}
         popupStyle={{
           padding: '16px',
@@ -58,12 +58,6 @@ export const CuTableColumnTeamMember = ({
                 style={{
                   boxSizing: 'border-box',
                   marginLeft: i === 0 ? 0 : '-9px',
-                  border: member.contributor[0]?.facilitatorImage
-                    ? 'none'
-                    : '2px solid #E7FCFA',
-                }}
-                imageStyle={{
-                  border: '2px solid #E7FCFA',
                 }}
                 image={member.contributor[0].facilitatorImage?.trim()}
               />
@@ -93,7 +87,7 @@ const Data = styled.div({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  marginRight: '8px',
+  marginRight: '10px',
 });
 
 const CirclesWrapper = styled.div({

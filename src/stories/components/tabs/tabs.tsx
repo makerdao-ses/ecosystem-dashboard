@@ -26,6 +26,7 @@ export const Tabs = (props: TabsProps) => {
 const Wrapper = styled.div({
   width: 'calc(100vw - 32px)',
   overflowX: 'scroll',
+  'scrollbar-width': 'none',
   '-ms-overflow-style': 'none',
   scrollbarWidth: 'none',
   '&::-webkit-scrollbar': {

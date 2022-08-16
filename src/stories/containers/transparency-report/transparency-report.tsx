@@ -9,9 +9,11 @@ import { TransparencyMkrVesting } from './transparency-mkr-vesting/transparency-
 import { TransparencyTransferRequest } from './transparency-transfer-request/transparency-transfer-request';
 import { TransparencyAudit } from './transparency-audit/transparency-audit';
 import { useRouter } from 'next/router';
-import { useTransparencyReportViewModel } from './transparency-report.mvvm';
 import { DateTime } from 'luxon';
-import { BudgetStatementDto, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import {
+  BudgetStatementDto,
+  CoreUnitDto,
+} from '../../../core/models/dto/core-unit.dto';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
 import { API_MONTH_FORMAT } from '../../../core/utils/date.utils';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
@@ -33,102 +35,153 @@ const colorsDarkColors: { [key: string]: string } = {
   SubmittedToAuditor: '#FF78F2',
 };
 
-export const TransparencyReport = () => {
+export const TransparencyReport = ({ coreUnit: cu }: {coreUnit: CoreUnitDto}) => {
   const isLight = useThemeContext().themeMode === 'light';
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;
-
-  const { data } = useTransparencyReportViewModel(code);
-
-  const cu = data && data.coreUnit[0] as CoreUnitDto;
 
   const [thirdIndex, setThirdIndex] = useState(0);
 
   const [currentMonth, setCurrentMonth] = useState(DateTime.now());
 
   const currentBudgetStatement = useMemo(() => {
-    return cu?.budgetStatements?.find((bs: BudgetStatementDto) => bs.month === currentMonth.toFormat(API_MONTH_FORMAT));
+    return cu?.budgetStatements?.find(
+      (bs: BudgetStatementDto) =>
+        bs.month === currentMonth.toFormat(API_MONTH_FORMAT)
+    );
   }, [cu, currentMonth]);
 
-  return <Wrapper>
-  <Head>
-    <title>MakerDAO Ecosystem Performance Dashboard | Finances</title>
-    <link rel="icon" href="/favicon.png" />
-    <meta property='og:site_name' content="MakerDAO Ecosystem Performance Dashboard | Finances"/>
-    <meta name="description" content="Learn about the Sustainable Ecosystem Scaling Core Unit at MakerDAO: their finances, expense reports, and more." />
-    <meta name="og:description" content="Learn about the Sustainable Ecosystem Scaling Core Unit at MakerDAO: their finances, expense reports, and more." />
-    <meta name="robots" content="index,follow"/>
-  </Head>
-    <CoreUnitSummary trailingAddress={['Expense Reports']} />
-    <Container isLight={isLight}>
-
-      <InnerPage>
-        <Title isLight={isLight}>Expense Reports</Title>
-
-        <Paragraph isLight={isLight}>
-          Every month, the {formatCode(code)} Core Unit submits a transparency report for MakerDAO governance with a detailed budget update.
-          If the core unit works with an auditor, the transparency report is reviewed by the auditor before the core unit's operational
-          wallet is topped up to replenish its runway.
-          <p style={{ marginBottom: 0 }}>
-            <span>Is this your core unit? Learn</span>
-            <CustomLink
-              href={HOW_TO_SUBMIT_EXPENSES}
-              iconHeight={10}
-              iconWidth={10}
-              fontSize={16}
-              fontSizeMobile={14}
-              fontFamily={'SF Pro Display, sans-serif'}>
-              how to submit your expenses here
-            </CustomLink>
-          </p>
-        </Paragraph>
-
-        <PagerBar className="no-select">
-          <PagerBarLeft>
-            <CustomPager
-              label={currentMonth.toFormat('MMM yyyy').toUpperCase()}
-              onPrev={() => setCurrentMonth(currentMonth.minus({ month: 1 }))}
-              onNext={() => setCurrentMonth(currentMonth.plus({ month: 1 }))}
-            />
-            {currentBudgetStatement?.publicationUrl && <CustomLink
-              href={currentBudgetStatement?.publicationUrl ?? null}
-              style={{
-                margin: '0 0 10px 0',
-                alignSelf: 'flex-end',
-                lineHeight: '19px',
-              }}
-              iconHeight={10}
-              iconWidth={10}
-              fontSize={16}
-              fontFamily={'SF Pro Display, sans-serif'}
-            >
-              Source
-            </CustomLink>}
-          </PagerBarLeft>
-          <Spacer />
-          <StatusBar>
-            <StatusTitle isLight={isLight}>Status</StatusTitle>
-            <StatusValue color={isLight ? colors[currentBudgetStatement?.budgetStatus] : colorsDarkColors[currentBudgetStatement?.budgetStatus]}>{currentBudgetStatement?.budgetStatus ?? '-'}</StatusValue>
-          </StatusBar>
-        </PagerBar>
-
-        <Tabs
-          items={['Actuals', 'Forecast', 'MKR Vesting', 'Transfer Requests', 'Audit Reports']}
-          currentIndex={thirdIndex}
-          onChange={setThirdIndex}
-          style={{
-            margin: '32px 0',
-          }}
+  return (
+    <Wrapper>
+      <Head>
+        <title>MakerDAO Ecosystem Performance Dashboard | Finances</title>
+        <link rel="icon" href="/favicon.png" />
+        <meta
+          property="og:site_name"
+          content="MakerDAO Ecosystem Performance Dashboard | Finances"
         />
-        {thirdIndex === 0 && <TransparencyActuals code={code} currentMonth={currentMonth} budgetStatements={cu?.budgetStatements} />}
-        {thirdIndex === 1 && <TransparencyForecast currentMonth={currentMonth} budgetStatements={cu?.budgetStatements} />}
-        {thirdIndex === 2 && <TransparencyMkrVesting currentMonth={currentMonth} budgetStatements={cu?.budgetStatements} />}
-        {thirdIndex === 3 && <TransparencyTransferRequest currentMonth={currentMonth} budgetStatements={cu?.budgetStatements} />}
-        {thirdIndex === 4 && <TransparencyAudit budgetStatement={currentBudgetStatement} />}
-      </InnerPage>
-    </Container>
-  </Wrapper>;
+        <meta
+          name="description"
+          content={`Learn about the ${cu.name} Core Unit at MakerDAO: their finances, expense reports, and more.`}
+        />
+        <meta
+          name="og:description"
+          content={`Learn about the ${cu.name} Core Unit at MakerDAO: their finances, expense reports, and more.`}
+        />
+        <meta name="robots" content="index,follow" />
+      </Head>
+      <CoreUnitSummary trailingAddress={['Expense Reports']} />
+      <Container isLight={isLight}>
+        <InnerPage>
+          <Title isLight={isLight}>Expense Reports</Title>
+
+          <Paragraph isLight={isLight}>
+            Every month, the {formatCode(code)} Core Unit submits a transparency
+            report for MakerDAO governance with a detailed budget update. If the
+            core unit works with an auditor, the transparency report is reviewed
+            by the auditor before the core unit's operational wallet is topped
+            up to replenish its runway.
+            <p style={{ marginBottom: 0 }}>
+              <span>Is this your core unit? Learn</span>
+              <CustomLink
+                href={HOW_TO_SUBMIT_EXPENSES}
+                iconHeight={10}
+                iconWidth={10}
+                fontSize={16}
+                fontSizeMobile={14}
+                fontFamily={'SF Pro Display, sans-serif'}
+              >
+                how to submit your expenses here
+              </CustomLink>
+            </p>
+          </Paragraph>
+
+          <PagerBar className="no-select">
+            <PagerBarLeft>
+              <CustomPager
+                label={currentMonth.toFormat('MMM yyyy').toUpperCase()}
+                onPrev={() => setCurrentMonth(currentMonth.minus({ month: 1 }))}
+                onNext={() => setCurrentMonth(currentMonth.plus({ month: 1 }))}
+              />
+              {currentBudgetStatement?.publicationUrl && (
+                <CustomLink
+                  href={currentBudgetStatement?.publicationUrl ?? null}
+                  style={{
+                    margin: '0 0 10px 0',
+                    alignSelf: 'flex-end',
+                    lineHeight: '19px',
+                  }}
+                  iconHeight={10}
+                  iconWidth={10}
+                  fontSize={16}
+                  fontFamily={'SF Pro Display, sans-serif'}
+                >
+                  Source
+                </CustomLink>
+              )}
+            </PagerBarLeft>
+            <Spacer />
+            <StatusBar>
+              <StatusTitle isLight={isLight}>Status</StatusTitle>
+              <StatusValue
+                color={
+                  isLight
+                    ? colors[currentBudgetStatement?.budgetStatus ?? '']
+                    : colorsDarkColors[currentBudgetStatement?.budgetStatus ?? '']
+                }
+              >
+                {currentBudgetStatement?.budgetStatus ?? '-'}
+              </StatusValue>
+            </StatusBar>
+          </PagerBar>
+
+          <Tabs
+            items={[
+              'Actuals',
+              'Forecast',
+              'MKR Vesting',
+              'Transfer Requests',
+              'Audit Reports',
+            ]}
+            currentIndex={thirdIndex}
+            onChange={setThirdIndex}
+            style={{
+              margin: '32px 0',
+            }}
+          />
+          {thirdIndex === 0 && (
+            <TransparencyActuals
+              code={code}
+              currentMonth={currentMonth}
+              budgetStatements={cu?.budgetStatements}
+            />
+          )}
+          {thirdIndex === 1 && (
+            <TransparencyForecast
+              currentMonth={currentMonth}
+              budgetStatements={cu?.budgetStatements}
+            />
+          )}
+          {thirdIndex === 2 && (
+            <TransparencyMkrVesting
+              currentMonth={currentMonth}
+              budgetStatements={cu?.budgetStatements}
+            />
+          )}
+          {thirdIndex === 3 && (
+            <TransparencyTransferRequest
+              currentMonth={currentMonth}
+              budgetStatements={cu?.budgetStatements}
+            />
+          )}
+          {thirdIndex === 4 && (
+            <TransparencyAudit budgetStatement={currentBudgetStatement} />
+          )}
+        </InnerPage>
+      </Container>
+    </Wrapper>
+  );
 };
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
@@ -138,7 +191,9 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   paddingBottom: '128px',
   flex: 1,
   backgroundColor: isLight ? '#FFFFFF' : '#000000',
-  backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
+  backgroundImage: isLight
+    ? 'url(/assets/img/bg-page.png)'
+    : 'url(/assets/img/bg-page-dark.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
   padding: '0 16px',
@@ -188,7 +243,7 @@ const Paragraph = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   '@media (min-width: 834px)': {
     fontSize: '16px',
     lineHeight: '19px',
-  }
+  },
 }));
 
 const PagerBar = styled.div({
@@ -197,19 +252,19 @@ const PagerBar = styled.div({
   flex: 1,
   '@media (min-width: 834px)': {
     alignItems: 'center',
-  }
+  },
 });
 
 const PagerBarLeft = styled.div({
   display: 'block',
   '@media (min-width: 834px)': {
     display: 'flex',
-  }
+  },
 });
 
 const StatusBar = styled.div({
   display: 'flex',
-  alignItems: 'center'
+  alignItems: 'center',
 });
 
 const StatusTitle = styled.div<{ isLight: boolean }>(({ isLight }) => ({
@@ -236,7 +291,7 @@ const StatusValue = styled.div<{ color: string }>(({ color }) => ({
   '@media (min-width: 834px)': {
     fontSize: '20px',
     lineHeight: '24px',
-  }
+  },
 }));
 
 const Spacer = styled.div({
@@ -246,13 +301,13 @@ const Spacer = styled.div({
 export const TableWrapper = styled.div({
   display: 'none',
   '@media (min-width: 834px)': {
-    display: 'block'
-  }
+    display: 'block',
+  },
 });
 
 export const CardsWrapper = styled.div({
   display: 'block',
   '@media (min-width: 834px)': {
-    display: 'none'
-  }
+    display: 'none',
+  },
 });
