@@ -499,4 +499,3 @@ const CellBlock = styled.div({
     marginBottom: '15px',
   },
 });
-// #2DC1B1
