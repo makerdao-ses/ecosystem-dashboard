@@ -357,37 +357,39 @@ export const CuTable = () => {
           name="og:description"
           content="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
         />
+        <meta property="og:image" content="https://expenses-dev.makerdao.network/favicon.png" />
+        <meta name="twitter:image" content="https://expenses-dev.makerdao.network/favicon.png" />
         <meta name="robots" content="index,follow" />
       </Head>
       <Wrapper>
         {status === 'loading'
           ? (
-          <CuTableHeaderSkeleton />
+            <CuTableHeaderSkeleton />
             )
           : (
-          <Header>
-            <Title isLight={isLight}>Core Units Expenses</Title>
-            <FilterButtonWrapper onClick={toggleFiltersPopup}>
-              <CustomButton
-                label={'Filters'}
-                style={{
-                  height: '34px',
-                  width: '90px',
-                  border: isLight ? '1px solid #D4D9E1' : '1px solid #343442',
-                }}
+            <Header>
+              <Title isLight={isLight}>Core Units Expenses</Title>
+              <FilterButtonWrapper onClick={toggleFiltersPopup}>
+                <CustomButton
+                  label={'Filters'}
+                  style={{
+                    height: '34px',
+                    width: '90px',
+                    border: isLight ? '1px solid #D4D9E1' : '1px solid #343442',
+                  }}
+                />
+              </FilterButtonWrapper>
+              <Filters
+                filtersPopup={filtersPopup}
+                filteredStatuses={filteredStatuses}
+                filteredCategories={filteredCategories}
+                categoriesCount={categoriesCount}
+                statusCount={statusCount}
+                searchText={searchText}
+                setFiltersPopup={toggleFiltersPopup}
+                clearFilters={clearFilters}
               />
-            </FilterButtonWrapper>
-            <Filters
-              filtersPopup={filtersPopup}
-              filteredStatuses={filteredStatuses}
-              filteredCategories={filteredCategories}
-              categoriesCount={categoriesCount}
-              statusCount={statusCount}
-              searchText={searchText}
-              setFiltersPopup={toggleFiltersPopup}
-              clearFilters={clearFilters}
-            />
-          </Header>
+            </Header>
             )}
         {!!items?.length && (
           <>
