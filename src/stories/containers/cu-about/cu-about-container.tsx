@@ -294,9 +294,13 @@ const ButtonContainer = styled.div({
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
-  marginBottom: '32px',
   overflow: 'hidden',
+
+  [lightTheme.breakpoints.down('desktop_1194')]: {
+    marginBottom: '32px',
+  },
 });
+
 const ContainerNoRelateMIps = styled.div({
   display: 'flex',
   flexDirection: 'row',
