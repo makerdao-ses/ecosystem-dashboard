@@ -47,7 +47,6 @@ import { CoreUnitCard } from '../../components/core-unit-card/core-unit-card';
 import { Filters } from './cu-table-filters';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { CustomPopover } from '../../components/custom-popover/custom-popover';
 import { CategoryChip } from '../../components/category-chip/category-chip';
 import { TablePlaceholder } from '../../components/custom-table/placeholder';
 import Head from 'next/head';
