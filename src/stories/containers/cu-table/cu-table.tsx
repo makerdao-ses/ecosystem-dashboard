@@ -380,32 +380,32 @@ export const CuTable = () => {
       <Wrapper>
         {status === 'loading'
           ? (
-          <CuTableHeaderSkeleton />
+            <CuTableHeaderSkeleton />
             )
           : (
-          <Header>
-            <Title isLight={isLight}>Core Units Expenses</Title>
-            <FilterButtonWrapper onClick={toggleFiltersPopup}>
-              <CustomButton
-                label={'Filters'}
-                style={{
-                  height: '34px',
-                  width: '90px',
-                  border: isLight ? '1px solid #D4D9E1' : '1px solid #343442',
-                }}
+            <Header>
+              <Title isLight={isLight}>Core Units Expenses</Title>
+              <FilterButtonWrapper onClick={toggleFiltersPopup}>
+                <CustomButton
+                  label={'Filters'}
+                  style={{
+                    height: '34px',
+                    width: '90px',
+                    border: isLight ? '1px solid #D4D9E1' : '1px solid #343442',
+                  }}
+                />
+              </FilterButtonWrapper>
+              <Filters
+                filtersPopup={filtersPopup}
+                filteredStatuses={filteredStatuses}
+                filteredCategories={filteredCategories}
+                categoriesCount={categoriesCount}
+                statusCount={statusCount}
+                searchText={searchText}
+                setFiltersPopup={toggleFiltersPopup}
+                clearFilters={clearFilters}
               />
-            </FilterButtonWrapper>
-            <Filters
-              filtersPopup={filtersPopup}
-              filteredStatuses={filteredStatuses}
-              filteredCategories={filteredCategories}
-              categoriesCount={categoriesCount}
-              statusCount={statusCount}
-              searchText={searchText}
-              setFiltersPopup={toggleFiltersPopup}
-              clearFilters={clearFilters}
-            />
-          </Header>
+            </Header>
             )}
         {!!items?.length && (
           <>
