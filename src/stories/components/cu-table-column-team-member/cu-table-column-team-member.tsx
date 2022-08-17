@@ -48,6 +48,7 @@ export const CuTableColumnTeamMember = ({
               }}
               title={<CardInfoMember contributorCommitment={member} />}
               id={member.contributor[0].name + i}
+              leaveOnChildrenMouseOut
             >
               <CircleAvatar
                 key={member.id}
