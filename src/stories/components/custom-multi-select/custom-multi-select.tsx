@@ -31,6 +31,7 @@ export const CustomMultiSelect = ({
 }: CustomMultiSelectProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   const [popupVisible, setPopupVisible] = useState(false);
+  const [hover, setHover] = useState(false);
 
   const refOutsideClick = useRef<HTMLDivElement>(null);
 
@@ -62,7 +63,7 @@ export const CustomMultiSelect = ({
   };
 
   return (
-    <SelectWrapper ref={refOutsideClick} style={props.style}>
+    <SelectWrapper ref={refOutsideClick} style={props.style} onMouseOver={() => setHover(true)} onMouseOut={() => setHover(false)}>
       <SelectContainer
         isLight={isLight}
         focus={popupVisible}
@@ -76,7 +77,7 @@ export const CustomMultiSelect = ({
         }}
         onClick={toggleVisible}
       >
-        <Label active={activeItems.length > 0} isLight={isLight}>
+        <Label active={activeItems.length > 0} isLight={isLight} hover={hover}>
           {props.label} {activeItems.length > 0 ? `${activeItems.length}` : ''}
         </Label>
         <IconWrapper>
@@ -84,7 +85,7 @@ export const CustomMultiSelect = ({
             style={{ transform: popupVisible ? 'scaleY(-1)' : '' }}
             fill={
               isLight
-                ? activeItems.length > 0
+                ? activeItems.length > 0 && !hover
                   ? '#1AAB9B'
                   : '#25273D'
                 : '#ADAFD4'
@@ -180,14 +181,14 @@ const ItemsContainer = styled.div({
   gap: '4px'
 });
 
-const Label = styled.div<{ active: boolean; isLight: boolean }>(
-  ({ active, isLight }) => ({
+const Label = styled.div<{ active: boolean; isLight: boolean; hover: boolean }>(
+  ({ active, isLight, hover }) => ({
     fontFamily: 'SF Pro Text, sans-serif',
     fontStyle: 'normal',
     fontWeight: 500,
     fontSize: '14px',
     lineHeight: '18px',
-    color: isLight ? (active ? '#1AAB9B' : '#231536') : '#E2D8EE',
+    color: isLight ? (active && !hover ? '#1AAB9B' : '#231536') : '#E2D8EE',
     whiteSpace: 'nowrap',
   })
 );
