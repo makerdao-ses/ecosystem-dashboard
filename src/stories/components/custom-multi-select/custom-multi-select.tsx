@@ -69,7 +69,7 @@ export const CustomMultiSelect = ({
         focus={popupVisible}
         active={activeItems.length > 0}
         className="no-select"
-        onMouseOver={() => setHover(true)} 
+        onMouseOver={() => setHover(true)}
         onMouseOut={() => setHover(false)}
         style={{
           maxWidth:
