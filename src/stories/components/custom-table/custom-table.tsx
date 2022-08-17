@@ -124,7 +124,7 @@ const TableRow = styled.div<{ isLight: boolean, isLoading?: boolean }>(({ isLigh
     gridTemplateColumns: '360px 215px 205px 340px',
   },
   ':hover': {
-    background: isLoading ? isLight ? '#ECF1F3' : '#1E2C37' : isLight ? 'white' : '#10191F',
+    background: !isLoading ? (isLight ? '#ECF1F3' : '#1E2C37') : (isLight ? 'white' : '#10191F'),
   }
 }));
 
