@@ -374,19 +374,12 @@ export const CuTable = () => {
         title="MakerDAO Ecosystem Performance Dashboard | Maker Expenses"
         description="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
         image="https://expenses-dev.makerdao.network/favicon.png"
+        favicon='/favicon-192.png'
       >
-        <link rel="manifest" href="/manifest.json" />
-        <link rel="icon" href="/favicon.png" />
-        <meta name='mobile-web-app-capable' content='yes' />
-        <meta name='apple-mobile-web-app-capable' content='yes' />
         <link rel="apple-touch-icon" sizes="1024x1024" href="/icons/apple-touch-icon-size-1024x1024.png" />
         <link rel="apple-touch-icon" sizes="512x512" href="/icons/apple-touch-icon-size-512.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon-size-180.png" />
         <link rel="apple-touch-icon" sizes="120x120" href="/icons/apple-touch-icon-size-120.png" />
-        <link rel="shortcut icon" sizes="196x196" href="/icons/apple-touch-icon-size-1024x1024.png" />
-        <meta name="Android-MakerDAO-Expenses-bars-color-square-1024x1024" content="/icons/Android-MakerDAO-Expenses-bars-color-square-1024x1024.png" />
-        <meta name="Android-MakerDAO-Expenses-bars-color-square-512x512" content="/icons/Android-MakerDAO-Expenses-bars-color-square-512x512.png" />
-        <meta name="Android-MakerDAO-Expenses-bars-color-square-192x192" content="/icons/Android-MakerDAO-Expenses-bars-color-square-192x192.png" />
       </SEOHead>
       <Wrapper>
         {siteHeader}

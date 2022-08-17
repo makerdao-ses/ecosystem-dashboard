@@ -13,11 +13,6 @@
       "sizes": "512x512"
     },
     {
-      "src": "/icons/Android-MakerDAO-Expenses-bars-color-square-1024x1024.png",
-      "type": "image/png",
-      "sizes": "1024x1024"
-    },
-    {
       "src": "/icons/apple-touch-icon-size-120x120.png",
       "type": "image/png",
       "sizes": "120x120"
@@ -28,19 +23,9 @@
       "sizes": "180x180"
     },
     {
-      "src": "/icons/apple-touch-icon-size-512x512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    },
-    {
       "src": "/icons/apple-touch-icon-size-1024x1024.png",
       "type": "image/png",
       "sizes": "1024x1024"
-    },
-    {
-      "src": "192x192.png",
-      "type": "image/png",
-      "sizes": "192x192"
     }
   ],
   "start_url": ".",
