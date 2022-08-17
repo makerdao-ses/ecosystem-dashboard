@@ -10,6 +10,22 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting started
 
+### Required environment variables
+
+```bash
+# the graphql endpoint url
+NEXT_PUBLIC_GRAPHQL_ENDPOINT=https://server-example.com/graphql
+
+# environment name
+NEXT_PUBLIC_ENVIRONMENT=development
+
+# base url of the site (without trailing slash)
+NEXT_PUBLIC_BASE_URL=https://expenses.makerdao.network
+
+# if the sitemap is active or not (true | false)
+ENABLE_SITEMAP=true
+```
+
 ### To run in development mode use:
 ### `yarn dev`
 
