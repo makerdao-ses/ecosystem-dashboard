@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Skeleton from '@mui/material/Skeleton';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 export const ColumnExpendituresSkeleton = () => {
+  const isLight = useThemeContext().themeMode === 'light';
   return (
     <Container>
       <div>
@@ -13,7 +15,7 @@ export const ColumnExpendituresSkeleton = () => {
           style={{
             borderRadius: '4px',
             marginBottom: '5px',
-            background: '#ECF1F3',
+            background: isLight ? '#ECF1F3' : '#1E2C37',
           }}
         />
         <Skeleton
@@ -22,7 +24,7 @@ export const ColumnExpendituresSkeleton = () => {
           height={18}
           style={{
             borderRadius: '4px',
-            background: '#ECF1F3'
+            background: isLight ? '#ECF1F3' : '#1E2C37'
           }}
         />
       </div>
@@ -33,7 +35,7 @@ export const ColumnExpendituresSkeleton = () => {
         style={{
           borderRadius: '8px',
           marginBottom: '5px',
-          background: '#ECF1F3',
+          background: isLight ? '#ECF1F3' : '#1E2C37'
         }}
       />
       <Skeleton
@@ -44,7 +46,7 @@ export const ColumnExpendituresSkeleton = () => {
           borderRadius: '4px',
           marginBottom: '5px',
           alignSelf: 'flex-end',
-          background: '#ECF1F3',
+          background: isLight ? '#ECF1F3' : '#1E2C37'
         }}
       />
     </Container>
