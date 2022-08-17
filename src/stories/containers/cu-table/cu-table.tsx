@@ -47,10 +47,10 @@ import { CoreUnitCard } from '../../components/core-unit-card/core-unit-card';
 import { Filters } from './cu-table-filters';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { CustomPopover } from '../../components/custom-popover/custom-popover';
 import { CategoryChip } from '../../components/category-chip/category-chip';
 import { TablePlaceholder } from '../../components/custom-table/placeholder';
-import Head from 'next/head';
+import { CuTableHeaderSkeleton } from '../../components/cu-table-header-skeleton/header-skeleton';
+import { SEOHead } from '../../components/seo-head/seo-head';
 
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
 const sortNeutralState = [
@@ -216,10 +216,10 @@ export const CuTable = () => {
   const items = useMemo(() => {
     if (status === 'loading') {
       return new Array(10).fill([
-        <CuTableColumnSummary isLoading/>,
-        <CuTableColumnExpenditures isLoading/>,
-        <CuTableColumnTeamMember isLoading/>,
-        <CuTableColumnLinks isLoading/>
+        <CuTableColumnSummary isLoading />,
+        <CuTableColumnExpenditures isLoading />,
+        <CuTableColumnTeamMember isLoading />,
+        <CuTableColumnLinks isLoading />,
       ]);
     }
 
@@ -227,18 +227,22 @@ export const CuTable = () => {
     const sortedData = sortData(filteredData);
     return sortedData.map((coreUnit: CoreUnitDto, i: number) => {
       return [
-        <CustomPopover
-          popupStyle={{
-            padding: 0,
-          }}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-          title={
-            <>
+          <CuTableColumnSummary
+            key={`summary-${coreUnit.code}`}
+            title={coreUnit.name}
+            status={
+              getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum
+            }
+            statusModified={getSubmissionDateFromCuMip(
+              getLatestMip39FromCoreUnit(coreUnit)
+            )}
+            imageUrl={coreUnit.image}
+            mipUrl={getMipUrlFromCoreUnit(coreUnit)}
+            onClick={onClickRow(coreUnit.shortCode)}
+            code={formatCode(coreUnit.shortCode)}
+            popupChild={
+              <>
               <CuTableColumnSummary
-                key={`summary-${coreUnit.code}`}
                 title={coreUnit.name}
                 status={
                   getLatestMip39FromCoreUnit(coreUnit)
@@ -265,25 +269,10 @@ export const CuTable = () => {
                 </CategoriesRow>
               </Padded>
             </>
-          }
-          id={coreUnit.code}
-        >
-          <CuTableColumnSummary
-            key={`summary-${coreUnit.code}`}
-            title={coreUnit.name}
-            status={
-              getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum
             }
-            statusModified={getSubmissionDateFromCuMip(
-              getLatestMip39FromCoreUnit(coreUnit)
-            )}
-            imageUrl={coreUnit.image}
-            mipUrl={getMipUrlFromCoreUnit(coreUnit)}
-            onClick={onClickRow(coreUnit.shortCode)}
-            code={formatCode(coreUnit.shortCode)}
-          />
-        </CustomPopover>,
+          />,
         <div
+          key={`expenditures-${i}`}
           style={{
             display: 'block',
             paddingLeft: '8px',
@@ -291,7 +280,6 @@ export const CuTable = () => {
           onClick={() => onClickFinances(coreUnit.shortCode)}
         >
           <CuTableColumnExpenditures
-            key={`expenditures-${i}`}
             value={getExpenditureValueFromCoreUnit(coreUnit)}
             percent={getPercentFromCoreUnit(coreUnit)}
             items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
@@ -304,6 +292,7 @@ export const CuTable = () => {
           fte={getFTEsFromCoreUnit(coreUnit)}
         />,
         <div
+          key={`links-${i}`}
           style={{
             display: 'flex',
             justifyContent: 'flex-end',
@@ -312,7 +301,6 @@ export const CuTable = () => {
           }}
         >
           <CuTableColumnLinks
-            key={`links-${i}`}
             links={getLinksFromCoreUnit(coreUnit)}
             spacings={16}
             fill="#708390"
@@ -325,9 +313,21 @@ export const CuTable = () => {
 
   const itemsList = useMemo(() => {
     if (status === 'loading') {
-      return new Array(4).fill(<CoreUnitCard coreUnit={{} as CoreUnitDto} isLoading/>);
+      const result = [];
+
+      for (let i = 0; i < 4; i++) {
+        result.push(
+          <CoreUnitCard
+            key={`card-placeholder-${i}`}
+            coreUnit={{} as CoreUnitDto}
+            isLoading
+          />
+        );
+      }
+
+      return result;
     }
-    return filteredData.map((cu, i) => (
+    return filteredData.map((cu) => (
       <CoreUnitCard
         key={`card-${cu.code}`}
         coreUnit={cu}
@@ -337,40 +337,46 @@ export const CuTable = () => {
     ));
   }, [filteredData, onClickRow]);
 
+  const siteHeader = useMemo(() => {
+    if (status === 'loading') {
+      return <CuTableHeaderSkeleton />;
+    }
+    return (
+      <Header>
+        <Title isLight={isLight}>Core Units Expenses</Title>
+        <FilterButtonWrapper onClick={toggleFiltersPopup}>
+          <CustomButton
+            label={'Filters'}
+            style={{
+              height: '34px',
+              width: '90px',
+              border: isLight ? '1px solid #D4D9E1' : '1px solid #343442',
+            }}
+          />
+        </FilterButtonWrapper>
+        <Filters
+          filtersPopup={filtersPopup}
+          filteredStatuses={filteredStatuses}
+          filteredCategories={filteredCategories}
+          categoriesCount={categoriesCount}
+          statusCount={statusCount}
+          searchText={searchText}
+          setFiltersPopup={toggleFiltersPopup}
+          clearFilters={clearFilters}
+        />
+      </Header>
+    );
+  }, [filteredData, isLight]);
+
   return (
     <ContainerHome isLight={isLight}>
-    <Head>
-      <title>Sustainable Ecosystem Scaling Core Unit | Maker Expenses</title>
-      <link rel="icon" href="/favicon.png" />
-      <meta property='og:site_name' content="Sustainable Ecosystem Scaling Core Unit | Maker Expenses"/>
-      <meta name="description" content="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO." />
-      <meta name="og:description" content="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO." />
-      <meta name="robots" content="index,follow"/>
-    </Head>
+      <SEOHead
+        title="MakerDAO Ecosystem Performance Dashboard | Maker Expenses"
+        description="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
+        image="/favicon-192.png"
+      />
       <Wrapper>
-        <Header>
-          <Title isLight={isLight}>Core Units Expenses</Title>
-          <FilterButtonWrapper onClick={toggleFiltersPopup}>
-            <CustomButton
-              label={'Filters'}
-              style={{
-                height: '34px',
-                width: '90px',
-                border: isLight ? '1px solid #D4D9E1' : '1px solid #343442',
-              }}
-            />
-          </FilterButtonWrapper>
-          <Filters
-            filtersPopup={filtersPopup}
-            filteredStatuses={filteredStatuses}
-            filteredCategories={filteredCategories}
-            categoriesCount={categoriesCount}
-            statusCount={statusCount}
-            searchText={searchText}
-            setFiltersPopup={toggleFiltersPopup}
-            clearFilters={clearFilters}
-          />
-        </Header>
+        {siteHeader}
         {!!items?.length && (
           <>
             <TableWrapper>
@@ -400,9 +406,10 @@ const ContainerHome = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   padding: '32px 16px 128px',
   marginTop: '64px',
   width: '100%',
-  background: isLight
+  background: isLight ? '#FFFFFF' : '#000000',
+  backgroundImage: isLight
     ? '#FFFFFF'
-    : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
+    : 'linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 16, 32, 0.4) 100%)',
   '@media (min-width: 834px)': {
     padding: '24px 32px 128px',
   },

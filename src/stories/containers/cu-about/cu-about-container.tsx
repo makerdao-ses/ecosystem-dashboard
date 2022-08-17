@@ -1,21 +1,15 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { Divider, Typography, useMediaQuery } from '@mui/material';
-import { useSelector } from 'react-redux';
 import { getMarkdownInformation, getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-unit-about';
 import { getFTEsFromCoreUnit } from '../../../core/business-logic/core-units';
-import { useAppDispatch } from '../../../core/hooks/hooks';
-import { RootState } from '../../../core/store/store';
 import { getArrayParam, getStringParam } from '../../../core/utils/filters';
 import BigButton from '../../components/button/big-button/big-button';
 import CardInfoMember from '../../components/card-info-member/card-info-member';
-import MdViewerContainer from '../../components/markdown/md-view-container';
 import RelateMips from '../../components/relate-mips/relate-mips';
 import TeamMember from '../../components/team-members/team-member';
-import { loadCuTableItemsAsync } from '../cu-table/cu-table.slice';
 import { ContributorCommitment } from './cu-about-contributor';
-import { contributorCommitmentSelector, cuAboutSelector, loadCoreUnitAbout, status } from './cu-about-slice';
-import { CuMip } from './cu-about.api';
+import { CuAbout, CuMip } from './cu-about.api';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
@@ -27,31 +21,25 @@ import { formatCode } from '../../../core/utils/string.utils';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
+import { SEOHead } from '../../components/seo-head/seo-head';
+const MdViewerContainer = dynamic(() => import('../../components/markdown/md-view-container'), { ssr: false });
 
-const CuAboutContainer = () => {
+interface Props {
+  cuAbout: CuAbout;
+  code: string;
+  contributors: ContributorCommitment[]
+}
+
+const CuAboutContainer = ({ code, cuAbout, contributors }: Props) => {
   const [isEnabled] = useFlagsActive();
   const isLight = useThemeContext().themeMode === 'light';
   const router = useRouter();
-  const query = router.query;
-  const code = query.code as string;
   const [showThreeMIPs, setShowThreeMIPs] = useState<boolean>(true);
-  const dispatch = useAppDispatch();
-  const { cuAbout, statusCoreUnit } = useSelector((state: RootState) => cuAboutSelector(state));
-  const contributors = useSelector((state: RootState) => contributorCommitmentSelector(state));
 
   const table834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const LessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
-
-  useEffect(() => {
-    dispatch(loadCuTableItemsAsync());
-  }, [dispatch]);
-  useEffect(() => {
-    if (code) {
-      dispatch(loadCoreUnitAbout(code || ''));
-      setShowThreeMIPs(true);
-    }
-  }, [dispatch, code]);
 
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
@@ -60,7 +48,6 @@ const CuAboutContainer = () => {
   const onClickLessMips = () => {
     setShowThreeMIPs(!showThreeMIPs);
   };
-
   const relateMipsOrder = useMemo(() => {
     const buildNewArray = cuAbout.cuMip.map((mip: CuMip) => getRelateMipObjectFromCoreUnit(mip));
     const order = _.sortBy(buildNewArray, ['orderBy', 'dateMip']).reverse();
@@ -74,23 +61,15 @@ const CuAboutContainer = () => {
     router.push(`/core-unit/${code}/finances/reports?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
   }, [filteredCategories, filteredStatuses, router, searchText, code]);
 
-  if (statusCoreUnit === status.loading) {
-    return <div>Loading...</div>;
-  }
-  if (statusCoreUnit === status.failed) {
-    return <div>Failed...</div>;
-  }
-
   return (
     <ContainerAbout isLight={isLight}>
-    <Head>
-      <title>About Sustainable Ecosystem Scaling Core Unit at MakerDAO</title>
-      <link rel="icon" href="/favicon.png" />
-      <meta property='og:site_name' content="About Sustainable Ecosystem Scaling Core Unit at MakerDAO"/>
-      <meta name="description" content="Learn about the Sustainable Ecosystem Scaling Core Unit at MakerDAO: their mandate, vision, mission, strategy, and more." />
-      <meta name="og:description" content="Learn about the Sustainable Ecosystem Scaling Core Unit at MakerDAO: their mandate, vision, mission, strategy, and more." />
-      <meta name="robots" content="index,follow"/>
-    </Head>
+      <SEOHead
+        title={`About ${cuAbout.name} Core Unit at MakerDAO`}
+        description={`Learn about the ${cuAbout.name} Core Unit at MakerDAO: their mandate, vision, mission, strategy, and more.`}
+        image={cuAbout.image}
+        favicon={cuAbout.image}
+      />
+
       <CoreUnitSummary />
       <Wrapper>
         <ContainerAllData>
@@ -299,9 +278,13 @@ const ButtonContainer = styled.div({
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
-  marginBottom: '32px',
   overflow: 'hidden',
+
+  [lightTheme.breakpoints.down('desktop_1194')]: {
+    marginBottom: '32px',
+  },
 });
+
 const ContainerNoRelateMIps = styled.div({
   display: 'flex',
   flexDirection: 'row',

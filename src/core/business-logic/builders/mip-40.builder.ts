@@ -5,6 +5,7 @@ export class Mip40Builder {
 
   constructor() {
     this._mip40 = {
+      mkrOnly: false,
       mip40BudgetPeriod: [] as Mip40BudgetPeriodDto[],
       mip40Wallet: [] as Mip40WalletDto[],
     } as Mip40Dto;

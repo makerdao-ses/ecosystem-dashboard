@@ -4,6 +4,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface CustomButtonProps {
   label: string | JSX.Element;
+  className?: string,
   disabled?: boolean;
   style?: CSSProperties;
   onClick?: () => void;
@@ -13,7 +14,7 @@ interface CustomButtonProps {
 
 export const CustomButton = (props: CustomButtonProps) => {
   const isLight = useThemeContext().themeMode === 'light';
-  return <Container isLight={isLight} type="button" disabled={props.disabled} onClick={props.onClick} style={props.style}>
+  return <Container className={props.className} isLight={isLight} type="button" disabled={props.disabled} onClick={props.onClick} style={props.style}>
     <Text isLight={isLight} className={props.disabled ? 'disabled' : ''} width={props.widthText} style={props.styleText}>{props.label}</Text>
   </Container>;
 };
@@ -28,6 +29,7 @@ const Container = styled.button<{ isLight: boolean }>(({ isLight }) => ({
   borderRadius: isLight ? '22px' : '22px',
   background: isLight ? 'white' : '#10191F',
   transition: 'all .3s ease',
+  transitionProperty: 'border, color',
   padding: '15px 16px',
   boxSizing: 'border-box',
   cursor: 'pointer',

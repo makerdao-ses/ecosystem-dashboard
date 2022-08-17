@@ -10,7 +10,6 @@ interface WalletTableCellProps {
   name: string;
   wallet: string;
   address?: string;
-
 }
 
 export const WalletTableCell = (props: WalletTableCellProps) => {
@@ -21,7 +20,6 @@ export const WalletTableCell = (props: WalletTableCellProps) => {
       height={'32px'}
       name={props.address ?? ''}
       image={props.imgUrl}
-      style={{ margin: '0 16px' }}
       identIcon
     />
     <Data>
@@ -33,7 +31,7 @@ export const WalletTableCell = (props: WalletTableCellProps) => {
         }}
         fontSize={14}
         fontWeight={400}
-        href={props.address}
+        href={`https://etherscan.io/address/${props.address}`}
         withArrow={false}>
         {props.wallet.toLowerCase()}
       </CustomLink>
@@ -45,6 +43,12 @@ const Container = styled.div({
   display: 'flex',
   alignItems: 'center',
   height: '72px',
+  '.circle-avatar': {
+    margin: '0 16px',
+    '@media (min-width: 834px) and (max-width: 1193px)': {
+      margin: '0 16px 0 8px',
+    },
+  }
 });
 
 const Data = styled.div({

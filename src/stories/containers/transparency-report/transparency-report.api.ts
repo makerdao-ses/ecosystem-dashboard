@@ -5,6 +5,8 @@ export const CORE_UNIT_REQUEST = (shortCode: string) => ({
     query CoreUnit($filter: CoreUnitFilter) {
       coreUnit(filter: $filter) {
         sentenceDescription
+        name
+        image
         budgetStatements {
           month
           budgetStatus

@@ -12,6 +12,7 @@ import lightTheme from '../../../../styles/theme/light';
 import BreadCrumbMobile from '../pagination/bread-crumb-mobile';
 import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { formatCode } from '../../../core/utils/string.utils';
 
 interface CoreUnitSummaryProps {
   trailingAddress?: string[];
@@ -34,6 +35,7 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
 
   const cu = data?.find(cu => cu.shortCode === code);
+  const buildCULabel = () => !_.isEmpty(cu) ? `${formatCode(cu?.code ?? '')} - ${cu?.name}` : '';
 
   const ref = useRef(null);
 
@@ -81,7 +83,7 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
           url: `/?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
         },
         {
-          label: cu?.name ?? '',
+          label: buildCULabel(),
           url: `/core-unit/${code}/?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
         },
         ...trailingAddress.map(adr => ({
@@ -100,7 +102,7 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
               style: {
                 color: isLight ? '#25273D' : '#D2D4EF',
               },
-              label: cu?.name ?? '',
+              label: buildCULabel(),
               url: `/core-unit/${code}/?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
             },
             ...trailingAddress.map(adr => ({
@@ -112,16 +114,17 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
               url: `/?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
             },
           ]}
-          title={cu?.name || ''} count={filteredData.length} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} page={page} /></div>
+          title={buildCULabel()} count={filteredData.length} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} page={page} /></div>
     </div>}
 
     <Wrapper>
       <ContainerTitle>
         <TitleNavigationCuAbout coreUnitAbout={cu} hiddenTextDescription={hiddenTextDescription} />
-        {hiddenTextDescription &&
-          <div> <TypographyDescription isLight={isLight}
-          >{cu?.sentenceDescription || ''}</TypographyDescription>
-          </div>}
+          <SummaryDescription hiddenTextDescription={hiddenTextDescription}>
+            <TypographyDescription isLight={isLight}>
+              {cu?.sentenceDescription || ''}
+            </TypographyDescription>
+          </SummaryDescription>
       </ContainerTitle>
     </Wrapper>
     <ContainerResponsiveMobile hiddenTextDescription={hiddenTextDescription} isLight={isLight} />
@@ -130,7 +133,7 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   position: 'sticky',
-  top: 63,
+  top: 64,
   width: '100%',
   backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
   backgroundSize: 'cover',
@@ -192,6 +195,12 @@ const Wrapper = styled.div({
     maxWidth: '100%',
   },
 });
+
+const SummaryDescription = styled.div<{ hiddenTextDescription: boolean }>(({ hiddenTextDescription }) => ({
+  opacity: hiddenTextDescription ? 1 : 0,
+  height: hiddenTextDescription ? 'auto' : 0,
+  transition: 'all 0.85s ease'
+}));
 
 const TypographyDescription = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: '16px',

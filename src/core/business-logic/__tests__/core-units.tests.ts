@@ -137,6 +137,12 @@ test('Get Facilitator from Core Unit', () => {
 
 test('Get Budget Cap for Core Unit', () => {
   let coreUnit = (new CoreUnitsBuilder())
+    .addBudgetStatement((new BudgetStatementBuilder())
+      .withMonth(CURRENT_MINUS_1_MONTH)
+      .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
+        .withLineItems([300, 300, 300], CURRENT_MINUS_1_MONTH)
+        .build())
+      .build())
     .addCuMip((new CuMipBuilder())
       .addMip40((new Mip40Builder())
         .addPeriodWithLineItems(CURRENT_MINUS_3_MONTH, CURRENT_MONTH, [500, 300, 100])
@@ -147,6 +153,12 @@ test('Get Budget Cap for Core Unit', () => {
   expect(getBudgetCapsFromCoreUnit(coreUnit)).toEqual([900, 900, 900]);
 
   coreUnit = (new CoreUnitsBuilder())
+    .addBudgetStatement((new BudgetStatementBuilder())
+      .withMonth(CURRENT_MINUS_1_MONTH)
+      .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
+        .withLineItems([300, 300, 300], CURRENT_MINUS_1_MONTH)
+        .build())
+      .build())
     .addCuMip((new CuMipBuilder())
       .addMip40((new Mip40Builder())
         .addPeriodWithLineItems(CURRENT_MINUS_3_MONTH, CURRENT_MONTH, [100, 100, 100])
@@ -157,6 +169,12 @@ test('Get Budget Cap for Core Unit', () => {
   expect(getBudgetCapsFromCoreUnit(coreUnit)).toEqual([300, 300, 300]);
 
   coreUnit = (new CoreUnitsBuilder())
+    .addBudgetStatement((new BudgetStatementBuilder())
+      .withMonth(CURRENT_MINUS_1_MONTH)
+      .addBudgetStatementWallet((new BudgetStatementWalletBuilder())
+        .withLineItems([300, 300, 300], CURRENT_MINUS_1_MONTH)
+        .build())
+      .build())
     .addCuMip((new CuMipBuilder())
       .addMip40((new Mip40Builder())
         .addPeriodWithLineItems(CURRENT_MINUS_3_MONTH, CURRENT_MINUS_2_MONTH, [100, 200, 100])
@@ -208,7 +226,7 @@ test('Get expenditure value from Core Unit', () => {
       .build())
     .build();
 
-  expect(getExpenditureValueFromCoreUnit(coreUnit)).toBe(0);
+  expect(getExpenditureValueFromCoreUnit(coreUnit)).toBe(300);
 });
 
 test('Get percent from Core Unit', () => {
@@ -329,7 +347,7 @@ test('Get last 3 expenditure values from Core Unit', () => {
 
   result = getLast3ExpenditureValuesFromCoreUnit(coreUnit);
   expect(result.length).toBe(3);
-  expect(result[0].value).toBe(500);
+  expect(result[0].value).toBe(0);
   expect(result[1].value).toBe(0);
-  expect(result[2].value).toBe(0);
+  expect(result[2].value).toBe(500);
 });

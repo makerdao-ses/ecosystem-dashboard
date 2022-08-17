@@ -20,6 +20,7 @@ export const GETCoreUnits = gql`
           obsolete
           mipCode
           mip40 {
+            mkrOnly
             mip40BudgetPeriod {
               budgetPeriodStart
               budgetPeriodEnd
