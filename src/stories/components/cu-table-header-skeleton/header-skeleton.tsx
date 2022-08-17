@@ -13,7 +13,7 @@ export const CuTableHeaderSkeleton = () => {
         height={48}
         style={{
           borderRadius: '8px',
-          background: isLight ? '#ECF1F3' : '#1d393c',
+          background: isLight ? '#ECF1F3' : '#1E2C37',
         }}
       />
       <Filters>
@@ -23,7 +23,7 @@ export const CuTableHeaderSkeleton = () => {
           height={48}
           style={{
             borderRadius: '8px',
-            background: isLight ? '#ECF1F3' : '#1d393c',
+            background: isLight ? '#ECF1F3' : '#1E2C37',
             marginRight: '8px',
           }}
         />
@@ -33,7 +33,7 @@ export const CuTableHeaderSkeleton = () => {
           height={48}
           style={{
             borderRadius: '8px',
-            background: isLight ? '#ECF1F3' : '#1d393c',
+            background: isLight ? '#ECF1F3' : '#1E2C37',
             marginRight: '16px',
           }}
         />
@@ -43,7 +43,7 @@ export const CuTableHeaderSkeleton = () => {
           height={48}
           style={{
             borderRadius: '8px',
-            background: isLight ? '#ECF1F3' : '#1d393c',
+            background: isLight ? '#ECF1F3' : '#1E2C37',
             marginRight: '30px',
           }}
         />
@@ -53,7 +53,7 @@ export const CuTableHeaderSkeleton = () => {
           height={48}
           style={{
             borderRadius: '8px',
-            background: isLight ? '#ECF1F3' : '#1d393c',
+            background: isLight ? '#ECF1F3' : '#1E2C37',
           }}
         />
       </Filters>

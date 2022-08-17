@@ -13,7 +13,7 @@ export const ColumnSummarySkeleton = () => {
         height={56}
         style={{
           marginRight: '11px',
-          background: isLight ? '#ECF1F3' : '#1d393c',
+          background: isLight ? '#ECF1F3' : '#1E2C37',
         }}
       />
       <div>
@@ -24,7 +24,7 @@ export const ColumnSummarySkeleton = () => {
           style={{
             borderRadius: '8px',
             marginBottom: '8px',
-            background: isLight ? '#ECF1F3' : '#1d393c',
+            background: isLight ? '#ECF1F3' : '#1E2C37',
           }}
         />
         <Row>
@@ -35,7 +35,7 @@ export const ColumnSummarySkeleton = () => {
             style={{
               borderRadius: '4px',
               marginRight: '4px',
-              background: isLight ? '#ECF1F3' : '#1d393c',
+              background: isLight ? '#ECF1F3' : '#1E2C37',
             }}
           />
           <Skeleton
@@ -44,7 +44,7 @@ export const ColumnSummarySkeleton = () => {
             height={18}
             style={{
               borderRadius: '4px',
-              background: isLight ? '#ECF1F3' : '#1d393c',
+              background: isLight ? '#ECF1F3' : '#1E2C37',
             }}
           />
         </Row>

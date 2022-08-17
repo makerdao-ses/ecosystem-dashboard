@@ -15,7 +15,7 @@ export const ColumnTeamMemberSkeleton = () => {
           style={{
             borderRadius: '4px',
             marginBottom: '5px',
-            background: isLight ? '#ECF1F3' : '#1d393c',
+            background: isLight ? '#ECF1F3' : '#1E2C37',
           }}
         />
         <Skeleton
@@ -24,7 +24,7 @@ export const ColumnTeamMemberSkeleton = () => {
           height={20}
           style={{
             borderRadius: '4px',
-            background: isLight ? '#ECF1F3' : '#1d393c',
+            background: isLight ? '#ECF1F3' : '#1E2C37',
           }}
         />
       </div>
@@ -34,8 +34,8 @@ export const ColumnTeamMemberSkeleton = () => {
         height={41}
         style={{
           marginBottom: '5px',
-          border: isLight ? '2px solid white' : '2px solid #1d393c',
-          background: isLight ? '#ECF1F3' : '#1d393c',
+          border: isLight ? '2px solid white' : '2px solid #1E2C37',
+          background: isLight ? '#ECF1F3' : '#1E2C37',
         }}
       />
       <Skeleton
@@ -45,9 +45,9 @@ export const ColumnTeamMemberSkeleton = () => {
         style={{
           marginBottom: '5px',
           alignSelf: 'flex-end',
-          border: isLight ? '2px solid white' : '2px solid #1d393c',
+          border: isLight ? '2px solid white' : '2px solid #1E2C37',
           marginLeft: '-19px',
-          background: isLight ? '#ECF1F3' : '#1d393c',
+          background: isLight ? '#ECF1F3' : '#1E2C37',
         }}
       />
     </Container>
