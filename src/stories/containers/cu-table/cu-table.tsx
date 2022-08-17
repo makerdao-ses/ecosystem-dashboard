@@ -353,11 +353,11 @@ export const CuTable = () => {
   return (
     <ContainerHome isLight={isLight}>
       <Head>
-        <title>Sustainable Ecosystem Scaling Core Unit | Maker Expenses</title>
+        <title>MakerDAO Ecosystem Performance Dashboard | Maker Expenses</title>
         <link rel="icon" href="/favicon.png" />
         <meta
           property="og:site_name"
-          content="Sustainable Ecosystem Scaling Core Unit | Maker Expenses"
+          content="MakerDAO Ecosystem Performance Dashboard | Maker Expenses"
         />
         <meta
           name="description"

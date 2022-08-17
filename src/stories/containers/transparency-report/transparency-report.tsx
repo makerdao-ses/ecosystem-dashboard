@@ -35,7 +35,11 @@ const colorsDarkColors: { [key: string]: string } = {
   SubmittedToAuditor: '#FF78F2',
 };
 
-export const TransparencyReport = ({ coreUnit: cu }: {coreUnit: CoreUnitDto}) => {
+export const TransparencyReport = ({
+  coreUnit: cu,
+}: {
+  coreUnit: CoreUnitDto;
+}) => {
   const isLight = useThemeContext().themeMode === 'light';
   const router = useRouter();
   const query = router.query;
@@ -55,20 +59,17 @@ export const TransparencyReport = ({ coreUnit: cu }: {coreUnit: CoreUnitDto}) =>
   return (
     <Wrapper>
       <Head>
-        <title>MakerDAO Ecosystem Performance Dashboard | Finances</title>
-        <link rel="icon" href="/favicon.png" />
-        <meta
-          property="og:site_name"
-          content="MakerDAO Ecosystem Performance Dashboard | Finances"
-        />
-        <meta
-          name="description"
-          content={`Learn about the ${cu.name} Core Unit at MakerDAO: their finances, expense reports, and more.`}
-        />
-        <meta
-          name="og:description"
-          content={`Learn about the ${cu.name} Core Unit at MakerDAO: their finances, expense reports, and more.`}
-        />
+        <title>{`${cu.name} Core Unit | Finances`}</title>
+        <meta name="description" content={`Learn about the ${cu.name} Core Unit at MakerDAO: their finances, expense reports, and more.`} />
+
+        <meta property="og:site_name" content={`${cu.name} Core Unit | Finances`} />
+        <meta name="og:description" content={`Learn about the ${cu.name} Core Unit at MakerDAO: their finances, expense reports, and more.`} />
+        <meta name="og:image" content={cu.image || 'https://expenses-dev.makerdao.network/favicon.png'} />
+
+        <meta name="twitter:title" content={`${cu.name} Core Unit | Finances`} />
+        <meta name="twitter:description" content={`Learn about the ${cu.name} Core Unit at MakerDAO: their finances, expense reports, and more.`} />
+        <meta name="twitter:image" content={cu.image || 'https://expenses-dev.makerdao.network/favicon.png'} />
+
         <meta name="robots" content="index,follow" />
       </Head>
       <CoreUnitSummary trailingAddress={['Expense Reports']} />
@@ -128,7 +129,9 @@ export const TransparencyReport = ({ coreUnit: cu }: {coreUnit: CoreUnitDto}) =>
                 color={
                   isLight
                     ? colors[currentBudgetStatement?.budgetStatus ?? '']
-                    : colorsDarkColors[currentBudgetStatement?.budgetStatus ?? '']
+                    : colorsDarkColors[
+                      currentBudgetStatement?.budgetStatus ?? ''
+                    ]
                 }
               >
                 {currentBudgetStatement?.budgetStatus ?? '-'}
@@ -216,21 +219,33 @@ const InnerPage = styled.div({
   textAlign: 'left',
 });
 
-export const Title = styled.div<{ marginBottom?: number, isLight: boolean, fontSize?: string, responsiveMarginBottom?: number }>(({ marginBottom = 16, fontSize = '16px', isLight, responsiveMarginBottom }) => ({
-  fontFamily: 'FT Base, sans-serif',
-  fontWeight: 700,
-  fontStyle: 'normal',
-  fontSize,
-  lineHeight: '19px',
-  letterSpacing: '0.4px',
-  color: isLight ? '#231536' : '#D2D4EF',
-  marginBottom: `${marginBottom}px`,
-  '@media (min-width: 834px)': {
-    fontSize: '20px',
-    lineHeight: '24px',
-    marginBottom: `${responsiveMarginBottom || marginBottom}px`,
-  }
-}));
+export const Title = styled.div<{
+  marginBottom?: number;
+  isLight: boolean;
+  fontSize?: string;
+  responsiveMarginBottom?: number;
+}>(
+  ({
+    marginBottom = 16,
+    fontSize = '16px',
+    isLight,
+    responsiveMarginBottom,
+  }) => ({
+    fontFamily: 'FT Base, sans-serif',
+    fontWeight: 700,
+    fontStyle: 'normal',
+    fontSize,
+    lineHeight: '19px',
+    letterSpacing: '0.4px',
+    color: isLight ? '#231536' : '#D2D4EF',
+    marginBottom: `${marginBottom}px`,
+    '@media (min-width: 834px)': {
+      fontSize: '20px',
+      lineHeight: '24px',
+      marginBottom: `${responsiveMarginBottom || marginBottom}px`,
+    },
+  })
+);
 
 const Paragraph = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
