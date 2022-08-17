@@ -20,6 +20,7 @@ export const WalletTableCell = (props: WalletTableCellProps) => {
       height={'32px'}
       name={props.address ?? ''}
       image={props.imgUrl}
+      border={'none'}
       identIcon
     />
     <Data>

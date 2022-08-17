@@ -26,7 +26,7 @@ export const TransparencyEmptyTable = ({ breakdown = false }: Props) => {
                 <CellBlock />
                 <CellBlock />
               </Row>
-              <Line />
+              <Line isLight={isLight} />
               {new Array(3).fill('').map((_, i) => (
                 <Row key={`key-${i}`} style={{ marginBottom: i === 2 ? '17px' : '30px' }}>
                   <Row
@@ -141,7 +141,7 @@ export const TransparencyEmptyTable = ({ breakdown = false }: Props) => {
                   }}
                 />
               </Row>
-              <Line />
+              <Line isLight={isLight}/>
               <Row style={{ marginBottom: '26px' }}>
                 <CellBlock
                   style={{
@@ -478,12 +478,12 @@ const Row = styled.div({
   flex: 1,
 });
 
-const Line = styled.div({
+const Line = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   height: '1px',
   width: '100%',
   margin: '14px -16px',
-  background: '#D4D9E1',
-});
+  background: isLight ? '#D4D9E1' : '#405361',
+}));
 
 const CellBlock = styled.div({
   boxSizing: 'border-box',

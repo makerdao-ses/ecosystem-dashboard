@@ -62,7 +62,7 @@ export const CustomTable = ({
         { tableHead }
         <TableBody isLight={isLight}>
           {props.items?.map((row, i) => (
-            <TableRow key={i} isLight={isLight}>
+            <TableRow key={i} isLight={isLight} isLoading={props.loading}>
               {row.map((item, j) => (
                 <TableCell
                   key={`${i}-${j}`}
@@ -112,7 +112,7 @@ const TableHead = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     : '0px 20px 40px rgba(7, 22, 40, 0.4)',
 }));
 
-const TableRow = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const TableRow = styled.div<{ isLight: boolean, isLoading?: boolean }>(({ isLight, isLoading }) => ({
   background: isLight ? 'white' : '#10191F',
   display: 'grid',
   gridTemplateColumns: '400px 215px 205px 358px',
@@ -124,7 +124,7 @@ const TableRow = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     gridTemplateColumns: '360px 215px 205px 340px',
   },
   ':hover': {
-    background: isLight ? '#ECF1F3' : '#1E2C37'
+    background: !isLoading ? (isLight ? '#ECF1F3' : '#1E2C37') : (isLight ? 'white' : '#10191F'),
   }
 }));
 
