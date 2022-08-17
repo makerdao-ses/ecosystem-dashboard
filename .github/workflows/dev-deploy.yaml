@@ -5,6 +5,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: development
     strategy:
       matrix:
         node-version: [v16.x]
