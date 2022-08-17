@@ -49,6 +49,7 @@ export const ItemWebSite = ({ fontSize = 16, fontWeight = 700, color = '#FFFFFF'
         </div>
         <LinkWrapper>
           <CustomButton
+            className="visitWebsiteButton"
             label="Visit Website"
             onClick={onClick}
             style={{
@@ -105,6 +106,12 @@ const Container = styled.div<{ height?: string, isLight: boolean }>(({ height, i
   width: '100%',
   height: 'fit-content',
   marginBottom: '16px',
+  '&:hover': {
+    background: isLight ? '#ECF1F3' : '#1E2C37',
+    '& .visitWebsiteButton': {
+      background: isLight ? '#ECF1F3' : '#1E2C37',
+    },
+  },
   '@media (min-width: 635px)': {
     width: '497px',
     height,

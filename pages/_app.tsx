@@ -2,7 +2,6 @@ import React, { ReactElement, ReactNode } from 'react';
 import { Provider } from 'react-redux';
 import type { AppProps } from 'next/app';
 import { store } from '../src/core/store/store';
-import Head from 'next/head';
 import '../styles/globals.scss';
 import { NextPage } from 'next';
 import { EmotionCache } from '@emotion/react';
@@ -10,6 +9,7 @@ import { ThemeProvider } from '../src/core/context/ThemeContext';
 import { FeatureFlagsProvider } from '../src/core/context/FeatureFlagsProvider';
 import { CURRENT_ENVIRONMENT } from '../src/config/endpoints';
 import { featureFlags } from '../feature-flags/feature-flags';
+import { SEOHead } from '../src/stories/components/seo-head/seo-head';
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -26,20 +26,12 @@ function MyApp(props: MyAppProps) {
   return (
     <ThemeProvider>
       <Provider store={store}>
-        <Head>
-          <title>MakerDAO - Dashboard</title>
-          <link rel="icon" href="/favicon.png" />
-          <meta name='mobile-web-app-capable' content='yes'/>
-          <meta name='apple-mobile-web-app-capable' content='yes'/>
-
-          <link rel='apple-touch-icon' href='favicon_152x152.png'/>
-          <meta name='msapplication-square150x150logo' content='favicon_152x152.png'/>
-        </Head>
+        <SEOHead title="MakerDAO - Dashboard" description="" />
         <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
           <Component {...pageProps} />
         </FeatureFlagsProvider>
       </Provider>
-      </ThemeProvider>
+    </ThemeProvider>
   );
 }
 

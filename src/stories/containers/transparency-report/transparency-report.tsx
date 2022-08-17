@@ -19,7 +19,7 @@ import { API_MONTH_FORMAT } from '../../../core/utils/date.utils';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
 import { formatCode } from '../../../core/utils/string.utils';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import Head from 'next/head';
+import { SEOHead } from '../../components/seo-head/seo-head';
 
 const colors: { [key: string]: string } = {
   Draft: '#7C6B95',
@@ -58,20 +58,11 @@ export const TransparencyReport = ({
 
   return (
     <Wrapper>
-      <Head>
-        <title>{`${cu.name} Core Unit | Finances`}</title>
-        <meta name="description" content={`Learn about the ${cu.name} Core Unit at MakerDAO: their finances, expense reports, and more.`} />
-
-        <meta property="og:site_name" content={`${cu.name} Core Unit | Finances`} />
-        <meta name="og:description" content={`Learn about the ${cu.name} Core Unit at MakerDAO: their finances, expense reports, and more.`} />
-        <meta name="og:image" content={cu.image || 'https://expenses-dev.makerdao.network/favicon.png'} />
-
-        <meta name="twitter:title" content={`${cu.name} Core Unit | Finances`} />
-        <meta name="twitter:description" content={`Learn about the ${cu.name} Core Unit at MakerDAO: their finances, expense reports, and more.`} />
-        <meta name="twitter:image" content={cu.image || 'https://expenses-dev.makerdao.network/favicon.png'} />
-
-        <meta name="robots" content="index,follow" />
-      </Head>
+      <SEOHead
+        title={`${cu.name} Core Unit | Finances`}
+        description={`Learn about the ${cu.name} Core Unit at MakerDAO: their finances, expense reports, and more.`}
+        image={cu.image || '/favicon-192.png'}
+      />
       <CoreUnitSummary trailingAddress={['Expense Reports']} />
       <Container isLight={isLight}>
         <InnerPage>
