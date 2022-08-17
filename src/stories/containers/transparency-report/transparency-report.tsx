@@ -60,7 +60,6 @@ export const TransparencyReport = ({
     <Wrapper>
       <Head>
         <title>{`${cu.name} Core Unit | Finances`}</title>
-        <link rel="icon" href="/favicon.png" />
         <meta name="description" content={`Learn about the ${cu.name} Core Unit at MakerDAO: their finances, expense reports, and more.`} />
 
         <meta property="og:site_name" content={`${cu.name} Core Unit | Finances`} />
