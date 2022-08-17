@@ -47,7 +47,6 @@ import { CoreUnitCard } from '../../components/core-unit-card/core-unit-card';
 import { Filters } from './cu-table-filters';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { CustomPopover } from '../../components/custom-popover/custom-popover';
 import { CategoryChip } from '../../components/category-chip/category-chip';
 import { TablePlaceholder } from '../../components/custom-table/placeholder';
 import Head from 'next/head';
@@ -228,17 +227,21 @@ export const CuTable = () => {
     const sortedData = sortData(filteredData);
     return sortedData.map((coreUnit: CoreUnitDto, i: number) => {
       return [
-        <CustomPopover
-          key={`summary-${coreUnit.code}`}
-          popupStyle={{
-            padding: 0,
-          }}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-          title={
-            <>
+          <CuTableColumnSummary
+            key={`summary-${coreUnit.code}`}
+            title={coreUnit.name}
+            status={
+              getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum
+            }
+            statusModified={getSubmissionDateFromCuMip(
+              getLatestMip39FromCoreUnit(coreUnit)
+            )}
+            imageUrl={coreUnit.image}
+            mipUrl={getMipUrlFromCoreUnit(coreUnit)}
+            onClick={onClickRow(coreUnit.shortCode)}
+            code={formatCode(coreUnit.shortCode)}
+            popupChild={
+              <>
               <CuTableColumnSummary
                 title={coreUnit.name}
                 status={
@@ -266,24 +269,8 @@ export const CuTable = () => {
                 </CategoriesRow>
               </Padded>
             </>
-          }
-          id={coreUnit.code}
-        >
-          <CuTableColumnSummary
-            key={`summary-${coreUnit.code}`}
-            title={coreUnit.name}
-            status={
-              getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum
             }
-            statusModified={getSubmissionDateFromCuMip(
-              getLatestMip39FromCoreUnit(coreUnit)
-            )}
-            imageUrl={coreUnit.image}
-            mipUrl={getMipUrlFromCoreUnit(coreUnit)}
-            onClick={onClickRow(coreUnit.shortCode)}
-            code={formatCode(coreUnit.shortCode)}
-          />
-        </CustomPopover>,
+          />,
         <div
           key={`expenditures-${i}`}
           style={{
