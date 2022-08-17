@@ -34,14 +34,11 @@ function MyApp(props: MyAppProps) {
 
           <link rel='apple-touch-icon' href='favicon_152x152.png'/>
           <meta name='msapplication-square150x150logo' content='favicon_152x152.png'/>
-
-            <meta property="og:image" content="https://expenses-dev.makerdao.network/favicon.png"/>
-            <meta name="twitter:image" content="https://expenses-dev.makerdao.network/favicon.png"/>
-          </Head>
-          <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
-            <Component {...pageProps} />
-          </FeatureFlagsProvider>
-        </Provider>
+        </Head>
+        <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
+          <Component {...pageProps} />
+        </FeatureFlagsProvider>
+      </Provider>
       </ThemeProvider>
   );
 }

@@ -5,6 +5,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: development
     strategy:
       matrix:
         node-version: [v16.x]
@@ -12,6 +13,9 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v1
+      - name: Configure environment variables
+        run: |
+          echo -e "NEXT_PUBLIC_GRAPHQL_ENDPOINT=${{ secrets.GRAPHQL_API_URL }}\nNEXT_PUBLIC_ENVIRONMENT=development" >> .env
       - name: Install project
         run: |
           npm install -g yarn

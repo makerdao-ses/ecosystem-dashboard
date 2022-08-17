@@ -77,7 +77,7 @@ export const TransparencyTransferRequest = (
           key={4}
           value={getTransferRequestForMonthOnWallet(wallet?.address)}
         />,
-        <TableCell key={5} responsivePadding="4px">
+        <TableCell key={5} responsivePadding="0">
           <CustomLink
             fontSize={16}
             fontFamily={'SF Pro Display, sans-serif'}
