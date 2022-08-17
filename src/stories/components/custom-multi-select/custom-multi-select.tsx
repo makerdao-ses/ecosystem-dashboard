@@ -63,12 +63,14 @@ export const CustomMultiSelect = ({
   };
 
   return (
-    <SelectWrapper ref={refOutsideClick} style={props.style} onMouseOver={() => setHover(true)} onMouseOut={() => setHover(false)}>
+    <SelectWrapper ref={refOutsideClick} style={props.style}>
       <SelectContainer
         isLight={isLight}
         focus={popupVisible}
         active={activeItems.length > 0}
         className="no-select"
+        onMouseOver={() => setHover(true)} 
+        onMouseOut={() => setHover(false)}
         style={{
           maxWidth:
             props.maxWidth && !activeItems.length
