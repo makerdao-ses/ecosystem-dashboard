@@ -64,7 +64,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     ? '0px 20px 40px -40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
     : '10px 15px 20px 6px rgba(20, 0, 141, 0.1);',
   borderRadius: '6px',
-  overflowX: 'scroll',
+  overflowX: 'auto',
   '-ms-overflow-style': 'none',
   scrollbarWidth: 'none',
 }));
