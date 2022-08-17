@@ -19,6 +19,7 @@ interface CuTableColumnSummaryProps {
   code?: string;
   logoDimension?: string;
   isLoading?: boolean;
+  popupChild?: JSX.Element
   style?: React.CSSProperties;
 }
 
@@ -31,6 +32,16 @@ export const CuTableColumnSummary = ({
   return !isLoading
     ? <Container onClick={props.onClick} style={props.style}>
       <CircleContainer>
+      <CustomPopover
+          popupStyle={{
+            padding: 0,
+          }}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          title={props.popupChild}
+          id={props.code || ''}>
         <CircleAvatar
           width={logoDimension}
           height={logoDimension}
@@ -42,6 +53,7 @@ export const CuTableColumnSummary = ({
               : '2px 4px 7px rgba(26, 171, 155, 0.25)',
           }}
         />
+        </CustomPopover>
       </CircleContainer>
       <Content>
         <TitleWrapper>

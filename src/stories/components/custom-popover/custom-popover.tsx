@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface CustomPopoverProps {
-  title: JSX.Element | string;
+  title?: JSX.Element | string;
   children: JSX.Element | JSX.Element[] | boolean;
   id: string;
   css?: CSSProperties;
@@ -25,6 +25,7 @@ export const CustomPopover = ({
 }: CustomPopoverProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+  const [leaveTimeout, setLeaveTimeout] = React.useState<NodeJS.Timeout>();
 
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -43,21 +44,21 @@ export const CustomPopover = ({
       aria-haspopup="true"
       onMouseEnter={handlePopoverOpen}
       onClick={handlePopoverClose}
-      onMouseLeave={() => !leaveOnChildrenMouseOut && handlePopoverClose()}>
+      onMouseLeave={() => {
+        if (leaveOnChildrenMouseOut) {
+          clearTimeout(leaveTimeout);
+          setLeaveTimeout(setTimeout(() => handlePopoverClose(), 400));
+        } else {
+          handlePopoverClose();
+        }
+      }}>
       {props.children}
     </div>
     <Popover
       disableScrollLock
       id={props.id}
       sx={{
-        pointerEvents: leaveOnChildrenMouseOut ? 'auto' : 'none',
-        boxShadow: 'none',
-        '& .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
-          background: isLight ? 'white' : '#000A13',
-          border: isLight ? '1px solid #D4D9E1' : '1px solid #231536',
-          boxShadow: isLight ? 'none' : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
-          borderRadius: '6px',
-        }
+        pointerEvents: 'none',
       }}
       open={open}
       anchorEl={anchorEl}
@@ -68,15 +69,23 @@ export const CustomPopover = ({
       }}
       onClose={handlePopoverClose}
       disableRestoreFocus
+      PaperProps={{
+        style: {
+          background: isLight ? 'white' : '#000A13',
+          border: isLight ? '1px solid #D4D9E1' : '1px solid #231536',
+          boxShadow: isLight ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
+          borderRadius: '6px',
+        },
+      }}
     >
       <Container
+        onMouseOver={() => leaveOnChildrenMouseOut && clearTimeout(leaveTimeout)}
+        onMouseLeave={() => leaveOnChildrenMouseOut && handlePopoverClose()}
         style={{
           borderRadius: '6px',
+          pointerEvents: 'all',
           ...props.popupStyle
-        }
-
-        }
-        onMouseLeave={() => leaveOnChildrenMouseOut && handlePopoverClose()}
+        }}
       >{props.title}</Container>
     </Popover>
   </React.Fragment>;

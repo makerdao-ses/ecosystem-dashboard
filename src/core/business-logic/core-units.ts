@@ -140,15 +140,9 @@ const checkDateOnPeriod = (period: Mip40BudgetPeriodDto, date: DateTime) => {
 const findMip40 = (cu: CoreUnitDto, date: DateTime): Mip40Dto | null => {
   const cuMips = cu.cuMip?.filter(mip => mip.mipStatus === CuStatusEnum.Accepted) ?? [];
 
-  for (let i = 0; i < cuMips.length ?? 0; i++) {
-    const mip = cuMips[i];
-
-    for (let j = 0; j < mip.mip40?.length ?? 0; j++) {
-      const mip40 = mip.mip40[j];
-
-      for (let k = 0; k < mip40.mip40BudgetPeriod?.length ?? 0; k++) {
-        const period = mip40.mip40BudgetPeriod[k];
-
+  for (const mip of cuMips) {
+    for (const mip40 of mip.mip40.filter(mip =>!mip.mkrOnly)) {
+      for (const period of mip40.mip40BudgetPeriod) {
         if (checkDateOnPeriod(period, date)) {
           return mip40;
         }
@@ -167,10 +161,8 @@ export const getBudgetCapsFromCoreUnit = (cu: CoreUnitDto) => {
   const result: number[] = [];
   if (cu.cuMip.length === 0) return result;
 
-  let dateToCheck = DateTime.now();
   let mip40;
-  for (let i = 0; i < 3; i++) {
-    dateToCheck = dateToCheck.minus({ months: 1 });
+  for (const dateToCheck of getLast3MonthsWithData(cu.budgetStatements)) {
     // Check the period found before to avoid re-surfing the array
     if (!mip40 || !checkDateOnPeriod(mip40.mip40BudgetPeriod[0], dateToCheck)) {
       mip40 = findMip40(cu, dateToCheck);
@@ -197,9 +189,7 @@ export const getExpenditureValueFromCoreUnit = (cu: CoreUnitDto) => {
   let result = 0;
   if (cu.budgetStatements.length === 0) return result;
 
-  let dateToCheck = DateTime.now();
-  for (let i = 0; i < 3; i++) {
-    dateToCheck = dateToCheck.minus({ months: 1 });
+  for (const dateToCheck of getLast3MonthsWithData(cu.budgetStatements)) {
     const temp = cu.budgetStatements?.find(bs => bs.month === dateToCheck.toFormat(API_MONTH_FORMAT));
     if (temp) {
       result += sumAllLineItemsFromBudgetStatement(temp, dateToCheck);
@@ -213,9 +203,7 @@ export const getExpenditureAmountFromCoreUnit = (cu: CoreUnitDto) => {
   let result = 0;
   if (cu.budgetStatements.length === 0) return result;
 
-  let dateToCheck = DateTime.now();
-  for (let i = 0; i < 3; i++) {
-    dateToCheck = dateToCheck.minus({ months: 1 });
+  for (const dateToCheck of getLast3MonthsWithData(cu.budgetStatements)) {
     const temp = cu.budgetStatements?.find(bs => bs.month === dateToCheck.toFormat(API_MONTH_FORMAT));
     if (temp) {
       result += 1;
@@ -239,9 +227,7 @@ export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDto) => {
   const result = [] as CustomChartItemModel[];
   if (cu.budgetStatements.length === 0) return new Array(3).fill({ value: 0 });
 
-  let dateToCheck = DateTime.now();
-  for (let i = 0; i < 3; i++) {
-    dateToCheck = dateToCheck.minus({ months: 1 });
+  for (const dateToCheck of getLast3MonthsWithData(cu.budgetStatements)) {
     const temp = cu.budgetStatements?.find(bs => bs.month === dateToCheck.toFormat(API_MONTH_FORMAT));
 
     if (temp) {
@@ -252,6 +238,26 @@ export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDto) => {
   }
 
   return result.reverse();
+};
+
+const getLast3MonthsWithData = (budgetStatements: BudgetStatementDto[]) => {
+  // The budget statements should be provided in a descending date order but
+  // it's better to order it client side to avoid future issues
+  const orderedStatements = _.sortBy(budgetStatements, bs => bs.month).reverse();
+
+  for (const bs of orderedStatements) {
+    for (const wallet of bs.budgetStatementWallet) {
+      for (const item of wallet.budgetStatementLineItem) {
+        if (item.actual) {
+          const date = DateTime.fromFormat(bs.month, 'yyyy-MM-dd');
+
+          return [date, date.minus({ months: 1 }), date.minus({ months: 2 })];
+        }
+      }
+    }
+  }
+
+  return [];
 };
 
 export const getMipUrlFromCoreUnit = (cu: CoreUnitDto) => {

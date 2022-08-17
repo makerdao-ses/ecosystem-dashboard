@@ -1,12 +1,14 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import { useThemeContext } from '../../../../core/context/ThemeContext';
 
 export const TransparencyEmptyAudit = () => {
+  const isLight = useThemeContext().themeMode === 'light';
   return (
     <>
       <Wrapper>
         <Title>No Data Provided</Title>
-        <Container>
+        <Container isLight={isLight}>
           <Row>
             <CellBlock />
             <CellBlock />
@@ -19,7 +21,7 @@ export const TransparencyEmptyAudit = () => {
       </Wrapper>
       <MobileWrapper>
         <img
-          src="/assets/img/bg-placeholder-transparency.svg"
+          src={isLight ? '/assets/img/bg-placeholder-transparency.svg' : '/assets/img/bg-placeholder-transparency-dark.svg'}
           alt="placeholder"
         />
       </MobileWrapper>
@@ -55,11 +57,11 @@ const Wrapper = styled.div({
   },
 });
 
-const Container = styled.div({
+const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: '32px',
-  border: '5px dashed #D4D9E1',
+  border: isLight ? '5px dashed #D4D9E1' : '5px dashed #10191F',
   borderRadius: '20px',
   padding: '32px 24px',
   width: '100%',
@@ -74,11 +76,10 @@ const Container = styled.div({
     left: 0,
     width: '100%',
     height: '100%',
-    background:
-      'radial-gradient(white, rgba(255,255,255,0.9), rgba(255,255,255,0.9), rgba(255,255,255,0.4), rgba(255,255,255,0.1))',
+    background: isLight ? 'radial-gradient(white, rgba(255,255,255,0.9), rgba(255,255,255,0.9), rgba(255,255,255,0.4), rgba(255,255,255,0.1))' : 'radial-gradient(#0c151e 0% 30% ,#0000 81% 100% )',
     backgroundRepeat: 'no-repeat',
   },
-});
+}));
 
 const CellBlock = styled.div({
   flex: 1,

@@ -48,7 +48,7 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
           <CssBaseline />
           {children}
         </Container>
-        <Footer developer={developer} governesses={governesses} products={products} isLight={themeMode === 'light'} />
+        <Footer developer={developer} governesses={governesses} products={products} />
       </MuiThemeProvider>
     </ThemeContext.Provider>
   );

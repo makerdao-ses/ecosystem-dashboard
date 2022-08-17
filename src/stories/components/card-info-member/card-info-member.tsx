@@ -2,7 +2,6 @@ import React from 'react';
 import { Box, Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
 import styled from '@emotion/styled';
 import { CuTableColumnLinks } from '../cu-table-column-links/cu-table-column-links';
-import { getTwoInitials } from '../../../core/utils/string.utils';
 import { ContributorCommitment } from '../../containers/cu-about/cu-about-contributor';
 import { getLinksFromContributor } from '../../../core/business-logic/core-unit-about';
 import { DateTime } from 'luxon';
@@ -44,7 +43,7 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
                       width="48px"
                       height="48px"
                       style={{ marginRight: '24px' }}
-                      name={getTwoInitials(contributor?.name)}
+                      name={contributor?.name}
                       image={contributor?.facilitatorImage}
                       border="3px solid #E7FCFA"
                       />}
