@@ -227,21 +227,21 @@ export const CuTable = () => {
     const sortedData = sortData(filteredData);
     return sortedData.map((coreUnit: CoreUnitDto, i: number) => {
       return [
-          <CuTableColumnSummary
-            key={`summary-${coreUnit.code}`}
-            title={coreUnit.name}
-            status={
-              getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum
-            }
-            statusModified={getSubmissionDateFromCuMip(
-              getLatestMip39FromCoreUnit(coreUnit)
-            )}
-            imageUrl={coreUnit.image}
-            mipUrl={getMipUrlFromCoreUnit(coreUnit)}
-            onClick={onClickRow(coreUnit.shortCode)}
-            code={formatCode(coreUnit.shortCode)}
-            popupChild={
-              <>
+        <CuTableColumnSummary
+          key={`summary-${coreUnit.code}`}
+          title={coreUnit.name}
+          status={
+            getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum
+          }
+          statusModified={getSubmissionDateFromCuMip(
+            getLatestMip39FromCoreUnit(coreUnit)
+          )}
+          imageUrl={coreUnit.image}
+          mipUrl={getMipUrlFromCoreUnit(coreUnit)}
+          onClick={onClickRow(coreUnit.shortCode)}
+          code={formatCode(coreUnit.shortCode)}
+          popupChild={
+            <>
               <CuTableColumnSummary
                 title={coreUnit.name}
                 status={
@@ -269,8 +269,8 @@ export const CuTable = () => {
                 </CategoriesRow>
               </Padded>
             </>
-            }
-          />,
+          }
+        />,
         <div
           key={`expenditures-${i}`}
           style={{
@@ -373,8 +373,7 @@ export const CuTable = () => {
       <SEOHead
         title="MakerDAO Ecosystem Performance Dashboard | Maker Expenses"
         description="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
-        image="https://expenses-dev.makerdao.network/favicon.png"
-        favicon='/favicon-192.png'
+        image='/favicon-192.png'
       >
         <link rel="apple-touch-icon" sizes="1024x1024" href="/icons/apple-touch-icon-size-1024x1024.png" />
         <link rel="apple-touch-icon" sizes="512x512" href="/icons/apple-touch-icon-size-512.png" />
