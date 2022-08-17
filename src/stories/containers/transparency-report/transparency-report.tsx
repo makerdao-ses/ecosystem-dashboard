@@ -35,7 +35,11 @@ const colorsDarkColors: { [key: string]: string } = {
   SubmittedToAuditor: '#FF78F2',
 };
 
-export const TransparencyReport = ({ coreUnit: cu }: {coreUnit: CoreUnitDto}) => {
+export const TransparencyReport = ({
+  coreUnit: cu,
+}: {
+  coreUnit: CoreUnitDto;
+}) => {
   const isLight = useThemeContext().themeMode === 'light';
   const router = useRouter();
   const query = router.query;
@@ -55,8 +59,9 @@ export const TransparencyReport = ({ coreUnit: cu }: {coreUnit: CoreUnitDto}) =>
   return (
     <Wrapper>
       <SEOHead
-        title="MakerDAO Ecosystem Performance Dashboard | Finances"
+        title={`${cu.name} Core Unit | Finances`}
         description={`Learn about the ${cu.name} Core Unit at MakerDAO: their finances, expense reports, and more.`}
+        image={cu.image || '/favicon-192.png'}
       />
       <CoreUnitSummary trailingAddress={['Expense Reports']} />
       <Container isLight={isLight}>
@@ -115,7 +120,9 @@ export const TransparencyReport = ({ coreUnit: cu }: {coreUnit: CoreUnitDto}) =>
                 color={
                   isLight
                     ? colors[currentBudgetStatement?.budgetStatus ?? '']
-                    : colorsDarkColors[currentBudgetStatement?.budgetStatus ?? '']
+                    : colorsDarkColors[
+                      currentBudgetStatement?.budgetStatus ?? ''
+                    ]
                 }
               >
                 {currentBudgetStatement?.budgetStatus ?? '-'}
@@ -203,21 +210,33 @@ const InnerPage = styled.div({
   textAlign: 'left',
 });
 
-export const Title = styled.div<{ marginBottom?: number, isLight: boolean, fontSize?: string, responsiveMarginBottom?: number }>(({ marginBottom = 16, fontSize = '16px', isLight, responsiveMarginBottom }) => ({
-  fontFamily: 'FT Base, sans-serif',
-  fontWeight: 700,
-  fontStyle: 'normal',
-  fontSize,
-  lineHeight: '19px',
-  letterSpacing: '0.4px',
-  color: isLight ? '#231536' : '#D2D4EF',
-  marginBottom: `${marginBottom}px`,
-  '@media (min-width: 834px)': {
-    fontSize: '20px',
-    lineHeight: '24px',
-    marginBottom: `${responsiveMarginBottom || marginBottom}px`,
-  }
-}));
+export const Title = styled.div<{
+  marginBottom?: number;
+  isLight: boolean;
+  fontSize?: string;
+  responsiveMarginBottom?: number;
+}>(
+  ({
+    marginBottom = 16,
+    fontSize = '16px',
+    isLight,
+    responsiveMarginBottom,
+  }) => ({
+    fontFamily: 'FT Base, sans-serif',
+    fontWeight: 700,
+    fontStyle: 'normal',
+    fontSize,
+    lineHeight: '19px',
+    letterSpacing: '0.4px',
+    color: isLight ? '#231536' : '#D2D4EF',
+    marginBottom: `${marginBottom}px`,
+    '@media (min-width: 834px)': {
+      fontSize: '20px',
+      lineHeight: '24px',
+      marginBottom: `${responsiveMarginBottom || marginBottom}px`,
+    },
+  })
+);
 
 const Paragraph = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',

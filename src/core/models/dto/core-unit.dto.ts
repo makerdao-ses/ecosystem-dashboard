@@ -14,6 +14,7 @@ export interface Mip40WalletDto {
 }
 
 export interface Mip40Dto {
+  mkrOnly: boolean;
   mip40BudgetPeriod: Mip40BudgetPeriodDto[]
   mip40Wallet: Mip40WalletDto[]
 }

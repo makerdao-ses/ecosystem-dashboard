@@ -229,6 +229,7 @@ export const CuTable = () => {
     return sortedData.map((coreUnit: CoreUnitDto, i: number) => {
       return [
         <CustomPopover
+          key={`summary-${coreUnit.code}`}
           popupStyle={{
             padding: 0,
           }}
@@ -239,7 +240,6 @@ export const CuTable = () => {
           title={
             <>
               <CuTableColumnSummary
-                key={`summary-${coreUnit.code}`}
                 title={coreUnit.name}
                 status={
                   getLatestMip39FromCoreUnit(coreUnit)
@@ -285,6 +285,7 @@ export const CuTable = () => {
           />
         </CustomPopover>,
         <div
+          key={`expenditures-${i}`}
           style={{
             display: 'block',
             paddingLeft: '8px',
@@ -292,7 +293,6 @@ export const CuTable = () => {
           onClick={() => onClickFinances(coreUnit.shortCode)}
         >
           <CuTableColumnExpenditures
-            key={`expenditures-${i}`}
             value={getExpenditureValueFromCoreUnit(coreUnit)}
             percent={getPercentFromCoreUnit(coreUnit)}
             items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
@@ -305,6 +305,7 @@ export const CuTable = () => {
           fte={getFTEsFromCoreUnit(coreUnit)}
         />,
         <div
+          key={`links-${i}`}
           style={{
             display: 'flex',
             justifyContent: 'flex-end',
@@ -313,7 +314,6 @@ export const CuTable = () => {
           }}
         >
           <CuTableColumnLinks
-            key={`links-${i}`}
             links={getLinksFromCoreUnit(coreUnit)}
             spacings={16}
             fill="#708390"
@@ -326,9 +326,19 @@ export const CuTable = () => {
 
   const itemsList = useMemo(() => {
     if (status === 'loading') {
-      return new Array(4).fill(
-        <CoreUnitCard coreUnit={{} as CoreUnitDto} isLoading />
-      );
+      const result = [];
+
+      for (let i = 0; i < 4; i++) {
+        result.push(
+          <CoreUnitCard
+            key={`card-placeholder-${i}`}
+            coreUnit={{} as CoreUnitDto}
+            isLoading
+          />
+        );
+      }
+
+      return result;
     }
     return filteredData.map((cu) => (
       <CoreUnitCard
@@ -374,9 +384,9 @@ export const CuTable = () => {
   return (
     <ContainerHome isLight={isLight}>
       <SEOHead
-        title="Sustainable Ecosystem Scaling Core Unit | Maker Expenses"
+        title="MakerDAO Ecosystem Performance Dashboard | Maker Expenses"
         description="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
-        image="https://expenses-dev.makerdao.network/favicon.png"
+        image="/favicon-192.png"
       />
       <Wrapper>
         {siteHeader}
@@ -409,9 +419,10 @@ const ContainerHome = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   padding: '32px 16px 128px',
   marginTop: '64px',
   width: '100%',
-  background: isLight
+  background: isLight ? '#FFFFFF' : '#000000',
+  backgroundImage: isLight
     ? '#FFFFFF'
-    : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
+    : 'linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 16, 32, 0.4) 100%)',
   '@media (min-width: 834px)': {
     padding: '24px 32px 128px',
   },

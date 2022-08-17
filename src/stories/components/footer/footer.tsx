@@ -5,6 +5,7 @@ import SesLogo from '../svg/ses-logo';
 import DescriptionFooter from './description-footer';
 import FooterContact from './footer-contact';
 import { iconsContact, iconsSupport } from './iconsData';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 export interface LinkInterface {
   title: string;
@@ -15,10 +16,11 @@ interface Props {
   governesses: LinkInterface[],
   products: LinkInterface[],
   developer: LinkInterface[],
-  isLight: boolean,
 }
 
-const Footer = ({ governesses, products, developer, isLight }: Props) => {
+const Footer = ({ governesses, products, developer }: Props) => {
+  const isLight = useThemeContext().themeMode === 'light';
+
   return (
     <FooterWrapper>
       <ContainerImage isLight={isLight} />
