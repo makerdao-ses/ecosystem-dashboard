@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Skeleton from '@mui/material/Skeleton';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 export const ColumnTeamMemberSkeleton = () => {
+  const isLight = useThemeContext().themeMode === 'light';
   return (
     <Container>
       <div>
@@ -13,7 +15,7 @@ export const ColumnTeamMemberSkeleton = () => {
           style={{
             borderRadius: '4px',
             marginBottom: '5px',
-            background: '#ECF1F3',
+            background: isLight ? '#ECF1F3' : '#1d393c',
           }}
         />
         <Skeleton
@@ -22,7 +24,7 @@ export const ColumnTeamMemberSkeleton = () => {
           height={20}
           style={{
             borderRadius: '4px',
-            background: '#ECF1F3'
+            background: isLight ? '#ECF1F3' : '#1d393c',
           }}
         />
       </div>
@@ -32,8 +34,8 @@ export const ColumnTeamMemberSkeleton = () => {
         height={41}
         style={{
           marginBottom: '5px',
-          border: '2px solid white',
-          background: '#ECF1F3',
+          border: isLight ? '2px solid white' : '2px solid #1d393c',
+          background: isLight ? '#ECF1F3' : '#1d393c',
         }}
       />
       <Skeleton
@@ -43,9 +45,9 @@ export const ColumnTeamMemberSkeleton = () => {
         style={{
           marginBottom: '5px',
           alignSelf: 'flex-end',
-          border: '2px solid white',
+          border: isLight ? '2px solid white' : '2px solid #1d393c',
           marginLeft: '-19px',
-          background: '#ECF1F3',
+          background: isLight ? '#ECF1F3' : '#1d393c',
         }}
       />
     </Container>

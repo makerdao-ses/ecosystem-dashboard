@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Skeleton from '@mui/material/Skeleton';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 export const ColumnLinksSkeleton = () => {
+  const isLight = useThemeContext().themeMode === 'light';
   return (
     <Container>
       <Skeleton
@@ -11,7 +13,7 @@ export const ColumnLinksSkeleton = () => {
         height={28}
         style={{
           borderRadius: '8px',
-          background: '#ECF1F3',
+          background: isLight ? '#ECF1F3' : '#1d393c'
         }}
       />
     </Container>

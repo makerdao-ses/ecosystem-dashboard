@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Skeleton } from '@mui/material';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 export const ColumnSummarySkeleton = () => {
+  const isLight = useThemeContext().themeMode === 'light';
   return (
     <ContainerSkeleton>
       <Skeleton
@@ -11,7 +13,7 @@ export const ColumnSummarySkeleton = () => {
         height={56}
         style={{
           marginRight: '11px',
-          background: '#ECF1F3'
+          background: isLight ? '#ECF1F3' : '#1d393c',
         }}
       />
       <div>
@@ -22,7 +24,7 @@ export const ColumnSummarySkeleton = () => {
           style={{
             borderRadius: '8px',
             marginBottom: '8px',
-            background: '#ECF1F3',
+            background: isLight ? '#ECF1F3' : '#1d393c',
           }}
         />
         <Row>
@@ -33,7 +35,7 @@ export const ColumnSummarySkeleton = () => {
             style={{
               borderRadius: '4px',
               marginRight: '4px',
-              background: '#ECF1F3',
+              background: isLight ? '#ECF1F3' : '#1d393c',
             }}
           />
           <Skeleton
@@ -42,7 +44,7 @@ export const ColumnSummarySkeleton = () => {
             height={18}
             style={{
               borderRadius: '4px',
-              background: '#ECF1F3'
+              background: isLight ? '#ECF1F3' : '#1d393c',
             }}
           />
         </Row>

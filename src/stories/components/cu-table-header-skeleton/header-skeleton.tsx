@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Skeleton from '@mui/material/Skeleton';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 export const CuTableHeaderSkeleton = () => {
+  const isLight = useThemeContext().themeMode === 'light';
   return (
     <Container>
       <Skeleton
@@ -11,7 +13,7 @@ export const CuTableHeaderSkeleton = () => {
         height={48}
         style={{
           borderRadius: '8px',
-          background: '#ECF1F3',
+          background: isLight ? '#ECF1F3' : '#1d393c',
         }}
       />
       <Filters>
@@ -21,7 +23,7 @@ export const CuTableHeaderSkeleton = () => {
           height={48}
           style={{
             borderRadius: '8px',
-            background: '#ECF1F3',
+            background: isLight ? '#ECF1F3' : '#1d393c',
             marginRight: '8px',
           }}
         />
@@ -31,7 +33,7 @@ export const CuTableHeaderSkeleton = () => {
           height={48}
           style={{
             borderRadius: '8px',
-            background: '#ECF1F3',
+            background: isLight ? '#ECF1F3' : '#1d393c',
             marginRight: '16px',
           }}
         />
@@ -41,7 +43,7 @@ export const CuTableHeaderSkeleton = () => {
           height={48}
           style={{
             borderRadius: '8px',
-            background: '#ECF1F3',
+            background: isLight ? '#ECF1F3' : '#1d393c',
             marginRight: '30px',
           }}
         />
@@ -51,7 +53,7 @@ export const CuTableHeaderSkeleton = () => {
           height={48}
           style={{
             borderRadius: '8px',
-            background: '#ECF1F3',
+            background: isLight ? '#ECF1F3' : '#1d393c',
           }}
         />
       </Filters>
