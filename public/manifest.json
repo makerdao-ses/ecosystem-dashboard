@@ -1,7 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
-  "id": "Exmaple App MakerDAO SES",
+  "short_name": "Core Units Expenses",
+  "name": "MakerDAO Expenses",
   "icons": [
     {
       "src": "/icons/Android-MakerDAO-Expenses-bars-color-square-192x192.png",
