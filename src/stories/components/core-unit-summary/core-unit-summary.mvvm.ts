@@ -1,4 +1,4 @@
-import useSWR from 'swr';
+import useSWRImmutable from 'swr/immutable';
 import { fetcher } from '../../../core/utils/fetcher';
 import { gql } from 'graphql-request';
 
@@ -37,7 +37,7 @@ const CORE_UNITS_REQUEST = {
 };
 
 export const useCoreUnitSummaryViewModel = () => {
-  const { data, error } = useSWR(CORE_UNITS_REQUEST, fetcher);
+  const { data, error } = useSWRImmutable(CORE_UNITS_REQUEST, fetcher);
   return {
     data,
     isLoading: !error && !data,

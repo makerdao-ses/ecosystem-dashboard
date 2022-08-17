@@ -357,37 +357,39 @@ export const CuTable = () => {
           name="og:description"
           content="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
         />
+        <meta property="og:image" content="https://expenses-dev.makerdao.network/favicon.png" />
+        <meta name="twitter:image" content="https://expenses-dev.makerdao.network/favicon.png" />
         <meta name="robots" content="index,follow" />
       </Head>
       <Wrapper>
         {status === 'loading'
           ? (
-          <CuTableHeaderSkeleton />
+            <CuTableHeaderSkeleton />
             )
           : (
-          <Header>
-            <Title isLight={isLight}>Core Units Expenses</Title>
-            <FilterButtonWrapper onClick={toggleFiltersPopup}>
-              <CustomButton
-                label={'Filters'}
-                style={{
-                  height: '34px',
-                  width: '90px',
-                  border: isLight ? '1px solid #D4D9E1' : '1px solid #343442',
-                }}
+            <Header>
+              <Title isLight={isLight}>Core Units Expenses</Title>
+              <FilterButtonWrapper onClick={toggleFiltersPopup}>
+                <CustomButton
+                  label={'Filters'}
+                  style={{
+                    height: '34px',
+                    width: '90px',
+                    border: isLight ? '1px solid #D4D9E1' : '1px solid #343442',
+                  }}
+                />
+              </FilterButtonWrapper>
+              <Filters
+                filtersPopup={filtersPopup}
+                filteredStatuses={filteredStatuses}
+                filteredCategories={filteredCategories}
+                categoriesCount={categoriesCount}
+                statusCount={statusCount}
+                searchText={searchText}
+                setFiltersPopup={toggleFiltersPopup}
+                clearFilters={clearFilters}
               />
-            </FilterButtonWrapper>
-            <Filters
-              filtersPopup={filtersPopup}
-              filteredStatuses={filteredStatuses}
-              filteredCategories={filteredCategories}
-              categoriesCount={categoriesCount}
-              statusCount={statusCount}
-              searchText={searchText}
-              setFiltersPopup={toggleFiltersPopup}
-              clearFilters={clearFilters}
-            />
-          </Header>
+            </Header>
             )}
         {!!items?.length && (
           <>
@@ -420,7 +422,8 @@ const ContainerHome = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   width: '100%',
   background: isLight
     ? '#FFFFFF'
-    : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
+    : '#000000',
+  backgroundImage: isLight ? '#FFFFFF' : 'linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 16, 32, 0.4) 100%)',
   '@media (min-width: 834px)': {
     padding: '24px 32px 128px',
   },

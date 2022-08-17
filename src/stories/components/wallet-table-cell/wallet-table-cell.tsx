@@ -31,7 +31,7 @@ export const WalletTableCell = (props: WalletTableCellProps) => {
         }}
         fontSize={14}
         fontWeight={400}
-        href={props.address}
+        href={`https://etherscan.io/address/${props.address}`}
         withArrow={false}>
         {props.wallet.toLowerCase()}
       </CustomLink>
