@@ -67,7 +67,6 @@ const CuAboutContainer = ({ code, cuAbout, contributors }: Props) => {
         title={`About ${cuAbout.name} Core Unit at MakerDAO`}
         description={`Learn about the ${cuAbout.name} Core Unit at MakerDAO: their mandate, vision, mission, strategy, and more.`}
         image={cuAbout.image}
-        favicon={cuAbout.image}
       />
 
       <CoreUnitSummary />

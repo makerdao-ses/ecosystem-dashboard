@@ -51,8 +51,11 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
     return color;
   };
 
-  return <svg width={60} height={50} viewBox={'0 0 60 50'} style={{ marginRight: '8px' }}>
-    <g transform={'scale(1, -1) translate(0, -50)'}>
+  return <svg width={60} height={50} viewBox={'0 0 60 50'} style={{
+    marginRight: '8px',
+    marginLeft: '8px'
+  }}>
+    <g transform={'scale(1, -1) translate(-6, -50)'}>
       {props.items.map((item: CustomChartItemModel, i: number) =>
         <rect
           key={`item-${i}`}
