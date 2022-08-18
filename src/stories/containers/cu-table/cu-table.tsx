@@ -366,7 +366,7 @@ export const CuTable = () => {
         />
       </Header>
     );
-  }, [filteredData, isLight]);
+  }, [filteredData, isLight, toggleFiltersPopup]);
 
   return (
     <ContainerHome isLight={isLight}>
