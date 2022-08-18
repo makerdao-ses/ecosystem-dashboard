@@ -66,7 +66,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   borderRadius: '6px',
   overflowX: 'auto',
   '-ms-overflow-style': 'none',
-  scrollbarWidth: 'none',
+  scrollbarWidth: 'thin',
 }));
 
 const Table = styled.table({
