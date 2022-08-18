@@ -20,7 +20,7 @@ interface CoreUnitSummaryProps {
 
 export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) => {
   const isLight = useThemeContext().themeMode === 'light';
-  const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+  const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_1000'));
   const lessThanPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
   const [hiddenTextDescription, setHiddenTextDescription] = useState(true);
   const router = useRouter();
