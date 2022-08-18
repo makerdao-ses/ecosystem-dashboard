@@ -14,7 +14,6 @@ declare module '@mui/material/styles' {
     desktop_1440: true;
     desktop_1280: true;
     desktop_1194: true;
-    table_1000: true;
     table_834: true;
     table_375: true;
   }
@@ -32,7 +31,6 @@ const lightTheme = responsiveFontSizes(
         desktop_1440: 1440,
         desktop_1280: 1280,
         desktop_1194: 1194,
-        table_1000: 1000,
         table_834: 834,
         table_375: 375,
       },
