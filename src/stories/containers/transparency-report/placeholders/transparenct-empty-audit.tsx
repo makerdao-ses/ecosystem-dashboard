@@ -19,23 +19,29 @@ export const TransparencyEmptyAudit = () => {
           </Row>
         </Container>
       </Wrapper>
-      <MobileWrapper>
+      <MobileWrapper isLight={isLight}>
         <img
           src={isLight ? '/assets/img/bg-placeholder-transparency.svg' : '/assets/img/bg-placeholder-transparency-dark.svg'}
           alt="placeholder"
         />
+        <Title style={{ position: 'absolute' }}>
+          No Data Provided
+        </Title>
       </MobileWrapper>
     </>
   );
 };
 
-const MobileWrapper = styled.div({
+const MobileWrapper = styled.div<{ isLight: boolean }>({
   display: 'flex',
-  background: 'url(/assets/img/bg-placeholderp-transparency.svg) no-repeat',
+  alignItems: 'center',
+  justifyContent: 'center',
   width: '100%',
   height: 'fit-content',
   backgroundRepeat: 'no-repeat',
   backgroundSize: '100%',
+  position: 'relative',
+  marginBottom: '128px',
   img: {
     width: '100%',
   },
@@ -98,10 +104,13 @@ const Title = styled.div({
   fontFamily: 'FT Base',
   fontStyle: 'normal',
   fontWeight: 500,
-  fontSize: '32px',
+  fontSize: '24px',
   lineHeight: '38px',
   textAlign: 'center',
   letterSpacing: '0.4px',
   color: '#9FAFB9',
   zIndex: 1,
+  '@media (min-width: 834px)': {
+    fontSize: '32px',
+  }
 });
