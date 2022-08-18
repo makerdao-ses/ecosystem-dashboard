@@ -1,35 +1,38 @@
 {
-  "short_name": "Core Units Expenses",
   "name": "MakerDAO Expenses",
+  "short_name": "Expenses",
+  "category": "finance",
+  "description": "MakerDAO dashboard for transparent financial data reporting and insights",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/",
+  "theme_color": "#231536",
+  "background_color": "#FCFCFC",
   "icons": [
     {
-      "src": "/icons/Android-MakerDAO-Expenses-bars-color-square-192x192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "/icons/Android-MakerDAO-Expenses-bars-color-square-512x512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    },
-    {
-      "src": "/icons/apple-touch-icon-size-120x120.png",
+      "src": "/icons/icon-120.png",
       "type": "image/png",
       "sizes": "120x120"
     },
     {
-      "src": "/icons/apple-touch-icon-size-180x180.png",
+      "src": "/icons/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icons/icon-180.png",
       "type": "image/png",
       "sizes": "180x180"
     },
     {
-      "src": "/icons/apple-touch-icon-size-1024x1024.png",
+      "src": "/icons/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/icons/icon-1024.png",
       "type": "image/png",
       "sizes": "1024x1024"
     }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  ]
 }
