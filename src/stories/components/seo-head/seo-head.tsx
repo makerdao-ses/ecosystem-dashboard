@@ -43,6 +43,7 @@ export const SEOHead = ({
   return (
     <Head>
       <title>{title}</title>
+      <link rel="manifest" href="/manifest.json" />
       <link
         rel="icon"
         key="favicon"

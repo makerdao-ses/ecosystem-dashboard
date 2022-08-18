@@ -457,7 +457,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     padding: '16px 24px',
     background: isLight ? 'white' : 'black',
     borderRadius: '6px',
-    filter: 'drop-shadow(0px 20px 40px rgba(219, 227, 237, 0.4)) drop-shadow(0px 1px 3px rgba(190, 190, 190, 0.25))',
+    filter: isLight ? 'drop-shadow(0px 20px 40px rgba(219, 227, 237, 0.4)) drop-shadow(0px 1px 3px rgba(190, 190, 190, 0.25))' : 'none',
   },
   '::before': {
     content: '""',
