@@ -566,7 +566,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
         {props.currentMonth.toFormat('MMM yyyy')} Totals
       </Title>
 
-      {!forecastTableItems.length
+      {forecastTableItems.length - 1 <= 0
         ? (
         <TransparencyEmptyTable />
           )
@@ -628,7 +628,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
         {props.currentMonth.toFormat('MMM yyyy')} Breakdown
       </Title>
 
-      {!forecastTableItems.length
+      {forecastTableItems.length - 1 <= 0
         ? (
         <TransparencyEmptyTable breakdown />
           )

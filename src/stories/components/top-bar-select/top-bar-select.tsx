@@ -108,7 +108,7 @@ const Popup = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   top: 0,
   left: 0,
   zIndex: 5,
-  '@media (min-width: 834px)': {
+  '@media (min-width: 1194px)': {
     display: 'none',
   }
 }));
