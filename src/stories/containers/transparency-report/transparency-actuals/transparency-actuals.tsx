@@ -289,7 +289,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         {props.currentMonth.toFormat('MMM yyyy')} Breakdown
       </Title>
 
-      {breakdownTableItems.length - 3 <= 0
+      {mainTableItems.length - 1 <= 0
         ? (
         <TransparencyEmptyTable breakdown />
           )
