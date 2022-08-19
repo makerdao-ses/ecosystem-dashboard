@@ -327,8 +327,7 @@ const Row = styled.div({
 
 const ContainerLinks = styled.div({
   display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
+  justifyContent: 'flex-end',
   alignItems: 'flex-end',
   height: '68px',
   marginRight: '6px',
@@ -343,9 +342,11 @@ const ContainerLinks = styled.div({
     height: 'fit-content',
   },
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    flexDirection: 'column',
     height: 'fit-content',
   },
   [lightTheme.breakpoints.down('table_375')]: {
+    flexDirection: 'column',
     height: 'fit-content',
     marginTop: '4px',
   },
