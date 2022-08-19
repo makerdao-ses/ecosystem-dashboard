@@ -74,10 +74,10 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
             wallet={formatAddressForOutput(wallet.address)}
             address={wallet.address}
           />,
-          <NumberCell key={2} value={getWalletForecast(wallet)} responsivePadding="0"/>,
-          <NumberCell key={3} value={getWalletActual(wallet)} responsivePadding="0"/>,
-          <NumberCell key={3} value={getWalletDifference(wallet)} responsivePadding="0"/>,
-          <NumberCell key={5} value={getWalletPayment(wallet)} responsivePadding="0"/>,
+          <NumberCell key={2} value={getWalletForecast(wallet)}/>,
+          <NumberCell key={3} value={getWalletActual(wallet)}/>,
+          <NumberCell key={3} value={getWalletDifference(wallet)}/>,
+          <NumberCell key={5} value={getWalletPayment(wallet)}/>,
           <TableCell key={6} responsivePadding="0">
             <CustomLink
               fontFamily={'SF Pro Display, sans-serif'}
@@ -105,16 +105,16 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       <TableCell key={1}>
         <b>Total</b>
       </TableCell>,
-      <NumberCell key={2} value={budgetTotalForecast} bold responsivePadding="0"/>,
-      <NumberCell key={3} value={budgetTotalActual} bold responsivePadding="0"/>,
-      <NumberCell key={4} value={budgetTotalDifference} bold responsivePadding="0"/>,
-      <NumberCell key={5} value={budgetTotalPayment} bold responsivePadding="0"/>,
+      <NumberCell key={2} value={budgetTotalForecast} bold/>,
+      <NumberCell key={3} value={budgetTotalActual} bold/>,
+      <NumberCell key={4} value={budgetTotalDifference} bold/>,
+      <NumberCell key={5} value={budgetTotalPayment} bold/>,
     ]);
 
     return result;
   }, [currentBudgetStatement]);
 
-  const getBreakdownItems = (items: BudgetStatementLineItemDto[], responsive = false) => {
+  const getBreakdownItems = (items: BudgetStatementLineItemDto[]) => {
     const result: JSX.Element[][] = [];
     const grouped = _.groupBy(items, (item) => item.budgetCategory);
 
@@ -130,13 +130,13 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
 
       result.push([
         <TableCell key={1}>{grouped[groupedKey][0].budgetCategory}</TableCell>,
-        <NumberCell key={2} value={getGroupForecast(grouped[groupedKey])} responsivePadding={responsive ? '0' : '10px 16px'}/>,
-        <NumberCell key={3} value={getGroupActual(grouped[groupedKey])} responsivePadding={responsive ? '0' : '10px 16px'}/>,
-        <NumberCell key={4} value={getGroupDifference(grouped[groupedKey])} responsivePadding={responsive ? '0' : '10px 16px'}/>,
+        <NumberCell key={2} value={getGroupForecast(grouped[groupedKey])}/>,
+        <NumberCell key={3} value={getGroupActual(grouped[groupedKey])}/>,
+        <NumberCell key={4} value={getGroupDifference(grouped[groupedKey])}/>,
         <TableCell key={5}>
           {getCommentsFromCategory(grouped[groupedKey])}
         </TableCell>,
-        <NumberCell key={6} value={getGroupPayment(grouped[groupedKey])} responsivePadding={responsive ? '0' : '10px 16px'}/>,
+        <NumberCell key={6} value={getGroupPayment(grouped[groupedKey])}/>,
       ]);
     }
 
@@ -205,7 +205,6 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           currentWallet?.budgetStatementLineItem?.filter(
             (item) => item.headcountExpense
           ),
-          true
         ).map((item, i) => (
           <TransparencyCard
             key={`item-${i}`}
@@ -221,7 +220,6 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           currentWallet?.budgetStatementLineItem?.filter(
             (item) => !item.headcountExpense
           ),
-          true
         ).map((item, i) => (
           <TransparencyCard
             key={`item-${i}`}
