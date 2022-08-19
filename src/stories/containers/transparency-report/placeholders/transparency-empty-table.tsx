@@ -292,7 +292,7 @@ export const TransparencyEmptyTable = ({ breakdown = false }: Props) => {
                     maxWidth: '126px',
                     minWidth: '126px',
                     width: '100%',
-                    marginBottom: '36px',
+                    marginBottom: '21px',
                   }}
                 >
                   <CellBlock
@@ -321,6 +321,7 @@ export const TransparencyEmptyTable = ({ breakdown = false }: Props) => {
                     style={{
                       maxWidth: '105px',
                       height: '24px',
+                      marginBottom: i === 3 ? 0 : '15px',
                       borderRadius: 0,
                     }}
                   />
@@ -329,6 +330,7 @@ export const TransparencyEmptyTable = ({ breakdown = false }: Props) => {
                       maxWidth: '105px',
                       height: '24px',
                       borderRadius: 0,
+                      marginBottom: i === 3 ? 0 : '15px',
                       marginRight: 0,
                     }}
                   />
@@ -409,7 +411,7 @@ const MobileWrapper = styled.div<{ breakdown: boolean }>(({ breakdown = false })
   justifyContent: 'center',
   position: 'relative',
   width: '100%',
-  height: breakdown ? '215px' : '265px',
+  height: breakdown ? '215px' : '253px',
   marginBottom: '64px',
   '@media (min-width: 834px)': {
     display: 'none',
