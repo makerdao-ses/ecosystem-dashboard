@@ -7,7 +7,8 @@ export interface QueryStringOptions {
 }
 
 export const buildQueryString = (
-  params: { [key: string]: unknown },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  params: { [key: string]: any },
   { includeQuestionMark = true, excludeEmptyValues = true, includeAlways = [] }: QueryStringOptions = {}
 ): string => {
   let query = '';
