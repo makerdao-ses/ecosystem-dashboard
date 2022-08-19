@@ -27,7 +27,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'block',
   boxShadow: isLight ? '0px 0px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : 'none',
   background: isLight ? 'white' : '#10191F',
-  padding: '20px 16px 10px 16px',
+  padding: '20px 24px 10px',
   marginBottom: '24px',
   borderRadius: '6px',
 }));
