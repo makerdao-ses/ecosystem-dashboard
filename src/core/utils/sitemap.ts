@@ -2,6 +2,8 @@ import { fetchCoreUnits } from '../../stories/containers/cu-table/cu-table.api';
 import type { CoreUnitDto } from '../models/dto/core-unit.dto';
 import { BASE_URL } from '../../config/routes';
 
+const EXCLUDED_CU_CODES = ['EXA'];
+
 export class SitemapBuilder {
   getXMLForRoute(url: string, lastMod?: string, changeFreq?: string): string {
     return `
@@ -30,7 +32,9 @@ export class SitemapBuilder {
     const cuRoutes: string[] = [];
     const coreUnits = (await fetchCoreUnits()) as CoreUnitDto[];
     for (const cu of coreUnits) {
-      cuRoutes.push(...this.resolveSingleCURoutes(cu));
+      if (!EXCLUDED_CU_CODES.includes(cu.shortCode)) {
+        cuRoutes.push(...this.resolveSingleCURoutes(cu));
+      }
     }
 
     return cuRoutes;
