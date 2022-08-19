@@ -75,7 +75,7 @@ const Container = styled.a<{ fontSize: number, fontSizeMobile?: number, fontWeig
   marginLeft,
   cursor: 'pointer',
   whiteSpace: 'nowrap',
-  '@media (min-width: 834px)': {
+  '@media (min-width: 835px)': {
     fontSize: `${fontSize}px`,
     lineHeight: '19px'
   }
