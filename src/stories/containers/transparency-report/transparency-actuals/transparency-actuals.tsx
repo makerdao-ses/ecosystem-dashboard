@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import { InnerTable } from '../../../components/inner-table/inner-table';
 import { Tabs } from '../../../components/tabs/tabs';
@@ -18,6 +18,7 @@ import { TransparencyCard } from '../../../components/transparency-card/transpar
 import { CardsWrapper, TableWrapper, Title } from '../transparency-report';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
+import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
 
 interface TransparencyActualsProps {
   currentMonth: DateTime;
@@ -62,6 +63,43 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     props.budgetStatements,
     props.code
   );
+
+  const headerToId = (header: string): string => {
+    const id = header.toLowerCase().trim().replaceAll(/ /g, '-');
+    return `actuals-${id}`;
+  };
+
+  const [headerIds, setHeaderIds] = useState<string[]>([]);
+  useEffect(() => {
+    setHeaderIds(breakdownHeaders.map((header) => headerToId(header)));
+  }, [breakdownHeaders]);
+
+  const anchor = useUrlAnchor();
+  const breakdownTitleRef = useRef<HTMLDivElement>(null);
+  const [scrolled, setScrolled] = useState<boolean>(false);
+  useEffect(() => {
+    if (!scrolled && anchor && !_.isEmpty(headerIds) && headerIds.includes(anchor)) {
+      setScrolled(true);
+      let offset = (breakdownTitleRef?.current?.offsetTop || 0) - 260;
+      const windowsWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+      if (windowsWidth < 834) {
+        offset += 90;
+      }
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'manual';
+      }
+      window.scrollTo(0, Math.max(0, offset));
+    }
+  }, [anchor, headerIds]);
+
+  useEffect(() => {
+    if (anchor && !_.isEmpty(headerIds)) {
+      const index = headerIds.indexOf(anchor);
+      if (index > 0) {
+        setThirdIndex(index);
+      }
+    }
+  }, [anchor, headerIds]);
 
   const mainTableItems = useMemo(() => {
     const result: JSX.Element[][] = [];
@@ -283,7 +321,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         </>
           )}
 
-      <Title isLight={isLight}>
+      <Title isLight={isLight} ref={breakdownTitleRef}>
         {props.currentMonth.toFormat('MMM yyyy')} Breakdown
       </Title>
 
@@ -294,7 +332,12 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         : (
         <>
           <Tabs
-            items={breakdownHeaders}
+            items={breakdownHeaders.map((header, i) => {
+              return {
+                item: header,
+                id: headerIds[i]
+              };
+            })}
             currentIndex={thirdIndex}
             onChange={setThirdIndex}
             style={{

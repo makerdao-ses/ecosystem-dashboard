@@ -47,6 +47,7 @@ export const TransparencyReport = ({
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;
+  const viewMonthStr = query.viewMonth;
   const anchor = useUrlAnchor();
   const transparencyTableRef = useRef<HTMLDivElement>(null);
 
@@ -56,6 +57,10 @@ export const TransparencyReport = ({
 
   useEffect(() => {
     if (anchor) {
+      if (anchor.startsWith('forecast-')) {
+        setThirdIndex(TRANSPARENCY_IDS.indexOf('forecast'));
+        return;
+      }
       const index = TRANSPARENCY_IDS.indexOf(anchor);
       if (index > 0) {
         setThirdIndex(index);
@@ -63,16 +68,52 @@ export const TransparencyReport = ({
     }
   }, [anchor]);
 
+  const [scrolled, setScrolled] = useState<boolean>(false);
   useEffect(() => {
-    if (anchor && TRANSPARENCY_IDS.includes(anchor)) {
+    if (!scrolled && anchor && TRANSPARENCY_IDS.includes(anchor)) {
+      setScrolled(true);
       let offset = (transparencyTableRef?.current?.offsetTop || 0) - 280;
       const windowsWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
       if (windowsWidth < 834) {
         offset += 100;
       }
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'manual';
+      }
       window.scrollTo(0, Math.max(0, offset));
     }
   }, [anchor]);
+
+  useEffect(() => {
+    if (viewMonthStr) {
+      const month = DateTime.fromFormat(viewMonthStr as string, 'LLLyyyy');
+      setCurrentMonth(month);
+    }
+  }, []);
+
+  const replaceViewMonthRoute = (viewMonth: string) => {
+    router.replace({
+      hash: anchor,
+      query: {
+        ...router.query,
+        viewMonth
+      },
+    }, undefined, {
+      shallow: true,
+    });
+  };
+
+  const handlePreviousMonth = () => {
+    const month = currentMonth.minus({ month: 1 });
+    replaceViewMonthRoute(month.toFormat('LLLyyyy'));
+    setCurrentMonth(month);
+  };
+
+  const handleNextMonth = () => {
+    const month = currentMonth.plus({ month: 1 });
+    replaceViewMonthRoute(month.toFormat('LLLyyyy'));
+    setCurrentMonth(month);
+  };
 
   const currentBudgetStatement = useMemo(() => {
     return cu?.budgetStatements?.find(
@@ -118,8 +159,8 @@ export const TransparencyReport = ({
             <PagerBarLeft>
               <CustomPager
                 label={currentMonth.toFormat('MMM yyyy').toUpperCase()}
-                onPrev={() => setCurrentMonth(currentMonth.minus({ month: 1 }))}
-                onNext={() => setCurrentMonth(currentMonth.plus({ month: 1 }))}
+                onPrev={handlePreviousMonth}
+                onNext={handleNextMonth}
               />
               {currentBudgetStatement?.publicationUrl && (
                 <CustomLink

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { DateTime } from 'luxon';
 import styled from '@emotion/styled';
 import { CardsWrapper, TableWrapper, Title } from '../transparency-report';
@@ -18,6 +18,7 @@ import { NumberCell } from '../../../components/number-cell/number-cell';
 import { TransparencyCard } from '../../../components/transparency-card/transparency-card';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
+import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
 
 interface TransparencyForecastProps {
   currentMonth: DateTime;
@@ -49,6 +50,43 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     getTotalQuarterlyBudgetCapOnLineItem,
     wallets,
   } = useTransparencyForecastMvvm(props.currentMonth, props.budgetStatements);
+
+  const headerToId = (header: string): string => {
+    const id = header.toLowerCase().trim().replaceAll(/ /g, '-');
+    return `forecast-${id}`;
+  };
+
+  const [headerIds, setHeaderIds] = useState<string[]>([]);
+  useEffect(() => {
+    setHeaderIds(breakdownTabs.map((header) => headerToId(header)));
+  }, [breakdownTabs]);
+
+  const anchor = useUrlAnchor();
+  const breakdownTitleRef = useRef<HTMLDivElement>(null);
+  const [scrolled, setScrolled] = useState<boolean>(false);
+  useEffect(() => {
+    if (!scrolled && anchor && !_.isEmpty(headerIds) && headerIds.includes(anchor)) {
+      setScrolled(true);
+      let offset = (breakdownTitleRef?.current?.offsetTop || 0) - 260;
+      const windowsWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+      if (windowsWidth < 834) {
+        offset += 90;
+      }
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'manual';
+      }
+      window.scrollTo(0, Math.max(0, offset));
+    }
+  }, [anchor, headerIds]);
+
+  useEffect(() => {
+    if (anchor && !_.isEmpty(headerIds)) {
+      const index = headerIds.indexOf(anchor);
+      if (index > 0) {
+        setThirdIndex(index);
+      }
+    }
+  }, [anchor, headerIds]);
 
   const forecastTableItems: JSX.Element[][] = useMemo(() => {
     const result: JSX.Element[][] = [];
@@ -466,8 +504,9 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
             ungrouped.filter((x) => x.headcountExpense),
             (item) => item.budgetCategory
           )
-        ).map((item) => (
+        ).map((item, i) => (
           <TransparencyCard
+            key={i}
             header={item[0]}
             headers={cardHeaders}
             items={item.slice(1)}
@@ -479,8 +518,9 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
             ungrouped.filter((x) => !x.headcountExpense),
             (item) => item.budgetCategory
           )
-        ).map((item) => (
+        ).map((item, i) => (
           <TransparencyCard
+            key={i}
             header={item[0]}
             headers={cardHeaders}
             items={item.slice(1)}
@@ -612,8 +652,9 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
           </TableWrapper>
 
           <CardsWrapper>
-            {forecastTableItems.map((item) => (
+            {forecastTableItems.map((item, i) => (
               <TransparencyCard
+                key={i}
                 header={item[0]}
                 headers={breakdownHeaders.slice(1, 7)}
                 items={item.slice(1, 7)}
@@ -624,7 +665,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
         </>
           )}
 
-      <Title isLight={isLight} marginBottom={24}>
+      <Title isLight={isLight} marginBottom={24} ref={breakdownTitleRef}>
         {props.currentMonth.toFormat('MMM yyyy')} Breakdown
       </Title>
 
@@ -635,7 +676,12 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
         : (
         <>
           <Tabs
-            items={breakdownTabs}
+            items={breakdownTabs.map((header, i) => {
+              return {
+                item: header,
+                id: headerIds[i]
+              };
+            })}
             currentIndex={thirdIndex}
             onChange={setThirdIndex}
             style={{

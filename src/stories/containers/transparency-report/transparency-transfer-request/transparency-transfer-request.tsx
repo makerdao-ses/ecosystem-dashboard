@@ -137,8 +137,9 @@ export const TransparencyTransferRequest = (
           </TableWrapper>
 
           <CardsWrapper>
-            {mainItems.map((item) => (
+            {mainItems.map((item, i) => (
               <TransparencyCard
+                key={i}
                 header={item[0]}
                 headers={headers.slice(1, 4)}
                 items={item.slice(1)}
