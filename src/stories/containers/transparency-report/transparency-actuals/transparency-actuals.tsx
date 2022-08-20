@@ -74,10 +74,10 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
             wallet={formatAddressForOutput(wallet.address)}
             address={wallet.address}
           />,
-          <NumberCell key={2} value={getWalletForecast(wallet)} />,
-          <NumberCell key={3} value={getWalletActual(wallet)} />,
-          <NumberCell key={3} value={getWalletDifference(wallet)} />,
-          <NumberCell key={5} value={getWalletPayment(wallet)} />,
+          <NumberCell key={2} value={getWalletForecast(wallet)}/>,
+          <NumberCell key={3} value={getWalletActual(wallet)}/>,
+          <NumberCell key={3} value={getWalletDifference(wallet)}/>,
+          <NumberCell key={5} value={getWalletPayment(wallet)}/>,
           <TableCell key={6} responsivePadding="0">
             <CustomLink
               fontFamily={'SF Pro Display, sans-serif'}
@@ -105,10 +105,10 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       <TableCell key={1}>
         <b>Total</b>
       </TableCell>,
-      <NumberCell key={2} value={budgetTotalForecast} bold />,
-      <NumberCell key={3} value={budgetTotalActual} bold />,
-      <NumberCell key={4} value={budgetTotalDifference} bold />,
-      <NumberCell key={5} value={budgetTotalPayment} bold />,
+      <NumberCell key={2} value={budgetTotalForecast} bold/>,
+      <NumberCell key={3} value={budgetTotalActual} bold/>,
+      <NumberCell key={4} value={budgetTotalDifference} bold/>,
+      <NumberCell key={5} value={budgetTotalPayment} bold/>,
     ]);
 
     return result;
@@ -130,13 +130,13 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
 
       result.push([
         <TableCell key={1}>{grouped[groupedKey][0].budgetCategory}</TableCell>,
-        <NumberCell key={2} value={getGroupForecast(grouped[groupedKey])} />,
-        <NumberCell key={3} value={getGroupActual(grouped[groupedKey])} />,
-        <NumberCell key={4} value={getGroupDifference(grouped[groupedKey])} />,
+        <NumberCell key={2} value={getGroupForecast(grouped[groupedKey])}/>,
+        <NumberCell key={3} value={getGroupActual(grouped[groupedKey])}/>,
+        <NumberCell key={4} value={getGroupDifference(grouped[groupedKey])}/>,
         <TableCell key={5}>
           {getCommentsFromCategory(grouped[groupedKey])}
         </TableCell>,
-        <NumberCell key={6} value={getGroupPayment(grouped[groupedKey])} responsivePadding="0"/>,
+        <NumberCell key={6} value={getGroupPayment(grouped[groupedKey])}/>,
       ]);
     }
 
@@ -204,7 +204,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         {getBreakdownItems(
           currentWallet?.budgetStatementLineItem?.filter(
             (item) => item.headcountExpense
-          )
+          ),
         ).map((item, i) => (
           <TransparencyCard
             key={`item-${i}`}
@@ -219,7 +219,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         {getBreakdownItems(
           currentWallet?.budgetStatementLineItem?.filter(
             (item) => !item.headcountExpense
-          )
+          ),
         ).map((item, i) => (
           <TransparencyCard
             key={`item-${i}`}
@@ -287,7 +287,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         {props.currentMonth.toFormat('MMM yyyy')} Breakdown
       </Title>
 
-      {breakdownTableItems.length - 3 <= 0
+      {mainTableItems.length - 1 <= 0
         ? (
         <TransparencyEmptyTable breakdown />
           )

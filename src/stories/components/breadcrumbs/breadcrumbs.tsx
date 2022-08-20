@@ -16,7 +16,7 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
   return (
     <Container>
       {props.items.map((item, i) => (
-        <div key={item.label.toString()}>
+        <LinkWrapper key={item.label.toString()}>
           <Link
             key={item.label.toString() + i}
             href={item.url}
@@ -36,7 +36,7 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
           {i !== props.items.length - 1 && (
             <BreadcrumbSeparator fillDark="#787A9B" fill="#D1DEE6" />
           )}
-        </div>
+        </LinkWrapper>
       ))}
     </Container>
   );
@@ -49,6 +49,21 @@ const Container = styled.div({
   boxSizing: 'border-box',
   height: '74px',
   alignSelf: 'flex-start',
+});
+
+const LinkWrapper = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  '@media (max-width: 1000px)': {
+    '&:nth-child(n + 3)': {
+      display: 'none'
+    },
+    '&:nth-child(n + 2)': {
+      svg: {
+        visibility: 'hidden'
+      }
+    }
+  }
 });
 
 const Crumb = styled.a<{ first: boolean; last: boolean; isLight: boolean }>(

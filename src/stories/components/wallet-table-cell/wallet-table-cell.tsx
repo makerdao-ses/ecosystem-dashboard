@@ -43,7 +43,10 @@ export const WalletTableCell = (props: WalletTableCellProps) => {
 const Container = styled.div({
   display: 'flex',
   alignItems: 'center',
-  height: '72px',
+  height: '77px',
+  '@media (min-width: 835px)': {
+    height: '72px'
+  },
   '.circle-avatar': {
     margin: '0 16px',
     '@media (min-width: 834px) and (max-width: 1193px)': {
@@ -63,7 +66,7 @@ const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: '14px',
   lineHeight: '17px',
   color: isLight ? '#231536' : '#D2D4EF',
-  '@media (min-width: 834px)': {
+  '@media (min-width: 835px)': {
     fontSize: '16px',
     lineHeight: '19px'
   }
