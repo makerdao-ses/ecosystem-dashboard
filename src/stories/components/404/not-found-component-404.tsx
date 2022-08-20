@@ -3,19 +3,22 @@ import { NextPage } from 'next';
 import Image from 'next/image';
 import React from 'react';
 import Background404 from '../../../../public/assets/img/background-404.png';
+import Background404Dark from '../../../../public/assets/img/background-dark-404.png';
 import BackgroundMobile404 from '../../../../public/assets/img/background-mobile-404.png';
-import BackgroundTable404 from '../../../../public/assets/img/background-table-404.png';
-import Logo404text from '../../../../public/assets/img/logo-404.png';
+import BackgroundMobile404Dark from '../../../../public/assets/img/background-mobile-dark-404.png';
+import Logo404 from '../../../../public/assets/img/logo-404.png';
+import Logo404Dark from '../../../../public/assets/img/logo-dark-404.png';
 import { Typography, useMediaQuery } from '@mui/material';
 import lightTheme from '../../../../styles/theme/light';
 import { CustomButton } from '../custom-button/custom-button';
 import { useRouter } from 'next/router';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 const CardNotFoundPage: NextPage = () => {
   const router = useRouter();
-  const table834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const phoneLess = useMediaQuery(lightTheme.breakpoints.down('table_375'));
   const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+  const isLight = useThemeContext().themeMode === 'light';
   const handleOnclick = () => {
     router.push('/');
   };
@@ -23,7 +26,7 @@ const CardNotFoundPage: NextPage = () => {
     <Wrapper>
       <ImageContainer>
         <Image
-          src={phoneLess || isMobile ? BackgroundMobile404 : table834 ? BackgroundTable404 : Background404}
+          src={isLight && (phoneLess || isMobile) ? BackgroundMobile404 : !isLight && (phoneLess || isMobile) ? BackgroundMobile404Dark : isLight && !(phoneLess || isMobile) ? Background404 : Background404Dark}
           objectFit="fill"
           alt="404"
           layout='fill'
@@ -33,9 +36,8 @@ const CardNotFoundPage: NextPage = () => {
           }}
         />
         <ContainerData>
-
           <LogoContainer>
-            <Image src={Logo404text}
+            <Image src={isLight ? Logo404 : Logo404Dark}
               layout='fill'
               objectFit='contain'
               objectPosition='center'
@@ -53,7 +55,7 @@ const CardNotFoundPage: NextPage = () => {
             gap: '8px',
             width: '250px',
             height: '48px',
-            background: '#E7FCFA',
+            background: isLight ? '#E7FCFA' : 'transparent',
             border: '1px solid #1AAB9B',
             borderRadius: '22px',
             // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -93,7 +95,8 @@ const Wrapper = styled.div({
   },
 });
 
-const ImageContainer = styled.div({
+const ImageContainer = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
+
   position: 'relative',
   boxSizing: 'border-box',
   display: 'flex',
@@ -107,7 +110,8 @@ const ImageContainer = styled.div({
   margin: '0 auto',
   '& > span': {
     borderRadius: '6px',
-    boxShadow: ' 0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+    linearGradient: isLight ? 'none' : '180deg, #001020 0%, #000000 63.95%)',
+    boxShadow: isLight ? ' 0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)'
   },
   borderRadius: '20px',
 
@@ -136,7 +140,7 @@ const ImageContainer = styled.div({
     maxWidth: '1412px',
     margin: '0 auto',
   },
-});
+}));
 
 const ContainerData = styled.div({
   zIndex: 1,
@@ -208,14 +212,14 @@ const ContainerText = styled.div({
   },
 });
 
-const TextUps = styled(Typography)({
+const TextUps = styled(Typography)<{ isLight?: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
   fontSize: '36px',
   lineHeight: '43px',
   letterSpacing: '0.4px',
-  color: '#787A9B',
+  color: isLight ? '#787A9B' : '#D2D4EF',
   textAlign: 'center',
   marginBottom: '24px',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
@@ -248,9 +252,9 @@ const TextUps = styled(Typography)({
     lineHeight: '58px',
     marginBottom: '32px',
   }
-});
+}));
 
-const TextDescription = styled(Typography)({
+const TextDescription = styled(Typography)<{ isLight?: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base,san-serif',
   fontStyle: 'normal',
   fontWeight: 500,
@@ -258,7 +262,7 @@ const TextDescription = styled(Typography)({
   lineHeight: '24px',
   textAlign: 'center',
   letterSpacing: '0.4px',
-  color: '#ADAFD4',
+  color: isLight ? '#ADAFD4' : '#ADAFD4',
   marginBottom: '64px',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     fontSize: '24px',
@@ -285,7 +289,7 @@ const TextDescription = styled(Typography)({
     lineHeight: '29px',
     marginBottom: '40px',
   }
-});
+}));
 
 const ContainerButton = styled.div({
   marginBottom: '83px',
