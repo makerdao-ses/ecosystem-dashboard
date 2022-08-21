@@ -12,6 +12,8 @@ import {
   getFacilitatorsFromCoreUnit,
   getFTEsFromCoreUnit,
   getLast3ExpenditureValuesFromCoreUnit,
+  getLast3MonthsWithData,
+  getLast3MonthsWithDataFormatted,
   getLatestMip39FromCoreUnit,
   getLinksFromCoreUnit,
   getMipUrlFromCoreUnit,
@@ -282,6 +284,7 @@ export const CuTable = () => {
           <CuTableColumnExpenditures
             value={getExpenditureValueFromCoreUnit(coreUnit)}
             percent={getPercentFromCoreUnit(coreUnit)}
+            months={getLast3MonthsWithDataFormatted(coreUnit)}
             items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
             budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
           />

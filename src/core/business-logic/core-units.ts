@@ -170,7 +170,7 @@ export const getBudgetCapsFromCoreUnit = (cu: CoreUnitDto) => {
     result.push(mip40?.mip40Wallet?.reduce((p, c) => (sumLineItems(c) ?? 0) + p, 0) ?? 0);
   }
 
-  return result.reverse();
+  return result;
 };
 
 const sumAllLineItemsFromBudgetStatement = (budgetStatement: BudgetStatementDto, month: DateTime) => {
@@ -237,7 +237,7 @@ export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDto) => {
     }
   }
 
-  return result.reverse();
+  return result;
 };
 
 const getLast3MonthsWithData = (budgetStatements: BudgetStatementDto[]) => {
@@ -251,13 +251,19 @@ const getLast3MonthsWithData = (budgetStatements: BudgetStatementDto[]) => {
         if (item.actual) {
           const date = DateTime.fromFormat(bs.month, 'yyyy-MM-dd');
 
-          return [date, date.minus({ months: 1 }), date.minus({ months: 2 })];
+          return [date, date.minus({ months: 1 }), date.minus({ months: 2 })].reverse();
         }
       }
     }
   }
 
   return [];
+};
+
+export const getLast3MonthsWithDataFormatted = (cu: CoreUnitDto) => {
+  const dates = getLast3MonthsWithData(cu.budgetStatements);
+
+  return dates.map(date => date.toFormat('MMMM'));
 };
 
 export const getMipUrlFromCoreUnit = (cu: CoreUnitDto) => {

@@ -9,6 +9,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 interface CustomBarChartProps {
   items?: Array<CustomChartItemModel>;
   maxValues?: number[];
+  months?: string[]
 }
 
 const COLOR_GREEN = '#1AAB9B';
@@ -23,9 +24,10 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
   const [description, setDescription] = React.useState<{ month: string, budgetCap: string, actual: string } | null>(null);
 
   const handleMouseOver = (event: React.MouseEvent<SVGRectElement>, i: number) => {
+    if (props.months?.length === 0) return;
     setAnchorEl(event.currentTarget);
     setDescription({
-      month: (props?.items && props.items[i]?.label) || 'unknown',
+      month: (props?.months && props.months[i]) || 'unknown',
       budgetCap: ((props.maxValues && props.maxValues[i]) || 0).toLocaleString('en-US', {
         maximumFractionDigits: 0,
       }),
