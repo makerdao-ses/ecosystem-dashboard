@@ -257,7 +257,7 @@ const getLast3MonthsWithData = (budgetStatements: BudgetStatementDto[]) => {
     }
   }
 
-  return [];
+  return [DateTime.now(), DateTime.now().minus({ months: 1 }), DateTime.now().minus({ months: 2 })].reverse();
 };
 
 export const getLast3MonthsWithDataFormatted = (cu: CoreUnitDto) => {

@@ -42,7 +42,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
+  const id = open ? 'graph-popover' : undefined;
 
   const padding = 8;
   const maxItemHeight = 30;
