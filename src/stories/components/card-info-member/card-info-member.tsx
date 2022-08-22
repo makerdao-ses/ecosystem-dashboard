@@ -40,19 +40,19 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
               },
             }}
             avatar={<CircleAvatar
-                      width="48px"
-                      height="48px"
-                      style={{ marginRight: '24px' }}
-                      name={contributor?.name}
-                      image={contributor?.facilitatorImage}
-                      border="3px solid #E7FCFA"
-                      />}
+              width="48px"
+              height="48px"
+              style={{ marginRight: '24px' }}
+              name={contributor?.name}
+              image={contributor?.facilitatorImage}
+              border="3px solid #E7FCFA"
+            />}
             title={<TypographyName isLight={isLight}>{contributor.name}</TypographyName>}
             subheader={
               <>
                 {contributor && contributor.email && contributor.email.length >= 40
                   ? <CustomPopover
-                    title={contributor.email}
+                    title={contributor.email.toLowerCase()}
                     id={'mouse-over-popover-goto'}>
                     <TypographyEmail isLight={isLight}
                       style={{
@@ -61,7 +61,7 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
                         overflow: 'hidden',
                         width: '207px',
                       }}>
-                      {contributor.email}
+                      {contributor.email.toLowerCase()}
                     </TypographyEmail>
                   </CustomPopover>
                   : <TypographyEmail isLight={isLight}
@@ -69,7 +69,7 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
                       textOverflow: 'ellipsis',
                       overflow: 'hidden',
                     }}>
-                    {contributor.email}
+                    {contributor.email && contributor.email.toLowerCase()}
                   </TypographyEmail>}
 
               </>
