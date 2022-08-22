@@ -29,3 +29,6 @@ storybook-static
 .next
 # ides
 .idea
+
+# vscode
+/.vscode*
