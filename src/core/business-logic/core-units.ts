@@ -141,7 +141,7 @@ const findMip40 = (cu: CoreUnitDto, date: DateTime): Mip40Dto | null => {
   const cuMips = cu.cuMip?.filter(mip => mip.mipStatus === CuStatusEnum.Accepted) ?? [];
 
   for (const mip of cuMips) {
-    for (const mip40 of mip.mip40.filter(mip =>!mip.mkrOnly)) {
+    for (const mip40 of mip.mip40.filter(mip => !mip.mkrOnly)) {
       for (const period of mip40.mip40BudgetPeriod) {
         if (checkDateOnPeriod(period, date)) {
           return mip40;
