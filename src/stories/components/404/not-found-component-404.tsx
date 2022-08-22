@@ -76,9 +76,6 @@ const Wrapper = styled.div({
   height: '100%',
   marginTop: '132px',
   marginBottom: '128px',
-  [lightTheme.breakpoints.between('table_834', 'desktop_1440')]: {
-    marginTop: '132px',
-  },
   [lightTheme.breakpoints.up('desktop_1920')]: {
     marginTop: '128px',
   },
@@ -200,7 +197,11 @@ const TextDescription = styled(Typography)({
 
 const ContainerButton = styled.div({
   marginBottom: '83px',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    marginBottom: '156px',
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginBottom: '84px',
   },
 });
 
