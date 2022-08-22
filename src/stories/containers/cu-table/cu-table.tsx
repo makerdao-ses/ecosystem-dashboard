@@ -273,31 +273,53 @@ export const CuTable = () => {
         />,
         <div
           key={`expenditures-${i}`}
-          style={{
-            display: 'block',
-            paddingLeft: '8px',
-          }}
           onClick={() => onClickFinances(coreUnit.shortCode)}
+          style={{
+            display: 'flex',
+            width: '100%',
+            height: '100%',
+            cursor: 'pointer',
+          }}
         >
-          <CuTableColumnExpenditures
-            value={getExpenditureValueFromCoreUnit(coreUnit)}
-            percent={getPercentFromCoreUnit(coreUnit)}
-            items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
-            budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
+          <div
+            style={{
+              display: 'block',
+              margin: 'auto 0',
+              paddingLeft: '8px',
+            }}
+          >
+            <CuTableColumnExpenditures
+              value={getExpenditureValueFromCoreUnit(coreUnit)}
+              percent={getPercentFromCoreUnit(coreUnit)}
+              items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
+              budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
+            />
+          </div>
+        </div>,
+        <div
+          key={`teammember-${i}`}
+          onClick={onClickRow(coreUnit.shortCode)}
+          style={{
+            display: 'flex',
+            width: '100%',
+            height: '100%'
+          }}>
+          <CuTableColumnTeamMember
+            members={getFacilitatorsFromCoreUnit(coreUnit)}
+            fte={getFTEsFromCoreUnit(coreUnit)}
           />
         </div>,
-        <CuTableColumnTeamMember
-          key={`teammember-${i}`}
-          members={getFacilitatorsFromCoreUnit(coreUnit)}
-          fte={getFTEsFromCoreUnit(coreUnit)}
-        />,
         <div
           key={`links-${i}`}
+          onClick={onClickRow(coreUnit.shortCode)}
           style={{
             display: 'flex',
             justifyContent: 'flex-end',
             flex: 1,
             paddingRight: '16px',
+            width: '100%',
+            height: '100%',
+            cursor: 'pointer',
           }}
         >
           <CuTableColumnLinks
@@ -443,6 +465,14 @@ const TableWrapper = styled.div({
   '@media (min-width: 1180px)': {
     display: 'flex',
   },
+});
+
+const LinkedContent = styled.a({
+  width: '100%',
+  height: '100%',
+  display: 'flex',
+  alignContent: 'center',
+  cursor: 'pointer',
 });
 
 const ListWrapper = styled.div({
