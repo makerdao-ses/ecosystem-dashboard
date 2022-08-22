@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, useEffect } from 'react';
 import { Popover } from '@mui/material';
 import styled from '@emotion/styled';
 import { useThemeContext } from '../../../core/context/ThemeContext';
@@ -37,13 +37,19 @@ export const CustomPopover = ({
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    document.querySelector('body').onscroll = () => handlePopoverClose();
+    document.querySelector('body').onscroll = () => handlePopoverClose;
     setAnchorEl(event.currentTarget);
   };
 
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return () => document.querySelector('body').removeEventListener('onscroll', handlePopoverClose);
+  }, []);
 
   const open = Boolean(anchorEl);
 

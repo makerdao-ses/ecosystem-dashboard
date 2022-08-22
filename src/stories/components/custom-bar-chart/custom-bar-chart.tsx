@@ -18,7 +18,7 @@ const COLOR_YELLOW = '#FDC134';
 const COLOR_GRAY = '#D8E0E3';
 
 export const CustomBarChart = (props: CustomBarChartProps) => {
-  if (!props.items) return <span/>;
+  if (!props.items) return <span />;
   const isLight = useThemeContext().themeMode === 'light';
   const [anchorEl, setAnchorEl] = React.useState<SVGRectElement | null>(null);
   const [description, setDescription] = React.useState<{ month: string, budgetCap: string, actual: string } | null>(null);
@@ -87,6 +87,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
+        disableScrollLock
         sx={{
           pointerEvents: 'none',
         }}
@@ -100,15 +101,15 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
         }}
       >
         <Container>
-          <Row>
+          <Row isLight={isLight}>
             <b>Month</b>
             <span>{description?.month}</span>
           </Row>
-          <Row>
+          <Row isLight={isLight}>
             <b>Actual</b>
             <span>{description?.actual}</span>
           </Row>
-          <Row>
+          <Row isLight={isLight}>
             <b>Budget Cap</b>
             <span>{description?.budgetCap}</span>
           </Row>
@@ -145,9 +146,8 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
                 attributeName="height"
                 from="0"
                 to={calculateHeight(item.value)}
-                values={`0; ${calculateHeight(item.value) + 5}; ${
-                  calculateHeight(item.value) - 3
-                }; ${calculateHeight(item.value)}`}
+                values={`0; ${calculateHeight(item.value) + 5}; ${calculateHeight(item.value) - 3
+                  }; ${calculateHeight(item.value)}`}
                 keyTimes="0; .7; .85; 1"
                 dur="0.3s"
                 fill="normal"
@@ -183,9 +183,10 @@ const Container = styled.div({
   padding: '16px'
 });
 
-const Row = styled.div({
+const Row = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
+  color: isLight ? '#231536' : '#D2D4EF',
   display: 'flex',
   '> b': {
     marginRight: '8px'
   }
-});
+}));
