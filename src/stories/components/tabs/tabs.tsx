@@ -1,9 +1,10 @@
 import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { useRouter } from 'next/router';
 
 interface TabsProps {
-  items?: string[],
+  items?: string[] | { item: string, id: string}[],
   currentIndex: number,
   onChange?: (index: number) => void,
   style?: CSSProperties
@@ -11,14 +12,44 @@ interface TabsProps {
 
 export const Tabs = (props: TabsProps) => {
   const isLight = useThemeContext().themeMode === 'light';
+  const router = useRouter();
+
+  const handleClick = (id: string, index: number) => {
+    if (props.onChange) {
+      props.onChange(index);
+    }
+
+    if (id) {
+      let path = router.asPath;
+      if (path.lastIndexOf('#') !== -1) {
+        path = path.substring(0, path.lastIndexOf('#'));
+      }
+      path += `#${id}`;
+      router.push(path, undefined, { shallow: true });
+    }
+  };
+
   return <Wrapper className="no-select" style={props.style}>
     <Container isLight={isLight}>
-      {props.items?.map((item, i) => <Tab isLight={isLight}
-        key={`${item}-${i}`}
-        active={i === props.currentIndex}
-        onClick={() => props.onChange && props.onChange(i)}>
-        {item}
-      </Tab>)}
+      {props.items?.map((element, i) => {
+        let id = '';
+        let item: string;
+        if (typeof element === 'string') {
+          item = element;
+        } else {
+          item = element?.item;
+          id = element?.id;
+        }
+        return (
+          <Tab isLight={isLight}
+            key={`${item}-${i}`}
+            active={i === props.currentIndex}
+            onClick={() => handleClick(id, i)}
+            >
+            {item}
+          </Tab>
+        );
+      })}
     </Container>
   </Wrapper>;
 };

@@ -51,6 +51,7 @@ import { CategoryChip } from '../../components/category-chip/category-chip';
 import { TablePlaceholder } from '../../components/custom-table/placeholder';
 import { CuTableHeaderSkeleton } from '../../components/cu-table-header-skeleton/header-skeleton';
 import { SEOHead } from '../../components/seo-head/seo-head';
+import { buildQueryString } from '../../../core/utils/query-string.utils';
 
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
 const sortNeutralState = [
@@ -197,8 +198,13 @@ export const CuTable = () => {
 
   const onClickRow = useCallback(
     (code: string) => () => {
+      const queryStrings = buildQueryString({
+        filteredStatuses,
+        filteredCategories,
+        searchText
+      });
       router.push(
-        `/core-unit/${code}?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
+        `/core-unit/${code}${queryStrings}`
       );
     },
     [filteredCategories, filteredStatuses, router, searchText]
@@ -206,8 +212,13 @@ export const CuTable = () => {
 
   const onClickFinances = useCallback(
     (code: string) => {
+      const queryStrings = buildQueryString({
+        filteredStatuses,
+        filteredCategories,
+        searchText
+      });
       router.push(
-        `/core-unit/${code}/finances/reports?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
+        `/core-unit/${code}/finances/reports${queryStrings}`
       );
     },
     [filteredCategories, filteredStatuses, router, searchText]
