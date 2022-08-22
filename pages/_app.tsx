@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from 'react';
+import React, { ReactElement, ReactNode, useEffect } from 'react';
 import { Provider } from 'react-redux';
 import type { AppProps } from 'next/app';
 import { store } from '../src/core/store/store';
@@ -10,24 +10,41 @@ import { FeatureFlagsProvider } from '../src/core/context/FeatureFlagsProvider';
 import { CURRENT_ENVIRONMENT } from '../src/config/endpoints';
 import { featureFlags } from '../feature-flags/feature-flags';
 import { SEOHead } from '../src/stories/components/seo-head/seo-head';
+import { useRouter } from 'next/router';
+import * as gtag from '../src/core/utils/gtag';
 
 export type NextPageWithLayout = NextPage & {
-  getLayout?: (page: ReactElement) => ReactNode
-}
+  getLayout?: (page: ReactElement) => ReactNode;
+};
 
 interface MyAppProps extends AppProps {
-  Component: NextPageWithLayout
-  emotionCache?: EmotionCache
+  Component: NextPageWithLayout;
+  emotionCache?: EmotionCache;
 }
 
 function MyApp(props: MyAppProps) {
   const { Component, pageProps } = props;
+  const router = useRouter();
+
+  useEffect(() => {
+    if (gtag.GA_TRACKING_ID) {
+      const handleRouteChange = (url: URL) => {
+        gtag.pageView(url);
+      };
+      router.events.on('routeChangeComplete', handleRouteChange);
+      return () => {
+        router.events.off('routeChangeComplete', handleRouteChange);
+      };
+    }
+  }, [router.events]);
 
   return (
     <ThemeProvider>
       <Provider store={store}>
         <SEOHead title="MakerDAO - Dashboard" description="" />
-        <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
+        <FeatureFlagsProvider
+          enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}
+        >
           <Component {...pageProps} />
         </FeatureFlagsProvider>
       </Provider>
