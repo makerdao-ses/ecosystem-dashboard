@@ -30,10 +30,6 @@ const CardNotFoundPage: NextPage = () => {
           objectFit="fill"
           alt="404"
           layout='fill'
-          style={{
-            width: '100%',
-            height: '100%',
-          }}
         />
         <ContainerData>
           <LogoContainer>
@@ -44,8 +40,8 @@ const CardNotFoundPage: NextPage = () => {
             />
           </LogoContainer>
           <ContainerText>
-            <TextUps>Oops!</TextUps>
-            <TextDescription>The Page you requested couldn't be found</TextDescription>
+            <TextUps isLight={isLight}>Oops!</TextUps>
+            <TextDescription isLight={isLight}>The Page you requested couldn't be found</TextDescription>
           </ContainerText>
           <ContainerButton> <CustomButton widthText='100%' label='Go Back to Homepage' style={{
             display: 'flex',
@@ -96,7 +92,6 @@ const Wrapper = styled.div({
 });
 
 const ImageContainer = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
-
   position: 'relative',
   boxSizing: 'border-box',
   display: 'flex',
