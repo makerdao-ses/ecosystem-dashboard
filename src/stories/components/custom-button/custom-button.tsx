@@ -10,22 +10,23 @@ interface CustomButtonProps {
   onClick?: () => void;
   widthText?: string;
   styleText?: CSSProperties;
+  isHightLight?: boolean
 }
 
-export const CustomButton = (props: CustomButtonProps) => {
+export const CustomButton = ({ isHightLight = false, ...props }: CustomButtonProps) => {
   const isLight = useThemeContext().themeMode === 'light';
-  return <Container className={props.className} isLight={isLight} type="button" disabled={props.disabled} onClick={props.onClick} style={props.style}>
+  return <Container className={props.className} isLight={isLight} type="button" disabled={props.disabled} onClick={props.onClick} style={props.style} isHightLight={isHightLight}>
     <Text isLight={isLight} className={props.disabled ? 'disabled' : ''} width={props.widthText} style={props.styleText}>{props.label}</Text>
   </Container>;
 };
 
-const Container = styled.button<{ isLight: boolean }>(({ isLight }) => ({
+const Container = styled.button<{ isLight: boolean, isHightLight: boolean }>(({ isLight, isHightLight }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   width: 'fit-content',
   height: '48px',
-  border: isLight ? '1px solid #D4D9E1' : '1px solid #405361',
+  border: isLight ? (isHightLight ? '1px solid #1AAB9B' : '1px solid #D4D9E1') : (isHightLight ? '1px solid #787A9B' : '1px solid #343442'),
   borderRadius: isLight ? '22px' : '22px',
   background: isLight ? 'white' : '#10191F',
   transition: 'all .3s ease',
@@ -33,7 +34,7 @@ const Container = styled.button<{ isLight: boolean }>(({ isLight }) => ({
   padding: '15px 16px',
   boxSizing: 'border-box',
   cursor: 'pointer',
-  color: isLight ? '#231536' : '#546978',
+  color: isLight ? '#231536' : '#E2D8EE',
   '&:hover:not(:disabled)': {
     borderColor: '#231536',
   },

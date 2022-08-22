@@ -347,10 +347,15 @@ export const CuTable = () => {
         <FilterButtonWrapper onClick={toggleFiltersPopup}>
           <CustomButton
             label={'Filters'}
+            isHightLight={!!(filteredStatuses.length || filteredCategories.length || searchText)}
             style={{
               height: '34px',
               width: '90px',
-              border: isLight ? '1px solid #D4D9E1' : '1px solid #343442',
+            }}
+            styleText={{
+              color: isLight
+                ? (filteredStatuses.length || filteredCategories.length || searchText ? ' #1AAB9B' : '#231536')
+                : (filteredStatuses.length || filteredCategories.length || searchText ? ' #E2D8EE' : '#D2D4EF'),
             }}
           />
         </FilterButtonWrapper>
