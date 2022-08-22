@@ -26,7 +26,12 @@ const CardNotFoundPage: NextPage = () => {
     <Wrapper>
       <ImageContainer>
         <Image
-          src={isLight && (phoneLess || isMobile) ? BackgroundMobile404 : !isLight && (phoneLess || isMobile) ? BackgroundMobile404Dark : isLight && !(phoneLess || isMobile) ? Background404 : Background404Dark}
+          src={isLight
+            ? (
+                (phoneLess || isMobile) ? BackgroundMobile404 : Background404)
+            : (
+                (phoneLess || isMobile) ? BackgroundMobile404Dark : Background404Dark
+              )}
           objectFit="fill"
           alt="404"
           layout='fill'
@@ -41,7 +46,7 @@ const CardNotFoundPage: NextPage = () => {
           </LogoContainer>
           <ContainerText>
             <TextUps isLight={isLight}>Oops!</TextUps>
-            <TextDescription isLight={isLight}>The Page you requested couldn't be found</TextDescription>
+            <TextDescription >The Page you requested couldn't be found</TextDescription>
           </ContainerText>
           <ContainerButton> <CustomButton widthText='100%' label='Go Back to Homepage' style={{
             display: 'flex',
@@ -71,19 +76,7 @@ const Wrapper = styled.div({
   height: '100%',
   marginTop: '132px',
   marginBottom: '128px',
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    marginTop: '132px',
-  },
-  [lightTheme.breakpoints.between('desktop_1194', 'desktop_1280')]: {
-    marginTop: '132px',
-  },
-  [lightTheme.breakpoints.between('desktop_1194', 'desktop_1280')]: {
-    marginTop: '132px',
-  },
-  [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
-    marginTop: '132px',
-  },
-  [lightTheme.breakpoints.between('desktop_1440', 'desktop_1920')]: {
+  [lightTheme.breakpoints.between('table_834', 'desktop_1440')]: {
     marginTop: '132px',
   },
   [lightTheme.breakpoints.up('desktop_1920')]: {
@@ -120,19 +113,9 @@ const ImageContainer = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
     maxWidth: '1130px',
     margin: '0 auto',
   },
-  [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     paddingTop: '59px',
     maxWidth: '1184px',
-    margin: '0 auto',
-  },
-  [lightTheme.breakpoints.between('desktop_1440', 'desktop_1920')]: {
-    paddingTop: '59px',
-    maxWidth: '1184px',
-    margin: '0 auto',
-  },
-  [lightTheme.breakpoints.up('desktop_1920')]: {
-    paddingTop: '59px',
-    maxWidth: '1412px',
     margin: '0 auto',
   },
 }));
@@ -160,22 +143,7 @@ const LogoContainer = styled.div({
     width: '580px',
     height: '340px',
   },
-  [lightTheme.breakpoints.between('desktop_1194', 'desktop_1280')]: {
-    marginBottom: '37.26px',
-    width: '675px',
-    height: '397.74px',
-  },
-  [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
-    marginBottom: '37.26px',
-    width: '675px',
-    height: '397.74px',
-  },
-  [lightTheme.breakpoints.between('desktop_1440', 'desktop_1920')]: {
-    marginBottom: '37.26px',
-    width: '675px',
-    height: '397.74px',
-  },
-  [lightTheme.breakpoints.up('desktop_1920')]: {
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     marginBottom: '37.26px',
     width: '675px',
     height: '397.74px',
@@ -190,19 +158,7 @@ const ContainerText = styled.div({
   paddingRight: '32px',
   paddingLeft: '32px',
   maxWidth: '343px',
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    maxWidth: '100%',
-  },
-  [lightTheme.breakpoints.between('desktop_1194', 'desktop_1280')]: {
-    maxWidth: '100%',
-  },
-  [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
-    maxWidth: '100%',
-  },
-  [lightTheme.breakpoints.between('desktop_1440', 'desktop_1920')]: {
-    maxWidth: '100%',
-  },
-  [lightTheme.breakpoints.up('desktop_1920')]: {
+  [lightTheme.breakpoints.up('table_834')]: {
     maxWidth: '100%',
   },
 });
@@ -217,39 +173,15 @@ const TextUps = styled(Typography)<{ isLight?: boolean }>(({ isLight }) => ({
   color: isLight ? '#787A9B' : '#D2D4EF',
   textAlign: 'center',
   marginBottom: '24px',
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [lightTheme.breakpoints.up('table_834')]: {
     fontWeight: 700,
     fontSize: '48px',
     lineHeight: '58px',
     marginBottom: '32px',
   },
-  [lightTheme.breakpoints.between('desktop_1194', 'desktop_1280')]: {
-    fontWeight: 700,
-    fontSize: '48px',
-    lineHeight: '58px',
-    marginBottom: '32px',
-  },
-  [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
-    fontWeight: 700,
-    fontSize: '48px',
-    lineHeight: '58px',
-    marginBottom: '32px',
-  },
-  [lightTheme.breakpoints.between('desktop_1440', 'desktop_1920')]: {
-    fontWeight: 700,
-    fontSize: '48px',
-    lineHeight: '58px',
-    marginBottom: '32px',
-  },
-  [lightTheme.breakpoints.up('desktop_1920')]: {
-    fontWeight: 700,
-    fontSize: '48px',
-    lineHeight: '58px',
-    marginBottom: '32px',
-  }
 }));
 
-const TextDescription = styled(Typography)<{ isLight?: boolean }>(({ isLight }) => ({
+const TextDescription = styled(Typography)({
   fontFamily: 'FT Base,san-serif',
   fontStyle: 'normal',
   fontWeight: 500,
@@ -257,51 +189,18 @@ const TextDescription = styled(Typography)<{ isLight?: boolean }>(({ isLight }) 
   lineHeight: '24px',
   textAlign: 'center',
   letterSpacing: '0.4px',
-  color: isLight ? '#ADAFD4' : '#ADAFD4',
+  color: '#ADAFD4',
   marginBottom: '64px',
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [lightTheme.breakpoints.up('table_834')]: {
     fontSize: '24px',
     lineHeight: '29px',
     marginBottom: '40px',
   },
-  [lightTheme.breakpoints.between('desktop_1194', 'desktop_1280')]: {
-    fontSize: '24px',
-    lineHeight: '29px',
-    marginBottom: '40px',
-  },
-  [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
-    fontSize: '24px',
-    lineHeight: '29px',
-    marginBottom: '40px',
-  },
-  [lightTheme.breakpoints.between('desktop_1440', 'desktop_1920')]: {
-    fontSize: '24px',
-    lineHeight: '29px',
-    marginBottom: '40px',
-  },
-  [lightTheme.breakpoints.up('desktop_1920')]: {
-    fontSize: '24px',
-    lineHeight: '29px',
-    marginBottom: '40px',
-  }
-}));
+});
 
 const ContainerButton = styled.div({
   marginBottom: '83px',
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-  },
-  [lightTheme.breakpoints.between('desktop_1194', 'desktop_1280')]: {
-    marginBottom: '84px',
-  },
-  [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
-    marginBottom: '84px',
-
-  },
-  [lightTheme.breakpoints.between('desktop_1440', 'desktop_1920')]: {
-    marginBottom: '84px',
-  },
-  [lightTheme.breakpoints.up('desktop_1920')]: {
-    marginBottom: '84px',
+  [lightTheme.breakpoints.up('table_834')]: {
   },
 });
 
