@@ -141,7 +141,7 @@ const findMip40 = (cu: CoreUnitDto, date: DateTime): Mip40Dto | null => {
   const cuMips = cu.cuMip?.filter(mip => mip.mipStatus === CuStatusEnum.Accepted) ?? [];
 
   for (const mip of cuMips) {
-    for (const mip40 of mip.mip40.filter(mip =>!mip.mkrOnly)) {
+    for (const mip40 of mip.mip40.filter(mip => !mip.mkrOnly)) {
       for (const period of mip40.mip40BudgetPeriod) {
         if (checkDateOnPeriod(period, date)) {
           return mip40;
@@ -240,7 +240,7 @@ export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDto) => {
   return result;
 };
 
-const getLast3MonthsWithData = (budgetStatements: BudgetStatementDto[]) => {
+export const getLast3MonthsWithData = (budgetStatements: BudgetStatementDto[]) => {
   // The budget statements should be provided in a descending date order but
   // it's better to order it client side to avoid future issues
   const orderedStatements = _.sortBy(budgetStatements, bs => bs.month).reverse();

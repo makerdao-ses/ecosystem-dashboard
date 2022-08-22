@@ -12,7 +12,6 @@ import {
   getFacilitatorsFromCoreUnit,
   getFTEsFromCoreUnit,
   getLast3ExpenditureValuesFromCoreUnit,
-  getLast3MonthsWithData,
   getLast3MonthsWithDataFormatted,
   getLatestMip39FromCoreUnit,
   getLinksFromCoreUnit,

@@ -20,7 +20,6 @@ import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { formatCode } from '../../../core/utils/string.utils';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import { SEOHead } from '../../components/seo-head/seo-head';
 const MdViewerContainer = dynamic(() => import('../../components/markdown/md-view-container'), { ssr: false });
