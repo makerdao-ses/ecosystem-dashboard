@@ -6,6 +6,7 @@ import React, {
   useState,
 } from 'react';
 import styled from '@emotion/styled';
+import isEmpty from 'lodash/isEmpty';
 import {
   getBudgetCapsFromCoreUnit,
   getExpenditureValueFromCoreUnit,
@@ -112,7 +113,9 @@ export const CuTable = () => {
   };
 
   useEffect(() => {
-    dispatch(loadCuTableItemsAsync());
+    if (isEmpty(data)) {
+      dispatch(loadCuTableItemsAsync());
+    }
   }, [dispatch]);
 
   const { filteredData, statusesFiltered, categoriesFiltered } = useMemo(
