@@ -101,6 +101,7 @@ export const CuTableColumnSummary = ({
 
 const Container = styled.div({
   display: 'flex',
+  width: '100%',
   alignItems: 'stretch',
   boxSizing: 'border-box',
   cursor: 'pointer',

@@ -6,12 +6,14 @@ import React, {
   useState,
 } from 'react';
 import styled from '@emotion/styled';
+import isEmpty from 'lodash/isEmpty';
 import {
   getBudgetCapsFromCoreUnit,
   getExpenditureValueFromCoreUnit,
   getFacilitatorsFromCoreUnit,
   getFTEsFromCoreUnit,
   getLast3ExpenditureValuesFromCoreUnit,
+  getLast3MonthsWithDataFormatted,
   getLatestMip39FromCoreUnit,
   getLinksFromCoreUnit,
   getMipUrlFromCoreUnit,
@@ -51,6 +53,7 @@ import { CategoryChip } from '../../components/category-chip/category-chip';
 import { TablePlaceholder } from '../../components/custom-table/placeholder';
 import { CuTableHeaderSkeleton } from '../../components/cu-table-header-skeleton/header-skeleton';
 import { SEOHead } from '../../components/seo-head/seo-head';
+import { buildQueryString } from '../../../core/utils/query-string.utils';
 
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
 const sortNeutralState = [
@@ -112,7 +115,9 @@ export const CuTable = () => {
   };
 
   useEffect(() => {
-    dispatch(loadCuTableItemsAsync());
+    if (isEmpty(data)) {
+      dispatch(loadCuTableItemsAsync());
+    }
   }, [dispatch]);
 
   const { filteredData, statusesFiltered, categoriesFiltered } = useMemo(
@@ -197,8 +202,13 @@ export const CuTable = () => {
 
   const onClickRow = useCallback(
     (code: string) => () => {
+      const queryStrings = buildQueryString({
+        filteredStatuses,
+        filteredCategories,
+        searchText
+      });
       router.push(
-        `/core-unit/${code}?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
+        `/core-unit/${code}${queryStrings}`
       );
     },
     [filteredCategories, filteredStatuses, router, searchText]
@@ -206,8 +216,13 @@ export const CuTable = () => {
 
   const onClickFinances = useCallback(
     (code: string) => {
+      const queryStrings = buildQueryString({
+        filteredStatuses,
+        filteredCategories,
+        searchText
+      });
       router.push(
-        `/core-unit/${code}/finances/reports?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
+        `/core-unit/${code}/finances/reports${queryStrings}`
       );
     },
     [filteredCategories, filteredStatuses, router, searchText]
@@ -273,31 +288,54 @@ export const CuTable = () => {
         />,
         <div
           key={`expenditures-${i}`}
-          style={{
-            display: 'block',
-            paddingLeft: '8px',
-          }}
           onClick={() => onClickFinances(coreUnit.shortCode)}
+          style={{
+            display: 'flex',
+            width: '100%',
+            height: '100%',
+            cursor: 'pointer',
+          }}
         >
-          <CuTableColumnExpenditures
-            value={getExpenditureValueFromCoreUnit(coreUnit)}
-            percent={getPercentFromCoreUnit(coreUnit)}
-            items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
-            budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
+          <div
+            style={{
+              display: 'block',
+              margin: 'auto 0',
+              paddingLeft: '8px',
+            }}
+          >
+            <CuTableColumnExpenditures
+              value={getExpenditureValueFromCoreUnit(coreUnit)}
+              percent={getPercentFromCoreUnit(coreUnit)}
+              months={getLast3MonthsWithDataFormatted(coreUnit)}
+              items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
+              budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
+            />
+          </div>
+        </div>,
+        <div
+          key={`teammember-${i}`}
+          onClick={onClickRow(coreUnit.shortCode)}
+          style={{
+            display: 'flex',
+            width: '100%',
+            height: '100%'
+          }}>
+          <CuTableColumnTeamMember
+            members={getFacilitatorsFromCoreUnit(coreUnit)}
+            fte={getFTEsFromCoreUnit(coreUnit)}
           />
         </div>,
-        <CuTableColumnTeamMember
-          key={`teammember-${i}`}
-          members={getFacilitatorsFromCoreUnit(coreUnit)}
-          fte={getFTEsFromCoreUnit(coreUnit)}
-        />,
         <div
           key={`links-${i}`}
+          onClick={onClickRow(coreUnit.shortCode)}
           style={{
             display: 'flex',
             justifyContent: 'flex-end',
             flex: 1,
             paddingRight: '16px',
+            width: '100%',
+            height: '100%',
+            cursor: 'pointer',
           }}
         >
           <CuTableColumnLinks
@@ -343,7 +381,7 @@ export const CuTable = () => {
     }
     return (
       <Header>
-        <Title isLight={isLight}>Core Units Expenses</Title>
+        <Title isLight={isLight}>Core Unit Expenses</Title>
         <FilterButtonWrapper onClick={toggleFiltersPopup}>
           <CustomButton
             label={'Filters'}
@@ -448,6 +486,14 @@ const TableWrapper = styled.div({
   '@media (min-width: 1180px)': {
     display: 'flex',
   },
+});
+
+const LinkedContent = styled.a({
+  width: '100%',
+  height: '100%',
+  display: 'flex',
+  alignContent: 'center',
+  cursor: 'pointer',
 });
 
 const ListWrapper = styled.div({

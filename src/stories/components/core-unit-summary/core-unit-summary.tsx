@@ -13,6 +13,7 @@ import BreadCrumbMobile from '../pagination/bread-crumb-mobile';
 import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { formatCode } from '../../../core/utils/string.utils';
+import { buildQueryString } from '../../../core/utils/query-string.utils';
 
 interface CoreUnitSummaryProps {
   trailingAddress?: string[];
@@ -70,21 +71,32 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
       const index = filteredData?.findIndex(item => item.shortCode === code);
       const newIndex = index + direct;
       if (newIndex >= 0 && newIndex < filteredData?.length) {
-        router.push(`${router.route.replace('[code]', filteredData[newIndex].shortCode)}?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
+        const queryStrings = buildQueryString({
+          filteredStatuses,
+          filteredCategories,
+          searchText
+        });
+        router.push(`${router.route.replace('[code]', filteredData[newIndex].shortCode)}${queryStrings}`);
       }
     },
     [code, filteredData, router]);
+
+  const queryStrings = buildQueryString({
+    filteredStatuses,
+    filteredCategories,
+    searchText
+  });
 
   return <Container ref={ref} isLight={isLight}>
     {!(phone || lessThanPhone) && <NavigationHeader className="no-select" isLight={isLight}>
       <Breadcrumbs items={[
         {
           label: <CoreUnitStyle isLight={isLight}>Core Units <b>({filteredData.length})</b></CoreUnitStyle>,
-          url: `/?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
+          url: `/${queryStrings}`
         },
         {
           label: buildCULabel(),
-          url: `/core-unit/${code}/?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
+          url: `/core-unit/${code}/${queryStrings}`
         },
         ...trailingAddress.map(adr => ({
           label: adr,
@@ -199,7 +211,8 @@ const Wrapper = styled.div({
 const SummaryDescription = styled.div<{ hiddenTextDescription: boolean }>(({ hiddenTextDescription }) => ({
   opacity: hiddenTextDescription ? 1 : 0,
   height: hiddenTextDescription ? 'auto' : 0,
-  transition: 'all 0.85s ease'
+  transition: 'all 0.85s ease',
+  overflow: 'hidden',
 }));
 
 const TypographyDescription = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({

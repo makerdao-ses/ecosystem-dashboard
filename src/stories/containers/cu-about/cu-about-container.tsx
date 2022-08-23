@@ -22,6 +22,7 @@ import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import dynamic from 'next/dynamic';
 import { SEOHead } from '../../components/seo-head/seo-head';
+import { buildQueryString } from '../../../core/utils/query-string.utils';
 const MdViewerContainer = dynamic(() => import('../../components/markdown/md-view-container'), { ssr: false });
 
 interface Props {
@@ -57,7 +58,12 @@ const CuAboutContainer = ({ code, cuAbout, contributors }: Props) => {
   }, [cuAbout.cuMip, showThreeMIPs]);
 
   const onClickFinances = useCallback(() => {
-    router.push(`/core-unit/${code}/finances/reports?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`);
+    const queryStrings = buildQueryString({
+      filteredStatuses,
+      filteredCategories,
+      searchText
+    });
+    router.push(`/core-unit/${code}/finances/reports${queryStrings}`);
   }, [filteredCategories, filteredStatuses, router, searchText, code]);
 
   return (

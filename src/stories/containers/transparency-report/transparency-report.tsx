@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import { Tabs } from '../../components/tabs/tabs';
 import { CustomPager } from '../../components/custom-pager/custom-pager';
@@ -20,6 +20,7 @@ import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
 import { formatCode } from '../../../core/utils/string.utils';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SEOHead } from '../../components/seo-head/seo-head';
+import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
 
 const colors: { [key: string]: string } = {
   Draft: '#7C6B95',
@@ -35,6 +36,8 @@ const colorsDarkColors: { [key: string]: string } = {
   SubmittedToAuditor: '#FF78F2',
 };
 
+const TRANSPARENCY_IDS = ['actuals', 'forecast', 'mkr-vesting', 'transfer-requests', 'audit-reports'];
+
 export const TransparencyReport = ({
   coreUnit: cu,
 }: {
@@ -44,10 +47,80 @@ export const TransparencyReport = ({
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;
+  const viewMonthStr = query.viewMonth;
+  const anchor = useUrlAnchor();
+  const transparencyTableRef = useRef<HTMLDivElement>(null);
 
   const [thirdIndex, setThirdIndex] = useState(0);
 
   const [currentMonth, setCurrentMonth] = useState(DateTime.now());
+
+  useEffect(() => {
+    if (anchor) {
+      if (anchor.startsWith('forecast-')) {
+        setThirdIndex(TRANSPARENCY_IDS.indexOf('forecast'));
+        return;
+      }
+      const index = TRANSPARENCY_IDS.indexOf(anchor);
+      if (index > 0) {
+        setThirdIndex(index);
+      }
+    }
+  }, [anchor]);
+
+  const [scrolled, setScrolled] = useState<boolean>(false);
+  useEffect(() => {
+    if (!scrolled && anchor && TRANSPARENCY_IDS.includes(anchor)) {
+      setScrolled(true);
+      let offset = (transparencyTableRef?.current?.offsetTop || 0) - 280;
+      const windowsWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+      if (windowsWidth < 834) {
+        offset += 100;
+      }
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'manual';
+      }
+      window.scrollTo(0, Math.max(0, offset));
+    }
+  }, [anchor]);
+
+  useEffect(() => {
+    if (viewMonthStr) {
+      const month = DateTime.fromFormat(viewMonthStr as string, 'LLLyyyy');
+      setCurrentMonth(month);
+    }
+  }, []);
+
+  const replaceViewMonthRoute = (viewMonth: string) => {
+    router.replace({
+      hash: anchor,
+      query: {
+        ...router.query,
+        viewMonth
+      },
+    }, undefined, {
+      shallow: true,
+    });
+  };
+
+  const handlePreviousMonth = useCallback(() => {
+    const month = currentMonth.minus({ month: 1 });
+    replaceViewMonthRoute(month.toFormat('LLLyyyy'));
+    setCurrentMonth(month);
+  }, [setCurrentMonth, currentMonth]);
+
+  const hasNextMonth = () => {
+    const limit = DateTime.now().plus({ month: 12 });
+    return currentMonth.startOf('month') < limit.startOf('month');
+  };
+
+  const handleNextMonth = useCallback(() => {
+    if (hasNextMonth()) {
+      const month = currentMonth.plus({ month: 1 });
+      replaceViewMonthRoute(month.toFormat('LLLyyyy'));
+      setCurrentMonth(month);
+    }
+  }, [setCurrentMonth, currentMonth]);
 
   const currentBudgetStatement = useMemo(() => {
     return cu?.budgetStatements?.find(
@@ -89,12 +162,13 @@ export const TransparencyReport = ({
             </p>
           </Paragraph>
 
-          <PagerBar className="no-select">
+          <PagerBar className="no-select" ref={transparencyTableRef}>
             <PagerBarLeft>
               <CustomPager
                 label={currentMonth.toFormat('MMM yyyy').toUpperCase()}
-                onPrev={() => setCurrentMonth(currentMonth.minus({ month: 1 }))}
-                onNext={() => setCurrentMonth(currentMonth.plus({ month: 1 }))}
+                onPrev={handlePreviousMonth}
+                onNext={handleNextMonth}
+                hasNext={hasNextMonth()}
               />
               {currentBudgetStatement?.publicationUrl && (
                 <CustomLink
@@ -132,11 +206,26 @@ export const TransparencyReport = ({
 
           <Tabs
             items={[
-              'Actuals',
-              'Forecast',
-              'MKR Vesting',
-              'Transfer Requests',
-              'Audit Reports',
+              {
+                item: 'Actuals',
+                id: TRANSPARENCY_IDS[0]
+              },
+              {
+                item: 'Forecast',
+                id: TRANSPARENCY_IDS[1]
+              },
+              {
+                item: 'MKR Vesting',
+                id: TRANSPARENCY_IDS[2]
+              },
+              {
+                item: 'Transfer Requests',
+                id: TRANSPARENCY_IDS[3]
+              },
+              {
+                item: 'Audit Reports',
+                id: TRANSPARENCY_IDS[4]
+              },
             ]}
             currentIndex={thirdIndex}
             onChange={setThirdIndex}
