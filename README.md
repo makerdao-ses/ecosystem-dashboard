@@ -24,6 +24,9 @@ NEXT_PUBLIC_BASE_URL=https://expenses.makerdao.network
 
 # if the sitemap is active or not (true | false)
 ENABLE_SITEMAP=true
+
+# Google tag tracking code if it is used
+NEXT_PUBLIC_GA_TRACKING_ID=G-XXXXXXXX
 ```
 
 ### To run in development mode use:
