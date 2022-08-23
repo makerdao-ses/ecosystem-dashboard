@@ -24,7 +24,7 @@ const CardNotFoundPage: NextPage = () => {
   };
   return (
     <Wrapper>
-      <ImageContainer>
+      <ImageContainer isLight={isLight}>
         <Image
           src={isLight
             ? (
@@ -75,7 +75,7 @@ const Wrapper = styled.div({
   width: '100%',
   height: '100%',
   marginTop: '132px',
-  marginBottom: '128px',
+  paddingBottom: '128px',
   [lightTheme.breakpoints.up('desktop_1920')]: {
     marginTop: '128px',
   },
@@ -83,20 +83,19 @@ const Wrapper = styled.div({
 
 const ImageContainer = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   position: 'relative',
-  boxSizing: 'border-box',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   width: '100%',
-  height: '100%',
+  // height: '100%',
   paddingTop: '110px',
   marginTop: '90px',
   maxWidth: '343px',
   margin: '0 auto',
   '& > span': {
     borderRadius: '6px',
-    linearGradient: isLight ? 'none' : '180deg, #001020 0%, #000000 63.95%)',
-    boxShadow: isLight ? ' 0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)'
+    background: isLight ? '#FFFFFF' : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
+    boxShadow: isLight ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
   },
   borderRadius: '20px',
 
@@ -112,8 +111,9 @@ const ImageContainer = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     paddingTop: '59px',
-    maxWidth: '1184px',
+    maxWidth: '1412px',
     margin: '0 auto',
+    maxHeight: '785px',
   },
 }));
 
@@ -196,12 +196,12 @@ const TextDescription = styled(Typography)({
 });
 
 const ContainerButton = styled.div({
-  marginBottom: '83px',
+  paddingBottom: '83px',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    marginBottom: '156px',
+    paddingBottom: '156px',
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginBottom: '84px',
+    paddingBottom: '84px',
   },
 });
 
