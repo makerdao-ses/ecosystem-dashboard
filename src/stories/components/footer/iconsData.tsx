@@ -57,7 +57,7 @@ export const iconsContact = [{
 export const iconsSupport = [
   {
     icon: <WWW fill='#231536' fillDark='#D1DEE6' />,
-    href: '#',
+    href: 'https://ses.makerdao.network/',
     title: 'Website',
     spacingsRight: 28.14,
     width: 19.73,
@@ -66,7 +66,7 @@ export const iconsSupport = [
   },
   {
     icon: <Forum fill='#231536' fillDark='#D1DEE6' />,
-    href: 'https://forum.makerdao.com/',
+    href: 'https://forum.makerdao.com/c/core-units/sustainable-ecosystem-scaling/42',
     title: 'Forum',
     spacingsRight: 29,
     width: 20,
@@ -74,7 +74,7 @@ export const iconsSupport = [
   },
   {
     icon: <DiscordSupport fill='#231536' fillDark='#D1DEE6' />,
-    href: 'https://discord.com/invite/RBRumCpEDH',
+    href: 'https://discord.com/invite/h7GKvqDyDP',
     title: 'Discord',
     spacingsRight: 29.5,
     width: 17.5,
@@ -82,7 +82,7 @@ export const iconsSupport = [
   },
   {
     icon: <Twitter fill='#231536' fillDark='#D1DEE6' />,
-    href: 'https://twitter.com/MakerDAO',
+    href: 'https://twitter.com/MakerDAO_SES',
     title: 'Twitter',
     spacingsRight: 28,
     width: 20,
@@ -90,7 +90,7 @@ export const iconsSupport = [
   },
   {
     icon: <Youtube fill='#231536' fillDark='#D1DEE6' />,
-    href: 'https://www.youtube.com/MakerDAO',
+    href: 'https://www.youtube.com/channel/UC9c35O2H6fq8fB2CGzzP1bw/about',
     title: 'Youtube',
     spacingsRight: 29,
     width: 20,

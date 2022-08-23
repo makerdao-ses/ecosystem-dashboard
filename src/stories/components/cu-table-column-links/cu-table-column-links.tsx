@@ -123,6 +123,7 @@ export const CuTableColumnLinks = ({
                 target="_blank"
                 width={width}
                 height={height}
+                onClick={(event: React.SyntheticEvent) => event.stopPropagation()}
               >
                 {getImageForLink(link, fill, width, height, fillDark)}
               </LinkImage>
