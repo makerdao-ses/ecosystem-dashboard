@@ -39,19 +39,19 @@ export const getLinksFromContributor = (contributor: ContributorCommitment | Con
   if (cont.email) {
     links.push({
       linkType: LinkTypeEnum.Gmail,
-      href: cont.email,
+      href: `mailto:${cont.email}`,
     });
   }
   if (cont.forumHandle) {
     links.push({
       linkType: LinkTypeEnum.Forum,
-      href: cont.forumHandle,
+      href: `https://forum.makerdao.com/u/${cont.forumHandle}`,
     });
   }
   if (cont.twitterHandle) {
     links.push({
       linkType: LinkTypeEnum.Twitter,
-      href: cont.twitterHandle,
+      href: `https://twitter.com/${cont.twitterHandle}`,
     });
   }
   if (cont.discordHandle) {
