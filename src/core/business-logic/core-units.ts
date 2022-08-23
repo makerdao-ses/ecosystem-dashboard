@@ -141,7 +141,7 @@ const findMip40 = (cu: CoreUnitDto, date: DateTime): Mip40Dto | null => {
   const cuMips = cu.cuMip?.filter(mip => mip.mipStatus === CuStatusEnum.Accepted) ?? [];
 
   for (const mip of cuMips) {
-    for (const mip40 of mip.mip40.filter(mip =>!mip.mkrOnly)) {
+    for (const mip40 of mip.mip40.filter(mip => !mip.mkrOnly)) {
       for (const period of mip40.mip40BudgetPeriod) {
         if (checkDateOnPeriod(period, date)) {
           return mip40;
@@ -170,7 +170,7 @@ export const getBudgetCapsFromCoreUnit = (cu: CoreUnitDto) => {
     result.push(mip40?.mip40Wallet?.reduce((p, c) => (sumLineItems(c) ?? 0) + p, 0) ?? 0);
   }
 
-  return result.reverse();
+  return result;
 };
 
 const sumAllLineItemsFromBudgetStatement = (budgetStatement: BudgetStatementDto, month: DateTime) => {
@@ -237,10 +237,10 @@ export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDto) => {
     }
   }
 
-  return result.reverse();
+  return result;
 };
 
-const getLast3MonthsWithData = (budgetStatements: BudgetStatementDto[]) => {
+export const getLast3MonthsWithData = (budgetStatements: BudgetStatementDto[]) => {
   // The budget statements should be provided in a descending date order but
   // it's better to order it client side to avoid future issues
   const orderedStatements = _.sortBy(budgetStatements, bs => bs.month).reverse();
@@ -251,13 +251,19 @@ const getLast3MonthsWithData = (budgetStatements: BudgetStatementDto[]) => {
         if (item.actual) {
           const date = DateTime.fromFormat(bs.month, 'yyyy-MM-dd');
 
-          return [date, date.minus({ months: 1 }), date.minus({ months: 2 })];
+          return [date, date.minus({ months: 1 }), date.minus({ months: 2 })].reverse();
         }
       }
     }
   }
 
-  return [];
+  return [DateTime.now(), DateTime.now().minus({ months: 1 }), DateTime.now().minus({ months: 2 })].reverse();
+};
+
+export const getLast3MonthsWithDataFormatted = (cu: CoreUnitDto) => {
+  const dates = getLast3MonthsWithData(cu.budgetStatements);
+
+  return dates.map(date => date.toFormat('MMMM'));
 };
 
 export const getMipUrlFromCoreUnit = (cu: CoreUnitDto) => {

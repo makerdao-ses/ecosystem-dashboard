@@ -13,6 +13,7 @@ import {
   getFacilitatorsFromCoreUnit,
   getFTEsFromCoreUnit,
   getLast3ExpenditureValuesFromCoreUnit,
+  getLast3MonthsWithDataFormatted,
   getLatestMip39FromCoreUnit,
   getLinksFromCoreUnit,
   getMipUrlFromCoreUnit,
@@ -305,6 +306,7 @@ export const CuTable = () => {
             <CuTableColumnExpenditures
               value={getExpenditureValueFromCoreUnit(coreUnit)}
               percent={getPercentFromCoreUnit(coreUnit)}
+              months={getLast3MonthsWithDataFormatted(coreUnit)}
               items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
               budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
             />
@@ -379,7 +381,7 @@ export const CuTable = () => {
     }
     return (
       <Header>
-        <Title isLight={isLight}>Core Units Expenses</Title>
+        <Title isLight={isLight}>Core Unit Expenses</Title>
         <FilterButtonWrapper onClick={toggleFiltersPopup}>
           <CustomButton
             label={'Filters'}

@@ -79,7 +79,7 @@ export const CuTableColumnSummary = ({
                     margin: '0 0 2px 4px',
                   }}
                   styleIcon={{
-                    marginBottom: '2px',
+                    marginBottom: '5px',
                   }}
                   target="_blank"
                 >

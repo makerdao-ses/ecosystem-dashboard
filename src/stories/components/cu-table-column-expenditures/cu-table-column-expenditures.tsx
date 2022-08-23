@@ -12,6 +12,7 @@ interface CuTableColumnExpendituresProps {
   percent?: number | null;
   items?: Array<CustomChartItemModel>;
   budgetCaps?: number[];
+  months?: string[],
   isLoading?: boolean;
 }
 
@@ -53,7 +54,11 @@ export const CuTableColumnExpenditures = ({
             </CustomPopover>
           </Data>
         </DataWrapper>
-        <CustomBarChart items={isEmpty(props.items) ? new Array(3).fill({ value: 0 }) : props.items} maxValues={props.budgetCaps} />
+        <CustomBarChart
+          items={isEmpty(props.items) ? new Array(3).fill({ value: 0 }) : props.items}
+          maxValues={props.budgetCaps}
+          months={props.months}
+        />
         <ValueWrapper>
           <CustomPopover
             css={{ alignSelf: 'center' }}
