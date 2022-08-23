@@ -69,7 +69,7 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
                       textOverflow: 'ellipsis',
                       overflow: 'hidden',
                     }}>
-                    {contributor.email && contributor.email.toLowerCase()}
+                    {contributor?.email?.toLowerCase()}
                   </TypographyEmail>}
 
               </>

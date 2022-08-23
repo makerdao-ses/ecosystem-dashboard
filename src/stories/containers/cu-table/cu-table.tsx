@@ -488,14 +488,6 @@ const TableWrapper = styled.div({
   },
 });
 
-const LinkedContent = styled.a({
-  width: '100%',
-  height: '100%',
-  display: 'flex',
-  alignContent: 'center',
-  cursor: 'pointer',
-});
-
 const ListWrapper = styled.div({
   display: 'flex',
   flexDirection: 'column',
