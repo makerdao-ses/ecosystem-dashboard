@@ -3,7 +3,7 @@ import { Box, Card, CardContent, CardHeader, Divider, Typography } from '@mui/ma
 import styled from '@emotion/styled';
 import { CuTableColumnLinks } from '../cu-table-column-links/cu-table-column-links';
 import { ContributorCommitment } from '../../containers/cu-about/cu-about-contributor';
-import { getLinksFromContributor } from '../../../core/business-logic/core-unit-about';
+import { getContributorCommitment, getLinksFromContributor } from '../../../core/business-logic/core-unit-about';
 import { DateTime } from 'luxon';
 import { getColorJobPosition } from '../../../core/utils/color.utils';
 import lightTheme from '../../../../styles/theme/light';
@@ -87,7 +87,7 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
             </CardContentPositionColumn>
             <CardContentPositionColumn>
               <TypographyStyled mb={0} color='#708390' style={{ paddingBottom: '4px' }} >Commitment</TypographyStyled>
-              <TypographyStyled mb={0} color={isLight ? '#231536' : '#D2D4EF'} >{contributorCommitment.commitment}</TypographyStyled>
+              <TypographyStyled mb={0} color={isLight ? '#231536' : '#D2D4EF'} >{getContributorCommitment(contributorCommitment.commitment)}</TypographyStyled>
             </CardContentPositionColumn>
           </CardContentPositionRow>
         </CardContent>
