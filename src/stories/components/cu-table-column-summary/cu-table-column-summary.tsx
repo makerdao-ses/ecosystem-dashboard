@@ -8,6 +8,8 @@ import { CircleAvatar } from '../circle-avatar/circle-avatar';
 import { CustomLink } from '../custom-link/custom-link';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ColumnSummarySkeleton } from './cu-table-column-summary-skeleton';
+import { useMediaQuery } from '@mui/material';
+import lightTheme from '../../../../styles/theme/light';
 
 interface CuTableColumnSummaryProps {
   title?: string;
@@ -29,10 +31,11 @@ export const CuTableColumnSummary = ({
   ...props
 }: CuTableColumnSummaryProps) => {
   const isLight = useThemeContext().themeMode === 'light';
+  const upPhone = useMediaQuery(lightTheme.breakpoints.up('table_834'));
   return !isLoading
     ? <Container onClick={props.onClick} style={props.style}>
       <CircleContainer>
-      <CustomPopover
+        <CustomPopover
           popupStyle={{
             padding: 0,
           }}
@@ -42,17 +45,17 @@ export const CuTableColumnSummary = ({
           }}
           title={props.popupChild}
           id={props.code || ''}>
-        <CircleAvatar
-          width={logoDimension}
-          height={logoDimension}
-          name={props.title || 'Core Unit'}
-          image={props.imageUrl}
-          style={{
-            boxShadow: isLight
-              ? '2px 4px 7px rgba(26, 171, 155, 0.25)'
-              : '2px 4px 7px rgba(26, 171, 155, 0.25)',
-          }}
-        />
+          <CircleAvatar
+            width={logoDimension}
+            height={logoDimension}
+            name={props.title || 'Core Unit'}
+            image={props.imageUrl}
+            style={{
+              boxShadow: isLight
+                ? '2px 4px 7px rgba(26, 171, 155, 0.25)'
+                : '2px 4px 7px rgba(26, 171, 155, 0.25)',
+            }}
+          />
         </CustomPopover>
       </CircleContainer>
       <Content>
@@ -79,7 +82,7 @@ export const CuTableColumnSummary = ({
                     margin: '0 0 2px 4px',
                   }}
                   styleIcon={{
-                    marginBottom: '2px',
+                    marginBottom: upPhone ? '6px' : '5.5px',
                   }}
                   target="_blank"
                 >
