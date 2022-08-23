@@ -87,7 +87,6 @@ const ImageContainer = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   flexDirection: 'column',
   alignItems: 'center',
   width: '100%',
-  // height: '100%',
   paddingTop: '110px',
   marginTop: '90px',
   maxWidth: '343px',
@@ -105,12 +104,17 @@ const ImageContainer = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
     margin: '0 auto',
   },
   [lightTheme.breakpoints.between('desktop_1194', 'desktop_1280')]: {
-    paddingTop: '59px',
+    paddingTop: '58px',
     maxWidth: '1130px',
     margin: '0 auto',
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    paddingTop: '59px',
+  [lightTheme.breakpoints.between('desktop_1280', 'desktop_1920')]: {
+    paddingTop: '58px',
+    maxWidth: '1184px',
+    margin: '0 auto',
+  },
+  [lightTheme.breakpoints.up('desktop_1920')]: {
+    paddingTop: '58px',
     maxWidth: '1412px',
     margin: '0 auto',
     maxHeight: '785px',
