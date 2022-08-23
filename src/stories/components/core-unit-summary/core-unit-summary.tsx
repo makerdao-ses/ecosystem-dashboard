@@ -211,7 +211,8 @@ const Wrapper = styled.div({
 const SummaryDescription = styled.div<{ hiddenTextDescription: boolean }>(({ hiddenTextDescription }) => ({
   opacity: hiddenTextDescription ? 1 : 0,
   height: hiddenTextDescription ? 'auto' : 0,
-  transition: 'all 0.85s ease'
+  transition: 'all 0.85s ease',
+  overflow: 'hidden',
 }));
 
 const TypographyDescription = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({

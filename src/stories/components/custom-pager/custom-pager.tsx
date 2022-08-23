@@ -7,6 +7,7 @@ interface CustomPagerProps {
   label: JSX.Element | string,
   onNext?: () => void,
   onPrev?: () => void,
+  hasNext?: boolean,
 }
 
 export const CustomPager = (props: CustomPagerProps) => {
@@ -15,8 +16,8 @@ export const CustomPager = (props: CustomPagerProps) => {
       <IconWrapper onClick={props.onPrev}>
         <ChevronLeft/>
       </IconWrapper>
-      <IconWrapper onClick={props.onNext}>
-        <ChevronRight/>
+      <IconWrapper disabled={!props.hasNext} onClick={props.onNext}>
+        <ChevronRight fill={props.hasNext ? undefined : '#D1DEE6'}/>
       </IconWrapper>
     </Arrows>
     <Label>{props.label}</Label>
@@ -53,9 +54,9 @@ const Arrows = styled.div({
   marginTop: '4px',
 });
 
-const IconWrapper = styled.div({
+const IconWrapper = styled.div<{disabled?: boolean}>(({ disabled = false }) => ({
   display: 'flex',
   alignItems: 'center',
   marginRight: '8px',
-  cursor: 'pointer',
-});
+  cursor: disabled ? 'default' : 'pointer'
+}));

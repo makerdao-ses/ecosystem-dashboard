@@ -95,7 +95,50 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
       return result;
     }
 
+    let emptyWallets = 0;
     wallets.forEach((wallet) => {
+      const numberCellData = [
+        getForecastForMonthOnWalletOnBudgetStatement(
+          props.budgetStatements,
+          wallet?.address,
+          props.currentMonth,
+          firstMonth
+        ),
+        getForecastForMonthOnWalletOnBudgetStatement(
+          props.budgetStatements,
+          wallet?.address,
+          props.currentMonth,
+          secondMonth
+        ),
+        getForecastForMonthOnWalletOnBudgetStatement(
+          props.budgetStatements,
+          wallet?.address,
+          props.currentMonth,
+          thirdMonth
+        ),
+        getForecastSumOfMonthsOnWallet(
+          props.budgetStatements,
+          wallet?.address,
+          props.currentMonth,
+          [firstMonth, secondMonth, thirdMonth]
+        ),
+        getBudgetCapForMonthOnWalletOnBudgetStatement(
+          props.budgetStatements,
+          wallet?.address,
+          props.currentMonth,
+          props.currentMonth
+        ),
+        getBudgetCapSumOfMonthsOnWallet(
+          props.budgetStatements,
+          wallet?.address,
+          props.currentMonth,
+          [firstMonth, secondMonth, thirdMonth]
+        )
+      ];
+      if (numberCellData.every(n => n === 0)) {
+        emptyWallets++;
+      }
+
       result.push([
         <WalletTableCell
           key={1}
@@ -105,57 +148,27 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
         />,
         <NumberCell
           key={2}
-          value={getForecastForMonthOnWalletOnBudgetStatement(
-            props.budgetStatements,
-            wallet?.address,
-            props.currentMonth,
-            firstMonth
-          )}
+          value={numberCellData[0]}
         />,
         <NumberCell
           key={3}
-          value={getForecastForMonthOnWalletOnBudgetStatement(
-            props.budgetStatements,
-            wallet?.address,
-            props.currentMonth,
-            secondMonth
-          )}
+          value={numberCellData[1]}
         />,
         <NumberCell
           key={4}
-          value={getForecastForMonthOnWalletOnBudgetStatement(
-            props.budgetStatements,
-            wallet?.address,
-            props.currentMonth,
-            thirdMonth
-          )}
+          value={numberCellData[2]}
         />,
         <NumberCell
           key={5}
-          value={getForecastSumOfMonthsOnWallet(
-            props.budgetStatements,
-            wallet?.address,
-            props.currentMonth,
-            [firstMonth, secondMonth, thirdMonth]
-          )}
+          value={numberCellData[3]}
         />,
         <NumberCell
           key={6}
-          value={getBudgetCapForMonthOnWalletOnBudgetStatement(
-            props.budgetStatements,
-            wallet?.address,
-            props.currentMonth,
-            props.currentMonth
-          )}
+          value={numberCellData[4]}
         />,
         <NumberCell
           key={7}
-          value={getBudgetCapSumOfMonthsOnWallet(
-            props.budgetStatements,
-            wallet?.address,
-            props.currentMonth,
-            [firstMonth, secondMonth, thirdMonth]
-          )}
+          value={numberCellData[5]}
         />,
         <TableCell key={8} responsivePadding="0">
           <CustomLink
@@ -236,6 +249,9 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
       />,
     ]);
 
+    if (result.length - 1 === emptyWallets) {
+      return [];
+    }
     return result;
   }, [props.currentMonth, props.budgetStatements]);
 
