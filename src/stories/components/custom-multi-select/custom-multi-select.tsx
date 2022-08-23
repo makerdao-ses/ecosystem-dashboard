@@ -87,10 +87,8 @@ export const CustomMultiSelect = ({
             style={{ transform: popupVisible ? 'scaleY(-1)' : '' }}
             fill={
               isLight
-                ? activeItems.length > 0 && !hover
-                  ? '#1AAB9B'
-                  : '#25273D'
-                : '#ADAFD4'
+                ? (activeItems.length > 0 ? (!hover ? '#1AAB9B' : '#098C7D') : '#231536')
+                : activeItems.length > 0 ? (!hover ? '#1AAB9B' : '#6EDBD0') : '#E2D8EE'
             }
           />
         </IconWrapper>
@@ -102,27 +100,27 @@ export const CustomMultiSelect = ({
             scrollbarMaxSize={32}
           >
             <ItemsContainer>
-            {withAll && (
-              <SelectItem
-                checked={activeItems.length === props.items.length}
-                onClick={() => toggleAll()}
-                label={
-                  props.customAll?.content ? props.customAll.content : 'All'
-                }
-                count={props.customAll?.count ?? props.items.length}
-                minWidth={180}
-              />
-            )}
-            {props.items.map((item, i) => (
-              <SelectItem
-                key={`item-${i}`}
-                checked={activeItems.indexOf(item.id) > -1}
-                onClick={() => toggleItem(item.id)}
-                label={item.content}
-                count={item.count}
-                minWidth={180}
-              />
-            ))}
+              {withAll && (
+                <SelectItem
+                  checked={activeItems.length === props.items.length}
+                  onClick={() => toggleAll()}
+                  label={
+                    props.customAll?.content ? props.customAll.content : 'All'
+                  }
+                  count={props.customAll?.count ?? props.items.length}
+                  minWidth={180}
+                />
+              )}
+              {props.items.map((item, i) => (
+                <SelectItem
+                  key={`item-${i}`}
+                  checked={activeItems.indexOf(item.id) > -1}
+                  onClick={() => toggleItem(item.id)}
+                  label={item.content}
+                  count={item.count}
+                  minWidth={180}
+                />
+              ))}
             </ItemsContainer>
           </SimpleBar>
         </PopupContainer>
@@ -157,7 +155,7 @@ const SelectContainer = styled.div<{
       : isLight && focus
         ? '1px solid #231536'
         : !isLight && active
-            ? '1px solid #787A9B'
+            ? '1px solid #098C7D'
             : !isLight && focus
                 ? '1px solid #343442'
                 : isLight && !active
@@ -172,7 +170,8 @@ const SelectContainer = styled.div<{
   transition: 'all .3s ease',
   background: isLight ? 'white' : '#10191F',
   '&:hover': {
-    border: isLight ? '1px solid #231536' : '1px solid #787A9B',
+    border: isLight ? (active ? '1px solid #1AAB9B' : '1px solid #231536') : active ? '1px solid #098C7D' : '1px solid #787A9B',
+    background: isLight ? (active ? '#E7FCFA' : 'none') : active ? '#003C40' : '#10191F'
   },
 }));
 
@@ -190,7 +189,7 @@ const Label = styled.div<{ active: boolean; isLight: boolean; hover: boolean }>(
     fontWeight: 500,
     fontSize: '14px',
     lineHeight: '18px',
-    color: isLight ? (active && !hover ? '#1AAB9B' : '#231536') : '#E2D8EE',
+    color: isLight ? (active ? (!hover ? '#1AAB9B' : '#098C7D') : '#231536') : active ? (!hover ? '#1AAB9B' : '#6EDBD0') : '#E2D8EE',
     whiteSpace: 'nowrap',
   })
 );
