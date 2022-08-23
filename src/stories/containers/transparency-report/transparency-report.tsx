@@ -109,10 +109,17 @@ export const TransparencyReport = ({
     setCurrentMonth(month);
   }, [setCurrentMonth, currentMonth]);
 
+  const hasNextMonth = () => {
+    const limit = DateTime.now().plus({ month: 12 });
+    return currentMonth.startOf('month') < limit.startOf('month');
+  };
+
   const handleNextMonth = useCallback(() => {
-    const month = currentMonth.plus({ month: 1 });
-    replaceViewMonthRoute(month.toFormat('LLLyyyy'));
-    setCurrentMonth(month);
+    if (hasNextMonth()) {
+      const month = currentMonth.plus({ month: 1 });
+      replaceViewMonthRoute(month.toFormat('LLLyyyy'));
+      setCurrentMonth(month);
+    }
   }, [setCurrentMonth, currentMonth]);
 
   const currentBudgetStatement = useMemo(() => {
@@ -161,6 +168,7 @@ export const TransparencyReport = ({
                 label={currentMonth.toFormat('MMM yyyy').toUpperCase()}
                 onPrev={handlePreviousMonth}
                 onNext={handleNextMonth}
+                hasNext={hasNextMonth()}
               />
               {currentBudgetStatement?.publicationUrl && (
                 <CustomLink

@@ -5,6 +5,7 @@ import { CustomPopover } from '../custom-popover/custom-popover';
 import { CustomChartItemModel } from '../../../core/models/custom-chart-item.model';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ColumnExpendituresSkeleton } from './cu-table-column-expenditures-skeleton';
+import isEmpty from 'lodash/isEmpty';
 
 interface CuTableColumnExpendituresProps {
   value?: number;
@@ -53,7 +54,11 @@ export const CuTableColumnExpenditures = ({
             </CustomPopover>
           </Data>
         </DataWrapper>
-        <CustomBarChart items={props.items} maxValues={props.budgetCaps} months={props.months} />
+        <CustomBarChart
+          items={isEmpty(props.items) ? new Array(3).fill({ value: 0 }) : props.items}
+          maxValues={props.budgetCaps}
+          months={props.months}
+        />
         <ValueWrapper>
           <CustomPopover
             css={{ alignSelf: 'center' }}

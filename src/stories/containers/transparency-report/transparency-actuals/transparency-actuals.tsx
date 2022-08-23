@@ -104,7 +104,18 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
   const mainTableItems = useMemo(() => {
     const result: JSX.Element[][] = [];
     if (currentBudgetStatement) {
+      let emptyWallets = 0;
       wallets.forEach((wallet) => {
+        const numberCellData = [
+          getWalletForecast(wallet),
+          getWalletActual(wallet),
+          getWalletDifference(wallet),
+          getWalletPayment(wallet)
+        ];
+        if (numberCellData.every(n => n === 0)) {
+          emptyWallets++;
+        }
+
         result.push([
           <WalletTableCell
             key={1}
@@ -112,10 +123,10 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
             wallet={formatAddressForOutput(wallet.address)}
             address={wallet.address}
           />,
-          <NumberCell key={2} value={getWalletForecast(wallet)}/>,
-          <NumberCell key={3} value={getWalletActual(wallet)}/>,
-          <NumberCell key={3} value={getWalletDifference(wallet)}/>,
-          <NumberCell key={5} value={getWalletPayment(wallet)}/>,
+          <NumberCell key={2} value={numberCellData[0]}/>,
+          <NumberCell key={3} value={numberCellData[1]}/>,
+          <NumberCell key={3} value={numberCellData[2]}/>,
+          <NumberCell key={5} value={numberCellData[3]}/>,
           <TableCell key={6} responsivePadding="0">
             <CustomLink
               fontFamily={'SF Pro Display, sans-serif'}
@@ -137,6 +148,10 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           </TableCell>,
         ]);
       });
+
+      if (result.length === emptyWallets) {
+        return [];
+      }
     }
 
     result.push([
