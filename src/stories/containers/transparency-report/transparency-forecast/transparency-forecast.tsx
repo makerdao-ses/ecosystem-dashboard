@@ -618,7 +618,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
 
   return (
     <Container>
-      <Title isLight={isLight} marginBottom={24}>
+      <Title isLight={isLight} marginBottom={16}>
         {props.currentMonth.toFormat('MMM yyyy')} Totals
       </Title>
 
