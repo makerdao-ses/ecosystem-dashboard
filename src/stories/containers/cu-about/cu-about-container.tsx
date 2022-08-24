@@ -79,67 +79,115 @@ const CuAboutContainer = ({ code, cuAbout, contributors }: Props) => {
         <ContainerAllData>
           <ContainerResponsive>
             <MarkdownContainer>
-              <MdViewerContainer showButton={table834 || phone || LessPhone} sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)} paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)} paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)} onClick={onClickFinances} />
+              <MdViewerContainer
+                showButton={table834 || phone || LessPhone}
+                sentenceDescription={getMarkdownInformation(
+                  cuAbout.sentenceDescription
+                )}
+                paragraphDescription={getMarkdownInformation(
+                  cuAbout.paragraphDescription
+                )}
+                paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)}
+                onClick={onClickFinances}
+              />
             </MarkdownContainer>
             <TeamMemberContainer>
-              <TeamMemberTitle isLight={isLight}>Team Size</TeamMemberTitle><TeamMember fte={getFTEsFromCoreUnit(cuAbout)} />
+              <TeamMemberTitle isLight={isLight}>Team Size</TeamMemberTitle>
+              <TeamMember fte={getFTEsFromCoreUnit(cuAbout)} />
             </TeamMemberContainer>
             <ContactInfoContainer>
-              <ContactInfoTitle isLight={isLight}>Contact Information</ContactInfoTitle>
+              <ContactInfoTitle isLight={isLight}>
+                Contact Information
+              </ContactInfoTitle>
               <ContainerCards>
-                {contributors && contributors.map((contributor: ContributorCommitment, index: number) => {
-                  return (
-                    <CardInfoContainer key={index}>
-                      <CardInfoMember contributorCommitment={contributor} />
-                    </CardInfoContainer>
-                  );
-                })
-                }
+                {contributors &&
+                  contributors.map(
+                    (contributor: ContributorCommitment, index: number) => {
+                      return (
+                        <CardInfoContainer key={index}>
+                          <CardInfoMember contributorCommitment={contributor} />
+                        </CardInfoContainer>
+                      );
+                    }
+                  )}
               </ContainerCards>
             </ContactInfoContainer>
-            <Divider sx={{
-              bgcolor: isLight ? '#D4D9E1' : '#405361',
-            }} />
+            <Divider
+              sx={{
+                bgcolor: isLight ? '#D4D9E1' : '#405361',
+              }}
+            />
             <CardRelateMipsContainer>
-              <TitleRelateMips isLight={isLight}>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
+              <TitleRelateMips isLight={isLight}>
+                Related MIPs (Maker Improvement Proposals)
+              </TitleRelateMips>
               <RelateMipCards>
                 {relateMipsOrder.map((mip: unknown, index: number) => {
                   return (
                     <RelateMipCard key={index}>
                       <RelateMips relateMips={mip as CuMip} />
                     </RelateMipCard>
-
                   );
                 })}
-                {cuAbout && cuAbout.cuMip && cuAbout.cuMip.length === 0 && <ContainerNoRelateMIps>There are not related MIPs</ContainerNoRelateMIps>}
+                {cuAbout && cuAbout.cuMip && cuAbout.cuMip.length === 0 && (
+                  <ContainerNoRelateMIps>
+                    There are not related MIPs
+                  </ContainerNoRelateMIps>
+                )}
               </RelateMipCards>
             </CardRelateMipsContainer>
-            {cuAbout && cuAbout.cuMip && cuAbout.cuMip.length > 3 && <ButtonContainer>
-              <DividerStyle sx={{
-                bgcolor: isLight ? '#D4D9E1' : '#405361',
-              }} /> <BigButton title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'} onClick={onClickLessMips} />
-              <DividerStyle sx={{
-                bgcolor: isLight ? '#D4D9E1' : '#405361',
-              }} />
-            </ButtonContainer>}
-            {(table834 || phone || LessPhone) && <CardSomeThingWrong width={table834 || phone ? '770px' : 'fit-contet'} />}
+            {cuAbout && cuAbout.cuMip && cuAbout.cuMip.length > 3 && (
+              <ButtonContainer>
+                <DividerStyle
+                  sx={{
+                    bgcolor: isLight ? '#D4D9E1' : '#405361',
+                  }}
+                />{' '}
+                <BigButton
+                  title={
+                    showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'
+                  }
+                  onClick={onClickLessMips}
+                />
+                <DividerStyle
+                  sx={{
+                    bgcolor: isLight ? '#D4D9E1' : '#405361',
+                  }}
+                />
+              </ButtonContainer>
+            )}
+            {(table834 || phone || LessPhone) && (
+              <CardSomeThingWrong
+                width={table834 || phone ? '770px' : 'fit-contet'}
+              />
+            )}
           </ContainerResponsive>
 
-          {!(table834 || phone || LessPhone) && <div style={{
-            width: '39.61%',
-          }}>
-            {isEnabled('FEATURE_CARD_NAVIGATION') && <ContainerScroll>
-              <ContainerCard>
-                <CardExpenses onClick={onClickFinances} code={formatCode(cuAbout.code)} name={cuAbout.name || ''} />
-              </ContainerCard>
-              <ContainerCard>
-                <CardSomeThingWrong />
-              </ContainerCard>
-            </ContainerScroll>}
-          </div>}
+          {!(table834 || phone || LessPhone) && (
+            <div
+              style={{
+                width: '39.61%',
+              }}
+            >
+              {isEnabled('FEATURE_CARD_NAVIGATION') && (
+                <ContainerScroll>
+                  <ContainerCard>
+                    <CardExpenses
+                      onClick={onClickFinances}
+                      code={formatCode(cuAbout.code)}
+                      name={cuAbout.name || ''}
+                    />
+                  </ContainerCard>
+                  <ContainerCard>
+                    <CardSomeThingWrong />
+                  </ContainerCard>
+                </ContainerScroll>
+              )}
+            </div>
+          )}
         </ContainerAllData>
       </Wrapper>
-    </ContainerAbout >
+    </ContainerAbout>
   );
 };
 

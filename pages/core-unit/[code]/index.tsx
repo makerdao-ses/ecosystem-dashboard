@@ -15,7 +15,7 @@ export const getServerSideProps: GetServerSideProps = async(context: GetServerSi
   const { query } = context;
   const code = query.code as string;
   const cuAbout = await fetchCoreUnitByCode(code);
-  const contributorCommitment = cuAbout.contributorCommitment;
+  const contributorCommitment = cuAbout?.contributorCommitment;
 
   if (_.isEmpty(cuAbout)) {
     return {
