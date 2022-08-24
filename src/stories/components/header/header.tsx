@@ -193,13 +193,10 @@ const ItemMenuStyle = styled.a<{ active: boolean, marginRight?: string, isLight:
 }));
 
 const ItemMenuResponsive = styled.div({
-  '@media (min-width: 1194px)': {
-    display: 'none'
-  }
+  display: 'none',
 });
 
 const LinkWrapper = styled.div({
-  display: 'none',
   '@media (min-width: 1194px)': {
     display: 'flex',
   }

@@ -53,6 +53,7 @@ export const SEOHead = ({
 
       <meta name="description" key="description" content={description} />
       <meta name="theme-color" content="#231536"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
       <meta name="theme-color" media="(prefers-color-scheme: light)" content="#231536" />
       <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#D2D4EF" />
 
