@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
@@ -68,7 +68,7 @@ export const CuTableColumnSummary = ({
           {props.statusModified && (
             <CustomPopover
               id={'mouse-over-popover-goto'}
-              title={'Go to MIPs Portal'}
+              title={'Go to MIPs Portalffffffffffffff'}
               popupStyle={{
                 color: isLight ? '#231536' : '#D2D4EF',
               }}
