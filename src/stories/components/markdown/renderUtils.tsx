@@ -96,6 +96,8 @@ const ImageTag = styled.img({
 });
 
 const ResponsiveParagraph = styled.p({
+  textAlign: 'left',
+
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     fontSize: '14px',
     lineHeight: '17px',
