@@ -85,7 +85,7 @@ const Tab = styled.div<{ active: boolean, isLight: boolean }>(({ active, isLight
   lineHeight: '18px',
   fontWeight: 400,
   paddingBottom: '12px',
-  borderBottom: isLight && active ? '2px solid #1AAB9B' : isLight && !active ? 'white' : !isLight && active ? '2px solid #1AAB9B' : '#405361',
+  borderBottom: `2px solid ${isLight ? (active ? '#1AAB9B' : 'transparent') : (active ? '#1AAB9B' : 'transparent')}`,
   cursor: 'pointer',
   transition: 'all .3s ease',
   whiteSpace: 'nowrap',
