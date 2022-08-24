@@ -18,7 +18,7 @@ interface Props {
 
 const CardInfoMember = ({ contributorCommitment }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
-  const since = Math.floor(DateTime.now().diff(DateTime.fromISO(contributorCommitment.startDate), 'years').years);
+  const since = DateTime.now().diff(DateTime.fromISO(contributorCommitment.startDate), ['years', 'months']);
   const contributor = contributorCommitment.contributor[0] || [];
   const links = getLinksFromContributor(contributorCommitment);
   const { color } = getColorJobPosition(contributorCommitment.jobTitle);
@@ -84,7 +84,9 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
             <CardContentPositionColumn>
               <TypographyStyled mb={0} color='#708390' style={{ paddingBottom: '4px' }} >Since</TypographyStyled>
               <TypographyStyled mb={0} color={isLight ? '#231536' : '#D2D4EF'}>
-                {since < 1 || !since ? 'Less than a year' : `${since} Year${since >= 2 ? 's' : ''}`}
+                {since.years === 0
+                  ? `${Math.floor(since.months)} Month${since.months < 2 ? '' : 's'}`
+                  : `${Math.floor(since.years)} Year${since.years < 2 ? '' : 's'}`}
               </TypographyStyled>
             </CardContentPositionColumn>
             <CardContentPositionColumn>
