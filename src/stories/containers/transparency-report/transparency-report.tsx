@@ -70,7 +70,9 @@ export const TransparencyReport = ({
 
   const [scrolled, setScrolled] = useState<boolean>(false);
   useEffect(() => {
-    // FIX: the first load if there's no anchor and a tab is clicked the scroll is moved
+    if (anchor === '') {
+      setScrolled(true);
+    }
     if (!scrolled && anchor && TRANSPARENCY_IDS.includes(anchor)) {
       setScrolled(true);
       let offset = (transparencyTableRef?.current?.offsetTop || 0) - 280;
