@@ -117,14 +117,14 @@ export const CoreUnitCard = ({
       <Line isLight={isLight} />
       {!isLoading
         ? (
-        <Categories>
-          {coreUnit.category?.map((category) => (
-            <CategoryChip key={category} category={category} />
-          ))}
-        </Categories>
+          <Categories>
+            {coreUnit.category?.map((category) => (
+              <CategoryChip key={category} category={category} />
+            ))}
+          </Categories>
           )
         : (
-        <CategoriesSkeleton />
+          <CategoriesSkeleton />
           )}
       <Links>
         <CuTableColumnLinks
@@ -157,7 +157,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
      "categories"
      "links"
      `,
-  '@media (min-width: 435px)': {
+  '@media (min-width: 375px)': {
     gridTemplateColumns: '3.5fr 2fr',
     gridTemplateAreas: `"summary summary"
        "expenditure team"

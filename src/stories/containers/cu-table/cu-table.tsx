@@ -54,6 +54,7 @@ import { TablePlaceholder } from '../../components/custom-table/placeholder';
 import { CuTableHeaderSkeleton } from '../../components/cu-table-header-skeleton/header-skeleton';
 import { SEOHead } from '../../components/seo-head/seo-head';
 import { buildQueryString } from '../../../core/utils/query-string.utils';
+import lightTheme from '../../../../styles/theme/light';
 
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
 const sortNeutralState = [
@@ -381,14 +382,34 @@ export const CuTable = () => {
     }
     return (
       <Header>
-        <Title isLight={isLight}>Core Unit Expenses</Title>
+        <Title isLight={isLight}> Core Unit</Title>
+        <FilterButtonWrapperMobile>
+          <CustomButton
+            label="Reset Filters"
+            style={{
+              width: '114px',
+              border: 'none',
+              background: 'none',
+            }}
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
+            onClick={clearFilters}
+            disabled={!filteredStatuses?.length && !filteredCategories?.length && !searchText}
+          />
+        </FilterButtonWrapperMobile>
         <FilterButtonWrapper onClick={toggleFiltersPopup}>
+
           <CustomButton
             label={'Filters'}
+            isHightLight={!!(filteredStatuses.length || filteredCategories.length || searchText)}
             style={{
               height: '34px',
               width: '90px',
-              border: isLight ? '1px solid #D4D9E1' : '1px solid #343442',
+              border: isLight ? (filteredStatuses.length || filteredCategories.length || searchText ? '1px solid #1AAB9B' : '1px solid #D4D9E1') : (filteredStatuses.length || filteredCategories.length || searchText ? '1px solid #098C7D' : '1px solid #343442'),
+            }}
+            styleText={{
+              color: isLight
+                ? (filteredStatuses.length || filteredCategories.length || searchText ? ' #1AAB9B' : '#231536')
+                : (filteredStatuses.length || filteredCategories.length || searchText ? ' #1AAB9B' : '#D2D4EF'),
             }}
           />
         </FilterButtonWrapper>
@@ -483,14 +504,6 @@ const TableWrapper = styled.div({
   },
 });
 
-const LinkedContent = styled.a({
-  width: '100%',
-  height: '100%',
-  display: 'flex',
-  alignContent: 'center',
-  cursor: 'pointer',
-});
-
 const ListWrapper = styled.div({
   display: 'flex',
   flexDirection: 'column',
@@ -520,6 +533,10 @@ const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   letterSpacing: '0.4px',
   flex: 1,
   color: isLight ? '#231536' : '#D2D4EF',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    fontSize: '20px',
+    lineHeight: '24px',
+  },
 }));
 
 const CategoriesTitle = styled.div({
@@ -541,6 +558,13 @@ const Padded = styled.div({
 });
 
 const FilterButtonWrapper = styled.div({
+  display: 'flex',
+  '@media (min-width: 834px)': {
+    display: 'none',
+  },
+});
+const FilterButtonWrapperMobile = styled.div({
+  display: 'flex',
   '@media (min-width: 834px)': {
     display: 'none',
   },
