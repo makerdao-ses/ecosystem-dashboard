@@ -288,7 +288,7 @@ const CardRelateMipsContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  marginTop: '32px',
+  marginTop: '40px',
   marginBottom: '40px',
   width: '715px',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
@@ -307,7 +307,7 @@ const TitleRelateMips = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontWeight: 700,
   fontSize: '16px',
   lineHeight: '19px',
-  marginBottom: '36px',
+  marginBottom: '32px',
   color: isLight ? '#231536' : '#D2D4EF',
 }));
 
