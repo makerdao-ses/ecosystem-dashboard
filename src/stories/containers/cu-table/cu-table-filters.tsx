@@ -175,7 +175,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
     gap: '24px',
-    background: !isLight ? '#000A13' : 'none'
+    background: !isLight ? '#000A13' : 'none',
   },
   '@media (min-width: 834px)': {
     gap: '16px',
