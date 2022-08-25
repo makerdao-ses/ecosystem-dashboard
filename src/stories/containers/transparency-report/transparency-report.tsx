@@ -70,6 +70,9 @@ export const TransparencyReport = ({
 
   const [scrolled, setScrolled] = useState<boolean>(false);
   useEffect(() => {
+    if (anchor === '') {
+      setScrolled(true);
+    }
     if (!scrolled && anchor && TRANSPARENCY_IDS.includes(anchor)) {
       setScrolled(true);
       let offset = (transparencyTableRef?.current?.offsetTop || 0) - 280;

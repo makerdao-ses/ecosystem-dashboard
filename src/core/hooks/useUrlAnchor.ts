@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 export const useUrlAnchor = () => {
   const router = useRouter();
-  const [anchor, setAnchor] = useState('');
+  const [anchor, setAnchor] = useState<string | undefined>();
 
   useEffect(() => {
     if (router.asPath.lastIndexOf('#') !== -1) {
@@ -11,6 +11,8 @@ export const useUrlAnchor = () => {
         router.asPath.lastIndexOf('#') + 1
       );
       setAnchor(_anchor);
+    } else {
+      setAnchor('');
     }
   }, [router.asPath]);
 

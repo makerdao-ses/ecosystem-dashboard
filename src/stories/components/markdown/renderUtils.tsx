@@ -90,27 +90,14 @@ export const customRendererDark = {
 };
 
 const ImageTag = styled.img({
-  width: '660px',
-  height: '308px',
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    display: 'block',
-    margin: '0 auto',
-  },
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-    width: '327px',
-    height: '152px',
-    display: 'block',
-    margin: '0 auto',
-  },
-  [lightTheme.breakpoints.down('table_375')]: {
-    width: '327px',
-    height: '152px',
-    display: 'block',
-    margin: '0 auto',
-  },
+  maxWidth: '100%',
+  display: 'block',
+  margin: '0 auto',
 });
 
 const ResponsiveParagraph = styled.p({
+  textAlign: 'left',
+
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     fontSize: '14px',
     lineHeight: '17px',
