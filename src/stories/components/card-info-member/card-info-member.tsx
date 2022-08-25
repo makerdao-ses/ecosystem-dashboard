@@ -61,7 +61,7 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
                         overflow: 'hidden',
                         width: '207px',
                       }}>
-                      {contributor.email.toLowerCase()}
+                      {contributor?.email?.toLowerCase()}
                     </TypographyEmail>
                   </CustomPopover>
                   : <TypographyEmail isLight={isLight}
