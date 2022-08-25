@@ -52,7 +52,7 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
               <>
                 {contributor && contributor.email && contributor.email.length >= 40
                   ? <CustomPopover
-                    title={contributor.email.toLowerCase()}
+                    title={contributor?.email?.toLowerCase()}
                     id={'mouse-over-popover-goto'}>
                     <TypographyEmail isLight={isLight}
                       style={{
