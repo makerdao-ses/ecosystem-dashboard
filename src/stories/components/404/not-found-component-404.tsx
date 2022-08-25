@@ -76,7 +76,7 @@ const Wrapper = styled.div({
   height: '100%',
   marginTop: '132px',
   paddingBottom: '128px',
-  [lightTheme.breakpoints.up('desktop_1920')]: {
+  [lightTheme.breakpoints.up('table_834')]: {
     marginTop: '128px',
   },
 });
@@ -117,7 +117,7 @@ const ImageContainer = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
     paddingTop: '58px',
     maxWidth: '1412px',
     margin: '0 auto',
-    maxHeight: '785px',
+    height: '785px',
   },
 }));
 
