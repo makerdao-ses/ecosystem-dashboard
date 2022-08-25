@@ -68,7 +68,7 @@ export const CuTableColumnSummary = ({
           {props.statusModified && (
             <CustomPopover
               id={'mouse-over-popover-goto'}
-              title={'Go to MIPs Portalffffffffffffff'}
+              title={'Go to MIPs Portal'}
               popupStyle={{
                 color: isLight ? '#231536' : '#D2D4EF',
               }}
