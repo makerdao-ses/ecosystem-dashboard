@@ -383,18 +383,21 @@ export const CuTable = () => {
     return (
       <Header>
         <Title isLight={isLight}> Core Unit Expenses</Title>
-        <CustomButton
-          label="Reset Filters"
-          style={{
-            width: '114px',
-            border: 'none',
-            background: isLight ? 'none' : 'none',
-          }}
-          // eslint-disable-next-line @typescript-eslint/no-empty-function
-          onClick={clearFilters}
-          disabled={!filteredStatuses?.length && !filteredCategories?.length && !searchText}
-        />
+        <FilterButtonWrapperMobile>
+          <CustomButton
+            label="Reset Filters"
+            style={{
+              width: '114px',
+              border: 'none',
+              background: isLight ? 'none' : 'none',
+            }}
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
+            onClick={clearFilters}
+            disabled={!filteredStatuses?.length && !filteredCategories?.length && !searchText}
+          />
+        </FilterButtonWrapperMobile>
         <FilterButtonWrapper onClick={toggleFiltersPopup}>
+
           <CustomButton
             label={'Filters'}
             isHightLight={!!(filteredStatuses.length || filteredCategories.length || searchText)}
@@ -555,6 +558,12 @@ const Padded = styled.div({
 });
 
 const FilterButtonWrapper = styled.div({
+  display: 'flex',
+  '@media (min-width: 834px)': {
+    display: 'none',
+  },
+});
+const FilterButtonWrapperMobile = styled.div({
   display: 'flex',
   '@media (min-width: 834px)': {
     display: 'none',
