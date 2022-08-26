@@ -14,6 +14,7 @@ import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { formatCode } from '../../../core/utils/string.utils';
 import { buildQueryString } from '../../../core/utils/query-string.utils';
+import { sortData } from '../../containers/cu-table/cu-table';
 
 interface CoreUnitSummaryProps {
   trailingAddress?: string[];
@@ -30,7 +31,7 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
 
   const { data: response } = useCoreUnitSummaryViewModel();
 
-  const data: CoreUnitDto[] = response && response.coreUnits as CoreUnitDto[];
+  const data: CoreUnitDto[] = response?.coreUnits as CoreUnitDto[];
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
@@ -56,36 +57,33 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
     };
   }, []);
 
-  const { filteredData } = useMemo(() =>
-    filterData({
+  const filteredData = useMemo(() => {
+    const { filteredData: filtered } = filterData({
       data,
       filteredStatuses,
       filteredCategories,
       searchText
-    }), [data, filteredCategories, filteredStatuses, searchText]);
+    });
+    return sortData(filtered);
+  }, [data, filteredCategories, filteredStatuses, searchText]);
 
   const page = useMemo(() => filteredData?.findIndex(item => item.shortCode === code) + 1, [code, filteredData]);
-
-  const changeCoreUnitCode = useCallback(
-    (direct: -1 | 1) => () => {
-      const index = filteredData?.findIndex(item => item.shortCode === code);
-      const newIndex = index + direct;
-      if (newIndex >= 0 && newIndex < filteredData?.length) {
-        const queryStrings = buildQueryString({
-          filteredStatuses,
-          filteredCategories,
-          searchText
-        });
-        router.push(`${router.route.replace('[code]', filteredData[newIndex].shortCode)}${queryStrings}`);
-      }
-    },
-    [code, filteredData, router]);
 
   const queryStrings = buildQueryString({
     filteredStatuses,
     filteredCategories,
     searchText
   });
+
+  const changeCoreUnitCode = useCallback(
+    (direct: -1 | 1) => () => {
+      const index = filteredData?.findIndex(item => item.shortCode === code);
+      const newIndex = index + direct;
+      if (newIndex >= 0 && newIndex < filteredData?.length) {
+        router.push(`${router.route.replace('[code]', filteredData[newIndex].shortCode)}${queryStrings}`);
+      }
+    },
+    [code, filteredData, router]);
 
   return <Container ref={ref} isLight={isLight}>
     {!(phone || lessThanPhone) && <NavigationHeader className="no-select" isLight={isLight}>
@@ -115,7 +113,7 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
                 color: isLight ? '#25273D' : '#D2D4EF',
               },
               label: buildCULabel(),
-              url: `/core-unit/${code}/?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
+              url: `/core-unit/${code}/${queryStrings}`
             },
             ...trailingAddress.map(adr => ({
               label: adr,
@@ -123,7 +121,7 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
             })),
             {
               label: <span >Core Units <Value isLight={isLight}>({page})</Value></span>,
-              url: `/?filteredStatuses=${filteredStatuses}&filteredCategories=${filteredCategories}&searchText=${searchText}`
+              url: `/${queryStrings}`
             },
           ]}
           title={buildCULabel()} count={filteredData.length} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} page={page} /></div>
