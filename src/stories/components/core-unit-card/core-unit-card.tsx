@@ -131,6 +131,7 @@ export const CoreUnitCard = ({
           links={getLinksFromCoreUnit(coreUnit)}
           spacings={16}
           fill="#708390"
+          fillDark="#D2D4EF"
         />
       </Links>
     </Container>
