@@ -347,11 +347,9 @@ export const CuTable = () => {
       <CoreUnitCard
         key={`card-${cu.code}`}
         coreUnit={cu}
-        onClick={onClickRow(cu.shortCode)}
-        onClickFinances={() => onClickFinances(cu.shortCode)}
       />
     ));
-  }, [filteredData, onClickRow]);
+  }, [filteredData]);
 
   const siteHeader = useMemo(() => {
     if (status === 'loading') {

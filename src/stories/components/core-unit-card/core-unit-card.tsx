@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import Link from 'next/link';
 import styled from '@emotion/styled';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import {
@@ -23,18 +24,16 @@ import { CategoryChip } from '../category-chip/category-chip';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CategoriesSkeleton } from './categories-skeleton';
 import Skeleton from '@mui/material/Skeleton';
+import { buildQueryString } from '../../../core/utils/query-string.utils';
+import { useRouter } from 'next/router';
 
 interface CoreUnitCardProps {
   coreUnit: CoreUnitDto;
-  onClick?: () => void;
-  onClickFinances?: () => void;
   isLoading?: boolean;
 }
 
 export const CoreUnitCard = ({
   coreUnit,
-  onClick,
-  onClickFinances,
   isLoading = false,
 }: CoreUnitCardProps) => {
   const isLight = useThemeContext().themeMode === 'light';
@@ -50,7 +49,7 @@ export const CoreUnitCard = ({
           />
           <CuTableColumnSummary isLoading />
         </Summary>
-        <Expenditure onClick={onClickFinances}>
+        <Expenditure>
           <Skeleton
             variant="rectangular"
             width={100}
@@ -66,7 +65,7 @@ export const CoreUnitCard = ({
             height={20}
             style={{
               borderRadius: '4px',
-              marginBottom: '16px'
+              marginBottom: '16px',
             }}
           />
           <CuTableColumnTeamMember isLoading />
@@ -80,68 +79,89 @@ export const CoreUnitCard = ({
     );
   }
 
+  const router = useRouter();
+  const queryStrings = useMemo(
+    () => buildQueryString(router.query),
+    [router.query]
+  );
+
   return (
-    <Container isLight={isLight}>
-      <Summary>
-        <Title hideSmall>Core Unit</Title>
-        <CuTableColumnSummary
-          title={coreUnit?.name}
-          status={
-            getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum
-          }
-          statusModified={getSubmissionDateFromCuMip(
-            getLatestMip39FromCoreUnit(coreUnit)
-          )}
-          imageUrl={coreUnit?.image}
-          mipUrl={getMipUrlFromCoreUnit(coreUnit)}
-          onClick={onClick}
-          code={formatCode(coreUnit.code)}
-        />
-      </Summary>
-      <Expenditure onClick={onClickFinances}>
-        <Title style={{ marginBottom: '11px' }}>Expenditure</Title>
-        <CuTableColumnExpenditures
-          value={getExpenditureValueFromCoreUnit(coreUnit)}
-          percent={getPercentFromCoreUnit(coreUnit)}
-          items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
-          budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
-        />
-      </Expenditure>
-      <Team>
-        <Title style={{ marginBottom: '16px' }}>Team Members</Title>
-        <CuTableColumnTeamMember
-          members={getFacilitatorsFromCoreUnit(coreUnit)}
-          fte={getFTEsFromCoreUnit(coreUnit)}
-        />
-      </Team>
-      <Line isLight={isLight} />
-      {!isLoading
-        ? (
-          <Categories>
-            {coreUnit.category?.map((category) => (
-              <CategoryChip key={category} category={category} />
-            ))}
-          </Categories>
-          )
-        : (
-          <CategoriesSkeleton />
-          )}
-      <Links>
-        <CuTableColumnLinks
-          links={getLinksFromCoreUnit(coreUnit)}
-          spacings={16}
-          fill="#708390"
-          fillDark="#D2D4EF"
-        />
-      </Links>
-    </Container>
+    <CuCard>
+      <Link href={`/core-unit/${coreUnit.shortCode}${queryStrings}`}>
+        <a>
+          <Container isLight={isLight}>
+            <Summary>
+              <Title hideSmall>Core Unit</Title>
+              <CuTableColumnSummary
+                title={coreUnit?.name}
+                status={
+                  getLatestMip39FromCoreUnit(coreUnit)
+                    ?.mipStatus as CuStatusEnum
+                }
+                statusModified={getSubmissionDateFromCuMip(
+                  getLatestMip39FromCoreUnit(coreUnit)
+                )}
+                imageUrl={coreUnit?.image}
+                mipUrl={getMipUrlFromCoreUnit(coreUnit)}
+                code={formatCode(coreUnit.code)}
+              />
+            </Summary>
+            <Link
+              href={`/core-unit/${coreUnit.shortCode}/finances/reports${queryStrings}`}
+            >
+              <a>
+                <Expenditure>
+                  <Title style={{ marginBottom: '11px' }}>Expenditure</Title>
+                  <CuTableColumnExpenditures
+                    value={getExpenditureValueFromCoreUnit(coreUnit)}
+                    percent={getPercentFromCoreUnit(coreUnit)}
+                    items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
+                    budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
+                  />
+                </Expenditure>
+              </a>
+            </Link>
+            <Team>
+              <Title style={{ marginBottom: '16px' }}>Team Members</Title>
+              <CuTableColumnTeamMember
+                members={getFacilitatorsFromCoreUnit(coreUnit)}
+                fte={getFTEsFromCoreUnit(coreUnit)}
+              />
+            </Team>
+            <Line isLight={isLight} />
+            {!isLoading
+              ? (
+              <Categories>
+                {coreUnit.category?.map((category) => (
+                  <CategoryChip key={category} category={category} />
+                ))}
+              </Categories>
+                )
+              : (
+              <CategoriesSkeleton />
+                )}
+            <Links>
+              <CuTableColumnLinks
+                links={getLinksFromCoreUnit(coreUnit)}
+                spacings={16}
+                fill="#708390"
+                fillDark="#D2D4EF"
+              />
+            </Links>
+          </Container>
+        </a>
+      </Link>
+    </CuCard>
   );
 };
+
+const CuCard = styled.div({
+  marginBottom: '32px',
+});
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'grid',
   gridTemplateRows: 'auto',
-  marginBottom: '32px',
   boxShadow: isLight
     ? '0px 0px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
     : '0px 20px 40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
