@@ -11,7 +11,7 @@ export interface CuTableState {
   headersSort: SortEnum[];
 }
 
-const sortNeutralState = [
+export const sortNeutralState = [
   SortEnum.Neutral,
   SortEnum.Neutral,
   SortEnum.Neutral,
