@@ -1,26 +1,30 @@
 import React, { CSSProperties, useMemo } from 'react';
 import styled from '@emotion/styled';
 import { CustomTableHeader } from '../custom-table-header/custom-table-header';
-import { SortEnum } from '../../../core/enums/sort.enum';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CustomTableHeaderSkeleton } from './custom-table-header.skeleton';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../core/store/store';
+import { selectCuTableHeadersSort, setSort } from '../../containers/cu-table/cu-table.slice';
+import { useAppDispatch } from '../../../core/hooks/hooks';
 
 interface CustomTableProps {
   headers: string[];
   items?: (JSX.Element | string)[][];
   headersAlign?: ('flex-start' | 'center' | 'flex-end')[];
   headersStyles?: CSSProperties[];
-  headersSort?: SortEnum[];
-  sortFunction?: (index: number, previousSort: SortEnum) => void;
   loading?: boolean;
 }
 
 export const CustomTable = ({
-  headersSort = [],
   headersStyles = [],
   ...props
 }: CustomTableProps) => {
   const isLight = useThemeContext().themeMode === 'light';
+  const dispatch = useAppDispatch();
+
+  const headersSort = useSelector((state: RootState) => selectCuTableHeadersSort(state));
+  const handleSort = (index: number) => dispatch(setSort(index));
 
   const tableHead = useMemo(() => {
     if (props.loading) {
@@ -36,11 +40,7 @@ export const CustomTable = ({
                 justifyContent: props.headersAlign && props.headersAlign[i],
               }}
               onClick={() =>
-                headersSort &&
-                headersSort[i] &&
-                headersSort[i] !== SortEnum.Disabled &&
-                props.sortFunction &&
-                props.sortFunction(i, headersSort[i])
+                handleSort(i)
               }
             >
               <CustomTableHeader
