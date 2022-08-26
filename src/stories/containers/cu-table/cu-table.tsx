@@ -34,11 +34,13 @@ import { CuTableColumnTeamMember } from '../../components/cu-table-column-team-m
 import { CustomTable } from '../../components/custom-table/custom-table';
 import {
   loadCuTableItemsAsync,
+  selectCuTableHeadersSort,
   selectCuTableItems,
+  selectCuTableSortColumn,
   selectCuTableStatus,
 } from './cu-table.slice';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../core/store/store';
+import { RootState, store } from '../../../core/store/store';
 import { SortEnum } from '../../../core/enums/sort.enum';
 import { sortAlphaNum } from '../../../core/utils/sort.utils';
 import { CustomButton } from '../../components/custom-button/custom-button';
@@ -56,20 +58,7 @@ import { SEOHead } from '../../components/seo-head/seo-head';
 import { buildQueryString } from '../../../core/utils/query-string.utils';
 
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
-const sortNeutralState = [
-  SortEnum.Neutral,
-  SortEnum.Neutral,
-  SortEnum.Neutral,
-  SortEnum.Neutral,
-  SortEnum.Disabled,
-];
-const sortInitialState = [
-  SortEnum.Asc,
-  SortEnum.Neutral,
-  SortEnum.Neutral,
-  SortEnum.Neutral,
-  SortEnum.Disabled,
-];
+
 const headerStyles: CSSProperties[] = [{ paddingLeft: '79.5px' }, {}, {}, {}];
 const headersAlign: ('flex-start' | 'center' | 'flex-end')[] = [
   'flex-start',
@@ -77,6 +66,29 @@ const headersAlign: ('flex-start' | 'center' | 'flex-end')[] = [
   'center',
   'center',
 ];
+
+export const sortData = (items: CoreUnitDto[]) => {
+  const state = store.getState();
+  const headersSort = selectCuTableHeadersSort(state);
+  const sortColumn = selectCuTableSortColumn(state);
+  if (headersSort[sortColumn] === SortEnum.Disabled) return items;
+
+  const multiplier = headersSort[sortColumn] === SortEnum.Asc ? 1 : -1;
+  const nameSort = (a: CoreUnitDto, b: CoreUnitDto) =>
+    sortAlphaNum(a.name, b.name) * multiplier;
+  const expendituresSort = (a: CoreUnitDto, b: CoreUnitDto) =>
+    (getExpenditureValueFromCoreUnit(a) -
+      getExpenditureValueFromCoreUnit(b)) *
+    multiplier;
+  const teamMembersSort = (a: CoreUnitDto, b: CoreUnitDto) =>
+    (getFTEsFromCoreUnit(a) - getFTEsFromCoreUnit(b)) * multiplier;
+  const linksSort = (a: CoreUnitDto, b: CoreUnitDto) =>
+    (getLinksFromCoreUnit(a).length - getLinksFromCoreUnit(b).length) *
+    multiplier;
+
+  const sortAlg = [nameSort, expendituresSort, teamMembersSort, linksSort];
+  return [...items].sort(sortAlg[sortColumn]);
+};
 
 export const CuTable = () => {
   const dispatch = useAppDispatch();
@@ -101,8 +113,8 @@ export const CuTable = () => {
   );
   const status = useSelector((state: RootState) => selectCuTableStatus(state));
 
-  const [headersSort, setHeadersSort] = useState(sortInitialState);
-  const [sortColumn, setSortColumn] = useState(0);
+  const sortColumn = useSelector((state: RootState) => selectCuTableSortColumn(state));
+  const headersSort = useSelector((state: RootState) => selectCuTableHeadersSort(state));
   const [filtersPopup, setFiltersPopup] = useState(false);
 
   const toggleFiltersPopup = () => {
@@ -164,41 +176,6 @@ export const CuTable = () => {
     // @ts-ignore
     input.value = '';
   };
-
-  const setSort = (index: number, prevStatus: SortEnum) => {
-    if (prevStatus === 3) {
-      setHeadersSort(sortNeutralState);
-      setSortColumn(-1);
-    } else {
-      const temp = [...sortNeutralState];
-      temp[index] = prevStatus + 1;
-      setHeadersSort(temp);
-      setSortColumn(index);
-    }
-  };
-
-  const sortData = useCallback(
-    (items: CoreUnitDto[]) => {
-      if (headersSort[sortColumn] === SortEnum.Disabled) return items;
-
-      const multiplier = headersSort[sortColumn] === SortEnum.Asc ? 1 : -1;
-      const nameSort = (a: CoreUnitDto, b: CoreUnitDto) =>
-        sortAlphaNum(a.name, b.name) * multiplier;
-      const expendituresSort = (a: CoreUnitDto, b: CoreUnitDto) =>
-        (getExpenditureValueFromCoreUnit(a) -
-          getExpenditureValueFromCoreUnit(b)) *
-        multiplier;
-      const teamMembersSort = (a: CoreUnitDto, b: CoreUnitDto) =>
-        (getFTEsFromCoreUnit(a) - getFTEsFromCoreUnit(b)) * multiplier;
-      const linksSort = (a: CoreUnitDto, b: CoreUnitDto) =>
-        (getLinksFromCoreUnit(a).length - getLinksFromCoreUnit(b).length) *
-        multiplier;
-
-      const sortAlg = [nameSort, expendituresSort, teamMembersSort, linksSort];
-      return [...items].sort(sortAlg[sortColumn]);
-    },
-    [headersSort, sortColumn]
-  );
 
   const onClickRow = useCallback(
     (code: string) => () => {
@@ -347,7 +324,7 @@ export const CuTable = () => {
         </div>,
       ];
     });
-  }, [filteredData, sortData, onClickRow, isLight]);
+  }, [filteredData, headersSort, sortColumn, onClickRow, isLight]);
 
   const itemsList = useMemo(() => {
     if (status === 'loading') {
@@ -427,9 +404,7 @@ export const CuTable = () => {
                 headers={headers}
                 items={items}
                 headersAlign={headersAlign}
-                headersSort={headersSort}
                 headersStyles={headerStyles}
-                sortFunction={setSort}
                 loading={status === 'loading'}
               />
             </TableWrapper>

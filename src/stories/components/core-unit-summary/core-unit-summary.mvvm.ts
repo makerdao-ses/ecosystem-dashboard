@@ -31,6 +31,20 @@ const CORE_UNITS_REQUEST = {
           linkedIn
           website
         }
+        budgetStatements {
+          month
+          budgetStatementFTEs {
+            month
+            ftes
+          }
+          budgetStatus,
+          budgetStatementWallet {
+            budgetStatementLineItem {
+              actual
+              month
+            }
+          }
+        }
       }
    }
 `
