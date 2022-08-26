@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { CuTable } from './cu-table';
 import { Provider } from 'react-redux';
 import { configureStore, createSlice } from '@reduxjs/toolkit';
-import { CuTableState } from './cu-table.slice';
+import { CuTableState, sortNeutralState } from './cu-table.slice';
 import { initialState } from './cu-table.stories.states';
 
 const store = configureStore({
@@ -19,6 +19,8 @@ const store = configureStore({
 const MockedState: CuTableState = {
   items: [],
   status: 'idle',
+  sortColumn: 0,
+  headersSort: sortNeutralState
 };
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
