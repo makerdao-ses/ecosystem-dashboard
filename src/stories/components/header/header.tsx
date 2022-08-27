@@ -33,9 +33,11 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
   const handleGoHome = useCallback(
     () => {
       const input = document.querySelector('#search-input');
+      if (input) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       input.value = '';
+      }
       router.push('/');
     },
     [router],
