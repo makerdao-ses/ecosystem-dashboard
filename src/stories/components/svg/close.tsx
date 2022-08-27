@@ -10,15 +10,17 @@ interface CloseProps {
   fillDark?: string;
 }
 
-export const Close = ({ fill = '#231536', width = 20, height = 20, fillDark = '#EDEFFF', ...props }: CloseProps) => {
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+export const Close = ({ fill = '#231536', width = 20, height = 20, fillDark = '#EDEFFF', onClick, ...props }: CloseProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   return <svg
+    cursor={onClick ? 'pointer' : 'default'}
     width={width}
     height={height}
     viewBox="0 0 20 20"
     fill="none"
     style={props.style}
-    onClick={props.onClick}
+    onClick={onClick}
     xmlns="http://www.w3.org/2000/svg">
     <path
       fillRule="evenodd"

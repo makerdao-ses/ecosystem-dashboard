@@ -23,6 +23,7 @@ interface FilterProps {
   clearFilters: () => void;
   statusCount: { [id: string]: number };
   categoriesCount: { [id: string]: number };
+  handleCloseSearch?: () => void
 }
 
 const statuses = Object.values(CuStatusEnum) as string[];
@@ -41,6 +42,19 @@ export const Filters = (props: FilterProps) => {
       search: stringify(search),
     });
   }, [router]);
+
+  const handleCloseSearch = () => {
+    const search = router.query;
+    search.searchText = '';
+    router.push({
+      pathname: '/',
+      search: stringify(search),
+    });
+    const input = document.querySelector('#search-input');
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    input.value = '';
+  };
 
   return <Wrapper isLight={isLight} style={{
     display: props.filtersPopup ? 'flex' : 'none',
@@ -96,6 +110,7 @@ export const Filters = (props: FilterProps) => {
       />
       <Separator isLight={isLight} />
       {router.isReady && <SearchInput
+        handleCloseSearch={handleCloseSearch}
         defaultValue={props.searchText}
         placeholder="Search"
         onChange={(value: string) => {
@@ -105,6 +120,7 @@ export const Filters = (props: FilterProps) => {
         }}
       />}
       {!router.isReady && <SearchInput
+        handleCloseSearch={handleCloseSearch}
         defaultValue={props.searchText}
         placeholder="Search"
         onChange={(value: string) => {
