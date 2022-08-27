@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
@@ -143,13 +143,16 @@ const TitleWrapper = styled.div({
 
 const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
-  fontSize: '16px',
+  fontSize: '14px',
   alignItems: 'center',
   fontWeight: 400,
   color: isLight ? '#231536' : '#FFFFFF',
   lineHeight: '19px',
   whiteSpace: 'nowrap',
-  // marginBottom: '2px',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: '16px',
+  }
 }));
 
 const Row = styled.section({
