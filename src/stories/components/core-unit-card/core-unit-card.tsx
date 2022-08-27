@@ -39,7 +39,7 @@ export const CoreUnitCard = ({
   const isLight = useThemeContext().themeMode === 'light';
   if (isLoading) {
     return (
-      <Container isLight={isLight}>
+      <Container isLight={isLight} style={{ marginBottom: '32px' }}>
         <Summary>
           <Skeleton
             variant="rectangular"

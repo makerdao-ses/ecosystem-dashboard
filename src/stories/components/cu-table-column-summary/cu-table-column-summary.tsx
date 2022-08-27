@@ -126,8 +126,8 @@ const Content = styled.section({
 });
 
 const Code = styled.span<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'SF Pro Display, sans-serif',
-  fontWeight: 800,
+  fontFamily: 'FT Base, sans-serif',
+  fontWeight: 700,
   fontSize: '14px',
   letterSpacing: '0.3px',
   textTransform: 'uppercase',
@@ -138,6 +138,7 @@ const Code = styled.span<{ isLight: boolean }>(({ isLight }) => ({
 
 const TitleWrapper = styled.div({
   display: 'flex',
+  alignItems: 'center',
 });
 
 const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
@@ -148,7 +149,7 @@ const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#231536' : '#FFFFFF',
   lineHeight: '19px',
   whiteSpace: 'nowrap',
-  marginBottom: '2px',
+  // marginBottom: '2px',
 }));
 
 const Row = styled.section({
