@@ -270,6 +270,7 @@ const ContainerCards = styled.div({
   alignItems: 'flex-start',
   flexWrap: 'wrap',
   padding: '0px',
+  marginBottom: '32px',
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     maxWidth: '100%',
     display: 'flex',
