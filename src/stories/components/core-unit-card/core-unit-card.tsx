@@ -104,6 +104,7 @@ export const CoreUnitCard = ({
                 imageUrl={coreUnit?.image}
                 mipUrl={getMipUrlFromCoreUnit(coreUnit)}
                 code={formatCode(coreUnit.code)}
+                categories={coreUnit.category}
               />
             </Summary>
             <Link
@@ -168,7 +169,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   background: isLight
     ? '#FFFFFF'
     : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
-  padding: '24px 16px 16px',
+  padding: '16px',
   gridTemplateColumns: 'auto',
   minWidth: '340px',
   gridTemplateAreas: `"summary"
@@ -200,6 +201,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     gridTemplateAreas: `"summary expenditure team"
        "line line line"
        "categories links links"`,
+    padding: '24px 16px 8px',
   },
 }));
 
