@@ -51,7 +51,6 @@ import { CoreUnitCard } from '../../components/core-unit-card/core-unit-card';
 import { Filters } from './cu-table-filters';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { CategoryChip } from '../../components/category-chip/category-chip';
 import { TablePlaceholder } from '../../components/custom-table/placeholder';
 import { CuTableHeaderSkeleton } from '../../components/cu-table-header-skeleton/header-skeleton';
 import { SEOHead } from '../../components/seo-head/seo-head';
