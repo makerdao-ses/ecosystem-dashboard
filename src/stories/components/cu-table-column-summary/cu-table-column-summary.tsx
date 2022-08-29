@@ -80,6 +80,7 @@ export const CuTableColumnSummary = ({
                     display: 'flex',
                     alignItems: 'flex-end',
                     margin: '0 0 2px 4px',
+                    paddingRight: '4px',
                   }}
                   styleIcon={{
                     marginBottom: upPhone ? '6px' : '5.5px',

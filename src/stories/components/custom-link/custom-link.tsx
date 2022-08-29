@@ -36,7 +36,6 @@ export const CustomLink = ({
   ...props
 }: CustomLinkProps) => {
   return <Container
-
     padding={padding}
     border={border}
     href={props.href}
@@ -75,6 +74,7 @@ const Container = styled.a<{ fontSize: number, fontSizeMobile?: number, fontWeig
   marginLeft,
   cursor: 'pointer',
   whiteSpace: 'nowrap',
+  background: 'transparent',
   '@media (min-width: 835px)': {
     fontSize: `${fontSize}px`,
     lineHeight: '19px'
