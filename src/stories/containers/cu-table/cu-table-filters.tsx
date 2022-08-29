@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { CustomButton } from '../../components/custom-button/custom-button';
 import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
 import { stringify } from 'querystring';
@@ -33,7 +33,7 @@ export const Filters = (props: FilterProps) => {
   const router = useRouter();
   const debounce = useDebounce();
   const isLight = useThemeContext().themeMode === 'light';
-
+  const inputRef = useRef<HTMLInputElement>(null);
   const handleChangeUrlFilterArrays = useCallback((key: string) => (value: string[] | string) => {
     const search = router.query;
     search[key] = Array.isArray(value) ? value.join(',') : (value || '');
@@ -45,15 +45,14 @@ export const Filters = (props: FilterProps) => {
 
   const handleCloseSearch = () => {
     const search = router.query;
-    search.searchText = '';
+    delete search.searchText;
     router.push({
       pathname: '/',
       search: stringify(search),
     });
-    const input = document.querySelector('#search-input');
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    input.value = '';
+    if (inputRef.current !== null) {
+      inputRef.current.value = '';
+    }
   };
 
   return <Wrapper isLight={isLight} style={{
@@ -110,6 +109,7 @@ export const Filters = (props: FilterProps) => {
       />
       <Separator isLight={isLight} />
       {router.isReady && <SearchInput
+        inputRef={inputRef}
         handleCloseSearch={handleCloseSearch}
         defaultValue={props.searchText}
         placeholder="Search"
