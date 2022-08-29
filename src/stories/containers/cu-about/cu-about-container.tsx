@@ -229,14 +229,21 @@ const TeamMemberContainer = styled.div({
   marginTop: '32px',
 });
 
-const TeamMemberTitle = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
+const TeamMemberTitle = styled.h2<{ isLight: boolean }>(({ isLight }) => ({
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '20px',
   lineHeight: '19px',
   marginRight: '8px',
   color: isLight ? '#231536' : '#D2D4EF',
+  marginTop: 0,
+  marginBottom: 0,
   fontFamily: 'FT Base, sans-serif',
+
+  [lightTheme.breakpoints.down('table_834')]: {
+    fontSize: '16px',
+    fontWeight: 700,
+  },
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     fontSize: '20px',
     lineHeight: '24px',
