@@ -2,6 +2,7 @@ import React, { CSSProperties, useState } from 'react';
 import styled from '@emotion/styled';
 import Magnifier from '../svg/magnifier';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { Close } from '../svg/close';
 
 interface SearchInputProps {
   value?: string;
@@ -9,6 +10,8 @@ interface SearchInputProps {
   placeholder: string;
   onChange?: (text: string) => void;
   style?: CSSProperties;
+  handleCloseSearch?: () => void
+  inputRef?: React.RefObject<HTMLInputElement>
 }
 
 export const SearchInput = (props: SearchInputProps) => {
@@ -21,8 +24,11 @@ export const SearchInput = (props: SearchInputProps) => {
 
   return <Container style={props.style}>
     <InputWrapper>
-      <IconWrapper><Magnifier fill={isLight ? '#25273D' : '#ADAFD4'} /></IconWrapper>
+      <IconWrapper>{focus || !!props.defaultValue
+        ? <Close onClick={props.handleCloseSearch} width={16} height={16} fill='#25273D' fillDark='rgb(237, 239, 255)' />
+        : <Magnifier fill={isLight ? '#25273D' : '#ADAFD4'} width={16} height={16} />}</IconWrapper>
       <Input
+        ref={props.inputRef}
         isLight={isLight}
         id="search-input"
         onChange={handleChange}
@@ -33,9 +39,9 @@ export const SearchInput = (props: SearchInputProps) => {
         value={props.value}
         defaultValue={props.defaultValue}
       />
-      <IconWrapper>
-        <Magnifier fill={isLight ? '#25273D' : '#ADAFD4'} />
-      </IconWrapper>
+      <IconWrapper>{focus || !!props.defaultValue
+        ? <Close onClick={props.handleCloseSearch} width={16} height={16} fill='#25273D' fillDark='rgb(237, 239, 255)' />
+        : <Magnifier fill={isLight ? '#25273D' : '#ADAFD4'} width={16} height={16} />}</IconWrapper>
     </InputWrapper>
   </Container>;
 };

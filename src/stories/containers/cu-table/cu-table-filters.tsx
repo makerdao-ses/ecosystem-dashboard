@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { CustomButton } from '../../components/custom-button/custom-button';
 import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
 import { stringify } from 'querystring';
@@ -23,6 +23,7 @@ interface FilterProps {
   clearFilters: () => void;
   statusCount: { [id: string]: number };
   categoriesCount: { [id: string]: number };
+  handleCloseSearch?: () => void
 }
 
 const statuses = Object.values(CuStatusEnum) as string[];
@@ -32,7 +33,7 @@ export const Filters = (props: FilterProps) => {
   const router = useRouter();
   const debounce = useDebounce();
   const isLight = useThemeContext().themeMode === 'light';
-
+  const inputRef = useRef<HTMLInputElement>(null);
   const handleChangeUrlFilterArrays = useCallback((key: string) => (value: string[] | string) => {
     const search = router.query;
     search[key] = Array.isArray(value) ? value.join(',') : (value || '');
@@ -41,6 +42,18 @@ export const Filters = (props: FilterProps) => {
       search: stringify(search),
     });
   }, [router]);
+
+  const handleCloseSearch = () => {
+    const search = router.query;
+    delete search.searchText;
+    router.push({
+      pathname: '/',
+      search: stringify(search),
+    });
+    if (inputRef.current !== null) {
+      inputRef.current.value = '';
+    }
+  };
 
   return <Wrapper isLight={isLight} style={{
     display: props.filtersPopup ? 'flex' : 'none',
@@ -96,6 +109,8 @@ export const Filters = (props: FilterProps) => {
       />
       <Separator isLight={isLight} />
       {router.isReady && <SearchInput
+        inputRef={inputRef}
+        handleCloseSearch={handleCloseSearch}
         defaultValue={props.searchText}
         placeholder="Search"
         onChange={(value: string) => {
@@ -105,6 +120,7 @@ export const Filters = (props: FilterProps) => {
         }}
       />}
       {!router.isReady && <SearchInput
+        handleCloseSearch={handleCloseSearch}
         defaultValue={props.searchText}
         placeholder="Search"
         onChange={(value: string) => {

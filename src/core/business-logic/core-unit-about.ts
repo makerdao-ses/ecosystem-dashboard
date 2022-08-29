@@ -92,7 +92,7 @@ export const getContributorCommitment = (commitment: string) => {
     case CommitmentJob.Fulltime:
       return 'Full-Time';
     case CommitmentJob.PartTime:
-      return 'Par-Time';
+      return 'Part-Time';
     case CommitmentJob.Inactive:
       return 'Inactive';
     case CommitmentJob.Variable:

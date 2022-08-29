@@ -2,9 +2,9 @@ import React from 'react';
 import { CustomChartItemModel } from '../../../core/models/custom-chart-item.model';
 import max from 'lodash/max';
 import styled from '@emotion/styled';
-import { Popover } from '@mui/material';
-import { PopoverPaperStyle } from '../custom-popover/custom-popover';
+import { Popover, Typography } from '@mui/material';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { ExpenditureLevel } from '../../../core/enums/expenditure-level.enum';
 
 interface CustomBarChartProps {
   items?: Array<CustomChartItemModel>;
@@ -12,10 +12,16 @@ interface CustomBarChartProps {
   months?: string[]
 }
 
-const COLOR_GREEN = '#1AAB9B';
+const COLOR_GREEN = '#02CB9B';
 const COLOR_RED = '#CB3A0D';
-const COLOR_YELLOW = '#FDC134';
+const COLOR_YELLOW = '#F08B04';
 const COLOR_GRAY = '#D8E0E3';
+
+export const PopoverPaperBar = (isLight: boolean) => ({
+  background: isLight ? 'white' : '#000A13',
+  boxShadow: isLight ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
+  borderRadius: '6px',
+});
 
 export const CustomBarChart = (props: CustomBarChartProps) => {
   if (!props.items) return <span />;
@@ -61,25 +67,42 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
   };
 
   const getColor = (value: number, pos: number): string => {
-    if (!props.maxValues) return COLOR_RED;
+    if (!props.maxValues || props.maxValues.length === 0) return COLOR_RED;
+    if (props.maxValues[pos] === 0) return COLOR_RED;
     const percent = (value * 100) / props.maxValues[pos];
     let color = COLOR_RED;
-
-    if (percent > 50 && percent <= 75) {
-      color = COLOR_YELLOW;
-    }
-
-    if (percent > 75 && percent <= 90) {
-      color = COLOR_GREEN;
-    }
+    if (percent > 0 && percent <= 90) { color = COLOR_GREEN; }
 
     if (percent > 90 && percent <= 100) {
       color = COLOR_YELLOW;
     }
 
+    if (percent > 100) {
+      color = COLOR_RED;
+    }
+
     return color;
   };
 
+  const getExpenditureLevel = (valueActual: number, budgetCapActual: number): string => {
+    if (budgetCapActual === 0) return '';
+    const percent = (valueActual * 100) / budgetCapActual;
+    let expenditureLevel = '';
+    if (percent > 0 && percent <= 75) { expenditureLevel = ExpenditureLevel.LOW; }
+
+    if (percent > 75 && percent <= 90) {
+      expenditureLevel = ExpenditureLevel.OPTIMAL;
+    }
+
+    if (percent > 90 && percent <= 100) {
+      expenditureLevel = ExpenditureLevel.STRETCHED;
+    }
+    if (percent > 100) {
+      expenditureLevel = ExpenditureLevel.OVERBUDGET;
+    }
+
+    return expenditureLevel;
+  };
   return (
     <>
       <Popover
@@ -93,27 +116,30 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
         }}
         disableRestoreFocus
         PaperProps={{
-          style: PopoverPaperStyle(isLight),
+          style: PopoverPaperBar(isLight),
         }}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',
         }}
       >
-        <Container>
-          <Row isLight={isLight}>
-            <b>Month</b>
-            <span>{description?.month}</span>
-          </Row>
-          <Row isLight={isLight}>
-            <b>Actual</b>
-            <span>{description?.actual}</span>
-          </Row>
-          <Row isLight={isLight}>
-            <b>Budget Cap</b>
-            <span>{description?.budgetCap}</span>
-          </Row>
-        </Container>
+
+        {description?.actual !== '0'
+          ? <Container levelExpenditure={getExpenditureLevel(parseFloat(description?.actual || '0'), parseFloat(description?.budgetCap || '0')) as ExpenditureLevel} isLight={isLight}>
+            <Row style={{ marginBottom: '16px' }}>
+              <StyleTypography>{description?.month}</StyleTypography>
+              <StyleLevelExpenditure isLight={isLight} levelExpenditure={getExpenditureLevel(parseFloat(description?.actual || '0'), parseFloat(description?.budgetCap || '0')) as ExpenditureLevel}>{getExpenditureLevel(parseFloat(description?.actual || '0'), parseFloat(description?.budgetCap || '0'))}</StyleLevelExpenditure>
+            </Row>
+            <Row style={{ marginBottom: '4px' }}>
+              <TypographyValue isLight={isLight}>{description?.budgetCap}</TypographyValue>
+              <TypographyValue isLight={isLight} style={{ textAlign: 'right' }}>{description?.actual}</TypographyValue>
+            </Row>
+            <Row>
+              <TypographyDescription isLight={isLight}>Budget Cap</TypographyDescription>
+              <TypographyDescription isLight={isLight}>Actuals</TypographyDescription>
+            </Row>
+          </Container>
+          : <NoDataProvided isLight={isLight}>No Data Provided</NoDataProvided>}
       </Popover>
       <svg
         width={60}
@@ -179,14 +205,74 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
   );
 };
 
-const Container = styled.div({
-  padding: '16px'
+const Container = styled.div<{ levelExpenditure?: ExpenditureLevel, isLight?: boolean }>(({ levelExpenditure, isLight }) => ({
+  padding: '16px',
+  borderRadius: '6px',
+  width: '202px',
+  height: '102px',
+  border: isLight
+    ? (levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL ? '1px solid #6EDBD0' : levelExpenditure === ExpenditureLevel.STRETCHED ? '1px solid #FEDB88' : levelExpenditure === ExpenditureLevel.OVERBUDGET ? '1px solid #F99374' : 'none')
+    : levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL ? '1px solid rgba(0, 237, 24, 0.4)' : levelExpenditure === ExpenditureLevel.STRETCHED ? '1px solid rgba(255, 130, 55, 0.4)' : levelExpenditure === ExpenditureLevel.OVERBUDGET ? '1px solid rgba(255, 64, 133, 0.4)' : 'none',
+}));
+
+const Row = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
 });
 
-const Row = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
-  color: isLight ? '#231536' : '#D2D4EF',
-  display: 'flex',
-  '> b': {
-    marginRight: '8px'
-  }
+const StyleTypography = styled(Typography)({
+  fontFamily: 'FT Base, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 700,
+  fontSize: '12px',
+  lineHeight: '14px',
+  textAlign: 'center',
+  letterSpacing: '1px',
+  textTransform: 'uppercase',
+  color: '#9FAFB9'
+});
+
+const StyleLevelExpenditure = styled(Typography)<{ levelExpenditure: ExpenditureLevel, isLight?: boolean }>(({ levelExpenditure, isLight }) => ({
+  fontFamily: 'SF Pro Text, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 400,
+  fontSize: '11px',
+  lineHeight: '13px',
+  color: isLight
+    ? (levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL
+        ? '#02CB9B'
+        : levelExpenditure === ExpenditureLevel.STRETCHED
+          ? '#F08B04'
+          : '#CB3A0D')
+    : levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL
+      ? '#00ED18'
+      : levelExpenditure === ExpenditureLevel.STRETCHED
+        ? '#FF8237'
+        : '#FF4085',
+}));
+
+const TypographyValue = styled(Typography)<{ isLight?: boolean }>(({ isLight }) => ({
+  fontFamily: 'SF Pro Display,sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 700,
+  fontSize: '16px',
+  lineHeight: '19px',
+  letterSpacing: '0.3px',
+  color: isLight ? '#000000' : '#EDEFFF'
+}));
+
+const TypographyDescription = styled(Typography)<{ isLight?: boolean }>(({ isLight }) => ({
+  fontFamily: 'FT Base,sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 400,
+  fontSize: '14px',
+  lineHeight: '17px',
+  color: isLight ? '#231536' : '#9FAFB9;'
+}));
+
+const NoDataProvided = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
+  padding: '16px',
+  borderRadius: '6px',
+  color: isLight ? '#231536' : '#D2D4EF'
 }));
