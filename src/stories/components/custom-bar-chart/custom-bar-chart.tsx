@@ -67,7 +67,8 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
   };
 
   const getColor = (value: number, pos: number): string => {
-    if (!props.maxValues || props.maxValues.length === 0 || pos === 0) return COLOR_RED;
+    if (!props.maxValues || props.maxValues.length === 0) return COLOR_RED;
+    if (props.maxValues[pos] === 0) return COLOR_RED;
     const percent = (value * 100) / props.maxValues[pos];
     let color = COLOR_RED;
     if (percent > 0 && percent <= 90) { color = COLOR_GREEN; }
