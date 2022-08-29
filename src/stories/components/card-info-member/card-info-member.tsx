@@ -40,9 +40,9 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
               },
             }}
             avatar={<CircleAvatar
-              width="48px"
-              height="48px"
-              style={{ marginRight: '24px' }}
+              width="54px"
+              height="54px"
+              style={{ marginRight: '21px' }}
               name={contributor?.name}
               image={contributor?.facilitatorImage}
               border="3px solid #E7FCFA"
