@@ -121,7 +121,7 @@ export const TransparencyReport = ({
   }, [setCurrentMonth, currentMonth]);
 
   const hasNextMonth = () => {
-    const limit = DateTime.now().plus({ month: 12 });
+    const limit = DateTime.now().plus({ month: 3 });
     return currentMonth.startOf('month') < limit.startOf('month');
   };
 
