@@ -11,7 +11,7 @@ interface SearchInputProps {
   onChange?: (text: string) => void;
   style?: CSSProperties;
   handleCloseSearch?: () => void
-  inputRef?: React.LegacyRef<HTMLInputElement>
+  inputRef?: React.RefObject<HTMLInputElement>
 }
 
 export const SearchInput = (props: SearchInputProps) => {
