@@ -21,6 +21,8 @@ import { formatCode } from '../../../core/utils/string.utils';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SEOHead } from '../../components/seo-head/seo-head';
 import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
+import { getLast3MonthsWithData } from '../../../core/business-logic/core-units';
+import { last } from 'lodash';
 
 const colors: { [key: string]: string } = {
   Draft: '#7C6B95',
@@ -91,8 +93,14 @@ export const TransparencyReport = ({
     if (viewMonthStr) {
       const month = DateTime.fromFormat(viewMonthStr as string, 'LLLyyyy');
       setCurrentMonth(month);
+    } else {
+      const month = last(getLast3MonthsWithData(cu?.budgetStatements));
+
+      if (month) {
+        setCurrentMonth(month);
+      }
     }
-  }, []);
+  }, [router.route, router.query]);
 
   const replaceViewMonthRoute = (viewMonth: string) => {
     router.replace({
