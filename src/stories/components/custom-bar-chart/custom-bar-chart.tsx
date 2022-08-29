@@ -124,20 +124,22 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
         }}
       >
 
-        <Container levelExpenditure={getExpenditureLevel(parseFloat(description?.actual || ''), parseFloat(description?.budgetCap || ''))} isLight={isLight}>
-          <Row style={{ marginBottom: '16px' }}>
-            <StyleTypography>{description?.month}</StyleTypography>
-            <StyleLevelExpenditure isLight={isLight} levelExpenditure={getExpenditureLevel(parseFloat(description?.actual || ''), parseFloat(description?.budgetCap || ''))}>{getExpenditureLevel(parseFloat(description?.actual || ''), parseFloat(description?.budgetCap || ''))}</StyleLevelExpenditure>
-          </Row>
-          <Row style={{ marginBottom: '4px' }}>
-            <TypographyValue isLight={isLight}>{description?.budgetCap}</TypographyValue>
-            <TypographyValue isLight={isLight} style={{ textAlign: 'right' }}>{description?.actual}</TypographyValue>
-          </Row>
-          <Row>
-            <TypographyDescription>Budget Cap</TypographyDescription>
-            <TypographyDescription>Actuals</TypographyDescription>
-          </Row>
-        </Container>
+        {parseFloat(description?.actual || '') !== 0
+          ? <Container levelExpenditure={getExpenditureLevel(parseFloat(description?.actual || ''), parseFloat(description?.budgetCap || ''))} isLight={isLight}>
+            <Row style={{ marginBottom: '16px' }}>
+              <StyleTypography>{description?.month}</StyleTypography>
+              <StyleLevelExpenditure isLight={isLight} levelExpenditure={getExpenditureLevel(parseFloat(description?.actual || ''), parseFloat(description?.budgetCap || ''))}>{getExpenditureLevel(parseFloat(description?.actual || ''), parseFloat(description?.budgetCap || ''))}</StyleLevelExpenditure>
+            </Row>
+            <Row style={{ marginBottom: '4px' }}>
+              <TypographyValue isLight={isLight}>{description?.budgetCap}</TypographyValue>
+              <TypographyValue isLight={isLight} style={{ textAlign: 'right' }}>{description?.actual}</TypographyValue>
+            </Row>
+            <Row>
+              <TypographyDescription isLight={isLight}>Budget Cap</TypographyDescription>
+              <TypographyDescription isLight={isLight}>Actuals</TypographyDescription>
+            </Row>
+          </Container>
+          : <NoDataProvided isLight={isLight}>No Data Provided</NoDataProvided>}
       </Popover>
       <svg
         width={60}
@@ -259,4 +261,10 @@ const TypographyDescription = styled(Typography)<{ isLight?: boolean }>(({ isLig
   fontSize: '14px',
   lineHeight: '17px',
   color: isLight ? '#231536' : '#9FAFB9;'
+}));
+
+const NoDataProvided = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
+  padding: '16px',
+  borderRadius: '6px',
+  color: isLight ? '#231536' : '#D2D4EF'
 }));
