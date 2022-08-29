@@ -119,6 +119,7 @@ export const CoreUnitCard = ({
                     percent={getPercentFromCoreUnit(coreUnit)}
                     items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
                     budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
+                    months={getLast3MonthsWithDataFormatted(coreUnit)}
                   />
                 </Expenditure>
               </a>
