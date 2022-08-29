@@ -20,7 +20,6 @@ export const CuTableHeaderSkeleton = () => {
       />
       <Filters>
         <Skeleton
-          className="hello"
           variant="rectangular"
           width={119}
           height={48}
