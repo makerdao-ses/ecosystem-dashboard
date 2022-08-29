@@ -171,7 +171,7 @@ const TypographyName = styled(Typography)<{ isLight: boolean }>(({ isLight }) =>
   fontWeight: 500,
   letterSpacing: '0.3px',
   paddingBottom: '8px',
-  fontFamily: 'SF Pro Text, sans-serif',
+  fontFamily: 'SF Pro Display, sans-serif',
 }));
 
 export default CardInfoMember;
