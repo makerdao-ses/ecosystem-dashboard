@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
