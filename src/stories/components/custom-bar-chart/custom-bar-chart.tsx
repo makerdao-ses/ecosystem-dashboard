@@ -67,7 +67,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
   };
 
   const getColor = (value: number, pos: number): string => {
-    if (!props.maxValues || props.maxValues.length === 0) return COLOR_RED;
+    if (!props.maxValues || props.maxValues.length === 0 || pos === 0) return COLOR_RED;
     const percent = (value * 100) / props.maxValues[pos];
     let color = COLOR_RED;
     if (percent > 0 && percent <= 90) { color = COLOR_GREEN; }
@@ -239,8 +239,16 @@ const StyleLevelExpenditure = styled(Typography)<{ levelExpenditure: Expenditure
   fontSize: '11px',
   lineHeight: '13px',
   color: isLight
-    ? (levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL ? '#02CB9B' : levelExpenditure === ExpenditureLevel.STRETCHED ? '#F08B04' : '#CB3A0D')
-    : levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL ? '#00ED18' : levelExpenditure === ExpenditureLevel.STRETCHED ? '#FF8237' : '#FF4085',
+    ? (levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL
+        ? '#02CB9B'
+        : levelExpenditure === ExpenditureLevel.STRETCHED
+          ? '#F08B04'
+          : '#CB3A0D')
+    : levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL
+      ? '#00ED18'
+      : levelExpenditure === ExpenditureLevel.STRETCHED
+        ? '#FF8237'
+        : '#FF4085',
 }));
 
 const TypographyValue = styled(Typography)<{ isLight?: boolean }>(({ isLight }) => ({
