@@ -24,7 +24,7 @@ export const CuTableColumnTeamMember = ({
     ? (
     <Container className="TeamMembers">
       <CustomPopover
-        title={'Full Time Employees'}
+        title={'Full-Time Equivalents'}
         id={'popover-fulltime-equivalents'}
         popupStyle={{
           padding: '16px',

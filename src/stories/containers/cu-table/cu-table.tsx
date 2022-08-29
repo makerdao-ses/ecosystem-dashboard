@@ -51,7 +51,6 @@ import { CoreUnitCard } from '../../components/core-unit-card/core-unit-card';
 import { Filters } from './cu-table-filters';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { CategoryChip } from '../../components/category-chip/category-chip';
 import { TablePlaceholder } from '../../components/custom-table/placeholder';
 import { CuTableHeaderSkeleton } from '../../components/cu-table-header-skeleton/header-skeleton';
 import { SEOHead } from '../../components/seo-head/seo-head';
@@ -233,36 +232,7 @@ export const CuTable = () => {
           mipUrl={getMipUrlFromCoreUnit(coreUnit)}
           onClick={onClickRow(coreUnit.shortCode)}
           code={formatCode(coreUnit.shortCode)}
-          popupChild={
-            <>
-              <CuTableColumnSummary
-                title={coreUnit.name}
-                status={
-                  getLatestMip39FromCoreUnit(coreUnit)
-                    ?.mipStatus as CuStatusEnum
-                }
-                statusModified={getSubmissionDateFromCuMip(
-                  getLatestMip39FromCoreUnit(coreUnit)
-                )}
-                imageUrl={coreUnit.image}
-                mipUrl={getMipUrlFromCoreUnit(coreUnit)}
-                onClick={onClickRow(coreUnit.shortCode)}
-                code={formatCode(coreUnit.shortCode)}
-                logoDimension={'68px'}
-                style={{
-                  width: '372px',
-                }}
-              />
-              <Padded>
-                <CategoriesTitle>Categories</CategoriesTitle>
-                <CategoriesRow>
-                  {coreUnit?.category?.map((cat) => (
-                    <CategoryChip category={cat} />
-                  ))}
-                </CategoriesRow>
-              </Padded>
-            </>
-          }
+          categories={coreUnit?.category}
         />,
         <div
           key={`expenditures-${i}`}
@@ -347,11 +317,9 @@ export const CuTable = () => {
       <CoreUnitCard
         key={`card-${cu.code}`}
         coreUnit={cu}
-        onClick={onClickRow(cu.shortCode)}
-        onClickFinances={() => onClickFinances(cu.shortCode)}
       />
     ));
-  }, [filteredData, onClickRow]);
+  }, [filteredData]);
 
   const siteHeader = useMemo(() => {
     if (status === 'loading') {
@@ -513,24 +481,6 @@ const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     lineHeight: '24px',
   },
 }));
-
-const CategoriesTitle = styled.div({
-  fontFamily: 'SF Pro Display',
-  fontWeight: 400,
-  fontSize: '14px',
-  color: '#708390',
-  marginBottom: '8px',
-  lineHeight: '22px',
-});
-
-const CategoriesRow = styled.div({
-  display: 'flex',
-  gap: '16px',
-});
-
-const Padded = styled.div({
-  padding: '0 16px 16px',
-});
 
 const FilterButtonWrapper = styled.div({
   display: 'flex',

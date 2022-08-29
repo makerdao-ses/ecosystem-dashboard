@@ -27,7 +27,7 @@ export const CuTableColumnExpenditures = ({
       <Container>
         <DataWrapper>
           <Data>
-            <Title isLight={isLight}>Last 3 Months</Title>
+            <Title isLight={isLight}>Latest 3 Months</Title>
             <CustomPopover
               id="mouse-over-popover-total"
               title={
