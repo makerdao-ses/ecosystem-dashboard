@@ -22,7 +22,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SEOHead } from '../../components/seo-head/seo-head';
 import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
 import { getLast3MonthsWithData } from '../../../core/business-logic/core-units';
-import { last } from 'lodash';
+import last from 'lodash/last';
 
 const colors: { [key: string]: string } = {
   Draft: '#7C6B95',

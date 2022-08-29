@@ -2,7 +2,7 @@ import React, { CSSProperties, useState } from 'react';
 import { getColorForString } from '../../../core/utils/color.utils';
 import { Theme, useTheme } from '@mui/material';
 import { getTwoInitials } from '../../../core/utils/string.utils';
-import { padEnd } from 'lodash';
+import padEnd from 'lodash/padEnd';
 import Identicon from 'identicon.js';
 
 interface CircleAvatarProps {
