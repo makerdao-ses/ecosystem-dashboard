@@ -6,6 +6,7 @@ import Markdown from 'marked-react';
 import { customRenderer, customRendererDark } from './renderUtils';
 import { CustomButton } from '../custom-button/custom-button';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import lightTheme from '../../../../styles/theme/light';
 
 export type MarkDownHeaders = {
   level: number;
@@ -61,25 +62,25 @@ const MdViewerPage = ({ subTitle = 'What we do', paragraphDescription, paragraph
     <ViewerContainer>
       {showButton
         ? <ContainerResponsive>
-          <TypographyStyleDescription isLight={isLight} id='hidden-element'>{subTitle}</TypographyStyleDescription>
-          <CustomButton widthText='100%' label='Expenses' style={{
-            textAlign: 'center',
-            background: isLight ? '#E7FCFA' : 'transparent',
-            border: '1px solid #1AAB9B',
-            borderRadius: '22px',
-            height: '34px',
-            color: '#1AAB9B',
-            fontFamily: 'SF Pro Text, sans serif',
-            fontStyle: 'normal',
-            fontWeight: 500,
-            fontSize: '14px',
-            lineHeight: '18px',
-            width: 'fit-content',
-            padding: '8px 24px'
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
-          }} onClick={onClick} styleText={{
-            color: '#1AAB9B',
-          }} />
+            <TypographyStyleDescription isLight={isLight} id='hidden-element'>{subTitle}</TypographyStyleDescription>
+            <CustomButton widthText='100%' label='Expenses' style={{
+              textAlign: 'center',
+              background: isLight ? '#E7FCFA' : 'transparent',
+              border: '1px solid #1AAB9B',
+              borderRadius: '22px',
+              height: '34px',
+              color: '#1AAB9B',
+              fontFamily: 'SF Pro Text, sans serif',
+              fontStyle: 'normal',
+              fontWeight: 500,
+              fontSize: '14px',
+              lineHeight: '18px',
+              width: 'fit-content',
+              padding: '8px 24px'
+              // eslint-disable-next-line @typescript-eslint/no-empty-function
+            }} onClick={onClick} styleText={{
+              color: '#1AAB9B',
+            }} />
         </ContainerResponsive>
         : <TypographyStyleDescription isLight={isLight} id='hidden-element'>{subTitle}</TypographyStyleDescription>}
       {paragraphDescription && isLight
@@ -131,7 +132,10 @@ const TypographyStyleDescription = styled(Typography)<{ isLight: boolean }>(({ i
   fontSize: '20px',
   lineHeight: isLight ? '19px' : '24px',
   color: isLight ? '#231536' : ' #D2D4EF;',
-  marginBottom: '16px'
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginBottom: '16px'
+  },
 }));
 
 const ContainerResponsive = styled.div({
@@ -139,5 +143,5 @@ const ContainerResponsive = styled.div({
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
-
+  marginBottom: '16px',
 });

@@ -2,9 +2,11 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Skeleton from '@mui/material/Skeleton';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import lightTheme from '../../../../styles/theme/light';
 
 export const CuTableHeaderSkeleton = () => {
   const isLight = useThemeContext().themeMode === 'light';
+
   return (
     <Container>
       <Skeleton
@@ -24,7 +26,6 @@ export const CuTableHeaderSkeleton = () => {
           style={{
             borderRadius: '8px',
             background: isLight ? '#ECF1F3' : '#1E2C37',
-            marginRight: '8px',
           }}
         />
         <Skeleton
@@ -34,26 +35,29 @@ export const CuTableHeaderSkeleton = () => {
           style={{
             borderRadius: '8px',
             background: isLight ? '#ECF1F3' : '#1E2C37',
-            marginRight: '16px',
+            marginLeft: '8px',
           }}
         />
         <Skeleton
+          className="hiddenOnTablet"
           variant="rectangular"
           width={145}
           height={48}
           style={{
             borderRadius: '8px',
             background: isLight ? '#ECF1F3' : '#1E2C37',
-            marginRight: '30px',
+            marginLeft: '16px',
           }}
         />
         <Skeleton
+          className="hiddenOnTablet"
           variant="rectangular"
           width={320}
           height={48}
           style={{
             borderRadius: '8px',
             background: isLight ? '#ECF1F3' : '#1E2C37',
+            marginLeft: '30px',
           }}
         />
       </Filters>
@@ -65,8 +69,33 @@ const Container = styled.div({
   display: 'flex',
   marginBottom: 32,
   justifyContent: 'space-between',
+
+  [lightTheme.breakpoints.down('table_834')]: {
+    '& span': {
+      width: '120px!important',
+    }
+  },
+  [lightTheme.breakpoints.between('table_834', 1181)]: {
+    flexWrap: 'wrap',
+  },
 });
 
 const Filters = styled.div({
   display: 'flex',
+
+  [lightTheme.breakpoints.between('table_834', 1181)]: {
+    width: '100%',
+    justifyContent: 'end',
+    marginTop: '24px',
+  },
+
+  '& span': {
+    [lightTheme.breakpoints.down('table_834')]: {
+      width: '90px!important',
+
+      '&.hiddenOnTablet': {
+        display: 'none',
+      },
+    },
+  },
 });

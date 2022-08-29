@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Typography } from '@mui/material';
+import { Typography, useMediaQuery } from '@mui/material';
 import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
@@ -27,6 +27,7 @@ interface Props {
 
 const RelateMips = ({ relateMips }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
+  const isTable = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const mips = getMipsStatus(relateMips || '');
   const mipStatus = relateMips.mipStatus;
   const newDate = mips ? DateTime.fromFormat(mips || '', 'yyyy-MM-dd').toJSDate() : null;
@@ -65,7 +66,7 @@ const RelateMips = ({ relateMips }: Props) => {
             fontFamily: 'SF Pro Display, sans-serif',
             fontStyle: 'normal',
             fontWeight: 500,
-            fontSize: '16px',
+            fontSize: isTable ? '14px' : '16px',
             lineHeight: '19px',
             letterSpacing: '0.3px',
             color: '#447AFB'
@@ -134,7 +135,7 @@ const ContainerIconTypography = styled.div({
 });
 
 const StyleMipNumber = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
-  fontSize: '16px',
+  fontSize: '14px',
   minWidth: '135px',
   display: 'inline-block',
   marginRight: '4px',
@@ -142,5 +143,9 @@ const StyleMipNumber = styled(Typography)<{ isLight: boolean }>(({ isLight }) =>
   color: isLight ? '#231536' : '#D2D4EF',
   fontWeight: 600,
   paddingTop: '3px',
-  lineHeight: '22px'
+  lineHeight: '22px',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: '16px',
+  },
 }));

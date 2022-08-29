@@ -270,6 +270,7 @@ const ContainerCards = styled.div({
   alignItems: 'flex-start',
   flexWrap: 'wrap',
   padding: '0px',
+  marginBottom: '32px',
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     maxWidth: '100%',
     display: 'flex',
@@ -303,12 +304,19 @@ const CardRelateMipsContainer = styled.div({
 });
 
 const TitleRelateMips = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontStyle: 'normal',
-  fontWeight: 700,
-  fontSize: '16px',
-  lineHeight: '19px',
+  fontFamily: 'SF Pro Text, sans-serif',
+  fontWeight: 600,
+  fontSize: '14px',
+  lineHeight: '18px',
   marginBottom: '32px',
   color: isLight ? '#231536' : '#D2D4EF',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontFamily: 'FT Base, sans-serif',
+    fontWeight: 700,
+    fontSize: '16px',
+    lineHeight: '19.2px',
+  },
 }));
 
 const RelateMipCards = styled.div({
