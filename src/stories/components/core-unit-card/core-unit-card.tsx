@@ -8,6 +8,7 @@ import {
   getFacilitatorsFromCoreUnit,
   getFTEsFromCoreUnit,
   getLast3ExpenditureValuesFromCoreUnit,
+  getLast3MonthsWithDataFormatted,
   getLatestMip39FromCoreUnit,
   getLinksFromCoreUnit,
   getMipUrlFromCoreUnit,
@@ -118,6 +119,7 @@ export const CoreUnitCard = ({
                     percent={getPercentFromCoreUnit(coreUnit)}
                     items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
                     budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
+                    months={getLast3MonthsWithDataFormatted(coreUnit)}
                   />
                 </Expenditure>
               </a>

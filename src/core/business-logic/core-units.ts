@@ -247,7 +247,7 @@ export const getLast3MonthsWithData = (budgetStatements: BudgetStatementDto[]) =
 
   for (const bs of orderedStatements) {
     for (const wallet of bs.budgetStatementWallet) {
-      for (const item of wallet.budgetStatementLineItem) {
+      for (const item of wallet.budgetStatementLineItem.filter(li => li.month === bs.month)) {
         if (item.actual) {
           const date = DateTime.fromFormat(bs.month, 'yyyy-MM-dd');
 
