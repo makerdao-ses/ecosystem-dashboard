@@ -13,7 +13,7 @@ const TeamMember = ({ fte }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
   return <Container>
     <CustomPopover
-      title={'FTE = Permanent contributor fulltime equivalent'}
+      title={'Full-Time Equivalents'}
       id={'popover-fulltime equivalent'}
     >
       <Data>
