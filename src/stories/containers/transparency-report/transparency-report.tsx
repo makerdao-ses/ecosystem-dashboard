@@ -371,6 +371,7 @@ const PagerBarLeft = styled.div({
 const StatusBar = styled.div({
   display: 'flex',
   alignItems: 'center',
+  visibility: 'hidden',
 });
 
 const StatusTitle = styled.div<{ isLight: boolean }>(({ isLight }) => ({

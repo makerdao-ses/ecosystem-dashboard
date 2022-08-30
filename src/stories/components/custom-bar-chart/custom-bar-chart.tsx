@@ -158,7 +158,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
               y="5"
               width="12"
               rx="1"
-              aria-aria-describedby="id"
+              aria-describedby="id"
               height={
                 isValueValid(item.value) ? calculateHeight(item.value) : 16
               }

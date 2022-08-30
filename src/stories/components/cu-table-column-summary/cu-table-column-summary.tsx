@@ -94,7 +94,7 @@ export const CuTableColumnSummary = ({
                 <CategoriesTitle>Categories</CategoriesTitle>
                 <CategoriesRow>
                   {props.categories?.map((cat) => (
-                    <CategoryChip category={cat} />
+                    <CategoryChip category={cat} key={cat} />
                   ))}
                 </CategoriesRow>
               </Padded>
@@ -138,7 +138,6 @@ export const CuTableColumnSummary = ({
                     display: 'flex',
                     alignItems: 'flex-end',
                     margin: '0 0 2px 4px',
-                    paddingRight: '4px',
                   }}
                   styleIcon={{
                     marginBottom: upPhone ? '5.1px' : '4.5px',

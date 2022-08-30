@@ -27,10 +27,7 @@ export const CustomPager = (props: CustomPagerProps) => {
 const Container = styled.div({
   display: 'flex',
   alignItems: 'center',
-  flexDirection: 'row-reverse',
-  '@media (min-width: 834px)': {
-    flexDirection: 'row'
-  }
+  flexDirection: 'row',
 });
 
 const Label = styled.div({
@@ -40,7 +37,7 @@ const Label = styled.div({
   lineHeight: '19px',
   letterSpacing: '0.4px',
   color: '#9FAFB9',
-  marginRight: '16px',
+  marginLeft: '16px',
   '@media (min-width: 834px)': {
     fontSize: '20px',
     lineHeight: '24px',
@@ -52,11 +49,11 @@ const Arrows = styled.div({
   display: 'flex',
   alignItems: 'center',
   marginTop: '4px',
+  gap: '8px'
 });
 
 const IconWrapper = styled.div<{disabled?: boolean}>(({ disabled = false }) => ({
   display: 'flex',
   alignItems: 'center',
-  marginRight: '8px',
   cursor: disabled ? 'default' : 'pointer'
 }));

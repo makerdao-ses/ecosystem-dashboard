@@ -66,9 +66,6 @@ export const CustomTable = ({
               {row.map((item, j) => (
                 <TableCell
                   key={`${i}-${j}`}
-                  onClick={() => {
-                    console.log(item);
-                  }}
                 >
                   {item}
                 </TableCell>
