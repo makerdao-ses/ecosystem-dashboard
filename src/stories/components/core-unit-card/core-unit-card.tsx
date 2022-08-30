@@ -131,14 +131,14 @@ export const CoreUnitCard = ({
           <Line isLight={isLight} />
           {!isLoading
             ? (
-            <Categories>
-              {coreUnit.category?.map((category) => (
-                <CategoryChip key={category} category={category} />
-              ))}
-            </Categories>
+              <Categories>
+                {coreUnit.category?.map((category) => (
+                  <CategoryChip key={category} category={category} />
+                ))}
+              </Categories>
               )
             : (
-            <CategoriesSkeleton />
+              <CategoriesSkeleton />
               )}
           <Links>
             <CuTableColumnLinks
@@ -219,8 +219,9 @@ const Expenditure = styled.div({
 const Team = styled.div({
   gridArea: 'team',
   paddingTop: '32px',
-  '@media (min-width: 435px) and (max-width: 685px)': {
+  '@media (min-width: 375px) and (max-width: 685px)': {
     paddingTop: '19px',
+    textAlign: 'end'
   },
   '@media (min-width: 834px)': {
     paddingTop: '0',
