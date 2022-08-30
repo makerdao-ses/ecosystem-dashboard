@@ -22,9 +22,9 @@ interface TransparencyTransferRequestProps {
 const headers = [
   'Wallet',
   '3 Month Forecast',
-  'current Balance',
+  'Current Balance',
   'Transfer Request',
-  'Multi Sig Address',
+  'External Links',
 ];
 
 export const TransparencyTransferRequest = (
