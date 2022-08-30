@@ -40,9 +40,9 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
               },
             }}
             avatar={<CircleAvatar
-              width="48px"
-              height="48px"
-              style={{ marginRight: '24px' }}
+              width="54px"
+              height="54px"
+              style={{ marginRight: '21px' }}
               name={contributor?.name}
               image={contributor?.facilitatorImage}
               border="3px solid #E7FCFA"
@@ -171,7 +171,7 @@ const TypographyName = styled(Typography)<{ isLight: boolean }>(({ isLight }) =>
   fontWeight: 500,
   letterSpacing: '0.3px',
   paddingBottom: '8px',
-  fontFamily: 'SF Pro Text, sans-serif',
+  fontFamily: 'SF Pro Display, sans-serif',
 }));
 
 export default CardInfoMember;

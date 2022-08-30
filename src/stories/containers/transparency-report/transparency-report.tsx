@@ -147,7 +147,7 @@ export const TransparencyReport = ({
         description={`Learn about the ${cu.name} Core Unit at MakerDAO: their finances, expense reports, and more.`}
         image={cu.image || '/favicon-192.png'}
       />
-      <CoreUnitSummary trailingAddress={['Expense Reports']} />
+      <CoreUnitSummary trailingAddress={['Expense Reports']} breadcrumbTitle="Expense Reports" />
       <Container isLight={isLight}>
         <InnerPage>
           <Title isLight={isLight}>Expense Reports</Title>
