@@ -62,7 +62,7 @@ export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
       </Title>
 
       <TotalFte isLight={isLight}>
-        <span>Total FTE</span>
+        <span>Total FTEs</span>
         <u>{FTEs}</u>
       </TotalFte>
 
