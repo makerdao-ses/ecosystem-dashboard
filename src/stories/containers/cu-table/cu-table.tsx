@@ -327,7 +327,7 @@ export const CuTable = () => {
     }
     return (
       <Header>
-        <Title isLight={isLight}> Core Unit</Title>
+        <Title isLight={isLight}> Core Units</Title>
         <FilterButtonWrapperMobile>
           <CustomButton
             label="Reset Filters"
