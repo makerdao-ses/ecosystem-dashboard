@@ -1,7 +1,10 @@
-import React, { CSSProperties, useEffect } from 'react';
+import React, { CSSProperties, useEffect, useState } from 'react';
 import { Popover } from '@mui/material';
 import styled from '@emotion/styled';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { useAppDispatch } from '../../../core/hooks/hooks';
+import { getPopoverOpen, openPopover } from './custom-popover.slice';
+import { store } from '../../../core/store/store';
 
 interface CustomPopoverProps {
   title?: JSX.Element | string;
@@ -30,20 +33,32 @@ export const CustomPopover = ({
     horizontal: 'center',
   }, ...props
 }: CustomPopoverProps) => {
+  const dispatch = useAppDispatch();
+  const state = store.getState();
+  const idPopoverOpenState = getPopoverOpen(state);
   const isLight = useThemeContext().themeMode === 'light';
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const [leaveTimeout, setLeaveTimeout] = React.useState<NodeJS.Timeout>();
+  const [openIdPopover, setOpenIdPopover] = useState('');
 
-  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
+  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>, id: string) => {
+    setOpenIdPopover(id);
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     document.querySelector('body').onscroll = () => handlePopoverClose;
     setAnchorEl(event.currentTarget);
     document.addEventListener('visibilitychange', handleLoseFocus);
+    dispatch(openPopover(props.id));
   };
 
+  useEffect(() => {
+    if (idPopoverOpenState !== props.id) {
+      handlePopoverClose();
+    }
+  }, [idPopoverOpenState, props.id]);
   const handlePopoverClose = () => {
     setAnchorEl(null);
+    setOpenIdPopover('');
   };
 
   useEffect(() => {
@@ -53,19 +68,18 @@ export const CustomPopover = ({
   }, []);
   const handleLoseFocus = () => {
     setAnchorEl(null);
+    setOpenIdPopover('');
   };
   useEffect(() => {
     return () => document.removeEventListener('visibilitychange', handleLoseFocus);
   }, []);
-
-  const open = Boolean(anchorEl);
 
   return <React.Fragment>
     <div
       style={props.css}
       aria-owns={props.id}
       aria-haspopup="true"
-      onMouseEnter={handlePopoverOpen}
+      onMouseEnter={(e) => handlePopoverOpen(e, props.id)}
       onClick={handlePopoverClose}
       onMouseLeave={() => {
         if (leaveOnChildrenMouseOut) {
@@ -83,7 +97,7 @@ export const CustomPopover = ({
       sx={{
         pointerEvents: 'none',
       }}
-      open={open}
+      open={openIdPopover === props.id}
       anchorEl={anchorEl}
       anchorOrigin={anchorOrigin}
       transformOrigin={{
