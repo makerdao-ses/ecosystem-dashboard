@@ -18,9 +18,10 @@ import { sortData } from '../../containers/cu-table/cu-table';
 
 interface CoreUnitSummaryProps {
   trailingAddress?: string[];
+  breadcrumbTitle?: string;
 }
 
-export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) => {
+export const CoreUnitSummary = ({ trailingAddress = [], breadcrumbTitle }: CoreUnitSummaryProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const lessThanPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
@@ -86,46 +87,64 @@ export const CoreUnitSummary = ({ trailingAddress = [] }: CoreUnitSummaryProps) 
     [code, filteredData, router]);
 
   return <Container ref={ref} isLight={isLight}>
-    {!(phone || lessThanPhone) && <NavigationHeader className="no-select" isLight={isLight}>
-      <Breadcrumbs items={[
-        {
-          label: <CoreUnitStyle isLight={isLight}>Core Units <b>({filteredData.length})</b></CoreUnitStyle>,
-          url: `/${queryStrings}`
-        },
-        {
-          label: buildCULabel(),
-          url: `/core-unit/${code}/${queryStrings}`
-        },
-        ...trailingAddress.map(adr => ({
-          label: adr,
-          url: ''
-        }))
-      ]} />
-      <InsidePagination count={filteredData.length} page={page} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} />
-    </NavigationHeader>}
-    {(phone || lessThanPhone) && <div style={{
-      margin: '16px',
-    }}><div>
+    {!(phone || lessThanPhone) && (
+      <NavigationHeader className="no-select" isLight={isLight}>
+        <Breadcrumbs items={[
+          {
+            label: <CoreUnitStyle isLight={isLight}>Core Units <b>({filteredData.length})</b></CoreUnitStyle>,
+            url: `/${queryStrings}`
+          },
+          {
+            label: buildCULabel(),
+            url: `/core-unit/${code}/${queryStrings}`
+          },
+          ...trailingAddress.map(adr => ({
+            label: adr,
+            url: router.asPath
+          }))
+        ]} />
+        <InsidePagination
+          count={filteredData.length}
+          page={page}
+          onClickLeft={changeCoreUnitCode(-1)}
+          onClickRight={changeCoreUnitCode(1)}
+        />
+      </NavigationHeader>
+    )}
+    {(phone || lessThanPhone) && (
+    <div style={{ margin: '16px' }}>
+      <div>
         <BreadCrumbMobile
           items={[
+            ...trailingAddress.map(adr => ({
+              style: breadcrumbTitle === adr
+                ? { color: isLight ? '#25273D' : '#D2D4EF' }
+                : undefined,
+              label: adr,
+              url: router.asPath
+            })),
             {
-              style: {
-                color: isLight ? '#25273D' : '#D2D4EF',
-              },
+              style: [buildCULabel(), undefined].includes(breadcrumbTitle)
+                ? { color: isLight ? '#25273D' : '#D2D4EF' }
+                : undefined,
               label: buildCULabel(),
               url: `/core-unit/${code}/${queryStrings}`
             },
-            ...trailingAddress.map(adr => ({
-              label: adr,
-              url: ''
-            })),
+
             {
               label: <span >Core Units <Value isLight={isLight}>({page})</Value></span>,
               url: `/${queryStrings}`
             },
           ]}
-          title={buildCULabel()} count={filteredData.length} onClickLeft={changeCoreUnitCode(-1)} onClickRight={changeCoreUnitCode(1)} page={page} /></div>
-    </div>}
+          title={breadcrumbTitle || buildCULabel()}
+          count={filteredData.length}
+          onClickLeft={changeCoreUnitCode(-1)}
+          onClickRight={changeCoreUnitCode(1)}
+          page={page}
+        />
+      </div>
+    </div>
+    )}
 
     <Wrapper>
       <ContainerTitle>
