@@ -22,7 +22,7 @@ export const customRenderer = {
       backgroundColor: 'transparent',
       color: '#231536',
       lineHeight: '19px',
-      fontFamily: 'FT Base, sans-serif',
+      fontFamily: 'FT Base, sans-serif'
     }} key={Math.random()}>{text}</ResponsiveList>;
   },
   listitem(text: string) {
@@ -109,6 +109,16 @@ const ResponsiveParagraph = styled.p({
 });
 
 const ResponsiveList = styled.ul({
+  '& li': {
+    '& ul': {
+      marginTop: '2em',
+    },
+
+    '&:not(:last-child) ul': {
+      marginBottom: '2em',
+    },
+  },
+
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     fontSize: '14px',
     lineHeight: '17px',
