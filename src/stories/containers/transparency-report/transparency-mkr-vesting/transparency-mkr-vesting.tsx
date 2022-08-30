@@ -162,8 +162,6 @@ const ContainerPopover = styled.div({
   display: 'flex',
   flex: 1,
   alignItems: 'center',
-  fontWeight: 400,
   cursor: 'pointer',
   marginBottom: '36px',
-
 });
