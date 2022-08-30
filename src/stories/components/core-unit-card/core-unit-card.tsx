@@ -89,70 +89,66 @@ export const CoreUnitCard = ({
   return (
     <CuCard>
       <Link href={`/core-unit/${coreUnit.shortCode}${queryStrings}`}>
-        <a>
-          <Container isLight={isLight}>
-            <Summary>
-              <Title hideSmall>Core Unit</Title>
-              <CuTableColumnSummary
-                title={coreUnit?.name}
-                status={
-                  getLatestMip39FromCoreUnit(coreUnit)
-                    ?.mipStatus as CuStatusEnum
-                }
-                statusModified={getSubmissionDateFromCuMip(
-                  getLatestMip39FromCoreUnit(coreUnit)
-                )}
-                imageUrl={coreUnit?.image}
-                mipUrl={getMipUrlFromCoreUnit(coreUnit)}
-                code={formatCode(coreUnit.code)}
-                categories={coreUnit.category}
+        <Container isLight={isLight}>
+          <Summary>
+            <Title hideSmall>Core Unit</Title>
+            <CuTableColumnSummary
+              title={coreUnit?.name}
+              status={
+                getLatestMip39FromCoreUnit(coreUnit)
+                  ?.mipStatus as CuStatusEnum
+              }
+              statusModified={getSubmissionDateFromCuMip(
+                getLatestMip39FromCoreUnit(coreUnit)
+              )}
+              imageUrl={coreUnit?.image}
+              mipUrl={getMipUrlFromCoreUnit(coreUnit)}
+              code={formatCode(coreUnit.code)}
+              categories={coreUnit.category}
+            />
+          </Summary>
+          <Link
+            href={`/core-unit/${coreUnit.shortCode}/finances/reports${queryStrings}`}
+          >
+            <Expenditure>
+              <Title style={{ marginBottom: '11px' }}>Expenditure</Title>
+              <CuTableColumnExpenditures
+                value={getExpenditureValueFromCoreUnit(coreUnit)}
+                percent={getPercentFromCoreUnit(coreUnit)}
+                items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
+                budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
+                months={getLast3MonthsWithDataFormatted(coreUnit)}
               />
-            </Summary>
-            <Link
-              href={`/core-unit/${coreUnit.shortCode}/finances/reports${queryStrings}`}
-            >
-              <a>
-                <Expenditure>
-                  <Title style={{ marginBottom: '11px' }}>Expenditure</Title>
-                  <CuTableColumnExpenditures
-                    value={getExpenditureValueFromCoreUnit(coreUnit)}
-                    percent={getPercentFromCoreUnit(coreUnit)}
-                    items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
-                    budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
-                    months={getLast3MonthsWithDataFormatted(coreUnit)}
-                  />
-                </Expenditure>
-              </a>
-            </Link>
-            <Team>
-              <Title style={{ marginBottom: '16px' }}>Team Members</Title>
-              <CuTableColumnTeamMember
-                members={getFacilitatorsFromCoreUnit(coreUnit)}
-                fte={getFTEsFromCoreUnit(coreUnit)}
-              />
-            </Team>
-            <Line isLight={isLight} />
-            {!isLoading
-              ? (
-              <Categories>
-                {coreUnit.category?.map((category) => (
-                  <CategoryChip key={category} category={category} />
-                ))}
-              </Categories>
-                )
-              : (
-              <CategoriesSkeleton />
-                )}
-            <Links>
-              <CuTableColumnLinks
-                links={getLinksFromCoreUnit(coreUnit)}
-                spacings={16}
-                fill="#708390"
-                fillDark="#D2D4EF"
-              />
-            </Links>
-          </Container>
-        </a>
+            </Expenditure>
+          </Link>
+          <Team>
+            <Title style={{ marginBottom: '16px' }}>Team Members</Title>
+            <CuTableColumnTeamMember
+              members={getFacilitatorsFromCoreUnit(coreUnit)}
+              fte={getFTEsFromCoreUnit(coreUnit)}
+            />
+          </Team>
+          <Line isLight={isLight} />
+          {!isLoading
+            ? (
+            <Categories>
+              {coreUnit.category?.map((category) => (
+                <CategoryChip key={category} category={category} />
+              ))}
+            </Categories>
+              )
+            : (
+            <CategoriesSkeleton />
+              )}
+          <Links>
+            <CuTableColumnLinks
+              links={getLinksFromCoreUnit(coreUnit)}
+              spacings={16}
+              fill="#708390"
+              fillDark="#D2D4EF"
+            />
+          </Links>
+        </Container>
       </Link>
     </CuCard>
   );

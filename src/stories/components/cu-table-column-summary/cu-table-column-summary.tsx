@@ -94,7 +94,7 @@ export const CuTableColumnSummary = ({
                 <CategoriesTitle>Categories</CategoriesTitle>
                 <CategoriesRow>
                   {props.categories?.map((cat) => (
-                    <CategoryChip category={cat} />
+                    <CategoryChip category={cat} key={cat} />
                   ))}
                 </CategoriesRow>
               </Padded>
