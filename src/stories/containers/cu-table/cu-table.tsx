@@ -51,11 +51,11 @@ import { CoreUnitCard } from '../../components/core-unit-card/core-unit-card';
 import { Filters } from './cu-table-filters';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { CategoryChip } from '../../components/category-chip/category-chip';
 import { TablePlaceholder } from '../../components/custom-table/placeholder';
 import { CuTableHeaderSkeleton } from '../../components/cu-table-header-skeleton/header-skeleton';
 import { SEOHead } from '../../components/seo-head/seo-head';
 import { buildQueryString } from '../../../core/utils/query-string.utils';
+import lightTheme from '../../../../styles/theme/light';
 
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
 
@@ -232,36 +232,7 @@ export const CuTable = () => {
           mipUrl={getMipUrlFromCoreUnit(coreUnit)}
           onClick={onClickRow(coreUnit.shortCode)}
           code={formatCode(coreUnit.shortCode)}
-          popupChild={
-            <>
-              <CuTableColumnSummary
-                title={coreUnit.name}
-                status={
-                  getLatestMip39FromCoreUnit(coreUnit)
-                    ?.mipStatus as CuStatusEnum
-                }
-                statusModified={getSubmissionDateFromCuMip(
-                  getLatestMip39FromCoreUnit(coreUnit)
-                )}
-                imageUrl={coreUnit.image}
-                mipUrl={getMipUrlFromCoreUnit(coreUnit)}
-                onClick={onClickRow(coreUnit.shortCode)}
-                code={formatCode(coreUnit.shortCode)}
-                logoDimension={'68px'}
-                style={{
-                  width: '372px',
-                }}
-              />
-              <Padded>
-                <CategoriesTitle>Categories</CategoriesTitle>
-                <CategoriesRow>
-                  {coreUnit?.category?.map((cat) => (
-                    <CategoryChip category={cat} />
-                  ))}
-                </CategoriesRow>
-              </Padded>
-            </>
-          }
+          categories={coreUnit?.category}
         />,
         <div
           key={`expenditures-${i}`}
@@ -346,11 +317,9 @@ export const CuTable = () => {
       <CoreUnitCard
         key={`card-${cu.code}`}
         coreUnit={cu}
-        onClick={onClickRow(cu.shortCode)}
-        onClickFinances={() => onClickFinances(cu.shortCode)}
       />
     ));
-  }, [filteredData, onClickRow]);
+  }, [filteredData]);
 
   const siteHeader = useMemo(() => {
     if (status === 'loading') {
@@ -358,14 +327,34 @@ export const CuTable = () => {
     }
     return (
       <Header>
-        <Title isLight={isLight}>Core Unit Expenses</Title>
+        <Title isLight={isLight}> Core Unit</Title>
+        <FilterButtonWrapperMobile>
+          <CustomButton
+            label="Reset Filters"
+            style={{
+              width: '114px',
+              border: 'none',
+              background: 'none',
+            }}
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
+            onClick={clearFilters}
+            disabled={!filteredStatuses?.length && !filteredCategories?.length && !searchText}
+          />
+        </FilterButtonWrapperMobile>
         <FilterButtonWrapper onClick={toggleFiltersPopup}>
+
           <CustomButton
             label={'Filters'}
+            isHightLight={!!(filteredStatuses.length || filteredCategories.length || searchText)}
             style={{
               height: '34px',
               width: '90px',
-              border: isLight ? '1px solid #D4D9E1' : '1px solid #343442',
+              border: isLight ? (filteredStatuses.length || filteredCategories.length || searchText ? '1px solid #1AAB9B' : '1px solid #D4D9E1') : (filteredStatuses.length || filteredCategories.length || searchText ? '1px solid #098C7D' : '1px solid #343442'),
+            }}
+            styleText={{
+              color: isLight
+                ? (filteredStatuses.length || filteredCategories.length || searchText ? ' #1AAB9B' : '#231536')
+                : (filteredStatuses.length || filteredCategories.length || searchText ? ' #1AAB9B' : '#D2D4EF'),
             }}
           />
         </FilterButtonWrapper>
@@ -388,7 +377,7 @@ export const CuTable = () => {
       <SEOHead
         title="MakerDAO Ecosystem Performance Dashboard | Maker Expenses"
         description="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
-        image='/favicon-192.png'
+        image='/icons/icon-192.png'
       >
         <link rel="apple-touch-icon" sizes="1024x1024" href="/icons/icon-1024.png" />
         <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512.png" />
@@ -458,14 +447,6 @@ const TableWrapper = styled.div({
   },
 });
 
-const LinkedContent = styled.a({
-  width: '100%',
-  height: '100%',
-  display: 'flex',
-  alignContent: 'center',
-  cursor: 'pointer',
-});
-
 const ListWrapper = styled.div({
   display: 'flex',
   flexDirection: 'column',
@@ -495,27 +476,20 @@ const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   letterSpacing: '0.4px',
   flex: 1,
   color: isLight ? '#231536' : '#D2D4EF',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    fontSize: '20px',
+    lineHeight: '24px',
+  },
 }));
 
-const CategoriesTitle = styled.div({
-  fontFamily: 'SF Pro Display',
-  fontWeight: 400,
-  fontSize: '14px',
-  color: '#708390',
-  marginBottom: '8px',
-  lineHeight: '22px',
-});
-
-const CategoriesRow = styled.div({
-  display: 'flex',
-  gap: '16px',
-});
-
-const Padded = styled.div({
-  padding: '0 16px 16px',
-});
-
 const FilterButtonWrapper = styled.div({
+  display: 'flex',
+  '@media (min-width: 834px)': {
+    display: 'none',
+  },
+});
+const FilterButtonWrapperMobile = styled.div({
+  display: 'flex',
   '@media (min-width: 834px)': {
     display: 'none',
   },

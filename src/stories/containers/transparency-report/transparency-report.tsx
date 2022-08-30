@@ -21,6 +21,8 @@ import { formatCode } from '../../../core/utils/string.utils';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SEOHead } from '../../components/seo-head/seo-head';
 import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
+import { getLast3MonthsWithData } from '../../../core/business-logic/core-units';
+import last from 'lodash/last';
 
 const colors: { [key: string]: string } = {
   Draft: '#7C6B95',
@@ -91,8 +93,14 @@ export const TransparencyReport = ({
     if (viewMonthStr) {
       const month = DateTime.fromFormat(viewMonthStr as string, 'LLLyyyy');
       setCurrentMonth(month);
+    } else {
+      const month = last(getLast3MonthsWithData(cu?.budgetStatements));
+
+      if (month) {
+        setCurrentMonth(month);
+      }
     }
-  }, []);
+  }, [router.route, router.query]);
 
   const replaceViewMonthRoute = (viewMonth: string) => {
     router.replace({
@@ -113,7 +121,7 @@ export const TransparencyReport = ({
   }, [setCurrentMonth, currentMonth]);
 
   const hasNextMonth = () => {
-    const limit = DateTime.now().plus({ month: 12 });
+    const limit = DateTime.now().plus({ month: 3 });
     return currentMonth.startOf('month') < limit.startOf('month');
   };
 
@@ -139,7 +147,7 @@ export const TransparencyReport = ({
         description={`Learn about the ${cu.name} Core Unit at MakerDAO: their finances, expense reports, and more.`}
         image={cu.image || '/favicon-192.png'}
       />
-      <CoreUnitSummary trailingAddress={['Expense Reports']} />
+      <CoreUnitSummary trailingAddress={['Expense Reports']} breadcrumbTitle="Expense Reports" />
       <Container isLight={isLight}>
         <InnerPage>
           <Title isLight={isLight}>Expense Reports</Title>
@@ -363,6 +371,7 @@ const PagerBarLeft = styled.div({
 const StatusBar = styled.div({
   display: 'flex',
   alignItems: 'center',
+  visibility: 'hidden',
 });
 
 const StatusTitle = styled.div<{ isLight: boolean }>(({ isLight }) => ({

@@ -39,6 +39,7 @@ export const CustomPopover = ({
     // @ts-ignore
     document.querySelector('body').onscroll = () => handlePopoverClose;
     setAnchorEl(event.currentTarget);
+    document.addEventListener('visibilitychange', handleLoseFocus);
   };
 
   const handlePopoverClose = () => {
@@ -49,6 +50,12 @@ export const CustomPopover = ({
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return () => document.querySelector('body').removeEventListener('onscroll', handlePopoverClose);
+  }, []);
+  const handleLoseFocus = () => {
+    setAnchorEl(null);
+  };
+  useEffect(() => {
+    return () => document.removeEventListener('visibilitychange', handleLoseFocus);
   }, []);
 
   const open = Boolean(anchorEl);

@@ -6,7 +6,11 @@ import {
 import { CuStatusEnum } from '../enums/cu-status.enum';
 import { LinkTypeEnum } from '../enums/link-type.enum';
 import { getCuMipStatusModifiedDate } from './core-units';
-import { ContributorCommitmentDto, CuMipDto } from '../models/dto/core-unit.dto';
+import {
+  ContributorCommitmentDto,
+  CuMipDto,
+} from '../models/dto/core-unit.dto';
+import { CommitmentJob } from '../enums/CommitmentJob.enum';
 
 export const getMipsStatus = (mip: CuMip | CuMipDto) => {
   if (!mip) return undefined;
@@ -30,7 +34,9 @@ export const getMarkdownInformation = (text: string | undefined) => {
   return text || '';
 };
 
-export const getLinksFromContributor = (contributor: ContributorCommitment | ContributorCommitmentDto) => {
+export const getLinksFromContributor = (
+  contributor: ContributorCommitment | ContributorCommitmentDto
+) => {
   const links: LinkModel[] = [];
   if (!contributor) return links;
   if (contributor && contributor.contributor.length === 0) return links;
@@ -70,6 +76,28 @@ export const getRelateMipObjectFromCoreUnit = (cu: CuMip | CuMipDto) => {
     mipStatus: cu.mipStatus,
     dateMip,
     mipUrl: cu.mipUrl,
-    orderBy: cu.mipStatus === CuStatusEnum.Accepted ? 2 : cu.mipStatus === CuStatusEnum.FormalSubmission || cu.mipStatus === CuStatusEnum.RFC ? 1 : 0,
+    orderBy:
+      cu.mipStatus === CuStatusEnum.Accepted
+        ? 2
+        : cu.mipStatus === CuStatusEnum.FormalSubmission ||
+          cu.mipStatus === CuStatusEnum.RFC
+          ? 1
+          : 0,
   } as unknown;
+};
+
+export const getContributorCommitment = (commitment: string) => {
+  if (commitment === '') return '';
+  switch (commitment) {
+    case CommitmentJob.Fulltime:
+      return 'Full-Time';
+    case CommitmentJob.PartTime:
+      return 'Part-Time';
+    case CommitmentJob.Inactive:
+      return 'Inactive';
+    case CommitmentJob.Variable:
+      return 'Variable';
+    default:
+      return '';
+  }
 };

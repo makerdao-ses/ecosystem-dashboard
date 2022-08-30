@@ -6,6 +6,7 @@ import Markdown from 'marked-react';
 import { customRenderer, customRendererDark } from './renderUtils';
 import { CustomButton } from '../custom-button/custom-button';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import lightTheme from '../../../../styles/theme/light';
 
 export type MarkDownHeaders = {
   level: number;
@@ -131,7 +132,10 @@ const TypographyStyleDescription = styled(Typography)<{ isLight: boolean }>(({ i
   fontSize: '20px',
   lineHeight: isLight ? '19px' : '24px',
   color: isLight ? '#231536' : ' #D2D4EF;',
-  marginBottom: '16px'
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginBottom: '16px'
+  },
 }));
 
 const ContainerResponsive = styled.div({
@@ -139,5 +143,5 @@ const ContainerResponsive = styled.div({
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
-
+  marginBottom: '16px',
 });

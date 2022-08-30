@@ -3,7 +3,7 @@ import { Box, Card, CardContent, CardHeader, Divider, Typography } from '@mui/ma
 import styled from '@emotion/styled';
 import { CuTableColumnLinks } from '../cu-table-column-links/cu-table-column-links';
 import { ContributorCommitment } from '../../containers/cu-about/cu-about-contributor';
-import { getLinksFromContributor } from '../../../core/business-logic/core-unit-about';
+import { getContributorCommitment, getLinksFromContributor } from '../../../core/business-logic/core-unit-about';
 import { DateTime } from 'luxon';
 import { getColorJobPosition } from '../../../core/utils/color.utils';
 import lightTheme from '../../../../styles/theme/light';
@@ -40,19 +40,19 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
               },
             }}
             avatar={<CircleAvatar
-                      width="48px"
-                      height="48px"
-                      style={{ marginRight: '24px' }}
-                      name={contributor?.name}
-                      image={contributor?.facilitatorImage}
-                      border="3px solid #E7FCFA"
-                      />}
+              width="54px"
+              height="54px"
+              style={{ marginRight: '21px' }}
+              name={contributor?.name}
+              image={contributor?.facilitatorImage}
+              border="3px solid #E7FCFA"
+            />}
             title={<TypographyName isLight={isLight}>{contributor.name}</TypographyName>}
             subheader={
               <>
                 {contributor && contributor.email && contributor.email.length >= 40
                   ? <CustomPopover
-                    title={contributor.email}
+                    title={contributor?.email?.toLowerCase()}
                     id={'mouse-over-popover-goto'}>
                     <TypographyEmail isLight={isLight}
                       style={{
@@ -61,7 +61,7 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
                         overflow: 'hidden',
                         width: '207px',
                       }}>
-                      {contributor.email}
+                      {contributor?.email?.toLowerCase()}
                     </TypographyEmail>
                   </CustomPopover>
                   : <TypographyEmail isLight={isLight}
@@ -69,7 +69,7 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
                       textOverflow: 'ellipsis',
                       overflow: 'hidden',
                     }}>
-                    {contributor.email}
+                    {contributor?.email?.toLowerCase()}
                   </TypographyEmail>}
 
               </>
@@ -90,7 +90,7 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
             </CardContentPositionColumn>
             <CardContentPositionColumn>
               <TypographyStyled mb={0} color='#708390' style={{ paddingBottom: '4px' }} >Commitment</TypographyStyled>
-              <TypographyStyled mb={0} color={isLight ? '#231536' : '#D2D4EF'} >{contributorCommitment.commitment}</TypographyStyled>
+              <TypographyStyled mb={0} color={isLight ? '#231536' : '#D2D4EF'} >{getContributorCommitment(contributorCommitment.commitment)}</TypographyStyled>
             </CardContentPositionColumn>
           </CardContentPositionRow>
         </CardContent>
@@ -170,7 +170,7 @@ const TypographyName = styled(Typography)<{ isLight: boolean }>(({ isLight }) =>
   fontWeight: 500,
   letterSpacing: '0.3px',
   paddingBottom: '8px',
-  fontFamily: 'SF Pro Text, sans-serif',
+  fontFamily: 'SF Pro Display, sans-serif',
 }));
 
 export default CardInfoMember;

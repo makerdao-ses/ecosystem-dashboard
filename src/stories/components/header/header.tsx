@@ -32,6 +32,12 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
 
   const handleGoHome = useCallback(
     () => {
+      const input = document.querySelector('#search-input');
+      if (input) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        input.value = '';
+      }
       router.push('/');
     },
     [router],
@@ -193,16 +199,11 @@ const ItemMenuStyle = styled.a<{ active: boolean, marginRight?: string, isLight:
 }));
 
 const ItemMenuResponsive = styled.div({
-  '@media (min-width: 1194px)': {
-    display: 'none'
-  }
+  display: 'none',
 });
 
 const LinkWrapper = styled.div({
-  display: 'none',
-  '@media (min-width: 1194px)': {
-    display: 'flex',
-  }
+  display: 'flex',
 });
 
 const LogoLinksWrapper = styled.div({

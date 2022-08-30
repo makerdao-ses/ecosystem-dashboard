@@ -229,14 +229,21 @@ const TeamMemberContainer = styled.div({
   marginTop: '32px',
 });
 
-const TeamMemberTitle = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
+const TeamMemberTitle = styled.h2<{ isLight: boolean }>(({ isLight }) => ({
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '20px',
   lineHeight: '19px',
   marginRight: '8px',
   color: isLight ? '#231536' : '#D2D4EF',
+  marginTop: 0,
+  marginBottom: 0,
   fontFamily: 'FT Base, sans-serif',
+
+  [lightTheme.breakpoints.down('table_834')]: {
+    fontSize: '16px',
+    fontWeight: 700,
+  },
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     fontSize: '20px',
     lineHeight: '24px',
@@ -251,15 +258,22 @@ const ContactInfoContainer = styled.div({
   marginTop: '32px',
 });
 
-const ContactInfoTitle = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
+const ContactInfoTitle = styled.h2<{ isLight: boolean }>(({ isLight }) => ({
   fontStyle: 'normal',
-  fontWeight: 700,
-  fontSize: '16px',
-  lineHeight: '19px',
+  fontWeight: 600,
+  fontSize: '14px',
+  lineHeight: '18px',
   color: isLight ? '#231536' : '#D2D4EF',
+  marginTop: 0,
   marginBottom: '32px',
   fontFamily: 'FT Base, sans-serif',
   width: '100%',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontWeight: 700,
+    fontSize: '16px',
+    lineHeight: '19px',
+  }
 }));
 
 const ContainerCards = styled.div({
@@ -270,6 +284,7 @@ const ContainerCards = styled.div({
   alignItems: 'flex-start',
   flexWrap: 'wrap',
   padding: '0px',
+  marginBottom: '32px',
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     maxWidth: '100%',
     display: 'flex',
@@ -303,12 +318,19 @@ const CardRelateMipsContainer = styled.div({
 });
 
 const TitleRelateMips = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontStyle: 'normal',
-  fontWeight: 700,
-  fontSize: '16px',
-  lineHeight: '19px',
+  fontFamily: 'SF Pro Text, sans-serif',
+  fontWeight: 600,
+  fontSize: '14px',
+  lineHeight: '18px',
   marginBottom: '32px',
   color: isLight ? '#231536' : '#D2D4EF',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontFamily: 'FT Base, sans-serif',
+    fontWeight: 700,
+    fontSize: '16px',
+    lineHeight: '19.2px',
+  },
 }));
 
 const RelateMipCards = styled.div({

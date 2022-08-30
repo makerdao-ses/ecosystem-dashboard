@@ -2,6 +2,7 @@ import React, { CSSProperties, useState } from 'react';
 import { getColorForString } from '../../../core/utils/color.utils';
 import { Theme, useTheme } from '@mui/material';
 import { getTwoInitials } from '../../../core/utils/string.utils';
+import padEnd from 'lodash/padEnd';
 import Identicon from 'identicon.js';
 
 interface CircleAvatarProps {
@@ -19,7 +20,7 @@ interface CircleAvatarProps {
 export const CircleAvatar = ({ width = '32px', height = '32px', fontSize = '16px', identIcon = false, border = '2px solid #E7FCFA', ...props }: CircleAvatarProps) => {
   const [loaded, setLoaded] = useState(false);
   const theme = useTheme();
-  const identIconImage = identIcon && new Identicon(props.name, {
+  const identIconImage = identIcon && new Identicon(padEnd(props.name, 43, 'a'), {
     format: 'svg',
     margin: 0.2
   }).toString();

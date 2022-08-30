@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { Divider, Typography } from '@mui/material';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import lightTheme from '../../../../styles/theme/light';
 
 interface Props {
   fte: number,
@@ -51,6 +52,11 @@ const Title = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
   textAlign: 'center',
   fontFamily: 'FT Base, sans-serif',
   letterSpacing: '0.4px',
+
+  [lightTheme.breakpoints.down('table_834')]: {
+    fontSize: '16px',
+    fontWeight: 700,
+  },
 }));
 
 const Data = styled.div({
