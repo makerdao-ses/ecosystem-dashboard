@@ -13,7 +13,7 @@ import BreadCrumbMobile from '../pagination/bread-crumb-mobile';
 import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { formatCode } from '../../../core/utils/string.utils';
-import { buildQueryString } from '../../../core/utils/query-string.utils';
+import { buildQueryString } from '../../../core/utils/url.utils';
 import { sortData } from '../../containers/cu-table/cu-table';
 
 interface CoreUnitSummaryProps {
