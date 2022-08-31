@@ -514,35 +514,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
 
     return (
       <>
-        <Title isLight={isLight}>Headcount Expenses</Title>
-        {getBreakdownItemsForGroup(
-          _.groupBy(
-            ungrouped.filter((x) => x.headcountExpense),
-            (item) => item.budgetCategory
-          )
-        ).map((item, i) => (
-          <TransparencyCard
-            key={i}
-            header={item[0]}
-            headers={cardHeaders}
-            items={item.slice(1)}
-          />
-        ))}
-        <Title isLight={isLight}>Non-Headcount Expenses</Title>
-        {getBreakdownItemsForGroup(
-          _.groupBy(
-            ungrouped.filter((x) => !x.headcountExpense),
-            (item) => item.budgetCategory
-          )
-        ).map((item, i) => (
-          <TransparencyCard
-            key={i}
-            header={item[0]}
-            headers={cardHeaders}
-            items={item.slice(1)}
-          />
-        ))}
-        <TransparencyCard
+      <TransparencyCard
           header={
             <TableCell key={1}>
               <b>Total</b>
@@ -612,6 +584,34 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
             />,
           ]}
         />
+        <Title isLight={isLight}>Headcount Expenses</Title>
+        {getBreakdownItemsForGroup(
+          _.groupBy(
+            ungrouped.filter((x) => x.headcountExpense),
+            (item) => item.budgetCategory
+          )
+        ).map((item, i) => (
+          <TransparencyCard
+            key={i}
+            header={item[0]}
+            headers={cardHeaders}
+            items={item.slice(1)}
+          />
+        ))}
+        <Title isLight={isLight}>Non-Headcount Expenses</Title>
+        {getBreakdownItemsForGroup(
+          _.groupBy(
+            ungrouped.filter((x) => !x.headcountExpense),
+            (item) => item.budgetCategory
+          )
+        ).map((item, i) => (
+          <TransparencyCard
+            key={i}
+            header={item[0]}
+            headers={cardHeaders}
+            items={item.slice(1)}
+          />
+        ))}
       </>
     );
   }, [props.currentMonth, props.budgetStatements, thirdIndex]);
