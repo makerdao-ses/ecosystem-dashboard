@@ -137,7 +137,12 @@ export const TransparencyTransferRequest = (
           </TableWrapper>
 
           <CardsWrapper>
-            {mainItems.map((item, i) => (
+            {(wallets.length > 1 && mainItems.length > 1) && <TransparencyCard
+               header={mainItems[mainItems.length - 1][0]}
+               headers={headers.slice(1, 4)}
+               items={mainItems[mainItems.length - 1].slice(1)}
+               />}
+            {mainItems.slice(0, mainItems.length - 1).map((item, i) => (
               <TransparencyCard
                 key={i}
                 header={item[0]}

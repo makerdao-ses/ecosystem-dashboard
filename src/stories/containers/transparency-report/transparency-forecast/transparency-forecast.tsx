@@ -514,76 +514,6 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
 
     return (
       <>
-      <TransparencyCard
-          header={
-            <TableCell key={1}>
-              <b>Total</b>
-            </TableCell>
-          }
-          headers={cardHeaders}
-          items={[
-            <NumberCell
-              key={2}
-              value={getForecastForMonthOnWalletOnBudgetStatement(
-                props.budgetStatements,
-                currentWalletAddress,
-                props.currentMonth,
-                firstMonth
-              )}
-              bold
-            />,
-            <NumberCell
-              key={3}
-              value={getForecastForMonthOnWalletOnBudgetStatement(
-                props.budgetStatements,
-                currentWalletAddress,
-                props.currentMonth,
-                secondMonth
-              )}
-              bold
-            />,
-            <NumberCell
-              key={4}
-              value={getForecastForMonthOnWalletOnBudgetStatement(
-                props.budgetStatements,
-                currentWalletAddress,
-                props.currentMonth,
-                thirdMonth
-              )}
-              bold
-            />,
-            <NumberCell
-              key={5}
-              value={getForecastSumOfMonthsOnWallet(
-                props.budgetStatements,
-                currentWalletAddress,
-                props.currentMonth,
-                [firstMonth, secondMonth, thirdMonth]
-              )}
-              bold
-            />,
-            <NumberCell
-              key={6}
-              value={getBudgetCapForMonthOnWalletOnBudgetStatement(
-                props.budgetStatements,
-                currentWalletAddress,
-                props.currentMonth,
-                props.currentMonth
-              )}
-              bold
-            />,
-            <NumberCell
-              key={7}
-              value={getBudgetCapSumOfMonthsOnWallet(
-                props.budgetStatements,
-                currentWalletAddress,
-                props.currentMonth,
-                [firstMonth, secondMonth, thirdMonth]
-              )}
-              bold
-            />,
-          ]}
-        />
         <Title isLight={isLight}>Headcount Expenses</Title>
         {getBreakdownItemsForGroup(
           _.groupBy(
@@ -612,6 +542,100 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
             items={item.slice(1)}
           />
         ))}
+        {getBreakdownItemsForGroup(
+          _.groupBy(
+            ungrouped.filter((x) => x.headcountExpense),
+            (item) => item.budgetCategory
+          )
+        ).map((item, i) => (
+          <TransparencyCard
+            key={i}
+            header={item[0]}
+            headers={cardHeaders}
+            items={item.slice(1)}
+          />
+        )).length + getBreakdownItemsForGroup(
+          _.groupBy(
+            ungrouped.filter((x) => !x.headcountExpense),
+            (item) => item.budgetCategory
+          )
+        ).map((item, i) => (
+          <TransparencyCard
+            key={i}
+            header={item[0]}
+            headers={cardHeaders}
+            items={item.slice(1)}
+          />
+        )).length > 1 && <TransparencyCard
+        header={
+          <TableCell key={1}>
+            <b>Total</b>
+          </TableCell>
+        }
+        headers={cardHeaders}
+        items={[
+          <NumberCell
+            key={2}
+            value={getForecastForMonthOnWalletOnBudgetStatement(
+              props.budgetStatements,
+              currentWalletAddress,
+              props.currentMonth,
+              firstMonth
+            )}
+            bold
+          />,
+          <NumberCell
+            key={3}
+            value={getForecastForMonthOnWalletOnBudgetStatement(
+              props.budgetStatements,
+              currentWalletAddress,
+              props.currentMonth,
+              secondMonth
+            )}
+            bold
+          />,
+          <NumberCell
+            key={4}
+            value={getForecastForMonthOnWalletOnBudgetStatement(
+              props.budgetStatements,
+              currentWalletAddress,
+              props.currentMonth,
+              thirdMonth
+            )}
+            bold
+          />,
+          <NumberCell
+            key={5}
+            value={getForecastSumOfMonthsOnWallet(
+              props.budgetStatements,
+              currentWalletAddress,
+              props.currentMonth,
+              [firstMonth, secondMonth, thirdMonth]
+            )}
+            bold
+          />,
+          <NumberCell
+            key={6}
+            value={getBudgetCapForMonthOnWalletOnBudgetStatement(
+              props.budgetStatements,
+              currentWalletAddress,
+              props.currentMonth,
+              props.currentMonth
+            )}
+            bold
+          />,
+          <NumberCell
+            key={7}
+            value={getBudgetCapSumOfMonthsOnWallet(
+              props.budgetStatements,
+              currentWalletAddress,
+              props.currentMonth,
+              [firstMonth, secondMonth, thirdMonth]
+            )}
+            bold
+          />,
+        ]}
+      />}
       </>
     );
   }, [props.currentMonth, props.budgetStatements, thirdIndex]);
@@ -668,7 +692,12 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
           </TableWrapper>
 
           <CardsWrapper>
-            {forecastTableItems.map((item, i) => (
+            {(wallets.length > 1 && forecastTableItems.length > 1) && <TransparencyCard
+              header={forecastTableItems[forecastTableItems.length - 1][0]}
+              headers={breakdownHeaders.slice(1, 7)}
+              items={forecastTableItems[forecastTableItems.length - 1].slice(1, 7)}
+            />}
+            {forecastTableItems.slice(0, forecastTableItems.length - 1).map((item, i) => (
               <TransparencyCard
                 key={i}
                 header={item[0]}
