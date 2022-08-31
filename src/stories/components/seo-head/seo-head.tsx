@@ -74,13 +74,13 @@ export const SEOHead = ({
         (
           typeof image === 'string'
             ? (
-              <meta name="twitter:image" key="twitter:image" content={image} />
+              <meta name="og:image" key="og:image" content={image} />
               )
             : (
                 <>
-                  <meta name="twitter:image" key="twitter:image" content={image.src} />
-                  <meta name="twitter:image:width" key="twitter:image:width" content={image.width.toString()} />
-                  <meta name="twitter:image:height" key="twitter:image:height" content={image.height.toString()} />
+                  <meta name="og:image" key="og:image" content={image.src} />
+                  <meta name="og:image:width" key="og:image:width" content={image.width.toString()} />
+                  <meta name="og:image:height" key="og:image:height" content={image.height.toString()} />
                 </>
               )
         )}
