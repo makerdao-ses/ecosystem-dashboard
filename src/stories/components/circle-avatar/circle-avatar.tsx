@@ -37,7 +37,7 @@ export const CircleAvatar = ({ width = '32px', height = '32px', fontSize = '16px
     borderRadius: '50%',
     color: props.image && loaded ? 'transparent' : 'white',
     border: props.image && loaded ? 'none' : border,
-    background: `${getColorForString(props.name)} ${height}`,
+    background: (props.image || identIcon) ? 'white' : `${getColorForString(props.name)} ${height}`,
     position: 'relative',
     ...props.style
   }}>

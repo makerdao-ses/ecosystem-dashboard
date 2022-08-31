@@ -23,6 +23,7 @@ import { SEOHead } from '../../components/seo-head/seo-head';
 import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
 import { getLast3MonthsWithData } from '../../../core/business-logic/core-units';
 import last from 'lodash/last';
+import { toAbsoluteURL } from '../../../core/utils/url.utils';
 
 const colors: { [key: string]: string } = {
   Draft: '#7C6B95',
@@ -145,7 +146,7 @@ export const TransparencyReport = ({
       <SEOHead
         title={`${cu.name} Core Unit | Finances`}
         description={`Learn about the ${cu.name} Core Unit at MakerDAO: their finances, expense reports, and more.`}
-        image={cu.image || '/favicon-192.png'}
+        image={cu.image || toAbsoluteURL('/icons/icon-512.png')}
       />
       <CoreUnitSummary trailingAddress={['Expense Reports']} breadcrumbTitle="Expense Reports" />
       <Container isLight={isLight}>

@@ -25,7 +25,7 @@ import { CategoryChip } from '../category-chip/category-chip';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CategoriesSkeleton } from './categories-skeleton';
 import Skeleton from '@mui/material/Skeleton';
-import { buildQueryString } from '../../../core/utils/query-string.utils';
+import { buildQueryString } from '../../../core/utils/url.utils';
 import { useRouter } from 'next/router';
 
 interface CoreUnitCardProps {

@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 import styled from '@emotion/styled';
 import isEmpty from 'lodash/isEmpty';
+import sortBy from 'lodash/sortBy';
 import {
   getBudgetCapsFromCoreUnit,
   getExpenditureValueFromCoreUnit,
@@ -54,7 +55,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { TablePlaceholder } from '../../components/custom-table/placeholder';
 import { CuTableHeaderSkeleton } from '../../components/cu-table-header-skeleton/header-skeleton';
 import { SEOHead } from '../../components/seo-head/seo-head';
-import { buildQueryString } from '../../../core/utils/query-string.utils';
+import { buildQueryString, toAbsoluteURL } from '../../../core/utils/url.utils';
 import lightTheme from '../../../../styles/theme/light';
 
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
@@ -313,7 +314,7 @@ export const CuTable = () => {
 
       return result;
     }
-    return filteredData.map((cu) => (
+    return sortBy(filteredData, 'name').map((cu) => (
       <CoreUnitCard
         key={`card-${cu.code}`}
         coreUnit={cu}
@@ -377,7 +378,12 @@ export const CuTable = () => {
       <SEOHead
         title="MakerDAO Ecosystem Performance Dashboard | Maker Expenses"
         description="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
-        image='/icons/icon-192.png'
+        image={{
+          src: toAbsoluteURL('/assets/img/social-385x200.png'),
+          width: 385,
+          height: 200
+        }}
+        twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
       >
         <link rel="apple-touch-icon" sizes="1024x1024" href="/icons/icon-1024.png" />
         <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512.png" />
