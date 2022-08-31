@@ -241,11 +241,7 @@ export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDto) => {
 };
 
 export const getCurrentOrLastMonthWithData = (budgetStatements: BudgetStatementDto[]) => {
-  const currentMonth = DateTime.now().set({
-    day: 1,
-    minute: 0,
-    hour: 0
-  });
+  const currentMonth = DateTime.now().startOf('month');
 
   const orderedStatements = _.sortBy(budgetStatements, bs => bs.month).reverse();
 
@@ -282,7 +278,7 @@ export const getLastMonthWithActualOrForecast = (budgetStatements: BudgetStateme
   }
 
   return DateTime.now();
-}
+};
 
 export const getLast3MonthsWithData = (budgetStatements: BudgetStatementDto[]) => {
   // The budget statements should be provided in a descending date order but
