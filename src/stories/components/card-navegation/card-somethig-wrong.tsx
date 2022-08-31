@@ -67,7 +67,6 @@ const TypographyDescription = styled(Typography)<{ marginBottom?: string, isLigh
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '15px',
-  // lineHeight: '18px',
   letterSpacing: ' 0.4px',
   color: isLight ? '#546978 ' : '#9FAFB9',
   marginBottom: marginBottom || '0px'
