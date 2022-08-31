@@ -39,16 +39,17 @@ function MyApp(props: MyAppProps) {
   }, [router.events]);
 
   return (
-    <ThemeProvider>
-      <Provider store={store}>
+    <Provider store={store}>
+      <ThemeProvider>
+
         <SEOHead title="MakerDAO - Dashboard" description="" />
         <FeatureFlagsProvider
           enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}
         >
           <Component {...pageProps} />
         </FeatureFlagsProvider>
-      </Provider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </Provider>
   );
 }
 

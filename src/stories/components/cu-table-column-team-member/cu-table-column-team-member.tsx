@@ -79,6 +79,10 @@ const Container = styled.div({
   alignItems: 'center',
   fontWeight: 400,
   cursor: 'pointer',
+  '@media (min-width: 375px) and (max-width: 685px)': {
+    justifyContent: 'flex-end',
+    alignItems: 'none',
+  },
   '@media (min-width: 834px)': {
     paddingLeft: '40px',
   },

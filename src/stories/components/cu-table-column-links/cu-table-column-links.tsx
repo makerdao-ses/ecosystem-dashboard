@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { CustomPopover } from '../custom-popover/custom-popover';
 import WWW from '../svg/www';
 import Forum from '../svg/forum';
 import Discord from '../svg/discord';
