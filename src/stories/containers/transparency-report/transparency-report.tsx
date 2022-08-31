@@ -185,7 +185,7 @@ export const TransparencyReport = ({
                 <CustomLink
                   href={currentBudgetStatement?.publicationUrl ?? null}
                   style={{
-                    margin: '0 0 10px 0',
+                    margin: '0 16px',
                     alignSelf: 'flex-end',
                     lineHeight: '19px',
                   }}
@@ -362,10 +362,8 @@ const PagerBar = styled.div({
 });
 
 const PagerBarLeft = styled.div({
-  display: 'block',
-  '@media (min-width: 834px)': {
-    display: 'flex',
-  },
+  display: 'flex',
+  alignItems: 'center',
 });
 
 const StatusBar = styled.div({
