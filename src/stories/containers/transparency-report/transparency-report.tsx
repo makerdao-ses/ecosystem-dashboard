@@ -21,7 +21,7 @@ import { formatCode } from '../../../core/utils/string.utils';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SEOHead } from '../../components/seo-head/seo-head';
 import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
-import { getCurrentOrLastMonthWithData } from '../../../core/business-logic/core-units';
+import { getCurrentOrLastMonthWithData, getLastMonthWithActualOrForecast } from '../../../core/business-logic/core-units';
 
 const colors: { [key: string]: string } = {
   Draft: '#7C6B95',
@@ -120,7 +120,7 @@ export const TransparencyReport = ({
   }, [setCurrentMonth, currentMonth]);
 
   const hasNextMonth = () => {
-    const limit = getCurrentOrLastMonthWithData(cu.budgetStatements).plus({ month: 1 });
+    const limit = getLastMonthWithActualOrForecast(cu.budgetStatements).plus({ month: 1 });
     return currentMonth.startOf('month') < limit.startOf('month');
   };
 
