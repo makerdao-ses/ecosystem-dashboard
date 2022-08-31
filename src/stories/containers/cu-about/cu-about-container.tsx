@@ -22,7 +22,7 @@ import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import dynamic from 'next/dynamic';
 import { SEOHead } from '../../components/seo-head/seo-head';
-import { buildQueryString } from '../../../core/utils/query-string.utils';
+import { buildQueryString, toAbsoluteURL } from '../../../core/utils/url.utils';
 const MdViewerContainer = dynamic(() => import('../../components/markdown/md-view-container'), { ssr: false });
 
 interface Props {
@@ -71,7 +71,7 @@ const CuAboutContainer = ({ code, cuAbout, contributors }: Props) => {
       <SEOHead
         title={`About ${cuAbout.name} Core Unit at MakerDAO`}
         description={`Learn about the ${cuAbout.name} Core Unit at MakerDAO: their mandate, vision, mission, strategy, and more.`}
-        image={cuAbout.image}
+        image={cuAbout.image || toAbsoluteURL('/icons/icon-512.png')}
       />
 
       <CoreUnitSummary />

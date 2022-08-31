@@ -1,11 +1,17 @@
 import React, { useMemo } from 'react';
 import Head from 'next/head';
 
+interface ImageType {
+  src: string;
+  width: number;
+  height: number;
+}
+
 interface SEOProps {
   title: string;
   description: string;
   favicon?: string;
-  image?: string;
+  image?: string | ImageType;
   children?: JSX.Element[] | JSX.Element | React.ReactNode;
 }
 
@@ -64,7 +70,20 @@ export const SEOHead = ({
         content={description}
       />
       <meta property="og:site_name" key="og:site_name" content="MakerDAO Ecosystem Performance Dashboard" />
-      {image && <meta property="og:image" key="og:image" content={image} />}
+      {image &&
+        (
+          typeof image === 'string'
+            ? (
+              <meta name="twitter:image" key="twitter:image" content={image} />
+              )
+            : (
+                <>
+                  <meta name="twitter:image" key="twitter:image" content={image.src} />
+                  <meta name="twitter:image:width" key="twitter:image:width" content={image.width.toString()} />
+                  <meta name="twitter:image:height" key="twitter:image:height" content={image.height.toString()} />
+                </>
+              )
+        )}
 
       {/* Twitter card */}
       <meta name="twitter:title" key="twitter:title" content={title} />
@@ -75,7 +94,7 @@ export const SEOHead = ({
       />
       <meta name="twitter:site" key="twitter:site" content="@MakerDAO" />
       {image && (
-        <meta name="twitter:image" key="twitter:image" content={image} />
+        <meta name="twitter:image" key="twitter:image" content={typeof image === 'string' ? image : image.src} />
       )}
 
       {/* extra */}

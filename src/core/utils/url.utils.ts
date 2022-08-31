@@ -1,4 +1,5 @@
 import isEmpty from 'lodash/isEmpty';
+import { BASE_URL } from '../../config/routes';
 
 export interface QueryStringOptions {
   includeQuestionMark?: boolean;
@@ -21,4 +22,15 @@ export const buildQueryString = (
     query += `${query.length > 0 ? '&' : ''}${key}=${encodeURI(params[key]?.toString() || '')}`;
   }
   return includeQuestionMark && query.length > 0 ? `?${query}` : query;
+};
+
+export const toAbsoluteURL = (relativeURL: string): string => {
+  if (relativeURL.startsWith('http://') || relativeURL.startsWith('https://')) {
+    return relativeURL;
+  }
+
+  if (!relativeURL.startsWith('/')) {
+    relativeURL = `/${relativeURL}`;
+  }
+  return `${BASE_URL}${relativeURL}`;
 };
