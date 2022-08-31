@@ -22,8 +22,8 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetSt
     result.push(secondMonth.toFormat('MMMM'));
     result.push(thirdMonth.toFormat('MMMM'));
     result.push('3 months');
-    result.push('Monthly Budget');
-    result.push('Quarterly Budget Cap');
+    result.push('Mthly Budget');
+    result.push('Qtly Budget');
     result.push('External Links');
 
     return result;

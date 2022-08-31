@@ -262,8 +262,8 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
       secondMonth.toFormat('MMMM'),
       thirdMonth.toFormat('MMMM'),
       '3 Months',
-      'Monthly Budget',
-      'Quarterly Budget Cap',
+      'Mthly Budget',
+      'Qtly Budget',
     ];
   }, [props.currentMonth, props.budgetStatements]);
 
@@ -645,13 +645,13 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
               ]}
               headerWidths={[
                 '190px',
-                '105px',
-                '105px',
-                '105px',
-                '116px',
-                '140px',
-                '200px',
-                '224px',
+                '141px',
+                '141px',
+                '141px',
+                '141px',
+                '141px',
+                '141px',
+                '141px',
               ]}
               headerStyles={[
                 {},
@@ -711,14 +711,14 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
               items={breakdownItems}
               minWidth={80}
               headerWidths={[
-                '260px',
+                '338px',
                 '141px',
                 '141px',
                 '141px',
-                '116px',
                 '141px',
-                '241px',
-                '219px',
+                '141px',
+                '141px',
+                '141px',
               ]}
               headersAlign={[
                 'left',
