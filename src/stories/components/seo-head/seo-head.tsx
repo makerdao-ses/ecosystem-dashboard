@@ -88,7 +88,7 @@ export const SEOHead = ({
 
       {/* Twitter card */}
       <meta name="twitter:title" key="twitter:title" content={title} />
-      <meta name="twitter:card" key="twitter:card" content="summary" />
+      <meta name="twitter:card" key="twitter:card" content="summary_large_image" />
       <meta
         name="twitter:description"
         key="twitter:description"
