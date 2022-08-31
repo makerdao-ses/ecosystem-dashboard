@@ -39,6 +39,7 @@ export const CORE_UNIT_REQUEST = (shortCode: string) => ({
             }
           }
           budgetStatementMKRVest {
+            id
             mkrAmount
             mkrAmountOld
             vestingDate

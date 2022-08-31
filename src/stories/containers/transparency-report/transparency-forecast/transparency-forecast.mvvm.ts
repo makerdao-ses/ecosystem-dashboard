@@ -45,7 +45,7 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetSt
       }
     });
 
-    return _.sortBy(Object.values(dict), 'name');
+    return _.sortBy(Object.values(dict), 'id');
   }, [currentMonth, propBudgetStatements]);
 
   const getForecastForMonthOnWalletOnBudgetStatement = (budgetStatements: BudgetStatementDto[], walletAddress: string | undefined, currentMonth: DateTime, month: DateTime) => {
