@@ -65,6 +65,9 @@ export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
         <CustomPopover
           title={'Full-Time Equivalents'}
           id={'popover-fulltime equivalent'}
+          popupStyle={{
+            color: isLight ? '#231536' : '#D2D4EF',
+          }}
         >
           <TotalFte isLight={isLight}>
             <span>Total FTEs</span>
