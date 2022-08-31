@@ -22,7 +22,7 @@ import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import dynamic from 'next/dynamic';
 import { SEOHead } from '../../components/seo-head/seo-head';
-import { buildQueryString } from '../../../core/utils/url.utils';
+import { buildQueryString, toAbsoluteURL } from '../../../core/utils/url.utils';
 const MdViewerContainer = dynamic(() => import('../../components/markdown/md-view-container'), { ssr: false });
 
 interface Props {
