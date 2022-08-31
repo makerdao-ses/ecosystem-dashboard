@@ -35,6 +35,13 @@ const mainTableHeaders = [
   'External Links',
 ];
 
+const cardHeaders = [
+  'Forecast',
+  'Actuals',
+  'Difference',
+  'Diff. Reason'
+];
+
 export const TransparencyActuals = (props: TransparencyActualsProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   const [thirdIndex, setThirdIndex] = useState(0);
@@ -262,7 +269,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           <TransparencyCard
             key={`item-${i}`}
             header={item[0]}
-            headers={['Forecast', 'Actuals', 'Difference', 'Diff. Reason']}
+            headers={cardHeaders}
             items={item.slice(1)}
           />
         ))}
@@ -277,10 +284,48 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           <TransparencyCard
             key={`item-${i}`}
             header={item[0]}
-            headers={['Forecast', 'Actuals', 'Difference', 'Diff. Reason']}
+            headers={cardHeaders}
             items={item.slice(1)}
           />
         ))}
+        {getBreakdownItems(
+          currentWallet?.budgetStatementLineItem?.filter(
+            (item) => item.headcountExpense
+          ),
+        ).length + getBreakdownItems(
+          currentWallet?.budgetStatementLineItem?.filter(
+            (item) => !item.headcountExpense
+          ),
+        ).length > 1 && <TransparencyCard
+          header={
+            <TableCell>
+              <b>Total</b>
+            </TableCell>
+          }
+          headers={cardHeaders}
+          items={[
+            <NumberCell
+              key={1}
+              value={getWalletForecast(currentWallet)}
+              bold
+            />,
+            <NumberCell
+              key={2}
+              value={getWalletActual(currentWallet)}
+              bold
+            />,
+            <NumberCell
+              key={3}
+              value={getWalletDifference(currentWallet)}
+              bold
+            />,
+            <NumberCell
+              key={4}
+              value={getWalletPayment(currentWallet)}
+              bold
+            />,
+          ]}
+        />}
       </>
     );
   }, [currentBudgetStatement, thirdIndex]);
@@ -323,7 +368,13 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           </TableWrapper>
 
           <CardsWrapper>
-            {mainTableItems.map((item, i) => (
+            {(wallets.length > 1 && mainTableItems.length > 1) && <TransparencyCard
+                header={mainTableItems[mainTableItems.length - 1][0]}
+                headers={mainTableHeaders.slice(1, 5)}
+                items={mainTableItems[mainTableItems.length - 1].slice(1)}
+                footer={mainTableItems[mainTableItems.length - 1][5]}
+              />}
+            {mainTableItems.slice(0, mainTableItems.length - 1).map((item, i) => (
               <TransparencyCard
                 key={`item-${i}`}
                 header={item[0]}
