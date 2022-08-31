@@ -21,8 +21,7 @@ import { formatCode } from '../../../core/utils/string.utils';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SEOHead } from '../../components/seo-head/seo-head';
 import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
-import { getLast3MonthsWithData } from '../../../core/business-logic/core-units';
-import last from 'lodash/last';
+import { getCurrentOrLastMonthWithData } from '../../../core/business-logic/core-units';
 
 const colors: { [key: string]: string } = {
   Draft: '#7C6B95',
@@ -94,7 +93,7 @@ export const TransparencyReport = ({
       const month = DateTime.fromFormat(viewMonthStr as string, 'LLLyyyy');
       setCurrentMonth(month);
     } else {
-      const month = last(getLast3MonthsWithData(cu?.budgetStatements));
+      const month = getCurrentOrLastMonthWithData(cu.budgetStatements);
 
       if (month) {
         setCurrentMonth(month);
@@ -121,7 +120,7 @@ export const TransparencyReport = ({
   }, [setCurrentMonth, currentMonth]);
 
   const hasNextMonth = () => {
-    const limit = DateTime.now().plus({ month: 3 });
+    const limit = getCurrentOrLastMonthWithData(cu.budgetStatements).plus({ month: 1 });
     return currentMonth.startOf('month') < limit.startOf('month');
   };
 

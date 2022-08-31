@@ -240,6 +240,32 @@ export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDto) => {
   return result;
 };
 
+export const getCurrentOrLastMonthWithData = (budgetStatements: BudgetStatementDto[]) => {
+  const currentMonth = DateTime.now().set({
+    day: 1,
+    minute: 0,
+    hour: 0
+  });
+
+  const orderedStatements = _.sortBy(budgetStatements, bs => bs.month).reverse();
+
+  for (const bs of orderedStatements) {
+    for (const wallet of bs.budgetStatementWallet) {
+      for (const item of wallet.budgetStatementLineItem.filter(li => li.month === bs.month)) {
+        if (item.actual) {
+          const itemMonth = DateTime.fromFormat(bs.month, 'yyyy-MM-dd');
+
+          if (itemMonth.toMillis() <= currentMonth.toMillis()) {
+            return itemMonth;
+          }
+        }
+      }
+    }
+  }
+
+  return currentMonth;
+};
+
 export const getLast3MonthsWithData = (budgetStatements: BudgetStatementDto[]) => {
   // The budget statements should be provided in a descending date order but
   // it's better to order it client side to avoid future issues
