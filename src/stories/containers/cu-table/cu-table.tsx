@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 import styled from '@emotion/styled';
 import isEmpty from 'lodash/isEmpty';
+import sortBy from 'lodash/sortBy';
 import {
   getBudgetCapsFromCoreUnit,
   getExpenditureValueFromCoreUnit,
@@ -313,7 +314,7 @@ export const CuTable = () => {
 
       return result;
     }
-    return filteredData.map((cu) => (
+    return sortBy(filteredData, 'name').map((cu) => (
       <CoreUnitCard
         key={`card-${cu.code}`}
         coreUnit={cu}
