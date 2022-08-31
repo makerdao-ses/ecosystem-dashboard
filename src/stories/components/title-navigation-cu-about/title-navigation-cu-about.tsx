@@ -192,15 +192,15 @@ export const TitleNavigationCuAbout = ({
           </ContainerSeparateData>
         </ContainerTitle>
         {(phoneDimensions || lessPhone) && (
-              <div
-                style={{
-                  borderBottom: !hiddenTextDescription
-                    ? '1px solid #B6EDE7'
-                    : 'none',
-                  width: '100%',
-                  marginTop: !hiddenTextDescription ? '16px' : '0px',
-                }}
-              />
+          <div
+            style={{
+              borderBottom: !hiddenTextDescription
+                ? '1px solid #B6EDE7'
+                : 'none',
+              width: '100%',
+              marginTop: !hiddenTextDescription ? '16px' : '0px',
+            }}
+          />
         )}
         <ContainerCategoryConditional>
           {(!(phoneDimensions || lessPhone) || hiddenTextDescription) && (
@@ -321,12 +321,7 @@ const ContainerLinks = styled.div({
   alignItems: 'flex-end',
   height: '68px',
   marginRight: '6px',
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    width: '272px',
-    alignItems: 'flex-start',
-    height: 'fit-content',
-  },
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [lightTheme.breakpoints.up('table_834')]: {
     width: '272px',
     alignItems: 'flex-start',
     height: 'fit-content',
