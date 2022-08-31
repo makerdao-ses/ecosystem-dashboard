@@ -69,6 +69,7 @@ export const SEOHead = ({
         key="og:description"
         content={description}
       />
+      <meta property="og:type" content="website" />
       <meta property="og:site_name" key="og:site_name" content="MakerDAO Ecosystem Performance Dashboard" />
       {image &&
         (
@@ -87,6 +88,7 @@ export const SEOHead = ({
 
       {/* Twitter card */}
       <meta name="twitter:title" key="twitter:title" content={title} />
+      <meta name="twitter:card" key="twitter:card" content="summary" />
       <meta
         name="twitter:description"
         key="twitter:description"

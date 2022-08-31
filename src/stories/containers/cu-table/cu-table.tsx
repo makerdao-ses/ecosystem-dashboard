@@ -378,9 +378,9 @@ export const CuTable = () => {
         title="MakerDAO Ecosystem Performance Dashboard | Maker Expenses"
         description="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
         image={{
-          src: toAbsoluteURL('/icons/icon-512.png'),
-          width: 512,
-          height: 512
+          src: toAbsoluteURL('/icons/icon-300.png'),
+          width: 300,
+          height: 300
         }}
       >
         <link rel="apple-touch-icon" sizes="1024x1024" href="/icons/icon-1024.png" />
