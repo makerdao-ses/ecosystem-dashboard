@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import Head from 'next/head';
-import { BASE_URL } from '../../../config/routes';
 
 interface ImageType {
   src: string;
@@ -71,7 +70,6 @@ export const SEOHead = ({
       <meta property="og:title" key="og:title" content={title} />
       <meta property="og:description" key="og:description" content={description} />
       <meta property="og:type" content="website" />
-      <meta property="og:url" content={BASE_URL} />
       <meta property="og:site_name" key="og:site_name" content="MakerDAO Ecosystem Performance Dashboard" />
       {image &&
         (
