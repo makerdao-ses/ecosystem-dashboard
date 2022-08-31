@@ -28,7 +28,7 @@ export const useTransparencyActualsMvvm = (thirdIndex: number, setThirdIndex: (i
       }
     });
 
-    return _.sortBy(Object.values(dict), 'name');
+    return _.sortBy(Object.values(dict), 'id');
   }, [propsCurrentMonth, budgetStatements, code]);
 
   const getWalletForecast = (wallet: BudgetStatementWalletDto) => {

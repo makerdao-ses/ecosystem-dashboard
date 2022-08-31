@@ -21,8 +21,7 @@ import { formatCode } from '../../../core/utils/string.utils';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SEOHead } from '../../components/seo-head/seo-head';
 import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
-import { getLast3MonthsWithData } from '../../../core/business-logic/core-units';
-import last from 'lodash/last';
+import { getCurrentOrLastMonthWithData, getLastMonthWithActualOrForecast } from '../../../core/business-logic/core-units';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
 
 const colors: { [key: string]: string } = {
@@ -95,7 +94,7 @@ export const TransparencyReport = ({
       const month = DateTime.fromFormat(viewMonthStr as string, 'LLLyyyy');
       setCurrentMonth(month);
     } else {
-      const month = last(getLast3MonthsWithData(cu?.budgetStatements));
+      const month = getCurrentOrLastMonthWithData(cu.budgetStatements);
 
       if (month) {
         setCurrentMonth(month);
@@ -122,7 +121,7 @@ export const TransparencyReport = ({
   }, [setCurrentMonth, currentMonth]);
 
   const hasNextMonth = () => {
-    const limit = DateTime.now().plus({ month: 3 });
+    const limit = getLastMonthWithActualOrForecast(cu.budgetStatements).plus({ month: 1 });
     return currentMonth.startOf('month') < limit.startOf('month');
   };
 
@@ -187,7 +186,7 @@ export const TransparencyReport = ({
                 <CustomLink
                   href={currentBudgetStatement?.publicationUrl ?? null}
                   style={{
-                    margin: '0 0 10px 0',
+                    margin: '0 16px',
                     alignSelf: 'flex-end',
                     lineHeight: '19px',
                   }}
@@ -364,10 +363,8 @@ const PagerBar = styled.div({
 });
 
 const PagerBarLeft = styled.div({
-  display: 'block',
-  '@media (min-width: 834px)': {
-    display: 'flex',
-  },
+  display: 'flex',
+  alignItems: 'center',
 });
 
 const StatusBar = styled.div({

@@ -1,5 +1,5 @@
 import React, { CSSProperties, useEffect, useState } from 'react';
-import { Popover } from '@mui/material';
+import { Popover, useMediaQuery } from '@mui/material';
 import styled from '@emotion/styled';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { useAppDispatch } from '../../../core/hooks/hooks';
@@ -40,7 +40,7 @@ export const CustomPopover = ({
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const [leaveTimeout, setLeaveTimeout] = React.useState<NodeJS.Timeout>();
   const [openIdPopover, setOpenIdPopover] = useState('');
-
+  const isOnTouchDevice = useMediaQuery('(pointer: coarse)');
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>, id: string) => {
     setOpenIdPopover(id);
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -97,7 +97,7 @@ export const CustomPopover = ({
       sx={{
         pointerEvents: 'none',
       }}
-      open={openIdPopover === props.id}
+      open={openIdPopover === props.id && !isOnTouchDevice}
       anchorEl={anchorEl}
       anchorOrigin={anchorOrigin}
       transformOrigin={{
