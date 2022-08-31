@@ -267,7 +267,7 @@ const ContactInfoTitle = styled.h2<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   marginTop: 0,
   marginBottom: '32px',
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'SF Pro Text, sans-serif',
   width: '100%',
 
   [lightTheme.breakpoints.up('table_834')]: {
