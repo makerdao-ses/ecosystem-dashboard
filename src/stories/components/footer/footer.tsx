@@ -66,6 +66,7 @@ const Footer = ({ governesses, products, developer }: Props) => {
             }}
             logo={<SesLogo fill={isLight ? '#211634' : '#D1DEE6'} />}
             links={iconsSupport}
+            isLink
           />
         </ContainerColumLast>
       </ContainerFooter >

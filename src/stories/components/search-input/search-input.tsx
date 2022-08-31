@@ -18,7 +18,6 @@ interface SearchInputProps {
 
 export const SearchInput = (props: SearchInputProps) => {
   const isLight = useThemeContext().themeMode === 'light';
-  const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     props.onChange && props.onChange(event.target.value);
   };
@@ -28,7 +27,7 @@ export const SearchInput = (props: SearchInputProps) => {
   return <Container style={props.style}>
     <InputWrapper>
       <IconWrapper>{focus || !!props.defaultValue
-        ? <Close onClick={props.handleCloseSearch} width={isMobile ? 10 : 16} height={isMobile ? 10 : 16} fill='#25273D' fillDark='rgb(237, 239, 255)' />
+        ? <Close onClick={props.handleCloseSearch} width={10} height={10} fill='#25273D' fillDark='rgb(237, 239, 255)' />
         : <Magnifier fill={isLight ? '#25273D' : '#ADAFD4'} width={16} height={16} />}</IconWrapper>
       <Input
         ref={props.inputRef}
@@ -43,7 +42,7 @@ export const SearchInput = (props: SearchInputProps) => {
         defaultValue={props.defaultValue}
       />
       <IconWrapper>{focus || !!props.defaultValue
-        ? <Close onClick={props.handleCloseSearch} width={isMobile ? 10 : 16} height={isMobile ? 10 : 16} fill='#25273D' fillDark='rgb(237, 239, 255)' />
+        ? <Close onClick={props.handleCloseSearch} width={10} height={10} fill='#25273D' fillDark='rgb(237, 239, 255)' />
         : <Magnifier fill={isLight ? '#25273D' : '#ADAFD4'} width={16} height={16} />}</IconWrapper>
     </InputWrapper>
   </Container>;

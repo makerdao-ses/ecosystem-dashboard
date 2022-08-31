@@ -10,6 +10,7 @@ import { NumberCell } from '../../../components/number-cell/number-cell';
 import { TransparencyCard } from '../../../components/transparency-card/transparency-card';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
+import { CustomPopover } from '../../../components/custom-popover/custom-popover';
 
 interface TransparencyMkrVestingProps {
   currentMonth: DateTime;
@@ -60,51 +61,59 @@ export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
       <Title isLight={isLight} marginBottom={24}>
         MKR Vesting Overview
       </Title>
-
-      <TotalFte isLight={isLight}>
-        <span>Total FTEs</span>
-        <u>{FTEs}</u>
-      </TotalFte>
-
+      <ContainerPopover>
+        <CustomPopover
+          title={'Full-Time Equivalents'}
+          id={'popover-fulltime equivalent'}
+          popupStyle={{
+            color: isLight ? '#231536' : '#D2D4EF',
+          }}
+        >
+          <TotalFte isLight={isLight}>
+            <span>Total FTEs</span>
+            <u>{FTEs}</u>
+          </TotalFte>
+        </CustomPopover>
+      </ContainerPopover>
       {items.length - 1 <= 0
         ? (
-        <TransparencyEmptyTable />
+          <TransparencyEmptyTable />
           )
         : (
-        <>
-          <TableWrapper>
-            <InnerTable
-              headers={headers}
-              headersAlign={['left', 'right', 'right', 'right', 'left']}
-              headerStyles={[{}, {}, {}, {}, { paddingLeft: '38px' }]}
-              items={items}
-              minWidth={200}
-              headerWidths={['200px', '210px', '210px', '210px', '354px']}
-              style={{ marginBottom: '32px' }}
-            />
-          </TableWrapper>
-
-          <CardsWrapper>
-            {items.map((item) => (
-              <TransparencyCard
-                header={item[0]}
-                headers={headers.slice(1)}
-                items={item.slice(1)}
+          <>
+            <TableWrapper>
+              <InnerTable
+                headers={headers}
+                headersAlign={['left', 'right', 'right', 'right', 'left']}
+                headerStyles={[{}, {}, {}, {}, { paddingLeft: '38px' }]}
+                items={items}
+                minWidth={200}
+                headerWidths={['200px', '210px', '210px', '210px', '354px']}
+                style={{ marginBottom: '32px' }}
               />
-            ))}
-          </CardsWrapper>
+            </TableWrapper>
 
-          <Text isLight={isLight}>
-            This Overview is based on MIP40c3-SP17, SES’ MKR Incentive Proposal.
-          </Text>
+            <CardsWrapper>
+              {items.map((item) => (
+                <TransparencyCard
+                  header={item[0]}
+                  headers={headers.slice(1)}
+                  items={item.slice(1)}
+                />
+              ))}
+            </CardsWrapper>
 
-          <Text isLight={isLight} style={{ marginBottom: '90px' }}>
-            The Difference column indicates any changes in the MKR vesting
-            amounts compared to last month, with the Reason(s) column indicating
-            why the amounts changed. Reasons may include: New hires, FTE
-            changes, Promotions, or Terminations.
-          </Text>
-        </>
+            <Text isLight={isLight}>
+              This Overview is based on MIP40c3-SP17, SES’ MKR Incentive Proposal.
+            </Text>
+
+            <Text isLight={isLight} style={{ marginBottom: '90px' }}>
+              The Difference column indicates any changes in the MKR vesting
+              amounts compared to last month, with the Reason(s) column indicating
+              why the amounts changed. Reasons may include: New hires, FTE
+              changes, Promotions, or Terminations.
+            </Text>
+          </>
           )}
     </Container>
   );
@@ -122,7 +131,6 @@ const TotalFte = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: '16px',
   lineHeight: '19px',
   color: isLight ? '#231536' : '#D2D4EF',
-  marginBottom: '36px',
   '> span': {
     marginRight: '16px',
   },
@@ -152,3 +160,11 @@ const Text = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     lineHeight: '19px',
   },
 }));
+
+const ContainerPopover = styled.div({
+  display: 'flex',
+  flex: 1,
+  alignItems: 'center',
+  cursor: 'pointer',
+  marginBottom: '36px',
+});

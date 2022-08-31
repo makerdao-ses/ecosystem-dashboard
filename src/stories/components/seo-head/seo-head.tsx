@@ -1,11 +1,19 @@
 import React, { useMemo } from 'react';
 import Head from 'next/head';
+import { BASE_URL } from '../../../config/routes';
+
+interface ImageType {
+  src: string;
+  width: number;
+  height: number;
+}
 
 interface SEOProps {
   title: string;
   description: string;
   favicon?: string;
-  image?: string;
+  image?: string | ImageType;
+  twitterImage?: string;
   children?: JSX.Element[] | JSX.Element | React.ReactNode;
 }
 
@@ -14,6 +22,7 @@ export const SEOHead = ({
   description,
   favicon,
   image,
+  twitterImage,
   children,
 }: SEOProps) => {
   const faviconType = useMemo(() => {
@@ -58,25 +67,37 @@ export const SEOHead = ({
 
       {/* OpenGraph https://ogp.me/ */}
       <meta property="og:title" key="og:title" content={title} />
-      <meta
-        property="og:description"
-        key="og:description"
-        content={description}
-      />
+      <meta property="og:description" key="og:description" content={description} />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content={BASE_URL} />
       <meta property="og:site_name" key="og:site_name" content="MakerDAO Ecosystem Performance Dashboard" />
-      {image && <meta property="og:image" key="og:image" content={image} />}
+      {image &&
+        (
+          typeof image === 'string'
+            ? (
+              <meta property="og:image" key="og:image" content={image} />
+              )
+            : (
+                <>
+                  <meta property="og:image" key="og:image" content={image.src} />
+                  <meta property="og:image:width" key="og:image:width" content={image.width.toString()} />
+                  <meta property="og:image:height" key="og:image:height" content={image.height.toString()} />
+                </>
+              )
+        )}
 
       {/* Twitter card */}
       <meta name="twitter:title" key="twitter:title" content={title} />
-      <meta
-        name="twitter:description"
-        key="twitter:description"
-        content={description}
-      />
+      <meta name="twitter:card" key="twitter:card" content="summary_large_image" />
+      <meta name="twitter:description" key="twitter:description" content={description} />
       <meta name="twitter:site" key="twitter:site" content="@MakerDAO" />
-      {image && (
-        <meta name="twitter:image" key="twitter:image" content={image} />
-      )}
+      {twitterImage
+        ? (
+        <meta name="twitter:image" key="twitter:image" content={twitterImage} />
+          )
+        : (
+            image && <meta name="twitter:image" key="twitter:image" content={typeof image === 'string' ? image : image.src} />
+          )}
 
       {/* extra */}
       <meta

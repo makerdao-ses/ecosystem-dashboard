@@ -13,8 +13,11 @@ const TeamMember = ({ fte }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
   return <Container>
     <CustomPopover
-      title={'FTE = Permanent contributor fulltime equivalent'}
+      title={'Full-Time Equivalents'}
       id={'popover-fulltime equivalent'}
+      popupStyle={{
+        color: isLight ? '#231536' : '#D2D4EF',
+      }}
     >
       <Data>
         <ContainerRow> <StyleTypography isLight={isLight}>{fte}</StyleTypography> <Divider sx={{ bgcolor: isLight ? '#231536' : '#D2D4EF' }} /></ContainerRow>

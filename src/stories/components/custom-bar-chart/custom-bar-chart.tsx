@@ -85,7 +85,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
   };
 
   const getExpenditureLevel = (valueActual: number, budgetCapActual: number): string => {
-    if (budgetCapActual === 0) return '';
+    if (budgetCapActual === 0) return '0';
     const percent = (valueActual * 100) / budgetCapActual;
     let expenditureLevel = '';
     if (percent > 0 && percent <= 75) { expenditureLevel = ExpenditureLevel.LOW; }
@@ -125,10 +125,10 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
       >
 
         {description?.actual !== '0'
-          ? <Container levelExpenditure={getExpenditureLevel(parseFloat(description?.actual || '0'), parseFloat(description?.budgetCap || '0')) as ExpenditureLevel} isLight={isLight}>
+          ? <Container levelExpenditure={getExpenditureLevel(parseFloat((description?.actual || '0').replace(/,/, '.')), parseFloat((description?.budgetCap || '0').replace(/,/, '.'))) as ExpenditureLevel} isLight={isLight}>
             <Row style={{ marginBottom: '16px' }}>
               <StyleTypography>{description?.month}</StyleTypography>
-              <StyleLevelExpenditure isLight={isLight} levelExpenditure={getExpenditureLevel(parseFloat(description?.actual || '0'), parseFloat(description?.budgetCap || '0')) as ExpenditureLevel}>{getExpenditureLevel(parseFloat(description?.actual || '0'), parseFloat(description?.budgetCap || '0'))}</StyleLevelExpenditure>
+              <StyleLevelExpenditure isLight={isLight} levelExpenditure={getExpenditureLevel(parseFloat((description?.actual || '0').replace(/,/, '.')), parseFloat((description?.budgetCap || '0').replace(/,/, '.'))) as ExpenditureLevel}>{getExpenditureLevel(parseFloat((description?.actual || '0').replace(/,/, '.')), parseFloat((description?.budgetCap || '0').replace(/,/, '.')))}</StyleLevelExpenditure>
             </Row>
             <Row style={{ marginBottom: '4px' }}>
               <TypographyValue isLight={isLight}>{description?.budgetCap}</TypographyValue>
