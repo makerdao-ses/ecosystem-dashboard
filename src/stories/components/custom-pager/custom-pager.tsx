@@ -49,7 +49,7 @@ const Arrows = styled.div({
   display: 'flex',
   alignItems: 'center',
   marginTop: '4px',
-  gap: '8px'
+  gap: '16px'
 });
 
 const IconWrapper = styled.div<{disabled?: boolean}>(({ disabled = false }) => ({
