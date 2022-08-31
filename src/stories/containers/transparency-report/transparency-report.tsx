@@ -146,7 +146,8 @@ export const TransparencyReport = ({
       <SEOHead
         title={`${cu.name} Core Unit | Finances`}
         description={`Learn about the ${cu.name} Core Unit at MakerDAO: their finances, expense reports, and more.`}
-        image={cu.image || toAbsoluteURL('/icons/icon-512.png')}
+        image={cu.image || toAbsoluteURL('/assets/img/social-1200x630.png')}
+        twitterCard={cu.image ? 'summary' : 'summary_large_image'}
       />
       <CoreUnitSummary trailingAddress={['Expense Reports']} breadcrumbTitle="Expense Reports" />
       <Container isLight={isLight}>
