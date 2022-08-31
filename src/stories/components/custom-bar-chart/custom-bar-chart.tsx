@@ -2,7 +2,7 @@ import React from 'react';
 import { CustomChartItemModel } from '../../../core/models/custom-chart-item.model';
 import max from 'lodash/max';
 import styled from '@emotion/styled';
-import { Popover, Typography } from '@mui/material';
+import { Popover, Typography, useMediaQuery } from '@mui/material';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ExpenditureLevel } from '../../../core/enums/expenditure-level.enum';
 
@@ -28,6 +28,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   const [anchorEl, setAnchorEl] = React.useState<SVGRectElement | null>(null);
   const [description, setDescription] = React.useState<{ month: string, budgetCap: string, actual: string } | null>(null);
+  const isOnTouchDevice = useMediaQuery('(pointer: coarse)');
 
   const handleMouseOver = (event: React.MouseEvent<SVGRectElement>, i: number) => {
     if (props.months?.length === 0) return;
@@ -107,7 +108,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
     <>
       <Popover
         id={id}
-        open={open}
+        open={open && !isOnTouchDevice}
         anchorEl={anchorEl}
         onClose={handleClose}
         disableScrollLock

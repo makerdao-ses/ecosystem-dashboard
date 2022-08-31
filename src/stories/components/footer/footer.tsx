@@ -124,7 +124,7 @@ const ContainerFooter = styled.div({
     padding: '40px 64px 74px',
   },
   [lightTheme.breakpoints.up('desktop_1920')]: {
-    padding: '40px 128px 74px',
+    padding: '40px 128px 127.36px 74px',
   }
 });
 
