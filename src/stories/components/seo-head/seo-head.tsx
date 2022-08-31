@@ -14,6 +14,7 @@ interface SEOProps {
   favicon?: string;
   image?: string | ImageType;
   twitterImage?: string;
+  twitterCard?: 'summary' | 'summary_large_image';
   children?: JSX.Element[] | JSX.Element | React.ReactNode;
 }
 
@@ -23,6 +24,7 @@ export const SEOHead = ({
   favicon,
   image,
   twitterImage,
+  twitterCard,
   children,
 }: SEOProps) => {
   const faviconType = useMemo(() => {
@@ -88,7 +90,7 @@ export const SEOHead = ({
 
       {/* Twitter card */}
       <meta name="twitter:title" key="twitter:title" content={title} />
-      <meta name="twitter:card" key="twitter:card" content="summary_large_image" />
+      <meta name="twitter:card" key="twitter:card" content={twitterCard || 'summary_large_image'} />
       <meta name="twitter:description" key="twitter:description" content={description} />
       <meta name="twitter:site" key="twitter:site" content="@MakerDAO" />
       {twitterImage

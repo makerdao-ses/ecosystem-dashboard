@@ -71,7 +71,8 @@ const CuAboutContainer = ({ code, cuAbout, contributors }: Props) => {
       <SEOHead
         title={`About ${cuAbout.name} Core Unit at MakerDAO`}
         description={`Learn about the ${cuAbout.name} Core Unit at MakerDAO: their mandate, vision, mission, strategy, and more.`}
-        image={cuAbout.image || toAbsoluteURL('/icons/icon-512.png')}
+        image={cuAbout.image || toAbsoluteURL('/assets/img/social-1200x630.png')}
+        twitterCard={cuAbout.image ? 'summary' : 'summary_large_image'}
       />
 
       <CoreUnitSummary />
