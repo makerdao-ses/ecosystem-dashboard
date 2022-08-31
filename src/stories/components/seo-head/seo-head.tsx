@@ -69,24 +69,26 @@ export const SEOHead = ({
         key="og:description"
         content={description}
       />
+      <meta property="og:type" content="website" />
       <meta property="og:site_name" key="og:site_name" content="MakerDAO Ecosystem Performance Dashboard" />
       {image &&
         (
           typeof image === 'string'
             ? (
-              <meta name="twitter:image" key="twitter:image" content={image} />
+              <meta name="og:image" key="og:image" content={image} />
               )
             : (
                 <>
-                  <meta name="twitter:image" key="twitter:image" content={image.src} />
-                  <meta name="twitter:image:width" key="twitter:image:width" content={image.width.toString()} />
-                  <meta name="twitter:image:height" key="twitter:image:height" content={image.height.toString()} />
+                  <meta name="og:image" key="og:image" content={image.src} />
+                  <meta name="og:image:width" key="og:image:width" content={image.width.toString()} />
+                  <meta name="og:image:height" key="og:image:height" content={image.height.toString()} />
                 </>
               )
         )}
 
       {/* Twitter card */}
       <meta name="twitter:title" key="twitter:title" content={title} />
+      <meta name="twitter:card" key="twitter:card" content="summary" />
       <meta
         name="twitter:description"
         key="twitter:description"
