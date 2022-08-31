@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 import React, { CSSProperties } from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { SES_DASHBOARD } from '../../../core/utils/const';
 import { FooterLinks, TypeIconFooter } from './footer-link';
 
 interface Props {
@@ -10,15 +11,19 @@ interface Props {
   logo: JSX.Element
   links: TypeIconFooter[]
   style?: CSSProperties
+  isLink?: boolean
 }
 
-export const FooterContact = ({ title, subtitle, logo, links, style }: Props) => {
+export const FooterContact = ({ title, subtitle, logo, links, style, isLink = false }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
   return (
     <Container>
       <ContainerText >
-        <StyleTitle isLight={isLight} sx={{ marginBottom: '16px' }}>{title}</StyleTitle>
-        <StyleDescription isLight={isLight}>{subtitle}</StyleDescription>
+        {isLink
+          ? <StyleTitleLink isLight={isLight} href={SES_DASHBOARD} target='_blank'>{title}</StyleTitleLink>
+          : <StyleTitle isLight={isLight} style={{ paddingBottom: '16px' }}>{title}</StyleTitle>
+        }
+        <StyleDescription isLight={isLight} >{subtitle}</StyleDescription>
       </ContainerText>
       <FooterLinks links={links} styleLinks={style} />
       <ContainerLogo>{logo}</ContainerLogo>
@@ -42,7 +47,19 @@ const StyleTitle = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: '15px',
   lineHeight: '18px',
   letterSpacing: '0.4px',
-  color: isLight ? '#231536' : '#D1DEE6'
+  color: isLight ? '#231536' : '#D1DEE6',
+}));
+const StyleTitleLink = styled.a<{ isLight: boolean }>(({ isLight }) => ({
+  display: 'inline-block',
+  fontFamily: 'FT Base, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 500,
+  fontSize: '15px',
+  lineHeight: '18px',
+  letterSpacing: '0.4px',
+  color: isLight ? '#231536' : '#D1DEE6',
+  marginBottom: '16px',
+
 }));
 
 const StyleDescription = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({

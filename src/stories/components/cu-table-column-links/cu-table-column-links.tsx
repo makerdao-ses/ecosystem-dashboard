@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { CustomPopover } from '../custom-popover/custom-popover';
 import WWW from '../svg/www';
 import Forum from '../svg/forum';
 import Discord from '../svg/discord';
@@ -108,26 +107,16 @@ export const CuTableColumnLinks = ({
       <Container spacings={spacings} align={align}>
         {links?.map((link, i) => (
           <StyleBox lastChild={lastChild} key={`link-${i}`}>
-            <CustomPopover
-              title={link.linkType}
-              popupStyle={{
-                padding: '16px',
-
-                color: isLight ? '#231536' : '#D2D4EF',
-
-              }}
-              id={`link-${i}`}
-            >
-              <LinkImage
+            <LinkImage
                 href={link.href}
                 target="_blank"
                 width={width}
                 height={height}
+                isLight={isLight}
                 onClick={(event: React.SyntheticEvent) => event.stopPropagation()}
               >
                 {getImageForLink(link, fill, width, height, fillDark)}
               </LinkImage>
-            </CustomPopover>
           </StyleBox>
         ))}
       </Container>
@@ -149,6 +138,7 @@ const Container = styled.div<{ spacings?: number; align: string }>(
 type StickyLinkProps = {
   width?: number;
   height?: number;
+  isLight?: boolean;
 };
 
 const LinkImage = styled.a(
@@ -157,9 +147,12 @@ const LinkImage = styled.a(
     alignItems: 'center',
     justifyContent: 'center',
   },
-  ({ width = 32, height = 32 }: StickyLinkProps) => ({
+  ({ width = 32, height = 32, isLight = true }: StickyLinkProps) => ({
     width,
     height,
+    '&:hover svg path': {
+      fill: isLight ? '#231536' : 'white'
+    }
   })
 );
 
