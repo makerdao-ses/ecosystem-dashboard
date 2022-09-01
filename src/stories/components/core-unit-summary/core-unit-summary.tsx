@@ -268,7 +268,12 @@ const ContainerResponsiveMobile = styled.div<{ isLight: boolean, hiddenTextDescr
   position: 'relative',
   borderBottom: hiddenTextDescription && isLight ? '1px solid #B6EDE7' : hiddenTextDescription && !isLight ? '1px solid #027265' : 'none',
   width: '100%',
-  marginTop: '24px',
+  marginTop: hiddenTextDescription ? '24px' : 0,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: '24px',
+  },
+
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     marginTop: hiddenTextDescription ? '16px' : '0px',
   },

@@ -150,7 +150,7 @@ export const TitleNavigationCuAbout = ({
               )}
             </ResponsiveTitle>
 
-            {!(phoneDimensions && !hiddenTextDescription) && (
+            {!((phoneDimensions || lessPhone) && !hiddenTextDescription) && (
               <div
                 style={{
                   display: 'flex',
@@ -214,7 +214,7 @@ export const TitleNavigationCuAbout = ({
                 ))}
             </CategoryContainer>
           )}
-          {(tableDimensions || phoneDimensions || lessPhone) && (
+          {(phoneDimensions || lessPhone || tableDimensions) && hiddenTextDescription && (
             <ContainerLinks>
               <CuTableColumnLinks
                 links={getLinksCoreUnit(coreUnitAbout)}
@@ -334,6 +334,7 @@ const ContainerLinks = styled.div({
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     flexDirection: 'column',
     height: 'fit-content',
+    marginTop: '4px',
   },
   [lightTheme.breakpoints.down('table_375')]: {
     flexDirection: 'column',
@@ -404,14 +405,19 @@ const ContainerCategoryConditional = styled.div({
 const ContainerSeparateData = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  alignItems: 'center',
-  flexWrap: 'wrap',
+  alignItems: 'flex-end',
   width: '100%',
+  [lightTheme.breakpoints.down('desktop_1194')]: {
+    alignItems: 'center',
+  },
   [lightTheme.breakpoints.down('table_375')]: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
     width: '100%',
+  },
+  [lightTheme.breakpoints.down('table_834')]: {
+    flexWrap: 'wrap',
   },
 });
 
