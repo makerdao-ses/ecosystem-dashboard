@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
-import { Divider, Typography, useMediaQuery } from '@mui/material';
+import { Divider, useMediaQuery } from '@mui/material';
 import { getMarkdownInformation, getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-unit-about';
 import { getFTEsFromCoreUnit } from '../../../core/business-logic/core-units';
 import { getArrayParam, getStringParam } from '../../../core/utils/filters';
