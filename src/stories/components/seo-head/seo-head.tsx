@@ -63,8 +63,6 @@ export const SEOHead = ({
 
       <meta name="description" key="description" content={description} />
       <meta name="theme-color" content="#231536"/>
-      <meta name="theme-color" media="(prefers-color-scheme: light)" content="#231536" />
-      <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#D2D4EF" />
 
       {/* OpenGraph https://ogp.me/ */}
       <meta property="og:title" key="og:title" content={title} />
