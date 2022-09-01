@@ -325,10 +325,8 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
               value={getWalletDifference(currentWallet)}
               bold
             />,
-            <NumberCell
+            <TableCell
               key={4}
-              value={getWalletPayment(currentWallet)}
-              bold
             />,
           ]}
         />}
