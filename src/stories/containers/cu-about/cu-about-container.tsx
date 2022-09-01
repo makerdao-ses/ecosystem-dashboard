@@ -40,6 +40,7 @@ const CuAboutContainer = ({ code, cuAbout, contributors }: Props) => {
   const table834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const LessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
+  const lessDesktop1194 = useMediaQuery(lightTheme.breakpoints.down('desktop_1194'));
 
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
@@ -56,6 +57,12 @@ const CuAboutContainer = ({ code, cuAbout, contributors }: Props) => {
     const resultArrayThreeElements = showThreeMIPs ? order.slice(0, countNumberAccepted.length) : order;
     return resultArrayThreeElements;
   }, [cuAbout.cuMip, showThreeMIPs]);
+
+  const hasMipsNotAccepted = useMemo(() => {
+    const buildNewArray = cuAbout.cuMip.map((mip: CuMip) => getRelateMipObjectFromCoreUnit(mip));
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return buildNewArray.some((mip: any) => mip.mipStatus !== CuStatusEnum.Accepted);
+  }, [cuAbout.cuMip]);
 
   const onClickFinances = useCallback(() => {
     const queryStrings = buildQueryString({
@@ -137,29 +144,33 @@ const CuAboutContainer = ({ code, cuAbout, contributors }: Props) => {
                 )}
               </RelateMipCards>
             </CardRelateMipsContainer>
-            {cuAbout?.cuMip?.length > 3 && (
+            {hasMipsNotAccepted && (
+              <ButtonContainer>
+                <DividerStyle
+                  sx={{
+                    bgcolor: isLight ? '#D4D9E1' : '#405361',
+                  }}
+                />{' '}
+                <BigButton
+                  title={
+                    showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'
+                  }
+                  onClick={onClickLessMips}
+                />
+                <DividerStyle
+                  sx={{
+                    bgcolor: isLight ? '#D4D9E1' : '#405361',
+                  }}
+                />
+              </ButtonContainer>
+            )}
+            {!hasMipsNotAccepted && lessDesktop1194 && (
               <ButtonContainer>
                 <DividerStyle
                   sx={{
                     bgcolor: isLight ? '#D4D9E1' : '#405361',
                   }}
                 />
-                {cuAbout?.cuMip?.some((mip) => mip.mipStatus !== CuStatusEnum.Accepted) && (
-                  <>
-                    {' '}
-                    <BigButton
-                      title={
-                        showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'
-                      }
-                      onClick={onClickLessMips}
-                    />
-                    <DividerStyle
-                      sx={{
-                        bgcolor: isLight ? '#D4D9E1' : '#405361',
-                      }}
-                    />
-                  </>
-                )}
               </ButtonContainer>
             )}
             {(table834 || phone || LessPhone) && (
@@ -181,7 +192,6 @@ const CuAboutContainer = ({ code, cuAbout, contributors }: Props) => {
                     <CardExpenses
                       onClick={onClickFinances}
                       code={formatCode(cuAbout.code)}
-                      name={cuAbout.name || ''}
                     />
                   </ContainerCard>
                   <ContainerCard>

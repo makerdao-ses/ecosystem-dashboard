@@ -18,7 +18,6 @@ interface CircleAvatarProps {
 }
 
 export const CircleAvatar = ({ width = '32px', height = '32px', fontSize = '16px', identIcon = false, border = '2px solid #E7FCFA', ...props }: CircleAvatarProps) => {
-  const [loaded, setLoaded] = useState(false);
   const theme = useTheme();
   const identIconImage = identIcon && new Identicon(padEnd(props.name, 43, 'a'), {
     format: 'svg',
@@ -35,14 +34,13 @@ export const CircleAvatar = ({ width = '32px', height = '32px', fontSize = '16px
     fontFamily: (theme as Theme).typography.fontFamily,
     fontWeight: 900,
     borderRadius: '50%',
-    color: props.image && loaded ? 'transparent' : 'white',
-    border: props.image && loaded ? 'none' : border,
+    color: props.image ? 'transparent' : 'white',
+    border: props.image ? 'none' : border,
     background: (props.image || identIcon) ? 'white' : `${getColorForString(props.name)} ${height}`,
     position: 'relative',
     ...props.style
   }}>
     {((props.image || identIcon)) && <img
-        onLoad={() => setLoaded(true)}
         src={identIcon
           ? `data:image/svg+xml;base64,${identIconImage}`
           : props.image}
@@ -56,7 +54,6 @@ export const CircleAvatar = ({ width = '32px', height = '32px', fontSize = '16px
           top: 0,
           left: 0,
           zIndex: 1,
-          visibility: loaded ? 'visible' : 'hidden',
           ...props.imageStyle,
         }}
       />}
