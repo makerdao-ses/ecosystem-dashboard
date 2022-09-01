@@ -27,10 +27,12 @@ import { CategoriesSkeleton } from './categories-skeleton';
 import Skeleton from '@mui/material/Skeleton';
 import { buildQueryString } from '../../../core/utils/url.utils';
 import { useRouter } from 'next/router';
+import lightTheme from '../../../../styles/theme/light';
 
 interface CoreUnitCardProps {
   coreUnit: CoreUnitDto;
   isLoading?: boolean;
+
 }
 
 export const CoreUnitCard = ({
@@ -136,10 +138,10 @@ export const CoreUnitCard = ({
                   <CategoryChip key={category} category={category} />
                 ))}
               </Categories>
-              )
+            )
             : (
               <CategoriesSkeleton />
-              )}
+            )}
           <Links>
             <CuTableColumnLinks
               links={getLinksFromCoreUnit(coreUnit)}
@@ -156,6 +158,11 @@ export const CoreUnitCard = ({
 
 const CuCard = styled.div({
   marginBottom: '32px',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    ':last-child': {
+      marginBottom: '0px',
+    }
+  },
 });
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
