@@ -32,56 +32,38 @@ interface CuTableColumnLinksProps {
 const getImageForLink = (
   link: LinkModel,
   fill: string,
+  width?: number,
+  height?: number,
   fillDark?: string,
 ) => {
   switch (link.linkType) {
     case LinkTypeEnum.WWW:
       return (
-        <WWW fill={fill} width={15} height={15} fillDark={fillDark} />
+        <WWW fill={fill} width={width} height={height} fillDark={fillDark} />
       );
     case LinkTypeEnum.Forum:
       return (
-        <Forum fill={fill} width={15} height={15} fillDark={fillDark} />
+        <Forum fill={fill} width={width} height={height} fillDark={fillDark} />
       );
     case LinkTypeEnum.Discord:
       return (
-        <Discord
-          fill={fill}
-          width={14.44}
-          height={16.5}
-          fillDark={fillDark}
-        />
+        <Discord fill={fill} width={width} height={height} fillDark={fillDark} />
       );
     case LinkTypeEnum.Twitter:
       return (
-        <Twitter
-          fill={fill}
-          width={15}
-          height={15}
-          fillDark={fillDark}
-        />
+        <Twitter fill={fill} width={width} height={height} fillDark={fillDark} />
       );
     case LinkTypeEnum.Youtube:
       return (
-        <Youtube
-          fill={fill}
-          width={15}
-          height={13}
-          fillDark={fillDark}
-        />
+        <Youtube fill={fill} width={width} height={height} fillDark={fillDark} />
       );
     case LinkTypeEnum.LinkedIn:
       return (
-        <LinkedIn
-          fill={fill}
-          width={15}
-          height={15}
-          fillDark={fillDark}
-        />
+        <LinkedIn fill={fill} width={width} height={height} fillDark={fillDark} />
       );
     case LinkTypeEnum.Gmail:
       return (
-        <Gmail fill={fill} width={15} height={12} fillDark={fillDark} />
+        <Gmail fill={fill} width={width} height={height} fillDark={fillDark} />
       );
     default:
       return <WWW />;
@@ -113,7 +95,7 @@ export const CuTableColumnLinks = ({
                 isLight={isLight}
                 onClick={(event: React.SyntheticEvent) => event.stopPropagation()}
               >
-                {getImageForLink(link, fill, fillDark)}
+                {getImageForLink(link, fill, width, height, fillDark)}
               </LinkImage>
           </StyleBox>
         ))}
