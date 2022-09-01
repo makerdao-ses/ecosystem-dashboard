@@ -188,7 +188,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         continue;
       }
 
-      const groupedCategory = _.groupBy(items, (item) => item.budgetCategory);
+      const groupedCategory = _.groupBy(grouped[groupedKey], (item) => item.budgetCategory);
 
       let i = 1;
       for (const groupedCatKey in groupedCategory) {
