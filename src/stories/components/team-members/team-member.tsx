@@ -20,7 +20,7 @@ const TeamMember = ({ fte }: Props) => {
       }}
     >
       <Data>
-        <ContainerRow> <StyleTypography isLight={isLight}>{fte}</StyleTypography> <Divider sx={{ bgcolor: isLight ? '#231536' : '#D2D4EF' }} /></ContainerRow>
+        <ContainerRow> <StyleTypography isLight={isLight}>{fte}</StyleTypography> </ContainerRow>
         <Title isLight={isLight}>FTEs</Title>
       </Data>
     </CustomPopover>
@@ -40,8 +40,8 @@ const StyleTypography = styled(Typography)<{ isLight: boolean }>(({ isLight }) =
   fontStyle: 'normal',
   fontFamily: 'Inter, sans-serif',
   fontWeight: 700,
-  fontSize: '20px',
-  lineHeight: '24px',
+  fontSize: '22px',
+  lineHeight: '27px',
   color: isLight ? '#231536' : '#D2D4EF',
 }));
 

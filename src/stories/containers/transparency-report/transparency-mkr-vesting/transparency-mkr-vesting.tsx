@@ -135,12 +135,14 @@ const TotalFte = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     marginRight: '16px',
   },
   '> u': {
-    fontSize: '16px',
+    fontStyle: 'normal',
+    fontFamily: 'Inter, sans-serif',
+    fontWeight: 700,
+    fontSize: '22px',
+    lineHeight: '27px',
     paddingBottom: '2px',
-    lineHeight: '19px',
     textDecoration: 'none',
     color: isLight ? '#25273D' : '#708390',
-    borderBottom: '1px solid #231536',
   },
   '@media (min-width: 834px)': {
     fontSize: '20px',
