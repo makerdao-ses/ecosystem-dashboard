@@ -130,14 +130,14 @@ const CuAboutContainer = ({ code, cuAbout, contributors }: Props) => {
                     </RelateMipCard>
                   );
                 })}
-                {cuAbout && cuAbout.cuMip && cuAbout.cuMip.length === 0 && (
+                {cuAbout?.cuMip?.length === 0 && (
                   <ContainerNoRelateMIps>
                     There are not related MIPs
                   </ContainerNoRelateMIps>
                 )}
               </RelateMipCards>
             </CardRelateMipsContainer>
-            {cuAbout && cuAbout.cuMip && cuAbout.cuMip.length > 3 && (
+            {cuAbout?.cuMip?.length > 3 && (
               <ButtonContainer>
                 <DividerStyle
                   sx={{

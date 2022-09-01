@@ -15,6 +15,7 @@ export const customRenderer = {
       color: '#231536',
       lineHeight: '23px',
       fontFamily: 'FT Base, sans-serif',
+      marginBottom: 0,
     }} key={Math.random()}>{text}</ResponsiveParagraph>;
   },
   list(text: string) {
@@ -58,6 +59,7 @@ export const customRendererDark = {
       color: '#D2D4EF',
       lineHeight: '23px',
       fontFamily: 'FT Base, sans-serif',
+      marginBottom: 0,
     }} key={Math.random()}>{text}</ResponsiveParagraph>;
   },
   list(text: string) {
