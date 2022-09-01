@@ -23,6 +23,7 @@ import { SEOHead } from '../../components/seo-head/seo-head';
 import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
 import { getCurrentOrLastMonthWithData, getLastMonthWithActualOrForecast } from '../../../core/business-logic/core-units';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
+import lightTheme from '../../../../styles/theme/light';
 
 const colors: { [key: string]: string } = {
   Draft: '#7C6B95',
@@ -182,7 +183,7 @@ export const TransparencyReport = ({
                 onNext={handleNextMonth}
                 hasNext={hasNextMonth()}
               />
-              {currentBudgetStatement?.publicationUrl && (
+              {currentBudgetStatement?.publicationUrl.trim() && (
                 <CustomLink
                   href={currentBudgetStatement?.publicationUrl ?? null}
                   style={{
@@ -337,6 +338,9 @@ export const Title = styled.div<{
       fontSize: '20px',
       lineHeight: '24px',
       marginBottom: `${responsiveMarginBottom || marginBottom}px`,
+    },
+    [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+      marginTop: '40px'
     },
   })
 );
