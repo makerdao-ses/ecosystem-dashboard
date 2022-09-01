@@ -32,8 +32,8 @@ interface CuTableColumnLinksProps {
 const getImageForLink = (
   link: LinkModel,
   fill: string,
-  width: number,
-  height: number,
+  width?: number,
+  height?: number,
   fillDark?: string,
 ) => {
   switch (link.linkType) {
