@@ -130,31 +130,36 @@ const CuAboutContainer = ({ code, cuAbout, contributors }: Props) => {
                     </RelateMipCard>
                   );
                 })}
-                {cuAbout && cuAbout.cuMip && cuAbout.cuMip.length === 0 && (
+                {cuAbout?.cuMip?.length === 0 && (
                   <ContainerNoRelateMIps>
                     There are not related MIPs
                   </ContainerNoRelateMIps>
                 )}
               </RelateMipCards>
             </CardRelateMipsContainer>
-            {cuAbout && cuAbout.cuMip && cuAbout.cuMip.length > 3 && (
+            {cuAbout?.cuMip?.length > 3 && (
               <ButtonContainer>
                 <DividerStyle
                   sx={{
                     bgcolor: isLight ? '#D4D9E1' : '#405361',
                   }}
-                />{' '}
-                <BigButton
-                  title={
-                    showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'
-                  }
-                  onClick={onClickLessMips}
                 />
-                <DividerStyle
-                  sx={{
-                    bgcolor: isLight ? '#D4D9E1' : '#405361',
-                  }}
-                />
+                {cuAbout?.cuMip?.some((mip) => mip.mipStatus !== CuStatusEnum.Accepted) && (
+                  <>
+                    {' '}
+                    <BigButton
+                      title={
+                        showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'
+                      }
+                      onClick={onClickLessMips}
+                    />
+                    <DividerStyle
+                      sx={{
+                        bgcolor: isLight ? '#D4D9E1' : '#405361',
+                      }}
+                    />
+                  </>
+                )}
               </ButtonContainer>
             )}
             {(table834 || phone || LessPhone) && (

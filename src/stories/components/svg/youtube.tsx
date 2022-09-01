@@ -8,7 +8,7 @@ interface Props {
 }
 
 const Youtube = ({
-  width = 21,
+  width = 20,
   height = 14,
   fill = '#C4C4C4',
   fillDark,

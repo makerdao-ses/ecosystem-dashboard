@@ -8,7 +8,7 @@ interface Props {
 }
 
 const Forum = ({
-  width = 21,
+  width = 20,
   height = 20,
   fill = '#C4C4C4',
   fillDark,
