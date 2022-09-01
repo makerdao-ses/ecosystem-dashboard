@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import lightTheme from '../../../../styles/theme/light';
 
 interface Props {
   header: JSX.Element | string;
@@ -30,6 +31,11 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   padding: '20px 24px 10px',
   marginBottom: '24px',
   borderRadius: '6px',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    ':last-child': {
+      marginBottom: '0px',
+    }
+  },
 }));
 
 const HeaderWrapper = styled.div({

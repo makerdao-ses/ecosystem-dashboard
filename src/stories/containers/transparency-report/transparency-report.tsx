@@ -294,6 +294,9 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   '@media (min-width: 834px)': {
     padding: '0 32px 128px',
   },
+  '@media (max-width: 833px)': {
+    padding: '0 32px 128px',
+  },
 }));
 
 const Wrapper = styled.div({
