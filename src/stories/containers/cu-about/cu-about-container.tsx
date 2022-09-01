@@ -181,7 +181,6 @@ const CuAboutContainer = ({ code, cuAbout, contributors }: Props) => {
                     <CardExpenses
                       onClick={onClickFinances}
                       code={formatCode(cuAbout.code)}
-                      name={cuAbout.name || ''}
                     />
                   </ContainerCard>
                   <ContainerCard>
