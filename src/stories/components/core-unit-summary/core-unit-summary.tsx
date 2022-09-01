@@ -132,7 +132,7 @@ export const CoreUnitSummary = ({ trailingAddress = [], breadcrumbTitle }: CoreU
             },
 
             {
-              label: <span >Core Units <Value isLight={isLight}>({page})</Value></span>,
+              label: <span >Core Units <Value isLight={isLight}>({filteredData.length})</Value></span>,
               url: `/${queryStrings}`
             },
           ]}
