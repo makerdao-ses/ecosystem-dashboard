@@ -38,7 +38,7 @@ const Container = styled.div({
 
 const StyleTypography = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
   fontStyle: 'normal',
-  fontFamily: 'Inter,sanserif',
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 700,
   fontSize: '20px',
   lineHeight: '24px',

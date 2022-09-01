@@ -84,9 +84,8 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
             <CardContentPositionColumn>
               <TypographyStyled mb={0} color='#708390' style={{ paddingBottom: '4px' }} >Since</TypographyStyled>
               <TypographyStyled mb={0} color={isLight ? '#231536' : '#D2D4EF'}>
-                {since.years === 0
-                  ? `${Math.floor(since.months)} Month${since.months < 2 ? '' : 's'}`
-                  : `${Math.floor(since.years)} Year${since.years < 2 ? '' : 's'}`}
+                {since.years >= 1 && `${Math.floor(since.years)} Year${since.years < 2 ? '' : 's'}`}{' '}
+                {since.months >= 1 && `${Math.floor(since.months)} Month${since.months < 2 ? '' : 's'}`}
               </TypographyStyled>
             </CardContentPositionColumn>
             <CardContentPositionColumn>

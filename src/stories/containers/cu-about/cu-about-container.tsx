@@ -71,7 +71,8 @@ const CuAboutContainer = ({ code, cuAbout, contributors }: Props) => {
       <SEOHead
         title={`About ${cuAbout.name} Core Unit at MakerDAO`}
         description={`Learn about the ${cuAbout.name} Core Unit at MakerDAO: their mandate, vision, mission, strategy, and more.`}
-        image={cuAbout.image || toAbsoluteURL('/icons/icon-512.png')}
+        image={cuAbout.image || toAbsoluteURL('/assets/img/social-1200x630.png')}
+        twitterCard={cuAbout.image ? 'summary' : 'summary_large_image'}
       />
 
       <CoreUnitSummary />
@@ -266,7 +267,7 @@ const ContactInfoTitle = styled.h2<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   marginTop: 0,
   marginBottom: '32px',
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'SF Pro Text, sans-serif',
   width: '100%',
 
   [lightTheme.breakpoints.up('table_834')]: {

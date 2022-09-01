@@ -46,7 +46,7 @@ const CardNotFoundPage: NextPage = () => {
           </LogoContainer>
           <ContainerText>
             <TextUps isLight={isLight}>Oops!</TextUps>
-            <TextDescription >The Page you requested couldn't be found</TextDescription>
+            <TextDescription >The page you requested couldn't be found</TextDescription>
           </ContainerText>
           <ContainerButton> <CustomButton widthText='100%' label='Go Back to Homepage' style={{
             display: 'flex',

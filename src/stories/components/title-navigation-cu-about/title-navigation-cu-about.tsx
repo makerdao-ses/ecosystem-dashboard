@@ -149,17 +149,7 @@ export const TitleNavigationCuAbout = ({
                 </TypographyTitle>
               )}
             </ResponsiveTitle>
-            {(phoneDimensions || lessPhone) && (
-              <div
-                style={{
-                  borderBottom: !hiddenTextDescription
-                    ? '1px solid #B6EDE7'
-                    : 'none',
-                  width: '100%',
-                  marginTop: !hiddenTextDescription ? '16px' : '0px',
-                }}
-              />
-            )}
+
             {!(phoneDimensions && !hiddenTextDescription) && (
               <div
                 style={{
@@ -201,6 +191,17 @@ export const TitleNavigationCuAbout = ({
             )}
           </ContainerSeparateData>
         </ContainerTitle>
+        {(phoneDimensions || lessPhone) && (
+          <div
+            style={{
+              borderBottom: !hiddenTextDescription
+                ? '1px solid #B6EDE7'
+                : 'none',
+              width: '100%',
+              marginTop: !hiddenTextDescription ? '16px' : '0px',
+            }}
+          />
+        )}
         <ContainerCategoryConditional>
           {(!(phoneDimensions || lessPhone) || hiddenTextDescription) && (
             <CategoryContainer>
@@ -213,7 +214,7 @@ export const TitleNavigationCuAbout = ({
                 ))}
             </CategoryContainer>
           )}
-          {tableDimensions && (
+          {(tableDimensions || phoneDimensions || lessPhone) && (
             <ContainerLinks>
               <CuTableColumnLinks
                 links={getLinksCoreUnit(coreUnitAbout)}
@@ -225,17 +226,6 @@ export const TitleNavigationCuAbout = ({
             </ContainerLinks>
           )}
         </ContainerCategoryConditional>
-        {(phoneDimensions || lessPhone) && hiddenTextDescription && (
-          <ContainerLinks>
-            <CuTableColumnLinks
-              links={getLinksCoreUnit(coreUnitAbout)}
-              fill="#708390"
-              align="flex-start"
-              spacings={16}
-              fillDark="#ADAFD4"
-            />
-          </ContainerLinks>
-        )}
       </ContainerColum>
       {!(phoneDimensions || lessPhone || tableDimensions) && (
         <ContainerLinks>
@@ -331,12 +321,7 @@ const ContainerLinks = styled.div({
   alignItems: 'flex-end',
   height: '68px',
   marginRight: '6px',
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    width: '272px',
-    alignItems: 'flex-start',
-    height: 'fit-content',
-  },
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [lightTheme.breakpoints.up('table_834')]: {
     width: '272px',
     alignItems: 'flex-start',
     height: 'fit-content',
@@ -384,6 +369,7 @@ const CategoryContainer = styled.div({
     marginBottom: '16px',
     marginTop: '20px',
     gap: '8px',
+    marginRight: '24px',
   },
   [lightTheme.breakpoints.down('table_375')]: {
     marginBottom: '16px',
@@ -393,11 +379,19 @@ const CategoryContainer = styled.div({
 });
 const ContainerCategoryConditional = styled.div({
   display: 'flex',
-  flexDirection: 'row',
+  flexDirection: 'column',
   alignItems: 'flex-start',
   justifyContent: 'space-between',
+
   width: '100%',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+  },
+
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    flexDirection: 'row',
     marginTop: '16px',
   },
 });
@@ -405,14 +399,9 @@ const ContainerCategoryConditional = styled.div({
 const ContainerSeparateData = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  alignItems: 'flex-end',
+  alignItems: 'center',
+  flexWrap: 'wrap',
   width: '100%',
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    width: '100%',
-  },
   [lightTheme.breakpoints.down('table_375')]: {
     display: 'flex',
     flexDirection: 'column',
@@ -430,7 +419,8 @@ const ResponsiveTitle = styled.div({
     marginBottom: '6px',
   },
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-    width: '100%',
+    width: 'auto',
+    marginRight: '24px',
     marginBottom: '2px',
   },
 });

@@ -62,25 +62,25 @@ const MdViewerPage = ({ subTitle = 'What we do', paragraphDescription, paragraph
     <ViewerContainer>
       {showButton
         ? <ContainerResponsive>
-            <TypographyStyleDescription isLight={isLight} id='hidden-element'>{subTitle}</TypographyStyleDescription>
-            <CustomButton widthText='100%' label='Expenses' style={{
-              textAlign: 'center',
-              background: isLight ? '#E7FCFA' : 'transparent',
-              border: '1px solid #1AAB9B',
-              borderRadius: '22px',
-              height: '34px',
-              color: '#1AAB9B',
-              fontFamily: 'SF Pro Text, sans serif',
-              fontStyle: 'normal',
-              fontWeight: 500,
-              fontSize: '14px',
-              lineHeight: '18px',
-              width: 'fit-content',
-              padding: '8px 24px'
-              // eslint-disable-next-line @typescript-eslint/no-empty-function
-            }} onClick={onClick} styleText={{
-              color: '#1AAB9B',
-            }} />
+          <TypographyStyleDescription isLight={isLight} id='hidden-element'>{subTitle}</TypographyStyleDescription>
+          <CustomButton widthText='100%' label='View Expenses' style={{
+            textAlign: 'center',
+            background: isLight ? '#E7FCFA' : 'transparent',
+            border: '1px solid #1AAB9B',
+            borderRadius: '22px',
+            height: '34px',
+            color: '#1AAB9B',
+            fontFamily: 'SF Pro Text, sans serif',
+            fontStyle: 'normal',
+            fontWeight: 500,
+            fontSize: '14px',
+            lineHeight: '18px',
+            width: 'fit-content',
+            padding: '8px 24px'
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
+          }} onClick={onClick} styleText={{
+            color: '#1AAB9B',
+          }} />
         </ContainerResponsive>
         : <TypographyStyleDescription isLight={isLight} id='hidden-element'>{subTitle}</TypographyStyleDescription>}
       {paragraphDescription && isLight

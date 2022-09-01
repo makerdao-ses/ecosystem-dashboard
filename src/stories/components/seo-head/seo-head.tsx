@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import Head from 'next/head';
-import { BASE_URL } from '../../../config/routes';
 
 interface ImageType {
   src: string;
@@ -14,6 +13,7 @@ interface SEOProps {
   favicon?: string;
   image?: string | ImageType;
   twitterImage?: string;
+  twitterCard?: 'summary' | 'summary_large_image';
   children?: JSX.Element[] | JSX.Element | React.ReactNode;
 }
 
@@ -23,6 +23,7 @@ export const SEOHead = ({
   favicon,
   image,
   twitterImage,
+  twitterCard,
   children,
 }: SEOProps) => {
   const faviconType = useMemo(() => {
@@ -69,7 +70,6 @@ export const SEOHead = ({
       <meta property="og:title" key="og:title" content={title} />
       <meta property="og:description" key="og:description" content={description} />
       <meta property="og:type" content="website" />
-      <meta property="og:url" content={BASE_URL} />
       <meta property="og:site_name" key="og:site_name" content="MakerDAO Ecosystem Performance Dashboard" />
       {image &&
         (
@@ -88,7 +88,7 @@ export const SEOHead = ({
 
       {/* Twitter card */}
       <meta name="twitter:title" key="twitter:title" content={title} />
-      <meta name="twitter:card" key="twitter:card" content="summary_large_image" />
+      <meta name="twitter:card" key="twitter:card" content={twitterCard || 'summary_large_image'} />
       <meta name="twitter:description" key="twitter:description" content={description} />
       <meta name="twitter:site" key="twitter:site" content="@MakerDAO" />
       {twitterImage
