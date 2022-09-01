@@ -190,9 +190,19 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
 
       const groupedCategory = _.groupBy(items, (item) => item.budgetCategory);
 
+      let i = 1;
       for (const groupedCatKey in groupedCategory) {
+        if (
+          Math.abs(getGroupForecast(groupedCategory[groupedCatKey])) +
+            Math.abs(getGroupActual(groupedCategory[groupedCatKey])) +
+            Math.abs(getGroupDifference(groupedCategory[groupedCatKey])) ===
+          0
+        ) {
+          continue;
+        }
+
         result.push([
-          <TableCell key={0}>{groupedCategory[groupedCatKey][0].group}</TableCell>,
+          <TableCell key={0}>{i === 1 ? groupedKey : ''}</TableCell>,
           <TableCell key={1}>{groupedCategory[groupedCatKey][0].budgetCategory}</TableCell>,
           <NumberCell key={2} value={getGroupForecast(groupedCategory[groupedCatKey])}/>,
           <NumberCell key={3} value={getGroupActual(groupedCategory[groupedCatKey])}/>,
@@ -202,6 +212,8 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           </TableCell>,
           <NumberCell key={6} value={getGroupPayment(groupedCategory[groupedCatKey])}/>,
         ]);
+
+        i++;
       }
     }
 
