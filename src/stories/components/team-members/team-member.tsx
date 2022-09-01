@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { CustomPopover } from '../custom-popover/custom-popover';
-import { Divider, Typography } from '@mui/material';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import lightTheme from '../../../../styles/theme/light';
+import { Typography } from '@mui/material';
 
 interface Props {
   fte: number,

@@ -138,10 +138,10 @@ export const CoreUnitCard = ({
                   <CategoryChip key={category} category={category} />
                 ))}
               </Categories>
-            )
+              )
             : (
               <CategoriesSkeleton />
-            )}
+              )}
           <Links>
             <CuTableColumnLinks
               links={getLinksFromCoreUnit(coreUnit)}
