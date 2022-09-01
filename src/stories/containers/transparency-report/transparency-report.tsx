@@ -182,9 +182,9 @@ export const TransparencyReport = ({
                 onNext={handleNextMonth}
                 hasNext={hasNextMonth()}
               />
-              {currentBudgetStatement?.publicationUrl && (
+              {currentBudgetStatement?.publicationUrl.trim() && (
                 <CustomLink
-                  href={currentBudgetStatement?.publicationUrl ?? null}
+                  href={ currentBudgetStatement?.publicationUrl ?? null}
                   style={{
                     margin: '4px 16px 0',
                     lineHeight: '19px',
