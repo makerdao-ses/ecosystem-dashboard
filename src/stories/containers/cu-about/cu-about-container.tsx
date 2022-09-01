@@ -143,18 +143,23 @@ const CuAboutContainer = ({ code, cuAbout, contributors }: Props) => {
                   sx={{
                     bgcolor: isLight ? '#D4D9E1' : '#405361',
                   }}
-                />{' '}
-                <BigButton
-                  title={
-                    showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'
-                  }
-                  onClick={onClickLessMips}
                 />
-                <DividerStyle
-                  sx={{
-                    bgcolor: isLight ? '#D4D9E1' : '#405361',
-                  }}
-                />
+                {cuAbout?.cuMip?.some((mip) => mip.mipStatus !== CuStatusEnum.Accepted) && (
+                  <>
+                    {' '}
+                    <BigButton
+                      title={
+                        showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'
+                      }
+                      onClick={onClickLessMips}
+                    />
+                    <DividerStyle
+                      sx={{
+                        bgcolor: isLight ? '#D4D9E1' : '#405361',
+                      }}
+                    />
+                  </>
+                )}
               </ButtonContainer>
             )}
             {(table834 || phone || LessPhone) && (
