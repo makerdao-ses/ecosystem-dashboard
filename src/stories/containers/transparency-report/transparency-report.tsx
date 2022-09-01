@@ -185,8 +185,7 @@ export const TransparencyReport = ({
                 <CustomLink
                   href={currentBudgetStatement?.publicationUrl ?? null}
                   style={{
-                    margin: '0 16px',
-                    alignSelf: 'flex-end',
+                    margin: '4px 16px 0',
                     lineHeight: '19px',
                   }}
                   iconHeight={10}
