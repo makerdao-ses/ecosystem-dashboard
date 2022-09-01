@@ -112,6 +112,9 @@ const RowUnderLine = styled.div({
   flexDirection: 'row',
   alignItems: 'flex-start',
   alignSelf: 'stretch',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    flexDirection: 'column',
+  },
 });
 
 const SinceDate = styled.a<{ isLight: boolean }>(({ isLight }) => ({
@@ -135,6 +138,9 @@ const ArrowLinkContainer = styled.span({
 const ContainerIconTypography = styled.div({
   display: 'inline',
   alignItems: 'center',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    marginTop: '4px'
+  },
 });
 
 const StyleMipNumber = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
