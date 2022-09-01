@@ -41,7 +41,6 @@ const Label = styled.div({
   '@media (min-width: 834px)': {
     fontSize: '20px',
     lineHeight: '24px',
-    margin: '8px',
   }
 });
 

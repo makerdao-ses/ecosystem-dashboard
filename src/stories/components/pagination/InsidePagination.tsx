@@ -51,6 +51,7 @@ const Arrows = styled.div({
   flexDirection: 'row',
   justifyContent: 'start',
   marginLeft: '8px',
+  gap: '16px'
 });
 
 const StyleActualCoreUnit = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
