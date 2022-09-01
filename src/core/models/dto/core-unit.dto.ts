@@ -70,6 +70,7 @@ export interface BudgetStatementLineItemDto {
   comments?: string;
   month?: string;
   budgetCap?: number;
+  group?: string;
 }
 
 export interface BudgetStatementWalletTransferRequestDto {

@@ -176,7 +176,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
 
   const getBreakdownItems = (items: BudgetStatementLineItemDto[]) => {
     const result: JSX.Element[][] = [];
-    const grouped = _.groupBy(items, (item) => item.budgetCategory);
+    const grouped = _.groupBy(items, (item) => item.group);
 
     for (const groupedKey in grouped) {
       if (
@@ -188,16 +188,21 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         continue;
       }
 
-      result.push([
-        <TableCell key={1}>{grouped[groupedKey][0].budgetCategory}</TableCell>,
-        <NumberCell key={2} value={getGroupForecast(grouped[groupedKey])}/>,
-        <NumberCell key={3} value={getGroupActual(grouped[groupedKey])}/>,
-        <NumberCell key={4} value={getGroupDifference(grouped[groupedKey])}/>,
-        <TableCell key={5}>
-          {getCommentsFromCategory(grouped[groupedKey])}
-        </TableCell>,
-        <NumberCell key={6} value={getGroupPayment(grouped[groupedKey])}/>,
-      ]);
+      const groupedCategory = _.groupBy(items, (item) => item.budgetCategory);
+
+      for (const groupedCatKey in groupedCategory) {
+        result.push([
+          <TableCell key={0}>{groupedCategory[groupedCatKey][0].group}</TableCell>,
+          <TableCell key={1}>{groupedCategory[groupedCatKey][0].budgetCategory}</TableCell>,
+          <NumberCell key={2} value={getGroupForecast(groupedCategory[groupedCatKey])}/>,
+          <NumberCell key={3} value={getGroupActual(groupedCategory[groupedCatKey])}/>,
+          <NumberCell key={4} value={getGroupDifference(groupedCategory[groupedCatKey])}/>,
+          <TableCell key={5}>
+            {getCommentsFromCategory(groupedCategory[groupedCatKey])}
+          </TableCell>,
+          <NumberCell key={6} value={getGroupPayment(groupedCategory[groupedCatKey])}/>,
+        ]);
+      }
     }
 
     return result;
@@ -240,9 +245,10 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     );
 
     result.push([
-      <TableCell key={1}>
+      <TableCell key={0}>
         <b>Total</b>
       </TableCell>,
+      <TableCell key={1} />,
       <NumberCell key={2} value={getWalletForecast(currentWallet)} bold />,
       <NumberCell key={3} value={getWalletActual(currentWallet)} bold />,
       <NumberCell key={4} value={getWalletDifference(currentWallet)} bold />,
@@ -268,9 +274,9 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         ).map((item, i) => (
           <TransparencyCard
             key={`item-${i}`}
-            header={item[0]}
+            header={<>{item[0]}{item[1]}</>}
             headers={cardHeaders}
-            items={item.slice(1)}
+            items={item.slice(2)}
           />
         ))}
         <Title isLight={isLight} fontSize="14px">
@@ -283,9 +289,9 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         ).map((item, i) => (
           <TransparencyCard
             key={`item-${i}`}
-            header={item[0]}
+            header={<>{item[0]}{item[1]}</>}
             headers={cardHeaders}
-            items={item.slice(1)}
+            items={item.slice(2)}
           />
         ))}
         {getBreakdownItems(
@@ -379,7 +385,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
                 key={`item-${i}`}
                 header={item[0]}
                 headers={mainTableHeaders.slice(1, 5)}
-                items={item.slice(1)}
+                items={item.slice(2)}
                 footer={item[5]}
               />
             ))}
@@ -414,6 +420,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           <TableWrapper>
             <InnerTable
               headers={[
+                'Group',
                 'Budget Category',
                 'Forecast',
                 'Actuals',
@@ -431,6 +438,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
                 '158px',
               ]}
               headersAlign={[
+                'left',
                 'left',
                 'right',
                 'right',
