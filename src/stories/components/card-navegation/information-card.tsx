@@ -49,6 +49,5 @@ const Container = styled(Box)<{ width?: string, isLight: boolean }>(({ width, is
   },
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     width: '100%',
-    height: '227px',
   },
 }));
