@@ -32,25 +32,23 @@ interface CuTableColumnLinksProps {
 const getImageForLink = (
   link: LinkModel,
   fill: string,
-  width?: number,
-  height?: number,
-  fillDark?: string
+  fillDark?: string,
 ) => {
   switch (link.linkType) {
     case LinkTypeEnum.WWW:
       return (
-        <WWW fill={fill} width={width} height={height} fillDark={fillDark} />
+        <WWW fill={fill} width={15} height={15} fillDark={fillDark} />
       );
     case LinkTypeEnum.Forum:
       return (
-        <Forum fill={fill} width={width} height={height} fillDark={fillDark} />
+        <Forum fill={fill} width={15} height={15} fillDark={fillDark} />
       );
     case LinkTypeEnum.Discord:
       return (
         <Discord
           fill={fill}
-          width={width}
-          height={height}
+          width={14.44}
+          height={16.5}
           fillDark={fillDark}
         />
       );
@@ -58,8 +56,8 @@ const getImageForLink = (
       return (
         <Twitter
           fill={fill}
-          width={width}
-          height={height}
+          width={15}
+          height={15}
           fillDark={fillDark}
         />
       );
@@ -67,8 +65,8 @@ const getImageForLink = (
       return (
         <Youtube
           fill={fill}
-          width={width}
-          height={height}
+          width={15}
+          height={13}
           fillDark={fillDark}
         />
       );
@@ -76,14 +74,14 @@ const getImageForLink = (
       return (
         <LinkedIn
           fill={fill}
-          width={width}
-          height={height}
+          width={15}
+          height={15}
           fillDark={fillDark}
         />
       );
     case LinkTypeEnum.Gmail:
       return (
-        <Gmail fill={fill} width={width} height={height} fillDark={fillDark} />
+        <Gmail fill={fill} width={15} height={12} fillDark={fillDark} />
       );
     default:
       return <WWW />;
@@ -115,7 +113,7 @@ export const CuTableColumnLinks = ({
                 isLight={isLight}
                 onClick={(event: React.SyntheticEvent) => event.stopPropagation()}
               >
-                {getImageForLink(link, fill, width, height, fillDark)}
+                {getImageForLink(link, fill, fillDark)}
               </LinkImage>
           </StyleBox>
         ))}

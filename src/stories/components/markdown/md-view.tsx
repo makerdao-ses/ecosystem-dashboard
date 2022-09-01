@@ -114,7 +114,8 @@ const MdViewerPage = ({ subTitle = 'What we do', paragraphDescription, paragraph
           )
         : <div style={{
           textAlign: 'center',
-          margin: '48px 0 16px'
+          margin: '48px 0 16px',
+          fontFamily: 'FT Base, sans-serif',
         }}>No data to Show</div>}
     </ViewerContainer>
   );
