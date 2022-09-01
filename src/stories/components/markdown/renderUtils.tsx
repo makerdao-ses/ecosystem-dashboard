@@ -13,7 +13,7 @@ export const customRenderer = {
     return <ResponsiveParagraph className='paragraph' style={{
       backgroundColor: 'transparent',
       color: '#231536',
-      lineHeight: '19px',
+      lineHeight: '23px',
       fontFamily: 'FT Base, sans-serif',
     }} key={Math.random()}>{text}</ResponsiveParagraph>;
   },
@@ -21,7 +21,7 @@ export const customRenderer = {
     return <ResponsiveList className='ol_tags' style={{
       backgroundColor: 'transparent',
       color: '#231536',
-      lineHeight: '19px',
+      lineHeight: '23px',
       fontFamily: 'FT Base, sans-serif'
     }} key={Math.random()}>{text}</ResponsiveList>;
   },
@@ -29,7 +29,7 @@ export const customRenderer = {
     return <ResponsiveItem className='ol_' style={{
       backgroundColor: 'transparent',
       color: '#231536',
-      lineHeight: '19px',
+      lineHeight: '23px',
       fontFamily: 'FT Base, sans-serif',
     }} key={Math.random()}>{text}</ResponsiveItem>;
   },
@@ -41,7 +41,7 @@ export const customRenderer = {
       fontStyle: 'normal',
       fontWeight: 400,
       fontSize: '16px',
-      lineHeight: '19px',
+      lineHeight: '23px',
     }}>{text}</ResponsiveCode>;
   },
 };
@@ -56,7 +56,7 @@ export const customRendererDark = {
     return <ResponsiveParagraph className='paragraph' style={{
       backgroundColor: 'transparent',
       color: '#D2D4EF',
-      lineHeight: '19px',
+      lineHeight: '23px',
       fontFamily: 'FT Base, sans-serif',
     }} key={Math.random()}>{text}</ResponsiveParagraph>;
   },
@@ -64,7 +64,7 @@ export const customRendererDark = {
     return <ResponsiveList className='ol_tags' style={{
       backgroundColor: 'transparent',
       color: '#D2D4EF',
-      lineHeight: '19px',
+      lineHeight: '23px',
       fontFamily: 'FT Base, sans-serif',
     }} key={Math.random()}>{text}</ResponsiveList>;
   },
@@ -72,7 +72,7 @@ export const customRendererDark = {
     return <ResponsiveItem className='ol_' style={{
       backgroundColor: 'transparent',
       color: '#D2D4EF',
-      lineHeight: '19px',
+      lineHeight: '23px',
       fontFamily: 'FT Base, sans-serif',
     }} key={Math.random()}>{text}</ResponsiveItem>;
   },
@@ -84,7 +84,7 @@ export const customRendererDark = {
       fontStyle: 'normal',
       fontWeight: 400,
       fontSize: '16px',
-      lineHeight: '19px',
+      lineHeight: '23px',
     }}>{text}</ResponsiveCode>;
   },
 };

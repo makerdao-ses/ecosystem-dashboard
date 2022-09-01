@@ -16,10 +16,12 @@ const CardSomeThingWrong = ({ width }: Props) => {
   return (
     <InformationCard title='Something Wrong on this Page?' height={'auto'} width={width} color={isLight ? '#231536' : '#D2D4EF'} fontSize='20px'>
 
-      <TypographyDescription marginBottom={'8px'} isLight={isLight}>Is this your core unit?
+      <TypographyDescription marginBottom={'16px'} isLight={isLight}>Is this your core unit?
       </TypographyDescription>
       <TypographyDescription marginBottom={'16px'} isLight={isLight}>
-        We are still collecting all the relevant information.<br />
+        We are still collecting all the relevant information.
+      </TypographyDescription>
+      <TypographyDescription marginBottom={'12px'} isLight={isLight}>
         If you see something that needs updating, don't hesitate to contact us.
       </TypographyDescription>
       <CustomLink
@@ -66,6 +68,7 @@ const TypographyDescription = styled(Typography)<{ marginBottom?: string, isLigh
   fontFamily: 'SF Pro Text, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
+  lineHeight: '24px',
   fontSize: '15px',
   letterSpacing: ' 0.4px',
   color: isLight ? '#546978 ' : '#9FAFB9',
