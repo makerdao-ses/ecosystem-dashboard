@@ -85,38 +85,34 @@ const MdViewerPage = ({ subTitle = 'What we do', paragraphDescription, paragraph
         : <TypographyStyleDescription isLight={isLight} id='hidden-element'>{subTitle}</TypographyStyleDescription>}
       {paragraphDescription && isLight
         ? (
-        <Markdown
-          value={paragraphDescription}
-          renderer={customRenderer}
-          key={paragraphDescription}
-        />
+          <Markdown
+            value={paragraphDescription}
+            renderer={customRenderer}
+            key={paragraphDescription}
+          />
           )
         : (
-        <Markdown
-          value={paragraphDescription}
-          renderer={customRendererDark}
-          key={paragraphDescription}
-        />
+          <Markdown
+            value={paragraphDescription}
+            renderer={customRendererDark}
+            key={paragraphDescription}
+          />
           )}
-      {paragraphImage
-        ? (
-            isLight
-              ? <Markdown
-                value={paragraphImage}
-                renderer={customRenderer}
-                key={paragraphImage}
-              />
-              : <Markdown
+      {paragraphImage &&
+        (
+          isLight
+            ? <Markdown
               value={paragraphImage}
               renderer={customRenderer}
               key={paragraphImage}
             />
-          )
-        : <div style={{
-          textAlign: 'center',
-          margin: '48px 0 16px',
-          fontFamily: 'FT Base, sans-serif',
-        }}>No data to Show</div>}
+            : <Markdown
+              value={paragraphImage}
+              renderer={customRenderer}
+              key={paragraphImage}
+            />
+        )
+      }
     </ViewerContainer>
   );
 };
