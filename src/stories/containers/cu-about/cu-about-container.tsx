@@ -23,11 +23,11 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import dynamic from 'next/dynamic';
 import { SEOHead } from '../../components/seo-head/seo-head';
 import { buildQueryString, toAbsoluteURL } from '../../../core/utils/url.utils';
-import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import { SummarizedCoreUnit } from '../../components/core-unit-summary/core-unit-summary.mvvm';
 const MdViewerContainer = dynamic(() => import('../../components/markdown/md-view-container'), { ssr: false });
 
 interface Props {
-  coreUnits: CoreUnitDto[],
+  coreUnits: SummarizedCoreUnit[],
   cuAbout: CuAbout;
   code: string;
   contributors: ContributorCommitment[]

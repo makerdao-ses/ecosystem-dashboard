@@ -24,6 +24,7 @@ import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
 import { getCurrentOrLastMonthWithData, getLastMonthWithActualOrForecast } from '../../../core/business-logic/core-units';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
 import lightTheme from '../../../../styles/theme/light';
+import { SummarizedCoreUnit } from '../../components/core-unit-summary/core-unit-summary.mvvm';
 
 const colors: { [key: string]: string } = {
   Draft: '#7C6B95',
@@ -42,7 +43,7 @@ const colorsDarkColors: { [key: string]: string } = {
 const TRANSPARENCY_IDS = ['actuals', 'forecast', 'mkr-vesting', 'transfer-requests', 'audit-reports'];
 
 interface TransparencyReportProps {
-  coreUnits: CoreUnitDto[];
+  coreUnits: SummarizedCoreUnit[];
   coreUnit: CoreUnitDto;
 }
 

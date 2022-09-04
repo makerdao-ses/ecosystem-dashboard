@@ -5,7 +5,6 @@ import { Typography, useMediaQuery } from '@mui/material';
 import styled from '@emotion/styled';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
 import { useRouter } from 'next/router';
-import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import _ from 'lodash';
 import lightTheme from '../../../../styles/theme/light';
 import BreadCrumbMobile from '../pagination/bread-crumb-mobile';
@@ -14,9 +13,11 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { formatCode } from '../../../core/utils/string.utils';
 import { buildQueryString } from '../../../core/utils/url.utils';
 import { sortData } from '../../containers/cu-table/cu-table';
+import { SummarizedCoreUnit } from './core-unit-summary.mvvm';
+import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 interface CoreUnitSummaryProps {
-  coreUnits: CoreUnitDto[],
+  coreUnits: SummarizedCoreUnit[],
   trailingAddress?: string[];
   breadcrumbTitle?: string;
 }
@@ -57,7 +58,7 @@ export const CoreUnitSummary = ({ coreUnits: data = [], trailingAddress = [], br
 
   const filteredData = useMemo(() => {
     const { filteredData: filtered } = filterData({
-      data,
+      data: data as CoreUnitDto[],
       filteredStatuses,
       filteredCategories,
       searchText

@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext } from 'next';
 import React from 'react';
 import { CoreUnitDto } from '../../../../../src/core/models/dto/core-unit.dto';
-import { fetchCoreUnits } from '../../../../../src/stories/components/core-unit-summary/core-unit-summary.mvvm';
+import { fetchCoreUnits, SummarizedCoreUnit } from '../../../../../src/stories/components/core-unit-summary/core-unit-summary.mvvm';
 import { TransparencyReport } from '../../../../../src/stories/containers/transparency-report/transparency-report';
 import { useTransparencyReportViewModel } from '../../../../../src/stories/containers/transparency-report/transparency-report.mvvm';
 
@@ -28,7 +28,7 @@ export const getServerSideProps = async(context: GetServerSidePropsContext) => {
 };
 
 interface TransparencyProps {
-  coreUnits: CoreUnitDto[],
+  coreUnits: SummarizedCoreUnit[],
   cu: CoreUnitDto
 }
 
