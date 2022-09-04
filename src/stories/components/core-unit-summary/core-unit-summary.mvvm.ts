@@ -1,6 +1,8 @@
 import useSWRImmutable from 'swr/immutable';
 import { fetcher } from '../../../core/utils/fetcher';
-import { gql } from 'graphql-request';
+import request, { gql } from 'graphql-request';
+import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
+import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 const CORE_UNITS_REQUEST = {
   query: gql`
@@ -48,6 +50,11 @@ const CORE_UNITS_REQUEST = {
       }
    }
 `
+};
+
+export const fetchCoreUnits = async() => {
+  const res = (await request(GRAPHQL_ENDPOINT, CORE_UNITS_REQUEST.query)) as { coreUnits: CoreUnitDto[]};
+  return res?.coreUnits;
 };
 
 export const useCoreUnitSummaryViewModel = () => {

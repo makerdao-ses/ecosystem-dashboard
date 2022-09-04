@@ -1,18 +1,19 @@
 import { GetServerSidePropsContext } from 'next';
 import React from 'react';
 import { CoreUnitDto } from '../../../../../src/core/models/dto/core-unit.dto';
+import { fetchCoreUnits } from '../../../../../src/stories/components/core-unit-summary/core-unit-summary.mvvm';
 import { TransparencyReport } from '../../../../../src/stories/containers/transparency-report/transparency-report';
 import { useTransparencyReportViewModel } from '../../../../../src/stories/containers/transparency-report/transparency-report.mvvm';
 
-export const getServerSideProps = async(
-  context: GetServerSidePropsContext
-) => {
+export const getServerSideProps = async(context: GetServerSidePropsContext) => {
   const { query } = context;
   const code = query.code as string;
-  const { data }: { data: { coreUnit: CoreUnitDto[] } } =
-    await useTransparencyReportViewModel(code);
+  const [{ data }, coreUnits] = await Promise.all([
+    useTransparencyReportViewModel(code),
+    fetchCoreUnits()
+  ]);
 
-  if (data && data.coreUnit.length === 0) {
+  if (data?.coreUnit?.length === 0) {
     return {
       notFound: true,
     };
@@ -20,13 +21,19 @@ export const getServerSideProps = async(
 
   return {
     props: {
-      cu: data && data.coreUnit[0],
+      coreUnits,
+      cu: data.coreUnit[0],
     },
   };
 };
 
-const Transparency = ({ cu }: { cu: CoreUnitDto }) => {
-  return <TransparencyReport coreUnit={cu} />;
+interface TransparencyProps {
+  coreUnits: CoreUnitDto[],
+  cu: CoreUnitDto
+}
+
+const Transparency = ({ coreUnits, cu }: TransparencyProps) => {
+  return <TransparencyReport coreUnits={coreUnits} coreUnit={cu} />;
 };
 
 export default Transparency;
