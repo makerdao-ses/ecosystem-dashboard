@@ -112,48 +112,48 @@ export const CoreUnitSummary = ({ trailingAddress = [], breadcrumbTitle }: CoreU
       </NavigationHeader>
     )}
     {(phone || lessThanPhone) && (
-    <div style={{ margin: '16px' }}>
-      <div>
-        <BreadCrumbMobile
-          items={[
-            ...trailingAddress.map(adr => ({
-              style: breadcrumbTitle === adr
-                ? { color: isLight ? '#25273D' : '#D2D4EF' }
-                : undefined,
-              label: adr,
-              url: router.asPath
-            })),
-            {
-              style: [buildCULabel(), undefined].includes(breadcrumbTitle)
-                ? { color: isLight ? '#25273D' : '#D2D4EF' }
-                : undefined,
-              label: buildCULabel(),
-              url: `/core-unit/${code}/${queryStrings}`
-            },
+      <div style={{ margin: '16px' }}>
+        <div>
+          <BreadCrumbMobile
+            items={[
+              ...trailingAddress.map(adr => ({
+                style: breadcrumbTitle === adr
+                  ? { color: isLight ? '#25273D' : '#D2D4EF' }
+                  : undefined,
+                label: adr,
+                url: router.asPath
+              })),
+              {
+                style: [buildCULabel(), undefined].includes(breadcrumbTitle)
+                  ? { color: isLight ? '#25273D' : '#D2D4EF' }
+                  : undefined,
+                label: buildCULabel(),
+                url: `/core-unit/${code}/${queryStrings}`
+              },
 
-            {
-              label: <span >Core Units <Value isLight={isLight}>({filteredData.length})</Value></span>,
-              url: `/${queryStrings}`
-            },
-          ]}
-          title={breadcrumbTitle || buildCULabel()}
-          count={filteredData.length}
-          onClickLeft={changeCoreUnitCode(-1)}
-          onClickRight={changeCoreUnitCode(1)}
-          page={page}
-        />
+              {
+                label: <span >Core Units <Value isLight={isLight}>({filteredData.length})</Value></span>,
+                url: `/${queryStrings}`
+              },
+            ]}
+            title={breadcrumbTitle || buildCULabel()}
+            count={filteredData.length}
+            onClickLeft={changeCoreUnitCode(-1)}
+            onClickRight={changeCoreUnitCode(1)}
+            page={page}
+          />
+        </div>
       </div>
-    </div>
     )}
 
     <Wrapper>
       <ContainerTitle>
         <TitleNavigationCuAbout coreUnitAbout={cu} hiddenTextDescription={hiddenTextDescription} />
-          <SummaryDescription hiddenTextDescription={hiddenTextDescription}>
-            <TypographyDescription isLight={isLight}>
-              {cu?.sentenceDescription || ''}
-            </TypographyDescription>
-          </SummaryDescription>
+        <SummaryDescription hiddenTextDescription={hiddenTextDescription}>
+          <TypographyDescription isLight={isLight}>
+            {cu?.sentenceDescription || ''}
+          </TypographyDescription>
+        </SummaryDescription>
       </ContainerTitle>
     </Wrapper>
     <ContainerResponsiveMobile hiddenTextDescription={hiddenTextDescription} isLight={isLight} />

@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState } from 'react';
+import React, { CSSProperties } from 'react';
 import { getColorForString } from '../../../core/utils/color.utils';
 import { Theme, useTheme } from '@mui/material';
 import { getTwoInitials } from '../../../core/utils/string.utils';

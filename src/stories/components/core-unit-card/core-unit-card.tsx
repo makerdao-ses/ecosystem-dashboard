@@ -173,7 +173,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     : '0px 20px 40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
   background: isLight
     ? '#FFFFFF'
-    : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
+    : '#10191F',
   padding: '16px',
   gridTemplateColumns: 'auto',
   minWidth: '340px',
