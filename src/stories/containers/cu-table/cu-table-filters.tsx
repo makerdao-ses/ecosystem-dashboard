@@ -206,12 +206,12 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     justifyContent: 'flex-end',
     gap: '24px',
     background: !isLight ? '#000A13' : 'none',
-    // * Safari browser mobile
-    '@supports selector(:nth-child(1 of x)) ': {
+    '@supports not selector(gap: 24px)': {
       '> * + *': {
         marginTop: '24px',
       },
       gap: '0px'
+
     }
   },
   '@media (min-width: 834px)': {
