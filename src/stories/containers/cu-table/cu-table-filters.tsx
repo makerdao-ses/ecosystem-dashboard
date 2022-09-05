@@ -140,6 +140,9 @@ const Separator = styled(Divider)<{ isLight: boolean }>(({ isLight }) => ({
   height: '1px',
   width: 'calc(100vw - 64px)',
   margin: '0 16px',
+  '@supports selector(:nth-child(1 of x)) ': {
+    marginTop: '16px'
+  },
   backgroundColor: isLight ? '#D4D9E1' : '#48495F',
   alignSelf: 'center',
   '@media (min-width: 834px)': {
@@ -156,7 +159,11 @@ const SmallSeparator = styled(Divider)<{ isLight: boolean }>(({ isLight }) => ({
   alignSelf: 'center',
   '@media (min-width: 833px)': {
     display: 'none'
-  }
+  },
+  '@supports selector(:nth-child(1 of x)) ': {
+    marginTop: '16px'
+  },
+
 }));
 
 const Wrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
@@ -183,6 +190,13 @@ const Wrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   backgroundColor: isLight ? 'white' : 'none',
+  // * IPhone real devices
+  '@supports (-webkit-touch-callout: none) and (not (translate: none))': {
+    '> * + *': {
+      marginTop: '24px'
+    },
+  },
+
   '@media (max-width: 833px)': {
     position: 'relative',
     height: 'calc(100vh + 20px)',
@@ -192,6 +206,13 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     justifyContent: 'flex-end',
     gap: '24px',
     background: !isLight ? '#000A13' : 'none',
+    // * Safari browser mobile
+    '@supports selector(:nth-child(1 of x)) ': {
+      '> * + *': {
+        marginTop: '24px',
+      },
+      gap: '0px'
+    }
   },
   '@media (min-width: 834px)': {
     gap: '16px',
