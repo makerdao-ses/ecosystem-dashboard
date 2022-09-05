@@ -119,7 +119,7 @@ const Container = styled.header<{ isLight: boolean }>(({ isLight }) => ({
   flexDirection: 'row',
   height: '64px',
   justifyContent: 'space-between',
-  background: isLight ? '#FFFFFF' : 'url(/assets/img/bg-header-dark.png)',
+  background: isLight ? '#FFFFFF' : ' linear-gradient(180deg, #000000 0%, #001A34 100%)'
 }));
 
 const LeftPart = styled.div({
