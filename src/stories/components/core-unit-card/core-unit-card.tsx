@@ -217,8 +217,8 @@ const Summary = styled.div({
 
 const Expenditure = styled.div({
   gridArea: 'expenditure',
-  paddingTop: '19px',
-  '@media (min-width: 635px)': {
+  paddingTop: '32px',
+  '@media (min-width: 685px)': {
     paddingTop: '0',
   },
 });
@@ -226,9 +226,14 @@ const Expenditure = styled.div({
 const Team = styled.div({
   gridArea: 'team',
   paddingTop: '32px',
-  '@media (min-width: 375px) and (max-width: 685px)': {
-    paddingTop: '19px',
-    textAlign: 'end'
+  width: 'fit-content',
+
+  '@media (min-width: 375px)': {
+    marginLeft: 'auto',
+  },
+  '@media (min-width: 685px) and (max-width: 834px)': {
+    paddingTop: '0',
+    marginLeft: '0',
   },
   '@media (min-width: 834px)': {
     paddingTop: '0',
