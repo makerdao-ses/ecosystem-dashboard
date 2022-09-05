@@ -2,7 +2,9 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import TitleNavigationCuAbout from './title-navigation-cu-about';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
-import { CuAbout, CuMip, SocialMediaChannels } from '../../containers/cu-about/cu-about.api';
+import { SocialMediaChannels } from '../../containers/cu-about/cu-about.api';
+import { SummarizedCoreUnit } from '../core-unit-summary/core-unit-summary.mvvm';
+import { CuMipDto } from '../../../core/models/dto/core-unit.dto';
 
 export default {
   title: 'Components/CUAbout/TitleNavigationCuAbout',
@@ -41,10 +43,8 @@ Default.args = {
         mipUrl: 'https://makerdao.com/',
         mipStatus: CuStatusEnum.Accepted,
       }
-    ] as CuMip[],
-    budgetStatements: [],
-    contributorCommitment: [],
-  } as CuAbout
+    ] as CuMipDto[],
+  } as SummarizedCoreUnit
 };
 
 DataWith.args = {
@@ -54,6 +54,7 @@ DataWith.args = {
     code: 'SES-001',
     category: ['Technical', 'Support', 'Operational'],
     name: 'Sustainable Ecosystem Scaling',
+    image: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/logo.png',
     sentenceDescription: '',
     paragraphDescription: '',
     paragraphImage: '',
@@ -75,8 +76,6 @@ DataWith.args = {
         mipUrl: 'https://makerdao.com/',
         mipStatus: CuStatusEnum.Obsolete,
       }
-    ] as CuMip[],
-    budgetStatements: [],
-    contributorCommitment: [],
-  } as CuAbout
+    ] as CuMipDto[],
+  } as SummarizedCoreUnit
 };

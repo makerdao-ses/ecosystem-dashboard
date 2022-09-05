@@ -20,18 +20,19 @@ import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { formatCode } from '../../../core/utils/string.utils';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import dynamic from 'next/dynamic';
 import { SEOHead } from '../../components/seo-head/seo-head';
 import { buildQueryString, toAbsoluteURL } from '../../../core/utils/url.utils';
-const MdViewerContainer = dynamic(() => import('../../components/markdown/md-view-container'), { ssr: false });
+import { SummarizedCoreUnit } from '../../components/core-unit-summary/core-unit-summary.mvvm';
+import MdViewerContainer from '../../components/markdown/md-view-container';
 
 interface Props {
+  coreUnits: SummarizedCoreUnit[],
   cuAbout: CuAbout;
   code: string;
   contributors: ContributorCommitment[]
 }
 
-const CuAboutContainer = ({ code, cuAbout, contributors }: Props) => {
+const CuAboutContainer = ({ code, coreUnits, cuAbout, contributors }: Props) => {
   const [isEnabled] = useFlagsActive();
   const isLight = useThemeContext().themeMode === 'light';
   const router = useRouter();
@@ -82,7 +83,7 @@ const CuAboutContainer = ({ code, cuAbout, contributors }: Props) => {
         twitterCard={cuAbout.image ? 'summary' : 'summary_large_image'}
       />
 
-      <CoreUnitSummary />
+      <CoreUnitSummary coreUnits={coreUnits} />
       <Wrapper>
         <ContainerAllData>
           <ContainerResponsive>

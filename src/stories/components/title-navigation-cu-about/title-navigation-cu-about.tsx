@@ -8,7 +8,7 @@ import {
 } from '../cu-table-column-links/cu-table-column-links';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { StatusChip } from '../status-chip/status-chip';
-import { CuAbout, CuMip } from '../../containers/cu-about/cu-about.api';
+import { CuMip } from '../../containers/cu-about/cu-about.api';
 import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
 import { CategoryChip } from '../category-chip/category-chip';
 import {
@@ -23,6 +23,7 @@ import { CustomLink } from '../custom-link/custom-link';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { getLatestMip39FromCoreUnit, getSubmissionDateFromCuMip } from '../../../core/business-logic/core-units';
+import { SummarizedCoreUnit } from '../core-unit-summary/core-unit-summary.mvvm';
 
 interface BudgetStatementFTEs {
   month: string;
@@ -55,11 +56,11 @@ export interface CoreUnit {
   roadMap: [];
 }
 interface Props {
-  coreUnitAbout?: CuAbout | CoreUnitDto;
+  coreUnitAbout?: SummarizedCoreUnit;
   hiddenTextDescription?: boolean;
 }
 
-export const getLinksCoreUnit = (cu: CuAbout | CoreUnitDto) => {
+export const getLinksCoreUnit = (cu: CoreUnitDto) => {
   const links: LinkModel[] = [];
   if (cu.socialMediaChannels.length === 0) return links;
   const cont = cu.socialMediaChannels[0];
@@ -217,7 +218,7 @@ export const TitleNavigationCuAbout = ({
           {(phoneDimensions || lessPhone || tableDimensions) && hiddenTextDescription && (
             <ContainerLinks>
               <CuTableColumnLinks
-                links={getLinksCoreUnit(coreUnitAbout)}
+                links={getLinksCoreUnit(coreUnitAbout as CoreUnitDto)}
                 fill="#708390"
                 align="flex-start"
                 spacings={16}
@@ -230,7 +231,7 @@ export const TitleNavigationCuAbout = ({
       {!(phoneDimensions || lessPhone || tableDimensions) && (
         <ContainerLinks>
           <CuTableColumnLinks
-            links={getLinksCoreUnit(coreUnitAbout)}
+            links={getLinksCoreUnit(coreUnitAbout as CoreUnitDto)}
             fill="#708390"
             spacings={16}
             fillDark="#ADAFD4"

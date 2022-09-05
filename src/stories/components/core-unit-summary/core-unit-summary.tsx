@@ -5,8 +5,6 @@ import { Typography, useMediaQuery } from '@mui/material';
 import styled from '@emotion/styled';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
 import { useRouter } from 'next/router';
-import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
-import { useCoreUnitSummaryViewModel } from './core-unit-summary.mvvm';
 import _ from 'lodash';
 import lightTheme from '../../../../styles/theme/light';
 import BreadCrumbMobile from '../pagination/bread-crumb-mobile';
@@ -15,13 +13,16 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { formatCode } from '../../../core/utils/string.utils';
 import { buildQueryString } from '../../../core/utils/url.utils';
 import { sortData } from '../../containers/cu-table/cu-table';
+import { SummarizedCoreUnit } from './core-unit-summary.mvvm';
+import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 interface CoreUnitSummaryProps {
+  coreUnits: SummarizedCoreUnit[],
   trailingAddress?: string[];
   breadcrumbTitle?: string;
 }
 
-export const CoreUnitSummary = ({ trailingAddress = [], breadcrumbTitle }: CoreUnitSummaryProps) => {
+export const CoreUnitSummary = ({ coreUnits: data = [], trailingAddress = [], breadcrumbTitle }: CoreUnitSummaryProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const lessThanPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
@@ -30,9 +31,6 @@ export const CoreUnitSummary = ({ trailingAddress = [], breadcrumbTitle }: CoreU
   const query = router.query;
   const code = query.code as string;
 
-  const { data: response } = useCoreUnitSummaryViewModel();
-
-  const data: CoreUnitDto[] = response?.coreUnits as CoreUnitDto[];
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
@@ -60,7 +58,7 @@ export const CoreUnitSummary = ({ trailingAddress = [], breadcrumbTitle }: CoreU
 
   const filteredData = useMemo(() => {
     const { filteredData: filtered } = filterData({
-      data,
+      data: data as CoreUnitDto[],
       filteredStatuses,
       filteredCategories,
       searchText

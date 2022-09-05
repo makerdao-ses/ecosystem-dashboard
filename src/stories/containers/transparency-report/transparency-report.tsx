@@ -24,6 +24,7 @@ import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
 import { getCurrentOrLastMonthWithData, getLastMonthWithActualOrForecast } from '../../../core/business-logic/core-units';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
 import lightTheme from '../../../../styles/theme/light';
+import { SummarizedCoreUnit } from '../../components/core-unit-summary/core-unit-summary.mvvm';
 
 const colors: { [key: string]: string } = {
   Draft: '#7C6B95',
@@ -41,11 +42,15 @@ const colorsDarkColors: { [key: string]: string } = {
 
 const TRANSPARENCY_IDS = ['actuals', 'forecast', 'mkr-vesting', 'transfer-requests', 'audit-reports'];
 
-export const TransparencyReport = ({
-  coreUnit: cu,
-}: {
+interface TransparencyReportProps {
+  coreUnits: SummarizedCoreUnit[];
   coreUnit: CoreUnitDto;
-}) => {
+}
+
+export const TransparencyReport = ({
+  coreUnits,
+  coreUnit: cu,
+}: TransparencyReportProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   const router = useRouter();
   const query = router.query;
@@ -149,7 +154,10 @@ export const TransparencyReport = ({
         image={cu.image || toAbsoluteURL('/assets/img/social-1200x630.png')}
         twitterCard={cu.image ? 'summary' : 'summary_large_image'}
       />
-      <CoreUnitSummary trailingAddress={['Expense Reports']} breadcrumbTitle="Expense Reports" />
+      <CoreUnitSummary
+        coreUnits={coreUnits}
+        trailingAddress={['Expense Reports']}
+        breadcrumbTitle="Expense Reports" />
       <Container isLight={isLight}>
         <InnerPage>
           <Title isLight={isLight}>Expense Reports</Title>
@@ -183,7 +191,7 @@ export const TransparencyReport = ({
                 onNext={handleNextMonth}
                 hasNext={hasNextMonth()}
               />
-              {currentBudgetStatement?.publicationUrl.trim() && (
+              {currentBudgetStatement?.publicationUrl?.trim() && (
                 <CustomLink
                   href={currentBudgetStatement?.publicationUrl ?? null}
                   style={{
