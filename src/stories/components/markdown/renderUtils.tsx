@@ -97,8 +97,9 @@ const ImageTag = styled.img({
   margin: '0 auto',
 });
 
-const ResponsiveParagraph = styled.p({
+const ResponsiveParagraph = styled.div({
   textAlign: 'left',
+  marginTop: '1em',
 
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     fontSize: '14px',
