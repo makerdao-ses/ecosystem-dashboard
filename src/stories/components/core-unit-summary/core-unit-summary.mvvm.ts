@@ -45,6 +45,15 @@ const CORE_UNITS_REQUEST = {
           linkedIn
           website
         }
+        budgetStatements {
+          month
+          budgetStatementWallet {
+            budgetStatementLineItem {
+              actual
+              month
+            }
+          }
+        }
       }
    }
 `
