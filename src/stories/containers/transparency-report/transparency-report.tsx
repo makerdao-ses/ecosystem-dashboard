@@ -53,24 +53,19 @@ export const TransparencyReport = ({
   const anchor = useUrlAnchor();
   const transparencyTableRef = useRef<HTMLDivElement>(null);
 
-  const [thirdIndex, setThirdIndex] = useState(0);
+  const [tabsIndex, setTabsIndex] = useState(0);
 
   const [currentMonth, setCurrentMonth] = useState(DateTime.now());
 
   useEffect(() => {
     if (anchor) {
-      if (anchor.startsWith('forecast-')) {
-        setThirdIndex(TRANSPARENCY_IDS.indexOf('forecast'));
-        return;
-      }
-      const index = TRANSPARENCY_IDS.indexOf(anchor);
-      if (index > 0) {
-        setThirdIndex(index);
-      }
+      const index = TRANSPARENCY_IDS.findIndex(id => anchor.indexOf(id) > -1);
+      setTabsIndex(index);
     }
   }, [anchor]);
 
   const [scrolled, setScrolled] = useState<boolean>(false);
+
   useEffect(() => {
     if (anchor === '') {
       setScrolled(true);
@@ -239,38 +234,37 @@ export const TransparencyReport = ({
                 id: TRANSPARENCY_IDS[4]
               },
             ]}
-            currentIndex={thirdIndex}
-            onChange={setThirdIndex}
+            currentIndex={tabsIndex}
             style={{
               margin: '32px 0',
             }}
           />
-          {thirdIndex === 0 && (
+          {tabsIndex === 0 && (
             <TransparencyActuals
               code={code}
               currentMonth={currentMonth}
               budgetStatements={cu?.budgetStatements}
             />
           )}
-          {thirdIndex === 1 && (
+          {tabsIndex === 1 && (
             <TransparencyForecast
               currentMonth={currentMonth}
               budgetStatements={cu?.budgetStatements}
             />
           )}
-          {thirdIndex === 2 && (
+          {tabsIndex === 2 && (
             <TransparencyMkrVesting
               currentMonth={currentMonth}
               budgetStatements={cu?.budgetStatements}
             />
           )}
-          {thirdIndex === 3 && (
+          {tabsIndex === 3 && (
             <TransparencyTransferRequest
               currentMonth={currentMonth}
               budgetStatements={cu?.budgetStatements}
             />
           )}
-          {thirdIndex === 4 && (
+          {tabsIndex === 4 && (
             <TransparencyAudit budgetStatement={currentBudgetStatement} />
           )}
         </InnerPage>

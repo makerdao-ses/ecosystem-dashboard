@@ -64,7 +64,6 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     breakdownHeaders,
     wallets,
   } = useTransparencyActualsMvvm(
-    thirdIndex,
     setThirdIndex,
     props.currentMonth,
     props.budgetStatements,
@@ -77,6 +76,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
   };
 
   const [headerIds, setHeaderIds] = useState<string[]>([]);
+
   useEffect(() => {
     setHeaderIds(breakdownHeaders.map((header) => headerToId(header)));
   }, [breakdownHeaders]);
@@ -84,6 +84,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
   const anchor = useUrlAnchor();
   const breakdownTitleRef = useRef<HTMLDivElement>(null);
   const [scrolled, setScrolled] = useState<boolean>(false);
+
   useEffect(() => {
     if (!scrolled && anchor && !_.isEmpty(headerIds) && headerIds.includes(anchor)) {
       setScrolled(true);
@@ -101,10 +102,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
 
   useEffect(() => {
     if (anchor && !_.isEmpty(headerIds)) {
-      const index = headerIds.indexOf(anchor);
-      if (index > 0) {
-        setThirdIndex(index);
-      }
+      setThirdIndex(Math.max(headerIds.indexOf(anchor), 0));
     }
   }, [anchor, headerIds]);
 
@@ -269,7 +267,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     ]);
 
     return result;
-  }, [currentBudgetStatement, thirdIndex]);
+  }, [currentBudgetStatement, thirdIndex, headerToId, anchor]);
 
   const breakdownCardItems = useMemo(() => {
     const currentWallet = wallets[thirdIndex];
@@ -421,7 +419,6 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
               };
             })}
             currentIndex={thirdIndex}
-            onChange={setThirdIndex}
             style={{
               marginBottom: '32px',
             }}

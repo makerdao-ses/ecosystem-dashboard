@@ -64,6 +64,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
   const anchor = useUrlAnchor();
   const breakdownTitleRef = useRef<HTMLDivElement>(null);
   const [scrolled, setScrolled] = useState<boolean>(false);
+
   useEffect(() => {
     if (!scrolled && anchor && !_.isEmpty(headerIds) && headerIds.includes(anchor)) {
       setScrolled(true);
@@ -81,10 +82,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
 
   useEffect(() => {
     if (anchor && !_.isEmpty(headerIds)) {
-      const index = headerIds.indexOf(anchor);
-      if (index > 0) {
-        setThirdIndex(index);
-      }
+      setThirdIndex(Math.max(headerIds.indexOf(anchor), 0));
     }
   }, [anchor, headerIds]);
 
