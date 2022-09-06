@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Cantarell&family=Lobster&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cantarell&family=Inter:wght@600;700&family=Lobster&display=swap');
 @import 'simplebar/dist/simplebar.min.css';
 @font-face {
   font-family: 'FT Base';
@@ -74,6 +73,11 @@
   src: url('../assets/fonts/SF_Pro_Text/SF-Pro-Text-Light.otf');
   font-style: normal;
   font-weight: 300;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700&&display=swap');
 }
 
 html,
