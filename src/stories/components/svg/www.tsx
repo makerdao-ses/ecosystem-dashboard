@@ -8,7 +8,7 @@ interface Props {
 }
 
 const WWW = ({
-  width = 20,
+  width = 19.73,
   height = 20,
   fill = '#C4C4C4',
   fillDark,

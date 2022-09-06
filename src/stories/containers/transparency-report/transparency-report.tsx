@@ -23,6 +23,7 @@ import { SEOHead } from '../../components/seo-head/seo-head';
 import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
 import { getCurrentOrLastMonthWithData, getLastMonthWithActualOrForecast } from '../../../core/business-logic/core-units';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
+import lightTheme from '../../../../styles/theme/light';
 
 const colors: { [key: string]: string } = {
   Draft: '#7C6B95',
@@ -177,12 +178,11 @@ export const TransparencyReport = ({
                 onNext={handleNextMonth}
                 hasNext={hasNextMonth()}
               />
-              {currentBudgetStatement?.publicationUrl && (
+              {currentBudgetStatement?.publicationUrl.trim() && (
                 <CustomLink
                   href={currentBudgetStatement?.publicationUrl ?? null}
                   style={{
-                    margin: '0 16px',
-                    alignSelf: 'flex-end',
+                    margin: '4px 16px 0',
                     lineHeight: '19px',
                   }}
                   iconHeight={10}
@@ -289,6 +289,9 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   '@media (min-width: 834px)': {
     padding: '0 32px 128px',
   },
+  '@media (max-width: 833px)': {
+    padding: '0 32px 128px',
+  },
 }));
 
 const Wrapper = styled.div({
@@ -329,6 +332,9 @@ export const Title = styled.div<{
       fontSize: '20px',
       lineHeight: '24px',
       marginBottom: `${responsiveMarginBottom || marginBottom}px`,
+    },
+    [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+      marginTop: '40px'
     },
   })
 );

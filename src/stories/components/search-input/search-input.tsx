@@ -3,9 +3,6 @@ import styled from '@emotion/styled';
 import Magnifier from '../svg/magnifier';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { Close } from '../svg/close';
-import { useMediaQuery } from '@mui/material';
-import lightTheme from '../../../../styles/theme/light';
-
 interface SearchInputProps {
   value?: string;
   defaultValue?: string;

@@ -8,7 +8,7 @@ interface Props {
 }
 
 const LinkedIn = ({
-  width = 20,
+  width = 19,
   height = 19,
   fill = '#C4C4C4',
   fillDark = '#D1DEE6',

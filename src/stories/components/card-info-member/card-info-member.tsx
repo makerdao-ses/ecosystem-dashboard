@@ -95,11 +95,11 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
           </CardContentPositionRow>
         </CardContent>
         <Divider light sx={{
-          marginBottom: '11px',
+          marginBottom: '12px',
           height: '1px',
           bgcolor: isLight ? '#D4D9E1' : '#405361',
         }} variant='fullWidth' />
-        <CardLinksFooter><CuTableColumnLinks links={links} width={10} height={10} spacings={22} fillDark='#9FAFB9' /></CardLinksFooter>
+        <CardLinksFooter><CuTableColumnLinks links={links} width={15} height={15} spacings={25} fillDark='#9FAFB9' /></CardLinksFooter>
       </Container>
     </Box >
   );
@@ -110,7 +110,6 @@ const Container = styled(Card)<{ isLight: boolean }>(({ isLight }) => ({
   backgroundColor: isLight ? '#FFFFFF' : '#10191F',
   borderRadius: '6px',
   width: '335px',
-  height: '232px',
   [lightTheme.breakpoints.down('table_375')]: {
     width: '100%',
   },
@@ -133,7 +132,7 @@ const CardLinksFooter = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
-  marginBottom: '8px',
+  marginBottom: '12px',
 });
 
 const TypographyStyled = styled(Typography)<{ color: string }>((props) => ({

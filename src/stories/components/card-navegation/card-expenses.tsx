@@ -8,15 +8,14 @@ import InformationCard from './information-card';
 interface Props {
   onClick: () => void,
   code: string
-  name: string
 }
 
-const CardExpenses = ({ onClick, code, name }: Props) => {
+const CardExpenses = ({ onClick, code }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
   return (
     <InformationCard title='Expenses' height='134px' fontSize='24px' lineHeight='29px' color={isLight ? '#231536' : '#D2D4EF'}>
-      <TypographyDescription marginBottom={'24px'} isLight={isLight}>
-        {`View all the expenses for the (${code}) ${name} Core Unit`}
+      <TypographyDescription marginBottom={'24px'} isLight={isLight} >
+        {`View all the expenses for the ${code} Core Unit`}
       </TypographyDescription>
       <CustomButton widthText='100%' label='View Expenses' style={{
         textAlign: 'center',
@@ -45,7 +44,7 @@ const TypographyDescription = styled(Typography)<{ marginBottom?: string, isLigh
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '15px',
-  lineHeight: '18px',
+  lineHeight: '24px',
   color: isLight ? '#546978 ' : '#9FAFB9',
   letterSpacing: '0.4px',
   marginBottom: marginBottom || '0px'

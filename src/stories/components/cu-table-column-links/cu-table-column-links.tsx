@@ -34,7 +34,7 @@ const getImageForLink = (
   fill: string,
   width?: number,
   height?: number,
-  fillDark?: string
+  fillDark?: string,
 ) => {
   switch (link.linkType) {
     case LinkTypeEnum.WWW:
@@ -47,39 +47,19 @@ const getImageForLink = (
       );
     case LinkTypeEnum.Discord:
       return (
-        <Discord
-          fill={fill}
-          width={width}
-          height={height}
-          fillDark={fillDark}
-        />
+        <Discord fill={fill} width={width} height={height} fillDark={fillDark} />
       );
     case LinkTypeEnum.Twitter:
       return (
-        <Twitter
-          fill={fill}
-          width={width}
-          height={height}
-          fillDark={fillDark}
-        />
+        <Twitter fill={fill} width={width} height={height} fillDark={fillDark} />
       );
     case LinkTypeEnum.Youtube:
       return (
-        <Youtube
-          fill={fill}
-          width={width}
-          height={height}
-          fillDark={fillDark}
-        />
+        <Youtube fill={fill} width={width} height={height} fillDark={fillDark} />
       );
     case LinkTypeEnum.LinkedIn:
       return (
-        <LinkedIn
-          fill={fill}
-          width={width}
-          height={height}
-          fillDark={fillDark}
-        />
+        <LinkedIn fill={fill} width={width} height={height} fillDark={fillDark} />
       );
     case LinkTypeEnum.Gmail:
       return (

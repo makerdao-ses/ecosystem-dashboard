@@ -8,8 +8,8 @@ interface Props {
 }
 
 const Discord = ({
-  width = 18,
-  height = 21,
+  width = 17.5,
+  height = 20,
   fill = '#C4C4C4',
   fillDark,
 }: Props) => {

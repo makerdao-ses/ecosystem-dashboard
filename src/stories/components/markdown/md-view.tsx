@@ -98,20 +98,25 @@ const MdViewerPage = ({ subTitle = 'What we do', paragraphDescription, paragraph
           key={paragraphDescription}
         />
           )}
-      {paragraphImage && isLight && (
-        <Markdown
-          value={paragraphImage}
-          renderer={customRenderer}
-          key={paragraphImage}
-        />
-      )}
-      {paragraphImage && !isLight && (
-        <Markdown
-          value={paragraphImage}
-          renderer={customRenderer}
-          key={paragraphImage}
-        />
-      )}
+      {paragraphImage
+        ? (
+            isLight
+              ? <Markdown
+                value={paragraphImage}
+                renderer={customRenderer}
+                key={paragraphImage}
+              />
+              : <Markdown
+              value={paragraphImage}
+              renderer={customRenderer}
+              key={paragraphImage}
+            />
+          )
+        : <div style={{
+          textAlign: 'center',
+          margin: '48px 0 16px',
+          fontFamily: 'FT Base, sans-serif',
+        }}>No data to Show</div>}
     </ViewerContainer>
   );
 };
