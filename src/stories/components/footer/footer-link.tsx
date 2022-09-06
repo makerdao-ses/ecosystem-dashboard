@@ -1,6 +1,5 @@
 import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
-import { CustomPopover } from '../custom-popover/custom-popover';
 import { Box } from '@mui/material';
 export type TypeIconFooter = {
   icon: JSX.Element,
