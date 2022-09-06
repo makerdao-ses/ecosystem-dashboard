@@ -140,6 +140,8 @@ const Separator = styled(Divider)<{ isLight: boolean }>(({ isLight }) => ({
   height: '1px',
   width: 'calc(100vw - 64px)',
   margin: '0 16px',
+  marginTop: '24px',
+  marginBottom: '16px',
   // * IPhone real devices
   '@supports (-webkit-touch-callout: none) and (not (translate: none))': {
     marginTop: '24px',
@@ -157,6 +159,8 @@ const Separator = styled(Divider)<{ isLight: boolean }>(({ isLight }) => ({
 const SmallSeparator = styled(Divider)<{ isLight: boolean }>(({ isLight }) => ({
   height: '1px',
   width: '64px',
+  marginTop: '24px',
+  marginBottom: '16px',
   backgroundColor: isLight ? '#D4D9E1' : '#48495F',
   alignSelf: 'center',
   // * IPhone real devices
@@ -208,11 +212,19 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     flexDirection: 'column-reverse',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    gap: '24px',
     background: !isLight ? '#000A13' : 'none',
+    '> * + *': {
+      marginTop: '24px'
+    },
   },
   '@media (min-width: 834px)': {
     gap: '16px',
+
+    '@support not selector(gap:24px)': {
+      '> * + *': {
+        marginTop: '24px'
+      },
+    }
   },
 }));
 
