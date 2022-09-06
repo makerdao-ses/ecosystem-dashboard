@@ -140,8 +140,10 @@ const Separator = styled(Divider)<{ isLight: boolean }>(({ isLight }) => ({
   height: '1px',
   width: 'calc(100vw - 64px)',
   margin: '0 16px',
-  '@supports selector(:nth-child(1 of x)) ': {
-    marginTop: '16px'
+  // * IPhone real devices
+  '@supports (-webkit-touch-callout: none) and (not (translate: none))': {
+    marginTop: '24px',
+    marginBottom: '16px'
   },
   backgroundColor: isLight ? '#D4D9E1' : '#48495F',
   alignSelf: 'center',
@@ -157,11 +159,13 @@ const SmallSeparator = styled(Divider)<{ isLight: boolean }>(({ isLight }) => ({
   width: '64px',
   backgroundColor: isLight ? '#D4D9E1' : '#48495F',
   alignSelf: 'center',
+  // * IPhone real devices
+  '@supports (-webkit-touch-callout: none) and (not (translate: none))': {
+    marginTop: '24px',
+    marginBottom: '16px'
+  },
   '@media (min-width: 833px)': {
     display: 'none'
-  },
-  '@supports selector(:nth-child(1 of x)) ': {
-    marginTop: '16px'
   },
 
 }));
@@ -206,13 +210,6 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     justifyContent: 'flex-end',
     gap: '24px',
     background: !isLight ? '#000A13' : 'none',
-    '@supports not selector(gap: 24px)': {
-      '> * + *': {
-        marginTop: '24px',
-      },
-      gap: '0px'
-
-    }
   },
   '@media (min-width: 834px)': {
     gap: '16px',

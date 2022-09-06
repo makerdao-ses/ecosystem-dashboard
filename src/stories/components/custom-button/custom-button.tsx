@@ -40,7 +40,11 @@ const Container = styled.button<{ isLight: boolean, isHightLight: boolean }>(({ 
   },
   '.disabled': {
     color: isLight ? '#9FAFB9' : '#48495F',
-  }
+  },
+  // * IPhone real devices
+  '@supports (-webkit-touch-callout: none) and (not (translate: none))': {
+    padding: '0px',
+  },
 }));
 
 const Text = styled.div<{ width?: string, isLight: boolean }>(({ width = 'fit-content', isLight }) => ({
