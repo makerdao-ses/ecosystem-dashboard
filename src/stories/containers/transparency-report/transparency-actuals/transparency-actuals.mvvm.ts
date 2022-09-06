@@ -52,7 +52,7 @@ export const useTransparencyActualsMvvm = (setThirdIndex: (index: number) => voi
     return budgetStatements?.find(x => x.month === currentMonth) ?? null;
   }, [propsCurrentMonth, code, budgetStatements]);
 
-  const breakdownHeaders = useMemo(() => {
+  const breakdownTabs = useMemo(() => {
     return wallets.map(wallet => wallet.name);
   }, [currentBudgetStatement, code]);
 
@@ -107,7 +107,7 @@ export const useTransparencyActualsMvvm = (setThirdIndex: (index: number) => voi
     getGroupDifference,
     getCommentsFromCategory,
     getGroupPayment,
-    breakdownHeaders,
-    wallets
+    breakdownTabs,
+    wallets,
   };
 };

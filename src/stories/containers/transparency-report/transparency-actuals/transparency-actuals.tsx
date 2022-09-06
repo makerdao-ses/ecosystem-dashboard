@@ -60,8 +60,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     getGroupActual,
     getGroupDifference,
     getGroupPayment,
-    getCommentsFromCategory,
-    breakdownHeaders,
+    breakdownTabs,
     wallets,
   } = useTransparencyActualsMvvm(
     setThirdIndex,
@@ -69,6 +68,14 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     props.budgetStatements,
     props.code
   );
+
+  const hasGroups = useMemo(() => {
+    const currentWallet = wallets[thirdIndex];
+
+    return currentWallet?.budgetStatementLineItem?.some(item => {
+      return item.group && item.actual;
+    });
+  }, [thirdIndex, currentBudgetStatement]);
 
   const headerToId = (header: string): string => {
     const id = header.toLowerCase().trim().replaceAll(/ /g, '-');
@@ -78,8 +85,8 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
   const [headerIds, setHeaderIds] = useState<string[]>([]);
 
   useEffect(() => {
-    setHeaderIds(breakdownHeaders.map((header) => headerToId(header)));
-  }, [breakdownHeaders]);
+    setHeaderIds(breakdownTabs.map((header) => headerToId(header)));
+  }, [breakdownTabs]);
 
   const anchor = useUrlAnchor();
   const breakdownTitleRef = useRef<HTMLDivElement>(null);
@@ -200,14 +207,11 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         }
 
         result.push([
-          <TableCell key={`${groupedKey}-0`}>{i === 1 ? groupedKey : ''}</TableCell>,
-          <TableCell key={`${groupedKey}-1`}>{groupedCategory[groupedCatKey][0].budgetCategory}</TableCell>,
+          ...hasGroups ? [<TableCell key={`${groupedKey}-0`}>{i === 1 ? groupedKey : '' }</TableCell>] : [],
+          <TableCell key={`${groupedKey}-1`}>{groupedCategory[groupedCatKey][0].budgetCategory }</TableCell>,
           <NumberCell key={`${groupedKey}-2`} value={getGroupForecast(groupedCategory[groupedCatKey])}/>,
           <NumberCell key={`${groupedKey}-3`} value={getGroupActual(groupedCategory[groupedCatKey])}/>,
           <NumberCell key={`${groupedKey}-4`} value={getGroupDifference(groupedCategory[groupedCatKey])}/>,
-          <TableCell key={`${groupedKey}-5`}>
-            {getCommentsFromCategory(groupedCategory[groupedCatKey])}
-          </TableCell>,
           <NumberCell key={`${groupedKey}-6`} value={getGroupPayment(groupedCategory[groupedCatKey])}/>,
         ]);
 
@@ -258,11 +262,10 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       <TableCell key={0}>
         <b>Total</b>
       </TableCell>,
-      <TableCell key={1} />,
+      ...hasGroups ? [<TableCell key={1} />] : [],
       <NumberCell key={2} value={getWalletForecast(currentWallet)} bold />,
       <NumberCell key={3} value={getWalletActual(currentWallet)} bold />,
       <NumberCell key={4} value={getWalletDifference(currentWallet)} bold />,
-      <TableCell key={5} />,
       <NumberCell key={6} value={getWalletPayment(currentWallet)} bold />,
     ]);
 
@@ -412,7 +415,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         : (
         <>
           <Tabs
-            items={breakdownHeaders.map((header, i) => {
+            items={breakdownTabs.map((header, i) => {
               return {
                 item: header,
                 id: headerIds[i]
@@ -427,22 +430,21 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           <TableWrapper>
             <InnerTable
               headers={[
-                'Group',
+                ...hasGroups ? ['Group'] : [],
                 'Budget Category',
                 'Forecast',
                 'Actuals',
                 'Difference',
-                'Diff. Reason',
                 'Payments',
               ]}
               items={breakdownTableItems}
               headerWidths={[
-                '260px',
-                '160px',
-                '160px',
-                '160px',
-                '286px',
-                '158px',
+                '20%',
+                '205px',
+                '205px',
+                '205px',
+                '205px',
+                '205px',
               ]}
               headersAlign={[
                 'left',
@@ -450,7 +452,6 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
                 'right',
                 'right',
                 'right',
-                'left',
                 'right',
               ]}
               minWidth={100}
