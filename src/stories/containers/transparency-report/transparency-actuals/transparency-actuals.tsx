@@ -200,15 +200,15 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         }
 
         result.push([
-          <TableCell key={0}>{i === 1 ? groupedKey : ''}</TableCell>,
-          <TableCell key={1}>{groupedCategory[groupedCatKey][0].budgetCategory}</TableCell>,
-          <NumberCell key={2} value={getGroupForecast(groupedCategory[groupedCatKey])}/>,
-          <NumberCell key={3} value={getGroupActual(groupedCategory[groupedCatKey])}/>,
-          <NumberCell key={4} value={getGroupDifference(groupedCategory[groupedCatKey])}/>,
-          <TableCell key={5}>
+          <TableCell key={`${groupedKey}-0`}>{i === 1 ? groupedKey : ''}</TableCell>,
+          <TableCell key={`${groupedKey}-1`}>{groupedCategory[groupedCatKey][0].budgetCategory}</TableCell>,
+          <NumberCell key={`${groupedKey}-2`} value={getGroupForecast(groupedCategory[groupedCatKey])}/>,
+          <NumberCell key={`${groupedKey}-3`} value={getGroupActual(groupedCategory[groupedCatKey])}/>,
+          <NumberCell key={`${groupedKey}-4`} value={getGroupDifference(groupedCategory[groupedCatKey])}/>,
+          <TableCell key={`${groupedKey}-5`}>
             {getCommentsFromCategory(groupedCategory[groupedCatKey])}
           </TableCell>,
-          <NumberCell key={6} value={getGroupPayment(groupedCategory[groupedCatKey])}/>,
+          <NumberCell key={`${groupedKey}-6`} value={getGroupPayment(groupedCategory[groupedCatKey])}/>,
         ]);
 
         i++;
