@@ -7,6 +7,14 @@ import FooterContact from './footer-contact';
 import { iconsContact, iconsSupport } from './iconsData';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import lightTheme from '../../../../styles/theme/light';
+import Image from 'next/image';
+import FooterLight from '../../../../public/assets/img/bg-footer-light.png';
+import FooterDark from '../../../../public/assets/img/bg-footer-dark.png';
+import MobileFooterLight from '../../../../public/assets/img/bg-footer-mobile.png';
+import MobileFooterDark from '../../../../public/assets/img/bg-footer-mobile-dark.png';
+import TabletFooterLight from '../../../../public/assets/img/bg-footer-tablet.png';
+import TabletFooterDark from '../../../../public/assets/img/bg-footer-tablet-dark.png';
+import { useMediaQuery } from '@mui/material';
 
 export interface LinkInterface {
   title: string;
@@ -21,10 +29,38 @@ interface Props {
 
 const Footer = ({ governesses, products, developer }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
+  const isTable = useMediaQuery(lightTheme.breakpoints.between('table_375', 835));
+  const upTable = useMediaQuery(lightTheme.breakpoints.up(835));
 
   return (
     <FooterWrapper>
-      <ContainerImage isLight={isLight} />
+      <Image
+        style={{
+          zIndex: -1
+        }}
+        src={
+          isLight
+            ? (isTable
+                ? TabletFooterLight
+                : upTable
+                  ? FooterLight
+                  : MobileFooterLight)
+            : (isTable
+                ? TabletFooterDark
+                : upTable
+                  ? FooterDark
+                  : MobileFooterDark)
+        }
+        objectFit='cover'
+        objectPosition={isTable
+          ? 'right bottom'
+          : upTable
+            ? 'right bottom'
+            : 'center bottom'
+        }
+        alt="404"
+        layout='fill'
+      />
       <ContainerFooter>
         <ContainerColumOne>
           <FooterContact
@@ -81,30 +117,6 @@ const FooterWrapper = styled.footer({
   height: 'fit-content',
   minWidth: '360px',
 });
-
-const ContainerImage = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  position: 'absolute',
-  width: '100%',
-  height: '100%',
-  zIndex: -1,
-  backgroundImage: isLight ? 'url(/assets/img/bg-footer-mobile.png)' : 'url(/assets/img/bg-footer-mobile-dark.png)',
-  backgroundSize: '100% 100%',
-  backgroundPosition: 'center bottom',
-  backgroundRepeat: 'no-repeat',
-  [lightTheme.breakpoints.between('table_375', 835)]: {
-    backgroundImage: isLight ? 'url(/assets/img/bg-footer-tablet.png)' : 'url(/assets/img/bg-footer-tablet-dark.png)',
-    backgroundPosition: 'right bottom',
-    backgroundSize: 'cover',
-  },
-  [lightTheme.breakpoints.up(835)]: {
-    backgroundImage: isLight ? 'url(/assets/img/bg-footer-light.png)' : 'url(/assets/img/bg-footer-dark.png)',
-    backgroundPosition: 'right bottom',
-  },
-  [lightTheme.breakpoints.between(835, 'desktop_1194')]: {
-    backgroundSize: '120% 100%',
-  }
-}));
-
 const ContainerFooter = styled.div({
   display: 'flex',
   flexDirection: 'row',
