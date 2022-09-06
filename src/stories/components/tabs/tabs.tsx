@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 interface TabsProps {
   items?: string[] | { item: string, id: string}[],
   currentIndex: number,
-  onChange?: (index: number) => void,
   style?: CSSProperties
 }
 
@@ -14,11 +13,7 @@ export const Tabs = (props: TabsProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   const router = useRouter();
 
-  const handleClick = (id: string, index: number) => {
-    if (props.onChange) {
-      props.onChange(index);
-    }
-
+  const handleClick = (id: string) => {
     if (id) {
       let path = router.asPath;
       if (path.lastIndexOf('#') !== -1) {
@@ -44,7 +39,7 @@ export const Tabs = (props: TabsProps) => {
           <Tab isLight={isLight}
             key={`${item}-${i}`}
             active={i === props.currentIndex}
-            onClick={() => handleClick(id, i)}
+            onClick={() => handleClick(id)}
             >
             {item}
           </Tab>
