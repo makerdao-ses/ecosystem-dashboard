@@ -97,7 +97,7 @@ const ContainerImage = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     backgroundSize: 'cover',
   },
   [lightTheme.breakpoints.up(835)]: {
-    backgroundImage: isLight ? 'url(/assets/img/bg_footer_light.jpeg)' : 'url(/assets/img/bg-footer-dark.jpg)',
+    backgroundImage: isLight ? 'url(/assets/img/bg-footer-light.png)' : 'url(/assets/img/bg-footer-dark.png)',
     backgroundPosition: 'right bottom',
   },
   [lightTheme.breakpoints.between(835, 'desktop_1194')]: {

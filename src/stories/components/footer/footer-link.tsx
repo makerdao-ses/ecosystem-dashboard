@@ -22,9 +22,9 @@ export const FooterLinks = ({ links, styleLinks }: CuTableColumnLinksProps) => {
     {links.map((link, i) => <Box
       key={`link-${i}`}
       sx={{ mr: `${link.spacingsRight ?? 0}px` }}>
-      <CustomPopover
+      {/* <CustomPopover
         title={link.title}
-        id={`link-${i}`}>
+        id={`link-${i}`}> */}
         <LinkImage
           href={link.href}
           target="_blank"
@@ -33,7 +33,7 @@ export const FooterLinks = ({ links, styleLinks }: CuTableColumnLinksProps) => {
         >
           {link.icon}
         </LinkImage>
-      </CustomPopover>
+      {/* </CustomPopover> */}
     </Box>)
     }
   </Container>;
