@@ -67,10 +67,10 @@ const RelateMips = ({ relateMips }: Props) => {
             fontStyle: 'normal',
             fontWeight: 500,
             fontSize: isTable ? '14px' : '16px',
-            lineHeight: '19px',
+            lineHeight: '16.71px',
             letterSpacing: '0.3px',
             color: '#447AFB',
-            marginLeft: '0px'
+            marginLeft: '0px',
           }}>
             {pieces[1]}
           </CustomLink>
