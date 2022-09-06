@@ -726,7 +726,6 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
               };
             })}
             currentIndex={thirdIndex}
-            onChange={setThirdIndex}
             style={{
               marginBottom: '32px',
             }}
