@@ -35,7 +35,7 @@ const mainTableHeaders = [
   'External Links',
 ];
 
-const cardHeaders = ['Forecast', 'Actuals', 'Difference', 'Diff. Reason'];
+const cardHeaders = ['Forecast', 'Actuals', 'Difference', 'Payments'];
 
 export const TransparencyActuals = (props: TransparencyActualsProps) => {
   const isLight = useThemeContext().themeMode === 'light';
@@ -183,7 +183,10 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     return result;
   }, [currentBudgetStatement]);
 
-  const getBreakdownItems = (items: BudgetStatementLineItemDto[]) => {
+  const getBreakdownItems = (
+    items: BudgetStatementLineItemDto[],
+    card = false
+  ) => {
     const result: JSX.Element[][] = [];
     const grouped = _.groupBy(items, (item) => item.group);
 
@@ -212,7 +215,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         }
 
         result.push([
-          ...(hasGroups
+          ...(hasGroups || card
             ? [
                 <TableCell key={`${groupedKey}-0`}>
                   {i === 1 ? groupedKey : ''}
@@ -250,7 +253,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
   const getLineItemsSubtotal = (
     items: BudgetStatementLineItemDto[],
     title: string,
-    card = false,
+    card = false
   ) => {
     return (
       items?.reduce(
@@ -371,7 +374,8 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         {getBreakdownItems(
           currentWallet?.budgetStatementLineItem?.filter(
             (item) => item.headcountExpense
-          )
+          ),
+          true
         ).map((item, i) => (
           <TransparencyCard
             key={`item-${i}`}
@@ -382,62 +386,21 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
               </>
             }
             headers={cardHeaders}
-            items={item.slice(2)}
+            items={item.slice(2, 6)}
           />
         ))}
         {hasExpenses(true) &&
-          getBreakdownItems([
-            getLineItemsSubtotal(
-              currentWallet?.budgetStatementLineItem?.filter(
-                (item) => item.headcountExpense
-              ),
-              'Sub Total',
-              true
-            ),
-          ]).map((item, i) => (
-            <TransparencyCard
-              key={`item-${i}`}
-              header={
-                <>
-                  {item[0]}
-                  {item[1]}
-                </>
-              }
-              headers={cardHeaders}
-              items={item.slice(2)}
-            />
-          ))}
-        {hasExpenses(false) && (
-          <Title isLight={isLight} fontSize="14px">
-            Non-Headcount Expenses
-          </Title>
-        )}
-        {getBreakdownItems(
-          currentWallet?.budgetStatementLineItem?.filter(
-            (item) => !item.headcountExpense
-          )
-        ).map((item, i) => (
-          <TransparencyCard
-            key={`item-${i}`}
-            header={
-              <>
-                {item[0]}
-                {item[1]}
-              </>
-            }
-            headers={cardHeaders}
-            items={item.slice(2)}
-          />
-        ))}
-        {hasExpenses(false) &&
           getBreakdownItems(
-            [getLineItemsSubtotal(
-              currentWallet?.budgetStatementLineItem?.filter(
-                (item) => !item.headcountExpense
+            [
+              getLineItemsSubtotal(
+                currentWallet?.budgetStatementLineItem?.filter(
+                  (item) => item.headcountExpense
+                ),
+                'Sub Total',
+                true
               ),
-              'Sub Total',
-              true
-            )]
+            ],
+            true
           ).map((item, i) => (
             <TransparencyCard
               key={`item-${i}`}
@@ -448,7 +411,54 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
                 </>
               }
               headers={cardHeaders}
-              items={item.slice(2)}
+              items={item.slice(2, 6)}
+            />
+          ))}
+        {hasExpenses(false) && (
+          <Title isLight={isLight} fontSize="14px">
+            Non-Headcount Expenses
+          </Title>
+        )}
+        {getBreakdownItems(
+          currentWallet?.budgetStatementLineItem?.filter(
+            (item) => !item.headcountExpense
+          ),
+          true
+        ).map((item, i) => (
+          <TransparencyCard
+            key={`item-${i}`}
+            header={
+              <>
+                {item[0]}
+                {item[1]}
+              </>
+            }
+            headers={cardHeaders}
+            items={item.slice(2, 6)}
+          />
+        ))}
+        {hasExpenses(false) &&
+          getBreakdownItems(
+            [
+              getLineItemsSubtotal(
+                currentWallet?.budgetStatementLineItem?.filter(
+                  (item) => !item.headcountExpense
+                ),
+                'Sub Total'
+              ),
+            ],
+            true
+          ).map((item, i) => (
+            <TransparencyCard
+              key={`item-${i}`}
+              header={
+                <>
+                  {item[0]}
+                  {item[1]}
+                </>
+              }
+              headers={cardHeaders}
+              items={item.slice(2, 6)}
             />
           ))}
         {(hasExpenses(true) || hasExpenses(false)) && (
@@ -525,7 +535,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
               <TransparencyCard
                 header={mainTableItems[mainTableItems.length - 1][0]}
                 headers={mainTableHeaders.slice(1, 5)}
-                items={mainTableItems[mainTableItems.length - 1].slice(1)}
+                items={mainTableItems[mainTableItems.length - 1].slice(1, 5)}
                 footer={mainTableItems[mainTableItems.length - 1][5]}
               />
             )}
@@ -536,7 +546,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
                   key={`item-${i}`}
                   header={item[0]}
                   headers={mainTableHeaders.slice(1, 5)}
-                  items={item.slice(2)}
+                  items={item.slice(1, 5)}
                   footer={item[5]}
                 />
               ))}

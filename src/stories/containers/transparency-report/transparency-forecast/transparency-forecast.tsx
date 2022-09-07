@@ -538,7 +538,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
         ).map((item, i) => (
           <TransparencyCard
             key={i}
-            header={<>{item[0]}{item[1]}</>}
+            header={<>{item[0]}</>}
             headers={cardHeaders}
             items={item.slice(2)}
           />
@@ -552,7 +552,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
         ).map((item, i) => (
           <TransparencyCard
             key={i}
-            header={<>{item[0]}{item[1]}</>}
+            header={<>{item[0]}</>}
             headers={cardHeaders}
             items={item.slice(2)}
           />
