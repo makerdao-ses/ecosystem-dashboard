@@ -612,7 +612,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
             key={i}
             header={<>{item[0]} {hasGroups && item[1]}</>}
             headers={cardHeaders}
-            items={item.slice(1)}
+            items={item.slice(hasGroups ? 2 : 1)}
           />
         ))}
         <Title isLight={isLight}>Non-Headcount Expenses</Title>
@@ -626,7 +626,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
             key={i}
             header={<>{item[0]}{hasGroups && item[1]}</>}
             headers={cardHeaders}
-            items={item.slice(2)}
+            items={item.slice(hasGroups ? 2 : 1)}
           />
         ))}
         {getBreakdownItemsForGroup(
