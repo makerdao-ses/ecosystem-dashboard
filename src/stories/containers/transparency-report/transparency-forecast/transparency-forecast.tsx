@@ -750,6 +750,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
                 '141px',
               ]}
               headersAlign={[
+                ...hasGroups ? ['left'] : [],
                 'left',
                 'right',
                 'right',

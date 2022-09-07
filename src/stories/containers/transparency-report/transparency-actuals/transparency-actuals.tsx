@@ -447,7 +447,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
                 '205px',
               ]}
               headersAlign={[
-                'left',
+                ...hasGroups ? ['left'] : [],
                 'left',
                 'right',
                 'right',
