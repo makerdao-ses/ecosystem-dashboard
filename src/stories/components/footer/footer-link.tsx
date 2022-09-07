@@ -1,6 +1,5 @@
 import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
-import { CustomPopover } from '../custom-popover/custom-popover';
 import { Box } from '@mui/material';
 export type TypeIconFooter = {
   icon: JSX.Element,
@@ -21,19 +20,17 @@ export const FooterLinks = ({ links, styleLinks }: CuTableColumnLinksProps) => {
   return <Container style={styleLinks}>
     {links.map((link, i) => <Box
       key={`link-${i}`}
-      sx={{ mr: `${link.spacingsRight ?? 0}px` }}>
-      <CustomPopover
-        title={link.title}
-        id={`link-${i}`}>
-        <LinkImage
-          href={link.href}
-          target="_blank"
-          width={link.width}
-          height={link.height}
-        >
-          {link.icon}
-        </LinkImage>
-      </CustomPopover>
+      sx={{
+        mr: `${link.spacingsRight ?? 0}px`,
+      }}>
+      <LinkImage
+        href={link.href}
+        target="_blank"
+        width={link.width}
+        height={link.height}
+      >
+        {link.icon}
+      </LinkImage>
     </Box>)
     }
   </Container>;
@@ -53,6 +50,7 @@ const LinkImage = styled.a({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  cursor: 'pointer',
 },
 ({ width = 32, height = 32 }: StickyLinkProps) => ({
   width,

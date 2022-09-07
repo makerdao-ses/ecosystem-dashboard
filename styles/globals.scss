@@ -74,10 +74,11 @@
   font-style: normal;
   font-weight: 300;
 }
-
 @font-face {
-  font-family: Inter;
-  src: url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700&&display=swap');
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter/Inter-Bold.ttf');
+  font-weight: 700;
+  font-style: normal;
 }
 
 html,
