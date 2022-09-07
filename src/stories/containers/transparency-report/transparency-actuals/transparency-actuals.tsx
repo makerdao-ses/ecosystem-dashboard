@@ -44,7 +44,9 @@ const cardHeaders = [
 
 export const TransparencyActuals = (props: TransparencyActualsProps) => {
   const isLight = useThemeContext().themeMode === 'light';
-  const [thirdIndex, setThirdIndex] = useState(0);
+  const anchor = useUrlAnchor();
+  const breakdownTitleRef = useRef<HTMLDivElement>(null);
+  const [scrolled, setScrolled] = useState<boolean>(false);
 
   const {
     currentBudgetStatement,
@@ -64,26 +66,33 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     breakdownHeaders,
     wallets,
   } = useTransparencyActualsMvvm(
-    setThirdIndex,
     props.currentMonth,
     props.budgetStatements,
     props.code
   );
+
+  const [headerIds, setHeaderIds] = useState<string[]>([]);
+
+  const thirdIndex = useMemo(() => {
+    return Math.max(headerIds?.indexOf(anchor ?? ''), 0);
+  }, [headerIds, anchor]);
+
+  const hasGroups = useMemo(() => {
+    const currentWallet = wallets[thirdIndex];
+
+    return currentWallet?.budgetStatementLineItem?.some(item => {
+      return item.group && item.actual;
+    });
+  }, [thirdIndex, currentBudgetStatement]);
 
   const headerToId = (header: string): string => {
     const id = header.toLowerCase().trim().replaceAll(/ /g, '-');
     return `actuals-${id}`;
   };
 
-  const [headerIds, setHeaderIds] = useState<string[]>([]);
-
   useEffect(() => {
     setHeaderIds(breakdownHeaders.map((header) => headerToId(header)));
   }, [breakdownHeaders]);
-
-  const anchor = useUrlAnchor();
-  const breakdownTitleRef = useRef<HTMLDivElement>(null);
-  const [scrolled, setScrolled] = useState<boolean>(false);
 
   useEffect(() => {
     if (!scrolled && anchor && !_.isEmpty(headerIds) && headerIds.includes(anchor)) {
@@ -97,12 +106,6 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         window.history.scrollRestoration = 'manual';
       }
       window.scrollTo(0, Math.max(0, offset));
-    }
-  }, [anchor, headerIds]);
-
-  useEffect(() => {
-    if (anchor && !_.isEmpty(headerIds)) {
-      setThirdIndex(Math.max(headerIds.indexOf(anchor), 0));
     }
   }, [anchor, headerIds]);
 
