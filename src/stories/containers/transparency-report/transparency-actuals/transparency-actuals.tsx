@@ -35,12 +35,7 @@ const mainTableHeaders = [
   'External Links',
 ];
 
-const cardHeaders = [
-  'Forecast',
-  'Actuals',
-  'Difference',
-  'Diff. Reason'
-];
+const cardHeaders = ['Forecast', 'Actuals', 'Difference', 'Diff. Reason'];
 
 export const TransparencyActuals = (props: TransparencyActualsProps) => {
   const isLight = useThemeContext().themeMode === 'light';
@@ -79,7 +74,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
   const hasGroups = useMemo(() => {
     const currentWallet = wallets[thirdIndex];
 
-    return currentWallet?.budgetStatementLineItem?.some(item => {
+    return currentWallet?.budgetStatementLineItem?.some((item) => {
       return item.group && item.actual;
     });
   }, [thirdIndex, currentBudgetStatement]);
@@ -94,10 +89,18 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
   }, [breakdownTabs]);
 
   useEffect(() => {
-    if (!scrolled && anchor && !_.isEmpty(headerIds) && headerIds.includes(anchor)) {
+    if (
+      !scrolled &&
+      anchor &&
+      !_.isEmpty(headerIds) &&
+      headerIds.includes(anchor)
+    ) {
       setScrolled(true);
       let offset = (breakdownTitleRef?.current?.offsetTop || 0) - 260;
-      const windowsWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+      const windowsWidth = Math.max(
+        document.documentElement.clientWidth || 0,
+        window.innerWidth || 0
+      );
       if (windowsWidth < 834) {
         offset += 90;
       }
@@ -117,9 +120,10 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           getWalletForecast(wallet),
           getWalletActual(wallet),
           getWalletDifference(wallet),
-          getWalletPayment(wallet)
+          getWalletPayment(wallet),
         ];
-        if (numberCellData.every(n => n === 0)) {
+
+        if (numberCellData.every((n) => n === 0)) {
           emptyWallets++;
         }
 
@@ -130,10 +134,10 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
             wallet={formatAddressForOutput(wallet.address)}
             address={wallet.address}
           />,
-          <NumberCell key={2} value={numberCellData[0]}/>,
-          <NumberCell key={3} value={numberCellData[1]}/>,
-          <NumberCell key={3} value={numberCellData[2]}/>,
-          <NumberCell key={5} value={numberCellData[3]}/>,
+          <NumberCell key={2} value={numberCellData[0]} />,
+          <NumberCell key={3} value={numberCellData[1]} />,
+          <NumberCell key={3} value={numberCellData[2]} />,
+          <NumberCell key={5} value={numberCellData[3]} />,
           <TableCell key={6} responsivePadding="0">
             <CustomLink
               fontFamily={'SF Pro Display, sans-serif'}
@@ -165,10 +169,10 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       <TableCell key={1}>
         <b>Total</b>
       </TableCell>,
-      <NumberCell key={2} value={budgetTotalForecast} bold/>,
-      <NumberCell key={3} value={budgetTotalActual} bold/>,
-      <NumberCell key={4} value={budgetTotalDifference} bold/>,
-      <NumberCell key={5} value={budgetTotalPayment} bold/>,
+      <NumberCell key={2} value={budgetTotalForecast} bold />,
+      <NumberCell key={3} value={budgetTotalActual} bold />,
+      <NumberCell key={4} value={budgetTotalDifference} bold />,
+      <NumberCell key={5} value={budgetTotalPayment} bold />,
     ]);
 
     return result;
@@ -181,33 +185,54 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     for (const groupedKey in grouped) {
       if (
         Math.abs(getGroupForecast(grouped[groupedKey])) +
-          Math.abs(getGroupActual(grouped[groupedKey])) +
-          Math.abs(getGroupDifference(grouped[groupedKey])) ===
+          Math.abs(getGroupActual(grouped[groupedKey])) ===
         0
       ) {
         continue;
       }
 
-      const groupedCategory = _.groupBy(grouped[groupedKey], (item) => item.budgetCategory);
+      const groupedCategory = _.groupBy(
+        grouped[groupedKey],
+        (item) => item.budgetCategory
+      );
 
       let i = 1;
       for (const groupedCatKey in groupedCategory) {
         if (
           Math.abs(getGroupForecast(groupedCategory[groupedCatKey])) +
-            Math.abs(getGroupActual(groupedCategory[groupedCatKey])) +
-            Math.abs(getGroupDifference(groupedCategory[groupedCatKey])) ===
+            Math.abs(getGroupActual(groupedCategory[groupedCatKey])) ===
           0
         ) {
           continue;
         }
 
         result.push([
-          ...hasGroups ? [<TableCell key={`${groupedKey}-0`}>{i === 1 ? groupedKey : '' }</TableCell>] : [],
-          <TableCell key={`${groupedKey}-1`}>{groupedCategory[groupedCatKey][0].budgetCategory }</TableCell>,
-          <NumberCell key={`${groupedKey}-2`} value={getGroupForecast(groupedCategory[groupedCatKey])}/>,
-          <NumberCell key={`${groupedKey}-3`} value={getGroupActual(groupedCategory[groupedCatKey])}/>,
-          <NumberCell key={`${groupedKey}-4`} value={getGroupDifference(groupedCategory[groupedCatKey])}/>,
-          <NumberCell key={`${groupedKey}-6`} value={getGroupPayment(groupedCategory[groupedCatKey])}/>,
+          ...(hasGroups
+            ? [
+                <TableCell key={`${groupedKey}-0`}>
+                  {i === 1 ? groupedKey : ''}
+                </TableCell>,
+              ]
+            : []),
+          <TableCell key={`${groupedKey}-1`}>
+            {groupedCategory[groupedCatKey][0].budgetCategory}
+          </TableCell>,
+          <NumberCell
+            key={`${groupedKey}-2`}
+            value={getGroupForecast(groupedCategory[groupedCatKey])}
+          />,
+          <NumberCell
+            key={`${groupedKey}-3`}
+            value={getGroupActual(groupedCategory[groupedCatKey])}
+          />,
+          <NumberCell
+            key={`${groupedKey}-4`}
+            value={getGroupDifference(groupedCategory[groupedCatKey])}
+          />,
+          <NumberCell
+            key={`${groupedKey}-6`}
+            value={getGroupPayment(groupedCategory[groupedCatKey])}
+          />,
         ]);
 
         i++;
@@ -215,6 +240,30 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     }
 
     return result;
+  };
+
+  const getLineItemsSubtotal = (
+    items: BudgetStatementLineItemDto[],
+    title: string
+  ) => {
+    return items.reduce(
+      (prv, curr) =>
+        curr.month === currentBudgetStatement?.month
+          ? {
+              group: title,
+              budgetCategory: !hasGroups ? title : '',
+              actual: prv.actual + curr.actual,
+              forecast: (prv?.forecast ?? 0) + (curr?.forecast ?? 0),
+              payment: (prv?.payment ?? 0) + (curr?.payment ?? 0),
+              month: currentBudgetStatement?.month,
+            }
+          : prv,
+      {
+        actual: 0,
+        forecast: 0,
+        payment: 0,
+      }
+    );
   };
 
   const breakdownTableItems = useMemo(() => {
@@ -239,6 +288,17 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       )
     );
 
+    result.push(
+      ...getBreakdownItems([
+        getLineItemsSubtotal(
+          currentWallet?.budgetStatementLineItem?.filter(
+            (item) => item.headcountExpense
+          ),
+          'Sub-Total'
+        ),
+      ])
+    );
+
     result.push([
       <TableCell key={1}>
         <b>Non-Headcount Expenses</b>
@@ -253,11 +313,22 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       )
     );
 
+    result.push(
+      ...getBreakdownItems([
+        getLineItemsSubtotal(
+          currentWallet?.budgetStatementLineItem?.filter(
+            (item) => !item.headcountExpense
+          ),
+          'Sub-Total'
+        ),
+      ])
+    );
+
     result.push([
       <TableCell key={0}>
         <b>Total</b>
       </TableCell>,
-      ...hasGroups ? [<TableCell key={1} />] : [],
+      ...(hasGroups ? [<TableCell key={1} />] : []),
       <NumberCell key={2} value={getWalletForecast(currentWallet)} bold />,
       <NumberCell key={3} value={getWalletActual(currentWallet)} bold />,
       <NumberCell key={4} value={getWalletDifference(currentWallet)} bold />,
@@ -278,11 +349,16 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         {getBreakdownItems(
           currentWallet?.budgetStatementLineItem?.filter(
             (item) => item.headcountExpense
-          ),
+          )
         ).map((item, i) => (
           <TransparencyCard
             key={`item-${i}`}
-            header={<>{item[0]}{item[1]}</>}
+            header={
+              <>
+                {item[0]}
+                {item[1]}
+              </>
+            }
             headers={cardHeaders}
             items={item.slice(2)}
           />
@@ -293,11 +369,16 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         {getBreakdownItems(
           currentWallet?.budgetStatementLineItem?.filter(
             (item) => !item.headcountExpense
-          ),
+          )
         ).map((item, i) => (
           <TransparencyCard
             key={`item-${i}`}
-            header={<>{item[0]}{item[1]}</>}
+            header={
+              <>
+                {item[0]}
+                {item[1]}
+              </>
+            }
             headers={cardHeaders}
             items={item.slice(2)}
           />
@@ -305,39 +386,41 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         {getBreakdownItems(
           currentWallet?.budgetStatementLineItem?.filter(
             (item) => item.headcountExpense
-          ),
-        ).length + getBreakdownItems(
-          currentWallet?.budgetStatementLineItem?.filter(
-            (item) => !item.headcountExpense
-          ),
-        ).length > 1 && <TransparencyCard
-          header={
-            <TableCell>
-              <b>Total</b>
-            </TableCell>
-          }
-          headers={cardHeaders}
-          items={[
-            <NumberCell
-              key={1}
-              value={getWalletForecast(currentWallet)}
-              bold
-            />,
-            <NumberCell
-              key={2}
-              value={getWalletActual(currentWallet)}
-              bold
-            />,
-            <NumberCell
-              key={3}
-              value={getWalletDifference(currentWallet)}
-              bold
-            />,
-            <TableCell
-              key={4}
-            />,
-          ]}
-        />}
+          )
+        ).length +
+          getBreakdownItems(
+            currentWallet?.budgetStatementLineItem?.filter(
+              (item) => !item.headcountExpense
+            )
+          ).length >
+          1 && (
+          <TransparencyCard
+            header={
+              <TableCell>
+                <b>Total</b>
+              </TableCell>
+            }
+            headers={cardHeaders}
+            items={[
+              <NumberCell
+                key={1}
+                value={getWalletForecast(currentWallet)}
+                bold
+              />,
+              <NumberCell
+                key={2}
+                value={getWalletActual(currentWallet)}
+                bold
+              />,
+              <NumberCell
+                key={3}
+                value={getWalletDifference(currentWallet)}
+                bold
+              />,
+              <TableCell key={4} />,
+            ]}
+          />
+        )}
       </>
     );
   }, [currentBudgetStatement, thirdIndex]);
@@ -380,21 +463,25 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           </TableWrapper>
 
           <CardsWrapper>
-            {(wallets.length > 1 && mainTableItems.length > 1) && <TransparencyCard
+            {wallets.length > 1 && mainTableItems.length > 1 && (
+              <TransparencyCard
                 header={mainTableItems[mainTableItems.length - 1][0]}
                 headers={mainTableHeaders.slice(1, 5)}
                 items={mainTableItems[mainTableItems.length - 1].slice(1)}
                 footer={mainTableItems[mainTableItems.length - 1][5]}
-              />}
-            {mainTableItems.slice(0, mainTableItems.length - 1).map((item, i) => (
-              <TransparencyCard
-                key={`item-${i}`}
-                header={item[0]}
-                headers={mainTableHeaders.slice(1, 5)}
-                items={item.slice(2)}
-                footer={item[5]}
               />
-            ))}
+            )}
+            {mainTableItems
+              .slice(0, mainTableItems.length - 1)
+              .map((item, i) => (
+                <TransparencyCard
+                  key={`item-${i}`}
+                  header={item[0]}
+                  headers={mainTableHeaders.slice(1, 5)}
+                  items={item.slice(2)}
+                  footer={item[5]}
+                />
+              ))}
           </CardsWrapper>
         </>
           )}
@@ -413,7 +500,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
             items={breakdownTabs.map((header, i) => {
               return {
                 item: header,
-                id: headerIds[i]
+                id: headerIds[i],
               };
             })}
             currentIndex={thirdIndex}
@@ -425,7 +512,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           <TableWrapper>
             <InnerTable
               headers={[
-                ...hasGroups ? ['Group'] : [],
+                ...(hasGroups ? ['Group'] : []),
                 'Budget Category',
                 'Forecast',
                 'Actuals',
@@ -442,7 +529,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
                 '205px',
               ]}
               headersAlign={[
-                ...hasGroups ? ['left'] : [],
+                ...(hasGroups ? ['left'] : []),
                 'left',
                 'right',
                 'right',
