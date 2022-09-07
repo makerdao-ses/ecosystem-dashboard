@@ -77,14 +77,6 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     return Math.max(headerIds?.indexOf(anchor ?? ''), 0);
   }, [headerIds, anchor]);
 
-  const hasGroups = useMemo(() => {
-    const currentWallet = wallets[thirdIndex];
-
-    return currentWallet?.budgetStatementLineItem?.some(item => {
-      return item.group && item.actual;
-    });
-  }, [thirdIndex, currentBudgetStatement]);
-
   const headerToId = (header: string): string => {
     const id = header.toLowerCase().trim().replaceAll(/ /g, '-');
     return `actuals-${id}`;
