@@ -25,6 +25,7 @@ export const CORE_UNIT_REQUEST = (shortCode: string) => ({
             address
             currentBalance
             budgetStatementLineItem {
+              group
               actual
               forecast
               budgetCategory

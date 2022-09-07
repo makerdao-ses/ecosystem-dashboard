@@ -5,7 +5,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 interface InnerTableProps {
   headers: string[];
   items?: (JSX.Element | string)[][];
-  headersAlign?: ('left' | 'center' | 'right')[];
+  headersAlign?: string[];
   style?: CSSProperties;
   rowStyles?: CSSProperties[];
   minWidth?: number;
@@ -31,7 +31,7 @@ export const InnerTable = ({
                 minWidth={minWidth}
                 key={`header-${i}`}
                 style={{
-                  textAlign: headersAlign[i] ?? 'left',
+                  textAlign: headersAlign[i] as ('left' | 'right' | 'center') ?? 'left',
                   ...headerStyles[i],
                 }}
               >
@@ -46,7 +46,7 @@ export const InnerTable = ({
               {row.map((item, j) => (
                 <TableCell
                   key={`${i}-${j}`}
-                  textAlign={headersAlign[j] ?? 'left'}
+                  textAlign={headersAlign[j] as ('left' | 'right' | 'center') ?? 'left'}
                 >
                   {item}
                 </TableCell>
