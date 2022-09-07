@@ -253,8 +253,15 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     return result;
   }, [props.currentMonth, props.budgetStatements]);
 
+  const hasGroups = useMemo(() => {
+    const currentWallet = wallets[thirdIndex];
+
+    return currentWallet?.budgetStatementLineItem?.some(item => item.group && item.actual);
+  }, [thirdIndex]);
+
   const breakdownHeaders = useMemo(() => {
     return [
+      ...hasGroups ? ['Group'] : [],
       'Budget Category',
       firstMonth.toFormat('MMMM'),
       secondMonth.toFormat('MMMM'),
@@ -263,94 +270,103 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
       'Mthly Budget',
       'Qtly Budget',
     ];
-  }, [props.currentMonth, props.budgetStatements]);
+  }, [props.currentMonth, props.budgetStatements, hasGroups]);
 
   const getBreakdownItemsForGroup = (grouped: {
     [id: string]: BudgetStatementLineItemDto[];
   }) => {
     const result = [];
     for (const groupedKey in grouped) {
-      if (
-        Math.abs(
-          getLineItemForecastSumForMonth(grouped[groupedKey], firstMonth)
-        ) +
+      const groupedCategory = _.groupBy(grouped[groupedKey], (item) => item.budgetCategory);
+
+      let i = 1;
+      for (const groupedCatKey in groupedCategory) {
+        if (
           Math.abs(
-            getLineItemForecastSumForMonth(grouped[groupedKey], secondMonth)
+            getLineItemForecastSumForMonth(groupedCategory[groupedCatKey], firstMonth)
           ) +
-          Math.abs(
-            getLineItemForecastSumForMonth(grouped[groupedKey], thirdMonth)
-          ) +
-          Math.abs(
-            getLineItemForecastSumForMonths(grouped[groupedKey], [
+            Math.abs(
+              getLineItemForecastSumForMonth(groupedCategory[groupedCatKey], secondMonth)
+            ) +
+            Math.abs(
+              getLineItemForecastSumForMonth(groupedCategory[groupedCatKey], thirdMonth)
+            ) +
+            Math.abs(
+              getLineItemForecastSumForMonths(groupedCategory[groupedCatKey], [
+                firstMonth,
+                secondMonth,
+                thirdMonth,
+              ])
+            ) +
+            Math.abs(
+              getBudgetCapForMonthOnLineItem(
+                groupedCategory[groupedCatKey],
+                props.currentMonth
+              )
+            ) +
+            Math.abs(
+              getTotalQuarterlyBudgetCapOnLineItem(groupedCategory[groupedCatKey], [
+                firstMonth,
+                secondMonth,
+                thirdMonth,
+              ])
+            ) ===
+          0
+        ) {
+          continue;
+        }
+
+        result.push([
+          ...hasGroups ? [<TableCell key={`${groupedKey}-0`}>{i === 1 ? groupedKey : '' }</TableCell>] : [],
+          <TableCell key={1}>{groupedCatKey}</TableCell>,
+          <NumberCell
+            key={2}
+            value={getLineItemForecastSumForMonth(
+              groupedCategory[groupedCatKey],
+              firstMonth
+            )}
+          />,
+          <NumberCell
+            key={3}
+            value={getLineItemForecastSumForMonth(
+              groupedCategory[groupedCatKey],
+              secondMonth
+            )}
+          />,
+          <NumberCell
+            key={4}
+            value={getLineItemForecastSumForMonth(
+              groupedCategory[groupedCatKey],
+              thirdMonth
+            )}
+          />,
+          <NumberCell
+            key={5}
+            value={getLineItemForecastSumForMonths(groupedCategory[groupedCatKey], [
               firstMonth,
               secondMonth,
               thirdMonth,
-            ])
-          ) +
-          Math.abs(
-            getBudgetCapForMonthOnLineItem(
-              grouped[groupedKey],
+            ])}
+          />,
+          <NumberCell
+            key={6}
+            value={getBudgetCapForMonthOnLineItem(
+              groupedCategory[groupedCatKey],
               props.currentMonth
-            )
-          ) +
-          Math.abs(
-            getTotalQuarterlyBudgetCapOnLineItem(grouped[groupedKey], [
+            )}
+          />,
+          <NumberCell
+            key={7}
+            value={getTotalQuarterlyBudgetCapOnLineItem(groupedCategory[groupedCatKey], [
               firstMonth,
               secondMonth,
               thirdMonth,
-            ])
-          ) ===
-        0
-      ) {
-        continue;
+            ])}
+          />,
+        ]);
+
+        i++;
       }
-      result.push([
-        <TableCell key={1}>{groupedKey}</TableCell>,
-        <NumberCell
-          key={2}
-          value={getLineItemForecastSumForMonth(
-            grouped[groupedKey],
-            firstMonth
-          )}
-        />,
-        <NumberCell
-          key={3}
-          value={getLineItemForecastSumForMonth(
-            grouped[groupedKey],
-            secondMonth
-          )}
-        />,
-        <NumberCell
-          key={4}
-          value={getLineItemForecastSumForMonth(
-            grouped[groupedKey],
-            thirdMonth
-          )}
-        />,
-        <NumberCell
-          key={5}
-          value={getLineItemForecastSumForMonths(grouped[groupedKey], [
-            firstMonth,
-            secondMonth,
-            thirdMonth,
-          ])}
-        />,
-        <NumberCell
-          key={6}
-          value={getBudgetCapForMonthOnLineItem(
-            grouped[groupedKey],
-            props.currentMonth
-          )}
-        />,
-        <NumberCell
-          key={7}
-          value={getTotalQuarterlyBudgetCapOnLineItem(grouped[groupedKey], [
-            firstMonth,
-            secondMonth,
-            thirdMonth,
-          ])}
-        />,
-      ]);
     }
 
     return result;
@@ -397,7 +413,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
 
     const groupedHeadCount = _.groupBy(
       ungrouped.filter((x) => x.headcountExpense),
-      (item) => item.budgetCategory
+      (item) => item.group
     );
 
     result.push(...getBreakdownItemsForGroup(groupedHeadCount));
@@ -410,15 +426,16 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
 
     const groupedNonHeadCount = _.groupBy(
       ungrouped.filter((x) => !x.headcountExpense),
-      (item) => item.budgetCategory
+      (item) => item.group
     );
 
     result.push(...getBreakdownItemsForGroup(groupedNonHeadCount));
 
     result.push([
-      <TableCell key={1}>
+      <TableCell key={0}>
         <b>Total</b>
       </TableCell>,
+      ...hasGroups ? [<TableCell key={1}/>] : [],
       <NumberCell
         key={2}
         value={getForecastForMonthOnWalletOnBudgetStatement(
@@ -482,7 +499,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     ]);
 
     return result;
-  }, [props.currentMonth, props.budgetStatements, thirdIndex]);
+  }, [props.currentMonth, props.budgetStatements, thirdIndex, hasGroups]);
 
   const breakdownCards = useMemo(() => {
     const currentWalletAddress = wallets[thirdIndex]?.address ?? '';
@@ -508,7 +525,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
       ),
     ];
 
-    const cardHeaders = breakdownHeaders.slice(1, 7);
+    const cardHeaders = breakdownHeaders.slice(2, 7);
 
     return (
       <>
@@ -516,28 +533,28 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
         {getBreakdownItemsForGroup(
           _.groupBy(
             ungrouped.filter((x) => x.headcountExpense),
-            (item) => item.budgetCategory
+            (item) => item.group
           )
         ).map((item, i) => (
           <TransparencyCard
             key={i}
-            header={item[0]}
+            header={<>{item[0]}{item[1]}</>}
             headers={cardHeaders}
-            items={item.slice(1)}
+            items={item.slice(2)}
           />
         ))}
         <Title isLight={isLight}>Non-Headcount Expenses</Title>
         {getBreakdownItemsForGroup(
           _.groupBy(
             ungrouped.filter((x) => !x.headcountExpense),
-            (item) => item.budgetCategory
+            (item) => item.group
           )
         ).map((item, i) => (
           <TransparencyCard
             key={i}
-            header={item[0]}
+            header={<>{item[0]}{item[1]}</>}
             headers={cardHeaders}
-            items={item.slice(1)}
+            items={item.slice(2)}
           />
         ))}
         {getBreakdownItemsForGroup(
@@ -545,26 +562,12 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
             ungrouped.filter((x) => x.headcountExpense),
             (item) => item.budgetCategory
           )
-        ).map((item, i) => (
-          <TransparencyCard
-            key={i}
-            header={item[0]}
-            headers={cardHeaders}
-            items={item.slice(1)}
-          />
-        )).length + getBreakdownItemsForGroup(
+        ).length + getBreakdownItemsForGroup(
           _.groupBy(
             ungrouped.filter((x) => !x.headcountExpense),
             (item) => item.budgetCategory
           )
-        ).map((item, i) => (
-          <TransparencyCard
-            key={i}
-            header={item[0]}
-            headers={cardHeaders}
-            items={item.slice(1)}
-          />
-        )).length > 1 && <TransparencyCard
+        ).length > 1 && <TransparencyCard
         header={
           <TableCell key={1}>
             <b>Total</b>
