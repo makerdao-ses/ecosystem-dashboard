@@ -767,14 +767,14 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
           <CardsWrapper>
             {(wallets.length > 1 && forecastTableItems.length > 1) && <TransparencyCard
               header={forecastTableItems[forecastTableItems.length - 1][0]}
-              headers={breakdownHeaders.slice(1, 7)}
+              headers={breakdownHeaders.slice(2, 7)}
               items={forecastTableItems[forecastTableItems.length - 1].slice(1, 7)}
             />}
             {forecastTableItems.slice(0, forecastTableItems.length - 1).map((item, i) => (
               <TransparencyCard
                 key={i}
                 header={item[0]}
-                headers={breakdownHeaders.slice(1, 7)}
+                headers={breakdownHeaders.slice(2, 7)}
                 items={item.slice(1, 7)}
                 footer={item[7]}
               />
