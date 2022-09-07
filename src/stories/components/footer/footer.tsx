@@ -58,7 +58,7 @@ const Footer = ({ governesses, products, developer }: Props) => {
             ? 'right bottom'
             : 'center bottom'
         }
-        alt="404"
+        alt="Footer"
         layout='fill'
       />
       <ContainerFooter>
@@ -70,7 +70,7 @@ const Footer = ({ governesses, products, developer }: Props) => {
               paddingLeft: '6px',
               paddingRight: '6.3px',
             }}
-            logo={<Logo width={37} height={20} fill={'#211634'} fillDark='#D1DEE6'/>}
+            logo={<Logo width={37} height={20} fill={'#211634'} fillDark='#D1DEE6' />}
             links={iconsContact}
           />
         </ContainerColumOne>
@@ -151,7 +151,8 @@ const ContainerColumOne = styled.div({
   [lightTheme.breakpoints.up(835)]: {
     order: 1,
     width: '320.01px',
-  }
+  },
+  zIndex: 1,
 });
 
 const ContainerColumTwo = styled.div({
@@ -161,7 +162,8 @@ const ContainerColumTwo = styled.div({
   [lightTheme.breakpoints.up(835)]: {
     margin: 0,
     order: 2,
-  }
+  },
+  zIndex: 1,
 });
 
 const ContainerColumThree = styled.div({
@@ -171,7 +173,8 @@ const ContainerColumThree = styled.div({
   [lightTheme.breakpoints.up(835)]: {
     order: 3,
     margin: 0
-  }
+  },
+  zIndex: 1,
 });
 
 const ContainerColumFour = styled.div({
@@ -181,12 +184,14 @@ const ContainerColumFour = styled.div({
   [lightTheme.breakpoints.up(835)]: {
     order: 4,
     margin: 0,
-  }
+  },
+  zIndex: 1,
 });
 
 const ContainerColumLast = styled.div({
   order: 5,
-  width: '272px'
+  width: '272px',
+  zIndex: 1
 });
 
 export default Footer;
