@@ -276,6 +276,17 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     [id: string]: BudgetStatementLineItemDto[];
   }) => {
     const result = [];
+    const subTotal = {
+      0: 'Sub-Total',
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+      7: 0
+    };
+
     for (const groupedKey in grouped) {
       const groupedCategory = _.groupBy(grouped[groupedKey], (item) => item.budgetCategory);
 
@@ -316,8 +327,40 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
           continue;
         }
 
+        subTotal[2] += getLineItemForecastSumForMonth(
+          groupedCategory[groupedCatKey],
+          firstMonth
+        );
+
+        subTotal[3] += getLineItemForecastSumForMonth(
+          groupedCategory[groupedCatKey],
+          secondMonth
+        );
+
+        subTotal[4] += getLineItemForecastSumForMonth(
+          groupedCategory[groupedCatKey],
+          thirdMonth
+        );
+
+        subTotal[5] += getLineItemForecastSumForMonths(groupedCategory[groupedCatKey], [
+          firstMonth,
+          secondMonth,
+          thirdMonth,
+        ]);
+
+        subTotal[6] += getBudgetCapForMonthOnLineItem(
+          groupedCategory[groupedCatKey],
+          props.currentMonth
+        );
+
+        subTotal[7] += getTotalQuarterlyBudgetCapOnLineItem(groupedCategory[groupedCatKey], [
+          firstMonth,
+          secondMonth,
+          thirdMonth,
+        ]);
+
         result.push([
-          ...hasGroups ? [<TableCell key={`${groupedKey}-0`}>{i === 1 ? groupedKey : '' }</TableCell>] : [],
+          <TableCell key={`${groupedKey}-0`}>{i === 1 ? groupedKey : '' }</TableCell>,
           <TableCell key={1}>{groupedCatKey}</TableCell>,
           <NumberCell
             key={2}
@@ -368,6 +411,35 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
         i++;
       }
     }
+
+    result.push([
+      <TableCell key={0}>{'Sub Total'}</TableCell>,
+      <TableCell key={1}/>,
+      <NumberCell
+        key={2}
+        value={subTotal[2]}
+      />,
+      <NumberCell
+        key={3}
+        value={subTotal[3]}
+      />,
+      <NumberCell
+        key={4}
+        value={subTotal[4]}
+      />,
+      <NumberCell
+        key={5}
+        value={subTotal[5]}
+      />,
+      <NumberCell
+        key={6}
+        value={subTotal[6]}
+      />,
+      <NumberCell
+        key={7}
+        value={subTotal[7]}
+      />,
+    ]);
 
     return result;
   };
@@ -538,7 +610,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
         ).map((item, i) => (
           <TransparencyCard
             key={i}
-            header={<>{item[0]}</>}
+            header={<>{item[0]}{item[1]}</>}
             headers={cardHeaders}
             items={item.slice(2)}
           />
@@ -552,7 +624,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
         ).map((item, i) => (
           <TransparencyCard
             key={i}
-            header={<>{item[0]}</>}
+            header={<>{item[0]}{item[1]}</>}
             headers={cardHeaders}
             items={item.slice(2)}
           />
