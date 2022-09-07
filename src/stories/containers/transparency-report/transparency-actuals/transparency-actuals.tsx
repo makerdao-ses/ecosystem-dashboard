@@ -246,7 +246,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     items: BudgetStatementLineItemDto[],
     title: string
   ) => {
-    return items.reduce(
+    return items?.reduce(
       (prv, curr) =>
         curr.month === currentBudgetStatement?.month
           ? {
@@ -263,7 +263,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         forecast: 0,
         payment: 0,
       }
-    );
+    ) ?? {};
   };
 
   const breakdownTableItems = useMemo(() => {
