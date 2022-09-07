@@ -71,6 +71,11 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     return Math.max(headerIds?.indexOf(anchor ?? ''), 0);
   }, [headerIds, anchor]);
 
+  const currentWallet = useMemo(
+    () => wallets[thirdIndex],
+    [thirdIndex, wallets]
+  );
+
   const hasGroups = useMemo(() => {
     const currentWallet = wallets[thirdIndex];
 
@@ -244,27 +249,40 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
 
   const getLineItemsSubtotal = (
     items: BudgetStatementLineItemDto[],
-    title: string
+    title: string,
+    card = false,
   ) => {
-    return items?.reduce(
-      (prv, curr) =>
-        curr.month === currentBudgetStatement?.month
-          ? {
-              group: title,
-              budgetCategory: !hasGroups ? title : '',
-              actual: prv.actual + curr.actual,
-              forecast: (prv?.forecast ?? 0) + (curr?.forecast ?? 0),
-              payment: (prv?.payment ?? 0) + (curr?.payment ?? 0),
-              month: currentBudgetStatement?.month,
-            }
-          : prv,
-      {
-        actual: 0,
-        forecast: 0,
-        payment: 0,
-      }
-    ) ?? {};
+    return (
+      items?.reduce(
+        (prv, curr) =>
+          curr.month === currentBudgetStatement?.month
+            ? {
+                group: !card ? title : '',
+                budgetCategory: !hasGroups || card ? title : '',
+                actual: prv.actual + curr.actual,
+                forecast: (prv?.forecast ?? 0) + (curr?.forecast ?? 0),
+                payment: (prv?.payment ?? 0) + (curr?.payment ?? 0),
+                month: currentBudgetStatement?.month,
+              }
+            : prv,
+        {
+          actual: 0,
+          forecast: 0,
+          payment: 0,
+        }
+      ) ?? {}
+    );
   };
+
+  const hasExpenses = (headCount = true) =>
+    currentWallet?.budgetStatementLineItem
+      ?.filter((item) =>
+        headCount ? item.headcountExpense : !item.headcountExpense
+      )
+      .some(
+        (x) =>
+          (x.actual || x.forecast) && x.month === currentBudgetStatement?.month
+      );
 
   const breakdownTableItems = useMemo(() => {
     const result: JSX.Element[][] = [];
@@ -272,13 +290,13 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       return result;
     }
 
-    const currentWallet = wallets[thirdIndex];
-
-    result.push([
-      <TableCell key={1}>
-        <b>Headcount Expenses</b>
-      </TableCell>,
-    ]);
+    if (hasExpenses(true)) {
+      result.push([
+        <TableCell key={1}>
+          <b>Headcount Expenses</b>
+        </TableCell>,
+      ]);
+    }
 
     result.push(
       ...getBreakdownItems(
@@ -299,11 +317,13 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       ])
     );
 
-    result.push([
-      <TableCell key={1}>
-        <b>Non-Headcount Expenses</b>
-      </TableCell>,
-    ]);
+    if (hasExpenses(false)) {
+      result.push([
+        <TableCell key={1}>
+          <b>Non-Headcount Expenses</b>
+        </TableCell>,
+      ]);
+    }
 
     result.push(
       ...getBreakdownItems(
@@ -343,9 +363,11 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
 
     return (
       <>
-        <Title fontSize="14px" isLight={isLight}>
-          Headcount Expenses
-        </Title>
+        {hasExpenses(true) && (
+          <Title fontSize="14px" isLight={isLight}>
+            Headcount Expenses
+          </Title>
+        )}
         {getBreakdownItems(
           currentWallet?.budgetStatementLineItem?.filter(
             (item) => item.headcountExpense
@@ -363,9 +385,33 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
             items={item.slice(2)}
           />
         ))}
-        <Title isLight={isLight} fontSize="14px">
-          Non-Headcount Expenses
-        </Title>
+        {hasExpenses(true) &&
+          getBreakdownItems([
+            getLineItemsSubtotal(
+              currentWallet?.budgetStatementLineItem?.filter(
+                (item) => item.headcountExpense
+              ),
+              'Sub Total',
+              true
+            ),
+          ]).map((item, i) => (
+            <TransparencyCard
+              key={`item-${i}`}
+              header={
+                <>
+                  {item[0]}
+                  {item[1]}
+                </>
+              }
+              headers={cardHeaders}
+              items={item.slice(2)}
+            />
+          ))}
+        {hasExpenses(false) && (
+          <Title isLight={isLight} fontSize="14px">
+            Non-Headcount Expenses
+          </Title>
+        )}
         {getBreakdownItems(
           currentWallet?.budgetStatementLineItem?.filter(
             (item) => !item.headcountExpense
@@ -383,17 +429,29 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
             items={item.slice(2)}
           />
         ))}
-        {getBreakdownItems(
-          currentWallet?.budgetStatementLineItem?.filter(
-            (item) => item.headcountExpense
-          )
-        ).length +
+        {hasExpenses(false) &&
           getBreakdownItems(
-            currentWallet?.budgetStatementLineItem?.filter(
-              (item) => !item.headcountExpense
-            )
-          ).length >
-          1 && (
+            [getLineItemsSubtotal(
+              currentWallet?.budgetStatementLineItem?.filter(
+                (item) => !item.headcountExpense
+              ),
+              'Sub Total',
+              true
+            )]
+          ).map((item, i) => (
+            <TransparencyCard
+              key={`item-${i}`}
+              header={
+                <>
+                  {item[0]}
+                  {item[1]}
+                </>
+              }
+              headers={cardHeaders}
+              items={item.slice(2)}
+            />
+          ))}
+        {(hasExpenses(true) || hasExpenses(false)) && (
           <TransparencyCard
             header={
               <TableCell>
