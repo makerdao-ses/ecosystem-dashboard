@@ -2,7 +2,6 @@ import React from 'react';
 import { Box, Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
 import styled from '@emotion/styled';
 import { CuTableColumnLinks } from '../cu-table-column-links/cu-table-column-links';
-import { ContributorCommitment } from '../../containers/cu-about/cu-about-contributor';
 import { getContributorCommitment, getLinksFromContributor } from '../../../core/business-logic/core-unit-about';
 import { DateTime } from 'luxon';
 import { getColorJobPosition } from '../../../core/utils/color.utils';
@@ -11,6 +10,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { ContributorCommitmentDto } from '../../../core/models/dto/core-unit.dto';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
+import { ContributorCommitment } from '../../containers/cu-about/cu-about.api';
 
 interface Props {
   contributorCommitment: ContributorCommitment | ContributorCommitmentDto;
