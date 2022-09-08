@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
 import { CardsWrapper, TableWrapper, Title } from '../transparency-report';
 import { InnerTable } from '../../../components/inner-table/inner-table';
-import { TableCell } from '../../../components/table-cell/table-cell';
+import { TextCell } from '../../../components/text-cell/text-cell';
 import { DateTime } from 'luxon';
 import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 import { useTransparencyMkrVesting } from './transparency-mkr-vesting.mvvm';
@@ -35,22 +35,22 @@ export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
 
     mkrVestings?.forEach((mkr) => {
       result.push([
-        <TableCell>{mkr.vestingDate}</TableCell>,
+        <TextCell>{mkr.vestingDate}</TextCell>,
         <NumberCell value={mkr.mkrAmount} />,
         <NumberCell value={mkr.mkrAmountOld} />,
         <NumberCell value={Number(mkr.mkrAmount) - Number(mkr.mkrAmountOld)} />,
-        <TableCell style={{ paddingLeft: '36px' }}>{mkr.comments}</TableCell>,
+        <TextCell style={{ paddingLeft: '36px' }}>{mkr.comments}</TextCell>,
       ]);
     });
 
     result.push([
-      <TableCell>
+      <TextCell>
         <b>Total</b>
-      </TableCell>,
+      </TextCell>,
       <NumberCell value={Number(totalAmount)} bold />,
       <NumberCell value={Number(totalOldAmount)} bold />,
       <NumberCell value={Number(totalAmount) - Number(totalOldAmount)} bold />,
-      <TableCell />,
+      <TextCell />,
     ]);
 
     return result;

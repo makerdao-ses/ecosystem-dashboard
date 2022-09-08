@@ -10,7 +10,7 @@ interface TableCellProps {
   responsivePadding?: string;
 }
 
-export const TableCell = ({ responsivePadding = '10px 16px', ...props }: TableCellProps) => {
+export const TextCell = ({ responsivePadding = '10px 16px', ...props }: TableCellProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   return <Container isLight={isLight} fontFamily={props.fontFamily} style={props.style} negative={props.negative} responsivePadding={responsivePadding}>{props.children}</Container>;
 };

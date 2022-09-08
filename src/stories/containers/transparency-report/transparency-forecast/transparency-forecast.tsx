@@ -5,7 +5,7 @@ import { CardsWrapper, TableWrapper, Title } from '../transparency-report';
 import { InnerTable } from '../../../components/inner-table/inner-table';
 import { Tabs } from '../../../components/tabs/tabs';
 import { WalletTableCell } from '../../../components/wallet-table-cell/wallet-table-cell';
-import { TableCell } from '../../../components/table-cell/table-cell';
+import { TextCell } from '../../../components/text-cell/text-cell';
 import { CustomLink } from '../../../components/custom-link/custom-link';
 import {
   BudgetStatementDto,
@@ -168,7 +168,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
           key={7}
           value={numberCellData[5]}
         />,
-        <TableCell key={8} responsivePadding="0">
+        <TextCell key={8} responsivePadding="0">
           <CustomLink
             fontSize={16}
             fontFamily={'SF Pro Display, sans-serif'}
@@ -184,14 +184,14 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
           >
             Gnosis
           </CustomLink>
-        </TableCell>,
+        </TextCell>,
       ]);
     });
 
     result.push([
-      <TableCell key={1}>
+      <TextCell key={1}>
         <b>Total</b>
-      </TableCell>,
+      </TextCell>,
       <NumberCell
         key={2}
         value={getForecastSumForMonth(
@@ -360,8 +360,8 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
         ]);
 
         result.push([
-          <TableCell key={`${groupedKey}-0`}>{i === 1 ? groupedKey : '' }</TableCell>,
-          <TableCell key={1}>{groupedCatKey}</TableCell>,
+          <TextCell key={`${groupedKey}-0`}>{i === 1 ? groupedKey : '' }</TextCell>,
+          <TextCell key={1}>{groupedCatKey}</TextCell>,
           <NumberCell
             key={2}
             value={getLineItemForecastSumForMonth(
@@ -413,8 +413,8 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     }
 
     result.push([
-      <TableCell key={0}>{'Sub Total'}</TableCell>,
-      <TableCell key={1}/>,
+      <TextCell key={0}>{'Sub Total'}</TextCell>,
+      <TextCell key={1}/>,
       <NumberCell
         key={2}
         value={subTotal[2]}
@@ -478,9 +478,9 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     ];
 
     result.push([
-      <TableCell key={1}>
+      <TextCell key={1}>
         <b>Headcount Expenses</b>
-      </TableCell>,
+      </TextCell>,
     ]);
 
     const groupedHeadCount = _.groupBy(
@@ -491,9 +491,9 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     result.push(...getBreakdownItemsForGroup(groupedHeadCount));
 
     result.push([
-      <TableCell key={1}>
+      <TextCell key={1}>
         <b>Non-Headcount Expenses</b>
-      </TableCell>,
+      </TextCell>,
     ]);
 
     const groupedNonHeadCount = _.groupBy(
@@ -504,10 +504,10 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     result.push(...getBreakdownItemsForGroup(groupedNonHeadCount));
 
     result.push([
-      <TableCell key={0}>
+      <TextCell key={0}>
         <b>Total</b>
-      </TableCell>,
-      ...hasGroups ? [<TableCell key={1}/>] : [],
+      </TextCell>,
+      ...hasGroups ? [<TextCell key={1}/>] : [],
       <NumberCell
         key={2}
         value={getForecastForMonthOnWalletOnBudgetStatement(
@@ -641,9 +641,9 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
           )
         ).length > 1 && <TransparencyCard
         header={
-          <TableCell key={1}>
+          <TextCell key={1}>
             <b>Total</b>
-          </TableCell>
+          </TextCell>
         }
         headers={cardHeaders}
         items={[

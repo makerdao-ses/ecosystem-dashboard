@@ -4,7 +4,7 @@ import { InnerTable } from '../../../components/inner-table/inner-table';
 import { Tabs } from '../../../components/tabs/tabs';
 import { CustomLink } from '../../../components/custom-link/custom-link';
 import { WalletTableCell } from '../../../components/wallet-table-cell/wallet-table-cell';
-import { TableCell } from '../../../components/table-cell/table-cell';
+import { TextCell } from '../../../components/text-cell/text-cell';
 import { DateTime } from 'luxon';
 import {
   BudgetStatementDto,
@@ -143,7 +143,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           <NumberCell key={3} value={numberCellData[1]} />,
           <NumberCell key={3} value={numberCellData[2]} />,
           <NumberCell key={5} value={numberCellData[3]} />,
-          <TableCell key={6} responsivePadding="0">
+          <TextCell key={6} responsivePadding="0">
             <CustomLink
               fontFamily={'SF Pro Display, sans-serif'}
               href={`https://etherscan.io/address/${wallet.address}`}
@@ -161,7 +161,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
             >
               Gnosis
             </CustomLink>
-          </TableCell>,
+          </TextCell>,
         ]);
       });
 
@@ -171,9 +171,9 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     }
 
     result.push([
-      <TableCell key={1}>
+      <TextCell key={1}>
         <b>Total</b>
-      </TableCell>,
+      </TextCell>,
       <NumberCell key={2} value={budgetTotalForecast} bold />,
       <NumberCell key={3} value={budgetTotalActual} bold />,
       <NumberCell key={4} value={budgetTotalDifference} bold />,
@@ -217,14 +217,14 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         result.push([
           ...(hasGroups || card
             ? [
-                <TableCell key={`${groupedKey}-0`}>
+                <TextCell key={`${groupedKey}-0`}>
                   {i === 1 ? groupedKey : ''}
-                </TableCell>,
+                </TextCell>,
               ]
             : []),
-          <TableCell key={`${groupedKey}-1`}>
+          <TextCell key={`${groupedKey}-1`}>
             {groupedCategory[groupedCatKey][0].budgetCategory}
-          </TableCell>,
+          </TextCell>,
           <NumberCell
             key={`${groupedKey}-2`}
             value={getGroupForecast(groupedCategory[groupedCatKey])}
@@ -295,9 +295,9 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
 
     if (hasExpenses(true)) {
       result.push([
-        <TableCell key={1}>
+        <TextCell key={1}>
           <b>Headcount Expenses</b>
-        </TableCell>,
+        </TextCell>,
       ]);
     }
 
@@ -322,9 +322,9 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
 
     if (hasExpenses(false)) {
       result.push([
-        <TableCell key={1}>
+        <TextCell key={1}>
           <b>Non-Headcount Expenses</b>
-        </TableCell>,
+        </TextCell>,
       ]);
     }
 
@@ -348,10 +348,10 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     );
 
     result.push([
-      <TableCell key={0}>
+      <TextCell key={0}>
         <b>Total</b>
-      </TableCell>,
-      ...(hasGroups ? [<TableCell key={1} />] : []),
+      </TextCell>,
+      ...(hasGroups ? [<TextCell key={1} />] : []),
       <NumberCell key={2} value={getWalletForecast(currentWallet)} bold />,
       <NumberCell key={3} value={getWalletActual(currentWallet)} bold />,
       <NumberCell key={4} value={getWalletDifference(currentWallet)} bold />,
@@ -464,9 +464,9 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         {(hasExpenses(true) || hasExpenses(false)) && (
           <TransparencyCard
             header={
-              <TableCell>
+              <TextCell>
                 <b>Total</b>
-              </TableCell>
+              </TextCell>
             }
             headers={cardHeaders}
             items={[
@@ -485,7 +485,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
                 value={getWalletDifference(currentWallet)}
                 bold
               />,
-              <TableCell key={4} />,
+              <TextCell key={4} />,
             ]}
           />
         )}
