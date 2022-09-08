@@ -2,14 +2,14 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Tabs } from '../../../components/tabs/tabs';
 import { DateTime } from 'luxon';
-import {
-  BudgetStatementDto,
-} from '../../../../core/models/dto/core-unit.dto';
+import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 import _ from 'lodash';
 import { useTransparencyActualsMvvm2 } from './transparency-actuals-2.mvvm';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
-import { AdvancedInnerTable } from '../../../components/advanced-inner-table/advanced-inner-table';
+import {
+  AdvancedInnerTable,
+} from '../../../components/advanced-inner-table/advanced-inner-table';
 import { TableWrapper, Title } from '../transparency-report';
 
 interface Props {
@@ -17,8 +17,6 @@ interface Props {
   budgetStatements?: BudgetStatementDto[];
   code: string;
 }
-
-const cardHeaders = ['Forecast', 'Actuals', 'Difference', 'Payments'];
 
 export const TransparencyActuals2 = (props: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
@@ -52,6 +50,7 @@ export const TransparencyActuals2 = (props: Props) => {
             <AdvancedInnerTable
               columns={mainTableColumns}
               items={mainTableItems}
+              style={{ marginBottom: '64px' }}
             />
           </TableWrapper>
         </>

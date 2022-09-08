@@ -9,13 +9,14 @@ import { DateTime } from 'luxon';
 import { capitalizeSentence } from '../../../../core/utils/string.utils';
 import { API_MONTH_FORMAT } from '../../../../core/utils/date.utils';
 import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
-import { InnerTableColumn } from '../../../components/advanced-inner-table/advanced-inner-table';
+import { InnerTableColumn, InnerTableRow } from '../../../components/advanced-inner-table/advanced-inner-table';
+import { renderLinks, renderWallet } from '../transparency-report.utils';
 
 export const useTransparencyActualsMvvm2 = (propsCurrentMonth: DateTime, budgetStatements: BudgetStatementDto[] | undefined, code: string) => {
   const currentMonth = useMemo(() => propsCurrentMonth.toFormat(API_MONTH_FORMAT), [propsCurrentMonth]);
 
   const wallets: BudgetStatementWalletDto[] = useMemo(() => {
-    const dict: {[id: string]: BudgetStatementWalletDto} = {};
+    const dict: { [id: string]: BudgetStatementWalletDto } = {};
 
     const budgetStatement = budgetStatements?.find(bs => bs.month === propsCurrentMonth.toFormat(API_MONTH_FORMAT));
 
@@ -147,42 +148,90 @@ export const useTransparencyActualsMvvm2 = (propsCurrentMonth: DateTime, budgetS
     }
   }, [anchor, headerIds]);
 
-  const mainTableItems = useMemo(() => {
-    return [];
-  }, []);
-
   const mainTableColumns: InnerTableColumn[] = [
     {
-      header: 'Budget',
+      header: 'Wallet',
       align: 'left',
-      type: 'text',
+      type: 'custom',
+      cellRender: renderWallet,
     },
     {
       header: 'Forecast',
-      align: 'left',
+      align: 'right',
       type: 'number',
     },
     {
       header: 'Actuals',
-      align: 'left',
+      align: 'right',
       type: 'number',
     },
     {
       header: 'Difference',
-      align: 'left',
+      align: 'right',
       type: 'number',
     },
     {
       header: 'Payments',
-      align: 'left',
+      align: 'right',
       type: 'number',
     },
     {
       header: 'External Links',
       align: 'left',
-      type: 'text',
+      type: 'custom',
+      cellRender: renderLinks
     },
   ];
+
+  const mainTableItems = useMemo(() => {
+    const result: InnerTableRow[] = [];
+
+    if (currentBudgetStatement) {
+      let emptyWallets = 0;
+
+      wallets.forEach(wallet => {
+        const numberCellData = [
+          getWalletForecast(wallet),
+          getWalletActual(wallet),
+          getWalletDifference(wallet),
+          getWalletPayment(wallet),
+        ];
+
+        if (numberCellData.every((n) => n === 0)) {
+          emptyWallets++;
+        }
+
+        result.push({
+          type: 'normal',
+          items: [
+            wallet,
+            numberCellData[0],
+            numberCellData[1],
+            numberCellData[2],
+            numberCellData[3],
+            wallet.address,
+          ]
+        });
+      });
+
+      if (result.length === emptyWallets) {
+        return [];
+      }
+
+      result.push({
+        type: 'total',
+        items: [
+          'Total',
+          budgetTotalForecast,
+          budgetTotalActual,
+          budgetTotalDifference,
+          budgetTotalPayment
+        ]
+      });
+    }
+
+    return result;
+  }, [currentBudgetStatement]);
 
   return {
     headerIds,

@@ -8,34 +8,43 @@ export interface InnerTableColumn {
   align?: string;
   header?: string;
   type?: 'number' | 'text' | 'custom';
-  cellRender?: (data: unknown) => JSX.Element;
+  cellRender?: (data: never) => JSX.Element;
   headerAlign?: string;
+}
+type RowType = 'normal' | 'total';
+export interface InnerTableRow {
+  type: RowType;
+  items: unknown[];
 }
 
 interface Props {
   columns: InnerTableColumn[];
-  items: string[][];
+  items: InnerTableRow[];
+  style?: React.CSSProperties;
 }
 
 type Alignment = 'left' | 'center' | 'right';
 
 export const AdvancedInnerTable = ({ ...props }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
-  const getCell = (column: InnerTableColumn, value: string) => {
-    switch (column.type) {
+  const getCell = (column: InnerTableColumn, rowType: RowType, value: never) => {
+    const isBold = rowType === 'total';
+    const columnType = rowType === 'total' && column.type === 'custom' ? 'text' : column.type;
+
+    switch (columnType) {
       case 'number':
-        return <NumberCell value={Number(value)}/>;
+        return <NumberCell value={Number(value)} bold={isBold}/>;
       case 'text':
-        return <TextCell>{value}</TextCell>;
+        return <TextCell bold={isBold}>{value}</TextCell>;
       case 'custom':
         return column?.cellRender && column?.cellRender(value);
       default:
-        return <TextCell>{value}</TextCell>;
+        return <TextCell bold={isBold}>{value}</TextCell>;
     }
   };
 
   return (
-    <Container isLight={isLight}>
+    <Container isLight={isLight} style={props.style}>
       <Table>
         <TableHead isLight={isLight}>
           <tr>
@@ -54,12 +63,12 @@ export const AdvancedInnerTable = ({ ...props }: Props) => {
         <tbody>
           {props.items?.map((row, i) => (
             <tr key={i}>
-              {row.map((item, j) => (
+              {row.items?.map((item, j) => (
                 <TableCell
                   key={`${i}-${j}`}
-                  textAlign={(props.columns[i]?.align ?? 'left') as Alignment}
+                  textAlign={(props.columns[j]?.align ?? 'left') as Alignment}
                 >
-                  {getCell(props.columns[i], item)}
+                  {getCell(props.columns[j], row.type, item as never)}
                 </TableCell>
               ))}
             </tr>
@@ -85,6 +94,7 @@ const Table = styled.table({
   borderCollapse: 'collapse',
   tableLayout: 'fixed',
   flex: '1',
+  width: '100%'
 });
 
 const TableCell = styled.td<{ textAlign: 'left' | 'center' | 'right' }>(
