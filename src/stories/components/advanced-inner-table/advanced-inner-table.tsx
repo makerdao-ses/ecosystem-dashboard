@@ -4,7 +4,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { NumberCell } from '../number-cell/number-cell';
 import { TextCell } from '../text-cell/text-cell';
 
-interface Column {
+export interface InnerTableColumn {
   align?: string;
   header?: string;
   type?: 'number' | 'text' | 'custom';
@@ -13,15 +13,15 @@ interface Column {
 }
 
 interface Props {
-  columns: Column[];
+  columns: InnerTableColumn[];
   items: string[][];
 }
 
 type Alignment = 'left' | 'center' | 'right';
 
-export const InnerTable = ({ ...props }: Props) => {
+export const AdvancedInnerTable = ({ ...props }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
-  const getCell = (column: Column, value: string) => {
+  const getCell = (column: InnerTableColumn, value: string) => {
     switch (column.type) {
       case 'number':
         return <NumberCell value={Number(value)}/>;

@@ -25,6 +25,7 @@ import { getCurrentOrLastMonthWithData, getLastMonthWithActualOrForecast } from 
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
 import lightTheme from '../../../../styles/theme/light';
 import { SummarizedCoreUnit } from '../../components/core-unit-summary/core-unit-summary.mvvm';
+import { TransparencyActuals2 } from './transparency-actuals/transparency-actuals-2';
 
 const colors: { [key: string]: string } = {
   Draft: '#7C6B95',
@@ -248,7 +249,7 @@ export const TransparencyReport = ({
             }}
           />
           {tabsIndex === 0 && (
-            <TransparencyActuals
+            <TransparencyActuals2
               code={code}
               currentMonth={currentMonth}
               budgetStatements={cu?.budgetStatements}

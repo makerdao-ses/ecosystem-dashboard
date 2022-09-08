@@ -1,0 +1,91 @@
+import React from 'react';
+import styled from '@emotion/styled';
+import { Tabs } from '../../../components/tabs/tabs';
+import { DateTime } from 'luxon';
+import {
+  BudgetStatementDto,
+} from '../../../../core/models/dto/core-unit.dto';
+import _ from 'lodash';
+import { useTransparencyActualsMvvm2 } from './transparency-actuals-2.mvvm';
+import { useThemeContext } from '../../../../core/context/ThemeContext';
+import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
+import { AdvancedInnerTable } from '../../../components/advanced-inner-table/advanced-inner-table';
+import { TableWrapper, Title } from '../transparency-report';
+
+interface Props {
+  currentMonth: DateTime;
+  budgetStatements?: BudgetStatementDto[];
+  code: string;
+}
+
+const cardHeaders = ['Forecast', 'Actuals', 'Difference', 'Payments'];
+
+export const TransparencyActuals2 = (props: Props) => {
+  const isLight = useThemeContext().themeMode === 'light';
+
+  const {
+    headerIds,
+    thirdIndex,
+    breakdownTitleRef,
+    mainTableColumns,
+    mainTableItems,
+    breakdownTabs,
+  } = useTransparencyActualsMvvm2(
+    props.currentMonth,
+    props.budgetStatements,
+    props.code
+  );
+
+  return (
+    <Container>
+      <Title isLight={isLight} responsiveMarginBottom={16}>
+        {props.currentMonth.toFormat('MMM yyyy')} Totals
+      </Title>
+
+      {mainTableItems.length - 1 <= 0
+        ? (
+        <TransparencyEmptyTable />
+          )
+        : (
+        <>
+          <TableWrapper>
+            <AdvancedInnerTable
+              columns={mainTableColumns}
+              items={mainTableItems}
+            />
+          </TableWrapper>
+        </>
+          )}
+
+      <Title isLight={isLight} ref={breakdownTitleRef}>
+        {props.currentMonth.toFormat('MMM yyyy')} Breakdown
+      </Title>
+
+      {mainTableItems.length - 1 <= 0
+        ? (
+        <TransparencyEmptyTable breakdown />
+          )
+        : (
+        <>
+          <Tabs
+            items={breakdownTabs.map((header, i) => {
+              return {
+                item: header,
+                id: headerIds[i],
+              };
+            })}
+            currentIndex={thirdIndex}
+            style={{
+              marginBottom: '32px',
+            }}
+          />
+        </>
+          )}
+    </Container>
+  );
+};
+
+const Container = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+});
