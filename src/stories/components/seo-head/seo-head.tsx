@@ -55,7 +55,7 @@ export const SEOHead = ({
   return (
     <Head>
       <title>{title}</title>
-      <meta name="theme-color" content={isLight ? '#ffffff' : '#000000'} />
+      <meta name="theme-color" content={isLight ? '#ffffff' : '#010101'} />
       <link rel="manifest" key="manifest" href="/manifest.json" />
       <link
         rel="icon"
