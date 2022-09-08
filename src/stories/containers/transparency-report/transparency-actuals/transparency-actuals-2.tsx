@@ -7,10 +7,8 @@ import _ from 'lodash';
 import { useTransparencyActualsMvvm2 } from './transparency-actuals-2.mvvm';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
-import {
-  AdvancedInnerTable,
-} from '../../../components/advanced-inner-table/advanced-inner-table';
-import { TableWrapper, Title } from '../transparency-report';
+import { AdvancedInnerTable } from '../../../components/advanced-inner-table/advanced-inner-table';
+import { Title } from '../transparency-report';
 
 interface Props {
   currentMonth: DateTime;
@@ -45,15 +43,11 @@ export const TransparencyActuals2 = (props: Props) => {
         <TransparencyEmptyTable />
           )
         : (
-        <>
-          <TableWrapper>
-            <AdvancedInnerTable
-              columns={mainTableColumns}
-              items={mainTableItems}
-              style={{ marginBottom: '64px' }}
-            />
-          </TableWrapper>
-        </>
+        <AdvancedInnerTable
+          columns={mainTableColumns}
+          items={mainTableItems}
+          style={{ marginBottom: '64px' }}
+        />
           )}
 
       <Title isLight={isLight} ref={breakdownTitleRef}>

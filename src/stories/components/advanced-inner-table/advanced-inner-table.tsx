@@ -3,6 +3,12 @@ import styled from '@emotion/styled';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { NumberCell } from '../number-cell/number-cell';
 import { TextCell } from '../text-cell/text-cell';
+import { TransparencyCard } from '../transparency-card/transparency-card';
+
+export interface InnerTableCell {
+  index: number;
+  value: unknown;
+}
 
 export interface InnerTableColumn {
   align?: string;
@@ -10,72 +16,134 @@ export interface InnerTableColumn {
   type?: 'number' | 'text' | 'custom';
   cellRender?: (data: never) => JSX.Element;
   headerAlign?: string;
+  isCardHeader?: boolean;
+  isCardFooter?: boolean;
+  minWidth?: string;
 }
+
 type RowType = 'normal' | 'total';
+
 export interface InnerTableRow {
   type: RowType;
-  items: unknown[];
+  items: InnerTableCell[];
 }
 
 interface Props {
   columns: InnerTableColumn[];
   items: InnerTableRow[];
   style?: React.CSSProperties;
+  responsiveTotalFirst?: boolean;
 }
 
 type Alignment = 'left' | 'center' | 'right';
 
 export const AdvancedInnerTable = ({ ...props }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
-  const getCell = (column: InnerTableColumn, rowType: RowType, value: never) => {
+  const getCell = (
+    column: InnerTableColumn,
+    rowType: RowType,
+    value: unknown
+  ) => {
     const isBold = rowType === 'total';
-    const columnType = rowType === 'total' && column.type === 'custom' ? 'text' : column.type;
+    const columnType =
+      rowType === 'total' && column.type === 'custom' ? 'text' : column.type;
 
     switch (columnType) {
       case 'number':
-        return <NumberCell value={Number(value)} bold={isBold}/>;
+        return <NumberCell value={Number(value)} bold={isBold} />;
       case 'text':
-        return <TextCell bold={isBold}>{value}</TextCell>;
+        return <TextCell bold={isBold}>{value as string}</TextCell>;
       case 'custom':
-        return column?.cellRender && column?.cellRender(value);
-      default:
-        return <TextCell bold={isBold}>{value}</TextCell>;
+        if (column?.cellRender) {
+          return column?.cellRender(value as never);
+        }
     }
+
+    return <TextCell bold={isBold}>{value as string}</TextCell>;
   };
 
   return (
-    <Container isLight={isLight} style={props.style}>
-      <Table>
-        <TableHead isLight={isLight}>
-          <tr>
-            {props.columns?.map((column, i) => (
-              <HeadCell
-                key={`header-${i}`}
-                style={{
-                  textAlign: (column.headerAlign ?? column.align ?? 'left') as Alignment
-                }}
-              >
-                {column.header}
-              </HeadCell>
-            ))}
-          </tr>
-        </TableHead>
-        <tbody>
-          {props.items?.map((row, i) => (
-            <tr key={i}>
-              {row.items?.map((item, j) => (
-                <TableCell
-                  key={`${i}-${j}`}
-                  textAlign={(props.columns[j]?.align ?? 'left') as Alignment}
-                >
-                  {getCell(props.columns[j], row.type, item as never)}
-                </TableCell>
+    <>
+      <TableWrapper>
+        <Container isLight={isLight} style={props.style}>
+          <Table>
+            <TableHead isLight={isLight}>
+              <tr>
+                {props.columns?.map((column, i) => (
+                  <HeadCell
+                    key={`header-${i}`}
+                    style={{
+                      textAlign: (column.headerAlign ??
+                        column.align ??
+                        'left') as Alignment,
+                      width: column.minWidth ?? 'unset'
+                    }}
+                  >
+                    {column.header}
+                  </HeadCell>
+                ))}
+              </tr>
+            </TableHead>
+            <tbody>
+              {props.items?.map((row, i) => (
+                <tr key={i}>
+                  {row.items?.map((item, j) => (
+                    <TableCell
+                      key={`${i}-${j}`}
+                      textAlign={
+                        (props.columns[item.index]?.align ??
+                          'left') as Alignment
+                      }
+                    >
+                      {getCell(
+                        props.columns[item.index],
+                        row.type,
+                        item.value as never
+                      )}
+                    </TableCell>
+                  ))}
+                </tr>
               ))}
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    </Container>
+            </tbody>
+          </Table>
+        </Container>
+      </TableWrapper>
+      <CardsWrapper>
+        {props.items.slice(0, props.items.length - 1).map((item, i) => (
+          <TransparencyCard
+            key={`item-${i}`}
+            header={
+              <>
+                {item.items
+                  .filter((x) => props.columns[x.index]?.isCardHeader)
+                  .map((x) => getCell(props.columns[x.index], 'normal', x.value))}
+              </>
+            }
+            headers={props.columns
+              .filter((x) => !x.isCardHeader && !x.isCardFooter)
+              .map((x) => x.header ?? '')}
+            items={
+              item.items
+                .filter(
+                  (x) =>
+                    !props.columns[x.index]?.isCardFooter &&
+                    !props.columns[x.index]?.isCardHeader
+                )
+                .map((x) =>
+                  getCell(props.columns[x.index], 'normal', x.value)
+                ) ?? []
+            }
+            footer={
+              <>
+              {item.items
+                .filter((x) => props.columns[x.index]?.isCardFooter)
+                .map((x) => getCell(props.columns[x.index], 'normal', x.value))}
+            </>
+            }
+          />
+        ))}
+      </CardsWrapper>
+    </>
   );
 };
 
@@ -94,7 +162,7 @@ const Table = styled.table({
   borderCollapse: 'collapse',
   tableLayout: 'fixed',
   flex: '1',
-  width: '100%'
+  width: '100%',
 });
 
 const TableCell = styled.td<{ textAlign: 'left' | 'center' | 'right' }>(
@@ -118,3 +186,17 @@ const HeadCell = styled.th(() => ({
   padding: '24px 16px',
   fontWeight: '500',
 }));
+
+const TableWrapper = styled.div({
+  display: 'none',
+  '@media (min-width: 834px)': {
+    display: 'block',
+  },
+});
+
+const CardsWrapper = styled.div({
+  display: 'block',
+  '@media (min-width: 834px)': {
+    display: 'none',
+  },
+});

@@ -6,7 +6,7 @@ import lightTheme from '../../../../styles/theme/light';
 interface Props {
   header: JSX.Element | string;
   headers: JSX.Element[] | string[];
-  items: JSX.Element[];
+  items?: JSX.Element[];
   footer?: JSX.Element | string;
 }
 
@@ -18,7 +18,7 @@ export const TransparencyCard = (props: Props) => {
     </HeaderWrapper>
     {props.headers.map((header, i) => <Row key={header.toString()}>
       <Label>{header}</Label>
-      {props.items[i] ?? ''}
+      {(props.items && props.items[i]) ?? ''}
     </Row>)}
     {props.footer && <FooterWrapper isLight={isLight}>{props.footer}</FooterWrapper>}
   </Container>;

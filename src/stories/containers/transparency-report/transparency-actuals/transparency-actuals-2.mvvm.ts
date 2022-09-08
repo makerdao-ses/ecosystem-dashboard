@@ -154,6 +154,8 @@ export const useTransparencyActualsMvvm2 = (propsCurrentMonth: DateTime, budgetS
       align: 'left',
       type: 'custom',
       cellRender: renderWallet,
+      isCardHeader: true,
+      minWidth: '180px'
     },
     {
       header: 'Forecast',
@@ -179,7 +181,8 @@ export const useTransparencyActualsMvvm2 = (propsCurrentMonth: DateTime, budgetS
       header: 'External Links',
       align: 'left',
       type: 'custom',
-      cellRender: renderLinks
+      cellRender: renderLinks,
+      isCardFooter: true
     },
   ];
 
@@ -204,12 +207,30 @@ export const useTransparencyActualsMvvm2 = (propsCurrentMonth: DateTime, budgetS
         result.push({
           type: 'normal',
           items: [
-            wallet,
-            numberCellData[0],
-            numberCellData[1],
-            numberCellData[2],
-            numberCellData[3],
-            wallet.address,
+            {
+              index: 0,
+              value: wallet
+            },
+            {
+              index: 1,
+              value: numberCellData[0]
+            },
+            {
+              index: 2,
+              value: numberCellData[1]
+            },
+            {
+              index: 3,
+              value: numberCellData[2]
+            },
+            {
+              index: 4,
+              value: numberCellData[3]
+            },
+            {
+              index: 5,
+              value: wallet.address
+            },
           ]
         });
       });
@@ -221,11 +242,26 @@ export const useTransparencyActualsMvvm2 = (propsCurrentMonth: DateTime, budgetS
       result.push({
         type: 'total',
         items: [
-          'Total',
-          budgetTotalForecast,
-          budgetTotalActual,
-          budgetTotalDifference,
-          budgetTotalPayment
+          {
+            index: 0,
+            value: 'Total',
+          },
+          {
+            index: 1,
+            value: budgetTotalForecast
+          },
+          {
+            index: 2,
+            value: budgetTotalActual
+          },
+          {
+            index: 3,
+            value: budgetTotalDifference
+          },
+          {
+            index: 4,
+            value: budgetTotalPayment
+          }
         ]
       });
     }
