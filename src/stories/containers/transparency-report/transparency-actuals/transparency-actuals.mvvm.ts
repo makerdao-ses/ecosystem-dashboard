@@ -9,7 +9,7 @@ import { DateTime } from 'luxon';
 import { capitalizeSentence } from '../../../../core/utils/string.utils';
 import { API_MONTH_FORMAT } from '../../../../core/utils/date.utils';
 
-export const useTransparencyActualsMvvm = (thirdIndex: number, setThirdIndex: (index: number) => void, propsCurrentMonth: DateTime, budgetStatements: BudgetStatementDto[] | undefined, code: string) => {
+export const useTransparencyActualsMvvm = (propsCurrentMonth: DateTime, budgetStatements: BudgetStatementDto[] | undefined, code: string) => {
   const currentMonth = useMemo(() => propsCurrentMonth.toFormat(API_MONTH_FORMAT), [propsCurrentMonth]);
 
   const wallets: BudgetStatementWalletDto[] = useMemo(() => {
@@ -48,11 +48,10 @@ export const useTransparencyActualsMvvm = (thirdIndex: number, setThirdIndex: (i
   };
 
   const currentBudgetStatement = useMemo(() => {
-    setThirdIndex(0);
     return budgetStatements?.find(x => x.month === currentMonth) ?? null;
   }, [propsCurrentMonth, code, budgetStatements]);
 
-  const breakdownHeaders = useMemo(() => {
+  const breakdownTabs = useMemo(() => {
     return wallets.map(wallet => wallet.name);
   }, [currentBudgetStatement, code]);
 
@@ -107,7 +106,7 @@ export const useTransparencyActualsMvvm = (thirdIndex: number, setThirdIndex: (i
     getGroupDifference,
     getCommentsFromCategory,
     getGroupPayment,
-    breakdownHeaders,
-    wallets
+    breakdownTabs,
+    wallets,
   };
 };

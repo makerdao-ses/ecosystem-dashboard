@@ -40,8 +40,8 @@ const StyleTypography = styled(Typography)<{ isLight: boolean }>(({ isLight }) =
   fontStyle: 'normal',
   fontFamily: 'Inter, sans-serif',
   fontWeight: 700,
-  fontSize: '22px',
-  lineHeight: '27px',
+  fontSize: '20px',
+  lineHeight: '24px',
   color: isLight ? '#231536' : '#D2D4EF',
 }));
 

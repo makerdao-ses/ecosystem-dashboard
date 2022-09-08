@@ -119,7 +119,7 @@ const Container = styled.header<{ isLight: boolean }>(({ isLight }) => ({
   flexDirection: 'row',
   height: '64px',
   justifyContent: 'space-between',
-  background: isLight ? '#FFFFFF' : 'url(/assets/img/bg-header-dark.png)',
+  background: isLight ? '#FFFFFF' : ' linear-gradient(180deg, #000000 0%, #001A34 100%)'
 }));
 
 const LeftPart = styled.div({
@@ -137,7 +137,8 @@ const ContainerLogoSelect = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   marginRight: '16px',
   alignItems: 'center',
   paddingLeft: '16px',
-  background: isLight ? 'url(/assets/img/bg-logo.png)' : 'url(/assets/img/bg-logo-dark.png)',
+  background: isLight ? 'linear-gradient(125.61deg, rgba(182, 237, 231, 0.5) -69.93%, rgba(182, 237, 231, 0.05) 130.99%)' : 'linear-gradient(125.61deg, rgba(0, 68, 61, 0.5) -69.93%, rgba(27, 45, 43, 0.05) 130.99%)',
+  backdropFilter: 'blur(30px)',
   '@media (min-width: 435px)': {
     paddingRight: '32px',
     marginRight: '32px',
