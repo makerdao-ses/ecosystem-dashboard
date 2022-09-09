@@ -40,48 +40,38 @@ export const TransparencyActuals2 = (props: Props) => {
         {props.currentMonth.toFormat('MMM yyyy')} Totals
       </Title>
 
-      {mainTableItems.length - 1 <= 0
-        ? (
-        <TransparencyEmptyTable />
-          )
-        : (
-        <AdvancedInnerTable
-          columns={mainTableColumns}
-          items={mainTableItems}
-          style={{ marginBottom: '64px' }}
-          cardsTotalPosition="top"
-        />
-          )}
+      <AdvancedInnerTable
+        columns={mainTableColumns}
+        items={mainTableItems}
+        style={{ marginBottom: '64px' }}
+        cardsTotalPosition="top"
+      />
 
       <Title isLight={isLight} ref={breakdownTitleRef}>
         {props.currentMonth.toFormat('MMM yyyy')} Breakdown
       </Title>
 
-      {mainTableItems.length - 1 <= 0
-        ? (
-        <TransparencyEmptyTable breakdown />
-          )
-        : (
-        <>
-          <Tabs
-            items={breakdownTabs.map((header, i) => {
-              return {
-                item: header,
-                id: headerIds[i],
-              };
-            })}
-            currentIndex={thirdIndex}
-            style={{
-              marginBottom: '32px',
-            }}
-          />
-          <AdvancedInnerTable
-            columns={breakdownColumns}
-            items={breakdownItems}
-            style={{ marginBottom: '64px' }}
-          />
-        </>
-          )}
+      {mainTableItems.length > 0 && (
+        <Tabs
+          items={breakdownTabs.map((header, i) => {
+            return {
+              item: header,
+              id: headerIds[i],
+            };
+          })}
+          currentIndex={thirdIndex}
+          style={{
+            marginBottom: '32px',
+          }}
+        />
+      )}
+
+      <AdvancedInnerTable
+        columns={breakdownColumns}
+        items={breakdownItems}
+        style={{ marginBottom: '64px' }}
+        tablePlaceholder={<TransparencyEmptyTable breakdown />}
+      />
     </Container>
   );
 };

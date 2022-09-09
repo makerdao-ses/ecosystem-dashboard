@@ -4,6 +4,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { NumberCell } from '../number-cell/number-cell';
 import { TextCell } from '../text-cell/text-cell';
 import { TransparencyCard } from '../transparency-card/transparency-card';
+import { TransparencyEmptyTable } from '../../containers/transparency-report/placeholders/transparency-empty-table';
 
 export interface InnerTableColumn {
   align?: string;
@@ -35,6 +36,7 @@ interface Props {
   style?: React.CSSProperties;
   responsiveTotalFirst?: boolean;
   cardsTotalPosition?: 'top' | 'bottom';
+  tablePlaceholder?: JSX.Element;
 }
 
 type Alignment = 'left' | 'center' | 'right';
@@ -73,10 +75,14 @@ export const AdvancedInnerTable = ({
 
   const cardItems =
     cardsTotalPosition === 'top' && props.items.length > 0
-      ? [props.items[props.items.length - 1], ...props.items.slice(0, props.items.length - 1)]
+      ? [
+          props.items[props.items.length - 1],
+          ...props.items.slice(0, props.items.length - 1),
+        ]
       : props.items;
 
-  return (
+  return props.items.length > 0
+    ? (
     <>
       <TableWrapper>
         <Container isLight={isLight} style={props.style}>
@@ -155,7 +161,10 @@ export const AdvancedInnerTable = ({
         ))}
       </CardsWrapper>
     </>
-  );
+      )
+    : (
+        props.tablePlaceholder ?? <TransparencyEmptyTable />
+      );
 };
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({

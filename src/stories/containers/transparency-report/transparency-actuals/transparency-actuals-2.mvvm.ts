@@ -536,35 +536,37 @@ export const useTransparencyActualsMvvm2 = (
       );
     }
 
-    result.push({
-      type: 'total',
-      items: [
-        {
-          column: breakdownColumns[0],
-          value: 'Total',
-        },
-        {
-          column: breakdownColumns[1],
-          value: hasGroups ? '' : 'Total',
-        },
-        {
-          column: breakdownColumns[2],
-          value: getWalletForecast(currentWallet),
-        },
-        {
-          column: breakdownColumns[3],
-          value: getWalletActual(currentWallet),
-        },
-        {
-          column: breakdownColumns[4],
-          value: getWalletDifference(currentWallet),
-        },
-        {
-          column: breakdownColumns[5],
-          value: getWalletPayment(currentWallet),
-        },
-      ],
-    });
+    if (result.length > 0) {
+      result.push({
+        type: 'total',
+        items: [
+          {
+            column: breakdownColumns[0],
+            value: 'Total',
+          },
+          {
+            column: breakdownColumns[1],
+            value: hasGroups ? '' : 'Total',
+          },
+          {
+            column: breakdownColumns[2],
+            value: getWalletForecast(currentWallet),
+          },
+          {
+            column: breakdownColumns[3],
+            value: getWalletActual(currentWallet),
+          },
+          {
+            column: breakdownColumns[4],
+            value: getWalletDifference(currentWallet),
+          },
+          {
+            column: breakdownColumns[5],
+            value: getWalletPayment(currentWallet),
+          },
+        ],
+      });
+    }
 
     return result;
   }, [currentBudgetStatement, thirdIndex]);
