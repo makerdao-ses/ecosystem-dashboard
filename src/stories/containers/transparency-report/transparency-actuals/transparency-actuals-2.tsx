@@ -23,6 +23,8 @@ export const TransparencyActuals2 = (props: Props) => {
     headerIds,
     thirdIndex,
     breakdownTitleRef,
+    breakdownColumns,
+    breakdownItems,
     mainTableColumns,
     mainTableItems,
     breakdownTabs,
@@ -71,6 +73,11 @@ export const TransparencyActuals2 = (props: Props) => {
             style={{
               marginBottom: '32px',
             }}
+          />
+          <AdvancedInnerTable
+            columns={breakdownColumns}
+            items={breakdownItems}
+            style={{ marginBottom: '64px' }}
           />
         </>
           )}

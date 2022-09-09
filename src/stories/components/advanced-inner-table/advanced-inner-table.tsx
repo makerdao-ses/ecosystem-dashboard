@@ -19,6 +19,7 @@ export interface InnerTableColumn {
   isCardHeader?: boolean;
   isCardFooter?: boolean;
   minWidth?: string;
+  hidden?: boolean;
 }
 
 type RowType = 'normal' | 'total';
@@ -44,9 +45,13 @@ export const AdvancedInnerTable = ({ ...props }: Props) => {
     rowType: RowType,
     value: unknown
   ) => {
+    if (value !== 0 && !value) {
+      return <></>;
+    }
+
     const isBold = rowType === 'total';
     const columnType =
-      rowType === 'total' && column.type === 'custom' ? 'text' : column.type;
+      rowType === 'total' && column?.type === 'custom' ? 'text' : column?.type;
 
     switch (columnType) {
       case 'number':
@@ -69,39 +74,43 @@ export const AdvancedInnerTable = ({ ...props }: Props) => {
           <Table>
             <TableHead isLight={isLight}>
               <tr>
-                {props.columns?.map((column, i) => (
-                  <HeadCell
-                    key={`header-${i}`}
-                    style={{
-                      textAlign: (column.headerAlign ??
-                        column.align ??
-                        'left') as Alignment,
-                      width: column.minWidth ?? 'unset'
-                    }}
-                  >
-                    {column.header}
-                  </HeadCell>
-                ))}
+                {props.columns
+                  ?.filter((x) => !x.hidden)
+                  .map((column, i) => (
+                    <HeadCell
+                      key={`header-${i}`}
+                      style={{
+                        textAlign: (column.headerAlign ??
+                          column.align ??
+                          'left') as Alignment,
+                        width: column.minWidth ?? 'unset',
+                      }}
+                    >
+                      {column.header}
+                    </HeadCell>
+                  ))}
               </tr>
             </TableHead>
             <tbody>
               {props.items?.map((row, i) => (
                 <tr key={i}>
-                  {row.items?.map((item, j) => (
-                    <TableCell
-                      key={`${i}-${j}`}
-                      textAlign={
-                        (props.columns[item.index]?.align ??
-                          'left') as Alignment
-                      }
-                    >
-                      {getCell(
-                        props.columns[item.index],
-                        row.type,
-                        item.value as never
-                      )}
-                    </TableCell>
-                  ))}
+                  {row.items
+                    ?.filter((x) => !props.columns[x.index]?.hidden)
+                    .map((item, j) => (
+                      <TableCell
+                        key={`${i}-${j}`}
+                        textAlign={
+                          (props.columns[item.index]?.align ??
+                            'left') as Alignment
+                        }
+                      >
+                        {getCell(
+                          props.columns[item.index],
+                          row.type,
+                          item.value as never
+                        )}
+                      </TableCell>
+                    ))}
                 </tr>
               ))}
             </tbody>
@@ -116,7 +125,9 @@ export const AdvancedInnerTable = ({ ...props }: Props) => {
               <>
                 {item.items
                   .filter((x) => props.columns[x.index]?.isCardHeader)
-                  .map((x) => getCell(props.columns[x.index], 'normal', x.value))}
+                  .map((x) =>
+                    getCell(props.columns[x.index], 'normal', x.value)
+                  )}
               </>
             }
             headers={props.columns
@@ -127,18 +138,26 @@ export const AdvancedInnerTable = ({ ...props }: Props) => {
                 .filter(
                   (x) =>
                     !props.columns[x.index]?.isCardFooter &&
-                    !props.columns[x.index]?.isCardHeader
+                    !props.columns[x.index]?.isCardHeader &&
+                    !props.columns[x.index]?.hidden
                 )
                 .map((x) =>
                   getCell(props.columns[x.index], 'normal', x.value)
                 ) ?? []
             }
             footer={
-              <>
-              {item.items
-                .filter((x) => props.columns[x.index]?.isCardFooter)
-                .map((x) => getCell(props.columns[x.index], 'normal', x.value))}
-            </>
+              item.items.filter((x) => props.columns[x.index]?.isCardFooter)
+                .length
+                ? (
+                <>
+                  {item.items
+                    .filter((x) => props.columns[x.index]?.isCardFooter)
+                    .map((x) =>
+                      getCell(props.columns[x.index], 'normal', x.value)
+                    )}
+                </>
+                  )
+                : undefined
             }
           />
         ))}
