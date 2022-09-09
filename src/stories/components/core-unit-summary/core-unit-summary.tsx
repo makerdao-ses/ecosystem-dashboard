@@ -40,9 +40,9 @@ export const CoreUnitSummary = ({ coreUnits: data = [], trailingAddress = [], br
 
   const ref = useRef(null);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const debounceFunction = _.debounce(() => {
     window.removeEventListener('scroll', handleScroll, true);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setHiddenTextDescription(((ref?.current as any)?.offsetTop ?? 0) <= 65);
     setTimeout(() => window.addEventListener('scroll', handleScroll, true), 100);
   }, 100);
