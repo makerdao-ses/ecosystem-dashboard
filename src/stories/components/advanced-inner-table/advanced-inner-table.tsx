@@ -5,11 +5,6 @@ import { NumberCell } from '../number-cell/number-cell';
 import { TextCell } from '../text-cell/text-cell';
 import { TransparencyCard } from '../transparency-card/transparency-card';
 
-export interface InnerTableCell {
-  index: number;
-  value: unknown;
-}
-
 export interface InnerTableColumn {
   align?: string;
   header?: string;
@@ -22,7 +17,12 @@ export interface InnerTableColumn {
   hidden?: boolean;
 }
 
-type RowType = 'normal' | 'total';
+export interface InnerTableCell {
+  column: InnerTableColumn;
+  value: unknown;
+}
+
+type RowType = 'normal' | 'total' | 'section';
 
 export interface InnerTableRow {
   type: RowType;
@@ -34,11 +34,15 @@ interface Props {
   items: InnerTableRow[];
   style?: React.CSSProperties;
   responsiveTotalFirst?: boolean;
+  cardsTotalPosition?: 'top' | 'bottom';
 }
 
 type Alignment = 'left' | 'center' | 'right';
 
-export const AdvancedInnerTable = ({ ...props }: Props) => {
+export const AdvancedInnerTable = ({
+  cardsTotalPosition = 'bottom',
+  ...props
+}: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
   const getCell = (
     column: InnerTableColumn,
@@ -66,6 +70,11 @@ export const AdvancedInnerTable = ({ ...props }: Props) => {
 
     return <TextCell bold={isBold}>{value as string}</TextCell>;
   };
+
+  const cardItems =
+    cardsTotalPosition === 'top' && props.items.length > 0
+      ? [props.items[props.items.length - 1], ...props.items.slice(0, props.items.length - 1)]
+      : props.items;
 
   return (
     <>
@@ -95,20 +104,13 @@ export const AdvancedInnerTable = ({ ...props }: Props) => {
               {props.items?.map((row, i) => (
                 <tr key={i}>
                   {row.items
-                    ?.filter((x) => !props.columns[x.index]?.hidden)
+                    ?.filter((x) => !x.column.hidden)
                     .map((item, j) => (
                       <TableCell
                         key={`${i}-${j}`}
-                        textAlign={
-                          (props.columns[item.index]?.align ??
-                            'left') as Alignment
-                        }
+                        textAlign={(item.column?.align ?? 'left') as Alignment}
                       >
-                        {getCell(
-                          props.columns[item.index],
-                          row.type,
-                          item.value as never
-                        )}
+                        {getCell(item.column, row.type, item.value as never)}
                       </TableCell>
                     ))}
                 </tr>
@@ -118,16 +120,14 @@ export const AdvancedInnerTable = ({ ...props }: Props) => {
         </Container>
       </TableWrapper>
       <CardsWrapper>
-        {props.items.slice(0, props.items.length - 1).map((item, i) => (
+        {cardItems.map((item, i) => (
           <TransparencyCard
             key={`item-${i}`}
             header={
               <>
                 {item.items
-                  .filter((x) => props.columns[x.index]?.isCardHeader)
-                  .map((x) =>
-                    getCell(props.columns[x.index], 'normal', x.value)
-                  )}
+                  .filter((x) => x.column?.isCardHeader && x.value)
+                  .map((x) => getCell(x.column, item.type, x.value))}
               </>
             }
             headers={props.columns
@@ -136,25 +136,17 @@ export const AdvancedInnerTable = ({ ...props }: Props) => {
             items={
               item.items
                 .filter(
-                  (x) =>
-                    !props.columns[x.index]?.isCardFooter &&
-                    !props.columns[x.index]?.isCardHeader &&
-                    !props.columns[x.index]?.hidden
+                  (x) => !x.column?.isCardFooter && !x.column?.isCardHeader
                 )
-                .map((x) =>
-                  getCell(props.columns[x.index], 'normal', x.value)
-                ) ?? []
+                .map((x) => getCell(x.column, item.type, x.value)) ?? []
             }
             footer={
-              item.items.filter((x) => props.columns[x.index]?.isCardFooter)
-                .length
+              item.items.filter((x) => x.column?.isCardFooter).length
                 ? (
                 <>
                   {item.items
-                    .filter((x) => props.columns[x.index]?.isCardFooter)
-                    .map((x) =>
-                      getCell(props.columns[x.index], 'normal', x.value)
-                    )}
+                    .filter((x) => x.column?.isCardFooter)
+                    .map((x) => getCell(x.column, 'normal', x.value))}
                 </>
                   )
                 : undefined

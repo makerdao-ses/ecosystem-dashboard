@@ -49,6 +49,7 @@ export const TransparencyActuals2 = (props: Props) => {
           columns={mainTableColumns}
           items={mainTableItems}
           style={{ marginBottom: '64px' }}
+          cardsTotalPosition="top"
         />
           )}
 

@@ -277,27 +277,27 @@ export const useTransparencyActualsMvvm2 = (
           type: 'normal',
           items: [
             {
-              index: 0,
+              column: mainTableColumns[0],
               value: wallet,
             },
             {
-              index: 1,
+              column: mainTableColumns[1],
               value: numberCellData[0],
             },
             {
-              index: 2,
+              column: mainTableColumns[2],
               value: numberCellData[1],
             },
             {
-              index: 3,
+              column: mainTableColumns[3],
               value: numberCellData[2],
             },
             {
-              index: 4,
+              column: mainTableColumns[4],
               value: numberCellData[3],
             },
             {
-              index: 5,
+              column: mainTableColumns[5],
               value: wallet.address,
             },
           ],
@@ -312,23 +312,23 @@ export const useTransparencyActualsMvvm2 = (
         type: 'total',
         items: [
           {
-            index: 0,
+            column: mainTableColumns[0],
             value: 'Total',
           },
           {
-            index: 1,
+            column: mainTableColumns[1],
             value: budgetTotalForecast,
           },
           {
-            index: 2,
+            column: mainTableColumns[2],
             value: budgetTotalActual,
           },
           {
-            index: 3,
+            column: mainTableColumns[3],
             value: budgetTotalDifference,
           },
           {
-            index: 4,
+            column: mainTableColumns[4],
             value: budgetTotalPayment,
           },
         ],
@@ -337,100 +337,6 @@ export const useTransparencyActualsMvvm2 = (
 
     return result;
   }, [currentBudgetStatement]);
-
-  const getBreakdownItems = (
-    items: BudgetStatementLineItemDto[]
-  ) => {
-    const result: InnerTableRow[] = [];
-    const grouped = _.groupBy(items, (item) => item.group);
-
-    for (const groupedKey in grouped) {
-      if (
-        Math.abs(getGroupForecast(grouped[groupedKey])) +
-          Math.abs(getGroupActual(grouped[groupedKey])) ===
-        0
-      ) {
-        continue;
-      }
-
-      const groupedCategory = _.groupBy(
-        grouped[groupedKey],
-        (item) => item.budgetCategory
-      );
-
-      let i = 1;
-      for (const groupedCatKey in groupedCategory) {
-        if (
-          Math.abs(getGroupForecast(groupedCategory[groupedCatKey])) +
-            Math.abs(getGroupActual(groupedCategory[groupedCatKey])) ===
-          0
-        ) {
-          continue;
-        }
-
-        result.push({
-          type: 'normal',
-          items: [
-            {
-              index: 0,
-              value: i === 1 ? groupedKey : '',
-            },
-            {
-              index: 1,
-              value: groupedCategory[groupedCatKey][0].budgetCategory,
-            },
-            {
-              index: 2,
-              value: getGroupForecast(groupedCategory[groupedCatKey]),
-            },
-            {
-              index: 3,
-              value: getGroupActual(groupedCategory[groupedCatKey]),
-            },
-            {
-              index: 4,
-              value: getGroupDifference(groupedCategory[groupedCatKey]),
-            },
-            {
-              index: 5,
-              value: getGroupPayment(groupedCategory[groupedCatKey]),
-            },
-          ],
-        });
-
-        i++;
-      }
-    }
-
-    return result;
-  };
-
-  const getLineItemsSubtotal = (
-    items: BudgetStatementLineItemDto[],
-    title: string,
-    card = false
-  ) => {
-    return (
-      items?.reduce(
-        (prv, curr) =>
-          curr.month === currentBudgetStatement?.month
-            ? {
-                group: !card ? title : '',
-                budgetCategory: !hasGroups || card ? title : '',
-                actual: prv.actual + curr.actual,
-                forecast: (prv?.forecast ?? 0) + (curr?.forecast ?? 0),
-                payment: (prv?.payment ?? 0) + (curr?.payment ?? 0),
-                month: currentBudgetStatement?.month,
-              }
-            : prv,
-        {
-          actual: 0,
-          forecast: 0,
-          payment: 0,
-        }
-      ) ?? {}
-    );
-  };
 
   const breakdownColumns: InnerTableColumn[] = [
     {
@@ -468,6 +374,99 @@ export const useTransparencyActualsMvvm2 = (
     },
   ];
 
+  const getBreakdownItems = (
+    items: BudgetStatementLineItemDto[]
+  ) => {
+    const result: InnerTableRow[] = [];
+    const grouped = _.groupBy(items, (item) => item.group);
+
+    for (const groupedKey in grouped) {
+      if (
+        Math.abs(getGroupForecast(grouped[groupedKey])) +
+          Math.abs(getGroupActual(grouped[groupedKey])) ===
+        0
+      ) {
+        continue;
+      }
+
+      const groupedCategory = _.groupBy(
+        grouped[groupedKey],
+        (item) => item.budgetCategory
+      );
+
+      let i = 1;
+      for (const groupedCatKey in groupedCategory) {
+        if (
+          Math.abs(getGroupForecast(groupedCategory[groupedCatKey])) +
+            Math.abs(getGroupActual(groupedCategory[groupedCatKey])) ===
+          0
+        ) {
+          continue;
+        }
+
+        result.push({
+          type: 'normal',
+          items: [
+            {
+              column: breakdownColumns[0],
+              value: i === 1 ? groupedKey : '',
+            },
+            {
+              column: breakdownColumns[1],
+              value: groupedCategory[groupedCatKey][0].budgetCategory,
+            },
+            {
+              column: breakdownColumns[2],
+              value: getGroupForecast(groupedCategory[groupedCatKey]),
+            },
+            {
+              column: breakdownColumns[3],
+              value: getGroupActual(groupedCategory[groupedCatKey]),
+            },
+            {
+              column: breakdownColumns[4],
+              value: getGroupDifference(groupedCategory[groupedCatKey]),
+            },
+            {
+              column: breakdownColumns[5],
+              value: getGroupPayment(groupedCategory[groupedCatKey]),
+            },
+          ],
+        });
+
+        i++;
+      }
+    }
+
+    return result;
+  };
+
+  const getLineItemsSubtotal = (
+    items: BudgetStatementLineItemDto[],
+    title: string,
+  ) => {
+    return (
+      items?.reduce(
+        (prv, curr) =>
+          curr.month === currentBudgetStatement?.month
+            ? {
+                group: hasGroups ? title : '',
+                budgetCategory: !hasGroups ? title : '',
+                actual: prv.actual + curr.actual,
+                forecast: (prv?.forecast ?? 0) + (curr?.forecast ?? 0),
+                payment: (prv?.payment ?? 0) + (curr?.payment ?? 0),
+                month: currentBudgetStatement?.month,
+              }
+            : prv,
+        {
+          actual: 0,
+          forecast: 0,
+          payment: 0,
+        }
+      ) ?? {}
+    );
+  };
+
   const breakdownItems = useMemo(() => {
     const result: InnerTableRow[] = [];
 
@@ -479,7 +478,7 @@ export const useTransparencyActualsMvvm2 = (
       result.push({
         items: [
           {
-            index: 0,
+            column: breakdownColumns[0],
             value: 'Headcount Expenses',
           },
         ],
@@ -500,7 +499,7 @@ export const useTransparencyActualsMvvm2 = (
             currentWallet?.budgetStatementLineItem?.filter(
               (item) => item.headcountExpense
             ),
-            'Sub-Total'
+            'Sub Total'
           ),
         ])
       );
@@ -510,7 +509,7 @@ export const useTransparencyActualsMvvm2 = (
       result.push({
         items: [
           {
-            index: 0,
+            column: breakdownColumns[0],
             value: 'Non-Headcount Expenses',
           },
         ],
@@ -531,7 +530,7 @@ export const useTransparencyActualsMvvm2 = (
             currentWallet?.budgetStatementLineItem?.filter(
               (item) => !item.headcountExpense
             ),
-            'Sub-Total'
+            'Sub Total'
           ),
         ])
       );
@@ -541,34 +540,34 @@ export const useTransparencyActualsMvvm2 = (
       type: 'total',
       items: [
         {
-          index: 0,
+          column: breakdownColumns[0],
           value: 'Total',
         },
         {
-          index: 1,
-          value: '',
+          column: breakdownColumns[1],
+          value: hasGroups ? '' : 'Total',
         },
         {
-          index: 2,
+          column: breakdownColumns[2],
           value: getWalletForecast(currentWallet),
         },
         {
-          index: 3,
+          column: breakdownColumns[3],
           value: getWalletActual(currentWallet),
         },
         {
-          index: 4,
+          column: breakdownColumns[4],
           value: getWalletDifference(currentWallet),
         },
         {
-          index: 5,
+          column: breakdownColumns[5],
           value: getWalletPayment(currentWallet),
         },
       ],
     });
 
     return result;
-  }, [currentBudgetStatement, thirdIndex, headerToId, anchor]);
+  }, [currentBudgetStatement, thirdIndex]);
 
   return {
     headerIds,
