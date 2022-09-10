@@ -482,7 +482,7 @@ export const useTransparencyActualsMvvm2 = (
             value: 'Headcount Expenses',
           },
         ],
-        type: 'total',
+        type: 'section',
       });
 
       result.push(
@@ -513,7 +513,7 @@ export const useTransparencyActualsMvvm2 = (
             value: 'Non-Headcount Expenses',
           },
         ],
-        type: 'total',
+        type: 'section',
       });
 
       result.push(

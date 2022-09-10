@@ -5,6 +5,7 @@ import { NumberCell } from '../number-cell/number-cell';
 import { TextCell } from '../text-cell/text-cell';
 import { TransparencyCard } from '../transparency-card/transparency-card';
 import { TransparencyEmptyTable } from '../../containers/transparency-report/placeholders/transparency-empty-table';
+import { Title } from '../../containers/transparency-report/transparency-report';
 
 export interface InnerTableColumn {
   align?: string;
@@ -55,7 +56,7 @@ export const AdvancedInnerTable = ({
       return <></>;
     }
 
-    const isBold = rowType === 'total';
+    const isBold = rowType === 'total' || rowType === 'section';
     const columnType =
       rowType === 'total' && column?.type === 'custom' ? 'text' : column?.type;
 
@@ -126,39 +127,47 @@ export const AdvancedInnerTable = ({
         </Container>
       </TableWrapper>
       <CardsWrapper>
-        {cardItems.map((item, i) => (
-          <TransparencyCard
-            key={`item-${i}`}
-            header={
-              <>
-                {item.items
-                  .filter((x) => x.column?.isCardHeader && x.value)
-                  .map((x) => getCell(x.column, item.type, x.value))}
-              </>
-            }
-            headers={props.columns
-              .filter((x) => !x.isCardHeader && !x.isCardFooter)
-              .map((x) => x.header ?? '')}
-            items={
-              item.items
-                .filter(
-                  (x) => !x.column?.isCardFooter && !x.column?.isCardHeader
-                )
-                .map((x) => getCell(x.column, item.type, x.value)) ?? []
-            }
-            footer={
-              item.items.filter((x) => x.column?.isCardFooter).length
-                ? (
+        {cardItems.map((item, i) =>
+          item.type === 'section'
+            ? (
+            <Title isLight={isLight} fontSize="14px">
+              {item.items[0].value as string}
+            </Title>
+              )
+            : (
+            <TransparencyCard
+              key={`item-${i}`}
+              header={
                 <>
                   {item.items
-                    .filter((x) => x.column?.isCardFooter)
-                    .map((x) => getCell(x.column, 'normal', x.value))}
+                    .filter((x) => x.column?.isCardHeader && x.value)
+                    .map((x) => getCell(x.column, item.type, x.value))}
                 </>
+              }
+              headers={props.columns
+                .filter((x) => !x.isCardHeader && !x.isCardFooter)
+                .map((x) => x.header ?? '')}
+              items={
+                item.items
+                  .filter(
+                    (x) => !x.column?.isCardFooter && !x.column?.isCardHeader
                   )
-                : undefined
-            }
-          />
-        ))}
+                  .map((x) => getCell(x.column, item.type, x.value)) ?? []
+              }
+              footer={
+                item.items.filter((x) => x.column?.isCardFooter).length
+                  ? (
+                  <>
+                    {item.items
+                      .filter((x) => x.column?.isCardFooter)
+                      .map((x) => getCell(x.column, 'normal', x.value))}
+                  </>
+                    )
+                  : undefined
+              }
+            />
+              )
+        )}
       </CardsWrapper>
     </>
       )
