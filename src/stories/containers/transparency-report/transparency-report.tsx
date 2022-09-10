@@ -36,6 +36,7 @@ import lightTheme from '../../../../styles/theme/light';
 import { SummarizedCoreUnit } from '../../components/core-unit-summary/core-unit-summary.mvvm';
 import { TransparencyActuals2 } from './transparency-actuals/transparency-actuals-2';
 import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
+import { TransparencyForecast2 } from './transparency-forecast/transparency-forecast-2';
 
 const colors: { [key: string]: string } = {
   Draft: '#7C6B95',
@@ -276,22 +277,27 @@ export const TransparencyReport = ({
               margin: '32px 0',
             }}
           />
-          {tabsIndex === 0 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE')
-            ? (
+          {tabsIndex === 0 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
             <TransparencyActuals2
               code={code}
               currentMonth={currentMonth}
               budgetStatements={cu?.budgetStatements}
             />
-              )
-            : (
+          )}
+          {tabsIndex === 0 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
             <TransparencyActuals
               code={code}
               currentMonth={currentMonth}
               budgetStatements={cu?.budgetStatements}
             />
-              )}
-          {tabsIndex === 1 && (
+          )}
+          {tabsIndex === 1 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
+            <TransparencyForecast2
+              currentMonth={currentMonth}
+              budgetStatements={cu?.budgetStatements}
+            />
+          )}
+          {tabsIndex === 1 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
             <TransparencyForecast
               currentMonth={currentMonth}
               budgetStatements={cu?.budgetStatements}
