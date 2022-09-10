@@ -6,7 +6,7 @@ import {
 import _ from 'lodash';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { DateTime } from 'luxon';
-import { capitalizeSentence, headerToId } from '../../../../core/utils/string.utils';
+import { capitalizeSentence } from '../../../../core/utils/string.utils';
 import { API_MONTH_FORMAT } from '../../../../core/utils/date.utils';
 import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
 import {
@@ -24,6 +24,7 @@ export const useTransparencyActualsMvvm2 = (
     () => propsCurrentMonth.toFormat(API_MONTH_FORMAT),
     [propsCurrentMonth]
   );
+  const anchor = useUrlAnchor();
 
   const wallets: BudgetStatementWalletDto[] = useMemo(() => {
     const dict: { [id: string]: BudgetStatementWalletDto } = {};
@@ -155,7 +156,6 @@ export const useTransparencyActualsMvvm2 = (
 
   const [headerIds, setHeaderIds] = useState<string[]>([]);
   const [scrolled, setScrolled] = useState<boolean>(false);
-  const anchor = useUrlAnchor();
 
   const thirdIndex = useMemo(() => {
     return Math.max(headerIds?.indexOf(anchor ?? ''), 0);
@@ -185,6 +185,11 @@ export const useTransparencyActualsMvvm2 = (
         (x) =>
           (x.actual || x.forecast) && x.month === currentBudgetStatement?.month
       );
+
+  const headerToId = (header: string): string => {
+    const id = header.toLowerCase().trim().replaceAll(/ /g, '-');
+    return `actuals-${id}`;
+  };
 
   useEffect(() => {
     setHeaderIds(breakdownTabs.map((header: string) => headerToId(header)));
@@ -370,9 +375,7 @@ export const useTransparencyActualsMvvm2 = (
     },
   ];
 
-  const getBreakdownItems = (
-    items: BudgetStatementLineItemDto[]
-  ) => {
+  const getBreakdownItems = (items: BudgetStatementLineItemDto[]) => {
     const result: InnerTableRow[] = [];
     const grouped = _.groupBy(items, (item) => item.group);
 
@@ -439,7 +442,7 @@ export const useTransparencyActualsMvvm2 = (
 
   const getLineItemsSubtotal = (
     items: BudgetStatementLineItemDto[],
-    title: string,
+    title: string
   ) => {
     return (
       items?.reduce(

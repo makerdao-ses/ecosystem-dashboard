@@ -1,13 +1,13 @@
 import React from 'react';
 import { DateTime } from 'luxon';
 import styled from '@emotion/styled';
-import _ from 'lodash';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { useTransparencyForecastMvvm2 } from './transparency-forecast-2.mvvm';
 import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 import { Title } from '../transparency-report';
 import { AdvancedInnerTable } from '../../../components/advanced-inner-table/advanced-inner-table';
 import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
+import { Tabs } from '../../../components/tabs/tabs';
 
 interface Props {
   currentMonth: DateTime;
@@ -18,11 +18,14 @@ export const TransparencyForecast2 = (props: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
 
   const {
+    thirdIndex,
+    headerIds,
     mainTableColumns,
     mainTableItems,
     breakdownHeaders,
     breakdownItems,
-    breakdownTitleRef
+    breakdownTitleRef,
+    breakdownTabs,
   } = useTransparencyForecastMvvm2(props.currentMonth, props.budgetStatements);
 
   return (
@@ -42,10 +45,21 @@ export const TransparencyForecast2 = (props: Props) => {
         {props.currentMonth.toFormat('MMM yyyy')} Breakdown
       </Title>
 
+      <Tabs
+        items={breakdownTabs.map((header, i) => {
+          return {
+            item: header,
+            id: headerIds[i],
+          };
+        })}
+        style={{ marginBottom: '64px' }}
+        currentIndex={thirdIndex}
+      />
+
       <AdvancedInnerTable
         columns={breakdownHeaders}
         items={breakdownItems}
-        tablePlaceholder={<TransparencyEmptyTable breakdown/>}
+        tablePlaceholder={<TransparencyEmptyTable breakdown />}
       />
     </Container>
   );

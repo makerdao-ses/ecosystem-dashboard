@@ -8,6 +8,7 @@ import { CustomLink } from '../../components/custom-link/custom-link';
 export const renderWallet = (wallet: BudgetStatementWalletDto) => {
   return (
     <WalletTableCell
+      key={wallet.address}
       name={wallet.name}
       wallet={formatAddressForOutput(wallet.address)}
       address={wallet.address}

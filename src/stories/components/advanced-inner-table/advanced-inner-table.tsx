@@ -62,16 +62,16 @@ export const AdvancedInnerTable = ({
 
     switch (columnType) {
       case 'number':
-        return <NumberCell value={Number(value)} bold={isBold} />;
+        return <NumberCell key={column.header} value={Number(value)} bold={isBold} />;
       case 'text':
-        return <TextCell bold={isBold}>{value as string}</TextCell>;
+        return <TextCell key={column.header} bold={isBold}>{value as string}</TextCell>;
       case 'custom':
         if (column?.cellRender) {
           return column?.cellRender(value as never);
         }
     }
 
-    return <TextCell bold={isBold}>{value as string}</TextCell>;
+    return <TextCell key={column.header} bold={isBold}>{value as string}</TextCell>;
   };
 
   const cardItems =
@@ -130,7 +130,7 @@ export const AdvancedInnerTable = ({
         {cardItems.map((item, i) =>
           item.type === 'section'
             ? (
-            <Title isLight={isLight} fontSize="14px">
+            <Title isLight={isLight} fontSize="14px" key={`section-${i}`}>
               {item.items[0].value as string}
             </Title>
               )
