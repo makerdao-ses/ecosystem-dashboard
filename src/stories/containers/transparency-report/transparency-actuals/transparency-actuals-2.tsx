@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import { Tabs } from '../../../components/tabs/tabs';
 import { DateTime } from 'luxon';
 import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
-import _ from 'lodash';
 import { useTransparencyActualsMvvm2 } from './transparency-actuals-2.mvvm';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
