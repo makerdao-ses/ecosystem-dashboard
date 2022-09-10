@@ -40,3 +40,8 @@ export const formatCode = (code: string) => {
 
   return parts[0];
 };
+
+export const headerToId = (header: string): string => {
+  const id = header.toLowerCase().trim().replaceAll(/ /g, '-');
+  return `forecast-${id}`;
+};

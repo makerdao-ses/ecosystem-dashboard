@@ -6,7 +6,7 @@ import {
 import _ from 'lodash';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { DateTime } from 'luxon';
-import { capitalizeSentence } from '../../../../core/utils/string.utils';
+import { capitalizeSentence, headerToId } from '../../../../core/utils/string.utils';
 import { API_MONTH_FORMAT } from '../../../../core/utils/date.utils';
 import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
 import {
@@ -174,10 +174,6 @@ export const useTransparencyActualsMvvm2 = (
     });
   }, [thirdIndex, currentBudgetStatement]);
 
-  const headerToId = (header: string): string => {
-    const id = header.toLowerCase().trim().replaceAll(/ /g, '-');
-    return `actuals-${id}`;
-  };
   const breakdownTitleRef = useRef<HTMLDivElement>(null);
 
   const hasExpenses = (headCount = true) =>

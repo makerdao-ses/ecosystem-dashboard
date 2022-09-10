@@ -6,7 +6,7 @@ import {
 } from '../../../../core/models/dto/core-unit.dto';
 import _ from 'lodash';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { capitalizeSentence } from '../../../../core/utils/string.utils';
+import { capitalizeSentence, headerToId } from '../../../../core/utils/string.utils';
 import { API_MONTH_FORMAT } from '../../../../core/utils/date.utils';
 import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
 import {
@@ -295,11 +295,6 @@ export const useTransparencyForecastMvvm2 = (
       items.filter((item) => formattedMonths.indexOf(item.month ?? '') > -1),
       (item) => item.budgetCap ?? 0
     );
-  };
-
-  const headerToId = (header: string): string => {
-    const id = header.toLowerCase().trim().replaceAll(/ /g, '-');
-    return `forecast-${id}`;
   };
 
   const [headerIds, setHeaderIds] = useState<string[]>([]);
