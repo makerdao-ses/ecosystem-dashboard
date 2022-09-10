@@ -7,6 +7,7 @@ import { useTransparencyForecastMvvm2 } from './transparency-forecast-2.mvvm';
 import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 import { Title } from '../transparency-report';
 import { AdvancedInnerTable } from '../../../components/advanced-inner-table/advanced-inner-table';
+import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
 
 interface Props {
   currentMonth: DateTime;
@@ -19,6 +20,8 @@ export const TransparencyForecast2 = (props: Props) => {
   const {
     mainTableColumns,
     mainTableItems,
+    breakdownHeaders,
+    breakdownItems,
     breakdownTitleRef
   } = useTransparencyForecastMvvm2(props.currentMonth, props.budgetStatements);
 
@@ -32,11 +35,18 @@ export const TransparencyForecast2 = (props: Props) => {
         columns={mainTableColumns}
         items={mainTableItems}
         style={{ marginBottom: '64px' }}
+        responsiveTotalFirst={true}
       />
 
       <Title isLight={isLight} marginBottom={24} ref={breakdownTitleRef}>
         {props.currentMonth.toFormat('MMM yyyy')} Breakdown
       </Title>
+
+      <AdvancedInnerTable
+        columns={breakdownHeaders}
+        items={breakdownItems}
+        tablePlaceholder={<TransparencyEmptyTable breakdown/>}
+      />
     </Container>
   );
 };

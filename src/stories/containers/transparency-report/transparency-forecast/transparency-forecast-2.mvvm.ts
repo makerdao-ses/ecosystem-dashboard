@@ -6,7 +6,10 @@ import {
 } from '../../../../core/models/dto/core-unit.dto';
 import _ from 'lodash';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { capitalizeSentence, headerToId } from '../../../../core/utils/string.utils';
+import {
+  capitalizeSentence,
+  headerToId,
+} from '../../../../core/utils/string.utils';
 import { API_MONTH_FORMAT } from '../../../../core/utils/date.utils';
 import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
 import {
@@ -343,19 +346,6 @@ export const useTransparencyForecastMvvm2 = (
     );
   }, [thirdIndex]);
 
-  const breakdownHeaders = useMemo(() => {
-    return [
-      ...(hasGroups ? ['Group'] : []),
-      'Budget Category',
-      firstMonth.toFormat('MMMM'),
-      secondMonth.toFormat('MMMM'),
-      thirdMonth.toFormat('MMMM'),
-      '3 Months',
-      'Mthly Budget',
-      'Qtly Budget',
-    ];
-  }, [currentMonth, propBudgetStatements, hasGroups]);
-
   const mainTableColumns: InnerTableColumn[] = useMemo(() => {
     return [
       {
@@ -400,7 +390,7 @@ export const useTransparencyForecastMvvm2 = (
         type: 'custom',
         align: 'left',
         isCardFooter: true,
-        cellRender: renderLinks
+        cellRender: renderLinks,
       },
     ];
   }, [currentMonth]);
@@ -546,24 +536,407 @@ export const useTransparencyForecastMvvm2 = (
             propBudgetStatements,
             currentMonth,
             currentMonth
-          )
+          ),
         },
         {
           column: mainTableColumns[6],
           value: getTotalQuarterlyBudgetCapOnBudgetStatement(
             propBudgetStatements,
             [firstMonth, secondMonth, thirdMonth]
-          )
-        }
+          ),
+        },
       ],
     });
 
     return result;
   }, [propBudgetStatements, currentMonth]);
 
+  const breakdownHeaders = useMemo(() => {
+    const result: InnerTableColumn[] = [
+      {
+        header: 'Group',
+        hidden: !hasGroups,
+        isCardHeader: true,
+      },
+      {
+        header: 'Budget Category',
+        isCardHeader: true,
+      },
+      {
+        header: firstMonth.toFormat('MMMM'),
+        type: 'number',
+        align: 'right',
+      },
+      {
+        header: secondMonth.toFormat('MMMM'),
+        type: 'number',
+        align: 'right',
+      },
+      {
+        header: thirdMonth.toFormat('MMMM'),
+        type: 'number',
+        align: 'right',
+      },
+      {
+        header: '3 Months',
+        type: 'number',
+        align: 'right',
+      },
+      {
+        header: 'Mthly Budget',
+        type: 'number',
+        align: 'right',
+      },
+      {
+        header: 'Qtly Budget',
+        type: 'number',
+        align: 'right',
+      },
+    ];
+
+    return result;
+  }, [currentMonth, propBudgetStatements, hasGroups]);
+
+  const getBreakdownItemsForGroup = (grouped: {
+    [id: string]: BudgetStatementLineItemDto[];
+  }) => {
+    const result: InnerTableRow[] = [];
+    const subTotal = {
+      0: 'Sub-Total',
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+      7: 0,
+    };
+
+    for (const groupedKey in grouped) {
+      const groupedCategory = _.groupBy(
+        grouped[groupedKey],
+        (item) => item.budgetCategory
+      );
+
+      let i = 1;
+      for (const groupedCatKey in groupedCategory) {
+        if (
+          Math.abs(
+            getLineItemForecastSumForMonth(
+              groupedCategory[groupedCatKey],
+              firstMonth
+            )
+          ) +
+            Math.abs(
+              getLineItemForecastSumForMonth(
+                groupedCategory[groupedCatKey],
+                secondMonth
+              )
+            ) +
+            Math.abs(
+              getLineItemForecastSumForMonth(
+                groupedCategory[groupedCatKey],
+                thirdMonth
+              )
+            ) +
+            Math.abs(
+              getLineItemForecastSumForMonths(groupedCategory[groupedCatKey], [
+                firstMonth,
+                secondMonth,
+                thirdMonth,
+              ])
+            ) +
+            Math.abs(
+              getBudgetCapForMonthOnLineItem(
+                groupedCategory[groupedCatKey],
+                currentMonth
+              )
+            ) +
+            Math.abs(
+              getTotalQuarterlyBudgetCapOnLineItem(
+                groupedCategory[groupedCatKey],
+                [firstMonth, secondMonth, thirdMonth]
+              )
+            ) ===
+          0
+        ) {
+          continue;
+        }
+
+        subTotal[2] += getLineItemForecastSumForMonth(
+          groupedCategory[groupedCatKey],
+          firstMonth
+        );
+
+        subTotal[3] += getLineItemForecastSumForMonth(
+          groupedCategory[groupedCatKey],
+          secondMonth
+        );
+
+        subTotal[4] += getLineItemForecastSumForMonth(
+          groupedCategory[groupedCatKey],
+          thirdMonth
+        );
+
+        subTotal[5] += getLineItemForecastSumForMonths(
+          groupedCategory[groupedCatKey],
+          [firstMonth, secondMonth, thirdMonth]
+        );
+
+        subTotal[6] += getBudgetCapForMonthOnLineItem(
+          groupedCategory[groupedCatKey],
+          currentMonth
+        );
+
+        subTotal[7] += getTotalQuarterlyBudgetCapOnLineItem(
+          groupedCategory[groupedCatKey],
+          [firstMonth, secondMonth, thirdMonth]
+        );
+
+        result.push({
+          type: 'normal',
+          items: [
+            {
+              column: breakdownHeaders[0],
+              value: i === 1 ? groupedKey : '',
+            },
+            {
+              column: breakdownHeaders[1],
+              value: groupedCatKey,
+            },
+            {
+              column: breakdownHeaders[2],
+              value: getLineItemForecastSumForMonth(
+                groupedCategory[groupedCatKey],
+                firstMonth
+              ),
+            },
+            {
+              column: breakdownHeaders[3],
+              value: getLineItemForecastSumForMonth(
+                groupedCategory[groupedCatKey],
+                secondMonth
+              ),
+            },
+            {
+              column: breakdownHeaders[4],
+              value: getLineItemForecastSumForMonth(
+                groupedCategory[groupedCatKey],
+                thirdMonth
+              ),
+            },
+            {
+              column: breakdownHeaders[5],
+              value: getLineItemForecastSumForMonths(
+                groupedCategory[groupedCatKey],
+                [firstMonth, secondMonth, thirdMonth]
+              ),
+            },
+            {
+              column: breakdownHeaders[6],
+              value: getBudgetCapForMonthOnLineItem(
+                groupedCategory[groupedCatKey],
+                currentMonth
+              ),
+            },
+            {
+              column: breakdownHeaders[7],
+              value: getTotalQuarterlyBudgetCapOnLineItem(
+                groupedCategory[groupedCatKey],
+                [firstMonth, secondMonth, thirdMonth]
+              ),
+            },
+          ],
+        });
+
+        i++;
+      }
+    }
+
+    result.push({
+      type: 'normal',
+      items: [
+        {
+          column: breakdownHeaders[0],
+          value: 'Sub Total'
+        },
+        {
+          column: breakdownHeaders[1],
+          value: ''
+        },
+        {
+          column: breakdownHeaders[2],
+          value: subTotal[2]
+        },
+        {
+          column: breakdownHeaders[3],
+          value: subTotal[3]
+        },
+        {
+          column: breakdownHeaders[4],
+          value: subTotal[4]
+        },
+        {
+          column: breakdownHeaders[5],
+          value: subTotal[5]
+        },
+        {
+          column: breakdownHeaders[6],
+          value: subTotal[6]
+        },
+        {
+          column: breakdownHeaders[7],
+          value: subTotal[7]
+        },
+      ],
+    });
+
+    return result;
+  };
+
+  const breakdownItems = useMemo(() => {
+    const result: InnerTableRow[] = [];
+
+    if (!propBudgetStatements || propBudgetStatements.length === 0) {
+      return result;
+    }
+    if (!wallets.length) {
+      return result;
+    }
+
+    const currentWalletAddress = wallets[thirdIndex]?.address ?? '';
+
+    const ungrouped = [
+      ...getLineItemsForWalletOnMonth(
+        propBudgetStatements,
+        currentMonth,
+        firstMonth,
+        currentWalletAddress
+      ),
+      ...getLineItemsForWalletOnMonth(
+        propBudgetStatements,
+        currentMonth,
+        secondMonth,
+        currentWalletAddress
+      ),
+      ...getLineItemsForWalletOnMonth(
+        propBudgetStatements,
+        currentMonth,
+        thirdMonth,
+        currentWalletAddress
+      ),
+    ];
+
+    result.push({
+      type: 'section',
+      items: [
+        {
+          column: breakdownHeaders[0],
+          value: 'Headcount Expenses',
+        }
+      ]
+    });
+
+    const groupedHeadCount = _.groupBy(
+      ungrouped.filter((x) => x.headcountExpense),
+      (item) => item.group
+    );
+
+    result.push(...getBreakdownItemsForGroup(groupedHeadCount));
+
+    result.push({
+      type: 'section',
+      items: [
+        {
+          column: breakdownHeaders[0],
+          value: 'Non-Headcount Expenses',
+        }
+      ]
+    });
+
+    const groupedNonHeadCount = _.groupBy(
+      ungrouped.filter((x) => !x.headcountExpense),
+      (item) => item.group
+    );
+
+    result.push(...getBreakdownItemsForGroup(groupedNonHeadCount));
+
+    result.push({
+      type: 'total',
+      items: [
+        {
+          column: breakdownHeaders[0],
+          value: 'Total',
+        },
+        {
+          column: breakdownHeaders[1],
+          value: '',
+        },
+        {
+          column: breakdownHeaders[2],
+          value: getForecastForMonthOnWalletOnBudgetStatement(
+            propBudgetStatements,
+            currentWalletAddress,
+            currentMonth,
+            firstMonth
+          )
+        },
+        {
+          column: breakdownHeaders[3],
+          value: getForecastForMonthOnWalletOnBudgetStatement(
+            propBudgetStatements,
+            currentWalletAddress,
+            currentMonth,
+            secondMonth
+          )
+        },
+        {
+          column: breakdownHeaders[4],
+          value: getForecastForMonthOnWalletOnBudgetStatement(
+            propBudgetStatements,
+            currentWalletAddress,
+            currentMonth,
+            thirdMonth
+          )
+        },
+        {
+          column: breakdownHeaders[5],
+          value: getForecastSumOfMonthsOnWallet(
+            propBudgetStatements,
+            currentWalletAddress,
+            currentMonth,
+            [firstMonth, secondMonth, thirdMonth]
+          ),
+        },
+        {
+          column: breakdownHeaders[6],
+          value: getBudgetCapForMonthOnWalletOnBudgetStatement(
+            propBudgetStatements,
+            currentWalletAddress,
+            currentMonth,
+            currentMonth
+          )
+        },
+        {
+          column: breakdownHeaders[7],
+          value: getBudgetCapSumOfMonthsOnWallet(
+            propBudgetStatements,
+            currentWalletAddress,
+            currentMonth,
+            [firstMonth, secondMonth, thirdMonth]
+          )
+        }
+      ]
+    });
+
+    return result;
+  }, [currentMonth, propBudgetStatements, thirdIndex, hasGroups]);
+
   return {
     mainTableItems,
     mainTableColumns,
+    breakdownHeaders,
+    breakdownItems,
     breakdownTitleRef,
   };
 };
