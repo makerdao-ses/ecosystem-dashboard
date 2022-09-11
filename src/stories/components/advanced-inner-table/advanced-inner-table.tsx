@@ -15,7 +15,7 @@ export interface InnerTableColumn {
   headerAlign?: string;
   isCardHeader?: boolean;
   isCardFooter?: boolean;
-  minWidth?: string;
+  width?: string;
   hidden?: boolean;
 }
 
@@ -55,7 +55,6 @@ export const AdvancedInnerTable = ({
     if (value !== 0 && !value) {
       return <></>;
     }
-
     const isBold = rowType === 'total' || rowType === 'section';
     const columnType =
       rowType === 'total' && column?.type === 'custom' ? 'text' : column?.type;
@@ -99,7 +98,8 @@ export const AdvancedInnerTable = ({
                         textAlign: (column.headerAlign ??
                           column.align ??
                           'left') as Alignment,
-                        width: column.minWidth ?? 'unset',
+                        width: column.width ?? '120px',
+                        overflow: 'hidden',
                       }}
                     >
                       {column.header}

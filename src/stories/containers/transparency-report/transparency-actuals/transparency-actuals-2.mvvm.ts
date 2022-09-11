@@ -225,7 +225,7 @@ export const useTransparencyActualsMvvm2 = (
       type: 'custom',
       cellRender: renderWallet,
       isCardHeader: true,
-      minWidth: '180px',
+      width: '180px',
     },
     {
       header: 'Forecast',
@@ -346,12 +346,14 @@ export const useTransparencyActualsMvvm2 = (
       type: 'text',
       hidden: !hasGroups,
       isCardHeader: true,
+      width: '240px',
     },
     {
       header: 'Budget Category',
       align: 'left',
       type: 'text',
       isCardHeader: true,
+      width: hasGroups ? '220px' : '240px',
     },
     {
       header: 'Forecast',
@@ -480,6 +482,10 @@ export const useTransparencyActualsMvvm2 = (
             column: breakdownColumns[0],
             value: 'Headcount Expenses',
           },
+          {
+            column: breakdownColumns[1],
+            value: hasGroups ? '' : 'Headcount Expenses',
+          },
         ],
         type: 'section',
       });
@@ -511,6 +517,10 @@ export const useTransparencyActualsMvvm2 = (
             column: breakdownColumns[0],
             value: 'Non-Headcount Expenses',
           },
+          {
+            column: breakdownColumns[1],
+            value: hasGroups ? '' : 'Non-Headcount Expenses',
+          },
         ],
         type: 'section',
       });
@@ -541,7 +551,7 @@ export const useTransparencyActualsMvvm2 = (
         items: [
           {
             column: breakdownColumns[0],
-            value: 'Total',
+            value: hasGroups ? 'Total' : '',
           },
           {
             column: breakdownColumns[1],

@@ -357,7 +357,7 @@ export const useTransparencyForecastMvvm2 = (
         type: 'custom',
         cellRender: renderWallet,
         isCardHeader: true,
-        minWidth: '180px',
+        width: '180px',
       },
       {
         header: firstMonth.toFormat('MMMM'),
@@ -561,10 +561,12 @@ export const useTransparencyForecastMvvm2 = (
         header: 'Group',
         hidden: !hasGroups,
         isCardHeader: true,
+        width: '240px',
       },
       {
         header: 'Budget Category',
         isCardHeader: true,
+        width: hasGroups ? '220px' : '240px',
       },
       {
         header: firstMonth.toFormat('MMMM'),
@@ -762,11 +764,11 @@ export const useTransparencyForecastMvvm2 = (
       items: [
         {
           column: breakdownHeaders[0],
-          value: 'Sub Total'
+          value: hasGroups ? 'Sub Total' : ''
         },
         {
           column: breakdownHeaders[1],
-          value: ''
+          value: hasGroups ? '' : 'Sub total'
         },
         {
           column: breakdownHeaders[2],
@@ -837,6 +839,10 @@ export const useTransparencyForecastMvvm2 = (
         {
           column: breakdownHeaders[0],
           value: 'Headcount Expenses',
+        },
+        {
+          column: breakdownHeaders[1],
+          value: hasGroups ? '' : 'Headcount Expenses',
         }
       ]
     });
@@ -854,6 +860,10 @@ export const useTransparencyForecastMvvm2 = (
         {
           column: breakdownHeaders[0],
           value: 'Non-Headcount Expenses',
+        },
+        {
+          column: breakdownHeaders[1],
+          value: hasGroups ? '' : 'Non-Headcount Expenses',
         }
       ]
     });
@@ -870,11 +880,11 @@ export const useTransparencyForecastMvvm2 = (
       items: [
         {
           column: breakdownHeaders[0],
-          value: 'Total',
+          value: hasGroups ? 'Total' : '',
         },
         {
           column: breakdownHeaders[1],
-          value: '',
+          value: hasGroups ? '' : 'Total',
         },
         {
           column: breakdownHeaders[2],
