@@ -7,10 +7,23 @@ export default {
   component: Tabs,
 } as ComponentMeta<typeof Tabs>;
 
-const Template: ComponentStory<typeof Tabs> = (args) => <Tabs {...args}/>;
+const Template: ComponentStory<typeof Tabs> = (args) => <Tabs {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  items: ['One', 'Two', 'Three'],
-  currentIndex: 0
+  items: [
+    {
+      item: 'One',
+      id: 'one'
+    },
+    {
+      item: 'Two',
+      id: 'two'
+    },
+    {
+      item: 'Three',
+      id: 'three'
+    },
+  ],
+  currentIndex: 0,
 };
