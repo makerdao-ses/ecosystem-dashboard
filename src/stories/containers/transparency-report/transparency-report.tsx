@@ -37,6 +37,7 @@ import { SummarizedCoreUnit } from '../../components/core-unit-summary/core-unit
 import { TransparencyActuals2 } from './transparency-actuals/transparency-actuals-2';
 import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { TransparencyForecast2 } from './transparency-forecast/transparency-forecast-2';
+import { TransparencyMkrVesting2 } from './transparency-mkr-vesting/transparency-mkr-vesting-2';
 
 const colors: { [key: string]: string } = {
   Draft: '#7C6B95',
@@ -303,7 +304,13 @@ export const TransparencyReport = ({
               budgetStatements={cu?.budgetStatements}
             />
           )}
-          {tabsIndex === 2 && (
+          {tabsIndex === 2 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
+            <TransparencyMkrVesting2
+              currentMonth={currentMonth}
+              budgetStatements={cu?.budgetStatements}
+            />
+          )}
+          {tabsIndex === 2 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
             <TransparencyMkrVesting
               currentMonth={currentMonth}
               budgetStatements={cu?.budgetStatements}
