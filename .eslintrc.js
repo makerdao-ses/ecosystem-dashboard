@@ -1,5 +1,6 @@
+/* eslint-disable spellcheck/spell-checker */
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { default: dictionary } = require('./src/core/utils/dictionary');
+const dictionary = require('./src/core/utils/dictionary.js');
 module.exports = {
   env: {
     browser: true,

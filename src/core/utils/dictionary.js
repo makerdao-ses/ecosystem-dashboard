@@ -1,3 +1,4 @@
+/* eslint-disable spellcheck/spell-checker */
 const dictionary = [
   'dict',
   'aff',
@@ -74,7 +75,18 @@ const dictionary = [
   'Sitemap',
   'dictionary',
   'Explicit',
-  'Mip',
+  'Mips',
+  'moree',
+  'Ttext',
+  'mip',
+  'Petru',
+  'Catana',
+  'Jevans',
+  'Wouter',
+  'Kampmann',
+  'Julien',
+  'juan',
+  'moreer',
 ];
 
-export default dictionary;
+module.exports = dictionary;
