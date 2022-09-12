@@ -19,6 +19,14 @@ interface TransparencyTransferRequestProps {
   budgetStatements: BudgetStatementDto[];
 }
 
+const headers = [
+  'Wallet',
+  '3 Month Forecast',
+  'Current Balance',
+  'Transfer Request',
+  'External Links',
+];
+
 export const TransparencyTransferRequest = (
   props: TransparencyTransferRequestProps
 ) => {
