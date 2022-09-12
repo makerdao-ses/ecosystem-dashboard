@@ -175,7 +175,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout, contributors }: Props) => 
             )}
             {(table834 || phone || LessPhone) && (
               <CardSomeThingWrong
-                width={table834 || phone ? '770px' : 'fit-contet'}
+                width={table834 || phone ? '770px' : 'fit-content'}
               />
             )}
           </ContainerResponsive>
