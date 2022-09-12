@@ -955,5 +955,11 @@ export const useTransparencyForecastMvvm2 = (
     breakdownHeaders,
     breakdownItems,
     breakdownTitleRef,
+    firstMonth,
+    secondMonth,
+    thirdMonth,
+    getForecastSumOfMonthsOnWallet,
+    getForecastSumForMonths,
+    wallets,
   };
 };
