@@ -10,7 +10,9 @@
     "lint-fix": "yarn run eslint --fix src/**/*{.ts,.tsx}",
     "test": "jest --watchAll",
     "storybook": "start-storybook -s ./public -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "prettier": "prettier --write .",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@emotion/react": "^11.9.3",
@@ -67,11 +69,20 @@
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-spellcheck": "^0.0.19",
     "eslint-plugin-storybook": "^0.5.11",
+    "husky": "^8.0.1",
     "jest": "^28.1.1",
     "jest-environment-jsdom": "^28.1.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "2.7.1",
     "sass": "^1.52.3",
     "sass-loader": "^13.0.0",
     "style-loader": "^3.3.1",
     "typescript": "4.7.3"
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   }
 }
