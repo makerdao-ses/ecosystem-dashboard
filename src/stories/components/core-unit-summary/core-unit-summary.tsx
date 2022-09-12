@@ -41,7 +41,11 @@ export const CoreUnitSummary = ({ coreUnits: data = [], trailingAddress = [], br
   const ref = useRef(null);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const debounceFunction = _.debounce(() => setHiddenTextDescription(((ref?.current as any)?.offsetTop ?? 0) <= 65), 27);
+  const debounceFunction = _.debounce(() => {
+    window.removeEventListener('scroll', handleScroll, true);
+    setHiddenTextDescription(((ref?.current as any)?.offsetTop ?? 0) <= 65);
+    setTimeout(() => window.addEventListener('scroll', handleScroll, true), 100);
+  }, 100);
 
   const handleScroll = () => {
     debounceFunction();
@@ -226,7 +230,7 @@ const Wrapper = styled.div({
 const SummaryDescription = styled.div<{ hiddenTextDescription: boolean }>(({ hiddenTextDescription }) => ({
   opacity: hiddenTextDescription ? 1 : 0,
   height: hiddenTextDescription ? 'auto' : 0,
-  transition: 'all 0.85s ease',
+  transition: 'all 0.3s ease',
   overflow: 'hidden',
 }));
 

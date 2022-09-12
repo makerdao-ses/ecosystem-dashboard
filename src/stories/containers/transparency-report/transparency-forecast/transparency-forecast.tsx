@@ -360,8 +360,8 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
         ]);
 
         result.push([
-          <TextCell key={`${groupedKey}-0`}>{i === 1 ? groupedKey : '' }</TextCell>,
-          <TextCell key={1}>{groupedCatKey}</TextCell>,
+          ...hasGroups ? [<TableCell key={`${groupedKey}-0`}>{i === 1 ? groupedKey : '' }</TableCell>] : [],
+          <TableCell key={1}>{groupedCatKey}</TableCell>,
           <NumberCell
             key={2}
             value={getLineItemForecastSumForMonth(
@@ -413,8 +413,8 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     }
 
     result.push([
-      <TextCell key={0}>{'Sub Total'}</TextCell>,
-      <TextCell key={1}/>,
+      <TableCell key={0}>{'Sub Total'}</TableCell>,
+      ...hasGroups ? [<TableCell key={1}/>] : [],
       <NumberCell
         key={2}
         value={subTotal[2]}
@@ -610,9 +610,9 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
         ).map((item, i) => (
           <TransparencyCard
             key={i}
-            header={<>{item[0]}{item[1]}</>}
+            header={<>{item[0]} {hasGroups && item[1]}</>}
             headers={cardHeaders}
-            items={item.slice(2)}
+            items={item.slice(hasGroups ? 2 : 1)}
           />
         ))}
         <Title isLight={isLight}>Non-Headcount Expenses</Title>
@@ -624,9 +624,9 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
         ).map((item, i) => (
           <TransparencyCard
             key={i}
-            header={<>{item[0]}{item[1]}</>}
+            header={<>{item[0]}{hasGroups && item[1]}</>}
             headers={cardHeaders}
-            items={item.slice(2)}
+            items={item.slice(hasGroups ? 2 : 1)}
           />
         ))}
         {getBreakdownItemsForGroup(
@@ -767,14 +767,14 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
           <CardsWrapper>
             {(wallets.length > 1 && forecastTableItems.length > 1) && <TransparencyCard
               header={forecastTableItems[forecastTableItems.length - 1][0]}
-              headers={breakdownHeaders.slice(1, 7)}
+              headers={breakdownHeaders.slice(2, 7)}
               items={forecastTableItems[forecastTableItems.length - 1].slice(1, 7)}
             />}
             {forecastTableItems.slice(0, forecastTableItems.length - 1).map((item, i) => (
               <TransparencyCard
                 key={i}
                 header={item[0]}
-                headers={breakdownHeaders.slice(1, 7)}
+                headers={breakdownHeaders.slice(2, 7)}
                 items={item.slice(1, 7)}
                 footer={item[7]}
               />

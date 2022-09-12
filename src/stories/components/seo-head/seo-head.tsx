@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import Head from 'next/head';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface ImageType {
   src: string;
@@ -26,6 +27,7 @@ export const SEOHead = ({
   twitterCard,
   children,
 }: SEOProps) => {
+  const isLight = useThemeContext().themeMode === 'light';
   const faviconType = useMemo(() => {
     if (!favicon) {
       return 'image/ico';
@@ -53,6 +55,7 @@ export const SEOHead = ({
   return (
     <Head>
       <title>{title}</title>
+      <meta name="theme-color" content={isLight ? '#ffffff' : '#010101'} />
       <link rel="manifest" key="manifest" href="/manifest.json" />
       <link
         rel="icon"
@@ -62,8 +65,6 @@ export const SEOHead = ({
       />
 
       <meta name="description" key="description" content={description} />
-      <meta name="theme-color" content="#231536"/>
-
       {/* OpenGraph https://ogp.me/ */}
       <meta property="og:title" key="og:title" content={title} />
       <meta property="og:description" key="og:description" content={description} />
@@ -76,11 +77,11 @@ export const SEOHead = ({
               <meta property="og:image" key="og:image" content={image} />
               )
             : (
-                <>
-                  <meta property="og:image" key="og:image" content={image.src} />
-                  <meta property="og:image:width" key="og:image:width" content={image.width.toString()} />
-                  <meta property="og:image:height" key="og:image:height" content={image.height.toString()} />
-                </>
+              <>
+                <meta property="og:image" key="og:image" content={image.src} />
+                <meta property="og:image:width" key="og:image:width" content={image.width.toString()} />
+                <meta property="og:image:height" key="og:image:height" content={image.height.toString()} />
+              </>
               )
         )}
 
@@ -91,7 +92,7 @@ export const SEOHead = ({
       <meta name="twitter:site" key="twitter:site" content="@MakerDAO" />
       {twitterImage
         ? (
-        <meta name="twitter:image" key="twitter:image" content={twitterImage} />
+          <meta name="twitter:image" key="twitter:image" content={twitterImage} />
           )
         : (
             image && <meta name="twitter:image" key="twitter:image" content={typeof image === 'string' ? image : image.src} />

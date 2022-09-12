@@ -589,7 +589,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
               ]}
               items={breakdownTableItems}
               headerWidths={[
-                '20%',
+                hasGroups ? '20%' : '31%',
                 '205px',
                 '205px',
                 '205px',

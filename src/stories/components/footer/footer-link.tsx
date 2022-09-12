@@ -20,9 +20,7 @@ export const FooterLinks = ({ links, styleLinks }: CuTableColumnLinksProps) => {
   return <Container style={styleLinks}>
     {links.map((link, i) => <Box
       key={`link-${i}`}
-      sx={{
-        mr: `${link.spacingsRight ?? 0}px`,
-      }}>
+      sx={{ mr: `${link.spacingsRight ?? 0}px` }}>
       <LinkImage
         href={link.href}
         target="_blank"
