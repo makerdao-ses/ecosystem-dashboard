@@ -2,7 +2,6 @@ import React from 'react';
 import { Box, Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
 import styled from '@emotion/styled';
 import { CuTableColumnLinks } from '../cu-table-column-links/cu-table-column-links';
-import { ContributorCommitment } from '../../containers/cu-about/cu-about-contributor';
 import { getContributorCommitment, getLinksFromContributor } from '../../../core/business-logic/core-unit-about';
 import { DateTime } from 'luxon';
 import { getColorJobPosition } from '../../../core/utils/color.utils';
@@ -11,6 +10,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { ContributorCommitmentDto } from '../../../core/models/dto/core-unit.dto';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
+import { ContributorCommitment } from '../../containers/cu-about/cu-about.api';
 
 interface Props {
   contributorCommitment: ContributorCommitment | ContributorCommitmentDto;
@@ -23,15 +23,18 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
   const links = getLinksFromContributor(contributorCommitment);
   const { color } = getColorJobPosition(contributorCommitment.jobTitle);
   return (
-    <Box sx={{
-      width: '100%',
-    }}>
+    <Box
+      sx={{
+        width: '100%',
+      }}
+    >
       <Container square isLight={isLight}>
-
-        <CardContent sx={{
-          margin: '16px',
-          padding: '0px',
-        }}>
+        <CardContent
+          sx={{
+            margin: '16px',
+            padding: '0px',
+          }}
+        >
           <CardHeader
             sx={{
               padding: '0px',
@@ -39,74 +42,96 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
                 marginRight: '0px',
               },
             }}
-            avatar={<CircleAvatar
-              width="54px"
-              height="54px"
-              style={{ marginRight: '21px' }}
-              name={contributor?.name}
-              image={contributor?.facilitatorImage}
-              border="3px solid #E7FCFA"
-            />}
+            avatar={
+              <CircleAvatar
+                width="54px"
+                height="54px"
+                style={{ marginRight: '21px' }}
+                name={contributor?.name}
+                image={contributor?.facilitatorImage}
+                border="3px solid #E7FCFA"
+              />
+            }
             title={<TypographyName isLight={isLight}>{contributor.name}</TypographyName>}
             subheader={
               <>
-                {contributor && contributor.email && contributor.email.length >= 40
-                  ? <CustomPopover
-                    title={contributor?.email?.toLowerCase()}
-                    id={'mouse-over-popover-goto'}>
-                    <TypographyEmail isLight={isLight}
+                {contributor && contributor.email && contributor.email.length >= 40 ? (
+                  <CustomPopover title={contributor?.email?.toLowerCase()} id={'mouse-over-popover-goto'}>
+                    <TypographyEmail
+                      isLight={isLight}
                       style={{
-
                         textOverflow: 'ellipsis',
                         overflow: 'hidden',
                         width: '207px',
-                      }}>
+                      }}
+                    >
                       {contributor?.email?.toLowerCase()}
                     </TypographyEmail>
                   </CustomPopover>
-                  : <TypographyEmail isLight={isLight}
+                ) : (
+                  <TypographyEmail
+                    isLight={isLight}
                     style={{
                       textOverflow: 'ellipsis',
                       overflow: 'hidden',
-                    }}>
+                    }}
+                  >
                     {contributor?.email?.toLowerCase()}
-                  </TypographyEmail>}
-
+                  </TypographyEmail>
+                )}
               </>
             }
           />
-          <TypographyJobTitle sx={{
-            margin: '24px 0',
-            color,
-          }}>{contributorCommitment.jobTitle}</TypographyJobTitle>
+          <TypographyJobTitle
+            sx={{
+              margin: '24px 0',
+              color,
+            }}
+          >
+            {contributorCommitment.jobTitle}
+          </TypographyJobTitle>
 
           <CardContentPositionRow>
             <CardContentPositionColumn>
-              <TypographyStyled mb={0} color='#708390' style={{ paddingBottom: '4px' }} >Since</TypographyStyled>
+              <TypographyStyled mb={0} color="#708390" style={{ paddingBottom: '4px' }}>
+                Since
+              </TypographyStyled>
               <TypographyStyled mb={0} color={isLight ? '#231536' : '#D2D4EF'}>
                 {since.years >= 1 && `${Math.floor(since.years)} Year${since.years < 2 ? '' : 's'}`}{' '}
                 {since.months >= 1 && `${Math.floor(since.months)} Month${since.months < 2 ? '' : 's'}`}
               </TypographyStyled>
             </CardContentPositionColumn>
             <CardContentPositionColumn>
-              <TypographyStyled mb={0} color='#708390' style={{ paddingBottom: '4px' }} >Commitment</TypographyStyled>
-              <TypographyStyled mb={0} color={isLight ? '#231536' : '#D2D4EF'} >{getContributorCommitment(contributorCommitment.commitment)}</TypographyStyled>
+              <TypographyStyled mb={0} color="#708390" style={{ paddingBottom: '4px' }}>
+                Commitment
+              </TypographyStyled>
+              <TypographyStyled mb={0} color={isLight ? '#231536' : '#D2D4EF'}>
+                {getContributorCommitment(contributorCommitment.commitment)}
+              </TypographyStyled>
             </CardContentPositionColumn>
           </CardContentPositionRow>
         </CardContent>
-        <Divider light sx={{
-          marginBottom: '12px',
-          height: '1px',
-          bgcolor: isLight ? '#D4D9E1' : '#405361',
-        }} variant='fullWidth' />
-        <CardLinksFooter><CuTableColumnLinks links={links} width={15} height={15} spacings={25} fillDark='#9FAFB9' /></CardLinksFooter>
+        <Divider
+          light
+          sx={{
+            marginBottom: '12px',
+            height: '1px',
+            bgcolor: isLight ? '#D4D9E1' : '#405361',
+          }}
+          variant="fullWidth"
+        />
+        <CardLinksFooter>
+          <CuTableColumnLinks links={links} width={15} height={15} spacings={25} fillDark="#9FAFB9" />
+        </CardLinksFooter>
       </Container>
-    </Box >
+    </Box>
   );
 };
 
 const Container = styled(Card)<{ isLight: boolean }>(({ isLight }) => ({
-  boxShadow: isLight ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : '10px 15px 20px 6px rgba(20, 0, 141, 0.1);',
+  boxShadow: isLight
+    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+    : '10px 15px 20px 6px rgba(20, 0, 141, 0.1);',
   backgroundColor: isLight ? '#FFFFFF' : '#10191F',
   borderRadius: '6px',
   width: '335px',
@@ -141,7 +166,7 @@ const TypographyStyled = styled(Typography)<{ color: string }>((props) => ({
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '14px',
-  lineHeight: '22px'
+  lineHeight: '22px',
 }));
 
 const TypographyEmail = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
