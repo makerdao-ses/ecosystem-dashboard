@@ -350,11 +350,8 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     : 'url(/assets/img/bg-page-dark.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
-  padding: '0 16px',
+  padding: '0 16px 128px',
   '@media (min-width: 834px)': {
-    padding: '0 32px 128px',
-  },
-  '@media (max-width: 833px)': {
     padding: '0 32px 128px',
   },
 }));
