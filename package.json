@@ -80,9 +80,7 @@
     "typescript": "4.7.3"
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ]
+    "*.{ts,tsx}": "eslint --fix --max-warnings 0",
+    "*.{ts,tsx,css,json}": "prettier --write"
   }
 }
