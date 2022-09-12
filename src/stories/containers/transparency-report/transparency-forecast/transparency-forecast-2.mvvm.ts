@@ -6,9 +6,7 @@ import {
 } from '../../../../core/models/dto/core-unit.dto';
 import _ from 'lodash';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import {
-  capitalizeSentence,
-} from '../../../../core/utils/string.utils';
+import { capitalizeSentence } from '../../../../core/utils/string.utils';
 import { API_MONTH_FORMAT } from '../../../../core/utils/date.utils';
 import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
 import {
@@ -764,35 +762,35 @@ export const useTransparencyForecastMvvm2 = (
       items: [
         {
           column: breakdownHeaders[0],
-          value: hasGroups ? 'Sub Total' : ''
+          value: hasGroups ? 'Sub Total' : '',
         },
         {
           column: breakdownHeaders[1],
-          value: hasGroups ? '' : 'Sub total'
+          value: hasGroups ? '' : 'Sub total',
         },
         {
           column: breakdownHeaders[2],
-          value: subTotal[2]
+          value: subTotal[2],
         },
         {
           column: breakdownHeaders[3],
-          value: subTotal[3]
+          value: subTotal[3],
         },
         {
           column: breakdownHeaders[4],
-          value: subTotal[4]
+          value: subTotal[4],
         },
         {
           column: breakdownHeaders[5],
-          value: subTotal[5]
+          value: subTotal[5],
         },
         {
           column: breakdownHeaders[6],
-          value: subTotal[6]
+          value: subTotal[6],
         },
         {
           column: breakdownHeaders[7],
-          value: subTotal[7]
+          value: subTotal[7],
         },
       ],
     });
@@ -843,8 +841,8 @@ export const useTransparencyForecastMvvm2 = (
         {
           column: breakdownHeaders[1],
           value: hasGroups ? '' : 'Headcount Expenses',
-        }
-      ]
+        },
+      ],
     });
 
     const groupedHeadCount = _.groupBy(
@@ -864,8 +862,8 @@ export const useTransparencyForecastMvvm2 = (
         {
           column: breakdownHeaders[1],
           value: hasGroups ? '' : 'Non-Headcount Expenses',
-        }
-      ]
+        },
+      ],
     });
 
     const groupedNonHeadCount = _.groupBy(
@@ -874,6 +872,10 @@ export const useTransparencyForecastMvvm2 = (
     );
 
     result.push(...getBreakdownItemsForGroup(groupedNonHeadCount));
+
+    if (result.length <= 4) {
+      return [];
+    }
 
     result.push({
       type: 'total',
@@ -893,7 +895,7 @@ export const useTransparencyForecastMvvm2 = (
             currentWalletAddress,
             currentMonth,
             firstMonth
-          )
+          ),
         },
         {
           column: breakdownHeaders[3],
@@ -902,7 +904,7 @@ export const useTransparencyForecastMvvm2 = (
             currentWalletAddress,
             currentMonth,
             secondMonth
-          )
+          ),
         },
         {
           column: breakdownHeaders[4],
@@ -911,7 +913,7 @@ export const useTransparencyForecastMvvm2 = (
             currentWalletAddress,
             currentMonth,
             thirdMonth
-          )
+          ),
         },
         {
           column: breakdownHeaders[5],
@@ -929,7 +931,7 @@ export const useTransparencyForecastMvvm2 = (
             currentWalletAddress,
             currentMonth,
             currentMonth
-          )
+          ),
         },
         {
           column: breakdownHeaders[7],
@@ -938,9 +940,9 @@ export const useTransparencyForecastMvvm2 = (
             currentWalletAddress,
             currentMonth,
             [firstMonth, secondMonth, thirdMonth]
-          )
-        }
-      ]
+          ),
+        },
+      ],
     });
 
     return result;

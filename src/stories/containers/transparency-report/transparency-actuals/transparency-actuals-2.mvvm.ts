@@ -260,8 +260,6 @@ export const useTransparencyActualsMvvm2 = (
     const result: InnerTableRow[] = [];
 
     if (currentBudgetStatement) {
-      let emptyWallets = 0;
-
       wallets.forEach((wallet) => {
         const numberCellData = [
           getWalletForecast(wallet),
@@ -270,70 +268,66 @@ export const useTransparencyActualsMvvm2 = (
           getWalletPayment(wallet),
         ];
 
-        if (numberCellData.every((n) => n === 0)) {
-          emptyWallets++;
+        if (numberCellData.some((n) => n !== 0)) {
+          result.push({
+            type: 'normal',
+            items: [
+              {
+                column: mainTableColumns[0],
+                value: wallet,
+              },
+              {
+                column: mainTableColumns[1],
+                value: numberCellData[0],
+              },
+              {
+                column: mainTableColumns[2],
+                value: numberCellData[1],
+              },
+              {
+                column: mainTableColumns[3],
+                value: numberCellData[2],
+              },
+              {
+                column: mainTableColumns[4],
+                value: numberCellData[3],
+              },
+              {
+                column: mainTableColumns[5],
+                value: wallet.address,
+              },
+            ],
+          });
         }
+      });
 
+      if (result.length > 0) {
         result.push({
-          type: 'normal',
+          type: 'total',
           items: [
             {
               column: mainTableColumns[0],
-              value: wallet,
+              value: 'Total',
             },
             {
               column: mainTableColumns[1],
-              value: numberCellData[0],
+              value: budgetTotalForecast,
             },
             {
               column: mainTableColumns[2],
-              value: numberCellData[1],
+              value: budgetTotalActual,
             },
             {
               column: mainTableColumns[3],
-              value: numberCellData[2],
+              value: budgetTotalDifference,
             },
             {
               column: mainTableColumns[4],
-              value: numberCellData[3],
-            },
-            {
-              column: mainTableColumns[5],
-              value: wallet.address,
+              value: budgetTotalPayment,
             },
           ],
         });
-      });
-
-      if (result.length === emptyWallets) {
-        return [];
       }
-
-      result.push({
-        type: 'total',
-        items: [
-          {
-            column: mainTableColumns[0],
-            value: 'Total',
-          },
-          {
-            column: mainTableColumns[1],
-            value: budgetTotalForecast,
-          },
-          {
-            column: mainTableColumns[2],
-            value: budgetTotalActual,
-          },
-          {
-            column: mainTableColumns[3],
-            value: budgetTotalDifference,
-          },
-          {
-            column: mainTableColumns[4],
-            value: budgetTotalPayment,
-          },
-        ],
-      });
     }
 
     return result;
