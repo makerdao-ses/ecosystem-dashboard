@@ -27,9 +27,10 @@ module.exports = {
     ],
     semi: 0,
     indent: 0,
+    'multiline-ternary': 0,
     'space-before-function-paren': 0,
     'comma-dangle': 0,
-    'object-property-newline': ['error', { allowAllPropertiesOnSameLine: false }],
+    'object-property-newline': 0,
     'spellcheck/spell-checker': [
       1,
       {
@@ -39,11 +40,7 @@ module.exports = {
         templates: true,
         lang: 'en_US',
         skipWords: dictionary,
-        skipIfMatch: [
-          'http://[^s]*',
-          '^[-\\w]+/[-\\w\\.]+$',
-          '^(?=.*[a-zA-Z])(?=.*[0-9])',
-        ],
+        skipIfMatch: ['http://[^s]*', '^[-\\w]+/[-\\w\\.]+$', '^(?=.*[a-zA-Z])(?=.*[0-9])'],
         skipWordIfMatch: ['^foobar.*$'],
         minLength: 4,
       },
