@@ -1,8 +1,8 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import CardInfoMember from './card-info-member';
-import { Commitment, ContributorCommitment } from '../../containers/cu-about/cu-about-contributor';
 import { CuJobEnum } from '../../../core/enums/cu-job.enum';
+import { Commitment, ContributorCommitment } from '../../containers/cu-about/cu-about.api';
 
 export default {
   title: 'Components/CUAbout/CardInfoMember',
