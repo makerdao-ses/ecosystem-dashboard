@@ -30,7 +30,7 @@ module.exports = {
     'multiline-ternary': 0,
     'space-before-function-paren': 0,
     'comma-dangle': 0,
-    'object-property-newline': ['error', { allowAllPropertiesOnSameLine: false }],
+    'object-property-newline': 0,
     'spellcheck/spell-checker': [
       1,
       {
