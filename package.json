@@ -80,7 +80,10 @@
     "typescript": "4.7.3"
   },
   "lint-staged": {
-    "*.{ts,tsx}": "eslint --fix --max-warnings 0",
+    "*.{ts,tsx}": [
+      "eslint --fix --max-warnings 0",
+      "jest --bail --findRelatedTests --passWithNoTests"
+    ],
     "*.{ts,tsx,css,json}": "prettier --write"
   }
 }
