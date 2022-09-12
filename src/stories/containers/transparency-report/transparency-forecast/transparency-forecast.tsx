@@ -360,8 +360,8 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
         ]);
 
         result.push([
-          ...hasGroups ? [<TableCell key={`${groupedKey}-0`}>{i === 1 ? groupedKey : '' }</TableCell>] : [],
-          <TableCell key={1}>{groupedCatKey}</TableCell>,
+          ...hasGroups ? [<TextCell key={`${groupedKey}-0`}>{i === 1 ? groupedKey : '' }</TextCell>] : [],
+          <TextCell key={1}>{groupedCatKey}</TextCell>,
           <NumberCell
             key={2}
             value={getLineItemForecastSumForMonth(
@@ -413,8 +413,8 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     }
 
     result.push([
-      <TableCell key={0}>{'Sub Total'}</TableCell>,
-      ...hasGroups ? [<TableCell key={1}/>] : [],
+      <TextCell key={0}>{'Sub Total'}</TextCell>,
+      ...hasGroups ? [<TextCell key={1}/>] : [],
       <NumberCell
         key={2}
         value={subTotal[2]}
