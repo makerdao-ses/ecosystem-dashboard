@@ -186,10 +186,6 @@ export const useTransparencyTransferRequestMvvm2 = (
           }, {
             column: mainTableColumns[3],
             value: getTransferRequestForMonth
-          },
-          {
-            column: mainTableColumns[4],
-            value: ''
           }
         ]
       });

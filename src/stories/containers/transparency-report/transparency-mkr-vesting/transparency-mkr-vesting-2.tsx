@@ -23,7 +23,7 @@ export const TransparencyMkrVesting2 = (props: TransparencyMkrVestingProps) => {
   return (
     <Container>
       <Title isLight={isLight} marginBottom={24}>
-        MKR Vesting Overview2
+        MKR Vesting Overview
       </Title>
       <ContainerPopover>
         <CustomPopover
