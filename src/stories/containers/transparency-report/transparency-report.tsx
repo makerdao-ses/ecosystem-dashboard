@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import styled from '@emotion/styled';
 import { Tabs } from '../../components/tabs/tabs';
 import { CustomPager } from '../../components/custom-pager/custom-pager';
@@ -21,10 +27,18 @@ import { formatCode } from '../../../core/utils/string.utils';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SEOHead } from '../../components/seo-head/seo-head';
 import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
-import { getCurrentOrLastMonthWithData, getLastMonthWithActualOrForecast } from '../../../core/business-logic/core-units';
+import {
+  getCurrentOrLastMonthWithData,
+  getLastMonthWithActualOrForecast,
+} from '../../../core/business-logic/core-units';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
 import lightTheme from '../../../../styles/theme/light';
 import { SummarizedCoreUnit } from '../../components/core-unit-summary/core-unit-summary.mvvm';
+import { TransparencyActuals2 } from './transparency-actuals/transparency-actuals-2';
+import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
+import { TransparencyForecast2 } from './transparency-forecast/transparency-forecast-2';
+import { TransparencyMkrVesting2 } from './transparency-mkr-vesting/transparency-mkr-vesting-2';
+import { TransparencyTransferRequest2 } from './transparency-transfer-request/transparency-transfer-request-2';
 
 const colors: { [key: string]: string } = {
   Draft: '#7C6B95',
@@ -40,7 +54,13 @@ const colorsDarkColors: { [key: string]: string } = {
   SubmittedToAuditor: '#FF78F2',
 };
 
-const TRANSPARENCY_IDS = ['actuals', 'forecast', 'mkr-vesting', 'transfer-requests', 'audit-reports'];
+const TRANSPARENCY_IDS = [
+  'actuals',
+  'forecast',
+  'mkr-vesting',
+  'transfer-requests',
+  'audit-reports',
+];
 
 interface TransparencyReportProps {
   coreUnits: SummarizedCoreUnit[];
@@ -52,6 +72,8 @@ export const TransparencyReport = ({
   coreUnit: cu,
 }: TransparencyReportProps) => {
   const isLight = useThemeContext().themeMode === 'light';
+  const [isEnabled] = useFlagsActive();
+
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;
@@ -65,7 +87,7 @@ export const TransparencyReport = ({
 
   useEffect(() => {
     if (anchor) {
-      const index = TRANSPARENCY_IDS.findIndex(id => anchor.indexOf(id) > -1);
+      const index = TRANSPARENCY_IDS.findIndex((id) => anchor.indexOf(id) > -1);
       setTabsIndex(index);
     }
   }, [anchor]);
@@ -79,7 +101,10 @@ export const TransparencyReport = ({
     if (!scrolled && anchor && TRANSPARENCY_IDS.includes(anchor)) {
       setScrolled(true);
       let offset = (transparencyTableRef?.current?.offsetTop || 0) - 280;
-      const windowsWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+      const windowsWidth = Math.max(
+        document.documentElement.clientWidth || 0,
+        window.innerWidth || 0
+      );
       if (windowsWidth < 834) {
         offset += 100;
       }
@@ -104,15 +129,19 @@ export const TransparencyReport = ({
   }, [router.route, router.query]);
 
   const replaceViewMonthRoute = (viewMonth: string) => {
-    router.replace({
-      hash: anchor,
-      query: {
-        ...router.query,
-        viewMonth
+    router.replace(
+      {
+        hash: anchor,
+        query: {
+          ...router.query,
+          viewMonth,
+        },
       },
-    }, undefined, {
-      shallow: true,
-    });
+      undefined,
+      {
+        shallow: true,
+      }
+    );
   };
 
   const handlePreviousMonth = useCallback(() => {
@@ -122,7 +151,9 @@ export const TransparencyReport = ({
   }, [setCurrentMonth, currentMonth]);
 
   const hasNextMonth = () => {
-    const limit = getLastMonthWithActualOrForecast(cu.budgetStatements).plus({ month: 1 });
+    const limit = getLastMonthWithActualOrForecast(cu.budgetStatements).plus({
+      month: 1,
+    });
     return currentMonth.startOf('month') < limit.startOf('month');
   };
 
@@ -152,7 +183,8 @@ export const TransparencyReport = ({
       <CoreUnitSummary
         coreUnits={coreUnits}
         trailingAddress={['Expense Reports']}
-        breadcrumbTitle="Expense Reports" />
+        breadcrumbTitle="Expense Reports"
+      />
       <Container isLight={isLight}>
         <InnerPage>
           <Title isLight={isLight}>Expense Reports</Title>
@@ -223,23 +255,23 @@ export const TransparencyReport = ({
             items={[
               {
                 item: 'Actuals',
-                id: TRANSPARENCY_IDS[0]
+                id: TRANSPARENCY_IDS[0],
               },
               {
                 item: 'Forecast',
-                id: TRANSPARENCY_IDS[1]
+                id: TRANSPARENCY_IDS[1],
               },
               {
                 item: 'MKR Vesting',
-                id: TRANSPARENCY_IDS[2]
+                id: TRANSPARENCY_IDS[2],
               },
               {
                 item: 'Transfer Requests',
-                id: TRANSPARENCY_IDS[3]
+                id: TRANSPARENCY_IDS[3],
               },
               {
                 item: 'Audit Reports',
-                id: TRANSPARENCY_IDS[4]
+                id: TRANSPARENCY_IDS[4],
               },
             ]}
             currentIndex={tabsIndex}
@@ -247,26 +279,51 @@ export const TransparencyReport = ({
               margin: '32px 0',
             }}
           />
-          {tabsIndex === 0 && (
+          {tabsIndex === 0 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
+            <TransparencyActuals2
+              code={code}
+              currentMonth={currentMonth}
+              budgetStatements={cu?.budgetStatements}
+            />
+          )}
+          {tabsIndex === 0 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
             <TransparencyActuals
               code={code}
               currentMonth={currentMonth}
               budgetStatements={cu?.budgetStatements}
             />
           )}
-          {tabsIndex === 1 && (
+          {tabsIndex === 1 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
+            <TransparencyForecast2
+              currentMonth={currentMonth}
+              budgetStatements={cu?.budgetStatements}
+            />
+          )}
+          {tabsIndex === 1 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
             <TransparencyForecast
               currentMonth={currentMonth}
               budgetStatements={cu?.budgetStatements}
             />
           )}
-          {tabsIndex === 2 && (
+          {tabsIndex === 2 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
+            <TransparencyMkrVesting2
+              currentMonth={currentMonth}
+              budgetStatements={cu?.budgetStatements}
+            />
+          )}
+          {tabsIndex === 2 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
             <TransparencyMkrVesting
               currentMonth={currentMonth}
               budgetStatements={cu?.budgetStatements}
             />
           )}
-          {tabsIndex === 3 && (
+          {tabsIndex === 3 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
+            <TransparencyTransferRequest2
+              currentMonth={currentMonth}
+              budgetStatements={cu?.budgetStatements}
+            />
+          )}
+          {tabsIndex === 3 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
             <TransparencyTransferRequest
               currentMonth={currentMonth}
               budgetStatements={cu?.budgetStatements}
@@ -293,11 +350,8 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     : 'url(/assets/img/bg-page-dark.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
-  padding: '0 16px',
+  padding: '0 16px 128px',
   '@media (min-width: 834px)': {
-    padding: '0 32px 128px',
-  },
-  '@media (max-width: 833px)': {
     padding: '0 32px 128px',
   },
 }));
@@ -342,7 +396,7 @@ export const Title = styled.div<{
       marginBottom: `${responsiveMarginBottom || marginBottom}px`,
     },
     [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-      marginTop: '40px'
+      marginTop: '40px',
     },
   })
 );

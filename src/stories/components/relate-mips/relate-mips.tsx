@@ -15,14 +15,14 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CustomLink } from '../custom-link/custom-link';
 
 export type RelateMipType = {
-  status: CuStatusEnum,
-  statusModified: Date,
-  mipTitle?: string
-  href: string
-}
+  status: CuStatusEnum;
+  statusModified: Date;
+  mipTitle?: string;
+  href: string;
+};
 
 interface Props {
-  relateMips: CuMip | CuMipDto
+  relateMips: CuMip | CuMipDto;
 }
 
 const RelateMips = ({ relateMips }: Props) => {
@@ -36,48 +36,70 @@ const RelateMips = ({ relateMips }: Props) => {
     <Content isLight={isLight}>
       <Row>
         {mipStatus && <StatusChip status={mipStatus as CuStatusEnum} />}
-        {newDate && <CustomPopover
-          css={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center'
-          }}
-          popupStyle={{
-            color: isLight ? '#231536' : '#D2D4EF',
-          }}
-          id={'mouse-over-popover-goto'}
-          title={'Go to MIPs Portal'}
-        >
-          <SinceDate
-            isLight={isLight}
-            href={relateMips.mipUrl}
-            target="_blank"
-            onClick={(evt) => evt.stopPropagation()}
+        {newDate && (
+          <CustomPopover
+            css={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+            popupStyle={{
+              color: isLight ? '#231536' : '#D2D4EF',
+            }}
+            id={'mouse-over-popover-goto'}
+            title={'Go to MIPs Portal'}
           >
-            Since {DateTime.fromJSDate(newDate).toFormat('d-MMM-y')}
-          </SinceDate>
-        </CustomPopover>}
+            <SinceDate
+              isLight={isLight}
+              href={relateMips.mipUrl}
+              target="_blank"
+              onClick={(evt) => evt.stopPropagation()}
+            >
+              Since {DateTime.fromJSDate(newDate).toFormat('d-MMM-y')}
+            </SinceDate>
+          </CustomPopover>
+        )}
       </Row>
-      {pieces.length === 2 && <RowUnderLine>
-        <StyleMipNumber isLight={isLight}>{`${pieces[0]}:`}</StyleMipNumber>
-        <ContainerIconTypography>
-          <CustomLink href={relateMips.mipUrl} withArrow iconWidth={10} iconHeight={10} marginLeft='7px' style={{
-            whiteSpace: 'pre-line',
-            fontFamily: 'SF Pro Display, sans-serif',
-            fontStyle: 'normal',
-            fontWeight: 500,
-            fontSize: isTable ? '14px' : '16px',
-            lineHeight: '16.71px',
-            letterSpacing: '0.3px',
-            color: '#447AFB',
-            marginLeft: '0px',
-          }}>
-            {pieces[1]}
-          </CustomLink>
-        </ContainerIconTypography>
-      </RowUnderLine>}
-      {pieces.length === 1 && <RowUnderLine><Typography color='#447AFB' fontFamily={'SF Pro Display, sans-serif'}> {relateMips.mipTitle}</Typography><ArrowLinkContainer>  <ExternalLinkArrow href={`${relateMips.mipUrl}` || '#'} /></ArrowLinkContainer></RowUnderLine>}
-    </Content >
+      {pieces.length === 2 && (
+        <RowUnderLine>
+          <StyleMipNumber isLight={isLight}>{`${pieces[0]}:`}</StyleMipNumber>
+          <ContainerIconTypography>
+            <CustomLink
+              href={relateMips.mipUrl}
+              withArrow
+              iconWidth={10}
+              iconHeight={10}
+              marginLeft="7px"
+              style={{
+                whiteSpace: 'pre-line',
+                fontFamily: 'SF Pro Display, sans-serif',
+                fontStyle: 'normal',
+                fontWeight: 500,
+                fontSize: isTable ? '14px' : '16px',
+                lineHeight: '16.71px',
+                letterSpacing: '0.3px',
+                color: '#447AFB',
+                marginLeft: '0px',
+              }}
+            >
+              {pieces[1]}
+            </CustomLink>
+          </ContainerIconTypography>
+        </RowUnderLine>
+      )}
+      {pieces.length === 1 && (
+        <RowUnderLine>
+          <Typography color="#447AFB" fontFamily={'SF Pro Display, sans-serif'}>
+            {' '}
+            {relateMips.mipTitle}
+          </Typography>
+          <ArrowLinkContainer>
+            {' '}
+            <ExternalLinkArrow href={`${relateMips.mipUrl}` || '#'} />
+          </ArrowLinkContainer>
+        </RowUnderLine>
+      )}
+    </Content>
   );
 };
 export default RelateMips;
@@ -87,7 +109,9 @@ const Content = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   padding: '16px',
   width: '620px',
   backgroundColor: isLight ? '#FFFFFF' : '#10191F',
-  boxShadow: isLight ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
+  boxShadow: isLight
+    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+    : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
   borderRadius: '6px',
   [lightTheme.breakpoints.between('table_375', 445)]: {
     width: '343px',
@@ -140,7 +164,7 @@ const ContainerIconTypography = styled.div({
   display: 'inline',
   alignItems: 'center',
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-    marginTop: '4px'
+    marginTop: '4px',
   },
 });
 

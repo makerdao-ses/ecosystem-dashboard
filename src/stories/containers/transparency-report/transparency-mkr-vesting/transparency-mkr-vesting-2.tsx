@@ -1,60 +1,24 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
-import { CardsWrapper, TableWrapper, Title } from '../transparency-report';
-import { InnerTable } from '../../../components/inner-table/inner-table';
 import { DateTime } from 'luxon';
 import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
-import { useTransparencyMkrVesting } from './transparency-mkr-vesting.mvvm';
-import { NumberCell } from '../../../components/number-cell/number-cell';
-import { TransparencyCard } from '../../../components/transparency-card/transparency-card';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
 import { CustomPopover } from '../../../components/custom-popover/custom-popover';
-import { TextCell } from '../../../components/text-cell/text-cell';
+import { useTransparencyMkrVesting2 } from './transparency-mkr-vesting-2.mvvm';
+import { AdvancedInnerTable } from '../../../components/advanced-inner-table/advanced-inner-table';
+import { Title } from '../transparency-report';
 
 interface TransparencyMkrVestingProps {
   currentMonth: DateTime;
   budgetStatements: BudgetStatementDto[];
 }
 
-const headers = [
-  'Vesting Date',
-  'MKR Amount',
-  'Last month',
-  'difference',
-  'reason(s)',
-];
-
-export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
-  const { mkrVestings, totalAmount, totalOldAmount, FTEs } =
-    useTransparencyMkrVesting(props.currentMonth, props.budgetStatements);
+export const TransparencyMkrVesting2 = (props: TransparencyMkrVestingProps) => {
+  const { mainTableItems, mainTableColumns, FTEs } = useTransparencyMkrVesting2(
+    props.currentMonth,
+    props.budgetStatements
+  );
   const isLight = useThemeContext().themeMode === 'light';
-
-  const items = useMemo(() => {
-    const result: JSX.Element[][] = [];
-
-    mkrVestings?.forEach((mkr) => {
-      result.push([
-        <TextCell>{mkr.vestingDate}</TextCell>,
-        <NumberCell value={mkr.mkrAmount} />,
-        <NumberCell value={mkr.mkrAmountOld} />,
-        <NumberCell value={Number(mkr.mkrAmount) - Number(mkr.mkrAmountOld)} />,
-        <TextCell style={{ paddingLeft: '36px' }}>{mkr.comments}</TextCell>,
-      ]);
-    });
-
-    result.push([
-      <TextCell>
-        <b>Total</b>
-      </TextCell>,
-      <NumberCell value={Number(totalAmount)} bold />,
-      <NumberCell value={Number(totalOldAmount)} bold />,
-      <NumberCell value={Number(totalAmount) - Number(totalOldAmount)} bold />,
-      <TextCell />,
-    ]);
-
-    return result;
-  }, [props.currentMonth, props.budgetStatements]);
 
   return (
     <Container>
@@ -75,35 +39,13 @@ export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
           </TotalFte>
         </CustomPopover>
       </ContainerPopover>
-      {items.length - 1 <= 0
-        ? (
-        <TransparencyEmptyTable />
-          )
-        : (
+      <AdvancedInnerTable
+        columns={mainTableColumns}
+        items={mainTableItems}
+      />
+      {mainTableItems.length > 0 && (
         <>
-          <TableWrapper>
-            <InnerTable
-              headers={headers}
-              headersAlign={['left', 'right', 'right', 'right', 'left']}
-              headerStyles={[{}, {}, {}, {}, { paddingLeft: '38px' }]}
-              items={items}
-              minWidth={200}
-              headerWidths={['200px', '210px', '210px', '210px', '354px']}
-              style={{ marginBottom: '32px' }}
-            />
-          </TableWrapper>
-
-          <CardsWrapper>
-            {items.map((item) => (
-              <TransparencyCard
-                header={item[0]}
-                headers={headers.slice(1)}
-                items={item.slice(1)}
-              />
-            ))}
-          </CardsWrapper>
-
-          <Text isLight={isLight}>
+          <Text isLight={isLight} style={{ marginTop: '32px' }}>
             This Overview is based on MIP40c3-SP17, SES’ MKR Incentive Proposal.
           </Text>
 
@@ -114,7 +56,7 @@ export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
             changes, Promotions, or Terminations.
           </Text>
         </>
-          )}
+      )}
     </Container>
   );
 };

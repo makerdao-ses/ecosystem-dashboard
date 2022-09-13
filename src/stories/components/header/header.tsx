@@ -142,11 +142,13 @@ const ContainerLogoSelect = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   '@media (min-width: 435px)': {
     paddingRight: '32px',
     marginRight: '32px',
-    paddingLeft: '32px',
   },
   '@media (min-width: 635px)': {
     width: '316px',
   },
+  '@media (min-width: 835px)': {
+    paddingLeft: '32px',
+  }
 }));
 
 const LogoContainer = styled.div({
@@ -172,9 +174,9 @@ const Navigation = styled.div({
 const RightPart = styled.div({
   display: 'flex',
   alignItems: 'center',
-  paddingRight: '16px',
-  '@media (min-width: 435px)': {
-    paddingRight: '32px',
+  paddingRight: '10px',
+  '@media (min-width: 835px)': {
+    paddingRight: '26px',
   }
 });
 
