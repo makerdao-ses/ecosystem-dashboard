@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { WalletTableCell } from '../../../components/wallet-table-cell/wallet-table-cell';
-import { TableCell } from '../../../components/table-cell/table-cell';
 import { CustomLink } from '../../../components/custom-link/custom-link';
 import { InnerTable } from '../../../components/inner-table/inner-table';
 import styled from '@emotion/styled';
@@ -13,6 +12,7 @@ import { formatAddressForOutput } from '../../../../core/utils/string.utils';
 import { CardsWrapper, TableWrapper } from '../transparency-report';
 import { TransparencyCard } from '../../../components/transparency-card/transparency-card';
 import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
+import { TextCell } from '../../../components/text-cell/text-cell';
 
 interface TransparencyTransferRequestProps {
   currentMonth: DateTime;
@@ -77,7 +77,7 @@ export const TransparencyTransferRequest = (
           key={4}
           value={getTransferRequestForMonthOnWallet(wallet?.address)}
         />,
-        <TableCell key={5} responsivePadding="0">
+        <TextCell key={5} responsivePadding="0">
           <CustomLink
             fontSize={16}
             fontFamily={'SF Pro Display, sans-serif'}
@@ -95,14 +95,14 @@ export const TransparencyTransferRequest = (
           >
             Gnosis
           </CustomLink>
-        </TableCell>,
+        </TextCell>,
       ]);
     });
 
     result.push([
-      <TableCell key={1}>
+      <TextCell key={1}>
         <b>Total</b>
-      </TableCell>,
+      </TextCell>,
       <NumberCell
         key={2}
         value={getForecastSumForMonths(

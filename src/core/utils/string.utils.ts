@@ -22,9 +22,9 @@ export const capitalizeWord = (word: string) => {
 };
 
 export const capitalizeSentence = (sentence: string) => {
-  const words = sentence.split(' ');
+  const words = sentence?.split(' ');
 
-  return words.map(w => capitalizeWord(w)).join(' ');
+  return words?.map(w => capitalizeWord(w)).join(' ');
 };
 
 export const formatNumber = (number: number) => {
