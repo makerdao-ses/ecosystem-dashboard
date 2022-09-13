@@ -35,7 +35,6 @@ interface Props {
   columns: InnerTableColumn[];
   items: InnerTableRow[];
   style?: React.CSSProperties;
-  responsiveTotalFirst?: boolean;
   cardsTotalPosition?: 'top' | 'bottom';
   tablePlaceholder?: JSX.Element;
 }
