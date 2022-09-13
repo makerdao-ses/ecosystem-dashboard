@@ -38,7 +38,7 @@ export const TransparencyForecast2 = (props: Props) => {
         columns={mainTableColumns}
         items={mainTableItems}
         style={{ marginBottom: '64px' }}
-        responsiveTotalFirst={true}
+        cardsTotalPosition={'top'}
       />
 
       <Title isLight={isLight} marginBottom={24} ref={breakdownTitleRef}>
