@@ -68,7 +68,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout, contributors }: Props) => 
     const queryStrings = buildQueryString({
       filteredStatuses,
       filteredCategories,
-      searchText
+      searchText,
     });
     router.push(`/core-unit/${code}/finances/reports${queryStrings}`);
   }, [filteredCategories, filteredStatuses, router, searchText, code]);
@@ -89,12 +89,8 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout, contributors }: Props) => 
             <MarkdownContainer>
               <MdViewerContainer
                 showButton={table834 || phone || LessPhone}
-                sentenceDescription={getMarkdownInformation(
-                  cuAbout.sentenceDescription
-                )}
-                paragraphDescription={getMarkdownInformation(
-                  cuAbout.paragraphDescription
-                )}
+                sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)}
+                paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)}
                 paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)}
                 onClick={onClickFinances}
               />
@@ -104,9 +100,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout, contributors }: Props) => 
               <TeamMember fte={getFTEsFromCoreUnit(cuAbout)} />
             </TeamMemberContainer>
             <ContactInfoContainer>
-              <ContactInfoTitle isLight={isLight}>
-                Contact Information
-              </ContactInfoTitle>
+              <ContactInfoTitle isLight={isLight}>Contact Information</ContactInfoTitle>
               <ContainerCards>
                 {contributors &&
                   contributors.map(
@@ -126,9 +120,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout, contributors }: Props) => 
               }}
             />
             <CardRelateMipsContainer>
-              <TitleRelateMips isLight={isLight}>
-                Related MIPs (Maker Improvement Proposals)
-              </TitleRelateMips>
+              <TitleRelateMips isLight={isLight}>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
               <RelateMipCards>
                 {relateMipsOrder.map((mip: unknown, index: number) => {
                   return (
@@ -138,9 +130,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout, contributors }: Props) => 
                   );
                 })}
                 {cuAbout?.cuMip?.length === 0 && (
-                  <ContainerNoRelateMIps>
-                    There are not related MIPs
-                  </ContainerNoRelateMIps>
+                  <ContainerNoRelateMIps>There are not related MIPs</ContainerNoRelateMIps>
                 )}
               </RelateMipCards>
             </CardRelateMipsContainer>
@@ -152,9 +142,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout, contributors }: Props) => 
                   }}
                 />{' '}
                 <BigButton
-                  title={
-                    showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'
-                  }
+                  title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'}
                   onClick={onClickLessMips}
                 />
                 <DividerStyle
@@ -174,9 +162,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout, contributors }: Props) => 
               </ButtonContainer>
             )}
             {(table834 || phone || LessPhone) && (
-              <CardSomeThingWrong
-                width={table834 || phone ? '770px' : 'fit-content'}
-              />
+              <CardSomeThingWrong width={table834 || phone ? '770px' : 'fit-content'} />
             )}
           </ContainerResponsive>
 
@@ -189,10 +175,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout, contributors }: Props) => 
               {isEnabled('FEATURE_CARD_NAVIGATION') && (
                 <ContainerScroll>
                   <ContainerCard>
-                    <CardExpenses
-                      onClick={onClickFinances}
-                      code={formatCode(cuAbout.code)}
-                    />
+                    <CardExpenses onClick={onClickFinances} code={formatCode(cuAbout.code)} />
                   </ContainerCard>
                   <ContainerCard>
                     <CardSomeThingWrong />
@@ -263,7 +246,7 @@ const TeamMemberTitle = styled.h2<{ isLight: boolean }>(({ isLight }) => ({
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     fontSize: '20px',
     lineHeight: '24px',
-    letterSpacing: '0.4px'
+    letterSpacing: '0.4px',
   },
 }));
 
@@ -289,7 +272,7 @@ const ContactInfoTitle = styled.h2<{ isLight: boolean }>(({ isLight }) => ({
     fontWeight: 700,
     fontSize: '16px',
     lineHeight: '19px',
-  }
+  },
 }));
 
 const ContainerCards = styled.div({

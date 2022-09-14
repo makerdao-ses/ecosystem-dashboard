@@ -4,7 +4,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { useRouter } from 'next/router';
 
 interface TabsProps {
-  items?: string[] | { item: string, id: string}[],
+  items?: { item: string, id: string}[],
   currentIndex: number,
   style?: CSSProperties
 }

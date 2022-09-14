@@ -8,16 +8,17 @@ interface TableCellProps {
   style?: CSSProperties;
   fontFamily?: string;
   responsivePadding?: string;
+  bold?: boolean;
 }
 
-export const TableCell = ({ responsivePadding = '10px 16px', ...props }: TableCellProps) => {
+export const TextCell = ({ responsivePadding = '10px 16px', ...props }: TableCellProps) => {
   const isLight = useThemeContext().themeMode === 'light';
-  return <Container isLight={isLight} fontFamily={props.fontFamily} style={props.style} negative={props.negative} responsivePadding={responsivePadding}>{props.children}</Container>;
+  return <Container bold={!!props.bold} isLight={isLight} fontFamily={props.fontFamily} style={props.style} negative={props.negative} responsivePadding={responsivePadding}>{props.children}</Container>;
 };
 
-const Container = styled.div<{ negative?: boolean, fontFamily?: string, responsivePadding?: string, isLight: boolean }>(({ negative = false, fontFamily = 'FT Base, sans-serif', responsivePadding, isLight }) => ({
+const Container = styled.div<{ bold: boolean, negative?: boolean, fontFamily?: string, responsivePadding?: string, isLight: boolean }>(({ negative = false, fontFamily = 'FT Base, sans-serif', responsivePadding, isLight, bold }) => ({
   fontFamily,
-  fontWeight: 400,
+  fontWeight: bold ? 700 : 400,
   lineHeight: '19px',
   padding: responsivePadding || '16px',
   color: isLight && negative ? '#F75524' : isLight && !negative ? '#231536' : !isLight && negative ? '#F75524' : '#D2D4EF',
