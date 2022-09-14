@@ -3,12 +3,13 @@ import React from 'react';
 import _ from 'lodash';
 
 import CuAboutContainer from '../../../src/stories/containers/cu-about/cu-about-container';
-import { CuAbout, fetchCoreUnitByCode } from '../../../src/stories/containers/cu-about/cu-about.api';
+import { fetchCoreUnitByCode } from '../../../src/stories/containers/cu-about/cu-about.api';
 import { fetchCoreUnits } from '../../../src/stories/components/core-unit-summary/core-unit-summary.mvvm';
+import { CoreUnitDto } from '../../../src/core/models/dto/core-unit.dto';
 
 const CoreUnitAboutPage: NextPage = ({ code, coreUnits, cuAbout, contributors }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
-    <CuAboutContainer code={code} coreUnits={coreUnits} cuAbout={cuAbout as CuAbout} contributors={contributors} />
+    <CuAboutContainer code={code} coreUnits={coreUnits} cuAbout={cuAbout as CoreUnitDto} contributors={contributors} />
   );
 };
 export default CoreUnitAboutPage;
