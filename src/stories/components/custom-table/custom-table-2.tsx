@@ -8,6 +8,7 @@ import { RootState } from '../../../core/store/store';
 import { selectCuTableHeadersSort, setSort } from '../../containers/cu-table/cu-table.slice';
 import { useAppDispatch } from '../../../core/hooks/hooks';
 import { SortEnum } from '../../../core/enums/sort.enum';
+import { renderCard } from '../../containers/cu-table/cu-table.renders';
 
 export interface CustomTableColumn {
   justifyContent?: string;
@@ -74,21 +75,30 @@ export const CustomTable2 = ({ ...props }: Props) => {
   const rows = props.loading ? new Array(10).fill(null) : props.items;
 
   return (
-    <TableContainer isLight={isLight}>
-      <Table>
-        {tableHead}
-        <TableBody isLight={isLight}>
-          {rows?.map((row, i) => (
-            <TableRow key={`row-${row?.key ?? i}`} isLight={isLight} isLoading={props.loading}>
-              {props.columns?.map((column) => (
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                <TableCell key={column?.header} onClick={() => column.onClick?.(row?.value)}>{column.cellRender?.(row?.value as any)}</TableCell>
+    <>
+      <TableWrapper>
+        <TableContainer isLight={isLight}>
+          <Table>
+            {tableHead}
+            <TableBody isLight={isLight}>
+              {rows?.map((row, i) => (
+                <TableRow key={`row-${row?.key ?? i}`} isLight={isLight} isLoading={props.loading}>
+                  {props.columns?.map((column) => (
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    <TableCell key={column?.header} onClick={() => column.onClick?.(row?.value)}>
+                      {column.cellRender?.(row?.value as any)}
+                    </TableCell>
+                  ))}
+                </TableRow>
               ))}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </TableWrapper>
+      <ListWrapper>
+        {rows?.map((row, i) => renderCard(row?.value, i))}
+      </ListWrapper>
+    </>
   );
 };
 
@@ -154,3 +164,18 @@ const TableCell = styled.div({
 const TableBody = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   background: isLight ? '#F7F8F966' : 'none',
 }));
+
+const TableWrapper = styled.div({
+  display: 'none',
+  '@media (min-width: 1180px)': {
+    display: 'flex',
+  },
+});
+
+const ListWrapper = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  '@media (min-width: 1180px)': {
+    display: 'none',
+  },
+});

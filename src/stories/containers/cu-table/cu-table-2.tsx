@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
-import sortBy from 'lodash/sortBy';
 import {
   getExpenditureValueFromCoreUnit,
   getFTEsFromCoreUnit,
@@ -12,7 +11,6 @@ import { SortEnum } from '../../../core/enums/sort.enum';
 import { sortAlphaNum } from '../../../core/utils/sort.utils';
 import { CustomButton } from '../../components/custom-button/custom-button';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
-import { CoreUnitCard } from '../../components/core-unit-card/core-unit-card';
 import { Filters } from './cu-table-filters';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CuTableHeaderSkeleton } from '../../components/cu-table-header-skeleton/header-skeleton';
@@ -58,19 +56,6 @@ export const CuTable2 = () => {
     columns,
     tableItems,
   } = useCoreUnitsTableMvvm();
-
-  const itemsList = useMemo(() => {
-    if (status === 'loading') {
-      const result = [];
-
-      for (let i = 0; i < 4; i++) {
-        result.push(<CoreUnitCard key={`card-placeholder-${i}`} coreUnit={{} as CoreUnitDto} isLoading />);
-      }
-
-      return result;
-    }
-    return sortBy(filteredData, 'name').map((cu) => <CoreUnitCard key={`card-${cu.code}`} coreUnit={cu} />);
-  }, [filteredData]);
 
   const siteHeader = useMemo(() => {
     if (status === 'loading') {
@@ -185,21 +170,6 @@ const Wrapper = styled.div({
   paddingBottom: '8px',
   '@media (min-width: 1180px) and (max-width:1280px)': {
     maxWidth: '1130px',
-  },
-});
-
-const TableWrapper = styled.div({
-  display: 'none',
-  '@media (min-width: 1180px)': {
-    display: 'flex',
-  },
-});
-
-const ListWrapper = styled.div({
-  display: 'flex',
-  flexDirection: 'column',
-  '@media (min-width: 1180px)': {
-    display: 'none',
   },
 });
 
