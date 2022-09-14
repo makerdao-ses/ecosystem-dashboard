@@ -4,7 +4,7 @@ import { CustomTableHeader } from '../custom-table-header/custom-table-header';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CustomTableHeaderSkeleton } from './custom-table-header.skeleton';
 import { SortEnum } from '../../../core/enums/sort.enum';
-import { renderCard } from '../../containers/cu-table/cu-table.renders';
+import { TablePlaceholder } from './placeholder';
 
 export interface CustomTableColumn {
   justifyContent?: string;
@@ -33,6 +33,7 @@ interface Props {
   sortState?: SortEnum[];
   handleSort?: (index: number) => void;
   headersSort?: SortEnum[];
+  renderCard?: (data: CustomTableRow, index: number) => JSX.Element;
 }
 
 export const CustomTable2 = ({ ...props }: Props) => {
@@ -66,6 +67,8 @@ export const CustomTable2 = ({ ...props }: Props) => {
     );
   }, [props.items, isLight, props.headersSort]);
 
+  if (!props.loading && props.items?.length === 0) return <TablePlaceholder />;
+
   const rows = props.loading ? new Array(10).fill(null) : props.items;
 
   return (
@@ -90,7 +93,7 @@ export const CustomTable2 = ({ ...props }: Props) => {
         </TableContainer>
       </TableWrapper>
       <ListWrapper>
-        {rows?.map((row, i) => renderCard(row?.value, i))}
+        {rows?.map((row, i) => props.renderCard?.(row, i))}
       </ListWrapper>
     </>
   );

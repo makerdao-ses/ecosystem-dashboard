@@ -18,7 +18,8 @@ import { SEOHead } from '../../components/seo-head/seo-head';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
 import lightTheme from '../../../../styles/theme/light';
 import { useCoreUnitsTableMvvm } from './cu-table-2.mvvm';
-import { CustomTable2 } from '../../components/custom-table/custom-table-2';
+import { CustomTable2, CustomTableRow } from '../../components/custom-table/custom-table-2';
+import { renderCard } from './cu-table.renders';
 
 export const sortData = (items: CoreUnitDto[]) => {
   const state = store.getState();
@@ -138,7 +139,14 @@ export const CuTable2 = () => {
       </SEOHead>
       <Wrapper>
         {siteHeader}
-        <CustomTable2 columns={columns} items={tableItems} loading={status === 'loading'} handleSort={onSortClick} headersSort={headersSort}/>
+        <CustomTable2
+          columns={columns}
+          items={tableItems}
+          loading={status === 'loading'}
+          handleSort={onSortClick}
+          headersSort={headersSort}
+          renderCard={(row: CustomTableRow, index: number) => renderCard(row?.value as CoreUnitDto, index)}
+        />
       </Wrapper>
     </ContainerHome>
   );

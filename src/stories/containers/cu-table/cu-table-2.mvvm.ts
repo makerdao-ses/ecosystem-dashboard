@@ -187,7 +187,6 @@ export const useCoreUnitsTableMvvm = () => {
       setSortColumn(-1);
     } else {
       sortNeutralState[index] = headersSort[index] + 1;
-      console.log(headersSort);
       setHeadersSort(sortNeutralState);
       setSortColumn(index);
     }
