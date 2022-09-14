@@ -1,12 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { BudgetStatementDto, ContributorCommitmentDto, CoreUnitDto, CuMipDto, RoadMapDto, SocialMediaChannelDto } from '../../../core/models/dto/core-unit.dto';
 import { RootState } from '../../../core/store/store';
-import {
-  ContributorCommitment,
-  CuAbout,
-  CuMip,
-  fetchCoreUnitByCode,
-  SocialMediaChannels,
-} from './cu-about.api';
+import { fetchCoreUnitByCode } from './cu-about.api';
 
 export enum status {
   idle = 'idle',
@@ -16,7 +11,7 @@ export enum status {
 }
 
 export interface CurrentCoreUnitAbout {
-  cuAbout: CuAbout;
+  cuAbout: CoreUnitDto;
   statusCoreUnit: status;
   error: null;
 }
@@ -26,6 +21,7 @@ export const initialState: CurrentCoreUnitAbout = {
   statusCoreUnit: status.idle,
   cuAbout: {
     shortCode: '',
+    roadMap: [] as RoadMapDto[],
     id: '',
     name: '',
     code: '',
@@ -34,20 +30,11 @@ export const initialState: CurrentCoreUnitAbout = {
     paragraphDescription: '',
     sentenceDescription: '',
     paragraphImage: '',
-    cuMip: [] as CuMip[],
-    budgetStatements: [
-      {
-        budgetStatementFTEs: [
-          {
-            ftes: 0,
-            month: '',
-          },
-        ],
-      },
-    ],
-    contributorCommitment: [] as ContributorCommitment[],
-    socialMediaChannels: [] as SocialMediaChannels[],
-  } as CuAbout,
+    cuMip: [] as CuMipDto[],
+    budgetStatements: [] as BudgetStatementDto[],
+    contributorCommitment: [] as ContributorCommitmentDto[],
+    socialMediaChannels: [] as SocialMediaChannelDto[],
+  } as CoreUnitDto,
 };
 
 export const loadCoreUnitAbout = createAsyncThunk(
