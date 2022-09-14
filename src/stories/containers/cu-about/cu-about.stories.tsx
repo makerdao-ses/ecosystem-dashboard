@@ -6,8 +6,8 @@ import { configureStore, createSlice } from '@reduxjs/toolkit';
 import { CurrentCoreUnitAbout, initialState } from './cu-about-slice';
 import { initialState as cuTableInitialState } from '../../containers/cu-table/cu-table.stories.states';
 import { HeaderWrapper } from '../dashboard-wrapper/header-wrapper';
-import { CuAbout } from './cu-about.api';
 import { SummarizedCoreUnit } from '../../components/core-unit-summary/core-unit-summary.mvvm';
+import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 export default {
   title: 'Containers/CuAboutContainer',
@@ -17,7 +17,12 @@ export default {
   },
 } as ComponentMeta<typeof CuAboutContainer>;
 const Template: ComponentStory<typeof CuAboutContainer> = () => (
-  <CuAboutContainer code="SES-01" contributors={[]} coreUnits={[] as SummarizedCoreUnit[]} cuAbout={{} as CuAbout} />
+  <CuAboutContainer
+    code="SES-01"
+    contributors={[]}
+    coreUnits={[] as SummarizedCoreUnit[]}
+    cuAbout={{} as CoreUnitDto}
+  />
 );
 export const CuAboutPage = Template.bind({});
 
@@ -41,12 +46,14 @@ const MockedState: CurrentCoreUnitAbout = initialState;
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 // eslint-disable-next-line react/prop-types
-const Mockstore = ({ children }) => (
-  <Provider store={store}>{children}</Provider>
-);
+const Mockstore = ({ children }) => <Provider store={store}>{children}</Provider>;
 CuAboutPage.decorators = [
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  (story) => <HeaderWrapper><Mockstore cuAbout={MockedState}>{story()}</Mockstore></HeaderWrapper>,
+  (story) => (
+    <HeaderWrapper>
+      <Mockstore cuAbout={MockedState}>{story()}</Mockstore>
+    </HeaderWrapper>
+  ),
 ];
 CuAboutPage.args = {};
