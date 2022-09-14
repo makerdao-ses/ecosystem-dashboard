@@ -3,10 +3,6 @@ import styled from '@emotion/styled';
 import { CustomTableHeader } from '../custom-table-header/custom-table-header';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CustomTableHeaderSkeleton } from './custom-table-header.skeleton';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../core/store/store';
-import { selectCuTableHeadersSort, setSort } from '../../containers/cu-table/cu-table.slice';
-import { useAppDispatch } from '../../../core/hooks/hooks';
 import { SortEnum } from '../../../core/enums/sort.enum';
 import { renderCard } from '../../containers/cu-table/cu-table.renders';
 
@@ -35,14 +31,12 @@ interface Props {
   items?: CustomTableRow[];
   loading?: boolean;
   sortState?: SortEnum[];
+  handleSort?: (index: number) => void;
+  headersSort?: SortEnum[];
 }
 
 export const CustomTable2 = ({ ...props }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
-  const dispatch = useAppDispatch();
-
-  const headersSort = useSelector((state: RootState) => selectCuTableHeadersSort(state));
-  const handleSort = (index: number) => dispatch(setSort(index));
 
   const tableHead = useMemo(() => {
     if (props.loading) {
@@ -57,12 +51,12 @@ export const CustomTable2 = ({ ...props }: Props) => {
               style={{
                 justifyContent: column.justifyContent,
               }}
-              onClick={() => handleSort(i)}
+              onClick={() => props.handleSort?.(i)}
             >
               <CustomTableHeader
                 style={column.style}
                 align={column.headerAlign}
-                state={headersSort[i]}
+                state={props.headersSort?.[i] ?? SortEnum.Neutral}
                 title={column.header ?? ''}
               />
             </TableCell>
@@ -70,7 +64,7 @@ export const CustomTable2 = ({ ...props }: Props) => {
         </TableHeadRow>
       </TableHead>
     );
-  }, [props.items, isLight]);
+  }, [props.items, isLight, props.headersSort]);
 
   const rows = props.loading ? new Array(10).fill(null) : props.items;
 

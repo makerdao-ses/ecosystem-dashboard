@@ -406,7 +406,7 @@ export const useTransparencyForecastMvvm2 = (
 
     let emptyWallets = 0;
 
-    wallets.forEach((wallet, i) => {
+    wallets.forEach((wallet) => {
       const numberCellData = [
         getForecastForMonthOnWalletOnBudgetStatement(
           propBudgetStatements,

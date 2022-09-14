@@ -55,6 +55,8 @@ export const CuTable2 = () => {
     searchText,
     columns,
     tableItems,
+    onSortClick,
+    headersSort
   } = useCoreUnitsTableMvvm();
 
   const siteHeader = useMemo(() => {
@@ -136,7 +138,7 @@ export const CuTable2 = () => {
       </SEOHead>
       <Wrapper>
         {siteHeader}
-        <CustomTable2 columns={columns} items={tableItems} loading={status === 'loading'} />
+        <CustomTable2 columns={columns} items={tableItems} loading={status === 'loading'} handleSort={onSortClick} headersSort={headersSort}/>
       </Wrapper>
     </ContainerHome>
   );

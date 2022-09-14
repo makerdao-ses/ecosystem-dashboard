@@ -1,14 +1,17 @@
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { getLatestMip39FromCoreUnit } from '../../../core/business-logic/core-units';
+import {
+  getExpenditureValueFromCoreUnit,
+  getFTEsFromCoreUnit,
+  getLatestMip39FromCoreUnit,
+  getLinksFromCoreUnit,
+} from '../../../core/business-logic/core-units';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { useAppDispatch } from '../../../core/hooks/hooks';
-import { RootState } from '../../../core/store/store';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
 import { buildQueryString } from '../../../core/utils/url.utils';
-import { loadCuTableItemsAsync, selectCuTableHeadersSort, selectCuTableSortColumn } from './cu-table.slice';
+import { loadCuTableItemsAsync } from './cu-table.slice';
 import isEmpty from 'lodash/isEmpty';
 import request from 'graphql-request';
 import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
@@ -17,6 +20,8 @@ import useSWR from 'swr';
 import { CustomTableColumn, CustomTableRow } from '../../components/custom-table/custom-table-2';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { renderExpenditures, renderLinks, renderSummary, renderTeamMember } from './cu-table.renders';
+import { SortEnum } from '../../../core/enums/sort.enum';
+import { sortAlphaNum } from '../../../core/utils/sort.utils';
 
 export const useCoreUnitsTableMvvm = () => {
   const dispatch = useAppDispatch();
@@ -34,8 +39,14 @@ export const useCoreUnitsTableMvvm = () => {
   const data = res?.coreUnits ?? null;
   const status = !data && !error ? 'loading' : data ? 'success' : 'idle';
 
-  const sortColumn = useSelector((state: RootState) => selectCuTableSortColumn(state));
-  const headersSort = useSelector((state: RootState) => selectCuTableHeadersSort(state));
+  const [sortColumn, setSortColumn] = useState<number>(0);
+  const [headersSort, setHeadersSort] = useState<SortEnum[]>([
+    SortEnum.Asc,
+    SortEnum.Neutral,
+    SortEnum.Neutral,
+    SortEnum.Neutral,
+  ]);
+
   const [filtersPopup, setFiltersPopup] = useState(false);
 
   const toggleFiltersPopup = () => {
@@ -144,12 +155,43 @@ export const useCoreUnitsTableMvvm = () => {
     },
   ];
 
+  const sortData = (items: CoreUnitDto[]) => {
+    if (headersSort[sortColumn] === SortEnum.Disabled) return items;
+
+    const multiplier = headersSort[sortColumn] === SortEnum.Asc ? 1 : -1;
+    const nameSort = (a: CoreUnitDto, b: CoreUnitDto) => sortAlphaNum(a.name, b.name) * multiplier;
+    const expendituresSort = (a: CoreUnitDto, b: CoreUnitDto) =>
+      (getExpenditureValueFromCoreUnit(a) - getExpenditureValueFromCoreUnit(b)) * multiplier;
+    const teamMembersSort = (a: CoreUnitDto, b: CoreUnitDto) =>
+      (getFTEsFromCoreUnit(a) - getFTEsFromCoreUnit(b)) * multiplier;
+    const linksSort = (a: CoreUnitDto, b: CoreUnitDto) =>
+      (getLinksFromCoreUnit(a).length - getLinksFromCoreUnit(b).length) * multiplier;
+
+    const sortAlg = [nameSort, expendituresSort, teamMembersSort, linksSort];
+    return [...items].sort(sortAlg[sortColumn]);
+  };
+
   const tableItems: CustomTableRow[] = useMemo(() => {
-    return data?.map((x: CoreUnitDto) => ({
+    const sortedData = sortData(filteredData);
+    return sortedData?.map((x: CoreUnitDto) => ({
       value: x,
       key: x.code,
     }));
-  }, [data]);
+  }, [data, sortColumn, headersSort, filteredCategories, filteredStatuses, searchText]);
+
+  const onSortClick = (index: number) => {
+    const sortNeutralState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral];
+
+    if (headersSort[index] === 3) {
+      setHeadersSort(sortNeutralState);
+      setSortColumn(-1);
+    } else {
+      sortNeutralState[index] = headersSort[index] + 1;
+      console.log(headersSort);
+      setHeadersSort(sortNeutralState);
+      setSortColumn(index);
+    }
+  };
 
   return {
     onClickFinances,
@@ -167,6 +209,7 @@ export const useCoreUnitsTableMvvm = () => {
     filteredCategories,
     searchText,
     columns,
-    tableItems
+    tableItems,
+    onSortClick,
   };
 };
