@@ -8,7 +8,6 @@ import { RootState } from '../../../core/store/store';
 import { selectCuTableHeadersSort, setSort } from '../../containers/cu-table/cu-table.slice';
 import { useAppDispatch } from '../../../core/hooks/hooks';
 import { SortEnum } from '../../../core/enums/sort.enum';
-import { arrayBuffer } from 'stream/consumers';
 
 export interface CustomTableColumn {
   justifyContent?: string;
