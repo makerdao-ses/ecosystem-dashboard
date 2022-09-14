@@ -12,11 +12,10 @@ import {
 import { CuStatusEnum } from '../enums/cu-status.enum';
 import { RoadmapStatusEnum } from '../enums/roadmap-status.enum';
 import { CustomChartItemModel } from '../models/custom-chart-item.model';
-import { CuAbout, CuMip } from '../../stories/containers/cu-about/cu-about.api';
 import _ from 'lodash';
 import { API_MONTH_FORMAT } from '../utils/date.utils';
 
-export const setCuMipStatusModifiedDate = (mip: CuMipDto | CuMip, status: CuStatusEnum, date: string) => {
+export const setCuMipStatusModifiedDate = (mip: CuMipDto, status: CuStatusEnum, date: string) => {
   let index = status.toLowerCase();
 
   if (status === CuStatusEnum.FormalSubmission) index = 'formalSubmission';
@@ -25,7 +24,7 @@ export const setCuMipStatusModifiedDate = (mip: CuMipDto | CuMip, status: CuStat
   mip[index] = date;
 };
 
-export const getCuMipStatusModifiedDate = (mip: CuMipDto | CuMip | null, status: CuStatusEnum | string) => {
+export const getCuMipStatusModifiedDate = (mip: CuMipDto, status: CuStatusEnum) => {
   if (!mip) return '';
   let index = status.toLowerCase();
   if (status === CuStatusEnum.FormalSubmission) index = 'formalSubmission';
@@ -118,7 +117,7 @@ const getLatestBudgetStatementWithFTE = (budgetStatements: BudgetStatementDto[])
   return filtered.length ? filtered[filtered.length - 1] : null;
 };
 
-export const getFTEsFromCoreUnit = (cu: CoreUnitDto | CuAbout) => {
+export const getFTEsFromCoreUnit = (cu: CoreUnitDto) => {
   if (cu.budgetStatements?.length === 0) return 0;
 
   return getLatestBudgetStatementWithFTE(cu.budgetStatements as BudgetStatementDto[])?.budgetStatementFTEs[0]?.ftes ?? 0;
