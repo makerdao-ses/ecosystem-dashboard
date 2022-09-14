@@ -11,7 +11,8 @@ export interface InnerTableColumn {
   align?: string;
   header?: string;
   type?: 'number' | 'text' | 'custom';
-  cellRender?: (data: never) => JSX.Element;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  cellRender?: (data: any) => JSX.Element;
   headerAlign?: string;
   isCardHeader?: boolean;
   isCardFooter?: boolean;
@@ -66,7 +67,8 @@ export const AdvancedInnerTable = ({
         return <TextCell key={column.header} bold={isBold}>{value as string}</TextCell>;
       case 'custom':
         if (column?.cellRender) {
-          return column?.cellRender(value as never);
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          return column?.cellRender(value as any);
         }
     }
 
@@ -117,7 +119,8 @@ export const AdvancedInnerTable = ({
                         key={`${i}-${j}`}
                         textAlign={(item.column?.align ?? 'left') as Alignment}
                       >
-                        {getCell(item.column, row.type, item.value as never)}
+                        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                        {getCell(item.column, row.type, item.value as any)}
                       </TableCell>
                     ))}
                 </tr>
