@@ -50,10 +50,6 @@ const Mockstore = ({ children }) => <Provider store={store}>{children}</Provider
 CuAboutPage.decorators = [
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  (story) => (
-    <HeaderWrapper>
-      <Mockstore cuAbout={MockedState}>{story()}</Mockstore>
-    </HeaderWrapper>
-  ),
+  (story) => <HeaderWrapper children={<Mockstore cuAbout={MockedState}>{story()}</Mockstore>} />,
 ];
 CuAboutPage.args = {};
