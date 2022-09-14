@@ -1,15 +1,16 @@
-import { CuMip } from '../../../../stories/containers/cu-about/cu-about.api';
 import { CuStatusEnum } from '../../../enums/cu-status.enum';
+import { CuMipDto } from '../../../models/dto/core-unit.dto';
 import { setCuMipStatusModifiedDate } from '../../core-units';
 
 export class CuMipAboutBuilder {
-  private readonly _cuMip: CuMip;
+  private readonly _cuMip: CuMipDto;
 
   constructor() {
     this._cuMip = {
       mipTitle: '',
       mipCode: '',
       cuId: '',
+      dateMip: new Date(),
       rfc: '',
       formalSubmission: '',
       accepted: '',
@@ -17,7 +18,9 @@ export class CuMipAboutBuilder {
       obsolete: '',
       mipStatus: '' as CuStatusEnum,
       mipUrl: '',
-    } as CuMip;
+      mip40: [],
+      mip41: [],
+    } as CuMipDto;
   }
 
   withStatus(status: CuStatusEnum, date: string): CuMipAboutBuilder {
@@ -26,7 +29,7 @@ export class CuMipAboutBuilder {
     return this;
   }
 
-  build(): CuMip {
+  build(): CuMipDto {
     return this._cuMip;
   }
 }
