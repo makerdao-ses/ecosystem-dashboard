@@ -1,5 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { BudgetStatementDto, ContributorCommitmentDto, CoreUnitDto, CuMipDto, RoadMapDto, SocialMediaChannelDto } from '../../../core/models/dto/core-unit.dto';
+import {
+  BudgetStatementDto,
+  ContributorCommitmentDto,
+  CoreUnitDto,
+  RoadMapDto,
+  SocialMediaChannelDto,
+} from '../../../core/models/dto/core-unit.dto';
 import { RootState } from '../../../core/store/store';
 import { fetchCoreUnitByCode } from './cu-about.api';
 
@@ -20,29 +26,26 @@ export const initialState: CurrentCoreUnitAbout = {
   error: null,
   statusCoreUnit: status.idle,
   cuAbout: {
-    shortCode: '',
-    roadMap: [] as RoadMapDto[],
     id: '',
-    name: '',
+    shortCode: '',
     code: '',
+    name: '',
     image: '',
-    category: [],
     paragraphDescription: '',
-    sentenceDescription: '',
     paragraphImage: '',
-    cuMip: [] as CuMipDto[],
+    sentenceDescription: '',
+    category: [],
+    cuMip: [],
+    roadMap: [] as RoadMapDto[],
+    socialMediaChannels: [] as SocialMediaChannelDto[],
     budgetStatements: [] as BudgetStatementDto[],
     contributorCommitment: [] as ContributorCommitmentDto[],
-    socialMediaChannels: [] as SocialMediaChannelDto[],
-  } as CoreUnitDto,
+  },
 };
 
-export const loadCoreUnitAbout = createAsyncThunk(
-  'CoreUnit/loadCoreUnitABout',
-  (coreUnitId: string) => {
-    return fetchCoreUnitByCode(coreUnitId);
-  }
-);
+export const loadCoreUnitAbout = createAsyncThunk('CoreUnit/loadCoreUnitABout', (coreUnitId: string) => {
+  return fetchCoreUnitByCode(coreUnitId);
+});
 
 export const cuAboutSlice = createSlice({
   name: 'cuAbout',
