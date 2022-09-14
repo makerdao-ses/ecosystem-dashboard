@@ -4,12 +4,9 @@ import { Typography, useMediaQuery } from '@mui/material';
 import { DateTime } from 'luxon';
 import {
   CuTableColumnLinks,
-  LinkModel,
 } from '../cu-table-column-links/cu-table-column-links';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { StatusChip } from '../status-chip/status-chip';
-import { CuMip } from '../../containers/cu-about/cu-about.api';
-import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
 import { CategoryChip } from '../category-chip/category-chip';
 import {
   getMipsStatus,
@@ -17,91 +14,18 @@ import {
 } from '../../../core/business-logic/core-unit-about';
 import _ from 'lodash';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
-import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import { CoreUnitDto, CuMipDto } from '../../../core/models/dto/core-unit.dto';
 import { formatCode } from '../../../core/utils/string.utils';
 import { CustomLink } from '../custom-link/custom-link';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { getLatestMip39FromCoreUnit, getSubmissionDateFromCuMip } from '../../../core/business-logic/core-units';
+import { getLatestMip39FromCoreUnit, getLinksFromCoreUnit, getSubmissionDateFromCuMip } from '../../../core/business-logic/core-units';
 import { SummarizedCoreUnit } from '../core-unit-summary/core-unit-summary.mvvm';
 
-interface BudgetStatementFTEs {
-  month: string;
-  ftes: number;
-}
-
-interface BudgetStatement {
-  budgetStatementFTEs: BudgetStatementFTEs[];
-}
-export interface SocialMediaChannels {
-  cuCode: string;
-  forumTag: string;
-  twitter: string;
-  youtube: string;
-  discord: string;
-  linkedIn: string;
-  website: string;
-}
-
-export interface CoreUnit {
-  code: string;
-  name: string;
-  image: string;
-  category: [];
-  cuMip: CuMip[];
-  budgetStatements: BudgetStatement[];
-  socialMediaChannels: SocialMediaChannels[];
-  contributorCommitment: [];
-  cuGithubContribution: [];
-  roadMap: [];
-}
 interface Props {
   coreUnitAbout?: SummarizedCoreUnit;
   hiddenTextDescription?: boolean;
 }
-
-export const getLinksCoreUnit = (cu: CoreUnitDto) => {
-  const links: LinkModel[] = [];
-  if (cu.socialMediaChannels.length === 0) return links;
-  const cont = cu.socialMediaChannels[0];
-  if (cont.website) {
-    links.push({
-      linkType: LinkTypeEnum.WWW,
-      href: cont.website,
-    });
-  }
-  if (cont.forumTag) {
-    links.push({
-      linkType: LinkTypeEnum.Forum,
-      href: cont.forumTag,
-    });
-  }
-  if (cont.discord) {
-    links.push({
-      linkType: LinkTypeEnum.Discord,
-      href: cont.discord,
-    });
-  }
-  if (cont.twitter) {
-    links.push({
-      linkType: LinkTypeEnum.Twitter,
-      href: cont.twitter,
-    });
-  }
-  if (cont.youtube) {
-    links.push({
-      linkType: LinkTypeEnum.Youtube,
-      href: cont.youtube,
-    });
-  }
-  if (cont.linkedIn) {
-    links.push({
-      linkType: LinkTypeEnum.LinkedIn,
-      href: cont.linkedIn,
-    });
-  }
-  return links;
-};
 
 export const TitleNavigationCuAbout = ({
   coreUnitAbout,
@@ -120,7 +44,7 @@ export const TitleNavigationCuAbout = ({
     getRelateMipObjectFromCoreUnit(mip)
   );
   const orderMips = _.sortBy(buildNewArray, ['orderBy', 'dateMip']).reverse();
-  const mips = getMipsStatus(orderMips[0] as CuMip);
+  const mips = getMipsStatus(orderMips[0] as CuMipDto);
   const mipStatus = getLatestMip39FromCoreUnit(coreUnitAbout as CoreUnitDto)?.mipStatus as CuStatusEnum;
   const newDate = getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnitAbout as CoreUnitDto));
 
@@ -218,7 +142,7 @@ export const TitleNavigationCuAbout = ({
           {(phoneDimensions || lessPhone || tableDimensions) && hiddenTextDescription && (
             <ContainerLinks>
               <CuTableColumnLinks
-                links={getLinksCoreUnit(coreUnitAbout as CoreUnitDto)}
+                links={getLinksFromCoreUnit(coreUnitAbout as CoreUnitDto)}
                 fill="#708390"
                 align="flex-start"
                 spacings={16}
@@ -231,7 +155,7 @@ export const TitleNavigationCuAbout = ({
       {!(phoneDimensions || lessPhone || tableDimensions) && (
         <ContainerLinks>
           <CuTableColumnLinks
-            links={getLinksCoreUnit(coreUnitAbout as CoreUnitDto)}
+            links={getLinksFromCoreUnit(coreUnitAbout as CoreUnitDto)}
             fill="#708390"
             spacings={16}
             fillDark="#ADAFD4"

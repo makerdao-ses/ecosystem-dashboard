@@ -10,10 +10,9 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { ContributorCommitmentDto } from '../../../core/models/dto/core-unit.dto';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
-import { ContributorCommitment } from '../../containers/cu-about/cu-about.api';
 
 interface Props {
-  contributorCommitment: ContributorCommitment | ContributorCommitmentDto;
+  contributorCommitment: ContributorCommitmentDto;
 }
 
 const CardInfoMember = ({ contributorCommitment }: Props) => {

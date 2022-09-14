@@ -5,7 +5,6 @@ import { DateTime } from 'luxon';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { StatusChip } from '../status-chip/status-chip';
-import { CuMip } from '../../containers/cu-about/cu-about.api';
 import ExternalLinkArrow from '../svg/external-link-arrow';
 import { getMipTitle } from '../../../core/utils/string.utils';
 import { getMipsStatus } from '../../../core/business-logic/core-unit-about';
@@ -22,7 +21,7 @@ export type RelateMipType = {
 }
 
 interface Props {
-  relateMips: CuMip | CuMipDto
+  relateMips: CuMipDto
 }
 
 const RelateMips = ({ relateMips }: Props) => {
