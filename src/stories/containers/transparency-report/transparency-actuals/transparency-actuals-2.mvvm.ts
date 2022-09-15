@@ -291,7 +291,7 @@ export const useTransparencyActualsMvvm2 = (
               value: budgetTotalPayment,
             },
           ],
-          // hideMobile: result.length < 2
+          hideMobile: result.length < 2,
         });
       }
     }
