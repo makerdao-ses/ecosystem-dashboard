@@ -22,8 +22,6 @@ import { SEOHead } from '../../components/seo-head/seo-head';
 import { buildQueryString, toAbsoluteURL } from '../../../core/utils/url.utils';
 import MdViewerContainer from '../../components/markdown/md-view-container';
 import { ContributorCommitmentDto, CoreUnitDto, CuMipDto } from '../../../core/models/dto/core-unit.dto';
-// import { SummarizedCoreUnit } from '../../components/core-unit-summary/core-unit-summary.mvvm';
-
 interface Props {
   coreUnits: CoreUnitDto[];
   cuAbout: CoreUnitDto;
