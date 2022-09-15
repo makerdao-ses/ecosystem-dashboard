@@ -27,7 +27,7 @@ export const TransparencyTransferRequest2 = (
         columns={mainTableColumns}
         items={mainTableItems}
         style={{ marginBottom: '64px' }}
-        responsiveTotalFirst={true}
+        cardsTotalPosition={'top'}
       />
     </Container>
   );
