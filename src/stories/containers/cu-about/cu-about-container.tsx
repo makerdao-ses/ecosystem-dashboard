@@ -25,13 +25,12 @@ import MdViewerContainer from '../../components/markdown/md-view-container';
 import { ContributorCommitmentDto, CoreUnitDto, CuMipDto } from '../../../core/models/dto/core-unit.dto';
 
 interface Props {
-  coreUnits: SummarizedCoreUnit[],
+  coreUnits: SummarizedCoreUnit[];
   cuAbout: CoreUnitDto;
   code: string;
-  contributors: ContributorCommitmentDto[]
 }
 
-const CuAboutContainer = ({ code, coreUnits, cuAbout, contributors }: Props) => {
+const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
   const [isEnabled] = useFlagsActive();
   const isLight = useThemeContext().themeMode === 'light';
   const router = useRouter();
@@ -102,16 +101,14 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout, contributors }: Props) => 
             <ContactInfoContainer>
               <ContactInfoTitle isLight={isLight}>Contact Information</ContactInfoTitle>
               <ContainerCards>
-                {contributors &&
-                  contributors.map(
-                    (contributor: ContributorCommitmentDto, index: number) => {
-                      return (
-                        <CardInfoContainer key={index}>
-                          <CardInfoMember contributorCommitment={contributor} />
-                        </CardInfoContainer>
-                      );
-                    }
-                  )}
+                {cuAbout &&
+                  cuAbout.contributorCommitment?.map((contributor: ContributorCommitmentDto, index: number) => {
+                    return (
+                      <CardInfoContainer key={index}>
+                        <CardInfoMember contributorCommitment={contributor} />
+                      </CardInfoContainer>
+                    );
+                  })}
               </ContainerCards>
             </ContactInfoContainer>
             <Divider
