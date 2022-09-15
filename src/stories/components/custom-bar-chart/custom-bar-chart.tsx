@@ -126,10 +126,10 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
       >
 
         {description?.actual !== '0'
-          ? <Container lvlexpenditure={getExpenditureLevel(parseFloat((description?.actual || '0').replace(/,/, '.')), parseFloat((description?.budgetCap || '0').replace(/,/, '.'))) as ExpenditureLevel} isLight={isLight}>
+          ? <Container levelExpenditure={getExpenditureLevel(parseFloat((description?.actual || '0').replace(/,/, '.')), parseFloat((description?.budgetCap || '0').replace(/,/, '.'))) as ExpenditureLevel} isLight={isLight}>
             <Row style={{ marginBottom: '16px' }}>
               <StyleTypography>{description?.month}</StyleTypography>
-              <StyleLevelExpenditure isLight={isLight} lvlexpenditure={getExpenditureLevel(parseFloat((description?.actual || '0').replace(/,/, '.')), parseFloat((description?.budgetCap || '0').replace(/,/, '.'))) as ExpenditureLevel}>{getExpenditureLevel(parseFloat((description?.actual || '0').replace(/,/, '.')), parseFloat((description?.budgetCap || '0').replace(/,/, '.')))}</StyleLevelExpenditure>
+              <StyleLevelExpenditure isLight={isLight} levelExpenditure={getExpenditureLevel(parseFloat((description?.actual || '0').replace(/,/, '.')), parseFloat((description?.budgetCap || '0').replace(/,/, '.'))) as ExpenditureLevel}>{getExpenditureLevel(parseFloat((description?.actual || '0').replace(/,/, '.')), parseFloat((description?.budgetCap || '0').replace(/,/, '.')))}</StyleLevelExpenditure>
             </Row>
             <Row style={{ marginBottom: '4px' }}>
               <TypographyValue isLight={isLight}>{description?.budgetCap}</TypographyValue>
@@ -206,14 +206,14 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
   );
 };
 
-const Container = styled.div<{ lvlexpenditure?: ExpenditureLevel, isLight?: boolean }>(({ lvlexpenditure, isLight }) => ({
+const Container = styled.div<{ levelExpenditure?: ExpenditureLevel, isLight?: boolean }>(({ levelExpenditure, isLight }) => ({
   padding: '16px',
   borderRadius: '6px',
   width: '202px',
   height: '102px',
   border: isLight
-    ? (lvlexpenditure === ExpenditureLevel.LOW || lvlexpenditure === ExpenditureLevel.OPTIMAL ? '1px solid #6EDBD0' : lvlexpenditure === ExpenditureLevel.STRETCHED ? '1px solid #FEDB88' : lvlexpenditure === ExpenditureLevel.OVERBUDGET ? '1px solid #F99374' : 'none')
-    : lvlexpenditure === ExpenditureLevel.LOW || lvlexpenditure === ExpenditureLevel.OPTIMAL ? '1px solid rgba(0, 237, 24, 0.4)' : lvlexpenditure === ExpenditureLevel.STRETCHED ? '1px solid rgba(255, 130, 55, 0.4)' : lvlexpenditure === ExpenditureLevel.OVERBUDGET ? '1px solid rgba(255, 64, 133, 0.4)' : 'none',
+    ? (levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL ? '1px solid #6EDBD0' : levelExpenditure === ExpenditureLevel.STRETCHED ? '1px solid #FEDB88' : levelExpenditure === ExpenditureLevel.OVERBUDGET ? '1px solid #F99374' : 'none')
+    : levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL ? '1px solid rgba(0, 237, 24, 0.4)' : levelExpenditure === ExpenditureLevel.STRETCHED ? '1px solid rgba(255, 130, 55, 0.4)' : levelExpenditure === ExpenditureLevel.OVERBUDGET ? '1px solid rgba(255, 64, 133, 0.4)' : 'none',
 }));
 
 const Row = styled.div({
@@ -234,21 +234,21 @@ const StyleTypography = styled(Typography, { shouldForwardProp: (prop) => prop !
   color: '#9FAFB9'
 });
 
-const StyleLevelExpenditure = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ levelExpenditure: ExpenditureLevel, isLight?: boolean }>(({ levelExpenditure, isLight }) => ({
+const StyleLevelExpenditure = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' && prop !== 'levelExpenditure' })<{ levelExpenditure: ExpenditureLevel, isLight?: boolean }>(({ levelExpenditure, isLight }) => ({
   fontFamily: 'SF Pro Text, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '11px',
   lineHeight: '13px',
   color: isLight
-    ? (lvlexpenditure === ExpenditureLevel.LOW || lvlexpenditure === ExpenditureLevel.OPTIMAL
+    ? (levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL
         ? '#02CB9B'
-        : lvlexpenditure === ExpenditureLevel.STRETCHED
+        : levelExpenditure === ExpenditureLevel.STRETCHED
           ? '#F08B04'
           : '#CB3A0D')
-    : lvlexpenditure === ExpenditureLevel.LOW || lvlexpenditure === ExpenditureLevel.OPTIMAL
+    : levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL
       ? '#00ED18'
-      : lvlexpenditure === ExpenditureLevel.STRETCHED
+      : levelExpenditure === ExpenditureLevel.STRETCHED
         ? '#FF8237'
         : '#FF4085',
 }));

@@ -13,7 +13,7 @@ const SmallButton = ({ onClick, title = 'Back' }: Props) => {
   );
 };
 
-const StyledSmallButton = styled(Button)({
+const StyledSmallButton = styled(Button, { shouldForwardProp: (prop) => prop !== 'isLight' })({
   display: 'flex',
   borderRadius: '8px',
   flexDirection: 'row',

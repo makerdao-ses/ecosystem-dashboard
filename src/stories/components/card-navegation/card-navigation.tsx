@@ -71,7 +71,7 @@ export const NavigationCard = ({ description, image, list = [], title, titleLink
   );
 };
 
-const CardContainer = styled(Card)({
+const CardContainer = styled(Card, { shouldForwardProp: (prop) => prop !== 'isLight' })({
   position: 'relative',
 });
 
