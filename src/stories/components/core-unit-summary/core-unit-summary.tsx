@@ -13,11 +13,10 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { formatCode } from '../../../core/utils/string.utils';
 import { buildQueryString } from '../../../core/utils/url.utils';
 import { sortData } from '../../containers/cu-table/cu-table';
-import { SummarizedCoreUnit } from './core-unit-summary.mvvm';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 interface CoreUnitSummaryProps {
-  coreUnits: SummarizedCoreUnit[],
+  coreUnits: CoreUnitDto[],
   trailingAddress?: string[];
   breadcrumbTitle?: string;
 }

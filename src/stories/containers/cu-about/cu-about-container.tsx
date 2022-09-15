@@ -21,11 +21,11 @@ import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SEOHead } from '../../components/seo-head/seo-head';
 import { buildQueryString, toAbsoluteURL } from '../../../core/utils/url.utils';
-import { SummarizedCoreUnit } from '../../components/core-unit-summary/core-unit-summary.mvvm';
 import MdViewerContainer from '../../components/markdown/md-view-container';
+import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 interface Props {
-  coreUnits: SummarizedCoreUnit[];
+  coreUnits: CoreUnitDto[];
   cuAbout: CuAbout;
   code: string;
   contributors: ContributorCommitment[];

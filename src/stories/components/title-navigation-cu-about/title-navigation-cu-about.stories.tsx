@@ -2,9 +2,7 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import TitleNavigationCuAbout from './title-navigation-cu-about';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
-import { SocialMediaChannels } from '../../containers/cu-about/cu-about.api';
-import { SummarizedCoreUnit } from '../core-unit-summary/core-unit-summary.mvvm';
-import { CuMipDto } from '../../../core/models/dto/core-unit.dto';
+import { CoreUnitDto, CuMipDto, SocialMediaChannelDto } from '../../../core/models/dto/core-unit.dto';
 
 export default {
   title: 'Components/CUAbout/TitleNavigationCuAbout',
@@ -20,7 +18,7 @@ Default.args = {
     shortCode: 'SES',
     code: 'SES-001',
     image: 'https://api.gateway.ethswarm.org/bzz/efb3bbb702ecec395c08db27647158dc42928edc52e7a4f43dd0f444a24aa01d/',
-    category: [],
+    category: [] as string[],
     name: 'Sustainable Ecosystem Scaling',
     sentenceDescription: '',
     paragraphDescription: '',
@@ -31,7 +29,7 @@ Default.args = {
       linkedIn: 'https://www.linkedin.com/company/makerdao-ses/',
       twitter: '',
       youtube: 'https://www.youtube.com/channel/UC9c35O2H6fq8fB2CGzzP1bw/about',
-    }] as SocialMediaChannels[],
+    }] as SocialMediaChannelDto[],
     cuMip: [
       {
         mipCode: 'MIP-1',
@@ -44,7 +42,7 @@ Default.args = {
         mipStatus: CuStatusEnum.Accepted,
       }
     ] as CuMipDto[],
-  } as SummarizedCoreUnit
+  } as CoreUnitDto
 };
 
 DataWith.args = {
@@ -64,7 +62,7 @@ DataWith.args = {
       linkedIn: 'https://www.linkedin.com/company/makerdao-ses/',
       twitter: '',
       youtube: 'https://www.youtube.com/channel/UC9c35O2H6fq8fB2CGzzP1bw/about',
-    }] as SocialMediaChannels[],
+    }] as SocialMediaChannelDto[],
     cuMip: [
       {
         mipCode: 'MIP-1',
@@ -77,5 +75,5 @@ DataWith.args = {
         mipStatus: CuStatusEnum.Obsolete,
       }
     ] as CuMipDto[],
-  } as SummarizedCoreUnit
+  } as CoreUnitDto
 };

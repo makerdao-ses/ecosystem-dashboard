@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { Tabs } from '../../components/tabs/tabs';
 import { CustomPager } from '../../components/custom-pager/custom-pager';

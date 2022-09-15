@@ -81,8 +81,8 @@ export const CustomTable2 = ({ ...props }: Props) => {
               {rows?.map((row, i) => (
                 <TableRow key={`row-${row?.key ?? i}`} isLight={isLight} isLoading={props.loading}>
                   {props.columns?.map((column) => (
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     <TableCell key={column?.header} onClick={() => column.onClick?.(row?.value)}>
+                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                       {column.cellRender?.(row?.value as any)}
                     </TableCell>
                   ))}
