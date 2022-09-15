@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { Tabs } from '../../components/tabs/tabs';
 import { CustomPager } from '../../components/custom-pager/custom-pager';
@@ -14,31 +8,22 @@ import { TransparencyForecast } from './transparency-forecast/transparency-forec
 import { TransparencyMkrVesting } from './transparency-mkr-vesting/transparency-mkr-vesting';
 import { TransparencyTransferRequest } from './transparency-transfer-request/transparency-transfer-request';
 import { TransparencyAudit } from './transparency-audit/transparency-audit';
-import { useRouter } from 'next/router';
-import { DateTime } from 'luxon';
 import {
-  BudgetStatementDto,
   CoreUnitDto,
 } from '../../../core/models/dto/core-unit.dto';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
-import { API_MONTH_FORMAT } from '../../../core/utils/date.utils';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
 import { formatCode } from '../../../core/utils/string.utils';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SEOHead } from '../../components/seo-head/seo-head';
-import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
-import {
-  getCurrentOrLastMonthWithData,
-  getLastMonthWithActualOrForecast,
-} from '../../../core/business-logic/core-units';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
 import lightTheme from '../../../../styles/theme/light';
-import { SummarizedCoreUnit } from '../../components/core-unit-summary/core-unit-summary.mvvm';
 import { TransparencyActuals2 } from './transparency-actuals/transparency-actuals-2';
 import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { TransparencyForecast2 } from './transparency-forecast/transparency-forecast-2';
 import { TransparencyMkrVesting2 } from './transparency-mkr-vesting/transparency-mkr-vesting-2';
 import { TransparencyTransferRequest2 } from './transparency-transfer-request/transparency-transfer-request-2';
+import { useTransparencyReportViewModel } from './transparency-report.mvvm';
 
 const colors: { [key: string]: string } = {
   Draft: '#7C6B95',
@@ -54,131 +39,37 @@ const colorsDarkColors: { [key: string]: string } = {
   SubmittedToAuditor: '#FF78F2',
 };
 
-const TRANSPARENCY_IDS = [
-  'actuals',
-  'forecast',
-  'mkr-vesting',
-  'transfer-requests',
-  'audit-reports',
-];
-
 interface TransparencyReportProps {
-  coreUnits: SummarizedCoreUnit[];
+  coreUnits: CoreUnitDto[];
   coreUnit: CoreUnitDto;
 }
 
 export const TransparencyReport = ({
   coreUnits,
-  coreUnit: cu,
+  coreUnit,
 }: TransparencyReportProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   const [isEnabled] = useFlagsActive();
 
-  const router = useRouter();
-  const query = router.query;
-  const code = query.code as string;
-  const viewMonthStr = query.viewMonth;
-  const anchor = useUrlAnchor();
-  const transparencyTableRef = useRef<HTMLDivElement>(null);
-
-  const [tabsIndex, setTabsIndex] = useState(0);
-
-  const [currentMonth, setCurrentMonth] = useState(DateTime.now());
-
-  useEffect(() => {
-    if (anchor) {
-      const index = TRANSPARENCY_IDS.findIndex((id) => anchor.indexOf(id) > -1);
-      setTabsIndex(index);
-    }
-  }, [anchor]);
-
-  const [scrolled, setScrolled] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (anchor === '') {
-      setScrolled(true);
-    }
-    if (!scrolled && anchor && TRANSPARENCY_IDS.includes(anchor)) {
-      setScrolled(true);
-      let offset = (transparencyTableRef?.current?.offsetTop || 0) - 280;
-      const windowsWidth = Math.max(
-        document.documentElement.clientWidth || 0,
-        window.innerWidth || 0
-      );
-      if (windowsWidth < 834) {
-        offset += 100;
-      }
-      if ('scrollRestoration' in window.history) {
-        window.history.scrollRestoration = 'manual';
-      }
-      window.scrollTo(0, Math.max(0, offset));
-    }
-  }, [anchor]);
-
-  useEffect(() => {
-    if (viewMonthStr) {
-      const month = DateTime.fromFormat(viewMonthStr as string, 'LLLyyyy');
-      setCurrentMonth(month);
-    } else {
-      const month = getCurrentOrLastMonthWithData(cu.budgetStatements);
-
-      if (month) {
-        setCurrentMonth(month);
-      }
-    }
-  }, [router.route, router.query]);
-
-  const replaceViewMonthRoute = (viewMonth: string) => {
-    router.replace(
-      {
-        hash: anchor,
-        query: {
-          ...router.query,
-          viewMonth,
-        },
-      },
-      undefined,
-      {
-        shallow: true,
-      }
-    );
-  };
-
-  const handlePreviousMonth = useCallback(() => {
-    const month = currentMonth.minus({ month: 1 });
-    replaceViewMonthRoute(month.toFormat('LLLyyyy'));
-    setCurrentMonth(month);
-  }, [setCurrentMonth, currentMonth]);
-
-  const hasNextMonth = () => {
-    const limit = getLastMonthWithActualOrForecast(cu.budgetStatements).plus({
-      month: 1,
-    });
-    return currentMonth.startOf('month') < limit.startOf('month');
-  };
-
-  const handleNextMonth = useCallback(() => {
-    if (hasNextMonth()) {
-      const month = currentMonth.plus({ month: 1 });
-      replaceViewMonthRoute(month.toFormat('LLLyyyy'));
-      setCurrentMonth(month);
-    }
-  }, [setCurrentMonth, currentMonth]);
-
-  const currentBudgetStatement = useMemo(() => {
-    return cu?.budgetStatements?.find(
-      (bs: BudgetStatementDto) =>
-        bs.month === currentMonth.toFormat(API_MONTH_FORMAT)
-    );
-  }, [cu, currentMonth]);
+  const {
+    TRANSPARENCY_IDS,
+    code,
+    transparencyTableRef,
+    currentMonth,
+    handlePreviousMonth,
+    handleNextMonth,
+    hasNextMonth,
+    currentBudgetStatement,
+    tabsIndex
+  } = useTransparencyReportViewModel(coreUnit);
 
   return (
     <Wrapper>
       <SEOHead
-        title={`${cu.name} Core Unit | Finances`}
-        description={`Learn about the ${cu.name} Core Unit at MakerDAO: their finances, expense reports, and more.`}
-        image={cu.image || toAbsoluteURL('/assets/img/social-1200x630.png')}
-        twitterCard={cu.image ? 'summary' : 'summary_large_image'}
+        title={`${coreUnit.name} Core Unit | Finances`}
+        description={`Learn about the ${coreUnit.name} Core Unit at MakerDAO: their finances, expense reports, and more.`}
+        image={coreUnit.image || toAbsoluteURL('/assets/img/social-1200x630.png')}
+        twitterCard={coreUnit.image ? 'summary' : 'summary_large_image'}
       />
       <CoreUnitSummary
         coreUnits={coreUnits}
@@ -283,50 +174,50 @@ export const TransparencyReport = ({
             <TransparencyActuals2
               code={code}
               currentMonth={currentMonth}
-              budgetStatements={cu?.budgetStatements}
+              budgetStatements={coreUnit?.budgetStatements}
             />
           )}
           {tabsIndex === 0 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
             <TransparencyActuals
               code={code}
               currentMonth={currentMonth}
-              budgetStatements={cu?.budgetStatements}
+              budgetStatements={coreUnit?.budgetStatements}
             />
           )}
           {tabsIndex === 1 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
             <TransparencyForecast2
               currentMonth={currentMonth}
-              budgetStatements={cu?.budgetStatements}
+              budgetStatements={coreUnit?.budgetStatements}
             />
           )}
           {tabsIndex === 1 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
             <TransparencyForecast
               currentMonth={currentMonth}
-              budgetStatements={cu?.budgetStatements}
+              budgetStatements={coreUnit?.budgetStatements}
             />
           )}
           {tabsIndex === 2 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
             <TransparencyMkrVesting2
               currentMonth={currentMonth}
-              budgetStatements={cu?.budgetStatements}
+              budgetStatements={coreUnit?.budgetStatements}
             />
           )}
           {tabsIndex === 2 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
             <TransparencyMkrVesting
               currentMonth={currentMonth}
-              budgetStatements={cu?.budgetStatements}
+              budgetStatements={coreUnit?.budgetStatements}
             />
           )}
           {tabsIndex === 3 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
             <TransparencyTransferRequest2
               currentMonth={currentMonth}
-              budgetStatements={cu?.budgetStatements}
+              budgetStatements={coreUnit?.budgetStatements}
             />
           )}
           {tabsIndex === 3 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
             <TransparencyTransferRequest
               currentMonth={currentMonth}
-              budgetStatements={cu?.budgetStatements}
+              budgetStatements={coreUnit?.budgetStatements}
             />
           )}
           {tabsIndex === 4 && (

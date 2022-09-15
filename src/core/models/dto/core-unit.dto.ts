@@ -130,6 +130,8 @@ export interface CoreUnitDto {
   name: string;
   image: string;
   sentenceDescription: string;
+  paragraphDescription: string;
+  paragraphImage: string;
   category: string[];
   cuMip: CuMipDto[]
   roadMap: RoadMapDto[];
