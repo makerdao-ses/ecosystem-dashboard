@@ -55,10 +55,10 @@ const LinkWrapper = styled.div({
   display: 'flex',
   alignItems: 'center',
   '@media (max-width: 1000px)': {
-    '&:nth-child(n + 3)': {
+    '&:nth-of-type(n + 3)': {
       display: 'none'
     },
-    '&:nth-child(n + 2)': {
+    '&:nth-of-type(n + 2)': {
       svg: {
         visibility: 'hidden'
       }

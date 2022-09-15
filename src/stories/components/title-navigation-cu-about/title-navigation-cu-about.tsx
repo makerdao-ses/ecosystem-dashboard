@@ -23,7 +23,6 @@ import { CustomLink } from '../custom-link/custom-link';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { getLatestMip39FromCoreUnit, getSubmissionDateFromCuMip } from '../../../core/business-logic/core-units';
-import { SummarizedCoreUnit } from '../core-unit-summary/core-unit-summary.mvvm';
 
 interface BudgetStatementFTEs {
   month: string;
@@ -56,7 +55,7 @@ export interface CoreUnit {
   roadMap: [];
 }
 interface Props {
-  coreUnitAbout?: SummarizedCoreUnit;
+  coreUnitAbout?: CoreUnitDto;
   hiddenTextDescription?: boolean;
 }
 

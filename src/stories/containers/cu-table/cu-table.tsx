@@ -343,7 +343,6 @@ export const CuTable = () => {
           />
         </FilterButtonWrapperMobile>
         <FilterButtonWrapper onClick={toggleFiltersPopup}>
-
           <CustomButton
             label={'Filters'}
             isHightLight={!!(filteredStatuses.length || filteredCategories.length || searchText)}
@@ -494,6 +493,7 @@ const FilterButtonWrapper = styled.div({
     display: 'none',
   },
 });
+
 const FilterButtonWrapperMobile = styled.div({
   display: 'flex',
   '@media (min-width: 834px)': {

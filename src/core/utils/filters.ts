@@ -37,7 +37,7 @@ export const filterData = ({
   const lowerCaseStatuses = filteredStatuses.map((x) => x.toLowerCase());
   const lowerCaseCategories = filteredCategories.map((x) => x.toLowerCase());
   return {
-    filteredData: data.filter((data) => {
+    filteredData: data?.filter((data) => {
       let filterResult = true;
 
       filterResult = filterResult && filterStatus(lowerCaseStatuses, data);
@@ -47,8 +47,8 @@ export const filterData = ({
       filterResult = filterResult && filterByNameAndCode(searchText, data);
 
       return filterResult;
-    }),
-    statusesFiltered: data.filter((data) => {
+    }) ?? [],
+    statusesFiltered: data?.filter((data) => {
       let filterResult = true;
 
       filterResult = filterResult && filterCategories(lowerCaseCategories, data);
@@ -56,8 +56,8 @@ export const filterData = ({
       filterResult = filterResult && filterByNameAndCode(searchText, data);
 
       return filterResult;
-    }),
-    categoriesFiltered: data.filter((data) => {
+    }) ?? [],
+    categoriesFiltered: data?.filter((data) => {
       let filterResult = true;
 
       filterResult = filterResult && filterStatus(lowerCaseStatuses, data);
@@ -65,7 +65,7 @@ export const filterData = ({
       filterResult = filterResult && filterByNameAndCode(searchText, data);
 
       return filterResult;
-    })
+    }) ?? [],
   };
 };
 

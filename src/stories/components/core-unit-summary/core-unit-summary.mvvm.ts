@@ -2,19 +2,7 @@ import useSWRImmutable from 'swr/immutable';
 import { fetcher } from '../../../core/utils/fetcher';
 import request, { gql } from 'graphql-request';
 import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
-import type { CuMipDto, SocialMediaChannelDto } from '../../../core/models/dto/core-unit.dto';
-
-export interface SummarizedCoreUnit {
-  id: string;
-  shortCode: string;
-  code: string;
-  name: string;
-  image: string;
-  sentenceDescription: string;
-  category: string[];
-  cuMip: CuMipDto[];
-  socialMediaChannels: SocialMediaChannelDto[];
-}
+import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 const CORE_UNITS_REQUEST = {
   query: gql`
@@ -60,7 +48,7 @@ const CORE_UNITS_REQUEST = {
 };
 
 export const fetchCoreUnits = async() => {
-  const res = (await request(GRAPHQL_ENDPOINT, CORE_UNITS_REQUEST.query)) as { coreUnits: SummarizedCoreUnit[]};
+  const res = (await request(GRAPHQL_ENDPOINT, CORE_UNITS_REQUEST.query)) as { coreUnits: CoreUnitDto[]};
   return res?.coreUnits;
 };
 
