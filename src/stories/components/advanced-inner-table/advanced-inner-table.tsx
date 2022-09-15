@@ -30,6 +30,7 @@ type RowType = 'normal' | 'total' | 'section';
 export interface InnerTableRow {
   type: RowType;
   items: InnerTableCell[];
+  hideMobile?: boolean;
 }
 
 interface Props {
@@ -75,13 +76,15 @@ export const AdvancedInnerTable = ({
     return <TextCell key={column.header} bold={isBold}>{value as string}</TextCell>;
   };
 
-  const cardItems =
+  let cardItems =
     cardsTotalPosition === 'top' && props.items.length > 0
       ? [
           props.items[props.items.length - 1],
           ...props.items.slice(0, props.items.length - 1),
         ]
       : props.items;
+
+  cardItems = cardItems.filter(x => !x.hideMobile);
 
   return props.items.length > 0
     ? (

@@ -326,6 +326,7 @@ export const useTransparencyActualsMvvm2 = (
               value: budgetTotalPayment,
             },
           ],
+          hideMobile: result.length < 2
         });
       }
     }
@@ -519,12 +520,14 @@ export const useTransparencyActualsMvvm2 = (
         type: 'section',
       });
 
-      result.push(
-        ...getBreakdownItems(
-          currentWallet?.budgetStatementLineItem?.filter(
-            (item) => !item.headcountExpense
-          )
+      const headcountExpenseItems = getBreakdownItems(
+        currentWallet?.budgetStatementLineItem?.filter(
+          (item) => !item.headcountExpense
         )
+      );
+
+      result.push(
+        ...headcountExpenseItems
       );
 
       result.push(

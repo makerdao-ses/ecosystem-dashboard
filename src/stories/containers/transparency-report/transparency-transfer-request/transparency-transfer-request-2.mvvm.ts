@@ -6,30 +6,19 @@ import { useTransparencyForecastMvvm2 } from '../transparency-forecast/transpare
 import { InnerTableColumn, InnerTableRow } from '../../../components/advanced-inner-table/advanced-inner-table';
 import { renderLinks, renderWallet } from '../transparency-report.utils';
 
-export const useTransparencyTransferRequestMvvm2 = (
-  currentMonth: DateTime,
-  budgetStatements: BudgetStatementDto[]
-) => {
-  const {
-    firstMonth,
-    secondMonth,
-    thirdMonth,
-    getForecastSumOfMonthsOnWallet,
-    getForecastSumForMonths,
-    wallets,
-  } = useTransparencyForecastMvvm2(currentMonth, budgetStatements);
+export const useTransparencyTransferRequestMvvm2 = (currentMonth: DateTime, budgetStatements: BudgetStatementDto[]) => {
+  const { firstMonth, secondMonth, thirdMonth, getForecastSumOfMonthsOnWallet, getForecastSumForMonths, wallets } =
+    useTransparencyForecastMvvm2(currentMonth, budgetStatements);
 
-  const getTransferRequestForMonthOnWallet = (
-    walletAddress: string | undefined
-  ) => {
+  const getTransferRequestForMonthOnWallet = (walletAddress: string | undefined) => {
     if (!walletAddress) return 0;
 
     let result = 0;
-    const budgetStatement = budgetStatements?.find(
-      (x) => x.month === currentMonth.toFormat(API_MONTH_FORMAT)
-    );
+    const budgetStatement = budgetStatements?.find((x) => x.month === currentMonth.toFormat(API_MONTH_FORMAT));
 
-    if (!budgetStatement || !budgetStatement.budgetStatementWallet) { return result; }
+    if (!budgetStatement || !budgetStatement.budgetStatementWallet) {
+      return result;
+    }
 
     const wallet = budgetStatement.budgetStatementWallet.find(
       (wallet) => wallet.address?.toLowerCase() === walletAddress.toLowerCase()
@@ -46,11 +35,11 @@ export const useTransparencyTransferRequestMvvm2 = (
 
   const getTransferRequestForMonth = useMemo(() => {
     let result = 0;
-    const budgetStatement = budgetStatements?.find(
-      (x) => x.month === currentMonth.toFormat(API_MONTH_FORMAT)
-    );
+    const budgetStatement = budgetStatements?.find((x) => x.month === currentMonth.toFormat(API_MONTH_FORMAT));
 
-    if (!budgetStatement || !budgetStatement.budgetStatementWallet) { return result; }
+    if (!budgetStatement || !budgetStatement.budgetStatementWallet) {
+      return result;
+    }
 
     budgetStatement.budgetStatementWallet.forEach((wallet) => {
       wallet.budgetStatementTransferRequest?.forEach((item) => {
@@ -61,14 +50,10 @@ export const useTransparencyTransferRequestMvvm2 = (
     return result;
   }, [currentMonth, budgetStatements]);
 
-  const getCurrentBalanceForMonthOnWallet = (
-    walletAddress: string | undefined
-  ) => {
+  const getCurrentBalanceForMonthOnWallet = (walletAddress: string | undefined) => {
     if (!walletAddress) return 0;
 
-    const budgetStatement = budgetStatements?.find(
-      (x) => x.month === currentMonth.toFormat(API_MONTH_FORMAT)
-    );
+    const budgetStatement = budgetStatements?.find((x) => x.month === currentMonth.toFormat(API_MONTH_FORMAT));
 
     if (!budgetStatement || !budgetStatement.budgetStatementWallet) return 0;
 
@@ -84,9 +69,7 @@ export const useTransparencyTransferRequestMvvm2 = (
   const getCurrentBalanceForMonth = useMemo(() => {
     let result = 0;
 
-    const budgetStatement = budgetStatements?.find(
-      (x) => x.month === currentMonth.toFormat(API_MONTH_FORMAT)
-    );
+    const budgetStatement = budgetStatements?.find((x) => x.month === currentMonth.toFormat(API_MONTH_FORMAT));
 
     if (!budgetStatement || !budgetStatement.budgetStatementWallet) return 0;
 
@@ -126,7 +109,7 @@ export const useTransparencyTransferRequestMvvm2 = (
       width: '240px',
       cellRender: renderLinks,
       isCardFooter: true,
-    }
+    },
   ];
 
   const mainTableItems: InnerTableRow[] = useMemo(() => {
@@ -142,25 +125,25 @@ export const useTransparencyTransferRequestMvvm2 = (
           },
           {
             column: mainTableColumns[1],
-            value: getForecastSumOfMonthsOnWallet(
-              budgetStatements,
-              wallet?.address,
-              currentMonth,
-              [firstMonth, secondMonth, thirdMonth]
-            )
+            value: getForecastSumOfMonthsOnWallet(budgetStatements, wallet?.address, currentMonth, [
+              firstMonth,
+              secondMonth,
+              thirdMonth,
+            ]),
           },
           {
             column: mainTableColumns[2],
-            value: getCurrentBalanceForMonthOnWallet(wallet?.address)
-          }, {
+            value: getCurrentBalanceForMonthOnWallet(wallet?.address),
+          },
+          {
             column: mainTableColumns[3],
-            value: getTransferRequestForMonthOnWallet(wallet?.address)
+            value: getTransferRequestForMonthOnWallet(wallet?.address),
           },
           {
             column: mainTableColumns[4],
-            value: wallet.address
-          }
-        ]
+            value: wallet.address,
+          },
+        ],
       });
     });
 
@@ -174,20 +157,18 @@ export const useTransparencyTransferRequestMvvm2 = (
           },
           {
             column: mainTableColumns[1],
-            value: getForecastSumForMonths(
-              budgetStatements,
-              currentMonth,
-              [firstMonth, secondMonth, thirdMonth]
-            )
+            value: getForecastSumForMonths(budgetStatements, currentMonth, [firstMonth, secondMonth, thirdMonth]),
           },
           {
             column: mainTableColumns[2],
-            value: getCurrentBalanceForMonth
-          }, {
+            value: getCurrentBalanceForMonth,
+          },
+          {
             column: mainTableColumns[3],
-            value: getTransferRequestForMonth
-          }
-        ]
+            value: getTransferRequestForMonth,
+          },
+        ],
+        hideMobile: result.length < 2,
       });
     }
 
@@ -196,6 +177,6 @@ export const useTransparencyTransferRequestMvvm2 = (
 
   return {
     mainTableColumns,
-    mainTableItems
+    mainTableItems,
   };
 };

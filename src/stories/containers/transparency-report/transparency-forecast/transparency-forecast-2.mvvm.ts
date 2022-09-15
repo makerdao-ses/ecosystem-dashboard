@@ -548,6 +548,7 @@ export const useTransparencyForecastMvvm2 = (
           ),
         },
       ],
+      hideMobile: result.length < 2
     });
 
     return result;
