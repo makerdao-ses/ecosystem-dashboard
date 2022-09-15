@@ -40,7 +40,9 @@ const ContainerText = styled.div({
   marginBottom: '24px'
 });
 
-const StyleTitle = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
+const StyleTitle = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== 'isLight',
+})<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
@@ -49,6 +51,7 @@ const StyleTitle = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
   letterSpacing: '0.4px',
   color: isLight ? '#231536' : '#D1DEE6',
 }));
+
 const StyleTitleLink = styled.a<{ isLight: boolean }>(({ isLight }) => ({
   display: 'inline-block',
   fontFamily: 'FT Base, sans-serif',
@@ -59,10 +62,9 @@ const StyleTitleLink = styled.a<{ isLight: boolean }>(({ isLight }) => ({
   letterSpacing: '0.4px',
   color: isLight ? '#231536' : '#D1DEE6',
   marginBottom: '16px',
-
 }));
 
-const StyleDescription = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
+const StyleDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,

@@ -22,7 +22,7 @@ const DescriptionFooter = ({ title, children, style = {} }: Props) => {
   );
 };
 
-const StyleTitle = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
+const StyleTitle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,

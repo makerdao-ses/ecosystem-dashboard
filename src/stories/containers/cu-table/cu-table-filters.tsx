@@ -136,7 +136,7 @@ export const Filters = (props: FilterProps) => {
   </Wrapper>;
 };
 
-const Separator = styled(Divider)<{ isLight: boolean }>(({ isLight }) => ({
+const Separator = styled(Divider, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(({ isLight }) => ({
   height: '1px',
   width: 'calc(100vw - 64px)',
   margin: '0 16px',
@@ -156,7 +156,7 @@ const Separator = styled(Divider)<{ isLight: boolean }>(({ isLight }) => ({
   },
 }));
 
-const SmallSeparator = styled(Divider)<{ isLight: boolean }>(({ isLight }) => ({
+const SmallSeparator = styled(Divider, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(({ isLight }) => ({
   height: '1px',
   width: '64px',
   marginTop: '24px',

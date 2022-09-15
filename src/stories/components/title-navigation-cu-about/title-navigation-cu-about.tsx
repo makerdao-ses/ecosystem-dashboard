@@ -260,7 +260,7 @@ const ContainerTitle = styled.div({
   },
 });
 
-const TypographyTitle = styled(Typography)<{ isLight: boolean }>(
+const TypographyTitle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
   ({ isLight }) => ({
     fontStyle: 'normal',
     fontWeight: 500,
@@ -289,7 +289,7 @@ const TypographyTitle = styled(Typography)<{ isLight: boolean }>(
   })
 );
 
-const TypographySES = styled(Typography)<{ isLight: boolean }>(
+const TypographySES = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
   ({ isLight }) => ({
     fontStyle: 'normal',
     fontWeight: 500,

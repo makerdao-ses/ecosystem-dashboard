@@ -47,7 +47,7 @@ const BreadcrumbsStyle = styled(Breadcrumbs)({
   }
 });
 
-const TypographyStyle = styled(Typography)({
+const TypographyStyle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })({
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '16px',

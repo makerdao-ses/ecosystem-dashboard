@@ -222,7 +222,7 @@ const Row = styled.div({
   justifyContent: 'space-between',
 });
 
-const StyleTypography = styled(Typography)({
+const StyleTypography = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
@@ -234,7 +234,7 @@ const StyleTypography = styled(Typography)({
   color: '#9FAFB9'
 });
 
-const StyleLevelExpenditure = styled(Typography)<{ levelExpenditure: ExpenditureLevel, isLight?: boolean }>(({ levelExpenditure, isLight }) => ({
+const StyleLevelExpenditure = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ levelExpenditure: ExpenditureLevel, isLight?: boolean }>(({ levelExpenditure, isLight }) => ({
   fontFamily: 'SF Pro Text, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
@@ -253,7 +253,7 @@ const StyleLevelExpenditure = styled(Typography)<{ levelExpenditure: Expenditure
         : '#FF4085',
 }));
 
-const TypographyValue = styled(Typography)<{ isLight?: boolean }>(({ isLight }) => ({
+const TypographyValue = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight?: boolean }>(({ isLight }) => ({
   fontFamily: 'SF Pro Display,sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
@@ -263,7 +263,7 @@ const TypographyValue = styled(Typography)<{ isLight?: boolean }>(({ isLight }) 
   color: isLight ? '#000000' : '#EDEFFF'
 }));
 
-const TypographyDescription = styled(Typography)<{ isLight?: boolean }>(({ isLight }) => ({
+const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight?: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base,sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,

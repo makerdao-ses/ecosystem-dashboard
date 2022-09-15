@@ -36,7 +36,7 @@ const Container = styled.div({
 
 });
 
-const StyleTypography = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
+const StyleTypography = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(({ isLight }) => ({
   fontStyle: 'normal',
   fontFamily: 'Inter, sans-serif',
   fontWeight: 700,
@@ -45,7 +45,7 @@ const StyleTypography = styled(Typography)<{ isLight: boolean }>(({ isLight }) =
   color: isLight ? '#231536' : '#D2D4EF',
 }));
 
-const Title = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
+const Title = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(({ isLight }) => ({
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '20px',

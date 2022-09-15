@@ -176,7 +176,7 @@ const Arrows = styled.div({
   alignItems: 'center',
 });
 
-const StyleActualCoreUnit = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
+const StyleActualCoreUnit = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
@@ -186,7 +186,7 @@ const StyleActualCoreUnit = styled(Typography)<{ isLight: boolean }>(({ isLight 
   color: isLight ? '#231536' : '#D2D4EF',
 }));
 
-const StyleTextCoreUnit = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
+const StyleTextCoreUnit = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
@@ -195,7 +195,7 @@ const StyleTextCoreUnit = styled(Typography)<{ isLight: boolean }>(({ isLight })
   color: isLight ? '#626472' : '#546978',
 }));
 
-const StyleTitle = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
+const StyleTitle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,

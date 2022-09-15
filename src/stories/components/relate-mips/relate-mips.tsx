@@ -168,7 +168,7 @@ const ContainerIconTypography = styled.div({
   },
 });
 
-const StyleMipNumber = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
+const StyleMipNumber = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: '14px',
   minWidth: '135px',
   display: 'inline-block',

@@ -39,7 +39,7 @@ const CardExpenses = ({ onClick, code }: Props) => {
 
 export default CardExpenses;
 
-const TypographyDescription = styled(Typography)<{ marginBottom?: string, isLight: boolean }>(({ isLight, marginBottom }) => ({
+const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ marginBottom?: string, isLight: boolean }>(({ isLight, marginBottom }) => ({
   fontFamily: 'SF Pro Text, sans serif',
   fontStyle: 'normal',
   fontWeight: 500,
