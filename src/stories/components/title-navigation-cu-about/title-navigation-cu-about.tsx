@@ -19,7 +19,6 @@ import {
   getLinksFromCoreUnit,
   getSubmissionDateFromCuMip,
 } from '../../../core/business-logic/core-units';
-// import { SummarizedCoreUnit } from '../core-unit-summary/core-unit-summary.mvvm';
 
 interface Props {
   coreUnitAbout?: CoreUnitDto;
