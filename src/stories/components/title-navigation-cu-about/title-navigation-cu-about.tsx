@@ -2,16 +2,11 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Typography, useMediaQuery } from '@mui/material';
 import { DateTime } from 'luxon';
-import {
-  CuTableColumnLinks,
-} from '../cu-table-column-links/cu-table-column-links';
+import { CuTableColumnLinks } from '../cu-table-column-links/cu-table-column-links';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { StatusChip } from '../status-chip/status-chip';
 import { CategoryChip } from '../category-chip/category-chip';
-import {
-  getMipsStatus,
-  getRelateMipObjectFromCoreUnit,
-} from '../../../core/business-logic/core-unit-about';
+import { getMipsStatus, getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-unit-about';
 import _ from 'lodash';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
 import { CoreUnitDto, CuMipDto } from '../../../core/models/dto/core-unit.dto';
@@ -19,30 +14,25 @@ import { formatCode } from '../../../core/utils/string.utils';
 import { CustomLink } from '../custom-link/custom-link';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { getLatestMip39FromCoreUnit, getLinksFromCoreUnit, getSubmissionDateFromCuMip } from '../../../core/business-logic/core-units';
-import { SummarizedCoreUnit } from '../core-unit-summary/core-unit-summary.mvvm';
+import {
+  getLatestMip39FromCoreUnit,
+  getLinksFromCoreUnit,
+  getSubmissionDateFromCuMip,
+} from '../../../core/business-logic/core-units';
+// import { SummarizedCoreUnit } from '../core-unit-summary/core-unit-summary.mvvm';
 
 interface Props {
-  coreUnitAbout?: SummarizedCoreUnit;
+  coreUnitAbout?: CoreUnitDto;
   hiddenTextDescription?: boolean;
 }
 
-export const TitleNavigationCuAbout = ({
-  coreUnitAbout,
-  hiddenTextDescription,
-}: Props) => {
+export const TitleNavigationCuAbout = ({ coreUnitAbout, hiddenTextDescription }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
-  const phoneDimensions = useMediaQuery(
-    lightTheme.breakpoints.between('table_375', 'table_834')
-  );
-  const tableDimensions = useMediaQuery(
-    lightTheme.breakpoints.between('table_834', 'desktop_1194')
-  );
+  const phoneDimensions = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+  const tableDimensions = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const lessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
   if (!coreUnitAbout || coreUnitAbout.cuMip.length === 0) return null;
-  const buildNewArray = coreUnitAbout?.cuMip?.map((mip) =>
-    getRelateMipObjectFromCoreUnit(mip)
-  );
+  const buildNewArray = coreUnitAbout?.cuMip?.map((mip) => getRelateMipObjectFromCoreUnit(mip));
   const orderMips = _.sortBy(buildNewArray, ['orderBy', 'dateMip']).reverse();
   const mips = getMipsStatus(orderMips[0] as CuMipDto);
   const mipStatus = getLatestMip39FromCoreUnit(coreUnitAbout as CoreUnitDto)?.mipStatus as CuStatusEnum;
@@ -65,14 +55,8 @@ export const TitleNavigationCuAbout = ({
         <ContainerTitle>
           <ContainerSeparateData>
             <ResponsiveTitle>
-              <TypographySES isLight={isLight}>
-                {formatCode(coreUnitAbout.code)}
-              </TypographySES>
-              {coreUnitAbout.name && (
-                <TypographyTitle isLight={isLight}>
-                  {coreUnitAbout.name}
-                </TypographyTitle>
-              )}
+              <TypographySES isLight={isLight}>{formatCode(coreUnitAbout.code)}</TypographySES>
+              {coreUnitAbout.name && <TypographyTitle isLight={isLight}>{coreUnitAbout.name}</TypographyTitle>}
             </ResponsiveTitle>
 
             {!((phoneDimensions || lessPhone) && !hiddenTextDescription) && (
@@ -106,9 +90,7 @@ export const TitleNavigationCuAbout = ({
                         textDecoration: 'none',
                         marginLeft: '4px',
                       }}
-                      children={`Since ${DateTime.fromJSDate(newDate).toFormat(
-                        'd-MMM-y'
-                      )}`}
+                      children={`Since ${DateTime.fromJSDate(newDate).toFormat('d-MMM-y')}`}
                     />
                   )}
                 </Row>
@@ -119,9 +101,7 @@ export const TitleNavigationCuAbout = ({
         {(phoneDimensions || lessPhone) && (
           <div
             style={{
-              borderBottom: !hiddenTextDescription
-                ? '1px solid #B6EDE7'
-                : 'none',
+              borderBottom: !hiddenTextDescription ? '1px solid #B6EDE7' : 'none',
               width: '100%',
               marginTop: !hiddenTextDescription ? '16px' : '0px',
             }}
@@ -131,12 +111,7 @@ export const TitleNavigationCuAbout = ({
           {(!(phoneDimensions || lessPhone) || hiddenTextDescription) && (
             <CategoryContainer>
               {coreUnitAbout.category &&
-                coreUnitAbout.category.map((item) => (
-                  <CategoryChip
-                    key={item}
-                    category={item}
-                  />
-                ))}
+                coreUnitAbout.category.map((item) => <CategoryChip key={item} category={item} />)}
             </CategoryContainer>
           )}
           {(phoneDimensions || lessPhone || tableDimensions) && hiddenTextDescription && (
@@ -184,55 +159,51 @@ const ContainerTitle = styled.div({
   },
 });
 
-const TypographyTitle = styled(Typography)<{ isLight: boolean }>(
-  ({ isLight }) => ({
-    fontStyle: 'normal',
-    fontWeight: 500,
-    fontSize: '24px',
-    lineHeight: '29px',
-    color: isLight ? '#231536' : '#E2D8EE',
-    marginLeft: '16px',
-    marginRight: '24px',
+const TypographyTitle = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
+  fontStyle: 'normal',
+  fontWeight: 500,
+  fontSize: '24px',
+  lineHeight: '29px',
+  color: isLight ? '#231536' : '#E2D8EE',
+  marginLeft: '16px',
+  marginRight: '24px',
+  fontFamily: 'FT Base, sans-serif',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     fontFamily: 'FT Base, sans-serif',
-    [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-      fontFamily: 'FT Base, sans-serif',
-      fontStyle: 'normal',
-      fontWeight: 700,
-      fontSize: '16px',
-      lineHeight: '19px',
-      marginLeft: '4px',
-      marginRight: '0px',
-    },
-    [lightTheme.breakpoints.down('table_375')]: {
-      fontWeight: 700,
-      fontSize: '16px',
-      lineHeight: '19px',
-      marginLeft: '4px',
-      marginRight: '0px',
-    },
-  })
-);
+    fontStyle: 'normal',
+    fontWeight: 700,
+    fontSize: '16px',
+    lineHeight: '19px',
+    marginLeft: '4px',
+    marginRight: '0px',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
+    fontWeight: 700,
+    fontSize: '16px',
+    lineHeight: '19px',
+    marginLeft: '4px',
+    marginRight: '0px',
+  },
+}));
 
-const TypographySES = styled(Typography)<{ isLight: boolean }>(
-  ({ isLight }) => ({
-    fontStyle: 'normal',
-    fontWeight: 500,
-    fontSize: '24px',
-    lineHeight: '29px',
-    color: isLight ? '#9FAFB9' : '#546978',
-    fontFamily: 'FT Base, sans-serif',
-    [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-      fontWeight: 700,
-      fontSize: '16px',
-      lineHeight: '19px',
-    },
-    [lightTheme.breakpoints.down('table_375')]: {
-      fontWeight: 700,
-      fontSize: '16px',
-      lineHeight: '19px',
-    },
-  })
-);
+const TypographySES = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
+  fontStyle: 'normal',
+  fontWeight: 500,
+  fontSize: '24px',
+  lineHeight: '29px',
+  color: isLight ? '#9FAFB9' : '#546978',
+  fontFamily: 'FT Base, sans-serif',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    fontWeight: 700,
+    fontSize: '16px',
+    lineHeight: '19px',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
+    fontWeight: 700,
+    fontSize: '16px',
+    lineHeight: '19px',
+  },
+}));
 
 const Row = styled.div({
   display: 'flex',
@@ -300,7 +271,7 @@ const CategoryContainer = styled.div({
   [lightTheme.breakpoints.down('table_375')]: {
     marginBottom: '16px',
     marginTop: '20px',
-    gap: '8px'
+    gap: '8px',
   },
 });
 const ContainerCategoryConditional = styled.div({

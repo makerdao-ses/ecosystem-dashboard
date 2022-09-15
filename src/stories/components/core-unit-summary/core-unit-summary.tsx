@@ -13,16 +13,19 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { formatCode } from '../../../core/utils/string.utils';
 import { buildQueryString } from '../../../core/utils/url.utils';
 import { sortData } from '../../containers/cu-table/cu-table';
-import { SummarizedCoreUnit } from './core-unit-summary.mvvm';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 interface CoreUnitSummaryProps {
-  coreUnits: SummarizedCoreUnit[],
+  coreUnits: CoreUnitDto[];
   trailingAddress?: string[];
   breadcrumbTitle?: string;
 }
 
-export const CoreUnitSummary = ({ coreUnits: data = [], trailingAddress = [], breadcrumbTitle }: CoreUnitSummaryProps) => {
+export const CoreUnitSummary = ({
+  coreUnits: data = [],
+  trailingAddress = [],
+  breadcrumbTitle,
+}: CoreUnitSummaryProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const lessThanPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
@@ -35,8 +38,8 @@ export const CoreUnitSummary = ({ coreUnits: data = [], trailingAddress = [], br
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
 
-  const cu = data?.find(cu => cu.shortCode === code);
-  const buildCULabel = () => !_.isEmpty(cu) ? `${formatCode(cu?.code ?? '')} - ${cu?.name}` : '';
+  const cu = data?.find((cu) => cu.shortCode === code);
+  const buildCULabel = () => (!_.isEmpty(cu) ? `${formatCode(cu?.code ?? '')} - ${cu?.name}` : '');
 
   const ref = useRef(null);
 
@@ -65,101 +68,110 @@ export const CoreUnitSummary = ({ coreUnits: data = [], trailingAddress = [], br
       data: data as CoreUnitDto[],
       filteredStatuses,
       filteredCategories,
-      searchText
+      searchText,
     });
     return sortData(filtered);
   }, [data, filteredCategories, filteredStatuses, searchText]);
 
-  const page = useMemo(() => filteredData?.findIndex(item => item.shortCode === code) + 1, [code, filteredData]);
+  const page = useMemo(() => filteredData?.findIndex((item) => item.shortCode === code) + 1, [code, filteredData]);
 
   const queryStrings = buildQueryString({
     filteredStatuses,
     filteredCategories,
-    searchText
+    searchText,
   });
 
   const changeCoreUnitCode = useCallback(
     (direct: -1 | 1) => () => {
-      const index = filteredData?.findIndex(item => item.shortCode === code);
+      const index = filteredData?.findIndex((item) => item.shortCode === code);
       const newIndex = index + direct;
       if (newIndex >= 0 && newIndex < filteredData?.length) {
         router.push(`${router.route.replace('[code]', filteredData[newIndex].shortCode)}${queryStrings}`);
       }
     },
-    [code, filteredData, router]);
+    [code, filteredData, router]
+  );
 
-  return <Container ref={ref} isLight={isLight}>
-    {!(phone || lessThanPhone) && (
-      <NavigationHeader className="no-select" isLight={isLight}>
-        <Breadcrumbs items={[
-          {
-            label: <CoreUnitStyle isLight={isLight}>Core Units <b>({filteredData.length})</b></CoreUnitStyle>,
-            url: `/${queryStrings}`
-          },
-          {
-            label: buildCULabel(),
-            url: `/core-unit/${code}/${queryStrings}`
-          },
-          ...trailingAddress.map(adr => ({
-            label: adr,
-            url: router.asPath
-          }))
-        ]} />
-        <InsidePagination
-          count={filteredData.length}
-          page={page}
-          onClickLeft={changeCoreUnitCode(-1)}
-          onClickRight={changeCoreUnitCode(1)}
-        />
-      </NavigationHeader>
-    )}
-    {(phone || lessThanPhone) && (
-      <div style={{ margin: '16px' }}>
-        <div>
-          <BreadCrumbMobile
+  return (
+    <Container ref={ref} isLight={isLight}>
+      {!(phone || lessThanPhone) && (
+        <NavigationHeader className="no-select" isLight={isLight}>
+          <Breadcrumbs
             items={[
-              ...trailingAddress.map(adr => ({
-                style: breadcrumbTitle === adr
-                  ? { color: isLight ? '#25273D' : '#D2D4EF' }
-                  : undefined,
-                label: adr,
-                url: router.asPath
-              })),
               {
-                style: [buildCULabel(), undefined].includes(breadcrumbTitle)
-                  ? { color: isLight ? '#25273D' : '#D2D4EF' }
-                  : undefined,
+                label: (
+                  <CoreUnitStyle isLight={isLight}>
+                    Core Units <b>({filteredData.length})</b>
+                  </CoreUnitStyle>
+                ),
+                url: `/${queryStrings}`,
+              },
+              {
                 label: buildCULabel(),
-                url: `/core-unit/${code}/${queryStrings}`
+                url: `/core-unit/${code}/${queryStrings}`,
               },
-
-              {
-                label: <span >Core Units <Value isLight={isLight}>({filteredData.length})</Value></span>,
-                url: `/${queryStrings}`
-              },
+              ...trailingAddress.map((adr) => ({
+                label: adr,
+                url: router.asPath,
+              })),
             ]}
-            title={breadcrumbTitle || buildCULabel()}
+          />
+          <InsidePagination
             count={filteredData.length}
+            page={page}
             onClickLeft={changeCoreUnitCode(-1)}
             onClickRight={changeCoreUnitCode(1)}
-            page={page}
           />
-        </div>
-      </div>
-    )}
+        </NavigationHeader>
+      )}
+      {(phone || lessThanPhone) && (
+        <div style={{ margin: '16px' }}>
+          <div>
+            <BreadCrumbMobile
+              items={[
+                ...trailingAddress.map((adr) => ({
+                  style: breadcrumbTitle === adr ? { color: isLight ? '#25273D' : '#D2D4EF' } : undefined,
+                  label: adr,
+                  url: router.asPath,
+                })),
+                {
+                  style: [buildCULabel(), undefined].includes(breadcrumbTitle)
+                    ? { color: isLight ? '#25273D' : '#D2D4EF' }
+                    : undefined,
+                  label: buildCULabel(),
+                  url: `/core-unit/${code}/${queryStrings}`,
+                },
 
-    <Wrapper>
-      <ContainerTitle>
-        <TitleNavigationCuAbout coreUnitAbout={cu} hiddenTextDescription={hiddenTextDescription} />
-        <SummaryDescription hiddenTextDescription={hiddenTextDescription}>
-          <TypographyDescription isLight={isLight}>
-            {cu?.sentenceDescription || ''}
-          </TypographyDescription>
-        </SummaryDescription>
-      </ContainerTitle>
-    </Wrapper>
-    <ContainerResponsiveMobile hiddenTextDescription={hiddenTextDescription} isLight={isLight} />
-  </Container>;
+                {
+                  label: (
+                    <span>
+                      Core Units <Value isLight={isLight}>({filteredData.length})</Value>
+                    </span>
+                  ),
+                  url: `/${queryStrings}`,
+                },
+              ]}
+              title={breadcrumbTitle || buildCULabel()}
+              count={filteredData.length}
+              onClickLeft={changeCoreUnitCode(-1)}
+              onClickRight={changeCoreUnitCode(1)}
+              page={page}
+            />
+          </div>
+        </div>
+      )}
+
+      <Wrapper>
+        <ContainerTitle>
+          <TitleNavigationCuAbout coreUnitAbout={cu} hiddenTextDescription={hiddenTextDescription} />
+          <SummaryDescription hiddenTextDescription={hiddenTextDescription}>
+            <TypographyDescription isLight={isLight}>{cu?.sentenceDescription || ''}</TypographyDescription>
+          </SummaryDescription>
+        </ContainerTitle>
+      </Wrapper>
+      <ContainerResponsiveMobile hiddenTextDescription={hiddenTextDescription} isLight={isLight} />
+    </Container>
+  );
 };
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
@@ -249,7 +261,7 @@ const TypographyDescription = styled(Typography)<{ isLight: boolean }>(({ isLigh
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: '12px',
-    lineHeight: '14px'
+    lineHeight: '14px',
   },
 }));
 
@@ -259,25 +271,31 @@ const Value = styled.b<{ isLight: boolean }>(({ isLight }) => ({
   fontWeight: 700,
   fontSize: '16px',
   lineHeight: '19px',
-  color: isLight ? '#708390' : '#48495F'
+  color: isLight ? '#708390' : '#48495F',
 }));
 
 const CoreUnitStyle = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#708390' : '#787A9B',
 }));
 
-const ContainerResponsiveMobile = styled.div<{ isLight: boolean, hiddenTextDescription: boolean }>(({ isLight, hiddenTextDescription }) => ({
-  position: 'relative',
-  borderBottom: hiddenTextDescription && isLight ? '1px solid #B6EDE7' : hiddenTextDescription && !isLight ? '1px solid #027265' : 'none',
-  width: '100%',
-  marginTop: hiddenTextDescription ? '24px' : 0,
+const ContainerResponsiveMobile = styled.div<{ isLight: boolean; hiddenTextDescription: boolean }>(
+  ({ isLight, hiddenTextDescription }) => ({
+    position: 'relative',
+    borderBottom:
+      hiddenTextDescription && isLight
+        ? '1px solid #B6EDE7'
+        : hiddenTextDescription && !isLight
+        ? '1px solid #027265'
+        : 'none',
+    width: '100%',
+    marginTop: hiddenTextDescription ? '24px' : 0,
 
-  [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: '24px',
-  },
+    [lightTheme.breakpoints.up('table_834')]: {
+      marginTop: '24px',
+    },
 
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-    marginTop: hiddenTextDescription ? '16px' : '0px',
-  },
-
-}));
+    [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+      marginTop: hiddenTextDescription ? '16px' : '0px',
+    },
+  })
+);

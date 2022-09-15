@@ -2,8 +2,7 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import TitleNavigationCuAbout from './title-navigation-cu-about';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
-import { SummarizedCoreUnit } from '../core-unit-summary/core-unit-summary.mvvm';
-import { CuMipDto, SocialMediaChannelDto } from '../../../core/models/dto/core-unit.dto';
+import { CoreUnitDto, CuMipDto, SocialMediaChannelDto } from '../../../core/models/dto/core-unit.dto';
 
 export default {
   title: 'Components/CUAbout/TitleNavigationCuAbout',
@@ -19,7 +18,7 @@ Default.args = {
     shortCode: 'SES',
     code: 'SES-001',
     image: 'https://api.gateway.ethswarm.org/bzz/efb3bbb702ecec395c08db27647158dc42928edc52e7a4f43dd0f444a24aa01d/',
-    category: [],
+    category: [] as string[],
     name: 'Sustainable Ecosystem Scaling',
     sentenceDescription: '',
     paragraphDescription: '',
@@ -45,7 +44,7 @@ Default.args = {
         mipStatus: CuStatusEnum.Accepted,
       },
     ] as CuMipDto[],
-  } as SummarizedCoreUnit,
+  } as CoreUnitDto,
 };
 
 DataWith.args = {
@@ -80,5 +79,5 @@ DataWith.args = {
         mipStatus: CuStatusEnum.Obsolete,
       },
     ] as CuMipDto[],
-  } as SummarizedCoreUnit,
+  } as CoreUnitDto,
 };

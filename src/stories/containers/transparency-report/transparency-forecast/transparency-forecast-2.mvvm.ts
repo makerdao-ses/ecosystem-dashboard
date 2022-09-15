@@ -427,6 +427,7 @@ export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetS
           ]),
         },
       ],
+      hideMobile: result.length < 2,
     });
 
     return result;

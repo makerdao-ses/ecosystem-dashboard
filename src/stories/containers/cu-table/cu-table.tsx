@@ -1,10 +1,4 @@
-import React, {
-  CSSProperties,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { CSSProperties, useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import isEmpty from 'lodash/isEmpty';
 import sortBy from 'lodash/sortBy';
@@ -23,11 +17,7 @@ import {
 } from '../../../core/business-logic/core-units';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { useAppDispatch } from '../../../core/hooks/hooks';
-import {
-  filterData,
-  getArrayParam,
-  getStringParam,
-} from '../../../core/utils/filters';
+import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
 import { CuTableColumnExpenditures } from '../../components/cu-table-column-expenditures/cu-table-column-expenditures';
 import { CuTableColumnLinks } from '../../components/cu-table-column-links/cu-table-column-links';
 import { CuTableColumnSummary } from '../../components/cu-table-column-summary/cu-table-column-summary';
@@ -61,12 +51,7 @@ import lightTheme from '../../../../styles/theme/light';
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
 
 const headerStyles: CSSProperties[] = [{ paddingLeft: '79.5px' }, {}, {}, {}];
-const headersAlign: ('flex-start' | 'center' | 'flex-end')[] = [
-  'flex-start',
-  'flex-start',
-  'center',
-  'center',
-];
+const headersAlign: ('flex-start' | 'center' | 'flex-end')[] = ['flex-start', 'flex-start', 'center', 'center'];
 
 export const sortData = (items: CoreUnitDto[]) => {
   const state = store.getState();
@@ -75,17 +60,13 @@ export const sortData = (items: CoreUnitDto[]) => {
   if (headersSort[sortColumn] === SortEnum.Disabled) return items;
 
   const multiplier = headersSort[sortColumn] === SortEnum.Asc ? 1 : -1;
-  const nameSort = (a: CoreUnitDto, b: CoreUnitDto) =>
-    sortAlphaNum(a.name, b.name) * multiplier;
+  const nameSort = (a: CoreUnitDto, b: CoreUnitDto) => sortAlphaNum(a.name, b.name) * multiplier;
   const expendituresSort = (a: CoreUnitDto, b: CoreUnitDto) =>
-    (getExpenditureValueFromCoreUnit(a) -
-      getExpenditureValueFromCoreUnit(b)) *
-    multiplier;
+    (getExpenditureValueFromCoreUnit(a) - getExpenditureValueFromCoreUnit(b)) * multiplier;
   const teamMembersSort = (a: CoreUnitDto, b: CoreUnitDto) =>
     (getFTEsFromCoreUnit(a) - getFTEsFromCoreUnit(b)) * multiplier;
   const linksSort = (a: CoreUnitDto, b: CoreUnitDto) =>
-    (getLinksFromCoreUnit(a).length - getLinksFromCoreUnit(b).length) *
-    multiplier;
+    (getLinksFromCoreUnit(a).length - getLinksFromCoreUnit(b).length) * multiplier;
 
   const sortAlg = [nameSort, expendituresSort, teamMembersSort, linksSort];
   return [...items].sort(sortAlg[sortColumn]);
@@ -96,22 +77,11 @@ export const CuTable = () => {
   const router = useRouter();
   const isLight = useThemeContext().themeMode === 'light';
 
-  const filteredStatuses = useMemo(
-    () => getArrayParam('filteredStatuses', router.query),
-    [router.query]
-  );
-  const filteredCategories = useMemo(
-    () => getArrayParam('filteredCategories', router.query),
-    [router.query]
-  );
+  const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
+  const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
 
-  const searchText = useMemo(
-    () => getStringParam('searchText', router.query),
-    [router.query]
-  );
-  const data: Array<CoreUnitDto> = useSelector((state: RootState) =>
-    selectCuTableItems(state)
-  );
+  const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
+  const data: Array<CoreUnitDto> = useSelector((state: RootState) => selectCuTableItems(state));
   const status = useSelector((state: RootState) => selectCuTableStatus(state));
 
   const sortColumn = useSelector((state: RootState) => selectCuTableSortColumn(state));
@@ -121,9 +91,7 @@ export const CuTable = () => {
   const toggleFiltersPopup = () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    document.querySelector('body').style.overflow = filtersPopup
-      ? 'auto'
-      : 'hidden';
+    document.querySelector('body').style.overflow = filtersPopup ? 'auto' : 'hidden';
     setFiltersPopup(!filtersPopup);
   };
 
@@ -147,9 +115,7 @@ export const CuTable = () => {
   const categoriesCount = useMemo(() => {
     const result: { [id: string]: number } = {};
     Object.values(CuCategoryEnum).forEach((cat) => {
-      result[cat] = categoriesFiltered?.filter(
-        (cu) => cu.category?.indexOf(cat) > -1
-      ).length;
+      result[cat] = categoriesFiltered?.filter((cu) => cu.category?.indexOf(cat) > -1).length;
     });
     result.All = categoriesFiltered.length;
     return result;
@@ -158,9 +124,7 @@ export const CuTable = () => {
   const statusCount = useMemo(() => {
     const result: { [id: string]: number } = {};
     Object.values(CuStatusEnum).forEach((cat) => {
-      result[cat] = statusesFiltered?.filter(
-        (cu) => getLatestMip39FromCoreUnit(cu)?.mipStatus === cat
-      ).length;
+      result[cat] = statusesFiltered?.filter((cu) => getLatestMip39FromCoreUnit(cu)?.mipStatus === cat).length;
     });
     result.All = statusesFiltered.length;
     return result;
@@ -183,11 +147,9 @@ export const CuTable = () => {
       const queryStrings = buildQueryString({
         filteredStatuses,
         filteredCategories,
-        searchText
+        searchText,
       });
-      router.push(
-        `/core-unit/${code}${queryStrings}`
-      );
+      router.push(`/core-unit/${code}${queryStrings}`);
     },
     [filteredCategories, filteredStatuses, router, searchText]
   );
@@ -197,11 +159,9 @@ export const CuTable = () => {
       const queryStrings = buildQueryString({
         filteredStatuses,
         filteredCategories,
-        searchText
+        searchText,
       });
-      router.push(
-        `/core-unit/${code}/finances/reports${queryStrings}`
-      );
+      router.push(`/core-unit/${code}/finances/reports${queryStrings}`);
     },
     [filteredCategories, filteredStatuses, router, searchText]
   );
@@ -223,12 +183,8 @@ export const CuTable = () => {
         <CuTableColumnSummary
           key={`summary-${coreUnit.code}`}
           title={coreUnit.name}
-          status={
-            getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum
-          }
-          statusModified={getSubmissionDateFromCuMip(
-            getLatestMip39FromCoreUnit(coreUnit)
-          )}
+          status={getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum}
+          statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
           imageUrl={coreUnit.image}
           mipUrl={getMipUrlFromCoreUnit(coreUnit)}
           onClick={onClickRow(coreUnit.shortCode)}
@@ -267,8 +223,9 @@ export const CuTable = () => {
           style={{
             display: 'flex',
             width: '100%',
-            height: '100%'
-          }}>
+            height: '100%',
+          }}
+        >
           <CuTableColumnTeamMember
             members={getFacilitatorsFromCoreUnit(coreUnit)}
             fte={getFTEsFromCoreUnit(coreUnit)}
@@ -287,12 +244,7 @@ export const CuTable = () => {
             cursor: 'pointer',
           }}
         >
-          <CuTableColumnLinks
-            links={getLinksFromCoreUnit(coreUnit)}
-            spacings={16}
-            fill="#708390"
-            fillDark="#D2D4EF"
-          />
+          <CuTableColumnLinks links={getLinksFromCoreUnit(coreUnit)} spacings={16} fill="#708390" fillDark="#D2D4EF" />
         </div>,
       ];
     });
@@ -303,23 +255,12 @@ export const CuTable = () => {
       const result = [];
 
       for (let i = 0; i < 4; i++) {
-        result.push(
-          <CoreUnitCard
-            key={`card-placeholder-${i}`}
-            coreUnit={{} as CoreUnitDto}
-            isLoading
-          />
-        );
+        result.push(<CoreUnitCard key={`card-placeholder-${i}`} coreUnit={{} as CoreUnitDto} isLoading />);
       }
 
       return result;
     }
-    return sortBy(filteredData, 'name').map((cu) => (
-      <CoreUnitCard
-        key={`card-${cu.code}`}
-        coreUnit={cu}
-      />
-    ));
+    return sortBy(filteredData, 'name').map((cu) => <CoreUnitCard key={`card-${cu.code}`} coreUnit={cu} />);
   }, [filteredData]);
 
   const siteHeader = useMemo(() => {
@@ -343,19 +284,28 @@ export const CuTable = () => {
           />
         </FilterButtonWrapperMobile>
         <FilterButtonWrapper onClick={toggleFiltersPopup}>
-
           <CustomButton
             label={'Filters'}
             isHightLight={!!(filteredStatuses.length || filteredCategories.length || searchText)}
             style={{
               height: '34px',
               width: '90px',
-              border: isLight ? (filteredStatuses.length || filteredCategories.length || searchText ? '1px solid #1AAB9B' : '1px solid #D4D9E1') : (filteredStatuses.length || filteredCategories.length || searchText ? '1px solid #098C7D' : '1px solid #343442'),
+              border: isLight
+                ? filteredStatuses.length || filteredCategories.length || searchText
+                  ? '1px solid #1AAB9B'
+                  : '1px solid #D4D9E1'
+                : filteredStatuses.length || filteredCategories.length || searchText
+                ? '1px solid #098C7D'
+                : '1px solid #343442',
             }}
             styleText={{
               color: isLight
-                ? (filteredStatuses.length || filteredCategories.length || searchText ? ' #1AAB9B' : '#231536')
-                : (filteredStatuses.length || filteredCategories.length || searchText ? ' #1AAB9B' : '#D2D4EF'),
+                ? filteredStatuses.length || filteredCategories.length || searchText
+                  ? ' #1AAB9B'
+                  : '#231536'
+                : filteredStatuses.length || filteredCategories.length || searchText
+                ? ' #1AAB9B'
+                : '#D2D4EF',
             }}
           />
         </FilterButtonWrapper>
@@ -381,7 +331,7 @@ export const CuTable = () => {
         image={{
           src: toAbsoluteURL('/assets/img/social-385x200.png'),
           width: 385,
-          height: 200
+          height: 200,
         }}
         twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
       >
@@ -420,9 +370,7 @@ const ContainerHome = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   marginTop: '64px',
   width: '100%',
   background: isLight ? '#FFFFFF' : '#000000',
-  backgroundImage: isLight
-    ? '#FFFFFF'
-    : 'linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 16, 32, 0.4) 100%)',
+  backgroundImage: isLight ? '#FFFFFF' : 'linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 16, 32, 0.4) 100%)',
   '@media (min-width: 834px)': {
     padding: '24px 32px 128px',
   },
@@ -494,6 +442,7 @@ const FilterButtonWrapper = styled.div({
     display: 'none',
   },
 });
+
 const FilterButtonWrapperMobile = styled.div({
   display: 'flex',
   '@media (min-width: 834px)': {

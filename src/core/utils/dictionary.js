@@ -87,6 +87,7 @@ const dictionary = [
   'Julien',
   'juan',
   'moreer',
+  'lvlexpenditure',
 ];
 
 module.exports = dictionary;

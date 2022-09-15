@@ -16,6 +16,9 @@ jobs:
         run: |
           npm install -g yarn
           yarn
+      - name: Configure environment variables
+        run: |
+          echo -e "NEXT_PUBLIC_ENVIRONMENT=development" >> .env
       - name: Validate
         run: |
           yarn run eslint src/**/*{.ts,.tsx}

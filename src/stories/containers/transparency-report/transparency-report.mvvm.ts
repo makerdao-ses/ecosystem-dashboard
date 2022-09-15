@@ -1,13 +1,120 @@
-import { CORE_UNIT_REQUEST } from './transparency-report.api';
-import { request } from 'graphql-request';
-import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
+import { DateTime } from 'luxon';
+import { useRouter } from 'next/router';
+import { useRef, useState, useEffect, useCallback, useMemo } from 'react';
+import {
+  getCurrentOrLastMonthWithData,
+  getLastMonthWithActualOrForecast,
+} from '../../../core/business-logic/core-units';
+import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
+import { BudgetStatementDto, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import { API_MONTH_FORMAT } from '../../../core/utils/date.utils';
 
-export const useTransparencyReportViewModel = async(code: string) => {
-  const { query, filter } = CORE_UNIT_REQUEST(code);
-  const data = await request(GRAPHQL_ENDPOINT, query, filter);
+const TRANSPARENCY_IDS = ['actuals', 'forecast', 'mkr-vesting', 'transfer-requests', 'audit-reports'];
+
+export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
+  const router = useRouter();
+  const query = router.query;
+  const code = query.code as string;
+  const viewMonthStr = query.viewMonth;
+  const anchor = useUrlAnchor();
+  const transparencyTableRef = useRef<HTMLDivElement>(null);
+
+  const [tabsIndex, setTabsIndex] = useState(0);
+
+  const [currentMonth, setCurrentMonth] = useState(DateTime.now());
+
+  useEffect(() => {
+    if (anchor) {
+      const index = TRANSPARENCY_IDS.findIndex((id) => anchor.indexOf(id) > -1);
+      setTabsIndex(index);
+    }
+  }, [anchor]);
+
+  const [scrolled, setScrolled] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (anchor === '') {
+      setScrolled(true);
+    }
+    if (!scrolled && anchor && TRANSPARENCY_IDS.includes(anchor)) {
+      setScrolled(true);
+      let offset = (transparencyTableRef?.current?.offsetTop || 0) - 280;
+      const windowsWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+      if (windowsWidth < 834) {
+        offset += 100;
+      }
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'manual';
+      }
+      window.scrollTo(0, Math.max(0, offset));
+    }
+  }, [anchor]);
+
+  useEffect(() => {
+    if (viewMonthStr) {
+      const month = DateTime.fromFormat(viewMonthStr as string, 'LLLyyyy');
+      setCurrentMonth(month);
+    } else {
+      const month = getCurrentOrLastMonthWithData(coreUnit.budgetStatements);
+
+      if (month) {
+        setCurrentMonth(month);
+      }
+    }
+  }, [router.route, router.query]);
+
+  const replaceViewMonthRoute = (viewMonth: string) => {
+    router.replace(
+      {
+        hash: anchor,
+        query: {
+          ...router.query,
+          viewMonth,
+        },
+      },
+      undefined,
+      {
+        shallow: true,
+      }
+    );
+  };
+
+  const handlePreviousMonth = useCallback(() => {
+    const month = currentMonth.minus({ month: 1 });
+    replaceViewMonthRoute(month.toFormat('LLLyyyy'));
+    setCurrentMonth(month);
+  }, [setCurrentMonth, currentMonth]);
+
+  const hasNextMonth = () => {
+    const limit = getLastMonthWithActualOrForecast(coreUnit.budgetStatements).plus({
+      month: 1,
+    });
+    return currentMonth.startOf('month') < limit.startOf('month');
+  };
+
+  const handleNextMonth = useCallback(() => {
+    if (hasNextMonth()) {
+      const month = currentMonth.plus({ month: 1 });
+      replaceViewMonthRoute(month.toFormat('LLLyyyy'));
+      setCurrentMonth(month);
+    }
+  }, [setCurrentMonth, currentMonth]);
+
+  const currentBudgetStatement = useMemo(() => {
+    return coreUnit?.budgetStatements?.find(
+      (bs: BudgetStatementDto) => bs.month === currentMonth.toFormat(API_MONTH_FORMAT)
+    );
+  }, [coreUnit, currentMonth]);
 
   return {
-    data,
-    isLoading: false,
+    TRANSPARENCY_IDS,
+    code,
+    transparencyTableRef,
+    currentMonth,
+    handlePreviousMonth,
+    handleNextMonth,
+    hasNextMonth,
+    currentBudgetStatement,
+    tabsIndex,
   };
 };
