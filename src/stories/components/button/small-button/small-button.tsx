@@ -8,9 +8,7 @@ interface Props {
 }
 
 const SmallButton = ({ onClick, title = 'Back' }: Props) => {
-  return (
-    <StyledSmallButton onClick={onClick} >{title}</StyledSmallButton>
-  );
+  return <StyledSmallButton onClick={onClick}>{title}</StyledSmallButton>;
 };
 
 const StyledSmallButton = styled(Button, { shouldForwardProp: (prop) => prop !== 'isLight' })({
@@ -28,8 +26,8 @@ const StyledSmallButton = styled(Button, { shouldForwardProp: (prop) => prop !==
   padding: '4px 8px',
   textTransform: 'none',
   ':hover': {
-    backgroundColor: '#C4C4C4'
-  }
+    backgroundColor: '#C4C4C4',
+  },
 });
 
 export default SmallButton;

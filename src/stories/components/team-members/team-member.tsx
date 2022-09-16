@@ -6,25 +6,30 @@ import lightTheme from '../../../../styles/theme/light';
 import { Typography } from '@mui/material';
 
 interface Props {
-  fte: number,
+  fte: number;
 }
 
 const TeamMember = ({ fte }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
-  return <Container>
-    <CustomPopover
-      title={'Full-Time Equivalents'}
-      id={'popover-fulltime equivalent'}
-      popupStyle={{
-        color: isLight ? '#231536' : '#D2D4EF',
-      }}
-    >
-      <Data>
-        <ContainerRow> <StyleTypography isLight={isLight}>{fte}</StyleTypography> </ContainerRow>
-        <Title isLight={isLight}>FTEs</Title>
-      </Data>
-    </CustomPopover>
-  </Container>;
+  return (
+    <Container>
+      <CustomPopover
+        title={'Full-Time Equivalents'}
+        id={'popover-fulltime equivalent'}
+        popupStyle={{
+          color: isLight ? '#231536' : '#D2D4EF',
+        }}
+      >
+        <Data>
+          <ContainerRow>
+            {' '}
+            <StyleTypography isLight={isLight}>{fte}</StyleTypography>{' '}
+          </ContainerRow>
+          <Title isLight={isLight}>FTEs</Title>
+        </Data>
+      </CustomPopover>
+    </Container>
+  );
 };
 
 const Container = styled.div({
@@ -33,34 +38,37 @@ const Container = styled.div({
   alignItems: 'center',
   fontWeight: 400,
   cursor: 'pointer',
-
 });
 
-const StyleTypography = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(({ isLight }) => ({
-  fontStyle: 'normal',
-  fontFamily: 'Inter, sans-serif',
-  fontWeight: 700,
-  fontSize: '20px',
-  lineHeight: '24px',
-  color: isLight ? '#231536' : '#D2D4EF',
-}));
-
-const Title = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(({ isLight }) => ({
-  fontStyle: 'normal',
-  fontWeight: 500,
-  fontSize: '20px',
-  lineHeight: '24px',
-  color: isLight ? '#231536' : '#D2D4EF',
-  marginLeft: '8px',
-  textAlign: 'center',
-  fontFamily: 'FT Base, sans-serif',
-  letterSpacing: '0.4px',
-
-  [lightTheme.breakpoints.down('table_834')]: {
-    fontSize: '16px',
+const StyleTypography = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
+  ({ isLight }) => ({
+    fontStyle: 'normal',
+    fontFamily: 'Inter, sans-serif',
     fontWeight: 700,
-  },
-}));
+    fontSize: '20px',
+    lineHeight: '24px',
+    color: isLight ? '#231536' : '#D2D4EF',
+  })
+);
+
+const Title = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
+  ({ isLight }) => ({
+    fontStyle: 'normal',
+    fontWeight: 500,
+    fontSize: '20px',
+    lineHeight: '24px',
+    color: isLight ? '#231536' : '#D2D4EF',
+    marginLeft: '8px',
+    textAlign: 'center',
+    fontFamily: 'FT Base, sans-serif',
+    letterSpacing: '0.4px',
+
+    [lightTheme.breakpoints.down('table_834')]: {
+      fontSize: '16px',
+      fontWeight: 700,
+    },
+  })
+);
 
 const Data = styled.div({
   display: 'flex',

@@ -1,12 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../../../core/store/store';
 import {
-  ContributorCommitment,
-  CuAbout,
-  CuMip,
-  fetchCoreUnitByCode,
-  SocialMediaChannels,
-} from './cu-about.api';
+  BudgetStatementDto,
+  ContributorCommitmentDto,
+  CoreUnitDto,
+  RoadMapDto,
+  SocialMediaChannelDto,
+} from '../../../core/models/dto/core-unit.dto';
+import { RootState } from '../../../core/store/store';
+import { fetchCoreUnitByCode } from './cu-about.api';
 
 export enum status {
   idle = 'idle',
@@ -16,7 +17,7 @@ export enum status {
 }
 
 export interface CurrentCoreUnitAbout {
-  cuAbout: CuAbout;
+  cuAbout: CoreUnitDto;
   statusCoreUnit: status;
   error: null;
 }
@@ -25,37 +26,26 @@ export const initialState: CurrentCoreUnitAbout = {
   error: null,
   statusCoreUnit: status.idle,
   cuAbout: {
-    shortCode: '',
     id: '',
-    name: '',
+    shortCode: '',
     code: '',
+    name: '',
     image: '',
-    category: [],
     paragraphDescription: '',
-    sentenceDescription: '',
     paragraphImage: '',
-    cuMip: [] as CuMip[],
-    budgetStatements: [
-      {
-        budgetStatementFTEs: [
-          {
-            ftes: 0,
-            month: '',
-          },
-        ],
-      },
-    ],
-    contributorCommitment: [] as ContributorCommitment[],
-    socialMediaChannels: [] as SocialMediaChannels[],
-  } as CuAbout,
+    sentenceDescription: '',
+    category: [],
+    cuMip: [],
+    roadMap: [] as RoadMapDto[],
+    socialMediaChannels: [] as SocialMediaChannelDto[],
+    budgetStatements: [] as BudgetStatementDto[],
+    contributorCommitment: [] as ContributorCommitmentDto[],
+  },
 };
 
-export const loadCoreUnitAbout = createAsyncThunk(
-  'CoreUnit/loadCoreUnitABout',
-  (coreUnitId: string) => {
-    return fetchCoreUnitByCode(coreUnitId);
-  }
-);
+export const loadCoreUnitAbout = createAsyncThunk('CoreUnit/loadCoreUnitABout', (coreUnitId: string) => {
+  return fetchCoreUnitByCode(coreUnitId);
+});
 
 export const cuAboutSlice = createSlice({
   name: 'cuAbout',

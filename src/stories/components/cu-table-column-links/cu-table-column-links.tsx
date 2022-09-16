@@ -29,42 +29,22 @@ interface CuTableColumnLinksProps {
   isLoading?: boolean;
 }
 
-const getImageForLink = (
-  link: LinkModel,
-  fill: string,
-  width?: number,
-  height?: number,
-  fillDark?: string,
-) => {
+const getImageForLink = (link: LinkModel, fill: string, width?: number, height?: number, fillDark?: string) => {
   switch (link.linkType) {
     case LinkTypeEnum.WWW:
-      return (
-        <WWW fill={fill} width={width} height={height} fillDark={fillDark} />
-      );
+      return <WWW fill={fill} width={width} height={height} fillDark={fillDark} />;
     case LinkTypeEnum.Forum:
-      return (
-        <Forum fill={fill} width={width} height={height} fillDark={fillDark} />
-      );
+      return <Forum fill={fill} width={width} height={height} fillDark={fillDark} />;
     case LinkTypeEnum.Discord:
-      return (
-        <Discord fill={fill} width={width} height={height} fillDark={fillDark} />
-      );
+      return <Discord fill={fill} width={width} height={height} fillDark={fillDark} />;
     case LinkTypeEnum.Twitter:
-      return (
-        <Twitter fill={fill} width={width} height={height} fillDark={fillDark} />
-      );
+      return <Twitter fill={fill} width={width} height={height} fillDark={fillDark} />;
     case LinkTypeEnum.Youtube:
-      return (
-        <Youtube fill={fill} width={width} height={height} fillDark={fillDark} />
-      );
+      return <Youtube fill={fill} width={width} height={height} fillDark={fillDark} />;
     case LinkTypeEnum.LinkedIn:
-      return (
-        <LinkedIn fill={fill} width={width} height={height} fillDark={fillDark} />
-      );
+      return <LinkedIn fill={fill} width={width} height={height} fillDark={fillDark} />;
     case LinkTypeEnum.Gmail:
-      return (
-        <Gmail fill={fill} width={width} height={height} fillDark={fillDark} />
-      );
+      return <Gmail fill={fill} width={width} height={height} fillDark={fillDark} />;
     default:
       return <WWW />;
   }
@@ -82,38 +62,34 @@ export const CuTableColumnLinks = ({
   isLoading = false,
 }: CuTableColumnLinksProps) => {
   const isLight = useThemeContext().themeMode === 'light';
-  return !isLoading
-    ? (
-      <Container spacings={spacings} align={align}>
-        {links?.map((link, i) => (
-          <StyleBox lastChild={lastChild} key={`link-${i}`}>
-            <LinkImage
-                href={link.href}
-                target="_blank"
-                width={width}
-                height={height}
-                isLight={isLight}
-                onClick={(event: React.SyntheticEvent) => event.stopPropagation()}
-              >
-                {getImageForLink(link, fill, width, height, fillDark)}
-              </LinkImage>
-          </StyleBox>
-        ))}
-      </Container>
-      )
-    : (
-      <ColumnLinksSkeleton />
-      );
+  return !isLoading ? (
+    <Container spacings={spacings} align={align}>
+      {links?.map((link, i) => (
+        <StyleBox lastChild={lastChild} key={`link-${i}`}>
+          <LinkImage
+            href={link.href}
+            target="_blank"
+            width={width}
+            height={height}
+            isLight={isLight}
+            onClick={(event: React.SyntheticEvent) => event.stopPropagation()}
+          >
+            {getImageForLink(link, fill, width, height, fillDark)}
+          </LinkImage>
+        </StyleBox>
+      ))}
+    </Container>
+  ) : (
+    <ColumnLinksSkeleton />
+  );
 };
 
-const Container = styled.div<{ spacings?: number; align: string }>(
-  ({ spacings, align }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: align,
-    gap: `${spacings ?? 0}px`,
-  })
-);
+const Container = styled.div<{ spacings?: number; align: string }>(({ spacings, align }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: align,
+  gap: `${spacings ?? 0}px`,
+}));
 
 type StickyLinkProps = {
   width?: number;
@@ -131,8 +107,8 @@ const LinkImage = styled.a(
     width,
     height,
     '&:hover svg path': {
-      fill: isLight ? '#231536' : 'white'
-    }
+      fill: isLight ? '#231536' : 'white',
+    },
   })
 );
 

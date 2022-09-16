@@ -1,4 +1,5 @@
 import { CuJobEnum } from '../../enums/cu-job.enum';
+import { CuStatusEnum } from '../../enums/cu-status.enum';
 
 export interface Mip40BudgetPeriodDto {
   budgetPeriodStart: string;
@@ -38,14 +39,14 @@ export interface ContributorCommitmentDto {
   commitment: string;
   startDate: string;
   jobTitle: CuJobEnum;
-  contributor: ContributorDto[]
+  contributor: ContributorDto[];
 }
 
 export interface CuMipDto {
   mipTitle: string;
   mipCode: string;
   dateMip: Date;
-  mipStatus: string;
+  mipStatus:CuStatusEnum;
   mipUrl: string;
   accepted: string;
   formalSubmission: string;

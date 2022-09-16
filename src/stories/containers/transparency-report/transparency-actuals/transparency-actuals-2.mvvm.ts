@@ -9,10 +9,7 @@ import { DateTime } from 'luxon';
 import { capitalizeSentence } from '../../../../core/utils/string.utils';
 import { API_MONTH_FORMAT } from '../../../../core/utils/date.utils';
 import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
-import {
-  InnerTableColumn,
-  InnerTableRow,
-} from '../../../components/advanced-inner-table/advanced-inner-table';
+import { InnerTableColumn, InnerTableRow } from '../../../components/advanced-inner-table/advanced-inner-table';
 import { renderLinks, renderWallet } from '../transparency-report.utils';
 
 export const useTransparencyActualsMvvm2 = (
@@ -20,18 +17,13 @@ export const useTransparencyActualsMvvm2 = (
   budgetStatements: BudgetStatementDto[] | undefined,
   code: string
 ) => {
-  const currentMonth = useMemo(
-    () => propsCurrentMonth.toFormat(API_MONTH_FORMAT),
-    [propsCurrentMonth]
-  );
+  const currentMonth = useMemo(() => propsCurrentMonth.toFormat(API_MONTH_FORMAT), [propsCurrentMonth]);
   const anchor = useUrlAnchor();
 
   const wallets: BudgetStatementWalletDto[] = useMemo(() => {
     const dict: { [id: string]: BudgetStatementWalletDto } = {};
 
-    const budgetStatement = budgetStatements?.find(
-      (bs) => bs.month === propsCurrentMonth.toFormat(API_MONTH_FORMAT)
-    );
+    const budgetStatement = budgetStatements?.find((bs) => bs.month === propsCurrentMonth.toFormat(API_MONTH_FORMAT));
 
     if (!budgetStatement || !budgetStatement.budgetStatementWallet) return [];
 
@@ -49,27 +41,21 @@ export const useTransparencyActualsMvvm2 = (
 
   const getWalletForecast = (wallet: BudgetStatementWalletDto) => {
     return _.sumBy(
-      wallet?.budgetStatementLineItem.filter(
-        (item) => item.month === currentMonth
-      ),
+      wallet?.budgetStatementLineItem.filter((item) => item.month === currentMonth),
       (i) => i.forecast ?? 0
     );
   };
 
   const getWalletActual = (wallet: BudgetStatementWalletDto) => {
     return _.sumBy(
-      wallet?.budgetStatementLineItem.filter(
-        (item) => item.month === currentMonth
-      ),
+      wallet?.budgetStatementLineItem.filter((item) => item.month === currentMonth),
       (i) => i.actual ?? 0
     );
   };
 
   const getWalletPayment = (wallet: BudgetStatementWalletDto) => {
     return _.sumBy(
-      wallet?.budgetStatementLineItem.filter(
-        (item) => item.month === currentMonth
-      ),
+      wallet?.budgetStatementLineItem.filter((item) => item.month === currentMonth),
       (i) => i.payment ?? 0
     );
   };
@@ -89,9 +75,7 @@ export const useTransparencyActualsMvvm2 = (
   const budgetTotalForecast = useMemo(() => {
     return _.sumBy(currentBudgetStatement?.budgetStatementWallet, (wallet) =>
       _.sumBy(
-        wallet.budgetStatementLineItem.filter(
-          (item) => item.month === currentMonth
-        ),
+        wallet.budgetStatementLineItem.filter((item) => item.month === currentMonth),
         (item) => item?.forecast ?? 0
       )
     );
@@ -100,9 +84,7 @@ export const useTransparencyActualsMvvm2 = (
   const budgetTotalActual = useMemo(() => {
     return _.sumBy(currentBudgetStatement?.budgetStatementWallet, (wallet) =>
       _.sumBy(
-        wallet.budgetStatementLineItem.filter(
-          (item) => item.month === currentMonth
-        ),
+        wallet.budgetStatementLineItem.filter((item) => item.month === currentMonth),
         (item) => item?.actual ?? 0
       )
     );
@@ -111,9 +93,7 @@ export const useTransparencyActualsMvvm2 = (
   const budgetTotalPayment = useMemo(() => {
     return _.sumBy(currentBudgetStatement?.budgetStatementWallet, (wallet) =>
       _.sumBy(
-        wallet.budgetStatementLineItem.filter(
-          (item) => item.month === currentMonth
-        ),
+        wallet.budgetStatementLineItem.filter((item) => item.month === currentMonth),
         (item) => item?.payment ?? 0
       )
     );
@@ -141,6 +121,7 @@ export const useTransparencyActualsMvvm2 = (
     return getGroupForecast(group) - getGroupActual(group);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const getCommentsFromCategory = (group: BudgetStatementLineItemDto[]) => {
     return group
       .filter((item) => item.month === currentMonth)
@@ -161,10 +142,7 @@ export const useTransparencyActualsMvvm2 = (
     return Math.max(headerIds?.indexOf(anchor ?? ''), 0);
   }, [headerIds, anchor]);
 
-  const currentWallet = useMemo(
-    () => wallets[thirdIndex],
-    [thirdIndex, wallets]
-  );
+  const currentWallet = useMemo(() => wallets[thirdIndex], [thirdIndex, wallets]);
 
   const hasGroups = useMemo(() => {
     const currentWallet = wallets[thirdIndex];
@@ -178,13 +156,8 @@ export const useTransparencyActualsMvvm2 = (
 
   const hasExpenses = (headCount = true) =>
     currentWallet?.budgetStatementLineItem
-      ?.filter((item) =>
-        headCount ? item.headcountExpense : !item.headcountExpense
-      )
-      .some(
-        (x) =>
-          (x.actual || x.forecast) && x.month === currentBudgetStatement?.month
-      );
+      ?.filter((item) => (headCount ? item.headcountExpense : !item.headcountExpense))
+      .some((x) => (x.actual || x.forecast) && x.month === currentBudgetStatement?.month);
 
   const headerToId = (header: string): string => {
     const id = header.toLowerCase().trim().replaceAll(/ /g, '-');
@@ -196,18 +169,10 @@ export const useTransparencyActualsMvvm2 = (
   }, [breakdownTabs]);
 
   useEffect(() => {
-    if (
-      !scrolled &&
-      anchor &&
-      !_.isEmpty(headerIds) &&
-      headerIds.includes(anchor)
-    ) {
+    if (!scrolled && anchor && !_.isEmpty(headerIds) && headerIds.includes(anchor)) {
       setScrolled(true);
       let offset = (breakdownTitleRef?.current?.offsetTop || 0) - 260;
-      const windowsWidth = Math.max(
-        document.documentElement.clientWidth || 0,
-        window.innerWidth || 0
-      );
+      const windowsWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
       if (windowsWidth < 834) {
         offset += 90;
       }
@@ -326,7 +291,7 @@ export const useTransparencyActualsMvvm2 = (
               value: budgetTotalPayment,
             },
           ],
-          hideMobile: result.length < 2
+          hideMobile: result.length < 2,
         });
       }
     }
@@ -377,18 +342,11 @@ export const useTransparencyActualsMvvm2 = (
     const grouped = _.groupBy(items, (item) => item.group);
 
     for (const groupedKey in grouped) {
-      if (
-        Math.abs(getGroupForecast(grouped[groupedKey])) +
-          Math.abs(getGroupActual(grouped[groupedKey])) ===
-        0
-      ) {
+      if (Math.abs(getGroupForecast(grouped[groupedKey])) + Math.abs(getGroupActual(grouped[groupedKey])) === 0) {
         continue;
       }
 
-      const groupedCategory = _.groupBy(
-        grouped[groupedKey],
-        (item) => item.budgetCategory
-      );
+      const groupedCategory = _.groupBy(grouped[groupedKey], (item) => item.budgetCategory);
 
       let i = 1;
       for (const groupedCatKey in groupedCategory) {
@@ -437,10 +395,7 @@ export const useTransparencyActualsMvvm2 = (
     return result;
   };
 
-  const getLineItemsSubtotal = (
-    items: BudgetStatementLineItemDto[],
-    title: string
-  ) => {
+  const getLineItemsSubtotal = (items: BudgetStatementLineItemDto[], title: string) => {
     return (
       items?.reduce(
         (prv, curr) =>
@@ -486,19 +441,13 @@ export const useTransparencyActualsMvvm2 = (
       });
 
       result.push(
-        ...getBreakdownItems(
-          currentWallet?.budgetStatementLineItem?.filter(
-            (item) => item.headcountExpense
-          )
-        )
+        ...getBreakdownItems(currentWallet?.budgetStatementLineItem?.filter((item) => item.headcountExpense))
       );
 
       result.push(
         ...getBreakdownItems([
           getLineItemsSubtotal(
-            currentWallet?.budgetStatementLineItem?.filter(
-              (item) => item.headcountExpense
-            ),
+            currentWallet?.budgetStatementLineItem?.filter((item) => item.headcountExpense),
             'Sub Total'
           ),
         ])
@@ -521,21 +470,15 @@ export const useTransparencyActualsMvvm2 = (
       });
 
       const headcountExpenseItems = getBreakdownItems(
-        currentWallet?.budgetStatementLineItem?.filter(
-          (item) => !item.headcountExpense
-        )
+        currentWallet?.budgetStatementLineItem?.filter((item) => !item.headcountExpense)
       );
 
-      result.push(
-        ...headcountExpenseItems
-      );
+      result.push(...headcountExpenseItems);
 
       result.push(
         ...getBreakdownItems([
           getLineItemsSubtotal(
-            currentWallet?.budgetStatementLineItem?.filter(
-              (item) => !item.headcountExpense
-            ),
+            currentWallet?.budgetStatementLineItem?.filter((item) => !item.headcountExpense),
             'Sub Total'
           ),
         ])

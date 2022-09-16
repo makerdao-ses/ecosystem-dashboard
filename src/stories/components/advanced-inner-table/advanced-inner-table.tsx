@@ -43,28 +43,24 @@ interface Props {
 
 type Alignment = 'left' | 'center' | 'right';
 
-export const AdvancedInnerTable = ({
-  cardsTotalPosition = 'bottom',
-  ...props
-}: Props) => {
+export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
-  const getCell = (
-    column: InnerTableColumn,
-    rowType: RowType,
-    value: unknown
-  ) => {
+  const getCell = (column: InnerTableColumn, rowType: RowType, value: unknown) => {
     if (value !== 0 && !value) {
       return <></>;
     }
     const isBold = rowType === 'total' || rowType === 'section';
-    const columnType =
-      rowType === 'total' && column?.type === 'custom' ? 'text' : column?.type;
+    const columnType = rowType === 'total' && column?.type === 'custom' ? 'text' : column?.type;
 
     switch (columnType) {
       case 'number':
         return <NumberCell key={column.header} value={Number(value)} bold={isBold} />;
       case 'text':
-        return <TextCell key={column.header} bold={isBold}>{value as string}</TextCell>;
+        return (
+          <TextCell key={column.header} bold={isBold}>
+            {value as string}
+          </TextCell>
+        );
       case 'custom':
         if (column?.cellRender) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -72,21 +68,21 @@ export const AdvancedInnerTable = ({
         }
     }
 
-    return <TextCell key={column.header} bold={isBold}>{value as string}</TextCell>;
+    return (
+      <TextCell key={column.header} bold={isBold}>
+        {value as string}
+      </TextCell>
+    );
   };
 
   let cardItems =
     cardsTotalPosition === 'top' && props.items.length > 0
-      ? [
-          props.items[props.items.length - 1],
-          ...props.items.slice(0, props.items.length - 1),
-        ]
+      ? [props.items[props.items.length - 1], ...props.items.slice(0, props.items.length - 1)]
       : props.items;
 
-  cardItems = cardItems.filter(x => !x.hideMobile);
+  cardItems = cardItems.filter((x) => !x.hideMobile);
 
-  return props.items.length > 0
-    ? (
+  return props.items.length > 0 ? (
     <>
       <TableWrapper>
         <Container isLight={isLight} style={props.style}>
@@ -99,9 +95,7 @@ export const AdvancedInnerTable = ({
                     <HeadCell
                       key={`header-${i}`}
                       style={{
-                        textAlign: (column.headerAlign ??
-                          column.align ??
-                          'left') as Alignment,
+                        textAlign: (column.headerAlign ?? column.align ?? 'left') as Alignment,
                         width: column.width ?? '120px',
                         overflow: 'hidden',
                       }}
@@ -117,10 +111,7 @@ export const AdvancedInnerTable = ({
                   {row.items
                     ?.filter((x) => !x.column.hidden)
                     .map((item, j) => (
-                      <TableCell
-                        key={`${i}-${j}`}
-                        textAlign={(item.column?.align ?? 'left') as Alignment}
-                      >
+                      <TableCell key={`${i}-${j}`} textAlign={(item.column?.align ?? 'left') as Alignment}>
                         {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                         {getCell(item.column, row.type, item.value as any)}
                       </TableCell>
@@ -133,13 +124,11 @@ export const AdvancedInnerTable = ({
       </TableWrapper>
       <CardsWrapper>
         {cardItems.map((item, i) =>
-          item.type === 'section'
-            ? (
+          item.type === 'section' ? (
             <Title isLight={isLight} fontSize="14px" key={`section-${i}`}>
               {item.items[0].value as string}
             </Title>
-              )
-            : (
+          ) : (
             <TransparencyCard
               key={`item-${i}`}
               header={
@@ -149,36 +138,27 @@ export const AdvancedInnerTable = ({
                     .map((x) => getCell(x.column, item.type, x.value))}
                 </>
               }
-              headers={props.columns
-                .filter((x) => !x.isCardHeader && !x.isCardFooter)
-                .map((x) => x.header ?? '')}
+              headers={props.columns.filter((x) => !x.isCardHeader && !x.isCardFooter).map((x) => x.header ?? '')}
               items={
                 item.items
-                  .filter(
-                    (x) => !x.column?.isCardFooter && !x.column?.isCardHeader
-                  )
+                  .filter((x) => !x.column?.isCardFooter && !x.column?.isCardHeader)
                   .map((x) => getCell(x.column, item.type, x.value)) ?? []
               }
               footer={
-                item.items.filter((x) => x.column?.isCardFooter).length
-                  ? (
+                item.items.filter((x) => x.column?.isCardFooter).length ? (
                   <>
-                    {item.items
-                      .filter((x) => x.column?.isCardFooter)
-                      .map((x) => getCell(x.column, 'normal', x.value))}
+                    {item.items.filter((x) => x.column?.isCardFooter).map((x) => getCell(x.column, 'normal', x.value))}
                   </>
-                    )
-                  : undefined
+                ) : undefined
               }
             />
-              )
+          )
         )}
       </CardsWrapper>
     </>
-      )
-    : (
-        props.tablePlaceholder ?? <TransparencyEmptyTable />
-      );
+  ) : (
+    props.tablePlaceholder ?? <TransparencyEmptyTable />
+  );
 };
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
@@ -199,11 +179,9 @@ const Table = styled.table({
   width: '100%',
 });
 
-const TableCell = styled.td<{ textAlign: 'left' | 'center' | 'right' }>(
-  ({ textAlign }) => ({
-    textAlign,
-  })
-);
+const TableCell = styled.td<{ textAlign: 'left' | 'center' | 'right' }>(({ textAlign }) => ({
+  textAlign,
+}));
 
 const TableHead = styled.thead<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',

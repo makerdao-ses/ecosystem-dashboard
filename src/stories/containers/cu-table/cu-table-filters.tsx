@@ -23,7 +23,7 @@ interface FilterProps {
   clearFilters: () => void;
   statusCount: { [id: string]: number };
   categoriesCount: { [id: string]: number };
-  handleCloseSearch?: () => void
+  handleCloseSearch?: () => void;
 }
 
 const statuses = Object.values(CuStatusEnum) as string[];
@@ -34,14 +34,17 @@ export const Filters = (props: FilterProps) => {
   const debounce = useDebounce();
   const isLight = useThemeContext().themeMode === 'light';
   const inputRef = useRef<HTMLInputElement>(null);
-  const handleChangeUrlFilterArrays = useCallback((key: string) => (value: string[] | string) => {
-    const search = router.query;
-    search[key] = Array.isArray(value) ? value.join(',') : (value || '');
-    router.push({
-      pathname: '/',
-      search: stringify(search),
-    });
-  }, [router]);
+  const handleChangeUrlFilterArrays = useCallback(
+    (key: string) => (value: string[] | string) => {
+      const search = router.query;
+      search[key] = Array.isArray(value) ? value.join(',') : value || '';
+      router.push({
+        pathname: '/',
+        search: stringify(search),
+      });
+    },
+    [router]
+  );
 
   const handleCloseSearch = () => {
     const search = router.query;
@@ -55,124 +58,142 @@ export const Filters = (props: FilterProps) => {
     }
   };
 
-  return <Wrapper isLight={isLight} style={{
-    display: props.filtersPopup ? 'flex' : 'none',
-  }}>
-    <Container isLight={isLight}>
-      <CustomButton
-        label="Reset Filters"
-        style={{
-          width: '114px',
-          border: 'none',
-          background: isLight ? 'none' : 'none',
-        }}
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        onClick={props.clearFilters}
-        disabled={props.filteredStatuses && !props.filteredStatuses.length && props.filteredCategories && !props.filteredCategories.length && !props.searchText}
-      />
-      <SmallSeparator isLight={isLight} />
-      <CustomMultiSelect
-        label="Status"
-        activeItems={props.filteredStatuses}
-        customAll={{
-          id: 'All',
-          content: <StatusChip status={'All'} />,
-          count: props.statusCount.All
-        }}
-        items={statuses.map((stat) => ({
-          id: stat,
-          content: <StatusChip status={stat as CuStatusEnum} />,
-          count: props.statusCount[stat],
-        }))}
-        maxWidth={100}
-        onChange={(value: string[]) => {
-          handleChangeUrlFilterArrays('filteredStatuses')(value);
-        }}
-      />
-      <CustomMultiSelect
-        label="CU Category"
-        activeItems={props.filteredCategories}
-        customAll={{
-          id: 'All',
-          content: <CategoryChip category={'All'} />,
-          count: props.categoriesCount.All
-        }}
-        items={categories.map(cat => ({
-          id: cat,
-          content: <CategoryChip category={cat as CuCategoryEnum} />,
-          count: props.categoriesCount[cat]
-        }))}
-        maxWidth={143}
-        onChange={(value: string[]) => {
-          handleChangeUrlFilterArrays('filteredCategories')(value);
-        }}
-      />
-      <Separator isLight={isLight} />
-      {router.isReady && <SearchInput
-        inputRef={inputRef}
-        handleCloseSearch={handleCloseSearch}
-        defaultValue={props.searchText}
-        placeholder="Search"
-        onChange={(value: string) => {
-          debounce(() => {
-            handleChangeUrlFilterArrays('searchText')(value);
-          }, 300);
-        }}
-      />}
-      {!router.isReady && <SearchInput
-        handleCloseSearch={handleCloseSearch}
-        defaultValue={props.searchText}
-        placeholder="Search"
-        onChange={(value: string) => {
-          debounce(() => {
-            handleChangeUrlFilterArrays('searchText')(value);
-          }, 300);
-        }}
-      />}
-      <CloseButton onClick={() => props.setFiltersPopup && props.setFiltersPopup()}>
-        <Close />
-      </CloseButton>
-    </Container>
-  </Wrapper>;
+  return (
+    <Wrapper
+      isLight={isLight}
+      style={{
+        display: props.filtersPopup ? 'flex' : 'none',
+      }}
+    >
+      <Container isLight={isLight}>
+        <CustomButton
+          label="Reset Filters"
+          style={{
+            width: '114px',
+            border: 'none',
+            background: isLight ? 'none' : 'none',
+          }}
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
+          onClick={props.clearFilters}
+          disabled={
+            props.filteredStatuses &&
+            !props.filteredStatuses.length &&
+            props.filteredCategories &&
+            !props.filteredCategories.length &&
+            !props.searchText
+          }
+        />
+        <SmallSeparator isLight={isLight} />
+        <CustomMultiSelect
+          label="Status"
+          activeItems={props.filteredStatuses}
+          customAll={{
+            id: 'All',
+            content: <StatusChip status={'All'} />,
+            count: props.statusCount.All,
+          }}
+          items={statuses.map((stat) => ({
+            id: stat,
+            content: <StatusChip status={stat as CuStatusEnum} />,
+            count: props.statusCount[stat],
+          }))}
+          maxWidth={100}
+          onChange={(value: string[]) => {
+            handleChangeUrlFilterArrays('filteredStatuses')(value);
+          }}
+        />
+        <CustomMultiSelect
+          label="CU Category"
+          activeItems={props.filteredCategories}
+          customAll={{
+            id: 'All',
+            content: <CategoryChip category={'All'} />,
+            count: props.categoriesCount.All,
+          }}
+          items={categories.map((cat) => ({
+            id: cat,
+            content: <CategoryChip category={cat as CuCategoryEnum} />,
+            count: props.categoriesCount[cat],
+          }))}
+          maxWidth={143}
+          onChange={(value: string[]) => {
+            handleChangeUrlFilterArrays('filteredCategories')(value);
+          }}
+        />
+        <Separator isLight={isLight} />
+        {router.isReady && (
+          <SearchInput
+            inputRef={inputRef}
+            handleCloseSearch={handleCloseSearch}
+            defaultValue={props.searchText}
+            placeholder="Search"
+            onChange={(value: string) => {
+              debounce(() => {
+                handleChangeUrlFilterArrays('searchText')(value);
+              }, 300);
+            }}
+          />
+        )}
+        {!router.isReady && (
+          <SearchInput
+            handleCloseSearch={handleCloseSearch}
+            defaultValue={props.searchText}
+            placeholder="Search"
+            onChange={(value: string) => {
+              debounce(() => {
+                handleChangeUrlFilterArrays('searchText')(value);
+              }, 300);
+            }}
+          />
+        )}
+        <CloseButton onClick={() => props.setFiltersPopup && props.setFiltersPopup()}>
+          <Close />
+        </CloseButton>
+      </Container>
+    </Wrapper>
+  );
 };
 
-const Separator = styled(Divider, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(({ isLight }) => ({
-  height: '1px',
-  width: 'calc(100vw - 64px)',
-  margin: '0 16px',
-  marginTop: '24px',
-  marginBottom: '16px',
-  // * IPhone real devices
-  '@supports (-webkit-touch-callout: none) and (not (translate: none))': {
+const Separator = styled(Divider, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
+  ({ isLight }) => ({
+    height: '1px',
+    width: 'calc(100vw - 64px)',
+    margin: '0 16px',
     marginTop: '24px',
-    marginBottom: '16px'
-  },
-  backgroundColor: isLight ? '#D4D9E1' : '#48495F',
-  alignSelf: 'center',
-  '@media (min-width: 834px)': {
-    width: '1px',
-    height: '32px',
-    margin: 0,
-  },
-}));
+    marginBottom: '16px',
+    // * IPhone real devices
+    '@supports (-webkit-touch-callout: none) and (not (translate: none))': {
+      marginTop: '24px',
+      marginBottom: '16px',
+    },
+    backgroundColor: isLight ? '#D4D9E1' : '#48495F',
+    alignSelf: 'center',
+    '@media (min-width: 834px)': {
+      width: '1px',
+      height: '32px',
+      margin: 0,
+    },
+  })
+);
 
-const SmallSeparator = styled(Divider, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(({ isLight }) => ({
-  height: '1px',
-  width: '64px',
-  marginTop: '24px',
-  marginBottom: '16px',
-  backgroundColor: isLight ? '#D4D9E1' : '#48495F',
-  alignSelf: 'center',
-  // * IPhone real devices
-  '@supports (-webkit-touch-callout: none) and (not (translate: none))': {
+const SmallSeparator = styled(Divider, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
+  ({ isLight }) => ({
+    height: '1px',
+    width: '64px',
     marginTop: '24px',
-    marginBottom: '16px'
-  },
-  '@media (min-width: 833px)': {
-    display: 'none'
-  },
-
-}));
+    marginBottom: '16px',
+    backgroundColor: isLight ? '#D4D9E1' : '#48495F',
+    alignSelf: 'center',
+    // * IPhone real devices
+    '@supports (-webkit-touch-callout: none) and (not (translate: none))': {
+      marginTop: '24px',
+      marginBottom: '16px',
+    },
+    '@media (min-width: 833px)': {
+      display: 'none',
+    },
+  })
+);
 
 const Wrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'none',
@@ -191,8 +212,8 @@ const Wrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     display: 'flex !important',
   },
   '@media (min-width: 834px) and (max-width: 1180px)': {
-    alignSelf: 'flex-end'
-  }
+    alignSelf: 'flex-end',
+  },
 }));
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
@@ -201,7 +222,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   // * IPhone real devices
   '@supports (-webkit-touch-callout: none) and (not (translate: none))': {
     '> * + *': {
-      marginTop: '24px'
+      marginTop: '24px',
     },
   },
 
@@ -214,7 +235,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     justifyContent: 'flex-end',
     background: !isLight ? '#000A13' : 'none',
     '> * + *': {
-      marginTop: '24px'
+      marginTop: '24px',
     },
   },
   '@media (min-width: 834px)': {
@@ -222,9 +243,9 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 
     '@support not selector(gap:24px)': {
       '> * + *': {
-        marginTop: '24px'
+        marginTop: '24px',
       },
-    }
+    },
   },
 }));
 
@@ -233,6 +254,6 @@ const CloseButton = styled.div({
   margin: '22px 22px 30px 0',
   cursor: 'pointer',
   '@media (min-width: 834px)': {
-    display: 'none'
-  }
+    display: 'none',
+  },
 });

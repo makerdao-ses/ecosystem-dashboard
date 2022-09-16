@@ -101,7 +101,9 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   }, [setCurrentMonth, currentMonth]);
 
   const currentBudgetStatement = useMemo(() => {
-    return coreUnit?.budgetStatements?.find((bs: BudgetStatementDto) => bs.month === currentMonth.toFormat(API_MONTH_FORMAT));
+    return coreUnit?.budgetStatements?.find(
+      (bs: BudgetStatementDto) => bs.month === currentMonth.toFormat(API_MONTH_FORMAT)
+    );
   }, [coreUnit, currentMonth]);
 
   return {

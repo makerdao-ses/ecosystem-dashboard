@@ -4,5 +4,5 @@ export const flagsProduction: FeatureFlagsInterface = {
   FEATURE_CARD_NAVIGATION: true,
   FEATURE_SITEMAP: true,
   FEATURE_TRANSPARENCY_NEW_TABLE: false,
-  FEATURE_CU_INDEX_NEW_TABLE: false
+  FEATURE_CU_INDEX_NEW_TABLE: false,
 };

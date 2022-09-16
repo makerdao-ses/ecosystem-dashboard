@@ -10,7 +10,6 @@ interface Props {
   page: number;
   onClickRight?: () => void;
   onClickLeft?: () => void;
-
 }
 
 const InsidePagination = ({ page, count, onClickLeft, onClickRight }: Props) => {
@@ -22,7 +21,8 @@ const InsidePagination = ({ page, count, onClickLeft, onClickRight }: Props) => 
         <StyleTextCoreUnit isLight={isLight}>{` of ${count} Core Units`} </StyleTextCoreUnit>
       </PaginationLabel>
       <Arrows>
-        <ArrowLeft onClick={onClickLeft} /><ArrowRight onClick={onClickRight} />
+        <ArrowLeft onClick={onClickLeft} />
+        <ArrowRight onClick={onClickRight} />
       </Arrows>
     </Container>
   );
@@ -51,10 +51,12 @@ const Arrows = styled.div({
   flexDirection: 'row',
   justifyContent: 'start',
   marginLeft: '8px',
-  gap: '16px'
+  gap: '16px',
 });
 
-const StyleActualCoreUnit = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(({ isLight }) => ({
+const StyleActualCoreUnit = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
+  isLight: boolean;
+}>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
@@ -64,14 +66,16 @@ const StyleActualCoreUnit = styled(Typography, { shouldForwardProp: (prop) => pr
   color: isLight ? '#231536' : '#D2D4EF',
 }));
 
-const StyleTextCoreUnit = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 400,
-  fontSize: '16px',
-  lineHeight: '19px',
-  letterSpacing: '0.4px',
-  color: isLight ? '#626472' : '#ADAFD4',
-}));
+const StyleTextCoreUnit = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
+  ({ isLight }) => ({
+    fontFamily: 'FT Base, sans-serif',
+    fontStyle: 'normal',
+    fontWeight: 400,
+    fontSize: '16px',
+    lineHeight: '19px',
+    letterSpacing: '0.4px',
+    color: isLight ? '#626472' : '#ADAFD4',
+  })
+);
 
 export default InsidePagination;

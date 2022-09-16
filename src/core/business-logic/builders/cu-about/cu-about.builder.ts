@@ -1,15 +1,14 @@
-import {
-  BudgetStatement,
-  ContributorCommitment,
-  CuAbout,
-  CuMip,
-  SocialMediaChannels,
-} from '../../../../stories/containers/cu-about/cu-about.api';
 import { CuCategoryEnum } from '../../../enums/cu-category.enum';
-import { BudgetStatementDto } from '../../../models/dto/core-unit.dto';
+import {
+  BudgetStatementDto,
+  ContributorCommitmentDto,
+  CoreUnitDto,
+  CuMipDto,
+  SocialMediaChannelDto,
+} from '../../../models/dto/core-unit.dto';
 
 export class CoreUnitsAboutBuilder {
-  private readonly _coreUnitAbout: CuAbout;
+  private readonly _coreUnitAbout: CoreUnitDto;
 
   constructor() {
     this._coreUnitAbout = {
@@ -20,11 +19,11 @@ export class CoreUnitsAboutBuilder {
       sentenceDescription: '',
       paragraphDescription: '',
       paragraphImage: '',
-      socialMediaChannels: [] as SocialMediaChannels[],
-      cuMip: [] as CuMip[],
-      budgetStatements: [] as BudgetStatement[],
-      contributorCommitment: [] as ContributorCommitment[],
-    } as CuAbout;
+      socialMediaChannels: [] as SocialMediaChannelDto[],
+      cuMip: [] as CuMipDto[],
+      budgetStatements: [] as BudgetStatementDto[],
+      contributorCommitment: [] as ContributorCommitmentDto[],
+    } as CoreUnitDto;
   }
 
   withId(id: string): CoreUnitsAboutBuilder {
@@ -47,9 +46,7 @@ export class CoreUnitsAboutBuilder {
     return this;
   }
 
-  withParagraphDescription(
-    paragraphDescription: string
-  ): CoreUnitsAboutBuilder {
+  withParagraphDescription(paragraphDescription: string): CoreUnitsAboutBuilder {
     this._coreUnitAbout.paragraphDescription = paragraphDescription;
     return this;
   }
@@ -64,33 +61,27 @@ export class CoreUnitsAboutBuilder {
     return this;
   }
 
-  addBudgetStatement(
-    budgetStatement: BudgetStatementDto
-  ): CoreUnitsAboutBuilder {
+  addBudgetStatement(budgetStatement: BudgetStatementDto): CoreUnitsAboutBuilder {
     this._coreUnitAbout.budgetStatements.push(budgetStatement);
     return this;
   }
 
-  addSocialMediaChannel(
-    socialMediaChannel: SocialMediaChannels
-  ): CoreUnitsAboutBuilder {
+  addSocialMediaChannel(socialMediaChannel: SocialMediaChannelDto): CoreUnitsAboutBuilder {
     this._coreUnitAbout.socialMediaChannels.push(socialMediaChannel);
     return this;
   }
 
-  addCuMip(cuMip: CuMip): CoreUnitsAboutBuilder {
+  addCuMip(cuMip: CuMipDto): CoreUnitsAboutBuilder {
     this._coreUnitAbout.cuMip.push(cuMip);
     return this;
   }
 
-  addContributorCommitment(
-    contributor: ContributorCommitment
-  ): CoreUnitsAboutBuilder {
+  addContributorCommitment(contributor: ContributorCommitmentDto): CoreUnitsAboutBuilder {
     this._coreUnitAbout.contributorCommitment.push(contributor);
     return this;
   }
 
-  build(): CuAbout {
+  build(): CoreUnitDto {
     return this._coreUnitAbout;
   }
 }

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
@@ -26,7 +25,14 @@ interface Props {
   onClick: () => void;
 }
 
-const MdViewerPage = ({ subTitle = 'What we do', paragraphDescription, paragraphImage, headersLevel, showButton = false, onClick }: Props) => {
+const MdViewerPage = ({
+  subTitle = 'What we do',
+  paragraphDescription,
+  paragraphImage,
+  headersLevel,
+  showButton = false,
+  onClick,
+}: Props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [activeLink, setActiveLink] = useState('');
   const isLight = useThemeContext().themeMode === 'light';
@@ -60,59 +66,52 @@ const MdViewerPage = ({ subTitle = 'What we do', paragraphDescription, paragraph
   }, [headersLevel]);
   return (
     <ViewerContainer>
-      {showButton
-        ? <ContainerResponsive>
-          <TypographyStyleDescription isLight={isLight} id='hidden-element'>{subTitle}</TypographyStyleDescription>
-          <CustomButton widthText='100%' label='View Expenses' style={{
-            textAlign: 'center',
-            background: isLight ? '#E7FCFA' : 'transparent',
-            border: '1px solid #1AAB9B',
-            borderRadius: '22px',
-            height: '34px',
-            color: '#1AAB9B',
-            fontFamily: 'SF Pro Text, sans serif',
-            fontStyle: 'normal',
-            fontWeight: 500,
-            fontSize: '14px',
-            lineHeight: '18px',
-            width: 'fit-content',
-            padding: '8px 24px'
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
-          }} onClick={onClick} styleText={{
-            color: '#1AAB9B',
-          }} />
+      {showButton ? (
+        <ContainerResponsive>
+          <TypographyStyleDescription isLight={isLight} id="hidden-element">
+            {subTitle}
+          </TypographyStyleDescription>
+          <CustomButton
+            widthText="100%"
+            label="View Expenses"
+            style={{
+              textAlign: 'center',
+              background: isLight ? '#E7FCFA' : 'transparent',
+              border: '1px solid #1AAB9B',
+              borderRadius: '22px',
+              height: '34px',
+              color: '#1AAB9B',
+              fontFamily: 'SF Pro Text, sans serif',
+              fontStyle: 'normal',
+              fontWeight: 500,
+              fontSize: '14px',
+              lineHeight: '18px',
+              width: 'fit-content',
+              padding: '8px 24px',
+              // eslint-disable-next-line @typescript-eslint/no-empty-function
+            }}
+            onClick={onClick}
+            styleText={{
+              color: '#1AAB9B',
+            }}
+          />
         </ContainerResponsive>
-        : <TypographyStyleDescription isLight={isLight} id='hidden-element'>{subTitle}</TypographyStyleDescription>}
-      {paragraphDescription && isLight
-        ? (
-          <Markdown
-            value={paragraphDescription}
-            renderer={customRenderer}
-            key={paragraphDescription}
-          />
-          )
-        : (
-          <Markdown
-            value={paragraphDescription}
-            renderer={customRendererDark}
-            key={paragraphDescription}
-          />
-          )}
+      ) : (
+        <TypographyStyleDescription isLight={isLight} id="hidden-element">
+          {subTitle}
+        </TypographyStyleDescription>
+      )}
+      {paragraphDescription && isLight ? (
+        <Markdown value={paragraphDescription} renderer={customRenderer} key={paragraphDescription} />
+      ) : (
+        <Markdown value={paragraphDescription} renderer={customRendererDark} key={paragraphDescription} />
+      )}
       {paragraphImage &&
-        (
-          isLight
-            ? <Markdown
-              value={paragraphImage}
-              renderer={customRenderer}
-              key={paragraphImage}
-            />
-            : <Markdown
-              value={paragraphImage}
-              renderer={customRenderer}
-              key={paragraphImage}
-            />
-        )
-      }
+        (isLight ? (
+          <Markdown value={paragraphImage} renderer={customRenderer} key={paragraphImage} />
+        ) : (
+          <Markdown value={paragraphImage} renderer={customRenderer} key={paragraphImage} />
+        ))}
     </ViewerContainer>
   );
 };
@@ -126,7 +125,9 @@ const ViewerContainer = styled.div({
   boxSizing: 'border-box',
 });
 
-const TypographyStyleDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(({ isLight }) => ({
+const TypographyStyleDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
+  isLight: boolean;
+}>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
@@ -135,7 +136,7 @@ const TypographyStyleDescription = styled(Typography, { shouldForwardProp: (prop
   color: isLight ? '#231536' : ' #D2D4EF;',
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginBottom: '16px'
+    marginBottom: '16px',
   },
 }));
 

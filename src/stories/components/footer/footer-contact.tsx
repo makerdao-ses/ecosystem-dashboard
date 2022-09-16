@@ -6,24 +6,29 @@ import { SES_DASHBOARD } from '../../../core/utils/const';
 import { FooterLinks, TypeIconFooter } from './footer-link';
 
 interface Props {
-  title: string
-  subtitle: string
-  logo: JSX.Element
-  links: TypeIconFooter[]
-  style?: CSSProperties
-  isLink?: boolean
+  title: string;
+  subtitle: string;
+  logo: JSX.Element;
+  links: TypeIconFooter[];
+  style?: CSSProperties;
+  isLink?: boolean;
 }
 
 export const FooterContact = ({ title, subtitle, logo, links, style, isLink = false }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
   return (
     <Container>
-      <ContainerText >
-        {isLink
-          ? <StyleTitleLink isLight={isLight} href={SES_DASHBOARD} target='_blank'>{title}</StyleTitleLink>
-          : <StyleTitle isLight={isLight} style={{ paddingBottom: '16px' }}>{title}</StyleTitle>
-        }
-        <StyleDescription isLight={isLight} >{subtitle}</StyleDescription>
+      <ContainerText>
+        {isLink ? (
+          <StyleTitleLink isLight={isLight} href={SES_DASHBOARD} target="_blank">
+            {title}
+          </StyleTitleLink>
+        ) : (
+          <StyleTitle isLight={isLight} style={{ paddingBottom: '16px' }}>
+            {title}
+          </StyleTitle>
+        )}
+        <StyleDescription isLight={isLight}>{subtitle}</StyleDescription>
       </ContainerText>
       <FooterLinks links={links} styleLinks={style} />
       <ContainerLogo>{logo}</ContainerLogo>
@@ -37,7 +42,7 @@ const Container = styled.div({
 });
 
 const ContainerText = styled.div({
-  marginBottom: '24px'
+  marginBottom: '24px',
 });
 
 const StyleTitle = styled(Typography, {
@@ -64,18 +69,20 @@ const StyleTitleLink = styled.a<{ isLight: boolean }>(({ isLight }) => ({
   marginBottom: '16px',
 }));
 
-const StyleDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 400,
-  fontSize: '16px',
-  lineHeight: '19.2px',
-  letterSpacing: '0.4px',
-  color: isLight ? '#231536' : '#D1DEE6'
-}));
+const StyleDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
+  ({ isLight }) => ({
+    fontFamily: 'FT Base, sans-serif',
+    fontStyle: 'normal',
+    fontWeight: 400,
+    fontSize: '16px',
+    lineHeight: '19.2px',
+    letterSpacing: '0.4px',
+    color: isLight ? '#231536' : '#D1DEE6',
+  })
+);
 
 const ContainerLogo = styled.div({
-  marginTop: '38px'
+  marginTop: '38px',
 });
 
 export default FooterContact;

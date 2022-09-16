@@ -8,7 +8,6 @@ import BigButton from '../../components/button/big-button/big-button';
 import CardInfoMember from '../../components/card-info-member/card-info-member';
 import RelateMips from '../../components/relate-mips/relate-mips';
 import TeamMember from '../../components/team-members/team-member';
-import { ContributorCommitment, CuAbout, CuMip } from './cu-about.api';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
@@ -22,16 +21,14 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SEOHead } from '../../components/seo-head/seo-head';
 import { buildQueryString, toAbsoluteURL } from '../../../core/utils/url.utils';
 import MdViewerContainer from '../../components/markdown/md-view-container';
-import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
-
+import { ContributorCommitmentDto, CoreUnitDto, CuMipDto } from '../../../core/models/dto/core-unit.dto';
 interface Props {
   coreUnits: CoreUnitDto[];
-  cuAbout: CuAbout;
+  cuAbout: CoreUnitDto;
   code: string;
-  contributors: ContributorCommitment[];
 }
 
-const CuAboutContainer = ({ code, coreUnits, cuAbout, contributors }: Props) => {
+const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
   const [isEnabled] = useFlagsActive();
   const isLight = useThemeContext().themeMode === 'light';
   const router = useRouter();
@@ -50,7 +47,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout, contributors }: Props) => 
     setShowThreeMIPs(!showThreeMIPs);
   };
   const relateMipsOrder = useMemo(() => {
-    const buildNewArray = cuAbout.cuMip.map((mip: CuMip) => getRelateMipObjectFromCoreUnit(mip));
+    const buildNewArray = cuAbout.cuMip.map((mip: CuMipDto) => getRelateMipObjectFromCoreUnit(mip));
     const order = _.sortBy(buildNewArray, ['orderBy', 'dateMip']).reverse();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const countNumberAccepted = order.filter((mip: any) => mip.mipStatus === CuStatusEnum.Accepted);
@@ -59,7 +56,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout, contributors }: Props) => 
   }, [cuAbout.cuMip, showThreeMIPs]);
 
   const hasMipsNotAccepted = useMemo(() => {
-    const buildNewArray = cuAbout.cuMip.map((mip: CuMip) => getRelateMipObjectFromCoreUnit(mip));
+    const buildNewArray = cuAbout.cuMip.map((mip: CuMipDto) => getRelateMipObjectFromCoreUnit(mip));
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return buildNewArray.some((mip: any) => mip.mipStatus !== CuStatusEnum.Accepted);
   }, [cuAbout.cuMip]);
@@ -102,8 +99,8 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout, contributors }: Props) => 
             <ContactInfoContainer>
               <ContactInfoTitle isLight={isLight}>Contact Information</ContactInfoTitle>
               <ContainerCards>
-                {contributors &&
-                  contributors.map((contributor: ContributorCommitment, index: number) => {
+                {cuAbout &&
+                  cuAbout.contributorCommitment?.map((contributor: ContributorCommitmentDto, index: number) => {
                     return (
                       <CardInfoContainer key={index}>
                         <CardInfoMember contributorCommitment={contributor} />
@@ -123,7 +120,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout, contributors }: Props) => 
                 {relateMipsOrder.map((mip: unknown, index: number) => {
                   return (
                     <RelateMipCard key={index}>
-                      <RelateMips relateMips={mip as CuMip} />
+                      <RelateMips relateMips={mip as CuMipDto} />
                     </RelateMipCard>
                   );
                 })}

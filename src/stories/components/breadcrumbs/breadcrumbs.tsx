@@ -21,21 +21,14 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
             key={item.label.toString() + i}
             href={item.url}
             style={{
-              pointerEvents:
-                item.url && !(i === props.items.length - 1) ? 'all' : 'none',
+              pointerEvents: item.url && !(i === props.items.length - 1) ? 'all' : 'none',
             }}
           >
-            <Crumb
-              isLight={isLight}
-              last={i === props.items.length - 1}
-              first={i === 0}
-            >
+            <Crumb isLight={isLight} last={i === props.items.length - 1} first={i === 0}>
               {item.label}
             </Crumb>
           </Link>
-          {i !== props.items.length - 1 && (
-            <BreadcrumbSeparator fillDark="#787A9B" fill="#D1DEE6" />
-          )}
+          {i !== props.items.length - 1 && <BreadcrumbSeparator fillDark="#787A9B" fill="#D1DEE6" />}
         </LinkWrapper>
       ))}
     </Container>
@@ -56,34 +49,25 @@ const LinkWrapper = styled.div({
   alignItems: 'center',
   '@media (max-width: 1000px)': {
     '&:nth-of-type(n + 3)': {
-      display: 'none'
+      display: 'none',
     },
     '&:nth-of-type(n + 2)': {
       svg: {
-        visibility: 'hidden'
-      }
-    }
-  }
+        visibility: 'hidden',
+      },
+    },
+  },
 });
 
-const Crumb = styled.a<{ first: boolean; last: boolean; isLight: boolean }>(
-  ({ first, last, isLight }) => ({
-    fontFamily: 'FT Base, sans-serif',
-    fontWeight: last ? 500 : 400,
-    fontSize: '16px',
-    lineHeight: '19px',
-    textAlign: 'center',
-    letterSpacing: '0.4px',
-    color:
-      last && isLight
-        ? '#231536'
-        : !last && isLight
-            ? '#708390'
-            : last && !isLight
-              ? '#D2D4EF'
-              : '#787A9B',
-    marginRight: '15px',
-    marginLeft: first ? '0' : '15px',
-    cursor: 'pointer',
-  })
-);
+const Crumb = styled.a<{ first: boolean; last: boolean; isLight: boolean }>(({ first, last, isLight }) => ({
+  fontFamily: 'FT Base, sans-serif',
+  fontWeight: last ? 500 : 400,
+  fontSize: '16px',
+  lineHeight: '19px',
+  textAlign: 'center',
+  letterSpacing: '0.4px',
+  color: last && isLight ? '#231536' : !last && isLight ? '#708390' : last && !isLight ? '#D2D4EF' : '#787A9B',
+  marginRight: '15px',
+  marginLeft: first ? '0' : '15px',
+  cursor: 'pointer',
+}));

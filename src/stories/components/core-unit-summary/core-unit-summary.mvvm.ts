@@ -6,8 +6,8 @@ import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 const CORE_UNITS_REQUEST = {
   query: gql`
-  query CoreUnits {
-   coreUnits {
+    query CoreUnits {
+      coreUnits {
         id
         code
         shortCode
@@ -43,12 +43,12 @@ const CORE_UNITS_REQUEST = {
           }
         }
       }
-   }
-`
+    }
+  `,
 };
 
-export const fetchCoreUnits = async() => {
-  const res = (await request(GRAPHQL_ENDPOINT, CORE_UNITS_REQUEST.query)) as { coreUnits: CoreUnitDto[]};
+export const fetchCoreUnits = async () => {
+  const res = (await request(GRAPHQL_ENDPOINT, CORE_UNITS_REQUEST.query)) as { coreUnits: CoreUnitDto[] };
   return res?.coreUnits;
 };
 

@@ -13,36 +13,68 @@ interface Props {
   list?: string[];
   title: string;
   titleLinkPage?: string;
-  onClick?: () => void
+  onClick?: () => void;
 }
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-export const NavigationCard = ({ description, image, list = [], title, titleLinkPage = '', onClick = () => { } }: Props) => {
+
+export const NavigationCard = ({
+  description,
+  image,
+  list = [],
+  title,
+  titleLinkPage = '',
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  onClick = () => {},
+}: Props) => {
   return (
     <div>
       <ArrowTittleStyle>
-        <Typography color='#231536' fontSize={24} lineHeight='29px' fontWeight={500} letterSpacing='0.4px' fontFamily={'FT Base, sans-serif'}>{title}</Typography>
-        <div style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}>
-          <Typography textAlign='right' fontStyle='normal' fontWeight={400} fontSize={14} color='#231536' letterSpacing='0.4px' fontFamily={'FT Base, sans-serif'}>{titleLinkPage}</Typography>
+        <Typography
+          color="#231536"
+          fontSize={24}
+          lineHeight="29px"
+          fontWeight={500}
+          letterSpacing="0.4px"
+          fontFamily={'FT Base, sans-serif'}
+        >
+          {title}
+        </Typography>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+        >
+          <Typography
+            textAlign="right"
+            fontStyle="normal"
+            fontWeight={400}
+            fontSize={14}
+            color="#231536"
+            letterSpacing="0.4px"
+            fontFamily={'FT Base, sans-serif'}
+          >
+            {titleLinkPage}
+          </Typography>
           <ArrowRight width={16} height={16} style={{ marginLeft: '22px' }} onClick={onClick} />
         </div>
       </ArrowTittleStyle>
-      <Box sx={{
-        height: '293px',
-        width: '405px',
-        '& .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
-          borderRadius: '6px',
-          backgroundColor: '#FFFFFF',
-          boxShadow: '0px 20px 40px -40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
-        },
-      }}>
-        <CardContainer sx={{
-          p: '15px',
-        }
-        } >
+      <Box
+        sx={{
+          height: '293px',
+          width: '405px',
+          '& .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
+            borderRadius: '6px',
+            backgroundColor: '#FFFFFF',
+            boxShadow: '0px 20px 40px -40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
+          },
+        }}
+      >
+        <CardContainer
+          sx={{
+            p: '15px',
+          }}
+        >
           <FiCardActionArea>
             <FiCardMedia
               sx={{
@@ -51,22 +83,23 @@ export const NavigationCard = ({ description, image, list = [], title, titleLink
               }}
               image={image}
             />
-            <FiCardContent sx={{
-              p: '0px',
-            }}>
+            <FiCardContent
+              sx={{
+                p: '0px',
+              }}
+            >
               <UnorderedList>
-                {list.map((item, index) => <ListItemStyle key={index} >{item}</ListItemStyle>)}
+                {list.map((item, index) => (
+                  <ListItemStyle key={index}>{item}</ListItemStyle>
+                ))}
               </UnorderedList>
             </FiCardContent>
           </FiCardActionArea>
           <FiCardActions>
-            <TypographyStyle
-            >
-              {description}
-            </TypographyStyle>
+            <TypographyStyle>{description}</TypographyStyle>
           </FiCardActions>
         </CardContainer>
-      </Box >
+      </Box>
     </div>
   );
 };
@@ -77,7 +110,7 @@ const CardContainer = styled(Card, { shouldForwardProp: (prop) => prop !== 'isLi
 
 const FiCardActionArea = styled(CardActionArea)({
   position: 'relative',
-  width: '373px'
+  width: '373px',
 });
 
 const FiCardMedia = styled(CardMedia)({
@@ -94,7 +127,7 @@ const FiCardContent = styled(CardContent)({
   color: '#ffffff',
 });
 const FiCardActions = styled(CardActions)({
-  position: 'relative'
+  position: 'relative',
 });
 
 const ListItemStyle = styled.li({
@@ -109,7 +142,7 @@ const ListItemStyle = styled.li({
   },
   '&:last-child': {
     marginBottom: '24px',
-  }
+  },
 });
 
 const UnorderedList = styled.ul({
@@ -133,7 +166,6 @@ const ArrowTittleStyle = styled.div({
   justifyContent: 'space-between',
   alignItems: 'end',
   marginBottom: '32px',
-
 });
 
 export default NavigationCard;
