@@ -134,7 +134,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
       >
         {description?.actual !== '0' ? (
           <Container
-            lvlexpenditure={
+            levelExpenditure={
               getExpenditureLevel(
                 parseFloat((description?.actual || '0').replace(/,/, '.')),
                 parseFloat((description?.budgetCap || '0').replace(/,/, '.'))
@@ -146,7 +146,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
               <StyleTypography>{description?.month}</StyleTypography>
               <StyleLevelExpenditure
                 isLight={isLight}
-                lvlexpenditure={
+                levelExpenditure={
                   getExpenditureLevel(
                     parseFloat((description?.actual || '0').replace(/,/, '.')),
                     parseFloat((description?.budgetCap || '0').replace(/,/, '.'))
@@ -235,25 +235,25 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
   );
 };
 
-const Container = styled.div<{ lvlexpenditure?: ExpenditureLevel; isLight?: boolean }>(
-  ({ lvlexpenditure, isLight }) => ({
+const Container = styled.div<{ levelExpenditure?: ExpenditureLevel; isLight?: boolean }>(
+  ({ levelExpenditure, isLight }) => ({
     padding: '16px',
     borderRadius: '6px',
     width: '202px',
     height: '102px',
     border: isLight
-      ? lvlexpenditure === ExpenditureLevel.LOW || lvlexpenditure === ExpenditureLevel.OPTIMAL
+      ? levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL
         ? '1px solid #6EDBD0'
-        : lvlexpenditure === ExpenditureLevel.STRETCHED
+        : levelExpenditure === ExpenditureLevel.STRETCHED
         ? '1px solid #FEDB88'
-        : lvlexpenditure === ExpenditureLevel.OVERBUDGET
+        : levelExpenditure === ExpenditureLevel.OVERBUDGET
         ? '1px solid #F99374'
         : 'none'
-      : lvlexpenditure === ExpenditureLevel.LOW || lvlexpenditure === ExpenditureLevel.OPTIMAL
+      : levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL
       ? '1px solid rgba(0, 237, 24, 0.4)'
-      : lvlexpenditure === ExpenditureLevel.STRETCHED
+      : levelExpenditure === ExpenditureLevel.STRETCHED
       ? '1px solid rgba(255, 130, 55, 0.4)'
-      : lvlexpenditure === ExpenditureLevel.OVERBUDGET
+      : levelExpenditure === ExpenditureLevel.OVERBUDGET
       ? '1px solid rgba(255, 64, 133, 0.4)'
       : 'none',
   })
@@ -265,7 +265,7 @@ const Row = styled.div({
   justifyContent: 'space-between',
 });
 
-const StyleTypography = styled(Typography)({
+const StyleTypography = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
@@ -277,38 +277,42 @@ const StyleTypography = styled(Typography)({
   color: '#9FAFB9',
 });
 
-const StyleLevelExpenditure = styled(Typography)<{ lvlexpenditure: ExpenditureLevel; isLight?: boolean }>(
-  ({ lvlexpenditure, isLight }) => ({
-    fontFamily: 'SF Pro Text, sans-serif',
+const StyleLevelExpenditure = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== 'isLight' && prop !== 'levelExpenditure',
+})<{ levelExpenditure: ExpenditureLevel; isLight?: boolean }>(({ levelExpenditure, isLight }) => ({
+  fontFamily: 'SF Pro Text, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 400,
+  fontSize: '11px',
+  lineHeight: '13px',
+  color: isLight
+    ? levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL
+      ? '#02CB9B'
+      : levelExpenditure === ExpenditureLevel.STRETCHED
+      ? '#F08B04'
+      : '#CB3A0D'
+    : levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL
+    ? '#00ED18'
+    : levelExpenditure === ExpenditureLevel.STRETCHED
+    ? '#FF8237'
+    : '#FF4085',
+}));
+
+const TypographyValue = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight?: boolean }>(
+  ({ isLight }) => ({
+    fontFamily: 'SF Pro Display,sans-serif',
     fontStyle: 'normal',
-    fontWeight: 400,
-    fontSize: '11px',
-    lineHeight: '13px',
-    color: isLight
-      ? lvlexpenditure === ExpenditureLevel.LOW || lvlexpenditure === ExpenditureLevel.OPTIMAL
-        ? '#02CB9B'
-        : lvlexpenditure === ExpenditureLevel.STRETCHED
-        ? '#F08B04'
-        : '#CB3A0D'
-      : lvlexpenditure === ExpenditureLevel.LOW || lvlexpenditure === ExpenditureLevel.OPTIMAL
-      ? '#00ED18'
-      : lvlexpenditure === ExpenditureLevel.STRETCHED
-      ? '#FF8237'
-      : '#FF4085',
+    fontWeight: 700,
+    fontSize: '16px',
+    lineHeight: '19px',
+    letterSpacing: '0.3px',
+    color: isLight ? '#000000' : '#EDEFFF',
   })
 );
 
-const TypographyValue = styled(Typography)<{ isLight?: boolean }>(({ isLight }) => ({
-  fontFamily: 'SF Pro Display,sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 700,
-  fontSize: '16px',
-  lineHeight: '19px',
-  letterSpacing: '0.3px',
-  color: isLight ? '#000000' : '#EDEFFF',
-}));
-
-const TypographyDescription = styled(Typography)<{ isLight?: boolean }>(({ isLight }) => ({
+const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
+  isLight?: boolean;
+}>(({ isLight }) => ({
   fontFamily: 'FT Base,sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,

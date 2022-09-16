@@ -392,7 +392,7 @@ const ContainerAllData = styled.div({
   },
 });
 
-const DividerStyle = styled(Divider)({
+const DividerStyle = styled(Divider, { shouldForwardProp: (prop) => prop !== 'isLight' })({
   width: '100%',
 });
 
