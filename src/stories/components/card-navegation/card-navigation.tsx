@@ -71,7 +71,7 @@ export const NavigationCard = ({ description, image, list = [], title, titleLink
   );
 };
 
-const CardContainer = styled(Card)({
+const CardContainer = styled(Card, { shouldForwardProp: (prop) => prop !== 'isLight' })({
   position: 'relative',
 });
 
@@ -117,7 +117,7 @@ const UnorderedList = styled.ul({
   marginBottom: '0px',
 });
 
-const TypographyStyle = styled(Typography)({
+const TypographyStyle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })({
   fontFamily: 'SF Pro Text, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,

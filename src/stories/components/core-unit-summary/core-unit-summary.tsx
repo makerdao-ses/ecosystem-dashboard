@@ -233,7 +233,7 @@ const SummaryDescription = styled.div<{ hiddenTextDescription: boolean }>(({ hid
   overflow: 'hidden',
 }));
 
-const TypographyDescription = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
+const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: '16px',
   lineHeight: '19px',
   color: isLight ? '#231536' : '#E2D8EE',

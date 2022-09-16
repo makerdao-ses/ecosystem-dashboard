@@ -54,7 +54,7 @@ const Arrows = styled.div({
   gap: '16px'
 });
 
-const StyleActualCoreUnit = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
+const StyleActualCoreUnit = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
@@ -64,7 +64,7 @@ const StyleActualCoreUnit = styled(Typography)<{ isLight: boolean }>(({ isLight 
   color: isLight ? '#231536' : '#D2D4EF',
 }));
 
-const StyleTextCoreUnit = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
+const StyleTextCoreUnit = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,

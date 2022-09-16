@@ -16,7 +16,7 @@ const BigButton = ({ onClick, title = 'Back' }: Props) => {
   );
 };
 
-const StyledBigButton = styled(Button)<{ isLight: boolean }>(({ isLight }) => ({
+const StyledBigButton = styled(Button, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(({ isLight }) => ({
   minWidth: '287px',
   height: '30px',
   border: isLight ? '1px solid #D4D9E1' : '1px solid #405361',

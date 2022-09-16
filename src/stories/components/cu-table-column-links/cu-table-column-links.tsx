@@ -136,7 +136,7 @@ const LinkImage = styled.a(
   })
 );
 
-const StyleBox = styled(Box)<{ lastChild?: boolean }>((props) => ({
+const StyleBox = styled(Box, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ lastChild?: boolean }>((props) => ({
   '&:last-child': props.lastChild && {
     display: 'flex',
     alignItems: 'center',

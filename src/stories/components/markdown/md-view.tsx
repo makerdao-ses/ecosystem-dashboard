@@ -126,7 +126,7 @@ const ViewerContainer = styled.div({
   boxSizing: 'border-box',
 });
 
-const TypographyStyleDescription = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
+const TypographyStyleDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,

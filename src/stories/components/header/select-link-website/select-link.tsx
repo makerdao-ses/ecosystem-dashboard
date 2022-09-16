@@ -219,7 +219,7 @@ const ContainerIcon = styled.div<{ background: string }>(({ background }) => ({
   }
 }));
 
-const StyleTitle = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
+const StyleTitle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
@@ -230,7 +230,7 @@ const StyleTitle = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
   paddingBottom: '16px'
 }));
 
-const StyleDescription = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
+const StyleDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
