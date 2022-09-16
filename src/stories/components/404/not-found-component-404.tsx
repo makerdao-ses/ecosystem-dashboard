@@ -182,7 +182,7 @@ const TextUps = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLi
   },
 }));
 
-const TextDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })({
+const TextDescription = styled(Typography)({
   fontFamily: 'FT Base,san-serif',
   fontStyle: 'normal',
   fontWeight: 500,
