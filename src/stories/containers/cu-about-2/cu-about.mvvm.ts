@@ -1,12 +1,8 @@
-import useMediaQuery from '@mui/material/useMediaQuery';
 import sortBy from 'lodash/sortBy';
-import { useRouter } from 'next/router';
+import { NextRouter } from 'next/router';
 import { useState, useMemo, useCallback } from 'react';
-import lightTheme from '../../../../styles/theme/light';
 import { getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-unit-about';
-import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
-import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { CoreUnitDto, CuMipDto } from '../../../core/models/dto/core-unit.dto';
 import { getArrayParam, getStringParam } from '../../../core/utils/filters';
 import { buildQueryString } from '../../../core/utils/url.utils';
@@ -14,19 +10,11 @@ import { buildQueryString } from '../../../core/utils/url.utils';
 interface Props {
   cuAbout: CoreUnitDto;
   code: string;
+  router: NextRouter;
 }
 
-export const useCuAboutMvvm = ({ cuAbout, code }: Props) => {
-  const [isEnabled] = useFlagsActive();
-  const isLight = useThemeContext().themeMode === 'light';
-  const router = useRouter();
+export const useCuAboutMvvm = ({ cuAbout, code, router }: Props) => {
   const [showThreeMIPs, setShowThreeMIPs] = useState<boolean>(true);
-
-  const table834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
-  const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
-  const LessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
-  const lessDesktop1194 = useMediaQuery(lightTheme.breakpoints.down('desktop_1194'));
-
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
@@ -59,12 +47,6 @@ export const useCuAboutMvvm = ({ cuAbout, code }: Props) => {
   }, [filteredCategories, filteredStatuses, router, searchText, code]);
 
   return {
-    isEnabled,
-    isLight,
-    table834,
-    phone,
-    LessPhone,
-    lessDesktop1194,
     onClickLessMips,
     relateMipsOrder,
     hasMipsNotAccepted,

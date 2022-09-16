@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Divider } from '@mui/material';
+import { Divider, useMediaQuery } from '@mui/material';
 import { getMarkdownInformation } from '../../../core/business-logic/core-unit-about';
 import { getFTEsFromCoreUnit } from '../../../core/business-logic/core-units';
 import BigButton from '../../components/button/big-button/big-button';
@@ -17,6 +17,9 @@ import MdViewerContainer from '../../components/markdown/md-view-container';
 import { ContributorCommitmentDto, CoreUnitDto, CuMipDto } from '../../../core/models/dto/core-unit.dto';
 import { useCuAboutMvvm } from './cu-about.mvvm';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
+import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
+import { useThemeContext } from '../../../core/context/ThemeContext';
+import { useRouter } from 'next/router';
 
 interface Props {
   coreUnits: CoreUnitDto[];
@@ -25,21 +28,19 @@ interface Props {
 }
 
 const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
-  const {
-    isEnabled,
-    isLight,
-    table834,
-    phone,
-    LessPhone,
-    lessDesktop1194,
-    onClickLessMips,
-    relateMipsOrder,
-    hasMipsNotAccepted,
-    onClickFinances,
-    showThreeMIPs,
-  } = useCuAboutMvvm({
+  const router = useRouter();
+  const [isEnabled] = useFlagsActive();
+  const isLight = useThemeContext().themeMode === 'light';
+
+  const table834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
+  const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+  const LessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
+  const lessDesktop1194 = useMediaQuery(lightTheme.breakpoints.down('desktop_1194'));
+
+  const { onClickLessMips, relateMipsOrder, hasMipsNotAccepted, onClickFinances, showThreeMIPs } = useCuAboutMvvm({
     cuAbout,
     code,
+    router,
   });
 
   return (
