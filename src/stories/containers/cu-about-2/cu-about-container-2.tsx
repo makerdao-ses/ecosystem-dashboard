@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { Divider, useMediaQuery } from '@mui/material';
 import { getMarkdownInformation } from '../../../core/business-logic/core-unit-about';
@@ -29,18 +29,21 @@ interface Props {
 
 const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
   const router = useRouter();
-  const [isEnabled] = useFlagsActive();
   const isLight = useThemeContext().themeMode === 'light';
+  const [showThreeMIPs, setShowThreeMIPs] = useState<boolean>(true);
+  const [isEnabled] = useFlagsActive();
 
   const table834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const LessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
   const lessDesktop1194 = useMediaQuery(lightTheme.breakpoints.down('desktop_1194'));
 
-  const { onClickLessMips, relateMipsOrder, hasMipsNotAccepted, onClickFinances, showThreeMIPs } = useCuAboutMvvm({
+  const { onClickLessMips, relateMipsOrder, hasMipsNotAccepted, onClickFinances } = useCuAboutMvvm({
     cuAbout,
     code,
     router,
+    showThreeMIPs,
+    setShowThreeMIPs,
   });
 
   return (

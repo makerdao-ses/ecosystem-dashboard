@@ -1,6 +1,6 @@
 import sortBy from 'lodash/sortBy';
 import { NextRouter } from 'next/router';
-import { useState, useMemo, useCallback } from 'react';
+import { useMemo, useCallback } from 'react';
 import { getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-unit-about';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { CoreUnitDto, CuMipDto } from '../../../core/models/dto/core-unit.dto';
@@ -11,10 +11,11 @@ interface Props {
   cuAbout: CoreUnitDto;
   code: string;
   router: NextRouter;
+  setShowThreeMIPs: (value: boolean) => void;
+  showThreeMIPs: boolean;
 }
 
-export const useCuAboutMvvm = ({ cuAbout, code, router }: Props) => {
-  const [showThreeMIPs, setShowThreeMIPs] = useState<boolean>(true);
+export const useCuAboutMvvm = ({ cuAbout, code, router, setShowThreeMIPs, showThreeMIPs }: Props) => {
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
