@@ -26,49 +26,57 @@ const CardNotFoundPage: NextPage = () => {
     <Wrapper>
       <ImageContainer isLight={isLight}>
         <Image
-          src={isLight
-            ? (
-                (phoneLess || isMobile) ? BackgroundMobile404 : Background404)
-            : (
-                (phoneLess || isMobile) ? BackgroundMobile404Dark : Background404Dark
-              )}
+          src={
+            isLight
+              ? phoneLess || isMobile
+                ? BackgroundMobile404
+                : Background404
+              : phoneLess || isMobile
+              ? BackgroundMobile404Dark
+              : Background404Dark
+          }
           objectFit="fill"
           alt="404"
-          layout='fill'
+          layout="fill"
         />
         <ContainerData>
           <LogoContainer>
-            <Image src={isLight ? Logo404 : Logo404Dark}
-              layout='fill'
-              objectFit='contain'
-              objectPosition='center'
-            />
+            <Image src={isLight ? Logo404 : Logo404Dark} layout="fill" objectFit="contain" objectPosition="center" />
           </LogoContainer>
           <ContainerText>
             <TextUps isLight={isLight}>Oops!</TextUps>
-            <TextDescription >The page you requested couldn't be found</TextDescription>
+            <TextDescription>The page you requested couldn't be found</TextDescription>
           </ContainerText>
-          <ContainerButton> <CustomButton widthText='100%' label='Go Back to Homepage' style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: '8px',
-            width: '250px',
-            height: '48px',
-            background: isLight ? '#E7FCFA' : 'transparent',
-            border: '1px solid #1AAB9B',
-            borderRadius: '22px',
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
-          }} onClick={handleOnclick} styleText={{
-            color: '#1AAB9B',
-            fontSize: '16px',
-            lineHeight: '24px'
-          }} />
+          <ContainerButton>
+            {' '}
+            <CustomButton
+              widthText="100%"
+              label="Go Back to Homepage"
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '8px',
+                width: '250px',
+                height: '48px',
+                background: isLight ? '#E7FCFA' : 'transparent',
+                border: '1px solid #1AAB9B',
+                borderRadius: '22px',
+                // eslint-disable-next-line @typescript-eslint/no-empty-function
+              }}
+              onClick={handleOnclick}
+              styleText={{
+                color: '#1AAB9B',
+                fontSize: '16px',
+                lineHeight: '24px',
+              }}
+            />
           </ContainerButton>
         </ContainerData>
       </ImageContainer>
-    </Wrapper >);
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.div({
@@ -94,7 +102,9 @@ const ImageContainer = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   '& > span': {
     borderRadius: '6px',
     background: isLight ? '#FFFFFF' : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
-    boxShadow: isLight ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
+    boxShadow: isLight
+      ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+      : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
   },
   borderRadius: '20px',
 
@@ -164,23 +174,25 @@ const ContainerText = styled.div({
   },
 });
 
-const TextUps = styled(Typography)<{ isLight?: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 700,
-  fontSize: '36px',
-  lineHeight: '43px',
-  letterSpacing: '0.4px',
-  color: isLight ? '#787A9B' : '#D2D4EF',
-  textAlign: 'center',
-  marginBottom: '24px',
-  [lightTheme.breakpoints.up('table_834')]: {
+const TextUps = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight?: boolean }>(
+  ({ isLight }) => ({
+    fontFamily: 'FT Base, sans-serif',
+    fontStyle: 'normal',
     fontWeight: 700,
-    fontSize: '48px',
-    lineHeight: '58px',
-    marginBottom: '32px',
-  },
-}));
+    fontSize: '36px',
+    lineHeight: '43px',
+    letterSpacing: '0.4px',
+    color: isLight ? '#787A9B' : '#D2D4EF',
+    textAlign: 'center',
+    marginBottom: '24px',
+    [lightTheme.breakpoints.up('table_834')]: {
+      fontWeight: 700,
+      fontSize: '48px',
+      lineHeight: '58px',
+      marginBottom: '32px',
+    },
+  })
+);
 
 const TextDescription = styled(Typography)({
   fontFamily: 'FT Base,san-serif',

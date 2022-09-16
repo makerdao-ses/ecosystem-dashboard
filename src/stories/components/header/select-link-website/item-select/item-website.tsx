@@ -5,46 +5,60 @@ import { useThemeContext } from '../../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../custom-button/custom-button';
 
 interface Props {
-  title: string
-  logo: ReactNode | JSX.Element
-  background?: string
-  fontSize?: number | string
-  color?: string
-  fontWeight?: number
-  link?: string
-  fontFamily?: string
-  padding?: string
-  subtract?: ReactNode | JSX.Element
-  description: string
-  height?: string
-  letterSpacing?: string
+  title: string;
+  logo: ReactNode | JSX.Element;
+  background?: string;
+  fontSize?: number | string;
+  color?: string;
+  fontWeight?: number;
+  link?: string;
+  fontFamily?: string;
+  padding?: string;
+  subtract?: ReactNode | JSX.Element;
+  description: string;
+  height?: string;
+  letterSpacing?: string;
   onClick: () => void;
-  lineHeight?: string
-  colorDark?: string
+  lineHeight?: string;
+  colorDark?: string;
 }
 
-export const ItemWebSite = ({ fontSize = 16, fontWeight = 700, color = '#FFFFFF', fontFamily = 'SF Pro Display, sans-serif', colorDark, subtract = '', description, height = '134px', onClick, ...props }: Props) => {
+export const ItemWebSite = ({
+  fontSize = 16,
+  fontWeight = 700,
+  color = '#FFFFFF',
+  fontFamily = 'SF Pro Display, sans-serif',
+  colorDark,
+  subtract = '',
+  description,
+  height = '134px',
+  onClick,
+  ...props
+}: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
   return (
     <Container height={height} isLight={isLight}>
       <ContainerRow>
-        <div style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center'
-        }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+        >
           <ContainerLogo>{props.logo}</ContainerLogo>
-          {props.title &&
+          {props.title && (
             <Typography
               fontSize={fontSize}
               color={isLight ? color : colorDark}
               fontWeight={fontWeight}
               fontFamily={fontFamily}
               letterSpacing={props.letterSpacing}
-              lineHeight={props.lineHeight}>
+              lineHeight={props.lineHeight}
+            >
               {props.title}
             </Typography>
-          }
+          )}
           {subtract && <ContainerSubtract>{subtract}</ContainerSubtract>}
         </div>
         <LinkWrapper>
@@ -56,14 +70,17 @@ export const ItemWebSite = ({ fontSize = 16, fontWeight = 700, color = '#FFFFFF'
               width: '137px',
               height: '34px',
               padding: '8px 24px',
-            }} styleText={{
-              color: isLight ? '#31424E' : '#D2D4EF'
-            }} />
+            }}
+            styleText={{
+              color: isLight ? '#31424E' : '#D2D4EF',
+            }}
+          />
         </LinkWrapper>
       </ContainerRow>
       <ContainerTextDescription>
-        <TypographyDescription isLight={isLight} sx={{
-        }}>{description}</TypographyDescription>
+        <TypographyDescription isLight={isLight} sx={{}}>
+          {description}
+        </TypographyDescription>
       </ContainerTextDescription>
       <BottomLinkWrapper>
         <CustomButton
@@ -72,8 +89,9 @@ export const ItemWebSite = ({ fontSize = 16, fontWeight = 700, color = '#FFFFFF'
           style={{
             width: '137px',
             height: '34px',
-            padding: '8px 24px'
-          }} />
+            padding: '8px 24px',
+          }}
+        />
       </BottomLinkWrapper>
     </Container>
   );
@@ -83,7 +101,7 @@ const LinkWrapper = styled.div({
   display: 'none',
   '@media (min-width: 635px)': {
     display: 'flex',
-  }
+  },
 });
 
 const BottomLinkWrapper = styled.div({
@@ -92,10 +110,10 @@ const BottomLinkWrapper = styled.div({
   alignSelf: 'flex-end',
   '@media (min-width: 635px)': {
     display: 'none',
-  }
+  },
 });
 
-const Container = styled.div<{ height?: string, isLight: boolean }>(({ height, isLight }) => ({
+const Container = styled.div<{ height?: string; isLight: boolean }>(({ height, isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-start',
@@ -117,7 +135,7 @@ const Container = styled.div<{ height?: string, isLight: boolean }>(({ height, i
     height,
     margin: 0,
     padding: '16px 24px',
-  }
+  },
 }));
 
 const ContainerRow = styled.div({
@@ -137,23 +155,25 @@ const ContainerTextDescription = styled.div({
   display: 'flex',
   marginTop: '16px',
   wordWrap: 'break-word',
-  whiteSpace: 'initial'
+  whiteSpace: 'initial',
 });
 
-const ContainerSubtract = styled.div<{ background?: string, padding?: string }>(({ background, padding }) => ({
+const ContainerSubtract = styled.div<{ background?: string; padding?: string }>(({ background, padding }) => ({
   background: background || 'none',
   display: 'flex',
   alignItems: 'center',
   borderRadius: '6px',
   padding: padding || 0,
 }));
-const TypographyDescription = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
+const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
+  isLight: boolean;
+}>(({ isLight }) => ({
   fontFamily: 'FT Base, sans serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '16px',
   lineHeight: '19px',
-  color: isLight ? '#231536' : '#EDEFFF'
+  color: isLight ? '#231536' : '#EDEFFF',
 }));
 
 export default ItemWebSite;

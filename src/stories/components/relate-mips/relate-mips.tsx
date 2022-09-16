@@ -21,7 +21,7 @@ export type RelateMipType = {
 };
 
 interface Props {
-  relateMips: CuMipDto
+  relateMips: CuMipDto;
 }
 
 const RelateMips = ({ relateMips }: Props) => {
@@ -167,18 +167,20 @@ const ContainerIconTypography = styled.div({
   },
 });
 
-const StyleMipNumber = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
-  fontSize: '14px',
-  minWidth: '135px',
-  display: 'inline-block',
-  marginRight: '4px',
-  fontFamily: 'SF Pro Text, sans-serif',
-  color: isLight ? '#231536' : '#D2D4EF',
-  fontWeight: 600,
-  paddingTop: '3px',
-  lineHeight: '22px',
+const StyleMipNumber = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
+  ({ isLight }) => ({
+    fontSize: '14px',
+    minWidth: '135px',
+    display: 'inline-block',
+    marginRight: '4px',
+    fontFamily: 'SF Pro Text, sans-serif',
+    color: isLight ? '#231536' : '#D2D4EF',
+    fontWeight: 600,
+    paddingTop: '3px',
+    lineHeight: '22px',
 
-  [lightTheme.breakpoints.up('table_834')]: {
-    fontSize: '16px',
-  },
-}));
+    [lightTheme.breakpoints.up('table_834')]: {
+      fontSize: '16px',
+    },
+  })
+);

@@ -158,32 +158,34 @@ const ContainerTitle = styled.div({
   },
 });
 
-const TypographyTitle = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
-  fontStyle: 'normal',
-  fontWeight: 500,
-  fontSize: '24px',
-  lineHeight: '29px',
-  color: isLight ? '#231536' : '#E2D8EE',
-  marginLeft: '16px',
-  marginRight: '24px',
-  fontFamily: 'FT Base, sans-serif',
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-    fontFamily: 'FT Base, sans-serif',
+const TypographyTitle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
+  ({ isLight }) => ({
     fontStyle: 'normal',
-    fontWeight: 700,
-    fontSize: '16px',
-    lineHeight: '19px',
-    marginLeft: '4px',
-    marginRight: '0px',
-  },
-  [lightTheme.breakpoints.down('table_375')]: {
-    fontWeight: 700,
-    fontSize: '16px',
-    lineHeight: '19px',
-    marginLeft: '4px',
-    marginRight: '0px',
-  },
-}));
+    fontWeight: 500,
+    fontSize: '24px',
+    lineHeight: '29px',
+    color: isLight ? '#231536' : '#E2D8EE',
+    marginLeft: '16px',
+    marginRight: '24px',
+    fontFamily: 'FT Base, sans-serif',
+    [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+      fontFamily: 'FT Base, sans-serif',
+      fontStyle: 'normal',
+      fontWeight: 700,
+      fontSize: '16px',
+      lineHeight: '19px',
+      marginLeft: '4px',
+      marginRight: '0px',
+    },
+    [lightTheme.breakpoints.down('table_375')]: {
+      fontWeight: 700,
+      fontSize: '16px',
+      lineHeight: '19px',
+      marginLeft: '4px',
+      marginRight: '0px',
+    },
+  })
+);
 
 const TypographySES = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
   fontStyle: 'normal',

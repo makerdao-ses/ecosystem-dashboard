@@ -22,7 +22,6 @@ import { SEOHead } from '../../components/seo-head/seo-head';
 import { buildQueryString, toAbsoluteURL } from '../../../core/utils/url.utils';
 import MdViewerContainer from '../../components/markdown/md-view-container';
 import { ContributorCommitmentDto, CoreUnitDto, CuMipDto } from '../../../core/models/dto/core-unit.dto';
-
 interface Props {
   coreUnits: CoreUnitDto[];
   cuAbout: CoreUnitDto;
@@ -393,7 +392,7 @@ const ContainerAllData = styled.div({
   },
 });
 
-const DividerStyle = styled(Divider)({
+const DividerStyle = styled(Divider, { shouldForwardProp: (prop) => prop !== 'isLight' })({
   width: '100%',
 });
 

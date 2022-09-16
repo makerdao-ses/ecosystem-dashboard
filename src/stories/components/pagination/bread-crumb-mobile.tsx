@@ -16,9 +16,9 @@ interface Props {
   onClickRight?: () => void;
   onClickLeft?: () => void;
   items: {
-    label: string | JSX.Element,
-    url: string,
-    style?: React.CSSProperties,
+    label: string | JSX.Element;
+    url: string;
+    style?: React.CSSProperties;
   }[];
 }
 
@@ -37,11 +37,13 @@ const BreadCrumbMobile = ({ title, count = 0, page = 0, onClickLeft, onClickRigh
 
   return (
     <Container isLight={isLight}>
-      <div style={{
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-      }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+        }}
+      >
         <IconButton
           sx={{
             marginRight: '8px',
@@ -52,10 +54,17 @@ const BreadCrumbMobile = ({ title, count = 0, page = 0, onClickLeft, onClickRigh
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
           onClick={handleClick}
-        > {open
-          ? <ThreeDotsWithCircleGreen fill={isLight ? '#B6EDE7' : '#1E2C37'} fillThereDots={isLight ? '#1AAB9B' : '#02CB9B'} />
-          : <ThereDots width={12} fill={isLight ? '#231536' : '#D2D4EF'}
-            height={3} />}</IconButton>
+        >
+          {' '}
+          {open ? (
+            <ThreeDotsWithCircleGreen
+              fill={isLight ? '#B6EDE7' : '#1E2C37'}
+              fillThereDots={isLight ? '#1AAB9B' : '#02CB9B'}
+            />
+          ) : (
+            <ThereDots width={12} fill={isLight ? '#231536' : '#D2D4EF'} height={3} />
+          )}
+        </IconButton>
         <Menu
           disableScrollLock={true}
           id="fade-button"
@@ -66,15 +75,16 @@ const BreadCrumbMobile = ({ title, count = 0, page = 0, onClickLeft, onClickRigh
             'aria-labelledby': 'basic-button-mobile',
           }}
           sx={{
-            '& .MuiMenu-root': {
-            },
+            '& .MuiMenu-root': {},
             '& .MuiMenu-paper': {
               padding: '8px 16px 16px 16px',
               height: '164px',
               width: '330px',
               position: 'absolute',
               background: isLight ? '#FFFFFF' : '#000A13',
-              boxShadow: isLight ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : ' 0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+              boxShadow: isLight
+                ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+                : ' 0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
               border: isLight ? 'none' : '1px solid #10191F',
               marginTop: '-3px',
             },
@@ -86,7 +96,6 @@ const BreadCrumbMobile = ({ title, count = 0, page = 0, onClickLeft, onClickRigh
               paddingLeft: '16px',
               paddingTop: '8px',
               paddingBottom: '8px',
-
             },
           }}
           transformOrigin={{
@@ -95,37 +104,42 @@ const BreadCrumbMobile = ({ title, count = 0, page = 0, onClickLeft, onClickRigh
           }}
         >
           {items?.map((item, i: number) => {
-            return <MenuItem
-              disableGutters={true}
-              disableTouchRipple={true}
-              style={item.style}
-              sx={{
-                paddingTop: '0px',
-                paddingBottom: '0px',
-                minHeight: 'fit-content',
-                fontFamily: 'FT Base, sans-serif',
-                fontStyle: 'normal',
-                fontWeight: 400,
-                fontSize: '16px',
-                lineHeight: '19px',
-                letterSpacing: '0.4px',
-                color: isLight ? '#708390' : '#48495F',
-                marginBottom: '32px',
-                '&:last-child': {
-                  marginBottom: '0px',
-                },
-              }}
-              key={`key-${i}`}>
-              <Link href={item.url} style={{
-                pointerEvents: item.url ? 'all' : 'none',
-              }}>
-                {item.label}
-              </Link>
-
-            </MenuItem >;
+            return (
+              <MenuItem
+                disableGutters={true}
+                disableTouchRipple={true}
+                style={item.style}
+                sx={{
+                  paddingTop: '0px',
+                  paddingBottom: '0px',
+                  minHeight: 'fit-content',
+                  fontFamily: 'FT Base, sans-serif',
+                  fontStyle: 'normal',
+                  fontWeight: 400,
+                  fontSize: '16px',
+                  lineHeight: '19px',
+                  letterSpacing: '0.4px',
+                  color: isLight ? '#708390' : '#48495F',
+                  marginBottom: '32px',
+                  '&:last-child': {
+                    marginBottom: '0px',
+                  },
+                }}
+                key={`key-${i}`}
+              >
+                <Link
+                  href={item.url}
+                  style={{
+                    pointerEvents: item.url ? 'all' : 'none',
+                  }}
+                >
+                  {item.label}
+                </Link>
+              </MenuItem>
+            );
           })}
         </Menu>
-        <BreadcrumbSeparator style={{ marginRight: '4px' }} width={5} height={10} fill='#D1DEE6' fillDark='#9FAFB9' />
+        <BreadcrumbSeparator style={{ marginRight: '4px' }} width={5} height={10} fill="#D1DEE6" fillDark="#9FAFB9" />
         <StyleTitle isLight={isLight}>{title}</StyleTitle>
       </div>
       <RightPart>
@@ -135,9 +149,10 @@ const BreadCrumbMobile = ({ title, count = 0, page = 0, onClickLeft, onClickRigh
         </PaginationLabel>
         <Arrows>
           <ArrowMobileLeft onClick={onClickLeft} width={6} height={10} />
-          <ArrowMobileRight onClick={onClickRight} width={5} height={10} /></Arrows>
+          <ArrowMobileRight onClick={onClickRight} width={5} height={10} />
+        </Arrows>
       </RightPart>
-    </Container >
+    </Container>
   );
 };
 
@@ -176,7 +191,9 @@ const Arrows = styled.div({
   alignItems: 'center',
 });
 
-const StyleActualCoreUnit = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
+const StyleActualCoreUnit = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
+  isLight: boolean;
+}>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
@@ -186,23 +203,27 @@ const StyleActualCoreUnit = styled(Typography)<{ isLight: boolean }>(({ isLight 
   color: isLight ? '#231536' : '#D2D4EF',
 }));
 
-const StyleTextCoreUnit = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 400,
-  fontSize: '12px',
-  lineHeight: '24px',
-  color: isLight ? '#626472' : '#546978',
-}));
+const StyleTextCoreUnit = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
+  ({ isLight }) => ({
+    fontFamily: 'FT Base, sans-serif',
+    fontStyle: 'normal',
+    fontWeight: 400,
+    fontSize: '12px',
+    lineHeight: '24px',
+    color: isLight ? '#626472' : '#546978',
+  })
+);
 
-const StyleTitle = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 500,
-  fontSize: '12px',
-  lineHeight: '14px',
-  textAlign: 'center',
-  color: isLight ? '#231536' : '#E2D8EE'
-}));
+const StyleTitle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
+  ({ isLight }) => ({
+    fontFamily: 'FT Base, sans-serif',
+    fontStyle: 'normal',
+    fontWeight: 500,
+    fontSize: '12px',
+    lineHeight: '14px',
+    textAlign: 'center',
+    color: isLight ? '#231536' : '#E2D8EE',
+  })
+);
 
 export default BreadCrumbMobile;
