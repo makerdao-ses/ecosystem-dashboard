@@ -10,10 +10,9 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { ContributorCommitmentDto } from '../../../core/models/dto/core-unit.dto';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
-import { ContributorCommitment } from '../../containers/cu-about/cu-about.api';
 
 interface Props {
-  contributorCommitment: ContributorCommitment | ContributorCommitmentDto;
+  contributorCommitment: ContributorCommitmentDto;
 }
 
 const CardInfoMember = ({ contributorCommitment }: Props) => {
@@ -128,17 +127,19 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
   );
 };
 
-const Container = styled(Card)<{ isLight: boolean }>(({ isLight }) => ({
-  boxShadow: isLight
-    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-    : '10px 15px 20px 6px rgba(20, 0, 141, 0.1);',
-  backgroundColor: isLight ? '#FFFFFF' : '#10191F',
-  borderRadius: '6px',
-  width: '335px',
-  [lightTheme.breakpoints.down('table_375')]: {
-    width: '100%',
-  },
-}));
+const Container = styled(Card, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
+  ({ isLight }) => ({
+    boxShadow: isLight
+      ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+      : '10px 15px 20px 6px rgba(20, 0, 141, 0.1);',
+    backgroundColor: isLight ? '#FFFFFF' : '#10191F',
+    borderRadius: '6px',
+    width: '335px',
+    [lightTheme.breakpoints.down('table_375')]: {
+      width: '100%',
+    },
+  })
+);
 
 const CardContentPositionRow = styled.div({
   display: 'flex',
@@ -160,25 +161,29 @@ const CardLinksFooter = styled.div({
   marginBottom: '12px',
 });
 
-const TypographyStyled = styled(Typography)<{ color: string }>((props) => ({
-  color: props.color,
-  fontFamily: 'SF Pro Text, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 400,
-  fontSize: '14px',
-  lineHeight: '22px',
-}));
+const TypographyStyled = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ color: string }>(
+  (props) => ({
+    color: props.color,
+    fontFamily: 'SF Pro Text, sans-serif',
+    fontStyle: 'normal',
+    fontWeight: 400,
+    fontSize: '14px',
+    lineHeight: '22px',
+  })
+);
 
-const TypographyEmail = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
-  fontWeight: 400,
-  fontStyle: 'normal',
-  fontSize: '14px',
-  fontFamily: 'SF Pro Text, sans-serif',
-  color: isLight ? '#231536' : '#D2D4EF',
-  lineHeight: '18.2px',
-}));
+const TypographyEmail = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
+  ({ isLight }) => ({
+    fontWeight: 400,
+    fontStyle: 'normal',
+    fontSize: '14px',
+    fontFamily: 'SF Pro Text, sans-serif',
+    color: isLight ? '#231536' : '#D2D4EF',
+    lineHeight: '18.2px',
+  })
+);
 
-const TypographyJobTitle = styled(Typography)({
+const TypographyJobTitle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })({
   fontSize: '11px',
   fontWeight: 600,
   fontFamily: 'SF Pro Text, sans-serif',
@@ -187,14 +192,16 @@ const TypographyJobTitle = styled(Typography)({
   height: '22px',
 });
 
-const TypographyName = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
-  fontSize: '20px',
-  color: isLight ? '#231536' : '#D2D4EF',
-  lineHeight: '24px',
-  fontWeight: 500,
-  letterSpacing: '0.3px',
-  paddingBottom: '8px',
-  fontFamily: 'SF Pro Display, sans-serif',
-}));
+const TypographyName = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
+  ({ isLight }) => ({
+    fontSize: '20px',
+    color: isLight ? '#231536' : '#D2D4EF',
+    lineHeight: '24px',
+    fontWeight: 500,
+    letterSpacing: '0.3px',
+    paddingBottom: '8px',
+    fontFamily: 'SF Pro Display, sans-serif',
+  })
+);
 
 export default CardInfoMember;

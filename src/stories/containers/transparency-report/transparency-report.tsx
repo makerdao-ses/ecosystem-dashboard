@@ -8,9 +8,7 @@ import { TransparencyForecast } from './transparency-forecast/transparency-forec
 import { TransparencyMkrVesting } from './transparency-mkr-vesting/transparency-mkr-vesting';
 import { TransparencyTransferRequest } from './transparency-transfer-request/transparency-transfer-request';
 import { TransparencyAudit } from './transparency-audit/transparency-audit';
-import {
-  CoreUnitDto,
-} from '../../../core/models/dto/core-unit.dto';
+import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
 import { formatCode } from '../../../core/utils/string.utils';
@@ -44,10 +42,7 @@ interface TransparencyReportProps {
   coreUnit: CoreUnitDto;
 }
 
-export const TransparencyReport = ({
-  coreUnits,
-  coreUnit,
-}: TransparencyReportProps) => {
+export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   const [isEnabled] = useFlagsActive();
 
@@ -60,7 +55,7 @@ export const TransparencyReport = ({
     handleNextMonth,
     hasNextMonth,
     currentBudgetStatement,
-    tabsIndex
+    tabsIndex,
   } = useTransparencyReportViewModel(coreUnit);
 
   return (
@@ -71,21 +66,15 @@ export const TransparencyReport = ({
         image={coreUnit.image || toAbsoluteURL('/assets/img/social-1200x630.png')}
         twitterCard={coreUnit.image ? 'summary' : 'summary_large_image'}
       />
-      <CoreUnitSummary
-        coreUnits={coreUnits}
-        trailingAddress={['Expense Reports']}
-        breadcrumbTitle="Expense Reports"
-      />
+      <CoreUnitSummary coreUnits={coreUnits} trailingAddress={['Expense Reports']} breadcrumbTitle="Expense Reports" />
       <Container isLight={isLight}>
         <InnerPage>
           <Title isLight={isLight}>Expense Reports</Title>
 
           <Paragraph isLight={isLight}>
-            Every month, the {formatCode(code)} Core Unit submits a transparency
-            report for MakerDAO governance with a detailed budget update. If the
-            core unit works with an auditor, the transparency report is reviewed
-            by the auditor before the core unit's operational wallet is topped
-            up to replenish its runway.
+            Every month, the {formatCode(code)} Core Unit submits a transparency report for MakerDAO governance with a
+            detailed budget update. If the core unit works with an auditor, the transparency report is reviewed by the
+            auditor before the core unit's operational wallet is topped up to replenish its runway.
             <p style={{ marginBottom: 0 }}>
               <span>Is this your core unit? Learn</span>
               <CustomLink
@@ -132,9 +121,7 @@ export const TransparencyReport = ({
                 color={
                   isLight
                     ? colors[currentBudgetStatement?.budgetStatus ?? '']
-                    : colorsDarkColors[
-                      currentBudgetStatement?.budgetStatus ?? ''
-                    ]
+                    : colorsDarkColors[currentBudgetStatement?.budgetStatus ?? '']
                 }
               >
                 {currentBudgetStatement?.budgetStatus ?? '-'}
@@ -185,44 +172,24 @@ export const TransparencyReport = ({
             />
           )}
           {tabsIndex === 1 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-            <TransparencyForecast2
-              currentMonth={currentMonth}
-              budgetStatements={coreUnit?.budgetStatements}
-            />
+            <TransparencyForecast2 currentMonth={currentMonth} budgetStatements={coreUnit?.budgetStatements} />
           )}
           {tabsIndex === 1 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-            <TransparencyForecast
-              currentMonth={currentMonth}
-              budgetStatements={coreUnit?.budgetStatements}
-            />
+            <TransparencyForecast currentMonth={currentMonth} budgetStatements={coreUnit?.budgetStatements} />
           )}
           {tabsIndex === 2 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-            <TransparencyMkrVesting2
-              currentMonth={currentMonth}
-              budgetStatements={coreUnit?.budgetStatements}
-            />
+            <TransparencyMkrVesting2 currentMonth={currentMonth} budgetStatements={coreUnit?.budgetStatements} />
           )}
           {tabsIndex === 2 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-            <TransparencyMkrVesting
-              currentMonth={currentMonth}
-              budgetStatements={coreUnit?.budgetStatements}
-            />
+            <TransparencyMkrVesting currentMonth={currentMonth} budgetStatements={coreUnit?.budgetStatements} />
           )}
           {tabsIndex === 3 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-            <TransparencyTransferRequest2
-              currentMonth={currentMonth}
-              budgetStatements={coreUnit?.budgetStatements}
-            />
+            <TransparencyTransferRequest2 currentMonth={currentMonth} budgetStatements={coreUnit?.budgetStatements} />
           )}
           {tabsIndex === 3 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-            <TransparencyTransferRequest
-              currentMonth={currentMonth}
-              budgetStatements={coreUnit?.budgetStatements}
-            />
+            <TransparencyTransferRequest currentMonth={currentMonth} budgetStatements={coreUnit?.budgetStatements} />
           )}
-          {tabsIndex === 4 && (
-            <TransparencyAudit budgetStatement={currentBudgetStatement} />
-          )}
+          {tabsIndex === 4 && <TransparencyAudit budgetStatement={currentBudgetStatement} />}
         </InnerPage>
       </Container>
     </Wrapper>
@@ -236,9 +203,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   paddingBottom: '128px',
   flex: 1,
   backgroundColor: isLight ? '#FFFFFF' : '#000000',
-  backgroundImage: isLight
-    ? 'url(/assets/img/bg-page.png)'
-    : 'url(/assets/img/bg-page-dark.png)',
+  backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
   padding: '0 16px 128px',
@@ -266,31 +231,24 @@ export const Title = styled.div<{
   isLight: boolean;
   fontSize?: string;
   responsiveMarginBottom?: number;
-}>(
-  ({
-    marginBottom = 16,
-    fontSize = '16px',
-    isLight,
-    responsiveMarginBottom,
-  }) => ({
-    fontFamily: 'FT Base, sans-serif',
-    fontWeight: 700,
-    fontStyle: 'normal',
-    fontSize,
-    lineHeight: '19px',
-    letterSpacing: '0.4px',
-    color: isLight ? '#231536' : '#D2D4EF',
-    marginBottom: `${marginBottom}px`,
-    '@media (min-width: 834px)': {
-      fontSize: '20px',
-      lineHeight: '24px',
-      marginBottom: `${responsiveMarginBottom || marginBottom}px`,
-    },
-    [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-      marginTop: '40px',
-    },
-  })
-);
+}>(({ marginBottom = 16, fontSize = '16px', isLight, responsiveMarginBottom }) => ({
+  fontFamily: 'FT Base, sans-serif',
+  fontWeight: 700,
+  fontStyle: 'normal',
+  fontSize,
+  lineHeight: '19px',
+  letterSpacing: '0.4px',
+  color: isLight ? '#231536' : '#D2D4EF',
+  marginBottom: `${marginBottom}px`,
+  '@media (min-width: 834px)': {
+    fontSize: '20px',
+    lineHeight: '24px',
+    marginBottom: `${responsiveMarginBottom || marginBottom}px`,
+  },
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    marginTop: '40px',
+  },
+}));
 
 const Paragraph = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',

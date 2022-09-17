@@ -57,7 +57,7 @@ export const CuTable2 = () => {
     columns,
     tableItems,
     onSortClick,
-    headersSort
+    headersSort,
   } = useCoreUnitsTableMvvm();
 
   const siteHeader = useMemo(() => {

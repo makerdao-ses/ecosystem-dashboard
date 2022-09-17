@@ -2,7 +2,8 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import CardInfoMember from './card-info-member';
 import { CuJobEnum } from '../../../core/enums/cu-job.enum';
-import { Commitment, ContributorCommitment } from '../../containers/cu-about/cu-about.api';
+import { CommitmentJob } from '../../../core/enums/CommitmentJob.enum';
+import { ContributorCommitmentDto } from '../../../core/models/dto/core-unit.dto';
 
 export default {
   title: 'Components/CUAbout/CardInfoMember',
@@ -17,7 +18,7 @@ AllData.args = {
     id: '1',
     jobTitle: 'Team Lead' as CuJobEnum,
     startDate: '2019-01-01',
-    commitment: Commitment.FullTime,
+    commitment: CommitmentJob.Fulltime,
     contributor: [
       {
         id: '1',
@@ -29,7 +30,7 @@ AllData.args = {
         facilitatorImage: '',
       },
     ],
-  } as ContributorCommitment,
+  } as ContributorCommitmentDto,
 };
 
 export const Default = Template.bind({});
@@ -38,7 +39,7 @@ Default.args = {
     id: '1',
     startDate: '2019-01-01',
     jobTitle: 'Facilitator' as CuJobEnum,
-    commitment: Commitment.FullTime,
+    commitment: CommitmentJob.Fulltime,
     contributor: [
       {
         name: 'Juan Julien',
@@ -47,5 +48,5 @@ Default.args = {
         email: 'juan@ses.makerdao.network',
       },
     ],
-  } as ContributorCommitment,
+  } as ContributorCommitmentDto,
 };

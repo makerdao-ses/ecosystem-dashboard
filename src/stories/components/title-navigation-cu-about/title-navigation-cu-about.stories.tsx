@@ -6,7 +6,7 @@ import { CoreUnitDto, CuMipDto, SocialMediaChannelDto } from '../../../core/mode
 
 export default {
   title: 'Components/CUAbout/TitleNavigationCuAbout',
-  component: TitleNavigationCuAbout
+  component: TitleNavigationCuAbout,
 } as ComponentMeta<typeof TitleNavigationCuAbout>;
 
 const Template: ComponentStory<typeof TitleNavigationCuAbout> = (args) => <TitleNavigationCuAbout {...args} />;
@@ -23,13 +23,15 @@ Default.args = {
     sentenceDescription: '',
     paragraphDescription: '',
     paragraphImage: '',
-    socialMediaChannels: [{
-      discord: 'https://discord.gg/h7GKvqDyDP',
-      forumTag: 'ses-001',
-      linkedIn: 'https://www.linkedin.com/company/makerdao-ses/',
-      twitter: '',
-      youtube: 'https://www.youtube.com/channel/UC9c35O2H6fq8fB2CGzzP1bw/about',
-    }] as SocialMediaChannelDto[],
+    socialMediaChannels: [
+      {
+        discord: 'https://discord.gg/h7GKvqDyDP',
+        forumTag: 'ses-001',
+        linkedIn: 'https://www.linkedin.com/company/makerdao-ses/',
+        twitter: '',
+        youtube: 'https://www.youtube.com/channel/UC9c35O2H6fq8fB2CGzzP1bw/about',
+      },
+    ] as SocialMediaChannelDto[],
     cuMip: [
       {
         mipCode: 'MIP-1',
@@ -40,9 +42,9 @@ Default.args = {
         obsolete: '2019-06-11',
         mipUrl: 'https://makerdao.com/',
         mipStatus: CuStatusEnum.Accepted,
-      }
+      },
     ] as CuMipDto[],
-  } as CoreUnitDto
+  } as CoreUnitDto,
 };
 
 DataWith.args = {
@@ -56,13 +58,15 @@ DataWith.args = {
     sentenceDescription: '',
     paragraphDescription: '',
     paragraphImage: '',
-    socialMediaChannels: [{
-      discord: 'https://discord.gg/h7GKvqDyDP',
-      forumTag: 'ses-001',
-      linkedIn: 'https://www.linkedin.com/company/makerdao-ses/',
-      twitter: '',
-      youtube: 'https://www.youtube.com/channel/UC9c35O2H6fq8fB2CGzzP1bw/about',
-    }] as SocialMediaChannelDto[],
+    socialMediaChannels: [
+      {
+        discord: 'https://discord.gg/h7GKvqDyDP',
+        forumTag: 'ses-001',
+        linkedIn: 'https://www.linkedin.com/company/makerdao-ses/',
+        twitter: '',
+        youtube: 'https://www.youtube.com/channel/UC9c35O2H6fq8fB2CGzzP1bw/about',
+      },
+    ] as SocialMediaChannelDto[],
     cuMip: [
       {
         mipCode: 'MIP-1',
@@ -73,7 +77,7 @@ DataWith.args = {
         obsolete: '2022-06-11',
         mipUrl: 'https://makerdao.com/',
         mipStatus: CuStatusEnum.Obsolete,
-      }
+      },
     ] as CuMipDto[],
-  } as CoreUnitDto
+  } as CoreUnitDto,
 };

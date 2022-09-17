@@ -1,8 +1,4 @@
 import { LinkModel } from '../../stories/components/cu-table-column-links/cu-table-column-links';
-import {
-  ContributorCommitment,
-  CuMip,
-} from '../../stories/containers/cu-about/cu-about.api';
 import { CuStatusEnum } from '../enums/cu-status.enum';
 import { LinkTypeEnum } from '../enums/link-type.enum';
 import { getCuMipStatusModifiedDate } from './core-units';
@@ -12,7 +8,7 @@ import {
 } from '../models/dto/core-unit.dto';
 import { CommitmentJob } from '../enums/CommitmentJob.enum';
 
-export const getMipsStatus = (mip: CuMip | CuMipDto) => {
+export const getMipsStatus = (mip:CuMipDto) => {
   if (!mip) return undefined;
   switch (mip.mipStatus) {
     case CuStatusEnum.Accepted:
@@ -35,7 +31,7 @@ export const getMarkdownInformation = (text: string | undefined) => {
 };
 
 export const getLinksFromContributor = (
-  contributor: ContributorCommitment | ContributorCommitmentDto
+  contributor: ContributorCommitmentDto
 ) => {
   const links: LinkModel[] = [];
   if (!contributor) return links;
@@ -68,7 +64,7 @@ export const getLinksFromContributor = (
   }
   return links;
 };
-export const getRelateMipObjectFromCoreUnit = (cu: CuMip | CuMipDto) => {
+export const getRelateMipObjectFromCoreUnit = (cu: CuMipDto) => {
   const dateMip = getCuMipStatusModifiedDate(cu, cu.mipStatus);
   return {
     ...cu,
