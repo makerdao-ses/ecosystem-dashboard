@@ -1,5 +1,5 @@
-import React, { CSSProperties, useEffect } from 'react';
-import { Popover, useMediaQuery } from '@mui/material';
+import React, { CSSProperties } from 'react';
+import { Popover } from '@mui/material';
 import styled from '@emotion/styled';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 
@@ -36,23 +36,19 @@ export const CustomPopover = ({
   const isLight = useThemeContext().themeMode === 'light';
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const [leaveTimeout, setLeaveTimeout] = React.useState<NodeJS.Timeout>();
-  const isOnTouchDevice = useMediaQuery('(pointer: coarse)');
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    document.querySelector('body').onscroll = () => handlePopoverClose;
+    document.querySelector('body').onscroll = handlePopoverClose;
     setAnchorEl(event.currentTarget);
   };
 
   const handlePopoverClose = () => {
     setAnchorEl(null);
-  };
-
-  useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    return () => document.querySelector('body').removeEventListener('onscroll', handlePopoverClose);
-  }, []);
+    document.querySelector('body').removeEventListener('onscroll', handlePopoverClose);
+  };
 
   return (
     <React.Fragment>
@@ -79,7 +75,7 @@ export const CustomPopover = ({
         sx={{
           pointerEvents: 'none',
         }}
-        open={Boolean(anchorEl) && !isOnTouchDevice}
+        open={Boolean(anchorEl)}
         anchorEl={anchorEl}
         anchorOrigin={anchorOrigin}
         transformOrigin={{
