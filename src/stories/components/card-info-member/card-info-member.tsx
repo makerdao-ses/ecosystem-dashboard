@@ -164,7 +164,7 @@ const CardLinksFooter = styled.div({
 const TypographyStyled = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ color: string }>(
   (props) => ({
     color: props.color,
-    fontFamily: 'SF Pro Text, sans-serif',
+    fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: '14px',
@@ -177,7 +177,7 @@ const TypographyEmail = styled(Typography, { shouldForwardProp: (prop) => prop !
     fontWeight: 400,
     fontStyle: 'normal',
     fontSize: '14px',
-    fontFamily: 'SF Pro Text, sans-serif',
+    fontFamily: 'Inter, sans-serif',
     color: isLight ? '#231536' : '#D2D4EF',
     lineHeight: '18.2px',
   })
@@ -186,8 +186,8 @@ const TypographyEmail = styled(Typography, { shouldForwardProp: (prop) => prop !
 const TypographyJobTitle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })({
   fontSize: '11px',
   fontWeight: 600,
-  fontFamily: 'SF Pro Text, sans-serif',
-  lineHeight: '22px',
+  fontFamily: 'Inter, sans-serif',
+  lineHeight: '13px',
   fontStyle: 'normal',
   height: '22px',
 });
@@ -200,7 +200,7 @@ const TypographyName = styled(Typography, { shouldForwardProp: (prop) => prop !=
     fontWeight: 500,
     letterSpacing: '0.3px',
     paddingBottom: '8px',
-    fontFamily: 'SF Pro Display, sans-serif',
+    fontFamily: 'Inter, sans-serif',
   })
 );
 
