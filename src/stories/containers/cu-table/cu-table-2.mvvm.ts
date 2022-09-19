@@ -4,7 +4,6 @@ import {
   getExpenditureValueFromCoreUnit,
   getFTEsFromCoreUnit,
   getLatestMip39FromCoreUnit,
-  getLinksFromCoreUnit,
 } from '../../../core/business-logic/core-units';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
