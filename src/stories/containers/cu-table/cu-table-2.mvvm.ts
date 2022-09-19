@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import {
   getExpenditureValueFromCoreUnit,
   getFTEsFromCoreUnit,
@@ -8,11 +8,8 @@ import {
 } from '../../../core/business-logic/core-units';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
-import { useAppDispatch } from '../../../core/hooks/hooks';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
 import { buildQueryString } from '../../../core/utils/url.utils';
-import { loadCuTableItemsAsync } from './cu-table.slice';
-import isEmpty from 'lodash/isEmpty';
 import request from 'graphql-request';
 import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
 import { GETCoreUnits } from './cu-table.api';
@@ -24,7 +21,6 @@ import { SortEnum } from '../../../core/enums/sort.enum';
 import { sortAlphaNum } from '../../../core/utils/sort.utils';
 
 export const useCoreUnitsTableMvvm = () => {
-  const dispatch = useAppDispatch();
   const router = useRouter();
 
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
@@ -55,12 +51,6 @@ export const useCoreUnitsTableMvvm = () => {
     document.querySelector('body').style.overflow = filtersPopup ? 'auto' : 'hidden';
     setFiltersPopup(!filtersPopup);
   };
-
-  useEffect(() => {
-    if (isEmpty(data)) {
-      dispatch(loadCuTableItemsAsync());
-    }
-  }, [dispatch]);
 
   const { filteredData, statusesFiltered, categoriesFiltered } = useMemo(
     () =>
