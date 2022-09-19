@@ -34,12 +34,7 @@ interface PopupWrapperProps {
   code?: string;
 }
 
-const PopupWrapper = ({
-  children,
-  title,
-  code,
-  hasPopup = false,
-}: PopupWrapperProps) => {
+const PopupWrapper = ({ children, title, code, hasPopup = false }: PopupWrapperProps) => {
   if (!hasPopup) {
     return children;
   }
@@ -107,9 +102,7 @@ export const CuTableColumnSummary = ({
             name={props.title || 'Core Unit'}
             image={props.imageUrl}
             style={{
-              boxShadow: isLight
-                ? '2px 4px 7px rgba(26, 171, 155, 0.25)'
-                : '2px 4px 7px rgba(26, 171, 155, 0.25)',
+              boxShadow: isLight ? '2px 4px 7px rgba(26, 171, 155, 0.25)' : '2px 4px 7px rgba(26, 171, 155, 0.25)',
             }}
           />
         </PopupWrapper>
@@ -120,9 +113,7 @@ export const CuTableColumnSummary = ({
           <Title isLight={isLight}>{props.title}</Title>
         </TitleWrapper>
         <Row>
-          {props.status && (
-            <StatusChip status={props.status} style={{ marginLeft: '-2px' }} />
-          )}
+          {props.status && <StatusChip status={props.status} style={{ marginLeft: '-2px' }} />}
           {props.statusModified && (
             <CustomPopover
               id={'mouse-over-popover-goto'}
@@ -144,9 +135,7 @@ export const CuTableColumnSummary = ({
                   }}
                   target="_blank"
                 >
-                  {`SINCE ${DateTime.fromJSDate(props.statusModified)
-                    .toFormat('d-MMM-y')
-                    .toUpperCase()}`}
+                  {`SINCE ${DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}`}
                 </CustomLink>
               )}
             </CustomPopover>

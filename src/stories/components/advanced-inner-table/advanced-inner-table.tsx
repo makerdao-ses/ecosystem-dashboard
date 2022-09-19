@@ -174,7 +174,6 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 
 const Table = styled.table({
   borderCollapse: 'collapse',
-  tableLayout: 'fixed',
   flex: '1',
   width: '100%',
 });
