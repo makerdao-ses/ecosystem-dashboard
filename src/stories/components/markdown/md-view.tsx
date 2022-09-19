@@ -128,9 +128,9 @@ const ViewerContainer = styled.div({
 const TypographyStyleDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
   isLight: boolean;
 }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
-  fontWeight: 500,
+  fontWeight: 600,
   fontSize: '20px',
   lineHeight: isLight ? '19px' : '24px',
   color: isLight ? '#231536' : ' #D2D4EF;',
