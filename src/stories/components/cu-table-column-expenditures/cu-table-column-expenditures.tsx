@@ -12,17 +12,13 @@ interface CuTableColumnExpendituresProps {
   percent?: number | null;
   items?: Array<CustomChartItemModel>;
   budgetCaps?: number[];
-  months?: string[],
+  months?: string[];
   isLoading?: boolean;
 }
 
-export const CuTableColumnExpenditures = ({
-  isLoading = false,
-  ...props
-}: CuTableColumnExpendituresProps) => {
+export const CuTableColumnExpenditures = ({ isLoading = false, ...props }: CuTableColumnExpendituresProps) => {
   const isLight = useThemeContext().themeMode === 'light';
-  return !isLoading
-    ? (
+  return !isLoading ? (
     <Wrapper>
       <Container>
         <DataWrapper>
@@ -78,10 +74,9 @@ export const CuTableColumnExpenditures = ({
         </ValueWrapper>
       </Container>
     </Wrapper>
-      )
-    : (
+  ) : (
     <ColumnExpendituresSkeleton />
-      );
+  );
 };
 
 const Container = styled.div({
@@ -115,23 +110,30 @@ const TotalPopup = styled.div({
 const PopupTitle = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   fontSize: '16px',
   fontWeight: 700,
-  fontFamily: 'SF Pro Display, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   color: isLight ? '#231536' : '#D2D4EF',
 }));
 
 const Label = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   fontSize: '14px',
   fontWeight: 400,
-  fontFamily: 'FT Base, sans-serif',
-  color: isLight ? '#231536' : '#D2D4EF'
+  fontStyle: 'normal',
+  fontFamily: 'Inter, sans-serif',
+  lineHeight: '17px',
+  color: isLight ? '#231536' : '#D2D4EF',
+  '> b': {
+    fontWeight: 600,
+  },
 }));
 
 export const Title = styled.span<{ isLight?: boolean }>(({ isLight }) => ({
-  fontSize: '12px',
+  fontSize: '11px',
   color: isLight ? '#434358' : '#9FAFB9',
   fontWeight: 400,
+  fontStyle: 'normal',
   marginBottom: '8px',
   lineHeight: '13px',
+  fontFamily: 'Inter, sans-serif',
 }));
 
 const ValueWrapper = styled.div({
@@ -139,7 +141,7 @@ const ValueWrapper = styled.div({
 });
 
 export const Value = styled.span<{ isLight?: boolean }>(({ isLight }) => ({
-  fontFamily: 'SF Pro Display, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 600,
   fontSize: '14px',
   color: isLight ? '#231536' : '#EDEFFF',
