@@ -40,7 +40,7 @@ export const useCoreUnitsTableMvvm = () => {
     SortEnum.Asc,
     SortEnum.Neutral,
     SortEnum.Neutral,
-    SortEnum.Neutral,
+    SortEnum.Disabled,
   ]);
 
   const [filtersPopup, setFiltersPopup] = useState(false);
@@ -138,7 +138,7 @@ export const useCoreUnitsTableMvvm = () => {
       onClick: onClickRow,
     },
     {
-      header: 'Links',
+      header: '',
       justifyContent: 'center',
       cellRender: renderLinks,
       onClick: onClickRow,
@@ -154,10 +154,8 @@ export const useCoreUnitsTableMvvm = () => {
       (getExpenditureValueFromCoreUnit(a) - getExpenditureValueFromCoreUnit(b)) * multiplier;
     const teamMembersSort = (a: CoreUnitDto, b: CoreUnitDto) =>
       (getFTEsFromCoreUnit(a) - getFTEsFromCoreUnit(b)) * multiplier;
-    const linksSort = (a: CoreUnitDto, b: CoreUnitDto) =>
-      (getLinksFromCoreUnit(a).length - getLinksFromCoreUnit(b).length) * multiplier;
 
-    const sortAlg = [nameSort, expendituresSort, teamMembersSort, linksSort];
+    const sortAlg = [nameSort, expendituresSort, teamMembersSort, () => 0];
     return [...items].sort(sortAlg[sortColumn]);
   };
 
@@ -170,7 +168,7 @@ export const useCoreUnitsTableMvvm = () => {
   }, [data, sortColumn, headersSort, filteredCategories, filteredStatuses, searchText]);
 
   const onSortClick = (index: number) => {
-    const sortNeutralState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral];
+    const sortNeutralState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled];
 
     if (headersSort[index] === 3) {
       setHeadersSort(sortNeutralState);

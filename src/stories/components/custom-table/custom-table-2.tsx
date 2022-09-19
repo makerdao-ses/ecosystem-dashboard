@@ -36,7 +36,7 @@ interface Props {
   renderCard?: (data: CustomTableRow, index: number) => JSX.Element;
 }
 
-export const CustomTable2 = ({ ...props }: Props) => {
+export const CustomTable2 = (props: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
 
   const tableHead = useMemo(() => {
@@ -52,13 +52,13 @@ export const CustomTable2 = ({ ...props }: Props) => {
               style={{
                 justifyContent: column.justifyContent,
               }}
-              onClick={() => props.handleSort?.(i)}
             >
               <CustomTableHeader
                 style={column.style}
                 align={column.headerAlign}
                 state={props.headersSort?.[i] ?? SortEnum.Neutral}
                 title={column.header ?? ''}
+                onSort={() => props.handleSort?.(i)}
               />
             </TableCell>
           ))}
