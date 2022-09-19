@@ -197,9 +197,9 @@ const Header = styled.div({
 });
 
 const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontSize: '24px',
-  fontWeight: 500,
+  fontWeight: 600,
   lineHeight: isLight ? '29px' : '38px',
   letterSpacing: '0.4px',
   flex: 1,
