@@ -121,7 +121,7 @@ export const useCoreUnitsTableMvvm = () => {
     {
       header: 'Core Unit',
       justifyContent: 'flex-start',
-      style: { paddingLeft: '79.5px' },
+      style: { paddingLeft: '16px' },
       cellRender: renderSummary,
       onClick: onClickRow,
     },
