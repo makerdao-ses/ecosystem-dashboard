@@ -4,14 +4,21 @@ import isEmpty from 'lodash/isEmpty';
 import { fetchCoreUnitByCode } from '../../../src/stories/containers/cu-about/cu-about.api';
 import { fetchCoreUnits } from '../../../src/stories/components/core-unit-summary/core-unit-summary.mvvm';
 import { CoreUnitDto } from '../../../src/core/models/dto/core-unit.dto';
-import CuAboutContainer from '../../../src/stories/containers/cu-about-2/cu-about-container-2';
+import { useFlagsActive } from '../../../src/core/hooks/useFlagsActive';
+import CuAboutContainer2 from '../../../src/stories/containers/cu-about-2/cu-about-container-2';
+import CuAboutContainer from '../../../src/stories/containers/cu-about/cu-about-container';
 
 const CoreUnitAboutPage: NextPage = ({
   code,
   coreUnits,
   cuAbout,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  return <CuAboutContainer code={code} coreUnits={coreUnits} cuAbout={cuAbout as CoreUnitDto} />;
+  const [isEnabled] = useFlagsActive();
+  return isEnabled('FEATURE_CU_ABOUT_NEW_CONTAINER') ? (
+    <CuAboutContainer code={code} coreUnits={coreUnits} cuAbout={cuAbout as CoreUnitDto} />
+  ) : (
+    <CuAboutContainer2 code={code} coreUnits={coreUnits} cuAbout={cuAbout as CoreUnitDto} />
+  );
 };
 export default CoreUnitAboutPage;
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
