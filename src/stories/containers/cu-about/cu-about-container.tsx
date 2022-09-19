@@ -312,10 +312,10 @@ const CardRelateMipsContainer = styled.div({
 });
 
 const TitleRelateMips = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'SF Pro Text, sans-serif',
-  fontWeight: 600,
-  fontSize: '14px',
-  lineHeight: '18px',
+  fontFamily: 'Inter, sans-serif',
+  fontWeight: 700,
+  fontSize: '16px',
+  lineHeight: '19px',
   marginBottom: '32px',
   color: isLight ? '#231536' : '#D2D4EF',
 
