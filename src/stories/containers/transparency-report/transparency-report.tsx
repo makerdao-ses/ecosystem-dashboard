@@ -78,12 +78,13 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
             <p style={{ marginBottom: 0 }}>
               <span>Is this your core unit? Learn</span>
               <CustomLink
+                fontWeight={500}
                 href={HOW_TO_SUBMIT_EXPENSES}
                 iconHeight={10}
                 iconWidth={10}
                 fontSize={16}
                 fontSizeMobile={14}
-                fontFamily={'SF Pro Display, sans-serif'}
+                fontFamily={'Inter, sans-serif'}
               >
                 how to submit your expenses here
               </CustomLink>
@@ -108,7 +109,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
                   iconHeight={10}
                   iconWidth={10}
                   fontSize={16}
-                  fontFamily={'SF Pro Display, sans-serif'}
+                  fontFamily="Inter, sans-serif"
                 >
                   Source
                 </CustomLink>
@@ -231,9 +232,10 @@ export const Title = styled.div<{
   isLight: boolean;
   fontSize?: string;
   responsiveMarginBottom?: number;
+  isTitle?: boolean;
 }>(({ marginBottom = 16, fontSize = '16px', isLight, responsiveMarginBottom }) => ({
-  fontFamily: 'FT Base, sans-serif',
-  fontWeight: 700,
+  fontFamily: 'Inter, sans-serif',
+  fontWeight: 600,
   fontStyle: 'normal',
   fontSize,
   lineHeight: '19px',
@@ -251,7 +253,7 @@ export const Title = styled.div<{
 }));
 
 const Paragraph = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '14px',

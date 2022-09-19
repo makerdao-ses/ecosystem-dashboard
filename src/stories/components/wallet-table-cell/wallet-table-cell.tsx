@@ -14,30 +14,35 @@ interface WalletTableCellProps {
 
 export const WalletTableCell = (props: WalletTableCellProps) => {
   const isLight = useThemeContext().themeMode === 'light';
-  return <Container>
-    <CircleAvatar
-      width={'32px'}
-      height={'32px'}
-      name={props.address ?? ''}
-      image={props.imgUrl}
-      border={'none'}
-      identIcon
-    />
-    <Data>
-      <Label isLight={isLight}>{capitalizeSentence(props.name)}</Label>
-      <CustomLink
-        style={{
-          margin: 0,
-          lineHeight: '17px',
-        }}
-        fontSize={14}
-        fontWeight={400}
-        href={`https://etherscan.io/address/${props.address}`}
-        withArrow={false}>
-        {props.wallet.toLowerCase()}
-      </CustomLink>
-    </Data>
-  </Container>;
+  return (
+    <Container>
+      <CircleAvatar
+        width={'32px'}
+        height={'32px'}
+        name={props.address ?? ''}
+        image={props.imgUrl}
+        border={'none'}
+        identIcon
+      />
+      <Data>
+        <Label isLight={isLight}>{capitalizeSentence(props.name)}</Label>
+        <CustomLink
+          style={{
+            margin: 0,
+            lineHeight: '17px',
+            fontFamily: 'Inter, sans-serif',
+            fontStyle: 'normal',
+          }}
+          fontSize={14}
+          fontWeight={400}
+          href={`https://etherscan.io/address/${props.address}`}
+          withArrow={false}
+        >
+          {props.wallet.toLowerCase()}
+        </CustomLink>
+      </Data>
+    </Container>
+  );
 };
 
 const Container = styled.div({
@@ -45,22 +50,22 @@ const Container = styled.div({
   alignItems: 'center',
   height: '77px',
   '@media (min-width: 835px)': {
-    height: '72px'
+    height: '72px',
   },
   '.circle-avatar': {
     margin: '0 16px',
     '@media (min-width: 834px) and (max-width: 1193px)': {
       margin: '0 16px 0 8px',
     },
-  }
+  },
 });
 
 const Data = styled.div({
-  height: '40px'
+  height: '40px',
 });
 
 const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '14px',
@@ -68,6 +73,6 @@ const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   '@media (min-width: 835px)': {
     fontSize: '16px',
-    lineHeight: '19px'
-  }
+    lineHeight: '22px',
+  },
 }));
