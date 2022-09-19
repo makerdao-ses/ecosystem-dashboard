@@ -168,7 +168,7 @@ const TypographyStyled = styled(Typography, { shouldForwardProp: (prop) => prop 
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: '14px',
-    lineHeight: '22px',
+    lineHeight: '17px',
   })
 );
 
@@ -179,7 +179,7 @@ const TypographyEmail = styled(Typography, { shouldForwardProp: (prop) => prop !
     fontSize: '14px',
     fontFamily: 'Inter, sans-serif',
     color: isLight ? '#231536' : '#D2D4EF',
-    lineHeight: '18.2px',
+    lineHeight: '17px',
   })
 );
 

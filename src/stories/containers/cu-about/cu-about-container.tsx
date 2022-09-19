@@ -225,14 +225,14 @@ const TeamMemberContainer = styled.div({
 
 const TeamMemberTitle = styled.h2<{ isLight: boolean }>(({ isLight }) => ({
   fontStyle: 'normal',
-  fontWeight: 500,
+  fontWeight: 600,
   fontSize: '20px',
-  lineHeight: '19px',
+  lineHeight: '24px',
   marginRight: '8px',
   color: isLight ? '#231536' : '#D2D4EF',
   marginTop: 0,
   marginBottom: 0,
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
 
   [lightTheme.breakpoints.down('table_834')]: {
     fontSize: '16px',
@@ -254,13 +254,13 @@ const ContactInfoContainer = styled.div({
 
 const ContactInfoTitle = styled.h2<{ isLight: boolean }>(({ isLight }) => ({
   fontStyle: 'normal',
-  fontWeight: 600,
-  fontSize: '14px',
-  lineHeight: '18px',
+  fontWeight: 700,
+  fontSize: '16px',
+  lineHeight: '19px',
   color: isLight ? '#231536' : '#D2D4EF',
   marginTop: 0,
   marginBottom: '32px',
-  fontFamily: 'SF Pro Text, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   width: '100%',
 
   [lightTheme.breakpoints.up('table_834')]: {
