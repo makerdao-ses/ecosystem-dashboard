@@ -216,6 +216,7 @@ const FilterButtonWrapper = styled.div({
     display: 'none',
   },
 });
+
 const FilterButtonWrapperMobile = styled.div({
   display: 'flex',
   '@media (min-width: 834px)': {
