@@ -11,79 +11,61 @@ export const TransparencyEmptyTable = ({ breakdown = false }: Props) => {
   return (
     <>
       <Wrapper>
-        {!breakdown
-          ? (
-            <Container isLight={isLight}>
-              <Row>
-                <CellBlock
+        {!breakdown ? (
+          <Container isLight={isLight}>
+            <Row>
+              <CellBlock
+                style={{
+                  marginRight: '111px',
+                }}
+              />
+              <CellBlock />
+              <CellBlock />
+              <CellBlock />
+              <CellBlock />
+              <CellBlock />
+            </Row>
+            <Line isLight={isLight} />
+            {new Array(3).fill('').map((_, i) => (
+              <Row key={`key-${i}`} style={{ marginBottom: i === 2 ? '17px' : '30px' }}>
+                <Row
                   style={{
-                    marginRight: '111px',
+                    gap: '0',
+                    maxWidth: '238px',
                   }}
-                />
-                <CellBlock />
-                <CellBlock />
-                <CellBlock />
-                <CellBlock />
-                <CellBlock />
-              </Row>
-              <Line isLight={isLight} />
-              {new Array(3).fill('').map((_, i) => (
-                <Row key={`key-${i}`} style={{ marginBottom: i === 2 ? '17px' : '30px' }}>
-                  <Row
+                >
+                  <CellBlock
                     style={{
-                      gap: '0',
-                      maxWidth: '238px',
+                      borderRadius: '50%',
+                      minWidth: '42px',
+                      maxWidth: '42px',
+                      height: '42px',
+                      marginRight: '5px',
+                    }}
+                  />
+                  <div
+                    style={{
+                      marginRight: '20px',
+                      maxWidth: '126px',
+                      minWidth: '126px',
+                      width: '100%',
                     }}
                   >
                     <CellBlock
                       style={{
-                        borderRadius: '50%',
-                        minWidth: '42px',
-                        maxWidth: '42px',
-                        height: '42px',
-                        marginRight: '5px',
+                        height: '22px',
+                        marginBottom: '6px',
+                        marginRight: '0',
                       }}
                     />
-                    <div
+                    <CellBlock
                       style={{
-                        marginRight: '20px',
-                        maxWidth: '126px',
-                        minWidth: '126px',
-                        width: '100%',
+                        height: '16px',
+                        marginRight: '0',
                       }}
-                    >
-                      <CellBlock
-                        style={{
-                          height: '22px',
-                          marginBottom: '6px',
-                          marginRight: '0',
-                        }}
-                      />
-                      <CellBlock
-                        style={{
-                          height: '16px',
-                          marginRight: '0',
-                        }}
-                      />
-                    </div>
-                  </Row>
-                  <CellBlock />
-                  <CellBlock />
-                  <CellBlock />
-                  <CellBlock />
-                  <CellBlock
-                    style={{
-                      maxWidth: '262px',
-                    }}
-                  />
+                    />
+                  </div>
                 </Row>
-              ))}
-              <Row>
-                <CellBlock
-                  style={{
-                    marginRight: '111px',
-                  }}
-                />
                 <CellBlock />
                 <CellBlock />
                 <CellBlock />
@@ -94,289 +76,241 @@ export const TransparencyEmptyTable = ({ breakdown = false }: Props) => {
                   }}
                 />
               </Row>
-            </Container>
-            )
-          : (
-            <Container isLight={isLight}>
-              <Row>
-                <CellBlock
-                  style={{
-                    maxWidth: '137px',
-                    minWidth: '137px',
-                    marginRight: '151px',
-                  }}
-                />
-                <CellBlock
-                  style={{
-                    maxWidth: '105px',
-                    marginRight: '55px',
-                  }}
-                />
-                <CellBlock
-                  style={{
-                    maxWidth: '106px',
-                    marginRight: '54px',
-                  }}
-                />
-                <CellBlock
-                  style={{
-                    maxWidth: '105px',
-                    marginRight: '21px',
-                  }}
-                />
-                <CellBlock
-                  style={{
-                    maxWidth: '109px',
-                  }}
-                />
-                <CellBlock
-                  style={{
-                    maxWidth: '109px',
-                    marginRight: '188px',
-                  }}
-                />
-                <CellBlock
-                  style={{
-                    maxWidth: '126px',
-                  }}
-                />
-              </Row>
-              <Line isLight={isLight}/>
-              <Row style={{ marginBottom: '26px' }}>
-                <CellBlock
-                  style={{
-                    maxWidth: '230px',
-                    height: '20px',
-                  }}
-                />
-              </Row>
-              <Row
+            ))}
+            <Row>
+              <CellBlock
                 style={{
-                  justifyContent: 'space-between',
-                  marginBottom: '34px',
+                  marginRight: '111px',
                 }}
-              >
-                <CellBlock
-                  style={{
-                    maxWidth: '137px',
-                  }}
-                />
-                <CellBlock
-                  style={{
-                    maxWidth: '190px',
-                  }}
-                />
-              </Row>
-
-              <Row
+              />
+              <CellBlock />
+              <CellBlock />
+              <CellBlock />
+              <CellBlock />
+              <CellBlock
                 style={{
-                  marginBottom: '4px',
+                  maxWidth: '262px',
                 }}
-              >
-                <CellBlock
-                  style={{
-                    maxWidth: '230px',
-                    height: '20px',
-                  }}
-                />
-              </Row>
-
-              <Row
+              />
+            </Row>
+          </Container>
+        ) : (
+          <Container isLight={isLight}>
+            <Row>
+              <CellBlock
                 style={{
-                  marginBottom: '10px',
+                  maxWidth: '137px',
+                  minWidth: '137px',
+                  marginRight: '151px',
                 }}
-              >
-                <CellBlock
-                  style={{
-                    width: '79px',
-                    height: '20px',
-                  }}
-                />
-              </Row>
+              />
+              <CellBlock
+                style={{
+                  maxWidth: '105px',
+                  marginRight: '55px',
+                }}
+              />
+              <CellBlock
+                style={{
+                  maxWidth: '106px',
+                  marginRight: '54px',
+                }}
+              />
+              <CellBlock
+                style={{
+                  maxWidth: '105px',
+                  marginRight: '21px',
+                }}
+              />
+              <CellBlock
+                style={{
+                  maxWidth: '109px',
+                }}
+              />
+              <CellBlock
+                style={{
+                  maxWidth: '109px',
+                  marginRight: '188px',
+                }}
+              />
+              <CellBlock
+                style={{
+                  maxWidth: '126px',
+                }}
+              />
+            </Row>
+            <Line isLight={isLight} />
+            <Row style={{ marginBottom: '26px' }}>
+              <CellBlock
+                style={{
+                  maxWidth: '230px',
+                  height: '20px',
+                }}
+              />
+            </Row>
+            <Row
+              style={{
+                justifyContent: 'space-between',
+                marginBottom: '34px',
+              }}
+            >
+              <CellBlock
+                style={{
+                  maxWidth: '137px',
+                }}
+              />
+              <CellBlock
+                style={{
+                  maxWidth: '190px',
+                }}
+              />
+            </Row>
 
-              <Row style={{ marginBottom: '18px' }}>
-                <CellBlock
-                  style={{
-                    maxWidth: '158px',
-                    marginRight: '116px',
-                  }}
-                />
-                <CellBlock
-                  style={{
-                    marginRight: '24px',
-                  }}
-                />
-                <CellBlock
-                  style={{
-                    marginRight: '24px',
-                  }}
-                />
-                <CellBlock
-                  style={{
-                    marginRight: '24px',
-                  }}
-                />
-                <CellBlock
-                  style={{
-                    maxWidth: '199px',
-                    marginRight: '37px',
-                  }}
-                />
-                <CellBlock
-                  style={{
-                    maxWidth: '180px',
-                  }}
-                />
-              </Row>
+            <Row
+              style={{
+                marginBottom: '4px',
+              }}
+            >
+              <CellBlock
+                style={{
+                  maxWidth: '230px',
+                  height: '20px',
+                }}
+              />
+            </Row>
 
-              <Row>
-                <CellBlock
-                  style={{
-                    maxWidth: '114px',
-                    marginRight: '160px',
-                  }}
-                />
-                <CellBlock
-                  style={{
-                    marginRight: '24px',
-                  }}
-                />
-                <CellBlock
-                  style={{
-                    marginRight: '24px',
-                  }}
-                />
-                <CellBlock
-                  style={{
-                    marginRight: '24px',
-                  }}
-                />
-                <CellBlock
-                  style={{
-                    maxWidth: '199px',
-                    marginRight: '37px',
-                  }}
-                />
-                <CellBlock
-                  style={{
-                    maxWidth: '180px',
-                  }}
-                />
-              </Row>
-            </Container>
-            )}
+            <Row
+              style={{
+                marginBottom: '10px',
+              }}
+            >
+              <CellBlock
+                style={{
+                  width: '79px',
+                  height: '20px',
+                }}
+              />
+            </Row>
+
+            <Row style={{ marginBottom: '18px' }}>
+              <CellBlock
+                style={{
+                  maxWidth: '158px',
+                  marginRight: '116px',
+                }}
+              />
+              <CellBlock
+                style={{
+                  marginRight: '24px',
+                }}
+              />
+              <CellBlock
+                style={{
+                  marginRight: '24px',
+                }}
+              />
+              <CellBlock
+                style={{
+                  marginRight: '24px',
+                }}
+              />
+              <CellBlock
+                style={{
+                  maxWidth: '199px',
+                  marginRight: '37px',
+                }}
+              />
+              <CellBlock
+                style={{
+                  maxWidth: '180px',
+                }}
+              />
+            </Row>
+
+            <Row>
+              <CellBlock
+                style={{
+                  maxWidth: '114px',
+                  marginRight: '160px',
+                }}
+              />
+              <CellBlock
+                style={{
+                  marginRight: '24px',
+                }}
+              />
+              <CellBlock
+                style={{
+                  marginRight: '24px',
+                }}
+              />
+              <CellBlock
+                style={{
+                  marginRight: '24px',
+                }}
+              />
+              <CellBlock
+                style={{
+                  maxWidth: '199px',
+                  marginRight: '37px',
+                }}
+              />
+              <CellBlock
+                style={{
+                  maxWidth: '180px',
+                }}
+              />
+            </Row>
+          </Container>
+        )}
         <Title>No Data Provided</Title>
       </Wrapper>
       <MobileWrapper breakdown={breakdown}>
-        {!breakdown
-          ? (
-            <Container isLight={isLight}>
-              <Row
+        {!breakdown ? (
+          <Container isLight={isLight}>
+            <Row
+              style={{
+                gap: '0',
+                maxWidth: '238px',
+              }}
+            >
+              <CellBlock
                 style={{
-                  gap: '0',
-                  maxWidth: '238px',
+                  borderRadius: '50%',
+                  minWidth: '42px',
+                  maxWidth: '42px',
+                  height: '42px',
+                  marginRight: '5px',
+                }}
+              />
+              <div
+                style={{
+                  marginRight: '20px',
+                  maxWidth: '126px',
+                  minWidth: '126px',
+                  width: '100%',
+                  marginBottom: '21px',
                 }}
               >
                 <CellBlock
                   style={{
-                    borderRadius: '50%',
-                    minWidth: '42px',
-                    maxWidth: '42px',
-                    height: '42px',
-                    marginRight: '5px',
+                    height: '22px',
+                    marginBottom: '6px',
+                    marginRight: '0',
                   }}
                 />
-                <div
-                  style={{
-                    marginRight: '20px',
-                    maxWidth: '126px',
-                    minWidth: '126px',
-                    width: '100%',
-                    marginBottom: '21px',
-                  }}
-                >
-                  <CellBlock
-                    style={{
-                      height: '22px',
-                      marginBottom: '6px',
-                      marginRight: '0',
-                    }}
-                  />
-                  <CellBlock
-                    style={{
-                      height: '16px',
-                      marginRight: '0',
-                    }}
-                  />
-                </div>
-              </Row>
-              {new Array(4).fill('').map((_, i) => (
-                <Row
-                  key={`key-${i}`}
-                  style={{
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <CellBlock
-                    style={{
-                      maxWidth: '105px',
-                      height: '24px',
-                      marginBottom: i === 3 ? 0 : '15px',
-                      borderRadius: 0,
-                    }}
-                  />
-                  <CellBlock
-                    style={{
-                      maxWidth: '105px',
-                      height: '24px',
-                      borderRadius: 0,
-                      marginBottom: i === 3 ? 0 : '15px',
-                      marginRight: 0,
-                    }}
-                  />
-                </Row>
-              ))}
-            </Container>
-            )
-          : (
-            <Container isLight={isLight}>
-              <Row>
                 <CellBlock
                   style={{
-                    maxWidth: '152px',
-                    height: '24px',
-                    marginBottom: '18px',
-                    borderRadius: 0,
+                    height: '16px',
+                    marginRight: '0',
                   }}
                 />
-              </Row>
-              {new Array(3).fill('').map((_, i) => (
-                <Row
-                  key={`key-${i}`}
-                  style={{
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <CellBlock
-                    style={{
-                      maxWidth: '105px',
-                      height: '24px',
-                      borderRadius: 0,
-                    }}
-                  />
-                  <CellBlock
-                    style={{
-                      maxWidth: '105px',
-                      height: '24px',
-                      borderRadius: 0,
-                      marginRight: '0',
-                    }}
-                  />
-                </Row>
-              ))}
+              </div>
+            </Row>
+            {new Array(4).fill('').map((_, i) => (
               <Row
+                key={`key-${i}`}
                 style={{
-                  marginBottom: '15px',
                   justifyContent: 'space-between',
                 }}
               >
@@ -384,21 +318,83 @@ export const TransparencyEmptyTable = ({ breakdown = false }: Props) => {
                   style={{
                     maxWidth: '105px',
                     height: '24px',
-                    marginRight: '23px',
+                    marginBottom: i === 3 ? 0 : '15px',
                     borderRadius: 0,
                   }}
                 />
                 <CellBlock
                   style={{
-                    maxWidth: '167px',
+                    maxWidth: '105px',
+                    height: '24px',
+                    borderRadius: 0,
+                    marginBottom: i === 3 ? 0 : '15px',
+                    marginRight: 0,
+                  }}
+                />
+              </Row>
+            ))}
+          </Container>
+        ) : (
+          <Container isLight={isLight}>
+            <Row>
+              <CellBlock
+                style={{
+                  maxWidth: '152px',
+                  height: '24px',
+                  marginBottom: '18px',
+                  borderRadius: 0,
+                }}
+              />
+            </Row>
+            {new Array(3).fill('').map((_, i) => (
+              <Row
+                key={`key-${i}`}
+                style={{
+                  justifyContent: 'space-between',
+                }}
+              >
+                <CellBlock
+                  style={{
+                    maxWidth: '105px',
+                    height: '24px',
+                    borderRadius: 0,
+                  }}
+                />
+                <CellBlock
+                  style={{
+                    maxWidth: '105px',
                     height: '24px',
                     borderRadius: 0,
                     marginRight: '0',
                   }}
                 />
               </Row>
-            </Container>
-            )}
+            ))}
+            <Row
+              style={{
+                marginBottom: '15px',
+                justifyContent: 'space-between',
+              }}
+            >
+              <CellBlock
+                style={{
+                  maxWidth: '105px',
+                  height: '24px',
+                  marginRight: '23px',
+                  borderRadius: 0,
+                }}
+              />
+              <CellBlock
+                style={{
+                  maxWidth: '167px',
+                  height: '24px',
+                  borderRadius: 0,
+                  marginRight: '0',
+                }}
+              />
+            </Row>
+          </Container>
+        )}
         <Title>No Data Provided</Title>
       </MobileWrapper>
     </>
@@ -432,9 +428,9 @@ const Wrapper = styled.div({
 });
 
 const Title = styled.div({
-  fontFamily: 'FT Base',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
-  fontWeight: 500,
+  fontWeight: 600,
   fontSize: '24px',
   lineHeight: '38px',
   textAlign: 'center',
@@ -443,7 +439,7 @@ const Title = styled.div({
   zIndex: 1,
   '@media (min-width: 834px)': {
     fontSize: '32px',
-  }
+  },
 });
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
@@ -459,7 +455,9 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     padding: '16px 24px',
     background: isLight ? 'white' : 'black',
     borderRadius: '6px',
-    filter: isLight ? 'drop-shadow(0px 20px 40px rgba(219, 227, 237, 0.4)) drop-shadow(0px 1px 3px rgba(190, 190, 190, 0.25))' : 'none',
+    filter: isLight
+      ? 'drop-shadow(0px 20px 40px rgba(219, 227, 237, 0.4)) drop-shadow(0px 1px 3px rgba(190, 190, 190, 0.25))'
+      : 'none',
   },
   '::before': {
     content: '""',

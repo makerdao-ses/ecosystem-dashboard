@@ -69,7 +69,9 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
       <CoreUnitSummary coreUnits={coreUnits} trailingAddress={['Expense Reports']} breadcrumbTitle="Expense Reports" />
       <Container isLight={isLight}>
         <InnerPage>
-          <Title isLight={isLight}>Expense Reports</Title>
+          <Title isLight={isLight} isTitleOfPage={true}>
+            Expense Reports
+          </Title>
 
           <Paragraph isLight={isLight}>
             Every month, the {formatCode(code)} Core Unit submits a transparency report for MakerDAO governance with a
@@ -232,10 +234,10 @@ export const Title = styled.div<{
   isLight: boolean;
   fontSize?: string;
   responsiveMarginBottom?: number;
-  isTitle?: boolean;
-}>(({ marginBottom = 16, fontSize = '16px', isLight, responsiveMarginBottom }) => ({
+  isTitleOfPage?: boolean;
+}>(({ marginBottom = 16, fontSize = '16px', isLight, responsiveMarginBottom, isTitleOfPage = false }) => ({
   fontFamily: 'Inter, sans-serif',
-  fontWeight: 600,
+  fontWeight: isTitleOfPage ? 500 : 600,
   fontStyle: 'normal',
   fontSize,
   lineHeight: '19px',
