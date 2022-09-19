@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { LinkIcon } from '../svg/link-icon';
 
 interface CustomLinkProps {
-  children: JSX.Element | JSX.Element[] | string,
+  children: JSX.Element | JSX.Element[] | string;
   href?: string;
   target?: string;
   iconWidth?: number;
@@ -14,11 +14,11 @@ interface CustomLinkProps {
   fontWeight?: number;
   fontFamily?: string;
   withArrow?: boolean;
-  marginLeft?: string
+  marginLeft?: string;
   styleIcon?: CSSProperties;
   padding?: string;
   border?: string;
-  lineHeight?: string
+  lineHeight?: string;
 }
 
 export const CustomLink = ({
@@ -28,39 +28,54 @@ export const CustomLink = ({
   fontSize = 12,
   fontWeight = 500,
   withArrow = true,
-  fontFamily = 'FT Base, sans-serif',
+  fontFamily = 'Inter, sans-serif',
   marginLeft = '5px',
   styleIcon = {},
   border = 'none',
   padding = '0px',
   ...props
 }: CustomLinkProps) => {
-  return <Container
-    padding={padding}
-    border={border}
-    href={props.href}
-    target={target}
-    style={{
-      pointerEvents: props.href ? 'all' : 'none',
-      ...props.style
-    }}
-    fontSize={fontSize}
-    fontSizeMobile={props.fontSizeMobile}
-    fontWeight={fontWeight}
-    fontFamily={fontFamily}
-    onClick={(evt) => evt.stopPropagation()}>
-    {props.children}
-    {withArrow && <LinkIcon
-      width={iconWidth}
-      height={iconHeight}
+  return (
+    <Container
+      padding={padding}
+      border={border}
+      href={props.href}
+      target={target}
       style={{
-        marginLeft,
-        ...styleIcon
-      }} />}
-  </Container>;
+        pointerEvents: props.href ? 'all' : 'none',
+        ...props.style,
+      }}
+      fontSize={fontSize}
+      fontSizeMobile={props.fontSizeMobile}
+      fontWeight={fontWeight}
+      fontFamily={fontFamily}
+      onClick={(evt) => evt.stopPropagation()}
+    >
+      {props.children}
+      {withArrow && (
+        <LinkIcon
+          width={iconWidth}
+          height={iconHeight}
+          style={{
+            marginLeft,
+            ...styleIcon,
+          }}
+        />
+      )}
+    </Container>
+  );
 };
 
-const Container = styled.a<{ fontSize: number, fontSizeMobile?: number, fontWeight: number, fontFamily: string, marginLeft?: string, padding: string, border?: string, lineHeight?: string }>(({ fontSize, fontSizeMobile, fontWeight, fontFamily, marginLeft = '4px', padding, border, lineHeight }) => ({
+const Container = styled.a<{
+  fontSize: number;
+  fontSizeMobile?: number;
+  fontWeight: number;
+  fontFamily: string;
+  marginLeft?: string;
+  padding: string;
+  border?: string;
+  lineHeight?: string;
+}>(({ fontSize, fontSizeMobile, fontWeight, fontFamily, marginLeft = '4px', padding, border, lineHeight }) => ({
   fontStyle: 'normal',
   border,
   padding,
@@ -78,6 +93,6 @@ const Container = styled.a<{ fontSize: number, fontSizeMobile?: number, fontWeig
   paddingRight: '4px',
   '@media (min-width: 835px)': {
     fontSize: `${fontSize}px`,
-    lineHeight: '19px'
-  }
+    lineHeight: '19px',
+  },
 }));

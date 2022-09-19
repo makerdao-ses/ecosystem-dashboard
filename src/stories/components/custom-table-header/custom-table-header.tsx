@@ -14,17 +14,21 @@ export interface CustomTableHeaderProps {
 
 export const CustomTableHeader = (props: CustomTableHeaderProps) => {
   const isLight = useThemeContext().themeMode === 'light';
-  return <Container className="no-select" align={props.align} style={props.style}>
-    <Label isLight={isLight}>{props.title}</Label>
-    {props.state !== SortEnum.Disabled && <Arrows>
-      <ArrowUp fill={props.state === SortEnum.Asc ? '#231536' : '#708390'} style={{ margin: '4px 0' }} />
-      <ArrowDown fill={props.state === SortEnum.Desc ? '#231536' : '#708390'} />
-    </Arrows>}
-  </Container>;
+  return (
+    <Container className="no-select" align={props.align} style={props.style}>
+      <Label isLight={isLight}>{props.title}</Label>
+      {props.state !== SortEnum.Disabled && (
+        <Arrows>
+          <ArrowUp fill={props.state === SortEnum.Asc ? '#231536' : '#708390'} style={{ margin: '4px 0' }} />
+          <ArrowDown fill={props.state === SortEnum.Desc ? '#231536' : '#708390'} />
+        </Arrows>
+      )}
+    </Container>
+  );
 };
 
 const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontSize: '16px',
   color: isLight ? '#231536' : '#FFFFFF',
   fontWeight: 400,
