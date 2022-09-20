@@ -13,7 +13,7 @@ interface Props {
 export const CuTableColumnLastModified = (props: Props) => {
   return !props.isLoading ? (
     <Container>
-      <DateLabel>{props.date?.toFormat('dd-MMM-yyyy') ?? 'No Data'}</DateLabel>
+      <DateLabel>{props.date?.toFormat('dd-MMM-yyyy')?.toUpperCase() ?? 'No Data'}</DateLabel>
       {props.date ? (
         <DifferenceLabel>{capitalizeSentence(props.date?.toRelative() ?? '')}</DifferenceLabel>
       ) : (
@@ -21,7 +21,7 @@ export const CuTableColumnLastModified = (props: Props) => {
           style={{
             fontWeight: 500,
             marginLeft: 0,
-            lineHeight: '19px',
+            lineHeight: '16px',
           }}
           iconHeight={10}
           iconWidth={10}
