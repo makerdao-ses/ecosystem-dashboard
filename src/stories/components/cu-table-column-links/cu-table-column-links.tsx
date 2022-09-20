@@ -7,6 +7,7 @@ import Youtube from '../svg/youtube';
 import Twitter from '../svg/twitter';
 import LinkedIn from '../svg/linkedin';
 import Gmail from '../svg/gmail';
+import Github from '../svg/github';
 import { Box } from '@mui/material';
 import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
 import { ColumnLinksSkeleton } from './cu-table-column-links-skeleton';
@@ -45,6 +46,8 @@ const getImageForLink = (link: LinkModel, fill: string, width?: number, height?:
       return <LinkedIn fill={fill} width={width} height={height} fillDark={fillDark} />;
     case LinkTypeEnum.Gmail:
       return <Gmail fill={fill} width={width} height={height} fillDark={fillDark} />;
+    case LinkTypeEnum.Github:
+      return <Github fill={fill} width={width} height={height} fillDark={fillDark} />;
     default:
       return <WWW />;
   }

@@ -32,6 +32,7 @@ const CORE_UNITS_REQUEST = {
           discord
           linkedIn
           website
+          github
         }
         budgetStatements {
           month

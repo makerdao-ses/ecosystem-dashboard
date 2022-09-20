@@ -117,6 +117,7 @@ export interface SocialMediaChannelDto {
   discord: string;
   linkedIn: string;
   website: string;
+  github: string;
 }
 
 export interface RoadMapDto {

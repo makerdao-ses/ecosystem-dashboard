@@ -95,6 +95,12 @@ export const getLinksFromCoreUnit = (cu: CoreUnitDto) => {
       href: sm.twitter,
     });
   }
+  if (sm.github) {
+    result.push({
+      linkType: LinkTypeEnum.Github,
+      href: sm.github,
+    });
+  }
   if (sm.youtube) {
     result.push({
       linkType: LinkTypeEnum.Youtube,

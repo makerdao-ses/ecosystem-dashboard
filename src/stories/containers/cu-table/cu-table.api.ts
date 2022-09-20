@@ -55,6 +55,7 @@ export const GETCoreUnits = gql`
         discord
         linkedIn
         website
+        github
       }
       budgetStatements {
         month
