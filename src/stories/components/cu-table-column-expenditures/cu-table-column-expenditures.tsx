@@ -6,6 +6,7 @@ import { CustomChartItemModel } from '../../../core/models/custom-chart-item.mod
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ColumnExpendituresSkeleton } from './cu-table-column-expenditures-skeleton';
 import isEmpty from 'lodash/isEmpty';
+import lightTheme from '../../../../styles/theme/light';
 
 interface CuTableColumnExpendituresProps {
   value?: number;
@@ -149,11 +150,15 @@ export const Value = styled.span<{ isLight?: boolean }>(({ isLight }) => ({
   alignItems: 'flex-end',
   paddingBottom: 0,
   lineHeight: '16px',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    lineHeight: '17px',
+  },
 }));
 
 const Percent = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
-  fontFamily: 'SF Pro Display, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 400,
   fontSize: '16px',
+  lineHeight: '22px',
   color: isLight ? '#231536' : '#EDEFFF',
 }));

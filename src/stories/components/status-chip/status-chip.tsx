@@ -2,6 +2,7 @@ import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import lightTheme from '../../../../styles/theme/light';
 
 interface StatusChipProps {
   status: CuStatusEnum | 'All';
@@ -79,4 +80,7 @@ const Chip = styled.div({
   padding: '0 8px',
   height: '22px',
   width: 'fit-content',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    lineHeight: '13px',
+  },
 });

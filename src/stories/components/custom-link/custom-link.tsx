@@ -82,7 +82,7 @@ const Container = styled.a<{
   fontWeight,
   fontFamily,
   fontSize: `${fontSizeMobile || fontSize}px`,
-  lineHeight: lineHeight || '17px',
+  lineHeight: lineHeight || '15px',
   letterSpacing: '1px',
   color: '#447AFB',
   textDecoration: 'none',

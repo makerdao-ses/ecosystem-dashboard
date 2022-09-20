@@ -183,6 +183,9 @@ const Code = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#9FAFB9' : '#546978',
   marginRight: '5px',
   whiteSpace: 'nowrap',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    fontWeight: 700,
+  },
 }));
 
 const TitleWrapper = styled.div({
@@ -197,7 +200,7 @@ const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   alignItems: 'center',
   fontWeight: 400,
   color: isLight ? '#231536' : '#FFFFFF',
-  lineHeight: '19px',
+  lineHeight: '17px',
   whiteSpace: 'nowrap',
 
   [lightTheme.breakpoints.up('table_834')]: {

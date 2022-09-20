@@ -32,33 +32,19 @@ import lightTheme from '../../../../styles/theme/light';
 interface CoreUnitCardProps {
   coreUnit: CoreUnitDto;
   isLoading?: boolean;
-
 }
 
-export const CoreUnitCard = ({
-  coreUnit,
-  isLoading = false,
-}: CoreUnitCardProps) => {
+export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   if (isLoading) {
     return (
       <Container isLight={isLight} style={{ marginBottom: '32px' }}>
         <Summary>
-          <Skeleton
-            variant="rectangular"
-            width={100}
-            height={20}
-            style={{ borderRadius: '4px' }}
-          />
+          <Skeleton variant="rectangular" width={100} height={20} style={{ borderRadius: '4px' }} />
           <CuTableColumnSummary isLoading />
         </Summary>
         <Expenditure>
-          <Skeleton
-            variant="rectangular"
-            width={100}
-            height={20}
-            style={{ borderRadius: '4px' }}
-          />
+          <Skeleton variant="rectangular" width={100} height={20} style={{ borderRadius: '4px' }} />
           <CuTableColumnExpenditures isLoading />
         </Expenditure>
         <Team>
@@ -83,10 +69,7 @@ export const CoreUnitCard = ({
   }
 
   const router = useRouter();
-  const queryStrings = useMemo(
-    () => buildQueryString(router.query),
-    [router.query]
-  );
+  const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
 
   return (
     <CuCard>
@@ -96,22 +79,15 @@ export const CoreUnitCard = ({
             <Title hideSmall>Core Unit</Title>
             <CuTableColumnSummary
               title={coreUnit?.name}
-              status={
-                getLatestMip39FromCoreUnit(coreUnit)
-                  ?.mipStatus as CuStatusEnum
-              }
-              statusModified={getSubmissionDateFromCuMip(
-                getLatestMip39FromCoreUnit(coreUnit)
-              )}
+              status={getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum}
+              statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
               imageUrl={coreUnit?.image}
               mipUrl={getMipUrlFromCoreUnit(coreUnit)}
               code={formatCode(coreUnit.code)}
               categories={coreUnit.category}
             />
           </Summary>
-          <Link
-            href={`/core-unit/${coreUnit.shortCode}/finances/reports${queryStrings}`}
-          >
+          <Link href={`/core-unit/${coreUnit.shortCode}/finances/reports${queryStrings}`}>
             <Expenditure>
               <Title style={{ marginBottom: '11px' }}>Expenditure</Title>
               <CuTableColumnExpenditures
@@ -131,17 +107,15 @@ export const CoreUnitCard = ({
             />
           </Team>
           <Line isLight={isLight} />
-          {!isLoading
-            ? (
-              <Categories>
-                {coreUnit.category?.map((category) => (
-                  <CategoryChip key={category} category={category} />
-                ))}
-              </Categories>
-              )
-            : (
-              <CategoriesSkeleton />
-              )}
+          {!isLoading ? (
+            <Categories>
+              {coreUnit.category?.map((category) => (
+                <CategoryChip key={category} category={category} />
+              ))}
+            </Categories>
+          ) : (
+            <CategoriesSkeleton />
+          )}
           <Links>
             <CuTableColumnLinks
               links={getLinksFromCoreUnit(coreUnit)}
@@ -161,7 +135,7 @@ const CuCard = styled.div({
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     ':last-child': {
       marginBottom: '0px',
-    }
+    },
   },
 });
 
@@ -171,9 +145,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   boxShadow: isLight
     ? '0px 0px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
     : '0px 20px 40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
-  background: isLight
-    ? '#FFFFFF'
-    : '#10191F',
+  background: isLight ? '#FFFFFF' : '#10191F',
   padding: '16px',
   gridTemplateColumns: 'auto',
   minWidth: '340px',
@@ -278,10 +250,11 @@ const Links = styled.div({
 
 const Title = styled.div<{ hideSmall?: boolean }>(({ hideSmall = false }) => ({
   display: hideSmall ? 'none' : 'block',
-  fontFamily: 'SF Pro Text',
+  fontFamily: 'Inter',
   fontStyle: 'normal',
   fontWeight: 400,
-  fontSize: '14px',
+  fontSize: '16px',
+  lineHeight: '22px',
   color: '#708390',
   '@media (min-width: 834px)': {
     display: 'block',

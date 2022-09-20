@@ -219,8 +219,8 @@ const StyleTitle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'i
     fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     fontWeight: 500,
-    fontSize: '12px',
-    lineHeight: '14px',
+    fontSize: '11px',
+    lineHeight: '13px',
     textAlign: 'center',
     color: isLight ? '#231536' : '#E2D8EE',
   })

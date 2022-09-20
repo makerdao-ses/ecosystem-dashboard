@@ -90,7 +90,7 @@ const Chip = styled.div({
   fontWeight: 400,
   fontSize: '11px',
   borderRadius: '12px',
-  padding: '0 8px',
+  padding: '4px 8px',
   height: '22px',
   lineHeight: '13px',
   width: 'fit-content',
