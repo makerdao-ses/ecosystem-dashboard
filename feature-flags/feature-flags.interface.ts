@@ -3,4 +3,5 @@ export interface FeatureFlagsInterface {
   FEATURE_SITEMAP: boolean;
   FEATURE_TRANSPARENCY_NEW_TABLE: boolean;
   FEATURE_CU_INDEX_NEW_TABLE: boolean;
+  FEATURE_CU_ABOUT_NEW_CONTAINER: boolean;
 }
