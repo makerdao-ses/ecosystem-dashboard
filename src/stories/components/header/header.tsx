@@ -86,9 +86,7 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
               style={{
                 fontFamily: 'Inter, sans serif',
                 color: '#447AFB',
-                fontWeight: 500,
                 fontStyle: 'normal',
-                lineHeight: '19px',
                 letterSpacing: '0.3px',
                 marginLeft: '0px',
               }}

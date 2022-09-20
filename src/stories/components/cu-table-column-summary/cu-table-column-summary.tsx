@@ -129,7 +129,6 @@ export const CuTableColumnSummary = ({
                     display: 'flex',
                     alignItems: 'flex-end',
                     margin: '0 0 2px 4px',
-                    fontWeight: 600,
                   }}
                   styleIcon={{
                     marginBottom: upPhone ? '5.1px' : '4.5px',
@@ -186,6 +185,10 @@ const Code = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     fontWeight: 700,
   },
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    fontSize: '12px',
+    lineHeight: '15px',
+  },
 }));
 
 const TitleWrapper = styled.div({
@@ -202,10 +205,13 @@ const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#231536' : '#FFFFFF',
   lineHeight: '17px',
   whiteSpace: 'nowrap',
-
-  [lightTheme.breakpoints.up('table_834')]: {
-    fontSize: '16px',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    fontSize: '12px;',
+    lineHeight: '15px',
   },
+  // [lightTheme.breakpoints.up('table_834')]: {
+  //   fontSize: '16px',
+  // },
 }));
 
 const Row = styled.section({

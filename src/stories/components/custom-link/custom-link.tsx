@@ -1,6 +1,7 @@
 import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
 import { LinkIcon } from '../svg/link-icon';
+import lightTheme from '../../../../styles/theme/light';
 
 interface CustomLinkProps {
   children: JSX.Element | JSX.Element[] | string;
@@ -69,30 +70,47 @@ export const CustomLink = ({
 const Container = styled.a<{
   fontSize: number;
   fontSizeMobile?: number;
-  fontWeight: number;
-  fontFamily: string;
+  fontWeight?: number;
+  fontFamily?: string;
   marginLeft?: string;
   padding: string;
   border?: string;
   lineHeight?: string;
-}>(({ fontSize, fontSizeMobile, fontWeight, fontFamily, marginLeft = '4px', padding, border, lineHeight }) => ({
-  fontStyle: 'normal',
-  border,
-  padding,
-  fontWeight,
-  fontFamily,
-  fontSize: `${fontSizeMobile || fontSize}px`,
-  lineHeight: lineHeight || '15px',
-  letterSpacing: '1px',
-  color: '#447AFB',
-  textDecoration: 'none',
-  marginLeft,
-  cursor: 'pointer',
-  whiteSpace: 'nowrap',
-  background: 'transparent',
-  paddingRight: '4px',
-  '@media (min-width: 835px)': {
-    fontSize: `${fontSize}px`,
-    lineHeight: '19px',
-  },
-}));
+}>(
+  ({
+    fontSize,
+    fontSizeMobile,
+    fontWeight = 500,
+    fontFamily = 'Inter, sans-serif',
+    marginLeft = '4px',
+    padding,
+    border,
+    lineHeight,
+  }) => ({
+    fontStyle: 'normal',
+    border,
+    padding,
+    fontWeight,
+    fontFamily,
+    fontSize: `${fontSizeMobile || fontSize}px`,
+    lineHeight: lineHeight || '19px',
+    letterSpacing: '1px',
+    color: '#447AFB',
+    textDecoration: 'none',
+    marginLeft,
+    cursor: 'pointer',
+    whiteSpace: 'nowrap',
+    background: 'transparent',
+    paddingRight: '4px',
+    [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+      fontWeight: 600,
+      fontSize: '12px',
+      lineHeight: '15px',
+    },
+    [lightTheme.breakpoints.up('desktop_1194')]: {
+      fontWeight: 600,
+      fontSize: '12px',
+      lineHeight: '15px',
+    },
+  })
+);

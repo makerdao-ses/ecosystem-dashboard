@@ -32,6 +32,7 @@ const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: '16px',
   color: isLight ? '#231536' : '#FFFFFF',
   fontWeight: 400,
+  lineHeight: '22px',
   letterSpacing: '0.05rem',
 }));
 
