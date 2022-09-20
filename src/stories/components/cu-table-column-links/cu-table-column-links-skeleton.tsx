@@ -13,7 +13,7 @@ export const ColumnLinksSkeleton = () => {
         height={28}
         style={{
           borderRadius: '8px',
-          background: isLight ? '#ECF1F3' : '#1E2C37'
+          background: isLight ? '#ECF1F3' : '#1E2C37',
         }}
       />
     </Container>

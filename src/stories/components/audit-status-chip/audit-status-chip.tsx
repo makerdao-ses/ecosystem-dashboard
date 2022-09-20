@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface AuditStatusChipProps {
-  status: AuditStatusEnum
+  status: AuditStatusEnum;
 }
 
 const colors = {
@@ -24,7 +24,7 @@ const colors = {
     color: '#F08B04',
     background: '#FFFBF580',
     colorDark: '#F08B04',
-    backgroundDark: '#FFA23526'
+    backgroundDark: '#FFA23526',
   },
   NeedActionsBeforeApproval: {
     color: '#9055AF',
@@ -36,11 +36,17 @@ const colors = {
 
 export const AuditStatusChip = (props: AuditStatusChipProps) => {
   const isLight = useThemeContext().themeMode === 'light';
-  return <Chip style={{
-    color: isLight ? colors[props.status]?.color : colors[props.status]?.colorDark,
-    background: isLight ? colors[props.status]?.background : colors[props.status]?.backgroundDark,
-    borderColor: isLight ? colors[props.status]?.color : colors[props.status]?.colorDark,
-  }}>{getAuditStatusLabel(props.status)}</Chip>;
+  return (
+    <Chip
+      style={{
+        color: isLight ? colors[props.status]?.color : colors[props.status]?.colorDark,
+        background: isLight ? colors[props.status]?.background : colors[props.status]?.backgroundDark,
+        borderColor: isLight ? colors[props.status]?.color : colors[props.status]?.colorDark,
+      }}
+    >
+      {getAuditStatusLabel(props.status)}
+    </Chip>
+  );
 };
 
 const Chip = styled.div({
@@ -53,5 +59,5 @@ const Chip = styled.div({
   padding: '0 8px',
   height: '22px',
   width: 'fit-content',
-  borderBottom: '1px solid black'
+  borderBottom: '1px solid black',
 });

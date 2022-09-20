@@ -11,8 +11,8 @@ import { developer, governesses, products } from '../../components/footer/iconsD
 
 interface HeaderWrapperProps {
   children?: JSX.Element | JSX.Element[];
-  themeMode: ThemeMode
-  toggleTheme: () => void
+  themeMode: ThemeMode;
+  toggleTheme: () => void;
 }
 export const HeaderWrapper = ({ children, themeMode, toggleTheme }: HeaderWrapperProps) => {
   return (

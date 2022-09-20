@@ -12,17 +12,13 @@ interface CuTableColumnExpendituresProps {
   percent?: number | null;
   items?: Array<CustomChartItemModel>;
   budgetCaps?: number[];
-  months?: string[],
+  months?: string[];
   isLoading?: boolean;
 }
 
-export const CuTableColumnExpenditures = ({
-  isLoading = false,
-  ...props
-}: CuTableColumnExpendituresProps) => {
+export const CuTableColumnExpenditures = ({ isLoading = false, ...props }: CuTableColumnExpendituresProps) => {
   const isLight = useThemeContext().themeMode === 'light';
-  return !isLoading
-    ? (
+  return !isLoading ? (
     <Wrapper>
       <Container>
         <DataWrapper>
@@ -78,10 +74,9 @@ export const CuTableColumnExpenditures = ({
         </ValueWrapper>
       </Container>
     </Wrapper>
-      )
-    : (
+  ) : (
     <ColumnExpendituresSkeleton />
-      );
+  );
 };
 
 const Container = styled.div({
@@ -123,7 +118,7 @@ const Label = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   fontSize: '14px',
   fontWeight: 400,
   fontFamily: 'FT Base, sans-serif',
-  color: isLight ? '#231536' : '#D2D4EF'
+  color: isLight ? '#231536' : '#D2D4EF',
 }));
 
 export const Title = styled.span<{ isLight?: boolean }>(({ isLight }) => ({

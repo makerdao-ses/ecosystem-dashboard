@@ -3,22 +3,19 @@ import styled from '@emotion/styled';
 import { CustomPopover } from '../custom-popover/custom-popover';
 
 interface CuTableColumnInitiativesProps {
-  initiatives: number
+  initiatives: number;
 }
 
 export const CuTableColumnInitiatives = (props: CuTableColumnInitiativesProps) => {
-  return <Container>
-    <CustomPopover
-      id="mouse-over-popover-initiatives"
-      title={'Click to see all initiatives'}
-    >
-      <a href="" style={{ textDecoration: 'none' }}>
-        <RoundedBox className={`${props.initiatives === 0 ? 'disabled' : ''}`}>
-          {props.initiatives}
-        </RoundedBox>
-      </a>
-    </CustomPopover>
-  </Container>;
+  return (
+    <Container>
+      <CustomPopover id="mouse-over-popover-initiatives" title={'Click to see all initiatives'}>
+        <a href="" style={{ textDecoration: 'none' }}>
+          <RoundedBox className={`${props.initiatives === 0 ? 'disabled' : ''}`}>{props.initiatives}</RoundedBox>
+        </a>
+      </CustomPopover>
+    </Container>
+  );
 };
 
 const Container = styled.div({
@@ -41,6 +38,6 @@ const RoundedBox = styled.div({
   borderRadius: '22px',
   color: '#546978',
   '&.disabled': {
-    color: '#9FAFB9'
-  }
+    color: '#9FAFB9',
+  },
 });

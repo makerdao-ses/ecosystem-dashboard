@@ -10,9 +10,7 @@ export default {
   component: Header,
 } as ComponentMeta<typeof Header>;
 
-const Template: ComponentStory<typeof Header> = (args) => (
-  <Header {...args} />
-);
+const Template: ComponentStory<typeof Header> = (args) => <Header {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
@@ -20,11 +18,11 @@ Default.args = {
     {
       title: 'Core Units',
       link: '/',
-      marginRight: '32px'
+      marginRight: '32px',
     },
   ],
   links: itemsWebSiteLinks,
   themeMode: 'light',
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  toggleTheme: () => { }
+  toggleTheme: () => {},
 };

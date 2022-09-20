@@ -7,9 +7,11 @@ import lightTheme from '../styles/theme/light';
 const NotFoundPage: NextPage = () => {
   const isLight = useThemeContext().themeMode === 'light';
 
-  return <Container isLight={isLight}>
-    <CardNotFoundPage />
-  </Container>;
+  return (
+    <Container isLight={isLight}>
+      <CardNotFoundPage />
+    </Container>
+  );
 };
 
 const Container = styled.div<{ isLight?: boolean }>(({ isLight }) => ({

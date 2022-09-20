@@ -2,13 +2,10 @@ import { LinkModel } from '../../stories/components/cu-table-column-links/cu-tab
 import { CuStatusEnum } from '../enums/cu-status.enum';
 import { LinkTypeEnum } from '../enums/link-type.enum';
 import { getCuMipStatusModifiedDate } from './core-units';
-import {
-  ContributorCommitmentDto,
-  CuMipDto,
-} from '../models/dto/core-unit.dto';
+import { ContributorCommitmentDto, CuMipDto } from '../models/dto/core-unit.dto';
 import { CommitmentJob } from '../enums/CommitmentJob.enum';
 
-export const getMipsStatus = (mip:CuMipDto) => {
+export const getMipsStatus = (mip: CuMipDto) => {
   if (!mip) return undefined;
   switch (mip.mipStatus) {
     case CuStatusEnum.Accepted:
@@ -30,14 +27,11 @@ export const getMarkdownInformation = (text: string | undefined) => {
   return text || '';
 };
 
-export const getLinksFromContributor = (
-  contributor: ContributorCommitmentDto
-) => {
+export const getLinksFromContributor = (contributor: ContributorCommitmentDto) => {
   const links: LinkModel[] = [];
   if (!contributor) return links;
   if (contributor && contributor.contributor.length === 0) return links;
-  const cont =
-    contributor && contributor.contributor && contributor.contributor[0];
+  const cont = contributor && contributor.contributor && contributor.contributor[0];
   if (cont.email) {
     links.push({
       linkType: LinkTypeEnum.Gmail,
@@ -75,10 +69,9 @@ export const getRelateMipObjectFromCoreUnit = (cu: CuMipDto) => {
     orderBy:
       cu.mipStatus === CuStatusEnum.Accepted
         ? 2
-        : cu.mipStatus === CuStatusEnum.FormalSubmission ||
-          cu.mipStatus === CuStatusEnum.RFC
-          ? 1
-          : 0,
+        : cu.mipStatus === CuStatusEnum.FormalSubmission || cu.mipStatus === CuStatusEnum.RFC
+        ? 1
+        : 0,
   } as unknown;
 };
 

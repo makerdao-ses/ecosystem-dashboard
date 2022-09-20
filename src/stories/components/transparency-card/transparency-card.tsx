@@ -12,16 +12,18 @@ interface Props {
 
 export const TransparencyCard = (props: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
-  return <Container isLight={isLight}>
-    <HeaderWrapper>
-      {props.header}
-    </HeaderWrapper>
-    {props.headers.map((header, i) => <Row key={header.toString()}>
-      <Label>{header}</Label>
-      {(props.items && props.items[i]) ?? ''}
-    </Row>)}
-    {props.footer && <FooterWrapper isLight={isLight}>{props.footer}</FooterWrapper>}
-  </Container>;
+  return (
+    <Container isLight={isLight}>
+      <HeaderWrapper>{props.header}</HeaderWrapper>
+      {props.headers.map((header, i) => (
+        <Row key={header.toString()}>
+          <Label>{header}</Label>
+          {(props.items && props.items[i]) ?? ''}
+        </Row>
+      ))}
+      {props.footer && <FooterWrapper isLight={isLight}>{props.footer}</FooterWrapper>}
+    </Container>
+  );
 };
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
@@ -34,13 +36,13 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     ':last-child': {
       marginBottom: '0px',
-    }
+    },
   },
 }));
 
 const HeaderWrapper = styled.div({
   margin: '-16px 0 0 -16px',
-  color: 'red'
+  color: 'red',
 });
 
 const FooterWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
@@ -53,7 +55,7 @@ const FooterWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 
 const Row = styled.div({
   display: 'flex',
-  justifyContent: 'space-between'
+  justifyContent: 'space-between',
 });
 
 const Label = styled.div({

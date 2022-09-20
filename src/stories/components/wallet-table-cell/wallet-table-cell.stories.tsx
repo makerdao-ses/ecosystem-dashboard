@@ -4,7 +4,7 @@ import { WalletTableCell } from './wallet-table-cell';
 
 export default {
   title: 'Components/CUTransparencyReport/WalletTableCell',
-  component: WalletTableCell
+  component: WalletTableCell,
 } as ComponentMeta<typeof WalletTableCell>;
 
 const Template: ComponentStory<typeof WalletTableCell> = (args) => <WalletTableCell {...args} />;

@@ -5,89 +5,165 @@ import './markdown.module.scss';
 
 export const customRenderer = {
   image(href: string) {
-    return <div style={{
-      width: '100%',
-    }}><ImageTag src={href} className='img-container' key={Math.random()} /></div>;
+    return (
+      <div
+        style={{
+          width: '100%',
+        }}
+      >
+        <ImageTag src={href} className="img-container" key={Math.random()} />
+      </div>
+    );
   },
   paragraph(text: string) {
-    return <ResponsiveParagraph className='paragraph' style={{
-      backgroundColor: 'transparent',
-      color: '#231536',
-      lineHeight: '23px',
-      fontFamily: 'FT Base, sans-serif',
-      marginBottom: 0,
-    }} key={Math.random()}>{text}</ResponsiveParagraph>;
+    return (
+      <ResponsiveParagraph
+        className="paragraph"
+        style={{
+          backgroundColor: 'transparent',
+          color: '#231536',
+          lineHeight: '23px',
+          fontFamily: 'FT Base, sans-serif',
+          marginBottom: 0,
+        }}
+        key={Math.random()}
+      >
+        {text}
+      </ResponsiveParagraph>
+    );
   },
   list(text: string) {
-    return <ResponsiveList className='ol_tags' style={{
-      backgroundColor: 'transparent',
-      color: '#231536',
-      lineHeight: '23px',
-      fontFamily: 'FT Base, sans-serif'
-    }} key={Math.random()}>{text}</ResponsiveList>;
+    return (
+      <ResponsiveList
+        className="ol_tags"
+        style={{
+          backgroundColor: 'transparent',
+          color: '#231536',
+          lineHeight: '23px',
+          fontFamily: 'FT Base, sans-serif',
+        }}
+        key={Math.random()}
+      >
+        {text}
+      </ResponsiveList>
+    );
   },
   listitem(text: string) {
-    return <ResponsiveItem className='ol_' style={{
-      backgroundColor: 'transparent',
-      color: '#231536',
-      lineHeight: '23px',
-      fontFamily: 'FT Base, sans-serif',
-    }} key={Math.random()}>{text}</ResponsiveItem>;
+    return (
+      <ResponsiveItem
+        className="ol_"
+        style={{
+          backgroundColor: 'transparent',
+          color: '#231536',
+          lineHeight: '23px',
+          fontFamily: 'FT Base, sans-serif',
+        }}
+        key={Math.random()}
+      >
+        {text}
+      </ResponsiveItem>
+    );
   },
   code(text: string) {
-    return <ResponsiveCode className='tag-code' key={Math.random()} style={{
-      backgroundColor: 'transparent',
-      color: '#231536',
-      fontFamily: 'FT Base, sans-serif',
-      fontStyle: 'normal',
-      fontWeight: 400,
-      fontSize: '16px',
-      lineHeight: '23px',
-    }}>{text}</ResponsiveCode>;
+    return (
+      <ResponsiveCode
+        className="tag-code"
+        key={Math.random()}
+        style={{
+          backgroundColor: 'transparent',
+          color: '#231536',
+          fontFamily: 'FT Base, sans-serif',
+          fontStyle: 'normal',
+          fontWeight: 400,
+          fontSize: '16px',
+          lineHeight: '23px',
+        }}
+      >
+        {text}
+      </ResponsiveCode>
+    );
   },
 };
 
 export const customRendererDark = {
   image(href: string) {
-    return <div style={{
-      width: '100%',
-    }}><ImageTag src={href} className='img-container' key={href} /></div>;
+    return (
+      <div
+        style={{
+          width: '100%',
+        }}
+      >
+        <ImageTag src={href} className="img-container" key={href} />
+      </div>
+    );
   },
   paragraph(text: string) {
-    return <ResponsiveParagraph className='paragraph' style={{
-      backgroundColor: 'transparent',
-      color: '#D2D4EF',
-      lineHeight: '23px',
-      fontFamily: 'FT Base, sans-serif',
-      marginBottom: 0,
-    }} key={Math.random()}>{text}</ResponsiveParagraph>;
+    return (
+      <ResponsiveParagraph
+        className="paragraph"
+        style={{
+          backgroundColor: 'transparent',
+          color: '#D2D4EF',
+          lineHeight: '23px',
+          fontFamily: 'FT Base, sans-serif',
+          marginBottom: 0,
+        }}
+        key={Math.random()}
+      >
+        {text}
+      </ResponsiveParagraph>
+    );
   },
   list(text: string) {
-    return <ResponsiveList className='ol_tags' style={{
-      backgroundColor: 'transparent',
-      color: '#D2D4EF',
-      lineHeight: '23px',
-      fontFamily: 'FT Base, sans-serif',
-    }} key={Math.random()}>{text}</ResponsiveList>;
+    return (
+      <ResponsiveList
+        className="ol_tags"
+        style={{
+          backgroundColor: 'transparent',
+          color: '#D2D4EF',
+          lineHeight: '23px',
+          fontFamily: 'FT Base, sans-serif',
+        }}
+        key={Math.random()}
+      >
+        {text}
+      </ResponsiveList>
+    );
   },
   listitem(text: string) {
-    return <ResponsiveItem className='ol_' style={{
-      backgroundColor: 'transparent',
-      color: '#D2D4EF',
-      lineHeight: '23px',
-      fontFamily: 'FT Base, sans-serif',
-    }} key={Math.random()}>{text}</ResponsiveItem>;
+    return (
+      <ResponsiveItem
+        className="ol_"
+        style={{
+          backgroundColor: 'transparent',
+          color: '#D2D4EF',
+          lineHeight: '23px',
+          fontFamily: 'FT Base, sans-serif',
+        }}
+        key={Math.random()}
+      >
+        {text}
+      </ResponsiveItem>
+    );
   },
   code(text: string) {
-    return <ResponsiveCode className='tag-code' key={Math.random()} style={{
-      backgroundColor: 'transparent',
-      color: '#D2D4EF',
-      fontFamily: 'FT Base, sans-serif',
-      fontStyle: 'normal',
-      fontWeight: 400,
-      fontSize: '16px',
-      lineHeight: '23px',
-    }}>{text}</ResponsiveCode>;
+    return (
+      <ResponsiveCode
+        className="tag-code"
+        key={Math.random()}
+        style={{
+          backgroundColor: 'transparent',
+          color: '#D2D4EF',
+          fontFamily: 'FT Base, sans-serif',
+          fontStyle: 'normal',
+          fontWeight: 400,
+          fontSize: '16px',
+          lineHeight: '23px',
+        }}
+      >
+        {text}
+      </ResponsiveCode>
+    );
   },
 };
 

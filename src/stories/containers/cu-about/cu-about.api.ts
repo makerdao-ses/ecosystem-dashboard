@@ -55,7 +55,7 @@ export const GET_CU_ABOUT_BY_CODE = gql`
   }
 `;
 
-export const fetchCoreUnitByCode = async(shortCode: string) => {
+export const fetchCoreUnitByCode = async (shortCode: string) => {
   const res = (await request(GRAPHQL_ENDPOINT, GET_CU_ABOUT_BY_CODE, {
     filter: {
       shortCode,

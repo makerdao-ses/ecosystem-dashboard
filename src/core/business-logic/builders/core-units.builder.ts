@@ -4,7 +4,7 @@ import {
   CoreUnitDto,
   CuMipDto,
   RoadMapDto,
-  SocialMediaChannelDto
+  SocialMediaChannelDto,
 } from '../../models/dto/core-unit.dto';
 import { CuCategoryEnum } from '../../enums/cu-category.enum';
 

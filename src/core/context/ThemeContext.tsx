@@ -12,10 +12,10 @@ import styled from '@emotion/styled';
 
 const DARK_SCHEME_QUERY = '(prefers-color-scheme: dark)';
 
-export type ThemeMode = 'light' | 'dark'
+export type ThemeMode = 'light' | 'dark';
 interface ThemeContextType {
-  themeMode: ThemeMode
-  toggleTheme: () => void
+  themeMode: ThemeMode;
+  toggleTheme: () => void;
 }
 const ThemeContext = createContext<ThemeContextType>({} as ThemeContextType);
 const useThemeContext = () => useContext(ThemeContext);
@@ -38,10 +38,12 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <ThemeContext.Provider value={{
-      themeMode,
-      toggleTheme
-    }}>
+    <ThemeContext.Provider
+      value={{
+        themeMode,
+        toggleTheme,
+      }}
+    >
       <MuiThemeProvider theme={themeMode === 'light' ? lightTheme : darkTheme}>
         <Header menuItems={menuItems} links={itemsWebSiteLinks} themeMode={themeMode} toggleTheme={toggleTheme} />
         <Container>
@@ -54,10 +56,7 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export {
-  useThemeContext,
-  ThemeProvider
-};
+export { useThemeContext, ThemeProvider };
 
 const Container = styled.div({
   display: 'flex',

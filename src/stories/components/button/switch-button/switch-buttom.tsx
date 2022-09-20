@@ -1,4 +1,3 @@
-
 import { IconButton, IconButtonProps, Tooltip } from '@mui/material';
 import { ThemeMode } from '../../../../core/context/ThemeContext';
 
@@ -12,14 +11,9 @@ interface Props {
 
 const ThemeSwitcherButton = ({ themeMode, toggleTheme, ...rest }: IconButtonProps & Props) => {
   return (
-    <Tooltip
-      title={themeMode === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
-    >
-      <IconButton
-        {...rest}
-        onClick={toggleTheme}
-      >
-        {themeMode === 'light' ? <MoonMode/> : <ToggleDarkMode/>}
+    <Tooltip title={themeMode === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}>
+      <IconButton {...rest} onClick={toggleTheme}>
+        {themeMode === 'light' ? <MoonMode /> : <ToggleDarkMode />}
       </IconButton>
     </Tooltip>
   );

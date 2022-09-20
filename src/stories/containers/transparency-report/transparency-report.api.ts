@@ -52,7 +52,7 @@ export const CORE_UNIT_REQUEST = (shortCode: string) => ({
   `,
   filter: {
     filter: {
-      shortCode
-    }
-  }
+      shortCode,
+    },
+  },
 });

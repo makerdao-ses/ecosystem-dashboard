@@ -21,12 +21,12 @@ export const TransparencyEmptyAudit = () => {
       </Wrapper>
       <MobileWrapper isLight={isLight}>
         <img
-          src={isLight ? '/assets/img/bg-placeholder-transparency.svg' : '/assets/img/bg-placeholder-transparency-dark.svg'}
+          src={
+            isLight ? '/assets/img/bg-placeholder-transparency.svg' : '/assets/img/bg-placeholder-transparency-dark.svg'
+          }
           alt="placeholder"
         />
-        <Title style={{ position: 'absolute' }}>
-          No Data Provided
-        </Title>
+        <Title style={{ position: 'absolute' }}>No Data Provided</Title>
       </MobileWrapper>
     </>
   );
@@ -82,7 +82,9 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     left: 0,
     width: '100%',
     height: '100%',
-    background: isLight ? 'radial-gradient(white, rgba(255,255,255,0.9), rgba(255,255,255,0.9), rgba(255,255,255,0.4), rgba(255,255,255,0.1))' : 'radial-gradient(#0c151e 0% 30% ,#0000 81% 100% )',
+    background: isLight
+      ? 'radial-gradient(white, rgba(255,255,255,0.9), rgba(255,255,255,0.9), rgba(255,255,255,0.4), rgba(255,255,255,0.1))'
+      : 'radial-gradient(#0c151e 0% 30% ,#0000 81% 100% )',
     backgroundRepeat: 'no-repeat',
   },
 }));
@@ -112,5 +114,5 @@ const Title = styled.div({
   zIndex: 1,
   '@media (min-width: 834px)': {
     fontSize: '32px',
-  }
+  },
 });

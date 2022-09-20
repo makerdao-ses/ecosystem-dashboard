@@ -4,14 +4,14 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 interface Props {
   width?: number;
   height?: number;
-  style?: CSSProperties
+  style?: CSSProperties;
   fill?: string;
-  onClick?: () => void
-  fillDark?: string
+  onClick?: () => void;
+  fillDark?: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-const Logo = ({ width = 48, height = 25, fill = '#211634', fillDark, onClick = () => { }, ...props }: Props) => {
+const Logo = ({ width = 48, height = 25, fill = '#211634', fillDark, onClick = () => {}, ...props }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
   return (
     <svg

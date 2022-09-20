@@ -6,28 +6,27 @@ import MipsPortal from '../../svg/mips-portal';
 import VotingPortal from '../../svg/voting-portal';
 
 export type WebSiteLinks = {
-  title?: string
-  logo: ReactNode | JSX.Element
-  background?: string
-  fontSize?: number | string
-  color?: string
-  fontWeight?: number
-  link: string
-  marginTop?: string
-  marginBottom?: string
-  fontFamily?: string
-  lineHeight?: string
-  padding?: string
-  subtract?: ReactNode | JSX.Element,
-  id: string
-  description: string
-  height?: string
-  letterSpacing?: string
-  colorDark?: string
-}
+  title?: string;
+  logo: ReactNode | JSX.Element;
+  background?: string;
+  fontSize?: number | string;
+  color?: string;
+  fontWeight?: number;
+  link: string;
+  marginTop?: string;
+  marginBottom?: string;
+  fontFamily?: string;
+  lineHeight?: string;
+  padding?: string;
+  subtract?: ReactNode | JSX.Element;
+  id: string;
+  description: string;
+  height?: string;
+  letterSpacing?: string;
+  colorDark?: string;
+};
 
 export const itemsWebSiteLinks: WebSiteLinks[] = [
-
   {
     title: 'makerburn.com',
     description: 'Easily view onchain data that surfaces key protocol health metrics.',
@@ -57,7 +56,7 @@ export const itemsWebSiteLinks: WebSiteLinks[] = [
     letterSpacing: '3px',
   },
   {
-    logo: <Logo width={48} height={24.71} fillDark='#FFFFFF' />,
+    logo: <Logo width={48} height={24.71} fillDark="#FFFFFF" />,
     description: 'See how MKR holders are having their voice heard through protocol governance.',
     background: '#231635',
     fontSize: '16px',
@@ -69,13 +68,13 @@ export const itemsWebSiteLinks: WebSiteLinks[] = [
     marginBottom: '32px',
     fontFamily: 'SF Pro Display, sans-serif',
     padding: '4px 8px',
-    subtract: <VotingPortal fillDark='#D2D4EF' />,
+    subtract: <VotingPortal fillDark="#D2D4EF" />,
     id: 'Voting Portal',
     height: '120px',
   },
 
   {
-    logo: <Logo fill='#1AAB9B' width={48} height={24.71} fillDark='#1AAB9B' />,
+    logo: <Logo fill="#1AAB9B" width={48} height={24.71} fillDark="#1AAB9B" />,
     description: 'Understand the formalized decision making process that underpins Maker Governance.',
     background: '#1AAB9B',
     fontSize: '16px',

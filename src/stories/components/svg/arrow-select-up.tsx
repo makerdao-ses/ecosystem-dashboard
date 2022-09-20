@@ -3,19 +3,12 @@ import * as React from 'react';
 interface Props {
   width?: number;
   height?: number;
-  fill?: string
+  fill?: string;
 }
 
 const ArrowSelectUp = ({ width = 10, height = 6, fill = '#25273D', ...props }: Props) => {
   return (
-    <svg
-      width={width}
-      height={height}
-      viewBox="0 0 10 6"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
+    <svg width={width} height={height} viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path
         fillRule="evenodd"
         clipRule="evenodd"

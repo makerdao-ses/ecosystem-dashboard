@@ -4,7 +4,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
   title: 'Components/General/CustomMultiSelect',
-  component: CustomMultiSelect
+  component: CustomMultiSelect,
 } as ComponentMeta<typeof CustomMultiSelect>;
 
 const Template: ComponentStory<typeof CustomMultiSelect> = (args) => <CustomMultiSelect {...args} />;

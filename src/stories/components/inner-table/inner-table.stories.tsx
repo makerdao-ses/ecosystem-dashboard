@@ -7,9 +7,7 @@ export default {
   component: InnerTable,
 } as ComponentMeta<typeof InnerTable>;
 
-const Template: ComponentStory<typeof InnerTable> = (args) => (
-  <InnerTable {...args}/>
-);
+const Template: ComponentStory<typeof InnerTable> = (args) => <InnerTable {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
@@ -22,5 +20,5 @@ Default.args = {
     ['Lorem', 'Ipsum', 'Dolor', 'Sit', 'Amet'],
     ['Lorem', 'Ipsum', 'Dolor', 'Sit', 'Amet'],
     ['Lorem', 'Ipsum', 'Dolor', 'Sit', 'Amet'],
-  ]
+  ],
 };
