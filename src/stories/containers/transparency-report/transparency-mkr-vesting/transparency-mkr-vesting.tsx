@@ -17,17 +17,13 @@ interface TransparencyMkrVestingProps {
   budgetStatements: BudgetStatementDto[];
 }
 
-const headers = [
-  'Vesting Date',
-  'MKR Amount',
-  'Last month',
-  'difference',
-  'reason(s)',
-];
+const headers = ['Vesting Date', 'MKR Amount', 'Last month', 'difference', 'reason(s)'];
 
 export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
-  const { mkrVestings, totalAmount, totalOldAmount, FTEs } =
-    useTransparencyMkrVesting(props.currentMonth, props.budgetStatements);
+  const { mkrVestings, totalAmount, totalOldAmount, FTEs } = useTransparencyMkrVesting(
+    props.currentMonth,
+    props.budgetStatements
+  );
   const isLight = useThemeContext().themeMode === 'light';
 
   const items = useMemo(() => {
@@ -75,11 +71,9 @@ export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
           </TotalFte>
         </CustomPopover>
       </ContainerPopover>
-      {items.length - 1 <= 0
-        ? (
+      {items.length - 1 <= 0 ? (
         <TransparencyEmptyTable />
-          )
-        : (
+      ) : (
         <>
           <TableWrapper>
             <InnerTable
@@ -95,26 +89,19 @@ export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
 
           <CardsWrapper>
             {items.map((item) => (
-              <TransparencyCard
-                header={item[0]}
-                headers={headers.slice(1)}
-                items={item.slice(1)}
-              />
+              <TransparencyCard header={item[0]} headers={headers.slice(1)} items={item.slice(1)} />
             ))}
           </CardsWrapper>
 
-          <Text isLight={isLight}>
-            This Overview is based on MIP40c3-SP17, SES’ MKR Incentive Proposal.
-          </Text>
+          <Text isLight={isLight}>This Overview is based on MIP40c3-SP17, SES’ MKR Incentive Proposal.</Text>
 
           <Text isLight={isLight} style={{ marginBottom: '90px' }}>
-            The Difference column indicates any changes in the MKR vesting
-            amounts compared to last month, with the Reason(s) column indicating
-            why the amounts changed. Reasons may include: New hires, FTE
-            changes, Promotions, or Terminations.
+            The Difference column indicates any changes in the MKR vesting amounts compared to last month, with the
+            Reason(s) column indicating why the amounts changed. Reasons may include: New hires, FTE changes,
+            Promotions, or Terminations.
           </Text>
         </>
-          )}
+      )}
     </Container>
   );
 };
@@ -125,7 +112,7 @@ const Container = styled.div({
 });
 
 const TotalFte = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
   fontSize: '16px',
@@ -151,7 +138,7 @@ const TotalFte = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 }));
 
 const Text = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 400,
   fontSize: '14px',
   lineHeight: '17px',

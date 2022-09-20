@@ -169,7 +169,7 @@ const TypographyTitle = styled(Typography, { shouldForwardProp: (prop) => prop !
     marginRight: '24px',
     fontFamily: 'Inter, sans-serif',
     [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-      fontFamily: 'FT Base, sans-serif',
+      fontFamily: 'Inter, sans-serif',
       fontStyle: 'normal',
       fontWeight: 700,
       fontSize: '16px',

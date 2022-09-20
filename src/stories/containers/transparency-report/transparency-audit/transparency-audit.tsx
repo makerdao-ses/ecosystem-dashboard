@@ -16,11 +16,9 @@ export const TransparencyAudit = (props: TransparencyAuditProps) => {
   const { getDate, getTime, getFilenameFromUrl } = useTransparencyAuditMvvm();
   const isLight = useThemeContext().themeMode === 'light';
 
-  return !props.budgetStatement?.auditReport?.length
-    ? (
+  return !props.budgetStatement?.auditReport?.length ? (
     <TransparencyEmptyAudit />
-      )
-    : (
+  ) : (
     <Container>
       {props.budgetStatement?.auditReport?.map((item) => (
         <Box key={item.reportUrl} isLight={isLight}>
@@ -32,18 +30,14 @@ export const TransparencyAudit = (props: TransparencyAuditProps) => {
             <span>Status</span>
             <AuditStatusChip status={item.auditStatus as AuditStatusEnum} />
           </Text>
-          <DownloadText
-            onClick={() =>
-              item.reportUrl && window.open(item.reportUrl, '_blank')
-            }
-          >
+          <DownloadText onClick={() => item.reportUrl && window.open(item.reportUrl, '_blank')}>
             <span>{getFilenameFromUrl(item.reportUrl)}</span>
             <Download />
           </DownloadText>
         </Box>
       ))}
     </Container>
-      );
+  );
 };
 
 const Container = styled.div({
@@ -81,7 +75,7 @@ const Box = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 const DateAndTime = styled.div({
   display: 'flex',
   gridArea: 'date',
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 500,
   fontSize: '12px',
   lineHeight: '14px',
@@ -111,7 +105,7 @@ const DownloadText = styled.a({
   gridArea: 'download',
   display: 'flex',
   alignItems: 'center',
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 500,
   fontSize: '12px',
   lineHeight: '14px',
@@ -133,7 +127,7 @@ const Text = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   gridArea: 'status',
   display: 'flex',
   alignItems: 'center',
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 400,
   fontSize: '12px',
   color: isLight ? '#231536' : '#708390',

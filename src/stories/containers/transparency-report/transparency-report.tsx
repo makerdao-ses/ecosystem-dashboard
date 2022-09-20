@@ -289,7 +289,7 @@ const StatusBar = styled.div({
 });
 
 const StatusTitle = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '12px',
@@ -301,7 +301,7 @@ const StatusTitle = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 }));
 
 const StatusValue = styled.div<{ color: string }>(({ color }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   textTransform: 'uppercase',
   fontWeight: 700,

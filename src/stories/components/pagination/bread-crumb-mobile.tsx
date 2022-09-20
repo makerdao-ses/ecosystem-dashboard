@@ -113,7 +113,7 @@ const BreadCrumbMobile = ({ title, count = 0, page = 0, onClickLeft, onClickRigh
                   paddingTop: '0px',
                   paddingBottom: '0px',
                   minHeight: 'fit-content',
-                  fontFamily: 'FT Base, sans-serif',
+                  fontFamily: 'Inter, sans-serif',
                   fontStyle: 'normal',
                   fontWeight: 400,
                   fontSize: '16px',
@@ -194,7 +194,7 @@ const Arrows = styled.div({
 const StyleActualCoreUnit = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
   isLight: boolean;
 }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
   fontSize: '12px',
@@ -205,7 +205,7 @@ const StyleActualCoreUnit = styled(Typography, { shouldForwardProp: (prop) => pr
 
 const StyleTextCoreUnit = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
   ({ isLight }) => ({
-    fontFamily: 'FT Base, sans-serif',
+    fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: '12px',
@@ -216,7 +216,7 @@ const StyleTextCoreUnit = styled(Typography, { shouldForwardProp: (prop) => prop
 
 const StyleTitle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
   ({ isLight }) => ({
-    fontFamily: 'FT Base, sans-serif',
+    fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     fontWeight: 500,
     fontSize: '12px',

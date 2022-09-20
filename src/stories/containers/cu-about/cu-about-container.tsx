@@ -320,7 +320,7 @@ const TitleRelateMips = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
 
   [lightTheme.breakpoints.up('table_834')]: {
-    fontFamily: 'FT Base, sans-serif',
+    fontFamily: 'Inter, sans-serif',
     fontWeight: 700,
     fontSize: '16px',
     lineHeight: '19.2px',

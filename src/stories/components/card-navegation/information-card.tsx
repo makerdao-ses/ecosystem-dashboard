@@ -33,7 +33,7 @@ const InformationCard = ({
       <Typography
         sx={{
           marginBottom: '16px',
-          fontFamily: 'FT Base,sans-serif',
+          fontFamily: 'Inter,sans-serif',
           fontStyle: 'normal',
           fontWeight,
           fontSize,

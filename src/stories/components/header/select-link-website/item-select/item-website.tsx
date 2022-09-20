@@ -168,7 +168,7 @@ const ContainerSubtract = styled.div<{ background?: string; padding?: string }>(
 const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
   isLight: boolean;
 }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans serif',
+  fontFamily: 'Inter, sans serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '16px',
