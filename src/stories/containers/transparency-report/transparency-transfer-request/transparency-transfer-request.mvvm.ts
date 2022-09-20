@@ -1,6 +1,6 @@
 import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 import { DateTime } from 'luxon';
-import { API_MONTH_FORMAT } from '../../../../core/utils/date.utils';
+import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
 import { useMemo } from 'react';
 
 export const useTransparencyTransferRequestMvvm = (currentMonth: DateTime, budgetStatements: BudgetStatementDto[]) => {
@@ -8,15 +8,17 @@ export const useTransparencyTransferRequestMvvm = (currentMonth: DateTime, budge
     if (!walletAddress) return 0;
 
     let result = 0;
-    const budgetStatement = budgetStatements?.find(x => x.month === currentMonth.toFormat(API_MONTH_FORMAT));
+    const budgetStatement = budgetStatements?.find((x) => x.month === currentMonth.toFormat(API_MONTH_TO_FORMAT));
 
     if (!budgetStatement || !budgetStatement.budgetStatementWallet) return result;
 
-    const wallet = budgetStatement.budgetStatementWallet.find(wallet => wallet.address?.toLowerCase() === walletAddress.toLowerCase());
+    const wallet = budgetStatement.budgetStatementWallet.find(
+      (wallet) => wallet.address?.toLowerCase() === walletAddress.toLowerCase()
+    );
 
     if (!wallet) return result;
 
-    wallet.budgetStatementTransferRequest?.forEach(item => {
+    wallet.budgetStatementTransferRequest?.forEach((item) => {
       result += item.requestAmount;
     });
 
@@ -25,12 +27,12 @@ export const useTransparencyTransferRequestMvvm = (currentMonth: DateTime, budge
 
   const getTransferRequestForMonth = useMemo(() => {
     let result = 0;
-    const budgetStatement = budgetStatements?.find(x => x.month === currentMonth.toFormat(API_MONTH_FORMAT));
+    const budgetStatement = budgetStatements?.find((x) => x.month === currentMonth.toFormat(API_MONTH_TO_FORMAT));
 
     if (!budgetStatement || !budgetStatement.budgetStatementWallet) return result;
 
-    budgetStatement.budgetStatementWallet.forEach(wallet => {
-      wallet.budgetStatementTransferRequest?.forEach(item => {
+    budgetStatement.budgetStatementWallet.forEach((wallet) => {
+      wallet.budgetStatementTransferRequest?.forEach((item) => {
         result += item.requestAmount;
       });
     });
@@ -41,11 +43,13 @@ export const useTransparencyTransferRequestMvvm = (currentMonth: DateTime, budge
   const getCurrentBalanceForMonthOnWallet = (walletAddress: string | undefined) => {
     if (!walletAddress) return 0;
 
-    const budgetStatement = budgetStatements?.find(x => x.month === currentMonth.toFormat(API_MONTH_FORMAT));
+    const budgetStatement = budgetStatements?.find((x) => x.month === currentMonth.toFormat(API_MONTH_TO_FORMAT));
 
     if (!budgetStatement || !budgetStatement.budgetStatementWallet) return 0;
 
-    const wallet = budgetStatement.budgetStatementWallet.find(wallet => wallet.address?.toLowerCase() === walletAddress.toLowerCase());
+    const wallet = budgetStatement.budgetStatementWallet.find(
+      (wallet) => wallet.address?.toLowerCase() === walletAddress.toLowerCase()
+    );
 
     if (!wallet) return 0;
 
@@ -55,11 +59,11 @@ export const useTransparencyTransferRequestMvvm = (currentMonth: DateTime, budge
   const getCurrentBalanceForMonth = useMemo(() => {
     let result = 0;
 
-    const budgetStatement = budgetStatements?.find(x => x.month === currentMonth.toFormat(API_MONTH_FORMAT));
+    const budgetStatement = budgetStatements?.find((x) => x.month === currentMonth.toFormat(API_MONTH_TO_FORMAT));
 
     if (!budgetStatement || !budgetStatement.budgetStatementWallet) return 0;
 
-    budgetStatement.budgetStatementWallet?.forEach(wallet => {
+    budgetStatement.budgetStatementWallet?.forEach((wallet) => {
       result += wallet?.currentBalance ?? 0;
     });
 
@@ -70,6 +74,6 @@ export const useTransparencyTransferRequestMvvm = (currentMonth: DateTime, budge
     getCurrentBalanceForMonthOnWallet,
     getTransferRequestForMonth,
     getTransferRequestForMonthOnWallet,
-    getCurrentBalanceForMonth
+    getCurrentBalanceForMonth,
   };
 };

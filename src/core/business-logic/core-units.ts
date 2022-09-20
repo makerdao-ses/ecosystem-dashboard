@@ -7,13 +7,13 @@ import {
   CuMipDto,
   Mip40BudgetPeriodDto,
   Mip40Dto,
-  Mip40WalletDto
+  Mip40WalletDto,
 } from '../models/dto/core-unit.dto';
 import { CuStatusEnum } from '../enums/cu-status.enum';
 import { RoadmapStatusEnum } from '../enums/roadmap-status.enum';
 import { CustomChartItemModel } from '../models/custom-chart-item.model';
 import _ from 'lodash';
-import { API_MONTH_FORMAT } from '../utils/date.utils';
+import { API_MONTH_FROM_FORMAT, API_MONTH_TO_FORMAT } from '../utils/date.utils';
 
 export const setCuMipStatusModifiedDate = (mip: CuMipDto, status: CuStatusEnum, date: string) => {
   let index = status.toLowerCase();
@@ -35,7 +35,7 @@ export const getCuMipStatusModifiedDate = (mip: CuMipDto, status: CuStatusEnum) 
 
 export const getLatestMip39FromCoreUnit = (cu?: CoreUnitDto | null) => {
   if (!cu) return null;
-  const mip39s = cu.cuMip?.filter(mip => mip.mipCode?.indexOf('MIP39') > -1) ?? [];
+  const mip39s = cu.cuMip?.filter((mip) => mip.mipCode?.indexOf('MIP39') > -1) ?? [];
   if (mip39s.length === 0) return null;
 
   return mip39s[mip39s.length - 1];
@@ -49,7 +49,7 @@ export const getSubmissionDateFromCuMip = (mip: CuMipDto | null) => {
     // @ts-ignore
     const date = getCuMipStatusModifiedDate(mip, mip.mipStatus);
     if (!date) return null;
-    return DateTime.fromFormat(date, 'yyyy-MM-dd').toJSDate();
+    return DateTime.fromFormat(date, API_MONTH_FROM_FORMAT).toJSDate();
   } catch (e) {
     console.error(e);
     return null;
@@ -74,37 +74,37 @@ export const getLinksFromCoreUnit = (cu: CoreUnitDto) => {
   if (sm.website) {
     result.push({
       linkType: LinkTypeEnum.WWW,
-      href: sm.website
+      href: sm.website,
     });
   }
   if (sm.forumTag) {
     result.push({
       linkType: LinkTypeEnum.Forum,
-      href: sm.forumTag
+      href: sm.forumTag,
     });
   }
   if (sm.discord) {
     result.push({
       linkType: LinkTypeEnum.Discord,
-      href: sm.discord
+      href: sm.discord,
     });
   }
   if (sm.twitter) {
     result.push({
       linkType: LinkTypeEnum.Twitter,
-      href: sm.twitter
+      href: sm.twitter,
     });
   }
   if (sm.youtube) {
     result.push({
       linkType: LinkTypeEnum.Youtube,
-      href: sm.youtube
+      href: sm.youtube,
     });
   }
   if (sm.linkedIn) {
     result.push({
       linkType: LinkTypeEnum.LinkedIn,
-      href: sm.linkedIn
+      href: sm.linkedIn,
     });
   }
 
@@ -113,18 +113,20 @@ export const getLinksFromCoreUnit = (cu: CoreUnitDto) => {
 
 const getLatestBudgetStatementWithFTE = (budgetStatements: BudgetStatementDto[]): BudgetStatementDto | null => {
   if (!budgetStatements || budgetStatements.length === 0) return null;
-  const filtered = budgetStatements.filter(bs => bs.budgetStatementFTEs.length > 0);
+  const filtered = budgetStatements.filter((bs) => bs.budgetStatementFTEs.length > 0);
   return filtered.length ? filtered[filtered.length - 1] : null;
 };
 
 export const getFTEsFromCoreUnit = (cu: CoreUnitDto) => {
   if (cu.budgetStatements?.length === 0) return 0;
 
-  return getLatestBudgetStatementWithFTE(cu.budgetStatements as BudgetStatementDto[])?.budgetStatementFTEs[0]?.ftes ?? 0;
+  return (
+    getLatestBudgetStatementWithFTE(cu.budgetStatements as BudgetStatementDto[])?.budgetStatementFTEs[0]?.ftes ?? 0
+  );
 };
 
 export const getFacilitatorsFromCoreUnit = (cu: CoreUnitDto) => {
-  return cu?.contributorCommitment?.filter(cc => cc.jobTitle === 'Facilitator');
+  return cu?.contributorCommitment?.filter((cc) => cc.jobTitle === 'Facilitator');
 };
 
 const checkDateOnPeriod = (period: Mip40BudgetPeriodDto, date: DateTime) => {
@@ -137,10 +139,10 @@ const checkDateOnPeriod = (period: Mip40BudgetPeriodDto, date: DateTime) => {
 };
 
 const findMip40 = (cu: CoreUnitDto, date: DateTime): Mip40Dto | null => {
-  const cuMips = cu.cuMip?.filter(mip => mip.mipStatus === CuStatusEnum.Accepted) ?? [];
+  const cuMips = cu.cuMip?.filter((mip) => mip.mipStatus === CuStatusEnum.Accepted) ?? [];
 
   for (const mip of cuMips) {
-    for (const mip40 of mip.mip40.filter(mip => !mip.mkrOnly)) {
+    for (const mip40 of mip.mip40.filter((mip) => !mip.mkrOnly)) {
       for (const period of mip40.mip40BudgetPeriod) {
         if (checkDateOnPeriod(period, date)) {
           return mip40;
@@ -175,10 +177,12 @@ export const getBudgetCapsFromCoreUnit = (cu: CoreUnitDto) => {
 const sumAllLineItemsFromBudgetStatement = (budgetStatement: BudgetStatementDto, month: DateTime) => {
   let result = 0;
 
-  budgetStatement?.budgetStatementWallet.forEach(wallet => {
-    wallet.budgetStatementLineItem.filter(x => x.month === month.toFormat(API_MONTH_FORMAT)).forEach(lineItem => {
-      result += lineItem?.actual ?? 0;
-    });
+  budgetStatement?.budgetStatementWallet.forEach((wallet) => {
+    wallet.budgetStatementLineItem
+      .filter((x) => x.month === month.toFormat(API_MONTH_TO_FORMAT))
+      .forEach((lineItem) => {
+        result += lineItem?.actual ?? 0;
+      });
   });
 
   return result;
@@ -189,7 +193,7 @@ export const getExpenditureValueFromCoreUnit = (cu: CoreUnitDto) => {
   if (cu.budgetStatements.length === 0) return result;
 
   for (const dateToCheck of getLast3MonthsWithData(cu.budgetStatements)) {
-    const temp = cu.budgetStatements?.find(bs => bs.month === dateToCheck.toFormat(API_MONTH_FORMAT));
+    const temp = cu.budgetStatements?.find((bs) => bs.month === dateToCheck.toFormat(API_MONTH_TO_FORMAT));
     if (temp) {
       result += sumAllLineItemsFromBudgetStatement(temp, dateToCheck);
     }
@@ -203,7 +207,7 @@ export const getExpenditureAmountFromCoreUnit = (cu: CoreUnitDto) => {
   if (cu.budgetStatements.length === 0) return result;
 
   for (const dateToCheck of getLast3MonthsWithData(cu.budgetStatements)) {
-    const temp = cu.budgetStatements?.find(bs => bs.month === dateToCheck.toFormat(API_MONTH_FORMAT));
+    const temp = cu.budgetStatements?.find((bs) => bs.month === dateToCheck.toFormat(API_MONTH_TO_FORMAT));
     if (temp) {
       result += 1;
     }
@@ -219,7 +223,7 @@ export const getPercentFromCoreUnit = (cu: CoreUnitDto) => {
   if (value === 0) return 0;
   if (budgetCap === 0) return 0;
 
-  return value / budgetCap * 100;
+  return (value / budgetCap) * 100;
 };
 
 export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDto) => {
@@ -227,7 +231,7 @@ export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDto) => {
   if (cu.budgetStatements.length === 0) return new Array(3).fill({ value: 0 });
 
   for (const dateToCheck of getLast3MonthsWithData(cu.budgetStatements)) {
-    const temp = cu.budgetStatements?.find(bs => bs.month === dateToCheck.toFormat(API_MONTH_FORMAT));
+    const temp = cu.budgetStatements?.find((bs) => bs.month === dateToCheck.toFormat(API_MONTH_TO_FORMAT));
 
     if (temp) {
       result.push({ value: sumAllLineItemsFromBudgetStatement(temp, dateToCheck) });
@@ -242,13 +246,13 @@ export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDto) => {
 export const getCurrentOrLastMonthWithData = (budgetStatements: BudgetStatementDto[]) => {
   const currentMonth = DateTime.now().startOf('month');
 
-  const orderedStatements = _.sortBy(budgetStatements, bs => bs.month).reverse();
+  const orderedStatements = _.sortBy(budgetStatements, (bs) => bs.month).reverse();
 
   for (const bs of orderedStatements) {
     for (const wallet of bs.budgetStatementWallet) {
-      for (const item of wallet.budgetStatementLineItem.filter(li => li.month === bs.month)) {
+      for (const item of wallet.budgetStatementLineItem.filter((li) => li.month === bs.month)) {
         if (item.actual) {
-          const itemMonth = DateTime.fromFormat(bs.month, 'yyyy-MM-dd');
+          const itemMonth = DateTime.fromFormat(bs.month, API_MONTH_FROM_FORMAT);
 
           if (itemMonth.toMillis() <= currentMonth.toMillis()) {
             return itemMonth;
@@ -264,13 +268,13 @@ export const getCurrentOrLastMonthWithData = (budgetStatements: BudgetStatementD
 export const getLastMonthWithActualOrForecast = (budgetStatements: BudgetStatementDto[]) => {
   // The budget statements should be provided in a descending date order but
   // it's better to order it client side to avoid future issues
-  const orderedStatements = _.sortBy(budgetStatements, bs => bs.month).reverse();
+  const orderedStatements = _.sortBy(budgetStatements, (bs) => bs.month).reverse();
 
   for (const bs of orderedStatements) {
     for (const wallet of bs.budgetStatementWallet) {
-      for (const item of wallet.budgetStatementLineItem.filter(li => li.month === bs.month)) {
+      for (const item of wallet.budgetStatementLineItem.filter((li) => li.month === bs.month)) {
         if (item.actual || item.forecast) {
-          return DateTime.fromFormat(bs.month, 'yyyy-MM-dd');
+          return DateTime.fromFormat(bs.month, API_MONTH_FROM_FORMAT);
         }
       }
     }
@@ -279,16 +283,32 @@ export const getLastMonthWithActualOrForecast = (budgetStatements: BudgetStateme
   return DateTime.now();
 };
 
-export const getLast3MonthsWithData = (budgetStatements: BudgetStatementDto[]) => {
-  // The budget statements should be provided in a descending date order but
-  // it's better to order it client side to avoid future issues
-  const orderedStatements = _.sortBy(budgetStatements, bs => bs.month).reverse();
+export const getLasMonthWithData = (budgetStatements: BudgetStatementDto[]) => {
+  const orderedStatements = _.sortBy(budgetStatements, (bs) => bs.month).reverse();
 
   for (const bs of orderedStatements) {
     for (const wallet of bs.budgetStatementWallet) {
-      for (const item of wallet.budgetStatementLineItem.filter(li => li.month === bs.month)) {
+      for (const item of wallet.budgetStatementLineItem.filter((li) => li.month === bs.month)) {
         if (item.actual) {
-          const date = DateTime.fromFormat(bs.month, 'yyyy-MM-dd');
+          return DateTime.fromFormat(bs.month, API_MONTH_FROM_FORMAT);
+        }
+      }
+    }
+  }
+
+  return undefined;
+};
+
+export const getLast3MonthsWithData = (budgetStatements: BudgetStatementDto[]) => {
+  // The budget statements should be provided in a descending date order but
+  // it's better to order it client side to avoid future issues
+  const orderedStatements = _.sortBy(budgetStatements, (bs) => bs.month).reverse();
+
+  for (const bs of orderedStatements) {
+    for (const wallet of bs.budgetStatementWallet) {
+      for (const item of wallet.budgetStatementLineItem.filter((li) => li.month === bs.month)) {
+        if (item.actual) {
+          const date = DateTime.fromFormat(bs.month, API_MONTH_FROM_FORMAT);
 
           return [date, date.minus({ months: 1 }), date.minus({ months: 2 })].reverse();
         }
@@ -302,7 +322,7 @@ export const getLast3MonthsWithData = (budgetStatements: BudgetStatementDto[]) =
 export const getLast3MonthsWithDataFormatted = (cu: CoreUnitDto) => {
   const dates = getLast3MonthsWithData(cu.budgetStatements);
 
-  return dates.map(date => date.toFormat('MMMM'));
+  return dates.map((date) => date.toFormat('MMMM'));
 };
 
 export const getMipUrlFromCoreUnit = (cu: CoreUnitDto) => {

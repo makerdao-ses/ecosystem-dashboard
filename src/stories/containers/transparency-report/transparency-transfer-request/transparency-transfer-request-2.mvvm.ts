@@ -1,6 +1,6 @@
 import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 import { DateTime } from 'luxon';
-import { API_MONTH_FORMAT } from '../../../../core/utils/date.utils';
+import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
 import { useMemo } from 'react';
 import { useTransparencyForecastMvvm2 } from '../transparency-forecast/transparency-forecast-2.mvvm';
 import { InnerTableColumn, InnerTableRow } from '../../../components/advanced-inner-table/advanced-inner-table';
@@ -14,7 +14,7 @@ export const useTransparencyTransferRequestMvvm2 = (currentMonth: DateTime, budg
     if (!walletAddress) return 0;
 
     let result = 0;
-    const budgetStatement = budgetStatements?.find((x) => x.month === currentMonth.toFormat(API_MONTH_FORMAT));
+    const budgetStatement = budgetStatements?.find((x) => x.month === currentMonth.toFormat(API_MONTH_TO_FORMAT));
 
     if (!budgetStatement || !budgetStatement.budgetStatementWallet) {
       return result;
@@ -35,7 +35,7 @@ export const useTransparencyTransferRequestMvvm2 = (currentMonth: DateTime, budg
 
   const getTransferRequestForMonth = useMemo(() => {
     let result = 0;
-    const budgetStatement = budgetStatements?.find((x) => x.month === currentMonth.toFormat(API_MONTH_FORMAT));
+    const budgetStatement = budgetStatements?.find((x) => x.month === currentMonth.toFormat(API_MONTH_TO_FORMAT));
 
     if (!budgetStatement || !budgetStatement.budgetStatementWallet) {
       return result;
@@ -53,7 +53,7 @@ export const useTransparencyTransferRequestMvvm2 = (currentMonth: DateTime, budg
   const getCurrentBalanceForMonthOnWallet = (walletAddress: string | undefined) => {
     if (!walletAddress) return 0;
 
-    const budgetStatement = budgetStatements?.find((x) => x.month === currentMonth.toFormat(API_MONTH_FORMAT));
+    const budgetStatement = budgetStatements?.find((x) => x.month === currentMonth.toFormat(API_MONTH_TO_FORMAT));
 
     if (!budgetStatement || !budgetStatement.budgetStatementWallet) return 0;
 
@@ -69,7 +69,7 @@ export const useTransparencyTransferRequestMvvm2 = (currentMonth: DateTime, budg
   const getCurrentBalanceForMonth = useMemo(() => {
     let result = 0;
 
-    const budgetStatement = budgetStatements?.find((x) => x.month === currentMonth.toFormat(API_MONTH_FORMAT));
+    const budgetStatement = budgetStatements?.find((x) => x.month === currentMonth.toFormat(API_MONTH_TO_FORMAT));
 
     if (!budgetStatement || !budgetStatement.budgetStatementWallet) return 0;
 

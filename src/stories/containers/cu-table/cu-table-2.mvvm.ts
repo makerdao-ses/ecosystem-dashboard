@@ -15,7 +15,13 @@ import { GETCoreUnits } from './cu-table.api';
 import useSWR from 'swr';
 import { CustomTableColumn, CustomTableRow } from '../../components/custom-table/custom-table-2';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
-import { renderExpenditures, renderLinks, renderSummary, renderTeamMember } from './cu-table.renders';
+import {
+  renderExpenditures,
+  renderLastModified,
+  renderLinks,
+  renderSummary,
+  renderTeamMember,
+} from './cu-table.renders';
 import { SortEnum } from '../../../core/enums/sort.enum';
 import { sortAlphaNum } from '../../../core/utils/sort.utils';
 
@@ -143,7 +149,7 @@ export const useCoreUnitsTableMvvm = () => {
     {
       header: 'Last Modified',
       justifyContent: 'flex-start',
-      cellRender: renderTeamMember,
+      cellRender: renderLastModified,
       onClick: onClickRow,
       width: '122px',
     },

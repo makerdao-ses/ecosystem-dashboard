@@ -1,12 +1,12 @@
 import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 import { DateTime } from 'luxon';
 import { useMemo } from 'react';
-import { API_MONTH_FORMAT } from '../../../../core/utils/date.utils';
+import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
 import _ from 'lodash';
 
 export const useTransparencyMkrVesting = (currentMonth: DateTime, budgetStatements: BudgetStatementDto[]) => {
   const currentBudgetStatement = useMemo(() => {
-    return budgetStatements?.find(bs => bs.month === currentMonth.toFormat(API_MONTH_FORMAT));
+    return budgetStatements?.find((bs) => bs.month === currentMonth.toFormat(API_MONTH_TO_FORMAT));
   }, [currentMonth, budgetStatements]);
 
   const mkrVestings = useMemo(() => {
@@ -18,13 +18,13 @@ export const useTransparencyMkrVesting = (currentMonth: DateTime, budgetStatemen
   const totalAmount = useMemo(() => {
     if (!currentMonth || !budgetStatements || !budgetStatements.length) return [];
 
-    return _.sumBy(currentBudgetStatement?.budgetStatementMKRVest ?? [], mkr => mkr.mkrAmount);
+    return _.sumBy(currentBudgetStatement?.budgetStatementMKRVest ?? [], (mkr) => mkr.mkrAmount);
   }, [currentMonth, budgetStatements]);
 
   const totalOldAmount = useMemo(() => {
     if (!currentMonth || !budgetStatements || !budgetStatements.length) return [];
 
-    return _.sumBy(currentBudgetStatement?.budgetStatementMKRVest ?? [], mkr => mkr.mkrAmountOld);
+    return _.sumBy(currentBudgetStatement?.budgetStatementMKRVest ?? [], (mkr) => mkr.mkrAmountOld);
   }, [currentMonth, budgetStatements]);
 
   const FTEs = useMemo(() => {
@@ -35,6 +35,6 @@ export const useTransparencyMkrVesting = (currentMonth: DateTime, budgetStatemen
     mkrVestings,
     totalAmount,
     totalOldAmount,
-    FTEs
+    FTEs,
   };
 };

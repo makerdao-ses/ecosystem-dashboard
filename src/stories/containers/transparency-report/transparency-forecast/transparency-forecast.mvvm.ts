@@ -2,12 +2,12 @@ import { DateTime } from 'luxon';
 import {
   BudgetStatementDto,
   BudgetStatementLineItemDto,
-  BudgetStatementWalletDto
+  BudgetStatementWalletDto,
 } from '../../../../core/models/dto/core-unit.dto';
 import _ from 'lodash';
 import { useMemo } from 'react';
 import { capitalizeSentence } from '../../../../core/utils/string.utils';
-import { API_MONTH_FORMAT } from '../../../../core/utils/date.utils';
+import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
 
 export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetStatements: BudgetStatementDto[]) => {
   const firstMonth = useMemo(() => currentMonth.plus({ month: 1 }), [currentMonth]);
@@ -30,13 +30,13 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetSt
   }, [currentMonth]);
 
   const wallets: BudgetStatementWalletDto[] = useMemo(() => {
-    const dict: {[id: string]: BudgetStatementWalletDto} = {};
+    const dict: { [id: string]: BudgetStatementWalletDto } = {};
 
-    const budgetStatement = propBudgetStatements?.find(bs => bs.month === currentMonth.toFormat(API_MONTH_FORMAT));
+    const budgetStatement = propBudgetStatements?.find((bs) => bs.month === currentMonth.toFormat(API_MONTH_TO_FORMAT));
 
     if (!budgetStatement || !budgetStatement.budgetStatementWallet) return [];
 
-    budgetStatement.budgetStatementWallet.forEach(wallet => {
+    budgetStatement.budgetStatementWallet.forEach((wallet) => {
       if (wallet.address) {
         if (!dict[wallet.address.toLowerCase()]) {
           wallet.name = capitalizeSentence(wallet.name);
@@ -48,48 +48,80 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetSt
     return _.sortBy(Object.values(dict), 'id');
   }, [currentMonth, propBudgetStatements]);
 
-  const getForecastForMonthOnWalletOnBudgetStatement = (budgetStatements: BudgetStatementDto[], walletAddress: string | undefined, currentMonth: DateTime, month: DateTime) => {
-    const budgetStatement = budgetStatements?.find(x => x.month === currentMonth.toFormat(API_MONTH_FORMAT)) ?? null;
+  const getForecastForMonthOnWalletOnBudgetStatement = (
+    budgetStatements: BudgetStatementDto[],
+    walletAddress: string | undefined,
+    currentMonth: DateTime,
+    month: DateTime
+  ) => {
+    const budgetStatement =
+      budgetStatements?.find((x) => x.month === currentMonth.toFormat(API_MONTH_TO_FORMAT)) ?? null;
 
     if (!budgetStatement || !walletAddress) return 0;
 
-    const wallet = budgetStatement?.budgetStatementWallet?.find(x => x.address?.toLowerCase() === walletAddress?.toLowerCase()) ?? null;
+    const wallet =
+      budgetStatement?.budgetStatementWallet?.find((x) => x.address?.toLowerCase() === walletAddress?.toLowerCase()) ??
+      null;
 
     if (!wallet) return 0;
 
-    return _.sumBy(wallet?.budgetStatementLineItem.filter(item => item.month === month.toFormat(API_MONTH_FORMAT)), i => i.forecast ?? 0);
+    return _.sumBy(
+      wallet?.budgetStatementLineItem.filter((item) => item.month === month.toFormat(API_MONTH_TO_FORMAT)),
+      (i) => i.forecast ?? 0
+    );
   };
 
-  const getBudgetCapForMonthOnWalletOnBudgetStatement = (budgetStatements: BudgetStatementDto[], walletAddress: string | undefined, currentMonth: DateTime, month: DateTime) => {
-    const budgetStatement = budgetStatements?.find(x => x.month === currentMonth?.toFormat(API_MONTH_FORMAT)) ?? null;
+  const getBudgetCapForMonthOnWalletOnBudgetStatement = (
+    budgetStatements: BudgetStatementDto[],
+    walletAddress: string | undefined,
+    currentMonth: DateTime,
+    month: DateTime
+  ) => {
+    const budgetStatement =
+      budgetStatements?.find((x) => x.month === currentMonth?.toFormat(API_MONTH_TO_FORMAT)) ?? null;
 
     if (!budgetStatement || !walletAddress) return 0;
 
-    const wallet = budgetStatement?.budgetStatementWallet?.find(x => x.address?.toLowerCase() === walletAddress?.toLowerCase()) ?? null;
+    const wallet =
+      budgetStatement?.budgetStatementWallet?.find((x) => x.address?.toLowerCase() === walletAddress?.toLowerCase()) ??
+      null;
 
     if (!wallet) return 0;
 
-    return _.sumBy(wallet?.budgetStatementLineItem.filter(item => item.month === month?.toFormat(API_MONTH_FORMAT)), i => i.budgetCap ?? 0);
+    return _.sumBy(
+      wallet?.budgetStatementLineItem.filter((item) => item.month === month?.toFormat(API_MONTH_TO_FORMAT)),
+      (i) => i.budgetCap ?? 0
+    );
   };
 
-  const getForecastSumOfMonthsOnWallet = (budgetStatements: BudgetStatementDto[], walletAddress: string | undefined, currentMonth: DateTime, months: DateTime[]) => {
+  const getForecastSumOfMonthsOnWallet = (
+    budgetStatements: BudgetStatementDto[],
+    walletAddress: string | undefined,
+    currentMonth: DateTime,
+    months: DateTime[]
+  ) => {
     let result = 0;
 
     if (!walletAddress) return result;
 
-    months.forEach(month => {
+    months.forEach((month) => {
       result += getForecastForMonthOnWalletOnBudgetStatement(budgetStatements, walletAddress, currentMonth, month);
     });
 
     return result;
   };
 
-  const getBudgetCapSumOfMonthsOnWallet = (budgetStatements: BudgetStatementDto[], walletAddress: string | undefined, currentMonth: DateTime, months: DateTime[]) => {
+  const getBudgetCapSumOfMonthsOnWallet = (
+    budgetStatements: BudgetStatementDto[],
+    walletAddress: string | undefined,
+    currentMonth: DateTime,
+    months: DateTime[]
+  ) => {
     let result = 0;
 
     if (!walletAddress) return result;
 
-    months.forEach(month => {
+    months.forEach((month) => {
       result += getBudgetCapForMonthOnWalletOnBudgetStatement(budgetStatements, walletAddress, currentMonth, month);
     });
 
@@ -97,32 +129,57 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetSt
   };
 
   const getForecastSumForMonth = (budgetStatements: BudgetStatementDto[], currentMonth: DateTime, month: DateTime) => {
-    const budgetStatement = budgetStatements?.find(x => x.month === currentMonth.toFormat(API_MONTH_FORMAT)) ?? null;
+    const budgetStatement =
+      budgetStatements?.find((x) => x.month === currentMonth.toFormat(API_MONTH_TO_FORMAT)) ?? null;
 
-    return _.sumBy(budgetStatement?.budgetStatementWallet, wallet => _.sumBy(wallet?.budgetStatementLineItem?.filter(item => item.month === month.toFormat(API_MONTH_FORMAT)), item => item.forecast ?? 0));
+    return _.sumBy(budgetStatement?.budgetStatementWallet, (wallet) =>
+      _.sumBy(
+        wallet?.budgetStatementLineItem?.filter((item) => item.month === month.toFormat(API_MONTH_TO_FORMAT)),
+        (item) => item.forecast ?? 0
+      )
+    );
   };
 
-  const getForecastSumForMonths = (budgetStatements: BudgetStatementDto[], currentMonth: DateTime, months: DateTime[]) => {
+  const getForecastSumForMonths = (
+    budgetStatements: BudgetStatementDto[],
+    currentMonth: DateTime,
+    months: DateTime[]
+  ) => {
     let result = 0;
 
-    months.forEach(month => {
+    months.forEach((month) => {
       result += getForecastSumForMonth(budgetStatements, currentMonth, month);
     });
 
     return result;
   };
 
-  const getBudgetCapForMonthOnBudgetStatement = (budgetStatements: BudgetStatementDto[], currentMonth: DateTime, month: DateTime) => {
-    const budgetStatement = budgetStatements?.find(x => x.month === currentMonth.toFormat(API_MONTH_FORMAT)) ?? null;
+  const getBudgetCapForMonthOnBudgetStatement = (
+    budgetStatements: BudgetStatementDto[],
+    currentMonth: DateTime,
+    month: DateTime
+  ) => {
+    const budgetStatement =
+      budgetStatements?.find((x) => x.month === currentMonth.toFormat(API_MONTH_TO_FORMAT)) ?? null;
 
-    return _.sumBy(budgetStatement?.budgetStatementWallet, wallet => _.sumBy(wallet?.budgetStatementLineItem?.filter(item => item.month === month.toFormat(API_MONTH_FORMAT)), item => item.budgetCap ?? 0));
+    return _.sumBy(budgetStatement?.budgetStatementWallet, (wallet) =>
+      _.sumBy(
+        wallet?.budgetStatementLineItem?.filter((item) => item.month === month.toFormat(API_MONTH_TO_FORMAT)),
+        (item) => item.budgetCap ?? 0
+      )
+    );
   };
 
   const getTotalQuarterlyBudgetCapOnBudgetStatement = (budgetStatements: BudgetStatementDto[], months: DateTime[]) => {
     let result = 0;
 
-    wallets.forEach(wallet => {
-      result += getBudgetCapSumOfMonthsOnWallet(budgetStatements, wallet?.address?.toLowerCase() || '', currentMonth, months);
+    wallets.forEach((wallet) => {
+      result += getBudgetCapSumOfMonthsOnWallet(
+        budgetStatements,
+        wallet?.address?.toLowerCase() || '',
+        currentMonth,
+        months
+      );
     });
 
     return result;
@@ -130,33 +187,54 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetSt
 
   const breakdownTabs = useMemo(() => {
     if (!propBudgetStatements || propBudgetStatements.length === 0) return [];
-    return wallets?.map(wallet => wallet.name);
+    return wallets?.map((wallet) => wallet.name);
   }, [propBudgetStatements, currentMonth]);
 
-  const getLineItemsForWalletOnMonth = (budgetStatements: BudgetStatementDto[], currentMonth: DateTime, month: DateTime, walletAddress: string) => {
-    const budgetStatement = budgetStatements?.find(bs => bs.month === currentMonth.toFormat(API_MONTH_FORMAT));
+  const getLineItemsForWalletOnMonth = (
+    budgetStatements: BudgetStatementDto[],
+    currentMonth: DateTime,
+    month: DateTime,
+    walletAddress: string
+  ) => {
+    const budgetStatement = budgetStatements?.find((bs) => bs.month === currentMonth.toFormat(API_MONTH_TO_FORMAT));
 
     if (!budgetStatement) return [];
 
-    return budgetStatement.budgetStatementWallet?.find(wallet => wallet.address?.toLowerCase() === walletAddress?.toLowerCase())?.budgetStatementLineItem.filter(item => item.month === month.toFormat(API_MONTH_FORMAT)) ?? [];
+    return (
+      budgetStatement.budgetStatementWallet
+        ?.find((wallet) => wallet.address?.toLowerCase() === walletAddress?.toLowerCase())
+        ?.budgetStatementLineItem.filter((item) => item.month === month.toFormat(API_MONTH_TO_FORMAT)) ?? []
+    );
   };
 
   const getLineItemForecastSumForMonth = (items: BudgetStatementLineItemDto[], month: DateTime) => {
-    return _.sumBy(items.filter(item => item.month === month.toFormat(API_MONTH_FORMAT)), item => item.forecast ?? 0);
+    return _.sumBy(
+      items.filter((item) => item.month === month.toFormat(API_MONTH_TO_FORMAT)),
+      (item) => item.forecast ?? 0
+    );
   };
 
   const getLineItemForecastSumForMonths = (items: BudgetStatementLineItemDto[], months: DateTime[]) => {
-    const formattedMonths = months.map(x => x.toFormat(API_MONTH_FORMAT));
-    return _.sumBy(items.filter(item => formattedMonths.indexOf(item.month ?? '') > -1), item => item.forecast ?? 0);
+    const formattedMonths = months.map((x) => x.toFormat(API_MONTH_TO_FORMAT));
+    return _.sumBy(
+      items.filter((item) => formattedMonths.indexOf(item.month ?? '') > -1),
+      (item) => item.forecast ?? 0
+    );
   };
 
   const getBudgetCapForMonthOnLineItem = (items: BudgetStatementLineItemDto[], month: DateTime) => {
-    return _.sumBy(items.filter(item => item.month === month.toFormat(API_MONTH_FORMAT)), item => item.budgetCap ?? 0);
+    return _.sumBy(
+      items.filter((item) => item.month === month.toFormat(API_MONTH_TO_FORMAT)),
+      (item) => item.budgetCap ?? 0
+    );
   };
 
   const getTotalQuarterlyBudgetCapOnLineItem = (items: BudgetStatementLineItemDto[], months: DateTime[]) => {
-    const formattedMonths = months.map(x => x.toFormat(API_MONTH_FORMAT));
-    return _.sumBy(items.filter(item => formattedMonths.indexOf(item.month ?? '') > -1), item => item.budgetCap ?? 0);
+    const formattedMonths = months.map((x) => x.toFormat(API_MONTH_TO_FORMAT));
+    return _.sumBy(
+      items.filter((item) => formattedMonths.indexOf(item.month ?? '') > -1),
+      (item) => item.budgetCap ?? 0
+    );
   };
 
   return {
@@ -178,6 +256,6 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetSt
     getLineItemForecastSumForMonths,
     getBudgetCapForMonthOnLineItem,
     getTotalQuarterlyBudgetCapOnLineItem,
-    wallets
+    wallets,
   };
 };

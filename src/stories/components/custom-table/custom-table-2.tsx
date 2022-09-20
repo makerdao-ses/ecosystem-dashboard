@@ -140,9 +140,6 @@ const TableRow = styled.div<{ isLight: boolean; isLoading?: boolean; columns: Cu
     boxShadow: isLight
       ? '0px 0px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
       : '0px 20px 40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
-    '@media (min-width: 1180px) and (max-width: 1280px)': {
-      gridTemplateColumns: '360px 215px 205px 340px',
-    },
     ':hover': {
       background: !isLoading ? (isLight ? '#ECF1F3' : '#1E2C37') : isLight ? 'white' : '#10191F',
     },
@@ -152,9 +149,6 @@ const TableRow = styled.div<{ isLight: boolean; isLoading?: boolean; columns: Cu
 const TableHeadRow = styled.div<{ columns: CustomTableColumn[] }>(({ columns }) => ({
   display: 'inline-grid',
   gridTemplateColumns: columns?.reduce((prev, curr) => `${prev} ${curr.width}`, ''),
-  '@media (min-width: 1180px) and (max-width: 1280px)': {
-    gridTemplateColumns: '360px 215px 205px 340px',
-  },
 }));
 
 const TableCell = styled.div({
@@ -169,7 +163,7 @@ const TableBody = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 
 const TableWrapper = styled.div({
   display: 'none',
-  '@media (min-width: 1180px)': {
+  '@media (min-width: 1410px)': {
     display: 'flex',
   },
 });
@@ -177,7 +171,7 @@ const TableWrapper = styled.div({
 const ListWrapper = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  '@media (min-width: 1180px)': {
+  '@media (min-width: 1410px)': {
     display: 'none',
   },
 });
