@@ -16,10 +16,7 @@ interface CustomTableProps {
   loading?: boolean;
 }
 
-export const CustomTable = ({
-  headersStyles = [],
-  ...props
-}: CustomTableProps) => {
+export const CustomTable = ({ headersStyles = [], ...props }: CustomTableProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   const dispatch = useAppDispatch();
 
@@ -39,9 +36,7 @@ export const CustomTable = ({
               style={{
                 justifyContent: props.headersAlign && props.headersAlign[i],
               }}
-              onClick={() =>
-                handleSort(i)
-              }
+              onClick={() => handleSort(i)}
             >
               <CustomTableHeader
                 style={headersStyles[i] ?? {}}
@@ -59,16 +54,12 @@ export const CustomTable = ({
   return (
     <TableContainer isLight={isLight}>
       <Table>
-        { tableHead }
+        {tableHead}
         <TableBody isLight={isLight}>
           {props.items?.map((row, i) => (
             <TableRow key={i} isLight={isLight} isLoading={props.loading}>
               {row.map((item, j) => (
-                <TableCell
-                  key={`${i}-${j}`}
-                >
-                  {item}
-                </TableCell>
+                <TableCell key={`${i}-${j}`}>{item}</TableCell>
               ))}
             </TableRow>
           ))}
@@ -79,9 +70,7 @@ export const CustomTable = ({
 };
 
 const TableContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  background: isLight
-    ? 'white'
-    : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
+  background: isLight ? 'white' : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
   display: 'flex',
   flexDirection: 'column',
   boxSizing: 'border-box',
@@ -109,7 +98,7 @@ const TableHead = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     : '0px 20px 40px rgba(7, 22, 40, 0.4)',
 }));
 
-const TableRow = styled.div<{ isLight: boolean, isLoading?: boolean }>(({ isLight, isLoading }) => ({
+const TableRow = styled.div<{ isLight: boolean; isLoading?: boolean }>(({ isLight, isLoading }) => ({
   background: isLight ? 'white' : '#10191F',
   display: 'grid',
   gridTemplateColumns: '400px 215px 205px 358px',
@@ -121,8 +110,8 @@ const TableRow = styled.div<{ isLight: boolean, isLoading?: boolean }>(({ isLigh
     gridTemplateColumns: '360px 215px 205px 340px',
   },
   ':hover': {
-    background: !isLoading ? (isLight ? '#ECF1F3' : '#1E2C37') : (isLight ? 'white' : '#10191F'),
-  }
+    background: !isLoading ? (isLight ? '#ECF1F3' : '#1E2C37') : isLight ? 'white' : '#10191F',
+  },
 }));
 
 const TableHeadRow = styled.div({

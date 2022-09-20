@@ -155,19 +155,19 @@ export const CuTable2 = () => {
 const ContainerHome = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
-  padding: '32px 16px 128px',
+  padding: '32px 16px 64px',
   marginTop: '64px',
   width: '100%',
   background: isLight ? '#FFFFFF' : '#000000',
   backgroundImage: isLight ? '#FFFFFF' : 'linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 16, 32, 0.4) 100%)',
   '@media (min-width: 834px)': {
-    padding: '24px 32px 128px',
+    padding: '24px 32px 64px',
   },
   '@media (min-width: 1280px)': {
-    padding: '24px 48px 128px',
+    padding: '24px 48px 64px',
   },
   '@media (min-width: 1440px)': {
-    padding: '24px 128px 128px',
+    padding: '24px 128px 64px',
   },
 }));
 
@@ -175,7 +175,7 @@ const Wrapper = styled.div({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  maxWidth: '1184px',
+  maxWidth: '1312px',
   margin: '0 auto',
   paddingBottom: '8px',
   '@media (min-width: 1180px) and (max-width:1280px)': {

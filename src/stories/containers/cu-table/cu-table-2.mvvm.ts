@@ -39,6 +39,7 @@ export const useCoreUnitsTableMvvm = () => {
     SortEnum.Asc,
     SortEnum.Neutral,
     SortEnum.Neutral,
+    SortEnum.Neutral,
     SortEnum.Disabled,
   ]);
 
@@ -123,24 +124,35 @@ export const useCoreUnitsTableMvvm = () => {
       style: { paddingLeft: '16px' },
       cellRender: renderSummary,
       onClick: onClickRow,
+      width: '400px',
     },
     {
       header: 'Expenditure',
       justifyContent: 'flex-start',
       cellRender: renderExpenditures,
       onClick: onClickFinances,
+      width: '215px',
     },
     {
       header: 'Team Members',
       justifyContent: 'center',
       cellRender: renderTeamMember,
       onClick: onClickRow,
+      width: '205px',
+    },
+    {
+      header: 'Last Modified',
+      justifyContent: 'flex-start',
+      cellRender: renderTeamMember,
+      onClick: onClickRow,
+      width: '122px',
     },
     {
       header: '',
       justifyContent: 'center',
       cellRender: renderLinks,
       onClick: onClickRow,
+      width: '358px',
     },
   ];
 
@@ -167,7 +179,13 @@ export const useCoreUnitsTableMvvm = () => {
   }, [data, sortColumn, headersSort, filteredCategories, filteredStatuses, searchText]);
 
   const onSortClick = (index: number) => {
-    const sortNeutralState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled];
+    const sortNeutralState = [
+      SortEnum.Neutral,
+      SortEnum.Neutral,
+      SortEnum.Neutral,
+      SortEnum.Neutral,
+      SortEnum.Disabled,
+    ];
 
     if (headersSort[index] === 3) {
       setHeadersSort(sortNeutralState);
