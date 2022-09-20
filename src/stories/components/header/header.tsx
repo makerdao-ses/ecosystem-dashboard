@@ -84,9 +84,9 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
               fontSize={16}
               href={HOW_TO_SUBMIT_EXPENSES}
               style={{
-                // fontFamily: 'Inter, sans serif',
+                fontFamily: 'Inter, sans serif',
                 color: '#447AFB',
-                // fontWeight: 500,
+                fontWeight: 500,
                 fontStyle: 'normal',
                 lineHeight: '19px',
                 letterSpacing: '0.3px',

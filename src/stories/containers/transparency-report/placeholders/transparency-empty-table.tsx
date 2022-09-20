@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
+import { CustomButton } from '../../../components/custom-button/custom-button';
+import { useRouter } from 'next/router';
+import { MAKER_BURN } from '../../../../core/utils/const';
 
 interface Props {
   breakdown?: boolean;
 }
 
 export const TransparencyEmptyTable = ({ breakdown = false }: Props) => {
+  const router = useRouter();
+  const code = router.query?.code;
   const isLight = useThemeContext().themeMode === 'light';
+
+  const handleClickMakerburn = useCallback(() => {
+    window.open(MAKER_BURN, '_blank');
+  }, []);
+
   return (
     <>
       <Wrapper>
@@ -263,7 +273,24 @@ export const TransparencyEmptyTable = ({ breakdown = false }: Props) => {
             </Row>
           </Container>
         )}
-        <Title>No Data Provided</Title>
+        <ContainerIndications style={{}}>
+          <Title>{`No data reported by ${code} Core Unit`}</Title>
+          <Description>View on-chain transfers on makerburn.com </Description>
+          <ContainerButton>
+            <CustomButton
+              label="Go to Makerburn"
+              onClick={handleClickMakerburn}
+              styleText={{
+                fontSize: '16px',
+                lineHeight: '19px',
+                borderRadius: '22px',
+              }}
+              style={{
+                padding: '14px 61px 14px 60px',
+              }}
+            />
+          </ContainerButton>
+        </ContainerIndications>
       </Wrapper>
       <MobileWrapper breakdown={breakdown}>
         {!breakdown ? (
@@ -427,6 +454,19 @@ const Wrapper = styled.div({
   },
 });
 
+const ContainerIndications = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+});
+
+const ContainerButton = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  marginTop: '32px',
+  zIndex: 1,
+});
+
 const Title = styled.div({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
@@ -440,6 +480,19 @@ const Title = styled.div({
   '@media (min-width: 834px)': {
     fontSize: '32px',
   },
+});
+
+const Description = styled.div({
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 600,
+  fontSize: '22px',
+  lineHeight: '27px',
+  textAlign: 'center',
+  letterSpacing: '0.4px',
+  color: '#9FAFB9',
+  marginTop: '32px',
+  zIndex: 1,
 });
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
