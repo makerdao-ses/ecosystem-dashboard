@@ -1,14 +1,5 @@
 import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
-import {
-  getExpenditureValueFromCoreUnit,
-  getFTEsFromCoreUnit,
-  getLinksFromCoreUnit,
-} from '../../../core/business-logic/core-units';
-import { selectCuTableHeadersSort, selectCuTableSortColumn } from './cu-table.slice';
-import { store } from '../../../core/store/store';
-import { SortEnum } from '../../../core/enums/sort.enum';
-import { sortAlphaNum } from '../../../core/utils/sort.utils';
 import { CustomButton } from '../../components/custom-button/custom-button';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { Filters } from './cu-table-filters';
@@ -20,25 +11,6 @@ import lightTheme from '../../../../styles/theme/light';
 import { useCoreUnitsTableMvvm } from './cu-table-2.mvvm';
 import { CustomTable2, CustomTableRow } from '../../components/custom-table/custom-table-2';
 import { renderCard } from './cu-table.renders';
-
-export const sortData = (items: CoreUnitDto[]) => {
-  const state = store.getState();
-  const headersSort = selectCuTableHeadersSort(state);
-  const sortColumn = selectCuTableSortColumn(state);
-  if (headersSort[sortColumn] === SortEnum.Disabled) return items;
-
-  const multiplier = headersSort[sortColumn] === SortEnum.Asc ? 1 : -1;
-  const nameSort = (a: CoreUnitDto, b: CoreUnitDto) => sortAlphaNum(a.name, b.name) * multiplier;
-  const expendituresSort = (a: CoreUnitDto, b: CoreUnitDto) =>
-    (getExpenditureValueFromCoreUnit(a) - getExpenditureValueFromCoreUnit(b)) * multiplier;
-  const teamMembersSort = (a: CoreUnitDto, b: CoreUnitDto) =>
-    (getFTEsFromCoreUnit(a) - getFTEsFromCoreUnit(b)) * multiplier;
-  const linksSort = (a: CoreUnitDto, b: CoreUnitDto) =>
-    (getLinksFromCoreUnit(a).length - getLinksFromCoreUnit(b).length) * multiplier;
-
-  const sortAlg = [nameSort, expendituresSort, teamMembersSort, linksSort];
-  return [...items].sort(sortAlg[sortColumn]);
-};
 
 export const CuTable2 = () => {
   const isLight = useThemeContext().themeMode === 'light';

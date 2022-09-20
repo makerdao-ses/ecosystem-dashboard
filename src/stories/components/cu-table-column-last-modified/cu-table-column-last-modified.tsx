@@ -18,7 +18,7 @@ export const CuTableColumnLastModified = (props: Props) => {
     <Container>
       <DateLabel isLight={isLight}>{props.date?.toFormat('dd-MMM-yyyy')?.toUpperCase() ?? 'No Data'}</DateLabel>
       {props.date ? (
-        <DifferenceLabel>{capitalizeSentence(props.date?.toRelative() ?? '')}</DifferenceLabel>
+        <DifferenceLabel isLight={isLight}>{capitalizeSentence(props.date?.toRelative() ?? '')}</DifferenceLabel>
       ) : (
         <CustomLink
           style={{
