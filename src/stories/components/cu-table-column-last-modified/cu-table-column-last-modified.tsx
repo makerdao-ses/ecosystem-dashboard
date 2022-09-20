@@ -4,6 +4,7 @@ import { DateTime } from 'luxon';
 import { capitalizeSentence } from '../../../core/utils/string.utils';
 import { CustomLink } from '../custom-link/custom-link';
 import { CuTableColumnLastModifiedSkeleton } from './cu-table-column-last-modified.skeleton';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface Props {
   date?: DateTime;
@@ -11,9 +12,11 @@ interface Props {
 }
 
 export const CuTableColumnLastModified = (props: Props) => {
+  const isLight = useThemeContext().themeMode === 'light';
+
   return !props.isLoading ? (
     <Container>
-      <DateLabel>{props.date?.toFormat('dd-MMM-yyyy')?.toUpperCase() ?? 'No Data'}</DateLabel>
+      <DateLabel isLight={isLight}>{props.date?.toFormat('dd-MMM-yyyy')?.toUpperCase() ?? 'No Data'}</DateLabel>
       {props.date ? (
         <DifferenceLabel>{capitalizeSentence(props.date?.toRelative() ?? '')}</DifferenceLabel>
       ) : (
@@ -42,17 +45,17 @@ const Container = styled.div({
   fontFamily: 'Inter, sans-serif',
 });
 
-const DateLabel = styled.div({
+const DateLabel = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontWeight: 400,
   fontSize: '11px',
   lineHeight: '13px',
-  color: '#434358',
+  color: isLight ? '#434358' : '#9FAFB9',
   marginBottom: '8px',
-});
+}));
 
-const DifferenceLabel = styled.div({
+const DifferenceLabel = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontWeight: 600,
   fontSize: '14px',
   lineHeight: '17px',
-  color: '#231536',
-});
+  color: isLight ? '#231536' : '#EDEFFF',
+}));
