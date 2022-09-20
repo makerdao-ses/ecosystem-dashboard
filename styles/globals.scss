@@ -1,29 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Cantarell&family=Lobster&display=swap');
 @import 'simplebar/dist/simplebar.min.css';
-@font-face {
-  font-family: 'FT Base';
-  src: url('../assets/fonts/FT_Base/FTBase-Bold.otf');
-  font-weight: 700;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'FT Base';
-  src: url('../assets/fonts/FT_Base/FTBase-Medium.otf');
-  font-weight: 500;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'FT Base';
-  src: url('../assets/fonts/FT_Base/FTBase-Regular.otf');
-  font-weight: 400;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'FT Base';
-  src: url('../assets/fonts/FT_Base/FTBase-Light.otf');
-  font-style: normal;
-  font-weight: 300;
-}
 
 @font-face {
   font-family: 'SF Pro Display';
@@ -115,7 +91,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: FT Base, sans-serif;
+  font-family: Inter, sans-serif;
   color: #231536;
 }
 
