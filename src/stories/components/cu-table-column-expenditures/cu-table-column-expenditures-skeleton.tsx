@@ -57,7 +57,7 @@ const Container = styled.div({
   display: 'flex',
   gap: '8px',
   margin: '21px 0',
-  '@media (min-width: 1180px)': {
+  '@media (min-width: 1194px)': {
     margin: '34px 0px 23px',
   },
 });

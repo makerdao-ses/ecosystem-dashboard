@@ -150,7 +150,7 @@ const Wrapper = styled.div({
   maxWidth: '1312px',
   margin: '0 auto',
   paddingBottom: '8px',
-  '@media (min-width: 1180px) and (max-width: 1410px)': {
+  '@media (min-width: 1194px) and (max-width: 1410px)': {
     maxWidth: '1130px',
   },
 });
@@ -161,7 +161,7 @@ const Header = styled.div({
   alignItems: 'center',
   marginBottom: '32px',
   minWidth: '330px',
-  '@media (min-width: 834px) and (max-width: 1180px)': {
+  '@media (min-width: 834px) and (max-width: 1194px)': {
     flexDirection: 'column',
     gap: '24px',
     alignItems: 'flex-start',

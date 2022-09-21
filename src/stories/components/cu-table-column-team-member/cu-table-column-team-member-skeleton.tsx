@@ -58,7 +58,7 @@ const Container = styled.div({
   display: 'flex',
   gap: '5px',
   padding: '0px 0',
-  '@media (min-width: 1180px)': {
+  '@media (min-width: 1194px)': {
     justifyContent: 'center',
     padding: '32px 0 29px 50px',
   },

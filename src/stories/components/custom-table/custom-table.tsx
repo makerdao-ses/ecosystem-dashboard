@@ -106,7 +106,7 @@ const TableRow = styled.div<{ isLight: boolean; isLoading?: boolean }>(({ isLigh
   boxShadow: isLight
     ? '0px 0px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
     : '0px 20px 40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
-  '@media (min-width: 1180px) and (max-width: 1280px)': {
+  '@media (min-width: 1194px) and (max-width: 1280px)': {
     gridTemplateColumns: '360px 215px 205px 340px',
   },
   ':hover': {
@@ -117,7 +117,7 @@ const TableRow = styled.div<{ isLight: boolean; isLoading?: boolean }>(({ isLigh
 const TableHeadRow = styled.div({
   display: 'inline-grid',
   gridTemplateColumns: '400px 215px 205px 358px',
-  '@media (min-width: 1180px) and (max-width: 1280px)': {
+  '@media (min-width: 1194px) and (max-width: 1280px)': {
     gridTemplateColumns: '360px 215px 205px 340px',
   },
 });

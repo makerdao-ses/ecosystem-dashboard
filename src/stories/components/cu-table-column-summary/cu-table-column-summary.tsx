@@ -155,7 +155,7 @@ const Container = styled.div({
   '@media (min-width: 834px)': {
     padding: '8px 0 16px',
   },
-  '@media (min-width: 1180px)': {
+  '@media (min-width: 1194px)': {
     padding: '24px 16px',
   },
 });

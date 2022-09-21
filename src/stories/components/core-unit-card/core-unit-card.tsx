@@ -177,11 +177,11 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
        "links links"`,
   },
   '@media (min-width: 685px)': {
-    gridTemplateColumns: '3.5fr 2fr',
-    gridTemplateAreas: `"summary expenditure"
-       "team lastModified"
-       "line line"
-       "categories links"
+    gridTemplateColumns: '2.5fr 1fr 2fr',
+    gridTemplateAreas: `"summary summary expenditure"
+       "team team lastModified"
+       "line line line"
+       "categories links links"
        `,
   },
   '@media (min-width: 834px)': {
@@ -197,6 +197,8 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 const Summary = styled.div({
   gridArea: 'summary',
   display: 'block',
+  paddingRight: '8px',
+  minWidth: '320px',
 });
 
 const Expenditure = styled.div({
