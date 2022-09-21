@@ -1,7 +1,6 @@
 import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
 import { LinkIcon } from '../svg/link-icon';
-import lightTheme from '../../../../styles/theme/light';
 
 interface CustomLinkProps {
   children: JSX.Element | JSX.Element[] | string;
@@ -102,15 +101,5 @@ const Container = styled.a<{
     whiteSpace: 'nowrap',
     background: 'transparent',
     paddingRight: '4px',
-    [lightTheme.breakpoints.between('table_375', 'desktop_1194')]: {
-      fontWeight: 600,
-      fontSize: '12px',
-      lineHeight: '15px',
-    },
-    [lightTheme.breakpoints.up('desktop_1194')]: {
-      fontWeight: 600,
-      fontSize: '12px',
-      lineHeight: '15px',
-    },
   })
 );
