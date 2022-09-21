@@ -365,7 +365,7 @@ export const useTransparencyActualsMvvm2 = (
           items: [
             {
               column: breakdownColumns[0],
-              value: i === 1 ? groupedKey : '',
+              value: i === 1 && groupedKey !== 'null' ? groupedKey : '',
             },
             {
               column: breakdownColumns[1],

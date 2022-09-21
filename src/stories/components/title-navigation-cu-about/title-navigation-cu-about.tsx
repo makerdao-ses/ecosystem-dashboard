@@ -187,26 +187,24 @@ const TypographyTitle = styled(Typography, { shouldForwardProp: (prop) => prop !
   })
 );
 
-const TypographySES = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
-  ({ isLight }) => ({
-    fontStyle: 'normal',
-    fontWeight: 500,
-    fontSize: '24px',
-    lineHeight: '29px',
-    color: isLight ? '#9FAFB9' : '#546978',
-    fontFamily: 'FT Base, sans-serif',
-    [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-      fontWeight: 700,
-      fontSize: '16px',
-      lineHeight: '19px',
-    },
-    [lightTheme.breakpoints.down('table_375')]: {
-      fontWeight: 700,
-      fontSize: '16px',
-      lineHeight: '19px',
-    },
-  })
-);
+const TypographySES = styled(Typography)<{ isLight: boolean }>(({ isLight }) => ({
+  fontStyle: 'normal',
+  fontWeight: 500,
+  fontSize: '24px',
+  lineHeight: '29px',
+  color: isLight ? '#9FAFB9' : '#546978',
+  fontFamily: 'FT Base, sans-serif',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    fontWeight: 700,
+    fontSize: '16px',
+    lineHeight: '19px',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
+    fontWeight: 700,
+    fontSize: '16px',
+    lineHeight: '19px',
+  },
+}));
 
 const Row = styled.div({
   display: 'flex',
