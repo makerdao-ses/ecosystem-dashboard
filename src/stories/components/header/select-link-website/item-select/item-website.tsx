@@ -91,6 +91,13 @@ export const ItemWebSite = ({
             height: '34px',
             padding: '8px 24px',
           }}
+          styleText={{
+            fontFamily: 'Inter, sans-serif',
+            fontStyle: 'normal',
+            fontWeight: 500,
+            fontSize: '14px',
+            lineHeight: '18px',
+          }}
         />
       </BottomLinkWrapper>
     </Container>
@@ -171,8 +178,8 @@ const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => 
   fontFamily: 'Inter, sans serif',
   fontStyle: 'normal',
   fontWeight: 400,
-  fontSize: '16px',
-  lineHeight: '19px',
+  fontSize: '14px',
+  lineHeight: '17px',
   color: isLight ? '#231536' : '#EDEFFF',
 }));
 

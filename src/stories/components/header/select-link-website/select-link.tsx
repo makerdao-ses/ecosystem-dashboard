@@ -204,7 +204,11 @@ const Line = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 
 const DarkModeText = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   marginRight: '2px',
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 600,
   fontSize: '14px',
+  lineHeight: '17px',
   color: isLight ? '#31424E' : '#D2D4EF',
 }));
 
@@ -241,7 +245,7 @@ const StyleTitle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'i
   ({ isLight }) => ({
     fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
-    fontWeight: 500,
+    fontWeight: 600,
     fontSize: '24px',
     lineHeight: '29px',
     letterSpacing: '0.4px',
@@ -255,8 +259,8 @@ const StyleDescription = styled(Typography, { shouldForwardProp: (prop) => prop 
     fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     fontWeight: 400,
-    fontSize: '16px',
-    lineHeight: '19px',
+    fontSize: '14px',
+    lineHeight: '17px',
     color: isLight ? '#231536' : '#EDEFFF',
     paddingBottom: '24px',
     letterSpacing: '0px',

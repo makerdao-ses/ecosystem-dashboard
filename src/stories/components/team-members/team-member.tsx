@@ -48,6 +48,14 @@ const StyleTypography = styled(Typography, { shouldForwardProp: (prop) => prop !
     fontSize: '20px',
     lineHeight: '24px',
     color: isLight ? '#231536' : '#D2D4EF',
+    [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+      fontFamily: 'Inter, sans-serif',
+      fontStyle: 'normal',
+      fontWeight: 600,
+      fontSize: '20px',
+      lineHeight: '24px',
+      letterSpacing: '0.4px',
+    },
   })
 );
 
@@ -62,9 +70,9 @@ const Title = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLigh
     textAlign: 'center',
     fontFamily: 'Inter, sans-serif',
     letterSpacing: '0.4px',
-
     [lightTheme.breakpoints.down('table_834')]: {
       fontSize: '16px',
+      linHeight: '19px',
       fontWeight: 700,
     },
   })

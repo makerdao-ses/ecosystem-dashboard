@@ -93,7 +93,7 @@ const Container = styled.a<{
     fontWeight,
     fontFamily,
     fontSize: `${fontSizeMobile || fontSize}px`,
-    lineHeight: lineHeight || '19px',
+    lineHeight,
     letterSpacing: '1px',
     color: '#447AFB',
     textDecoration: 'none',
@@ -102,7 +102,7 @@ const Container = styled.a<{
     whiteSpace: 'nowrap',
     background: 'transparent',
     paddingRight: '4px',
-    [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    [lightTheme.breakpoints.between('table_375', 'desktop_1194')]: {
       fontWeight: 600,
       fontSize: '12px',
       lineHeight: '15px',

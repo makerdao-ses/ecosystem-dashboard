@@ -265,7 +265,7 @@ const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => 
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: '12px',
-    lineHeight: '14px',
+    lineHeight: '18px',
   },
 }));
 

@@ -75,7 +75,7 @@ const RelateMips = ({ relateMips }: Props) => {
                 fontStyle: 'normal',
                 fontWeight: 500,
                 fontSize: isTable ? '14px' : '16px',
-                lineHeight: '19px',
+                lineHeight: '18px',
                 letterSpacing: '0.3px',
                 color: '#447AFB',
                 marginLeft: '0px',
@@ -88,7 +88,7 @@ const RelateMips = ({ relateMips }: Props) => {
       )}
       {pieces.length === 1 && (
         <RowUnderLine>
-          <Typography color="#447AFB" fontFamily={'SF Pro Display, sans-serif'}>
+          <Typography color="#447AFB" fontFamily={'Inter, sans-serif'}>
             {' '}
             {relateMips.mipTitle}
           </Typography>
@@ -169,7 +169,7 @@ const ContainerIconTypography = styled.div({
 
 const StyleMipNumber = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
   ({ isLight }) => ({
-    fontSize: '16px',
+    fontSize: '14px',
     minWidth: '135px',
     display: 'inline-block',
     marginRight: '4px',
@@ -178,8 +178,7 @@ const StyleMipNumber = styled(Typography, { shouldForwardProp: (prop) => prop !=
     color: isLight ? '#231536' : '#D2D4EF',
     fontWeight: 500,
     paddingTop: '3px',
-    lineHeight: '19px',
-
+    lineHeight: '22px',
     [lightTheme.breakpoints.up('table_834')]: {
       fontSize: '16px',
     },

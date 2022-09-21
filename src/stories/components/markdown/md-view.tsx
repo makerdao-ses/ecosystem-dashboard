@@ -134,7 +134,13 @@ const TypographyStyleDescription = styled(Typography, { shouldForwardProp: (prop
   fontSize: '20px',
   lineHeight: isLight ? '19px' : '24px',
   color: isLight ? '#231536' : ' #D2D4EF;',
-
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    fontFamily: 'Inter',
+    fontStyle: 'normal',
+    fontWeight: 700,
+    fontSize: '16px',
+    lineHeight: '19px',
+  },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     marginBottom: '16px',
   },

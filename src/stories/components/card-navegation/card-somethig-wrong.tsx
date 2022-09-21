@@ -17,6 +17,7 @@ const CardSomeThingWrong = ({ width }: Props) => {
       title="Something Wrong on this Page?"
       height={'auto'}
       width={width}
+      fontWeight={600}
       color={isLight ? '#231536' : '#D2D4EF'}
       fontSize="20px"
     >
@@ -79,7 +80,7 @@ const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => 
   marginBottom?: string;
   isLight: boolean;
 }>(({ isLight, marginBottom }) => ({
-  fontFamily: 'SF Pro Text, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
   lineHeight: '24px',

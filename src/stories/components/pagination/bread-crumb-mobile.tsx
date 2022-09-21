@@ -197,8 +197,8 @@ const StyleActualCoreUnit = styled(Typography, { shouldForwardProp: (prop) => pr
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
-  fontSize: '12px',
-  lineHeight: '24px',
+  fontSize: '10px',
+  lineHeight: '20px',
   letterSpacing: 'none',
   color: isLight ? '#231536' : '#D2D4EF',
 }));
@@ -208,8 +208,8 @@ const StyleTextCoreUnit = styled(Typography, { shouldForwardProp: (prop) => prop
     fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     fontWeight: 400,
-    fontSize: '12px',
-    lineHeight: '24px',
+    fontSize: '10px',
+    lineHeight: '20px',
     color: isLight ? '#626472' : '#546978',
   })
 );
@@ -218,7 +218,7 @@ const StyleTitle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'i
   ({ isLight }) => ({
     fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
-    fontWeight: 500,
+    fontWeight: 600,
     fontSize: '11px',
     lineHeight: '13px',
     textAlign: 'center',
