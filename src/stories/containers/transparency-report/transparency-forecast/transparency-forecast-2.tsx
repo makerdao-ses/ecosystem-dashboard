@@ -8,10 +8,15 @@ import { Title } from '../transparency-report';
 import { AdvancedInnerTable } from '../../../components/advanced-inner-table/advanced-inner-table';
 import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
 import { Tabs } from '../../../components/tabs/tabs';
+import { LinkDescription } from '../transparency-actuals/transparency-actuals-2';
+import { CustomLink } from '../../../components/custom-link/custom-link';
+import { formatCode } from '../../../../core/utils/string.utils';
+import { MAKER_BURN_LINK } from '../../../../core/utils/const';
 
 interface Props {
   currentMonth: DateTime;
   budgetStatements: BudgetStatementDto[];
+  code: string;
 }
 
 export const TransparencyForecast2 = (props: Props) => {
@@ -30,6 +35,29 @@ export const TransparencyForecast2 = (props: Props) => {
 
   return (
     <Container>
+      <LinkDescription isLight={isLight}>
+        To see the onchain transactions from the Maker Protocol to the {formatCode(props.code)} Core Unit
+        <CustomLink
+          href={MAKER_BURN_LINK}
+          style={{
+            flexWrap: 'wrap',
+            color: '#447AFB',
+            letterSpacing: '0.3px',
+            lineHeight: '18px',
+            marginBottom: '16px',
+            marginLeft: '4px',
+            whiteSpace: 'break-spaces',
+            display: 'inline-block',
+          }}
+          fontSize={16}
+          fontWeight={500}
+          iconWidth={10}
+          iconHeight={10}
+          marginLeft="7px"
+        >
+          visit makerburn.com
+        </CustomLink>
+      </LinkDescription>
       <Title isLight={isLight} marginBottom={16}>
         {props.currentMonth.toFormat('MMM yyyy')} Totals
       </Title>
@@ -45,16 +73,18 @@ export const TransparencyForecast2 = (props: Props) => {
         {props.currentMonth.toFormat('MMM yyyy')} Breakdown
       </Title>
 
-      {!!breakdownItems.length && <Tabs
-        items={breakdownTabs.map((header, i) => {
-          return {
-            item: header,
-            id: headerIds[i],
-          };
-        })}
-        style={{ marginBottom: '64px' }}
-        currentIndex={thirdIndex}
-      />}
+      {!!breakdownItems.length && (
+        <Tabs
+          items={breakdownTabs.map((header, i) => {
+            return {
+              item: header,
+              id: headerIds[i],
+            };
+          })}
+          style={{ marginBottom: '64px' }}
+          currentIndex={thirdIndex}
+        />
+      )}
 
       <AdvancedInnerTable
         columns={breakdownHeaders}

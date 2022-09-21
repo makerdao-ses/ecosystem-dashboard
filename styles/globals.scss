@@ -80,12 +80,36 @@
   font-weight: 700;
   font-style: normal;
 }
+@font-face {
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter/Inter-SemiBold.ttf');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter/Inter-Medium.ttf');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter/Inter-Regular.ttf');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter/Inter-Light.ttf');
+  font-weight: 300;
+  font-style: normal;
+}
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: FT Base, sans-serif;
+  font-family: Inter, sans-serif;
   color: #231536;
 }
 
