@@ -69,6 +69,7 @@ export const initialState = {
         twitter: 'https://twitter.com',
         discord: '',
         website: '',
+        github: '',
       })
       .build(),
     // -- Core Unit --
@@ -115,6 +116,7 @@ export const initialState = {
         twitter: '',
         discord: '',
         website: '',
+        github: '',
       })
       .build(),
     // -- Core Unit --
@@ -159,6 +161,7 @@ export const initialState = {
         twitter: '',
         discord: '',
         website: '',
+        github: '',
       })
       .build(),
     // -- Core Unit --
@@ -197,6 +200,7 @@ export const initialState = {
         twitter: '',
         discord: 'http://discord.com',
         website: '',
+        github: '',
       })
       .build(),
     // -- Core Unit --
@@ -233,6 +237,7 @@ export const initialState = {
         twitter: '',
         discord: '',
         website: '',
+        github: '',
       })
       .build(),
     // -- Core Unit --
@@ -268,6 +273,7 @@ export const initialState = {
         twitter: '',
         discord: '',
         website: '',
+        github: '',
       })
       .build(),
     // -- Core Unit --
@@ -284,6 +290,7 @@ export const initialState = {
         twitter: '',
         discord: '',
         website: '',
+        github: '',
       })
       .build(),
   ],
