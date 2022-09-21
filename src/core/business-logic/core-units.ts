@@ -289,7 +289,7 @@ export const getLastMonthWithActualOrForecast = (budgetStatements: BudgetStateme
   return DateTime.now();
 };
 
-export const getLasMonthWithData = (budgetStatements: BudgetStatementDto[]) => {
+export const getLastMonthWithData = (budgetStatements: BudgetStatementDto[]) => {
   const orderedStatements = _.sortBy(budgetStatements, (bs) => bs.month).reverse();
 
   for (const bs of orderedStatements) {

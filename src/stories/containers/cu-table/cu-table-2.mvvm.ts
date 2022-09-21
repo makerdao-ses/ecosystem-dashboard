@@ -3,7 +3,7 @@ import { useCallback, useMemo, useState } from 'react';
 import {
   getExpenditureValueFromCoreUnit,
   getFTEsFromCoreUnit,
-  getLasMonthWithData,
+  getLastMonthWithData,
   getLatestMip39FromCoreUnit,
 } from '../../../core/business-logic/core-units';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
@@ -175,8 +175,8 @@ export const useCoreUnitsTableMvvm = () => {
       (getFTEsFromCoreUnit(a) - getFTEsFromCoreUnit(b)) * multiplier;
     const lastModifiedSort = (a: CoreUnitDto, b: CoreUnitDto) => {
       return (
-        ((getLasMonthWithData(a.budgetStatements)?.toMillis() ?? Number.MAX_VALUE) -
-          (getLasMonthWithData(b.budgetStatements)?.toMillis() ?? Number.MAX_VALUE)) *
+        ((getLastMonthWithData(a.budgetStatements)?.toMillis() ?? Number.MAX_VALUE) -
+          (getLastMonthWithData(b.budgetStatements)?.toMillis() ?? Number.MAX_VALUE)) *
         multiplier
       );
     };

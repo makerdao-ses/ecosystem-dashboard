@@ -7,6 +7,7 @@ import {
   getExpenditureValueFromCoreUnit,
   getFacilitatorsFromCoreUnit,
   getFTEsFromCoreUnit,
+  getLastMonthWithData,
   getLast3ExpenditureValuesFromCoreUnit,
   getLast3MonthsWithDataFormatted,
   getLatestMip39FromCoreUnit,
@@ -28,6 +29,7 @@ import Skeleton from '@mui/material/Skeleton';
 import { buildQueryString } from '../../../core/utils/url.utils';
 import { useRouter } from 'next/router';
 import lightTheme from '../../../../styles/theme/light';
+import { CuTableColumnLastModified } from '../cu-table-column-last-modified/cu-table-column-last-modified';
 
 interface CoreUnitCardProps {
   coreUnit: CoreUnitDto;
@@ -106,6 +108,14 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
               fte={getFTEsFromCoreUnit(coreUnit)}
             />
           </Team>
+          <LastModified>
+            <Title style={{ marginBottom: '16px' }}>Last Modified</Title>
+            <CuTableColumnLastModified
+              date={getLastMonthWithData(coreUnit.budgetStatements)}
+              isLoading={!coreUnit}
+              isCard
+            />
+          </LastModified>
           <Line isLight={isLight} />
           {!isLoading ? (
             <Categories>
@@ -152,6 +162,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   gridTemplateAreas: `"summary"
      "expenditure"
      "team"
+     "lastModified"
      "line"
      "categories"
      "links"
@@ -160,6 +171,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     gridTemplateColumns: '3.5fr 2fr',
     gridTemplateAreas: `"summary summary"
        "expenditure team"
+       "lastModified lastModified"
        "line line"
        "categories categories" 
        "links links"`,
@@ -167,17 +179,17 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   '@media (min-width: 685px)': {
     gridTemplateColumns: '3.5fr 2fr',
     gridTemplateAreas: `"summary expenditure"
-       "team team"
+       "team lastModified"
        "line line"
        "categories links"
        `,
   },
   '@media (min-width: 834px)': {
-    gridTemplateColumns: '3.5fr 2fr 1fr',
+    gridTemplateColumns: '2.5fr 1fr 1fr 1fr',
     paddingBottom: '8px',
-    gridTemplateAreas: `"summary expenditure team"
-       "line line line"
-       "categories links links"`,
+    gridTemplateAreas: `"summary expenditure team lastModified"
+       "line line line line"
+       "categories categories links links"`,
     padding: '24px 16px 8px',
   },
 }));
@@ -199,16 +211,35 @@ const Team = styled.div({
   gridArea: 'team',
   paddingTop: '32px',
   width: 'fit-content',
-
   '@media (min-width: 375px)': {
-    marginLeft: 'auto',
+    marginLeft: '0auto',
   },
   '@media (min-width: 685px) and (max-width: 834px)': {
     paddingTop: '0',
-    marginLeft: '0',
   },
   '@media (min-width: 834px)': {
     paddingTop: '0',
+    margin: '0 auto',
+  },
+});
+
+const LastModified = styled.div({
+  gridArea: 'lastModified',
+  marginTop: '32px',
+  width: 'fit-content',
+  '@media (min-width: 375px)': {
+    marginLeft: 0,
+  },
+  '@media (min-width: 685px) and (max-width: 834px)': {
+    marginTop: '0',
+    marginLeft: '0',
+  },
+  '@media (min-width: 834px)': {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    marginTop: '0',
+    width: '100%',
   },
 });
 

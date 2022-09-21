@@ -3,7 +3,7 @@ import {
   getExpenditureValueFromCoreUnit,
   getFacilitatorsFromCoreUnit,
   getFTEsFromCoreUnit,
-  getLasMonthWithData,
+  getLastMonthWithData,
   getLast3ExpenditureValuesFromCoreUnit,
   getLast3MonthsWithDataFormatted,
   getLatestMip39FromCoreUnit,
@@ -111,5 +111,5 @@ export const renderCard = (coreUnit: CoreUnitDto, key?: number) => {
 
 export const renderLastModified = (coreUnit: CoreUnitDto) => {
   if (!coreUnit) return <CuTableColumnLastModified date={undefined} isLoading={!coreUnit} />;
-  return <CuTableColumnLastModified date={getLasMonthWithData(coreUnit.budgetStatements)} />;
+  return <CuTableColumnLastModified date={getLastMonthWithData(coreUnit.budgetStatements)} />;
 };
