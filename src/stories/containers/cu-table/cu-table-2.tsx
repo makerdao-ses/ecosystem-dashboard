@@ -128,7 +128,7 @@ const ContainerHome = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   padding: '32px 16px 128px',
-  marginTop: '64px',
+  margin: '64px auto 0',
   width: '100%',
   background: isLight ? '#FFFFFF' : '#000000',
   backgroundImage: isLight ? '#FFFFFF' : 'linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 16, 32, 0.4) 100%)',
@@ -150,7 +150,7 @@ const Wrapper = styled.div({
   maxWidth: '1312px',
   margin: '0 auto',
   paddingBottom: '8px',
-  '@media (min-width: 1180px) and (max-width:1280px)': {
+  '@media (min-width: 1180px) and (max-width: 1410px)': {
     maxWidth: '1130px',
   },
 });

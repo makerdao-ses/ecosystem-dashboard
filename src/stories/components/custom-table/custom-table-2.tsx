@@ -15,6 +15,7 @@ export interface CustomTableColumn {
   isCardHeader?: boolean;
   isCardFooter?: boolean;
   width?: string;
+  responsiveWidth?: string;
   hidden?: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onClick?: (param: any) => void;
@@ -135,7 +136,8 @@ const TableRow = styled.div<{ isLight: boolean; isLoading?: boolean; columns: Cu
   ({ isLight, isLoading, columns }) => ({
     background: isLight ? 'white' : '#10191F',
     display: 'grid',
-    gridTemplateColumns: columns?.reduce((prev, curr) => `${prev} ${curr.width}`, ''),
+    gridTemplateColumns: columns?.reduce((prev, curr) => `${prev} ${curr.responsiveWidth ?? curr.width}`, ''),
+    gridTemplateRows: '120px',
     marginTop: '16px',
     boxShadow: isLight
       ? '0px 0px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
@@ -143,12 +145,19 @@ const TableRow = styled.div<{ isLight: boolean; isLoading?: boolean; columns: Cu
     ':hover': {
       background: !isLoading ? (isLight ? '#ECF1F3' : '#1E2C37') : isLight ? 'white' : '#10191F',
     },
+    '@media (min-width: 1410px)': {
+      gridTemplateColumns: columns?.reduce((prev, curr) => `${prev} ${curr.width}`, ''),
+      gridTemplateRows: '98px',
+    },
   })
 );
 
 const TableHeadRow = styled.div<{ columns: CustomTableColumn[] }>(({ columns }) => ({
   display: 'inline-grid',
-  gridTemplateColumns: columns?.reduce((prev, curr) => `${prev} ${curr.width}`, ''),
+  gridTemplateColumns: columns?.reduce((prev, curr) => `${prev} ${curr.responsiveWidth ?? curr.width}`, ''),
+  '@media (min-width: 1410px)': {
+    gridTemplateColumns: columns?.reduce((prev, curr) => `${prev} ${curr.width}`, ''),
+  },
 }));
 
 const TableCell = styled.div({
@@ -163,7 +172,7 @@ const TableBody = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 
 const TableWrapper = styled.div({
   display: 'none',
-  '@media (min-width: 1410px)': {
+  '@media (min-width: 1194px)': {
     display: 'flex',
   },
 });
@@ -171,7 +180,7 @@ const TableWrapper = styled.div({
 const ListWrapper = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  '@media (min-width: 1410px)': {
+  '@media (min-width: 1194px)': {
     display: 'none',
   },
 });

@@ -160,6 +160,7 @@ export const useCoreUnitsTableMvvm = () => {
       cellRender: renderLinks,
       onClick: onClickRow,
       width: '358px',
+      responsiveWidth: '186px',
     },
   ];
 

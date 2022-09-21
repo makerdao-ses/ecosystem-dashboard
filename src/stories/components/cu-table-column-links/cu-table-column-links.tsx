@@ -28,6 +28,7 @@ interface CuTableColumnLinksProps {
   lastChild?: boolean;
   align?: 'flex-start' | 'center' | 'flex-end';
   isLoading?: boolean;
+  isIndex?: boolean;
 }
 
 const getImageForLink = (link: LinkModel, fill: string, width?: number, height?: number, fillDark?: string) => {
@@ -63,10 +64,11 @@ export const CuTableColumnLinks = ({
   lastChild = false,
   fillDark,
   isLoading = false,
+  isIndex,
 }: CuTableColumnLinksProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   return !isLoading ? (
-    <Container spacings={spacings} align={align}>
+    <Container isIndex={isIndex} spacings={spacings} align={align}>
       {links?.map((link, i) => (
         <StyleBox lastChild={lastChild} key={`link-${i}`}>
           <LinkImage
@@ -87,11 +89,21 @@ export const CuTableColumnLinks = ({
   );
 };
 
-const Container = styled.div<{ spacings?: number; align: string }>(({ spacings, align }) => ({
+const Container = styled.div<{ spacings?: number; align: string; isIndex?: boolean }>((props) => ({
   display: 'flex',
   alignItems: 'center',
-  justifyContent: align,
-  gap: `${spacings ?? 0}px`,
+  justifyContent: props.align,
+  gap: `${props.spacings ?? 0}px`,
+  '@media (min-width: 1194px)': {
+    maxWidth: '240px',
+    flexWrap: 'wrap',
+    gap: '0 8px',
+    padding: '24px 0',
+  },
+  '@media (min-width: 1410px)': {
+    maxWidth: 'unset',
+    flexWrap: 'nowrap',
+  },
 }));
 
 type StickyLinkProps = {
@@ -115,7 +127,9 @@ const LinkImage = styled.a(
   })
 );
 
-const StyleBox = styled(Box, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ lastChild?: boolean }>((props) => ({
+const StyleBox = styled(Box, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
+  lastChild?: boolean;
+}>((props) => ({
   '&:last-child': props.lastChild && {
     display: 'flex',
     alignItems: 'center',
