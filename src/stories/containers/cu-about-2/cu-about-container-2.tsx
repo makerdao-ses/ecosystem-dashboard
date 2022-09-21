@@ -45,7 +45,6 @@ const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
     showThreeMIPs,
     setShowThreeMIPs,
   });
-
   return (
     <ContainerAbout isLight={isLight}>
       <SEOHead

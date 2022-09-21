@@ -11,6 +11,7 @@ import { Box } from '@mui/material';
 import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
 import { ColumnLinksSkeleton } from './cu-table-column-links-skeleton';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import Github from '../svg/github';
 
 export interface LinkModel {
   href: string;
@@ -45,6 +46,8 @@ const getImageForLink = (link: LinkModel, fill: string, width?: number, height?:
       return <LinkedIn fill={fill} width={width} height={height} fillDark={fillDark} />;
     case LinkTypeEnum.Gmail:
       return <Gmail fill={fill} width={width} height={height} fillDark={fillDark} />;
+    case LinkTypeEnum.Github:
+      return <Github fill={fill} width={width} height={height} fillDark={fillDark} />;
     default:
       return <WWW />;
   }
