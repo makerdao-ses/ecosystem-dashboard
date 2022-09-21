@@ -19,6 +19,7 @@ const CardSomeThingWrong = ({ width }: Props) => {
       width={width}
       color={isLight ? '#231536' : '#D2D4EF'}
       fontSize="20px"
+      padding="16px 16px 24px 16px"
     >
       <TypographyDescription marginBottom={'16px'} isLight={isLight}>
         Is this your core unit?
@@ -46,7 +47,6 @@ const CardSomeThingWrong = ({ width }: Props) => {
         iconWidth={10}
         iconHeight={10}
         marginLeft="7px"
-        fontFamily="SF Pro Display, sans-serif"
       >
         Join SES discord #dashboard-reporting channel
       </CustomLink>
@@ -65,7 +65,6 @@ const CardSomeThingWrong = ({ width }: Props) => {
         fontSize={16}
         fontWeight={500}
         marginLeft="7px"
-        fontFamily="SF Pro Display, sans-serif"
       >
         Or fill out this Typeform
       </CustomLink>

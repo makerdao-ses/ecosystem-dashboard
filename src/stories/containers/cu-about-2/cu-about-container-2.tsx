@@ -367,7 +367,7 @@ const ContainerAllData = styled.div({
   },
 });
 
-const DividerStyle = styled(Divider)({
+export const DividerStyle = styled(Divider)({
   width: '100%',
 });
 
