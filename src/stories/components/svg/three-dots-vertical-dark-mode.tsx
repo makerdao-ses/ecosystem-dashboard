@@ -8,10 +8,10 @@ interface Props {
   onClick?: () => void;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
 const ThreeDotsVerticalDarkMode = ({
   fill = '#EDEFFF',
   height = 35,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onClick = () => {},
   style = {},
   width = 35,

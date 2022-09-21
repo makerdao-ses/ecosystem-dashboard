@@ -9,13 +9,13 @@ interface Props {
   fillThereDots?: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
 const ThreeDotsWithCircleGreen = ({
   width = 16,
   height = 16,
   fill = '#B6EDE7',
   fillThereDots = '#1AAB9B',
   style = {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onClick = () => {},
   ...props
 }: Props) => {
