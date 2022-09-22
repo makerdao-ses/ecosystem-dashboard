@@ -78,13 +78,13 @@ const Container = styled.div<{ minWidth: number; isLight: boolean; checked: bool
 const Label = styled.span({
   marginLeft: '8px',
   flex: 1,
-  fontFamily: 'SF Pro Text',
+  fontFamily: 'Inter, sans-serif',
   fontSize: '14px',
   fontWeight: 400,
 });
 
 const Number = styled.span<{ active: boolean; isLight: boolean }>(({ active, isLight }) => ({
-  fontFamily: 'SF Pro Text',
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 500,
   fontSize: '14px',
   color: active && isLight ? '#48495F' : !active && isLight ? '#9FAFB9' : active && !isLight ? '#D2D4EF' : '#787A9B',

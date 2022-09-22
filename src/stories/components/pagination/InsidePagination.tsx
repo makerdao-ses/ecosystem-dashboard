@@ -57,7 +57,7 @@ const Arrows = styled.div({
 const StyleActualCoreUnit = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
   isLight: boolean;
 }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
   fontSize: '16px',
@@ -68,11 +68,11 @@ const StyleActualCoreUnit = styled(Typography, { shouldForwardProp: (prop) => pr
 
 const StyleTextCoreUnit = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
   ({ isLight }) => ({
-    fontFamily: 'FT Base, sans-serif',
+    fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: '16px',
-    lineHeight: '19px',
+    lineHeight: '22px',
     letterSpacing: '0.4px',
     color: isLight ? '#626472' : '#ADAFD4',
   })

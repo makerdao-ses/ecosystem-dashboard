@@ -16,7 +16,7 @@ const BreadCrumb = ({ isCoreUnit = false, count, breadcrumbs }: Props) => {
     <Stack direction="row">
       <BreadcrumbsStyle separator={<BreadcrumbSeparator />} aria-label="breadcrumb">
         {isCoreUnit && (
-          <Typography key="1" color="#708390" fontFamily={'FT Base, sans-serif'}>
+          <Typography key="1" color="#708390" fontFamily={'Inter, sans-serif'}>
             {`Core Units (${count})`}
           </Typography>
         )}
@@ -38,7 +38,7 @@ const BreadcrumbsStyle = styled(Breadcrumbs)({
       fontWeight: 500,
       fontSize: '16px',
       lineHeight: '19px',
-      fontFamily: 'FT Base, sans-serif',
+      fontFamily: 'Inter, sans-serif',
     },
   },
   '& .MuiBreadcrumbs-separator': {
@@ -54,7 +54,7 @@ const TypographyStyle = styled(Typography, { shouldForwardProp: (prop) => prop !
   lineHeight: '19px',
   letterSpacing: '0.4px',
   color: ' #708390',
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
 });
 
 export default BreadCrumb;

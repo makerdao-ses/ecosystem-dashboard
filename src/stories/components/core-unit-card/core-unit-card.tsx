@@ -283,12 +283,14 @@ const Links = styled.div({
 
 const Title = styled.div<{ hideSmall?: boolean }>(({ hideSmall = false }) => ({
   display: hideSmall ? 'none' : 'block',
-  fontFamily: 'SF Pro Text',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
-  fontSize: '14px',
+  fontSize: '16px',
+  lineHeight: '22px',
   color: '#708390',
   '@media (min-width: 834px)': {
     display: 'block',
+    fontSize: '14px',
   },
 }));

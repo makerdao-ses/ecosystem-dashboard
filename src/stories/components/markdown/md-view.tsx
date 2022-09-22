@@ -81,7 +81,7 @@ const MdViewerPage = ({
               borderRadius: '22px',
               height: '34px',
               color: '#1AAB9B',
-              fontFamily: 'SF Pro Text, sans serif',
+              fontFamily: 'Inter, sans-serif',
               fontStyle: 'normal',
               fontWeight: 500,
               fontSize: '14px',
@@ -128,13 +128,19 @@ const ViewerContainer = styled.div({
 const TypographyStyleDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
   isLight: boolean;
 }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
-  fontWeight: 500,
+  fontWeight: 600,
   fontSize: '20px',
   lineHeight: isLight ? '19px' : '24px',
   color: isLight ? '#231536' : ' #D2D4EF;',
-
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    fontFamily: 'Inter',
+    fontStyle: 'normal',
+    fontWeight: 700,
+    fontSize: '16px',
+    lineHeight: '19px',
+  },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     marginBottom: '16px',
   },

@@ -120,7 +120,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           <NumberCell key={5} value={numberCellData[3]} />,
           <TextCell key={6} responsivePadding="0">
             <CustomLink
-              fontFamily={'SF Pro Display, sans-serif'}
+              fontFamily={'Inter, sans-serif'}
               href={`https://etherscan.io/address/${wallet.address}`}
               style={{ marginRight: '16px' }}
               fontSize={16}
@@ -129,7 +129,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
               Etherscan
             </CustomLink>
             <CustomLink
-              fontFamily={'SF Pro Display, sans-serif'}
+              fontFamily={'Inter, sans-serif'}
               href={`https://gnosis-safe.io/app/eth:${wallet.address}`}
               fontSize={16}
               fontSizeMobile={14}

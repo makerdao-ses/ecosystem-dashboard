@@ -176,7 +176,7 @@ const ContainerText = styled.div({
 
 const TextUps = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight?: boolean }>(
   ({ isLight }) => ({
-    fontFamily: 'FT Base, sans-serif',
+    fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     fontWeight: 700,
     fontSize: '36px',
@@ -195,7 +195,7 @@ const TextUps = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLi
 );
 
 const TextDescription = styled(Typography)({
-  fontFamily: 'FT Base,san-serif',
+  fontFamily: 'Inter,san-serif',
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '20px',

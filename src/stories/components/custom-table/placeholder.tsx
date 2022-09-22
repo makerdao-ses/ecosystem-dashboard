@@ -40,7 +40,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 }));
 
 const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base',
+  fontFamily: 'Inter',
   fontWeight: 500,
   lineHeight: '58px',
   color: isLight ? '#9FAFB9' : '#D1DEE6',
@@ -53,7 +53,7 @@ const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 }));
 
 const Description = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base',
+  fontFamily: 'Inter',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '16px',

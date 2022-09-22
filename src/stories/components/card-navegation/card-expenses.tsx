@@ -33,7 +33,7 @@ const CardExpenses = ({ onClick, code }: Props) => {
           borderRadius: '22px',
           height: ' 34px',
           color: '#1AAB9B',
-          fontFamily: 'SF Pro Text, sans serif',
+          fontFamily: 'Inter, sans serif',
           fontStyle: 'normal',
           fontWeight: 500,
           fontSize: '14px',
@@ -55,7 +55,7 @@ const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => 
   marginBottom?: string;
   isLight: boolean;
 }>(({ isLight, marginBottom }) => ({
-  fontFamily: 'SF Pro Text, sans serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '15px',

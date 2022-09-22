@@ -63,9 +63,9 @@ const Container = styled.div({
 });
 
 const TotalFte = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
-  fontWeight: 700,
+  fontWeight: 600,
   fontSize: '16px',
   lineHeight: '19px',
   color: isLight ? '#231536' : '#D2D4EF',
@@ -75,7 +75,7 @@ const TotalFte = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   '> u': {
     fontStyle: 'normal',
     fontFamily: 'Inter, sans-serif',
-    fontWeight: 700,
+    fontWeight: 800,
     fontSize: '22px',
     lineHeight: '27px',
     paddingBottom: '2px',
@@ -89,7 +89,7 @@ const TotalFte = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 }));
 
 const Text = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 400,
   fontSize: '14px',
   lineHeight: '17px',

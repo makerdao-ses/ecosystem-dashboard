@@ -84,10 +84,9 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
               fontSize={16}
               href={HOW_TO_SUBMIT_EXPENSES}
               style={{
-                fontFamily: 'SF Pro Display, sans serif',
+                fontFamily: 'Inter, sans serif',
                 color: '#447AFB',
                 fontStyle: 'normal',
-                lineHeight: '19px',
                 letterSpacing: '0.3px',
                 marginLeft: '0px',
               }}
@@ -190,11 +189,11 @@ const RightPart = styled.div({
 const ItemMenuStyle = styled.a<{ active: boolean; marginRight?: string; isLight: boolean }>(
   ({ active, isLight, marginRight }) => ({
     display: 'none',
-    fontFamily: 'FT Base, sans-serif',
+    fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: '16px',
-    lineHeight: '19px',
+    lineHeight: '22px',
     transform: 'none',
     marginRight,
     color:

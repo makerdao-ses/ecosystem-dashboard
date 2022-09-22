@@ -66,7 +66,7 @@ const Wrapper = styled.div({
 });
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'SF Pro Text, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   display: 'flex',
   borderBottom: isLight ? '1px solid #B6EDE7' : '1px solid #405361',
   flex: 1,
@@ -76,10 +76,10 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 }));
 
 const Tab = styled.div<{ active: boolean; isLight: boolean }>(({ active, isLight }) => ({
-  fontFamily: 'SF Pro Text, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   color: active && isLight ? '#1AAB9B' : isLight && !active ? '#7E7E88' : !isLight && active ? '#1AAB9B' : '#708390',
-  fontSize: '14px',
-  lineHeight: '18px',
+  fontSize: '16px',
+  lineHeight: '22px',
   fontWeight: 400,
   paddingBottom: '12px',
   borderBottom: `2px solid ${isLight ? (active ? '#1AAB9B' : 'transparent') : active ? '#1AAB9B' : 'transparent'}`,

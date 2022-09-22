@@ -47,6 +47,9 @@ export const CuTable2 = () => {
               border: 'none',
               background: 'none',
             }}
+            styleText={{
+              lineHeight: '18px',
+            }}
             // eslint-disable-next-line @typescript-eslint/no-empty-function
             onClick={clearFilters}
             disabled={!filteredStatuses?.length && !filteredCategories?.length && !searchText}
@@ -75,6 +78,7 @@ export const CuTable2 = () => {
                 : filteredStatuses.length || filteredCategories.length || searchText
                 ? ' #1AAB9B'
                 : '#D2D4EF',
+              lineHeight: '18px',
             }}
           />
         </FilterButtonWrapper>
@@ -169,9 +173,9 @@ const Header = styled.div({
 });
 
 const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontSize: '24px',
-  fontWeight: 500,
+  fontWeight: 600,
   lineHeight: isLight ? '29px' : '38px',
   letterSpacing: '0.4px',
   flex: 1,

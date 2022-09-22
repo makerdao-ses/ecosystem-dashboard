@@ -44,27 +44,35 @@ const StyleTypography = styled(Typography, { shouldForwardProp: (prop) => prop !
   ({ isLight }) => ({
     fontStyle: 'normal',
     fontFamily: 'Inter, sans-serif',
-    fontWeight: 700,
+    fontWeight: 800,
     fontSize: '20px',
     lineHeight: '24px',
     color: isLight ? '#231536' : '#D2D4EF',
+    [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+      fontFamily: 'Inter, sans-serif',
+      fontStyle: 'normal',
+      fontWeight: 600,
+      fontSize: '20px',
+      lineHeight: '24px',
+      letterSpacing: '0.4px',
+    },
   })
 );
 
 const Title = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
   ({ isLight }) => ({
     fontStyle: 'normal',
-    fontWeight: 500,
+    fontWeight: 600,
     fontSize: '20px',
     lineHeight: '24px',
     color: isLight ? '#231536' : '#D2D4EF',
     marginLeft: '8px',
     textAlign: 'center',
-    fontFamily: 'FT Base, sans-serif',
+    fontFamily: 'Inter, sans-serif',
     letterSpacing: '0.4px',
-
     [lightTheme.breakpoints.down('table_834')]: {
       fontSize: '16px',
+      linHeight: '19px',
       fontWeight: 700,
     },
   })

@@ -148,7 +148,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
         <TextCell key={8} responsivePadding="0">
           <CustomLink
             fontSize={16}
-            fontFamily={'SF Pro Display, sans-serif'}
+            fontFamily={'Inter, sans-serif'}
             href={`https://etherscan.io/address/${wallet.address}`}
             style={{ marginRight: '16px' }}
           >
@@ -156,7 +156,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
           </CustomLink>
           <CustomLink
             fontSize={16}
-            fontFamily={'SF Pro Display, sans-serif'}
+            fontFamily={'Inter, sans-serif'}
             href={`https://gnosis-safe.io/app/eth:${wallet.address}`}
           >
             Gnosis

@@ -33,7 +33,7 @@ const Container = styled.div<{
   fontFamily?: string;
   responsivePadding?: string;
   isLight: boolean;
-}>(({ negative = false, fontFamily = 'FT Base, sans-serif', responsivePadding, isLight, bold }) => ({
+}>(({ negative = false, fontFamily = 'Inter, sans-serif', responsivePadding, isLight, bold }) => ({
   fontFamily,
   fontWeight: bold ? 700 : 400,
   lineHeight: '19px',
@@ -45,6 +45,6 @@ const Container = styled.div<{
   },
   '@media (min-width: 834px)': {
     padding: '16px',
-    lineHeight: '16px',
+    lineHeight: '19px',
   },
 }));

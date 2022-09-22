@@ -28,7 +28,7 @@ export const CustomLink = ({
   fontSize = 12,
   fontWeight = 500,
   withArrow = true,
-  fontFamily = 'FT Base, sans-serif',
+  fontFamily = 'Inter, sans-serif',
   marginLeft = '5px',
   styleIcon = {},
   border = 'none',
@@ -75,24 +75,35 @@ const Container = styled.a<{
   padding: string;
   border?: string;
   lineHeight?: string;
-}>(({ fontSize, fontSizeMobile, fontWeight, fontFamily, marginLeft = '4px', padding, border, lineHeight }) => ({
-  fontStyle: 'normal',
-  border,
-  padding,
-  fontWeight,
-  fontFamily,
-  fontSize: `${fontSizeMobile || fontSize}px`,
-  lineHeight: lineHeight || '17px',
-  letterSpacing: '1px',
-  color: '#447AFB',
-  textDecoration: 'none',
-  marginLeft,
-  cursor: 'pointer',
-  whiteSpace: 'nowrap',
-  background: 'transparent',
-  paddingRight: '4px',
-  '@media (min-width: 835px)': {
-    fontSize: `${fontSize}px`,
-    lineHeight: '19px',
-  },
-}));
+}>(
+  ({
+    fontSize,
+    fontSizeMobile,
+    fontWeight = 500,
+    fontFamily = 'Inter, sans-serif',
+    marginLeft = '4px',
+    padding,
+    border,
+    lineHeight,
+  }) => ({
+    fontStyle: 'normal',
+    border,
+    padding,
+    fontWeight,
+    fontFamily,
+    fontSize: `${fontSizeMobile || fontSize}px`,
+    lineHeight,
+    letterSpacing: '1px',
+    color: '#447AFB',
+    textDecoration: 'none',
+    marginLeft,
+    cursor: 'pointer',
+    whiteSpace: 'nowrap',
+    background: 'transparent',
+    paddingRight: '4px',
+    '@media (min-width: 835px)': {
+      fontSize: `${fontSize}px`,
+      lineHeight: '19px',
+    },
+  })
+);
