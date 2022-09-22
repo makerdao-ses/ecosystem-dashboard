@@ -11,31 +11,18 @@ export interface CuTableState {
   headersSort: SortEnum[];
 }
 
-export const sortNeutralState = [
-  SortEnum.Neutral,
-  SortEnum.Neutral,
-  SortEnum.Neutral,
-  SortEnum.Neutral,
-];
+export const sortNeutralState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral];
 
 const initialState: CuTableState = {
   items: [],
   status: 'loading',
   sortColumn: 0,
-  headersSort: [
-    SortEnum.Asc,
-    SortEnum.Neutral,
-    SortEnum.Neutral,
-    SortEnum.Neutral,
-  ],
+  headersSort: [SortEnum.Asc, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral],
 };
 
-export const loadCuTableItemsAsync = createAsyncThunk(
-  'cuTable/loadItems',
-  async() => {
-    return await fetchCoreUnits();
-  }
-);
+export const loadCuTableItemsAsync = createAsyncThunk('cuTable/loadItems', async () => {
+  return await fetchCoreUnits();
+});
 
 export const cuTableSlice = createSlice({
   name: 'cuTable',
@@ -77,8 +64,7 @@ export const cuTableSlice = createSlice({
   },
 });
 
-export const { clearTable, resetHeaderSorting, setSortColumn, setSort } =
-  cuTableSlice.actions;
+export const { clearTable, resetHeaderSorting, setSortColumn, setSort } = cuTableSlice.actions;
 
 export const selectCuTableItems = (state: RootState) => state.cuTable.items;
 export const selectCuTableStatus = (state: RootState) => state.cuTable.status;

@@ -134,6 +134,7 @@ export const Title = styled.span<{ isLight?: boolean }>(({ isLight }) => ({
   marginBottom: '8px',
   lineHeight: '13px',
   fontFamily: 'Inter, sans-serif',
+  whiteSpace: 'nowrap',
 }));
 
 const ValueWrapper = styled.div({

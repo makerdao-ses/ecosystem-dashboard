@@ -41,11 +41,8 @@ function MyApp(props: MyAppProps) {
   return (
     <Provider store={store}>
       <ThemeProvider>
-
         <SEOHead title="MakerDAO - Dashboard" description="" />
-        <FeatureFlagsProvider
-          enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}
-        >
+        <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
           <Component {...pageProps} />
         </FeatureFlagsProvider>
       </ThemeProvider>

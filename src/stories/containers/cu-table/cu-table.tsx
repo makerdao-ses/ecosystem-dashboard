@@ -389,14 +389,14 @@ const Wrapper = styled.div({
   maxWidth: '1184px',
   margin: '0 auto',
   paddingBottom: '8px',
-  '@media (min-width: 1180px) and (max-width:1280px)': {
+  '@media (min-width: 1194px) and (max-width:1280px)': {
     maxWidth: '1130px',
   },
 });
 
 const TableWrapper = styled.div({
   display: 'none',
-  '@media (min-width: 1180px)': {
+  '@media (min-width: 1194px)': {
     display: 'flex',
   },
 });
@@ -404,7 +404,7 @@ const TableWrapper = styled.div({
 const ListWrapper = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  '@media (min-width: 1180px)': {
+  '@media (min-width: 1194px)': {
     display: 'none',
   },
 });
@@ -415,7 +415,7 @@ const Header = styled.div({
   alignItems: 'center',
   marginBottom: '32px',
   minWidth: '330px',
-  '@media (min-width: 834px) and (max-width: 1180px)': {
+  '@media (min-width: 834px) and (max-width: 1194px)': {
     flexDirection: 'column',
     gap: '24px',
     alignItems: 'flex-start',

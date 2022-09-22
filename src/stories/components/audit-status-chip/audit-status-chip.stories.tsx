@@ -5,7 +5,7 @@ import { AuditStatusEnum } from '../../../core/enums/audit-status.enum';
 
 export default {
   title: 'Components/General/AuditStatusChip',
-  component: AuditStatusChip
+  component: AuditStatusChip,
 } as ComponentMeta<typeof AuditStatusChip>;
 
 const Template: ComponentStory<typeof AuditStatusChip> = (args) => <AuditStatusChip {...args} />;

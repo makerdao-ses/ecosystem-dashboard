@@ -19,35 +19,18 @@ interface TransparencyTransferRequestProps {
   budgetStatements: BudgetStatementDto[];
 }
 
-const headers = [
-  'Wallet',
-  '3 Month Forecast',
-  'Current Balance',
-  'Transfer Request',
-  'External Links',
-];
+const headers = ['Wallet', '3 Month Forecast', 'Current Balance', 'Transfer Request', 'External Links'];
 
-export const TransparencyTransferRequest = (
-  props: TransparencyTransferRequestProps
-) => {
-  const {
-    firstMonth,
-    secondMonth,
-    thirdMonth,
-    getForecastSumOfMonthsOnWallet,
-    getForecastSumForMonths,
-    wallets,
-  } = useTransparencyForecastMvvm(props.currentMonth, props.budgetStatements);
+export const TransparencyTransferRequest = (props: TransparencyTransferRequestProps) => {
+  const { firstMonth, secondMonth, thirdMonth, getForecastSumOfMonthsOnWallet, getForecastSumForMonths, wallets } =
+    useTransparencyForecastMvvm(props.currentMonth, props.budgetStatements);
 
   const {
     getCurrentBalanceForMonthOnWallet,
     getTransferRequestForMonth,
     getTransferRequestForMonthOnWallet,
     getCurrentBalanceForMonth,
-  } = useTransparencyTransferRequestMvvm(
-    props.currentMonth,
-    props.budgetStatements
-  );
+  } = useTransparencyTransferRequestMvvm(props.currentMonth, props.budgetStatements);
 
   const mainItems = useMemo(() => {
     const result: JSX.Element[][] = [];
@@ -62,21 +45,14 @@ export const TransparencyTransferRequest = (
         />,
         <NumberCell
           key={2}
-          value={getForecastSumOfMonthsOnWallet(
-            props.budgetStatements,
-            wallet?.address,
-            props.currentMonth,
-            [firstMonth, secondMonth, thirdMonth]
-          )}
+          value={getForecastSumOfMonthsOnWallet(props.budgetStatements, wallet?.address, props.currentMonth, [
+            firstMonth,
+            secondMonth,
+            thirdMonth,
+          ])}
         />,
-        <NumberCell
-          key={3}
-          value={getCurrentBalanceForMonthOnWallet(wallet?.address)}
-        />,
-        <NumberCell
-          key={4}
-          value={getTransferRequestForMonthOnWallet(wallet?.address)}
-        />,
+        <NumberCell key={3} value={getCurrentBalanceForMonthOnWallet(wallet?.address)} />,
+        <NumberCell key={4} value={getTransferRequestForMonthOnWallet(wallet?.address)} />,
         <TextCell key={5} responsivePadding="0">
           <CustomLink
             fontSize={16}
@@ -105,11 +81,11 @@ export const TransparencyTransferRequest = (
       </TextCell>,
       <NumberCell
         key={2}
-        value={getForecastSumForMonths(
-          props.budgetStatements,
-          props.currentMonth,
-          [firstMonth, secondMonth, thirdMonth]
-        )}
+        value={getForecastSumForMonths(props.budgetStatements, props.currentMonth, [
+          firstMonth,
+          secondMonth,
+          thirdMonth,
+        ])}
         bold
       />,
       <NumberCell key={3} value={getCurrentBalanceForMonth} bold />,
@@ -121,11 +97,9 @@ export const TransparencyTransferRequest = (
 
   return (
     <Container>
-      {mainItems.length - 1 <= 0
-        ? (
+      {mainItems.length - 1 <= 0 ? (
         <TransparencyEmptyTable />
-          )
-        : (
+      ) : (
         <>
           <TableWrapper>
             <InnerTable
@@ -137,11 +111,13 @@ export const TransparencyTransferRequest = (
           </TableWrapper>
 
           <CardsWrapper>
-            {(wallets.length > 1 && mainItems.length > 1) && <TransparencyCard
-               header={mainItems[mainItems.length - 1][0]}
-               headers={headers.slice(1, 4)}
-               items={mainItems[mainItems.length - 1].slice(1)}
-               />}
+            {wallets.length > 1 && mainItems.length > 1 && (
+              <TransparencyCard
+                header={mainItems[mainItems.length - 1][0]}
+                headers={headers.slice(1, 4)}
+                items={mainItems[mainItems.length - 1].slice(1)}
+              />
+            )}
             {mainItems.slice(0, mainItems.length - 1).map((item, i) => (
               <TransparencyCard
                 key={i}
@@ -153,7 +129,7 @@ export const TransparencyTransferRequest = (
             ))}
           </CardsWrapper>
         </>
-          )}
+      )}
     </Container>
   );
 };

@@ -10,12 +10,18 @@ export interface CustomTableHeaderProps {
   title: string;
   align?: 'flex-start' | 'center' | 'flex-end';
   style?: CSSProperties;
+  onSort?: () => void;
 }
 
 export const CustomTableHeader = (props: CustomTableHeaderProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   return (
-    <Container className="no-select" align={props.align} style={props.style}>
+    <Container
+      className="no-select"
+      align={props.align}
+      style={props.style}
+      onClick={props.state !== SortEnum.Disabled ? props.onSort : undefined}
+    >
       <Label isLight={isLight}>{props.title}</Label>
       {props.state !== SortEnum.Disabled && (
         <Arrows>

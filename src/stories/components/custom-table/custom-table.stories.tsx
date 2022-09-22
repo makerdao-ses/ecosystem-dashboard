@@ -7,9 +7,7 @@ export default {
   component: CustomTable,
 } as ComponentMeta<typeof CustomTable>;
 
-const Template: ComponentStory<typeof CustomTable> = (args) => (
-  <CustomTable {...args}/>
-);
+const Template: ComponentStory<typeof CustomTable> = (args) => <CustomTable {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
@@ -22,11 +20,11 @@ Default.args = {
     ['Lorem', 'Ipsum', 'Dolor', 'Sit', 'Amet'],
     ['Lorem', 'Ipsum', 'Dolor', 'Sit', 'Amet'],
     ['Lorem', 'Ipsum', 'Dolor', 'Sit', 'Amet'],
-  ]
+  ],
 };
 
 export const Empty = Template.bind({});
 Empty.args = {
   headers: ['Lorem', 'Ipsum', 'Dolor', 'Sit', 'Amet'],
-  items: []
+  items: [],
 };

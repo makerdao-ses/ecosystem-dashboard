@@ -76,7 +76,7 @@ const Container = styled.div({
   cursor: 'pointer',
   marginLeft: '7px',
 
-  '@media (min-width: 1180px)': {
+  '@media (min-width: 1194px)': {
     marginLeft: '40px',
   },
 });

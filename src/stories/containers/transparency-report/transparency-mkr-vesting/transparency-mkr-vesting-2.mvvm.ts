@@ -1,21 +1,13 @@
 import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 import { DateTime } from 'luxon';
 import { useMemo } from 'react';
-import { API_MONTH_FORMAT } from '../../../../core/utils/date.utils';
+import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
 import _ from 'lodash';
-import {
-  InnerTableColumn,
-  InnerTableRow,
-} from '../../../components/advanced-inner-table/advanced-inner-table';
+import { InnerTableColumn, InnerTableRow } from '../../../components/advanced-inner-table/advanced-inner-table';
 
-export const useTransparencyMkrVesting2 = (
-  currentMonth: DateTime,
-  budgetStatements: BudgetStatementDto[]
-) => {
+export const useTransparencyMkrVesting2 = (currentMonth: DateTime, budgetStatements: BudgetStatementDto[]) => {
   const currentBudgetStatement = useMemo(() => {
-    return budgetStatements?.find(
-      (bs) => bs.month === currentMonth.toFormat(API_MONTH_FORMAT)
-    );
+    return budgetStatements?.find((bs) => bs.month === currentMonth.toFormat(API_MONTH_TO_FORMAT));
   }, [currentMonth, budgetStatements]);
 
   const mkrVestings = useMemo(() => {
@@ -31,10 +23,7 @@ export const useTransparencyMkrVesting2 = (
       return [];
     }
 
-    return _.sumBy(
-      currentBudgetStatement?.budgetStatementMKRVest ?? [],
-      (mkr) => mkr.mkrAmount
-    );
+    return _.sumBy(currentBudgetStatement?.budgetStatementMKRVest ?? [], (mkr) => mkr.mkrAmount);
   }, [currentMonth, budgetStatements]);
 
   const totalOldAmount = useMemo(() => {
@@ -42,10 +31,7 @@ export const useTransparencyMkrVesting2 = (
       return [];
     }
 
-    return _.sumBy(
-      currentBudgetStatement?.budgetStatementMKRVest ?? [],
-      (mkr) => mkr.mkrAmountOld
-    );
+    return _.sumBy(currentBudgetStatement?.budgetStatementMKRVest ?? [], (mkr) => mkr.mkrAmountOld);
   }, [currentMonth, budgetStatements]);
 
   const FTEs = useMemo(() => {
@@ -97,8 +83,7 @@ export const useTransparencyMkrVesting2 = (
             column: mainTableColumns[2],
           },
           {
-            value:
-              Number(mkrVesting.mkrAmount) - Number(mkrVesting.mkrAmountOld),
+            value: Number(mkrVesting.mkrAmount) - Number(mkrVesting.mkrAmountOld),
             column: mainTableColumns[3],
           },
           {

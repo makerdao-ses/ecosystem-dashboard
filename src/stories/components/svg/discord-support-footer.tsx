@@ -2,23 +2,16 @@ import * as React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface Props {
-  width?: number,
-  height?: number,
-  fill?: string,
-  fillDark?: string
+  width?: number;
+  height?: number;
+  fill?: string;
+  fillDark?: string;
 }
 
 const DiscordSupport = ({ width = 19, height = 20, fill = '#211634', fillDark, ...props }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
   return (
-    <svg
-      width={width}
-      height={height}
-      viewBox="0 0 19 20"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
+    <svg width={width} height={height} viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path
         d="M7.623 7.845c-.657 0-1.175.576-1.175 1.279 0 .7.53 1.278 1.175 1.278.656 0 1.173-.578 1.173-1.278.014-.705-.517-1.28-1.173-1.28zm4.204 0c-.657 0-1.175.576-1.175 1.279 0 .7.53 1.278 1.175 1.278.656 0 1.173-.578 1.173-1.278 0-.705-.517-1.28-1.173-1.28z"
         fill={isLight ? fill : fillDark}

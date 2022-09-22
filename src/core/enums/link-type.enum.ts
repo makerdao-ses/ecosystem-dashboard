@@ -6,4 +6,5 @@ export enum LinkTypeEnum {
   Youtube = 'Youtube',
   LinkedIn = 'LinkedIn',
   Gmail = 'Gmail',
+  Github = 'Github',
 }

@@ -7,9 +7,7 @@ export const useUrlAnchor = () => {
 
   useEffect(() => {
     if (router.asPath.lastIndexOf('#') !== -1) {
-      const _anchor = router.asPath.substring(
-        router.asPath.lastIndexOf('#') + 1
-      );
+      const _anchor = router.asPath.substring(router.asPath.lastIndexOf('#') + 1);
       setAnchor(_anchor);
     } else {
       setAnchor('');

@@ -10,13 +10,8 @@ interface Props {
   budgetStatements: BudgetStatementDto[];
 }
 
-export const TransparencyTransferRequest2 = (
-  props: Props
-) => {
-  const {
-    mainTableColumns,
-    mainTableItems
-  } = useTransparencyTransferRequestMvvm2(
+export const TransparencyTransferRequest2 = (props: Props) => {
+  const { mainTableColumns, mainTableItems } = useTransparencyTransferRequestMvvm2(
     props.currentMonth,
     props.budgetStatements
   );

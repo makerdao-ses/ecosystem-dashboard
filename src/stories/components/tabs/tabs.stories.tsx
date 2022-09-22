@@ -14,15 +14,15 @@ Default.args = {
   items: [
     {
       item: 'One',
-      id: 'one'
+      id: 'one',
     },
     {
       item: 'Two',
-      id: 'two'
+      id: 'two',
     },
     {
       item: 'Three',
-      id: 'three'
+      id: 'three',
     },
   ],
   currentIndex: 0,

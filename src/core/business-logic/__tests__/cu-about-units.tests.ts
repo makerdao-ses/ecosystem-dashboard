@@ -10,17 +10,11 @@ import {
 } from '../../utils/test.utils';
 import { CoreUnitsAboutBuilder } from '../builders/cu-about/cu-about.builder';
 import { CuMipAboutBuilder } from '../builders/cu-about/cu-mip.builder';
-import {
-  getLinksFromContributor,
-  getMarkdownInformation,
-  getMipsStatus,
-} from '../core-unit-about';
+import { getLinksFromContributor, getMarkdownInformation, getMipsStatus } from '../core-unit-about';
 
 describe('first', () => {
   test('Get date for status on CuMip', () => {
-    const result = new CuMipAboutBuilder()
-      .withStatus(CuStatusEnum.Accepted, CURRENT_MONTH)
-      .build();
+    const result = new CuMipAboutBuilder().withStatus(CuStatusEnum.Accepted, CURRENT_MONTH).build();
     expect(getMipsStatus(result)).toBe(result.accepted);
   });
   test('Verify that markdown show', () => {
@@ -29,16 +23,10 @@ describe('first', () => {
       .withParagraphDescription(MARKDOWN_PARAGRAPH_DESCRIPTION)
       .withParagraphImage(MARKDOWN_PARAGRAPH_IMAGE)
       .build();
-    expect(getMarkdownInformation(result.sentenceDescription)).toEqual(
-      MARKDOWN_SENTENCE_DESCRIPTION
-    );
+    expect(getMarkdownInformation(result.sentenceDescription)).toEqual(MARKDOWN_SENTENCE_DESCRIPTION);
 
-    expect(getMarkdownInformation(result.paragraphDescription)).toEqual(
-      MARKDOWN_PARAGRAPH_DESCRIPTION
-    );
-    expect(getMarkdownInformation(result.paragraphImage)).toEqual(
-      MARKDOWN_PARAGRAPH_IMAGE
-    );
+    expect(getMarkdownInformation(result.paragraphDescription)).toEqual(MARKDOWN_PARAGRAPH_DESCRIPTION);
+    expect(getMarkdownInformation(result.paragraphImage)).toEqual(MARKDOWN_PARAGRAPH_IMAGE);
   });
 
   test('Get the links from ContributorCommitment', () => {
@@ -46,12 +34,8 @@ describe('first', () => {
       .addContributorCommitment(CONTRIBUTOR_COMMITMENT_ONE)
       .addContributorCommitment(CONTRIBUTOR_COMMITMENT_TWO)
       .build();
-    const linksCardOne = getLinksFromContributor(
-      result.contributorCommitment[0]
-    );
-    const linksCardTwo = getLinksFromContributor(
-      result.contributorCommitment[1]
-    );
+    const linksCardOne = getLinksFromContributor(result.contributorCommitment[0]);
+    const linksCardTwo = getLinksFromContributor(result.contributorCommitment[1]);
     expect(linksCardOne.length).toBe(4);
     expect(linksCardTwo.length).toBe(4);
     expect(linksCardOne[0].linkType).toBe(LinkTypeEnum.Gmail);
