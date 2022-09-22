@@ -47,7 +47,7 @@ const CardSomeThingWrong = ({ width }: Props) => {
         iconWidth={10}
         iconHeight={10}
         marginLeft="7px"
-        fontFamily="SF Pro Display, sans-serif"
+        fontFamily="Inter, sans-serif"
       >
         Join SES discord #dashboard-reporting channel
       </CustomLink>
@@ -66,7 +66,7 @@ const CardSomeThingWrong = ({ width }: Props) => {
         fontSize={16}
         fontWeight={500}
         marginLeft="7px"
-        fontFamily="SF Pro Display, sans-serif"
+        fontFamily="Inter, sans-serif"
       >
         Or fill out this Typeform
       </CustomLink>

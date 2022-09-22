@@ -27,7 +27,7 @@ export const ItemWebSite = ({
   fontSize = 16,
   fontWeight = 700,
   color = '#FFFFFF',
-  fontFamily = 'SF Pro Display, sans-serif',
+  fontFamily = 'Inter, sans-serif',
   colorDark,
   subtract = '',
   description,
