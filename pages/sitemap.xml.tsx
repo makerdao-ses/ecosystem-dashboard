@@ -7,7 +7,7 @@ const Sitemap = () => {
   return null;
 };
 
-export const getServerSideProps: GetServerSideProps = async({ res }) => {
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   const flags = featureFlags[CURRENT_ENVIRONMENT];
   if (!flags.FEATURE_SITEMAP) {
     return {

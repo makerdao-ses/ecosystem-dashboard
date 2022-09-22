@@ -45,16 +45,18 @@ export const TransparencyForecast2 = (props: Props) => {
         {props.currentMonth.toFormat('MMM yyyy')} Breakdown
       </Title>
 
-      {!!breakdownItems.length && <Tabs
-        items={breakdownTabs.map((header, i) => {
-          return {
-            item: header,
-            id: headerIds[i],
-          };
-        })}
-        style={{ marginBottom: '64px' }}
-        currentIndex={thirdIndex}
-      />}
+      {!!breakdownItems.length && (
+        <Tabs
+          items={breakdownTabs.map((header, i) => {
+            return {
+              item: header,
+              id: headerIds[i],
+            };
+          })}
+          style={{ marginBottom: '64px' }}
+          currentIndex={thirdIndex}
+        />
+      )}
 
       <AdvancedInnerTable
         columns={breakdownHeaders}

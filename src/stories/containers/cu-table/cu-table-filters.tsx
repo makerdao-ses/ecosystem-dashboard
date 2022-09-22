@@ -211,7 +211,7 @@ const Wrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   '@media (min-width: 834px)': {
     display: 'flex !important',
   },
-  '@media (min-width: 834px) and (max-width: 1180px)': {
+  '@media (min-width: 834px) and (max-width: 1194px)': {
     alignSelf: 'flex-end',
   },
 }));

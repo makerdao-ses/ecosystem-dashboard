@@ -7,7 +7,7 @@ import {
 } from '../../../core/business-logic/core-units';
 import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
 import { BudgetStatementDto, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
-import { API_MONTH_FORMAT } from '../../../core/utils/date.utils';
+import { API_MONTH_TO_FORMAT } from '../../../core/utils/date.utils';
 
 const TRANSPARENCY_IDS = ['actuals', 'forecast', 'mkr-vesting', 'transfer-requests', 'audit-reports'];
 
@@ -102,7 +102,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
 
   const currentBudgetStatement = useMemo(() => {
     return coreUnit?.budgetStatements?.find(
-      (bs: BudgetStatementDto) => bs.month === currentMonth.toFormat(API_MONTH_FORMAT)
+      (bs: BudgetStatementDto) => bs.month === currentMonth.toFormat(API_MONTH_TO_FORMAT)
     );
   }, [coreUnit, currentMonth]);
 

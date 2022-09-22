@@ -13,8 +13,8 @@ import { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar/AppBar';
 const drawerWidth = 260;
 
 interface TopBarProps {
-  toggleDrawer: () => void,
-  open: boolean
+  toggleDrawer: () => void;
+  open: boolean;
 }
 
 interface AppBarProps extends MuiAppBarProps {
@@ -40,45 +40,40 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 const TopBar = (props: TopBarProps) => {
-  return <AppBar position="absolute" open={props.open} style={{ backgroundColor: '#C4C4C4' }}>
-    <Toolbar
-      sx={{
-        pr: '24px',
-        backgroundColor: 'white',
-      }}
-      color={'White'}
-    >
-      <IconButton
-        edge="start"
-        color="inherit"
-        aria-label="open drawer"
-        onClick={props.toggleDrawer}
+  return (
+    <AppBar position="absolute" open={props.open} style={{ backgroundColor: '#C4C4C4' }}>
+      <Toolbar
         sx={{
-          marginRight: '26px',
-          ...(props.open && { display: 'none' }),
+          pr: '24px',
+          backgroundColor: 'white',
         }}
+        color={'White'}
       >
-        <MenuIcon sx={{ color: 'primary.main' }} />
-      </IconButton>
-      <Typography
-        component="h1"
-        variant="h6"
-        color="inherit"
-        noWrap
-        sx={{ flexGrow: 1 }}
-      >
-      </Typography>
-      <IconButton color="inherit" sx={{ marginRight: '24px' }}>
-        <FeedBack width={22} height={22} fill='#898989' />
-      </IconButton>
-      <IconButton color="inherit" sx={{ marginRight: '24px' }}>
-        <Language width={26.7} height={26.7} />
-      </IconButton>
-      <IconButton color="inherit">
-        <ThemeMode width={26.7} height={26.7} />
-      </IconButton>
-    </Toolbar>
-  </AppBar>;
+        <IconButton
+          edge="start"
+          color="inherit"
+          aria-label="open drawer"
+          onClick={props.toggleDrawer}
+          sx={{
+            marginRight: '26px',
+            ...(props.open && { display: 'none' }),
+          }}
+        >
+          <MenuIcon sx={{ color: 'primary.main' }} />
+        </IconButton>
+        <Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}></Typography>
+        <IconButton color="inherit" sx={{ marginRight: '24px' }}>
+          <FeedBack width={22} height={22} fill="#898989" />
+        </IconButton>
+        <IconButton color="inherit" sx={{ marginRight: '24px' }}>
+          <Language width={26.7} height={26.7} />
+        </IconButton>
+        <IconButton color="inherit">
+          <ThemeMode width={26.7} height={26.7} />
+        </IconButton>
+      </Toolbar>
+    </AppBar>
+  );
 };
 
 export default TopBar;

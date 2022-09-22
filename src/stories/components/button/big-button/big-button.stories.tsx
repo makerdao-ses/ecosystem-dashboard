@@ -4,7 +4,7 @@ import BigButton from './big-button';
 
 export default {
   title: 'Components/CUAbout/BigButton',
-  component: BigButton
+  component: BigButton,
 } as ComponentMeta<typeof BigButton>;
 
 const Template: ComponentStory<typeof BigButton> = (args) => <BigButton {...args} />;

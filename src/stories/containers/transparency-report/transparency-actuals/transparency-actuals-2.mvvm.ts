@@ -7,7 +7,7 @@ import _ from 'lodash';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { DateTime } from 'luxon';
 import { capitalizeSentence } from '../../../../core/utils/string.utils';
-import { API_MONTH_FORMAT } from '../../../../core/utils/date.utils';
+import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
 import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
 import { InnerTableColumn, InnerTableRow } from '../../../components/advanced-inner-table/advanced-inner-table';
 import { renderLinks, renderWallet } from '../transparency-report.utils';
@@ -17,13 +17,15 @@ export const useTransparencyActualsMvvm2 = (
   budgetStatements: BudgetStatementDto[] | undefined,
   code: string
 ) => {
-  const currentMonth = useMemo(() => propsCurrentMonth.toFormat(API_MONTH_FORMAT), [propsCurrentMonth]);
+  const currentMonth = useMemo(() => propsCurrentMonth.toFormat(API_MONTH_TO_FORMAT), [propsCurrentMonth]);
   const anchor = useUrlAnchor();
 
   const wallets: BudgetStatementWalletDto[] = useMemo(() => {
     const dict: { [id: string]: BudgetStatementWalletDto } = {};
 
-    const budgetStatement = budgetStatements?.find((bs) => bs.month === propsCurrentMonth.toFormat(API_MONTH_FORMAT));
+    const budgetStatement = budgetStatements?.find(
+      (bs) => bs.month === propsCurrentMonth.toFormat(API_MONTH_TO_FORMAT)
+    );
 
     if (!budgetStatement || !budgetStatement.budgetStatementWallet) return [];
 

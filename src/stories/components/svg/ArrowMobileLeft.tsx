@@ -1,16 +1,20 @@
-
 interface Props {
   width?: number;
   height?: number;
   onClick?: () => void;
   fill?: string;
   style?: React.CSSProperties;
-
 }
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-const ArrowMobileLeft = ({ fill = '#1AAB9B', height = 10, onClick = () => { }, style = {}, width = 6, ...props }: Props) => {
+const ArrowMobileLeft = ({
+  fill = '#1AAB9B',
+  height = 10,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  onClick = () => {},
+  style = {},
+  width = 6,
+  ...props
+}: Props) => {
   return (
-
     <svg
       style={style}
       width={width}

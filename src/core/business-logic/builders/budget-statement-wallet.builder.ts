@@ -11,10 +11,10 @@ export class BudgetStatementWalletBuilder {
   }
 
   withLineItems(actualArray: number[], month: string) {
-    actualArray.forEach(actual => {
+    actualArray.forEach((actual) => {
       this._wallet.budgetStatementLineItem.push({
         actual,
-        month
+        month,
       });
     });
     return this;

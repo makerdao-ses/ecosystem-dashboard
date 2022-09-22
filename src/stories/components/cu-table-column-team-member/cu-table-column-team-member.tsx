@@ -14,63 +14,58 @@ interface CuTableColumnTeamMemberProps {
   isLoading?: boolean;
 }
 
-export const CuTableColumnTeamMember = ({
-  isLoading = false,
-  ...props
-}: CuTableColumnTeamMemberProps) => {
+export const CuTableColumnTeamMember = ({ isLoading = false, ...props }: CuTableColumnTeamMemberProps) => {
   const isLight = useThemeContext().themeMode === 'light';
 
-  return !isLoading
-    ? (
-      <Container className="TeamMembers">
-        <CustomPopover
-          title={'Full-Time Equivalents'}
-          id={'popover-fulltime-equivalents'}
-          popupStyle={{
-            padding: '16px',
-            color: isLight ? '#231536' : '#D2D4EF',
-          }}
-        >
-          <Data>
-            <Title isLight={isLight}>FTEs</Title>
-            <Value isLight={isLight} style={{ justifyContent: 'center' }}>
-              {props.fte}
-            </Value>
-          </Data>
-        </CustomPopover>
-        <CirclesWrapper>
-          {props.members?.map((member, i) => {
-            return (
-              <CustomPopover
-                key={member.contributor[0].name + i}
-                popupStyle={{
-                  padding: 0,
+  return !isLoading ? (
+    <Container className="TeamMembers">
+      <CustomPopover
+        title={'Full-Time Equivalents'}
+        id={'popover-fulltime-equivalents'}
+        popupStyle={{
+          padding: '16px',
+          color: isLight ? '#231536' : '#D2D4EF',
+        }}
+      >
+        <Data>
+          <Title isLight={isLight}>FTEs</Title>
+          <Value isLight={isLight} style={{ justifyContent: 'center' }}>
+            {props.fte}
+          </Value>
+        </Data>
+      </CustomPopover>
+      <CirclesWrapper>
+        {props.members?.map((member, i) => {
+          return (
+            <CustomPopover
+              key={member.contributor[0].name + i}
+              popupStyle={{
+                padding: 0,
+              }}
+              title={<CardInfoMember contributorCommitment={member} />}
+              id={member.contributor[0].name + i}
+              leaveOnChildrenMouseOut
+            >
+              <CircleAvatar
+                key={member.id}
+                name={member.contributor[0].name}
+                fontSize={'14px'}
+                width={'36px'}
+                height={'36px'}
+                style={{
+                  boxSizing: 'border-box',
+                  marginLeft: i === 0 ? 0 : '-9px',
                 }}
-                title={<CardInfoMember contributorCommitment={member} />}
-                id={member.contributor[0].name + i}
-                leaveOnChildrenMouseOut
-              >
-                <CircleAvatar
-                  key={member.id}
-                  name={member.contributor[0].name}
-                  fontSize={'14px'}
-                  width={'36px'}
-                  height={'36px'}
-                  style={{
-                    boxSizing: 'border-box',
-                    marginLeft: i === 0 ? 0 : '-9px',
-                  }}
-                  image={member.contributor[0].facilitatorImage?.trim()}
-                />
-              </CustomPopover>
-            );
-          })}
-        </CirclesWrapper>
-      </Container>
-      )
-    : (
-      <ColumnTeamMemberSkeleton />
-      );
+                image={member.contributor[0].facilitatorImage?.trim()}
+              />
+            </CustomPopover>
+          );
+        })}
+      </CirclesWrapper>
+    </Container>
+  ) : (
+    <ColumnTeamMemberSkeleton />
+  );
 };
 
 const Container = styled.div({
@@ -81,7 +76,7 @@ const Container = styled.div({
   cursor: 'pointer',
   marginLeft: '7px',
 
-  '@media (min-width: 1180px)': {
+  '@media (min-width: 1194px)': {
     marginLeft: '40px',
   },
 });

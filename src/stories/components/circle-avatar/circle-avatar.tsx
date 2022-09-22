@@ -17,45 +17,60 @@ interface CircleAvatarProps {
   border?: string;
 }
 
-export const CircleAvatar = ({ width = '32px', height = '32px', fontSize = '16px', identIcon = false, border = '2px solid #E7FCFA', ...props }: CircleAvatarProps) => {
+export const CircleAvatar = ({
+  width = '32px',
+  height = '32px',
+  fontSize = '16px',
+  identIcon = false,
+  border = '2px solid #E7FCFA',
+  ...props
+}: CircleAvatarProps) => {
   const theme = useTheme();
-  const identIconImage = identIcon && new Identicon(padEnd(props.name, 43, 'a'), {
-    format: 'svg',
-    margin: 0.2
-  }).toString();
+  const identIconImage =
+    identIcon &&
+    new Identicon(padEnd(props.name, 43, 'a'), {
+      format: 'svg',
+      margin: 0.2,
+    }).toString();
 
-  return <div className="circle-avatar" style={{
-    width,
-    height,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize,
-    fontFamily: (theme as Theme).typography.fontFamily,
-    fontWeight: 900,
-    borderRadius: '50%',
-    color: props.image ? 'transparent' : 'white',
-    border: props.image ? 'none' : border,
-    background: (props.image || identIcon) ? 'white' : `${getColorForString(props.name)} ${height}`,
-    position: 'relative',
-    ...props.style
-  }}>
-    {((props.image || identIcon)) && <img
-        src={identIcon
-          ? `data:image/svg+xml;base64,${identIconImage}`
-          : props.image}
-        alt={getTwoInitials(props.name)}
-        style={{
-          width,
-          height,
-          borderRadius: '50%',
-          border,
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          zIndex: 1,
-          ...props.imageStyle,
-        }}
-      />}
-    {getTwoInitials(props.name)}</div>;
+  return (
+    <div
+      className="circle-avatar"
+      style={{
+        width,
+        height,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize,
+        fontFamily: (theme as Theme).typography.fontFamily,
+        fontWeight: 900,
+        borderRadius: '50%',
+        color: props.image ? 'transparent' : 'white',
+        border: props.image ? 'none' : border,
+        background: props.image || identIcon ? 'white' : `${getColorForString(props.name)} ${height}`,
+        position: 'relative',
+        ...props.style,
+      }}
+    >
+      {(props.image || identIcon) && (
+        <img
+          src={identIcon ? `data:image/svg+xml;base64,${identIconImage}` : props.image}
+          alt={getTwoInitials(props.name)}
+          style={{
+            width,
+            height,
+            borderRadius: '50%',
+            border,
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            zIndex: 1,
+            ...props.imageStyle,
+          }}
+        />
+      )}
+      {getTwoInitials(props.name)}
+    </div>
+  );
 };

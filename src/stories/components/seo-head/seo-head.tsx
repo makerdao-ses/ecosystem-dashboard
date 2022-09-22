@@ -18,15 +18,7 @@ interface SEOProps {
   children?: JSX.Element[] | JSX.Element | React.ReactNode;
 }
 
-export const SEOHead = ({
-  title,
-  description,
-  favicon,
-  image,
-  twitterImage,
-  twitterCard,
-  children,
-}: SEOProps) => {
+export const SEOHead = ({ title, description, favicon, image, twitterImage, twitterCard, children }: SEOProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   const faviconType = useMemo(() => {
     if (!favicon) {
@@ -57,12 +49,7 @@ export const SEOHead = ({
       <title>{title}</title>
       <meta name="theme-color" content={isLight ? '#ffffff' : '#010101'} />
       <link rel="manifest" key="manifest" href="/manifest.json" />
-      <link
-        rel="icon"
-        key="favicon"
-        type={faviconType ?? 'image/ico'}
-        href={favicon || '/favicon.ico'}
-      />
+      <link rel="icon" key="favicon" type={faviconType ?? 'image/ico'} href={favicon || '/favicon.ico'} />
 
       <meta name="description" key="description" content={description} />
       {/* OpenGraph https://ogp.me/ */}
@@ -71,44 +58,32 @@ export const SEOHead = ({
       <meta property="og:type" content="website" />
       <meta property="og:site_name" key="og:site_name" content="MakerDAO Ecosystem Performance Dashboard" />
       {image &&
-        (
-          typeof image === 'string'
-            ? (
-              <meta property="og:image" key="og:image" content={image} />
-              )
-            : (
-              <>
-                <meta property="og:image" key="og:image" content={image.src} />
-                <meta property="og:image:width" key="og:image:width" content={image.width.toString()} />
-                <meta property="og:image:height" key="og:image:height" content={image.height.toString()} />
-              </>
-              )
-        )}
+        (typeof image === 'string' ? (
+          <meta property="og:image" key="og:image" content={image} />
+        ) : (
+          <>
+            <meta property="og:image" key="og:image" content={image.src} />
+            <meta property="og:image:width" key="og:image:width" content={image.width.toString()} />
+            <meta property="og:image:height" key="og:image:height" content={image.height.toString()} />
+          </>
+        ))}
 
       {/* Twitter card */}
       <meta name="twitter:title" key="twitter:title" content={title} />
       <meta name="twitter:card" key="twitter:card" content={twitterCard || 'summary_large_image'} />
       <meta name="twitter:description" key="twitter:description" content={description} />
       <meta name="twitter:site" key="twitter:site" content="@MakerDAO" />
-      {twitterImage
-        ? (
-          <meta name="twitter:image" key="twitter:image" content={twitterImage} />
-          )
-        : (
-            image && <meta name="twitter:image" key="twitter:image" content={typeof image === 'string' ? image : image.src} />
-          )}
+      {twitterImage ? (
+        <meta name="twitter:image" key="twitter:image" content={twitterImage} />
+      ) : (
+        image && (
+          <meta name="twitter:image" key="twitter:image" content={typeof image === 'string' ? image : image.src} />
+        )
+      )}
 
       {/* extra */}
-      <meta
-        name="mobile-web-app-capable"
-        key="mobile-web-app-capable"
-        content="yes"
-      />
-      <meta
-        name="apple-mobile-web-app-capable"
-        key="apple-mobile-web-app-capable"
-        content="yes"
-      />
+      <meta name="mobile-web-app-capable" key="mobile-web-app-capable" content="yes" />
+      <meta name="apple-mobile-web-app-capable" key="apple-mobile-web-app-capable" content="yes" />
 
       {children}
       <meta name="robots" content="index,follow" />

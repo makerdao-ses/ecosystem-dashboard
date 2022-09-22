@@ -7,6 +7,7 @@ import {
   getExpenditureValueFromCoreUnit,
   getFacilitatorsFromCoreUnit,
   getFTEsFromCoreUnit,
+  getLastMonthWithData,
   getLast3ExpenditureValuesFromCoreUnit,
   getLast3MonthsWithDataFormatted,
   getLatestMip39FromCoreUnit,
@@ -28,37 +29,24 @@ import Skeleton from '@mui/material/Skeleton';
 import { buildQueryString } from '../../../core/utils/url.utils';
 import { useRouter } from 'next/router';
 import lightTheme from '../../../../styles/theme/light';
+import { CuTableColumnLastModified } from '../cu-table-column-last-modified/cu-table-column-last-modified';
 
 interface CoreUnitCardProps {
   coreUnit: CoreUnitDto;
   isLoading?: boolean;
-
 }
 
-export const CoreUnitCard = ({
-  coreUnit,
-  isLoading = false,
-}: CoreUnitCardProps) => {
+export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   if (isLoading) {
     return (
       <Container isLight={isLight} style={{ marginBottom: '32px' }}>
         <Summary>
-          <Skeleton
-            variant="rectangular"
-            width={100}
-            height={20}
-            style={{ borderRadius: '4px' }}
-          />
+          <Skeleton variant="rectangular" width={100} height={20} style={{ borderRadius: '4px' }} />
           <CuTableColumnSummary isLoading />
         </Summary>
         <Expenditure>
-          <Skeleton
-            variant="rectangular"
-            width={100}
-            height={20}
-            style={{ borderRadius: '4px' }}
-          />
+          <Skeleton variant="rectangular" width={100} height={20} style={{ borderRadius: '4px' }} />
           <CuTableColumnExpenditures isLoading />
         </Expenditure>
         <Team>
@@ -83,10 +71,7 @@ export const CoreUnitCard = ({
   }
 
   const router = useRouter();
-  const queryStrings = useMemo(
-    () => buildQueryString(router.query),
-    [router.query]
-  );
+  const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
 
   return (
     <CuCard>
@@ -96,22 +81,15 @@ export const CoreUnitCard = ({
             <Title hideSmall>Core Unit</Title>
             <CuTableColumnSummary
               title={coreUnit?.name}
-              status={
-                getLatestMip39FromCoreUnit(coreUnit)
-                  ?.mipStatus as CuStatusEnum
-              }
-              statusModified={getSubmissionDateFromCuMip(
-                getLatestMip39FromCoreUnit(coreUnit)
-              )}
+              status={getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum}
+              statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
               imageUrl={coreUnit?.image}
               mipUrl={getMipUrlFromCoreUnit(coreUnit)}
               code={formatCode(coreUnit.code)}
               categories={coreUnit.category}
             />
           </Summary>
-          <Link
-            href={`/core-unit/${coreUnit.shortCode}/finances/reports${queryStrings}`}
-          >
+          <Link href={`/core-unit/${coreUnit.shortCode}/finances/reports${queryStrings}`}>
             <Expenditure>
               <Title style={{ marginBottom: '11px' }}>Expenditure</Title>
               <CuTableColumnExpenditures
@@ -130,18 +108,24 @@ export const CoreUnitCard = ({
               fte={getFTEsFromCoreUnit(coreUnit)}
             />
           </Team>
+          <LastModified>
+            <Title style={{ marginBottom: '16px' }}>Last Modified</Title>
+            <CuTableColumnLastModified
+              date={getLastMonthWithData(coreUnit.budgetStatements)}
+              isLoading={!coreUnit}
+              isCard
+            />
+          </LastModified>
           <Line isLight={isLight} />
-          {!isLoading
-            ? (
-              <Categories>
-                {coreUnit.category?.map((category) => (
-                  <CategoryChip key={category} category={category} />
-                ))}
-              </Categories>
-              )
-            : (
-              <CategoriesSkeleton />
-              )}
+          {!isLoading ? (
+            <Categories>
+              {coreUnit.category?.map((category) => (
+                <CategoryChip key={category} category={category} />
+              ))}
+            </Categories>
+          ) : (
+            <CategoriesSkeleton />
+          )}
           <Links>
             <CuTableColumnLinks
               links={getLinksFromCoreUnit(coreUnit)}
@@ -161,7 +145,7 @@ const CuCard = styled.div({
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     ':last-child': {
       marginBottom: '0px',
-    }
+    },
   },
 });
 
@@ -171,15 +155,14 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   boxShadow: isLight
     ? '0px 0px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
     : '0px 20px 40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
-  background: isLight
-    ? '#FFFFFF'
-    : '#10191F',
+  background: isLight ? '#FFFFFF' : '#10191F',
   padding: '16px',
   gridTemplateColumns: 'auto',
   minWidth: '340px',
   gridTemplateAreas: `"summary"
      "expenditure"
      "team"
+     "lastModified"
      "line"
      "categories"
      "links"
@@ -188,24 +171,25 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     gridTemplateColumns: '3.5fr 2fr',
     gridTemplateAreas: `"summary summary"
        "expenditure team"
+       "lastModified lastModified"
        "line line"
        "categories categories" 
        "links links"`,
   },
   '@media (min-width: 685px)': {
-    gridTemplateColumns: '3.5fr 2fr',
-    gridTemplateAreas: `"summary expenditure"
-       "team team"
-       "line line"
-       "categories links"
+    gridTemplateColumns: '2.5fr 1fr 2fr',
+    gridTemplateAreas: `"summary summary expenditure"
+       "team team lastModified"
+       "line line line"
+       "categories links links"
        `,
   },
   '@media (min-width: 834px)': {
-    gridTemplateColumns: '3.5fr 2fr 1fr',
+    gridTemplateColumns: '2.5fr 1fr 1fr 1fr',
     paddingBottom: '8px',
-    gridTemplateAreas: `"summary expenditure team"
-       "line line line"
-       "categories links links"`,
+    gridTemplateAreas: `"summary expenditure team lastModified"
+       "line line line line"
+       "categories categories links links"`,
     padding: '24px 16px 8px',
   },
 }));
@@ -213,6 +197,8 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 const Summary = styled.div({
   gridArea: 'summary',
   display: 'block',
+  paddingRight: '8px',
+  minWidth: '320px',
 });
 
 const Expenditure = styled.div({
@@ -227,16 +213,35 @@ const Team = styled.div({
   gridArea: 'team',
   paddingTop: '32px',
   width: 'fit-content',
-
   '@media (min-width: 375px)': {
-    marginLeft: 'auto',
+    marginLeft: '0auto',
   },
   '@media (min-width: 685px) and (max-width: 834px)': {
     paddingTop: '0',
-    marginLeft: '0',
   },
   '@media (min-width: 834px)': {
     paddingTop: '0',
+    margin: '0 auto',
+  },
+});
+
+const LastModified = styled.div({
+  gridArea: 'lastModified',
+  marginTop: '32px',
+  width: 'fit-content',
+  '@media (min-width: 375px)': {
+    marginLeft: 0,
+  },
+  '@media (min-width: 685px) and (max-width: 834px)': {
+    marginTop: '0',
+    marginLeft: '0',
+  },
+  '@media (min-width: 834px)': {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    marginTop: '0',
+    width: '100%',
   },
 });
 

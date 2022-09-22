@@ -22,9 +22,9 @@ export interface LinkInterface {
 }
 
 interface Props {
-  governesses: LinkInterface[],
-  products: LinkInterface[],
-  developer: LinkInterface[],
+  governesses: LinkInterface[];
+  products: LinkInterface[];
+  developer: LinkInterface[];
 }
 
 const Footer = ({ governesses, products, developer }: Props) => {
@@ -36,30 +36,25 @@ const Footer = ({ governesses, products, developer }: Props) => {
     <FooterWrapper>
       <Image
         style={{
-          zIndex: -1
+          zIndex: -1,
         }}
         src={
           isLight
-            ? (isTable
-                ? TabletFooterLight
-                : upTable
-                  ? FooterLight
-                  : MobileFooterLight)
-            : (isTable
-                ? TabletFooterDark
-                : upTable
-                  ? FooterDark
-                  : MobileFooterDark)
+            ? isTable
+              ? TabletFooterLight
+              : upTable
+              ? FooterLight
+              : MobileFooterLight
+            : isTable
+            ? TabletFooterDark
+            : upTable
+            ? FooterDark
+            : MobileFooterDark
         }
-        objectFit='cover'
-        objectPosition={isTable
-          ? 'right bottom'
-          : upTable
-            ? 'right bottom'
-            : 'center bottom'
-        }
+        objectFit="cover"
+        objectPosition={isTable ? 'right bottom' : upTable ? 'right bottom' : 'center bottom'}
         alt="Footer"
-        layout='fill'
+        layout="fill"
       />
       <ContainerFooter>
         <ContainerColumOne>
@@ -70,27 +65,18 @@ const Footer = ({ governesses, products, developer }: Props) => {
               paddingLeft: '6px',
               paddingRight: '6.3px',
             }}
-            logo={<Logo width={37} height={20} fill={'#211634'} fillDark='#D1DEE6' />}
+            logo={<Logo width={37} height={20} fill={'#211634'} fillDark="#D1DEE6" />}
             links={iconsContact}
           />
         </ContainerColumOne>
         <ContainerColumTwo>
-          <DescriptionFooter
-            title="Governance"
-            children={governesses}
-          />
+          <DescriptionFooter title="Governance" children={governesses} />
         </ContainerColumTwo>
         <ContainerColumThree>
-          <DescriptionFooter
-            title="Products & Tools"
-            children={products}
-          />
+          <DescriptionFooter title="Products & Tools" children={products} />
         </ContainerColumThree>
         <ContainerColumFour>
-          <DescriptionFooter
-            title="Developer"
-            children={developer}
-          />
+          <DescriptionFooter title="Developer" children={developer} />
         </ContainerColumFour>
         <ContainerColumLast>
           <FooterContact
@@ -105,8 +91,8 @@ const Footer = ({ governesses, products, developer }: Props) => {
             isLink
           />
         </ContainerColumLast>
-      </ContainerFooter >
-    </FooterWrapper >
+      </ContainerFooter>
+    </FooterWrapper>
   );
 };
 
@@ -137,7 +123,7 @@ const ContainerFooter = styled.div({
   },
   [lightTheme.breakpoints.up('desktop_1920')]: {
     padding: '40px 128px 127.36px 74px',
-  }
+  },
 });
 
 const ContainerColumOne = styled.div({
@@ -172,7 +158,7 @@ const ContainerColumThree = styled.div({
   marginBottom: '32px',
   [lightTheme.breakpoints.up(835)]: {
     order: 3,
-    margin: 0
+    margin: 0,
   },
   zIndex: 1,
 });
@@ -191,7 +177,7 @@ const ContainerColumFour = styled.div({
 const ContainerColumLast = styled.div({
   order: 5,
   width: '272px',
-  zIndex: 1
+  zIndex: 1,
 });
 
 export default Footer;

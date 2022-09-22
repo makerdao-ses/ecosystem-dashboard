@@ -5,7 +5,7 @@ import BreadCrumb from './bread-crumb';
 
 export default {
   title: 'Components/CUAbout/BreadCrumb',
-  components: BreadCrumb
+  components: BreadCrumb,
 } as ComponentMeta<typeof BreadCrumb>;
 
 const Template: ComponentStory<typeof BreadCrumb> = (args) => <BreadCrumb {...args} />;

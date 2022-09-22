@@ -15,8 +15,8 @@ import { TopBarSelect } from '../top-bar-select/top-bar-select';
 interface Props {
   menuItems: MenuType[];
   links: WebSiteLinks[];
-  themeMode: ThemeMode
-  toggleTheme: () => void
+  themeMode: ThemeMode;
+  toggleTheme: () => void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -27,32 +27,35 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
     (link: string) => () => {
       window.open(link, '_blank');
     },
-    [router],
+    [router]
   );
 
-  const handleGoHome = useCallback(
-    () => {
-      const input = document.querySelector('#search-input');
-      if (input) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        input.value = '';
-      }
-      router.push('/');
-    },
-    [router],
-  );
+  const handleGoHome = useCallback(() => {
+    const input = document.querySelector('#search-input');
+    if (input) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      input.value = '';
+    }
+    router.push('/');
+  }, [router]);
 
   return (
-    <Container isLight={isLight} >
+    <Container isLight={isLight}>
       <LeftPart>
         <ContainerLogoSelect isLight={isLight}>
           <LogoContainer>
-            <Logo fill='#211634' fillDark='#1aab9b' onClick={handleGoHome} />
+            <Logo fill="#211634" fillDark="#1aab9b" onClick={handleGoHome} />
           </LogoContainer>
           <LogoLinksWrapper>
             <Expenses fill={themeMode === 'dark' ? '#6EDBD0' : '#211634'} />
-            <SelectLink links={links} themeMode={themeMode} fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'} onClick={onClick} toggleTheme={toggleTheme} />
+            <SelectLink
+              links={links}
+              themeMode={themeMode}
+              fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'}
+              onClick={onClick}
+              toggleTheme={toggleTheme}
+            />
           </LogoLinksWrapper>
         </ContainerLogoSelect>
 
@@ -65,23 +68,18 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
               isActive = router.pathname.includes(link) && link !== '/';
             }
 
-            return (<ItemMenuStyle
-              isLight={isLight}
-              key={title}
-              style={{ marginRight }}
-              href={link}
-              active={isActive}>
-              {title}
-            </ItemMenuStyle>);
+            return (
+              <ItemMenuStyle isLight={isLight} key={title} style={{ marginRight }} href={link} active={isActive}>
+                {title}
+              </ItemMenuStyle>
+            );
           })}
           <ItemMenuResponsive>
-            <TopBarSelect
-              selectedOption={'Core Units'}
-            />
+            <TopBarSelect selectedOption={'Core Units'} />
           </ItemMenuResponsive>
           <LinkWrapper>
             <CustomLink
-              children='How to Submit Expenses'
+              children="How to Submit Expenses"
               fontWeight={500}
               fontSize={16}
               href={HOW_TO_SUBMIT_EXPENSES}
@@ -93,7 +91,7 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
                 letterSpacing: '0.3px',
                 marginLeft: '0px',
               }}
-              marginLeft='7px'
+              marginLeft="7px"
               withArrow
               iconHeight={10}
               iconWidth={10}
@@ -105,9 +103,16 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
         <ThemeSwitcherButtonWrapper>
           <ThemeSwitcherButton themeMode={themeMode} toggleTheme={toggleTheme} />
         </ThemeSwitcherButtonWrapper>
-        <SelectLink links={links} themeMode={themeMode} fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'} onClick={onClick} responsive={true} toggleTheme={toggleTheme} />
+        <SelectLink
+          links={links}
+          themeMode={themeMode}
+          fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'}
+          onClick={onClick}
+          responsive={true}
+          toggleTheme={toggleTheme}
+        />
       </RightPart>
-    </Container >
+    </Container>
   );
 };
 
@@ -119,7 +124,7 @@ const Container = styled.header<{ isLight: boolean }>(({ isLight }) => ({
   flexDirection: 'row',
   height: '64px',
   justifyContent: 'space-between',
-  background: isLight ? '#FFFFFF' : ' linear-gradient(180deg, #000000 0%, #001A34 100%)'
+  background: isLight ? '#FFFFFF' : ' linear-gradient(180deg, #000000 0%, #001A34 100%)',
 }));
 
 const LeftPart = styled.div({
@@ -137,7 +142,9 @@ const ContainerLogoSelect = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   marginRight: '16px',
   alignItems: 'center',
   paddingLeft: '16px',
-  background: isLight ? 'linear-gradient(125.61deg, rgba(182, 237, 231, 0.5) -69.93%, rgba(182, 237, 231, 0.05) 130.99%)' : 'linear-gradient(125.61deg, rgba(0, 68, 61, 0.5) -69.93%, rgba(27, 45, 43, 0.05) 130.99%)',
+  background: isLight
+    ? 'linear-gradient(125.61deg, rgba(182, 237, 231, 0.5) -69.93%, rgba(182, 237, 231, 0.05) 130.99%)'
+    : 'linear-gradient(125.61deg, rgba(0, 68, 61, 0.5) -69.93%, rgba(27, 45, 43, 0.05) 130.99%)',
   backdropFilter: 'blur(30px)',
   '@media (min-width: 435px)': {
     paddingRight: '32px',
@@ -148,7 +155,7 @@ const ContainerLogoSelect = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   },
   '@media (min-width: 835px)': {
     paddingLeft: '32px',
-  }
+  },
 }));
 
 const LogoContainer = styled.div({
@@ -161,7 +168,7 @@ const LogoContainer = styled.div({
   },
   '@media (min-width: 635px)': {
     marginRight: '32px',
-  }
+  },
 });
 
 const Navigation = styled.div({
@@ -177,29 +184,32 @@ const RightPart = styled.div({
   paddingRight: '10px',
   '@media (min-width: 835px)': {
     paddingRight: '26px',
-  }
+  },
 });
 
-const ItemMenuStyle = styled.a<{ active: boolean, marginRight?: string, isLight: boolean }>(({ active, isLight, marginRight }) => ({
-  display: 'none',
-  fontFamily: 'FT Base, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 400,
-  fontSize: '16px',
-  lineHeight: '19px',
-  transform: 'none',
-  marginRight,
-  color: active && isLight ? '#1AAB9B' : (isLight && !active) ? '#25273D' : !(isLight && active) ? '#2DC1B1' : '#D2D4EF',
-  letterSpacing: '0.4px',
-  textDecoration: 'none',
-  cursor: 'pointer',
-  '&:hover': {
-    color: '#1dc1ae',
-  },
-  '@media (min-width: 1194px)': {
-    display: 'block'
-  }
-}));
+const ItemMenuStyle = styled.a<{ active: boolean; marginRight?: string; isLight: boolean }>(
+  ({ active, isLight, marginRight }) => ({
+    display: 'none',
+    fontFamily: 'FT Base, sans-serif',
+    fontStyle: 'normal',
+    fontWeight: 400,
+    fontSize: '16px',
+    lineHeight: '19px',
+    transform: 'none',
+    marginRight,
+    color:
+      active && isLight ? '#1AAB9B' : isLight && !active ? '#25273D' : !(isLight && active) ? '#2DC1B1' : '#D2D4EF',
+    letterSpacing: '0.4px',
+    textDecoration: 'none',
+    cursor: 'pointer',
+    '&:hover': {
+      color: '#1dc1ae',
+    },
+    '@media (min-width: 1194px)': {
+      display: 'block',
+    },
+  })
+);
 
 const ItemMenuResponsive = styled.div({
   display: 'none',
@@ -213,14 +223,14 @@ const LogoLinksWrapper = styled.div({
   display: 'none',
   '@media (min-width: 635px)': {
     display: 'flex',
-  }
+  },
 });
 
 const ThemeSwitcherButtonWrapper = styled.div({
   display: 'none',
   '@media (min-width: 635px)': {
-    display: 'block'
-  }
+    display: 'block',
+  },
 });
 
 export default Header;

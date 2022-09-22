@@ -9,8 +9,8 @@ interface SearchInputProps {
   placeholder: string;
   onChange?: (text: string) => void;
   style?: CSSProperties;
-  handleCloseSearch?: () => void
-  inputRef?: React.RefObject<HTMLInputElement>
+  handleCloseSearch?: () => void;
+  inputRef?: React.RefObject<HTMLInputElement>;
 }
 
 export const SearchInput = (props: SearchInputProps) => {
@@ -21,28 +21,50 @@ export const SearchInput = (props: SearchInputProps) => {
 
   const [focus, setFocus] = useState(false);
 
-  return <Container style={props.style}>
-    <InputWrapper>
-      <IconWrapper>{focus || !!props.defaultValue
-        ? <Close onClick={props.handleCloseSearch} width={10} height={10} fill='#25273D' fillDark='rgb(237, 239, 255)' />
-        : <Magnifier fill={isLight ? '#25273D' : '#ADAFD4'} width={16} height={16} />}</IconWrapper>
-      <Input
-        ref={props.inputRef}
-        isLight={isLight}
-        id="search-input"
-        onChange={handleChange}
-        placeholder={props.placeholder}
-        onFocus={() => setFocus(true)}
-        onBlur={() => setFocus(false)}
-        focus={focus || !!props.value}
-        value={props.value}
-        defaultValue={props.defaultValue}
-      />
-      <IconWrapper>{focus || !!props.defaultValue
-        ? <Close onClick={props.handleCloseSearch} width={10} height={10} fill='#25273D' fillDark='rgb(237, 239, 255)' />
-        : <Magnifier fill={isLight ? '#25273D' : '#ADAFD4'} width={16} height={16} />}</IconWrapper>
-    </InputWrapper>
-  </Container>;
+  return (
+    <Container style={props.style}>
+      <InputWrapper>
+        <IconWrapper>
+          {focus || !!props.defaultValue ? (
+            <Close
+              onClick={props.handleCloseSearch}
+              width={10}
+              height={10}
+              fill="#25273D"
+              fillDark="rgb(237, 239, 255)"
+            />
+          ) : (
+            <Magnifier fill={isLight ? '#25273D' : '#ADAFD4'} width={16} height={16} />
+          )}
+        </IconWrapper>
+        <Input
+          ref={props.inputRef}
+          isLight={isLight}
+          id="search-input"
+          onChange={handleChange}
+          placeholder={props.placeholder}
+          onFocus={() => setFocus(true)}
+          onBlur={() => setFocus(false)}
+          focus={focus || !!props.value}
+          value={props.value}
+          defaultValue={props.defaultValue}
+        />
+        <IconWrapper>
+          {focus || !!props.defaultValue ? (
+            <Close
+              onClick={props.handleCloseSearch}
+              width={10}
+              height={10}
+              fill="#25273D"
+              fillDark="rgb(237, 239, 255)"
+            />
+          ) : (
+            <Magnifier fill={isLight ? '#25273D' : '#ADAFD4'} width={16} height={16} />
+          )}
+        </IconWrapper>
+      </InputWrapper>
+    </Container>
+  );
 };
 
 const Container = styled.div({
@@ -52,10 +74,10 @@ const Container = styled.div({
 const InputWrapper = styled.div({
   position: 'relative',
   display: 'flex',
-  alignItems: 'center'
+  alignItems: 'center',
 });
 
-const Input = styled.input<{ focus: boolean, isLight: boolean }>(({ focus, isLight }) => ({
+const Input = styled.input<{ focus: boolean; isLight: boolean }>(({ focus, isLight }) => ({
   fontFamily: 'SF Pro Text, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
@@ -65,7 +87,14 @@ const Input = styled.input<{ focus: boolean, isLight: boolean }>(({ focus, isLig
   outline: 'none',
   width: '320px',
   height: '48px',
-  border: isLight && focus ? '1px solid #231536' : isLight && !focus ? '1px solid #D4D9E1' : !isLight && focus ? '1px solid #787A9B' : '1px solid #343442',
+  border:
+    isLight && focus
+      ? '1px solid #231536'
+      : isLight && !focus
+      ? '1px solid #D4D9E1'
+      : !isLight && focus
+      ? '1px solid #787A9B'
+      : '1px solid #343442',
   borderRadius: '22px',
   padding: '15px 45px 15px 16px',
   boxSizing: 'border-box',
@@ -73,7 +102,7 @@ const Input = styled.input<{ focus: boolean, isLight: boolean }>(({ focus, isLig
   backgroundColor: isLight ? '#FFFFFF' : '#10191F',
   '&::placeholder': {
     color: isLight ? '#B0BCC0' : '#D2D4EF',
-  }
+  },
 }));
 
 const IconWrapper = styled.div({

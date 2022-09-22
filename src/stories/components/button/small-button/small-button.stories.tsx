@@ -4,7 +4,7 @@ import SmallButton from './small-button';
 
 export default {
   title: 'Components/CUAbout/SmallButton',
-  component: SmallButton
+  component: SmallButton,
 } as ComponentMeta<typeof SmallButton>;
 
 const Template: ComponentStory<typeof SmallButton> = (args) => <SmallButton {...args} />;

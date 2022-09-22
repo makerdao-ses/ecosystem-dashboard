@@ -3,9 +3,7 @@ import { CuTableColumnTeamMember } from './cu-table-column-team-member';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import cuTableReducer, {
-  CuTableState, sortNeutralState,
-} from '../../containers/cu-table/cu-table.slice';
+import cuTableReducer, { CuTableState, sortNeutralState } from '../../containers/cu-table/cu-table.slice';
 import { CuJobEnum } from '../../../core/enums/cu-job.enum';
 import { ContributorCommitmentDto } from '../../../core/models/dto/core-unit.dto';
 
@@ -19,24 +17,20 @@ const MockedState: CuTableState = {
   items: [],
   status: 'idle',
   sortColumn: 0,
-  headersSort: sortNeutralState
+  headersSort: sortNeutralState,
 };
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 // eslint-disable-next-line react/prop-types
-const Mockstore = ({ children }) => (
-  <Provider store={store}>{children}</Provider>
-);
+const Mockstore = ({ children }) => <Provider store={store}>{children}</Provider>;
 
 export default {
   title: 'Components/CUTable/ColumnTeamMember',
   components: CuTableColumnTeamMember,
 } as ComponentMeta<typeof CuTableColumnTeamMember>;
 
-const Template: ComponentStory<typeof CuTableColumnTeamMember> = (args) => (
-  <CuTableColumnTeamMember {...args} />
-);
+const Template: ComponentStory<typeof CuTableColumnTeamMember> = (args) => <CuTableColumnTeamMember {...args} />;
 
 export const Default = Template.bind({});
 Default.decorators = [
@@ -50,15 +44,17 @@ Default.args = {
     {
       jobTitle: CuJobEnum.Facilitator,
       startDate: '2011-10-10',
-      contributor: [{
-        email: 'some@gmail.com',
-        forumHandle: '',
-        discordHandle: '',
-        facilitatorImage: '',
-        name: 'Some facilitator',
-        twitterHandle: '',
-        id: ''
-      }],
+      contributor: [
+        {
+          email: 'some@gmail.com',
+          forumHandle: '',
+          discordHandle: '',
+          facilitatorImage: '',
+          name: 'Some facilitator',
+          twitterHandle: '',
+          id: '',
+        },
+      ],
     } as ContributorCommitmentDto,
   ],
 };

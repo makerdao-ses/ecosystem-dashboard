@@ -9,14 +9,18 @@ interface Props {
   onClick: () => void;
 }
 
-const MdViewerContainer = ({ sentenceDescription, paragraphDescription, paragraphImage, showButton, onClick }: Props) => {
+const MdViewerContainer = ({
+  sentenceDescription,
+  paragraphDescription,
+  paragraphImage,
+  showButton,
+  onClick,
+}: Props) => {
   const [headersLevel, setHeadersLevel] = useState<MarkDownHeaders[]>([]);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const creatingIndexItems = useCallback(
     (level: number, htmlCleanedText: string, escapedText: string) => {
-      const cleanedText = htmlCleanedText
-        .replace(/[^a-zA-Z,:" ";?]/g, '')
-        .replace(';', '`');
+      const cleanedText = htmlCleanedText.replace(/[^a-zA-Z,:" ";?]/g, '').replace(';', '`');
 
       if (headersLevel.some((a) => a.title === cleanedText)) return;
       setHeadersLevel([
@@ -29,7 +33,7 @@ const MdViewerContainer = ({ sentenceDescription, paragraphDescription, paragrap
         },
       ]);
     },
-    [headersLevel],
+    [headersLevel]
   );
 
   // eslint-disable-next-line no-extra-boolean-cast

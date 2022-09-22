@@ -3,8 +3,8 @@ import { useCallback, useMemo, useState } from 'react';
 import {
   getExpenditureValueFromCoreUnit,
   getFTEsFromCoreUnit,
+  getLastMonthWithData,
   getLatestMip39FromCoreUnit,
-  getLinksFromCoreUnit,
 } from '../../../core/business-logic/core-units';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
@@ -16,7 +16,13 @@ import { GETCoreUnits } from './cu-table.api';
 import useSWR from 'swr';
 import { CustomTableColumn, CustomTableRow } from '../../components/custom-table/custom-table-2';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
-import { renderExpenditures, renderLinks, renderSummary, renderTeamMember } from './cu-table.renders';
+import {
+  renderExpenditures,
+  renderLastModified,
+  renderLinks,
+  renderSummary,
+  renderTeamMember,
+} from './cu-table.renders';
 import { SortEnum } from '../../../core/enums/sort.enum';
 import { sortAlphaNum } from '../../../core/utils/sort.utils';
 
@@ -41,6 +47,7 @@ export const useCoreUnitsTableMvvm = () => {
     SortEnum.Neutral,
     SortEnum.Neutral,
     SortEnum.Neutral,
+    SortEnum.Disabled,
   ]);
 
   const [filtersPopup, setFiltersPopup] = useState(false);
@@ -121,27 +128,39 @@ export const useCoreUnitsTableMvvm = () => {
     {
       header: 'Core Unit',
       justifyContent: 'flex-start',
-      style: { paddingLeft: '79.5px' },
+      style: { paddingLeft: '16px' },
       cellRender: renderSummary,
       onClick: onClickRow,
+      width: '400px',
     },
     {
       header: 'Expenditure',
       justifyContent: 'flex-start',
       cellRender: renderExpenditures,
       onClick: onClickFinances,
+      width: '215px',
     },
     {
       header: 'Team Members',
       justifyContent: 'center',
       cellRender: renderTeamMember,
       onClick: onClickRow,
+      width: '205px',
     },
     {
-      header: 'Links',
+      header: 'Last Modified',
+      justifyContent: 'flex-start',
+      cellRender: renderLastModified,
+      onClick: onClickRow,
+      width: '122px',
+    },
+    {
+      header: '',
       justifyContent: 'center',
       cellRender: renderLinks,
       onClick: onClickRow,
+      width: '358px',
+      responsiveWidth: '186px',
     },
   ];
 
@@ -154,10 +173,14 @@ export const useCoreUnitsTableMvvm = () => {
       (getExpenditureValueFromCoreUnit(a) - getExpenditureValueFromCoreUnit(b)) * multiplier;
     const teamMembersSort = (a: CoreUnitDto, b: CoreUnitDto) =>
       (getFTEsFromCoreUnit(a) - getFTEsFromCoreUnit(b)) * multiplier;
-    const linksSort = (a: CoreUnitDto, b: CoreUnitDto) =>
-      (getLinksFromCoreUnit(a).length - getLinksFromCoreUnit(b).length) * multiplier;
-
-    const sortAlg = [nameSort, expendituresSort, teamMembersSort, linksSort];
+    const lastModifiedSort = (a: CoreUnitDto, b: CoreUnitDto) => {
+      return (
+        ((getLastMonthWithData(a.budgetStatements)?.toMillis() ?? Number.MAX_VALUE) -
+          (getLastMonthWithData(b.budgetStatements)?.toMillis() ?? Number.MAX_VALUE)) *
+        multiplier
+      );
+    };
+    const sortAlg = [nameSort, expendituresSort, teamMembersSort, lastModifiedSort, () => 0];
     return [...items].sort(sortAlg[sortColumn]);
   };
 
@@ -170,7 +193,13 @@ export const useCoreUnitsTableMvvm = () => {
   }, [data, sortColumn, headersSort, filteredCategories, filteredStatuses, searchText]);
 
   const onSortClick = (index: number) => {
-    const sortNeutralState = [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral];
+    const sortNeutralState = [
+      SortEnum.Neutral,
+      SortEnum.Neutral,
+      SortEnum.Neutral,
+      SortEnum.Neutral,
+      SortEnum.Disabled,
+    ];
 
     if (headersSort[index] === 3) {
       setHeadersSort(sortNeutralState);

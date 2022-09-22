@@ -39,10 +39,7 @@ export const TransparencyMkrVesting2 = (props: TransparencyMkrVestingProps) => {
           </TotalFte>
         </CustomPopover>
       </ContainerPopover>
-      <AdvancedInnerTable
-        columns={mainTableColumns}
-        items={mainTableItems}
-      />
+      <AdvancedInnerTable columns={mainTableColumns} items={mainTableItems} />
       {mainTableItems.length > 0 && (
         <>
           <Text isLight={isLight} style={{ marginTop: '32px' }}>
@@ -50,10 +47,9 @@ export const TransparencyMkrVesting2 = (props: TransparencyMkrVestingProps) => {
           </Text>
 
           <Text isLight={isLight} style={{ marginBottom: '90px' }}>
-            The Difference column indicates any changes in the MKR vesting
-            amounts compared to last month, with the Reason(s) column indicating
-            why the amounts changed. Reasons may include: New hires, FTE
-            changes, Promotions, or Terminations.
+            The Difference column indicates any changes in the MKR vesting amounts compared to last month, with the
+            Reason(s) column indicating why the amounts changed. Reasons may include: New hires, FTE changes,
+            Promotions, or Terminations.
           </Text>
         </>
       )}

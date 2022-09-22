@@ -5,7 +5,7 @@ export class Mip41Builder {
 
   constructor() {
     this._mip41 = {
-      contributor: []
+      contributor: [],
     } as Mip41Dto;
   }
 
