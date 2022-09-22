@@ -101,7 +101,7 @@ const CardExpenses = ({ onClick, code }: Props) => {
         }}
       >
         <CustomLink
-          href={MAKER_BURN_LINK}
+          href={`${MAKER_BURN_LINK}/${code}`}
           style={{
             marginLeft: '0px',
             paddingRight: '0px',
