@@ -98,7 +98,6 @@ const Container = styled.div<{ spacings?: number; align: string; isIndex?: boole
     maxWidth: '240px',
     flexWrap: 'wrap',
     gap: '0 8px',
-    padding: '24px 0',
   },
   '@media (min-width: 1410px)': {
     maxWidth: 'unset',

@@ -28,7 +28,7 @@ export const TransparencyTransferRequest2 = (props: Props) => {
       <LinkDescription isLight={isLight}>
         To see the onchain transactions from the Maker Protocol to the {formatCode(props.code)} Core Unit
         <CustomLink
-          href={MAKER_BURN_LINK}
+          href={`${MAKER_BURN_LINK}/${props.code}`}
           style={{
             flexWrap: 'wrap',
             color: '#447AFB',
