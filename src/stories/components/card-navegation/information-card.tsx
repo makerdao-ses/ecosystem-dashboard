@@ -15,6 +15,7 @@ interface Props {
   letterSpacing?: string;
   color?: string;
   padding?: string;
+  isTitlePresent?: boolean;
 }
 
 const InformationCard = ({
@@ -28,24 +29,27 @@ const InformationCard = ({
   color = '#231536',
   width = '405px',
   padding = '16px 16px 24px 16px',
+  isTitlePresent = true,
 }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
   return (
     <>
-      <Typography
-        sx={{
-          marginBottom: '16px',
-          fontFamily: 'Inter,sans-serif',
-          fontStyle: 'normal',
-          fontWeight,
-          fontSize,
-          lineHeight,
-          letterSpacing,
-          color,
-        }}
-      >
-        {title}
-      </Typography>
+      {isTitlePresent && (
+        <Typography
+          sx={{
+            marginBottom: '16px',
+            fontFamily: 'Inter,sans-serif',
+            fontStyle: 'normal',
+            fontWeight,
+            fontSize,
+            lineHeight,
+            letterSpacing,
+            color,
+          }}
+        >
+          {title}
+        </Typography>
+      )}
       <Container padding={padding} height={height} width={width} isLight={isLight}>
         {children}
       </Container>

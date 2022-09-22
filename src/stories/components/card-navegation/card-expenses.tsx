@@ -11,17 +11,20 @@ import InformationCard from './information-card';
 interface Props {
   onClick: () => void;
   code: string;
+  isTitlePresent?: boolean;
+  height?: string;
 }
 
-const CardExpenses = ({ onClick, code }: Props) => {
+const CardExpenses = ({ onClick, code, isTitlePresent = true, height = '190px' }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
   return (
     <InformationCard
       title="Expenses"
-      height="190px"
+      height={height}
       fontSize="24px"
       lineHeight="29px"
       padding="0px"
+      isTitlePresent={isTitlePresent}
       color={isLight ? '#231536' : '#D2D4EF'}
     >
       <div
