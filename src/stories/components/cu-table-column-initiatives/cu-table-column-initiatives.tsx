@@ -29,7 +29,7 @@ const RoundedBox = styled.div({
   alignItems: 'center',
   justifyContent: 'center',
   fontSize: '14px',
-  fontFamily: 'SF Pro Text, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 500,
   width: '58px',
   height: '34px',

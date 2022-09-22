@@ -151,7 +151,7 @@ const UnorderedList = styled.ul({
 });
 
 const TypographyStyle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })({
-  fontFamily: 'SF Pro Text, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '14px',

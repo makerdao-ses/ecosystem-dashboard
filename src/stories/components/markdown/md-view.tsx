@@ -81,7 +81,7 @@ const MdViewerPage = ({
               borderRadius: '22px',
               height: '34px',
               color: '#1AAB9B',
-              fontFamily: 'SF Pro Text, sans serif',
+              fontFamily: 'Inter, sans-serif',
               fontStyle: 'normal',
               fontWeight: 500,
               fontSize: '14px',

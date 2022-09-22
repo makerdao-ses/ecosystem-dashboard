@@ -196,7 +196,7 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
 };
 
 const Line = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'SF Pro Text',
+  fontFamily: 'Inter, sans-serif',
   width: '100%',
   margin: '18px 0 32px',
   border: isLight ? ' 1px solid #D4D9E1' : '1px solid #405361',
