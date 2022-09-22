@@ -11,20 +11,20 @@ export const getMipTitle = (title: string) => {
 };
 
 export const formatAddressForOutput = (address: string | undefined) => {
-  if (!address) { return ''; }
+  if (!address) {
+    return '';
+  }
   return `${address.slice(0, 5)}..${address.slice(address.length - 5, address.length)}`;
 };
 
 export const capitalizeWord = (word: string) => {
-  return word
-    .toLowerCase()
-    .replace(/\w/, firstLetter => firstLetter.toUpperCase());
+  return word.toLowerCase().replace(/\w/, (firstLetter) => firstLetter.toUpperCase());
 };
 
 export const capitalizeSentence = (sentence: string) => {
   const words = sentence?.split(' ');
 
-  return words?.map(w => capitalizeWord(w)).join(' ');
+  return words?.map((w) => capitalizeWord(w)).join(' ');
 };
 
 export const formatNumber = (number: number) => {

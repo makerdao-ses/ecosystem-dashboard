@@ -1,11 +1,9 @@
-import {
-  createTheme,
-  responsiveFontSizes,
-} from '@mui/material/styles';
+import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 
 declare module '@mui/material/styles' {
+  // eslint-disable-next-line spellcheck/spell-checker
   interface BreakpointOverrides {
-    xs: false; // removes the `xs` breakpoint
+    xs: false;
     sm: false;
     md: false;
     lg: false;

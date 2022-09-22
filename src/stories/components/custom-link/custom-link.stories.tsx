@@ -4,7 +4,7 @@ import { CustomLink } from './custom-link';
 
 export default {
   title: 'Components/General/CustomLink',
-  component: CustomLink
+  component: CustomLink,
 } as ComponentMeta<typeof CustomLink>;
 
 const Template: ComponentStory<typeof CustomLink> = (args) => <CustomLink {...args} />;

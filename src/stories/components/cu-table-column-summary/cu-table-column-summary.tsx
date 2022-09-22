@@ -155,7 +155,7 @@ const Container = styled.div({
   '@media (min-width: 834px)': {
     padding: '8px 0 16px',
   },
-  '@media (min-width: 1180px)': {
+  '@media (min-width: 1194px)': {
     padding: '24px 16px',
   },
 });
@@ -173,14 +173,22 @@ const Content = styled.section({
 });
 
 const Code = styled.span<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
-  fontWeight: 700,
+  fontFamily: 'Inter, sans-serif',
+  fontWeight: 800,
   fontSize: '14px',
   letterSpacing: '0.3px',
+  lineHeight: '17px',
   textTransform: 'uppercase',
   color: isLight ? '#9FAFB9' : '#546978',
   marginRight: '5px',
   whiteSpace: 'nowrap',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    fontWeight: 700,
+  },
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    fontSize: '12px',
+    lineHeight: '15px',
+  },
 }));
 
 const TitleWrapper = styled.div({
@@ -189,17 +197,21 @@ const TitleWrapper = styled.div({
 });
 
 const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontSize: '14px',
+  fontStyle: 'normal',
   alignItems: 'center',
   fontWeight: 400,
   color: isLight ? '#231536' : '#FFFFFF',
-  lineHeight: '19px',
+  lineHeight: '17px',
   whiteSpace: 'nowrap',
-
-  [lightTheme.breakpoints.up('table_834')]: {
-    fontSize: '16px',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    fontSize: '12px;',
+    lineHeight: '15px',
   },
+  // [lightTheme.breakpoints.up('table_834')]: {
+  //   fontSize: '16px',
+  // },
 }));
 
 const Row = styled.section({

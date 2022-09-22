@@ -10,14 +10,12 @@ export default {
   component: SelectLink,
 } as ComponentMeta<typeof SelectLink>;
 
-const Template: ComponentStory<typeof SelectLink> = (args) => (
-  <SelectLink {...args} />
-);
+const Template: ComponentStory<typeof SelectLink> = (args) => <SelectLink {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onClick: () => () => { },
+  onClick: () => () => {},
   links: [
     {
       title: 'Voting Portal',
@@ -53,5 +51,5 @@ Default.args = {
       id: '3',
       description: 'Easily view onchain data that surfaces key protocol health metrics.',
     },
-  ] as WebSiteLinks[]
+  ] as WebSiteLinks[],
 };

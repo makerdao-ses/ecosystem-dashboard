@@ -113,7 +113,7 @@ const BreadCrumbMobile = ({ title, count = 0, page = 0, onClickLeft, onClickRigh
                   paddingTop: '0px',
                   paddingBottom: '0px',
                   minHeight: 'fit-content',
-                  fontFamily: 'FT Base, sans-serif',
+                  fontFamily: 'Inter, sans-serif',
                   fontStyle: 'normal',
                   fontWeight: 400,
                   fontSize: '16px',
@@ -194,33 +194,33 @@ const Arrows = styled.div({
 const StyleActualCoreUnit = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
   isLight: boolean;
 }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
-  fontSize: '12px',
-  lineHeight: '24px',
+  fontSize: '10px',
+  lineHeight: '20px',
   letterSpacing: 'none',
   color: isLight ? '#231536' : '#D2D4EF',
 }));
 
 const StyleTextCoreUnit = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
   ({ isLight }) => ({
-    fontFamily: 'FT Base, sans-serif',
+    fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     fontWeight: 400,
-    fontSize: '12px',
-    lineHeight: '24px',
+    fontSize: '10px',
+    lineHeight: '20px',
     color: isLight ? '#626472' : '#546978',
   })
 );
 
 const StyleTitle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
   ({ isLight }) => ({
-    fontFamily: 'FT Base, sans-serif',
+    fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
-    fontWeight: 500,
-    fontSize: '12px',
-    lineHeight: '14px',
+    fontWeight: 600,
+    fontSize: '11px',
+    lineHeight: '13px',
     textAlign: 'center',
     color: isLight ? '#231536' : '#E2D8EE',
   })

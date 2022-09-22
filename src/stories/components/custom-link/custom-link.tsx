@@ -69,8 +69,8 @@ export const CustomLink = ({
 const Container = styled.a<{
   fontSize: number;
   fontSizeMobile?: number;
-  fontWeight?: number;
-  fontFamily?: string;
+  fontWeight: number;
+  fontFamily: string;
   marginLeft?: string;
   padding: string;
   border?: string;
@@ -101,5 +101,9 @@ const Container = styled.a<{
     whiteSpace: 'nowrap',
     background: 'transparent',
     paddingRight: '4px',
+    '@media (min-width: 835px)': {
+      fontSize: `${fontSize}px`,
+      lineHeight: '19px',
+    },
   })
 );

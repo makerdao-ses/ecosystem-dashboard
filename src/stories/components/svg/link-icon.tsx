@@ -23,6 +23,5 @@ export const LinkIcon = ({ fill = '#447AFB', height = 6, width = 6, style = {}, 
         fill={fill}
       />
     </svg>
-
   );
 };

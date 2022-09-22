@@ -183,11 +183,12 @@ const TableCell = styled.td<{ textAlign: 'left' | 'center' | 'right' }>(({ textA
 }));
 
 const TableHead = styled.thead<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontSize: '12px',
   lineHeight: '14px',
   letterSpacing: '1px',
   textTransform: 'uppercase',
+  fontWeight: 600,
   color: '#708390',
   borderBottom: isLight ? '1px solid #D4D9E1' : '1px solid #405361',
   whiteSpace: 'nowrap',
@@ -195,7 +196,7 @@ const TableHead = styled.thead<{ isLight: boolean }>(({ isLight }) => ({
 
 const HeadCell = styled.th(() => ({
   padding: '24px 16px',
-  fontWeight: '500',
+  fontWeight: 600,
 }));
 
 const TableWrapper = styled.div({

@@ -5,7 +5,7 @@ import InsidePagination from './InsidePagination';
 
 export default {
   title: 'Components/CUAbout/InsidePagination',
-  components: InsidePagination
+  components: InsidePagination,
 } as ComponentMeta<typeof InsidePagination>;
 
 const Template: ComponentStory<typeof InsidePagination> = (args) => <InsidePagination {...args} />;

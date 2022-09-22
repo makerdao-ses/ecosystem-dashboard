@@ -7,12 +7,10 @@ export default {
   component: SelectItem,
 } as ComponentMeta<typeof SelectItem>;
 
-const Template: ComponentStory<typeof SelectItem> = (args) => (
-  <SelectItem {...args}/>
-);
+const Template: ComponentStory<typeof SelectItem> = (args) => <SelectItem {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
   label: 'some label',
-  count: 4
+  count: 4,
 };

@@ -8,11 +8,13 @@ export default {
   components: CustomTableHeader,
 } as ComponentMeta<typeof CustomTableHeader>;
 
-const Template: ComponentStory<typeof CustomTableHeader> = (args: CustomTableHeaderProps) => <CustomTableHeader {...args} />;
+const Template: ComponentStory<typeof CustomTableHeader> = (args: CustomTableHeaderProps) => (
+  <CustomTableHeader {...args} />
+);
 
 export const Default = Template.bind({});
 Default.args = {
   title: 'Some header',
   state: SortEnum.Neutral,
-  align: 'flex-start'
+  align: 'flex-start',
 };

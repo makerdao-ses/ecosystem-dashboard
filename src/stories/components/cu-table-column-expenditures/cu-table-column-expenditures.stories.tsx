@@ -4,7 +4,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
   title: 'Components/CUTable/ColumnExpenditures',
-  component: CuTableColumnExpenditures
+  component: CuTableColumnExpenditures,
 } as ComponentMeta<typeof CuTableColumnExpenditures>;
 
 const Template: ComponentStory<typeof CuTableColumnExpenditures> = (args) => <CuTableColumnExpenditures {...args} />;

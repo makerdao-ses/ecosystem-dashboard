@@ -11,9 +11,7 @@ export default {
   component: ItemWebSite,
 } as ComponentMeta<typeof ItemWebSite>;
 
-const Template: ComponentStory<typeof ItemWebSite> = (args) => (
-  <ItemWebSite {...args} />
-);
+const Template: ComponentStory<typeof ItemWebSite> = (args) => <ItemWebSite {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

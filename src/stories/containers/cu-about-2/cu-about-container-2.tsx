@@ -207,13 +207,13 @@ const TeamMemberTitle = styled.h2<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   marginTop: 0,
   marginBottom: 0,
-  fontFamily: 'FT Base, sans-serif',
-
+  fontFamily: 'Inter, sans-serif',
   [lightTheme.breakpoints.down('table_834')]: {
     fontSize: '16px',
+    lineHeight: '19px',
     fontWeight: 700,
   },
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [lightTheme.breakpoints.between(835, 'desktop_1194')]: {
     fontSize: '20px',
     lineHeight: '24px',
     letterSpacing: '0.4px',
@@ -231,11 +231,11 @@ const ContactInfoTitle = styled.h2<{ isLight: boolean }>(({ isLight }) => ({
   fontStyle: 'normal',
   fontWeight: 600,
   fontSize: '14px',
-  lineHeight: '18px',
+  lineHeight: '17px',
   color: isLight ? '#231536' : '#D2D4EF',
   marginTop: 0,
   marginBottom: '32px',
-  fontFamily: 'SF Pro Text, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   width: '100%',
 
   [lightTheme.breakpoints.up('table_834')]: {
@@ -287,15 +287,15 @@ const CardRelateMipsContainer = styled.div({
 });
 
 const TitleRelateMips = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'SF Pro Text, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 600,
   fontSize: '14px',
-  lineHeight: '18px',
+  lineHeight: '17px',
   marginBottom: '32px',
   color: isLight ? '#231536' : '#D2D4EF',
 
   [lightTheme.breakpoints.up('table_834')]: {
-    fontFamily: 'FT Base, sans-serif',
+    fontFamily: 'Inter, sans-serif',
     fontWeight: 700,
     fontSize: '16px',
     lineHeight: '19.2px',

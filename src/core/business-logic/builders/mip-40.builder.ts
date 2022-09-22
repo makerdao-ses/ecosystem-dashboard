@@ -17,9 +17,12 @@ export class Mip40Builder {
       budgetPeriodEnd,
     } as Mip40BudgetPeriodDto);
     this._mip40.mip40Wallet.push({
-      mip40BudgetLineItem: budgetCaps.map(x => ({
-        budgetCap: x,
-      }) as Mip40BudgetLineItemDto)
+      mip40BudgetLineItem: budgetCaps.map(
+        (x) =>
+          ({
+            budgetCap: x,
+          } as Mip40BudgetLineItemDto)
+      ),
     } as Mip40WalletDto);
     return this;
   }

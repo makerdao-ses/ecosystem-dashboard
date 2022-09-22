@@ -13,9 +13,7 @@ export const TablePlaceholder = () => {
         <Image src={isLight ? PlaceholderImg : PlaceholderImgDark} alt="There are no elements" layout="fill" />
       </ImageWrapper>
       <Title isLight={isLight}>No Results Found</Title>
-      <Description isLight={isLight}>
-        There are no core units available with this combination of filters.
-      </Description>
+      <Description isLight={isLight}>There are no core units available with this combination of filters.</Description>
     </Container>
   );
 };
@@ -38,11 +36,11 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   '@media (min-width: 834px)': {
     height: '768px',
     padding: '64px 0',
-  }
+  },
 }));
 
 const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base',
+  fontFamily: 'Inter',
   fontWeight: 500,
   lineHeight: '58px',
   color: isLight ? '#9FAFB9' : '#D1DEE6',
@@ -51,11 +49,11 @@ const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   '@media (min-width: 834px)': {
     fontSize: '48px',
     margin: '96px 0 32px',
-  }
+  },
 }));
 
 const Description = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base',
+  fontFamily: 'Inter',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '16px',
@@ -64,8 +62,8 @@ const Description = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#708390' : '#9FAFB9',
   maxWidth: '240px',
   '@media (min-width: 834px)': {
-    maxWidth: '380px'
-  }
+    maxWidth: '380px',
+  },
 }));
 
 const ImageWrapper = styled.div({

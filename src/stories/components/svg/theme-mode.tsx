@@ -6,7 +6,7 @@ interface Props {
   height?: number;
   fill?: string;
   onClick?: () => void;
-  fillDark?: string
+  fillDark?: string;
 }
 
 const MoonMode = ({
@@ -15,7 +15,7 @@ const MoonMode = ({
   fill = '#211634',
   fillDark = '#EDEFFF',
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onClick = () => { },
+  onClick = () => {},
   ...props
 }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
@@ -24,7 +24,7 @@ const MoonMode = ({
       onClick={onClick}
       style={{
         cursor: 'pointer',
-        padding: '2px'
+        padding: '2px',
       }}
       width={width}
       height={height}

@@ -13,7 +13,7 @@ import { CuStatusEnum } from '../enums/cu-status.enum';
 import { RoadmapStatusEnum } from '../enums/roadmap-status.enum';
 import { CustomChartItemModel } from '../models/custom-chart-item.model';
 import _ from 'lodash';
-import { API_MONTH_FORMAT } from '../utils/date.utils';
+import { API_MONTH_FROM_FORMAT, API_MONTH_TO_FORMAT } from '../utils/date.utils';
 
 export const setCuMipStatusModifiedDate = (mip: CuMipDto, status: CuStatusEnum, date: string) => {
   let index = status.toLowerCase();
@@ -49,7 +49,7 @@ export const getSubmissionDateFromCuMip = (mip: CuMipDto | null) => {
     // @ts-ignore
     const date = getCuMipStatusModifiedDate(mip, mip.mipStatus);
     if (!date) return null;
-    return DateTime.fromFormat(date, 'yyyy-MM-dd').toJSDate();
+    return DateTime.fromFormat(date, API_MONTH_FROM_FORMAT).toJSDate();
   } catch (e) {
     console.error(e);
     return null;
@@ -185,7 +185,7 @@ const sumAllLineItemsFromBudgetStatement = (budgetStatement: BudgetStatementDto,
 
   budgetStatement?.budgetStatementWallet.forEach((wallet) => {
     wallet.budgetStatementLineItem
-      .filter((x) => x.month === month.toFormat(API_MONTH_FORMAT))
+      .filter((x) => x.month === month.toFormat(API_MONTH_TO_FORMAT))
       .forEach((lineItem) => {
         result += lineItem?.actual ?? 0;
       });
@@ -199,7 +199,7 @@ export const getExpenditureValueFromCoreUnit = (cu: CoreUnitDto) => {
   if (cu.budgetStatements.length === 0) return result;
 
   for (const dateToCheck of getLast3MonthsWithData(cu.budgetStatements)) {
-    const temp = cu.budgetStatements?.find((bs) => bs.month === dateToCheck.toFormat(API_MONTH_FORMAT));
+    const temp = cu.budgetStatements?.find((bs) => bs.month === dateToCheck.toFormat(API_MONTH_TO_FORMAT));
     if (temp) {
       result += sumAllLineItemsFromBudgetStatement(temp, dateToCheck);
     }
@@ -213,7 +213,7 @@ export const getExpenditureAmountFromCoreUnit = (cu: CoreUnitDto) => {
   if (cu.budgetStatements.length === 0) return result;
 
   for (const dateToCheck of getLast3MonthsWithData(cu.budgetStatements)) {
-    const temp = cu.budgetStatements?.find((bs) => bs.month === dateToCheck.toFormat(API_MONTH_FORMAT));
+    const temp = cu.budgetStatements?.find((bs) => bs.month === dateToCheck.toFormat(API_MONTH_TO_FORMAT));
     if (temp) {
       result += 1;
     }
@@ -237,7 +237,7 @@ export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDto) => {
   if (cu.budgetStatements.length === 0) return new Array(3).fill({ value: 0 });
 
   for (const dateToCheck of getLast3MonthsWithData(cu.budgetStatements)) {
-    const temp = cu.budgetStatements?.find((bs) => bs.month === dateToCheck.toFormat(API_MONTH_FORMAT));
+    const temp = cu.budgetStatements?.find((bs) => bs.month === dateToCheck.toFormat(API_MONTH_TO_FORMAT));
 
     if (temp) {
       result.push({ value: sumAllLineItemsFromBudgetStatement(temp, dateToCheck) });
@@ -258,7 +258,7 @@ export const getCurrentOrLastMonthWithData = (budgetStatements: BudgetStatementD
     for (const wallet of bs.budgetStatementWallet) {
       for (const item of wallet.budgetStatementLineItem.filter((li) => li.month === bs.month)) {
         if (item.actual) {
-          const itemMonth = DateTime.fromFormat(bs.month, 'yyyy-MM-dd');
+          const itemMonth = DateTime.fromFormat(bs.month, API_MONTH_FROM_FORMAT);
 
           if (itemMonth.toMillis() <= currentMonth.toMillis()) {
             return itemMonth;
@@ -280,13 +280,29 @@ export const getLastMonthWithActualOrForecast = (budgetStatements: BudgetStateme
     for (const wallet of bs.budgetStatementWallet) {
       for (const item of wallet.budgetStatementLineItem.filter((li) => li.month === bs.month)) {
         if (item.actual || item.forecast) {
-          return DateTime.fromFormat(bs.month, 'yyyy-MM-dd');
+          return DateTime.fromFormat(bs.month, API_MONTH_FROM_FORMAT);
         }
       }
     }
   }
 
   return DateTime.now();
+};
+
+export const getLastMonthWithData = (budgetStatements: BudgetStatementDto[]) => {
+  const orderedStatements = _.sortBy(budgetStatements, (bs) => bs.month).reverse();
+
+  for (const bs of orderedStatements) {
+    for (const wallet of bs.budgetStatementWallet) {
+      for (const item of wallet.budgetStatementLineItem.filter((li) => li.month === bs.month)) {
+        if (item.actual) {
+          return DateTime.fromFormat(bs.month, API_MONTH_FROM_FORMAT);
+        }
+      }
+    }
+  }
+
+  return undefined;
 };
 
 export const getLast3MonthsWithData = (budgetStatements: BudgetStatementDto[]) => {
@@ -298,7 +314,7 @@ export const getLast3MonthsWithData = (budgetStatements: BudgetStatementDto[]) =
     for (const wallet of bs.budgetStatementWallet) {
       for (const item of wallet.budgetStatementLineItem.filter((li) => li.month === bs.month)) {
         if (item.actual) {
-          const date = DateTime.fromFormat(bs.month, 'yyyy-MM-dd');
+          const date = DateTime.fromFormat(bs.month, API_MONTH_FROM_FORMAT);
 
           return [date, date.minus({ months: 1 }), date.minus({ months: 2 })].reverse();
         }

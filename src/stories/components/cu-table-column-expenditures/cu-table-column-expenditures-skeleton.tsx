@@ -24,7 +24,7 @@ export const ColumnExpendituresSkeleton = () => {
           height={18}
           style={{
             borderRadius: '4px',
-            background: isLight ? '#ECF1F3' : '#1E2C37'
+            background: isLight ? '#ECF1F3' : '#1E2C37',
           }}
         />
       </div>
@@ -35,7 +35,7 @@ export const ColumnExpendituresSkeleton = () => {
         style={{
           borderRadius: '8px',
           marginBottom: '5px',
-          background: isLight ? '#ECF1F3' : '#1E2C37'
+          background: isLight ? '#ECF1F3' : '#1E2C37',
         }}
       />
       <Skeleton
@@ -46,7 +46,7 @@ export const ColumnExpendituresSkeleton = () => {
           borderRadius: '4px',
           marginBottom: '5px',
           alignSelf: 'flex-end',
-          background: isLight ? '#ECF1F3' : '#1E2C37'
+          background: isLight ? '#ECF1F3' : '#1E2C37',
         }}
       />
     </Container>
@@ -57,7 +57,7 @@ const Container = styled.div({
   display: 'flex',
   gap: '8px',
   margin: '21px 0',
-  '@media (min-width: 1180px)': {
+  '@media (min-width: 1194px)': {
     margin: '34px 0px 23px',
   },
 });

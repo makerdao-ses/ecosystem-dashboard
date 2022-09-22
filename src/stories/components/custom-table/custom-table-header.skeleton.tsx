@@ -71,8 +71,6 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   padding: '10px 91px 10px 93px',
   background: isLight ? '#FFFFFF' : '#25273D',
-  boxShadow: isLight
-    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-    : 'none',
+  boxShadow: isLight ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : 'none',
   width: '100%',
 }));

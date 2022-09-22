@@ -1,4 +1,4 @@
 export interface CustomChartItemModel {
-  label?: string,
-  value: number,
+  label?: string;
+  value: number;
 }

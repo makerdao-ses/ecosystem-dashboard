@@ -24,11 +24,7 @@ interface CustomMultiSelectProps {
   maxWidth?: number;
 }
 
-export const CustomMultiSelect = ({
-  withAll = true,
-  activeItems = [],
-  ...props
-}: CustomMultiSelectProps) => {
+export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }: CustomMultiSelectProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   const [popupVisible, setPopupVisible] = useState(false);
   const [hover, setHover] = useState(false);
@@ -72,10 +68,7 @@ export const CustomMultiSelect = ({
         onMouseOver={() => setHover(true)}
         onMouseOut={() => setHover(false)}
         style={{
-          maxWidth:
-            props.maxWidth && !activeItems.length
-              ? `${props.maxWidth}px`
-              : 'unset',
+          maxWidth: props.maxWidth && !activeItems.length ? `${props.maxWidth}px` : 'unset',
         }}
         onClick={toggleVisible}
       >
@@ -87,26 +80,29 @@ export const CustomMultiSelect = ({
             style={{ transform: popupVisible ? 'scaleY(-1)' : '' }}
             fill={
               isLight
-                ? (activeItems.length > 0 ? (!hover ? '#1AAB9B' : '#098C7D') : '#231536')
-                : activeItems.length > 0 ? (!hover ? '#1AAB9B' : '#6EDBD0') : '#E2D8EE'
+                ? activeItems.length > 0
+                  ? !hover
+                    ? '#1AAB9B'
+                    : '#098C7D'
+                  : '#231536'
+                : activeItems.length > 0
+                ? !hover
+                  ? '#1AAB9B'
+                  : '#6EDBD0'
+                : '#E2D8EE'
             }
           />
         </IconWrapper>
       </SelectContainer>
       {popupVisible && (
         <PopupContainer isLight={isLight}>
-          <SimpleBar
-            className="filter-popup-scroll"
-            scrollbarMaxSize={32}
-          >
+          <SimpleBar className="filter-popup-scroll" scrollbarMaxSize={32}>
             <ItemsContainer>
               {withAll && (
                 <SelectItem
                   checked={activeItems.length === props.items.length}
                   onClick={() => toggleAll()}
-                  label={
-                    props.customAll?.content ? props.customAll.content : 'All'
-                  }
+                  label={props.customAll?.content ? props.customAll.content : 'All'}
                   count={props.customAll?.count ?? props.items.length}
                   minWidth={180}
                 />
@@ -153,14 +149,14 @@ const SelectContainer = styled.div<{
     isLight && active
       ? '1px solid #1AAB9B'
       : isLight && focus
-        ? '1px solid #231536'
-        : !isLight && active
-            ? '1px solid #098C7D'
-            : !isLight && focus
-                ? '1px solid #343442'
-                : isLight && !active
-                  ? '1px solid#D4D9E1'
-                  : '1px solid #343442',
+      ? '1px solid #231536'
+      : !isLight && active
+      ? '1px solid #098C7D'
+      : !isLight && focus
+      ? '1px solid #343442'
+      : isLight && !active
+      ? '1px solid#D4D9E1'
+      : '1px solid #343442',
   borderRadius: '22px',
   height: '48px',
   width: 'fit-content',
@@ -170,8 +166,14 @@ const SelectContainer = styled.div<{
   transition: 'all .3s ease',
   background: isLight ? 'white' : '#10191F',
   '&:hover': {
-    border: isLight ? (active ? '1px solid #1AAB9B' : '1px solid #231536') : active ? '1px solid #098C7D' : '1px solid #787A9B',
-    background: isLight ? (active ? '#E7FCFA' : 'none') : active ? '#003C40' : '#10191F'
+    border: isLight
+      ? active
+        ? '1px solid #1AAB9B'
+        : '1px solid #231536'
+      : active
+      ? '1px solid #098C7D'
+      : '1px solid #787A9B',
+    background: isLight ? (active ? '#E7FCFA' : 'none') : active ? '#003C40' : '#10191F',
   },
 }));
 
@@ -179,20 +181,28 @@ const ItemsContainer = styled.div({
   marginRight: '16px',
   display: 'flex',
   flexDirection: 'column',
-  gap: '4px'
+  gap: '4px',
 });
 
-const Label = styled.div<{ active: boolean; isLight: boolean; hover: boolean }>(
-  ({ active, isLight, hover }) => ({
-    fontFamily: 'SF Pro Text, sans-serif',
-    fontStyle: 'normal',
-    fontWeight: 500,
-    fontSize: '14px',
-    lineHeight: '18px',
-    color: isLight ? (active ? (!hover ? '#1AAB9B' : '#098C7D') : '#231536') : active ? (!hover ? '#1AAB9B' : '#6EDBD0') : '#E2D8EE',
-    whiteSpace: 'nowrap',
-  })
-);
+const Label = styled.div<{ active: boolean; isLight: boolean; hover: boolean }>(({ active, isLight, hover }) => ({
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 500,
+  fontSize: '14px',
+  lineHeight: '18px',
+  color: isLight
+    ? active
+      ? !hover
+        ? '#1AAB9B'
+        : '#098C7D'
+      : '#231536'
+    : active
+    ? !hover
+      ? '#1AAB9B'
+      : '#6EDBD0'
+    : '#E2D8EE',
+  whiteSpace: 'nowrap',
+}));
 
 const IconWrapper = styled.div({
   position: 'absolute',
@@ -210,9 +220,7 @@ const PopupContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   height: 'fit-content',
   padding: '16px 0 16px 16px',
   '@media (min-width: 834px)': {
-    boxShadow: isLight
-      ? '0px 20px 40px #dbe3ed66, 0px 1px 3px #bebebe40'
-      : 'none',
+    boxShadow: isLight ? '0px 20px 40px #dbe3ed66, 0px 1px 3px #bebebe40' : 'none',
     position: 'absolute',
     top: '50px',
     zIndex: 3,

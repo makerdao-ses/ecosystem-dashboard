@@ -21,7 +21,8 @@ export const InnerTable = ({
   ...props
 }: InnerTableProps) => {
   const isLight = useThemeContext().themeMode === 'light';
-  return <Container style={props.style} isLight={isLight}>
+  return (
+    <Container style={props.style} isLight={isLight}>
       <Table>
         <TableHead isLight={isLight}>
           <tr>
@@ -31,7 +32,7 @@ export const InnerTable = ({
                 minWidth={minWidth}
                 key={`header-${i}`}
                 style={{
-                  textAlign: headersAlign[i] as ('left' | 'right' | 'center') ?? 'left',
+                  textAlign: (headersAlign[i] as 'left' | 'right' | 'center') ?? 'left',
                   ...headerStyles[i],
                 }}
               >
@@ -44,10 +45,7 @@ export const InnerTable = ({
           {props.items?.map((row, i) => (
             <tr key={i} style={props.rowStyles ? props.rowStyles[i] : {}}>
               {row.map((item, j) => (
-                <TableCell
-                  key={`${i}-${j}`}
-                  textAlign={headersAlign[j] as ('left' | 'right' | 'center') ?? 'left'}
-                >
+                <TableCell key={`${i}-${j}`} textAlign={(headersAlign[j] as 'left' | 'right' | 'center') ?? 'left'}>
                   {item}
                 </TableCell>
               ))}
@@ -55,7 +53,8 @@ export const InnerTable = ({
           ))}
         </tbody>
       </Table>
-    </Container>;
+    </Container>
+  );
 };
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
@@ -75,14 +74,12 @@ const Table = styled.table({
   flex: '1',
 });
 
-const TableCell = styled.td<{ textAlign: 'left' | 'center' | 'right' }>(
-  ({ textAlign }) => ({
-    textAlign,
-  })
-);
+const TableCell = styled.td<{ textAlign: 'left' | 'center' | 'right' }>(({ textAlign }) => ({
+  textAlign,
+}));
 
 const TableHead = styled.thead<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontSize: '12px',
   lineHeight: '14px',
   letterSpacing: '1px',
@@ -92,11 +89,9 @@ const TableHead = styled.thead<{ isLight: boolean }>(({ isLight }) => ({
   whiteSpace: 'nowrap',
 }));
 
-const HeadCell = styled.th<{ minWidth: number; width: string }>(
-  ({ minWidth, width }) => ({
-    padding: '24px 16px',
-    minWidth: `${minWidth}px`,
-    width,
-    fontWeight: '500',
-  })
-);
+const HeadCell = styled.th<{ minWidth: number; width: string }>(({ minWidth, width }) => ({
+  padding: '24px 16px',
+  minWidth: `${minWidth}px`,
+  width,
+  fontWeight: '500',
+}));

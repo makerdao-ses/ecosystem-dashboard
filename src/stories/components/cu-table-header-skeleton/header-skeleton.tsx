@@ -73,7 +73,7 @@ const Container = styled.div({
   [lightTheme.breakpoints.down('table_834')]: {
     '& span': {
       width: '120px!important',
-    }
+    },
   },
   [lightTheme.breakpoints.between('table_834', 1181)]: {
     flexWrap: 'wrap',

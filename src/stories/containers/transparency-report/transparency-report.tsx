@@ -69,7 +69,9 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
       <CoreUnitSummary coreUnits={coreUnits} trailingAddress={['Expense Reports']} breadcrumbTitle="Expense Reports" />
       <Container isLight={isLight}>
         <InnerPage>
-          <Title isLight={isLight}>Expense Reports</Title>
+          <Title isLight={isLight} isTitleOfPage={true}>
+            Expense Reports
+          </Title>
 
           <Paragraph isLight={isLight}>
             Every month, the {formatCode(code)} Core Unit submits a transparency report for MakerDAO governance with a
@@ -78,12 +80,13 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
             <p style={{ marginBottom: 0 }}>
               <span>Is this your core unit? Learn</span>
               <CustomLink
+                fontWeight={500}
                 href={HOW_TO_SUBMIT_EXPENSES}
                 iconHeight={10}
                 iconWidth={10}
                 fontSize={16}
                 fontSizeMobile={14}
-                fontFamily={'SF Pro Display, sans-serif'}
+                fontFamily={'Inter, sans-serif'}
               >
                 how to submit your expenses here
               </CustomLink>
@@ -108,7 +111,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
                   iconHeight={10}
                   iconWidth={10}
                   fontSize={16}
-                  fontFamily={'SF Pro Display, sans-serif'}
+                  fontFamily="Inter, sans-serif"
                 >
                   Source
                 </CustomLink>
@@ -243,9 +246,10 @@ export const Title = styled.div<{
   isLight: boolean;
   fontSize?: string;
   responsiveMarginBottom?: number;
-}>(({ marginBottom = 16, fontSize = '16px', isLight, responsiveMarginBottom }) => ({
-  fontFamily: 'FT Base, sans-serif',
-  fontWeight: 700,
+  isTitleOfPage?: boolean;
+}>(({ marginBottom = 16, fontSize = '16px', isLight, responsiveMarginBottom, isTitleOfPage = false }) => ({
+  fontFamily: 'Inter, sans-serif',
+  fontWeight: isTitleOfPage ? 500 : 600,
   fontStyle: 'normal',
   fontSize,
   lineHeight: '19px',
@@ -263,7 +267,7 @@ export const Title = styled.div<{
 }));
 
 const Paragraph = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '14px',
@@ -297,7 +301,7 @@ const StatusBar = styled.div({
 });
 
 const StatusTitle = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '12px',
@@ -309,7 +313,7 @@ const StatusTitle = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 }));
 
 const StatusValue = styled.div<{ color: string }>(({ color }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   textTransform: 'uppercase',
   fontWeight: 700,

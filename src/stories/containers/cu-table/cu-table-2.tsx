@@ -1,14 +1,5 @@
 import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
-import {
-  getExpenditureValueFromCoreUnit,
-  getFTEsFromCoreUnit,
-  getLinksFromCoreUnit,
-} from '../../../core/business-logic/core-units';
-import { selectCuTableHeadersSort, selectCuTableSortColumn } from './cu-table.slice';
-import { store } from '../../../core/store/store';
-import { SortEnum } from '../../../core/enums/sort.enum';
-import { sortAlphaNum } from '../../../core/utils/sort.utils';
 import { CustomButton } from '../../components/custom-button/custom-button';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { Filters } from './cu-table-filters';
@@ -20,25 +11,6 @@ import lightTheme from '../../../../styles/theme/light';
 import { useCoreUnitsTableMvvm } from './cu-table-2.mvvm';
 import { CustomTable2, CustomTableRow } from '../../components/custom-table/custom-table-2';
 import { renderCard } from './cu-table.renders';
-
-export const sortData = (items: CoreUnitDto[]) => {
-  const state = store.getState();
-  const headersSort = selectCuTableHeadersSort(state);
-  const sortColumn = selectCuTableSortColumn(state);
-  if (headersSort[sortColumn] === SortEnum.Disabled) return items;
-
-  const multiplier = headersSort[sortColumn] === SortEnum.Asc ? 1 : -1;
-  const nameSort = (a: CoreUnitDto, b: CoreUnitDto) => sortAlphaNum(a.name, b.name) * multiplier;
-  const expendituresSort = (a: CoreUnitDto, b: CoreUnitDto) =>
-    (getExpenditureValueFromCoreUnit(a) - getExpenditureValueFromCoreUnit(b)) * multiplier;
-  const teamMembersSort = (a: CoreUnitDto, b: CoreUnitDto) =>
-    (getFTEsFromCoreUnit(a) - getFTEsFromCoreUnit(b)) * multiplier;
-  const linksSort = (a: CoreUnitDto, b: CoreUnitDto) =>
-    (getLinksFromCoreUnit(a).length - getLinksFromCoreUnit(b).length) * multiplier;
-
-  const sortAlg = [nameSort, expendituresSort, teamMembersSort, linksSort];
-  return [...items].sort(sortAlg[sortColumn]);
-};
 
 export const CuTable2 = () => {
   const isLight = useThemeContext().themeMode === 'light';
@@ -75,6 +47,9 @@ export const CuTable2 = () => {
               border: 'none',
               background: 'none',
             }}
+            styleText={{
+              lineHeight: '18px',
+            }}
             // eslint-disable-next-line @typescript-eslint/no-empty-function
             onClick={clearFilters}
             disabled={!filteredStatuses?.length && !filteredCategories?.length && !searchText}
@@ -103,6 +78,7 @@ export const CuTable2 = () => {
                 : filteredStatuses.length || filteredCategories.length || searchText
                 ? ' #1AAB9B'
                 : '#D2D4EF',
+              lineHeight: '18px',
             }}
           />
         </FilterButtonWrapper>
@@ -156,7 +132,7 @@ const ContainerHome = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   padding: '32px 16px 128px',
-  marginTop: '64px',
+  margin: '64px auto 0',
   width: '100%',
   background: isLight ? '#FFFFFF' : '#000000',
   backgroundImage: isLight ? '#FFFFFF' : 'linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 16, 32, 0.4) 100%)',
@@ -167,7 +143,7 @@ const ContainerHome = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     padding: '24px 48px 128px',
   },
   '@media (min-width: 1440px)': {
-    padding: '24px 128px 128px',
+    padding: '24px auto 128px',
   },
 }));
 
@@ -175,10 +151,10 @@ const Wrapper = styled.div({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  maxWidth: '1184px',
+  maxWidth: '1312px',
   margin: '0 auto',
   paddingBottom: '8px',
-  '@media (min-width: 1180px) and (max-width:1280px)': {
+  '@media (min-width: 1194px) and (max-width: 1410px)': {
     maxWidth: '1130px',
   },
 });
@@ -189,7 +165,7 @@ const Header = styled.div({
   alignItems: 'center',
   marginBottom: '32px',
   minWidth: '330px',
-  '@media (min-width: 834px) and (max-width: 1180px)': {
+  '@media (min-width: 834px) and (max-width: 1194px)': {
     flexDirection: 'column',
     gap: '24px',
     alignItems: 'flex-start',
@@ -197,9 +173,9 @@ const Header = styled.div({
 });
 
 const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontSize: '24px',
-  fontWeight: 500,
+  fontWeight: 600,
   lineHeight: isLight ? '29px' : '38px',
   letterSpacing: '0.4px',
   flex: 1,
