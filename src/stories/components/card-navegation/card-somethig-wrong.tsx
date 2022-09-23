@@ -15,7 +15,6 @@ const CardSomeThingWrong = ({ width }: Props) => {
   return (
     <InformationCard
       title="Something Wrong on this Page?"
-      height={'auto'}
       width={width}
       fontWeight={600}
       color={isLight ? '#231536' : '#D2D4EF'}
