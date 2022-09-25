@@ -34,10 +34,11 @@ export const CustomTableHeader = (props: CustomTableHeaderProps) => {
 };
 
 const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontSize: '16px',
   color: isLight ? '#231536' : '#FFFFFF',
   fontWeight: 400,
+  lineHeight: '22px',
   letterSpacing: '0.05rem',
 }));
 

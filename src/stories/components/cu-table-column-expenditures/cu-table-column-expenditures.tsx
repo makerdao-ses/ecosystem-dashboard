@@ -110,23 +110,30 @@ const TotalPopup = styled.div({
 const PopupTitle = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   fontSize: '16px',
   fontWeight: 700,
-  fontFamily: 'SF Pro Display, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   color: isLight ? '#231536' : '#D2D4EF',
 }));
 
 const Label = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   fontSize: '14px',
   fontWeight: 400,
-  fontFamily: 'FT Base, sans-serif',
+  fontStyle: 'normal',
+  fontFamily: 'Inter, sans-serif',
+  lineHeight: '17px',
   color: isLight ? '#231536' : '#D2D4EF',
+  '> b': {
+    fontWeight: 600,
+  },
 }));
 
 export const Title = styled.span<{ isLight?: boolean }>(({ isLight }) => ({
-  fontSize: '12px',
+  fontSize: '11px',
   color: isLight ? '#434358' : '#9FAFB9',
   fontWeight: 400,
+  fontStyle: 'normal',
   marginBottom: '8px',
   lineHeight: '13px',
+  fontFamily: 'Inter, sans-serif',
   whiteSpace: 'nowrap',
 }));
 
@@ -135,19 +142,20 @@ const ValueWrapper = styled.div({
 });
 
 export const Value = styled.span<{ isLight?: boolean }>(({ isLight }) => ({
-  fontFamily: 'SF Pro Display, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 600,
   fontSize: '14px',
   color: isLight ? '#231536' : '#EDEFFF',
   display: 'flex',
   alignItems: 'flex-end',
   paddingBottom: 0,
-  lineHeight: '16px',
+  lineHeight: '17px',
 }));
 
 const Percent = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
-  fontFamily: 'SF Pro Display, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 400,
   fontSize: '16px',
+  lineHeight: '22px',
   color: isLight ? '#231536' : '#EDEFFF',
 }));

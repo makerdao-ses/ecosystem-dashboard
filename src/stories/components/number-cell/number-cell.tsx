@@ -28,7 +28,7 @@ export const NumberCell = (props: NumberCellProps) => {
 };
 
 const Container = styled.div<{ negative?: boolean; fontFamily?: string; isLight: boolean }>(
-  ({ negative = false, fontFamily = 'SF Pro Display, sans-serif', isLight }) => ({
+  ({ negative = false, fontFamily = 'Inter, sans-serif', isLight }) => ({
     fontFamily,
     fontSize: '14px',
     lineHeight: '17px',

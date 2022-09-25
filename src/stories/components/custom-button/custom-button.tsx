@@ -1,6 +1,7 @@
 import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import lightTheme from '../../../../styles/theme/light';
 
 interface CustomButtonProps {
   label: string | JSX.Element;
@@ -68,10 +69,14 @@ const Container = styled.button<{ isLight: boolean; isHightLight: boolean }>(({ 
 
 const Text = styled.div<{ width?: string; isLight: boolean }>(({ width = 'fit-content', isLight }) => ({
   fontSize: '14px',
-  fontFamily: 'SF Pro Text, sans-serif',
+  lineHeight: '18px',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
   color: isLight ? '#231536' : '#D2D4EF',
   whiteSpace: 'nowrap',
   width,
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    lineHeight: '18px',
+  },
 }));

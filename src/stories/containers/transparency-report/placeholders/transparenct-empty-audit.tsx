@@ -103,9 +103,9 @@ const Row = styled.div({
 });
 
 const Title = styled.div({
-  fontFamily: 'FT Base',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
-  fontWeight: 500,
+  fontWeight: 600,
   fontSize: '24px',
   lineHeight: '38px',
   textAlign: 'center',

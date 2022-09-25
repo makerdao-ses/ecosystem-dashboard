@@ -34,7 +34,7 @@ export const NavigationCard = ({
           lineHeight="29px"
           fontWeight={500}
           letterSpacing="0.4px"
-          fontFamily={'FT Base, sans-serif'}
+          fontFamily={'Inter, sans-serif'}
         >
           {title}
         </Typography>
@@ -52,7 +52,7 @@ export const NavigationCard = ({
             fontSize={14}
             color="#231536"
             letterSpacing="0.4px"
-            fontFamily={'FT Base, sans-serif'}
+            fontFamily={'Inter, sans-serif'}
           >
             {titleLinkPage}
           </Typography>
@@ -131,7 +131,7 @@ const FiCardActions = styled(CardActions)({
 });
 
 const ListItemStyle = styled.li({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '20px',
@@ -151,7 +151,7 @@ const UnorderedList = styled.ul({
 });
 
 const TypographyStyle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })({
-  fontFamily: 'SF Pro Text, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '14px',

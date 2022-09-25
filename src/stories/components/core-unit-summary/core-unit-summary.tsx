@@ -252,7 +252,9 @@ const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => 
   fontSize: '16px',
   lineHeight: '19px',
   color: isLight ? '#231536' : '#E2D8EE',
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 400,
   marginTop: '16px',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     marginTop: '16px',
@@ -263,12 +265,12 @@ const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => 
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: '12px',
-    lineHeight: '14px',
+    lineHeight: '18px',
   },
 }));
 
 const Value = styled.b<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
   fontSize: '16px',
@@ -278,6 +280,16 @@ const Value = styled.b<{ isLight: boolean }>(({ isLight }) => ({
 
 const CoreUnitStyle = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#708390' : '#787A9B',
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 400,
+  fontSize: '16px',
+  lineHeight: '22px',
+  '> b': {
+    fontWeight: 700,
+    fontSize: '16px',
+    lineHeight: '19px',
+  },
 }));
 
 const ContainerResponsiveMobile = styled.div<{ isLight: boolean; hiddenTextDescription: boolean }>(

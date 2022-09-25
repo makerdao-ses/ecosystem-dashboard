@@ -266,9 +266,9 @@ const Row = styled.div({
 });
 
 const StyleTypography = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
-  fontWeight: 700,
+  fontWeight: 600,
   fontSize: '12px',
   lineHeight: '14px',
   textAlign: 'center',
@@ -280,9 +280,9 @@ const StyleTypography = styled(Typography, { shouldForwardProp: (prop) => prop !
 const StyleLevelExpenditure = styled(Typography, {
   shouldForwardProp: (prop) => prop !== 'isLight' && prop !== 'levelExpenditure',
 })<{ levelExpenditure: ExpenditureLevel; isLight?: boolean }>(({ levelExpenditure, isLight }) => ({
-  fontFamily: 'SF Pro Text, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
-  fontWeight: 400,
+  fontWeight: 300,
   fontSize: '11px',
   lineHeight: '13px',
   color: isLight
@@ -300,7 +300,7 @@ const StyleLevelExpenditure = styled(Typography, {
 
 const TypographyValue = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight?: boolean }>(
   ({ isLight }) => ({
-    fontFamily: 'SF Pro Display,sans-serif',
+    fontFamily: 'Inter,sans-serif',
     fontStyle: 'normal',
     fontWeight: 700,
     fontSize: '16px',
@@ -313,7 +313,7 @@ const TypographyValue = styled(Typography, { shouldForwardProp: (prop) => prop !
 const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
   isLight?: boolean;
 }>(({ isLight }) => ({
-  fontFamily: 'FT Base,sans-serif',
+  fontFamily: 'Inter ,sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '14px',

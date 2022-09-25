@@ -71,11 +71,11 @@ const RelateMips = ({ relateMips }: Props) => {
               marginLeft="7px"
               style={{
                 whiteSpace: 'pre-line',
-                fontFamily: 'SF Pro Display, sans-serif',
+                fontFamily: 'Inter, sans-serif',
                 fontStyle: 'normal',
                 fontWeight: 500,
                 fontSize: isTable ? '14px' : '16px',
-                lineHeight: '16.71px',
+                lineHeight: '18px',
                 letterSpacing: '0.3px',
                 color: '#447AFB',
                 marginLeft: '0px',
@@ -88,7 +88,7 @@ const RelateMips = ({ relateMips }: Props) => {
       )}
       {pieces.length === 1 && (
         <RowUnderLine>
-          <Typography color="#447AFB" fontFamily={'SF Pro Display, sans-serif'}>
+          <Typography color="#447AFB" fontFamily={'Inter, sans-serif'}>
             {' '}
             {relateMips.mipTitle}
           </Typography>
@@ -142,11 +142,11 @@ const RowUnderLine = styled.div({
 });
 
 const SinceDate = styled.a<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
-  fontWeight: 500,
+  fontWeight: 600,
   fontSize: '12px',
-  lineHeight: '14px',
+  lineHeight: '15px',
   letterSpacing: '1px',
   textTransform: 'uppercase',
   color: isLight ? '#9FAFB9' : '#708390',
@@ -173,12 +173,12 @@ const StyleMipNumber = styled(Typography, { shouldForwardProp: (prop) => prop !=
     minWidth: '135px',
     display: 'inline-block',
     marginRight: '4px',
-    fontFamily: 'SF Pro Text, sans-serif',
+    fontStyle: 'normal',
+    fontFamily: 'Inter, sans-serif',
     color: isLight ? '#231536' : '#D2D4EF',
-    fontWeight: 600,
+    fontWeight: 500,
     paddingTop: '3px',
     lineHeight: '22px',
-
     [lightTheme.breakpoints.up('table_834')]: {
       fontSize: '16px',
     },

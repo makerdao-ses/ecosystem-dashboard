@@ -112,7 +112,7 @@ const Container = styled.div({
 });
 
 const TotalFte = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
   fontSize: '16px',
@@ -138,7 +138,7 @@ const TotalFte = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 }));
 
 const Text = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 400,
   fontSize: '14px',
   lineHeight: '17px',

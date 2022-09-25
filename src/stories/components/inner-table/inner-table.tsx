@@ -79,7 +79,7 @@ const TableCell = styled.td<{ textAlign: 'left' | 'center' | 'right' }>(({ textA
 }));
 
 const TableHead = styled.thead<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontSize: '12px',
   lineHeight: '14px',
   letterSpacing: '1px',

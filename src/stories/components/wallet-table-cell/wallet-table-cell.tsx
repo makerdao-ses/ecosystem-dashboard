@@ -30,6 +30,8 @@ export const WalletTableCell = (props: WalletTableCellProps) => {
           style={{
             margin: 0,
             lineHeight: '17px',
+            fontFamily: 'Inter, sans-serif',
+            fontStyle: 'normal',
           }}
           fontSize={14}
           fontWeight={400}
@@ -63,7 +65,7 @@ const Data = styled.div({
 });
 
 const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '14px',
@@ -71,6 +73,6 @@ const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   '@media (min-width: 835px)': {
     fontSize: '16px',
-    lineHeight: '19px',
+    lineHeight: '22px',
   },
 }));

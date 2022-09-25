@@ -50,7 +50,7 @@ export const AuditStatusChip = (props: AuditStatusChipProps) => {
 };
 
 const Chip = styled.div({
-  fontFamily: 'FT Base, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   display: 'flex',
   alignItems: 'center',
   fontWeight: 400,

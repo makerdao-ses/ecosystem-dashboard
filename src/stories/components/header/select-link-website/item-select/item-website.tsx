@@ -27,7 +27,7 @@ export const ItemWebSite = ({
   fontSize = 16,
   fontWeight = 700,
   color = '#FFFFFF',
-  fontFamily = 'SF Pro Display, sans-serif',
+  fontFamily = 'Inter, sans-serif',
   colorDark,
   subtract = '',
   description,
@@ -90,6 +90,13 @@ export const ItemWebSite = ({
             width: '137px',
             height: '34px',
             padding: '8px 24px',
+          }}
+          styleText={{
+            fontFamily: 'Inter, sans-serif',
+            fontStyle: 'normal',
+            fontWeight: 500,
+            fontSize: '14px',
+            lineHeight: '18px',
           }}
         />
       </BottomLinkWrapper>
@@ -168,11 +175,11 @@ const ContainerSubtract = styled.div<{ background?: string; padding?: string }>(
 const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
   isLight: boolean;
 }>(({ isLight }) => ({
-  fontFamily: 'FT Base, sans serif',
+  fontFamily: 'Inter, sans serif',
   fontStyle: 'normal',
   fontWeight: 400,
-  fontSize: '16px',
-  lineHeight: '19px',
+  fontSize: '14px',
+  lineHeight: '17px',
   color: isLight ? '#231536' : '#EDEFFF',
 }));
 

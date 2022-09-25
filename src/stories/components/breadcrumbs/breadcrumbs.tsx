@@ -60,8 +60,8 @@ const LinkWrapper = styled.div({
 });
 
 const Crumb = styled.a<{ first: boolean; last: boolean; isLight: boolean }>(({ first, last, isLight }) => ({
-  fontFamily: 'FT Base, sans-serif',
-  fontWeight: last ? 500 : 400,
+  fontFamily: 'Inter, sans-serif',
+  fontWeight: last ? 700 : 400,
   fontSize: '16px',
   lineHeight: '19px',
   textAlign: 'center',

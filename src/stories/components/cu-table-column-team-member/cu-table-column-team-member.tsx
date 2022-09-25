@@ -93,9 +93,9 @@ const CirclesWrapper = styled.div({
 });
 
 const Value = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'SF Pro Display, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 600,
   fontSize: '14px',
-  lineHeight: '18px',
+  lineHeight: '17px',
   color: isLight ? '#231536' : '#EDEFFF',
 }));

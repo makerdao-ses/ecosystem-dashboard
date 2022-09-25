@@ -15,9 +15,9 @@ const CoreUnitAboutPage: NextPage = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [isEnabled] = useFlagsActive();
   return isEnabled('FEATURE_CU_ABOUT_NEW_CONTAINER') ? (
-    <CuAboutContainer code={code} coreUnits={coreUnits} cuAbout={cuAbout as CoreUnitDto} />
-  ) : (
     <CuAboutContainer2 code={code} coreUnits={coreUnits} cuAbout={cuAbout as CoreUnitDto} />
+  ) : (
+    <CuAboutContainer code={code} coreUnits={coreUnits} cuAbout={cuAbout as CoreUnitDto} />
   );
 };
 export default CoreUnitAboutPage;

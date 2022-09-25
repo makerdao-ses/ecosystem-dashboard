@@ -196,7 +196,7 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
 };
 
 const Line = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'SF Pro Text',
+  fontFamily: 'Inter, sans-serif',
   width: '100%',
   margin: '18px 0 32px',
   border: isLight ? ' 1px solid #D4D9E1' : '1px solid #405361',
@@ -204,7 +204,11 @@ const Line = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 
 const DarkModeText = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   marginRight: '2px',
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 600,
   fontSize: '14px',
+  lineHeight: '17px',
   color: isLight ? '#31424E' : '#D2D4EF',
 }));
 
@@ -239,9 +243,9 @@ const ContainerIcon = styled.div<{ background: string }>(({ background }) => ({
 
 const StyleTitle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
   ({ isLight }) => ({
-    fontFamily: 'FT Base, sans-serif',
+    fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
-    fontWeight: 500,
+    fontWeight: 600,
     fontSize: '24px',
     lineHeight: '29px',
     letterSpacing: '0.4px',
@@ -252,11 +256,11 @@ const StyleTitle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'i
 
 const StyleDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
   ({ isLight }) => ({
-    fontFamily: 'FT Base, sans-serif',
+    fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     fontWeight: 400,
-    fontSize: '16px',
-    lineHeight: '19px',
+    fontSize: '14px',
+    lineHeight: '17px',
     color: isLight ? '#231536' : '#EDEFFF',
     paddingBottom: '24px',
     letterSpacing: '0px',

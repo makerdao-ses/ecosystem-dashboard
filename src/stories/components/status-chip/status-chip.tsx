@@ -70,13 +70,14 @@ export const StatusChip = (props: StatusChipProps) => {
 };
 
 const Chip = styled.div({
-  fontFamily: 'SF Pro Text, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   display: 'flex',
   alignItems: 'center',
   fontWeight: 400,
   fontSize: '11px',
   borderRadius: '12px',
-  padding: '0 8px',
+  padding: '4px 8px',
   height: '22px',
   width: 'fit-content',
+  lineHeight: '13px',
 });

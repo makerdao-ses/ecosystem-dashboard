@@ -56,7 +56,7 @@ export const TransparencyTransferRequest = (props: TransparencyTransferRequestPr
         <TextCell key={5} responsivePadding="0">
           <CustomLink
             fontSize={16}
-            fontFamily={'SF Pro Display, sans-serif'}
+            fontFamily={'Inter, sans-serif'}
             href={`https://etherscan.io/address/${wallet.address}`}
             style={{ marginRight: '16px' }}
             lineHeight="19px"
@@ -65,7 +65,7 @@ export const TransparencyTransferRequest = (props: TransparencyTransferRequestPr
           </CustomLink>
           <CustomLink
             fontSize={16}
-            fontFamily={'SF Pro Display, sans-serif'}
+            fontFamily={'Inter, sans-serif'}
             href={`https://gnosis-safe.io/app/eth:${wallet.address}`}
             lineHeight="19px"
           >

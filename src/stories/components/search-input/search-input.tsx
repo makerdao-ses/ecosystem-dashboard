@@ -78,7 +78,7 @@ const InputWrapper = styled.div({
 });
 
 const Input = styled.input<{ focus: boolean; isLight: boolean }>(({ focus, isLight }) => ({
-  fontFamily: 'SF Pro Text, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '14px',

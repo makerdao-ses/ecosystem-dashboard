@@ -22,8 +22,8 @@ export const customRenderer = {
         style={{
           backgroundColor: 'transparent',
           color: '#231536',
-          lineHeight: '23px',
-          fontFamily: 'FT Base, sans-serif',
+          lineHeight: '22px',
+          fontFamily: 'Inter, sans-serif',
           marginBottom: 0,
         }}
         key={Math.random()}
@@ -39,8 +39,8 @@ export const customRenderer = {
         style={{
           backgroundColor: 'transparent',
           color: '#231536',
-          lineHeight: '23px',
-          fontFamily: 'FT Base, sans-serif',
+          lineHeight: '22px',
+          fontFamily: 'Inter, sans-serif',
         }}
         key={Math.random()}
       >
@@ -55,8 +55,8 @@ export const customRenderer = {
         style={{
           backgroundColor: 'transparent',
           color: '#231536',
-          lineHeight: '23px',
-          fontFamily: 'FT Base, sans-serif',
+          lineHeight: '22px',
+          fontFamily: 'Inter, sans-serif',
         }}
         key={Math.random()}
       >
@@ -72,11 +72,11 @@ export const customRenderer = {
         style={{
           backgroundColor: 'transparent',
           color: '#231536',
-          fontFamily: 'FT Base, sans-serif',
+          fontFamily: 'Inter, sans-serif',
           fontStyle: 'normal',
           fontWeight: 400,
           fontSize: '16px',
-          lineHeight: '23px',
+          lineHeight: '22px',
         }}
       >
         {text}
@@ -104,8 +104,8 @@ export const customRendererDark = {
         style={{
           backgroundColor: 'transparent',
           color: '#D2D4EF',
-          lineHeight: '23px',
-          fontFamily: 'FT Base, sans-serif',
+          lineHeight: '22px',
+          fontFamily: 'Inter, sans-serif',
           marginBottom: 0,
         }}
         key={Math.random()}
@@ -121,8 +121,8 @@ export const customRendererDark = {
         style={{
           backgroundColor: 'transparent',
           color: '#D2D4EF',
-          lineHeight: '23px',
-          fontFamily: 'FT Base, sans-serif',
+          lineHeight: '22px',
+          fontFamily: 'Inter, sans-serif',
         }}
         key={Math.random()}
       >
@@ -137,8 +137,8 @@ export const customRendererDark = {
         style={{
           backgroundColor: 'transparent',
           color: '#D2D4EF',
-          lineHeight: '23px',
-          fontFamily: 'FT Base, sans-serif',
+          lineHeight: '22px',
+          fontFamily: 'Inter, sans-serif',
         }}
         key={Math.random()}
       >
@@ -154,11 +154,11 @@ export const customRendererDark = {
         style={{
           backgroundColor: 'transparent',
           color: '#D2D4EF',
-          fontFamily: 'FT Base, sans-serif',
+          fontFamily: 'Inter, sans-serif',
           fontStyle: 'normal',
           fontWeight: 400,
           fontSize: '16px',
-          lineHeight: '23px',
+          lineHeight: '22px',
         }}
       >
         {text}

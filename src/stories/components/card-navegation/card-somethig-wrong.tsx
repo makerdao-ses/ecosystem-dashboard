@@ -17,6 +17,7 @@ const CardSomeThingWrong = ({ width }: Props) => {
       title="Something Wrong on this Page?"
       height={'auto'}
       width={width}
+      fontWeight={600}
       color={isLight ? '#231536' : '#D2D4EF'}
       fontSize="20px"
     >
@@ -46,7 +47,7 @@ const CardSomeThingWrong = ({ width }: Props) => {
         iconWidth={10}
         iconHeight={10}
         marginLeft="7px"
-        fontFamily="SF Pro Display, sans-serif"
+        fontFamily="Inter, sans-serif"
       >
         Join SES discord #dashboard-reporting channel
       </CustomLink>
@@ -65,7 +66,7 @@ const CardSomeThingWrong = ({ width }: Props) => {
         fontSize={16}
         fontWeight={500}
         marginLeft="7px"
-        fontFamily="SF Pro Display, sans-serif"
+        fontFamily="Inter, sans-serif"
       >
         Or fill out this Typeform
       </CustomLink>
@@ -79,7 +80,7 @@ const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => 
   marginBottom?: string;
   isLight: boolean;
 }>(({ isLight, marginBottom }) => ({
-  fontFamily: 'SF Pro Text, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
   lineHeight: '24px',

@@ -20,19 +20,21 @@ export const renderLinks = (address: string) => {
   return (
     <TextCell key={6} responsivePadding="0">
       <CustomLink
-        fontFamily={'SF Pro Display, sans-serif'}
+        fontFamily={'Inter, sans-serif'}
         href={`https://etherscan.io/address/${address}`}
         style={{ marginRight: '16px' }}
         fontSize={16}
         fontSizeMobile={14}
+        fontWeight={500}
       >
         Etherscan
       </CustomLink>
       <CustomLink
-        fontFamily={'SF Pro Display, sans-serif'}
+        fontFamily={'Inter, sans-serif'}
         href={`https://gnosis-safe.io/app/eth:${address}`}
         fontSize={16}
         fontSizeMobile={14}
+        fontWeight={500}
       >
         Gnosis
       </CustomLink>
