@@ -96,7 +96,7 @@ const Container = styled.div<{ spacings?: number; align: string; isIndex?: boole
   gap: `${props.spacings ?? 0}px`,
   '@media (min-width: 1194px)': {
     maxWidth: '240px',
-    flexWrap: 'wrap',
+    flexWrap: props.isIndex ? 'wrap-reverse' : 'wrap',
     gap: '0 8px',
     padding: '24px 0',
   },

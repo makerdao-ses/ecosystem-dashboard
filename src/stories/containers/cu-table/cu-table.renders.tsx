@@ -99,7 +99,13 @@ export const renderLinks = (coreUnit: CoreUnitDto) => {
         cursor: 'pointer',
       }}
     >
-      <CuTableColumnLinks links={getLinksFromCoreUnit(coreUnit)} spacings={16} fill="#708390" fillDark="#D2D4EF" />
+      <CuTableColumnLinks
+        links={getLinksFromCoreUnit(coreUnit)}
+        spacings={16}
+        fill="#708390"
+        fillDark="#D2D4EF"
+        isIndex
+      />
     </div>
   );
 };
