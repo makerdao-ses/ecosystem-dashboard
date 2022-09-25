@@ -46,8 +46,11 @@ const Container = styled.div<{ isCard: boolean }>(({ isCard }) => ({
   display: 'flex',
   flexDirection: 'column',
   fontFamily: 'Inter, sans-serif',
-  '@media (min-width: 834px)': {
-    alignItems: isCard ? 'flex-end' : 'flex-start',
+  '@media (min-width: 375px)': {
+    alignItems: 'flex-end',
+  },
+  '@media (min-width: 685px) and (max-width: 834px)': {
+    alignItems: 'flex-start',
   },
 }));
 

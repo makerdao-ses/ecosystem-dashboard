@@ -170,8 +170,8 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   '@media (min-width: 375px)': {
     gridTemplateColumns: '3.5fr 2fr',
     gridTemplateAreas: `"summary summary"
-       "expenditure team"
-       "lastModified lastModified"
+       "expenditure expenditure"
+       "team lastModified"
        "line line"
        "categories categories" 
        "links links"`,
@@ -229,17 +229,24 @@ const LastModified = styled.div({
   gridArea: 'lastModified',
   marginTop: '32px',
   width: 'fit-content',
+  paddingRight: '8px',
   '@media (min-width: 375px)': {
     marginLeft: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    flex: 1,
+    width: '100%',
+  },
+  '@media (min-width: 685px)': {
+    paddingRight: 0,
   },
   '@media (min-width: 685px) and (max-width: 834px)': {
     marginTop: '0',
     marginLeft: '0',
+    alignItems: 'flex-start',
   },
   '@media (min-width: 834px)': {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-end',
     marginTop: '0',
     width: '100%',
   },
