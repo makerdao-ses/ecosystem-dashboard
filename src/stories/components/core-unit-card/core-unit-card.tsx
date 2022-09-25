@@ -110,11 +110,7 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
           </Team>
           <LastModified>
             <Title style={{ marginBottom: '16px' }}>Last Modified</Title>
-            <CuTableColumnLastModified
-              date={getLastMonthWithData(coreUnit.budgetStatements)}
-              isLoading={!coreUnit}
-              isCard
-            />
+            <CuTableColumnLastModified date={getLastMonthWithData(coreUnit.budgetStatements)} isLoading={isLoading} />
           </LastModified>
           <Line isLight={isLight} />
           {!isLoading ? (
@@ -168,7 +164,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
      "links"
      `,
   '@media (min-width: 375px)': {
-    gridTemplateColumns: '3.5fr 2fr',
+    gridTemplateColumns: '2fr 2fr',
     gridTemplateAreas: `"summary summary"
        "expenditure expenditure"
        "team lastModified"
@@ -185,7 +181,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
        `,
   },
   '@media (min-width: 834px)': {
-    gridTemplateColumns: '2.5fr 1fr 1fr 1fr',
+    gridTemplateColumns: '2fr 1fr 1fr',
     paddingBottom: '8px',
     gridTemplateAreas: `"summary expenditure team lastModified"
        "line line line line"
@@ -198,7 +194,7 @@ const Summary = styled.div({
   gridArea: 'summary',
   display: 'block',
   paddingRight: '8px',
-  minWidth: '320px',
+  minWidth: '300px',
 });
 
 const Expenditure = styled.div({
@@ -229,7 +225,6 @@ const LastModified = styled.div({
   gridArea: 'lastModified',
   marginTop: '32px',
   width: 'fit-content',
-  paddingRight: '8px',
   '@media (min-width: 375px)': {
     marginLeft: 0,
     display: 'flex',
@@ -238,10 +233,7 @@ const LastModified = styled.div({
     flex: 1,
     width: '100%',
   },
-  '@media (min-width: 685px)': {
-    paddingRight: 0,
-  },
-  '@media (min-width: 685px) and (max-width: 834px)': {
+  '@media (min-width: 685px) and (max-width: 833px)': {
     marginTop: '0',
     marginLeft: '0',
     alignItems: 'flex-start',
@@ -295,7 +287,7 @@ const Title = styled.div<{ hideSmall?: boolean }>(({ hideSmall = false }) => ({
   fontWeight: 400,
   fontSize: '16px',
   lineHeight: '22px',
-  color: '#708390',
+  color: '#9FAFB9',
   '@media (min-width: 834px)': {
     display: 'block',
     fontSize: '14px',

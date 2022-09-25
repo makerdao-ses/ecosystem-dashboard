@@ -94,12 +94,14 @@ const Container = styled.div<{ spacings?: number; align: string; isIndex?: boole
   alignItems: 'center',
   justifyContent: props.align,
   gap: `${props.spacings ?? 0}px`,
-  '@media (min-width: 1194px)': {
-    maxWidth: '240px',
-    flexWrap: props.isIndex ? 'wrap-reverse' : 'wrap',
-    gap: '0 8px',
-    padding: '24px 0',
-  },
+  '@media (min-width: 1194px)': props.isIndex
+    ? {
+        maxWidth: '240px',
+        flexWrap: 'wrap-reverse',
+        gap: '0 8px',
+        padding: '24px 0',
+      }
+    : undefined,
   '@media (min-width: 1410px)': {
     maxWidth: 'unset',
     flexWrap: 'nowrap',
