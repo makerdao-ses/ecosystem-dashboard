@@ -335,3 +335,15 @@ export const getMipUrlFromCoreUnit = (cu: CoreUnitDto) => {
   if (cu?.cuMip.length === 0) return '';
   return cu?.cuMip[0].mipUrl ?? '';
 };
+
+export const getNumberComments = (cu: CoreUnitDto) => {
+  let totalComments = 0;
+  if (!cu) return totalComments;
+  if (cu.budgetStatements.length === 0) return totalComments;
+  cu.budgetStatements.forEach((budgetStatement: BudgetStatementDto) => {
+    if (budgetStatement.comments !== undefined) {
+      totalComments += 1;
+    }
+  });
+  return totalComments;
+};

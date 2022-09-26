@@ -5,6 +5,7 @@ import {
   getCurrentOrLastMonthWithData,
   getLastMonthWithActualOrForecast,
   getLastMonthWithData,
+  getNumberComments,
 } from '../../../core/business-logic/core-units';
 import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
 import { BudgetStatementDto, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
@@ -107,19 +108,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     );
   }, [coreUnit, currentMonth]);
 
-  const getNumberComments = useCallback(() => {
-    let totalComments = 0;
-    console.log('first', 'dime dime', totalComments);
-    if (!coreUnit) return totalComments;
-    if (coreUnit.budgetStatements.length === 0) return totalComments;
-    coreUnit.budgetStatements.forEach((budgetStatement: BudgetStatementDto) => {
-      console.log('budgetStatement.comments', budgetStatement.comments);
-      if (budgetStatement.comments !== '' || budgetStatement.comments !== null) {
-        totalComments += 1;
-      }
-    });
-    return totalComments;
-  }, [coreUnit]);
+  const numbersComments = getNumberComments(coreUnit);
 
   const tabItems = [
     {
@@ -143,7 +132,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
       id: TRANSPARENCY_IDS[4],
     },
     {
-      item: `Comments (${getNumberComments()})`,
+      item: `Comments (${numbersComments})`,
       id: TRANSPARENCY_IDS[5],
     },
   ];
