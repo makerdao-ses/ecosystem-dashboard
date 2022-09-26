@@ -422,7 +422,25 @@ export const TransparencyEmptyTable = ({ breakdown = false }: Props) => {
             </Row>
           </Container>
         )}
-        <Title>No Data Provided</Title>
+        <ContainerIndications>
+          <TitleMobile>{`No data reported by ${code} Core Unit`}</TitleMobile>
+          <Description>View on-chain transfers on makerburn.com </Description>
+          <ContainerButton>
+            <CustomButton
+              label="Go to Makerburn"
+              onClick={handleClickMakerburn}
+              styleText={{
+                fontSize: '16px',
+                lineHeight: '19px',
+                borderRadius: '22px',
+                height: 'none',
+              }}
+              style={{
+                padding: '8px 24px',
+              }}
+            />
+          </ContainerButton>
+        </ContainerIndications>
       </MobileWrapper>
     </>
   );
@@ -463,8 +481,11 @@ const ContainerButton = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
-  marginTop: '32px',
+  marginBottom: '44px',
   zIndex: 1,
+  '@media (min-width: 834px)': {
+    marginBottom: '86px',
+  },
 });
 
 const Title = styled.div({
@@ -472,27 +493,59 @@ const Title = styled.div({
   fontStyle: 'normal',
   fontWeight: 600,
   fontSize: '24px',
-  lineHeight: '38px',
+  lineHeight: '29px',
   textAlign: 'center',
   letterSpacing: '0.4px',
   color: '#9FAFB9',
+  marginTop: '46px',
+  marginRight: '46px',
   zIndex: 1,
   '@media (min-width: 834px)': {
     fontSize: '32px',
+    lineHeight: '39px',
   },
 });
 
-const Description = styled.div({
+const TitleMobile = styled.div({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 600,
-  fontSize: '22px',
-  lineHeight: '27px',
+  fontSize: '24px',
+  lineHeight: '29px',
   textAlign: 'center',
   letterSpacing: '0.4px',
   color: '#9FAFB9',
-  marginTop: '32px',
+  paddingLeft: '19px',
+  paddingRight: '14px',
+  paddingTop: '49px',
   zIndex: 1,
+  '@media (min-width: 834px)': {
+    fontSize: '32px',
+    lineHeight: '39px',
+  },
+});
+
+const Description = styled.p({
+  fontFamily: 'FT Base, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 700,
+  fontSize: '16px',
+  lineHeight: '19px',
+  color: '#9FAFB9',
+  paddingLeft: '19px',
+  marginTop: '24px',
+  flex: 1,
+  zIndex: 1,
+  '@media (min-width: 834px)': {
+    fontFamily: 'Inter, sans-serif',
+    fontStyle: 'normal',
+    fontWeight: 600,
+    fontSize: '22px',
+    lineHeight: '27px',
+    textAlign: 'center',
+    letterSpacing: '0.4px',
+    marginTop: '32px',
+  },
 });
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({

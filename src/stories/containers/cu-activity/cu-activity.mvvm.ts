@@ -27,5 +27,8 @@ export const useCuActivityMvvm = () => {
     },
   ]);
 
-  return { isLight, columns };
+  return {
+ isLight,
+columns
+};
 };

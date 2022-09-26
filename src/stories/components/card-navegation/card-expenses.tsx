@@ -47,6 +47,7 @@ const CardExpenses = ({ onClick, code, isTitlePresent = true, style = {} }: Prop
           <CustomButton
             widthText="100%"
             label="Activity Feed"
+            borderColor="#1AAB9B"
             style={{
               textAlign: 'center',
               border: '1px solid #1AAB9B',
@@ -67,6 +68,7 @@ const CardExpenses = ({ onClick, code, isTitlePresent = true, style = {} }: Prop
             }}
           />
           <CustomButton
+            borderColor="#1AAB9B"
             widthText="100%"
             label="Expense Reports"
             style={{

@@ -1,3 +1,4 @@
+/* eslint-disable spellcheck/spell-checker */
 import { NextPage, GetServerSideProps, GetServerSidePropsContext } from 'next';
 import React from 'react';
 import isEmpty from 'lodash/isEmpty';
