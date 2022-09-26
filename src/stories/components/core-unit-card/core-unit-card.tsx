@@ -62,7 +62,9 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
           <CuTableColumnTeamMember isLoading />
         </Team>
         <Line isLight={isLight} />
-        <CategoriesSkeleton />
+        <Categories>
+          <CategoriesSkeleton />
+        </Categories>
         <Links>
           <CuTableColumnLinks isLoading />
         </Links>
@@ -113,15 +115,11 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
             <CuTableColumnLastModified date={getLastMonthWithData(coreUnit.budgetStatements)} isLoading={isLoading} />
           </LastModified>
           <Line isLight={isLight} />
-          {!isLoading ? (
-            <Categories>
-              {coreUnit.category?.map((category) => (
-                <CategoryChip key={category} category={category} />
-              ))}
-            </Categories>
-          ) : (
-            <CategoriesSkeleton />
-          )}
+          <Categories>
+            {coreUnit.category?.map((category) => (
+              <CategoryChip key={category} category={category} />
+            ))}
+          </Categories>
           <Links>
             <CuTableColumnLinks
               links={getLinksFromCoreUnit(coreUnit)}
@@ -181,7 +179,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
        `,
   },
   '@media (min-width: 834px)': {
-    gridTemplateColumns: '2fr 1fr 1fr',
+    gridTemplateColumns: '2.2fr 200px 1fr 1fr',
     paddingBottom: '8px',
     gridTemplateAreas: `"summary expenditure team lastModified"
        "line line line line"
