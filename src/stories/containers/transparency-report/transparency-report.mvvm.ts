@@ -106,8 +106,31 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     );
   }, [coreUnit, currentMonth]);
 
+  const tabItems = [
+    {
+      item: 'Actuals',
+      id: TRANSPARENCY_IDS[0],
+    },
+    {
+      item: 'Forecast',
+      id: TRANSPARENCY_IDS[1],
+    },
+    {
+      item: 'MKR Vesting',
+      id: TRANSPARENCY_IDS[2],
+    },
+    {
+      item: 'Transfer Requests',
+      id: TRANSPARENCY_IDS[3],
+    },
+    {
+      item: 'Audit Reports',
+      id: TRANSPARENCY_IDS[4],
+    },
+  ];
+
   return {
-    TRANSPARENCY_IDS,
+    tabItems,
     code,
     transparencyTableRef,
     currentMonth,
