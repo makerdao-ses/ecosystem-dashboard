@@ -48,6 +48,7 @@ const CardExpenses = ({ onClickActivity, onClickFinances, code, isTitlePresent =
           <CustomButton
             widthText="100%"
             label="Activity Feed"
+            borderColor="#1AAB9B"
             style={{
               textAlign: 'center',
               border: '1px solid #1AAB9B',
@@ -68,6 +69,7 @@ const CardExpenses = ({ onClickActivity, onClickFinances, code, isTitlePresent =
             }}
           />
           <CustomButton
+            borderColor="#1AAB9B"
             widthText="100%"
             label="Expense Reports"
             style={{

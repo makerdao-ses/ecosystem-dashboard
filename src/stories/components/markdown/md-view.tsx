@@ -108,6 +108,7 @@ const MdViewerPage = ({
               width: 'fit-content',
               padding: '8px 24px',
             }}
+            borderColor={isLight ? (open ? '#1AAB9B' : '#25273D') : '#25273D'}
             onClick={handleClick}
             styleText={{
               color: isLight ? (open ? '#1aab9b' : '#231536') : '#D2D4EF',
