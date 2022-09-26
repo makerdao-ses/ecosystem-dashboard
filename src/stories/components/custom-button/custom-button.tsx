@@ -52,7 +52,7 @@ const Container = styled.button<{ isLight: boolean; isHightLight: boolean }>(({ 
     ? '1px solid #787A9B'
     : '1px solid #343442',
   borderRadius: isLight ? '22px' : '22px',
-  background: isLight ? 'white' : '#10191F',
+  background: isLight ? 'transparent' : '#10191F',
   transition: 'all .3s ease',
   transitionProperty: 'border, color',
   padding: '15px 16px',

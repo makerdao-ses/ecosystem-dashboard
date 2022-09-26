@@ -95,7 +95,7 @@ const MdViewerPage = ({
             style={{
               textAlign: 'center',
               border: isLight ? (open ? '1px solid #1AAB9B' : '1px solid #25273D') : '1px solid #25273D',
-              background: isLight ? (open ? '#e7fcfa' : 'transparent') : 'transparent',
+              background: isLight ? (open ? '#E7FCFA' : 'transparent') : 'transparent',
               borderRadius: '22px',
               height: '34px',
               fontFamily: 'Inter, sans-serif',
@@ -105,7 +105,6 @@ const MdViewerPage = ({
               lineHeight: '18px',
               width: 'fit-content',
               padding: '8px 24px',
-              // eslint-disable-next-line @typescript-eslint/no-empty-function
             }}
             onClick={handleClick}
             styleText={{

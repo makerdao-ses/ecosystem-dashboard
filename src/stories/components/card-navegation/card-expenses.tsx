@@ -48,7 +48,6 @@ const CardExpenses = ({ onClick, code, isTitlePresent = true, style = {} }: Prop
             label="Activity Feed"
             style={{
               textAlign: 'center',
-              background: isLight ? '#E7FCFA' : 'none',
               border: '1px solid #1AAB9B',
               borderRadius: '22px',
               height: ' 34px',
@@ -71,12 +70,11 @@ const CardExpenses = ({ onClick, code, isTitlePresent = true, style = {} }: Prop
             label="Expense Reports"
             style={{
               textAlign: 'center',
-              background: isLight ? '#E7FCFA' : 'none',
-              border: '1px solid #1AAB9B',
               borderRadius: '22px',
               height: ' 34px',
               color: '#1AAB9B',
               fontFamily: 'Inter, sans serif',
+              border: '1px solid #1AAB9B',
               fontStyle: 'normal',
               fontWeight: 500,
               fontSize: '14px',
