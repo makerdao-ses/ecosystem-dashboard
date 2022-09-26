@@ -64,7 +64,8 @@ const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
                 sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)}
                 paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)}
                 paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)}
-                onClick={onClickFinances}
+                onClickFinances={onClickFinances}
+                onClickActivity={onClickActivity}
               />
             </MarkdownContainer>
             <TeamMemberContainer>
