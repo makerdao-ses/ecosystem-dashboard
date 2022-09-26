@@ -1,7 +1,6 @@
-import { useEffect } from 'react';
 import styled from '@emotion/styled';
 import Divider from '@mui/material/Divider';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CuActivityDto } from '../../../core/models/dto/core-unit-activity.dto';
@@ -46,7 +45,7 @@ const INITIAL_ELEMENTS = 10;
 export default function ActivityTable({ cuId, columns, activity }: ActivityTableProps) {
   const isLight = useThemeContext().themeMode === 'light';
   const [showElements, setShowElements] = useState(INITIAL_ELEMENTS);
-  const [unvisitedCount, setUnvisitedCount] = useState(0);
+  const [noVisitedCount, setNoVisitedCount] = useState(0);
   const [extendedActivity, setExtendedActivity] = useState<ExtendedActivityDto[]>(activity);
 
   const handleSeePrevious = () => {
@@ -54,22 +53,21 @@ export default function ActivityTable({ cuId, columns, activity }: ActivityTable
   };
 
   useEffect(() => {
-    console.log('executed!!!!!!!!');
     const activityHandler = new ActivityVisitHandler(cuId);
-    let unvisited = 0;
+    let noVisited = 0;
 
     const _extendedActivity: ExtendedActivityDto[] = [];
 
     for (const update of activity) {
       const isNew = activityHandler.wasVisited(update);
       if (isNew) {
-        unvisited++;
+        noVisited++;
       }
       _extendedActivity.push({ ...update, isNew });
     }
 
     setExtendedActivity(_extendedActivity);
-    setUnvisitedCount(unvisited);
+    setNoVisitedCount(noVisited);
 
     const timeout = setTimeout(() => activityHandler.visit(), 5000);
     return () => {
@@ -79,21 +77,16 @@ export default function ActivityTable({ cuId, columns, activity }: ActivityTable
 
   return (
     <>
-      {unvisitedCount > 0 && (
+      {noVisitedCount > 0 && (
         <DisplayOnMobileOnly style={{ marginBottom: '48px' }}>
-          <NewChangesDivider isLight={isLight} count={unvisitedCount} />
+          <NewChangesDivider isLight={isLight} count={noVisitedCount} />
         </DisplayOnMobileOnly>
       )}
 
       <TableHeader isLight={isLight}>
         <TableHeaderRow>
           {columns.map((column) => (
-            <TableHeaderTitle
-              isLight={isLight}
-              width={column.width}
-              styles={column.styles}
-              align={column.align ?? 'left'}
-            >
+            <TableHeaderTitle width={column.width} styles={column.styles} align={column.align ?? 'left'}>
               {column.header}
             </TableHeaderTitle>
           ))}
@@ -104,9 +97,9 @@ export default function ActivityTable({ cuId, columns, activity }: ActivityTable
         {extendedActivity?.slice(0, showElements)?.map((update, index) => (
           <div key={`tbody-item-${update.id}`}>
             <CUActivityItem activity={update} isNew={!!update.isNew} />
-            {unvisitedCount > 0 && unvisitedCount === index + 1 && !(showElements - 1 === index) && (
+            {noVisitedCount > 0 && noVisitedCount === index + 1 && !(showElements - 1 === index) && (
               <DisplayOnTabletUp>
-                <NewChangesDivider isLight={isLight} count={unvisitedCount} />
+                <NewChangesDivider isLight={isLight} count={noVisitedCount} />
               </DisplayOnTabletUp>
             )}
           </div>
@@ -156,8 +149,8 @@ const TableHeaderRow = styled.div({
   display: 'flex',
 });
 
-const TableHeaderTitle = styled.div<{ isLight: boolean; width?: string; styles?: React.CSSProperties; align: any }>(
-  ({ isLight, width, styles, align }) => ({
+const TableHeaderTitle = styled.div<{ width?: string; styles?: React.CSSProperties; align: any }>(
+  ({ width, styles, align }) => ({
     ...{
       textAlign: align,
       ...(width && { width }),
