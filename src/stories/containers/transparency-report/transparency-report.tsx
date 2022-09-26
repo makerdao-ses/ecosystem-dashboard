@@ -22,7 +22,6 @@ import { TransparencyForecast2 } from './transparency-forecast/transparency-fore
 import { TransparencyMkrVesting2 } from './transparency-mkr-vesting/transparency-mkr-vesting-2';
 import { TransparencyTransferRequest2 } from './transparency-transfer-request/transparency-transfer-request-2';
 import { useTransparencyReportViewModel } from './transparency-report.mvvm';
-import { getLastMonthWithData } from '../../../core/business-logic/core-units';
 
 interface TransparencyReportProps {
   coreUnits: CoreUnitDto[];
@@ -108,7 +107,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
             <Spacer />
             {lastMonthWithData && (
               <LastUpdate>
-                <Since>Since:</Since>
+                <Since>Since</Since>
                 <SinceDate>
                   {capitalizeSentence(lastMonthWithData.toRelative({ unit: 'days' }) ?? '')}{' '}
                   <b>| {lastMonthWithData.toFormat('dd-MMM-yyyy').toUpperCase() ?? ''}</b>
@@ -248,15 +247,26 @@ const PagerBarLeft = styled.div({
 
 const LastUpdate = styled.div({
   display: 'flex',
-  alignItems: 'center',
+  flexDirection: 'column',
+  alignItems: 'flex-end',
   fontFamily: 'Inter, sans-serif',
+  '@media (min-width: 834px)': {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
 });
 
 const Since = styled.div({
   color: '#231536',
   fontSize: '12px',
   fontWeight: 600,
-  marginRight: '6px',
+  textTransform: 'uppercase',
+  '@media (min-width: 834px)': {
+    marginRight: '6px',
+    '&:after': {
+      content: '":"',
+    },
+  },
 });
 
 const SinceDate = styled.div({
