@@ -14,6 +14,7 @@ const CardExpenses = ({ onClick, code }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
   return (
     <InformationCard
+      fontWeight={600}
       title="Expenses"
       height="134px"
       fontSize="24px"

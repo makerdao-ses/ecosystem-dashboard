@@ -201,7 +201,7 @@ const TeamMemberContainer = styled.div({
 
 const TeamMemberTitle = styled.h2<{ isLight: boolean }>(({ isLight }) => ({
   fontStyle: 'normal',
-  fontWeight: 500,
+  fontWeight: 600,
   fontSize: '20px',
   lineHeight: '19px',
   marginRight: '8px',
