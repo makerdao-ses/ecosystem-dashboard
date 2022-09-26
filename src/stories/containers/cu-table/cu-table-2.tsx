@@ -7,7 +7,6 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CuTableHeaderSkeleton } from '../../components/cu-table-header-skeleton/header-skeleton';
 import { SEOHead } from '../../components/seo-head/seo-head';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
-import lightTheme from '../../../../styles/theme/light';
 import { useCoreUnitsTableMvvm } from './cu-table-2.mvvm';
 import { CustomTable2, CustomTableRow } from '../../components/custom-table/custom-table-2';
 import { renderCard } from './cu-table.renders';

@@ -99,7 +99,6 @@ const Container = styled.div<{ spacings?: number; align: string; isIndex?: boole
         maxWidth: '240px',
         flexWrap: 'wrap-reverse',
         gap: '0 8px',
-        padding: '24px 0',
       }
     : undefined,
   '@media (min-width: 1410px)': {

@@ -46,15 +46,14 @@ export const renderExpenditures = (coreUnit: CoreUnitDto) => {
     <div
       style={{
         display: 'flex',
-        width: '100%',
-        height: '100%',
-        cursor: 'pointer',
+        alignItems: 'flex-end',
+        margin: 'auto 0',
+        height: '52px',
       }}
     >
       <div
         style={{
           display: 'block',
-          margin: 'auto 0',
           paddingLeft: '8px',
         }}
       >
@@ -76,8 +75,9 @@ export const renderTeamMember = (coreUnit: CoreUnitDto) => {
     <div
       style={{
         display: 'flex',
-        width: '100%',
-        height: '100%',
+        alignItems: 'flex-end',
+        margin: 'auto 0',
+        height: '50px',
       }}
     >
       <CuTableColumnTeamMember members={getFacilitatorsFromCoreUnit(coreUnit)} fte={getFTEsFromCoreUnit(coreUnit)} />
@@ -92,10 +92,10 @@ export const renderLinks = (coreUnit: CoreUnitDto) => {
       style={{
         display: 'flex',
         justifyContent: 'flex-end',
-        flex: 1,
         paddingRight: '16px',
         width: '100%',
-        height: '100%',
+        height: '60px',
+        margin: 'auto 0',
         cursor: 'pointer',
       }}
     >
@@ -117,5 +117,16 @@ export const renderCard = (coreUnit: CoreUnitDto, key?: number) => {
 
 export const renderLastModified = (coreUnit: CoreUnitDto) => {
   if (!coreUnit) return <CuTableColumnLastModified date={undefined} isLoading={!coreUnit} />;
-  return <CuTableColumnLastModified date={getLastMonthWithData(coreUnit.budgetStatements)} />;
+  return (
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'flex-end',
+        margin: 'auto 0',
+        height: '50px',
+      }}
+    >
+      <CuTableColumnLastModified date={getLastMonthWithData(coreUnit.budgetStatements)} />
+    </div>
+  );
 };
