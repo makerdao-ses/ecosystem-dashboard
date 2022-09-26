@@ -63,7 +63,10 @@ export default function ActivityTable({ cuId, columns, activity }: ActivityTable
       if (isNew) {
         noVisited++;
       }
-      _extendedActivity.push({ ...update, isNew });
+      _extendedActivity.push({
+        ...update,
+        isNew,
+      });
     }
 
     setExtendedActivity(_extendedActivity);
@@ -95,7 +98,7 @@ export default function ActivityTable({ cuId, columns, activity }: ActivityTable
 
       <div>
         {extendedActivity?.slice(0, showElements)?.map((update, index) => (
-          <div key={`tbody-item-${update.id}`}>
+          <div key={`table-item-${update.id}`}>
             <CUActivityItem activity={update} isNew={!!update.isNew} />
             {noVisitedCount > 0 && noVisitedCount === index + 1 && !(showElements - 1 === index) && (
               <DisplayOnTabletUp>
@@ -149,16 +152,18 @@ const TableHeaderRow = styled.div({
   display: 'flex',
 });
 
-const TableHeaderTitle = styled.div<{ width?: string; styles?: React.CSSProperties; align: any }>(
-  ({ width, styles, align }) => ({
-    ...{
-      textAlign: align,
-      ...(width && { width }),
-    },
+const TableHeaderTitle = styled.div<{
+  width?: string;
+  styles?: React.CSSProperties;
+  align: 'left' | 'center' | 'right';
+}>(({ width, styles, align }) => ({
+  ...{
+    textAlign: align,
+    ...(width && { width }),
+  },
 
-    ...(styles || {}),
-  })
-);
+  ...(styles || {}),
+}));
 
 const ChangesButtonContainer = styled.div({
   display: 'flex',
