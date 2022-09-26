@@ -28,13 +28,13 @@ const NewChangesDivider = ({ isLight, count }: { isLight: boolean; count: number
   <ChangesButtonContainer>
     <DividerStyle
       sx={{
-        bgcolor: isLight ? '#F75524' : '#405361',
+        bgcolor: isLight ? '#F75524' : '#FF8237',
       }}
     />
-    <DividerText>{count} New Changes since your last visit</DividerText>
+    <DividerText isLight={isLight}>{count} New Changes since your last visit</DividerText>
     <DividerStyle
       sx={{
-        bgcolor: isLight ? '#F75524' : '#405361',
+        bgcolor: isLight ? '#F75524' : '#FF8237',
       }}
     />
   </ChangesButtonContainer>
@@ -135,6 +135,7 @@ const TableHeader = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   position: 'relative',
   zIndex: 1,
   background: isLight ? '#F7F8F9' : '#25273D',
+  color: isLight ? '#231536' : '#FFFFFF',
   padding: '16px 0 14px',
   borderTopLeftRadius: '5px',
   borderTopRightRadius: '5px',
@@ -190,7 +191,7 @@ const DisplayOnMobileOnly = styled.div({
   },
 });
 
-const DividerText = styled.div({
+const DividerText = styled.div<{ isLight: boolean }>(({ isLight = true }) => ({
   fontFamily: 'FT Base, sans-serif',
   flex: '0 0 auto',
   fontWeight: 600,
@@ -198,7 +199,7 @@ const DividerText = styled.div({
   lineHeight: '15px',
   textAlign: 'center',
   textTransform: 'uppercase',
-  color: '#F75524',
+  color: isLight ? '#F75524' : '#FF8237',
   margin: '0 8px',
 
   [lightTheme.breakpoints.up('table_834')]: {
@@ -210,7 +211,7 @@ const DividerText = styled.div({
   [lightTheme.breakpoints.up('desktop_1194')]: {
     margin: '0 32px',
   },
-});
+}));
 
 const DividerStyle = styled(Divider, { shouldForwardProp: (prop) => prop !== 'isLight' })({
   width: '100%',

@@ -25,16 +25,16 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
     <Link href={activity.updateUrl || ''} passHref>
       <ActivityItem isLight={isLight}>
         <Timestamp>
-          <UTCDate>
+          <UTCDate isLight={isLight}>
             {DateTime.fromMillis(parseInt(activity.updateDate ?? ''))
               .setZone('UTC')
               .toFormat('dd-LLL-y HH:hh ZZZZ')}
           </UTCDate>
-          <HumanizedDate isNew={isNew}>
+          <HumanizedDate isLight={isLight} isNew={isNew}>
             {dayDiffNow === 0 ? 'Today' : `${dayDiffNow} Day${dayDiffNow !== 1 ? 's' : ''} Ago`}
           </HumanizedDate>
         </Timestamp>
-        <Details>{activity.updateTitle}</Details>
+        <Details isLight={isLight}>{activity.updateTitle}</Details>
         <ButtonContainer>
           <CustomButton
             label="View Details"
@@ -99,11 +99,11 @@ const Timestamp = styled.div({
   },
 });
 
-const Details = styled.div({
+const Details = styled.div<{ isLight: boolean }>(({ isLight = true }) => ({
   fontWeight: 400,
   fontSize: '14px',
   lineHeight: '22px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#EDEFFF',
   marginBottom: '32px',
   letterSpacing: 0,
 
@@ -115,26 +115,26 @@ const Details = styled.div({
   [lightTheme.breakpoints.up('desktop_1194')]: {
     width: 'calc(100% - 275px)',
   },
-});
+}));
 
-const UTCDate = styled.div({
+const UTCDate = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontWeight: 600,
   fontSize: '12px',
   lineHeight: '15px',
   textTransform: 'uppercase',
-  color: '#708390',
+  color: isLight ? '#708390' : '#546978',
 
   [lightTheme.breakpoints.up('table_834')]: {
     marginBottom: '4px',
   },
-});
+}));
 
-const HumanizedDate = styled.div<{ isNew: boolean }>(({ isNew = false }) => ({
+const HumanizedDate = styled.div<{ isLight: boolean; isNew: boolean }>(({ isLight = true, isNew = false }) => ({
   position: 'relative',
   fontWeight: 700,
   fontSize: '14px',
   lineHeight: '17px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#EDEFFF',
 
   ...(isNew && {
     paddingRight: '10px',
@@ -148,7 +148,7 @@ const HumanizedDate = styled.div<{ isNew: boolean }>(({ isNew = false }) => ({
       display: 'block',
       width: '6px',
       height: '6px',
-      background: '#F75524',
+      background: isLight ? '#F75524' : '#FF8237',
       borderRadius: '50%',
       position: 'absolute',
       right: 0,
