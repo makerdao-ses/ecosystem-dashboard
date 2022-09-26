@@ -43,7 +43,6 @@ const Container = styled.button<{ isLight: boolean; isHightLight: boolean }>(({ 
   alignItems: 'center',
   justifyContent: 'center',
   width: 'fit-content',
-  height: '48px',
   border: isLight
     ? isHightLight
       ? '1px solid #1AAB9B'

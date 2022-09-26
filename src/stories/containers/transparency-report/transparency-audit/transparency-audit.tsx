@@ -6,7 +6,7 @@ import { AuditStatusEnum } from '../../../../core/enums/audit-status.enum';
 import { useTransparencyAuditMvvm } from './transparency-audit.mvvm';
 import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { TransparencyEmptyAudit } from '../placeholders/transparenct-empty-audit';
+import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
 
 interface TransparencyAuditProps {
   budgetStatement?: BudgetStatementDto;
@@ -17,7 +17,7 @@ export const TransparencyAudit = (props: TransparencyAuditProps) => {
   const isLight = useThemeContext().themeMode === 'light';
 
   return !props.budgetStatement?.auditReport?.length ? (
-    <TransparencyEmptyAudit />
+    <TransparencyEmptyTable />
   ) : (
     <Container>
       {props.budgetStatement?.auditReport?.map((item) => (
