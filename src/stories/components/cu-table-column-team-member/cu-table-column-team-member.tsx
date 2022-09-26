@@ -71,7 +71,7 @@ export const CuTableColumnTeamMember = ({ isLoading = false, ...props }: CuTable
 const Container = styled.div({
   display: 'flex',
   flex: 1,
-  alignItems: 'center',
+  alignItems: 'flex-end',
   fontWeight: 400,
   cursor: 'pointer',
   marginLeft: '7px',

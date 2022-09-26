@@ -130,6 +130,7 @@ export const CuTableColumnSummary = ({
                     alignItems: 'flex-end',
                     margin: '0 0 2px 4px',
                   }}
+                  fontWeight={600}
                   styleIcon={{
                     marginBottom: upPhone ? '5.1px' : '4.5px',
                   }}

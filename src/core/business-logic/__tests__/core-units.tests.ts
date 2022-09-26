@@ -80,6 +80,7 @@ test('Get links from Core Unit', () => {
       twitter: twitterUrl,
       discord: '',
       website: '',
+      github: '',
     })
     .build();
 

@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import { useRouter } from 'next/router';
-import { MAKER_BURN } from '../../../../core/utils/const';
+import { MAKER_BURN_LINK } from '../../../../core/utils/const';
 
 interface Props {
   breakdown?: boolean;
@@ -15,7 +15,7 @@ export const TransparencyEmptyTable = ({ breakdown = false }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
 
   const handleClickMakerburn = useCallback(() => {
-    window.open(MAKER_BURN, '_blank');
+    window.open(`${MAKER_BURN_LINK}/${code}`, '_blank');
   }, []);
 
   return (
