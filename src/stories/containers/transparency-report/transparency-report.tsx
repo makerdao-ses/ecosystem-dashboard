@@ -175,19 +175,31 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
             />
           )}
           {tabsIndex === 1 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-            <TransparencyForecast2 currentMonth={currentMonth} budgetStatements={coreUnit?.budgetStatements} />
+            <TransparencyForecast2
+              currentMonth={currentMonth}
+              budgetStatements={coreUnit?.budgetStatements}
+              code={code}
+            />
           )}
           {tabsIndex === 1 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
             <TransparencyForecast currentMonth={currentMonth} budgetStatements={coreUnit?.budgetStatements} />
           )}
           {tabsIndex === 2 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-            <TransparencyMkrVesting2 currentMonth={currentMonth} budgetStatements={coreUnit?.budgetStatements} />
+            <TransparencyMkrVesting2
+              currentMonth={currentMonth}
+              budgetStatements={coreUnit?.budgetStatements}
+              code={code}
+            />
           )}
           {tabsIndex === 2 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
             <TransparencyMkrVesting currentMonth={currentMonth} budgetStatements={coreUnit?.budgetStatements} />
           )}
           {tabsIndex === 3 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-            <TransparencyTransferRequest2 currentMonth={currentMonth} budgetStatements={coreUnit?.budgetStatements} />
+            <TransparencyTransferRequest2
+              currentMonth={currentMonth}
+              budgetStatements={coreUnit?.budgetStatements}
+              code={code}
+            />
           )}
           {tabsIndex === 3 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
             <TransparencyTransferRequest currentMonth={currentMonth} budgetStatements={coreUnit?.budgetStatements} />

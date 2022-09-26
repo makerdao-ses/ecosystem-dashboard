@@ -7,11 +7,11 @@ import Youtube from '../svg/youtube';
 import Twitter from '../svg/twitter';
 import LinkedIn from '../svg/linkedin';
 import Gmail from '../svg/gmail';
-import Github from '../svg/github';
 import { Box } from '@mui/material';
 import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
 import { ColumnLinksSkeleton } from './cu-table-column-links-skeleton';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import Github from '../svg/github';
 
 export interface LinkModel {
   href: string;
@@ -98,7 +98,6 @@ const Container = styled.div<{ spacings?: number; align: string; isIndex?: boole
     maxWidth: '240px',
     flexWrap: 'wrap',
     gap: '0 8px',
-    padding: '24px 0',
   },
   '@media (min-width: 1410px)': {
     maxWidth: 'unset',

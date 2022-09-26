@@ -45,7 +45,6 @@ const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
     showThreeMIPs,
     setShowThreeMIPs,
   });
-
   return (
     <ContainerAbout isLight={isLight}>
       <SEOHead
@@ -136,7 +135,6 @@ const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
               <CardSomeThingWrong width={table834 || phone ? '770px' : 'fit-content'} />
             )}
           </ContainerResponsive>
-
           {!(table834 || phone || LessPhone) && (
             <div
               style={{
@@ -148,9 +146,11 @@ const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
                   <ContainerCard>
                     <CardExpenses onClick={onClickFinances} code={formatCode(cuAbout.code)} />
                   </ContainerCard>
-                  <ContainerCard>
-                    <CardSomeThingWrong />
-                  </ContainerCard>
+                  {!(table834 || phone || LessPhone) && (
+                    <ContainerCard>
+                      <CardSomeThingWrong />
+                    </ContainerCard>
+                  )}
                 </ContainerScroll>
               )}
             </div>
@@ -184,6 +184,9 @@ const ContainerCard = styled.div({
   display: 'flex',
   flexDirection: 'column',
   marginLeft: '68px',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    marginLeft: '16px',
+  },
   [lightTheme.breakpoints.between('desktop_1194', 'desktop_1280')]: {
     marginLeft: '32px',
   },
@@ -258,8 +261,12 @@ const ContainerCards = styled.div({
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     maxWidth: '100%',
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
     alignItems: 'center',
+  },
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    flexDirection: 'row',
+    minWidth: '100%',
   },
   [lightTheme.breakpoints.down('table_375')]: {
     maxWidth: '100%',
@@ -279,7 +286,7 @@ const CardRelateMipsContainer = styled.div({
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     width: '100%',
   },
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('table_375', 835)]: {
     width: '100%',
   },
   [lightTheme.breakpoints.down('table_375')]: {
@@ -308,9 +315,6 @@ const RelateMipCards = styled.div({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    width: '100%',
-  },
 });
 
 const RelateMipCard = styled.div({
@@ -368,7 +372,7 @@ const ContainerAllData = styled.div({
   },
 });
 
-const DividerStyle = styled(Divider)({
+export const DividerStyle = styled(Divider)({
   width: '100%',
 });
 
@@ -376,6 +380,10 @@ const ContainerScroll = styled.div({
   position: 'sticky',
   top: 250,
   paddingTop: '34px',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    position: 'relative',
+    top: 0,
+  },
 });
 
 const Wrapper = styled.div({
