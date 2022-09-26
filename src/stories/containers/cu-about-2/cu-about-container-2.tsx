@@ -283,7 +283,6 @@ const CardRelateMipsContainer = styled.div({
   marginTop: '40px',
   marginBottom: '40px',
   width: '715px',
-  // border: '2px solid red',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     width: '100%',
   },
@@ -384,9 +383,6 @@ const ContainerScroll = styled.div({
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     position: 'relative',
     top: 0,
-
-    // width: '100%',
-    // width: '40.39%',
   },
 });
 
@@ -417,8 +413,6 @@ const ContainerResponsive = styled.div({
   flexDirection: 'column',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     width: '100%',
-    // border: '2px solid red',
-    // width: '40.39%',
   },
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     width: '100%',
