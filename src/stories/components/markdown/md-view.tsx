@@ -1,11 +1,15 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { Typography } from '@mui/material';
+import { Popover, useMediaQuery } from '@mui/material';
 import Markdown from 'marked-react';
 import { customRenderer, customRendererDark } from './renderUtils';
 import { CustomButton } from '../custom-button/custom-button';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import lightTheme from '../../../../styles/theme/light';
+import CardExpenses from '../card-navegation/card-expenses';
+import { formatCode } from '../../../core/utils/string.utils';
+import { useRouter } from 'next/router';
 
 export type MarkDownHeaders = {
   level: number;
@@ -33,9 +37,24 @@ const MdViewerPage = ({
   showButton = false,
   onClick,
 }: Props) => {
+  const router = useRouter();
+  const code = router.query?.code as string;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [activeLink, setActiveLink] = useState('');
   const isLight = useThemeContext().themeMode === 'light';
+  const isTable834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
 
   useEffect(() => {
     const ids = headersLevel.map((header) => header.id);
@@ -66,21 +85,19 @@ const MdViewerPage = ({
   }, [headersLevel]);
   return (
     <ViewerContainer>
-      {showButton ? (
+      {showButton && !isTable834 ? (
         <ContainerResponsive>
-          <TypographyStyleDescription isLight={isLight} id="hidden-element">
-            {subTitle}
-          </TypographyStyleDescription>
+          <TypographyStyleDescription isLight={isLight}>{subTitle}</TypographyStyleDescription>
+
           <CustomButton
             widthText="100%"
-            label="View Expenses"
+            label="Expenses"
             style={{
               textAlign: 'center',
-              background: isLight ? '#E7FCFA' : 'transparent',
-              border: '1px solid #1AAB9B',
+              border: isLight ? (open ? '1px solid #1AAB9B' : '1px solid #25273D') : '1px solid #25273D',
+              background: isLight ? (open ? '#E7FCFA' : 'transparent') : 'transparent',
               borderRadius: '22px',
               height: '34px',
-              color: '#1AAB9B',
               fontFamily: 'Inter, sans-serif',
               fontStyle: 'normal',
               fontWeight: 500,
@@ -88,18 +105,47 @@ const MdViewerPage = ({
               lineHeight: '18px',
               width: 'fit-content',
               padding: '8px 24px',
-              // eslint-disable-next-line @typescript-eslint/no-empty-function
             }}
-            onClick={onClick}
+            onClick={handleClick}
             styleText={{
-              color: '#1AAB9B',
+              color: isLight ? (open ? '#1aab9b' : '#231536') : '#D2D4EF',
             }}
           />
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+          >
+            <CardExpenses onClick={onClick} code={formatCode(code)} isTitlePresent={false} />
+          </Popover>
         </ContainerResponsive>
+      ) : showButton && isTable834 ? (
+        <div>
+          <CardExpenses
+            onClick={() => {}}
+            code="SES"
+            isTitlePresent={false}
+            style={{
+              width: '335px',
+              float: 'right',
+              marginLeft: '16px',
+              marginBottom: '34px',
+            }}
+          />
+          <TypographyStyleDescription isLight={isLight}>{subTitle}</TypographyStyleDescription>
+          {paragraphDescription && isLight ? (
+            <Markdown value={paragraphDescription} renderer={customRenderer} key={paragraphDescription} />
+          ) : (
+            <Markdown value={paragraphDescription} renderer={customRendererDark} key={paragraphDescription} />
+          )}
+        </div>
       ) : (
-        <TypographyStyleDescription isLight={isLight} id="hidden-element">
-          {subTitle}
-        </TypographyStyleDescription>
+        <TypographyStyleDescription isLight={isLight}>{subTitle}</TypographyStyleDescription>
       )}
       {paragraphDescription && isLight ? (
         <Markdown value={paragraphDescription} renderer={customRenderer} key={paragraphDescription} />
@@ -125,15 +171,14 @@ const ViewerContainer = styled.div({
   boxSizing: 'border-box',
 });
 
-const TypographyStyleDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
-  isLight: boolean;
-}>(({ isLight }) => ({
+const TypographyStyleDescription = styled.p<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 600,
   fontSize: '20px',
   lineHeight: isLight ? '19px' : '24px',
-  color: isLight ? '#231536' : ' #D2D4EF;',
+  color: isLight ? '#231536' : ' #D2D4EF',
+  margin: '0px',
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     fontFamily: 'Inter',
     fontStyle: 'normal',
