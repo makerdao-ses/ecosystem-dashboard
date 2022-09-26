@@ -19,6 +19,7 @@ const CardExpenses = ({ onClick, code, isTitlePresent = true, style = {} }: Prop
   const isLight = useThemeContext().themeMode === 'light';
   return (
     <InformationCard
+      fontWeight={600}
       title="Expenses"
       fontSize="24px"
       lineHeight="29px"

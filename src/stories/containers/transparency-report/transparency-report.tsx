@@ -56,7 +56,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
       <CoreUnitSummary coreUnits={coreUnits} trailingAddress={['Expense Reports']} breadcrumbTitle="Expense Reports" />
       <Container isLight={isLight}>
         <InnerPage>
-          <Title isLight={isLight} isTitleOfPage={true}>
+          <Title isLight={isLight} isTitleOfPage={false}>
             Expense Reports
           </Title>
 
