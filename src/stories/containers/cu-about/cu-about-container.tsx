@@ -69,6 +69,14 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
     });
     router.push(`/core-unit/${code}/finances/reports${queryStrings}`);
   }, [filteredCategories, filteredStatuses, router, searchText, code]);
+  const onClickActivity = useCallback(() => {
+    const queryStrings = buildQueryString({
+      filteredStatuses,
+      filteredCategories,
+      searchText,
+    });
+    router.push(`/core-unit/${code}/activity${queryStrings}`);
+  }, [filteredCategories, filteredStatuses, router, searchText, code]);
 
   return (
     <ContainerAbout isLight={isLight}>
@@ -89,7 +97,8 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
                 sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)}
                 paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)}
                 paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)}
-                onClick={onClickFinances}
+                onClickActivity={onClickActivity}
+                onClickFinances={onClickFinances}
               />
             </MarkdownContainer>
             <TeamMemberContainer>
@@ -170,7 +179,11 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
               {isEnabled('FEATURE_CARD_NAVIGATION') && (
                 <ContainerScroll>
                   <ContainerCard>
-                    <CardExpenses onClick={onClickFinances} code={formatCode(cuAbout.code)} />
+                    <CardExpenses
+                      code={formatCode(cuAbout.code)}
+                      onClickActivity={onClickActivity}
+                      onClickFinances={onClickFinances}
+                    />
                   </ContainerCard>
                   <ContainerCard>
                     <CardSomeThingWrong />
