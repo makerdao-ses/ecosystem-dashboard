@@ -1,64 +1,22 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { SEOHead } from '../../components/seo-head/seo-head';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
-import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
 import lightTheme from '../../../../styles/theme/light';
-import ActivityTable, { ActivityTableHeader } from '../../components/cu-activity-table/cu-activity-table';
-import { Button, Divider } from '@mui/material';
+import ActivityTable from '../../components/cu-activity-table/cu-activity-table';
+import { CuActivityDto } from '../../../core/models/dto/core-unit-activity.dto';
+import { useCuActivityMvvm } from './cu-activity.mvvm';
 
 interface CUActivityContainerProps {
   coreUnits: CoreUnitDto[];
   coreUnit: CoreUnitDto;
+  activity: CuActivityDto[];
 }
 
-export default ({ coreUnit, coreUnits }: CUActivityContainerProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
-
-  const elements = [
-    {
-      id: 1,
-      date: 1663788830325,
-      details:
-        'Signal your support or opposition to prioritising onboarding GUNIV3-BUSD-DAI (Gelato Uniswap v3 BUSD-DAI).',
-    },
-    {
-      id: 2,
-      date: 1663270393246,
-      details: 'This subproposal aims to allocate 81,000 DAI to the Ambassador Program.',
-    },
-    {
-      type: 1,
-    },
-    {
-      id: 3,
-      date: 1673270393246,
-      details: 'Lower dedication of 1 F/E for the next 6 months.',
-    },
-  ];
-
-  const columns = [
-    {
-      header: 'Timestamp',
-      styles: {
-        [lightTheme.breakpoints.up('table_834')]: {
-          width: 262,
-          paddingLeft: 32,
-          paddingRight: 14,
-        },
-        [lightTheme.breakpoints.up('desktop_1194')]: {
-          width: 339,
-          paddingLeft: 64,
-          paddingRight: 14,
-        },
-      },
-    },
-    {
-      header: 'Details',
-    },
-  ] as ActivityTableHeader[];
+export default ({ coreUnit, coreUnits, activity }: CUActivityContainerProps) => {
+  const { isLight, columns } = useCuActivityMvvm();
 
   return (
     <Wrapper>
@@ -78,23 +36,7 @@ export default ({ coreUnit, coreUnits }: CUActivityContainerProps) => {
           </Paragraph>
 
           <TableWrapper>
-            <ActivityTable columns={columns} changes={elements} />
-
-            <ButtonContainer>
-              <DividerStyle
-                sx={{
-                  bgcolor: isLight ? '#D4D9E1' : '#405361',
-                }}
-              />
-              <StyledBigButton isLight={isLight} title={'See Previous Activity'} onClick={() => null}>
-                See Previous Activity
-              </StyledBigButton>
-              <DividerStyle
-                sx={{
-                  bgcolor: isLight ? '#D4D9E1' : '#405361',
-                }}
-              />
-            </ButtonContainer>
+            <ActivityTable cuId={coreUnit.id} columns={columns} activity={activity} />
           </TableWrapper>
         </InnerPage>
       </Container>
@@ -188,48 +130,14 @@ const Paragraph = styled.p<{ isLight: boolean }>(({ isLight }) => ({
     fontSize: '16px',
     marginBottom: '66px',
   },
+
+  [lightTheme.breakpoints.up('desktop_1920')]: {
+    marginBottom: '64px',
+  },
 }));
 
 const TableWrapper = styled.div({
   maxWidth: '928px',
   width: '100%',
   margin: '0 auto',
-});
-
-const ButtonContainer = styled.div({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'center',
-  alignItems: 'center',
-  overflow: 'hidden',
-  marginTop: '64px',
-});
-
-const StyledBigButton = styled(Button, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
-  ({ isLight }) => ({
-    minWidth: '217px',
-    height: '30px',
-    border: isLight ? '1px solid #D4D9E1' : '1px solid #405361',
-    borderRadius: '6px',
-    fontStyle: 'normal',
-    fontWeight: 600,
-    fontSize: '12px',
-    lineHeight: '15px',
-    textAlign: 'center',
-    textTransform: 'uppercase',
-    color: '#708390',
-    padding: '8px 24px',
-    letterSpacing: '1px',
-    fontFamily: 'Inter, sans-serif',
-
-    [lightTheme.breakpoints.up('table_834')]: {
-      minWidth: '297px',
-      padding: '8px 64px',
-    },
-  })
-);
-
-const DividerStyle = styled(Divider, { shouldForwardProp: (prop) => prop !== 'isLight' })({
-  width: '100%',
-  borderColor: '#D4D9E1',
 });

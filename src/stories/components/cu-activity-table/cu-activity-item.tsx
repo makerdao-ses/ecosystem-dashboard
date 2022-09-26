@@ -5,33 +5,42 @@ import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { CuActivityDto } from '../../../core/models/dto/core-unit-activity.dto';
 import { CustomButton } from '../custom-button/custom-button';
 
-export default function CUActivityItem({ activity, isNew }) {
+interface CUActivityItemProps {
+  activity: CuActivityDto;
+  isNew: boolean;
+}
+export default function CUActivityItem({ activity, isNew }: CUActivityItemProps) {
   const isLight = useThemeContext().themeMode === 'light';
   const router = useRouter();
 
   const dayDiffNow = useMemo(
-    () => Math.abs(Math.ceil(DateTime.fromMillis(activity.date).diffNow('days').days)),
+    () => Math.abs(Math.ceil(DateTime.fromMillis(parseInt(activity.updateDate ?? '')).diffNow('days').days)),
     [activity]
   );
 
   return (
-    <Link href={'/'} passHref>
+    <Link href={activity.updateUrl || ''} passHref>
       <ActivityItem isLight={isLight}>
         <Timestamp>
-          <UTCDate>{DateTime.fromMillis(activity.date).setZone('UTC').toFormat('dd-LLL-y HH:hh ZZZZ')}</UTCDate>
+          <UTCDate>
+            {DateTime.fromMillis(parseInt(activity.updateDate ?? ''))
+              .setZone('UTC')
+              .toFormat('dd-LLL-y HH:hh ZZZZ')}
+          </UTCDate>
           <HumanizedDate isNew={isNew}>
             {dayDiffNow === 0 ? 'Today' : `${dayDiffNow} Day${dayDiffNow !== 1 ? 's' : ''} Ago`}
           </HumanizedDate>
         </Timestamp>
-        <Details>{activity.details}</Details>
+        <Details>{activity.updateTitle}</Details>
         <ButtonContainer>
           <CustomButton
             label="View Details"
             onClick={(e: React.MouseEvent) => {
               e.preventDefault();
-              router.push('/core-unit/CES');
+              router.push(activity.updateUrl || '');
             }}
             style={{
               display: 'inline-flex',
