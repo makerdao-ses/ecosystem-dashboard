@@ -4,6 +4,7 @@ import { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import {
   getCurrentOrLastMonthWithData,
   getLastMonthWithActualOrForecast,
+  getLastMonthWithData,
 } from '../../../core/business-logic/core-units';
 import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
 import { BudgetStatementDto, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
@@ -129,6 +130,8 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     },
   ];
 
+  const lastMonthWithData = getLastMonthWithData(coreUnit.budgetStatements);
+
   return {
     tabItems,
     code,
@@ -139,5 +142,6 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     hasNextMonth,
     currentBudgetStatement,
     tabsIndex,
+    lastMonthWithData,
   };
 };

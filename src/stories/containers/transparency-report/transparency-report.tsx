@@ -11,7 +11,7 @@ import { TransparencyAudit } from './transparency-audit/transparency-audit';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
-import { formatCode } from '../../../core/utils/string.utils';
+import { capitalizeSentence, formatCode } from '../../../core/utils/string.utils';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SEOHead } from '../../components/seo-head/seo-head';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
@@ -22,20 +22,7 @@ import { TransparencyForecast2 } from './transparency-forecast/transparency-fore
 import { TransparencyMkrVesting2 } from './transparency-mkr-vesting/transparency-mkr-vesting-2';
 import { TransparencyTransferRequest2 } from './transparency-transfer-request/transparency-transfer-request-2';
 import { useTransparencyReportViewModel } from './transparency-report.mvvm';
-
-const colors: { [key: string]: string } = {
-  Draft: '#7C6B95',
-  Final: '#1AAB9B',
-  AwaitingCorrections: '#FDC134',
-  SubmittedToAuditor: '#FF78F2',
-};
-
-const colorsDarkColors: { [key: string]: string } = {
-  Draft: '#9055AF',
-  Final: '#2DC1B1',
-  AwaitingCorrections: '#FDC134',
-  SubmittedToAuditor: '#FF78F2',
-};
+import { getLastMonthWithData } from '../../../core/business-logic/core-units';
 
 interface TransparencyReportProps {
   coreUnits: CoreUnitDto[];
@@ -56,6 +43,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
     hasNextMonth,
     currentBudgetStatement,
     tabsIndex,
+    lastMonthWithData,
   } = useTransparencyReportViewModel(coreUnit);
 
   return (
@@ -118,18 +106,15 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
               )}
             </PagerBarLeft>
             <Spacer />
-            <StatusBar>
-              <StatusTitle isLight={isLight}>Status</StatusTitle>
-              <StatusValue
-                color={
-                  isLight
-                    ? colors[currentBudgetStatement?.budgetStatus ?? '']
-                    : colorsDarkColors[currentBudgetStatement?.budgetStatus ?? '']
-                }
-              >
-                {currentBudgetStatement?.budgetStatus ?? '-'}
-              </StatusValue>
-            </StatusBar>
+            {lastMonthWithData && (
+              <LastUpdate>
+                <Since>Since:</Since>
+                <SinceDate>
+                  {capitalizeSentence(lastMonthWithData.toRelative({ unit: 'days' }) ?? '')}{' '}
+                  <b>| {lastMonthWithData.toFormat('dd-MMM-yyyy').toUpperCase() ?? ''}</b>
+                </SinceDate>
+              </LastUpdate>
+            )}
           </PagerBar>
 
           <Tabs
@@ -261,38 +246,24 @@ const PagerBarLeft = styled.div({
   alignItems: 'center',
 });
 
-const StatusBar = styled.div({
+const LastUpdate = styled.div({
   display: 'flex',
   alignItems: 'center',
-  visibility: 'hidden',
+  fontFamily: 'Inter, sans-serif',
 });
 
-const StatusTitle = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'Inter, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 500,
+const Since = styled.div({
+  color: '#231536',
   fontSize: '12px',
-  lineHeight: '14px',
-  letterSpacing: '1px',
-  textTransform: 'uppercase',
-  color: isLight ? '#231536' : '#D2D4EF',
-  margin: '3px 8px 0 0',
-}));
+  fontWeight: 600,
+  marginRight: '6px',
+});
 
-const StatusValue = styled.div<{ color: string }>(({ color }) => ({
-  fontFamily: 'Inter, sans-serif',
-  fontStyle: 'normal',
-  textTransform: 'uppercase',
-  fontWeight: 700,
-  fontSize: '16px',
-  lineHeight: '19px',
-  letterSpacing: '0.4px',
-  color: color ?? '#1AAB9B',
-  '@media (min-width: 834px)': {
-    fontSize: '20px',
-    lineHeight: '24px',
-  },
-}));
+const SinceDate = styled.div({
+  color: '#708390',
+  fontSize: '11px',
+  fontWeight: 400,
+});
 
 const Spacer = styled.div({
   flex: '1',
