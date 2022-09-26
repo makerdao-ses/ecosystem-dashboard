@@ -43,6 +43,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
     currentBudgetStatement,
     tabsIndex,
     lastMonthWithData,
+    numbersComments,
   } = useTransparencyReportViewModel(coreUnit);
   return (
     <Wrapper>
@@ -167,7 +168,9 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
             <TransparencyTransferRequest currentMonth={currentMonth} budgetStatements={coreUnit?.budgetStatements} />
           )}
           {tabsIndex === 4 && <TransparencyAudit budgetStatement={currentBudgetStatement} />}
-          {tabsIndex === 5 && isEnabled('FEATURE_TRANSPARENCY_COMMENTS') && <TransparencyComments />}
+          {tabsIndex === 5 && isEnabled('FEATURE_TRANSPARENCY_COMMENTS') && (
+            <TransparencyComments numberComments={numbersComments} />
+          )}
         </InnerPage>
       </Container>
     </Wrapper>

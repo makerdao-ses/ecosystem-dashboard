@@ -151,5 +151,6 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     tabsIndex,
     lastMonthWithData,
     getNumberComments,
+    numbersComments,
   };
 };
