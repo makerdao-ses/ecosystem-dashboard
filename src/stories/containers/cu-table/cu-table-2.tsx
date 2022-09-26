@@ -7,7 +7,6 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CuTableHeaderSkeleton } from '../../components/cu-table-header-skeleton/header-skeleton';
 import { SEOHead } from '../../components/seo-head/seo-head';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
-import lightTheme from '../../../../styles/theme/light';
 import { useCoreUnitsTableMvvm } from './cu-table-2.mvvm';
 import { CustomTable2, CustomTableRow } from '../../components/custom-table/custom-table-2';
 import { renderCard } from './cu-table.renders';
@@ -174,14 +173,14 @@ const Header = styled.div({
 
 const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
-  fontSize: '24px',
+  fontSize: '20px',
   fontWeight: 600,
   lineHeight: isLight ? '29px' : '38px',
   letterSpacing: '0.4px',
   flex: 1,
   color: isLight ? '#231536' : '#D2D4EF',
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-    fontSize: '20px',
+  '@media (min-width: 834px)': {
+    fontSize: '24px',
     lineHeight: '24px',
   },
 }));

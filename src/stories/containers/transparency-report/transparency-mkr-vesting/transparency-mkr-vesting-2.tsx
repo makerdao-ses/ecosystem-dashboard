@@ -7,10 +7,15 @@ import { CustomPopover } from '../../../components/custom-popover/custom-popover
 import { useTransparencyMkrVesting2 } from './transparency-mkr-vesting-2.mvvm';
 import { AdvancedInnerTable } from '../../../components/advanced-inner-table/advanced-inner-table';
 import { Title } from '../transparency-report';
+import { LinkDescription } from '../transparency-actuals/transparency-actuals-2';
+import { CustomLink } from '../../../components/custom-link/custom-link';
+import { formatCode } from '../../../../core/utils/string.utils';
+import { MAKER_BURN_LINK } from '../../../../core/utils/const';
 
 interface TransparencyMkrVestingProps {
   currentMonth: DateTime;
   budgetStatements: BudgetStatementDto[];
+  code: string;
 }
 
 export const TransparencyMkrVesting2 = (props: TransparencyMkrVestingProps) => {
@@ -22,6 +27,29 @@ export const TransparencyMkrVesting2 = (props: TransparencyMkrVestingProps) => {
 
   return (
     <Container>
+      <LinkDescription isLight={isLight}>
+        To see the onchain transactions from the Maker Protocol to the {formatCode(props.code)} Core Unit
+        <CustomLink
+          href={`${MAKER_BURN_LINK}/${props.code}`}
+          style={{
+            flexWrap: 'wrap',
+            color: '#447AFB',
+            letterSpacing: '0.3px',
+            lineHeight: '18px',
+            marginBottom: '16px',
+            marginLeft: '4px',
+            whiteSpace: 'break-spaces',
+            display: 'inline-block',
+          }}
+          fontSize={16}
+          fontWeight={500}
+          iconWidth={10}
+          iconHeight={10}
+          marginLeft="7px"
+        >
+          visit makerburn.com
+        </CustomLink>
+      </LinkDescription>
       <Title isLight={isLight} marginBottom={24}>
         MKR Vesting Overview
       </Title>

@@ -21,6 +21,7 @@ export const GET_CU_ABOUT_BY_CODE = gql`
         twitter
         website
         youtube
+        github
       }
       cuMip {
         mipTitle

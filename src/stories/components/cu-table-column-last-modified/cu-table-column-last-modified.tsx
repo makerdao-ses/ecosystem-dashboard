@@ -9,17 +9,18 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 interface Props {
   date?: DateTime;
   isLoading?: boolean;
-  isCard?: boolean;
 }
 
 export const CuTableColumnLastModified = (props: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
 
   return !props.isLoading ? (
-    <Container isCard={!!props.isCard}>
+    <Container>
       <DateLabel isLight={isLight}>{props.date?.toFormat('dd-MMM-yyyy')?.toUpperCase() ?? 'No Data'}</DateLabel>
       {props.date ? (
-        <DifferenceLabel isLight={isLight}>{capitalizeSentence(props.date?.toRelative() ?? '')}</DifferenceLabel>
+        <DifferenceLabel isLight={isLight}>
+          {capitalizeSentence(props.date?.toRelative({ unit: 'days' }) ?? '')}
+        </DifferenceLabel>
       ) : (
         <CustomLink
           style={{
@@ -42,14 +43,20 @@ export const CuTableColumnLastModified = (props: Props) => {
   );
 };
 
-const Container = styled.div<{ isCard: boolean }>(({ isCard }) => ({
+const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
   fontFamily: 'Inter, sans-serif',
-  '@media (min-width: 834px)': {
-    alignItems: isCard ? 'flex-end' : 'flex-start',
+  '@media (min-width: 375px)': {
+    alignItems: 'flex-end',
   },
-}));
+  '@media (min-width: 685px) and (max-width: 833px)': {
+    alignItems: 'flex-start',
+  },
+  '@media (min-width: 1194px)': {
+    alignItems: 'flex-start',
+  },
+});
 
 const DateLabel = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontWeight: 400,

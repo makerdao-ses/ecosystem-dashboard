@@ -62,7 +62,9 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
           <CuTableColumnTeamMember isLoading />
         </Team>
         <Line isLight={isLight} />
-        <CategoriesSkeleton />
+        <Categories>
+          <CategoriesSkeleton />
+        </Categories>
         <Links>
           <CuTableColumnLinks isLoading />
         </Links>
@@ -110,22 +112,14 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
           </Team>
           <LastModified>
             <Title style={{ marginBottom: '16px' }}>Last Modified</Title>
-            <CuTableColumnLastModified
-              date={getLastMonthWithData(coreUnit.budgetStatements)}
-              isLoading={!coreUnit}
-              isCard
-            />
+            <CuTableColumnLastModified date={getLastMonthWithData(coreUnit.budgetStatements)} isLoading={isLoading} />
           </LastModified>
           <Line isLight={isLight} />
-          {!isLoading ? (
-            <Categories>
-              {coreUnit.category?.map((category) => (
-                <CategoryChip key={category} category={category} />
-              ))}
-            </Categories>
-          ) : (
-            <CategoriesSkeleton />
-          )}
+          <Categories>
+            {coreUnit.category?.map((category) => (
+              <CategoryChip key={category} category={category} />
+            ))}
+          </Categories>
           <Links>
             <CuTableColumnLinks
               links={getLinksFromCoreUnit(coreUnit)}
@@ -168,10 +162,10 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
      "links"
      `,
   '@media (min-width: 375px)': {
-    gridTemplateColumns: '3.5fr 2fr',
+    gridTemplateColumns: '2fr 2fr',
     gridTemplateAreas: `"summary summary"
-       "expenditure team"
-       "lastModified lastModified"
+       "expenditure expenditure"
+       "team lastModified"
        "line line"
        "categories categories" 
        "links links"`,
@@ -185,7 +179,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
        `,
   },
   '@media (min-width: 834px)': {
-    gridTemplateColumns: '2.5fr 1fr 1fr 1fr',
+    gridTemplateColumns: '2.2fr 200px 1fr 1fr',
     paddingBottom: '8px',
     gridTemplateAreas: `"summary expenditure team lastModified"
        "line line line line"
@@ -198,7 +192,7 @@ const Summary = styled.div({
   gridArea: 'summary',
   display: 'block',
   paddingRight: '8px',
-  minWidth: '320px',
+  minWidth: '300px',
 });
 
 const Expenditure = styled.div({
@@ -231,15 +225,18 @@ const LastModified = styled.div({
   width: 'fit-content',
   '@media (min-width: 375px)': {
     marginLeft: 0,
-  },
-  '@media (min-width: 685px) and (max-width: 834px)': {
-    marginTop: '0',
-    marginLeft: '0',
-  },
-  '@media (min-width: 834px)': {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
+    flex: 1,
+    width: '100%',
+  },
+  '@media (min-width: 685px) and (max-width: 833px)': {
+    marginTop: '0',
+    marginLeft: '0',
+    alignItems: 'flex-start',
+  },
+  '@media (min-width: 834px)': {
     marginTop: '0',
     width: '100%',
   },
@@ -288,7 +285,7 @@ const Title = styled.div<{ hideSmall?: boolean }>(({ hideSmall = false }) => ({
   fontWeight: 400,
   fontSize: '16px',
   lineHeight: '22px',
-  color: '#708390',
+  color: '#9FAFB9',
   '@media (min-width: 834px)': {
     display: 'block',
     fontSize: '14px',
