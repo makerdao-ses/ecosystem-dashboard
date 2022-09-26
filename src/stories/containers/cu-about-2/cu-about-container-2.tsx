@@ -38,7 +38,7 @@ const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
   const LessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
   const lessDesktop1194 = useMediaQuery(lightTheme.breakpoints.down('desktop_1194'));
 
-  const { onClickLessMips, relateMipsOrder, hasMipsNotAccepted, onClickFinances } = useCuAboutMvvm({
+  const { onClickLessMips, relateMipsOrder, hasMipsNotAccepted, onClickFinances, onClickActivity } = useCuAboutMvvm({
     cuAbout,
     code,
     router,
@@ -144,7 +144,11 @@ const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
               {isEnabled('FEATURE_CARD_NAVIGATION') && (
                 <ContainerScroll>
                   <ContainerCard>
-                    <CardExpenses onClick={onClickFinances} code={formatCode(cuAbout.code)} />
+                    <CardExpenses
+                      onClickFinances={onClickFinances}
+                      code={formatCode(cuAbout.code)}
+                      onClickActivity={onClickActivity}
+                    />
                   </ContainerCard>
                   {!(table834 || phone || LessPhone) && (
                     <ContainerCard>
