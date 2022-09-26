@@ -4,4 +4,5 @@ export interface FeatureFlagsInterface {
   FEATURE_TRANSPARENCY_NEW_TABLE: boolean;
   FEATURE_CU_INDEX_NEW_TABLE: boolean;
   FEATURE_CU_ABOUT_NEW_CONTAINER: boolean;
+  FEATURE_TRANSPARENCY_COMMENTS: boolean;
 }
