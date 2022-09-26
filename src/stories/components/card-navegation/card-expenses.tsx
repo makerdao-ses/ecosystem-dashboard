@@ -83,7 +83,6 @@ const CardExpenses = ({ onClickActivity, onClickFinances, code, isTitlePresent =
               fontWeight: 500,
               fontSize: '14px',
               lineHeight: '18px',
-              padding: '8px 24px',
             }}
             onClick={onClickFinances}
             styleText={{
