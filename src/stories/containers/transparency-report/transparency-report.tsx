@@ -107,7 +107,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
             <Spacer />
             {lastMonthWithData && (
               <LastUpdate>
-                <Since>Since</Since>
+                <Since isLight={isLight}>Since</Since>
                 <SinceDate>
                   {capitalizeSentence(lastMonthWithData.toRelative({ unit: 'days' }) ?? '')}{' '}
                   <b>| {lastMonthWithData.toFormat('dd-MMM-yyyy').toUpperCase() ?? ''}</b>
@@ -268,8 +268,8 @@ const LastUpdate = styled.div({
   },
 });
 
-const Since = styled.div({
-  color: '#231536',
+const Since = styled.div<{ isLight: boolean }>(({ isLight = true }) => ({
+  color: isLight ? '#231536' : '#D2D4EF',
   fontSize: '12px',
   fontWeight: 600,
   textTransform: 'uppercase',
@@ -279,7 +279,7 @@ const Since = styled.div({
       content: '":"',
     },
   },
-});
+}));
 
 const SinceDate = styled.div({
   color: '#708390',
