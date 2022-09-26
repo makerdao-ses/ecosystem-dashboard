@@ -97,7 +97,7 @@ const MdViewerPage = ({
             style={{
               textAlign: 'center',
               border: isLight ? (open ? '1px solid #1AAB9B' : '1px solid #25273D') : '1px solid #25273D',
-              background: isLight ? (open ? '#E7FCFA' : 'transparent') : 'transparent',
+              background: 'transparent',
               borderRadius: '22px',
               height: '34px',
               fontFamily: 'Inter, sans-serif',
