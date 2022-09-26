@@ -92,9 +92,10 @@ export const renderLinks = (coreUnit: CoreUnitDto) => {
       style={{
         display: 'flex',
         justifyContent: 'flex-end',
+        alignItems: 'flex-end',
         paddingRight: '16px',
         width: '100%',
-        height: '60px',
+        height: '50px',
         margin: 'auto 0',
         cursor: 'pointer',
       }}

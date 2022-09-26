@@ -89,6 +89,7 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
               mipUrl={getMipUrlFromCoreUnit(coreUnit)}
               code={formatCode(coreUnit.code)}
               categories={coreUnit.category}
+              isCard={true}
             />
           </Summary>
           <Link href={`/core-unit/${coreUnit.shortCode}/finances/reports${queryStrings}`}>
@@ -179,7 +180,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
        `,
   },
   '@media (min-width: 834px)': {
-    gridTemplateColumns: '2.2fr 200px 1fr 1fr',
+    gridTemplateColumns: '280px 195px 1fr 1fr',
     paddingBottom: '8px',
     gridTemplateAreas: `"summary expenditure team lastModified"
        "line line line line"
