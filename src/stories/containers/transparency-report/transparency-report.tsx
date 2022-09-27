@@ -11,7 +11,7 @@ import { TransparencyAudit } from './transparency-audit/transparency-audit';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
-import { capitalizeSentence, formatCode } from '../../../core/utils/string.utils';
+import { formatCode } from '../../../core/utils/string.utils';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SEOHead } from '../../components/seo-head/seo-head';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
@@ -43,6 +43,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
     currentBudgetStatement,
     tabsIndex,
     lastMonthWithData,
+    differenceInDays,
   } = useTransparencyReportViewModel(coreUnit);
 
   return (
@@ -109,8 +110,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
               <LastUpdate>
                 <Since isLight={isLight}>Since</Since>
                 <SinceDate>
-                  {capitalizeSentence(lastMonthWithData.toRelative({ unit: 'days' }) ?? '')}{' '}
-                  <b>| {lastMonthWithData.toFormat('dd-MMM-yyyy').toUpperCase() ?? ''}</b>
+                  {differenceInDays} <b>| {lastMonthWithData.toFormat('dd-MMM-yyyy').toUpperCase() ?? ''}</b>
                 </SinceDate>
               </LastUpdate>
             )}
@@ -270,10 +270,11 @@ const LastUpdate = styled.div({
 
 const Since = styled.div<{ isLight: boolean }>(({ isLight = true }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
-  fontSize: '12px',
+  fontSize: '11px',
   fontWeight: 600,
   textTransform: 'uppercase',
   '@media (min-width: 834px)': {
+    fontSize: '12px',
     marginRight: '6px',
     '&:after': {
       content: '":"',
@@ -285,6 +286,7 @@ const SinceDate = styled.div({
   color: '#708390',
   fontSize: '11px',
   fontWeight: 400,
+  lineHeight: '13px',
 });
 
 const Spacer = styled.div({
