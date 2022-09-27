@@ -46,7 +46,7 @@ const NewChangesDivider = ({ isLight, count }: { isLight: boolean; count: number
   </ChangesButtonContainer>
 );
 
-const INITIAL_ELEMENTS = 10;
+const INITIAL_ELEMENTS = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) < 834 ? 5 : 10;
 
 export default function ActivityTable({ cuId, columns, activity, sortClick }: ActivityTableProps) {
   const isLight = useThemeContext().themeMode === 'light';
