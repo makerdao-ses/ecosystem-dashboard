@@ -258,10 +258,11 @@ const LastUpdate = styled.div({
 
 const Since = styled.div({
   color: '#231536',
-  fontSize: '12px',
+  fontSize: '11px',
   fontWeight: 600,
   textTransform: 'uppercase',
   '@media (min-width: 834px)': {
+    fontSize: '12px',
     marginRight: '6px',
     '&:after': {
       content: '":"',
@@ -273,6 +274,7 @@ const SinceDate = styled.div({
   color: '#708390',
   fontSize: '11px',
   fontWeight: 400,
+  lineHeight: '13px',
 });
 
 const Spacer = styled.div({
