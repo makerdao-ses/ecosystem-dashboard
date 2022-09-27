@@ -8,7 +8,7 @@ interface CustomButtonProps {
   className?: string;
   disabled?: boolean;
   style?: CSSProperties;
-  onClick?: (event: React.MouseEvent) => void | (() => void);
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void | (() => void);
   widthText?: string;
   styleText?: CSSProperties;
   isHightLight?: boolean;
