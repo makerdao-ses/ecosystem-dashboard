@@ -16,7 +16,7 @@ interface CUActivityContainerProps {
 }
 
 export default ({ coreUnit, coreUnits, activity }: CUActivityContainerProps) => {
-  const { isLight, columns } = useCuActivityMvvm();
+  const { isLight, columns, onSortClick } = useCuActivityMvvm();
 
   return (
     <Wrapper>
@@ -36,7 +36,7 @@ export default ({ coreUnit, coreUnits, activity }: CUActivityContainerProps) => 
           </Paragraph>
 
           <TableWrapper>
-            <ActivityTable cuId={coreUnit.id} columns={columns} activity={activity} />
+            <ActivityTable cuId={coreUnit.id} columns={columns} activity={activity} sortClick={onSortClick} />
           </TableWrapper>
         </InnerPage>
       </Container>
