@@ -345,7 +345,7 @@ export const getNumberComments = (cu: CoreUnitDto) => {
   cu.budgetStatements?.forEach((budgetStatement: BudgetStatementDto) => {
     budgetStatement?.budgetStatementWallet?.forEach((statementWallet: BudgetStatementWalletDto) => {
       statementWallet?.budgetStatementLineItem?.forEach((budgetStatementLineItem: BudgetStatementLineItemDto) => {
-        if (budgetStatementLineItem.comments !== '') {
+        if (typeof budgetStatementLineItem.comments !== 'object' && budgetStatementLineItem.comments !== '') {
           totalComments += 1;
         }
       });
