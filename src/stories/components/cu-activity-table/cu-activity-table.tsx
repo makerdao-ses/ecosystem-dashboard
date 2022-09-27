@@ -1,24 +1,30 @@
 import styled from '@emotion/styled';
 import Divider from '@mui/material/Divider';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CuActivityDto } from '../../../core/models/dto/core-unit-activity.dto';
 import { ActivityVisitHandler } from '../../../core/utils/new-activity-handler';
 import CUActivityItem from './cu-activity-item';
 import Button from '@mui/material/Button';
+import { SortEnum } from '../../../core/enums/sort.enum';
+import ArrowUp from '../svg/arrow-up';
+import ArrowDown from '../svg/arrow-down';
+import sortBy from 'lodash/sortBy';
 
 export interface ActivityTableHeader {
   header: string;
   width?: string;
   align?: 'left' | 'center' | 'right';
   styles?: React.CSSProperties;
+  sort?: SortEnum;
 }
 
 export interface ActivityTableProps {
   columns: ActivityTableHeader[];
   activity: CuActivityDto[];
   cuId?: string;
+  sortClick?: (index: number) => void;
 }
 export interface ExtendedActivityDto extends CuActivityDto {
   isNew?: boolean;
@@ -28,13 +34,13 @@ const NewChangesDivider = ({ isLight, count }: { isLight: boolean; count: number
   <ChangesButtonContainer>
     <DividerStyle
       sx={{
-        bgcolor: isLight ? '#F75524' : '#405361',
+        bgcolor: isLight ? '#F75524' : '#FF8237',
       }}
     />
-    <DividerText>{count} New Changes since your last visit</DividerText>
+    <DividerText isLight={isLight}>{count} New Changes since your last visit</DividerText>
     <DividerStyle
       sx={{
-        bgcolor: isLight ? '#F75524' : '#405361',
+        bgcolor: isLight ? '#F75524' : '#FF8237',
       }}
     />
   </ChangesButtonContainer>
@@ -42,7 +48,7 @@ const NewChangesDivider = ({ isLight, count }: { isLight: boolean; count: number
 
 const INITIAL_ELEMENTS = 10;
 
-export default function ActivityTable({ cuId, columns, activity }: ActivityTableProps) {
+export default function ActivityTable({ cuId, columns, activity, sortClick }: ActivityTableProps) {
   const isLight = useThemeContext().themeMode === 'light';
   const [showElements, setShowElements] = useState(INITIAL_ELEMENTS);
   const [noVisitedCount, setNoVisitedCount] = useState(0);
@@ -78,6 +84,17 @@ export default function ActivityTable({ cuId, columns, activity }: ActivityTable
     };
   }, []);
 
+  const sortedActivities = useMemo(() => {
+    const result = sortBy(extendedActivity, (a) => {
+      return a.updateDate;
+    });
+
+    if (columns[0].sort === SortEnum.Desc) {
+      return result.reverse();
+    }
+    return result;
+  }, [activity, columns]);
+
   return (
     <>
       {noVisitedCount > 0 && (
@@ -87,24 +104,39 @@ export default function ActivityTable({ cuId, columns, activity }: ActivityTable
       )}
 
       <TableHeader isLight={isLight}>
-        <TableHeaderRow>
-          {columns.map((column) => (
-            <TableHeaderTitle width={column.width} styles={column.styles} align={column.align ?? 'left'}>
+        <TableHeaderRow className="no-select">
+          {columns.map((column, i) => (
+            <TableHeaderTitle
+              key={column.header}
+              width={column.width}
+              styles={column.styles}
+              align={column.align ?? 'left'}
+              onClick={() => column.sort !== SortEnum.Disabled && sortClick?.(i)}
+            >
               {column.header}
+              {column.sort !== SortEnum.Disabled && (
+                <Arrows>
+                  <ArrowUp fill={column.sort === SortEnum.Asc ? '#231536' : '#708390'} style={{ margin: '4px 0' }} />
+                  <ArrowDown fill={column.sort === SortEnum.Desc ? '#231536' : '#708390'} />
+                </Arrows>
+              )}
             </TableHeaderTitle>
           ))}
         </TableHeaderRow>
       </TableHeader>
 
       <div>
-        {extendedActivity?.slice(0, showElements)?.map((update, index) => (
+        {sortedActivities?.slice(0, showElements)?.map((update, index) => (
           <div key={`table-item-${update.id}`}>
             <CUActivityItem activity={update} isNew={!!update.isNew} />
-            {noVisitedCount > 0 && noVisitedCount === index + 1 && !(showElements - 1 === index) && (
-              <DisplayOnTabletUp>
-                <NewChangesDivider isLight={isLight} count={noVisitedCount} />
-              </DisplayOnTabletUp>
-            )}
+            {noVisitedCount > 0 &&
+              ((columns[0].sort === SortEnum.Desc && noVisitedCount === index + 1) ||
+                (columns[0].sort === SortEnum.Asc && activity.length - noVisitedCount === index + 1)) &&
+              !(showElements - 1 === index) && (
+                <DisplayOnTabletUp>
+                  <NewChangesDivider isLight={isLight} count={noVisitedCount} />
+                </DisplayOnTabletUp>
+              )}
           </div>
         ))}
       </div>
@@ -135,6 +167,7 @@ const TableHeader = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   position: 'relative',
   zIndex: 1,
   background: isLight ? '#F7F8F9' : '#25273D',
+  color: isLight ? '#231536' : '#FFFFFF',
   padding: '16px 0 14px',
   borderTopLeftRadius: '5px',
   borderTopRightRadius: '5px',
@@ -157,6 +190,8 @@ const TableHeaderTitle = styled.div<{
   styles?: React.CSSProperties;
   align: 'left' | 'center' | 'right';
 }>(({ width, styles, align }) => ({
+  display: 'flex',
+  cursor: 'pointer',
   ...{
     textAlign: align,
     ...(width && { width }),
@@ -190,7 +225,7 @@ const DisplayOnMobileOnly = styled.div({
   },
 });
 
-const DividerText = styled.div({
+const DividerText = styled.div<{ isLight: boolean }>(({ isLight = true }) => ({
   fontFamily: 'FT Base, sans-serif',
   flex: '0 0 auto',
   fontWeight: 600,
@@ -198,7 +233,7 @@ const DividerText = styled.div({
   lineHeight: '15px',
   textAlign: 'center',
   textTransform: 'uppercase',
-  color: '#F75524',
+  color: isLight ? '#F75524' : '#FF8237',
   margin: '0 8px',
 
   [lightTheme.breakpoints.up('table_834')]: {
@@ -210,7 +245,7 @@ const DividerText = styled.div({
   [lightTheme.breakpoints.up('desktop_1194')]: {
     margin: '0 32px',
   },
-});
+}));
 
 const DividerStyle = styled(Divider, { shouldForwardProp: (prop) => prop !== 'isLight' })({
   width: '100%',
@@ -252,4 +287,12 @@ const StyledBigButton = styled(Button, { shouldForwardProp: (prop) => prop !== '
 const DividerPreviousStyle = styled(Divider, { shouldForwardProp: (prop) => prop !== 'isLight' })({
   width: '100%',
   borderColor: '#D4D9E1',
+});
+
+const Arrows = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  margin: '0 8px',
+  cursor: 'pointer',
+  boxSizing: 'unset',
 });
