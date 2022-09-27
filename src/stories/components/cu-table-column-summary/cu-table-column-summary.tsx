@@ -25,6 +25,7 @@ interface CuTableColumnSummaryProps {
   hasPopup?: boolean;
   style?: React.CSSProperties;
   categories?: string[];
+  isCard?: boolean;
 }
 
 interface PopupWrapperProps {
@@ -125,11 +126,13 @@ export const CuTableColumnSummary = ({
               {props.statusModified && (
                 <CustomLink
                   href={props.mipUrl}
+                  fontSize={props.isCard ? 10 : 12}
                   style={{
                     display: 'flex',
                     alignItems: 'flex-end',
                     margin: '0 0 2px 4px',
                   }}
+                  fontWeight={600}
                   styleIcon={{
                     marginBottom: upPhone ? '5.1px' : '4.5px',
                   }}
@@ -209,9 +212,6 @@ const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     fontSize: '12px;',
     lineHeight: '15px',
   },
-  // [lightTheme.breakpoints.up('table_834')]: {
-  //   fontSize: '16px',
-  // },
 }));
 
 const Row = styled.section({

@@ -8,13 +8,14 @@ interface CustomButtonProps {
   className?: string;
   disabled?: boolean;
   style?: CSSProperties;
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void | (() => void);
   widthText?: string;
   styleText?: CSSProperties;
   isHightLight?: boolean;
+  borderColor?: string;
 }
 
-export const CustomButton = ({ isHightLight = false, ...props }: CustomButtonProps) => {
+export const CustomButton = ({ isHightLight = false, borderColor = '#231536', ...props }: CustomButtonProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   return (
     <Container
@@ -23,8 +24,9 @@ export const CustomButton = ({ isHightLight = false, ...props }: CustomButtonPro
       type="button"
       disabled={props.disabled}
       onClick={props.onClick}
-      style={props.style}
+      styles={props.style}
       isHightLight={isHightLight}
+      borderColor={borderColor}
     >
       <Text
         isLight={isLight}
@@ -38,12 +40,16 @@ export const CustomButton = ({ isHightLight = false, ...props }: CustomButtonPro
   );
 };
 
-const Container = styled.button<{ isLight: boolean; isHightLight: boolean }>(({ isLight, isHightLight }) => ({
+const Container = styled.button<{
+  isLight: boolean;
+  isHightLight: boolean;
+  styles?: CSSProperties;
+  borderColor: string;
+}>(({ isLight, isHightLight, styles, borderColor }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   width: 'fit-content',
-  height: '48px',
   border: isLight
     ? isHightLight
       ? '1px solid #1AAB9B'
@@ -60,11 +66,14 @@ const Container = styled.button<{ isLight: boolean; isHightLight: boolean }>(({ 
   cursor: 'pointer',
   color: isLight ? '#231536' : '#E2D8EE',
   '&:hover:not(:disabled)': {
-    borderColor: '#231536',
+    borderColor,
+    background: '#E7FCFA',
   },
   '.disabled': {
     color: isLight ? '#9FAFB9' : '#48495F',
   },
+
+  ...(styles ?? {}),
 }));
 
 const Text = styled.div<{ width?: string; isLight: boolean }>(({ width = 'fit-content', isLight }) => ({

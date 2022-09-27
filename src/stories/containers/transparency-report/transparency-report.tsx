@@ -57,7 +57,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
       <CoreUnitSummary coreUnits={coreUnits} trailingAddress={['Expense Reports']} breadcrumbTitle="Expense Reports" />
       <Container isLight={isLight}>
         <InnerPage>
-          <Title isLight={isLight} isTitleOfPage={true}>
+          <Title isLight={isLight} isTitleOfPage={false}>
             Expense Reports
           </Title>
 
@@ -108,7 +108,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
             <Spacer />
             {lastMonthWithData && (
               <LastUpdate>
-                <Since>Since</Since>
+                <Since isLight={isLight}>Since</Since>
                 <SinceDate>
                   {differenceInDays} <b>| {lastMonthWithData.toFormat('dd-MMM-yyyy').toUpperCase() ?? ''}</b>
                 </SinceDate>
@@ -138,19 +138,31 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
             />
           )}
           {tabsIndex === 1 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-            <TransparencyForecast2 currentMonth={currentMonth} budgetStatements={coreUnit?.budgetStatements} />
+            <TransparencyForecast2
+              currentMonth={currentMonth}
+              budgetStatements={coreUnit?.budgetStatements}
+              code={code}
+            />
           )}
           {tabsIndex === 1 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
             <TransparencyForecast currentMonth={currentMonth} budgetStatements={coreUnit?.budgetStatements} />
           )}
           {tabsIndex === 2 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-            <TransparencyMkrVesting2 currentMonth={currentMonth} budgetStatements={coreUnit?.budgetStatements} />
+            <TransparencyMkrVesting2
+              currentMonth={currentMonth}
+              budgetStatements={coreUnit?.budgetStatements}
+              code={code}
+            />
           )}
           {tabsIndex === 2 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
             <TransparencyMkrVesting currentMonth={currentMonth} budgetStatements={coreUnit?.budgetStatements} />
           )}
           {tabsIndex === 3 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-            <TransparencyTransferRequest2 currentMonth={currentMonth} budgetStatements={coreUnit?.budgetStatements} />
+            <TransparencyTransferRequest2
+              currentMonth={currentMonth}
+              budgetStatements={coreUnit?.budgetStatements}
+              code={code}
+            />
           )}
           {tabsIndex === 3 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
             <TransparencyTransferRequest currentMonth={currentMonth} budgetStatements={coreUnit?.budgetStatements} />
@@ -256,8 +268,8 @@ const LastUpdate = styled.div({
   },
 });
 
-const Since = styled.div({
-  color: '#231536',
+const Since = styled.div<{ isLight: boolean }>(({ isLight = true }) => ({
+  color: isLight ? '#231536' : '#D2D4EF',
   fontSize: '11px',
   fontWeight: 600,
   textTransform: 'uppercase',
@@ -268,7 +280,7 @@ const Since = styled.div({
       content: '":"',
     },
   },
-});
+}));
 
 const SinceDate = styled.div({
   color: '#708390',
