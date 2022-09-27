@@ -16,6 +16,7 @@ import { RoadmapStatusEnum } from '../enums/roadmap-status.enum';
 import { CustomChartItemModel } from '../models/custom-chart-item.model';
 import _ from 'lodash';
 import { API_MONTH_FROM_FORMAT, API_MONTH_TO_FORMAT } from '../utils/date.utils';
+import { CuCommentDto } from '../models/dto/core-unit-comment.dto';
 
 export const setCuMipStatusModifiedDate = (mip: CuMipDto, status: CuStatusEnum, date: string) => {
   let index = status.toLowerCase();
@@ -344,12 +345,34 @@ export const getNumberComments = (cu: CoreUnitDto) => {
   if (cu.budgetStatements.length === 0) return totalComments;
   cu.budgetStatements?.forEach((budgetStatement: BudgetStatementDto) => {
     budgetStatement?.budgetStatementWallet?.forEach((statementWallet: BudgetStatementWalletDto) => {
-      statementWallet?.budgetStatementLineItem?.forEach((budgetStatementLineItem: BudgetStatementLineItemDto) => {
-        if (typeof budgetStatementLineItem.comments !== 'object' && budgetStatementLineItem.comments !== '') {
+      statementWallet?.budgetStatementLineItem?.forEach((budgetStatementLine: BudgetStatementLineItemDto) => {
+        if (typeof budgetStatementLine.comments !== 'object' && budgetStatementLine?.comments !== '') {
           totalComments += 1;
         }
       });
     });
   });
   return totalComments;
+};
+
+export const getAllCommentsBudgetStatementLine = (cu: CoreUnitDto) => {
+  const commentsResult = [] as CuCommentDto[];
+  if (!cu) return commentsResult;
+
+  if (cu.budgetStatements.length === 0) return commentsResult;
+
+  cu.budgetStatements?.forEach((budgetStatement: BudgetStatementDto) => {
+    budgetStatement?.budgetStatementWallet?.forEach((statementWallet: BudgetStatementWalletDto) => {
+      statementWallet?.budgetStatementLineItem?.forEach((budgetStatementLine: BudgetStatementLineItemDto) => {
+        if (typeof budgetStatementLine.comments !== 'object' && budgetStatementLine.comments !== '') {
+          const itemComment = {
+            commentDate: budgetStatementLine.month,
+            comment: budgetStatementLine.comments,
+          };
+          commentsResult.push(itemComment);
+        }
+      });
+    });
+  });
+  return commentsResult;
 };
