@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { SortEnum } from '../../../core/enums/sort.enum';
 import { ActivityTableHeader } from '../../components/cu-activity-table/cu-activity-table';
 
 export const useCuActivityMvvm = () => {
   const isLight = useThemeContext().themeMode === 'light';
 
-  const [columns] = useState<ActivityTableHeader[]>([
+  const [columns, setColumns] = useState<ActivityTableHeader[]>([
     {
       header: 'Timestamp',
       styles: {
@@ -21,14 +22,23 @@ export const useCuActivityMvvm = () => {
           paddingRight: 14,
         },
       },
+      sort: SortEnum.Desc,
     },
     {
       header: 'Details',
+      sort: SortEnum.Disabled,
     },
   ]);
 
+  const onSortClick = (i: number) => {
+    const temp = [...columns];
+    temp[i].sort = temp[i].sort === SortEnum.Asc ? SortEnum.Desc : SortEnum.Asc;
+    setColumns(temp);
+  };
+
   return {
- isLight,
-columns
-};
+    isLight,
+    columns,
+    onSortClick,
+  };
 };

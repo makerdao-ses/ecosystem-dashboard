@@ -139,6 +139,13 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
 
   const lastMonthWithData = getLastMonthWithData(coreUnit?.budgetStatements);
 
+  const differenceInDays = useMemo(() => {
+    if (!lastMonthWithData) return null;
+
+    const dayCount = DateTime.now().diff(lastMonthWithData, ['day', 'milliseconds']).days;
+    return dayCount === 0 ? 'Today' : `${dayCount} ${dayCount === 1 ? 'Day' : 'Days'}`;
+  }, [lastMonthWithData]);
+
   return {
     tabItems,
     code,
@@ -152,5 +159,6 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     lastMonthWithData,
     getNumberComments,
     numbersComments,
+    differenceInDays,
   };
 };
