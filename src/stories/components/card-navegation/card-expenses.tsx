@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
-import { Typography } from '@mui/material';
+import { Typography, useMediaQuery } from '@mui/material';
 import React from 'react';
+import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { MAKER_BURN_LINK } from '../../../core/utils/const';
 import { DividerStyle } from '../../containers/cu-about-2/cu-about-container-2';
@@ -26,6 +27,8 @@ const CardExpenses = ({
   styleContainer = {},
 }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
+  const isPhone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+  const isTable = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
 
   return (
     <InformationCard
@@ -70,7 +73,7 @@ const CardExpenses = ({
               fontWeight: 500,
               fontSize: '14px',
               lineHeight: '18px',
-              padding: '8px 24px',
+              padding: isPhone || isTable ? '8px 25.75px' : '8px 43.25px',
             }}
             // eslint-disable-next-line @typescript-eslint/no-empty-function
             onClick={onClickActivity}
@@ -93,6 +96,7 @@ const CardExpenses = ({
               fontWeight: 500,
               fontSize: '14px',
               lineHeight: '18px',
+              padding: isPhone || isTable ? '8px 12.75px' : '8px 30.25px',
             }}
             onClick={onClickFinances}
             styleText={{
