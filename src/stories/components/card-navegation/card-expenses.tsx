@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { MAKER_BURN_LINK } from '../../../core/utils/const';
@@ -17,6 +18,11 @@ interface Props {
 
 const CardExpenses = ({ onClick, code, isTitlePresent = true, style = {} }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
+  const router = useRouter();
+
+  const goToActivityFeed = () => {
+    router.push(`/core-unit/${code}/activity-feed`);
+  };
   return (
     <InformationCard
       fontWeight={600}
@@ -62,7 +68,7 @@ const CardExpenses = ({ onClick, code, isTitlePresent = true, style = {} }: Prop
               padding: '8px 24px',
             }}
             // eslint-disable-next-line @typescript-eslint/no-empty-function
-            onClick={() => {}}
+            onClick={goToActivityFeed}
             styleText={{
               color: '#1AAB9B',
             }}
