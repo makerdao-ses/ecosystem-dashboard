@@ -1,43 +1,50 @@
 import styled from '@emotion/styled';
 import { DateTime } from 'luxon';
+import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { CuActivityDto } from '../../../core/models/dto/core-unit-activity.dto';
+import { ActivityFeedDto } from '../../../core/models/dto/core-unit.dto';
+import { getShortCode } from '../../../core/utils/string.utils';
 import { CustomButton } from '../custom-button/custom-button';
 
 interface CUActivityItemProps {
-  activity: CuActivityDto;
+  activity: ActivityFeedDto;
   isNew: boolean;
 }
 export default function CUActivityItem({ activity, isNew }: CUActivityItemProps) {
   const isLight = useThemeContext().themeMode === 'light';
+  const router = useRouter();
 
   const dayDiffNow = useMemo(
-    () => Math.abs(Math.ceil(DateTime.fromMillis(parseInt(activity.updateDate ?? '')).diffNow('days').days)),
+    () => Math.abs(Math.ceil(DateTime.fromISO(activity.datetime).diffNow('days').days)),
     [activity]
   );
 
+  const goToDetails = () => {
+    router.push(
+      `/core-unit/${getShortCode(activity.params.coreUnit.code)}/finances/reports?viewMonth=${DateTime.fromFormat(
+        activity.params.month,
+        'y-M'
+      ).toFormat('LLLy')}`
+    );
+  };
+
   return (
-    <ActivityItem isLight={isLight} onClick={() => window.open(activity.updateUrl || '', '_blank')}>
+    <ActivityItem isLight={isLight} onClick={goToDetails}>
       <Timestamp>
         <UTCDate isLight={isLight}>
-          {DateTime.fromMillis(parseInt(activity.updateDate ?? ''))
-            .setZone('UTC')
-            .toFormat('dd-LLL-y HH:hh ZZZZ')}
+          {DateTime.fromISO(activity.datetime).setZone('UTC').toFormat('dd-LLL-y HH:hh ZZZZ')}
         </UTCDate>
         <HumanizedDate isLight={isLight} isNew={isNew}>
           {dayDiffNow === 0 ? 'Today' : `${dayDiffNow} Day${dayDiffNow !== 1 ? 's' : ''} Ago`}
         </HumanizedDate>
       </Timestamp>
-      <Details isLight={isLight}>{activity.updateTitle}</Details>
+      <Details isLight={isLight}>{activity.description}</Details>
       <ButtonContainer>
         <CustomButton
           label="View Details"
-          onClick={(e: React.MouseEvent) => {
-            e.preventDefault();
-            window.open(activity.updateUrl || '', '_blank');
-          }}
+          onClick={goToDetails}
           style={{
             display: 'inline-flex',
             fontWeight: 500,

@@ -120,6 +120,20 @@ export interface SocialMediaChannelDto {
   github: string;
 }
 
+export interface ActivityFeedDto {
+  id: string;
+  datetime: string;
+  event: string;
+  params: {
+    coreUnit: {
+      code: string;
+      shortCode: string;
+    };
+    month: string;
+  };
+  description: string;
+}
+
 export interface RoadMapDto {
   ownerCuId: string;
   roadmapStatus: string;
@@ -137,6 +151,7 @@ export interface CoreUnitDto {
   category: string[];
   cuMip: CuMipDto[];
   roadMap: RoadMapDto[];
+  activityFeed: ActivityFeedDto[];
   socialMediaChannels: SocialMediaChannelDto[];
   budgetStatements: BudgetStatementDto[];
   contributorCommitment: ContributorCommitmentDto[];

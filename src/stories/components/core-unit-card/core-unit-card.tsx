@@ -17,7 +17,7 @@ import {
   getSubmissionDateFromCuMip,
 } from '../../../core/business-logic/core-units';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
-import { formatCode } from '../../../core/utils/string.utils';
+import { getShortCode } from '../../../core/utils/string.utils';
 import { CuTableColumnSummary } from '../cu-table-column-summary/cu-table-column-summary';
 import { CuTableColumnExpenditures } from '../cu-table-column-expenditures/cu-table-column-expenditures';
 import { CuTableColumnTeamMember } from '../cu-table-column-team-member/cu-table-column-team-member';
@@ -87,7 +87,7 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
               statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
               imageUrl={coreUnit?.image}
               mipUrl={getMipUrlFromCoreUnit(coreUnit)}
-              code={formatCode(coreUnit.code)}
+              code={getShortCode(coreUnit.code)}
               categories={coreUnit.category}
               isCard={true}
             />

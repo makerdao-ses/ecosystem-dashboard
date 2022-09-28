@@ -8,7 +8,7 @@ import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
 import { AdvancedInnerTable } from '../../../components/advanced-inner-table/advanced-inner-table';
 import { Title } from '../transparency-report';
-import { formatCode } from '../../../../core/utils/string.utils';
+import { getShortCode } from '../../../../core/utils/string.utils';
 import { CustomLink } from '../../../components/custom-link/custom-link';
 import { MAKER_BURN_LINK } from '../../../../core/utils/const';
 
@@ -35,7 +35,7 @@ export const TransparencyActuals2 = (props: Props) => {
   return (
     <Container>
       <LinkDescription isLight={isLight}>
-        To see the onchain transactions from the Maker Protocol to the {formatCode(props.code)} Core Unit
+        To see the onchain transactions from the Maker Protocol to the {getShortCode(props.code)} Core Unit
         <CustomLink
           href={`${MAKER_BURN_LINK}/${props.code}`}
           style={{

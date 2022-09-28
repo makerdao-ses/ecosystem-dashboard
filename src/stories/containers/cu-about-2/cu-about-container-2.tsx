@@ -11,7 +11,7 @@ import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-su
 import CardExpenses from '../../components/card-navegation/card-expenses';
 import CardSomeThingWrong from '../../components/card-navegation/card-somethig-wrong';
 import lightTheme from '../../../../styles/theme/light';
-import { formatCode } from '../../../core/utils/string.utils';
+import { getShortCode } from '../../../core/utils/string.utils';
 import { SEOHead } from '../../components/seo-head/seo-head';
 import MdViewerContainer from '../../components/markdown/md-view-container';
 import { ContributorCommitmentDto, CoreUnitDto, CuMipDto } from '../../../core/models/dto/core-unit.dto';
@@ -144,7 +144,7 @@ const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
               {isEnabled('FEATURE_CARD_NAVIGATION') && (
                 <ContainerScroll>
                   <ContainerCard>
-                    <CardExpenses onClick={onClickFinances} code={formatCode(cuAbout.code)} />
+                    <CardExpenses onClick={onClickFinances} code={getShortCode(cuAbout.code)} />
                   </ContainerCard>
                   {!(table834 || phone || LessPhone) && (
                     <ContainerCard>

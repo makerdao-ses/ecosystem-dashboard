@@ -14,7 +14,7 @@ import {
 } from '../../../core/business-logic/core-units';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
-import { formatCode } from '../../../core/utils/string.utils';
+import { getShortCode } from '../../../core/utils/string.utils';
 import { CoreUnitCard } from '../../components/core-unit-card/core-unit-card';
 import { CuTableColumnExpenditures } from '../../components/cu-table-column-expenditures/cu-table-column-expenditures';
 import { CuTableColumnLastModified } from '../../components/cu-table-column-last-modified/cu-table-column-last-modified';
@@ -33,7 +33,7 @@ export const renderSummary = (coreUnit: CoreUnitDto) => {
       statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
       imageUrl={coreUnit.image}
       mipUrl={getMipUrlFromCoreUnit(coreUnit)}
-      code={formatCode(coreUnit.shortCode)}
+      code={getShortCode(coreUnit.shortCode)}
       categories={coreUnit?.category}
     />
   );
