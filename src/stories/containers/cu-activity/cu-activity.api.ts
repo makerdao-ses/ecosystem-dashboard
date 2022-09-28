@@ -1,25 +1,42 @@
 import { request, gql } from 'graphql-request';
 import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
-import { CuActivityDto } from '../../../core/models/dto/core-unit-activity.dto';
+import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
-export const GET_CU_ACTIVITY = gql`
-  query ($filter: CuUpdateFilter) {
-    cuUpdate(filter: $filter) {
+export const GET_CU_ACTIVITY_BY_CODE = gql`
+  query CoreUnit($filter: CoreUnitFilter) {
+    coreUnit(filter: $filter) {
       id
-      cuId
-      updateDate
-      updateTitle
-      updateUrl
+      shortCode
+      code
+      name
+      image
+      category
+      sentenceDescription
+      activityFeed {
+        id
+        datetime
+        event
+        params
+        description
+      }
+      socialMediaChannels {
+        discord
+        forumTag
+        linkedIn
+        twitter
+        website
+        youtube
+        github
+      }
     }
   }
 `;
 
-export const fetchCoreUnitActivity = async (cuId: string) => {
-  const res = (await request(GRAPHQL_ENDPOINT, GET_CU_ACTIVITY, {
+export const fetchCoreUnitWithActivitiesByCode = async (shortCode: string) => {
+  const res = (await request(GRAPHQL_ENDPOINT, GET_CU_ACTIVITY_BY_CODE, {
     filter: {
-      cuId,
+      shortCode,
     },
-  })) as { cuUpdate: CuActivityDto[] };
-
-  return res.cuUpdate;
+  })) as { coreUnit: CoreUnitDto[] };
+  return res.coreUnit[0];
 };

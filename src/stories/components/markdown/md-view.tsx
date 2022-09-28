@@ -8,7 +8,7 @@ import { CustomButton } from '../custom-button/custom-button';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import lightTheme from '../../../../styles/theme/light';
 import CardExpenses from '../card-navegation/card-expenses';
-import { formatCode } from '../../../core/utils/string.utils';
+import { getShortCode } from '../../../core/utils/string.utils';
 import { useRouter } from 'next/router';
 
 export type MarkDownHeaders = {
@@ -127,7 +127,7 @@ const MdViewerPage = ({
             <CardExpenses
               onClickActivity={onClickActivity}
               onClickFinances={onClickFinances}
-              code={formatCode(code)}
+              code={getShortCode(code)}
               isTitlePresent={false}
             />
           </Popover>

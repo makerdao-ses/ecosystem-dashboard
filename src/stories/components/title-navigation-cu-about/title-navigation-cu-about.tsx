@@ -10,7 +10,7 @@ import { getMipsStatus, getRelateMipObjectFromCoreUnit } from '../../../core/bus
 import _ from 'lodash';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
 import { CoreUnitDto, CuMipDto } from '../../../core/models/dto/core-unit.dto';
-import { formatCode } from '../../../core/utils/string.utils';
+import { getShortCode } from '../../../core/utils/string.utils';
 import { CustomLink } from '../custom-link/custom-link';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
@@ -54,7 +54,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout, hiddenTextDescription }:
         <ContainerTitle>
           <ContainerSeparateData>
             <ResponsiveTitle>
-              <TypographySES isLight={isLight}>{formatCode(coreUnitAbout.code)}</TypographySES>
+              <TypographySES isLight={isLight}>{getShortCode(coreUnitAbout.code)}</TypographySES>
               {coreUnitAbout.name && <TypographyTitle isLight={isLight}>{coreUnitAbout.name}</TypographyTitle>}
             </ResponsiveTitle>
 

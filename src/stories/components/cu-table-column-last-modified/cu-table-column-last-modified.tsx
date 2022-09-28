@@ -5,6 +5,7 @@ import { capitalizeSentence } from '../../../core/utils/string.utils';
 import { CustomLink } from '../custom-link/custom-link';
 import { CuTableColumnLastModifiedSkeleton } from './cu-table-column-last-modified.skeleton';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { SUBMIT_EXPENSES_URL } from '../../../config/external-urls';
 
 interface Props {
   date?: DateTime;
@@ -32,7 +33,7 @@ export const CuTableColumnLastModified = (props: Props) => {
           iconHeight={10}
           iconWidth={10}
           fontSize={16}
-          href="https://www.notion.so/makerdao-ses/MakerDAO-Budget-Reporting-Tool-Setup-Guide-for-Data-Providers-v2-a8d59cc9a5aa4d73a4f677ddcef7d4a7"
+          href={SUBMIT_EXPENSES_URL}
         >
           Submit Now
         </CustomLink>

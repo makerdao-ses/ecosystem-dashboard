@@ -10,7 +10,7 @@ import lightTheme from '../../../../styles/theme/light';
 import BreadCrumbMobile from '../pagination/bread-crumb-mobile';
 import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { formatCode } from '../../../core/utils/string.utils';
+import { getShortCode } from '../../../core/utils/string.utils';
 import { buildQueryString } from '../../../core/utils/url.utils';
 import { sortData } from '../../containers/cu-table/cu-table';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
@@ -39,7 +39,7 @@ export const CoreUnitSummary = ({
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
 
   const cu = data?.find((cu) => cu.shortCode === code);
-  const buildCULabel = () => (!_.isEmpty(cu) ? `${formatCode(cu?.code ?? '')} - ${cu?.name}` : '');
+  const buildCULabel = () => (!_.isEmpty(cu) ? `${getShortCode(cu?.code ?? '')} - ${cu?.name}` : '');
 
   const ref = useRef(null);
 

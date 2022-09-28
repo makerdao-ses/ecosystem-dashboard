@@ -11,7 +11,7 @@ import { TransparencyAudit } from './transparency-audit/transparency-audit';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
-import { formatCode } from '../../../core/utils/string.utils';
+import { capitalizeSentence, getShortCode } from '../../../core/utils/string.utils';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SEOHead } from '../../components/seo-head/seo-head';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
@@ -62,7 +62,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
           </Title>
 
           <Paragraph isLight={isLight}>
-            Every month, the {formatCode(code)} Core Unit submits a transparency report for MakerDAO governance with a
+            Every month, the {getShortCode(code)} Core Unit submits a transparency report for MakerDAO governance with a
             detailed budget update. If the core unit works with an auditor, the transparency report is reviewed by the
             auditor before the core unit's operational wallet is topped up to replenish its runway.
             <p style={{ marginBottom: 0 }}>

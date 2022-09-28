@@ -37,7 +37,7 @@ import { sortAlphaNum } from '../../../core/utils/sort.utils';
 import { CustomButton } from '../../components/custom-button/custom-button';
 import { useRouter } from 'next/router';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
-import { formatCode } from '../../../core/utils/string.utils';
+import { getShortCode } from '../../../core/utils/string.utils';
 import { CoreUnitCard } from '../../components/core-unit-card/core-unit-card';
 import { Filters } from './cu-table-filters';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
@@ -188,7 +188,7 @@ export const CuTable = () => {
           imageUrl={coreUnit.image}
           mipUrl={getMipUrlFromCoreUnit(coreUnit)}
           onClick={onClickRow(coreUnit.shortCode)}
-          code={formatCode(coreUnit.shortCode)}
+          code={getShortCode(coreUnit.shortCode)}
           categories={coreUnit?.category}
         />,
         <div

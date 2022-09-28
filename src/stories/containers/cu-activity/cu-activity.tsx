@@ -2,20 +2,18 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { SEOHead } from '../../components/seo-head/seo-head';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
-import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
 import lightTheme from '../../../../styles/theme/light';
 import ActivityTable from '../../components/cu-activity-table/cu-activity-table';
-import { CuActivityDto } from '../../../core/models/dto/core-unit-activity.dto';
 import { useCuActivityMvvm } from './cu-activity.mvvm';
+import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 interface CUActivityContainerProps {
   coreUnits: CoreUnitDto[];
   coreUnit: CoreUnitDto;
-  activity: CuActivityDto[];
 }
 
-export default ({ coreUnit, coreUnits, activity }: CUActivityContainerProps) => {
+export default ({ coreUnit, coreUnits }: CUActivityContainerProps) => {
   const { isLight, columns, onSortClick } = useCuActivityMvvm();
 
   return (
@@ -36,7 +34,12 @@ export default ({ coreUnit, coreUnits, activity }: CUActivityContainerProps) => 
           </Paragraph>
 
           <TableWrapper>
-            <ActivityTable cuId={coreUnit.id} columns={columns} activity={activity} sortClick={onSortClick} />
+            <ActivityTable
+              cuId={coreUnit.shortCode}
+              columns={columns}
+              activity={coreUnit.activityFeed}
+              sortClick={onSortClick}
+            />
           </TableWrapper>
         </InnerPage>
       </Container>

@@ -6,7 +6,7 @@ import { useTransparencyTransferRequestMvvm2 } from './transparency-transfer-req
 import { AdvancedInnerTable } from '../../../components/advanced-inner-table/advanced-inner-table';
 import { LinkDescription } from '../transparency-actuals/transparency-actuals-2';
 import { CustomLink } from '../../../components/custom-link/custom-link';
-import { formatCode } from '../../../../core/utils/string.utils';
+import { getShortCode } from '../../../../core/utils/string.utils';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { MAKER_BURN_LINK } from '../../../../core/utils/const';
 
@@ -26,7 +26,7 @@ export const TransparencyTransferRequest2 = (props: Props) => {
   return (
     <Container>
       <LinkDescription isLight={isLight}>
-        To see the onchain transactions from the Maker Protocol to the {formatCode(props.code)} Core Unit
+        To see the onchain transactions from the Maker Protocol to the {getShortCode(props.code)} Core Unit
         <CustomLink
           href={`${MAKER_BURN_LINK}/${props.code}`}
           style={{
