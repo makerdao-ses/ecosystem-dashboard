@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
-import { useRouter } from 'next/router';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { MAKER_BURN_LINK } from '../../../core/utils/const';
@@ -15,9 +14,17 @@ interface Props {
   code: string;
   isTitlePresent?: boolean;
   style?: React.CSSProperties;
+  styleContainer?: React.CSSProperties;
 }
 
-const CardExpenses = ({ onClickActivity, onClickFinances, code, isTitlePresent = true, style = {} }: Props) => {
+const CardExpenses = ({
+  onClickActivity,
+  onClickFinances,
+  code,
+  isTitlePresent = true,
+  style = {},
+  styleContainer = {},
+}: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
 
   return (
@@ -29,6 +36,7 @@ const CardExpenses = ({ onClickActivity, onClickFinances, code, isTitlePresent =
       style={style}
       isTitlePresent={isTitlePresent}
       color={isLight ? '#231536' : '#D2D4EF'}
+      styleContainer={styleContainer}
     >
       <div
         style={{
@@ -37,7 +45,7 @@ const CardExpenses = ({ onClickActivity, onClickFinances, code, isTitlePresent =
           paddingRight: '16px',
         }}
       >
-        <TypographyDescription marginBottom={'24px'} isLight={isLight}>
+        <TypographyDescription marginBottom={'24px'} isLight={isLight} variant="subtitle1">
           {`View all expenses of the ${code} Core Unit`}
         </TypographyDescription>
         <div
@@ -118,6 +126,7 @@ const CardExpenses = ({ onClickActivity, onClickFinances, code, isTitlePresent =
             fontSize: '16px',
             lineHeight: '18px',
             whiteSpace: 'normal',
+            display: 'inline-block',
           }}
           target="_blank"
           children={`View on-chain transfers to ${code} Core Unit on makerburn.com`}

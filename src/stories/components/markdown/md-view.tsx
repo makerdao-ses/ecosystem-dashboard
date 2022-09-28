@@ -129,15 +129,25 @@ const MdViewerPage = ({
               onClickFinances={onClickFinances}
               code={getShortCode(code)}
               isTitlePresent={false}
+              style={{
+                width: '335px',
+              }}
+              styleContainer={{
+                height: '190px',
+                overflowY: 'hidden',
+              }}
             />
           </Popover>
         </ContainerResponsive>
       ) : showButton && isTable834 ? (
         <div>
           <CardExpenses
+            styleContainer={{
+              height: '190px',
+            }}
             onClickActivity={onClickActivity}
             onClickFinances={onClickFinances}
-            code="SES"
+            code={getShortCode(code)}
             isTitlePresent={false}
             style={{
               width: '335px',
