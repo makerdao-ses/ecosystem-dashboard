@@ -226,6 +226,7 @@ export const Title = styled.div<{
   },
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     marginTop: '40px',
+    fontWeight: 700,
   },
 }));
 
