@@ -147,7 +147,7 @@ const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
                   <ContainerCard>
                     <CardExpenses
                       onClickFinances={onClickFinances}
-                      code={formatCode(cuAbout.code)}
+                      code={getShortCode(cuAbout.code)}
                       onClickActivity={onClickActivity}
                     />
                   </ContainerCard>

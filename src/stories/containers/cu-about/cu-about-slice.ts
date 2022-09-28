@@ -35,6 +35,7 @@ export const initialState: CurrentCoreUnitAbout = {
     paragraphImage: '',
     sentenceDescription: '',
     category: [],
+    activityFeed: [],
     cuMip: [],
     roadMap: [] as RoadMapDto[],
     socialMediaChannels: [] as SocialMediaChannelDto[],

@@ -127,7 +127,7 @@ const MdViewerPage = ({
             <CardExpenses
               onClickActivity={onClickActivity}
               onClickFinances={onClickFinances}
-              code={formatCode(code)}
+              code={getShortCode(code)}
               isTitlePresent={false}
             />
           </Popover>

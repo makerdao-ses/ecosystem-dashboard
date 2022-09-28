@@ -75,7 +75,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
       filteredCategories,
       searchText,
     });
-    router.push(`/core-unit/${code}/activity${queryStrings}`);
+    router.push(`/core-unit/${code}/activity-feed${queryStrings}`);
   }, [filteredCategories, filteredStatuses, router, searchText, code]);
 
   return (
@@ -180,7 +180,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
                 <ContainerScroll>
                   <ContainerCard>
                     <CardExpenses
-                      code={formatCode(cuAbout.code)}
+                      code={getShortCode(cuAbout.code)}
                       onClickActivity={onClickActivity}
                       onClickFinances={onClickFinances}
                     />
