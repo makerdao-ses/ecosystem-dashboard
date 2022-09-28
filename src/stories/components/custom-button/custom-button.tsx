@@ -12,10 +12,16 @@ interface CustomButtonProps {
   widthText?: string;
   styleText?: CSSProperties;
   isHightLight?: boolean;
+  isPrimary?: boolean;
   borderColor?: string;
 }
 
-export const CustomButton = ({ isHightLight = false, borderColor = '#231536', ...props }: CustomButtonProps) => {
+export const CustomButton = ({
+  isHightLight = false,
+  isPrimary = false,
+  borderColor = '#231536',
+  ...props
+}: CustomButtonProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   return (
     <Container
@@ -26,6 +32,7 @@ export const CustomButton = ({ isHightLight = false, borderColor = '#231536', ..
       onClick={props.onClick}
       styles={props.style}
       isHightLight={isHightLight}
+      isPrimary={isPrimary}
       borderColor={borderColor}
     >
       <Text
@@ -33,6 +40,7 @@ export const CustomButton = ({ isHightLight = false, borderColor = '#231536', ..
         className={props.disabled ? 'disabled' : ''}
         width={props.widthText}
         style={props.styleText}
+        isPrimary={isPrimary}
       >
         {props.label}
       </Text>
@@ -43,31 +51,36 @@ export const CustomButton = ({ isHightLight = false, borderColor = '#231536', ..
 const Container = styled.button<{
   isLight: boolean;
   isHightLight: boolean;
+  isPrimary: boolean;
   styles?: CSSProperties;
   borderColor: string;
-}>(({ isLight, isHightLight, styles, borderColor }) => ({
+}>(({ isLight, isHightLight, isPrimary, styles, borderColor }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   width: 'fit-content',
-  border: isLight
+  border: '1px solid',
+  borderColor: isLight
     ? isHightLight
-      ? '1px solid #1AAB9B'
-      : '1px solid #D4D9E1'
+      ? '#1AAB9B'
+      : isPrimary
+      ? '#1AAB9B'
+      : '#D4D9E1'
     : isHightLight
-    ? '1px solid #787A9B'
-    : '1px solid #343442',
+    ? '#787A9B'
+    : isPrimary
+    ? '#1AAB9B'
+    : '#343442',
   borderRadius: isLight ? '22px' : '22px',
-  background: isLight ? 'white' : '#10191F',
+  background: isLight ? (isPrimary ? '#E7FCFA' : 'white') : isPrimary ? '#1AAB9B' : '#10191F',
   transition: 'all .3s ease',
   transitionProperty: 'border, color',
   padding: '15px 16px',
   boxSizing: 'border-box',
   cursor: 'pointer',
-  color: isLight ? '#231536' : '#E2D8EE',
   '&:hover:not(:disabled)': {
-    borderColor,
-    background: '#E7FCFA',
+    borderColor: isPrimary ? (isLight ? '#1AAB9B' : '#2DC1B1') : borderColor,
+    background: isPrimary ? (isLight ? '#B6EDE7' : '#2DC1B1') : '#E7FCFA',
   },
   '.disabled': {
     color: isLight ? '#9FAFB9' : '#48495F',
@@ -76,16 +89,18 @@ const Container = styled.button<{
   ...(styles ?? {}),
 }));
 
-const Text = styled.div<{ width?: string; isLight: boolean }>(({ width = 'fit-content', isLight }) => ({
-  fontSize: '14px',
-  lineHeight: '18px',
-  fontFamily: 'Inter, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 500,
-  color: isLight ? '#231536' : '#D2D4EF',
-  whiteSpace: 'nowrap',
-  width,
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+const Text = styled.div<{ width?: string; isLight: boolean; isPrimary: boolean }>(
+  ({ width = 'fit-content', isLight, isPrimary }) => ({
+    fontSize: '14px',
     lineHeight: '18px',
-  },
-}));
+    fontFamily: 'Inter, sans-serif',
+    fontStyle: 'normal',
+    fontWeight: 500,
+    color: isLight ? (isPrimary ? '#1AAB9B' : '#231536') : 'white',
+    whiteSpace: 'nowrap',
+    width,
+    [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+      lineHeight: '18px',
+    },
+  })
+);

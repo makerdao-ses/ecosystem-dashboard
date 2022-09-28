@@ -33,7 +33,7 @@ export const formatNumber = (number: number) => {
   });
 };
 
-export const formatCode = (code: string) => {
+export const getShortCode = (code: string) => {
   if (!code) return '';
   const parts = code.split('-');
   if (!parts.length) return code;

@@ -1,4 +1,4 @@
-import { CuActivityDto } from '../models/dto/core-unit-activity.dto';
+import { ActivityFeedDto } from '../models/dto/core-unit.dto';
 import { SafeLocalStorage } from './local-storage';
 
 export class ActivityVisitHandler {
@@ -23,9 +23,9 @@ export class ActivityVisitHandler {
     return new Date(parseInt(storedVisit));
   }
 
-  public wasVisited(activity: CuActivityDto): boolean {
+  public wasVisited(activity: ActivityFeedDto): boolean {
     const _lastVisit = this.lastVisit();
 
-    return _lastVisit ? _lastVisit < new Date(parseInt(activity.updateDate || '0')) : false;
+    return _lastVisit ? _lastVisit < new Date(activity.datetime) : false;
   }
 }

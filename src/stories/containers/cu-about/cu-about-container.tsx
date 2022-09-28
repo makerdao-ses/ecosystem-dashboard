@@ -15,7 +15,7 @@ import CardExpenses from '../../components/card-navegation/card-expenses';
 import CardSomeThingWrong from '../../components/card-navegation/card-somethig-wrong';
 import lightTheme from '../../../../styles/theme/light';
 import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
-import { formatCode } from '../../../core/utils/string.utils';
+import { getShortCode } from '../../../core/utils/string.utils';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SEOHead } from '../../components/seo-head/seo-head';
@@ -75,7 +75,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
       filteredCategories,
       searchText,
     });
-    router.push(`/core-unit/${code}/activity${queryStrings}`);
+    router.push(`/core-unit/${code}/activity-feed${queryStrings}`);
   }, [filteredCategories, filteredStatuses, router, searchText, code]);
 
   return (
@@ -180,7 +180,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
                 <ContainerScroll>
                   <ContainerCard>
                     <CardExpenses
-                      code={formatCode(cuAbout.code)}
+                      code={getShortCode(cuAbout.code)}
                       onClickActivity={onClickActivity}
                       onClickFinances={onClickFinances}
                     />

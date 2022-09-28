@@ -3,7 +3,6 @@ import Divider from '@mui/material/Divider';
 import React, { useEffect, useMemo, useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { CuActivityDto } from '../../../core/models/dto/core-unit-activity.dto';
 import { ActivityVisitHandler } from '../../../core/utils/new-activity-handler';
 import CUActivityItem from './cu-activity-item';
 import Button from '@mui/material/Button';
@@ -11,6 +10,8 @@ import { SortEnum } from '../../../core/enums/sort.enum';
 import ArrowUp from '../svg/arrow-up';
 import ArrowDown from '../svg/arrow-down';
 import sortBy from 'lodash/sortBy';
+import { ActivityPlaceholder } from './cu-activity-table.placeholder';
+import { ActivityFeedDto } from '../../../core/models/dto/core-unit.dto';
 
 export interface ActivityTableHeader {
   header: string;
@@ -22,11 +23,11 @@ export interface ActivityTableHeader {
 
 export interface ActivityTableProps {
   columns: ActivityTableHeader[];
-  activity: CuActivityDto[];
+  activity: ActivityFeedDto[];
   cuId?: string;
   sortClick?: (index: number) => void;
 }
-export interface ExtendedActivityDto extends CuActivityDto {
+export interface ExtendedActivityDto extends ActivityFeedDto {
   isNew?: boolean;
 }
 
@@ -84,16 +85,18 @@ export default function ActivityTable({ cuId, columns, activity, sortClick }: Ac
     };
   }, []);
 
+  if (extendedActivity.length === 0) return <ActivityPlaceholder />;
+
   const sortedActivities = useMemo(() => {
     const result = sortBy(extendedActivity, (a) => {
-      return a.updateDate;
+      return a.datetime;
     });
 
     if (columns[0].sort === SortEnum.Desc) {
       return result.reverse();
     }
     return result;
-  }, [activity, columns]);
+  }, [extendedActivity, columns]);
 
   return (
     <>

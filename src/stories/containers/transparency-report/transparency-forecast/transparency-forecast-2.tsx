@@ -10,7 +10,7 @@ import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table
 import { Tabs } from '../../../components/tabs/tabs';
 import { LinkDescription } from '../transparency-actuals/transparency-actuals-2';
 import { CustomLink } from '../../../components/custom-link/custom-link';
-import { formatCode } from '../../../../core/utils/string.utils';
+import { getShortCode } from '../../../../core/utils/string.utils';
 import { MAKER_BURN_LINK } from '../../../../core/utils/const';
 
 interface Props {
@@ -36,7 +36,7 @@ export const TransparencyForecast2 = (props: Props) => {
   return (
     <Container>
       <LinkDescription isLight={isLight}>
-        To see the onchain transactions from the Maker Protocol to the {formatCode(props.code)} Core Unit
+        To see the onchain transactions from the Maker Protocol to the {getShortCode(props.code)} Core Unit
         <CustomLink
           href={`${MAKER_BURN_LINK}/${props.code}`}
           style={{
