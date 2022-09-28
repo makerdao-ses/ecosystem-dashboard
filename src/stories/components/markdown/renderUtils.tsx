@@ -25,6 +25,7 @@ export const customRenderer = {
           lineHeight: '22px',
           fontFamily: 'Inter, sans-serif',
           marginBottom: 0,
+          textAlign: 'left',
         }}
         key={Math.random()}
       >
@@ -41,6 +42,7 @@ export const customRenderer = {
           color: '#231536',
           lineHeight: '22px',
           fontFamily: 'Inter, sans-serif',
+          textAlign: 'left',
         }}
         key={Math.random()}
       >
@@ -57,6 +59,7 @@ export const customRenderer = {
           color: '#231536',
           lineHeight: '22px',
           fontFamily: 'Inter, sans-serif',
+          textAlign: 'left',
         }}
         key={Math.random()}
       >
@@ -77,6 +80,7 @@ export const customRenderer = {
           fontWeight: 400,
           fontSize: '16px',
           lineHeight: '22px',
+          textAlign: 'left',
         }}
       >
         {text}
@@ -107,6 +111,7 @@ export const customRendererDark = {
           lineHeight: '22px',
           fontFamily: 'Inter, sans-serif',
           marginBottom: 0,
+          textAlign: 'left',
         }}
         key={Math.random()}
       >
@@ -123,6 +128,7 @@ export const customRendererDark = {
           color: '#D2D4EF',
           lineHeight: '22px',
           fontFamily: 'Inter, sans-serif',
+          textAlign: 'left',
         }}
         key={Math.random()}
       >
@@ -139,6 +145,7 @@ export const customRendererDark = {
           color: '#D2D4EF',
           lineHeight: '22px',
           fontFamily: 'Inter, sans-serif',
+          textAlign: 'left',
         }}
         key={Math.random()}
       >
@@ -159,6 +166,7 @@ export const customRendererDark = {
           fontWeight: 400,
           fontSize: '16px',
           lineHeight: '22px',
+          textAlign: 'left',
         }}
       >
         {text}
@@ -209,6 +217,7 @@ const ResponsiveList = styled.ul({
 });
 
 const ResponsiveItem = styled.li({
+  textAlign: 'left',
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     fontSize: '14px',
     lineHeight: '17px',

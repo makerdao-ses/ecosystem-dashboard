@@ -5,12 +5,13 @@ import {
   getCurrentOrLastMonthWithData,
   getLastMonthWithActualOrForecast,
   getLastMonthWithData,
+  getNumberComments,
 } from '../../../core/business-logic/core-units';
 import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
 import { BudgetStatementDto, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { API_MONTH_TO_FORMAT } from '../../../core/utils/date.utils';
 
-const TRANSPARENCY_IDS = ['actuals', 'forecast', 'mkr-vesting', 'transfer-requests', 'audit-reports'];
+const TRANSPARENCY_IDS = ['actuals', 'forecast', 'mkr-vesting', 'transfer-requests', 'audit-reports', 'comments'];
 
 export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   const router = useRouter();
@@ -56,7 +57,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
       const month = DateTime.fromFormat(viewMonthStr as string, 'LLLyyyy');
       setCurrentMonth(month);
     } else {
-      const month = getCurrentOrLastMonthWithData(coreUnit.budgetStatements);
+      const month = getCurrentOrLastMonthWithData(coreUnit?.budgetStatements);
 
       if (month) {
         setCurrentMonth(month);
@@ -87,7 +88,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   }, [setCurrentMonth, currentMonth]);
 
   const hasNextMonth = () => {
-    const limit = getLastMonthWithActualOrForecast(coreUnit.budgetStatements).plus({
+    const limit = getLastMonthWithActualOrForecast(coreUnit?.budgetStatements).plus({
       month: 1,
     });
     return currentMonth.startOf('month') < limit.startOf('month');
@@ -106,6 +107,8 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
       (bs: BudgetStatementDto) => bs.month === currentMonth.toFormat(API_MONTH_TO_FORMAT)
     );
   }, [coreUnit, currentMonth]);
+
+  const numbersComments = getNumberComments(coreUnit);
 
   const tabItems = [
     {
@@ -128,9 +131,20 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
       item: 'Audit Reports',
       id: TRANSPARENCY_IDS[4],
     },
+    {
+      item: `Comments (${numbersComments})`,
+      id: TRANSPARENCY_IDS[5],
+    },
   ];
 
-  const lastMonthWithData = getLastMonthWithData(coreUnit.budgetStatements);
+  const lastMonthWithData = getLastMonthWithData(coreUnit?.budgetStatements);
+
+  const differenceInDays = useMemo(() => {
+    if (!lastMonthWithData) return null;
+
+    const dayCount = DateTime.now().diff(lastMonthWithData, ['day', 'milliseconds']).days;
+    return dayCount === 0 ? 'Today' : `${dayCount} ${dayCount === 1 ? 'Day' : 'Days'}`;
+  }, [lastMonthWithData]);
 
   return {
     tabItems,
@@ -143,5 +157,8 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     currentBudgetStatement,
     tabsIndex,
     lastMonthWithData,
+    getNumberComments,
+    numbersComments,
+    differenceInDays,
   };
 };

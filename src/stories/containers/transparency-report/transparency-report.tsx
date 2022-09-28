@@ -22,6 +22,7 @@ import { TransparencyForecast2 } from './transparency-forecast/transparency-fore
 import { TransparencyMkrVesting2 } from './transparency-mkr-vesting/transparency-mkr-vesting-2';
 import { TransparencyTransferRequest2 } from './transparency-transfer-request/transparency-transfer-request-2';
 import { useTransparencyReportViewModel } from './transparency-report.mvvm';
+import { TransparencyComments } from './transparency-comments/transparency-comments';
 
 interface TransparencyReportProps {
   coreUnits: CoreUnitDto[];
@@ -31,7 +32,6 @@ interface TransparencyReportProps {
 export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   const [isEnabled] = useFlagsActive();
-
   const {
     tabItems,
     code,
@@ -43,8 +43,9 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
     currentBudgetStatement,
     tabsIndex,
     lastMonthWithData,
+    numbersComments,
+    differenceInDays,
   } = useTransparencyReportViewModel(coreUnit);
-
   return (
     <Wrapper>
       <SEOHead
@@ -109,8 +110,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
               <LastUpdate>
                 <Since isLight={isLight}>Since</Since>
                 <SinceDate>
-                  {capitalizeSentence(lastMonthWithData.toRelative({ unit: 'days' }) ?? '')}{' '}
-                  <b>| {lastMonthWithData.toFormat('dd-MMM-yyyy').toUpperCase() ?? ''}</b>
+                  {differenceInDays} <b>| {lastMonthWithData.toFormat('dd-MMM-yyyy').toUpperCase() ?? ''}</b>
                 </SinceDate>
               </LastUpdate>
             )}
@@ -168,6 +168,9 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
             <TransparencyTransferRequest currentMonth={currentMonth} budgetStatements={coreUnit?.budgetStatements} />
           )}
           {tabsIndex === 4 && <TransparencyAudit budgetStatement={currentBudgetStatement} />}
+          {tabsIndex === 5 && isEnabled('FEATURE_TRANSPARENCY_COMMENTS') && (
+            <TransparencyComments numberComments={numbersComments} />
+          )}
         </InnerPage>
       </Container>
     </Wrapper>
@@ -270,10 +273,11 @@ const LastUpdate = styled.div({
 
 const Since = styled.div<{ isLight: boolean }>(({ isLight = true }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
-  fontSize: '12px',
+  fontSize: '11px',
   fontWeight: 600,
   textTransform: 'uppercase',
   '@media (min-width: 834px)': {
+    fontSize: '12px',
     marginRight: '6px',
     '&:after': {
       content: '":"',
@@ -285,6 +289,7 @@ const SinceDate = styled.div({
   color: '#708390',
   fontSize: '11px',
   fontWeight: 400,
+  lineHeight: '13px',
 });
 
 const Spacer = styled.div({
