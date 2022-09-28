@@ -11,6 +11,7 @@ import { SortEnum } from '../../../core/enums/sort.enum';
 import ArrowUp from '../svg/arrow-up';
 import ArrowDown from '../svg/arrow-down';
 import sortBy from 'lodash/sortBy';
+import { ActivityPlaceholder } from './cu-activity-table.placeholder';
 
 export interface ActivityTableHeader {
   header: string;
@@ -83,6 +84,8 @@ export default function ActivityTable({ cuId, columns, activity, sortClick }: Ac
       clearTimeout(timeout);
     };
   }, []);
+
+  if (extendedActivity.length === 0) return <ActivityPlaceholder />;
 
   const sortedActivities = useMemo(() => {
     const result = sortBy(extendedActivity, (a) => {
