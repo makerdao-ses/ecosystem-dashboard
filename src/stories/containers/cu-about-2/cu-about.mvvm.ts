@@ -47,6 +47,15 @@ export const useCuAboutMvvm = ({ cuAbout, code, router, setShowThreeMIPs, showTh
     router.push(`/core-unit/${code}/finances/reports${queryStrings}`);
   }, [filteredCategories, filteredStatuses, router, searchText, code]);
 
+  const onClickActivity = useCallback(() => {
+    const queryStrings = buildQueryString({
+      filteredStatuses,
+      filteredCategories,
+      searchText,
+    });
+    router.push(`/core-unit/${code}/activity${queryStrings}`);
+  }, [filteredCategories, filteredStatuses, router, searchText, code]);
+
   return {
     onClickLessMips,
     relateMipsOrder,
@@ -54,5 +63,6 @@ export const useCuAboutMvvm = ({ cuAbout, code, router, setShowThreeMIPs, showTh
     onClickFinances,
     showThreeMIPs,
     setShowThreeMIPs,
+    onClickActivity,
   };
 };

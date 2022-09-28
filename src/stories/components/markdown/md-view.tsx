@@ -26,7 +26,8 @@ interface Props {
   subTitle?: string;
   headersLevel: MarkDownHeaders[];
   showButton?: boolean;
-  onClick: () => void;
+  onClickFinances: () => void;
+  onClickActivity: () => void;
 }
 
 const MdViewerPage = ({
@@ -35,7 +36,8 @@ const MdViewerPage = ({
   paragraphImage,
   headersLevel,
   showButton = false,
-  onClick,
+  onClickActivity,
+  onClickFinances,
 }: Props) => {
   const router = useRouter();
   const code = router.query?.code as string;
@@ -95,7 +97,7 @@ const MdViewerPage = ({
             style={{
               textAlign: 'center',
               border: isLight ? (open ? '1px solid #1AAB9B' : '1px solid #25273D') : '1px solid #25273D',
-              background: isLight ? (open ? '#E7FCFA' : 'transparent') : 'transparent',
+              background: 'transparent',
               borderRadius: '22px',
               height: '34px',
               fontFamily: 'Inter, sans-serif',
@@ -122,13 +124,19 @@ const MdViewerPage = ({
               horizontal: 'left',
             }}
           >
-            <CardExpenses onClick={onClick} code={formatCode(code)} isTitlePresent={false} />
+            <CardExpenses
+              onClickActivity={onClickActivity}
+              onClickFinances={onClickFinances}
+              code={formatCode(code)}
+              isTitlePresent={false}
+            />
           </Popover>
         </ContainerResponsive>
       ) : showButton && isTable834 ? (
         <div>
           <CardExpenses
-            onClick={() => {}}
+            onClickActivity={onClickActivity}
+            onClickFinances={onClickFinances}
             code="SES"
             isTitlePresent={false}
             style={{

@@ -104,6 +104,7 @@ export interface BudgetStatementDto {
   month: string;
   budgetStatus: string;
   publicationUrl: string;
+  comments: string;
   budgetStatementFTEs: BudgetStatementFteDto[];
   budgetStatementWallet: BudgetStatementWalletDto[];
   budgetStatementMKRVest?: BudgetStatementMKRVestDto[];
