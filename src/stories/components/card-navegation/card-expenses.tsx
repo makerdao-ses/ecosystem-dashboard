@@ -19,11 +19,7 @@ interface Props {
 
 const CardExpenses = ({ onClickActivity, onClickFinances, code, isTitlePresent = true, style = {} }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
-  const router = useRouter();
 
-  const goToActivityFeed = () => {
-    router.push(`/core-unit/${code}/activity-feed`);
-  };
   return (
     <InformationCard
       fontWeight={600}
