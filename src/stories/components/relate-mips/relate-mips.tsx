@@ -66,11 +66,9 @@ const RelateMips = ({ relateMips }: Props) => {
       {pieces.length === 1 && (
         <RowUnderLine>
           <Typography color="#447AFB" fontFamily={'Inter, sans-serif'}>
-            {' '}
             {relateMips.mipTitle}
           </Typography>
           <ArrowLinkContainer>
-            {' '}
             <ExternalLinkArrow href={`${relateMips.mipUrl}` || '#'} />
           </ArrowLinkContainer>
         </RowUnderLine>
@@ -132,13 +130,14 @@ const SinceDate = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 }));
 
 const ArrowLinkContainer = styled.span({
-  display: 'inline',
+  display: 'flex',
   marginLeft: '9px',
 });
 
 const ContainerIconTypography = styled.div({
-  display: 'inline',
+  display: 'flex',
   alignItems: 'center',
+  marginTop: '4px',
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     marginTop: '4px',
   },
