@@ -8,6 +8,7 @@ interface Props {
   showButton?: boolean;
   onClickFinances: () => void;
   onClickActivity: () => void;
+  code: string;
 }
 
 const MdViewerContainer = ({
@@ -17,6 +18,7 @@ const MdViewerContainer = ({
   showButton,
   onClickActivity,
   onClickFinances,
+  code,
 }: Props) => {
   const [headersLevel, setHeadersLevel] = useState<MarkDownHeaders[]>([]);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -49,6 +51,7 @@ const MdViewerContainer = ({
       showButton={showButton}
       onClickActivity={onClickActivity}
       onClickFinances={onClickFinances}
+      code={code}
     />
   );
 };

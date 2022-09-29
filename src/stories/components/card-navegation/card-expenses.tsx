@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
-import { Typography } from '@mui/material';
-import { useRouter } from 'next/router';
+import { Typography, useMediaQuery } from '@mui/material';
 import React from 'react';
+import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { MAKER_BURN_LINK } from '../../../core/utils/const';
+import { getShortCode } from '../../../core/utils/string.utils';
 import { DividerStyle } from '../../containers/cu-about-2/cu-about-container-2';
 import { CustomButton } from '../custom-button/custom-button';
 import { CustomLink } from '../custom-link/custom-link';
@@ -15,10 +16,20 @@ interface Props {
   code: string;
   isTitlePresent?: boolean;
   style?: React.CSSProperties;
+  styleContainer?: React.CSSProperties;
 }
 
-const CardExpenses = ({ onClickActivity, onClickFinances, code, isTitlePresent = true, style = {} }: Props) => {
+const CardExpenses = ({
+  onClickActivity,
+  onClickFinances,
+  code,
+  isTitlePresent = true,
+  style = {},
+  styleContainer = {},
+}: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
+  const isPhone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+  const isTable = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
 
   return (
     <InformationCard
@@ -29,6 +40,7 @@ const CardExpenses = ({ onClickActivity, onClickFinances, code, isTitlePresent =
       style={style}
       isTitlePresent={isTitlePresent}
       color={isLight ? '#231536' : '#D2D4EF'}
+      styleContainer={styleContainer}
     >
       <div
         style={{
@@ -37,8 +49,8 @@ const CardExpenses = ({ onClickActivity, onClickFinances, code, isTitlePresent =
           paddingRight: '16px',
         }}
       >
-        <TypographyDescription marginBottom={'24px'} isLight={isLight}>
-          {`View all expenses of the ${code} Core Unit`}
+        <TypographyDescription marginBottom={'24px'} isLight={isLight} variant="subtitle1">
+          {`View all expenses of the ${getShortCode(code)} Core Unit`}
         </TypographyDescription>
         <div
           style={{
@@ -62,7 +74,7 @@ const CardExpenses = ({ onClickActivity, onClickFinances, code, isTitlePresent =
               fontWeight: 500,
               fontSize: '14px',
               lineHeight: '18px',
-              padding: '8px 24px',
+              padding: isPhone || isTable ? '8px 25.75px' : '8px 43.25px',
             }}
             // eslint-disable-next-line @typescript-eslint/no-empty-function
             onClick={onClickActivity}
@@ -71,6 +83,7 @@ const CardExpenses = ({ onClickActivity, onClickFinances, code, isTitlePresent =
             }}
           />
           <CustomButton
+            isPrimary
             borderColor="#1AAB9B"
             widthText="100%"
             label="Expense Reports"
@@ -85,6 +98,8 @@ const CardExpenses = ({ onClickActivity, onClickFinances, code, isTitlePresent =
               fontWeight: 500,
               fontSize: '14px',
               lineHeight: '18px',
+              letterSpacing: '0px',
+              padding: isPhone || isTable ? '8px 12.75px' : '8px 30.25px',
             }}
             onClick={onClickFinances}
             styleText={{
@@ -118,9 +133,10 @@ const CardExpenses = ({ onClickActivity, onClickFinances, code, isTitlePresent =
             fontSize: '16px',
             lineHeight: '18px',
             whiteSpace: 'normal',
+            display: 'inline-block',
           }}
           target="_blank"
-          children={`View on-chain transfers to ${code} Core Unit on makerburn.com`}
+          children={`View on-chain transfers to ${getShortCode(code)} Core Unit on makerburn.com`}
         />
       </div>
     </InformationCard>
@@ -139,6 +155,6 @@ const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => 
   fontSize: '15px',
   lineHeight: '24px',
   color: isLight ? '#546978 ' : '#9FAFB9',
-  letterSpacing: '0.4px',
+  letterSpacing: '0px',
   marginBottom: marginBottom || '0px',
 }));

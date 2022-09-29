@@ -16,6 +16,7 @@ interface Props {
   padding?: string;
   isTitlePresent?: boolean;
   style?: React.CSSProperties;
+  styleContainer?: React.CSSProperties;
 }
 
 const InformationCard = ({
@@ -29,6 +30,7 @@ const InformationCard = ({
   padding,
   isTitlePresent = true,
   style = {},
+  styleContainer,
 }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
   return (
@@ -49,7 +51,7 @@ const InformationCard = ({
           {title}
         </Typography>
       )}
-      <Container padding={padding} isLight={isLight}>
+      <Container padding={padding} isLight={isLight} style={styleContainer}>
         {children}
       </Container>
     </div>

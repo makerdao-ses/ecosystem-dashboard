@@ -11,7 +11,6 @@ import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-su
 import CardExpenses from '../../components/card-navegation/card-expenses';
 import CardSomeThingWrong from '../../components/card-navegation/card-somethig-wrong';
 import lightTheme from '../../../../styles/theme/light';
-import { getShortCode } from '../../../core/utils/string.utils';
 import { SEOHead } from '../../components/seo-head/seo-head';
 import MdViewerContainer from '../../components/markdown/md-view-container';
 import { ContributorCommitmentDto, CoreUnitDto, CuMipDto } from '../../../core/models/dto/core-unit.dto';
@@ -60,6 +59,7 @@ const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
           <ContainerResponsive>
             <MarkdownContainer>
               <MdViewerContainer
+                code={cuAbout.code}
                 showButton={table834 || phone || LessPhone}
                 sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)}
                 paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)}
@@ -147,7 +147,7 @@ const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
                   <ContainerCard>
                     <CardExpenses
                       onClickFinances={onClickFinances}
-                      code={getShortCode(cuAbout.code)}
+                      code={cuAbout.code}
                       onClickActivity={onClickActivity}
                     />
                   </ContainerCard>
