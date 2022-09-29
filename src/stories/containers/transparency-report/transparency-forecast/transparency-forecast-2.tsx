@@ -62,7 +62,6 @@ export const TransparencyForecast2 = (props: Props) => {
       <Title isLight={isLight} marginBottom={16}>
         {props.currentMonth.toFormat('MMM yyyy')} Totals
       </Title>
-
       <AdvancedInnerTable
         longCode={props.longCode}
         columns={mainTableColumns}
@@ -70,10 +69,11 @@ export const TransparencyForecast2 = (props: Props) => {
         style={{ marginBottom: '64px' }}
         cardsTotalPosition={'top'}
       />
-
-      <Title isLight={isLight} marginBottom={24} ref={breakdownTitleRef}>
-        {props.currentMonth.toFormat('MMM yyyy')} Breakdown
-      </Title>
+      {!!breakdownItems.length && (
+        <Title isLight={isLight} marginBottom={24} ref={breakdownTitleRef}>
+          {props.currentMonth.toFormat('MMM yyyy')} Breakdown
+        </Title>
+      )}
 
       {!!breakdownItems.length && (
         <Tabs
@@ -88,12 +88,14 @@ export const TransparencyForecast2 = (props: Props) => {
         />
       )}
 
-      <AdvancedInnerTable
-        longCode={props.longCode}
-        columns={breakdownHeaders}
-        items={breakdownItems}
-        tablePlaceholder={<TransparencyEmptyTable breakdown longCode={props.longCode} />}
-      />
+      {!!breakdownItems.length && (
+        <AdvancedInnerTable
+          longCode={props.longCode}
+          columns={breakdownHeaders}
+          items={breakdownItems}
+          tablePlaceholder={<TransparencyEmptyTable breakdown longCode={props.longCode} />}
+        />
+      )}
     </Container>
   );
 };
