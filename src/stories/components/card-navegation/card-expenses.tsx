@@ -4,6 +4,7 @@ import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { MAKER_BURN_LINK } from '../../../core/utils/const';
+import { getShortCode } from '../../../core/utils/string.utils';
 import { DividerStyle } from '../../containers/cu-about-2/cu-about-container-2';
 import { CustomButton } from '../custom-button/custom-button';
 import { CustomLink } from '../custom-link/custom-link';
@@ -49,7 +50,7 @@ const CardExpenses = ({
         }}
       >
         <TypographyDescription marginBottom={'24px'} isLight={isLight} variant="subtitle1">
-          {`View all expenses of the ${code} Core Unit`}
+          {`View all expenses of the ${getShortCode(code)} Core Unit`}
         </TypographyDescription>
         <div
           style={{
@@ -97,6 +98,7 @@ const CardExpenses = ({
               fontWeight: 500,
               fontSize: '14px',
               lineHeight: '18px',
+              letterSpacing: '0px',
               padding: isPhone || isTable ? '8px 12.75px' : '8px 30.25px',
             }}
             onClick={onClickFinances}
@@ -134,7 +136,7 @@ const CardExpenses = ({
             display: 'inline-block',
           }}
           target="_blank"
-          children={`View on-chain transfers to ${code} Core Unit on makerburn.com`}
+          children={`View on-chain transfers to ${getShortCode(code)} Core Unit on makerburn.com`}
         />
       </div>
     </InformationCard>
@@ -153,6 +155,6 @@ const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => 
   fontSize: '15px',
   lineHeight: '24px',
   color: isLight ? '#546978 ' : '#9FAFB9',
-  letterSpacing: '0.4px',
+  letterSpacing: '0px',
   marginBottom: marginBottom || '0px',
 }));
