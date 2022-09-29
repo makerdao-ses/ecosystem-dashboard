@@ -82,6 +82,7 @@ const CardExpenses = ({
             }}
           />
           <CustomButton
+            isPrimary
             borderColor="#1AAB9B"
             widthText="100%"
             label="Expense Reports"
