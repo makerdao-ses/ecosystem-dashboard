@@ -155,7 +155,7 @@ const StyleMipNumber = styled(Typography, { shouldForwardProp: (prop) => prop !=
     fontFamily: 'Inter, sans-serif',
     color: isLight ? '#231536' : '#D2D4EF',
     fontWeight: 600,
-    paddingTop: '3px',
+    paddingTop: '2px',
     lineHeight: '22px',
     [lightTheme.breakpoints.up('table_834')]: {
       fontSize: '16px',
