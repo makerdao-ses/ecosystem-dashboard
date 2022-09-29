@@ -10,6 +10,7 @@ import { toAbsoluteURL } from '../../../core/utils/url.utils';
 import { useCoreUnitsTableMvvm } from './cu-table-2.mvvm';
 import { CustomTable2, CustomTableRow } from '../../components/custom-table/custom-table-2';
 import { renderCard } from './cu-table.renders';
+import { SortEnum } from '../../../core/enums/sort.enum';
 
 export const CuTable2 = () => {
   const isLight = useThemeContext().themeMode === 'light';
@@ -90,6 +91,9 @@ export const CuTable2 = () => {
           searchText={searchText}
           setFiltersPopup={toggleFiltersPopup}
           clearFilters={clearFilters}
+          columns={columns.filter((_, i) => headersSort[i] !== SortEnum.Disabled)}
+          handleSort={onSortClick}
+          headersSort={headersSort}
         />
       </Header>
     );
@@ -165,8 +169,6 @@ const Header = styled.div({
   marginBottom: '32px',
   minWidth: '330px',
   '@media (min-width: 834px) and (max-width: 1194px)': {
-    flexDirection: 'column',
-    gap: '24px',
     alignItems: 'flex-start',
   },
 });

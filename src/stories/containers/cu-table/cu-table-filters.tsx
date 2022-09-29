@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import { CustomButton } from '../../components/custom-button/custom-button';
 import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
 import { stringify } from 'querystring';
@@ -13,6 +13,9 @@ import styled from '@emotion/styled';
 import { Close } from '../../components/svg/close';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { Divider } from '@mui/material';
+import { CustomSortSelect, SortSelectItem } from '../../components/custom-sort-select/custom-sort-select';
+import { CustomTableColumn } from '../../components/custom-table/custom-table-2';
+import { SortEnum } from '../../../core/enums/sort.enum';
 
 interface FilterProps {
   filtersPopup: boolean;
@@ -24,6 +27,9 @@ interface FilterProps {
   statusCount: { [id: string]: number };
   categoriesCount: { [id: string]: number };
   handleCloseSearch?: () => void;
+  columns: CustomTableColumn[];
+  headersSort: SortEnum[];
+  handleSort?: (index: number) => void;
 }
 
 const statuses = Object.values(CuStatusEnum) as string[];
@@ -34,6 +40,8 @@ export const Filters = (props: FilterProps) => {
   const debounce = useDebounce();
   const isLight = useThemeContext().themeMode === 'light';
   const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef2 = useRef<HTMLInputElement>(null);
+
   const handleChangeUrlFilterArrays = useCallback(
     (key: string) => (value: string[] | string) => {
       const search = router.query;
@@ -56,7 +64,19 @@ export const Filters = (props: FilterProps) => {
     if (inputRef.current !== null) {
       inputRef.current.value = '';
     }
+    if (inputRef2.current !== null) {
+      inputRef2.current.value = '';
+    }
   };
+
+  const activeItem = useMemo(() => {
+    for (let i = 0; i < props.columns.length; i++) {
+      if (props.headersSort[i] !== SortEnum.Disabled && props.headersSort[i] !== SortEnum.Neutral) {
+        return i;
+      }
+    }
+    return -1;
+  }, [props.headersSort]);
 
   return (
     <Wrapper
@@ -65,13 +85,25 @@ export const Filters = (props: FilterProps) => {
         display: props.filtersPopup ? 'flex' : 'none',
       }}
     >
+      <HideOn1195>
+        <SearchInput
+          inputRef={inputRef}
+          handleCloseSearch={handleCloseSearch}
+          defaultValue={props.searchText}
+          placeholder="Search"
+          onChange={(value: string) => {
+            debounce(() => {
+              handleChangeUrlFilterArrays('searchText')(value);
+            }, 300);
+          }}
+        />
+      </HideOn1195>
       <Container isLight={isLight}>
         <CustomButton
           label="Reset Filters"
           style={{
             width: '114px',
             border: 'none',
-            background: isLight ? 'none' : 'none',
           }}
           // eslint-disable-next-line @typescript-eslint/no-empty-function
           onClick={props.clearFilters}
@@ -121,9 +153,9 @@ export const Filters = (props: FilterProps) => {
           }}
         />
         <Separator isLight={isLight} />
-        {router.isReady && (
+        <HideOn834>
           <SearchInput
-            inputRef={inputRef}
+            inputRef={inputRef2}
             handleCloseSearch={handleCloseSearch}
             defaultValue={props.searchText}
             placeholder="Search"
@@ -133,19 +165,25 @@ export const Filters = (props: FilterProps) => {
               }, 300);
             }}
           />
-        )}
-        {!router.isReady && (
-          <SearchInput
-            handleCloseSearch={handleCloseSearch}
-            defaultValue={props.searchText}
-            placeholder="Search"
-            onChange={(value: string) => {
-              debounce(() => {
-                handleChangeUrlFilterArrays('searchText')(value);
-              }, 300);
+        </HideOn834>
+        <HideOn1195>
+          <CustomSortSelect
+            label="Sort"
+            activeItem={activeItem}
+            sortStatus={activeItem > -1 ? props.headersSort[activeItem] : 'null'}
+            items={props.columns.map(
+              (column) =>
+                ({
+                  id: column.header,
+                  content: column.header,
+                } as SortSelectItem)
+            )}
+            maxWidth={216}
+            onChange={(value: string[]) => {
+              handleChangeUrlFilterArrays('filteredCategories')(value);
             }}
           />
-        )}
+        </HideOn1195>
         <CloseButton onClick={() => props.setFiltersPopup && props.setFiltersPopup()}>
           <Close />
         </CloseButton>
@@ -175,6 +213,18 @@ const Separator = styled(Divider, { shouldForwardProp: (prop) => prop !== 'isLig
     },
   })
 );
+
+const HideOn834 = styled.div({
+  '@media (min-width: 834px) and (max-width: 1194px)': {
+    display: 'none',
+  },
+});
+
+const HideOn1195 = styled.div({
+  '@media (min-width: 1195px)': {
+    display: 'none',
+  },
+});
 
 const SmallSeparator = styled(Divider, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
   ({ isLight }) => ({
@@ -210,6 +260,11 @@ const Wrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   },
   '@media (min-width: 834px)': {
     display: 'flex !important',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    '> :first-child': {
+      marginBottom: '16px',
+    },
   },
   '@media (min-width: 834px) and (max-width: 1194px)': {
     alignSelf: 'flex-end',
