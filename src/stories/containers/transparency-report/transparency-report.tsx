@@ -11,7 +11,7 @@ import { TransparencyAudit } from './transparency-audit/transparency-audit';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
-import { capitalizeSentence, getShortCode } from '../../../core/utils/string.utils';
+import { getShortCode } from '../../../core/utils/string.utils';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SEOHead } from '../../components/seo-head/seo-head';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
@@ -45,6 +45,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
     lastMonthWithData,
     numbersComments,
     differenceInDays,
+    longCode,
   } = useTransparencyReportViewModel(coreUnit);
   return (
     <Wrapper>
@@ -128,6 +129,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
               code={code}
               currentMonth={currentMonth}
               budgetStatements={coreUnit?.budgetStatements}
+              longCode={longCode}
             />
           )}
           {tabsIndex === 0 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
@@ -135,6 +137,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
               code={code}
               currentMonth={currentMonth}
               budgetStatements={coreUnit?.budgetStatements}
+              longCode={longCode}
             />
           )}
           {tabsIndex === 1 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
@@ -142,30 +145,45 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
               currentMonth={currentMonth}
               budgetStatements={coreUnit?.budgetStatements}
               code={code}
+              longCode={longCode}
             />
           )}
           {tabsIndex === 1 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-            <TransparencyForecast currentMonth={currentMonth} budgetStatements={coreUnit?.budgetStatements} />
+            <TransparencyForecast
+              currentMonth={currentMonth}
+              budgetStatements={coreUnit?.budgetStatements}
+              longCode={longCode}
+            />
           )}
           {tabsIndex === 2 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
             <TransparencyMkrVesting2
               currentMonth={currentMonth}
               budgetStatements={coreUnit?.budgetStatements}
               code={code}
+              longCode={longCode}
             />
           )}
           {tabsIndex === 2 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-            <TransparencyMkrVesting currentMonth={currentMonth} budgetStatements={coreUnit?.budgetStatements} />
+            <TransparencyMkrVesting
+              currentMonth={currentMonth}
+              budgetStatements={coreUnit?.budgetStatements}
+              longCode={longCode}
+            />
           )}
           {tabsIndex === 3 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
             <TransparencyTransferRequest2
               currentMonth={currentMonth}
               budgetStatements={coreUnit?.budgetStatements}
               code={code}
+              longCode={longCode}
             />
           )}
           {tabsIndex === 3 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-            <TransparencyTransferRequest currentMonth={currentMonth} budgetStatements={coreUnit?.budgetStatements} />
+            <TransparencyTransferRequest
+              currentMonth={currentMonth}
+              budgetStatements={coreUnit?.budgetStatements}
+              longCode={longCode}
+            />
           )}
           {tabsIndex === 4 && <TransparencyAudit budgetStatement={currentBudgetStatement} />}
           {tabsIndex === 5 && isEnabled('FEATURE_TRANSPARENCY_COMMENTS') && (

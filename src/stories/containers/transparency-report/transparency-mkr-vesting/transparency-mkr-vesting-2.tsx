@@ -16,6 +16,7 @@ interface TransparencyMkrVestingProps {
   currentMonth: DateTime;
   budgetStatements: BudgetStatementDto[];
   code: string;
+  longCode: string;
 }
 
 export const TransparencyMkrVesting2 = (props: TransparencyMkrVestingProps) => {
@@ -30,7 +31,7 @@ export const TransparencyMkrVesting2 = (props: TransparencyMkrVestingProps) => {
       <LinkDescription isLight={isLight}>
         To see the onchain transactions from the Maker Protocol to the {getShortCode(props.code)} Core Unit
         <CustomLink
-          href={`${MAKER_BURN_LINK}/${props.code}`}
+          href={`${MAKER_BURN_LINK}/${props.longCode}`}
           style={{
             flexWrap: 'wrap',
             color: '#447AFB',
@@ -67,7 +68,7 @@ export const TransparencyMkrVesting2 = (props: TransparencyMkrVestingProps) => {
           </TotalFte>
         </CustomPopover>
       </ContainerPopover>
-      <AdvancedInnerTable columns={mainTableColumns} items={mainTableItems} />
+      <AdvancedInnerTable columns={mainTableColumns} items={mainTableItems} longCode={props.longCode} />
       {mainTableItems.length > 0 && (
         <>
           <Text isLight={isLight} style={{ marginTop: '32px' }}>

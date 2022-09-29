@@ -111,6 +111,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   }, [coreUnit, currentMonth]);
 
   const numbersComments = getNumberComments(coreUnit);
+  const longCode = coreUnit?.code;
 
   const tabItems = [
     {
@@ -164,5 +165,6 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     getNumberComments,
     numbersComments,
     differenceInDays,
+    longCode,
   };
 };
