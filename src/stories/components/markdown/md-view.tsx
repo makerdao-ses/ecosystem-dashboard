@@ -107,10 +107,9 @@ const MdViewerPage = ({
               padding: '8px 24px',
               borderColor: isLight ? (open ? '#098C7D' : '#25273D') : !open ? '#1AAB9B' : '#231536',
             }}
-            // borderColor={isLight ? (open ? '#098C7D' : '#25273D') : 'red'}
             onClick={handleClick}
             styleText={{
-              color: isLight ? (open ? '#098C7D' : '#231536') : open ? '#1AAB9B' : '#1AAB9B',
+              color: isLight ? (open ? '#098C7D' : '#231536') : '#1AAB9B',
             }}
           />
           <Popover
