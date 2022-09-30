@@ -183,7 +183,7 @@ const ImageTag = styled.img({
 
 const ResponsiveParagraph = styled.div({
   textAlign: 'left',
-  marginTop: '0.5em',
+  marginTop: '1em',
 
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     fontSize: '14px',
@@ -204,8 +204,8 @@ const ResponsiveList = styled.ul({
     '&:not(:last-child) ul': {
       marginBottom: '2em',
     },
+    marginTop: '0.5em',
   },
-
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     fontSize: '14px',
     lineHeight: '17px',
