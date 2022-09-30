@@ -12,6 +12,7 @@ import ArrowDown from '../svg/arrow-down';
 import sortBy from 'lodash/sortBy';
 import { ActivityPlaceholder } from './cu-activity-table.placeholder';
 import { ActivityFeedDto } from '../../../core/models/dto/core-unit.dto';
+import { useMediaQuery } from '@mui/material';
 
 export interface ActivityTableHeader {
   header: string;
@@ -47,7 +48,7 @@ const NewChangesDivider = ({ isLight, count }: { isLight: boolean; count: number
   </ChangesButtonContainer>
 );
 
-const INITIAL_ELEMENTS = 10;
+const INITIAL_ELEMENTS = useMediaQuery(lightTheme.breakpoints.down('table_834')) ? 5 : 10;
 
 export default function ActivityTable({ cuId, columns, activity, sortClick }: ActivityTableProps) {
   const isLight = useThemeContext().themeMode === 'light';
