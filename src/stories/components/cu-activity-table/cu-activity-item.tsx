@@ -53,8 +53,9 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
             padding: '8px 24px',
             height: 'auto',
             color: '#231536',
-            border: '1px solid #25273D',
+            borderColor: '#231536',
           }}
+          allowsHover={false}
         />
       </ButtonContainer>
     </ActivityItem>
