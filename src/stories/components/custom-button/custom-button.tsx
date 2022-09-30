@@ -51,11 +51,13 @@ export const CustomButton = ({
   isHightLight = false,
   buttonType = ButtonType.Default,
   isHadPopover = false,
+  allowsHover = true,
   ...props
 }: CustomButtonProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   return (
     <Container
+      allowsHover={allowsHover}
       isHadPopover={isHadPopover}
       className={props.className}
       isLight={isLight}
@@ -96,6 +98,7 @@ const Container = styled.button<{
   styles?: CSSProperties;
   buttonType: ButtonType;
   isHadPopover?: boolean;
+  allowsHover: boolean;
 }>(({ isLight, styles, buttonType, isHadPopover = false, allowsHover }) => ({
   display: 'flex',
   alignItems: 'center',
