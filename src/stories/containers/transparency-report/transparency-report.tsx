@@ -44,7 +44,6 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
     tabsIndex,
     lastMonthWithData,
     numbersComments,
-    differenceInDays,
     longCode,
   } = useTransparencyReportViewModel(coreUnit);
   return (
@@ -291,6 +290,7 @@ const Since = styled.div<{ isLight: boolean }>(({ isLight = true }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 600,
+  letterSpacing: '1px',
   textTransform: 'uppercase',
   '@media (min-width: 834px)': {
     fontSize: '12px',
