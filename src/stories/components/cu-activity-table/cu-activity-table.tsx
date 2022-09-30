@@ -11,7 +11,8 @@ import ArrowUp from '../svg/arrow-up';
 import ArrowDown from '../svg/arrow-down';
 import sortBy from 'lodash/sortBy';
 import { ActivityPlaceholder } from './cu-activity-table.placeholder';
-import { ActivityFeedDto } from '../../../core/models/dto/core-unit.dto';
+import { ActivityFeedDto, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import { useMediaQuery } from '@mui/material';
 
 export interface ActivityTableHeader {
   header: string;
@@ -21,10 +22,9 @@ export interface ActivityTableHeader {
   sort?: SortEnum;
 }
 
-export interface ActivityTableProps {
+export interface Props {
   columns: ActivityTableHeader[];
-  activity: ActivityFeedDto[];
-  cuId?: string;
+  coreUnit: CoreUnitDto;
   sortClick?: (index: number) => void;
 }
 export interface ExtendedActivityDto extends ActivityFeedDto {
@@ -47,25 +47,24 @@ const NewChangesDivider = ({ isLight, count }: { isLight: boolean; count: number
   </ChangesButtonContainer>
 );
 
-const INITIAL_ELEMENTS = 10;
-
-export default function ActivityTable({ cuId, columns, activity, sortClick }: ActivityTableProps) {
+export default function ActivityTable({ coreUnit, columns, sortClick }: Props) {
   const isLight = useThemeContext().themeMode === 'light';
-  const [showElements, setShowElements] = useState(INITIAL_ELEMENTS);
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const [showElements, setShowElements] = useState(isMobile ? 5 : 10);
   const [noVisitedCount, setNoVisitedCount] = useState(0);
-  const [extendedActivity, setExtendedActivity] = useState<ExtendedActivityDto[]>(activity);
+  const [extendedActivity, setExtendedActivity] = useState<ExtendedActivityDto[]>(coreUnit.activityFeed);
 
   const handleSeePrevious = () => {
-    setShowElements(activity.length);
+    setShowElements(coreUnit.activityFeed.length);
   };
 
   useEffect(() => {
-    const activityHandler = new ActivityVisitHandler(cuId);
+    const activityHandler = new ActivityVisitHandler(coreUnit.shortCode);
     let noVisited = 0;
 
     const _extendedActivity: ExtendedActivityDto[] = [];
 
-    for (const update of activity) {
+    for (const update of coreUnit.activityFeed) {
       const isNew = activityHandler.wasVisited(update);
       if (isNew) {
         noVisited++;
@@ -83,7 +82,7 @@ export default function ActivityTable({ cuId, columns, activity, sortClick }: Ac
     return () => {
       clearTimeout(timeout);
     };
-  }, []);
+  }, [coreUnit]);
 
   if (extendedActivity.length === 0) return <ActivityPlaceholder />;
 
@@ -134,7 +133,7 @@ export default function ActivityTable({ cuId, columns, activity, sortClick }: Ac
             <CUActivityItem activity={update} isNew={!!update.isNew} />
             {noVisitedCount > 0 &&
               ((columns[0].sort === SortEnum.Desc && noVisitedCount === index + 1) ||
-                (columns[0].sort === SortEnum.Asc && activity.length - noVisitedCount === index + 1)) &&
+                (columns[0].sort === SortEnum.Asc && coreUnit.activityFeed.length - noVisitedCount === index + 1)) &&
               !(showElements - 1 === index) && (
                 <DisplayOnTabletUp>
                   <NewChangesDivider isLight={isLight} count={noVisitedCount} />
@@ -144,7 +143,7 @@ export default function ActivityTable({ cuId, columns, activity, sortClick }: Ac
         ))}
       </div>
 
-      {showElements < activity.length && (
+      {showElements < coreUnit.activityFeed.length && (
         <ButtonContainer>
           <DividerPreviousStyle
             sx={{
@@ -172,8 +171,7 @@ const TableHeader = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   background: isLight ? '#F7F8F9' : '#25273D',
   color: isLight ? '#231536' : '#FFFFFF',
   padding: '16px 0 14px',
-  borderTopLeftRadius: '5px',
-  borderTopRightRadius: '5px',
+  borderRadius: '6px',
   lineHeight: '22px',
   boxShadow: isLight
     ? 'inset .25px -.25px .25px .25px rgba(190, 190, 190, 0.25), 0px 20px 40px rgba(190, 190, 190, .25), 0px 1px 3px rgba(190, 190, 190, 0.25)'
@@ -196,6 +194,9 @@ const TableHeaderTitle = styled.div<{
   display: 'flex',
   cursor: 'pointer',
   fontFamily: 'Inter, sans-serif',
+  fontSize: '16px',
+  fontWeight: 400,
+  lineHeight: '22px',
   ...{
     textAlign: align,
     ...(width && { width }),

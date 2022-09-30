@@ -69,11 +69,15 @@ const ActivityItem = styled.a<{ isLight: boolean; isLoading?: boolean }>(({ isLi
   marginTop: '16px',
   padding: '16px 16px 24px',
   cursor: 'pointer',
+  borderRadius: '6px',
   boxShadow: isLight
     ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
     : '0px 20px 40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
-  ':hover': {
-    background: !isLoading ? (isLight ? '#ECF1F3' : '#1E2C37') : isLight ? 'white' : '#10191F',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    ':hover': {
+      background: !isLoading ? (isLight ? '#ECF1F3' : '#1E2C37') : isLight ? 'white' : '#10191F',
+    },
   },
 
   [lightTheme.breakpoints.up('table_834')]: {
@@ -125,6 +129,7 @@ const UTCDate = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: '12px',
   lineHeight: '15px',
   textTransform: 'uppercase',
+  letterSpacing: '1px',
   color: isLight ? '#708390' : '#546978',
 
   [lightTheme.breakpoints.up('table_834')]: {
