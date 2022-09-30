@@ -17,6 +17,7 @@ interface CustomButtonProps {
   borderColor?: string;
   buttonType?: ButtonType;
   isHadPopover?: boolean;
+  allowsHover?: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -95,7 +96,7 @@ const Container = styled.button<{
   styles?: CSSProperties;
   buttonType: ButtonType;
   isHadPopover?: boolean;
-}>(({ isLight, styles, buttonType, isHadPopover = false }) => ({
+}>(({ isLight, styles, buttonType, isHadPopover = false, allowsHover }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -107,30 +108,32 @@ const Container = styled.button<{
   padding: '15px 16px',
   boxSizing: 'border-box',
   cursor: 'pointer',
-  '&:hover:not(:disabled)': {
-    borderColor: isLight
-      ? buttonType === ButtonType.Default && !isHadPopover
-        ? '#231536'
-        : buttonType === ButtonType.Default && isHadPopover
-        ? '#1AAB9B'
-        : buttonType === ButtonType.Primary
-        ? '#1AAB9B'
-        : '#098C7D'
-      : buttonType === ButtonType.Primary
-      ? '#027265'
-      : '#027265',
-    background: isLight
-      ? buttonType === ButtonType.Default
-        ? '#FFFFFF'
-        : buttonType === ButtonType.Primary
-        ? '#B6EDE7'
-        : 'white'
-      : buttonType === ButtonType.Default
-      ? 'transparent'
-      : buttonType === ButtonType.Primary
-      ? '#042F2A'
-      : 'transparent',
-  },
+  '&:hover:not(:disabled)': allowsHover
+    ? {
+        borderColor: isLight
+          ? buttonType === ButtonType.Default && !isHadPopover
+            ? '#231536'
+            : buttonType === ButtonType.Default && isHadPopover
+            ? '#1AAB9B'
+            : buttonType === ButtonType.Primary
+            ? '#1AAB9B'
+            : '#098C7D'
+          : buttonType === ButtonType.Primary
+          ? '#027265'
+          : '#027265',
+        background: isLight
+          ? buttonType === ButtonType.Default
+            ? '#FFFFFF'
+            : buttonType === ButtonType.Primary
+            ? '#B6EDE7'
+            : 'white'
+          : buttonType === ButtonType.Default
+          ? 'transparent'
+          : buttonType === ButtonType.Primary
+          ? '#042F2A'
+          : 'transparent',
+      }
+    : undefined,
 
   ...(styles ?? {}),
 }));
