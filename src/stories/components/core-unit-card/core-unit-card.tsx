@@ -180,7 +180,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
        `,
   },
   '@media (min-width: 834px)': {
-    gridTemplateColumns: '280px 195px 1fr 1fr',
+    gridTemplateColumns: '2fr 195px 1fr 1fr',
     paddingBottom: '8px',
     gridTemplateAreas: `"summary expenditure team lastModified"
        "line line line line"
