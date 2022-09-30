@@ -39,6 +39,7 @@ interface Props {
   style?: React.CSSProperties;
   cardsTotalPosition?: 'top' | 'bottom';
   tablePlaceholder?: JSX.Element;
+  longCode: string;
 }
 
 type Alignment = 'left' | 'center' | 'right';
@@ -157,7 +158,7 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
       </CardsWrapper>
     </>
   ) : (
-    props.tablePlaceholder ?? <TransparencyEmptyTable />
+    props.tablePlaceholder ?? <TransparencyEmptyTable longCode={props.longCode} />
   );
 };
 
