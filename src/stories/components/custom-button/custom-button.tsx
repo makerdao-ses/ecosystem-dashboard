@@ -14,12 +14,14 @@ interface CustomButtonProps {
   isHightLight?: boolean;
   isPrimary?: boolean;
   borderColor?: string;
+  allowsHover?: boolean;
 }
 
 export const CustomButton = ({
   isHightLight = false,
   isPrimary = false,
   borderColor = '#231536',
+  allowsHover = true,
   ...props
 }: CustomButtonProps) => {
   const isLight = useThemeContext().themeMode === 'light';
@@ -34,6 +36,7 @@ export const CustomButton = ({
       isHightLight={isHightLight}
       isPrimary={isPrimary}
       borderColor={borderColor}
+      allowsHover={allowsHover}
     >
       <Text
         isLight={isLight}
@@ -51,10 +54,11 @@ export const CustomButton = ({
 const Container = styled.button<{
   isLight: boolean;
   isHightLight: boolean;
+  allowsHover: boolean;
   isPrimary: boolean;
   styles?: CSSProperties;
   borderColor: string;
-}>(({ isLight, isHightLight, isPrimary, styles, borderColor }) => ({
+}>(({ isLight, isHightLight, isPrimary, styles, borderColor, allowsHover }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -78,10 +82,12 @@ const Container = styled.button<{
   padding: '15px 16px',
   boxSizing: 'border-box',
   cursor: 'pointer',
-  '&:hover:not(:disabled)': {
-    borderColor: isPrimary ? (isLight ? '#1AAB9B' : '#2DC1B1') : borderColor,
-    background: isPrimary ? (isLight ? '#B6EDE7' : '#2DC1B1') : '#E7FCFA',
-  },
+  '&:hover:not(:disabled)': allowsHover
+    ? {
+        borderColor: isPrimary ? (isLight ? '#1AAB9B' : '#2DC1B1') : borderColor,
+        background: isPrimary ? (isLight ? '#B6EDE7' : '#2DC1B1') : '#E7FCFA',
+      }
+    : undefined,
   '.disabled': {
     color: isLight ? '#9FAFB9' : '#48495F',
   },
