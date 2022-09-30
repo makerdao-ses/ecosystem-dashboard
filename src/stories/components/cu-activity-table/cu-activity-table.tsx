@@ -195,6 +195,7 @@ const TableHeaderTitle = styled.div<{
 }>(({ width, styles, align }) => ({
   display: 'flex',
   cursor: 'pointer',
+  fontFamily: 'Inter, sans-serif',
   ...{
     textAlign: align,
     ...(width && { width }),
