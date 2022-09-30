@@ -172,8 +172,7 @@ const TableHeader = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   background: isLight ? '#F7F8F9' : '#25273D',
   color: isLight ? '#231536' : '#FFFFFF',
   padding: '16px 0 14px',
-  borderTopLeftRadius: '5px',
-  borderTopRightRadius: '5px',
+  borderRadius: '6px',
   lineHeight: '22px',
   boxShadow: isLight
     ? 'inset .25px -.25px .25px .25px rgba(190, 190, 190, 0.25), 0px 20px 40px rgba(190, 190, 190, .25), 0px 1px 3px rgba(190, 190, 190, 0.25)'
@@ -196,6 +195,9 @@ const TableHeaderTitle = styled.div<{
   display: 'flex',
   cursor: 'pointer',
   fontFamily: 'Inter, sans-serif',
+  fontSize: '16px',
+  fontWeight: 400,
+  lineHeight: '22px',
   ...{
     textAlign: align,
     ...(width && { width }),
