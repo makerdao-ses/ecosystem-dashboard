@@ -3,6 +3,7 @@ import { Typography, useMediaQuery } from '@mui/material';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { ButtonType } from '../../../core/enums/button-type.enum';
 import { MAKER_BURN_LINK } from '../../../core/utils/const';
 import { getShortCode } from '../../../core/utils/string.utils';
 import { DividerStyle } from '../../containers/cu-about-2/cu-about-container-2';
@@ -60,15 +61,13 @@ const CardExpenses = ({
           }}
         >
           <CustomButton
+            buttonType={ButtonType.Secondary}
             widthText="100%"
             label="Activity Feed"
-            borderColor="#1AAB9B"
             style={{
               textAlign: 'center',
-              border: '1px solid #1AAB9B',
               borderRadius: '22px',
               height: ' 34px',
-              color: '#1AAB9B',
               fontFamily: 'Inter, sans serif',
               fontStyle: 'normal',
               fontWeight: 500,
@@ -78,22 +77,16 @@ const CardExpenses = ({
             }}
             // eslint-disable-next-line @typescript-eslint/no-empty-function
             onClick={onClickActivity}
-            styleText={{
-              color: '#1AAB9B',
-            }}
           />
           <CustomButton
-            isPrimary
-            borderColor="#1AAB9B"
+            buttonType={ButtonType.Primary}
             widthText="100%"
             label="Expense Reports"
             style={{
               textAlign: 'center',
               borderRadius: '22px',
               height: ' 34px',
-              color: '#1AAB9B',
               fontFamily: 'Inter, sans serif',
-              border: '1px solid #1AAB9B',
               fontStyle: 'normal',
               fontWeight: 500,
               fontSize: '14px',
@@ -102,9 +95,6 @@ const CardExpenses = ({
               padding: isPhone || isTable ? '8px 12.75px' : '8px 30.25px',
             }}
             onClick={onClickFinances}
-            styleText={{
-              color: '#1AAB9B',
-            }}
           />
         </div>
       </div>

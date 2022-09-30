@@ -92,9 +92,9 @@ const MdViewerPage = ({
           <CustomButton
             widthText="100%"
             label="Expenses"
+            isHadPopover
             style={{
               textAlign: 'center',
-              border: isLight ? (open ? '1px solid #098C7D' : '1px solid #25273D') : '1px solid #25273D',
               background: 'transparent',
               borderRadius: '22px',
               height: '34px',
@@ -105,12 +105,12 @@ const MdViewerPage = ({
               lineHeight: '18px',
               width: 'fit-content',
               padding: '8px 24px',
-              borderColor: isLight ? (open ? '#098C7D' : '#25273D') : '#25273D',
+              borderColor: isLight ? (open ? '#098C7D' : '#25273D') : !open ? '#1AAB9B' : '#231536',
             }}
-            borderColor={isLight ? (open ? '#098C7D' : '#25273D') : '#25273D'}
+            // borderColor={isLight ? (open ? '#098C7D' : '#25273D') : 'red'}
             onClick={handleClick}
             styleText={{
-              color: isLight ? (open ? '#098C7D' : '#231536') : '#D2D4EF',
+              color: isLight ? (open ? '#098C7D' : '#231536') : open ? '#1AAB9B' : '#1AAB9B',
             }}
           />
           <Popover
