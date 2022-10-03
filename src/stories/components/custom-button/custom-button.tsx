@@ -16,7 +16,6 @@ interface CustomButtonProps {
   isPrimary?: boolean;
   borderColor?: string;
   buttonType?: ButtonType;
-  isHadPopover?: boolean;
   allowsHover?: boolean;
 }
 
@@ -50,7 +49,6 @@ const customStyles: { [id: string]: any } = {
 export const CustomButton = ({
   isHightLight = false,
   buttonType = ButtonType.Default,
-  isHadPopover = false,
   allowsHover = true,
   ...props
 }: CustomButtonProps) => {
@@ -58,7 +56,6 @@ export const CustomButton = ({
   return (
     <Container
       allowsHover={allowsHover}
-      isHadPopover={isHadPopover}
       className={props.className}
       isLight={isLight}
       buttonType={buttonType}
@@ -97,9 +94,8 @@ const Container = styled.button<{
   isPrimary?: boolean;
   styles?: CSSProperties;
   buttonType: ButtonType;
-  isHadPopover?: boolean;
   allowsHover: boolean;
-}>(({ isLight, styles, buttonType, isHadPopover = false, allowsHover }) => ({
+}>(({ isLight, styles, buttonType, allowsHover }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -114,15 +110,15 @@ const Container = styled.button<{
   '&:hover:not(:disabled)': allowsHover
     ? {
         borderColor: isLight
-          ? buttonType === ButtonType.Default && !isHadPopover
+          ? buttonType === ButtonType.Default
             ? '#231536'
-            : buttonType === ButtonType.Default && isHadPopover
-            ? '#1AAB9B'
             : buttonType === ButtonType.Primary
             ? '#1AAB9B'
             : '#098C7D'
           : buttonType === ButtonType.Primary
           ? '#027265'
+          : buttonType === ButtonType.Default
+          ? '##1AAB9B'
           : '#027265',
         background: isLight
           ? buttonType === ButtonType.Default
