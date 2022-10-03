@@ -4,6 +4,7 @@ export const CORE_UNIT_REQUEST = (shortCode: string) => ({
   query: gql`
     query CoreUnit($filter: CoreUnitFilter) {
       coreUnit(filter: $filter) {
+        code
         sentenceDescription
         name
         image

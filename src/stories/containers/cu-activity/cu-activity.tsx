@@ -34,12 +34,7 @@ export default ({ coreUnit, coreUnits }: CUActivityContainerProps) => {
           </Paragraph>
 
           <TableWrapper>
-            <ActivityTable
-              cuId={coreUnit.shortCode}
-              columns={columns}
-              activity={coreUnit.activityFeed}
-              sortClick={onSortClick}
-            />
+            <ActivityTable columns={columns} coreUnit={coreUnit} sortClick={onSortClick} />
           </TableWrapper>
         </InnerPage>
       </Container>

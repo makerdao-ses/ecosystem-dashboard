@@ -20,6 +20,7 @@ export interface CustomTableColumn {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onClick?: (param: any) => void;
   style?: CSSProperties;
+  sortReverse?: boolean;
 }
 
 export interface CustomTableRow {

@@ -123,11 +123,10 @@ export const useTransparencyActualsMvvm2 = (
     return getGroupForecast(group) - getGroupActual(group);
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const getCommentsFromCategory = (group: BudgetStatementLineItemDto[]) => {
     return group
-      .filter((item) => item.month === currentMonth)
-      .reduce((current, next) => `${current} ${next.comments}`, '');
+      .filter((item) => item.month === currentMonth && item.comments !== undefined)
+      .reduce((current, next) => `${current} ${next.comments !== '' ? next.comments : ''}`, '');
   };
 
   const getGroupPayment = (group: BudgetStatementLineItemDto[]) => {
@@ -333,6 +332,12 @@ export const useTransparencyActualsMvvm2 = (
       type: 'number',
     },
     {
+      header: 'Comments',
+      align: 'left',
+      type: 'text',
+      width: '300px',
+    },
+    {
       header: 'Payments',
       align: 'right',
       type: 'number',
@@ -385,6 +390,10 @@ export const useTransparencyActualsMvvm2 = (
             },
             {
               column: breakdownColumns[5],
+              value: getCommentsFromCategory(groupedCategory[groupedCatKey]),
+            },
+            {
+              column: breakdownColumns[6],
               value: getGroupPayment(groupedCategory[groupedCatKey]),
             },
           ],
@@ -513,6 +522,10 @@ export const useTransparencyActualsMvvm2 = (
           },
           {
             column: breakdownColumns[5],
+            value: '',
+          },
+          {
+            column: breakdownColumns[6],
             value: getWalletPayment(currentWallet),
           },
         ],

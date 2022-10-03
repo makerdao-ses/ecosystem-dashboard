@@ -15,7 +15,6 @@ import CardExpenses from '../../components/card-navegation/card-expenses';
 import CardSomeThingWrong from '../../components/card-navegation/card-somethig-wrong';
 import lightTheme from '../../../../styles/theme/light';
 import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
-import { getShortCode } from '../../../core/utils/string.utils';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SEOHead } from '../../components/seo-head/seo-head';
@@ -93,6 +92,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
           <ContainerResponsive>
             <MarkdownContainer>
               <MdViewerContainer
+                code={cuAbout.code}
                 showButton={table834 || phone || LessPhone}
                 sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)}
                 paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)}
@@ -180,7 +180,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
                 <ContainerScroll>
                   <ContainerCard>
                     <CardExpenses
-                      code={getShortCode(cuAbout.code)}
+                      code={cuAbout.code}
                       onClickActivity={onClickActivity}
                       onClickFinances={onClickFinances}
                     />

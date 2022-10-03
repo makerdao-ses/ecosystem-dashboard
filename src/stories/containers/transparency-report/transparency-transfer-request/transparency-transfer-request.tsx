@@ -17,6 +17,7 @@ import { TextCell } from '../../../components/text-cell/text-cell';
 interface TransparencyTransferRequestProps {
   currentMonth: DateTime;
   budgetStatements: BudgetStatementDto[];
+  longCode: string;
 }
 
 const headers = ['Wallet', '3 Month Forecast', 'Current Balance', 'Transfer Request', 'External Links'];
@@ -98,7 +99,7 @@ export const TransparencyTransferRequest = (props: TransparencyTransferRequestPr
   return (
     <Container>
       {mainItems.length - 1 <= 0 ? (
-        <TransparencyEmptyTable />
+        <TransparencyEmptyTable longCode={props.longCode} />
       ) : (
         <>
           <TableWrapper>

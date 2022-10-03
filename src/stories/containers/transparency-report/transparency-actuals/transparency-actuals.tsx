@@ -21,6 +21,7 @@ interface TransparencyActualsProps {
   currentMonth: DateTime;
   budgetStatements?: BudgetStatementDto[];
   code: string;
+  longCode: string;
 }
 
 const mainTableHeaders = ['Budget', 'Forecast', 'Actuals', 'Difference', 'Payments', 'External Links'];
@@ -400,7 +401,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       </Title>
 
       {mainTableItems.length - 1 <= 0 ? (
-        <TransparencyEmptyTable />
+        <TransparencyEmptyTable longCode={props.longCode} />
       ) : (
         <>
           <TableWrapper>
@@ -441,7 +442,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       </Title>
 
       {mainTableItems.length - 1 <= 0 ? (
-        <TransparencyEmptyTable breakdown />
+        <TransparencyEmptyTable breakdown longCode={props.longCode} />
       ) : (
         <>
           <Tabs

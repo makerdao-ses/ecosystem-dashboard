@@ -16,6 +16,7 @@ interface Props {
   currentMonth: DateTime;
   budgetStatements?: BudgetStatementDto[];
   code: string;
+  longCode: string;
 }
 
 export const TransparencyActuals2 = (props: Props) => {
@@ -37,7 +38,7 @@ export const TransparencyActuals2 = (props: Props) => {
       <LinkDescription isLight={isLight}>
         To see the onchain transactions from the Maker Protocol to the {getShortCode(props.code)} Core Unit
         <CustomLink
-          href={`${MAKER_BURN_LINK}/${props.code}`}
+          href={`${MAKER_BURN_LINK}/${props.longCode}`}
           style={{
             flexWrap: 'wrap',
             color: '#447AFB',
@@ -60,17 +61,18 @@ export const TransparencyActuals2 = (props: Props) => {
       <Title isLight={isLight} responsiveMarginBottom={16}>
         {props.currentMonth.toFormat('MMM yyyy')} Totals
       </Title>
-
       <AdvancedInnerTable
         columns={mainTableColumns}
         items={mainTableItems}
         style={{ marginBottom: '64px' }}
         cardsTotalPosition="top"
+        longCode={props.longCode}
       />
-
-      <Title isLight={isLight} ref={breakdownTitleRef}>
-        {props.currentMonth.toFormat('MMM yyyy')} Breakdown
-      </Title>
+      {mainTableItems.length > 0 && (
+        <Title isLight={isLight} ref={breakdownTitleRef}>
+          {props.currentMonth.toFormat('MMM yyyy')} Breakdown
+        </Title>
+      )}
 
       {mainTableItems.length > 0 && (
         <Tabs
@@ -87,12 +89,15 @@ export const TransparencyActuals2 = (props: Props) => {
         />
       )}
 
-      <AdvancedInnerTable
-        columns={breakdownColumns}
-        items={breakdownItems}
-        style={{ marginBottom: '64px' }}
-        tablePlaceholder={<TransparencyEmptyTable breakdown />}
-      />
+      {mainTableItems.length > 0 && (
+        <AdvancedInnerTable
+          columns={breakdownColumns}
+          items={breakdownItems}
+          longCode={props.longCode}
+          style={{ marginBottom: '64px' }}
+          tablePlaceholder={<TransparencyEmptyTable breakdown longCode={props.longCode} />}
+        />
+      )}
     </Container>
   );
 };

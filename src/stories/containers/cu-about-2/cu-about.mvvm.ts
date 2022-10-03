@@ -53,7 +53,7 @@ export const useCuAboutMvvm = ({ cuAbout, code, router, setShowThreeMIPs, showTh
       filteredCategories,
       searchText,
     });
-    router.push(`/core-unit/${code}/activity${queryStrings}`);
+    router.push(`/core-unit/${code}/activity-feed${queryStrings}`);
   }, [filteredCategories, filteredStatuses, router, searchText, code]);
 
   return {

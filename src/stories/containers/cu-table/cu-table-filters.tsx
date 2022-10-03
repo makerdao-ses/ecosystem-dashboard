@@ -104,6 +104,7 @@ export const Filters = (props: FilterProps) => {
           style={{
             width: '114px',
             border: 'none',
+            background: 'none',
           }}
           // eslint-disable-next-line @typescript-eslint/no-empty-function
           onClick={props.clearFilters}

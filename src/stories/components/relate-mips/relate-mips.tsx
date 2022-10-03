@@ -2,7 +2,6 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Typography, useMediaQuery } from '@mui/material';
 import { DateTime } from 'luxon';
-import { CustomPopover } from '../custom-popover/custom-popover';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { StatusChip } from '../status-chip/status-chip';
 import ExternalLinkArrow from '../svg/external-link-arrow';
@@ -35,29 +34,7 @@ const RelateMips = ({ relateMips }: Props) => {
     <Content isLight={isLight}>
       <Row>
         {mipStatus && <StatusChip status={mipStatus as CuStatusEnum} />}
-        {newDate && (
-          <CustomPopover
-            css={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-            popupStyle={{
-              color: isLight ? '#231536' : '#D2D4EF',
-            }}
-            id={'mouse-over-popover-goto'}
-            title={'Go to MIPs Portal'}
-          >
-            <SinceDate
-              isLight={isLight}
-              href={relateMips.mipUrl}
-              target="_blank"
-              onClick={(evt) => evt.stopPropagation()}
-            >
-              Since {DateTime.fromJSDate(newDate).toFormat('d-MMM-y')}
-            </SinceDate>
-          </CustomPopover>
-        )}
+        {newDate && <SinceDate isLight={isLight}>Since {DateTime.fromJSDate(newDate).toFormat('d-MMM-y')}</SinceDate>}
       </Row>
       {pieces.length === 2 && (
         <RowUnderLine>
@@ -89,11 +66,9 @@ const RelateMips = ({ relateMips }: Props) => {
       {pieces.length === 1 && (
         <RowUnderLine>
           <Typography color="#447AFB" fontFamily={'Inter, sans-serif'}>
-            {' '}
             {relateMips.mipTitle}
           </Typography>
           <ArrowLinkContainer>
-            {' '}
             <ExternalLinkArrow href={`${relateMips.mipUrl}` || '#'} />
           </ArrowLinkContainer>
         </RowUnderLine>
@@ -141,7 +116,7 @@ const RowUnderLine = styled.div({
   },
 });
 
-const SinceDate = styled.a<{ isLight: boolean }>(({ isLight }) => ({
+const SinceDate = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 600,
@@ -155,13 +130,14 @@ const SinceDate = styled.a<{ isLight: boolean }>(({ isLight }) => ({
 }));
 
 const ArrowLinkContainer = styled.span({
-  display: 'inline',
+  display: 'flex',
   marginLeft: '9px',
 });
 
 const ContainerIconTypography = styled.div({
-  display: 'inline',
+  display: 'flex',
   alignItems: 'center',
+  marginTop: '4px',
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     marginTop: '4px',
   },
@@ -170,14 +146,15 @@ const ContainerIconTypography = styled.div({
 const StyleMipNumber = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
   ({ isLight }) => ({
     fontSize: '14px',
-    minWidth: '135px',
+    maxWidth: '135px',
+    minWidth: 'fit-content',
     display: 'inline-block',
     marginRight: '4px',
     fontStyle: 'normal',
     fontFamily: 'Inter, sans-serif',
     color: isLight ? '#231536' : '#D2D4EF',
-    fontWeight: 500,
-    paddingTop: '3px',
+    fontWeight: 600,
+    paddingTop: '2px',
     lineHeight: '22px',
     [lightTheme.breakpoints.up('table_834')]: {
       fontSize: '16px',
