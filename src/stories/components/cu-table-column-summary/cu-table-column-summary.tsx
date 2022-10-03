@@ -236,7 +236,7 @@ const Padded = styled.div({
 });
 
 const CategoriesTitle = styled.div({
-  fontFamily: 'SF Pro Display',
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 400,
   fontSize: '14px',
   color: '#708390',
