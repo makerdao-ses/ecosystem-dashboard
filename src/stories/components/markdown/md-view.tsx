@@ -92,7 +92,6 @@ const MdViewerPage = ({
           <CustomButton
             widthText="100%"
             label="Expenses"
-            isHadPopover
             style={{
               textAlign: 'center',
               background: 'transparent',
@@ -105,7 +104,7 @@ const MdViewerPage = ({
               lineHeight: '18px',
               width: 'fit-content',
               padding: '8px 24px',
-              borderColor: isLight ? (open ? '#098C7D' : '#25273D') : !open ? '#1AAB9B' : '#231536',
+              borderColor: isLight ? (open ? '#098C7D' : '#25273D') : !open ? '#1AAB9B' : '#1AAB9B',
             }}
             onClick={handleClick}
             styleText={{
@@ -124,6 +123,7 @@ const MdViewerPage = ({
             sx={{
               '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
                 borderRadius: '6px',
+                backgroundColor: isLight ? 'none' : '#10191F',
                 boxShadow: isLight
                   ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
                   : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
