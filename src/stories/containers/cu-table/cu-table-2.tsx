@@ -30,6 +30,8 @@ export const CuTable2 = () => {
     tableItems,
     onSortClick,
     headersSort,
+    applySort,
+    resetSort,
   } = useCoreUnitsTableMvvm();
 
   const siteHeader = useMemo(() => {
@@ -91,7 +93,8 @@ export const CuTable2 = () => {
           setFiltersPopup={toggleFiltersPopup}
           clearFilters={clearFilters}
           columns={columns.filter((_, i) => headersSort[i] !== SortEnum.Disabled)}
-          handleSort={onSortClick}
+          onSortApply={applySort}
+          onSortReset={resetSort}
           headersSort={headersSort}
         />
       </Header>

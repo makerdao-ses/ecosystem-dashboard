@@ -29,7 +29,8 @@ interface FilterProps {
   handleCloseSearch?: () => void;
   columns: CustomTableColumn[];
   headersSort: SortEnum[];
-  handleSort?: (index: number) => void;
+  onSortApply: (index: number, sort: SortEnum) => void;
+  onSortReset: () => void;
 }
 
 const statuses = Object.values(CuStatusEnum) as string[];
@@ -171,7 +172,7 @@ export const Filters = (props: FilterProps) => {
           <CustomSortSelect
             label="Sort"
             activeItem={activeItem}
-            sortStatus={activeItem > -1 ? props.headersSort[activeItem] : 'null'}
+            sortStatus={activeItem > -1 ? props.headersSort[activeItem] : SortEnum.Asc}
             items={props.columns.map(
               (column) =>
                 ({
@@ -180,9 +181,8 @@ export const Filters = (props: FilterProps) => {
                 } as SortSelectItem)
             )}
             maxWidth={216}
-            onChange={(value: string[]) => {
-              handleChangeUrlFilterArrays('filteredCategories')(value);
-            }}
+            onChange={props.onSortApply}
+            onReset={props.onSortReset}
           />
         </HideOn1195>
         <CloseButton onClick={() => props.setFiltersPopup && props.setFiltersPopup()}>

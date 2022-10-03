@@ -132,6 +132,7 @@ export const useCoreUnitsTableMvvm = () => {
       cellRender: renderSummary,
       onClick: onClickRow,
       width: '400px',
+      hasSort: true,
     },
     {
       header: 'Expenditure',
@@ -139,6 +140,7 @@ export const useCoreUnitsTableMvvm = () => {
       cellRender: renderExpenditures,
       onClick: onClickFinances,
       width: '215px',
+      hasSort: true,
     },
     {
       header: 'Team Members',
@@ -147,6 +149,7 @@ export const useCoreUnitsTableMvvm = () => {
       onClick: onClickRow,
       width: '205px',
       sortReverse: true,
+      hasSort: true,
     },
     {
       header: 'Last Modified',
@@ -155,6 +158,7 @@ export const useCoreUnitsTableMvvm = () => {
       onClick: onClickRow,
       width: '122px',
       sortReverse: true,
+      hasSort: true,
     },
     {
       header: '',
@@ -163,6 +167,7 @@ export const useCoreUnitsTableMvvm = () => {
       onClick: onClickRow,
       width: '358px',
       responsiveWidth: '186px',
+      hasSort: false,
     },
   ];
 
@@ -195,13 +200,9 @@ export const useCoreUnitsTableMvvm = () => {
   }, [data, sortColumn, headersSort, filteredCategories, filteredStatuses, searchText]);
 
   const onSortClick = (index: number) => {
-    const sortNeutralState = [
-      SortEnum.Neutral,
-      SortEnum.Neutral,
-      SortEnum.Neutral,
-      SortEnum.Neutral,
-      SortEnum.Disabled,
-    ];
+    const sortNeutralState = columns.map((column) =>
+      column.hasSort ? SortEnum.Neutral : SortEnum.Disabled
+    ) as SortEnum[];
 
     if (headersSort[index] === SortEnum.Neutral) {
       if (columns[index].sortReverse) {
@@ -215,6 +216,24 @@ export const useCoreUnitsTableMvvm = () => {
 
     setHeadersSort(sortNeutralState);
     setSortColumn(index);
+  };
+
+  const applySort = (index: number, sort: SortEnum) => {
+    const sortNeutralState = columns.map((column) =>
+      column.hasSort ? SortEnum.Neutral : SortEnum.Disabled
+    ) as SortEnum[];
+    sortNeutralState[index] = sort;
+    setHeadersSort(sortNeutralState);
+    setSortColumn(index);
+  };
+
+  const resetSort = () => {
+    const sortNeutralState = columns.map((column) =>
+      column.hasSort ? SortEnum.Neutral : SortEnum.Disabled
+    ) as SortEnum[];
+    sortNeutralState[0] = SortEnum.Asc;
+    setHeadersSort(sortNeutralState);
+    setSortColumn(0);
   };
 
   return {
@@ -235,5 +254,7 @@ export const useCoreUnitsTableMvvm = () => {
     columns,
     tableItems,
     onSortClick,
+    applySort,
+    resetSort,
   };
 };

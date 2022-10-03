@@ -17,17 +17,28 @@ export interface SortSelectItem {
 interface Props {
   label: string;
   items: SortSelectItem[];
-  onChange?: (items: string[]) => void;
+  onChange?: (index: number, sort: SortEnum) => void;
+  onReset?: () => void;
   style?: CSSProperties;
   activeItem: number;
   maxWidth?: number;
-  sortStatus?: SortEnum;
+  sortStatus: SortEnum;
 }
 
 export const CustomSortSelect = (props: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
   const [popupVisible, setPopupVisible] = useState(false);
   const [hover, setHover] = useState(false);
+  const [activeItem, setActiveItem] = useState(props.activeItem);
+  const [sortStatus, setSortStatus] = useState(props.sortStatus);
+
+  const onClick = (id: number) => {
+    setActiveItem(id);
+  };
+
+  const onSortClick = (sort: SortEnum) => {
+    setSortStatus(sort);
+  };
 
   const refOutsideClick = useRef<HTMLDivElement>(null);
 
@@ -42,54 +53,50 @@ export const CustomSortSelect = (props: Props) => {
       <SelectContainer
         isLight={isLight}
         focus={popupVisible}
-        active={!!props.activeItem}
+        active={true}
         className="no-select"
         onMouseOver={() => setHover(true)}
         onMouseOut={() => setHover(false)}
         style={{
-          maxWidth: props.maxWidth && !props.activeItem ? `${props.maxWidth}px` : 'unset',
+          maxWidth: !activeItem ? `${props.maxWidth}px` : 'unset',
         }}
         onClick={toggleVisible}
       >
-        <Label active={!!props.activeItem} isLight={isLight} hover={hover}>
+        <Label isLight={isLight} hover={hover}>
           {props.label}
         </Label>
         <IconWrapper>
           <SelectChevronDown
             style={{ transform: popupVisible ? 'scaleY(-1)' : '' }}
-            fill={
-              isLight
-                ? props.activeItem
-                  ? !hover
-                    ? '#1AAB9B'
-                    : '#098C7D'
-                  : '#231536'
-                : props.activeItem
-                ? !hover
-                  ? '#1AAB9B'
-                  : '#6EDBD0'
-                : '#E2D8EE'
-            }
+            fill={isLight ? (!hover ? '#1AAB9B' : '#098C7D') : !hover ? '#1AAB9B' : '#6EDBD0'}
           />
         </IconWrapper>
       </SelectContainer>
       {popupVisible && (
-        <PopupContainer isLight={isLight}>
+        <PopupContainer isLight={isLight} className="no-select">
           <SortLabel>Sort By</SortLabel>
           <ItemsContainer>
             {props.items.map((item, i) => (
-              <SortItem key={`item-${i}`} isActive={i === props.activeItem} label={item.content} />
+              <SortItem key={`item-${i}`} isActive={i === activeItem} label={item.content} onClick={() => onClick(i)} />
             ))}
           </ItemsContainer>
           <SortLine />
           <ItemsContainer>
-            <SortItemOrder isLight={isLight} isActive={props.sortStatus === SortEnum.Asc}>
+            <SortItemOrder
+              isLight={isLight}
+              isActive={sortStatus === SortEnum.Asc}
+              onClick={() => onSortClick(SortEnum.Asc)}
+            >
               <span>ASCENDING</span>
-              <TriangleUp fill={props.sortStatus === SortEnum.Asc ? '#231536' : '#708390'} />
+              <TriangleUp fill={sortStatus === SortEnum.Asc ? '#231536' : '#708390'} />
             </SortItemOrder>
-            <SortItemOrder isLight={isLight} isActive={props.sortStatus === SortEnum.Desc}>
+            <SortItemOrder
+              isLight={isLight}
+              isActive={sortStatus === SortEnum.Desc}
+              onClick={() => onSortClick(SortEnum.Desc)}
+            >
               <span>DESCENDING</span>
-              <TriangleDown fill={props.sortStatus === SortEnum.Desc ? '#231536' : '#708390'} />
+              <TriangleDown fill={sortStatus === SortEnum.Desc ? '#231536' : '#708390'} />
             </SortItemOrder>
           </ItemsContainer>
           <ButtonsWrapper>
@@ -100,12 +107,20 @@ export const CustomSortSelect = (props: Props) => {
                 minWidth: 'unset',
               }}
               label="Reset"
+              onClick={() => {
+                props.onReset?.();
+                setPopupVisible(false);
+              }}
             />
             <CustomButton
               style={{
                 padding: '8px 24px',
               }}
               label="Apply"
+              onClick={() => {
+                props.onChange?.(activeItem, sortStatus);
+                setPopupVisible(false);
+              }}
             />
           </ButtonsWrapper>
         </PopupContainer>
@@ -172,23 +187,13 @@ const ItemsContainer = styled.div({
   gap: '16px',
 });
 
-const Label = styled.div<{ active: boolean; isLight: boolean; hover: boolean }>(({ active, isLight, hover }) => ({
+const Label = styled.div<{ isLight: boolean; hover: boolean }>(({ isLight, hover }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '14px',
   lineHeight: '18px',
-  color: isLight
-    ? active
-      ? !hover
-        ? '#1AAB9B'
-        : '#098C7D'
-      : '#231536'
-    : active
-    ? !hover
-      ? '#1AAB9B'
-      : '#6EDBD0'
-    : '#E2D8EE',
+  color: isLight ? (!hover ? '#1AAB9B' : '#098C7D') : !hover ? '#1AAB9B' : '#6EDBD0',
   whiteSpace: 'nowrap',
 }));
 
