@@ -62,7 +62,7 @@ const Label = styled.div({
   display: 'flex',
   alignItems: 'center',
   color: '#708390',
-  fontFamily: 'Inter',
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 500,
   fontSize: '12px',
   height: '37px',

@@ -18,6 +18,7 @@ interface Props {
   isTitlePresent?: boolean;
   style?: React.CSSProperties;
   styleContainer?: React.CSSProperties;
+  buttonWidth?: string;
 }
 
 const CardExpenses = ({
@@ -27,6 +28,7 @@ const CardExpenses = ({
   isTitlePresent = true,
   style = {},
   styleContainer = {},
+  buttonWidth,
 }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
   const isPhone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
@@ -57,7 +59,7 @@ const CardExpenses = ({
           style={{
             display: 'flex',
             flexDirection: 'row',
-            justifyContent: 'space-between',
+            gap: '24px',
           }}
         >
           <CustomButton
@@ -73,6 +75,7 @@ const CardExpenses = ({
               fontWeight: 500,
               fontSize: '14px',
               lineHeight: '18px',
+              width: buttonWidth,
               padding: isPhone || isTable ? '8px 25.75px' : '8px 43.25px',
             }}
             // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -92,6 +95,7 @@ const CardExpenses = ({
               fontSize: '14px',
               lineHeight: '18px',
               letterSpacing: '0px',
+              width: buttonWidth,
               padding: isPhone || isTable ? '8px 12.75px' : '8px 30.25px',
             }}
             onClick={onClickFinances}

@@ -134,6 +134,7 @@ const MdViewerPage = ({
               onClickActivity={onClickActivity}
               onClickFinances={onClickFinances}
               code={code}
+              buttonWidth="139.5px"
               isTitlePresent={false}
               style={{
                 width: '335px',
@@ -155,6 +156,7 @@ const MdViewerPage = ({
             onClickFinances={onClickFinances}
             code={code}
             isTitlePresent={false}
+            buttonWidth="139.5px"
             style={{
               width: '335px',
               float: 'right',
@@ -205,7 +207,7 @@ const TypographyStyleDescription = styled.p<{ isLight: boolean }>(({ isLight }) 
   color: isLight ? '#231536' : ' #D2D4EF',
   margin: '0px',
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-    fontFamily: 'Inter',
+    fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     fontWeight: 700,
     fontSize: '16px',

@@ -200,11 +200,10 @@ const ResponsiveList = styled.ul({
     '& ul': {
       marginTop: '2em',
     },
-
+    marginTop: '0.5em',
     '&:not(:last-child) ul': {
       marginBottom: '2em',
     },
-    marginTop: '0.5em',
   },
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     fontSize: '14px',
