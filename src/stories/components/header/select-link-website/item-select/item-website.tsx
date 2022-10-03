@@ -90,6 +90,7 @@ export const ItemWebSite = ({
             width: '137px',
             height: '34px',
             padding: '8px 24px',
+            borderColor: isLight ? '#D4D9E1' : '#D2D4EF',
           }}
           styleText={{
             fontFamily: 'Inter, sans-serif',
