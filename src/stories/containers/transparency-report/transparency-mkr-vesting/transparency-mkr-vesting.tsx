@@ -15,6 +15,7 @@ import { TextCell } from '../../../components/text-cell/text-cell';
 interface TransparencyMkrVestingProps {
   currentMonth: DateTime;
   budgetStatements: BudgetStatementDto[];
+  longCode: string;
 }
 
 const headers = ['Vesting Date', 'MKR Amount', 'Last month', 'difference', 'reason(s)'];
@@ -72,7 +73,7 @@ export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
         </CustomPopover>
       </ContainerPopover>
       {items.length - 1 <= 0 ? (
-        <TransparencyEmptyTable />
+        <TransparencyEmptyTable longCode={props.longCode} />
       ) : (
         <>
           <TableWrapper>

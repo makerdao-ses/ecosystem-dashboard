@@ -146,6 +146,7 @@ export const useCoreUnitsTableMvvm = () => {
       cellRender: renderTeamMember,
       onClick: onClickRow,
       width: '205px',
+      sortReverse: true,
     },
     {
       header: 'Last Modified',
@@ -153,6 +154,7 @@ export const useCoreUnitsTableMvvm = () => {
       cellRender: renderLastModified,
       onClick: onClickRow,
       width: '122px',
+      sortReverse: true,
     },
     {
       header: '',
@@ -175,8 +177,8 @@ export const useCoreUnitsTableMvvm = () => {
       (getFTEsFromCoreUnit(a) - getFTEsFromCoreUnit(b)) * multiplier;
     const lastModifiedSort = (a: CoreUnitDto, b: CoreUnitDto) => {
       return (
-        ((getLastMonthWithData(a.budgetStatements)?.toMillis() ?? Number.MAX_VALUE) -
-          (getLastMonthWithData(b.budgetStatements)?.toMillis() ?? Number.MAX_VALUE)) *
+        ((getLastMonthWithData(a.budgetStatements)?.toMillis() ?? 0) -
+          (getLastMonthWithData(b.budgetStatements)?.toMillis() ?? 0)) *
         multiplier
       );
     };
@@ -201,14 +203,18 @@ export const useCoreUnitsTableMvvm = () => {
       SortEnum.Disabled,
     ];
 
-    if (headersSort[index] === 3) {
-      setHeadersSort(sortNeutralState);
-      setSortColumn(-1);
+    if (headersSort[index] === SortEnum.Neutral) {
+      if (columns[index].sortReverse) {
+        sortNeutralState[index] = SortEnum.Desc;
+      } else {
+        sortNeutralState[index] = SortEnum.Asc;
+      }
     } else {
-      sortNeutralState[index] = headersSort[index] + 1;
-      setHeadersSort(sortNeutralState);
-      setSortColumn(index);
+      sortNeutralState[index] = headersSort[index] === SortEnum.Asc ? SortEnum.Desc : SortEnum.Asc;
     }
+
+    setHeadersSort(sortNeutralState);
+    setSortColumn(index);
   };
 
   return {

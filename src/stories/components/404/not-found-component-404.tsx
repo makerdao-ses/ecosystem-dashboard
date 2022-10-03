@@ -48,7 +48,6 @@ const CardNotFoundPage: NextPage = () => {
             <TextDescription>The page you requested couldn't be found</TextDescription>
           </ContainerText>
           <ContainerButton>
-            {' '}
             <CustomButton
               widthText="100%"
               label="Go Back to Homepage"

@@ -28,7 +28,7 @@ export const ActivityPlaceholder = () => {
       </Description>
       <ButtonsWrapper>
         <CustomButton onClick={goToAbout} style={{ minWidth: '250px' }} label="Go Back" />
-        <a href={SUBMIT_EXPENSES_URL}>
+        <a href={SUBMIT_EXPENSES_URL} target="_blank">
           <CustomButton style={{ minWidth: '250px' }} label="Submit Expenses Now" isPrimary />
         </a>
       </ButtonsWrapper>

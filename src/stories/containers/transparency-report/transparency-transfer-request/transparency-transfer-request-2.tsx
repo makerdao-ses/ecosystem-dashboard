@@ -14,6 +14,7 @@ interface Props {
   currentMonth: DateTime;
   budgetStatements: BudgetStatementDto[];
   code: string;
+  longCode: string;
 }
 
 export const TransparencyTransferRequest2 = (props: Props) => {
@@ -28,7 +29,7 @@ export const TransparencyTransferRequest2 = (props: Props) => {
       <LinkDescription isLight={isLight}>
         To see the onchain transactions from the Maker Protocol to the {getShortCode(props.code)} Core Unit
         <CustomLink
-          href={`${MAKER_BURN_LINK}/${props.code}`}
+          href={`${MAKER_BURN_LINK}/${props.longCode}`}
           style={{
             flexWrap: 'wrap',
             color: '#447AFB',
@@ -53,6 +54,7 @@ export const TransparencyTransferRequest2 = (props: Props) => {
         items={mainTableItems}
         style={{ marginBottom: '64px' }}
         cardsTotalPosition={'top'}
+        longCode={props.longCode}
       />
     </Container>
   );

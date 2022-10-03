@@ -2,20 +2,19 @@ import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
-import { useRouter } from 'next/router';
 import { MAKER_BURN_LINK } from '../../../../core/utils/const';
+import { getShortCode } from '../../../../core/utils/string.utils';
 
 interface Props {
   breakdown?: boolean;
+  longCode: string;
 }
 
-export const TransparencyEmptyTable = ({ breakdown = false }: Props) => {
-  const router = useRouter();
-  const code = router.query?.code;
+export const TransparencyEmptyTable = ({ breakdown = false, longCode }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
 
   const handleClickMakerburn = useCallback(() => {
-    window.open(`${MAKER_BURN_LINK}/${code}`, '_blank');
+    window.open(`${MAKER_BURN_LINK}/${longCode}`, '_blank');
   }, []);
 
   return (
@@ -273,8 +272,8 @@ export const TransparencyEmptyTable = ({ breakdown = false }: Props) => {
             </Row>
           </Container>
         )}
-        <ContainerIndications style={{}}>
-          <Title>{`No data reported by ${code} Core Unit`}</Title>
+        <ContainerIndications>
+          <Title>{`No data reported by ${getShortCode(longCode)} Core Unit`}</Title>
           <Description>View on-chain transfers on makerburn.com </Description>
           <ContainerButton>
             <CustomButton
@@ -423,7 +422,7 @@ export const TransparencyEmptyTable = ({ breakdown = false }: Props) => {
           </Container>
         )}
         <ContainerIndications>
-          <TitleMobile>{`No data reported by ${code} Core Unit`}</TitleMobile>
+          <TitleMobile>{`No data reported by ${getShortCode(longCode)} Core Unit`}</TitleMobile>
           <Description>View on-chain transfers on makerburn.com </Description>
           <ContainerButton>
             <CustomButton

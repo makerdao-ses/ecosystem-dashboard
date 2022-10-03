@@ -17,6 +17,7 @@ interface Props {
   currentMonth: DateTime;
   budgetStatements: BudgetStatementDto[];
   code: string;
+  longCode: string;
 }
 
 export const TransparencyForecast2 = (props: Props) => {
@@ -38,7 +39,7 @@ export const TransparencyForecast2 = (props: Props) => {
       <LinkDescription isLight={isLight}>
         To see the onchain transactions from the Maker Protocol to the {getShortCode(props.code)} Core Unit
         <CustomLink
-          href={`${MAKER_BURN_LINK}/${props.code}`}
+          href={`${MAKER_BURN_LINK}/${props.longCode}`}
           style={{
             flexWrap: 'wrap',
             color: '#447AFB',
@@ -61,17 +62,18 @@ export const TransparencyForecast2 = (props: Props) => {
       <Title isLight={isLight} marginBottom={16}>
         {props.currentMonth.toFormat('MMM yyyy')} Totals
       </Title>
-
       <AdvancedInnerTable
+        longCode={props.longCode}
         columns={mainTableColumns}
         items={mainTableItems}
         style={{ marginBottom: '64px' }}
         cardsTotalPosition={'top'}
       />
-
-      <Title isLight={isLight} marginBottom={24} ref={breakdownTitleRef}>
-        {props.currentMonth.toFormat('MMM yyyy')} Breakdown
-      </Title>
+      {!!breakdownItems.length && (
+        <Title isLight={isLight} marginBottom={24} ref={breakdownTitleRef}>
+          {props.currentMonth.toFormat('MMM yyyy')} Breakdown
+        </Title>
+      )}
 
       {!!breakdownItems.length && (
         <Tabs
@@ -86,11 +88,14 @@ export const TransparencyForecast2 = (props: Props) => {
         />
       )}
 
-      <AdvancedInnerTable
-        columns={breakdownHeaders}
-        items={breakdownItems}
-        tablePlaceholder={<TransparencyEmptyTable breakdown />}
-      />
+      {!!breakdownItems.length && (
+        <AdvancedInnerTable
+          longCode={props.longCode}
+          columns={breakdownHeaders}
+          items={breakdownItems}
+          tablePlaceholder={<TransparencyEmptyTable breakdown longCode={props.longCode} />}
+        />
+      )}
     </Container>
   );
 };

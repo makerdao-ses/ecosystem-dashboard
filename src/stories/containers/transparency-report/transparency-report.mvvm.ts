@@ -8,6 +8,7 @@ import {
   getLastMonthWithData,
   getNumberComments,
 } from '../../../core/business-logic/core-units';
+import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
 import { BudgetStatementDto, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { API_MONTH_TO_FORMAT } from '../../../core/utils/date.utils';
@@ -15,6 +16,7 @@ import { API_MONTH_TO_FORMAT } from '../../../core/utils/date.utils';
 const TRANSPARENCY_IDS = ['actuals', 'forecast', 'mkr-vesting', 'transfer-requests', 'audit-reports', 'comments'];
 
 export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
+  const [isEnabled] = useFlagsActive();
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;
@@ -111,6 +113,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
 
   const numbersComments = getNumberComments(coreUnit);
   const comments = getAllCommentsBudgetStatementLine(coreUnit);
+  const longCode = coreUnit?.code;
 
   const tabItems = [
     {
@@ -133,12 +136,14 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
       item: 'Audit Reports',
       id: TRANSPARENCY_IDS[4],
     },
-    {
-      item: `Comments (${numbersComments})`,
-      id: TRANSPARENCY_IDS[5],
-    },
   ];
 
+  if (isEnabled('FEATURE_TRANSPARENCY_COMMENTS')) {
+    tabItems.push({
+      item: `Comments (${numbersComments})`,
+      id: TRANSPARENCY_IDS[5],
+    });
+  }
   const lastMonthWithData = getLastMonthWithData(coreUnit?.budgetStatements);
 
   const differenceInDays = useMemo(() => {
@@ -163,5 +168,6 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     differenceInDays,
     numbersComments,
     comments,
+    longCode,
   };
 };

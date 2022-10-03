@@ -11,7 +11,7 @@ import { TransparencyAudit } from './transparency-audit/transparency-audit';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
-import { capitalizeSentence, getShortCode } from '../../../core/utils/string.utils';
+import { getShortCode } from '../../../core/utils/string.utils';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SEOHead } from '../../components/seo-head/seo-head';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
@@ -43,9 +43,9 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
     currentBudgetStatement,
     tabsIndex,
     lastMonthWithData,
-    differenceInDays,
-    numbersComments,
     comments,
+    numbersComments,
+    longCode,
   } = useTransparencyReportViewModel(coreUnit);
   return (
     <Wrapper>
@@ -109,10 +109,8 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
             <Spacer />
             {lastMonthWithData && (
               <LastUpdate>
-                <Since isLight={isLight}>Since</Since>
-                <SinceDate>
-                  {differenceInDays} <b>| {lastMonthWithData.toFormat('dd-MMM-yyyy').toUpperCase() ?? ''}</b>
-                </SinceDate>
+                <Since isLight={isLight}>Last Update</Since>
+                <SinceDate>{lastMonthWithData.setZone('UTC').toFormat('dd-LLL-y HH:hh ZZZZ')}</SinceDate>
               </LastUpdate>
             )}
           </PagerBar>
@@ -129,6 +127,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
               code={code}
               currentMonth={currentMonth}
               budgetStatements={coreUnit?.budgetStatements}
+              longCode={longCode}
             />
           )}
           {tabsIndex === 0 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
@@ -136,6 +135,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
               code={code}
               currentMonth={currentMonth}
               budgetStatements={coreUnit?.budgetStatements}
+              longCode={longCode}
             />
           )}
           {tabsIndex === 1 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
@@ -143,30 +143,45 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
               currentMonth={currentMonth}
               budgetStatements={coreUnit?.budgetStatements}
               code={code}
+              longCode={longCode}
             />
           )}
           {tabsIndex === 1 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-            <TransparencyForecast currentMonth={currentMonth} budgetStatements={coreUnit?.budgetStatements} />
+            <TransparencyForecast
+              currentMonth={currentMonth}
+              budgetStatements={coreUnit?.budgetStatements}
+              longCode={longCode}
+            />
           )}
           {tabsIndex === 2 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
             <TransparencyMkrVesting2
               currentMonth={currentMonth}
               budgetStatements={coreUnit?.budgetStatements}
               code={code}
+              longCode={longCode}
             />
           )}
           {tabsIndex === 2 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-            <TransparencyMkrVesting currentMonth={currentMonth} budgetStatements={coreUnit?.budgetStatements} />
+            <TransparencyMkrVesting
+              currentMonth={currentMonth}
+              budgetStatements={coreUnit?.budgetStatements}
+              longCode={longCode}
+            />
           )}
           {tabsIndex === 3 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
             <TransparencyTransferRequest2
               currentMonth={currentMonth}
               budgetStatements={coreUnit?.budgetStatements}
               code={code}
+              longCode={longCode}
             />
           )}
           {tabsIndex === 3 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-            <TransparencyTransferRequest currentMonth={currentMonth} budgetStatements={coreUnit?.budgetStatements} />
+            <TransparencyTransferRequest
+              currentMonth={currentMonth}
+              budgetStatements={coreUnit?.budgetStatements}
+              longCode={longCode}
+            />
           )}
           {tabsIndex === 4 && <TransparencyAudit budgetStatement={currentBudgetStatement} />}
           {tabsIndex === 5 && isEnabled('FEATURE_TRANSPARENCY_COMMENTS') && (
@@ -267,31 +282,35 @@ const LastUpdate = styled.div({
   flexDirection: 'column',
   alignItems: 'flex-end',
   fontFamily: 'Inter, sans-serif',
-  '@media (min-width: 834px)': {
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
 });
 
 const Since = styled.div<{ isLight: boolean }>(({ isLight = true }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   fontSize: '11px',
+  lineHeight: '15px',
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
   fontWeight: 600,
+  letterSpacing: '1px',
   textTransform: 'uppercase',
   '@media (min-width: 834px)': {
     fontSize: '12px',
-    marginRight: '6px',
-    '&:after': {
-      content: '":"',
-    },
   },
 }));
 
 const SinceDate = styled.div({
   color: '#708390',
+  fontFamily: 'Inter, sans-serif',
   fontSize: '11px',
-  fontWeight: 400,
-  lineHeight: '13px',
+  fontWeight: 600,
+  letterSpacing: '1px',
+  lineHeight: '15px',
+  textTransform: 'uppercase',
+  marginTop: '2px',
+  '@media (min-width: 834px)': {
+    fontSize: '12px',
+    marginTop: '4px',
+  },
 });
 
 const Spacer = styled.div({

@@ -250,7 +250,7 @@ const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => 
   isLight: boolean;
 }>(({ isLight }) => ({
   fontSize: '16px',
-  lineHeight: '19px',
+  lineHeight: '22px',
   color: isLight ? '#231536' : '#E2D8EE',
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',

@@ -8,8 +8,6 @@ import { CustomButton } from '../custom-button/custom-button';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import lightTheme from '../../../../styles/theme/light';
 import CardExpenses from '../card-navegation/card-expenses';
-import { getShortCode } from '../../../core/utils/string.utils';
-import { useRouter } from 'next/router';
 
 export type MarkDownHeaders = {
   level: number;
@@ -28,6 +26,7 @@ interface Props {
   showButton?: boolean;
   onClickFinances: () => void;
   onClickActivity: () => void;
+  code: string;
 }
 
 const MdViewerPage = ({
@@ -38,9 +37,8 @@ const MdViewerPage = ({
   showButton = false,
   onClickActivity,
   onClickFinances,
+  code,
 }: Props) => {
-  const router = useRouter();
-  const code = router.query?.code as string;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [activeLink, setActiveLink] = useState('');
   const isLight = useThemeContext().themeMode === 'light';
@@ -94,9 +92,9 @@ const MdViewerPage = ({
           <CustomButton
             widthText="100%"
             label="Expenses"
+            isHadPopover
             style={{
               textAlign: 'center',
-              border: isLight ? (open ? '1px solid #1AAB9B' : '1px solid #25273D') : '1px solid #25273D',
               background: 'transparent',
               borderRadius: '22px',
               height: '34px',
@@ -107,11 +105,11 @@ const MdViewerPage = ({
               lineHeight: '18px',
               width: 'fit-content',
               padding: '8px 24px',
+              borderColor: isLight ? (open ? '#098C7D' : '#25273D') : !open ? '#1AAB9B' : '#231536',
             }}
-            borderColor={isLight ? (open ? '#1AAB9B' : '#25273D') : '#25273D'}
             onClick={handleClick}
             styleText={{
-              color: isLight ? (open ? '#1aab9b' : '#231536') : '#D2D4EF',
+              color: isLight ? (open ? '#098C7D' : '#231536') : '#1AAB9B',
             }}
           />
           <Popover
@@ -123,21 +121,39 @@ const MdViewerPage = ({
               vertical: 'bottom',
               horizontal: 'left',
             }}
+            sx={{
+              '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
+                borderRadius: '6px',
+                boxShadow: isLight
+                  ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+                  : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
+              },
+            }}
           >
             <CardExpenses
               onClickActivity={onClickActivity}
               onClickFinances={onClickFinances}
-              code={getShortCode(code)}
+              code={code}
               isTitlePresent={false}
+              style={{
+                width: '335px',
+              }}
+              styleContainer={{
+                height: '190px',
+                overflowY: 'hidden',
+              }}
             />
           </Popover>
         </ContainerResponsive>
       ) : showButton && isTable834 ? (
         <div>
           <CardExpenses
+            styleContainer={{
+              height: '190px',
+            }}
             onClickActivity={onClickActivity}
             onClickFinances={onClickFinances}
-            code="SES"
+            code={code}
             isTitlePresent={false}
             style={{
               width: '335px',

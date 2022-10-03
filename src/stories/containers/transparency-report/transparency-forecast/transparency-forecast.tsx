@@ -20,6 +20,7 @@ import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
 interface TransparencyForecastProps {
   currentMonth: DateTime;
   budgetStatements: BudgetStatementDto[];
+  longCode: string;
 }
 
 export const TransparencyForecast = (props: TransparencyForecastProps) => {
@@ -595,7 +596,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
       </Title>
 
       {forecastTableItems.length - 1 <= 0 ? (
-        <TransparencyEmptyTable />
+        <TransparencyEmptyTable longCode={props.longCode} />
       ) : (
         <>
           <TableWrapper>
@@ -636,7 +637,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
       </Title>
 
       {forecastTableItems.length - 1 <= 0 ? (
-        <TransparencyEmptyTable breakdown />
+        <TransparencyEmptyTable breakdown longCode={props.longCode} />
       ) : (
         <>
           <Tabs
