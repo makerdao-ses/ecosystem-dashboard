@@ -219,15 +219,14 @@ const PopupContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   background: isLight ? 'white' : '#000A13',
   height: 'fit-content',
   padding: '16px 0 16px 16px',
-  '@media (min-width: 834px)': {
-    boxShadow: isLight ? '0px 20px 40px #dbe3ed66, 0px 1px 3px #bebebe40' : 'none',
-    position: 'absolute',
-    top: '50px',
-    zIndex: 3,
-    '::-webkit-scrollbar': {
-      opacity: !isLight ? 0 : 'none',
-      width: !isLight ? 0 : 'none',
-      backgroundColor: !isLight ? 'transparent' : 'none',
-    },
+  boxShadow: isLight ? '0px 20px 40px #dbe3ed66, 0px 1px 3px #bebebe40' : 'none',
+  position: 'absolute',
+  top: '50px',
+  left: '0',
+  zIndex: 3,
+  '::-webkit-scrollbar': {
+    opacity: !isLight ? 0 : 'none',
+    width: !isLight ? 0 : 'none',
+    backgroundColor: !isLight ? 'transparent' : 'none',
   },
 }));

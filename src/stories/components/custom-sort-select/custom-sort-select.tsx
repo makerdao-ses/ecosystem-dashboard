@@ -8,6 +8,7 @@ import { CustomButton } from '../custom-button/custom-button';
 import TriangleUp from '../svg/triangle-up';
 import TriangleDown from '../svg/triangle-down';
 import { SortEnum } from '../../../core/enums/sort.enum';
+import Triangles from '../svg/triangles';
 
 export interface SortSelectItem {
   id: string;
@@ -50,6 +51,9 @@ export const CustomSortSelect = (props: Props) => {
 
   return (
     <SelectWrapper ref={refOutsideClick} style={props.style}>
+      <ResponsiveButton onClick={toggleVisible}>
+        <Triangles fill="#1AAB9B" />
+      </ResponsiveButton>
       <SelectContainer
         isLight={isLight}
         focus={popupVisible}
@@ -146,7 +150,7 @@ const SelectContainer = styled.div<{
   active: boolean;
   isLight: boolean;
 }>(({ active, focus, isLight }) => ({
-  display: 'flex',
+  display: 'none',
   position: 'relative',
   alignItems: 'center',
   border:
@@ -178,6 +182,9 @@ const SelectContainer = styled.div<{
       ? '1px solid #098C7D'
       : '1px solid #787A9B',
     background: isLight ? (active ? '#E7FCFA' : 'none') : active ? '#003C40' : '#10191F',
+  },
+  '@media (min-width: 834px)': {
+    display: 'ƒlex',
   },
 }));
 
@@ -267,3 +274,19 @@ const SortItemOrder = styled.div<{ isActive: boolean; isLight: boolean }>(({ isA
     textTransform: 'uppercase',
   },
 }));
+
+const ResponsiveButton = styled.div({
+  display: 'flex',
+  gridArea: 'buttonFilter',
+  justifySelf: 'flex-end',
+  width: '34px',
+  height: '34px',
+  border: '1px solid #D4D9E1',
+  borderRadius: '50%',
+  alignItems: 'center',
+  background: '#B6EDE7',
+  justifyContent: 'center',
+  '@media (min-width: 834px)': {
+    display: 'none',
+  },
+});
