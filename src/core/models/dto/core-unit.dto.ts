@@ -160,7 +160,7 @@ export interface CoreUnitDto {
   cuMip: CuMipDto[];
   roadMap: RoadMapDto[];
   activityFeed: ActivityFeedDto[];
-  lastActivity: LastActivityDto;
+  lastActivity?: LastActivityDto;
   socialMediaChannels: SocialMediaChannelDto[];
   budgetStatements: BudgetStatementDto[];
   contributorCommitment: ContributorCommitmentDto[];
