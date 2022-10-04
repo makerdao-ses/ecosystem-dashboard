@@ -151,8 +151,10 @@ export const Filters = (props: FilterProps) => {
             }}
           />
         </Search>
-        <ButtonFilter isActive={filtersActive} onClick={toggleFiltersVisible}>
-          <Filter fill={filtersActive ? '#1AAB9B' : '#231536'} />
+        <ButtonFilter isLight={isLight} isOpen={filtersVisible} isActive={filtersActive} onClick={toggleFiltersVisible}>
+          <Filter
+            fill={filtersActive || filtersVisible ? (isLight ? '#1AAB9B' : '#098C7D') : isLight ? '#231536' : 'white'}
+          />
         </ButtonFilter>
         <Sort>
           <CustomSortSelect
@@ -270,22 +272,30 @@ const ResetFilter = styled.div<{ filtersVisible: boolean }>(({ filtersVisible })
   },
 }));
 
-const ButtonFilter = styled.div<{ isActive: boolean }>(({ isActive }) => ({
-  display: 'flex',
-  gridArea: 'buttonFilter',
-  justifySelf: 'flex-end',
-  width: '34px',
-  height: '34px',
-  border: !isActive ? '1px solid #D4D9E1' : '',
-  borderRadius: '50%',
-  alignItems: 'center',
-  background: isActive ? '#B6EDE7' : 'white',
-  justifyContent: 'center',
-  boxSizing: 'border-box',
-  '@media (min-width: 834px)': {
-    display: 'none',
-  },
-}));
+const ButtonFilter = styled.div<{ isActive: boolean; isLight: boolean; isOpen: boolean }>(
+  ({ isActive, isLight, isOpen }) => ({
+    display: 'flex',
+    gridArea: 'buttonFilter',
+    justifySelf: 'flex-end',
+    width: '34px',
+    height: '34px',
+    border: isLight
+      ? isOpen || isActive
+        ? '1px solid #6EDBD0'
+        : '1px solid #D4D9E1'
+      : isOpen || isActive
+      ? '1px solid #098C7D'
+      : '1px solid #343442',
+    borderRadius: '50%',
+    alignItems: 'center',
+    background: isOpen ? (isLight ? '#B6EDE7' : '#003C40') : isLight ? 'white' : 'transparent',
+    justifyContent: 'center',
+    boxSizing: 'border-box',
+    '@media (min-width: 834px)': {
+      display: 'none',
+    },
+  })
+);
 
 const Title = styled.div<{ filtersVisible: boolean; isLight: boolean }>(({ filtersVisible, isLight }) => ({
   display: filtersVisible ? 'none' : 'block',
