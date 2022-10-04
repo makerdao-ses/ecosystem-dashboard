@@ -111,10 +111,12 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
               fte={getFTEsFromCoreUnit(coreUnit)}
             />
           </Team>
-          <LastModified>
-            <Title style={{ marginBottom: '16px' }}>Last Modified</Title>
-            <CuTableColumnLastModified date={getLastMonthWithData(coreUnit.budgetStatements)} isLoading={isLoading} />
-          </LastModified>
+          <Link href={`/core-unit/${coreUnit.shortCode}/activity-feed${queryStrings}`}>
+            <LastModified>
+              <Title style={{ marginBottom: '16px' }}>Last Modified</Title>
+              <CuTableColumnLastModified date={getLastMonthWithData(coreUnit.budgetStatements)} isLoading={isLoading} />
+            </LastModified>
+          </Link>
           <Line isLight={isLight} />
           <Categories>
             {coreUnit.category?.map((category) => (
