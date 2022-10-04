@@ -285,7 +285,7 @@ const ResponsiveButton = styled.div<{ isLight: boolean; isOpen: boolean }>(({ is
   alignItems: 'center',
   background: isLight ? (isOpen ? '#B6EDE7' : 'transparent') : isOpen ? '#003C40' : 'transparent',
   justifyContent: 'center',
-  border: isLight ? '1px solid transparent' : '1px solid #098C7D',
+  border: isLight ? '1px solid #6EDBD0' : '1px solid #098C7D',
   '@media (min-width: 834px)': {
     display: 'none',
   },
