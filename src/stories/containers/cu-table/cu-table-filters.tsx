@@ -79,6 +79,14 @@ export const Filters = (props: FilterProps) => {
     return -1;
   }, [props.headersSort]);
 
+  const filtersActive = !(
+    props.filteredStatuses &&
+    !props.filteredStatuses.length &&
+    props.filteredCategories &&
+    !props.filteredCategories.length &&
+    !props.searchText
+  );
+
   return (
     <Wrapper>
       <Title filtersVisible={filtersVisible} isLight={isLight}>
@@ -87,16 +95,7 @@ export const Filters = (props: FilterProps) => {
       </Title>
       <Container isLight={isLight} filtersVisible={filtersVisible}>
         <ResetFilter filtersVisible={filtersVisible}>
-          <ResetButton
-            onClick={props.clearFilters}
-            disabled={
-              props.filteredStatuses &&
-              !props.filteredStatuses.length &&
-              props.filteredCategories &&
-              !props.filteredCategories.length &&
-              !props.searchText
-            }
-          />
+          <ResetButton onClick={props.clearFilters} disabled={!filtersActive} />
         </ResetFilter>
         <SmallSeparator isLight={isLight} />
         <Status filtersVisible={filtersVisible}>
@@ -152,8 +151,8 @@ export const Filters = (props: FilterProps) => {
             }}
           />
         </Search>
-        <ButtonFilter isActive={filtersVisible} onClick={toggleFiltersVisible}>
-          <Filter fill={filtersVisible ? '#1AAB9B' : '#231536'} />
+        <ButtonFilter isActive={filtersActive} onClick={toggleFiltersVisible}>
+          <Filter fill={filtersActive ? '#1AAB9B' : '#231536'} />
         </ButtonFilter>
         <Sort>
           <CustomSortSelect

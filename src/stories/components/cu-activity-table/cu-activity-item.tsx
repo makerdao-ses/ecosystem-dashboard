@@ -34,7 +34,7 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
     <ActivityItem isLight={isLight} onClick={goToDetails}>
       <Timestamp>
         <UTCDate isLight={isLight}>
-          {DateTime.fromISO(activity.created_at).setZone('UTC').toFormat('dd-LLL-y HH:hh ZZZZ')}
+          {DateTime.fromISO(activity.created_at).setZone('UTC').toFormat('dd-LLL-y HH:mm ZZZZ')}
         </UTCDate>
         <HumanizedDate isLight={isLight} isNew={isNew}>
           {dayDiffNow === 0 ? 'Today' : `${dayDiffNow} Day${dayDiffNow !== 1 ? 's' : ''} Ago`}
