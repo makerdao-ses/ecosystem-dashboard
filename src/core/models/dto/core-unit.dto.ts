@@ -135,6 +135,13 @@ export interface ActivityFeedDto {
   description: string;
 }
 
+export interface LastActivityDto {
+  id: string;
+  created_at: string;
+  event: string;
+  description: string;
+}
+
 export interface RoadMapDto {
   ownerCuId: string;
   roadmapStatus: string;
@@ -153,6 +160,7 @@ export interface CoreUnitDto {
   cuMip: CuMipDto[];
   roadMap: RoadMapDto[];
   activityFeed: ActivityFeedDto[];
+  lastActivity: LastActivityDto;
   socialMediaChannels: SocialMediaChannelDto[];
   budgetStatements: BudgetStatementDto[];
   contributorCommitment: ContributorCommitmentDto[];

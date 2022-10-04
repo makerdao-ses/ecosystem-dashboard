@@ -85,6 +85,13 @@ export const GETCoreUnits = gql`
           name
         }
       }
+      lastActivity {
+        id
+        created_at
+        event
+        params
+        description
+      }
     }
   }
 `;
