@@ -26,6 +26,6 @@ export class ActivityVisitHandler {
   public wasVisited(activity: ActivityFeedDto): boolean {
     const _lastVisit = this.lastVisit();
 
-    return _lastVisit ? _lastVisit < new Date(activity.datetime) : false;
+    return _lastVisit ? _lastVisit < new Date(activity.created_at) : false;
   }
 }

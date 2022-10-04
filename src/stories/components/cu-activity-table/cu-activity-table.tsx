@@ -88,7 +88,7 @@ export default function ActivityTable({ coreUnit, columns, sortClick }: Props) {
 
   const sortedActivities = useMemo(() => {
     const result = sortBy(extendedActivity, (a) => {
-      return a.datetime;
+      return a.created_at;
     });
 
     if (columns[0].sort === SortEnum.Desc) {

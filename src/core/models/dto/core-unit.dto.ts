@@ -123,7 +123,7 @@ export interface SocialMediaChannelDto {
 
 export interface ActivityFeedDto {
   id: string;
-  datetime: string;
+  created_at: string;
   event: string;
   params: {
     coreUnit: {
