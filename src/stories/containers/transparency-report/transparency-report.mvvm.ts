@@ -142,7 +142,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
       id: TRANSPARENCY_IDS[5],
     });
   }
-  const lastMonthWithData = getLastMonthWithData(coreUnit?.budgetStatements);
+  const lastMonthWithData = getLastMonthWithData(coreUnit);
 
   const differenceInDays = useMemo(() => {
     if (!lastMonthWithData) return null;

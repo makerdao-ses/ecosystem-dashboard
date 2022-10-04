@@ -113,7 +113,7 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
           </Team>
           <LastModified>
             <Title style={{ marginBottom: '16px' }}>Last Modified</Title>
-            <CuTableColumnLastModified date={getLastMonthWithData(coreUnit.budgetStatements)} isLoading={isLoading} />
+            <CuTableColumnLastModified date={getLastMonthWithData(coreUnit)} isLoading={isLoading} />
           </LastModified>
           <Line isLight={isLight} />
           <Categories>
