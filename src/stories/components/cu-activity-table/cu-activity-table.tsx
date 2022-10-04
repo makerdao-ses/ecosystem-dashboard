@@ -146,7 +146,7 @@ export default function ActivityTable({ coreUnit, columns, sortClick }: Props) {
           ))}
       </div>
 
-      {!showAllElements && (
+      {!showAllElements && sortedActivities.length > initialElements && (
         <ButtonContainer>
           <DividerPreviousStyle
             sx={{

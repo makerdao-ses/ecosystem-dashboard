@@ -75,7 +75,7 @@ const ActivityItem = styled.a<{ isLight: boolean; isLoading?: boolean }>(({ isLi
     ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
     : '0px 20px 40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  '@media (min-width: 834px)': {
     ':hover': {
       background: !isLoading ? (isLight ? '#ECF1F3' : '#1E2C37') : isLight ? 'white' : '#10191F',
     },
