@@ -13,7 +13,6 @@ interface CustomButtonProps {
   widthText?: string;
   styleText?: CSSProperties;
   isHightLight?: boolean;
-  isPrimary?: boolean;
   borderColor?: string;
   buttonType?: ButtonType;
   allowsHover?: boolean;
@@ -91,7 +90,6 @@ export const CustomButton = ({
 const Container = styled.button<{
   isLight?: boolean;
   isHightLight?: boolean;
-  isPrimary?: boolean;
   styles?: CSSProperties;
   buttonType: ButtonType;
   allowsHover: boolean;
