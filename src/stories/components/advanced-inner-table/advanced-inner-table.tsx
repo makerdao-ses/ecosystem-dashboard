@@ -25,7 +25,7 @@ export interface InnerTableCell {
   value: unknown;
 }
 
-type RowType = 'normal' | 'total' | 'section';
+export type RowType = 'normal' | 'total' | 'section';
 
 export interface InnerTableRow {
   type: RowType;

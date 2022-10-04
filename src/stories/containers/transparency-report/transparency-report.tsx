@@ -258,7 +258,7 @@ const Paragraph = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   marginBottom: '64px',
   '@media (min-width: 834px)': {
     fontSize: '16px',
-    lineHeight: '19px',
+    lineHeight: '22px',
   },
 }));
 
