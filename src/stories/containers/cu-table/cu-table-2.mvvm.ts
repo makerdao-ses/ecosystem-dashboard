@@ -140,6 +140,7 @@ export const useCoreUnitsTableMvvm = () => {
       cellRender: renderExpenditures,
       onClick: onClickFinances,
       width: '215px',
+      sortReverse: true,
       hasSort: true,
     },
     {
