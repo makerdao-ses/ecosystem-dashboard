@@ -303,5 +303,9 @@ const Title = styled.div<{ filtersVisible: boolean; isLight: boolean }>(({ filte
     display: 'block',
     fontSize: '24px',
     lineHeight: '24px',
+    alignSelf: 'flex-start',
+  },
+  '@media (min-width: 1194px)': {
+    alignSelf: 'center',
   },
 }));
