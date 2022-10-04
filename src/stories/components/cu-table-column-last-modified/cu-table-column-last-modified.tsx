@@ -10,13 +10,14 @@ import { SUBMIT_EXPENSES_URL } from '../../../config/external-urls';
 interface Props {
   date?: DateTime;
   isLoading?: boolean;
+  onClick?: () => void;
 }
 
 export const CuTableColumnLastModified = (props: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
 
   return !props.isLoading ? (
-    <Container>
+    <Container hasLink={!!props.date} onClick={props.onClick}>
       <DateLabel isLight={isLight}>{props.date?.toFormat('dd-MMM-yyyy')?.toUpperCase() ?? 'No Data'}</DateLabel>
       {props.date ? (
         <DifferenceLabel isLight={isLight}>
@@ -44,10 +45,11 @@ export const CuTableColumnLastModified = (props: Props) => {
   );
 };
 
-const Container = styled.div({
+const Container = styled.div<{ hasLink: boolean }>(({ hasLink }) => ({
   display: 'flex',
   flexDirection: 'column',
   fontFamily: 'Inter, sans-serif',
+  cursor: hasLink ? 'pointer' : 'default',
   '@media (min-width: 375px)': {
     alignItems: 'flex-end',
   },
@@ -57,7 +59,7 @@ const Container = styled.div({
   '@media (min-width: 1194px)': {
     alignItems: 'flex-start',
   },
-});
+}));
 
 const DateLabel = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontWeight: 400,

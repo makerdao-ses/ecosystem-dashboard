@@ -124,6 +124,18 @@ export const useCoreUnitsTableMvvm = () => {
     [filteredCategories, filteredStatuses, router, searchText]
   );
 
+  const onClickLastModified = useCallback(
+    (cu: CoreUnitDto) => {
+      const queryStrings = buildQueryString({
+        filteredStatuses,
+        filteredCategories,
+        searchText,
+      });
+      router.push(`/core-unit/${cu.shortCode}/activity-feed${queryStrings}`);
+    },
+    [filteredCategories, filteredStatuses, router, searchText]
+  );
+
   const columns: CustomTableColumn[] = [
     {
       header: 'Core Unit',
@@ -156,7 +168,7 @@ export const useCoreUnitsTableMvvm = () => {
       header: 'Last Modified',
       justifyContent: 'flex-start',
       cellRender: renderLastModified,
-      onClick: onClickRow,
+      onClick: onClickLastModified,
       width: '122px',
       sortReverse: true,
       hasSort: true,
