@@ -292,17 +292,9 @@ export const getLastMonthWithActualOrForecast = (budgetStatements: BudgetStateme
   return DateTime.now();
 };
 
-export const getLastMonthWithData = (budgetStatements: BudgetStatementDto[]) => {
-  const orderedStatements = _.sortBy(budgetStatements, (bs) => bs.month).reverse();
-
-  for (const bs of orderedStatements) {
-    for (const wallet of bs.budgetStatementWallet) {
-      for (const item of wallet.budgetStatementLineItem.filter((li) => li.month === bs.month)) {
-        if (item.actual) {
-          return DateTime.fromFormat(bs.month, API_MONTH_FROM_FORMAT);
-        }
-      }
-    }
+export const getLastMonthWithData = (cu: CoreUnitDto) => {
+  if (cu.lastActivity?.created_at) {
+    return DateTime.fromISO(cu.lastActivity?.created_at);
   }
 
   return undefined;

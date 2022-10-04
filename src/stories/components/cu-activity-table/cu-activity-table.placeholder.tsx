@@ -7,6 +7,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CustomButton } from '../custom-button/custom-button';
 import { useRouter } from 'next/router';
 import { SUBMIT_EXPENSES_URL } from '../../../config/external-urls';
+import { ButtonType } from '../../../core/enums/button-type.enum';
 
 export const ActivityPlaceholder = () => {
   const isLight = useThemeContext().themeMode === 'light';
@@ -27,9 +28,14 @@ export const ActivityPlaceholder = () => {
         submitted.
       </Description>
       <ButtonsWrapper>
-        <CustomButton onClick={goToAbout} style={{ minWidth: '250px' }} label="Go Back" />
+        <CustomButton
+          onClick={goToAbout}
+          style={{ minWidth: '250px' }}
+          label="Go Back"
+          buttonType={ButtonType.Secondary}
+        />
         <a href={SUBMIT_EXPENSES_URL} target="_blank">
-          <CustomButton style={{ minWidth: '250px' }} label="Submit Expenses Now" isPrimary />
+          <CustomButton style={{ minWidth: '250px' }} label="Submit Expenses Now" buttonType={ButtonType.Primary} />
         </a>
       </ButtonsWrapper>
     </Container>
@@ -68,7 +74,7 @@ const ButtonsWrapper = styled.div({
 });
 
 const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'Inter',
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 500,
   lineHeight: '58px',
   color: isLight ? '#9FAFB9' : '#D1DEE6',
@@ -83,7 +89,7 @@ const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 }));
 
 const Description = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'Inter',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '16px',

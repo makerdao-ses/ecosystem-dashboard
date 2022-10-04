@@ -21,6 +21,7 @@ export interface CustomTableColumn {
   onClick?: (param: any) => void;
   style?: CSSProperties;
   sortReverse?: boolean;
+  hasSort?: boolean;
 }
 
 export interface CustomTableRow {

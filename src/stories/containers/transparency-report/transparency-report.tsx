@@ -110,7 +110,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
             {lastMonthWithData && (
               <LastUpdate>
                 <Since isLight={isLight}>Last Update</Since>
-                <SinceDate>{lastMonthWithData.setZone('UTC').toFormat('dd-LLL-y HH:hh ZZZZ')}</SinceDate>
+                <SinceDate>{lastMonthWithData.setZone('UTC').toFormat('dd-LLL-y HH:mm ZZZZ')}</SinceDate>
               </LastUpdate>
             )}
           </PagerBar>

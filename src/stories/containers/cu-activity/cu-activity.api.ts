@@ -14,7 +14,7 @@ export const GET_CU_ACTIVITY_BY_CODE = gql`
       sentenceDescription
       activityFeed {
         id
-        datetime
+        created_at
         event
         params
         description

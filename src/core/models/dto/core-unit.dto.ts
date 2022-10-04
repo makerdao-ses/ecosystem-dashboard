@@ -123,7 +123,7 @@ export interface SocialMediaChannelDto {
 
 export interface ActivityFeedDto {
   id: string;
-  datetime: string;
+  created_at: string;
   event: string;
   params: {
     coreUnit: {
@@ -132,6 +132,13 @@ export interface ActivityFeedDto {
     };
     month: string;
   };
+  description: string;
+}
+
+export interface LastActivityDto {
+  id: string;
+  created_at: string;
+  event: string;
   description: string;
 }
 
@@ -153,6 +160,7 @@ export interface CoreUnitDto {
   cuMip: CuMipDto[];
   roadMap: RoadMapDto[];
   activityFeed: ActivityFeedDto[];
+  lastActivity?: LastActivityDto;
   socialMediaChannels: SocialMediaChannelDto[];
   budgetStatements: BudgetStatementDto[];
   contributorCommitment: ContributorCommitmentDto[];

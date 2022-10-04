@@ -20,7 +20,7 @@ export default ({ coreUnit, coreUnits }: CUActivityContainerProps) => {
     <Wrapper>
       <SEOHead
         title={`${coreUnit.name} Core Unit | Activity Feed`}
-        description={`Learn about the ${coreUnit.name} Core Unit at MakerDAO: their finances, expense reports, and more.`}
+        description={`Learn about the ${coreUnit.name} Core Unit's activity: updates to Core Unit Expense Reports, FTEs, and more.`}
         image={coreUnit.image || toAbsoluteURL('/assets/img/social-1200x630.png')}
         twitterCard={coreUnit.image ? 'summary' : 'summary_large_image'}
       />

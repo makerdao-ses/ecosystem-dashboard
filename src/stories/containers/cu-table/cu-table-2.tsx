@@ -10,6 +10,7 @@ import { toAbsoluteURL } from '../../../core/utils/url.utils';
 import { useCoreUnitsTableMvvm } from './cu-table-2.mvvm';
 import { CustomTable2, CustomTableRow } from '../../components/custom-table/custom-table-2';
 import { renderCard } from './cu-table.renders';
+import { SortEnum } from '../../../core/enums/sort.enum';
 
 export const CuTable2 = () => {
   const isLight = useThemeContext().themeMode === 'light';
@@ -29,6 +30,8 @@ export const CuTable2 = () => {
     tableItems,
     onSortClick,
     headersSort,
+    applySort,
+    resetSort,
   } = useCoreUnitsTableMvvm();
 
   const siteHeader = useMemo(() => {
@@ -37,49 +40,6 @@ export const CuTable2 = () => {
     }
     return (
       <Header>
-        <Title isLight={isLight}> Core Units</Title>
-        <FilterButtonWrapperMobile>
-          <CustomButton
-            label="Reset Filters"
-            style={{
-              width: '114px',
-              border: 'none',
-              background: 'none',
-            }}
-            styleText={{
-              lineHeight: '18px',
-            }}
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
-            onClick={clearFilters}
-            disabled={!filteredStatuses?.length && !filteredCategories?.length && !searchText}
-          />
-        </FilterButtonWrapperMobile>
-        <FilterButtonWrapper onClick={toggleFiltersPopup}>
-          <CustomButton
-            label={'Filters'}
-            style={{
-              height: '34px',
-              width: '90px',
-              borderColor: isLight
-                ? filteredStatuses.length || filteredCategories.length || searchText
-                  ? '#1AAB9B'
-                  : '#D4D9E1'
-                : filteredStatuses.length || filteredCategories.length || searchText
-                ? '#098C7D'
-                : '#343442',
-            }}
-            styleText={{
-              color: isLight
-                ? filteredStatuses.length || filteredCategories.length || searchText
-                  ? ' #1AAB9B'
-                  : '#231536'
-                : filteredStatuses.length || filteredCategories.length || searchText
-                ? ' #1AAB9B'
-                : '#D2D4EF',
-              lineHeight: '18px',
-            }}
-          />
-        </FilterButtonWrapper>
         <Filters
           filtersPopup={filtersPopup}
           filteredStatuses={filteredStatuses}
@@ -89,6 +49,10 @@ export const CuTable2 = () => {
           searchText={searchText}
           setFiltersPopup={toggleFiltersPopup}
           clearFilters={clearFilters}
+          columns={columns.filter((_, i) => headersSort[i] !== SortEnum.Disabled)}
+          onSortApply={applySort}
+          onSortReset={resetSort}
+          headersSort={headersSort}
         />
       </Header>
     );
@@ -158,42 +122,7 @@ const Wrapper = styled.div({
 });
 
 const Header = styled.div({
-  background: 'none',
   display: 'flex',
-  alignItems: 'center',
   marginBottom: '32px',
   minWidth: '330px',
-  '@media (min-width: 834px) and (max-width: 1194px)': {
-    flexDirection: 'column',
-    gap: '24px',
-    alignItems: 'flex-start',
-  },
-});
-
-const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'Inter, sans-serif',
-  fontSize: '20px',
-  fontWeight: 600,
-  lineHeight: isLight ? '29px' : '38px',
-  letterSpacing: '0.4px',
-  flex: 1,
-  color: isLight ? '#231536' : '#D2D4EF',
-  '@media (min-width: 834px)': {
-    fontSize: '24px',
-    lineHeight: '24px',
-  },
-}));
-
-const FilterButtonWrapper = styled.div({
-  display: 'flex',
-  '@media (min-width: 834px)': {
-    display: 'none',
-  },
-});
-
-const FilterButtonWrapperMobile = styled.div({
-  display: 'flex',
-  '@media (min-width: 834px)': {
-    display: 'none',
-  },
 });

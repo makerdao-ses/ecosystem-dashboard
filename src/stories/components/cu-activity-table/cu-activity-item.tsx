@@ -17,7 +17,7 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
   const router = useRouter();
 
   const dayDiffNow = useMemo(
-    () => Math.abs(Math.ceil(DateTime.fromISO(activity.datetime).diffNow('days').days)),
+    () => Math.abs(Math.ceil(DateTime.fromISO(activity.created_at).diffNow('days').days)),
     [activity]
   );
 
@@ -34,7 +34,7 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
     <ActivityItem isLight={isLight} onClick={goToDetails}>
       <Timestamp>
         <UTCDate isLight={isLight}>
-          {DateTime.fromISO(activity.datetime).setZone('UTC').toFormat('dd-LLL-y HH:hh ZZZZ')}
+          {DateTime.fromISO(activity.created_at).setZone('UTC').toFormat('dd-LLL-y HH:mm ZZZZ')}
         </UTCDate>
         <HumanizedDate isLight={isLight} isNew={isNew}>
           {dayDiffNow === 0 ? 'Today' : `${dayDiffNow} Day${dayDiffNow !== 1 ? 's' : ''} Ago`}
@@ -75,7 +75,7 @@ const ActivityItem = styled.a<{ isLight: boolean; isLoading?: boolean }>(({ isLi
     ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
     : '0px 20px 40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  '@media (min-width: 834px)': {
     ':hover': {
       background: !isLoading ? (isLight ? '#ECF1F3' : '#1E2C37') : isLight ? 'white' : '#10191F',
     },

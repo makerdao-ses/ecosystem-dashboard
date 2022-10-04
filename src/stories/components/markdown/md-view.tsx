@@ -92,7 +92,6 @@ const MdViewerPage = ({
           <CustomButton
             widthText="100%"
             label="Expenses"
-            isHadPopover
             style={{
               textAlign: 'center',
               background: 'transparent',
@@ -105,7 +104,7 @@ const MdViewerPage = ({
               lineHeight: '18px',
               width: 'fit-content',
               padding: '8px 24px',
-              borderColor: isLight ? (open ? '#098C7D' : '#25273D') : !open ? '#1AAB9B' : '#231536',
+              borderColor: isLight ? (open ? '#098C7D' : '#25273D') : !open ? '#1AAB9B' : '#1AAB9B',
             }}
             onClick={handleClick}
             styleText={{
@@ -124,6 +123,7 @@ const MdViewerPage = ({
             sx={{
               '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
                 borderRadius: '6px',
+                backgroundColor: isLight ? 'none' : '#10191F',
                 boxShadow: isLight
                   ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
                   : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
@@ -134,12 +134,13 @@ const MdViewerPage = ({
               onClickActivity={onClickActivity}
               onClickFinances={onClickFinances}
               code={code}
+              buttonWidth="139.5px"
               isTitlePresent={false}
               style={{
                 width: '335px',
               }}
               styleContainer={{
-                height: '190px',
+                minHeight: '190px',
                 overflowY: 'hidden',
               }}
             />
@@ -149,12 +150,13 @@ const MdViewerPage = ({
         <div>
           <CardExpenses
             styleContainer={{
-              height: '190px',
+              minHeight: '190px',
             }}
             onClickActivity={onClickActivity}
             onClickFinances={onClickFinances}
             code={code}
             isTitlePresent={false}
+            buttonWidth="139.5px"
             style={{
               width: '335px',
               float: 'right',
@@ -205,7 +207,7 @@ const TypographyStyleDescription = styled.p<{ isLight: boolean }>(({ isLight }) 
   color: isLight ? '#231536' : ' #D2D4EF',
   margin: '0px',
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-    fontFamily: 'Inter',
+    fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     fontWeight: 700,
     fontSize: '16px',

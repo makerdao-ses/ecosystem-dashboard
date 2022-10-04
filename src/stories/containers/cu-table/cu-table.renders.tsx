@@ -127,7 +127,7 @@ export const renderLastModified = (coreUnit: CoreUnitDto) => {
         height: '50px',
       }}
     >
-      <CuTableColumnLastModified date={getLastMonthWithData(coreUnit.budgetStatements)} />
+      <CuTableColumnLastModified date={getLastMonthWithData(coreUnit)} />
     </div>
   );
 };
