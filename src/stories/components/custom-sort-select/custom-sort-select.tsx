@@ -281,7 +281,6 @@ const ResponsiveButton = styled.div({
   justifySelf: 'flex-end',
   width: '34px',
   height: '34px',
-  border: '1px solid #D4D9E1',
   borderRadius: '50%',
   alignItems: 'center',
   background: '#B6EDE7',

@@ -1,5 +1,4 @@
 import React, { useCallback, useMemo, useRef } from 'react';
-import { CustomButton } from '../../components/custom-button/custom-button';
 import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
 import { stringify } from 'querystring';
 import { useRouter } from 'next/router';
@@ -86,7 +85,7 @@ export const Filters = (props: FilterProps) => {
         {' '}
         Core Units
       </Title>
-      <Container isLight={isLight}>
+      <Container isLight={isLight} filtersVisible={filtersVisible}>
         <ResetFilter filtersVisible={filtersVisible}>
           <ResetButton
             onClick={props.clearFilters}
@@ -114,6 +113,7 @@ export const Filters = (props: FilterProps) => {
               content: <StatusChip status={stat as CuStatusEnum} />,
               count: props.statusCount[stat],
             }))}
+            responsiveWidth={118}
             maxWidth={100}
             onChange={(value: string[]) => {
               handleChangeUrlFilterArrays('filteredStatuses')(value);
@@ -129,6 +129,7 @@ export const Filters = (props: FilterProps) => {
               content: <CategoryChip category={'All'} />,
               count: props.categoriesCount.All,
             }}
+            responsiveWidth={159}
             items={categories.map((cat) => ({
               id: cat,
               content: <CategoryChip category={cat as CuCategoryEnum} />,
@@ -185,27 +186,29 @@ const Wrapper = styled.div({
   alignItems: 'center',
 });
 
-const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const Container = styled.div<{ isLight: boolean; filtersVisible: boolean }>(({ isLight, filtersVisible }) => ({
   display: 'grid',
   backgroundColor: isLight ? 'white' : 'none',
-  gridTemplateColumns: 'auto',
+  gridTemplateColumns: filtersVisible ? '118px calc(100% - 230px) 34px 34px' : 'auto auto 34px 34px',
   gridTemplateRows: 'auto',
   gap: '16px',
   flex: 1,
   alignItems: 'center',
+  placeItems: 'center',
   gridTemplateAreas: `
     "search search buttonFilter sort"
     "status category category resetFilter"
   `,
   '@media (min-width: 834px)': {
+    gridTemplateColumns: 'auto',
     gridTemplateAreas: `
-    ". search search search search"
-    "resetFilter status category separator sort"
+      ". search search search search"
+      "resetFilter status category separator sort"
   `,
   },
   '@media (min-width: 1194px)': {
     gridTemplateAreas: `
-    "resetFilter status category separator search" 
+      "resetFilter status category separator search" 
   `,
   },
 }));
@@ -234,15 +237,18 @@ const Sort = styled.div({
 const Search = styled.div<{ filtersVisible: boolean }>(({ filtersVisible }) => ({
   display: filtersVisible ? 'flex' : 'none',
   gridArea: 'search',
-  justifySelf: 'flex-end',
+  justifySelf: 'stretch',
   '@media (min-width: 834px)': {
     display: 'flex',
+    justifySelf: 'flex-end',
   },
 }));
 
 const Status = styled.div<{ filtersVisible: boolean }>(({ filtersVisible }) => ({
   display: filtersVisible ? 'flex' : 'none',
   gridArea: 'status',
+  placeItems: 'flex-start',
+  justifyContent: 'flex-start',
   '@media (min-width: 834px)': {
     display: 'flex',
   },
@@ -251,6 +257,9 @@ const Status = styled.div<{ filtersVisible: boolean }>(({ filtersVisible }) => (
 const Category = styled.div<{ filtersVisible: boolean }>(({ filtersVisible }) => ({
   display: filtersVisible ? 'flex' : 'none',
   gridArea: 'category',
+  placeItems: 'flex-start',
+  justifyContent: 'flex-start',
+  width: '100%',
   '@media (min-width: 834px)': {
     display: 'flex',
   },
@@ -270,11 +279,12 @@ const ButtonFilter = styled.div<{ isActive: boolean }>(({ isActive }) => ({
   justifySelf: 'flex-end',
   width: '34px',
   height: '34px',
-  border: '1px solid #D4D9E1',
+  border: !isActive ? '1px solid #D4D9E1' : '',
   borderRadius: '50%',
   alignItems: 'center',
   background: isActive ? '#B6EDE7' : 'white',
   justifyContent: 'center',
+  boxSizing: 'border-box',
   '@media (min-width: 834px)': {
     display: 'none',
   },
