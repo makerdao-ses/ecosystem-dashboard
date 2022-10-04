@@ -33,8 +33,8 @@ export const CustomSortSelect = (props: Props) => {
   const [activeItem, setActiveItem] = useState(props.activeItem);
   const [sortStatus, setSortStatus] = useState(props.sortStatus);
 
-  const onClick = (id: number) => {
-    setActiveItem(id);
+  const onClick = (index: number) => {
+    setActiveItem(index);
   };
 
   const onSortClick = (sort: SortEnum) => {
@@ -222,7 +222,6 @@ const PopupContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   top: '50px',
   right: 0,
   position: 'absolute',
-  backgroundColor: !isLight ? 'transparent' : 'none',
   '::-webkit-scrollbar': {
     opacity: !isLight ? 0 : 'none',
     width: !isLight ? 0 : 'none',
@@ -264,13 +263,13 @@ const SortItemOrder = styled.div<{ isActive: boolean; isLight: boolean }>(({ isA
   width: '100%',
   background: isActive ? '#EDEFFF' : 'unset',
   '&:hover': {
-    background: isLight ? (isActive ? '#EDEFFF' : '#F6F8F9') : '#25273D',
+    background: isLight ? (isActive ? '#EDEFFF' : '#F6F8F9') : isActive ? '#EDEFFF' : '#25273D',
   },
   span: {
-    fontSize: '16px',
+    fontSize: '12px',
     fontWeight: 600,
     lineHeight: '22px',
-    color: isActive ? '#231536' : '#708390',
+    color: isActive ? '#231536' : isLight ? '#708390' : 'white',
     textTransform: 'uppercase',
   },
 }));
