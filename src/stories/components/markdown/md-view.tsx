@@ -140,7 +140,7 @@ const MdViewerPage = ({
                 width: '335px',
               }}
               styleContainer={{
-                height: '190px',
+                minHeight: '190px',
                 overflowY: 'hidden',
               }}
             />
@@ -150,7 +150,7 @@ const MdViewerPage = ({
         <div>
           <CardExpenses
             styleContainer={{
-              height: '190px',
+              minHeight: '190px',
             }}
             onClickActivity={onClickActivity}
             onClickFinances={onClickFinances}
