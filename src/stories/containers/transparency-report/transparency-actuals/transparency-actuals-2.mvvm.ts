@@ -311,7 +311,7 @@ export const useTransparencyActualsMvvm2 = (
       type: 'text',
       hidden: !hasGroups,
       isCardHeader: true,
-      width: '280px',
+      width: '240px',
     },
     {
       header: 'Budget Category',

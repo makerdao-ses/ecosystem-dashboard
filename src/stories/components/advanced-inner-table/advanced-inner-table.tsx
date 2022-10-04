@@ -6,6 +6,8 @@ import { TextCell } from '../text-cell/text-cell';
 import { TransparencyCard } from '../transparency-card/transparency-card';
 import { TransparencyEmptyTable } from '../../containers/transparency-report/placeholders/transparency-empty-table';
 import { Title } from '../../containers/transparency-report/transparency-report';
+import lightTheme from '../../../../styles/theme/light';
+import { useMediaQuery } from '@mui/material';
 
 export interface InnerTableColumn {
   align?: string;
@@ -45,6 +47,7 @@ interface Props {
 type Alignment = 'left' | 'center' | 'right';
 
 export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: Props) => {
+  const upTable = useMediaQuery(lightTheme.breakpoints.up(834));
   const isLight = useThemeContext().themeMode === 'light';
   const getCell = (column: InnerTableColumn, rowType: RowType, value: unknown) => {
     if (value !== 0 && !value) {
@@ -112,7 +115,11 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
                   {row.items
                     ?.filter((x) => !x.column.hidden)
                     .map((item, j) => (
-                      <TableCell key={`${i}-${j}`} textAlign={(item.column?.align ?? 'left') as Alignment}>
+                      <TableCell
+                        colSpan={row.type === 'section' && upTable ? 2 : 0}
+                        key={`${i}-${j}`}
+                        textAlign={(item.column?.align ?? 'left') as Alignment}
+                      >
                         {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                         {getCell(item.column, row.type, item.value as any)}
                       </TableCell>
