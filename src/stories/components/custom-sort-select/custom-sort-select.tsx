@@ -208,6 +208,7 @@ const IconWrapper = styled.div({
   position: 'absolute',
   right: '19px',
   marginTop: '-4px',
+  top: '14px',
 });
 
 const PopupContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({

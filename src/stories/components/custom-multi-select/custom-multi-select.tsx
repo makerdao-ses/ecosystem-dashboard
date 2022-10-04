@@ -21,7 +21,7 @@ interface CustomMultiSelectProps {
   onChange?: (items: string[]) => void;
   style?: CSSProperties;
   activeItems: string[];
-  responsiveWidth?: number;
+  width?: number;
 }
 
 export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }: CustomMultiSelectProps) => {
@@ -68,7 +68,7 @@ export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }
         onMouseOver={() => setHover(true)}
         onMouseOut={() => setHover(false)}
         onClick={toggleVisible}
-        responsiveWidth={props.responsiveWidth}
+        width={props.width}
       >
         <Label active={activeItems.length > 0} isLight={isLight} hover={hover}>
           {props.label} {activeItems.length > 0 ? `${activeItems.length}` : ''}
@@ -140,8 +140,8 @@ const SelectContainer = styled.div<{
   focus: boolean;
   active: boolean;
   isLight: boolean;
-  responsiveWidth?: number;
-}>(({ active, focus, isLight, responsiveWidth }) => ({
+  width?: number;
+}>(({ active, focus, isLight, width }) => ({
   display: 'flex',
   position: 'relative',
   alignItems: 'center',
@@ -159,7 +159,7 @@ const SelectContainer = styled.div<{
       : '1px solid #343442',
   borderRadius: '22px',
   height: '34px',
-  width: responsiveWidth ? `${responsiveWidth}px` : 'fit-content',
+  width: width ? `${width}px` : 'fit-content',
   padding: '15px 40px 15px 15px',
   boxSizing: 'border-box',
   cursor: 'pointer',
@@ -177,7 +177,6 @@ const SelectContainer = styled.div<{
   },
   '@media (min-width: 834px)': {
     height: '48px',
-    width: 'fit-content',
     padding: '15px 40px 15px 15px',
   },
 }));
