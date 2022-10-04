@@ -205,6 +205,8 @@ const ResponsiveList = styled.ul({
       marginBottom: '2em',
     },
   },
+  marginTop: '1em',
+  marginBottom: '0px',
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     fontSize: '14px',
     lineHeight: '17px',
