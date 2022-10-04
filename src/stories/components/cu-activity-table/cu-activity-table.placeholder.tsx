@@ -7,6 +7,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CustomButton } from '../custom-button/custom-button';
 import { useRouter } from 'next/router';
 import { SUBMIT_EXPENSES_URL } from '../../../config/external-urls';
+import { ButtonType } from '../../../core/enums/button-type.enum';
 
 export const ActivityPlaceholder = () => {
   const isLight = useThemeContext().themeMode === 'light';
@@ -27,9 +28,14 @@ export const ActivityPlaceholder = () => {
         submitted.
       </Description>
       <ButtonsWrapper>
-        <CustomButton onClick={goToAbout} style={{ minWidth: '250px' }} label="Go Back" />
+        <CustomButton
+          onClick={goToAbout}
+          style={{ minWidth: '250px' }}
+          label="Go Back"
+          buttonType={ButtonType.Secondary}
+        />
         <a href={SUBMIT_EXPENSES_URL} target="_blank">
-          <CustomButton style={{ minWidth: '250px' }} label="Submit Expenses Now" isPrimary />
+          <CustomButton style={{ minWidth: '250px' }} label="Submit Expenses Now" buttonType={ButtonType.Primary} />
         </a>
       </ButtonsWrapper>
     </Container>
