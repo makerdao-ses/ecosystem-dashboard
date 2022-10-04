@@ -50,12 +50,13 @@ const NewChangesDivider = ({ isLight, count }: { isLight: boolean; count: number
 export default function ActivityTable({ coreUnit, columns, sortClick }: Props) {
   const isLight = useThemeContext().themeMode === 'light';
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
-  const [showElements, setShowElements] = useState(isMobile ? 5 : 10);
+  const initialElements = useMemo(() => (isMobile ? 5 : 10), [isMobile]);
+  const [showAllElements, setShowElements] = useState(false);
   const [noVisitedCount, setNoVisitedCount] = useState(0);
   const [extendedActivity, setExtendedActivity] = useState<ExtendedActivityDto[]>(coreUnit.activityFeed);
 
   const handleSeePrevious = () => {
-    setShowElements(coreUnit.activityFeed.length);
+    setShowElements(true);
   };
 
   useEffect(() => {
@@ -128,30 +129,36 @@ export default function ActivityTable({ coreUnit, columns, sortClick }: Props) {
       </TableHeader>
 
       <div>
-        {sortedActivities?.slice(0, showElements)?.map((update, index) => (
-          <div key={`table-item-${update.id}`}>
-            <CUActivityItem activity={update} isNew={!!update.isNew} />
-            {noVisitedCount > 0 &&
-              ((columns[0].sort === SortEnum.Desc && noVisitedCount === index + 1) ||
-                (columns[0].sort === SortEnum.Asc && coreUnit.activityFeed.length - noVisitedCount === index + 1)) &&
-              !(showElements - 1 === index) && (
-                <DisplayOnTabletUp>
-                  <NewChangesDivider isLight={isLight} count={noVisitedCount} />
-                </DisplayOnTabletUp>
-              )}
-          </div>
-        ))}
+        {sortedActivities
+          ?.slice(0, showAllElements ? sortedActivities.length : initialElements)
+          ?.map((update, index) => (
+            <div key={`table-item-${update.id}`}>
+              <CUActivityItem activity={update} isNew={!!update.isNew} />
+              {noVisitedCount > 0 &&
+                ((columns[0].sort === SortEnum.Desc && noVisitedCount === index + 1) ||
+                  (columns[0].sort === SortEnum.Asc && coreUnit.activityFeed.length - noVisitedCount === index + 1)) &&
+                !(showAllElements ? sortedActivities.length : initialElements - 1 === index) && (
+                  <DisplayOnTabletUp>
+                    <NewChangesDivider isLight={isLight} count={noVisitedCount} />
+                  </DisplayOnTabletUp>
+                )}
+            </div>
+          ))}
       </div>
 
-      {showElements < coreUnit.activityFeed.length && (
+      {!showAllElements && (
         <ButtonContainer>
           <DividerPreviousStyle
             sx={{
               bgcolor: isLight ? '#D4D9E1' : '#405361',
             }}
           />
-          <StyledBigButton isLight={isLight} title={'See Previous Activity'} onClick={handleSeePrevious}>
-            See Previous Activity
+          <StyledBigButton
+            isLight={isLight}
+            title={`See ${columns[0].sort === SortEnum.Desc ? 'Previous' : 'Recent'} Activity`}
+            onClick={handleSeePrevious}
+          >
+            See {columns[0].sort === SortEnum.Desc ? 'Previous' : 'Recent'} Activity
           </StyledBigButton>
           <DividerPreviousStyle
             sx={{
