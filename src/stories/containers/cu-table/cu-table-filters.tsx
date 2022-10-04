@@ -114,7 +114,6 @@ export const Filters = (props: FilterProps) => {
               count: props.statusCount[stat],
             }))}
             responsiveWidth={118}
-            maxWidth={100}
             onChange={(value: string[]) => {
               handleChangeUrlFilterArrays('filteredStatuses')(value);
             }}
@@ -135,7 +134,6 @@ export const Filters = (props: FilterProps) => {
               content: <CategoryChip category={cat as CuCategoryEnum} />,
               count: props.categoriesCount[cat],
             }))}
-            maxWidth={143}
             onChange={(value: string[]) => {
               handleChangeUrlFilterArrays('filteredCategories')(value);
             }}

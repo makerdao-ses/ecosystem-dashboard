@@ -21,7 +21,6 @@ interface CustomMultiSelectProps {
   onChange?: (items: string[]) => void;
   style?: CSSProperties;
   activeItems: string[];
-  maxWidth?: number;
   responsiveWidth?: number;
 }
 
@@ -68,7 +67,6 @@ export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }
         className="no-select"
         onMouseOver={() => setHover(true)}
         onMouseOut={() => setHover(false)}
-        maxWidth={props.maxWidth}
         onClick={toggleVisible}
         responsiveWidth={props.responsiveWidth}
       >
@@ -142,9 +140,8 @@ const SelectContainer = styled.div<{
   focus: boolean;
   active: boolean;
   isLight: boolean;
-  maxWidth?: number;
   responsiveWidth?: number;
-}>(({ active, focus, isLight, maxWidth, responsiveWidth }) => ({
+}>(({ active, focus, isLight, responsiveWidth }) => ({
   display: 'flex',
   position: 'relative',
   alignItems: 'center',
@@ -182,7 +179,6 @@ const SelectContainer = styled.div<{
     height: '48px',
     width: 'fit-content',
     padding: '15px 40px 15px 15px',
-    maxWidth: maxWidth ? `${maxWidth}px` : 'none',
   },
 }));
 
