@@ -194,11 +194,7 @@ export const useCoreUnitsTableMvvm = () => {
     const teamMembersSort = (a: CoreUnitDto, b: CoreUnitDto) =>
       (getFTEsFromCoreUnit(a) - getFTEsFromCoreUnit(b)) * multiplier;
     const lastModifiedSort = (a: CoreUnitDto, b: CoreUnitDto) => {
-      return (
-        ((getLastMonthWithData(a.budgetStatements)?.toMillis() ?? 0) -
-          (getLastMonthWithData(b.budgetStatements)?.toMillis() ?? 0)) *
-        multiplier
-      );
+      return ((getLastMonthWithData(a)?.toMillis() ?? 0) - (getLastMonthWithData(b)?.toMillis() ?? 0)) * multiplier;
     };
     const sortAlg = [nameSort, expendituresSort, teamMembersSort, lastModifiedSort, () => 0];
     return [...items].sort(sortAlg[sortColumn]);

@@ -31,6 +31,7 @@ export const initialState: CurrentCoreUnitAbout = {
     code: '',
     name: '',
     image: '',
+    lastActivity: undefined,
     paragraphDescription: '',
     paragraphImage: '',
     sentenceDescription: '',

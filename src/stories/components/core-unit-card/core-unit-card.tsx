@@ -114,7 +114,7 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
           <Link href={`/core-unit/${coreUnit.shortCode}/activity-feed${queryStrings}`}>
             <LastModified>
               <Title style={{ marginBottom: '16px' }}>Last Modified</Title>
-              <CuTableColumnLastModified date={getLastMonthWithData(coreUnit.budgetStatements)} isLoading={isLoading} />
+              <CuTableColumnLastModified date={getLastMonthWithData(coreUnit)} isLoading={isLoading} />
             </LastModified>
           </Link>
           <Line isLight={isLight} />

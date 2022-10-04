@@ -48,6 +48,13 @@ export const CORE_UNIT_REQUEST = (shortCode: string) => ({
             comments
           }
         }
+        lastActivity {
+          id
+          created_at
+          event
+          params
+          description
+        }
       }
     }
   `,
