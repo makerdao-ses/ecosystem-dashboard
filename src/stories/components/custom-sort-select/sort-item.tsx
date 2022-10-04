@@ -38,6 +38,6 @@ const Container = styled.div<{ isLight: boolean; isActive: boolean }>(({ isLight
     fontWeight: 400,
   },
   '&:hover': {
-    background: isLight ? (isActive ? '#EDEFFF' : '#F6F8F9') : '#EDEFFF',
+    background: isLight ? (isActive ? '#EDEFFF' : '#F6F8F9') : isActive ? '#EDEFFF' : '#25273D',
   },
 }));
