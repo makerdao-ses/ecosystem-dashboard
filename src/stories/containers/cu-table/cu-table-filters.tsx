@@ -29,8 +29,8 @@ interface FilterProps {
   handleCloseSearch?: () => void;
   columns: CustomTableColumn[];
   headersSort: SortEnum[];
-  onSortApply: (index: number, sort: SortEnum) => void;
-  onSortReset: () => void;
+  onSortApply?: (index: number, sort: SortEnum) => void;
+  onSortReset?: () => void;
 }
 
 const statuses = Object.values(CuStatusEnum) as string[];
