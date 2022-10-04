@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import Magnifier from '../svg/magnifier';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { Close } from '../svg/close';
+import { useMediaQuery } from '@mui/material';
 interface SearchInputProps {
   value?: string;
   defaultValue?: string;
@@ -19,24 +20,13 @@ export const SearchInput = (props: SearchInputProps) => {
     props.onChange && props.onChange(event.target.value);
   };
 
+  const isDesktop = useMediaQuery('(min-width: 834px)');
+
   const [focus, setFocus] = useState(false);
 
   return (
     <Container style={props.style}>
       <InputWrapper>
-        <IconWrapper>
-          {focus || !!props.defaultValue ? (
-            <Close
-              onClick={props.handleCloseSearch}
-              width={10}
-              height={10}
-              fill="#25273D"
-              fillDark="rgb(237, 239, 255)"
-            />
-          ) : (
-            <Magnifier fill={isLight ? '#25273D' : '#ADAFD4'} width={16} height={16} />
-          )}
-        </IconWrapper>
         <Input
           ref={props.inputRef}
           isLight={isLight}
@@ -59,7 +49,11 @@ export const SearchInput = (props: SearchInputProps) => {
               fillDark="rgb(237, 239, 255)"
             />
           ) : (
-            <Magnifier fill={isLight ? '#25273D' : '#ADAFD4'} width={16} height={16} />
+            <Magnifier
+              fill={isLight ? '#25273D' : '#ADAFD4'}
+              width={isDesktop ? 16 : 10}
+              height={isDesktop ? 16 : 10}
+            />
           )}
         </IconWrapper>
       </InputWrapper>
@@ -85,8 +79,8 @@ const Input = styled.input<{ focus: boolean; isLight: boolean }>(({ focus, isLig
   flex: 1,
   color: isLight ? '#25273D' : '#FFFFFF',
   outline: 'none',
-  width: '320px',
-  height: '48px',
+  width: 'min(243px, calc(100vw - 100px))',
+  height: '34px',
   border:
     isLight && focus
       ? '1px solid #231536'
@@ -102,6 +96,11 @@ const Input = styled.input<{ focus: boolean; isLight: boolean }>(({ focus, isLig
   backgroundColor: isLight ? '#FFFFFF' : '#10191F',
   '&::placeholder': {
     color: isLight ? '#B0BCC0' : '#D2D4EF',
+  },
+  '@media (min-width: 834px)': {
+    width: '320px',
+    height: '48px',
+    fontSize: '14px',
   },
 }));
 

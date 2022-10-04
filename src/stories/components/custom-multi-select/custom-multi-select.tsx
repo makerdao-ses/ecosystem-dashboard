@@ -22,6 +22,7 @@ interface CustomMultiSelectProps {
   style?: CSSProperties;
   activeItems: string[];
   maxWidth?: number;
+  responsiveWidth?: number;
 }
 
 export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }: CustomMultiSelectProps) => {
@@ -67,10 +68,9 @@ export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }
         className="no-select"
         onMouseOver={() => setHover(true)}
         onMouseOut={() => setHover(false)}
-        style={{
-          maxWidth: props.maxWidth && !activeItems.length ? `${props.maxWidth}px` : 'unset',
-        }}
+        maxWidth={props.maxWidth}
         onClick={toggleVisible}
+        responsiveWidth={props.responsiveWidth}
       >
         <Label active={activeItems.length > 0} isLight={isLight} hover={hover}>
           {props.label} {activeItems.length > 0 ? `${activeItems.length}` : ''}
@@ -134,6 +134,7 @@ const SelectWrapper = styled.div({
   zIndex: 2,
   '@media (min-width: 834px)': {
     alignItems: 'flex-start',
+    width: 'fit-content',
   },
 });
 
@@ -141,7 +142,9 @@ const SelectContainer = styled.div<{
   focus: boolean;
   active: boolean;
   isLight: boolean;
-}>(({ active, focus, isLight }) => ({
+  maxWidth?: number;
+  responsiveWidth?: number;
+}>(({ active, focus, isLight, maxWidth, responsiveWidth }) => ({
   display: 'flex',
   position: 'relative',
   alignItems: 'center',
@@ -158,8 +161,8 @@ const SelectContainer = styled.div<{
       ? '1px solid#D4D9E1'
       : '1px solid #343442',
   borderRadius: '22px',
-  height: '48px',
-  width: 'fit-content',
+  height: '34px',
+  width: responsiveWidth ? `${responsiveWidth}px` : 'fit-content',
   padding: '15px 40px 15px 15px',
   boxSizing: 'border-box',
   cursor: 'pointer',
@@ -174,6 +177,12 @@ const SelectContainer = styled.div<{
       ? '1px solid #098C7D'
       : '1px solid #787A9B',
     background: isLight ? (active ? '#E7FCFA' : 'none') : active ? '#003C40' : '#10191F',
+  },
+  '@media (min-width: 834px)': {
+    height: '48px',
+    width: 'fit-content',
+    padding: '15px 40px 15px 15px',
+    maxWidth: maxWidth ? `${maxWidth}px` : 'none',
   },
 }));
 
@@ -219,15 +228,14 @@ const PopupContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   background: isLight ? 'white' : '#000A13',
   height: 'fit-content',
   padding: '16px 0 16px 16px',
-  '@media (min-width: 834px)': {
-    boxShadow: isLight ? '0px 20px 40px #dbe3ed66, 0px 1px 3px #bebebe40' : 'none',
-    position: 'absolute',
-    top: '50px',
-    zIndex: 3,
-    '::-webkit-scrollbar': {
-      opacity: !isLight ? 0 : 'none',
-      width: !isLight ? 0 : 'none',
-      backgroundColor: !isLight ? 'transparent' : 'none',
-    },
+  boxShadow: isLight ? '0px 20px 40px #dbe3ed66, 0px 1px 3px #bebebe40' : 'none',
+  position: 'absolute',
+  top: '50px',
+  left: '0',
+  zIndex: 3,
+  '::-webkit-scrollbar': {
+    opacity: !isLight ? 0 : 'none',
+    width: !isLight ? 0 : 'none',
+    backgroundColor: !isLight ? 'transparent' : 'none',
   },
 }));

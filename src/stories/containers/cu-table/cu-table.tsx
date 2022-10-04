@@ -318,6 +318,8 @@ export const CuTable = () => {
           searchText={searchText}
           setFiltersPopup={toggleFiltersPopup}
           clearFilters={clearFilters}
+          columns={[]}
+          headersSort={[]}
         />
       </Header>
     );
