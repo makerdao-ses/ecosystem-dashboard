@@ -51,7 +51,7 @@ export const CustomSortSelect = (props: Props) => {
 
   return (
     <SelectWrapper ref={refOutsideClick} style={props.style}>
-      <ResponsiveButton onClick={toggleVisible}>
+      <ResponsiveButton isOpen={popupVisible} isLight={isLight} onClick={toggleVisible}>
         <Triangles fill="#1AAB9B" />
       </ResponsiveButton>
       <SelectContainer
@@ -275,7 +275,7 @@ const SortItemOrder = styled.div<{ isActive: boolean; isLight: boolean }>(({ isA
   },
 }));
 
-const ResponsiveButton = styled.div({
+const ResponsiveButton = styled.div<{ isLight: boolean; isOpen: boolean }>(({ isLight, isOpen }) => ({
   display: 'flex',
   gridArea: 'buttonFilter',
   justifySelf: 'flex-end',
@@ -283,9 +283,10 @@ const ResponsiveButton = styled.div({
   height: '34px',
   borderRadius: '50%',
   alignItems: 'center',
-  background: '#B6EDE7',
+  background: isLight ? (isOpen ? '#B6EDE7' : 'transparent') : isOpen ? '#003C40' : 'transparent',
   justifyContent: 'center',
+  border: isLight ? '1px solid transparent' : '1px solid #098C7D',
   '@media (min-width: 834px)': {
     display: 'none',
   },
-});
+}));
