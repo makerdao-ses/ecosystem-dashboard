@@ -34,10 +34,10 @@ const Container = styled.div<{ isLight: boolean; isActive: boolean }>(({ isLight
   span: {
     fontSize: '16px',
     lineHeight: '22px',
-    color: '#231536',
-    fontWeight: 600,
+    color: isLight ? '#231536' : isActive ? '#231536' : 'white',
+    fontWeight: 400,
   },
   '&:hover': {
-    background: isLight ? (isActive ? '#EDEFFF' : '#F6F8F9') : '#25273D',
+    background: isLight ? (isActive ? '#EDEFFF' : '#F6F8F9') : '#EDEFFF',
   },
 }));
