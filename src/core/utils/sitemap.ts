@@ -22,6 +22,7 @@ export class SitemapBuilder {
     const cuRoutes: string[] = [];
     cuRoutes.push(this.getXMLForRoute(`${BASE_URL}/core-unit/${cu.shortCode}`));
     cuRoutes.push(this.getXMLForRoute(`${BASE_URL}/core-unit/${cu.shortCode}/finances/reports`));
+    cuRoutes.push(this.getXMLForRoute(`${BASE_URL}/core-unit/${cu.shortCode}/activity-feed`));
 
     return cuRoutes;
   }
