@@ -66,8 +66,10 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
             bold={isBold}
             style={{
               borderBottom: isLight
-                ? rowType === 'subTotal'
-                  ? '1px solid #D4D9E1'
+                ? !upTable
+                  ? rowType === 'subTotal'
+                    ? '1px solid #D4D9E1'
+                    : 'none'
                   : 'none'
                 : rowType === 'subTotal'
                 ? '1px solid #405361'
@@ -90,8 +92,10 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
         bold={isBold}
         style={{
           borderBottom: isLight
-            ? rowType === 'subTotal'
-              ? '1px solid #D4D9E1'
+            ? !upTable
+              ? rowType === 'subTotal'
+                ? '1px solid #D4D9E1'
+                : 'none'
               : 'none'
             : rowType === 'subTotal'
             ? '1px solid #405361'
