@@ -185,7 +185,12 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
           )}
           {tabsIndex === 4 && <TransparencyAudit budgetStatement={currentBudgetStatement} />}
           {tabsIndex === 5 && isEnabled('FEATURE_TRANSPARENCY_COMMENTS') && (
-            <TransparencyComments numberComments={numbersComments} comments={comments} code={code} />
+            <TransparencyComments
+              numberComments={numbersComments}
+              comments={comments}
+              code={code}
+              currentMonth={currentMonth}
+            />
           )}
         </InnerPage>
       </Container>

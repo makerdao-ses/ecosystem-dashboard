@@ -7,14 +7,14 @@ import CommentItem from './comment-item';
 
 interface Props {
   comments: CuCommentDto[];
-  actualDate: Date;
+  actualDate: DateTime;
   code: string;
 }
 export const ListItemsComments = ({ comments, actualDate, code }: Props) => {
   return (
     <Container>
       <ContainerSummaryDate>
-        <ActualDate>{`${DateTime.fromJSDate(actualDate).toFormat('d-MMM-y')}`}</ActualDate>
+        <ActualDate>{`${actualDate.toFormat('d-MMM-y')}`}</ActualDate>
 
         <Comments />
 

@@ -332,7 +332,10 @@ export const getMipUrlFromCoreUnit = (cu: CoreUnitDto) => {
 };
 
 export const getNumberComments = (cu: CoreUnitDto) => {
+  // const currentMonth = DateTime.now().startOf('month').toISODate();
+  const currentMonth = DateTime.fromISO('2022-08-01').toFormat(API_MONTH_FROM_FORMAT);
   let totalComments = 0;
+  let actualMonthComments = 0;
   if (!cu) return totalComments;
   if (cu.budgetStatements.length === 0) return totalComments;
   cu.budgetStatements?.forEach((budgetStatement: BudgetStatementDto) => {
@@ -340,6 +343,11 @@ export const getNumberComments = (cu: CoreUnitDto) => {
       statementWallet?.budgetStatementLineItem?.forEach((budgetStatementLine: BudgetStatementLineItemDto) => {
         if (typeof budgetStatementLine.comments !== 'object' && budgetStatementLine?.comments !== '') {
           totalComments += 1;
+          //  .filter((item) => item.month === currentMonth && item.comments !== undefined)
+          if (budgetStatementLine.month === currentMonth && budgetStatementLine.comments !== undefined) {
+            actualMonthComments += 1;
+            console.log('actualMonthComments', actualMonthComments);
+          }
         }
       });
     });
