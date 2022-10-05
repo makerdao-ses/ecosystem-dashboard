@@ -61,7 +61,19 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
         return <NumberCell key={column.header} value={Number(value)} bold={isBold} />;
       case 'text':
         return (
-          <TextCell key={column.header} bold={isBold}>
+          <TextCell
+            key={column.header}
+            bold={isBold}
+            style={{
+              borderBottom: isLight
+                ? rowType === 'subTotal'
+                  ? '1px solid #D4D9E1'
+                  : 'none'
+                : rowType === 'subTotal'
+                ? '1px solid #405361'
+                : 'none',
+            }}
+          >
             {value as string}
           </TextCell>
         );
@@ -73,7 +85,19 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
     }
 
     return (
-      <TextCell key={column.header} bold={isBold}>
+      <TextCell
+        key={column.header}
+        bold={isBold}
+        style={{
+          borderBottom: isLight
+            ? rowType === 'subTotal'
+              ? '1px solid #D4D9E1'
+              : 'none'
+            : rowType === 'subTotal'
+            ? '1px solid #405361'
+            : 'none',
+        }}
+      >
         {value as string}
       </TextCell>
     );
