@@ -27,7 +27,7 @@ export interface InnerTableCell {
   value: unknown;
 }
 
-export type RowType = 'normal' | 'total' | 'section';
+export type RowType = 'normal' | 'total' | 'section' | 'subTotal';
 
 export interface InnerTableRow {
   type: RowType;
@@ -53,7 +53,7 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
     if (value !== 0 && !value) {
       return <></>;
     }
-    const isBold = rowType === 'total' || rowType === 'section';
+    const isBold = rowType === 'total' || rowType === 'section' || rowType === 'subTotal';
     const columnType = rowType === 'total' && column?.type === 'custom' ? 'text' : column?.type;
 
     switch (columnType) {
@@ -116,6 +116,15 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
                     ?.filter((x) => !x.column.hidden)
                     .map((item, j) => (
                       <TableCell
+                        style={{
+                          borderBottom: isLight
+                            ? row.type === 'subTotal'
+                              ? '1px solid #D4D9E1'
+                              : 'none'
+                            : row.type === 'subTotal'
+                            ? '1px solid #405361'
+                            : 'none',
+                        }}
                         colSpan={row.type === 'section' && upTable ? 2 : 0}
                         key={`${i}-${j}`}
                         textAlign={(item.column?.align ?? 'left') as Alignment}
