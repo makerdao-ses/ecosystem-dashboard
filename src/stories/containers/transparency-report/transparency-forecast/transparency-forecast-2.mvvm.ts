@@ -9,7 +9,11 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { capitalizeSentence } from '../../../../core/utils/string.utils';
 import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
 import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
-import { InnerTableColumn, InnerTableRow } from '../../../components/advanced-inner-table/advanced-inner-table';
+import {
+  InnerTableColumn,
+  InnerTableRow,
+  RowType,
+} from '../../../components/advanced-inner-table/advanced-inner-table';
 import { renderLinks, renderWallet } from '../transparency-report.utils';
 
 export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetStatements: BudgetStatementDto[]) => {
@@ -485,7 +489,7 @@ export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetS
     return result;
   }, [currentMonth, propBudgetStatements, hasGroups]);
 
-  const getBreakdownItemsForGroup = (grouped: { [id: string]: BudgetStatementLineItemDto[] }) => {
+  const getBreakdownItemsForGroup = (grouped: { [id: string]: BudgetStatementLineItemDto[] }, type?: RowType) => {
     const result: InnerTableRow[] = [];
     const subTotal = {
       0: 'Sub-Total',
@@ -594,7 +598,7 @@ export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetS
     }
 
     result.push({
-      type: 'normal',
+      type: type || 'normal',
       items: [
         {
           column: breakdownHeaders[0],
@@ -671,7 +675,7 @@ export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetS
       (item) => item.group
     );
 
-    result.push(...getBreakdownItemsForGroup(groupedHeadCount));
+    result.push(...getBreakdownItemsForGroup(groupedHeadCount, 'total'));
 
     result.push({
       type: 'section',
@@ -692,7 +696,7 @@ export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetS
       (item) => item.group
     );
 
-    result.push(...getBreakdownItemsForGroup(groupedNonHeadCount));
+    result.push(...getBreakdownItemsForGroup(groupedNonHeadCount, 'total'));
 
     if (result.length <= 4) {
       return [];
