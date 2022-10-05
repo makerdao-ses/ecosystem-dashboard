@@ -42,7 +42,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
     hasNextMonth,
     currentBudgetStatement,
     tabsIndex,
-    lastMonthWithData,
+    lastUpdateForBudgetStatement,
     numbersComments,
     longCode,
   } = useTransparencyReportViewModel(coreUnit);
@@ -106,10 +106,10 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
               )}
             </PagerBarLeft>
             <Spacer />
-            {lastMonthWithData && (
+            {lastUpdateForBudgetStatement && (
               <LastUpdate>
                 <Since isLight={isLight}>Last Update</Since>
-                <SinceDate>{lastMonthWithData.setZone('UTC').toFormat('dd-LLL-y HH:mm ZZZZ')}</SinceDate>
+                <SinceDate>{lastUpdateForBudgetStatement.setZone('UTC').toFormat('dd-LLL-y HH:mm ZZZZ')}</SinceDate>
               </LastUpdate>
             )}
           </PagerBar>

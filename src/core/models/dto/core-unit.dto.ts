@@ -101,6 +101,7 @@ export interface AuditReportDto {
 }
 
 export interface BudgetStatementDto {
+  id: number;
   month: string;
   budgetStatus: string;
   publicationUrl: string;
@@ -131,6 +132,7 @@ export interface ActivityFeedDto {
       shortCode: string;
     };
     month: string;
+    budgetStatementId: number;
   };
   description: string;
 }
