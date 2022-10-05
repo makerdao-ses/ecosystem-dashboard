@@ -153,7 +153,7 @@ export const products = [
     url: 'https://daistats.com/',
   },
   {
-    title: 'Terms',
+    title: 'Cookies Policy',
     url: 'https://vote.makerdao.com/terms',
   },
 ];
