@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import {
@@ -9,9 +10,25 @@ import {
   COOKIES_POLICY_PARAGRAPH_TWO,
 } from '../../../core/utils/const';
 import { CustomButton } from '../../components/custom-button/custom-button';
+import { ContainerOverlay, PolicyBannerPosition } from '../cu-table/cu-table-2';
+import CookiesPolicyBanner from './cookies-policy-banner';
+import { useCookiesPolicyBannerMvvm } from './cookies-policy-banner.mvvm';
 
 const CookiesPolicyContainer = () => {
   const isLight = useThemeContext().themeMode === 'light';
+  const [isShowBanner, setIsShowBanner] = useState(false);
+  const {
+    handleAcceptCookies,
+    handleAnalyticsCookies,
+    handleFunctionalCookies,
+    handleRejectCookies,
+    handleSettings,
+    analyticsCookies,
+    functionalCookies,
+  } = useCookiesPolicyBannerMvvm({
+    isShowBanner,
+    setIsShowBanner,
+  });
 
   return (
     <Container isLight={isLight}>
@@ -36,12 +53,26 @@ const CookiesPolicyContainer = () => {
                 padding: '14.5px 40px',
                 borderColor: isLight ? '#231536' : '#343442',
               }}
-              // eslint-disable-next-line @typescript-eslint/no-empty-function
-              onClick={() => {}}
+              onClick={handleSettings}
             />
           </ContainerButton>
         </div>
       </ContainerData>
+      {isShowBanner && (
+        <>
+          <ContainerOverlay />
+          <PolicyBannerPosition>
+            <CookiesPolicyBanner
+              analyticsCookies={analyticsCookies}
+              functionalCookies={functionalCookies}
+              handleAnalyticsCookies={handleAnalyticsCookies}
+              handleFunctionalCookies={handleFunctionalCookies}
+              handleAcceptCookies={handleAcceptCookies}
+              handleRejectCookies={handleRejectCookies}
+            />
+          </PolicyBannerPosition>
+        </>
+      )}
     </Container>
   );
 };
