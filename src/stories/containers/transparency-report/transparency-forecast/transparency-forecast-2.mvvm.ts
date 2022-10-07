@@ -651,6 +651,7 @@ export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetS
     const currentWalletAddress = wallets[thirdIndex]?.address ?? '';
 
     const ungrouped = [
+      ...getLineItemsForWalletOnMonth(propBudgetStatements, currentMonth, currentMonth, currentWalletAddress),
       ...getLineItemsForWalletOnMonth(propBudgetStatements, currentMonth, firstMonth, currentWalletAddress),
       ...getLineItemsForWalletOnMonth(propBudgetStatements, currentMonth, secondMonth, currentWalletAddress),
       ...getLineItemsForWalletOnMonth(propBudgetStatements, currentMonth, thirdMonth, currentWalletAddress),
