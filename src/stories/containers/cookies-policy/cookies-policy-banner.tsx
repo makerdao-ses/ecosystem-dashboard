@@ -1,23 +1,29 @@
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/button-type.enum';
 import CheckBox from '../../components/check-box/check-box';
 import { CustomButton } from '../../components/custom-button/custom-button';
 
-const CookiesPolicyBanner = () => {
+interface Props {
+  functionalCookies: boolean;
+  analyticsCookies: boolean;
+  handleFunctionalCookies: (isChecked: boolean) => void;
+  handleAnalyticsCookies: (isChecked: boolean) => void;
+  handleAcceptCookies: () => void;
+  handleRejectCookies: () => void;
+}
+
+const CookiesPolicyBanner = ({
+  functionalCookies,
+  analyticsCookies,
+  handleFunctionalCookies,
+  handleAnalyticsCookies,
+  handleAcceptCookies,
+  handleRejectCookies,
+}: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
-  const [functionalCookies, setFunctionalCookies] = useState(false);
-  const [analyticsCookies, setAnalyticsCookies] = useState(false);
-
-  const handleFunctionalCookies = () => {
-    setFunctionalCookies(!functionalCookies);
-  };
-
-  const handleAnalyticsCookies = () => {
-    setAnalyticsCookies(!analyticsCookies);
-  };
 
   return (
     <Container isLight={isLight}>
@@ -44,6 +50,7 @@ const CookiesPolicyBanner = () => {
               fontSize: '16px',
               lineHeight: '19px',
             }}
+            onClick={handleRejectCookies}
           />
           <CustomButtonStyle
             label="Accept configured cookies"
@@ -52,6 +59,7 @@ const CookiesPolicyBanner = () => {
               fontSize: '16px',
               lineHeight: '19px',
             }}
+            onClick={handleAcceptCookies}
           />
         </ContainerButton>
       </ContainerData>
@@ -79,6 +87,9 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   },
   [lightTheme.breakpoints.up('desktop_1920')]: {
     padding: '40px 606px',
+  },
+  [lightTheme.breakpoints.up('table_834')]: {
+    height: '282px',
   },
 }));
 
