@@ -72,6 +72,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   borderRadius: '6px',
   width: '100%',
   padding: '40px 24px',
+  height: '458px',
   boxShadow: !isLight ? '0px -15px 35px 10px rgba(0, 27, 141, 0.15)' : 'none',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     padding: '40px 63px',
