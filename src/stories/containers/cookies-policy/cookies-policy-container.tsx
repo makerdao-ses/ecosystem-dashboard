@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import {
   COOKIES_POLICY_PARAGRAPH_FOUR,
@@ -20,7 +21,7 @@ const CookiesPolicyContainer = () => {
         <div>
           <ParagraphStyle isLight={isLight}>{COOKIES_POLICY_PARAGRAPH_ONE}</ParagraphStyle>
           <ParagraphStyle isLight={isLight}>{COOKIES_POLICY_PARAGRAPH_TWO}</ParagraphStyle>
-          <p>{COOKIES_POLICY_PARAGRAPH_THREE}</p>
+          <ParagraphStyle isLight={isLight}>{COOKIES_POLICY_PARAGRAPH_THREE}</ParagraphStyle>
           <ContainerUl>
             <li>Page views,</li>
             <li>Button clicks,</li>
@@ -60,13 +61,28 @@ const Container = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
 const ContainerData = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
-  background: isLight ? '#FFFFFF' : '#000000',
+  background: isLight ? '#FFFFFF' : '#10191F',
   marginTop: '40px',
-  boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
+  boxShadow: isLight
+    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+    : ' 10px 15px 20px 6px rgba(20, 0, 141, 0.1);',
   borderRadius: '6px',
   maxWidth: '1312px',
   margin: '0 auto',
   padding: '32px',
+  [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
+    maxWidth: '1184px',
+  },
+  [lightTheme.breakpoints.between('desktop_1194', 'desktop_1280')]: {
+    maxWidth: '1066px',
+  },
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    maxWidth: '770px',
+  },
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    maxWidth: '343px',
+    padding: '32px 24px',
+  },
 }));
 
 const Title = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
@@ -77,9 +93,15 @@ const Title = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   lineHeight: '29px',
   alignItems: 'center',
   letterSpacing: '0.4px',
-  color: isLight ? '#231536' : '#D7C9FF',
+  color: isLight ? '#231536' : '#D2D4EF',
   marginBottom: '24px',
   textAlign: 'center',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    textAlign: 'left',
+  },
+  [lightTheme.breakpoints.between('desktop_1194', 'desktop_1280')]: {
+    textAlign: 'left',
+  },
 }));
 
 const Description = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
@@ -91,20 +113,24 @@ const Description = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D7C9FF',
 }));
 
-const ContainerUl = styled.ul({
+const ContainerUl = styled.ul<{ isLight?: boolean }>(({ isLight }) => ({
   '> li': {
     marginBottom: '8px',
+    color: isLight ? '#231536' : '#D7C9FF',
     '&:last-child': {
       marginBottom: '0px',
     },
   },
-});
+}));
 
 const ContainerButton = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
   marginTop: '64px',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    marginTop: '40px',
+  },
 });
 
 const ParagraphStyle = styled.p<{ isLight: boolean }>(({ isLight }) => ({

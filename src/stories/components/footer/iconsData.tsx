@@ -154,7 +154,7 @@ export const products = [
   },
   {
     title: 'Cookies Policy',
-    url: 'https://vote.makerdao.com/terms',
+    url: '/cookies-policy',
   },
 ];
 

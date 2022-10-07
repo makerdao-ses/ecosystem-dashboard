@@ -6,6 +6,8 @@ import { TextCell } from '../text-cell/text-cell';
 import { TransparencyCard } from '../transparency-card/transparency-card';
 import { TransparencyEmptyTable } from '../../containers/transparency-report/placeholders/transparency-empty-table';
 import { Title } from '../../containers/transparency-report/transparency-report';
+import lightTheme from '../../../../styles/theme/light';
+import { useMediaQuery } from '@mui/material';
 
 export interface InnerTableColumn {
   align?: string;
@@ -25,7 +27,7 @@ export interface InnerTableCell {
   value: unknown;
 }
 
-type RowType = 'normal' | 'total' | 'section';
+export type RowType = 'normal' | 'total' | 'section' | 'subTotal';
 
 export interface InnerTableRow {
   type: RowType;
@@ -45,12 +47,13 @@ interface Props {
 type Alignment = 'left' | 'center' | 'right';
 
 export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: Props) => {
+  const upTable = useMediaQuery(lightTheme.breakpoints.up(834));
   const isLight = useThemeContext().themeMode === 'light';
   const getCell = (column: InnerTableColumn, rowType: RowType, value: unknown) => {
     if (value !== 0 && !value) {
       return <></>;
     }
-    const isBold = rowType === 'total' || rowType === 'section';
+    const isBold = rowType === 'total' || rowType === 'section' || rowType === 'subTotal';
     const columnType = rowType === 'total' && column?.type === 'custom' ? 'text' : column?.type;
 
     switch (columnType) {
@@ -58,7 +61,21 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
         return <NumberCell key={column.header} value={Number(value)} bold={isBold} />;
       case 'text':
         return (
-          <TextCell key={column.header} bold={isBold}>
+          <TextCell
+            key={column.header}
+            bold={isBold}
+            style={{
+              borderBottom: isLight
+                ? !upTable
+                  ? rowType === 'subTotal'
+                    ? '1px solid #D4D9E1'
+                    : 'none'
+                  : 'none'
+                : rowType === 'subTotal'
+                ? '1px solid #405361'
+                : 'none',
+            }}
+          >
             {value as string}
           </TextCell>
         );
@@ -70,7 +87,21 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
     }
 
     return (
-      <TextCell key={column.header} bold={isBold}>
+      <TextCell
+        key={column.header}
+        bold={isBold}
+        style={{
+          borderBottom: isLight
+            ? !upTable
+              ? rowType === 'subTotal'
+                ? '1px solid #D4D9E1'
+                : 'none'
+              : 'none'
+            : rowType === 'subTotal'
+            ? '1px solid #405361'
+            : 'none',
+        }}
+      >
         {value as string}
       </TextCell>
     );
@@ -112,7 +143,20 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
                   {row.items
                     ?.filter((x) => !x.column.hidden)
                     .map((item, j) => (
-                      <TableCell key={`${i}-${j}`} textAlign={(item.column?.align ?? 'left') as Alignment}>
+                      <TableCell
+                        style={{
+                          borderBottom: isLight
+                            ? row.type === 'subTotal'
+                              ? '1px solid #D4D9E1'
+                              : 'none'
+                            : row.type === 'subTotal'
+                            ? '1px solid #405361'
+                            : 'none',
+                        }}
+                        colSpan={row.type === 'section' && upTable ? 2 : 0}
+                        key={`${i}-${j}`}
+                        textAlign={(item.column?.align ?? 'left') as Alignment}
+                      >
                         {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                         {getCell(item.column, row.type, item.value as any)}
                       </TableCell>
