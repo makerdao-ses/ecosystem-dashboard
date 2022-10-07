@@ -1,11 +1,13 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/button-type.enum';
 import CheckBox from '../../components/check-box/check-box';
 import { CustomButton } from '../../components/custom-button/custom-button';
 
 const CookiesPolicyBanner = () => {
+  const isLight = useThemeContext().themeMode === 'light';
   const [functionalCookies, setFunctionalCookies] = useState(false);
   const [analyticsCookies, setAnalyticsCookies] = useState(false);
 
@@ -18,9 +20,9 @@ const CookiesPolicyBanner = () => {
   };
 
   return (
-    <Container>
+    <Container isLight={isLight}>
       <ContainerData>
-        <StyleParagraph>
+        <StyleParagraph isLight={isLight}>
           This website uses cookies for analytic purposes only. Cookies are anonymous and do not link to user data. We
           collect information to improve the user experience and validate UI changes. You can still use the page without
           cookies. For more information, please read our <br />
@@ -57,11 +59,12 @@ const CookiesPolicyBanner = () => {
   );
 };
 
-const Container = styled.div({
-  background: '#FFFFFF',
+const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  background: isLight ? '#FFFFFF' : '#10191F',
   borderRadius: '6px',
   width: '100%',
   padding: '40px 24px',
+  boxShadow: !isLight ? '0px -15px 35px 10px rgba(0, 27, 141, 0.15)' : 'none',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     padding: '40px 63px',
   },
@@ -77,7 +80,7 @@ const Container = styled.div({
   [lightTheme.breakpoints.up('desktop_1920')]: {
     padding: '40px 606px',
   },
-});
+}));
 
 const ContainerData = styled.div({
   display: 'flex',
@@ -137,16 +140,16 @@ const CustomButtonStyle = styled(CustomButton)({
   },
 });
 
-const StyleParagraph = styled.p({
+const StyleParagraph = styled.p<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '16px',
   lineHeight: '22px',
   textAlign: 'center',
-  color: '#000000',
+  color: isLight ? '#000000' : '#D2D4EF',
   marginBottom: '0px',
   marginTop: '0px',
-});
+}));
 
 export default CookiesPolicyBanner;

@@ -22,7 +22,7 @@ const CookiesPolicyContainer = () => {
           <ParagraphStyle isLight={isLight}>{COOKIES_POLICY_PARAGRAPH_ONE}</ParagraphStyle>
           <ParagraphStyle isLight={isLight}>{COOKIES_POLICY_PARAGRAPH_TWO}</ParagraphStyle>
           <ParagraphStyle isLight={isLight}>{COOKIES_POLICY_PARAGRAPH_THREE}</ParagraphStyle>
-          <ContainerUl>
+          <ContainerUl isLight={isLight}>
             <li>Page views,</li>
             <li>Button clicks,</li>
             <li>Input form changes (without the values being entered),</li>

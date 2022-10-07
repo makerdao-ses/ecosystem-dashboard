@@ -4,11 +4,22 @@ interface Props {
   width?: number;
   height?: number;
   fill?: string;
+  fillBorderArrow?: string;
 }
 
-const CheckOnComponent = ({ fill = '#1AAB9B', height = 13, width = 13, ...props }: Props) => {
+const CheckOnComponent = ({
+  fill = '#1AAB9B',
+  height = 13,
+  width = 13,
+  fillBorderArrow = 'transparent',
+  ...props
+}: Props) => {
   return (
     <svg width={width} height={height} viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <path
+        d="M0 3C0 1.34315 1.34315 0 3 0H13C14.6569 0 16 1.34315 16 3V13C16 14.6569 14.6569 16 13 16H3C1.34315 16 0 14.6569 0 13V3Z"
+        fill={fillBorderArrow}
+      />
       <path
         fillRule="evenodd"
         clipRule="evenodd"
