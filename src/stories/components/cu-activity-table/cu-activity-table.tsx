@@ -139,9 +139,9 @@ export default function ActivityTable({ activityFeed, shortCode, columns, sortCl
             <div key={`table-item-${update.activityFeed.id}`}>
               <CUActivityItem activity={update} isNew={!!update.isNew} />
               {noVisitedCount > 0 &&
-                ((columns[0].sort === SortEnum.Desc && noVisitedCount === index + 1) ||
+                ((columns[0].sort !== SortEnum.Asc && noVisitedCount === index + 1) ||
                   (columns[0].sort === SortEnum.Asc && activityFeed.length - noVisitedCount === index + 1)) &&
-                !(showAllElements ? sortedActivities.length : initialElements - 1 === index) && (
+                !(showAllElements ? sortedActivities.length - 1 === index : initialElements - 1 === index) && (
                   <DisplayOnTabletUp>
                     <NewChangesDivider isLight={isLight} count={noVisitedCount} />
                   </DisplayOnTabletUp>
