@@ -34,7 +34,14 @@ export default ({ coreUnit, coreUnits }: CUActivityContainerProps) => {
           </Paragraph>
 
           <TableWrapper>
-            <ActivityTable columns={columns} coreUnit={coreUnit} sortClick={onSortClick} />
+            <ActivityTable
+              columns={columns}
+              shortCode={coreUnit.shortCode}
+              activityFeed={coreUnit.activityFeed.map((activity) => ({
+                activityFeed: activity,
+              }))}
+              sortClick={onSortClick}
+            />
           </TableWrapper>
         </InnerPage>
       </Container>
@@ -62,29 +69,13 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   [lightTheme.breakpoints.up('table_834')]: {
     padding: '0 32px 128px',
   },
-
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    paddingBottom: '84px',
-  },
-
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    paddingBottom: '100px',
-  },
-
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    paddingBottom: '93px',
-  },
-
-  [lightTheme.breakpoints.up('desktop_1920')]: {
-    paddingBottom: '30px',
-  },
 }));
 
 const InnerPage = styled.div({
   display: 'block',
   margin: '24px auto 0',
   width: '100%',
-  maxWidth: '1184px',
+  maxWidth: '1312px',
   textAlign: 'left',
 
   [lightTheme.breakpoints.up('table_834')]: {
@@ -115,7 +106,7 @@ export const Title = styled.div<{
   },
 }));
 
-const Paragraph = styled.p<{ isLight: boolean }>(({ isLight }) => ({
+export const Paragraph = styled.p<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
