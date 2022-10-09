@@ -202,7 +202,7 @@ const CoreUnit = styled.div({
   },
 });
 
-const CoreUnitCode = styled.span({
+const CoreUnitCode = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 800,
@@ -210,19 +210,19 @@ const CoreUnitCode = styled.span({
   lineHeight: '17px',
   letterSpacing: '0.3px',
   textTransform: 'uppercase',
-  color: '#9FAFB9',
+  color: isLight ? '#9FAFB9' : '#546978',
   marginLeft: '16px',
-});
+}));
 
-const CoreUnitName = styled.span({
+const CoreUnitName = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '14px',
   lineHeight: '17px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#FFFFFF',
   marginLeft: '4px',
-});
+}));
 
 const FlexWrapper = styled.div<{ isGlobal: boolean }>(({ isGlobal }) => ({
   display: 'flex',
