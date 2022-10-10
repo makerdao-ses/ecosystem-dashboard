@@ -37,8 +37,8 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
         {activity.coreUnit && (
           <CoreUnit>
             <CircleAvatar width="32px" height="32px" image={activity.coreUnit.image} name={activity.coreUnit.name} />
-            <CoreUnitCode>{activity.coreUnit.shortCode}</CoreUnitCode>
-            <CoreUnitName>{activity.coreUnit.name}</CoreUnitName>
+            <CoreUnitCode isLight={false}>{activity.coreUnit.shortCode}</CoreUnitCode>
+            <CoreUnitName isLight={false}>{activity.coreUnit.name}</CoreUnitName>
           </CoreUnit>
         )}
         <Timestamp isGlobal={isGlobal}>
