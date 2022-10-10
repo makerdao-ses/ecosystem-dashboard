@@ -22,13 +22,17 @@ export interface ActivityTableHeader {
   sort?: SortEnum;
 }
 
+export interface Activity {
+  activityFeed: ActivityFeedDto;
+  coreUnit?: CoreUnitDto;
+  isNew?: boolean;
+}
+
 export interface Props {
   columns: ActivityTableHeader[];
-  coreUnit: CoreUnitDto;
+  activityFeed: Activity[];
+  shortCode: string;
   sortClick?: (index: number) => void;
-}
-export interface ExtendedActivityDto extends ActivityFeedDto {
-  isNew?: boolean;
 }
 
 const NewChangesDivider = ({ isLight, count }: { isLight: boolean; count: number }) => (
@@ -47,26 +51,26 @@ const NewChangesDivider = ({ isLight, count }: { isLight: boolean; count: number
   </ChangesButtonContainer>
 );
 
-export default function ActivityTable({ coreUnit, columns, sortClick }: Props) {
+export default function ActivityTable({ activityFeed, shortCode, columns, sortClick }: Props) {
   const isLight = useThemeContext().themeMode === 'light';
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const initialElements = useMemo(() => (isMobile ? 5 : 10), [isMobile]);
   const [showAllElements, setShowElements] = useState(false);
   const [noVisitedCount, setNoVisitedCount] = useState(0);
-  const [extendedActivity, setExtendedActivity] = useState<ExtendedActivityDto[]>(coreUnit.activityFeed);
+  const [extendedActivity, setExtendedActivity] = useState<Activity[]>(activityFeed);
 
   const handleSeePrevious = () => {
     setShowElements(true);
   };
 
   useEffect(() => {
-    const activityHandler = new ActivityVisitHandler(coreUnit.shortCode);
+    const activityHandler = new ActivityVisitHandler(shortCode);
     let noVisited = 0;
 
-    const _extendedActivity: ExtendedActivityDto[] = [];
+    const _extendedActivity: Activity[] = [];
 
-    for (const update of coreUnit.activityFeed) {
-      const isNew = activityHandler.wasVisited(update);
+    for (const update of activityFeed) {
+      const isNew = activityHandler.wasVisited(update.activityFeed);
       if (isNew) {
         noVisited++;
       }
@@ -83,16 +87,16 @@ export default function ActivityTable({ coreUnit, columns, sortClick }: Props) {
     return () => {
       clearTimeout(timeout);
     };
-  }, [coreUnit]);
+  }, [activityFeed]);
 
   if (extendedActivity.length === 0) return <ActivityPlaceholder />;
 
   const sortedActivities = useMemo(() => {
     const result = sortBy(extendedActivity, (a) => {
-      return a.created_at;
-    });
+      return a.activityFeed.created_at;
+    }).reverse();
 
-    if (columns[0].sort === SortEnum.Desc) {
+    if (columns[0].sort === SortEnum.Asc) {
       return result.reverse();
     }
     return result;
@@ -132,11 +136,11 @@ export default function ActivityTable({ coreUnit, columns, sortClick }: Props) {
         {sortedActivities
           ?.slice(0, showAllElements ? sortedActivities.length : initialElements)
           ?.map((update, index) => (
-            <div key={`table-item-${update.id}`}>
+            <div key={`table-item-${update.activityFeed.id}`}>
               <CUActivityItem activity={update} isNew={!!update.isNew} />
               {noVisitedCount > 0 &&
-                ((columns[0].sort === SortEnum.Desc && noVisitedCount === index + 1) ||
-                  (columns[0].sort === SortEnum.Asc && coreUnit.activityFeed.length - noVisitedCount === index + 1)) &&
+                ((columns[0].sort !== SortEnum.Asc && noVisitedCount === index + 1) ||
+                  (columns[0].sort === SortEnum.Asc && activityFeed.length - noVisitedCount === index + 1)) &&
                 !(showAllElements ? sortedActivities.length - 1 === index : initialElements - 1 === index) && (
                   <DisplayOnTabletUp>
                     <NewChangesDivider isLight={isLight} count={noVisitedCount} />
@@ -155,10 +159,10 @@ export default function ActivityTable({ coreUnit, columns, sortClick }: Props) {
           />
           <StyledBigButton
             isLight={isLight}
-            title={`See ${columns[0].sort === SortEnum.Desc ? 'Previous' : 'Recent'} Activity`}
+            title={`See ${columns[0].sort === SortEnum.Asc ? 'Recent' : 'Previous'} Activity`}
             onClick={handleSeePrevious}
           >
-            See {columns[0].sort === SortEnum.Desc ? 'Previous' : 'Recent'} Activity
+            See {columns[0].sort === SortEnum.Asc ? 'Recent' : 'Previous'} Activity
           </StyledBigButton>
           <DividerPreviousStyle
             sx={{
