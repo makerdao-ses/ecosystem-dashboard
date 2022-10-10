@@ -435,7 +435,6 @@ export const useTransparencyActualsMvvm2 = (
 
   const breakdownItems = useMemo(() => {
     const result: InnerTableRow[] = [];
-
     if (!wallets) {
       return result;
     }
@@ -467,7 +466,7 @@ export const useTransparencyActualsMvvm2 = (
               'Sub Total'
             ),
           ],
-          'total'
+          'subTotal'
         )
       );
     }
@@ -501,7 +500,7 @@ export const useTransparencyActualsMvvm2 = (
               'Sub Total'
             ),
           ],
-          'total'
+          'subTotal'
         )
       );
     }

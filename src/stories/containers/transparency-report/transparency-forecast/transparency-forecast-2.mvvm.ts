@@ -651,6 +651,7 @@ export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetS
     const currentWalletAddress = wallets[thirdIndex]?.address ?? '';
 
     const ungrouped = [
+      ...getLineItemsForWalletOnMonth(propBudgetStatements, currentMonth, currentMonth, currentWalletAddress),
       ...getLineItemsForWalletOnMonth(propBudgetStatements, currentMonth, firstMonth, currentWalletAddress),
       ...getLineItemsForWalletOnMonth(propBudgetStatements, currentMonth, secondMonth, currentWalletAddress),
       ...getLineItemsForWalletOnMonth(propBudgetStatements, currentMonth, thirdMonth, currentWalletAddress),
@@ -675,7 +676,7 @@ export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetS
       (item) => item.group
     );
 
-    result.push(...getBreakdownItemsForGroup(groupedHeadCount, 'total'));
+    result.push(...getBreakdownItemsForGroup(groupedHeadCount, 'subTotal'));
 
     result.push({
       type: 'section',
@@ -696,7 +697,7 @@ export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetS
       (item) => item.group
     );
 
-    result.push(...getBreakdownItemsForGroup(groupedNonHeadCount, 'total'));
+    result.push(...getBreakdownItemsForGroup(groupedNonHeadCount, 'subTotal'));
 
     if (result.length <= 4) {
       return [];
