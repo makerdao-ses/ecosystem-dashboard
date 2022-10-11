@@ -68,27 +68,18 @@ export const useGlobalActivityMvvm = (coreUnits: CoreUnitDto[]) => {
   const activityFeed = useMemo(() => {
     return sortBy(
       coreUnits
-        .filter((cu) => {
-          let condition = true;
-          if (activeElements.length) {
-            condition = condition && activeElements.includes(cu.shortCode);
-          }
-
-          if (searchText) {
-            condition =
-              condition &&
-              cu.activityFeed.some((af) => af.description.toLowerCase().indexOf(searchText.toLowerCase()) > -1);
-          }
-
-          return condition;
-        })
+        .filter((cu) => !activeElements.length || activeElements.includes(cu.shortCode))
         .reduce((acc, cu) => {
           return [
             ...acc,
-            ...cu.activityFeed.map((act) => ({
-              coreUnit: cu,
-              activityFeed: act,
-            })),
+            ...cu.activityFeed
+              .filter((af) => {
+                return !searchText || af.description.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
+              })
+              .map((act) => ({
+                coreUnit: cu,
+                activityFeed: act,
+              })),
           ];
         }, [] as Activity[]),
       'created_at'
