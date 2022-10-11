@@ -60,7 +60,7 @@ const CookiesPolicyContainer = () => {
       </ContainerData>
       {isShowBanner && (
         <>
-          <ContainerOverlay />
+          <ContainerOverlay isLight={isLight} />
           <PolicyBannerPosition>
             <CookiesPolicyBanner
               analyticsCookies={analyticsCookies}

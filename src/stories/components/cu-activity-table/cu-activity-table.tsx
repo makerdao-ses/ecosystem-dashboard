@@ -13,6 +13,7 @@ import sortBy from 'lodash/sortBy';
 import { ActivityPlaceholder } from './cu-activity-table.placeholder';
 import { ActivityFeedDto, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { useMediaQuery } from '@mui/material';
+import { useCookies } from 'react-cookie';
 
 export interface ActivityTableHeader {
   header: string;
@@ -48,6 +49,7 @@ const NewChangesDivider = ({ isLight, count }: { isLight: boolean; count: number
 );
 
 export default function ActivityTable({ coreUnit, columns, sortClick }: Props) {
+  const [cookies] = useCookies(['darkMode', 'timestamp', 'analytics']);
   const isLight = useThemeContext().themeMode === 'light';
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const initialElements = useMemo(() => (isMobile ? 5 : 10), [isMobile]);
@@ -60,7 +62,7 @@ export default function ActivityTable({ coreUnit, columns, sortClick }: Props) {
   };
 
   useEffect(() => {
-    const activityHandler = new ActivityVisitHandler(coreUnit.shortCode);
+    const activityHandler = new ActivityVisitHandler(coreUnit.shortCode, cookies.timestamp === 'true');
     let noVisited = 0;
 
     const _extendedActivity: ExtendedActivityDto[] = [];
@@ -85,8 +87,6 @@ export default function ActivityTable({ coreUnit, columns, sortClick }: Props) {
     };
   }, [coreUnit]);
 
-  if (extendedActivity.length === 0) return <ActivityPlaceholder />;
-
   const sortedActivities = useMemo(() => {
     const result = sortBy(extendedActivity, (a) => {
       return a.created_at;
@@ -97,6 +97,8 @@ export default function ActivityTable({ coreUnit, columns, sortClick }: Props) {
     }
     return result;
   }, [extendedActivity, columns]);
+
+  if (extendedActivity.length === 0) return <ActivityPlaceholder />;
 
   return (
     <>

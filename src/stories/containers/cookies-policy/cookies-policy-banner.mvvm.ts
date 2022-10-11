@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { useCookies } from 'react-cookie';
 import { useScrollLock } from '../../../core/hooks/scroll-hooks';
 
 interface Props {
@@ -8,19 +9,25 @@ interface Props {
 
 export const useCookiesPolicyBannerMvvm = ({ isShowBanner, setIsShowBanner }: Props) => {
   const { lockScroll, unlockScroll } = useScrollLock();
-
   const [functionalCookies, setFunctionalCookies] = useState(false);
   const [analyticsCookies, setAnalyticsCookies] = useState(false);
+  const [cookies, setCookie] = useCookies(['darkMode', 'timestamp', 'analytics']);
 
   const handleRejectCookies = useCallback(() => {
+    setCookie('darkMode', false);
+    setCookie('timestamp', false);
+    setCookie('analytics', false);
     unlockScroll();
     setIsShowBanner(false);
-  }, [setIsShowBanner, unlockScroll]);
+  }, [setCookie, setIsShowBanner, unlockScroll]);
 
   const handleAcceptCookies = useCallback(() => {
     unlockScroll();
     setIsShowBanner(false);
-  }, [setIsShowBanner, unlockScroll]);
+    setCookie('darkMode', functionalCookies);
+    setCookie('timestamp', functionalCookies);
+    setCookie('analytics', analyticsCookies);
+  }, [analyticsCookies, functionalCookies, setCookie, setIsShowBanner, unlockScroll]);
 
   const handleSettings = useCallback(() => {
     window.scrollTo(0, 0);
@@ -45,5 +52,6 @@ export const useCookiesPolicyBannerMvvm = ({ isShowBanner, setIsShowBanner }: Pr
     functionalCookies,
     analyticsCookies,
     setIsShowBanner,
+    cookies,
   };
 };
