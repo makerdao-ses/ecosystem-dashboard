@@ -11,6 +11,19 @@ export interface MultiSelectItem {
   id: string;
   content: string | JSX.Element;
   count: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  params?: any;
+}
+
+export interface SelectItemProps {
+  key?: string;
+  label: string | JSX.Element;
+  count?: number;
+  avatar?: string;
+  checked?: boolean;
+  onClick?: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  params?: any;
 }
 
 interface CustomMultiSelectProps {
@@ -22,9 +35,19 @@ interface CustomMultiSelectProps {
   style?: CSSProperties;
   activeItems: string[];
   width?: number;
+  customItemRender?: (props: SelectItemProps) => JSX.Element;
+  popupContainerWidth?: number;
+  listItemWidth?: number;
 }
 
-export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }: CustomMultiSelectProps) => {
+const defaultItemRender = (props: SelectItemProps) => <SelectItem {...props} />;
+
+export const CustomMultiSelect = ({
+  withAll = true,
+  activeItems = [],
+  customItemRender = defaultItemRender,
+  ...props
+}: CustomMultiSelectProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   const [popupVisible, setPopupVisible] = useState(false);
   const [hover, setHover] = useState(false);
@@ -93,28 +116,32 @@ export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }
         </IconWrapper>
       </SelectContainer>
       {popupVisible && (
-        <PopupContainer isLight={isLight}>
-          <SimpleBar className="filter-popup-scroll" scrollbarMaxSize={32}>
-            <ItemsContainer>
-              {withAll && (
-                <SelectItem
-                  checked={activeItems.length === props.items.length}
-                  onClick={() => toggleAll()}
-                  label={props.customAll?.content ? props.customAll.content : 'All'}
-                  count={props.customAll?.count ?? props.items.length}
-                  minWidth={180}
-                />
+        <PopupContainer width={props.popupContainerWidth ?? 212} isLight={isLight}>
+          <SimpleBar
+            style={{
+              width: props.popupContainerWidth ? props.popupContainerWidth - 16 : 196,
+            }}
+            className="filter-popup-scroll"
+            scrollbarMaxSize={32}
+          >
+            <ItemsContainer width={props.listItemWidth}>
+              {withAll &&
+                customItemRender({
+                  checked: activeItems.length === props.items.length,
+                  onClick: () => toggleAll(),
+                  label: props.customAll?.content ? props.customAll.content : 'All',
+                  count: props.customAll?.count ?? props.items.length,
+                })}
+              {props.items.map((item, i) =>
+                customItemRender({
+                  key: `item-${i}`,
+                  checked: activeItems.indexOf(item.id) > -1,
+                  onClick: () => toggleItem(item.id),
+                  label: item.content,
+                  count: item.count,
+                  params: item.params,
+                })
               )}
-              {props.items.map((item, i) => (
-                <SelectItem
-                  key={`item-${i}`}
-                  checked={activeItems.indexOf(item.id) > -1}
-                  onClick={() => toggleItem(item.id)}
-                  label={item.content}
-                  count={item.count}
-                  minWidth={180}
-                />
-              ))}
             </ItemsContainer>
           </SimpleBar>
         </PopupContainer>
@@ -181,12 +208,13 @@ const SelectContainer = styled.div<{
   },
 }));
 
-const ItemsContainer = styled.div({
+const ItemsContainer = styled.div<{ width?: number }>(({ width = 180 }) => ({
   marginRight: '16px',
   display: 'flex',
   flexDirection: 'column',
   gap: '4px',
-});
+  width,
+}));
 
 const Label = styled.div<{ active: boolean; isLight: boolean; hover: boolean }>(({ active, isLight, hover }) => ({
   fontFamily: 'Inter, sans-serif',
@@ -214,12 +242,11 @@ const IconWrapper = styled.div({
   marginTop: '-4px',
 });
 
-const PopupContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const PopupContainer = styled.div<{ isLight: boolean; width: number }>(({ isLight, width }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: '4px',
-  minWidth: '100%',
-  width: 'fit-content',
+  width,
   background: isLight ? 'white' : '#000A13',
   height: 'fit-content',
   padding: '16px 0 16px 16px',

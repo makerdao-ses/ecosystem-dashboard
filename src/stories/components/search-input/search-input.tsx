@@ -10,7 +10,7 @@ interface SearchInputProps {
   placeholder: string;
   onChange?: (text: string) => void;
   style?: CSSProperties;
-  handleCloseSearch?: () => void;
+  handleCleanSearch?: () => void;
   inputRef?: React.RefObject<HTMLInputElement>;
 }
 
@@ -40,9 +40,9 @@ export const SearchInput = (props: SearchInputProps) => {
           defaultValue={props.defaultValue}
         />
         <IconWrapper>
-          {focus || !!props.defaultValue ? (
+          {focus || !!props.value ? (
             <Close
-              onClick={props.handleCloseSearch}
+              onClick={props.handleCleanSearch}
               width={10}
               height={10}
               fill="#25273D"

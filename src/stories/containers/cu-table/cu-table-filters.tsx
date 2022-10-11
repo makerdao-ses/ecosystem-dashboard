@@ -141,7 +141,7 @@ export const Filters = (props: FilterProps) => {
         <Search filtersVisible={filtersVisible}>
           <SearchInput
             inputRef={inputRef}
-            handleCloseSearch={handleCloseSearch}
+            handleCleanSearch={handleCloseSearch}
             defaultValue={props.searchText}
             placeholder="Search"
             onChange={(value: string) => {
@@ -212,19 +212,19 @@ const Container = styled.div<{ isLight: boolean; filtersVisible: boolean }>(({ i
   },
 }));
 
-const SmallSeparator = styled(Divider, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
-  ({ isLight }) => ({
-    height: '32px',
-    width: '1px',
-    backgroundColor: isLight ? '#D4D9E1' : '#48495F',
-    alignSelf: 'center',
-    gridArea: 'separator',
-    display: 'none',
-    '@media (min-width: 834px)': {
-      display: 'block',
-    },
-  })
-);
+export const SmallSeparator = styled(Divider, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
+  isLight: boolean;
+}>(({ isLight }) => ({
+  height: '32px',
+  width: '1px',
+  backgroundColor: isLight ? '#D4D9E1' : '#48495F',
+  alignSelf: 'center',
+  gridArea: 'separator',
+  display: 'none',
+  '@media (min-width: 834px)': {
+    display: 'block',
+  },
+}));
 
 const Sort = styled.div({
   gridArea: 'sort',

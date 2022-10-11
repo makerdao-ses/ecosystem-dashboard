@@ -100,7 +100,7 @@ export default function ActivityTable({ activityFeed, shortCode, columns, sortCl
       return result.reverse();
     }
     return result;
-  }, [extendedActivity, columns]);
+  }, [extendedActivity, columns, activityFeed]);
 
   return (
     <>
