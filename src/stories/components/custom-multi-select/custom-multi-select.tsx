@@ -98,7 +98,7 @@ export const CustomMultiSelect = ({
         </Label>
         <IconWrapper>
           <SelectChevronDown
-            style={{ transform: popupVisible ? 'scaleY(-1)' : '' }}
+            style={{ transform: popupVisible ? 'scaleY(-1)' : 'scaleY(1)' }}
             fill={
               isLight
                 ? activeItems.length > 0

@@ -63,7 +63,6 @@ export default ({ coreUnits }: Props) => {
             <SearchInput
               inputRef={inputRef}
               handleCleanSearch={handleCleanSearch}
-              defaultValue={''}
               placeholder="Search"
               value={searchText}
               onChange={(value: string) => {
