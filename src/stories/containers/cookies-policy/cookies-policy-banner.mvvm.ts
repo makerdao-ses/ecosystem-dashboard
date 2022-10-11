@@ -13,13 +13,24 @@ export const useCookiesPolicyBannerMvvm = ({ isShowBanner, setIsShowBanner }: Pr
   const [analyticsCookies, setAnalyticsCookies] = useState(false);
   const [cookies, setCookie] = useCookies(['darkMode', 'timestamp', 'analytics']);
 
+  const getAllActivityLocalStore = useCallback(() => {
+    const keys = Object.keys(window.localStorage);
+    keys.forEach((key) => {
+      if (key.includes('activity-visit-')) window.localStorage.removeItem(key);
+    });
+  }, []);
+
   const handleRejectCookies = useCallback(() => {
     setCookie('darkMode', false);
     setCookie('timestamp', false);
     setCookie('analytics', false);
     unlockScroll();
     setIsShowBanner(false);
-  }, [setCookie, setIsShowBanner, unlockScroll]);
+    if (window.localStorage !== undefined) {
+      getAllActivityLocalStore();
+      window.localStorage.removeItem('themeMode');
+    }
+  }, [getAllActivityLocalStore, setCookie, setIsShowBanner, unlockScroll]);
 
   const handleAcceptCookies = useCallback(() => {
     unlockScroll();
@@ -41,7 +52,6 @@ export const useCookiesPolicyBannerMvvm = ({ isShowBanner, setIsShowBanner }: Pr
   const handleAnalyticsCookies = () => {
     setAnalyticsCookies(!analyticsCookies);
   };
-
   return {
     isShowBanner,
     handleRejectCookies,
@@ -53,5 +63,6 @@ export const useCookiesPolicyBannerMvvm = ({ isShowBanner, setIsShowBanner }: Pr
     analyticsCookies,
     setIsShowBanner,
     cookies,
+    getAllActivityLocalStore,
   };
 };

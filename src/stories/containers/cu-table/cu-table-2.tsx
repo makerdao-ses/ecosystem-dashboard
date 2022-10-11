@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
+import isEmpty from 'lodash/isEmpty';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { Filters } from './cu-table-filters';
 import { useThemeContext } from '../../../core/context/ThemeContext';
@@ -51,9 +52,8 @@ export const CuTable2 = () => {
   });
 
   useEffect(() => {
-    console.log('cookies', cookies);
     window.scrollTo(0, 0);
-    if (status !== 'loading' && cookies.analytics === undefined) {
+    if (status !== 'loading' && isEmpty(cookies)) {
       setIsShowBanner(true);
       lockScroll();
     } else {
