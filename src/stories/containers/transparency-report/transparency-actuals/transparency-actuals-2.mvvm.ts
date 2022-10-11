@@ -463,7 +463,7 @@ export const useTransparencyActualsMvvm2 = (
           [
             getLineItemsSubtotal(
               currentWallet?.budgetStatementLineItem?.filter((item) => item.headcountExpense),
-              'Sub Total'
+              'Subtotal'
             ),
           ],
           'subTotal'
@@ -497,7 +497,7 @@ export const useTransparencyActualsMvvm2 = (
           [
             getLineItemsSubtotal(
               currentWallet?.budgetStatementLineItem?.filter((item) => !item.headcountExpense),
-              'Sub Total'
+              'Subtotal'
             ),
           ],
           'subTotal'
