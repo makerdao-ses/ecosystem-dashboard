@@ -326,7 +326,7 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     }
 
     result.push([
-      <TextCell key={0}>{'Sub Total'}</TextCell>,
+      <TextCell key={0}>{'Subtotal'}</TextCell>,
       ...(hasGroups ? [<TextCell key={1} />] : []),
       <NumberCell key={2} value={subTotal[2]} />,
       <NumberCell key={3} value={subTotal[3]} />,
