@@ -89,8 +89,6 @@ export default function ActivityTable({ activityFeed, shortCode, columns, sortCl
     };
   }, [activityFeed]);
 
-  if (extendedActivity.length === 0) return <ActivityPlaceholder />;
-
   const sortedActivities = useMemo(() => {
     const result = sortBy(extendedActivity, (a) => {
       return a.activityFeed.created_at;
@@ -101,6 +99,8 @@ export default function ActivityTable({ activityFeed, shortCode, columns, sortCl
     }
     return result;
   }, [extendedActivity, columns, activityFeed]);
+
+  if (extendedActivity.length === 0) return <ActivityPlaceholder />;
 
   return (
     <>
