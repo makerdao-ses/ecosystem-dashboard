@@ -18,7 +18,7 @@ import { useCookiesPolicyBannerMvvm } from '../cookies-policy/cookies-policy-ban
 export const CuTable2 = () => {
   const [isShowBanner, setIsShowBanner] = useState(false);
   const isLight = useThemeContext().themeMode === 'light';
-  const { lockScroll } = useScrollLock();
+  const { lockScroll, unlockScroll } = useScrollLock();
   const {
     clearFilters,
     statusCount,
@@ -44,16 +44,23 @@ export const CuTable2 = () => {
     handleRejectCookies,
     analyticsCookies,
     functionalCookies,
+    cookies,
   } = useCookiesPolicyBannerMvvm({
     isShowBanner,
     setIsShowBanner,
   });
+
   useEffect(() => {
-    if (status !== 'loading') {
+    console.log('cookies', cookies);
+    window.scrollTo(0, 0);
+    if (status !== 'loading' && cookies.analytics === undefined) {
       setIsShowBanner(true);
-      window.scrollTo(0, 0);
+      lockScroll();
+    } else {
+      unlockScroll();
     }
-  }, [status]);
+  }, [cookies.analytics, cookies.darkMode, lockScroll, status, unlockScroll]);
+
   const siteHeader = useMemo(() => {
     if (status === 'loading') {
       lockScroll();
@@ -107,7 +114,7 @@ export const CuTable2 = () => {
           renderCard={(row: CustomTableRow, index: number) => renderCard(row?.value as CoreUnitDto, index)}
         />
       </Wrapper>
-      {isShowBanner && status !== 'loading' && <ContainerOverlay />}
+      {isShowBanner && status !== 'loading' && <ContainerOverlay isLight={isLight} />}
       {isShowBanner && status !== 'loading' && (
         <PolicyBannerPosition>
           <CookiesPolicyBanner
@@ -155,18 +162,18 @@ const Wrapper = styled.div({
   },
 });
 
-export const ContainerOverlay = styled.div({
+export const ContainerOverlay = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   position: 'absolute',
   top: 0,
   width: '100%',
   zIndex: 4,
   height: 'calc(100vh - 282px)',
   background: 'rgba(52, 52, 66, 0.1)',
-  backdropFilter: 'blur(2px)',
+  backdropFilter: isLight ? 'blur(2px)' : 'blur(4px)',
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     height: 'calc(100vh - 458px)',
   },
-});
+}));
 
 export const PolicyBannerPosition = styled.div({
   bottom: 0,
