@@ -23,7 +23,7 @@ export default ({ checked = false, ...props }: SelectItemProps) => {
       <CoreUnitCode isLight={isLight}>{props.params?.code}</CoreUnitCode>
       <CoreUnitName isLight={isLight}>{props.label}</CoreUnitName>
       <CheckWrapper>
-        <Check fill={checked ? '#231536' : '#D1DEE6'} />
+        <Check fill={checked ? (isLight ? '#231536' : 'white') : isLight ? '#D1DEE6' : 'rgb(159, 175, 185)'} />
       </CheckWrapper>
     </Container>
   );
