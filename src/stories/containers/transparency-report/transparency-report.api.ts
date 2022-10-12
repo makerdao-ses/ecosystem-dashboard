@@ -26,6 +26,7 @@ export const CORE_UNIT_REQUEST = (shortCode: string) => ({
             name
             address
             currentBalance
+            id
             budgetStatementLineItem {
               group
               actual
