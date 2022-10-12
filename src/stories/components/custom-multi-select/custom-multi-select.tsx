@@ -6,6 +6,7 @@ import useOutsideClick from '../../../core/utils/use-outside-click';
 import { SelectItem } from '../select-item/select-item';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import SimpleBar from 'simplebar-react';
+import { SearchInput } from '../search-input/search-input';
 
 export interface MultiSelectItem {
   id: string;
@@ -38,6 +39,7 @@ interface CustomMultiSelectProps {
   customItemRender?: (props: SelectItemProps) => JSX.Element;
   popupContainerWidth?: number;
   listItemWidth?: number;
+  withSearch?: boolean;
 }
 
 const defaultItemRender = (props: SelectItemProps) => <SelectItem {...props} />;
@@ -51,6 +53,7 @@ export const CustomMultiSelect = ({
   const isLight = useThemeContext().themeMode === 'light';
   const [popupVisible, setPopupVisible] = useState(false);
   const [hover, setHover] = useState(false);
+  const [searchText, setSearchText] = useState('');
 
   const refOutsideClick = useRef<HTMLDivElement>(null);
 
@@ -117,6 +120,16 @@ export const CustomMultiSelect = ({
       </SelectContainer>
       {popupVisible && (
         <PopupContainer width={props.popupContainerWidth ?? 212} isLight={isLight}>
+          {props.withSearch && (
+            <SearchInput
+              placeholder="Search"
+              value={searchText}
+              onChange={(val) => setSearchText(val)}
+              handleCleanSearch={() => setSearchText('')}
+              style={{ marginBottom: 8 }}
+              small
+            />
+          )}
           <SimpleBar
             style={{
               width: props.popupContainerWidth ? props.popupContainerWidth - 16 : 196,
@@ -132,16 +145,24 @@ export const CustomMultiSelect = ({
                   label: props.customAll?.content ? props.customAll.content : 'All',
                   count: props.customAll?.count ?? props.items.length,
                 })}
-              {props.items.map((item, i) =>
-                customItemRender({
-                  key: `item-${i}`,
-                  checked: activeItems.indexOf(item.id) > -1,
-                  onClick: () => toggleItem(item.id),
-                  label: item.content,
-                  count: item.count,
-                  params: item.params,
-                })
-              )}
+              {props.items
+                .filter(
+                  (item) =>
+                    activeItems.includes(item.id) ||
+                    !searchText ||
+                    item.content.toString().toLowerCase().indexOf(searchText.toLowerCase()) > -1 ||
+                    item.id.toString().toLowerCase().indexOf(searchText.toLowerCase()) > -1
+                )
+                .map((item, i) =>
+                  customItemRender({
+                    key: `item-${i}`,
+                    checked: activeItems.indexOf(item.id) > -1,
+                    onClick: () => toggleItem(item.id),
+                    label: item.content,
+                    count: item.count,
+                    params: item.params,
+                  })
+                )}
             </ItemsContainer>
           </SimpleBar>
         </PopupContainer>

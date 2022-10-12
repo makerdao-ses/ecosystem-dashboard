@@ -61,6 +61,7 @@ export default ({ coreUnits }: Props) => {
                   handleSelectChange(value);
                 }}
                 withAll={false}
+                withSearch
                 popupContainerWidth={360}
                 listItemWidth={330}
                 customItemRender={(props: SelectItemProps) => <CoreUnitSelectItem {...props} />}

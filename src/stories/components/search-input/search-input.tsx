@@ -12,6 +12,7 @@ interface SearchInputProps {
   style?: CSSProperties;
   handleCleanSearch?: () => void;
   inputRef?: React.RefObject<HTMLInputElement>;
+  small?: boolean;
 }
 
 export const SearchInput = (props: SearchInputProps) => {
@@ -38,6 +39,7 @@ export const SearchInput = (props: SearchInputProps) => {
           focus={focus || !!props.value}
           value={props.value}
           defaultValue={props.defaultValue}
+          small={props.small}
         />
         <IconWrapper>
           {focus || !!props.value ? (
@@ -69,10 +71,10 @@ const InputWrapper = styled.div({
   position: 'relative',
   display: 'flex',
   alignItems: 'center',
-  width: 'min(100%, 320px)',
+  width: 'min(100%, 330px)',
 });
 
-const Input = styled.input<{ focus: boolean; isLight: boolean }>(({ focus, isLight }) => ({
+const Input = styled.input<{ focus: boolean; isLight: boolean; small?: boolean }>(({ focus, isLight, small }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
@@ -98,11 +100,13 @@ const Input = styled.input<{ focus: boolean; isLight: boolean }>(({ focus, isLig
   '&::placeholder': {
     color: isLight ? '#B0BCC0' : '#D2D4EF',
   },
-  '@media (min-width: 834px)': {
-    width: '320px',
-    height: '48px',
-    fontSize: '14px',
-  },
+  '@media (min-width: 834px)': !small
+    ? {
+        width: '320px',
+        height: '48px',
+        fontSize: '14px',
+      }
+    : undefined,
 }));
 
 const IconWrapper = styled.div({
