@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import styled from '@emotion/styled';
 import Logo from '../svg/logo';
 import SelectLink from './select-link-website/select-link';
@@ -40,6 +40,23 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
     router.push('/');
   }, [router]);
 
+  const activeMenuItem = useMemo(() => {
+    for (const item of menuItems) {
+      if (item.link === '/') {
+        if (router.pathname === '/' || router.pathname.includes('core-unit')) {
+          return item;
+        }
+      } else {
+        console.log(router.pathname, item.link);
+        if (router.pathname.includes(item.link)) {
+          return item;
+        }
+      }
+    }
+
+    return menuItems[0];
+  }, [router.query]);
+
   return (
     <Container isLight={isLight}>
       <LeftPart>
@@ -60,22 +77,21 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
         </ContainerLogoSelect>
 
         <Navigation>
-          {menuItems.map(({ marginRight, link, title }: MenuType) => {
-            let isActive = false;
-            if (router.pathname === '/' || router.pathname.includes('core-unit')) {
-              isActive = link === '/';
-            } else {
-              isActive = router.pathname.includes(link) && link !== '/';
-            }
-
+          {menuItems.map((item: MenuType) => {
             return (
-              <ItemMenuStyle isLight={isLight} key={title} style={{ marginRight }} href={link} active={isActive}>
-                {title}
+              <ItemMenuStyle
+                isLight={isLight}
+                key={item.title}
+                style={{ marginRight: item.marginRight }}
+                href={item.link}
+                active={activeMenuItem === item}
+              >
+                {item.title}
               </ItemMenuStyle>
             );
           })}
           <ItemMenuResponsive>
-            <TopBarSelect selectedOption={'Core Units'} />
+            <TopBarSelect selectedOption={activeMenuItem.title} />
           </ItemMenuResponsive>
           <LinkWrapper>
             <CustomLink
@@ -211,11 +227,16 @@ const ItemMenuStyle = styled.a<{ active: boolean; marginRight?: string; isLight:
 );
 
 const ItemMenuResponsive = styled.div({
-  display: 'none',
+  '@media (min-width: 1194px)': {
+    display: 'none',
+  },
 });
 
 const LinkWrapper = styled.div({
-  display: 'flex',
+  display: 'none',
+  '@media (min-width: 1194px)': {
+    display: 'flex',
+  },
 });
 
 const LogoLinksWrapper = styled.div({

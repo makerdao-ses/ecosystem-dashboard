@@ -10,6 +10,11 @@ const menuItems: MenuType[] = [
     link: '/',
     marginRight: '32px',
   },
+  {
+    title: 'Activity Feed',
+    link: '/activity-feed',
+    marginRight: '32px',
+  },
 ];
 
 export default menuItems;
