@@ -9,6 +9,8 @@ import { MultiSelectItem } from '../../components/custom-multi-select/custom-mul
 export const useGlobalActivityMvvm = (coreUnits: CoreUnitDto[]) => {
   const [searchText, setSearchText] = useState('');
   const [activeElements, setActiveElements] = useState<string[]>([]);
+  const [filtersVisible, setFiltersVisible] = useState(false);
+  const toggleFiltersVisible = () => setFiltersVisible(!filtersVisible);
 
   const columns: ActivityTableHeader[] = [
     {
@@ -47,7 +49,7 @@ export const useGlobalActivityMvvm = (coreUnits: CoreUnitDto[]) => {
     setActiveElements([]);
   };
 
-  const filtersActive = !!searchText || activeElements.length;
+  const filtersActive = !!searchText || !!activeElements.length;
 
   const handleSelectChange = (value: string[]) => {
     setActiveElements(value);
@@ -98,5 +100,7 @@ export const useGlobalActivityMvvm = (coreUnits: CoreUnitDto[]) => {
     selectElements,
     activeElements,
     handleSelectChange,
+    filtersVisible,
+    toggleFiltersVisible,
   };
 };

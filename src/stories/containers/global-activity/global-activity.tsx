@@ -8,8 +8,9 @@ import ActivityTable from '../../components/cu-activity-table/cu-activity-table'
 import { CustomMultiSelect, SelectItemProps } from '../../components/custom-multi-select/custom-multi-select';
 import ResetButton from '../../components/reset-button/reset-button';
 import { SearchInput } from '../../components/search-input/search-input';
+import Filter from '../../components/svg/filter';
 import { Paragraph, Title } from '../cu-activity/cu-activity';
-import { SmallSeparator } from '../cu-table/cu-table-filters';
+import { ButtonFilter, SmallSeparator } from '../cu-table/cu-table-filters';
 import { useGlobalActivityMvvm } from './global-activity.mvvm';
 
 interface Props {
@@ -31,6 +32,8 @@ export default ({ coreUnits }: Props) => {
     selectElements,
     activeElements,
     handleSelectChange,
+    filtersVisible,
+    toggleFiltersVisible,
   } = useGlobalActivityMvvm(coreUnits);
 
   return (
@@ -45,30 +48,48 @@ export default ({ coreUnits }: Props) => {
             able to see all previous modifications the Core units made to their Expense Reports, FTEs, and more.
           </Paragraph>
           <FiltersContainer>
-            <ResetButton onClick={clearFilters} disabled={!filtersActive} />
-            <CustomMultiSelect
-              label="Core Unit"
-              activeItems={activeElements}
-              items={selectElements}
-              width={138}
-              onChange={(value: string[]) => {
-                handleSelectChange(value);
-              }}
-              withAll={false}
-              popupContainerWidth={360}
-              listItemWidth={330}
-              customItemRender={(props: SelectItemProps) => <CoreUnitSelectItem {...props} />}
-            />
+            <Reset filtersVisible={filtersVisible}>
+              <ResetButton onClick={clearFilters} disabled={!filtersActive} />
+            </Reset>
+            <CoreUnitsSelect filtersVisible={filtersVisible}>
+              <CustomMultiSelect
+                label="Core Unit"
+                activeItems={activeElements}
+                items={selectElements}
+                width={138}
+                onChange={(value: string[]) => {
+                  handleSelectChange(value);
+                }}
+                withAll={false}
+                popupContainerWidth={360}
+                listItemWidth={330}
+                customItemRender={(props: SelectItemProps) => <CoreUnitSelectItem {...props} />}
+              />
+            </CoreUnitsSelect>
             <SmallSeparator isLight={isLight} />
-            <SearchInput
-              inputRef={inputRef}
-              handleCleanSearch={handleCleanSearch}
-              placeholder="Search"
-              value={searchText}
-              onChange={(value: string) => {
-                setSearchText(value);
-              }}
-            />
+            <Search>
+              <SearchInput
+                inputRef={inputRef}
+                handleCleanSearch={handleCleanSearch}
+                placeholder="Search"
+                value={searchText}
+                onChange={(value: string) => {
+                  setSearchText(value);
+                }}
+              />
+            </Search>
+            <ButtonFilter
+              isLight={isLight}
+              isOpen={filtersVisible}
+              isActive={filtersActive}
+              onClick={toggleFiltersVisible}
+            >
+              <Filter
+                fill={
+                  filtersActive || filtersVisible ? (isLight ? '#1AAB9B' : '#098C7D') : isLight ? '#231536' : 'white'
+                }
+              />
+            </ButtonFilter>
           </FiltersContainer>
           <TableWrapper>
             <ActivityTable columns={columns} shortCode={'global'} activityFeed={activityFeed} />
@@ -120,8 +141,41 @@ const TableWrapper = styled.div({
 });
 
 const FiltersContainer = styled.div({
-  display: 'flex',
+  display: 'grid',
   gap: '16px',
-  justifyContent: 'flex-end',
   marginBottom: '32px',
+  gridTemplateColumns: 'auto 34px',
+  gridTemplateRows: 'auto auto',
+  placeItems: 'space-between',
+  width: '100%',
+  gridTemplateAreas: `
+  "search buttonFilter"
+  "coreUnits reset"
+  `,
+  '@media (min-width: 834px)': {
+    gridTemplateRows: 'auto',
+    gridTemplateColumns: 'auto auto auto auto',
+    justifyContent: 'flex-end',
+    gridTemplateAreas: '"reset coreUnits separator search"',
+  },
 });
+
+const Reset = styled.div<{ filtersVisible: boolean }>(({ filtersVisible }) => ({
+  display: filtersVisible ? 'flex' : 'none',
+  gridArea: 'reset',
+  '@media (min-width: 834px)': {
+    display: 'flex',
+  },
+}));
+
+const Search = styled.div({
+  gridArea: 'search',
+});
+
+const CoreUnitsSelect = styled.div<{ filtersVisible: boolean }>(({ filtersVisible }) => ({
+  display: filtersVisible ? 'flex' : 'none',
+  gridArea: 'coreUnits',
+  '@media (min-width: 834px)': {
+    display: 'flex',
+  },
+}));

@@ -272,7 +272,7 @@ const ResetFilter = styled.div<{ filtersVisible: boolean }>(({ filtersVisible })
   },
 }));
 
-const ButtonFilter = styled.div<{ isActive: boolean; isLight: boolean; isOpen: boolean }>(
+export const ButtonFilter = styled.div<{ isActive: boolean; isLight: boolean; isOpen: boolean }>(
   ({ isActive, isLight, isOpen }) => ({
     display: 'flex',
     gridArea: 'buttonFilter',
