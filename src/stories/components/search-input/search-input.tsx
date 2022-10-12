@@ -40,6 +40,7 @@ export const SearchInput = (props: SearchInputProps) => {
           value={props.value}
           defaultValue={props.defaultValue}
           small={props.small}
+          autoComplete="off"
         />
         <IconWrapper>
           {focus || !!props.value ? (
