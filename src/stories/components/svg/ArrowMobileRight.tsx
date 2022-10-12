@@ -6,12 +6,22 @@ interface Props {
   onClick?: () => void;
   fill?: string;
   style?: React.CSSProperties;
+  disabled?: boolean;
 }
 
-const ArrowMobileRight = ({ width = 5, height = 10, fill = '#1AAB9B', onClick, style = {}, ...props }: Props) => {
+const ArrowMobileRight = ({
+  width = 5,
+  height = 10,
+  fill = '#1AAB9B',
+  onClick,
+  style = {},
+  disabled = false,
+  ...props
+}: Props) => {
   return (
     <svg
       style={style}
+      cursor={disabled ? 'default' : 'pointer'}
       onClick={onClick}
       width={width}
       height={height}
