@@ -5,14 +5,15 @@ export class ActivityVisitHandler {
   private static STORAGE_KEY_SUFFIX = 'activity-visit-';
   private _storageKey: string;
   private _storage: Storage;
-
-  constructor(cuId?: string) {
+  private _activityCookie: boolean;
+  constructor(cuId?: string, saveStorage?: boolean) {
     this._storageKey = `${ActivityVisitHandler.STORAGE_KEY_SUFFIX}${cuId ?? 'global'}`;
     this._storage = new SafeLocalStorage();
+    this._activityCookie = saveStorage ?? false;
   }
 
   public visit(): void {
-    this._storage.setItem(this._storageKey, new Date().getTime().toString());
+    if (this._activityCookie) this._storage.setItem(this._storageKey, new Date().getTime().toString());
   }
 
   public lastVisit(): Date | undefined {
