@@ -5,7 +5,7 @@ import {
   getAllCommentsBudgetStatementLine,
   getCurrentOrLastMonthWithData,
   getLastMonthWithActualOrForecast,
-  getLastMonthWithData,
+  getLastUpdateForBudgetStatement,
   getNumberComments,
 } from '../../../core/business-logic/core-units';
 import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
@@ -144,14 +144,17 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
       id: TRANSPARENCY_IDS[5],
     });
   }
-  const lastMonthWithData = getLastMonthWithData(coreUnit);
+  const lastUpdateForBudgetStatement = useMemo(
+    () => getLastUpdateForBudgetStatement(coreUnit, currentBudgetStatement?.id ?? 0),
+    [currentBudgetStatement, coreUnit]
+  );
 
   const differenceInDays = useMemo(() => {
-    if (!lastMonthWithData) return null;
+    if (!lastUpdateForBudgetStatement) return null;
 
-    const dayCount = DateTime.now().diff(lastMonthWithData, ['day', 'milliseconds']).days;
+    const dayCount = DateTime.now().diff(lastUpdateForBudgetStatement, ['day', 'milliseconds']).days;
     return dayCount === 0 ? 'Today' : `${dayCount} ${dayCount === 1 ? 'Day' : 'Days'}`;
-  }, [lastMonthWithData]);
+  }, [lastUpdateForBudgetStatement]);
 
   return {
     tabItems,
@@ -163,7 +166,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     hasNextMonth,
     currentBudgetStatement,
     tabsIndex,
-    lastMonthWithData,
+    lastUpdateForBudgetStatement,
     getNumberComments,
     differenceInDays,
     numbersComments,

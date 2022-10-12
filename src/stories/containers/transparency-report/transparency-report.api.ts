@@ -9,6 +9,7 @@ export const CORE_UNIT_REQUEST = (shortCode: string) => ({
         name
         image
         budgetStatements {
+          id
           month
           budgetStatus
           publicationUrl
@@ -49,6 +50,13 @@ export const CORE_UNIT_REQUEST = (shortCode: string) => ({
           }
         }
         lastActivity {
+          id
+          created_at
+          event
+          params
+          description
+        }
+        activityFeed {
           id
           created_at
           event

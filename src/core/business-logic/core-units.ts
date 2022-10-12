@@ -300,6 +300,18 @@ export const getLastMonthWithData = (cu: CoreUnitDto) => {
   return undefined;
 };
 
+export const getLastUpdateForBudgetStatement = (cu: CoreUnitDto, budgetStatementId: number) => {
+  const activityFeed = cu.activityFeed?.filter(
+    (af) => Number(af.params.budgetStatementId) === Number(budgetStatementId)
+  );
+
+  if (!activityFeed?.length) return undefined;
+
+  _.sortBy(activityFeed, (af) => af.created_at).reverse();
+
+  return DateTime.fromISO(activityFeed[0].created_at);
+};
+
 export const getLast3MonthsWithData = (budgetStatements: BudgetStatementDto[]) => {
   // The budget statements should be provided in a descending date order but
   // it's better to order it client side to avoid future issues

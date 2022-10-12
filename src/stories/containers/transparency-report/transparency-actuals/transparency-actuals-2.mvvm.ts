@@ -9,7 +9,11 @@ import { DateTime } from 'luxon';
 import { capitalizeSentence } from '../../../../core/utils/string.utils';
 import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
 import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
-import { InnerTableColumn, InnerTableRow } from '../../../components/advanced-inner-table/advanced-inner-table';
+import {
+  InnerTableColumn,
+  InnerTableRow,
+  RowType,
+} from '../../../components/advanced-inner-table/advanced-inner-table';
 import { renderLinks, renderWallet } from '../transparency-report.utils';
 
 export const useTransparencyActualsMvvm2 = (
@@ -344,7 +348,7 @@ export const useTransparencyActualsMvvm2 = (
     },
   ];
 
-  const getBreakdownItems = (items: BudgetStatementLineItemDto[]) => {
+  const getBreakdownItems = (items: BudgetStatementLineItemDto[], type?: RowType) => {
     const result: InnerTableRow[] = [];
     const grouped = _.groupBy(items, (item) => item.group);
 
@@ -366,7 +370,7 @@ export const useTransparencyActualsMvvm2 = (
         }
 
         result.push({
-          type: 'normal',
+          type: type || 'normal',
           items: [
             {
               column: breakdownColumns[0],
@@ -431,7 +435,6 @@ export const useTransparencyActualsMvvm2 = (
 
   const breakdownItems = useMemo(() => {
     const result: InnerTableRow[] = [];
-
     if (!wallets) {
       return result;
     }
@@ -456,12 +459,15 @@ export const useTransparencyActualsMvvm2 = (
       );
 
       result.push(
-        ...getBreakdownItems([
-          getLineItemsSubtotal(
-            currentWallet?.budgetStatementLineItem?.filter((item) => item.headcountExpense),
-            'Sub Total'
-          ),
-        ])
+        ...getBreakdownItems(
+          [
+            getLineItemsSubtotal(
+              currentWallet?.budgetStatementLineItem?.filter((item) => item.headcountExpense),
+              'Subtotal'
+            ),
+          ],
+          'subTotal'
+        )
       );
     }
 
@@ -487,12 +493,15 @@ export const useTransparencyActualsMvvm2 = (
       result.push(...headcountExpenseItems);
 
       result.push(
-        ...getBreakdownItems([
-          getLineItemsSubtotal(
-            currentWallet?.budgetStatementLineItem?.filter((item) => !item.headcountExpense),
-            'Sub Total'
-          ),
-        ])
+        ...getBreakdownItems(
+          [
+            getLineItemsSubtotal(
+              currentWallet?.budgetStatementLineItem?.filter((item) => !item.headcountExpense),
+              'Subtotal'
+            ),
+          ],
+          'subTotal'
+        )
       );
     }
 
