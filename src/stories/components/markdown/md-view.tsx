@@ -8,6 +8,7 @@ import { CustomButton } from '../custom-button/custom-button';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import lightTheme from '../../../../styles/theme/light';
 import CardExpenses from '../card-navegation/card-expenses';
+import { ButtonType } from '../../../core/enums/button-type.enum';
 
 export type MarkDownHeaders = {
   level: number;
@@ -90,11 +91,11 @@ const MdViewerPage = ({
           <TypographyStyleDescription isLight={isLight}>{subTitle}</TypographyStyleDescription>
 
           <CustomButton
+            buttonType={ButtonType.Primary}
             widthText="100%"
             label="Expenses"
             style={{
               textAlign: 'center',
-              background: 'transparent',
               borderRadius: '22px',
               height: '34px',
               fontFamily: 'Inter, sans-serif',
@@ -104,12 +105,8 @@ const MdViewerPage = ({
               lineHeight: '18px',
               width: 'fit-content',
               padding: '8px 24px',
-              borderColor: isLight ? (open ? '#098C7D' : '#25273D') : !open ? '#1AAB9B' : '#1AAB9B',
             }}
             onClick={handleClick}
-            styleText={{
-              color: isLight ? (open ? '#098C7D' : '#231536') : '#1AAB9B',
-            }}
           />
           <Popover
             id={id}
