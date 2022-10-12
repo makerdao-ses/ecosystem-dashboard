@@ -69,7 +69,7 @@ const InputWrapper = styled.div({
   position: 'relative',
   display: 'flex',
   alignItems: 'center',
-  width: '100%',
+  width: 'min(100%, 320px)',
 });
 
 const Input = styled.input<{ focus: boolean; isLight: boolean }>(({ focus, isLight }) => ({
