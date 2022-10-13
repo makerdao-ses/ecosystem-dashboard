@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { IconButton, Menu, MenuItem, Typography } from '@mui/material';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { ThemeMode, useThemeContext } from '../../../../core/context/ThemeContext';
 import ArrowSelect from '../../svg/arrow-select';
 import ArrowSelectUp from '../../svg/arrow-select-up';
@@ -40,6 +40,14 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
     document.querySelector('body').style.overflow = popup ? 'auto' : 'hidden';
     setPopup(!popup);
   };
+
+  useEffect(() => {
+    return function setScroll() {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      document.querySelector('body').style.overflow = 'auto';
+    };
+  });
 
   const background = useMemo(() => {
     return themeMode === 'light' && open
