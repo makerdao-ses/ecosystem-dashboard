@@ -51,7 +51,6 @@ const CookiesPolicyContainer = () => {
               label="Configure my settings"
               style={{
                 padding: '14.5px 40px',
-                borderColor: isLight ? '#231536' : '#343442',
                 width: 249,
                 height: 48,
               }}
