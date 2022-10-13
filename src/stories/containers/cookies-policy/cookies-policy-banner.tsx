@@ -44,6 +44,8 @@ const CookiesPolicyBanner = ({
             label="Reject all cookies"
             buttonType={ButtonType.Secondary}
             style={{
+              width: 285,
+              height: 48,
               padding: '14.5px 76px',
             }}
             styleText={{
@@ -54,6 +56,10 @@ const CookiesPolicyBanner = ({
           />
           <CustomButtonStyle
             label="Accept configured cookies"
+            style={{
+              width: 285,
+              height: 48,
+            }}
             buttonType={ButtonType.Primary}
             styleText={{
               fontSize: '16px',

@@ -51,7 +51,12 @@ const CookiesPolicyContainer = () => {
               label="Configure my settings"
               style={{
                 padding: '14.5px 40px',
-                borderColor: isLight ? '#231536' : '#343442',
+                width: 249,
+                height: 48,
+              }}
+              styleText={{
+                fontSize: '16px',
+                color: isLight ? '#31424E' : '#E2D8EE',
               }}
               onClick={handleSettings}
             />
@@ -126,7 +131,7 @@ const Title = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   letterSpacing: '0.4px',
   color: isLight ? '#231536' : '#D2D4EF',
   marginBottom: '24px',
-  textAlign: 'center',
+  textAlign: 'left',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     textAlign: 'left',
   },

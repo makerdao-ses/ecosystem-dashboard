@@ -26,6 +26,7 @@ const customStyles: { [id: string]: any } = {
     background: '#FFFFFF',
     backgroundDark: 'transparent',
     borderColor: '#D4D9E1',
+    borderColorDark: '#343442',
   },
   Primary: {
     textColor: '#1AAB9B',
@@ -131,6 +132,9 @@ const Container = styled.button<{
           : 'transparent',
       }
     : undefined,
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    borderColor: isLight ? '#231536' : '#343442',
+  },
 
   ...(styles ?? {}),
 }));
