@@ -40,6 +40,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
     handlePreviousMonth,
     handleNextMonth,
     hasNextMonth,
+    hasPreviousMonth,
     currentBudgetStatement,
     tabsIndex,
     lastUpdateForBudgetStatement,
@@ -88,6 +89,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
                 onPrev={handlePreviousMonth}
                 onNext={handleNextMonth}
                 hasNext={hasNextMonth()}
+                hasPrevious={hasPreviousMonth()}
               />
               {currentBudgetStatement?.publicationUrl?.trim() && (
                 <CustomLink
