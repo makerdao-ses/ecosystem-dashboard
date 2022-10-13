@@ -3,16 +3,9 @@ import styled from '@emotion/styled';
 import CheckboxOff from '../svg/checkbox-off';
 import CheckboxOn from '../svg/checkbox-on';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { SelectItemProps } from '../custom-multi-select/custom-multi-select';
 
-interface SelectItemProps {
-  label: string | JSX.Element;
-  count?: number;
-  checked?: boolean;
-  onClick?: () => void;
-  minWidth?: number;
-}
-
-export const SelectItem = ({ checked = false, minWidth = 0, ...props }: SelectItemProps) => {
+export const SelectItem = ({ checked = false, ...props }: SelectItemProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   const [focused, setFocused] = useState(false);
   const [hover, setHover] = useState(false);
@@ -21,7 +14,6 @@ export const SelectItem = ({ checked = false, minWidth = 0, ...props }: SelectIt
     <Container
       className="no-select"
       onClick={props.onClick}
-      minWidth={minWidth}
       isLight={isLight}
       checked={checked}
       onMouseEnter={() => setHover(true)}
@@ -41,39 +33,33 @@ export const SelectItem = ({ checked = false, minWidth = 0, ...props }: SelectIt
   );
 };
 
-const Container = styled.div<{ minWidth: number; isLight: boolean; checked: boolean }>(
-  ({ minWidth, isLight, checked }) => ({
-    display: 'flex',
-    backgroundColor:
-      isLight && checked ? '#EDEFFF' : isLight && !checked ? 'none' : !isLight && !checked ? '#000A13' : '#231536',
-    alignItems: 'center',
-    position: 'relative',
-    padding: '8px',
+export const Container = styled.div<{ isLight: boolean; checked: boolean }>(({ isLight, checked }) => ({
+  display: 'flex',
+  backgroundColor:
+    isLight && checked ? '#EDEFFF' : isLight && !checked ? 'none' : !isLight && !checked ? '#000A13' : '#231536',
+  alignItems: 'center',
+  position: 'relative',
+  padding: '8px',
+  cursor: 'pointer',
+  borderRadius: '6px',
+  boxSizing: 'border-box',
+  transition: 'all .3s ease',
+  border: isLight ? 'none' : '1px solid #231536',
+  width: '100%',
+  '& > input': {
+    position: 'absolute',
+    opacity: 0,
     cursor: 'pointer',
-    borderRadius: '6px',
-    boxSizing: 'border-box',
-    transition: 'all .3s ease',
-    border: isLight ? 'none' : '1px solid #231536',
-    minWidth: minWidth ? `${minWidth}px` : 'unset',
-    borderBottom: isLight ? '2px solid #ECF1F3' : '1px solid #231536',
-    '& > input': {
-      position: 'absolute',
-      opacity: 0,
-      cursor: 'pointer',
-      height: '0',
-      width: '0',
-    },
-    '&:hover': {
-      background: isLight ? (checked ? '#EDEFFF' : '#F6F8F9') : '#25273D',
-    },
-    '&:hover .number': {
-      color: isLight ? '#708390' : '#ADAFD4',
-    },
-    '@media (min-width: 834px)': {
-      border: 'none',
-    },
-  })
-);
+    height: '0',
+    width: '0',
+  },
+  '&:hover': {
+    background: isLight ? (checked ? '#EDEFFF' : '#F6F8F9') : '#25273D',
+  },
+  '&:hover .number': {
+    color: isLight ? '#708390' : '#ADAFD4',
+  },
+}));
 
 const Label = styled.span({
   marginLeft: '8px',

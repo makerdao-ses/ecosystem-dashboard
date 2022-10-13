@@ -4,7 +4,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import styled from '@emotion/styled';
 import { ThemeMode } from '../../../core/context/ThemeContext';
 import Header from '../../components/header/header';
-import menuItems from '../../components/header/menu-items';
 import { itemsWebSiteLinks } from '../../components/header/select-link-website/menu-items';
 import Footer from '../../components/footer/footer';
 import { developer, governesses, products } from '../../components/footer/iconsData';
@@ -17,7 +16,7 @@ interface HeaderWrapperProps {
 export const HeaderWrapper = ({ children, themeMode, toggleTheme }: HeaderWrapperProps) => {
   return (
     <>
-      <Header menuItems={menuItems} links={itemsWebSiteLinks} themeMode={themeMode} toggleTheme={toggleTheme} />
+      <Header links={itemsWebSiteLinks} themeMode={themeMode} toggleTheme={toggleTheme} />
       <Container>
         <CssBaseline />
         {children}

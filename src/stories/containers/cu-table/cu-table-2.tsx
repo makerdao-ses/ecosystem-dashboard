@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
-import { CustomButton } from '../../components/custom-button/custom-button';
+import isEmpty from 'lodash/isEmpty';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { Filters } from './cu-table-filters';
 import { useThemeContext } from '../../../core/context/ThemeContext';
@@ -11,10 +11,15 @@ import { useCoreUnitsTableMvvm } from './cu-table-2.mvvm';
 import { CustomTable2, CustomTableRow } from '../../components/custom-table/custom-table-2';
 import { renderCard } from './cu-table.renders';
 import { SortEnum } from '../../../core/enums/sort.enum';
+import CookiesPolicyBanner from '../cookies-policy/cookies-policy-banner';
+import lightTheme from '../../../../styles/theme/light';
+import { useScrollLock } from '../../../core/hooks/scroll-hooks';
+import { useCookiesPolicyBannerMvvm } from '../cookies-policy/cookies-policy-banner.mvvm';
 
 export const CuTable2 = () => {
+  const [isShowBanner, setIsShowBanner] = useState(false);
   const isLight = useThemeContext().themeMode === 'light';
-
+  const { lockScroll, unlockScroll } = useScrollLock();
   const {
     clearFilters,
     statusCount,
@@ -33,9 +38,32 @@ export const CuTable2 = () => {
     applySort,
     resetSort,
   } = useCoreUnitsTableMvvm();
+  const {
+    handleAcceptCookies,
+    handleAnalyticsCookies,
+    handleFunctionalCookies,
+    handleRejectCookies,
+    analyticsCookies,
+    functionalCookies,
+    cookies,
+  } = useCookiesPolicyBannerMvvm({
+    isShowBanner,
+    setIsShowBanner,
+  });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    if (status !== 'loading' && isEmpty(cookies)) {
+      setIsShowBanner(true);
+      lockScroll();
+    } else {
+      unlockScroll();
+    }
+  }, [cookies.analytics, cookies.darkMode, lockScroll, status, unlockScroll]);
 
   const siteHeader = useMemo(() => {
     if (status === 'loading') {
+      lockScroll();
       return <CuTableHeaderSkeleton />;
     }
     return (
@@ -59,7 +87,7 @@ export const CuTable2 = () => {
   }, [filteredData, isLight, toggleFiltersPopup]);
 
   return (
-    <ContainerHome isLight={isLight}>
+    <ContainerHome isLight={isLight} allowPadding={isShowBanner}>
       <SEOHead
         title="MakerDAO Ecosystem Performance Dashboard | Maker Expenses"
         description="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
@@ -86,26 +114,39 @@ export const CuTable2 = () => {
           renderCard={(row: CustomTableRow, index: number) => renderCard(row?.value as CoreUnitDto, index)}
         />
       </Wrapper>
+      {isShowBanner && status !== 'loading' && <ContainerOverlay isLight={isLight} />}
+      {isShowBanner && status !== 'loading' && (
+        <PolicyBannerPosition>
+          <CookiesPolicyBanner
+            analyticsCookies={analyticsCookies}
+            functionalCookies={functionalCookies}
+            handleAnalyticsCookies={handleAnalyticsCookies}
+            handleFunctionalCookies={handleFunctionalCookies}
+            handleAcceptCookies={handleAcceptCookies}
+            handleRejectCookies={handleRejectCookies}
+          />
+        </PolicyBannerPosition>
+      )}
     </ContainerHome>
   );
 };
 
-const ContainerHome = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const ContainerHome = styled.div<{ isLight: boolean; allowPadding?: boolean }>(({ isLight, allowPadding = false }) => ({
   display: 'flex',
   flexDirection: 'column',
-  padding: '32px 16px 128px',
+  padding: !allowPadding ? '32px 16px 128px' : 'none',
   margin: '64px auto 0',
   width: '100%',
   background: isLight ? '#FFFFFF' : '#000000',
   backgroundImage: isLight ? '#FFFFFF' : 'linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 16, 32, 0.4) 100%)',
   '@media (min-width: 834px)': {
-    padding: '24px 32px 128px',
+    padding: !allowPadding ? '24px 32px 128px' : 'none',
   },
   '@media (min-width: 1280px)': {
-    padding: '24px 48px 128px',
+    padding: !allowPadding ? '24px 48px 128px' : 'none',
   },
   '@media (min-width: 1440px)': {
-    padding: '24px auto 128px',
+    padding: !allowPadding ? '24px auto 128px' : 'none',
   },
 }));
 
@@ -119,6 +160,28 @@ const Wrapper = styled.div({
   '@media (min-width: 1194px) and (max-width: 1410px)': {
     maxWidth: '1130px',
   },
+});
+
+export const ContainerOverlay = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  position: 'absolute',
+  top: 0,
+  width: '100%',
+  zIndex: 4,
+  height: 'calc(100vh - 282px)',
+  background: 'rgba(52, 52, 66, 0.1)',
+  backdropFilter: isLight ? 'blur(2px)' : 'blur(4px)',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    height: 'calc(100vh - 458px)',
+  },
+}));
+
+export const PolicyBannerPosition = styled.div({
+  bottom: 0,
+  zIndex: 4,
+  width: '100%',
+  position: 'absolute',
+  borderRadius: '90px',
+  transition: 'all 0.5s ease-in',
 });
 
 const Header = styled.div({

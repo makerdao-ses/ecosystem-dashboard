@@ -1,9 +1,9 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import styled from '@emotion/styled';
 import Logo from '../svg/logo';
 import SelectLink from './select-link-website/select-link';
 import { WebSiteLinks } from './select-link-website/menu-items';
-import { MenuType } from './menu-items';
+import menuItems, { MenuType } from './menu-items';
 import { useRouter } from 'next/router';
 import ThemeSwitcherButton from '../button/switch-button/switch-buttom';
 import { ThemeMode, useThemeContext } from '../../../core/context/ThemeContext';
@@ -13,15 +13,15 @@ import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
 import { TopBarSelect } from '../top-bar-select/top-bar-select';
 
 interface Props {
-  menuItems: MenuType[];
   links: WebSiteLinks[];
   themeMode: ThemeMode;
   toggleTheme: () => void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
+const Header = ({ links, themeMode, toggleTheme }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
+
   const router = useRouter();
   const onClick = useCallback(
     (link: string) => () => {
@@ -31,14 +31,24 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
   );
 
   const handleGoHome = useCallback(() => {
-    const input = document.querySelector('#search-input');
-    if (input) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      input.value = '';
-    }
     router.push('/');
   }, [router]);
+
+  const activeMenuItem = useMemo(() => {
+    for (const item of menuItems) {
+      if (item.link === '/') {
+        if (router.pathname === '/' || router.pathname.includes('core-unit')) {
+          return item;
+        }
+      } else {
+        if (router.pathname.includes(item.link)) {
+          return item;
+        }
+      }
+    }
+
+    return menuItems[0];
+  }, [router.query]);
 
   return (
     <Container isLight={isLight}>
@@ -60,22 +70,21 @@ const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
         </ContainerLogoSelect>
 
         <Navigation>
-          {menuItems.map(({ marginRight, link, title }: MenuType) => {
-            let isActive = false;
-            if (router.pathname === '/' || router.pathname.includes('core-unit')) {
-              isActive = link === '/';
-            } else {
-              isActive = router.pathname.includes(link) && link !== '/';
-            }
-
+          {menuItems.map((item: MenuType) => {
             return (
-              <ItemMenuStyle isLight={isLight} key={title} style={{ marginRight }} href={link} active={isActive}>
-                {title}
+              <ItemMenuStyle
+                isLight={isLight}
+                key={item.title}
+                style={{ marginRight: item.marginRight }}
+                href={item.link}
+                active={activeMenuItem === item}
+              >
+                {item.title}
               </ItemMenuStyle>
             );
           })}
           <ItemMenuResponsive>
-            <TopBarSelect selectedOption={'Core Units'} />
+            <TopBarSelect selectedOption={activeMenuItem.title} />
           </ItemMenuResponsive>
           <LinkWrapper>
             <CustomLink
@@ -211,11 +220,16 @@ const ItemMenuStyle = styled.a<{ active: boolean; marginRight?: string; isLight:
 );
 
 const ItemMenuResponsive = styled.div({
-  display: 'none',
+  '@media (min-width: 1194px)': {
+    display: 'none',
+  },
 });
 
 const LinkWrapper = styled.div({
-  display: 'flex',
+  display: 'none',
+  '@media (min-width: 1194px)': {
+    display: 'flex',
+  },
 });
 
 const LogoLinksWrapper = styled.div({

@@ -4,6 +4,7 @@ interface Props {
   onClick?: () => void;
   fill?: string;
   style?: React.CSSProperties;
+  disabled?: boolean;
 }
 const ArrowMobileLeft = ({
   fill = '#1AAB9B',
@@ -12,11 +13,13 @@ const ArrowMobileLeft = ({
   onClick = () => {},
   style = {},
   width = 6,
+  disabled = false,
   ...props
 }: Props) => {
   return (
     <svg
       style={style}
+      cursor={disabled ? 'default' : 'pointer'}
       width={width}
       height={height}
       onClick={onClick}

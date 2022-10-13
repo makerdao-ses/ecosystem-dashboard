@@ -6,11 +6,25 @@ import useOutsideClick from '../../../core/utils/use-outside-click';
 import { SelectItem } from '../select-item/select-item';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import SimpleBar from 'simplebar-react';
+import { SearchInput } from '../search-input/search-input';
 
 export interface MultiSelectItem {
   id: string;
   content: string | JSX.Element;
   count: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  params?: any;
+}
+
+export interface SelectItemProps {
+  key?: string;
+  label: string | JSX.Element;
+  count?: number;
+  avatar?: string;
+  checked?: boolean;
+  onClick?: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  params?: any;
 }
 
 interface CustomMultiSelectProps {
@@ -22,12 +36,24 @@ interface CustomMultiSelectProps {
   style?: CSSProperties;
   activeItems: string[];
   width?: number;
+  customItemRender?: (props: SelectItemProps) => JSX.Element;
+  popupContainerWidth?: number;
+  listItemWidth?: number;
+  withSearch?: boolean;
 }
 
-export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }: CustomMultiSelectProps) => {
+const defaultItemRender = (props: SelectItemProps) => <SelectItem {...props} />;
+
+export const CustomMultiSelect = ({
+  withAll = true,
+  activeItems = [],
+  customItemRender = defaultItemRender,
+  ...props
+}: CustomMultiSelectProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   const [popupVisible, setPopupVisible] = useState(false);
   const [hover, setHover] = useState(false);
+  const [searchText, setSearchText] = useState('');
 
   const refOutsideClick = useRef<HTMLDivElement>(null);
 
@@ -75,7 +101,7 @@ export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }
         </Label>
         <IconWrapper>
           <SelectChevronDown
-            style={{ transform: popupVisible ? 'scaleY(-1)' : '' }}
+            style={{ transform: popupVisible ? 'scaleY(-1)' : 'scaleY(1)' }}
             fill={
               isLight
                 ? activeItems.length > 0
@@ -93,28 +119,53 @@ export const CustomMultiSelect = ({ withAll = true, activeItems = [], ...props }
         </IconWrapper>
       </SelectContainer>
       {popupVisible && (
-        <PopupContainer isLight={isLight}>
-          <SimpleBar className="filter-popup-scroll" scrollbarMaxSize={32}>
-            <ItemsContainer>
-              {withAll && (
-                <SelectItem
-                  checked={activeItems.length === props.items.length}
-                  onClick={() => toggleAll()}
-                  label={props.customAll?.content ? props.customAll.content : 'All'}
-                  count={props.customAll?.count ?? props.items.length}
-                  minWidth={180}
-                />
-              )}
-              {props.items.map((item, i) => (
-                <SelectItem
-                  key={`item-${i}`}
-                  checked={activeItems.indexOf(item.id) > -1}
-                  onClick={() => toggleItem(item.id)}
-                  label={item.content}
-                  count={item.count}
-                  minWidth={180}
-                />
-              ))}
+        <PopupContainer width={props.popupContainerWidth ?? 212} isLight={isLight}>
+          {props.withSearch && (
+            <SearchInput
+              placeholder="Search"
+              value={searchText}
+              onChange={(val) => setSearchText(val)}
+              handleCleanSearch={() => setSearchText('')}
+              style={{ marginBottom: 8 }}
+              small
+            />
+          )}
+          <SimpleBar
+            style={{
+              width: props.popupContainerWidth ? props.popupContainerWidth - 16 : 196,
+              background: 'white',
+              height: 250,
+            }}
+            className="filter-popup-scroll"
+            scrollbarMaxSize={32}
+          >
+            <ItemsContainer width={props.listItemWidth}>
+              {withAll &&
+                customItemRender({
+                  checked: activeItems.length === props.items.length,
+                  onClick: () => toggleAll(),
+                  label: props.customAll?.content ? props.customAll.content : 'All',
+                  count: props.customAll?.count ?? props.items.length,
+                  params: props.customAll?.params,
+                })}
+              {props.items
+                .filter(
+                  (item) =>
+                    activeItems.includes(item.id) ||
+                    !searchText ||
+                    item.content.toString().toLowerCase().indexOf(searchText.toLowerCase()) > -1 ||
+                    item.id.toString().toLowerCase().indexOf(searchText.toLowerCase()) > -1
+                )
+                .map((item, i) =>
+                  customItemRender({
+                    key: `item-${i}`,
+                    checked: activeItems.indexOf(item.id) > -1,
+                    onClick: () => toggleItem(item.id),
+                    label: item.content,
+                    count: item.count,
+                    params: item.params,
+                  })
+                )}
             </ItemsContainer>
           </SimpleBar>
         </PopupContainer>
@@ -181,12 +232,13 @@ const SelectContainer = styled.div<{
   },
 }));
 
-const ItemsContainer = styled.div({
+const ItemsContainer = styled.div<{ width?: number }>(({ width = 180 }) => ({
   marginRight: '16px',
   display: 'flex',
   flexDirection: 'column',
   gap: '4px',
-});
+  width,
+}));
 
 const Label = styled.div<{ active: boolean; isLight: boolean; hover: boolean }>(({ active, isLight, hover }) => ({
   fontFamily: 'Inter, sans-serif',
@@ -214,12 +266,11 @@ const IconWrapper = styled.div({
   marginTop: '-4px',
 });
 
-const PopupContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const PopupContainer = styled.div<{ isLight: boolean; width: number }>(({ isLight, width }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: '4px',
-  minWidth: '100%',
-  width: 'fit-content',
+  width,
   background: isLight ? 'white' : '#000A13',
   height: 'fit-content',
   padding: '16px 0 16px 16px',

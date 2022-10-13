@@ -84,10 +84,19 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     );
   };
 
+  const hasPreviousMonth = () => {
+    const limit = getLastMonthWithActualOrForecast(coreUnit?.budgetStatements, true).minus({
+      month: 1,
+    });
+    return currentMonth.startOf('month') > limit.startOf('month');
+  };
+
   const handlePreviousMonth = useCallback(() => {
-    const month = currentMonth.minus({ month: 1 });
-    replaceViewMonthRoute(month.toFormat('LLLyyyy'));
-    setCurrentMonth(month);
+    if (hasPreviousMonth()) {
+      const month = currentMonth.minus({ month: 1 });
+      replaceViewMonthRoute(month.toFormat('LLLyyyy'));
+      setCurrentMonth(month);
+    }
   }, [setCurrentMonth, currentMonth]);
 
   const hasNextMonth = () => {
@@ -172,5 +181,6 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     numbersComments,
     comments,
     longCode,
+    hasPreviousMonth,
   };
 };

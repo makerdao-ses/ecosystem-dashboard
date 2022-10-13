@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import {
@@ -9,9 +10,25 @@ import {
   COOKIES_POLICY_PARAGRAPH_TWO,
 } from '../../../core/utils/const';
 import { CustomButton } from '../../components/custom-button/custom-button';
+import { ContainerOverlay, PolicyBannerPosition } from '../cu-table/cu-table-2';
+import CookiesPolicyBanner from './cookies-policy-banner';
+import { useCookiesPolicyBannerMvvm } from './cookies-policy-banner.mvvm';
 
 const CookiesPolicyContainer = () => {
   const isLight = useThemeContext().themeMode === 'light';
+  const [isShowBanner, setIsShowBanner] = useState(false);
+  const {
+    handleAcceptCookies,
+    handleAnalyticsCookies,
+    handleFunctionalCookies,
+    handleRejectCookies,
+    handleSettings,
+    analyticsCookies,
+    functionalCookies,
+  } = useCookiesPolicyBannerMvvm({
+    isShowBanner,
+    setIsShowBanner,
+  });
 
   return (
     <Container isLight={isLight}>
@@ -22,7 +39,7 @@ const CookiesPolicyContainer = () => {
           <ParagraphStyle isLight={isLight}>{COOKIES_POLICY_PARAGRAPH_ONE}</ParagraphStyle>
           <ParagraphStyle isLight={isLight}>{COOKIES_POLICY_PARAGRAPH_TWO}</ParagraphStyle>
           <ParagraphStyle isLight={isLight}>{COOKIES_POLICY_PARAGRAPH_THREE}</ParagraphStyle>
-          <ContainerUl>
+          <ContainerUl isLight={isLight}>
             <li>Page views,</li>
             <li>Button clicks,</li>
             <li>Input form changes (without the values being entered),</li>
@@ -34,14 +51,33 @@ const CookiesPolicyContainer = () => {
               label="Configure my settings"
               style={{
                 padding: '14.5px 40px',
-                borderColor: isLight ? '#231536' : '#343442',
+                width: 249,
+                height: 48,
               }}
-              // eslint-disable-next-line @typescript-eslint/no-empty-function
-              onClick={() => {}}
+              styleText={{
+                fontSize: '16px',
+                color: isLight ? '#31424E' : '#E2D8EE',
+              }}
+              onClick={handleSettings}
             />
           </ContainerButton>
         </div>
       </ContainerData>
+      {isShowBanner && (
+        <>
+          <ContainerOverlay isLight={isLight} />
+          <PolicyBannerPosition>
+            <CookiesPolicyBanner
+              analyticsCookies={analyticsCookies}
+              functionalCookies={functionalCookies}
+              handleAnalyticsCookies={handleAnalyticsCookies}
+              handleFunctionalCookies={handleFunctionalCookies}
+              handleAcceptCookies={handleAcceptCookies}
+              handleRejectCookies={handleRejectCookies}
+            />
+          </PolicyBannerPosition>
+        </>
+      )}
     </Container>
   );
 };
@@ -95,7 +131,7 @@ const Title = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   letterSpacing: '0.4px',
   color: isLight ? '#231536' : '#D2D4EF',
   marginBottom: '24px',
-  textAlign: 'center',
+  textAlign: 'left',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     textAlign: 'left',
   },
