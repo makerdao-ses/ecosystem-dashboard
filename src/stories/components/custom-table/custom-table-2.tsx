@@ -182,6 +182,7 @@ const TableWrapper = styled.div({
 const ListWrapper = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  gap: 32,
   '@media (min-width: 1194px)': {
     display: 'none',
   },

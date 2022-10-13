@@ -150,7 +150,6 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
 };
 
 const CuCard = styled.div({
-  marginBottom: '32px',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     ':last-child': {
       marginBottom: '0px',
