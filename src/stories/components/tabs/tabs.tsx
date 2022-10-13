@@ -74,7 +74,6 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   borderBottom: isLight ? '1px solid #B6EDE7' : '1px solid #405361',
   flex: 1,
   minWidth: 'fit-content',
-  // gap: '32px',
   '* + *': {
     marginRight: '32px',
   },
