@@ -3,7 +3,6 @@ import { CssBaseline, ThemeProvider as MuiThemeProvider, useMediaQuery } from '@
 import lightTheme from '../../../styles/theme/light';
 import darkTheme from '../../../styles/theme/dark';
 import useLocalStorage from '../hooks/useLocalStorage';
-import menuItems from '../../stories/components/header/menu-items';
 import { itemsWebSiteLinks } from '../../stories/components/header/select-link-website/menu-items';
 import Header from '../../stories/components/header/header';
 import Footer from '../../stories/components/footer/footer';
@@ -45,7 +44,7 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
       }}
     >
       <MuiThemeProvider theme={themeMode === 'light' ? lightTheme : darkTheme}>
-        <Header menuItems={menuItems} links={itemsWebSiteLinks} themeMode={themeMode} toggleTheme={toggleTheme} />
+        <Header links={itemsWebSiteLinks} themeMode={themeMode} toggleTheme={toggleTheme} />
         <Container>
           <CssBaseline />
           {children}

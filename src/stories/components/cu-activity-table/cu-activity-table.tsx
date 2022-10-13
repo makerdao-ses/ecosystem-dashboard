@@ -34,25 +34,38 @@ export interface Props {
   activityFeed: Activity[];
   shortCode: string;
   sortClick?: (index: number) => void;
+  isGlobal?: boolean;
 }
 
-const NewChangesDivider = ({ isLight, count }: { isLight: boolean; count: number }) => (
+const NewChangesDivider = ({ isLight, count, isGlobal }: { isLight: boolean; count: number; isGlobal?: boolean }) => (
   <ChangesButtonContainer>
     <DividerStyle
       sx={{
-        bgcolor: isLight ? '#F75524' : '#FF8237',
+        bgcolor: 'white',
+        borderColor: 'transparent',
+        [lightTheme.breakpoints.up('table_834')]: {
+          bgcolor: isLight ? '#F75524' : '#FF8237',
+          borderColor: isLight ? '#F75524' : '#FF8237',
+        },
       }}
     />
-    <DividerText isLight={isLight}>{count} New Changes since your last visit</DividerText>
+    <DividerText isLight={isLight} isGlobal={isGlobal}>
+      {count} New Changes since your last visit
+    </DividerText>
     <DividerStyle
       sx={{
-        bgcolor: isLight ? '#F75524' : '#FF8237',
+        bgcolor: 'white',
+        borderColor: 'transparent',
+        [lightTheme.breakpoints.up('table_834')]: {
+          bgcolor: isLight ? '#F75524' : '#FF8237',
+          borderColor: isLight ? '#F75524' : '#FF8237',
+        },
       }}
     />
   </ChangesButtonContainer>
 );
 
-export default function ActivityTable({ activityFeed, shortCode, columns, sortClick }: Props) {
+export default function ActivityTable({ activityFeed, shortCode, columns, sortClick, isGlobal }: Props) {
   const [cookies] = useCookies(['darkMode', 'timestamp', 'analytics']);
   const isLight = useThemeContext().themeMode === 'light';
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
@@ -100,7 +113,7 @@ export default function ActivityTable({ activityFeed, shortCode, columns, sortCl
       return result.reverse();
     }
     return result;
-  }, [extendedActivity, columns]);
+  }, [extendedActivity, columns, activityFeed]);
 
   if (extendedActivity.length === 0) return <ActivityPlaceholder />;
 
@@ -108,11 +121,11 @@ export default function ActivityTable({ activityFeed, shortCode, columns, sortCl
     <>
       {noVisitedCount > 0 && (
         <DisplayOnMobileOnly style={{ marginBottom: '48px' }}>
-          <NewChangesDivider isLight={isLight} count={noVisitedCount} />
+          <NewChangesDivider isLight={isLight} count={noVisitedCount} isGlobal={isGlobal} />
         </DisplayOnMobileOnly>
       )}
 
-      <TableHeader isLight={isLight}>
+      <TableHeader isLight={isLight} isGlobal={isGlobal}>
         <TableHeaderRow className="no-select">
           {columns.map((column, i) => (
             <TableHeaderTitle
@@ -160,6 +173,7 @@ export default function ActivityTable({ activityFeed, shortCode, columns, sortCl
             }}
           />
           <StyledBigButton
+            isGlobal={isGlobal}
             isLight={isLight}
             title={`See ${columns[0].sort === SortEnum.Asc ? 'Recent' : 'Previous'} Activity`}
             onClick={handleSeePrevious}
@@ -177,7 +191,7 @@ export default function ActivityTable({ activityFeed, shortCode, columns, sortCl
   );
 }
 
-const TableHeader = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const TableHeader = styled.div<{ isLight: boolean; isGlobal?: boolean }>(({ isLight, isGlobal }) => ({
   display: 'none',
   position: 'relative',
   zIndex: 1,
@@ -190,7 +204,7 @@ const TableHeader = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     ? 'inset .25px -.25px .25px .25px rgba(190, 190, 190, 0.25), 0px 20px 40px rgba(190, 190, 190, .25), 0px 1px 3px rgba(190, 190, 190, 0.25)'
     : '0px 20px 40px rgba(7, 22, 40, 0.4)',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up(isGlobal ? 'desktop_1194' : 'table_834')]: {
     display: 'block',
   },
 }));
@@ -243,7 +257,7 @@ const DisplayOnMobileOnly = styled.div({
   },
 });
 
-const DividerText = styled.div<{ isLight: boolean }>(({ isLight = true }) => ({
+const DividerText = styled.div<{ isLight: boolean; isGlobal?: boolean }>(({ isLight = true, isGlobal }) => ({
   fontFamily: 'FT Base, sans-serif',
   flex: '0 0 auto',
   fontWeight: 600,
@@ -254,7 +268,7 @@ const DividerText = styled.div<{ isLight: boolean }>(({ isLight = true }) => ({
   color: isLight ? '#F75524' : '#FF8237',
   margin: '0 8px',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up(isGlobal ? 'desktop_1194' : 'table_834')]: {
     margin: '0 16px',
     fontWeight: 500,
     lineHeight: '14px',
@@ -278,29 +292,30 @@ const ButtonContainer = styled.div({
   marginTop: '64px',
 });
 
-const StyledBigButton = styled(Button, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
-  ({ isLight }) => ({
-    minWidth: '217px',
-    height: '30px',
-    border: isLight ? '1px solid #D4D9E1' : '1px solid #405361',
-    borderRadius: '6px',
-    fontStyle: 'normal',
-    fontWeight: 600,
-    fontSize: '12px',
-    lineHeight: '15px',
-    textAlign: 'center',
-    textTransform: 'uppercase',
-    color: '#708390',
-    padding: '8px 24px',
-    letterSpacing: '1px',
-    fontFamily: 'Inter, sans-serif',
+const StyledBigButton = styled(Button, { shouldForwardProp: (prop) => prop !== 'isLight' && prop !== 'isGlobal' })<{
+  isLight: boolean;
+  isGlobal?: boolean;
+}>(({ isLight, isGlobal }) => ({
+  minWidth: '217px',
+  height: '30px',
+  border: isLight ? '1px solid #D4D9E1' : '1px solid #405361',
+  borderRadius: '6px',
+  fontStyle: 'normal',
+  fontWeight: 600,
+  fontSize: '12px',
+  lineHeight: '15px',
+  textAlign: 'center',
+  textTransform: 'uppercase',
+  color: '#708390',
+  padding: '8px 24px',
+  letterSpacing: '1px',
+  fontFamily: 'Inter, sans-serif',
 
-    [lightTheme.breakpoints.up('table_834')]: {
-      minWidth: '297px',
-      padding: '8px 64px',
-    },
-  })
-);
+  [lightTheme.breakpoints.up(isGlobal ? 1000 : 'table_834')]: {
+    minWidth: '297px',
+    padding: '8px 64px',
+  },
+}));
 
 const DividerPreviousStyle = styled(Divider, { shouldForwardProp: (prop) => prop !== 'isLight' })({
   width: '100%',

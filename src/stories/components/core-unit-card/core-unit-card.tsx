@@ -68,6 +68,18 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
         <Links>
           <CuTableColumnLinks isLoading />
         </Links>
+        <LastModified>
+          <Skeleton
+            variant="rectangular"
+            width={100}
+            height={20}
+            style={{
+              borderRadius: '4px',
+              marginBottom: '16px',
+            }}
+          />
+          <CuTableColumnLastModified isLoading />
+        </LastModified>
       </Container>
     );
   }
@@ -114,7 +126,7 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
           <Link href={`/core-unit/${coreUnit.shortCode}/activity-feed${queryStrings}`}>
             <LastModified>
               <Title style={{ marginBottom: '16px' }}>Last Modified</Title>
-              <CuTableColumnLastModified date={getLastMonthWithData(coreUnit)} isLoading={isLoading} />
+              <CuTableColumnLastModified date={getLastMonthWithData(coreUnit)} />
             </LastModified>
           </Link>
           <Line isLight={isLight} />

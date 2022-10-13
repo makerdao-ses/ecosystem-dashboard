@@ -39,7 +39,12 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
             }}
           />
           {menuItems.map((item) => (
-            <LinkWrapper isLight={isLight} key={item.title} onClick={() => setPopup(false)}>
+            <LinkWrapper
+              isLight={isLight}
+              isActive={item.title === props.selectedOption}
+              key={item.title}
+              onClick={() => setPopup(false)}
+            >
               <Link href={item.link}>{item.title}</Link>
             </LinkWrapper>
           ))}
@@ -48,7 +53,7 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
             target="_blank"
             style={{
               background: 'white',
-              borderColor: '#D4D9E1',
+              borderColor: isLight ? '#D4D9E1' : '',
             }}
           >
             <CustomLink
@@ -62,10 +67,15 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
                 fontFamily: 'SF Pro Display, sans serif',
                 color: '#447AFB',
                 fontStyle: 'normal',
-                lineHeight: '19px',
+                lineHeight: '52px',
                 letterSpacing: '0.3px',
                 borderRadius: '6px',
                 marginLeft: '0px',
+                width: 326,
+                padding: 0,
+                textAlign: 'center',
+                height: '52px',
+                justifyContent: 'center',
                 border: isLight ? 'none' : '1px solid #1E2C37',
               }}
               marginLeft="7px"
@@ -122,19 +132,20 @@ const Popup = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   },
 }));
 
-const LinkWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const LinkWrapper = styled.div<{ isLight: boolean; isActive: boolean }>(({ isLight, isActive }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  background: isLight ? '#E7FCFA' : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
-  border: isLight ? '1px solid #139D8D' : '1px solid #06554C',
+  background: isActive ? (isLight ? '#E7FCFA' : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)') : 'transparent',
+  border: '1px solid #139D8D',
+  borderColor: isActive ? (isLight ? '#139D8D' : '#06554C') : isLight ? '#D4D9E1' : '#343442',
   borderRadius: '6px',
   width: '100%',
   maxWidth: '326px',
   height: '52px',
   fontWeight: 700,
   fontSize: '16px',
-  color: isLight ? '#1AAB9B' : '#2DC1B1',
+  color: isActive ? (isLight ? '#1AAB9B' : '#2DC1B1') : isLight ? '#25273D' : '#D2D4EF',
   boxSizing: 'border-box',
   boxShadow: isLight ? 'none' : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
 }));

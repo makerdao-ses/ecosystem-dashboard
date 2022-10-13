@@ -10,8 +10,9 @@ interface SearchInputProps {
   placeholder: string;
   onChange?: (text: string) => void;
   style?: CSSProperties;
-  handleCloseSearch?: () => void;
+  handleCleanSearch?: () => void;
   inputRef?: React.RefObject<HTMLInputElement>;
+  small?: boolean;
 }
 
 export const SearchInput = (props: SearchInputProps) => {
@@ -38,11 +39,13 @@ export const SearchInput = (props: SearchInputProps) => {
           focus={focus || !!props.value}
           value={props.value}
           defaultValue={props.defaultValue}
+          small={props.small}
+          autoComplete="off"
         />
         <IconWrapper>
-          {focus || !!props.defaultValue ? (
+          {focus || !!props.value ? (
             <Close
-              onClick={props.handleCloseSearch}
+              onClick={props.handleCleanSearch}
               width={10}
               height={10}
               fill="#25273D"
@@ -69,9 +72,10 @@ const InputWrapper = styled.div({
   position: 'relative',
   display: 'flex',
   alignItems: 'center',
+  width: 'min(100%, 330px)',
 });
 
-const Input = styled.input<{ focus: boolean; isLight: boolean }>(({ focus, isLight }) => ({
+const Input = styled.input<{ focus: boolean; isLight: boolean; small?: boolean }>(({ focus, isLight, small }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
@@ -79,7 +83,7 @@ const Input = styled.input<{ focus: boolean; isLight: boolean }>(({ focus, isLig
   flex: 1,
   color: isLight ? '#25273D' : '#FFFFFF',
   outline: 'none',
-  width: 'min(243px, calc(100vw - 100px))',
+  width: '100%',
   height: '34px',
   border:
     isLight && focus
@@ -97,11 +101,13 @@ const Input = styled.input<{ focus: boolean; isLight: boolean }>(({ focus, isLig
   '&::placeholder': {
     color: isLight ? '#B0BCC0' : '#D2D4EF',
   },
-  '@media (min-width: 834px)': {
-    width: '320px',
-    height: '48px',
-    fontSize: '14px',
-  },
+  '@media (min-width: 834px)': !small
+    ? {
+        width: '320px',
+        height: '48px',
+        fontSize: '14px',
+      }
+    : undefined,
 }));
 
 const IconWrapper = styled.div({
