@@ -146,6 +146,7 @@ export const CustomMultiSelect = ({
                   onClick: () => toggleAll(),
                   label: props.customAll?.content ? props.customAll.content : 'All',
                   count: props.customAll?.count ?? props.items.length,
+                  params: props.customAll?.params,
                 })}
               {props.items
                 .filter(

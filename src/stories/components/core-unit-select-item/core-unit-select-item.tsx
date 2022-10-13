@@ -14,13 +14,20 @@ export default ({ checked = false, ...props }: SelectItemProps) => {
       className="no-select"
       style={{
         flex: 1,
+        minHeight: 40,
+        maxHeight: 40,
+        padding: 4,
       }}
       checked={checked}
       isLight={isLight}
       onClick={props.onClick}
     >
-      <CircleAvatar name={props.label.toString()} image={props.params?.url} width={'32px'} height={'32px'} />
-      <CoreUnitCode isLight={isLight}>{props.params?.code}</CoreUnitCode>
+      {!props.params?.isAll && (
+        <>
+          <CircleAvatar name={props.label.toString()} image={props.params?.url} width={'32px'} height={'32px'} />
+          <CoreUnitCode isLight={isLight}>{props.params?.code}</CoreUnitCode>
+        </>
+      )}
       <CoreUnitName isLight={isLight}>{props.label}</CoreUnitName>
       <CheckWrapper>
         <Check fill={checked ? (isLight ? '#231536' : 'white') : isLight ? '#D1DEE6' : 'rgb(159, 175, 185)'} />
@@ -55,5 +62,5 @@ const CheckWrapper = styled.span({
   alignSelf: 'center',
   position: 'absolute',
   right: 8,
-  top: 14,
+  top: 8,
 });

@@ -60,10 +60,15 @@ export default ({ coreUnits }: Props) => {
                 onChange={(value: string[]) => {
                   handleSelectChange(value);
                 }}
-                withAll={false}
-                withSearch
+                withAll
                 popupContainerWidth={360}
                 listItemWidth={330}
+                customAll={{
+                  content: 'All Core Units',
+                  id: 'all',
+                  params: { isAll: true },
+                  count: 0,
+                }}
                 customItemRender={(props: SelectItemProps) => <CoreUnitSelectItem {...props} />}
               />
             </CoreUnitsSelect>
