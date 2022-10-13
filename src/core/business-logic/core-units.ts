@@ -273,10 +273,10 @@ export const getCurrentOrLastMonthWithData = (budgetStatements: BudgetStatementD
   return currentMonth;
 };
 
-export const getLastMonthWithActualOrForecast = (budgetStatements: BudgetStatementDto[], descendant?: boolean) => {
+export const getLastMonthWithActualOrForecast = (budgetStatements: BudgetStatementDto[], ascending?: boolean) => {
   // The budget statements should be provided in a descending date order but
   // it's better to order it client side to avoid future issues
-  const orderedStatements = descendant
+  const orderedStatements = ascending
     ? _.sortBy(budgetStatements, (bs) => bs.month)
     : _.sortBy(budgetStatements, (bs) => bs.month).reverse();
 
