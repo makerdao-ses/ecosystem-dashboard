@@ -602,11 +602,11 @@ export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetS
       items: [
         {
           column: breakdownHeaders[0],
-          value: hasGroups ? 'Sub Total' : '',
+          value: hasGroups ? 'Subtotal' : '',
         },
         {
           column: breakdownHeaders[1],
-          value: hasGroups ? '' : 'Sub total',
+          value: hasGroups ? '' : 'Subtotal',
         },
         {
           column: breakdownHeaders[2],

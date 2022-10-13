@@ -1,9 +1,11 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
 import useEventListener from './useEventListener';
 
 type SetValue<T> = Dispatch<SetStateAction<T>>;
 
 function useLocalStorage<T>(key: string, initialValue: T): [T, SetValue<T>] {
+  const [cookies] = useCookies(['darkMode']);
   const readStorage = (): T => {
     if (typeof window === 'undefined') {
       return initialValue;
@@ -24,8 +26,7 @@ function useLocalStorage<T>(key: string, initialValue: T): [T, SetValue<T>] {
     }
     try {
       const newValue = value instanceof Function ? value(state) : value;
-
-      window.localStorage.setItem(key, JSON.stringify(newValue));
+      if (cookies.darkMode === 'true') window.localStorage.setItem(key, JSON.stringify(newValue));
 
       window.dispatchEvent(new Event('local-storage'));
     } catch (error) {

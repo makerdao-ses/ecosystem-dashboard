@@ -13,6 +13,7 @@ import sortBy from 'lodash/sortBy';
 import { ActivityPlaceholder } from './cu-activity-table.placeholder';
 import { ActivityFeedDto, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { useMediaQuery } from '@mui/material';
+import { useCookies } from 'react-cookie';
 
 export interface ActivityTableHeader {
   header: string;
@@ -55,6 +56,7 @@ const NewChangesDivider = ({ isLight, count, isGlobal }: { isLight: boolean; cou
 );
 
 export default function ActivityTable({ activityFeed, shortCode, columns, sortClick, isGlobal }: Props) {
+  const [cookies] = useCookies(['darkMode', 'timestamp', 'analytics']);
   const isLight = useThemeContext().themeMode === 'light';
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const initialElements = useMemo(() => (isMobile ? 5 : 10), [isMobile]);
@@ -67,7 +69,7 @@ export default function ActivityTable({ activityFeed, shortCode, columns, sortCl
   };
 
   useEffect(() => {
-    const activityHandler = new ActivityVisitHandler(shortCode);
+    const activityHandler = new ActivityVisitHandler(shortCode, cookies.timestamp === 'true');
     let noVisited = 0;
 
     const _extendedActivity: Activity[] = [];

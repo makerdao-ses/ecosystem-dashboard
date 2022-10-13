@@ -313,7 +313,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
             [
               getLineItemsSubtotal(
                 currentWallet?.budgetStatementLineItem?.filter((item) => item.headcountExpense),
-                'Sub Total',
+                'Subtotal',
                 true
               ),
             ],
@@ -357,7 +357,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
             [
               getLineItemsSubtotal(
                 currentWallet?.budgetStatementLineItem?.filter((item) => !item.headcountExpense),
-                'Sub Total'
+                'Subtotal'
               ),
             ],
             true

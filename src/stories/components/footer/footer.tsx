@@ -19,6 +19,7 @@ import { useMediaQuery } from '@mui/material';
 export interface LinkInterface {
   title: string;
   url: string;
+  target?: React.HTMLAttributeAnchorTarget;
 }
 
 interface Props {
