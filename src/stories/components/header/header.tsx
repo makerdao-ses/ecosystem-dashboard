@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import Logo from '../svg/logo';
 import SelectLink from './select-link-website/select-link';
 import { WebSiteLinks } from './select-link-website/menu-items';
-import { MenuType } from './menu-items';
+import menuItems, { MenuType } from './menu-items';
 import { useRouter } from 'next/router';
 import ThemeSwitcherButton from '../button/switch-button/switch-buttom';
 import { ThemeMode, useThemeContext } from '../../../core/context/ThemeContext';
@@ -13,15 +13,15 @@ import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
 import { TopBarSelect } from '../top-bar-select/top-bar-select';
 
 interface Props {
-  menuItems: MenuType[];
   links: WebSiteLinks[];
   themeMode: ThemeMode;
   toggleTheme: () => void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-const Header = ({ menuItems, links, themeMode, toggleTheme }: Props) => {
+const Header = ({ links, themeMode, toggleTheme }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
+
   const router = useRouter();
   const onClick = useCallback(
     (link: string) => () => {
