@@ -182,12 +182,3 @@ a {
   margin-left: 4px;
   background: #1aab9b;
 }
-
-.filter-popup-scroll {
-  height: max-content;
-  background: "white";
-
-  @media (min-width: 834px) {
-    height: 240px;
-  }
-}
