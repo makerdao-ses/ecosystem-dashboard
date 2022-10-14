@@ -65,7 +65,7 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
             padding: '8px 24px',
             height: 'auto',
             color: '#231536',
-            borderColor: isLight ? '#231536' : '#343442',
+            borderColor: isLight ? '#25273D' : '#343442',
           }}
           allowsHover={false}
         />
