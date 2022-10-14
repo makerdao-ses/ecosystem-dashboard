@@ -136,6 +136,10 @@ const Details = styled.div<{ isLight: boolean; isGlobal: boolean }>(({ isLight =
   marginBottom: '32px',
   letterSpacing: 0,
 
+  [lightTheme.breakpoints.up(833)]: {
+    marginBottom: '16px',
+  },
+
   [lightTheme.breakpoints.up(isGlobal ? 1000 : 'table_834')]: {
     width: 'calc(100% - 230px)',
     fontSize: '16px',
