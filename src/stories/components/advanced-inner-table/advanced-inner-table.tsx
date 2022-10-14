@@ -71,8 +71,10 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
                     ? '1px solid #D4D9E1'
                     : 'none'
                   : 'none'
-                : rowType === 'subTotal'
-                ? 'none'
+                : !upTable
+                ? rowType === 'subTotal'
+                  ? '1px solid #D4D9E1'
+                  : 'none'
                 : 'none',
             }}
           >
