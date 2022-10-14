@@ -140,6 +140,7 @@ const LeftPart = styled.div({
   flexDirection: 'row',
   alignItems: 'center',
   height: '100%',
+  width: '100%',
 });
 
 const ContainerLogoSelect = styled.div<{ isLight: boolean }>(({ isLight }) => ({
@@ -173,7 +174,13 @@ const Navigation = styled.div({
   display: 'flex',
   flexDirection: 'row',
   height: '100%',
+  width: '100%',
+  justifyContent: 'space-between',
   alignItems: 'center',
+  position: 'relative',
+  '@media (min-width: 1194px)': {
+    justifyContent: 'flex-start',
+  },
 });
 
 const RightPart = styled.div({
@@ -217,8 +224,13 @@ const ItemMenuResponsive = styled.div({
 
 const LinkWrapper = styled.div({
   display: 'none',
-  '@media (min-width: 1194px)': {
+  '@media (min-width: 834px)': {
     display: 'flex',
+    position: 'absolute',
+    right: 16,
+  },
+  '@media (min-width: 1194px)': {
+    right: 24,
   },
 });
 
