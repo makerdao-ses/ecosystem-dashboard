@@ -133,7 +133,6 @@ export const CustomMultiSelect = ({
           <SimpleBar
             style={{
               width: props.popupContainerWidth ? props.popupContainerWidth - 16 : 196,
-              background: 'white',
               height: 250,
             }}
             className="filter-popup-scroll"
