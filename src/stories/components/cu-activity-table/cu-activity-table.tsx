@@ -41,7 +41,7 @@ const NewChangesDivider = ({ isLight, count, isGlobal }: { isLight: boolean; cou
   <ChangesButtonContainer>
     <DividerStyle
       sx={{
-        bgcolor: 'white',
+        bgcolor: 'transparent',
         borderColor: 'transparent',
         [lightTheme.breakpoints.up('table_834')]: {
           bgcolor: isLight ? '#F75524' : '#FF8237',
@@ -54,7 +54,7 @@ const NewChangesDivider = ({ isLight, count, isGlobal }: { isLight: boolean; cou
     </DividerText>
     <DividerStyle
       sx={{
-        bgcolor: 'white',
+        bgcolor: 'transparent',
         borderColor: 'transparent',
         [lightTheme.breakpoints.up('table_834')]: {
           bgcolor: isLight ? '#F75524' : '#FF8237',
