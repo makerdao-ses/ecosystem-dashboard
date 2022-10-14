@@ -88,6 +88,10 @@ const ActivityItem = styled.a<{ isLight: boolean; isLoading?: boolean; isGlobal:
       ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
       : '0px 20px 40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
 
+    [lightTheme.breakpoints.up(833)]: {
+      padding: '16px 24px 24px',
+    },
+
     [lightTheme.breakpoints.up(isGlobal ? 1000 : 'table_834')]: {
       ':hover': {
         background: !isLoading ? (isLight ? '#ECF1F3' : '#1E2C37') : isLight ? 'white' : '#10191F',
