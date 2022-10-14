@@ -91,7 +91,7 @@ const MdViewerPage = ({
           <TypographyStyleDescription isLight={isLight}>{subTitle}</TypographyStyleDescription>
 
           <CustomButton
-            buttonType={ButtonType.Primary}
+            buttonType={!open ? ButtonType.Primary : ButtonType.PrimaryMobile}
             widthText="100%"
             label="Expenses"
             style={{

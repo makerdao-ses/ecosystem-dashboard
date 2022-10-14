@@ -44,6 +44,14 @@ const customStyles: { [id: string]: any } = {
     borderColor: '#1AAB9B',
     borderColorDark: '#1AAB9B',
   },
+  PrimaryMobile: {
+    textColor: '#098C7D',
+    textColorDark: '#1AAB9B',
+    background: 'transparent',
+    backgroundDark: 'transparent',
+    borderColor: '#098C7D',
+    borderColorDark: '#1AAB9B',
+  },
 };
 
 export const CustomButton = ({
@@ -132,10 +140,6 @@ const Container = styled.button<{
           : 'transparent',
       }
     : undefined,
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-    borderColor: isLight ? '#231536' : '#343442',
-  },
-
   ...(styles ?? {}),
 }));
 
