@@ -149,21 +149,11 @@ const ContainerLogoSelect = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   width: 'fit-content',
   marginRight: '16px',
   alignItems: 'center',
-  paddingLeft: '16px',
+  padding: '0 16px',
   background: isLight
     ? 'linear-gradient(125.61deg, rgba(182, 237, 231, 0.5) -69.93%, rgba(182, 237, 231, 0.05) 130.99%)'
     : 'linear-gradient(125.61deg, rgba(0, 68, 61, 0.5) -69.93%, rgba(27, 45, 43, 0.05) 130.99%)',
   backdropFilter: 'blur(30px)',
-  '@media (min-width: 435px)': {
-    paddingRight: '32px',
-    marginRight: '32px',
-  },
-  '@media (min-width: 635px)': {
-    width: '316px',
-  },
-  '@media (min-width: 835px)': {
-    paddingLeft: '32px',
-  },
 }));
 
 const LogoContainer = styled.div({
