@@ -31,6 +31,9 @@ const customStyles: { [id: string]: any } = {
     activeColorText: '#1AAB9B',
     activeBackground: 'transparent',
     activeBorderColor: '#1AAB9B',
+    activeColorTextDark: '#1AAB9B',
+    activeBackgroundDark: 'transparent',
+    activeBorderColorDark: '#1AAB9B',
   },
   Primary: {
     textColor: '#1AAB9B',
@@ -81,11 +84,15 @@ export const CustomButton = ({
           ? active
             ? customStyles[buttonType].activeBackground
             : customStyles[buttonType].background
+          : active
+          ? customStyles[buttonType].activeBackgroundDark
           : customStyles[buttonType].backgroundDark,
         borderColor: isLight
           ? active
             ? customStyles[buttonType].activeBorderColor
             : customStyles[buttonType]?.borderColor
+          : active
+          ? customStyles[buttonType].activeBorderColorDark
           : customStyles[buttonType]?.borderColorDark,
         ...props.style,
       }}
@@ -102,6 +109,8 @@ export const CustomButton = ({
               : customStyles[buttonType].textColor
             : props.disabled
             ? '#48495F'
+            : active
+            ? customStyles[buttonType].activeColorTextDark
             : customStyles[buttonType].textColorDark,
           ...props.styleText,
         }}
