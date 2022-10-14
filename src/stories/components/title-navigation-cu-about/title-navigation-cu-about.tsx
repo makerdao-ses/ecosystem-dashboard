@@ -258,7 +258,12 @@ const CategoryContainer = styled.div({
   display: 'flex',
   flexDirection: 'row',
   marginTop: '16px',
-  gap: '16px',
+  '> :first-child': {
+    marginRight: '16px',
+  },
+  '* + *': {
+    marginRight: '16px',
+  },
   height: '22px',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     marginTop: '0px',
