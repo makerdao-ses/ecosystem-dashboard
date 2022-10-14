@@ -16,6 +16,7 @@ interface CustomButtonProps {
   borderColor?: string;
   buttonType?: ButtonType;
   allowsHover?: boolean;
+  active?: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -27,6 +28,9 @@ const customStyles: { [id: string]: any } = {
     backgroundDark: 'transparent',
     borderColor: '#D4D9E1',
     borderColorDark: '#343442',
+    activeColorText: '#1AAB9B',
+    activeBackground: 'transparent',
+    activeBorderColor: '#1AAB9B',
   },
   Primary: {
     textColor: '#1AAB9B',
@@ -50,11 +54,13 @@ export const CustomButton = ({
   isHightLight = false,
   buttonType = ButtonType.Default,
   allowsHover = true,
+  active,
   ...props
 }: CustomButtonProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   return (
     <Container
+      active={active}
       allowsHover={allowsHover}
       className={props.className}
       isLight={isLight}
@@ -63,8 +69,16 @@ export const CustomButton = ({
       disabled={props.disabled}
       onClick={props.onClick}
       styles={{
-        backgroundColor: isLight ? customStyles[buttonType].background : customStyles[buttonType].backgroundDark,
-        borderColor: isLight ? customStyles[buttonType]?.borderColor : customStyles[buttonType]?.borderColorDark,
+        backgroundColor: isLight
+          ? active
+            ? customStyles[buttonType].activeBackground
+            : customStyles[buttonType].background
+          : customStyles[buttonType].backgroundDark,
+        borderColor: isLight
+          ? active
+            ? customStyles[buttonType].activeBorderColor
+            : customStyles[buttonType]?.borderColor
+          : customStyles[buttonType]?.borderColorDark,
         ...props.style,
       }}
       isHightLight={isHightLight}
@@ -75,6 +89,8 @@ export const CustomButton = ({
           color: isLight
             ? props.disabled
               ? ' #9FAFB9'
+              : active
+              ? customStyles[buttonType].activeColorText
               : customStyles[buttonType].textColor
             : props.disabled
             ? '#48495F'
@@ -94,7 +110,8 @@ const Container = styled.button<{
   styles?: CSSProperties;
   buttonType: ButtonType;
   allowsHover: boolean;
-}>(({ isLight, styles, buttonType, allowsHover }) => ({
+  active?: boolean;
+}>(({ isLight, styles, buttonType, allowsHover, active = false }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -110,7 +127,9 @@ const Container = styled.button<{
     ? {
         borderColor: isLight
           ? buttonType === ButtonType.Default
-            ? '#231536'
+            ? active
+              ? '#1AAB9B'
+              : '#231536'
             : buttonType === ButtonType.Primary
             ? '#1AAB9B'
             : '#098C7D'
@@ -121,7 +140,9 @@ const Container = styled.button<{
           : '#027265',
         background: isLight
           ? buttonType === ButtonType.Default
-            ? '#FFFFFF'
+            ? active
+              ? '#E7FCFA'
+              : '#FFFFFF'
             : buttonType === ButtonType.Primary
             ? '#B6EDE7'
             : 'white'
@@ -132,10 +153,6 @@ const Container = styled.button<{
           : 'transparent',
       }
     : undefined,
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-    borderColor: isLight ? '#231536' : '#343442',
-  },
-
   ...(styles ?? {}),
 }));
 
