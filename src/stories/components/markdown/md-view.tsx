@@ -44,6 +44,7 @@ const MdViewerPage = ({
   const [activeLink, setActiveLink] = useState('');
   const isLight = useThemeContext().themeMode === 'light';
   const isTable834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
+  const isPhoneAndTable = useMediaQuery(lightTheme.breakpoints.between('table_375', 'desktop_1194'));
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -91,8 +92,10 @@ const MdViewerPage = ({
           <TypographyStyleDescription isLight={isLight}>{subTitle}</TypographyStyleDescription>
 
           <CustomButton
-            buttonType={!open ? ButtonType.Primary : ButtonType.PrimaryMobile}
+            buttonType={open ? ButtonType.Default : ButtonType.Primary}
+            active={open}
             widthText="100%"
+            allowsHover={!isPhoneAndTable}
             label="Expenses"
             style={{
               textAlign: 'center',
