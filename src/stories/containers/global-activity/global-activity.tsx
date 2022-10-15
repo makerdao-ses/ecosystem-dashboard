@@ -96,7 +96,13 @@ export default ({ coreUnits }: Props) => {
             </ButtonFilter>
           </FiltersContainer>
           <TableWrapper>
-            <ActivityTable columns={columns} shortCode={'global'} activityFeed={activityFeed} isGlobal />
+            <ActivityTable
+              columns={columns}
+              shortCode={'global'}
+              activityFeed={activityFeed}
+              hasFilter={filtersActive}
+              isGlobal
+            />
           </TableWrapper>
         </InnerPage>
       </Container>

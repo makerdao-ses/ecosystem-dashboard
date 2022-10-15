@@ -9,11 +9,11 @@ import { useRouter } from 'next/router';
 import { SUBMIT_EXPENSES_URL } from '../../../config/external-urls';
 import { ButtonType } from '../../../core/enums/button-type.enum';
 
-export const ActivityPlaceholder = () => {
+export const ActivityPlaceholder = (props: { hasFilter: boolean }) => {
   const isLight = useThemeContext().themeMode === 'light';
   const router = useRouter();
 
-  const goToAbout = () => {
+  const goBack = () => {
     router.push(`/core-unit/${router.query.code}/`);
   };
 
@@ -22,18 +22,21 @@ export const ActivityPlaceholder = () => {
       <ImageWrapper>
         <Image src={isLight ? PlaceholderImg : PlaceholderImgDark} alt="There are no elements" layout="fill" />
       </ImageWrapper>
-      <Title isLight={isLight}>No Core Unit Activity Yet</Title>
+      <Title isLight={isLight}>{props.hasFilter ? 'No activity found' : 'No Core Unit Activity Yet'}</Title>
       <Description isLight={isLight}>
-        The activity feed for this core unit is still empty for now. Check back later to see the data once it is
-        submitted.
+        {props.hasFilter
+          ? 'There are no activities that match your search criteria'
+          : 'The activity feed for this core unit is still empty for now. Check back later to see the data once it is submitted.'}
       </Description>
       <ButtonsWrapper>
-        <CustomButton
-          onClick={goToAbout}
-          style={{ minWidth: '250px' }}
-          label="Go Back"
-          buttonType={ButtonType.Secondary}
-        />
+        {!props.hasFilter && (
+          <CustomButton
+            onClick={goBack}
+            style={{ minWidth: '250px' }}
+            label="Go Back"
+            buttonType={ButtonType.Secondary}
+          />
+        )}
         <a href={SUBMIT_EXPENSES_URL} target="_blank">
           <CustomButton style={{ minWidth: '250px' }} label="Submit Expenses Now" buttonType={ButtonType.Primary} />
         </a>
