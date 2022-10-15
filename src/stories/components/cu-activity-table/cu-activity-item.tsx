@@ -65,7 +65,7 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
             padding: '8px 24px',
             height: 'auto',
             color: '#231536',
-            borderColor: isLight ? '#231536' : '#343442',
+            borderColor: isLight ? '#25273D' : '#343442',
           }}
           allowsHover={false}
         />
@@ -87,6 +87,10 @@ const ActivityItem = styled.a<{ isLight: boolean; isLoading?: boolean; isGlobal:
     boxShadow: isLight
       ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
       : '0px 20px 40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+
+    [lightTheme.breakpoints.up(833)]: {
+      padding: '16px 24px 24px',
+    },
 
     [lightTheme.breakpoints.up(isGlobal ? 1000 : 'table_834')]: {
       ':hover': {
@@ -131,6 +135,10 @@ const Details = styled.div<{ isLight: boolean; isGlobal: boolean }>(({ isLight =
   color: isLight ? '#231536' : '#EDEFFF',
   marginBottom: '32px',
   letterSpacing: 0,
+
+  [lightTheme.breakpoints.up(833)]: {
+    marginBottom: '16px',
+  },
 
   [lightTheme.breakpoints.up(isGlobal ? 1000 : 'table_834')]: {
     width: 'calc(100% - 230px)',
