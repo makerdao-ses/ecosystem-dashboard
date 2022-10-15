@@ -33,11 +33,14 @@ const Container = styled.div<{
   fontFamily?: string;
   responsivePadding?: string;
   isLight: boolean;
-}>(({ negative = false, fontFamily = 'Inter, sans-serif', responsivePadding, isLight, bold }) => ({
+}>(({ negative = false, fontFamily = 'Inter, sans-serif', isLight, bold }) => ({
   fontFamily,
   fontWeight: bold ? 700 : 400,
   lineHeight: '19px',
-  padding: responsivePadding || '16px',
+  padding: 0,
+  textAlign: 'right',
+  fontSize: '14px',
+  paddingLeft: 16,
   color:
     isLight && negative ? '#F75524' : isLight && !negative ? '#231536' : !isLight && negative ? '#F75524' : '#D2D4EF',
   '> b': {
@@ -46,5 +49,7 @@ const Container = styled.div<{
   '@media (min-width: 834px)': {
     padding: '16px',
     lineHeight: '19px',
+    fontSize: '16px',
+    textAlign: 'left',
   },
 }));
