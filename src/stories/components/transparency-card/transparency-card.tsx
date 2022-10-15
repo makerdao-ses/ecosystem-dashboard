@@ -63,7 +63,7 @@ const Label = styled.div({
   alignItems: 'center',
   color: '#708390',
   fontFamily: 'Inter, sans-serif',
-  fontWeight: 500,
+  fontWeight: 600,
   fontSize: '12px',
   height: '37px',
   letterSpacing: '1px',
