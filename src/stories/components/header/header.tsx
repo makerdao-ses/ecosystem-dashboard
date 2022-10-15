@@ -202,8 +202,7 @@ const ItemMenuStyle = styled.a<{ active: boolean; marginRight?: string; isLight:
     lineHeight: '22px',
     transform: 'none',
     marginRight,
-    color:
-      active && isLight ? '#1AAB9B' : isLight && !active ? '#25273D' : !(isLight && active) ? '#2DC1B1' : '#D2D4EF',
+    color: isLight ? (active ? '#1AAB9B' : '#25273D') : active ? '#2DC1B1' : '#D2D4EF',
     letterSpacing: '0.4px',
     textDecoration: 'none',
     cursor: 'pointer',
