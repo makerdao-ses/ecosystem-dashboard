@@ -42,6 +42,9 @@ export const Tabs = (props: TabsProps) => {
               key={`${item}-${i}`}
               active={i === props.currentIndex}
               onClick={() => handleClick(id)}
+              style={{
+                marginRight: i === 0 ? '32px' : undefined,
+              }}
             >
               {item}
             </Tab>
@@ -71,7 +74,9 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   borderBottom: isLight ? '1px solid #B6EDE7' : '1px solid #405361',
   flex: 1,
   minWidth: 'fit-content',
-  gap: '32px',
+  '* + *': {
+    marginRight: '32px',
+  },
   width: '100%',
 }));
 

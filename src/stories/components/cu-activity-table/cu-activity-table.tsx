@@ -35,13 +35,14 @@ export interface Props {
   shortCode: string;
   sortClick?: (index: number) => void;
   isGlobal?: boolean;
+  hasFilter?: boolean;
 }
 
 const NewChangesDivider = ({ isLight, count, isGlobal }: { isLight: boolean; count: number; isGlobal?: boolean }) => (
   <ChangesButtonContainer>
     <DividerStyle
       sx={{
-        bgcolor: 'white',
+        bgcolor: 'transparent',
         borderColor: 'transparent',
         [lightTheme.breakpoints.up('table_834')]: {
           bgcolor: isLight ? '#F75524' : '#FF8237',
@@ -54,7 +55,7 @@ const NewChangesDivider = ({ isLight, count, isGlobal }: { isLight: boolean; cou
     </DividerText>
     <DividerStyle
       sx={{
-        bgcolor: 'white',
+        bgcolor: 'transparent',
         borderColor: 'transparent',
         [lightTheme.breakpoints.up('table_834')]: {
           bgcolor: isLight ? '#F75524' : '#FF8237',
@@ -65,7 +66,7 @@ const NewChangesDivider = ({ isLight, count, isGlobal }: { isLight: boolean; cou
   </ChangesButtonContainer>
 );
 
-export default function ActivityTable({ activityFeed, shortCode, columns, sortClick, isGlobal }: Props) {
+export default function ActivityTable({ activityFeed, shortCode, columns, sortClick, isGlobal, hasFilter }: Props) {
   const [cookies] = useCookies(['darkMode', 'timestamp', 'analytics']);
   const isLight = useThemeContext().themeMode === 'light';
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
@@ -115,7 +116,7 @@ export default function ActivityTable({ activityFeed, shortCode, columns, sortCl
     return result;
   }, [extendedActivity, columns, activityFeed]);
 
-  if (extendedActivity.length === 0) return <ActivityPlaceholder />;
+  if (extendedActivity.length === 0) return <ActivityPlaceholder hasFilter={!!hasFilter} />;
 
   return (
     <>

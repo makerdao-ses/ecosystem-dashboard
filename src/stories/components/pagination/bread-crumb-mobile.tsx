@@ -148,8 +148,20 @@ const BreadCrumbMobile = ({ title, count = 0, page = 0, onClickLeft, onClickRigh
           <StyleTextCoreUnit isLight={isLight}>{` of ${count}`} </StyleTextCoreUnit>
         </PaginationLabel>
         <Arrows>
-          <ArrowMobileLeft onClick={onClickLeft} width={6} height={10} />
-          <ArrowMobileRight onClick={onClickRight} width={5} height={10} />
+          <ArrowMobileLeft
+            onClick={onClickLeft}
+            width={6}
+            height={10}
+            fill={page !== 1 ? undefined : '#d1dee6'}
+            disabled={page === 1}
+          />
+          <ArrowMobileRight
+            onClick={onClickRight}
+            width={5}
+            height={10}
+            fill={page !== count ? undefined : '#d1dee6'}
+            disabled={page === count}
+          />
         </Arrows>
       </RightPart>
     </Container>

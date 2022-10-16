@@ -40,9 +40,7 @@ export default ({ coreUnits }: Props) => {
     <Wrapper>
       <Container isLight={isLight}>
         <InnerPage>
-          <Title isLight={isLight} fontSize={'20px'}>
-            Activity Feed
-          </Title>
+          <Title isLight={isLight}>Activity Feed</Title>
           <Paragraph isLight={isLight}>
             Change tracking displays all changes that have occurred regarding all Core unit activity. Here you will be
             able to see all previous modifications the Core units made to their Expense Reports, FTEs, and more.
@@ -98,7 +96,13 @@ export default ({ coreUnits }: Props) => {
             </ButtonFilter>
           </FiltersContainer>
           <TableWrapper>
-            <ActivityTable columns={columns} shortCode={'global'} activityFeed={activityFeed} isGlobal />
+            <ActivityTable
+              columns={columns}
+              shortCode={'global'}
+              activityFeed={activityFeed}
+              hasFilter={filtersActive}
+              isGlobal
+            />
           </TableWrapper>
         </InnerPage>
       </Container>

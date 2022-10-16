@@ -88,7 +88,7 @@ export const Title = styled.div<{
   isLight: boolean;
   fontSize?: string;
   responsiveMarginBottom?: number;
-}>(({ marginBottom = 16, fontSize = '16px', isLight, responsiveMarginBottom }) => ({
+}>(({ marginBottom = 16, fontSize = '20px', isLight, responsiveMarginBottom }) => ({
   fontFamily: 'Inter, sans-serif',
   fontWeight: 700,
   fontStyle: 'normal',
@@ -99,7 +99,7 @@ export const Title = styled.div<{
   marginBottom: `${marginBottom}px`,
 
   [lightTheme.breakpoints.up('table_834')]: {
-    fontSize: '20px',
+    fontSize: '24px',
     fontWeight: 600,
     lineHeight: '24px',
     marginBottom: `${responsiveMarginBottom || marginBottom}px`,
