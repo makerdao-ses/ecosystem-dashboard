@@ -6,8 +6,6 @@ import { TextCell } from '../text-cell/text-cell';
 import { TransparencyCard } from '../transparency-card/transparency-card';
 import { TransparencyEmptyTable } from '../../containers/transparency-report/placeholders/transparency-empty-table';
 import { Title } from '../../containers/transparency-report/transparency-report';
-import lightTheme from '../../../../styles/theme/light';
-import { useMediaQuery } from '@mui/material';
 
 export interface InnerTableColumn {
   align?: string;
@@ -47,7 +45,6 @@ interface Props {
 type Alignment = 'left' | 'center' | 'right';
 
 export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: Props) => {
-  const upTable = useMediaQuery(lightTheme.breakpoints.up(834));
   const isLight = useThemeContext().themeMode === 'light';
   const getCell = (column: InnerTableColumn, rowType: RowType, value: unknown) => {
     if (value !== 0 && !value) {
@@ -61,24 +58,7 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
         return <NumberCell key={column.header} value={Number(value)} bold={isBold} />;
       case 'text':
         return (
-          <TextCell
-            key={column.header}
-            bold={isBold}
-            style={{
-              borderBottom: isLight
-                ? !upTable
-                  ? rowType === 'subTotal'
-                    ? '1px solid #D4D9E1'
-                    : 'none'
-                  : 'none'
-                : !upTable
-                ? rowType === 'subTotal'
-                  ? '1px solid #405361'
-                  : 'none'
-                : 'none',
-            }}
-            isHeader={column.isCardHeader}
-          >
+          <TextCell key={column.header} bold={isBold} isHeader={column.isCardHeader}>
             {value as string}
           </TextCell>
         );
@@ -90,21 +70,7 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
     }
 
     return (
-      <TextCell
-        key={column.header}
-        bold={isBold}
-        style={{
-          borderBottom: isLight
-            ? !upTable
-              ? rowType === 'subTotal'
-                ? '1px solid #D4D9E1'
-                : 'none'
-              : 'none'
-            : rowType === 'subTotal'
-            ? '1px solid #405361'
-            : 'none',
-        }}
-      >
+      <TextCell key={column.header} bold={isBold}>
         {value as string}
       </TextCell>
     );
@@ -147,16 +113,8 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
                     ?.filter((x) => !x.column.hidden)
                     .map((item, j) => (
                       <TableCell
-                        style={{
-                          borderBottom: isLight
-                            ? row.type === 'subTotal'
-                              ? '1px solid #D4D9E1'
-                              : 'none'
-                            : row.type === 'subTotal'
-                            ? '1px solid #405361'
-                            : 'none',
-                        }}
-                        colSpan={row.type === 'section' && upTable ? 2 : 0}
+                        isSubTotal={row.type === 'subTotal'}
+                        isLight={isLight}
                         key={`${i}-${j}`}
                         textAlign={(item.column?.align ?? 'left') as Alignment}
                       >
@@ -226,9 +184,14 @@ const Table = styled.table({
   width: '100%',
 });
 
-const TableCell = styled.td<{ textAlign: 'left' | 'center' | 'right' }>(({ textAlign }) => ({
-  textAlign,
-}));
+const TableCell = styled.td<{ textAlign: 'left' | 'center' | 'right'; isSubTotal?: boolean; isLight?: boolean }>(
+  ({ textAlign, isSubTotal, isLight }) => ({
+    textAlign,
+    ...(isSubTotal && {
+      borderBottom: isLight ? '1px solid #D4D9E1' : '1px solid #405361',
+    }),
+  })
+);
 
 const TableHead = styled.thead<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
