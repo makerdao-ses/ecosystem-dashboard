@@ -9,6 +9,7 @@ interface TableCellProps {
   fontFamily?: string;
   responsivePadding?: string;
   bold?: boolean;
+  isHeader?: boolean;
 }
 
 export const TextCell = ({ responsivePadding = '10px 16px', ...props }: TableCellProps) => {
@@ -21,6 +22,7 @@ export const TextCell = ({ responsivePadding = '10px 16px', ...props }: TableCel
       style={props.style}
       negative={props.negative}
       responsivePadding={responsivePadding}
+      isHeader={props.isHeader}
     >
       {props.children}
     </Container>
@@ -33,12 +35,15 @@ const Container = styled.div<{
   fontFamily?: string;
   responsivePadding?: string;
   isLight: boolean;
-}>(({ negative = false, fontFamily = 'Inter, sans-serif', isLight, bold }) => ({
+  isHeader?: boolean;
+}>(({ negative = false, fontFamily = 'Inter, sans-serif', isLight, bold, isHeader }) => ({
   fontFamily,
   fontWeight: bold ? 700 : 400,
   lineHeight: '19px',
-  padding: 0,
-  textAlign: 'right',
+  display: 'flex',
+  alignItems: 'center',
+  padding: isHeader ? 16 : 0,
+  textAlign: isHeader ? 'left' : 'right',
   fontSize: '14px',
   paddingLeft: 16,
   color:

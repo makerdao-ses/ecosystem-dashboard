@@ -75,6 +75,7 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
                 ? '1px solid #405361'
                 : 'none',
             }}
+            isHeader={column.isCardHeader}
           >
             {value as string}
           </TextCell>

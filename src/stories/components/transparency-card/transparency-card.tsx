@@ -42,7 +42,6 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 
 const HeaderWrapper = styled.div({
   margin: '-16px 0 0 -16px',
-  color: 'red',
 });
 
 const FooterWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
