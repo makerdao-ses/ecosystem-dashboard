@@ -75,7 +75,7 @@ const InnerPage = styled.div({
   display: 'block',
   margin: '24px auto 0',
   width: '100%',
-  maxWidth: '1312px',
+  maxWidth: '1184px',
   textAlign: 'left',
 
   [lightTheme.breakpoints.up('table_834')]: {

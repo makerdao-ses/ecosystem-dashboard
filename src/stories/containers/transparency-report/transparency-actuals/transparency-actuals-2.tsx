@@ -36,7 +36,7 @@ export const TransparencyActuals2 = (props: Props) => {
   return (
     <Container>
       <LinkDescription isLight={isLight}>
-        To see the onchain transactions from the Maker Protocol to the {getShortCode(props.code)} Core Unit
+        <span>To see the onchain transactions from the Maker Protocol to the {getShortCode(props.code)} Core Unit</span>
         <CustomLink
           href={`${MAKER_BURN_LINK}/${props.longCode}`}
           style={{
@@ -45,7 +45,7 @@ export const TransparencyActuals2 = (props: Props) => {
             letterSpacing: '0.3px',
             lineHeight: '18px',
             marginBottom: '16px',
-            marginLeft: '4px',
+            marginLeft: 0,
             whiteSpace: 'break-spaces',
             display: 'inline-block',
           }}
@@ -115,4 +115,7 @@ export const LinkDescription = styled.div<{ isLight: boolean }>(({ isLight }) =>
   lineHeight: '22px',
   color: isLight ? '#231536' : '#D2D4EF',
   marginBottom: '32px',
+  span: {
+    marginRight: 4,
+  },
 }));
