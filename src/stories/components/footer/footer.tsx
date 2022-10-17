@@ -20,6 +20,7 @@ export interface LinkInterface {
   title: string;
   url: string;
   target?: React.HTMLAttributeAnchorTarget;
+  isNotLink?: boolean;
 }
 
 interface Props {
