@@ -42,7 +42,9 @@ function MyApp(props: MyAppProps) {
       };
     }
   }, [router.events]);
-
+  if (!pageLoaded) {
+    return null;
+  }
   return (
     <CookiesProvider>
       <Provider store={store}>

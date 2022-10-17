@@ -18,7 +18,7 @@ const DescriptionFooter = ({ title, children, style = {} }: Props) => {
       {children &&
         children.map((item) => {
           return (
-            <StyleChildren href={item.url} target={item.target} key={item.title} isLight={isLight}>
+            <StyleChildren href={item.url} target={item.target || '_blank'} key={item.title} isLight={isLight}>
               {item.title}
             </StyleChildren>
           );

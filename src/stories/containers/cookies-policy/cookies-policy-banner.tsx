@@ -36,7 +36,7 @@ const CookiesPolicyBanner = ({
         </StyleParagraph>
 
         <ContainerCheckBox>
-          <CheckBox label="Functional cookie" isChecked={functionalCookies} setIsChecked={handleFunctionalCookies} />
+          <CheckBox label="Functional cookies" isChecked={functionalCookies} setIsChecked={handleFunctionalCookies} />
           <CheckBox label="Analytics cookies" isChecked={analyticsCookies} setIsChecked={handleAnalyticsCookies} />
         </ContainerCheckBox>
         <ContainerButton>
