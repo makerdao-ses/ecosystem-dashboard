@@ -155,7 +155,7 @@ export const products = [
   {
     title: 'Cookies Policy',
     url: '/cookies-policy',
-    target: '_self',
+    isNotLink: true,
   },
 ];
 
