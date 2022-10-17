@@ -23,6 +23,9 @@ const lightTheme = responsiveFontSizes(
         main: '#1AAB9B',
       },
     },
+    typography: {
+      fontFamily: ['Inter, sans-serif'].join(','),
+    },
     breakpoints: {
       values: {
         desktop_1920: 1920,
