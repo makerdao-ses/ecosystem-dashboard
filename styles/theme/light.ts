@@ -24,7 +24,7 @@ const lightTheme = responsiveFontSizes(
       },
     },
     typography: {
-      fontFamily: ['Inter, sans-serif'].join(','),
+      fontFamily: 'Inter, sans-serif',
     },
     breakpoints: {
       values: {
