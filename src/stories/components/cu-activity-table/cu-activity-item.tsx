@@ -93,15 +93,13 @@ const ActivityItem = styled.a<{ isLight: boolean; isLoading?: boolean; isGlobal:
     },
 
     [lightTheme.breakpoints.up(isGlobal ? 1000 : 'table_834')]: {
-      ':hover': {
-        background: !isLoading ? (isLight ? '#ECF1F3' : '#1E2C37') : isLight ? 'white' : '#10191F',
-      },
-    },
-
-    [lightTheme.breakpoints.up(isGlobal ? 1000 : 'table_834')]: {
       alignItems: 'center',
       flexDirection: 'row',
       padding: '24px 32px',
+
+      ':hover': {
+        background: !isLoading ? (isLight ? '#ECF1F3' : '#1E2C37') : isLight ? 'white' : '#10191F',
+      },
     },
     [lightTheme.breakpoints.up('desktop_1194')]: {
       padding: '24px 64px',
