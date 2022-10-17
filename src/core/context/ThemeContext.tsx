@@ -8,6 +8,7 @@ import Header from '../../stories/components/header/header';
 import Footer from '../../stories/components/footer/footer';
 import { developer, governesses, products } from '../../stories/components/footer/iconsData';
 import styled from '@emotion/styled';
+import { useCookies } from 'react-cookie';
 
 const DARK_SCHEME_QUERY = '(prefers-color-scheme: dark)';
 
@@ -19,10 +20,18 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType>({} as ThemeContextType);
 const useThemeContext = () => useContext(ThemeContext);
 
-const ThemeProvider = ({ children }: { children: ReactNode }) => {
+interface Props {
+  children: ReactNode;
+}
+
+const ThemeProvider = ({ children }: Props) => {
+  const [cookies] = useCookies(['darkMode']);
   const isDarkOS = useMediaQuery(DARK_SCHEME_QUERY);
 
-  const [themeMode, setThemeMode] = useLocalStorage<ThemeMode>('themeMode', isDarkOS ? 'dark' : 'light');
+  const [themeMode, setThemeMode] = useLocalStorage<ThemeMode>(
+    'themeMode',
+    isDarkOS && cookies.darkMode === 'true' ? 'dark' : 'light'
+  );
 
   const toggleTheme = () => {
     switch (themeMode) {
