@@ -42,7 +42,6 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 
 const HeaderWrapper = styled.div({
   margin: '-16px 0 0 -16px',
-  color: 'red',
 });
 
 const FooterWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
@@ -63,7 +62,7 @@ const Label = styled.div({
   alignItems: 'center',
   color: '#708390',
   fontFamily: 'Inter, sans-serif',
-  fontWeight: 500,
+  fontWeight: 600,
   fontSize: '12px',
   height: '37px',
   letterSpacing: '1px',

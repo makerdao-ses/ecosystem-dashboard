@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useCallback } from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { LinkInterface } from './footer';
 
@@ -12,13 +13,25 @@ interface Props {
 
 const DescriptionFooter = ({ title, children, style = {} }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
+  const router = useRouter();
+
+  const HandleOnClick = useCallback(
+    (url: string) => () => {
+      router.push(url);
+    },
+    []
+  );
   return (
     <div style={style}>
       <StyleTitle isLight={isLight}>{title}</StyleTitle>
       {children &&
         children.map((item) => {
-          return (
-            <StyleChildren href={item.url} target={item.target} key={item.title} isLight={isLight}>
+          return item.isNotLink ? (
+            <CookiesLink isLight={isLight} onClick={HandleOnClick(item.url)}>
+              {item.title}
+            </CookiesLink>
+          ) : (
+            <StyleChildren href={item.url} target={item.target || '_blank'} key={item.title} isLight={isLight}>
               {item.title}
             </StyleChildren>
           );
@@ -52,4 +65,14 @@ const StyleChildren = styled.a<{ isLight: boolean }>(({ isLight }) => ({
   textDecoration: 'none',
 }));
 
+const CookiesLink = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  fontFamily: 'FT Base, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 400,
+  fontSize: '16px',
+  lineHeight: '19.02px',
+  color: isLight ? '#231536' : '#D1DEE6',
+  marginBottom: '16px',
+  cursor: 'pointer',
+}));
 export default DescriptionFooter;

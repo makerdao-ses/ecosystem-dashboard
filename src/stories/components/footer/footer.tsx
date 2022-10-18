@@ -20,6 +20,7 @@ export interface LinkInterface {
   title: string;
   url: string;
   target?: React.HTMLAttributeAnchorTarget;
+  isNotLink?: boolean;
 }
 
 interface Props {
@@ -112,7 +113,7 @@ const ContainerFooter = styled.div({
   boxSizing: 'border-box',
   margin: '0px',
   width: '100%',
-  padding: '32px 16px 40px',
+  padding: '32px 24px 40px',
   [lightTheme.breakpoints.up('table_834')]: {
     padding: '40px 32px 74px',
   },

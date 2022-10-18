@@ -448,11 +448,13 @@ export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetS
         hidden: !hasGroups,
         isCardHeader: true,
         width: '240px',
+        type: 'text',
       },
       {
         header: 'Budget Category',
         isCardHeader: true,
         width: hasGroups ? '220px' : '240px',
+        type: 'text',
       },
       {
         header: firstMonth.toFormat('MMMM'),

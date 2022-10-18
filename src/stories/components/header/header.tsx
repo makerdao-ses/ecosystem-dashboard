@@ -34,6 +34,13 @@ const Header = ({ links, themeMode, toggleTheme }: Props) => {
     router.push('/');
   }, [router]);
 
+  const handleOnClick = useCallback(
+    (link: string) => () => {
+      router.push(link);
+    },
+    []
+  );
+
   const activeMenuItem = useMemo(() => {
     for (const item of menuItems) {
       if (item.link === '/') {
@@ -76,7 +83,8 @@ const Header = ({ links, themeMode, toggleTheme }: Props) => {
                 isLight={isLight}
                 key={item.title}
                 style={{ marginRight: item.marginRight }}
-                href={item.link}
+                // href={item.link}
+                onClick={handleOnClick(item.link)}
                 active={activeMenuItem === item}
               >
                 {item.title}
@@ -140,6 +148,7 @@ const LeftPart = styled.div({
   flexDirection: 'row',
   alignItems: 'center',
   height: '100%',
+  width: '100%',
 });
 
 const ContainerLogoSelect = styled.div<{ isLight: boolean }>(({ isLight }) => ({
@@ -149,31 +158,17 @@ const ContainerLogoSelect = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   width: 'fit-content',
   marginRight: '16px',
   alignItems: 'center',
-  paddingLeft: '16px',
+  padding: '0 16px',
   background: isLight
     ? 'linear-gradient(125.61deg, rgba(182, 237, 231, 0.5) -69.93%, rgba(182, 237, 231, 0.05) 130.99%)'
     : 'linear-gradient(125.61deg, rgba(0, 68, 61, 0.5) -69.93%, rgba(27, 45, 43, 0.05) 130.99%)',
   backdropFilter: 'blur(30px)',
-  '@media (min-width: 435px)': {
-    paddingRight: '32px',
-    marginRight: '32px',
-  },
-  '@media (min-width: 635px)': {
-    width: '316px',
-  },
-  '@media (min-width: 835px)': {
-    paddingLeft: '32px',
-  },
 }));
 
 const LogoContainer = styled.div({
   marginTop: '13px',
   marginBottom: '13px',
-  marginRight: '16px',
   cursor: 'pointer',
-  '@media (min-width: 435px) and (max-width: 635px)': {
-    marginRight: '0px',
-  },
   '@media (min-width: 635px)': {
     marginRight: '32px',
   },
@@ -183,7 +178,13 @@ const Navigation = styled.div({
   display: 'flex',
   flexDirection: 'row',
   height: '100%',
+  width: '100%',
+  justifyContent: 'space-between',
   alignItems: 'center',
+  position: 'relative',
+  '@media (min-width: 1194px)': {
+    justifyContent: 'flex-start',
+  },
 });
 
 const RightPart = styled.div({
@@ -195,7 +196,7 @@ const RightPart = styled.div({
   },
 });
 
-const ItemMenuStyle = styled.a<{ active: boolean; marginRight?: string; isLight: boolean }>(
+const ItemMenuStyle = styled.div<{ active: boolean; marginRight?: string; isLight: boolean }>(
   ({ active, isLight, marginRight }) => ({
     display: 'none',
     fontFamily: 'Inter, sans-serif',
@@ -205,10 +206,8 @@ const ItemMenuStyle = styled.a<{ active: boolean; marginRight?: string; isLight:
     lineHeight: '22px',
     transform: 'none',
     marginRight,
-    color:
-      active && isLight ? '#1AAB9B' : isLight && !active ? '#25273D' : !(isLight && active) ? '#2DC1B1' : '#D2D4EF',
+    color: isLight ? (active ? '#1AAB9B' : '#25273D') : active ? '#2DC1B1' : '#D2D4EF',
     letterSpacing: '0.4px',
-    textDecoration: 'none',
     cursor: 'pointer',
     '&:hover': {
       color: '#1dc1ae',
@@ -227,8 +226,13 @@ const ItemMenuResponsive = styled.div({
 
 const LinkWrapper = styled.div({
   display: 'none',
-  '@media (min-width: 1194px)': {
+  '@media (min-width: 834px)': {
     display: 'flex',
+    position: 'absolute',
+    right: 16,
+  },
+  '@media (min-width: 1194px)': {
+    right: 24,
   },
 });
 

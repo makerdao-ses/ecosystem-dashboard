@@ -55,13 +55,8 @@ const CardExpenses = ({
         <TypographyDescription marginBottom={'24px'} isLight={isLight} variant="subtitle1">
           {`View all expenses of the ${getShortCode(code)} Core Unit`}
         </TypographyDescription>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            gap: '24px',
-          }}
-        >
+
+        <ContainerButton>
           <CustomButton
             buttonType={ButtonType.Secondary}
             widthText="100%"
@@ -100,7 +95,7 @@ const CardExpenses = ({
             }}
             onClick={onClickFinances}
           />
-        </div>
+        </ContainerButton>
       </div>
       <DividerStyle
         sx={{
@@ -109,13 +104,7 @@ const CardExpenses = ({
           marginBottom: '16px',
         }}
       />
-      <div
-        style={{
-          paddingLeft: '16px',
-          paddingRight: '16px',
-          paddingBottom: '24px',
-        }}
-      >
+      <ContainerLinks>
         <CustomLink
           href={`${MAKER_BURN_LINK}/${code}`}
           style={{
@@ -132,7 +121,7 @@ const CardExpenses = ({
           target="_blank"
           children={`View on-chain transfers to ${getShortCode(code)} Core Unit on makerburn.com`}
         />
-      </div>
+      </ContainerLinks>
     </InformationCard>
   );
 };
@@ -152,3 +141,15 @@ const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => 
   letterSpacing: '0px',
   marginBottom: marginBottom || '0px',
 }));
+
+const ContainerButton = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+});
+
+const ContainerLinks = styled.div({
+  paddingLeft: '16px',
+  paddingRight: '16px',
+  paddingBottom: '24px',
+});

@@ -3,11 +3,13 @@ import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import { toAbsoluteURL } from '../../../core/utils/url.utils';
 import CoreUnitSelectItem from '../../components/core-unit-select-item/core-unit-select-item';
 import ActivityTable from '../../components/cu-activity-table/cu-activity-table';
 import { CustomMultiSelect, SelectItemProps } from '../../components/custom-multi-select/custom-multi-select';
 import ResetButton from '../../components/reset-button/reset-button';
 import { SearchInput } from '../../components/search-input/search-input';
+import { SEOHead } from '../../components/seo-head/seo-head';
 import Filter from '../../components/svg/filter';
 import { Paragraph, Title } from '../cu-activity/cu-activity';
 import { ButtonFilter, SmallSeparator } from '../cu-table/cu-table-filters';
@@ -38,14 +40,24 @@ export default ({ coreUnits }: Props) => {
 
   return (
     <Wrapper>
+      <SEOHead
+        title={'MakerDAO Core Units | Activity Feed'}
+        description={
+          'Learn about the activity of MakerDAO Core Units: updates to Core Unit Expense Reports, FTEs, and more.'
+        }
+        image={{
+          src: toAbsoluteURL('/assets/img/social-385x200.png'),
+          width: 385,
+          height: 200,
+        }}
+        twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
+      />
       <Container isLight={isLight}>
         <InnerPage>
-          <Title isLight={isLight} fontSize={'20px'}>
-            Activity Feed
-          </Title>
+          <Title isLight={isLight}>Change Tracking</Title>
           <Paragraph isLight={isLight}>
-            Change tracking displays all changes that have occurred regarding all Core unit activity. Here you will be
-            able to see all previous modifications the Core units made to their Expense Reports, FTEs, and more.
+            Change tracking displays all changes that have occurred regarding all Core Unit activity. Here you will be
+            able to see all previous modifications the Core Units made to its Expense Reports, FTEs, and more
           </Paragraph>
           <FiltersContainer>
             <Reset filtersVisible={filtersVisible}>
@@ -98,7 +110,13 @@ export default ({ coreUnits }: Props) => {
             </ButtonFilter>
           </FiltersContainer>
           <TableWrapper>
-            <ActivityTable columns={columns} shortCode={'global'} activityFeed={activityFeed} isGlobal />
+            <ActivityTable
+              columns={columns}
+              shortCode={'global'}
+              activityFeed={activityFeed}
+              hasFilter={filtersActive}
+              isGlobal
+            />
           </TableWrapper>
         </InnerPage>
       </Container>
