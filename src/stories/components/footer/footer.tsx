@@ -15,6 +15,7 @@ import MobileFooterDark from '../../../../public/assets/img/bg-footer-mobile-dar
 import TabletFooterLight from '../../../../public/assets/img/bg-footer-tablet.png';
 import TabletFooterDark from '../../../../public/assets/img/bg-footer-tablet-dark.png';
 import { useMediaQuery } from '@mui/material';
+import { useRouter } from 'next/router';
 
 export interface LinkInterface {
   title: string;
@@ -33,6 +34,11 @@ const Footer = ({ governesses, products, developer }: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
   const isTable = useMediaQuery(lightTheme.breakpoints.between('table_375', 835));
   const upTable = useMediaQuery(lightTheme.breakpoints.up(835));
+  const router = useRouter();
+
+  if (router.route === '/login') {
+    return <></>;
+  }
 
   return (
     <FooterWrapper>
