@@ -1,4 +1,4 @@
-import React, { CSSProperties, useRef, useState } from 'react';
+import React, { CSSProperties, useEffect, useMemo, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import { SelectChevronDown } from '../svg/select-chevron-down';
 import useOutsideClick from '../../../core/utils/use-outside-click';
@@ -48,6 +48,22 @@ export const CustomSortSelect = (props: Props) => {
   });
 
   const toggleVisible = () => setPopupVisible(!popupVisible);
+
+  useEffect(() => {
+    setActiveItem(props.activeItem);
+    setSortStatus(props.sortStatus);
+  }, [popupVisible]);
+
+  const canReset = useMemo(() => {
+    return props.activeItem !== 0 || props.sortStatus !== SortEnum.Asc;
+  }, [props.activeItem, props.sortStatus]);
+
+  const onReset = () => {
+    setPopupVisible(false);
+    setActiveItem(0);
+    setSortStatus(SortEnum.Asc);
+    props.onChange?.(0, SortEnum.Asc);
+  };
 
   return (
     <SelectWrapper ref={refOutsideClick} style={props.style}>
@@ -110,11 +126,9 @@ export const CustomSortSelect = (props: Props) => {
                 padding: '8px 16px',
                 minWidth: 'unset',
               }}
+              disabled={!canReset}
               label="Reset"
-              onClick={() => {
-                props.onReset?.();
-                setPopupVisible(false);
-              }}
+              onClick={onReset}
             />
             <CustomButton
               style={{

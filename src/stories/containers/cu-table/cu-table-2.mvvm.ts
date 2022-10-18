@@ -236,15 +236,6 @@ export const useCoreUnitsTableMvvm = () => {
     setSortColumn(index);
   };
 
-  const resetSort = () => {
-    const sortNeutralState = columns.map((column) =>
-      column.hasSort ? SortEnum.Neutral : SortEnum.Disabled
-    ) as SortEnum[];
-    sortNeutralState[0] = SortEnum.Asc;
-    setHeadersSort(sortNeutralState);
-    setSortColumn(0);
-  };
-
   return {
     onClickFinances,
     onClickRow,
@@ -264,6 +255,5 @@ export const useCoreUnitsTableMvvm = () => {
     tableItems,
     onSortClick,
     applySort,
-    resetSort,
   };
 };
