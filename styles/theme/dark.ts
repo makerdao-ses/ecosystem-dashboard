@@ -7,6 +7,9 @@ const darkTheme = responsiveFontSizes(
         main: '#211634',
       },
     },
+    typography: {
+      fontFamily: 'Inter, sans-serif',
+    },
   })
 );
 
