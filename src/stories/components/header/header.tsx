@@ -34,6 +34,13 @@ const Header = ({ links, themeMode, toggleTheme }: Props) => {
     router.push('/');
   }, [router]);
 
+  const handleOnClick = useCallback(
+    (link: string) => () => {
+      router.push(link);
+    },
+    []
+  );
+
   const activeMenuItem = useMemo(() => {
     for (const item of menuItems) {
       if (item.link === '/') {
@@ -76,7 +83,8 @@ const Header = ({ links, themeMode, toggleTheme }: Props) => {
                 isLight={isLight}
                 key={item.title}
                 style={{ marginRight: item.marginRight }}
-                href={item.link}
+                // href={item.link}
+                onClick={handleOnClick(item.link)}
                 active={activeMenuItem === item}
               >
                 {item.title}
@@ -188,7 +196,7 @@ const RightPart = styled.div({
   },
 });
 
-const ItemMenuStyle = styled.a<{ active: boolean; marginRight?: string; isLight: boolean }>(
+const ItemMenuStyle = styled.div<{ active: boolean; marginRight?: string; isLight: boolean }>(
   ({ active, isLight, marginRight }) => ({
     display: 'none',
     fontFamily: 'Inter, sans-serif',
@@ -200,7 +208,6 @@ const ItemMenuStyle = styled.a<{ active: boolean; marginRight?: string; isLight:
     marginRight,
     color: isLight ? (active ? '#1AAB9B' : '#25273D') : active ? '#2DC1B1' : '#D2D4EF',
     letterSpacing: '0.4px',
-    textDecoration: 'none',
     cursor: 'pointer',
     '&:hover': {
       color: '#1dc1ae',
