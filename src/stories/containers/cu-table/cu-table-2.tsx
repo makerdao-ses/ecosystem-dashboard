@@ -36,7 +36,6 @@ export const CuTable2 = () => {
     onSortClick,
     headersSort,
     applySort,
-    resetSort,
   } = useCoreUnitsTableMvvm();
   const {
     handleAcceptCookies,
@@ -79,7 +78,6 @@ export const CuTable2 = () => {
           clearFilters={clearFilters}
           columns={columns.filter((_, i) => headersSort[i] !== SortEnum.Disabled)}
           onSortApply={applySort}
-          onSortReset={resetSort}
           headersSort={headersSort}
         />
       </Header>
