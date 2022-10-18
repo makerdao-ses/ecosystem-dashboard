@@ -272,7 +272,12 @@ const Categories = styled.div({
   alignItems: 'center',
   marginBottom: '16px',
   justifyContent: 'center',
-  gap: '16px',
+  '& > div': {
+    marginRight: '16px',
+  },
+  '& div:last-child': {
+    marginRight: '0px',
+  },
   '@media (min-width: 685px)': {
     margin: '0',
     justifyContent: 'left',
@@ -288,7 +293,7 @@ const Links = styled.div({
   justifyContent: 'center',
   '@media (min-width: 685px)': {
     margin: '0',
-    justifyContent: 'right',
+    justifyContent: 'flex-end',
   },
 });
 
