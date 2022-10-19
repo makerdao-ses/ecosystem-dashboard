@@ -52,7 +52,7 @@ export default ({ coreUnits }: Props) => {
       />
       <Container isLight={isLight}>
         <InnerPage>
-          <Title isLight={isLight}>Change Tracking</Title>
+          <Title isLight={isLight}>Activity Feed</Title>
           <Paragraph isLight={isLight}>
             Change tracking displays all changes that have occurred regarding all Core Unit activity. Here you will be
             able to see all previous modifications the Core Units made to its Expense Reports, FTEs, and more
