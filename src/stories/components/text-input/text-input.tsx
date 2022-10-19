@@ -8,32 +8,37 @@ interface Props {
   type?: 'text' | 'password';
   value?: string;
   onChange?: (value: React.ChangeEvent<HTMLInputElement>) => void;
-  error?: string;
+  error?: string | false;
+  name: string;
+  onBlur?: (value: React.FocusEvent<HTMLInputElement>) => void;
 }
 
-export default ({ placeholder, style, type = 'text', value = '', onChange, error = 'error' }: Props) => {
+export default ({ placeholder, style, type = 'text', value = '', onChange, error, name, onBlur }: Props) => {
   const ref = useRef<HTMLInputElement>(null);
 
   const [passwordVisible, setPasswordVisible] = useState(false);
   const togglePasswordVisible = () => setPasswordVisible(!passwordVisible);
 
   return (
-    <Wrapper>
+    <Wrapper style={style}>
       <Input
         ref={ref}
         type={passwordVisible ? 'text' : type}
         onChange={onChange}
+        onBlur={onBlur}
         placeholder={placeholder}
-        style={style}
         value={value}
         active={!!value}
         error={!!error}
+        id={name}
+        name={name}
       />
       {type === 'password' && (
         <IconWrapper onClick={togglePasswordVisible}>
           <Eye fill={error ? (passwordVisible ? '#F75524' : '#FBE1D9') : passwordVisible ? '#231536' : '#D4D9E1'} />
         </IconWrapper>
       )}
+      {error && <Error>{error}</Error>}
     </Wrapper>
   );
 };
@@ -68,10 +73,26 @@ const Input = styled.input<{ active: boolean; error: boolean }>(({ active, error
     borderColor: '#447AFB',
   },
   ...(error && {
-    borderColor: '#F75524',
+    borderColor: '#F75524 !important',
     color: '#F75524',
   }),
   '::placeholder': {
     color: '#D4D9E1',
   },
 }));
+
+const Error = styled.div({
+  display: 'flex',
+  color: '#F75524',
+  width: 356,
+  fontSize: 14,
+  lineHeight: '17px',
+  paddingLeft: 16,
+  marginTop: 8,
+  '::before': {
+    content: '"*"',
+    position: 'absolute',
+    left: 2,
+    marginTop: 1,
+  },
+});

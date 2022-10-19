@@ -6,7 +6,7 @@ import TextInput from '../../components/text-input/text-input';
 import { useLoginMvvm } from './login.mvvm';
 
 export default () => {
-  const { username, onChangeUsername, password, onChangePassword } = useLoginMvvm();
+  const { formik } = useLoginMvvm();
 
   return (
     <Wrapper>
@@ -14,13 +14,24 @@ export default () => {
         <Image src={'/assets/img/ses-logo-64x64.png'} width={64} height={64} />
         <Title>Log In</Title>
         <Description>Enter your username and password to get access to the administration area.</Description>
-        <TextInput style={{ marginBottom: 32 }} placeholder="Username" value={username} onChange={onChangeUsername} />
+        <TextInput
+          style={{ marginBottom: 32 }}
+          placeholder="Username"
+          value={formik.values.username}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.username && formik.errors.username}
+          name="username"
+        />
         <TextInput
           style={{ marginBottom: 60 }}
           placeholder="Password"
-          value={password}
-          onChange={onChangePassword}
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.password && formik.errors.password}
           type="password"
+          name="password"
         />
         <ButtonWrapper>
           <CustomButton
