@@ -1,14 +1,36 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import React from 'react';
+import { CustomButton } from '../../components/custom-button/custom-button';
+import TextInput from '../../components/text-input/text-input';
+import { useLoginMvvm } from './login.mvvm';
 
 export default () => {
+  const { username, onChangeUsername, password, onChangePassword } = useLoginMvvm();
+
   return (
     <Wrapper>
       <Container>
-        <Image style={{ borderRadius: '50%' }} src={'/assets/img/ses-logo-64x64.png'} width={64} height={64} />
+        <Image src={'/assets/img/ses-logo-64x64.png'} width={64} height={64} />
         <Title>Log In</Title>
         <Description>Enter your username and password to get access to the administration area.</Description>
+        <TextInput style={{ marginBottom: 32 }} placeholder="Username" value={username} onChange={onChangeUsername} />
+        <TextInput
+          style={{ marginBottom: 64 }}
+          placeholder="Password"
+          value={password}
+          onChange={onChangePassword}
+          type="password"
+        />
+        <ButtonWrapper>
+          <CustomButton
+            label="Log In"
+            style={{
+              width: 128,
+              borderRadius: 22,
+            }}
+          />
+        </ButtonWrapper>
       </Container>
     </Wrapper>
   );
@@ -56,4 +78,8 @@ const Description = styled.h3({
   textAlign: 'center',
   color: '#231536',
   marginBottom: 42,
+});
+
+const ButtonWrapper = styled.div({
+  alignSelf: 'flex-end',
 });
