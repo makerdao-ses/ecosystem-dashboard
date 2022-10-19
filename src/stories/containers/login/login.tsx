@@ -16,7 +16,7 @@ export default () => {
         <Description>Enter your username and password to get access to the administration area.</Description>
         <TextInput style={{ marginBottom: 32 }} placeholder="Username" value={username} onChange={onChangeUsername} />
         <TextInput
-          style={{ marginBottom: 64 }}
+          style={{ marginBottom: 60 }}
           placeholder="Password"
           value={password}
           onChange={onChangePassword}
@@ -53,7 +53,6 @@ const Container = styled.div({
   padding: '40px 64px 64px',
   position: 'absolute',
   width: '484px',
-  height: '589px',
   top: '128px',
   background: '#FFFFFF',
   boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',

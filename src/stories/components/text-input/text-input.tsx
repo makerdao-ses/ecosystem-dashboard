@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Eye from '../svg/eye';
 
 interface Props {
@@ -8,25 +8,30 @@ interface Props {
   type?: 'text' | 'password';
   value?: string;
   onChange?: (value: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: string;
 }
 
-export default ({ placeholder, style, type = 'text', value = '', onChange }: Props) => {
+export default ({ placeholder, style, type = 'text', value = '', onChange, error = 'error' }: Props) => {
   const ref = useRef<HTMLInputElement>(null);
+
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const togglePasswordVisible = () => setPasswordVisible(!passwordVisible);
 
   return (
     <Wrapper>
       <Input
         ref={ref}
-        type={type}
+        type={passwordVisible ? 'text' : type}
         onChange={onChange}
         placeholder={placeholder}
         style={style}
         value={value}
         active={!!value}
+        error={!!error}
       />
       {type === 'password' && (
-        <IconWrapper>
-          <Eye />
+        <IconWrapper onClick={togglePasswordVisible}>
+          <Eye fill={error ? (passwordVisible ? '#F75524' : '#FBE1D9') : passwordVisible ? '#231536' : '#D4D9E1'} />
         </IconWrapper>
       )}
     </Wrapper>
@@ -41,9 +46,10 @@ const IconWrapper = styled.span({
   position: 'absolute',
   right: 10,
   top: 8,
+  cursor: 'pointer',
 });
 
-const Input = styled.input<{ active: boolean }>(({ active }) => ({
+const Input = styled.input<{ active: boolean; error: boolean }>(({ active, error }) => ({
   boxSizing: 'border-box',
   alignItems: 'center',
   width: 356,
@@ -59,8 +65,12 @@ const Input = styled.input<{ active: boolean }>(({ active }) => ({
     borderColor: '#708390',
   }),
   '&:focus': {
-    borderColor: 'blue',
+    borderColor: '#447AFB',
   },
+  ...(error && {
+    borderColor: '#F75524',
+    color: '#F75524',
+  }),
   '::placeholder': {
     color: '#D4D9E1',
   },
