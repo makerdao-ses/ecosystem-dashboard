@@ -93,7 +93,15 @@ const Container = styled.div<{ spacings?: number; align: string; isIndex?: boole
   display: 'flex',
   alignItems: 'center',
   justifyContent: props.align,
-  gap: `${props.spacings ?? 0}px`,
+  ' & > div:first-child': {
+    marginRight: '25px',
+  },
+  '* + *': {
+    marginRight: '25px',
+  },
+  ' & > div:last-child': {
+    marginRight: '0px',
+  },
   '@media (min-width: 1194px)': props.isIndex
     ? {
         maxWidth: '240px',
