@@ -41,10 +41,8 @@ export default ({ coreUnits }: Props) => {
   return (
     <Wrapper>
       <SEOHead
-        title={'MakerDAO Core Units | Activity Feed'}
-        description={
-          'Learn about the activity of MakerDAO Core Units: updates to Core Unit Expense Reports, FTEs, and more.'
-        }
+        title="MakerDAO Core Units | Activity Feed"
+        description="Learn about the activity of MakerDAO Core Units: updates to Core Unit Expense Reports, FTEs, and more."
         image={{
           src: toAbsoluteURL('/assets/img/social-385x200.png'),
           width: 385,
