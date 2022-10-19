@@ -40,10 +40,10 @@ const CookiesPolicyContainer = () => {
           <ParagraphStyle isLight={isLight}>{COOKIES_POLICY_PARAGRAPH_TWO}</ParagraphStyle>
           <ParagraphStyle isLight={isLight}>{COOKIES_POLICY_PARAGRAPH_THREE}</ParagraphStyle>
           <ContainerUl isLight={isLight}>
-            <li>Page views,</li>
-            <li>Button clicks,</li>
-            <li>Input form changes (without the values being entered),</li>
-            <li>Errors.</li>
+            <ListItem isLight={isLight}>Page views,</ListItem>
+            <ListItem isLight={isLight}>Button clicks,</ListItem>
+            <ListItem isLight={isLight}>Input form changes (without the values being entered),</ListItem>
+            <ListItem isLight={isLight}>Errors.</ListItem>
           </ContainerUl>
           <ParagraphStyle isLight={isLight}>{COOKIES_POLICY_PARAGRAPH_FOUR}</ParagraphStyle>
           <ContainerButton>
@@ -51,7 +51,12 @@ const CookiesPolicyContainer = () => {
               label="Configure my settings"
               style={{
                 padding: '14.5px 40px',
-                borderColor: isLight ? '#231536' : '#343442',
+                width: 249,
+                height: 48,
+              }}
+              styleText={{
+                fontSize: '16px',
+                color: isLight ? '#31424E' : '#E2D8EE',
               }}
               onClick={handleSettings}
             />
@@ -126,7 +131,7 @@ const Title = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   letterSpacing: '0.4px',
   color: isLight ? '#231536' : '#D2D4EF',
   marginBottom: '24px',
-  textAlign: 'center',
+  textAlign: 'left',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     textAlign: 'left',
   },
@@ -141,13 +146,13 @@ const Description = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   fontWeight: 700,
   fontSize: '16px',
   lineHeight: '19px',
-  color: isLight ? '#231536' : '#D7C9FF',
+  color: isLight ? '#231536' : '#D2D4EF',
 }));
 
 const ContainerUl = styled.ul<{ isLight?: boolean }>(({ isLight }) => ({
   '> li': {
     marginBottom: '8px',
-    color: isLight ? '#231536' : '#D7C9FF',
+    color: isLight ? '#231536' : '#D2D4EF',
     '&:last-child': {
       marginBottom: '0px',
     },
@@ -170,7 +175,16 @@ const ParagraphStyle = styled.p<{ isLight: boolean }>(({ isLight }) => ({
   fontWeight: 400,
   fontSize: '16px',
   lineHeight: '22px',
-  color: isLight ? '#231536' : '#D7C9FF',
+  color: isLight ? '#231536' : '#D2D4EF',
+}));
+
+const ListItem = styled.li<{ isLight: boolean }>(({ isLight }) => ({
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 400,
+  fontSize: '16px',
+  lineHeight: '24px',
+  color: isLight ? '#231536' : '#D2D4EF',
 }));
 
 export default CookiesPolicyContainer;

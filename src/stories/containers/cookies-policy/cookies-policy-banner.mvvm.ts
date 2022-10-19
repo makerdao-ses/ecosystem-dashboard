@@ -9,8 +9,8 @@ interface Props {
 
 export const useCookiesPolicyBannerMvvm = ({ isShowBanner, setIsShowBanner }: Props) => {
   const { lockScroll, unlockScroll } = useScrollLock();
-  const [functionalCookies, setFunctionalCookies] = useState(false);
-  const [analyticsCookies, setAnalyticsCookies] = useState(false);
+  const [functionalCookies, setFunctionalCookies] = useState(true);
+  const [analyticsCookies, setAnalyticsCookies] = useState(true);
   const [cookies, setCookie] = useCookies(['darkMode', 'timestamp', 'analytics']);
 
   const getAllActivityLocalStore = useCallback(() => {

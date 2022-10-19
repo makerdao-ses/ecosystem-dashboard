@@ -8,14 +8,15 @@ interface CustomPagerProps {
   onNext?: () => void;
   onPrev?: () => void;
   hasNext?: boolean;
+  hasPrevious?: boolean;
 }
 
 export const CustomPager = (props: CustomPagerProps) => {
   return (
     <Container className="no-select">
       <Arrows>
-        <IconWrapper onClick={props.onPrev}>
-          <ChevronLeft />
+        <IconWrapper onClick={props.onPrev} disabled={!props.hasPrevious}>
+          <ChevronLeft fill={props.hasPrevious ? undefined : '#D1DEE6'} />
         </IconWrapper>
         <IconWrapper disabled={!props.hasNext} onClick={props.onNext}>
           <ChevronRight fill={props.hasNext ? undefined : '#D1DEE6'} />

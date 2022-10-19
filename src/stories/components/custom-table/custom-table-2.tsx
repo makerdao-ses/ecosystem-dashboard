@@ -87,6 +87,9 @@ export const CustomTable2 = (props: Props) => {
                   isLight={isLight}
                   isLoading={props.loading}
                   columns={props.columns}
+                  onClick={() => {
+                    props.columns[0].onClick?.(row.value);
+                  }}
                 >
                   {props.columns?.map((column) => (
                     <TableCell key={column?.header} onClick={() => column.onClick?.(row?.value)}>
@@ -141,6 +144,7 @@ const TableRow = styled.div<{ isLight: boolean; isLoading?: boolean; columns: Cu
     gridTemplateColumns: columns?.reduce((prev, curr) => `${prev} ${curr.responsiveWidth ?? curr.width}`, ''),
     gridTemplateRows: '120px',
     marginTop: '16px',
+    cursor: 'pointer',
     boxShadow: isLight
       ? '0px 0px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
       : '0px 20px 40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
@@ -182,6 +186,7 @@ const TableWrapper = styled.div({
 const ListWrapper = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  gap: 32,
   '@media (min-width: 1194px)': {
     display: 'none',
   },

@@ -78,9 +78,7 @@ export const ItemWebSite = ({
         </LinkWrapper>
       </ContainerRow>
       <ContainerTextDescription>
-        <TypographyDescription isLight={isLight} sx={{}}>
-          {description}
-        </TypographyDescription>
+        <TypographyDescription isLight={isLight}>{description}</TypographyDescription>
       </ContainerTextDescription>
       <BottomLinkWrapper>
         <CustomButton

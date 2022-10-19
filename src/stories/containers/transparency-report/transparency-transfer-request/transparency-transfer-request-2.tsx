@@ -27,7 +27,7 @@ export const TransparencyTransferRequest2 = (props: Props) => {
   return (
     <Container>
       <LinkDescription isLight={isLight}>
-        To see the onchain transactions from the Maker Protocol to the {getShortCode(props.code)} Core Unit
+        <span>To see the onchain transactions from the Maker Protocol to the {getShortCode(props.code)} Core Unit</span>
         <CustomLink
           href={`${MAKER_BURN_LINK}/${props.longCode}`}
           style={{
@@ -36,7 +36,6 @@ export const TransparencyTransferRequest2 = (props: Props) => {
             letterSpacing: '0.3px',
             lineHeight: '18px',
             marginBottom: '16px',
-            marginLeft: '4px',
             whiteSpace: 'break-spaces',
             display: 'inline-block',
           }}
