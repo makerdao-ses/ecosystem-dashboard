@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useEffect, useState } from 'react';
+import React, { ReactElement, ReactNode, useEffect } from 'react';
 import { Provider } from 'react-redux';
 import type { AppProps } from 'next/app';
 import { store } from '../src/core/store/store';
@@ -24,13 +24,9 @@ interface MyAppProps extends AppProps {
 }
 
 function MyApp(props: MyAppProps) {
-  const [pageLoaded, setPageLoaded] = useState(false);
   const [cookies] = useCookies(['darkMode', 'timestamp', 'analytics']);
   const { Component, pageProps } = props;
   const router = useRouter();
-  React.useEffect(() => {
-    setPageLoaded(true);
-  }, []);
   useEffect(() => {
     if (gtag.GA_TRACKING_ID && cookies.analytics === 'true') {
       const handleRouteChange = (url: URL) => {
@@ -42,9 +38,6 @@ function MyApp(props: MyAppProps) {
       };
     }
   }, [router.events]);
-  if (!pageLoaded) {
-    return null;
-  }
   return (
     <CookiesProvider>
       <Provider store={store}>
