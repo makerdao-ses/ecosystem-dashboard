@@ -73,7 +73,7 @@ export const CustomButton = ({
     <Container
       active={active}
       allowsHover={allowsHover}
-      className={props.className}
+      className={`${props.className} no-select`}
       isLight={isLight}
       buttonType={buttonType}
       type="button"
