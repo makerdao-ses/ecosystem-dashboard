@@ -24,13 +24,9 @@ interface MyAppProps extends AppProps {
 }
 
 function MyApp(props: MyAppProps) {
-  const [pageLoaded, setPageLoaded] = React.useState(false);
   const [cookies] = useCookies(['darkMode', 'timestamp', 'analytics']);
   const { Component, pageProps } = props;
   const router = useRouter();
-  React.useEffect(() => {
-    setPageLoaded(true);
-  }, []);
   useEffect(() => {
     if (gtag.GA_TRACKING_ID && cookies.analytics === 'true') {
       const handleRouteChange = (url: URL) => {
@@ -49,7 +45,7 @@ function MyApp(props: MyAppProps) {
         <ThemeProvider>
           <SEOHead title="MakerDAO - Dashboard" description="" />
           <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
-            {pageLoaded ? <Component {...pageProps} /> : null}
+            <Component {...pageProps} />
           </FeatureFlagsProvider>
         </ThemeProvider>
       </Provider>
