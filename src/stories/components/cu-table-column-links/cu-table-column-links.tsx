@@ -93,7 +93,7 @@ const Container = styled.div<{ spacings?: number; align: string; isIndex?: boole
   display: 'flex',
   alignItems: 'center',
   justifyContent: props.align,
-  ' & > div:first-child': {
+  ' & > div:first-of-type': {
     marginRight: '25px',
   },
   '* + *': {
@@ -106,7 +106,7 @@ const Container = styled.div<{ spacings?: number; align: string; isIndex?: boole
     ? {
         maxWidth: '240px',
         flexWrap: 'wrap-reverse',
-        ' & > div:first-child': {
+        ' & > div:first-of-type': {
           marginRight: '8px',
           marginTop: '0px',
         },

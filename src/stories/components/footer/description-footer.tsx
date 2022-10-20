@@ -25,9 +25,9 @@ const DescriptionFooter = ({ title, children, style = {} }: Props) => {
     <div style={style}>
       <StyleTitle isLight={isLight}>{title}</StyleTitle>
       {children &&
-        children.map((item) => {
+        children.map((item, index) => {
           return item.isNotLink ? (
-            <CookiesLink isLight={isLight} onClick={HandleOnClick(item.url)}>
+            <CookiesLink isLight={isLight} onClick={HandleOnClick(item.url)} key={index}>
               {item.title}
             </CookiesLink>
           ) : (

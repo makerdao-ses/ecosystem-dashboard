@@ -258,7 +258,7 @@ const CategoryContainer = styled.div({
   display: 'flex',
   flexDirection: 'row',
   marginTop: '16px',
-  '> :first-child': {
+  '> div:first-of-type': {
     marginRight: '16px',
   },
   '* + *': {
@@ -267,7 +267,7 @@ const CategoryContainer = styled.div({
   height: '22px',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     marginTop: '0px',
-    '> :first-child': {
+    '> div:first-of-type': {
       marginRight: '8px',
     },
     '* + *': {
@@ -278,7 +278,7 @@ const CategoryContainer = styled.div({
     marginBottom: '16px',
     marginTop: '20px',
     marginRight: '24px',
-    '> :first-child': {
+    '> div:first-of-type': {
       marginRight: '8px',
     },
     '* + *': {
@@ -288,7 +288,7 @@ const CategoryContainer = styled.div({
   [lightTheme.breakpoints.down('table_375')]: {
     marginBottom: '16px',
     marginTop: '20px',
-    '> :first-child': {
+    '> div:first-of-type': {
       marginRight: '8px',
     },
     '* + *': {
