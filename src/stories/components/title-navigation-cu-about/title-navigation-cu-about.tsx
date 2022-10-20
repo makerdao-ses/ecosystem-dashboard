@@ -267,18 +267,33 @@ const CategoryContainer = styled.div({
   height: '22px',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     marginTop: '0px',
-    gap: '8px',
+    '> :first-child': {
+      marginRight: '8px',
+    },
+    '* + *': {
+      marginRight: '8px',
+    },
   },
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     marginBottom: '16px',
     marginTop: '20px',
-    gap: '8px',
     marginRight: '24px',
+    '> :first-child': {
+      marginRight: '8px',
+    },
+    '* + *': {
+      marginRight: '8px',
+    },
   },
   [lightTheme.breakpoints.down('table_375')]: {
     marginBottom: '16px',
     marginTop: '20px',
-    gap: '8px',
+    '> :first-child': {
+      marginRight: '8px',
+    },
+    '* + *': {
+      marginRight: '8px',
+    },
   },
 });
 const ContainerCategoryConditional = styled.div({

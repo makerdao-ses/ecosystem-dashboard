@@ -106,7 +106,16 @@ const Container = styled.div<{ spacings?: number; align: string; isIndex?: boole
     ? {
         maxWidth: '240px',
         flexWrap: 'wrap-reverse',
-        gap: '0 8px',
+        ' & > div:first-child': {
+          marginRight: '8px',
+          marginTop: '0px',
+        },
+        '* + *': {
+          marginRight: '8px',
+        },
+        ' & > div:last-child': {
+          marginRight: '8px',
+        },
       }
     : undefined,
   '@media (min-width: 1410px)': {
