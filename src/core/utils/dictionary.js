@@ -1,5 +1,6 @@
 /* eslint-disable spellcheck/spell-checker */
 const dictionary = [
+  'useFormik',
   'formik',
   'Formik',
   'dict',

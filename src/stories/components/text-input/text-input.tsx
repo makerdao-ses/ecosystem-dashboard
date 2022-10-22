@@ -8,7 +8,7 @@ interface Props {
   type?: 'text' | 'password';
   value?: string;
   onChange?: (value: React.ChangeEvent<HTMLInputElement>) => void;
-  error?: string | false;
+  error?: string | boolean;
   name: string;
   onBlur?: (value: React.FocusEvent<HTMLInputElement>) => void;
 }
@@ -38,7 +38,7 @@ export default ({ placeholder, style, type = 'text', value = '', onChange, error
           <Eye fill={error ? (passwordVisible ? '#F75524' : '#FBE1D9') : passwordVisible ? '#231536' : '#D4D9E1'} />
         </IconWrapper>
       )}
-      {error && <Error>{error}</Error>}
+      {error && typeof error === 'string' && <Error>{error}</Error>}
     </Wrapper>
   );
 };
