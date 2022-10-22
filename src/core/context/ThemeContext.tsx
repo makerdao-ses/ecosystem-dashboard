@@ -2,13 +2,15 @@ import { createContext, ReactNode, useContext } from 'react';
 import { CssBaseline, ThemeProvider as MuiThemeProvider, useMediaQuery } from '@mui/material';
 import lightTheme from '../../../styles/theme/light';
 import darkTheme from '../../../styles/theme/dark';
-import useLocalStorage from '../hooks/useLocalStorage';
+// import useLocalStorage from '../hooks/useLocalStorage';
+
 import { itemsWebSiteLinks } from '../../stories/components/header/select-link-website/menu-items';
 import Header from '../../stories/components/header/header';
 import Footer from '../../stories/components/footer/footer';
 import { developer, governesses, products } from '../../stories/components/footer/iconsData';
 import styled from '@emotion/styled';
 import { useCookies } from 'react-cookie';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 const DARK_SCHEME_QUERY = '(prefers-color-scheme: dark)';
 
@@ -22,13 +24,14 @@ const useThemeContext = () => useContext(ThemeContext);
 
 const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [cookies] = useCookies(['darkMode']);
-  const isDarkOS = useMediaQuery(DARK_SCHEME_QUERY);
+  const userSystemThemePreferenceDark = useMediaQuery(DARK_SCHEME_QUERY);
 
-  const [themeMode, setThemeMode] = useLocalStorage<ThemeMode>(
-    'themeMode',
-    isDarkOS && cookies.darkMode === 'true' ? 'dark' : 'light'
-  );
+  console.log('userSystemThemePreferenceDark', userSystemThemePreferenceDark);
+  const defaultInitialTheme = userSystemThemePreferenceDark && cookies.darkMode === 'true' ? 'dark' : 'light';
+  console.log({ defaultInitialTheme });
 
+  const { state, handleStorageChange: setThemeMode } = useLocalStorage('themeMode', defaultInitialTheme);
+  const themeMode = state as ThemeMode;
   const toggleTheme = () => {
     switch (themeMode) {
       case 'light':
