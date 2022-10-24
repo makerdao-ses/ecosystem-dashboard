@@ -2,6 +2,7 @@ import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import {
+  getAllCommentsBudgetStatementLine,
   getCurrentOrLastMonthWithData,
   getLastMonthWithActualOrForecast,
   getLastUpdateForBudgetStatement,
@@ -120,6 +121,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   }, [coreUnit, currentMonth]);
 
   const numbersComments = getNumberComments(coreUnit);
+  const comments = getAllCommentsBudgetStatementLine(coreUnit);
   const longCode = coreUnit?.code;
 
   const tabItems = [
@@ -179,5 +181,6 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     differenceInDays,
     longCode,
     hasPreviousMonth,
+    comments,
   };
 };
