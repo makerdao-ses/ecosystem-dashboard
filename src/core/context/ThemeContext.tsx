@@ -29,8 +29,6 @@ const useThemeContext = () => useContext(ThemeContext);
 const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const { currentTheme: themeMode, handleThemeMode } = useThemeMode();
 
-  // const { state, handleStorageChange: setThemeMode } = useLocalStorage('themeMode', defaultInitialTheme);
-  // const themeMode = state as ThemeMode;
   const toggleTheme = () => {
     if (themeMode) handleThemeMode(toggleThemeValues[themeMode]);
   };
