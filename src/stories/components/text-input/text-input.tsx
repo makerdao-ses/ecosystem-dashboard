@@ -45,6 +45,7 @@ export default ({ placeholder, style, type = 'text', value = '', onChange, error
 
 const Wrapper = styled.div({
   position: 'relative',
+  width: '100%',
 });
 
 const IconWrapper = styled.span({
@@ -57,7 +58,7 @@ const IconWrapper = styled.span({
 const Input = styled.input<{ active: boolean; error: boolean }>(({ active, error }) => ({
   boxSizing: 'border-box',
   alignItems: 'center',
-  width: 356,
+  width: '100%',
   height: 48,
   border: '1px solid #D4D9E1',
   borderRadius: 6,

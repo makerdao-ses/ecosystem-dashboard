@@ -14,25 +14,26 @@ export default () => {
         <AvatarPlaceholder />
         <Title>Log In</Title>
         <Description>Enter your username and password to get access to the administration area.</Description>
-        <TextInput
-          style={{ marginBottom: 32 }}
-          placeholder="Username"
-          value={formik.values.username}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={(formik.touched.username && formik.errors.username) ?? !!error}
-          name="username"
-        />
-        <TextInput
-          style={{ marginBottom: 60 }}
-          placeholder="Password"
-          value={formik.values.password}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={(formik.touched.password && formik.errors.password) ?? error}
-          type="password"
-          name="password"
-        />
+        <InputsWrapper>
+          <TextInput
+            style={{ marginBottom: 32 }}
+            placeholder="Username"
+            value={formik.values.username}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={(formik.touched.username && formik.errors.username) ?? !!error}
+            name="username"
+          />
+          <TextInput
+            placeholder="Password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={(formik.touched.password && formik.errors.password) ?? error}
+            type="password"
+            name="password"
+          />
+        </InputsWrapper>
         <ButtonWrapper>
           <CustomButton
             label="Log In"
@@ -62,13 +63,18 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  padding: '40px 64px 64px',
+  padding: '24px',
   position: 'absolute',
-  width: '484px',
-  top: '128px',
+  top: 104,
+  width: 343,
   background: '#FFFFFF',
   boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
   borderRadius: '6px',
+  '@media (min-width: 834px)': {
+    padding: '40px 64px 64px',
+    width: '484px',
+    top: 128,
+  },
 });
 
 const Title = styled.h1({
@@ -78,8 +84,11 @@ const Title = styled.h1({
   textAlign: 'center',
   letterSpacing: 0.4,
   color: '#231536',
-  marginTop: 40,
+  marginTop: 24,
   marginBottom: 16,
+  '@media (min-width: 834px)': {
+    marginTop: 40,
+  },
 });
 
 const Description = styled.h3({
@@ -89,8 +98,17 @@ const Description = styled.h3({
   textAlign: 'center',
   color: '#231536',
   marginBottom: 42,
+  maxWidth: 294,
 });
 
 const ButtonWrapper = styled.div({
   alignSelf: 'flex-end',
+});
+
+const InputsWrapper = styled.div({
+  width: '100%',
+  marginBottom: 42,
+  '@media (min-width: 834px)': {
+    marginBottom: 60,
+  },
 });
