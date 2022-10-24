@@ -1,33 +1,31 @@
-import React, { useCallback, useMemo } from 'react';
 import styled from '@emotion/styled';
-import Logo from '../svg/logo';
-import SelectLink from './select-link-website/select-link';
-import { WebSiteLinks } from './select-link-website/menu-items';
-import menuItems, { MenuType } from './menu-items';
 import { useRouter } from 'next/router';
-import ThemeSwitcherButton from '../button/switch-button/switch-buttom';
-import { ThemeMode, useThemeContext } from '../../../core/context/ThemeContext';
-import Expenses from '../svg/expenses';
-import { CustomLink } from '../custom-link/custom-link';
+import { useCallback, useMemo } from 'react';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
+import ThemeSwitcherButton from '../button/switch-button/switch-buttom';
+import { CustomLink } from '../custom-link/custom-link';
+import Expenses from '../svg/expenses';
+import Logo from '../svg/logo';
 import { TopBarSelect } from '../top-bar-select/top-bar-select';
+import menuItems, { MenuType } from './menu-items';
+import { WebSiteLinks } from './select-link-website/menu-items';
+import SelectLink from './select-link-website/select-link';
 
 interface Props {
   links: WebSiteLinks[];
-  themeMode: ThemeMode;
-  toggleTheme: () => void;
 }
-
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-const Header = ({ links, themeMode, toggleTheme }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+const Header = ({ links }: Props) => {
+  const { themeMode, toggleTheme } = useThemeContext();
+  const isLight = themeMode === 'light';
 
   const router = useRouter();
   const onClick = useCallback(
     (link: string) => () => {
       window.open(link, '_blank');
     },
-    [router]
+    []
   );
 
   const handleGoHome = useCallback(() => {
@@ -38,7 +36,7 @@ const Header = ({ links, themeMode, toggleTheme }: Props) => {
     (link: string) => () => {
       router.push(link);
     },
-    []
+    [router]
   );
 
   const activeMenuItem = useMemo(() => {
@@ -55,7 +53,7 @@ const Header = ({ links, themeMode, toggleTheme }: Props) => {
     }
 
     return menuItems[0];
-  }, [router.query]);
+  }, [router.pathname]);
 
   return (
     <Container isLight={isLight}>

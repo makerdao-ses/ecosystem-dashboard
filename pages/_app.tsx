@@ -11,8 +11,9 @@ import { CURRENT_ENVIRONMENT } from '../src/config/endpoints';
 import { featureFlags } from '../feature-flags/feature-flags';
 import { SEOHead } from '../src/stories/components/seo-head/seo-head';
 import { useRouter } from 'next/router';
-import { CookiesProvider, useCookies } from 'react-cookie';
 import * as gtag from '../src/core/utils/gtag';
+import { CookiesProviderTracking } from '../src/core/context/CookiesContext';
+import { CookiesProvider, useCookies } from 'react-cookie';
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -24,11 +25,11 @@ interface MyAppProps extends AppProps {
 }
 
 function MyApp(props: MyAppProps) {
-  const [cookies] = useCookies(['darkMode', 'timestamp', 'analytics']);
   const { Component, pageProps } = props;
+  const [cookies] = useCookies(['analyticsTracking']);
   const router = useRouter();
   useEffect(() => {
-    if (gtag.GA_TRACKING_ID && cookies.analytics === 'true') {
+    if (gtag.GA_TRACKING_ID && cookies.analyticsTracking === 'true') {
       const handleRouteChange = (url: URL) => {
         gtag.pageView(url);
       };
@@ -41,12 +42,14 @@ function MyApp(props: MyAppProps) {
   return (
     <CookiesProvider>
       <Provider store={store}>
-        <ThemeProvider>
-          <SEOHead title="MakerDAO - Dashboard" description="" />
-          <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
-            <Component {...pageProps} />
-          </FeatureFlagsProvider>
-        </ThemeProvider>
+        <CookiesProviderTracking>
+          <ThemeProvider>
+            <SEOHead title="MakerDAO - Dashboard" description="" />
+            <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
+              <Component {...pageProps} />
+            </FeatureFlagsProvider>
+          </ThemeProvider>
+        </CookiesProviderTracking>
       </Provider>
     </CookiesProvider>
   );
