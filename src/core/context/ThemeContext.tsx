@@ -26,9 +26,9 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [cookies] = useCookies(['darkMode']);
   const userSystemThemePreferenceDark = useMediaQuery(DARK_SCHEME_QUERY);
 
-  console.log('userSystemThemePreferenceDark', userSystemThemePreferenceDark);
+  // console.log('userSystemThemePreferenceDark', userSystemThemePreferenceDark);
   const defaultInitialTheme = userSystemThemePreferenceDark && cookies.darkMode === 'true' ? 'dark' : 'light';
-  console.log({ defaultInitialTheme });
+  // console.log({ defaultInitialTheme });
 
   const { state, handleStorageChange: setThemeMode } = useLocalStorage('themeMode', defaultInitialTheme);
   const themeMode = state as ThemeMode;

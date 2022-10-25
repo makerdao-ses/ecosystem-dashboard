@@ -24,7 +24,6 @@ export const CuTable2 = () => {
     clearFilters,
     statusCount,
     categoriesCount,
-    filteredData,
     status,
     filtersPopup,
     toggleFiltersPopup,
@@ -58,7 +57,7 @@ export const CuTable2 = () => {
     } else {
       unlockScroll();
     }
-  }, [cookies.analytics, cookies.darkMode, lockScroll, status, unlockScroll]);
+  }, [cookies, cookies.analytics, cookies.darkMode, lockScroll, status, unlockScroll]);
 
   const siteHeader = useMemo(() => {
     if (status === 'loading') {
@@ -82,7 +81,21 @@ export const CuTable2 = () => {
         />
       </Header>
     );
-  }, [filteredData, isLight, toggleFiltersPopup]);
+  }, [
+    applySort,
+    categoriesCount,
+    clearFilters,
+    columns,
+    filteredCategories,
+    filteredStatuses,
+    filtersPopup,
+    headersSort,
+    lockScroll,
+    searchText,
+    status,
+    statusCount,
+    toggleFiltersPopup,
+  ]);
 
   return (
     <ContainerHome isLight={isLight} allowPadding={isShowBanner}>
