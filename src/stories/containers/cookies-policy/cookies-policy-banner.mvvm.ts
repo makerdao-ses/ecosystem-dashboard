@@ -73,6 +73,12 @@ export const useCookiesPolicyBannerMvvm = () => {
     unlockScroll();
     const newThemeMode = isUserSystemThemePreferenceDark ? 'light' : 'dark';
     window.localStorage.setItem('THEME_MODE', newThemeMode);
+    if (functionalCheckbox) {
+      setFunctionalCheckbox(false);
+    }
+    if (analyticsCheckbox) {
+      setAnalyticsCheckbox(false);
+    }
   }, [unlockScroll, deletedFunctionalTracking, deletedAnalyticsTracking, isUserSystemThemePreferenceDark]);
 
   const handleAcceptCookies = useCallback(() => {
