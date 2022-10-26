@@ -1,20 +1,24 @@
-import { createContext, ReactNode, useContext } from 'react';
-import { CssBaseline, ThemeProvider as MuiThemeProvider, useMediaQuery } from '@mui/material';
-import lightTheme from '../../../styles/theme/light';
+import { CssBaseline, ThemeProvider as MuiThemeProvider } from '@mui/material';
+import { createContext, ReactNode, useContext, useMemo, useEffect } from 'react';
 import darkTheme from '../../../styles/theme/dark';
-// import useLocalStorage from '../hooks/useLocalStorage';
-
-import { itemsWebSiteLinks } from '../../stories/components/header/select-link-website/menu-items';
-import Header from '../../stories/components/header/header';
+import lightTheme from '../../../styles/theme/light';
+import styled from '@emotion/styled';
 import Footer from '../../stories/components/footer/footer';
 import { developer, governesses, products } from '../../stories/components/footer/iconsData';
-import styled from '@emotion/styled';
-import { useCookies } from 'react-cookie';
-import useLocalStorage from '../hooks/useLocalStorage';
+import Header from '../../stories/components/header/header';
+import { itemsWebSiteLinks } from '../../stories/components/header/select-link-website/menu-items';
+import useThemeMode from '../hooks/useThemeMode';
+import MainWrapper from './MainWrapper';
 
-const DARK_SCHEME_QUERY = '(prefers-color-scheme: dark)';
+const LIGHT = 'light';
+const DARK = 'dark';
+export type ThemeMode = typeof DARK | typeof LIGHT;
 
-export type ThemeMode = 'light' | 'dark';
+const toggleThemeValues = {
+  light: DARK,
+  dark: LIGHT,
+} as Record<string, ThemeMode>;
+
 interface ThemeContextType {
   themeMode: ThemeMode;
   toggleTheme: () => void;
@@ -23,41 +27,33 @@ const ThemeContext = createContext<ThemeContextType>({} as ThemeContextType);
 const useThemeContext = () => useContext(ThemeContext);
 
 const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [cookies] = useCookies(['darkMode']);
-  const userSystemThemePreferenceDark = useMediaQuery(DARK_SCHEME_QUERY);
+  const { currentTheme: themeMode, handleThemeMode } = useThemeMode();
 
-  console.log('userSystemThemePreferenceDark', userSystemThemePreferenceDark);
-  const defaultInitialTheme = userSystemThemePreferenceDark && cookies.darkMode === 'true' ? 'dark' : 'light';
-  console.log({ defaultInitialTheme });
-
-  const { state, handleStorageChange: setThemeMode } = useLocalStorage('themeMode', defaultInitialTheme);
-  const themeMode = state as ThemeMode;
   const toggleTheme = () => {
-    switch (themeMode) {
-      case 'light':
-        setThemeMode('dark');
-        break;
-      case 'dark':
-        setThemeMode('light');
-        break;
-      default:
-    }
+    if (themeMode) handleThemeMode(toggleThemeValues[themeMode]);
   };
 
+  const theme = useMemo(() => (themeMode === 'light' ? lightTheme : darkTheme), [themeMode]);
+
+  useEffect(() => {
+    if (themeMode !== undefined) {
+      handleThemeMode(toggleThemeValues[themeMode]);
+    }
+  }, []);
   return (
     <ThemeContext.Provider
       value={{
-        themeMode,
+        themeMode: themeMode as unknown as ThemeMode,
         toggleTheme,
       }}
     >
-      <MuiThemeProvider theme={themeMode === 'light' ? lightTheme : darkTheme}>
-        <Header links={itemsWebSiteLinks} themeMode={themeMode} toggleTheme={toggleTheme} />
+      <MuiThemeProvider theme={theme}>
+        {themeMode !== undefined && <Header links={itemsWebSiteLinks} />}
         <Container>
           <CssBaseline />
-          {children}
+          <MainWrapper>{children}</MainWrapper>
         </Container>
-        <Footer developer={developer} governesses={governesses} products={products} />
+        {themeMode !== undefined && <Footer developer={developer} governesses={governesses} products={products} />}
       </MuiThemeProvider>
     </ThemeContext.Provider>
   );
