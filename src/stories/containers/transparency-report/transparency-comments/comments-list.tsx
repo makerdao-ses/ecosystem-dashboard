@@ -23,7 +23,7 @@ export const ListItemsComments = ({ comments, code }: Props) => {
       {Object.keys(comments).map((comment, index, key) => (
         <div>
           <ContainerSummaryDate>
-            <ActualDate isLight={isLight}>{`${DateTime.fromISO(key[index]).toFormat('d-MMM-y')}`}</ActualDate>
+            <ActualDate isLight={isLight}>{`${DateTime.fromISO(key[index]).toFormat('dd-MMM-y')}`}</ActualDate>
 
             <Comments />
 

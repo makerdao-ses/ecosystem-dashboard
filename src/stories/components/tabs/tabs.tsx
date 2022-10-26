@@ -83,7 +83,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 const Tab = styled.div<{ active: boolean; isLight: boolean }>(({ active, isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   color: active && isLight ? '#1AAB9B' : isLight && !active ? '#7E7E88' : !isLight && active ? '#1AAB9B' : '#708390',
-  fontSize: '16px',
+  fontSize: '14px',
   lineHeight: '22px',
   fontWeight: 400,
   paddingBottom: '12px',

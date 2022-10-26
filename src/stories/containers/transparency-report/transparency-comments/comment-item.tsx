@@ -71,6 +71,8 @@ const Line = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   marginTop: '16px',
 }));
 
-const ContainerCommentDate = styled.div({});
+const ContainerCommentDate = styled.div({
+  marginTop: '2px',
+});
 
 export default CommentItem;
