@@ -4,7 +4,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { useRouter } from 'next/router';
 
 interface TabsProps {
-  items?: { item: string; id: string }[];
+  items?: { item: string | JSX.Element; id: string }[];
   currentIndex: number;
   style?: CSSProperties;
 }
@@ -29,7 +29,7 @@ export const Tabs = (props: TabsProps) => {
       <Container isLight={isLight}>
         {props.items?.map((element, i) => {
           let id = '';
-          let item: string;
+          let item: string | JSX.Element;
           if (typeof element === 'string') {
             item = element;
           } else {
