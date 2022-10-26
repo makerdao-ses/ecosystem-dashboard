@@ -17,7 +17,6 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import {
   getLatestMip39FromCoreUnit,
   getLinksFromCoreUnit,
-  getStautsMip39AccetedOrObsolete,
   getSubmissionDateFromCuMip,
 } from '../../../core/business-logic/core-units';
 
@@ -35,7 +34,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout, hiddenTextDescription }:
   const buildNewArray = coreUnitAbout?.cuMip?.map((mip) => getRelateMipObjectFromCoreUnit(mip));
   const orderMips = _.sortBy(buildNewArray, ['orderBy', 'dateMip']).reverse();
   const mips = getMipsStatus(orderMips[0] as CuMipDto);
-  const mipStatus = getStautsMip39AccetedOrObsolete(coreUnitAbout as CoreUnitDto);
+  const mipStatus = getLatestMip39FromCoreUnit(coreUnitAbout as CoreUnitDto)?.mipStatus as CuStatusEnum;
   const newDate = getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnitAbout as CoreUnitDto));
 
   return (
