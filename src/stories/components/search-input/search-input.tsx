@@ -79,7 +79,7 @@ const Input = styled.input<{ focus: boolean; isLight: boolean; small?: boolean }
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
-  fontSize: '14px',
+  fontSize: '16px',
   flex: 1,
   color: isLight ? '#25273D' : '#FFFFFF',
   outline: 'none',
