@@ -2,7 +2,6 @@ import { createContext, ReactNode, useContext } from 'react';
 import { CssBaseline, ThemeProvider as MuiThemeProvider, useMediaQuery } from '@mui/material';
 import lightTheme from '../../../styles/theme/light';
 import darkTheme from '../../../styles/theme/dark';
-// import useLocalStorage from '../hooks/useLocalStorage';
 
 import { itemsWebSiteLinks } from '../../stories/components/header/select-link-website/menu-items';
 import Header from '../../stories/components/header/header';
@@ -26,9 +25,7 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [cookies] = useCookies(['darkMode']);
   const userSystemThemePreferenceDark = useMediaQuery(DARK_SCHEME_QUERY);
 
-  // console.log('userSystemThemePreferenceDark', userSystemThemePreferenceDark);
   const defaultInitialTheme = userSystemThemePreferenceDark && cookies.darkMode === 'true' ? 'dark' : 'light';
-  // console.log({ defaultInitialTheme });
 
   const { state, handleStorageChange: setThemeMode } = useLocalStorage('themeMode', defaultInitialTheme);
   const themeMode = state as ThemeMode;
