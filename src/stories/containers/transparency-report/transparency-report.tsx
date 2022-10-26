@@ -30,7 +30,8 @@ interface TransparencyReportProps {
 }
 
 export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { themeMode } = useThemeContext();
+  const isLight = themeMode === 'light';
   const [isEnabled] = useFlagsActive();
   const {
     tabItems,
@@ -44,10 +45,22 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
     currentBudgetStatement,
     tabsIndex,
     lastUpdateForBudgetStatement,
-    longCode,
     numbersComments,
+    longCode,
     comments,
   } = useTransparencyReportViewModel(coreUnit);
+  if (themeMode === undefined) {
+    return (
+      <>
+        <SEOHead
+          title={`${coreUnit.name} Core Unit | Finances`}
+          description={`Learn about the ${coreUnit.name} Core Unit at MakerDAO: their finances, expense reports, and more.`}
+          image={coreUnit.image || toAbsoluteURL('/assets/img/social-1200x630.png')}
+          twitterCard={coreUnit.image ? 'summary' : 'summary_large_image'}
+        />
+      </>
+    );
+  }
   return (
     <Wrapper>
       <SEOHead
