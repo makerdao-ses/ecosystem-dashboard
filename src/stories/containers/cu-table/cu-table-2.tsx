@@ -21,7 +21,6 @@ export const CuTable2 = () => {
     clearFilters,
     statusCount,
     categoriesCount,
-    filteredData,
     status,
     filtersPopup,
     toggleFiltersPopup,
@@ -56,7 +55,20 @@ export const CuTable2 = () => {
         />
       </Header>
     );
-  }, [filteredData, isLight, toggleFiltersPopup]);
+  }, [
+    applySort,
+    categoriesCount,
+    clearFilters,
+    columns,
+    filteredCategories,
+    filteredStatuses,
+    filtersPopup,
+    headersSort,
+    searchText,
+    status,
+    statusCount,
+    toggleFiltersPopup,
+  ]);
 
   if (themeMode === undefined) {
     return (
