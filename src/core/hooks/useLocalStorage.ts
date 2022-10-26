@@ -1,55 +1,57 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
-import useEventListener from './useEventListener';
 
-type SetValue<T> = Dispatch<SetStateAction<T>>;
-
-function useLocalStorage<T>(key: string, initialValue: T): [T, SetValue<T>] {
-  const [cookies] = useCookies(['darkMode']);
-  const readStorage = (): T => {
+function useLocalStorage(key: string, initialValue: string, theme?: boolean) {
+  const readStorage = useCallback((key: string) => {
     if (typeof window === 'undefined') {
-      return initialValue;
+      return undefined;
     }
     try {
       const item = window.localStorage.getItem(key);
-      return item ? (parseJSON(item) as T) : initialValue;
+      return item ? parseJSON(item) : undefined;
     } catch (error) {
       console.warn(`Error reading localStorage key “${key}”:`, error);
-      return initialValue;
+      return undefined;
     }
-  };
-
-  // Persists the new value to localStorage.
-  const setStorage: SetValue<T> = (value) => {
-    if (typeof window === 'undefined') {
-      console.warn(`Tried setting localStorage key “${key}” even though environment is not a client`);
-    }
-    try {
-      const newValue = value instanceof Function ? value(state) : value;
-      if (cookies.darkMode === 'true') window.localStorage.setItem(key, JSON.stringify(newValue));
-
-      window.dispatchEvent(new Event('local-storage'));
-    } catch (error) {
-      console.warn(`Error setting localStorage key “${key}”:`, error);
-    }
-  };
-
-  const [state, setState] = useState<T>(initialValue);
-  useEffect(() => {
-    setState(readStorage());
   }, []);
 
-  useEffect(() => {
-    setStorage(state);
-  }, [state]);
+  const [state, setState] = useState(initialValue);
+  // Persists the new value to localStorage.
+  const setStorage = useCallback(
+    (value: string) => {
+      console.log('theme', theme);
 
-  const handleStorageChange = () => {
-    setState(readStorage());
+      if (!theme) return;
+      if (typeof window === 'undefined') {
+        // console.warn(`Tried setting localStorage key “${key}” even though environment is not a client`);
+      }
+      try {
+        window.localStorage.setItem(key, JSON.stringify(value));
+
+        window.dispatchEvent(new Event('local-storage'));
+      } catch (error) {
+        console.warn(`Error setting localStorage key “${key}”:`, error);
+      }
+    },
+    [key, theme]
+  );
+
+  useEffect(() => {
+    const theme = readStorage('themeMode') as string;
+    const val = theme || initialValue;
+    setState(val);
+    setStorage(val);
+  }, [initialValue, readStorage, setStorage]);
+
+  const handleStorageChange = (val: string) => {
+    setState(val);
+    setStorage(val);
   };
 
-  useEventListener('storage', handleStorageChange);
-  useEventListener('local-storage', handleStorageChange);
-  return [state, setState];
+  return {
+    state,
+    handleStorageChange,
+  };
 }
 
 export default useLocalStorage;

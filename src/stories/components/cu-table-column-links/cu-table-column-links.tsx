@@ -94,10 +94,10 @@ const Container = styled.div<{ spacings?: number; align: string; isIndex?: boole
   alignItems: 'center',
   justifyContent: props.align,
   ' & > div:first-of-type': {
-    marginRight: '25px',
+    marginRight: '16px',
   },
   '* + *': {
-    marginRight: '25px',
+    marginRight: '16px',
   },
   ' & > div:last-child': {
     marginRight: '0px',
