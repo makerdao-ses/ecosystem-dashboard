@@ -5,13 +5,13 @@ import CookiesPolicyBanner from '../../stories/containers/cookies-policy/cookies
 import { useScrollLock } from '../hooks/scroll-hooks';
 import { useThemeContext } from './ThemeContext';
 import { useCookiesContextTracking } from './CookiesContext';
+import { ThemeType } from '../enums/theme.enum';
 
-const LIGHT = 'light';
 const MainWrapper = ({ children }: { children: ReactNode }) => {
   const { themeMode } = useThemeContext();
   const { lockScroll, unlockScroll } = useScrollLock();
 
-  const isLight = useMemo(() => themeMode === LIGHT, [themeMode]);
+  const isLight = useMemo(() => themeMode === ThemeType.LIGHT, [themeMode]);
 
   const {
     isShowBanner,

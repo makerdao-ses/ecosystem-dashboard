@@ -9,15 +9,14 @@ import Header from '../../stories/components/header/header';
 import { itemsWebSiteLinks } from '../../stories/components/header/select-link-website/menu-items';
 import useThemeMode from '../hooks/useThemeMode';
 import MainWrapper from './MainWrapper';
+import { ThemeType } from '../enums/theme.enum';
 
-const LIGHT = 'light';
-const DARK = 'dark';
-export type ThemeMode = typeof DARK | typeof LIGHT;
+export type ThemeMode = ThemeType;
 
 const toggleThemeValues = {
-  light: DARK,
-  dark: LIGHT,
-} as Record<string, ThemeMode>;
+  light: ThemeType.DARK,
+  dark: ThemeType.LIGHT,
+} as Record<string, ThemeType>;
 
 interface ThemeContextType {
   themeMode: ThemeMode;

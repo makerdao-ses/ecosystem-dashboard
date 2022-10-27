@@ -13,7 +13,7 @@ import { SEOHead } from '../src/stories/components/seo-head/seo-head';
 import { useRouter } from 'next/router';
 import * as gtag from '../src/core/utils/gtag';
 import { CookiesProviderTracking } from '../src/core/context/CookiesContext';
-import { CookiesProvider, useCookies } from 'react-cookie';
+import { CookiesProvider } from 'react-cookie';
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -26,10 +26,9 @@ interface MyAppProps extends AppProps {
 
 function MyApp(props: MyAppProps) {
   const { Component, pageProps } = props;
-  const [cookies] = useCookies(['analyticsTracking']);
   const router = useRouter();
   useEffect(() => {
-    if (gtag.GA_TRACKING_ID && cookies.analyticsTracking === 'true') {
+    if (gtag.GA_TRACKING_ID) {
       const handleRouteChange = (url: URL) => {
         gtag.pageView(url);
       };

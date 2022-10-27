@@ -1,32 +1,29 @@
 import { useMediaQuery } from '@mui/material';
 import { useMemo, useState, useLayoutEffect } from 'react';
+import { ThemeType } from '../enums/theme.enum';
 
 const DARK_SCHEME_QUERY = '(prefers-color-scheme: dark)';
 const THEME_MODE = 'THEME_MODE';
-const LIGHT = 'light';
-const DARK = 'dark';
-
-type ThemeMode = typeof DARK | typeof LIGHT;
 
 const useThemeMode = () => {
   const isUserSystemThemePreferenceDark = useMediaQuery(DARK_SCHEME_QUERY);
 
   const defaultThemePreference = useMemo(() => {
     if (isUserSystemThemePreferenceDark) {
-      return DARK;
+      return ThemeType.DARK;
     } else {
-      return LIGHT;
+      return ThemeType.LIGHT;
     }
   }, [isUserSystemThemePreferenceDark]);
 
-  const [currentTheme, setCurrentTheme] = useState<ThemeMode>();
+  const [currentTheme, setCurrentTheme] = useState<ThemeType>();
 
   useLayoutEffect(() => {
     const defaultThemeLocalStore = window.localStorage.getItem(THEME_MODE);
-    setCurrentTheme((defaultThemeLocalStore as ThemeMode) || defaultThemePreference);
+    setCurrentTheme((defaultThemeLocalStore as ThemeType) || defaultThemePreference);
   }, [defaultThemePreference]);
 
-  const handleThemeMode = (val: ThemeMode) => {
+  const handleThemeMode = (val: ThemeType) => {
     if (typeof window !== 'undefined') {
       const hasTracking = window.localStorage.getItem('themeTracking');
       if (hasTracking) {
