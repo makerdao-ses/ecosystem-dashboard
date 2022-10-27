@@ -46,8 +46,8 @@ export const getLatestMip39FromCoreUnit = (cu?: CoreUnitDto | null) => {
 export const getStautsMip39AccetedOrObsolete = (cu?: CoreUnitDto | null): CuStatusEnum => {
   const lastMip39 = getLatestMip39FromCoreUnit(cu);
   const mipCode = lastMip39?.mipCode;
-  const mipStatus = lastMip39?.mipStatus;
-  return mipCode?.includes('MIP39c3') && mipStatus === 'Accepted' ? CuStatusEnum.Obsolete : CuStatusEnum.Accepted;
+  const mipStatus = lastMip39?.mipStatus || CuStatusEnum.Accepted;
+  return mipCode?.includes('MIP39c3') && mipStatus === 'Accepted' ? CuStatusEnum.Obsolete : mipStatus;
 };
 export const getSubmissionDateFromCuMip = (mip: CuMipDto | null) => {
   if (!mip) return null;

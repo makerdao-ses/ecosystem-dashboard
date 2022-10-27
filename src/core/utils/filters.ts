@@ -1,11 +1,11 @@
 import { ParsedUrlQuery } from 'querystring';
+import { getStautsMip39AccetedOrObsolete } from '../business-logic/core-units';
 import { CoreUnitDto } from '../models/dto/core-unit.dto';
-import { getLatestMip39FromCoreUnit } from '../business-logic/core-units';
 
 const filterStatus = (lowerCaseStatuses: string[], data: CoreUnitDto) => {
   return (
     lowerCaseStatuses.length === 0 ||
-    lowerCaseStatuses.indexOf(getLatestMip39FromCoreUnit(data)?.mipStatus?.toLowerCase() ?? 'non-present') > -1
+    lowerCaseStatuses.indexOf(getStautsMip39AccetedOrObsolete(data)?.toLowerCase() ?? 'non-present') > -1
   );
 };
 
