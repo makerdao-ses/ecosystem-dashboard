@@ -45,7 +45,7 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
       value={{
         themeMode: themeMode as unknown as ThemeMode,
         toggleTheme,
-        isLight: themeMode === ThemeType.LIGHT,
+        isLight,
       }}
     >
       <MuiThemeProvider theme={theme}>

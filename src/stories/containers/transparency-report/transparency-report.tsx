@@ -34,8 +34,7 @@ export type TableItems = {
 };
 
 export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportProps) => {
-  const { themeMode } = useThemeContext();
-  const isLight = themeMode === 'light';
+  const { themeMode, isLight } = useThemeContext();
   const [isEnabled] = useFlagsActive();
   const {
     tabItems,
