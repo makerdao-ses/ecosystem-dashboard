@@ -4,7 +4,7 @@ import {
   getExpenditureValueFromCoreUnit,
   getFTEsFromCoreUnit,
   getLastMonthWithData,
-  getLatestMip39FromCoreUnit,
+  getStautsMip39AccetedOrObsolete,
 } from '../../../core/business-logic/core-units';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
@@ -83,7 +83,7 @@ export const useCoreUnitsTableMvvm = () => {
   const statusCount = useMemo(() => {
     const result: { [id: string]: number } = {};
     Object.values(CuStatusEnum).forEach((cat) => {
-      result[cat] = statusesFiltered?.filter((cu) => getLatestMip39FromCoreUnit(cu)?.mipStatus === cat).length;
+      result[cat] = statusesFiltered?.filter((cu) => getStautsMip39AccetedOrObsolete(cu) === cat).length;
     });
     result.All = statusesFiltered.length;
     return result;
