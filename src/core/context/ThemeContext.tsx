@@ -21,18 +21,19 @@ const toggleThemeValues = {
 interface ThemeContextType {
   themeMode: ThemeMode;
   toggleTheme: () => void;
+  isLight: boolean;
 }
 const ThemeContext = createContext<ThemeContextType>({} as ThemeContextType);
 const useThemeContext = () => useContext(ThemeContext);
 
 const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const { currentTheme: themeMode, handleThemeMode } = useThemeMode();
+  const { currentTheme: themeMode, handleThemeMode, isLight } = useThemeMode();
 
   const toggleTheme = () => {
     if (themeMode) handleThemeMode(toggleThemeValues[themeMode]);
   };
 
-  const theme = useMemo(() => (themeMode === 'light' ? lightTheme : darkTheme), [themeMode]);
+  const theme = useMemo(() => (isLight ? lightTheme : darkTheme), [themeMode]);
 
   useEffect(() => {
     if (themeMode !== undefined) {
@@ -44,6 +45,7 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
       value={{
         themeMode: themeMode as unknown as ThemeMode,
         toggleTheme,
+        isLight: themeMode === ThemeType.LIGHT,
       }}
     >
       <MuiThemeProvider theme={theme}>

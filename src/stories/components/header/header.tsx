@@ -17,8 +17,7 @@ interface Props {
 }
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const Header = ({ links }: Props) => {
-  const { themeMode, toggleTheme } = useThemeContext();
-  const isLight = themeMode === 'light';
+  const { themeMode, toggleTheme, isLight } = useThemeContext();
 
   const router = useRouter();
   const onClick = useCallback(

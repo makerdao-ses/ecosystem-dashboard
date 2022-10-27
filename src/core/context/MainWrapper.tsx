@@ -1,17 +1,14 @@
 import styled from '@emotion/styled';
-import { ReactNode, useLayoutEffect, useMemo } from 'react';
+import { ReactNode, useLayoutEffect } from 'react';
 import lightTheme from '../../../styles/theme/light';
 import CookiesPolicyBanner from '../../stories/containers/cookies-policy/cookies-policy-banner';
 import { useScrollLock } from '../hooks/scroll-hooks';
 import { useThemeContext } from './ThemeContext';
 import { useCookiesContextTracking } from './CookiesContext';
-import { ThemeType } from '../enums/theme.enum';
 
 const MainWrapper = ({ children }: { children: ReactNode }) => {
-  const { themeMode } = useThemeContext();
+  const { themeMode, isLight } = useThemeContext();
   const { lockScroll, unlockScroll } = useScrollLock();
-
-  const isLight = useMemo(() => themeMode === ThemeType.LIGHT, [themeMode]);
 
   const {
     isShowBanner,

@@ -17,6 +17,7 @@ const useThemeMode = () => {
   }, [isUserSystemThemePreferenceDark]);
 
   const [currentTheme, setCurrentTheme] = useState<ThemeType>();
+  const isLight = currentTheme === ThemeType.LIGHT;
 
   useLayoutEffect(() => {
     const defaultThemeLocalStore = window.localStorage.getItem(THEME_MODE);
@@ -37,6 +38,7 @@ const useThemeMode = () => {
   return {
     currentTheme,
     handleThemeMode,
+    isLight,
   };
 };
 

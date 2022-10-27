@@ -20,8 +20,7 @@ interface Props {
 }
 
 export default ({ coreUnits }: Props) => {
-  const { themeMode } = useThemeContext();
-  const isLight = themeMode === 'light';
+  const { themeMode, isLight } = useThemeContext();
   const {
     columns,
     activityFeed,
