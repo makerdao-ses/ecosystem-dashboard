@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
-import { CustomButton } from '../../components/custom-button/custom-button';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { Filters } from './cu-table-filters';
 import { useThemeContext } from '../../../core/context/ThemeContext';
