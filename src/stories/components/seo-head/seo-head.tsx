@@ -50,6 +50,7 @@ export const SEOHead = ({ title, description, favicon, image, twitterImage, twit
       <meta name="theme-color" content={isLight ? '#ffffff' : '#010101'} />
       <link rel="manifest" key="manifest" href="/manifest.json" />
       <link rel="icon" key="favicon" type={faviconType ?? 'image/ico'} href={favicon || '/favicon.ico'} />
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
       <meta name="description" key="description" content={description} />
       {/* OpenGraph https://ogp.me/ */}

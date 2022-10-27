@@ -15,8 +15,8 @@ import {
   getMipUrlFromCoreUnit,
   getPercentFromCoreUnit,
   getSubmissionDateFromCuMip,
+  getStautsMip39AccetedOrObsolete,
 } from '../../../core/business-logic/core-units';
-import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { getShortCode } from '../../../core/utils/string.utils';
 import { CuTableColumnSummary } from '../cu-table-column-summary/cu-table-column-summary';
 import { CuTableColumnExpenditures } from '../cu-table-column-expenditures/cu-table-column-expenditures';
@@ -83,7 +83,7 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
             <Title hideSmall>Core Unit</Title>
             <CuTableColumnSummary
               title={coreUnit?.name}
-              status={getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum}
+              status={getStautsMip39AccetedOrObsolete(coreUnit)}
               statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
               imageUrl={coreUnit?.image}
               mipUrl={getMipUrlFromCoreUnit(coreUnit)}
