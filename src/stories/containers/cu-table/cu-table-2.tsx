@@ -11,10 +11,10 @@ import { useCoreUnitsTableMvvm } from './cu-table-2.mvvm';
 import { CustomTable2, CustomTableRow } from '../../components/custom-table/custom-table-2';
 import { renderCard } from './cu-table.renders';
 import { SortEnum } from '../../../core/enums/sort.enum';
-import CookiesPolicyBanner from '../cookies-policy/cookies-policy-banner';
 import lightTheme from '../../../../styles/theme/light';
 import { useScrollLock } from '../../../core/hooks/scroll-hooks';
 import { useCookiesPolicyBannerMvvm } from '../cookies-policy/cookies-policy-banner.mvvm';
+import CookiesPolicyBanner from '../cookies-policy/cookies-policy-banner';
 
 export const CuTable2 = () => {
   const [isShowBanner, setIsShowBanner] = useState(false);
