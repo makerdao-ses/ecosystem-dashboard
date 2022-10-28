@@ -1,11 +1,11 @@
 import React from 'react';
-import { CuCommentDto } from '../../../../core/models/dto/comments.dto';
 import { TransparencyEmptyAudit } from '../placeholders/transparenct-empty-audit';
 import { Dictionary } from 'lodash';
 import { ListItemsComments } from './comments-list';
+import { CommentsBudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 
 interface Props {
-  comments: Dictionary<CuCommentDto[]>;
+  comments: Dictionary<CommentsBudgetStatementDto[]>;
   numberComments: number;
   code: string;
 }

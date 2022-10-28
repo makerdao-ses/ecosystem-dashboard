@@ -3,11 +3,11 @@ import { DateTime } from 'luxon';
 import Markdown from 'marked-react';
 import lightTheme from '../../../../../styles/theme/light';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { CuCommentDto } from '../../../../core/models/dto/comments.dto';
+import { CommentsBudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 import { customRenderer, customRendererDark } from '../../../components/markdown/renderUtils';
 
 interface Props {
-  comment: CuCommentDto;
+  comment: CommentsBudgetStatementDto;
   code: string;
 }
 const CommentItem = ({ comment, code }: Props) => {
@@ -16,9 +16,9 @@ const CommentItem = ({ comment, code }: Props) => {
   return (
     <CommentItemContainer isLight={isLight}>
       <UTCDate isLight={isLight}>
-        {`Comment on ${DateTime.fromISO(comment.commentDate ?? '')
+        {`Comment on ${DateTime.fromISO(comment.timestamp ?? '')
           .setZone('UTC')
-          .toFormat('dd-LLL-y HH:hh ZZZZ')} by the ${code} Core Unit`}
+          .toFormat('dd-LLL-y HH:hh ZZZZ')} by the ${comment.commentAuthor[0].name || code} Core Unit`}
       </UTCDate>
       <Line isLight={isLight} />
       <ContainerCommentDate>
