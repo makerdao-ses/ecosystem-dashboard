@@ -10,9 +10,9 @@ const useThemeMode = () => {
 
   const defaultThemePreference = useMemo(() => {
     if (isUserSystemThemePreferenceDark) {
-      return ThemeType.DARK;
-    } else {
       return ThemeType.LIGHT;
+    } else {
+      return ThemeType.DARK;
     }
   }, [isUserSystemThemePreferenceDark]);
 
