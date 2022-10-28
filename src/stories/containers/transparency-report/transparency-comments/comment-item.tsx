@@ -11,14 +11,13 @@ interface Props {
   code: string;
 }
 const CommentItem = ({ comment, code }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
-
+  const { isLight } = useThemeContext();
   return (
     <CommentItemContainer isLight={isLight}>
       <UTCDate isLight={isLight}>
         {`Comment on ${DateTime.fromISO(comment.timestamp ?? '')
           .setZone('UTC')
-          .toFormat('dd-LLL-y HH:hh ZZZZ')} by the ${comment.commentAuthor[0].name || code} Core Unit`}
+          .toFormat('dd-LLL-y T ZZZZ')} by the ${comment.commentAuthor[0].name || code} Core Unit`}
       </UTCDate>
       <Line isLight={isLight} />
       <ContainerCommentDate>
@@ -57,10 +56,13 @@ const UTCDate = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: '12px',
   lineHeight: '15px',
   textTransform: 'uppercase',
+  letterSpacing: '1px',
   color: isLight ? '#708390' : '#546978',
-  width: 243,
+  width: 264,
+  height: 30,
   [lightTheme.breakpoints.up('table_834')]: {
     width: '100%',
+    height: 15,
   },
 }));
 
