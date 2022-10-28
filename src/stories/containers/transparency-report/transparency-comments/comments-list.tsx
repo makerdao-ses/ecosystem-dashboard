@@ -2,26 +2,26 @@ import styled from '@emotion/styled';
 import { DateTime } from 'luxon';
 import React from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { CuCommentDto } from '../../../../core/models/dto/comments.dto';
 import Comments from '../../../components/svg/comments';
 import CommentItem from './comment-item';
 import { Dictionary } from 'lodash';
+import { CommentsBudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 
 interface Props {
-  comments: Dictionary<CuCommentDto[]>;
+  comments: Dictionary<CommentsBudgetStatementDto[]>;
   code: string;
 }
 export const ListItemsComments = ({ comments, code }: Props) => {
-  const numberComments = (key: string, comments: Dictionary<CuCommentDto[]>) => {
+  const { isLight } = useThemeContext();
+  const numberComments = (key: string, comments: Dictionary<CommentsBudgetStatementDto[]>) => {
     const arrayResult = comments[key];
     return arrayResult.length;
   };
 
-  const isLight = useThemeContext().themeMode === 'light';
   return (
     <Container>
-      {Object.keys(comments).map((comment, index, key) => (
-        <div>
+      {Object.keys(comments).map((comment, index: number, key: string[]) => (
+        <div key={index}>
           <ContainerSummaryDate>
             <ActualDate isLight={isLight}>{`${DateTime.fromISO(key[index]).toFormat('dd-MMM-y')}`}</ActualDate>
 
@@ -29,9 +29,9 @@ export const ListItemsComments = ({ comments, code }: Props) => {
 
             <NumberComments isLight={isLight}>{`${numberComments(key[index], comments) || 0} Comments`}</NumberComments>
           </ContainerSummaryDate>
-          {comments[key[index]]?.map((comment) => {
+          {comments[key[index]]?.map((comment: CommentsBudgetStatementDto) => {
             return (
-              <ContainerList>
+              <ContainerList key={comment.comment}>
                 <CommentItem comment={comment} code={code} />
               </ContainerList>
             );
