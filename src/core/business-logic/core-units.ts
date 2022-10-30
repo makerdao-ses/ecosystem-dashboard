@@ -387,7 +387,6 @@ export const getAllCommentsBudgetStatementLine = (cu: CoreUnitDto) => {
   });
   const OrderByResult = _.orderBy(commentsResult, 'month').reverse();
   const orderDate = _.groupBy(OrderByResult, 'month');
-  console.log('orderDate', orderDate);
 
   return orderDate;
 };
