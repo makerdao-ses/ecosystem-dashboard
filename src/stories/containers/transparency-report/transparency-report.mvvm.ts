@@ -120,9 +120,25 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     }
   }, [setCurrentMonth, currentMonth]);
 
+  const prepareWalletsName = (budgetStatement?: BudgetStatementDto) => {
+    const walletNames = new Map<string, number>();
+    budgetStatement?.budgetStatementWallet?.forEach((wallet) => {
+      const amount = walletNames.get(wallet.name.toLowerCase().trim()) ?? 0;
+
+      if (amount) {
+        wallet.name = `${wallet.name} ${amount + 1}`;
+        walletNames.set(wallet.name.toLowerCase().trim(), amount + 1);
+      } else {
+        walletNames.set(wallet.name.toLowerCase().trim(), 1);
+      }
+    });
+  };
+
   const currentBudgetStatement = useMemo(() => {
-    return coreUnit?.budgetStatements?.find(
-      (bs: BudgetStatementDto) => bs.month === currentMonth.toFormat(API_MONTH_TO_FORMAT)
+    return prepareWalletsName(
+      coreUnit?.budgetStatements?.find(
+        (bs: BudgetStatementDto) => bs.month === currentMonth.toFormat(API_MONTH_TO_FORMAT)
+      )
     );
   }, [coreUnit, currentMonth]);
 
