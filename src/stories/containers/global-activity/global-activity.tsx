@@ -26,7 +26,7 @@ export default ({ coreUnits }: Props) => {
     clearFilters,
     filtersActive,
     inputRef,
-    handleCleanSearch,
+    handleClearSearch,
     searchText,
     setSearchText,
     selectElements,
@@ -74,7 +74,7 @@ export default ({ coreUnits }: Props) => {
             <Search>
               <SearchInput
                 inputRef={inputRef}
-                handleCleanSearch={handleCleanSearch}
+                handleClearSearch={handleClearSearch}
                 placeholder="Search"
                 value={searchText}
                 onChange={(value: string) => {

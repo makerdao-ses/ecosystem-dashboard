@@ -58,7 +58,7 @@ export const Filters = (props: FilterProps) => {
     [router]
   );
 
-  const handleCloseSearch = () => {
+  const handleClearSearch = () => {
     const search = router.query;
     delete search.searchText;
     router.push({
@@ -141,7 +141,7 @@ export const Filters = (props: FilterProps) => {
         <Search filtersVisible={filtersVisible}>
           <SearchInput
             inputRef={inputRef}
-            handleCleanSearch={handleCloseSearch}
+            handleClearSearch={handleClearSearch}
             defaultValue={props.searchText}
             placeholder="Search"
             onChange={(value: string) => {

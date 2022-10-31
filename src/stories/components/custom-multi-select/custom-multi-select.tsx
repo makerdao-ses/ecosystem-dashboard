@@ -125,7 +125,7 @@ export const CustomMultiSelect = ({
               placeholder="Search"
               value={searchText}
               onChange={(val) => setSearchText(val)}
-              handleCleanSearch={() => setSearchText('')}
+              handleClearSearch={() => setSearchText('')}
               style={{ marginBottom: 8 }}
               small
             />
