@@ -10,46 +10,54 @@ import { SUBMIT_EXPENSES_URL } from '../../../config/external-urls';
 interface Props {
   date?: DateTime;
   isLoading?: boolean;
-  onClick?: () => void;
 }
 
 export const CuTableColumnLastModified = (props: Props) => {
   const isLight = useThemeContext().themeMode === 'light';
 
   return !props.isLoading ? (
-    <Container hasLink={!!props.date} onClick={props.onClick}>
-      <DateLabel isLight={isLight}>{props.date?.toFormat('dd-MMM-yyyy')?.toUpperCase() ?? 'No Data'}</DateLabel>
-      {props.date ? (
-        <DifferenceLabel isLight={isLight}>
-          {capitalizeSentence(props.date?.toRelative({ unit: 'days' }) ?? '')}
-        </DifferenceLabel>
-      ) : (
-        <CustomLink
-          style={{
-            fontWeight: 500,
-            marginLeft: 0,
-            lineHeight: '16px',
-            padding: 0,
-          }}
-          iconHeight={10}
-          iconWidth={10}
-          fontSize={16}
-          href={SUBMIT_EXPENSES_URL}
-        >
-          Submit Now
-        </CustomLink>
-      )}
-    </Container>
+    <Wrapper>
+      <Container>
+        <DateLabel isLight={isLight}>{props.date?.toFormat('dd-MMM-yyyy')?.toUpperCase() ?? 'No Data'}</DateLabel>
+        {props.date ? (
+          <DifferenceLabel isLight={isLight}>
+            {capitalizeSentence(props.date?.toRelative({ unit: 'days' }) ?? '')}
+          </DifferenceLabel>
+        ) : (
+          <CustomLink
+            style={{
+              fontWeight: 500,
+              marginLeft: 0,
+              lineHeight: '16px',
+              padding: 0,
+            }}
+            iconHeight={10}
+            iconWidth={10}
+            fontSize={16}
+            href={SUBMIT_EXPENSES_URL}
+          >
+            Submit Now
+          </CustomLink>
+        )}
+      </Container>
+    </Wrapper>
   ) : (
     <CuTableColumnLastModifiedSkeleton />
   );
 };
 
-const Container = styled.div<{ hasLink: boolean }>(({ hasLink }) => ({
+const Wrapper = styled.div({
+  display: 'flex',
+  alignItems: 'flex-end',
+  margin: 'auto 0',
+  height: '50px',
+});
+
+const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
   fontFamily: 'Inter, sans-serif',
-  cursor: hasLink ? 'pointer' : 'default',
+  cursor: 'pointer',
   '@media (min-width: 375px)': {
     alignItems: 'flex-end',
   },
@@ -59,7 +67,7 @@ const Container = styled.div<{ hasLink: boolean }>(({ hasLink }) => ({
   '@media (min-width: 1194px)': {
     alignItems: 'flex-start',
   },
-}));
+});
 
 const DateLabel = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontWeight: 400,

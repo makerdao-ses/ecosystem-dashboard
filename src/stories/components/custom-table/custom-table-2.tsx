@@ -92,7 +92,15 @@ export const CustomTable2 = (props: Props) => {
                   }}
                 >
                   {props.columns?.map((column) => (
-                    <TableCell key={column?.header} onClick={() => column.onClick?.(row?.value)}>
+                    <TableCell
+                      key={column?.header}
+                      onClick={(e) => {
+                        if (column.onClick) {
+                          e.stopPropagation();
+                          column.onClick?.(row?.value);
+                        }
+                      }}
+                    >
                       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                       {column.cellRender?.(row?.value as any)}
                     </TableCell>
