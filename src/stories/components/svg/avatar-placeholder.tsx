@@ -25,7 +25,7 @@ export default ({ width = 64, height = 64, ...props }: Props) => {
           rx="17"
           fill="#C4C4C4"
           stroke="#E7FCFA"
-          stroke-width="2"
+          strokeWidth="2"
         />
       </mask>
       <g mask="url(#mask0_10256_101183)"></g>
@@ -38,7 +38,7 @@ export default ({ width = 64, height = 64, ...props }: Props) => {
         d="M49.7316 43.7155C48.495 37.2527 41.566 35.5557 32.0144 35.5557C18.957 35.5557 15.0283 38.7394 14.2552 43.7124C14.0418 45.085 14.8946 46.3319 16.3418 46.688C18.7467 47.2798 23.4362 48.0001 32.0144 48.0001C40.5928 48.0001 45.2822 47.2798 47.6871 46.688C49.1344 46.3319 49.9929 45.0811 49.7316 43.7155Z"
         fill="#708390"
       />
-      <rect x="2" y="2" width="60" height="60" rx="30" stroke="#9FAFB9" stroke-width="4" />
+      <rect x="2" y="2" width="60" height="60" rx="30" stroke="#9FAFB9" strokeWidth="4" />
     </svg>
   );
 };

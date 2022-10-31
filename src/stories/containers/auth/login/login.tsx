@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import { CustomButton } from '../../components/custom-button/custom-button';
-import AvatarPlaceholder from '../../components/svg/avatar-placeholder';
-import TextInput from '../../components/text-input/text-input';
+import { CustomButton } from '../../../components/custom-button/custom-button';
+import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
+import TextInput from '../../../components/text-input/text-input';
 import { useLoginMvvm } from './login.mvvm';
 
 export default () => {
@@ -49,7 +49,7 @@ export default () => {
   );
 };
 
-const Wrapper = styled.div({
+export const Wrapper = styled.div({
   display: 'flex',
   flex: 1,
   alignItems: 'center',
@@ -59,7 +59,7 @@ const Wrapper = styled.div({
   overflow: 'hidden',
 });
 
-const Container = styled.div({
+export const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -71,7 +71,7 @@ const Container = styled.div({
   boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
   borderRadius: '6px',
   '@media (min-width: 834px)': {
-    padding: '40px 64px 64px',
+    padding: '40px',
     width: '484px',
     top: 128,
   },
@@ -101,11 +101,11 @@ const Description = styled.h3({
   maxWidth: 294,
 });
 
-const ButtonWrapper = styled.div({
+export const ButtonWrapper = styled.div({
   alignSelf: 'flex-end',
 });
 
-const InputsWrapper = styled.div({
+export const InputsWrapper = styled.div({
   width: '100%',
   marginBottom: 42,
   '@media (min-width: 834px)': {
