@@ -132,6 +132,8 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
         walletNames.set(wallet.name.toLowerCase().trim(), 1);
       }
     });
+
+    return budgetStatement;
   };
 
   const currentBudgetStatement = useMemo(() => {
