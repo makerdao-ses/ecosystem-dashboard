@@ -1,38 +1,42 @@
-import React, { useCallback, useMemo } from 'react';
 import styled from '@emotion/styled';
-import Logo from '../svg/logo';
-import SelectLink from './select-link-website/select-link';
-import { WebSiteLinks } from './select-link-website/menu-items';
-import menuItems, { MenuType } from './menu-items';
 import { useRouter } from 'next/router';
-import ThemeSwitcherButton from '../button/switch-button/switch-buttom';
-import { ThemeMode, useThemeContext } from '../../../core/context/ThemeContext';
-import Expenses from '../svg/expenses';
-import { CustomLink } from '../custom-link/custom-link';
+import { useCallback, useMemo } from 'react';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
+import ThemeSwitcherButton from '../button/switch-button/switch-buttom';
+import { CustomLink } from '../custom-link/custom-link';
+import Expenses from '../svg/expenses';
+import Logo from '../svg/logo';
 import { TopBarSelect } from '../top-bar-select/top-bar-select';
+import menuItems, { MenuType } from './menu-items';
+import { WebSiteLinks } from './select-link-website/menu-items';
+import SelectLink from './select-link-website/select-link';
 
 interface Props {
   links: WebSiteLinks[];
-  themeMode: ThemeMode;
-  toggleTheme: () => void;
 }
-
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-const Header = ({ links, themeMode, toggleTheme }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+const Header = ({ links }: Props) => {
+  const { themeMode, toggleTheme, isLight } = useThemeContext();
 
   const router = useRouter();
   const onClick = useCallback(
     (link: string) => () => {
       window.open(link, '_blank');
     },
-    [router]
+    []
   );
 
   const handleGoHome = useCallback(() => {
     router.push('/');
   }, [router]);
+
+  const handleOnClick = useCallback(
+    (link: string) => () => {
+      router.push(link);
+    },
+    [router]
+  );
 
   const activeMenuItem = useMemo(() => {
     for (const item of menuItems) {
@@ -48,7 +52,7 @@ const Header = ({ links, themeMode, toggleTheme }: Props) => {
     }
 
     return menuItems[0];
-  }, [router.query]);
+  }, [router.pathname]);
 
   return (
     <Container isLight={isLight}>
@@ -76,7 +80,8 @@ const Header = ({ links, themeMode, toggleTheme }: Props) => {
                 isLight={isLight}
                 key={item.title}
                 style={{ marginRight: item.marginRight }}
-                href={item.link}
+                // href={item.link}
+                onClick={handleOnClick(item.link)}
                 active={activeMenuItem === item}
               >
                 {item.title}
@@ -188,7 +193,7 @@ const RightPart = styled.div({
   },
 });
 
-const ItemMenuStyle = styled.a<{ active: boolean; marginRight?: string; isLight: boolean }>(
+const ItemMenuStyle = styled.div<{ active: boolean; marginRight?: string; isLight: boolean }>(
   ({ active, isLight, marginRight }) => ({
     display: 'none',
     fontFamily: 'Inter, sans-serif',
@@ -200,7 +205,6 @@ const ItemMenuStyle = styled.a<{ active: boolean; marginRight?: string; isLight:
     marginRight,
     color: isLight ? (active ? '#1AAB9B' : '#25273D') : active ? '#2DC1B1' : '#D2D4EF',
     letterSpacing: '0.4px',
-    textDecoration: 'none',
     cursor: 'pointer',
     '&:hover': {
       color: '#1dc1ae',

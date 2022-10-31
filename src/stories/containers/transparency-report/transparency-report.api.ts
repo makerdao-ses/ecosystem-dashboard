@@ -13,6 +13,13 @@ export const CORE_UNIT_REQUEST = (shortCode: string) => ({
           month
           budgetStatus
           publicationUrl
+          comments {
+            timestamp
+            comment
+            commentAuthor {
+              name
+            }
+          }
           budgetStatementFTEs {
             month
             ftes

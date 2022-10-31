@@ -3,11 +3,13 @@ import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import { toAbsoluteURL } from '../../../core/utils/url.utils';
 import CoreUnitSelectItem from '../../components/core-unit-select-item/core-unit-select-item';
 import ActivityTable from '../../components/cu-activity-table/cu-activity-table';
 import { CustomMultiSelect, SelectItemProps } from '../../components/custom-multi-select/custom-multi-select';
 import ResetButton from '../../components/reset-button/reset-button';
 import { SearchInput } from '../../components/search-input/search-input';
+import { SEOHead } from '../../components/seo-head/seo-head';
 import Filter from '../../components/svg/filter';
 import { Paragraph, Title } from '../cu-activity/cu-activity';
 import { ButtonFilter, SmallSeparator } from '../cu-table/cu-table-filters';
@@ -18,8 +20,7 @@ interface Props {
 }
 
 export default ({ coreUnits }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
-
+  const { themeMode, isLight } = useThemeContext();
   const {
     columns,
     activityFeed,
@@ -36,14 +37,40 @@ export default ({ coreUnits }: Props) => {
     toggleFiltersVisible,
   } = useGlobalActivityMvvm(coreUnits);
 
+  if (themeMode === undefined) {
+    return (
+      <>
+        <SEOHead
+          title="MakerDAO Core Units | Activity Feed"
+          description="Learn about the activity of MakerDAO Core Units: updates to Core Unit Expense Reports, FTEs, and more."
+          image={{
+            src: toAbsoluteURL('/assets/img/social-385x200.png'),
+            width: 385,
+            height: 200,
+          }}
+          twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
+        />
+      </>
+    );
+  }
   return (
     <Wrapper>
+      <SEOHead
+        title="MakerDAO Core Units | Activity Feed"
+        description="Learn about the activity of MakerDAO Core Units: updates to Core Unit Expense Reports, FTEs, and more."
+        image={{
+          src: toAbsoluteURL('/assets/img/social-385x200.png'),
+          width: 385,
+          height: 200,
+        }}
+        twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
+      />
       <Container isLight={isLight}>
         <InnerPage>
           <Title isLight={isLight}>Activity Feed</Title>
           <Paragraph isLight={isLight}>
-            Change tracking displays all changes that have occurred regarding all Core unit activity. Here you will be
-            able to see all previous modifications the Core units made to their Expense Reports, FTEs, and more.
+            Change tracking displays all changes that have occurred regarding all Core Unit activity. Here you will be
+            able to see all previous modifications the Core Units made to its Expense Reports, FTEs, and more
           </Paragraph>
           <FiltersContainer>
             <Reset filtersVisible={filtersVisible}>

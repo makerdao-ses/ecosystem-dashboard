@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon';
 import { CommitmentJob } from '../enums/CommitmentJob.enum';
 import { CuJobEnum } from '../enums/cu-job.enum';
+import { CuCommentDto } from '../models/dto/comments.dto';
 import { ContributorCommitmentDto, ContributorDto } from '../models/dto/core-unit.dto';
 
 export const CURRENT_MONTH = DateTime.now().toFormat('y-MM-dd');
@@ -49,3 +50,62 @@ export const CONTRIBUTOR_COMMITMENT_TWO: ContributorCommitmentDto = {
     },
   ] as ContributorDto[],
 };
+
+export const COMMENTS_EXAMPLE: CuCommentDto[] = [
+  {
+    comment:
+      ' Ipsum: A helper module for generating dummy filler text. Presently it defines a new ipsum provider plugin manager service that allows for  ipsum provider classes',
+    commentDate: '2021-05-01',
+  },
+  {
+    comment:
+      ' Ipsum: A helper module for generating dummy filler text. Presently it defines a new ipsum provider plugin manager service that allows for  ipsum provider classes',
+    commentDate: '2021-05-01',
+  },
+  {
+    comment:
+      ' Ipsum: A helper module for generating dummy filler text. Presently it defines a new ipsum provider plugin manager service that allows for  ipsum provider classes',
+    commentDate: '2021-05-01',
+  },
+  {
+    comment:
+      'Ipsum: A helper module for generating dummy filler text. Presently it defines a new ipsum provider plugin manager service that allows for  ipsum provider classes, making it easy to change existing implementations and also to add new ones',
+    commentDate: '2021-07-01',
+  },
+  {
+    comment:
+      ' Ipsum: A helper module for generating dummy filler text. Presently it defines a new ipsum provider plugin manager service that allows for  ipsum provider classes, making it easy to change existing implementations and also to add new ones',
+    commentDate: '2021-08-01',
+  },
+  {
+    comment:
+      ' Ipsum: A helper module for generating dummy filler text. Presently it defines a new ipsum provider plugin manager service that allows for  ipsum provider classes, making it easy to change existing implementations and also to add new ones',
+    commentDate: '2026-09-01',
+  },
+  {
+    comment:
+      ' Ipsum: A helper module for generating dummy filler text. Presently it defines a new ipsum provider plugin manager service that allows for  ipsum provider classes, making it easy to change existing implementations and also to add new ones',
+    commentDate: '2026-09-05',
+  },
+  {
+    comment:
+      ' Ipsum: A helper module for generating dummy filler text. Presently it defines a new ipsum provider plugin manager service that allows for  ipsum provider classes, making it easy to change existing implementations and also to add new ones',
+    commentDate: '2026-09-09',
+  },
+
+  {
+    comment:
+      ' Ipsum: A helper module for generating dummy filler text. Presently it defines a new ipsum provider plugin manager service that allows for  ipsum provider classes, making it easy to change existing implementations and also to add new ones',
+    commentDate: '2025-10-01',
+  },
+  {
+    comment:
+      ' Ipsum: A helper module for generating dummy filler text. Presently it defines a new ipsum provider plugin manager service that allows for  ipsum provider classes, making it easy to change existing implementations and also to add new ones',
+    commentDate: '2023-11-01',
+  },
+  {
+    comment:
+      ' Ipsum: A helper module for generating dummy filler text. Presently it defines a new ipsum provider plugin manager service that allows for  ipsum provider classes, making it easy to change existing implementations and also to add new ones',
+    commentDate: '2029-12-01',
+  },
+];

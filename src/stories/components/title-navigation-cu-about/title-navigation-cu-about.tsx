@@ -17,6 +17,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import {
   getLatestMip39FromCoreUnit,
   getLinksFromCoreUnit,
+  getStautsMip39AccetedOrObsolete,
   getSubmissionDateFromCuMip,
 } from '../../../core/business-logic/core-units';
 
@@ -34,7 +35,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout, hiddenTextDescription }:
   const buildNewArray = coreUnitAbout?.cuMip?.map((mip) => getRelateMipObjectFromCoreUnit(mip));
   const orderMips = _.sortBy(buildNewArray, ['orderBy', 'dateMip']).reverse();
   const mips = getMipsStatus(orderMips[0] as CuMipDto);
-  const mipStatus = getLatestMip39FromCoreUnit(coreUnitAbout as CoreUnitDto)?.mipStatus as CuStatusEnum;
+  const mipStatus = getStautsMip39AccetedOrObsolete(coreUnitAbout as CoreUnitDto);
   const newDate = getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnitAbout as CoreUnitDto));
 
   return (
@@ -258,7 +259,7 @@ const CategoryContainer = styled.div({
   display: 'flex',
   flexDirection: 'row',
   marginTop: '16px',
-  '> :first-child': {
+  '> div:first-of-type': {
     marginRight: '16px',
   },
   '* + *': {
@@ -267,18 +268,33 @@ const CategoryContainer = styled.div({
   height: '22px',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     marginTop: '0px',
-    gap: '8px',
+    '> div:first-of-type': {
+      marginRight: '8px',
+    },
+    '* + *': {
+      marginRight: '8px',
+    },
   },
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     marginBottom: '16px',
     marginTop: '20px',
-    gap: '8px',
     marginRight: '24px',
+    '> div:first-of-type': {
+      marginRight: '8px',
+    },
+    '* + *': {
+      marginRight: '8px',
+    },
   },
   [lightTheme.breakpoints.down('table_375')]: {
     marginBottom: '16px',
     marginTop: '20px',
-    gap: '8px',
+    '> div:first-of-type': {
+      marginRight: '8px',
+    },
+    '* + *': {
+      marginRight: '8px',
+    },
   },
 });
 const ContainerCategoryConditional = styled.div({

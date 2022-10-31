@@ -13,7 +13,4 @@ const Template: ComponentStory<typeof Header> = (args) => <Header {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   links: itemsWebSiteLinks,
-  themeMode: 'light',
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  toggleTheme: () => {},
 };

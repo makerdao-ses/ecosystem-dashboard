@@ -56,33 +56,33 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
               borderColor: isLight ? '#D4D9E1' : '',
             }}
           >
-            <CustomLink
-              border={isLight ? 'blue' : 'red'}
-              padding={isLight ? '40px' : '16px 64px'}
-              children="How to Submit Expenses"
-              fontWeight={500}
-              fontSize={16}
-              href={HOW_TO_SUBMIT_EXPENSES}
-              style={{
-                fontFamily: 'SF Pro Display, sans serif',
-                color: '#447AFB',
-                fontStyle: 'normal',
-                lineHeight: '52px',
-                letterSpacing: '0.3px',
-                borderRadius: '6px',
-                marginLeft: '0px',
-                width: 326,
-                padding: 0,
-                textAlign: 'center',
-                height: '52px',
-                justifyContent: 'center',
-                border: isLight ? 'none' : '1px solid #1E2C37',
-              }}
-              marginLeft="7px"
-              withArrow
-              iconHeight={10}
-              iconWidth={10}
-            />
+            <LinkWrapper isActive={false} isLight={isLight}>
+              <CustomLink
+                children="How to Submit Expenses"
+                fontWeight={500}
+                fontSize={16}
+                href={HOW_TO_SUBMIT_EXPENSES}
+                style={{
+                  fontFamily: 'Inter, sans serif',
+                  color: '#447AFB',
+                  lineHeight: '18px',
+                  fontStyle: 'normal',
+
+                  letterSpacing: '0.3px',
+                  borderRadius: '6px',
+                  marginLeft: '0px',
+                  width: 326,
+                  padding: 0,
+                  textAlign: 'center',
+
+                  justifyContent: 'center',
+                }}
+                marginLeft="7px"
+                withArrow
+                iconHeight={10}
+                iconWidth={10}
+              />
+            </LinkWrapper>
           </Link>
         </Popup>
       )}

@@ -3,8 +3,8 @@ import { LinkModel } from '../../stories/components/cu-table-column-links/cu-tab
 import { LinkTypeEnum } from '../enums/link-type.enum';
 import {
   BudgetStatementDto,
-  BudgetStatementLineItemDto,
-  BudgetStatementWalletDto,
+  CommentsBudgetStatementDto,
+  CommentsDto,
   CoreUnitDto,
   CuMipDto,
   Mip40BudgetPeriodDto,
@@ -43,6 +43,12 @@ export const getLatestMip39FromCoreUnit = (cu?: CoreUnitDto | null) => {
   return mip39s[mip39s.length - 1];
 };
 
+export const getStautsMip39AccetedOrObsolete = (cu?: CoreUnitDto | null): CuStatusEnum => {
+  const lastMip39 = getLatestMip39FromCoreUnit(cu);
+  const mipCode = lastMip39?.mipCode;
+  const mipStatus = lastMip39?.mipStatus || CuStatusEnum.Accepted;
+  return mipCode?.includes('MIP39c3') && mipStatus === 'Accepted' ? CuStatusEnum.Obsolete : mipStatus;
+};
 export const getSubmissionDateFromCuMip = (mip: CuMipDto | null) => {
   if (!mip) return null;
 
@@ -349,13 +355,39 @@ export const getNumberComments = (cu: CoreUnitDto) => {
   if (!cu) return totalComments;
   if (cu.budgetStatements.length === 0) return totalComments;
   cu.budgetStatements?.forEach((budgetStatement: BudgetStatementDto) => {
-    budgetStatement?.budgetStatementWallet?.forEach((statementWallet: BudgetStatementWalletDto) => {
-      statementWallet?.budgetStatementLineItem?.forEach((budgetStatementLineItem: BudgetStatementLineItemDto) => {
-        if (typeof budgetStatementLineItem.comments !== 'object' && budgetStatementLineItem.comments !== '') {
-          totalComments += 1;
-        }
-      });
+    if (budgetStatement.comments.length === 0) return totalComments;
+    budgetStatement.comments.forEach((commentItem: CommentsBudgetStatementDto) => {
+      if (commentItem.comment !== '') {
+        totalComments += 1;
+      }
     });
   });
   return totalComments;
+};
+
+export const getAllCommentsBudgetStatementLine = (cu: CoreUnitDto) => {
+  const commentsResult = [] as CommentsDto[];
+  if (!cu) return {};
+
+  if (cu.budgetStatements.length === 0) return {};
+
+  cu.budgetStatements?.forEach((budgetStatement: BudgetStatementDto) => {
+    if (budgetStatement.comments.length === 0) return {};
+    budgetStatement.comments.forEach((commentItem: CommentsBudgetStatementDto) => {
+      if (commentItem.comment !== '') {
+        const itemComment: CommentsDto = {
+          month: budgetStatement.month,
+          comment: commentItem.comment,
+          timestamp: commentItem.timestamp,
+          commentAuthor: commentItem.commentAuthor,
+        };
+        commentsResult.push(itemComment);
+      }
+    });
+  });
+  const OrderByResult = _.orderBy(commentsResult, 'month').reverse();
+  const orderDate = _.groupBy(OrderByResult, 'month');
+  console.log('orderDate', orderDate);
+
+  return orderDate;
 };

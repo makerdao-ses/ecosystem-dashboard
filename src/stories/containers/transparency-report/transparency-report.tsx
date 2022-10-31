@@ -21,16 +21,20 @@ import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { TransparencyForecast2 } from './transparency-forecast/transparency-forecast-2';
 import { TransparencyMkrVesting2 } from './transparency-mkr-vesting/transparency-mkr-vesting-2';
 import { TransparencyTransferRequest2 } from './transparency-transfer-request/transparency-transfer-request-2';
-import { useTransparencyReportViewModel } from './transparency-report.mvvm';
+import { TRANSPARENCY_IDS, useTransparencyReportViewModel } from './transparency-report.mvvm';
 import { TransparencyComments } from './transparency-comments/transparency-comments';
 
 interface TransparencyReportProps {
   coreUnits: CoreUnitDto[];
   coreUnit: CoreUnitDto;
 }
+export type TableItems = {
+  item: string | JSX.Element;
+  id: string;
+};
 
 export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { themeMode, isLight } = useThemeContext();
   const [isEnabled] = useFlagsActive();
   const {
     tabItems,
@@ -46,7 +50,31 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
     lastUpdateForBudgetStatement,
     numbersComments,
     longCode,
+    comments,
   } = useTransparencyReportViewModel(coreUnit);
+  const CommentsComponent = {
+    item: (
+      <CommentsParenthesis>
+        Comments <span>{`(${numbersComments})`}</span>
+      </CommentsParenthesis>
+    ),
+    id: TRANSPARENCY_IDS[5],
+  };
+  if (isEnabled('FEATURE_TRANSPARENCY_COMMENTS')) {
+    tabItems.push(CommentsComponent);
+  }
+  if (themeMode === undefined) {
+    return (
+      <>
+        <SEOHead
+          title={`${coreUnit.name} Core Unit | Finances`}
+          description={`Learn about the ${coreUnit.name} Core Unit at MakerDAO: their finances, expense reports, and more.`}
+          image={coreUnit.image || toAbsoluteURL('/assets/img/social-1200x630.png')}
+          twitterCard={coreUnit.image ? 'summary' : 'summary_large_image'}
+        />
+      </>
+    );
+  }
   return (
     <Wrapper>
       <SEOHead
@@ -186,7 +214,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
           )}
           {tabsIndex === 4 && <TransparencyAudit budgetStatement={currentBudgetStatement} />}
           {tabsIndex === 5 && isEnabled('FEATURE_TRANSPARENCY_COMMENTS') && (
-            <TransparencyComments numberComments={numbersComments} />
+            <TransparencyComments numberComments={numbersComments} code={code} comments={comments} />
           )}
         </InnerPage>
       </Container>
@@ -329,5 +357,11 @@ export const CardsWrapper = styled.div({
   display: 'block',
   '@media (min-width: 834px)': {
     display: 'none',
+  },
+});
+
+const CommentsParenthesis = styled.label({
+  '> span': {
+    fontWeight: 'bold',
   },
 });

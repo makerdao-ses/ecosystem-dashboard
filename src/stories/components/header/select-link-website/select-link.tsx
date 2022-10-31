@@ -116,7 +116,7 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
         <StyleDescription isLight={isLight}>
           Websites to gather all relevant data and information for Maker Governance.
         </StyleDescription>
-        {links.map((link: WebSiteLinks, i: number) => {
+        {links?.map((link: WebSiteLinks, i: number) => {
           return (
             <MenuItem
               disableGutters={true}

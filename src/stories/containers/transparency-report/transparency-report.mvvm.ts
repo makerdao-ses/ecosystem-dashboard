@@ -2,20 +2,27 @@ import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import {
+  getAllCommentsBudgetStatementLine,
   getCurrentOrLastMonthWithData,
   getLastMonthWithActualOrForecast,
   getLastUpdateForBudgetStatement,
   getNumberComments,
 } from '../../../core/business-logic/core-units';
-import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
 import { BudgetStatementDto, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { API_MONTH_TO_FORMAT } from '../../../core/utils/date.utils';
+import { TableItems } from './transparency-report';
 
-const TRANSPARENCY_IDS = ['actuals', 'forecast', 'mkr-vesting', 'transfer-requests', 'audit-reports', 'comments'];
+export const TRANSPARENCY_IDS = [
+  'actuals',
+  'forecast',
+  'mkr-vesting',
+  'transfer-requests',
+  'audit-reports',
+  'comments',
+];
 
 export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
-  const [isEnabled] = useFlagsActive();
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;
@@ -120,9 +127,10 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   }, [coreUnit, currentMonth]);
 
   const numbersComments = getNumberComments(coreUnit);
+  const comments = getAllCommentsBudgetStatementLine(coreUnit);
   const longCode = coreUnit?.code;
 
-  const tabItems = [
+  const tabItems: TableItems[] = [
     {
       item: 'Actuals',
       id: TRANSPARENCY_IDS[0],
@@ -145,12 +153,6 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     },
   ];
 
-  if (isEnabled('FEATURE_TRANSPARENCY_COMMENTS')) {
-    tabItems.push({
-      item: `Comments (${numbersComments})`,
-      id: TRANSPARENCY_IDS[5],
-    });
-  }
   const lastUpdateForBudgetStatement = useMemo(
     () => getLastUpdateForBudgetStatement(coreUnit, currentBudgetStatement?.id ?? 0),
     [currentBudgetStatement, coreUnit]
@@ -179,5 +181,6 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     differenceInDays,
     longCode,
     hasPreviousMonth,
+    comments,
   };
 };
