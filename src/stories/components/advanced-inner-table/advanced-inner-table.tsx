@@ -17,6 +17,7 @@ export interface InnerTableColumn {
   isCardHeader?: boolean;
   isCardFooter?: boolean;
   width?: string;
+  minWidth?: string;
   hidden?: boolean;
 }
 
@@ -98,6 +99,7 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
                       style={{
                         textAlign: (column.headerAlign ?? column.align ?? 'left') as Alignment,
                         width: column.width ?? '120px',
+                        minWidth: column.minWidth ?? 'unset',
                         overflow: 'hidden',
                       }}
                     >

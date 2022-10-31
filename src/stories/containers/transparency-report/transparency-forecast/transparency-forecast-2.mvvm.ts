@@ -278,7 +278,8 @@ export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetS
         type: 'custom',
         cellRender: renderWallet,
         isCardHeader: true,
-        width: '180px',
+        width: '230px',
+        minWidth: '230px',
       },
       {
         header: firstMonth.toFormat('MMMM'),
