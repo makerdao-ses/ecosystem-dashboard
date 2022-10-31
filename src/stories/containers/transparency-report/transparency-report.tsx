@@ -361,6 +361,7 @@ export const CardsWrapper = styled.div({
 });
 
 const CommentsParenthesis = styled.label({
+  cursor: 'pointer',
   '> span': {
     fontWeight: 'bold',
   },

@@ -10,4 +10,5 @@ export enum CuJobEnum {
   Product = 'Product',
   Developer = 'Developer',
   DataAnalyst = 'Data Analyst',
+  Data = 'Data',
 }

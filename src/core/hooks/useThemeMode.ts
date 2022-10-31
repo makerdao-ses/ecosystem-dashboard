@@ -1,20 +1,10 @@
-import { useMediaQuery } from '@mui/material';
-import { useMemo, useState, useLayoutEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 import { ThemeType } from '../enums/theme.enum';
 
-const DARK_SCHEME_QUERY = '(prefers-color-scheme: dark)';
 const THEME_MODE = 'THEME_MODE';
 
 const useThemeMode = () => {
-  const isUserSystemThemePreferenceDark = useMediaQuery(DARK_SCHEME_QUERY);
-
-  const defaultThemePreference = useMemo(() => {
-    if (isUserSystemThemePreferenceDark) {
-      return ThemeType.LIGHT;
-    } else {
-      return ThemeType.DARK;
-    }
-  }, [isUserSystemThemePreferenceDark]);
+  const defaultThemePreference = ThemeType.LIGHT;
 
   const [currentTheme, setCurrentTheme] = useState<ThemeType>();
   const isLight = currentTheme === ThemeType.LIGHT;
