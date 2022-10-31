@@ -1,4 +1,4 @@
-import React, { CSSProperties, useRef, useState } from 'react';
+import React, { CSSProperties, useCallback, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import { SelectChevronDown } from '../svg/select-chevron-down';
 import './custom-multi-select.module.scss';
@@ -84,6 +84,8 @@ export const CustomMultiSelect = ({
     }
   };
 
+  const handleClearSearch = useCallback(() => setSearchText(''), []);
+
   return (
     <SelectWrapper ref={refOutsideClick} style={props.style}>
       <SelectContainer
@@ -125,7 +127,7 @@ export const CustomMultiSelect = ({
               placeholder="Search"
               value={searchText}
               onChange={(val) => setSearchText(val)}
-              handleCleanSearch={() => setSearchText('')}
+              handleClearSearch={handleClearSearch}
               style={{ marginBottom: 8 }}
               small
             />

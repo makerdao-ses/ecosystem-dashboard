@@ -118,16 +118,5 @@ export const renderCard = (coreUnit: CoreUnitDto, key?: number) => {
 
 export const renderLastModified = (coreUnit: CoreUnitDto) => {
   if (!coreUnit) return <CuTableColumnLastModified date={undefined} isLoading={!coreUnit} />;
-  return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'flex-end',
-        margin: 'auto 0',
-        height: '50px',
-      }}
-    >
-      <CuTableColumnLastModified date={getLastMonthWithData(coreUnit)} />
-    </div>
-  );
+  return <CuTableColumnLastModified date={getLastMonthWithData(coreUnit)} />;
 };

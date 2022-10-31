@@ -195,7 +195,8 @@ export const useTransparencyActualsMvvm2 = (
       type: 'custom',
       cellRender: renderWallet,
       isCardHeader: true,
-      width: '180px',
+      width: '230px',
+      minWidth: '230px',
     },
     {
       header: 'Forecast',

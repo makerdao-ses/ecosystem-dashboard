@@ -113,14 +113,15 @@ const LinkWrapper = styled.div({
 const BottomLinkWrapper = styled.div({
   display: 'flex',
   marginTop: '24px',
-  alignSelf: 'flex-end',
+  width: '100%',
+  justifyContent: 'flex-end',
   '@media (min-width: 635px)': {
     display: 'none',
   },
 });
 
 const Container = styled.div<{ height?: string; isLight: boolean }>(({ height, isLight }) => ({
-  display: 'flex',
+  display: 'block',
   flexDirection: 'column',
   justifyContent: 'flex-start',
   background: isLight ? '#FFFFFF' : '#10191F',

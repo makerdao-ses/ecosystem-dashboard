@@ -40,12 +40,12 @@ export const useGlobalActivityMvvm = (coreUnits: CoreUnitDto[]) => {
     },
   ];
 
-  const handleCleanSearch = () => {
+  const handleClearSearch = () => {
     setSearchText('');
   };
 
   const clearFilters = () => {
-    handleCleanSearch();
+    handleClearSearch();
     setActiveElements([]);
   };
 
@@ -93,7 +93,7 @@ export const useGlobalActivityMvvm = (coreUnits: CoreUnitDto[]) => {
     activityFeed,
     searchText,
     setSearchText,
-    handleCleanSearch,
+    handleClearSearch,
     filtersActive,
     clearFilters,
     inputRef,
