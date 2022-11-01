@@ -195,7 +195,7 @@ const PaginationLabel = styled.div({
 const Arrows = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  gap: '19px',
+  gap: '11px',
   alignItems: 'center',
 });
 
@@ -242,6 +242,7 @@ const ContainerArrowClick = styled.div({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
+  border: '2px solid red',
 });
 
 export default BreadCrumbMobile;
