@@ -41,7 +41,7 @@ export const ActivityPlaceholder = (props: { hasFilter: boolean }) => {
         )}
         <CustomButton
           style={{ minWidth: '250px' }}
-          label="View Activity Core Unit"
+          label="View Active Core Units"
           buttonType={ButtonType.Primary}
           onClick={handleOnclick}
         />
