@@ -74,7 +74,7 @@ export default ({ coreUnits }: Props) => {
           </Paragraph>
           <FiltersContainer>
             <Reset filtersVisible={filtersVisible}>
-              <ResetButton onClick={clearFilters} disabled={!filtersActive} isWithIcon={false} labelMobile="Reset" />
+              <ResetButton onClick={clearFilters} disabled={!filtersActive} hasIcon={false} labelMobile="Reset" />
             </Reset>
             <CoreUnitsSelect filtersVisible={filtersVisible}>
               <CustomMultiSelect

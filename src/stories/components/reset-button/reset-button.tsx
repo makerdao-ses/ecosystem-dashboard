@@ -7,16 +7,16 @@ interface Props {
   onClick?: () => void;
   disabled?: boolean;
   label?: string;
-  isWithIcon?: boolean;
+  hasIcon?: boolean;
   labelMobile?: string;
 }
 
-export default ({ onClick, disabled, label = 'Reset Filters', isWithIcon = true, labelMobile }: Props) => {
+export default ({ onClick, disabled, label = 'Reset Filters', hasIcon = true, labelMobile }: Props) => {
   return (
     <>
       <Under834>
-        <ResponsiveButton onClick={onClick} isWithIcon={isWithIcon}>
-          {isWithIcon ? (
+        <ResponsiveButton onClick={onClick} hasIcon={hasIcon}>
+          {hasIcon ? (
             <Close width={10} height={10} fill={!disabled ? '#231536' : '#D1DEE6'} />
           ) : (
             <CustomButton
@@ -64,14 +64,14 @@ const Over834 = styled.div({
   },
 });
 
-const ResponsiveButton = styled.div<{ isWithIcon: boolean }>(({ isWithIcon = true }) => ({
+const ResponsiveButton = styled.div<{ hasIcon: boolean }>(({ hasIcon = true }) => ({
   display: 'flex',
   gridArea: 'buttonFilter',
   justifySelf: 'flex-end',
-  width: isWithIcon ? '34px' : 'fit-content',
-  height: isWithIcon ? '34px' : 'fit-content',
-  border: isWithIcon ? '1px solid #D4D9E1' : 'none',
-  borderRadius: isWithIcon ? '50%' : 'none',
+  width: hasIcon ? '34px' : 'fit-content',
+  height: hasIcon ? '34px' : 'fit-content',
+  border: hasIcon ? '1px solid #D4D9E1' : 'none',
+  borderRadius: hasIcon ? '50%' : 'none',
   alignItems: 'center',
   justifyContent: 'center',
   '@media (min-width: 834px)': {
