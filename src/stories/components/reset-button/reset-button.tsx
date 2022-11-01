@@ -24,7 +24,7 @@ export default ({ onClick, disabled, label = 'Reset Filters', hasIcon = true, la
               style={{
                 border: 'none',
                 background: 'none',
-                padding: 'none',
+                padding: '0px',
               }}
               // eslint-disable-next-line @typescript-eslint/no-empty-function
               onClick={onClick}
@@ -69,7 +69,7 @@ const ResponsiveButton = styled.div<{ hasIcon: boolean }>(({ hasIcon = true }) =
   gridArea: 'buttonFilter',
   justifySelf: 'flex-end',
   width: hasIcon ? '34px' : 'fit-content',
-  height: hasIcon ? '34px' : 'fit-content',
+  height: '34px',
   border: hasIcon ? '1px solid #D4D9E1' : 'none',
   borderRadius: hasIcon ? '50%' : 'none',
   alignItems: 'center',
