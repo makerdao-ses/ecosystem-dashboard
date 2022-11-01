@@ -74,7 +74,7 @@ export default ({ coreUnits }: Props) => {
           </Paragraph>
           <FiltersContainer>
             <Reset filtersVisible={filtersVisible}>
-              <ResetButton onClick={clearFilters} disabled={!filtersActive} />
+              <ResetButton onClick={clearFilters} disabled={!filtersActive} isWithIcon={false} labelMobile="Reset" />
             </Reset>
             <CoreUnitsSelect filtersVisible={filtersVisible}>
               <CustomMultiSelect
@@ -200,6 +200,7 @@ const FiltersContainer = styled.div({
 const Reset = styled.div<{ filtersVisible: boolean }>(({ filtersVisible }) => ({
   display: filtersVisible ? 'flex' : 'none',
   gridArea: 'reset',
+  justifyContent: 'flex-end',
   '@media (min-width: 834px)': {
     display: 'flex',
   },
