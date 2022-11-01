@@ -242,7 +242,6 @@ const ContainerArrowClick = styled.div({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  border: '2px solid red',
 });
 
 export default BreadCrumbMobile;
