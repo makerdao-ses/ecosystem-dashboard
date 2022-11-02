@@ -57,7 +57,7 @@ export const useGlobalActivityMvvm = (coreUnits: CoreUnitDto[]) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const selectElements = useMemo(() => {
-    return coreUnits.map((coreUnits) => ({
+    return sortBy(coreUnits, (cu) => cu.name).map((coreUnits) => ({
       id: coreUnits.shortCode,
       content: coreUnits.name,
       params: {

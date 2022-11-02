@@ -8,7 +8,7 @@ import { CustomButton } from '../custom-button/custom-button';
 import { useRouter } from 'next/router';
 import { ButtonType } from '../../../core/enums/button-type.enum';
 
-export const ActivityPlaceholder = (props: { hasFilter: boolean; clearAction: () => void }) => {
+export const ActivityPlaceholder = (props: { hasFilter: boolean; clearAction?: () => void }) => {
   const isLight = useThemeContext().themeMode === 'light';
   const router = useRouter();
 
