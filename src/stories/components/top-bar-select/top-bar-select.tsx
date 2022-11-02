@@ -30,14 +30,13 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
       </Button>
       {popup && (
         <Popup isLight={isLight}>
-          <Close
-            onClick={togglePopup}
-            style={{
-              alignSelf: 'flex-end',
-              marginBottom: '22px',
-              cursor: 'pointer',
-            }}
-          />
+          <CloseWrapper onClick={togglePopup}>
+            <Close
+              style={{
+                cursor: 'pointer',
+              }}
+            />
+          </CloseWrapper>
           {menuItems.map((item) => (
             <Link href={item.link}>
               <LinkWrapper
@@ -91,6 +90,12 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
     </>
   );
 };
+
+const CloseWrapper = styled.div({
+  alignSelf: 'flex-end',
+  marginBottom: '22px',
+  cursor: 'pointer',
+});
 
 const Button = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
