@@ -39,14 +39,16 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
             }}
           />
           {menuItems.map((item) => (
-            <LinkWrapper
-              isLight={isLight}
-              isActive={item.title === props.selectedOption}
-              key={item.title}
-              onClick={() => setPopup(false)}
-            >
-              <Link href={item.link}>{item.title}</Link>
-            </LinkWrapper>
+            <Link href={item.link}>
+              <LinkWrapper
+                isLight={isLight}
+                isActive={item.title === props.selectedOption}
+                key={item.title}
+                onClick={() => setPopup(false)}
+              >
+                {item.title}
+              </LinkWrapper>
+            </Link>
           ))}
           <Link
             href={HOW_TO_SUBMIT_EXPENSES}
@@ -148,4 +150,5 @@ const LinkWrapper = styled.div<{ isLight: boolean; isActive: boolean }>(({ isLig
   color: isActive ? (isLight ? '#1AAB9B' : '#2DC1B1') : isLight ? '#25273D' : '#D2D4EF',
   boxSizing: 'border-box',
   boxShadow: isLight ? 'none' : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+  cursor: 'pointer',
 }));
