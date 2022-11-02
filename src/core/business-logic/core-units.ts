@@ -351,14 +351,18 @@ export const getMipUrlFromCoreUnit = (cu: CoreUnitDto) => {
   return cu?.cuMip[0].mipUrl ?? '';
 };
 
-export const getNumberComments = (cu: CoreUnitDto) => {
+export const getNumberComments = (cu: CoreUnitDto, currentMonth: DateTime) => {
   let totalComments = 0;
   if (!cu) return totalComments;
   if (cu.budgetStatements.length === 0) return totalComments;
   cu.budgetStatements?.forEach((budgetStatement: BudgetStatementDto) => {
     if (budgetStatement.comments.length === 0) return totalComments;
     budgetStatement.comments.forEach((commentItem: CommentsBudgetStatementDto) => {
-      if (commentItem.comment !== '') {
+      if (
+        commentItem.comment !== '' &&
+        DateTime.fromISO(commentItem.timestamp).month === currentMonth.month &&
+        DateTime.fromISO(commentItem.timestamp).year === currentMonth.year
+      ) {
         totalComments += 1;
       }
     });
@@ -366,7 +370,7 @@ export const getNumberComments = (cu: CoreUnitDto) => {
   return totalComments;
 };
 
-export const getAllCommentsBudgetStatementLine = (cu: CoreUnitDto) => {
+export const getAllCommentsBudgetStatementLine = (cu: CoreUnitDto, currentMonth: DateTime) => {
   const commentsResult = [] as CommentsDto[];
   if (!cu) return {};
 
@@ -386,7 +390,14 @@ export const getAllCommentsBudgetStatementLine = (cu: CoreUnitDto) => {
       }
     });
   });
-  const OrderByResult = _.orderBy(commentsResult, 'month').reverse();
+
+  const commentsResultFilters = commentsResult.filter(
+    (comment: CommentsDto) =>
+      DateTime.fromISO(comment.timestamp).month === currentMonth.month &&
+      DateTime.fromISO(comment.timestamp).year === currentMonth.year
+  );
+
+  const OrderByResult = _.orderBy(commentsResultFilters, 'month').reverse();
   const orderDate = _.groupBy(OrderByResult, 'month');
 
   return orderDate;
