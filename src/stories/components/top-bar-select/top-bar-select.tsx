@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { SelectChevronDown } from '../svg/select-chevron-down';
 import { Close } from '../svg/close';
@@ -7,6 +7,7 @@ import { CustomLink } from '../custom-link/custom-link';
 import menuItems from '../header/menu-items';
 import Link from 'next/link';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { useRouter } from 'next/router';
 
 interface TopBarSelectProps {
   selectedOption: JSX.Element | string;
@@ -14,6 +15,7 @@ interface TopBarSelectProps {
 
 export const TopBarSelect = (props: TopBarSelectProps) => {
   const isLight = useThemeContext().themeMode === 'light';
+  const router = useRouter();
   const [popup, setPopup] = useState(false);
   const togglePopup = () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -21,6 +23,10 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
     document.querySelector('body').style.overflow = popup ? 'auto' : 'hidden';
     setPopup(!popup);
   };
+
+  useEffect(() => {
+    setPopup(false);
+  }, [router.route]);
 
   return (
     <>
@@ -39,12 +45,7 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
           </CloseWrapper>
           {menuItems.map((item) => (
             <Link href={item.link}>
-              <LinkWrapper
-                isLight={isLight}
-                isActive={item.title === props.selectedOption}
-                key={item.title}
-                onClick={() => setPopup(false)}
-              >
+              <LinkWrapper isLight={isLight} isActive={item.title === props.selectedOption} key={item.title}>
                 {item.title}
               </LinkWrapper>
             </Link>
