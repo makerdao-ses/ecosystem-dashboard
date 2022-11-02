@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import styled from '@emotion/styled';
 import PlaceholderImg from '../../../../public/assets/img/rectangles.png';
@@ -8,16 +8,13 @@ import { CustomButton } from '../custom-button/custom-button';
 import { useRouter } from 'next/router';
 import { ButtonType } from '../../../core/enums/button-type.enum';
 
-export const ActivityPlaceholder = (props: { hasFilter: boolean }) => {
+export const ActivityPlaceholder = (props: { hasFilter: boolean; clearAction?: () => void }) => {
   const isLight = useThemeContext().themeMode === 'light';
   const router = useRouter();
 
   const goBack = () => {
     router.push(`/core-unit/${router.query.code}/`);
   };
-  const handleOnclick = useCallback(() => {
-    router.push('/');
-  }, []);
 
   return (
     <Container isLight={isLight}>
@@ -43,7 +40,7 @@ export const ActivityPlaceholder = (props: { hasFilter: boolean }) => {
           style={{ minWidth: '250px' }}
           label="View Active Core Units"
           buttonType={ButtonType.Primary}
-          onClick={handleOnclick}
+          onClick={props.clearAction}
         />
       </ButtonsWrapper>
     </Container>

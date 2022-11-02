@@ -128,6 +128,7 @@ export default ({ coreUnits }: Props) => {
               shortCode={'global'}
               activityFeed={activityFeed}
               hasFilter={filtersActive}
+              clearAction={clearFilters}
               isGlobal
             />
           </TableWrapper>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { SelectChevronDown } from '../svg/select-chevron-down';
 import { Close } from '../svg/close';
@@ -7,6 +7,7 @@ import { CustomLink } from '../custom-link/custom-link';
 import menuItems from '../header/menu-items';
 import Link from 'next/link';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { useRouter } from 'next/router';
 
 interface TopBarSelectProps {
   selectedOption: JSX.Element | string;
@@ -14,6 +15,7 @@ interface TopBarSelectProps {
 
 export const TopBarSelect = (props: TopBarSelectProps) => {
   const isLight = useThemeContext().themeMode === 'light';
+  const router = useRouter();
   const [popup, setPopup] = useState(false);
   const togglePopup = () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -21,6 +23,10 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
     document.querySelector('body').style.overflow = popup ? 'auto' : 'hidden';
     setPopup(!popup);
   };
+
+  useEffect(() => {
+    setPopup(false);
+  }, [router.route]);
 
   return (
     <>
@@ -30,23 +36,19 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
       </Button>
       {popup && (
         <Popup isLight={isLight}>
-          <Close
-            onClick={togglePopup}
-            style={{
-              alignSelf: 'flex-end',
-              marginBottom: '22px',
-              cursor: 'pointer',
-            }}
-          />
+          <CloseWrapper onClick={togglePopup}>
+            <Close
+              style={{
+                cursor: 'pointer',
+              }}
+            />
+          </CloseWrapper>
           {menuItems.map((item) => (
-            <LinkWrapper
-              isLight={isLight}
-              isActive={item.title === props.selectedOption}
-              key={item.title}
-              onClick={() => setPopup(false)}
-            >
-              <Link href={item.link}>{item.title}</Link>
-            </LinkWrapper>
+            <Link href={item.link}>
+              <LinkWrapper isLight={isLight} isActive={item.title === props.selectedOption} key={item.title}>
+                {item.title}
+              </LinkWrapper>
+            </Link>
           ))}
           <Link
             href={HOW_TO_SUBMIT_EXPENSES}
@@ -89,6 +91,12 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
     </>
   );
 };
+
+const CloseWrapper = styled.div({
+  alignSelf: 'flex-end',
+  marginBottom: '22px',
+  cursor: 'pointer',
+});
 
 const Button = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
@@ -148,4 +156,5 @@ const LinkWrapper = styled.div<{ isLight: boolean; isActive: boolean }>(({ isLig
   color: isActive ? (isLight ? '#1AAB9B' : '#2DC1B1') : isLight ? '#25273D' : '#D2D4EF',
   boxSizing: 'border-box',
   boxShadow: isLight ? 'none' : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+  cursor: 'pointer',
 }));

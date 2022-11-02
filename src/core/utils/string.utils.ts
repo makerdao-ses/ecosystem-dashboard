@@ -1,3 +1,5 @@
+import { BudgetStatementWalletDto } from '../models/dto/core-unit.dto';
+
 export const getTwoInitials = (name: string) => {
   const [, w1, w2] = /(\w+)[^a-zA-Z]*(\w*)?/.exec(name) ?? [];
 
@@ -39,4 +41,14 @@ export const getShortCode = (code: string) => {
   if (!parts.length) return code;
 
   return parts[0];
+};
+
+export const getWalletWidthForWallets = (wallets: BudgetStatementWalletDto[]) => {
+  for (const wallet of wallets) {
+    if (wallet.name.length > 25) {
+      return '230px';
+    }
+  }
+
+  return '180px';
 };
