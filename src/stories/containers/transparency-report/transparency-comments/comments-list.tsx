@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { DateTime } from 'luxon';
 import React from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import Comments from '../../../components/svg/comments';
@@ -23,11 +22,17 @@ export const ListItemsComments = ({ comments, code }: Props) => {
       {Object.keys(comments).map((comment, index: number, key: string[]) => (
         <div key={index}>
           <ContainerSummaryDate>
-            <ActualDate isLight={isLight}>{`${DateTime.fromISO(key[index]).toFormat('dd-MMM-y')}`}</ActualDate>
+            <ActualDate isLight={isLight}>{comment}</ActualDate>
 
             <Comments />
 
-            <NumberComments isLight={isLight}>{`${numberComments(key[index], comments) || 0} Comments`}</NumberComments>
+            <NumberComments isLight={isLight}>{`${
+              numberComments(key[index], comments) === 0
+                ? '0 Comment'
+                : numberComments(key[index], comments) === 1
+                ? '1 Comment'
+                : `${numberComments(key[index], comments)} Comments`
+            }`}</NumberComments>
           </ContainerSummaryDate>
           {comments[key[index]]?.map((comment: CommentsBudgetStatementDto) => {
             return (

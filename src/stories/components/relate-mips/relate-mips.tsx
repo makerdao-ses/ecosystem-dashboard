@@ -34,7 +34,9 @@ const RelateMips = ({ relateMips }: Props) => {
     <Content isLight={isLight}>
       <Row>
         {mipStatus && <StatusChip status={mipStatus as CuStatusEnum} />}
-        {newDate && <SinceDate isLight={isLight}>Since {DateTime.fromJSDate(newDate).toFormat('d-MMM-y')}</SinceDate>}
+        {newDate && (
+          <SinceDate isLight={isLight}>Since {DateTime.fromJSDate(newDate).toFormat('dd-MM-yyyy')}</SinceDate>
+        )}
       </Row>
       {pieces.length === 2 && (
         <RowUnderLine>
