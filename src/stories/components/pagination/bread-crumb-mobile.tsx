@@ -145,23 +145,20 @@ const BreadCrumbMobile = ({ title, count = 0, page = 0, onClickLeft, onClickRigh
       <RightPart>
         <PaginationLabel>
           <StyleActualCoreUnit isLight={isLight}>{`${page}`}</StyleActualCoreUnit>
-          <StyleTextCoreUnit isLight={isLight}>{` of ${count}`} </StyleTextCoreUnit>
+          <StyleTextCoreUnit isLight={isLight}>{`of ${count}`} </StyleTextCoreUnit>
         </PaginationLabel>
         <Arrows>
-          <ArrowMobileLeft
-            onClick={onClickLeft}
-            width={6}
-            height={10}
-            fill={page !== 1 ? undefined : '#d1dee6'}
-            disabled={page === 1}
-          />
-          <ArrowMobileRight
-            onClick={onClickRight}
-            width={5}
-            height={10}
-            fill={page !== count ? undefined : '#d1dee6'}
-            disabled={page === count}
-          />
+          <ContainerArrowClick onClick={onClickLeft}>
+            <ArrowMobileLeft width={6} height={10} fill={page !== 1 ? undefined : '#d1dee6'} disabled={page === 1} />
+          </ContainerArrowClick>
+          <ContainerArrowClick onClick={onClickRight}>
+            <ArrowMobileRight
+              width={5}
+              height={10}
+              fill={page !== count ? undefined : '#d1dee6'}
+              disabled={page === count}
+            />
+          </ContainerArrowClick>
         </Arrows>
       </RightPart>
     </Container>
@@ -186,20 +183,19 @@ const RightPart = styled.div({
 });
 
 const PaginationLabel = styled.div({
-  height: '23px',
   display: 'flex',
   flexDirection: 'row',
   flex: 1,
   borderRadius: '8px',
   marginRight: '7px',
   alignItems: 'center',
-  whiteSpace: 'break-spaces',
+  width: 40,
 });
 
 const Arrows = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  gap: '19px',
+  gap: '11px',
   alignItems: 'center',
 });
 
@@ -212,6 +208,7 @@ const StyleActualCoreUnit = styled(Typography, { shouldForwardProp: (prop) => pr
   fontSize: '10px',
   lineHeight: '20px',
   letterSpacing: 'none',
+  marginRight: 2,
   color: isLight ? '#231536' : '#D2D4EF',
 }));
 
@@ -237,5 +234,14 @@ const StyleTitle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'i
     color: isLight ? '#231536' : '#E2D8EE',
   })
 );
+
+const ContainerArrowClick = styled.div({
+  width: 20,
+  height: 20,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
 
 export default BreadCrumbMobile;

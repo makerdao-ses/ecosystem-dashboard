@@ -113,7 +113,10 @@ export const getColorJobPosition = (job: CuJobEnum) => {
       return {
         color: '#34AAFF',
       };
-
+    case CuJobEnum.Data:
+      return {
+        color: '#E4DC0A',
+      };
     default:
       return {
         color: '#000000',

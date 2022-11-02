@@ -29,8 +29,8 @@ export const useCookiesPolicyBannerMvvm = () => {
   const [isShowBanner, setIsShowBanner] = useState(initialShowBanner);
 
   // checkbox
-  const [functionalCheckbox, setFunctionalCheckbox] = useState(isFunctionalTrackingAccepted);
-  const [analyticsCheckbox, setAnalyticsCheckbox] = useState(isAnalyticsTrackingAccepted);
+  const [functionalCheckbox, setFunctionalCheckbox] = useState(true);
+  const [analyticsCheckbox, setAnalyticsCheckbox] = useState(true);
 
   const setFunctionalTracking = useCallback(
     (val: boolean) => {
@@ -67,18 +67,14 @@ export const useCookiesPolicyBannerMvvm = () => {
 
   const handleRejectCookies = useCallback(() => {
     setIsShowBanner(false);
+    setAnalyticsCheckbox(false);
+    setFunctionalCheckbox(false);
     deletedFunctionalTracking();
     deletedAnalyticsTracking();
     window.localStorage.removeItem('THEME_MODE');
     unlockScroll();
     const newThemeMode = isUserSystemThemePreferenceDark ? 'light' : 'dark';
     window.localStorage.setItem('THEME_MODE', newThemeMode);
-    if (functionalCheckbox) {
-      setFunctionalCheckbox(false);
-    }
-    if (analyticsCheckbox) {
-      setAnalyticsCheckbox(false);
-    }
   }, [unlockScroll, deletedFunctionalTracking, deletedAnalyticsTracking, isUserSystemThemePreferenceDark]);
 
   const handleAcceptCookies = useCallback(() => {
