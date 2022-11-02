@@ -377,7 +377,7 @@ export const getAllCommentsBudgetStatementLine = (cu: CoreUnitDto) => {
     budgetStatement.comments.forEach((commentItem: CommentsBudgetStatementDto) => {
       if (commentItem.comment !== '') {
         const itemComment: CommentsDto = {
-          month: budgetStatement.month,
+          month: DateTime.fromISO(commentItem.timestamp).toFormat('dd-MMM-y'),
           comment: commentItem.comment,
           timestamp: commentItem.timestamp,
           commentAuthor: commentItem.commentAuthor,
