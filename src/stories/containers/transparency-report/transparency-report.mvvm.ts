@@ -144,8 +144,8 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     );
   }, [coreUnit, currentMonth]);
 
-  const numbersComments = getNumberComments(coreUnit);
-  const comments = getAllCommentsBudgetStatementLine(coreUnit);
+  const numbersComments = getNumberComments(coreUnit, currentMonth);
+  const comments = getAllCommentsBudgetStatementLine(coreUnit, currentMonth);
   const longCode = coreUnit?.code;
 
   const tabItems: TableItems[] = [
