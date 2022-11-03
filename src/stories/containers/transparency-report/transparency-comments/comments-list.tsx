@@ -5,6 +5,7 @@ import Comments from '../../../components/svg/comments';
 import CommentItem from './comment-item';
 import { Dictionary } from 'lodash';
 import { CommentsDto } from '../../../../core/models/dto/core-unit.dto';
+import { DateTime } from 'luxon';
 
 interface Props {
   comments: Dictionary<CommentsDto[]>;
@@ -18,7 +19,7 @@ export const ListItemsComments = ({ comments, code }: Props) => {
       {Object.keys(comments).map((comment) => (
         <div key={comment}>
           <ContainerSummaryDate>
-            <ActualDate isLight={isLight}>{comment}</ActualDate>
+            <ActualDate isLight={isLight}>{DateTime.fromISO(comment).toFormat('dd-MMM-y')}</ActualDate>
 
             <Comments />
 

@@ -368,8 +368,8 @@ export const getAllCommentsBudgetStatementLine = (budgetStatement?: BudgetStatem
     }
   });
 
-  const OrderByResult = _.orderBy(commentsResult, 'month').reverse();
-  const orderDate = _.groupBy(OrderByResult, 'month');
+  const OrderByResult = _.orderBy(commentsResult, 'timestamp').reverse();
+  const orderDate = _.groupBy(OrderByResult, 'timestamp');
 
   return orderDate;
 };
