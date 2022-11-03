@@ -44,10 +44,14 @@ export const CoreUnitSummary = ({
   const ref = useRef(null);
 
   const debounceFunction = _.debounce(() => {
-    window.removeEventListener('scroll', handleScroll, true);
+    window.removeEventListener('scroll', handleScroll);
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setHiddenTextDescription(((ref?.current as any)?.offsetTop ?? 0) <= 65);
-    setTimeout(() => window.addEventListener('scroll', handleScroll, true), 100);
+
+    setTimeout(() => {
+      window.addEventListener('scroll', handleScroll);
+    }, 600);
   }, 100);
 
   const handleScroll = () => {
@@ -55,11 +59,13 @@ export const CoreUnitSummary = ({
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll, true);
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('touchmove', handleScroll);
 
     // Remove the event listener
     return () => {
-      window.removeEventListener('scroll', handleScroll, true);
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('touchmove', handleScroll);
     };
   }, []);
 
@@ -162,9 +168,9 @@ export const CoreUnitSummary = ({
       )}
 
       <Wrapper>
-        <ContainerTitle>
+        <ContainerTitle hiddenTextDescription={hiddenTextDescription}>
           <TitleNavigationCuAbout coreUnitAbout={cu} hiddenTextDescription={hiddenTextDescription} />
-          <SummaryDescription hiddenTextDescription={hiddenTextDescription}>
+          <SummaryDescription hiddenTextDescription={lessThanPhone || phone || hiddenTextDescription}>
             <TypographyDescription isLight={isLight}>{cu?.sentenceDescription || ''}</TypographyDescription>
           </SummaryDescription>
         </ContainerTitle>
@@ -196,11 +202,12 @@ const NavigationHeader = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   backgroundSize: 'cover',
 }));
 
-const ContainerTitle = styled.div({
+const ContainerTitle = styled.div<{ hiddenTextDescription: boolean }>(({ hiddenTextDescription }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
   height: 'fit-content',
+
   transition: 'all .3s ease',
   paddingTop: '8px',
   [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
@@ -216,16 +223,20 @@ const ContainerTitle = styled.div({
     paddingRight: '32px',
   },
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    maxHeight: hiddenTextDescription ? 300 : 38,
+    overflow: 'hidden',
     paddingLeft: '16px',
     paddingRight: '16px',
     paddingTop: '0px',
   },
   [lightTheme.breakpoints.down('table_375')]: {
+    maxHeight: hiddenTextDescription ? 300 : 38,
+    overflow: 'hidden',
     paddingLeft: '16px',
     paddingRight: '16px',
     paddingTop: '0px',
   },
-});
+}));
 
 const Wrapper = styled.div({
   display: 'flex',
