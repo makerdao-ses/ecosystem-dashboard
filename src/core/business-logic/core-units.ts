@@ -351,53 +351,24 @@ export const getMipUrlFromCoreUnit = (cu: CoreUnitDto) => {
   return cu?.cuMip[0].mipUrl ?? '';
 };
 
-export const getNumberComments = (cu: CoreUnitDto, currentMonth: DateTime) => {
-  let totalComments = 0;
-  if (!cu) return totalComments;
-  if (cu.budgetStatements.length === 0) return totalComments;
-  cu.budgetStatements?.forEach((budgetStatement: BudgetStatementDto) => {
-    if (budgetStatement.comments.length === 0) return totalComments;
-    budgetStatement.comments.forEach((commentItem: CommentsBudgetStatementDto) => {
-      if (
-        commentItem.comment !== '' &&
-        DateTime.fromISO(commentItem.timestamp).month === currentMonth.month &&
-        DateTime.fromISO(commentItem.timestamp).year === currentMonth.year
-      ) {
-        totalComments += 1;
-      }
-    });
-  });
-  return totalComments;
-};
-
-export const getAllCommentsBudgetStatementLine = (cu: CoreUnitDto, currentMonth: DateTime) => {
+export const getAllCommentsBudgetStatementLine = (budgetStatement?: BudgetStatementDto) => {
   const commentsResult = [] as CommentsDto[];
-  if (!cu) return {};
+  if (!budgetStatement) return {};
 
-  if (cu.budgetStatements.length === 0) return {};
-
-  cu.budgetStatements?.forEach((budgetStatement: BudgetStatementDto) => {
-    if (budgetStatement.comments.length === 0) return {};
-    budgetStatement.comments.forEach((commentItem: CommentsBudgetStatementDto) => {
-      if (commentItem.comment !== '') {
-        const itemComment: CommentsDto = {
-          month: DateTime.fromISO(commentItem.timestamp).toFormat('dd-MMM-y'),
-          comment: commentItem.comment,
-          timestamp: commentItem.timestamp,
-          commentAuthor: commentItem.commentAuthor,
-        };
-        commentsResult.push(itemComment);
-      }
-    });
+  if (!budgetStatement.comments?.length) return {};
+  budgetStatement.comments.forEach((commentItem: CommentsBudgetStatementDto) => {
+    if (commentItem.comment !== '') {
+      const itemComment: CommentsDto = {
+        month: DateTime.fromISO(budgetStatement.month).toFormat('dd-MMM-y'),
+        comment: commentItem.comment,
+        timestamp: commentItem.timestamp,
+        commentAuthor: commentItem.commentAuthor,
+      };
+      commentsResult.push(itemComment);
+    }
   });
 
-  const commentsResultFilters = commentsResult.filter(
-    (comment: CommentsDto) =>
-      DateTime.fromISO(comment.timestamp).month === currentMonth.month &&
-      DateTime.fromISO(comment.timestamp).year === currentMonth.year
-  );
-
-  const OrderByResult = _.orderBy(commentsResultFilters, 'month').reverse();
+  const OrderByResult = _.orderBy(commentsResult, 'month').reverse();
   const orderDate = _.groupBy(OrderByResult, 'month');
 
   return orderDate;
