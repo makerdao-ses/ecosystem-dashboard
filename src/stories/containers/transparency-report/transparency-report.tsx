@@ -52,6 +52,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
     longCode,
     comments,
   } = useTransparencyReportViewModel(coreUnit);
+
   const CommentsComponent = {
     item: (
       <CommentsParenthesis>
