@@ -5,43 +5,28 @@ import Comments from '../../../components/svg/comments';
 import CommentItem from './comment-item';
 import { Dictionary } from 'lodash';
 import { CommentsDto } from '../../../../core/models/dto/core-unit.dto';
-import { DateTime } from 'luxon';
 
 interface Props {
   comments: Dictionary<CommentsDto[]>;
   code: string;
-  currentMonth: DateTime;
 }
-export const ListItemsComments = ({ comments, code, currentMonth }: Props) => {
+export const ListItemsComments = ({ comments, code }: Props) => {
   const { isLight } = useThemeContext();
-  const numberComments = (key: string, comments: Dictionary<CommentsDto[]>, currentMonth: DateTime) => {
-    const arrayResult = comments[key];
-    const arrayFilter = arrayResult.filter(
-      (comment) =>
-        DateTime.fromISO(comment.timestamp).month === currentMonth.month &&
-        DateTime.fromISO(comment.timestamp).year === currentMonth.year
-    );
-    return arrayFilter.length;
-  };
 
   return (
     <Container>
-      {Object.keys(comments).map((comment, index: number, key: string[]) => (
-        <div key={index}>
+      {Object.keys(comments).map((comment) => (
+        <div key={comment}>
           <ContainerSummaryDate>
             <ActualDate isLight={isLight}>{comment}</ActualDate>
 
             <Comments />
 
             <NumberComments isLight={isLight}>{`${
-              numberComments(key[index], comments, currentMonth) === 0
-                ? '0 Comment'
-                : numberComments(key[index], comments, currentMonth) === 1
-                ? '1 Comment'
-                : `${numberComments(key[index], comments, currentMonth)} Comments`
+              comments[comment]?.length === 1 ? '1 Comment' : `${comments[comment].length} Comments`
             }`}</NumberComments>
           </ContainerSummaryDate>
-          {comments[key[index]]?.map((comment: CommentsDto) => {
+          {comments[comment]?.map((comment: CommentsDto) => {
             return (
               <ContainerList key={comment.comment}>
                 <CommentItem comment={comment} code={code} />

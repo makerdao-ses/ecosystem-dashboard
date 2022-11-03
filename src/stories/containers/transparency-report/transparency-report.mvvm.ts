@@ -6,7 +6,6 @@ import {
   getCurrentOrLastMonthWithData,
   getLastMonthWithActualOrForecast,
   getLastUpdateForBudgetStatement,
-  getNumberComments,
 } from '../../../core/business-logic/core-units';
 import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
 import { BudgetStatementDto, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
@@ -144,8 +143,8 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     );
   }, [coreUnit, currentMonth]);
 
-  const numbersComments = getNumberComments(coreUnit, currentMonth);
-  const comments = getAllCommentsBudgetStatementLine(coreUnit, currentMonth);
+  const comments = useMemo(() => getAllCommentsBudgetStatementLine(currentBudgetStatement), [currentBudgetStatement]);
+  const numbersComments = useMemo(() => currentBudgetStatement?.comments?.length ?? 0, [currentBudgetStatement]);
   const longCode = coreUnit?.code;
 
   const tabItems: TableItems[] = [
@@ -194,7 +193,6 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     currentBudgetStatement,
     tabsIndex,
     lastUpdateForBudgetStatement,
-    getNumberComments,
     numbersComments,
     differenceInDays,
     longCode,
