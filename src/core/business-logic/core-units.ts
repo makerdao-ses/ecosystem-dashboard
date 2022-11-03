@@ -393,8 +393,8 @@ export const getAllCommentsBudgetStatementLine = (cu: CoreUnitDto, currentMonth:
 
   const commentsResultFilters = commentsResult.filter(
     (comment: CommentsDto) =>
-      DateTime.fromISO(comment.month).month === currentMonth.month &&
-      DateTime.fromISO(comment.month).year === currentMonth.year
+      DateTime.fromFormat(comment.month, API_MONTH_FROM_FORMAT).month === currentMonth.month &&
+      DateTime.fromFormat(comment.month, API_MONTH_FROM_FORMAT).year === currentMonth.year
   );
 
   const OrderByResult = _.orderBy(commentsResultFilters, 'month').reverse();
