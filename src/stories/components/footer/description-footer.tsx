@@ -27,11 +27,11 @@ const DescriptionFooter = ({ title, children, style = {} }: Props) => {
       {children &&
         children.map((item) => {
           return item.isNotLink ? (
-            <CookiesLink isLight={isLight} onClick={HandleOnClick(item.url)}>
+            <CookiesLink key={item.title} isLight={isLight} onClick={HandleOnClick(item.url)}>
               {item.title}
             </CookiesLink>
           ) : (
-            <StyleChildren href={item.url} target={item.target || '_blank'} key={item.title} isLight={isLight}>
+            <StyleChildren key={item.title} href={item.url} target={item.target || '_blank'} isLight={isLight}>
               {item.title}
             </StyleChildren>
           );
