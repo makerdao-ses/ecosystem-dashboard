@@ -1,4 +1,3 @@
-/* eslint-disable spellcheck/spell-checker */
 import React from 'react';
 import { GetServerSideProps, NextPage } from 'next';
 import { CoreUnitDto } from '../../src/core/models/dto/core-unit.dto';

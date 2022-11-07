@@ -31,7 +31,7 @@ const DescriptionFooter = ({ title, children, style = {} }: Props) => {
               {item.title}
             </CookiesLink>
           ) : (
-            <StyleChildren href={item.url} target={item.target || '_blank'} key={item.title} isLight={isLight}>
+            <StyleChildren key={item.title} href={item.url} target={item.target || '_blank'} isLight={isLight}>
               {item.title}
             </StyleChildren>
           );
