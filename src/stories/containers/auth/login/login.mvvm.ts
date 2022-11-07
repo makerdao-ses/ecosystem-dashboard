@@ -30,7 +30,7 @@ const validationSchema = yup.object({
 
 export const useLoginMvvm = () => {
   const [error, setError] = useState<string>('');
-  const formik = useFormik({
+  const form = useFormik({
     initialValues: {
       username: '',
       password: '',
@@ -50,7 +50,7 @@ export const useLoginMvvm = () => {
   };
 
   return {
-    formik,
+    form,
     error,
     onLogin,
   };

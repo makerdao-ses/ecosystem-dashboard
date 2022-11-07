@@ -6,7 +6,7 @@ import TextInput from '../../../components/text-input/text-input';
 import { useLoginMvvm } from './login.mvvm';
 
 export default () => {
-  const { formik, error, onLogin } = useLoginMvvm();
+  const { form, error, onLogin } = useLoginMvvm();
 
   return (
     <Wrapper>
@@ -18,18 +18,18 @@ export default () => {
           <TextInput
             style={{ marginBottom: 32 }}
             placeholder="Username"
-            value={formik.values.username}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={(formik.touched.username && formik.errors.username) ?? !!error}
+            value={form.values.username}
+            onChange={form.handleChange}
+            onBlur={form.handleBlur}
+            error={(form.touched.username && form.errors.username) ?? error}
             name="username"
           />
           <TextInput
             placeholder="Password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={(formik.touched.password && formik.errors.password) ?? error}
+            value={form.values.password}
+            onChange={form.handleChange}
+            onBlur={form.handleBlur}
+            error={(form.touched.password && form.errors.password) ?? error}
             type="password"
             name="password"
           />
