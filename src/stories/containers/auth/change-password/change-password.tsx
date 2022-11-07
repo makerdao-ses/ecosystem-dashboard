@@ -42,14 +42,14 @@ export default () => {
   );
 };
 
-const UserWrapper = styled.div({
+export const UserWrapper = styled.div({
   display: 'flex',
   alignItems: 'center',
   marginTop: 16,
   marginBottom: 48,
 });
 
-const UserLabel = styled.p({
+export const UserLabel = styled.p({
   color: '#708390',
   fontSize: 24,
   lineHeight: '24px',
@@ -57,7 +57,7 @@ const UserLabel = styled.p({
   margin: '0 8px 0 0',
 });
 
-const Username = styled.h1({
+export const Username = styled.h1({
   fontSize: 24,
   lineHeight: '29px',
   color: '#231536',

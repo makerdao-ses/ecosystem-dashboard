@@ -71,7 +71,7 @@ export const Container = styled.div({
   boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
   borderRadius: '6px',
   '@media (min-width: 834px)': {
-    padding: '40px',
+    padding: '40px 64px',
     width: '484px',
     top: 128,
   },
