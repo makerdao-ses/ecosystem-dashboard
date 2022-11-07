@@ -36,6 +36,7 @@ export interface Props {
   sortClick?: (index: number) => void;
   isGlobal?: boolean;
   hasFilter?: boolean;
+  clearAction?: () => void;
 }
 
 const NewChangesDivider = ({ isLight, count, isGlobal }: { isLight: boolean; count: number; isGlobal?: boolean }) => (
@@ -66,8 +67,16 @@ const NewChangesDivider = ({ isLight, count, isGlobal }: { isLight: boolean; cou
   </ChangesButtonContainer>
 );
 
-export default function ActivityTable({ activityFeed, shortCode, columns, sortClick, isGlobal, hasFilter }: Props) {
-  const [cookies] = useCookies(['darkMode', 'timestamp', 'analytics']);
+export default function ActivityTable({
+  activityFeed,
+  shortCode,
+  columns,
+  sortClick,
+  isGlobal,
+  hasFilter,
+  clearAction,
+}: Props) {
+  const [cookies] = useCookies(['timestampTracking']);
   const isLight = useThemeContext().themeMode === 'light';
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const initialElements = useMemo(() => (isMobile ? 5 : 10), [isMobile]);
@@ -80,7 +89,7 @@ export default function ActivityTable({ activityFeed, shortCode, columns, sortCl
   };
 
   useEffect(() => {
-    const activityHandler = new ActivityVisitHandler(shortCode, cookies.timestamp === 'true');
+    const activityHandler = new ActivityVisitHandler(shortCode, cookies.timestampTracking === 'true');
     let noVisited = 0;
 
     const _extendedActivity: Activity[] = [];
@@ -116,7 +125,7 @@ export default function ActivityTable({ activityFeed, shortCode, columns, sortCl
     return result;
   }, [extendedActivity, columns, activityFeed]);
 
-  if (extendedActivity.length === 0) return <ActivityPlaceholder hasFilter={!!hasFilter} />;
+  if (extendedActivity.length === 0) return <ActivityPlaceholder clearAction={clearAction} hasFilter={!!hasFilter} />;
 
   return (
     <>

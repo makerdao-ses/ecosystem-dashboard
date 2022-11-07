@@ -85,6 +85,7 @@ export const useTransparencyTransferRequestMvvm2 = (currentMonth: DateTime, budg
       header: 'Wallet',
       type: 'custom',
       width: '240px',
+      minWidth: '240px',
       cellRender: renderWallet,
       isCardHeader: true,
     },

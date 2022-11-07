@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useEffect, useState } from 'react';
+import React, { ReactElement, ReactNode, useEffect } from 'react';
 import { Provider } from 'react-redux';
 import type { AppProps } from 'next/app';
 import { store } from '../src/core/store/store';
@@ -11,8 +11,9 @@ import { CURRENT_ENVIRONMENT } from '../src/config/endpoints';
 import { featureFlags } from '../feature-flags/feature-flags';
 import { SEOHead } from '../src/stories/components/seo-head/seo-head';
 import { useRouter } from 'next/router';
-import { CookiesProvider, useCookies } from 'react-cookie';
 import * as gtag from '../src/core/utils/gtag';
+import { CookiesProviderTracking } from '../src/core/context/CookiesContext';
+import { CookiesProvider, useCookies } from 'react-cookie';
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -24,15 +25,11 @@ interface MyAppProps extends AppProps {
 }
 
 function MyApp(props: MyAppProps) {
-  const [pageLoaded, setPageLoaded] = useState(false);
-  const [cookies] = useCookies(['darkMode', 'timestamp', 'analytics']);
+  const [cookies] = useCookies(['analyticsTracking']);
   const { Component, pageProps } = props;
   const router = useRouter();
-  React.useEffect(() => {
-    setPageLoaded(true);
-  }, []);
   useEffect(() => {
-    if (gtag.GA_TRACKING_ID && cookies.analytics === 'true') {
+    if (gtag.GA_TRACKING_ID && cookies.analyticsTracking === 'true') {
       const handleRouteChange = (url: URL) => {
         gtag.pageView(url);
       };
@@ -42,18 +39,17 @@ function MyApp(props: MyAppProps) {
       };
     }
   }, [router.events]);
-  if (!pageLoaded) {
-    return null;
-  }
   return (
     <CookiesProvider>
       <Provider store={store}>
-        <ThemeProvider>
-          <SEOHead title="MakerDAO - Dashboard" description="" />
-          <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
-            <Component {...pageProps} />
-          </FeatureFlagsProvider>
-        </ThemeProvider>
+        <CookiesProviderTracking>
+          <ThemeProvider>
+            <SEOHead title="MakerDAO - Dashboard" description="" />
+            <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
+              <Component {...pageProps} />
+            </FeatureFlagsProvider>
+          </ThemeProvider>
+        </CookiesProviderTracking>
       </Provider>
     </CookiesProvider>
   );

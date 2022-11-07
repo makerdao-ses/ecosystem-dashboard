@@ -1,30 +1,34 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
-import { useThemeContext } from '../../../core/context/ThemeContext';
+
 import { ButtonType } from '../../../core/enums/button-type.enum';
 import CheckBox from '../../components/check-box/check-box';
 import { CustomButton } from '../../components/custom-button/custom-button';
 
 interface Props {
-  functionalCookies: boolean;
-  analyticsCookies: boolean;
-  handleFunctionalCookies: (isChecked: boolean) => void;
-  handleAnalyticsCookies: (isChecked: boolean) => void;
+  isShowBanner: boolean;
+  functionalCheckbox: boolean;
+  analyticsCheckbox: boolean;
+  isLight: boolean;
+  setFunctionalCheckbox: (isChecked: boolean) => void;
+  setAnalyticsCheckbox: (isChecked: boolean) => void;
   handleAcceptCookies: () => void;
   handleRejectCookies: () => void;
 }
 
 const CookiesPolicyBanner = ({
-  functionalCookies,
-  analyticsCookies,
-  handleFunctionalCookies,
-  handleAnalyticsCookies,
+  functionalCheckbox,
+  analyticsCheckbox,
+  setFunctionalCheckbox,
+  setAnalyticsCheckbox,
   handleAcceptCookies,
   handleRejectCookies,
+  isLight,
 }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
-
+  const handleCheckbox = (key: (val: boolean) => void) => (val: boolean) => {
+    key(!val);
+  };
   return (
     <Container isLight={isLight}>
       <ContainerData>
@@ -36,8 +40,16 @@ const CookiesPolicyBanner = ({
         </StyleParagraph>
 
         <ContainerCheckBox>
-          <CheckBox label="Functional cookies" isChecked={functionalCookies} setIsChecked={handleFunctionalCookies} />
-          <CheckBox label="Analytics cookies" isChecked={analyticsCookies} setIsChecked={handleAnalyticsCookies} />
+          <CheckBox
+            label="Functional cookies"
+            isChecked={functionalCheckbox}
+            setIsChecked={handleCheckbox(setFunctionalCheckbox)}
+          />
+          <CheckBox
+            label="Analytics cookies"
+            isChecked={analyticsCheckbox}
+            setIsChecked={handleCheckbox(setAnalyticsCheckbox)}
+          />
         </ContainerCheckBox>
         <ContainerButton>
           <CustomButton

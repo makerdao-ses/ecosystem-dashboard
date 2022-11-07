@@ -4,7 +4,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { useRouter } from 'next/router';
 
 interface TabsProps {
-  items?: { item: string; id: string }[];
+  items?: { item: string | JSX.Element; id: string }[];
   currentIndex: number;
   style?: CSSProperties;
 }
@@ -29,7 +29,7 @@ export const Tabs = (props: TabsProps) => {
       <Container isLight={isLight}>
         {props.items?.map((element, i) => {
           let id = '';
-          let item: string;
+          let item: string | JSX.Element;
           if (typeof element === 'string') {
             item = element;
           } else {
@@ -83,7 +83,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 const Tab = styled.div<{ active: boolean; isLight: boolean }>(({ active, isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   color: active && isLight ? '#1AAB9B' : isLight && !active ? '#7E7E88' : !isLight && active ? '#1AAB9B' : '#708390',
-  fontSize: '16px',
+  fontSize: '14px',
   lineHeight: '22px',
   fontWeight: 400,
   paddingBottom: '12px',

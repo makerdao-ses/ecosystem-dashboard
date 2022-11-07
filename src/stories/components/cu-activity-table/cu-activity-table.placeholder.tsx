@@ -6,10 +6,9 @@ import PlaceholderImgDark from '../../../../public/assets/img/rectangles-dark.pn
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CustomButton } from '../custom-button/custom-button';
 import { useRouter } from 'next/router';
-import { SUBMIT_EXPENSES_URL } from '../../../config/external-urls';
 import { ButtonType } from '../../../core/enums/button-type.enum';
 
-export const ActivityPlaceholder = (props: { hasFilter: boolean }) => {
+export const ActivityPlaceholder = (props: { hasFilter: boolean; clearAction?: () => void }) => {
   const isLight = useThemeContext().themeMode === 'light';
   const router = useRouter();
 
@@ -37,9 +36,12 @@ export const ActivityPlaceholder = (props: { hasFilter: boolean }) => {
             buttonType={ButtonType.Secondary}
           />
         )}
-        <a href={SUBMIT_EXPENSES_URL} target="_blank">
-          <CustomButton style={{ minWidth: '250px' }} label="Submit Expenses Now" buttonType={ButtonType.Primary} />
-        </a>
+        <CustomButton
+          style={{ minWidth: '250px' }}
+          label="View Active Core Units"
+          buttonType={ButtonType.Primary}
+          onClick={props.clearAction}
+        />
       </ButtonsWrapper>
     </Container>
   );

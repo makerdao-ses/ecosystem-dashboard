@@ -30,7 +30,7 @@ const CheckBox = ({ label, isChecked, setIsChecked }: Props) => {
           <CheckboxOff fill="#1AAB9B" width={12} height={12} />
         )}
       </IconButton>
-      <StyleLabel isChecked={isChecked} isLight={isLight}>
+      <StyleLabel isChecked={isChecked} isLight={isLight} onClick={handleClick}>
         {label}
       </StyleLabel>
     </Container>
@@ -52,6 +52,7 @@ const StyleLabel = styled.span<{ isChecked: boolean; isLight?: boolean }>(({ isC
   color: isLight ? '#231536' : '#D2D4EF',
   display: 'inline-block',
   marginLeft: '10px',
+  cursor: 'pointer',
 }));
 
 export default CheckBox;

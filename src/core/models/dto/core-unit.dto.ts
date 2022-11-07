@@ -100,12 +100,21 @@ export interface AuditReportDto {
   timestamp: string;
 }
 
+export interface CommentsBudgetStatementDto {
+  timestamp: string;
+  comment: string;
+  commentAuthor: { name: string }[];
+}
+export type CommentsDto = Required<CommentsBudgetStatementDto> & {
+  month: string;
+};
+
 export interface BudgetStatementDto {
   id: number;
   month: string;
   budgetStatus: string;
   publicationUrl: string;
-  comments: string;
+  comments: CommentsBudgetStatementDto[];
   budgetStatementFTEs: BudgetStatementFteDto[];
   budgetStatementWallet: BudgetStatementWalletDto[];
   budgetStatementMKRVest?: BudgetStatementMKRVestDto[];

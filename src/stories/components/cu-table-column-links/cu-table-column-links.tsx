@@ -93,12 +93,29 @@ const Container = styled.div<{ spacings?: number; align: string; isIndex?: boole
   display: 'flex',
   alignItems: 'center',
   justifyContent: props.align,
-  gap: `${props.spacings ?? 0}px`,
+  ' & > div:first-of-type': {
+    marginRight: '16px',
+  },
+  '* + *': {
+    marginRight: '16px',
+  },
+  ' & > div:last-child': {
+    marginRight: '0px',
+  },
   '@media (min-width: 1194px)': props.isIndex
     ? {
         maxWidth: '240px',
         flexWrap: 'wrap-reverse',
-        gap: '0 8px',
+        ' & > div:first-of-type': {
+          marginRight: '8px',
+          marginTop: '0px',
+        },
+        '* + *': {
+          marginRight: '8px',
+        },
+        ' & > div:last-child': {
+          marginRight: '8px',
+        },
       }
     : undefined,
   '@media (min-width: 1410px)': {

@@ -40,12 +40,12 @@ export const useGlobalActivityMvvm = (coreUnits: CoreUnitDto[]) => {
     },
   ];
 
-  const handleCleanSearch = () => {
+  const handleClearSearch = () => {
     setSearchText('');
   };
 
   const clearFilters = () => {
-    handleCleanSearch();
+    handleClearSearch();
     setActiveElements([]);
   };
 
@@ -57,7 +57,7 @@ export const useGlobalActivityMvvm = (coreUnits: CoreUnitDto[]) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const selectElements = useMemo(() => {
-    return coreUnits.map((coreUnits) => ({
+    return sortBy(coreUnits, (cu) => cu.name).map((coreUnits) => ({
       id: coreUnits.shortCode,
       content: coreUnits.name,
       params: {
@@ -93,7 +93,7 @@ export const useGlobalActivityMvvm = (coreUnits: CoreUnitDto[]) => {
     activityFeed,
     searchText,
     setSearchText,
-    handleCleanSearch,
+    handleClearSearch,
     filtersActive,
     clearFilters,
     inputRef,

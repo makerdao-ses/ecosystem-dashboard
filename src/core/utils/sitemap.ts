@@ -18,6 +18,10 @@ export class SitemapBuilder {
     return this.getXMLForRoute(`${BASE_URL}`);
   }
 
+  resolveGlobalActivityRoute(): string {
+    return this.getXMLForRoute(`${BASE_URL}/activity-feed/`);
+  }
+
   resolveSingleCURoutes(cu: CoreUnitDto): string[] {
     const cuRoutes: string[] = [];
     cuRoutes.push(this.getXMLForRoute(`${BASE_URL}/core-unit/${cu.shortCode}`));
@@ -43,6 +47,7 @@ export class SitemapBuilder {
     return `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       ${this.resolveHomePageRoute()}
+      ${this.resolveGlobalActivityRoute()}
       ${cuRoutes.join('')}
     </urlset>
     `;

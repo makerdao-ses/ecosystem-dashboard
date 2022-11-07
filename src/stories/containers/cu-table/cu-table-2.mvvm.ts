@@ -4,7 +4,7 @@ import {
   getExpenditureValueFromCoreUnit,
   getFTEsFromCoreUnit,
   getLastMonthWithData,
-  getLatestMip39FromCoreUnit,
+  getStautsMip39AccetedOrObsolete,
 } from '../../../core/business-logic/core-units';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
@@ -25,6 +25,7 @@ import {
 } from './cu-table.renders';
 import { SortEnum } from '../../../core/enums/sort.enum';
 import { sortAlphaNum } from '../../../core/utils/sort.utils';
+import { DateTime } from 'luxon';
 
 export const useCoreUnitsTableMvvm = () => {
   const router = useRouter();
@@ -82,7 +83,7 @@ export const useCoreUnitsTableMvvm = () => {
   const statusCount = useMemo(() => {
     const result: { [id: string]: number } = {};
     Object.values(CuStatusEnum).forEach((cat) => {
-      result[cat] = statusesFiltered?.filter((cu) => getLatestMip39FromCoreUnit(cu)?.mipStatus === cat).length;
+      result[cat] = statusesFiltered?.filter((cu) => getStautsMip39AccetedOrObsolete(cu) === cat).length;
     });
     result.All = statusesFiltered.length;
     return result;
@@ -184,21 +185,31 @@ export const useCoreUnitsTableMvvm = () => {
     },
   ];
 
-  const sortData = (items: CoreUnitDto[]) => {
-    if (headersSort[sortColumn] === SortEnum.Disabled) return items;
+  const sortData = useMemo(() => {
+    const sortDataFunction = (items: CoreUnitDto[]) => {
+      if (headersSort[sortColumn] === SortEnum.Disabled) return items;
 
-    const multiplier = headersSort[sortColumn] === SortEnum.Asc ? 1 : -1;
-    const nameSort = (a: CoreUnitDto, b: CoreUnitDto) => sortAlphaNum(a.name, b.name) * multiplier;
-    const expendituresSort = (a: CoreUnitDto, b: CoreUnitDto) =>
-      (getExpenditureValueFromCoreUnit(a) - getExpenditureValueFromCoreUnit(b)) * multiplier;
-    const teamMembersSort = (a: CoreUnitDto, b: CoreUnitDto) =>
-      (getFTEsFromCoreUnit(a) - getFTEsFromCoreUnit(b)) * multiplier;
-    const lastModifiedSort = (a: CoreUnitDto, b: CoreUnitDto) => {
-      return ((getLastMonthWithData(a)?.toMillis() ?? 0) - (getLastMonthWithData(b)?.toMillis() ?? 0)) * multiplier;
+      const multiplier = headersSort[sortColumn] === SortEnum.Asc ? 1 : -1;
+      const nameSort = (a: CoreUnitDto, b: CoreUnitDto) => sortAlphaNum(a.name, b.name) * multiplier;
+      const expendituresSort = (a: CoreUnitDto, b: CoreUnitDto) =>
+        (getExpenditureValueFromCoreUnit(a) - getExpenditureValueFromCoreUnit(b)) * multiplier;
+      const teamMembersSort = (a: CoreUnitDto, b: CoreUnitDto) =>
+        (getFTEsFromCoreUnit(a) - getFTEsFromCoreUnit(b)) * multiplier;
+      const lastModifiedSort = (a: CoreUnitDto, b: CoreUnitDto) => {
+        if (multiplier === 1) {
+          return (
+            ((getLastMonthWithData(a)?.toMillis() ?? DateTime.fromJSDate(new Date()).toMillis()) -
+              (getLastMonthWithData(b)?.toMillis() ?? DateTime.fromJSDate(new Date()).toMillis())) *
+            multiplier
+          );
+        }
+        return ((getLastMonthWithData(a)?.toMillis() ?? 0) - (getLastMonthWithData(b)?.toMillis() ?? 0)) * multiplier;
+      };
+      const sortAlg = [nameSort, expendituresSort, teamMembersSort, lastModifiedSort, () => 0];
+      return [...items].sort(sortAlg[sortColumn]);
     };
-    const sortAlg = [nameSort, expendituresSort, teamMembersSort, lastModifiedSort, () => 0];
-    return [...items].sort(sortAlg[sortColumn]);
-  };
+    return sortDataFunction;
+  }, [headersSort, sortColumn]);
 
   const tableItems: CustomTableRow[] = useMemo(() => {
     const sortedData = sortData(filteredData);
@@ -206,7 +217,7 @@ export const useCoreUnitsTableMvvm = () => {
       value: x,
       key: x.code,
     }));
-  }, [data, sortColumn, headersSort, filteredCategories, filteredStatuses, searchText]);
+  }, [sortData, filteredData]);
 
   const onSortClick = (index: number) => {
     const sortNeutralState = columns.map((column) =>

@@ -2,20 +2,26 @@ import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import {
+  getAllCommentsBudgetStatementLine,
   getCurrentOrLastMonthWithData,
   getLastMonthWithActualOrForecast,
   getLastUpdateForBudgetStatement,
-  getNumberComments,
 } from '../../../core/business-logic/core-units';
-import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
 import { BudgetStatementDto, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { API_MONTH_TO_FORMAT } from '../../../core/utils/date.utils';
+import { TableItems } from './transparency-report';
 
-const TRANSPARENCY_IDS = ['actuals', 'forecast', 'mkr-vesting', 'transfer-requests', 'audit-reports', 'comments'];
+export const TRANSPARENCY_IDS = [
+  'actuals',
+  'forecast',
+  'mkr-vesting',
+  'transfer-requests',
+  'audit-reports',
+  'comments',
+];
 
 export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
-  const [isEnabled] = useFlagsActive();
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;
@@ -113,16 +119,35 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     }
   }, [setCurrentMonth, currentMonth]);
 
+  const prepareWalletsName = (budgetStatement?: BudgetStatementDto) => {
+    const walletNames = new Map<string, number>();
+    budgetStatement?.budgetStatementWallet?.forEach((wallet) => {
+      const amount = walletNames.get(wallet.name.toLowerCase().trim()) ?? 0;
+
+      if (amount) {
+        wallet.name = `${wallet.name} ${amount + 1}`;
+        walletNames.set(wallet.name.toLowerCase().trim(), amount + 1);
+      } else {
+        walletNames.set(wallet.name.toLowerCase().trim(), 1);
+      }
+    });
+
+    return budgetStatement;
+  };
+
   const currentBudgetStatement = useMemo(() => {
-    return coreUnit?.budgetStatements?.find(
-      (bs: BudgetStatementDto) => bs.month === currentMonth.toFormat(API_MONTH_TO_FORMAT)
+    return prepareWalletsName(
+      coreUnit?.budgetStatements?.find(
+        (bs: BudgetStatementDto) => bs.month === currentMonth.toFormat(API_MONTH_TO_FORMAT)
+      )
     );
   }, [coreUnit, currentMonth]);
 
-  const numbersComments = getNumberComments(coreUnit);
+  const comments = useMemo(() => getAllCommentsBudgetStatementLine(currentBudgetStatement), [currentBudgetStatement]);
+  const numbersComments = useMemo(() => currentBudgetStatement?.comments?.length ?? 0, [currentBudgetStatement]);
   const longCode = coreUnit?.code;
 
-  const tabItems = [
+  const tabItems: TableItems[] = [
     {
       item: 'Actuals',
       id: TRANSPARENCY_IDS[0],
@@ -145,12 +170,6 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     },
   ];
 
-  if (isEnabled('FEATURE_TRANSPARENCY_COMMENTS')) {
-    tabItems.push({
-      item: `Comments (${numbersComments})`,
-      id: TRANSPARENCY_IDS[5],
-    });
-  }
   const lastUpdateForBudgetStatement = useMemo(
     () => getLastUpdateForBudgetStatement(coreUnit, currentBudgetStatement?.id ?? 0),
     [currentBudgetStatement, coreUnit]
@@ -174,10 +193,10 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     currentBudgetStatement,
     tabsIndex,
     lastUpdateForBudgetStatement,
-    getNumberComments,
     numbersComments,
     differenceInDays,
     longCode,
     hasPreviousMonth,
+    comments,
   };
 };

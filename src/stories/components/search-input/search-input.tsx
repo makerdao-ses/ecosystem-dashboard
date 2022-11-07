@@ -10,7 +10,7 @@ interface SearchInputProps {
   placeholder: string;
   onChange?: (text: string) => void;
   style?: CSSProperties;
-  handleCleanSearch?: () => void;
+  handleClearSearch?: () => void;
   inputRef?: React.RefObject<HTMLInputElement>;
   small?: boolean;
 }
@@ -43,9 +43,9 @@ export const SearchInput = (props: SearchInputProps) => {
           autoComplete="off"
         />
         <IconWrapper>
-          {focus || !!props.value ? (
+          {focus || !!props.value || !!props.defaultValue ? (
             <Close
-              onClick={props.handleCleanSearch}
+              onClick={props.handleClearSearch}
               width={10}
               height={10}
               fill="#25273D"

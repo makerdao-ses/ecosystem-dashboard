@@ -6,7 +6,7 @@ import {
 } from '../../../../core/models/dto/core-unit.dto';
 import _ from 'lodash';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { capitalizeSentence } from '../../../../core/utils/string.utils';
+import { capitalizeSentence, getWalletWidthForWallets } from '../../../../core/utils/string.utils';
 import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
 import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
 import {
@@ -278,7 +278,8 @@ export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetS
         type: 'custom',
         cellRender: renderWallet,
         isCardHeader: true,
-        width: '180px',
+        width: getWalletWidthForWallets(wallets),
+        minWidth: getWalletWidthForWallets(wallets),
       },
       {
         header: firstMonth.toFormat('MMMM'),

@@ -1,68 +1,108 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useScrollLock } from '../../../core/hooks/scroll-hooks';
+import { useMediaQuery } from '@mui/material';
 
-interface Props {
-  isShowBanner: boolean;
-  setIsShowBanner: (isShowBanner: boolean) => void;
-}
+const DARK_SCHEME_QUERY = '(prefers-color-scheme: dark)';
 
-export const useCookiesPolicyBannerMvvm = ({ isShowBanner, setIsShowBanner }: Props) => {
-  const { lockScroll, unlockScroll } = useScrollLock();
-  const [functionalCookies, setFunctionalCookies] = useState(true);
-  const [analyticsCookies, setAnalyticsCookies] = useState(true);
-  const [cookies, setCookie] = useCookies(['darkMode', 'timestamp', 'analytics']);
+export const useCookiesPolicyBannerMvvm = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(['themeTracking', 'timestampTracking', 'analyticsTracking']);
+  const { unlockScroll } = useScrollLock();
+  const isUserSystemThemePreferenceDark = useMediaQuery(DARK_SCHEME_QUERY);
 
-  const getAllActivityLocalStore = useCallback(() => {
+  const isThemeTrackingAccepted = useMemo(() => !!cookies?.themeTracking, [cookies]);
+  const isTimestampTrackingAccepted = useMemo(() => !!cookies?.timestampTracking, [cookies]);
+  const isAnalyticsTrackingAccepted = useMemo(() => !!cookies?.analyticsTracking, [cookies]);
+  const isFunctionalTrackingAccepted = useMemo(
+    () => isThemeTrackingAccepted && isTimestampTrackingAccepted,
+    [isThemeTrackingAccepted, isTimestampTrackingAccepted]
+  );
+
+  // cookie setting
+  const [settingCookies, setSettingCookies] = useState(false);
+
+  const initialShowBanner = useMemo(
+    () => settingCookies || (!isFunctionalTrackingAccepted && !isAnalyticsTrackingAccepted),
+    [isAnalyticsTrackingAccepted, isFunctionalTrackingAccepted, settingCookies]
+  );
+
+  const [isShowBanner, setIsShowBanner] = useState(initialShowBanner);
+
+  // checkbox
+  const [functionalCheckbox, setFunctionalCheckbox] = useState(true);
+  const [analyticsCheckbox, setAnalyticsCheckbox] = useState(true);
+
+  const setFunctionalTracking = useCallback(
+    (val: boolean) => {
+      setCookie('themeTracking', val);
+      setCookie('timestampTracking', val);
+      window.localStorage.setItem('themeTracking', `${val}`);
+      window.localStorage.setItem('timestampTracking', `${val}`);
+    },
+    [setCookie]
+  );
+  const setAnalyticsTracking = useCallback(
+    (val: boolean) => {
+      setCookie('analyticsTracking', val);
+      window.localStorage.setItem('analyticsTracking', `${val}`);
+    },
+    [setCookie]
+  );
+
+  const deletedFunctionalTracking = useCallback(() => {
+    removeCookie('themeTracking');
+    removeCookie('timestampTracking');
+    window.localStorage.removeItem('themeTracking');
+    window.localStorage.removeItem('timestampTracking');
+  }, [removeCookie]);
+
+  const deletedAnalyticsTracking = useCallback(() => {
+    removeCookie('analyticsTracking');
+    window.localStorage.removeItem('analyticsTracking');
     const keys = Object.keys(window.localStorage);
     keys.forEach((key) => {
       if (key.includes('activity-visit-')) window.localStorage.removeItem(key);
     });
-  }, []);
+  }, [removeCookie]);
 
   const handleRejectCookies = useCallback(() => {
-    setCookie('darkMode', false);
-    setCookie('timestamp', false);
-    setCookie('analytics', false);
-    unlockScroll();
     setIsShowBanner(false);
-    if (window.localStorage !== undefined) {
-      getAllActivityLocalStore();
-      window.localStorage.removeItem('themeMode');
-    }
-  }, [getAllActivityLocalStore, setCookie, setIsShowBanner, unlockScroll]);
+    setAnalyticsCheckbox(false);
+    setFunctionalCheckbox(false);
+    deletedFunctionalTracking();
+    deletedAnalyticsTracking();
+    window.localStorage.removeItem('THEME_MODE');
+    unlockScroll();
+    const newThemeMode = isUserSystemThemePreferenceDark ? 'light' : 'dark';
+    window.localStorage.setItem('THEME_MODE', newThemeMode);
+  }, [unlockScroll, deletedFunctionalTracking, deletedAnalyticsTracking, isUserSystemThemePreferenceDark]);
 
   const handleAcceptCookies = useCallback(() => {
-    unlockScroll();
     setIsShowBanner(false);
-    setCookie('darkMode', functionalCookies);
-    setCookie('timestamp', functionalCookies);
-    setCookie('analytics', analyticsCookies);
-  }, [analyticsCookies, functionalCookies, setCookie, setIsShowBanner, unlockScroll]);
+    if (functionalCheckbox) {
+      setFunctionalTracking(true);
+    }
+    if (analyticsCheckbox) {
+      setAnalyticsTracking(true);
+    }
+  }, [analyticsCheckbox, functionalCheckbox, setAnalyticsTracking, setFunctionalTracking]);
 
-  const handleSettings = useCallback(() => {
-    window.scrollTo(0, 0);
-    setIsShowBanner(true);
-    lockScroll();
-  }, [lockScroll, setIsShowBanner]);
-  const handleFunctionalCookies = () => {
-    setFunctionalCookies(!functionalCookies);
-  };
+  const handleSettings = useCallback((val: boolean) => {
+    setSettingCookies(val);
+  }, []);
 
-  const handleAnalyticsCookies = () => {
-    setAnalyticsCookies(!analyticsCookies);
-  };
   return {
+    isFunctionalTrackingAccepted,
     isShowBanner,
+    handleSettings,
     handleRejectCookies,
     handleAcceptCookies,
-    handleSettings,
-    handleFunctionalCookies,
-    handleAnalyticsCookies,
-    functionalCookies,
-    analyticsCookies,
+    functionalCheckbox,
+    analyticsCheckbox,
+    setFunctionalCheckbox,
+    setAnalyticsCheckbox,
+    setFunctionalTracking,
+    settingCookies,
     setIsShowBanner,
-    cookies,
-    getAllActivityLocalStore,
   };
 };

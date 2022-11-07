@@ -1,6 +1,5 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
-import isEmpty from 'lodash/isEmpty';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { Filters } from './cu-table-filters';
 import { useThemeContext } from '../../../core/context/ThemeContext';
@@ -11,20 +10,17 @@ import { useCoreUnitsTableMvvm } from './cu-table-2.mvvm';
 import { CustomTable2, CustomTableRow } from '../../components/custom-table/custom-table-2';
 import { renderCard } from './cu-table.renders';
 import { SortEnum } from '../../../core/enums/sort.enum';
-import CookiesPolicyBanner from '../cookies-policy/cookies-policy-banner';
 import lightTheme from '../../../../styles/theme/light';
-import { useScrollLock } from '../../../core/hooks/scroll-hooks';
-import { useCookiesPolicyBannerMvvm } from '../cookies-policy/cookies-policy-banner.mvvm';
+import { useCookiesContextTracking } from '../../../core/context/CookiesContext';
 
 export const CuTable2 = () => {
-  const [isShowBanner, setIsShowBanner] = useState(false);
-  const isLight = useThemeContext().themeMode === 'light';
-  const { lockScroll, unlockScroll } = useScrollLock();
+  const { themeMode } = useThemeContext();
+  const isLight = themeMode === 'light';
+  const { isShowBanner } = useCookiesContextTracking();
   const {
     clearFilters,
     statusCount,
     categoriesCount,
-    filteredData,
     status,
     filtersPopup,
     toggleFiltersPopup,
@@ -37,32 +33,9 @@ export const CuTable2 = () => {
     headersSort,
     applySort,
   } = useCoreUnitsTableMvvm();
-  const {
-    handleAcceptCookies,
-    handleAnalyticsCookies,
-    handleFunctionalCookies,
-    handleRejectCookies,
-    analyticsCookies,
-    functionalCookies,
-    cookies,
-  } = useCookiesPolicyBannerMvvm({
-    isShowBanner,
-    setIsShowBanner,
-  });
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    if (status !== 'loading' && isEmpty(cookies)) {
-      setIsShowBanner(true);
-      lockScroll();
-    } else {
-      unlockScroll();
-    }
-  }, [cookies.analytics, cookies.darkMode, lockScroll, status, unlockScroll]);
 
   const siteHeader = useMemo(() => {
     if (status === 'loading') {
-      lockScroll();
       return <CuTableHeaderSkeleton />;
     }
     return (
@@ -82,25 +55,45 @@ export const CuTable2 = () => {
         />
       </Header>
     );
-  }, [filteredData, isLight, toggleFiltersPopup]);
+  }, [
+    applySort,
+    categoriesCount,
+    clearFilters,
+    columns,
+    filteredCategories,
+    filteredStatuses,
+    filtersPopup,
+    headersSort,
+    searchText,
+    status,
+    statusCount,
+    toggleFiltersPopup,
+  ]);
+
+  if (themeMode === undefined) {
+    return (
+      <>
+        <SEOHead
+          title="MakerDAO Ecosystem Performance Dashboard | Maker Expenses"
+          description="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
+          image={{
+            src: toAbsoluteURL('/assets/img/social-385x200.png'),
+            width: 385,
+            height: 200,
+          }}
+          twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
+        >
+          <link rel="apple-touch-icon" sizes="1024x1024" href="/icons/icon-1024.png" />
+          <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512.png" />
+          <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180.png" />
+          <link rel="apple-touch-icon" sizes="120x120" href="/icons/icon-120.png" />
+        </SEOHead>
+      </>
+    );
+  }
 
   return (
     <ContainerHome isLight={isLight} allowPadding={isShowBanner}>
-      <SEOHead
-        title="MakerDAO Ecosystem Performance Dashboard | Maker Expenses"
-        description="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
-        image={{
-          src: toAbsoluteURL('/assets/img/social-385x200.png'),
-          width: 385,
-          height: 200,
-        }}
-        twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
-      >
-        <link rel="apple-touch-icon" sizes="1024x1024" href="/icons/icon-1024.png" />
-        <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180.png" />
-        <link rel="apple-touch-icon" sizes="120x120" href="/icons/icon-120.png" />
-      </SEOHead>
       <Wrapper>
         {siteHeader}
         <CustomTable2
@@ -112,19 +105,6 @@ export const CuTable2 = () => {
           renderCard={(row: CustomTableRow, index: number) => renderCard(row?.value as CoreUnitDto, index)}
         />
       </Wrapper>
-      {isShowBanner && status !== 'loading' && <ContainerOverlay isLight={isLight} />}
-      {isShowBanner && status !== 'loading' && (
-        <PolicyBannerPosition>
-          <CookiesPolicyBanner
-            analyticsCookies={analyticsCookies}
-            functionalCookies={functionalCookies}
-            handleAnalyticsCookies={handleAnalyticsCookies}
-            handleFunctionalCookies={handleFunctionalCookies}
-            handleAcceptCookies={handleAcceptCookies}
-            handleRejectCookies={handleRejectCookies}
-          />
-        </PolicyBannerPosition>
-      )}
     </ContainerHome>
   );
 };

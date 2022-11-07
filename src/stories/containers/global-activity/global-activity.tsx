@@ -20,15 +20,14 @@ interface Props {
 }
 
 export default ({ coreUnits }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
-
+  const { themeMode, isLight } = useThemeContext();
   const {
     columns,
     activityFeed,
     clearFilters,
     filtersActive,
     inputRef,
-    handleCleanSearch,
+    handleClearSearch,
     searchText,
     setSearchText,
     selectElements,
@@ -38,13 +37,27 @@ export default ({ coreUnits }: Props) => {
     toggleFiltersVisible,
   } = useGlobalActivityMvvm(coreUnits);
 
+  if (themeMode === undefined) {
+    return (
+      <>
+        <SEOHead
+          title="MakerDAO Core Units | Activity Feed"
+          description="Learn about the activity of MakerDAO Core Units: updates to Core Unit Expense Reports, FTEs, and more."
+          image={{
+            src: toAbsoluteURL('/assets/img/social-385x200.png'),
+            width: 385,
+            height: 200,
+          }}
+          twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
+        />
+      </>
+    );
+  }
   return (
     <Wrapper>
       <SEOHead
-        title={'MakerDAO Core Units | Activity Feed'}
-        description={
-          'Learn about the activity of MakerDAO Core Units: updates to Core Unit Expense Reports, FTEs, and more.'
-        }
+        title="MakerDAO Core Units | Activity Feed"
+        description="Learn about the activity of MakerDAO Core Units: updates to Core Unit Expense Reports, FTEs, and more."
         image={{
           src: toAbsoluteURL('/assets/img/social-385x200.png'),
           width: 385,
@@ -54,14 +67,14 @@ export default ({ coreUnits }: Props) => {
       />
       <Container isLight={isLight}>
         <InnerPage>
-          <Title isLight={isLight}>Change Tracking</Title>
+          <Title isLight={isLight}>Activity Feed</Title>
           <Paragraph isLight={isLight}>
             Change tracking displays all changes that have occurred regarding all Core Unit activity. Here you will be
             able to see all previous modifications the Core Units made to its Expense Reports, FTEs, and more
           </Paragraph>
           <FiltersContainer>
             <Reset filtersVisible={filtersVisible}>
-              <ResetButton onClick={clearFilters} disabled={!filtersActive} />
+              <ResetButton onClick={clearFilters} disabled={!filtersActive} hasIcon={false} labelMobile="Reset" />
             </Reset>
             <CoreUnitsSelect filtersVisible={filtersVisible}>
               <CustomMultiSelect
@@ -88,7 +101,7 @@ export default ({ coreUnits }: Props) => {
             <Search>
               <SearchInput
                 inputRef={inputRef}
-                handleCleanSearch={handleCleanSearch}
+                handleClearSearch={handleClearSearch}
                 placeholder="Search"
                 value={searchText}
                 onChange={(value: string) => {
@@ -115,6 +128,7 @@ export default ({ coreUnits }: Props) => {
               shortCode={'global'}
               activityFeed={activityFeed}
               hasFilter={filtersActive}
+              clearAction={clearFilters}
               isGlobal
             />
           </TableWrapper>
@@ -187,6 +201,7 @@ const FiltersContainer = styled.div({
 const Reset = styled.div<{ filtersVisible: boolean }>(({ filtersVisible }) => ({
   display: filtersVisible ? 'flex' : 'none',
   gridArea: 'reset',
+  justifyContent: 'flex-end',
   '@media (min-width: 834px)': {
     display: 'flex',
   },

@@ -9,5 +9,8 @@ const CuTablePage: NextPage = () => {
 
   return isEnabled('FEATURE_CU_INDEX_NEW_TABLE') ? <CuTable2 /> : <CuTable />;
 };
+export async function getServerSideProps() {
+  return { props: {} };
+}
 
 export default CuTablePage;
