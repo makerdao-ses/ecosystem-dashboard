@@ -32,3 +32,5 @@ storybook-static
 
 # vscode
 /.vscode*
+
+actions-runner
