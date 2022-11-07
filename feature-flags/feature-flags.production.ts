@@ -8,4 +8,5 @@ export const flagsProduction: FeatureFlagsInterface = {
   FEATURE_CU_ABOUT_NEW_CONTAINER: true,
   FEATURE_TRANSPARENCY_COMMENTS: false,
   FEATURE_GLOBAL_ACTIVITIES: false,
+  FEATURE_AUTH: false,
 };

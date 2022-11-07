@@ -6,4 +6,5 @@ export interface FeatureFlagsInterface {
   FEATURE_CU_ABOUT_NEW_CONTAINER: boolean;
   FEATURE_TRANSPARENCY_COMMENTS: boolean;
   FEATURE_GLOBAL_ACTIVITIES: boolean;
+  FEATURE_AUTH: boolean;
 }
