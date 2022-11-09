@@ -1,15 +1,17 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import TextInput from '../../../components/text-input/text-input';
 import { useLoginMvvm } from './login.mvvm';
 
 export default () => {
+  const { isLight } = useThemeContext();
   const { form, error, onLogin } = useLoginMvvm();
 
   return (
-    <Wrapper>
+    <Wrapper isLight={isLight}>
       <Container>
         <AvatarPlaceholder />
         <Title>Log In</Title>
@@ -49,15 +51,19 @@ export default () => {
   );
 };
 
-export const Wrapper = styled.div({
+export const Wrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   flex: 1,
   alignItems: 'center',
   justifyContent: 'center',
-  width: '100vh',
+  width: '100%',
   height: 'calc(100vw - 64px)',
   overflow: 'hidden',
-});
+  backgroundColor: isLight ? '#FFFFFF' : '#000000',
+  backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
+  backgroundAttachment: 'fixed',
+  backgroundSize: 'cover',
+}));
 
 export const Container = styled.div({
   display: 'flex',

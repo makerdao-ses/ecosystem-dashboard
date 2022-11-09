@@ -1,13 +1,15 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import TextInput from '../../../components/text-input/text-input';
 import { ButtonWrapper, Container, Wrapper } from '../login/login';
 
 export default () => {
+  const { isLight } = useThemeContext();
   return (
-    <Wrapper>
+    <Wrapper isLight={isLight}>
       <Container>
         <AvatarPlaceholder />
         <UserWrapper>

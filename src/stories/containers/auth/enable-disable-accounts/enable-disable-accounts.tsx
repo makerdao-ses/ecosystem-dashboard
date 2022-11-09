@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React, { useCallback, useState } from 'react';
+import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { ButtonType } from '../../../../core/enums/button-type.enum';
 import ControlledSwitches from '../../../components/button/switch-toogle/switch-component';
 import { CustomButton } from '../../../components/custom-button/custom-button';
@@ -8,6 +9,7 @@ import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import { Wrapper } from '../login/login';
 
 export default () => {
+  const { isLight } = useThemeContext();
   const [checked, setChecked] = useState(true);
 
   const handleChange = useCallback(() => {
@@ -15,8 +17,8 @@ export default () => {
   }, [checked]);
 
   return (
-    <Wrapper>
-      <Container>
+    <Wrapper isLight={isLight}>
+      <Container isLight={isLight}>
         <ContainerInside>
           <CustomButton
             buttonType={ButtonType.Default}
@@ -46,8 +48,8 @@ export default () => {
               marginBottom: '32px',
             }}
           >
-            <UserNameLabel>Username:</UserNameLabel>
-            <UserLabelValue>LongForWisdom</UserLabelValue>
+            <UserNameLabel isLight={isLight}>Username:</UserNameLabel>
+            <UserLabelValue isLight={isLight}>LongForWisdom</UserLabelValue>
           </div>
           <div
             style={{
@@ -57,7 +59,7 @@ export default () => {
               marginBottom: '8px',
             }}
           >
-            <UserNameLabel>Password:</UserNameLabel>
+            <UserNameLabel isLight={isLight}>Password:</UserNameLabel>
             <div
               style={{
                 display: 'flex',
@@ -66,27 +68,27 @@ export default () => {
               }}
             >
               <div style={{ marginRight: '4px' }}>
-                <DotPassword />
+                <DotPassword isLight={isLight} />
               </div>
               <div style={{ marginRight: '4px' }}>
-                <DotPassword />
+                <DotPassword isLight={isLight} />
               </div>
               <div style={{ marginRight: '4px' }}>
-                <DotPassword />
+                <DotPassword isLight={isLight} />
               </div>
               <div style={{ marginRight: '4px' }}>
-                <DotPassword />
+                <DotPassword isLight={isLight} />
               </div>
               <div style={{ marginRight: '4px' }}>
-                <DotPassword />
+                <DotPassword isLight={isLight} />
               </div>
               <div style={{ marginRight: '4px' }}>
-                <DotPassword />
+                <DotPassword isLight={isLight} />
               </div>
               <div style={{ marginRight: '4px' }}>
-                <DotPassword />
+                <DotPassword isLight={isLight} />
               </div>
-              <DotPassword />
+              <DotPassword isLight={isLight} />
             </div>
           </div>
           <div
@@ -117,14 +119,7 @@ export default () => {
               color: '#F75524',
             }}
           />
-          <ControlledSwitches
-            checked={checked}
-            handleChange={handleChange}
-            label="Active"
-            styleLabel={{
-              color: !checked ? '#9FAFB9' : 'unset',
-            }}
-          />
+          <ControlledSwitches checked={checked} handleChange={handleChange} label="Active" />
         </ButtonWrapper>
       </Container>
     </Wrapper>
@@ -144,32 +139,34 @@ const UserLabel = styled.p({
   margin: '0 8px 0 0',
 });
 
-const UserNameLabel = styled.p({
+const UserNameLabel = styled.p<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 600,
   fontSize: '20px',
   lineHeight: '24px',
   letterSpacing: '0.4px',
-  color: '#708390',
+  color: isLight ? '#708390' : '#708390',
   marginTop: '0px',
   marginBottom: '0px',
   marginRight: '8px',
-});
-const Container = styled.div({
+}));
+const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   position: 'absolute',
   top: 104,
   width: 343,
-  background: '#FFFFFF',
-  boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
+  background: isLight ? '#FFFFFF' : '#10191F',
+  boxShadow: isLight
+    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+    : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
   borderRadius: '6px',
   '@media (min-width: 834px)': {
     width: '484px',
     top: 128,
   },
-});
+}));
 
 const CenterWrapper = styled.div({
   display: 'flex',
@@ -178,24 +175,24 @@ const CenterWrapper = styled.div({
   alignItems: 'center',
 });
 
-const UserLabelValue = styled.p({
+const UserLabelValue = styled.p<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 600,
   fontSize: '24px',
   lineHeight: '29px',
   letterSpacing: '0.4px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   marginTop: '0px',
   marginBottom: '0px',
-});
+}));
 
-const DotPassword = styled.div({
+const DotPassword = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   width: 8,
   height: 8,
-  background: '#231536',
+  background: isLight ? '#231536' : '#D2D4EF',
   borderRadius: '50%',
-});
+}));
 
 const Line = styled.div({
   border: '1px solid #D4D9E1',
