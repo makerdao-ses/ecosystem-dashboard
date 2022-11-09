@@ -3,7 +3,7 @@ import React from 'react';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import TextInput from '../../../components/text-input/text-input';
-import { UserLabel, Username, UserWrapper } from '../change-password/change-password';
+import { Spacer, UserLabel, Username, UserWrapper } from '../change-password/change-password';
 import { ButtonWrapper, Container, Wrapper } from '../login/login';
 
 export default () => {
@@ -23,7 +23,8 @@ export default () => {
         />
         <AvatarPlaceholder />
         <UserWrapper>
-          <UserLabel>Username:</UserLabel>
+          <UserLabel>Username</UserLabel>
+          <Spacer />
           <Username>Wouter Kampman</Username>
         </UserWrapper>
 
