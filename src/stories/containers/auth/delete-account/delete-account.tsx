@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React, { useCallback, useState } from 'react';
+import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import TextInput from '../../../components/text-input/text-input';
@@ -9,13 +10,14 @@ import { ButtonWrapper, Container, Wrapper } from '../login/login';
 export default () => {
   const testingPassword = '1234';
   const [value, setValue] = useState('');
+  const { isLight } = useThemeContext();
 
   const handleChange = useCallback((value: React.ChangeEvent<HTMLInputElement>) => {
     setValue(value.target.value);
   }, []);
 
   return (
-    <Wrapper>
+    <Wrapper isLight={isLight}>
       <Container>
         <CustomButton
           label="Close"
