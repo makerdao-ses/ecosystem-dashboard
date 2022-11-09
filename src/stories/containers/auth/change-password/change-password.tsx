@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import CloseButton from '../../../components/close-button/close-button';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import TextInput from '../../../components/text-input/text-input';
@@ -9,6 +10,13 @@ export default () => {
   return (
     <Wrapper>
       <Container>
+        <CloseButton
+          style={{
+            position: 'absolute',
+            top: 24,
+            right: 24,
+          }}
+        />
         <AvatarPlaceholder />
         <UserWrapper>
           <UserLabel>Username</UserLabel>
