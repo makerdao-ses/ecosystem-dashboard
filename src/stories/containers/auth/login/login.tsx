@@ -60,7 +60,7 @@ export const Wrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   height: 'calc(100vw - 64px)',
   overflow: 'hidden',
   backgroundColor: isLight ? '#FFFFFF' : '#000000',
-  backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
+  backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/login-bg.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
 }));
