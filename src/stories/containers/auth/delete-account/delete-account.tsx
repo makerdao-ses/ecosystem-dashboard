@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
+import CloseButton from '../../../components/close-button/close-button';
 import React, { useCallback, useState } from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import TextInput from '../../../components/text-input/text-input';
-import { UserLabel, Username, UserWrapper } from '../change-password/change-password';
+import { Spacer, UserLabel, Username, UserWrapper } from '../change-password/change-password';
 import { ButtonWrapper, Container, Wrapper } from '../login/login';
 
 export default () => {
@@ -19,12 +20,8 @@ export default () => {
   return (
     <Wrapper isLight={isLight}>
       <Container>
-        <CustomButton
-          label="Close"
+        <CloseButton
           style={{
-            width: 86,
-            height: 34,
-            borderRadius: 22,
             position: 'absolute',
             top: 24,
             right: 24,
@@ -32,7 +29,8 @@ export default () => {
         />
         <AvatarPlaceholder />
         <UserWrapper>
-          <UserLabel>Username:</UserLabel>
+          <UserLabel>Username</UserLabel>
+          <Spacer />
           <Username>Wouter Kampman</Username>
         </UserWrapper>
 

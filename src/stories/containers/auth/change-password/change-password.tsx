@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import CloseButton from '../../../components/close-button/close-button';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
@@ -11,9 +12,17 @@ export default () => {
   return (
     <Wrapper isLight={isLight}>
       <Container>
+        <CloseButton
+          style={{
+            position: 'absolute',
+            top: 24,
+            right: 24,
+          }}
+        />
         <AvatarPlaceholder />
         <UserWrapper>
-          <UserLabel>Username:</UserLabel>
+          <UserLabel>Username</UserLabel>
+          <Spacer />
           <Username>Wouter Kampman</Username>
         </UserWrapper>
         <ChangePassword>Change Your Password</ChangePassword>
@@ -46,9 +55,24 @@ export default () => {
 
 export const UserWrapper = styled.div({
   display: 'flex',
+  flexDirection: 'column',
   alignItems: 'center',
   marginTop: 16,
+  gap: 4,
   marginBottom: 48,
+  '@media (min-width: 834px)': {
+    flexDirection: 'row',
+    gap: 0,
+  },
+});
+
+export const Spacer = styled.div({
+  background: '#D4D9E1',
+  height: 1,
+  width: 228,
+  '@media (min-width: 834px)': {
+    display: 'none',
+  },
 });
 
 export const UserLabel = styled.p({
@@ -56,7 +80,13 @@ export const UserLabel = styled.p({
   fontSize: 24,
   lineHeight: '24px',
   fontWeight: 600,
-  margin: '0 8px 0 0',
+  margin: 0,
+  '@media (min-width: 834px)': {
+    margin: '0 8px 0 0',
+    ':after': {
+      content: '":"',
+    },
+  },
 });
 
 export const Username = styled.h1({

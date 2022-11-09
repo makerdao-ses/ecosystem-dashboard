@@ -2,6 +2,7 @@
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import * as yup from 'yup';
+import { useAuthContext } from '../../../../core/context/AuthContext';
 
 const charactersNotAllowedMessage =
   'Characters not allowed. Only letters, numbers, and the following characters are allowed: !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
@@ -29,6 +30,8 @@ const validationSchema = yup.object({
 });
 
 export const useLoginMvvm = () => {
+  const { setIsAuthenticated, isAuthenticated } = useAuthContext();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState<string>('');
   const form = useFormik({
     initialValues: {
@@ -42,11 +45,7 @@ export const useLoginMvvm = () => {
   });
 
   const onLogin = () => {
-    if (!error) {
-      setError('Please Verify your username and password are correct');
-    } else {
-      setError('');
-    }
+    setIsAuthenticated(!isAuthenticated);
   };
 
   return {
