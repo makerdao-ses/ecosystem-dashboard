@@ -39,7 +39,14 @@ export default () => {
               marginBottom: '24px',
             }}
           />
-          <TextInput type="password" placeholder="Confirm Password" name="confirm-password" />
+          <TextInput
+            type="password"
+            placeholder="Confirm Password"
+            name="confirm-password"
+            style={{
+              marginBottom: '24px',
+            }}
+          />
         </InputsWrapper>
         <ButtonWrapper>
           <CustomButton
@@ -59,9 +66,12 @@ export default () => {
 const Title = styled.h1({
   margin: '24px 0 16px 0',
   fontWeight: 600,
-  fontSize: 32,
   lineHeight: '39px',
   color: '#231536',
+  fontSize: 24,
+  '@media (min-width: 834px)': {
+    fontSize: 32,
+  },
 });
 
 const Description = styled.p({
