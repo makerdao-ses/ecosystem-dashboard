@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo } from 'react';
+import { useAuthContext } from '../../../core/context/AuthContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
 import ThemeSwitcherButton from '../button/switch-button/switch-buttom';
@@ -8,6 +9,7 @@ import { CustomLink } from '../custom-link/custom-link';
 import Expenses from '../svg/expenses';
 import Logo from '../svg/logo';
 import { TopBarSelect } from '../top-bar-select/top-bar-select';
+import UserBadge from '../user-badge/user-badge';
 import menuItems, { MenuType } from './menu-items';
 import { WebSiteLinks } from './select-link-website/menu-items';
 import SelectLink from './select-link-website/select-link';
@@ -18,6 +20,7 @@ interface Props {
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const Header = ({ links }: Props) => {
   const { themeMode, toggleTheme, isLight } = useThemeContext();
+  const { isAuthenticated } = useAuthContext();
 
   const router = useRouter();
   const onClick = useCallback(
@@ -91,25 +94,31 @@ const Header = ({ links }: Props) => {
           <ItemMenuResponsive>
             <TopBarSelect selectedOption={activeMenuItem.title} />
           </ItemMenuResponsive>
-          <LinkWrapper>
-            <CustomLink
-              children="How to Submit Expenses"
-              fontWeight={500}
-              fontSize={16}
-              href={HOW_TO_SUBMIT_EXPENSES}
-              style={{
-                fontFamily: 'Inter, sans serif',
-                color: '#447AFB',
-                fontStyle: 'normal',
-                letterSpacing: '0.3px',
-                marginLeft: '0px',
-              }}
-              marginLeft="7px"
-              withArrow
-              iconHeight={10}
-              iconWidth={10}
-            />
-          </LinkWrapper>
+          <RightElementsWrapper>
+            {isAuthenticated ? (
+              <LinkWrapper>
+                <UserBadge username={'Wouter Kampmann'} />
+              </LinkWrapper>
+            ) : (
+              <CustomLink
+                children="How to Submit Expenses"
+                fontWeight={500}
+                fontSize={16}
+                href={HOW_TO_SUBMIT_EXPENSES}
+                style={{
+                  fontFamily: 'Inter, sans serif',
+                  color: '#447AFB',
+                  fontStyle: 'normal',
+                  letterSpacing: '0.3px',
+                  marginLeft: '0px',
+                }}
+                marginLeft="7px"
+                withArrow
+                iconHeight={10}
+                iconWidth={10}
+              />
+            )}
+          </RightElementsWrapper>
         </Navigation>
       </LeftPart>
       <RightPart>
@@ -222,6 +231,13 @@ const ItemMenuResponsive = styled.div({
 });
 
 const LinkWrapper = styled.div({
+  display: 'none',
+  '@media (min-width: 834px)': {
+    display: 'flex',
+  },
+});
+
+const RightElementsWrapper = styled.div({
   display: 'none',
   '@media (min-width: 834px)': {
     display: 'flex',

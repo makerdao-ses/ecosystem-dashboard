@@ -54,8 +54,8 @@ export const Wrapper = styled.div({
   flex: 1,
   alignItems: 'center',
   justifyContent: 'center',
-  width: '100vh',
-  height: 'calc(100vw - 64px)',
+  width: '100vw',
+  height: '100vh',
   overflow: 'hidden',
 });
 

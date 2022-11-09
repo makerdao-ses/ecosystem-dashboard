@@ -14,6 +14,7 @@ import { useRouter } from 'next/router';
 import * as gtag from '../src/core/utils/gtag';
 import { CookiesProviderTracking } from '../src/core/context/CookiesContext';
 import { CookiesProvider, useCookies } from 'react-cookie';
+import { AuthContextProvider } from '../src/core/context/AuthContext';
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -43,12 +44,14 @@ function MyApp(props: MyAppProps) {
     <CookiesProvider>
       <Provider store={store}>
         <CookiesProviderTracking>
-          <ThemeProvider>
-            <SEOHead title="MakerDAO - Dashboard" description="" />
-            <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
-              <Component {...pageProps} />
-            </FeatureFlagsProvider>
-          </ThemeProvider>
+          <AuthContextProvider>
+            <ThemeProvider>
+              <SEOHead title="MakerDAO - Dashboard" description="" />
+              <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
+                <Component {...pageProps} />
+              </FeatureFlagsProvider>
+            </ThemeProvider>
+          </AuthContextProvider>
         </CookiesProviderTracking>
       </Provider>
     </CookiesProvider>
