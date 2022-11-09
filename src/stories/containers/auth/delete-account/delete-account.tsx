@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
-import React from 'react';
 import CloseButton from '../../../components/close-button/close-button';
+import React, { useCallback, useState } from 'react';
+import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import TextInput from '../../../components/text-input/text-input';
@@ -8,8 +9,16 @@ import { Spacer, UserLabel, Username, UserWrapper } from '../change-password/cha
 import { ButtonWrapper, Container, Wrapper } from '../login/login';
 
 export default () => {
+  const testingPassword = '1234';
+  const [value, setValue] = useState('');
+  const { isLight } = useThemeContext();
+
+  const handleChange = useCallback((value: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(value.target.value);
+  }, []);
+
   return (
-    <Wrapper>
+    <Wrapper isLight={isLight}>
       <Container>
         <CloseButton
           style={{
@@ -30,7 +39,14 @@ export default () => {
 
         <InputsWrapper>
           <Label>Enter Password to Delete Account</Label>
-          <TextInput type="password" placeholder="Password" name="Password" style={{ marginBottom: 32 }} />
+          <TextInput
+            type="password"
+            placeholder="Password"
+            name="Password"
+            style={{ marginBottom: 32 }}
+            value={value}
+            onChange={handleChange}
+          />
         </InputsWrapper>
 
         <ButtonWrapper>
@@ -40,7 +56,12 @@ export default () => {
               width: 151,
               height: 34,
               borderRadius: 22,
+              borderColor: testingPassword === value ? '#F75524' : 'none',
             }}
+            styleText={{
+              color: testingPassword === value ? '#F75524' : 'unset',
+            }}
+            disabled={!(testingPassword === value)}
           />
         </ButtonWrapper>
       </Container>
