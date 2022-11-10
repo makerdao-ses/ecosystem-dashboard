@@ -1,3 +1,4 @@
+import { CommentEnum } from '../enums/comment.enum';
 import { CuCategoryEnum } from '../enums/cu-category.enum';
 import { CuJobEnum } from '../enums/cu-job.enum';
 
@@ -122,4 +123,24 @@ export const getColorJobPosition = (job: CuJobEnum) => {
         color: '#000000',
       };
   }
+};
+
+// return color line
+export const getColorLineCard = (status: CommentEnum, isLight: boolean) => {
+  const result = isLight
+    ? status === CommentEnum.Draft
+      ? '#447AFB'
+      : status === CommentEnum.Review
+      ? '#F08B04'
+      : status === CommentEnum.Final
+      ? '#1AAB9B'
+      : '#EB4714'
+    : status === CommentEnum.Draft
+    ? '#447AFB'
+    : status === CommentEnum.Review
+    ? '#F08B04'
+    : status === CommentEnum.Final
+    ? '#098C7D'
+    : '#A83815';
+  return result;
 };
