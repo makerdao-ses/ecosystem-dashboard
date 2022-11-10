@@ -31,7 +31,7 @@ const CommentItem = ({ comment, code }: Props) => {
   );
 };
 
-const CommentItemContainer = styled.div<{ isLight: boolean; isLoading?: boolean }>(({ isLight }) => ({
+const CommentItemContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   display: 'flex',
   flexDirection: 'column',
