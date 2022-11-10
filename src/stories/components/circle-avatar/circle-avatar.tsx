@@ -15,6 +15,7 @@ interface CircleAvatarProps {
   imageStyle?: CSSProperties;
   identIcon?: boolean;
   border?: string;
+  onClick?: () => void;
 }
 
 export const CircleAvatar = ({
@@ -23,6 +24,7 @@ export const CircleAvatar = ({
   fontSize = '16px',
   identIcon = false,
   border = '2px solid #E7FCFA',
+  onClick,
   ...props
 }: CircleAvatarProps) => {
   const theme = useTheme();
@@ -36,6 +38,7 @@ export const CircleAvatar = ({
   return (
     <div
       className="circle-avatar"
+      onClick={onClick}
       style={{
         width,
         height,
