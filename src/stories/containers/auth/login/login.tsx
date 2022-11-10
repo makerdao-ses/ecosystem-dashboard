@@ -12,7 +12,7 @@ export default () => {
 
   return (
     <Wrapper isLight={isLight}>
-      <Container>
+      <Container isLight={isLight}>
         <Image src={'/assets/img/ses-logo-64x64.png'} width={64} height={64} />
         <Title>Log In</Title>
         <Description>Enter your username and password to get access to the administration area.</Description>
@@ -65,7 +65,7 @@ export const Wrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   backgroundSize: 'cover',
 }));
 
-export const Container = styled.div({
+export const Container = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -73,15 +73,18 @@ export const Container = styled.div({
   position: 'absolute',
   top: 104,
   width: 343,
-  background: '#FFFFFF',
-  boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
+  background: isLight ? '#FFFFFF' : '#10191F',
+  boxShadow: isLight
+    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+    : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+
   borderRadius: '6px',
   '@media (min-width: 834px)': {
     padding: '40px 64px',
     width: '484px',
     top: 128,
   },
-});
+}));
 
 const Title = styled.h1({
   fontWeight: 600,

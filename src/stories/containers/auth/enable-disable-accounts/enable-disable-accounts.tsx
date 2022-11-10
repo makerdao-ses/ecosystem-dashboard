@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from '@emotion/styled';
+import _ from 'lodash';
 import React, { useCallback, useState } from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { ButtonType } from '../../../../core/enums/button-type.enum';
@@ -7,6 +9,9 @@ import { CustomButton } from '../../../components/custom-button/custom-button';
 import { CustomLink } from '../../../components/custom-link/custom-link';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import { Wrapper } from '../login/login';
+
+const arrayPassword = new Array<string>(8);
+const resultPassword = _.fill(arrayPassword, 'a');
 
 export default () => {
   const { isLight } = useThemeContext();
@@ -67,28 +72,13 @@ export default () => {
                 alignItems: 'center',
               }}
             >
-              <div style={{ marginRight: '4px' }}>
-                <DotPassword isLight={isLight} />
-              </div>
-              <div style={{ marginRight: '4px' }}>
-                <DotPassword isLight={isLight} />
-              </div>
-              <div style={{ marginRight: '4px' }}>
-                <DotPassword isLight={isLight} />
-              </div>
-              <div style={{ marginRight: '4px' }}>
-                <DotPassword isLight={isLight} />
-              </div>
-              <div style={{ marginRight: '4px' }}>
-                <DotPassword isLight={isLight} />
-              </div>
-              <div style={{ marginRight: '4px' }}>
-                <DotPassword isLight={isLight} />
-              </div>
-              <div style={{ marginRight: '4px' }}>
-                <DotPassword isLight={isLight} />
-              </div>
-              <DotPassword isLight={isLight} />
+              {resultPassword.map((item: unknown) => {
+                return (
+                  <div style={{ marginRight: '4px' }}>
+                    <DotPassword isLight={isLight} />
+                  </div>
+                );
+              })}
             </div>
           </div>
           <div
@@ -105,7 +95,7 @@ export default () => {
             </CustomLink>
           </div>
         </ContainerInside>
-        <Line />
+        <Line isLight={isLight} />
         <ButtonWrapper>
           <CustomButton
             label="Delete Account"
@@ -194,11 +184,11 @@ const DotPassword = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   borderRadius: '50%',
 }));
 
-const Line = styled.div({
-  border: '1px solid #D4D9E1',
+const Line = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  border: isLight ? '1px solid #D4D9E1' : ' 1px solid #405361;',
   width: '100%',
   marginBottom: '16px',
-});
+}));
 
 const ContainerInside = styled.div({
   marginBottom: '8px',

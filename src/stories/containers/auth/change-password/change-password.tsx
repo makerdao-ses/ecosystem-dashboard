@@ -11,7 +11,7 @@ export default () => {
   const { isLight } = useThemeContext();
   return (
     <Wrapper isLight={isLight}>
-      <Container>
+      <Container isLight={isLight}>
         <CloseButton
           style={{
             position: 'absolute',
@@ -21,9 +21,9 @@ export default () => {
         />
         <AvatarPlaceholder />
         <UserWrapper>
-          <UserLabel>Username</UserLabel>
+          <UserLabel isLight={isLight}>Username</UserLabel>
           <Spacer />
-          <Username>Wouter Kampman</Username>
+          <Username isLight={isLight}>Wouter Kampman</Username>
         </UserWrapper>
         <ChangePassword>Change Your Password</ChangePassword>
         <InputsWrapper>
@@ -75,8 +75,8 @@ export const Spacer = styled.div({
   },
 });
 
-export const UserLabel = styled.p({
-  color: '#708390',
+export const UserLabel = styled.p<{ isLight: boolean }>(({ isLight }) => ({
+  color: isLight ? '#708390' : '#D2D4EF',
   fontSize: 24,
   lineHeight: '24px',
   fontWeight: 600,
@@ -87,15 +87,15 @@ export const UserLabel = styled.p({
       content: '":"',
     },
   },
-});
+}));
 
-export const Username = styled.h1({
+export const Username = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: 24,
   lineHeight: '29px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   textAlign: 'center',
   margin: 0,
-});
+}));
 
 const ChangePassword = styled.h2({
   fontSize: 20,
