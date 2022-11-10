@@ -5,7 +5,7 @@ import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import TextInput from '../../../components/text-input/text-input';
-import { Spacer, UserLabel, Username, UserWrapper } from '../change-password/change-password';
+import { Spacer, Username, UserWrapper } from '../change-password/change-password';
 import { ButtonWrapper, Container, Wrapper } from '../login/login';
 
 export default () => {
@@ -19,7 +19,7 @@ export default () => {
 
   return (
     <Wrapper isLight={isLight}>
-      <Container>
+      <Container isLight={isLight}>
         <CloseButton
           style={{
             position: 'absolute',
@@ -31,14 +31,14 @@ export default () => {
         <UserWrapper>
           <UserLabel>Username</UserLabel>
           <Spacer />
-          <Username>Wouter Kampman</Username>
+          <Username isLight={isLight}>Wouter Kampman</Username>
         </UserWrapper>
 
         <DeleteLabel>Delete Account</DeleteLabel>
         <WarningLabel>ATTENTION: this action cannot be undone</WarningLabel>
 
         <InputsWrapper>
-          <Label>Enter Password to Delete Account</Label>
+          <Label isLight={isLight}>Enter password to delete the account</Label>
           <TextInput
             type="password"
             placeholder="Password"
@@ -56,10 +56,22 @@ export default () => {
               width: 151,
               height: 34,
               borderRadius: 22,
-              borderColor: testingPassword === value ? '#F75524' : 'none',
+              borderColor: isLight
+                ? testingPassword === value
+                  ? '#F75524'
+                  : 'none'
+                : testingPassword === value
+                ? '#F75524'
+                : '#343442',
             }}
             styleText={{
-              color: testingPassword === value ? '#F75524' : 'unset',
+              color: isLight
+                ? testingPassword === value
+                  ? '#F75524'
+                  : 'unset'
+                : testingPassword === value
+                ? '#F75524'
+                : '#343442',
             }}
             disabled={!(testingPassword === value)}
           />
@@ -95,10 +107,18 @@ const InputsWrapper = styled.div({
   },
 });
 
-const Label = styled.div({
+const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontWeight: 400,
   fontSize: 14,
   lineHeight: '22px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#434358',
   marginBottom: 16,
+}));
+
+const UserLabel = styled.p({
+  color: '#708390',
+  fontSize: 24,
+  lineHeight: '24px',
+  fontWeight: 600,
+  margin: '0 8px 0 0',
 });
