@@ -9,12 +9,7 @@ interface AuthContextProps {
   clearCredentials?: () => void;
 }
 
-const AuthContext = React.createContext<AuthContextProps>({
-  user: undefined,
-  authToken: '',
-  setCredentials: undefined,
-  clearCredentials: undefined,
-});
+const AuthContext = React.createContext<AuthContextProps | null>(null);
 
 export const useAuthContext = () => React.useContext(AuthContext);
 

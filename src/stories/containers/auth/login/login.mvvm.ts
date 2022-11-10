@@ -49,7 +49,7 @@ export const useLoginMvvm = () => {
       const { query: gqlQuery, input } = LOGIN_REQUEST(values.username, values.password);
       try {
         const response = await request(GRAPHQL_ENDPOINT, gqlQuery, input);
-        setCredentials(response.userLogin);
+        setCredentials?.(response.userLogin);
         router.push('/');
       } catch (err) {
         setError('Invalid username or password');
