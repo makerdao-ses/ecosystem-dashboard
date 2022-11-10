@@ -20,7 +20,7 @@ interface Props {
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const Header = ({ links }: Props) => {
   const { themeMode, toggleTheme, isLight } = useThemeContext();
-  const { isAuthenticated } = useAuthContext();
+  const { authToken, user, clearCredentials } = useAuthContext();
 
   const router = useRouter();
   const onClick = useCallback(
@@ -95,28 +95,28 @@ const Header = ({ links }: Props) => {
             <TopBarSelect selectedOption={activeMenuItem.title} />
           </ItemMenuResponsive>
           <RightElementsWrapper>
-            {isAuthenticated ? (
-              <LinkWrapper>
-                <UserBadge username={'Wouter Kampmann'} />
-              </LinkWrapper>
+            {authToken ? (
+              <UserBadge username={user?.username} onClick={clearCredentials} />
             ) : (
-              <CustomLink
-                children="How to Submit Expenses"
-                fontWeight={500}
-                fontSize={16}
-                href={HOW_TO_SUBMIT_EXPENSES}
-                style={{
-                  fontFamily: 'Inter, sans serif',
-                  color: '#447AFB',
-                  fontStyle: 'normal',
-                  letterSpacing: '0.3px',
-                  marginLeft: '0px',
-                }}
-                marginLeft="7px"
-                withArrow
-                iconHeight={10}
-                iconWidth={10}
-              />
+              <LinkWrapper>
+                <CustomLink
+                  children="How to Submit Expenses"
+                  fontWeight={500}
+                  fontSize={16}
+                  href={HOW_TO_SUBMIT_EXPENSES}
+                  style={{
+                    fontFamily: 'Inter, sans serif',
+                    color: '#447AFB',
+                    fontStyle: 'normal',
+                    letterSpacing: '0.3px',
+                    marginLeft: '0px',
+                  }}
+                  marginLeft="7px"
+                  withArrow
+                  iconHeight={10}
+                  iconWidth={10}
+                />
+              </LinkWrapper>
             )}
           </RightElementsWrapper>
         </Navigation>
@@ -238,9 +238,8 @@ const LinkWrapper = styled.div({
 });
 
 const RightElementsWrapper = styled.div({
-  display: 'none',
+  display: 'flex',
   '@media (min-width: 834px)': {
-    display: 'flex',
     position: 'absolute',
     right: 16,
   },

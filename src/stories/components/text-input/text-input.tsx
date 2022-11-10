@@ -107,15 +107,8 @@ const Input = styled.input<{ active: boolean; error: boolean; isLight: boolean }
 const Error = styled.div({
   display: 'flex',
   color: '#F75524',
-  width: 356,
+  width: '100%',
   fontSize: 14,
   lineHeight: '17px',
-  paddingLeft: 16,
   marginTop: 8,
-  '::before': {
-    content: '"*"',
-    position: 'absolute',
-    left: 2,
-    marginTop: 1,
-  },
 });
