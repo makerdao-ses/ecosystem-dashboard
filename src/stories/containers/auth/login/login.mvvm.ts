@@ -1,17 +1,21 @@
-/* eslint-disable spellcheck/spell-checker */
+// eslint-disable-next-line spellcheck/spell-checker
 import { useFormik } from 'formik';
+import request from 'graphql-request';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import * as yup from 'yup';
+import { GRAPHQL_ENDPOINT } from '../../../../config/endpoints';
 import { useAuthContext } from '../../../../core/context/AuthContext';
+import { LOGIN_REQUEST } from './login.api';
 
 const charactersNotAllowedMessage =
-  'Characters not allowed. Only letters, numbers, and the following characters are allowed: !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
+  'Invalid Character(s). Only letters, numbers, and the following characters are allowed: !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
 
 const validationSchema = yup.object({
   username: yup.string().required('Username is required'),
   password: yup
     .string()
-    .min(10, 'Your password must have at least 10 characters.')
+    // .min(10, 'Your password must have at least 10 characters.')
     .matches(/[^a-z]/g, 'Your password must contain at least one uppercase character, number, or special character.')
     .matches(/[^A-Z]/g, 'Your password must contain at least one lowercase character, number, or special character.')
     .matches(
@@ -30,27 +34,31 @@ const validationSchema = yup.object({
 });
 
 export const useLoginMvvm = () => {
-  const { setIsAuthenticated, isAuthenticated } = useAuthContext();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { setCredentials } = useAuthContext();
+  const router = useRouter();
   const [error, setError] = useState<string>('');
+  // eslint-disable-next-line spellcheck/spell-checker
   const form = useFormik({
     initialValues: {
       username: '',
       password: '',
     },
     validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      setError('');
+      const { query: gqlQuery, input } = LOGIN_REQUEST(values.username, values.password);
+      try {
+        const response = await request(GRAPHQL_ENDPOINT, gqlQuery, input);
+        setCredentials(response.userLogin);
+        router.push('/');
+      } catch (err) {
+        setError('Invalid username or password');
+      }
     },
   });
-
-  const onLogin = () => {
-    setIsAuthenticated(!isAuthenticated);
-  };
 
   return {
     form,
     error,
-    onLogin,
   };
 };

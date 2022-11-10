@@ -6,7 +6,7 @@ import TextInput from '../../../components/text-input/text-input';
 import { useLoginMvvm } from './login.mvvm';
 
 export default () => {
-  const { form, error, onLogin } = useLoginMvvm();
+  const { form, error } = useLoginMvvm();
 
   return (
     <Wrapper>
@@ -21,7 +21,7 @@ export default () => {
             value={form.values.username}
             onChange={form.handleChange}
             onBlur={form.handleBlur}
-            error={(form.touched.username && form.errors.username) ?? error}
+            error={(form.touched.username && form.errors.username) ?? !!error}
             name="username"
           />
           <TextInput
@@ -37,7 +37,7 @@ export default () => {
         <ButtonWrapper>
           <CustomButton
             label="Log In"
-            onClick={onLogin}
+            onClick={form.submitForm}
             style={{
               width: 128,
               borderRadius: 22,

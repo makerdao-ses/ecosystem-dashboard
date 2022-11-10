@@ -9,7 +9,8 @@ interface CustomButtonProps {
   className?: string;
   disabled?: boolean;
   style?: CSSProperties;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void | (() => void);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void | (() => void) | Promise<any>;
   widthText?: string;
   styleText?: CSSProperties;
   isHightLight?: boolean;

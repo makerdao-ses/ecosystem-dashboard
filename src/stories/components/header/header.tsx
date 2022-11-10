@@ -20,7 +20,7 @@ interface Props {
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const Header = ({ links }: Props) => {
   const { themeMode, toggleTheme, isLight } = useThemeContext();
-  const { isAuthenticated } = useAuthContext();
+  const { authToken, user, clearCredentials } = useAuthContext();
 
   const router = useRouter();
   const onClick = useCallback(
@@ -95,8 +95,8 @@ const Header = ({ links }: Props) => {
             <TopBarSelect selectedOption={activeMenuItem.title} />
           </ItemMenuResponsive>
           <RightElementsWrapper>
-            {isAuthenticated ? (
-              <UserBadge username={'Wouter'} />
+            {authToken ? (
+              <UserBadge username={user?.username} onClick={clearCredentials} />
             ) : (
               <LinkWrapper>
                 <CustomLink
