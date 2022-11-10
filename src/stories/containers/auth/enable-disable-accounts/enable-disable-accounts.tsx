@@ -1,37 +1,48 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from '@emotion/styled';
-import _ from 'lodash';
-import React, { useCallback, useState } from 'react';
+import request, { GraphQLClient } from 'graphql-request';
+import fill from 'lodash/fill';
+import { useRouter } from 'next/router';
+import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
+import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { ButtonType } from '../../../../core/enums/button-type.enum';
 import ControlledSwitches from '../../../components/button/switch-toogle/switch-component';
+import CloseButton from '../../../components/close-button/close-button';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import { CustomLink } from '../../../components/custom-link/custom-link';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import { Wrapper } from '../login/login';
+import { ENABLE_DISABLE_USER_REQUEST } from './enable-disable.api';
 
 const arrayPassword = new Array<string>(8);
-const resultPassword = _.fill(arrayPassword, 'a');
+const resultPassword = fill(arrayPassword, 'a');
 
 export default () => {
+  const router = useRouter();
   const { isLight } = useThemeContext();
-  const [checked, setChecked] = useState(true);
+  const { user, clientRequest } = useAuthContext();
+  const [checked, setChecked] = useState(false);
 
-  const handleChange = useCallback(() => {
-    setChecked(!checked);
-  }, [checked]);
+  const handleChange = useCallback(async () => {
+    const { query: gqlQuery, input } = ENABLE_DISABLE_USER_REQUEST(!checked, '1');
+    const data = await clientRequest?.request(gqlQuery, input);
+    if (data) {
+      console.log('data', data.userSetActiveFlag[0].active);
+      setChecked(data.userSetActiveFlag[0].active);
+    }
+  }, [checked, clientRequest]);
+
+  const handleDeleteAccount = useCallback(() => {
+    router.push('/auth/delete-account');
+  }, [router]);
 
   return (
     <Wrapper isLight={isLight}>
       <Container isLight={isLight}>
         <ContainerInside>
-          <CustomButton
-            buttonType={ButtonType.Default}
-            label="Close"
+          <CloseButton
             style={{
-              width: 86,
-              height: 34,
-              borderRadius: 22,
               position: 'absolute',
               top: 24,
               right: 24,
@@ -54,7 +65,7 @@ export default () => {
             }}
           >
             <UserNameLabel isLight={isLight}>Username:</UserNameLabel>
-            <UserLabelValue isLight={isLight}>LongForWisdom</UserLabelValue>
+            <UserLabelValue isLight={isLight}>{user?.username}</UserLabelValue>
           </div>
           <div
             style={{
@@ -72,9 +83,9 @@ export default () => {
                 alignItems: 'center',
               }}
             >
-              {resultPassword.map((item: unknown) => {
+              {resultPassword.map((item: unknown, index) => {
                 return (
-                  <div style={{ marginRight: '4px' }}>
+                  <div style={{ marginRight: '4px' }} key={index}>
                     <DotPassword isLight={isLight} />
                   </div>
                 );
@@ -98,6 +109,7 @@ export default () => {
         <Line isLight={isLight} />
         <ButtonWrapper>
           <CustomButton
+            onClick={handleDeleteAccount}
             label="Delete Account"
             style={{
               width: 151,
