@@ -4,12 +4,12 @@ import { LoginDTO, UserDTO } from '../models/dto/auth.dto';
 
 interface AuthContextProps {
   user?: UserDTO;
-  authToken: string;
+  authToken?: string;
   setCredentials?: (value: LoginDTO) => void;
   clearCredentials?: () => void;
 }
 
-const AuthContext = React.createContext<AuthContextProps | null>(null);
+const AuthContext = React.createContext<AuthContextProps>({});
 
 export const useAuthContext = () => React.useContext(AuthContext);
 
