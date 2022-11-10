@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import TextInput from '../../../components/text-input/text-input';
 import { useLoginMvvm } from './login.mvvm';
@@ -7,9 +8,10 @@ import Image from 'next/image';
 
 export default () => {
   const { form, error } = useLoginMvvm();
+  const { isLight } = useThemeContext();
 
   return (
-    <Wrapper>
+    <Wrapper isLight={isLight}>
       <Container>
         <Image src={'/assets/img/ses-logo-64x64.png'} width={64} height={64} />
         <Title>Log In</Title>
@@ -49,7 +51,7 @@ export default () => {
   );
 };
 
-export const Wrapper = styled.div({
+export const Wrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   flex: 1,
   alignItems: 'center',
@@ -57,7 +59,11 @@ export const Wrapper = styled.div({
   width: '100vw',
   height: '100vh',
   overflow: 'hidden',
-});
+  backgroundColor: isLight ? '#FFFFFF' : '#000000',
+  backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/login-bg.png)',
+  backgroundAttachment: 'fixed',
+  backgroundSize: 'cover',
+}));
 
 export const Container = styled.div({
   display: 'flex',
