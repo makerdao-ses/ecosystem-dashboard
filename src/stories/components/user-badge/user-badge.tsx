@@ -5,11 +5,12 @@ import { CircleAvatar } from '../circle-avatar/circle-avatar';
 
 interface Props {
   username: string;
+  style?: React.CSSProperties;
 }
 export default (props: Props) => {
   const isDesktop = useMediaQuery('(min-width: 834px)');
   return isDesktop ? (
-    <Container className="no-select">
+    <Container className="no-select" style={props.style}>
       <CircleAvatar
         width="32px"
         height="32px"
@@ -26,15 +27,14 @@ export default (props: Props) => {
     </Container>
   ) : (
     <CircleAvatar
-      width="32px"
-      height="32px"
+      width="35px"
+      height="35px"
       name={props.username ?? 'Wouter Kampmann'}
       fontSize="14px"
       style={{
-        position: 'absolute',
-        left: 0,
-        top: 0,
         border: '1px solid #D4D9E1',
+        marginRight: 16,
+        ...props.style,
       }}
     />
   );
