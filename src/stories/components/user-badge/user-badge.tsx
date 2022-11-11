@@ -9,14 +9,14 @@ interface Props {
   onClick?: () => void;
 }
 
-export default (props: Props) => {
+export default ({ onClick, username, style }: Props) => {
   const isDesktop = useMediaQuery('(min-width: 834px)');
   return isDesktop ? (
-    <Container className="no-select" style={props.style} onClick={props.onClick}>
+    <Container className="no-select" style={style} onClick={onClick}>
       <CircleAvatar
         width="32px"
         height="32px"
-        name={props.username ?? 'Username'}
+        name={username ?? 'Username'}
         fontSize="14px"
         style={{
           position: 'absolute',
@@ -25,20 +25,20 @@ export default (props: Props) => {
           border: '2px solid #708390',
         }}
       />
-      <UserName>{props.username ?? 'Username'}</UserName>
+      <UserName>{username ?? 'Username'}</UserName>
     </Container>
   ) : (
     <CircleAvatar
       width="35px"
       height="35px"
-      name={props.username ?? 'Username'}
+      name={username ?? 'Username'}
       fontSize="14px"
-      onClick={props.onClick}
+      onClick={onClick}
       style={{
         border: '1px solid #D4D9E1',
         cursor: 'pointer',
         marginRight: 16,
-        ...props.style,
+        ...style,
       }}
     />
   );
