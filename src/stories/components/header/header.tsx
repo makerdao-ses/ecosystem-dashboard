@@ -4,25 +4,36 @@ import { useCallback, useMemo } from 'react';
 import { useAuthContext } from '../../../core/context/AuthContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
-import ThemeSwitcherButton from '../button/switch-button/switch-buttom';
 import { CustomLink } from '../custom-link/custom-link';
 import Expenses from '../svg/expenses';
 import Logo from '../svg/logo';
+
 import { TopBarSelect } from '../top-bar-select/top-bar-select';
-import UserBadge from '../user-badge/user-badge';
+
 import menuItems, { MenuType } from './menu-items';
 import { WebSiteLinks } from './select-link-website/menu-items';
 import SelectLink from './select-link-website/select-link';
+import MenuTheme from '../menu-navigation/menu-theme/menu-theme';
+import MenuUserOptions from '../menu-navigation/menu-user/menu-user';
 
 interface Props {
   links: WebSiteLinks[];
 }
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const Header = ({ links }: Props) => {
+  const router = useRouter();
+
   const { themeMode, toggleTheme, isLight } = useThemeContext();
   const { authToken, user, clearCredentials } = useAuthContext();
 
-  const router = useRouter();
+  // TODO:THis is because the roles don't got save in DTO
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const isAdmin = useMemo(() => (user as any)?.roles[0].name === 'SuperAdmin', [user]);
+
+  const handleOnClickLogOut = () => {
+    clearCredentials && clearCredentials();
+  };
+
   const onClick = useCallback(
     (link: string) => () => {
       window.open(link, '_blank');
@@ -83,7 +94,6 @@ const Header = ({ links }: Props) => {
                 isLight={isLight}
                 key={item.title}
                 style={{ marginRight: item.marginRight }}
-                // href={item.link}
                 onClick={handleOnClick(item.link)}
                 active={activeMenuItem === item}
               >
@@ -96,7 +106,15 @@ const Header = ({ links }: Props) => {
           </ItemMenuResponsive>
           <RightElementsWrapper>
             {authToken ? (
-              <UserBadge username={user?.username} onClick={clearCredentials} />
+              <MenuUserOptions
+                isAdmin={isAdmin}
+                // eslint-disable-next-line @typescript-eslint/no-empty-function
+                onClickAccountManager={() => {}}
+                onClickLogOut={handleOnClickLogOut}
+                // eslint-disable-next-line @typescript-eslint/no-empty-function
+                onClickProfile={() => {}}
+                username={user?.username || ''}
+              />
             ) : (
               <LinkWrapper>
                 <CustomLink
@@ -122,9 +140,7 @@ const Header = ({ links }: Props) => {
         </Navigation>
       </LeftPart>
       <RightPart>
-        <ThemeSwitcherButtonWrapper>
-          <ThemeSwitcherButton themeMode={themeMode} toggleTheme={toggleTheme} />
-        </ThemeSwitcherButtonWrapper>
+        <MenuTheme themeMode={themeMode} toggleTheme={toggleTheme} />
         <SelectLink
           links={links}
           themeMode={themeMode}
@@ -252,13 +268,6 @@ const LogoLinksWrapper = styled.div({
   display: 'none',
   '@media (min-width: 635px)': {
     display: 'flex',
-  },
-});
-
-const ThemeSwitcherButtonWrapper = styled.div({
-  display: 'none',
-  '@media (min-width: 635px)': {
-    display: 'block',
   },
 });
 
