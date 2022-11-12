@@ -5,10 +5,13 @@ import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import TextInput from '../../../components/text-input/text-input';
-import { ButtonWrapper, Container, Wrapper } from '../login/login';
+import { ButtonWrapper, Container, Wrapper, Form } from '../login/login';
+import { useCreateAccountMvvm } from './create-account.mvvm';
 
 export default () => {
   const { isLight } = useThemeContext();
+  const { form, loading, error } = useCreateAccountMvvm();
+
   return (
     <Wrapper isLight={isLight}>
       <Container isLight={isLight}>
@@ -22,44 +25,61 @@ export default () => {
         <AvatarPlaceholder />
         <Title>Create New Account</Title>
         <Description>Create a new user account to provide access to the administration area.</Description>
-        <InputsWrapper>
-          <Label>Enter Username</Label>
-          <TextInput
-            type="text"
-            placeholder="Username"
-            name="username"
-            style={{
-              marginBottom: '32px',
-            }}
-          />
-          <Label>Create Password</Label>
-          <TextInput
-            type="password"
-            placeholder="Password"
-            name="password"
-            style={{
-              marginBottom: '24px',
-            }}
-          />
-          <TextInput
-            type="password"
-            placeholder="Confirm Password"
-            name="confirm-password"
-            style={{
-              marginBottom: '24px',
-            }}
-          />
-        </InputsWrapper>
-        <ButtonWrapper>
-          <CustomButton
-            label="Create Account"
-            style={{
-              width: 200,
-              height: 40,
-              borderRadius: 22,
-            }}
-          />
-        </ButtonWrapper>
+        <Form onSubmit={form.submitForm}>
+          <InputsWrapper>
+            <Label>Enter Username</Label>
+            <TextInput
+              type="text"
+              placeholder="Username"
+              name="username"
+              value={form.values.username}
+              onChange={form.handleChange}
+              onBlur={form.handleBlur}
+              error={(form.touched.username && form.errors.username) ?? !!error}
+              style={{
+                marginBottom: '32px',
+              }}
+            />
+            <Label>Create Password</Label>
+            <TextInput
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={form.values.password}
+              onChange={form.handleChange}
+              onBlur={form.handleBlur}
+              error={(form.touched.password && form.errors.password) ?? !!error}
+              disabled={loading}
+              style={{
+                marginBottom: '24px',
+              }}
+            />
+            <TextInput
+              type="password"
+              placeholder="Confirm Password"
+              name="confirmPassword"
+              value={form.values.confirmPassword}
+              onChange={form.handleChange}
+              onBlur={form.handleBlur}
+              error={(form.touched.confirmPassword && form.errors.confirmPassword) ?? !!error}
+              disabled={loading}
+              style={{
+                marginBottom: '24px',
+              }}
+            />
+          </InputsWrapper>
+          <ButtonWrapper>
+            <CustomButton
+              label="Create Account"
+              style={{
+                width: 200,
+                height: 40,
+                borderRadius: 22,
+              }}
+            />
+          </ButtonWrapper>
+          <input type="submit" style={{ display: 'none' }} />
+        </Form>
       </Container>
     </Wrapper>
   );

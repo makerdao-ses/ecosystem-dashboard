@@ -35,6 +35,7 @@ export const useLoginMvvm = () => {
         router.push('/');
       } catch (err) {
         setError('Invalid username or password');
+        console.error(err);
       } finally {
         setLoading(false);
       }

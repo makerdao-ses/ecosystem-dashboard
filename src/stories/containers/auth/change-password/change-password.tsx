@@ -4,7 +4,7 @@ import CloseButton from '../../../components/close-button/close-button';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import TextInput from '../../../components/text-input/text-input';
-import { ButtonWrapper, Container, Wrapper } from '../login/login';
+import { ButtonWrapper, Container, Form, Wrapper } from '../login/login';
 import { userChangePasswordMvvm } from './change-password.mvvm';
 import { CircleAvatar } from '../../../components/circle-avatar/circle-avatar';
 
@@ -29,55 +29,58 @@ export default () => {
           <Username isLight={isLight}>{username}</Username>
         </UserWrapper>
         <ChangePassword>Change Your Password</ChangePassword>
-        <InputsWrapper>
-          <Label>Enter Existing Password</Label>
-          <TextInput
-            type="password"
-            placeholder="Password"
-            name="oldPassword"
-            value={form.values.oldPassword}
-            onChange={form.handleChange}
-            onBlur={form.handleBlur}
-            error={form.touched.oldPassword && form.errors.oldPassword}
-            style={{ marginBottom: 32 }}
-            disabled={loading}
-          />
-          <Label>Enter New Password</Label>
-          <TextInput
-            type="password"
-            placeholder="New Password"
-            name="newPassword"
-            value={form.values.newPassword}
-            onChange={form.handleChange}
-            onBlur={form.handleBlur}
-            error={form.touched.newPassword && form.errors.newPassword}
-            style={{ marginBottom: 24 }}
-            disabled={loading}
-          />
-          <TextInput
-            type="password"
-            placeholder="Confirm Password"
-            name="confirmPassword"
-            value={form.values.confirmPassword}
-            onChange={form.handleChange}
-            onBlur={form.handleBlur}
-            error={(form.touched.confirmPassword && form.errors.confirmPassword) ?? error}
-            style={{ marginBottom: 32 }}
-            disabled={loading}
-          />
-        </InputsWrapper>
-        <ButtonWrapper>
-          <CustomButton
-            label="Set New Password"
-            onClick={form.submitForm}
-            style={{
-              width: 174,
-              height: 34,
-              borderRadius: 22,
-            }}
-            disabled={loading}
-          />
-        </ButtonWrapper>
+        <Form onSubmit={form.submitForm}>
+          <InputsWrapper>
+            <Label>Enter Existing Password</Label>
+            <TextInput
+              type="password"
+              placeholder="Password"
+              name="oldPassword"
+              value={form.values.oldPassword}
+              onChange={form.handleChange}
+              onBlur={form.handleBlur}
+              error={form.touched.oldPassword && form.errors.oldPassword}
+              style={{ marginBottom: 32 }}
+              disabled={loading}
+            />
+            <Label>Enter New Password</Label>
+            <TextInput
+              type="password"
+              placeholder="New Password"
+              name="newPassword"
+              value={form.values.newPassword}
+              onChange={form.handleChange}
+              onBlur={form.handleBlur}
+              error={form.touched.newPassword && form.errors.newPassword}
+              style={{ marginBottom: 24 }}
+              disabled={loading}
+            />
+            <TextInput
+              type="password"
+              placeholder="Confirm Password"
+              name="confirmPassword"
+              value={form.values.confirmPassword}
+              onChange={form.handleChange}
+              onBlur={form.handleBlur}
+              error={(form.touched.confirmPassword && form.errors.confirmPassword) ?? error}
+              style={{ marginBottom: 32 }}
+              disabled={loading}
+            />
+          </InputsWrapper>
+          <ButtonWrapper>
+            <CustomButton
+              label="Set New Password"
+              onClick={form.submitForm}
+              style={{
+                width: 174,
+                height: 34,
+                borderRadius: 22,
+              }}
+              disabled={loading}
+            />
+          </ButtonWrapper>
+          <input type="submit" style={{ display: 'none' }} />
+        </Form>
       </Container>
     </Wrapper>
   );
