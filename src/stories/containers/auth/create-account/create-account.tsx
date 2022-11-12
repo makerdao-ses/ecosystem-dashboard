@@ -11,7 +11,7 @@ export default () => {
   const { isLight } = useThemeContext();
   return (
     <Wrapper isLight={isLight}>
-      <Container>
+      <Container isLight={isLight}>
         <CloseButton
           style={{
             position: 'absolute',
