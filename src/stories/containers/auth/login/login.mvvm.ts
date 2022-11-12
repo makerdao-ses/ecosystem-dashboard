@@ -6,10 +6,8 @@ import { useState } from 'react';
 import * as yup from 'yup';
 import { GRAPHQL_ENDPOINT } from '../../../../config/endpoints';
 import { useAuthContext } from '../../../../core/context/AuthContext';
+import { INVALID_CHARACTERS_MESSAGE } from '../../../../core/utils/const';
 import { LOGIN_REQUEST } from './login.api';
-
-const charactersNotAllowedMessage =
-  'Invalid Character(s). Only letters, numbers, and the following characters are allowed: !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
 
 const validationSchema = yup.object({
   username: yup.string().required('Username is required'),
@@ -28,7 +26,7 @@ const validationSchema = yup.object({
     )
     .matches(
       /^((((([a-z]+[A-Z]+)+)|(([A-Z]+[a-z]+)+)|(([a-z]+[0-9]+)+)|(([0-9]+[a-z]+)+)|(([A-Z]+[0-9]+)+)|(([0-9]+[A-Z]+)+)))|(((([!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]+[A-Z]+)+)|(([A-Z]+[!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]+)+)|(([a-z]+[!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]+)+)||(([!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]+[a-z]+)+)|(([A-Z]+[0-9]+)+)|(([0-9]+[A-Z]+)+)))|(((([!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]+[0-9]+)+)|(([0-9]+[!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]+)+))))[a-zA-Z0-9!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]*$/g,
-      charactersNotAllowedMessage
+      INVALID_CHARACTERS_MESSAGE
     )
     .required('Password is required'),
 });
@@ -37,6 +35,7 @@ export const useLoginMvvm = () => {
   const { setCredentials } = useAuthContext();
   const router = useRouter();
   const [error, setError] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
   // eslint-disable-next-line spellcheck/spell-checker
   const form = useFormik({
     initialValues: {
@@ -45,6 +44,7 @@ export const useLoginMvvm = () => {
     },
     validationSchema,
     onSubmit: async (values) => {
+      setLoading(true);
       setError('');
       const { query: gqlQuery, input } = LOGIN_REQUEST(values.username, values.password);
       try {
@@ -53,6 +53,8 @@ export const useLoginMvvm = () => {
         router.push('/');
       } catch (err) {
         setError('Invalid username or password');
+      } finally {
+        setLoading(false);
       }
     },
   });
@@ -60,5 +62,6 @@ export const useLoginMvvm = () => {
   return {
     form,
     error,
+    loading,
   };
 };

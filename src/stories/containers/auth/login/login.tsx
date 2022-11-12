@@ -7,7 +7,7 @@ import { useLoginMvvm } from './login.mvvm';
 import Image from 'next/image';
 
 export default () => {
-  const { form, error } = useLoginMvvm();
+  const { form: formLogic, loading, error } = useLoginMvvm();
   const { isLight } = useThemeContext();
 
   return (
@@ -16,36 +16,47 @@ export default () => {
         <Image src={'/assets/img/ses-logo-64x64.png'} width={64} height={64} />
         <Title>Log In</Title>
         <Description>Enter your username and password to get access to the administration area.</Description>
-        <InputsWrapper>
-          <TextInput
-            style={{ marginBottom: 32 }}
-            placeholder="Username"
-            value={form.values.username}
-            onChange={form.handleChange}
-            onBlur={form.handleBlur}
-            error={(form.touched.username && form.errors.username) ?? !!error}
-            name="username"
-          />
-          <TextInput
-            placeholder="Password"
-            value={form.values.password}
-            onChange={form.handleChange}
-            onBlur={form.handleBlur}
-            error={(form.touched.password && form.errors.password) ?? error}
-            type="password"
-            name="password"
-          />
-        </InputsWrapper>
-        <ButtonWrapper>
-          <CustomButton
-            label="Log In"
-            onClick={form.submitForm}
-            style={{
-              width: 128,
-              borderRadius: 22,
-            }}
-          />
-        </ButtonWrapper>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            formLogic.handleSubmit();
+          }}
+        >
+          <InputsWrapper>
+            <TextInput
+              name="username"
+              style={{ marginBottom: 32 }}
+              placeholder="Username"
+              value={formLogic.values.username}
+              onChange={formLogic.handleChange}
+              onBlur={formLogic.handleBlur}
+              error={(formLogic.touched.username && formLogic.errors.username) ?? !!error}
+              disabled={loading}
+            />
+            <TextInput
+              name="password"
+              placeholder="Password"
+              value={formLogic.values.password}
+              onChange={formLogic.handleChange}
+              onBlur={formLogic.handleBlur}
+              error={(formLogic.touched.password && formLogic.errors.password) ?? error}
+              type="password"
+              disabled={loading}
+            />
+          </InputsWrapper>
+          <ButtonWrapper>
+            <CustomButton
+              label="Log In"
+              onClick={formLogic.submitForm}
+              style={{
+                width: 128,
+                borderRadius: 22,
+              }}
+              disabled={loading}
+            />
+          </ButtonWrapper>
+          <input type="submit" style={{ display: 'none' }} />
+        </Form>
       </Container>
     </Wrapper>
   );
@@ -120,4 +131,10 @@ export const InputsWrapper = styled.div({
   '@media (min-width: 834px)': {
     marginBottom: 60,
   },
+});
+
+export const Form = styled.form({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
 });
