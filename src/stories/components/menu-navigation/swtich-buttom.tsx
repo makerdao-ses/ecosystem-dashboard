@@ -10,7 +10,7 @@ interface Props {
 
 const SwitcherButton = ({ themeMode, toggleTheme }: Props) => {
   return (
-    <div onClick={toggleTheme}>
+    <MainContainer onClick={toggleTheme}>
       {themeMode === 'light' ? (
         <Container>
           <MoonMode width={18} height={18} />
@@ -22,9 +22,13 @@ const SwitcherButton = ({ themeMode, toggleTheme }: Props) => {
           <Label>Light Mode</Label>
         </Container>
       )}
-    </div>
+    </MainContainer>
   );
 };
+
+const MainContainer = styled.div({
+  width: 'fit-content',
+});
 
 const Container = styled.div({
   display: 'flex',
