@@ -5,8 +5,8 @@ import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import TextInput from '../../../components/text-input/text-input';
-import { Spacer, Username, UserWrapper } from '../change-password/change-password';
-import { ButtonWrapper, Container, Wrapper } from '../login/login';
+import { Spacer, Username, UserWrapper } from '../../auth/change-password/change-password';
+import { ButtonWrapper, Container, Wrapper } from '../../auth/login/login';
 
 export default () => {
   const testingPassword = '1234';

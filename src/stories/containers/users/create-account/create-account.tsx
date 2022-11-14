@@ -5,7 +5,7 @@ import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import TextInput from '../../../components/text-input/text-input';
-import { ButtonWrapper, Container, Wrapper, Form } from '../login/login';
+import { ButtonWrapper, Container, Wrapper, Form } from '../../auth/login/login';
 import { useCreateAccountMvvm } from './create-account.mvvm';
 
 export default () => {

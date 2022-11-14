@@ -1,3 +1,4 @@
+// eslint-disable-next-line spellcheck/spell-checker
 import { useFormik } from 'formik';
 import request from 'graphql-request';
 import { useRouter } from 'next/router';

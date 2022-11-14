@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import React from 'react';
 import { featureFlags } from '../../../feature-flags/feature-flags';
 import { CURRENT_ENVIRONMENT } from '../../../src/config/endpoints';
-import DeleteAccount from '../../../src/stories/containers/auth/delete-account/delete-account';
+import CreateAccount from '../../../src/stories/containers/users/create-account/create-account';
 import NotFoundPage from '../../404';
 
 const CreateAccountPage: NextPage = () => {
@@ -10,7 +10,7 @@ const CreateAccountPage: NextPage = () => {
     return <NotFoundPage />;
   }
 
-  return <DeleteAccount />;
+  return <CreateAccount />;
 };
 
 export default CreateAccountPage;
