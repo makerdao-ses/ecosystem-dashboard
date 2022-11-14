@@ -1,5 +1,6 @@
 import { CuCategoryEnum } from '../enums/cu-category.enum';
 import { CuJobEnum } from '../enums/cu-job.enum';
+import { RoleEnum } from '../enums/role.enum';
 
 export const getColorForString = (value: string): string => {
   let hash = 0;
@@ -120,6 +121,32 @@ export const getColorJobPosition = (job: CuJobEnum) => {
     default:
       return {
         color: '#000000',
+      };
+  }
+};
+
+export const getColorRole = (role: RoleEnum) => {
+  switch (role) {
+    case RoleEnum.CoreUnitAdmin:
+      return {
+        color: '#447AFB',
+        darkColor: '#34AAFF',
+      };
+    case RoleEnum.SiteAdmin:
+      return {
+        color: '#FF4085',
+        darkColor: '#FF4085',
+      };
+    case RoleEnum.User:
+      return {
+        color: '#1AAB9B',
+        darkColor: '#1DC1AE',
+      };
+
+    default:
+      return {
+        color: '#000000',
+        darkColor: '#447AFB',
       };
   }
 };
