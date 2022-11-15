@@ -14,8 +14,10 @@ export default () => {
     <Wrapper isLight={isLight}>
       <Container isLight={isLight}>
         <Image src={'/assets/img/ses-logo-64x64.png'} width={64} height={64} />
-        <Title>Log In</Title>
-        <Description>Enter your username and password to get access to the administration area.</Description>
+        <Title isLight={isLight}>Log In</Title>
+        <Description isLight={isLight}>
+          Enter your username and password to get access to the administration area.
+        </Description>
         <Form
           onSubmit={(e) => {
             e.preventDefault();
