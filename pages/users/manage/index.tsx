@@ -7,12 +7,9 @@ import UsersManager from '../../../src/stories/containers/users/users-manager/us
 import NotFoundPage from '../../404';
 
 const UsersManagePage: NextPage = () => {
-  const { user } = useAuthContext();
+  const { authToken } = useAuthContext();
 
-  if (
-    !featureFlags[CURRENT_ENVIRONMENT].FEATURE_AUTH ||
-    user?.permissions.every((permission) => permission.includes(''))
-  ) {
+  if (!featureFlags[CURRENT_ENVIRONMENT].FEATURE_AUTH && !authToken) {
     return <NotFoundPage />;
   }
 
