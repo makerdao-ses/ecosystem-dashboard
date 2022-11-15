@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import lightTheme from '../../../../styles/theme/light';
 import { ButtonType } from '../../../core/enums/button-type.enum';
+import AddIcon from '../svg/add';
 
 interface CustomButtonProps {
   label: string | JSX.Element;
@@ -18,6 +19,10 @@ interface CustomButtonProps {
   buttonType?: ButtonType;
   allowsHover?: boolean;
   active?: boolean;
+  withIcon?: boolean;
+  width?: number;
+  height?: number;
+  fill?: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -60,6 +65,20 @@ const customStyles: { [id: string]: any } = {
     borderColor: '#098C7D',
     borderColorDark: '#1AAB9B',
   },
+  Danger: {
+    textColor: '#F77249',
+    textColorDark: '#FF8237',
+    background: 'transparent',
+    backgroundDark: 'transparent',
+    borderColor: '#F77249',
+    borderColorDark: '#FF8237',
+    activeColorText: '#F77249',
+    activeBackground: '#FDEDE8',
+    activeBorderColor: '#F77249',
+    activeColorTextDark: '#FF8237',
+    activeBackgroundDark: '#FDEDE8',
+    activeBorderColorDark: '#F77249',
+  },
 };
 
 export const CustomButton = ({
@@ -67,6 +86,10 @@ export const CustomButton = ({
   buttonType = ButtonType.Default,
   allowsHover = true,
   active,
+  withIcon = false,
+  fill,
+  height,
+  width,
   ...props
 }: CustomButtonProps) => {
   const isLight = useThemeContext().themeMode === 'light';
@@ -117,6 +140,16 @@ export const CustomButton = ({
         }}
       >
         {props.label}
+        {withIcon && (
+          <AddIcon
+            fill={fill}
+            height={height}
+            width={width}
+            style={{
+              marginLeft: 7.53,
+            }}
+          />
+        )}
       </Text>
     </Container>
   );
@@ -148,6 +181,10 @@ const Container = styled.button<{
             ? active
               ? '#1AAB9B'
               : '#231536'
+            : buttonType === ButtonType.Danger
+            ? active
+              ? '#F75524'
+              : '#FAB6A1'
             : buttonType === ButtonType.Primary
             ? '#1AAB9B'
             : '#098C7D'
@@ -161,6 +198,10 @@ const Container = styled.button<{
             ? active
               ? '#E7FCFA'
               : '#FFFFFF'
+            : buttonType === ButtonType.Danger
+            ? active
+              ? '#FBE1D9'
+              : 'transparent'
             : buttonType === ButtonType.Primary
             ? '#B6EDE7'
             : 'white'

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { ButtonType } from '../../../core/enums/button-type.enum';
 import { RoleEnum } from '../../../core/enums/role.enum';
 import { getColorRole } from '../../../core/utils/color.utils';
 import ControlledSwitches from '../button/switch-toogle/switch-component';
@@ -11,9 +12,19 @@ interface Props {
   role: RoleEnum;
   checked: boolean;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleDeleteAccount?: () => void;
+  handleViewProfile?: () => void;
 }
 
-const UserCard = ({ role, checked, handleChange }: Props) => {
+const UserCard = ({
+  role,
+  checked,
+  handleChange,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  handleDeleteAccount = () => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  handleViewProfile = () => {},
+}: Props) => {
   const { isLight } = useThemeContext();
   const color = getColorRole(role);
   return (
@@ -31,17 +42,22 @@ const UserCard = ({ role, checked, handleChange }: Props) => {
               height: 34,
               width: 128,
             }}
+            onClick={handleViewProfile}
           />
         </PositionRow>
       </ContainerInside>
       <Line isLight={isLight} />
       <FooterCard>
         <CustomButton
+          buttonType={
+            role === RoleEnum.CoreUnitAdmin || role === RoleEnum.SiteAdmin ? ButtonType.Default : ButtonType.Danger
+          }
           label="Delete"
           style={{
             height: 34,
             width: 92,
           }}
+          onClick={handleDeleteAccount}
         />
         <ControlledSwitches checked={checked} handleChange={handleChange} label="Active" />
       </FooterCard>
