@@ -130,15 +130,15 @@ export const Username = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
   margin: 0,
 }));
 
-const ChangePassword = styled.h2({
+export const ChangePassword = styled.h2<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: 20,
   lineHeight: '24px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   margin: '0 0 32px 0',
   alignSelf: 'flex-start',
   letterSpacing: 0.4,
   fontWeight: 600,
-});
+}));
 
 const Label = styled.div({
   fontWeight: 400,
