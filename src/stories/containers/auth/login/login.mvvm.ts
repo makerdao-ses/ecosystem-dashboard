@@ -42,9 +42,14 @@ export const useLoginMvvm = () => {
     },
   });
 
+  const clearErrors = () => {
+    setError('');
+  };
+
   return {
     form,
     error,
     loading,
+    clearErrors,
   };
 };

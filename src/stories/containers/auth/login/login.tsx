@@ -7,7 +7,7 @@ import { useLoginMvvm } from './login.mvvm';
 import Image from 'next/image';
 
 export default () => {
-  const { form: formLogic, loading, error } = useLoginMvvm();
+  const { form: formLogic, loading, error, clearErrors } = useLoginMvvm();
   const { isLight } = useThemeContext();
 
   return (
@@ -28,7 +28,10 @@ export default () => {
               style={{ marginBottom: 32 }}
               placeholder="Username"
               value={formLogic.values.username}
-              onChange={formLogic.handleChange}
+              onChange={(e) => {
+                clearErrors();
+                formLogic.handleChange(e);
+              }}
               onBlur={formLogic.handleBlur}
               error={(formLogic.touched.username && formLogic.errors.username) ?? !!error}
               disabled={loading}
@@ -37,7 +40,10 @@ export default () => {
               name="password"
               placeholder="Password"
               value={formLogic.values.password}
-              onChange={formLogic.handleChange}
+              onChange={(e) => {
+                clearErrors();
+                formLogic.handleChange(e);
+              }}
               onBlur={formLogic.handleBlur}
               error={(formLogic.touched.password && formLogic.errors.password) ?? error}
               type="password"
@@ -52,7 +58,7 @@ export default () => {
                 width: 128,
                 borderRadius: 22,
               }}
-              disabled={loading}
+              disabled={loading || !!error || Object.keys(formLogic.errors).length > 0}
             />
           </ButtonWrapper>
           <input type="submit" style={{ display: 'none' }} />
