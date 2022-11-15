@@ -103,29 +103,29 @@ export const Container = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   },
 }));
 
-const Title = styled.h1({
+const Title = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
   fontWeight: 600,
   fontSize: 32,
   lineHeight: '39px',
   textAlign: 'center',
   letterSpacing: 0.4,
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   marginTop: 24,
   marginBottom: 0,
   '@media (min-width: 834px)': {
     marginTop: 40,
   },
-});
+}));
 
-const Description = styled.h3({
+const Description = styled.h3<{ isLight: boolean }>(({ isLight }) => ({
   fontWeight: 400,
   fontSize: 16,
   lineHeight: '22px',
   textAlign: 'center',
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   marginBottom: 42,
   maxWidth: 294,
-});
+}));
 
 export const ButtonWrapper = styled.div({
   alignSelf: 'flex-end',
