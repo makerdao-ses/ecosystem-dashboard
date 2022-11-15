@@ -137,7 +137,7 @@ export const InputsWrapper = styled.div({
   width: '100%',
   marginBottom: 42,
   '@media (min-width: 834px)': {
-    marginBottom: 60,
+    marginBottom: 64,
   },
 });
 
