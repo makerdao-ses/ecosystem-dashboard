@@ -23,8 +23,10 @@ export default () => {
           }}
         />
         <AvatarPlaceholder />
-        <Title>Create New Account</Title>
-        <Description>Create a new user account to provide access to the administration area.</Description>
+        <Title isLight={isLight}>Create New Account</Title>
+        <Description isLight={isLight}>
+          Create a new user account to provide access to the administration area.
+        </Description>
         <Form onSubmit={form.submitForm}>
           <InputsWrapper>
             <Label>Enter Username</Label>
@@ -85,24 +87,25 @@ export default () => {
   );
 };
 
-const Title = styled.h1({
+const Title = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
   margin: '24px 0 16px 0',
   fontWeight: 600,
   lineHeight: '39px',
-  color: '#231536',
   fontSize: 24,
+  color: isLight ? '#231536' : '#D2D4EF',
   '@media (min-width: 834px)': {
     fontSize: 32,
   },
-});
+}));
 
-const Description = styled.p({
+const Description = styled.p<{ isLight: boolean }>(({ isLight }) => ({
   margin: '0 0 64px 0',
   fontWeight: 400,
   fontSize: 16,
+  color: isLight ? '#231536' : '#D2D4EF',
   lineHeight: '22px',
   textAlign: 'center',
-});
+}));
 
 const Label = styled.div({
   fontWeight: 400,
