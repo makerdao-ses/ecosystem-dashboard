@@ -1,6 +1,6 @@
 import { gql } from 'graphql-request';
 
-export const CREATE_ACCOUNT_REQUEST = (username: string, password: string) => ({
+export const CREATE_ACCOUNT_REQUEST = (username: string, password: string, cuId: number) => ({
   query: gql`
     mutation UserCreate($input: UserInput) {
       userCreate(input: $input) {
@@ -14,6 +14,7 @@ export const CREATE_ACCOUNT_REQUEST = (username: string, password: string) => ({
     input: {
       username,
       password,
+      cuId,
     },
   },
 });
