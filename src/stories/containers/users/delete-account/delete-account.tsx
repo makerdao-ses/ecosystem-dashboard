@@ -117,7 +117,7 @@ const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 
 const UserLabel = styled.p({
   color: '#708390',
-  fontSize: 24,
+  fontSize: 20,
   lineHeight: '24px',
   fontWeight: 600,
   margin: '0 8px 0 0',

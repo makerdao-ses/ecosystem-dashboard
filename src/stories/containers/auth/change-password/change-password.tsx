@@ -137,6 +137,7 @@ const ChangePassword = styled.h2({
   margin: '0 0 32px 0',
   alignSelf: 'flex-start',
   letterSpacing: 0.4,
+  fontWeight: 600,
 });
 
 const Label = styled.div({

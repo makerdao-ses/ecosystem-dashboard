@@ -34,7 +34,7 @@ export const useLoginMvvm = () => {
         setCredentials?.(response.userLogin);
         router.push('/');
       } catch (err) {
-        setError('Invalid username or password');
+        setError('Please verify your username and password are correct');
         console.error(err);
       } finally {
         setLoading(false);
