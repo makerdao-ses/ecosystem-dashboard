@@ -27,7 +27,12 @@ export default () => {
         <Description isLight={isLight}>
           Create a new user account to provide access to the administration area.
         </Description>
-        <Form onSubmit={form.submitForm}>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            form.handleSubmit();
+          }}
+        >
           <InputsWrapper>
             <Label>Enter Username</Label>
             <TextInput
@@ -78,9 +83,9 @@ export default () => {
                 height: 40,
                 borderRadius: 22,
               }}
+              type="submit"
             />
           </ButtonWrapper>
-          <input type="submit" style={{ display: 'none' }} />
         </Form>
       </Container>
     </Wrapper>

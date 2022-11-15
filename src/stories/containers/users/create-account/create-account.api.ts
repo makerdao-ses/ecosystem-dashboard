@@ -6,7 +6,7 @@ export const CREATE_ACCOUNT_REQUEST = (username: string, password: string) => ({
       userCreate(input: $input) {
         id
         username
-        isActive
+        active
       }
     }
   `,

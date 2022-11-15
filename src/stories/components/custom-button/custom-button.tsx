@@ -18,6 +18,7 @@ interface CustomButtonProps {
   buttonType?: ButtonType;
   allowsHover?: boolean;
   active?: boolean;
+  type?: 'button' | 'submit';
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -67,6 +68,7 @@ export const CustomButton = ({
   buttonType = ButtonType.Default,
   allowsHover = true,
   active,
+  type = 'button',
   ...props
 }: CustomButtonProps) => {
   const isLight = useThemeContext().themeMode === 'light';
@@ -77,7 +79,7 @@ export const CustomButton = ({
       className={`${props.className} no-select`}
       isLight={isLight}
       buttonType={buttonType}
-      type="button"
+      type={type}
       disabled={props.disabled}
       onClick={props.onClick}
       styles={{

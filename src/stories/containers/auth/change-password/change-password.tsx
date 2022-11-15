@@ -29,7 +29,12 @@ export default () => {
           <Username isLight={isLight}>{username}</Username>
         </UserWrapper>
         <ChangePassword isLight={isLight}>Change Your Password</ChangePassword>
-        <Form onSubmit={form.submitForm}>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            form.handleSubmit();
+          }}
+        >
           <InputsWrapper>
             <Label>Enter Existing Password</Label>
             <TextInput
@@ -76,10 +81,10 @@ export default () => {
                 height: 34,
                 borderRadius: 22,
               }}
+              type="submit"
               disabled={loading}
             />
           </ButtonWrapper>
-          <input type="submit" style={{ display: 'none' }} />
         </Form>
       </Container>
     </Wrapper>
