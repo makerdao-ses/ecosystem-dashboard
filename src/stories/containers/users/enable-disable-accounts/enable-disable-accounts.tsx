@@ -8,7 +8,7 @@ import ControlledSwitches from '../../../components/button/switch-toogle/switch-
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import { CustomLink } from '../../../components/custom-link/custom-link';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
-import { Wrapper } from '../login/login';
+import { Wrapper } from '../../auth/login/login';
 
 const arrayPassword = new Array<string>(8);
 const resultPassword = _.fill(arrayPassword, 'a');
