@@ -105,7 +105,7 @@ const Title = styled.h1({
   letterSpacing: 0.4,
   color: '#231536',
   marginTop: 24,
-  marginBottom: 16,
+  marginBottom: 0,
   '@media (min-width: 834px)': {
     marginTop: 40,
   },
