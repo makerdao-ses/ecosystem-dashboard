@@ -28,7 +28,7 @@ export default () => {
           <Spacer />
           <Username isLight={isLight}>{username}</Username>
         </UserWrapper>
-        <ChangePassword>Change Your Password</ChangePassword>
+        <ChangePassword isLight={isLight}>Change Your Password</ChangePassword>
         <Form onSubmit={form.submitForm}>
           <InputsWrapper>
             <Label>Enter Existing Password</Label>
