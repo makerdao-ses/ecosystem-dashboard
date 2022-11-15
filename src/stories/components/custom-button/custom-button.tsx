@@ -23,6 +23,7 @@ interface CustomButtonProps {
   width?: number;
   height?: number;
   fill?: string;
+  type?: 'button' | 'submit';
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -90,6 +91,7 @@ export const CustomButton = ({
   fill,
   height,
   width,
+  type = 'button',
   ...props
 }: CustomButtonProps) => {
   const isLight = useThemeContext().themeMode === 'light';
@@ -100,7 +102,7 @@ export const CustomButton = ({
       className={`${props.className} no-select`}
       isLight={isLight}
       buttonType={buttonType}
-      type="button"
+      type={type}
       disabled={props.disabled}
       onClick={props.onClick}
       styles={{
