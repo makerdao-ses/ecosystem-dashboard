@@ -12,8 +12,8 @@ import CloseButton from '../../../components/close-button/close-button';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import { CustomLink } from '../../../components/custom-link/custom-link';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
-import { Wrapper } from '../login/login';
-import { ENABLE_DISABLE_USER_REQUEST } from './enable-disable.api';
+import { ENABLE_DISABLE_USER_REQUEST } from '../../auth/enable-disable-accounts/enable-disable.api';
+import { Wrapper } from '../../auth/login/login';
 
 const arrayPassword = new Array<string>(8);
 const resultPassword = fill(arrayPassword, 'a');

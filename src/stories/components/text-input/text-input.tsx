@@ -12,9 +12,20 @@ interface Props {
   error?: string | boolean;
   name: string;
   onBlur?: (value: React.FocusEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
 }
 
-export default ({ placeholder, style, type = 'text', value = '', onChange, error, name, onBlur }: Props) => {
+export default ({
+  placeholder,
+  style,
+  type = 'text',
+  value = '',
+  onChange,
+  error,
+  name,
+  onBlur,
+  disabled = false,
+}: Props) => {
   const ref = useRef<HTMLInputElement>(null);
   const { isLight } = useThemeContext();
 
@@ -35,6 +46,7 @@ export default ({ placeholder, style, type = 'text', value = '', onChange, error
         error={!!error}
         id={name}
         name={name}
+        disabled={disabled}
       />
       {type === 'password' && (
         <IconWrapper onClick={togglePasswordVisible}>

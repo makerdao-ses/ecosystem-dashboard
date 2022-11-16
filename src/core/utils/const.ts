@@ -12,3 +12,6 @@ export const COOKIES_POLICY_PARAGRAPH_THREE =
   'Computer or mobile device information, Website usage information, such as:';
 export const COOKIES_POLICY_PARAGRAPH_FOUR =
   'Our service providers analyses this information and provides us with aggregate reports. The information and analysis provided by our service providers will be used to assist us in better understanding our visitors interests in our Site and how to better serve those interests. If you want to avoid using cookies altogether, you can disable cookies in your browser. However, disabling cookies might make it impossible for you to use certain features of the Site. Your use of the Site with a browser that is configure to accept cookies constitutes an acceptance of our and third-party cookies.';
+
+export const INVALID_CHARACTERS_MESSAGE =
+  'Invalid Character(s). Only letters, numbers, and the following characters are allowed: !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
