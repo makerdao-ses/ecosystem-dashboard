@@ -15,6 +15,7 @@ import { WebSiteLinks } from './select-link-website/menu-items';
 import SelectLink from './select-link-website/select-link';
 import MenuTheme from '../menu-navigation/menu-theme/menu-theme';
 import MenuUserOptions from '../menu-navigation/menu-user/menu-user';
+import ThemeSwitcherButton from '../button/switch-button/switch-buttom';
 
 interface Props {
   links: WebSiteLinks[];
@@ -140,15 +141,21 @@ const Header = ({ links }: Props) => {
         </Navigation>
       </LeftPart>
       <RightPart>
-        <MenuTheme themeMode={themeMode} toggleTheme={toggleTheme} />
-        <SelectLink
-          links={links}
-          themeMode={themeMode}
-          fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'}
-          onClick={onClick}
-          responsive={true}
-          toggleTheme={toggleTheme}
-        />
+        {authToken ? (
+          <MenuTheme themeMode={themeMode} toggleTheme={toggleTheme} />
+        ) : (
+          <div>
+            <SelectLink
+              links={links}
+              themeMode={themeMode}
+              fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'}
+              onClick={onClick}
+              responsive={true}
+              toggleTheme={toggleTheme}
+            />
+            <ThemeSwitcherButton themeMode={themeMode} toggleTheme={toggleTheme} />
+          </div>
+        )}
       </RightPart>
     </Container>
   );

@@ -3,4 +3,5 @@ export enum ButtonType {
   Primary = 'Primary',
   Secondary = 'Secondary',
   PrimaryAndFilters = 'PrimaryAndFilters',
+  Danger = 'Danger',
 }
