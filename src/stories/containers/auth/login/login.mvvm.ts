@@ -36,7 +36,6 @@ export const useLoginMvvm = () => {
       } catch (err) {
         setError('Please verify your username and password are correct');
         console.error(err);
-      } finally {
         setLoading(false);
       }
     },
