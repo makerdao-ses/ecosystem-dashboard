@@ -50,6 +50,7 @@ export default () => {
               error={(formLogic.touched.password && formLogic.errors.password) ?? error}
               type="password"
               disabled={loading}
+              errorAbsolutePosition={true}
             />
           </InputsWrapper>
           <ButtonWrapper>
@@ -107,7 +108,7 @@ export const Container = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
 
 const Title = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
   fontWeight: 600,
-  fontSize: 32,
+  fontSize: 24,
   lineHeight: '39px',
   textAlign: 'center',
   letterSpacing: 0.4,
@@ -116,6 +117,7 @@ const Title = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
   marginBottom: 0,
   '@media (min-width: 834px)': {
     marginTop: 40,
+    fontSize: 32,
   },
 }));
 
