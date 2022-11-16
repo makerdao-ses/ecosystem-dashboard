@@ -46,7 +46,7 @@ export default () => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   return (
-    <MainWrapper>
+    <MainWrapper isLight={isLight}>
       <Container>
         <Tabs
           currentIndex={1}
@@ -103,12 +103,16 @@ export default () => {
   );
 };
 
-const MainWrapper = styled.div({
+const MainWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   marginTop: '88px',
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-});
+  backgroundColor: isLight ? '#FFFFFF' : '#000000',
+  backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/login-bg.png)',
+  backgroundAttachment: 'fixed',
+  backgroundSize: 'cover',
+}));
 
 const Container = styled.div({
   display: 'flex',
