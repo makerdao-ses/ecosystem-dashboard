@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/button-type.enum';
 import { RoleEnum } from '../../../core/enums/role.enum';
@@ -10,6 +11,7 @@ import AvatarPlaceholder from '../svg/avatar-placeholder';
 
 interface Props {
   role: RoleEnum;
+  user: string;
   checked: boolean;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleDeleteAccount?: () => void;
@@ -20,6 +22,7 @@ const UserCard = ({
   role,
   checked,
   handleChange,
+  user,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   handleDeleteAccount = () => {},
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -32,7 +35,7 @@ const UserCard = ({
       <ContainerInside>
         <PositionRow alignItems="center">
           <AvatarPlaceholder width={48} height={48} />
-          <Label>Wkampmann</Label>
+          <Label>{user}</Label>
         </PositionRow>
         <PositionRow space="space-between" marginTop={32}>
           <RoleLabel color={isLight ? color.color : color.darkColor}>{role}</RoleLabel>
@@ -71,6 +74,22 @@ const Container = styled.div<{ isLight?: boolean }>((isLight) => ({
   boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
   borderRadius: '6px',
   width: 416,
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    width: 343,
+  },
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    width: 369,
+  },
+  [lightTheme.breakpoints.between('desktop_1194', 'desktop_1280')]: {
+    width: 355.33,
+  },
+  [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
+    width: 373.33,
+  },
+
+  [lightTheme.breakpoints.between('desktop_1440', 'desktop_1920')]: {
+    width: 416,
+  },
 }));
 const ContainerInside = styled.div({
   paddingTop: 16,

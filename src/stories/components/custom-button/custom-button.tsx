@@ -24,6 +24,7 @@ interface CustomButtonProps {
   height?: number;
   fill?: string;
   type?: 'button' | 'submit';
+  padding?: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -92,11 +93,13 @@ export const CustomButton = ({
   height,
   width,
   type = 'button',
+  padding = '15px 16px',
   ...props
 }: CustomButtonProps) => {
   const isLight = useThemeContext().themeMode === 'light';
   return (
     <Container
+      padding={padding}
       active={active}
       allowsHover={allowsHover}
       className={`${props.className} no-select`}
@@ -164,7 +167,8 @@ const Container = styled.button<{
   buttonType: ButtonType;
   allowsHover: boolean;
   active?: boolean;
-}>(({ isLight, styles, buttonType, allowsHover, active = false }) => ({
+  padding?: string;
+}>(({ isLight, styles, buttonType, allowsHover, active = false, padding }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -173,7 +177,7 @@ const Container = styled.button<{
   borderRadius: '22px',
   transition: 'all .3s ease',
   transitionProperty: 'border, color',
-  padding: '15px 16px',
+  padding,
   boxSizing: 'border-box',
   cursor: 'pointer',
   '&:hover:not(:disabled)': allowsHover
