@@ -13,6 +13,7 @@ interface Props {
   name: string;
   onBlur?: (value: React.FocusEvent<HTMLInputElement>) => void;
   disabled?: boolean;
+  errorAbsolutePosition?: boolean;
 }
 
 export default ({
@@ -25,6 +26,7 @@ export default ({
   name,
   onBlur,
   disabled = false,
+  errorAbsolutePosition = false,
 }: Props) => {
   const ref = useRef<HTMLInputElement>(null);
   const { isLight } = useThemeContext();
@@ -71,7 +73,7 @@ export default ({
           />
         </IconWrapper>
       )}
-      {error && typeof error === 'string' && <Error>{error}</Error>}
+      {error && typeof error === 'string' && <Error absolutePosition={errorAbsolutePosition}>{error}</Error>}
     </Wrapper>
   );
 };
@@ -116,11 +118,13 @@ const Input = styled.input<{ active: boolean; error: boolean; isLight: boolean }
   },
 }));
 
-const Error = styled.div({
+const Error = styled.div<{ absolutePosition: boolean }>(({ absolutePosition }) => ({
   display: 'flex',
   color: '#F75524',
   width: '100%',
   fontSize: 14,
   lineHeight: '17px',
   marginTop: 8,
-});
+  position: absolutePosition ? 'absolute' : 'relative',
+  top: absolutePosition ? 56 : 0,
+}));
