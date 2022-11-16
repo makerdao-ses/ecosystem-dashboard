@@ -4,6 +4,8 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import UserBadge from '../../user-badge/user-badge';
 import MenuItemUser from './menu-item-user';
+import { MenuPaperStyle } from '../menu-theme/menu-theme';
+import { useThemeContext } from '../../../../core/context/ThemeContext';
 
 interface Props {
   username: string;
@@ -15,6 +17,7 @@ interface Props {
 
 const MenuUserOptions = ({ username, isAdmin, onClickLogOut, onClickProfile, onClickAccountManager }: Props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const { isLight } = useThemeContext();
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -33,6 +36,9 @@ const MenuUserOptions = ({ username, isAdmin, onClickLogOut, onClickProfile, onC
         />
       </div>
       <Menu
+        PaperProps={{
+          style: MenuPaperStyle(isLight),
+        }}
         sx={{
           '& .MuiMenu-list': {
             paddingTop: '0px',

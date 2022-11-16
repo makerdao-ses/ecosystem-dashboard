@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import { useThemeContext } from '../../../../core/context/ThemeContext';
 import AccountMangerSetting from '../../svg/account-manager-settings';
 import LogOut from '../../svg/log-out';
 import Profile from '../../svg/profile';
@@ -18,36 +19,34 @@ const MenuItemUser = ({
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   onClickAccountManager = () => {},
 }: Props) => {
+  const { isLight } = useThemeContext();
   return (
     <Container>
       <ContainerItem onClick={onClickProfile}>
-        <Profile />
-        <Label>Profile</Label>
+        <Profile fill={isLight ? '#231536' : '#FFFFFF'} />
+        <Label isLight={isLight}>Profile</Label>
       </ContainerItem>
       {isAdmin && (
         <ContainerItem onClick={onClickAccountManager}>
-          <AccountMangerSetting />
-          <Label>Manage Accounts</Label>
+          <AccountMangerSetting fill={isLight ? '#231536' : '#FFFFFF'} />
+          <Label isLight={isLight}>Manage Accounts</Label>
         </ContainerItem>
       )}
 
       <ContainerItem onClick={onClickLogOut}>
-        <LogOut />
-        <Label>Log out</Label>
+        <LogOut fill={isLight ? '#231536' : '#FFFFFF'} />
+        <Label isLight={isLight}>Log out</Label>
       </ContainerItem>
     </Container>
   );
 };
 
 const Container = styled.div({
-  background: '#FFFFFF',
-  boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
-  borderRadius: '6px',
   padding: 16,
   width: 'fit-content',
 });
 
-const Label = styled.div({
+const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
@@ -55,9 +54,9 @@ const Label = styled.div({
   lineHeight: '19px',
   textAlign: 'center',
   letterSpacing: '0.3px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#EDEFFF',
   marginLeft: 13.64,
-});
+}));
 
 const ContainerItem = styled.div({
   display: 'flex',

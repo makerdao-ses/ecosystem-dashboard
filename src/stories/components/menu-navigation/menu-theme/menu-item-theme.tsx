@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { ThemeType } from '../../../../core/enums/theme.enum';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../../core/utils/const';
 import { CustomLink } from '../../custom-link/custom-link';
@@ -11,10 +12,11 @@ interface Props {
 }
 
 export const MenuItemTheme = ({ themeMode, toggleTheme }: Props) => {
+  const { isLight } = useThemeContext();
   return (
-    <Container>
+    <Container isLight={isLight}>
       <SwitcherButton themeMode={themeMode} toggleTheme={toggleTheme} />
-      <Line />
+      <Line isLight={isLight} />
       <CustomLink
         children="How to Submit Expenses"
         fontWeight={500}
@@ -38,17 +40,15 @@ export const MenuItemTheme = ({ themeMode, toggleTheme }: Props) => {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Container = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
-  background: '#FFFFFF',
-  boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
   borderRadius: '6px',
   padding: '16px',
   width: 267,
 }));
 
-const Line = styled.div({
-  border: '1px solid #D4D9E1',
+const Line = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
+  border: isLight ? '1px solid #D4D9E1' : '1px solid #405361',
   marginBottom: 24,
   marginTop: 24,
-});
+}));
 
 export default MenuItemTheme;
