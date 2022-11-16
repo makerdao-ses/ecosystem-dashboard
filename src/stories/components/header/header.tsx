@@ -16,6 +16,7 @@ import SelectLink from './select-link-website/select-link';
 import MenuTheme from '../menu-navigation/menu-theme/menu-theme';
 import MenuUserOptions from '../menu-navigation/menu-user/menu-user';
 import ThemeSwitcherButton from '../button/switch-button/switch-buttom';
+import lightTheme from '../../../../styles/theme/light';
 
 interface Props {
   links: WebSiteLinks[];
@@ -153,7 +154,9 @@ const Header = ({ links }: Props) => {
               responsive={true}
               toggleTheme={toggleTheme}
             />
-            <ThemeSwitcherButton themeMode={themeMode} toggleTheme={toggleTheme} />
+            <WrapperIcon>
+              <ThemeSwitcherButton themeMode={themeMode} toggleTheme={toggleTheme} />
+            </WrapperIcon>
           </div>
         )}
       </RightPart>
@@ -198,7 +201,7 @@ const LogoContainer = styled.div({
   marginTop: '13px',
   marginBottom: '13px',
   cursor: 'pointer',
-  '@media (min-width: 635px)': {
+  '@media (min-width: 834px)': {
     marginRight: '32px',
   },
 });
@@ -273,8 +276,18 @@ const RightElementsWrapper = styled.div({
 
 const LogoLinksWrapper = styled.div({
   display: 'none',
-  '@media (min-width: 635px)': {
+  '@media (min-width: 834px)': {
     display: 'flex',
+  },
+});
+
+const WrapperIcon = styled.div({
+  display: 'flex',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    display: 'none',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
+    display: 'none',
   },
 });
 
