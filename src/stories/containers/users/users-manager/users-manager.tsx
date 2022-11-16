@@ -46,7 +46,7 @@ export default () => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   return (
-    <MainWrapper>
+    <MainWrapper isLight={isLight}>
       <Container>
         <Tabs
           currentIndex={1}
@@ -63,7 +63,7 @@ export default () => {
         />
       </Container>
       <ContainerHeaderTitle>
-        <Title>Manage Accounts</Title>
+        <Title isLight={isLight}>Manage Accounts</Title>
         <ContainerHeader>
           <Search>
             <SearchInput
@@ -103,18 +103,22 @@ export default () => {
   );
 };
 
-const MainWrapper = styled.div({
-  marginTop: '88px',
+const MainWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  marginTop: 64,
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-});
+  backgroundColor: isLight ? '#FFFFFF' : '#000000',
+  backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/login-bg.png)',
+  backgroundAttachment: 'fixed',
+  backgroundSize: 'cover',
+  paddingBottom: '128px',
+}));
 
 const Container = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  marginTop: 24,
-  marginBottom: 24,
+  paddingTop: 24,
   '@media (min-width: 375px)': {
     width: 343,
     margin: '0 auto',
@@ -209,7 +213,7 @@ const ContainerHeader = styled.div({
   },
 });
 
-const Title = styled.div({
+const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'none',
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
@@ -218,11 +222,11 @@ const Title = styled.div({
   lineHeight: '29px',
   alignItems: 'center',
   letterSpacing: '0.4px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   '@media (min-width: 1194px)': {
     display: 'flex',
   },
-});
+}));
 const Search = styled.div({
   gridArea: 'searchArea',
   width: 205,

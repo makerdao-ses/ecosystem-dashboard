@@ -35,7 +35,7 @@ const UserCard = ({
       <ContainerInside>
         <PositionRow alignItems="center">
           <AvatarPlaceholder width={48} height={48} />
-          <Label>{user}</Label>
+          <Label isLight={isLight}>{user}</Label>
         </PositionRow>
         <PositionRow space="space-between" marginTop={32}>
           <RoleLabel color={isLight ? color.color : color.darkColor}>{role}</RoleLabel>
@@ -68,10 +68,11 @@ const UserCard = ({
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const Container = styled.div<{ isLight?: boolean }>((isLight) => ({
-  background: '#FFFFFF',
-  boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
+const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  background: isLight ? '#FFFFFF' : '#10191F',
+  boxShadow: isLight
+    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+    : '10px 15px 20px 6px rgba(20, 0, 141, 0.1);',
   borderRadius: '6px',
   width: 416,
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
@@ -107,7 +108,7 @@ const PositionRow = styled.div<{ space?: string; alignItems?: string; marginTop?
   })
 );
 
-const Label = styled.p({
+const Label = styled.p<{ isLight: boolean }>(({ isLight }) => ({
   marginTop: 0,
   marginBottom: 0,
   fontFamily: 'Inter, sans-serif',
@@ -116,9 +117,9 @@ const Label = styled.p({
   fontSize: 20,
   lineHeight: '24px',
   letterSpacing: 0.4,
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   marginLeft: 16,
-});
+}));
 
 const RoleLabel = styled.p<{ color: string }>(({ color }) => ({
   marginTop: 0,
