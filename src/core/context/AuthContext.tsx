@@ -1,5 +1,7 @@
+import { GraphQLClient } from 'graphql-request';
 import { useRouter } from 'next/router';
 import React, { useLayoutEffect } from 'react';
+import { GRAPHQL_ENDPOINT } from '../../config/endpoints';
 import { LoginDTO, UserDTO } from '../models/dto/auth.dto';
 
 interface AuthContextProps {
@@ -7,6 +9,7 @@ interface AuthContextProps {
   authToken?: string;
   setCredentials?: (value: LoginDTO) => void;
   clearCredentials?: () => void;
+  clientRequest?: GraphQLClient;
 }
 
 const AuthContext = React.createContext<AuthContextProps>({});
@@ -17,6 +20,7 @@ export const AuthContextProvider: React.FC<{ children: JSX.Element | JSX.Element
   const [authToken, setAuthToken] = React.useState('');
   const [user, setUser] = React.useState<UserDTO | undefined>(undefined);
   const router = useRouter();
+  const clientRequest = new GraphQLClient(GRAPHQL_ENDPOINT);
 
   useLayoutEffect(() => {
     const auth = window.localStorage.getItem('auth') ?? '{}';
@@ -37,6 +41,12 @@ export const AuthContextProvider: React.FC<{ children: JSX.Element | JSX.Element
     router.push('/login');
   };
 
+  if (authToken) {
+    clientRequest.setHeaders({
+      authorization: `Bearer ${authToken}`,
+    });
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -44,6 +54,7 @@ export const AuthContextProvider: React.FC<{ children: JSX.Element | JSX.Element
         authToken,
         setCredentials,
         clearCredentials,
+        clientRequest,
       }}
     >
       {children}
