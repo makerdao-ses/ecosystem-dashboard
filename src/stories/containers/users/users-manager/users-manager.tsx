@@ -1,50 +1,80 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import styled from '@emotion/styled';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useCallback, useMemo, useState } from 'react';
+import useSWR from 'swr';
 import lightTheme from '../../../../../styles/theme/light';
+import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { ButtonType } from '../../../../core/enums/button-type.enum';
-import { RoleEnum } from '../../../../core/enums/role.enum';
+import { capitalizeWord } from '../../../../core/utils/string.utils';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import { SearchInput } from '../../../components/search-input/search-input';
 import { Tabs } from '../../../components/tabs/tabs';
 import UserCard from '../../../components/user-card/user-card';
-
-const usersFakeData = [
-  {
-    name: 'Wouter Kampmann',
-    role: RoleEnum.SiteAdmin,
-  },
-  {
-    name: 'Juan Julien',
-    role: RoleEnum.CoreUnitAdmin,
-  },
-  {
-    name: 'Juan Julien',
-    role: RoleEnum.User,
-  },
-  {
-    name: 'Juan Julien',
-    role: RoleEnum.User,
-  },
-  {
-    name: 'Juan Julien',
-    role: RoleEnum.User,
-  },
-  {
-    name: 'Wouter Kampmann',
-    role: RoleEnum.SiteAdmin,
-  },
-  {
-    name: 'Wouter Kampmann',
-    role: RoleEnum.SiteAdmin,
-  },
-];
+import { QUERY_USERS } from './user-manager.api';
 
 export default () => {
+  const router = useRouter();
+  const [searchValue, setSearchValue] = useState('');
   const { isLight } = useThemeContext();
+  const { clientRequest } = useAuthContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+
+  const fetcher = async (query: string) => await clientRequest?.request(query);
+  const { data, error } = useSWR(QUERY_USERS, fetcher);
+  const users: any[] = useMemo(() => data?.users || [], [data?.users]);
+
+  const handleDeleteAccount = (id: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const userTake = users?.find((user: any) => user.id === id);
+    router.push({
+      pathname: `/auth/delete-account/${id}`,
+      query: { userName: userTake.username },
+    });
+  };
+
+  const handleCreateNewAccount = () => {
+    router.push('/auth/create-account');
+  };
+
+  const handleChangeValue = useCallback((value: string) => {
+    setSearchValue(value);
+  }, []);
+
+  const handleClearSearch = () => {
+    setSearchValue('');
+  };
+
+  const filterData = useMemo(() => {
+    if (!searchValue) return users;
+    const result = users.filter((user) => {
+      console.log('user', user.username);
+      return user.username.toLocaleLowerCase().indexOf(searchValue.toLocaleLowerCase()) > -1;
+    });
+    console.log('result', result);
+    return result;
+  }, [searchValue, users]);
+
+  if (!data && !error) {
+    return (
+      <div
+        style={{
+          width: '100vw',
+          height: '100vh',
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+          fontSize: 30,
+        }}
+      >
+        Loading......
+      </div>
+    );
+  }
   return (
     <MainWrapper isLight={isLight}>
       <Container>
@@ -67,17 +97,16 @@ export default () => {
         <ContainerHeader>
           <Search>
             <SearchInput
-              // eslint-disable-next-line @typescript-eslint/no-empty-function
-              handleClearSearch={() => {}}
-              defaultValue={''}
+              value={searchValue}
+              handleClearSearch={handleClearSearch}
               placeholder="Search"
-              // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
-              onChange={(value: string) => {}}
+              onChange={handleChangeValue}
             />
           </Search>
           <Line isLight={isLight} />
           <ButtonArea>
             <CustomButton
+              onClick={handleCreateNewAccount}
               label={isMobile ? 'New User' : 'Create New Account'}
               withIcon
               buttonType={ButtonType.Primary}
@@ -95,8 +124,18 @@ export default () => {
       </ContainerHeaderTitle>
 
       <ContainerCards>
-        {usersFakeData.map((user) => {
-          return <UserCard checked handleChange={() => {}} role={user.role} user={user.name || ''} />;
+        {filterData.map((user: any) => {
+          return (
+            <UserCard
+              checked={user.active}
+              handleDeleteAccount={() => handleDeleteAccount(user.id)}
+              role={user.roles[0].name}
+              user={capitalizeWord(user?.username) || ''}
+              key={user.id}
+              id={user.id}
+              handleGoProfileView={(id) => console.log('id', id)}
+            />
+          );
         })}
       </ContainerCards>
     </MainWrapper>
@@ -104,10 +143,11 @@ export default () => {
 };
 
 const MainWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  marginTop: 64,
+  paddingTop: 64,
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
+  minHeight: '100vh',
   backgroundColor: isLight ? '#FFFFFF' : '#000000',
   backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/login-bg.png)',
   backgroundAttachment: 'fixed',
