@@ -6,7 +6,7 @@ import { useAuthContext } from '../../../src/core/context/AuthContext';
 import UserProfile from '../../../src/stories/containers/users/user-profile/user-profile';
 import NotFoundPage from '../../404';
 
-const CreateAccountPage: NextPage = () => {
+const UserProfilePage: NextPage = () => {
   const { authToken } = useAuthContext();
 
   if (!featureFlags[CURRENT_ENVIRONMENT].FEATURE_AUTH || !authToken) {
@@ -16,4 +16,4 @@ const CreateAccountPage: NextPage = () => {
   return <UserProfile />;
 };
 
-export default CreateAccountPage;
+export default UserProfilePage;

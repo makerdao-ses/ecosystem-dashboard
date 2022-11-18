@@ -52,7 +52,8 @@ const UserProfile = () => {
           </CenterWrapper>
           <CenterWrapper>
             <UserWrapper>
-              <UserLabel>User</UserLabel>
+              <LabelUser isLight={isLight}>{user?.username || ''}</LabelUser>
+              <UserRole>Site Admin</UserRole>
             </UserWrapper>
           </CenterWrapper>
           <div
@@ -141,6 +142,7 @@ const Wrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/login-bg.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
+  paddingBottom: 128,
 }));
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
@@ -167,12 +169,14 @@ const UserWrapper = styled.div({
   marginBottom: 64,
 });
 
-const UserLabel = styled.p({
+const UserRole = styled.p({
   color: '#9FAFB9',
   fontSize: 18,
   lineHeight: '22px',
   fontWeight: 600,
-  margin: '0 8px 0 0',
+  textAlign: 'center',
+  marginTop: 0,
+  marginBottom: 0,
 });
 
 const UserNameLabel = styled.p<{ isLight: boolean }>(({ isLight }) => ({
@@ -244,3 +248,14 @@ const ContainerInformation = styled.div({
     paddingRight: 58.5,
   },
 });
+
+const LabelUser = styled.p<{ isLight: boolean }>(({ isLight }) => ({
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 600,
+  fontSize: 24,
+  lineHeight: '29px',
+  letterSpacing: '0.4px',
+  color: isLight ? '#231536' : '#D2D4EF',
+  marginBottom: 8,
+}));
