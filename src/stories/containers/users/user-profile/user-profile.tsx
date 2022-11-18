@@ -30,7 +30,6 @@ const UserProfile = () => {
     const { query: gqlQuery, input } = ENABLE_DISABLE_USER_REQUEST(!checked, '1');
     const data = await clientRequest?.request(gqlQuery, input);
     if (data) {
-      console.log('data', data.userSetActiveFlag[0].active);
       setChecked(data.userSetActiveFlag[0].active);
     }
   }, [checked, clientRequest]);
@@ -69,13 +68,7 @@ const UserProfile = () => {
           </div>
           <ContainerPassword>
             <UserNameLabel isLight={isLight}>Password:</UserNameLabel>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}
-            >
+            <ContainerDots>
               {resultPassword.map((item: unknown, index) => {
                 return (
                   <div style={{ marginRight: '4px' }} key={index}>
@@ -83,7 +76,7 @@ const UserProfile = () => {
                   </div>
                 );
               })}
-            </div>
+            </ContainerDots>
           </ContainerPassword>
           <ContainerPasswordLink>
             <CustomLink
@@ -259,3 +252,9 @@ const LabelUser = styled.p<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   marginBottom: 8,
 }));
+
+const ContainerDots = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+});

@@ -28,7 +28,6 @@ export default () => {
     const { query: gqlQuery, input } = ENABLE_DISABLE_USER_REQUEST(!checked, '1');
     const data = await clientRequest?.request(gqlQuery, input);
     if (data) {
-      console.log('data', data.userSetActiveFlag[0].active);
       setChecked(data.userSetActiveFlag[0].active);
     }
   }, [checked, clientRequest]);
