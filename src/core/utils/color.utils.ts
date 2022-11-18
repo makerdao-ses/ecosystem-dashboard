@@ -1,5 +1,6 @@
 import { CuCategoryEnum } from '../enums/cu-category.enum';
 import { CuJobEnum } from '../enums/cu-job.enum';
+import { RoleEnum } from '../enums/role.enum';
 import { RoleUserDTO } from '../models/dto/role.dto';
 
 export const getColorForString = (value: string): string => {
@@ -125,7 +126,7 @@ export const getColorJobPosition = (job: CuJobEnum) => {
   }
 };
 
-export const getColorRole = (role: RoleUserDTO) => {
+export const getColorRole = (role: RoleUserDTO | RoleEnum) => {
   switch (role) {
     case 'CoreUnitAdmin':
       return {

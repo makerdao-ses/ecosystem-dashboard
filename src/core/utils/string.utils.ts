@@ -55,14 +55,16 @@ export const getWalletWidthForWallets = (wallets: BudgetStatementWalletDto[]) =>
 };
 
 export const getCorrectRoleApi = (role: RoleUserDTO) => {
-  if (role === 'CoreUnitAdmin') {
-    return 'Core Unit Admin';
-  }
-  if (role === 'CoreUnitFacilitator') return 'Core Unit Facilitator';
-  if (role === 'SuperAdmin') return 'Super Admin';
-  if (role === 'User') {
-    return 'User';
-  } else {
-    return '';
+  switch (role) {
+    case 'CoreUnitAdmin':
+      return 'Core Unit Admin';
+    case 'CoreUnitFacilitator':
+      return 'Core Unit Facilitator';
+    case 'SuperAdmin':
+      return 'Super Admin';
+    case 'User':
+      return 'User';
+    default:
+      return '';
   }
 };

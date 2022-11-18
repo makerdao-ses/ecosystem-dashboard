@@ -10,20 +10,18 @@ interface AuthContextProps {
   setCredentials?: (value: LoginDTO) => void;
   clearCredentials?: () => void;
   clientRequest?: GraphQLClient;
-  isAlreadyToken: boolean;
+  hasToken: boolean;
   isAuth?: boolean;
 }
 
-const AuthContext = React.createContext<AuthContextProps>({ isAlreadyToken: false });
+const AuthContext = React.createContext<AuthContextProps>({ hasToken: false });
 const clientRequest = new GraphQLClient(GRAPHQL_ENDPOINT);
 export const useAuthContext = () => React.useContext(AuthContext);
 
 export const AuthContextProvider: React.FC<{ children: JSX.Element | JSX.Element[] }> = ({ children }) => {
   const [authToken, setAuthToken] = React.useState<string | undefined>();
-  const isAlreadyToken = authToken !== undefined;
+  const hasToken = authToken !== undefined;
   const isAuth = !!authToken;
-  console.log({ authToken });
-
   const [user, setUser] = React.useState<UserDTO | undefined>(undefined);
   const router = useRouter();
 
@@ -60,7 +58,7 @@ export const AuthContextProvider: React.FC<{ children: JSX.Element | JSX.Element
         setCredentials,
         clearCredentials,
         clientRequest,
-        isAlreadyToken,
+        hasToken,
         isAuth,
       }}
     >

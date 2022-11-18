@@ -57,7 +57,6 @@ export default () => {
       console.log('user', user.username);
       return user.username.toLocaleLowerCase().indexOf(searchValue.toLocaleLowerCase()) > -1;
     });
-    console.log('result', result);
     return result;
   }, [searchValue, users]);
 
