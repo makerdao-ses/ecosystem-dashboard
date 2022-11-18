@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import request, { GraphQLClient } from 'graphql-request';
 import fill from 'lodash/fill';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
+import lightTheme from '../../../../../styles/theme/light';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { ButtonType } from '../../../../core/enums/button-type.enum';
@@ -13,16 +15,16 @@ import { CustomButton } from '../../../components/custom-button/custom-button';
 import { CustomLink } from '../../../components/custom-link/custom-link';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import { ENABLE_DISABLE_USER_REQUEST } from '../../auth/enable-disable-accounts/enable-disable.api';
-import { Wrapper } from '../../auth/login/login';
 
 const arrayPassword = new Array<string>(8);
 const resultPassword = fill(arrayPassword, 'a');
 
-export default () => {
+const UserProfile = () => {
   const router = useRouter();
   const { isLight } = useThemeContext();
-  const { user, clientRequest } = useAuthContext();
+  const { user, clientRequest, clearCredentials } = useAuthContext();
   const [checked, setChecked] = useState(false);
+  const isMobileOrTable = useMediaQuery(lightTheme.breakpoints.between('table_375', 'desktop_1194'));
 
   const handleChange = useCallback(async () => {
     const { query: gqlQuery, input } = ENABLE_DISABLE_USER_REQUEST(!checked, '1');
@@ -36,23 +38,21 @@ export default () => {
     router.push('/auth/delete-account');
   }, [router]);
 
+  const handleLogOut = () => {
+    clearCredentials && clearCredentials();
+  };
+
   return (
     <Wrapper isLight={isLight}>
       <Container isLight={isLight}>
-        <ContainerInside>
-          <CloseButton
-            style={{
-              position: 'absolute',
-              top: 24,
-              right: 24,
-            }}
-          />
+        <ContainerInformation>
           <CenterWrapper>
             <AvatarPlaceholder />
           </CenterWrapper>
           <CenterWrapper>
             <UserWrapper>
-              <UserLabel>User</UserLabel>
+              <LabelUser isLight={isLight}>{user?.username || ''}</LabelUser>
+              <UserRole>Site Admin</UserRole>
             </UserWrapper>
           </CenterWrapper>
           <div
@@ -66,22 +66,9 @@ export default () => {
             <UserNameLabel isLight={isLight}>Username:</UserNameLabel>
             <UserLabelValue isLight={isLight}>{user?.username}</UserLabelValue>
           </div>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginBottom: '8px',
-            }}
-          >
+          <ContainerPassword>
             <UserNameLabel isLight={isLight}>Password:</UserNameLabel>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}
-            >
+            <ContainerDots>
               {resultPassword.map((item: unknown, index) => {
                 return (
                   <div style={{ marginRight: '4px' }} key={index}>
@@ -89,23 +76,21 @@ export default () => {
                   </div>
                 );
               })}
-            </div>
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginLeft: '20px',
-            }}
-          >
-            <CustomLink href="/auth/change-password" withArrow={false} target="self">
+            </ContainerDots>
+          </ContainerPassword>
+          <ContainerPasswordLink>
+            <CustomLink
+              href="/auth/change-password"
+              withArrow={false}
+              target="_self"
+              style={{
+                marginLeft: '0px',
+              }}
+            >
               Change user password
             </CustomLink>
-          </div>
-        </ContainerInside>
-        <Line isLight={isLight} />
+          </ContainerPasswordLink>
+        </ContainerInformation>
         <ButtonWrapper>
           <CustomButton
             onClick={handleDeleteAccount}
@@ -120,42 +105,44 @@ export default () => {
               color: '#F75524',
             }}
           />
-          <ControlledSwitches checked={checked} handleChange={handleChange} label="Active" />
+          <CustomButton
+            onClick={handleLogOut}
+            buttonType={ButtonType.Default}
+            label="Log Out"
+            style={{
+              width: 102,
+              height: 34,
+              borderRadius: 22,
+            }}
+          />
         </ButtonWrapper>
       </Container>
     </Wrapper>
   );
 };
 
-const UserWrapper = styled.div({
-  marginTop: 16,
-  marginBottom: 32,
-});
+export default UserProfile;
 
-const UserLabel = styled.p({
-  color: '#9FAFB9',
-  fontSize: 18,
-  lineHeight: '22px',
-  fontWeight: 600,
-  margin: '0 8px 0 0',
-});
-
-const UserNameLabel = styled.p<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'Inter, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 600,
-  fontSize: '20px',
-  lineHeight: '24px',
-  letterSpacing: '0.4px',
-  color: isLight ? '#708390' : '#708390',
-  marginTop: '0px',
-  marginBottom: '0px',
-  marginRight: '8px',
+const Wrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  display: 'flex',
+  flex: 1,
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '100vw',
+  height: '100vh',
+  overflow: 'hidden',
+  backgroundColor: isLight ? '#FFFFFF' : '#000000',
+  backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/login-bg.png)',
+  backgroundAttachment: 'fixed',
+  backgroundSize: 'cover',
+  paddingBottom: 128,
 }));
+
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   position: 'absolute',
+  padding: '24px 24px 32px 24px',
   top: 104,
   width: 343,
   background: isLight ? '#FFFFFF' : '#10191F',
@@ -166,7 +153,36 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   '@media (min-width: 834px)': {
     width: '484px',
     top: 128,
+    padding: '40px 64px 40px 64px',
   },
+}));
+
+const UserWrapper = styled.div({
+  marginTop: 16,
+  marginBottom: 64,
+});
+
+const UserRole = styled.p({
+  color: '#9FAFB9',
+  fontSize: 18,
+  lineHeight: '22px',
+  fontWeight: 600,
+  textAlign: 'center',
+  marginTop: 0,
+  marginBottom: 0,
+});
+
+const UserNameLabel = styled.p<{ isLight: boolean }>(({ isLight }) => ({
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 600,
+  fontSize: '16px',
+  lineHeight: '19px',
+  letterSpacing: '0.4px',
+  color: isLight ? '#708390' : '#708390',
+  marginTop: '0px',
+  marginBottom: '0px',
+  marginRight: '8px',
 }));
 
 const CenterWrapper = styled.div({
@@ -180,8 +196,8 @@ const UserLabelValue = styled.p<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 600,
-  fontSize: '24px',
-  lineHeight: '29px',
+  fontSize: '16px',
+  lineHeight: '19px',
   letterSpacing: '0.4px',
   color: isLight ? '#231536' : '#D2D4EF',
   marginTop: '0px',
@@ -195,32 +211,50 @@ const DotPassword = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   borderRadius: '50%',
 }));
 
-const Line = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  border: isLight ? '1px solid #D4D9E1' : ' 1px solid #405361;',
-  width: '100%',
-  marginBottom: '16px',
-}));
-
-const ContainerInside = styled.div({
-  marginBottom: '8px',
-  padding: '24px',
-  '@media (min-width: 834px)': {
-    padding: '40px 64px',
-  },
-});
-
 const ButtonWrapper = styled.div({
   display: 'flex',
   flexDirection: 'row',
-
+  marginTop: 64,
   justifyContent: 'space-between',
-  paddingLeft: '10px',
-  paddingRight: '10px',
-  marginBottom: '16px',
   alignItems: 'center',
+});
 
-  '@media (min-width: 834px)': {
-    paddingLeft: '64px',
-    paddingRight: '77px',
+const ContainerPassword = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  marginBottom: '8px',
+});
+
+const ContainerPasswordLink = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  marginLeft: '93px',
+});
+
+const ContainerInformation = styled.div({
+  paddingLeft: 28,
+  paddingRight: 28,
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    paddingLeft: 58.5,
+    paddingRight: 58.5,
   },
+});
+
+const LabelUser = styled.p<{ isLight: boolean }>(({ isLight }) => ({
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 600,
+  fontSize: 24,
+  lineHeight: '29px',
+  letterSpacing: '0.4px',
+  color: isLight ? '#231536' : '#D2D4EF',
+  marginBottom: 8,
+}));
+
+const ContainerDots = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
 });
