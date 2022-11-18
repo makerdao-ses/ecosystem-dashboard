@@ -1,10 +1,13 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
+import { useAuthContext } from '../../../core/context/AuthContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/button-type.enum';
 import { RoleUserDTO } from '../../../core/models/dto/role.dto';
 import { getColorRole } from '../../../core/utils/color.utils';
+import { getCorrectRoleApi } from '../../../core/utils/string.utils';
+import { ENABLE_DISABLE_USER_REQUEST } from '../../containers/auth/enable-disable-accounts/enable-disable.api';
 import ControlledSwitches from '../button/switch-toogle/switch-component';
 import { CustomButton } from '../custom-button/custom-button';
 import AvatarPlaceholder from '../svg/avatar-placeholder';
@@ -13,34 +16,53 @@ interface Props {
   role: RoleUserDTO;
   user: string;
   checked: boolean;
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleDeleteAccount?: () => void;
-  handleViewProfile?: () => void;
   id: string;
+  handleDeleteAccount?: (id: string) => void;
+  handleViewProfile?: () => void;
+  handleGoProfileView?: (id: string) => void;
 }
 
 const UserCard = ({
   role,
   checked,
-  handleChange,
   user,
   id,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   handleDeleteAccount = () => {},
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   handleViewProfile = () => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  handleGoProfileView = () => {},
 }: Props) => {
+  const [isChecked, setIsChecked] = useState(checked);
   const { isLight } = useThemeContext();
   const color = getColorRole(role);
+  const handleGoProfile = () => {
+    handleGoProfileView(id);
+  };
+  const { clientRequest } = useAuthContext();
+
+  const handleChangeCard = async () => {
+    const { query: gqlQuery, input } = ENABLE_DISABLE_USER_REQUEST(!checked, id);
+    const data = await clientRequest?.request(gqlQuery, input);
+    if (data) {
+      setIsChecked(!isChecked);
+    }
+  };
+
+  const handleOnDeleteAccount = () => {
+    handleDeleteAccount(id);
+  };
+
   return (
-    <Container isLight={isLight} id={id}>
+    <Container isLight={isLight} onClick={handleGoProfile}>
       <ContainerInside>
         <PositionRow alignItems="center">
           <AvatarPlaceholder width={48} height={48} />
           <Label isLight={isLight}>{user}</Label>
         </PositionRow>
         <PositionRow space="space-between" marginTop={32}>
-          <RoleLabel color={isLight ? color.color : color.darkColor}>{role}</RoleLabel>
+          <RoleLabel color={isLight ? color.color : color.darkColor}>{getCorrectRoleApi(role)}</RoleLabel>
           <CustomButton
             label="View Profile"
             style={{
@@ -60,9 +82,9 @@ const UserCard = ({
             height: 34,
             width: 92,
           }}
-          onClick={handleDeleteAccount}
+          onClick={handleOnDeleteAccount}
         />
-        <ControlledSwitches checked={checked} handleChange={handleChange} label="Active" />
+        <ControlledSwitches checked={isChecked} handleChange={handleChangeCard} label="Active" />
       </FooterCard>
     </Container>
   );
@@ -91,6 +113,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   [lightTheme.breakpoints.between('desktop_1440', 'desktop_1920')]: {
     width: 416,
   },
+  cursor: 'pointer',
 }));
 const ContainerInside = styled.div({
   paddingTop: 16,

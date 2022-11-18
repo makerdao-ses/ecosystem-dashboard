@@ -1,6 +1,6 @@
 import { GraphQLClient } from 'graphql-request';
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { GRAPHQL_ENDPOINT } from '../../config/endpoints';
 import { LoginDTO, UserDTO } from '../models/dto/auth.dto';
 
@@ -27,7 +27,7 @@ export const AuthContextProvider: React.FC<{ children: JSX.Element | JSX.Element
   const [user, setUser] = React.useState<UserDTO | undefined>(undefined);
   const router = useRouter();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const auth = window.localStorage.getItem('auth') ?? '{}';
     const newAuth = JSON.parse(auth)?.authToken ?? false;
     if (newAuth) {

@@ -7,15 +7,32 @@ import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import TextInput from '../../../components/text-input/text-input';
 import { Spacer, Username, UserWrapper } from '../../auth/change-password/change-password';
 import { ButtonWrapper, Container, Wrapper } from '../../auth/login/login';
+import { useRouter } from 'next/router';
+import { useAuthContext } from '../../../../core/context/AuthContext';
+import { USERS_DELETE_FROM_ADMIN } from './delete-account.api';
 
 export default () => {
   const testingPassword = '1234';
+  const router = useRouter();
+  const { clientRequest } = useAuthContext();
+  const { userName, id } = router.query;
   const [value, setValue] = useState('');
   const { isLight } = useThemeContext();
-
   const handleChange = useCallback((value: React.ChangeEvent<HTMLInputElement>) => {
     setValue(value.target.value);
   }, []);
+
+  const handleDeleteAccount = useCallback(async () => {
+    try {
+      const { query: gqlQuery, filter } = USERS_DELETE_FROM_ADMIN(id as string);
+      const data = await clientRequest?.request(gqlQuery, filter);
+      if (data.userDelete) {
+        router.push('/auth/manage');
+      }
+    } catch (error) {
+      console.log('error', error);
+    }
+  }, [clientRequest, id, router]);
 
   return (
     <Wrapper isLight={isLight}>
@@ -31,7 +48,7 @@ export default () => {
         <UserWrapper>
           <UserLabel>Username</UserLabel>
           <Spacer />
-          <Username isLight={isLight}>Wouter Kampman</Username>
+          <Username isLight={isLight}>{userName}</Username>
         </UserWrapper>
 
         <DeleteLabel>Delete Account</DeleteLabel>
@@ -51,6 +68,7 @@ export default () => {
 
         <ButtonWrapper>
           <CustomButton
+            onClick={handleDeleteAccount}
             label="Delete Account"
             style={{
               width: 151,
