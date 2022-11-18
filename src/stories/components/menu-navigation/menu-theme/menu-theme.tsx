@@ -101,9 +101,6 @@ const ThreeDotsButton = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   border: isLight ? '1px solid #D4D9E1' : '1px solid #31424E;',
   borderRadius: '50%',
   cursor: 'pointer',
-  '@media (max-width: 635px)': {
-    display: 'none',
-  },
 }));
 
 export default MenuTheme;

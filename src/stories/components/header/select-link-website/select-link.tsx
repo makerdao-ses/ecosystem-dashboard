@@ -232,7 +232,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   alignItems: 'center',
   padding: '22px',
   overflowY: 'auto',
-  '@media (min-width: 635px)': {
+  '@media (min-width: 834px)': {
     display: 'none',
   },
 }));
@@ -244,7 +244,7 @@ const ContainerIcon = styled.div<{ background: string }>(({ background }) => ({
   marginLeft: '16px',
   borderRadius: '6px',
   background: background || '#ECF1F3',
-  '@media (min-width: 635px)': {
+  '@media (min-width: 834px)': {
     display: 'block',
   },
 }));
@@ -286,7 +286,7 @@ const ThreeDotsButton = styled.button<{ isLight: boolean }>(({ isLight }) => ({
   border: isLight ? '1px solid #D4D9E1' : '1px solid #31424E;',
   borderRadius: '50%',
   cursor: 'pointer',
-  '@media (min-width: 635px)': {
+  '@media (min-width: 834px)': {
     display: 'none',
   },
 }));

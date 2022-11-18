@@ -3,19 +3,20 @@ import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/button-type.enum';
-import { RoleEnum } from '../../../core/enums/role.enum';
+import { RoleUserDTO } from '../../../core/models/dto/role.dto';
 import { getColorRole } from '../../../core/utils/color.utils';
 import ControlledSwitches from '../button/switch-toogle/switch-component';
 import { CustomButton } from '../custom-button/custom-button';
 import AvatarPlaceholder from '../svg/avatar-placeholder';
 
 interface Props {
-  role: RoleEnum;
+  role: RoleUserDTO;
   user: string;
   checked: boolean;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleDeleteAccount?: () => void;
   handleViewProfile?: () => void;
+  id: string;
 }
 
 const UserCard = ({
@@ -23,6 +24,7 @@ const UserCard = ({
   checked,
   handleChange,
   user,
+  id,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   handleDeleteAccount = () => {},
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -31,7 +33,7 @@ const UserCard = ({
   const { isLight } = useThemeContext();
   const color = getColorRole(role);
   return (
-    <Container isLight={isLight}>
+    <Container isLight={isLight} id={id}>
       <ContainerInside>
         <PositionRow alignItems="center">
           <AvatarPlaceholder width={48} height={48} />
@@ -52,9 +54,7 @@ const UserCard = ({
       <Line isLight={isLight} />
       <FooterCard>
         <CustomButton
-          buttonType={
-            role === RoleEnum.CoreUnitAdmin || role === RoleEnum.SiteAdmin ? ButtonType.Default : ButtonType.Danger
-          }
+          buttonType={role === 'CoreUnitAdmin' || role === 'SuperAdmin' ? ButtonType.Default : ButtonType.Danger}
           label="Delete"
           style={{
             height: 34,

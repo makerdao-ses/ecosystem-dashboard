@@ -133,7 +133,7 @@ export default () => {
               user={capitalizeWord(user?.username) || ''}
               key={user.id}
               id={user.id}
-              handleGoProfileView={(id) => console.log('id', id)}
+              handleChange={() => {}}
             />
           );
         })}
@@ -143,11 +143,11 @@ export default () => {
 };
 
 const MainWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  paddingTop: 64,
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
   minHeight: '100vh',
+  marginTop: '88px',
   backgroundColor: isLight ? '#FFFFFF' : '#000000',
   backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/login-bg.png)',
   backgroundAttachment: 'fixed',
