@@ -7,10 +7,27 @@ import UsersManager from '../../../src/stories/containers/users/users-manager/us
 import NotFoundPage from '../../404';
 
 const UsersManagePage: NextPage = () => {
-  const { authToken } = useAuthContext();
+  const { hasToken, authToken } = useAuthContext();
 
   if (!featureFlags[CURRENT_ENVIRONMENT].FEATURE_AUTH && !authToken) {
     return <NotFoundPage />;
+  }
+  if (!hasToken) {
+    return (
+      <div
+        style={{
+          width: '100vw',
+          height: '100vh',
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+          fontSize: 30,
+        }}
+      >
+        Loading......
+      </div>
+    );
   }
 
   return <UsersManager />;

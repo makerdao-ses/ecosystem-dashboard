@@ -1,4 +1,5 @@
 import { BudgetStatementWalletDto } from '../models/dto/core-unit.dto';
+import { RoleUserDTO } from '../models/dto/role.dto';
 
 export const getTwoInitials = (name: string) => {
   const [, w1, w2] = /(\w+)[^a-zA-Z]*(\w*)?/.exec(name) ?? [];
@@ -51,4 +52,19 @@ export const getWalletWidthForWallets = (wallets: BudgetStatementWalletDto[]) =>
   }
 
   return '180px';
+};
+
+export const getCorrectRoleApi = (role: RoleUserDTO) => {
+  switch (role) {
+    case 'CoreUnitAdmin':
+      return 'Core Unit Admin';
+    case 'CoreUnitFacilitator':
+      return 'Core Unit Facilitator';
+    case 'SuperAdmin':
+      return 'Super Admin';
+    case 'User':
+      return 'User';
+    default:
+      return '';
+  }
 };

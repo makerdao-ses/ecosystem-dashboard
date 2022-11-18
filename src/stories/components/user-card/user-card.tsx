@@ -1,44 +1,68 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
+import { useAuthContext } from '../../../core/context/AuthContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/button-type.enum';
-import { RoleEnum } from '../../../core/enums/role.enum';
+import { RoleUserDTO } from '../../../core/models/dto/role.dto';
 import { getColorRole } from '../../../core/utils/color.utils';
+import { getCorrectRoleApi } from '../../../core/utils/string.utils';
+import { ENABLE_DISABLE_USER_REQUEST } from '../../containers/auth/enable-disable-accounts/enable-disable.api';
 import ControlledSwitches from '../button/switch-toogle/switch-component';
 import { CustomButton } from '../custom-button/custom-button';
 import AvatarPlaceholder from '../svg/avatar-placeholder';
 
 interface Props {
-  role: RoleEnum;
+  role: RoleUserDTO;
   user: string;
   checked: boolean;
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleDeleteAccount?: () => void;
+  id: string;
+  handleDeleteAccount?: (id: string) => void;
   handleViewProfile?: () => void;
+  handleGoProfileView?: (id: string) => void;
 }
 
 const UserCard = ({
   role,
   checked,
-  handleChange,
   user,
+  id,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   handleDeleteAccount = () => {},
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   handleViewProfile = () => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  handleGoProfileView = () => {},
 }: Props) => {
+  const [isChecked, setIsChecked] = useState(checked);
   const { isLight } = useThemeContext();
   const color = getColorRole(role);
+  const handleGoProfile = () => {
+    handleGoProfileView(id);
+  };
+  const { clientRequest } = useAuthContext();
+
+  const handleChangeCard = async () => {
+    const { query: gqlQuery, input } = ENABLE_DISABLE_USER_REQUEST(!checked, id);
+    const data = await clientRequest?.request(gqlQuery, input);
+    if (data) {
+      setIsChecked(!isChecked);
+    }
+  };
+
+  const handleOnDeleteAccount = () => {
+    handleDeleteAccount(id);
+  };
+
   return (
-    <Container isLight={isLight}>
+    <Container isLight={isLight} onClick={handleGoProfile}>
       <ContainerInside>
         <PositionRow alignItems="center">
           <AvatarPlaceholder width={48} height={48} />
-          <Label>{user}</Label>
+          <Label isLight={isLight}>{user}</Label>
         </PositionRow>
         <PositionRow space="space-between" marginTop={32}>
-          <RoleLabel color={isLight ? color.color : color.darkColor}>{role}</RoleLabel>
+          <RoleLabel color={isLight ? color.color : color.darkColor}>{getCorrectRoleApi(role)}</RoleLabel>
           <CustomButton
             label="View Profile"
             style={{
@@ -52,26 +76,25 @@ const UserCard = ({
       <Line isLight={isLight} />
       <FooterCard>
         <CustomButton
-          buttonType={
-            role === RoleEnum.CoreUnitAdmin || role === RoleEnum.SiteAdmin ? ButtonType.Default : ButtonType.Danger
-          }
+          buttonType={role === 'CoreUnitAdmin' || role === 'SuperAdmin' ? ButtonType.Default : ButtonType.Danger}
           label="Delete"
           style={{
             height: 34,
             width: 92,
           }}
-          onClick={handleDeleteAccount}
+          onClick={handleOnDeleteAccount}
         />
-        <ControlledSwitches checked={checked} handleChange={handleChange} label="Active" />
+        <ControlledSwitches checked={isChecked} handleChange={handleChangeCard} label="Active" />
       </FooterCard>
     </Container>
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const Container = styled.div<{ isLight?: boolean }>((isLight) => ({
-  background: '#FFFFFF',
-  boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
+const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  background: isLight ? '#FFFFFF' : '#10191F',
+  boxShadow: isLight
+    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+    : '10px 15px 20px 6px rgba(20, 0, 141, 0.1);',
   borderRadius: '6px',
   width: 416,
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
@@ -90,6 +113,7 @@ const Container = styled.div<{ isLight?: boolean }>((isLight) => ({
   [lightTheme.breakpoints.between('desktop_1440', 'desktop_1920')]: {
     width: 416,
   },
+  cursor: 'pointer',
 }));
 const ContainerInside = styled.div({
   paddingTop: 16,
@@ -107,7 +131,7 @@ const PositionRow = styled.div<{ space?: string; alignItems?: string; marginTop?
   })
 );
 
-const Label = styled.p({
+const Label = styled.p<{ isLight: boolean }>(({ isLight }) => ({
   marginTop: 0,
   marginBottom: 0,
   fontFamily: 'Inter, sans-serif',
@@ -116,9 +140,9 @@ const Label = styled.p({
   fontSize: 20,
   lineHeight: '24px',
   letterSpacing: 0.4,
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   marginLeft: 16,
-});
+}));
 
 const RoleLabel = styled.p<{ color: string }>(({ color }) => ({
   marginTop: 0,

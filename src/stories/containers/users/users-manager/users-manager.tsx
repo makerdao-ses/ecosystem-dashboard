@@ -1,55 +1,87 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import styled from '@emotion/styled';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useCallback, useMemo, useState } from 'react';
+import useSWR from 'swr';
 import lightTheme from '../../../../../styles/theme/light';
+import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { ButtonType } from '../../../../core/enums/button-type.enum';
-import { RoleEnum } from '../../../../core/enums/role.enum';
+import { capitalizeWord } from '../../../../core/utils/string.utils';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import { SearchInput } from '../../../components/search-input/search-input';
 import { Tabs } from '../../../components/tabs/tabs';
 import UserCard from '../../../components/user-card/user-card';
-
-const usersFakeData = [
-  {
-    name: 'Wouter Kampmann',
-    role: RoleEnum.SiteAdmin,
-  },
-  {
-    name: 'Juan Julien',
-    role: RoleEnum.CoreUnitAdmin,
-  },
-  {
-    name: 'Juan Julien',
-    role: RoleEnum.User,
-  },
-  {
-    name: 'Juan Julien',
-    role: RoleEnum.User,
-  },
-  {
-    name: 'Juan Julien',
-    role: RoleEnum.User,
-  },
-  {
-    name: 'Wouter Kampmann',
-    role: RoleEnum.SiteAdmin,
-  },
-  {
-    name: 'Wouter Kampmann',
-    role: RoleEnum.SiteAdmin,
-  },
-];
+import UserProfile from '../user-profile/user-profile';
+import { useManagerAccountViewModel } from './manager-account.mvvm';
+import { QUERY_USERS } from './user-manager.api';
 
 export default () => {
+  const router = useRouter();
+  const [searchValue, setSearchValue] = useState('');
   const { isLight } = useThemeContext();
+  const { clientRequest } = useAuthContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+  const { tabsIndex } = useManagerAccountViewModel();
+
+  const fetcher = async (query: string) => await clientRequest?.request(query);
+  const { data, error } = useSWR(QUERY_USERS, fetcher);
+  const users: any[] = useMemo(() => data?.users || [], [data?.users]);
+
+  const handleDeleteAccount = (id: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const userTake = users?.find((user: any) => user.id === id);
+    router.push({
+      pathname: `/auth/delete-account/${id}`,
+      query: { userName: userTake.username },
+    });
+  };
+
+  const handleCreateNewAccount = () => {
+    router.push('/auth/create-account');
+  };
+
+  const handleChangeValue = useCallback((value: string) => {
+    setSearchValue(value);
+  }, []);
+
+  const handleClearSearch = () => {
+    setSearchValue('');
+  };
+
+  const filterData = useMemo(() => {
+    if (!searchValue) return users;
+    const result = users.filter((user) => {
+      console.log('user', user.username);
+      return user.username.toLocaleLowerCase().indexOf(searchValue.toLocaleLowerCase()) > -1;
+    });
+    return result;
+  }, [searchValue, users]);
+
+  if (!data && !error) {
+    return (
+      <div
+        style={{
+          width: '100vw',
+          height: '100vh',
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+          fontSize: 30,
+        }}
+      >
+        Loading......
+      </div>
+    );
+  }
   return (
     <MainWrapper isLight={isLight}>
       <Container>
         <Tabs
-          currentIndex={1}
+          currentIndex={tabsIndex}
           items={[
             {
               item: 'Your Profile',
@@ -60,64 +92,85 @@ export default () => {
               id: 'manage',
             },
           ]}
+          style={{
+            margin: '32px 0',
+          }}
         />
       </Container>
-      <ContainerHeaderTitle>
-        <Title>Manage Accounts</Title>
-        <ContainerHeader>
-          <Search>
-            <SearchInput
-              // eslint-disable-next-line @typescript-eslint/no-empty-function
-              handleClearSearch={() => {}}
-              defaultValue={''}
-              placeholder="Search"
-              // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
-              onChange={(value: string) => {}}
-            />
-          </Search>
-          <Line isLight={isLight} />
-          <ButtonArea>
-            <CustomButton
-              label={isMobile ? 'New User' : 'Create New Account'}
-              withIcon
-              buttonType={ButtonType.Primary}
-              style={{
-                height: isMobile ? 34 : 48,
-              }}
-              padding={isMobile ? '8px 16px' : '14.5px 24px'}
-              styleText={{
-                fontSize: isMobile ? 14 : 16,
-                lineHeight: isMobile ? '18px' : '19px',
-              }}
-            />
-          </ButtonArea>
-        </ContainerHeader>
-      </ContainerHeaderTitle>
-
-      <ContainerCards>
-        {usersFakeData.map((user) => {
-          return <UserCard checked handleChange={() => {}} role={user.role} user={user.name || ''} />;
-        })}
-      </ContainerCards>
+      {tabsIndex === 0 && (
+        <ContainerProfile>
+          <UserProfile />
+        </ContainerProfile>
+      )}
+      {tabsIndex === 1 && (
+        <>
+          <ContainerHeaderTitle>
+            <Title isLight={isLight}>Manage Accounts</Title>
+            <ContainerHeader>
+              <Search>
+                <SearchInput
+                  value={searchValue}
+                  handleClearSearch={handleClearSearch}
+                  placeholder="Search"
+                  onChange={handleChangeValue}
+                />
+              </Search>
+              <Line isLight={isLight} />
+              <ButtonArea>
+                <CustomButton
+                  onClick={handleCreateNewAccount}
+                  label={isMobile ? 'New User' : 'Create New Account'}
+                  withIcon
+                  buttonType={ButtonType.Primary}
+                  style={{
+                    height: isMobile ? 34 : 48,
+                  }}
+                  padding={isMobile ? '8px 16px' : '14.5px 24px'}
+                  styleText={{
+                    fontSize: isMobile ? 14 : 16,
+                    lineHeight: isMobile ? '18px' : '19px',
+                  }}
+                />
+              </ButtonArea>
+            </ContainerHeader>
+          </ContainerHeaderTitle>
+          <ContainerCards>
+            {filterData.map((user: any) => {
+              return (
+                <UserCard
+                  checked={user.active}
+                  handleDeleteAccount={() => handleDeleteAccount(user.id)}
+                  role={user.roles[0].name}
+                  user={capitalizeWord(user?.username) || ''}
+                  key={user.id}
+                  id={user.id}
+                />
+              );
+            })}
+          </ContainerCards>
+        </>
+      )}
     </MainWrapper>
   );
 };
 
 const MainWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  marginTop: '88px',
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
+  minHeight: '100vh',
+  marginTop: 64,
   backgroundColor: isLight ? '#FFFFFF' : '#000000',
   backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/login-bg.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
+  paddingBottom: '128px',
 }));
 
 const Container = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  marginTop: 24,
+  paddingTop: 24,
   marginBottom: 24,
   '@media (min-width: 375px)': {
     width: 343,
@@ -213,7 +266,7 @@ const ContainerHeader = styled.div({
   },
 });
 
-const Title = styled.div({
+const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'none',
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
@@ -222,11 +275,11 @@ const Title = styled.div({
   lineHeight: '29px',
   alignItems: 'center',
   letterSpacing: '0.4px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   '@media (min-width: 1194px)': {
     display: 'flex',
   },
-});
+}));
 const Search = styled.div({
   gridArea: 'searchArea',
   width: 205,
@@ -295,4 +348,10 @@ const ContainerCards = styled.div({
     marginTop: 32,
     gridTemplateColumns: 'repeat(auto-fill, 416px)',
   },
+});
+
+const ContainerProfile = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
 });

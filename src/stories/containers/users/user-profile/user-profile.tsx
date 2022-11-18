@@ -43,107 +43,90 @@ const UserProfile = () => {
   };
 
   return (
-    <Wrapper isLight={isLight}>
-      <Container isLight={isLight}>
-        <ContainerInformation>
-          <CenterWrapper>
-            <AvatarPlaceholder />
-          </CenterWrapper>
-          <CenterWrapper>
-            <UserWrapper>
-              <LabelUser isLight={isLight}>{user?.username || ''}</LabelUser>
-              <UserRole>Site Admin</UserRole>
-            </UserWrapper>
-          </CenterWrapper>
-          <div
+    // <Wrapper isLight={isLight}>
+    <Container isLight={isLight}>
+      <ContainerInformation>
+        <CenterWrapper>
+          <AvatarPlaceholder />
+        </CenterWrapper>
+        <CenterWrapper>
+          <UserWrapper>
+            <LabelUser isLight={isLight}>{user?.username || ''}</LabelUser>
+            <UserRole>Site Admin</UserRole>
+          </UserWrapper>
+        </CenterWrapper>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: '32px',
+          }}
+        >
+          <UserNameLabel isLight={isLight}>Username:</UserNameLabel>
+          <UserLabelValue isLight={isLight}>{user?.username}</UserLabelValue>
+        </div>
+        <ContainerPassword>
+          <UserNameLabel isLight={isLight}>Password:</UserNameLabel>
+          <ContainerDots>
+            {resultPassword.map((item: unknown, index) => {
+              return (
+                <div style={{ marginRight: '4px' }} key={index}>
+                  <DotPassword isLight={isLight} />
+                </div>
+              );
+            })}
+          </ContainerDots>
+        </ContainerPassword>
+        <ContainerPasswordLink>
+          <CustomLink
+            href="/auth/change-password"
+            withArrow={false}
+            target="_self"
             style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginBottom: '32px',
+              marginLeft: '0px',
             }}
           >
-            <UserNameLabel isLight={isLight}>Username:</UserNameLabel>
-            <UserLabelValue isLight={isLight}>{user?.username}</UserLabelValue>
-          </div>
-          <ContainerPassword>
-            <UserNameLabel isLight={isLight}>Password:</UserNameLabel>
-            <ContainerDots>
-              {resultPassword.map((item: unknown, index) => {
-                return (
-                  <div style={{ marginRight: '4px' }} key={index}>
-                    <DotPassword isLight={isLight} />
-                  </div>
-                );
-              })}
-            </ContainerDots>
-          </ContainerPassword>
-          <ContainerPasswordLink>
-            <CustomLink
-              href="/auth/change-password"
-              withArrow={false}
-              target="_self"
-              style={{
-                marginLeft: '0px',
-              }}
-            >
-              Change user password
-            </CustomLink>
-          </ContainerPasswordLink>
-        </ContainerInformation>
-        <ButtonWrapper>
-          <CustomButton
-            onClick={handleDeleteAccount}
-            label="Delete Account"
-            style={{
-              width: 151,
-              height: 34,
-              borderRadius: 22,
-              borderColor: '#F75524',
-            }}
-            styleText={{
-              color: '#F75524',
-            }}
-          />
-          <CustomButton
-            onClick={handleLogOut}
-            buttonType={ButtonType.Default}
-            label="Log Out"
-            style={{
-              width: 102,
-              height: 34,
-              borderRadius: 22,
-            }}
-          />
-        </ButtonWrapper>
-      </Container>
-    </Wrapper>
+            Change user password
+          </CustomLink>
+        </ContainerPasswordLink>
+      </ContainerInformation>
+      <ButtonWrapper>
+        <CustomButton
+          onClick={handleDeleteAccount}
+          label="Delete Account"
+          style={{
+            width: 151,
+            height: 34,
+            borderRadius: 22,
+            borderColor: '#F75524',
+          }}
+          styleText={{
+            color: '#F75524',
+          }}
+        />
+        <CustomButton
+          onClick={handleLogOut}
+          buttonType={ButtonType.Default}
+          label="Log Out"
+          style={{
+            width: 102,
+            height: 34,
+            borderRadius: 22,
+          }}
+        />
+      </ButtonWrapper>
+    </Container>
+    //  </Wrapper>
   );
 };
 
 export default UserProfile;
 
-const Wrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  display: 'flex',
-  flex: 1,
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: '100vw',
-  height: '100vh',
-  overflow: 'hidden',
-  backgroundColor: isLight ? '#FFFFFF' : '#000000',
-  backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/login-bg.png)',
-  backgroundAttachment: 'fixed',
-  backgroundSize: 'cover',
-  paddingBottom: 128,
-}));
-
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
-  position: 'absolute',
   padding: '24px 24px 32px 24px',
-  top: 104,
   width: 343,
   background: isLight ? '#FFFFFF' : '#10191F',
   boxShadow: isLight
@@ -152,7 +135,6 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   borderRadius: '6px',
   '@media (min-width: 834px)': {
     width: '484px',
-    top: 128,
     padding: '40px 64px 40px 64px',
   },
 }));

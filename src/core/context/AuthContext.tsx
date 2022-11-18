@@ -10,26 +10,35 @@ interface AuthContextProps {
   setCredentials?: (value: LoginDTO) => void;
   clearCredentials?: () => void;
   clientRequest?: GraphQLClient;
+  hasToken: boolean;
+  isAuth?: boolean;
 }
 
-const AuthContext = React.createContext<AuthContextProps>({});
-
+const AuthContext = React.createContext<AuthContextProps>({ hasToken: false });
+const clientRequest = new GraphQLClient(GRAPHQL_ENDPOINT);
 export const useAuthContext = () => React.useContext(AuthContext);
 
 export const AuthContextProvider: React.FC<{ children: JSX.Element | JSX.Element[] }> = ({ children }) => {
-  const [authToken, setAuthToken] = React.useState('');
+  const [authToken, setAuthToken] = React.useState<string | undefined>();
+  const hasToken = authToken !== undefined;
+  const isAuth = !!authToken;
   const [user, setUser] = React.useState<UserDTO | undefined>(undefined);
   const router = useRouter();
-  const clientRequest = new GraphQLClient(GRAPHQL_ENDPOINT);
 
   useLayoutEffect(() => {
     const auth = window.localStorage.getItem('auth') ?? '{}';
-    setAuthToken(JSON.parse(auth)?.authToken ?? false);
+    const newAuth = JSON.parse(auth)?.authToken ?? false;
+    if (newAuth) {
+      clientRequest.setHeaders({
+        authorization: `Bearer ${newAuth}`,
+      });
+    }
+    setAuthToken(newAuth);
     setUser(JSON.parse(auth)?.user ?? null);
   }, []);
 
   const setCredentials = (value: LoginDTO) => {
-    setAuthToken(value.authToken);
+    setAuthToken(value.authToken || '');
     setUser(value.user);
     window.localStorage.setItem('auth', JSON.stringify(value));
   };
@@ -41,12 +50,6 @@ export const AuthContextProvider: React.FC<{ children: JSX.Element | JSX.Element
     router.push('/login');
   };
 
-  if (authToken) {
-    clientRequest.setHeaders({
-      authorization: `Bearer ${authToken}`,
-    });
-  }
-
   return (
     <AuthContext.Provider
       value={{
@@ -55,6 +58,8 @@ export const AuthContextProvider: React.FC<{ children: JSX.Element | JSX.Element
         setCredentials,
         clearCredentials,
         clientRequest,
+        hasToken,
+        isAuth,
       }}
     >
       {children}

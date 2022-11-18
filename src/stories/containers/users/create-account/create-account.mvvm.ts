@@ -66,7 +66,7 @@ export const useCreateAccountMvvm = () => {
     validationSchema,
     onSubmit: async (values) => {
       setLoading(true);
-      const { query, input } = CREATE_ACCOUNT_REQUEST(values.username, values.password, 43);
+      const { query, input } = CREATE_ACCOUNT_REQUEST(values.username, values.password);
 
       try {
         await request(GRAPHQL_ENDPOINT, query, input, { Authorization: `Bearer ${authToken}` });

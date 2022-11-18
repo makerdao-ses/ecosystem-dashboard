@@ -3,7 +3,7 @@ import { useRef, useState, useEffect } from 'react';
 import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
 import { TableItems } from '../../transparency-report/transparency-report';
 
-export const TRANSPARENCY_IDS = ['your-profile', 'manage-accounts'];
+export const TRANSPARENCY_IDS = ['profile', 'manage'];
 
 export const useManagerAccountViewModel = () => {
   const router = useRouter();
@@ -13,7 +13,7 @@ export const useManagerAccountViewModel = () => {
   const anchor = useUrlAnchor();
   const transparencyTableRef = useRef<HTMLDivElement>(null);
 
-  const [tabsIndex, setTabsIndex] = useState(0);
+  const [tabsIndex, setTabsIndex] = useState(1);
 
   useEffect(() => {
     if (anchor) {

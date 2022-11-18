@@ -6,7 +6,7 @@ import { useAuthContext } from '../../../src/core/context/AuthContext';
 import EnableDisableAccount from '../../../src/stories/containers/users/enable-disable-accounts/enable-disable-accounts';
 import NotFoundPage from '../../404';
 
-const CreateAccountPage: NextPage = () => {
+const EnableDisableAccountPage: NextPage = () => {
   const { authToken } = useAuthContext();
 
   if (!featureFlags[CURRENT_ENVIRONMENT].FEATURE_AUTH || !authToken) {
@@ -16,4 +16,4 @@ const CreateAccountPage: NextPage = () => {
   return <EnableDisableAccount />;
 };
 
-export default CreateAccountPage;
+export default EnableDisableAccountPage;
