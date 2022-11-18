@@ -1,7 +1,6 @@
 import { IconButton, IconButtonProps, Tooltip } from '@mui/material';
 import { ThemeMode } from '../../../../core/context/ThemeContext';
-
-import MoonMode from '../../svg/theme-mode';
+import MoonWithCircle from '../../svg/moon-mode-circle';
 import ToggleDarkMode from '../../svg/toggle-dark';
 
 interface Props {
@@ -13,7 +12,7 @@ const ThemeSwitcherButton = ({ themeMode, toggleTheme, ...rest }: IconButtonProp
   return (
     <Tooltip title={themeMode === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}>
       <IconButton {...rest} onClick={toggleTheme}>
-        {themeMode === 'light' ? <MoonMode /> : <ToggleDarkMode />}
+        {themeMode === 'light' ? <MoonWithCircle /> : <ToggleDarkMode />}
       </IconButton>
     </Tooltip>
   );

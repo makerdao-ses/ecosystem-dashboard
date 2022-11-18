@@ -1,51 +1,60 @@
+import { GraphQLClient } from 'graphql-request';
+import { useRouter } from 'next/router';
 import React, { useLayoutEffect } from 'react';
+import { GRAPHQL_ENDPOINT } from '../../config/endpoints';
+import { LoginDTO, UserDTO } from '../models/dto/auth.dto';
 
 interface AuthContextProps {
-  isAuthenticated: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  user: any;
-  authToken: string;
-  setIsAuthenticated: (value: boolean) => void;
+  user?: UserDTO;
+  authToken?: string;
+  setCredentials?: (value: LoginDTO) => void;
+  clearCredentials?: () => void;
+  clientRequest?: GraphQLClient;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const AuthContext = React.createContext<AuthContextProps>({
-  isAuthenticated: false,
-  user: null,
-  authToken: '',
-  setIsAuthenticated: () => 0,
-});
+const AuthContext = React.createContext<AuthContextProps>({});
 
 export const useAuthContext = () => React.useContext(AuthContext);
 
 export const AuthContextProvider: React.FC<{ children: JSX.Element | JSX.Element[] }> = ({ children }) => {
-  const [isAuthenticated, setAuthenticated] = React.useState(false);
-  const [user, setUser] = React.useState(null);
+  const [authToken, setAuthToken] = React.useState('');
+  const [user, setUser] = React.useState<UserDTO | undefined>(undefined);
+  const router = useRouter();
+  const clientRequest = new GraphQLClient(GRAPHQL_ENDPOINT);
 
   useLayoutEffect(() => {
     const auth = window.localStorage.getItem('auth') ?? '{}';
-    setAuthenticated(JSON.parse(auth)?.authenticated ?? false);
+    setAuthToken(JSON.parse(auth)?.authToken ?? false);
     setUser(JSON.parse(auth)?.user ?? null);
   }, []);
 
-  const setIsAuthenticated = (value: boolean) => {
-    setAuthenticated(value);
-    window.localStorage.setItem(
-      'auth',
-      JSON.stringify({
-        authenticated: value,
-        user: value ? { username: 'Wouter' } : null,
-      })
-    );
+  const setCredentials = (value: LoginDTO) => {
+    setAuthToken(value.authToken);
+    setUser(value.user);
+    window.localStorage.setItem('auth', JSON.stringify(value));
   };
+
+  const clearCredentials = () => {
+    setAuthToken('');
+    setUser(undefined);
+    window.localStorage.setItem('auth', '{}');
+    router.push('/login');
+  };
+
+  if (authToken) {
+    clientRequest.setHeaders({
+      authorization: `Bearer ${authToken}`,
+    });
+  }
 
   return (
     <AuthContext.Provider
       value={{
-        isAuthenticated,
         user,
-        setIsAuthenticated,
-        authToken: '',
+        authToken,
+        setCredentials,
+        clearCredentials,
+        clientRequest,
       }}
     >
       {children}

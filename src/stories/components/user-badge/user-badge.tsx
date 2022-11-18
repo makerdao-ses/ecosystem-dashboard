@@ -1,19 +1,25 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import React from 'react';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
 
 interface Props {
-  username: string;
+  username?: string;
+  style?: React.CSSProperties;
+  onClick?: () => void;
 }
-export default (props: Props) => {
+
+export default ({ onClick, username, style }: Props) => {
   const isDesktop = useMediaQuery('(min-width: 834px)');
+  const { isLight } = useThemeContext();
+
   return isDesktop ? (
-    <Container className="no-select">
+    <Container isLight={isLight} className="no-select" style={style} onClick={onClick}>
       <CircleAvatar
         width="32px"
         height="32px"
-        name={props.username ?? 'Wouter Kampmann'}
+        name={username ?? 'Username'}
         fontSize="14px"
         style={{
           position: 'absolute',
@@ -22,37 +28,39 @@ export default (props: Props) => {
           border: '2px solid #708390',
         }}
       />
-      <UserName>{props.username ?? 'Wouter Kampmann'}</UserName>
+      <UserName isLight={isLight}>{username ?? 'Username'}</UserName>
     </Container>
   ) : (
     <CircleAvatar
-      width="32px"
-      height="32px"
-      name={props.username ?? 'Wouter Kampmann'}
+      width="35px"
+      height="35px"
+      name={username ?? 'Username'}
       fontSize="14px"
+      onClick={onClick}
       style={{
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        border: '1px solid #D4D9E1',
+        border: `1px solid ${isLight ? '#D4D9E1' : '#708390'}`,
+        cursor: 'pointer',
+        marginRight: 16,
+        ...style,
       }}
     />
   );
 };
 
-const Container = styled.div({
-  background: '#F6F8F9',
-  border: '1px solid #D4D9E1',
+const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  background: isLight ? '#F6F8F9' : '#1E2C37',
+  border: isLight ? '1px solid #D4D9E1' : '1px solid #343442',
   borderRadius: 22,
   padding: ' 7px 16px 7px 40px',
   position: 'relative',
   width: 'fit-content',
   height: 34,
-});
+  cursor: 'pointer',
+}));
 
-const UserName = styled.div({
-  color: '#231536',
+const UserName = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  color: isLight ? '#231536' : '#D2D4EF',
   fontWeight: 500,
   fontSize: 14,
   lineHeight: '18px',
-});
+}));

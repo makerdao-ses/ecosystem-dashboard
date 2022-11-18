@@ -19,7 +19,7 @@ export class SitemapBuilder {
   }
 
   resolveGlobalActivityRoute(): string {
-    return this.getXMLForRoute(`${BASE_URL}/activity-feed/`);
+    return this.getXMLForRoute(`${BASE_URL}/activity-feed`);
   }
 
   resolveSingleCURoutes(cu: CoreUnitDto): string[] {

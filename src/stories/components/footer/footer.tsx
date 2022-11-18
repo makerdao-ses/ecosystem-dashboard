@@ -36,7 +36,7 @@ const Footer = ({ governesses, products, developer }: Props) => {
   const upTable = useMediaQuery(lightTheme.breakpoints.up(835));
   const router = useRouter();
 
-  if (router.route === '/login') {
+  if (router.route.toString().includes('login') || router.route.toString().includes('auth')) {
     return <></>;
   }
 

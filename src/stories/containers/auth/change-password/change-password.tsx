@@ -3,15 +3,18 @@ import React from 'react';
 import CloseButton from '../../../components/close-button/close-button';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
-import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import TextInput from '../../../components/text-input/text-input';
-import { ButtonWrapper, Container, Wrapper } from '../login/login';
+import { ButtonWrapper, Container, Form, Wrapper } from '../login/login';
+import { userChangePasswordMvvm } from './change-password.mvvm';
+import { CircleAvatar } from '../../../components/circle-avatar/circle-avatar';
 
 export default () => {
   const { isLight } = useThemeContext();
+  const { form, username, loading, error } = userChangePasswordMvvm();
+
   return (
     <Wrapper isLight={isLight}>
-      <Container>
+      <Container isLight={isLight}>
         <CloseButton
           style={{
             position: 'absolute',
@@ -19,35 +22,70 @@ export default () => {
             right: 24,
           }}
         />
-        <AvatarPlaceholder />
+        <CircleAvatar name={username} width={'64px'} height={'64px'} />
         <UserWrapper>
-          <UserLabel>Username</UserLabel>
+          <UserLabel isLight={isLight}>Username</UserLabel>
           <Spacer />
-          <Username>Wouter Kampman</Username>
+          <Username isLight={isLight}>{username}</Username>
         </UserWrapper>
-        <ChangePassword>Change Your Password</ChangePassword>
-        <InputsWrapper>
-          <Label>Enter Existing Password</Label>
-          <TextInput type="password" placeholder="Password" name="OldPassword" style={{ marginBottom: 32 }} />
-          <Label>Enter New Password</Label>
-          <TextInput type="password" placeholder="New Password" name="NewPassword" style={{ marginBottom: 24 }} />
-          <TextInput
-            type="password"
-            placeholder="Confirm Password"
-            name="ConfirmPassword"
-            style={{ marginBottom: 32 }}
-          />
-        </InputsWrapper>
-        <ButtonWrapper>
-          <CustomButton
-            label="Set New Password"
-            style={{
-              width: 174,
-              height: 34,
-              borderRadius: 22,
-            }}
-          />
-        </ButtonWrapper>
+        <ChangePassword isLight={isLight}>Change Your Password</ChangePassword>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            form.handleSubmit();
+          }}
+        >
+          <InputsWrapper>
+            <Label>Enter Existing Password</Label>
+            <TextInput
+              type="password"
+              placeholder="Password"
+              name="oldPassword"
+              value={form.values.oldPassword}
+              onChange={form.handleChange}
+              onBlur={form.handleBlur}
+              error={form.touched.oldPassword && form.errors.oldPassword}
+              style={{ marginBottom: 32 }}
+              disabled={loading}
+            />
+            <Label>Enter New Password</Label>
+            <TextInput
+              type="password"
+              placeholder="New Password"
+              name="newPassword"
+              value={form.values.newPassword}
+              onChange={form.handleChange}
+              onBlur={form.handleBlur}
+              error={form.touched.newPassword && form.errors.newPassword}
+              style={{ marginBottom: 24 }}
+              disabled={loading}
+            />
+            <TextInput
+              type="password"
+              placeholder="Confirm Password"
+              name="confirmPassword"
+              value={form.values.confirmPassword}
+              onChange={form.handleChange}
+              onBlur={form.handleBlur}
+              error={(form.touched.confirmPassword && form.errors.confirmPassword) ?? error}
+              style={{ marginBottom: 32 }}
+              disabled={loading}
+            />
+          </InputsWrapper>
+          <ButtonWrapper>
+            <CustomButton
+              label="Set New Password"
+              onClick={form.submitForm}
+              style={{
+                width: 174,
+                height: 34,
+                borderRadius: 22,
+              }}
+              type="submit"
+              disabled={loading}
+            />
+          </ButtonWrapper>
+        </Form>
       </Container>
     </Wrapper>
   );
@@ -75,8 +113,8 @@ export const Spacer = styled.div({
   },
 });
 
-export const UserLabel = styled.p({
-  color: '#708390',
+export const UserLabel = styled.p<{ isLight: boolean }>(({ isLight }) => ({
+  color: isLight ? '#708390' : '#D2D4EF',
   fontSize: 24,
   lineHeight: '24px',
   fontWeight: 600,
@@ -87,24 +125,25 @@ export const UserLabel = styled.p({
       content: '":"',
     },
   },
-});
+}));
 
-export const Username = styled.h1({
+export const Username = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: 24,
   lineHeight: '29px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   textAlign: 'center',
   margin: 0,
-});
+}));
 
-const ChangePassword = styled.h2({
+export const ChangePassword = styled.h2<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: 20,
   lineHeight: '24px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   margin: '0 0 32px 0',
   alignSelf: 'flex-start',
   letterSpacing: 0.4,
-});
+  fontWeight: 600,
+}));
 
 const Label = styled.div({
   fontWeight: 400,

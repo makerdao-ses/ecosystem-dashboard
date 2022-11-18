@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React, { useRef, useState } from 'react';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 import Eye from '../svg/eye';
 
 interface Props {
@@ -11,10 +12,24 @@ interface Props {
   error?: string | boolean;
   name: string;
   onBlur?: (value: React.FocusEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
+  errorAbsolutePosition?: boolean;
 }
 
-export default ({ placeholder, style, type = 'text', value = '', onChange, error, name, onBlur }: Props) => {
+export default ({
+  placeholder,
+  style,
+  type = 'text',
+  value = '',
+  onChange,
+  error,
+  name,
+  onBlur,
+  disabled = false,
+  errorAbsolutePosition = false,
+}: Props) => {
   const ref = useRef<HTMLInputElement>(null);
+  const { isLight } = useThemeContext();
 
   const [passwordVisible, setPasswordVisible] = useState(false);
   const togglePasswordVisible = () => setPasswordVisible(!passwordVisible);
@@ -22,6 +37,7 @@ export default ({ placeholder, style, type = 'text', value = '', onChange, error
   return (
     <Wrapper style={style}>
       <Input
+        isLight={isLight}
         ref={ref}
         type={passwordVisible ? 'text' : type}
         onChange={onChange}
@@ -32,13 +48,32 @@ export default ({ placeholder, style, type = 'text', value = '', onChange, error
         error={!!error}
         id={name}
         name={name}
+        disabled={disabled}
       />
       {type === 'password' && (
         <IconWrapper onClick={togglePasswordVisible}>
-          <Eye fill={error ? (passwordVisible ? '#F75524' : '#FBE1D9') : passwordVisible ? '#231536' : '#D4D9E1'} />
+          <Eye
+            fill={
+              isLight
+                ? error
+                  ? passwordVisible
+                    ? '#F75524'
+                    : '#FBE1D9'
+                  : passwordVisible
+                  ? '#231536'
+                  : '#D4D9E1'
+                : error
+                ? passwordVisible
+                  ? '#F75524'
+                  : '#3D2525'
+                : passwordVisible
+                ? '#D2D4EF'
+                : '#25273D'
+            }
+          />
         </IconWrapper>
       )}
-      {error && typeof error === 'string' && <Error>{error}</Error>}
+      {error && typeof error === 'string' && <Error absolutePosition={errorAbsolutePosition}>{error}</Error>}
     </Wrapper>
   );
 };
@@ -55,17 +90,18 @@ const IconWrapper = styled.span({
   cursor: 'pointer',
 });
 
-const Input = styled.input<{ active: boolean; error: boolean }>(({ active, error }) => ({
+const Input = styled.input<{ active: boolean; error: boolean; isLight: boolean }>(({ active, error, isLight }) => ({
   boxSizing: 'border-box',
   alignItems: 'center',
   width: '100%',
   height: 48,
-  border: '1px solid #D4D9E1',
+  border: isLight ? '1px solid #D4D9E1' : '1px solid #343442;',
   borderRadius: 6,
   padding: '14px 16px',
   fontSize: 16,
   lineHeight: '19px',
-  color: '#231536',
+  backgroundColor: isLight ? 'white' : '#10191F',
+  color: isLight ? '#231536' : '#D2D4EF',
   outline: 'none',
   ...(active && {
     borderColor: '#708390',
@@ -78,22 +114,17 @@ const Input = styled.input<{ active: boolean; error: boolean }>(({ active, error
     color: '#F75524',
   }),
   '::placeholder': {
-    color: '#D4D9E1',
+    color: isLight ? '#D4D9E1' : '#48495F',
   },
 }));
 
-const Error = styled.div({
+const Error = styled.div<{ absolutePosition: boolean }>(({ absolutePosition }) => ({
   display: 'flex',
   color: '#F75524',
-  width: 356,
+  width: '100%',
   fontSize: 14,
   lineHeight: '17px',
-  paddingLeft: 16,
   marginTop: 8,
-  '::before': {
-    content: '"*"',
-    position: 'absolute',
-    left: 2,
-    marginTop: 1,
-  },
-});
+  position: absolutePosition ? 'absolute' : 'relative',
+  top: absolutePosition ? 56 : 0,
+}));

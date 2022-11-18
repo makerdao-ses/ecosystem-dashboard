@@ -4,25 +4,38 @@ import { useCallback, useMemo } from 'react';
 import { useAuthContext } from '../../../core/context/AuthContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
-import ThemeSwitcherButton from '../button/switch-button/switch-buttom';
 import { CustomLink } from '../custom-link/custom-link';
 import Expenses from '../svg/expenses';
 import Logo from '../svg/logo';
+
 import { TopBarSelect } from '../top-bar-select/top-bar-select';
-import UserBadge from '../user-badge/user-badge';
+
 import menuItems, { MenuType } from './menu-items';
 import { WebSiteLinks } from './select-link-website/menu-items';
 import SelectLink from './select-link-website/select-link';
+import MenuTheme from '../menu-navigation/menu-theme/menu-theme';
+import MenuUserOptions from '../menu-navigation/menu-user/menu-user';
+import ThemeSwitcherButton from '../button/switch-button/switch-buttom';
+import lightTheme from '../../../../styles/theme/light';
 
 interface Props {
   links: WebSiteLinks[];
 }
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const Header = ({ links }: Props) => {
-  const { themeMode, toggleTheme, isLight } = useThemeContext();
-  const { isAuthenticated } = useAuthContext();
-
   const router = useRouter();
+
+  const { themeMode, toggleTheme, isLight } = useThemeContext();
+  const { authToken, user, clearCredentials } = useAuthContext();
+
+  // TODO:THis is because the roles don't got save in DTO
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const isAdmin = useMemo(() => (user as any)?.roles[0].name === 'SuperAdmin', [user]);
+
+  const handleOnClickLogOut = () => {
+    clearCredentials && clearCredentials();
+  };
+
   const onClick = useCallback(
     (link: string) => () => {
       window.open(link, '_blank');
@@ -83,7 +96,6 @@ const Header = ({ links }: Props) => {
                 isLight={isLight}
                 key={item.title}
                 style={{ marginRight: item.marginRight }}
-                // href={item.link}
                 onClick={handleOnClick(item.link)}
                 active={activeMenuItem === item}
               >
@@ -95,44 +107,58 @@ const Header = ({ links }: Props) => {
             <TopBarSelect selectedOption={activeMenuItem.title} />
           </ItemMenuResponsive>
           <RightElementsWrapper>
-            {isAuthenticated ? (
-              <LinkWrapper>
-                <UserBadge username={'Wouter Kampmann'} />
-              </LinkWrapper>
-            ) : (
-              <CustomLink
-                children="How to Submit Expenses"
-                fontWeight={500}
-                fontSize={16}
-                href={HOW_TO_SUBMIT_EXPENSES}
-                style={{
-                  fontFamily: 'Inter, sans serif',
-                  color: '#447AFB',
-                  fontStyle: 'normal',
-                  letterSpacing: '0.3px',
-                  marginLeft: '0px',
-                }}
-                marginLeft="7px"
-                withArrow
-                iconHeight={10}
-                iconWidth={10}
+            {authToken ? (
+              <MenuUserOptions
+                isAdmin={isAdmin}
+                // eslint-disable-next-line @typescript-eslint/no-empty-function
+                onClickAccountManager={() => {}}
+                onClickLogOut={handleOnClickLogOut}
+                // eslint-disable-next-line @typescript-eslint/no-empty-function
+                onClickProfile={() => {}}
+                username={user?.username || ''}
               />
+            ) : (
+              <LinkWrapper>
+                <CustomLink
+                  children="How to Submit Expenses"
+                  fontWeight={500}
+                  fontSize={16}
+                  href={HOW_TO_SUBMIT_EXPENSES}
+                  style={{
+                    fontFamily: 'Inter, sans serif',
+                    color: '#447AFB',
+                    fontStyle: 'normal',
+                    letterSpacing: '0.3px',
+                    marginLeft: '0px',
+                  }}
+                  marginLeft="7px"
+                  withArrow
+                  iconHeight={10}
+                  iconWidth={10}
+                />
+              </LinkWrapper>
             )}
           </RightElementsWrapper>
         </Navigation>
       </LeftPart>
       <RightPart>
-        <ThemeSwitcherButtonWrapper>
-          <ThemeSwitcherButton themeMode={themeMode} toggleTheme={toggleTheme} />
-        </ThemeSwitcherButtonWrapper>
-        <SelectLink
-          links={links}
-          themeMode={themeMode}
-          fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'}
-          onClick={onClick}
-          responsive={true}
-          toggleTheme={toggleTheme}
-        />
+        {authToken ? (
+          <MenuTheme themeMode={themeMode} toggleTheme={toggleTheme} />
+        ) : (
+          <div>
+            <SelectLink
+              links={links}
+              themeMode={themeMode}
+              fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'}
+              onClick={onClick}
+              responsive={true}
+              toggleTheme={toggleTheme}
+            />
+            <WrapperIcon>
+              <ThemeSwitcherButton themeMode={themeMode} toggleTheme={toggleTheme} />
+            </WrapperIcon>
+          </div>
+        )}
       </RightPart>
     </Container>
   );
@@ -175,7 +201,7 @@ const LogoContainer = styled.div({
   marginTop: '13px',
   marginBottom: '13px',
   cursor: 'pointer',
-  '@media (min-width: 635px)': {
+  '@media (min-width: 834px)': {
     marginRight: '32px',
   },
 });
@@ -238,9 +264,8 @@ const LinkWrapper = styled.div({
 });
 
 const RightElementsWrapper = styled.div({
-  display: 'none',
+  display: 'flex',
   '@media (min-width: 834px)': {
-    display: 'flex',
     position: 'absolute',
     right: 16,
   },
@@ -251,15 +276,18 @@ const RightElementsWrapper = styled.div({
 
 const LogoLinksWrapper = styled.div({
   display: 'none',
-  '@media (min-width: 635px)': {
+  '@media (min-width: 834px)': {
     display: 'flex',
   },
 });
 
-const ThemeSwitcherButtonWrapper = styled.div({
-  display: 'none',
-  '@media (min-width: 635px)': {
-    display: 'block',
+const WrapperIcon = styled.div({
+  display: 'flex',
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    display: 'none',
+  },
+  [lightTheme.breakpoints.down('table_375')]: {
+    display: 'none',
   },
 });
 
