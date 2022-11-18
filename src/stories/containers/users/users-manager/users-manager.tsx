@@ -14,6 +14,7 @@ import { CustomButton } from '../../../components/custom-button/custom-button';
 import { SearchInput } from '../../../components/search-input/search-input';
 import { Tabs } from '../../../components/tabs/tabs';
 import UserCard from '../../../components/user-card/user-card';
+import UserProfile from '../user-profile/user-profile';
 import { useManagerAccountViewModel } from './manager-account.mvvm';
 import { QUERY_USERS } from './user-manager.api';
 
@@ -98,20 +99,9 @@ export default () => {
         />
       </Container>
       {tabsIndex === 0 && (
-        <div
-          style={{
-            width: '100vw',
-            height: '100vh',
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            fontSize: 30,
-            marginTop: 50,
-          }}
-        >
-          Profile
-        </div>
+        <ContainerProfile>
+          <UserProfile />
+        </ContainerProfile>
       )}
       {tabsIndex === 1 && (
         <>
@@ -359,4 +349,10 @@ const ContainerCards = styled.div({
     marginTop: 32,
     gridTemplateColumns: 'repeat(auto-fill, 416px)',
   },
+});
+
+const ContainerProfile = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
 });
