@@ -14,6 +14,7 @@ import { CustomButton } from '../../../components/custom-button/custom-button';
 import { SearchInput } from '../../../components/search-input/search-input';
 import { Tabs } from '../../../components/tabs/tabs';
 import UserCard from '../../../components/user-card/user-card';
+import { useManagerAccountViewModel } from './manager-account.mvvm';
 import { QUERY_USERS } from './user-manager.api';
 
 export default () => {
@@ -22,6 +23,7 @@ export default () => {
   const { isLight } = useThemeContext();
   const { clientRequest } = useAuthContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+  const { tabsIndex } = useManagerAccountViewModel();
 
   const fetcher = async (query: string) => await clientRequest?.request(query);
   const { data, error } = useSWR(QUERY_USERS, fetcher);
@@ -79,7 +81,7 @@ export default () => {
     <MainWrapper isLight={isLight}>
       <Container>
         <Tabs
-          currentIndex={1}
+          currentIndex={tabsIndex}
           items={[
             {
               item: 'Your Profile',
@@ -90,53 +92,75 @@ export default () => {
               id: 'manage',
             },
           ]}
+          style={{
+            margin: '32px 0',
+          }}
         />
       </Container>
-      <ContainerHeaderTitle>
-        <Title isLight={isLight}>Manage Accounts</Title>
-        <ContainerHeader>
-          <Search>
-            <SearchInput
-              value={searchValue}
-              handleClearSearch={handleClearSearch}
-              placeholder="Search"
-              onChange={handleChangeValue}
-            />
-          </Search>
-          <Line isLight={isLight} />
-          <ButtonArea>
-            <CustomButton
-              onClick={handleCreateNewAccount}
-              label={isMobile ? 'New User' : 'Create New Account'}
-              withIcon
-              buttonType={ButtonType.Primary}
-              style={{
-                height: isMobile ? 34 : 48,
-              }}
-              padding={isMobile ? '8px 16px' : '14.5px 24px'}
-              styleText={{
-                fontSize: isMobile ? 14 : 16,
-                lineHeight: isMobile ? '18px' : '19px',
-              }}
-            />
-          </ButtonArea>
-        </ContainerHeader>
-      </ContainerHeaderTitle>
-
-      <ContainerCards>
-        {filterData.map((user: any) => {
-          return (
-            <UserCard
-              checked={user.active}
-              handleDeleteAccount={() => handleDeleteAccount(user.id)}
-              role={user.roles[0].name}
-              user={capitalizeWord(user?.username) || ''}
-              key={user.id}
-              id={user.id}
-            />
-          );
-        })}
-      </ContainerCards>
+      {tabsIndex === 0 && (
+        <div
+          style={{
+            width: '100vw',
+            height: '100vh',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontSize: 30,
+            marginTop: 50,
+          }}
+        >
+          Profile
+        </div>
+      )}
+      {tabsIndex === 1 && (
+        <>
+          <ContainerHeaderTitle>
+            <Title isLight={isLight}>Manage Accounts</Title>
+            <ContainerHeader>
+              <Search>
+                <SearchInput
+                  value={searchValue}
+                  handleClearSearch={handleClearSearch}
+                  placeholder="Search"
+                  onChange={handleChangeValue}
+                />
+              </Search>
+              <Line isLight={isLight} />
+              <ButtonArea>
+                <CustomButton
+                  onClick={handleCreateNewAccount}
+                  label={isMobile ? 'New User' : 'Create New Account'}
+                  withIcon
+                  buttonType={ButtonType.Primary}
+                  style={{
+                    height: isMobile ? 34 : 48,
+                  }}
+                  padding={isMobile ? '8px 16px' : '14.5px 24px'}
+                  styleText={{
+                    fontSize: isMobile ? 14 : 16,
+                    lineHeight: isMobile ? '18px' : '19px',
+                  }}
+                />
+              </ButtonArea>
+            </ContainerHeader>
+          </ContainerHeaderTitle>
+          <ContainerCards>
+            {filterData.map((user: any) => {
+              return (
+                <UserCard
+                  checked={user.active}
+                  handleDeleteAccount={() => handleDeleteAccount(user.id)}
+                  role={user.roles[0].name}
+                  user={capitalizeWord(user?.username) || ''}
+                  key={user.id}
+                  id={user.id}
+                />
+              );
+            })}
+          </ContainerCards>
+        </>
+      )}
     </MainWrapper>
   );
 };
@@ -158,6 +182,7 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'row',
   paddingTop: 24,
+  marginBottom: 24,
   '@media (min-width: 375px)': {
     width: 343,
     margin: '0 auto',
