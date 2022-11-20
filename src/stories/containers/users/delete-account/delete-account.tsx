@@ -10,6 +10,10 @@ import { ButtonWrapper, Container, Wrapper } from '../../auth/login/login';
 import { useRouter } from 'next/router';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { USERS_DELETE_FROM_ADMIN } from './delete-account.api';
+import { toast } from 'react-toastify';
+import Notification, { ContainerNotification } from '../../../components/notification/notification';
+import CheckMark from '../../../components/svg/check-mark';
+import Warning from '../../../components/svg/warning';
 
 export default () => {
   const testingPassword = '1234';
@@ -27,7 +31,35 @@ export default () => {
       const { query: gqlQuery, filter } = USERS_DELETE_FROM_ADMIN(id as string);
       const data = await clientRequest?.request(gqlQuery, filter);
       if (data.userDelete) {
-        router.push('/auth/manage');
+        toast(
+          ({ closeToast }) => <Notification icon={<CheckMark />} borderColor="#B6EDE7" handleClose={closeToast} />,
+          {
+            position: toast.POSITION.BOTTOM_CENTER,
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeButton: false,
+          }
+        );
+        setTimeout(() => {
+          router.push('/auth/manage');
+        }, 3000);
+      } else {
+        toast(
+          ({ closeToast }) => (
+            <Notification
+              icon={<Warning />}
+              borderColor="#FBE1D9"
+              handleClose={closeToast}
+              message="There was some problem deleting your account"
+            />
+          ),
+          {
+            position: toast.POSITION.BOTTOM_CENTER,
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeButton: false,
+          }
+        );
       }
     } catch (error) {
       console.log('error', error);
@@ -95,6 +127,7 @@ export default () => {
           />
         </ButtonWrapper>
       </Container>
+      <ContainerNotification />
     </Wrapper>
   );
 };
