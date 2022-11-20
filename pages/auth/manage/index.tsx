@@ -8,8 +8,7 @@ import NotFoundPage from '../../404';
 
 const UsersManagePage: NextPage = () => {
   const { hasToken, authToken } = useAuthContext();
-
-  if (!featureFlags[CURRENT_ENVIRONMENT].FEATURE_AUTH && !authToken) {
+  if (!featureFlags[CURRENT_ENVIRONMENT].FEATURE_AUTH || !authToken) {
     return <NotFoundPage />;
   }
   if (!hasToken) {
