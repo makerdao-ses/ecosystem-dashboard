@@ -7,10 +7,11 @@ interface TabsProps {
   items?: { item: string | JSX.Element; id: string }[];
   currentIndex: number;
   style?: CSSProperties;
+  styleForTab?: CSSProperties;
 }
 
 export const Tabs = (props: TabsProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const router = useRouter();
 
   const handleClick = (id: string) => {
@@ -44,6 +45,7 @@ export const Tabs = (props: TabsProps) => {
               onClick={() => handleClick(id)}
               style={{
                 marginRight: i === 0 ? '32px' : undefined,
+                ...props.styleForTab,
               }}
             >
               {item}

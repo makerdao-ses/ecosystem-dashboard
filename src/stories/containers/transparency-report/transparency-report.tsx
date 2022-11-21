@@ -55,9 +55,9 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
 
   const CommentsComponent = {
     item: (
-      <CommentsParenthesis>
+      <ParenthesisNumber>
         Comments <span>{`(${numbersComments})`}</span>
-      </CommentsParenthesis>
+      </ParenthesisNumber>
     ),
     id: TRANSPARENCY_IDS[5],
   };
@@ -361,7 +361,7 @@ export const CardsWrapper = styled.div({
   },
 });
 
-const CommentsParenthesis = styled.label({
+export const ParenthesisNumber = styled.label({
   cursor: 'pointer',
   '> span': {
     fontWeight: 'bold',

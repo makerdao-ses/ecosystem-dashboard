@@ -47,10 +47,6 @@ export const useManagerAccountViewModel = () => {
       item: 'Your Profile',
       id: TRANSPARENCY_IDS[0],
     },
-    {
-      item: 'Manage Accounts',
-      id: TRANSPARENCY_IDS[1],
-    },
   ];
 
   return {
