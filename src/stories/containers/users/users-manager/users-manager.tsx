@@ -55,7 +55,14 @@ export default () => {
   };
 
   const handleGoProfileView = (id: string) => {
-    router.push(`/auth/enable-disable-accounts/${id}`);
+    const userTake = users?.find((user: any) => user.id === id);
+    router.push({
+      pathname: '/auth/enable-disable-accounts/',
+      query: {
+        userName: userTake.username,
+        id,
+      },
+    });
   };
 
   const filterData = useMemo(() => {
@@ -146,7 +153,7 @@ export default () => {
               return (
                 <UserCard
                   checked={user.active}
-                  handleDeleteAccount={() => handleDeleteAccount(user.id)}
+                  handleDeleteAccount={handleDeleteAccount}
                   role={user.roles[0].name}
                   user={capitalizeWord(user?.username) || ''}
                   key={user.id}

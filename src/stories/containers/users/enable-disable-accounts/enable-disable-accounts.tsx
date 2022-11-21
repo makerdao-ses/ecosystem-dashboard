@@ -3,10 +3,12 @@ import styled from '@emotion/styled';
 import request, { GraphQLClient } from 'graphql-request';
 import fill from 'lodash/fill';
 import { useRouter } from 'next/router';
-import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { ButtonType } from '../../../../core/enums/button-type.enum';
+import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
+import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import ControlledSwitches from '../../../components/button/switch-toogle/switch-component';
 import CloseButton from '../../../components/close-button/close-button';
 import { CustomButton } from '../../../components/custom-button/custom-button';
@@ -24,7 +26,7 @@ export default () => {
   const { isLight } = useThemeContext();
   const { user, clientRequest } = useAuthContext();
   const [checked, setChecked] = useState(user?.active || false);
-
+  const isAdmin = useIsAdmin(user || ({} as UserDTO));
   const handleChange = useCallback(async () => {
     try {
       const { query: gqlQuery, input } = ENABLE_DISABLE_USER_REQUEST(!checked, id as string);
@@ -32,9 +34,7 @@ export default () => {
       if (data) {
         setChecked(data.userSetActiveFlag.active);
       }
-    } catch (error) {
-      console.log('error', error);
-    }
+    } catch (error) {}
   }, [checked, clientRequest, id]);
 
   const handleDeleteAccount = useCallback(() => {
@@ -42,8 +42,12 @@ export default () => {
   }, [router]);
 
   const handleGoBack = useCallback(() => {
-    router.back();
-  }, [router]);
+    if (window?.history?.state?.idx > 0) {
+      router.back();
+    } else {
+      router.push(`/auth/manage#${isAdmin ? 'manage' : 'profile'}`);
+    }
+  }, [isAdmin, router]);
 
   return (
     <Wrapper isLight={isLight}>

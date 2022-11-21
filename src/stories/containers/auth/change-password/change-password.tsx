@@ -8,15 +8,26 @@ import { ButtonWrapper, Container, Form, Wrapper } from '../login/login';
 import { userChangePasswordMvvm } from './change-password.mvvm';
 import { CircleAvatar } from '../../../components/circle-avatar/circle-avatar';
 import { useRouter } from 'next/router';
+import { useAuthContext } from '../../../../core/context/AuthContext';
+import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
+import { UserDTO } from '../../../../core/models/dto/auth.dto';
 
 export default () => {
   const { isLight } = useThemeContext();
+  const { user } = useAuthContext();
+
   const router = useRouter();
   const { form, username, loading, error } = userChangePasswordMvvm();
 
+  const isAdmin = useIsAdmin(user || ({} as UserDTO));
+
   const handleGoBack = useCallback(() => {
-    router.back();
-  }, [router]);
+    if (window?.history?.state?.idx > 0) {
+      router.back();
+    } else {
+      router.push(`/auth/manage#${isAdmin ? 'manage' : 'profile'}`);
+    }
+  }, [isAdmin, router]);
 
   return (
     <Wrapper isLight={isLight}>

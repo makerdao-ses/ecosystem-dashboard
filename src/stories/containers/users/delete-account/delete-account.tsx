@@ -17,6 +17,8 @@ import Warning from '../../../components/svg/warning';
 import { LOGIN_REQUEST } from '../../auth/login/login.api';
 import request from 'graphql-request';
 import { GRAPHQL_ENDPOINT } from '../../../../config/endpoints';
+import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
+import { UserDTO } from '../../../../core/models/dto/auth.dto';
 
 export default () => {
   const router = useRouter();
@@ -28,9 +30,15 @@ export default () => {
     setValue(value.target.value);
   }, []);
 
+  const isAdmin = useIsAdmin(user || ({} as UserDTO));
+
   const handleGoBack = useCallback(() => {
-    router.back();
-  }, [router]);
+    if (window?.history?.state?.idx > 0) {
+      router.back();
+    } else {
+      router.push(`/auth/manage#${isAdmin ? 'manage' : 'profile'}`);
+    }
+  }, [isAdmin, router]);
 
   const handleDeleteAccount = useCallback(async () => {
     try {
@@ -72,7 +80,6 @@ export default () => {
         }
       }
     } catch (error) {
-      console.log({ value });
       toast(
         ({ closeToast }) => (
           <Notification

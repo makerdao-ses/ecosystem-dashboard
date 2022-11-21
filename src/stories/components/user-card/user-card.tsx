@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useAuthContext } from '../../../core/context/AuthContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';
@@ -47,9 +47,9 @@ const UserCard = ({
     }
   };
 
-  const handleOnDeleteAccount = () => {
+  const handleOnDeleteAccount = useCallback(() => {
     handleDeleteAccount(id);
-  };
+  }, [handleDeleteAccount, id]);
 
   return (
     <Container isLight={isLight} onClick={handleGoProfile}>

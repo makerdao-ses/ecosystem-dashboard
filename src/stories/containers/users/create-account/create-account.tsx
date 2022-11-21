@@ -8,15 +8,25 @@ import TextInput from '../../../components/text-input/text-input';
 import { ButtonWrapper, Container, Wrapper, Form } from '../../auth/login/login';
 import { useCreateAccountMvvm } from './create-account.mvvm';
 import { useRouter } from 'next/router';
+import { useAuthContext } from '../../../../core/context/AuthContext';
+import { UserDTO } from '../../../../core/models/dto/auth.dto';
+import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
 
 export default () => {
   const { isLight } = useThemeContext();
+  const { user } = useAuthContext();
   const router = useRouter();
   const { form, loading, error } = useCreateAccountMvvm();
 
+  const isAdmin = useIsAdmin(user || ({} as UserDTO));
+
   const handleGoBack = useCallback(() => {
-    router.back();
-  }, [router]);
+    if (window?.history?.state?.idx > 0) {
+      router.back();
+    } else {
+      router.push(`/auth/manage#${isAdmin ? 'manage' : 'profile'}`);
+    }
+  }, [isAdmin, router]);
 
   return (
     <Wrapper isLight={isLight}>
