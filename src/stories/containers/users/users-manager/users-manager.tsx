@@ -16,7 +16,7 @@ import { Tabs } from '../../../components/tabs/tabs';
 import UserCard from '../../../components/user-card/user-card';
 import { ParenthesisNumber } from '../../transparency-report/transparency-report';
 import UserProfile from '../user-profile/user-profile';
-import { TRANSPARENCY_IDS, useManagerAccountViewModel } from './manager-account.mvvm';
+import { MANAGE_IDS, useManagerAccountViewModel } from './manager-account.mvvm';
 import { QUERY_USERS } from './user-manager.api';
 
 export default () => {
@@ -70,7 +70,7 @@ export default () => {
         Manage Accounts <span>{`(${users.length})`}</span>
       </ParenthesisNumber>
     ),
-    id: TRANSPARENCY_IDS[1],
+    id: MANAGE_IDS[1],
   };
 
   tabItems.push(CommentsComponent);
