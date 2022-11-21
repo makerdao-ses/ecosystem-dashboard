@@ -18,7 +18,6 @@ interface Props {
   checked: boolean;
   id: string;
   handleDeleteAccount?: (id: string) => void;
-  handleViewProfile?: () => void;
   handleGoProfileView?: (id: string) => void;
 }
 
@@ -29,8 +28,6 @@ const UserCard = ({
   id,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   handleDeleteAccount = () => {},
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  handleViewProfile = () => {},
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   handleGoProfileView = () => {},
 }: Props) => {
@@ -69,7 +66,7 @@ const UserCard = ({
               height: 34,
               width: 128,
             }}
-            onClick={handleViewProfile}
+            onClick={handleGoProfile}
           />
         </PositionRow>
       </ContainerInside>

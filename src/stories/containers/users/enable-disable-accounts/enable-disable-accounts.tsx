@@ -20,17 +20,22 @@ const resultPassword = fill(arrayPassword, 'a');
 
 export default () => {
   const router = useRouter();
+  const { id } = router.query;
   const { isLight } = useThemeContext();
   const { user, clientRequest } = useAuthContext();
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(user?.active || false);
 
   const handleChange = useCallback(async () => {
-    const { query: gqlQuery, input } = ENABLE_DISABLE_USER_REQUEST(!checked, '1');
-    const data = await clientRequest?.request(gqlQuery, input);
-    if (data) {
-      setChecked(data.userSetActiveFlag[0].active);
+    try {
+      const { query: gqlQuery, input } = ENABLE_DISABLE_USER_REQUEST(!checked, id as string);
+      const data = await clientRequest?.request(gqlQuery, input);
+      if (data) {
+        setChecked(data.userSetActiveFlag.active);
+      }
+    } catch (error) {
+      console.log('error', error);
     }
-  }, [checked, clientRequest]);
+  }, [checked, clientRequest, id]);
 
   const handleDeleteAccount = useCallback(() => {
     router.push('/auth/delete-account');
