@@ -147,7 +147,7 @@ export default () => {
                   checked={user.active}
                   handleDeleteAccount={() => handleDeleteAccount(user.id)}
                   role={user.roles[0].name}
-                  user={capitalizeWordWithoutConvertLowerCase(user?.username) || ''}
+                  user={capitalizeWordWithoutConvertLowerCase(user?.username || '')}
                   key={user.id}
                   id={user.id}
                 />
