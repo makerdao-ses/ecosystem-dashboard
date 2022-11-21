@@ -54,6 +54,10 @@ export default () => {
     setSearchValue('');
   };
 
+  const handleGoProfileView = (id: string) => {
+    router.push(`/auth/enable-disable-accounts/${id}`);
+  };
+
   const filterData = useMemo(() => {
     if (!searchValue) return users;
     const result = users.filter((user) => {
@@ -147,6 +151,7 @@ export default () => {
                   user={capitalizeWord(user?.username) || ''}
                   key={user.id}
                   id={user.id}
+                  handleGoProfileView={handleGoProfileView}
                 />
               );
             })}
