@@ -61,10 +61,14 @@ export const getCorrectRoleApi = (role: RoleUserDTO) => {
     case 'CoreUnitFacilitator':
       return 'Core Unit Facilitator';
     case 'SuperAdmin':
-      return 'Super Admin';
+      return 'Site Admin';
     case 'User':
       return 'User';
     default:
       return '';
   }
+};
+
+export const capitalizeWordWithoutConvertLowerCase = (word: string) => {
+  return word.charAt(0).toUpperCase() + word.slice(1);
 };

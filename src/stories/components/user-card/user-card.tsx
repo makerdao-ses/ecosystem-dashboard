@@ -61,7 +61,7 @@ const UserCard = ({
           <AvatarPlaceholder width={48} height={48} />
           <Label isLight={isLight}>{user}</Label>
         </PositionRow>
-        <PositionRow space="space-between" marginTop={32}>
+        <PositionRow space="space-between" marginTop={36}>
           <RoleLabel color={isLight ? color.color : color.darkColor}>{getCorrectRoleApi(role)}</RoleLabel>
           <CustomButton
             label="View Profile"
@@ -94,7 +94,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   background: isLight ? '#FFFFFF' : '#10191F',
   boxShadow: isLight
     ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-    : '10px 15px 20px 6px rgba(20, 0, 141, 0.1);',
+    : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
   borderRadius: '6px',
   width: 416,
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
