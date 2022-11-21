@@ -14,11 +14,13 @@ import { toast } from 'react-toastify';
 import Notification, { ContainerNotification } from '../../../components/notification/notification';
 import CheckMark from '../../../components/svg/check-mark';
 import Warning from '../../../components/svg/warning';
+import { LOGIN_REQUEST } from '../../auth/login/login.api';
+import request from 'graphql-request';
+import { GRAPHQL_ENDPOINT } from '../../../../config/endpoints';
 
 export default () => {
-  const testingPassword = '1234';
   const router = useRouter();
-  const { clientRequest } = useAuthContext();
+  const { clientRequest, user } = useAuthContext();
   const { userName, id } = router.query;
   const [value, setValue] = useState('');
   const { isLight } = useThemeContext();
@@ -28,43 +30,63 @@ export default () => {
 
   const handleDeleteAccount = useCallback(async () => {
     try {
-      const { query: gqlQuery, filter } = USERS_DELETE_FROM_ADMIN(id as string);
-      const data = await clientRequest?.request(gqlQuery, filter);
-      if (data.userDelete) {
-        toast(
-          ({ closeToast }) => <Notification icon={<CheckMark />} borderColor="#B6EDE7" handleClose={closeToast} />,
-          {
-            position: toast.POSITION.BOTTOM_CENTER,
-            autoClose: 3000,
-            hideProgressBar: true,
-            closeButton: false,
-          }
-        );
-        setTimeout(() => {
-          router.push('/auth/manage');
-        }, 3000);
-      } else {
-        toast(
-          ({ closeToast }) => (
-            <Notification
-              icon={<Warning />}
-              borderColor="#FBE1D9"
-              handleClose={closeToast}
-              message="There was some problem deleting your account"
-            />
-          ),
-          {
-            position: toast.POSITION.BOTTOM_CENTER,
-            autoClose: 3000,
-            hideProgressBar: true,
-            closeButton: false,
-          }
-        );
+      const { query: gqlQueryLogin, input } = LOGIN_REQUEST(user?.username || '', value);
+      const response = await request(GRAPHQL_ENDPOINT, gqlQueryLogin, input);
+      if (response) {
+        const { query: gqlQuery, filter } = USERS_DELETE_FROM_ADMIN(id as string);
+        const data = await clientRequest?.request(gqlQuery, filter);
+        if (data.userDelete) {
+          toast(
+            ({ closeToast }) => <Notification icon={<CheckMark />} borderColor="#B6EDE7" handleClose={closeToast} />,
+            {
+              position: toast.POSITION.BOTTOM_CENTER,
+              autoClose: 3000,
+              hideProgressBar: true,
+              closeButton: false,
+            }
+          );
+          setTimeout(() => {
+            router.push('/auth/manage');
+          }, 3000);
+        } else {
+          toast(
+            ({ closeToast }) => (
+              <Notification
+                icon={<Warning />}
+                borderColor="#FBE1D9"
+                handleClose={closeToast}
+                message="There was some problem deleting your account"
+              />
+            ),
+            {
+              position: toast.POSITION.BOTTOM_CENTER,
+              autoClose: 3000,
+              hideProgressBar: true,
+              closeButton: false,
+            }
+          );
+        }
       }
     } catch (error) {
-      console.log('error', error);
+      console.log({ value });
+      toast(
+        ({ closeToast }) => (
+          <Notification
+            icon={<Warning />}
+            borderColor="#FBE1D9"
+            handleClose={closeToast}
+            message="There was some problem deleting your account"
+          />
+        ),
+        {
+          position: toast.POSITION.BOTTOM_CENTER,
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeButton: false,
+        }
+      );
     }
-  }, [clientRequest, id, router]);
+  }, [clientRequest, id, router, user?.username, value]);
 
   return (
     <Wrapper isLight={isLight}>
@@ -100,30 +122,19 @@ export default () => {
 
         <ButtonWrapper>
           <CustomButton
+            allowsHover={false}
             onClick={handleDeleteAccount}
             label="Delete Account"
             style={{
               width: 151,
               height: 34,
               borderRadius: 22,
-              borderColor: isLight
-                ? testingPassword === value
-                  ? '#F75524'
-                  : 'none'
-                : testingPassword === value
-                ? '#F75524'
-                : '#343442',
+              borderColor: isLight ? (value !== '' ? '#F75524' : 'none') : value !== '' ? '#F75524' : '#343442',
             }}
             styleText={{
-              color: isLight
-                ? testingPassword === value
-                  ? '#F75524'
-                  : 'unset'
-                : testingPassword === value
-                ? '#F75524'
-                : '#343442',
+              color: isLight ? (value !== '' ? '#F75524' : 'unset') : value !== '' ? '#F75524' : '#343442',
             }}
-            disabled={!(testingPassword === value)}
+            disabled={!(value !== '')}
           />
         </ButtonWrapper>
       </Container>
