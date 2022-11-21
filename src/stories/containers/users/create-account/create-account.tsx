@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useCallback } from 'react';
 import Image from 'next/image';
 import CloseButton from '../../../components/close-button/close-button';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
@@ -7,10 +7,16 @@ import { CustomButton } from '../../../components/custom-button/custom-button';
 import TextInput from '../../../components/text-input/text-input';
 import { ButtonWrapper, Container, Wrapper, Form } from '../../auth/login/login';
 import { useCreateAccountMvvm } from './create-account.mvvm';
+import { useRouter } from 'next/router';
 
 export default () => {
   const { isLight } = useThemeContext();
+  const router = useRouter();
   const { form, loading, error } = useCreateAccountMvvm();
+
+  const handleGoBack = useCallback(() => {
+    router.back();
+  }, [router]);
 
   return (
     <Wrapper isLight={isLight}>
@@ -21,6 +27,7 @@ export default () => {
             top: 24,
             right: 24,
           }}
+          onClick={handleGoBack}
         />
         <Image src={'/assets/img/ses-logo-64x64.png'} width={64} height={64} />
         <Title isLight={isLight}>Create New Account</Title>

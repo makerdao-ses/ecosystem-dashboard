@@ -36,6 +36,10 @@ export default () => {
     router.push('/auth/delete-account');
   }, [router]);
 
+  const handleGoBack = useCallback(() => {
+    router.back();
+  }, [router]);
+
   return (
     <Wrapper isLight={isLight}>
       <Container isLight={isLight}>
@@ -46,6 +50,7 @@ export default () => {
               top: 24,
               right: 24,
             }}
+            onClick={handleGoBack}
           />
           <CenterWrapper>
             <AvatarPlaceholder />

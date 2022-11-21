@@ -28,6 +28,10 @@ export default () => {
     setValue(value.target.value);
   }, []);
 
+  const handleGoBack = useCallback(() => {
+    router.back();
+  }, [router]);
+
   const handleDeleteAccount = useCallback(async () => {
     try {
       const { query: gqlQueryLogin, input } = LOGIN_REQUEST(user?.username || '', value);
@@ -97,6 +101,7 @@ export default () => {
             top: 24,
             right: 24,
           }}
+          onClick={handleGoBack}
         />
         <AvatarPlaceholder />
         <UserWrapper>
