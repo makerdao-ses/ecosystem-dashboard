@@ -43,7 +43,6 @@ const UserProfile = () => {
   };
 
   return (
-    // <Wrapper isLight={isLight}>
     <Container isLight={isLight}>
       <ContainerInformation>
         <CenterWrapper>
@@ -117,7 +116,6 @@ const UserProfile = () => {
         />
       </ButtonWrapper>
     </Container>
-    //  </Wrapper>
   );
 };
 
@@ -161,9 +159,9 @@ const UserNameLabel = styled.p<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: '16px',
   lineHeight: '19px',
   letterSpacing: '0.4px',
-  color: isLight ? '#708390' : '#708390',
-  marginTop: '0px',
-  marginBottom: '0px',
+  color: '#708390',
+  marginTop: 0,
+  marginBottom: 0,
   marginRight: '8px',
 }));
 
@@ -233,6 +231,7 @@ const LabelUser = styled.p<{ isLight: boolean }>(({ isLight }) => ({
   letterSpacing: '0.4px',
   color: isLight ? '#231536' : '#D2D4EF',
   marginBottom: 8,
+  marginTop: 0,
 }));
 
 const ContainerDots = styled.div({
