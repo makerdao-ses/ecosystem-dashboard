@@ -138,12 +138,12 @@ export const getColorRole = (user: UserDTO) => {
     case 'Site Admin':
       return {
         color: '#FF4085',
-        darkColor: '#FF4085',
+        darkColor: '#FF2272',
       };
     case 'User':
       return {
         color: '#1AAB9B',
-        darkColor: '#1DC1AE',
+        darkColor: '#00ED18',
       };
 
     default:
