@@ -1,5 +1,5 @@
 import { PermissionsEnum } from '../enums/permissions.enum';
-import { UserDTO } from '../models/dto/auth.dto';
+import { UserDTO, UserRole } from '../models/dto/auth.dto';
 import { BudgetStatementWalletDto } from '../models/dto/core-unit.dto';
 
 export const getTwoInitials = (name: string) => {
@@ -57,10 +57,8 @@ export const getWalletWidthForWallets = (wallets: BudgetStatementWalletDto[]) =>
 
 export const getCorrectRoleApi = (user: UserDTO) => {
   const allPermission: string[] = [];
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  (user as any).roles.forEach((role: any) => {
-    role.permissions.forEach((permission: string) => {
+  user.roles.forEach((role: UserRole) => {
+    role.permissions.forEach((permission: PermissionsEnum) => {
       allPermission.push(permission);
     });
   });
