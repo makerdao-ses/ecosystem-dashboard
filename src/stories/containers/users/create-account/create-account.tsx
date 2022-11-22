@@ -122,8 +122,5 @@ const Label = styled.div({
 
 const InputsWrapper = styled.div({
   width: '100%',
-  marginBottom: 0,
-  '@media (min-width: 834px)': {
-    marginBottom: 32,
-  },
+  marginBottom: 40,
 });
