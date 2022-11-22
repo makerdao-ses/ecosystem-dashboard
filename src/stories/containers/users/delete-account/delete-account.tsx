@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import CloseButton from '../../../components/close-button/close-button';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
@@ -9,24 +9,18 @@ import { Spacer, Username, UserWrapper } from '../../auth/change-password/change
 import { ButtonWrapper, Container, Wrapper } from '../../auth/login/login';
 import { useRouter } from 'next/router';
 import { useAuthContext } from '../../../../core/context/AuthContext';
-import { USERS_DELETE_FROM_ADMIN } from './delete-account.api';
 import { ContainerNotification } from '../../../components/notification/notification';
-import { LOGIN_REQUEST } from '../../auth/login/login.api';
-import request from 'graphql-request';
-import { GRAPHQL_ENDPOINT } from '../../../../config/endpoints';
 import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
 import { UserDTO } from '../../../../core/models/dto/auth.dto';
-import { notificationHelper } from '../../../helpers/helpers';
+import { useDeleteAccountMvvm } from './delete-account.mvvm';
 
 export default () => {
   const router = useRouter();
-  const { clientRequest, user } = useAuthContext();
-  const { userName, id } = router.query;
-  const [value, setValue] = useState('');
+  const { user } = useAuthContext();
+  const { userName } = router.query;
+
   const { isLight } = useThemeContext();
-  const handleChange = useCallback((value: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(value.target.value);
-  }, []);
+  const { form: formLogic } = useDeleteAccountMvvm();
 
   const isAdmin = useIsAdmin(user || ({} as UserDTO));
 
@@ -37,27 +31,6 @@ export default () => {
       router.push(`/auth/manage#${isAdmin ? 'manage' : 'profile'}`);
     }
   }, [isAdmin, router]);
-
-  const handleDeleteAccount = useCallback(async () => {
-    try {
-      const { query: gqlQueryLogin, input } = LOGIN_REQUEST(user?.username || '', value);
-      const response = await request(GRAPHQL_ENDPOINT, gqlQueryLogin, input);
-      if (response) {
-        const { query: gqlQuery, filter } = USERS_DELETE_FROM_ADMIN(id as string);
-        const data = await clientRequest?.request(gqlQuery, filter);
-        if (data.userDelete) {
-          notificationHelper(true);
-          setTimeout(() => {
-            router.push('/auth/manage');
-          }, 3000);
-        } else {
-          notificationHelper(false);
-        }
-      }
-    } catch (error) {
-      notificationHelper(false);
-    }
-  }, [clientRequest, id, router, user?.username, value]);
 
   return (
     <Wrapper isLight={isLight}>
@@ -80,35 +53,57 @@ export default () => {
         <DeleteLabel>Delete Account</DeleteLabel>
         <WarningLabel>ATTENTION: this action cannot be undone</WarningLabel>
 
-        <InputsWrapper>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            formLogic.handleSubmit();
+          }}
+        >
           <Label isLight={isLight}>Enter password to delete the account</Label>
-          <TextInput
-            type="password"
-            placeholder="Password"
-            name="Password"
-            style={{ marginBottom: 32 }}
-            value={value}
-            onChange={handleChange}
-          />
-        </InputsWrapper>
+          <InputsWrapper>
+            <TextInput
+              onBlur={formLogic.handleBlur}
+              type="password"
+              placeholder="Password"
+              name="password"
+              style={{ marginBottom: 32 }}
+              value={formLogic.values.password}
+              onChange={(e) => {
+                formLogic.handleChange(e);
+              }}
+            />
+          </InputsWrapper>
 
-        <ButtonWrapper>
-          <CustomButton
-            allowsHover={false}
-            onClick={handleDeleteAccount}
-            label="Delete Account"
-            style={{
-              width: 151,
-              height: 34,
-              borderRadius: 22,
-              borderColor: isLight ? (value !== '' ? '#F75524' : 'none') : value !== '' ? '#F75524' : '#343442',
-            }}
-            styleText={{
-              color: isLight ? (value !== '' ? '#F75524' : 'unset') : value !== '' ? '#F75524' : '#343442',
-            }}
-            disabled={!(value !== '')}
-          />
-        </ButtonWrapper>
+          <ButtonWrapper>
+            <CustomButton
+              type="submit"
+              allowsHover={false}
+              label="Delete Account"
+              style={{
+                width: 151,
+                height: 34,
+                borderRadius: 22,
+                borderColor: isLight
+                  ? formLogic.values.password !== ''
+                    ? '#F75524'
+                    : 'none'
+                  : formLogic.values.password !== ''
+                  ? '#F75524'
+                  : '#343442',
+              }}
+              styleText={{
+                color: isLight
+                  ? formLogic.values.password !== ''
+                    ? '#F75524'
+                    : 'unset'
+                  : formLogic.values.password !== ''
+                  ? '#F75524'
+                  : '#343442',
+              }}
+              disabled={!(formLogic.values.password !== '')}
+            />
+          </ButtonWrapper>
+        </Form>
       </Container>
       <ContainerNotification />
     </Wrapper>
@@ -155,4 +150,10 @@ const UserLabel = styled.p({
   lineHeight: '24px',
   fontWeight: 600,
   margin: '0 8px 0 0',
+});
+
+const Form = styled.form({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
 });
