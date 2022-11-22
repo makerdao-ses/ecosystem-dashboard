@@ -74,6 +74,9 @@ const MenuUserOptions = ({ username, isAdmin, onClickLogOut, onClickProfile, onC
               paddingBottom: '0px',
             },
           }}
+          style={{
+            background: isLight ? '#FFFFFF' : ' #000A13',
+          }}
         >
           <MenuItemUser
             isAdmin={isAdmin}

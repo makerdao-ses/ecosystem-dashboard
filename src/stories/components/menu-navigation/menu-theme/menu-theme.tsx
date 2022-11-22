@@ -82,6 +82,9 @@ const MenuTheme = ({ themeMode, toggleTheme }: Props) => {
               paddingBottom: '0px',
             },
           }}
+          style={{
+            backgroundColor: isLight ? '#FFFFFF' : ' #000A13',
+          }}
         >
           <MenuItemTheme themeMode={themeMode} toggleTheme={toggleTheme} />
         </MenuItem>
