@@ -3,10 +3,12 @@ import styled from '@emotion/styled';
 import request, { GraphQLClient } from 'graphql-request';
 import fill from 'lodash/fill';
 import { useRouter } from 'next/router';
-import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { ButtonType } from '../../../../core/enums/button-type.enum';
+import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
+import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import ControlledSwitches from '../../../components/button/switch-toogle/switch-component';
 import CloseButton from '../../../components/close-button/close-button';
 import { CustomButton } from '../../../components/custom-button/custom-button';
@@ -20,21 +22,32 @@ const resultPassword = fill(arrayPassword, 'a');
 
 export default () => {
   const router = useRouter();
+  const { id } = router.query;
   const { isLight } = useThemeContext();
   const { user, clientRequest } = useAuthContext();
-  const [checked, setChecked] = useState(false);
-
+  const [checked, setChecked] = useState(user?.active || false);
+  const isAdmin = useIsAdmin(user || ({} as UserDTO));
   const handleChange = useCallback(async () => {
-    const { query: gqlQuery, input } = ENABLE_DISABLE_USER_REQUEST(!checked, '1');
-    const data = await clientRequest?.request(gqlQuery, input);
-    if (data) {
-      setChecked(data.userSetActiveFlag[0].active);
-    }
-  }, [checked, clientRequest]);
+    try {
+      const { query: gqlQuery, input } = ENABLE_DISABLE_USER_REQUEST(!checked, id as string);
+      const data = await clientRequest?.request(gqlQuery, input);
+      if (data) {
+        setChecked(data.userSetActiveFlag.active);
+      }
+    } catch (error) {}
+  }, [checked, clientRequest, id]);
 
   const handleDeleteAccount = useCallback(() => {
     router.push('/auth/delete-account');
   }, [router]);
+
+  const handleGoBack = useCallback(() => {
+    if (window?.history?.state?.idx > 0) {
+      router.back();
+    } else {
+      router.push(`/auth/manage#${isAdmin ? 'manage' : 'profile'}`);
+    }
+  }, [isAdmin, router]);
 
   return (
     <Wrapper isLight={isLight}>
@@ -46,6 +59,7 @@ export default () => {
               top: 24,
               right: 24,
             }}
+            onClick={handleGoBack}
           />
           <CenterWrapper>
             <AvatarPlaceholder />

@@ -9,14 +9,13 @@ import lightTheme from '../../../../../styles/theme/light';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { ButtonType } from '../../../../core/enums/button-type.enum';
-import { capitalizeWordWithoutConvertLowerCase } from '../../../../core/utils/string.utils';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import { SearchInput } from '../../../components/search-input/search-input';
 import { Tabs } from '../../../components/tabs/tabs';
 import UserCard from '../../../components/user-card/user-card';
 import { ParenthesisNumber } from '../../transparency-report/transparency-report';
 import UserProfile from '../user-profile/user-profile';
-import { MANAGE_IDS, useManagerAccountViewModel } from './manager-account.mvvm';
+import { useManagerAccountViewModel, MANAGE_IDS } from './manager-account.mvvm';
 import { QUERY_USERS } from './user-manager.api';
 
 export default () => {
@@ -55,10 +54,20 @@ export default () => {
     setSearchValue('');
   };
 
+  const handleGoProfileView = (id: string) => {
+    const userTake = users?.find((user: any) => user.id === id);
+    router.push({
+      pathname: '/auth/enable-disable-accounts/',
+      query: {
+        userName: userTake.username,
+        id,
+      },
+    });
+  };
+
   const filterData = useMemo(() => {
     if (!searchValue) return users;
     const result = users.filter((user) => {
-      console.log('user', user.username);
       return user.username.toLocaleLowerCase().indexOf(searchValue.toLocaleLowerCase()) > -1;
     });
     return result;
@@ -145,11 +154,11 @@ export default () => {
               return (
                 <UserCard
                   checked={user.active}
-                  handleDeleteAccount={() => handleDeleteAccount(user.id)}
-                  role={user.roles[0].name}
-                  user={capitalizeWordWithoutConvertLowerCase(user?.username || '')}
+                  user={user}
+                  handleDeleteAccount={handleDeleteAccount}
                   key={user.id}
                   id={user.id}
+                  handleGoProfileView={handleGoProfileView}
                 />
               );
             })}

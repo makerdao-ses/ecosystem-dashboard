@@ -1,5 +1,6 @@
+import { PermissionsEnum } from '../enums/permissions.enum';
+import { UserDTO, UserRole } from '../models/dto/auth.dto';
 import { BudgetStatementWalletDto } from '../models/dto/core-unit.dto';
-import { RoleUserDTO } from '../models/dto/role.dto';
 
 export const getTwoInitials = (name: string) => {
   const [, w1, w2] = /(\w+)[^a-zA-Z]*(\w*)?/.exec(name) ?? [];
@@ -54,19 +55,24 @@ export const getWalletWidthForWallets = (wallets: BudgetStatementWalletDto[]) =>
   return '180px';
 };
 
-export const getCorrectRoleApi = (role: RoleUserDTO) => {
-  switch (role) {
-    case 'CoreUnitAdmin':
-      return 'Core Unit Admin';
-    case 'CoreUnitFacilitator':
-      return 'Core Unit Facilitator';
-    case 'SuperAdmin':
-      return 'Site Admin';
-    case 'User':
-      return 'User';
-    default:
-      return '';
+export const getCorrectRoleApi = (user: UserDTO) => {
+  const allPermission: string[] = [];
+  user.roles.forEach((role: UserRole) => {
+    role.permissions.forEach((permission: PermissionsEnum) => {
+      allPermission.push(permission);
+    });
+  });
+
+  const isAdmin = allPermission.find((item) => item === PermissionsEnum.SystemManage);
+  if (isAdmin) {
+    return 'Site Admin';
   }
+  const isCoreUnitAdmin = allPermission.find((item) => item.indexOf(PermissionsEnum.CoreUnitUpdate) > -1);
+  if (isCoreUnitAdmin) {
+    return 'Core Unit Admin';
+  }
+
+  return 'User';
 };
 
 export const capitalizeWordWithoutConvertLowerCase = (word: string) => {

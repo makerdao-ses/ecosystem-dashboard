@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import CloseButton from '../../../components/close-button/close-button';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
@@ -9,62 +9,28 @@ import { Spacer, Username, UserWrapper } from '../../auth/change-password/change
 import { ButtonWrapper, Container, Wrapper } from '../../auth/login/login';
 import { useRouter } from 'next/router';
 import { useAuthContext } from '../../../../core/context/AuthContext';
-import { USERS_DELETE_FROM_ADMIN } from './delete-account.api';
-import { toast } from 'react-toastify';
-import Notification, { ContainerNotification } from '../../../components/notification/notification';
-import CheckMark from '../../../components/svg/check-mark';
-import Warning from '../../../components/svg/warning';
+import { ContainerNotification } from '../../../components/notification/notification';
+import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
+import { UserDTO } from '../../../../core/models/dto/auth.dto';
+import { useDeleteAccountMvvm } from './delete-account.mvvm';
 
 export default () => {
-  const testingPassword = '1234';
   const router = useRouter();
-  const { clientRequest } = useAuthContext();
-  const { userName, id } = router.query;
-  const [value, setValue] = useState('');
-  const { isLight } = useThemeContext();
-  const handleChange = useCallback((value: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(value.target.value);
-  }, []);
+  const { user } = useAuthContext();
+  const { userName } = router.query;
 
-  const handleDeleteAccount = useCallback(async () => {
-    try {
-      const { query: gqlQuery, filter } = USERS_DELETE_FROM_ADMIN(id as string);
-      const data = await clientRequest?.request(gqlQuery, filter);
-      if (data.userDelete) {
-        toast(
-          ({ closeToast }) => <Notification icon={<CheckMark />} borderColor="#B6EDE7" handleClose={closeToast} />,
-          {
-            position: toast.POSITION.BOTTOM_CENTER,
-            autoClose: 3000,
-            hideProgressBar: true,
-            closeButton: false,
-          }
-        );
-        setTimeout(() => {
-          router.push('/auth/manage');
-        }, 3000);
-      } else {
-        toast(
-          ({ closeToast }) => (
-            <Notification
-              icon={<Warning />}
-              borderColor="#FBE1D9"
-              handleClose={closeToast}
-              message="There was some problem deleting your account"
-            />
-          ),
-          {
-            position: toast.POSITION.BOTTOM_CENTER,
-            autoClose: 3000,
-            hideProgressBar: true,
-            closeButton: false,
-          }
-        );
-      }
-    } catch (error) {
-      console.log('error', error);
+  const { isLight } = useThemeContext();
+  const { form: formLogic } = useDeleteAccountMvvm();
+
+  const isAdmin = useIsAdmin(user || ({} as UserDTO));
+
+  const handleGoBack = useCallback(() => {
+    if (window?.history?.state?.idx > 0) {
+      router.back();
+    } else {
+      router.push(`/auth/manage#${isAdmin ? 'manage' : 'profile'}`);
     }
-  }, [clientRequest, id, router]);
+  }, [isAdmin, router]);
 
   return (
     <Wrapper isLight={isLight}>
@@ -75,6 +41,7 @@ export default () => {
             top: 24,
             right: 24,
           }}
+          onClick={handleGoBack}
         />
         <AvatarPlaceholder />
         <UserWrapper>
@@ -86,46 +53,57 @@ export default () => {
         <DeleteLabel>Delete Account</DeleteLabel>
         <WarningLabel>ATTENTION: this action cannot be undone</WarningLabel>
 
-        <InputsWrapper>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            formLogic.handleSubmit();
+          }}
+        >
           <Label isLight={isLight}>Enter password to delete the account</Label>
-          <TextInput
-            type="password"
-            placeholder="Password"
-            name="Password"
-            style={{ marginBottom: 32 }}
-            value={value}
-            onChange={handleChange}
-          />
-        </InputsWrapper>
+          <InputsWrapper>
+            <TextInput
+              onBlur={formLogic.handleBlur}
+              type="password"
+              placeholder="Password"
+              name="password"
+              style={{ marginBottom: 32 }}
+              value={formLogic.values.password}
+              onChange={(e) => {
+                formLogic.handleChange(e);
+              }}
+            />
+          </InputsWrapper>
 
-        <ButtonWrapper>
-          <CustomButton
-            onClick={handleDeleteAccount}
-            label="Delete Account"
-            style={{
-              width: 151,
-              height: 34,
-              borderRadius: 22,
-              borderColor: isLight
-                ? testingPassword === value
+          <ButtonWrapper>
+            <CustomButton
+              type="submit"
+              allowsHover={false}
+              label="Delete Account"
+              style={{
+                width: 151,
+                height: 34,
+                borderRadius: 22,
+                borderColor: isLight
+                  ? formLogic.values.password !== ''
+                    ? '#F75524'
+                    : 'none'
+                  : formLogic.values.password !== ''
                   ? '#F75524'
-                  : 'none'
-                : testingPassword === value
-                ? '#F75524'
-                : '#343442',
-            }}
-            styleText={{
-              color: isLight
-                ? testingPassword === value
+                  : '#343442',
+              }}
+              styleText={{
+                color: isLight
+                  ? formLogic.values.password !== ''
+                    ? '#F75524'
+                    : 'unset'
+                  : formLogic.values.password !== ''
                   ? '#F75524'
-                  : 'unset'
-                : testingPassword === value
-                ? '#F75524'
-                : '#343442',
-            }}
-            disabled={!(testingPassword === value)}
-          />
-        </ButtonWrapper>
+                  : '#343442',
+              }}
+              disabled={!(formLogic.values.password !== '')}
+            />
+          </ButtonWrapper>
+        </Form>
       </Container>
       <ContainerNotification />
     </Wrapper>
@@ -172,4 +150,10 @@ const UserLabel = styled.p({
   lineHeight: '24px',
   fontWeight: 600,
   margin: '0 8px 0 0',
+});
+
+const Form = styled.form({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
 });
