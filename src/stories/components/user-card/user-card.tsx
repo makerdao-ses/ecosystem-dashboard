@@ -6,7 +6,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/button-type.enum';
 import { UserDTO } from '../../../core/models/dto/auth.dto';
 import { getColorRole } from '../../../core/utils/color.utils';
-import { getCorrectRoleApi } from '../../../core/utils/string.utils';
+import { capitalizeWordWithoutConvertLowerCase, getCorrectRoleApi } from '../../../core/utils/string.utils';
 import { ENABLE_DISABLE_USER_REQUEST } from '../../containers/auth/enable-disable-accounts/enable-disable.api';
 import ControlledSwitches from '../button/switch-toogle/switch-component';
 import { CustomButton } from '../custom-button/custom-button';
@@ -59,7 +59,7 @@ const UserCard = ({
       <ContainerInside>
         <PositionRow alignItems="center">
           <AvatarPlaceholder width={48} height={48} />
-          <Label isLight={isLight}>{user.username}</Label>
+          <Label isLight={isLight}>{capitalizeWordWithoutConvertLowerCase(user.username || '')}</Label>
         </PositionRow>
         <PositionRow space="space-between" marginTop={32}>
           <RoleLabel color={isLight ? color.color : color.darkColor}>{role}</RoleLabel>
@@ -94,7 +94,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   background: isLight ? '#FFFFFF' : '#10191F',
   boxShadow: isLight
     ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-    : '10px 15px 20px 6px rgba(20, 0, 141, 0.1);',
+    : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
   borderRadius: '6px',
   width: 416,
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {

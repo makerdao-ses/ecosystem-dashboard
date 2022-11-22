@@ -75,3 +75,7 @@ export const getCorrectRoleApi = (user: UserDTO) => {
 
   return 'User';
 };
+
+export const capitalizeWordWithoutConvertLowerCase = (word: string) => {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+};

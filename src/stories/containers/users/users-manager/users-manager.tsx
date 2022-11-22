@@ -13,8 +13,9 @@ import { CustomButton } from '../../../components/custom-button/custom-button';
 import { SearchInput } from '../../../components/search-input/search-input';
 import { Tabs } from '../../../components/tabs/tabs';
 import UserCard from '../../../components/user-card/user-card';
+import { ParenthesisNumber } from '../../transparency-report/transparency-report';
 import UserProfile from '../user-profile/user-profile';
-import { useManagerAccountViewModel } from './manager-account.mvvm';
+import { useManagerAccountViewModel, MANAGE_IDS } from './manager-account.mvvm';
 import { QUERY_USERS } from './user-manager.api';
 
 export default () => {
@@ -23,7 +24,7 @@ export default () => {
   const { isLight } = useThemeContext();
   const { clientRequest } = useAuthContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
-  const { tabsIndex } = useManagerAccountViewModel();
+  const { tabsIndex, tabItems } = useManagerAccountViewModel();
 
   const fetcher = async (query: string) => await clientRequest?.request(query);
   const { data, error } = useSWR(QUERY_USERS, fetcher);
@@ -72,6 +73,17 @@ export default () => {
     return result;
   }, [searchValue, users]);
 
+  const CommentsComponent = {
+    item: (
+      <ParenthesisNumber>
+        Manage Accounts <span>{`(${users.length})`}</span>
+      </ParenthesisNumber>
+    ),
+    id: MANAGE_IDS[1],
+  };
+
+  tabItems.push(CommentsComponent);
+
   if (!data && !error) {
     return (
       <div
@@ -94,18 +106,9 @@ export default () => {
       <Container>
         <Tabs
           currentIndex={tabsIndex}
-          items={[
-            {
-              item: 'Your Profile',
-              id: 'profile',
-            },
-            {
-              item: 'Manage Accounts',
-              id: 'manage',
-            },
-          ]}
-          style={{
-            margin: '32px 0',
+          items={tabItems}
+          styleForTab={{
+            fontSize: 16,
           }}
         />
       </Container>

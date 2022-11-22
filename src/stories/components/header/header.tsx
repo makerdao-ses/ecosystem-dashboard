@@ -70,6 +70,13 @@ const Header = ({ links }: Props) => {
     return menuItems[0];
   }, [router.pathname]);
 
+  const onClickAccountManager = () => {
+    router.push('/auth/manage#manage');
+  };
+  const onClickProfile = () => {
+    router.push('/auth/manage#profile');
+  };
+
   return (
     <Container isLight={isLight}>
       <LeftPart>
@@ -110,11 +117,9 @@ const Header = ({ links }: Props) => {
             {authToken ? (
               <MenuUserOptions
                 isAdmin={isAdmin}
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
-                onClickAccountManager={() => {}}
+                onClickAccountManager={onClickAccountManager}
                 onClickLogOut={handleOnClickLogOut}
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
-                onClickProfile={() => {}}
+                onClickProfile={onClickProfile}
                 username={user?.username || ''}
               />
             ) : (
