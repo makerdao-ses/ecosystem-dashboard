@@ -4,7 +4,7 @@ import lightTheme from '../../../../styles/theme/light';
 import { useAuthContext } from '../../../core/context/AuthContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/button-type.enum';
-import { RoleUserDTO } from '../../../core/models/dto/role.dto';
+import { UserDTO } from '../../../core/models/dto/auth.dto';
 import { getColorRole } from '../../../core/utils/color.utils';
 import { getCorrectRoleApi } from '../../../core/utils/string.utils';
 import { ENABLE_DISABLE_USER_REQUEST } from '../../containers/auth/enable-disable-accounts/enable-disable.api';
@@ -13,8 +13,7 @@ import { CustomButton } from '../custom-button/custom-button';
 import AvatarPlaceholder from '../svg/avatar-placeholder';
 
 interface Props {
-  role: RoleUserDTO;
-  user: string;
+  user: UserDTO;
   checked: boolean;
   id: string;
   handleDeleteAccount?: (id: string) => void;
@@ -22,7 +21,6 @@ interface Props {
 }
 
 const UserCard = ({
-  role,
   checked,
   user,
   id,
@@ -31,9 +29,10 @@ const UserCard = ({
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   handleGoProfileView = () => {},
 }: Props) => {
+  const role = getCorrectRoleApi(user);
   const [isChecked, setIsChecked] = useState(checked);
   const { isLight } = useThemeContext();
-  const color = getColorRole(role);
+  const color = getColorRole(user);
   const handleGoProfile = () => {
     handleGoProfileView(id);
   };
@@ -60,10 +59,10 @@ const UserCard = ({
       <ContainerInside>
         <PositionRow alignItems="center">
           <AvatarPlaceholder width={48} height={48} />
-          <Label isLight={isLight}>{user}</Label>
+          <Label isLight={isLight}>{user.username}</Label>
         </PositionRow>
         <PositionRow space="space-between" marginTop={32}>
-          <RoleLabel color={isLight ? color.color : color.darkColor}>{getCorrectRoleApi(role)}</RoleLabel>
+          <RoleLabel color={isLight ? color.color : color.darkColor}>{role}</RoleLabel>
           <CustomButton
             label="View Profile"
             style={{
@@ -77,7 +76,7 @@ const UserCard = ({
       <Line isLight={isLight} />
       <FooterCard>
         <CustomButton
-          buttonType={role === 'CoreUnitAdmin' || role === 'SuperAdmin' ? ButtonType.Default : ButtonType.Danger}
+          buttonType={role === 'Core Unit Admin' || role === 'Site Admin' ? ButtonType.Default : ButtonType.Danger}
           label="Delete"
           style={{
             height: 34,

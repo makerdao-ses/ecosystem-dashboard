@@ -1,7 +1,8 @@
 import { CuCategoryEnum } from '../enums/cu-category.enum';
 import { CuJobEnum } from '../enums/cu-job.enum';
-import { RoleEnum } from '../enums/role.enum';
-import { RoleUserDTO } from '../models/dto/role.dto';
+
+import { UserDTO } from '../models/dto/auth.dto';
+import { getCorrectRoleApi } from './string.utils';
 
 export const getColorForString = (value: string): string => {
   let hash = 0;
@@ -126,19 +127,20 @@ export const getColorJobPosition = (job: CuJobEnum) => {
   }
 };
 
-export const getColorRole = (role: RoleUserDTO | RoleEnum) => {
+export const getColorRole = (user: UserDTO) => {
+  const role = getCorrectRoleApi(user);
   switch (role) {
-    case 'CoreUnitAdmin':
+    case 'Core Unit Admin':
       return {
         color: '#447AFB',
         darkColor: '#34AAFF',
       };
-    case 'SuperAdmin':
+    case 'Site Admin':
       return {
         color: '#FF4085',
         darkColor: '#FF4085',
       };
-    case 'CoreUnitFacilitator':
+    case 'User':
       return {
         color: '#1AAB9B',
         darkColor: '#1DC1AE',

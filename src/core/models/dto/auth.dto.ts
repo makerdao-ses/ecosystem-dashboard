@@ -10,3 +10,9 @@ export interface LoginDTO {
   authToken: string;
   user: UserDTO;
 }
+
+export interface UserRole {
+  id: string;
+  name: string;
+  permissions: string[];
+}

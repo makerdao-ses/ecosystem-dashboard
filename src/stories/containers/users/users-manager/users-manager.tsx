@@ -9,7 +9,6 @@ import lightTheme from '../../../../../styles/theme/light';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { ButtonType } from '../../../../core/enums/button-type.enum';
-import { capitalizeWord } from '../../../../core/utils/string.utils';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import { SearchInput } from '../../../components/search-input/search-input';
 import { Tabs } from '../../../components/tabs/tabs';
@@ -152,9 +151,8 @@ export default () => {
               return (
                 <UserCard
                   checked={user.active}
+                  user={user}
                   handleDeleteAccount={handleDeleteAccount}
-                  role={user.roles[0].name}
-                  user={capitalizeWord(user?.username) || ''}
                   key={user.id}
                   id={user.id}
                   handleGoProfileView={handleGoProfileView}
