@@ -127,4 +127,8 @@ const Error = styled.div<{ absolutePosition: boolean }>(({ absolutePosition }) =
   marginTop: 8,
   position: absolutePosition ? 'absolute' : 'relative',
   top: absolutePosition ? 56 : 0,
+  '::before': {
+    content: "'*'",
+    marginRight: 8,
+  },
 }));
