@@ -21,7 +21,7 @@ import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { TransparencyForecast2 } from './transparency-forecast/transparency-forecast-2';
 import { TransparencyMkrVesting2 } from './transparency-mkr-vesting/transparency-mkr-vesting-2';
 import { TransparencyTransferRequest2 } from './transparency-transfer-request/transparency-transfer-request-2';
-import { TRANSPARENCY_IDS, useTransparencyReportViewModel } from './transparency-report.mvvm';
+import { TRANSPARENCY_IDS_ENUM, useTransparencyReportViewModel } from './transparency-report.mvvm';
 import { TransparencyComments } from './transparency-comments/transparency-comments';
 
 interface TransparencyReportProps {
@@ -47,6 +47,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
     hasPreviousMonth,
     currentBudgetStatement,
     tabsIndex,
+    tabsIndexNumber,
     lastUpdateForBudgetStatement,
     numbersComments,
     longCode,
@@ -59,7 +60,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
         Comments <span>{`(${numbersComments})`}</span>
       </ParenthesisNumber>
     ),
-    id: TRANSPARENCY_IDS[5],
+    id: TRANSPARENCY_IDS_ENUM.COMMENTS,
   };
   if (isEnabled('FEATURE_TRANSPARENCY_COMMENTS')) {
     tabItems.push(CommentsComponent);
@@ -147,74 +148,78 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
 
           <Tabs
             items={tabItems}
-            currentIndex={tabsIndex}
+            currentIndex={tabsIndexNumber}
             style={{
               margin: '32px 0',
             }}
           />
-          {tabsIndex === 0 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-            <TransparencyActuals2
-              code={code}
-              currentMonth={currentMonth}
-              budgetStatements={coreUnit?.budgetStatements}
-              longCode={longCode}
-            />
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.ACTUALS &&
+            (isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') ? (
+              <TransparencyActuals2
+                code={code}
+                currentMonth={currentMonth}
+                budgetStatements={coreUnit?.budgetStatements}
+                longCode={longCode}
+              />
+            ) : (
+              <TransparencyActuals
+                code={code}
+                currentMonth={currentMonth}
+                budgetStatements={coreUnit?.budgetStatements}
+                longCode={longCode}
+              />
+            ))}
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.FORECAST &&
+            (isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') ? (
+              <TransparencyForecast2
+                currentMonth={currentMonth}
+                budgetStatements={coreUnit?.budgetStatements}
+                code={code}
+                longCode={longCode}
+              />
+            ) : (
+              <TransparencyForecast
+                currentMonth={currentMonth}
+                budgetStatements={coreUnit?.budgetStatements}
+                longCode={longCode}
+              />
+            ))}
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.MKR_VESTING &&
+            isEnabled('FEATURE_MKR_VESTING') &&
+            (isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') ? (
+              <TransparencyMkrVesting2
+                currentMonth={currentMonth}
+                budgetStatements={coreUnit?.budgetStatements}
+                code={code}
+                longCode={longCode}
+              />
+            ) : (
+              <TransparencyMkrVesting
+                currentMonth={currentMonth}
+                budgetStatements={coreUnit?.budgetStatements}
+                longCode={longCode}
+              />
+            ))}
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS &&
+            (isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') ? (
+              <TransparencyTransferRequest2
+                currentMonth={currentMonth}
+                budgetStatements={coreUnit?.budgetStatements}
+                code={code}
+                longCode={longCode}
+              />
+            ) : (
+              <TransparencyTransferRequest
+                currentMonth={currentMonth}
+                budgetStatements={coreUnit?.budgetStatements}
+                longCode={longCode}
+              />
+            ))}
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS && isEnabled('FEATURE_AUDIT_REPORTS') && (
+            <TransparencyAudit budgetStatement={currentBudgetStatement} />
           )}
-          {tabsIndex === 0 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-            <TransparencyActuals
-              code={code}
-              currentMonth={currentMonth}
-              budgetStatements={coreUnit?.budgetStatements}
-              longCode={longCode}
-            />
-          )}
-          {tabsIndex === 1 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-            <TransparencyForecast2
-              currentMonth={currentMonth}
-              budgetStatements={coreUnit?.budgetStatements}
-              code={code}
-              longCode={longCode}
-            />
-          )}
-          {tabsIndex === 1 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-            <TransparencyForecast
-              currentMonth={currentMonth}
-              budgetStatements={coreUnit?.budgetStatements}
-              longCode={longCode}
-            />
-          )}
-          {tabsIndex === 2 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-            <TransparencyMkrVesting2
-              currentMonth={currentMonth}
-              budgetStatements={coreUnit?.budgetStatements}
-              code={code}
-              longCode={longCode}
-            />
-          )}
-          {tabsIndex === 2 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-            <TransparencyMkrVesting
-              currentMonth={currentMonth}
-              budgetStatements={coreUnit?.budgetStatements}
-              longCode={longCode}
-            />
-          )}
-          {tabsIndex === 3 && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-            <TransparencyTransferRequest2
-              currentMonth={currentMonth}
-              budgetStatements={coreUnit?.budgetStatements}
-              code={code}
-              longCode={longCode}
-            />
-          )}
-          {tabsIndex === 3 && !isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-            <TransparencyTransferRequest
-              currentMonth={currentMonth}
-              budgetStatements={coreUnit?.budgetStatements}
-              longCode={longCode}
-            />
-          )}
-          {tabsIndex === 4 && <TransparencyAudit budgetStatement={currentBudgetStatement} />}
-          {tabsIndex === 5 && isEnabled('FEATURE_TRANSPARENCY_COMMENTS') && (
+
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS && isEnabled('FEATURE_TRANSPARENCY_COMMENTS') && (
             <TransparencyComments numberComments={numbersComments} code={code} comments={comments} />
           )}
         </InnerPage>

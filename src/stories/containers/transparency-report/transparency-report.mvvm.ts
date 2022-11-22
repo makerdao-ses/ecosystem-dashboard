@@ -7,19 +7,21 @@ import {
   getLastMonthWithActualOrForecast,
   getLastUpdateForBudgetStatement,
 } from '../../../core/business-logic/core-units';
+import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
 import { BudgetStatementDto, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { API_MONTH_TO_FORMAT } from '../../../core/utils/date.utils';
 import { TableItems } from './transparency-report';
 
-export const TRANSPARENCY_IDS = [
-  'actuals',
-  'forecast',
-  'mkr-vesting',
-  'transfer-requests',
-  'audit-reports',
-  'comments',
-];
+export enum TRANSPARENCY_IDS_ENUM {
+  ACTUALS = 'actuals',
+  FORECAST = 'forecast',
+  MKR_VESTING = 'mkr-vesting',
+  TRANSFER_REQUESTS = 'transfer-requests',
+  AUDIT_REPORTS = 'audit-reports',
+  COMMENTS = 'comments',
+}
+const DISABLED_ID = [TRANSPARENCY_IDS_ENUM.MKR_VESTING, TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS];
 
 export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   const router = useRouter();
@@ -29,16 +31,31 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   const anchor = useUrlAnchor();
   const transparencyTableRef = useRef<HTMLDivElement>(null);
 
-  const [tabsIndex, setTabsIndex] = useState(0);
+  const [tabsIndex, setTabsIndex] = useState<TRANSPARENCY_IDS_ENUM>(TRANSPARENCY_IDS_ENUM.ACTUALS);
+  const [tabsIndexNumber, setTabsIndexNumber] = useState<number>(0);
 
   const [currentMonth, setCurrentMonth] = useState(DateTime.now());
 
   useEffect(() => {
     if (anchor) {
-      const index = TRANSPARENCY_IDS.findIndex((id) => anchor.indexOf(id) > -1);
-      setTabsIndex(index);
+      const index = Object.values(TRANSPARENCY_IDS_ENUM).findIndex(
+        (id) => anchor.indexOf(id) > -1 && !DISABLED_ID.includes(id)
+      );
+      if (index !== -1) {
+        const indexKey = Object.keys(TRANSPARENCY_IDS_ENUM)[index];
+        setTabsIndex(TRANSPARENCY_IDS_ENUM[indexKey as keyof typeof TRANSPARENCY_IDS_ENUM]);
+      }
     }
   }, [anchor]);
+
+  useEffect(() => {
+    const values = Object.values(TRANSPARENCY_IDS_ENUM);
+    const index = values.indexOf(tabsIndex);
+    let difference = 0;
+    values.forEach((value, i) => (DISABLED_ID.includes(value) && i < index ? difference++ : null));
+
+    setTabsIndexNumber(index - difference);
+  }, [tabsIndex]);
 
   const [scrolled, setScrolled] = useState<boolean>(false);
 
@@ -46,7 +63,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     if (anchor === '') {
       setScrolled(true);
     }
-    if (!scrolled && anchor && TRANSPARENCY_IDS.includes(anchor)) {
+    if (!scrolled && anchor && Object.values(TRANSPARENCY_IDS_ENUM).includes(anchor as TRANSPARENCY_IDS_ENUM)) {
       setScrolled(true);
       let offset = (transparencyTableRef?.current?.offsetTop || 0) - 280;
       const windowsWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
@@ -147,28 +164,34 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   const numbersComments = useMemo(() => currentBudgetStatement?.comments?.length ?? 0, [currentBudgetStatement]);
   const longCode = coreUnit?.code;
 
+  const [isEnabled] = useFlagsActive();
+
   const tabItems: TableItems[] = [
     {
       item: 'Actuals',
-      id: TRANSPARENCY_IDS[0],
+      id: TRANSPARENCY_IDS_ENUM.ACTUALS,
     },
     {
       item: 'Forecast',
-      id: TRANSPARENCY_IDS[1],
-    },
-    {
-      item: 'MKR Vesting',
-      id: TRANSPARENCY_IDS[2],
-    },
-    {
-      item: 'Transfer Requests',
-      id: TRANSPARENCY_IDS[3],
-    },
-    {
-      item: 'Audit Reports',
-      id: TRANSPARENCY_IDS[4],
+      id: TRANSPARENCY_IDS_ENUM.FORECAST,
     },
   ];
+  if (isEnabled('FEATURE_MKR_VESTING')) {
+    tabItems.push({
+      item: 'MKR Vesting',
+      id: TRANSPARENCY_IDS_ENUM.MKR_VESTING,
+    });
+  }
+  tabItems.push({
+    item: 'Transfer Requests',
+    id: TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS,
+  });
+  if (isEnabled('FEATURE_AUDIT_REPORTS')) {
+    tabItems.push({
+      item: 'Audit Reports',
+      id: TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS,
+    });
+  }
 
   const lastUpdateForBudgetStatement = useMemo(
     () => getLastUpdateForBudgetStatement(coreUnit, currentBudgetStatement?.id ?? 0),
@@ -192,6 +215,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     hasNextMonth,
     currentBudgetStatement,
     tabsIndex,
+    tabsIndexNumber,
     lastUpdateForBudgetStatement,
     numbersComments,
     differenceInDays,
