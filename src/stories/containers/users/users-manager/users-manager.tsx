@@ -68,7 +68,6 @@ export default () => {
   const filterData = useMemo(() => {
     if (!searchValue) return users;
     const result = users.filter((user) => {
-      console.log('user', user.username);
       return user.username.toLocaleLowerCase().indexOf(searchValue.toLocaleLowerCase()) > -1;
     });
     return result;

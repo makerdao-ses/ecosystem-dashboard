@@ -47,9 +47,13 @@ const UserCard = ({
     }
   };
 
-  const handleOnDeleteAccount = useCallback(() => {
-    handleDeleteAccount(id);
-  }, [handleDeleteAccount, id]);
+  const handleOnDeleteAccount = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event.stopPropagation();
+      handleDeleteAccount(id);
+    },
+    [handleDeleteAccount, id]
+  );
 
   return (
     <Container isLight={isLight} onClick={handleGoProfile}>
