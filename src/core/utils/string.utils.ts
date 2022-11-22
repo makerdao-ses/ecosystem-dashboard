@@ -1,4 +1,5 @@
-import { UserDTO, UserRole } from '../models/dto/auth.dto';
+import { PermissionsEnum } from '../enums/permissions.enum';
+import { UserDTO } from '../models/dto/auth.dto';
 import { BudgetStatementWalletDto } from '../models/dto/core-unit.dto';
 
 export const getTwoInitials = (name: string) => {
@@ -58,17 +59,17 @@ export const getCorrectRoleApi = (user: UserDTO) => {
   const allPermission: string[] = [];
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  (user as any).roles.forEach((role: UserRole) => {
+  (user as any).roles.forEach((role: any) => {
     role.permissions.forEach((permission: string) => {
       allPermission.push(permission);
     });
   });
 
-  const isAdmin = allPermission.find((item) => item === 'System/Manage');
+  const isAdmin = allPermission.find((item) => item === PermissionsEnum.SystemManage);
   if (isAdmin) {
     return 'Site Admin';
   }
-  const isCoreUnitAdmin = allPermission.find((item) => item.indexOf('CoreUnit/Update') > -1);
+  const isCoreUnitAdmin = allPermission.find((item) => item.indexOf(PermissionsEnum.CoreUnitUpdate) > -1);
   if (isCoreUnitAdmin) {
     return 'Core Unit Admin';
   }
