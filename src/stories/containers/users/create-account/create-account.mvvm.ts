@@ -36,19 +36,12 @@ const validationSchema = yup.object({
     .required('Password is required'),
   confirmPassword: yup
     .string()
-    // .min(10, 'Your password must have at least 10 characters.')
-    .matches(/[^a-z]/g, 'Your password must contain at least one uppercase character, number, or special character.')
-    .matches(/[^A-Z]/g, 'Your password must contain at least one lowercase character, number, or special character.')
-    .matches(
-      /[^0-9]/g,
-      'Your password must contain at least one uppercase character, lowercase character, or special character.'
-    )
-    .matches(
-      /[^!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]/g,
-      'Your password must contain at least one lowercase character, uppercase character, or number.'
-    )
-    .oneOf([yup.ref('password'), null], "Your password doesn't match, please insert a different password confirmation.")
-    .required('Password confirmation is required'),
+    .required('Password confirmation is required')
+    .oneOf(
+      [yup.ref('password'), null],
+      "Your password doesn't match, please insert a different password confirmation."
+    ),
+  //
 });
 
 export const useCreateAccountMvvm = () => {
