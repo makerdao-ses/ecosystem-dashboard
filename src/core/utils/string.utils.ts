@@ -57,7 +57,7 @@ export const getWalletWidthForWallets = (wallets: BudgetStatementWalletDto[]) =>
 
 export const getCorrectRoleApi = (user: UserDTO) => {
   const allPermission: string[] = [];
-  user.roles.forEach((role: UserRole) => {
+  user.roles?.forEach((role: UserRole) => {
     role.permissions.forEach((permission: PermissionsEnum) => {
       allPermission.push(permission);
     });
