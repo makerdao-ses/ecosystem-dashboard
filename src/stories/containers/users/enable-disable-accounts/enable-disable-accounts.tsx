@@ -22,7 +22,7 @@ const resultPassword = fill(arrayPassword, 'a');
 
 export default () => {
   const router = useRouter();
-  const { id } = router.query;
+  const { id, userName } = router.query;
   const { isLight } = useThemeContext();
   const { user, clientRequest } = useAuthContext();
   const [checked, setChecked] = useState(user?.active || false);
@@ -78,7 +78,7 @@ export default () => {
             }}
           >
             <UserNameLabel isLight={isLight}>Username:</UserNameLabel>
-            <UserLabelValue isLight={isLight}>{user?.username}</UserLabelValue>
+            <UserLabelValue isLight={isLight}>{userName}</UserLabelValue>
           </div>
           <div
             style={{
