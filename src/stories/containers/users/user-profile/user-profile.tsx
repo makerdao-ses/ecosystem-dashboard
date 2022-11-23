@@ -35,6 +35,13 @@ const UserProfile = () => {
   }, [checked, clientRequest]);
 
   const handleDeleteAccount = useCallback(() => {
+    router.push({
+      pathname: '/auth/delete-account/',
+      query: {
+        userName: user?.username,
+        id: user?.id,
+      },
+    });
     router.push('/auth/delete-account');
   }, [router]);
 
