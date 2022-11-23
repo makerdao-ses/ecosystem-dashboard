@@ -59,6 +59,7 @@ const MenuTheme = ({ themeMode, toggleTheme }: Props) => {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
+        onClick={handleClose}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',
@@ -69,6 +70,7 @@ const MenuTheme = ({ themeMode, toggleTheme }: Props) => {
         }}
       >
         <MenuItem
+          onMouseLeave={handleClose}
           disableTouchRipple={true}
           disableGutters={true}
           sx={{
