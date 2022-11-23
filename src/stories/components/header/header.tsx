@@ -74,7 +74,7 @@ const Header = ({ links }: Props) => {
     router.push('/auth/manage#manage');
   };
   const onClickProfile = () => {
-    router.push('/auth/manage#profile');
+    router.push(`/auth/${isAdmin ? 'manage#profile' : 'user-profile'}/`);
   };
 
   return (
