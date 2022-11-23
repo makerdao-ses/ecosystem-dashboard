@@ -4,11 +4,21 @@ import Notification from '../components/notification/notification';
 import CheckMark from '../components/svg/check-mark';
 import Warning from '../components/svg/warning';
 
-export const notificationHelper = (isSuccess: boolean) => {
+interface Props {
+  isSuccess: boolean;
+  userName?: string;
+}
+
+export const notificationHelper = ({ isSuccess, userName = '' }: Props) => {
   toast(
     ({ closeToast }) =>
       isSuccess ? (
-        <Notification icon={<CheckMark />} borderColor="#B6EDE7" handleClose={closeToast} />
+        <Notification
+          icon={<CheckMark />}
+          borderColor="#B6EDE7"
+          handleClose={closeToast}
+          message={`Account ${userName} has been deleted`}
+        />
       ) : (
         <Notification
           icon={<Warning />}

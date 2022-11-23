@@ -11,7 +11,7 @@ import { USERS_DELETE_FROM_ADMIN } from './delete-account.api';
 
 export const useDeleteAccountMvvm = () => {
   const router = useRouter();
-  const { id } = router.query;
+  const { id, userName } = router.query;
   const { user, clientRequest } = useAuthContext();
 
   const handleOnSubmit = useCallback(
@@ -24,14 +24,17 @@ export const useDeleteAccountMvvm = () => {
         if (response) {
           const data = await clientRequest?.request(gqlQuery, filter);
           if (data.userDelete) {
-            notificationHelper(true);
+            notificationHelper({
+              isSuccess: true,
+              userName: userName as string,
+            });
             setTimeout(() => {
               router.push('/auth/manage');
             }, 3000);
           }
         }
       } catch (err) {
-        notificationHelper(false);
+        notificationHelper({ isSuccess: false });
       }
     },
     [clientRequest, id, router, user?.username]
