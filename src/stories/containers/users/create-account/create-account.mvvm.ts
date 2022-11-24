@@ -13,7 +13,12 @@ const validationSchema = yup.object({
   username: yup.string().required('Username is required'),
   password: yup
     .string()
+    .matches(
+      /^((((([a-z]+[A-Z]+)+)|(([A-Z]+[a-z]+)+)|(([a-z]+[0-9]+)+)|(([0-9]+[a-z]+)+)|(([A-Z]+[0-9]+)+)|(([0-9]+[A-Z]+)+)))|(((([!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]+[A-Z]+)+)|(([A-Z]+[!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]+)+)|(([a-z]+[!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]+)+)||(([!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]+[a-z]+)+)|(([A-Z]+[0-9]+)+)|(([0-9]+[A-Z]+)+)))|(((([!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]+[0-9]+)+)|(([0-9]+[!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]+)+))))[a-zA-Z0-9!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]*$/g,
+      INVALID_CHARACTERS_MESSAGE
+    )
     .min(10, 'Your password must have at least 10 characters.')
+
     .matches(/[^a-z]/g, 'Your password must contain at least one uppercase character, number, or special character.')
     .matches(/[^A-Z]/g, 'Your password must contain at least one lowercase character, number, or special character.')
     .matches(
@@ -31,23 +36,12 @@ const validationSchema = yup.object({
     .required('Password is required'),
   confirmPassword: yup
     .string()
-    // .min(10, 'Your password must have at least 10 characters.')
-    .matches(/[^a-z]/g, 'Your password must contain at least one uppercase character, number, or special character.')
-    .matches(/[^A-Z]/g, 'Your password must contain at least one lowercase character, number, or special character.')
-    .matches(
-      /[^0-9]/g,
-      'Your password must contain at least one uppercase character, lowercase character, or special character.'
-    )
-    .matches(
-      /[^!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]/g,
-      'Your password must contain at least one lowercase character, uppercase character, or number.'
-    )
-    .matches(
-      /^((((([a-z]+[A-Z]+)+)|(([A-Z]+[a-z]+)+)|(([a-z]+[0-9]+)+)|(([0-9]+[a-z]+)+)|(([A-Z]+[0-9]+)+)|(([0-9]+[A-Z]+)+)))|(((([!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]+[A-Z]+)+)|(([A-Z]+[!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]+)+)|(([a-z]+[!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]+)+)||(([!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]+[a-z]+)+)|(([A-Z]+[0-9]+)+)|(([0-9]+[A-Z]+)+)))|(((([!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]+[0-9]+)+)|(([0-9]+[!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]+)+))))[a-zA-Z0-9!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]*$/g,
-      INVALID_CHARACTERS_MESSAGE
-    )
-    .oneOf([yup.ref('password'), null], "Your password doesn't match, please insert a different password confirmation.")
-    .required('Password confirmation is required'),
+    .required('Password confirmation is required')
+    .oneOf(
+      [yup.ref('password'), null],
+      "Your password doesn't match, please insert a different password confirmation."
+    ),
+  //
 });
 
 export const useCreateAccountMvvm = () => {

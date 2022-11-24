@@ -61,6 +61,8 @@ const MenuUserOptions = ({ username, isAdmin, onClickLogOut, onClickProfile, onC
         }}
       >
         <MenuItem
+          onMouseLeave={handleClose}
+          onClick={handleClose}
           disableTouchRipple={true}
           disableGutters={true}
           sx={{
