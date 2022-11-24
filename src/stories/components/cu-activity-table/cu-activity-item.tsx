@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styled from '@emotion/styled';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
@@ -23,54 +24,58 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
     [activity]
   );
 
+  const detailsUrl = useMemo(() => {
+    return `/core-unit/${getShortCode(
+      activity.activityFeed.params.coreUnit.code
+    )}/finances/reports?viewMonth=${DateTime.fromFormat(activity.activityFeed.params.month, 'y-M').toFormat('LLLy')}`;
+  }, [activity]);
+
   const goToDetails = () => {
-    router.push(
-      `/core-unit/${getShortCode(
-        activity.activityFeed.params.coreUnit.code
-      )}/finances/reports?viewMonth=${DateTime.fromFormat(activity.activityFeed.params.month, 'y-M').toFormat('LLLy')}`
-    );
+    router.push(detailsUrl);
   };
 
   return (
-    <ActivityItem isLight={isLight} isGlobal={isGlobal} onClick={goToDetails}>
-      <FlexWrapper isGlobal={isGlobal}>
-        {activity.coreUnit && (
-          <CoreUnit isGlobal={isGlobal}>
-            <CircleAvatar width="32px" height="32px" image={activity.coreUnit.image} name={activity.coreUnit.name} />
-            <CoreUnitCode isLight={isLight}>{activity.coreUnit.shortCode}</CoreUnitCode>
-            <CoreUnitName isLight={isLight}>{activity.coreUnit.name}</CoreUnitName>
-          </CoreUnit>
-        )}
-        <Timestamp isGlobal={isGlobal}>
-          <UTCDate isLight={isLight} isGlobal={isGlobal}>
-            {DateTime.fromISO(activity.activityFeed.created_at).setZone('UTC').toFormat('dd-LLL-y HH:mm ZZZZ')}
-          </UTCDate>
-          <HumanizedDate isLight={isLight} isNew={isNew} isGlobal={isGlobal}>
-            {dayDiffNow === 0 ? 'Today' : `${dayDiffNow} Day${dayDiffNow !== 1 ? 's' : ''} Ago`}
-          </HumanizedDate>
-        </Timestamp>
-      </FlexWrapper>
-      <Details isLight={isLight} isGlobal={isGlobal}>
-        {activity.activityFeed.description}
-      </Details>
-      <ButtonContainer isGlobal={isGlobal}>
-        <CustomButton
-          label="View Details"
-          onClick={goToDetails}
-          style={{
-            display: 'inline-flex',
-            fontWeight: 500,
-            fontSize: '14px',
-            lineHeight: '18px',
-            padding: '8px 24px',
-            height: 'auto',
-            color: '#231536',
-            borderColor: isLight ? '#25273D' : '#343442',
-          }}
-          allowsHover={false}
-        />
-      </ButtonContainer>
-    </ActivityItem>
+    <Link href={detailsUrl}>
+      <ActivityItem isLight={isLight} isGlobal={isGlobal}>
+        <FlexWrapper isGlobal={isGlobal}>
+          {activity.coreUnit && (
+            <CoreUnit isGlobal={isGlobal}>
+              <CircleAvatar width="32px" height="32px" image={activity.coreUnit.image} name={activity.coreUnit.name} />
+              <CoreUnitCode isLight={isLight}>{activity.coreUnit.shortCode}</CoreUnitCode>
+              <CoreUnitName isLight={isLight}>{activity.coreUnit.name}</CoreUnitName>
+            </CoreUnit>
+          )}
+          <Timestamp isGlobal={isGlobal}>
+            <UTCDate isLight={isLight} isGlobal={isGlobal}>
+              {DateTime.fromISO(activity.activityFeed.created_at).setZone('UTC').toFormat('dd-LLL-y HH:mm ZZZZ')}
+            </UTCDate>
+            <HumanizedDate isLight={isLight} isNew={isNew} isGlobal={isGlobal}>
+              {dayDiffNow === 0 ? 'Today' : `${dayDiffNow} Day${dayDiffNow !== 1 ? 's' : ''} Ago`}
+            </HumanizedDate>
+          </Timestamp>
+        </FlexWrapper>
+        <Details isLight={isLight} isGlobal={isGlobal}>
+          {activity.activityFeed.description}
+        </Details>
+        <ButtonContainer isGlobal={isGlobal}>
+          <CustomButton
+            label="View Details"
+            onClick={goToDetails}
+            style={{
+              display: 'inline-flex',
+              fontWeight: 500,
+              fontSize: '14px',
+              lineHeight: '18px',
+              padding: '8px 24px',
+              height: 'auto',
+              color: '#231536',
+              borderColor: isLight ? '#25273D' : '#343442',
+            }}
+            allowsHover={false}
+          />
+        </ButtonContainer>
+      </ActivityItem>
+    </Link>
   );
 }
 
