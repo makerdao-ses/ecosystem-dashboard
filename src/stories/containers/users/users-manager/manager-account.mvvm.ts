@@ -1,14 +1,25 @@
+import request from 'graphql-request';
 import { useRouter } from 'next/router';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useMemo } from 'react';
+import useSWR from 'swr';
+import { GRAPHQL_ENDPOINT } from '../../../../config/endpoints';
+import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
+import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import { TableItems } from '../../transparency-report/transparency-report';
+import { QUERY_USERS } from './user-manager.api';
 
 export const MANAGE_IDS = ['profile', 'manage'];
 
 export const useManagerAccountViewModel = () => {
   const router = useRouter();
+  const { authToken } = useAuthContext();
   const query = router.query;
   const code = query.code as string;
+
+  const fetcher = (query: string) => request(GRAPHQL_ENDPOINT, query, null, { Authorization: `Bearer ${authToken}` });
+  const { data, error } = useSWR(QUERY_USERS, fetcher);
+  const users: UserDTO[] = useMemo(() => data?.users || [], [data?.users]);
 
   const anchor = useUrlAnchor();
   const transparencyTableRef = useRef<HTMLDivElement>(null);
@@ -54,5 +65,8 @@ export const useManagerAccountViewModel = () => {
     tabsIndex,
     code,
     transparencyTableRef,
+    data,
+    error,
+    users,
   };
 };

@@ -109,3 +109,6 @@ export const COMMENTS_EXAMPLE: CuCommentDto[] = [
     commentDate: '2029-12-01',
   },
 ];
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const UsersFakeData: any[] = [];

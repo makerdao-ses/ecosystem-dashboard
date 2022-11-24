@@ -4,11 +4,12 @@ import styled from '@emotion/styled';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useRouter } from 'next/router';
 import React, { useCallback, useMemo, useState } from 'react';
-import useSWR from 'swr';
+
 import lightTheme from '../../../../../styles/theme/light';
-import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { ButtonType } from '../../../../core/enums/button-type.enum';
+import { UserDTO } from '../../../../core/models/dto/auth.dto';
+import { UsersFakeData } from '../../../../core/utils/test.utils';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import { SearchInput } from '../../../components/search-input/search-input';
 import { Tabs } from '../../../components/tabs/tabs';
@@ -16,27 +17,22 @@ import UserCard from '../../../components/user-card/user-card';
 import { ParenthesisNumber } from '../../transparency-report/transparency-report';
 import UserProfile from '../user-profile/user-profile';
 import { useManagerAccountViewModel, MANAGE_IDS } from './manager-account.mvvm';
-import { QUERY_USERS } from './user-manager.api';
 
 export default () => {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState('');
   const { isLight } = useThemeContext();
-  const { clientRequest } = useAuthContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
-  const { tabsIndex, tabItems } = useManagerAccountViewModel();
+  const { tabsIndex, tabItems, data, error, users: newUsers } = useManagerAccountViewModel();
 
-  const fetcher = async (query: string) => await clientRequest?.request(query);
-  const { data, error } = useSWR(QUERY_USERS, fetcher);
-  const users: any[] = useMemo(() => data?.users || [], [data?.users]);
-
+  const users: UserDTO[] = newUsers || UsersFakeData;
   const handleDeleteAccount = (id: string) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const userTake = users?.find((user: any) => user.id === id);
     router.push({
       pathname: '/auth/delete-account/',
       query: {
-        userName: userTake.username,
+        userName: userTake?.username,
         id,
       },
     });
@@ -59,7 +55,7 @@ export default () => {
     router.push({
       pathname: '/auth/enable-disable-accounts/',
       query: {
-        userName: userTake.username,
+        userName: userTake?.username,
         id,
       },
     });
@@ -150,7 +146,7 @@ export default () => {
             </ContainerHeader>
           </ContainerHeaderTitle>
           <ContainerCards>
-            {filterData.map((user: any) => {
+            {filterData?.map((user: any) => {
               return (
                 <UserCard
                   checked={user.active}
