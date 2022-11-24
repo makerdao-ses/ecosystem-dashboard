@@ -62,7 +62,7 @@ const UserCard = ({
           <Label isLight={isLight}>{capitalizeWordWithoutConvertLowerCase(user.username || '')}</Label>
         </PositionRow>
         <PositionRow space="space-between" marginTop={32}>
-          <RoleLabel color={isLight ? color.color : color.darkColor}>{role}</RoleLabel>
+          <RoleLabel color={isLight ? color.color : color.darkColor}>{role.mainRole}</RoleLabel>
           <CustomButton
             label="View Profile"
             style={{
@@ -76,7 +76,11 @@ const UserCard = ({
       <Line isLight={isLight} />
       <FooterCard>
         <CustomButton
-          buttonType={role === 'Core Unit Admin' || role === 'Site Admin' ? ButtonType.Default : ButtonType.Danger}
+          buttonType={
+            role.mainRole === 'Core Unit Admin' || role.mainRole === 'Site Admin'
+              ? ButtonType.Default
+              : ButtonType.Danger
+          }
           label="Delete"
           style={{
             height: 34,

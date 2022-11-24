@@ -129,7 +129,7 @@ export const getColorJobPosition = (job: CuJobEnum) => {
 
 export const getColorRole = (user: UserDTO) => {
   const role = getCorrectRoleApi(user);
-  switch (role) {
+  switch (role.mainRole) {
     case 'Core Unit Admin':
       return {
         color: '#447AFB',
