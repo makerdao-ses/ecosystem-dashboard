@@ -84,7 +84,14 @@ const UserCard = ({
           }}
           onClick={handleOnDeleteAccount}
         />
-        <ControlledSwitches checked={isChecked} handleChange={handleChangeCard} label="Active" />
+        <ControlledSwitches
+          checked={isChecked}
+          handleChange={handleChangeCard}
+          label="Active"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        />
       </FooterCard>
     </Container>
   );

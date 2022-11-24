@@ -7,9 +7,9 @@ import EnableDisableAccounts from '../../../src/stories/containers/users/enable-
 import NotFoundPage from '../../404';
 
 const EnableDisableAccountPage: NextPage = () => {
-  const { authToken } = useAuthContext();
+  const { authToken, isAdmin } = useAuthContext();
 
-  if (!featureFlags[CURRENT_ENVIRONMENT].FEATURE_AUTH || !authToken) {
+  if (!featureFlags[CURRENT_ENVIRONMENT].FEATURE_AUTH || !authToken || !isAdmin) {
     return <NotFoundPage />;
   }
 

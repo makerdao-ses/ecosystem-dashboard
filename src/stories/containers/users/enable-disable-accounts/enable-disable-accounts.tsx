@@ -78,7 +78,7 @@ export default () => {
             }}
           >
             <UserNameLabel isLight={isLight}>Username:</UserNameLabel>
-            <UserLabelValue isLight={isLight}>{user?.username}</UserLabelValue>
+            <UserLabelValue isLight={isLight}>{userName}</UserLabelValue>
           </div>
           <div
             style={{

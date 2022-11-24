@@ -2,6 +2,7 @@ import { GraphQLClient } from 'graphql-request';
 import { useRouter } from 'next/router';
 import React, { useLayoutEffect } from 'react';
 import { GRAPHQL_ENDPOINT } from '../../config/endpoints';
+import { useIsAdmin } from '../hooks/useIsAdmin';
 import { LoginDTO, UserDTO } from '../models/dto/auth.dto';
 
 interface AuthContextProps {
@@ -12,9 +13,13 @@ interface AuthContextProps {
   clientRequest?: GraphQLClient;
   hasToken: boolean;
   isAuth?: boolean;
+  isAdmin?: boolean;
 }
 
-const AuthContext = React.createContext<AuthContextProps>({ hasToken: false });
+const AuthContext = React.createContext<AuthContextProps>({
+  hasToken: false,
+  isAdmin: false,
+});
 const clientRequest = new GraphQLClient(GRAPHQL_ENDPOINT);
 export const useAuthContext = () => React.useContext(AuthContext);
 
@@ -24,6 +29,7 @@ export const AuthContextProvider: React.FC<{ children: JSX.Element | JSX.Element
   const isAuth = !!authToken;
   const [user, setUser] = React.useState<UserDTO | undefined>(undefined);
   const router = useRouter();
+  const isAdmin = useIsAdmin(user || ({} as UserDTO));
 
   useLayoutEffect(() => {
     const auth = window.localStorage.getItem('auth') ?? '{}';
@@ -60,6 +66,7 @@ export const AuthContextProvider: React.FC<{ children: JSX.Element | JSX.Element
         clientRequest,
         hasToken,
         isAuth,
+        isAdmin,
       }}
     >
       {children}

@@ -8,9 +8,10 @@ interface Props {
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   label: string;
   styleLabel?: React.CSSProperties;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const ControlledSwitches = ({ checked, handleChange, label = '', styleLabel = {} }: Props) => {
+const ControlledSwitches = ({ checked, handleChange, label = '', styleLabel = {}, onClick }: Props) => {
   const { isLight } = useThemeContext();
   return (
     <Container>
@@ -18,6 +19,7 @@ const ControlledSwitches = ({ checked, handleChange, label = '', styleLabel = {}
         isLight={isLight}
         disableRipple
         checked={checked}
+        onClick={onClick}
         onChange={handleChange}
         inputProps={{
           'aria-label': 'controlled',

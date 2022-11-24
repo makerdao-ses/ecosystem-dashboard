@@ -11,8 +11,8 @@ import { USERS_DELETE_FROM_ADMIN } from './delete-account.api';
 
 export const useDeleteAccountMvvm = () => {
   const router = useRouter();
-  const { id } = router.query;
-  const { user, clientRequest } = useAuthContext();
+  const { id, userName } = router.query;
+  const { user, clientRequest, isAdmin, clearCredentials } = useAuthContext();
 
   const handleOnSubmit = useCallback(
     async (password: string) => {
@@ -23,15 +23,27 @@ export const useDeleteAccountMvvm = () => {
 
         if (response) {
           const data = await clientRequest?.request(gqlQuery, filter);
-          if (data.userDelete) {
-            notificationHelper(true);
+          if (data.userDelete && isAdmin) {
+            notificationHelper({
+              isSuccess: true,
+              userName: userName as string,
+            });
             setTimeout(() => {
               router.push('/auth/manage');
             }, 3000);
           }
+          if (data.userDelete && !isAdmin) {
+            notificationHelper({
+              isSuccess: true,
+              userName: userName as string,
+            });
+            setTimeout(() => {
+              clearCredentials && clearCredentials();
+            }, 3000);
+          }
         }
       } catch (err) {
-        notificationHelper(false);
+        notificationHelper({ isSuccess: false });
       }
     },
     [clientRequest, id, router, user?.username]

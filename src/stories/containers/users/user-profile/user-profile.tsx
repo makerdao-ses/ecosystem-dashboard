@@ -22,7 +22,7 @@ const resultPassword = fill(arrayPassword, 'a');
 const UserProfile = () => {
   const router = useRouter();
   const { isLight } = useThemeContext();
-  const { user, clientRequest, clearCredentials } = useAuthContext();
+  const { user, clientRequest, clearCredentials, isAdmin } = useAuthContext();
   const [checked, setChecked] = useState(false);
   const isMobileOrTable = useMediaQuery(lightTheme.breakpoints.between('table_375', 'desktop_1194'));
 
@@ -35,6 +35,13 @@ const UserProfile = () => {
   }, [checked, clientRequest]);
 
   const handleDeleteAccount = useCallback(() => {
+    router.push({
+      pathname: '/auth/delete-account/',
+      query: {
+        userName: user?.username,
+        id: user?.id,
+      },
+    });
     router.push('/auth/delete-account');
   }, [router]);
 
@@ -51,7 +58,7 @@ const UserProfile = () => {
         <CenterWrapper>
           <UserWrapper>
             <LabelUser isLight={isLight}>{user?.username || ''}</LabelUser>
-            <UserRole>Site Admin</UserRole>
+            {isAdmin && <UserRole>Site Admin</UserRole>}
           </UserWrapper>
         </CenterWrapper>
         <div
