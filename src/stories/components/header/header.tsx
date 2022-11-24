@@ -17,6 +17,8 @@ import MenuTheme from '../menu-navigation/menu-theme/menu-theme';
 import MenuUserOptions from '../menu-navigation/menu-user/menu-user';
 import ThemeSwitcherButton from '../button/switch-button/switch-buttom';
 import lightTheme from '../../../../styles/theme/light';
+import { useIsAdmin } from '../../../core/hooks/useIsAdmin';
+import { UserDTO } from '../../../core/models/dto/auth.dto';
 
 interface Props {
   links: WebSiteLinks[];
@@ -28,9 +30,7 @@ const Header = ({ links }: Props) => {
   const { themeMode, toggleTheme, isLight } = useThemeContext();
   const { authToken, user, clearCredentials } = useAuthContext();
 
-  // TODO:THis is because the roles don't got save in DTO
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const isAdmin = useMemo(() => (user as any)?.roles[0].name === 'SuperAdmin', [user]);
+  const isAdmin = useIsAdmin(user || ({} as UserDTO));
 
   const handleOnClickLogOut = () => {
     clearCredentials && clearCredentials();
