@@ -83,9 +83,7 @@ const MenuUserOptions = ({ username, isAdmin, onClickLogOut, onClickProfile, onC
           <MenuItemUser
             isAdmin={isAdmin}
             onClickLogOut={onClickLogOut}
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
             onClickProfile={onClickProfile}
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
             onClickAccountManager={onClickAccountManager}
           />
         </MenuItem>

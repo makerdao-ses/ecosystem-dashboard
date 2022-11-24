@@ -63,8 +63,8 @@ const UserProfile = () => {
             <LabelUser isLight={isLight}>{user?.username || ''}</LabelUser>
             {isAdmin && (
               <ContainerRoles>
-                {allRoles.map((role) => (
-                  <UserRole>{role}</UserRole>
+                {allRoles.map((role, index) => (
+                  <UserRole key={index}>{role}</UserRole>
                 ))}
               </ContainerRoles>
             )}
