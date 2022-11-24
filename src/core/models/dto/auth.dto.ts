@@ -1,8 +1,9 @@
 import { PermissionsEnum } from '../../enums/permissions.enum';
+import { RoleEnum } from '../../enums/role.enum';
 
 export interface UserRole {
   id: string;
-  name: string;
+  name: RoleEnum;
   permissions: PermissionsEnum[];
 }
 
