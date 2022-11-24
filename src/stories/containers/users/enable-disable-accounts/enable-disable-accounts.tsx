@@ -66,7 +66,7 @@ export default () => {
           </CenterWrapper>
           <CenterWrapper>
             <UserWrapper>
-              <UserLabel>User</UserLabel>
+              <UserLabel>{userName}</UserLabel>
             </UserWrapper>
           </CenterWrapper>
           <div
