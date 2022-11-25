@@ -60,7 +60,7 @@ export const getCorrectRoleApi = (user: UserDTO) => {
   const allPermission: string[] = [];
   const allRoles: string[] = [];
   user.roles?.forEach((role: UserRole) => {
-    allRoles.unshift(convertRoles(role.name));
+    allRoles.push(convertRoles(role.name));
     role.permissions.forEach((permission: PermissionsEnum) => {
       allPermission.push(permission);
     });
