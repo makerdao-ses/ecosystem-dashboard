@@ -24,7 +24,7 @@ export default () => {
     if (window?.history?.state?.idx > 0) {
       router.back();
     } else {
-      router.push(`/auth/manage#${isAdmin ? 'manage' : 'profile'}`);
+      router.push(`/auth/manage/${isAdmin ? 'accounts' : 'my-profile'}`);
     }
   }, [isAdmin, router]);
 
