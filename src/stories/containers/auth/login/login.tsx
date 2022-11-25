@@ -76,7 +76,7 @@ export const Wrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   flex: 1,
   alignItems: 'center',
   justifyContent: 'center',
-  width: '100vw',
+  width: '100%',
   height: '100vh',
   overflow: 'hidden',
   backgroundColor: isLight ? '#FFFFFF' : '#000000',

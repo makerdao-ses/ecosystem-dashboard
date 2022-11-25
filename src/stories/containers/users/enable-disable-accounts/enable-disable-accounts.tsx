@@ -1,12 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from '@emotion/styled';
-import request, { GraphQLClient } from 'graphql-request';
 import fill from 'lodash/fill';
 import { useRouter } from 'next/router';
-import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { ButtonType } from '../../../../core/enums/button-type.enum';
 import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
 import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import ControlledSwitches from '../../../components/button/switch-toogle/switch-component';
@@ -45,7 +43,7 @@ export default () => {
     if (window?.history?.state?.idx > 0) {
       router.back();
     } else {
-      router.push(`/auth/manage#${isAdmin ? 'manage' : 'profile'}`);
+      router.push(`/auth/manage/${isAdmin ? 'accounts' : 'my-profile'}`);
     }
   }, [isAdmin, router]);
 

@@ -71,10 +71,10 @@ const Header = ({ links }: Props) => {
   }, [router.pathname]);
 
   const onClickAccountManager = () => {
-    router.push('/auth/manage');
+    router.push('/auth/manage/accounts');
   };
   const onClickProfile = () => {
-    router.push(`/auth/${isAdmin ? 'manage#profile' : 'user-profile'}/`);
+    router.push(`/auth/${isAdmin ? 'manage/my-profile' : 'user-profile'}/`);
   };
 
   return (
