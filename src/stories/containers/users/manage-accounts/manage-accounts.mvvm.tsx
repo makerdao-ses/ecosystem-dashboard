@@ -1,21 +1,17 @@
 import { useMediaQuery } from '@mui/material';
-import request from 'graphql-request';
 import { useRouter } from 'next/router';
 import { useState, useCallback, useMemo } from 'react';
 import useSWR from 'swr';
 import lightTheme from '../../../../../styles/theme/light';
-import { GRAPHQL_ENDPOINT } from '../../../../config/endpoints';
-import { useAuthContext } from '../../../../core/context/AuthContext';
 import { UserDTO } from '../../../../core/models/dto/auth.dto';
+import { authFetcher } from '../../../../core/utils/fetcher';
 import { QUERY_USERS } from '../users-manager/user-manager.api';
 
 const useManageAccountsViewModel = () => {
   const router = useRouter();
-  const { authToken } = useAuthContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
 
-  const fetcher = (query: string) => request(GRAPHQL_ENDPOINT, query, null, { Authorization: `Bearer ${authToken}` });
-  const { data } = useSWR(QUERY_USERS, fetcher);
+  const { data } = useSWR<{ users: UserDTO[] }, string>(QUERY_USERS, authFetcher);
   const users: UserDTO[] = useMemo(() => data?.users || [], [data?.users]);
 
   const [searchValue, setSearchValue] = useState('');

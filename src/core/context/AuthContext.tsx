@@ -4,6 +4,7 @@ import React, { useLayoutEffect } from 'react';
 import { GRAPHQL_ENDPOINT } from '../../config/endpoints';
 import { useIsAdmin } from '../hooks/useIsAdmin';
 import { LoginDTO, UserDTO } from '../models/dto/auth.dto';
+import { getAuthFromStorage } from '../utils/auth-storage';
 
 interface AuthContextProps {
   user?: UserDTO;
@@ -32,15 +33,15 @@ export const AuthContextProvider: React.FC<{ children: JSX.Element | JSX.Element
   const isAdmin = useIsAdmin(user || ({} as UserDTO));
 
   useLayoutEffect(() => {
-    const auth = window.localStorage.getItem('auth') ?? '{}';
-    const newAuth = JSON.parse(auth)?.authToken ?? false;
+    const auth = getAuthFromStorage();
+    const newAuth = auth?.authToken;
     if (newAuth) {
       clientRequest.setHeaders({
         authorization: `Bearer ${newAuth}`,
       });
     }
     setAuthToken(newAuth);
-    setUser(JSON.parse(auth)?.user ?? null);
+    setUser(auth?.user);
   }, []);
 
   const setCredentials = (value: LoginDTO) => {
