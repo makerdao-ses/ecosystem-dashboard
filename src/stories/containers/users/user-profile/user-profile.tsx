@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import fill from 'lodash/fill';
 import { useRouter } from 'next/router';
 import React, { useCallback } from 'react';
@@ -22,6 +23,7 @@ const UserProfile = () => {
   const { isLight } = useThemeContext();
   const { user, clearCredentials, isAdmin } = useAuthContext();
   const { allRoles } = getCorrectRoleApi(user || ({} as UserDTO));
+  const phoneOrTable = useMediaQuery(lightTheme.breakpoints.between('table_375', 'desktop_1194'));
 
   const handleDeleteAccount = useCallback(() => {
     router.push({

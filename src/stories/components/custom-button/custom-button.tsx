@@ -4,6 +4,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import lightTheme from '../../../../styles/theme/light';
 import { ButtonType } from '../../../core/enums/button-type.enum';
 import AddIcon from '../svg/add';
+import { useMediaQuery } from '@mui/material';
 
 interface CustomButtonProps {
   label: string | JSX.Element;
@@ -97,6 +98,7 @@ export const CustomButton = ({
   ...props
 }: CustomButtonProps) => {
   const isLight = useThemeContext().themeMode === 'light';
+  const phoneOrTable = useMediaQuery(lightTheme.breakpoints.between('table_375', 'desktop_1194'));
   return (
     <Container
       padding={padding}
@@ -116,13 +118,15 @@ export const CustomButton = ({
           : active
           ? customStyles[buttonType].activeBackgroundDark
           : customStyles[buttonType].backgroundDark,
-        borderColor: isLight
-          ? active
-            ? customStyles[buttonType].activeBorderColor
-            : customStyles[buttonType]?.borderColor
-          : active
-          ? customStyles[buttonType].activeBorderColorDark
-          : customStyles[buttonType]?.borderColorDark,
+        borderColor: !phoneOrTable
+          ? isLight
+            ? active
+              ? customStyles[buttonType].activeBorderColor
+              : customStyles[buttonType]?.borderColor
+            : active
+            ? customStyles[buttonType].activeBorderColorDark
+            : customStyles[buttonType]?.borderColorDark
+          : '#25273D',
         ...props.style,
       }}
       isHightLight={isHightLight}
