@@ -23,7 +23,6 @@ const UserProfile = () => {
   const { isLight } = useThemeContext();
   const { user, clearCredentials, isAdmin } = useAuthContext();
   const { allRoles } = getCorrectRoleApi(user || ({} as UserDTO));
-  const phoneOrTable = useMediaQuery(lightTheme.breakpoints.between('table_375', 'desktop_1194'));
 
   const handleDeleteAccount = useCallback(() => {
     router.push({
@@ -109,7 +108,7 @@ const UserProfile = () => {
               color: '#F75524',
             }}
           />
-          <CustomButton
+          <ContainerWrapper
             onClick={handleLogOut}
             buttonType={ButtonType.Default}
             label="Log Out"
@@ -253,4 +252,10 @@ const ContainerRoles = styled.div({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+});
+
+const ContainerWrapper = styled(CustomButton)({
+  '@media (max-width: 1194px)': {
+    border: '1px solid #25273D',
+  },
 });
