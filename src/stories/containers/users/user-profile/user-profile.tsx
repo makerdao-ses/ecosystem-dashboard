@@ -174,11 +174,11 @@ const UserRole = styled.p({
 const UserNameLabel = styled.p<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
-  fontWeight: 600,
+  fontWeight: 700,
   fontSize: '16px',
   lineHeight: '19px',
   letterSpacing: '0.4px',
-  color: '#708390',
+  color: '#9FAFB9',
   marginTop: 0,
   marginBottom: 0,
   marginRight: '8px',
@@ -194,7 +194,7 @@ const CenterWrapper = styled.div({
 const UserLabelValue = styled.p<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
-  fontWeight: 600,
+  fontWeight: 500,
   fontSize: '16px',
   lineHeight: '19px',
   letterSpacing: '0.4px',
