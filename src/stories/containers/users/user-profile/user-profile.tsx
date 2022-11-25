@@ -1,23 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
-import request, { GraphQLClient } from 'graphql-request';
 import fill from 'lodash/fill';
 import { useRouter } from 'next/router';
-import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 import lightTheme from '../../../../../styles/theme/light';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { ButtonType } from '../../../../core/enums/button-type.enum';
 import { UserDTO } from '../../../../core/models/dto/auth.dto';
-import { RoleUserDTO } from '../../../../core/models/dto/role.dto';
 import { getCorrectRoleApi } from '../../../../core/utils/string.utils';
-import ControlledSwitches from '../../../components/button/switch-toogle/switch-component';
-import CloseButton from '../../../components/close-button/close-button';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import { CustomLink } from '../../../components/custom-link/custom-link';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
-import { ENABLE_DISABLE_USER_REQUEST } from '../../auth/enable-disable-accounts/enable-disable.api';
 
 const arrayPassword = new Array<string>(8);
 const resultPassword = fill(arrayPassword, 'a');
@@ -25,17 +19,8 @@ const resultPassword = fill(arrayPassword, 'a');
 const UserProfile = () => {
   const router = useRouter();
   const { isLight } = useThemeContext();
-  const { user, clientRequest, clearCredentials, isAdmin } = useAuthContext();
-  const [checked, setChecked] = useState(false);
-  const isMobileOrTable = useMediaQuery(lightTheme.breakpoints.between('table_375', 'desktop_1194'));
+  const { user, clearCredentials, isAdmin } = useAuthContext();
   const { allRoles } = getCorrectRoleApi(user || ({} as UserDTO));
-  const handleChange = useCallback(async () => {
-    const { query: gqlQuery, input } = ENABLE_DISABLE_USER_REQUEST(!checked, '1');
-    const data = await clientRequest?.request(gqlQuery, input);
-    if (data) {
-      setChecked(data.userSetActiveFlag[0].active);
-    }
-  }, [checked, clientRequest]);
 
   const handleDeleteAccount = useCallback(() => {
     router.push({

@@ -56,8 +56,8 @@ const Label = styled.p<{ isLight: boolean; isChecked: boolean }>(({ isLight, isC
 
 const AntSwitch = styled(Switch, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
   ({ isLight }) => ({
-    width: 28,
-    height: 16,
+    width: 26,
+    height: 15,
     padding: 0,
     display: 'flex',
     '&:active': {

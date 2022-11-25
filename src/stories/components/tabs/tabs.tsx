@@ -3,8 +3,14 @@ import styled from '@emotion/styled';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { useRouter } from 'next/router';
 
-interface TabsProps {
-  items?: { item: string | JSX.Element; id: string }[];
+export interface TabItem {
+  item: string | JSX.Element;
+  id: string;
+  href?: string;
+}
+
+export interface TabsProps {
+  items?: TabItem[];
   currentIndex: number;
   style?: CSSProperties;
   styleForTab?: CSSProperties;
@@ -14,7 +20,7 @@ export const Tabs = (props: TabsProps) => {
   const { isLight } = useThemeContext();
   const router = useRouter();
 
-  const handleClick = (id: string) => {
+  const handleClick = (id: string, href?: string) => {
     if (id) {
       let path = router.asPath;
       if (path.lastIndexOf('#') !== -1) {
@@ -22,6 +28,8 @@ export const Tabs = (props: TabsProps) => {
       }
       path += `#${id}`;
       router.push(path, undefined, { shallow: true });
+    } else if (href) {
+      router.push(href);
     }
   };
 
@@ -42,7 +50,7 @@ export const Tabs = (props: TabsProps) => {
               isLight={isLight}
               key={`${item}-${i}`}
               active={i === props.currentIndex}
-              onClick={() => handleClick(id)}
+              onClick={() => handleClick(id, element?.href)}
               style={{
                 marginRight: i === 0 ? '32px' : undefined,
                 ...props.styleForTab,
