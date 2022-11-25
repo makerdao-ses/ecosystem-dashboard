@@ -9,6 +9,9 @@ import lightTheme from '../../../../../styles/theme/light';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { ButtonType } from '../../../../core/enums/button-type.enum';
+import { UserDTO } from '../../../../core/models/dto/auth.dto';
+import { RoleUserDTO } from '../../../../core/models/dto/role.dto';
+import { getCorrectRoleApi } from '../../../../core/utils/string.utils';
 import ControlledSwitches from '../../../components/button/switch-toogle/switch-component';
 import CloseButton from '../../../components/close-button/close-button';
 import { CustomButton } from '../../../components/custom-button/custom-button';
@@ -25,7 +28,7 @@ const UserProfile = () => {
   const { user, clientRequest, clearCredentials, isAdmin } = useAuthContext();
   const [checked, setChecked] = useState(false);
   const isMobileOrTable = useMediaQuery(lightTheme.breakpoints.between('table_375', 'desktop_1194'));
-
+  const { allRoles } = getCorrectRoleApi(user || ({} as UserDTO));
   const handleChange = useCallback(async () => {
     const { query: gqlQuery, input } = ENABLE_DISABLE_USER_REQUEST(!checked, '1');
     const data = await clientRequest?.request(gqlQuery, input);
@@ -43,7 +46,7 @@ const UserProfile = () => {
       },
     });
     router.push('/auth/delete-account');
-  }, [router]);
+  }, [router, user?.id, user?.username]);
 
   const handleLogOut = () => {
     clearCredentials && clearCredentials();
@@ -58,7 +61,13 @@ const UserProfile = () => {
         <CenterWrapper>
           <UserWrapper>
             <LabelUser isLight={isLight}>{user?.username || ''}</LabelUser>
-            {isAdmin && <UserRole>Site Admin</UserRole>}
+            {isAdmin && (
+              <ContainerRoles>
+                {allRoles.map((role, index) => (
+                  <UserRole key={index}>{role}</UserRole>
+                ))}
+              </ContainerRoles>
+            )}
           </UserWrapper>
         </CenterWrapper>
         <div
@@ -156,7 +165,10 @@ const UserRole = styled.p({
   fontWeight: 600,
   textAlign: 'center',
   marginTop: 0,
-  marginBottom: 0,
+  marginBottom: 4,
+  ':last-child': {
+    marginBottom: 0,
+  },
 });
 
 const UserNameLabel = styled.p<{ isLight: boolean }>(({ isLight }) => ({
@@ -244,5 +256,11 @@ const LabelUser = styled.p<{ isLight: boolean }>(({ isLight }) => ({
 const ContainerDots = styled.div({
   display: 'flex',
   flexDirection: 'row',
+  alignItems: 'center',
+});
+
+const ContainerRoles = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
   alignItems: 'center',
 });

@@ -1,20 +1,22 @@
 import { useMediaQuery } from '@mui/material';
+import request from 'graphql-request';
 import { useRouter } from 'next/router';
 import { useState, useCallback, useMemo } from 'react';
 import useSWR from 'swr';
 import lightTheme from '../../../../../styles/theme/light';
+import { GRAPHQL_ENDPOINT } from '../../../../config/endpoints';
 import { useAuthContext } from '../../../../core/context/AuthContext';
+import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import { QUERY_USERS } from '../users-manager/user-manager.api';
 
 const useManageAccountsViewModel = () => {
   const router = useRouter();
-  const { clientRequest } = useAuthContext();
+  const { authToken } = useAuthContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
 
-  const fetcher = async (query: string) => await clientRequest?.request(query);
+  const fetcher = (query: string) => request(GRAPHQL_ENDPOINT, query, null, { Authorization: `Bearer ${authToken}` });
   const { data } = useSWR(QUERY_USERS, fetcher);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const users: any[] = useMemo(() => data?.users || [], [data?.users]);
+  const users: UserDTO[] = useMemo(() => data?.users || [], [data?.users]);
 
   const [searchValue, setSearchValue] = useState('');
   const handleClearSearch = () => {
@@ -33,7 +35,7 @@ const useManageAccountsViewModel = () => {
     router.push({
       pathname: '/auth/delete-account/',
       query: {
-        userName: userTake.username,
+        userName: userTake?.username,
         id,
       },
     });
@@ -44,7 +46,7 @@ const useManageAccountsViewModel = () => {
     router.push({
       pathname: '/auth/enable-disable-accounts/',
       query: {
-        userName: userTake.username,
+        userName: userTake?.username,
         id,
       },
     });

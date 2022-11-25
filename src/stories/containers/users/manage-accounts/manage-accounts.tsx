@@ -54,7 +54,7 @@ const ManageAccounts = () => {
       <ContainerCards>
         {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          filteredData.map((user: any) => {
+          filteredData?.map((user: any) => {
             return (
               <UserCard
                 checked={user.active}
