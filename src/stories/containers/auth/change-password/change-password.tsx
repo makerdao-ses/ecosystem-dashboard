@@ -155,7 +155,7 @@ export const Username = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
 export const ChangePassword = styled.h2<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: 20,
   lineHeight: '24px',
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: isLight ? '#434358' : '#D2D4EF',
   margin: '0 0 32px 0',
   alignSelf: 'flex-start',
   letterSpacing: 0.4,
