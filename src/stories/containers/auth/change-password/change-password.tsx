@@ -17,7 +17,7 @@ export default () => {
   const { user } = useAuthContext();
 
   const router = useRouter();
-  const { form, username, loading, error } = userChangePasswordMvvm();
+  const { form, username, loading, error, isWrongOldPassword } = userChangePasswordMvvm();
 
   const isAdmin = useIsAdmin(user || ({} as UserDTO));
 
@@ -62,7 +62,11 @@ export default () => {
               value={form.values.oldPassword}
               onChange={form.handleChange}
               onBlur={form.handleBlur}
-              error={form.touched.oldPassword && form.errors.oldPassword}
+              error={
+                (form.touched.oldPassword && form.errors.oldPassword) ||
+                (isWrongOldPassword && 'Wrong old password') ||
+                error
+              }
               style={{ marginBottom: 32 }}
               disabled={loading}
             />
@@ -85,7 +89,7 @@ export default () => {
               value={form.values.confirmPassword}
               onChange={form.handleChange}
               onBlur={form.handleBlur}
-              error={(form.touched.confirmPassword && form.errors.confirmPassword) ?? error}
+              error={form.touched.confirmPassword && form.errors.confirmPassword}
               style={{ marginBottom: 32 }}
               disabled={loading}
             />

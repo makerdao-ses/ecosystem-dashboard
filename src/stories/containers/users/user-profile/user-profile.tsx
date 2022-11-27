@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from '@emotion/styled';
 import fill from 'lodash/fill';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useCallback } from 'react';
 import lightTheme from '../../../../../styles/theme/light';
@@ -10,7 +10,6 @@ import { ButtonType } from '../../../../core/enums/button-type.enum';
 import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import { getCorrectRoleApi } from '../../../../core/utils/string.utils';
 import { CustomButton } from '../../../components/custom-button/custom-button';
-import { CustomLink } from '../../../components/custom-link/custom-link';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 
 const arrayPassword = new Array<string>(8);
@@ -69,7 +68,7 @@ const UserProfile = () => {
         <ContainerPassword>
           <UserNameLabel isLight={isLight}>Password:</UserNameLabel>
           <ContainerDots>
-            {resultPassword.map((item: unknown, index) => {
+            {resultPassword.map((_: unknown, index) => {
               return (
                 <div style={{ marginRight: '4px' }} key={index}>
                   <DotPassword isLight={isLight} />
@@ -79,16 +78,9 @@ const UserProfile = () => {
           </ContainerDots>
         </ContainerPassword>
         <ContainerPasswordLink>
-          <CustomLink
-            href="/auth/change-password"
-            withArrow={false}
-            target="_self"
-            style={{
-              marginLeft: '0px',
-            }}
-          >
-            Change user password
-          </CustomLink>
+          <Link href="/auth/change-password" passHref>
+            <ChangePasswordLink>Change user password</ChangePasswordLink>
+          </Link>
         </ContainerPasswordLink>
       </ContainerInformation>
       <ButtonWrapper>
@@ -156,7 +148,7 @@ const UserRole = styled.p({
   },
 });
 
-const UserNameLabel = styled.p<{ isLight: boolean }>(({ isLight }) => ({
+const UserNameLabel = styled.p(() => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 600,
@@ -215,6 +207,15 @@ const ContainerPasswordLink = styled.div({
   flexDirection: 'row',
   alignItems: 'center',
   marginLeft: '93px',
+});
+
+const ChangePasswordLink = styled.a({
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 600,
+  fontSize: '12px',
+  lineHeight: '15px',
+  color: '#2C99E9',
 });
 
 const ContainerInformation = styled.div({
