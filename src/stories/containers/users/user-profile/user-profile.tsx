@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
 import fill from 'lodash/fill';
 import Link from 'next/link';
 import { useRouter } from 'next/router';

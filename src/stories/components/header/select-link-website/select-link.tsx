@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { IconButton, Menu, MenuItem, Typography } from '@mui/material';
+import { Divider, IconButton, Menu, MenuItem, Typography } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
 import { ThemeMode, useThemeContext } from '../../../../core/context/ThemeContext';
 import ArrowSelect from '../../svg/arrow-select';
@@ -10,6 +10,7 @@ import { ThreeDots } from '../../svg/three-dots';
 import { Close } from '../../svg/close';
 import MoonMode from '../../svg/theme-mode';
 import ToggleDarkMode from '../../svg/toggle-dark';
+import Link from 'next/link';
 
 interface Props {
   links: WebSiteLinks[] | [];
@@ -21,7 +22,7 @@ interface Props {
 }
 
 const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, toggleTheme }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -161,42 +162,56 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
       </ThreeDotsButton>
       {popup && (
         <Container isLight={isLight}>
-          <CloseWrapper>
-            <Close onClick={togglePopup} />
-          </CloseWrapper>
-          <div onClick={toggleTheme}>
-            <DarkModeText isLight={isLight}>{isLight ? 'Dark Mode' : 'Light Mode'}</DarkModeText>
-            <IconButton>
-              {isLight ? <MoonMode width={16} height={16} /> : <ToggleDarkMode width={16} height={16} />}
-            </IconButton>
-          </div>
+          <ContainerInside>
+            <CloseWrapper>
+              <Close onClick={togglePopup} />
+            </CloseWrapper>
+            <div onClick={toggleTheme}>
+              <DarkModeText isLight={isLight}>{isLight ? 'Dark Mode' : 'Light Mode'}</DarkModeText>
+              <IconButton>
+                {isLight ? <MoonMode width={16} height={16} /> : <ToggleDarkMode width={16} height={16} />}
+              </IconButton>
+            </div>
 
-          <Line isLight={isLight} />
-          <StyleTitle isLight={isLight}>Essential MakerDAO Governance Websites </StyleTitle>
-          <StyleDescription isLight={isLight}>
-            Websites to gather all relevant data and information for Maker Governance.
-          </StyleDescription>
-          {links.map((link: WebSiteLinks, i: number) => (
-            <ItemWebSite
-              key={`link-${i}`}
-              height={link.height}
-              title={link.title || ''}
-              logo={link.logo}
-              background={link.background}
-              color={link.color}
-              fontSize={link.fontSize}
-              fontWeight={link.fontWeight}
-              link={link.link}
-              fontFamily={link.fontFamily}
-              padding={link.padding}
-              subtract={link.subtract}
-              description={link.description}
-              onClick={onClick(link.link)}
-              letterSpacing={link.letterSpacing}
-              lineHeight={link.lineHeight}
-              colorDark={link.colorDark}
-            />
-          ))}
+            <Line isLight={isLight} />
+            <StyleTitle isLight={isLight}>Essential MakerDAO Governance Websites </StyleTitle>
+            <StyleDescription isLight={isLight}>
+              Websites to gather all relevant data and information for Maker Governance.
+            </StyleDescription>
+            {links.map((link: WebSiteLinks, i: number) => (
+              <ItemWebSite
+                key={`link-${i}`}
+                height={link.height}
+                title={link.title || ''}
+                logo={link.logo}
+                background={link.background}
+                color={link.color}
+                fontSize={link.fontSize}
+                fontWeight={link.fontWeight}
+                link={link.link}
+                fontFamily={link.fontFamily}
+                padding={link.padding}
+                subtract={link.subtract}
+                description={link.description}
+                onClick={onClick(link.link)}
+                letterSpacing={link.letterSpacing}
+                lineHeight={link.lineHeight}
+                colorDark={link.colorDark}
+              />
+            ))}
+          </ContainerInside>
+          <Divider
+            light
+            sx={{
+              width: '100%',
+              bgcolor: isLight ? '#D4D9E1' : '#405361',
+              marginTop: '10px',
+            }}
+            variant="fullWidth"
+          />
+          <Link passHref href="/auth/manage/accounts">
+            <AdminLink>Expenses.makerdao.com/admin</AdminLink>
+          </Link>
         </Container>
       )}
     </div>
@@ -230,12 +245,24 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  padding: '22px',
   overflowY: 'auto',
   '@media (min-width: 834px)': {
     display: 'none',
   },
 }));
+
+const ContainerInside = styled.div({
+  paddingTop: '22px',
+  paddingBottom: '16px',
+  paddingLeft: '22px',
+  paddingRight: '22px',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  ':last-child': {
+    border: '2px solid red',
+  },
+});
 
 const ContainerIcon = styled.div<{ background: string }>(({ background }) => ({
   display: 'none',
@@ -295,6 +322,18 @@ const CloseWrapper = styled.div({
   alignSelf: 'flex-end',
   marginBottom: '22px',
   cursor: 'pointer',
+});
+
+const AdminLink = styled.a({
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 500,
+  fontSize: '14px',
+  lineHeight: '18px',
+  textAlign: 'center',
+  color: '#447AFB',
+  marginTop: '32px',
+  marginBottom: '32px',
 });
 
 export default SelectLink;

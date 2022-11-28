@@ -82,7 +82,6 @@ export const itemsWebSiteLinks: WebSiteLinks[] = [
     lineHeight: '19px',
     color: '#FFFFFF',
     link: 'https://mips.makerdao.com/',
-    marginBottom: '32px',
     fontFamily: 'Roboto , sans-serif',
     padding: '4px 12px',
     subtract: <MipsPortal />,
