@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
+import { Divider, useMediaQuery } from '@mui/material';
 import React, { useCallback, useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useAuthContext } from '../../../core/context/AuthContext';
@@ -77,7 +77,16 @@ const UserCard = ({
           />
         </PositionRow>
       </ContainerInside>
-      <Line isLight={isLight} />
+      <Divider
+        light
+        sx={{
+          bgcolor: isLight ? '#D4D9E1' : '#405361',
+          marginTop: '32px',
+          marginBottom: '16px',
+          height: '1px',
+        }}
+        variant="fullWidth"
+      />
       <FooterCard>
         <CustomButton
           buttonType={
@@ -171,13 +180,6 @@ const RoleLabel = styled.p<{ color: string }>(({ color }) => ({
   textAlign: 'center',
   borderRadius: 4,
   color,
-}));
-
-const Line = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  border: isLight ? '1px solid #D4D9E1' : ' 1px solid #405361;',
-  width: '100%',
-  marginTop: '32px',
-  marginBottom: '16px',
 }));
 
 const FooterCard = styled.div({

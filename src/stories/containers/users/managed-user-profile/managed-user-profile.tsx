@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Skeleton } from '@mui/material';
+import { Divider, Skeleton } from '@mui/material';
 import fill from 'lodash/fill';
 import Link from 'next/link';
 import React from 'react';
@@ -133,7 +133,15 @@ const ManagedUserProfile: React.FC = () => {
             )}
           </ChangePasswordContainer>
         </ContainerInside>
-        <Line isLight={isLight} />
+        <Divider
+          light
+          sx={{
+            bgcolor: isLight ? '#D4D9E1' : '#405361',
+            width: '100%',
+            marginBottom: '16px',
+          }}
+          variant="fullWidth"
+        />
         <ButtonWrapper>
           {isLoading ? (
             <>
@@ -286,12 +294,6 @@ const DotPassword = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   height: 8,
   background: isLight ? '#231536' : '#D2D4EF',
   borderRadius: '50%',
-}));
-
-const Line = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  borderBottom: isLight ? '2px solid #D4D9E1' : ' 1px solid #405361;',
-  width: '100%',
-  marginBottom: '16px',
 }));
 
 const ContainerInside = styled.div({

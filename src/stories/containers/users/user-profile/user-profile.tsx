@@ -98,7 +98,7 @@ const UserProfile = () => {
               color: '#F75524',
             }}
           />
-          <CustomButton
+          <ContainerWrapper
             onClick={handleLogOut}
             buttonType={ButtonType.Default}
             label="Log Out"
@@ -261,4 +261,10 @@ const ContainerRoles = styled.div({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+});
+
+const ContainerWrapper = styled(CustomButton)({
+  '@media (max-width: 1194px)': {
+    border: '1px solid #25273D',
+  },
 });

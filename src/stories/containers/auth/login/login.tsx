@@ -7,7 +7,7 @@ import { useLoginMvvm } from './login.mvvm';
 import Image from 'next/image';
 
 export default () => {
-  const { form: formLogic, loading, error, clearErrors } = useLoginMvvm();
+  const { form: formLogic, loading, error, clearErrors, isMobile, isTable } = useLoginMvvm();
   const { isLight } = useThemeContext();
 
   return (
@@ -58,8 +58,9 @@ export default () => {
               label="Log In"
               onClick={formLogic.submitForm}
               style={{
-                width: 128,
-                borderRadius: 22,
+                height: isMobile || isTable ? '34px' : '48px',
+                width: isMobile ? '93px' : isTable ? '89px' : '127px',
+                ...(isMobile || isTable ? { borderColor: isLight ? '#25273D' : '#343442' } : {}),
               }}
               type="submit"
               disabled={loading || !!error || Object.keys(formLogic.errors).length > 0}
