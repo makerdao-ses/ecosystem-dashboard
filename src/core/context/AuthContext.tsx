@@ -50,11 +50,11 @@ export const AuthContextProvider: React.FC<{ children: JSX.Element | JSX.Element
     window.localStorage.setItem('auth', JSON.stringify(value));
   };
 
-  const clearCredentials = () => {
+  const clearCredentials = async () => {
+    await router.push('/login');
     setAuthToken('');
     setUser(undefined);
     window.localStorage.setItem('auth', '{}');
-    router.push('/login');
   };
 
   return (
