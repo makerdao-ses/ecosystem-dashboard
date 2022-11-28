@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from '@emotion/styled';
 import fill from 'lodash/fill';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useCallback } from 'react';
 import lightTheme from '../../../../../styles/theme/light';
@@ -10,9 +10,7 @@ import { ButtonType } from '../../../../core/enums/button-type.enum';
 import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import { getCorrectRoleApi } from '../../../../core/utils/string.utils';
 import { CustomButton } from '../../../components/custom-button/custom-button';
-import { CustomLink } from '../../../components/custom-link/custom-link';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
-import { Wrapper } from '../../auth/login/login';
 
 const arrayPassword = new Array<string>(8);
 const resultPassword = fill(arrayPassword, 'a');
@@ -65,11 +63,11 @@ const UserProfile = () => {
               marginBottom: '32px',
             }}
           >
-            <UserNameLabel isLight={isLight}>Username:</UserNameLabel>
+            <UserNameLabel>Username:</UserNameLabel>
             <UserLabelValue isLight={isLight}>{user?.username}</UserLabelValue>
           </div>
           <ContainerPassword>
-            <UserNameLabel isLight={isLight}>Password:</UserNameLabel>
+            <UserNameLabel>Password:</UserNameLabel>
             <ContainerDots>
               {resultPassword.map((item: unknown, index) => {
                 return (
@@ -81,16 +79,9 @@ const UserProfile = () => {
             </ContainerDots>
           </ContainerPassword>
           <ContainerPasswordLink>
-            <CustomLink
-              href="/auth/change-password"
-              withArrow={false}
-              target="_self"
-              style={{
-                marginLeft: '0px',
-              }}
-            >
-              Change user password
-            </CustomLink>
+            <Link href="/auth/change-password">
+              <ChangePasswordLink>Change user password</ChangePasswordLink>
+            </Link>
           </ContainerPasswordLink>
         </ContainerInformation>
         <ButtonWrapper>
@@ -124,6 +115,15 @@ const UserProfile = () => {
 };
 
 export default UserProfile;
+
+const Wrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  backgroundColor: isLight ? '#FFFFFF' : '#000000',
+  backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/login-bg.png)',
+  backgroundAttachment: 'fixed',
+  backgroundSize: 'cover',
+}));
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
@@ -159,7 +159,7 @@ const UserRole = styled.p({
   },
 });
 
-const UserNameLabel = styled.p<{ isLight: boolean }>(({ isLight }) => ({
+const UserNameLabel = styled.p(() => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
@@ -218,6 +218,15 @@ const ContainerPasswordLink = styled.div({
   flexDirection: 'row',
   alignItems: 'center',
   marginLeft: '93px',
+});
+
+const ChangePasswordLink = styled.a({
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 600,
+  fontSize: '12px',
+  lineHeight: '15px',
+  color: '#2C99E9',
 });
 
 const ContainerInformation = styled.div({
