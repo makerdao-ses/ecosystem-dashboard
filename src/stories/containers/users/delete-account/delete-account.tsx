@@ -86,7 +86,7 @@ export default () => {
                 borderColor: isLight
                   ? formLogic.values.password !== ''
                     ? '#F75524'
-                    : 'none'
+                    : '#D4D9E1'
                   : formLogic.values.password !== ''
                   ? '#F75524'
                   : '#343442',

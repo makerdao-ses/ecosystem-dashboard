@@ -107,7 +107,7 @@ const Input = styled.input<{ active: boolean; error: boolean; isLight: boolean }
     borderColor: '#708390',
   }),
   '&:focus': {
-    borderColor: '#447AFB',
+    borderColor: '#787A9B',
   },
   ...(error && {
     borderColor: '#F75524 !important',
