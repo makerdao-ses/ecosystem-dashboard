@@ -8,7 +8,7 @@ import { ManagerTabs } from '../../../../src/stories/containers/users/users-mana
 import UserManagerLayout from '../../../../src/stories/containers/users/users-manager/user-manager-layout';
 import NotFoundPage from '../../../404';
 
-const EnableDisableAccountPage: NextPage = () => {
+const ManageUserProfilePage: NextPage = () => {
   const { authToken, isAdmin } = useAuthContext();
 
   if (!featureFlags[CURRENT_ENVIRONMENT].FEATURE_AUTH || !authToken || !isAdmin) {
@@ -22,4 +22,4 @@ const EnableDisableAccountPage: NextPage = () => {
   );
 };
 
-export default EnableDisableAccountPage;
+export default ManageUserProfilePage;
