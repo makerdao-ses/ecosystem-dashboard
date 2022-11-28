@@ -1,7 +1,9 @@
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { useFormik } from 'formik';
 import request, { ClientError } from 'graphql-request';
 import { useState } from 'react';
 import * as yup from 'yup';
+import lightTheme from '../../../../../styles/theme/light';
 import { GRAPHQL_ENDPOINT } from '../../../../config/endpoints';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { INVALID_CHARACTERS_MESSAGE } from '../../../../core/utils/const';
@@ -39,6 +41,7 @@ export const userChangePasswordMvvm = () => {
   const [error, setError] = useState<string>('');
   const [isWrongOldPassword, setIsWrongOldPassword] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const isMobileOrTable = useMediaQuery(lightTheme.breakpoints.down('table_834'));
 
   const form = useFormik({
     initialValues: {
@@ -86,5 +89,6 @@ export const userChangePasswordMvvm = () => {
     error,
     username: user?.username ?? '',
     isWrongOldPassword,
+    isMobileOrTable,
   };
 };

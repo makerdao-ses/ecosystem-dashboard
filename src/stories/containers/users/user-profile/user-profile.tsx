@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import fill from 'lodash/fill';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -98,7 +99,7 @@ const UserProfile = () => {
               color: '#F75524',
             }}
           />
-          <CustomButton
+          <ContainerWrapper
             onClick={handleLogOut}
             buttonType={ButtonType.Default}
             label="Log Out"
@@ -260,4 +261,10 @@ const ContainerRoles = styled.div({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+});
+
+const ContainerWrapper = styled(CustomButton)({
+  '@media (max-width: 1194px)': {
+    border: '1px solid #25273D',
+  },
 });
