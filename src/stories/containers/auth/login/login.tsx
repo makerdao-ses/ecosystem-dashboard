@@ -60,6 +60,7 @@ export default () => {
               style={{
                 height: isMobile || isTable ? '34px' : '48px',
                 width: isMobile ? '93px' : isTable ? '89px' : '127px',
+                ...(isMobile || isTable ? { borderColor: isLight ? '#25273D' : '#343442' } : {}),
               }}
               type="submit"
               disabled={loading || !!error || Object.keys(formLogic.errors).length > 0}
