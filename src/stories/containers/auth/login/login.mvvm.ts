@@ -16,7 +16,7 @@ const validationSchema = yup.object({
 });
 
 export const useLoginMvvm = () => {
-  const { setCredentials } = useAuthContext();
+  const { setCredentials, clearCredentials } = useAuthContext();
   const router = useRouter();
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -56,5 +56,6 @@ export const useLoginMvvm = () => {
     clearErrors,
     isMobile,
     isTable,
+    clearCredentials,
   };
 };

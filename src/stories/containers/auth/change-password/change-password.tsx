@@ -132,7 +132,7 @@ export const Spacer = styled.div({
 
 export const UserLabel = styled.p<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#708390' : '#D2D4EF',
-  fontSize: 24,
+  fontSize: 20,
   lineHeight: '24px',
   fontWeight: 600,
   margin: 0,
