@@ -41,7 +41,7 @@ export const userChangePasswordMvvm = () => {
   const [error, setError] = useState<string>('');
   const [isWrongOldPassword, setIsWrongOldPassword] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const isMobileOrTable = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+  const isMobileOrTable = useMediaQuery(lightTheme.breakpoints.down('table_834'));
 
   const form = useFormik({
     initialValues: {

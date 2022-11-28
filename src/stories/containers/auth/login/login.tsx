@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import TextInput from '../../../components/text-input/text-input';
@@ -7,12 +7,8 @@ import { useLoginMvvm } from './login.mvvm';
 import Image from 'next/image';
 
 export default () => {
-  const { form: formLogic, loading, error, clearErrors, isMobile, isTable, clearCredentials } = useLoginMvvm();
+  const { form: formLogic, loading, error, clearErrors, isMobile, isTable } = useLoginMvvm();
   const { isLight } = useThemeContext();
-
-  useEffect(() => {
-    clearCredentials && clearCredentials();
-  }, []);
 
   return (
     <Wrapper isLight={isLight}>
