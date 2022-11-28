@@ -4,14 +4,14 @@ import { useState, useCallback, useMemo } from 'react';
 import useSWR from 'swr';
 import lightTheme from '../../../../../styles/theme/light';
 import { UserDTO } from '../../../../core/models/dto/auth.dto';
-import { authFetcher } from '../../../../core/utils/fetcher';
+import { fetcher } from '../../../../core/utils/fetcher';
 import { QUERY_USERS } from '../users-manager/user-manager.api';
 
 const useManageAccountsViewModel = () => {
   const router = useRouter();
   const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
 
-  const { data } = useSWR<{ users: UserDTO[] }, string>(QUERY_USERS, authFetcher);
+  const { data } = useSWR<{ users: UserDTO[] }, string>(QUERY_USERS, fetcher);
   const users: UserDTO[] = useMemo(() => data?.users || [], [data?.users]);
 
   const [searchValue, setSearchValue] = useState('');
@@ -39,13 +39,7 @@ const useManageAccountsViewModel = () => {
   const handleGoProfileView = (id: string) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const userTake = users?.find((user: any) => user.id === id);
-    router.push({
-      pathname: '/auth/enable-disable-accounts/',
-      query: {
-        userName: userTake?.username,
-        id,
-      },
-    });
+    router.push(`/auth/manage/user/${userTake?.username}`);
   };
 
   const filteredData = useMemo(() => {

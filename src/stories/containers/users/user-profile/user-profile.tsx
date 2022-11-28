@@ -227,6 +227,7 @@ const ChangePasswordLink = styled.a({
   fontSize: '12px',
   lineHeight: '15px',
   color: '#2C99E9',
+  cursor: 'pointer',
 });
 
 const ContainerInformation = styled.div({

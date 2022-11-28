@@ -29,7 +29,7 @@ export const useDeleteAccountMvvm = () => {
               userName: userName as string,
             });
             setTimeout(() => {
-              router.push('/auth/manage');
+              router.push('/auth/manage/accounts');
             }, 3000);
           }
           if (data.userDelete && !isAdmin) {
