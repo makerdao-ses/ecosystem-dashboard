@@ -1,9 +1,11 @@
 // eslint-disable-next-line spellcheck/spell-checker
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { useFormik } from 'formik';
 import request from 'graphql-request';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import * as yup from 'yup';
+import lightTheme from '../../../../../styles/theme/light';
 import { GRAPHQL_ENDPOINT } from '../../../../config/endpoints';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { LOGIN_REQUEST } from './login.api';
@@ -18,6 +20,8 @@ export const useLoginMvvm = () => {
   const router = useRouter();
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+  const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+  const isTable = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   // eslint-disable-next-line spellcheck/spell-checker
   const form = useFormik({
     initialValues: {
@@ -50,5 +54,7 @@ export const useLoginMvvm = () => {
     error,
     loading,
     clearErrors,
+    isMobile,
+    isTable,
   };
 };
