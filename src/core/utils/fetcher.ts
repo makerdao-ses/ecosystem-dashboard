@@ -1,22 +1,22 @@
-import { request } from 'graphql-request';
+import { GraphQLClient } from 'graphql-request';
 import { GRAPHQL_ENDPOINT } from '../../config/endpoints';
 import { getAuthFromStorage } from './auth-storage';
 
 export type GraphQLFetcherOptions = {
   query: string;
-  filter?: JSON;
+  input?: JSON;
 };
 
-export const fetcher = ({ query, filter }: GraphQLFetcherOptions) => request(GRAPHQL_ENDPOINT, query, filter);
-
-export const authFetcher = (query: string) => {
+export const fetcher = ({ query, input }: GraphQLFetcherOptions) => {
   const auth = getAuthFromStorage();
 
-  if (auth?.authToken) {
-    return request(GRAPHQL_ENDPOINT, query, null, {
-      Authorization: `Bearer ${auth?.authToken}`,
-    });
-  }
+  const graphQLClient = new GraphQLClient(GRAPHQL_ENDPOINT, {
+    headers: auth?.authToken
+      ? {
+          authorization: `Bearer ${auth?.authToken}`,
+        }
+      : {},
+  });
 
-  return request(GRAPHQL_ENDPOINT, query);
+  return graphQLClient.request(query, input);
 };

@@ -13,6 +13,7 @@ import { ContainerNotification } from '../../../components/notification/notifica
 import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
 import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import { useDeleteAccountMvvm } from './delete-account.mvvm';
+import { goBack } from '../../../../core/utils/routing';
 
 export default () => {
   const router = useRouter();
@@ -25,12 +26,8 @@ export default () => {
   const isAdmin = useIsAdmin(user || ({} as UserDTO));
 
   const handleGoBack = useCallback(() => {
-    if (window?.history?.state?.idx > 0) {
-      router.back();
-    } else {
-      router.push(`/auth/manage/${isAdmin ? 'accounts' : 'my-profile'}`);
-    }
-  }, [isAdmin, router]);
+    goBack(`/auth/manage/${isAdmin ? 'accounts' : 'my-profile'}`);
+  }, [isAdmin]);
 
   return (
     <Wrapper isLight={isLight}>

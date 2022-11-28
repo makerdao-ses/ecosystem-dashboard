@@ -1,16 +1,18 @@
 import { gql } from 'graphql-request';
 
-export const QUERY_USERS = gql`
-  query Users {
-    users {
-      id
-      username
-      active
-      roles {
+export const QUERY_USERS = () => ({
+  query: gql`
+    query Users {
+      users {
         id
-        name
-        permissions
+        username
+        active
+        roles {
+          id
+          name
+          permissions
+        }
       }
     }
-  }
-`;
+  `,
+});
