@@ -5,12 +5,13 @@ import CloseButton from '../../../components/close-button/close-button';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import TextInput from '../../../components/text-input/text-input';
-import { ButtonWrapper, Wrapper, Form } from '../../auth/login/login';
+import { ButtonWrapper, Form } from '../../auth/login/login';
 import { useCreateAccountMvvm } from './create-account.mvvm';
 import { useRouter } from 'next/router';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
+import lightTheme from '../../../../../styles/theme/light';
 
 export default () => {
   const { isLight } = useThemeContext();
@@ -29,7 +30,7 @@ export default () => {
   }, [isAdmin, router]);
 
   return (
-    <Wrapper isLight={isLight}>
+    <Wrapper isLight={isLight} style={{ alignItems: 'flex-start' }}>
       <Container isLight={isLight}>
         <CloseButton
           style={{
@@ -109,7 +110,21 @@ export default () => {
   );
 };
 
-export const Container = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
+const Wrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  display: 'flex',
+  flex: 1,
+  justifyContent: 'center',
+  backgroundColor: isLight ? '#FFFFFF' : '#000000',
+  backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/login-bg.png)',
+  backgroundAttachment: 'fixed',
+  backgroundSize: 'cover',
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    marginTop: 24,
+  },
+}));
+
+const Container = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',

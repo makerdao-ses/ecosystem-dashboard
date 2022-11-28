@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import React, { useCallback, useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useAuthContext } from '../../../core/context/AuthContext';
@@ -32,6 +33,7 @@ const UserCard = ({
   const role = getCorrectRoleApi(user);
   const [isChecked, setIsChecked] = useState(checked);
   const { isLight } = useThemeContext();
+  const isTable = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const color = getColorRole(user);
   const handleGoProfile = () => {
     handleGoProfileView(id);
@@ -68,8 +70,10 @@ const UserCard = ({
             style={{
               height: 34,
               width: 128,
+              ...(isTable ? { borderColor: isLight ? '#25273D' : '#343442' } : {}),
             }}
             onClick={handleGoProfile}
+            allowsHover={!isTable}
           />
         </PositionRow>
       </ContainerInside>

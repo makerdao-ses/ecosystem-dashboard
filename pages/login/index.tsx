@@ -3,14 +3,21 @@ import React from 'react';
 import { featureFlags } from '../../feature-flags/feature-flags';
 import { CURRENT_ENVIRONMENT } from '../../src/config/endpoints';
 import Login from '../../src/stories/containers/auth/login/login';
-import NotFoundPage from '../404';
 
 const LoginPage: NextPage = () => {
+  return <Login />;
+};
+
+export const getServerSideProps = async () => {
   if (!featureFlags[CURRENT_ENVIRONMENT].FEATURE_AUTH) {
-    return <NotFoundPage />;
+    return {
+      notFound: true,
+    };
   }
 
-  return <Login />;
+  return {
+    props: {},
+  };
 };
 
 export default LoginPage;
