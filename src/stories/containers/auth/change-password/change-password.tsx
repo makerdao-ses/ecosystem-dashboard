@@ -16,7 +16,7 @@ export default () => {
   const { isLight } = useThemeContext();
   const { user } = useAuthContext();
 
-  const { form, username, loading, error, isWrongOldPassword } = userChangePasswordMvvm();
+  const { form, username, loading, error, isWrongOldPassword, isMobileOrTable } = userChangePasswordMvvm();
 
   const isAdmin = useIsAdmin(user || ({} as UserDTO));
 
@@ -97,6 +97,7 @@ export default () => {
                 width: 174,
                 height: 34,
                 borderRadius: 22,
+                ...(isMobileOrTable ? { borderColor: isLight ? '#25273D' : '#343442' } : {}),
               }}
               type="submit"
               disabled={loading}
@@ -125,6 +126,7 @@ export const Spacer = styled.div({
   background: '#D4D9E1',
   height: 1,
   width: 228,
+  order: 2,
   '@media (min-width: 834px)': {
     display: 'none',
   },
@@ -136,11 +138,13 @@ export const UserLabel = styled.p<{ isLight: boolean }>(({ isLight }) => ({
   lineHeight: '24px',
   fontWeight: 600,
   margin: 0,
+  order: 3,
   '@media (min-width: 834px)': {
     margin: '0 8px 0 0',
     ':after': {
       content: '":"',
     },
+    order: 1,
   },
 }));
 
@@ -150,6 +154,7 @@ export const Username = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   textAlign: 'center',
   margin: 0,
+  order: 1,
 }));
 
 export const ChangePassword = styled.h2<{ isLight: boolean }>(({ isLight }) => ({
