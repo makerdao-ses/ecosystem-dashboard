@@ -17,7 +17,7 @@ export default () => {
   const { isLight } = useThemeContext();
   const { user } = useAuthContext();
   const router = useRouter();
-  const { form, loading, error } = useCreateAccountMvvm();
+  const { form, loading, error, hasUserTakenError, setHasUserTakenError } = useCreateAccountMvvm();
 
   const isAdmin = useIsAdmin(user || ({} as UserDTO));
 
@@ -58,11 +58,14 @@ export default () => {
               placeholder="Username"
               name="username"
               value={form.values.username}
-              onChange={form.handleChange}
+              onChange={(e) => {
+                setHasUserTakenError(false);
+                form.handleChange(e);
+              }}
               onBlur={form.handleBlur}
               error={
                 (form.touched.username && form.errors.username) ||
-                (error && 'Error: username already taken, try a new one')
+                (hasUserTakenError && 'Username already taken, try a new one')
               }
               style={{
                 marginBottom: '32px',
@@ -106,6 +109,7 @@ export default () => {
           </InputsWrapper>
           <ButtonWrapper>
             <CustomButton
+              disabled={hasUserTakenError || !!form.errors.password || !!form.errors.confirmPassword}
               label="Create Account"
               style={{
                 width: 200,
