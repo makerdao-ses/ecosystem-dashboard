@@ -15,7 +15,8 @@ const validationSchema = yup.object({
   newPassword: passwordValidationYup
     .notOneOf([yup.ref('oldPassword'), null], 'New password should not be as old password')
     .required('New password is required'),
-  confirmPassword: passwordValidationYup
+  confirmPassword: yup
+    .string()
     .oneOf([yup.ref('newPassword'), null], 'Passwords must match')
     .required('Password confirmation is required'),
 });
