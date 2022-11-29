@@ -210,7 +210,7 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
             variant="fullWidth"
           />
           <Link passHref href="https://expenses.makerdao.network/login">
-            <AdminLink>Expenses.makerdao.com/login</AdminLink>
+            <LoginLink>Expenses.makerdao.com/login</LoginLink>
           </Link>
         </Container>
       )}
@@ -324,7 +324,7 @@ const CloseWrapper = styled.div({
   cursor: 'pointer',
 });
 
-const AdminLink = styled.a({
+const LoginLink = styled.a({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
