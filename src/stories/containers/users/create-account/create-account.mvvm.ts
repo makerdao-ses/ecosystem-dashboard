@@ -26,6 +26,7 @@ export const useCreateAccountMvvm = () => {
   const router = useRouter();
   const { authToken } = useAuthContext();
   const [error, setError] = useState<string>('');
+  const [hasUserTakenError, setHasUserTakenError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
   // eslint-disable-next-line spellcheck/spell-checker
@@ -38,6 +39,7 @@ export const useCreateAccountMvvm = () => {
     validationSchema,
     onSubmit: async (values) => {
       setLoading(true);
+      setHasUserTakenError(false);
       const { query, input } = CREATE_ACCOUNT_REQUEST(values.username, values.password);
 
       try {
@@ -45,8 +47,12 @@ export const useCreateAccountMvvm = () => {
         router.push('/auth/manage/accounts');
       } catch (err) {
         if (err instanceof ClientError) {
-          if (err.response.errors && err.response.errors.length > 0 && err.response.errors[0].message) {
-            setError(err.response.errors[0].message);
+          if (err.response.errors && err.response.errors.length > 0) {
+            if (err.response.errors[0].message === 'Error: username already taken, try a new one') {
+              setHasUserTakenError(true);
+            } else {
+              setError(err.response.errors[0].message.replace('Error: ', ''));
+            }
           } else {
             setError('There was a server error when trying to update the password');
             console.error(err);
@@ -62,5 +68,7 @@ export const useCreateAccountMvvm = () => {
     form,
     loading,
     error,
+    hasUserTakenError,
+    setHasUserTakenError,
   };
 };
