@@ -209,8 +209,8 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
             }}
             variant="fullWidth"
           />
-          <Link passHref href="/auth/manage/accounts">
-            <AdminLink>Expenses.makerdao.com/admin</AdminLink>
+          <Link passHref href="https://expenses.makerdao.network/login">
+            <AdminLink>Expenses.makerdao.com/login</AdminLink>
           </Link>
         </Container>
       )}
