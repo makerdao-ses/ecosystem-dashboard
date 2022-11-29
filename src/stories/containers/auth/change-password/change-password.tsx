@@ -49,7 +49,7 @@ export default () => {
           }}
         >
           <InputsWrapper>
-            <Label>Enter Existing Password</Label>
+            <Label isLight={isLight}>Enter Existing Password</Label>
             <TextInput
               type="password"
               placeholder="Password"
@@ -65,7 +65,7 @@ export default () => {
               style={{ marginBottom: 32 }}
               disabled={loading}
             />
-            <Label>Enter New Password</Label>
+            <Label isLight={isLight}>Enter New Password</Label>
             <TextInput
               type="password"
               placeholder="New Password"
@@ -167,13 +167,13 @@ export const ChangePassword = styled.h2<{ isLight: boolean }>(({ isLight }) => (
   fontWeight: 600,
 }));
 
-const Label = styled.div({
+const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontWeight: 400,
   fontSize: 14,
   lineHeight: '22px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   marginBottom: 16,
-});
+}));
 
 const InputsWrapper = styled.div({
   width: '100%',
