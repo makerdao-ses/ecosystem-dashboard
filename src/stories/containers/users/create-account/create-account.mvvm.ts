@@ -64,7 +64,7 @@ export const useCreateAccountMvvm = () => {
 
       try {
         await request(GRAPHQL_ENDPOINT, query, input, { Authorization: `Bearer ${authToken}` });
-        router.push('/');
+        router.push('/auth/manage/accounts');
       } catch (err) {
         if (err instanceof ClientError) {
           if (err.response.errors && err.response.errors.length > 0 && err.response.errors[0].message) {
