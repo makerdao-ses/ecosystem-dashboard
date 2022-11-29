@@ -17,6 +17,7 @@ const resultPassword = fill(arrayPassword, 'a');
 
 const UserProfile = () => {
   const router = useRouter();
+  const isAdminProfile = router.pathname.includes('/auth/manage/my-profile');
   const { isLight } = useThemeContext();
   const { user, clearCredentials, isAdmin } = useAuthContext();
   const { allRoles } = getCorrectRoleApi(user || ({} as UserDTO));
@@ -86,7 +87,13 @@ const UserProfile = () => {
           </ContainerPassword>
           <ContainerPasswordLink>
             <Link href="/auth/change-password">
-              <ChangePasswordLink> {isAdmin ? 'Change user password' : 'Change your password'}</ChangePasswordLink>
+              <ChangePasswordLink>
+                {isAdmin && isAdminProfile
+                  ? 'Change your password'
+                  : isAdmin && !isAdminProfile
+                  ? 'Change user password'
+                  : 'Change your password'}
+              </ChangePasswordLink>
             </Link>
           </ContainerPasswordLink>
         </ContainerInformation>
