@@ -4,7 +4,7 @@ import CloseButton from '../../../components/close-button/close-button';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import TextInput from '../../../components/text-input/text-input';
-import { ButtonWrapper, Container, Form, Wrapper } from '../login/login';
+import { ButtonWrapper, Form } from '../login/login';
 import { userChangePasswordMvvm } from './change-password.mvvm';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
@@ -108,6 +108,41 @@ export default () => {
     </Wrapper>
   );
 };
+
+const Wrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  display: 'flex',
+  flex: 1,
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '100%',
+  minHeight: '100vh',
+
+  backgroundColor: isLight ? '#FFFFFF' : '#000000',
+  backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/login-bg.png)',
+  backgroundAttachment: 'fixed',
+  backgroundSize: 'cover',
+  paddingBottom: 128,
+}));
+
+const Container = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  padding: '24px',
+  marginTop: '104px',
+  width: 343,
+  background: isLight ? '#FFFFFF' : '#10191F',
+  boxShadow: isLight
+    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+    : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+
+  borderRadius: '6px',
+  '@media (min-width: 834px)': {
+    padding: '40px 64px',
+    width: '484px',
+    marginTop: '100px',
+  },
+}));
 
 export const UserWrapper = styled.div({
   display: 'flex',
