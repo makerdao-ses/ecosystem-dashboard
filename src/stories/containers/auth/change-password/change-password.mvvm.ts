@@ -1,25 +1,28 @@
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useFormik } from 'formik';
 import request, { ClientError } from 'graphql-request';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import * as yup from 'yup';
 import lightTheme from '../../../../../styles/theme/light';
 import { GRAPHQL_ENDPOINT } from '../../../../config/endpoints';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { passwordValidationYup } from '../../../../core/utils/form-validation';
-import { goBack } from '../../../../core/utils/routing';
 import { UPDATE_PASSWORD_REQUEST } from './change-password.api';
 
 const validationSchema = yup.object({
   oldPassword: yup.string().required('Old Password is required'),
-  newPassword: passwordValidationYup.required('New password is required'),
+  newPassword: passwordValidationYup
+    .notOneOf([yup.ref('oldPassword'), null], 'New password should not be as old password')
+    .required('New password is required'),
   confirmPassword: passwordValidationYup
     .oneOf([yup.ref('newPassword'), null], 'Passwords must match')
     .required('Password confirmation is required'),
 });
 
 export const userChangePasswordMvvm = () => {
-  const { user, authToken } = useAuthContext();
+  const router = useRouter();
+  const { user, authToken, isAdmin } = useAuthContext();
   const [error, setError] = useState<string>('');
   const [isWrongOldPassword, setIsWrongOldPassword] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -40,7 +43,7 @@ export const userChangePasswordMvvm = () => {
 
       try {
         await request(GRAPHQL_ENDPOINT, query, input, { Authorization: `Bearer ${authToken}` });
-        goBack();
+        router.push(isAdmin ? '/auth/manage/my-profile' : '/auth/user-profile');
       } catch (err) {
         if (err instanceof ClientError) {
           if (
