@@ -52,7 +52,7 @@ export default () => {
           }}
         >
           <InputsWrapper>
-            <Label>Enter Username</Label>
+            <Label isLight={isLight}>Enter Username</Label>
             <TextInput
               type="text"
               placeholder="Username"
@@ -68,7 +68,7 @@ export default () => {
                 marginBottom: '32px',
               }}
             />
-            <Label>Create Password</Label>
+            <Label isLight={isLight}>Create Password</Label>
             <TextInput
               type="password"
               placeholder="Password"
@@ -174,13 +174,13 @@ const Description = styled.p<{ isLight: boolean }>(({ isLight }) => ({
   textAlign: 'center',
 }));
 
-const Label = styled.div({
+const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontWeight: 400,
   fontSize: 14,
   lineHeight: '22px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   marginBottom: 16,
-});
+}));
 
 const InputsWrapper = styled.div({
   width: '100%',
