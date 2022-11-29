@@ -84,10 +84,12 @@ const Container = styled.div({
   '@media (min-width: 1194px)': {
     justifyContent: 'flex-start',
     width: 1130,
+    marginBottom: 24,
   },
   '@media (min-width: 1280px)': {
     justifyContent: 'flex-start',
     width: 1184,
+    marginBottom: 24,
   },
   '@media (min-width: 1440px)': {
     width: 1312,

@@ -60,7 +60,10 @@ export default () => {
               value={form.values.username}
               onChange={form.handleChange}
               onBlur={form.handleBlur}
-              error={(form.touched.username && form.errors.username) ?? !!error}
+              error={
+                (form.touched.username && form.errors.username) ||
+                (error && 'Error: username already taken, try a new one')
+              }
               style={{
                 marginBottom: '32px',
               }}
@@ -73,7 +76,11 @@ export default () => {
               value={form.values.password}
               onChange={form.handleChange}
               onBlur={form.handleBlur}
-              error={(form.touched.password && form.errors.password) ?? !!error}
+              error={
+                (form.touched.password && form.errors.password) ||
+                (error &&
+                  'Error: Your password must contain at least one uppercase character, lowercase character, number, or special character.')
+              }
               disabled={loading}
               style={{
                 marginBottom: '24px',
@@ -86,7 +93,11 @@ export default () => {
               value={form.values.confirmPassword}
               onChange={form.handleChange}
               onBlur={form.handleBlur}
-              error={(form.touched.confirmPassword && form.errors.confirmPassword) ?? !!error}
+              error={
+                (form.touched.confirmPassword && form.errors.confirmPassword) ||
+                (error &&
+                  'Error: Your password must contain at least one uppercase character, lowercase character, number, or special character.')
+              }
               disabled={loading}
               style={{
                 marginBottom: '24px',
