@@ -67,7 +67,13 @@ const UserProfile = () => {
             <UserLabelValue isLight={isLight}>{user?.username}</UserLabelValue>
           </div>
           <ContainerPassword>
-            <UserNameLabel>Password:</UserNameLabel>
+            <UserNameLabel
+              style={{
+                marginRight: 11,
+              }}
+            >
+              Password:
+            </UserNameLabel>
             <ContainerDots>
               {resultPassword.map((item: unknown, index) => {
                 return (
@@ -159,7 +165,7 @@ const UserRole = styled.p({
   },
 });
 
-const UserNameLabel = styled.p(() => ({
+const UserNameLabel = styled.p({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
@@ -170,7 +176,7 @@ const UserNameLabel = styled.p(() => ({
   marginTop: 0,
   marginBottom: 0,
   marginRight: '8px',
-}));
+});
 
 const CenterWrapper = styled.div({
   display: 'flex',
