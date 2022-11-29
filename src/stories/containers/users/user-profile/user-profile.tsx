@@ -8,7 +8,7 @@ import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { ButtonType } from '../../../../core/enums/button-type.enum';
 import { UserDTO } from '../../../../core/models/dto/auth.dto';
-import { getCorrectRoleApi } from '../../../../core/utils/string.utils';
+import { capitalizeWordWithoutConvertLowerCase, getCorrectRoleApi } from '../../../../core/utils/string.utils';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 
@@ -46,7 +46,7 @@ const UserProfile = () => {
           </CenterWrapper>
           <CenterWrapper>
             <UserWrapper>
-              <LabelUser isLight={isLight}>{user?.username || ''}</LabelUser>
+              <LabelUser isLight={isLight}>{capitalizeWordWithoutConvertLowerCase(user?.username || '')}</LabelUser>
               {isAdmin && (
                 <ContainerRoles>
                   {allRoles.map((role, index) => (
@@ -65,7 +65,9 @@ const UserProfile = () => {
             }}
           >
             <UserNameLabel>Username:</UserNameLabel>
-            <UserLabelValue isLight={isLight}>{user?.username}</UserLabelValue>
+            <UserLabelValue isLight={isLight}>
+              {capitalizeWordWithoutConvertLowerCase(user?.username || '')}
+            </UserLabelValue>
           </div>
           <ContainerPassword>
             <UserNameLabel
