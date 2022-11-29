@@ -106,6 +106,7 @@ export default () => {
           </InputsWrapper>
           <ButtonWrapper>
             <CustomButton
+              disabled={!!error || !!form.errors.password || !!form.errors.confirmPassword}
               label="Create Account"
               style={{
                 width: 200,
