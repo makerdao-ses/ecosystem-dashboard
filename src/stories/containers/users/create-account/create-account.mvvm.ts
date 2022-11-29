@@ -1,6 +1,6 @@
 // eslint-disable-next-line spellcheck/spell-checker
 import { useFormik } from 'formik';
-import request from 'graphql-request';
+import request, { ClientError } from 'graphql-request';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import * as yup from 'yup';
@@ -66,8 +66,14 @@ export const useCreateAccountMvvm = () => {
         await request(GRAPHQL_ENDPOINT, query, input, { Authorization: `Bearer ${authToken}` });
         router.push('/');
       } catch (err) {
-        setError('There was a server error when trying to create the user');
-        console.error(err);
+        if (err instanceof ClientError) {
+          if (err.response.errors && err.response.errors.length > 0 && err.response.errors[0].message) {
+            setError(err.response.errors[0].message);
+          } else {
+            setError('There was a server error when trying to update the password');
+            console.error(err);
+          }
+        }
       } finally {
         setLoading(false);
       }
