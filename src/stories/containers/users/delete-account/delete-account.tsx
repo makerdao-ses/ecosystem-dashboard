@@ -14,6 +14,7 @@ import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
 import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import { useDeleteAccountMvvm } from './delete-account.mvvm';
 import { goBack } from '../../../../core/utils/routing';
+import { capitalizeWordWithoutConvertLowerCase } from '../../../../core/utils/string.utils';
 
 export default () => {
   const router = useRouter();
@@ -44,7 +45,7 @@ export default () => {
         <UserWrapper>
           <UserLabel>Username:</UserLabel>
           <Spacer />
-          <Username isLight={isLight}>{userName}</Username>
+          <Username isLight={isLight}>{capitalizeWordWithoutConvertLowerCase(userName as string)}</Username>
         </UserWrapper>
 
         <DeleteLabel>Delete Account</DeleteLabel>
