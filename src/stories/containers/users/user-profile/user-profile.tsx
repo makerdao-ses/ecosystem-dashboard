@@ -38,7 +38,7 @@ const UserProfile = () => {
   };
 
   return (
-    <Wrapper isLight={isLight}>
+    <Wrapper>
       <Container isLight={isLight}>
         <ContainerInformation>
           <CenterWrapper>
@@ -78,7 +78,7 @@ const UserProfile = () => {
               Password:
             </UserNameLabel>
             <ContainerDots>
-              {resultPassword.map((item: unknown, index) => {
+              {resultPassword.map((_: unknown, index) => {
                 return (
                   <div style={{ marginRight: '4px' }} key={index}>
                     <DotPassword isLight={isLight} />
@@ -131,13 +131,24 @@ const UserProfile = () => {
 
 export default UserProfile;
 
-const Wrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const Wrapper = styled.div(() => ({
   display: 'flex',
   justifyContent: 'center',
-  backgroundColor: isLight ? '#FFFFFF' : '#000000',
-  backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/login-bg.png)',
-  backgroundAttachment: 'fixed',
-  backgroundSize: 'cover',
+  height: 'fit-content',
+  marginTop: 64,
+  paddingBottom: 128,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 40,
+  },
+
+  [lightTheme.breakpoints.down('table_834')]: {
+    marginTop: 64,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    marginTop: 64,
+  },
 }));
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
