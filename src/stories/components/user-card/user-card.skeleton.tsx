@@ -13,10 +13,15 @@ const UserCardSkeleton: React.FC = () => {
       <ContainerInsider>
         <UserHeader>
           <Skeleton variant="circular" width={48} height={48} />
-          <Skeleton variant="rectangular" width={140} height={24} style={{
- marginLeft: 16,
-borderRadius: 8
-}} />
+          <Skeleton
+            variant="rectangular"
+            width={140}
+            height={24}
+            style={{
+              marginLeft: 16,
+              borderRadius: 8,
+            }}
+          />
         </UserHeader>
         <ViewProfileActions>
           <Skeleton variant="rectangular" width={60} height={14} style={{ borderRadius: 8 }} />
