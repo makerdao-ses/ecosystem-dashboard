@@ -103,7 +103,7 @@ export default () => {
           </ButtonWrapper>
         </Form>
       </Container>
-      <ContainerNotification />
+      <ContainerNotification limit={1} />
     </Wrapper>
   );
 };
