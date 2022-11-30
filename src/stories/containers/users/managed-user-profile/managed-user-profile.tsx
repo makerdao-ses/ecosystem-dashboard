@@ -277,12 +277,13 @@ const UserLabelValue = styled.p<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   marginTop: '0px',
   marginBottom: '0px',
+  wordBreak: 'break-all',
 }));
 
 const UserNameContainer = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  alignItems: 'center',
+  alignItems: 'flex-start',
   marginBottom: '32px',
 });
 
