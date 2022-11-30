@@ -52,10 +52,10 @@ export const useLoginMvvm = () => {
             err.response.errors[0].message === 'Error: Account disabled. Reach admin for more info.'
           ) {
             setHasUserInactive(true);
+          } else {
+            setError('Please verify your username and password are correct');
+            console.error(err);
           }
-        } else {
-          setError('Please verify your username and password are correct');
-          console.error(err);
         }
       } finally {
         setLoading(false);
