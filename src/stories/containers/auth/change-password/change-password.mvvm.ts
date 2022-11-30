@@ -45,7 +45,7 @@ export const userChangePasswordMvvm = (adminChange: boolean) => {
   // for "adminChange" only
   const [user, setUser] = useState<UserDTO | null>(null);
   const [isUserLoading, setIsUserLoading] = useState<boolean>(true);
-  const [hasErrorLoadingUser, setHasErrorLoadingUser] = useState<boolean>(true);
+  const [hasErrorLoadingUser, setHasErrorLoadingUser] = useState<boolean>(false);
 
   useEffect(() => {
     const asyncFunction = async () => {
@@ -60,7 +60,7 @@ export const userChangePasswordMvvm = (adminChange: boolean) => {
             }
           } catch (error) {
             setHasErrorLoadingUser(true);
-            console.log(error);
+            console.error(error);
           } finally {
             setIsUserLoading(false);
           }
