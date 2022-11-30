@@ -56,6 +56,14 @@ const ContainerText = styled.p<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#231536' : '#9FAFB9',
   marginTop: 0,
   marginBottom: 0,
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  [lightTheme.breakpoints.down(451)]: {
+    marginLeft: 4,
+    marginRight: 4,
+    marginTop: 16,
+  },
 }));
 
 export const ContainerNotification = styled(ToastContainer)({
