@@ -169,10 +169,6 @@ export const developer = [
     url: 'https://docs.makerdao.com/',
   },
   {
-    title: 'API docs',
-    url: 'https://vote.makerdao.com/api-docs',
-  },
-  {
     title: 'Developer Guides',
     url: 'https://github.com/makerdao/developerguides',
   },
@@ -181,7 +177,11 @@ export const developer = [
     url: 'https://www.notion.so/makerdao/Maker-Brand-ac517c82ff9a43089d0db5bb2ee045a4',
   },
   {
-    title: 'Oracle Feeds',
-    url: 'https://makerdao.com/en/feeds/',
+    title: 'API Sandbox',
+    url: 'https://studio.apollographql.com/public/Performance-Dashboard-Prd/',
+  },
+  {
+    title: 'Github Repos',
+    url: 'https://makerdao-ses.github.io/',
   },
 ];
