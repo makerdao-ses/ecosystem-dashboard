@@ -43,8 +43,10 @@ export const useCreateAccountMvvm = () => {
       const { query, input } = CREATE_ACCOUNT_REQUEST(values.username, values.password);
 
       try {
-        await request(GRAPHQL_ENDPOINT, query, input, { Authorization: `Bearer ${authToken}` });
-        router.push('/auth/manage/accounts');
+        const response = await request(GRAPHQL_ENDPOINT, query, input, { Authorization: `Bearer ${authToken}` });
+        if (response) {
+          await router.push(`/auth/manage/user/${response.userCreate.username || ''}`);
+        }
       } catch (err) {
         if (err instanceof ClientError) {
           if (err.response.errors && err.response.errors.length > 0) {

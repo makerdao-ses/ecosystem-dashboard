@@ -7,7 +7,7 @@ import { useLoginMvvm } from './login.mvvm';
 import Image from 'next/image';
 
 export default () => {
-  const { form: formLogic, loading, error, clearErrors, isMobile, isTable } = useLoginMvvm();
+  const { form: formLogic, loading, error, clearErrors, isMobile, isTable, hasUserInactive } = useLoginMvvm();
   const { isLight } = useThemeContext();
 
   return (
@@ -35,7 +35,10 @@ export default () => {
                 formLogic.handleChange(e);
               }}
               onBlur={formLogic.handleBlur}
-              error={(formLogic.touched.username && formLogic.errors.username) ?? !!error}
+              error={
+                (formLogic.touched.username && formLogic.errors.username) ||
+                (hasUserInactive && 'Account disabled. Reach admin for more info.')
+              }
               disabled={loading}
             />
             <TextInput

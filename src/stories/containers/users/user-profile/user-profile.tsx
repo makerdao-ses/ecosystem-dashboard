@@ -8,7 +8,7 @@ import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { ButtonType } from '../../../../core/enums/button-type.enum';
 import { UserDTO } from '../../../../core/models/dto/auth.dto';
-import { getCorrectRoleApi } from '../../../../core/utils/string.utils';
+import { capitalizeWordWithoutConvertLowerCase, getCorrectRoleApi } from '../../../../core/utils/string.utils';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 
@@ -17,6 +17,7 @@ const resultPassword = fill(arrayPassword, 'a');
 
 const UserProfile = () => {
   const router = useRouter();
+  const isAdminProfile = router.pathname.includes('/auth/manage/my-profile');
   const { isLight } = useThemeContext();
   const { user, clearCredentials, isAdmin } = useAuthContext();
   const { allRoles } = getCorrectRoleApi(user || ({} as UserDTO));
@@ -45,7 +46,7 @@ const UserProfile = () => {
           </CenterWrapper>
           <CenterWrapper>
             <UserWrapper>
-              <LabelUser isLight={isLight}>{user?.username || ''}</LabelUser>
+              <LabelUser isLight={isLight}>{capitalizeWordWithoutConvertLowerCase(user?.username || '')}</LabelUser>
               {isAdmin && (
                 <ContainerRoles>
                   {allRoles.map((role, index) => (
@@ -64,10 +65,18 @@ const UserProfile = () => {
             }}
           >
             <UserNameLabel>Username:</UserNameLabel>
-            <UserLabelValue isLight={isLight}>{user?.username}</UserLabelValue>
+            <UserLabelValue isLight={isLight}>
+              {capitalizeWordWithoutConvertLowerCase(user?.username || '')}
+            </UserLabelValue>
           </div>
           <ContainerPassword>
-            <UserNameLabel>Password:</UserNameLabel>
+            <UserNameLabel
+              style={{
+                marginRight: 11,
+              }}
+            >
+              Password:
+            </UserNameLabel>
             <ContainerDots>
               {resultPassword.map((item: unknown, index) => {
                 return (
@@ -80,7 +89,13 @@ const UserProfile = () => {
           </ContainerPassword>
           <ContainerPasswordLink>
             <Link href={isAdmin ? '/auth/manage/change-my-password' : '/auth/change-password'}>
-              <ChangePasswordLink>Change user password</ChangePasswordLink>
+              <ChangePasswordLink>
+                {isAdmin && isAdminProfile
+                  ? 'Change your password'
+                  : isAdmin && !isAdminProfile
+                  ? 'Change user password'
+                  : 'Change your password'}
+              </ChangePasswordLink>
             </Link>
           </ContainerPasswordLink>
         </ContainerInformation>
@@ -159,7 +174,7 @@ const UserRole = styled.p({
   },
 });
 
-const UserNameLabel = styled.p(() => ({
+const UserNameLabel = styled.p({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
@@ -170,7 +185,7 @@ const UserNameLabel = styled.p(() => ({
   marginTop: 0,
   marginBottom: 0,
   marginRight: '8px',
-}));
+});
 
 const CenterWrapper = styled.div({
   display: 'flex',

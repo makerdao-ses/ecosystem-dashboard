@@ -1,6 +1,6 @@
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useFormik } from 'formik';
-import request from 'graphql-request';
+import request, { ClientError } from 'graphql-request';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import * as yup from 'yup';
@@ -19,6 +19,7 @@ export const useLoginMvvm = () => {
   const router = useRouter();
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+  const [hasUserInactive, setHasUserInactive] = useState<boolean>(false);
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const isTable = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
 
@@ -35,14 +36,26 @@ export const useLoginMvvm = () => {
     onSubmit: async (values) => {
       setLoading(true);
       setError('');
+
       const { query: gqlQuery, input } = LOGIN_REQUEST(values.username, values.password);
       try {
         const response = await request(GRAPHQL_ENDPOINT, gqlQuery, input);
         setCredentials?.(response.userLogin);
         router.push('/');
       } catch (err) {
-        setError('Please verify your username and password are correct');
-        console.error(err);
+        if (err instanceof ClientError) {
+          if (
+            err.response.errors &&
+            err.response.errors.length > 0 &&
+            err.response.errors[0].message === 'Error: Account disabled. Reach admin for more info.'
+          ) {
+            setHasUserInactive(true);
+          } else {
+            setError('Please verify your username and password are correct');
+            console.error(err);
+          }
+        }
+      } finally {
         setLoading(false);
       }
     },
@@ -60,5 +73,6 @@ export const useLoginMvvm = () => {
     isMobile,
     isTable,
     clearCredentials,
+    hasUserInactive,
   };
 };

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import React from 'react';
 import lightTheme from '../../../../../styles/theme/light';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
+import { capitalizeWordWithoutConvertLowerCase } from '../../../../core/utils/string.utils';
 import ControlledSwitches from '../../../components/button/switch-toogle/switch-component';
 import CloseButton from '../../../components/close-button/close-button';
 import { CustomButton } from '../../../components/custom-button/custom-button';
@@ -87,12 +88,19 @@ const ManagedUserProfile: React.FC = () => {
                   }}
                 />
               ) : (
-                userProfile?.username
+                capitalizeWordWithoutConvertLowerCase(userProfile?.username || '')
               )}
             </UserLabelValue>
           </UserNameContainer>
           <PasswordContainer>
-            <UserNameLabel isLight={isLight}>Password:</UserNameLabel>
+            <UserNameLabel
+              isLight={isLight}
+              style={{
+                marginRight: 11,
+              }}
+            >
+              Password:
+            </UserNameLabel>
             {isLoading ? (
               <Skeleton
                 variant="rectangular"
@@ -127,9 +135,11 @@ const ManagedUserProfile: React.FC = () => {
                 }}
               />
             ) : (
-              <Link href={`/auth/manage/user/${userProfile?.username}/change-password`}>
-                <ChangePasswordLink>Change user password</ChangePasswordLink>
-              </Link>
+              <ContainerPasswordLink>
+                <Link href={`/auth/manage/user/${userProfile?.username}/change-password`}>
+                  <ChangePasswordLink>Change user password</ChangePasswordLink>
+                </Link>
+              </ContainerPasswordLink>
             )}
           </ChangePasswordContainer>
         </ContainerInside>
@@ -320,6 +330,13 @@ const ChangePasswordLink = styled.a({
   lineHeight: '15px',
   color: '#2C99E9',
   cursor: 'pointer',
+});
+
+const ContainerPasswordLink = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  marginLeft: '8px',
+  alignItems: 'center',
 });
 
 const ButtonWrapper = styled.div({
