@@ -5,7 +5,6 @@ import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import TextInput from '../../../components/text-input/text-input';
-import { Spacer, UserWrapper } from '../../auth/change-password/change-password';
 import { ButtonWrapper, Container, Wrapper } from '../../auth/login/login';
 import { useRouter } from 'next/router';
 import { useAuthContext } from '../../../../core/context/AuthContext';
@@ -134,6 +133,18 @@ const InputsWrapper = styled.div({
   },
 });
 
+const UserWrapper = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  marginTop: 16,
+  gap: 4,
+  marginBottom: 48,
+  '@media (min-width: 834px)': {
+    flexDirection: 'row',
+    gap: 0,
+  },
+});
 const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontWeight: 400,
   fontSize: 14,
@@ -142,12 +153,26 @@ const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   marginBottom: 16,
 }));
 
+const Spacer = styled.div({
+  background: '#D4D9E1',
+  height: 1,
+  width: 228,
+  order: 2,
+  '@media (min-width: 834px)': {
+    display: 'none',
+  },
+});
+
 const UserLabel = styled.p({
   color: '#708390',
   fontSize: 20,
   lineHeight: '24px',
   fontWeight: 600,
   margin: '0 8px 0 0',
+  order: 3,
+  '@media (min-width: 834px)': {
+    order: 1,
+  },
 });
 
 const Form = styled.form({
