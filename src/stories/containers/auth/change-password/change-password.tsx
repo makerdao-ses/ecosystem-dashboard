@@ -8,6 +8,7 @@ import { ButtonWrapper, Form } from '../login/login';
 import { userChangePasswordMvvm } from './change-password.mvvm';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import lightTheme from '../../../../../styles/theme/light';
+import { capitalizeWordWithoutConvertLowerCase } from '../../../../core/utils/string.utils';
 
 const ChangePassword: React.FC<{ adminChange?: boolean }> = ({ adminChange = false }) => {
   const {
@@ -54,7 +55,7 @@ const ChangePassword: React.FC<{ adminChange?: boolean }> = ({ adminChange = fal
                 }}
               />
             ) : (
-              username
+              capitalizeWordWithoutConvertLowerCase(username || '')
             )}
           </Username>
         </UserWrapper>

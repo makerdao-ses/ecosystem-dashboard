@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 import { Divider, useMediaQuery } from '@mui/material';
+import request, { ClientError } from 'graphql-request';
 import React, { useCallback, useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
+import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
 import { useAuthContext } from '../../../core/context/AuthContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/button-type.enum';
@@ -30,6 +32,7 @@ const UserCard = ({
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   handleGoProfileView = () => {},
 }: Props) => {
+  const { authToken } = useAuthContext();
   const role = getCorrectRoleApi(user);
   const [isChecked, setIsChecked] = useState(checked);
   const { isLight } = useThemeContext();
@@ -38,13 +41,21 @@ const UserCard = ({
   const handleGoProfile = () => {
     handleGoProfileView(id);
   };
-  const { clientRequest } = useAuthContext();
 
   const handleChangeCard = async () => {
     const { query: gqlQuery, input } = ENABLE_DISABLE_USER_REQUEST(!checked, id);
-    const data = await clientRequest?.request(gqlQuery, input);
-    if (data) {
-      setIsChecked(!isChecked);
+    try {
+      const data = await request(GRAPHQL_ENDPOINT, gqlQuery, input, { Authorization: `Bearer ${authToken}` });
+
+      if (data) {
+        setIsChecked(!isChecked);
+      }
+    } catch (err) {
+      if (err instanceof ClientError) {
+        if (err.response.errors && err.response.errors.length > 0 && err.response.errors[0].message) {
+          console.error(err);
+        }
+      }
     }
   };
 

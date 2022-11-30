@@ -5,6 +5,7 @@ import { Close } from '../svg/close';
 import 'react-toastify/dist/ReactToastify.css';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ToastContainer } from 'react-toastify';
+import lightTheme from '../../../../styles/theme/light';
 
 interface Props {
   message?: string;
@@ -58,18 +59,26 @@ const ContainerText = styled.p<{ isLight: boolean }>(({ isLight }) => ({
 }));
 
 export const ContainerNotification = styled(ToastContainer)({
-  // eslint-disable-next-line spellcheck/spell-checker
   '&.Toastify__toast-container': {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
     width: 475,
     padding: 0,
+    [lightTheme.breakpoints.down('table_834')]: {
+      width: '100%',
+      padding: 0,
+      margin: '0 auto',
+    },
   },
-  // eslint-disable-next-line spellcheck/spell-checker
   '& .Toastify__toast': {
     padding: 0,
     background: 'none',
     boxShadow: 'none',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
-  // eslint-disable-next-line spellcheck/spell-checker
   '& .Toastify__toast-body': {
     padding: 0,
     width: 475,

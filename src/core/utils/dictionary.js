@@ -92,6 +92,7 @@ const dictionary = [
   'juan',
   'moreer',
   'lvlexpenditure',
+  'Toastify',
 ];
 
 module.exports = dictionary;

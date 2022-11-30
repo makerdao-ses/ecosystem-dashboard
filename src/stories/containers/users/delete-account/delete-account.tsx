@@ -5,7 +5,6 @@ import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import TextInput from '../../../components/text-input/text-input';
-import { Spacer, UserWrapper } from '../../auth/change-password/change-password';
 import { ButtonWrapper, Container, Wrapper } from '../../auth/login/login';
 import { useRouter } from 'next/router';
 import { useAuthContext } from '../../../../core/context/AuthContext';
@@ -15,6 +14,7 @@ import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import { useDeleteAccountMvvm } from './delete-account.mvvm';
 import { goBack } from '../../../../core/utils/routing';
 import { capitalizeWordWithoutConvertLowerCase } from '../../../../core/utils/string.utils';
+import { Spacer, UserLabel, Username } from '../../auth/change-password/change-password';
 
 export default () => {
   const router = useRouter();
@@ -43,7 +43,7 @@ export default () => {
         />
         <AvatarPlaceholder />
         <UserWrapper>
-          <UserLabel>Username:</UserLabel>
+          <UserLabel isLight={isLight}>Username</UserLabel>
           <Spacer />
           <Username isLight={isLight}>{capitalizeWordWithoutConvertLowerCase(userName as string)}</Username>
         </UserWrapper>
@@ -134,6 +134,18 @@ const InputsWrapper = styled.div({
   },
 });
 
+const UserWrapper = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  marginTop: 16,
+  gap: 4,
+  marginBottom: 48,
+  '@media (min-width: 834px)': {
+    flexDirection: 'row',
+    gap: 0,
+  },
+});
 const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontWeight: 400,
   fontSize: 14,
@@ -142,25 +154,8 @@ const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   marginBottom: 16,
 }));
 
-const UserLabel = styled.p({
-  color: '#708390',
-  fontSize: 20,
-  lineHeight: '24px',
-  fontWeight: 600,
-  margin: '0 8px 0 0',
-});
-
 const Form = styled.form({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
 });
-
-const Username = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
-  fontSize: 24,
-  lineHeight: '29px',
-  color: isLight ? '#231536' : '#D2D4EF',
-  textAlign: 'center',
-  margin: 0,
-  fontWeight: 600,
-}));
