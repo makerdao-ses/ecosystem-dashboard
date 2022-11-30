@@ -55,7 +55,9 @@ export const useDeleteAccountMvvm = (username?: string) => {
           }
         }
       } catch (err) {
-        notificationHelper({ isSuccess: false });
+        notificationHelper({
+          isSuccess: false,
+        });
       }
     },
     [clientRequest, deletingUser, router, user?.username]

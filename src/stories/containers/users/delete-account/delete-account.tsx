@@ -115,7 +115,7 @@ const DeleteAccount: React.FC<{ username?: string }> = ({ username }) => {
           </ButtonWrapper>
         </Form>
       </Container>
-      <ContainerNotification />
+      <ContainerNotification limit={1} />
     </Wrapper>
   );
 };
