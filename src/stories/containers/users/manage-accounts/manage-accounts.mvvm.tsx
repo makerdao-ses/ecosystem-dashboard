@@ -28,13 +28,7 @@ const useManageAccountsViewModel = () => {
   const handleDeleteAccount = (id: string) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const userTake = users?.find((user: any) => user.id === id);
-    router.push({
-      pathname: '/auth/delete-account/',
-      query: {
-        userName: userTake?.username,
-        id,
-      },
-    });
+    router.push(`/auth/manage/user/${userTake?.username}/delete-account`);
   };
   const handleGoProfileView = (id: string) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -23,15 +23,12 @@ const UserProfile = () => {
   const { allRoles } = getCorrectRoleApi(user || ({} as UserDTO));
 
   const handleDeleteAccount = useCallback(() => {
-    router.push({
-      pathname: '/auth/delete-account/',
-      query: {
-        userName: user?.username,
-        id: user?.id,
-      },
-    });
+    if (isAdminProfile) {
+      router.push('/auth/manage/delete-my-account');
+      return;
+    }
     router.push('/auth/delete-account');
-  }, [router, user?.id, user?.username]);
+  }, [router, isAdminProfile]);
 
   const handleLogOut = () => {
     clearCredentials && clearCredentials();

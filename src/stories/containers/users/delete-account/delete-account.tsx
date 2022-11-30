@@ -5,7 +5,7 @@ import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import TextInput from '../../../components/text-input/text-input';
-import { ButtonWrapper, Container, Wrapper } from '../../auth/login/login';
+import { ButtonWrapper } from '../../auth/login/login';
 import { useRouter } from 'next/router';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { ContainerNotification } from '../../../components/notification/notification';
@@ -15,23 +15,28 @@ import { useDeleteAccountMvvm } from './delete-account.mvvm';
 import { goBack } from '../../../../core/utils/routing';
 import { capitalizeWordWithoutConvertLowerCase } from '../../../../core/utils/string.utils';
 import { Spacer, UserLabel, Username } from '../../auth/change-password/change-password';
+import Skeleton from '@mui/material/Skeleton';
+import lightTheme from '../../../../../styles/theme/light';
 
-export default () => {
+const DeleteAccount: React.FC<{ username?: string }> = ({ username }) => {
   const router = useRouter();
   const { user } = useAuthContext();
-  const { userName } = router.query;
 
   const { isLight } = useThemeContext();
-  const { form: formLogic } = useDeleteAccountMvvm();
+  const { form: formLogic, isFetchingUser, deletingUser } = useDeleteAccountMvvm(username);
 
-  const isAdmin = useIsAdmin(user || ({} as UserDTO));
+  const isLoggedAdmin = useIsAdmin(user || ({} as UserDTO));
 
   const handleGoBack = useCallback(() => {
-    goBack(`/auth/manage/${isAdmin ? 'accounts' : 'my-profile'}`);
-  }, [isAdmin]);
+    if (!isLoggedAdmin) {
+      goBack('/auth/user-profile');
+      return;
+    }
+    goBack(`/auth/manage/user/${deletingUser?.username}`);
+  }, [isLoggedAdmin, deletingUser]);
 
   return (
-    <Wrapper isLight={isLight}>
+    <Wrapper>
       <Container isLight={isLight}>
         <CloseButton
           style={{
@@ -45,7 +50,13 @@ export default () => {
         <UserWrapper>
           <UserLabel isLight={isLight}>Username</UserLabel>
           <Spacer />
-          <Username isLight={isLight}>{capitalizeWordWithoutConvertLowerCase(userName as string)}</Username>
+          <Username isLight={isLight}>
+            {isFetchingUser ? (
+              <Skeleton variant="rectangular" width={140} height={32} style={{ borderRadius: 8 }} />
+            ) : (
+              capitalizeWordWithoutConvertLowerCase(username || (router.query.username as string))
+            )}
+          </Username>
         </UserWrapper>
 
         <DeleteLabel>Delete Account</DeleteLabel>
@@ -60,6 +71,7 @@ export default () => {
           <Label isLight={isLight}>Enter password to delete the account</Label>
           <InputsWrapper>
             <TextInput
+              disabled={isFetchingUser}
               onBlur={formLogic.handleBlur}
               type="password"
               placeholder="Password"
@@ -98,7 +110,7 @@ export default () => {
                   ? '#F75524'
                   : '#343442',
               }}
-              disabled={!(formLogic.values.password !== '')}
+              disabled={!(formLogic.values.password !== '') || isFetchingUser}
             />
           </ButtonWrapper>
         </Form>
@@ -107,6 +119,47 @@ export default () => {
     </Wrapper>
   );
 };
+
+export default DeleteAccount;
+
+const Wrapper = styled.div(() => ({
+  display: 'flex',
+  justifyContent: 'center',
+  height: 'fit-content',
+  marginTop: 64,
+  paddingBottom: 128,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 40,
+  },
+
+  [lightTheme.breakpoints.down('table_834')]: {
+    marginTop: 64,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    marginTop: 64,
+  },
+}));
+
+const Container = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  padding: '24px',
+  width: 343,
+  background: isLight ? '#FFFFFF' : '#10191F',
+  boxShadow: isLight
+    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+    : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+
+  borderRadius: '6px',
+  '@media (min-width: 834px)': {
+    padding: '40px 64px',
+    width: '484px',
+  },
+}));
 
 const DeleteLabel = styled.h1({
   margin: '0 0 8px 0',

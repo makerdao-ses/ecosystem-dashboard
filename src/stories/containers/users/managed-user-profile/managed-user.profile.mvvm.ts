@@ -56,13 +56,7 @@ const useManagedUserProfile = () => {
   }, [isAdmin, router]);
 
   const handleDeleteAccount = useCallback(() => {
-    router.push({
-      pathname: '/auth/delete-account',
-      query: {
-        userName: userProfile?.username,
-        id: userProfile?.id,
-      },
-    });
+    router.push(`/auth/manage/user/${userProfile?.username}/delete-account`);
   }, [router, userProfile]);
 
   return {
