@@ -14,6 +14,7 @@ import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import { useDeleteAccountMvvm } from './delete-account.mvvm';
 import { goBack } from '../../../../core/utils/routing';
 import { capitalizeWordWithoutConvertLowerCase } from '../../../../core/utils/string.utils';
+import { Spacer, UserLabel, Username } from '../../auth/change-password/change-password';
 
 export default () => {
   const router = useRouter();
@@ -42,7 +43,7 @@ export default () => {
         />
         <AvatarPlaceholder />
         <UserWrapper>
-          <UserLabel>Username:</UserLabel>
+          <UserLabel isLight={isLight}>Username</UserLabel>
           <Spacer />
           <Username isLight={isLight}>{capitalizeWordWithoutConvertLowerCase(userName as string)}</Username>
         </UserWrapper>
@@ -153,39 +154,8 @@ const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   marginBottom: 16,
 }));
 
-const Spacer = styled.div({
-  background: '#D4D9E1',
-  height: 1,
-  width: 228,
-  order: 2,
-  '@media (min-width: 834px)': {
-    display: 'none',
-  },
-});
-
-const UserLabel = styled.p({
-  color: '#708390',
-  fontSize: 20,
-  lineHeight: '24px',
-  fontWeight: 600,
-  margin: '0 8px 0 0',
-  order: 3,
-  '@media (min-width: 834px)': {
-    order: 1,
-  },
-});
-
 const Form = styled.form({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
 });
-
-const Username = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
-  fontSize: 24,
-  lineHeight: '29px',
-  color: isLight ? '#231536' : '#D2D4EF',
-  textAlign: 'center',
-  margin: 0,
-  fontWeight: 600,
-}));
