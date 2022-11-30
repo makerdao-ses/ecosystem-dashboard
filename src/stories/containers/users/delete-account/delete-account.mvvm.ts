@@ -11,6 +11,7 @@ import { USERS_DELETE_FROM_ADMIN } from './delete-account.api';
 
 export const useDeleteAccountMvvm = () => {
   const router = useRouter();
+  const { authToken } = useAuthContext();
   const { id, userName } = router.query;
   const { user, clientRequest, isAdmin, clearCredentials } = useAuthContext();
 
@@ -22,7 +23,7 @@ export const useDeleteAccountMvvm = () => {
         const response = await request(GRAPHQL_ENDPOINT, gqlQueryLogin, input);
 
         if (response) {
-          const data = await clientRequest?.request(gqlQuery, filter);
+          const data = await request(GRAPHQL_ENDPOINT, gqlQuery, filter, { Authorization: `Bearer ${authToken}` });
           if (data.userDelete && isAdmin) {
             notificationHelper({
               isSuccess: true,

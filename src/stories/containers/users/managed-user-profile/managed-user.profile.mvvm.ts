@@ -1,6 +1,8 @@
+import request from 'graphql-request';
 import { useRouter } from 'next/router';
 import { useCallback, useState, useEffect } from 'react';
 import useSWR from 'swr';
+import { GRAPHQL_ENDPOINT } from '../../../../config/endpoints';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
 import { UserDTO } from '../../../../core/models/dto/auth.dto';
@@ -11,6 +13,7 @@ import { ENABLE_DISABLE_USER_REQUEST } from '../../auth/enable-disable-accounts/
 import { FETCH_USER_BY_USERNAME } from './managed-user-profile.api';
 
 const useManagedUserProfile = () => {
+  const { authToken } = useAuthContext();
   const router = useRouter();
   const { username } = router.query;
   const { user, clientRequest } = useAuthContext();
@@ -40,7 +43,7 @@ const useManagedUserProfile = () => {
     }
     try {
       const { query: gqlQuery, input } = ENABLE_DISABLE_USER_REQUEST(!userProfile.active, userProfile.id.toString());
-      const data = await clientRequest?.request(gqlQuery, input);
+      const data = await request(GRAPHQL_ENDPOINT, gqlQuery, input, { Authorization: `Bearer ${authToken}` });
       if (data) {
         setUserProfile(data.userSetActiveFlag);
       }
