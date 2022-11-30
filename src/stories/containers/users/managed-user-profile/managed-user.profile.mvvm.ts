@@ -5,7 +5,6 @@ import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
 import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import { fetcher } from '../../../../core/utils/fetcher';
-import { goBack } from '../../../../core/utils/routing';
 import { getCorrectRoleApi } from '../../../../core/utils/string.utils';
 import { ENABLE_DISABLE_USER_REQUEST } from '../../auth/enable-disable-accounts/enable-disable.api';
 import { FETCH_USER_BY_USERNAME } from './managed-user-profile.api';
@@ -50,8 +49,8 @@ const useManagedUserProfile = () => {
   }, [clientRequest, userProfile]);
 
   const handleGoBack = useCallback(() => {
-    goBack(`/auth/manage/${isAdmin ? 'accounts' : 'my-profile'}`);
-  }, [isAdmin]);
+    router.push(`/auth/manage/${isAdmin ? 'accounts' : 'my-profile'}`);
+  }, [isAdmin, router]);
 
   const handleDeleteAccount = useCallback(() => {
     router.push({

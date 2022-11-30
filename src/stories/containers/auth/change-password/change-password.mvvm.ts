@@ -2,12 +2,16 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useFormik } from 'formik';
 import request, { ClientError } from 'graphql-request';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import * as yup from 'yup';
 import lightTheme from '../../../../../styles/theme/light';
 import { GRAPHQL_ENDPOINT } from '../../../../config/endpoints';
 import { useAuthContext } from '../../../../core/context/AuthContext';
+import { useThemeContext } from '../../../../core/context/ThemeContext';
+import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import { passwordValidationYup } from '../../../../core/utils/form-validation';
+import { goBack } from '../../../../core/utils/routing';
+import { FETCH_USER_BY_USERNAME } from '../../users/managed-user-profile/managed-user-profile.api';
 import { UPDATE_PASSWORD_REQUEST } from './change-password.api';
 
 const validationSchema = yup.object({
@@ -21,13 +25,52 @@ const validationSchema = yup.object({
     .required('Password confirmation is required'),
 });
 
-export const userChangePasswordMvvm = () => {
+const adminChangeValidationSchema = yup.object({
+  oldPassword: yup.string().required('Admin Password is required'),
+  newPassword: passwordValidationYup.required('New password is required'),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref('newPassword'), null], 'Passwords must match')
+    .required('Password confirmation is required'),
+});
+
+export const userChangePasswordMvvm = (adminChange: boolean) => {
+  const { isLight } = useThemeContext();
   const router = useRouter();
-  const { user, authToken, isAdmin } = useAuthContext();
+  const { user: authenticatedUser, authToken, isAdmin } = useAuthContext();
   const [error, setError] = useState<string>('');
   const [isWrongOldPassword, setIsWrongOldPassword] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const isMobileOrTable = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  // for "adminChange" only
+  const [user, setUser] = useState<UserDTO | null>(null);
+  const [isUserLoading, setIsUserLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const asyncFunction = async () => {
+      if (adminChange) {
+        const { username } = router.query;
+        if (username) {
+          const { query, input } = FETCH_USER_BY_USERNAME(username as string);
+          const response = await request(GRAPHQL_ENDPOINT, query, input, { Authorization: `Bearer ${authToken}` });
+          if (response.users.length > 0) {
+            setUser(response.users[0]);
+          }
+          setIsUserLoading(false);
+        }
+      }
+    };
+    asyncFunction();
+  }, [adminChange, router]);
+  // end adminChange
+
+  const handleGoBack = useCallback(() => {
+    if (adminChange) {
+      goBack(`/auth/manage/user/${router.query.username}`);
+      return;
+    }
+    goBack(`/auth/${isAdmin ? 'manage/my-profile' : 'user-profile'}`);
+  }, [isAdmin, router]);
 
   const form = useFormik({
     initialValues: {
@@ -35,22 +78,32 @@ export const userChangePasswordMvvm = () => {
       newPassword: '',
       confirmPassword: '',
     },
-    validationSchema,
+    validationSchema: adminChange ? adminChangeValidationSchema : validationSchema,
     onSubmit: async (values) => {
       setLoading(true);
       setError('');
       setIsWrongOldPassword(false);
-      const { query, input } = UPDATE_PASSWORD_REQUEST(user?.username ?? '', values.oldPassword, values.newPassword);
+      const { query, input } = UPDATE_PASSWORD_REQUEST(
+        (adminChange ? user?.username : authenticatedUser?.username) ?? '',
+        values.oldPassword,
+        values.newPassword
+      );
 
       try {
         await request(GRAPHQL_ENDPOINT, query, input, { Authorization: `Bearer ${authToken}` });
-        router.push(isAdmin ? '/auth/manage/my-profile' : '/auth/user-profile');
+        router.push(
+          adminChange
+            ? `/auth/manage/user/${router.query.username}`
+            : isAdmin
+            ? '/auth/manage/my-profile'
+            : '/auth/user-profile'
+        );
       } catch (err) {
         if (err instanceof ClientError) {
           if (
             err.response.errors &&
             err.response.errors.length > 0 &&
-            err.response.errors[0].message === 'Error: wrong old password'
+            ['Error: wrong old password', 'Error: Wrong admin old password'].includes(err.response.errors[0].message)
           ) {
             setIsWrongOldPassword(true);
           } else {
@@ -70,11 +123,15 @@ export const userChangePasswordMvvm = () => {
   });
 
   return {
+    isLight,
     form,
-    loading,
+    loading: loading || (adminChange && isUserLoading),
     error,
-    username: user?.username ?? '',
+    isAdmin,
+    username: (adminChange ? user?.username : authenticatedUser?.username) ?? '',
+    isUserLoading,
     isWrongOldPassword,
     isMobileOrTable,
+    handleGoBack,
   };
 };

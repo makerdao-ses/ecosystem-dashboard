@@ -79,7 +79,7 @@ const UserProfile = () => {
             </ContainerDots>
           </ContainerPassword>
           <ContainerPasswordLink>
-            <Link href="/auth/change-password">
+            <Link href={isAdmin ? '/auth/manage/change-my-password' : '/auth/change-password'}>
               <ChangePasswordLink>Change user password</ChangePasswordLink>
             </Link>
           </ContainerPasswordLink>

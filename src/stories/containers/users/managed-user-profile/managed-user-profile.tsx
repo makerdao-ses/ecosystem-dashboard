@@ -127,7 +127,7 @@ const ManagedUserProfile: React.FC = () => {
                 }}
               />
             ) : (
-              <Link href="/auth/change-password">
+              <Link href={`/auth/manage/user/${userProfile?.username}/change-password`}>
                 <ChangePasswordLink>Change user password</ChangePasswordLink>
               </Link>
             )}
