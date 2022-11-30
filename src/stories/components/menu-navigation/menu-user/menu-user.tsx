@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import UserBadge from '../../user-badge/user-badge';
 import MenuItemUser from './menu-item-user';
 import { MenuPaperStyle } from '../menu-theme/menu-theme';
-import { useThemeContext } from '../../../../core/context/ThemeContext';
+import useMenuUser from './menu-user.mvvm';
 
 interface Props {
   username: string;
@@ -16,15 +16,8 @@ interface Props {
 }
 
 const MenuUserOptions = ({ username, isAdmin, onClickLogOut, onClickProfile, onClickAccountManager }: Props) => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const { isLight } = useThemeContext();
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const { handleClick, handleClose, isLight, open, anchorEl } = useMenuUser();
+
   return (
     <>
       <div onClick={handleClick}>
