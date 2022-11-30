@@ -1,24 +1,35 @@
-// eslint-disable-next-line spellcheck/spell-checker
 import { useFormik } from 'formik';
 import request from 'graphql-request';
 import { useRouter } from 'next/router';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
+import useSWR from 'swr';
 import { GRAPHQL_ENDPOINT } from '../../../../config/endpoints';
 import { useAuthContext } from '../../../../core/context/AuthContext';
+import { UserDTO } from '../../../../core/models/dto/auth.dto';
+import { fetcher } from '../../../../core/utils/fetcher';
 import { notificationHelper } from '../../../helpers/helpers';
 import { LOGIN_REQUEST } from '../../auth/login/login.api';
+import { FETCH_USER_BY_USERNAME } from '../managed-user-profile/managed-user-profile.api';
 import { USERS_DELETE_FROM_ADMIN } from './delete-account.api';
 
-export const useDeleteAccountMvvm = () => {
+export const useDeleteAccountMvvm = (username?: string) => {
   const router = useRouter();
-  const { authToken } = useAuthContext();
-  const { id, userName } = router.query;
-  const { user, clientRequest, isAdmin, clearCredentials } = useAuthContext();
+  const { authToken, user, clientRequest, isAdmin, clearCredentials } = useAuthContext();
+
+  const { data: response, error: errorFetchingUser } = useSWR(
+    [isAdmin ? FETCH_USER_BY_USERNAME(username ?? (router.query.username as string)) : null, isAdmin],
+    fetcher
+  );
+
+  const deletingUser = useMemo<UserDTO | undefined>(
+    () => (!isAdmin ? user : response?.users?.length && response?.users[0]),
+    [response, isAdmin]
+  );
 
   const handleOnSubmit = useCallback(
     async (password: string) => {
       const { query: gqlQueryLogin, input } = LOGIN_REQUEST(user?.username || '', password);
-      const { query: gqlQuery, filter } = USERS_DELETE_FROM_ADMIN(id as string);
+      const { query: gqlQuery, filter } = USERS_DELETE_FROM_ADMIN(deletingUser?.id?.toString() || '');
       try {
         const response = await request(GRAPHQL_ENDPOINT, gqlQueryLogin, input);
 
@@ -27,7 +38,7 @@ export const useDeleteAccountMvvm = () => {
           if (data.userDelete && isAdmin) {
             notificationHelper({
               isSuccess: true,
-              userName: userName as string,
+              userName: deletingUser?.username as string,
             });
             setTimeout(() => {
               router.push('/auth/manage/accounts');
@@ -36,7 +47,7 @@ export const useDeleteAccountMvvm = () => {
           if (data.userDelete && !isAdmin) {
             notificationHelper({
               isSuccess: true,
-              userName: userName as string,
+              userName: deletingUser?.username as string,
             });
             setTimeout(() => {
               clearCredentials && clearCredentials();
@@ -47,7 +58,7 @@ export const useDeleteAccountMvvm = () => {
         notificationHelper({ isSuccess: false });
       }
     },
-    [clientRequest, id, router, user?.username]
+    [clientRequest, deletingUser, router, user?.username]
   );
 
   const form = useFormik({
@@ -61,5 +72,7 @@ export const useDeleteAccountMvvm = () => {
 
   return {
     form,
+    isFetchingUser: !response && !errorFetchingUser,
+    deletingUser,
   };
 };
