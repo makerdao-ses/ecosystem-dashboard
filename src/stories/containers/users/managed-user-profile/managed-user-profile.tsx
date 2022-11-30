@@ -319,7 +319,7 @@ const ChangePasswordContainer = styled.div({
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
-  marginLeft: '20px',
+  marginLeft: '8px',
 });
 
 const ChangePasswordLink = styled.a({
@@ -335,7 +335,6 @@ const ChangePasswordLink = styled.a({
 const ContainerPasswordLink = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  marginLeft: '8px',
   alignItems: 'center',
 });
 

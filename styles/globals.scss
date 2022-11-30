@@ -1,112 +1,112 @@
-@import url("https://fonts.googleapis.com/css2?family=Cantarell&family=Lobster&display=swap");
-@import "simplebar/dist/simplebar.min.css";
+@import url('https://fonts.googleapis.com/css2?family=Cantarell&family=Lobster&display=swap');
+@import 'simplebar/dist/simplebar.min.css';
 
 @font-face {
-  font-family: "FT Base";
-  src: url("../assets/fonts/FT_Base/FTBase-Bold.otf");
+  font-family: 'FT Base';
+  src: url('../assets/fonts/FT_Base/FTBase-Bold.otf');
   font-weight: 700;
   font-style: normal;
 }
 @font-face {
-  font-family: "FT Base";
-  src: url("../assets/fonts/FT_Base/FTBase-Medium.otf");
+  font-family: 'FT Base';
+  src: url('../assets/fonts/FT_Base/FTBase-Medium.otf');
   font-weight: 500;
   font-style: normal;
 }
 @font-face {
-  font-family: "FT Base";
-  src: url("../assets/fonts/FT_Base/FTBase-Regular.otf");
+  font-family: 'FT Base';
+  src: url('../assets/fonts/FT_Base/FTBase-Regular.otf');
   font-weight: 400;
   font-style: normal;
 }
 @font-face {
-  font-family: "FT Base";
-  src: url("../assets/fonts/FT_Base/FTBase-Light.otf");
+  font-family: 'FT Base';
+  src: url('../assets/fonts/FT_Base/FTBase-Light.otf');
   font-style: normal;
   font-weight: 300;
 }
 @font-face {
-  font-family: "SF Pro Display";
-  src: url("../assets/fonts/SF_PRO_display/SF-Pro-Display-Bold.otf");
+  font-family: 'SF Pro Display';
+  src: url('../assets/fonts/SF_PRO_display/SF-Pro-Display-Bold.otf');
   font-style: normal;
   font-weight: 700;
 }
 @font-face {
-  font-family: "SF Pro Display";
-  src: url("../assets/fonts/SF_PRO_display/SF-Pro-Display-Medium.otf");
+  font-family: 'SF Pro Display';
+  src: url('../assets/fonts/SF_PRO_display/SF-Pro-Display-Medium.otf');
   font-style: normal;
   font-weight: 500;
 }
 @font-face {
-  font-family: "SF Pro Display";
-  src: url("../assets/fonts/SF_PRO_display/SF-Pro-Display-Regular.otf");
+  font-family: 'SF Pro Display';
+  src: url('../assets/fonts/SF_PRO_display/SF-Pro-Display-Regular.otf');
   font-style: normal;
   font-weight: 400;
 }
 @font-face {
-  font-family: "SF Pro Display";
-  src: url("../assets/fonts/SF_PRO_display/SF-Pro-Display-Light.otf");
+  font-family: 'SF Pro Display';
+  src: url('../assets/fonts/SF_PRO_display/SF-Pro-Display-Light.otf');
   font-style: normal;
   font-weight: 300;
 }
 
 @font-face {
-  font-family: "SF Pro Text";
-  src: url("../assets/fonts/SF_Pro_Text/SF-Pro-Text-Bold.otf");
+  font-family: 'SF Pro Text';
+  src: url('../assets/fonts/SF_Pro_Text/SF-Pro-Text-Bold.otf');
   font-style: normal;
   font-weight: 700;
 }
 @font-face {
-  font-family: "SF Pro Text";
-  src: url("../assets/fonts/SF_Pro_Text/SF-Pro-Text-Medium.otf");
+  font-family: 'SF Pro Text';
+  src: url('../assets/fonts/SF_Pro_Text/SF-Pro-Text-Medium.otf');
   font-style: normal;
   font-weight: 500;
 }
 @font-face {
-  font-family: "SF Pro Text";
-  src: url("../assets/fonts/SF_Pro_Text/SF-Pro-Text-Regular.otf");
+  font-family: 'SF Pro Text';
+  src: url('../assets/fonts/SF_Pro_Text/SF-Pro-Text-Regular.otf');
   font-style: normal;
   font-weight: 400;
 }
 @font-face {
-  font-family: "SF Pro Text";
-  src: url("../assets/fonts/SF_Pro_Text/SF-Pro-Text-Light.otf");
+  font-family: 'SF Pro Text';
+  src: url('../assets/fonts/SF_Pro_Text/SF-Pro-Text-Light.otf');
   font-style: normal;
   font-weight: 300;
 }
 @font-face {
-  font-family: "Inter";
-  src: url("../assets/fonts/Inter/Inter-ExtraBold.ttf");
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter/Inter-ExtraBold.ttf');
   font-weight: 800;
   font-style: normal;
 }
 @font-face {
-  font-family: "Inter";
-  src: url("../assets/fonts/Inter/Inter-Bold.ttf");
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter/Inter-Bold.ttf');
   font-weight: 700;
   font-style: normal;
 }
 @font-face {
-  font-family: "Inter";
-  src: url("../assets/fonts/Inter/Inter-SemiBold.ttf");
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter/Inter-SemiBold.ttf');
   font-weight: 600;
   font-style: normal;
 }
 @font-face {
-  font-family: "Inter";
-  src: url("../assets/fonts/Inter/Inter-Medium.ttf");
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter/Inter-Medium.ttf');
   font-weight: 500;
   font-style: normal;
 }
 @font-face {
-  font-family: "Inter";
-  src: url("../assets/fonts/Inter/Inter-Regular.ttf");
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter/Inter-Regular.ttf');
   font-weight: 400;
   font-style: normal;
 }
 @font-face {
-  font-family: "Inter";
-  src: url("../assets/fonts/Inter/Inter-Light.ttf");
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter/Inter-Light.ttf');
   font-weight: 300;
   font-style: normal;
 }
@@ -181,4 +181,15 @@ a {
   width: 4px;
   margin-left: 4px;
   background: #1aab9b;
+}
+
+input[type='password']::-webkit-contacts-auto-fill-button,
+input[type='password']::-webkit-credentials-auto-fill-button {
+  visibility: hidden;
+  display: none !important;
+  pointer-events: none;
+  position: absolute;
+  height: 0;
+  width: 0;
+  margin: 0;
 }
