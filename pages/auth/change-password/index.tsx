@@ -6,7 +6,6 @@ import { CURRENT_ENVIRONMENT } from '../../../src/config/endpoints';
 import { useAuthContext } from '../../../src/core/context/AuthContext';
 import { useThemeContext } from '../../../src/core/context/ThemeContext';
 import ChangePassword from '../../../src/stories/containers/auth/change-password/change-password';
-import lightTheme from '../../../styles/theme/light';
 import NotFoundPage from '../../404';
 
 const ChangePasswordPage: NextPage = () => {
@@ -26,20 +25,14 @@ const ChangePasswordPage: NextPage = () => {
 
 export default ChangePasswordPage;
 
-const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+export const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
-  flexDirection: 'row',
   justifyContent: 'center',
-  alignItems: 'center',
   width: '100%',
+  minHeight: 'calc(100vh - 64px)',
+  marginTop: 64,
   backgroundColor: isLight ? '#FFFFFF' : '#000000',
   backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/login-bg.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
-  paddingTop: 104,
-  paddingBottom: 128,
-
-  [lightTheme.breakpoints.up('table_834')]: {
-    paddingTop: 100,
-  },
 }));

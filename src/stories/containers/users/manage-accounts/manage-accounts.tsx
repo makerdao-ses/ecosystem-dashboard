@@ -1,9 +1,12 @@
 import styled from '@emotion/styled';
+import Skeleton from '@mui/material/Skeleton';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { ButtonType } from '../../../../core/enums/button-type.enum';
+import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import { SearchInput } from '../../../components/search-input/search-input';
 import UserCard from '../../../components/user-card/user-card';
+import UserCardSkeleton from '../../../components/user-card/user-card.skeleton';
 import useManageAccountsViewModel from './manage-accounts.mvvm';
 
 const ManageAccounts = () => {
@@ -12,6 +15,7 @@ const ManageAccounts = () => {
     isMobile,
     searchValue,
     filteredData,
+    loading,
     handleClearSearch,
     handleChangeValue,
     handleCreateNewAccount,
@@ -25,48 +29,69 @@ const ManageAccounts = () => {
         <Title isLight={isLight}>Manage Accounts</Title>
         <ContainerHeader>
           <Search>
-            <SearchInput
-              value={searchValue}
-              handleClearSearch={handleClearSearch}
-              placeholder="Search"
-              onChange={handleChangeValue}
-            />
+            {loading ? (
+              <div style={{ width: 'min(100%, 330px)' }}>
+                <Skeleton
+                  variant="rectangular"
+                  width={'100%'}
+                  height={isMobile ? 34 : 48}
+                  style={{ borderRadius: 22 }}
+                />
+              </div>
+            ) : (
+              <SearchInput
+                value={searchValue}
+                handleClearSearch={handleClearSearch}
+                placeholder="Search"
+                onChange={handleChangeValue}
+              />
+            )}
           </Search>
           <Line isLight={isLight} />
           <ButtonArea>
-            <CustomButton
-              onClick={handleCreateNewAccount}
-              label={isMobile ? 'New User' : 'Create New Account'}
-              withIcon
-              buttonType={ButtonType.Primary}
-              style={{
-                height: isMobile ? 34 : 48,
-              }}
-              padding={isMobile ? '8px 16px' : '14.5px 24px'}
-              styleText={{
-                fontSize: isMobile ? 14 : 16,
-                lineHeight: isMobile ? '18px' : '19px',
-              }}
-            />
+            {loading ? (
+              <div style={{ width: isMobile ? 122 : 231 }}>
+                <Skeleton
+                  variant="rectangular"
+                  width={'100%'}
+                  height={isMobile ? 34 : 48}
+                  style={{ borderRadius: 22 }}
+                />
+              </div>
+            ) : (
+              <CustomButton
+                onClick={handleCreateNewAccount}
+                label={isMobile ? 'New User' : 'Create New Account'}
+                withIcon
+                buttonType={ButtonType.Primary}
+                style={{
+                  height: isMobile ? 34 : 48,
+                }}
+                padding={isMobile ? '8px 16px' : '14.5px 24px'}
+                styleText={{
+                  fontSize: isMobile ? 14 : 16,
+                  lineHeight: isMobile ? '18px' : '19px',
+                }}
+              />
+            )}
           </ButtonArea>
         </ContainerHeader>
       </ContainerHeaderTitle>
       <ContainerCards>
-        {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          filteredData?.map((user: any) => {
-            return (
-              <UserCard
-                checked={user.active}
-                user={user}
-                handleDeleteAccount={handleDeleteAccount}
-                key={user.id}
-                id={user.id}
-                handleGoProfileView={handleGoProfileView}
-              />
-            );
-          })
-        }
+        {loading
+          ? [...Array(isMobile ? 6 : 9)].map(() => <UserCardSkeleton />)
+          : filteredData?.map((user: UserDTO) => {
+              return (
+                <UserCard
+                  checked={user.active}
+                  user={user}
+                  handleDeleteAccount={handleDeleteAccount}
+                  key={user.id}
+                  id={user.id.toString()}
+                  handleGoProfileView={handleGoProfileView}
+                />
+              );
+            })}
       </ContainerCards>
     </>
   );
