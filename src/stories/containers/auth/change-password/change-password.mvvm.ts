@@ -21,7 +21,10 @@ const validationSchema = yup.object({
     .required('New password is required'),
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref('newPassword'), null], 'Passwords must match')
+    .oneOf(
+      [yup.ref('newPassword'), null],
+      "Your password doesn't match, please insert a different password confirmation."
+    )
     .required('Password confirmation is required'),
 });
 
@@ -30,7 +33,10 @@ const adminChangeValidationSchema = yup.object({
   newPassword: passwordValidationYup.required('New password is required'),
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref('newPassword'), null], 'Passwords must match')
+    .oneOf(
+      [yup.ref('newPassword'), null],
+      "Your password doesn't match, please insert a different password confirmation."
+    )
     .required('Password confirmation is required'),
 });
 
