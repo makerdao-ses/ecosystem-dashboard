@@ -132,20 +132,7 @@ const Wrapper = styled.div(() => ({
   display: 'flex',
   justifyContent: 'center',
   height: 'fit-content',
-  marginTop: 64,
   paddingBottom: 128,
-
-  [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: 40,
-  },
-
-  [lightTheme.breakpoints.down('table_834')]: {
-    marginTop: 64,
-  },
-
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginTop: 64,
-  },
 }));
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
