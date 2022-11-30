@@ -145,6 +145,7 @@ const Container = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   alignItems: 'center',
   padding: 24,
   width: 343,
+  position: 'relative',
   background: isLight ? '#FFFFFF' : '#10191F',
   boxShadow: isLight
     ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
@@ -154,7 +155,6 @@ const Container = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   '@media (min-width: 834px)': {
     padding: '40px 64px',
     width: '484px',
-    top: 128,
   },
 }));
 
