@@ -1,31 +1,33 @@
 import styled from '@emotion/styled';
-import React, { useCallback } from 'react';
+import { Skeleton } from '@mui/material';
+import React from 'react';
 import CloseButton from '../../../components/close-button/close-button';
-import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import TextInput from '../../../components/text-input/text-input';
 import { ButtonWrapper, Form } from '../login/login';
 import { userChangePasswordMvvm } from './change-password.mvvm';
-import { useAuthContext } from '../../../../core/context/AuthContext';
-import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
-import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
-import { goBack } from '../../../../core/utils/routing';
 
-export default () => {
-  const { isLight } = useThemeContext();
-  const { user } = useAuthContext();
+const ChangePassword: React.FC<{ adminChange?: boolean }> = ({ adminChange = false }) => {
+  const {
+    isLight,
+    form,
+    username,
+    loading,
+    isUserLoading,
+    hasErrorLoadingUser,
+    error,
+    isWrongOldPassword,
+    isMobileOrTable,
+    handleGoBack,
+  } = userChangePasswordMvvm(adminChange);
 
-  const { form, username, loading, error, isWrongOldPassword, isMobileOrTable } = userChangePasswordMvvm();
-
-  const isAdmin = useIsAdmin(user || ({} as UserDTO));
-
-  const handleGoBack = useCallback(() => {
-    goBack(`/auth/${isAdmin ? 'manage#profile' : 'user-profile'}/`);
-  }, [isAdmin]);
+  if (hasErrorLoadingUser) {
+    return <MessageContainer>Error fetching user</MessageContainer>;
+  }
 
   return (
-    <Wrapper isLight={isLight}>
+    <Wrapper>
       <Container isLight={isLight}>
         <CloseButton
           style={{
@@ -39,9 +41,23 @@ export default () => {
         <UserWrapper>
           <UserLabel isLight={isLight}>Username</UserLabel>
           <Spacer />
-          <Username isLight={isLight}>{username}</Username>
+          <Username isLight={isLight}>
+            {adminChange && isUserLoading ? (
+              <Skeleton
+                variant="rectangular"
+                width={140}
+                height={32}
+                style={{
+                  borderRadius: '8px',
+                  background: isLight ? '#ECF1F3' : '#1E2C37',
+                }}
+              />
+            ) : (
+              username
+            )}
+          </Username>
         </UserWrapper>
-        <ChangePassword isLight={isLight}>Change Your Password</ChangePassword>
+        <ChangePasswordLabel isLight={isLight}>Change {adminChange ? 'User' : 'Your'} Password</ChangePasswordLabel>
         <Form
           onSubmit={(e) => {
             e.preventDefault();
@@ -49,7 +65,7 @@ export default () => {
           }}
         >
           <InputsWrapper>
-            <Label isLight={isLight}>Enter Existing Password</Label>
+            <Label isLight={isLight}>{adminChange ? 'Enter Your Admin Password' : 'Enter Existing Password'}</Label>
             <TextInput
               type="password"
               placeholder="Password"
@@ -59,13 +75,13 @@ export default () => {
               onBlur={form.handleBlur}
               error={
                 (form.touched.oldPassword && form.errors.oldPassword) ||
-                (isWrongOldPassword && 'Wrong old password') ||
+                (isWrongOldPassword && `Wrong ${adminChange ? 'admin' : 'old'} password`) ||
                 error
               }
               style={{ marginBottom: 32 }}
               disabled={loading}
             />
-            <Label isLight={isLight}>Enter New Password</Label>
+            <Label isLight={isLight}>{adminChange ? 'Enter a New User Password' : 'Enter New Password'}</Label>
             <TextInput
               type="password"
               placeholder="New Password"
@@ -109,29 +125,29 @@ export default () => {
   );
 };
 
-const Wrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+export default ChangePassword;
+
+const MessageContainer = styled.div({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: 100,
+});
+
+const Wrapper = styled.div(() => ({
   display: 'flex',
   flex: 1,
-  alignItems: 'center',
   justifyContent: 'center',
   width: '100%',
-  minHeight: '100vh',
-
-  backgroundColor: isLight ? '#FFFFFF' : '#000000',
-  backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/login-bg.png)',
-  backgroundAttachment: 'fixed',
-  backgroundSize: 'cover',
-  paddingBottom: 128,
 }));
 
 const Container = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
+  position: 'relative',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   padding: '24px',
-  marginTop: '104px',
   width: 343,
-  position: 'relative',
   background: isLight ? '#FFFFFF' : '#10191F',
   boxShadow: isLight
     ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
@@ -141,7 +157,6 @@ const Container = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   '@media (min-width: 834px)': {
     padding: '40px 64px',
     width: '484px',
-    marginTop: '100px',
   },
 }));
 
@@ -193,7 +208,7 @@ export const Username = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
   order: 1,
 }));
 
-export const ChangePassword = styled.h2<{ isLight: boolean }>(({ isLight }) => ({
+export const ChangePasswordLabel = styled.h2<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: 20,
   lineHeight: '24px',
   color: isLight ? '#434358' : '#D2D4EF',

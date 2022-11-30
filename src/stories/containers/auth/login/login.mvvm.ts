@@ -1,4 +1,3 @@
-// eslint-disable-next-line spellcheck/spell-checker
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useFormik } from 'formik';
 import request, { ClientError } from 'graphql-request';
@@ -28,7 +27,6 @@ export const useLoginMvvm = () => {
     clearCredentials && clearCredentials();
   }, []);
 
-  // eslint-disable-next-line spellcheck/spell-checker
   const form = useFormik({
     initialValues: {
       username: '',
