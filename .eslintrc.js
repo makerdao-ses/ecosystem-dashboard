@@ -39,7 +39,7 @@ module.exports = {
         identifiers: true,
         templates: true,
         lang: 'en_US',
-        skipWords: [...dictionary, 'Toastify'],
+        skipWords: dictionary,
         skipIfMatch: ['http://[^s]*', '^[-\\w]+/[-\\w\\.]+$', '^(?=.*[a-zA-Z])(?=.*[0-9])'],
         skipWordIfMatch: ['^foobar.*$'],
         minLength: 4,
