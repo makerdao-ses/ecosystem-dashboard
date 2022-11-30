@@ -45,18 +45,25 @@ export const userChangePasswordMvvm = (adminChange: boolean) => {
   // for "adminChange" only
   const [user, setUser] = useState<UserDTO | null>(null);
   const [isUserLoading, setIsUserLoading] = useState<boolean>(true);
+  const [hasErrorLoadingUser, setHasErrorLoadingUser] = useState<boolean>(true);
 
   useEffect(() => {
     const asyncFunction = async () => {
       if (adminChange) {
         const { username } = router.query;
         if (username) {
-          const { query, input } = FETCH_USER_BY_USERNAME(username as string);
-          const response = await request(GRAPHQL_ENDPOINT, query, input, { Authorization: `Bearer ${authToken}` });
-          if (response.users.length > 0) {
-            setUser(response.users[0]);
+          try {
+            const { query, input } = FETCH_USER_BY_USERNAME(username as string);
+            const response = await request(GRAPHQL_ENDPOINT, query, input, { Authorization: `Bearer ${authToken}` });
+            if (response.users.length > 0) {
+              setUser(response.users[0]);
+            }
+          } catch (error) {
+            setHasErrorLoadingUser(true);
+            console.log(error);
+          } finally {
+            setIsUserLoading(false);
           }
-          setIsUserLoading(false);
         }
       }
     };
@@ -130,6 +137,7 @@ export const userChangePasswordMvvm = (adminChange: boolean) => {
     isAdmin,
     username: (adminChange ? user?.username : authenticatedUser?.username) ?? '',
     isUserLoading,
+    hasErrorLoadingUser,
     isWrongOldPassword,
     isMobileOrTable,
     handleGoBack,

@@ -9,8 +9,22 @@ import { userChangePasswordMvvm } from './change-password.mvvm';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 
 const ChangePassword: React.FC<{ adminChange?: boolean }> = ({ adminChange = false }) => {
-  const { isLight, form, username, loading, isUserLoading, error, isWrongOldPassword, isMobileOrTable, handleGoBack } =
-    userChangePasswordMvvm(adminChange);
+  const {
+    isLight,
+    form,
+    username,
+    loading,
+    isUserLoading,
+    hasErrorLoadingUser,
+    error,
+    isWrongOldPassword,
+    isMobileOrTable,
+    handleGoBack,
+  } = userChangePasswordMvvm(adminChange);
+
+  if (hasErrorLoadingUser) {
+    return <MessageContainer>Error fetching user</MessageContainer>;
+  }
 
   return (
     <Wrapper>
@@ -113,6 +127,13 @@ const ChangePassword: React.FC<{ adminChange?: boolean }> = ({ adminChange = fal
 
 export default ChangePassword;
 
+const MessageContainer = styled.div({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: 100,
+});
+
 const Wrapper = styled.div(() => ({
   display: 'flex',
   flex: 1,
@@ -127,7 +148,6 @@ const Container = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   alignItems: 'center',
   padding: '24px',
   width: 343,
-  position: 'relative',
   background: isLight ? '#FFFFFF' : '#10191F',
   boxShadow: isLight
     ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
