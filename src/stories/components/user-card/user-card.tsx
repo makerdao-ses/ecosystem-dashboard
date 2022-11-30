@@ -177,6 +177,7 @@ const Label = styled.p<{ isLight: boolean }>(({ isLight }) => ({
   letterSpacing: 0.4,
   color: isLight ? '#231536' : '#D2D4EF',
   marginLeft: 16,
+  wordBreak: 'break-all',
 }));
 
 const RoleLabel = styled.p<{ color: string }>(({ color }) => ({
