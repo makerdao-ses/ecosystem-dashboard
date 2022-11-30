@@ -6,6 +6,7 @@ import { CURRENT_ENVIRONMENT } from '../../../src/config/endpoints';
 import { useAuthContext } from '../../../src/core/context/AuthContext';
 import { useThemeContext } from '../../../src/core/context/ThemeContext';
 import DeleteAccount from '../../../src/stories/containers/users/delete-account/delete-account';
+import lightTheme from '../../../styles/theme/light';
 import NotFoundPage from '../../404';
 
 const CreateAccountPage: NextPage = () => {
@@ -35,4 +36,17 @@ export const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/login-bg.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
+  paddingTop: 64,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    paddingTop: 40,
+  },
+
+  [lightTheme.breakpoints.down('table_834')]: {
+    paddingTop: 64,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    paddingTop: 64,
+  },
 }));
