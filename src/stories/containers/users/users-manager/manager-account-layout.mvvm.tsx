@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import useSWR from 'swr';
+import Skeleton from '@mui/material/Skeleton';
 import { featureFlags } from '../../../../../feature-flags/feature-flags';
 import { CURRENT_ENVIRONMENT } from '../../../../config/endpoints';
 import { useAuthContext } from '../../../../core/context/AuthContext';
@@ -25,8 +26,21 @@ export const useManagerAccountLayoutViewModel = () => {
       },
       {
         item: (
-          <ParenthesisNumber>
-            Manage Accounts <span>{`(${users.length})`}</span>
+          <ParenthesisNumber
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+            }}
+          >
+            Manage Accounts (
+            <span style={{ display: 'inline-flex' }}>
+              {!data && !errorFetchingUsers ? (
+                <Skeleton variant="rectangular" width={20} height={18} style={{ borderRadius: 8 }} />
+              ) : (
+                users.length
+              )}
+            </span>
+            )
           </ParenthesisNumber>
         ),
         id: '',

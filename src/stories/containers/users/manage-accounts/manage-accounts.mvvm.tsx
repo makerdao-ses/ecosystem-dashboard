@@ -9,9 +9,9 @@ import { QUERY_USERS } from '../users-manager/user-manager.api';
 
 const useManageAccountsViewModel = () => {
   const router = useRouter();
-  const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
 
-  const { data } = useSWR<{ users: UserDTO[] }, string>(QUERY_USERS, fetcher);
+  const { data, error } = useSWR<{ users: UserDTO[] }, string>(QUERY_USERS, fetcher);
   const users: UserDTO[] = useMemo(() => data?.users || [], [data?.users]);
 
   const [searchValue, setSearchValue] = useState('');
@@ -54,6 +54,7 @@ const useManageAccountsViewModel = () => {
     isMobile,
     searchValue,
     filteredData,
+    loading: !data && !error,
     handleClearSearch,
     handleChangeValue,
     handleCreateNewAccount,
