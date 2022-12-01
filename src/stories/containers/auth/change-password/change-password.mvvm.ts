@@ -11,6 +11,7 @@ import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import { passwordValidationYup } from '../../../../core/utils/form-validation';
 import { goBack } from '../../../../core/utils/routing';
+import { triggerToast } from '../../../helpers/helpers';
 import { FETCH_USER_BY_USERNAME } from '../../users/managed-user-profile/managed-user-profile.api';
 import { UPDATE_PASSWORD_REQUEST } from './change-password.api';
 
@@ -104,6 +105,13 @@ export const userChangePasswordMvvm = (adminChange: boolean) => {
 
       try {
         await request(GRAPHQL_ENDPOINT, query, input, { Authorization: `Bearer ${authToken}` });
+
+        triggerToast({
+          message: adminChange
+            ? `You have successfully created a new password for ${user?.username || ''}`
+            : 'Your new password has been successfully created',
+        });
+
         router.push(
           adminChange
             ? `/auth/manage/user/${router.query.username}`
