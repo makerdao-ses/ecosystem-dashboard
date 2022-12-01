@@ -23,15 +23,12 @@ const UserProfile = () => {
   const { allRoles } = getCorrectRoleApi(user || ({} as UserDTO));
 
   const handleDeleteAccount = useCallback(() => {
-    router.push({
-      pathname: '/auth/delete-account/',
-      query: {
-        userName: user?.username,
-        id: user?.id,
-      },
-    });
+    if (isAdminProfile) {
+      router.push('/auth/manage/delete-my-account');
+      return;
+    }
     router.push('/auth/delete-account');
-  }, [router, user?.id, user?.username]);
+  }, [router, isAdminProfile]);
 
   const handleLogOut = () => {
     clearCredentials && clearCredentials();
@@ -135,20 +132,7 @@ const Wrapper = styled.div(() => ({
   display: 'flex',
   justifyContent: 'center',
   height: 'fit-content',
-  marginTop: 64,
   paddingBottom: 128,
-
-  [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: 40,
-  },
-
-  [lightTheme.breakpoints.down('table_834')]: {
-    marginTop: 64,
-  },
-
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginTop: 64,
-  },
 }));
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
