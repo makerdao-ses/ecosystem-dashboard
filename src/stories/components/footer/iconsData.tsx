@@ -182,6 +182,6 @@ export const developer = [
   },
   {
     title: 'Github Repos',
-    url: 'https://makerdao-ses.github.io/',
+    url: 'https://github.com/makerdao-ses',
   },
 ];
