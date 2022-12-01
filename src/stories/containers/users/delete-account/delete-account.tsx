@@ -20,6 +20,7 @@ import Skeleton from '@mui/material/Skeleton';
 const DeleteAccount: React.FC<{ username?: string }> = ({ username }) => {
   const router = useRouter();
   const { user, isAdmin } = useAuthContext();
+  const isAdminRouter = router.pathname.includes('manage/delete-my-account');
 
   const { isLight } = useThemeContext();
   const { form: formLogic, isFetchingUser, deletingUser } = useDeleteAccountMvvm(username);
@@ -68,7 +69,11 @@ const DeleteAccount: React.FC<{ username?: string }> = ({ username }) => {
           }}
         >
           <Label isLight={isLight}>{`${
-            isAdmin ? 'Enter your admin password to delete the account' : 'Enter password to delete the account'
+            isAdmin && !isAdminRouter
+              ? 'Enter your admin password to delete the account'
+              : isAdmin && isAdminRouter
+              ? 'Enter password to delete the account'
+              : 'Enter password to delete the account'
           }`}</Label>
           <InputsWrapper>
             <TextInput
