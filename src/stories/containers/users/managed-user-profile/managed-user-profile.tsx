@@ -27,6 +27,7 @@ const ManagedUserProfile: React.FC = () => {
     handleChange,
     handleDeleteAccount,
     handleGoBack,
+    isToLong,
   } = useManagedUserProfile();
 
   if (errorFetchingUser) {
@@ -82,9 +83,9 @@ const ManagedUserProfile: React.FC = () => {
               </RolesLabel>
             </RolesWrapper>
           </CenterWrapper>
-          <UserNameContainer>
+          <UserNameContainer isToLong={isToLong}>
             <UserNameLabel isLight={isLight}>Username:</UserNameLabel>
-            <UserLabelValue isLight={isLight}>
+            <UserLabelValue isLight={isLight} isToLong={isToLong}>
               {isLoading ? (
                 <Skeleton
                   variant="rectangular"
@@ -281,7 +282,7 @@ const CenterWrapper = styled.div({
   alignItems: 'center',
 });
 
-const UserLabelValue = styled.p<{ isLight: boolean }>(({ isLight }) => ({
+const UserLabelValue = styled.p<{ isLight: boolean; isToLong: boolean }>(({ isLight, isToLong }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 600,
@@ -291,15 +292,15 @@ const UserLabelValue = styled.p<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   marginTop: '0px',
   marginBottom: '0px',
-  wordBreak: 'break-all',
+  wordBreak: isToLong ? 'break-all' : 'normal',
 }));
 
-const UserNameContainer = styled.div({
+const UserNameContainer = styled.div<{ isToLong: boolean }>(({ isToLong }) => ({
   display: 'flex',
   flexDirection: 'row',
-  alignItems: 'flex-start',
+  alignItems: isToLong ? 'flex-start' : 'center',
   marginBottom: '32px',
-});
+}));
 
 const PasswordContainer = styled.div({
   display: 'flex',
