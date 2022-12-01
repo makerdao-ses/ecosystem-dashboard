@@ -22,18 +22,18 @@ const MenuItemUser = ({
   const { isLight } = useThemeContext();
   return (
     <Container>
-      <ContainerItem onClick={onClickProfile}>
+      <ContainerItem onClick={onClickProfile} isLight={isLight}>
         <Profile fill={isLight ? '#231536' : '#FFFFFF'} />
         <Label isLight={isLight}>Profile</Label>
       </ContainerItem>
       {isAdmin && (
-        <ContainerItem onClick={onClickAccountManager}>
+        <ContainerItem onClick={onClickAccountManager} isLight={isLight}>
           <AccountMangerSetting fill={isLight ? '#231536' : '#FFFFFF'} />
           <Label isLight={isLight}>Manage Accounts</Label>
         </ContainerItem>
       )}
 
-      <ContainerItem onClick={onClickLogOut}>
+      <ContainerItem onClick={onClickLogOut} isLight={isLight}>
         <LogOut fill={isLight ? '#231536' : '#FFFFFF'} />
         <Label isLight={isLight}>Log out</Label>
       </ContainerItem>
@@ -58,14 +58,26 @@ const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   marginLeft: 13.64,
 }));
 
-const ContainerItem = styled.div({
+const ContainerItem = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
-  marginBottom: 42.5,
+  marginBottom: 22.5,
+  height: 40,
+  paddingLeft: 8,
+  paddingBottom: 8,
+  paddingTop: 8,
   cursor: 'pointer',
   ':last-child': {
     marginBottom: 0,
   },
-});
+  ':hover': {
+    backgroundColor: isLight ? '#EDEFFF' : '#25273D',
+    borderRadius: '6px',
+    paddingLeft: 8,
+    paddingBottom: 8,
+    paddingTop: 8,
+    height: 40,
+  },
+}));
 export default MenuItemUser;

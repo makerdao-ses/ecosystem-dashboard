@@ -19,7 +19,7 @@ import Skeleton from '@mui/material/Skeleton';
 
 const DeleteAccount: React.FC<{ username?: string }> = ({ username }) => {
   const router = useRouter();
-  const { user } = useAuthContext();
+  const { user, isAdmin } = useAuthContext();
 
   const { isLight } = useThemeContext();
   const { form: formLogic, isFetchingUser, deletingUser } = useDeleteAccountMvvm(username);
@@ -58,7 +58,7 @@ const DeleteAccount: React.FC<{ username?: string }> = ({ username }) => {
           </Username>
         </UserWrapper>
 
-        <DeleteLabel>Delete Account</DeleteLabel>
+        <DeleteLabel isLight={isLight}>Delete Account</DeleteLabel>
         <WarningLabel>ATTENTION: this action cannot be undone</WarningLabel>
 
         <Form
@@ -67,7 +67,9 @@ const DeleteAccount: React.FC<{ username?: string }> = ({ username }) => {
             formLogic.handleSubmit();
           }}
         >
-          <Label isLight={isLight}>Enter password to delete the account</Label>
+          <Label isLight={isLight}>{`${
+            isAdmin ? 'Enter your admin password to delete the account' : 'Enter password to delete the account'
+          }`}</Label>
           <InputsWrapper>
             <TextInput
               disabled={isFetchingUser}
@@ -147,14 +149,14 @@ const Container = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   },
 }));
 
-const DeleteLabel = styled.h1({
+const DeleteLabel = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
   margin: '0 0 8px 0',
   fontWeight: 600,
   fontSize: 20,
   lineHeight: '24px',
-  color: '#434358',
+  color: isLight ? '#434358' : '#D2D4EF',
   alignSelf: 'flex-start',
-});
+}));
 
 const WarningLabel = styled.h1({
   fontWeight: 400,
@@ -189,7 +191,7 @@ const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontWeight: 400,
   fontSize: 14,
   lineHeight: '22px',
-  color: isLight ? '#231536' : '#434358',
+  color: isLight ? '#231536' : '#D2D4EF',
   marginBottom: 16,
 }));
 

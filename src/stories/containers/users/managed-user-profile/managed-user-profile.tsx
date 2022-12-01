@@ -136,6 +136,7 @@ const ManagedUserProfile: React.FC = () => {
               />
             ) : (
               <ContainerPasswordLink>
+                <ContainerAlignedPassword />
                 <Link href={`/auth/manage/user/${userProfile?.username}/change-password`}>
                   <ChangePasswordLink>Change user password</ChangePasswordLink>
                 </Link>
@@ -320,7 +321,6 @@ const ChangePasswordContainer = styled.div({
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
-  marginLeft: '8px',
 });
 
 const ChangePasswordLink = styled.a({
@@ -335,6 +335,7 @@ const ChangePasswordLink = styled.a({
 
 const ContainerPasswordLink = styled.div({
   display: 'flex',
+  flex: 1,
   flexDirection: 'row',
   alignItems: 'center',
 });
@@ -352,4 +353,10 @@ const ButtonWrapper = styled.div({
     paddingLeft: '64px',
     paddingRight: '77px',
   },
+});
+
+const ContainerAlignedPassword = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  width: 112,
 });
