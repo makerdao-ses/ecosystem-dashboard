@@ -9,13 +9,15 @@ interface Props {
   label: string;
   styleLabel?: React.CSSProperties;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  disabled?: boolean;
 }
 
-const ControlledSwitches = ({ checked, handleChange, label = '', styleLabel = {}, onClick }: Props) => {
+const ControlledSwitches = ({ checked, handleChange, label = '', styleLabel = {}, onClick, disabled }: Props) => {
   const { isLight } = useThemeContext();
   return (
-    <Container>
+    <Container onClick={(e) => disabled && e.stopPropagation()}>
       <AntSwitch
+        disabled={disabled}
         isLight={isLight}
         disableRipple
         checked={checked}

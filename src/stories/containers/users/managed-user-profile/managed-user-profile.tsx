@@ -18,8 +18,16 @@ const resultPassword = fill(arrayPassword, 'a');
 const ManagedUserProfile: React.FC = () => {
   const { isLight } = useThemeContext();
   const skeletonBackground = isLight ? '#ECF1F3' : '#1E2C37';
-  const { userProfile, userRoles, isLoading, errorFetchingUser, handleChange, handleDeleteAccount, handleGoBack } =
-    useManagedUserProfile();
+  const {
+    userProfile,
+    userRoles,
+    isLoading,
+    errorFetchingUser,
+    isChanging,
+    handleChange,
+    handleDeleteAccount,
+    handleGoBack,
+  } = useManagedUserProfile();
 
   if (errorFetchingUser) {
     return <MessageContainer>Error fetching user</MessageContainer>;
@@ -190,7 +198,12 @@ const ManagedUserProfile: React.FC = () => {
                   color: '#F75524',
                 }}
               />
-              <ControlledSwitches checked={!!userProfile?.active} handleChange={handleChange} label="Active" />
+              <ControlledSwitches
+                checked={!!userProfile?.active}
+                handleChange={handleChange}
+                disabled={isChanging}
+                label="Active"
+              />
             </>
           )}
         </ButtonWrapper>

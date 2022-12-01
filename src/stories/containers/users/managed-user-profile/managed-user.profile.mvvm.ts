@@ -17,6 +17,7 @@ const useManagedUserProfile = () => {
   const { username } = router.query;
   const { user, clientRequest } = useAuthContext();
   const isAdmin = useIsAdmin(user || ({} as UserDTO));
+  const [isChanging, setIsChanging] = useState<boolean>(false);
 
   const [isLoading, setIsLoading] = useState(false);
   const [userProfile, setUserProfile] = useState<UserDTO | null>(null);
@@ -41,6 +42,7 @@ const useManagedUserProfile = () => {
       return;
     }
     try {
+      setIsChanging(true);
       const { query: gqlQuery, input } = ENABLE_DISABLE_USER_REQUEST(!userProfile.active, userProfile.id.toString());
       const data = await request(GRAPHQL_ENDPOINT, gqlQuery, input, { Authorization: `Bearer ${authToken}` });
       if (data) {
@@ -48,6 +50,8 @@ const useManagedUserProfile = () => {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsChanging(false);
     }
   }, [clientRequest, userProfile]);
 
@@ -64,6 +68,7 @@ const useManagedUserProfile = () => {
     userRoles,
     isLoading,
     errorFetchingUser,
+    isChanging,
     handleChange,
     handleDeleteAccount,
     handleGoBack,
