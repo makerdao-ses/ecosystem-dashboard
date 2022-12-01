@@ -5,6 +5,7 @@ import { ManagerTabs } from '../../../src/stories/containers/users/users-manager
 import UserManagerLayout from '../../../src/stories/containers/users/users-manager/user-manager-layout';
 import UserProfile from '../../../src/stories/containers/users/user-profile/user-profile';
 import lightTheme from '../../../styles/theme/light';
+import { getSSRPropsDefaultAuth } from '../../../src/core/utils/common-get-ssr-props';
 
 const MyProfilePage: NextPage = () => {
   return (
@@ -16,6 +17,10 @@ const MyProfilePage: NextPage = () => {
   );
 };
 
+export default MyProfilePage;
+
+export const getServerSideProps = getSSRPropsDefaultAuth;
+
 const ContainerProfile = styled.div({
   display: 'flex',
   flexDirection: 'row',
@@ -25,5 +30,3 @@ const ContainerProfile = styled.div({
     marginTop: 24,
   },
 });
-
-export default MyProfilePage;

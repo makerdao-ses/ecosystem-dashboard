@@ -1,21 +1,13 @@
 import styled from '@emotion/styled';
 import { NextPage } from 'next';
 import React from 'react';
-import { featureFlags } from '../../../feature-flags/feature-flags';
-import { CURRENT_ENVIRONMENT } from '../../../src/config/endpoints';
-import { useAuthContext } from '../../../src/core/context/AuthContext';
 import { useThemeContext } from '../../../src/core/context/ThemeContext';
+import { getSSRPropsDefaultAuth } from '../../../src/core/utils/common-get-ssr-props';
 import ChangePassword from '../../../src/stories/containers/auth/change-password/change-password';
 import lightTheme from '../../../styles/theme/light';
-import NotFoundPage from '../../404';
 
 const ChangePasswordPage: NextPage = () => {
-  const { authToken } = useAuthContext();
   const { isLight } = useThemeContext();
-
-  if (!featureFlags[CURRENT_ENVIRONMENT].FEATURE_AUTH || !authToken) {
-    return <NotFoundPage />;
-  }
 
   return (
     <Container isLight={isLight}>
@@ -25,6 +17,8 @@ const ChangePasswordPage: NextPage = () => {
 };
 
 export default ChangePasswordPage;
+
+export const getServerSideProps = getSSRPropsDefaultAuth;
 
 export const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',

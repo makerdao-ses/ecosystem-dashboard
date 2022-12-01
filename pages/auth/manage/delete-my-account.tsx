@@ -5,17 +5,11 @@ import { ManagerTabs } from '../../../src/stories/containers/users/users-manager
 import UserManagerLayout from '../../../src/stories/containers/users/users-manager/user-manager-layout';
 import lightTheme from '../../../styles/theme/light';
 import { useAuthContext } from '../../../src/core/context/AuthContext';
-import { featureFlags } from '../../../feature-flags/feature-flags';
-import { CURRENT_ENVIRONMENT } from '../../../src/config/endpoints';
-import NotFoundPage from '../../404';
 import DeleteAccount from '../../../src/stories/containers/users/delete-account/delete-account';
+import { getSSRPropsDefaultAuth } from '../../../src/core/utils/common-get-ssr-props';
 
 const DeleteMyAccount: NextPage = () => {
-  const { authToken, isAdmin, user } = useAuthContext();
-
-  if (!featureFlags[CURRENT_ENVIRONMENT].FEATURE_AUTH || !isAdmin || !authToken) {
-    return <NotFoundPage />;
-  }
+  const { user } = useAuthContext();
 
   return (
     <UserManagerLayout tabIndex={ManagerTabs.PROFILE}>
@@ -26,6 +20,10 @@ const DeleteMyAccount: NextPage = () => {
   );
 };
 
+export default DeleteMyAccount;
+
+export const getServerSideProps = getSSRPropsDefaultAuth;
+
 const Container = styled.div({
   display: 'flex',
   flexDirection: 'row',
@@ -35,5 +33,3 @@ const Container = styled.div({
     marginTop: 24,
   },
 });
-
-export default DeleteMyAccount;

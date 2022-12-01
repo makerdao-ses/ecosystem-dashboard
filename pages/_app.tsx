@@ -1,5 +1,6 @@
 import React, { ReactElement, ReactNode, useEffect } from 'react';
 import { Provider } from 'react-redux';
+import isEmpty from 'lodash/isEmpty';
 import type { AppProps } from 'next/app';
 import { store } from '../src/core/store/store';
 import '../styles/globals.scss';
@@ -15,6 +16,7 @@ import * as gtag from '../src/core/utils/gtag';
 import { CookiesProviderTracking } from '../src/core/context/CookiesContext';
 import { CookiesProvider, useCookies } from 'react-cookie';
 import { AuthContextProvider } from '../src/core/context/AuthContext';
+import { getAuthFromStorage } from '../src/core/utils/auth-storage';
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -23,6 +25,7 @@ export type NextPageWithLayout = NextPage & {
 interface MyAppProps extends AppProps {
   Component: NextPageWithLayout;
   emotionCache?: EmotionCache;
+  protected?: boolean;
 }
 
 function MyApp(props: MyAppProps) {
@@ -40,6 +43,14 @@ function MyApp(props: MyAppProps) {
       };
     }
   }, [router.events]);
+
+  useEffect(() => {
+    const authData = getAuthFromStorage();
+    if (props.pageProps.protected && (isEmpty(authData) || !authData?.authToken)) {
+      router.push('/login');
+    }
+  }, []);
+
   return (
     <CookiesProvider>
       <Provider store={store}>
