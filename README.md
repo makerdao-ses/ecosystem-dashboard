@@ -1,6 +1,8 @@
-# Makerdao SES Dashboard
+# MakerDAO Ecosystem Performance Dashboard
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This repository contains the code of https://expenses.makerdao.network/
+
+It is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ### After bootstrapping it was also added:
 
