@@ -24,7 +24,7 @@ const useManagedUserProfile = () => {
   const [userRoles, setUserRoles] = useState<string[]>([]);
 
   const { data: response, error: errorFetchingUser } = useSWR(FETCH_USER_BY_USERNAME(username as string), fetcher);
-
+  const isToLong = (userProfile?.username || '').length > 17;
   useEffect(() => {
     if (response?.users?.length > 0) {
       // otherwise, the user is not found
@@ -72,6 +72,7 @@ const useManagedUserProfile = () => {
     handleChange,
     handleDeleteAccount,
     handleGoBack,
+    isToLong,
   };
 };
 export default useManagedUserProfile;
