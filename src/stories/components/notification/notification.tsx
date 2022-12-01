@@ -59,6 +59,7 @@ const ContainerText = styled.p<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
+  padding: '0 10px',
   [lightTheme.breakpoints.down(451)]: {
     marginLeft: 4,
     marginRight: 4,
