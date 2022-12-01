@@ -36,6 +36,7 @@ export const useLoginMvvm = () => {
     onSubmit: async (values) => {
       setLoading(true);
       setError('');
+      setHasUserInactive(false);
 
       const { query: gqlQuery, input } = LOGIN_REQUEST(values.username, values.password);
       try {
@@ -63,6 +64,7 @@ export const useLoginMvvm = () => {
 
   const clearErrors = () => {
     setError('');
+    setHasUserInactive(false);
   };
 
   return {
