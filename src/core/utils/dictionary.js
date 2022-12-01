@@ -94,6 +94,7 @@ const dictionary = [
   'lvlexpenditure',
   'Toastify',
   'Repos',
+  'revalidate',
 ];
 
 module.exports = dictionary;
