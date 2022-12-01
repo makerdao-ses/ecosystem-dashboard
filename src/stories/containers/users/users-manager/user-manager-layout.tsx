@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import NotFoundPage from '../../../../../pages/404';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { Tabs } from '../../../components/tabs/tabs';
 import { useManagerAccountLayoutViewModel } from './manager-account-layout.mvvm';
@@ -13,28 +12,15 @@ export interface UserManagerLayoutProps {
 
 const UserManagerLayout: React.FC<UserManagerLayoutProps> = ({ children, tabIndex = ManagerTabs.PROFILE }) => {
   const { isLight } = useThemeContext();
-  const { tabItems, hasToken, authToken, isAdmin, FEATURE_AUTH } = useManagerAccountLayoutViewModel();
-
-  if (!FEATURE_AUTH || !authToken || !isAdmin) {
-    return <NotFoundPage />;
-  }
+  const { tabItems, hasToken, isAdmin } = useManagerAccountLayoutViewModel();
 
   if (!hasToken) {
-    return (
-      <div
-        style={{
-          width: '100vw',
-          height: '100vh',
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontSize: 30,
-        }}
-      >
-        Loading......
-      </div>
-    );
+    return <Message>Loading...</Message>;
+  }
+
+  if (!isAdmin) {
+    // TODO: Add a proper Forbidden page
+    return <Message>You do not have permissions to see this page</Message>;
   }
 
   return (
@@ -52,6 +38,18 @@ const UserManagerLayout: React.FC<UserManagerLayoutProps> = ({ children, tabInde
     </MainWrapper>
   );
 };
+
+export default UserManagerLayout;
+
+const Message = styled.div({
+  width: '100vw',
+  height: '100vh',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+  fontSize: 30,
+});
 
 const MainWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
@@ -99,5 +97,3 @@ const Container = styled.div({
     width: 1312,
   },
 });
-
-export default UserManagerLayout;
