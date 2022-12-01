@@ -22,7 +22,7 @@ const DeleteAccount: React.FC<{ username?: string }> = ({ username }) => {
   const { user, isAdmin } = useAuthContext();
 
   const { isLight } = useThemeContext();
-  const { form: formLogic, isFetchingUser, deletingUser } = useDeleteAccountMvvm(username);
+  const { form: formLogic, isFetchingUser, deletingUser, isDeleting } = useDeleteAccountMvvm(username);
 
   const isLoggedAdmin = useIsAdmin(user || ({} as UserDTO));
 
@@ -95,23 +95,23 @@ const DeleteAccount: React.FC<{ username?: string }> = ({ username }) => {
                 height: 34,
                 borderRadius: 22,
                 borderColor: isLight
-                  ? formLogic.values.password !== ''
+                  ? formLogic.values.password !== '' && !isDeleting
                     ? '#F75524'
                     : '#D4D9E1'
-                  : formLogic.values.password !== ''
+                  : formLogic.values.password !== '' && !isDeleting
                   ? '#F75524'
                   : '#343442',
               }}
               styleText={{
                 color: isLight
-                  ? formLogic.values.password !== ''
+                  ? formLogic.values.password !== '' && !isDeleting
                     ? '#F75524'
                     : 'unset'
-                  : formLogic.values.password !== ''
+                  : formLogic.values.password !== '' && !isDeleting
                   ? '#F75524'
                   : '#343442',
               }}
-              disabled={!(formLogic.values.password !== '') || isFetchingUser}
+              disabled={!(formLogic.values.password !== '') || isFetchingUser || isDeleting}
             />
           </ButtonWrapper>
         </Form>

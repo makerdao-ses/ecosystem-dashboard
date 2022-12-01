@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import request from 'graphql-request';
 import { useRouter } from 'next/router';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import useSWR from 'swr';
 import { GRAPHQL_ENDPOINT } from '../../../../config/endpoints';
 import { useAuthContext } from '../../../../core/context/AuthContext';
@@ -15,6 +15,7 @@ import { USERS_DELETE_FROM_ADMIN } from './delete-account.api';
 export const useDeleteAccountMvvm = (username?: string) => {
   const router = useRouter();
   const { authToken, user, clientRequest, isAdmin, clearCredentials } = useAuthContext();
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
   const { data: response, error: errorFetchingUser } = useSWR(
     [isAdmin ? FETCH_USER_BY_USERNAME(username ?? (router.query.username as string)) : null, isAdmin],
@@ -28,6 +29,7 @@ export const useDeleteAccountMvvm = (username?: string) => {
 
   const handleOnSubmit = useCallback(
     async (password: string) => {
+      setIsDeleting(true);
       const { query: gqlQueryLogin, input } = LOGIN_REQUEST(user?.username || '', password);
       const { query: gqlQuery, filter } = USERS_DELETE_FROM_ADMIN(deletingUser?.id?.toString() || '');
       try {
@@ -59,6 +61,7 @@ export const useDeleteAccountMvvm = (username?: string) => {
           isSuccess: false,
         });
       }
+      setIsDeleting(false);
     },
     [clientRequest, deletingUser, router, user?.username]
   );
@@ -76,5 +79,6 @@ export const useDeleteAccountMvvm = (username?: string) => {
     form,
     isFetchingUser: !response && !errorFetchingUser,
     deletingUser,
+    isDeleting,
   };
 };
