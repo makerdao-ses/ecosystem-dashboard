@@ -42,9 +42,11 @@ const UserCard = ({
     handleGoProfileView(id);
   };
 
+  const [isChanging, setIsChanging] = useState<boolean>(false);
   const handleChangeCard = async () => {
     const { query: gqlQuery, input } = ENABLE_DISABLE_USER_REQUEST(!checked, id);
     try {
+      setIsChanging(true);
       const data = await request(GRAPHQL_ENDPOINT, gqlQuery, input, { Authorization: `Bearer ${authToken}` });
 
       if (data) {
@@ -56,6 +58,8 @@ const UserCard = ({
           console.error(err);
         }
       }
+    } finally {
+      setIsChanging(false);
     }
   };
 
@@ -113,6 +117,7 @@ const UserCard = ({
           onClick={handleOnDeleteAccount}
         />
         <ControlledSwitches
+          disabled={isChanging}
           checked={isChecked}
           handleChange={handleChangeCard}
           label="Active"
