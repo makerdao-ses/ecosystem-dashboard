@@ -71,8 +71,6 @@ const DeleteAccount: React.FC<{ username?: string }> = ({ username }) => {
           <Label isLight={isLight}>{`${
             isAdmin && !isAdminRouter
               ? 'Enter your admin password to delete the account'
-              : isAdmin && isAdminRouter
-              ? 'Enter password to delete the account'
               : 'Enter password to delete the account'
           }`}</Label>
           <InputsWrapper>
