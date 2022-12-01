@@ -69,7 +69,7 @@ const ContainerText = styled.p<{ isLight: boolean }>(({ isLight }) => ({
 export const ContainerNotification = styled(ToastContainer)({
   '&.Toastify__toast-container': {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'center',
     width: 475,
     padding: 0,

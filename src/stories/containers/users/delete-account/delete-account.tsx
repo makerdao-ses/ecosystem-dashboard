@@ -8,7 +8,6 @@ import TextInput from '../../../components/text-input/text-input';
 import { ButtonWrapper } from '../../auth/login/login';
 import { useRouter } from 'next/router';
 import { useAuthContext } from '../../../../core/context/AuthContext';
-import { ContainerNotification } from '../../../components/notification/notification';
 import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
 import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import { useDeleteAccountMvvm } from './delete-account.mvvm';
@@ -119,7 +118,6 @@ const DeleteAccount: React.FC<{ username?: string }> = ({ username }) => {
           </ButtonWrapper>
         </Form>
       </Container>
-      <ContainerNotification limit={1} />
     </Wrapper>
   );
 };
