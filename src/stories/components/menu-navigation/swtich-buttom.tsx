@@ -28,7 +28,7 @@ const SwitcherButton = ({ themeMode, toggleTheme }: Props) => {
 };
 
 const MainContainer = styled.div({
-  width: 'fit-content',
+  width: '100%',
 });
 
 const Container = styled.div({
@@ -36,7 +36,6 @@ const Container = styled.div({
   flexDirection: 'row',
   alignItems: 'center',
   cursor: 'pointer',
-  width: 'fit-content',
 });
 
 const Label = styled.p<{ isLight: boolean }>(({ isLight }) => ({

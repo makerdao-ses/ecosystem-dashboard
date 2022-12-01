@@ -64,9 +64,7 @@ const ContainerItem = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   alignItems: 'center',
   marginBottom: 22.5,
   height: 40,
-  paddingLeft: 8,
-  paddingBottom: 8,
-  paddingTop: 8,
+  padding: 8,
   cursor: 'pointer',
   ':last-child': {
     marginBottom: 0,
@@ -74,9 +72,7 @@ const ContainerItem = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   ':hover': {
     backgroundColor: isLight ? '#EDEFFF' : '#25273D',
     borderRadius: '6px',
-    paddingLeft: 8,
-    paddingBottom: 8,
-    paddingTop: 8,
+    padding: 8,
     height: 40,
   },
 }));

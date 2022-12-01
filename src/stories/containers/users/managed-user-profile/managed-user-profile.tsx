@@ -271,7 +271,7 @@ const UserNameLabel = styled.p<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#708390' : '#708390',
   marginTop: '0px',
   marginBottom: '0px',
-  marginRight: '8px',
+  marginRight: '6px',
 }));
 
 const CenterWrapper = styled.div({
@@ -371,5 +371,5 @@ const ButtonWrapper = styled.div({
 const ContainerAlignedPassword = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  width: 112,
+  width: 114,
 });
