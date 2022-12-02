@@ -5,6 +5,7 @@ import Link from 'next/link';
 import React from 'react';
 import lightTheme from '../../../../../styles/theme/light';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
+import { ButtonType } from '../../../../core/enums/button-type.enum';
 import { capitalizeWordWithoutConvertLowerCase } from '../../../../core/utils/string.utils';
 import ControlledSwitches from '../../../components/button/switch-toogle/switch-component';
 import CloseButton from '../../../components/close-button/close-button';
@@ -189,14 +190,11 @@ const ManagedUserProfile: React.FC = () => {
               <CustomButton
                 onClick={handleDeleteAccount}
                 label="Delete Account"
+                buttonType={ButtonType.Danger}
                 style={{
                   width: 151,
                   height: 34,
                   borderRadius: 22,
-                  borderColor: '#F75524',
-                }}
-                styleText={{
-                  color: '#F75524',
                 }}
               />
               <ControlledSwitches

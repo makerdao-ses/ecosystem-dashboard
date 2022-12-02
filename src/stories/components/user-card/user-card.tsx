@@ -81,11 +81,11 @@ const UserCard = ({
         <PositionRow space="space-between" marginTop={32}>
           <RoleLabel color={isLight ? color.color : color.darkColor}>{role.mainRole}</RoleLabel>
           <CustomButton
+            buttonType={ButtonType.Default}
             label="View Profile"
             style={{
               height: 34,
               width: 128,
-              ...(isTable ? { borderColor: isLight ? '#25273D' : '#343442' } : {}),
             }}
             onClick={handleGoProfile}
             allowsHover={!isTable}
@@ -114,6 +114,7 @@ const UserCard = ({
             height: 34,
             width: 92,
           }}
+          allowsHover={!isTable}
           onClick={handleOnDeleteAccount}
         />
         <ControlledSwitches
