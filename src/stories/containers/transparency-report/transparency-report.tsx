@@ -121,21 +121,6 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
                 hasNext={hasNextMonth()}
                 hasPrevious={hasPreviousMonth()}
               />
-              {currentBudgetStatement?.publicationUrl?.trim() && (
-                <CustomLink
-                  href={currentBudgetStatement?.publicationUrl ?? null}
-                  style={{
-                    margin: '4px 16px 0',
-                    lineHeight: '19px',
-                  }}
-                  iconHeight={10}
-                  iconWidth={10}
-                  fontSize={16}
-                  fontFamily="Inter, sans-serif"
-                >
-                  Source
-                </CustomLink>
-              )}
             </PagerBarLeft>
             <Spacer />
             {lastUpdateForBudgetStatement && (
