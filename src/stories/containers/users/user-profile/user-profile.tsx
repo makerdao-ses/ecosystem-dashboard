@@ -100,14 +100,11 @@ const UserProfile = () => {
           <CustomButton
             onClick={handleDeleteAccount}
             label="Delete Account"
+            buttonType={ButtonType.Danger}
             style={{
               width: 151,
               height: 34,
               borderRadius: 22,
-              borderColor: '#F75524',
-            }}
-            styleText={{
-              color: '#F75524',
             }}
           />
           <ContainerWrapper

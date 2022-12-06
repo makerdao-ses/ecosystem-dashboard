@@ -4,6 +4,9 @@ import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import { MAKER_BURN_LINK } from '../../../../core/utils/const';
 import { getShortCode } from '../../../../core/utils/string.utils';
+import { ButtonType } from '../../../../core/enums/button-type.enum';
+import { useMediaQuery } from '@mui/material';
+import lightTheme from '../../../../../styles/theme/light';
 
 interface Props {
   breakdown?: boolean;
@@ -11,7 +14,8 @@ interface Props {
 }
 
 export const TransparencyEmptyTable = ({ breakdown = false, longCode }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
+  const isTable = useMediaQuery(lightTheme.breakpoints.down('table_834'));
 
   const handleClickMakerburn = useCallback(() => {
     window.open(`${MAKER_BURN_LINK}/${longCode}`, '_blank');
@@ -284,9 +288,11 @@ export const TransparencyEmptyTable = ({ breakdown = false, longCode }: Props) =
                 lineHeight: '19px',
                 borderRadius: '22px',
               }}
+              buttonType={ButtonType.Default}
               style={{
                 padding: '14px 61px 14px 60px',
               }}
+              allowsHover={!isTable}
             />
           </ContainerButton>
         </ContainerIndications>
@@ -437,6 +443,7 @@ export const TransparencyEmptyTable = ({ breakdown = false, longCode }: Props) =
               style={{
                 padding: '8px 24px',
               }}
+              allowsHover={!isTable}
             />
           </ContainerButton>
         </ContainerIndications>

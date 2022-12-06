@@ -9,6 +9,7 @@ import { getShortCode } from '../../../core/utils/string.utils';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
 import { CustomButton } from '../custom-button/custom-button';
 import { Activity } from './cu-activity-table';
+import { ButtonType } from '../../../core/enums/button-type.enum';
 
 interface CUActivityItemProps {
   activity: Activity;
@@ -61,6 +62,7 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
           <CustomButton
             label="View Details"
             onClick={goToDetails}
+            buttonType={ButtonType.Default}
             style={{
               display: 'inline-flex',
               fontWeight: 500,
@@ -68,8 +70,6 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
               lineHeight: '18px',
               padding: '8px 24px',
               height: 'auto',
-              color: '#231536',
-              borderColor: isLight ? '#25273D' : '#343442',
             }}
             allowsHover={false}
           />
