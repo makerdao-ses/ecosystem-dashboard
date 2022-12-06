@@ -20,6 +20,10 @@ import { getAuthFromStorage } from '../src/core/utils/auth-storage';
 import { ContainerNotification } from '../src/stories/components/notification/notification';
 import AppLayout from '../src/stories/containers/layout/layout';
 
+// disable useLayoutEffect SSR warnings to avoid log spamming the console
+// https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85
+if (typeof window === 'undefined') React.useLayoutEffect = React.useEffect;
+
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
 };

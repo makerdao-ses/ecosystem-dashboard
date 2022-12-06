@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { ExpenseReportStatus } from '../../../core/enums/expense-reports-status.enum';
+import { ExpenseReportStatus } from '../../../../core/enums/expense-reports-status.enum';
 import ExpenseReportStatusBtn from './expense-report-status-label';
 
 export default {
