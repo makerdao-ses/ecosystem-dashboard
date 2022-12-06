@@ -42,6 +42,8 @@ const customStyles: { [id: string]: any } = {
     activeColorTextDark: '#1AAB9B',
     activeBackgroundDark: 'transparent',
     activeBorderColorDark: '#1AAB9B',
+    borderColorMobile: '#231536',
+    borderColorMobileDark: '#787A9B',
   },
   Primary: {
     textColor: '#1AAB9B',
@@ -50,6 +52,8 @@ const customStyles: { [id: string]: any } = {
     backgroundDark: '#06554C',
     borderColor: '#1AAB9B',
     borderColorDark: '#1AAB9B',
+    borderColorMobile: '#1AAB9B',
+    borderColorMobileDark: '#1AAB9B',
   },
   Secondary: {
     textColor: '#1AAB9B',
@@ -58,14 +62,8 @@ const customStyles: { [id: string]: any } = {
     backgroundDark: 'transparent',
     borderColor: '#1AAB9B',
     borderColorDark: '#1AAB9B',
-  },
-  PrimaryMobile: {
-    textColor: '#098C7D',
-    textColorDark: '#1AAB9B',
-    background: 'transparent',
-    backgroundDark: 'transparent',
-    borderColor: '#098C7D',
-    borderColorDark: '#1AAB9B',
+    borderColorMobile: '#1AAB9B',
+    borderColorMobileDark: ' #098C7D',
   },
   Danger: {
     textColor: '#F77249',
@@ -77,9 +75,11 @@ const customStyles: { [id: string]: any } = {
     activeColorText: '#F77249',
     activeBackground: '#FDEDE8',
     activeBorderColor: '#F77249',
-    activeColorTextDark: '#FF8237',
+    activeColorTextDark: '#A83815',
     activeBackgroundDark: '#FDEDE8',
     activeBorderColorDark: '#F77249',
+    borderColorMobile: '#F77249',
+    borderColorMobileDark: '#FF8237',
   },
 };
 
@@ -87,7 +87,7 @@ export const CustomButton = ({
   isHightLight = false,
   buttonType = ButtonType.Default,
   allowsHover = true,
-  active,
+  active = false,
   withIcon = false,
   fill,
   height,
@@ -96,7 +96,7 @@ export const CustomButton = ({
   padding = '15px 16px',
   ...props
 }: CustomButtonProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <Container
       padding={padding}
@@ -117,30 +117,28 @@ export const CustomButton = ({
           ? customStyles[buttonType].activeBackgroundDark
           : customStyles[buttonType].backgroundDark,
         borderColor: isLight
+          ? allowsHover
+            ? active
+              ? customStyles[buttonType].activeBorderColor
+              : customStyles[buttonType]?.borderColor
+            : customStyles[buttonType].borderColorMobile
+          : allowsHover
           ? active
-            ? customStyles[buttonType].activeBorderColor
-            : customStyles[buttonType]?.borderColor
-          : active
-          ? customStyles[buttonType].activeBorderColorDark
-          : customStyles[buttonType]?.borderColorDark,
+            ? customStyles[buttonType].activeBorderColorDark
+            : customStyles[buttonType]?.borderColorDark
+          : customStyles[buttonType].borderColorMobileDark,
         ...props.style,
       }}
       isHightLight={isHightLight}
     >
       <Text
+        disabled={props.disabled}
+        allowsHover={allowsHover}
+        active={active}
+        buttonType={buttonType}
+        isLight={isLight}
         width={props.widthText}
         style={{
-          color: isLight
-            ? props.disabled
-              ? ' #9FAFB9'
-              : active
-              ? customStyles[buttonType].activeColorText
-              : customStyles[buttonType].textColor
-            : props.disabled
-            ? '#48495F'
-            : active
-            ? customStyles[buttonType].activeColorTextDark
-            : customStyles[buttonType].textColorDark,
           ...props.styleText,
         }}
       >
@@ -197,7 +195,9 @@ const Container = styled.button<{
           : buttonType === ButtonType.Primary
           ? '#027265'
           : buttonType === ButtonType.Default
-          ? '##1AAB9B'
+          ? '#1AAB9B'
+          : buttonType === ButtonType.Danger
+          ? '#CB3A0D'
           : '#027265',
         background: isLight
           ? buttonType === ButtonType.Default
@@ -221,7 +221,15 @@ const Container = styled.button<{
   ...(styles ?? {}),
 }));
 
-const Text = styled.div<{ width?: string }>(({ width = 'fit-content' }) => ({
+const Text = styled.div<{
+  width?: string;
+  isLight: boolean;
+  buttonType: ButtonType;
+  active: boolean;
+  allowsHover: boolean;
+  style: CSSProperties;
+  disabled?: boolean;
+}>(({ width = 'fit-content', isLight, buttonType, active, allowsHover, style, disabled = false }) => ({
   fontSize: '14px',
   lineHeight: '18px',
   fontFamily: 'Inter, sans-serif',
@@ -229,6 +237,45 @@ const Text = styled.div<{ width?: string }>(({ width = 'fit-content' }) => ({
   fontWeight: 500,
   whiteSpace: 'nowrap',
   width,
+  color: isLight
+    ? disabled
+      ? ' #9FAFB9'
+      : active
+      ? customStyles[buttonType].activeColorText
+      : customStyles[buttonType].textColor
+    : disabled
+    ? '#48495F'
+    : active
+    ? customStyles[buttonType].activeColorTextDark
+    : customStyles[buttonType].textColorDark,
+  '&:hover:not(:disabled)': allowsHover
+    ? {
+        color: isLight
+          ? buttonType === ButtonType.Default
+            ? active
+              ? '#1AAB9B'
+              : '#231536'
+            : buttonType === ButtonType.Danger
+            ? active
+              ? '#F75524'
+              : '#FAB6A1'
+            : buttonType === ButtonType.Primary
+            ? '#1AAB9B'
+            : '#098C7D'
+          : buttonType === ButtonType.Default
+          ? active
+            ? '#1AAB9B'
+            : '#E2D8EE'
+          : buttonType === ButtonType.Danger
+          ? active
+            ? '#EB4714'
+            : '#A83815'
+          : buttonType === ButtonType.Primary
+          ? '#1AAB9B'
+          : '#098C7D',
+      }
+    : undefined,
+  ...(style ?? {}),
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     lineHeight: '18px',
   },
