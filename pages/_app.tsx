@@ -18,6 +18,7 @@ import { CookiesProvider, useCookies } from 'react-cookie';
 import { AuthContextProvider } from '../src/core/context/AuthContext';
 import { getAuthFromStorage } from '../src/core/utils/auth-storage';
 import { ContainerNotification } from '../src/stories/components/notification/notification';
+import AppLayout from '../src/stories/containers/layout/layout';
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -60,7 +61,9 @@ function MyApp(props: MyAppProps) {
             <ThemeProvider>
               <SEOHead title="MakerDAO - Dashboard" description="" />
               <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
-                <Component {...pageProps} />
+                <AppLayout>
+                  <Component {...pageProps} />
+                </AppLayout>
                 <ContainerNotification limit={3} />
               </FeatureFlagsProvider>
             </ThemeProvider>

@@ -2,13 +2,7 @@ import { CssBaseline, ThemeProvider as MuiThemeProvider } from '@mui/material';
 import { createContext, ReactNode, useContext, useMemo, useEffect } from 'react';
 import darkTheme from '../../../styles/theme/dark';
 import lightTheme from '../../../styles/theme/light';
-import styled from '@emotion/styled';
-import Footer from '../../stories/components/footer/footer';
-import { developer, governesses, products } from '../../stories/components/footer/iconsData';
-import Header from '../../stories/components/header/header';
-import { itemsWebSiteLinks } from '../../stories/components/header/select-link-website/menu-items';
 import useThemeMode from '../hooks/useThemeMode';
-import MainWrapper from './MainWrapper';
 import { ThemeType } from '../enums/theme.enum';
 
 export type ThemeMode = ThemeType;
@@ -49,21 +43,11 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
       }}
     >
       <MuiThemeProvider theme={theme}>
-        {themeMode !== undefined && <Header links={itemsWebSiteLinks} />}
-        <Container>
-          <CssBaseline />
-          <MainWrapper>{children}</MainWrapper>
-        </Container>
-        {themeMode !== undefined && <Footer developer={developer} governesses={governesses} products={products} />}
+        <CssBaseline />
+        {children}
       </MuiThemeProvider>
     </ThemeContext.Provider>
   );
 };
 
 export { useThemeContext, ThemeProvider };
-
-const Container = styled.div({
-  display: 'flex',
-  background: 'white',
-  minHeight: 'calc(100vh - 320px)',
-});

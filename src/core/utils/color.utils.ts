@@ -1,5 +1,6 @@
 import { CuCategoryEnum } from '../enums/cu-category.enum';
 import { CuJobEnum } from '../enums/cu-job.enum';
+import { ExpenseReportStatus } from '../enums/expense-reports-status.enum';
 
 import { UserDTO } from '../models/dto/auth.dto';
 import { getCorrectRoleApi } from './string.utils';
@@ -150,6 +151,42 @@ export const getColorRole = (user: UserDTO) => {
       return {
         color: '#000000',
         darkColor: '#447AFB',
+      };
+  }
+};
+
+export const getExpenseReportStatusColor = (
+  variant: ExpenseReportStatus
+): { color: string; background: string; darkColor: string; darkBackground: string } => {
+  switch (variant) {
+    case ExpenseReportStatus.Review:
+      return {
+        color: '#F08B04',
+        darkColor: '#F08B04',
+        background: '#FFF9ED',
+        darkBackground: '#533905',
+      };
+    case ExpenseReportStatus.Final:
+      return {
+        color: '#1AAB9B',
+        darkColor: '#1AAB9B',
+        background: '#E7FCFA',
+        darkBackground: '#044942',
+      };
+    case ExpenseReportStatus.Escalated:
+      return {
+        color: '#EB4714',
+        darkColor: '#EB4714',
+        background: '#FDEDE8',
+        darkBackground: '#481403',
+      };
+
+    default: // default to draft
+      return {
+        color: '#447AFB',
+        darkColor: '#447AFB',
+        background: '#EDF2FF',
+        darkBackground: '#061D58',
       };
   }
 };

@@ -5,6 +5,7 @@ import Comments from '../../../components/svg/comments';
 import CommentItem from './comment-item';
 import { Dictionary } from 'lodash';
 import { CommentsDto } from '../../../../core/models/dto/core-unit.dto';
+import AuditorCommentsContainer from '../transparency-auditor-comments/auditor-comments-container';
 
 interface Props {
   comments: Dictionary<CommentsDto[]>;
@@ -12,6 +13,8 @@ interface Props {
 }
 export const ListItemsComments = ({ comments, code }: Props) => {
   const { isLight } = useThemeContext();
+
+  return <AuditorCommentsContainer />;
 
   return (
     <Container>
