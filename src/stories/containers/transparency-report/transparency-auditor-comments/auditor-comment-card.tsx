@@ -1,12 +1,12 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { ExpenseReportStatus } from '../../../../core/enums/expense-reports-status.enum';
 import ExpenseReportStatusBtn from './expense-report-status-label';
-import { getExpenseReportStatusColor } from '../../../../core/utils/color.utils';
 import Markdown from 'marked-react';
 import { customRenderer, customRendererDark } from '../../../components/markdown/renderUtils';
 import lightTheme from '../../../../../styles/theme/light';
+import GenericCommentCard from './generic-comment-card';
 
 export type AuditorCommentCardProps = {
   variant: ExpenseReportStatus;
@@ -20,12 +20,9 @@ const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({
   commentDescription,
 }) => {
   const { isLight } = useThemeContext();
-  const variantColor = useMemo(() => {
-    return getExpenseReportStatusColor(variant);
-  }, [variant]);
 
   return (
-    <CommentCard isLight={isLight} variantColorSet={variantColor}>
+    <GenericCommentCard variant={variant}>
       <CommentHeader hasComment={!!commentDescription}>
         <CommentInfo isLight={isLight} isInline={!hasStatusLabel}>
           {hasStatusLabel && (
@@ -45,53 +42,24 @@ const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({
           <Markdown value={commentDescription} renderer={isLight ? customRenderer : customRendererDark} />
         </CommentMessage>
       )}
-    </CommentCard>
+    </GenericCommentCard>
   );
 };
 
 export default AuditorCommentCard;
 
-const CommentCard = styled.div<{ isLight: boolean; variantColorSet: { [key: string]: string } }>(
-  ({ isLight, variantColorSet }) => ({
-    display: 'flex',
-    flexWrap: 'wrap',
-    position: 'relative',
-    marginBottom: 32,
-    background: isLight ? '#FFFFFF' : '#10191F',
-    borderRadius: 6,
-    boxShadow: isLight
-      ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-      : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
-
-    '&::before': {
-      content: '""',
-      position: 'absolute',
-      borderRadius: 6,
-      top: 0,
-      left: 0,
-      width: 2,
-      height: '100%',
-      background: isLight ? variantColorSet.color : variantColorSet.darkColor,
-
-      [lightTheme.breakpoints.up('table_834')]: {
-        width: 8,
-      },
-    },
-  })
-);
-
 const CommentHeader = styled.div<{ hasComment: boolean }>(({ hasComment = false }) => ({
   display: 'flex',
   flexWrap: 'wrap',
-  padding: `16px 16px ${hasComment ? '0' : '16px'} 18px`,
+  padding: `16px 16px ${hasComment ? '0' : '16px'} 16px`,
   width: '100%',
 
   [lightTheme.breakpoints.up('table_834')]: {
-    padding: `24px 16px ${hasComment ? '0' : '24px'} 32px`,
+    padding: `24px 16px ${hasComment ? '0' : '24px'} 16px`,
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    padding: `24px 32px ${hasComment ? '0' : '24px'} 40px`,
+    padding: `24px 32px ${hasComment ? '0' : '24px'} 32px`,
   },
 }));
 
@@ -164,7 +132,7 @@ const CommentMessage = styled.div({
   width: '100%',
   marginTop: 16,
   borderTop: '1px solid #D4D9E1',
-  padding: '16px 16px 24px 18px',
+  padding: '16px 16px 24px',
 
   '& > *:first-child': {
     marginTop: '0',
@@ -174,8 +142,8 @@ const CommentMessage = styled.div({
     paddingLeft: 14,
   },
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     marginTop: 24,
-    padding: '16px 32px 24px 40px',
+    padding: '16px 32px 24px',
   },
 });

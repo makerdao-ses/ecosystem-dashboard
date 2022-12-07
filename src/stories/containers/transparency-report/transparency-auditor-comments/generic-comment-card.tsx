@@ -1,0 +1,60 @@
+import React, { useMemo } from 'react';
+import styled from '@emotion/styled';
+import { ExpenseReportStatus } from '../../../../core/enums/expense-reports-status.enum';
+import { useThemeContext } from '../../../../core/context/ThemeContext';
+import { getExpenseReportStatusColor } from '../../../../core/utils/color.utils';
+import lightTheme from '../../../../../styles/theme/light';
+
+export type GenericCommentCardProps = {
+  variant?: ExpenseReportStatus;
+  children: React.ReactNode;
+};
+
+const GenericCommentCard: React.FC<GenericCommentCardProps> = ({ variant = ExpenseReportStatus.Draft, children }) => {
+  const { isLight } = useThemeContext();
+  const variantColor = useMemo(() => {
+    return getExpenseReportStatusColor(variant);
+  }, [variant]);
+
+  return (
+    <CommentCard isLight={isLight} variantColorSet={variantColor}>
+      {children}
+    </CommentCard>
+  );
+};
+
+export default GenericCommentCard;
+
+const CommentCard = styled.div<{ isLight: boolean; variantColorSet: { [key: string]: string } }>(
+  ({ isLight, variantColorSet }) => ({
+    display: 'flex',
+    flexWrap: 'wrap',
+    position: 'relative',
+    marginBottom: 32,
+    background: isLight ? '#FFFFFF' : '#10191F',
+    borderRadius: 6,
+    boxShadow: isLight
+      ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+      : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
+    paddingLeft: 2,
+
+    [lightTheme.breakpoints.up('table_834')]: {
+      paddingLeft: 8,
+    },
+
+    '&::before': {
+      content: '""',
+      position: 'absolute',
+      borderRadius: 6,
+      top: 0,
+      left: 0,
+      width: 2,
+      height: '100%',
+      background: isLight ? variantColorSet.color : variantColorSet.darkColor,
+
+      [lightTheme.breakpoints.up('table_834')]: {
+        width: 8,
+      },
+    },
+  })
+);
