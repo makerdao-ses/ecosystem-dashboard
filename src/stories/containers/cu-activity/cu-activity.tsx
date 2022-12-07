@@ -78,22 +78,42 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
-  padding: '0 16px 79px',
+  paddingBottom: '79px',
 
   [lightTheme.breakpoints.up('table_834')]: {
-    padding: '0 32px 128px',
+    paddingBottom: '128px',
   },
 }));
 
 const InnerPage = styled.div({
   display: 'block',
-  margin: '24px auto 0',
-  width: '100%',
-  maxWidth: '1184px',
   textAlign: 'left',
+  width: '100%',
+  maxWidth: '1440px',
+  margin: '0 auto',
+  paddingTop: 24,
+  paddingRight: '64px',
+  paddingLeft: '64px',
 
+  [lightTheme.breakpoints.up('desktop_1920')]: {
+    maxWidth: '1312px',
+    paddingRight: '0px',
+    paddingLeft: '0px',
+  },
+  [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
+    paddingRight: '48px',
+    paddingLeft: '48px',
+  },
+  [lightTheme.breakpoints.between('table_834', 'desktop_1280')]: {
+    paddingRight: '32px',
+    paddingLeft: '32px',
+  },
   [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: '32px',
+    paddingTop: 32,
+  },
+  [lightTheme.breakpoints.down('table_834')]: {
+    paddingRight: '16px',
+    paddingLeft: '16px',
   },
 });
 

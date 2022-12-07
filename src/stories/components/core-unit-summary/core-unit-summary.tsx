@@ -207,18 +207,14 @@ const ContainerTitle = styled.div<{ hiddenTextDescription: boolean }>(({ hiddenT
   flexDirection: 'column',
   width: '100%',
   height: 'fit-content',
-
   transition: 'all .3s ease',
   paddingTop: '8px',
+
   [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
     paddingLeft: '48px',
     paddingRight: '48px',
   },
-  [lightTheme.breakpoints.between('desktop_1194', 'desktop_1280')]: {
-    paddingLeft: '27px',
-    paddingRight: '27px',
-  },
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [lightTheme.breakpoints.between('table_834', 'desktop_1280')]: {
     paddingLeft: '32px',
     paddingRight: '32px',
   },
@@ -243,10 +239,10 @@ const Wrapper = styled.div({
   flexDirection: 'column',
   alignItems: 'center',
   width: '100%',
-  maxWidth: '1184px',
+  maxWidth: '100%',
   margin: '0 auto',
-  [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
-    maxWidth: '100%',
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    maxWidth: '1312px',
   },
 });
 

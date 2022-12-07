@@ -364,8 +364,8 @@ const ContainerAllData = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
-  marginRight: '128px',
-  marginLeft: '128px',
+  marginRight: '64px',
+  marginLeft: '64px',
   [lightTheme.breakpoints.up('desktop_1920')]: {
     marginRight: '0px',
     marginLeft: '0px',
@@ -374,19 +374,11 @@ const ContainerAllData = styled.div({
     marginRight: '48px',
     marginLeft: '48px',
   },
-  [lightTheme.breakpoints.between('desktop_1194', 'desktop_1280')]: {
+  [lightTheme.breakpoints.between('table_834', 'desktop_1280')]: {
     marginRight: '32px',
     marginLeft: '32px',
   },
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    marginRight: '32px',
-    marginLeft: '32px',
-  },
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-    marginRight: '16px',
-    marginLeft: '16px',
-  },
-  [lightTheme.breakpoints.down('table_375')]: {
+  [lightTheme.breakpoints.down('table_834')]: {
     marginRight: '16px',
     marginLeft: '16px',
   },
@@ -412,8 +404,9 @@ const Wrapper = styled.div({
   width: '100%',
   maxWidth: '1440px',
   margin: '0 auto',
+
   [lightTheme.breakpoints.up('desktop_1920')]: {
-    maxWidth: '1184px',
+    maxWidth: '1312px',
     marginLeft: '0px',
     marginRight: '0px',
     margin: '0 auto',
@@ -431,13 +424,7 @@ const ContainerResponsive = styled.div({
   width: '60.39%',
   display: 'flex',
   flexDirection: 'column',
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    width: '100%',
-  },
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-    width: '100%',
-  },
-  [lightTheme.breakpoints.down('table_375')]: {
+  [lightTheme.breakpoints.down('desktop_1194')]: {
     width: '100%',
   },
 });
