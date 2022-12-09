@@ -95,6 +95,9 @@ const dictionary = [
   'Toastify',
   'Repos',
   'revalidate',
+  'mousedown',
+  'textarea',
+  'resize',
 ];
 
 module.exports = dictionary;

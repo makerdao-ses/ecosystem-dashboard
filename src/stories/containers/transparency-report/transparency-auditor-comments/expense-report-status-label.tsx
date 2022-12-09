@@ -6,8 +6,12 @@ import { getExpenseReportStatusColor } from '../../../../core/utils/color.utils'
 
 export type ExpenseReportStatusBtnProps = {
   variant: ExpenseReportStatus;
-};
-const ExpenseReportStatusBtn: React.FC<ExpenseReportStatusBtnProps> = ({ variant = ExpenseReportStatus.Draft }) => {
+} & React.HTMLAttributes<HTMLDivElement>;
+
+const ExpenseReportStatusBtn: React.FC<ExpenseReportStatusBtnProps> = ({
+  variant = ExpenseReportStatus.Draft,
+  ...rest
+}) => {
   const { isLight } = useThemeContext();
   const label = useMemo(() => {
     return getExpenseReportStatusLabel(variant);
@@ -17,7 +21,7 @@ const ExpenseReportStatusBtn: React.FC<ExpenseReportStatusBtnProps> = ({ variant
   }, [variant]);
 
   return (
-    <ExpenseReportStatusStyled isLight={isLight} variantColorSet={variantColor}>
+    <ExpenseReportStatusStyled isLight={isLight} variantColorSet={variantColor} {...rest}>
       {label}
     </ExpenseReportStatusStyled>
   );

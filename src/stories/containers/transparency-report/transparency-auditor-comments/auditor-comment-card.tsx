@@ -7,6 +7,7 @@ import Markdown from 'marked-react';
 import { customRenderer, customRendererDark } from '../../../components/markdown/renderUtils';
 import lightTheme from '../../../../../styles/theme/light';
 import GenericCommentCard from './generic-comment-card';
+import { useMediaQuery } from '@mui/material';
 
 export type AuditorCommentCardProps = {
   variant: ExpenseReportStatus;
@@ -20,25 +21,34 @@ const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({
   commentDescription,
 }) => {
   const { isLight } = useThemeContext();
+  const isTablet = useMediaQuery(lightTheme.breakpoints.down('table_834'));
 
   return (
     <GenericCommentCard variant={variant}>
       <CommentHeader hasComment={!!commentDescription}>
-        <CommentInfo isLight={isLight} isInline={!hasStatusLabel}>
+        <CommentInfo isLight={isLight}>
           {hasStatusLabel && (
             <StatusLabelWrapper>
               <ExpenseReportStatusBtn variant={variant} />
             </StatusLabelWrapper>
           )}
-          <MobileColumn>
-            <Username>Wkampamn</Username>
-            <UserRole isInline={!hasStatusLabel}>SES Core Unit</UserRole>
-          </MobileColumn>
-          <ActionAndDate>submitted on 17-oct-2022 12:32 UTC</ActionAndDate>
+          {isTablet && hasStatusLabel ? (
+            <>
+              <MobileColumn>
+                <Username>Wkampamn</Username>
+                <UserRole isLight={isLight}>SES Core Unit</UserRole>
+              </MobileColumn>
+              <ActionAndDate>submitted on 17-oct-2022 12:32 UTC</ActionAndDate>
+            </>
+          ) : (
+            <Text isLight={isLight}>
+              Wkampamn <span>SES Core Unit</span> submitted on 17-oct-2022 12:32 UTC
+            </Text>
+          )}
         </CommentInfo>
       </CommentHeader>
       {commentDescription && (
-        <CommentMessage>
+        <CommentMessage isLight={isLight}>
           <Markdown value={commentDescription} renderer={isLight ? customRenderer : customRendererDark} />
         </CommentMessage>
       )}
@@ -69,51 +79,47 @@ const StatusLabelWrapper = styled.div({
   },
 });
 
+const Text = styled.span<{ isLight: boolean }>(({ isLight }) => ({
+  color: isLight ? '#708390' : '#546978',
+
+  '& span': {
+    color: isLight ? '#231536' : '#D2D4EF',
+  },
+}));
+
 const MobileColumn = styled.div({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-end',
-
-  [lightTheme.breakpoints.up('table_834')]: {
-    flexDirection: 'row',
-    alignItems: 'normal',
-  },
 });
 
-const CommentInfo = styled.div<{ isLight: boolean; isInline: boolean }>(({ isLight, isInline }) => ({
-  ...(isInline
-    ? {
-        display: 'inline',
-        '& div': {
-          display: 'inline',
-        },
-      }
-    : {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-      }),
+const CommentInfo = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: '12px',
   fontWeight: 600,
   lineHeight: '15px',
   color: isLight ? '#708390' : '#546978',
   textTransform: 'uppercase',
   width: '100%',
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
 
   [lightTheme.breakpoints.up('table_834')]: {
     width: 'auto',
   },
+
+  [lightTheme.breakpoints.down('table_834')]: {
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
 }));
 
 const Username = styled.div({
-  // this is just being used for readability purposes
+  // this is being used just for readability purposes
 });
 
-const UserRole = styled.div<{ isInline: boolean }>(({ isInline = false }) => ({
-  color: '#231536',
-  ...(isInline && { margin: '0 3px' }),
+const UserRole = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  color: isLight ? '#231536' : '#D2D4EF',
 
   [lightTheme.breakpoints.up('table_834')]: {
     margin: '0 3px',
@@ -122,19 +128,20 @@ const UserRole = styled.div<{ isInline: boolean }>(({ isInline = false }) => ({
 
 const ActionAndDate = styled.div({
   marginTop: 16,
+  width: '100%',
 
   [lightTheme.breakpoints.up('table_834')]: {
     marginTop: 0,
   },
 });
 
-const CommentMessage = styled.div({
+const CommentMessage = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   width: '100%',
   marginTop: 16,
-  borderTop: '1px solid #D4D9E1',
+  borderTop: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
   padding: '16px 16px 24px',
 
-  '& > *:first-child': {
+  '& > *:first-of-type': {
     marginTop: '0',
   },
 
@@ -146,4 +153,4 @@ const CommentMessage = styled.div({
     marginTop: 24,
     padding: '16px 32px 24px',
   },
-});
+}));

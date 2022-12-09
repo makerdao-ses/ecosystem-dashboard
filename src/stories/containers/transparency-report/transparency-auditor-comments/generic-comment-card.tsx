@@ -27,8 +27,8 @@ export default GenericCommentCard;
 
 const CommentCard = styled.div<{ isLight: boolean; variantColorSet: { [key: string]: string } }>(
   ({ isLight, variantColorSet }) => ({
-    display: 'flex',
-    flexWrap: 'wrap',
+    // display: 'flex',
+    // flexWrap: 'wrap',
     position: 'relative',
     marginBottom: 32,
     background: isLight ? '#FFFFFF' : '#10191F',

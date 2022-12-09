@@ -9,24 +9,24 @@ const ParticipantRoles: React.FC = () => {
 
   return (
     <ParticipantContainer>
-      <Title>Participant Roles</Title>
+      <Title isLight={isLight}>Participant Roles</Title>
       <Card isLight={isLight}>
         <RoleSection>
-          <RoleName>SES Core Unit</RoleName>
+          <RoleName isLight={isLight}>SES Core Unit</RoleName>
           <Username>
             <AvatarPlaceholder width={24} height={24} />
-            <Text>Wkampmann</Text>
+            <Text isLight={isLight}>Wkampmann</Text>
           </Username>
         </RoleSection>
         <RoleSection>
-          <RoleName>Auditor</RoleName>
+          <RoleName isLight={isLight}>Auditor</RoleName>
           <Username>
             <AvatarPlaceholder width={24} height={24} />
-            <Text>P_Rose</Text>
+            <Text isLight={isLight}>P_Rose</Text>
           </Username>
           <Username>
             <AvatarPlaceholder width={24} height={24} />
-            <Text>C-27</Text>
+            <Text isLight={isLight}>C-27</Text>
           </Username>
         </RoleSection>
       </Card>
@@ -38,16 +38,20 @@ export default ParticipantRoles;
 
 const ParticipantContainer = styled.div({});
 
-const Title = styled.div({
+type StyledThemeProps = {
+  isLight: boolean;
+};
+
+const Title = styled.div<StyledThemeProps>(({ isLight }) => ({
   fontSize: 16,
   fontWeight: 700,
   lineHeight: '19px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   marginBottom: 32,
-});
+}));
 
 const Card = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  background: '#FFFFFF',
+  background: isLight ? '#FFFFFF' : '#10191F',
   boxShadow: isLight
     ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
     : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
@@ -65,13 +69,13 @@ const RoleSection = styled.div({
   },
 });
 
-const RoleName = styled.div({
+const RoleName = styled.div<StyledThemeProps>(({ isLight }) => ({
   fontSize: 14,
   fontWeight: 400,
   lineHeight: '22px',
-  color: '#9FAFB9',
+  color: isLight ? '#9FAFB9' : '#546978',
   marginBottom: 16,
-});
+}));
 
 const Username = styled.div({
   display: 'flex',
@@ -81,10 +85,10 @@ const Username = styled.div({
   },
 });
 
-const Text = styled.div({
+const Text = styled.div<StyledThemeProps>(({ isLight }) => ({
   marginLeft: 8,
   fontSize: 16,
   fontWeight: 700,
   lineHeight: '19px',
-  color: '#231536',
-});
+  color: isLight ? '#231536' : '#D2D4EF',
+}));
