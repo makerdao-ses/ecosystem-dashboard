@@ -360,9 +360,7 @@ export const getAllCommentsBudgetStatementLine = (budgetStatement?: BudgetStatem
     if (commentItem.comment !== '') {
       const itemComment: CommentsDto = {
         month: DateTime.fromISO(commentItem.timestamp).toFormat('dd-MMM-y'),
-        comment: commentItem.comment,
-        timestamp: commentItem.timestamp,
-        commentAuthor: commentItem.commentAuthor,
+        ...commentItem,
       };
       commentsResult.push(itemComment);
     }
