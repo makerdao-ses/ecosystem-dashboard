@@ -17,7 +17,7 @@ const CommentItem = ({ comment, code }: Props) => {
       <UTCDate isLight={isLight}>
         {`Comment on ${DateTime.fromISO(comment.timestamp ?? '')
           .setZone('UTC')
-          .toFormat('dd-LLL-y T ZZZZ')} by ${comment.commentAuthor[0].name || code}`}
+          .toFormat('dd-LLL-y T ZZZZ')} by ${comment.authorId || code}`}
       </UTCDate>
       <Line isLight={isLight} />
       <ContainerCommentDate>

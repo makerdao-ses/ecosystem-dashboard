@@ -5,20 +5,27 @@ export const CORE_UNIT_REQUEST = (shortCode: string) => ({
     query CoreUnit($filter: CoreUnitFilter) {
       coreUnit(filter: $filter) {
         code
+        shortCode
         sentenceDescription
         name
         image
+        legacyBudgetStatementUrl
+        auditors {
+          id
+          username
+        }
         budgetStatements {
           id
           month
-          budgetStatus
+          status
           publicationUrl
           comments {
+            id
+            budgetStatementId
             timestamp
             comment
-            commentAuthor {
-              name
-            }
+            status
+            authorId
           }
           budgetStatementFTEs {
             month

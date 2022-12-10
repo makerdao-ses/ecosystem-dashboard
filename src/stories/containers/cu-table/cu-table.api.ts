@@ -63,7 +63,7 @@ export const GETCoreUnits = gql`
           month
           ftes
         }
-        budgetStatus
+        status
         budgetStatementWallet {
           budgetStatementLineItem {
             actual

@@ -1,5 +1,9 @@
-import { BudgetStatementDto, BudgetStatementFteDto, BudgetStatementWalletDto } from '../../models/dto/core-unit.dto';
-import { BudgetStatusEnum } from '../../enums/budget-status.enum';
+import {
+  BudgetStatementDto,
+  BudgetStatementFteDto,
+  BudgetStatementWalletDto,
+  BudgetStatus,
+} from '../../models/dto/core-unit.dto';
 
 export class BudgetStatementBuilder {
   private readonly _budgetStatement: BudgetStatementDto;
@@ -9,7 +13,7 @@ export class BudgetStatementBuilder {
       month: '',
       budgetStatementFTEs: [] as BudgetStatementFteDto[],
       budgetStatementWallet: [] as BudgetStatementWalletDto[],
-      budgetStatus: BudgetStatusEnum.Draft,
+      status: BudgetStatus.Draft,
       publicationUrl: '',
     } as BudgetStatementDto;
   }
@@ -19,8 +23,8 @@ export class BudgetStatementBuilder {
     return this;
   }
 
-  withBudgetStatus(budgetStatus: string): BudgetStatementBuilder {
-    this._budgetStatement.budgetStatus = budgetStatus;
+  withBudgetStatus(status: BudgetStatus): BudgetStatementBuilder {
+    this._budgetStatement.status = status;
     return this;
   }
 
