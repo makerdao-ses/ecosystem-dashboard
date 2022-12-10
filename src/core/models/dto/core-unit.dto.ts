@@ -100,10 +100,19 @@ export interface AuditReportDto {
   timestamp: string;
 }
 
+export enum BudgetStatus {
+  Draft = 'Draft',
+  Review = 'Review',
+  Escalated = 'Escalated',
+  Final = 'Final',
+}
 export interface CommentsBudgetStatementDto {
+  id: string;
+  budgetStatementId: string;
   timestamp: string;
   comment: string;
-  commentAuthor: { name: string }[];
+  authorId: string;
+  status: BudgetStatus;
 }
 export type CommentsDto = Required<CommentsBudgetStatementDto> & {
   month: string;
@@ -112,7 +121,7 @@ export type CommentsDto = Required<CommentsBudgetStatementDto> & {
 export interface BudgetStatementDto {
   id: number;
   month: string;
-  budgetStatus: string;
+  status: BudgetStatus;
   publicationUrl: string;
   comments: CommentsBudgetStatementDto[];
   budgetStatementFTEs: BudgetStatementFteDto[];
@@ -158,6 +167,11 @@ export interface RoadMapDto {
   roadmapStatus: string;
 }
 
+export interface AuditorDto {
+  id: string;
+  username: string;
+}
+
 export interface CoreUnitDto {
   id: string;
   shortCode: string;
@@ -168,6 +182,8 @@ export interface CoreUnitDto {
   paragraphDescription: string;
   paragraphImage: string;
   category: string[];
+  legacyBudgetStatementUrl?: string;
+  auditors: AuditorDto[];
   cuMip: CuMipDto[];
   roadMap: RoadMapDto[];
   activityFeed: ActivityFeedDto[];

@@ -11,7 +11,6 @@ import { TransparencyAudit } from './transparency-audit/transparency-audit';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
-import { getShortCode } from '../../../core/utils/string.utils';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SEOHead } from '../../components/seo-head/seo-head';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
@@ -93,9 +92,26 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
           </Title>
 
           <Paragraph isLight={isLight}>
-            Every month, the {getShortCode(code)} Core Unit submits a transparency report for MakerDAO governance with a
-            detailed budget update. If the core unit works with an auditor, the transparency report is reviewed by the
-            auditor before the core unit's operational wallet is topped up to replenish its runway.
+            {coreUnit.auditors.length === 0 ? (
+              <div>
+                Every month, the {coreUnit.shortCode} Core Unit submits an Expense Report to MakerDAO governance with a
+                detailed budget update. The Core Unit works <b>without auditor</b>, submitting its reports directly to
+                the community.
+              </div>
+            ) : (
+              <div>
+                Every month, the {coreUnit.shortCode} Core Unit submits an Expense Report to MakerDAO governance with a
+                detailed budget update. The Core Unit's reports are reviewed by auditor
+                {coreUnit.auditors.length > 1 ? 's' : ''}{' '}
+                {coreUnit.auditors.map((auditor, index, array) => (
+                  <span>
+                    <b>{auditor.username}</b>
+                    {array.length > 1 ? (index !== array.length - 1 ? ', ' : ' and ') : ''}
+                  </span>
+                ))}{' '}
+                before they are marked as final.
+              </div>
+            )}
             <p style={{ marginBottom: 0 }}>
               <span>Is this your core unit? Learn</span>
               <CustomLink
@@ -110,6 +126,22 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
                 how to submit your expenses here
               </CustomLink>
             </p>
+            {coreUnit.legacyBudgetStatementUrl && (
+              <p style={{ marginBottom: 0 }}>
+                <span>Legacy expense reports can be found</span>
+                <CustomLink
+                  fontWeight={500}
+                  href={coreUnit.legacyBudgetStatementUrl}
+                  iconHeight={10}
+                  iconWidth={10}
+                  fontSize={16}
+                  fontSizeMobile={14}
+                  fontFamily={'Inter, sans-serif'}
+                >
+                  here
+                </CustomLink>
+              </p>
+            )}
           </Paragraph>
 
           <PagerBar className="no-select" ref={transparencyTableRef}>
