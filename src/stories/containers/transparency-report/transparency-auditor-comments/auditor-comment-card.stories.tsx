@@ -1,15 +1,15 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import AuditorCommentCard from './auditor-comment-card';
-import { ExpenseReportStatus } from '../../../../core/enums/expense-reports-status.enum';
+import { BudgetStatus } from '../../../../core/models/dto/core-unit.dto';
 
 export default {
   title: 'Components/AuditorComments/CommentCard',
   component: AuditorCommentCard,
   argTypes: {
-    variant: {
-      defaultValue: ExpenseReportStatus.Draft,
-      options: ExpenseReportStatus,
+    status: {
+      defaultValue: BudgetStatus.Draft,
+      options: BudgetStatus,
       control: { type: 'select' },
     },
     hasStatusLabel: {

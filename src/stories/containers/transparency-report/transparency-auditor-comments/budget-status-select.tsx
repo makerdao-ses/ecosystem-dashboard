@@ -1,23 +1,32 @@
 import React, { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import styled from '@emotion/styled';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { ExpenseReportStatus } from '../../../../core/enums/expense-reports-status.enum';
-import ExpenseReportStatusBtn from './expense-report-status-label';
+import ExpenseReportStatus from '../common/expense-report-status/expense-report-status';
+import { BudgetStatus } from '../../../../core/models/dto/core-unit.dto';
 
 export type BudgetStatusSelectProps = {
-  availableStatuses?: ExpenseReportStatus[];
+  availableStatuses?: BudgetStatus[];
+  onChangeStatus?: (status: BudgetStatus) => void;
 };
 
-const BudgetStatusSelect: React.FC<BudgetStatusSelectProps> = ({ availableStatuses }) => {
+const BudgetStatusSelect: React.FC<BudgetStatusSelectProps> = ({ availableStatuses, onChangeStatus }) => {
   const { isLight } = useThemeContext();
   const menuRef = useRef<HTMLDivElement>(null);
   const [opened, setOpened] = useState<boolean>(false);
-  const statuses = useMemo<ExpenseReportStatus[]>(() => {
-    return availableStatuses || Object.values(ExpenseReportStatus);
+  const statuses = useMemo<BudgetStatus[]>(() => {
+    return availableStatuses || Object.values(BudgetStatus);
   }, [availableStatuses]);
 
-  const [selectedStatus, setSelectedStatus] = useState<ExpenseReportStatus>(() =>
-    statuses.length > 0 ? statuses[0] : ExpenseReportStatus.Draft
+  const [selectedStatus, setSelectedStatus] = useState<BudgetStatus>(() =>
+    statuses.length > 0 ? statuses[0] : BudgetStatus.Draft
+  );
+
+  const selectStatusHandler = useCallback(
+    (status: BudgetStatus) => {
+      setSelectedStatus(status);
+      onChangeStatus?.(status);
+    },
+    [setSelectedStatus, onChangeStatus]
   );
 
   // close menu when clicking outside
@@ -41,7 +50,7 @@ const BudgetStatusSelect: React.FC<BudgetStatusSelectProps> = ({ availableStatus
   return (
     <SelectWrapper ref={menuRef} isLight={isLight} open={opened} onClick={toggleOpenHandler}>
       <SelectControl>
-        <ExpenseReportStatusBtn variant={selectedStatus} />
+        <ExpenseReportStatus status={selectedStatus} />
         <Arrow width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             fillRule="evenodd"
@@ -56,10 +65,10 @@ const BudgetStatusSelect: React.FC<BudgetStatusSelectProps> = ({ availableStatus
           <MenuItem
             key={status}
             isLight={isLight}
-            onClick={() => setSelectedStatus(status)}
+            onClick={() => selectStatusHandler(status)}
             selected={status === selectedStatus}
           >
-            <ExpenseReportStatusBtn variant={status} />
+            <ExpenseReportStatus status={status} />
           </MenuItem>
         ))}
       </Menu>

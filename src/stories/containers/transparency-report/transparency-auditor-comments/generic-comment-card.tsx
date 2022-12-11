@@ -1,16 +1,16 @@
 import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
-import { ExpenseReportStatus } from '../../../../core/enums/expense-reports-status.enum';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { getExpenseReportStatusColor } from '../../../../core/utils/color.utils';
 import lightTheme from '../../../../../styles/theme/light';
+import { BudgetStatus } from '../../../../core/models/dto/core-unit.dto';
 
 export type GenericCommentCardProps = {
-  variant?: ExpenseReportStatus;
+  variant?: BudgetStatus;
   children: React.ReactNode;
 };
 
-const GenericCommentCard: React.FC<GenericCommentCardProps> = ({ variant = ExpenseReportStatus.Draft, children }) => {
+const GenericCommentCard: React.FC<GenericCommentCardProps> = ({ variant = BudgetStatus.Draft, children }) => {
   const { isLight } = useThemeContext();
   const variantColor = useMemo(() => {
     return getExpenseReportStatusColor(variant);

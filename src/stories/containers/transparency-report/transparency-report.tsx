@@ -8,7 +8,7 @@ import { TransparencyForecast } from './transparency-forecast/transparency-forec
 import { TransparencyMkrVesting } from './transparency-mkr-vesting/transparency-mkr-vesting';
 import { TransparencyTransferRequest } from './transparency-transfer-request/transparency-transfer-request';
 import { TransparencyAudit } from './transparency-audit/transparency-audit';
-import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import { BudgetStatus, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
 import { useThemeContext } from '../../../core/context/ThemeContext';
@@ -22,6 +22,7 @@ import { TransparencyMkrVesting2 } from './transparency-mkr-vesting/transparency
 import { TransparencyTransferRequest2 } from './transparency-transfer-request/transparency-transfer-request-2';
 import { TRANSPARENCY_IDS_ENUM, useTransparencyReportViewModel } from './transparency-report.mvvm';
 import { TransparencyComments } from './transparency-comments/transparency-comments';
+import ExpenseReportStatusIndicator from './common/expense-report-status-indicator/expense-report-status-indicator';
 
 interface TransparencyReportProps {
   coreUnits: CoreUnitDto[];
@@ -154,6 +155,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
                 hasPrevious={hasPreviousMonth()}
               />
             </PagerBarLeft>
+            <ExpenseReportStatusIndicator budgetStatus={currentBudgetStatement?.status || BudgetStatus.Draft} />
             <Spacer />
             {lastUpdateForBudgetStatement && (
               <LastUpdate>

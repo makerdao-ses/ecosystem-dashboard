@@ -1,21 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import GenericCommentCard from './generic-comment-card';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
-import BudgetStatusSelect from './BudgetStatusSelect';
+import BudgetStatusSelect from './budget-status-select';
 import lightTheme from '../../../../../styles/theme/light';
 import { useMediaQuery } from '@mui/material';
+import { BudgetStatus } from '../../../../core/models/dto/core-unit.dto';
 
 const CommentForm: React.FC = () => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const [variant, setVariant] = useState<BudgetStatus | undefined>();
+  const handleChangeVariant = (value: BudgetStatus) => {
+    setVariant(value);
+  };
 
   return (
-    <GenericCommentCard>
+    <GenericCommentCard variant={variant}>
       <CommentHeader isLight={isLight}>
         <Select>
-          <BudgetStatusSelect />
+          <BudgetStatusSelect onChangeStatus={handleChangeVariant} />
         </Select>
         <User>
           <Username isLight={isLight}>C_27</Username>

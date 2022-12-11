@@ -1,22 +1,22 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { ExpenseReportStatus } from '../../../../core/enums/expense-reports-status.enum';
-import ExpenseReportStatusBtn from './expense-report-status-label';
+import ExpenseReportStatus from '../common/expense-report-status/expense-report-status';
 import Markdown from 'marked-react';
 import { customRenderer, customRendererDark } from '../../../components/markdown/renderUtils';
 import lightTheme from '../../../../../styles/theme/light';
 import GenericCommentCard from './generic-comment-card';
 import { useMediaQuery } from '@mui/material';
+import { BudgetStatus } from '../../../../core/models/dto/core-unit.dto';
 
 export type AuditorCommentCardProps = {
-  variant: ExpenseReportStatus;
+  status: BudgetStatus;
   hasStatusLabel: boolean;
   commentDescription?: string;
 };
 
 const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({
-  variant = ExpenseReportStatus.Draft,
+  status = BudgetStatus.Draft,
   hasStatusLabel,
   commentDescription,
 }) => {
@@ -24,12 +24,12 @@ const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({
   const isTablet = useMediaQuery(lightTheme.breakpoints.down('table_834'));
 
   return (
-    <GenericCommentCard variant={variant}>
+    <GenericCommentCard variant={status}>
       <CommentHeader hasComment={!!commentDescription}>
         <CommentInfo isLight={isLight}>
           {hasStatusLabel && (
             <StatusLabelWrapper>
-              <ExpenseReportStatusBtn variant={variant} />
+              <ExpenseReportStatus status={status} />
             </StatusLabelWrapper>
           )}
           {isTablet && hasStatusLabel ? (

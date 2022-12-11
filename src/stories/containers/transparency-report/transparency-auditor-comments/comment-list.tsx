@@ -1,29 +1,29 @@
 import React from 'react';
-import { ExpenseReportStatus } from '../../../../core/enums/expense-reports-status.enum';
 import AuditorCommentCard from './auditor-comment-card';
 import CUNewExpenseReport from './cu-new-expense-report';
 import CommentForm from './comment-form';
+import { BudgetStatus } from '../../../../core/models/dto/core-unit.dto';
 
 const AuditorCommentList: React.FC = () => {
   return (
     <div>
-      <AuditorCommentCard variant={ExpenseReportStatus.Draft} hasStatusLabel={true} />
+      <AuditorCommentCard status={BudgetStatus.Draft} hasStatusLabel={true} />
 
       <CUNewExpenseReport />
 
-      <AuditorCommentCard variant={ExpenseReportStatus.Review} hasStatusLabel={true} />
+      <AuditorCommentCard status={BudgetStatus.Review} hasStatusLabel={true} />
       <AuditorCommentCard
-        variant={ExpenseReportStatus.Review}
+        status={BudgetStatus.Review}
         hasStatusLabel={false}
         commentDescription={'Everything looks good, ready for review. '}
       />
-      <AuditorCommentCard variant={ExpenseReportStatus.Final} hasStatusLabel={true} />
+      <AuditorCommentCard status={BudgetStatus.Final} hasStatusLabel={true} />
 
       <CUNewExpenseReport />
 
-      <AuditorCommentCard variant={ExpenseReportStatus.Escalated} hasStatusLabel={true} />
+      <AuditorCommentCard status={BudgetStatus.Escalated} hasStatusLabel={true} />
       <AuditorCommentCard
-        variant={ExpenseReportStatus.Draft}
+        status={BudgetStatus.Draft}
         hasStatusLabel={false}
         commentDescription={
           // eslint-disable-next-line spellcheck/spell-checker
