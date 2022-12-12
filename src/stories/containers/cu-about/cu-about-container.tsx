@@ -93,6 +93,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
             <MarkdownContainer>
               <MdViewerContainer
                 code={cuAbout.code}
+                auditors={cuAbout.auditors}
                 showButton={table834 || phone || LessPhone}
                 sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)}
                 paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)}
