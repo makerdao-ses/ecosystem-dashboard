@@ -15,16 +15,16 @@ export const parameters = {
     },
     viewport: {
         viewports: {
-            table_375: {
-                name: 'table_375',
+            tablet_375: {
+                name: 'tablet_375',
                 styles: {
                     width: '375px',
                     height: '100%',
                 },
                 type: 'mobile',
             },
-            table_834: {
-                name: 'table_834',
+            tablet_834: {
+                name: 'tablet_834',
                 styles: {
                     width: '834px',
                     height: '100%',

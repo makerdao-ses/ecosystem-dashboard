@@ -21,13 +21,10 @@ const BudgetStatusSelect: React.FC<BudgetStatusSelectProps> = ({ availableStatus
     statuses.length > 0 ? statuses[0] : BudgetStatus.Draft
   );
 
-  const selectStatusHandler = useCallback(
-    (status: BudgetStatus) => {
-      setSelectedStatus(status);
-      onChangeStatus?.(status);
-    },
-    [setSelectedStatus, onChangeStatus]
-  );
+  const selectStatusHandler = (status: BudgetStatus) => {
+    setSelectedStatus(status);
+    onChangeStatus?.(status);
+  };
 
   // close menu when clicking outside
   useEffect(() => {
