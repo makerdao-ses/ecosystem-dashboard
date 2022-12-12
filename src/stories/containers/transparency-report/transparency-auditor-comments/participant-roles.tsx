@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import lightTheme from '../../../../../styles/theme/light';
+import InlineUser from '../common/inline-user/inline-user';
 
 const ParticipantRoles: React.FC = () => {
   const { isLight } = useThemeContext();
@@ -13,21 +13,18 @@ const ParticipantRoles: React.FC = () => {
       <Card isLight={isLight}>
         <RoleSection>
           <RoleName isLight={isLight}>SES Core Unit</RoleName>
-          <Username>
-            <AvatarPlaceholder width={24} height={24} />
-            <Text isLight={isLight}>Wkampmann</Text>
-          </Username>
+          <UserWrapper>
+            <InlineUser username="Wkampmann" />
+          </UserWrapper>
         </RoleSection>
         <RoleSection>
           <RoleName isLight={isLight}>Auditor</RoleName>
-          <Username>
-            <AvatarPlaceholder width={24} height={24} />
-            <Text isLight={isLight}>P_Rose</Text>
-          </Username>
-          <Username>
-            <AvatarPlaceholder width={24} height={24} />
-            <Text isLight={isLight}>C-27</Text>
-          </Username>
+          <UserWrapper>
+            <InlineUser username="P_Rose" />
+          </UserWrapper>
+          <UserWrapper>
+            <InlineUser username="C-27" />
+          </UserWrapper>
         </RoleSection>
       </Card>
     </ParticipantContainer>
@@ -77,18 +74,8 @@ const RoleName = styled.div<StyledThemeProps>(({ isLight }) => ({
   marginBottom: 16,
 }));
 
-const Username = styled.div({
-  display: 'flex',
-  alignItems: 'center',
+const UserWrapper = styled.div({
   '&:not(:last-child)': {
     marginBottom: 16,
   },
 });
-
-const Text = styled.div<StyledThemeProps>(({ isLight }) => ({
-  marginLeft: 8,
-  fontSize: 16,
-  fontWeight: 700,
-  lineHeight: '19px',
-  color: isLight ? '#231536' : '#D2D4EF',
-}));

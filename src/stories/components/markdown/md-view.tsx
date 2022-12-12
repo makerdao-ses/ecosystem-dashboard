@@ -9,6 +9,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import lightTheme from '../../../../styles/theme/light';
 import CardExpenses from '../card-navegation/card-expenses';
 import { ButtonType } from '../../../core/enums/button-type.enum';
+import { AuditorDto } from '../../../core/models/dto/core-unit.dto';
 
 export type MarkDownHeaders = {
   level: number;
@@ -28,6 +29,7 @@ interface Props {
   onClickFinances: () => void;
   onClickActivity: () => void;
   code: string;
+  auditors: AuditorDto[];
 }
 
 const MdViewerPage = ({
@@ -39,6 +41,7 @@ const MdViewerPage = ({
   onClickActivity,
   onClickFinances,
   code,
+  auditors,
 }: Props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [activeLink, setActiveLink] = useState('');
@@ -134,6 +137,7 @@ const MdViewerPage = ({
               onClickActivity={onClickActivity}
               onClickFinances={onClickFinances}
               code={code}
+              auditors={auditors}
               buttonWidth="139.5px"
               isTitlePresent={false}
               style={{
@@ -155,6 +159,7 @@ const MdViewerPage = ({
             onClickActivity={onClickActivity}
             onClickFinances={onClickFinances}
             code={code}
+            auditors={auditors}
             isTitlePresent={false}
             buttonWidth="139.5px"
             style={{

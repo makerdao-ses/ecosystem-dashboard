@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import { AuditorDto } from '../../../core/models/dto/core-unit.dto';
 import MdViewerPage, { MarkDownHeaders } from './md-view';
 
 interface Props {
@@ -9,6 +10,7 @@ interface Props {
   onClickFinances: () => void;
   onClickActivity: () => void;
   code: string;
+  auditors: AuditorDto[];
 }
 
 const MdViewerContainer = ({
@@ -19,6 +21,7 @@ const MdViewerContainer = ({
   onClickActivity,
   onClickFinances,
   code,
+  auditors,
 }: Props) => {
   const [headersLevel, setHeadersLevel] = useState<MarkDownHeaders[]>([]);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -52,6 +55,7 @@ const MdViewerContainer = ({
       onClickActivity={onClickActivity}
       onClickFinances={onClickFinances}
       code={code}
+      auditors={auditors}
     />
   );
 };
