@@ -98,6 +98,9 @@ const dictionary = [
   'mousedown',
   'textarea',
   'resize',
+  'Wkampmann',
+  'jhon',
+  'janne',
 ];
 
 module.exports = dictionary;

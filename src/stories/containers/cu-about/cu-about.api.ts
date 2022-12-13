@@ -14,6 +14,10 @@ export const GET_CU_ABOUT_BY_CODE = gql`
       sentenceDescription
       paragraphDescription
       paragraphImage
+      auditors {
+        id
+        username
+      }
       socialMediaChannels {
         discord
         forumTag
