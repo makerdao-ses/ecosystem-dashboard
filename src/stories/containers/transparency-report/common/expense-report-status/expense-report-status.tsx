@@ -1,33 +1,27 @@
 import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
-import { ExpenseReportStatus, getExpenseReportStatusLabel } from '../../../../core/enums/expense-reports-status.enum';
-import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { getExpenseReportStatusColor } from '../../../../core/utils/color.utils';
+import { useThemeContext } from '../../../../../core/context/ThemeContext';
+import { getExpenseReportStatusColor } from '../../../../../core/utils/color.utils';
+import { BudgetStatus } from '../../../../../core/models/dto/core-unit.dto';
 
-export type ExpenseReportStatusBtnProps = {
-  variant: ExpenseReportStatus;
+export type ExpenseReportStatusProps = {
+  status: BudgetStatus;
 } & React.HTMLAttributes<HTMLDivElement>;
 
-const ExpenseReportStatusBtn: React.FC<ExpenseReportStatusBtnProps> = ({
-  variant = ExpenseReportStatus.Draft,
-  ...rest
-}) => {
+const ExpenseReportStatus: React.FC<ExpenseReportStatusProps> = ({ status = BudgetStatus.Draft, ...rest }) => {
   const { isLight } = useThemeContext();
-  const label = useMemo(() => {
-    return getExpenseReportStatusLabel(variant);
-  }, [variant]);
   const variantColor = useMemo(() => {
-    return getExpenseReportStatusColor(variant);
-  }, [variant]);
+    return getExpenseReportStatusColor(status);
+  }, [status]);
 
   return (
     <ExpenseReportStatusStyled isLight={isLight} variantColorSet={variantColor} {...rest}>
-      {label}
+      {status}
     </ExpenseReportStatusStyled>
   );
 };
 
-export default ExpenseReportStatusBtn;
+export default ExpenseReportStatus;
 
 const ExpenseReportStatusStyled = styled.div<{ isLight: boolean; variantColorSet: { [key: string]: string } }>(
   ({ isLight, variantColorSet }) => ({

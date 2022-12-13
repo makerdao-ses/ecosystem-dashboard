@@ -1,8 +1,8 @@
 import { CuCategoryEnum } from '../enums/cu-category.enum';
 import { CuJobEnum } from '../enums/cu-job.enum';
-import { ExpenseReportStatus } from '../enums/expense-reports-status.enum';
 
 import { UserDTO } from '../models/dto/auth.dto';
+import { BudgetStatus } from '../models/dto/core-unit.dto';
 import { getCorrectRoleApi } from './string.utils';
 
 export const getColorForString = (value: string): string => {
@@ -156,24 +156,24 @@ export const getColorRole = (user: UserDTO) => {
 };
 
 export const getExpenseReportStatusColor = (
-  variant: ExpenseReportStatus
+  variant: BudgetStatus
 ): { color: string; background: string; darkColor: string; darkBackground: string } => {
   switch (variant) {
-    case ExpenseReportStatus.Review:
+    case BudgetStatus.Review:
       return {
         color: '#F08B04',
         darkColor: '#F08B04',
         background: '#FFF9ED',
         darkBackground: '#533905',
       };
-    case ExpenseReportStatus.Final:
+    case BudgetStatus.Final:
       return {
         color: '#1AAB9B',
         darkColor: '#1AAB9B',
         background: '#E7FCFA',
         darkBackground: '#044942',
       };
-    case ExpenseReportStatus.Escalated:
+    case BudgetStatus.Escalated:
       return {
         color: '#EB4714',
         darkColor: '#EB4714',
