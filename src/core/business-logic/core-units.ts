@@ -3,8 +3,6 @@ import { LinkModel } from '../../stories/components/cu-table-column-links/cu-tab
 import { LinkTypeEnum } from '../enums/link-type.enum';
 import {
   BudgetStatementDto,
-  CommentsBudgetStatementDto,
-  CommentsDto,
   CoreUnitDto,
   CuMipDto,
   Mip40BudgetPeriodDto,
@@ -352,22 +350,5 @@ export const getMipUrlFromCoreUnit = (cu: CoreUnitDto) => {
 };
 
 export const getAllCommentsBudgetStatementLine = (budgetStatement?: BudgetStatementDto) => {
-  const commentsResult = [] as CommentsDto[];
-  if (!budgetStatement) return {};
-
-  if (!budgetStatement.comments?.length) return {};
-  budgetStatement.comments.forEach((commentItem: CommentsBudgetStatementDto) => {
-    if (commentItem.comment !== '') {
-      const itemComment: CommentsDto = {
-        month: DateTime.fromISO(commentItem.timestamp).toFormat('dd-MMM-y'),
-        ...commentItem,
-      };
-      commentsResult.push(itemComment);
-    }
-  });
-
-  const OrderByResult = _.orderBy(commentsResult, 'month').reverse();
-  const orderDate = _.groupBy(OrderByResult, 'month');
-
-  return orderDate;
+  return budgetStatement?.comments || [];
 };

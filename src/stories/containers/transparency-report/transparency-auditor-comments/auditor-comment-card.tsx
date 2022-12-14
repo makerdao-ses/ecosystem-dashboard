@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import ExpenseReportStatus from '../common/expense-report-status/expense-report-status';
@@ -7,49 +7,61 @@ import { customRenderer, customRendererDark } from '../../../components/markdown
 import lightTheme from '../../../../../styles/theme/light';
 import GenericCommentCard from './generic-comment-card';
 import { useMediaQuery } from '@mui/material';
-import { BudgetStatus } from '../../../../core/models/dto/core-unit.dto';
+import { CommentsBudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
+import { DateTime } from 'luxon';
+import { useCoreUnitContext } from '../../../../core/context/CoreUnitContext';
 
 export type AuditorCommentCardProps = {
-  status: BudgetStatus;
-  hasStatusLabel: boolean;
-  commentDescription?: string;
+  comment: CommentsBudgetStatementDto;
+  isStatusChange: boolean;
 };
 
-const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({
-  status = BudgetStatus.Draft,
-  hasStatusLabel,
-  commentDescription,
-}) => {
+const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({ comment, isStatusChange }) => {
   const { isLight } = useThemeContext();
+  const { currentCoreUnit } = useCoreUnitContext();
   const isTablet = useMediaQuery(lightTheme.breakpoints.down('table_834'));
 
+  const formattedTimestamp = useMemo(() => {
+    return DateTime.fromISO(comment.timestamp).toUTC().toFormat('dd-LLL-yyyy HH:mm ZZZZ');
+  }, [comment.timestamp]);
+
+  const action = isStatusChange ? 'Submitted' : 'wrote';
+  const roleString = useMemo(() => {
+    if (currentCoreUnit?.auditors?.some((auditor) => auditor.id === comment.author.id)) {
+      return 'Auditor';
+    }
+    return `${currentCoreUnit?.shortCode} Core Unit`;
+  }, [comment, currentCoreUnit]);
+
   return (
-    <GenericCommentCard variant={status}>
-      <CommentHeader hasComment={!!commentDescription}>
+    <GenericCommentCard variant={comment.status}>
+      <CommentHeader hasComment={!!comment.comment}>
         <CommentInfo isLight={isLight}>
-          {hasStatusLabel && (
+          {isStatusChange && (
             <StatusLabelWrapper>
-              <ExpenseReportStatus status={status} />
+              <ExpenseReportStatus status={comment.status} />
             </StatusLabelWrapper>
           )}
-          {isTablet && hasStatusLabel ? (
+          {isTablet && isStatusChange ? (
             <>
               <MobileColumn>
-                <Username>Wkampamn</Username>
-                <UserRole isLight={isLight}>SES Core Unit</UserRole>
+                <Username>{comment.author.username}</Username>
+                <UserRole isLight={isLight}>{roleString}</UserRole>
               </MobileColumn>
-              <ActionAndDate>submitted on 17-oct-2022 12:32 UTC</ActionAndDate>
+              <ActionAndDate>
+                {action} on {formattedTimestamp}
+              </ActionAndDate>
             </>
           ) : (
             <Text isLight={isLight}>
-              Wkampamn <span>SES Core Unit</span> submitted on 17-oct-2022 12:32 UTC
+              {comment.author.username} <span>{roleString}</span> {action} on {formattedTimestamp}
             </Text>
           )}
         </CommentInfo>
       </CommentHeader>
-      {commentDescription && (
+      {comment.comment && (
         <CommentMessage isLight={isLight}>
-          <Markdown value={commentDescription} renderer={isLight ? customRenderer : customRendererDark} />
+          <Markdown value={comment.comment} renderer={isLight ? customRenderer : customRendererDark} />
         </CommentMessage>
       )}
     </GenericCommentCard>

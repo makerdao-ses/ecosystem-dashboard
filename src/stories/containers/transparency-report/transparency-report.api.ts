@@ -25,7 +25,10 @@ export const CORE_UNIT_REQUEST = (shortCode: string) => ({
             timestamp
             comment
             status
-            authorId
+            author {
+              id
+              username
+            }
           }
           budgetStatementFTEs {
             month

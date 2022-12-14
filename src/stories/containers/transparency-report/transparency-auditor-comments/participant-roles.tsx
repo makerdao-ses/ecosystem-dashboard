@@ -3,32 +3,43 @@ import styled from '@emotion/styled';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import lightTheme from '../../../../../styles/theme/light';
+import { UserDTO } from '../../../../core/models/dto/auth.dto';
 
-const ParticipantRoles: React.FC = () => {
+export type ParticipantRolesProps = {
+  cu: UserDTO[];
+  auditors: UserDTO[];
+};
+
+const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ cu, auditors }) => {
   const { isLight } = useThemeContext();
 
   return (
     <ParticipantContainer>
       <Title isLight={isLight}>Participant Roles</Title>
       <Card isLight={isLight}>
-        <RoleSection>
-          <RoleName isLight={isLight}>SES Core Unit</RoleName>
-          <Username>
-            <AvatarPlaceholder width={24} height={24} />
-            <Text isLight={isLight}>Wkampmann</Text>
-          </Username>
-        </RoleSection>
-        <RoleSection>
-          <RoleName isLight={isLight}>Auditor</RoleName>
-          <Username>
-            <AvatarPlaceholder width={24} height={24} />
-            <Text isLight={isLight}>P_Rose</Text>
-          </Username>
-          <Username>
-            <AvatarPlaceholder width={24} height={24} />
-            <Text isLight={isLight}>C-27</Text>
-          </Username>
-        </RoleSection>
+        {cu.length > 0 && (
+          <RoleSection>
+            <RoleName isLight={isLight}>SES Core Unit</RoleName>
+            {cu.map((author) => (
+              <Username key={author.id}>
+                <AvatarPlaceholder width={24} height={24} />
+                <Text isLight={isLight}>{author.username}</Text>
+              </Username>
+            ))}
+          </RoleSection>
+        )}
+
+        {auditors.length > 0 && (
+          <RoleSection>
+            <RoleName isLight={isLight}>Auditor</RoleName>
+            {auditors.map((author) => (
+              <Username key={author.id}>
+                <AvatarPlaceholder width={24} height={24} />
+                <Text isLight={isLight}>{author.username}</Text>
+              </Username>
+            ))}
+          </RoleSection>
+        )}
       </Card>
     </ParticipantContainer>
   );

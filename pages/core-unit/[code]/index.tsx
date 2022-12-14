@@ -7,6 +7,7 @@ import { CoreUnitDto } from '../../../src/core/models/dto/core-unit.dto';
 import { useFlagsActive } from '../../../src/core/hooks/useFlagsActive';
 import CuAboutContainer2 from '../../../src/stories/containers/cu-about-2/cu-about-container-2';
 import CuAboutContainer from '../../../src/stories/containers/cu-about/cu-about-container';
+import { CoreUnitContext } from '../../../src/core/context/CoreUnitContext';
 
 const CoreUnitAboutPage: NextPage = ({
   code,
@@ -15,12 +16,21 @@ const CoreUnitAboutPage: NextPage = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [isEnabled] = useFlagsActive();
   return isEnabled('FEATURE_CU_ABOUT_NEW_CONTAINER') ? (
-    <CuAboutContainer2 code={code} coreUnits={coreUnits} cuAbout={cuAbout as CoreUnitDto} />
+    <CoreUnitContext.Provider
+      value={{
+        currentCoreUnit: cuAbout,
+        coreUnits,
+      }}
+    >
+      <CuAboutContainer2 code={code} coreUnits={coreUnits} cuAbout={cuAbout as CoreUnitDto} />
+    </CoreUnitContext.Provider>
   ) : (
     <CuAboutContainer code={code} coreUnits={coreUnits} cuAbout={cuAbout as CoreUnitDto} />
   );
 };
+
 export default CoreUnitAboutPage;
+
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
   const { query } = context;
   const code = query.code as string;
@@ -37,7 +47,7 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     props: {
       code,
       coreUnits,
-      cuAbout: cuAbout || {},
+      cuAbout,
     },
   };
 };

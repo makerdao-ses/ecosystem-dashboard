@@ -2,10 +2,31 @@ import request from 'graphql-request';
 import { GetServerSidePropsContext } from 'next';
 import React from 'react';
 import { GRAPHQL_ENDPOINT } from '../../../../../src/config/endpoints';
+import { CoreUnitContext } from '../../../../../src/core/context/CoreUnitContext';
 import { CoreUnitDto } from '../../../../../src/core/models/dto/core-unit.dto';
 import { fetchCoreUnits } from '../../../../../src/stories/components/core-unit-summary/core-unit-summary.mvvm';
 import { TransparencyReport } from '../../../../../src/stories/containers/transparency-report/transparency-report';
 import { CORE_UNIT_REQUEST } from '../../../../../src/stories/containers/transparency-report/transparency-report.api';
+
+interface TransparencyProps {
+  coreUnits: CoreUnitDto[];
+  cu: CoreUnitDto;
+}
+
+const Transparency = ({ coreUnits, cu }: TransparencyProps) => {
+  return (
+    <CoreUnitContext.Provider
+      value={{
+        currentCoreUnit: cu,
+        coreUnits,
+      }}
+    >
+      <TransparencyReport coreUnits={coreUnits} coreUnit={cu} />
+    </CoreUnitContext.Provider>
+  );
+};
+
+export default Transparency;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const { query } = context;
@@ -27,14 +48,3 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     },
   };
 };
-
-interface TransparencyProps {
-  coreUnits: CoreUnitDto[];
-  cu: CoreUnitDto;
-}
-
-const Transparency = ({ coreUnits, cu }: TransparencyProps) => {
-  return <TransparencyReport coreUnits={coreUnits} coreUnit={cu} />;
-};
-
-export default Transparency;

@@ -1,36 +1,39 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import AuditorCommentCard from './auditor-comment-card';
-import CUNewExpenseReport from './cu-new-expense-report';
 import CommentForm from './comment-form';
-import { BudgetStatus } from '../../../../core/models/dto/core-unit.dto';
+import { BudgetStatus, CommentsBudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
+import { useAuthContext } from '../../../../core/context/AuthContext';
+import { useCoreUnitContext } from '../../../../core/context/CoreUnitContext';
 
-const AuditorCommentList: React.FC = () => {
+export type AuditorCommentListProps = {
+  comments: CommentsBudgetStatementDto[];
+};
+
+const AuditorCommentList: React.FC<AuditorCommentListProps> = ({ comments }) => {
+  const { permissionManager } = useAuthContext();
+  const { currentCoreUnit } = useCoreUnitContext();
+
+  const memorizedComments = useMemo(() => {
+    return comments.map((comment, index) => {
+      let isStatusChange = (comments.length === 1 || index === 0) && comment.status !== BudgetStatus.Draft;
+      if (comments.length >= 1 && index !== 0) {
+        const previousComment = comments[index - 1];
+        // if it has the same status it means that this is just a regular comment
+        isStatusChange = previousComment.status !== comment.status;
+      }
+
+      return <AuditorCommentCard key={comment.id} comment={comment} isStatusChange={isStatusChange} />;
+    });
+  }, [comments]);
+
   return (
     <div>
-      <AuditorCommentCard status={BudgetStatus.Draft} hasStatusLabel={true} />
-
-      <CUNewExpenseReport />
-
-      <AuditorCommentCard status={BudgetStatus.Review} hasStatusLabel={true} />
-      <AuditorCommentCard
-        status={BudgetStatus.Review}
-        hasStatusLabel={false}
-        commentDescription={'Everything looks good, ready for review. '}
-      />
-      <AuditorCommentCard status={BudgetStatus.Final} hasStatusLabel={true} />
-
-      <CUNewExpenseReport />
-
-      <AuditorCommentCard status={BudgetStatus.Escalated} hasStatusLabel={true} />
-      <AuditorCommentCard
-        status={BudgetStatus.Draft}
-        hasStatusLabel={false}
-        commentDescription={
-          // eslint-disable-next-line spellcheck/spell-checker
-          'Our September forecast included offsite participation estimates for more people that ended up participating. Equally we have managed to get speaker tickets.\n\n**Updating:**\n- Actual expenses\n- FTE number'
-        }
-      />
-      <CommentForm />
+      <>
+        {memorizedComments}
+        {permissionManager.isAuthenticated() && permissionManager.coreUnit.canComment(currentCoreUnit || '-1') && (
+          <CommentForm />
+        )}
+      </>
     </div>
   );
 };

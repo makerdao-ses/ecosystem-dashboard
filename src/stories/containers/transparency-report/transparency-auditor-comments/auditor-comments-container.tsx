@@ -1,15 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import ParticipantRoles from './participant-roles';
 import lightTheme from '../../../../../styles/theme/light';
 import AuditorCommentList from './comment-list';
+import { CommentsBudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
+import { TransparencyEmptyAudit } from '../placeholders/transparenct-empty-audit';
+import { UserDTO } from '../../../../core/models/dto/auth.dto';
+import { useCoreUnitContext } from '../../../../core/context/CoreUnitContext';
 
-const AuditorCommentsContainer: React.FC = () => {
+export type AuditorCommentsContainerProps = {
+  comments: CommentsBudgetStatementDto[];
+};
+
+const AuditorCommentsContainer: React.FC<AuditorCommentsContainerProps> = ({ comments }) => {
+  const [cuParticipants, setCuParticipants] = useState<UserDTO[]>([]);
+  const [auditors, setAuditors] = useState<UserDTO[]>([]);
+  const { currentCoreUnit } = useCoreUnitContext();
+
+  useEffect(() => {
+    const cu = new Map<string, UserDTO>();
+    const aud = new Map<string, UserDTO>();
+
+    for (const comment of comments) {
+      if (currentCoreUnit?.auditors?.findIndex((a) => a.id === comment.author.id) !== -1) {
+        aud.set(comment.author.id, comment.author);
+      } else {
+        cu.set(comment.author.id, comment.author);
+      }
+    }
+    setCuParticipants(Array.from(cu.values()));
+    setAuditors(Array.from(aud.values()));
+  }, [comments, currentCoreUnit]);
+
+  if (comments.length === 0) {
+    return <TransparencyEmptyAudit />;
+  }
+
   return (
     <Container>
-      <AuditorCommentList />
+      <AuditorCommentList comments={comments} />
       <ParticipantsColumn>
-        <ParticipantRoles />
+        <ParticipantRoles cu={cuParticipants} auditors={auditors} />
       </ParticipantsColumn>
     </Container>
   );

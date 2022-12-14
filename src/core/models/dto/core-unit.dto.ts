@@ -1,5 +1,6 @@
 import { CuJobEnum } from '../../enums/cu-job.enum';
 import { CuStatusEnum } from '../../enums/cu-status.enum';
+import { UserDTO } from './auth.dto';
 
 export interface Mip40BudgetPeriodDto {
   budgetPeriodStart: string;
@@ -111,12 +112,9 @@ export interface CommentsBudgetStatementDto {
   budgetStatementId: string;
   timestamp: string;
   comment: string;
-  authorId: string;
+  author: UserDTO;
   status: BudgetStatus;
 }
-export type CommentsDto = Required<CommentsBudgetStatementDto> & {
-  month: string;
-};
 
 export interface BudgetStatementDto {
   id: number;
