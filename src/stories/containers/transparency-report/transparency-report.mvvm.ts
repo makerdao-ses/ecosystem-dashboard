@@ -7,9 +7,10 @@ import {
   getLastMonthWithActualOrForecast,
   getLastUpdateForBudgetStatement,
 } from '../../../core/business-logic/core-units';
+import { useAuthContext } from '../../../core/context/AuthContext';
 import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
-import { BudgetStatementDto, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import { BudgetStatementDto, BudgetStatus, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { API_MONTH_TO_FORMAT } from '../../../core/utils/date.utils';
 import { TableItems } from './transparency-report';
 
@@ -30,6 +31,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   const viewMonthStr = query.viewMonth;
   const anchor = useUrlAnchor();
   const transparencyTableRef = useRef<HTMLDivElement>(null);
+  const { permissionManager } = useAuthContext();
 
   const [tabsIndex, setTabsIndex] = useState<TRANSPARENCY_IDS_ENUM>(TRANSPARENCY_IDS_ENUM.ACTUALS);
   const [tabsIndexNumber, setTabsIndexNumber] = useState<number>(0);
@@ -205,6 +207,22 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     return dayCount === 0 ? 'Today' : `${dayCount} ${dayCount === 1 ? 'Day' : 'Days'}`;
   }, [lastUpdateForBudgetStatement]);
 
+  const [showExpenseReportStatusCTA, setShowExpenseReportStatusCTA] = useState<boolean>(false);
+  useEffect(() => {
+    switch (currentBudgetStatement?.status) {
+      case BudgetStatus.Draft:
+        console.log(currentBudgetStatement?.status, BudgetStatus.Draft);
+        setShowExpenseReportStatusCTA(permissionManager.coreUnit.isCoreUnitAdmin(coreUnit));
+        break;
+      case BudgetStatus.Review:
+      case BudgetStatus.Escalated:
+        setShowExpenseReportStatusCTA(permissionManager.coreUnit.isAuditor(coreUnit));
+        break;
+      default:
+        setShowExpenseReportStatusCTA(false);
+    }
+  }, [coreUnit, currentBudgetStatement, permissionManager]);
+
   return {
     tabItems,
     code,
@@ -216,6 +234,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     currentBudgetStatement,
     tabsIndex,
     tabsIndexNumber,
+    showExpenseReportStatusCTA,
     lastUpdateForBudgetStatement,
     numbersComments,
     differenceInDays,

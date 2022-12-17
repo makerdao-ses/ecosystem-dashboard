@@ -50,6 +50,22 @@ class CoreUnitExtension {
 
     return !!coreUnit?.auditors?.some((auditor) => auditor.id === user?.id);
   }
+
+  isCoreUnitAdmin(coreUnit?: CoreUnitDto | string, user?: UserDTO): boolean {
+    if (!user) {
+      user = this.permissionManager.loggedUser;
+    }
+
+    if (!user || !coreUnit) {
+      return false;
+    }
+
+    const id = this.getCoreUnitId(coreUnit);
+    return this.permissionManager.hasAnyPermission([
+      CoreUnitExtension.UPDATE_PERMISSION,
+      `${CoreUnitExtension.UPDATE_PERMISSION}/${id}`,
+    ]);
+  }
 }
 
 export default CoreUnitExtension;

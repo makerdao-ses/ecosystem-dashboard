@@ -2,22 +2,20 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { BudgetStatus } from '../../../../../core/models/dto/core-unit.dto';
 import ExpenseReportStatus from '../expense-report-status/expense-report-status';
-import Link from 'next/link';
 
 export type ExpenseReportStatusIndicatorProps = {
   budgetStatus: BudgetStatus;
+  showCTA: boolean;
 };
 
 const ExpenseReportStatusIndicator: React.FC<ExpenseReportStatusIndicatorProps> = ({
   budgetStatus = BudgetStatus.Draft,
+  showCTA,
 }) => {
   return (
     <IndicatorContainer>
       <ExpenseReportStatus status={budgetStatus} />
-      {/* TODO: this will be shown to specific roles only */}
-      <Link href="#">
-        <StyledLink>Go to {budgetStatus}</StyledLink>
-      </Link>
+      {showCTA && budgetStatus !== BudgetStatus.Final && <StyledLink>Go to {budgetStatus}</StyledLink>}
     </IndicatorContainer>
   );
 };
@@ -34,5 +32,4 @@ const StyledLink = styled.a({
   fontWeight: 500,
   lineHeight: '16px',
   color: '#447AFB',
-  cursor: 'pointer',
 });

@@ -52,6 +52,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
     numbersComments,
     longCode,
     comments,
+    showExpenseReportStatusCTA,
   } = useTransparencyReportViewModel(coreUnit);
 
   const CommentsComponent = {
@@ -155,7 +156,10 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
                 hasPrevious={hasPreviousMonth()}
               />
             </PagerBarLeft>
-            <ExpenseReportStatusIndicator budgetStatus={currentBudgetStatement?.status || BudgetStatus.Draft} />
+            <ExpenseReportStatusIndicator
+              budgetStatus={currentBudgetStatement?.status || BudgetStatus.Draft}
+              showCTA={showExpenseReportStatusCTA}
+            />
             <Spacer />
             {lastUpdateForBudgetStatement && (
               <LastUpdate>
