@@ -161,7 +161,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   }, [coreUnit, currentMonth]);
 
   const comments = useMemo(() => getAllCommentsBudgetStatementLine(currentBudgetStatement), [currentBudgetStatement]);
-  const numbersComments = useMemo(() => currentBudgetStatement?.comments?.length ?? 0, [currentBudgetStatement]);
+  const numbersComments = useMemo(() => comments.length, [comments]);
   const longCode = coreUnit?.code;
 
   const [isEnabled] = useFlagsActive();

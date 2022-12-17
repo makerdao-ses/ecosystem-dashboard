@@ -39,6 +39,14 @@ class PermissionManager {
   hasRole(role: RoleEnum): boolean {
     return this.loggedUser?.roles?.some((userRole: UserRole) => userRole.name === role) || false;
   }
+
+  isCoreUnitAuditor(): boolean {
+    return this.hasRole(RoleEnum.CoreUnitAuditor);
+  }
+
+  isCoreUnitFacilitator(): boolean {
+    return this.hasRole(RoleEnum.CoreUnitFacilitator);
+  }
 }
 
 export default PermissionManager;

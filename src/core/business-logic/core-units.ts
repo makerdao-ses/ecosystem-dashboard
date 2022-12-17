@@ -3,6 +3,8 @@ import { LinkModel } from '../../stories/components/cu-table-column-links/cu-tab
 import { LinkTypeEnum } from '../enums/link-type.enum';
 import {
   BudgetStatementDto,
+  BudgetStatus,
+  CommentsBudgetStatementDto,
   CoreUnitDto,
   CuMipDto,
   Mip40BudgetPeriodDto,
@@ -350,5 +352,37 @@ export const getMipUrlFromCoreUnit = (cu: CoreUnitDto) => {
 };
 
 export const getAllCommentsBudgetStatementLine = (budgetStatement?: BudgetStatementDto) => {
-  return budgetStatement?.comments || [];
+  const commentsWithDate = [] as (CommentsBudgetStatementDto & { date: DateTime })[];
+
+  if (!budgetStatement?.comments?.length) return commentsWithDate;
+  budgetStatement.comments.forEach((comment) => {
+    commentsWithDate.push({
+      ...comment,
+      date: DateTime.fromISO(comment.timestamp),
+    });
+  });
+  commentsWithDate.sort((a, b) => a.date.toMillis() - b.date.toMillis());
+
+  const comments = commentsWithDate.map((comment, index, array) => {
+    if (
+      (index === 0 && comment.status !== BudgetStatus.Draft) ||
+      (index !== 0 && array[index - 1].status !== comment.status)
+    ) {
+      // status change occurred
+      if (comment.comment.trim()) {
+        return [
+          {
+            ...comment,
+            id: `${comment.id}-change`,
+            comment: '',
+          },
+          comment,
+        ];
+      }
+    }
+
+    return comment;
+  });
+
+  return comments.flat() as CommentsBudgetStatementDto[];
 };

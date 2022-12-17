@@ -47,7 +47,9 @@ const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ cu, auditors }) => 
 
 export default ParticipantRoles;
 
-const ParticipantContainer = styled.div({});
+const ParticipantContainer = styled.div({
+  width: '100%',
+});
 
 type StyledThemeProps = {
   isLight: boolean;

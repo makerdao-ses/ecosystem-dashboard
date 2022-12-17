@@ -35,7 +35,7 @@ export const AuthContextProvider: React.FC<{ children: JSX.Element | JSX.Element
   const router = useRouter();
   const isAdmin = useIsAdmin(user || ({} as UserDTO));
 
-  const permissionManager = React.useMemo(() => new PermissionManager(), []);
+  const permissionManager = React.useMemo(() => new PermissionManager(user), [user]);
 
   useLayoutEffect(() => {
     const auth = getAuthFromStorage();
@@ -47,13 +47,11 @@ export const AuthContextProvider: React.FC<{ children: JSX.Element | JSX.Element
     }
     setAuthToken(newAuth);
     setUser(auth?.user);
-    permissionManager.setLoggedUser(auth?.user);
   }, []);
 
   const setCredentials = (value: LoginDTO) => {
     setAuthToken(value.authToken || '');
     setUser(value.user);
-    permissionManager.setLoggedUser(value.user);
     window.localStorage.setItem('auth', JSON.stringify(value));
   };
 

@@ -6,10 +6,11 @@ import { BudgetStatus } from '../../../../core/models/dto/core-unit.dto';
 
 export type BudgetStatusSelectProps = {
   availableStatuses?: BudgetStatus[];
+  selected?: BudgetStatus;
   onChangeStatus?: (status: BudgetStatus) => void;
 };
 
-const BudgetStatusSelect: React.FC<BudgetStatusSelectProps> = ({ availableStatuses, onChangeStatus }) => {
+const BudgetStatusSelect: React.FC<BudgetStatusSelectProps> = ({ availableStatuses, selected, onChangeStatus }) => {
   const { isLight } = useThemeContext();
   const menuRef = useRef<HTMLDivElement>(null);
   const [opened, setOpened] = useState<boolean>(false);
@@ -17,9 +18,14 @@ const BudgetStatusSelect: React.FC<BudgetStatusSelectProps> = ({ availableStatus
     return availableStatuses || Object.values(BudgetStatus);
   }, [availableStatuses]);
 
-  const [selectedStatus, setSelectedStatus] = useState<BudgetStatus>(() =>
-    statuses.length > 0 ? statuses[0] : BudgetStatus.Draft
-  );
+  const [selectedStatus, setSelectedStatus] = useState<BudgetStatus>(selected || BudgetStatus.Draft);
+
+  // update selectedStatus when the `selected` param changes (Controlled select)
+  useEffect(() => {
+    if (selected) {
+      setSelectedStatus(selected);
+    }
+  }, [selected]);
 
   const selectStatusHandler = (status: BudgetStatus) => {
     setSelectedStatus(status);
@@ -84,7 +90,9 @@ const SelectWrapper = styled.div<StyledThemeProps & { open: boolean }>(({ isLigh
   border: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
   borderRadius: 6,
   padding: 8,
+  minWidth: 'fit-content',
   userSelect: 'none',
+
   ...(open && {
     borderColor: 'transparent',
     background: isLight ? '#EDEFFF' : '#21212B',

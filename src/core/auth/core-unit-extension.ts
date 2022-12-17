@@ -19,7 +19,7 @@ class CoreUnitExtension {
     return coreUnit.id;
   }
 
-  canComment(coreUnit: CoreUnitDto | string, user?: UserDTO) {
+  canComment(coreUnit: CoreUnitDto | string, user?: UserDTO): boolean {
     if (!user) {
       user = this.permissionManager.loggedUser;
     }
@@ -36,6 +36,19 @@ class CoreUnitExtension {
       `${CoreUnitExtension.UPDATE_PERMISSION}/${id}`,
       `${CoreUnitExtension.AUDIT_PERMISSION}/${id}`,
     ]);
+  }
+
+  isAuditor(coreUnit?: CoreUnitDto, user?: UserDTO): boolean {
+    if (!user) {
+      user = this.permissionManager.loggedUser;
+    }
+
+    if (!user) {
+      // there is not authenticated user
+      return false;
+    }
+
+    return !!coreUnit?.auditors?.some((auditor) => auditor.id === user?.id);
   }
 }
 

@@ -1,18 +1,12 @@
 import React, { useMemo } from 'react';
 import AuditorCommentCard from './auditor-comment-card';
-import CommentForm from './comment-form';
 import { BudgetStatus, CommentsBudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
-import { useAuthContext } from '../../../../core/context/AuthContext';
-import { useCoreUnitContext } from '../../../../core/context/CoreUnitContext';
 
 export type AuditorCommentListProps = {
   comments: CommentsBudgetStatementDto[];
 };
 
 const AuditorCommentList: React.FC<AuditorCommentListProps> = ({ comments }) => {
-  const { permissionManager } = useAuthContext();
-  const { currentCoreUnit } = useCoreUnitContext();
-
   const memorizedComments = useMemo(() => {
     return comments.map((comment, index) => {
       let isStatusChange = (comments.length === 1 || index === 0) && comment.status !== BudgetStatus.Draft;
@@ -26,16 +20,7 @@ const AuditorCommentList: React.FC<AuditorCommentListProps> = ({ comments }) => 
     });
   }, [comments]);
 
-  return (
-    <div>
-      <>
-        {memorizedComments}
-        {permissionManager.isAuthenticated() && permissionManager.coreUnit.canComment(currentCoreUnit || '-1') && (
-          <CommentForm />
-        )}
-      </>
-    </div>
-  );
+  return <div>{memorizedComments}</div>;
 };
 
 export default AuditorCommentList;

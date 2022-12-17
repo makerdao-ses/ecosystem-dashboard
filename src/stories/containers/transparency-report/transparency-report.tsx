@@ -239,7 +239,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
           )}
 
           {tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS && isEnabled('FEATURE_TRANSPARENCY_COMMENTS') && (
-            <AuditorCommentsContainer comments={comments} />
+            <AuditorCommentsContainer budgetStatement={currentBudgetStatement} comments={comments} />
           )}
         </InnerPage>
       </Container>
