@@ -30,7 +30,7 @@ type ExtraArgs = {
   commentDescription: string;
 };
 
-const Template: ComponentStory<typeof AuditorCommentCard> = ({ comment, hasStatusChange, ...rest }) => {
+const Template: ComponentStory<typeof AuditorCommentCard> = ({ comment, hasStatusChange, verb, ...rest }) => {
   const { status, commentDescription } = rest as ExtraArgs;
   const updatedComment = {
     ...comment,
@@ -38,7 +38,7 @@ const Template: ComponentStory<typeof AuditorCommentCard> = ({ comment, hasStatu
     status: status || comment.status,
   };
 
-  return <AuditorCommentCard comment={updatedComment} hasStatusChange={hasStatusChange} />;
+  return <AuditorCommentCard comment={updatedComment} hasStatusChange={hasStatusChange} verb={verb} />;
 };
 
 export const Default = Template.bind({});
