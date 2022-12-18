@@ -10,8 +10,15 @@ import {
 import { useAuthContext } from '../../../core/context/AuthContext';
 import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
-import { BudgetStatementDto, BudgetStatus, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import {
+  ActivityFeedDto,
+  BudgetStatementDto,
+  BudgetStatus,
+  CommentsBudgetStatementDto,
+  CoreUnitDto,
+} from '../../../core/models/dto/core-unit.dto';
 import { API_MONTH_TO_FORMAT } from '../../../core/utils/date.utils';
+import { WithDate } from '../../../core/utils/types-helpers';
 import { TableItems } from './transparency-report';
 
 export enum TRANSPARENCY_IDS_ENUM {
@@ -162,7 +169,25 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     );
   }, [coreUnit, currentMonth]);
 
-  const comments = useMemo(() => getAllCommentsBudgetStatementLine(currentBudgetStatement), [currentBudgetStatement]);
+  const comments = useMemo(() => {
+    const comments = getAllCommentsBudgetStatementLine(currentBudgetStatement) as (CommentsBudgetStatementDto &
+      WithDate)[];
+    let activities = coreUnit.activityFeed.filter(
+      (activity) =>
+        activity.event === 'CU_BUDGET_STATEMENT_CREATED' &&
+        activity.params.month === currentMonth.toFormat('yyyy-MM') &&
+        activity.params.budgetStatementId.toString() === currentBudgetStatement?.id
+    ) as (ActivityFeedDto & WithDate)[];
+    activities = activities.map((activity) => {
+      activity.date = DateTime.fromISO(activity.created_at);
+      return activity;
+    });
+    const result = (comments as unknown[]).concat(activities) as WithDate[];
+    result.sort((a, b) => a.date.toMillis() - b.date.toMillis());
+
+    return result as unknown as (CommentsBudgetStatementDto | ActivityFeedDto)[];
+  }, [currentBudgetStatement, coreUnit]);
+
   const numbersComments = useMemo(() => comments.length, [comments]);
   const longCode = coreUnit?.code;
 

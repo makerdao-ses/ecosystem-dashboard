@@ -6,7 +6,7 @@ import { AuditStatusEnum } from '../../../../core/enums/audit-status.enum';
 import { useTransparencyAuditMvvm } from './transparency-audit.mvvm';
 import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { TransparencyEmptyAudit } from '../placeholders/transparenct-empty-audit';
+import { TransparencyEmptyAudit } from '../placeholders/transparency-empty-audit';
 
 interface TransparencyAuditProps {
   budgetStatement?: BudgetStatementDto;

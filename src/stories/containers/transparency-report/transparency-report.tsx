@@ -22,7 +22,7 @@ import { TransparencyMkrVesting2 } from './transparency-mkr-vesting/transparency
 import { TransparencyTransferRequest2 } from './transparency-transfer-request/transparency-transfer-request-2';
 import { TRANSPARENCY_IDS_ENUM, useTransparencyReportViewModel } from './transparency-report.mvvm';
 import ExpenseReportStatusIndicator from './common/expense-report-status-indicator/expense-report-status-indicator';
-import AuditorCommentsContainer from './transparency-auditor-comments/auditor-comments-container';
+import AuditorCommentsContainer from './transparency-auditor-comments/comment-container/auditor-comments-container';
 
 interface TransparencyReportProps {
   coreUnits: CoreUnitDto[];

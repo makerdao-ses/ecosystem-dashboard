@@ -2,6 +2,8 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import AuditorCommentList from './comment-list';
 import { BudgetStatus } from '../../../../core/models/dto/core-unit.dto';
+import { CommentBuilder } from '../../../../core/business-logic/builders/comment.builder';
+import { UserBuilder } from '../../../../core/business-logic/builders/user.builder';
 
 export default {
   title: 'Components/AuditorComments/AuditorCommentList',
@@ -13,14 +15,14 @@ const Template: ComponentStory<typeof AuditorCommentList> = (args) => <AuditorCo
 export const Default = Template.bind({});
 Default.args = {
   comments: [
-    {
-      // eslint-disable-next-line spellcheck/spell-checker
-      comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl sit amet aliquam',
-      id: '1',
-      timestamp: '2022-11-28T16:03:24.130Z',
-      authorId: '1',
-      budgetStatementId: '1',
-      status: BudgetStatus.Draft,
-    },
+    new CommentBuilder().withAuthor(new UserBuilder().addCoreUnitFacilitatorRole().build()).build(),
+    new CommentBuilder()
+      .withStatus(BudgetStatus.Review)
+      .withAuthor(new UserBuilder().withUsername('story1').addCoreUnitFacilitatorRole().build())
+      .build(),
+    new CommentBuilder()
+      .withStatus(BudgetStatus.Final)
+      .withAuthor(new UserBuilder().withUsername('story2').addCoreUnitAuditorRole().build())
+      .build(),
   ],
 };
