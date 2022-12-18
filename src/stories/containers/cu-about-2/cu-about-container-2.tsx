@@ -38,6 +38,8 @@ const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
   const LessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
   const lessDesktop1194 = useMediaQuery(lightTheme.breakpoints.down('desktop_1194'));
 
+  console.log('cuAbout', cuAbout.auditors);
+
   const { onClickLessMips, relateMipsOrder, hasMipsNotAccepted, onClickFinances, onClickActivity } = useCuAboutMvvm({
     cuAbout,
     code,
@@ -75,6 +77,7 @@ const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
             <MarkdownContainer>
               <MdViewerContainer
                 code={cuAbout.code}
+                auditors={cuAbout.auditors}
                 showButton={table834 || phone || LessPhone}
                 sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)}
                 paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)}
@@ -163,6 +166,7 @@ const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
                     <CardExpenses
                       onClickFinances={onClickFinances}
                       code={cuAbout.code}
+                      auditors={cuAbout.auditors}
                       onClickActivity={onClickActivity}
                     />
                   </ContainerCard>

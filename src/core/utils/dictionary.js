@@ -100,6 +100,9 @@ const dictionary = [
   'textarea',
   'resize',
   'fallthrough',
+  'Wkampmann',
+  'jhon',
+  'janne',
 ];
 
 module.exports = dictionary;

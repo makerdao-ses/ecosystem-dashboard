@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import lightTheme from '../../../../../styles/theme/light';
 import { UserDTO } from '../../../../core/models/dto/auth.dto';
+import InlineUser from '../common/inline-user/inline-user';
 
 export type ParticipantRolesProps = {
   cu: UserDTO[];
@@ -21,10 +21,9 @@ const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ cu, auditors }) => 
           <RoleSection>
             <RoleName isLight={isLight}>SES Core Unit</RoleName>
             {cu.map((author) => (
-              <Username key={author.id}>
-                <AvatarPlaceholder width={24} height={24} />
-                <Text isLight={isLight}>{author.username}</Text>
-              </Username>
+              <UserWrapper key={author.id}>
+                <InlineUser username={author.username} />
+              </UserWrapper>
             ))}
           </RoleSection>
         )}
@@ -33,10 +32,9 @@ const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ cu, auditors }) => 
           <RoleSection>
             <RoleName isLight={isLight}>Auditor</RoleName>
             {auditors.map((author) => (
-              <Username key={author.id}>
-                <AvatarPlaceholder width={24} height={24} />
-                <Text isLight={isLight}>{author.username}</Text>
-              </Username>
+              <UserWrapper key={author.id}>
+                <InlineUser username={author.username} />
+              </UserWrapper>
             ))}
           </RoleSection>
         )}
@@ -90,18 +88,8 @@ const RoleName = styled.div<StyledThemeProps>(({ isLight }) => ({
   marginBottom: 16,
 }));
 
-const Username = styled.div({
-  display: 'flex',
-  alignItems: 'center',
+const UserWrapper = styled.div({
   '&:not(:last-child)': {
     marginBottom: 16,
   },
 });
-
-const Text = styled.div<StyledThemeProps>(({ isLight }) => ({
-  marginLeft: 8,
-  fontSize: 16,
-  fontWeight: 700,
-  lineHeight: '19px',
-  color: isLight ? '#231536' : '#D2D4EF',
-}));
