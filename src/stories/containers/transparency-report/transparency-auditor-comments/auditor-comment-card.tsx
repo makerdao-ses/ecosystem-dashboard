@@ -13,10 +13,10 @@ import { useCoreUnitContext } from '../../../../core/context/CoreUnitContext';
 
 export type AuditorCommentCardProps = {
   comment: CommentsBudgetStatementDto;
-  isStatusChange: boolean;
+  hasStatusChange: boolean;
 };
 
-const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({ comment, isStatusChange }) => {
+const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({ comment, hasStatusChange }) => {
   const { isLight } = useThemeContext();
   const { currentCoreUnit } = useCoreUnitContext();
   const isTablet = useMediaQuery(lightTheme.breakpoints.down('table_834'));
@@ -25,7 +25,7 @@ const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({ comment, isStat
     return DateTime.fromISO(comment.timestamp).toUTC().toFormat('dd-LLL-yyyy HH:mm ZZZZ');
   }, [comment.timestamp]);
 
-  const action = isStatusChange ? 'Submitted' : 'wrote';
+  const action = hasStatusChange ? 'Submitted' : 'wrote';
   const roleString = useMemo(() => {
     if (currentCoreUnit?.auditors?.some((auditor) => auditor.id === comment.author.id)) {
       return 'Auditor';
@@ -37,12 +37,12 @@ const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({ comment, isStat
     <GenericCommentCard variant={comment.status}>
       <CommentHeader hasComment={!!comment.comment}>
         <CommentInfo isLight={isLight}>
-          {isStatusChange && (
+          {hasStatusChange && (
             <StatusLabelWrapper>
               <ExpenseReportStatus status={comment.status} />
             </StatusLabelWrapper>
           )}
-          {isTablet && isStatusChange ? (
+          {isTablet && hasStatusChange ? (
             <>
               <MobileColumn>
                 <Username>{comment.author.username}</Username>

@@ -117,7 +117,7 @@ export interface CommentsBudgetStatementDto {
 }
 
 export interface BudgetStatementDto {
-  id: number;
+  id: string;
   month: string;
   status: BudgetStatus;
   publicationUrl: string;

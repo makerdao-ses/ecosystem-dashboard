@@ -4,15 +4,16 @@ import lightTheme from '../../../../../../styles/theme/light';
 import { useAuthContext } from '../../../../../core/context/AuthContext';
 import { useCoreUnitContext } from '../../../../../core/context/CoreUnitContext';
 import { useThemeContext } from '../../../../../core/context/ThemeContext';
-import { BudgetStatus } from '../../../../../core/models/dto/core-unit.dto';
+import { BudgetStatus, CommentsBudgetStatementDto, CoreUnitDto } from '../../../../../core/models/dto/core-unit.dto';
 import request from 'graphql-request';
 import { CREATE_BUDGET_STATEMENT_COMMENT } from './auditor-comenting.api';
 import { GRAPHQL_ENDPOINT } from '../../../../../config/endpoints';
+import { triggerToast } from '../../../../helpers/helpers';
 
 const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: string) => {
   const { isLight } = useThemeContext();
   const { permissionManager, authToken } = useAuthContext();
-  const { currentCoreUnit } = useCoreUnitContext();
+  const { currentCoreUnit, setCurrentCoreUnit } = useCoreUnitContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [submitLabel, setSubmitLabel] = useState<string>('Submit Comment');
@@ -87,12 +88,38 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
 
     try {
       setIsSubmitting(true);
-      const x = await request(GRAPHQL_ENDPOINT, query, input, { Authorization: `Bearer ${authToken}` });
-      console.log(x);
-      // TODO: update the Core Unit so the comment can be added to the list
+      const newCommentResult = await request<{ budgetStatementCommentCreate: CommentsBudgetStatementDto[] }>(
+        GRAPHQL_ENDPOINT,
+        query,
+        input,
+        {
+          Authorization: `Bearer ${authToken}`,
+        }
+      );
+
+      const newComment = newCommentResult.budgetStatementCommentCreate[0];
+      const updatedBudgetStatement = currentCoreUnit?.budgetStatements?.map((bs) => {
+        if (bs.id === newComment.budgetStatementId) {
+          return {
+            ...bs,
+            status: newComment.status,
+            comments: [...bs.comments, newComment],
+          };
+        }
+        return bs;
+      });
+      const updatedCoreUnit: CoreUnitDto = {
+        ...(currentCoreUnit || ({} as CoreUnitDto)),
+        budgetStatements: [...(updatedBudgetStatement || [])],
+      };
+
+      setCurrentCoreUnit(updatedCoreUnit);
+      textAreaRef.current?.value && (textAreaRef.current.value = '');
     } catch (err) {
-      console.log(err);
-      // show toast error
+      triggerToast({
+        message: 'An error occurred, please try again',
+        type: 'warning',
+      });
     } finally {
       setIsSubmitting(false);
     }

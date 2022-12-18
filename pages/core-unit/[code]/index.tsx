@@ -1,5 +1,5 @@
 import { NextPage, GetServerSideProps, InferGetServerSidePropsType, GetServerSidePropsContext } from 'next';
-import React from 'react';
+import React, { useState } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import { fetchCoreUnitByCode } from '../../../src/stories/containers/cu-about/cu-about.api';
 import { fetchCoreUnits } from '../../../src/stories/components/core-unit-summary/core-unit-summary.mvvm';
@@ -15,10 +15,13 @@ const CoreUnitAboutPage: NextPage = ({
   cuAbout,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [isEnabled] = useFlagsActive();
+  const [currentCoreUnit, setCurrentCoreUnit] = useState<CoreUnitDto>(cuAbout);
+
   return isEnabled('FEATURE_CU_ABOUT_NEW_CONTAINER') ? (
     <CoreUnitContext.Provider
       value={{
-        currentCoreUnit: cuAbout,
+        currentCoreUnit,
+        setCurrentCoreUnit,
         coreUnits,
       }}
     >

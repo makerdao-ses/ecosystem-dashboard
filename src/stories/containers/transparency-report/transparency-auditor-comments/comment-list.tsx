@@ -16,7 +16,7 @@ const AuditorCommentList: React.FC<AuditorCommentListProps> = ({ comments }) => 
         isStatusChange = previousComment.status !== comment.status;
       }
 
-      return <AuditorCommentCard key={comment.id} comment={comment} isStatusChange={isStatusChange} />;
+      return <AuditorCommentCard key={comment.id} comment={comment} hasStatusChange={isStatusChange} />;
     });
   }, [comments]);
 

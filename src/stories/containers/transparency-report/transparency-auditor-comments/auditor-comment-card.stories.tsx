@@ -2,6 +2,8 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import AuditorCommentCard from './auditor-comment-card';
 import { BudgetStatus } from '../../../../core/models/dto/core-unit.dto';
+import { CommentBuilder } from '../../../../core/business-logic/builders/comment.builder';
+import { UserBuilder } from '../../../../core/business-logic/builders/user.builder';
 
 export default {
   title: 'Components/AuditorComments/CommentCard',
@@ -12,7 +14,7 @@ export default {
       options: BudgetStatus,
       control: { type: 'select' },
     },
-    hasStatusLabel: {
+    hasStatusChange: {
       defaultValue: true,
       control: { type: 'boolean' },
     },
@@ -23,23 +25,33 @@ export default {
   },
 } as ComponentMeta<typeof AuditorCommentCard>;
 
-const Template: ComponentStory<typeof AuditorCommentCard> = (args) => <AuditorCommentCard {...args} />;
+type ExtraArgs = {
+  status: BudgetStatus;
+  commentDescription: string;
+};
+
+const Template: ComponentStory<typeof AuditorCommentCard> = ({ comment, hasStatusChange, ...rest }) => {
+  const { status, commentDescription } = rest as ExtraArgs;
+  const updatedComment = {
+    ...comment,
+    comment: commentDescription || comment.comment,
+    status: status || comment.status,
+  };
+
+  return <AuditorCommentCard comment={updatedComment} hasStatusChange={hasStatusChange} />;
+};
 
 export const Default = Template.bind({});
 Default.args = {
-  comment: {
-    // eslint-disable-next-line spellcheck/spell-checker
-    comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl sit amet aliquam',
-    id: '1',
-    timestamp: '2022-11-28T16:03:24.130Z',
-    author: {
-      id: '1',
-      username: 'test',
-      name: 'Test',
-      active: true,
-      roles: undefined,
-    },
-    budgetStatementId: '1',
-    status: BudgetStatus.Draft,
-  },
+  comment: new CommentBuilder().withAuthor(new UserBuilder().addCoreUnitFacilitatorRole().build()).build(),
+  hasStatusChange: true,
+};
+
+export const Comment = Template.bind({});
+Comment.args = {
+  comment: new CommentBuilder()
+    .withAuthor(new UserBuilder().addCoreUnitFacilitatorRole().build())
+    .withComment('Hello world\n\n**bold font:**\n- list item 1\n- list item 2')
+    .build(),
+  hasStatusChange: false,
 };

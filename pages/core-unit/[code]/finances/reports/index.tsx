@@ -1,6 +1,6 @@
 import request from 'graphql-request';
 import { GetServerSidePropsContext } from 'next';
-import React from 'react';
+import React, { useState } from 'react';
 import { GRAPHQL_ENDPOINT } from '../../../../../src/config/endpoints';
 import { CoreUnitContext } from '../../../../../src/core/context/CoreUnitContext';
 import { CoreUnitDto } from '../../../../../src/core/models/dto/core-unit.dto';
@@ -14,14 +14,17 @@ interface TransparencyProps {
 }
 
 const Transparency = ({ coreUnits, cu }: TransparencyProps) => {
+  const [currentCoreUnit, setCurrentCoreUnit] = useState<CoreUnitDto>(cu);
+
   return (
     <CoreUnitContext.Provider
       value={{
-        currentCoreUnit: cu,
+        currentCoreUnit,
+        setCurrentCoreUnit,
         coreUnits,
       }}
     >
-      <TransparencyReport coreUnits={coreUnits} coreUnit={cu} />
+      <TransparencyReport coreUnits={coreUnits} coreUnit={currentCoreUnit} />
     </CoreUnitContext.Provider>
   );
 };

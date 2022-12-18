@@ -10,6 +10,7 @@ export const CREATE_BUDGET_STATEMENT_COMMENT = (
   query: gql`
     mutation BudgetStatementCommentCreate($input: BudgetStatementCommentInput) {
       budgetStatementCommentCreate(input: $input) {
+        id
         comment
         budgetStatementId
         author {

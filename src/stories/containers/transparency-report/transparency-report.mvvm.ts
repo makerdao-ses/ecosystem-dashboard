@@ -196,7 +196,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   }
 
   const lastUpdateForBudgetStatement = useMemo(
-    () => getLastUpdateForBudgetStatement(coreUnit, currentBudgetStatement?.id ?? 0),
+    () => getLastUpdateForBudgetStatement(coreUnit, currentBudgetStatement?.id ?? '0'),
     [currentBudgetStatement, coreUnit]
   );
 
@@ -211,7 +211,6 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   useEffect(() => {
     switch (currentBudgetStatement?.status) {
       case BudgetStatus.Draft:
-        console.log(currentBudgetStatement?.status, BudgetStatus.Draft);
         setShowExpenseReportStatusCTA(permissionManager.coreUnit.isCoreUnitAdmin(coreUnit));
         break;
       case BudgetStatus.Review:

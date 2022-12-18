@@ -90,6 +90,7 @@ const dictionary = [
   'Kampmann',
   'Julien',
   'juan',
+  'jhon',
   'moreer',
   'lvlexpenditure',
   'Toastify',
