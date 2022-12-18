@@ -99,6 +99,7 @@ const dictionary = [
   'mousedown',
   'textarea',
   'resize',
+  'fallthrough',
 ];
 
 module.exports = dictionary;

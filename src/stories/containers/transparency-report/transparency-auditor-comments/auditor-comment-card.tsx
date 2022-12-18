@@ -14,9 +14,10 @@ import { useCoreUnitContext } from '../../../../core/context/CoreUnitContext';
 export type AuditorCommentCardProps = {
   comment: CommentsBudgetStatementDto;
   hasStatusChange: boolean;
+  verb: string;
 };
 
-const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({ comment, hasStatusChange }) => {
+const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({ comment, hasStatusChange, verb = 'wrote' }) => {
   const { isLight } = useThemeContext();
   const { currentCoreUnit } = useCoreUnitContext();
   const isTablet = useMediaQuery(lightTheme.breakpoints.down('table_834'));
@@ -25,7 +26,6 @@ const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({ comment, hasSta
     return DateTime.fromISO(comment.timestamp).toUTC().toFormat('dd-LLL-yyyy HH:mm ZZZZ');
   }, [comment.timestamp]);
 
-  const action = hasStatusChange ? 'Submitted' : 'wrote';
   const roleString = useMemo(() => {
     if (currentCoreUnit?.auditors?.some((auditor) => auditor.id === comment.author.id)) {
       return 'Auditor';
@@ -49,12 +49,12 @@ const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({ comment, hasSta
                 <UserRole isLight={isLight}>{roleString}</UserRole>
               </MobileColumn>
               <ActionAndDate>
-                {action} on {formattedTimestamp}
+                {verb} on {formattedTimestamp}
               </ActionAndDate>
             </>
           ) : (
             <Text isLight={isLight}>
-              {comment.author.username} <span>{roleString}</span> {action} on {formattedTimestamp}
+              {comment.author.username} <span>{roleString}</span> {verb} on {formattedTimestamp}
             </Text>
           )}
         </CommentInfo>

@@ -31,30 +31,45 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
     const hasAuditor = !!currentCoreUnit?.auditors?.length;
     const isAuditor = permissionManager.coreUnit.isAuditor(currentCoreUnit);
 
-    if (!hasAuditor && !isAuditor) {
-      // cu admin without auditor
-      setAvailableStatuses([BudgetStatus.Draft, BudgetStatus.Final]);
-      return;
-    } else if (!isAuditor && hasAuditor) {
-      // cu admin with auditor
-      if (currentBudgetStatus === BudgetStatus.Draft) {
-        setAvailableStatuses([BudgetStatus.Draft, BudgetStatus.Review]);
-        return;
-      } else if (currentBudgetStatus === BudgetStatus.Final) {
-        setAvailableStatuses([BudgetStatus.Draft, BudgetStatus.Final]);
-      }
-    } else if (isAuditor) {
-      // auditor
-      if (currentBudgetStatus === BudgetStatus.Review) {
-        setAvailableStatuses([BudgetStatus.Review, BudgetStatus.Escalated, BudgetStatus.Final]);
-        return;
-      } else if (currentBudgetStatus === BudgetStatus.Final) {
-        setAvailableStatuses([BudgetStatus.Review, BudgetStatus.Final]);
-      }
+    switch (currentBudgetStatus) {
+      case BudgetStatus.Draft:
+        if (!isAuditor && !hasAuditor) {
+          // cu admin without auditor
+          setAvailableStatuses([BudgetStatus.Draft, BudgetStatus.Final]);
+          break;
+        } else if (!isAuditor && hasAuditor) {
+          // cu admin with auditor
+          setAvailableStatuses([BudgetStatus.Draft, BudgetStatus.Review]);
+          break;
+        }
+        setAvailableStatuses([BudgetStatus.Draft]);
+        break;
+      case BudgetStatus.Review:
+        if (isAuditor) {
+          // auditor
+          setAvailableStatuses([BudgetStatus.Review, BudgetStatus.Escalated, BudgetStatus.Final]);
+          break;
+        }
+        setAvailableStatuses([BudgetStatus.Review]);
+        break;
+      case BudgetStatus.Final:
+        if (!isAuditor) {
+          setAvailableStatuses([BudgetStatus.Draft, BudgetStatus.Final]);
+          break;
+        } else if (isAuditor) {
+          // auditor
+          setAvailableStatuses([BudgetStatus.Review, BudgetStatus.Final]);
+          break;
+        }
+        setAvailableStatuses([BudgetStatus.Final]);
+        break;
+      case BudgetStatus.Escalated:
+        setAvailableStatuses([BudgetStatus.Escalated]);
+        break;
+      default:
+        // just can comment
+        setAvailableStatuses([currentBudgetStatus]);
     }
-
-    // just can comment
-    setAvailableStatuses([currentBudgetStatus]);
   }, [permissionManager, currentBudgetStatus, currentCoreUnit]);
 
   // update the right submit button label for each status combination
@@ -72,7 +87,7 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
     } else if (selectedStatus === BudgetStatus.Final) {
       setSubmitLabel(isAuditor ? 'Approve' : 'Mark as Final');
     }
-  }, [selectedStatus, permissionManager]);
+  }, [selectedStatus, currentBudgetStatus, permissionManager]);
 
   const handleChangeVariant = (value: BudgetStatus) => {
     setSelectedStatus(value);
