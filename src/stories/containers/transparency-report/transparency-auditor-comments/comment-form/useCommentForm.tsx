@@ -132,7 +132,7 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
       textAreaRef.current?.value && (textAreaRef.current.value = '');
     } catch (err) {
       triggerToast({
-        message: 'An error occurred, please try again',
+        message: 'An unexpected error occurred. Please try again.',
         type: 'warning',
       });
     } finally {

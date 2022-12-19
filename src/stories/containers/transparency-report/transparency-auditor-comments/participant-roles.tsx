@@ -6,17 +6,21 @@ import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import InlineUser from '../common/inline-user/inline-user';
 
 export type ParticipantRolesProps = {
+  coreUnitCode: string;
   cu: UserDTO[];
   auditors: UserDTO[];
 };
 
-const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ cu, auditors }) => {
+const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ coreUnitCode, cu, auditors }) => {
   const { isLight } = useThemeContext();
 
   return (
     <ParticipantContainer>
       <Title isLight={isLight}>Participant Roles</Title>
       <Card isLight={isLight}>
+        {cu.length === 0 && auditors.length === 0 && (
+          <EmptyState isLight={isLight}>The {coreUnitCode} Core Unit is currently working without auditor</EmptyState>
+        )}
         {cu.length > 0 && (
           <RoleSection>
             <RoleName isLight={isLight}>SES Core Unit</RoleName>
@@ -72,6 +76,13 @@ const Card = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   [lightTheme.breakpoints.up('table_834')]: {
     padding: 16,
   },
+}));
+
+const EmptyState = styled.div<StyledThemeProps>(({ isLight }) => ({
+  fontSize: 14,
+  fontWeight: 400,
+  lineHeight: '22px',
+  color: isLight ? '#9FAFB9' : '#546978',
 }));
 
 const RoleSection = styled.div({

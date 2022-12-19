@@ -21,19 +21,16 @@ const useCommentsContainer = (
 
   useEffect(() => {
     const cu = new Map<string, UserDTO>();
-    const aud = new Map<string, UserDTO>();
 
     for (const comment of comments) {
       if (!isActivity(comment)) {
-        if (currentCoreUnit?.auditors?.findIndex((a) => a.id === comment.author.id) !== -1) {
-          aud.set(comment.author.id, comment.author);
-        } else {
+        if (currentCoreUnit?.auditors?.findIndex((a) => a.id === comment.author.id) === -1) {
           cu.set(comment.author.id, comment.author);
         }
       }
     }
     setCuParticipants(Array.from(cu.values()));
-    setAuditors(Array.from(aud.values()));
+    setAuditors((currentCoreUnit?.auditors || []) as UserDTO[]);
   }, [comments, currentCoreUnit]);
 
   const canComment = useMemo(
@@ -47,6 +44,7 @@ const useCommentsContainer = (
     auditors,
     canComment,
     currentBudgetStatus,
+    coreUnitCode: currentCoreUnit?.shortCode || '',
   };
 };
 

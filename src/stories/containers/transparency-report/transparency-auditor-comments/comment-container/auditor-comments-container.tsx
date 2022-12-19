@@ -9,8 +9,8 @@ import {
   CommentsBudgetStatementDto,
 } from '../../../../../core/models/dto/core-unit.dto';
 import CommentForm from '../comment-form/comment-form';
-import { TransparencyEmptyAudit } from '../../placeholders/transparency-empty-audit';
 import useCommentsContainer from './useCommentsContainer';
+import NoComments from '../no-comments';
 
 export type AuditorCommentsContainerProps = {
   comments: (CommentsBudgetStatementDto | ActivityFeedDto)[];
@@ -18,13 +18,16 @@ export type AuditorCommentsContainerProps = {
 };
 
 const AuditorCommentsContainer: React.FC<AuditorCommentsContainerProps> = ({ budgetStatement, comments }) => {
-  const { cuParticipants, auditors, canComment, currentBudgetStatus } = useCommentsContainer(comments, budgetStatement);
+  const { cuParticipants, auditors, canComment, currentBudgetStatus, coreUnitCode } = useCommentsContainer(
+    comments,
+    budgetStatement
+  );
 
   return (
     <Container>
       <CommentsContainer>
         {comments.length === 0 && !canComment ? (
-          <TransparencyEmptyAudit />
+          <NoComments />
         ) : (
           <>
             <AuditorCommentList comments={comments} />
@@ -38,7 +41,7 @@ const AuditorCommentsContainer: React.FC<AuditorCommentsContainerProps> = ({ bud
         )}
       </CommentsContainer>
       <ParticipantsColumn>
-        <ParticipantRoles cu={cuParticipants} auditors={auditors} />
+        <ParticipantRoles cu={cuParticipants} auditors={auditors} coreUnitCode={coreUnitCode} />
       </ParticipantsColumn>
     </Container>
   );

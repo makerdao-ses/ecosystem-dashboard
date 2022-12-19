@@ -8,16 +8,17 @@ import { BudgetStatus } from '../../../../core/models/dto/core-unit.dto';
 export type GenericCommentCardProps = {
   variant?: BudgetStatus;
   children: React.ReactNode;
+  opacity?: number;
 };
 
-const GenericCommentCard: React.FC<GenericCommentCardProps> = ({ variant = BudgetStatus.Draft, children }) => {
+const GenericCommentCard: React.FC<GenericCommentCardProps> = ({ variant = BudgetStatus.Draft, children, opacity }) => {
   const { isLight } = useThemeContext();
   const variantColor = useMemo(() => {
     return getExpenseReportStatusColor(variant);
   }, [variant]);
 
   return (
-    <CommentCard isLight={isLight} variantColorSet={variantColor}>
+    <CommentCard isLight={isLight} variantColorSet={variantColor} opacity={opacity}>
       {children}
     </CommentCard>
   );
@@ -25,8 +26,8 @@ const GenericCommentCard: React.FC<GenericCommentCardProps> = ({ variant = Budge
 
 export default GenericCommentCard;
 
-const CommentCard = styled.div<{ isLight: boolean; variantColorSet: { [key: string]: string } }>(
-  ({ isLight, variantColorSet }) => ({
+const CommentCard = styled.div<{ isLight: boolean; variantColorSet: { [key: string]: string }; opacity?: number }>(
+  ({ isLight, variantColorSet, opacity }) => ({
     position: 'relative',
     marginBottom: 32,
     background: isLight ? '#FFFFFF' : '#10191F',
@@ -49,6 +50,7 @@ const CommentCard = styled.div<{ isLight: boolean; variantColorSet: { [key: stri
       width: 2,
       height: '100%',
       background: isLight ? variantColorSet.color : variantColorSet.darkColor,
+      ...(opacity ? { opacity } : null),
 
       [lightTheme.breakpoints.up('table_834')]: {
         width: 8,
