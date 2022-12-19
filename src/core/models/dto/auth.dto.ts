@@ -1,18 +1,17 @@
-import { PermissionsEnum } from '../../enums/permissions.enum';
 import { RoleEnum } from '../../enums/role.enum';
 
 export interface UserRole {
   id: string;
   name: RoleEnum;
-  permissions: PermissionsEnum[];
+  permissions: string[];
 }
 
 export interface UserDTO {
-  id: number;
+  id: string;
   username: string;
   active: boolean;
   name: string;
-  roles: UserRole[];
+  roles?: UserRole[];
 }
 
 export interface LoginDTO {

@@ -7,10 +7,18 @@ import {
   getLastMonthWithActualOrForecast,
   getLastUpdateForBudgetStatement,
 } from '../../../core/business-logic/core-units';
+import { useAuthContext } from '../../../core/context/AuthContext';
 import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
-import { BudgetStatementDto, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import {
+  ActivityFeedDto,
+  BudgetStatementDto,
+  BudgetStatus,
+  CommentsBudgetStatementDto,
+  CoreUnitDto,
+} from '../../../core/models/dto/core-unit.dto';
 import { API_MONTH_TO_FORMAT } from '../../../core/utils/date.utils';
+import { WithDate } from '../../../core/utils/types-helpers';
 import { TableItems } from './transparency-report';
 
 export enum TRANSPARENCY_IDS_ENUM {
@@ -30,6 +38,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   const viewMonthStr = query.viewMonth;
   const anchor = useUrlAnchor();
   const transparencyTableRef = useRef<HTMLDivElement>(null);
+  const { permissionManager } = useAuthContext();
 
   const [tabsIndex, setTabsIndex] = useState<TRANSPARENCY_IDS_ENUM>(TRANSPARENCY_IDS_ENUM.ACTUALS);
   const [tabsIndexNumber, setTabsIndexNumber] = useState<number>(0);
@@ -160,8 +169,26 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     );
   }, [coreUnit, currentMonth]);
 
-  const comments = useMemo(() => getAllCommentsBudgetStatementLine(currentBudgetStatement), [currentBudgetStatement]);
-  const numbersComments = useMemo(() => currentBudgetStatement?.comments?.length ?? 0, [currentBudgetStatement]);
+  const comments = useMemo(() => {
+    const comments = getAllCommentsBudgetStatementLine(currentBudgetStatement) as (CommentsBudgetStatementDto &
+      WithDate)[];
+    let activities = coreUnit.activityFeed.filter(
+      (activity) =>
+        activity.event === 'CU_BUDGET_STATEMENT_CREATED' &&
+        activity.params.month === currentMonth.toFormat('yyyy-MM') &&
+        activity.params.budgetStatementId.toString() === currentBudgetStatement?.id
+    ) as (ActivityFeedDto & WithDate)[];
+    activities = activities.map((activity) => {
+      activity.date = DateTime.fromISO(activity.created_at);
+      return activity;
+    });
+    const result = (comments as unknown[]).concat(activities) as WithDate[];
+    result.sort((a, b) => a.date.toMillis() - b.date.toMillis());
+
+    return result as unknown as (CommentsBudgetStatementDto | ActivityFeedDto)[];
+  }, [currentBudgetStatement, coreUnit]);
+
+  const numbersComments = useMemo(() => comments.length, [comments]);
   const longCode = coreUnit?.code;
 
   const [isEnabled] = useFlagsActive();
@@ -194,7 +221,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   }
 
   const lastUpdateForBudgetStatement = useMemo(
-    () => getLastUpdateForBudgetStatement(coreUnit, currentBudgetStatement?.id ?? 0),
+    () => getLastUpdateForBudgetStatement(coreUnit, currentBudgetStatement?.id ?? '0'),
     [currentBudgetStatement, coreUnit]
   );
 
@@ -204,6 +231,21 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     const dayCount = DateTime.now().diff(lastUpdateForBudgetStatement, ['day', 'milliseconds']).days;
     return dayCount === 0 ? 'Today' : `${dayCount} ${dayCount === 1 ? 'Day' : 'Days'}`;
   }, [lastUpdateForBudgetStatement]);
+
+  const [showExpenseReportStatusCTA, setShowExpenseReportStatusCTA] = useState<boolean>(false);
+  useEffect(() => {
+    switch (currentBudgetStatement?.status) {
+      case BudgetStatus.Draft:
+        setShowExpenseReportStatusCTA(permissionManager.coreUnit.isCoreUnitAdmin(coreUnit));
+        break;
+      case BudgetStatus.Review:
+      case BudgetStatus.Escalated:
+        setShowExpenseReportStatusCTA(permissionManager.coreUnit.isAuditor(coreUnit));
+        break;
+      default:
+        setShowExpenseReportStatusCTA(false);
+    }
+  }, [coreUnit, currentBudgetStatement, permissionManager]);
 
   return {
     tabItems,
@@ -216,6 +258,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     currentBudgetStatement,
     tabsIndex,
     tabsIndexNumber,
+    showExpenseReportStatusCTA,
     lastUpdateForBudgetStatement,
     numbersComments,
     differenceInDays,

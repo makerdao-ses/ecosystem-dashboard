@@ -4,6 +4,7 @@ export const CORE_UNIT_REQUEST = (shortCode: string) => ({
   query: gql`
     query CoreUnit($filter: CoreUnitFilter) {
       coreUnit(filter: $filter) {
+        id
         code
         shortCode
         sentenceDescription
@@ -25,7 +26,10 @@ export const CORE_UNIT_REQUEST = (shortCode: string) => ({
             timestamp
             comment
             status
-            authorId
+            author {
+              id
+              username
+            }
           }
           budgetStatementFTEs {
             month

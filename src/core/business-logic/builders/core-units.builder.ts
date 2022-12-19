@@ -1,4 +1,5 @@
 import {
+  AuditorDto,
   BudgetStatementDto,
   ContributorCommitmentDto,
   CoreUnitDto,
@@ -15,9 +16,12 @@ export class CoreUnitsBuilder {
     this._coreUnit = {
       name: '',
       code: '',
+      shortCode: '',
       image: '',
       id: '',
+      legacyBudgetStatementUrl: '',
       category: [] as string[],
+      auditors: [] as AuditorDto[],
       budgetStatements: [] as BudgetStatementDto[],
       socialMediaChannels: [] as SocialMediaChannelDto[],
       cuMip: [] as CuMipDto[],
@@ -46,8 +50,27 @@ export class CoreUnitsBuilder {
     return this;
   }
 
+  withShortCode(code: string): CoreUnitsBuilder {
+    this._coreUnit.shortCode = code;
+    return this;
+  }
+
+  withLegacyBudgetStatementUrl(url: string): CoreUnitsBuilder {
+    this._coreUnit.legacyBudgetStatementUrl = url;
+    return this;
+  }
+
   addCategory(category: CuCategoryEnum) {
     this._coreUnit.category.push(category);
+    return this;
+  }
+
+  addAuditors(auditors: AuditorDto | AuditorDto[]): CoreUnitsBuilder {
+    if (Array.isArray(auditors)) {
+      this._coreUnit.auditors = this._coreUnit.auditors.concat(auditors);
+    } else {
+      this._coreUnit.auditors.push(auditors);
+    }
     return this;
   }
 

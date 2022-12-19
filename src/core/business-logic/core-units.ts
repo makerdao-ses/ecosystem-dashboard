@@ -3,8 +3,8 @@ import { LinkModel } from '../../stories/components/cu-table-column-links/cu-tab
 import { LinkTypeEnum } from '../enums/link-type.enum';
 import {
   BudgetStatementDto,
+  BudgetStatus,
   CommentsBudgetStatementDto,
-  CommentsDto,
   CoreUnitDto,
   CuMipDto,
   Mip40BudgetPeriodDto,
@@ -308,7 +308,7 @@ export const getLastMonthWithData = (cu: CoreUnitDto) => {
   return undefined;
 };
 
-export const getLastUpdateForBudgetStatement = (cu: CoreUnitDto, budgetStatementId: number) => {
+export const getLastUpdateForBudgetStatement = (cu: CoreUnitDto, budgetStatementId: string) => {
   const activityFeed = cu.activityFeed?.filter(
     (af) => Number(af.params.budgetStatementId) === Number(budgetStatementId)
   );
@@ -352,22 +352,37 @@ export const getMipUrlFromCoreUnit = (cu: CoreUnitDto) => {
 };
 
 export const getAllCommentsBudgetStatementLine = (budgetStatement?: BudgetStatementDto) => {
-  const commentsResult = [] as CommentsDto[];
-  if (!budgetStatement) return {};
+  const commentsWithDate = [] as (CommentsBudgetStatementDto & { date: DateTime })[];
 
-  if (!budgetStatement.comments?.length) return {};
-  budgetStatement.comments.forEach((commentItem: CommentsBudgetStatementDto) => {
-    if (commentItem.comment !== '') {
-      const itemComment: CommentsDto = {
-        month: DateTime.fromISO(commentItem.timestamp).toFormat('dd-MMM-y'),
-        ...commentItem,
-      };
-      commentsResult.push(itemComment);
+  if (!budgetStatement?.comments?.length) return commentsWithDate;
+  budgetStatement.comments.forEach((comment) => {
+    commentsWithDate.push({
+      ...comment,
+      date: DateTime.fromISO(comment.timestamp),
+    });
+  });
+  commentsWithDate.sort((a, b) => a.date.toMillis() - b.date.toMillis());
+
+  const comments = commentsWithDate.map((comment, index, array) => {
+    if (
+      (index === 0 && comment.status !== BudgetStatus.Draft) ||
+      (index !== 0 && array[index - 1].status !== comment.status)
+    ) {
+      // status change occurred
+      if (comment.comment.trim()) {
+        return [
+          {
+            ...comment,
+            id: `${comment.id}-change`,
+            comment: '',
+          },
+          comment,
+        ];
+      }
     }
+
+    return comment;
   });
 
-  const OrderByResult = _.orderBy(commentsResult, 'month').reverse();
-  const orderDate = _.groupBy(OrderByResult, 'month');
-
-  return orderDate;
+  return comments.flat() as CommentsBudgetStatementDto[];
 };

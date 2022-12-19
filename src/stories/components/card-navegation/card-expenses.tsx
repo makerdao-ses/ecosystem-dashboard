@@ -38,8 +38,6 @@ const CardExpenses = ({
   const isPhone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const isTable = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
 
-  console.log('>>>>>>>', auditors);
-
   return (
     <InformationCard
       fontWeight={600}
@@ -141,7 +139,7 @@ const CardExpenses = ({
           </Auditors>
         </AuditorsContainer>
       ) : (
-        '.....'
+        ''
       )}
     </InformationCard>
   );

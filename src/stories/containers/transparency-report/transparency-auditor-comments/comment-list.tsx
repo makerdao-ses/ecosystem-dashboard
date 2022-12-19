@@ -1,38 +1,49 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import AuditorCommentCard from './auditor-comment-card';
+import { ActivityFeedDto, BudgetStatus, CommentsBudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
+import { isActivity } from '../../../../core/utils/types-helpers';
 import CUNewExpenseReport from './cu-new-expense-report';
-import CommentForm from './comment-form';
-import { BudgetStatus } from '../../../../core/models/dto/core-unit.dto';
+import { getCommentVerb } from '../../../../core/utils/string.utils';
 
-const AuditorCommentList: React.FC = () => {
-  return (
-    <div>
-      <AuditorCommentCard status={BudgetStatus.Draft} hasStatusLabel={true} />
+export type AuditorCommentListProps = {
+  comments: (CommentsBudgetStatementDto | ActivityFeedDto)[];
+};
 
-      <CUNewExpenseReport />
-
-      <AuditorCommentCard status={BudgetStatus.Review} hasStatusLabel={true} />
-      <AuditorCommentCard
-        status={BudgetStatus.Review}
-        hasStatusLabel={false}
-        commentDescription={'Everything looks good, ready for review. '}
-      />
-      <AuditorCommentCard status={BudgetStatus.Final} hasStatusLabel={true} />
-
-      <CUNewExpenseReport />
-
-      <AuditorCommentCard status={BudgetStatus.Escalated} hasStatusLabel={true} />
-      <AuditorCommentCard
-        status={BudgetStatus.Draft}
-        hasStatusLabel={false}
-        commentDescription={
-          // eslint-disable-next-line spellcheck/spell-checker
-          'Our September forecast included offsite participation estimates for more people that ended up participating. Equally we have managed to get speaker tickets.\n\n**Updating:**\n- Actual expenses\n- FTE number'
+const AuditorCommentList: React.FC<AuditorCommentListProps> = ({ comments }) => {
+  const memorizedComments = useMemo(() => {
+    return comments.map((comment, index) => {
+      if (isActivity(comment)) {
+        return <CUNewExpenseReport key={comment.id} description={comment.description} date={comment.created_at} />;
+      } else {
+        let hasStatusChange = (comments.length === 1 || index === 0) && comment.status !== BudgetStatus.Draft;
+        let previousComment: CommentsBudgetStatementDto | undefined;
+        let jIndex = index - 1;
+        while (jIndex >= 0) {
+          if (!isActivity(comments[jIndex])) {
+            previousComment = comments[jIndex] as CommentsBudgetStatementDto;
+            break;
+          }
+          jIndex--;
         }
-      />
-      <CommentForm />
-    </div>
-  );
+        if (previousComment) {
+          hasStatusChange = previousComment.status !== comment.status;
+        } else if (comment.status !== BudgetStatus.Draft) {
+          hasStatusChange = true;
+        }
+
+        return (
+          <AuditorCommentCard
+            key={comment.id}
+            comment={comment}
+            hasStatusChange={hasStatusChange}
+            verb={getCommentVerb(comment, previousComment)}
+          />
+        );
+      }
+    });
+  }, [comments]);
+
+  return <div>{memorizedComments}</div>;
 };
 
 export default AuditorCommentList;
