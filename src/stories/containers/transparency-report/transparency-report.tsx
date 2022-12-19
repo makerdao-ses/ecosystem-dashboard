@@ -21,8 +21,8 @@ import { TransparencyForecast2 } from './transparency-forecast/transparency-fore
 import { TransparencyMkrVesting2 } from './transparency-mkr-vesting/transparency-mkr-vesting-2';
 import { TransparencyTransferRequest2 } from './transparency-transfer-request/transparency-transfer-request-2';
 import { TRANSPARENCY_IDS_ENUM, useTransparencyReportViewModel } from './transparency-report.mvvm';
-import { TransparencyComments } from './transparency-comments/transparency-comments';
 import ExpenseReportStatusIndicator from './common/expense-report-status-indicator/expense-report-status-indicator';
+import AuditorCommentsContainer from './transparency-auditor-comments/comment-container/auditor-comments-container';
 
 interface TransparencyReportProps {
   coreUnits: CoreUnitDto[];
@@ -52,6 +52,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
     numbersComments,
     longCode,
     comments,
+    showExpenseReportStatusCTA,
   } = useTransparencyReportViewModel(coreUnit);
 
   const CommentsComponent = {
@@ -105,7 +106,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
                 detailed budget update. The Core Unit's reports are reviewed by auditor
                 {coreUnit.auditors.length > 1 ? 's' : ''}{' '}
                 {coreUnit.auditors.map((auditor, index, array) => (
-                  <span>
+                  <span key={auditor.id}>
                     <b>{auditor.username}</b>
                     {array.length > 1 ? (index !== array.length - 1 ? ', ' : ' and ') : ''}
                   </span>
@@ -155,7 +156,10 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
                 hasPrevious={hasPreviousMonth()}
               />
             </PagerBarLeft>
-            <ExpenseReportStatusIndicator budgetStatus={currentBudgetStatement?.status || BudgetStatus.Draft} />
+            <ExpenseReportStatusIndicator
+              budgetStatus={currentBudgetStatement?.status || BudgetStatus.Draft}
+              showCTA={showExpenseReportStatusCTA}
+            />
             <Spacer />
             {lastUpdateForBudgetStatement && (
               <LastUpdate>
@@ -239,7 +243,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
           )}
 
           {tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS && isEnabled('FEATURE_TRANSPARENCY_COMMENTS') && (
-            <TransparencyComments numberComments={numbersComments} code={code} comments={comments} />
+            <AuditorCommentsContainer budgetStatement={currentBudgetStatement} comments={comments} />
           )}
         </InnerPage>
       </Container>

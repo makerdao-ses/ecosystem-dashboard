@@ -3,7 +3,10 @@ import {
   BudgetStatementFteDto,
   BudgetStatementWalletDto,
   BudgetStatus,
+  CommentsBudgetStatementDto,
 } from '../../models/dto/core-unit.dto';
+import { CommentBuilder } from './comment.builder';
+import { UserBuilder } from './user.builder';
 
 export class BudgetStatementBuilder {
   private readonly _budgetStatement: BudgetStatementDto;
@@ -13,6 +16,7 @@ export class BudgetStatementBuilder {
       month: '',
       budgetStatementFTEs: [] as BudgetStatementFteDto[],
       budgetStatementWallet: [] as BudgetStatementWalletDto[],
+      comments: [] as CommentsBudgetStatementDto[],
       status: BudgetStatus.Draft,
       publicationUrl: '',
     } as BudgetStatementDto;
@@ -36,6 +40,20 @@ export class BudgetStatementBuilder {
   addBudgetStatementWallet(budgetStatementWallet: BudgetStatementWalletDto): BudgetStatementBuilder {
     this._budgetStatement.budgetStatementWallet.push(budgetStatementWallet);
     return this;
+  }
+
+  addComment(comment: CommentsBudgetStatementDto) {
+    this._budgetStatement.comments.push(comment);
+    return this;
+  }
+
+  addBuildStatusChangeComment(status: BudgetStatus): BudgetStatementBuilder {
+    this._budgetStatement.status = status;
+    const comment = new CommentBuilder()
+      .withBudgetStatementId(this._budgetStatement.id)
+      .withStatus(status)
+      .withAuthor(new UserBuilder().addCoreUnitFacilitatorRole().build());
+    return this.addComment(comment.build());
   }
 
   build(): BudgetStatementDto {

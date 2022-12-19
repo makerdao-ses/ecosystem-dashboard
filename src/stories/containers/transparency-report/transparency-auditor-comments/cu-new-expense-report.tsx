@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
 import NoteChecked from '../../../components/svg/note-checked';
 import lightTheme from '../../../../../styles/theme/light';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
+import { DateTime } from 'luxon';
 
-const CUNewExpenseReport: React.FC = () => {
+export type CUNewExpenseReportProps = {
+  description: string;
+  date: string;
+};
+
+const CUNewExpenseReport: React.FC<CUNewExpenseReportProps> = ({ description, date }) => {
   const { isLight } = useThemeContext();
-
+  const dateStr = useMemo(() => DateTime.fromISO(date).toUTC().toFormat('dd-LLL-yyyy HH:mm ZZZZ'), [date]);
   return (
     <Container>
       <Left isLight={isLight}>
@@ -18,7 +24,9 @@ const CUNewExpenseReport: React.FC = () => {
         />
       </Left>
       <Text isLight={isLight}>
-        Core Unit SES has published a new expense report for September 2022 on 29-SEP-2022 14:33 UTC
+        <>
+          {description} on {dateStr}
+        </>
       </Text>
       <Right isLight={isLight}>
         <Circle isLight={isLight} />

@@ -1,35 +1,50 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
-import GenericCommentCard from './generic-comment-card';
-import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { CustomButton } from '../../../components/custom-button/custom-button';
-import BudgetStatusSelect from './budget-status-select';
-import lightTheme from '../../../../../styles/theme/light';
-import { useMediaQuery } from '@mui/material';
-import { BudgetStatus } from '../../../../core/models/dto/core-unit.dto';
+import GenericCommentCard from '../generic-comment-card';
+import { CustomButton } from '../../../../components/custom-button/custom-button';
+import BudgetStatusSelect from '../budget-status-select';
+import lightTheme from '../../../../../../styles/theme/light';
+import { BudgetStatus } from '../../../../../core/models/dto/core-unit.dto';
+import useCommentForm from './useCommentForm';
 
-const CommentForm: React.FC = () => {
-  const { isLight } = useThemeContext();
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
-  const [variant, setVariant] = useState<BudgetStatus | undefined>();
-  const handleChangeVariant = (value: BudgetStatus) => {
-    setVariant(value);
-  };
+export type CommentFormProps = {
+  currentBudgetStatus: BudgetStatus;
+  budgetStatementId: string;
+};
+
+const CommentForm: React.FC<CommentFormProps> = ({ currentBudgetStatus, budgetStatementId }) => {
+  const {
+    isLight,
+    isMobile,
+    submitLabel,
+    roleString,
+    username,
+    availableStatuses,
+    selectedStatus,
+    textAreaRef,
+    isSubmitting,
+    handleChangeVariant,
+    handleSubmit,
+  } = useCommentForm(currentBudgetStatus, budgetStatementId);
 
   return (
-    <GenericCommentCard variant={variant}>
+    <GenericCommentCard variant={selectedStatus}>
       <CommentHeader isLight={isLight}>
         <Select>
-          <BudgetStatusSelect onChangeStatus={handleChangeVariant} />
+          <BudgetStatusSelect
+            onChangeStatus={handleChangeVariant}
+            availableStatuses={availableStatuses}
+            selected={selectedStatus}
+          />
         </Select>
         <User>
-          <Username isLight={isLight}>C_27</Username>
-          <UserRole isLight={isLight}>Auditor</UserRole>
+          <Username isLight={isLight}>{username}</Username>
+          <UserRole isLight={isLight}>{roleString}</UserRole>
         </User>
       </CommentHeader>
       <FormContainer>
-        <TextArea isLight={isLight} placeholder="(Optional) Add comment here..." />
-        <SubmitButton label="Submit Comment" allowsHover={!isMobile} />
+        <TextArea isLight={isLight} ref={textAreaRef} placeholder="(Optional) Add comment here..." />
+        <SubmitButton label={submitLabel} allowsHover={!isMobile} onClick={handleSubmit} disabled={isSubmitting} />
       </FormContainer>
     </GenericCommentCard>
   );
@@ -52,6 +67,7 @@ const Select = styled.div({});
 
 const User = styled.div({
   display: 'flex',
+  flexWrap: 'wrap',
   fontSize: '12px',
   lineHeight: '15px',
   fontWeight: 600,
@@ -61,11 +77,11 @@ const User = styled.div({
 
 const Username = styled.div<StyledThemeProps>(({ isLight }) => ({
   color: isLight ? '#708390' : '#546978',
+  marginRight: 3,
 }));
 
 const UserRole = styled.div<StyledThemeProps>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
-  marginLeft: 3,
 }));
 
 const FormContainer = styled.div({

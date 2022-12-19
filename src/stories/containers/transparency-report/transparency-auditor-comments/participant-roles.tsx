@@ -2,30 +2,42 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import lightTheme from '../../../../../styles/theme/light';
+import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import InlineUser from '../common/inline-user/inline-user';
 
-const ParticipantRoles: React.FC = () => {
+export type ParticipantRolesProps = {
+  cu: UserDTO[];
+  auditors: UserDTO[];
+};
+
+const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ cu, auditors }) => {
   const { isLight } = useThemeContext();
 
   return (
     <ParticipantContainer>
       <Title isLight={isLight}>Participant Roles</Title>
       <Card isLight={isLight}>
-        <RoleSection>
-          <RoleName isLight={isLight}>SES Core Unit</RoleName>
-          <UserWrapper>
-            <InlineUser username="Wkampmann" />
-          </UserWrapper>
-        </RoleSection>
-        <RoleSection>
-          <RoleName isLight={isLight}>Auditor</RoleName>
-          <UserWrapper>
-            <InlineUser username="P_Rose" />
-          </UserWrapper>
-          <UserWrapper>
-            <InlineUser username="C-27" />
-          </UserWrapper>
-        </RoleSection>
+        {cu.length > 0 && (
+          <RoleSection>
+            <RoleName isLight={isLight}>SES Core Unit</RoleName>
+            {cu.map((author) => (
+              <UserWrapper key={author.id}>
+                <InlineUser username={author.username} />
+              </UserWrapper>
+            ))}
+          </RoleSection>
+        )}
+
+        {auditors.length > 0 && (
+          <RoleSection>
+            <RoleName isLight={isLight}>Auditor</RoleName>
+            {auditors.map((author) => (
+              <UserWrapper key={author.id}>
+                <InlineUser username={author.username} />
+              </UserWrapper>
+            ))}
+          </RoleSection>
+        )}
       </Card>
     </ParticipantContainer>
   );
@@ -33,7 +45,9 @@ const ParticipantRoles: React.FC = () => {
 
 export default ParticipantRoles;
 
-const ParticipantContainer = styled.div({});
+const ParticipantContainer = styled.div({
+  width: '100%',
+});
 
 type StyledThemeProps = {
   isLight: boolean;

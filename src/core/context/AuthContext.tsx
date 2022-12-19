@@ -2,6 +2,7 @@ import { GraphQLClient } from 'graphql-request';
 import { useRouter } from 'next/router';
 import React, { useLayoutEffect } from 'react';
 import { GRAPHQL_ENDPOINT } from '../../config/endpoints';
+import PermissionManager from '../auth/permission-manager';
 import { useIsAdmin } from '../hooks/useIsAdmin';
 import { LoginDTO, UserDTO } from '../models/dto/auth.dto';
 import { getAuthFromStorage } from '../utils/auth-storage';
@@ -15,11 +16,13 @@ interface AuthContextProps {
   hasToken: boolean;
   isAuth?: boolean;
   isAdmin?: boolean;
+  permissionManager: PermissionManager;
 }
 
 const AuthContext = React.createContext<AuthContextProps>({
   hasToken: false,
   isAdmin: false,
+  permissionManager: new PermissionManager(),
 });
 const clientRequest = new GraphQLClient(GRAPHQL_ENDPOINT);
 export const useAuthContext = () => React.useContext(AuthContext);
@@ -31,6 +34,8 @@ export const AuthContextProvider: React.FC<{ children: JSX.Element | JSX.Element
   const [user, setUser] = React.useState<UserDTO | undefined>(undefined);
   const router = useRouter();
   const isAdmin = useIsAdmin(user || ({} as UserDTO));
+
+  const permissionManager = React.useMemo(() => new PermissionManager(user), [user]);
 
   useLayoutEffect(() => {
     const auth = getAuthFromStorage();
@@ -54,6 +59,7 @@ export const AuthContextProvider: React.FC<{ children: JSX.Element | JSX.Element
     await router.push('/login');
     setAuthToken('');
     setUser(undefined);
+    permissionManager.removeLoggedUser();
     window.localStorage.setItem('auth', '{}');
   };
 
@@ -68,6 +74,7 @@ export const AuthContextProvider: React.FC<{ children: JSX.Element | JSX.Element
         hasToken,
         isAuth,
         isAdmin,
+        permissionManager,
       }}
     >
       {children}

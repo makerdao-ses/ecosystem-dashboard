@@ -1,7 +1,7 @@
 import { PermissionsEnum } from '../enums/permissions.enum';
 import { RoleEnum } from '../enums/role.enum';
 import { UserDTO, UserRole } from '../models/dto/auth.dto';
-import { BudgetStatementWalletDto } from '../models/dto/core-unit.dto';
+import { BudgetStatementWalletDto, BudgetStatus, CommentsBudgetStatementDto } from '../models/dto/core-unit.dto';
 
 export const getTwoInitials = (name: string) => {
   const [, w1, w2] = /(\w+)[^a-zA-Z]*(\w*)?/.exec(name) ?? [];
@@ -61,7 +61,7 @@ export const getCorrectRoleApi = (user: UserDTO) => {
   const allRoles: string[] = [];
   user.roles?.forEach((role: UserRole) => {
     allRoles.push(convertRoles(role.name));
-    role.permissions.forEach((permission: PermissionsEnum) => {
+    role.permissions.forEach((permission: string) => {
       allPermission.push(permission);
     });
   });
@@ -100,4 +100,43 @@ export const convertRoles = (role: RoleEnum) => {
     default:
       return 'User';
   }
+};
+
+export const getCommentVerb = (
+  comment: CommentsBudgetStatementDto,
+  previousComment?: CommentsBudgetStatementDto
+): string => {
+  if (!previousComment) {
+    // is the first comment
+    switch (comment.status) {
+      case BudgetStatus.Review:
+        return 'submitted for review';
+      case BudgetStatus.Final:
+        return 'marked as final';
+    }
+  } else {
+    if (comment.status === previousComment.status) {
+      return 'wrote';
+    }
+
+    switch (comment.status) {
+      case BudgetStatus.Draft:
+        return 'reopen';
+      case BudgetStatus.Review:
+        if (previousComment.status === BudgetStatus.Draft) {
+          return 'submitted for review';
+        } else {
+          return 'reopened';
+        }
+      case BudgetStatus.Escalated:
+        return 'escalated';
+      case BudgetStatus.Final:
+        if (previousComment.status === BudgetStatus.Draft) {
+          return 'marked as final';
+        } else {
+          return 'approved';
+        }
+    }
+  }
+  return 'wrote';
 };
