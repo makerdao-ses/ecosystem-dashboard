@@ -21,6 +21,7 @@ const ChangePassword: React.FC<{ adminChange?: boolean }> = ({ adminChange = fal
     isWrongOldPassword,
     isMobileOrTable,
     handleGoBack,
+    isUserDisable,
   } = userChangePasswordMvvm(adminChange);
 
   if (hasErrorLoadingUser) {
@@ -77,6 +78,7 @@ const ChangePassword: React.FC<{ adminChange?: boolean }> = ({ adminChange = fal
               error={
                 (form.touched.oldPassword && form.errors.oldPassword) ||
                 (isWrongOldPassword && `Wrong ${adminChange ? 'admin' : 'old'} password`) ||
+                (isUserDisable && 'Account disabled. Reach admin for more info') ||
                 error
               }
               style={{ marginBottom: 32 }}
