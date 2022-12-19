@@ -39,7 +39,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ currentBudgetStatus, budgetSt
         </Select>
         <User>
           <Username isLight={isLight}>{username}</Username>
-          <UserRole isLight={isLight}>{roleString}</UserRole>
+          <UserRole isLight={isLight}>({roleString})</UserRole>
         </User>
       </CommentHeader>
       <FormContainer>

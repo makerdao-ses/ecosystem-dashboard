@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { BudgetStatus } from '../../../../../core/models/dto/core-unit.dto';
 import ExpenseReportStatus from '../expense-report-status/expense-report-status';
+import Link from 'next/link';
 
 export type ExpenseReportStatusIndicatorProps = {
   budgetStatus: BudgetStatus;
@@ -15,7 +16,11 @@ const ExpenseReportStatusIndicator: React.FC<ExpenseReportStatusIndicatorProps> 
   return (
     <IndicatorContainer>
       <ExpenseReportStatus status={budgetStatus} />
-      {showCTA && budgetStatus !== BudgetStatus.Final && <StyledLink>Go to {budgetStatus}</StyledLink>}
+      {showCTA && budgetStatus !== BudgetStatus.Final && (
+        <Link href={'#comments'}>
+          <StyledLink>Go to {budgetStatus}</StyledLink>
+        </Link>
+      )}
     </IndicatorContainer>
   );
 };
@@ -32,4 +37,5 @@ const StyledLink = styled.a({
   fontWeight: 500,
   lineHeight: '16px',
   color: '#447AFB',
+  cursor: 'pointer',
 });

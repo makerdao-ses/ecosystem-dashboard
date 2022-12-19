@@ -54,7 +54,7 @@ const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({ comment, hasSta
             </>
           ) : (
             <Text isLight={isLight}>
-              {comment.author.username} <span>{roleString}</span> {verb} on {formattedTimestamp}
+              {comment.author.username} <span>({roleString})</span> {verb} on {formattedTimestamp}
             </Text>
           )}
         </CommentInfo>

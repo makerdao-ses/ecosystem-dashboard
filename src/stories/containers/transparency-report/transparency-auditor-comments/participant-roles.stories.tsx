@@ -21,3 +21,10 @@ Default.args = {
     new UserBuilder().addCoreUnitFacilitatorRole().withUsername('facilitator1').build(),
   ],
 };
+
+export const Empty = Template.bind({});
+Empty.args = {
+  coreUnitCode: 'EXA',
+  auditors: [],
+  cu: [],
+};
