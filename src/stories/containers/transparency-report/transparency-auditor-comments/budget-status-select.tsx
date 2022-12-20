@@ -50,6 +50,10 @@ const BudgetStatusSelect: React.FC<BudgetStatusSelectProps> = ({ availableStatus
     setOpened(!opened);
   }, [opened, setOpened]);
 
+  if (availableStatuses?.length === 1) {
+    return <ExpenseReportStatus status={availableStatuses[0]} />;
+  }
+
   return (
     <SelectWrapper ref={menuRef} isLight={isLight} open={opened} onClick={toggleOpenHandler}>
       <SelectControl>
