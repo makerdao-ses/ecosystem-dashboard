@@ -155,11 +155,12 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
                 hasNext={hasNextMonth()}
                 hasPrevious={hasPreviousMonth()}
               />
+              <ExpenseReportStatusIndicator
+                budgetStatus={currentBudgetStatement?.status || BudgetStatus.Draft}
+                showCTA={showExpenseReportStatusCTA}
+              />
             </PagerBarLeft>
-            <ExpenseReportStatusIndicator
-              budgetStatus={currentBudgetStatement?.status || BudgetStatus.Draft}
-              showCTA={showExpenseReportStatusCTA}
-            />
+
             <Spacer />
             {lastUpdateForBudgetStatement && (
               <LastUpdate>
@@ -351,7 +352,13 @@ const PagerBar = styled.div({
 
 const PagerBarLeft = styled.div({
   display: 'flex',
-  alignItems: 'center',
+  alignItems: 'flex-start',
+  flexDirection: 'column',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
 });
 
 const LastUpdate = styled.div({

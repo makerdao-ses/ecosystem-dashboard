@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { BudgetStatus } from '../../../../../core/models/dto/core-unit.dto';
 import ExpenseReportStatus from '../expense-report-status/expense-report-status';
 import Link from 'next/link';
+import lightTheme from '../../../../../../styles/theme/light';
 
 export type ExpenseReportStatusIndicatorProps = {
   budgetStatus: BudgetStatus;
@@ -28,7 +29,12 @@ const ExpenseReportStatusIndicator: React.FC<ExpenseReportStatusIndicatorProps> 
 export default ExpenseReportStatusIndicator;
 
 const IndicatorContainer = styled.div({
-  marginLeft: 16,
+  marginTop: 8,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 0,
+    marginLeft: 16,
+  },
 });
 
 const StyledLink = styled.a({
