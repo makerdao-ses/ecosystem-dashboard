@@ -63,7 +63,9 @@ const CommentHeader = styled.div<StyledThemeProps>(({ isLight }) => ({
   borderBottom: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
 }));
 
-const Select = styled.div({});
+const Select = styled.div({
+  minWidth: 'fit-content',
+});
 
 const User = styled.div({
   display: 'flex',
@@ -72,7 +74,11 @@ const User = styled.div({
   lineHeight: '15px',
   fontWeight: 600,
   textTransform: 'uppercase',
-  marginLeft: 32,
+  marginLeft: 16,
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginLeft: 32,
+  },
 });
 
 const Username = styled.div<StyledThemeProps>(({ isLight }) => ({
