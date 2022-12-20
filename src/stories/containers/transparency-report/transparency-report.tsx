@@ -103,12 +103,15 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
             ) : (
               <div>
                 Every month, the {coreUnit.shortCode} Core Unit submits an Expense Report to MakerDAO governance with a
-                detailed budget update. The Core Unit's reports are reviewed by auditor
-                {coreUnit.auditors.length > 1 ? 's' : ''}{' '}
+                detailed budget update. The Core Unit's reports are reviewed by auditor(s){' '}
                 {coreUnit.auditors.map((auditor, index, array) => (
                   <span key={auditor.id}>
                     <b>{auditor.username}</b>
-                    {array.length > 1 ? (index !== array.length - 1 ? ', ' : ' and ') : ''}
+                    {array.length > 1 && index !== array.length - 1
+                      ? index !== array.length - 2
+                        ? ', '
+                        : ', and '
+                      : ''}
                   </span>
                 ))}{' '}
                 before they are marked as final.
@@ -332,12 +335,13 @@ const Paragraph = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '14px',
-  lineHeight: '17px',
+  lineHeight: '22px',
   color: isLight ? '#231536' : '#D2D4EF',
-  marginBottom: '64px',
+  marginBottom: '40px',
+
   '@media (min-width: 834px)': {
     fontSize: '16px',
-    lineHeight: '22px',
+    marginBottom: '64px',
   },
 }));
 
@@ -391,6 +395,7 @@ const SinceDate = styled.div({
   lineHeight: '15px',
   textTransform: 'uppercase',
   marginTop: '2px',
+  textAlign: 'right',
   '@media (min-width: 834px)': {
     fontSize: '12px',
     marginTop: '4px',

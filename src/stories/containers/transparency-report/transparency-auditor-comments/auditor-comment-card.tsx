@@ -92,6 +92,7 @@ const StatusLabelWrapper = styled.div({
 });
 
 const Text = styled.span<{ isLight: boolean }>(({ isLight }) => ({
+  letterSpacing: '1px',
   color: isLight ? '#708390' : '#546978',
 
   '& span': {
@@ -103,6 +104,7 @@ const MobileColumn = styled.div({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-end',
+  letterSpacing: '1px',
 });
 
 const CommentInfo = styled.div<{ isLight: boolean }>(({ isLight }) => ({
@@ -141,6 +143,7 @@ const UserRole = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 const ActionAndDate = styled.div({
   marginTop: 16,
   width: '100%',
+  letterSpacing: '1px',
 
   [lightTheme.breakpoints.up('table_834')]: {
     marginTop: 0,

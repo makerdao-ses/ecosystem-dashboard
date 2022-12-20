@@ -91,8 +91,8 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
       const month = DateTime.fromFormat(viewMonthStr as string, 'LLLyyyy');
       setCurrentMonth(month);
     } else {
+      if (currentMonth) return;
       const month = getCurrentOrLastMonthWithData(coreUnit?.budgetStatements);
-
       if (month) {
         setCurrentMonth(month);
       }

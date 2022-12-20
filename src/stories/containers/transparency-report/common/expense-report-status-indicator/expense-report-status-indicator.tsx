@@ -29,6 +29,8 @@ const ExpenseReportStatusIndicator: React.FC<ExpenseReportStatusIndicatorProps> 
 export default ExpenseReportStatusIndicator;
 
 const IndicatorContainer = styled.div({
+  display: 'flex',
+  alignItems: 'center',
   marginTop: 8,
 
   [lightTheme.breakpoints.up('table_834')]: {
@@ -39,9 +41,14 @@ const IndicatorContainer = styled.div({
 
 const StyledLink = styled.a({
   marginLeft: 8,
-  fontSize: 16,
+  fontSize: 14,
   fontWeight: 500,
-  lineHeight: '16px',
+  lineHeight: '18px',
   color: '#447AFB',
   cursor: 'pointer',
+  minWidth: 'fit-content',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: 16,
+  },
 });

@@ -18,9 +18,6 @@ const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ coreUnitCode, cu, a
     <ParticipantContainer>
       <Title isLight={isLight}>Participant Roles</Title>
       <Card isLight={isLight}>
-        {cu.length === 0 && auditors.length === 0 && (
-          <EmptyState isLight={isLight}>The {coreUnitCode} Core Unit is currently working without auditor</EmptyState>
-        )}
         {cu.length > 0 && (
           <RoleSection>
             <RoleName isLight={isLight}>SES Core Unit</RoleName>
@@ -32,7 +29,7 @@ const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ coreUnitCode, cu, a
           </RoleSection>
         )}
 
-        {auditors.length > 0 && (
+        {auditors.length > 0 ? (
           <RoleSection>
             <RoleName isLight={isLight}>Auditor</RoleName>
             {auditors.map((author) => (
@@ -41,6 +38,8 @@ const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ coreUnitCode, cu, a
               </UserWrapper>
             ))}
           </RoleSection>
+        ) : (
+          <EmptyState isLight={isLight}>The {coreUnitCode} Core Unit is currently working without auditor</EmptyState>
         )}
       </Card>
     </ParticipantContainer>
