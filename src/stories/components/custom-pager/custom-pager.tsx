@@ -29,7 +29,7 @@ export const CustomPager = (props: CustomPagerProps) => {
 
 const Container = styled.div({
   display: 'flex',
-  alignItems: 'center',
+  alignItems: 'flex-start',
   flexDirection: 'row',
 });
 
@@ -50,7 +50,6 @@ const Label = styled.div({
 const Arrows = styled.div({
   display: 'flex',
   alignItems: 'center',
-  marginTop: '4px',
   gap: '16px',
 });
 
