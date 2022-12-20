@@ -236,6 +236,10 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   useEffect(() => {
     switch (currentBudgetStatement?.status) {
       case BudgetStatus.Draft:
+        if (!coreUnit.auditors?.length) {
+          setShowExpenseReportStatusCTA(false);
+          break;
+        }
         setShowExpenseReportStatusCTA(permissionManager.coreUnit.isCoreUnitAdmin(coreUnit));
         break;
       case BudgetStatus.Review:
