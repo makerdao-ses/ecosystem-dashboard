@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useMediaQuery } from '@mui/material';
 import lightTheme from '../../../../../../styles/theme/light';
 import { useAuthContext } from '../../../../../core/context/AuthContext';
@@ -19,7 +19,7 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
   const [submitLabel, setSubmitLabel] = useState<string>('Submit Comment');
   const [availableStatuses, setAvailableStatuses] = useState<BudgetStatus[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<BudgetStatus | undefined>();
-  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const [textareaValue, setTextareaValue] = useState<string>('');
 
   // update the selected status every time the budget statement changes
   useEffect(() => {
@@ -97,12 +97,14 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
     setSelectedStatus(value);
   };
 
+  const handleChangeTextarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => setTextareaValue(e.target.value);
+
   const handleSubmit = async () => {
     const { query, input } = CREATE_BUDGET_STATEMENT_COMMENT(
       budgetStatementId,
       permissionManager.loggedUser?.id || '',
       selectedStatus,
-      textAreaRef.current?.value || ''
+      textareaValue
     );
 
     try {
@@ -133,7 +135,7 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
       };
 
       setCurrentCoreUnit(updatedCoreUnit);
-      textAreaRef.current?.value && (textAreaRef.current.value = '');
+      setTextareaValue('');
     } catch (err) {
       triggerToast({
         message: 'An unexpected error occurred. Please try again.',
@@ -159,9 +161,11 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
     availableStatuses,
     selectedStatus,
     username: permissionManager.loggedUser?.username,
-    textAreaRef,
+    textareaValue,
     isSubmitting,
+    isCommenting: selectedStatus === currentBudgetStatus,
     handleChangeVariant,
+    handleChangeTextarea,
     handleSubmit,
   } as const;
 };

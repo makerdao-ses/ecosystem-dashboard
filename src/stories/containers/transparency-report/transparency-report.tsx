@@ -103,21 +103,24 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
             ) : (
               <div>
                 Every month, the {coreUnit.shortCode} Core Unit submits an Expense Report to MakerDAO governance with a
-                detailed budget update. The Core Unit's reports are reviewed by auditor(s){' '}
-                {coreUnit.auditors.map((auditor, index, array) => (
-                  <span key={auditor.id}>
-                    <b>{auditor.username}</b>
-                    {array.length > 1 && index !== array.length - 1
-                      ? index !== array.length - 2
-                        ? ', '
-                        : ', and '
-                      : ''}
-                  </span>
-                ))}{' '}
+                detailed budget update. The Core Unit's reports are reviewed{' '}
+                <b>
+                  by auditor(s){' '}
+                  {coreUnit.auditors.map((auditor, index, array) => (
+                    <span key={auditor.id}>
+                      <b>{auditor.username}</b>
+                      {array.length > 1 && index !== array.length - 1
+                        ? index !== array.length - 2
+                          ? ', '
+                          : ', and '
+                        : ''}
+                    </span>
+                  ))}{' '}
+                </b>
                 before they are marked as final.
               </div>
             )}
-            <p style={{ marginBottom: 0 }}>
+            <HowToSubmitParagraph>
               <span>Is this your core unit? Learn</span>
               <CustomLink
                 fontWeight={500}
@@ -127,12 +130,13 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
                 fontSize={16}
                 fontSizeMobile={14}
                 fontFamily={'Inter, sans-serif'}
+                style={{ whiteSpace: 'normal' }}
               >
                 how to submit your expenses here
               </CustomLink>
-            </p>
+            </HowToSubmitParagraph>
             {coreUnit.legacyBudgetStatementUrl && (
-              <p style={{ marginBottom: 0 }}>
+              <LegacyReportParagraph>
                 <span>Legacy expense reports can be found</span>
                 <CustomLink
                   fontWeight={500}
@@ -145,7 +149,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
                 >
                   here
                 </CustomLink>
-              </p>
+              </LegacyReportParagraph>
             )}
           </Paragraph>
 
@@ -344,6 +348,20 @@ const Paragraph = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     marginBottom: '64px',
   },
 }));
+
+const HowToSubmitParagraph = styled.div({
+  marginTop: 16,
+  marginBottom: 0,
+});
+
+const LegacyReportParagraph = styled.div({
+  marginTop: 4,
+  marginBottom: 0,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 16,
+  },
+});
 
 const PagerBar = styled.div({
   display: 'flex',
