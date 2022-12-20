@@ -64,6 +64,10 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
         setAvailableStatuses([BudgetStatus.Final]);
         break;
       case BudgetStatus.Escalated:
+        if (isAuditor) {
+          setAvailableStatuses([BudgetStatus.Review, BudgetStatus.Escalated]);
+          break;
+        }
         setAvailableStatuses([BudgetStatus.Escalated]);
         break;
       default:
