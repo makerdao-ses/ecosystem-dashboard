@@ -75,6 +75,7 @@ const User = styled.div({
   fontWeight: 600,
   textTransform: 'uppercase',
   marginLeft: 16,
+  letterSpacing: '1px',
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
     marginLeft: 32,
