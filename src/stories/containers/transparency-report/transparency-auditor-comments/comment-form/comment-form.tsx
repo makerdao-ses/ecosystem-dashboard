@@ -21,9 +21,11 @@ const CommentForm: React.FC<CommentFormProps> = ({ currentBudgetStatus, budgetSt
     username,
     availableStatuses,
     selectedStatus,
-    textAreaRef,
+    textareaValue,
     isSubmitting,
+    isCommenting,
     handleChangeVariant,
+    handleChangeTextarea,
     handleSubmit,
   } = useCommentForm(currentBudgetStatus, budgetStatementId);
 
@@ -43,8 +45,18 @@ const CommentForm: React.FC<CommentFormProps> = ({ currentBudgetStatus, budgetSt
         </User>
       </CommentHeader>
       <FormContainer>
-        <TextArea isLight={isLight} ref={textAreaRef} placeholder="(Optional) Add comment here..." />
-        <SubmitButton label={submitLabel} allowsHover={!isMobile} onClick={handleSubmit} disabled={isSubmitting} />
+        <TextArea
+          isLight={isLight}
+          placeholder={`${isCommenting ? '' : '(Optional)'} Add comment here...`}
+          value={textareaValue}
+          onChange={handleChangeTextarea}
+        />
+        <SubmitButton
+          label={submitLabel}
+          allowsHover={!isMobile}
+          onClick={handleSubmit}
+          disabled={isSubmitting || (!textareaValue.trim() && isCommenting)}
+        />
       </FormContainer>
     </GenericCommentCard>
   );
@@ -126,6 +138,14 @@ const TextArea = styled.textarea<{ isLight: boolean }>(({ isLight }) => ({
 const SubmitButton = styled(CustomButton, { shouldForwardProp: (prop) => prop !== 'isLight' })({
   height: 'fit-content',
   padding: '8px 24px',
+
+  '&:hover:disabled, &:hover[disabled]': {
+    cursor: 'default',
+
+    '& div': {
+      color: '#9FAFB9',
+    },
+  },
 
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     marginLeft: 16,
