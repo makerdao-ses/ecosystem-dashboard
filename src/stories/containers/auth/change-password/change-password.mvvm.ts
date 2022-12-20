@@ -47,6 +47,7 @@ export const userChangePasswordMvvm = (adminChange: boolean) => {
   const { user: authenticatedUser, authToken, isAdmin } = useAuthContext();
   const [error, setError] = useState<string>('');
   const [isWrongOldPassword, setIsWrongOldPassword] = useState<boolean>(false);
+  const [isUserDisable, setIsUserDisable] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
   const isMobileOrTable = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   // for "adminChange" only
@@ -121,12 +122,16 @@ export const userChangePasswordMvvm = (adminChange: boolean) => {
         );
       } catch (err) {
         if (err instanceof ClientError) {
-          if (
-            err.response.errors &&
-            err.response.errors.length > 0 &&
-            ['Error: wrong old password', 'Error: Wrong admin old password'].includes(err.response.errors[0].message)
-          ) {
-            setIsWrongOldPassword(true);
+          if (err.response.errors && err.response.errors.length > 0) {
+            if (
+              ['Error: wrong old password', 'Error: Wrong admin old password'].includes(err.response.errors[0].message)
+            ) {
+              setIsWrongOldPassword(true);
+            }
+
+            if (['Error: Account disabled. Reach admin for more info.'].includes(err.response.errors[0].message)) {
+              setIsUserDisable(true);
+            }
           } else {
             // we got an unknown error
             setError('There was a server error when trying to update the password');
@@ -155,5 +160,6 @@ export const userChangePasswordMvvm = (adminChange: boolean) => {
     isWrongOldPassword,
     isMobileOrTable,
     handleGoBack,
+    isUserDisable,
   };
 };

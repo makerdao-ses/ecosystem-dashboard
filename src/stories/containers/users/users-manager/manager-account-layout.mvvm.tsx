@@ -32,15 +32,19 @@ export const useManagerAccountLayoutViewModel = () => {
               alignItems: 'center',
             }}
           >
-            Manage Accounts (
-            <span style={{ display: 'inline-flex' }}>
+            Manage Accounts
+            <span
+              style={{
+                display: 'inline-flex',
+                marginLeft: 3,
+              }}
+            >
               {!data && !errorFetchingUsers ? (
                 <Skeleton variant="rectangular" width={20} height={18} style={{ borderRadius: 8 }} />
               ) : (
-                users.length
+                `(${users.length})`
               )}
             </span>
-            )
           </ParenthesisNumber>
         ),
         id: '',
