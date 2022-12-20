@@ -14,6 +14,12 @@ export type GenericCommentCardProps = {
 const GenericCommentCard: React.FC<GenericCommentCardProps> = ({ variant = BudgetStatus.Draft, children, opacity }) => {
   const { isLight } = useThemeContext();
   const variantColor = useMemo(() => {
+    if (variant === BudgetStatus.Review) {
+      return {
+        ...getExpenseReportStatusColor(variant),
+        color: '#FBCC5F',
+      };
+    }
     return getExpenseReportStatusColor(variant);
   }, [variant]);
 
