@@ -121,7 +121,7 @@ export const getCommentVerb = (
 
     switch (comment.status) {
       case BudgetStatus.Draft:
-        return 'reopen';
+        return 'reopened';
       case BudgetStatus.Review:
         if (previousComment.status === BudgetStatus.Draft) {
           return 'submitted for review';

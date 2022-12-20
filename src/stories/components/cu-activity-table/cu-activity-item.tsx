@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { getShortCode } from '../../../core/utils/string.utils';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
 import { CustomButton } from '../custom-button/custom-button';
 import { Activity } from './cu-activity-table';
@@ -26,9 +25,15 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
   );
 
   const detailsUrl = useMemo(() => {
-    return `/core-unit/${getShortCode(
-      activity.activityFeed.params.coreUnit.code
-    )}/finances/reports?viewMonth=${DateTime.fromFormat(activity.activityFeed.params.month, 'y-M').toFormat('LLLy')}`;
+    let anchor = '';
+    if (['CU_BUDGET_STATEMENT_COMMENT', 'CU_BUDGET_STATEMENT_CREATED'].includes(activity.activityFeed.event)) {
+      anchor = '#comments';
+    }
+    return `/core-unit/${
+      activity.activityFeed.params.coreUnit.shortCode
+    }/finances/reports?viewMonth=${DateTime.fromFormat(activity.activityFeed.params.month, 'y-M').toFormat(
+      'LLLy'
+    )}${anchor}`;
   }, [activity]);
 
   const goToDetails = () => {
@@ -36,7 +41,7 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
   };
 
   return (
-    <Link href={detailsUrl}>
+    <Link href={detailsUrl} passHref>
       <ActivityItem isLight={isLight} isGlobal={isGlobal}>
         <FlexWrapper isGlobal={isGlobal}>
           {activity.coreUnit && (
