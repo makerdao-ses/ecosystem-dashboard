@@ -29,7 +29,7 @@ const ExpenseReportStatusStyled = styled.div<{ isLight: boolean; variantColorSet
     width: 98,
     textAlign: 'center',
     textTransform: 'none',
-    padding: '4px 0',
+    padding: '3px 0',
     borderRadius: 12,
     border: `1px solid ${isLight ? variantColorSet.color : variantColorSet.darkColor}`,
     background: isLight ? variantColorSet.background : variantColorSet.darkBackground,
