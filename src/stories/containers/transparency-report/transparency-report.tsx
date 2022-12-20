@@ -103,12 +103,15 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
             ) : (
               <div>
                 Every month, the {coreUnit.shortCode} Core Unit submits an Expense Report to MakerDAO governance with a
-                detailed budget update. The Core Unit's reports are reviewed by auditor
-                {coreUnit.auditors.length > 1 ? 's' : ''}{' '}
+                detailed budget update. The Core Unit's reports are reviewed by auditor(s){' '}
                 {coreUnit.auditors.map((auditor, index, array) => (
                   <span key={auditor.id}>
                     <b>{auditor.username}</b>
-                    {array.length > 1 ? (index !== array.length - 1 ? ', ' : ' and ') : ''}
+                    {array.length > 1 && index !== array.length - 1
+                      ? index !== array.length - 2
+                        ? ', '
+                        : ' and '
+                      : ''}
                   </span>
                 ))}{' '}
                 before they are marked as final.
