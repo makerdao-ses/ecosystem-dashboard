@@ -29,7 +29,7 @@ export const CustomPager = (props: CustomPagerProps) => {
 
 const Container = styled.div({
   display: 'flex',
-  alignItems: 'flex-start',
+  alignItems: 'center',
   flexDirection: 'row',
 });
 
