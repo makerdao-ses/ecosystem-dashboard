@@ -53,13 +53,17 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
     longCode,
     comments,
     showExpenseReportStatusCTA,
+    hasNewComments,
   } = useTransparencyReportViewModel(coreUnit);
 
   const CommentsComponent = {
     item: (
-      <ParenthesisNumber>
-        Comments <span>{`(${numbersComments})`}</span>
-      </ParenthesisNumber>
+      <CommentsContainer>
+        {hasNewComments && <DotIndicator isLight={isLight} />}
+        <ParenthesisNumber>
+          Comments<span>{`(${numbersComments})`}</span>
+        </ParenthesisNumber>
+      </CommentsContainer>
     ),
     id: TRANSPARENCY_IDS_ENUM.COMMENTS,
   };
@@ -419,5 +423,20 @@ export const ParenthesisNumber = styled.label({
   cursor: 'pointer',
   '> span': {
     fontWeight: 'bold',
+    marginLeft: '5px',
   },
 });
+
+const CommentsContainer = styled.div({
+  position: 'relative',
+});
+
+const DotIndicator = styled.span<{ isLight: boolean }>(({ isLight }) => ({
+  minWidth: '6px',
+  minHeight: '6px',
+  borderRadius: '50%',
+  background: isLight ? '#F75524' : '#FF8237',
+  position: 'absolute',
+  top: 0,
+  right: -8,
+}));

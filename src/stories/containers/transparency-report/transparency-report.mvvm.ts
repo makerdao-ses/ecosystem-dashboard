@@ -251,6 +251,8 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     }
   }, [coreUnit, currentBudgetStatement, permissionManager]);
 
+  const hasNewComments = false;
+
   return {
     tabItems,
     code,
@@ -269,5 +271,6 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     longCode,
     hasPreviousMonth,
     comments,
+    hasNewComments,
   };
 };
