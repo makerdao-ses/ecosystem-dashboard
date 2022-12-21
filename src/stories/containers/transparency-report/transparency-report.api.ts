@@ -20,6 +20,13 @@ export const CORE_UNIT_REQUEST = (shortCode: string) => ({
           month
           status
           publicationUrl
+          activityFeed {
+            id
+            created_at
+            event
+            params
+            description
+          }
           comments {
             id
             budgetStatementId
