@@ -172,16 +172,17 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   const comments = useMemo(() => {
     const comments = getAllCommentsBudgetStatementLine(currentBudgetStatement) as (CommentsBudgetStatementDto &
       WithDate)[];
-    let activities = coreUnit.activityFeed.filter(
+    let activities = currentBudgetStatement?.activityFeed.filter(
       (activity) =>
         activity.event === 'CU_BUDGET_STATEMENT_CREATED' &&
         activity.params.month === currentMonth.toFormat('yyyy-MM') &&
         activity.params.budgetStatementId.toString() === currentBudgetStatement?.id
     ) as (ActivityFeedDto & WithDate)[];
-    activities = activities.map((activity) => {
-      activity.date = DateTime.fromISO(activity.created_at);
-      return activity;
-    });
+    activities =
+      activities?.map((activity) => {
+        activity.date = DateTime.fromISO(activity.created_at);
+        return activity;
+      }) || [];
     const result = (comments as unknown[]).concat(activities) as WithDate[];
     result.sort((a, b) => a.date.toMillis() - b.date.toMillis());
 
