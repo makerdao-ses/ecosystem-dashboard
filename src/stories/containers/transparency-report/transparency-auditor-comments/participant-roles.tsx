@@ -20,7 +20,7 @@ const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ coreUnitCode, cu, a
       <Card isLight={isLight}>
         {cu.length > 0 && (
           <RoleSection>
-            <RoleName isLight={isLight}>SES Core Unit</RoleName>
+            <RoleName isLight={isLight}>{`${coreUnitCode} Core Unit`}</RoleName>
             {cu.map((author) => (
               <UserWrapper key={author.id}>
                 <InlineUser username={author.username} />
