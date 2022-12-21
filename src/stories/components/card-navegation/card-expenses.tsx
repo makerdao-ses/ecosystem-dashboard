@@ -166,7 +166,8 @@ const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => 
 const ContainerButton = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'space-between',
+  justifyContent: 'center',
+  gap: 24,
 });
 
 const ContainerLinks = styled.div({
