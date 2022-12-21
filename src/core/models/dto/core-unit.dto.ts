@@ -116,11 +116,27 @@ export interface CommentsBudgetStatementDto {
   status: BudgetStatus;
 }
 
+export interface ActivityFeedDto {
+  id: string;
+  created_at: string;
+  event: string;
+  params: {
+    coreUnit: {
+      code: string;
+      shortCode: string;
+    };
+    month: string;
+    budgetStatementId: number;
+  };
+  description: string;
+}
+
 export interface BudgetStatementDto {
   id: string;
   month: string;
   status: BudgetStatus;
   publicationUrl: string;
+  activityFeed: ActivityFeedDto[];
   comments: CommentsBudgetStatementDto[];
   budgetStatementFTEs: BudgetStatementFteDto[];
   budgetStatementWallet: BudgetStatementWalletDto[];
@@ -136,21 +152,6 @@ export interface SocialMediaChannelDto {
   linkedIn: string;
   website: string;
   github: string;
-}
-
-export interface ActivityFeedDto {
-  id: string;
-  created_at: string;
-  event: string;
-  params: {
-    coreUnit: {
-      code: string;
-      shortCode: string;
-    };
-    month: string;
-    budgetStatementId: number;
-  };
-  description: string;
 }
 
 export interface LastActivityDto {
