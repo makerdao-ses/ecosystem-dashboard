@@ -249,7 +249,8 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     }
   }, [coreUnit, currentBudgetStatement, permissionManager]);
 
-  const hasNewComments = false;
+  // TODO: change for state var...
+  const hasNewComments = true;
 
   return {
     tabItems,
