@@ -75,6 +75,8 @@ const CardExpenses = ({
               fontSize: '14px',
               lineHeight: '18px',
               width: buttonWidth,
+              marginRight: '8px',
+              flexGrow: 1,
               padding: isPhone || isTable ? '8px 25.75px' : '8px 43.25px',
             }}
             // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -95,6 +97,8 @@ const CardExpenses = ({
               lineHeight: '18px',
               letterSpacing: '0px',
               width: buttonWidth,
+              marginLeft: '8px',
+              flexGrow: 1,
               padding: isPhone || isTable ? '8px 12.75px' : '8px 30.25px',
             }}
             onClick={onClickFinances}
