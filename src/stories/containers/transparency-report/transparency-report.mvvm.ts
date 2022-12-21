@@ -8,6 +8,7 @@ import {
   getLastUpdateForBudgetStatement,
 } from '../../../core/business-logic/core-units';
 import { useAuthContext } from '../../../core/context/AuthContext';
+import { useLastVisit } from '../../../core/hooks/last-visit-hook';
 import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
 import {
@@ -44,6 +45,10 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   const [tabsIndexNumber, setTabsIndexNumber] = useState<number>(0);
 
   const [currentMonth, setCurrentMonth] = useState(DateTime.now());
+  const [hasNewComments, setHasNewComments] = useState(false);
+  // TDOD: Delete this before merge
+  console.log({ hasNewComments });
+  const lastVisited = useLastVisit('new-comments', false);
 
   useEffect(() => {
     if (anchor) {
@@ -188,6 +193,24 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
 
   const numbersComments = useMemo(() => comments.length, [comments]);
   const longCode = coreUnit?.code;
+  useEffect(() => {
+    comments.forEach((comment: ActivityFeedDto | CommentsBudgetStatementDto) => {
+      if (Object.keys(comment).includes('timestamp')) {
+        if (lastVisited < (comment as CommentsBudgetStatementDto).timestamp) {
+          const timestamp = DateTime.fromISO((comment as CommentsBudgetStatementDto).timestamp).toMillis();
+          console.log('timestamp', timestamp);
+          setHasNewComments(true);
+          return '';
+        }
+      }
+      if (Object.keys(comment).includes('created_at')) {
+        if (lastVisited < (comment as ActivityFeedDto).created_at) {
+          setHasNewComments(true);
+          return '';
+        }
+      }
+    });
+  }, [comments, lastVisited]);
 
   const [isEnabled] = useFlagsActive();
 
