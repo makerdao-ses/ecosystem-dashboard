@@ -50,6 +50,10 @@ const BudgetStatusSelect: React.FC<BudgetStatusSelectProps> = ({ availableStatus
     setOpened(!opened);
   }, [opened, setOpened]);
 
+  if (availableStatuses?.length === 1) {
+    return <ExpenseReportStatus status={availableStatuses[0]} />;
+  }
+
   return (
     <SelectWrapper ref={menuRef} isLight={isLight} open={opened} onClick={toggleOpenHandler}>
       <SelectControl>
@@ -89,7 +93,7 @@ const SelectWrapper = styled.div<StyledThemeProps & { open: boolean }>(({ isLigh
   position: 'relative',
   border: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
   borderRadius: 6,
-  padding: 8,
+  padding: '7px 10px 7px 7px',
   minWidth: 'fit-content',
   userSelect: 'none',
 

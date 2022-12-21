@@ -139,7 +139,9 @@ const CardExpenses = ({
           </Auditors>
         </AuditorsContainer>
       ) : (
-        ''
+        <NoAuditorsMessage isLight={isLight}>
+          The {getShortCode(code)} Core Unit is currently working without auditor
+        </NoAuditorsMessage>
       )}
     </InformationCard>
   );
@@ -176,6 +178,16 @@ const ContainerLinks = styled.div({
 const AuditorsContainer = styled.div({
   padding: '8px 16px 24px',
 });
+
+const NoAuditorsMessage = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  padding: '8px 16px 24px',
+  fontFamily: 'Inter, sans serif',
+  fontWeight: 500,
+  fontSize: '15px',
+  lineHeight: '24px',
+  color: isLight ? '#546978 ' : '#9FAFB9',
+  letterSpacing: '0px',
+}));
 
 const AuditorTitle = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: 12,
