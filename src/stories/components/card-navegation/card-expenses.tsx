@@ -75,7 +75,7 @@ const CardExpenses = ({
               fontSize: '14px',
               lineHeight: '18px',
               width: buttonWidth,
-              marginRight: '8px',
+              marginRight: '12px',
               flexGrow: 1,
               padding: isPhone || isTable ? '8px 25.75px' : '8px 43.25px',
             }}
@@ -97,7 +97,7 @@ const CardExpenses = ({
               lineHeight: '18px',
               letterSpacing: '0px',
               width: buttonWidth,
-              marginLeft: '8px',
+              marginLeft: '12px',
               flexGrow: 1,
               padding: isPhone || isTable ? '8px 12.75px' : '8px 30.25px',
             }}
