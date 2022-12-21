@@ -128,7 +128,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
       replaceViewMonthRoute(month.toFormat('LLLyyyy'));
       setCurrentMonth(month);
     }
-  }, [setCurrentMonth, currentMonth]);
+  }, [setCurrentMonth, currentMonth, router]);
 
   const hasNextMonth = () => {
     const limit = getLastMonthWithActualOrForecast(coreUnit?.budgetStatements).plus({
@@ -143,7 +143,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
       replaceViewMonthRoute(month.toFormat('LLLyyyy'));
       setCurrentMonth(month);
     }
-  }, [setCurrentMonth, currentMonth]);
+  }, [setCurrentMonth, currentMonth, router]);
 
   const prepareWalletsName = (budgetStatement?: BudgetStatementDto) => {
     const walletNames = new Map<string, number>();
