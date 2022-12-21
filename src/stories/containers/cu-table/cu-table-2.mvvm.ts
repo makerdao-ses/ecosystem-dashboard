@@ -78,7 +78,7 @@ export const useCoreUnitsTableMvvm = () => {
     });
     result.All = categoriesFiltered.length;
     return result;
-  }, [filteredData]);
+  }, [categoriesFiltered]);
 
   const statusCount = useMemo(() => {
     const result: { [id: string]: number } = {};
@@ -87,7 +87,7 @@ export const useCoreUnitsTableMvvm = () => {
     });
     result.All = statusesFiltered.length;
     return result;
-  }, [filteredData]);
+  }, [statusesFiltered]);
 
   const clearFilters = () => {
     router.push({

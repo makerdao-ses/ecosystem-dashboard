@@ -15,7 +15,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint', 'spellcheck'],
+  plugins: ['react', '@typescript-eslint', 'spellcheck', 'react-hooks'],
   rules: {
     'max-lines': [
       'error',
@@ -45,5 +45,7 @@ module.exports = {
         minLength: 4,
       },
     ],
+    'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
+    'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
   },
 };
