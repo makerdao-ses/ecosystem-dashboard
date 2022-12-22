@@ -18,8 +18,9 @@ import {
   CoreUnitDto,
 } from '../../../core/models/dto/core-unit.dto';
 import { API_MONTH_TO_FORMAT } from '../../../core/utils/date.utils';
-import { WithDate } from '../../../core/utils/types-helpers';
+import { WithDate, isActivity } from '../../../core/utils/types-helpers';
 import { TableItems } from './transparency-report';
+import { useLastVisit } from '../../../core/hooks/useLastVisit';
 
 export enum TRANSPARENCY_IDS_ENUM {
   ACTUALS = 'actuals',
@@ -249,6 +250,13 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     }
   }, [coreUnit, currentBudgetStatement, permissionManager]);
 
+  const { lastVisit } = useLastVisit(`BudgetStatement(${currentBudgetStatement?.id}).comments`, false);
+  const hasNewComments = comments.some((comment) =>
+    isActivity(comment)
+      ? DateTime.fromISO(comment.created_at).toMillis() > lastVisit
+      : DateTime.fromISO(comment.timestamp).toMillis() > lastVisit
+  );
+
   return {
     tabItems,
     code,
@@ -267,5 +275,6 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     longCode,
     hasPreviousMonth,
     comments,
+    hasNewComments,
   };
 };

@@ -9,6 +9,7 @@ import {
   CommentsBudgetStatementDto,
 } from '../../../../../core/models/dto/core-unit.dto';
 import { isActivity } from '../../../../../core/utils/types-helpers';
+import { useLastVisit } from '../../../../../core/hooks/useLastVisit';
 
 const useCommentsContainer = (
   comments: (CommentsBudgetStatementDto | ActivityFeedDto)[],
@@ -18,6 +19,7 @@ const useCommentsContainer = (
   const { currentCoreUnit } = useCoreUnitContext();
   const [cuParticipants, setCuParticipants] = useState<UserDTO[]>([]);
   const [auditors, setAuditors] = useState<UserDTO[]>([]);
+  useLastVisit(`BudgetStatement(${budgetStatement?.id}).comments`);
 
   useEffect(() => {
     const cu = new Map<string, UserDTO>();

@@ -77,7 +77,7 @@ export default function ActivityTable({
   clearAction,
 }: Props) {
   const [cookies] = useCookies(['timestampTracking']);
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const initialElements = useMemo(() => (isMobile ? 5 : 10), [isMobile]);
   const [showAllElements, setShowElements] = useState(false);

@@ -88,6 +88,9 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     marginRight: '32px',
   },
   width: '100%',
+  '& :last-child': {
+    marginRight: '0px',
+  },
 }));
 
 const Tab = styled.div<{ active: boolean; isLight: boolean }>(({ active, isLight }) => ({
