@@ -94,7 +94,20 @@ export const TransparencyTransferRequest = (props: TransparencyTransferRequestPr
     ]);
 
     return result;
-  }, [props.currentMonth, props.budgetStatements]);
+  }, [
+    wallets,
+    getForecastSumForMonths,
+    props.budgetStatements,
+    props.currentMonth,
+    firstMonth,
+    secondMonth,
+    thirdMonth,
+    getCurrentBalanceForMonth,
+    getTransferRequestForMonth,
+    getForecastSumOfMonthsOnWallet,
+    getCurrentBalanceForMonthOnWallet,
+    getTransferRequestForMonthOnWallet,
+  ]);
 
   return (
     <Container>

@@ -51,7 +51,7 @@ export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
     ]);
 
     return result;
-  }, [props.currentMonth, props.budgetStatements]);
+  }, [mkrVestings, totalAmount, totalOldAmount]);
 
   return (
     <Container>
