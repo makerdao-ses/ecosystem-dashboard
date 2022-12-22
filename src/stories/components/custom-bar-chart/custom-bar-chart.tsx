@@ -26,13 +26,13 @@ export const PopoverPaperBar = (isLight: boolean) => ({
 });
 
 export const CustomBarChart = (props: CustomBarChartProps) => {
-  if (!props.items) return <span />;
+  const isOnTouchDevice = useMediaQuery('(pointer: coarse)');
   const isLight = useThemeContext().themeMode === 'light';
   const [anchorEl, setAnchorEl] = React.useState<SVGRectElement | null>(null);
   const [description, setDescription] = React.useState<{ month: string; budgetCap: string; actual: string } | null>(
     null
   );
-  const isOnTouchDevice = useMediaQuery('(pointer: coarse)');
+  if (!props.items) return <span />;
 
   const handleMouseOver = (event: React.MouseEvent<SVGRectElement>, i: number) => {
     if (props.months?.length === 0) return;

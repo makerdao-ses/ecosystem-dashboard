@@ -63,11 +63,12 @@ export const CuTableColumnSummary = ({
   hasPopup = true,
   ...props
 }: CuTableColumnSummaryProps) => {
+  const isLight = useThemeContext().themeMode === 'light';
+  const upPhone = useMediaQuery(lightTheme.breakpoints.up('table_834'));
   if (isLoading) {
     return <ColumnSummarySkeleton />;
   }
-  const isLight = useThemeContext().themeMode === 'light';
-  const upPhone = useMediaQuery(lightTheme.breakpoints.up('table_834'));
+
   return (
     <Container onClick={props.onClick} style={props.style}>
       <CircleContainer>
