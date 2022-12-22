@@ -1,12 +1,26 @@
-import { createContext, ReactNode, useContext } from 'react';
+import React, { createContext, useContext } from 'react';
 
 import { useCookiesPolicyBannerMvvm } from '../../stories/containers/cookies-policy/cookies-policy-banner.mvvm';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const CookiesContextTracking = createContext<any>({} as any);
+export type CookiesContextValues = {
+  isFunctionalTrackingAccepted: boolean;
+  isShowBanner: boolean;
+  setIsShowBanner: React.Dispatch<React.SetStateAction<boolean>>;
+  setAnalyticsCheckbox: React.Dispatch<React.SetStateAction<boolean>>;
+  analyticsCheckbox: boolean;
+  functionalCheckbox: boolean;
+  handleAcceptCookies: () => void;
+  handleRejectCookies: () => void;
+  setFunctionalCheckbox: unknown;
+  isThemeTrackingAccepted: boolean;
+  isTimestampTrackingAccepted: boolean;
+  isAnalyticsTrackingAccepted: boolean;
+};
+
+const CookiesContextTracking = createContext<CookiesContextValues>({} as CookiesContextValues);
 const useCookiesContextTracking = () => useContext(CookiesContextTracking);
 
-const CookiesProviderTracking = ({ children }: { children: ReactNode }) => {
+const CookiesProviderTracking: React.FC<React.PropsWithChildren> = ({ children }) => {
   const {
     isFunctionalTrackingAccepted,
     isShowBanner,
@@ -17,6 +31,9 @@ const CookiesProviderTracking = ({ children }: { children: ReactNode }) => {
     handleAcceptCookies,
     handleRejectCookies,
     setFunctionalCheckbox,
+    isThemeTrackingAccepted,
+    isTimestampTrackingAccepted,
+    isAnalyticsTrackingAccepted,
   } = useCookiesPolicyBannerMvvm();
   return (
     <CookiesContextTracking.Provider
@@ -30,6 +47,9 @@ const CookiesProviderTracking = ({ children }: { children: ReactNode }) => {
         handleAcceptCookies,
         handleRejectCookies,
         setFunctionalCheckbox,
+        isThemeTrackingAccepted,
+        isTimestampTrackingAccepted,
+        isAnalyticsTrackingAccepted,
       }}
     >
       {children}
