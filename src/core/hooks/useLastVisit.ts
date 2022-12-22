@@ -2,50 +2,10 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useAuthContext } from '../context/AuthContext';
 import { SafeLocalStorage } from '../utils/local-storage';
 import { DateTime } from 'luxon';
-import request, { gql } from 'graphql-request';
+import request from 'graphql-request';
 import { GRAPHQL_ENDPOINT } from '../../config/endpoints';
 import { useCookiesContextTracking } from '../context/CookiesContext';
-
-export const USER_ACTIVITY_UPDATE_MUTATION = (collection: string, userId: string) => ({
-  query: gql`
-    mutation UserActivityUpdate($input: UserActivityUpdateInput) {
-      userActivityUpdate(input: $input) {
-        collection
-        current {
-          timestamp
-        }
-        previous {
-          timestamp
-        }
-      }
-    }
-  `,
-  input: {
-    input: {
-      collection,
-      userId,
-    },
-  },
-});
-
-export const USER_ACTIVITY_QUERY = (collection: string, userId: string) => ({
-  query: gql`
-    query ($filter: UserActivityFilter) {
-      userActivity(filter: $filter) {
-        collection
-        data
-        lastVisit
-        userId
-      }
-    }
-  `,
-  filter: {
-    filter: {
-      collection,
-      userId,
-    },
-  },
-});
+import { USER_ACTIVITY_QUERY, USER_ACTIVITY_UPDATE_MUTATION } from './useLastVist.api';
 
 export type LastVisitResult = {
   lastVisit: number;
