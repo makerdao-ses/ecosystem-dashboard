@@ -11,7 +11,7 @@ export type CookiesContextValues = {
   functionalCheckbox: boolean;
   handleAcceptCookies: () => void;
   handleRejectCookies: () => void;
-  setFunctionalCheckbox: unknown;
+  setFunctionalCheckbox: React.Dispatch<React.SetStateAction<boolean>>;
   isThemeTrackingAccepted: boolean;
   isTimestampTrackingAccepted: boolean;
   isAnalyticsTrackingAccepted: boolean;
