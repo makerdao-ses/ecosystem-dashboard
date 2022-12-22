@@ -51,7 +51,7 @@ export const useManagerAccountLayoutViewModel = () => {
         href: '/auth/manage/accounts',
       },
     ],
-    [users]
+    [data, errorFetchingUsers, users.length]
   );
 
   return {

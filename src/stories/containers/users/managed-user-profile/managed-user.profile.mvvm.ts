@@ -16,7 +16,7 @@ const useManagedUserProfile = () => {
   const { authToken } = useAuthContext();
   const router = useRouter();
   const { username } = router.query;
-  const { user, clientRequest } = useAuthContext();
+  const { user } = useAuthContext();
   const isAdmin = useIsAdmin(user || ({} as UserDTO));
   const [isChanging, setIsChanging] = useState<boolean>(false);
 
@@ -36,7 +36,7 @@ const useManagedUserProfile = () => {
     }
 
     setIsLoading(!response && !errorFetchingUser);
-  }, [response]);
+  }, [errorFetchingUser, response]);
 
   const handleChange = useCallback(async () => {
     if (!userProfile) {
@@ -72,7 +72,7 @@ const useManagedUserProfile = () => {
     } finally {
       setIsChanging(false);
     }
-  }, [clientRequest, userProfile]);
+  }, [authToken, mutate, userProfile]);
 
   const handleGoBack = useCallback(() => {
     router.push(`/auth/manage/${isAdmin ? 'accounts' : 'my-profile'}`);
