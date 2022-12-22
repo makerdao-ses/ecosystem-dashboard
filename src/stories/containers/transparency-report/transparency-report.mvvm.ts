@@ -18,8 +18,9 @@ import {
   CoreUnitDto,
 } from '../../../core/models/dto/core-unit.dto';
 import { API_MONTH_TO_FORMAT } from '../../../core/utils/date.utils';
-import { WithDate } from '../../../core/utils/types-helpers';
+import { WithDate, isActivity } from '../../../core/utils/types-helpers';
 import { TableItems } from './transparency-report';
+import { useLastVisit } from '../../../core/hooks/useLastVisit';
 
 export enum TRANSPARENCY_IDS_ENUM {
   ACTUALS = 'actuals',
@@ -91,13 +92,12 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
       const month = DateTime.fromFormat(viewMonthStr as string, 'LLLyyyy');
       setCurrentMonth(month);
     } else {
-      if (currentMonth) return;
       const month = getCurrentOrLastMonthWithData(coreUnit?.budgetStatements);
       if (month) {
         setCurrentMonth(month);
       }
     }
-  }, [router.route, router.query, viewMonthStr, currentMonth, coreUnit?.budgetStatements]);
+  }, [router.route, router.query, viewMonthStr, coreUnit?.budgetStatements]);
 
   const replaceViewMonthRoute = useCallback(
     (viewMonth: string) => {
@@ -147,6 +147,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
       setCurrentMonth(month);
     }
   }, [hasNextMonth, currentMonth, replaceViewMonthRoute]);
+  // }, [setCurrentMonth, currentMonth, router]);
 
   const prepareWalletsName = (budgetStatement?: BudgetStatementDto) => {
     const walletNames = new Map<string, number>();
@@ -252,6 +253,13 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     }
   }, [coreUnit, currentBudgetStatement, permissionManager]);
 
+  const { lastVisit } = useLastVisit(`BudgetStatement(${currentBudgetStatement?.id}).comments`, false);
+  const hasNewComments = comments.some((comment) =>
+    isActivity(comment)
+      ? DateTime.fromISO(comment.created_at).toMillis() > lastVisit
+      : DateTime.fromISO(comment.timestamp).toMillis() > lastVisit
+  );
+
   return {
     tabItems,
     code,
@@ -270,5 +278,6 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     longCode,
     hasPreviousMonth,
     comments,
+    hasNewComments,
   };
 };

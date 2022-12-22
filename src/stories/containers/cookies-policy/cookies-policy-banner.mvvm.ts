@@ -104,5 +104,8 @@ export const useCookiesPolicyBannerMvvm = () => {
     setFunctionalTracking,
     settingCookies,
     setIsShowBanner,
+    isThemeTrackingAccepted,
+    isTimestampTrackingAccepted,
+    isAnalyticsTrackingAccepted,
   };
 };
