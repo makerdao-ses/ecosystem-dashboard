@@ -112,7 +112,7 @@ export default function ActivityTable({
     return () => {
       clearTimeout(timeout);
     };
-  }, [activityFeed]);
+  }, [activityFeed, cookies.timestampTracking, shortCode]);
 
   const sortedActivities = useMemo(() => {
     const result = sortBy(extendedActivity, (a) => {
@@ -123,7 +123,7 @@ export default function ActivityTable({
       return result.reverse();
     }
     return result;
-  }, [extendedActivity, columns, activityFeed]);
+  }, [extendedActivity, columns]);
 
   if (extendedActivity.length === 0) return <ActivityPlaceholder clearAction={clearAction} hasFilter={!!hasFilter} />;
 
