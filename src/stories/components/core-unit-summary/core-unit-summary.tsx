@@ -54,9 +54,9 @@ export const CoreUnitSummary = ({
     }, 600);
   }, 100);
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     debounceFunction();
-  };
+  }, [debounceFunction]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -67,7 +67,7 @@ export const CoreUnitSummary = ({
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('touchmove', handleScroll);
     };
-  }, []);
+  }, [handleScroll]);
 
   const filteredData = useMemo(() => {
     const { filteredData: filtered } = filterData({
@@ -95,7 +95,7 @@ export const CoreUnitSummary = ({
         router.push(`${router.route.replace('[code]', filteredData[newIndex].shortCode)}${queryStrings}`);
       }
     },
-    [code, filteredData, router]
+    [code, filteredData, queryStrings, router]
   );
 
   return (

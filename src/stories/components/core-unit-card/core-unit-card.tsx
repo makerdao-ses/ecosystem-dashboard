@@ -38,6 +38,8 @@ interface CoreUnitCardProps {
 
 export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
   const isLight = useThemeContext().themeMode === 'light';
+  const router = useRouter();
+  const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
   if (isLoading) {
     return (
       <Container isLight={isLight} style={{ marginBottom: '32px' }}>
@@ -83,9 +85,6 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
       </Container>
     );
   }
-
-  const router = useRouter();
-  const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
 
   return (
     <CuCard>
