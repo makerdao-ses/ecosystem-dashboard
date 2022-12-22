@@ -91,7 +91,7 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
     } else if (selectedStatus === BudgetStatus.Final) {
       setSubmitLabel(isAuditor ? 'Approve' : 'Mark as Final');
     }
-  }, [selectedStatus, currentBudgetStatus, permissionManager]);
+  }, [selectedStatus, currentBudgetStatus, permissionManager, currentCoreUnit]);
 
   const handleChangeVariant = (value: BudgetStatus) => {
     setSelectedStatus(value);

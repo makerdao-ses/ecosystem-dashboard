@@ -83,23 +83,20 @@ export const CuTable = () => {
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
   const data: Array<CoreUnitDto> = useSelector((state: RootState) => selectCuTableItems(state));
   const status = useSelector((state: RootState) => selectCuTableStatus(state));
-
-  const sortColumn = useSelector((state: RootState) => selectCuTableSortColumn(state));
-  const headersSort = useSelector((state: RootState) => selectCuTableHeadersSort(state));
   const [filtersPopup, setFiltersPopup] = useState(false);
 
-  const toggleFiltersPopup = () => {
+  const toggleFiltersPopup = useCallback(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     document.querySelector('body').style.overflow = filtersPopup ? 'auto' : 'hidden';
     setFiltersPopup(!filtersPopup);
-  };
+  }, [filtersPopup]);
 
   useEffect(() => {
     if (isEmpty(data)) {
       dispatch(loadCuTableItemsAsync());
     }
-  }, [dispatch]);
+  }, [data, dispatch]);
 
   const { filteredData, statusesFiltered, categoriesFiltered } = useMemo(
     () =>
@@ -119,7 +116,7 @@ export const CuTable = () => {
     });
     result.All = categoriesFiltered.length;
     return result;
-  }, [filteredData]);
+  }, [categoriesFiltered]);
 
   const statusCount = useMemo(() => {
     const result: { [id: string]: number } = {};
@@ -128,9 +125,9 @@ export const CuTable = () => {
     });
     result.All = statusesFiltered.length;
     return result;
-  }, [filteredData]);
+  }, [statusesFiltered]);
 
-  const clearFilters = () => {
+  const clearFilters = useCallback(() => {
     router.push({
       pathname: '/',
       search: '',
@@ -140,7 +137,7 @@ export const CuTable = () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     input.value = '';
-  };
+  }, [router]);
 
   const onClickRow = useCallback(
     (code: string) => () => {
@@ -248,7 +245,7 @@ export const CuTable = () => {
         </div>,
       ];
     });
-  }, [filteredData, headersSort, sortColumn, onClickRow, isLight]);
+  }, [status, filteredData, onClickRow, onClickFinances]);
 
   const itemsList = useMemo(() => {
     if (status === 'loading') {
@@ -261,7 +258,7 @@ export const CuTable = () => {
       return result;
     }
     return sortBy(filteredData, 'name').map((cu) => <CoreUnitCard key={`card-${cu.code}`} coreUnit={cu} />);
-  }, [filteredData]);
+  }, [filteredData, status]);
 
   const siteHeader = useMemo(() => {
     if (status === 'loading') {
@@ -323,7 +320,18 @@ export const CuTable = () => {
         />
       </Header>
     );
-  }, [filteredData, isLight, toggleFiltersPopup]);
+  }, [
+    categoriesCount,
+    clearFilters,
+    filteredCategories,
+    filteredStatuses,
+    filtersPopup,
+    isLight,
+    searchText,
+    status,
+    statusCount,
+    toggleFiltersPopup,
+  ]);
 
   return (
     <ContainerHome isLight={isLight}>

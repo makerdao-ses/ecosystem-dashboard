@@ -77,7 +77,7 @@ export const Filters = (props: FilterProps) => {
       }
     }
     return -1;
-  }, [props.headersSort]);
+  }, [props.columns.length, props.headersSort]);
 
   const filtersActive = !(
     props.filteredStatuses &&

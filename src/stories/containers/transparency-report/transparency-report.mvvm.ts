@@ -84,7 +84,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
       }
       window.scrollTo(0, Math.max(0, offset));
     }
-  }, [anchor]);
+  }, [anchor, scrolled]);
 
   useEffect(() => {
     if (viewMonthStr) {
@@ -97,30 +97,33 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
         setCurrentMonth(month);
       }
     }
-  }, [router.route, router.query]);
+  }, [router.route, router.query, viewMonthStr, currentMonth, coreUnit?.budgetStatements]);
 
-  const replaceViewMonthRoute = (viewMonth: string) => {
-    router.replace(
-      {
-        hash: anchor,
-        query: {
-          ...router.query,
-          viewMonth,
+  const replaceViewMonthRoute = useCallback(
+    (viewMonth: string) => {
+      router.replace(
+        {
+          hash: anchor,
+          query: {
+            ...router.query,
+            viewMonth,
+          },
         },
-      },
-      undefined,
-      {
-        shallow: true,
-      }
-    );
-  };
+        undefined,
+        {
+          shallow: true,
+        }
+      );
+    },
+    [anchor, router]
+  );
 
-  const hasPreviousMonth = () => {
+  const hasPreviousMonth = useCallback(() => {
     const limit = getLastMonthWithActualOrForecast(coreUnit?.budgetStatements, true).minus({
       month: 1,
     });
     return currentMonth.startOf('month') > limit.startOf('month');
-  };
+  }, [coreUnit?.budgetStatements, currentMonth]);
 
   const handlePreviousMonth = useCallback(() => {
     if (hasPreviousMonth()) {
@@ -128,14 +131,14 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
       replaceViewMonthRoute(month.toFormat('LLLyyyy'));
       setCurrentMonth(month);
     }
-  }, [setCurrentMonth, currentMonth]);
+  }, [hasPreviousMonth, currentMonth, replaceViewMonthRoute]);
 
-  const hasNextMonth = () => {
+  const hasNextMonth = useCallback(() => {
     const limit = getLastMonthWithActualOrForecast(coreUnit?.budgetStatements).plus({
       month: 1,
     });
     return currentMonth.startOf('month') < limit.startOf('month');
-  };
+  }, [coreUnit?.budgetStatements, currentMonth]);
 
   const handleNextMonth = useCallback(() => {
     if (hasNextMonth()) {
@@ -143,7 +146,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
       replaceViewMonthRoute(month.toFormat('LLLyyyy'));
       setCurrentMonth(month);
     }
-  }, [setCurrentMonth, currentMonth]);
+  }, [hasNextMonth, currentMonth, replaceViewMonthRoute]);
 
   const prepareWalletsName = (budgetStatement?: BudgetStatementDto) => {
     const walletNames = new Map<string, number>();
@@ -184,7 +187,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     result.sort((a, b) => a.date.toMillis() - b.date.toMillis());
 
     return result as unknown as (CommentsBudgetStatementDto | ActivityFeedDto)[];
-  }, [currentBudgetStatement, coreUnit]);
+  }, [currentBudgetStatement]);
 
   const numbersComments = useMemo(() => comments.length, [comments]);
   const longCode = coreUnit?.code;

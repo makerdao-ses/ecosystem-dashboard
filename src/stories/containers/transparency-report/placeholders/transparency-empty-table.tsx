@@ -19,7 +19,7 @@ export const TransparencyEmptyTable = ({ breakdown = false, longCode }: Props) =
 
   const handleClickMakerburn = useCallback(() => {
     window.open(`${MAKER_BURN_LINK}/${longCode}`, '_blank');
-  }, []);
+  }, [longCode]);
 
   return (
     <>

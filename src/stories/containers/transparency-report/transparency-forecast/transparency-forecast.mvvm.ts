@@ -27,7 +27,7 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetSt
     result.push('External Links');
 
     return result;
-  }, [currentMonth]);
+  }, [firstMonth, secondMonth, thirdMonth]);
 
   const wallets: BudgetStatementWalletDto[] = useMemo(() => {
     const dict: { [id: string]: BudgetStatementWalletDto } = {};
@@ -188,7 +188,7 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetSt
   const breakdownTabs = useMemo(() => {
     if (!propBudgetStatements || propBudgetStatements.length === 0) return [];
     return wallets?.map((wallet) => wallet.name);
-  }, [propBudgetStatements, currentMonth]);
+  }, [propBudgetStatements, wallets]);
 
   const getLineItemsForWalletOnMonth = (
     budgetStatements: BudgetStatementDto[],

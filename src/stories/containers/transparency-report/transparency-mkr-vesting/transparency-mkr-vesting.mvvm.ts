@@ -13,23 +13,23 @@ export const useTransparencyMkrVesting = (currentMonth: DateTime, budgetStatemen
     if (!currentMonth || !budgetStatements || !budgetStatements.length) return [];
 
     return currentBudgetStatement?.budgetStatementMKRVest ?? [];
-  }, [currentMonth, budgetStatements]);
+  }, [currentMonth, budgetStatements, currentBudgetStatement?.budgetStatementMKRVest]);
 
   const totalAmount = useMemo(() => {
     if (!currentMonth || !budgetStatements || !budgetStatements.length) return [];
 
     return _.sumBy(currentBudgetStatement?.budgetStatementMKRVest ?? [], (mkr) => mkr.mkrAmount);
-  }, [currentMonth, budgetStatements]);
+  }, [currentMonth, budgetStatements, currentBudgetStatement?.budgetStatementMKRVest]);
 
   const totalOldAmount = useMemo(() => {
     if (!currentMonth || !budgetStatements || !budgetStatements.length) return [];
 
     return _.sumBy(currentBudgetStatement?.budgetStatementMKRVest ?? [], (mkr) => mkr.mkrAmountOld);
-  }, [currentMonth, budgetStatements]);
+  }, [currentMonth, budgetStatements, currentBudgetStatement?.budgetStatementMKRVest]);
 
   const FTEs = useMemo(() => {
     return _.first(currentBudgetStatement?.budgetStatementFTEs)?.ftes ?? 'N/A';
-  }, [currentMonth, budgetStatements]);
+  }, [currentBudgetStatement?.budgetStatementFTEs]);
 
   return {
     mkrVestings,

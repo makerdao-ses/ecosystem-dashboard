@@ -86,7 +86,7 @@ export const useGlobalActivityMvvm = (coreUnits: CoreUnitDto[]) => {
         }, [] as Activity[]),
       'created_at'
     );
-  }, [activeElements, searchText]);
+  }, [activeElements, coreUnits, searchText]);
 
   return {
     columns,
