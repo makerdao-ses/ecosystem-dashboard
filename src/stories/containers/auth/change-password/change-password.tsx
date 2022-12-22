@@ -5,7 +5,7 @@ import CloseButton from '../../../components/close-button/close-button';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import TextInput from '../../../components/text-input/text-input';
 import { ButtonWrapper, Form } from '../login/login';
-import { userChangePasswordMvvm } from './change-password.mvvm';
+import { useUserChangePasswordMvvm } from './change-password.mvvm';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import { capitalizeWordWithoutConvertLowerCase } from '../../../../core/utils/string.utils';
 
@@ -22,7 +22,7 @@ const ChangePassword: React.FC<{ adminChange?: boolean }> = ({ adminChange = fal
     isMobileOrTable,
     handleGoBack,
     isUserDisable,
-  } = userChangePasswordMvvm(adminChange);
+  } = useUserChangePasswordMvvm(adminChange);
 
   if (hasErrorLoadingUser) {
     return <MessageContainer>Error fetching user</MessageContainer>;

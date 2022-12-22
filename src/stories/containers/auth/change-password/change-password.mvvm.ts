@@ -2,7 +2,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useFormik } from 'formik';
 import request, { ClientError } from 'graphql-request';
 import { useRouter } from 'next/router';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import * as yup from 'yup';
 import lightTheme from '../../../../../styles/theme/light';
 import { GRAPHQL_ENDPOINT } from '../../../../config/endpoints';
@@ -41,7 +41,7 @@ const adminChangeValidationSchema = yup.object({
     .required('Password confirmation is required'),
 });
 
-export const userChangePasswordMvvm = (adminChange: boolean) => {
+export const useUserChangePasswordMvvm = (adminChange: boolean) => {
   const { isLight } = useThemeContext();
   const router = useRouter();
   const { user: authenticatedUser, authToken, isAdmin } = useAuthContext();
@@ -76,7 +76,7 @@ export const userChangePasswordMvvm = (adminChange: boolean) => {
       }
     };
     asyncFunction();
-  }, [adminChange, router]);
+  }, [adminChange, authToken, router]);
   // end adminChange
 
   const handleGoBack = useCallback(() => {
@@ -85,7 +85,7 @@ export const userChangePasswordMvvm = (adminChange: boolean) => {
       return;
     }
     goBack(`/auth/${isAdmin ? 'manage/my-profile' : 'user-profile'}`);
-  }, [isAdmin, router]);
+  }, [adminChange, isAdmin, router.query.username]);
 
   const form = useFormik({
     initialValues: {
