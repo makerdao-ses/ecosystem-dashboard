@@ -84,20 +84,19 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
       }
       window.scrollTo(0, Math.max(0, offset));
     }
-  }, [anchor]);
+  }, [anchor, scrolled]);
 
   useEffect(() => {
     if (viewMonthStr) {
       const month = DateTime.fromFormat(viewMonthStr as string, 'LLLyyyy');
       setCurrentMonth(month);
     } else {
-      if (currentMonth) return;
       const month = getCurrentOrLastMonthWithData(coreUnit?.budgetStatements);
       if (month) {
         setCurrentMonth(month);
       }
     }
-  }, [router.route, router.query]);
+  }, [router.route, router.query, viewMonthStr, coreUnit?.budgetStatements]);
 
   const replaceViewMonthRoute = (viewMonth: string) => {
     router.replace(
