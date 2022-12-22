@@ -11,8 +11,7 @@ import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
 
 export const useTransparencyActualsMvvm = (
   propsCurrentMonth: DateTime,
-  budgetStatements: BudgetStatementDto[] | undefined,
-  code: string
+  budgetStatements: BudgetStatementDto[] | undefined
 ) => {
   const currentMonth = useMemo(() => propsCurrentMonth.toFormat(API_MONTH_TO_FORMAT), [propsCurrentMonth]);
 
@@ -35,7 +34,7 @@ export const useTransparencyActualsMvvm = (
     });
 
     return _.sortBy(Object.values(dict), 'id');
-  }, [propsCurrentMonth, budgetStatements, code]);
+  }, [propsCurrentMonth, budgetStatements]);
 
   const getWalletForecast = (wallet: BudgetStatementWalletDto) => {
     return _.sumBy(
@@ -64,11 +63,11 @@ export const useTransparencyActualsMvvm = (
 
   const currentBudgetStatement = useMemo(() => {
     return budgetStatements?.find((x) => x.month === currentMonth) ?? null;
-  }, [propsCurrentMonth, code, budgetStatements]);
+  }, [budgetStatements, currentMonth]);
 
   const breakdownTabs = useMemo(() => {
     return wallets.map((wallet) => wallet.name);
-  }, [currentBudgetStatement, code]);
+  }, [wallets]);
 
   const budgetTotalForecast = useMemo(() => {
     return _.sumBy(currentBudgetStatement?.budgetStatementWallet, (wallet) =>
@@ -77,7 +76,7 @@ export const useTransparencyActualsMvvm = (
         (item) => item?.forecast ?? 0
       )
     );
-  }, [currentBudgetStatement, code]);
+  }, [currentBudgetStatement?.budgetStatementWallet, currentMonth]);
 
   const budgetTotalActual = useMemo(() => {
     return _.sumBy(currentBudgetStatement?.budgetStatementWallet, (wallet) =>
@@ -86,7 +85,7 @@ export const useTransparencyActualsMvvm = (
         (item) => item?.actual ?? 0
       )
     );
-  }, [currentBudgetStatement, code]);
+  }, [currentBudgetStatement?.budgetStatementWallet, currentMonth]);
 
   const budgetTotalPayment = useMemo(() => {
     return _.sumBy(currentBudgetStatement?.budgetStatementWallet, (wallet) =>
@@ -95,11 +94,11 @@ export const useTransparencyActualsMvvm = (
         (item) => item?.payment ?? 0
       )
     );
-  }, [currentBudgetStatement, code]);
+  }, [currentBudgetStatement?.budgetStatementWallet, currentMonth]);
 
   const budgetTotalDifference = useMemo(() => {
     return budgetTotalForecast - budgetTotalActual;
-  }, [currentBudgetStatement, code]);
+  }, [budgetTotalForecast, budgetTotalActual]);
 
   const getGroupForecast = (group: BudgetStatementLineItemDto[]) => {
     return _.sumBy(

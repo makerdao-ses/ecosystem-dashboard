@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { InnerTable } from '../../../components/inner-table/inner-table';
 import { Tabs } from '../../../components/tabs/tabs';
@@ -66,7 +66,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     return currentWallet?.budgetStatementLineItem?.some((item) => {
       return item.group && item.actual;
     });
-  }, [thirdIndex, currentBudgetStatement]);
+  }, [wallets, thirdIndex]);
 
   const headerToId = (header: string): string => {
     const id = header.toLowerCase().trim().replaceAll(/ /g, '-');
@@ -90,7 +90,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       }
       window.scrollTo(0, Math.max(0, offset));
     }
-  }, [anchor, headerIds]);
+  }, [anchor, headerIds, scrolled]);
 
   const mainTableItems = useMemo(() => {
     const result: JSX.Element[][] = [];
@@ -157,72 +157,92 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     ]);
 
     return result;
-  }, [currentBudgetStatement]);
+  }, [
+    budgetTotalActual,
+    budgetTotalDifference,
+    budgetTotalForecast,
+    budgetTotalPayment,
+    currentBudgetStatement,
+    getWalletActual,
+    getWalletDifference,
+    getWalletForecast,
+    getWalletPayment,
+    wallets,
+  ]);
 
-  const getBreakdownItems = (items: BudgetStatementLineItemDto[], card = false) => {
-    const result: JSX.Element[][] = [];
-    const grouped = _.groupBy(items, (item) => item.group);
+  const getBreakdownItems = useCallback(
+    (items: BudgetStatementLineItemDto[], card = false) => {
+      const result: JSX.Element[][] = [];
+      const grouped = _.groupBy(items, (item) => item.group);
 
-    for (const groupedKey in grouped) {
-      if (Math.abs(getGroupForecast(grouped[groupedKey])) + Math.abs(getGroupActual(grouped[groupedKey])) === 0) {
-        continue;
-      }
-
-      const groupedCategory = _.groupBy(grouped[groupedKey], (item) => item.budgetCategory);
-
-      let i = 1;
-      for (const groupedCatKey in groupedCategory) {
-        if (
-          Math.abs(getGroupForecast(groupedCategory[groupedCatKey])) +
-            Math.abs(getGroupActual(groupedCategory[groupedCatKey])) ===
-          0
-        ) {
+      for (const groupedKey in grouped) {
+        if (Math.abs(getGroupForecast(grouped[groupedKey])) + Math.abs(getGroupActual(grouped[groupedKey])) === 0) {
           continue;
         }
 
-        result.push([
-          ...(hasGroups || card ? [<TextCell key={`${groupedKey}-0`}>{i === 1 ? groupedKey : ''}</TextCell>] : []),
-          <TextCell key={`${groupedKey}-1`}>{groupedCategory[groupedCatKey][0].budgetCategory}</TextCell>,
-          <NumberCell key={`${groupedKey}-2`} value={getGroupForecast(groupedCategory[groupedCatKey])} />,
-          <NumberCell key={`${groupedKey}-3`} value={getGroupActual(groupedCategory[groupedCatKey])} />,
-          <NumberCell key={`${groupedKey}-4`} value={getGroupDifference(groupedCategory[groupedCatKey])} />,
-          <NumberCell key={`${groupedKey}-6`} value={getGroupPayment(groupedCategory[groupedCatKey])} />,
-        ]);
+        const groupedCategory = _.groupBy(grouped[groupedKey], (item) => item.budgetCategory);
 
-        i++;
-      }
-    }
+        let i = 1;
+        for (const groupedCatKey in groupedCategory) {
+          if (
+            Math.abs(getGroupForecast(groupedCategory[groupedCatKey])) +
+              Math.abs(getGroupActual(groupedCategory[groupedCatKey])) ===
+            0
+          ) {
+            continue;
+          }
 
-    return result;
-  };
+          result.push([
+            ...(hasGroups || card ? [<TextCell key={`${groupedKey}-0`}>{i === 1 ? groupedKey : ''}</TextCell>] : []),
+            <TextCell key={`${groupedKey}-1`}>{groupedCategory[groupedCatKey][0].budgetCategory}</TextCell>,
+            <NumberCell key={`${groupedKey}-2`} value={getGroupForecast(groupedCategory[groupedCatKey])} />,
+            <NumberCell key={`${groupedKey}-3`} value={getGroupActual(groupedCategory[groupedCatKey])} />,
+            <NumberCell key={`${groupedKey}-4`} value={getGroupDifference(groupedCategory[groupedCatKey])} />,
+            <NumberCell key={`${groupedKey}-6`} value={getGroupPayment(groupedCategory[groupedCatKey])} />,
+          ]);
 
-  const getLineItemsSubtotal = (items: BudgetStatementLineItemDto[], title: string, card = false) => {
-    return (
-      items?.reduce(
-        (prv, curr) =>
-          curr.month === currentBudgetStatement?.month
-            ? {
-                group: !card ? title : '',
-                budgetCategory: !hasGroups || card ? title : '',
-                actual: prv.actual + curr.actual,
-                forecast: (prv?.forecast ?? 0) + (curr?.forecast ?? 0),
-                payment: (prv?.payment ?? 0) + (curr?.payment ?? 0),
-                month: currentBudgetStatement?.month,
-              }
-            : prv,
-        {
-          actual: 0,
-          forecast: 0,
-          payment: 0,
+          i++;
         }
-      ) ?? {}
-    );
-  };
+      }
 
-  const hasExpenses = (headCount = true) =>
-    currentWallet?.budgetStatementLineItem
-      ?.filter((item) => (headCount ? item.headcountExpense : !item.headcountExpense))
-      .some((x) => (x.actual || x.forecast) && x.month === currentBudgetStatement?.month);
+      return result;
+    },
+    [getGroupActual, getGroupDifference, getGroupForecast, getGroupPayment, hasGroups]
+  );
+
+  const getLineItemsSubtotal = useCallback(
+    (items: BudgetStatementLineItemDto[], title: string, card = false) => {
+      return (
+        items?.reduce(
+          (prv, curr) =>
+            curr.month === currentBudgetStatement?.month
+              ? {
+                  group: !card ? title : '',
+                  budgetCategory: !hasGroups || card ? title : '',
+                  actual: prv.actual + curr.actual,
+                  forecast: (prv?.forecast ?? 0) + (curr?.forecast ?? 0),
+                  payment: (prv?.payment ?? 0) + (curr?.payment ?? 0),
+                  month: currentBudgetStatement?.month,
+                }
+              : prv,
+          {
+            actual: 0,
+            forecast: 0,
+            payment: 0,
+          }
+        ) ?? {}
+      );
+    },
+    [currentBudgetStatement?.month, hasGroups]
+  );
+
+  const hasExpenses = useMemo(() => {
+    const hasExpenses = (headCount = true) =>
+      currentWallet?.budgetStatementLineItem
+        ?.filter((item) => (headCount ? item.headcountExpense : !item.headcountExpense))
+        .some((x) => (x.actual || x.forecast) && x.month === currentBudgetStatement?.month);
+    return hasExpenses;
+  }, [currentBudgetStatement?.month, currentWallet?.budgetStatementLineItem]);
 
   const breakdownTableItems = useMemo(() => {
     const result: JSX.Element[][] = [];
@@ -280,7 +300,18 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     ]);
 
     return result;
-  }, [currentBudgetStatement, thirdIndex, headerToId, anchor]);
+  }, [
+    wallets,
+    hasExpenses,
+    getBreakdownItems,
+    currentWallet,
+    getLineItemsSubtotal,
+    hasGroups,
+    getWalletForecast,
+    getWalletActual,
+    getWalletDifference,
+    getWalletPayment,
+  ]);
 
   const breakdownCardItems = useMemo(() => {
     const currentWallet = wallets[thirdIndex];
@@ -392,7 +423,17 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         )}
       </>
     );
-  }, [currentBudgetStatement, thirdIndex]);
+  }, [
+    getBreakdownItems,
+    getLineItemsSubtotal,
+    getWalletActual,
+    getWalletDifference,
+    getWalletForecast,
+    hasExpenses,
+    isLight,
+    thirdIndex,
+    wallets,
+  ]);
 
   return (
     <Container>
