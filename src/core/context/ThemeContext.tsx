@@ -27,12 +27,13 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
     if (themeMode) handleThemeMode(toggleThemeValues[themeMode]);
   };
 
-  const theme = useMemo(() => (isLight ? lightTheme : darkTheme), [themeMode]);
+  const theme = useMemo(() => (isLight ? lightTheme : darkTheme), [isLight]);
 
   useEffect(() => {
     if (themeMode !== undefined) {
       handleThemeMode(toggleThemeValues[themeMode]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <ThemeContext.Provider
