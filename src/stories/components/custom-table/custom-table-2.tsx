@@ -68,7 +68,7 @@ export const CustomTable2 = (props: Props) => {
         </TableHeadRow>
       </TableHead>
     );
-  }, [props.items, isLight, props.headersSort]);
+  }, [props, isLight]);
 
   if (!props.loading && props.items?.length === 0) return <TablePlaceholder />;
 

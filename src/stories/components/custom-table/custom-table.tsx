@@ -21,7 +21,10 @@ export const CustomTable = ({ headersStyles = [], ...props }: CustomTableProps) 
   const dispatch = useAppDispatch();
 
   const headersSort = useSelector((state: RootState) => selectCuTableHeadersSort(state));
-  const handleSort = (index: number) => dispatch(setSort(index));
+  const handleSort = useMemo(() => {
+    const handleSort = (index: number) => dispatch(setSort(index));
+    return handleSort;
+  }, [dispatch]);
 
   const tableHead = useMemo(() => {
     if (props.loading) {
@@ -49,7 +52,7 @@ export const CustomTable = ({ headersStyles = [], ...props }: CustomTableProps) 
         </TableHeadRow>
       </TableHead>
     );
-  }, [props.items, isLight]);
+  }, [props.loading, props.headers, props.headersAlign, isLight, headersStyles, headersSort, handleSort]);
 
   return (
     <TableContainer isLight={isLight}>

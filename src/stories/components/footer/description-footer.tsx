@@ -19,7 +19,7 @@ const DescriptionFooter = ({ title, children, style = {} }: Props) => {
     (url: string) => () => {
       router.push(url);
     },
-    []
+    [router]
   );
   return (
     <div style={style}>

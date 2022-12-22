@@ -52,7 +52,7 @@ export const CustomSortSelect = (props: Props) => {
   useEffect(() => {
     setActiveItem(props.activeItem);
     setSortStatus(props.sortStatus);
-  }, [popupVisible]);
+  }, [popupVisible, props.activeItem, props.sortStatus]);
 
   const canReset = useMemo(() => {
     return props.activeItem !== 0 || props.sortStatus !== SortEnum.Asc;
