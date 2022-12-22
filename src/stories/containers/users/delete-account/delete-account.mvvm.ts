@@ -14,7 +14,7 @@ import { USERS_DELETE_FROM_ADMIN } from './delete-account.api';
 
 export const useDeleteAccountMvvm = (username?: string) => {
   const router = useRouter();
-  const { authToken, user, clientRequest, isAdmin, clearCredentials } = useAuthContext();
+  const { authToken, user, isAdmin, clearCredentials } = useAuthContext();
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
   const { data: response, error: errorFetchingUser } = useSWR(
@@ -24,7 +24,7 @@ export const useDeleteAccountMvvm = (username?: string) => {
 
   const deletingUser = useMemo<UserDTO | undefined>(
     () => (!isAdmin ? user : response?.users?.length && response?.users[0]),
-    [response, isAdmin]
+    [isAdmin, user, response?.users]
   );
 
   const handleOnSubmit = useCallback(
@@ -63,7 +63,7 @@ export const useDeleteAccountMvvm = (username?: string) => {
       }
       setIsDeleting(false);
     },
-    [clientRequest, deletingUser, router, user?.username]
+    [authToken, clearCredentials, deletingUser?.id, deletingUser?.username, isAdmin, router, user?.username]
   );
 
   const form = useFormik({
