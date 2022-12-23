@@ -50,7 +50,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     getGroupPayment,
     breakdownTabs,
     wallets,
-  } = useTransparencyActualsMvvm(props.currentMonth, props.budgetStatements, props.code);
+  } = useTransparencyActualsMvvm(props.currentMonth, props.budgetStatements);
 
   const [headerIds, setHeaderIds] = useState<string[]>([]);
 
