@@ -31,7 +31,7 @@ export const TransparencyActuals2 = (props: Props) => {
     mainTableColumns,
     mainTableItems,
     breakdownTabs,
-  } = useTransparencyActualsMvvm2(props.currentMonth, props.budgetStatements, props.code);
+  } = useTransparencyActualsMvvm2(props.currentMonth, props.budgetStatements);
 
   return (
     <Container>
