@@ -24,7 +24,7 @@ interface Props {
 }
 
 const RelateMips = ({ relateMips }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const isTable = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const mips = getMipsStatus(relateMips || '');
   const mipStatus = relateMips.mipStatus;

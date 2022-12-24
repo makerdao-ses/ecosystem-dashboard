@@ -6,7 +6,7 @@ import PlaceholderImgDark from '../../../../public/assets/img/table-placeholder-
 import { useThemeContext } from '../../../core/context/ThemeContext';
 
 export const TablePlaceholder = () => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <Container isLight={isLight}>
       <ImageWrapper>

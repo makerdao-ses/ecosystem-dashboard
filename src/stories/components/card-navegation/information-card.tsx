@@ -32,7 +32,7 @@ const InformationCard = ({
   style = {},
   styleContainer,
 }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <div style={style}>
       {isTitlePresent && (

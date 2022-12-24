@@ -4,7 +4,7 @@ import Skeleton from '@mui/material/Skeleton';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 
 export const ColumnExpendituresSkeleton = () => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <Container>
       <div>

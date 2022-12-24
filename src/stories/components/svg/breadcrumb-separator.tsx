@@ -16,7 +16,7 @@ export const BreadcrumbSeparator = ({
   height = 20,
   style = {},
 }: BreadcrumbSeparatorProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <svg style={style} width={width} height={height} viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path

@@ -27,7 +27,7 @@ export const PopoverPaperBar = (isLight: boolean) => ({
 
 export const CustomBarChart = (props: CustomBarChartProps) => {
   if (!props.items) return <span />;
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const [anchorEl, setAnchorEl] = React.useState<SVGRectElement | null>(null);
   const [description, setDescription] = React.useState<{ month: string; budgetCap: string; actual: string } | null>(
     null

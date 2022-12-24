@@ -12,7 +12,7 @@ interface Props {
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const Logo = ({ width = 48, height = 25, fill = '#211634', fillDark, onClick = () => {}, ...props }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <svg
       onClick={onClick}

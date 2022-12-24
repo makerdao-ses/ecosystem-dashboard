@@ -14,7 +14,7 @@ interface TransparencyAuditProps {
 
 export const TransparencyAudit = (props: TransparencyAuditProps) => {
   const { getDate, getTime, getFilenameFromUrl } = useTransparencyAuditMvvm();
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
 
   return !props.budgetStatement?.auditReport?.length ? (
     <TransparencyEmptyAudit />

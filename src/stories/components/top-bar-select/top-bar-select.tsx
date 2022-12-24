@@ -14,7 +14,7 @@ interface TopBarSelectProps {
 }
 
 export const TopBarSelect = (props: TopBarSelectProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const router = useRouter();
   const [popup, setPopup] = useState(false);
   const togglePopup = () => {

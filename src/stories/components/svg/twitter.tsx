@@ -8,7 +8,7 @@ interface Props {
 }
 
 const Twitter = ({ width = 20, height = 20, fill = '#C4C4C4', fillDark }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <svg width={width} height={height} viewBox={'0 0 21 20'} fill="none" xmlns="http://www.w3.org/2000/svg">
       <path

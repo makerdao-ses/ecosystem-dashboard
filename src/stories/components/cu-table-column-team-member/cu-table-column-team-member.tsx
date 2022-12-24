@@ -15,7 +15,7 @@ interface CuTableColumnTeamMemberProps {
 }
 
 export const CuTableColumnTeamMember = ({ isLoading = false, ...props }: CuTableColumnTeamMemberProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
 
   return !isLoading ? (
     <Container className="TeamMembers">

@@ -8,7 +8,7 @@ interface Props {
 }
 
 const WWW = ({ width = 19.73, height = 20, fill = '#C4C4C4', fillDark }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <svg
       width={width}

@@ -5,7 +5,7 @@ import CardNotFoundPage from '../src/stories/components/404/not-found-component-
 import lightTheme from '../styles/theme/light';
 
 const NotFoundPage: NextPage = () => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
 
   return (
     <Container isLight={isLight}>

@@ -7,7 +7,7 @@ import { Container } from '../select-item/select-item';
 import Check from '../svg/check';
 
 export default ({ checked = false, ...props }: SelectItemProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
 
   return (
     <Container

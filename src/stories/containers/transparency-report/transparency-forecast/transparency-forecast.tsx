@@ -25,7 +25,7 @@ interface TransparencyForecastProps {
 
 export const TransparencyForecast = (props: TransparencyForecastProps) => {
   const [thirdIndex, setThirdIndex] = useState(0);
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
 
   const {
     getForecastForMonthOnWalletOnBudgetStatement,

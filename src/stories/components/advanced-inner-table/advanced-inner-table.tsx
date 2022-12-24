@@ -46,7 +46,7 @@ interface Props {
 type Alignment = 'left' | 'center' | 'right';
 
 export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const getCell = (column: InnerTableColumn, rowType: RowType, value: unknown) => {
     if (value !== 0 && !value) {
       return <></>;
