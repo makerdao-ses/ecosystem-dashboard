@@ -9,6 +9,8 @@ import request from 'graphql-request';
 import { CREATE_BUDGET_STATEMENT_COMMENT } from './auditor-comenting.api';
 import { GRAPHQL_ENDPOINT } from '../../../../../config/endpoints';
 import { triggerToast } from '../../../../helpers/helpers';
+import { useLastVisitContext } from '../../../../../core/context/LastVisitContext';
+import { budgetStatementCommentsCollectionId } from '../../../../../core/utils/collections-ids';
 
 const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: string) => {
   const { isLight } = useThemeContext();
@@ -20,6 +22,7 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
   const [availableStatuses, setAvailableStatuses] = useState<BudgetStatus[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<BudgetStatus | undefined>();
   const [textareaValue, setTextareaValue] = useState<string>('');
+  const { visitCollection } = useLastVisitContext();
 
   // update the selected status every time the budget statement changes
   useEffect(() => {
@@ -117,6 +120,9 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
           Authorization: `Bearer ${authToken}`,
         }
       );
+
+      // prevent the new comment being marked as unvisited
+      await visitCollection(budgetStatementCommentsCollectionId(budgetStatementId), true, true);
 
       const newComment = newCommentResult.budgetStatementCommentCreate[0];
       const updatedBudgetStatement = currentCoreUnit?.budgetStatements?.map((bs) => {

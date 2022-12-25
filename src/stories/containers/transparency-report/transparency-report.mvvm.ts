@@ -21,6 +21,7 @@ import { API_MONTH_TO_FORMAT } from '../../../core/utils/date.utils';
 import { WithDate, isActivity } from '../../../core/utils/types-helpers';
 import { TableItems } from './transparency-report';
 import { useLastVisit } from '../../../core/hooks/useLastVisit';
+import { budgetStatementCommentsCollectionId } from '../../../core/utils/collections-ids';
 
 export enum TRANSPARENCY_IDS_ENUM {
   ACTUALS = 'actuals',
@@ -249,12 +250,14 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     }
   }, [coreUnit, currentBudgetStatement, permissionManager]);
 
-  const { lastVisit } = useLastVisit(`BudgetStatement(${currentBudgetStatement?.id}).comments`, false);
-  const hasNewComments = comments.some((comment) =>
-    isActivity(comment)
-      ? DateTime.fromISO(comment.created_at).toMillis() > lastVisit
-      : DateTime.fromISO(comment.timestamp).toMillis() > lastVisit
-  );
+  const lastVisit = useLastVisit(budgetStatementCommentsCollectionId(currentBudgetStatement?.id || ''), false);
+  const hasNewComments =
+    lastVisit &&
+    comments.some((comment) =>
+      isActivity(comment)
+        ? DateTime.fromISO(comment.created_at).toMillis() > lastVisit
+        : DateTime.fromISO(comment.timestamp).toMillis() > lastVisit
+    );
 
   return {
     tabItems,
