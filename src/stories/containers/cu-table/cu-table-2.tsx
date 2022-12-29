@@ -4,8 +4,6 @@ import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { Filters } from './cu-table-filters';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CuTableHeaderSkeleton } from '../../components/cu-table-header-skeleton/header-skeleton';
-import { SEOHead } from '../../components/seo-head/seo-head';
-import { toAbsoluteURL } from '../../../core/utils/url.utils';
 import { useCoreUnitsTableMvvm } from './cu-table-2.mvvm';
 import { CustomTable2, CustomTableRow } from '../../components/custom-table/custom-table-2';
 import { renderCard } from './cu-table.renders';
@@ -69,29 +67,6 @@ export const CuTable2 = () => {
     statusCount,
     toggleFiltersPopup,
   ]);
-
-  if (themeMode === undefined) {
-    return (
-      <>
-        <SEOHead
-          title="MakerDAO Ecosystem Performance Dashboard | Maker Expenses"
-          description="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
-          image={{
-            src: toAbsoluteURL('/assets/img/social-385x200.png'),
-            width: 385,
-            height: 200,
-          }}
-          twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
-        >
-          <link rel="apple-touch-icon" sizes="1024x1024" href="/icons/icon-1024.png" />
-          <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512.png" />
-          <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180.png" />
-          <link rel="apple-touch-icon" sizes="120x120" href="/icons/icon-120.png" />
-        </SEOHead>
-      </>
-    );
-  }
-
   return (
     <ContainerHome isLight={isLight} allowPadding={isShowBanner}>
       <Wrapper>

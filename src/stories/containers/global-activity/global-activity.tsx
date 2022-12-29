@@ -20,7 +20,7 @@ interface Props {
 }
 
 export default ({ coreUnits }: Props) => {
-  const { themeMode, isLight } = useThemeContext();
+  const { isLight } = useThemeContext();
   const {
     columns,
     activityFeed,
@@ -36,23 +36,6 @@ export default ({ coreUnits }: Props) => {
     filtersVisible,
     toggleFiltersVisible,
   } = useGlobalActivityMvvm(coreUnits);
-
-  if (themeMode === undefined) {
-    return (
-      <>
-        <SEOHead
-          title="MakerDAO Core Units | Activity Feed"
-          description="Learn about the activity of MakerDAO Core Units: updates to Core Unit Expense Reports, FTEs, and more."
-          image={{
-            src: toAbsoluteURL('/assets/img/social-385x200.png'),
-            width: 385,
-            height: 200,
-          }}
-          twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
-        />
-      </>
-    );
-  }
   return (
     <Wrapper>
       <SEOHead
