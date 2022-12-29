@@ -4,7 +4,7 @@ import isEmpty from 'lodash/isEmpty';
 import type { AppProps } from 'next/app';
 import { store } from '../src/core/store/store';
 import '../styles/globals.scss';
-import { NextPage } from 'next';
+import { NextPage, NextPageContext } from 'next';
 import { EmotionCache } from '@emotion/react';
 import { ThemeProvider } from '../src/core/context/ThemeContext';
 import { FeatureFlagsProvider } from '../src/core/context/FeatureFlagsProvider';
@@ -14,11 +14,12 @@ import { SEOHead } from '../src/stories/components/seo-head/seo-head';
 import { useRouter } from 'next/router';
 import * as gtag from '../src/core/utils/gtag';
 import { CookiesProviderTracking } from '../src/core/context/CookiesContext';
-import { CookiesProvider, useCookies } from 'react-cookie';
+import { CookiesProvider } from 'react-cookie';
 import { AuthContextProvider } from '../src/core/context/AuthContext';
 import { getAuthFromStorage } from '../src/core/utils/auth-storage';
 import { ContainerNotification } from '../src/stories/components/notification/notification';
 import AppLayout from '../src/stories/containers/layout/layout';
+import { processCookieValue } from '../src/core/utils/cookie-helpers';
 
 // disable useLayoutEffect SSR warnings to avoid log spamming the console
 // https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85
@@ -28,18 +29,26 @@ export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
 
+interface Cookies {
+  themeTracking: string;
+  timestampTracking: string;
+  analyticsTracking: string;
+}
 interface MyAppProps extends AppProps {
   Component: NextPageWithLayout;
   emotionCache?: EmotionCache;
   protected?: boolean;
+  isLight: boolean;
+  cookiesObject: Cookies;
 }
 
 function MyApp(props: MyAppProps) {
-  const [cookies] = useCookies(['analyticsTracking']);
-  const { Component, pageProps } = props;
+  const { Component, pageProps, isLight, cookiesObject } = props;
+
   const router = useRouter();
+
   useEffect(() => {
-    if (gtag.GA_TRACKING_ID && cookies.analyticsTracking === 'true') {
+    if (gtag.GA_TRACKING_ID && cookiesObject.analyticsTracking === 'true') {
       const handleRouteChange = (url: URL) => {
         gtag.pageView(url);
       };
@@ -48,21 +57,24 @@ function MyApp(props: MyAppProps) {
         router.events.off('routeChangeComplete', handleRouteChange);
       };
     }
-  }, [router.events]);
+  }, [cookiesObject.analyticsTracking, router.events]);
 
   useEffect(() => {
     const authData = getAuthFromStorage();
     if (props.pageProps.protected && (isEmpty(authData) || !authData?.authToken)) {
       router.push('/login');
     }
-  }, []);
-
+  }, [props.pageProps.protected, router]);
   return (
     <CookiesProvider>
       <Provider store={store}>
-        <CookiesProviderTracking>
+        <CookiesProviderTracking
+          themeTracking={cookiesObject.themeTracking}
+          timestampTracking={cookiesObject.timestampTracking}
+          analyticsTracking={cookiesObject.analyticsTracking}
+        >
           <AuthContextProvider>
-            <ThemeProvider>
+            <ThemeProvider isLightApp={isLight}>
               <SEOHead title="MakerDAO - Dashboard" description="" />
               <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
                 <AppLayout>
@@ -77,5 +89,28 @@ function MyApp(props: MyAppProps) {
     </CookiesProvider>
   );
 }
+
+MyApp.getInitialProps = async ({ ctx }: { ctx: NextPageContext }) => {
+  let themeMode = '';
+  const cookiesObject: Cookies = {
+    themeTracking: '',
+    timestampTracking: '',
+    analyticsTracking: '',
+  };
+
+  if (ctx.req?.headers.cookie) {
+    const decodedCookie = decodeURIComponent(ctx?.req?.headers.cookie || '');
+    const themeModeCookie = decodedCookie?.split(';');
+    cookiesObject.themeTracking = processCookieValue(themeModeCookie[0]);
+    cookiesObject.timestampTracking = processCookieValue(themeModeCookie[1]);
+    cookiesObject.analyticsTracking = processCookieValue(themeModeCookie[2]);
+    themeMode = processCookieValue(themeModeCookie[3]);
+  }
+  const isLight = cookiesObject?.themeTracking === 'true' ? themeMode === 'light' : true;
+  return {
+    isLight,
+    cookiesObject,
+  };
+};
 
 export default MyApp;
