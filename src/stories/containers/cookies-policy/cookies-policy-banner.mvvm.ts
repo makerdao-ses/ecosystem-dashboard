@@ -1,13 +1,12 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useScrollLock } from '../../../core/hooks/scroll-hooks';
+import { CookiesInterface } from '../../../core/utils/types-utils';
 interface Props {
-  timestampTracking: string;
-  themeTracking: string;
-  analyticsTracking: string;
+  cookiesObject: CookiesInterface;
 }
 
-export const useCookiesPolicyBannerMvvm = ({ themeTracking, analyticsTracking, timestampTracking }: Props) => {
+export const useCookiesPolicyBannerMvvm = ({ cookiesObject }: Props) => {
   const [cookies, setCookie, removeCookie] = useCookies([
     'themeTracking',
     'timestampTracking',
@@ -16,9 +15,9 @@ export const useCookiesPolicyBannerMvvm = ({ themeTracking, analyticsTracking, t
   ]);
   const { unlockScroll } = useScrollLock();
 
-  const isThemeTrackingAccepted = useMemo(() => !!themeTracking, [themeTracking]);
-  const isTimestampTrackingAccepted = useMemo(() => !!timestampTracking, [timestampTracking]);
-  const isAnalyticsTrackingAccepted = useMemo(() => !!analyticsTracking, [analyticsTracking]);
+  const isThemeTrackingAccepted = useMemo(() => !!cookiesObject.allowsThemeTracking, []);
+  const isTimestampTrackingAccepted = useMemo(() => !!cookiesObject.allowsTimestampTracking, []);
+  const isAnalyticsTrackingAccepted = useMemo(() => !!cookiesObject.allowsAnalyticsTracking, []);
   const isFunctionalTrackingAccepted = useMemo(
     () => isThemeTrackingAccepted && isTimestampTrackingAccepted,
     [isThemeTrackingAccepted, isTimestampTrackingAccepted]
