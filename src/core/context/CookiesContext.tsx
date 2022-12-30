@@ -21,12 +21,12 @@ export type CookiesContextValues = {
 const CookiesContextTracking = createContext<CookiesContextValues>({} as CookiesContextValues);
 const useCookiesContextTracking = () => useContext(CookiesContextTracking);
 
-interface Props {
+interface Props extends React.PropsWithChildren {
   cookiesObject: CookiesInterface;
   children: ReactNode;
 }
 
-const CookiesProviderTracking: React.FC<React.PropsWithChildren & Props> = ({ cookiesObject, children }) => {
+const CookiesProviderTracking = ({ cookiesObject, children }: Props) => {
   const {
     isFunctionalTrackingAccepted,
     isShowBanner,
