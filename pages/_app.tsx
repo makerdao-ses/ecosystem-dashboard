@@ -19,7 +19,8 @@ import { AuthContextProvider } from '../src/core/context/AuthContext';
 import { getAuthFromStorage } from '../src/core/utils/auth-storage';
 import { ContainerNotification } from '../src/stories/components/notification/notification';
 import AppLayout from '../src/stories/containers/layout/layout';
-import { processCookieValue } from '../src/core/utils/cookie-helpers';
+import { parseCookie } from '../src/core/utils/cookie-helpers';
+import { CookiesInterface } from '../src/core/utils/types-utils';
 
 // disable useLayoutEffect SSR warnings to avoid log spamming the console
 // https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85
@@ -29,26 +30,20 @@ export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
 
-interface Cookies {
-  themeTracking: string;
-  timestampTracking: string;
-  analyticsTracking: string;
-}
 interface MyAppProps extends AppProps {
   Component: NextPageWithLayout;
   emotionCache?: EmotionCache;
   protected?: boolean;
   isLight: boolean;
-  cookiesObject: Cookies;
+  cookiesObject: CookiesInterface;
 }
 
 function MyApp(props: MyAppProps) {
   const { Component, pageProps, isLight, cookiesObject } = props;
-
   const router = useRouter();
 
   useEffect(() => {
-    if (gtag.GA_TRACKING_ID && cookiesObject.analyticsTracking === 'true') {
+    if (gtag.GA_TRACKING_ID && cookiesObject.allowsAnalyticsTracking) {
       const handleRouteChange = (url: URL) => {
         gtag.pageView(url);
       };
@@ -57,7 +52,7 @@ function MyApp(props: MyAppProps) {
         router.events.off('routeChangeComplete', handleRouteChange);
       };
     }
-  }, [cookiesObject.analyticsTracking, router.events]);
+  }, [cookiesObject.allowsAnalyticsTracking, router.events]);
 
   useEffect(() => {
     const authData = getAuthFromStorage();
@@ -68,11 +63,7 @@ function MyApp(props: MyAppProps) {
   return (
     <CookiesProvider>
       <Provider store={store}>
-        <CookiesProviderTracking
-          themeTracking={cookiesObject.themeTracking}
-          timestampTracking={cookiesObject.timestampTracking}
-          analyticsTracking={cookiesObject.analyticsTracking}
-        >
+        <CookiesProviderTracking cookiesObject={cookiesObject}>
           <AuthContextProvider>
             <ThemeProvider isLightApp={isLight}>
               <SEOHead title="MakerDAO - Dashboard" description="" />
@@ -92,21 +83,20 @@ function MyApp(props: MyAppProps) {
 
 MyApp.getInitialProps = async ({ ctx }: { ctx: NextPageContext }) => {
   let themeMode = '';
-  const cookiesObject: Cookies = {
-    themeTracking: '',
-    timestampTracking: '',
-    analyticsTracking: '',
+  const cookiesObject: CookiesInterface = {
+    allowsThemeTracking: false,
+    allowsTimestampTracking: false,
+    allowsAnalyticsTracking: false,
   };
 
   if (ctx.req?.headers.cookie) {
-    const decodedCookie = decodeURIComponent(ctx?.req?.headers.cookie || '');
-    const themeModeCookie = decodedCookie?.split(';');
-    cookiesObject.themeTracking = processCookieValue(themeModeCookie[0]);
-    cookiesObject.timestampTracking = processCookieValue(themeModeCookie[1]);
-    cookiesObject.analyticsTracking = processCookieValue(themeModeCookie[2]);
-    themeMode = processCookieValue(themeModeCookie[3]);
+    const cookiesParsed = parseCookie(ctx.req?.headers.cookie);
+    cookiesObject.allowsThemeTracking = Boolean(cookiesParsed?.themeTracking);
+    cookiesObject.allowsTimestampTracking = Boolean(cookiesParsed?.timestampTracking);
+    cookiesObject.allowsAnalyticsTracking = Boolean(cookiesParsed?.analyticsTracking);
+    themeMode = cookiesParsed.THEME_MODE;
   }
-  const isLight = cookiesObject?.themeTracking === 'true' ? themeMode === 'light' : true;
+  const isLight = cookiesObject?.allowsThemeTracking ? themeMode === 'light' : true;
   return {
     isLight,
     cookiesObject,
