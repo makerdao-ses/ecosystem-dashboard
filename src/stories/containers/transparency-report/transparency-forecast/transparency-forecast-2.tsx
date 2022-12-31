@@ -21,7 +21,7 @@ interface Props {
 }
 
 export const TransparencyForecast2 = (props: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
 
   const {
     thirdIndex,

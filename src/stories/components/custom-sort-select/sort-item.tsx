@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const SortItem = (props: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
 
   return (
     <Container isLight={isLight} isActive={props.isActive} onClick={props.onClick}>

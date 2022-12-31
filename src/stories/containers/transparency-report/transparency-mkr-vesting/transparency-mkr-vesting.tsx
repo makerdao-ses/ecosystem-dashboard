@@ -25,7 +25,7 @@ export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
     props.currentMonth,
     props.budgetStatements
   );
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
 
   const items = useMemo(() => {
     const result: JSX.Element[][] = [];

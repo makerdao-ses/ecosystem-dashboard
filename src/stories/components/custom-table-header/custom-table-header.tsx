@@ -14,7 +14,7 @@ export interface CustomTableHeaderProps {
 }
 
 export const CustomTableHeader = (props: CustomTableHeaderProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <Container
       className="no-select"

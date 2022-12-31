@@ -3,7 +3,7 @@ import { Skeleton } from '@mui/material';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 
 export const CuTableColumnLastModifiedSkeleton = () => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
 
   return (
     <div>

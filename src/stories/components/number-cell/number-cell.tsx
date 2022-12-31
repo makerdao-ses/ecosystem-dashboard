@@ -11,7 +11,7 @@ interface NumberCellProps {
 }
 
 export const NumberCell = (props: NumberCellProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <Container
       fontFamily={props.fontFamily}

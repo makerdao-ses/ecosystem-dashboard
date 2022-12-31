@@ -15,7 +15,7 @@ interface Props {
 }
 
 export const FooterContact = ({ title, subtitle, logo, links, style, isLink = false }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <Container>
       <ContainerText>

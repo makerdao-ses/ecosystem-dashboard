@@ -19,7 +19,7 @@ export const Close = ({
   onClick,
   ...props
 }: CloseProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <svg
       cursor={onClick ? 'pointer' : 'default'}

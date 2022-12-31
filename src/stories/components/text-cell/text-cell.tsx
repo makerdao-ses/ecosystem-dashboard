@@ -13,7 +13,7 @@ interface TableCellProps {
 }
 
 export const TextCell = ({ responsivePadding = '10px 16px', ...props }: TableCellProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <Container
       bold={!!props.bold}

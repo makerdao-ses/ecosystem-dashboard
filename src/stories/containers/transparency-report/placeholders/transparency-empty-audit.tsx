@@ -3,7 +3,7 @@ import React from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 
 export const TransparencyEmptyAudit = () => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <>
       <Wrapper>

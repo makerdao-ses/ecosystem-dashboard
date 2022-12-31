@@ -27,7 +27,7 @@ interface Props {
 }
 
 export const TitleNavigationCuAbout = ({ coreUnitAbout, hiddenTextDescription }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const phoneDimensions = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const tableDimensions = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const lessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));

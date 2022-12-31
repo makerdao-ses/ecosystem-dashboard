@@ -20,7 +20,7 @@ export const InnerTable = ({
   headerStyles = [],
   ...props
 }: InnerTableProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <Container style={props.style} isLight={isLight}>
       <Table>

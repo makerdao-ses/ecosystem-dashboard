@@ -16,7 +16,7 @@ interface SearchInputProps {
 }
 
 export const SearchInput = (props: SearchInputProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     props.onChange && props.onChange(event.target.value);
   };

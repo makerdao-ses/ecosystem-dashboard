@@ -33,7 +33,7 @@ export const CustomPopover = ({
   },
   ...props
 }: CustomPopoverProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const [leaveTimeout, setLeaveTimeout] = React.useState<NodeJS.Timeout>();
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {

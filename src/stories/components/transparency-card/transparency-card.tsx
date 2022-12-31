@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const TransparencyCard = (props: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <Container isLight={isLight}>
       <HeaderWrapper>{props.header}</HeaderWrapper>

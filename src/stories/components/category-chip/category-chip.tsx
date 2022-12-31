@@ -68,7 +68,7 @@ const colors: { [id: string]: any } = {
 };
 
 export const CategoryChip = (props: StatusChipProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <Chip
       style={{

@@ -15,7 +15,7 @@ interface CUActivityItemProps {
   isNew: boolean;
 }
 export default function CUActivityItem({ activity, isNew }: CUActivityItemProps) {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const router = useRouter();
   const isGlobal = !!activity.coreUnit;
 

@@ -4,7 +4,7 @@ import { Skeleton } from '@mui/material';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 
 export const ColumnSummarySkeleton = () => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <ContainerSkeleton>
       <Skeleton

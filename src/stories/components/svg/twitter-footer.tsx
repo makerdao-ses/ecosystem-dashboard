@@ -9,7 +9,7 @@ interface Props {
 }
 
 const TwitterFooter = ({ width = 20, fill = '#231536', height = 16.15, fillDark, ...props }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <svg width={width} height={height} viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path

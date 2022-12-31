@@ -1,29 +1,32 @@
-import { useState, useLayoutEffect } from 'react';
+import { useState, useLayoutEffect, useCallback } from 'react';
+import { useCookies } from 'react-cookie';
 import { ThemeType } from '../enums/theme.enum';
 
-const THEME_MODE = 'THEME_MODE';
+interface Props {
+  isLightApp: boolean;
+}
 
-const useThemeMode = () => {
-  const defaultThemePreference = ThemeType.LIGHT;
+const useThemeMode = ({ isLightApp }: Props) => {
+  const [cookie, setCookie] = useCookies(['THEME_MODE', 'themeTracking']);
+  const [isLight, setIsisLight] = useState<boolean>(isLightApp);
+  const defaultThemePreference = isLight ? ThemeType.LIGHT : ThemeType.DARK;
 
-  const [currentTheme, setCurrentTheme] = useState<ThemeType>();
-  const isLight = currentTheme === ThemeType.LIGHT;
-
+  const [currentTheme, setCurrentTheme] = useState<ThemeType>(isLightApp ? ThemeType.LIGHT : ThemeType.DARK);
   useLayoutEffect(() => {
-    const defaultThemeLocalStore = window.localStorage.getItem(THEME_MODE);
-    setCurrentTheme((defaultThemeLocalStore as ThemeType) || defaultThemePreference);
-  }, [defaultThemePreference]);
+    const changeThemeFromCookie = isLight ? ThemeType.LIGHT : ThemeType.DARK;
+    setCurrentTheme((changeThemeFromCookie as ThemeType) || defaultThemePreference);
+  }, [defaultThemePreference, isLight, isLightApp, setCookie]);
 
-  const handleThemeMode = (val: ThemeType) => {
-    if (typeof window !== 'undefined') {
-      const hasTracking = window.localStorage.getItem('themeTracking');
-      if (hasTracking) {
-        window.localStorage.setItem(THEME_MODE, val);
+  const handleThemeMode = useCallback(
+    (val: ThemeType) => {
+      if (cookie.themeTracking) {
+        setCookie('THEME_MODE', val);
       }
-    }
-
-    setCurrentTheme(val);
-  };
+      setCurrentTheme(val);
+      setIsisLight(!isLight);
+    },
+    [cookie.themeTracking, isLight, setCookie]
+  );
 
   return {
     currentTheme,

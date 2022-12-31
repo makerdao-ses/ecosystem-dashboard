@@ -12,7 +12,7 @@ interface BreadcrumbsProps {
 }
 
 export const Breadcrumbs = (props: BreadcrumbsProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <Container>
       {props.items.map((item, i) => (
