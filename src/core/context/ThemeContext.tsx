@@ -1,5 +1,5 @@
 import { CssBaseline, ThemeProvider as MuiThemeProvider } from '@mui/material';
-import { createContext, ReactNode, useContext, useMemo, useEffect } from 'react';
+import { createContext, ReactNode, useContext, useMemo } from 'react';
 import darkTheme from '../../../styles/theme/dark';
 import lightTheme from '../../../styles/theme/light';
 import useThemeMode from '../hooks/useThemeMode';
@@ -20,24 +20,25 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType>({} as ThemeContextType);
 const useThemeContext = () => useContext(ThemeContext);
 
-const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const { currentTheme: themeMode, handleThemeMode, isLight } = useThemeMode();
+interface Props {
+  children: ReactNode;
+  isLightApp: boolean;
+}
+
+const ThemeProvider = ({ children, isLightApp }: Props) => {
+  const { currentTheme: themeMode, handleThemeMode, isLight } = useThemeMode({ isLightApp });
 
   const toggleTheme = () => {
-    if (themeMode) handleThemeMode(toggleThemeValues[themeMode]);
-  };
-
-  const theme = useMemo(() => (isLight ? lightTheme : darkTheme), [themeMode]);
-
-  useEffect(() => {
-    if (themeMode !== undefined) {
+    if (themeMode) {
       handleThemeMode(toggleThemeValues[themeMode]);
     }
-  }, []);
+  };
+
+  const theme = useMemo(() => (isLight ? lightTheme : darkTheme), [isLight]);
   return (
     <ThemeContext.Provider
       value={{
-        themeMode: themeMode as unknown as ThemeMode,
+        themeMode: themeMode as ThemeMode,
         toggleTheme,
         isLight,
       }}

@@ -20,7 +20,7 @@ interface Props {
 }
 
 export const TransparencyActuals2 = (props: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
 
   const {
     headerIds,

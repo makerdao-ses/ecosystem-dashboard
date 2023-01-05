@@ -10,7 +10,7 @@ interface Props {
 }
 
 const TeamMember = ({ fte }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <Container>
       <CustomPopover

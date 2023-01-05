@@ -16,7 +16,7 @@ interface Props {
 }
 
 const CardInfoMember = ({ contributorCommitment }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const since = DateTime.now().diff(DateTime.fromISO(contributorCommitment.startDate), ['years', 'months']);
   const contributor = contributorCommitment.contributor[0] || [];
   const links = getLinksFromContributor(contributorCommitment);

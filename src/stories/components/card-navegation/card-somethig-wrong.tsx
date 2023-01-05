@@ -11,7 +11,7 @@ interface Props {
 }
 
 const CardSomeThingWrong = ({ width }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <InformationCard
       title="Something Wrong on this Page?"

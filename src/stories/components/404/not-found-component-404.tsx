@@ -18,7 +18,7 @@ const CardNotFoundPage: NextPage = () => {
   const router = useRouter();
   const phoneLess = useMediaQuery(lightTheme.breakpoints.down('table_375'));
   const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const handleOnclick = () => {
     router.push('/');
   };

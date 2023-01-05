@@ -9,7 +9,7 @@ interface Props {
 }
 
 const DiscordSupport = ({ width = 19, height = 20, fill = '#211634', fillDark, ...props }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <svg width={width} height={height} viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path

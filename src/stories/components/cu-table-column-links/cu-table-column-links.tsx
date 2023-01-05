@@ -66,7 +66,7 @@ export const CuTableColumnLinks = ({
   isLoading = false,
   isIndex,
 }: CuTableColumnLinksProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return !isLoading ? (
     <Container isIndex={isIndex} spacings={spacings} align={align}>
       {links?.map((link, i) => (

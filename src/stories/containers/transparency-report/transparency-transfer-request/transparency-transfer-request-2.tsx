@@ -18,7 +18,7 @@ interface Props {
 }
 
 export const TransparencyTransferRequest2 = (props: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const { mainTableColumns, mainTableItems } = useTransparencyTransferRequestMvvm2(
     props.currentMonth,
     props.budgetStatements

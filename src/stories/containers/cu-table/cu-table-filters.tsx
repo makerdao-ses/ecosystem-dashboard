@@ -39,7 +39,7 @@ const categories = Object.values(CuCategoryEnum) as string[];
 export const Filters = (props: FilterProps) => {
   const router = useRouter();
   const debounce = useDebounce();
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [filtersVisible, setFiltersVisible] = React.useState(false);

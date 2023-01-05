@@ -26,7 +26,7 @@ export const CoreUnitSummary = ({
   trailingAddress = [],
   breadcrumbTitle,
 }: CoreUnitSummaryProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const lessThanPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
   const [hiddenTextDescription, setHiddenTextDescription] = useState(true);

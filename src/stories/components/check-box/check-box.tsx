@@ -12,7 +12,7 @@ interface Props {
 }
 
 const CheckBox = ({ label, isChecked, setIsChecked }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const handleClick = () => {
     setIsChecked(isChecked);
   };

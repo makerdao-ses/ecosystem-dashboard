@@ -35,7 +35,7 @@ export type TableItems = {
 };
 
 export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportProps) => {
-  const { themeMode, isLight } = useThemeContext();
+  const { isLight } = useThemeContext();
   const [isEnabled] = useFlagsActive();
   const {
     tabItems,
@@ -71,18 +71,6 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
       id: TRANSPARENCY_IDS_ENUM.COMMENTS,
     };
     tabItems.push(CommentsComponent);
-  }
-  if (themeMode === undefined) {
-    return (
-      <>
-        <SEOHead
-          title={`${coreUnit.name} Core Unit | Finances`}
-          description={`Learn about the ${coreUnit.name} Core Unit at MakerDAO: their finances, expense reports, and more.`}
-          image={coreUnit.image || toAbsoluteURL('/assets/img/social-1200x630.png')}
-          twitterCard={coreUnit.image ? 'summary' : 'summary_large_image'}
-        />
-      </>
-    );
   }
   return (
     <Wrapper>

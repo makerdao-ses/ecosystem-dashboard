@@ -35,7 +35,7 @@ const colors = {
 };
 
 export const AuditStatusChip = (props: AuditStatusChipProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <Chip
       style={{

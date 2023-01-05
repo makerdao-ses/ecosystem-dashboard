@@ -13,7 +13,7 @@ import {
 import { CustomButton } from '../../components/custom-button/custom-button';
 
 const CookiesPolicyContainer = () => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const { isShowBanner, setIsShowBanner } = useCookiesContextTracking();
 
   const handlePolicyBanner = useCallback(() => {

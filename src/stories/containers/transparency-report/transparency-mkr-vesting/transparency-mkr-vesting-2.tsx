@@ -24,7 +24,7 @@ export const TransparencyMkrVesting2 = (props: TransparencyMkrVestingProps) => {
     props.currentMonth,
     props.budgetStatements
   );
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
 
   return (
     <Container>

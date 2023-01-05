@@ -45,7 +45,7 @@ const MdViewerPage = ({
 }: Props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [activeLink, setActiveLink] = useState('');
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const isTable834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const isPhoneAndTable = useMediaQuery(lightTheme.breakpoints.between('table_375', 'desktop_1194'));
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);

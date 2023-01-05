@@ -50,7 +50,7 @@ export const CustomMultiSelect = ({
   customItemRender = defaultItemRender,
   ...props
 }: CustomMultiSelectProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const [popupVisible, setPopupVisible] = useState(false);
   const [hover, setHover] = useState(false);
   const [searchText, setSearchText] = useState('');
