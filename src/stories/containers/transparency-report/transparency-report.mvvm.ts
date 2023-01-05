@@ -22,7 +22,7 @@ import { WithDate, isActivity } from '../../../core/utils/types-helpers';
 import { TableItems } from './transparency-report';
 import { budgetStatementCommentsCollectionId } from '../../../core/utils/collections-ids';
 import { LastVisitHandler } from '../../../core/utils/last-visit-handler';
-import { useCookies } from 'react-cookie';
+import { useCookiesContextTracking } from '../../../core/context/CookiesContext';
 
 export enum TRANSPARENCY_IDS_ENUM {
   ACTUALS = 'actuals',
@@ -51,7 +51,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   const anchor = useUrlAnchor();
   const transparencyTableRef = useRef<HTMLDivElement>(null);
   const { permissionManager } = useAuthContext();
-  const [cookies] = useCookies(['timestampTracking']);
+  const { isTimestampTrackingAccepted } = useCookiesContextTracking();
 
   const [tabsIndex, setTabsIndex] = useState<TRANSPARENCY_IDS_ENUM>(TRANSPARENCY_IDS_ENUM.ACTUALS);
   const [tabsIndexNumber, setTabsIndexNumber] = useState<number>(0);
@@ -331,14 +331,16 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   useEffect(() => {
     clearTimeout(timeout);
     timeout = setTimeout(async () => {
-      if (cookies.timestampTracking === 'true') {
+      if (isTimestampTrackingAccepted) {
         await lastVisitHandler.visit();
+      } else {
+        alert('hello');
       }
     }, 5000);
     return () => {
       clearTimeout(timeout);
     };
-  }, [lastVisitHandler]);
+  }, [lastVisitHandler, isTimestampTrackingAccepted]);
   // end of "hasNewComments" related logic
 
   return {

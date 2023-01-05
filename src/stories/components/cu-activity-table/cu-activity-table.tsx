@@ -12,10 +12,10 @@ import sortBy from 'lodash/sortBy';
 import { ActivityPlaceholder } from './cu-activity-table.placeholder';
 import { ActivityFeedDto, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { useMediaQuery } from '@mui/material';
-import { useCookies } from 'react-cookie';
 import { LastVisitHandler } from '../../../core/utils/last-visit-handler';
 import { useAuthContext } from '../../../core/context/AuthContext';
 import { DateTime } from 'luxon';
+import { useCookiesContextTracking } from '../../../core/context/CookiesContext';
 
 export interface ActivityTableHeader {
   header: string;
@@ -78,7 +78,6 @@ export default function ActivityTable({
   hasFilter,
   clearAction,
 }: Props) {
-  const [cookies] = useCookies(['timestampTracking']);
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const initialElements = useMemo(() => (isMobile ? 5 : 10), [isMobile]);
@@ -86,6 +85,7 @@ export default function ActivityTable({
   const [noVisitedCount, setNoVisitedCount] = useState(0);
   const [extendedActivity, setExtendedActivity] = useState<Activity[]>(activityFeed);
   const { permissionManager } = useAuthContext();
+  const { isTimestampTrackingAccepted } = useCookiesContextTracking();
 
   const handleSeePrevious = () => {
     setShowElements(true);
@@ -115,14 +115,11 @@ export default function ActivityTable({
     };
 
     visit();
-    const timeout = setTimeout(
-      async () => cookies.timestampTracking === 'true' && (await lastVisitHandler.visit()),
-      5000
-    );
+    const timeout = setTimeout(async () => isTimestampTrackingAccepted && (await lastVisitHandler.visit()), 5000);
     return () => {
       clearTimeout(timeout);
     };
-  }, [activityFeed]);
+  }, [activityFeed, isTimestampTrackingAccepted]);
 
   const sortedActivities = useMemo(() => {
     const result = sortBy(extendedActivity, (a) => {
