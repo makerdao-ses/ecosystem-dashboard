@@ -35,7 +35,7 @@ export const AuthContextProvider: React.FC<{ children: JSX.Element | JSX.Element
   const router = useRouter();
   const isAdmin = useIsAdmin(user || ({} as UserDTO));
 
-  const permissionManager = React.useMemo(() => new PermissionManager(user), [user]);
+  const permissionManager = React.useMemo(() => new PermissionManager(user, authToken), [user, authToken]);
 
   useLayoutEffect(() => {
     const auth = getAuthFromStorage();
@@ -59,7 +59,6 @@ export const AuthContextProvider: React.FC<{ children: JSX.Element | JSX.Element
     await router.push('/login');
     setAuthToken('');
     setUser(undefined);
-    permissionManager.removeLoggedUser();
     window.localStorage.setItem('auth', '{}');
   };
 

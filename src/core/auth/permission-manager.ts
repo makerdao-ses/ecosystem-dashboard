@@ -4,11 +4,13 @@ import CoreUnitExtension from './core-unit-extension';
 
 class PermissionManager {
   loggedUser?: UserDTO;
+  token?: string;
 
   coreUnit: CoreUnitExtension;
 
-  constructor(loggedUser?: UserDTO) {
+  constructor(loggedUser?: UserDTO, token?: string) {
     this.loggedUser = loggedUser;
+    this.token = token;
     this.coreUnit = new CoreUnitExtension(this);
   }
 
@@ -16,8 +18,8 @@ class PermissionManager {
     this.loggedUser = loggedUser;
   }
 
-  removeLoggedUser() {
-    this.loggedUser = undefined;
+  setToken(token?: string) {
+    this.token = token;
   }
 
   isAuthenticated() {
