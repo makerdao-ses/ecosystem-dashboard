@@ -9,8 +9,7 @@ import request from 'graphql-request';
 import { CREATE_BUDGET_STATEMENT_COMMENT } from './auditor-comenting.api';
 import { GRAPHQL_ENDPOINT } from '../../../../../config/endpoints';
 import { triggerToast } from '../../../../helpers/helpers';
-import { useLastVisitContext } from '../../../../../core/context/LastVisitContext';
-import { budgetStatementCommentsCollectionId } from '../../../../../core/utils/collections-ids';
+import { useCommentActivityContext } from '../../../../../core/context/CommentActivityContext';
 
 const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: string) => {
   const { isLight } = useThemeContext();
@@ -22,7 +21,8 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
   const [availableStatuses, setAvailableStatuses] = useState<BudgetStatus[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<BudgetStatus | undefined>();
   const [textareaValue, setTextareaValue] = useState<string>('');
-  const { visitCollection } = useLastVisitContext();
+
+  const lastVisitHandler = useCommentActivityContext();
 
   // update the selected status every time the budget statement changes
   useEffect(() => {
@@ -121,9 +121,6 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
         }
       );
 
-      // prevent the new comment being marked as unvisited
-      await visitCollection(budgetStatementCommentsCollectionId(budgetStatementId), true, true);
-
       const newComment = newCommentResult.budgetStatementCommentCreate[0];
       const updatedBudgetStatement = currentCoreUnit?.budgetStatements?.map((bs) => {
         if (bs.id === newComment.budgetStatementId) {
@@ -139,6 +136,9 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
         ...(currentCoreUnit || ({} as CoreUnitDto)),
         budgetStatements: [...(updatedBudgetStatement || [])],
       };
+
+      // prevent the new comment being marked as unvisited
+      await lastVisitHandler?.visit();
 
       setCurrentCoreUnit(updatedCoreUnit);
       setTextareaValue('');

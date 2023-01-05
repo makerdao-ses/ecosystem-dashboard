@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
-import { useRef, useState, useEffect, useCallback, useMemo } from 'react';
+import { useRef, useState, useEffect, useCallback, useMemo, useReducer } from 'react';
 import {
   getAllCommentsBudgetStatementLine,
   getCurrentOrLastMonthWithData,
@@ -20,8 +20,9 @@ import {
 import { API_MONTH_TO_FORMAT } from '../../../core/utils/date.utils';
 import { WithDate, isActivity } from '../../../core/utils/types-helpers';
 import { TableItems } from './transparency-report';
-import { useLastVisit } from '../../../core/hooks/useLastVisit';
 import { budgetStatementCommentsCollectionId } from '../../../core/utils/collections-ids';
+import { LastVisitHandler } from '../../../core/utils/last-visit-handler';
+import { useCookies } from 'react-cookie';
 
 export enum TRANSPARENCY_IDS_ENUM {
   ACTUALS = 'actuals',
@@ -33,6 +34,15 @@ export enum TRANSPARENCY_IDS_ENUM {
 }
 const DISABLED_ID = [TRANSPARENCY_IDS_ENUM.MKR_VESTING, TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS];
 
+type CommentsLastVisitState = {
+  hasNewComments: boolean;
+  isFetching: boolean;
+};
+type CommentLastVisitAction = {
+  type: 'START_FETCHING' | 'SET_HAS_NEW_COMMENTS';
+  hasNewComments?: boolean;
+};
+
 export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   const router = useRouter();
   const query = router.query;
@@ -41,6 +51,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   const anchor = useUrlAnchor();
   const transparencyTableRef = useRef<HTMLDivElement>(null);
   const { permissionManager } = useAuthContext();
+  const [cookies] = useCookies(['timestampTracking']);
 
   const [tabsIndex, setTabsIndex] = useState<TRANSPARENCY_IDS_ENUM>(TRANSPARENCY_IDS_ENUM.ACTUALS);
   const [tabsIndexNumber, setTabsIndexNumber] = useState<number>(0);
@@ -125,11 +136,14 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
 
   const handlePreviousMonth = useCallback(() => {
     if (hasPreviousMonth()) {
+      if (tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS) {
+        lastVisitHandler.visit(); // mark the current budget statement as visited before leave
+      }
       const month = currentMonth.minus({ month: 1 });
       replaceViewMonthRoute(month.toFormat('LLLyyyy'));
       setCurrentMonth(month);
     }
-  }, [setCurrentMonth, currentMonth, router]);
+  }, [setCurrentMonth, currentMonth, router, tabsIndex]);
 
   const hasNextMonth = () => {
     const limit = getLastMonthWithActualOrForecast(coreUnit?.budgetStatements).plus({
@@ -140,11 +154,14 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
 
   const handleNextMonth = useCallback(() => {
     if (hasNextMonth()) {
+      if (tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS) {
+        lastVisitHandler.visit(); // mark the current budget statement as visited before leave
+      }
       const month = currentMonth.plus({ month: 1 });
       replaceViewMonthRoute(month.toFormat('LLLyyyy'));
       setCurrentMonth(month);
     }
-  }, [setCurrentMonth, currentMonth, router]);
+  }, [setCurrentMonth, currentMonth, router, tabsIndex]);
 
   const prepareWalletsName = (budgetStatement?: BudgetStatementDto) => {
     const walletNames = new Map<string, number>();
@@ -250,14 +267,79 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     }
   }, [coreUnit, currentBudgetStatement, permissionManager]);
 
-  const lastVisit = useLastVisit(budgetStatementCommentsCollectionId(currentBudgetStatement?.id || ''), false);
-  const hasNewComments =
-    lastVisit &&
-    comments.some((comment) =>
-      isActivity(comment)
-        ? DateTime.fromISO(comment.created_at).toMillis() > lastVisit
-        : DateTime.fromISO(comment.timestamp).toMillis() > lastVisit
-    );
+  const lastVisitHandler = useMemo(
+    () =>
+      new LastVisitHandler(budgetStatementCommentsCollectionId(currentBudgetStatement?.id || ''), permissionManager),
+    [permissionManager, currentBudgetStatement]
+  );
+
+  // "hasNewComments" related logic
+  const [commentsLastVisitState, commentsLastVisitDispatch] = useReducer(
+    (state: CommentsLastVisitState, action: CommentLastVisitAction): never | CommentsLastVisitState => {
+      switch (action.type) {
+        case 'START_FETCHING':
+          return {
+            hasNewComments: false,
+            isFetching: true,
+          };
+        case 'SET_HAS_NEW_COMMENTS':
+          return {
+            isFetching: false,
+            hasNewComments: !!action.hasNewComments,
+          };
+        default:
+          throw new Error(`Unhandled action type: ${action.type}. Current state: ${state}`);
+      }
+    },
+    {
+      isFetching: false,
+      hasNewComments: false,
+    }
+  );
+
+  const updateHasNewComments = async () => {
+    commentsLastVisitDispatch({ type: 'START_FETCHING' });
+    const lastVisit = await lastVisitHandler.lastVisit();
+    if (lastVisit) {
+      let hasNewComments: boolean = comments.length > 0 && !lastVisit;
+      for (const comment of comments) {
+        const wasVisited = isActivity(comment)
+          ? lastVisitHandler.wasVisited(DateTime.fromISO(comment.created_at))
+          : lastVisitHandler.wasVisited(DateTime.fromISO(comment.timestamp));
+        if (wasVisited) {
+          hasNewComments = true;
+          break;
+        }
+      }
+      commentsLastVisitDispatch({
+        type: 'SET_HAS_NEW_COMMENTS',
+        hasNewComments,
+      });
+    } else {
+      commentsLastVisitDispatch({
+        type: 'SET_HAS_NEW_COMMENTS',
+        hasNewComments: comments.length > 0,
+      });
+    }
+  };
+  useEffect(() => {
+    updateHasNewComments();
+  }, [lastVisitHandler, comments]);
+
+  // update the visit date (preventing multiple renderings)
+  let timeout: NodeJS.Timeout;
+  useEffect(() => {
+    clearTimeout(timeout);
+    timeout = setTimeout(async () => {
+      if (cookies.timestampTracking === 'true') {
+        await lastVisitHandler.visit();
+      }
+    }, 5000);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [lastVisitHandler]);
+  // end of "hasNewComments" related logic
 
   return {
     tabItems,
@@ -277,6 +359,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     longCode,
     hasPreviousMonth,
     comments,
-    hasNewComments,
+    lastVisitHandler,
+    hasNewComments: !commentsLastVisitState.isFetching && commentsLastVisitState.hasNewComments,
   };
 };

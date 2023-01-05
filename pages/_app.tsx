@@ -19,7 +19,6 @@ import { AuthContextProvider } from '../src/core/context/AuthContext';
 import { getAuthFromStorage } from '../src/core/utils/auth-storage';
 import { ContainerNotification } from '../src/stories/components/notification/notification';
 import AppLayout from '../src/stories/containers/layout/layout';
-import { LastVisitContextProvider } from '../src/core/context/LastVisitContext';
 
 // disable useLayoutEffect SSR warnings to avoid log spamming the console
 // https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85
@@ -66,12 +65,10 @@ function MyApp(props: MyAppProps) {
             <ThemeProvider>
               <SEOHead title="MakerDAO - Dashboard" description="" />
               <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
-                <LastVisitContextProvider>
-                  <AppLayout>
-                    <Component {...pageProps} />
-                  </AppLayout>
-                  <ContainerNotification limit={3} />
-                </LastVisitContextProvider>
+                <AppLayout>
+                  <Component {...pageProps} />
+                </AppLayout>
+                <ContainerNotification limit={3} />
               </FeatureFlagsProvider>
             </ThemeProvider>
           </AuthContextProvider>
