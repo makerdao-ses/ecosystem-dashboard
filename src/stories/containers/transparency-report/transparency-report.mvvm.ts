@@ -333,8 +333,6 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     timeout = setTimeout(async () => {
       if (isTimestampTrackingAccepted) {
         await lastVisitHandler.visit();
-      } else {
-        alert('hello');
       }
     }, 5000);
     return () => {
