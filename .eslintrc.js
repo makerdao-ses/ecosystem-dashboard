@@ -45,5 +45,6 @@ module.exports = {
         minLength: 4,
       },
     ],
+    'storybook/story-exports': 0, // destructuring exports are not implemented. Created an issue in the official repo
   },
 };

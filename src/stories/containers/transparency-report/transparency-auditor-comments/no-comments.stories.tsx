@@ -1,12 +1,10 @@
-import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { ComponentMeta } from '@storybook/react';
 import NoComments from './no-comments';
+import { createThemeModeVariants } from '../../../../core/utils/storybook';
 
 export default {
   title: 'Components/AuditorComments/NoComments',
   component: NoComments,
 } as ComponentMeta<typeof NoComments>;
 
-const Template: ComponentStory<typeof NoComments> = (args) => <NoComments {...args} />;
-
-export const Default = Template.bind({});
+export const [[Light, Dark]] = createThemeModeVariants(NoComments);

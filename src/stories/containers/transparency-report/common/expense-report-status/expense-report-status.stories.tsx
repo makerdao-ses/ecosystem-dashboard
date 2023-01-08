@@ -1,7 +1,7 @@
-import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
 import ExpenseReportStatus from './expense-report-status';
 import { BudgetStatus } from '../../../../../core/models/dto/core-unit.dto';
+import type { ComponentMeta } from '@storybook/react';
+import { createThemeModeVariants } from '../../../../../core/utils/storybook';
 
 export default {
   title: 'Components/AuditorComments/ExpenseReportStatus',
@@ -15,6 +15,16 @@ export default {
   },
 } as ComponentMeta<typeof ExpenseReportStatus>;
 
-const Template: ComponentStory<typeof ExpenseReportStatus> = (args) => <ExpenseReportStatus {...args} />;
+const variantsArgs = [
+  { status: BudgetStatus.Draft },
+  { status: BudgetStatus.Review },
+  { status: BudgetStatus.Escalated },
+  { status: BudgetStatus.Final },
+];
 
-export const Default = Template.bind({});
+export const [
+  [Draft, DraftDarkMode],
+  [Review, ReviewDarkMode],
+  [Escalated, EscalatedDarkMode],
+  [Final, FinalDarkMode],
+] = createThemeModeVariants(ExpenseReportStatus, variantsArgs);

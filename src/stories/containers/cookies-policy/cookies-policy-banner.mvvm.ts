@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useScrollLock } from '../../../core/hooks/scroll-hooks';
-import { CookiesInterface } from '../../../core/utils/types-utils';
+import { CookiesInterface } from '../../../core/utils/types-helpers';
 interface Props {
   cookiesObject: CookiesInterface;
 }

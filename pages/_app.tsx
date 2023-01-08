@@ -20,7 +20,7 @@ import { getAuthFromStorage } from '../src/core/utils/auth-storage';
 import { ContainerNotification } from '../src/stories/components/notification/notification';
 import AppLayout from '../src/stories/containers/layout/layout';
 import { parseCookie } from '../src/core/utils/cookie-helpers';
-import { CookiesInterface } from '../src/core/utils/types-utils';
+import { CookiesInterface } from '../src/core/utils/types-helpers';
 
 // disable useLayoutEffect SSR warnings to avoid log spamming the console
 // https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85

@@ -1,11 +1,19 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { ComponentMeta } from '@storybook/react';
 import { BudgetStatus } from '../../../../core/models/dto/core-unit.dto';
 import BudgetStatusSelect from './budget-status-select';
+import { createThemeModeVariants } from '../../../../core/utils/storybook';
 
 export default {
   title: 'Components/AuditorComments/BudgetStatusSelect',
   component: BudgetStatusSelect,
+  decorators: [
+    (Story) => (
+      <div style={{ display: 'inline-block' }}>
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {
     availableStatuses: {
       control: {
@@ -16,10 +24,4 @@ export default {
   },
 } as ComponentMeta<typeof BudgetStatusSelect>;
 
-const Template: ComponentStory<typeof BudgetStatusSelect> = (args) => (
-  <div style={{ display: 'inline-block' }}>
-    <BudgetStatusSelect {...args} />
-  </div>
-);
-
-export const Default = Template.bind({});
+export const [[Light, Dark]] = createThemeModeVariants(BudgetStatusSelect);

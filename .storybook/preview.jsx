@@ -1,5 +1,4 @@
 import { RouterContext } from "next/dist/shared/lib/router-context"; // next 12
-import { ThemeProvider } from '../src/core/context/ThemeContext';
 import { WithNextRouter } from 'storybook-addon-next-router/dist/decorators';
 
 export const parameters = {
@@ -68,12 +67,4 @@ export const parameters = {
     }
 }
 
-const WithThemeProvider = (Story) => {
-    return (
-        <ThemeProvider>
-            <Story />
-        </ThemeProvider>
-    )
-}
-
-export const decorators = [WithThemeProvider, WithNextRouter]
+export const decorators = [WithNextRouter];
