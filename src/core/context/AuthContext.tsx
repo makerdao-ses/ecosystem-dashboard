@@ -19,7 +19,7 @@ interface AuthContextProps {
   permissionManager: PermissionManager;
 }
 
-const AuthContext = React.createContext<AuthContextProps>({
+export const AuthContext = React.createContext<AuthContextProps>({
   hasToken: false,
   isAdmin: false,
   permissionManager: new PermissionManager(),

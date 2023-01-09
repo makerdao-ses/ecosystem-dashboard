@@ -1,30 +1,59 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { ComponentMeta } from '@storybook/react';
 import ParticipantRoles from './participant-roles';
 import { UserBuilder } from '../../../../core/business-logic/builders/user.builder';
+import { createThemeModeVariants } from '../../../../core/utils/storybook';
 
 export default {
   title: 'Components/AuditorComments/ParticipantRoles',
   component: ParticipantRoles,
+  decorators: [
+    (Story) => (
+      <div style={{ maxWidth: 300 }}>
+        <Story />
+      </div>
+    ),
+  ],
 } as ComponentMeta<typeof ParticipantRoles>;
 
-const Template: ComponentStory<typeof ParticipantRoles> = (args) => <ParticipantRoles {...args} />;
+export const [[Empty, EmptyDarkMode]] = createThemeModeVariants(ParticipantRoles, [
+  {
+    coreUnitCode: 'EXA',
+    auditors: [],
+    cu: [],
+  },
+]);
 
-export const Default = Template.bind({});
-Default.args = {
-  auditors: [
-    new UserBuilder().addCoreUnitAuditorRole().withUsername('auditor1').build(),
-    new UserBuilder().addCoreUnitAuditorRole().withUsername('auditor2').build(),
-  ],
-  cu: [
-    new UserBuilder().addCoreUnitFacilitatorRole().withUsername('facilitator1').build(),
-    new UserBuilder().addCoreUnitFacilitatorRole().withUsername('facilitator1').build(),
-  ],
-};
+const auditors = [
+  new UserBuilder().addCoreUnitFacilitatorRole().withUsername('auditor1').build(),
+  new UserBuilder().addCoreUnitFacilitatorRole().withUsername('auditor2').build(),
+];
 
-export const Empty = Template.bind({});
-Empty.args = {
-  coreUnitCode: 'EXA',
-  auditors: [],
-  cu: [],
-};
+const facilitators = [
+  new UserBuilder().addCoreUnitFacilitatorRole().withUsername('facilitator1').build(),
+  new UserBuilder().addCoreUnitFacilitatorRole().withUsername('facilitator2').build(),
+];
+
+export const [[WithFacilitatorsOnly, WithFacilitatorsOnlyDarkMode]] = createThemeModeVariants(ParticipantRoles, [
+  {
+    coreUnitCode: 'EXA',
+    auditors: [],
+    cu: facilitators,
+  },
+]);
+
+export const [[WithAuditorsOnly, WithAuditorsOnlyDarkMode]] = createThemeModeVariants(ParticipantRoles, [
+  {
+    coreUnitCode: 'EXA',
+    auditors,
+    cu: [],
+  },
+]);
+
+export const [[WithAll, WithAllDarkMode]] = createThemeModeVariants(ParticipantRoles, [
+  {
+    coreUnitCode: 'EXA',
+    auditors,
+    cu: facilitators,
+  },
+]);

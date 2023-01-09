@@ -1,7 +1,7 @@
 import React, { createContext, ReactNode, useContext } from 'react';
 
 import { useCookiesPolicyBannerMvvm } from '../../stories/containers/cookies-policy/cookies-policy-banner.mvvm';
-import { CookiesInterface } from '../utils/types-utils';
+import { CookiesInterface } from '../utils/types-helpers';
 
 export type CookiesContextValues = {
   isFunctionalTrackingAccepted: boolean;
