@@ -27,7 +27,7 @@ export class LastVisitHandler {
       const result = await request(GRAPHQL_ENDPOINT, query, input, {
         Authorization: `Bearer ${this._permissionManager.token}`,
       });
-      return result?.userActivityUpdate[0]?.current?.timestamp;
+      return DateTime.fromISO(result?.userActivityUpdate[0]?.current?.timestamp).toMillis();
     } else {
       // update using local storage
       const timestamp = DateTime.now().toMillis();
