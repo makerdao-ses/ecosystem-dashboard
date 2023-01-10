@@ -12,7 +12,8 @@
     "storybook": "start-storybook -s ./public -p 6006",
     "build-storybook": "build-storybook",
     "prettier": "prettier --write .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "chromatic": "npx chromatic --project-token=CHROMATIC_PROJECT_TOKEN"
   },
   "dependencies": {
     "@emotion/react": "^11.9.3",
@@ -62,6 +63,7 @@
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.21.0",
     "babel-loader": "^8.2.5",
+    "chromatic": "^6.14.0",
     "css-loader": "^6.7.1",
     "emotion-theming": "^11.0.0",
     "eslint": "8.17.0",
@@ -89,5 +91,7 @@
       "jest --bail --findRelatedTests --passWithNoTests"
     ],
     "*.{ts,tsx,css,json}": "prettier --write"
-  }
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "makerdao-ses-typescript@0.1.0"
 }
