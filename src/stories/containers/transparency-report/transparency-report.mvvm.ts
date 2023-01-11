@@ -65,10 +65,22 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
       );
       if (index !== -1) {
         const indexKey = Object.keys(TRANSPARENCY_IDS_ENUM)[index];
+        if (
+          isTimestampTrackingAccepted &&
+          tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS &&
+          TRANSPARENCY_IDS_ENUM[indexKey as keyof typeof TRANSPARENCY_IDS_ENUM] !== TRANSPARENCY_IDS_ENUM.COMMENTS
+        ) {
+          // changing from "comments tab" to any other tab should mark the budget statement as visited
+          const visit = async () => {
+            const lastVisit = (await lastVisitHandler?.visit()) || DateTime.now().toMillis();
+            await updateHasNewComments(DateTime.fromMillis(lastVisit));
+          };
+          visit();
+        }
         setTabsIndex(TRANSPARENCY_IDS_ENUM[indexKey as keyof typeof TRANSPARENCY_IDS_ENUM]);
       }
     }
-  }, [anchor]);
+  }, [anchor, isTimestampTrackingAccepted]);
 
   useEffect(() => {
     const values = Object.values(TRANSPARENCY_IDS_ENUM);
@@ -297,16 +309,16 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     }
   );
 
-  const updateHasNewComments = async () => {
+  const updateHasNewComments = async (date?: DateTime) => {
     commentsLastVisitDispatch({ type: 'START_FETCHING' });
-    const lastVisit = await lastVisitHandler.lastVisit();
+    const lastVisit = date || (await lastVisitHandler.lastVisit());
     if (lastVisit) {
       let hasNewComments: boolean = comments.length > 0 && !lastVisit;
       for (const comment of comments) {
-        const wasVisited = isActivity(comment)
-          ? lastVisitHandler.wasVisited(DateTime.fromISO(comment.created_at))
-          : lastVisitHandler.wasVisited(DateTime.fromISO(comment.timestamp));
-        if (wasVisited) {
+        const commentDate = isActivity(comment)
+          ? DateTime.fromISO(comment.created_at)
+          : DateTime.fromISO(comment.timestamp);
+        if (commentDate > lastVisit) {
           hasNewComments = true;
           break;
         }
@@ -331,14 +343,15 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   useEffect(() => {
     clearTimeout(timeout);
     timeout = setTimeout(async () => {
-      if (isTimestampTrackingAccepted) {
-        await lastVisitHandler.visit();
+      if (isTimestampTrackingAccepted && tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS) {
+        const lastVisit = (await lastVisitHandler.visit()) || DateTime.now().toMillis();
+        await updateHasNewComments(DateTime.fromMillis(lastVisit));
       }
-    }, 5000);
+    }, 3000);
     return () => {
       clearTimeout(timeout);
     };
-  }, [lastVisitHandler, isTimestampTrackingAccepted]);
+  }, [lastVisitHandler, isTimestampTrackingAccepted, tabsIndex]);
   // end of "hasNewComments" related logic
 
   return {

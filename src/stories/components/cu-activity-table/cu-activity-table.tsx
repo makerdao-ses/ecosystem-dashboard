@@ -115,7 +115,7 @@ export default function ActivityTable({
     };
 
     visit();
-    const timeout = setTimeout(async () => isTimestampTrackingAccepted && (await lastVisitHandler.visit()), 5000);
+    const timeout = setTimeout(async () => isTimestampTrackingAccepted && (await lastVisitHandler.visit()), 3000);
     return () => {
       clearTimeout(timeout);
     };
