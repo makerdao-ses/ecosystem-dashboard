@@ -17,7 +17,7 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint', 'spellcheck', 'react-hooks'],
   rules: {
-    'react/jsx-filename-extension': ['error', { extensions: ['.jsx', '.tsx'] }],
+    'react/jsx-filename-extension': ['error', { extensions: ['.jsx', '.tsx', '.js', '.ts'] }],
     'max-lines': [
       'error',
       {
@@ -49,16 +49,6 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
     'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
     'storybook/story-exports': 0, // destructuring exports are not implemented. Created an issue in the official repo
-    'import/extensions': [
-      'error',
-      'ignorePackages',
-      {
-        js: 'never',
-        jsx: 'never',
-        ts: 'never',
-        tsx: 'never',
-      },
-    ],
     'arrow-body-style': ['error', 'as-needed'],
     'react/self-closing-comp': [
       'error',
@@ -89,12 +79,11 @@ module.exports = {
         alphabetize: { order: 'asc' },
       },
     ],
-  },
-  settings: {
-    'import/resolver': {
-      node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    'no-restricted-imports': [
+      'warn',
+      {
+        patterns: ['../'],
       },
-    },
+    ],
   },
 };

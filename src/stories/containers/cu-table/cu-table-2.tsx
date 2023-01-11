@@ -1,16 +1,16 @@
 import styled from '@emotion/styled';
 import React, { useMemo } from 'react';
-import lightTheme from '../../../../styles/theme/light';
-import { useCookiesContextTracking } from '../../../core/context/CookiesContext';
-import { useThemeContext } from '../../../core/context/ThemeContext';
-import { SortEnum } from '../../../core/enums/sort.enum';
-import { CuTableHeaderSkeleton } from '../../components/cu-table-header-skeleton/header-skeleton';
-import { CustomTable2 } from '../../components/custom-table/custom-table-2';
+import { useCookiesContextTracking } from '@/src/core/context/CookiesContext';
+import { useThemeContext } from '@/src/core/context/ThemeContext';
+import { SortEnum } from '@/src/core/enums/sort.enum';
+import type { CoreUnitDto } from '@/src/core/models/dto/core-unit.dto';
+import { CuTableHeaderSkeleton } from '@/src/stories/components/cu-table-header-skeleton/header-skeleton';
+import type { CustomTableRow } from '@/src/stories/components/custom-table/custom-table-2';
+import { CustomTable2 } from '@/src/stories/components/custom-table/custom-table-2';
+import lightTheme from '@/styles/theme/light';
 import { useCoreUnitsTableMvvm } from './cu-table-2.mvvm';
 import { Filters } from './cu-table-filters';
 import { renderCard } from './cu-table.renders';
-import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
-import type { CustomTableRow } from '../../components/custom-table/custom-table-2';
 
 export const CuTable2 = () => {
   const { themeMode } = useThemeContext();
