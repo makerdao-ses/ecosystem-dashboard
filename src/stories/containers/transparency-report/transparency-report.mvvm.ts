@@ -8,21 +8,22 @@ import {
   getLastUpdateForBudgetStatement,
 } from '../../../core/business-logic/core-units';
 import { useAuthContext } from '../../../core/context/AuthContext';
+import { useCookiesContextTracking } from '../../../core/context/CookiesContext';
 import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
-import {
+import { BudgetStatus } from '../../../core/models/dto/core-unit.dto';
+import { budgetStatementCommentsCollectionId } from '../../../core/utils/collections-ids';
+import { API_MONTH_TO_FORMAT } from '../../../core/utils/date.utils';
+import { LastVisitHandler } from '../../../core/utils/last-visit-handler';
+import { isActivity } from '../../../core/utils/types-helpers';
+import type {
   ActivityFeedDto,
   BudgetStatementDto,
-  BudgetStatus,
   CommentsBudgetStatementDto,
   CoreUnitDto,
 } from '../../../core/models/dto/core-unit.dto';
-import { API_MONTH_TO_FORMAT } from '../../../core/utils/date.utils';
-import { WithDate, isActivity } from '../../../core/utils/types-helpers';
-import { TableItems } from './transparency-report';
-import { budgetStatementCommentsCollectionId } from '../../../core/utils/collections-ids';
-import { LastVisitHandler } from '../../../core/utils/last-visit-handler';
-import { useCookiesContextTracking } from '../../../core/context/CookiesContext';
+import type { WithDate } from '../../../core/utils/types-helpers';
+import type { TableItems } from './transparency-report';
 
 export enum TRANSPARENCY_IDS_ENUM {
   ACTUALS = 'actuals',
@@ -185,13 +186,15 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     return budgetStatement;
   };
 
-  const currentBudgetStatement = useMemo(() => {
-    return prepareWalletsName(
-      coreUnit?.budgetStatements?.find(
-        (bs: BudgetStatementDto) => bs.month === currentMonth.toFormat(API_MONTH_TO_FORMAT)
-      )
-    );
-  }, [coreUnit, currentMonth]);
+  const currentBudgetStatement = useMemo(
+    () =>
+      prepareWalletsName(
+        coreUnit?.budgetStatements?.find(
+          (bs: BudgetStatementDto) => bs.month === currentMonth.toFormat(API_MONTH_TO_FORMAT)
+        )
+      ),
+    [coreUnit, currentMonth]
+  );
   const lastVisitHandler = useMemo(
     () =>
       new LastVisitHandler(budgetStatementCommentsCollectionId(currentBudgetStatement?.id || ''), permissionManager),
@@ -288,12 +291,6 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
         setShowExpenseReportStatusCTA(false);
     }
   }, [coreUnit, currentBudgetStatement, permissionManager]);
-
-  // const lastVisitHandler = useMemo(
-  //   () =>
-  //     new LastVisitHandler(budgetStatementCommentsCollectionId(currentBudgetStatement?.id || ''), permissionManager),
-  //   [permissionManager, currentBudgetStatement]
-  // );
 
   // "hasNewComments" related logic
   const [commentsLastVisitState, commentsLastVisitDispatch] = useReducer(
