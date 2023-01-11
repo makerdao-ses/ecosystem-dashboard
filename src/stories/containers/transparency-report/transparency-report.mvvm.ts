@@ -168,6 +168,22 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     return currentMonth.startOf('month') < limit.startOf('month');
   }, [coreUnit?.budgetStatements, currentMonth]);
 
+  const prepareWalletsName = (budgetStatement?: BudgetStatementDto) => {
+    const walletNames = new Map<string, number>();
+    budgetStatement?.budgetStatementWallet?.forEach((wallet) => {
+      const amount = walletNames.get(wallet.name.toLowerCase().trim()) ?? 0;
+
+      if (amount) {
+        wallet.name = `${wallet.name} ${amount + 1}`;
+        walletNames.set(wallet.name.toLowerCase().trim(), amount + 1);
+      } else {
+        walletNames.set(wallet.name.toLowerCase().trim(), 1);
+      }
+    });
+
+    return budgetStatement;
+  };
+
   const currentBudgetStatement = useMemo(() => {
     return prepareWalletsName(
       coreUnit?.budgetStatements?.find(
@@ -191,22 +207,6 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
       setCurrentMonth(month);
     }
   }, [hasNextMonth, tabsIndex, currentMonth, replaceViewMonthRoute, lastVisitHandler]);
-
-  const prepareWalletsName = (budgetStatement?: BudgetStatementDto) => {
-    const walletNames = new Map<string, number>();
-    budgetStatement?.budgetStatementWallet?.forEach((wallet) => {
-      const amount = walletNames.get(wallet.name.toLowerCase().trim()) ?? 0;
-
-      if (amount) {
-        wallet.name = `${wallet.name} ${amount + 1}`;
-        walletNames.set(wallet.name.toLowerCase().trim(), amount + 1);
-      } else {
-        walletNames.set(wallet.name.toLowerCase().trim(), 1);
-      }
-    });
-
-    return budgetStatement;
-  };
 
   const comments = useMemo(() => {
     const comments = getAllCommentsBudgetStatementLine(currentBudgetStatement) as (CommentsBudgetStatementDto &
