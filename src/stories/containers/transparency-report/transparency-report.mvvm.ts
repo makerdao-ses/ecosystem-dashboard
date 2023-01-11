@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useRef, useState, useEffect, useCallback, useMemo, useReducer } from 'react';
@@ -81,6 +80,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
         setTabsIndex(TRANSPARENCY_IDS_ENUM[indexKey as keyof typeof TRANSPARENCY_IDS_ENUM]);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [anchor, isTimestampTrackingAccepted]);
 
   useEffect(() => {
@@ -159,6 +159,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
       replaceViewMonthRoute(month.toFormat('LLLyyyy'));
       setCurrentMonth(month);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setCurrentMonth, currentMonth, router, tabsIndex]);
 
   const hasNextMonth = useCallback(() => {
@@ -345,12 +346,14 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   };
   useEffect(() => {
     updateHasNewComments();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lastVisitHandler, comments]);
 
   // update the visit date (preventing multiple renderings)
   let timeout: NodeJS.Timeout;
   useEffect(() => {
     clearTimeout(timeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     timeout = setTimeout(async () => {
       if (isTimestampTrackingAccepted && tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS) {
         const lastVisit = (await lastVisitHandler.visit()) || DateTime.now().toMillis();
