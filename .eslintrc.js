@@ -79,11 +79,5 @@ module.exports = {
         alphabetize: { order: 'asc' },
       },
     ],
-    'no-restricted-imports': [
-      'warn',
-      {
-        patterns: ['../'],
-      },
-    ],
   },
 };

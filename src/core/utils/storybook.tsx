@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import PermissionManager from '../auth/permission-manager';
 import { AuthContext } from '../context/AuthContext';
@@ -9,7 +10,6 @@ import type { CoreUnitDto } from '../models/dto/core-unit.dto';
 import type { Story } from '@storybook/react';
 import type { ComponentProps, ElementType } from 'react';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const createTemplateWithTheme =
   <T extends React.ComponentType<any>>(Component: ElementType, isLight = true): Story<ComponentProps<T>> =>
   (args: ComponentProps<typeof Component>) =>
