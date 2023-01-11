@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
-import { NextPage } from 'next';
 import React from 'react';
 import { useAuthContext } from '../../../src/core/context/AuthContext';
 import { useThemeContext } from '../../../src/core/context/ThemeContext';
 import { getSSRPropsDefaultAuth } from '../../../src/core/utils/common-get-ssr-props';
 import DeleteAccount from '../../../src/stories/containers/users/delete-account/delete-account';
 import lightTheme from '../../../styles/theme/light';
+import type { NextPage } from 'next';
 
 const CreateAccountPage: NextPage = () => {
   const { user } = useAuthContext();

@@ -1,7 +1,5 @@
 import React from 'react';
 
-const Strategic = () => {
-  return <div>index</div>;
-};
+const Strategic = () => <div>index</div>;
 
 export default Strategic;

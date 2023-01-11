@@ -1,11 +1,9 @@
-import { GetServerSideProps } from 'next';
 import { featureFlags } from '../feature-flags/feature-flags';
 import { CURRENT_ENVIRONMENT } from '../src/config/endpoints';
 import { SitemapBuilder } from '../src/core/utils/sitemap';
+import type { GetServerSideProps } from 'next';
 
-const Sitemap = () => {
-  return null;
-};
+const Sitemap = () => null;
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   const flags = featureFlags[CURRENT_ENVIRONMENT];
