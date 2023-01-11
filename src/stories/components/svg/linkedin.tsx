@@ -8,7 +8,7 @@ interface Props {
 }
 
 const LinkedIn = ({ width = 19, height = 19, fill = '#C4C4C4', fillDark = '#D1DEE6' }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <svg
       width={width}

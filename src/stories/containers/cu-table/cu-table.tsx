@@ -75,7 +75,7 @@ export const sortData = (items: CoreUnitDto[]) => {
 export const CuTable = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
 
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);

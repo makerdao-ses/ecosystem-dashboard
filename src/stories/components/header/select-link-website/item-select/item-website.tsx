@@ -35,7 +35,7 @@ export const ItemWebSite = ({
   onClick,
   ...props
 }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <Container height={height} isLight={isLight}>
       <ContainerRow>

@@ -13,7 +13,7 @@ interface Props {
 }
 
 const InsidePagination = ({ page, count, onClickLeft, onClickRight }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <Container>
       <PaginationLabel>

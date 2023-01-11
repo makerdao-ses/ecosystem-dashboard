@@ -5,7 +5,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import lightTheme from '../../../../styles/theme/light';
 
 export const CuTableHeaderSkeleton = () => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
 
   return (
     <Container>

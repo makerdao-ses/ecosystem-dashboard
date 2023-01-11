@@ -34,7 +34,7 @@ const CardExpenses = ({
   styleContainer = {},
   buttonWidth,
 }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const isPhone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const isTable = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
 

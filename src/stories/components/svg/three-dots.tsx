@@ -17,7 +17,7 @@ export const ThreeDots = ({
   fillDark = '#EDEFFF',
   ...props
 }: ThreeDotsProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <svg
       width={width}

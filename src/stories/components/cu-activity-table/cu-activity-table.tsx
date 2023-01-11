@@ -3,7 +3,6 @@ import Divider from '@mui/material/Divider';
 import React, { useEffect, useMemo, useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { ActivityVisitHandler } from '../../../core/utils/new-activity-handler';
 import CUActivityItem from './cu-activity-item';
 import Button from '@mui/material/Button';
 import { SortEnum } from '../../../core/enums/sort.enum';
@@ -13,7 +12,10 @@ import sortBy from 'lodash/sortBy';
 import { ActivityPlaceholder } from './cu-activity-table.placeholder';
 import { ActivityFeedDto, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { useMediaQuery } from '@mui/material';
-import { useCookies } from 'react-cookie';
+import { LastVisitHandler } from '../../../core/utils/last-visit-handler';
+import { useAuthContext } from '../../../core/context/AuthContext';
+import { DateTime } from 'luxon';
+import { useCookiesContextTracking } from '../../../core/context/CookiesContext';
 
 export interface ActivityTableHeader {
   header: string;
@@ -76,43 +78,48 @@ export default function ActivityTable({
   hasFilter,
   clearAction,
 }: Props) {
-  const [cookies] = useCookies(['timestampTracking']);
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const initialElements = useMemo(() => (isMobile ? 5 : 10), [isMobile]);
   const [showAllElements, setShowElements] = useState(false);
   const [noVisitedCount, setNoVisitedCount] = useState(0);
   const [extendedActivity, setExtendedActivity] = useState<Activity[]>(activityFeed);
+  const { permissionManager } = useAuthContext();
+  const { isTimestampTrackingAccepted } = useCookiesContextTracking();
 
   const handleSeePrevious = () => {
     setShowElements(true);
   };
 
   useEffect(() => {
-    const activityHandler = new ActivityVisitHandler(shortCode, cookies.timestampTracking === 'true');
-    let noVisited = 0;
+    const lastVisitHandler = new LastVisitHandler(`activity-visit-${shortCode || 'global'}`, permissionManager);
 
-    const _extendedActivity: Activity[] = [];
+    const visit = async () => {
+      let noVisited = 0;
+      const _extendedActivity: Activity[] = [];
+      await lastVisitHandler.lastVisit();
 
-    for (const update of activityFeed) {
-      const isNew = activityHandler.wasVisited(update.activityFeed);
-      if (isNew) {
-        noVisited++;
+      for (const update of activityFeed) {
+        const isNew = lastVisitHandler.wasVisited(DateTime.fromISO(update.activityFeed.created_at));
+        if (isNew) {
+          noVisited++;
+        }
+        _extendedActivity.push({
+          ...update,
+          isNew,
+        });
       }
-      _extendedActivity.push({
-        ...update,
-        isNew,
-      });
-    }
 
-    setExtendedActivity(_extendedActivity);
-    setNoVisitedCount(noVisited);
+      setExtendedActivity(_extendedActivity);
+      setNoVisitedCount(noVisited);
+    };
 
-    const timeout = setTimeout(() => activityHandler.visit(), 5000);
+    visit();
+    const timeout = setTimeout(async () => isTimestampTrackingAccepted && (await lastVisitHandler.visit()), 3000);
     return () => {
       clearTimeout(timeout);
     };
-  }, [activityFeed, cookies.timestampTracking, shortCode]);
+  }, [activityFeed, isTimestampTrackingAccepted, permissionManager, shortCode]);
 
   const sortedActivities = useMemo(() => {
     const result = sortBy(extendedActivity, (a) => {

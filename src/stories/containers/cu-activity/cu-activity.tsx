@@ -7,7 +7,6 @@ import lightTheme from '../../../../styles/theme/light';
 import ActivityTable from '../../components/cu-activity-table/cu-activity-table';
 import { useCuActivityMvvm } from './cu-activity.mvvm';
 import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
-import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface CUActivityContainerProps {
   coreUnits: CoreUnitDto[];
@@ -16,20 +15,6 @@ interface CUActivityContainerProps {
 
 export default ({ coreUnit, coreUnits }: CUActivityContainerProps) => {
   const { isLight, columns, onSortClick } = useCuActivityMvvm();
-  const { themeMode } = useThemeContext();
-  if (themeMode === undefined) {
-    return (
-      <>
-        <SEOHead
-          title={`${coreUnit.name} Core Unit | Activity Feed`}
-          description={`Learn about the ${coreUnit.name} Core Unit's activity: updates to Core Unit Expense Reports, FTEs, and more.`}
-          image={coreUnit.image || toAbsoluteURL('/assets/img/social-1200x630.png')}
-          twitterCard={coreUnit.image ? 'summary' : 'summary_large_image'}
-        />
-      </>
-    );
-  }
-
   return (
     <Wrapper>
       <SEOHead

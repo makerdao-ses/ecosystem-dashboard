@@ -23,6 +23,7 @@ import { TransparencyTransferRequest2 } from './transparency-transfer-request/tr
 import { TRANSPARENCY_IDS_ENUM, useTransparencyReportViewModel } from './transparency-report.mvvm';
 import ExpenseReportStatusIndicator from './common/expense-report-status-indicator/expense-report-status-indicator';
 import AuditorCommentsContainer from './transparency-auditor-comments/comment-container/auditor-comments-container';
+import { CommentActivityContext } from '../../../core/context/CommentActivityContext';
 
 interface TransparencyReportProps {
   coreUnits: CoreUnitDto[];
@@ -34,7 +35,7 @@ export type TableItems = {
 };
 
 export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportProps) => {
-  const { themeMode, isLight } = useThemeContext();
+  const { isLight } = useThemeContext();
   const [isEnabled] = useFlagsActive();
   const {
     tabItems,
@@ -53,34 +54,23 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
     longCode,
     comments,
     showExpenseReportStatusCTA,
+    lastVisitHandler,
     hasNewComments,
   } = useTransparencyReportViewModel(coreUnit);
 
-  const CommentsComponent = {
-    item: (
-      <CommentsContainer>
-        {hasNewComments && <DotIndicator isLight={isLight} />}
-        <ParenthesisNumber>
-          Comments<span>{`(${numbersComments})`}</span>
-        </ParenthesisNumber>
-      </CommentsContainer>
-    ),
-    id: TRANSPARENCY_IDS_ENUM.COMMENTS,
-  };
   if (isEnabled('FEATURE_TRANSPARENCY_COMMENTS')) {
+    const CommentsComponent = {
+      item: (
+        <CommentsContainer>
+          {hasNewComments && <DotIndicator isLight={isLight} />}
+          <ParenthesisNumber>
+            Comments<span>{`(${numbersComments})`}</span>
+          </ParenthesisNumber>
+        </CommentsContainer>
+      ),
+      id: TRANSPARENCY_IDS_ENUM.COMMENTS,
+    };
     tabItems.push(CommentsComponent);
-  }
-  if (themeMode === undefined) {
-    return (
-      <>
-        <SEOHead
-          title={`${coreUnit.name} Core Unit | Finances`}
-          description={`Learn about the ${coreUnit.name} Core Unit at MakerDAO: their finances, expense reports, and more.`}
-          image={coreUnit.image || toAbsoluteURL('/assets/img/social-1200x630.png')}
-          twitterCard={coreUnit.image ? 'summary' : 'summary_large_image'}
-        />
-      </>
-    );
   }
   return (
     <Wrapper>
@@ -255,7 +245,9 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
           )}
 
           {tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS && isEnabled('FEATURE_TRANSPARENCY_COMMENTS') && (
-            <AuditorCommentsContainer budgetStatement={currentBudgetStatement} comments={comments} />
+            <CommentActivityContext.Provider value={{ lastVisitHandler }}>
+              <AuditorCommentsContainer budgetStatement={currentBudgetStatement} comments={comments} />
+            </CommentActivityContext.Provider>
           )}
         </InnerPage>
       </Container>

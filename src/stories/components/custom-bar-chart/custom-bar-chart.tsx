@@ -26,8 +26,8 @@ export const PopoverPaperBar = (isLight: boolean) => ({
 });
 
 export const CustomBarChart = (props: CustomBarChartProps) => {
+  const { isLight } = useThemeContext();
   const isOnTouchDevice = useMediaQuery('(pointer: coarse)');
-  const isLight = useThemeContext().themeMode === 'light';
   const [anchorEl, setAnchorEl] = React.useState<SVGRectElement | null>(null);
   const [description, setDescription] = React.useState<{ month: string; budgetCap: string; actual: string } | null>(
     null

@@ -1,6 +1,7 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, ReactNode, useContext } from 'react';
 
 import { useCookiesPolicyBannerMvvm } from '../../stories/containers/cookies-policy/cookies-policy-banner.mvvm';
+import { CookiesInterface } from '../utils/types-helpers';
 
 export type CookiesContextValues = {
   isFunctionalTrackingAccepted: boolean;
@@ -20,7 +21,12 @@ export type CookiesContextValues = {
 const CookiesContextTracking = createContext<CookiesContextValues>({} as CookiesContextValues);
 const useCookiesContextTracking = () => useContext(CookiesContextTracking);
 
-const CookiesProviderTracking: React.FC<React.PropsWithChildren> = ({ children }) => {
+interface Props extends React.PropsWithChildren {
+  cookiesObject: CookiesInterface;
+  children: ReactNode;
+}
+
+const CookiesProviderTracking = ({ cookiesObject, children }: Props) => {
   const {
     isFunctionalTrackingAccepted,
     isShowBanner,
@@ -34,7 +40,9 @@ const CookiesProviderTracking: React.FC<React.PropsWithChildren> = ({ children }
     isThemeTrackingAccepted,
     isTimestampTrackingAccepted,
     isAnalyticsTrackingAccepted,
-  } = useCookiesPolicyBannerMvvm();
+  } = useCookiesPolicyBannerMvvm({
+    cookiesObject,
+  });
   return (
     <CookiesContextTracking.Provider
       value={{

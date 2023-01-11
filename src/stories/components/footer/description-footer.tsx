@@ -12,7 +12,7 @@ interface Props {
 }
 
 const DescriptionFooter = ({ title, children, style = {} }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const router = useRouter();
 
   const HandleOnClick = useCallback(

@@ -29,7 +29,7 @@ interface Props {
 
 const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
   const [isEnabled] = useFlagsActive();
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const router = useRouter();
   const [showThreeMIPs, setShowThreeMIPs] = useState<boolean>(true);
 

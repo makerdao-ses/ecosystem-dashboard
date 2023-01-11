@@ -6,7 +6,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SelectItemProps } from '../custom-multi-select/custom-multi-select';
 
 export const SelectItem = ({ checked = false, ...props }: SelectItemProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const [focused, setFocused] = useState(false);
   const [hover, setHover] = useState(false);
 

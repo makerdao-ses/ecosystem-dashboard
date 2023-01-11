@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 import { ButtonType } from '../../../core/enums/button-type.enum';
 
 export const ActivityPlaceholder = (props: { hasFilter: boolean; clearAction?: () => void }) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const router = useRouter();
 
   const goBack = () => {

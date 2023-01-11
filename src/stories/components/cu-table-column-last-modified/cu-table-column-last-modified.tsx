@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const CuTableColumnLastModified = (props: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
 
   return !props.isLoading ? (
     <Wrapper>

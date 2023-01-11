@@ -19,7 +19,7 @@ interface SEOProps {
 }
 
 export const SEOHead = ({ title, description, favicon, image, twitterImage, twitterCard, children }: SEOProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const faviconType = useMemo(() => {
     if (!favicon) {
       return 'image/ico';

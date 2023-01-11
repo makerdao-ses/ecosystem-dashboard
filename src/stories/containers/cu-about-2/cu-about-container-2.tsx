@@ -27,9 +27,8 @@ interface Props {
 }
 
 const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
-  const { themeMode } = useThemeContext();
   const router = useRouter();
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const [showThreeMIPs, setShowThreeMIPs] = useState<boolean>(true);
   const [isEnabled] = useFlagsActive();
 
@@ -45,19 +44,6 @@ const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
     showThreeMIPs,
     setShowThreeMIPs,
   });
-
-  if (themeMode === undefined) {
-    return (
-      <>
-        <SEOHead
-          title={`About ${cuAbout.name} Core Unit at MakerDAO`}
-          description={`Learn about the ${cuAbout.name} Core Unit at MakerDAO: their mandate, vision, mission, strategy, and more.`}
-          image={cuAbout.image || toAbsoluteURL('/assets/img/social-1200x630.png')}
-          twitterCard={cuAbout.image ? 'summary' : 'summary_large_image'}
-        />
-      </>
-    );
-  }
 
   return (
     <ContainerAbout isLight={isLight}>

@@ -10,7 +10,7 @@ interface Props {
 }
 
 const BigButton = ({ onClick, title = 'Back' }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <StyledBigButton isLight={isLight} onClick={onClick}>
       {title}

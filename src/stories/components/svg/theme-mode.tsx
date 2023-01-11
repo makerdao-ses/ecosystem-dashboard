@@ -18,7 +18,7 @@ const MoonMode = ({
   onClick = () => {},
   ...props
 }: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <svg
       onClick={onClick}

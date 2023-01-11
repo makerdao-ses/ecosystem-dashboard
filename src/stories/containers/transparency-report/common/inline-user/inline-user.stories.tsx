@@ -1,6 +1,6 @@
-import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { ComponentMeta } from '@storybook/react';
 import InlineUser from './inline-user';
+import { createThemeModeVariants } from '../../../../../core/utils/storybook';
 
 export default {
   title: 'Components/CUTransparencyReport/InlineUser',
@@ -13,6 +13,4 @@ export default {
   },
 } as ComponentMeta<typeof InlineUser>;
 
-const Template: ComponentStory<typeof InlineUser> = (args) => <InlineUser {...args} />;
-
-export const Default = Template.bind({});
+export const [[Light, Dark]] = createThemeModeVariants(InlineUser);

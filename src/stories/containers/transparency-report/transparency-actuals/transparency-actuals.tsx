@@ -29,7 +29,7 @@ const mainTableHeaders = ['Budget', 'Forecast', 'Actuals', 'Difference', 'Paymen
 const cardHeaders = ['Forecast', 'Actuals', 'Difference', 'Payments'];
 
 export const TransparencyActuals = (props: TransparencyActualsProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const anchor = useUrlAnchor();
   const breakdownTitleRef = useRef<HTMLDivElement>(null);
   const [scrolled, setScrolled] = useState<boolean>(false);

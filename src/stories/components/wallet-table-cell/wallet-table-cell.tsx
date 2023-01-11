@@ -13,7 +13,7 @@ interface WalletTableCellProps {
 }
 
 export const WalletTableCell = (props: WalletTableCellProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return (
     <Container>
       <CircleAvatar

@@ -17,7 +17,7 @@ interface CuTableColumnExpendituresProps {
 }
 
 export const CuTableColumnExpenditures = ({ isLoading = false, ...props }: CuTableColumnExpendituresProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   return !isLoading ? (
     <Wrapper>
       <Container>

@@ -17,7 +17,7 @@ interface CustomTableProps {
 }
 
 export const CustomTable = ({ headersStyles = [], ...props }: CustomTableProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const dispatch = useAppDispatch();
 
   const headersSort = useSelector((state: RootState) => selectCuTableHeadersSort(state));

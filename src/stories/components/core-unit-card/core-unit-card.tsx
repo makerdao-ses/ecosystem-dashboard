@@ -37,9 +37,9 @@ interface CoreUnitCardProps {
 }
 
 export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
-  const isLight = useThemeContext().themeMode === 'light';
   const router = useRouter();
   const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
+  const { isLight } = useThemeContext();
   if (isLoading) {
     return (
       <Container isLight={isLight} style={{ marginBottom: '32px' }}>

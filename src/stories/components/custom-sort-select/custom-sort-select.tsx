@@ -27,7 +27,7 @@ interface Props {
 }
 
 export const CustomSortSelect = (props: Props) => {
-  const isLight = useThemeContext().themeMode === 'light';
+  const { isLight } = useThemeContext();
   const [popupVisible, setPopupVisible] = useState(false);
   const [hover, setHover] = useState(false);
   const [activeItem, setActiveItem] = useState(props.activeItem);
