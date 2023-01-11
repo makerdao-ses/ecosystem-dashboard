@@ -1,3 +1,20 @@
+import { DateTime } from 'luxon';
+import { CuJobEnum } from '../../enums/cu-job.enum';
+import { CuStatusEnum } from '../../enums/cu-status.enum';
+import { RoadmapStatusEnum } from '../../enums/roadmap-status.enum';
+import {
+  CURRENT_MONTH,
+  CURRENT_MINUS_1_MONTH,
+  CURRENT_MINUS_2_MONTH,
+  CURRENT_MINUS_3_MONTH,
+} from '../../utils/test.utils';
+import { BudgetStatementFteBuilder } from '../builders/budget-statement-fte.builder';
+import { BudgetStatementWalletBuilder } from '../builders/budget-statement-wallet.builder';
+import { BudgetStatementBuilder } from '../builders/budget-statement.builder';
+import { CoreUnitsBuilder } from '../builders/core-units.builder';
+import { CuMipBuilder } from '../builders/cu-mip.builder';
+import { Mip40Builder } from '../builders/mip-40.builder';
+import { RoadmapBuilder } from '../builders/roadmap.builder';
 import {
   countInitiativesFromCoreUnit,
   getBudgetCapsFromCoreUnit,
@@ -11,24 +28,7 @@ import {
   getPercentFromCoreUnit,
   getSubmissionDateFromCuMip,
 } from '../core-units';
-import { CuMipBuilder } from '../builders/cu-mip.builder';
-import { CuStatusEnum } from '../../enums/cu-status.enum';
-import { CoreUnitsBuilder } from '../builders/core-units.builder';
-import { DateTime } from 'luxon';
-import { BudgetStatementBuilder } from '../builders/budget-statement.builder';
-import { BudgetStatementFteBuilder } from '../builders/budget-statement-fte.builder';
-import { Mip40Builder } from '../builders/mip-40.builder';
-import { BudgetStatementWalletBuilder } from '../builders/budget-statement-wallet.builder';
-import {
-  CURRENT_MONTH,
-  CURRENT_MINUS_1_MONTH,
-  CURRENT_MINUS_2_MONTH,
-  CURRENT_MINUS_3_MONTH,
-} from '../../utils/test.utils';
-import { RoadmapBuilder } from '../builders/roadmap.builder';
-import { RoadmapStatusEnum } from '../../enums/roadmap-status.enum';
-import { ContributorCommitmentDto } from '../../models/dto/core-unit.dto';
-import { CuJobEnum } from '../../enums/cu-job.enum';
+import type { ContributorCommitmentDto } from '../../models/dto/core-unit.dto';
 
 test('Get date for status on CuMip', () => {
   const mipDao = new CuMipBuilder().withStatus(CuStatusEnum.Withdrawn, CURRENT_MINUS_2_MONTH).build();

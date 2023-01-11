@@ -1,11 +1,12 @@
-import React from 'react';
-import { CuTableColumnTeamMember } from './cu-table-column-team-member';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import cuTableReducer, { CuTableState, sortNeutralState } from '../../containers/cu-table/cu-table.slice';
+import React from 'react';
+import { Provider } from 'react-redux';
 import { CuJobEnum } from '../../../core/enums/cu-job.enum';
-import { ContributorCommitmentDto } from '../../../core/models/dto/core-unit.dto';
+import cuTableReducer, { sortNeutralState } from '../../containers/cu-table/cu-table.slice';
+import { CuTableColumnTeamMember } from './cu-table-column-team-member';
+import type { ContributorCommitmentDto } from '../../../core/models/dto/core-unit.dto';
+import type { CuTableState } from '../../containers/cu-table/cu-table.slice';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 const store = configureStore({
   reducer: {

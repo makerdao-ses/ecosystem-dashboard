@@ -1,21 +1,22 @@
-import React, { useCallback, useMemo, useRef } from 'react';
-import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
 import { stringify } from 'querystring';
-import { useRouter } from 'next/router';
-import { useDebounce } from '../../../core/utils/use-debounce';
-import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
-import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
-import { StatusChip } from '../../components/status-chip/status-chip';
-import { CategoryChip } from '../../components/category-chip/category-chip';
-import { SearchInput } from '../../components/search-input/search-input';
 import styled from '@emotion/styled';
-import { useThemeContext } from '../../../core/context/ThemeContext';
 import { Divider } from '@mui/material';
-import { CustomSortSelect, SortSelectItem } from '../../components/custom-sort-select/custom-sort-select';
-import { CustomTableColumn } from '../../components/custom-table/custom-table-2';
+import { useRouter } from 'next/router';
+import React, { useCallback, useMemo, useRef } from 'react';
+import { useThemeContext } from '../../../core/context/ThemeContext';
+import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
+import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { SortEnum } from '../../../core/enums/sort.enum';
-import Filter from '../../components/svg/filter';
+import { useDebounce } from '../../../core/utils/use-debounce';
+import { CategoryChip } from '../../components/category-chip/category-chip';
+import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
+import { CustomSortSelect } from '../../components/custom-sort-select/custom-sort-select';
 import ResetButton from '../../components/reset-button/reset-button';
+import { SearchInput } from '../../components/search-input/search-input';
+import { StatusChip } from '../../components/status-chip/status-chip';
+import Filter from '../../components/svg/filter';
+import type { SortSelectItem } from '../../components/custom-sort-select/custom-sort-select';
+import type { CustomTableColumn } from '../../components/custom-table/custom-table-2';
 
 interface FilterProps {
   filtersPopup: boolean;

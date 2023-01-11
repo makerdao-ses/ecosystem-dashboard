@@ -1,6 +1,7 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import cuTableReducer from '../../stories/containers/cu-table/cu-table.slice';
+import { configureStore } from '@reduxjs/toolkit';
 import cuAboutReducer from '../../stories/containers/cu-about/cu-about-slice';
+import cuTableReducer from '../../stories/containers/cu-table/cu-table.slice';
+import type { ThunkAction, Action } from '@reduxjs/toolkit';
 
 export const store = configureStore({
   reducer: {

@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Popover, useMediaQuery } from '@mui/material';
 import Markdown from 'marked-react';
-import { customRenderer, customRendererDark } from './renderUtils';
-import { CustomButton } from '../custom-button/custom-button';
-import { useThemeContext } from '../../../core/context/ThemeContext';
+import React, { useEffect, useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
-import CardExpenses from '../card-navegation/card-expenses';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/button-type.enum';
-import { AuditorDto } from '../../../core/models/dto/core-unit.dto';
+import CardExpenses from '../card-navegation/card-expenses';
+import { CustomButton } from '../custom-button/custom-button';
+import { customRenderer, customRendererDark } from './renderUtils';
+import type { AuditorDto } from '../../../core/models/dto/core-unit.dto';
 
 export type MarkDownHeaders = {
   level: number;

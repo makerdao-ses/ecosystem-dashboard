@@ -1,21 +1,21 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { DateTime } from 'luxon';
 import styled from '@emotion/styled';
-import { CardsWrapper, TableWrapper, Title } from '../transparency-report';
-import { InnerTable } from '../../../components/inner-table/inner-table';
-import { Tabs } from '../../../components/tabs/tabs';
-import { WalletTableCell } from '../../../components/wallet-table-cell/wallet-table-cell';
-import { TextCell } from '../../../components/text-cell/text-cell';
-import { CustomLink } from '../../../components/custom-link/custom-link';
-import { BudgetStatementDto, BudgetStatementLineItemDto } from '../../../../core/models/dto/core-unit.dto';
-import { useTransparencyForecastMvvm } from './transparency-forecast.mvvm';
-import { formatAddressForOutput } from '../../../../core/utils/string.utils';
 import _ from 'lodash';
-import { NumberCell } from '../../../components/number-cell/number-cell';
-import { TransparencyCard } from '../../../components/transparency-card/transparency-card';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
 import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
+import { formatAddressForOutput } from '../../../../core/utils/string.utils';
+import { CustomLink } from '../../../components/custom-link/custom-link';
+import { InnerTable } from '../../../components/inner-table/inner-table';
+import { NumberCell } from '../../../components/number-cell/number-cell';
+import { Tabs } from '../../../components/tabs/tabs';
+import { TextCell } from '../../../components/text-cell/text-cell';
+import { TransparencyCard } from '../../../components/transparency-card/transparency-card';
+import { WalletTableCell } from '../../../components/wallet-table-cell/wallet-table-cell';
+import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
+import { CardsWrapper, TableWrapper, Title } from '../transparency-report';
+import { useTransparencyForecastMvvm } from './transparency-forecast.mvvm';
+import type { BudgetStatementDto, BudgetStatementLineItemDto } from '../../../../core/models/dto/core-unit.dto';
+import type { DateTime } from 'luxon';
 
 interface TransparencyForecastProps {
   currentMonth: DateTime;
@@ -237,8 +237,8 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
     return currentWallet?.budgetStatementLineItem?.some((item) => item.group && item.actual);
   }, [thirdIndex, wallets]);
 
-  const breakdownHeaders = useMemo(() => {
-    return [
+  const breakdownHeaders = useMemo(
+    () => [
       ...(hasGroups ? ['Group'] : []),
       'Budget Category',
       firstMonth.toFormat('MMMM'),
@@ -247,8 +247,9 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
       '3 Months',
       'Mthly Budget',
       'Qtly Budget',
-    ];
-  }, [hasGroups, firstMonth, secondMonth, thirdMonth]);
+    ],
+    [hasGroups, firstMonth, secondMonth, thirdMonth]
+  );
 
   const getBreakdownItemsForGroup = useMemo(() => {
     const getBreakdownItemsForGroup = (grouped: { [id: string]: BudgetStatementLineItemDto[] }) => {
@@ -701,12 +702,10 @@ export const TransparencyForecast = (props: TransparencyForecastProps) => {
       ) : (
         <>
           <Tabs
-            items={breakdownTabs.map((header, i) => {
-              return {
-                item: header,
-                id: headerIds[i],
-              };
-            })}
+            items={breakdownTabs.map((header, i) => ({
+              item: header,
+              id: headerIds[i],
+            }))}
             currentIndex={thirdIndex}
             style={{
               marginBottom: '32px',

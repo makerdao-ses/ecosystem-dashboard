@@ -5,12 +5,12 @@ import useSWR, { useSWRConfig } from 'swr';
 import { GRAPHQL_ENDPOINT } from '../../../../config/endpoints';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
-import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import { fetcher } from '../../../../core/utils/fetcher';
 import { getCorrectRoleApi } from '../../../../core/utils/string.utils';
 import { ENABLE_DISABLE_USER_REQUEST } from '../../auth/enable-disable-accounts/enable-disable.api';
 import { QUERY_USERS } from '../users-manager/user-manager.api';
 import { FETCH_USER_BY_USERNAME } from './managed-user-profile.api';
+import type { UserDTO } from '../../../../core/models/dto/auth.dto';
 
 const useManagedUserProfile = () => {
   const { authToken } = useAuthContext();

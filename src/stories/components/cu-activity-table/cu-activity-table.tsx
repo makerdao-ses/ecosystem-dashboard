@@ -1,21 +1,21 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
+import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
+import sortBy from 'lodash/sortBy';
+import { DateTime } from 'luxon';
 import React, { useEffect, useMemo, useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
-import { useThemeContext } from '../../../core/context/ThemeContext';
-import CUActivityItem from './cu-activity-item';
-import Button from '@mui/material/Button';
-import { SortEnum } from '../../../core/enums/sort.enum';
-import ArrowUp from '../svg/arrow-up';
-import ArrowDown from '../svg/arrow-down';
-import sortBy from 'lodash/sortBy';
-import { ActivityPlaceholder } from './cu-activity-table.placeholder';
-import { ActivityFeedDto, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
-import { useMediaQuery } from '@mui/material';
-import { LastVisitHandler } from '../../../core/utils/last-visit-handler';
 import { useAuthContext } from '../../../core/context/AuthContext';
-import { DateTime } from 'luxon';
 import { useCookiesContextTracking } from '../../../core/context/CookiesContext';
+import { useThemeContext } from '../../../core/context/ThemeContext';
+import { SortEnum } from '../../../core/enums/sort.enum';
+import { LastVisitHandler } from '../../../core/utils/last-visit-handler';
+import ArrowDown from '../svg/arrow-down';
+import ArrowUp from '../svg/arrow-up';
+import CUActivityItem from './cu-activity-item';
+import { ActivityPlaceholder } from './cu-activity-table.placeholder';
+import type { ActivityFeedDto, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 export interface ActivityTableHeader {
   header: string;
@@ -122,9 +122,7 @@ export default function ActivityTable({
   }, [activityFeed, isTimestampTrackingAccepted, permissionManager, shortCode]);
 
   const sortedActivities = useMemo(() => {
-    const result = sortBy(extendedActivity, (a) => {
-      return a.activityFeed.created_at;
-    }).reverse();
+    const result = sortBy(extendedActivity, (a) => a.activityFeed.created_at).reverse();
 
     if (columns[0].sort === SortEnum.Asc) {
       return result.reverse();

@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
-import { ThemeMode, useThemeContext } from '../../../core/context/ThemeContext';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 import MoonMode from '../svg/theme-mode';
 import ToggleDarkMode from '../svg/toggle-dark';
+import type { ThemeMode } from '../../../core/context/ThemeContext';
 
 interface Props {
   themeMode: ThemeMode;

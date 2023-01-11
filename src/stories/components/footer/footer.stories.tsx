@@ -1,8 +1,8 @@
 /* eslint-disable storybook/prefer-pascal-case */
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
 import Footer from './footer';
 import { developer, governesses, products } from './iconsData';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
   title: 'Components/General/Footer',

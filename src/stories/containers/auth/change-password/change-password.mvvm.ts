@@ -8,12 +8,12 @@ import lightTheme from '../../../../../styles/theme/light';
 import { GRAPHQL_ENDPOINT } from '../../../../config/endpoints';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import { passwordValidationYup } from '../../../../core/utils/form-validation';
 import { goBack } from '../../../../core/utils/routing';
 import { triggerToast } from '../../../helpers/helpers';
 import { FETCH_USER_BY_USERNAME } from '../../users/managed-user-profile/managed-user-profile.api';
 import { UPDATE_PASSWORD_REQUEST } from './change-password.api';
+import type { UserDTO } from '../../../../core/models/dto/auth.dto';
 
 const validationSchema = yup.object({
   oldPassword: yup.string().required('Old Password is required'),

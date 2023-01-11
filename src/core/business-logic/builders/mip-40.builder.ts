@@ -1,4 +1,9 @@
-import { Mip40BudgetLineItemDto, Mip40BudgetPeriodDto, Mip40Dto, Mip40WalletDto } from '../../models/dto/core-unit.dto';
+import type {
+  Mip40BudgetLineItemDto,
+  Mip40BudgetPeriodDto,
+  Mip40Dto,
+  Mip40WalletDto,
+} from '../../models/dto/core-unit.dto';
 
 export class Mip40Builder {
   private readonly _mip40: Mip40Dto;

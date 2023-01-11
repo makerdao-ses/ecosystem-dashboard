@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
-import React, { CSSProperties } from 'react';
+import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SES_DASHBOARD } from '../../../core/utils/const';
-import { FooterLinks, TypeIconFooter } from './footer-link';
+import { FooterLinks } from './footer-link';
+import type { TypeIconFooter } from './footer-link';
+import type { CSSProperties } from 'react';
 
 interface Props {
   title: string;

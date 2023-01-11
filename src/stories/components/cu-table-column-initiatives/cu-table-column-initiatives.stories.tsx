@@ -1,6 +1,6 @@
 import React from 'react';
 import { CuTableColumnInitiatives } from './cu-table-column-initiatives';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
   title: 'Components/CUTable/ColumnInitiatives',

@@ -1,22 +1,20 @@
-import React from 'react';
 import styled from '@emotion/styled';
+import React from 'react';
 import { CustomPopover } from '../custom-popover/custom-popover';
 
 interface CuTableColumnInitiativesProps {
   initiatives: number;
 }
 
-export const CuTableColumnInitiatives = (props: CuTableColumnInitiativesProps) => {
-  return (
-    <Container>
-      <CustomPopover id="mouse-over-popover-initiatives" title={'Click to see all initiatives'}>
-        <a href="" style={{ textDecoration: 'none' }}>
-          <RoundedBox className={`${props.initiatives === 0 ? 'disabled' : ''}`}>{props.initiatives}</RoundedBox>
-        </a>
-      </CustomPopover>
-    </Container>
-  );
-};
+export const CuTableColumnInitiatives = (props: CuTableColumnInitiativesProps) => (
+  <Container>
+    <CustomPopover id="mouse-over-popover-initiatives" title={'Click to see all initiatives'}>
+      <a href="" style={{ textDecoration: 'none' }}>
+        <RoundedBox className={`${props.initiatives === 0 ? 'disabled' : ''}`}>{props.initiatives}</RoundedBox>
+      </a>
+    </CustomPopover>
+  </Container>
+);
 
 const Container = styled.div({
   display: 'flex',

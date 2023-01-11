@@ -1,6 +1,6 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
 import TextInput from './text-input';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
   title: 'Components/General/TextInput',

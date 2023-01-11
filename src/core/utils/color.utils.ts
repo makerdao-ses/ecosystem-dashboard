@@ -1,9 +1,9 @@
 import { CuCategoryEnum } from '../enums/cu-category.enum';
 import { CuJobEnum } from '../enums/cu-job.enum';
 
-import { UserDTO } from '../models/dto/auth.dto';
 import { BudgetStatus } from '../models/dto/core-unit.dto';
 import { getCorrectRoleApi } from './string.utils';
+import type { UserDTO } from '../models/dto/auth.dto';
 
 export const getColorForString = (value: string): string => {
   let hash = 0;

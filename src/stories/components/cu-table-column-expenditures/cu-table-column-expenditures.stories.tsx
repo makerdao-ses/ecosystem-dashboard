@@ -1,6 +1,6 @@
 import React from 'react';
 import { CuTableColumnExpenditures } from './cu-table-column-expenditures';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
   title: 'Components/CUTable/ColumnExpenditures',

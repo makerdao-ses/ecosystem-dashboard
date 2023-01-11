@@ -1,7 +1,7 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
 import Header from './header';
 import { itemsWebSiteLinks } from './select-link-website/menu-items';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
   title: 'Components/General/Header',

@@ -1,7 +1,7 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { AuditStatusChip } from './audit-status-chip';
 import { AuditStatusEnum } from '../../../core/enums/audit-status.enum';
+import { AuditStatusChip } from './audit-status-chip';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
   title: 'Components/General/AuditStatusChip',

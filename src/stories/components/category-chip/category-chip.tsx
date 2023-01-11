@@ -1,7 +1,8 @@
-import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
-import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
+import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import type { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
+import type { CSSProperties } from 'react';
 
 interface StatusChipProps {
   category: CuCategoryEnum | string;

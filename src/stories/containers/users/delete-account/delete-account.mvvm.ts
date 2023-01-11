@@ -5,12 +5,12 @@ import { useCallback, useMemo, useState } from 'react';
 import useSWR from 'swr';
 import { GRAPHQL_ENDPOINT } from '../../../../config/endpoints';
 import { useAuthContext } from '../../../../core/context/AuthContext';
-import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import { fetcher } from '../../../../core/utils/fetcher';
 import { notificationHelper } from '../../../helpers/helpers';
 import { LOGIN_REQUEST } from '../../auth/login/login.api';
 import { FETCH_USER_BY_USERNAME } from '../managed-user-profile/managed-user-profile.api';
 import { USERS_DELETE_FROM_ADMIN } from './delete-account.api';
+import type { UserDTO } from '../../../../core/models/dto/auth.dto';
 
 export const useDeleteAccountMvvm = (username?: string) => {
   const router = useRouter();

@@ -1,12 +1,13 @@
-import React, { CSSProperties, useMemo } from 'react';
 import styled from '@emotion/styled';
-import { CustomTableHeader } from '../custom-table-header/custom-table-header';
-import { useThemeContext } from '../../../core/context/ThemeContext';
-import { CustomTableHeaderSkeleton } from './custom-table-header.skeleton';
+import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../core/store/store';
-import { selectCuTableHeadersSort, setSort } from '../../containers/cu-table/cu-table.slice';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 import { useAppDispatch } from '../../../core/hooks/hooks';
+import { selectCuTableHeadersSort, setSort } from '../../containers/cu-table/cu-table.slice';
+import { CustomTableHeader } from '../custom-table-header/custom-table-header';
+import { CustomTableHeaderSkeleton } from './custom-table-header.skeleton';
+import type { RootState } from '../../../core/store/store';
+import type { CSSProperties } from 'react';
 
 interface CustomTableProps {
   headers: string[];

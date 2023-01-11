@@ -1,11 +1,11 @@
-import * as React from 'react';
+import styled from '@emotion/styled';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import * as React from 'react';
 import { ThreeDots } from '../../svg/three-dots';
-import styled from '@emotion/styled';
-import { ThemeType } from '../../../../core/enums/theme.enum';
 import MenuItemTheme from './menu-item-theme';
 import useMenuThemeMVVM from './menu-theme.mvvm';
+import type { ThemeType } from '../../../../core/enums/theme.enum';
 
 interface Props {
   themeMode: ThemeType;

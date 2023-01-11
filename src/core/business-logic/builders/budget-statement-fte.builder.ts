@@ -1,4 +1,4 @@
-import { BudgetStatementFteDto } from '../../models/dto/core-unit.dto';
+import type { BudgetStatementFteDto } from '../../models/dto/core-unit.dto';
 
 export class BudgetStatementFteBuilder {
   private readonly _budgetStatementFte: BudgetStatementFteDto;

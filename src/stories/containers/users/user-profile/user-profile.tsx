@@ -7,10 +7,10 @@ import lightTheme from '../../../../../styles/theme/light';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { ButtonType } from '../../../../core/enums/button-type.enum';
-import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import { capitalizeWordWithoutConvertLowerCase, getCorrectRoleApi } from '../../../../core/utils/string.utils';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
+import type { UserDTO } from '../../../../core/models/dto/auth.dto';
 
 const arrayPassword = new Array<string>(8);
 const resultPassword = fill(arrayPassword, 'a');
@@ -75,13 +75,11 @@ const UserProfile = () => {
               Password:
             </UserNameLabel>
             <ContainerDots>
-              {resultPassword.map((_: unknown, index) => {
-                return (
-                  <div style={{ marginRight: '4px' }} key={index}>
-                    <DotPassword isLight={isLight} />
-                  </div>
-                );
-              })}
+              {resultPassword.map((_: unknown, index) => (
+                <div style={{ marginRight: '4px' }} key={index}>
+                  <DotPassword isLight={isLight} />
+                </div>
+              ))}
             </ContainerDots>
           </ContainerPassword>
           <ContainerPasswordLink>

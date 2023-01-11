@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { useThemeContext } from '../../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../custom-button/custom-button';
+import type { ReactNode } from 'react';
 
 interface Props {
   title: string;

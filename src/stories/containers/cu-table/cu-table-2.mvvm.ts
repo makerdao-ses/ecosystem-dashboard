@@ -1,5 +1,9 @@
+import request from 'graphql-request';
+import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo, useState } from 'react';
+import useSWR from 'swr';
+import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
 import {
   getExpenditureValueFromCoreUnit,
   getFTEsFromCoreUnit,
@@ -8,14 +12,11 @@ import {
 } from '../../../core/business-logic/core-units';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
+import { SortEnum } from '../../../core/enums/sort.enum';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
+import { sortAlphaNum } from '../../../core/utils/sort.utils';
 import { buildQueryString } from '../../../core/utils/url.utils';
-import request from 'graphql-request';
-import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
 import { GETCoreUnits } from './cu-table.api';
-import useSWR from 'swr';
-import { CustomTableColumn, CustomTableRow } from '../../components/custom-table/custom-table-2';
-import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import {
   renderExpenditures,
   renderLastModified,
@@ -23,9 +24,8 @@ import {
   renderSummary,
   renderTeamMember,
 } from './cu-table.renders';
-import { SortEnum } from '../../../core/enums/sort.enum';
-import { sortAlphaNum } from '../../../core/utils/sort.utils';
-import { DateTime } from 'luxon';
+import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import type { CustomTableColumn, CustomTableRow } from '../../components/custom-table/custom-table-2';
 
 export const useCoreUnitsTableMvvm = () => {
   const router = useRouter();

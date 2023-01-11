@@ -1,6 +1,6 @@
 import React from 'react';
 import { CustomMultiSelect } from './custom-multi-select';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
   title: 'Components/General/CustomMultiSelect',

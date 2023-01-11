@@ -1,16 +1,16 @@
-import React from 'react';
 import styled from '@emotion/styled';
-import ParticipantRoles from '../participant-roles';
+import React from 'react';
 import lightTheme from '../../../../../../styles/theme/light';
+import CommentForm from '../comment-form/comment-form';
 import AuditorCommentList from '../comment-list';
-import {
+import NoComments from '../no-comments';
+import ParticipantRoles from '../participant-roles';
+import useCommentsContainer from './useCommentsContainer';
+import type {
   ActivityFeedDto,
   BudgetStatementDto,
   CommentsBudgetStatementDto,
 } from '../../../../../core/models/dto/core-unit.dto';
-import CommentForm from '../comment-form/comment-form';
-import useCommentsContainer from './useCommentsContainer';
-import NoComments from '../no-comments';
 
 export type AuditorCommentsContainerProps = {
   comments: (CommentsBudgetStatementDto | ActivityFeedDto)[];

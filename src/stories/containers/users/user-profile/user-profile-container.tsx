@@ -1,8 +1,8 @@
-import React from 'react';
 import styled from '@emotion/styled';
+import React from 'react';
+import lightTheme from '../../../../../styles/theme/light';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import UserProfile from './user-profile';
-import lightTheme from '../../../../../styles/theme/light';
 
 const UserProfileContainer = () => {
   const { isLight } = useThemeContext();

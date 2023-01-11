@@ -1,4 +1,4 @@
-import { BudgetStatementLineItemDto, BudgetStatementWalletDto } from '../../models/dto/core-unit.dto';
+import type { BudgetStatementLineItemDto, BudgetStatementWalletDto } from '../../models/dto/core-unit.dto';
 
 export class BudgetStatementWalletBuilder {
   private readonly _wallet: BudgetStatementWalletDto;

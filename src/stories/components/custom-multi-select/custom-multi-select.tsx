@@ -1,13 +1,14 @@
-import React, { CSSProperties, useCallback, useRef, useState } from 'react';
 import styled from '@emotion/styled';
-import { SelectChevronDown } from '../svg/select-chevron-down';
-import './custom-multi-select.module.scss';
-import useOutsideClick from '../../../core/utils/use-outside-click';
-import { SelectItem } from '../select-item/select-item';
-import { useThemeContext } from '../../../core/context/ThemeContext';
-import SimpleBar from 'simplebar-react';
-import { SearchInput } from '../search-input/search-input';
+import React, { useCallback, useRef, useState } from 'react';
 
+import './custom-multi-select.module.scss';
+import SimpleBar from 'simplebar-react';
+import { useThemeContext } from '../../../core/context/ThemeContext';
+import useOutsideClick from '../../../core/utils/use-outside-click';
+import { SearchInput } from '../search-input/search-input';
+import { SelectItem } from '../select-item/select-item';
+import { SelectChevronDown } from '../svg/select-chevron-down';
+import type { CSSProperties } from 'react';
 export interface MultiSelectItem {
   id: string;
   content: string | JSX.Element;

@@ -1,6 +1,6 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { CustomTable } from './custom-table';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
   title: 'Components/General/CustomTable',

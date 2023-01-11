@@ -1,6 +1,6 @@
-import * as React from 'react';
-import Switch from '@mui/material/Switch';
 import styled from '@emotion/styled';
+import Switch from '@mui/material/Switch';
+import * as React from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 
 interface Props {

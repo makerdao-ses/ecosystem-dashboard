@@ -1,5 +1,6 @@
-import React, { CSSProperties } from 'react';
+import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import type { CSSProperties } from 'react';
 
 interface Props {
   width?: number;

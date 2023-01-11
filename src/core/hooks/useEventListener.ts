@@ -1,5 +1,6 @@
 // source: https://usehooks-ts.com/react-hook/use-event-listener
-import { RefObject, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import type { RefObject } from 'react';
 
 function useEventListener<T extends HTMLElement = HTMLDivElement>(
   eventName: keyof WindowEventMap | string, // string to allow custom event

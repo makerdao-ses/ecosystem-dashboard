@@ -1,9 +1,9 @@
-import React from 'react';
 import styled from '@emotion/styled';
-import { CustomPopover } from '../custom-popover/custom-popover';
-import { useThemeContext } from '../../../core/context/ThemeContext';
-import lightTheme from '../../../../styles/theme/light';
 import { Typography } from '@mui/material';
+import React from 'react';
+import lightTheme from '../../../../styles/theme/light';
+import { useThemeContext } from '../../../core/context/ThemeContext';
+import { CustomPopover } from '../custom-popover/custom-popover';
 
 interface Props {
   fte: number;

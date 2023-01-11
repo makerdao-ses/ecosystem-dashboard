@@ -1,5 +1,6 @@
-import { UserDTO } from '../../models/dto/auth.dto';
-import { BudgetStatus, CommentsBudgetStatementDto } from '../../models/dto/core-unit.dto';
+import { BudgetStatus } from '../../models/dto/core-unit.dto';
+import type { UserDTO } from '../../models/dto/auth.dto';
+import type { CommentsBudgetStatementDto } from '../../models/dto/core-unit.dto';
 
 export class CommentBuilder {
   private readonly _comment: CommentsBudgetStatementDto;

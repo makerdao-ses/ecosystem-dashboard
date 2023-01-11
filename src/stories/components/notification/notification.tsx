@@ -1,11 +1,15 @@
 import styled from '@emotion/styled';
-import { IconProps } from '@mui/material';
-import React, { ReactElement } from 'react';
-import { Close } from '../svg/close';
+import React from 'react';
+
+// import type { ReactElement } from 'react';
+
 import 'react-toastify/dist/ReactToastify.css';
-import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ToastContainer } from 'react-toastify';
 import lightTheme from '../../../../styles/theme/light';
+import { useThemeContext } from '../../../core/context/ThemeContext';
+import { Close } from '../svg/close';
+import type { IconProps } from '@mui/material';
+import type { ReactElement } from 'react';
 
 interface Props {
   message?: string;

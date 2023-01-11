@@ -1,10 +1,10 @@
-import lightTheme from '../../../../styles/theme/light';
-import { SortEnum } from '../../../core/enums/sort.enum';
-import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
-import { Activity, ActivityTableHeader } from '../../components/cu-activity-table/cu-activity-table';
 import sortBy from 'lodash/sortBy';
 import { useMemo, useRef, useState } from 'react';
-import { MultiSelectItem } from '../../components/custom-multi-select/custom-multi-select';
+import lightTheme from '../../../../styles/theme/light';
+import { SortEnum } from '../../../core/enums/sort.enum';
+import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import type { Activity, ActivityTableHeader } from '../../components/cu-activity-table/cu-activity-table';
+import type { MultiSelectItem } from '../../components/custom-multi-select/custom-multi-select';
 
 export const useGlobalActivityMvvm = (coreUnits: CoreUnitDto[]) => {
   const [searchText, setSearchText] = useState('');
@@ -56,37 +56,40 @@ export const useGlobalActivityMvvm = (coreUnits: CoreUnitDto[]) => {
   };
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const selectElements = useMemo(() => {
-    return sortBy(coreUnits, (cu) => cu.name).map((coreUnits) => ({
-      id: coreUnits.shortCode,
-      content: coreUnits.name,
-      params: {
-        url: coreUnits.image,
-        code: coreUnits.shortCode,
-      },
-    })) as MultiSelectItem[];
-  }, [coreUnits]);
+  const selectElements = useMemo(
+    () =>
+      sortBy(coreUnits, (cu) => cu.name).map((coreUnits) => ({
+        id: coreUnits.shortCode,
+        content: coreUnits.name,
+        params: {
+          url: coreUnits.image,
+          code: coreUnits.shortCode,
+        },
+      })) as MultiSelectItem[],
+    [coreUnits]
+  );
 
-  const activityFeed = useMemo(() => {
-    return sortBy(
-      coreUnits
-        .filter((cu) => !activeElements.length || activeElements.includes(cu.shortCode))
-        .reduce((acc, cu) => {
-          return [
-            ...acc,
-            ...cu.activityFeed
-              .filter((af) => {
-                return !searchText || af.description.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
-              })
-              .map((act) => ({
-                coreUnit: cu,
-                activityFeed: act,
-              })),
-          ];
-        }, [] as Activity[]),
-      'created_at'
-    );
-  }, [activeElements, coreUnits, searchText]);
+  const activityFeed = useMemo(
+    () =>
+      sortBy(
+        coreUnits
+          .filter((cu) => !activeElements.length || activeElements.includes(cu.shortCode))
+          .reduce(
+            (acc, cu) => [
+              ...acc,
+              ...cu.activityFeed
+                .filter((af) => !searchText || af.description.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
+                .map((act) => ({
+                  coreUnit: cu,
+                  activityFeed: act,
+                })),
+            ],
+            [] as Activity[]
+          ),
+        'created_at'
+      ),
+    [activeElements, coreUnits, searchText]
+  );
 
   return {
     columns,

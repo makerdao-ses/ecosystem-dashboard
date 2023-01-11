@@ -1,9 +1,9 @@
-import { ComponentMeta } from '@storybook/react';
-import AuditorCommentCard from './auditor-comment-card';
-import { BudgetStatus } from '../../../../core/models/dto/core-unit.dto';
 import { CommentBuilder } from '../../../../core/business-logic/builders/comment.builder';
 import { UserBuilder } from '../../../../core/business-logic/builders/user.builder';
+import { BudgetStatus } from '../../../../core/models/dto/core-unit.dto';
 import { withCoreUnitContext, createThemeModeVariants } from '../../../../core/utils/storybook';
+import AuditorCommentCard from './auditor-comment-card';
+import type { ComponentMeta } from '@storybook/react';
 
 export default {
   title: 'Components/AuditorComments/CommentCard',

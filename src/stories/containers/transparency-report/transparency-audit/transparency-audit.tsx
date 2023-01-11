@@ -1,12 +1,12 @@
-import React from 'react';
 import styled from '@emotion/styled';
-import { Download } from '../../../components/svg/download';
-import { AuditStatusChip } from '../../../components/audit-status-chip/audit-status-chip';
-import { AuditStatusEnum } from '../../../../core/enums/audit-status.enum';
-import { useTransparencyAuditMvvm } from './transparency-audit.mvvm';
-import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
+import React from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
+import { AuditStatusChip } from '../../../components/audit-status-chip/audit-status-chip';
+import { Download } from '../../../components/svg/download';
 import { TransparencyEmptyAudit } from '../placeholders/transparency-empty-audit';
+import { useTransparencyAuditMvvm } from './transparency-audit.mvvm';
+import type { AuditStatusEnum } from '../../../../core/enums/audit-status.enum';
+import type { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 
 interface TransparencyAuditProps {
   budgetStatement?: BudgetStatementDto;

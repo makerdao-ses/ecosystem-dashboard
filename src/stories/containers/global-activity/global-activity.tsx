@@ -2,11 +2,10 @@ import styled from '@emotion/styled';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
 import CoreUnitSelectItem from '../../components/core-unit-select-item/core-unit-select-item';
 import ActivityTable from '../../components/cu-activity-table/cu-activity-table';
-import { CustomMultiSelect, SelectItemProps } from '../../components/custom-multi-select/custom-multi-select';
+import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
 import ResetButton from '../../components/reset-button/reset-button';
 import { SearchInput } from '../../components/search-input/search-input';
 import { SEOHead } from '../../components/seo-head/seo-head';
@@ -14,6 +13,8 @@ import Filter from '../../components/svg/filter';
 import { Paragraph, Title } from '../cu-activity/cu-activity';
 import { ButtonFilter, SmallSeparator } from '../cu-table/cu-table-filters';
 import { useGlobalActivityMvvm } from './global-activity.mvvm';
+import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import type { SelectItemProps } from '../../components/custom-multi-select/custom-multi-select';
 
 interface Props {
   coreUnits: CoreUnitDto[];

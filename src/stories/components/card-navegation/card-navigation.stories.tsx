@@ -1,6 +1,6 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
 import NavigationCard from './card-navigation';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
   title: 'Components/CuAbout/NavigationCard',

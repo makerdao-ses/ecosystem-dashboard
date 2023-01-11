@@ -1,6 +1,6 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { WalletTableCell } from './wallet-table-cell';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
   title: 'Components/CUTransparencyReport/WalletTableCell',

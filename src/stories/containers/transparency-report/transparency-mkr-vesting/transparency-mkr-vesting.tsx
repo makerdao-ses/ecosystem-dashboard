@@ -1,16 +1,16 @@
-import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
-import { CardsWrapper, TableWrapper, Title } from '../transparency-report';
-import { InnerTable } from '../../../components/inner-table/inner-table';
-import { DateTime } from 'luxon';
-import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
-import { useTransparencyMkrVesting } from './transparency-mkr-vesting.mvvm';
-import { NumberCell } from '../../../components/number-cell/number-cell';
-import { TransparencyCard } from '../../../components/transparency-card/transparency-card';
+import React, { useMemo } from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
 import { CustomPopover } from '../../../components/custom-popover/custom-popover';
+import { InnerTable } from '../../../components/inner-table/inner-table';
+import { NumberCell } from '../../../components/number-cell/number-cell';
 import { TextCell } from '../../../components/text-cell/text-cell';
+import { TransparencyCard } from '../../../components/transparency-card/transparency-card';
+import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
+import { CardsWrapper, TableWrapper, Title } from '../transparency-report';
+import { useTransparencyMkrVesting } from './transparency-mkr-vesting.mvvm';
+import type { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
+import type { DateTime } from 'luxon';
 
 interface TransparencyMkrVestingProps {
   currentMonth: DateTime;

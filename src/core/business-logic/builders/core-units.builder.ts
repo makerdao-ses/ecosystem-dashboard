@@ -1,4 +1,5 @@
-import {
+import type { CuCategoryEnum } from '../../enums/cu-category.enum';
+import type {
   AuditorDto,
   BudgetStatementDto,
   ContributorCommitmentDto,
@@ -7,7 +8,6 @@ import {
   RoadMapDto,
   SocialMediaChannelDto,
 } from '../../models/dto/core-unit.dto';
-import { CuCategoryEnum } from '../../enums/cu-category.enum';
 
 export class CoreUnitsBuilder {
   private readonly _coreUnit: CoreUnitDto;

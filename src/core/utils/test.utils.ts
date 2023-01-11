@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon';
 import { CommitmentJob } from '../enums/CommitmentJob.enum';
-import { CuJobEnum } from '../enums/cu-job.enum';
-import { CuCommentDto } from '../models/dto/comments.dto';
-import { ContributorCommitmentDto, ContributorDto } from '../models/dto/core-unit.dto';
+import type { CuJobEnum } from '../enums/cu-job.enum';
+import type { CuCommentDto } from '../models/dto/comments.dto';
+import type { ContributorCommitmentDto, ContributorDto } from '../models/dto/core-unit.dto';
 
 export const CURRENT_MONTH = DateTime.now().toFormat('y-MM-dd');
 export const CURRENT_MINUS_1_MONTH = DateTime.now().set({ day: 1 }).minus({ month: 1 }).toFormat('y-MM-dd');

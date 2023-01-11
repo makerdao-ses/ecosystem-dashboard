@@ -1,9 +1,9 @@
-import { DateTime } from 'luxon';
-import PermissionManager from '../auth/permission-manager';
-import { SafeLocalStorage } from './local-storage';
-import { USER_ACTIVITY_QUERY, USER_ACTIVITY_UPDATE_MUTATION } from '../hooks/useLastVisit.api';
 import request from 'graphql-request';
+import { DateTime } from 'luxon';
 import { GRAPHQL_ENDPOINT } from '../../config/endpoints';
+import { USER_ACTIVITY_QUERY, USER_ACTIVITY_UPDATE_MUTATION } from '../hooks/useLastVisit.api';
+import { SafeLocalStorage } from './local-storage';
+import type PermissionManager from '../auth/permission-manager';
 
 export class LastVisitHandler {
   private _storage: Storage;

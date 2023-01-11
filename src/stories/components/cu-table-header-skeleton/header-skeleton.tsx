@@ -1,8 +1,8 @@
-import React from 'react';
 import styled from '@emotion/styled';
 import Skeleton from '@mui/material/Skeleton';
-import { useThemeContext } from '../../../core/context/ThemeContext';
+import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 export const CuTableHeaderSkeleton = () => {
   const { isLight } = useThemeContext();

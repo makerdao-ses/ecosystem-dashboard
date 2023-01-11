@@ -1,12 +1,12 @@
-import React from 'react';
 import styled from '@emotion/styled';
-import { Title } from '../cu-table-column-expenditures/cu-table-column-expenditures';
-import { CustomPopover } from '../custom-popover/custom-popover';
-import { CircleAvatar } from '../circle-avatar/circle-avatar';
+import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import CardInfoMember from '../card-info-member/card-info-member';
-import { ContributorCommitmentDto } from '../../../core/models/dto/core-unit.dto';
+import { CircleAvatar } from '../circle-avatar/circle-avatar';
+import { Title } from '../cu-table-column-expenditures/cu-table-column-expenditures';
+import { CustomPopover } from '../custom-popover/custom-popover';
 import { ColumnTeamMemberSkeleton } from './cu-table-column-team-member-skeleton';
+import type { ContributorCommitmentDto } from '../../../core/models/dto/core-unit.dto';
 
 interface CuTableColumnTeamMemberProps {
   members?: ContributorCommitmentDto[];
@@ -35,32 +35,30 @@ export const CuTableColumnTeamMember = ({ isLoading = false, ...props }: CuTable
         </Data>
       </CustomPopover>
       <CirclesWrapper>
-        {props.members?.map((member, i) => {
-          return (
-            <CustomPopover
-              key={member.contributor[0].name + i}
-              popupStyle={{
-                padding: 0,
+        {props.members?.map((member, i) => (
+          <CustomPopover
+            key={member.contributor[0].name + i}
+            popupStyle={{
+              padding: 0,
+            }}
+            title={<CardInfoMember contributorCommitment={member} />}
+            id={member.contributor[0].name + i}
+            leaveOnChildrenMouseOut
+          >
+            <CircleAvatar
+              key={member.id}
+              name={member.contributor[0].name}
+              fontSize={'14px'}
+              width={'36px'}
+              height={'36px'}
+              style={{
+                boxSizing: 'border-box',
+                marginLeft: i === 0 ? 0 : '-9px',
               }}
-              title={<CardInfoMember contributorCommitment={member} />}
-              id={member.contributor[0].name + i}
-              leaveOnChildrenMouseOut
-            >
-              <CircleAvatar
-                key={member.id}
-                name={member.contributor[0].name}
-                fontSize={'14px'}
-                width={'36px'}
-                height={'36px'}
-                style={{
-                  boxSizing: 'border-box',
-                  marginLeft: i === 0 ? 0 : '-9px',
-                }}
-                image={member.contributor[0].facilitatorImage?.trim()}
-              />
-            </CustomPopover>
-          );
-        })}
+              image={member.contributor[0].facilitatorImage?.trim()}
+            />
+          </CustomPopover>
+        ))}
       </CirclesWrapper>
     </Container>
   ) : (

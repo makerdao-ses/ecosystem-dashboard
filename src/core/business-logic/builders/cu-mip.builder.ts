@@ -1,6 +1,6 @@
 import { setCuMipStatusModifiedDate } from '../core-units';
-import { CuStatusEnum } from '../../enums/cu-status.enum';
-import { CuMipDto, Mip40Dto, Mip41Dto } from '../../models/dto/core-unit.dto';
+import type { CuStatusEnum } from '../../enums/cu-status.enum';
+import type { CuMipDto, Mip40Dto, Mip41Dto } from '../../models/dto/core-unit.dto';
 
 export class CuMipBuilder {
   private readonly _cuMip: CuMipDto;

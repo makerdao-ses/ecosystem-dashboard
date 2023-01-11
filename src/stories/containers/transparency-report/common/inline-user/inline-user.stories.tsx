@@ -1,6 +1,6 @@
-import { ComponentMeta } from '@storybook/react';
-import InlineUser from './inline-user';
 import { createThemeModeVariants } from '../../../../../core/utils/storybook';
+import InlineUser from './inline-user';
+import type { ComponentMeta } from '@storybook/react';
 
 export default {
   title: 'Components/CUTransparencyReport/InlineUser',

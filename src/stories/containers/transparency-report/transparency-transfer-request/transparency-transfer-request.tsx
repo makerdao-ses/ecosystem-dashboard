@@ -1,18 +1,18 @@
+import styled from '@emotion/styled';
 import React, { useMemo } from 'react';
-import { WalletTableCell } from '../../../components/wallet-table-cell/wallet-table-cell';
+import { formatAddressForOutput } from '../../../../core/utils/string.utils';
 import { CustomLink } from '../../../components/custom-link/custom-link';
 import { InnerTable } from '../../../components/inner-table/inner-table';
-import styled from '@emotion/styled';
 import { NumberCell } from '../../../components/number-cell/number-cell';
-import { DateTime } from 'luxon';
-import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
-import { useTransparencyForecastMvvm } from '../transparency-forecast/transparency-forecast.mvvm';
-import { useTransparencyTransferRequestMvvm } from './transparency-transfer-request.mvvm';
-import { formatAddressForOutput } from '../../../../core/utils/string.utils';
-import { CardsWrapper, TableWrapper } from '../transparency-report';
-import { TransparencyCard } from '../../../components/transparency-card/transparency-card';
-import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
 import { TextCell } from '../../../components/text-cell/text-cell';
+import { TransparencyCard } from '../../../components/transparency-card/transparency-card';
+import { WalletTableCell } from '../../../components/wallet-table-cell/wallet-table-cell';
+import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
+import { useTransparencyForecastMvvm } from '../transparency-forecast/transparency-forecast.mvvm';
+import { CardsWrapper, TableWrapper } from '../transparency-report';
+import { useTransparencyTransferRequestMvvm } from './transparency-transfer-request.mvvm';
+import type { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
+import type { DateTime } from 'luxon';
 
 interface TransparencyTransferRequestProps {
   currentMonth: DateTime;

@@ -1,20 +1,20 @@
-import { DateTime } from 'luxon';
-import {
+import _ from 'lodash';
+import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
+import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
+import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
+import { capitalizeSentence, getWalletWidthForWallets } from '../../../../core/utils/string.utils';
+import { renderLinks, renderWallet } from '../transparency-report.utils';
+import type {
   BudgetStatementDto,
   BudgetStatementLineItemDto,
   BudgetStatementWalletDto,
 } from '../../../../core/models/dto/core-unit.dto';
-import _ from 'lodash';
-import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
-import { capitalizeSentence, getWalletWidthForWallets } from '../../../../core/utils/string.utils';
-import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
-import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
-import {
+import type {
   InnerTableColumn,
   InnerTableRow,
   RowType,
 } from '../../../components/advanced-inner-table/advanced-inner-table';
-import { renderLinks, renderWallet } from '../transparency-report.utils';
+import type { DateTime } from 'luxon';
 
 export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetStatements: BudgetStatementDto[]) => {
   const firstMonth = useMemo(() => currentMonth.plus({ month: 1 }), [currentMonth]);
@@ -208,12 +208,11 @@ export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetS
     );
   };
 
-  const getLineItemForecastSumForMonth = (items: BudgetStatementLineItemDto[], month: DateTime) => {
-    return _.sumBy(
+  const getLineItemForecastSumForMonth = (items: BudgetStatementLineItemDto[], month: DateTime) =>
+    _.sumBy(
       items.filter((item) => item.month === month.toFormat(API_MONTH_TO_FORMAT)),
       (item) => item.forecast ?? 0
     );
-  };
 
   const getLineItemForecastSumForMonths = (items: BudgetStatementLineItemDto[], months: DateTime[]) => {
     const formattedMonths = months.map((x) => x.toFormat(API_MONTH_TO_FORMAT));
@@ -223,12 +222,11 @@ export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetS
     );
   };
 
-  const getBudgetCapForMonthOnLineItem = (items: BudgetStatementLineItemDto[], month: DateTime) => {
-    return _.sumBy(
+  const getBudgetCapForMonthOnLineItem = (items: BudgetStatementLineItemDto[], month: DateTime) =>
+    _.sumBy(
       items.filter((item) => item.month === month.toFormat(API_MONTH_TO_FORMAT)),
       (item) => item.budgetCap ?? 0
     );
-  };
 
   const getTotalQuarterlyBudgetCapOnLineItem = (items: BudgetStatementLineItemDto[], months: DateTime[]) => {
     const formattedMonths = months.map((x) => x.toFormat(API_MONTH_TO_FORMAT));
@@ -279,8 +277,8 @@ export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetS
     return currentWallet?.budgetStatementLineItem?.some((item) => item.group && item.actual);
   }, [thirdIndex, wallets]);
 
-  const mainTableColumns: InnerTableColumn[] = useMemo(() => {
-    return [
+  const mainTableColumns: InnerTableColumn[] = useMemo(
+    () => [
       {
         header: 'Wallet',
         type: 'custom',
@@ -326,8 +324,9 @@ export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetS
         isCardFooter: true,
         cellRender: renderLinks,
       },
-    ];
-  }, [firstMonth, secondMonth, thirdMonth, wallets]);
+    ],
+    [firstMonth, secondMonth, thirdMonth, wallets]
+  );
 
   const mainTableItems = useMemo(() => {
     const result: InnerTableRow[] = [];

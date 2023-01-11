@@ -1,5 +1,5 @@
-import React from 'react';
 import styled from '@emotion/styled';
+import React from 'react';
 import { ChevronLeft } from '../svg/chevron-left';
 import { ChevronRight } from '../svg/chevron-right';
 
@@ -11,21 +11,19 @@ interface CustomPagerProps {
   hasPrevious?: boolean;
 }
 
-export const CustomPager = (props: CustomPagerProps) => {
-  return (
-    <Container className="no-select">
-      <Arrows>
-        <IconWrapper onClick={props.onPrev} disabled={!props.hasPrevious}>
-          <ChevronLeft fill={props.hasPrevious ? undefined : '#D1DEE6'} />
-        </IconWrapper>
-        <IconWrapper disabled={!props.hasNext} onClick={props.onNext}>
-          <ChevronRight fill={props.hasNext ? undefined : '#D1DEE6'} />
-        </IconWrapper>
-      </Arrows>
-      <Label>{props.label}</Label>
-    </Container>
-  );
-};
+export const CustomPager = (props: CustomPagerProps) => (
+  <Container className="no-select">
+    <Arrows>
+      <IconWrapper onClick={props.onPrev} disabled={!props.hasPrevious}>
+        <ChevronLeft fill={props.hasPrevious ? undefined : '#D1DEE6'} />
+      </IconWrapper>
+      <IconWrapper disabled={!props.hasNext} onClick={props.onNext}>
+        <ChevronRight fill={props.hasNext ? undefined : '#D1DEE6'} />
+      </IconWrapper>
+    </Arrows>
+    <Label>{props.label}</Label>
+  </Container>
+);
 
 const Container = styled.div({
   display: 'flex',

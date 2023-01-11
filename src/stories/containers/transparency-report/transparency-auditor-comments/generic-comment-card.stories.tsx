@@ -1,7 +1,7 @@
-import { ComponentMeta } from '@storybook/react';
 import { BudgetStatus } from '../../../../core/models/dto/core-unit.dto';
-import GenericCommentCard from './generic-comment-card';
 import { createThemeModeVariants } from '../../../../core/utils/storybook';
+import GenericCommentCard from './generic-comment-card';
+import type { ComponentMeta } from '@storybook/react';
 
 export default {
   title: 'Components/AuditorComments/GenericCommentCard',

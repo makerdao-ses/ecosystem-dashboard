@@ -1,9 +1,9 @@
-import React from 'react';
 import styled from '@emotion/styled';
+import Link from 'next/link';
+import React from 'react';
+import lightTheme from '../../../../../../styles/theme/light';
 import { BudgetStatus } from '../../../../../core/models/dto/core-unit.dto';
 import ExpenseReportStatus from '../expense-report-status/expense-report-status';
-import Link from 'next/link';
-import lightTheme from '../../../../../../styles/theme/light';
 
 export type ExpenseReportStatusIndicatorProps = {
   budgetStatus: BudgetStatus;
@@ -13,18 +13,16 @@ export type ExpenseReportStatusIndicatorProps = {
 const ExpenseReportStatusIndicator: React.FC<ExpenseReportStatusIndicatorProps> = ({
   budgetStatus = BudgetStatus.Draft,
   showCTA,
-}) => {
-  return (
-    <IndicatorContainer>
-      <ExpenseReportStatus status={budgetStatus} />
-      {showCTA && budgetStatus !== BudgetStatus.Final && (
-        <Link href={'#comments'}>
-          <StyledLink>Go to {budgetStatus}</StyledLink>
-        </Link>
-      )}
-    </IndicatorContainer>
-  );
-};
+}) => (
+  <IndicatorContainer>
+    <ExpenseReportStatus status={budgetStatus} />
+    {showCTA && budgetStatus !== BudgetStatus.Final && (
+      <Link href={'#comments'}>
+        <StyledLink>Go to {budgetStatus}</StyledLink>
+      </Link>
+    )}
+  </IndicatorContainer>
+);
 
 export default ExpenseReportStatusIndicator;
 

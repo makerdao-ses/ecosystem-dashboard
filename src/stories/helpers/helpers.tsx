@@ -1,9 +1,10 @@
-import { IconProps } from '@mui/material';
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { toast } from 'react-toastify';
 import Notification from '../components/notification/notification';
 import CheckMark from '../components/svg/check-mark';
 import Warning from '../components/svg/warning';
+import type { IconProps } from '@mui/material';
+import type { ReactElement } from 'react';
 
 interface Props {
   isSuccess: boolean;

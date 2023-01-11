@@ -1,21 +1,21 @@
-import React, { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import styled from '@emotion/styled';
-import { InnerTable } from '../../../components/inner-table/inner-table';
-import { Tabs } from '../../../components/tabs/tabs';
-import { CustomLink } from '../../../components/custom-link/custom-link';
-import { WalletTableCell } from '../../../components/wallet-table-cell/wallet-table-cell';
-import { TextCell } from '../../../components/text-cell/text-cell';
-import { DateTime } from 'luxon';
-import { BudgetStatementDto, BudgetStatementLineItemDto } from '../../../../core/models/dto/core-unit.dto';
 import _ from 'lodash';
-import { useTransparencyActualsMvvm } from './transparency-actuals.mvvm';
-import { formatAddressForOutput } from '../../../../core/utils/string.utils';
-import { NumberCell } from '../../../components/number-cell/number-cell';
-import { TransparencyCard } from '../../../components/transparency-card/transparency-card';
-import { CardsWrapper, TableWrapper, Title } from '../transparency-report';
+import React, { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
 import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
+import { formatAddressForOutput } from '../../../../core/utils/string.utils';
+import { CustomLink } from '../../../components/custom-link/custom-link';
+import { InnerTable } from '../../../components/inner-table/inner-table';
+import { NumberCell } from '../../../components/number-cell/number-cell';
+import { Tabs } from '../../../components/tabs/tabs';
+import { TextCell } from '../../../components/text-cell/text-cell';
+import { TransparencyCard } from '../../../components/transparency-card/transparency-card';
+import { WalletTableCell } from '../../../components/wallet-table-cell/wallet-table-cell';
+import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
+import { CardsWrapper, TableWrapper, Title } from '../transparency-report';
+import { useTransparencyActualsMvvm } from './transparency-actuals.mvvm';
+import type { BudgetStatementDto, BudgetStatementLineItemDto } from '../../../../core/models/dto/core-unit.dto';
+import type { DateTime } from 'luxon';
 
 interface TransparencyActualsProps {
   currentMonth: DateTime;
@@ -54,18 +54,14 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
 
   const [headerIds, setHeaderIds] = useState<string[]>([]);
 
-  const thirdIndex = useMemo(() => {
-    return Math.max(headerIds?.indexOf(anchor ?? ''), 0);
-  }, [headerIds, anchor]);
+  const thirdIndex = useMemo(() => Math.max(headerIds?.indexOf(anchor ?? ''), 0), [headerIds, anchor]);
 
   const currentWallet = useMemo(() => wallets[thirdIndex], [thirdIndex, wallets]);
 
   const hasGroups = useMemo(() => {
     const currentWallet = wallets[thirdIndex];
 
-    return currentWallet?.budgetStatementLineItem?.some((item) => {
-      return item.group && item.actual;
-    });
+    return currentWallet?.budgetStatementLineItem?.some((item) => item.group && item.actual);
   }, [wallets, thirdIndex]);
 
   const headerToId = (header: string): string => {
@@ -211,28 +207,25 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
   );
 
   const getLineItemsSubtotal = useCallback(
-    (items: BudgetStatementLineItemDto[], title: string, card = false) => {
-      return (
-        items?.reduce(
-          (prv, curr) =>
-            curr.month === currentBudgetStatement?.month
-              ? {
-                  group: !card ? title : '',
-                  budgetCategory: !hasGroups || card ? title : '',
-                  actual: prv.actual + curr.actual,
-                  forecast: (prv?.forecast ?? 0) + (curr?.forecast ?? 0),
-                  payment: (prv?.payment ?? 0) + (curr?.payment ?? 0),
-                  month: currentBudgetStatement?.month,
-                }
-              : prv,
-          {
-            actual: 0,
-            forecast: 0,
-            payment: 0,
-          }
-        ) ?? {}
-      );
-    },
+    (items: BudgetStatementLineItemDto[], title: string, card = false) =>
+      items?.reduce(
+        (prv, curr) =>
+          curr.month === currentBudgetStatement?.month
+            ? {
+                group: !card ? title : '',
+                budgetCategory: !hasGroups || card ? title : '',
+                actual: prv.actual + curr.actual,
+                forecast: (prv?.forecast ?? 0) + (curr?.forecast ?? 0),
+                payment: (prv?.payment ?? 0) + (curr?.payment ?? 0),
+                month: currentBudgetStatement?.month,
+              }
+            : prv,
+        {
+          actual: 0,
+          forecast: 0,
+          payment: 0,
+        }
+      ) ?? {},
     [currentBudgetStatement?.month, hasGroups]
   );
 
@@ -487,12 +480,10 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       ) : (
         <>
           <Tabs
-            items={breakdownTabs.map((header, i) => {
-              return {
-                item: header,
-                id: headerIds[i],
-              };
-            })}
+            items={breakdownTabs.map((header, i) => ({
+              item: header,
+              id: headerIds[i],
+            }))}
             currentIndex={thirdIndex}
             style={{
               marginBottom: '32px',

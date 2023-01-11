@@ -1,10 +1,10 @@
-import React from 'react';
+import styled from '@emotion/styled';
+import { Box, CardActionArea, CardActions } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Box, CardActionArea, CardActions } from '@mui/material';
-import styled from '@emotion/styled';
+import React from 'react';
 import ArrowRight from '../svg/ArrowRight';
 interface Props {
   description: string;
@@ -24,85 +24,83 @@ export const NavigationCard = ({
   titleLinkPage = '',
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   onClick = () => {},
-}: Props) => {
-  return (
-    <div>
-      <ArrowTittleStyle>
+}: Props) => (
+  <div>
+    <ArrowTittleStyle>
+      <Typography
+        color="#231536"
+        fontSize={24}
+        lineHeight="29px"
+        fontWeight={500}
+        letterSpacing="0.4px"
+        fontFamily={'Inter, sans-serif'}
+      >
+        {title}
+      </Typography>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+        }}
+      >
         <Typography
+          textAlign="right"
+          fontStyle="normal"
+          fontWeight={400}
+          fontSize={14}
           color="#231536"
-          fontSize={24}
-          lineHeight="29px"
-          fontWeight={500}
           letterSpacing="0.4px"
           fontFamily={'Inter, sans-serif'}
         >
-          {title}
+          {titleLinkPage}
         </Typography>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
-          <Typography
-            textAlign="right"
-            fontStyle="normal"
-            fontWeight={400}
-            fontSize={14}
-            color="#231536"
-            letterSpacing="0.4px"
-            fontFamily={'Inter, sans-serif'}
-          >
-            {titleLinkPage}
-          </Typography>
-          <ArrowRight width={16} height={16} style={{ marginLeft: '22px' }} onClick={onClick} />
-        </div>
-      </ArrowTittleStyle>
-      <Box
+        <ArrowRight width={16} height={16} style={{ marginLeft: '22px' }} onClick={onClick} />
+      </div>
+    </ArrowTittleStyle>
+    <Box
+      sx={{
+        height: '293px',
+        width: '405px',
+        '& .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
+          borderRadius: '6px',
+          backgroundColor: '#FFFFFF',
+          boxShadow: '0px 20px 40px -40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
+        },
+      }}
+    >
+      <CardContainer
         sx={{
-          height: '293px',
-          width: '405px',
-          '& .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
-            borderRadius: '6px',
-            backgroundColor: '#FFFFFF',
-            boxShadow: '0px 20px 40px -40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
-          },
+          p: '15px',
         }}
       >
-        <CardContainer
-          sx={{
-            p: '15px',
-          }}
-        >
-          <FiCardActionArea>
-            <FiCardMedia
-              sx={{
-                borderRadius: '6px',
-                padding: '0px',
-              }}
-              image={image}
-            />
-            <FiCardContent
-              sx={{
-                p: '0px',
-              }}
-            >
-              <UnorderedList>
-                {list.map((item, index) => (
-                  <ListItemStyle key={index}>{item}</ListItemStyle>
-                ))}
-              </UnorderedList>
-            </FiCardContent>
-          </FiCardActionArea>
-          <FiCardActions>
-            <TypographyStyle>{description}</TypographyStyle>
-          </FiCardActions>
-        </CardContainer>
-      </Box>
-    </div>
-  );
-};
+        <FiCardActionArea>
+          <FiCardMedia
+            sx={{
+              borderRadius: '6px',
+              padding: '0px',
+            }}
+            image={image}
+          />
+          <FiCardContent
+            sx={{
+              p: '0px',
+            }}
+          >
+            <UnorderedList>
+              {list.map((item, index) => (
+                <ListItemStyle key={index}>{item}</ListItemStyle>
+              ))}
+            </UnorderedList>
+          </FiCardContent>
+        </FiCardActionArea>
+        <FiCardActions>
+          <TypographyStyle>{description}</TypographyStyle>
+        </FiCardActions>
+      </CardContainer>
+    </Box>
+  </div>
+);
 
 const CardContainer = styled(Card, { shouldForwardProp: (prop) => prop !== 'isLight' })({
   position: 'relative',

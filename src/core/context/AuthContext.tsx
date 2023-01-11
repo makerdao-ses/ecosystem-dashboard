@@ -4,8 +4,8 @@ import React, { useLayoutEffect } from 'react';
 import { GRAPHQL_ENDPOINT } from '../../config/endpoints';
 import PermissionManager from '../auth/permission-manager';
 import { useIsAdmin } from '../hooks/useIsAdmin';
-import { LoginDTO, UserDTO } from '../models/dto/auth.dto';
 import { getAuthFromStorage } from '../utils/auth-storage';
+import type { LoginDTO, UserDTO } from '../models/dto/auth.dto';
 
 interface AuthContextProps {
   user?: UserDTO;

@@ -1,13 +1,9 @@
 import { DateTime } from 'luxon';
 
 export const useTransparencyAuditMvvm = () => {
-  const getDate = (timestamp: string) => {
-    return DateTime.fromSeconds(Number(timestamp) / 1000).toFormat('dd-MMM-y');
-  };
+  const getDate = (timestamp: string) => DateTime.fromSeconds(Number(timestamp) / 1000).toFormat('dd-MMM-y');
 
-  const getTime = (timestamp: string) => {
-    return DateTime.fromSeconds(Number(timestamp) / 1000).toFormat('hh:mm');
-  };
+  const getTime = (timestamp: string) => DateTime.fromSeconds(Number(timestamp) / 1000).toFormat('hh:mm');
 
   const getFilenameFromUrl = (url: string) => {
     if (!url) return '';

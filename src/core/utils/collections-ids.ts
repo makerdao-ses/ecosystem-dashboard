@@ -1,3 +1,2 @@
-export const budgetStatementCommentsCollectionId = (budgetId: string): string => {
-  return `BudgetStatement(${budgetId}).comments`;
-};
+export const budgetStatementCommentsCollectionId = (budgetId: string): string =>
+  `BudgetStatement(${budgetId}).comments`;

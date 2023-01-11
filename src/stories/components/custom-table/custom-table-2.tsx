@@ -1,10 +1,11 @@
-import React, { CSSProperties, useMemo } from 'react';
 import styled from '@emotion/styled';
-import { CustomTableHeader } from '../custom-table-header/custom-table-header';
+import React, { useMemo } from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { CustomTableHeaderSkeleton } from './custom-table-header.skeleton';
 import { SortEnum } from '../../../core/enums/sort.enum';
+import { CustomTableHeader } from '../custom-table-header/custom-table-header';
+import { CustomTableHeaderSkeleton } from './custom-table-header.skeleton';
 import { TablePlaceholder } from './placeholder';
+import type { CSSProperties } from 'react';
 
 export interface CustomTableColumn {
   justifyContent?: string;
