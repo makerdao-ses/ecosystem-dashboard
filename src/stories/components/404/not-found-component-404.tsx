@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
-import { NextPage } from 'next';
+import { Typography, useMediaQuery } from '@mui/material';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React from 'react';
 import Background404 from '../../../../public/assets/img/background-404.png';
 import Background404Dark from '../../../../public/assets/img/background-dark-404.png';
@@ -8,11 +9,10 @@ import BackgroundMobile404 from '../../../../public/assets/img/background-mobile
 import BackgroundMobile404Dark from '../../../../public/assets/img/background-mobile-dark-404.png';
 import Logo404 from '../../../../public/assets/img/logo-404.png';
 import Logo404Dark from '../../../../public/assets/img/logo-dark-404.png';
-import { Typography, useMediaQuery } from '@mui/material';
 import lightTheme from '../../../../styles/theme/light';
-import { CustomButton } from '../custom-button/custom-button';
-import { useRouter } from 'next/router';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { CustomButton } from '../custom-button/custom-button';
+import type { NextPage } from 'next';
 
 const CardNotFoundPage: NextPage = () => {
   const router = useRouter();

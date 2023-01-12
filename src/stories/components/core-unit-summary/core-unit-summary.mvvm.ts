@@ -1,7 +1,7 @@
-import useSWRImmutable from 'swr/immutable';
-import { fetcher } from '../../../core/utils/fetcher';
 import request, { gql } from 'graphql-request';
+import useSWRImmutable from 'swr/immutable';
 import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
+import { fetcher } from '../../../core/utils/fetcher';
 import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 const CORE_UNITS_REQUEST = {

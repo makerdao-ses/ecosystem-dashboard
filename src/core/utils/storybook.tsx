@@ -1,20 +1,19 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
-import { ThemeProvider } from '../context/ThemeContext';
-import type { ComponentProps, ElementType } from 'react';
-import type { Story } from '@storybook/react';
-import { CoreUnitContext, CoreUnitContextValues } from '../context/CoreUnitContext';
-import { CoreUnitDto } from '../models/dto/core-unit.dto';
-import { AuthContext } from '../context/AuthContext';
 import PermissionManager from '../auth/permission-manager';
-import { UserDTO } from '../models/dto/auth.dto';
+import { AuthContext } from '../context/AuthContext';
+import { CoreUnitContext } from '../context/CoreUnitContext';
+import { ThemeProvider } from '../context/ThemeContext';
+import type { CoreUnitContextValues } from '../context/CoreUnitContext';
+import type { UserDTO } from '../models/dto/auth.dto';
+import type { CoreUnitDto } from '../models/dto/core-unit.dto';
+import type { Story } from '@storybook/react';
+import type { ComponentProps, ElementType } from 'react';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const createTemplateWithTheme = <T extends React.ComponentType<any>>(
-  Component: ElementType,
-  isLight = true
-): Story<ComponentProps<T>> => {
-  return (args: ComponentProps<typeof Component>) => {
-    return (
+export const createTemplateWithTheme =
+  <T extends React.ComponentType<any>>(Component: ElementType, isLight = true): Story<ComponentProps<T>> =>
+  (args: ComponentProps<typeof Component>) =>
+    (
       <ThemeProvider isLightApp={isLight}>
         <div
           style={{
@@ -29,8 +28,6 @@ export const createTemplateWithTheme = <T extends React.ComponentType<any>>(
         </div>
       </ThemeProvider>
     );
-  };
-};
 
 export const createThemeModeVariants = (
   Component: ElementType,
@@ -88,8 +85,8 @@ export const withCoreUnitContext = (CuOrStory: Story | CoreUnitDto) => {
   }
 };
 
-export const withUserLoggedIn = (user: UserDTO) => {
-  return (Story: Story) => (
+export const withUserLoggedIn = (user: UserDTO) => (Story: Story) =>
+  (
     <AuthContext.Provider
       value={{
         hasToken: true,
@@ -100,4 +97,3 @@ export const withUserLoggedIn = (user: UserDTO) => {
       <Story />
     </AuthContext.Provider>
   );
-};

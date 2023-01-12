@@ -1,6 +1,6 @@
 import { RoleEnum } from '../enums/role.enum';
-import { UserDTO, UserRole } from '../models/dto/auth.dto';
 import CoreUnitExtension from './core-unit-extension';
+import type { UserDTO, UserRole } from '../models/dto/auth.dto';
 
 class PermissionManager {
   loggedUser?: UserDTO;

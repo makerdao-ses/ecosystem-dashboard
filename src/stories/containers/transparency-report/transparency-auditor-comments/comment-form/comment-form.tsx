@@ -1,11 +1,11 @@
-import React from 'react';
 import styled from '@emotion/styled';
-import GenericCommentCard from '../generic-comment-card';
+import React from 'react';
+import lightTheme from '../../../../../../styles/theme/light';
 import { CustomButton } from '../../../../components/custom-button/custom-button';
 import BudgetStatusSelect from '../budget-status-select';
-import lightTheme from '../../../../../../styles/theme/light';
-import { BudgetStatus } from '../../../../../core/models/dto/core-unit.dto';
+import GenericCommentCard from '../generic-comment-card';
 import useCommentForm from './useCommentForm';
+import type { BudgetStatus } from '../../../../../core/models/dto/core-unit.dto';
 
 export type CommentFormProps = {
   currentBudgetStatus: BudgetStatus;

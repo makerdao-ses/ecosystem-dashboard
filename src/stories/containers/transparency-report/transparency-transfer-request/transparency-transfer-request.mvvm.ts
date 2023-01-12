@@ -1,7 +1,7 @@
-import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
-import { DateTime } from 'luxon';
-import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
 import { useMemo } from 'react';
+import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
+import type { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
+import type { DateTime } from 'luxon';
 
 export const useTransparencyTransferRequestMvvm = (currentMonth: DateTime, budgetStatements: BudgetStatementDto[]) => {
   const getTransferRequestForMonthOnWallet = (walletAddress: string | undefined) => {

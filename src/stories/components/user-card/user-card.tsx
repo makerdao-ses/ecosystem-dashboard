@@ -7,13 +7,13 @@ import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
 import { useAuthContext } from '../../../core/context/AuthContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/button-type.enum';
-import { UserDTO } from '../../../core/models/dto/auth.dto';
 import { getColorRole } from '../../../core/utils/color.utils';
 import { capitalizeWordWithoutConvertLowerCase, getCorrectRoleApi } from '../../../core/utils/string.utils';
 import { ENABLE_DISABLE_USER_REQUEST } from '../../containers/auth/enable-disable-accounts/enable-disable.api';
 import ControlledSwitches from '../button/switch-toogle/switch-component';
 import { CustomButton } from '../custom-button/custom-button';
 import AvatarPlaceholder from '../svg/avatar-placeholder';
+import type { UserDTO } from '../../../core/models/dto/auth.dto';
 
 interface Props {
   user: UserDTO;

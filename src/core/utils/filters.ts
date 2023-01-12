@@ -1,27 +1,18 @@
-import { ParsedUrlQuery } from 'querystring';
 import { getStautsMip39AccetedOrObsolete } from '../business-logic/core-units';
-import { CoreUnitDto } from '../models/dto/core-unit.dto';
+import type { CoreUnitDto } from '../models/dto/core-unit.dto';
+import type { ParsedUrlQuery } from 'querystring';
 
-const filterStatus = (lowerCaseStatuses: string[], data: CoreUnitDto) => {
-  return (
-    lowerCaseStatuses.length === 0 ||
-    lowerCaseStatuses.indexOf(getStautsMip39AccetedOrObsolete(data)?.toLowerCase() ?? 'non-present') > -1
-  );
-};
+const filterStatus = (lowerCaseStatuses: string[], data: CoreUnitDto) =>
+  lowerCaseStatuses.length === 0 ||
+  lowerCaseStatuses.indexOf(getStautsMip39AccetedOrObsolete(data)?.toLowerCase() ?? 'non-present') > -1;
 
-const filterCategories = (lowerCaseCategories: string[], data: CoreUnitDto) => {
-  return (
-    lowerCaseCategories.length === 0 || data.category?.some((x) => lowerCaseCategories.indexOf(x.toLowerCase()) > -1)
-  );
-};
+const filterCategories = (lowerCaseCategories: string[], data: CoreUnitDto) =>
+  lowerCaseCategories.length === 0 || data.category?.some((x) => lowerCaseCategories.indexOf(x.toLowerCase()) > -1);
 
-const filterByNameAndCode = (searchText: string, data: CoreUnitDto) => {
-  return (
-    searchText.trim().length === 0 ||
-    data.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1 ||
-    data.code.toLowerCase().indexOf(searchText.toLowerCase()) > -1
-  );
-};
+const filterByNameAndCode = (searchText: string, data: CoreUnitDto) =>
+  searchText.trim().length === 0 ||
+  data.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1 ||
+  data.code.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
 
 export const filterData = ({
   filteredStatuses = [],

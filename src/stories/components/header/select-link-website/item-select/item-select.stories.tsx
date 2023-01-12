@@ -1,10 +1,10 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import ItemWebSite from './item-website';
 import Logo from '../../../svg/logo';
+import MakerBurn from '../../../svg/maker-burn';
 import Makerdao from '../../../svg/makerdao';
 import VotingPortal from '../../../svg/voting-portal';
-import MakerBurn from '../../../svg/maker-burn';
+import ItemWebSite from './item-website';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
   title: 'Components/General/ItemWebSite',

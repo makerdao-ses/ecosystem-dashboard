@@ -1,20 +1,20 @@
 import styled from '@emotion/styled';
-import CloseButton from '../../../components/close-button/close-button';
+import Skeleton from '@mui/material/Skeleton';
+import { useRouter } from 'next/router';
 import React, { useCallback } from 'react';
+import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
+import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
+import { goBack } from '../../../../core/utils/routing';
+import { capitalizeWordWithoutConvertLowerCase } from '../../../../core/utils/string.utils';
+import CloseButton from '../../../components/close-button/close-button';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import TextInput from '../../../components/text-input/text-input';
-import { ButtonWrapper } from '../../auth/login/login';
-import { useRouter } from 'next/router';
-import { useAuthContext } from '../../../../core/context/AuthContext';
-import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
-import { UserDTO } from '../../../../core/models/dto/auth.dto';
-import { useDeleteAccountMvvm } from './delete-account.mvvm';
-import { goBack } from '../../../../core/utils/routing';
-import { capitalizeWordWithoutConvertLowerCase } from '../../../../core/utils/string.utils';
 import { Spacer, UserLabel, Username } from '../../auth/change-password/change-password';
-import Skeleton from '@mui/material/Skeleton';
+import { ButtonWrapper } from '../../auth/login/login';
+import { useDeleteAccountMvvm } from './delete-account.mvvm';
+import type { UserDTO } from '../../../../core/models/dto/auth.dto';
 
 const DeleteAccount: React.FC<{ username?: string }> = ({ username }) => {
   const router = useRouter();

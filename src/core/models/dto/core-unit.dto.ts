@@ -1,6 +1,6 @@
-import { CuJobEnum } from '../../enums/cu-job.enum';
-import { CuStatusEnum } from '../../enums/cu-status.enum';
-import { UserDTO } from './auth.dto';
+import type { CuJobEnum } from '../../enums/cu-job.enum';
+import type { CuStatusEnum } from '../../enums/cu-status.enum';
+import type { UserDTO } from './auth.dto';
 
 export interface Mip40BudgetPeriodDto {
   budgetPeriodStart: string;

@@ -1,6 +1,6 @@
 import { request, gql } from 'graphql-request';
 import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
-import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 export const GET_CUS_WITH_ACTIVITY = gql`
   query CoreUnits {

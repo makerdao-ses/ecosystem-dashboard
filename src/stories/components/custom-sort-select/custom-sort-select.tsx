@@ -1,14 +1,15 @@
-import React, { CSSProperties, useEffect, useMemo, useRef, useState } from 'react';
 import styled from '@emotion/styled';
-import { SelectChevronDown } from '../svg/select-chevron-down';
-import useOutsideClick from '../../../core/utils/use-outside-click';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { SortItem } from './sort-item';
-import { CustomButton } from '../custom-button/custom-button';
-import TriangleUp from '../svg/triangle-up';
-import TriangleDown from '../svg/triangle-down';
 import { SortEnum } from '../../../core/enums/sort.enum';
+import useOutsideClick from '../../../core/utils/use-outside-click';
+import { CustomButton } from '../custom-button/custom-button';
+import { SelectChevronDown } from '../svg/select-chevron-down';
+import TriangleDown from '../svg/triangle-down';
+import TriangleUp from '../svg/triangle-up';
 import Triangles from '../svg/triangles';
+import { SortItem } from './sort-item';
+import type { CSSProperties } from 'react';
 
 export interface SortSelectItem {
   id: string;
@@ -52,11 +53,12 @@ export const CustomSortSelect = (props: Props) => {
   useEffect(() => {
     setActiveItem(props.activeItem);
     setSortStatus(props.sortStatus);
-  }, [popupVisible]);
+  }, [popupVisible, props.activeItem, props.sortStatus]);
 
-  const canReset = useMemo(() => {
-    return props.activeItem !== 0 || props.sortStatus !== SortEnum.Asc;
-  }, [props.activeItem, props.sortStatus]);
+  const canReset = useMemo(
+    () => props.activeItem !== 0 || props.sortStatus !== SortEnum.Asc,
+    [props.activeItem, props.sortStatus]
+  );
 
   const onReset = () => {
     setPopupVisible(false);

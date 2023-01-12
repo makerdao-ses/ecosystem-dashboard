@@ -1,6 +1,7 @@
-import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
+import React from 'react';
 import { LinkIcon } from '../svg/link-icon';
+import type { CSSProperties } from 'react';
 
 interface CustomLinkProps {
   children: JSX.Element | JSX.Element[] | string;
@@ -34,37 +35,35 @@ export const CustomLink = ({
   border = 'none',
   padding = '0px',
   ...props
-}: CustomLinkProps) => {
-  return (
-    <Container
-      padding={padding}
-      border={border}
-      href={props.href}
-      target={target}
-      style={{
-        pointerEvents: props.href ? 'all' : 'none',
-        ...props.style,
-      }}
-      fontSize={fontSize}
-      fontSizeMobile={props.fontSizeMobile}
-      fontWeight={fontWeight}
-      fontFamily={fontFamily}
-      onClick={(evt) => evt.stopPropagation()}
-    >
-      {props.children}
-      {withArrow && (
-        <LinkIcon
-          width={iconWidth}
-          height={iconHeight}
-          style={{
-            marginLeft,
-            ...styleIcon,
-          }}
-        />
-      )}
-    </Container>
-  );
-};
+}: CustomLinkProps) => (
+  <Container
+    padding={padding}
+    border={border}
+    href={props.href}
+    target={target}
+    style={{
+      pointerEvents: props.href ? 'all' : 'none',
+      ...props.style,
+    }}
+    fontSize={fontSize}
+    fontSizeMobile={props.fontSizeMobile}
+    fontWeight={fontWeight}
+    fontFamily={fontFamily}
+    onClick={(evt) => evt.stopPropagation()}
+  >
+    {props.children}
+    {withArrow && (
+      <LinkIcon
+        width={iconWidth}
+        height={iconHeight}
+        style={{
+          marginLeft,
+          ...styleIcon,
+        }}
+      />
+    )}
+  </Container>
+);
 
 const Container = styled.a<{
   fontSize: number;

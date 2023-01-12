@@ -1,26 +1,26 @@
-import React, { useCallback, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { Divider, useMediaQuery } from '@mui/material';
-import { getMarkdownInformation, getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-unit-about';
-import { getFTEsFromCoreUnit } from '../../../core/business-logic/core-units';
-import { getArrayParam, getStringParam } from '../../../core/utils/filters';
-import BigButton from '../../components/button/big-button/big-button';
-import CardInfoMember from '../../components/card-info-member/card-info-member';
-import RelateMips from '../../components/relate-mips/relate-mips';
-import TeamMember from '../../components/team-members/team-member';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
-import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
+import React, { useCallback, useMemo, useState } from 'react';
+import lightTheme from '../../../../styles/theme/light';
+import { getMarkdownInformation, getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-unit-about';
+import { getFTEsFromCoreUnit } from '../../../core/business-logic/core-units';
+import { useThemeContext } from '../../../core/context/ThemeContext';
+import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
+import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
+import { getArrayParam, getStringParam } from '../../../core/utils/filters';
+import { buildQueryString, toAbsoluteURL } from '../../../core/utils/url.utils';
+import BigButton from '../../components/button/big-button/big-button';
+import CardInfoMember from '../../components/card-info-member/card-info-member';
 import CardExpenses from '../../components/card-navegation/card-expenses';
 import CardSomeThingWrong from '../../components/card-navegation/card-somethig-wrong';
-import lightTheme from '../../../../styles/theme/light';
-import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
-import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
-import { useThemeContext } from '../../../core/context/ThemeContext';
-import { SEOHead } from '../../components/seo-head/seo-head';
-import { buildQueryString, toAbsoluteURL } from '../../../core/utils/url.utils';
+import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
 import MdViewerContainer from '../../components/markdown/md-view-container';
-import { ContributorCommitmentDto, CoreUnitDto, CuMipDto } from '../../../core/models/dto/core-unit.dto';
+import RelateMips from '../../components/relate-mips/relate-mips';
+import { SEOHead } from '../../components/seo-head/seo-head';
+import TeamMember from '../../components/team-members/team-member';
+import type { ContributorCommitmentDto, CoreUnitDto, CuMipDto } from '../../../core/models/dto/core-unit.dto';
 interface Props {
   coreUnits: CoreUnitDto[];
   cuAbout: CoreUnitDto;
@@ -110,13 +110,11 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
               <ContactInfoTitle isLight={isLight}>Contact Information</ContactInfoTitle>
               <ContainerCards>
                 {cuAbout &&
-                  cuAbout.contributorCommitment?.map((contributor: ContributorCommitmentDto, index: number) => {
-                    return (
-                      <CardInfoContainer key={index}>
-                        <CardInfoMember contributorCommitment={contributor} />
-                      </CardInfoContainer>
-                    );
-                  })}
+                  cuAbout.contributorCommitment?.map((contributor: ContributorCommitmentDto, index: number) => (
+                    <CardInfoContainer key={index}>
+                      <CardInfoMember contributorCommitment={contributor} />
+                    </CardInfoContainer>
+                  ))}
               </ContainerCards>
             </ContactInfoContainer>
             <Divider
@@ -127,13 +125,11 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
             <CardRelateMipsContainer>
               <TitleRelateMips isLight={isLight}>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
               <RelateMipCards>
-                {relateMipsOrder.map((mip: unknown, index: number) => {
-                  return (
-                    <RelateMipCard key={index}>
-                      <RelateMips relateMips={mip as CuMipDto} />
-                    </RelateMipCard>
-                  );
-                })}
+                {relateMipsOrder.map((mip: unknown, index: number) => (
+                  <RelateMipCard key={index}>
+                    <RelateMips relateMips={mip as CuMipDto} />
+                  </RelateMipCard>
+                ))}
                 {cuAbout?.cuMip?.length === 0 && (
                   <ContainerNoRelateMIps>There are not related MIPs</ContainerNoRelateMIps>
                 )}

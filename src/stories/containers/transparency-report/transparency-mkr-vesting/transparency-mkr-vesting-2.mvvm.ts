@@ -1,14 +1,15 @@
-import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
-import { DateTime } from 'luxon';
+import _ from 'lodash';
 import { useMemo } from 'react';
 import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
-import _ from 'lodash';
-import { InnerTableColumn, InnerTableRow } from '../../../components/advanced-inner-table/advanced-inner-table';
+import type { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
+import type { InnerTableColumn, InnerTableRow } from '../../../components/advanced-inner-table/advanced-inner-table';
+import type { DateTime } from 'luxon';
 
 export const useTransparencyMkrVesting2 = (currentMonth: DateTime, budgetStatements: BudgetStatementDto[]) => {
-  const currentBudgetStatement = useMemo(() => {
-    return budgetStatements?.find((bs) => bs.month === currentMonth.toFormat(API_MONTH_TO_FORMAT));
-  }, [currentMonth, budgetStatements]);
+  const currentBudgetStatement = useMemo(
+    () => budgetStatements?.find((bs) => bs.month === currentMonth.toFormat(API_MONTH_TO_FORMAT)),
+    [currentMonth, budgetStatements]
+  );
 
   const mkrVestings = useMemo(() => {
     if (!currentMonth || !budgetStatements || !budgetStatements.length) {
@@ -16,7 +17,7 @@ export const useTransparencyMkrVesting2 = (currentMonth: DateTime, budgetStateme
     }
 
     return currentBudgetStatement?.budgetStatementMKRVest ?? [];
-  }, [currentMonth, budgetStatements]);
+  }, [currentMonth, budgetStatements, currentBudgetStatement?.budgetStatementMKRVest]);
 
   const totalAmount = useMemo(() => {
     if (!currentMonth || !budgetStatements || !budgetStatements.length) {
@@ -24,7 +25,7 @@ export const useTransparencyMkrVesting2 = (currentMonth: DateTime, budgetStateme
     }
 
     return _.sumBy(currentBudgetStatement?.budgetStatementMKRVest ?? [], (mkr) => mkr.mkrAmount);
-  }, [currentMonth, budgetStatements]);
+  }, [currentMonth, budgetStatements, currentBudgetStatement?.budgetStatementMKRVest]);
 
   const totalOldAmount = useMemo(() => {
     if (!currentMonth || !budgetStatements || !budgetStatements.length) {
@@ -32,36 +33,40 @@ export const useTransparencyMkrVesting2 = (currentMonth: DateTime, budgetStateme
     }
 
     return _.sumBy(currentBudgetStatement?.budgetStatementMKRVest ?? [], (mkr) => mkr.mkrAmountOld);
-  }, [currentMonth, budgetStatements]);
+  }, [currentMonth, budgetStatements, currentBudgetStatement?.budgetStatementMKRVest]);
 
-  const FTEs = useMemo(() => {
-    return _.first(currentBudgetStatement?.budgetStatementFTEs)?.ftes ?? 'N/A';
-  }, [currentMonth, budgetStatements]);
+  const FTEs = useMemo(
+    () => _.first(currentBudgetStatement?.budgetStatementFTEs)?.ftes ?? 'N/A',
+    [currentBudgetStatement?.budgetStatementFTEs]
+  );
 
-  const mainTableColumns: InnerTableColumn[] = [
-    {
-      header: 'Vesting Date',
-      isCardHeader: true,
-    },
-    {
-      header: 'MKR Amount',
-      type: 'number',
-      align: 'right',
-    },
-    {
-      header: 'Last month',
-      type: 'number',
-      align: 'right',
-    },
-    {
-      header: 'Difference',
-      type: 'number',
-      align: 'right',
-    },
-    {
-      header: 'Reasons(s)',
-    },
-  ];
+  const mainTableColumns = useMemo(() => {
+    const mainTableColumns: InnerTableColumn[] = [
+      {
+        header: 'Vesting Date',
+        isCardHeader: true,
+      },
+      {
+        header: 'MKR Amount',
+        type: 'number',
+        align: 'right',
+      },
+      {
+        header: 'Last month',
+        type: 'number',
+        align: 'right',
+      },
+      {
+        header: 'Difference',
+        type: 'number',
+        align: 'right',
+      },
+      {
+        header: 'Reasons(s)',
+      },
+    ];
+    return mainTableColumns;
+  }, []);
 
   const mainTableItems: InnerTableRow[] = useMemo(() => {
     const result: InnerTableRow[] = [];
@@ -123,7 +128,7 @@ export const useTransparencyMkrVesting2 = (currentMonth: DateTime, budgetStateme
     }
 
     return result;
-  }, [currentMonth, budgetStatements]);
+  }, [mkrVestings, mainTableColumns, totalAmount, totalOldAmount]);
 
   return {
     mainTableColumns,

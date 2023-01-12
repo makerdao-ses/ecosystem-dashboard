@@ -1,15 +1,15 @@
-import React from 'react';
-import { Box, Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
 import styled from '@emotion/styled';
-import { CuTableColumnLinks } from '../cu-table-column-links/cu-table-column-links';
-import { getContributorCommitment, getLinksFromContributor } from '../../../core/business-logic/core-unit-about';
+import { Box, Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
 import { DateTime } from 'luxon';
-import { getColorJobPosition } from '../../../core/utils/color.utils';
+import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
+import { getContributorCommitment, getLinksFromContributor } from '../../../core/business-logic/core-unit-about';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { CustomPopover } from '../custom-popover/custom-popover';
-import { ContributorCommitmentDto } from '../../../core/models/dto/core-unit.dto';
+import { getColorJobPosition } from '../../../core/utils/color.utils';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
+import { CuTableColumnLinks } from '../cu-table-column-links/cu-table-column-links';
+import { CustomPopover } from '../custom-popover/custom-popover';
+import type { ContributorCommitmentDto } from '../../../core/models/dto/core-unit.dto';
 
 interface Props {
   contributorCommitment: ContributorCommitmentDto;

@@ -1,6 +1,6 @@
 /* eslint-disable spellcheck/spell-checker */
 /* eslint-disable @typescript-eslint/no-var-requires */
-const dictionary = require('./src/core/utils/dictionary.js');
+const dictionary = require('./src/core/utils/dictionary');
 module.exports = {
   env: {
     browser: true,
@@ -15,8 +15,9 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint', 'spellcheck'],
+  plugins: ['react', '@typescript-eslint', 'spellcheck', 'react-hooks'],
   rules: {
+    'react/jsx-filename-extension': ['error', { extensions: ['.jsx', '.tsx', '.js', '.ts'] }],
     'max-lines': [
       'error',
       {
@@ -45,6 +46,38 @@ module.exports = {
         minLength: 4,
       },
     ],
+    'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
+    'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
     'storybook/story-exports': 0, // destructuring exports are not implemented. Created an issue in the official repo
+    'arrow-body-style': ['error', 'as-needed'],
+    'react/self-closing-comp': [
+      'error',
+      {
+        component: true,
+        html: true,
+      },
+    ],
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': ['error'],
+    '@typescript-eslint/consistent-type-imports': [
+      'error',
+      {
+        prefer: 'type-imports',
+      },
+    ],
+    'import/order': [
+      'error',
+      {
+        groups: ['builtin', 'external', 'parent', 'sibling', 'index', 'object', 'type'],
+        pathGroups: [
+          {
+            pattern: '@/**/**',
+            group: 'parent',
+            position: 'before',
+          },
+        ],
+        alphabetize: { order: 'asc' },
+      },
+    ],
   },
 };

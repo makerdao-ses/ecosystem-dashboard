@@ -4,7 +4,6 @@ import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/button-type.enum';
-import { AuditorDto } from '../../../core/models/dto/core-unit.dto';
 import { MAKER_BURN_LINK } from '../../../core/utils/const';
 import { getShortCode } from '../../../core/utils/string.utils';
 import { DividerStyle } from '../../containers/cu-about-2/cu-about-container-2';
@@ -12,6 +11,7 @@ import InlineUser from '../../containers/transparency-report/common/inline-user/
 import { CustomButton } from '../custom-button/custom-button';
 import { CustomLink } from '../custom-link/custom-link';
 import InformationCard from './information-card';
+import type { AuditorDto } from '../../../core/models/dto/core-unit.dto';
 
 interface Props {
   onClickFinances: () => void;

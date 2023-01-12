@@ -1,9 +1,9 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import CardInfoMember from './card-info-member';
-import { CuJobEnum } from '../../../core/enums/cu-job.enum';
 import { CommitmentJob } from '../../../core/enums/CommitmentJob.enum';
-import { ContributorCommitmentDto } from '../../../core/models/dto/core-unit.dto';
+import CardInfoMember from './card-info-member';
+import type { CuJobEnum } from '../../../core/enums/cu-job.enum';
+import type { ContributorCommitmentDto } from '../../../core/models/dto/core-unit.dto';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
   title: 'Components/CUAbout/CardInfoMember',

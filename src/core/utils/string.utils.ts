@@ -1,7 +1,8 @@
 import { PermissionsEnum } from '../enums/permissions.enum';
 import { RoleEnum } from '../enums/role.enum';
-import { UserDTO, UserRole } from '../models/dto/auth.dto';
-import { BudgetStatementWalletDto, BudgetStatus, CommentsBudgetStatementDto } from '../models/dto/core-unit.dto';
+import { BudgetStatus } from '../models/dto/core-unit.dto';
+import type { UserDTO, UserRole } from '../models/dto/auth.dto';
+import type { BudgetStatementWalletDto, CommentsBudgetStatementDto } from '../models/dto/core-unit.dto';
 
 export const getTwoInitials = (name: string) => {
   const [, w1, w2] = /(\w+)[^a-zA-Z]*(\w*)?/.exec(name) ?? [];
@@ -22,9 +23,8 @@ export const formatAddressForOutput = (address: string | undefined) => {
   return `${address.slice(0, 5)}..${address.slice(address.length - 5, address.length)}`;
 };
 
-export const capitalizeWord = (word: string) => {
-  return word.toLowerCase().replace(/\w/, (firstLetter) => firstLetter.toUpperCase());
-};
+export const capitalizeWord = (word: string) =>
+  word.toLowerCase().replace(/\w/, (firstLetter) => firstLetter.toUpperCase());
 
 export const capitalizeSentence = (sentence: string) => {
   const words = sentence?.split(' ');
@@ -32,11 +32,10 @@ export const capitalizeSentence = (sentence: string) => {
   return words?.map((w) => capitalizeWord(w)).join(' ');
 };
 
-export const formatNumber = (number: number) => {
-  return number?.toLocaleString('en-US', {
+export const formatNumber = (number: number) =>
+  number?.toLocaleString('en-US', {
     minimumFractionDigits: 2,
   });
-};
 
 export const getShortCode = (code: string) => {
   if (!code) return '';

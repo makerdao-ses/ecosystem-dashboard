@@ -1,21 +1,21 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React from 'react';
+import FooterDark from '../../../../public/assets/img/bg-footer-dark.png';
+import FooterLight from '../../../../public/assets/img/bg-footer-light.png';
+import MobileFooterDark from '../../../../public/assets/img/bg-footer-mobile-dark.png';
+import MobileFooterLight from '../../../../public/assets/img/bg-footer-mobile.png';
+import TabletFooterDark from '../../../../public/assets/img/bg-footer-tablet-dark.png';
+import TabletFooterLight from '../../../../public/assets/img/bg-footer-tablet.png';
+import lightTheme from '../../../../styles/theme/light';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 import Logo from '../svg/logo';
 import SesLogo from '../svg/ses-logo';
 import DescriptionFooter from './description-footer';
 import FooterContact from './footer-contact';
 import { iconsContact, iconsSupport } from './iconsData';
-import { useThemeContext } from '../../../core/context/ThemeContext';
-import lightTheme from '../../../../styles/theme/light';
-import Image from 'next/image';
-import FooterLight from '../../../../public/assets/img/bg-footer-light.png';
-import FooterDark from '../../../../public/assets/img/bg-footer-dark.png';
-import MobileFooterLight from '../../../../public/assets/img/bg-footer-mobile.png';
-import MobileFooterDark from '../../../../public/assets/img/bg-footer-mobile-dark.png';
-import TabletFooterLight from '../../../../public/assets/img/bg-footer-tablet.png';
-import TabletFooterDark from '../../../../public/assets/img/bg-footer-tablet-dark.png';
-import { useMediaQuery } from '@mui/material';
-import { useRouter } from 'next/router';
 
 export interface LinkInterface {
   title: string;

@@ -1,16 +1,17 @@
 import styled from '@emotion/styled';
 import { Divider, IconButton, Menu, MenuItem, Typography } from '@mui/material';
+import Link from 'next/link';
 import React, { useEffect, useMemo, useState } from 'react';
-import { ThemeMode, useThemeContext } from '../../../../core/context/ThemeContext';
+import { useThemeContext } from '../../../../core/context/ThemeContext';
 import ArrowSelect from '../../svg/arrow-select';
 import ArrowSelectUp from '../../svg/arrow-select-up';
-import ItemWebSite from './item-select/item-website';
-import { WebSiteLinks } from './menu-items';
-import { ThreeDots } from '../../svg/three-dots';
 import { Close } from '../../svg/close';
 import MoonMode from '../../svg/theme-mode';
+import { ThreeDots } from '../../svg/three-dots';
 import ToggleDarkMode from '../../svg/toggle-dark';
-import Link from 'next/link';
+import ItemWebSite from './item-select/item-website';
+import type { ThemeMode } from '../../../../core/context/ThemeContext';
+import type { WebSiteLinks } from './menu-items';
 
 interface Props {
   links: WebSiteLinks[] | [];
@@ -42,23 +43,26 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
     setPopup(!popup);
   };
 
-  useEffect(() => {
-    return function setScroll() {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      document.querySelector('body').style.overflow = 'auto';
-    };
-  });
+  useEffect(
+    () =>
+      function setScroll() {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        document.querySelector('body').style.overflow = 'auto';
+      }
+  );
 
-  const background = useMemo(() => {
-    return themeMode === 'light' && open
-      ? '#B6EDE7'
-      : themeMode === 'light' && !open
-      ? '#ECF1F3'
-      : themeMode === 'dark' && open
-      ? '#31424E'
-      : '#31424E';
-  }, [themeMode, open]);
+  const background = useMemo(
+    () =>
+      themeMode === 'light' && open
+        ? '#B6EDE7'
+        : themeMode === 'light' && !open
+        ? '#ECF1F3'
+        : themeMode === 'dark' && open
+        ? '#31424E'
+        : '#31424E',
+    [themeMode, open]
+  );
 
   return (
     <div>
@@ -117,45 +121,43 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
         <StyleDescription isLight={isLight}>
           Websites to gather all relevant data and information for Maker Governance.
         </StyleDescription>
-        {links?.map((link: WebSiteLinks, i: number) => {
-          return (
-            <MenuItem
-              disableGutters={true}
-              disableTouchRipple={true}
-              sx={{
-                paddingBottom: '16px',
-                paddingTop: '0px',
-                '&:hover': {
-                  background: 'none',
-                  cursor: 'default',
-                },
-                '&:last-child': {
-                  paddingBottom: '0px',
-                },
-              }}
-              key={`key-${i}`}
-            >
-              <ItemWebSite
-                height={link.height}
-                title={link.title || ''}
-                logo={link.logo}
-                background={link.background}
-                color={link.color}
-                fontSize={link.fontSize}
-                fontWeight={link.fontWeight}
-                link={link.link}
-                fontFamily={link.fontFamily}
-                padding={link.padding}
-                subtract={link.subtract}
-                description={link.description}
-                onClick={onClick(link.link)}
-                letterSpacing={link.letterSpacing}
-                lineHeight={link.lineHeight}
-                colorDark={link.colorDark}
-              />
-            </MenuItem>
-          );
-        })}
+        {links?.map((link: WebSiteLinks, i: number) => (
+          <MenuItem
+            disableGutters={true}
+            disableTouchRipple={true}
+            sx={{
+              paddingBottom: '16px',
+              paddingTop: '0px',
+              '&:hover': {
+                background: 'none',
+                cursor: 'default',
+              },
+              '&:last-child': {
+                paddingBottom: '0px',
+              },
+            }}
+            key={`key-${i}`}
+          >
+            <ItemWebSite
+              height={link.height}
+              title={link.title || ''}
+              logo={link.logo}
+              background={link.background}
+              color={link.color}
+              fontSize={link.fontSize}
+              fontWeight={link.fontWeight}
+              link={link.link}
+              fontFamily={link.fontFamily}
+              padding={link.padding}
+              subtract={link.subtract}
+              description={link.description}
+              onClick={onClick(link.link)}
+              letterSpacing={link.letterSpacing}
+              lineHeight={link.lineHeight}
+              colorDark={link.colorDark}
+            />
+          </MenuItem>
+        ))}
       </Menu>
       <ThreeDotsButton isLight={isLight} onClick={togglePopup}>
         {<ThreeDots fill="#231536" fillDark="#EDEFFF" />}

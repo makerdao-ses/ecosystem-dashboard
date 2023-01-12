@@ -1,8 +1,8 @@
-import React from 'react';
-import Image from 'next/image';
 import styled from '@emotion/styled';
-import PlaceholderImg from '../../../../public/assets/img/table-placeholder.png';
+import Image from 'next/image';
+import React from 'react';
 import PlaceholderImgDark from '../../../../public/assets/img/table-placeholder-dark.png';
+import PlaceholderImg from '../../../../public/assets/img/table-placeholder.png';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 
 export const TablePlaceholder = () => {

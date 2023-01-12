@@ -1,15 +1,13 @@
-import React from 'react';
 import styled from '@emotion/styled';
-import GenericCommentCard from './generic-comment-card';
+import React from 'react';
 import lightTheme from '../../../../../styles/theme/light';
+import GenericCommentCard from './generic-comment-card';
 
-const NoComments: React.FC = () => {
-  return (
-    <GenericCommentCard opacity={0.5}>
-      <Title>No Data Provided</Title>
-    </GenericCommentCard>
-  );
-};
+const NoComments: React.FC = () => (
+  <GenericCommentCard opacity={0.5}>
+    <Title>No Data Provided</Title>
+  </GenericCommentCard>
+);
 
 export default NoComments;
 

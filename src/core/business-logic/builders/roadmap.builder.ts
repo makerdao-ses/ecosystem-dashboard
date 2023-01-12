@@ -1,4 +1,4 @@
-import { RoadMapDto } from '../../models/dto/core-unit.dto';
+import type { RoadMapDto } from '../../models/dto/core-unit.dto';
 
 export class RoadmapBuilder {
   private readonly _roadmap: RoadMapDto;

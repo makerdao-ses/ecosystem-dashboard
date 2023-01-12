@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
+import type React from 'react';
 
 const useMenuUser = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

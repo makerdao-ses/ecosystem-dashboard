@@ -1,6 +1,6 @@
-import { ComponentMeta } from '@storybook/react';
-import NoComments from './no-comments';
 import { createThemeModeVariants } from '../../../../core/utils/storybook';
+import NoComments from './no-comments';
+import type { ComponentMeta } from '@storybook/react';
 
 export default {
   title: 'Components/AuditorComments/NoComments',

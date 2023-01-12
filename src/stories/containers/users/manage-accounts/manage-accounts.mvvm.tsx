@@ -3,9 +3,9 @@ import { useRouter } from 'next/router';
 import { useState, useCallback, useMemo } from 'react';
 import useSWR from 'swr';
 import lightTheme from '../../../../../styles/theme/light';
-import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import { fetcher } from '../../../../core/utils/fetcher';
 import { QUERY_USERS } from '../users-manager/user-manager.api';
+import type { UserDTO } from '../../../../core/models/dto/auth.dto';
 
 const useManageAccountsViewModel = () => {
   const router = useRouter();
@@ -38,9 +38,9 @@ const useManageAccountsViewModel = () => {
 
   const filteredData = useMemo(() => {
     if (!searchValue) return users;
-    const result = users.filter((user) => {
-      return user.username.toLocaleLowerCase().indexOf(searchValue.toLocaleLowerCase()) > -1;
-    });
+    const result = users.filter(
+      (user) => user.username.toLocaleLowerCase().indexOf(searchValue.toLocaleLowerCase()) > -1
+    );
     return result;
   }, [searchValue, users]);
 

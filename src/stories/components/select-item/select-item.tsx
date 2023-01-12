@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
 import styled from '@emotion/styled';
+import React, { useState } from 'react';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 import CheckboxOff from '../svg/checkbox-off';
 import CheckboxOn from '../svg/checkbox-on';
-import { useThemeContext } from '../../../core/context/ThemeContext';
-import { SelectItemProps } from '../custom-multi-select/custom-multi-select';
+import type { SelectItemProps } from '../custom-multi-select/custom-multi-select';
 
 export const SelectItem = ({ checked = false, ...props }: SelectItemProps) => {
   const { isLight } = useThemeContext();

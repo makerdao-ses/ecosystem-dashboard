@@ -1,13 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import {
+import { fetchCoreUnitByCode } from './cu-about.api';
+import type {
   BudgetStatementDto,
   ContributorCommitmentDto,
   CoreUnitDto,
   RoadMapDto,
   SocialMediaChannelDto,
 } from '../../../core/models/dto/core-unit.dto';
-import { RootState } from '../../../core/store/store';
-import { fetchCoreUnitByCode } from './cu-about.api';
+import type { RootState } from '../../../core/store/store';
 
 export enum status {
   idle = 'idle',
@@ -46,9 +46,9 @@ export const initialState: CurrentCoreUnitAbout = {
   },
 };
 
-export const loadCoreUnitAbout = createAsyncThunk('CoreUnit/loadCoreUnitABout', (coreUnitId: string) => {
-  return fetchCoreUnitByCode(coreUnitId);
-});
+export const loadCoreUnitAbout = createAsyncThunk('CoreUnit/loadCoreUnitABout', (coreUnitId: string) =>
+  fetchCoreUnitByCode(coreUnitId)
+);
 
 export const cuAboutSlice = createSlice({
   name: 'cuAbout',
@@ -73,11 +73,7 @@ export const cuAboutSlice = createSlice({
   },
 });
 
-export const cuAboutSelector = (state: RootState) => {
-  return state.cuAbout;
-};
-export const contributorCommitmentSelector = (state: RootState) => {
-  return cuAboutSelector(state).cuAbout.contributorCommitment;
-};
+export const cuAboutSelector = (state: RootState) => state.cuAbout;
+export const contributorCommitmentSelector = (state: RootState) => cuAboutSelector(state).cuAbout.contributorCommitment;
 export const { clearCoreUNit } = cuAboutSlice.actions;
 export default cuAboutSlice.reducer;

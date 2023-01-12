@@ -1,8 +1,9 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../../../core/store/store';
-import { fetchCoreUnits } from './cu-table.api';
-import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { SortEnum } from '../../../core/enums/sort.enum';
+import { fetchCoreUnits } from './cu-table.api';
+import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import type { RootState } from '../../../core/store/store';
+import type { PayloadAction } from '@reduxjs/toolkit';
 
 export interface CuTableState {
   items: CoreUnitDto[];
@@ -20,9 +21,7 @@ const initialState: CuTableState = {
   headersSort: [SortEnum.Asc, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral],
 };
 
-export const loadCuTableItemsAsync = createAsyncThunk('cuTable/loadItems', async () => {
-  return await fetchCoreUnits();
-});
+export const loadCuTableItemsAsync = createAsyncThunk('cuTable/loadItems', async () => await fetchCoreUnits());
 
 export const cuTableSlice = createSlice({
   name: 'cuTable',

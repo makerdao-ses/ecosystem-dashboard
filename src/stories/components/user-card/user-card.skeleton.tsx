@@ -1,9 +1,9 @@
-import React from 'react';
 import styled from '@emotion/styled';
-import Skeleton from '@mui/material/Skeleton';
 import { Divider } from '@mui/material';
-import { useThemeContext } from '../../../core/context/ThemeContext';
+import Skeleton from '@mui/material/Skeleton';
+import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 const UserCardSkeleton: React.FC = () => {
   const { isLight } = useThemeContext();

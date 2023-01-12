@@ -1,14 +1,14 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useAuthContext } from '../../../../../core/context/AuthContext';
 import { useCoreUnitContext } from '../../../../../core/context/CoreUnitContext';
-import { UserDTO } from '../../../../../core/models/dto/auth.dto';
-import {
+import { BudgetStatus } from '../../../../../core/models/dto/core-unit.dto';
+import { isActivity } from '../../../../../core/utils/types-helpers';
+import type { UserDTO } from '../../../../../core/models/dto/auth.dto';
+import type {
   ActivityFeedDto,
   BudgetStatementDto,
-  BudgetStatus,
   CommentsBudgetStatementDto,
 } from '../../../../../core/models/dto/core-unit.dto';
-import { isActivity } from '../../../../../core/utils/types-helpers';
 
 const useCommentsContainer = (
   comments: (CommentsBudgetStatementDto | ActivityFeedDto)[],

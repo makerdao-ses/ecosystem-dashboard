@@ -1,8 +1,8 @@
-import React, { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import styled from '@emotion/styled';
+import React, { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import ExpenseReportStatus from '../common/expense-report-status/expense-report-status';
 import { BudgetStatus } from '../../../../core/models/dto/core-unit.dto';
+import ExpenseReportStatus from '../common/expense-report-status/expense-report-status';
 
 export type BudgetStatusSelectProps = {
   availableStatuses?: BudgetStatus[];
@@ -14,9 +14,7 @@ const BudgetStatusSelect: React.FC<BudgetStatusSelectProps> = ({ availableStatus
   const { isLight } = useThemeContext();
   const menuRef = useRef<HTMLDivElement>(null);
   const [opened, setOpened] = useState<boolean>(false);
-  const statuses = useMemo<BudgetStatus[]>(() => {
-    return availableStatuses || Object.values(BudgetStatus);
-  }, [availableStatuses]);
+  const statuses = useMemo<BudgetStatus[]>(() => availableStatuses || Object.values(BudgetStatus), [availableStatuses]);
 
   const [selectedStatus, setSelectedStatus] = useState<BudgetStatus>(selected || BudgetStatus.Draft);
 

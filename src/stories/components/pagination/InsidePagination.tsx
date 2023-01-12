@@ -1,9 +1,9 @@
-import * as React from 'react';
-import Typography from '@mui/material/Typography';
-import ArrowRight from '../svg/ArrowRight';
-import ArrowLeft from '../svg/ArrowLeft';
 import styled from '@emotion/styled';
+import Typography from '@mui/material/Typography';
+import * as React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import ArrowLeft from '../svg/ArrowLeft';
+import ArrowRight from '../svg/ArrowRight';
 
 interface Props {
   count: number;

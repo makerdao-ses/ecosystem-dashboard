@@ -2,10 +2,10 @@ import styled from '@emotion/styled';
 import { Divider } from '@mui/material';
 import React from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { ThemeType } from '../../../../core/enums/theme.enum';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../../core/utils/const';
 import { CustomLink } from '../../custom-link/custom-link';
 import SwitcherButton from '../swtich-buttom';
+import type { ThemeType } from '../../../../core/enums/theme.enum';
 
 interface Props {
   toggleTheme: () => void;

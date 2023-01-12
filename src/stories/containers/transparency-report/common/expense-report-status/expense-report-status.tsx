@@ -1,8 +1,8 @@
-import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
+import React, { useMemo } from 'react';
 import { useThemeContext } from '../../../../../core/context/ThemeContext';
-import { getExpenseReportStatusColor } from '../../../../../core/utils/color.utils';
 import { BudgetStatus } from '../../../../../core/models/dto/core-unit.dto';
+import { getExpenseReportStatusColor } from '../../../../../core/utils/color.utils';
 
 export type ExpenseReportStatusProps = {
   status: BudgetStatus;
@@ -10,9 +10,7 @@ export type ExpenseReportStatusProps = {
 
 const ExpenseReportStatus: React.FC<ExpenseReportStatusProps> = ({ status = BudgetStatus.Draft, ...rest }) => {
   const { isLight } = useThemeContext();
-  const variantColor = useMemo(() => {
-    return getExpenseReportStatusColor(status);
-  }, [status]);
+  const variantColor = useMemo(() => getExpenseReportStatusColor(status), [status]);
 
   return (
     <ExpenseReportStatusStyled isLight={isLight} variantColorSet={variantColor} {...rest}>

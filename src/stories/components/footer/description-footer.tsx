@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import React, { useCallback } from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { LinkInterface } from './footer';
+import type { LinkInterface } from './footer';
 
 interface Props {
   title: string;
@@ -19,14 +19,14 @@ const DescriptionFooter = ({ title, children, style = {} }: Props) => {
     (url: string) => () => {
       router.push(url);
     },
-    []
+    [router]
   );
   return (
     <div style={style}>
       <StyleTitle isLight={isLight}>{title}</StyleTitle>
       {children &&
-        children.map((item, index) => {
-          return item.isNotLink ? (
+        children.map((item, index) =>
+          item.isNotLink ? (
             <CookiesLink isLight={isLight} onClick={HandleOnClick(item.url)} key={index}>
               {item.title}
             </CookiesLink>
@@ -34,8 +34,8 @@ const DescriptionFooter = ({ title, children, style = {} }: Props) => {
             <StyleChildren key={item.title} href={item.url} target={item.target || '_blank'} isLight={isLight}>
               {item.title}
             </StyleChildren>
-          );
-        })}
+          )
+        )}
     </div>
   );
 };

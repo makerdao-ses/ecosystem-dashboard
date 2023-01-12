@@ -1,12 +1,12 @@
-import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
+import React, { useCallback } from 'react';
+import lightTheme from '../../../../../styles/theme/light';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { CustomButton } from '../../../components/custom-button/custom-button';
+import { ButtonType } from '../../../../core/enums/button-type.enum';
 import { MAKER_BURN_LINK } from '../../../../core/utils/const';
 import { getShortCode } from '../../../../core/utils/string.utils';
-import { ButtonType } from '../../../../core/enums/button-type.enum';
-import { useMediaQuery } from '@mui/material';
-import lightTheme from '../../../../../styles/theme/light';
+import { CustomButton } from '../../../components/custom-button/custom-button';
 
 interface Props {
   breakdown?: boolean;
@@ -19,7 +19,7 @@ export const TransparencyEmptyTable = ({ breakdown = false, longCode }: Props) =
 
   const handleClickMakerburn = useCallback(() => {
     window.open(`${MAKER_BURN_LINK}/${longCode}`, '_blank');
-  }, []);
+  }, [longCode]);
 
   return (
     <>

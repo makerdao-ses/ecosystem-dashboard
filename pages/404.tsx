@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import { NextPage } from 'next';
 import { useThemeContext } from '../src/core/context/ThemeContext';
 import CardNotFoundPage from '../src/stories/components/404/not-found-component-404';
 import lightTheme from '../styles/theme/light';
+import type { NextPage } from 'next';
 
 const NotFoundPage: NextPage = () => {
   const { isLight } = useThemeContext();

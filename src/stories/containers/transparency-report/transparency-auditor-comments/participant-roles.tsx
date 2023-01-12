@@ -1,9 +1,9 @@
-import React from 'react';
 import styled from '@emotion/styled';
-import { useThemeContext } from '../../../../core/context/ThemeContext';
+import React from 'react';
 import lightTheme from '../../../../../styles/theme/light';
-import { UserDTO } from '../../../../core/models/dto/auth.dto';
+import { useThemeContext } from '../../../../core/context/ThemeContext';
 import InlineUser from '../common/inline-user/inline-user';
+import type { UserDTO } from '../../../../core/models/dto/auth.dto';
 
 export type ParticipantRolesProps = {
   coreUnitCode: string;

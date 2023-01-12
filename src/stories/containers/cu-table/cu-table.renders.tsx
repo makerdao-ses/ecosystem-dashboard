@@ -13,7 +13,6 @@ import {
   getSubmissionDateFromCuMip,
   getStautsMip39AccetedOrObsolete,
 } from '../../../core/business-logic/core-units';
-import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import { getShortCode } from '../../../core/utils/string.utils';
 import { CoreUnitCard } from '../../components/core-unit-card/core-unit-card';
 import { CuTableColumnExpenditures } from '../../components/cu-table-column-expenditures/cu-table-column-expenditures';
@@ -21,6 +20,7 @@ import { CuTableColumnLastModified } from '../../components/cu-table-column-last
 import { CuTableColumnLinks } from '../../components/cu-table-column-links/cu-table-column-links';
 import { CuTableColumnSummary } from '../../components/cu-table-column-summary/cu-table-column-summary';
 import { CuTableColumnTeamMember } from '../../components/cu-table-column-team-member/cu-table-column-team-member';
+import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 export const renderSummary = (coreUnit: CoreUnitDto) => {
   if (!coreUnit) return <CuTableColumnSummary isLoading />;

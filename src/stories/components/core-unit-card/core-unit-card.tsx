@@ -1,7 +1,9 @@
-import React, { useMemo } from 'react';
-import Link from 'next/link';
 import styled from '@emotion/styled';
-import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import Skeleton from '@mui/material/Skeleton';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useMemo } from 'react';
+import lightTheme from '../../../../styles/theme/light';
 import {
   getBudgetCapsFromCoreUnit,
   getExpenditureValueFromCoreUnit,
@@ -17,19 +19,17 @@ import {
   getSubmissionDateFromCuMip,
   getStautsMip39AccetedOrObsolete,
 } from '../../../core/business-logic/core-units';
-import { getShortCode } from '../../../core/utils/string.utils';
-import { CuTableColumnSummary } from '../cu-table-column-summary/cu-table-column-summary';
-import { CuTableColumnExpenditures } from '../cu-table-column-expenditures/cu-table-column-expenditures';
-import { CuTableColumnTeamMember } from '../cu-table-column-team-member/cu-table-column-team-member';
-import { CuTableColumnLinks } from '../cu-table-column-links/cu-table-column-links';
-import { CategoryChip } from '../category-chip/category-chip';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { CategoriesSkeleton } from './categories-skeleton';
-import Skeleton from '@mui/material/Skeleton';
+import { getShortCode } from '../../../core/utils/string.utils';
 import { buildQueryString } from '../../../core/utils/url.utils';
-import { useRouter } from 'next/router';
-import lightTheme from '../../../../styles/theme/light';
+import { CategoryChip } from '../category-chip/category-chip';
+import { CuTableColumnExpenditures } from '../cu-table-column-expenditures/cu-table-column-expenditures';
 import { CuTableColumnLastModified } from '../cu-table-column-last-modified/cu-table-column-last-modified';
+import { CuTableColumnLinks } from '../cu-table-column-links/cu-table-column-links';
+import { CuTableColumnSummary } from '../cu-table-column-summary/cu-table-column-summary';
+import { CuTableColumnTeamMember } from '../cu-table-column-team-member/cu-table-column-team-member';
+import { CategoriesSkeleton } from './categories-skeleton';
+import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 interface CoreUnitCardProps {
   coreUnit: CoreUnitDto;
@@ -37,6 +37,8 @@ interface CoreUnitCardProps {
 }
 
 export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
+  const router = useRouter();
+  const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
   const { isLight } = useThemeContext();
   if (isLoading) {
     return (
@@ -83,9 +85,6 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
       </Container>
     );
   }
-
-  const router = useRouter();
-  const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
 
   return (
     <CuCard>

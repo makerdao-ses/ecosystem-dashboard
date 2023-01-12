@@ -1,16 +1,16 @@
-import React from 'react';
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import { DateTime } from 'luxon';
-import { CustomPopover } from '../custom-popover/custom-popover';
-import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
-import { StatusChip } from '../status-chip/status-chip';
+import React from 'react';
+import lightTheme from '../../../../styles/theme/light';
+import { useThemeContext } from '../../../core/context/ThemeContext';
+import { CategoryChip } from '../category-chip/category-chip';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
 import { CustomLink } from '../custom-link/custom-link';
-import { useThemeContext } from '../../../core/context/ThemeContext';
+import { CustomPopover } from '../custom-popover/custom-popover';
+import { StatusChip } from '../status-chip/status-chip';
 import { ColumnSummarySkeleton } from './cu-table-column-summary-skeleton';
-import { useMediaQuery } from '@mui/material';
-import lightTheme from '../../../../styles/theme/light';
-import { CategoryChip } from '../category-chip/category-chip';
+import type { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 
 interface CuTableColumnSummaryProps {
   title?: string;
@@ -63,11 +63,12 @@ export const CuTableColumnSummary = ({
   hasPopup = true,
   ...props
 }: CuTableColumnSummaryProps) => {
+  const { isLight } = useThemeContext();
+  const upPhone = useMediaQuery(lightTheme.breakpoints.up('table_834'));
   if (isLoading) {
     return <ColumnSummarySkeleton />;
   }
-  const { isLight } = useThemeContext();
-  const upPhone = useMediaQuery(lightTheme.breakpoints.up('table_834'));
+
   return (
     <Container onClick={props.onClick} style={props.style}>
       <CircleContainer>

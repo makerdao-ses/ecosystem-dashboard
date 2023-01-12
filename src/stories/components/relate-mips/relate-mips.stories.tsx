@@ -1,8 +1,8 @@
 import React from 'react';
-import RelateMips from './relate-mips';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
-import { CuMipDto } from '../../../core/models/dto/core-unit.dto';
+import RelateMips from './relate-mips';
+import type { CuMipDto } from '../../../core/models/dto/core-unit.dto';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
   title: 'Components/CUAbout/RelateMips',

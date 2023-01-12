@@ -1,5 +1,5 @@
-import React from 'react';
 import styled from '@emotion/styled';
+import React from 'react';
 import { useThemeContext } from '../../../../../core/context/ThemeContext';
 import AvatarPlaceholder from '../../../../components/svg/avatar-placeholder';
 

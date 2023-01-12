@@ -1,25 +1,25 @@
-import React from 'react';
 import styled from '@emotion/styled';
 import { Typography, useMediaQuery } from '@mui/material';
-import { DateTime } from 'luxon';
-import { CuTableColumnLinks } from '../cu-table-column-links/cu-table-column-links';
-import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
-import { StatusChip } from '../status-chip/status-chip';
-import { CategoryChip } from '../category-chip/category-chip';
-import { getMipsStatus, getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-unit-about';
 import _ from 'lodash';
-import { CircleAvatar } from '../circle-avatar/circle-avatar';
-import { CoreUnitDto, CuMipDto } from '../../../core/models/dto/core-unit.dto';
-import { getShortCode } from '../../../core/utils/string.utils';
-import { CustomLink } from '../custom-link/custom-link';
+import { DateTime } from 'luxon';
+import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
-import { useThemeContext } from '../../../core/context/ThemeContext';
+import { getMipsStatus, getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-unit-about';
 import {
   getLatestMip39FromCoreUnit,
   getLinksFromCoreUnit,
   getStautsMip39AccetedOrObsolete,
   getSubmissionDateFromCuMip,
 } from '../../../core/business-logic/core-units';
+import { useThemeContext } from '../../../core/context/ThemeContext';
+import { getShortCode } from '../../../core/utils/string.utils';
+import { CategoryChip } from '../category-chip/category-chip';
+import { CircleAvatar } from '../circle-avatar/circle-avatar';
+import { CuTableColumnLinks } from '../cu-table-column-links/cu-table-column-links';
+import { CustomLink } from '../custom-link/custom-link';
+import { StatusChip } from '../status-chip/status-chip';
+import type { CuStatusEnum } from '../../../core/enums/cu-status.enum';
+import type { CoreUnitDto, CuMipDto } from '../../../core/models/dto/core-unit.dto';
 
 interface Props {
   coreUnitAbout?: CoreUnitDto;

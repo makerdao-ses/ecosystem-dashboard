@@ -1,11 +1,11 @@
-import React from 'react';
 import styled from '@emotion/styled';
+import isEmpty from 'lodash/isEmpty';
+import React from 'react';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CustomBarChart } from '../custom-bar-chart/custom-bar-chart';
 import { CustomPopover } from '../custom-popover/custom-popover';
-import { CustomChartItemModel } from '../../../core/models/custom-chart-item.model';
-import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ColumnExpendituresSkeleton } from './cu-table-column-expenditures-skeleton';
-import isEmpty from 'lodash/isEmpty';
+import type { CustomChartItemModel } from '../../../core/models/custom-chart-item.model';
 
 interface CuTableColumnExpendituresProps {
   value?: number;

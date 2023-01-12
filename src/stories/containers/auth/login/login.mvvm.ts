@@ -25,7 +25,7 @@ export const useLoginMvvm = () => {
 
   useEffect(() => {
     clearCredentials && clearCredentials();
-  }, []);
+  }, [clearCredentials]);
 
   const form = useFormik({
     initialValues: {

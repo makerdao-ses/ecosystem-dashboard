@@ -1,12 +1,12 @@
-import {
+import { BudgetStatus } from '../../models/dto/core-unit.dto';
+import { CommentBuilder } from './comment.builder';
+import { UserBuilder } from './user.builder';
+import type {
   BudgetStatementDto,
   BudgetStatementFteDto,
   BudgetStatementWalletDto,
-  BudgetStatus,
   CommentsBudgetStatementDto,
 } from '../../models/dto/core-unit.dto';
-import { CommentBuilder } from './comment.builder';
-import { UserBuilder } from './user.builder';
 
 export class BudgetStatementBuilder {
   private readonly _budgetStatement: BudgetStatementDto;

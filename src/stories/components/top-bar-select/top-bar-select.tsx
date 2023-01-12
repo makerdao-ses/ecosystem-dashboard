@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { SelectChevronDown } from '../svg/select-chevron-down';
-import { Close } from '../svg/close';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
 import { CustomLink } from '../custom-link/custom-link';
 import menuItems from '../header/menu-items';
-import Link from 'next/link';
-import { useThemeContext } from '../../../core/context/ThemeContext';
-import { useRouter } from 'next/router';
+import { Close } from '../svg/close';
+import { SelectChevronDown } from '../svg/select-chevron-down';
 
 interface TopBarSelectProps {
   selectedOption: JSX.Element | string;

@@ -1,7 +1,8 @@
-import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
-import { useThemeContext } from '../../../core/context/ThemeContext';
 import { useRouter } from 'next/router';
+import React from 'react';
+import { useThemeContext } from '../../../core/context/ThemeContext';
+import type { CSSProperties } from 'react';
 
 export interface TabItem {
   item: string | JSX.Element;

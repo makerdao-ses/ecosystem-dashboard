@@ -2,9 +2,9 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
-import { SelectItemProps } from '../custom-multi-select/custom-multi-select';
 import { Container } from '../select-item/select-item';
 import Check from '../svg/check';
+import type { SelectItemProps } from '../custom-multi-select/custom-multi-select';
 
 export default ({ checked = false, ...props }: SelectItemProps) => {
   const { isLight } = useThemeContext();

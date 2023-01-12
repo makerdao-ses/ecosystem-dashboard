@@ -1,9 +1,10 @@
-import React, { CSSProperties } from 'react';
-import ArrowUp from '../svg/arrow-up';
-import ArrowDown from '../svg/arrow-down';
 import styled from '@emotion/styled';
-import { SortEnum } from '../../../core/enums/sort.enum';
+import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { SortEnum } from '../../../core/enums/sort.enum';
+import ArrowDown from '../svg/arrow-down';
+import ArrowUp from '../svg/arrow-up';
+import type { CSSProperties } from 'react';
 
 export interface CustomTableHeaderProps {
   state: SortEnum;

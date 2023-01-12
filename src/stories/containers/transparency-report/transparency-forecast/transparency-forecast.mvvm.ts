@@ -1,13 +1,13 @@
-import { DateTime } from 'luxon';
-import {
+import _ from 'lodash';
+import { useMemo } from 'react';
+import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
+import { capitalizeSentence } from '../../../../core/utils/string.utils';
+import type {
   BudgetStatementDto,
   BudgetStatementLineItemDto,
   BudgetStatementWalletDto,
 } from '../../../../core/models/dto/core-unit.dto';
-import _ from 'lodash';
-import { useMemo } from 'react';
-import { capitalizeSentence } from '../../../../core/utils/string.utils';
-import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
+import type { DateTime } from 'luxon';
 
 export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetStatements: BudgetStatementDto[]) => {
   const firstMonth = useMemo(() => currentMonth.plus({ month: 1 }), [currentMonth]);
@@ -27,7 +27,7 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetSt
     result.push('External Links');
 
     return result;
-  }, [currentMonth]);
+  }, [firstMonth, secondMonth, thirdMonth]);
 
   const wallets: BudgetStatementWalletDto[] = useMemo(() => {
     const dict: { [id: string]: BudgetStatementWalletDto } = {};
@@ -188,7 +188,7 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetSt
   const breakdownTabs = useMemo(() => {
     if (!propBudgetStatements || propBudgetStatements.length === 0) return [];
     return wallets?.map((wallet) => wallet.name);
-  }, [propBudgetStatements, currentMonth]);
+  }, [propBudgetStatements, wallets]);
 
   const getLineItemsForWalletOnMonth = (
     budgetStatements: BudgetStatementDto[],
@@ -207,12 +207,11 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetSt
     );
   };
 
-  const getLineItemForecastSumForMonth = (items: BudgetStatementLineItemDto[], month: DateTime) => {
-    return _.sumBy(
+  const getLineItemForecastSumForMonth = (items: BudgetStatementLineItemDto[], month: DateTime) =>
+    _.sumBy(
       items.filter((item) => item.month === month.toFormat(API_MONTH_TO_FORMAT)),
       (item) => item.forecast ?? 0
     );
-  };
 
   const getLineItemForecastSumForMonths = (items: BudgetStatementLineItemDto[], months: DateTime[]) => {
     const formattedMonths = months.map((x) => x.toFormat(API_MONTH_TO_FORMAT));
@@ -222,12 +221,11 @@ export const useTransparencyForecastMvvm = (currentMonth: DateTime, propBudgetSt
     );
   };
 
-  const getBudgetCapForMonthOnLineItem = (items: BudgetStatementLineItemDto[], month: DateTime) => {
-    return _.sumBy(
+  const getBudgetCapForMonthOnLineItem = (items: BudgetStatementLineItemDto[], month: DateTime) =>
+    _.sumBy(
       items.filter((item) => item.month === month.toFormat(API_MONTH_TO_FORMAT)),
       (item) => item.budgetCap ?? 0
     );
-  };
 
   const getTotalQuarterlyBudgetCapOnLineItem = (items: BudgetStatementLineItemDto[], months: DateTime[]) => {
     const formattedMonths = months.map((x) => x.toFormat(API_MONTH_TO_FORMAT));

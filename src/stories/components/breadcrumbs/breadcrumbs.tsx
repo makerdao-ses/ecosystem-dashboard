@@ -1,8 +1,8 @@
-import React from 'react';
 import styled from '@emotion/styled';
-import { BreadcrumbSeparator } from '../svg/breadcrumb-separator';
 import Link from 'next/link';
+import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { BreadcrumbSeparator } from '../svg/breadcrumb-separator';
 
 interface BreadcrumbsProps {
   items: {

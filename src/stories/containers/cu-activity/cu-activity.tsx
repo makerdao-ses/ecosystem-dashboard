@@ -1,12 +1,12 @@
-import React from 'react';
 import styled from '@emotion/styled';
-import { SEOHead } from '../../components/seo-head/seo-head';
-import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
-import { toAbsoluteURL } from '../../../core/utils/url.utils';
+import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
+import { toAbsoluteURL } from '../../../core/utils/url.utils';
+import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
 import ActivityTable from '../../components/cu-activity-table/cu-activity-table';
+import { SEOHead } from '../../components/seo-head/seo-head';
 import { useCuActivityMvvm } from './cu-activity.mvvm';
-import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 interface CUActivityContainerProps {
   coreUnits: CoreUnitDto[];

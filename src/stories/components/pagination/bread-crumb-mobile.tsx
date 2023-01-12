@@ -103,41 +103,39 @@ const BreadCrumbMobile = ({ title, count = 0, page = 0, onClickLeft, onClickRigh
             horizontal: 'right',
           }}
         >
-          {items?.map((item, i: number) => {
-            return (
-              <MenuItem
-                disableGutters={true}
-                disableTouchRipple={true}
-                style={item.style}
-                sx={{
-                  paddingTop: '0px',
-                  paddingBottom: '0px',
-                  minHeight: 'fit-content',
-                  fontFamily: 'Inter, sans-serif',
-                  fontStyle: 'normal',
-                  fontWeight: 400,
-                  fontSize: '16px',
-                  lineHeight: '19px',
-                  letterSpacing: '0.4px',
-                  color: isLight ? '#708390' : '#48495F',
-                  marginBottom: '32px',
-                  '&:last-child': {
-                    marginBottom: '0px',
-                  },
+          {items?.map((item, i: number) => (
+            <MenuItem
+              disableGutters={true}
+              disableTouchRipple={true}
+              style={item.style}
+              sx={{
+                paddingTop: '0px',
+                paddingBottom: '0px',
+                minHeight: 'fit-content',
+                fontFamily: 'Inter, sans-serif',
+                fontStyle: 'normal',
+                fontWeight: 400,
+                fontSize: '16px',
+                lineHeight: '19px',
+                letterSpacing: '0.4px',
+                color: isLight ? '#708390' : '#48495F',
+                marginBottom: '32px',
+                '&:last-child': {
+                  marginBottom: '0px',
+                },
+              }}
+              key={`key-${i}`}
+            >
+              <Link
+                href={item.url}
+                style={{
+                  pointerEvents: item.url ? 'all' : 'none',
                 }}
-                key={`key-${i}`}
               >
-                <Link
-                  href={item.url}
-                  style={{
-                    pointerEvents: item.url ? 'all' : 'none',
-                  }}
-                >
-                  {item.label}
-                </Link>
-              </MenuItem>
-            );
-          })}
+                {item.label}
+              </Link>
+            </MenuItem>
+          ))}
         </Menu>
         <BreadcrumbSeparator style={{ marginRight: '4px' }} width={5} height={10} fill="#D1DEE6" fillDark="#9FAFB9" />
         <StyleTitle isLight={isLight}>{title}</StyleTitle>
