@@ -1,8 +1,5 @@
 import styled from '@emotion/styled';
 import React from 'react';
-
-// import type { ReactElement } from 'react';
-
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import lightTheme from '../../../../styles/theme/light';

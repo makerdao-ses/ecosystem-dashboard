@@ -1,16 +1,17 @@
 import styled from '@emotion/styled';
+import { CuTableHeaderSkeleton } from '@ses/components/cu-table-header-skeleton/header-skeleton';
+import { CustomTable2 } from '@ses/components/custom-table/custom-table-2';
+import { useCookiesContextTracking } from '@ses/core/context/CookiesContext';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { SortEnum } from '@ses/core/enums/sort.enum';
 import React, { useMemo } from 'react';
-import { useCookiesContextTracking } from '@/src/core/context/CookiesContext';
-import { useThemeContext } from '@/src/core/context/ThemeContext';
-import { SortEnum } from '@/src/core/enums/sort.enum';
-import type { CoreUnitDto } from '@/src/core/models/dto/core-unit.dto';
-import { CuTableHeaderSkeleton } from '@/src/stories/components/cu-table-header-skeleton/header-skeleton';
-import type { CustomTableRow } from '@/src/stories/components/custom-table/custom-table-2';
-import { CustomTable2 } from '@/src/stories/components/custom-table/custom-table-2';
-import lightTheme from '@/styles/theme/light';
+import lightTheme from 'styles/theme/light';
+
 import { useCoreUnitsTableMvvm } from './cu-table-2.mvvm';
 import { Filters } from './cu-table-filters';
 import { renderCard } from './cu-table.renders';
+import type { CustomTableRow } from '@ses/components/custom-table/custom-table-2';
+import type { CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
 
 export const CuTable2 = () => {
   const { themeMode } = useThemeContext();

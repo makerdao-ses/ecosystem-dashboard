@@ -121,38 +121,6 @@ export const useTransparencyTransferRequestMvvm2 = (currentMonth: DateTime, budg
     ];
     return mainTableColumns;
   }, []);
-  // const mainTableColumns: InnerTableColumn[] = [
-  //   {
-  //     header: 'Wallet',
-  //     type: 'custom',
-  //     width: '240px',
-  //     minWidth: '240px',
-  //     cellRender: renderWallet,
-  //     isCardHeader: true,
-  //   },
-  //   {
-  //     header: '3 Month Forecast',
-  //     type: 'number',
-  //     align: 'right',
-  //   },
-  //   {
-  //     header: 'Current Balance',
-  //     type: 'number',
-  //     align: 'right',
-  //   },
-  //   {
-  //     header: 'Transfer Request',
-  //     type: 'number',
-  //     align: 'right',
-  //   },
-  //   {
-  //     header: 'External Links',
-  //     type: 'custom',
-  //     width: '240px',
-  //     cellRender: renderLinks,
-  //     isCardFooter: true,
-  //   },
-  // ];
 
   const mainTableItems: InnerTableRow[] = useMemo(() => {
     const result: InnerTableRow[] = [];

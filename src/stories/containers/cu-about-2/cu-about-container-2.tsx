@@ -55,7 +55,6 @@ const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
       />
 
       <CoreUnitSummary coreUnits={coreUnits} />
-      {/* <Hello name="Ale"></Hello> */}
       <Wrapper>
         <ContainerAllData>
           <ContainerResponsive>
