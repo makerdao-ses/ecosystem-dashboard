@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
 import Head from 'next/head';
+import React, { useMemo } from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface ImageType {

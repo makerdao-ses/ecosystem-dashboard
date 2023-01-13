@@ -1,5 +1,5 @@
 import { RoleEnum } from '../../enums/role.enum';
-import { UserDTO, UserRole } from '../../models/dto/auth.dto';
+import type { UserDTO, UserRole } from '../../models/dto/auth.dto';
 
 export class UserBuilder {
   private readonly _user: UserDTO;

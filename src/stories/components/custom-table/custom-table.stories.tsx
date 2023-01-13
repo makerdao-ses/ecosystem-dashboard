@@ -1,8 +1,8 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { CustomTable } from './custom-table';
-import { store } from '../../../../src/core/store/store';
 import { Provider } from 'react-redux';
+import { store } from '../../../../src/core/store/store';
+import { CustomTable } from './custom-table';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
   title: 'Components/General/CustomTable',

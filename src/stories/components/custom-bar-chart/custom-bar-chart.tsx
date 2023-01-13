@@ -1,10 +1,10 @@
-import React from 'react';
-import { CustomChartItemModel } from '../../../core/models/custom-chart-item.model';
-import max from 'lodash/max';
 import styled from '@emotion/styled';
 import { Popover, Typography, useMediaQuery } from '@mui/material';
+import max from 'lodash/max';
+import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ExpenditureLevel } from '../../../core/enums/expenditure-level.enum';
+import type { CustomChartItemModel } from '../../../core/models/custom-chart-item.model';
 
 interface CustomBarChartProps {
   items?: Array<CustomChartItemModel>;
@@ -26,13 +26,13 @@ export const PopoverPaperBar = (isLight: boolean) => ({
 });
 
 export const CustomBarChart = (props: CustomBarChartProps) => {
-  if (!props.items) return <span />;
   const { isLight } = useThemeContext();
+  const isOnTouchDevice = useMediaQuery('(pointer: coarse)');
   const [anchorEl, setAnchorEl] = React.useState<SVGRectElement | null>(null);
   const [description, setDescription] = React.useState<{ month: string; budgetCap: string; actual: string } | null>(
     null
   );
-  const isOnTouchDevice = useMediaQuery('(pointer: coarse)');
+  if (!props.items) return <span />;
 
   const handleMouseOver = (event: React.MouseEvent<SVGRectElement>, i: number) => {
     if (props.months?.length === 0) return;
@@ -67,9 +67,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
     return (value * maxItemHeight) / highestCap;
   };
 
-  const isValueValid = (value: number): boolean => {
-    return value > 0 && !!max(props.maxValues);
-  };
+  const isValueValid = (value: number): boolean => value > 0 && !!max(props.maxValues);
 
   const getColor = (value: number, pos: number): string => {
     if (!props.maxValues || props.maxValues.length === 0) return COLOR_RED;

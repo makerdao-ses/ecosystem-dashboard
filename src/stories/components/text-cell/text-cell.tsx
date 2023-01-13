@@ -1,6 +1,7 @@
-import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
+import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import type { CSSProperties } from 'react';
 
 interface TableCellProps {
   negative?: boolean;

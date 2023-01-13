@@ -1,8 +1,8 @@
 import React from 'react';
-import { ComponentMeta } from '@storybook/react';
-import ParticipantRoles from './participant-roles';
 import { UserBuilder } from '../../../../core/business-logic/builders/user.builder';
 import { createThemeModeVariants } from '../../../../core/utils/storybook';
+import ParticipantRoles from './participant-roles';
+import type { ComponentMeta } from '@storybook/react';
 
 export default {
   title: 'Components/AuditorComments/ParticipantRoles',

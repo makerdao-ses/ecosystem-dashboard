@@ -1,7 +1,8 @@
-import React, { CSSProperties } from 'react';
-import { Popover } from '@mui/material';
 import styled from '@emotion/styled';
+import { Popover } from '@mui/material';
+import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import type { CSSProperties } from 'react';
 
 interface CustomPopoverProps {
   title?: JSX.Element | string;

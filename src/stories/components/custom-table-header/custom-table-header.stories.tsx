@@ -1,7 +1,8 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { CustomTableHeader, CustomTableHeaderProps } from './custom-table-header';
 import { SortEnum } from '../../../core/enums/sort.enum';
+import { CustomTableHeader } from './custom-table-header';
+import type { CustomTableHeaderProps } from './custom-table-header';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
   title: 'Components/General/CustomTableHeader',

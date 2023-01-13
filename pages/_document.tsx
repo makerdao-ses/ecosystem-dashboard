@@ -1,5 +1,6 @@
-import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document';
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { GA_TRACKING_ID } from '../src/core/utils/gtag';
+import type { DocumentContext } from 'next/document';
 
 interface Props {
   isAnalyticsActive: boolean;

@@ -1,15 +1,16 @@
-import { useEffect, useMemo, useState } from 'react';
 import { useMediaQuery } from '@mui/material';
+import request from 'graphql-request';
+import { useEffect, useMemo, useState } from 'react';
 import lightTheme from '../../../../../../styles/theme/light';
+import { GRAPHQL_ENDPOINT } from '../../../../../config/endpoints';
 import { useAuthContext } from '../../../../../core/context/AuthContext';
+import { useCommentActivityContext } from '../../../../../core/context/CommentActivityContext';
 import { useCoreUnitContext } from '../../../../../core/context/CoreUnitContext';
 import { useThemeContext } from '../../../../../core/context/ThemeContext';
-import { BudgetStatus, CommentsBudgetStatementDto, CoreUnitDto } from '../../../../../core/models/dto/core-unit.dto';
-import request from 'graphql-request';
-import { CREATE_BUDGET_STATEMENT_COMMENT } from './auditor-comenting.api';
-import { GRAPHQL_ENDPOINT } from '../../../../../config/endpoints';
+import { BudgetStatus } from '../../../../../core/models/dto/core-unit.dto';
 import { triggerToast } from '../../../../helpers/helpers';
-import { useCommentActivityContext } from '../../../../../core/context/CommentActivityContext';
+import { CREATE_BUDGET_STATEMENT_COMMENT } from './auditor-comenting.api';
+import type { CommentsBudgetStatementDto, CoreUnitDto } from '../../../../../core/models/dto/core-unit.dto';
 
 const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: string) => {
   const { isLight } = useThemeContext();
@@ -94,7 +95,7 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
     } else if (selectedStatus === BudgetStatus.Final) {
       setSubmitLabel(isAuditor ? 'Approve' : 'Mark as Final');
     }
-  }, [selectedStatus, currentBudgetStatus, permissionManager]);
+  }, [selectedStatus, currentBudgetStatus, permissionManager, currentCoreUnit]);
 
   const handleChangeVariant = (value: BudgetStatus) => {
     setSelectedStatus(value);

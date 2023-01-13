@@ -1,24 +1,25 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo } from 'react';
+import lightTheme from '../../../../styles/theme/light';
 import { useAuthContext } from '../../../core/context/AuthContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { useIsAdmin } from '../../../core/hooks/useIsAdmin';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
+import ThemeSwitcherButton from '../button/switch-button/switch-buttom';
 import { CustomLink } from '../custom-link/custom-link';
+import MenuTheme from '../menu-navigation/menu-theme/menu-theme';
+import MenuUserOptions from '../menu-navigation/menu-user/menu-user';
 import Expenses from '../svg/expenses';
 import Logo from '../svg/logo';
 
 import { TopBarSelect } from '../top-bar-select/top-bar-select';
 
-import menuItems, { MenuType } from './menu-items';
-import { WebSiteLinks } from './select-link-website/menu-items';
+import menuItems from './menu-items';
 import SelectLink from './select-link-website/select-link';
-import MenuTheme from '../menu-navigation/menu-theme/menu-theme';
-import MenuUserOptions from '../menu-navigation/menu-user/menu-user';
-import ThemeSwitcherButton from '../button/switch-button/switch-buttom';
-import lightTheme from '../../../../styles/theme/light';
-import { useIsAdmin } from '../../../core/hooks/useIsAdmin';
-import { UserDTO } from '../../../core/models/dto/auth.dto';
+import type { UserDTO } from '../../../core/models/dto/auth.dto';
+import type { MenuType } from './menu-items';
+import type { WebSiteLinks } from './select-link-website/menu-items';
 
 interface Props {
   links: WebSiteLinks[];
@@ -97,19 +98,17 @@ const Header = ({ links }: Props) => {
         </ContainerLogoSelect>
 
         <Navigation>
-          {menuItems.map((item: MenuType) => {
-            return (
-              <ItemMenuStyle
-                isLight={isLight}
-                key={item.title}
-                style={{ marginRight: item.marginRight }}
-                onClick={handleOnClick(item.link)}
-                active={activeMenuItem === item}
-              >
-                {item.title}
-              </ItemMenuStyle>
-            );
-          })}
+          {menuItems.map((item: MenuType) => (
+            <ItemMenuStyle
+              isLight={isLight}
+              key={item.title}
+              style={{ marginRight: item.marginRight }}
+              onClick={handleOnClick(item.link)}
+              active={activeMenuItem === item}
+            >
+              {item.title}
+            </ItemMenuStyle>
+          ))}
           <ItemMenuResponsive>
             <TopBarSelect selectedOption={activeMenuItem.title} />
           </ItemMenuResponsive>

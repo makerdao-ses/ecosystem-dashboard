@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import { DateTime } from 'luxon';
+import { SUBMIT_EXPENSES_URL } from '../../../config/external-urls';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 import { capitalizeSentence } from '../../../core/utils/string.utils';
 import { CustomLink } from '../custom-link/custom-link';
 import { CuTableColumnLastModifiedSkeleton } from './cu-table-column-last-modified.skeleton';
-import { useThemeContext } from '../../../core/context/ThemeContext';
-import { SUBMIT_EXPENSES_URL } from '../../../config/external-urls';
+import type { DateTime } from 'luxon';
 
 interface Props {
   date?: DateTime;

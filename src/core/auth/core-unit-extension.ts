@@ -1,6 +1,6 @@
-import { UserDTO } from '../models/dto/auth.dto';
-import { CoreUnitDto } from '../models/dto/core-unit.dto';
-import PermissionManager from './permission-manager';
+import type { UserDTO } from '../models/dto/auth.dto';
+import type { CoreUnitDto } from '../models/dto/core-unit.dto';
+import type PermissionManager from './permission-manager';
 
 class CoreUnitExtension {
   static UPDATE_PERMISSION = 'CoreUnit/Update';

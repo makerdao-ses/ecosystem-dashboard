@@ -1,14 +1,14 @@
-import React from 'react';
 import styled from '@emotion/styled';
-import { DateTime } from 'luxon';
-import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
-import { useTransparencyTransferRequestMvvm2 } from './transparency-transfer-request-2.mvvm';
-import { AdvancedInnerTable } from '../../../components/advanced-inner-table/advanced-inner-table';
-import { LinkDescription } from '../transparency-actuals/transparency-actuals-2';
-import { CustomLink } from '../../../components/custom-link/custom-link';
-import { getShortCode } from '../../../../core/utils/string.utils';
+import React from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { MAKER_BURN_LINK } from '../../../../core/utils/const';
+import { getShortCode } from '../../../../core/utils/string.utils';
+import { AdvancedInnerTable } from '../../../components/advanced-inner-table/advanced-inner-table';
+import { CustomLink } from '../../../components/custom-link/custom-link';
+import { LinkDescription } from '../transparency-actuals/transparency-actuals-2';
+import { useTransparencyTransferRequestMvvm2 } from './transparency-transfer-request-2.mvvm';
+import type { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
+import type { DateTime } from 'luxon';
 
 interface Props {
   currentMonth: DateTime;

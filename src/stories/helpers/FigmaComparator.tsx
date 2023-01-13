@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import * as Figma from 'figma-js';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const FIGMA_TOKEN = process.env.FIGMA_ACCESS_TOKEN;
 const figma = Figma.Client({ personalAccessToken: FIGMA_TOKEN });

@@ -1,6 +1,7 @@
-import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
 import { Box } from '@mui/material';
+import React from 'react';
+import type { CSSProperties } from 'react';
 export type TypeIconFooter = {
   icon: JSX.Element;
   title: string;
@@ -16,19 +17,17 @@ interface CuTableColumnLinksProps {
   styleLinks?: CSSProperties;
 }
 
-export const FooterLinks = ({ links, styleLinks }: CuTableColumnLinksProps) => {
-  return (
-    <Container style={styleLinks}>
-      {links.map((link, i) => (
-        <Box key={`link-${i}`} sx={{ mr: `${link.spacingsRight ?? 0}px` }}>
-          <LinkImage href={link.href} target="_blank" width={link.width} height={link.height}>
-            {link.icon}
-          </LinkImage>
-        </Box>
-      ))}
-    </Container>
-  );
-};
+export const FooterLinks = ({ links, styleLinks }: CuTableColumnLinksProps) => (
+  <Container style={styleLinks}>
+    {links.map((link, i) => (
+      <Box key={`link-${i}`} sx={{ mr: `${link.spacingsRight ?? 0}px` }}>
+        <LinkImage href={link.href} target="_blank" width={link.width} height={link.height}>
+          {link.icon}
+        </LinkImage>
+      </Box>
+    ))}
+  </Container>
+);
 
 const Container = styled.div({
   display: 'flex',

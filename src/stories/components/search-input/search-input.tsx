@@ -1,9 +1,10 @@
-import React, { CSSProperties, useState } from 'react';
 import styled from '@emotion/styled';
-import Magnifier from '../svg/magnifier';
+import { useMediaQuery } from '@mui/material';
+import React, { useState } from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { Close } from '../svg/close';
-import { useMediaQuery } from '@mui/material';
+import Magnifier from '../svg/magnifier';
+import type { CSSProperties } from 'react';
 interface SearchInputProps {
   value?: string;
   defaultValue?: string;

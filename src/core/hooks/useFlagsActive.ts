@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import { FeatureFlagsInterface } from '../../../feature-flags/feature-flags.interface';
 import { FeatureFlagsContext } from '../context/FeatureFlagsContext';
+import type { FeatureFlagsInterface } from '../../../feature-flags/feature-flags.interface';
 
 export const useFlagsActive = () => {
   const { enabledFeatures } = useContext(FeatureFlagsContext);

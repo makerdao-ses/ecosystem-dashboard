@@ -1,15 +1,15 @@
-import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
-import { useThemeContext } from '../../../../core/context/ThemeContext';
-import ExpenseReportStatus from '../common/expense-report-status/expense-report-status';
-import Markdown from 'marked-react';
-import { customRenderer, customRendererDark } from '../../../components/markdown/renderUtils';
-import lightTheme from '../../../../../styles/theme/light';
-import GenericCommentCard from './generic-comment-card';
 import { useMediaQuery } from '@mui/material';
-import { CommentsBudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 import { DateTime } from 'luxon';
+import Markdown from 'marked-react';
+import React, { useMemo } from 'react';
+import lightTheme from '../../../../../styles/theme/light';
 import { useCoreUnitContext } from '../../../../core/context/CoreUnitContext';
+import { useThemeContext } from '../../../../core/context/ThemeContext';
+import { customRenderer, customRendererDark } from '../../../components/markdown/renderUtils';
+import ExpenseReportStatus from '../common/expense-report-status/expense-report-status';
+import GenericCommentCard from './generic-comment-card';
+import type { CommentsBudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 
 export type AuditorCommentCardProps = {
   comment: CommentsBudgetStatementDto;
@@ -22,9 +22,10 @@ const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({ comment, hasSta
   const { currentCoreUnit } = useCoreUnitContext();
   const isTablet = useMediaQuery(lightTheme.breakpoints.down('table_834'));
 
-  const formattedTimestamp = useMemo(() => {
-    return DateTime.fromISO(comment.timestamp).toUTC().toFormat('dd-LLL-yyyy HH:mm ZZZZ');
-  }, [comment.timestamp]);
+  const formattedTimestamp = useMemo(
+    () => DateTime.fromISO(comment.timestamp).toUTC().toFormat('dd-LLL-yyyy HH:mm ZZZZ'),
+    [comment.timestamp]
+  );
 
   const roleString = useMemo(() => {
     if (currentCoreUnit?.auditors?.some((auditor) => auditor.id === comment.author.id)) {

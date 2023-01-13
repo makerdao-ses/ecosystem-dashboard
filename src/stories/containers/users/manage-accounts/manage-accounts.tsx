@@ -2,12 +2,12 @@ import styled from '@emotion/styled';
 import Skeleton from '@mui/material/Skeleton';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { ButtonType } from '../../../../core/enums/button-type.enum';
-import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import { SearchInput } from '../../../components/search-input/search-input';
 import UserCard from '../../../components/user-card/user-card';
 import UserCardSkeleton from '../../../components/user-card/user-card.skeleton';
 import useManageAccountsViewModel from './manage-accounts.mvvm';
+import type { UserDTO } from '../../../../core/models/dto/auth.dto';
 
 const ManageAccounts = () => {
   const { isLight } = useThemeContext();
@@ -80,18 +80,16 @@ const ManageAccounts = () => {
       <ContainerCards>
         {loading
           ? [...Array(isMobile ? 6 : 9)].map(() => <UserCardSkeleton />)
-          : filteredData?.map((user: UserDTO) => {
-              return (
-                <UserCard
-                  checked={user.active}
-                  user={user}
-                  handleDeleteAccount={handleDeleteAccount}
-                  key={user.id}
-                  id={user.id.toString()}
-                  handleGoProfileView={handleGoProfileView}
-                />
-              );
-            })}
+          : filteredData?.map((user: UserDTO) => (
+              <UserCard
+                checked={user.active}
+                user={user}
+                handleDeleteAccount={handleDeleteAccount}
+                key={user.id}
+                id={user.id.toString()}
+                handleGoProfileView={handleGoProfileView}
+              />
+            ))}
       </ContainerCards>
     </>
   );

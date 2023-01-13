@@ -1,21 +1,21 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
 import styled from '@emotion/styled';
-import { InnerTable } from '../../../components/inner-table/inner-table';
-import { Tabs } from '../../../components/tabs/tabs';
-import { CustomLink } from '../../../components/custom-link/custom-link';
-import { WalletTableCell } from '../../../components/wallet-table-cell/wallet-table-cell';
-import { TextCell } from '../../../components/text-cell/text-cell';
-import { DateTime } from 'luxon';
-import { BudgetStatementDto, BudgetStatementLineItemDto } from '../../../../core/models/dto/core-unit.dto';
 import _ from 'lodash';
-import { useTransparencyActualsMvvm } from './transparency-actuals.mvvm';
-import { formatAddressForOutput } from '../../../../core/utils/string.utils';
-import { NumberCell } from '../../../components/number-cell/number-cell';
-import { TransparencyCard } from '../../../components/transparency-card/transparency-card';
-import { CardsWrapper, TableWrapper, Title } from '../transparency-report';
+import React, { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
 import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
+import { formatAddressForOutput } from '../../../../core/utils/string.utils';
+import { CustomLink } from '../../../components/custom-link/custom-link';
+import { InnerTable } from '../../../components/inner-table/inner-table';
+import { NumberCell } from '../../../components/number-cell/number-cell';
+import { Tabs } from '../../../components/tabs/tabs';
+import { TextCell } from '../../../components/text-cell/text-cell';
+import { TransparencyCard } from '../../../components/transparency-card/transparency-card';
+import { WalletTableCell } from '../../../components/wallet-table-cell/wallet-table-cell';
+import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
+import { CardsWrapper, TableWrapper, Title } from '../transparency-report';
+import { useTransparencyActualsMvvm } from './transparency-actuals.mvvm';
+import type { BudgetStatementDto, BudgetStatementLineItemDto } from '../../../../core/models/dto/core-unit.dto';
+import type { DateTime } from 'luxon';
 
 interface TransparencyActualsProps {
   currentMonth: DateTime;
@@ -50,23 +50,19 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     getGroupPayment,
     breakdownTabs,
     wallets,
-  } = useTransparencyActualsMvvm(props.currentMonth, props.budgetStatements, props.code);
+  } = useTransparencyActualsMvvm(props.currentMonth, props.budgetStatements);
 
   const [headerIds, setHeaderIds] = useState<string[]>([]);
 
-  const thirdIndex = useMemo(() => {
-    return Math.max(headerIds?.indexOf(anchor ?? ''), 0);
-  }, [headerIds, anchor]);
+  const thirdIndex = useMemo(() => Math.max(headerIds?.indexOf(anchor ?? ''), 0), [headerIds, anchor]);
 
   const currentWallet = useMemo(() => wallets[thirdIndex], [thirdIndex, wallets]);
 
   const hasGroups = useMemo(() => {
     const currentWallet = wallets[thirdIndex];
 
-    return currentWallet?.budgetStatementLineItem?.some((item) => {
-      return item.group && item.actual;
-    });
-  }, [thirdIndex, currentBudgetStatement]);
+    return currentWallet?.budgetStatementLineItem?.some((item) => item.group && item.actual);
+  }, [wallets, thirdIndex]);
 
   const headerToId = (header: string): string => {
     const id = header.toLowerCase().trim().replaceAll(/ /g, '-');
@@ -90,7 +86,7 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       }
       window.scrollTo(0, Math.max(0, offset));
     }
-  }, [anchor, headerIds]);
+  }, [anchor, headerIds, scrolled]);
 
   const mainTableItems = useMemo(() => {
     const result: JSX.Element[][] = [];
@@ -157,47 +153,61 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     ]);
 
     return result;
-  }, [currentBudgetStatement]);
+  }, [
+    budgetTotalActual,
+    budgetTotalDifference,
+    budgetTotalForecast,
+    budgetTotalPayment,
+    currentBudgetStatement,
+    getWalletActual,
+    getWalletDifference,
+    getWalletForecast,
+    getWalletPayment,
+    wallets,
+  ]);
 
-  const getBreakdownItems = (items: BudgetStatementLineItemDto[], card = false) => {
-    const result: JSX.Element[][] = [];
-    const grouped = _.groupBy(items, (item) => item.group);
+  const getBreakdownItems = useCallback(
+    (items: BudgetStatementLineItemDto[], card = false) => {
+      const result: JSX.Element[][] = [];
+      const grouped = _.groupBy(items, (item) => item.group);
 
-    for (const groupedKey in grouped) {
-      if (Math.abs(getGroupForecast(grouped[groupedKey])) + Math.abs(getGroupActual(grouped[groupedKey])) === 0) {
-        continue;
-      }
-
-      const groupedCategory = _.groupBy(grouped[groupedKey], (item) => item.budgetCategory);
-
-      let i = 1;
-      for (const groupedCatKey in groupedCategory) {
-        if (
-          Math.abs(getGroupForecast(groupedCategory[groupedCatKey])) +
-            Math.abs(getGroupActual(groupedCategory[groupedCatKey])) ===
-          0
-        ) {
+      for (const groupedKey in grouped) {
+        if (Math.abs(getGroupForecast(grouped[groupedKey])) + Math.abs(getGroupActual(grouped[groupedKey])) === 0) {
           continue;
         }
 
-        result.push([
-          ...(hasGroups || card ? [<TextCell key={`${groupedKey}-0`}>{i === 1 ? groupedKey : ''}</TextCell>] : []),
-          <TextCell key={`${groupedKey}-1`}>{groupedCategory[groupedCatKey][0].budgetCategory}</TextCell>,
-          <NumberCell key={`${groupedKey}-2`} value={getGroupForecast(groupedCategory[groupedCatKey])} />,
-          <NumberCell key={`${groupedKey}-3`} value={getGroupActual(groupedCategory[groupedCatKey])} />,
-          <NumberCell key={`${groupedKey}-4`} value={getGroupDifference(groupedCategory[groupedCatKey])} />,
-          <NumberCell key={`${groupedKey}-6`} value={getGroupPayment(groupedCategory[groupedCatKey])} />,
-        ]);
+        const groupedCategory = _.groupBy(grouped[groupedKey], (item) => item.budgetCategory);
 
-        i++;
+        let i = 1;
+        for (const groupedCatKey in groupedCategory) {
+          if (
+            Math.abs(getGroupForecast(groupedCategory[groupedCatKey])) +
+              Math.abs(getGroupActual(groupedCategory[groupedCatKey])) ===
+            0
+          ) {
+            continue;
+          }
+
+          result.push([
+            ...(hasGroups || card ? [<TextCell key={`${groupedKey}-0`}>{i === 1 ? groupedKey : ''}</TextCell>] : []),
+            <TextCell key={`${groupedKey}-1`}>{groupedCategory[groupedCatKey][0].budgetCategory}</TextCell>,
+            <NumberCell key={`${groupedKey}-2`} value={getGroupForecast(groupedCategory[groupedCatKey])} />,
+            <NumberCell key={`${groupedKey}-3`} value={getGroupActual(groupedCategory[groupedCatKey])} />,
+            <NumberCell key={`${groupedKey}-4`} value={getGroupDifference(groupedCategory[groupedCatKey])} />,
+            <NumberCell key={`${groupedKey}-6`} value={getGroupPayment(groupedCategory[groupedCatKey])} />,
+          ]);
+
+          i++;
+        }
       }
-    }
 
-    return result;
-  };
+      return result;
+    },
+    [getGroupActual, getGroupDifference, getGroupForecast, getGroupPayment, hasGroups]
+  );
 
-  const getLineItemsSubtotal = (items: BudgetStatementLineItemDto[], title: string, card = false) => {
-    return (
+  const getLineItemsSubtotal = useCallback(
+    (items: BudgetStatementLineItemDto[], title: string, card = false) =>
       items?.reduce(
         (prv, curr) =>
           curr.month === currentBudgetStatement?.month
@@ -215,14 +225,17 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
           forecast: 0,
           payment: 0,
         }
-      ) ?? {}
-    );
-  };
+      ) ?? {},
+    [currentBudgetStatement?.month, hasGroups]
+  );
 
-  const hasExpenses = (headCount = true) =>
-    currentWallet?.budgetStatementLineItem
-      ?.filter((item) => (headCount ? item.headcountExpense : !item.headcountExpense))
-      .some((x) => (x.actual || x.forecast) && x.month === currentBudgetStatement?.month);
+  const hasExpenses = useMemo(() => {
+    const hasExpenses = (headCount = true) =>
+      currentWallet?.budgetStatementLineItem
+        ?.filter((item) => (headCount ? item.headcountExpense : !item.headcountExpense))
+        .some((x) => (x.actual || x.forecast) && x.month === currentBudgetStatement?.month);
+    return hasExpenses;
+  }, [currentBudgetStatement?.month, currentWallet?.budgetStatementLineItem]);
 
   const breakdownTableItems = useMemo(() => {
     const result: JSX.Element[][] = [];
@@ -280,7 +293,18 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
     ]);
 
     return result;
-  }, [currentBudgetStatement, thirdIndex, headerToId, anchor]);
+  }, [
+    wallets,
+    hasExpenses,
+    getBreakdownItems,
+    currentWallet,
+    getLineItemsSubtotal,
+    hasGroups,
+    getWalletForecast,
+    getWalletActual,
+    getWalletDifference,
+    getWalletPayment,
+  ]);
 
   const breakdownCardItems = useMemo(() => {
     const currentWallet = wallets[thirdIndex];
@@ -392,7 +416,17 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
         )}
       </>
     );
-  }, [currentBudgetStatement, thirdIndex]);
+  }, [
+    getBreakdownItems,
+    getLineItemsSubtotal,
+    getWalletActual,
+    getWalletDifference,
+    getWalletForecast,
+    hasExpenses,
+    isLight,
+    thirdIndex,
+    wallets,
+  ]);
 
   return (
     <Container>
@@ -446,12 +480,10 @@ export const TransparencyActuals = (props: TransparencyActualsProps) => {
       ) : (
         <>
           <Tabs
-            items={breakdownTabs.map((header, i) => {
-              return {
-                item: header,
-                id: headerIds[i],
-              };
-            })}
+            items={breakdownTabs.map((header, i) => ({
+              item: header,
+              id: headerIds[i],
+            }))}
             currentIndex={thirdIndex}
             style={{
               marginBottom: '32px',

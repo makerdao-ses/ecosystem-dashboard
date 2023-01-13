@@ -1,12 +1,12 @@
 import React from 'react';
-import { GetServerSideProps, NextPage } from 'next';
-import { CoreUnitDto } from '../../src/core/models/dto/core-unit.dto';
 import GlobalActivity from '../../src/stories/containers/global-activity/global-activity';
 import { fetchCoreUnitsWithActivities } from '../../src/stories/containers/global-activity/global-activity.api';
+import type { CoreUnitDto } from '../../src/core/models/dto/core-unit.dto';
+import type { GetServerSideProps, NextPage } from 'next';
 
-const GlobalActivityPage: NextPage<{ coreUnits: CoreUnitDto[] }> = ({ coreUnits }) => {
-  return <GlobalActivity coreUnits={coreUnits} />;
-};
+const GlobalActivityPage: NextPage<{ coreUnits: CoreUnitDto[] }> = ({ coreUnits }) => (
+  <GlobalActivity coreUnits={coreUnits} />
+);
 
 export default GlobalActivityPage;
 

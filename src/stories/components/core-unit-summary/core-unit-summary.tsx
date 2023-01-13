@@ -1,19 +1,19 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import InsidePagination from '../pagination/InsidePagination';
-import TitleNavigationCuAbout from '../title-navigation-cu-about/title-navigation-cu-about';
-import { Typography, useMediaQuery } from '@mui/material';
 import styled from '@emotion/styled';
-import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
-import { useRouter } from 'next/router';
+import { Typography, useMediaQuery } from '@mui/material';
 import _ from 'lodash';
+import { useRouter } from 'next/router';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
-import BreadCrumbMobile from '../pagination/bread-crumb-mobile';
-import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
 import { getShortCode } from '../../../core/utils/string.utils';
 import { buildQueryString } from '../../../core/utils/url.utils';
 import { sortData } from '../../containers/cu-table/cu-table';
-import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
+import InsidePagination from '../pagination/InsidePagination';
+import BreadCrumbMobile from '../pagination/bread-crumb-mobile';
+import TitleNavigationCuAbout from '../title-navigation-cu-about/title-navigation-cu-about';
+import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 interface CoreUnitSummaryProps {
   coreUnits: CoreUnitDto[];
@@ -54,9 +54,9 @@ export const CoreUnitSummary = ({
     }, 600);
   }, 100);
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     debounceFunction();
-  };
+  }, [debounceFunction]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -67,7 +67,7 @@ export const CoreUnitSummary = ({
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('touchmove', handleScroll);
     };
-  }, []);
+  }, [handleScroll]);
 
   const filteredData = useMemo(() => {
     const { filteredData: filtered } = filterData({
@@ -95,7 +95,7 @@ export const CoreUnitSummary = ({
         router.push(`${router.route.replace('[code]', filteredData[newIndex].shortCode)}${queryStrings}`);
       }
     },
-    [code, filteredData, router]
+    [code, filteredData, queryStrings, router]
   );
 
   return (

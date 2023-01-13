@@ -8,7 +8,7 @@ import Twitter from '../svg/twitter';
 import TwitterFooter from '../svg/twitter-footer';
 import WWW from '../svg/www';
 import Youtube from '../svg/youtube';
-import { TypeIconFooter } from './footer-link';
+import type { TypeIconFooter } from './footer-link';
 
 export const iconsContact = [
   {

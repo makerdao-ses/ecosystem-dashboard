@@ -1,9 +1,9 @@
-import { DateTime } from 'luxon';
-import PermissionManager from '../auth/permission-manager';
-import { SafeLocalStorage } from './local-storage';
-import { USER_ACTIVITY_QUERY, USER_ACTIVITY_UPDATE_MUTATION } from '../hooks/useLastVisit.api';
 import request from 'graphql-request';
+import { DateTime } from 'luxon';
 import { GRAPHQL_ENDPOINT } from '../../config/endpoints';
+import { USER_ACTIVITY_QUERY, USER_ACTIVITY_UPDATE_MUTATION } from '../hooks/useLastVisit.api';
+import { SafeLocalStorage } from './local-storage';
+import type PermissionManager from '../auth/permission-manager';
 
 export class LastVisitHandler {
   private _storage: Storage;
@@ -27,7 +27,7 @@ export class LastVisitHandler {
       const result = await request(GRAPHQL_ENDPOINT, query, input, {
         Authorization: `Bearer ${this._permissionManager.token}`,
       });
-      return result?.userActivityUpdate[0]?.current?.timestamp;
+      return DateTime.fromISO(result?.userActivityUpdate[0]?.current?.timestamp).toMillis();
     } else {
       // update using local storage
       const timestamp = DateTime.now().toMillis();

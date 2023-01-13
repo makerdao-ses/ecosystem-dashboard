@@ -1,7 +1,7 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { CategoryChip } from './category-chip';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
   title: 'Components/General/CategoryChip',

@@ -1,5 +1,5 @@
-import { CuCategoryEnum } from '../../../enums/cu-category.enum';
-import {
+import type { CuCategoryEnum } from '../../../enums/cu-category.enum';
+import type {
   BudgetStatementDto,
   ContributorCommitmentDto,
   CoreUnitDto,

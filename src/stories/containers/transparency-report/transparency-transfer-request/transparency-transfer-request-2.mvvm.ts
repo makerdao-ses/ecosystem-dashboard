@@ -1,37 +1,40 @@
-import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
-import { DateTime } from 'luxon';
-import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
 import { useMemo } from 'react';
+import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
 import { useTransparencyForecastMvvm2 } from '../transparency-forecast/transparency-forecast-2.mvvm';
-import { InnerTableColumn, InnerTableRow } from '../../../components/advanced-inner-table/advanced-inner-table';
 import { renderLinks, renderWallet } from '../transparency-report.utils';
+import type { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
+import type { InnerTableColumn, InnerTableRow } from '../../../components/advanced-inner-table/advanced-inner-table';
+import type { DateTime } from 'luxon';
 
 export const useTransparencyTransferRequestMvvm2 = (currentMonth: DateTime, budgetStatements: BudgetStatementDto[]) => {
   const { firstMonth, secondMonth, thirdMonth, getForecastSumOfMonthsOnWallet, getForecastSumForMonths, wallets } =
     useTransparencyForecastMvvm2(currentMonth, budgetStatements);
 
-  const getTransferRequestForMonthOnWallet = (walletAddress: string | undefined) => {
-    if (!walletAddress) return 0;
+  const getTransferRequestForMonthOnWallet = useMemo(() => {
+    const getTransferRequestForMonthOnWalletFunction = (walletAddress: string | undefined) => {
+      if (!walletAddress) return 0;
 
-    let result = 0;
-    const budgetStatement = budgetStatements?.find((x) => x.month === currentMonth.toFormat(API_MONTH_TO_FORMAT));
+      let result = 0;
+      const budgetStatement = budgetStatements?.find((x) => x.month === currentMonth.toFormat(API_MONTH_TO_FORMAT));
 
-    if (!budgetStatement || !budgetStatement.budgetStatementWallet) {
+      if (!budgetStatement || !budgetStatement.budgetStatementWallet) {
+        return result;
+      }
+
+      const wallet = budgetStatement.budgetStatementWallet.find(
+        (wallet) => wallet.address?.toLowerCase() === walletAddress.toLowerCase()
+      );
+
+      if (!wallet) return result;
+
+      wallet.budgetStatementTransferRequest?.forEach((item) => {
+        result += item.requestAmount;
+      });
+
       return result;
-    }
-
-    const wallet = budgetStatement.budgetStatementWallet.find(
-      (wallet) => wallet.address?.toLowerCase() === walletAddress.toLowerCase()
-    );
-
-    if (!wallet) return result;
-
-    wallet.budgetStatementTransferRequest?.forEach((item) => {
-      result += item.requestAmount;
-    });
-
-    return result;
-  };
+    };
+    return getTransferRequestForMonthOnWalletFunction;
+  }, [budgetStatements, currentMonth]);
 
   const getTransferRequestForMonth = useMemo(() => {
     let result = 0;
@@ -50,21 +53,24 @@ export const useTransparencyTransferRequestMvvm2 = (currentMonth: DateTime, budg
     return result;
   }, [currentMonth, budgetStatements]);
 
-  const getCurrentBalanceForMonthOnWallet = (walletAddress: string | undefined) => {
-    if (!walletAddress) return 0;
+  const getCurrentBalanceForMonthOnWallet = useMemo(() => {
+    const getCurrentBalanceForMonthOnWallet = (walletAddress: string | undefined) => {
+      if (!walletAddress) return 0;
 
-    const budgetStatement = budgetStatements?.find((x) => x.month === currentMonth.toFormat(API_MONTH_TO_FORMAT));
+      const budgetStatement = budgetStatements?.find((x) => x.month === currentMonth.toFormat(API_MONTH_TO_FORMAT));
 
-    if (!budgetStatement || !budgetStatement.budgetStatementWallet) return 0;
+      if (!budgetStatement || !budgetStatement.budgetStatementWallet) return 0;
 
-    const wallet = budgetStatement.budgetStatementWallet.find(
-      (wallet) => wallet.address?.toLowerCase() === walletAddress.toLowerCase()
-    );
+      const wallet = budgetStatement.budgetStatementWallet.find(
+        (wallet) => wallet.address?.toLowerCase() === walletAddress.toLowerCase()
+      );
 
-    if (!wallet) return 0;
+      if (!wallet) return 0;
 
-    return wallet.currentBalance ?? 0;
-  };
+      return wallet.currentBalance ?? 0;
+    };
+    return getCurrentBalanceForMonthOnWallet;
+  }, [budgetStatements, currentMonth]);
 
   const getCurrentBalanceForMonth = useMemo(() => {
     let result = 0;
@@ -80,38 +86,41 @@ export const useTransparencyTransferRequestMvvm2 = (currentMonth: DateTime, budg
     return result;
   }, [currentMonth, budgetStatements]);
 
-  const mainTableColumns: InnerTableColumn[] = [
-    {
-      header: 'Wallet',
-      type: 'custom',
-      width: '240px',
-      minWidth: '240px',
-      cellRender: renderWallet,
-      isCardHeader: true,
-    },
-    {
-      header: '3 Month Forecast',
-      type: 'number',
-      align: 'right',
-    },
-    {
-      header: 'Current Balance',
-      type: 'number',
-      align: 'right',
-    },
-    {
-      header: 'Transfer Request',
-      type: 'number',
-      align: 'right',
-    },
-    {
-      header: 'External Links',
-      type: 'custom',
-      width: '240px',
-      cellRender: renderLinks,
-      isCardFooter: true,
-    },
-  ];
+  const mainTableColumns = useMemo(() => {
+    const mainTableColumns: InnerTableColumn[] = [
+      {
+        header: 'Wallet',
+        type: 'custom',
+        width: '240px',
+        minWidth: '240px',
+        cellRender: renderWallet,
+        isCardHeader: true,
+      },
+      {
+        header: '3 Month Forecast',
+        type: 'number',
+        align: 'right',
+      },
+      {
+        header: 'Current Balance',
+        type: 'number',
+        align: 'right',
+      },
+      {
+        header: 'Transfer Request',
+        type: 'number',
+        align: 'right',
+      },
+      {
+        header: 'External Links',
+        type: 'custom',
+        width: '240px',
+        cellRender: renderLinks,
+        isCardFooter: true,
+      },
+    ];
+    return mainTableColumns;
+  }, []);
 
   const mainTableItems: InnerTableRow[] = useMemo(() => {
     const result: InnerTableRow[] = [];
@@ -174,7 +183,21 @@ export const useTransparencyTransferRequestMvvm2 = (currentMonth: DateTime, budg
     }
 
     return result;
-  }, [currentMonth, budgetStatements]);
+  }, [
+    wallets,
+    mainTableColumns,
+    getForecastSumOfMonthsOnWallet,
+    budgetStatements,
+    currentMonth,
+    firstMonth,
+    secondMonth,
+    thirdMonth,
+    getCurrentBalanceForMonthOnWallet,
+    getTransferRequestForMonthOnWallet,
+    getForecastSumForMonths,
+    getCurrentBalanceForMonth,
+    getTransferRequestForMonth,
+  ]);
 
   return {
     mainTableColumns,

@@ -1,10 +1,9 @@
-import * as React from 'react';
-
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import * as React from 'react';
 import UserBadge from '../../user-badge/user-badge';
-import MenuItemUser from './menu-item-user';
 import { MenuPaperStyle } from '../menu-theme/menu-theme';
+import MenuItemUser from './menu-item-user';
 import useMenuUser from './menu-user.mvvm';
 
 interface Props {

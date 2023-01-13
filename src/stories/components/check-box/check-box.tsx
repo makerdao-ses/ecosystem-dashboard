@@ -1,9 +1,9 @@
-import React from 'react';
 import styled from '@emotion/styled';
-import CheckboxOff from '../svg/checkbox-off';
 import IconButton from '@mui/material/IconButton';
-import CheckOnComponent from '../svg/check-on-new';
+import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import CheckOnComponent from '../svg/check-on-new';
+import CheckboxOff from '../svg/checkbox-off';
 
 interface Props {
   label: string;

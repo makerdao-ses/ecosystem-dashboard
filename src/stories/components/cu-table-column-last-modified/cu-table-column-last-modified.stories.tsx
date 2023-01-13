@@ -1,6 +1,6 @@
 import React from 'react';
 import { CuTableColumnLastModified } from './cu-table-column-last-modified';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
   title: 'Components/CUTable/LastModified',

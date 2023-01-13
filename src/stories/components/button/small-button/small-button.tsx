@@ -1,15 +1,15 @@
-import React from 'react';
 import styled from '@emotion/styled';
 import { Button } from '@mui/material';
+import React from 'react';
 
 interface Props {
   onClick?: () => void;
   title?: string;
 }
 
-const SmallButton = ({ onClick, title = 'Back' }: Props) => {
-  return <StyledSmallButton onClick={onClick}>{title}</StyledSmallButton>;
-};
+const SmallButton = ({ onClick, title = 'Back' }: Props) => (
+  <StyledSmallButton onClick={onClick}>{title}</StyledSmallButton>
+);
 
 const StyledSmallButton = styled(Button, { shouldForwardProp: (prop) => prop !== 'isLight' })({
   display: 'flex',

@@ -1,12 +1,13 @@
-import React, { CSSProperties, useMemo } from 'react';
 import styled from '@emotion/styled';
-import { CustomTableHeader } from '../custom-table-header/custom-table-header';
-import { useThemeContext } from '../../../core/context/ThemeContext';
-import { CustomTableHeaderSkeleton } from './custom-table-header.skeleton';
+import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../core/store/store';
-import { selectCuTableHeadersSort, setSort } from '../../containers/cu-table/cu-table.slice';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 import { useAppDispatch } from '../../../core/hooks/hooks';
+import { selectCuTableHeadersSort, setSort } from '../../containers/cu-table/cu-table.slice';
+import { CustomTableHeader } from '../custom-table-header/custom-table-header';
+import { CustomTableHeaderSkeleton } from './custom-table-header.skeleton';
+import type { RootState } from '../../../core/store/store';
+import type { CSSProperties } from 'react';
 
 interface CustomTableProps {
   headers: string[];
@@ -21,7 +22,10 @@ export const CustomTable = ({ headersStyles = [], ...props }: CustomTableProps) 
   const dispatch = useAppDispatch();
 
   const headersSort = useSelector((state: RootState) => selectCuTableHeadersSort(state));
-  const handleSort = (index: number) => dispatch(setSort(index));
+  const handleSort = useMemo(() => {
+    const handleSort = (index: number) => dispatch(setSort(index));
+    return handleSort;
+  }, [dispatch]);
 
   const tableHead = useMemo(() => {
     if (props.loading) {
@@ -49,7 +53,7 @@ export const CustomTable = ({ headersStyles = [], ...props }: CustomTableProps) 
         </TableHeadRow>
       </TableHead>
     );
-  }, [props.items, isLight]);
+  }, [props.loading, props.headers, props.headersAlign, isLight, headersStyles, headersSort, handleSort]);
 
   return (
     <TableContainer isLight={isLight}>

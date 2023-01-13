@@ -1,7 +1,8 @@
-import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
-import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
+import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import type { CuStatusEnum } from '../../../core/enums/cu-status.enum';
+import type { CSSProperties } from 'react';
 
 interface StatusChipProps {
   status: CuStatusEnum | 'All';

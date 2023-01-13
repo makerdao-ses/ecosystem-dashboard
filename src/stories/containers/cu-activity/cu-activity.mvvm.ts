@@ -2,7 +2,7 @@ import { useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SortEnum } from '../../../core/enums/sort.enum';
-import { ActivityTableHeader } from '../../components/cu-activity-table/cu-activity-table';
+import type { ActivityTableHeader } from '../../components/cu-activity-table/cu-activity-table';
 
 export const useCuActivityMvvm = () => {
   const { isLight } = useThemeContext();

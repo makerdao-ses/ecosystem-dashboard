@@ -1,9 +1,10 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import Logo from '../../svg/logo';
 import MakerBurn from '../../svg/maker-burn';
 import Makerdao from '../../svg/makerdao';
 import MipsPortal from '../../svg/mips-portal';
 import VotingPortal from '../../svg/voting-portal';
+import type { ReactNode } from 'react';
 
 export type WebSiteLinks = {
   title?: string;

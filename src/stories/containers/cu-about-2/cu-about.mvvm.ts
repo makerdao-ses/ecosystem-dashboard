@@ -1,11 +1,11 @@
 import sortBy from 'lodash/sortBy';
-import { NextRouter } from 'next/router';
 import { useMemo, useCallback } from 'react';
 import { getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-unit-about';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
-import { CoreUnitDto, CuMipDto } from '../../../core/models/dto/core-unit.dto';
 import { getArrayParam, getStringParam } from '../../../core/utils/filters';
 import { buildQueryString } from '../../../core/utils/url.utils';
+import type { CoreUnitDto, CuMipDto } from '../../../core/models/dto/core-unit.dto';
+import type { NextRouter } from 'next/router';
 
 interface Props {
   cuAbout: CoreUnitDto;

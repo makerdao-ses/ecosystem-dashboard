@@ -17,27 +17,25 @@ const ArrowMobileRight = ({
   style = {},
   disabled = false,
   ...props
-}: Props) => {
-  return (
-    <svg
-      style={style}
-      cursor={disabled ? 'default' : 'pointer'}
-      onClick={onClick}
-      width={width}
-      height={height}
-      viewBox="0 0 5 10"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M.191.22a.595.595 0 01.924 0l3.232 3.718.462.53a.833.833 0 010 1.063l-.462.531L1.115 9.78a.595.595 0 01-.924 0 .833.833 0 010-1.062L3.423 5 .191 1.282a.833.833 0 010-1.062z"
-        fill={fill}
-      />
-    </svg>
-  );
-};
+}: Props) => (
+  <svg
+    style={style}
+    cursor={disabled ? 'default' : 'pointer'}
+    onClick={onClick}
+    width={width}
+    height={height}
+    viewBox="0 0 5 10"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M.191.22a.595.595 0 01.924 0l3.232 3.718.462.53a.833.833 0 010 1.063l-.462.531L1.115 9.78a.595.595 0 01-.924 0 .833.833 0 010-1.062L3.423 5 .191 1.282a.833.833 0 010-1.062z"
+      fill={fill}
+    />
+  </svg>
+);
 
 export default ArrowMobileRight;

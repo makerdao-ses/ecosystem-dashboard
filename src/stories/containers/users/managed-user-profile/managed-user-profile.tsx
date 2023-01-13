@@ -123,13 +123,11 @@ const ManagedUserProfile: React.FC = () => {
               />
             ) : (
               <DotPasswordContainer>
-                {resultPassword.map((_: unknown, index) => {
-                  return (
-                    <div style={{ marginRight: '4px' }} key={index}>
-                      <DotPassword isLight={isLight} />
-                    </div>
-                  );
-                })}
+                {resultPassword.map((_: unknown, index) => (
+                  <div style={{ marginRight: '4px' }} key={index}>
+                    <DotPassword isLight={isLight} />
+                  </div>
+                ))}
               </DotPasswordContainer>
             )}
           </PasswordContainer>

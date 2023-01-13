@@ -1,12 +1,12 @@
-import React from 'react';
-import Image from 'next/image';
 import styled from '@emotion/styled';
-import PlaceholderImg from '../../../../public/assets/img/rectangles.png';
-import PlaceholderImgDark from '../../../../public/assets/img/rectangles-dark.png';
-import { useThemeContext } from '../../../core/context/ThemeContext';
-import { CustomButton } from '../custom-button/custom-button';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
+import React from 'react';
+import PlaceholderImgDark from '../../../../public/assets/img/rectangles-dark.png';
+import PlaceholderImg from '../../../../public/assets/img/rectangles.png';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/button-type.enum';
+import { CustomButton } from '../custom-button/custom-button';
 
 export const ActivityPlaceholder = (props: { hasFilter: boolean; clearAction?: () => void }) => {
   const { isLight } = useThemeContext();

@@ -1,6 +1,6 @@
-import { ComponentMeta } from '@storybook/react';
-import CUNewExpenseReport from './cu-new-expense-report';
 import { createThemeModeVariants } from '../../../../core/utils/storybook';
+import CUNewExpenseReport from './cu-new-expense-report';
+import type { ComponentMeta } from '@storybook/react';
 
 export default {
   title: 'Components/AuditorComments/CUNewExpenseReport',

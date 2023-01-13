@@ -2,18 +2,18 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useFormik } from 'formik';
 import request, { ClientError } from 'graphql-request';
 import { useRouter } from 'next/router';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import * as yup from 'yup';
 import lightTheme from '../../../../../styles/theme/light';
 import { GRAPHQL_ENDPOINT } from '../../../../config/endpoints';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import { passwordValidationYup } from '../../../../core/utils/form-validation';
 import { goBack } from '../../../../core/utils/routing';
 import { triggerToast } from '../../../helpers/helpers';
 import { FETCH_USER_BY_USERNAME } from '../../users/managed-user-profile/managed-user-profile.api';
 import { UPDATE_PASSWORD_REQUEST } from './change-password.api';
+import type { UserDTO } from '../../../../core/models/dto/auth.dto';
 
 const validationSchema = yup.object({
   oldPassword: yup.string().required('Old Password is required'),
@@ -41,7 +41,7 @@ const adminChangeValidationSchema = yup.object({
     .required('Password confirmation is required'),
 });
 
-export const userChangePasswordMvvm = (adminChange: boolean) => {
+export const useUserChangePasswordMvvm = (adminChange: boolean) => {
   const { isLight } = useThemeContext();
   const router = useRouter();
   const { user: authenticatedUser, authToken, isAdmin } = useAuthContext();
@@ -76,7 +76,7 @@ export const userChangePasswordMvvm = (adminChange: boolean) => {
       }
     };
     asyncFunction();
-  }, [adminChange, router]);
+  }, [adminChange, authToken, router]);
   // end adminChange
 
   const handleGoBack = useCallback(() => {
@@ -85,7 +85,7 @@ export const userChangePasswordMvvm = (adminChange: boolean) => {
       return;
     }
     goBack(`/auth/${isAdmin ? 'manage/my-profile' : 'user-profile'}`);
-  }, [isAdmin, router]);
+  }, [adminChange, isAdmin, router.query.username]);
 
   const form = useFormik({
     initialValues: {

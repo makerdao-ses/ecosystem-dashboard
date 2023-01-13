@@ -1,9 +1,14 @@
+import _ from 'lodash';
 import { DateTime, Interval } from 'luxon';
-import { LinkModel } from '../../stories/components/cu-table-column-links/cu-table-column-links';
+import { CuStatusEnum } from '../enums/cu-status.enum';
 import { LinkTypeEnum } from '../enums/link-type.enum';
-import {
+import { RoadmapStatusEnum } from '../enums/roadmap-status.enum';
+import { BudgetStatus } from '../models/dto/core-unit.dto';
+import { API_MONTH_FROM_FORMAT, API_MONTH_TO_FORMAT } from '../utils/date.utils';
+import type { LinkModel } from '../../stories/components/cu-table-column-links/cu-table-column-links';
+import type { CustomChartItemModel } from '../models/custom-chart-item.model';
+import type {
   BudgetStatementDto,
-  BudgetStatus,
   CommentsBudgetStatementDto,
   CoreUnitDto,
   CuMipDto,
@@ -11,11 +16,6 @@ import {
   Mip40Dto,
   Mip40WalletDto,
 } from '../models/dto/core-unit.dto';
-import { CuStatusEnum } from '../enums/cu-status.enum';
-import { RoadmapStatusEnum } from '../enums/roadmap-status.enum';
-import { CustomChartItemModel } from '../models/custom-chart-item.model';
-import _ from 'lodash';
-import { API_MONTH_FROM_FORMAT, API_MONTH_TO_FORMAT } from '../utils/date.utils';
 
 export const setCuMipStatusModifiedDate = (mip: CuMipDto, status: CuStatusEnum, date: string) => {
   let index = status.toLowerCase();
@@ -67,9 +67,10 @@ export const getSubmissionDateFromCuMip = (mip: CuMipDto | null) => {
 export const countInitiativesFromCoreUnit = (cu: CoreUnitDto) => {
   if (cu.roadMap.length === 0) return 0;
 
-  return cu.roadMap.reduce((pv, cv) => {
-    return pv + (cv.ownerCuId === cu.id && cv.roadmapStatus === RoadmapStatusEnum.InProgress ? 1 : 0);
-  }, 0);
+  return cu.roadMap.reduce(
+    (pv, cv) => pv + (cv.ownerCuId === cu.id && cv.roadmapStatus === RoadmapStatusEnum.InProgress ? 1 : 0),
+    0
+  );
 };
 
 export const getLinksFromCoreUnit = (cu: CoreUnitDto) => {
@@ -139,9 +140,8 @@ export const getFTEsFromCoreUnit = (cu: CoreUnitDto) => {
   );
 };
 
-export const getFacilitatorsFromCoreUnit = (cu: CoreUnitDto) => {
-  return cu?.contributorCommitment?.filter((cc) => cc.jobTitle === 'Facilitator');
-};
+export const getFacilitatorsFromCoreUnit = (cu: CoreUnitDto) =>
+  cu?.contributorCommitment?.filter((cc) => cc.jobTitle === 'Facilitator');
 
 const checkDateOnPeriod = (period: Mip40BudgetPeriodDto, date: DateTime) => {
   if (!period) return false;
@@ -168,9 +168,7 @@ const findMip40 = (cu: CoreUnitDto, date: DateTime): Mip40Dto | null => {
   return null;
 };
 
-const sumLineItems = (wallet: Mip40WalletDto) => {
-  return wallet.mip40BudgetLineItem.reduce((p, c) => (c.budgetCap ?? 0) + p, 0);
-};
+const sumLineItems = (wallet: Mip40WalletDto) => wallet.mip40BudgetLineItem.reduce((p, c) => (c.budgetCap ?? 0) + p, 0);
 
 export const getBudgetCapsFromCoreUnit = (cu: CoreUnitDto) => {
   const result: number[] = [];

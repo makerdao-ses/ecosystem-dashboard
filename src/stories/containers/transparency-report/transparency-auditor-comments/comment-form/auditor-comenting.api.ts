@@ -1,5 +1,5 @@
 import { gql } from 'graphql-request';
-import { BudgetStatus } from '../../../../../core/models/dto/core-unit.dto';
+import type { BudgetStatus } from '../../../../../core/models/dto/core-unit.dto';
 
 export const CREATE_BUDGET_STATEMENT_COMMENT = (
   budgetStatementId: string,

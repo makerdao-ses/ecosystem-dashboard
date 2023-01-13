@@ -1,9 +1,9 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import SelectLink from './select-link';
 import Logo from '../../svg/logo';
 import Makerdao from '../../svg/makerdao';
-import { WebSiteLinks } from './menu-items';
+import SelectLink from './select-link';
+import type { WebSiteLinks } from './menu-items';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
   title: 'Components/General/SelectLink',

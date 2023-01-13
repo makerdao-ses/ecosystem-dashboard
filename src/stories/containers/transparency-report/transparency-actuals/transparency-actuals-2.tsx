@@ -1,16 +1,16 @@
-import React from 'react';
 import styled from '@emotion/styled';
-import { Tabs } from '../../../components/tabs/tabs';
-import { DateTime } from 'luxon';
-import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
-import { useTransparencyActualsMvvm2 } from './transparency-actuals-2.mvvm';
+import React from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
-import { AdvancedInnerTable } from '../../../components/advanced-inner-table/advanced-inner-table';
-import { Title } from '../transparency-report';
-import { getShortCode } from '../../../../core/utils/string.utils';
-import { CustomLink } from '../../../components/custom-link/custom-link';
 import { MAKER_BURN_LINK } from '../../../../core/utils/const';
+import { getShortCode } from '../../../../core/utils/string.utils';
+import { AdvancedInnerTable } from '../../../components/advanced-inner-table/advanced-inner-table';
+import { CustomLink } from '../../../components/custom-link/custom-link';
+import { Tabs } from '../../../components/tabs/tabs';
+import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
+import { Title } from '../transparency-report';
+import { useTransparencyActualsMvvm2 } from './transparency-actuals-2.mvvm';
+import type { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
+import type { DateTime } from 'luxon';
 
 interface Props {
   currentMonth: DateTime;
@@ -31,7 +31,7 @@ export const TransparencyActuals2 = (props: Props) => {
     mainTableColumns,
     mainTableItems,
     breakdownTabs,
-  } = useTransparencyActualsMvvm2(props.currentMonth, props.budgetStatements, props.code);
+  } = useTransparencyActualsMvvm2(props.currentMonth, props.budgetStatements);
 
   return (
     <Container>
@@ -76,12 +76,10 @@ export const TransparencyActuals2 = (props: Props) => {
 
       {mainTableItems.length > 0 && (
         <Tabs
-          items={breakdownTabs.map((header, i) => {
-            return {
-              item: header,
-              id: headerIds[i],
-            };
-          })}
+          items={breakdownTabs.map((header, i) => ({
+            item: header,
+            id: headerIds[i],
+          }))}
           currentIndex={thirdIndex}
           style={{
             marginBottom: '32px',

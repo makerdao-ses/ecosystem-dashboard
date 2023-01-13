@@ -1,14 +1,14 @@
-import Link from 'next/link';
 import styled from '@emotion/styled';
 import { DateTime } from 'luxon';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { ButtonType } from '../../../core/enums/button-type.enum';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
 import { CustomButton } from '../custom-button/custom-button';
-import { Activity } from './cu-activity-table';
-import { ButtonType } from '../../../core/enums/button-type.enum';
+import type { Activity } from './cu-activity-table';
 
 interface CUActivityItemProps {
   activity: Activity;

@@ -1,7 +1,7 @@
 import { BudgetStatus } from '../../../../../core/models/dto/core-unit.dto';
+import { createThemeModeVariants } from '../../../../../core/utils/storybook';
 import ExpenseReportStatusIndicator from './expense-report-status-indicator';
 import type { ComponentMeta } from '@storybook/react';
-import { createThemeModeVariants } from '../../../../../core/utils/storybook';
 
 export default {
   title: 'Components/CUTransparencyReport/ExpenseReportStatusIndicator',

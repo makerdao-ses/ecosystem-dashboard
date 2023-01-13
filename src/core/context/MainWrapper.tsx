@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
-import { ReactNode, useLayoutEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import lightTheme from '../../../styles/theme/light';
 import CookiesPolicyBanner from '../../stories/containers/cookies-policy/cookies-policy-banner';
 import { useScrollLock } from '../hooks/scroll-hooks';
-import { useThemeContext } from './ThemeContext';
 import { useCookiesContextTracking } from './CookiesContext';
+import { useThemeContext } from './ThemeContext';
+import type { ReactNode } from 'react';
 
 const MainWrapper = ({ children }: { children: ReactNode }) => {
   const { themeMode, isLight } = useThemeContext();

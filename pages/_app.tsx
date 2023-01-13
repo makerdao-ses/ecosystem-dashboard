@@ -1,26 +1,27 @@
-import React, { ReactElement, ReactNode, useEffect } from 'react';
-import { Provider } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
-import type { AppProps } from 'next/app';
-import { store } from '../src/core/store/store';
 import '../styles/globals.scss';
-import { NextPage, NextPageContext } from 'next';
-import { EmotionCache } from '@emotion/react';
-import { ThemeProvider } from '../src/core/context/ThemeContext';
-import { FeatureFlagsProvider } from '../src/core/context/FeatureFlagsProvider';
-import { CURRENT_ENVIRONMENT } from '../src/config/endpoints';
-import { featureFlags } from '../feature-flags/feature-flags';
-import { SEOHead } from '../src/stories/components/seo-head/seo-head';
 import { useRouter } from 'next/router';
-import * as gtag from '../src/core/utils/gtag';
-import { CookiesProviderTracking } from '../src/core/context/CookiesContext';
+import React, { useEffect } from 'react';
 import { CookiesProvider } from 'react-cookie';
+import { Provider } from 'react-redux';
+import { featureFlags } from '../feature-flags/feature-flags';
+import { CURRENT_ENVIRONMENT } from '../src/config/endpoints';
 import { AuthContextProvider } from '../src/core/context/AuthContext';
+import { CookiesProviderTracking } from '../src/core/context/CookiesContext';
+import { FeatureFlagsProvider } from '../src/core/context/FeatureFlagsProvider';
+import { ThemeProvider } from '../src/core/context/ThemeContext';
+import { store } from '../src/core/store/store';
 import { getAuthFromStorage } from '../src/core/utils/auth-storage';
-import { ContainerNotification } from '../src/stories/components/notification/notification';
-import AppLayout from '../src/stories/containers/layout/layout';
 import { parseCookie } from '../src/core/utils/cookie-helpers';
-import { CookiesInterface } from '../src/core/utils/types-helpers';
+import * as gtag from '../src/core/utils/gtag';
+import { ContainerNotification } from '../src/stories/components/notification/notification';
+import { SEOHead } from '../src/stories/components/seo-head/seo-head';
+import AppLayout from '../src/stories/containers/layout/layout';
+import type { CookiesInterface } from '../src/core/utils/types-helpers';
+import type { EmotionCache } from '@emotion/react';
+import type { NextPage, NextPageContext } from 'next';
+import type { AppProps } from 'next/app';
+import type { ReactElement, ReactNode } from 'react';
 
 // disable useLayoutEffect SSR warnings to avoid log spamming the console
 // https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85

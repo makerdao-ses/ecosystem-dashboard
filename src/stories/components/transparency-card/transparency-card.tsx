@@ -1,7 +1,7 @@
-import React from 'react';
 import styled from '@emotion/styled';
-import { useThemeContext } from '../../../core/context/ThemeContext';
+import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
+import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface Props {
   header: JSX.Element | string;

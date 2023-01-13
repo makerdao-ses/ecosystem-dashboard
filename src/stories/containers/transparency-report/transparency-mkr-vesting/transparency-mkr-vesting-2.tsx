@@ -1,16 +1,16 @@
-import React from 'react';
 import styled from '@emotion/styled';
-import { DateTime } from 'luxon';
-import { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
+import React from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { CustomPopover } from '../../../components/custom-popover/custom-popover';
-import { useTransparencyMkrVesting2 } from './transparency-mkr-vesting-2.mvvm';
-import { AdvancedInnerTable } from '../../../components/advanced-inner-table/advanced-inner-table';
-import { Title } from '../transparency-report';
-import { LinkDescription } from '../transparency-actuals/transparency-actuals-2';
-import { CustomLink } from '../../../components/custom-link/custom-link';
-import { getShortCode } from '../../../../core/utils/string.utils';
 import { MAKER_BURN_LINK } from '../../../../core/utils/const';
+import { getShortCode } from '../../../../core/utils/string.utils';
+import { AdvancedInnerTable } from '../../../components/advanced-inner-table/advanced-inner-table';
+import { CustomLink } from '../../../components/custom-link/custom-link';
+import { CustomPopover } from '../../../components/custom-popover/custom-popover';
+import { LinkDescription } from '../transparency-actuals/transparency-actuals-2';
+import { Title } from '../transparency-report';
+import { useTransparencyMkrVesting2 } from './transparency-mkr-vesting-2.mvvm';
+import type { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
+import type { DateTime } from 'luxon';
 
 interface TransparencyMkrVestingProps {
   currentMonth: DateTime;

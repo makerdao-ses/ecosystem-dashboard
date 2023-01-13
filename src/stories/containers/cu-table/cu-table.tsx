@@ -1,7 +1,10 @@
-import React, { CSSProperties, useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import isEmpty from 'lodash/isEmpty';
 import sortBy from 'lodash/sortBy';
+import { useRouter } from 'next/router';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
+import lightTheme from '../../../../styles/theme/light';
 import {
   getBudgetCapsFromCoreUnit,
   getExpenditureValueFromCoreUnit,
@@ -15,14 +18,27 @@ import {
   getPercentFromCoreUnit,
   getSubmissionDateFromCuMip,
 } from '../../../core/business-logic/core-units';
+import { useThemeContext } from '../../../core/context/ThemeContext';
+import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
+import { SortEnum } from '../../../core/enums/sort.enum';
 import { useAppDispatch } from '../../../core/hooks/hooks';
+import { store } from '../../../core/store/store';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
+import { sortAlphaNum } from '../../../core/utils/sort.utils';
+import { getShortCode } from '../../../core/utils/string.utils';
+import { buildQueryString, toAbsoluteURL } from '../../../core/utils/url.utils';
+import { CoreUnitCard } from '../../components/core-unit-card/core-unit-card';
 import { CuTableColumnExpenditures } from '../../components/cu-table-column-expenditures/cu-table-column-expenditures';
 import { CuTableColumnLinks } from '../../components/cu-table-column-links/cu-table-column-links';
 import { CuTableColumnSummary } from '../../components/cu-table-column-summary/cu-table-column-summary';
 import { CuTableColumnTeamMember } from '../../components/cu-table-column-team-member/cu-table-column-team-member';
+import { CuTableHeaderSkeleton } from '../../components/cu-table-header-skeleton/header-skeleton';
+import { CustomButton } from '../../components/custom-button/custom-button';
 import { CustomTable } from '../../components/custom-table/custom-table';
+import { TablePlaceholder } from '../../components/custom-table/placeholder';
+import { SEOHead } from '../../components/seo-head/seo-head';
+import { Filters } from './cu-table-filters';
 import {
   loadCuTableItemsAsync,
   selectCuTableHeadersSort,
@@ -30,23 +46,9 @@ import {
   selectCuTableSortColumn,
   selectCuTableStatus,
 } from './cu-table.slice';
-import { useSelector } from 'react-redux';
-import { RootState, store } from '../../../core/store/store';
-import { SortEnum } from '../../../core/enums/sort.enum';
-import { sortAlphaNum } from '../../../core/utils/sort.utils';
-import { CustomButton } from '../../components/custom-button/custom-button';
-import { useRouter } from 'next/router';
-import { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
-import { getShortCode } from '../../../core/utils/string.utils';
-import { CoreUnitCard } from '../../components/core-unit-card/core-unit-card';
-import { Filters } from './cu-table-filters';
-import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
-import { useThemeContext } from '../../../core/context/ThemeContext';
-import { TablePlaceholder } from '../../components/custom-table/placeholder';
-import { CuTableHeaderSkeleton } from '../../components/cu-table-header-skeleton/header-skeleton';
-import { SEOHead } from '../../components/seo-head/seo-head';
-import { buildQueryString, toAbsoluteURL } from '../../../core/utils/url.utils';
-import lightTheme from '../../../../styles/theme/light';
+import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import type { RootState } from '../../../core/store/store';
+import type { CSSProperties } from 'react';
 
 const headers = ['Core Units', 'Expenditure', 'Team Members', 'Links'];
 
@@ -83,23 +85,20 @@ export const CuTable = () => {
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
   const data: Array<CoreUnitDto> = useSelector((state: RootState) => selectCuTableItems(state));
   const status = useSelector((state: RootState) => selectCuTableStatus(state));
-
-  const sortColumn = useSelector((state: RootState) => selectCuTableSortColumn(state));
-  const headersSort = useSelector((state: RootState) => selectCuTableHeadersSort(state));
   const [filtersPopup, setFiltersPopup] = useState(false);
 
-  const toggleFiltersPopup = () => {
+  const toggleFiltersPopup = useCallback(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     document.querySelector('body').style.overflow = filtersPopup ? 'auto' : 'hidden';
     setFiltersPopup(!filtersPopup);
-  };
+  }, [filtersPopup]);
 
   useEffect(() => {
     if (isEmpty(data)) {
       dispatch(loadCuTableItemsAsync());
     }
-  }, [dispatch]);
+  }, [data, dispatch]);
 
   const { filteredData, statusesFiltered, categoriesFiltered } = useMemo(
     () =>
@@ -119,7 +118,7 @@ export const CuTable = () => {
     });
     result.All = categoriesFiltered.length;
     return result;
-  }, [filteredData]);
+  }, [categoriesFiltered]);
 
   const statusCount = useMemo(() => {
     const result: { [id: string]: number } = {};
@@ -128,9 +127,9 @@ export const CuTable = () => {
     });
     result.All = statusesFiltered.length;
     return result;
-  }, [filteredData]);
+  }, [statusesFiltered]);
 
-  const clearFilters = () => {
+  const clearFilters = useCallback(() => {
     router.push({
       pathname: '/',
       search: '',
@@ -140,7 +139,7 @@ export const CuTable = () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     input.value = '';
-  };
+  }, [router]);
 
   const onClickRow = useCallback(
     (code: string) => () => {
@@ -178,77 +177,72 @@ export const CuTable = () => {
 
     if (!filteredData) return [];
     const sortedData = sortData(filteredData);
-    return sortedData.map((coreUnit: CoreUnitDto, i: number) => {
-      return [
-        <CuTableColumnSummary
-          key={`summary-${coreUnit.code}`}
-          title={coreUnit.name}
-          status={getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum}
-          statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
-          imageUrl={coreUnit.image}
-          mipUrl={getMipUrlFromCoreUnit(coreUnit)}
-          onClick={onClickRow(coreUnit.shortCode)}
-          code={getShortCode(coreUnit.shortCode)}
-          categories={coreUnit?.category}
-        />,
+    return sortedData.map((coreUnit: CoreUnitDto, i: number) => [
+      <CuTableColumnSummary
+        key={`summary-${coreUnit.code}`}
+        title={coreUnit.name}
+        status={getLatestMip39FromCoreUnit(coreUnit)?.mipStatus as CuStatusEnum}
+        statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
+        imageUrl={coreUnit.image}
+        mipUrl={getMipUrlFromCoreUnit(coreUnit)}
+        onClick={onClickRow(coreUnit.shortCode)}
+        code={getShortCode(coreUnit.shortCode)}
+        categories={coreUnit?.category}
+      />,
+      <div
+        key={`expenditures-${i}`}
+        onClick={() => onClickFinances(coreUnit.shortCode)}
+        style={{
+          display: 'flex',
+          width: '100%',
+          height: '100%',
+          cursor: 'pointer',
+        }}
+      >
         <div
-          key={`expenditures-${i}`}
-          onClick={() => onClickFinances(coreUnit.shortCode)}
           style={{
-            display: 'flex',
-            width: '100%',
-            height: '100%',
-            cursor: 'pointer',
+            display: 'block',
+            margin: 'auto 0',
+            paddingLeft: '8px',
           }}
         >
-          <div
-            style={{
-              display: 'block',
-              margin: 'auto 0',
-              paddingLeft: '8px',
-            }}
-          >
-            <CuTableColumnExpenditures
-              value={getExpenditureValueFromCoreUnit(coreUnit)}
-              percent={getPercentFromCoreUnit(coreUnit)}
-              months={getLast3MonthsWithDataFormatted(coreUnit)}
-              items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
-              budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
-            />
-          </div>
-        </div>,
-        <div
-          key={`teammember-${i}`}
-          onClick={onClickRow(coreUnit.shortCode)}
-          style={{
-            display: 'flex',
-            width: '100%',
-            height: '100%',
-          }}
-        >
-          <CuTableColumnTeamMember
-            members={getFacilitatorsFromCoreUnit(coreUnit)}
-            fte={getFTEsFromCoreUnit(coreUnit)}
+          <CuTableColumnExpenditures
+            value={getExpenditureValueFromCoreUnit(coreUnit)}
+            percent={getPercentFromCoreUnit(coreUnit)}
+            months={getLast3MonthsWithDataFormatted(coreUnit)}
+            items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
+            budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
           />
-        </div>,
-        <div
-          key={`links-${i}`}
-          onClick={onClickRow(coreUnit.shortCode)}
-          style={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            flex: 1,
-            paddingRight: '16px',
-            width: '100%',
-            height: '100%',
-            cursor: 'pointer',
-          }}
-        >
-          <CuTableColumnLinks links={getLinksFromCoreUnit(coreUnit)} spacings={16} fill="#708390" fillDark="#D2D4EF" />
-        </div>,
-      ];
-    });
-  }, [filteredData, headersSort, sortColumn, onClickRow, isLight]);
+        </div>
+      </div>,
+      <div
+        key={`teammember-${i}`}
+        onClick={onClickRow(coreUnit.shortCode)}
+        style={{
+          display: 'flex',
+          width: '100%',
+          height: '100%',
+        }}
+      >
+        <CuTableColumnTeamMember members={getFacilitatorsFromCoreUnit(coreUnit)} fte={getFTEsFromCoreUnit(coreUnit)} />
+      </div>,
+      <div
+        key={`links-${i}`}
+        onClick={onClickRow(coreUnit.shortCode)}
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          flex: 1,
+          paddingRight: '16px',
+          width: '100%',
+          height: '100%',
+          cursor: 'pointer',
+        }}
+      >
+        <CuTableColumnLinks links={getLinksFromCoreUnit(coreUnit)} spacings={16} fill="#708390" fillDark="#D2D4EF" />
+      </div>,
+    ]);
+  }, [status, filteredData, onClickRow, onClickFinances]);
 
   const itemsList = useMemo(() => {
     if (status === 'loading') {
@@ -261,7 +255,7 @@ export const CuTable = () => {
       return result;
     }
     return sortBy(filteredData, 'name').map((cu) => <CoreUnitCard key={`card-${cu.code}`} coreUnit={cu} />);
-  }, [filteredData]);
+  }, [filteredData, status]);
 
   const siteHeader = useMemo(() => {
     if (status === 'loading') {
@@ -323,7 +317,18 @@ export const CuTable = () => {
         />
       </Header>
     );
-  }, [filteredData, isLight, toggleFiltersPopup]);
+  }, [
+    categoriesCount,
+    clearFilters,
+    filteredCategories,
+    filteredStatuses,
+    filtersPopup,
+    isLight,
+    searchText,
+    status,
+    statusCount,
+    toggleFiltersPopup,
+  ]);
 
   return (
     <ContainerHome isLight={isLight}>

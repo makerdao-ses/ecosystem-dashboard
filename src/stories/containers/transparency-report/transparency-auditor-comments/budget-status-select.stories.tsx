@@ -1,8 +1,8 @@
 import React from 'react';
-import { ComponentMeta } from '@storybook/react';
 import { BudgetStatus } from '../../../../core/models/dto/core-unit.dto';
-import BudgetStatusSelect from './budget-status-select';
 import { createThemeModeVariants } from '../../../../core/utils/storybook';
+import BudgetStatusSelect from './budget-status-select';
+import type { ComponentMeta } from '@storybook/react';
 
 export default {
   title: 'Components/AuditorComments/BudgetStatusSelect',

@@ -1,4 +1,5 @@
-import { MutableRefObject, useEffect } from 'react';
+import { useEffect } from 'react';
+import type { MutableRefObject } from 'react';
 
 // The hook is too generic to use anything else
 // eslint-disable-next-line

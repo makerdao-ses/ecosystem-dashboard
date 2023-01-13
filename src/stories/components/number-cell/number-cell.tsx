@@ -1,7 +1,8 @@
-import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
-import { formatNumber } from '../../../core/utils/string.utils';
+import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { formatNumber } from '../../../core/utils/string.utils';
+import type { CSSProperties } from 'react';
 
 interface NumberCellProps {
   style?: CSSProperties;

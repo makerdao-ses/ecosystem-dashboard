@@ -1,14 +1,14 @@
+import Skeleton from '@mui/material/Skeleton';
 import { useState, useMemo } from 'react';
 import useSWR from 'swr';
-import Skeleton from '@mui/material/Skeleton';
 import { featureFlags } from '../../../../../feature-flags/feature-flags';
 import { CURRENT_ENVIRONMENT } from '../../../../config/endpoints';
 import { useAuthContext } from '../../../../core/context/AuthContext';
-import { UserDTO } from '../../../../core/models/dto/auth.dto';
 import { fetcher } from '../../../../core/utils/fetcher';
-import { TabItem } from '../../../components/tabs/tabs';
 import { ParenthesisNumber } from '../../transparency-report/transparency-report';
 import { QUERY_USERS } from './user-manager.api';
+import type { UserDTO } from '../../../../core/models/dto/auth.dto';
+import type { TabItem } from '../../../components/tabs/tabs';
 
 export const useManagerAccountLayoutViewModel = () => {
   const [FEATURE_AUTH] = useState<boolean>(featureFlags[CURRENT_ENVIRONMENT].FEATURE_AUTH);
@@ -51,7 +51,7 @@ export const useManagerAccountLayoutViewModel = () => {
         href: '/auth/manage/accounts',
       },
     ],
-    [users]
+    [data, errorFetchingUsers, users.length]
   );
 
   return {

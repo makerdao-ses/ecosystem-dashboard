@@ -1,6 +1,6 @@
 import React from 'react';
 import { CustomButton } from './custom-button';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
   title: 'Components/General/CustomButton',

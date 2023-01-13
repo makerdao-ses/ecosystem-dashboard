@@ -1,4 +1,4 @@
-import { ContributorDto, Mip41Dto } from '../../models/dto/core-unit.dto';
+import type { ContributorDto, Mip41Dto } from '../../models/dto/core-unit.dto';
 
 export class Mip41Builder {
   private readonly _mip41: Mip41Dto;

@@ -1,17 +1,17 @@
 import styled from '@emotion/styled';
-import React, { useCallback } from 'react';
 import Image from 'next/image';
-import CloseButton from '../../../components/close-button/close-button';
+import { useRouter } from 'next/router';
+import React, { useCallback } from 'react';
+import lightTheme from '../../../../../styles/theme/light';
+import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
+import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
+import CloseButton from '../../../components/close-button/close-button';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import TextInput from '../../../components/text-input/text-input';
 import { ButtonWrapper, Form } from '../../auth/login/login';
 import { useCreateAccountMvvm } from './create-account.mvvm';
-import { useRouter } from 'next/router';
-import { useAuthContext } from '../../../../core/context/AuthContext';
-import { UserDTO } from '../../../../core/models/dto/auth.dto';
-import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
-import lightTheme from '../../../../../styles/theme/light';
+import type { UserDTO } from '../../../../core/models/dto/auth.dto';
 
 export default () => {
   const { isLight } = useThemeContext();

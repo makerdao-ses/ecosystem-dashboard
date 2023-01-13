@@ -1,5 +1,5 @@
-import { DateTime } from 'luxon';
-import { ActivityFeedDto, CommentsBudgetStatementDto } from '../models/dto/core-unit.dto';
+import type { ActivityFeedDto, CommentsBudgetStatementDto } from '../models/dto/core-unit.dto';
+import type { DateTime } from 'luxon';
 
 export type WithDate = {
   date: DateTime;

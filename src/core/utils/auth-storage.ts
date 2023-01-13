@@ -1,4 +1,4 @@
-import { LoginDTO } from '../models/dto/auth.dto';
+import type { LoginDTO } from '../models/dto/auth.dto';
 
 export const getAuthFromStorage = () => {
   const auth = localStorage.getItem('auth');

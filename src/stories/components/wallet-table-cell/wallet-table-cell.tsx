@@ -1,9 +1,9 @@
-import React from 'react';
 import styled from '@emotion/styled';
+import React from 'react';
+import { useThemeContext } from '../../../core/context/ThemeContext';
+import { capitalizeSentence } from '../../../core/utils/string.utils';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
 import { CustomLink } from '../custom-link/custom-link';
-import { capitalizeSentence } from '../../../core/utils/string.utils';
-import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface WalletTableCellProps {
   imgUrl?: string;

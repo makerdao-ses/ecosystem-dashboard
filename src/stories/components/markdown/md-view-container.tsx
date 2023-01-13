@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
-import { AuditorDto } from '../../../core/models/dto/core-unit.dto';
-import MdViewerPage, { MarkDownHeaders } from './md-view';
+import MdViewerPage from './md-view';
+import type { AuditorDto } from '../../../core/models/dto/core-unit.dto';
+import type { MarkDownHeaders } from './md-view';
 
 interface Props {
   sentenceDescription: string;

@@ -1,9 +1,9 @@
-import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
-import NoteChecked from '../../../components/svg/note-checked';
+import { DateTime } from 'luxon';
+import React, { useMemo } from 'react';
 import lightTheme from '../../../../../styles/theme/light';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { DateTime } from 'luxon';
+import NoteChecked from '../../../components/svg/note-checked';
 
 export type CUNewExpenseReportProps = {
   description: string;

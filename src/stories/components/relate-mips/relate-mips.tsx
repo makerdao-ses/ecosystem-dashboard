@@ -1,16 +1,16 @@
-import React from 'react';
 import styled from '@emotion/styled';
 import { Typography, useMediaQuery } from '@mui/material';
 import { DateTime } from 'luxon';
-import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
+import React from 'react';
+import lightTheme from '../../../../styles/theme/light';
+import { getMipsStatus } from '../../../core/business-logic/core-unit-about';
+import { useThemeContext } from '../../../core/context/ThemeContext';
+import { getMipTitle } from '../../../core/utils/string.utils';
+import { CustomLink } from '../custom-link/custom-link';
 import { StatusChip } from '../status-chip/status-chip';
 import ExternalLinkArrow from '../svg/external-link-arrow';
-import { getMipTitle } from '../../../core/utils/string.utils';
-import { getMipsStatus } from '../../../core/business-logic/core-unit-about';
-import { CuMipDto } from '../../../core/models/dto/core-unit.dto';
-import lightTheme from '../../../../styles/theme/light';
-import { useThemeContext } from '../../../core/context/ThemeContext';
-import { CustomLink } from '../custom-link/custom-link';
+import type { CuStatusEnum } from '../../../core/enums/cu-status.enum';
+import type { CuMipDto } from '../../../core/models/dto/core-unit.dto';
 
 export type RelateMipType = {
   status: CuStatusEnum;

@@ -1,10 +1,10 @@
-import { NextPage, GetServerSideProps, GetServerSidePropsContext } from 'next';
-import React from 'react';
 import isEmpty from 'lodash/isEmpty';
-import CUActivityContainer from '../../../src/stories/containers/cu-activity/cu-activity';
+import React from 'react';
 import { fetchCoreUnits } from '../../../src/stories/components/core-unit-summary/core-unit-summary.mvvm';
-import { ActivityFeedDto, CoreUnitDto } from '../../../src/core/models/dto/core-unit.dto';
+import CUActivityContainer from '../../../src/stories/containers/cu-activity/cu-activity';
 import { fetchCoreUnitWithActivitiesByCode } from '../../../src/stories/containers/cu-activity/cu-activity.api';
+import type { ActivityFeedDto, CoreUnitDto } from '../../../src/core/models/dto/core-unit.dto';
+import type { NextPage, GetServerSideProps, GetServerSidePropsContext } from 'next';
 
 interface CUActivityProps {
   coreUnits: CoreUnitDto[];
@@ -12,9 +12,9 @@ interface CUActivityProps {
   activity: ActivityFeedDto[];
 }
 
-const CoreUnitActivityPage: NextPage<CUActivityProps> = ({ coreUnit, coreUnits }) => {
-  return <CUActivityContainer coreUnit={coreUnit} coreUnits={coreUnits} />;
-};
+const CoreUnitActivityPage: NextPage<CUActivityProps> = ({ coreUnit, coreUnits }) => (
+  <CUActivityContainer coreUnit={coreUnit} coreUnits={coreUnits} />
+);
 
 export default CoreUnitActivityPage;
 
