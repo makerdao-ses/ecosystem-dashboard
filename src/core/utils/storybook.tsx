@@ -7,6 +7,7 @@ import { CoreUnitDto } from '../models/dto/core-unit.dto';
 import { AuthContext } from '../context/AuthContext';
 import PermissionManager from '../auth/permission-manager';
 import { UserDTO } from '../models/dto/auth.dto';
+import FigmaComparator from '../../stories/helpers/FigmaComparator';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const createTemplateWithTheme = <T extends React.ComponentType<any>>(
@@ -101,3 +102,10 @@ export const withUserLoggedIn = (user: UserDTO) => {
     </AuthContext.Provider>
   );
 };
+
+export const withFigmaComparator = (fileId: string, nodeId: string) => (Story: Story) =>
+  (
+    <FigmaComparator fileId={fileId} nodeId={nodeId}>
+      <Story />
+    </FigmaComparator>
+  );
