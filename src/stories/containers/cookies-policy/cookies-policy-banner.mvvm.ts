@@ -49,12 +49,13 @@ export const useCookiesPolicyBannerMvvm = ({ cookiesObject }: Props) => {
 
   const setFunctionalTracking = useCallback(
     (val: boolean) => {
-      console.log('daysToExpire', daysToExpire);
       setCookie('themeTracking', val, {
         expires: daysToExpire,
+        path: '/',
       });
       setCookie('timestampTracking', val, {
         expires: daysToExpire,
+        path: '/',
       });
     },
     [setCookie]
@@ -68,6 +69,14 @@ export const useCookiesPolicyBannerMvvm = ({ cookiesObject }: Props) => {
     },
     [setCookie]
   );
+
+  const setThemeModeCookie = useCallback(() => {
+    const newThemeMode = cookies.themeModeCookie ? cookies.themeModeCookie : 'light';
+    setCookie('themeModeCookie', newThemeMode, {
+      expires: daysToExpire,
+      path: '/',
+    });
+  }, [cookies.themeModeCookie, setCookie]);
 
   const deletedFunctionalTracking = useCallback(() => {
     removeCookie('themeTracking', {
@@ -113,18 +122,8 @@ export const useCookiesPolicyBannerMvvm = ({ cookiesObject }: Props) => {
     if (analyticsCheckbox) {
       setAnalyticsTracking(true);
     }
-    const newThemeMode = cookies.themeModeCookie ? cookies.themeModeCookie : 'light';
-    setCookie('themeModeCookie', newThemeMode, {
-      expires: daysToExpire,
-    });
-  }, [
-    analyticsCheckbox,
-    cookies.themeModeCookie,
-    functionalCheckbox,
-    setAnalyticsTracking,
-    setCookie,
-    setFunctionalTracking,
-  ]);
+    setThemeModeCookie();
+  }, [analyticsCheckbox, functionalCheckbox, setAnalyticsTracking, setFunctionalTracking, setThemeModeCookie]);
 
   const handleSettings = useCallback((val: boolean) => {
     setSettingCookies(val);
