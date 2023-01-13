@@ -1,3 +1,4 @@
+import { daysToDeleteCookie, daysToExpire } from '@ses/core/utils/date.utils';
 import { useCallback, useMemo, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useScrollLock } from '../../../core/hooks/scroll-hooks';
@@ -11,7 +12,7 @@ export const useCookiesPolicyBannerMvvm = ({ cookiesObject }: Props) => {
     'themeTracking',
     'timestampTracking',
     'analyticsTracking',
-    'THEME_MODE',
+    'themeModeCookie',
   ]);
   const { unlockScroll } = useScrollLock();
 
@@ -48,25 +49,49 @@ export const useCookiesPolicyBannerMvvm = ({ cookiesObject }: Props) => {
 
   const setFunctionalTracking = useCallback(
     (val: boolean) => {
-      setCookie('themeTracking', val);
-      setCookie('timestampTracking', val);
+      console.log('daysToExpire', daysToExpire);
+      setCookie('themeTracking', val, {
+        expires: daysToExpire,
+      });
+      setCookie('timestampTracking', val, {
+        expires: daysToExpire,
+      });
     },
     [setCookie]
   );
   const setAnalyticsTracking = useCallback(
     (val: boolean) => {
-      setCookie('analyticsTracking', val);
+      setCookie('analyticsTracking', val, {
+        expires: daysToExpire,
+        path: '/',
+      });
     },
     [setCookie]
   );
 
   const deletedFunctionalTracking = useCallback(() => {
-    removeCookie('themeTracking');
-    removeCookie('timestampTracking');
+    removeCookie('themeTracking', {
+      expires: daysToDeleteCookie,
+      path: '/',
+    });
+    removeCookie('timestampTracking', {
+      expires: daysToDeleteCookie,
+      path: '/',
+    });
   }, [removeCookie]);
 
   const deletedAnalyticsTracking = useCallback(() => {
-    removeCookie('analyticsTracking');
+    removeCookie('analyticsTracking', {
+      expires: daysToDeleteCookie,
+      path: '/',
+    });
+  }, [removeCookie]);
+
+  const deletedThemeCookie = useCallback(() => {
+    removeCookie('themeModeCookie', {
+      expires: daysToDeleteCookie,
+      path: '/',
+    });
   }, [removeCookie]);
 
   const handleRejectCookies = useCallback(() => {
@@ -75,12 +100,10 @@ export const useCookiesPolicyBannerMvvm = ({ cookiesObject }: Props) => {
     setFunctionalCheckbox(false);
     deletedFunctionalTracking();
     deletedAnalyticsTracking();
-    if (cookies) {
-      removeCookie('THEME_MODE');
-    }
-
+    deletedThemeCookie();
+    console.log('document.cookie', document.cookie, daysToDeleteCookie);
     unlockScroll();
-  }, [deletedFunctionalTracking, deletedAnalyticsTracking, cookies, unlockScroll, removeCookie]);
+  }, [deletedFunctionalTracking, deletedAnalyticsTracking, deletedThemeCookie, unlockScroll]);
 
   const handleAcceptCookies = useCallback(() => {
     setIsShowBanner(false);
@@ -90,11 +113,13 @@ export const useCookiesPolicyBannerMvvm = ({ cookiesObject }: Props) => {
     if (analyticsCheckbox) {
       setAnalyticsTracking(true);
     }
-    const newThemeMode = cookies.THEME_MODE ? cookies.THEME_MODE : 'light';
-    setCookie('THEME_MODE', newThemeMode);
+    const newThemeMode = cookies.themeModeCookie ? cookies.themeModeCookie : 'light';
+    setCookie('themeModeCookie', newThemeMode, {
+      expires: daysToExpire,
+    });
   }, [
     analyticsCheckbox,
-    cookies.THEME_MODE,
+    cookies.themeModeCookie,
     functionalCheckbox,
     setAnalyticsTracking,
     setCookie,

@@ -83,21 +83,36 @@ function MyApp(props: MyAppProps) {
 }
 
 MyApp.getInitialProps = async ({ ctx }: { ctx: NextPageContext }) => {
-  let themeMode = '';
-  const cookiesObject: CookiesInterface = {
+  let cookiesObject: CookiesInterface = {
     allowsThemeTracking: false,
     allowsTimestampTracking: false,
     allowsAnalyticsTracking: false,
+    themeModeCookie: 'light',
   };
 
   if (ctx.req?.headers.cookie) {
+    console.log('ctx.req?.headers.cookie', ctx.req?.headers.cookie);
     const cookiesParsed = parseCookie(ctx.req?.headers.cookie);
-    cookiesObject.allowsThemeTracking = Boolean(cookiesParsed?.themeTracking);
-    cookiesObject.allowsTimestampTracking = Boolean(cookiesParsed?.timestampTracking);
-    cookiesObject.allowsAnalyticsTracking = Boolean(cookiesParsed?.analyticsTracking);
-    themeMode = cookiesParsed.THEME_MODE;
+
+    cookiesObject = {
+      ...cookiesObject,
+      allowsThemeTracking: Boolean(cookiesParsed?.themeTracking),
+    };
+    cookiesObject = {
+      ...cookiesObject,
+      allowsTimestampTracking: Boolean(cookiesParsed?.timestampTracking),
+    };
+    cookiesObject = {
+      ...cookiesObject,
+      allowsAnalyticsTracking: Boolean(cookiesParsed?.analyticsTracking),
+    };
+    cookiesObject = {
+      ...cookiesObject,
+      themeModeCookie: cookiesParsed.themeModeCookie,
+    };
   }
-  const isLight = cookiesObject?.allowsThemeTracking ? themeMode === 'light' : true;
+
+  const isLight = cookiesObject?.allowsThemeTracking ? cookiesObject.themeModeCookie === 'light' : true;
   return {
     isLight,
     cookiesObject,

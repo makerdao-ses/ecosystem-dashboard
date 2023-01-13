@@ -13,6 +13,7 @@ export interface CookiesInterface {
   allowsThemeTracking: boolean;
   allowsTimestampTracking: boolean;
   allowsAnalyticsTracking: boolean;
+  themeModeCookie: string;
 }
 
 export function isActivity(activity: CommentsBudgetStatementDto | ActivityFeedDto): activity is ActivityFeedDto {
