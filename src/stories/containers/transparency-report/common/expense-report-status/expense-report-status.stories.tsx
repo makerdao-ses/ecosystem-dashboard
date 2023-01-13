@@ -22,9 +22,6 @@ const DarkModeTemplate = createTemplateWithTheme(ExpenseReportStatus, false);
 
 // Draft status
 export const Draft = LightModeTemplate.bind({});
-Draft.args = {
-  _hasFigma: true,
-};
 Draft.decorators = [withFigmaComparator(FILE_ID, '10486:103217')];
 
 export const DraftDarkMode = DarkModeTemplate.bind({});
