@@ -1,4 +1,6 @@
 import request from 'graphql-request';
+import groupBy from 'lodash/groupBy';
+import orderBy from 'lodash/orderBy';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo, useState } from 'react';
@@ -42,7 +44,7 @@ export const useCoreUnitsTableMvvm = () => {
   const data = res?.coreUnits ?? null;
   const status = !data && !error ? 'loading' : data ? 'success' : 'idle';
 
-  const [sortColumn, setSortColumn] = useState<number>(0);
+  const [sortColumn, setSortColumn] = useState<number>(-1);
   const [headersSort, setHeadersSort] = useState<SortEnum[]>([
     SortEnum.Asc,
     SortEnum.Neutral,
@@ -211,13 +213,37 @@ export const useCoreUnitsTableMvvm = () => {
     return sortDataFunction;
   }, [headersSort, sortColumn]);
 
+  const giveWeightByStatus = (status: CuStatusEnum) =>
+    status === CuStatusEnum.Accepted
+      ? 5
+      : status === CuStatusEnum.FormalSubmission
+      ? 4
+      : status === CuStatusEnum.RFC
+      ? 3
+      : status === CuStatusEnum.Obsolete
+      ? 2
+      : status === CuStatusEnum.Rejected
+      ? 1
+      : 0;
+  const dataWithStatus = filteredData?.map((item) => ({
+    ...item,
+    status: giveWeightByStatus(getStautsMip39AccetedOrObsolete(item)),
+  }));
+
   const tableItems: CustomTableRow[] = useMemo(() => {
-    const sortedData = sortData(filteredData);
+    let resultArray: CoreUnitDto[] = [];
+    const groupCoreUnitByStatus = groupBy(dataWithStatus, 'status');
+    Object.values(groupCoreUnitByStatus).map((arrayValues) => {
+      const alphabeticallyOrder = orderBy(arrayValues, 'name');
+      resultArray = [...alphabeticallyOrder, ...resultArray];
+      return resultArray;
+    });
+    const sortedData = sortData(resultArray);
     return sortedData?.map((x: CoreUnitDto) => ({
       value: x,
       key: x.code,
     }));
-  }, [sortData, filteredData]);
+  }, [dataWithStatus, sortData]);
 
   const onSortClick = (index: number) => {
     const sortNeutralState = columns.map((column) =>
