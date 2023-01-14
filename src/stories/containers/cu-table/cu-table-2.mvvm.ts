@@ -230,7 +230,7 @@ export const useCoreUnitsTableMvvm = () => {
     status: giveWeightByStatus(getStautsMip39AccetedOrObsolete(item)),
   }));
 
-  const tableItems: CustomTableRow[] = useMemo(() => {
+  const groupByStatusDefaultSorting: CoreUnitDto[] = useMemo(() => {
     let resultArray: CoreUnitDto[] = [];
     const groupCoreUnitByStatus = groupBy(dataWithStatus, 'status');
     Object.values(groupCoreUnitByStatus).map((arrayValues) => {
@@ -238,12 +238,16 @@ export const useCoreUnitsTableMvvm = () => {
       resultArray = [...alphabeticallyOrder, ...resultArray];
       return resultArray;
     });
-    const sortedData = sortData(resultArray);
+    return resultArray;
+  }, [dataWithStatus]);
+
+  const tableItems: CustomTableRow[] = useMemo(() => {
+    const sortedData = sortData(groupByStatusDefaultSorting);
     return sortedData?.map((x: CoreUnitDto) => ({
       value: x,
       key: x.code,
     }));
-  }, [dataWithStatus, sortData]);
+  }, [groupByStatusDefaultSorting, sortData]);
 
   const onSortClick = (index: number) => {
     const sortNeutralState = columns.map((column) =>
