@@ -225,10 +225,15 @@ export const useCoreUnitsTableMvvm = () => {
       : status === CuStatusEnum.Rejected
       ? 1
       : 0;
-  const dataWithStatus = filteredData?.map((item) => ({
-    ...item,
-    status: giveWeightByStatus(getStautsMip39AccetedOrObsolete(item)),
-  }));
+
+  const dataWithStatus = useMemo(
+    () =>
+      filteredData?.map((item) => ({
+        ...item,
+        status: giveWeightByStatus(getStautsMip39AccetedOrObsolete(item)),
+      })),
+    [filteredData]
+  );
 
   const groupByStatusDefaultSorting: CoreUnitDto[] = useMemo(() => {
     let resultArray: CoreUnitDto[] = [];
