@@ -91,7 +91,6 @@ MyApp.getInitialProps = async ({ ctx }: { ctx: NextPageContext }) => {
   };
 
   if (ctx.req?.headers.cookie) {
-    console.log('ctx.req?.headers.cookie', ctx.req?.headers.cookie);
     const cookiesParsed = parseCookie(ctx.req?.headers.cookie);
 
     cookiesObject = {

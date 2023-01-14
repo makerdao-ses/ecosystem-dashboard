@@ -110,7 +110,6 @@ export const useCookiesPolicyBannerMvvm = ({ cookiesObject }: Props) => {
     deletedFunctionalTracking();
     deletedAnalyticsTracking();
     deletedThemeCookie();
-    console.log('document.cookie', document.cookie, daysToDeleteCookie);
     unlockScroll();
   }, [deletedFunctionalTracking, deletedAnalyticsTracking, deletedThemeCookie, unlockScroll]);
 
