@@ -104,6 +104,7 @@ const dictionary = [
   'janne',
   'figma',
   'comparator',
+  'viewports',
 ];
 
 module.exports = dictionary;

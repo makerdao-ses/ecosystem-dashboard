@@ -1,4 +1,4 @@
-import { createThemeModeVariants } from '../../../../core/utils/storybook';
+import { createThemeModeVariants } from '../../../../core/utils/storybook/factories';
 import CUNewExpenseReport from './cu-new-expense-report';
 import type { ComponentMeta } from '@storybook/react';
 

@@ -1,4 +1,4 @@
-import { createThemeModeVariants } from '../../../../../core/utils/storybook';
+import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import InlineUser from './inline-user';
 import type { ComponentMeta } from '@storybook/react';
 

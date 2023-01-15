@@ -1,4 +1,4 @@
-import { createThemeModeVariants } from '../../../../core/utils/storybook';
+import { createThemeModeVariants } from '../../../../core/utils/storybook/factories';
 import NoComments from './no-comments';
 import type { ComponentMeta } from '@storybook/react';
 

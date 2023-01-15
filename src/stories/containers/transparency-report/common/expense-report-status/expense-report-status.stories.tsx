@@ -1,9 +1,9 @@
+import { withFigmaComparator } from '@ses/core/utils/storybook/decorators';
+import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
+import { figmaComparatorCommonPaddingOptions } from '@ses/core/utils/storybook/utils';
 import { BudgetStatus } from '../../../../../core/models/dto/core-unit.dto';
-import { createTemplateWithTheme, withFigmaComparator } from '../../../../../core/utils/storybook';
 import ExpenseReportStatus from './expense-report-status';
 import type { ComponentMeta } from '@storybook/react';
-
-const FILE_ID = 'pyaYEjcwF2b5uf9y0vIfIy';
 
 export default {
   title: 'Components/AuditorComments/ExpenseReportStatus',
@@ -17,51 +17,68 @@ export default {
   },
 } as ComponentMeta<typeof ExpenseReportStatus>;
 
-const LightModeTemplate = createTemplateWithTheme(ExpenseReportStatus, true);
-const DarkModeTemplate = createTemplateWithTheme(ExpenseReportStatus, false);
+const variantsArgs = [
+  { status: BudgetStatus.Draft },
+  { status: BudgetStatus.Review },
+  { status: BudgetStatus.Escalated },
+  { status: BudgetStatus.Final },
+];
 
-// Draft status
-export const Draft = LightModeTemplate.bind({});
-Draft.decorators = [withFigmaComparator(FILE_ID, '10486:103217')];
+export const [
+  [Draft, DraftDarkMode],
+  [Review, ReviewDarkMode],
+  [Escalated, EscalatedDarkMode],
+  [Final, FinalDarkMode],
+] = createThemeModeVariants(ExpenseReportStatus, variantsArgs);
 
-export const DraftDarkMode = DarkModeTemplate.bind({});
-DraftDarkMode.decorators = [withFigmaComparator(FILE_ID, '10676:119468')];
+Draft.decorators = [
+  withFigmaComparator(
+    'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10486%3A103217&t=rZgNKjWVAVo99Z9K-4',
+    figmaComparatorCommonPaddingOptions
+  ),
+];
+DraftDarkMode.decorators = [
+  withFigmaComparator(
+    'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10676%3A119468&t=rZgNKjWVAVo99Z9K-4',
+    figmaComparatorCommonPaddingOptions
+  ),
+];
 
-// Review status
-export const Review = LightModeTemplate.bind({});
-Review.args = {
-  status: BudgetStatus.Review,
-};
-Review.decorators = [withFigmaComparator(FILE_ID, '10486:103219')];
+Review.decorators = [
+  withFigmaComparator(
+    'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10676%3A119470&t=rZgNKjWVAVo99Z9K-4',
+    figmaComparatorCommonPaddingOptions
+  ),
+];
+ReviewDarkMode.decorators = [
+  withFigmaComparator(
+    'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10486%3A103219&t=rZgNKjWVAVo99Z9K-4',
+    figmaComparatorCommonPaddingOptions
+  ),
+];
 
-export const ReviewDarkMode = DarkModeTemplate.bind({});
-ReviewDarkMode.args = {
-  status: BudgetStatus.Review,
-};
-ReviewDarkMode.decorators = [withFigmaComparator(FILE_ID, '10676:119470')];
+Escalated.decorators = [
+  withFigmaComparator(
+    'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10486%3A103223&t=rZgNKjWVAVo99Z9K-4',
+    figmaComparatorCommonPaddingOptions
+  ),
+];
+EscalatedDarkMode.decorators = [
+  withFigmaComparator(
+    'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10676%3A119474&t=rZgNKjWVAVo99Z9K-4',
+    figmaComparatorCommonPaddingOptions
+  ),
+];
 
-// Escalated status
-export const Escalated = LightModeTemplate.bind({});
-Escalated.args = {
-  status: BudgetStatus.Escalated,
-};
-Escalated.decorators = [withFigmaComparator(FILE_ID, '10486:103223')];
-
-export const EscalatedDarkMode = DarkModeTemplate.bind({});
-EscalatedDarkMode.args = {
-  status: BudgetStatus.Escalated,
-};
-EscalatedDarkMode.decorators = [withFigmaComparator(FILE_ID, '10676:119474')];
-
-// Final status
-export const Final = LightModeTemplate.bind({});
-Final.args = {
-  status: BudgetStatus.Final,
-};
-Final.decorators = [withFigmaComparator(FILE_ID, '10486:103221')];
-
-export const FinalDarkMode = DarkModeTemplate.bind({});
-FinalDarkMode.args = {
-  status: BudgetStatus.Final,
-};
-FinalDarkMode.decorators = [withFigmaComparator(FILE_ID, '10676:119472')];
+Final.decorators = [
+  withFigmaComparator(
+    'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10486%3A103221&t=rZgNKjWVAVo99Z9K-4',
+    figmaComparatorCommonPaddingOptions
+  ),
+];
+FinalDarkMode.decorators = [
+  withFigmaComparator(
+    'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10676%3A119472&t=rZgNKjWVAVo99Z9K-4',
+    figmaComparatorCommonPaddingOptions
+  ),
+];
