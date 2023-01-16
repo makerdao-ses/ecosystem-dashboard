@@ -1,7 +1,8 @@
+import { withCoreUnitContext } from '@ses/core/utils/storybook/decorators';
 import { CommentBuilder } from '../../../../core/business-logic/builders/comment.builder';
 import { UserBuilder } from '../../../../core/business-logic/builders/user.builder';
 import { BudgetStatus } from '../../../../core/models/dto/core-unit.dto';
-import { withCoreUnitContext, createThemeModeVariants } from '../../../../core/utils/storybook';
+import { createThemeModeVariants } from '../../../../core/utils/storybook/factories';
 import AuditorCommentList from './comment-list';
 import type { ComponentMeta } from '@storybook/react';
 

@@ -1,4 +1,3 @@
-/* eslint-disable spellcheck/spell-checker */
 const dictionary = [
   'touchmove',
   'useFormik',
@@ -103,6 +102,9 @@ const dictionary = [
   'Wkampmann',
   'jhon',
   'janne',
+  'figma',
+  'comparator',
+  'viewports',
 ];
 
 module.exports = dictionary;

@@ -8,7 +8,6 @@
 .next
 .github
 .husky
-.storybook
 .vscode
 # testing
 /coverage

@@ -1,14 +1,22 @@
-import { CommentBuilder } from '../../../../core/business-logic/builders/comment.builder';
-import { UserBuilder } from '../../../../core/business-logic/builders/user.builder';
-import { BudgetStatus } from '../../../../core/models/dto/core-unit.dto';
-import { withCoreUnitContext, createThemeModeVariants } from '../../../../core/utils/storybook';
+import { CommentBuilder } from '@ses/core/business-logic/builders/comment.builder';
+import { UserBuilder } from '@ses/core/business-logic/builders/user.builder';
+import { BudgetStatus } from '@ses/core/models/dto/core-unit.dto';
+import { withCoreUnitContext, withFigmaComparator } from '@ses/core/utils/storybook/decorators';
+import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AuditorCommentCard from './auditor-comment-card';
+import type { CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
 import type { ComponentMeta } from '@storybook/react';
 
 export default {
   title: 'Components/AuditorComments/CommentCard',
   component: AuditorCommentCard,
-  decorators: [withCoreUnitContext],
+  parameters: {
+    chromatic: {
+      viewports: [375, 834, 1194, 1440],
+      pauseAnimationAtEnd: true,
+    },
+  },
+  decorators: [withCoreUnitContext({ shortCode: 'SES' } as CoreUnitDto)],
   argTypes: {
     status: {
       defaultValue: BudgetStatus.Draft,
@@ -28,12 +36,20 @@ export default {
 
 const variantsArgs = [
   {
-    comment: new CommentBuilder().withAuthor(new UserBuilder().addCoreUnitFacilitatorRole().build()).build(),
+    verb: 'submitted',
+    comment: new CommentBuilder()
+      .withAuthor(new UserBuilder().addCoreUnitFacilitatorRole().withUsername('wkampmann').build())
+      .withTimestamp('2022-10-17T12:32:00.000Z')
+      .build(),
   },
   {
     comment: new CommentBuilder()
-      .withAuthor(new UserBuilder().addCoreUnitFacilitatorRole().build())
-      .withComment('Hello world\n\n**bold font:**\n- list item 1\n- list item 2')
+      .withAuthor(new UserBuilder().addCoreUnitFacilitatorRole().withUsername('wkampmann').build())
+      .withComment(
+        // eslint-disable-next-line spellcheck/spell-checker
+        'Our September forecast included offsite participation estimates for more people that ended up participating. Equally we have managed to get speaker tickets.\n\n**Updating:**\n\n- Actual expenses\n- FTE number'
+      )
+      .withTimestamp('2022-10-17T12:32:00.000Z')
       .build(),
   },
 ];
@@ -42,3 +58,19 @@ export const [[StatusChange, StatusChangeDarkMode], [Comment, DarkModeComment]] 
   AuditorCommentCard,
   variantsArgs
 );
+
+StatusChange.decorators = [
+  withFigmaComparator(
+    {
+      0: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10662%3A140374&t=rZgNKjWVAVo99Z9K-4',
+      834: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10662%3A132865&t=rZgNKjWVAVo99Z9K-4',
+      1194: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10662%3A127300&t=rZgNKjWVAVo99Z9K-4',
+      1280: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10662%3A124775&t=rZgNKjWVAVo99Z9K-4',
+    },
+    {
+      styles: {
+        left: -20,
+      },
+    }
+  ),
+];

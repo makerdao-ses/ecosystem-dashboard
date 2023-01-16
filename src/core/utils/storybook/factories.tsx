@@ -1,12 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
-import PermissionManager from '../auth/permission-manager';
-import { AuthContext } from '../context/AuthContext';
-import { CoreUnitContext } from '../context/CoreUnitContext';
-import { ThemeProvider } from '../context/ThemeContext';
-import type { CoreUnitContextValues } from '../context/CoreUnitContext';
-import type { UserDTO } from '../models/dto/auth.dto';
-import type { CoreUnitDto } from '../models/dto/core-unit.dto';
+import { ThemeProvider } from '../../context/ThemeContext';
 import type { Story } from '@storybook/react';
 import type { ComponentProps, ElementType } from 'react';
 
@@ -54,46 +48,3 @@ export const createThemeModeVariants = (
   }
   return components;
 };
-
-export const withCoreUnitContext = (CuOrStory: Story | CoreUnitDto) => {
-  if (typeof CuOrStory === 'function') {
-    // it is a Story
-    return (
-      <CoreUnitContext.Provider
-        value={
-          {
-            currentCoreUnit: { shortCode: 'EXA' },
-          } as CoreUnitContextValues
-        }
-      >
-        <CuOrStory />
-      </CoreUnitContext.Provider>
-    );
-  } else {
-    // it is a Core Unit instance
-    return (Story: Story) => (
-      <CoreUnitContext.Provider
-        value={
-          {
-            currentCoreUnit: CuOrStory,
-          } as CoreUnitContextValues
-        }
-      >
-        <Story />
-      </CoreUnitContext.Provider>
-    );
-  }
-};
-
-export const withUserLoggedIn = (user: UserDTO) => (Story: Story) =>
-  (
-    <AuthContext.Provider
-      value={{
-        hasToken: true,
-        authToken: 'mockedAuth',
-        permissionManager: new PermissionManager(user),
-      }}
-    >
-      <Story />
-    </AuthContext.Provider>
-  );
