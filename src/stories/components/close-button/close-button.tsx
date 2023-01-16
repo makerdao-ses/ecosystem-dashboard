@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
 import { CustomButton } from '../custom-button/custom-button';
 import { Close } from '../svg/close';
@@ -10,6 +11,7 @@ interface Props {
 }
 export default (props: Props) => {
   const desktop = useMediaQuery('(min-width: 834px)');
+  const { isLight } = useThemeContext();
 
   return (
     <CloseWrapper onClick={props.onClick}>
@@ -21,6 +23,7 @@ export default (props: Props) => {
             height: 34,
             borderRadius: 22,
           }}
+          isLight={isLight}
         />
       ) : (
         <Close width={16} height={16} style={{ padding: '3px' }} />

@@ -113,6 +113,7 @@ const MdViewerPage = ({
               padding: '8px 24px',
             }}
             onClick={handleClick}
+            isLight={isLight}
           />
           <Popover
             id={id}

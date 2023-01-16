@@ -89,6 +89,7 @@ const UserCard = ({
             }}
             onClick={handleGoProfile}
             allowsHover={!isTable}
+            isLight={isLight}
           />
         </PositionRow>
       </ContainerInside>
@@ -116,6 +117,7 @@ const UserCard = ({
           }}
           allowsHover={!isTable}
           onClick={handleOnDeleteAccount}
+          isLight={isLight}
         />
         <ControlledSwitches
           disabled={isChanging}

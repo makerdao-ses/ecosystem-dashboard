@@ -114,6 +114,7 @@ const DeleteAccount: React.FC<{ username?: string }> = ({ username }) => {
                   : '#343442',
               }}
               disabled={!(formLogic.values.password !== '') || isFetchingUser || isDeleting}
+              isLight={isLight}
             />
           </ButtonWrapper>
         </Form>

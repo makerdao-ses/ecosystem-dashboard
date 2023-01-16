@@ -67,6 +67,7 @@ export default () => {
               }}
               type="submit"
               disabled={loading || !!error || Object.keys(formLogic.errors).length > 0}
+              isLight={isLight}
             />
           </ButtonWrapper>
         </Form>

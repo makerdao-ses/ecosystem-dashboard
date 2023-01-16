@@ -131,6 +131,7 @@ export const CustomSortSelect = (props: Props) => {
               disabled={!canReset}
               label="Reset"
               onClick={onReset}
+              isLight={isLight}
             />
             <CustomButton
               style={{
@@ -141,6 +142,7 @@ export const CustomSortSelect = (props: Props) => {
                 props.onChange?.(activeItem, sortStatus);
                 setPopupVisible(false);
               }}
+              isLight={isLight}
             />
           </ButtonsWrapper>
         </PopupContainer>

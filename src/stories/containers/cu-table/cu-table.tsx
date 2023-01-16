@@ -272,7 +272,7 @@ export const CuTable = () => {
               border: 'none',
               background: 'none',
             }}
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
+            isLight={isLight}
             onClick={clearFilters}
             disabled={!filteredStatuses?.length && !filteredCategories?.length && !searchText}
           />
@@ -292,6 +292,7 @@ export const CuTable = () => {
                 ? '1px solid #098C7D'
                 : '1px solid #343442',
             }}
+            isLight={isLight}
             styleText={{
               color: isLight
                 ? filteredStatuses.length || filteredCategories.length || searchText

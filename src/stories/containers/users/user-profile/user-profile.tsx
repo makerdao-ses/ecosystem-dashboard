@@ -104,6 +104,7 @@ const UserProfile = () => {
               height: 34,
               borderRadius: 22,
             }}
+            isLight={isLight}
           />
           <ContainerWrapper
             onClick={handleLogOut}
@@ -114,6 +115,7 @@ const UserProfile = () => {
               height: 34,
               borderRadius: 22,
             }}
+            isLight={isLight}
           />
         </ButtonWrapper>
       </Container>

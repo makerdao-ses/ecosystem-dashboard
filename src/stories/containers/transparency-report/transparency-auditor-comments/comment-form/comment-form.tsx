@@ -56,6 +56,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ currentBudgetStatus, budgetSt
           allowsHover={!isMobile}
           onClick={handleSubmit}
           disabled={isSubmitting || (!textareaValue.trim() && isCommenting)}
+          isLight={isLight}
         />
       </FormContainer>
     </GenericCommentCard>
