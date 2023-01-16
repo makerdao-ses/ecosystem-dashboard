@@ -24,9 +24,6 @@ export default {
 const Template: ComponentStory<typeof CookiesPolicyBanner> = (args) => <CookiesPolicyBanner {...args} />;
 
 export const Default = Template.bind({});
-Default.parameters = {
-  layout: 'center',
-};
 Default.args = {
   functionalCheckbox: true,
   analyticsCheckbox: true,

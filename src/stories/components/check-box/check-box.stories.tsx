@@ -16,7 +16,7 @@ Checked.args = {
   isLight: true,
 };
 UnChecked.args = {
-  isChecked: true,
+  isChecked: false,
   label: 'UnChecked',
   isLight: false,
 };
