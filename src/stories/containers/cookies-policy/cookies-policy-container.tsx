@@ -49,6 +49,7 @@ const CookiesPolicyContainer = () => {
                 fontSize: '16px',
                 color: isLight ? '#31424E' : '#E2D8EE',
               }}
+              isLight={isLight}
               onClick={handlePolicyBanner}
             />
           </ContainerButton>

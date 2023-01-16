@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
-import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/button-type.enum';
 import AddIcon from '../svg/add';
 import type { CSSProperties } from 'react';
@@ -26,6 +25,7 @@ interface CustomButtonProps {
   fill?: string;
   type?: 'button' | 'submit';
   padding?: string;
+  isLight: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -95,69 +95,67 @@ export const CustomButton = ({
   width,
   type = 'button',
   padding = '15px 16px',
+  isLight,
   ...props
-}: CustomButtonProps) => {
-  const { isLight } = useThemeContext();
-  return (
-    <Container
-      padding={padding}
-      active={active}
-      allowsHover={allowsHover}
-      className={`${props.className} no-select`}
-      isLight={isLight}
-      buttonType={buttonType}
-      type={type}
+}: CustomButtonProps) => (
+  <Container
+    padding={padding}
+    active={active}
+    allowsHover={allowsHover}
+    className={`${props.className} no-select`}
+    isLight={isLight}
+    buttonType={buttonType}
+    type={type}
+    disabled={props.disabled}
+    onClick={props.onClick}
+    styles={{
+      backgroundColor: isLight
+        ? active
+          ? customStyles[buttonType].activeBackground
+          : customStyles[buttonType].background
+        : active
+        ? customStyles[buttonType].activeBackgroundDark
+        : customStyles[buttonType].backgroundDark,
+      borderColor: isLight
+        ? allowsHover
+          ? active
+            ? customStyles[buttonType].activeBorderColor
+            : customStyles[buttonType]?.borderColor
+          : customStyles[buttonType].borderColorMobile
+        : allowsHover
+        ? active
+          ? customStyles[buttonType].activeBorderColorDark
+          : customStyles[buttonType]?.borderColorDark
+        : customStyles[buttonType].borderColorMobileDark,
+      ...props.style,
+    }}
+    isHightLight={isHightLight}
+  >
+    <Text
       disabled={props.disabled}
-      onClick={props.onClick}
-      styles={{
-        backgroundColor: isLight
-          ? active
-            ? customStyles[buttonType].activeBackground
-            : customStyles[buttonType].background
-          : active
-          ? customStyles[buttonType].activeBackgroundDark
-          : customStyles[buttonType].backgroundDark,
-        borderColor: isLight
-          ? allowsHover
-            ? active
-              ? customStyles[buttonType].activeBorderColor
-              : customStyles[buttonType]?.borderColor
-            : customStyles[buttonType].borderColorMobile
-          : allowsHover
-          ? active
-            ? customStyles[buttonType].activeBorderColorDark
-            : customStyles[buttonType]?.borderColorDark
-          : customStyles[buttonType].borderColorMobileDark,
-        ...props.style,
+      allowsHover={allowsHover}
+      active={active}
+      buttonType={buttonType}
+      isLight={isLight}
+      width={props.widthText}
+      style={{
+        ...props.styleText,
       }}
-      isHightLight={isHightLight}
     >
-      <Text
-        disabled={props.disabled}
-        allowsHover={allowsHover}
-        active={active}
-        buttonType={buttonType}
-        isLight={isLight}
-        width={props.widthText}
-        style={{
-          ...props.styleText,
-        }}
-      >
-        {props.label}
-        {withIcon && (
-          <AddIcon
-            fill={fill}
-            height={height}
-            width={width}
-            style={{
-              marginLeft: 7.53,
-            }}
-          />
-        )}
-      </Text>
-    </Container>
-  );
-};
+      {props.label}
+      {withIcon && (
+        <AddIcon
+          fill={fill}
+          height={height}
+          width={width}
+          style={{
+            marginLeft: 7.53,
+          }}
+        />
+      )}
+    </Text>
+  </Container>
+);
 
 const Container = styled.button<{
   isLight?: boolean;
