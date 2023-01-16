@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import IconButton from '@mui/material/IconButton';
 import React from 'react';
-import { useThemeContext } from '../../../core/context/ThemeContext';
 import CheckOnComponent from '../svg/check-on-new';
 import CheckboxOff from '../svg/checkbox-off';
 
@@ -9,13 +8,14 @@ interface Props {
   label: string;
   isChecked: boolean;
   setIsChecked: (isChecked: boolean) => void;
+  isLight: boolean;
 }
 
-const CheckBox = ({ label, isChecked, setIsChecked }: Props) => {
-  const { isLight } = useThemeContext();
+const CheckBox = ({ label, isChecked, setIsChecked, isLight }: Props) => {
   const handleClick = () => {
     setIsChecked(isChecked);
   };
+  console.log('isLight', isLight);
   return (
     <Container>
       <IconButton
@@ -43,7 +43,7 @@ const Container = styled.div({
   alignItems: 'center',
 });
 
-const StyleLabel = styled.span<{ isChecked: boolean; isLight?: boolean }>(({ isChecked, isLight }) => ({
+const StyleLabel = styled.span<{ isChecked: boolean; isLight: boolean }>(({ isChecked, isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: ' normal',
   fontWeight: isChecked ? 600 : 500,
