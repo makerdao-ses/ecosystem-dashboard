@@ -214,6 +214,9 @@ const Expenditure = styled.div({
   '@media (min-width: 685px)': {
     paddingTop: '0',
   },
+  '@media (min-width: 685px) and (max-width: 834px)': {
+    marginBottom: '16px',
+  },
 });
 
 const Team = styled.div({

@@ -2,6 +2,7 @@ import { RouterContext } from 'next/dist/shared/lib/router-context'; // next 12
 import { WithNextRouter } from 'storybook-addon-next-router/dist/decorators';
 import { withGlobals } from '@luigiminardim/storybook-addon-globals-controls';
 import { CompareWithFigmaContext } from '../src/core/utils/storybook/FigmaComparator';
+import '../styles/globals.scss';
 
 export const globalTypes = {
   compareWithFigma: {
