@@ -94,20 +94,10 @@ MyApp.getInitialProps = async ({ ctx }: { ctx: NextPageContext }) => {
     const cookiesParsed = parseCookie(ctx.req?.headers.cookie);
 
     cookiesObject = {
-      ...cookiesObject,
       allowsThemeTracking: Boolean(cookiesParsed?.themeTracking),
-    };
-    cookiesObject = {
-      ...cookiesObject,
       allowsTimestampTracking: Boolean(cookiesParsed?.timestampTracking),
-    };
-    cookiesObject = {
-      ...cookiesObject,
       allowsAnalyticsTracking: Boolean(cookiesParsed?.analyticsTracking),
-    };
-    cookiesObject = {
-      ...cookiesObject,
-      themeModeCookie: cookiesParsed.themeModeCookie,
+      themeModeCookie: cookiesParsed?.themeModeCookie || 'light',
     };
   }
 

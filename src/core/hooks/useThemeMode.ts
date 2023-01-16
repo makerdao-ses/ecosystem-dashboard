@@ -22,7 +22,7 @@ const useThemeMode = ({ isLightApp }: Props) => {
     (val: ThemeType) => {
       if (cookie.themeTracking) {
         setCookie('themeModeCookie', val, {
-          expires: daysToExpire,
+          expires: daysToExpire(),
           path: '/',
         });
       }

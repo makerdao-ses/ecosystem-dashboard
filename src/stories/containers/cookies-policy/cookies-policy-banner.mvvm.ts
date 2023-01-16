@@ -50,11 +50,11 @@ export const useCookiesPolicyBannerMvvm = ({ cookiesObject }: Props) => {
   const setFunctionalTracking = useCallback(
     (val: boolean) => {
       setCookie('themeTracking', val, {
-        expires: daysToExpire,
+        expires: daysToExpire(),
         path: '/',
       });
       setCookie('timestampTracking', val, {
-        expires: daysToExpire,
+        expires: daysToExpire(),
         path: '/',
       });
     },
@@ -63,7 +63,7 @@ export const useCookiesPolicyBannerMvvm = ({ cookiesObject }: Props) => {
   const setAnalyticsTracking = useCallback(
     (val: boolean) => {
       setCookie('analyticsTracking', val, {
-        expires: daysToExpire,
+        expires: daysToExpire(),
         path: '/',
       });
     },
@@ -73,32 +73,32 @@ export const useCookiesPolicyBannerMvvm = ({ cookiesObject }: Props) => {
   const setThemeModeCookie = useCallback(() => {
     const newThemeMode = cookies.themeModeCookie ? cookies.themeModeCookie : 'light';
     setCookie('themeModeCookie', newThemeMode, {
-      expires: daysToExpire,
+      expires: daysToExpire(),
       path: '/',
     });
   }, [cookies.themeModeCookie, setCookie]);
 
   const deletedFunctionalTracking = useCallback(() => {
     removeCookie('themeTracking', {
-      expires: daysToDeleteCookie,
+      expires: daysToDeleteCookie(),
       path: '/',
     });
     removeCookie('timestampTracking', {
-      expires: daysToDeleteCookie,
+      expires: daysToDeleteCookie(),
       path: '/',
     });
   }, [removeCookie]);
 
   const deletedAnalyticsTracking = useCallback(() => {
     removeCookie('analyticsTracking', {
-      expires: daysToDeleteCookie,
+      expires: daysToDeleteCookie(),
       path: '/',
     });
   }, [removeCookie]);
 
   const deletedThemeCookie = useCallback(() => {
     removeCookie('themeModeCookie', {
-      expires: daysToDeleteCookie,
+      expires: daysToDeleteCookie(),
       path: '/',
     });
   }, [removeCookie]);
