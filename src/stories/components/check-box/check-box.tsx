@@ -15,7 +15,6 @@ const CheckBox = ({ label, isChecked, setIsChecked, isLight }: Props) => {
   const handleClick = () => {
     setIsChecked(isChecked);
   };
-  console.log('isLight', isLight);
   return (
     <Container>
       <IconButton
