@@ -127,7 +127,6 @@ export const CuTableColumnSummary = ({
               {props.statusModified && (
                 <CustomLink
                   href={props.mipUrl}
-                  fontSize={12}
                   style={{
                     display: 'flex',
                     alignItems: 'flex-end',
