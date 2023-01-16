@@ -1,13 +1,14 @@
 import { useState, useLayoutEffect, useCallback } from 'react';
 import { useCookies } from 'react-cookie';
 import { ThemeType } from '../enums/theme.enum';
+import { daysToExpire } from '../utils/date.utils';
 
 interface Props {
   isLightApp: boolean;
 }
 
 const useThemeMode = ({ isLightApp }: Props) => {
-  const [cookie, setCookie] = useCookies(['THEME_MODE', 'themeTracking']);
+  const [cookie, setCookie] = useCookies(['themeModeCookie', 'themeTracking']);
   const [isLight, setIsisLight] = useState<boolean>(isLightApp);
   const defaultThemePreference = isLight ? ThemeType.LIGHT : ThemeType.DARK;
 
@@ -20,7 +21,10 @@ const useThemeMode = ({ isLightApp }: Props) => {
   const handleThemeMode = useCallback(
     (val: ThemeType) => {
       if (cookie.themeTracking) {
-        setCookie('THEME_MODE', val);
+        setCookie('themeModeCookie', val, {
+          expires: daysToExpire(),
+          path: '/',
+        });
       }
       setCurrentTheme(val);
       setIsisLight(!isLight);

@@ -1,3 +1,4 @@
+import { daysToExpire } from '@ses/core/utils/date.utils';
 import { useCallback, useMemo, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useScrollLock } from '../../../core/hooks/scroll-hooks';
@@ -11,7 +12,7 @@ export const useCookiesPolicyBannerMvvm = ({ cookiesObject }: Props) => {
     'themeTracking',
     'timestampTracking',
     'analyticsTracking',
-    'THEME_MODE',
+    'themeModeCookie',
   ]);
   const { unlockScroll } = useScrollLock();
 
@@ -48,25 +49,54 @@ export const useCookiesPolicyBannerMvvm = ({ cookiesObject }: Props) => {
 
   const setFunctionalTracking = useCallback(
     (val: boolean) => {
-      setCookie('themeTracking', val);
-      setCookie('timestampTracking', val);
+      setCookie('themeTracking', val, {
+        expires: daysToExpire(),
+        path: '/',
+      });
+      setCookie('timestampTracking', val, {
+        expires: daysToExpire(),
+        path: '/',
+      });
     },
     [setCookie]
   );
   const setAnalyticsTracking = useCallback(
     (val: boolean) => {
-      setCookie('analyticsTracking', val);
+      setCookie('analyticsTracking', val, {
+        expires: daysToExpire(),
+        path: '/',
+      });
     },
     [setCookie]
   );
 
+  const setThemeModeCookie = useCallback(() => {
+    const newThemeMode = cookies.themeModeCookie ? cookies.themeModeCookie : 'light';
+    setCookie('themeModeCookie', newThemeMode, {
+      expires: daysToExpire(),
+      path: '/',
+    });
+  }, [cookies.themeModeCookie, setCookie]);
+
   const deletedFunctionalTracking = useCallback(() => {
-    removeCookie('themeTracking');
-    removeCookie('timestampTracking');
+    removeCookie('themeTracking', {
+      path: '/',
+    });
+    removeCookie('timestampTracking', {
+      path: '/',
+    });
   }, [removeCookie]);
 
   const deletedAnalyticsTracking = useCallback(() => {
-    removeCookie('analyticsTracking');
+    removeCookie('analyticsTracking', {
+      path: '/',
+    });
+  }, [removeCookie]);
+
+  const deletedThemeCookie = useCallback(() => {
+    removeCookie('themeModeCookie', {
+      path: '/',
+    });
   }, [removeCookie]);
 
   const handleRejectCookies = useCallback(() => {
@@ -75,12 +105,9 @@ export const useCookiesPolicyBannerMvvm = ({ cookiesObject }: Props) => {
     setFunctionalCheckbox(false);
     deletedFunctionalTracking();
     deletedAnalyticsTracking();
-    if (cookies) {
-      removeCookie('THEME_MODE');
-    }
-
+    deletedThemeCookie();
     unlockScroll();
-  }, [deletedFunctionalTracking, deletedAnalyticsTracking, cookies, unlockScroll, removeCookie]);
+  }, [deletedFunctionalTracking, deletedAnalyticsTracking, deletedThemeCookie, unlockScroll]);
 
   const handleAcceptCookies = useCallback(() => {
     setIsShowBanner(false);
@@ -90,16 +117,8 @@ export const useCookiesPolicyBannerMvvm = ({ cookiesObject }: Props) => {
     if (analyticsCheckbox) {
       setAnalyticsTracking(true);
     }
-    const newThemeMode = cookies.THEME_MODE ? cookies.THEME_MODE : 'light';
-    setCookie('THEME_MODE', newThemeMode);
-  }, [
-    analyticsCheckbox,
-    cookies.THEME_MODE,
-    functionalCheckbox,
-    setAnalyticsTracking,
-    setCookie,
-    setFunctionalTracking,
-  ]);
+    setThemeModeCookie();
+  }, [analyticsCheckbox, functionalCheckbox, setAnalyticsTracking, setFunctionalTracking, setThemeModeCookie]);
 
   const handleSettings = useCallback((val: boolean) => {
     setSettingCookies(val);
