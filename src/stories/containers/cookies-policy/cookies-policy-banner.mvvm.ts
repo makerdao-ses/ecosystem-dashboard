@@ -1,4 +1,4 @@
-import { daysToDeleteCookie, daysToExpire } from '@ses/core/utils/date.utils';
+import { daysToExpire } from '@ses/core/utils/date.utils';
 import { useCallback, useMemo, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useScrollLock } from '../../../core/hooks/scroll-hooks';
@@ -80,25 +80,21 @@ export const useCookiesPolicyBannerMvvm = ({ cookiesObject }: Props) => {
 
   const deletedFunctionalTracking = useCallback(() => {
     removeCookie('themeTracking', {
-      expires: daysToDeleteCookie(),
       path: '/',
     });
     removeCookie('timestampTracking', {
-      expires: daysToDeleteCookie(),
       path: '/',
     });
   }, [removeCookie]);
 
   const deletedAnalyticsTracking = useCallback(() => {
     removeCookie('analyticsTracking', {
-      expires: daysToDeleteCookie(),
       path: '/',
     });
   }, [removeCookie]);
 
   const deletedThemeCookie = useCallback(() => {
     removeCookie('themeModeCookie', {
-      expires: daysToDeleteCookie(),
       path: '/',
     });
   }, [removeCookie]);
