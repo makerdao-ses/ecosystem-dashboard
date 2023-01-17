@@ -79,6 +79,7 @@ const CardExpenses = ({
               flexGrow: 1,
               padding: isPhone || isTable ? '8px 25.75px' : '8px 43.25px',
             }}
+            isLight={isLight}
             // eslint-disable-next-line @typescript-eslint/no-empty-function
             onClick={onClickActivity}
           />
@@ -101,6 +102,7 @@ const CardExpenses = ({
               flexGrow: 1,
               padding: isPhone || isTable ? '8px 12.75px' : '8px 30.25px',
             }}
+            isLight={isLight}
             onClick={onClickFinances}
           />
         </ContainerButton>
