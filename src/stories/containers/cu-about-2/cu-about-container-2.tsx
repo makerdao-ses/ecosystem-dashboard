@@ -54,7 +54,7 @@ const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
         twitterCard={cuAbout.image ? 'summary' : 'summary_large_image'}
       />
 
-      <CoreUnitSummary coreUnits={coreUnits} />
+      <CoreUnitSummary coreUnits={coreUnits} showDescription={true} />
       <Wrapper>
         <ContainerAllData>
           <ContainerResponsive>

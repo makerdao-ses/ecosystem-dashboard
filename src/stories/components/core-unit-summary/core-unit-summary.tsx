@@ -19,13 +19,15 @@ interface CoreUnitSummaryProps {
   coreUnits: CoreUnitDto[];
   trailingAddress?: string[];
   breadcrumbTitle?: string;
+  showDescription?: boolean;
 }
 
-export const CoreUnitSummary = ({
+export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
   coreUnits: data = [],
   trailingAddress = [],
   breadcrumbTitle,
-}: CoreUnitSummaryProps) => {
+  showDescription = false,
+}) => {
   const { isLight } = useThemeContext();
   const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const lessThanPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
@@ -41,22 +43,15 @@ export const CoreUnitSummary = ({
   const cu = data?.find((cu) => cu.shortCode === code);
   const buildCULabel = () => (!_.isEmpty(cu) ? `${getShortCode(cu?.code ?? '')} - ${cu?.name}` : '');
 
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
 
-  const debounceFunction = _.debounce(() => {
-    window.removeEventListener('scroll', handleScroll);
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    setHiddenTextDescription(((ref?.current as any)?.offsetTop ?? 0) <= 65);
-
-    setTimeout(() => {
-      window.addEventListener('scroll', handleScroll);
-    }, 600);
-  }, 100);
-
-  const handleScroll = useCallback(() => {
-    debounceFunction();
-  }, [debounceFunction]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleScroll = useCallback(
+    _.debounce(() => {
+      setHiddenTextDescription((ref?.current?.offsetTop ?? 0) <= 65);
+    }, 50),
+    []
+  );
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -170,9 +165,11 @@ export const CoreUnitSummary = ({
       <Wrapper>
         <ContainerTitle hiddenTextDescription={hiddenTextDescription}>
           <TitleNavigationCuAbout coreUnitAbout={cu} hiddenTextDescription={hiddenTextDescription} />
-          <SummaryDescription hiddenTextDescription={lessThanPhone || phone || hiddenTextDescription}>
-            <TypographyDescription isLight={isLight}>{cu?.sentenceDescription || ''}</TypographyDescription>
-          </SummaryDescription>
+          {showDescription && (
+            <SummaryDescription hiddenTextDescription={lessThanPhone || phone || hiddenTextDescription}>
+              <TypographyDescription isLight={isLight}>{cu?.sentenceDescription || ''}</TypographyDescription>
+            </SummaryDescription>
+          )}
         </ContainerTitle>
       </Wrapper>
       <ContainerResponsiveMobile hiddenTextDescription={hiddenTextDescription} isLight={isLight} />
@@ -184,6 +181,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   position: 'sticky',
   top: 64,
   width: '100%',
+  background: isLight ? '#FFFFFF' : '#25273D',
   backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
   backgroundSize: 'cover',
   zIndex: 3,
@@ -302,12 +300,7 @@ const CoreUnitStyle = styled.span<{ isLight: boolean }>(({ isLight }) => ({
 const ContainerResponsiveMobile = styled.div<{ isLight: boolean; hiddenTextDescription: boolean }>(
   ({ isLight, hiddenTextDescription }) => ({
     position: 'relative',
-    borderBottom:
-      hiddenTextDescription && isLight
-        ? '1px solid #B6EDE7'
-        : hiddenTextDescription && !isLight
-        ? '1px solid #027265'
-        : 'none',
+    borderBottom: isLight ? '1px solid #B6EDE7' : '1px solid #027265',
     width: '100%',
     marginTop: hiddenTextDescription ? '24px' : 0,
 
