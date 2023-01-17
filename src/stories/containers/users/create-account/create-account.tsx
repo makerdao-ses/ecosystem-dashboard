@@ -117,7 +117,6 @@ export default () => {
                 borderRadius: 22,
               }}
               type="submit"
-              isLight={isLight}
             />
           </ButtonWrapper>
         </Form>

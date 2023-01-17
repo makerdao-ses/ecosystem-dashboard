@@ -292,7 +292,6 @@ export const TransparencyEmptyTable = ({ breakdown = false, longCode }: Props) =
               style={{
                 padding: '14px 61px 14px 60px',
               }}
-              isLight={isLight}
               allowsHover={!isTable}
             />
           </ContainerButton>
@@ -444,7 +443,6 @@ export const TransparencyEmptyTable = ({ breakdown = false, longCode }: Props) =
               style={{
                 padding: '8px 24px',
               }}
-              isLight={isLight}
               allowsHover={!isTable}
             />
           </ContainerButton>

@@ -76,7 +76,6 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
               padding: '8px 24px',
               height: 'auto',
             }}
-            isLight={isLight}
             allowsHover={false}
           />
         </ButtonContainer>

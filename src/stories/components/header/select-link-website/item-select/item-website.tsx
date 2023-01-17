@@ -72,7 +72,6 @@ export const ItemWebSite = ({
               height: '34px',
               padding: '8px 24px',
             }}
-            isLight={isLight}
             styleText={{
               color: isLight ? '#31424E' : '#D2D4EF',
             }}
@@ -99,7 +98,6 @@ export const ItemWebSite = ({
             fontSize: '14px',
             lineHeight: '18px',
           }}
-          isLight={isLight}
         />
       </BottomLinkWrapper>
     </Container>

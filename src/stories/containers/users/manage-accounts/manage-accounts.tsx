@@ -72,7 +72,6 @@ const ManageAccounts = () => {
                   fontSize: isMobile ? 14 : 16,
                   lineHeight: isMobile ? '18px' : '19px',
                 }}
-                isLight={isLight}
               />
             )}
           </ButtonArea>

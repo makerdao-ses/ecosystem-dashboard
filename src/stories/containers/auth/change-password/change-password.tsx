@@ -120,7 +120,6 @@ const ChangePassword: React.FC<{ adminChange?: boolean }> = ({ adminChange = fal
               }}
               type="submit"
               disabled={loading}
-              isLight={isLight}
             />
           </ButtonWrapper>
         </Form>

@@ -34,7 +34,6 @@ export const ActivityPlaceholder = (props: { hasFilter: boolean; clearAction?: (
             style={{ minWidth: '250px' }}
             label="Go Back"
             buttonType={ButtonType.Secondary}
-            isLight={isLight}
           />
         )}
         <CustomButton
@@ -42,7 +41,6 @@ export const ActivityPlaceholder = (props: { hasFilter: boolean; clearAction?: (
           label="View Active Core Units"
           buttonType={ButtonType.Primary}
           onClick={props.clearAction}
-          isLight={isLight}
         />
       </ButtonsWrapper>
     </Container>

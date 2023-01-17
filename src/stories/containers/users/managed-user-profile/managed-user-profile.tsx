@@ -194,7 +194,6 @@ const ManagedUserProfile: React.FC = () => {
                   height: 34,
                   borderRadius: 22,
                 }}
-                isLight={isLight}
               />
               <ControlledSwitches
                 checked={!!userProfile?.active}

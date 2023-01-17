@@ -47,7 +47,6 @@ const MainWrapper = ({ children }: { children: ReactNode }) => {
             setAnalyticsCheckbox={setAnalyticsCheckbox}
             handleAcceptCookies={handleAcceptCookies}
             handleRejectCookies={handleRejectCookies}
-            isLight={isLight}
           />
         </PolicyBannerPosition>
       )}
