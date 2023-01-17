@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon';
 import { CuJobEnum } from '../../enums/cu-job.enum';
 import { CuStatusEnum } from '../../enums/cu-status.enum';
-import { RoadmapStatusEnum } from '../../enums/roadmap-status.enum';
 import {
   CURRENT_MONTH,
   CURRENT_MINUS_1_MONTH,
@@ -14,9 +13,7 @@ import { BudgetStatementBuilder } from '../builders/budget-statement.builder';
 import { CoreUnitsBuilder } from '../builders/core-units.builder';
 import { CuMipBuilder } from '../builders/cu-mip.builder';
 import { Mip40Builder } from '../builders/mip-40.builder';
-import { RoadmapBuilder } from '../builders/roadmap.builder';
 import {
-  countInitiativesFromCoreUnit,
   getBudgetCapsFromCoreUnit,
   getCuMipStatusModifiedDate,
   getExpenditureValueFromCoreUnit,
@@ -54,16 +51,6 @@ test('Get Date as Datetime from CuMip', () => {
 
   const expectedDate = DateTime.fromFormat(date, 'yyyy-MM-dd').toJSDate();
   expect(getSubmissionDateFromCuMip(mipDao)?.toDateString()).toBe(expectedDate.toDateString());
-});
-
-test('Get initiatives from Core Unit', () => {
-  const coreUnit = new CoreUnitsBuilder()
-    .withId('1')
-    .addRoadMap(new RoadmapBuilder().withOwnerCuId('1').withRoadmapStatus(RoadmapStatusEnum.InProgress).build())
-    .addRoadMap(new RoadmapBuilder().withOwnerCuId('1').withRoadmapStatus(RoadmapStatusEnum.InProgress).build())
-    .build();
-
-  expect(countInitiativesFromCoreUnit(coreUnit)).toBe(2);
 });
 
 test('Get links from Core Unit', () => {

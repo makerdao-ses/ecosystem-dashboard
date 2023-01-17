@@ -2,7 +2,6 @@ import _ from 'lodash';
 import { DateTime, Interval } from 'luxon';
 import { CuStatusEnum } from '../enums/cu-status.enum';
 import { LinkTypeEnum } from '../enums/link-type.enum';
-import { RoadmapStatusEnum } from '../enums/roadmap-status.enum';
 import { BudgetStatus } from '../models/dto/core-unit.dto';
 import { API_MONTH_FROM_FORMAT, API_MONTH_TO_FORMAT } from '../utils/date.utils';
 import type { LinkModel } from '../../stories/components/cu-table-column-links/cu-table-column-links';
@@ -62,15 +61,6 @@ export const getSubmissionDateFromCuMip = (mip: CuMipDto | null) => {
     console.error(e);
     return null;
   }
-};
-
-export const countInitiativesFromCoreUnit = (cu: CoreUnitDto) => {
-  if (cu.roadMap.length === 0) return 0;
-
-  return cu.roadMap.reduce(
-    (pv, cv) => pv + (cv.ownerCuId === cu.id && cv.roadmapStatus === RoadmapStatusEnum.InProgress ? 1 : 0),
-    0
-  );
 };
 
 export const getLinksFromCoreUnit = (cu: CoreUnitDto) => {
