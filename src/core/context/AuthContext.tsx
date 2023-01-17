@@ -1,6 +1,5 @@
 import { GraphQLClient } from 'graphql-request';
-import { useRouter } from 'next/router';
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useCallback } from 'react';
 import { GRAPHQL_ENDPOINT } from '../../config/endpoints';
 import PermissionManager from '../auth/permission-manager';
 import { useIsAdmin } from '../hooks/useIsAdmin';
@@ -32,7 +31,6 @@ export const AuthContextProvider: React.FC<{ children: JSX.Element | JSX.Element
   const hasToken = authToken !== undefined;
   const isAuth = !!authToken;
   const [user, setUser] = React.useState<UserDTO | undefined>(undefined);
-  const router = useRouter();
   const isAdmin = useIsAdmin(user || ({} as UserDTO));
 
   const permissionManager = React.useMemo(() => new PermissionManager(user, authToken), [user, authToken]);
@@ -55,12 +53,11 @@ export const AuthContextProvider: React.FC<{ children: JSX.Element | JSX.Element
     window.localStorage.setItem('auth', JSON.stringify(value));
   };
 
-  const clearCredentials = async () => {
-    await router.push('/login');
+  const clearCredentials = useCallback(async () => {
     setAuthToken('');
     setUser(undefined);
     window.localStorage.setItem('auth', '{}');
-  };
+  }, []);
 
   return (
     <AuthContext.Provider

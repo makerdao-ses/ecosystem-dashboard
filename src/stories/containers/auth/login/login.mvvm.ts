@@ -24,7 +24,7 @@ export const useLoginMvvm = () => {
   const isTable = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
 
   useEffect(() => {
-    clearCredentials && clearCredentials();
+    clearCredentials?.();
   }, [clearCredentials]);
 
   const form = useFormik({
