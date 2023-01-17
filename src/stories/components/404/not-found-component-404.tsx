@@ -70,6 +70,7 @@ const CardNotFoundPage: NextPage = () => {
                 fontSize: '16px',
                 lineHeight: '24px',
               }}
+              isLight={isLight}
             />
           </ContainerButton>
         </ContainerData>
