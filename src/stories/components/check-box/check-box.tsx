@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import IconButton from '@mui/material/IconButton';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
-import { useThemeContext } from '../../../core/context/ThemeContext';
 import CheckOnComponent from '../svg/check-on-new';
 import CheckboxOff from '../svg/checkbox-off';
 
@@ -16,6 +16,7 @@ const CheckBox = ({ label, isChecked, setIsChecked }: Props) => {
   const handleClick = () => {
     setIsChecked(isChecked);
   };
+
   return (
     <Container>
       <IconButton

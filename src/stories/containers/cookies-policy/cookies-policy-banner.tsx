@@ -7,7 +7,6 @@ import CheckBox from '../../components/check-box/check-box';
 import { CustomButton } from '../../components/custom-button/custom-button';
 
 interface Props {
-  isShowBanner: boolean;
   functionalCheckbox: boolean;
   analyticsCheckbox: boolean;
   isLight: boolean;
