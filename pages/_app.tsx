@@ -57,10 +57,10 @@ function MyApp(props: MyAppProps) {
 
   useEffect(() => {
     const authData = getAuthFromStorage();
-    if (props.pageProps.protected && (isEmpty(authData) || !authData?.authToken)) {
+    if (props.pageProps?.protected && (isEmpty(authData) || !authData?.authToken)) {
       router.push('/login');
     }
-  }, [props.pageProps.protected, router]);
+  }, [props.pageProps?.protected, router]);
   return (
     <CookiesProvider>
       <Provider store={store}>

@@ -5,7 +5,6 @@ import type {
   ContributorCommitmentDto,
   CoreUnitDto,
   CuMipDto,
-  RoadMapDto,
   SocialMediaChannelDto,
 } from '../../models/dto/core-unit.dto';
 
@@ -25,7 +24,6 @@ export class CoreUnitsBuilder {
       budgetStatements: [] as BudgetStatementDto[],
       socialMediaChannels: [] as SocialMediaChannelDto[],
       cuMip: [] as CuMipDto[],
-      roadMap: [] as RoadMapDto[],
       contributorCommitment: [] as ContributorCommitmentDto[],
     } as CoreUnitDto;
   }
@@ -86,11 +84,6 @@ export class CoreUnitsBuilder {
 
   addCuMip(cuMip: CuMipDto): CoreUnitsBuilder {
     this._coreUnit.cuMip.push(cuMip);
-    return this;
-  }
-
-  addRoadMap(roadMap: RoadMapDto): CoreUnitsBuilder {
-    this._coreUnit.roadMap.push(roadMap);
     return this;
   }
 
