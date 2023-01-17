@@ -19,7 +19,10 @@ const variantsArgs = [
   },
 ];
 
-export const [[Checked, Unchecked]] = createThemeModeVariants(CheckBox, variantsArgs);
+export const [[Checked, CheckedDarkMode], [Unchecked, UncheckedDarkMode]] = createThemeModeVariants(
+  CheckBox,
+  variantsArgs
+);
 
 Checked.decorators = [
   withFigmaComparator(
