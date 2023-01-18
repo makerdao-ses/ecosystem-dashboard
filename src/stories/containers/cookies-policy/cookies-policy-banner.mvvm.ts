@@ -79,25 +79,33 @@ export const useCookiesPolicyBannerMvvm = ({ cookiesObject }: Props) => {
   }, [cookies.themeModeCookie, setCookie]);
 
   const deletedFunctionalTracking = useCallback(() => {
-    removeCookie('themeTracking', {
-      path: '/',
-    });
-    removeCookie('timestampTracking', {
-      path: '/',
-    });
-  }, [removeCookie]);
+    if (cookies.themeTracking) {
+      removeCookie('themeTracking', {
+        path: '/',
+      });
+    }
+    if (cookies.timestampTracking) {
+      removeCookie('timestampTracking', {
+        path: '/',
+      });
+    }
+  }, [cookies.themeTracking, cookies.timestampTracking, removeCookie]);
 
   const deletedAnalyticsTracking = useCallback(() => {
-    removeCookie('analyticsTracking', {
-      path: '/',
-    });
-  }, [removeCookie]);
+    if (cookies.analyticsTracking) {
+      removeCookie('analyticsTracking', {
+        path: '/',
+      });
+    }
+  }, [cookies.analyticsTracking, removeCookie]);
 
   const deletedThemeCookie = useCallback(() => {
-    removeCookie('themeModeCookie', {
-      path: '/',
-    });
-  }, [removeCookie]);
+    if (cookies.themeModeCookie) {
+      removeCookie('themeModeCookie', {
+        path: '/',
+      });
+    }
+  }, [cookies.themeModeCookie, removeCookie]);
 
   const handleRejectCookies = useCallback(() => {
     setIsShowBanner(false);
