@@ -5,7 +5,6 @@ import { CommentActivityContext } from '../../../core/context/CommentActivityCon
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { BudgetStatus } from '../../../core/models/dto/core-unit.dto';
-import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
 import { CustomLink } from '../../components/custom-link/custom-link';
@@ -84,70 +83,6 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
       <CoreUnitSummary coreUnits={coreUnits} trailingAddress={['Expense Reports']} breadcrumbTitle="Expense Reports" />
       <Container isLight={isLight}>
         <InnerPage>
-          <Title isLight={isLight} isTitleOfPage={false}>
-            Expense Reports
-          </Title>
-
-          <Paragraph isLight={isLight}>
-            {coreUnit.auditors.length === 0 ? (
-              <div>
-                Every month, the {coreUnit.shortCode} Core Unit submits an Expense Report to MakerDAO governance with a
-                detailed budget update. The Core Unit works <b>without auditor</b>, submitting its reports directly to
-                the community.
-              </div>
-            ) : (
-              <div>
-                Every month, the {coreUnit.shortCode} Core Unit submits an Expense Report to MakerDAO governance with a
-                detailed budget update. The Core Unit's reports are reviewed{' '}
-                <b>
-                  by auditor(s){' '}
-                  {coreUnit.auditors.map((auditor, index, array) => (
-                    <span key={auditor.id}>
-                      <b>{auditor.username}</b>
-                      {array.length > 1 && index !== array.length - 1
-                        ? index !== array.length - 2
-                          ? ', '
-                          : ', and '
-                        : ''}
-                    </span>
-                  ))}{' '}
-                </b>
-                before they are marked as final.
-              </div>
-            )}
-            <HowToSubmitParagraph>
-              <span>Is this your core unit? Learn</span>
-              <CustomLink
-                fontWeight={500}
-                href={HOW_TO_SUBMIT_EXPENSES}
-                iconHeight={10}
-                iconWidth={10}
-                fontSize={16}
-                fontSizeMobile={14}
-                fontFamily={'Inter, sans-serif'}
-                style={{ whiteSpace: 'normal' }}
-              >
-                how to submit your expenses here
-              </CustomLink>
-            </HowToSubmitParagraph>
-            {coreUnit.legacyBudgetStatementUrl && (
-              <LegacyReportParagraph>
-                <span>Legacy expense reports can be found</span>
-                <CustomLink
-                  fontWeight={500}
-                  href={coreUnit.legacyBudgetStatementUrl}
-                  iconHeight={10}
-                  iconWidth={10}
-                  fontSize={16}
-                  fontSizeMobile={14}
-                  fontFamily={'Inter, sans-serif'}
-                >
-                  here
-                </CustomLink>
-              </LegacyReportParagraph>
-            )}
-          </Paragraph>
-
           <PagerBar className="no-select" ref={transparencyTableRef}>
             <PagerBarLeft>
               <CustomPager
@@ -250,6 +185,34 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
               <AuditorCommentsContainer budgetStatement={currentBudgetStatement} comments={comments} />
             </CommentActivityContext.Provider>
           )}
+
+          <AdditionalNotesSection>
+            <Title isLight={isLight} isTitleOfPage={false}>
+              Additional Notes
+            </Title>
+
+            <Paragraph isLight={isLight}>
+              Every month, the {coreUnit.shortCode} Core Unit submits a transparency report for MakerDAO governance with
+              a detailed budget update. If the core unit works with an auditor, the transparency report is reviewed by
+              the auditor before the core unit's operational wallet is topped up to replenish its runway.
+              {coreUnit.legacyBudgetStatementUrl && (
+                <LegacyReportParagraph>
+                  <span>Legacy expense reports can be found</span>
+                  <CustomLink
+                    fontWeight={500}
+                    href={coreUnit.legacyBudgetStatementUrl}
+                    iconHeight={10}
+                    iconWidth={10}
+                    fontSize={16}
+                    fontSizeMobile={14}
+                    fontFamily={'Inter, sans-serif'}
+                  >
+                    here
+                  </CustomLink>
+                </LegacyReportParagraph>
+              )}
+            </Paragraph>
+          </AdditionalNotesSection>
         </InnerPage>
       </Container>
     </Wrapper>
@@ -338,27 +301,11 @@ const Paragraph = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: '14px',
   lineHeight: '22px',
   color: isLight ? '#231536' : '#D2D4EF',
-  marginBottom: '40px',
 
   '@media (min-width: 834px)': {
     fontSize: '16px',
-    marginBottom: '64px',
   },
 }));
-
-const HowToSubmitParagraph = styled.div({
-  marginTop: 16,
-  marginBottom: 0,
-});
-
-const LegacyReportParagraph = styled.div({
-  marginTop: 4,
-  marginBottom: 0,
-
-  [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: 16,
-  },
-});
 
 const PagerBar = styled.div({
   display: 'flex',
@@ -456,3 +403,16 @@ const DotIndicator = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   top: 0,
   right: -8,
 }));
+
+const AdditionalNotesSection = styled.div({
+  paddingBottom: 113,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    paddingBottom: 0,
+  },
+});
+
+const LegacyReportParagraph = styled.div({
+  marginTop: 16,
+  marginBottom: 0,
+});

@@ -1,6 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
 import React from 'react';
-import { fetchCoreUnits } from '../../../src/stories/components/core-unit-summary/core-unit-summary.mvvm';
+import { fetchCoreUnits } from '../../../src/stories/components/core-unit-summary/core-unit-summary.api';
 import CUActivityContainer from '../../../src/stories/containers/cu-activity/cu-activity';
 import { fetchCoreUnitWithActivitiesByCode } from '../../../src/stories/containers/cu-activity/cu-activity.api';
 import type { ActivityFeedDto, CoreUnitDto } from '../../../src/core/models/dto/core-unit.dto';
