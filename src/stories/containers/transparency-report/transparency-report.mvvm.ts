@@ -1,29 +1,31 @@
-import { DateTime } from 'luxon';
-import { useRouter } from 'next/router';
-import { useRef, useState, useEffect, useCallback, useMemo, useReducer } from 'react';
+import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import {
   getAllCommentsBudgetStatementLine,
   getCurrentOrLastMonthWithData,
   getLastMonthWithActualOrForecast,
   getLastUpdateForBudgetStatement,
-} from '../../../core/business-logic/core-units';
-import { useAuthContext } from '../../../core/context/AuthContext';
-import { useCookiesContextTracking } from '../../../core/context/CookiesContext';
-import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
-import { useUrlAnchor } from '../../../core/hooks/useUrlAnchor';
-import { BudgetStatus } from '../../../core/models/dto/core-unit.dto';
-import { budgetStatementCommentsCollectionId } from '../../../core/utils/collections-ids';
-import { API_MONTH_TO_FORMAT } from '../../../core/utils/date.utils';
-import { LastVisitHandler } from '../../../core/utils/last-visit-handler';
-import { isActivity } from '../../../core/utils/types-helpers';
+} from '@ses/core/business-logic/core-units';
+import { useAuthContext } from '@ses/core/context/AuthContext';
+import { useCookiesContextTracking } from '@ses/core/context/CookiesContext';
+import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
+import { useUrlAnchor } from '@ses/core/hooks/useUrlAnchor';
+import { BudgetStatus } from '@ses/core/models/dto/core-unit.dto';
+import { budgetStatementCommentsCollectionId } from '@ses/core/utils/collections-ids';
+import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date.utils';
+import { LastVisitHandler } from '@ses/core/utils/last-visit-handler';
+import { isActivity } from '@ses/core/utils/types-helpers';
+import { DateTime } from 'luxon';
+import { useRouter } from 'next/router';
+import { useRef, useState, useEffect, useCallback, useMemo, useReducer } from 'react';
+import { featureFlags } from '../../../../feature-flags/feature-flags';
+import type { TableItems } from './transparency-report';
 import type {
   ActivityFeedDto,
   BudgetStatementDto,
   CommentsBudgetStatementDto,
   CoreUnitDto,
-} from '../../../core/models/dto/core-unit.dto';
-import type { WithDate } from '../../../core/utils/types-helpers';
-import type { TableItems } from './transparency-report';
+} from '@ses/core/models/dto/core-unit.dto';
+import type { WithDate } from '@ses/core/utils/types-helpers';
 
 export enum TRANSPARENCY_IDS_ENUM {
   ACTUALS = 'actuals',
@@ -33,7 +35,10 @@ export enum TRANSPARENCY_IDS_ENUM {
   AUDIT_REPORTS = 'audit-reports',
   COMMENTS = 'comments',
 }
-const DISABLED_ID = [TRANSPARENCY_IDS_ENUM.MKR_VESTING, TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS];
+const DISABLED_ID = [
+  featureFlags[CURRENT_ENVIRONMENT].FEATURE_MKR_VESTING ? null : TRANSPARENCY_IDS_ENUM.MKR_VESTING,
+  featureFlags[CURRENT_ENVIRONMENT].FEATURE_AUDIT_REPORTS ? null : TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS,
+];
 
 type CommentsLastVisitState = {
   hasNewComments: boolean;

@@ -17,7 +17,8 @@
     "baseUrl": ".",
     "paths": {
       "@ses/components/*": ["src/stories/components/*"],
-      "@ses/core/*": ["src/core/*"]
+      "@ses/core/*": ["src/core/*"],
+      "@ses/config/*": ["src/config/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
