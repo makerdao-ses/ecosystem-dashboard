@@ -26,7 +26,7 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
 
   const detailsUrl = useMemo(() => {
     let anchor = '';
-    if (['CU_BUDGET_STATEMENT_COMMENT', 'CU_BUDGET_STATEMENT_CREATED'].includes(activity.activityFeed.event)) {
+    if (activity.activityFeed.event === 'CU_BUDGET_STATEMENT_COMMENT') {
       anchor = '#comments';
     }
     return `/core-unit/${
