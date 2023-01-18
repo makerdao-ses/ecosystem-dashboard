@@ -10,5 +10,5 @@ export const flagsDevelopment: FeatureFlagsInterface = {
   FEATURE_GLOBAL_ACTIVITIES: true,
   FEATURE_AUTH: true,
   FEATURE_MKR_VESTING: true,
-  FEATURE_AUDIT_REPORTS: true,
+  FEATURE_AUDIT_REPORTS: false,
 };
