@@ -103,40 +103,35 @@ export const useCoreUnitsTableMvvm = () => {
     input.value = '';
   };
 
-  const onClickRow = useCallback(
-    (cu: CoreUnitDto) => {
-      const queryStrings = buildQueryString({
+  const queryStrings = useMemo(
+    () =>
+      buildQueryString({
         filteredStatuses,
         filteredCategories,
         searchText,
-      });
+      }),
+    [filteredCategories, filteredStatuses, searchText]
+  );
+
+  const onClickRow = useCallback(
+    (cu: CoreUnitDto) => {
       router.push(`/core-unit/${cu.shortCode}${queryStrings}`);
     },
-    [filteredCategories, filteredStatuses, router, searchText]
+    [queryStrings, router]
   );
 
   const onClickFinances = useCallback(
     (cu: CoreUnitDto) => {
-      const queryStrings = buildQueryString({
-        filteredStatuses,
-        filteredCategories,
-        searchText,
-      });
       router.push(`/core-unit/${cu.shortCode}/finances/reports${queryStrings}`);
     },
-    [filteredCategories, filteredStatuses, router, searchText]
+    [queryStrings, router]
   );
 
   const onClickLastModified = useCallback(
     (cu: CoreUnitDto) => {
-      const queryStrings = buildQueryString({
-        filteredStatuses,
-        filteredCategories,
-        searchText,
-      });
       router.push(`/core-unit/${cu.shortCode}/activity-feed${queryStrings}`);
     },
-    [filteredCategories, filteredStatuses, router, searchText]
+    [queryStrings, router]
   );
 
   const columns: CustomTableColumn[] = [
@@ -301,5 +296,6 @@ export const useCoreUnitsTableMvvm = () => {
     tableItems,
     onSortClick,
     applySort,
+    queryStrings,
   };
 };
