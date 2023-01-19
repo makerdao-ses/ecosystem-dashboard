@@ -92,23 +92,9 @@ export const CustomTable2 = (props: Props) => {
                     isLight={isLight}
                     isLoading={props.loading}
                     columns={props.columns}
-                    onClick={() => {
-                      props.columns[0].onClick?.(row.value);
-                    }}
                   >
                     {props.columns?.map((column) => (
-                      <TableCell
-                        key={column?.header}
-                        onClick={(e) => {
-                          if (column.onClick) {
-                            e.stopPropagation();
-                            column.onClick?.(row?.value);
-                          }
-                        }}
-                      >
-                        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                        {column.cellRender?.(row?.value as any)}
-                      </TableCell>
+                      <TableCell key={column?.header}>{column.cellRender?.(row?.value as CoreUnitDto)}</TableCell>
                     ))}
                   </TableRow>
                 </Link>

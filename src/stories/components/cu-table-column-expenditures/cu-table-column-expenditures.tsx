@@ -1,6 +1,9 @@
 import styled from '@emotion/styled';
+import { buildQueryString } from '@ses/core/utils/url.utils';
 import isEmpty from 'lodash/isEmpty';
-import React from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useMemo } from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CustomBarChart } from '../custom-bar-chart/custom-bar-chart';
 import { CustomPopover } from '../custom-popover/custom-popover';
@@ -14,66 +17,71 @@ interface CuTableColumnExpendituresProps {
   budgetCaps?: number[];
   months?: string[];
   isLoading?: boolean;
+  code?: string;
 }
 
 export const CuTableColumnExpenditures = ({ isLoading = false, ...props }: CuTableColumnExpendituresProps) => {
   const { isLight } = useThemeContext();
+  const router = useRouter();
+  const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
   return !isLoading ? (
-    <Wrapper>
-      <Container>
-        <DataWrapper>
-          <Data>
-            <Title isLight={isLight}>Latest 3 Months</Title>
+    <Link href={`/core-unit/${props.code}/finances/reports${queryStrings}`} passHref>
+      <Wrapper>
+        <Container>
+          <DataWrapper>
+            <Data>
+              <Title isLight={isLight}>Latest 3 Months</Title>
+              <CustomPopover
+                id="mouse-over-popover-total"
+                title={
+                  <TotalPopup>
+                    <PopupTitle isLight={isLight}>
+                      {props.value?.toLocaleString('en-US', {
+                        maximumFractionDigits: 0,
+                      })}
+                    </PopupTitle>
+                    <Label isLight={isLight}>Actual Expenditure</Label>
+                  </TotalPopup>
+                }
+              >
+                <Value
+                  isLight={isLight}
+                  style={{
+                    justifyContent: props.value ? 'flex-start' : 'center',
+                  }}
+                >
+                  {props.value?.toLocaleString('en-US', {
+                    maximumFractionDigits: 0,
+                  })}
+                </Value>
+              </CustomPopover>
+            </Data>
+          </DataWrapper>
+          <CustomBarChart
+            items={isEmpty(props.items) ? new Array(3).fill({ value: 0 }) : props.items}
+            maxValues={props.budgetCaps}
+            months={props.months}
+          />
+          <ValueWrapper>
             <CustomPopover
-              id="mouse-over-popover-total"
+              css={{ alignSelf: 'center' }}
+              id={'mouse-over-popover-percent'}
               title={
                 <TotalPopup>
-                  <PopupTitle isLight={isLight}>
-                    {props.value?.toLocaleString('en-US', {
-                      maximumFractionDigits: 0,
-                    })}
-                  </PopupTitle>
-                  <Label isLight={isLight}>Actual Expenditure</Label>
+                  <PopupTitle isLight={isLight}>{props.percent?.toFixed(0)}%</PopupTitle>
+                  <Label isLight={isLight}>
+                    <b>Actuals/BudgetCap</b>
+                  </Label>
+                  <Label isLight={isLight}>over the last 3 months</Label>
                 </TotalPopup>
               }
             >
-              <Value
-                isLight={isLight}
-                style={{
-                  justifyContent: props.value ? 'flex-start' : 'center',
-                }}
-              >
-                {props.value?.toLocaleString('en-US', {
-                  maximumFractionDigits: 0,
-                })}
-              </Value>
+              <Percent isLight={isLight}>{props.percent?.toFixed(0)}%</Percent>
             </CustomPopover>
-          </Data>
-        </DataWrapper>
-        <CustomBarChart
-          items={isEmpty(props.items) ? new Array(3).fill({ value: 0 }) : props.items}
-          maxValues={props.budgetCaps}
-          months={props.months}
-        />
-        <ValueWrapper>
-          <CustomPopover
-            css={{ alignSelf: 'center' }}
-            id={'mouse-over-popover-percent'}
-            title={
-              <TotalPopup>
-                <PopupTitle isLight={isLight}>{props.percent?.toFixed(0)}%</PopupTitle>
-                <Label isLight={isLight}>
-                  <b>Actuals/BudgetCap</b>
-                </Label>
-                <Label isLight={isLight}>over the last 3 months</Label>
-              </TotalPopup>
-            }
-          >
-            <Percent isLight={isLight}>{props.percent?.toFixed(0)}%</Percent>
-          </CustomPopover>
-        </ValueWrapper>
-      </Container>
-    </Wrapper>
+          </ValueWrapper>
+        </Container>
+      </Wrapper>
+    </Link>
   ) : (
     <ColumnExpendituresSkeleton />
   );
@@ -86,7 +94,7 @@ const Container = styled.div({
   justifyContent: 'flex-start',
 });
 
-const Wrapper = styled.div({
+const Wrapper = styled.a({
   display: 'flex',
   marginTop: '2px',
 });

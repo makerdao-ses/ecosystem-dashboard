@@ -1,7 +1,10 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
+import { buildQueryString } from '@ses/core/utils/url.utils';
 import { DateTime } from 'luxon';
-import React from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useMemo } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CategoryChip } from '../category-chip/category-chip';
@@ -64,7 +67,9 @@ export const CuTableColumnSummary = ({
   ...props
 }: CuTableColumnSummaryProps) => {
   const { isLight } = useThemeContext();
+  const router = useRouter();
   const upPhone = useMediaQuery(lightTheme.breakpoints.up('table_834'));
+  const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
 
   const phoneAndTableDevices = useMediaQuery(lightTheme.breakpoints.down('desktop_1194'));
   const hiddenPopOverSmallDevices = hasPopup && !phoneAndTableDevices;
@@ -73,86 +78,88 @@ export const CuTableColumnSummary = ({
   }
 
   return (
-    <Container onClick={props.onClick} style={props.style}>
-      <CircleContainer>
-        <PopupWrapper
-          hasPopup={hiddenPopOverSmallDevices}
-          code={props.code}
-          title={
-            <>
-              <PopupSummaryWrapper>
-                <CuTableColumnSummary
-                  {...props}
-                  hasPopup={false}
-                  logoDimension={'68px'}
-                  style={{
-                    width: '372px',
-                  }}
-                />
-              </PopupSummaryWrapper>
-              <Padded>
-                <CategoriesTitle>Categories</CategoriesTitle>
-                <CategoriesRow>
-                  {props.categories?.map((cat) => (
-                    <CategoryChip category={cat} key={cat} />
-                  ))}
-                </CategoriesRow>
-              </Padded>
-            </>
-          }
-        >
-          <CircleAvatar
-            width={logoDimension}
-            height={logoDimension}
-            name={props.title || 'Core Unit'}
-            image={props.imageUrl}
-            style={{
-              boxShadow: isLight ? '2px 4px 7px rgba(26, 171, 155, 0.25)' : '2px 4px 7px rgba(26, 171, 155, 0.25)',
-            }}
-          />
-        </PopupWrapper>
-      </CircleContainer>
-      <Content>
-        <TitleWrapper>
-          <Code isLight={isLight}>{props.code}</Code>
-          <Title isLight={isLight}>{props.title}</Title>
-        </TitleWrapper>
-        <Row>
-          {props.status && <StatusChip status={props.status} style={{ marginLeft: '-2px' }} />}
-          {props.statusModified && (
-            <CustomPopover
-              id={'mouse-over-popover-goto'}
-              title={'Go to MIPs Portal'}
-              popupStyle={{
-                color: isLight ? '#231536' : '#D2D4EF',
+    <Link href={`core-unit/${props.code}/${queryStrings}`} passHref>
+      <Container onClick={props.onClick} style={props.style}>
+        <CircleContainer>
+          <PopupWrapper
+            hasPopup={hiddenPopOverSmallDevices}
+            code={props.code}
+            title={
+              <>
+                <PopupSummaryWrapper>
+                  <CuTableColumnSummary
+                    {...props}
+                    hasPopup={false}
+                    logoDimension={'68px'}
+                    style={{
+                      width: '372px',
+                    }}
+                  />
+                </PopupSummaryWrapper>
+                <Padded>
+                  <CategoriesTitle>Categories</CategoriesTitle>
+                  <CategoriesRow>
+                    {props.categories?.map((cat) => (
+                      <CategoryChip category={cat} key={cat} />
+                    ))}
+                  </CategoriesRow>
+                </Padded>
+              </>
+            }
+          >
+            <CircleAvatar
+              width={logoDimension}
+              height={logoDimension}
+              name={props.title || 'Core Unit'}
+              image={props.imageUrl}
+              style={{
+                boxShadow: isLight ? '2px 4px 7px rgba(26, 171, 155, 0.25)' : '2px 4px 7px rgba(26, 171, 155, 0.25)',
               }}
-            >
-              {props.statusModified && (
-                <CustomLink
-                  href={props.mipUrl}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'flex-end',
-                    margin: '0 0 2px 4px',
-                  }}
-                  fontWeight={600}
-                  styleIcon={{
-                    marginBottom: upPhone ? '5.1px' : '4.5px',
-                  }}
-                  target="_blank"
-                >
-                  {`SINCE ${DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}`}
-                </CustomLink>
-              )}
-            </CustomPopover>
-          )}
-        </Row>
-      </Content>
-    </Container>
+            />
+          </PopupWrapper>
+        </CircleContainer>
+        <Content>
+          <TitleWrapper>
+            <Code isLight={isLight}>{props.code}</Code>
+            <Title isLight={isLight}>{props.title}</Title>
+          </TitleWrapper>
+          <Row>
+            {props.status && <StatusChip status={props.status} style={{ marginLeft: '-2px' }} />}
+            {props.statusModified && (
+              <CustomPopover
+                id={'mouse-over-popover-goto'}
+                title={'Go to MIPs Portal'}
+                popupStyle={{
+                  color: isLight ? '#231536' : '#D2D4EF',
+                }}
+              >
+                {props.statusModified && (
+                  <CustomLink
+                    href={props.mipUrl}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'flex-end',
+                      margin: '0 0 2px 4px',
+                    }}
+                    fontWeight={600}
+                    styleIcon={{
+                      marginBottom: upPhone ? '5.1px' : '4.5px',
+                    }}
+                    target="_blank"
+                  >
+                    {`SINCE ${DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}`}
+                  </CustomLink>
+                )}
+              </CustomPopover>
+            )}
+          </Row>
+        </Content>
+      </Container>
+    </Link>
   );
 };
 
-const Container = styled.div({
+const Container = styled.a({
   display: 'flex',
   width: '100%',
   alignItems: 'stretch',
