@@ -20,6 +20,7 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
           <Link
             key={item.label.toString() + i}
             href={item.url}
+            passHref
             style={{
               pointerEvents: item.url && !(i === props.items.length - 1) ? 'all' : 'none',
             }}
@@ -70,4 +71,5 @@ const Crumb = styled.a<{ first: boolean; last: boolean; isLight: boolean }>(({ f
   marginRight: '15px',
   marginLeft: first ? '0' : '15px',
   cursor: 'pointer',
+  textDecoration: 'none',
 }));
