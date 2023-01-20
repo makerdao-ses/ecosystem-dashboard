@@ -5,7 +5,7 @@ import type { CustomTableHeaderProps } from './custom-table-header';
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
-  title: 'Components/General/CustomTableHeader',
+  title: 'Components/CuTable/CustomTableHeader',
   components: CustomTableHeader,
 } as ComponentMeta<typeof CustomTableHeader>;
 
