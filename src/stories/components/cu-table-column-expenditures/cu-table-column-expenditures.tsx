@@ -97,6 +97,7 @@ const Container = styled.div({
 const Wrapper = styled.a({
   display: 'flex',
   marginTop: '2px',
+  textDecoration: 'none',
 });
 
 const DataWrapper = styled.div({
