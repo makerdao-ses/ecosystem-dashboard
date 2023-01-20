@@ -2,7 +2,6 @@ import { SortEnum } from '@ses/core/enums/sort.enum';
 import { withFigmaComparator } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { figmaComparatorCommonPaddingOptions } from '@ses/core/utils/storybook/utils';
-// import ExpenseReportStatus from './expense-report-status';
 import { HeadCustomTable } from './head-custom-table-2';
 import type { ComponentMeta } from '@storybook/react';
 
