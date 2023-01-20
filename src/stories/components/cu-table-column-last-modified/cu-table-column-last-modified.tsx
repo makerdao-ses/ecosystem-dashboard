@@ -59,6 +59,7 @@ const Wrapper = styled.a({
   alignItems: 'flex-end',
   margin: 'auto 0',
   height: '50px',
+  textDecoration: 'none',
 });
 
 const Container = styled.div({

@@ -125,6 +125,7 @@ const Container = styled.a<{
   padding,
   boxSizing: 'border-box',
   cursor: 'pointer',
+  textDecoration: 'none',
   '&:hover:not(:disabled)': allowsHoverStyleButton(allowsHover, isLight, active, buttonType),
   ...(styles ?? {}),
 }));

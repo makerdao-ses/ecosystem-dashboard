@@ -171,6 +171,7 @@ const Container = styled.a({
   '@media (min-width: 1194px)': {
     padding: '24px 16px',
   },
+  textDecoration: 'none',
 });
 
 const CircleContainer = styled.div({

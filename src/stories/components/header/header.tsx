@@ -93,7 +93,7 @@ const Header = ({ links }: Props) => {
 
         <Navigation>
           {menuItems.map((item: MenuType) => (
-            <Link href={item.link} legacyBehavior>
+            <Link href={item.link} passHref>
               <ItemMenuStyle
                 isLight={isLight}
                 key={item.title}
@@ -241,6 +241,7 @@ const ItemMenuStyle = styled.a<{ active: boolean; marginRight?: string; isLight:
     color: isLight ? (active ? '#1AAB9B' : '#25273D') : active ? '#2DC1B1' : '#D2D4EF',
     letterSpacing: '0.4px',
     cursor: 'pointer',
+    textDecoration: 'none',
     '&:hover': {
       color: '#1dc1ae',
     },
