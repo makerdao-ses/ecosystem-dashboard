@@ -3,8 +3,8 @@ import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
 import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 export const GET_CU_ABOUT_BY_CODE = gql`
-  query CoreUnit($filter: CoreUnitFilter) {
-    coreUnit(filter: $filter) {
+  query CoreUnits($filter: CoreUnitFilter) {
+    coreUnits(filter: $filter) {
       id
       shortCode
       code
