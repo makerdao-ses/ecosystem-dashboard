@@ -1,17 +1,6 @@
 import { RouterContext } from 'next/dist/shared/lib/router-context'; // next 12
 import { WithNextRouter } from 'storybook-addon-next-router/dist/decorators';
-import { withGlobals } from '@luigiminardim/storybook-addon-globals-controls';
-import { CompareWithFigmaContext } from '../src/core/utils/storybook/FigmaComparator';
 import '../styles/globals.scss';
-
-export const globalTypes = {
-  compareWithFigma: {
-    name: 'Compare With Figma',
-    description: 'Switch figma comparison on/off',
-    defaultValue: false,
-    control: { type: 'boolean' },
-  },
-};
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -76,13 +65,6 @@ export const parameters = {
       },
     },
   },
-  globalsControls: {},
 };
 
-const WithDisplayGlobals = withGlobals((Story, globalValues) => (
-  <CompareWithFigmaContext.Provider value={globalValues.compareWithFigma}>
-    <Story />
-  </CompareWithFigmaContext.Provider>
-));
-
-export const decorators = [WithNextRouter, WithDisplayGlobals];
+export const decorators = [WithNextRouter];

@@ -4,7 +4,6 @@ import type {
   BudgetStatementDto,
   ContributorCommitmentDto,
   CoreUnitDto,
-  RoadMapDto,
   SocialMediaChannelDto,
 } from '../../../core/models/dto/core-unit.dto';
 import type { RootState } from '../../../core/store/store';
@@ -39,7 +38,6 @@ export const initialState: CurrentCoreUnitAbout = {
     category: [],
     activityFeed: [],
     cuMip: [],
-    roadMap: [] as RoadMapDto[],
     socialMediaChannels: [] as SocialMediaChannelDto[],
     budgetStatements: [] as BudgetStatementDto[],
     contributorCommitment: [] as ContributorCommitmentDto[],

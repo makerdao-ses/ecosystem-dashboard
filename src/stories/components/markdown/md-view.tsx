@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import styled from '@emotion/styled';
 import { Popover, useMediaQuery } from '@mui/material';
 import Markdown from 'marked-react';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/button-type.enum';
@@ -24,22 +23,18 @@ interface Props {
   paragraphImage: string | null;
   title?: string;
   subTitle?: string;
-  headersLevel: MarkDownHeaders[];
   showButton?: boolean;
-  onClickFinances: () => void;
-  onClickActivity: () => void;
   code: string;
   auditors: AuditorDto[];
+  queryStrings: string;
 }
 
 const MdViewerPage = ({
   subTitle = 'What we do',
   paragraphDescription,
   paragraphImage,
-  headersLevel,
   showButton = false,
-  onClickActivity,
-  onClickFinances,
+  queryStrings,
   code,
   auditors,
 }: Props) => {
@@ -60,34 +55,6 @@ const MdViewerPage = ({
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
-
-  useEffect(() => {
-    const ids = headersLevel.map((header) => header.id);
-    const linkRefs = ids.map((id) => document.querySelector(`a[href='#${id}']`));
-
-    const onScroll = () => {
-      let lastScrolledLink = linkRefs[0];
-
-      linkRefs.forEach((link) => {
-        if (link) {
-          const topPosition = link.getBoundingClientRect().top;
-          if (topPosition <= 20) {
-            lastScrolledLink = link;
-          }
-        }
-      });
-
-      if (lastScrolledLink) {
-        setActiveLink(lastScrolledLink.id);
-      }
-    };
-
-    window.addEventListener('scroll', onScroll);
-
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-    };
-  }, [headersLevel]);
   return (
     <ViewerContainer>
       {showButton && !isTable834 ? (
@@ -134,8 +101,7 @@ const MdViewerPage = ({
             }}
           >
             <CardExpenses
-              onClickActivity={onClickActivity}
-              onClickFinances={onClickFinances}
+              queryStrings={queryStrings}
               code={code}
               auditors={auditors}
               buttonWidth="139.5px"
@@ -156,8 +122,7 @@ const MdViewerPage = ({
             styleContainer={{
               minHeight: '190px',
             }}
-            onClickActivity={onClickActivity}
-            onClickFinances={onClickFinances}
+            queryStrings={queryStrings}
             code={code}
             auditors={auditors}
             isTitlePresent={false}

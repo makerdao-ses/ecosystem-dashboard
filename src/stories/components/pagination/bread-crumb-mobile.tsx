@@ -128,11 +128,12 @@ const BreadCrumbMobile = ({ title, count = 0, page = 0, onClickLeft, onClickRigh
             >
               <Link
                 href={item.url}
+                passHref
                 style={{
                   pointerEvents: item.url ? 'all' : 'none',
                 }}
               >
-                {item.label}
+                <ItemMenu>{item.label}</ItemMenu>
               </Link>
             </MenuItem>
           ))}
@@ -240,6 +241,9 @@ const ContainerArrowClick = styled.div({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
+});
+const ItemMenu = styled.a({
+  textDecoration: 'none',
 });
 
 export default BreadCrumbMobile;

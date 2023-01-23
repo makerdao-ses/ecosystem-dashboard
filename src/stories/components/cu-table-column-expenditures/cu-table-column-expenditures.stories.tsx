@@ -9,8 +9,8 @@ export default {
 
 const args = [
   {
-    value: 16500,
-    percent: 120,
+    value: 16705,
+    percent: 96,
     items: [{ value: 70 }, { value: 85 }, { value: 120 }],
     budgetCaps: [90, 80, 100],
     months: ['October', 'November', 'December'],
@@ -18,3 +18,15 @@ const args = [
 ];
 
 export const [[LightMode, DarkMode]] = createThemeModeVariants(CuTableColumnExpenditures, args);
+
+LightMode.parameters = {
+  figma: {
+    component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2108%3A9986',
+    options: {
+      style: {
+        top: 5,
+        left: -27,
+      },
+    },
+  },
+};

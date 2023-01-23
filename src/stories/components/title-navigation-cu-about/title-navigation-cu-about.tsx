@@ -100,7 +100,6 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout, hiddenTextDescription }:
         {(phoneDimensions || lessPhone) && (
           <div
             style={{
-              borderBottom: !hiddenTextDescription ? '1px solid #B6EDE7' : 'none',
               width: '100%',
               marginTop: !hiddenTextDescription ? '16px' : '0px',
             }}

@@ -44,10 +44,6 @@ export const GETCoreUnits = gql`
           }
         }
       }
-      roadMap {
-        ownerCuId
-        roadmapStatus
-      }
       socialMediaChannels {
         forumTag
         twitter

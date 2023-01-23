@@ -31,7 +31,8 @@ const UserProfile = () => {
   }, [router, isAdminProfile]);
 
   const handleLogOut = () => {
-    clearCredentials && clearCredentials();
+    clearCredentials?.();
+    router.push('/login');
   };
 
   return (

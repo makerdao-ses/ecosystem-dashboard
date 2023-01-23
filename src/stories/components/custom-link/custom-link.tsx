@@ -26,7 +26,8 @@ export const CustomLink = ({
   target = '_blank',
   iconWidth = 6,
   iconHeight = 6,
-  fontSize = 12,
+  fontSize = 11,
+  lineHeight = '13px',
   fontWeight = 500,
   withArrow = true,
   fontFamily = 'Inter, sans-serif',
@@ -49,6 +50,7 @@ export const CustomLink = ({
     fontSizeMobile={props.fontSizeMobile}
     fontWeight={fontWeight}
     fontFamily={fontFamily}
+    lineHeight={lineHeight}
     onClick={(evt) => evt.stopPropagation()}
   >
     {props.children}

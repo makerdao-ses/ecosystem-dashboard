@@ -1,4 +1,4 @@
-import { FeatureFlagsInterface } from './feature-flags.interface';
+import type { FeatureFlagsInterface } from './feature-flags.interface';
 
 export const flagsStaging: FeatureFlagsInterface = {
   FEATURE_CARD_NAVIGATION: true,
@@ -9,6 +9,6 @@ export const flagsStaging: FeatureFlagsInterface = {
   FEATURE_TRANSPARENCY_COMMENTS: true,
   FEATURE_GLOBAL_ACTIVITIES: true,
   FEATURE_AUTH: true,
-  FEATURE_MKR_VESTING: false,
+  FEATURE_MKR_VESTING: true,
   FEATURE_AUDIT_REPORTS: false,
 };
