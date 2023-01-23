@@ -11,7 +11,6 @@ export const createTemplateWithTheme =
       <ThemeProvider isLightApp={isLight}>
         <div
           style={{
-            padding: 20,
             background: isLight ? '#FFFFFF' : '#000000',
             backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
             backgroundAttachment: 'fixed',

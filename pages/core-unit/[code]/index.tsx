@@ -2,7 +2,7 @@ import isEmpty from 'lodash/isEmpty';
 import React, { useState, useEffect } from 'react';
 import { CoreUnitContext } from '../../../src/core/context/CoreUnitContext';
 import { useFlagsActive } from '../../../src/core/hooks/useFlagsActive';
-import { fetchCoreUnits } from '../../../src/stories/components/core-unit-summary/core-unit-summary.mvvm';
+import { fetchCoreUnits } from '../../../src/stories/components/core-unit-summary/core-unit-summary.api';
 import CuAboutContainer2 from '../../../src/stories/containers/cu-about-2/cu-about-container-2';
 import CuAboutContainer from '../../../src/stories/containers/cu-about/cu-about-container';
 import { fetchCoreUnitByCode } from '../../../src/stories/containers/cu-about/cu-about.api';

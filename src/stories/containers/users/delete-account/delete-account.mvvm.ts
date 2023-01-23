@@ -52,7 +52,8 @@ export const useDeleteAccountMvvm = (username?: string) => {
               userName: deletingUser?.username as string,
             });
             setTimeout(() => {
-              clearCredentials && clearCredentials();
+              clearCredentials?.();
+              router.push('/login');
             }, 3000);
           }
         }

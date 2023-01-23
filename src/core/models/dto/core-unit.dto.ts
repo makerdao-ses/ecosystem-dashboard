@@ -161,11 +161,6 @@ export interface LastActivityDto {
   description: string;
 }
 
-export interface RoadMapDto {
-  ownerCuId: string;
-  roadmapStatus: string;
-}
-
 export interface AuditorDto {
   id: string;
   username: string;
@@ -184,7 +179,6 @@ export interface CoreUnitDto {
   legacyBudgetStatementUrl?: string;
   auditors: AuditorDto[];
   cuMip: CuMipDto[];
-  roadMap: RoadMapDto[];
   activityFeed: ActivityFeedDto[];
   lastActivity?: LastActivityDto;
   socialMediaChannels: SocialMediaChannelDto[];

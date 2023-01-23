@@ -34,7 +34,8 @@ const Header = ({ links }: Props) => {
   const isAdmin = useIsAdmin(user || ({} as UserDTO));
 
   const handleOnClickLogOut = () => {
-    clearCredentials && clearCredentials();
+    clearCredentials?.();
+    router.push('/login');
   };
 
   const onClick = useCallback(

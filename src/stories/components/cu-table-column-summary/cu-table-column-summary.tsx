@@ -65,6 +65,9 @@ export const CuTableColumnSummary = ({
 }: CuTableColumnSummaryProps) => {
   const { isLight } = useThemeContext();
   const upPhone = useMediaQuery(lightTheme.breakpoints.up('table_834'));
+
+  const phoneAndTableDevices = useMediaQuery(lightTheme.breakpoints.down('desktop_1194'));
+  const hiddenPopOverSmallDevices = hasPopup && !phoneAndTableDevices;
   if (isLoading) {
     return <ColumnSummarySkeleton />;
   }
@@ -73,7 +76,7 @@ export const CuTableColumnSummary = ({
     <Container onClick={props.onClick} style={props.style}>
       <CircleContainer>
         <PopupWrapper
-          hasPopup={hasPopup}
+          hasPopup={hiddenPopOverSmallDevices}
           code={props.code}
           title={
             <>
@@ -127,7 +130,6 @@ export const CuTableColumnSummary = ({
               {props.statusModified && (
                 <CustomLink
                   href={props.mipUrl}
-                  fontSize={12}
                   style={{
                     display: 'flex',
                     alignItems: 'flex-end',
