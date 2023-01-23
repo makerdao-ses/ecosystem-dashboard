@@ -10,6 +10,7 @@ module.exports = {
     '@storybook/preset-scss',
     'storybook-addon-next-router',
     '@luigiminardim/storybook-addon-globals-controls',
+    'storybook-addon-figma-comparator',
   ],
   framework: '@storybook/react',
   core: {
