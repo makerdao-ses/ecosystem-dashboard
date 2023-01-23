@@ -1,7 +1,7 @@
 import { CommentBuilder } from '@ses/core/business-logic/builders/comment.builder';
 import { UserBuilder } from '@ses/core/business-logic/builders/user.builder';
 import { BudgetStatus } from '@ses/core/models/dto/core-unit.dto';
-import { withCoreUnitContext, withFigmaComparator } from '@ses/core/utils/storybook/decorators';
+import { withCoreUnitContext } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AuditorCommentCard from './auditor-comment-card';
 import type { CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
@@ -59,18 +59,19 @@ export const [[StatusChange, StatusChangeDarkMode], [Comment, DarkModeComment]] 
   variantsArgs
 );
 
-StatusChange.decorators = [
-  withFigmaComparator(
-    {
-      0: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10662%3A140374&t=rZgNKjWVAVo99Z9K-4',
-      834: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10662%3A132865&t=rZgNKjWVAVo99Z9K-4',
-      1194: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10662%3A127300&t=rZgNKjWVAVo99Z9K-4',
-      1280: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10662%3A124775&t=rZgNKjWVAVo99Z9K-4',
+StatusChange.parameters = {
+  figma: {
+    component: {
+      0: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10662%3A140374',
+      834: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10662%3A132865',
+      1194: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10662%3A127300',
+      1280: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10662%3A124775',
     },
-    {
-      styles: {
-        left: -20,
+    options: {
+      style: {
+        top: -20,
+        left: -40,
       },
-    }
-  ),
-];
+    },
+  },
+};

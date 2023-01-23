@@ -1,23 +1,10 @@
 import PermissionManager from '@ses/core/auth/permission-manager';
 import { AuthContext } from '@ses/core/context/AuthContext';
 import { CoreUnitContext } from '@ses/core/context/CoreUnitContext';
-import FigmaComparator from './FigmaComparator';
-import type { FigmaComparatorOptions, FigmaLinkSet } from './types';
 import type { CoreUnitContextValues } from '@ses/core/context/CoreUnitContext';
 import type { UserDTO } from '@ses/core/models/dto/auth.dto';
 import type { CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
 import type { Story } from '@storybook/react';
-
-export const withFigmaComparator =
-  (figmaLink: string | FigmaLinkSet, options?: FigmaComparatorOptions) => (Story: Story) => {
-    const link = typeof figmaLink === 'string' ? { 0: figmaLink } : figmaLink;
-
-    return (
-      <FigmaComparator figmaLink={link} options={options}>
-        <Story />
-      </FigmaComparator>
-    );
-  };
 
 export const withUserLoggedIn = (user: UserDTO) => (Story: Story) =>
   (

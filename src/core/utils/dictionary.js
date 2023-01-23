@@ -105,6 +105,7 @@ const dictionary = [
   'figma',
   'comparator',
   'viewports',
+  'dropdown',
 ];
 
 module.exports = dictionary;
