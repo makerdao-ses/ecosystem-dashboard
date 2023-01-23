@@ -32,6 +32,7 @@ export const CuTable2 = () => {
     onSortClick,
     headersSort,
     applySort,
+    queryStrings,
   } = useCoreUnitsTableMvvm();
 
   const siteHeader = useMemo(() => {
@@ -80,6 +81,7 @@ export const CuTable2 = () => {
           handleSort={onSortClick}
           headersSort={headersSort}
           renderCard={(row: CustomTableRow, index: number) => renderCard(row?.value as CoreUnitDto, index)}
+          queryStrings={queryStrings}
         />
       </Wrapper>
     </ContainerHome>

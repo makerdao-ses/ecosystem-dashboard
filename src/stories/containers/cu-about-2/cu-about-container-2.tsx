@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 import { Divider, useMediaQuery } from '@mui/material';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { getMarkdownInformation } from '../../../core/business-logic/core-unit-about';
 import { getFTEsFromCoreUnit } from '../../../core/business-logic/core-units';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
-import { toAbsoluteURL } from '../../../core/utils/url.utils';
+import { buildQueryString, toAbsoluteURL } from '../../../core/utils/url.utils';
 import BigButton from '../../components/button/big-button/big-button';
 import CardInfoMember from '../../components/card-info-member/card-info-member';
 import CardExpenses from '../../components/card-navegation/card-expenses';
@@ -36,8 +36,9 @@ const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
   const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const LessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
   const lessDesktop1194 = useMediaQuery(lightTheme.breakpoints.down('desktop_1194'));
+  const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
 
-  const { onClickLessMips, relateMipsOrder, hasMipsNotAccepted, onClickFinances, onClickActivity } = useCuAboutMvvm({
+  const { onClickLessMips, relateMipsOrder, hasMipsNotAccepted } = useCuAboutMvvm({
     cuAbout,
     code,
     router,
@@ -66,8 +67,7 @@ const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
                 sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)}
                 paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)}
                 paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)}
-                onClickFinances={onClickFinances}
-                onClickActivity={onClickActivity}
+                queryStrings={queryStrings}
               />
             </MarkdownContainer>
             <TeamMemberContainer>
@@ -143,12 +143,7 @@ const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
               {isEnabled('FEATURE_CARD_NAVIGATION') && (
                 <ContainerScroll>
                   <ContainerCard>
-                    <CardExpenses
-                      onClickFinances={onClickFinances}
-                      code={cuAbout.code}
-                      auditors={cuAbout.auditors}
-                      onClickActivity={onClickActivity}
-                    />
+                    <CardExpenses queryStrings={queryStrings} code={cuAbout.shortCode} auditors={cuAbout.auditors} />
                   </ContainerCard>
                   {!(table834 || phone || LessPhone) && (
                     <ContainerCard>

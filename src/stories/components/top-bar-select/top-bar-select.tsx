@@ -44,7 +44,7 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
             />
           </CloseWrapper>
           {menuItems.map((item) => (
-            <Link href={item.link}>
+            <Link href={item.link} passHref>
               <LinkWrapper isLight={isLight} isActive={item.title === props.selectedOption} key={item.title}>
                 {item.title}
               </LinkWrapper>
@@ -140,7 +140,7 @@ const Popup = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   },
 }));
 
-const LinkWrapper = styled.div<{ isLight: boolean; isActive: boolean }>(({ isLight, isActive }) => ({
+const LinkWrapper = styled.a<{ isLight: boolean; isActive: boolean }>(({ isLight, isActive }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -157,4 +157,5 @@ const LinkWrapper = styled.div<{ isLight: boolean; isActive: boolean }>(({ isLig
   boxSizing: 'border-box',
   boxShadow: isLight ? 'none' : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
   cursor: 'pointer',
+  textDecoration: 'none',
 }));
