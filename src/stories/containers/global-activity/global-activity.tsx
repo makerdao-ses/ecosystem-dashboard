@@ -51,11 +51,6 @@ export default ({ coreUnits }: Props) => {
       />
       <Container isLight={isLight}>
         <InnerPage>
-          <Title isLight={isLight}>Activity Feed</Title>
-          <Paragraph isLight={isLight}>
-            Change tracking displays all changes that have occurred regarding all Core Unit activity. Here you will be
-            able to see all previous modifications the Core Units made to its Expense Reports, FTEs, and more
-          </Paragraph>
           <FiltersContainer>
             <Reset filtersVisible={filtersVisible}>
               <ResetButton onClick={clearFilters} disabled={!filtersActive} hasIcon={false} labelMobile="Reset" />
@@ -116,6 +111,11 @@ export default ({ coreUnits }: Props) => {
               isGlobal
             />
           </TableWrapper>
+          <Title isLight={isLight}>Additional Notes</Title>
+          <Paragraph isLight={isLight}>
+            Change tracking displays all changes that have occurred regarding all Core Unit activity. Here you will be
+            able to see all previous modifications the Core Units made to its Expense Reports, FTEs, and more
+          </Paragraph>
         </InnerPage>
       </Container>
     </Wrapper>
