@@ -1,4 +1,3 @@
-import { withFigmaComparator } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { CustomBarChart } from './custom-bar-chart';
 import type { ComponentMeta } from '@storybook/react';
@@ -26,26 +25,26 @@ export const [[LightMode, DarkMode], [WithoutValue, WithoutValueDarkMode]] = cre
   args
 );
 
-LightMode.decorators = [
-  withFigmaComparator(
-    'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2104%3A10084&t=MOBBpTiml2e9jNRV-4',
-    {
-      styles: {
-        top: 23,
-        left: 28,
+LightMode.parameters = {
+  figma: {
+    component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2104%3A10084',
+    options: {
+      style: {
+        top: 3,
+        left: 9,
       },
-    }
-  ),
-];
+    },
+  },
+};
 
-WithoutValue.decorators = [
-  withFigmaComparator(
-    'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2344%3A12537&t=ChdSGZJYLzrZEDgC-4',
-    {
-      styles: {
-        top: 23,
-        left: 28,
+WithoutValue.parameters = {
+  figma: {
+    component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2344%3A12537',
+    options: {
+      style: {
+        top: 3,
+        left: 9,
       },
-    }
-  ),
-];
+    },
+  },
+};
