@@ -1,5 +1,6 @@
 import { RouterContext } from 'next/dist/shared/lib/router-context'; // next 12
 import { WithNextRouter } from 'storybook-addon-next-router/dist/decorators';
+import '../styles/globals.scss';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
