@@ -5,6 +5,11 @@ import type { ComponentMeta } from '@storybook/react';
 export default {
   title: 'Components/CUTable/ColumnExpenditures',
   component: CuTableColumnExpenditures,
+  parameters: {
+    chromatic: {
+      pauseAnimationAtEnd: true,
+    },
+  },
 } as ComponentMeta<typeof CuTableColumnExpenditures>;
 
 const args = [
