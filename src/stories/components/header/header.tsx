@@ -93,10 +93,9 @@ const Header = ({ links }: Props) => {
 
         <Navigation>
           {menuItems.map((item: MenuType) => (
-            <Link href={item.link} passHref>
+            <Link href={item.link} passHref key={item.title}>
               <ItemMenuStyle
                 isLight={isLight}
-                key={item.title}
                 style={{ marginRight: item.marginRight }}
                 href={item.link}
                 active={activeMenuItem === item}
