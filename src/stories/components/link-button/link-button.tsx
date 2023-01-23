@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
+import AddIcon from '@ses/components/svg/add';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { ButtonType } from '@ses/core/enums/button-type.enum';
+import Link from 'next/link';
 import React from 'react';
-import lightTheme from '../../../../styles/theme/light';
-import { ButtonType } from '../../../core/enums/button-type.enum';
-import { allowsHoverStyleButton, allowsHoverText, customStyles } from '../../../core/utils/share-style';
-import AddIcon from '../svg/add';
+import lightTheme from 'styles/theme/light';
+import { allowsHoverStyleButton, customStyles } from '../../../core/utils/share-style';
 import type { CSSProperties } from 'react';
 
 interface CustomButtonProps {
@@ -12,8 +13,6 @@ interface CustomButtonProps {
   className?: string;
   disabled?: boolean;
   style?: CSSProperties;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void | (() => void) | Promise<any>;
   widthText?: string;
   styleText?: CSSProperties;
   isHightLight?: boolean;
@@ -27,9 +26,10 @@ interface CustomButtonProps {
   fill?: string;
   type?: 'button' | 'submit';
   padding?: string;
+  href?: string;
 }
 
-export const CustomButton = ({
+export const LinkButton = ({
   isHightLight = false,
   buttonType = ButtonType.Default,
   allowsHover = true,
@@ -40,71 +40,72 @@ export const CustomButton = ({
   width,
   type = 'button',
   padding = '15px 16px',
+  href,
   ...props
 }: CustomButtonProps) => {
   const { isLight } = useThemeContext();
   return (
-    <Container
-      padding={padding}
-      active={active}
-      allowsHover={allowsHover}
-      className={`${props.className} no-select`}
-      isLight={isLight}
-      buttonType={buttonType}
-      type={type}
-      disabled={props.disabled}
-      onClick={props.onClick}
-      styles={{
-        backgroundColor: isLight
-          ? active
-            ? customStyles[buttonType].activeBackground
-            : customStyles[buttonType].background
-          : active
-          ? customStyles[buttonType].activeBackgroundDark
-          : customStyles[buttonType].backgroundDark,
-        borderColor: isLight
-          ? allowsHover
-            ? active
-              ? customStyles[buttonType].activeBorderColor
-              : customStyles[buttonType]?.borderColor
-            : customStyles[buttonType].borderColorMobile
-          : allowsHover
-          ? active
-            ? customStyles[buttonType].activeBorderColorDark
-            : customStyles[buttonType]?.borderColorDark
-          : customStyles[buttonType].borderColorMobileDark,
-        ...props.style,
-      }}
-      isHightLight={isHightLight}
-    >
-      <Text
-        disabled={props.disabled}
-        allowsHover={allowsHover}
+    <Link href={href || ''} passHref>
+      <Container
+        padding={padding}
         active={active}
-        buttonType={buttonType}
+        allowsHover={allowsHover}
+        className={`${props.className} no-select`}
         isLight={isLight}
-        width={props.widthText}
-        style={{
-          ...props.styleText,
+        buttonType={buttonType}
+        type={type}
+        styles={{
+          backgroundColor: isLight
+            ? active
+              ? customStyles[buttonType].activeBackground
+              : customStyles[buttonType].background
+            : active
+            ? customStyles[buttonType].activeBackgroundDark
+            : customStyles[buttonType].backgroundDark,
+          borderColor: isLight
+            ? allowsHover
+              ? active
+                ? customStyles[buttonType].activeBorderColor
+                : customStyles[buttonType]?.borderColor
+              : customStyles[buttonType].borderColorMobile
+            : allowsHover
+            ? active
+              ? customStyles[buttonType].activeBorderColorDark
+              : customStyles[buttonType]?.borderColorDark
+            : customStyles[buttonType].borderColorMobileDark,
+          ...props.style,
         }}
+        isHightLight={isHightLight}
       >
-        {props.label}
-        {withIcon && (
-          <AddIcon
-            fill={fill}
-            height={height}
-            width={width}
-            style={{
-              marginLeft: 7.53,
-            }}
-          />
-        )}
-      </Text>
-    </Container>
+        <Text
+          disabled={props.disabled}
+          allowsHover={allowsHover}
+          active={active}
+          buttonType={buttonType}
+          isLight={isLight}
+          width={props.widthText}
+          style={{
+            ...props.styleText,
+          }}
+        >
+          {props.label}
+          {withIcon && (
+            <AddIcon
+              fill={fill}
+              height={height}
+              width={width}
+              style={{
+                marginLeft: 7.53,
+              }}
+            />
+          )}
+        </Text>
+      </Container>
+    </Link>
   );
 };
 
-const Container = styled.button<{
+const Container = styled.a<{
   isLight: boolean;
   isHightLight?: boolean;
   styles?: CSSProperties;
@@ -113,7 +114,7 @@ const Container = styled.button<{
   active?: boolean;
   padding?: string;
 }>(({ isLight, styles, buttonType, allowsHover, active = false, padding }) => ({
-  display: 'flex',
+  display: 'inline-block',
   alignItems: 'center',
   justifyContent: 'center',
   width: 'fit-content',
@@ -124,6 +125,7 @@ const Container = styled.button<{
   padding,
   boxSizing: 'border-box',
   cursor: 'pointer',
+  textDecoration: 'none',
   '&:hover:not(:disabled)': allowsHoverStyleButton(allowsHover, isLight, active, buttonType),
   ...(styles ?? {}),
 }));
@@ -155,7 +157,7 @@ const Text = styled.div<{
     : active
     ? customStyles[buttonType].activeColorTextDark
     : customStyles[buttonType].textColorDark,
-  '&:hover:not(:disabled)': allowsHoverText(allowsHover, isLight, active, buttonType),
+  '&:hover:not(:disabled)': allowsHoverStyleButton(allowsHover, isLight, active, buttonType),
   ...(style ?? {}),
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     lineHeight: '18px',

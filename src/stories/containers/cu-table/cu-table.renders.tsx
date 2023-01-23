@@ -63,6 +63,7 @@ export const renderExpenditures = (coreUnit: CoreUnitDto) => {
           months={getLast3MonthsWithDataFormatted(coreUnit)}
           items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
           budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
+          code={getShortCode(coreUnit.shortCode)}
         />
       </div>
     </div>
@@ -118,5 +119,5 @@ export const renderCard = (coreUnit: CoreUnitDto, key?: number) => {
 
 export const renderLastModified = (coreUnit: CoreUnitDto) => {
   if (!coreUnit) return <CuTableColumnLastModified date={undefined} isLoading={!coreUnit} />;
-  return <CuTableColumnLastModified date={getLastMonthWithData(coreUnit)} />;
+  return <CuTableColumnLastModified date={getLastMonthWithData(coreUnit)} code={getShortCode(coreUnit.shortCode)} />;
 };

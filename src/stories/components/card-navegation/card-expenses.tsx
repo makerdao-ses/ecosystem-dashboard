@@ -8,31 +8,29 @@ import { MAKER_BURN_LINK } from '../../../core/utils/const';
 import { getShortCode } from '../../../core/utils/string.utils';
 import { DividerStyle } from '../../containers/cu-about-2/cu-about-container-2';
 import InlineUser from '../../containers/transparency-report/common/inline-user/inline-user';
-import { CustomButton } from '../custom-button/custom-button';
 import { CustomLink } from '../custom-link/custom-link';
+import { LinkButton } from '../link-button/link-button';
 import InformationCard from './information-card';
 import type { AuditorDto } from '../../../core/models/dto/core-unit.dto';
 
 interface Props {
-  onClickFinances: () => void;
-  onClickActivity: () => void;
   code: string;
   auditors?: AuditorDto[];
   isTitlePresent?: boolean;
   style?: React.CSSProperties;
   styleContainer?: React.CSSProperties;
   buttonWidth?: string;
+  queryStrings: string;
 }
 
 const CardExpenses = ({
-  onClickActivity,
-  onClickFinances,
   code,
   auditors,
   isTitlePresent = true,
   style = {},
   styleContainer = {},
   buttonWidth,
+  queryStrings,
 }: Props) => {
   const { isLight } = useThemeContext();
   const isPhone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
@@ -61,7 +59,8 @@ const CardExpenses = ({
         </TypographyDescription>
 
         <ContainerButton>
-          <CustomButton
+          <LinkButton
+            href={`/core-unit/${getShortCode(code)}/activity-feed${queryStrings}`}
             buttonType={ButtonType.Secondary}
             widthText="100%"
             label="Activity Feed"
@@ -79,10 +78,8 @@ const CardExpenses = ({
               flexGrow: 1,
               padding: isPhone || isTable ? '8px 25.75px' : '8px 43.25px',
             }}
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
-            onClick={onClickActivity}
           />
-          <CustomButton
+          <LinkButton
             buttonType={ButtonType.Primary}
             widthText="100%"
             label="Expense Reports"
@@ -101,7 +98,7 @@ const CardExpenses = ({
               flexGrow: 1,
               padding: isPhone || isTable ? '8px 12.75px' : '8px 30.25px',
             }}
-            onClick={onClickFinances}
+            href={`/core-unit/${getShortCode(code)}/finances/reports${queryStrings}`}
           />
         </ContainerButton>
       </div>
