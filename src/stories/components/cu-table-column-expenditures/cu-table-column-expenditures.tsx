@@ -57,11 +57,13 @@ export const CuTableColumnExpenditures = ({ isLoading = false, ...props }: CuTab
               </CustomPopover>
             </Data>
           </DataWrapper>
-          <CustomBarChart
-            items={isEmpty(props.items) ? new Array(3).fill({ value: 0 }) : props.items}
-            maxValues={props.budgetCaps}
-            months={props.months}
-          />
+          <div style={{ marginBottom: -12 }}>
+            <CustomBarChart
+              items={isEmpty(props.items) ? new Array(3).fill({ value: 0 }) : props.items}
+              maxValues={props.budgetCaps}
+              months={props.months}
+            />
+          </div>
           <ValueWrapper>
             <CustomPopover
               css={{ alignSelf: 'center' }}
