@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import styled from '@emotion/styled';
 import React from 'react';
 import { ThemeProvider } from '../../context/ThemeContext';
 import type { Story } from '@storybook/react';
@@ -9,18 +10,18 @@ export const createTemplateWithTheme =
   (args: ComponentProps<typeof Component>) =>
     (
       <ThemeProvider isLightApp={isLight}>
-        <div
-          style={{
-            background: isLight ? '#FFFFFF' : '#000000',
-            backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
-            backgroundAttachment: 'fixed',
-            backgroundSize: 'cover',
-          }}
-        >
+        <TemplateThemeWrapper isLight={isLight}>
           <Component {...(args as object)} />
-        </div>
+        </TemplateThemeWrapper>
       </ThemeProvider>
     );
+
+const TemplateThemeWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  background: isLight ? '#FFFFFF' : '#000000',
+  backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
+  backgroundAttachment: 'fixed',
+  backgroundSize: 'cover',
+}));
 
 export const createThemeModeVariants = (
   Component: ElementType,
