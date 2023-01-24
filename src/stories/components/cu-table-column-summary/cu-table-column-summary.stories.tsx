@@ -25,11 +25,23 @@ Summary.parameters = {
   figma: {
     component:
       'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2527%3A13994&t=iDXzm6LhfULmvnWw-4',
+    options: {
+      style: {
+        top: 20,
+        left: 6,
+      },
+    },
   },
 };
 SummaryDark.parameters = {
   figma: {
     component:
       'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2527%3A13994&t=iDXzm6LhfULmvnWw-4',
+    options: {
+      style: {
+        top: 20,
+        left: 6,
+      },
+    },
   },
 };
