@@ -86,13 +86,13 @@ export const CustomTable2 = (props: Props) => {
             {tableHead}
             <TableBody isLight={isLight}>
               {rows?.map((row, i) => (
-                <Link href={`core-unit/${(row?.value as CoreUnitDto)?.shortCode}/${props.queryStrings}`} passHref>
-                  <TableRow
-                    key={`row-${row?.key ?? i}`}
-                    isLight={isLight}
-                    isLoading={props.loading}
-                    columns={props.columns}
-                  >
+                <Link
+                  href={`/core-unit/${(row?.value as CoreUnitDto)?.shortCode}${props.queryStrings}` || ''}
+                  passHref
+                  legacyBehavior
+                  key={`row-${row?.key ?? i}`}
+                >
+                  <TableRow isLight={isLight} isLoading={props.loading} columns={props.columns}>
                     {props.columns?.map((column) => (
                       <TableCell key={column?.header}>{column.cellRender?.(row?.value as CoreUnitDto)}</TableCell>
                     ))}
