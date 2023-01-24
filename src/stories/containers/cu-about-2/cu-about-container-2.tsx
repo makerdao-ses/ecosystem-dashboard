@@ -73,20 +73,23 @@ const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
               <TeamMemberTitle isLight={isLight}>Team Size</TeamMemberTitle>
               <TeamMember fte={getFTEsFromCoreUnit(cuAbout)} />
             </TeamMemberContainer>
-            <ContactInfoContainer>
-              <ContactInfoTitle isLight={isLight}>Contact Information</ContactInfoTitle>
-              <ContainerCards>
-                {cuAbout &&
-                  cuAbout.contributorCommitment?.map((contributor: ContributorCommitmentDto, index: number) => (
-                    <CardInfoContainer key={index}>
-                      <CardInfoMember contributorCommitment={contributor} />
-                    </CardInfoContainer>
-                  ))}
-              </ContainerCards>
-            </ContactInfoContainer>
+            {cuAbout.contributorCommitment.length > 0 && (
+              <ContactInfoContainer>
+                <ContactInfoTitle isLight={isLight}>Contact Information</ContactInfoTitle>
+                <ContainerCards>
+                  {cuAbout &&
+                    cuAbout.contributorCommitment?.map((contributor: ContributorCommitmentDto, index: number) => (
+                      <CardInfoContainer key={index}>
+                        <CardInfoMember contributorCommitment={contributor} />
+                      </CardInfoContainer>
+                    ))}
+                </ContainerCards>
+              </ContactInfoContainer>
+            )}
             <Divider
               sx={{
                 bgcolor: isLight ? '#D4D9E1' : '#405361',
+                marginTop: !(cuAbout.contributorCommitment.length > 0) ? '32px' : '0px',
               }}
             />
             <CardRelateMipsContainer>
