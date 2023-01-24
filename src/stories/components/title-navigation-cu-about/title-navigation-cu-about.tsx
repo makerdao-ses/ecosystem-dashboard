@@ -82,7 +82,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout, hiddenTextDescription }:
                         fontFamily: 'Inter, sans-serif',
                         fontStyle: 'normal',
                         fontWeight: 600,
-                        fontSize: '12px',
+                        fontSize: '11px',
                         letterSpacing: '1px',
                         textTransform: 'uppercase',
                         color: '#447AFB',
