@@ -35,3 +35,15 @@ LightMode.parameters = {
     },
   },
 };
+
+DarkMode.parameters = {
+  figma: {
+    component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2108%3A9986',
+    options: {
+      style: {
+        top: 5,
+        left: -27,
+      },
+    },
+  },
+};

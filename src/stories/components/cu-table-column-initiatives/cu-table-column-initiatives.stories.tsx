@@ -1,20 +1,42 @@
-import React from 'react';
+import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { CuTableColumnInitiatives } from './cu-table-column-initiatives';
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta } from '@storybook/react';
 
 export default {
   title: 'Components/CUTable/ColumnInitiatives',
   component: CuTableColumnInitiatives,
 } as ComponentMeta<typeof CuTableColumnInitiatives>;
 
-const Template: ComponentStory<typeof CuTableColumnInitiatives> = (args) => <CuTableColumnInitiatives {...args} />;
+const args = [
+  {
+    initiatives: 1,
+  },
+];
 
-export const Default = Template.bind({});
-Default.args = {
-  initiatives: 1,
+export const [[LightMode, DarkMode]] = createThemeModeVariants(CuTableColumnInitiatives, args);
+
+LightMode.parameters = {
+  figma: {
+    component:
+      'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2156%3A23054&t=Kn4jCXITHbiZO4YA-4',
+    options: {
+      style: {
+        top: 5,
+        left: -27,
+      },
+    },
+  },
 };
 
-export const WithZero = Template.bind({});
-WithZero.args = {
-  initiatives: 0,
+DarkMode.parameters = {
+  figma: {
+    component:
+      'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2156%3A23054&t=Kn4jCXITHbiZO4YA-4',
+    options: {
+      style: {
+        top: 5,
+        left: -27,
+      },
+    },
+  },
 };
