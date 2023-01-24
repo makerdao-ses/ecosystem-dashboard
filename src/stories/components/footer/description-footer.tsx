@@ -20,10 +20,8 @@ const DescriptionFooter = ({ title, children, style = {} }: Props) => {
       {children &&
         children.map((item, index) =>
           item.isNotLink ? (
-            <Link href={item.url} passHref legacyBehavior>
-              <CookiesLink isLight={isLight} key={index}>
-                {item.title}
-              </CookiesLink>
+            <Link href={item.url} passHref legacyBehavior key={index}>
+              <CookiesLink isLight={isLight}>{item.title}</CookiesLink>
             </Link>
           ) : (
             <StyleChildren key={item.title} href={item.url} target={item.target || '_blank'} isLight={isLight}>
