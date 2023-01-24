@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 import { Divider, useMediaQuery } from '@mui/material';
 import { useRouter } from 'next/router';
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { getMarkdownInformation } from '../../../core/business-logic/core-unit-about';
 import { getFTEsFromCoreUnit } from '../../../core/business-logic/core-units';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
-import { buildQueryString, toAbsoluteURL } from '../../../core/utils/url.utils';
+import { toAbsoluteURL } from '../../../core/utils/url.utils';
 import BigButton from '../../components/button/big-button/big-button';
 import CardInfoMember from '../../components/card-info-member/card-info-member';
 import CardExpenses from '../../components/card-navegation/card-expenses';
@@ -36,9 +36,8 @@ const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
   const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const LessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
   const lessDesktop1194 = useMediaQuery(lightTheme.breakpoints.down('desktop_1194'));
-  const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
 
-  const { onClickLessMips, relateMipsOrder, hasMipsNotAccepted } = useCuAboutMvvm({
+  const { onClickLessMips, relateMipsOrder, hasMipsNotAccepted, queryStrings } = useCuAboutMvvm({
     cuAbout,
     code,
     router,

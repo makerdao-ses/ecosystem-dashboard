@@ -192,9 +192,33 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
             </Title>
 
             <Paragraph isLight={isLight}>
-              Every month, the {coreUnit.shortCode} Core Unit submits a transparency report for MakerDAO governance with
-              a detailed budget update. If the core unit works with an auditor, the transparency report is reviewed by
-              the auditor before the core unit's operational wallet is topped up to replenish its runway.
+              {coreUnit.auditors.length === 0 ? (
+                <div>
+                  Every month, the {coreUnit.shortCode} Core Unit submits an Expense Report to MakerDAO governance with
+                  a detailed budget update. The Core Unit works <b>without auditor</b>, submitting its reports directly
+                  to the community.
+                </div>
+              ) : (
+                <div>
+                  Every month, the {coreUnit.shortCode} Core Unit submits an Expense Report to MakerDAO governance with
+                  a detailed budget update. The Core Unit's reports are reviewed{' '}
+                  <b>
+                    by auditor(s){' '}
+                    {coreUnit.auditors.map((auditor, index, array) => (
+                      <span key={auditor.id}>
+                        <b>{auditor.username}</b>
+                        {array.length > 1 && index !== array.length - 1
+                          ? index !== array.length - 2
+                            ? ', '
+                            : ', and '
+                          : ''}
+                      </span>
+                    ))}{' '}
+                  </b>
+                  before they are marked as final.
+                </div>
+              )}
+
               {coreUnit.legacyBudgetStatementUrl && (
                 <LegacyReportParagraph>
                   <span>Legacy expense reports can be found</span>

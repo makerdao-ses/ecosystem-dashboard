@@ -26,12 +26,6 @@ export default ({ coreUnit, coreUnits }: CUActivityContainerProps) => {
       <CoreUnitSummary coreUnits={coreUnits} trailingAddress={['Activity Feed']} breadcrumbTitle="Activity Feed" />
       <Container isLight={isLight}>
         <InnerPage>
-          <Title isLight={isLight}>Activity Feed</Title>
-          <Paragraph isLight={isLight}>
-            The table below reflects the activity regarding the {coreUnit.shortCode} Core Unit. Here you will be able to
-            see all previous modifications that the Core Unit has made to their Expense Reports, FTEs, and more.
-          </Paragraph>
-
           <TableWrapper>
             <ActivityTable
               columns={columns}
@@ -42,6 +36,11 @@ export default ({ coreUnit, coreUnits }: CUActivityContainerProps) => {
               sortClick={onSortClick}
             />
           </TableWrapper>
+          <Title isLight={isLight}>Additional Notes</Title>
+          <Paragraph isLight={isLight}>
+            The table below reflects the activity regarding the {coreUnit.shortCode} Core Unit. Here you will be able to
+            see all previous modifications that the Core Unit has made to their Expense Reports, FTEs, and more.
+          </Paragraph>
         </InnerPage>
       </Container>
     </Wrapper>
@@ -115,7 +114,8 @@ export const Title = styled.div<{
   lineHeight: '19px',
   letterSpacing: '0.4px',
   color: isLight ? '#231536' : '#D2D4EF',
-  marginBottom: `${marginBottom}px`,
+  marginBottom,
+  marginTop: 64,
 
   [lightTheme.breakpoints.up('table_834')]: {
     fontSize: '24px',
@@ -132,15 +132,10 @@ export const Paragraph = styled.p<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: '14px',
   lineHeight: '22px',
   color: isLight ? '#231536' : '#D2D4EF',
-  marginBottom: '48px',
+  marginBottom: 0,
 
   [lightTheme.breakpoints.up('table_834')]: {
     fontSize: '16px',
-    marginBottom: '66px',
-  },
-
-  [lightTheme.breakpoints.up('desktop_1920')]: {
-    marginBottom: '64px',
   },
 }));
 

@@ -38,23 +38,23 @@ export const useCuAboutMvvm = ({ cuAbout, code, router, setShowThreeMIPs, showTh
     return buildNewArray.some((mip: any) => mip.mipStatus !== CuStatusEnum.Accepted);
   }, [cuAbout.cuMip]);
 
+  const queryStrings = useMemo(
+    () =>
+      buildQueryString({
+        filteredStatuses,
+        filteredCategories,
+        searchText,
+      }),
+    [filteredCategories, filteredStatuses, searchText]
+  );
+
   const onClickFinances = useCallback(() => {
-    const queryStrings = buildQueryString({
-      filteredStatuses,
-      filteredCategories,
-      searchText,
-    });
     router.push(`/core-unit/${code}/finances/reports${queryStrings}`);
-  }, [filteredCategories, filteredStatuses, router, searchText, code]);
+  }, [router, code, queryStrings]);
 
   const onClickActivity = useCallback(() => {
-    const queryStrings = buildQueryString({
-      filteredStatuses,
-      filteredCategories,
-      searchText,
-    });
     router.push(`/core-unit/${code}/activity-feed${queryStrings}`);
-  }, [filteredCategories, filteredStatuses, router, searchText, code]);
+  }, [router, code, queryStrings]);
 
   return {
     onClickLessMips,
@@ -64,5 +64,6 @@ export const useCuAboutMvvm = ({ cuAbout, code, router, setShowThreeMIPs, showTh
     showThreeMIPs,
     setShowThreeMIPs,
     onClickActivity,
+    queryStrings,
   };
 };

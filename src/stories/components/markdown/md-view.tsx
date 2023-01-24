@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Popover, useMediaQuery } from '@mui/material';
 import Markdown from 'marked-react';
-import React, { useState } from 'react';
+import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/button-type.enum';
@@ -38,8 +38,6 @@ const MdViewerPage = ({
   code,
   auditors,
 }: Props) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [activeLink, setActiveLink] = useState('');
   const { isLight } = useThemeContext();
   const isTable834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const isPhoneAndTable = useMediaQuery(lightTheme.breakpoints.between('table_375', 'desktop_1194'));
