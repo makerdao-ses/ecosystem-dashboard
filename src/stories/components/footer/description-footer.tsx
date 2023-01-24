@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
-import { useRouter } from 'next/router';
-import React, { useCallback } from 'react';
+import Link from 'next/link';
+import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import type { LinkInterface } from './footer';
 
@@ -13,23 +13,16 @@ interface Props {
 
 const DescriptionFooter = ({ title, children, style = {} }: Props) => {
   const { isLight } = useThemeContext();
-  const router = useRouter();
 
-  const HandleOnClick = useCallback(
-    (url: string) => () => {
-      router.push(url);
-    },
-    [router]
-  );
   return (
     <div style={style}>
       <StyleTitle isLight={isLight}>{title}</StyleTitle>
       {children &&
         children.map((item, index) =>
           item.isNotLink ? (
-            <CookiesLink isLight={isLight} onClick={HandleOnClick(item.url)} key={index}>
-              {item.title}
-            </CookiesLink>
+            <Link href={item.url} passHref legacyBehavior key={index}>
+              <CookiesLink isLight={isLight}>{item.title}</CookiesLink>
+            </Link>
           ) : (
             <StyleChildren key={item.title} href={item.url} target={item.target || '_blank'} isLight={isLight}>
               {item.title}
@@ -65,7 +58,7 @@ const StyleChildren = styled.a<{ isLight: boolean }>(({ isLight }) => ({
   textDecoration: 'none',
 }));
 
-const CookiesLink = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const CookiesLink = styled.a<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
@@ -74,5 +67,6 @@ const CookiesLink = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D1DEE6',
   marginBottom: '16px',
   cursor: 'pointer',
+  textDecoration: 'none',
 }));
 export default DescriptionFooter;
