@@ -41,7 +41,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
   const [data, coreUnits] = await Promise.all([request(GRAPHQL_ENDPOINT, gqlQuery, filter), fetchCoreUnits()]);
 
-  if (data?.coreUnit?.length === 0) {
+  if (data?.coreUnits?.length === 0) {
     return {
       notFound: true,
     };
@@ -50,7 +50,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   return {
     props: {
       coreUnits,
-      cu: data.coreUnit[0],
+      cu: data.coreUnits[0],
     },
   };
 };

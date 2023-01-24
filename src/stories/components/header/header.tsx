@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo } from 'react';
 import lightTheme from '../../../../styles/theme/light';
@@ -24,7 +25,6 @@ import type { WebSiteLinks } from './select-link-website/menu-items';
 interface Props {
   links: WebSiteLinks[];
 }
-// eslint-disable-next-line @typescript-eslint/no-empty-function
 const Header = ({ links }: Props) => {
   const router = useRouter();
 
@@ -48,13 +48,6 @@ const Header = ({ links }: Props) => {
   const handleGoHome = useCallback(() => {
     router.push('/');
   }, [router]);
-
-  const handleOnClick = useCallback(
-    (link: string) => () => {
-      router.push(link);
-    },
-    [router]
-  );
 
   const activeMenuItem = useMemo(() => {
     for (const item of menuItems) {
@@ -100,15 +93,16 @@ const Header = ({ links }: Props) => {
 
         <Navigation>
           {menuItems.map((item: MenuType) => (
-            <ItemMenuStyle
-              isLight={isLight}
-              key={item.title}
-              style={{ marginRight: item.marginRight }}
-              onClick={handleOnClick(item.link)}
-              active={activeMenuItem === item}
-            >
-              {item.title}
-            </ItemMenuStyle>
+            <Link href={item.link} passHref key={item.title}>
+              <ItemMenuStyle
+                isLight={isLight}
+                style={{ marginRight: item.marginRight }}
+                href={item.link}
+                active={activeMenuItem === item}
+              >
+                {item.title}
+              </ItemMenuStyle>
+            </Link>
           ))}
           <ItemMenuResponsive>
             <TopBarSelect selectedOption={activeMenuItem.title} />
@@ -233,7 +227,7 @@ const RightPart = styled.div({
   },
 });
 
-const ItemMenuStyle = styled.div<{ active: boolean; marginRight?: string; isLight: boolean }>(
+const ItemMenuStyle = styled.a<{ active: boolean; marginRight?: string; isLight: boolean }>(
   ({ active, isLight, marginRight }) => ({
     display: 'none',
     fontFamily: 'Inter, sans-serif',
@@ -246,6 +240,7 @@ const ItemMenuStyle = styled.div<{ active: boolean; marginRight?: string; isLigh
     color: isLight ? (active ? '#1AAB9B' : '#25273D') : active ? '#2DC1B1' : '#D2D4EF',
     letterSpacing: '0.4px',
     cursor: 'pointer',
+    textDecoration: 'none',
     '&:hover': {
       color: '#1dc1ae',
     },

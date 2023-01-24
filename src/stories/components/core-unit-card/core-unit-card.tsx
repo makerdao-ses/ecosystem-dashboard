@@ -87,8 +87,8 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
   }
 
   return (
-    <CuCard>
-      <Link href={`/core-unit/${coreUnit.shortCode}${queryStrings}`}>
+    <Link href={`/core-unit/${coreUnit.shortCode}${queryStrings}`} passHref>
+      <CuCard>
         <Container isLight={isLight}>
           <Summary>
             <Title hideSmall>Core Unit</Title>
@@ -103,7 +103,7 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
               isCard={true}
             />
           </Summary>
-          <Link href={`/core-unit/${coreUnit.shortCode}/finances/reports${queryStrings}`}>
+          <Link href={`/core-unit/${coreUnit.shortCode}/finances/reports${queryStrings}`} passHref>
             <Expenditure>
               <Title style={{ marginBottom: '11px' }}>Expenditure</Title>
               <CuTableColumnExpenditures
@@ -112,6 +112,7 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
                 items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
                 budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
                 months={getLast3MonthsWithDataFormatted(coreUnit)}
+                code={getShortCode(coreUnit.code)}
               />
             </Expenditure>
           </Link>
@@ -122,10 +123,10 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
               fte={getFTEsFromCoreUnit(coreUnit)}
             />
           </Team>
-          <Link href={`/core-unit/${coreUnit.shortCode}/activity-feed${queryStrings}`}>
+          <Link href={`/core-unit/${coreUnit.shortCode}/activity-feed${queryStrings}`} passHref>
             <LastModified>
               <Title style={{ marginBottom: '16px' }}>Last Modified</Title>
-              <CuTableColumnLastModified date={getLastMonthWithData(coreUnit)} />
+              <CuTableColumnLastModified date={getLastMonthWithData(coreUnit)} code={getShortCode(coreUnit.code)} />
             </LastModified>
           </Link>
           <Line isLight={isLight} />
@@ -143,12 +144,12 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
             />
           </Links>
         </Container>
-      </Link>
-    </CuCard>
+      </CuCard>
+    </Link>
   );
 };
 
-const CuCard = styled.div({
+const CuCard = styled.a({
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     ':last-child': {
       marginBottom: '0px',
@@ -208,11 +209,14 @@ const Summary = styled.div({
   minWidth: '300px',
 });
 
-const Expenditure = styled.div({
+const Expenditure = styled.a({
   gridArea: 'expenditure',
   paddingTop: '32px',
   '@media (min-width: 685px)': {
     paddingTop: '0',
+  },
+  '@media (min-width: 685px) and (max-width: 834px)': {
+    marginBottom: '16px',
   },
 });
 
@@ -232,7 +236,7 @@ const Team = styled.div({
   },
 });
 
-const LastModified = styled.div({
+const LastModified = styled.a({
   gridArea: 'lastModified',
   marginTop: '32px',
   width: 'fit-content',

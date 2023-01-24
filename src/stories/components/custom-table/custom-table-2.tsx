@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import Link from 'next/link';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { HeadCustomTable } from './head-custom-table/head-custom-table-2';
@@ -37,6 +38,7 @@ interface Props {
   handleSort?: (index: number) => void;
   headersSort?: SortEnum[];
   renderCard?: (data: CustomTableRow, index: number) => JSX.Element;
+  queryStrings?: string;
 }
 
 export const CustomTable2 = (props: Props) => {
@@ -45,7 +47,6 @@ export const CustomTable2 = (props: Props) => {
   if (!props.loading && props.items?.length === 0) return <TablePlaceholder />;
 
   const rows = props.loading ? new Array(10).fill(null) : props.items;
-
   return (
     <>
       <TableWrapper>
@@ -54,30 +55,18 @@ export const CustomTable2 = (props: Props) => {
             <HeadCustomTable {...props} />
             <TableBody isLight={isLight}>
               {rows?.map((row, i) => (
-                <TableRow
-                  key={`row-${row?.key ?? i}`}
-                  isLight={isLight}
-                  isLoading={props.loading}
-                  columns={props.columns}
-                  onClick={() => {
-                    props.columns[0].onClick?.(row.value);
-                  }}
-                >
-                  {props.columns?.map((column) => (
-                    <TableCell
-                      key={column?.header}
-                      onClick={(e) => {
-                        if (column.onClick) {
-                          e.stopPropagation();
-                          column.onClick?.(row?.value);
-                        }
-                      }}
-                    >
-                      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                      {column.cellRender?.(row?.value as any)}
-                    </TableCell>
-                  ))}
-                </TableRow>
+                <Link href={`core-unit/${(row?.value as CoreUnitDto)?.shortCode}/${props.queryStrings}`} passHref>
+                  <TableRow
+                    key={`row-${row?.key ?? i}`}
+                    isLight={isLight}
+                    isLoading={props.loading}
+                    columns={props.columns}
+                  >
+                    {props.columns?.map((column) => (
+                      <TableCell key={column?.header}>{column.cellRender?.(row?.value as CoreUnitDto)}</TableCell>
+                    ))}
+                  </TableRow>
+                </Link>
               ))}
             </TableBody>
           </Table>
@@ -105,7 +94,7 @@ const Table = styled.div({
   flex: '1',
 });
 
-const TableRow = styled.div<{ isLight: boolean; isLoading?: boolean; columns: CustomTableColumn[] }>(
+const TableRow = styled.a<{ isLight: boolean; isLoading?: boolean; columns: CustomTableColumn[] }>(
   ({ isLight, isLoading, columns }) => ({
     background: isLight ? 'white' : '#10191F',
     display: 'grid',
