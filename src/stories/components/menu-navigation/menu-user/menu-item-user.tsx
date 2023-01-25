@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import Link from 'next/link';
 import React from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import AccountMangerSetting from '../../svg/account-manager-settings';
@@ -6,34 +7,32 @@ import LogOut from '../../svg/log-out';
 import Profile from '../../svg/profile';
 
 interface Props {
-  onClickProfile?: () => void;
   onClickLogOut?: () => void;
-  onClickAccountManager?: () => void;
   isAdmin?: boolean;
+  hrefAccountManager: string;
+  hrefProfile: string;
 }
 
-const MenuItemUser = ({
-  onClickLogOut,
-  onClickProfile,
-  isAdmin = false,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onClickAccountManager = () => {},
-}: Props) => {
+const MenuItemUser = ({ onClickLogOut, isAdmin = false, hrefProfile, hrefAccountManager }: Props) => {
   const { isLight } = useThemeContext();
   return (
     <Container>
-      <ContainerItem onClick={onClickProfile} isLight={isLight}>
-        <Profile fill={isLight ? '#231536' : '#FFFFFF'} />
-        <Label isLight={isLight}>Profile</Label>
-      </ContainerItem>
-      {isAdmin && (
-        <ContainerItem onClick={onClickAccountManager} isLight={isLight}>
-          <AccountMangerSetting fill={isLight ? '#231536' : '#FFFFFF'} />
-          <Label isLight={isLight}>Manage Accounts</Label>
+      <Link href={hrefProfile} passHref legacyBehavior>
+        <ContainerItem isLight={isLight}>
+          <Profile fill={isLight ? '#231536' : '#FFFFFF'} />
+          <Label isLight={isLight}>Profile</Label>
         </ContainerItem>
+      </Link>
+      {isAdmin && (
+        <Link href={hrefAccountManager} passHref legacyBehavior>
+          <ContainerItem isLight={isLight}>
+            <AccountMangerSetting fill={isLight ? '#231536' : '#FFFFFF'} />
+            <Label isLight={isLight}>Manage Accounts</Label>
+          </ContainerItem>
+        </Link>
       )}
 
-      <ContainerItem onClick={onClickLogOut} isLight={isLight}>
+      <ContainerItem onClick={onClickLogOut} isLight={isLight} as="div">
         <LogOut fill={isLight ? '#231536' : '#FFFFFF'} />
         <Label isLight={isLight}>Log out</Label>
       </ContainerItem>
@@ -58,7 +57,7 @@ const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   marginLeft: 13.64,
 }));
 
-const ContainerItem = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const ContainerItem = styled.a<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
@@ -75,5 +74,6 @@ const ContainerItem = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     padding: 8,
     height: 40,
   },
+  textDecoration: 'none',
 }));
 export default MenuItemUser;

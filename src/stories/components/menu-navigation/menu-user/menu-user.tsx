@@ -10,11 +10,11 @@ interface Props {
   username: string;
   isAdmin: boolean;
   onClickLogOut: () => void;
-  onClickProfile: () => void;
-  onClickAccountManager: () => void;
+  hrefAccountManager: string;
+  hrefProfile: string;
 }
 
-const MenuUserOptions = ({ username, isAdmin, onClickLogOut, onClickProfile, onClickAccountManager }: Props) => {
+const MenuUserOptions = ({ username, isAdmin, onClickLogOut, hrefAccountManager, hrefProfile }: Props) => {
   const { handleClick, handleClose, isLight, open, anchorEl } = useMenuUser();
 
   return (
@@ -75,8 +75,8 @@ const MenuUserOptions = ({ username, isAdmin, onClickLogOut, onClickProfile, onC
           <MenuItemUser
             isAdmin={isAdmin}
             onClickLogOut={onClickLogOut}
-            onClickProfile={onClickProfile}
-            onClickAccountManager={onClickAccountManager}
+            hrefProfile={hrefProfile}
+            hrefAccountManager={hrefAccountManager}
           />
         </MenuItem>
       </Menu>

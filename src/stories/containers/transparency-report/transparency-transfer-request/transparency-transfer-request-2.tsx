@@ -38,6 +38,7 @@ export const TransparencyTransferRequest2 = (props: Props) => {
             marginBottom: '16px',
             whiteSpace: 'break-spaces',
             display: 'inline-block',
+            marginLeft: 0,
           }}
           fontSize={16}
           fontWeight={500}

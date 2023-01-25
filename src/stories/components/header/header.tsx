@@ -64,13 +64,8 @@ const Header = ({ links }: Props) => {
 
     return menuItems[0];
   }, [router.pathname]);
-
-  const onClickAccountManager = () => {
-    router.push('/auth/manage/accounts');
-  };
-  const onClickProfile = () => {
-    router.push(`/auth/${isAdmin ? 'manage/my-profile' : 'user-profile'}/`);
-  };
+  const hrefAccountManager = useMemo(() => `/auth/${isAdmin ? 'manage/my-profile' : 'user-profile'}/`, [isAdmin]);
+  const hrefProfile = '/auth/manage/accounts';
 
   return (
     <Container isLight={isLight}>
@@ -111,10 +106,10 @@ const Header = ({ links }: Props) => {
             {authToken ? (
               <MenuUserOptions
                 isAdmin={isAdmin}
-                onClickAccountManager={onClickAccountManager}
                 onClickLogOut={handleOnClickLogOut}
-                onClickProfile={onClickProfile}
                 username={user?.username || ''}
+                hrefAccountManager={hrefAccountManager}
+                hrefProfile={hrefProfile}
               />
             ) : (
               <LinkWrapper>
