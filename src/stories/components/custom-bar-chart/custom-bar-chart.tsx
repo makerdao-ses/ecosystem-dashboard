@@ -56,15 +56,18 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
   const id = open ? 'graph-popover' : undefined;
 
   const padding = 8;
-  const maxItemHeight = 30;
+  const maxBarHeight = 50;
 
   const calculateHeight = (value: number): number => {
     if (!value) return 0;
 
-    const highestCap = max(props.maxValues) ?? 0;
+    const allItems = [...(props?.items?.map((item) => item?.value || 0) || []), ...(props?.maxValues || [])];
+    const newMin = 5;
+    const newMax = 50;
+    const min = Math.min(...allItems);
+    const max = Math.max(...allItems);
 
-    if (highestCap === 0) return 0;
-    return (value * maxItemHeight) / highestCap;
+    return ((value - min) / (max - min)) * (newMax - newMin) + newMin;
   };
 
   const isValueValid = (value: number): boolean => value > 0 && !!max(props.maxValues);
@@ -229,8 +232,8 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
                 strokeDasharray="4,3"
                 x1={i * 20 + padding}
                 x2={i * 20 + padding + 17}
-                y1={calculateHeight(cap) + 5}
-                y2={calculateHeight(cap) + 5}
+                y1={calculateHeight(cap) + 5 > maxBarHeight ? maxBarHeight : calculateHeight(cap) + 5}
+                y2={calculateHeight(cap) + 5 > maxBarHeight ? maxBarHeight : calculateHeight(cap) + 5}
                 fill="#447AFB"
                 strokeWidth="1px"
                 stroke="#447AFB"
