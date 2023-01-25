@@ -1,6 +1,8 @@
+import styled from '@emotion/styled';
 import PermissionManager from '@ses/core/auth/permission-manager';
 import { AuthContext } from '@ses/core/context/AuthContext';
 import { CoreUnitContext } from '@ses/core/context/CoreUnitContext';
+import { ThemeProvider } from '@ses/core/context/ThemeContext';
 import type { CoreUnitContextValues } from '@ses/core/context/CoreUnitContext';
 import type { UserDTO } from '@ses/core/models/dto/auth.dto';
 import type { CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
@@ -48,3 +50,19 @@ export const withCoreUnitContext = (CuOrStory: Story | CoreUnitDto) => {
     );
   }
 };
+
+export const withThemeContext = (isLight: boolean) => (Story: Story) =>
+  (
+    <ThemeProvider isLightApp={isLight}>
+      <TemplateThemeWrapper isLight={isLight}>
+        <Story />
+      </TemplateThemeWrapper>
+    </ThemeProvider>
+  );
+
+const TemplateThemeWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  background: isLight ? '#FFFFFF' : '#000000',
+  backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
+  backgroundAttachment: 'fixed',
+  backgroundSize: 'cover',
+}));
