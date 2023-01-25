@@ -77,6 +77,7 @@ export interface BudgetStatementLineItemDto {
 
 export interface BudgetStatementWalletTransferRequestDto {
   requestAmount: number;
+  walletBalance: number;
 }
 
 export interface BudgetStatementWalletDto {

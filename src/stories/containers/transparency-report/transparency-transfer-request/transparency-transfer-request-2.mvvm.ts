@@ -65,9 +65,9 @@ export const useTransparencyTransferRequestMvvm2 = (currentMonth: DateTime, budg
         (wallet) => wallet.address?.toLowerCase() === walletAddress.toLowerCase()
       );
 
-      if (!wallet) return 0;
+      if (!wallet || !wallet.budgetStatementTransferRequest) return 0;
 
-      return wallet.currentBalance ?? 0;
+      return wallet?.budgetStatementTransferRequest[0]?.walletBalance ?? 0;
     };
     return getCurrentBalanceForMonthOnWallet;
   }, [budgetStatements, currentMonth]);
