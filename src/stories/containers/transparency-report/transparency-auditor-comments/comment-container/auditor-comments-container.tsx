@@ -26,7 +26,7 @@ const AuditorCommentsContainer: React.FC<AuditorCommentsContainerProps> = ({ bud
   return (
     <Container>
       <CommentsContainer>
-        {comments.length === 0 && !canComment ? (
+        {!budgetStatement || (comments.length === 0 && !canComment) ? (
           <NoComments />
         ) : (
           <>
