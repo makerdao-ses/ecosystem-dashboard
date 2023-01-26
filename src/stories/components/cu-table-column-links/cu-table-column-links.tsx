@@ -60,7 +60,7 @@ export const CuTableColumnLinks = ({
   links,
   align = 'flex-end',
   spacings,
-  fill = '#C4C4C4',
+  fill = '#708390',
   lastChild = false,
   fillDark,
   isLoading = false,
