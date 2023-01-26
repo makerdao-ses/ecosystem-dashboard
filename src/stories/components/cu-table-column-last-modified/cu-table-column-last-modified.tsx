@@ -16,19 +16,19 @@ interface Props {
   code?: string;
 }
 
-export const CuTableColumnLastModified = (props: Props) => {
+export const CuTableColumnLastModified = ({ date, isLoading, code }: Props) => {
   const { isLight } = useThemeContext();
   const router = useRouter();
   const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
 
-  return !props.isLoading ? (
-    <Link href={`/core-unit/${props.code}/activity-feed${queryStrings}`} passHref>
+  return !isLoading ? (
+    <Link href={`/core-unit/${code}/activity-feed${queryStrings}`} passHref>
       <Wrapper>
         <Container>
-          <DateLabel isLight={isLight}>{props.date?.toFormat('dd-MMM-yyyy')?.toUpperCase() ?? 'No Data'}</DateLabel>
-          {props.date ? (
+          <DateLabel isLight={isLight}>{date?.toFormat('dd-MMM-yyyy')?.toUpperCase() ?? 'No Data'}</DateLabel>
+          {date ? (
             <DifferenceLabel isLight={isLight}>
-              {capitalizeSentence(props.date?.toRelative({ unit: 'days' }) ?? '')}
+              {capitalizeSentence(date?.toRelative({ unit: 'days' }) ?? '')}
             </DifferenceLabel>
           ) : (
             <CustomLink
@@ -56,7 +56,7 @@ export const CuTableColumnLastModified = (props: Props) => {
 
 const Wrapper = styled.a({
   display: 'flex',
-  alignItems: 'flex-end',
+  alignItems: 'flex-start',
   margin: 'auto 0',
   height: '50px',
   textDecoration: 'none',
