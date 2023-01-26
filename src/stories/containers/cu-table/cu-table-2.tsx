@@ -70,42 +70,32 @@ export const CuTable2 = () => {
     toggleFiltersPopup,
   ]);
 
-  if (themeMode === undefined) {
-    return (
-      <>
-        <SEOHead
-          title="MakerDAO Ecosystem Performance Dashboard | Maker Expenses"
-          description="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
-          image={{
-            src: toAbsoluteURL('/assets/img/social-385x200.png'),
-            width: 385,
-            height: 200,
-          }}
-          twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
-        >
-          <link rel="apple-touch-icon" sizes="1024x1024" href="/icons/icon-1024.png" />
-          <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512.png" />
-          <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180.png" />
-          <link rel="apple-touch-icon" sizes="120x120" href="/icons/icon-120.png" />
-        </SEOHead>
-      </>
-    );
-  }
-
   return (
-    <ContainerHome isLight={isLight} allowPadding={isShowBanner}>
-      <Wrapper>
-        {siteHeader}
-        <CustomTable2
-          columns={columns}
-          items={tableItems}
-          loading={status === 'loading'}
-          handleSort={onSortClick}
-          headersSort={headersSort}
-          renderCard={(row: CustomTableRow, index: number) => renderCard(row?.value as CoreUnitDto, index)}
-        />
-      </Wrapper>
-    </ContainerHome>
+    <>
+      <SEOHead
+        title="MakerDAO Ecosystem Performance Dashboard | Maker Expenses"
+        description="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
+        image={{
+          src: toAbsoluteURL('/assets/img/social-385x200.png'),
+          width: 385,
+          height: 200,
+        }}
+        twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
+      />
+      <ContainerHome isLight={isLight} allowPadding={isShowBanner}>
+        <Wrapper>
+          {siteHeader}
+          <CustomTable2
+            columns={columns}
+            items={tableItems}
+            loading={status === 'loading'}
+            handleSort={onSortClick}
+            headersSort={headersSort}
+            renderCard={(row: CustomTableRow, index: number) => renderCard(row?.value as CoreUnitDto, index)}
+          />
+        </Wrapper>
+      </ContainerHome>
+    </>
   );
 };
 
