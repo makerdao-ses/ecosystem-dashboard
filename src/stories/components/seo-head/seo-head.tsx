@@ -84,6 +84,10 @@ export const SEOHead = ({ title, description, favicon, image, twitterImage, twit
       {/* extra */}
       <meta name="mobile-web-app-capable" key="mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-capable" key="apple-mobile-web-app-capable" content="yes" />
+      <link rel="apple-touch-icon" sizes="1024x1024" href="/icons/icon-1024.png" />
+      <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512.png" />
+      <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180.png" />
+      <link rel="apple-touch-icon" sizes="120x120" href="/icons/icon-120.png" />
 
       {children}
       <meta name="robots" content="index,follow" />
