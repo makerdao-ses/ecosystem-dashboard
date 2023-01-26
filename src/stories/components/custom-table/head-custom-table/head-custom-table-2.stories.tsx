@@ -1,7 +1,5 @@
 import { SortEnum } from '@ses/core/enums/sort.enum';
-import { withFigmaComparator } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import { figmaComparatorCommonPaddingOptions } from '@ses/core/utils/storybook/utils';
 import { HeadCustomTable } from './head-custom-table-2';
 import type { ComponentMeta } from '@storybook/react';
 
@@ -61,24 +59,34 @@ const variantsArgs = [
 
 export const [[Head, HeadDarkMode]] = createThemeModeVariants(HeadCustomTable, variantsArgs);
 
-Head.decorators = [
-  withFigmaComparator(
-    {
+Head.parameters = {
+  figma: {
+    component: {
       1194: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=5232%3A92115&t=iDXzm6LhfULmvnWw-4',
       1440: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=4289%3A45401&t=iDXzm6LhfULmvnWw-4',
       1920: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=4289%3A44666&t=iDXzm6LhfULmvnWw-4',
     },
-    figmaComparatorCommonPaddingOptions
-  ),
-];
+    options: {
+      style: {
+        top: -20,
+        left: -40,
+      },
+    },
+  },
+};
 
-HeadDarkMode.decorators = [
-  withFigmaComparator(
-    {
+HeadDarkMode.parameters = {
+  figma: {
+    component: {
       1194: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=5232%3A92115&t=iDXzm6LhfULmvnWw-4',
       1440: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=4289%3A45401&t=iDXzm6LhfULmvnWw-4',
       1920: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=4289%3A44666&t=iDXzm6LhfULmvnWw-4',
     },
-    figmaComparatorCommonPaddingOptions
-  ),
-];
+    options: {
+      style: {
+        top: -20,
+        left: -40,
+      },
+    },
+  },
+};
