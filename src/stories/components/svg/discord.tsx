@@ -7,7 +7,7 @@ interface Props {
   fillDark?: string;
 }
 
-const Discord = ({ width = 17.5, height = 20, fill = '#C4C4C4', fillDark }: Props) => {
+const Discord = ({ width = 17.5, height = 20, fill = '#C4C4C4', fillDark = '#D1DEE6' }: Props) => {
   const { isLight } = useThemeContext();
   return (
     <svg width={width} height={height} viewBox={'0 0 18 21'} fill="none" xmlns="http://www.w3.org/2000/svg">

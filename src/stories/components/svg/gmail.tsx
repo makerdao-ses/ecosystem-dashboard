@@ -7,7 +7,7 @@ interface Props {
   fill?: string;
   fillDark?: string;
 }
-const Gmail = ({ fill = '#9FAFB9', height = 16, width = 21, fillDark, ...props }: Props) => {
+const Gmail = ({ fill = '#9FAFB9', height = 16, width = 21, fillDark = '#D1DEE6', ...props }: Props) => {
   const { isLight } = useThemeContext();
   return (
     <svg width={width} height={height} viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>

@@ -7,7 +7,7 @@ interface Props {
   fillDark?: string;
 }
 
-const WWW = ({ width = 19.73, height = 20, fill = '#C4C4C4', fillDark }: Props) => {
+const WWW = ({ width = 19.73, height = 20, fill = '#C4C4C4', fillDark = '#D1DEE6' }: Props) => {
   const { isLight } = useThemeContext();
   return (
     <svg
