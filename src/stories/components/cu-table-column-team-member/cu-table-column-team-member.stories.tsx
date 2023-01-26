@@ -24,7 +24,7 @@ const variantsArgs = [
             email: 'some@gmail.com',
             forumHandle: '',
             discordHandle: '',
-            facilitatorImage: '',
+            facilitatorImage: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/users/juan.gif',
             name: 'Some facilitator',
             twitterHandle: '',
             id: '',
@@ -39,7 +39,7 @@ const variantsArgs = [
             email: 'some@gmail.com',
             forumHandle: '',
             discordHandle: '',
-            facilitatorImage: '',
+            facilitatorImage: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/users/wouter.jpg',
             name: 'Some facilitator',
             twitterHandle: '',
             id: '',
@@ -58,8 +58,8 @@ TeamMember.parameters = {
       'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=8853%3A101708&t=Kn4jCXITHbiZO4YA-4',
     options: {
       style: {
-        top: 20,
-        left: 7,
+        top: 0,
+        left: 9,
       },
     },
   },
@@ -71,8 +71,8 @@ TeamMemberDark.parameters = {
       'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=8853%3A101708&t=Kn4jCXITHbiZO4YA-4',
     options: {
       style: {
-        top: 20,
-        left: -17,
+        top: 0,
+        left: 9,
       },
     },
   },
