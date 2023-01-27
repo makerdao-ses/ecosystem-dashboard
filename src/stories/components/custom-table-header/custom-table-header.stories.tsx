@@ -23,12 +23,12 @@ Header.parameters = {
   figma: {
     component:
       'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=6646%3A61302&t=iDXzm6LhfULmvnWw-4',
-    options: {
-      style: {
-        top: 20,
-        left: 6,
-      },
-    },
+    // options: {
+    //   style: {
+    //     top: 0,
+    //     left: 0,
+    //   },
+    // },
   },
 };
 
@@ -36,11 +36,11 @@ HeaderDarkMode.parameters = {
   figma: {
     component:
       'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=6646%3A61302&t=iDXzm6LhfULmvnWw-4',
-    options: {
-      style: {
-        top: 20,
-        left: 6,
-      },
-    },
+    // options: {
+    //   style: {
+    //     top: 20,
+    //     left: 6,
+    //   },
+    // },
   },
 };
