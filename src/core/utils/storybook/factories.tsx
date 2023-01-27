@@ -1,34 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import styled from '@emotion/styled';
 import React from 'react';
-import { ThemeProvider } from '../../context/ThemeContext';
+import { withThemeContext } from './decorators';
 import type { Story } from '@storybook/react';
-import type { ComponentProps, ElementType } from 'react';
-
-export const createTemplateWithTheme =
-  <T extends React.ComponentType<any>>(Component: ElementType, isLight = true): Story<ComponentProps<T>> =>
-  (args: ComponentProps<typeof Component>) =>
-    (
-      <ThemeProvider isLightApp={isLight}>
-        <TemplateThemeWrapper isLight={isLight}>
-          <Component {...(args as object)} />
-        </TemplateThemeWrapper>
-      </ThemeProvider>
-    );
-
-const TemplateThemeWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  background: isLight ? '#FFFFFF' : '#000000',
-  backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
-  backgroundAttachment: 'fixed',
-  backgroundSize: 'cover',
-}));
+import type { ElementType } from 'react';
 
 export const createThemeModeVariants = (
   Component: ElementType,
   args?: { [key: keyof React.ComponentProps<typeof Component>]: unknown }[] | number
 ) => {
-  const lightTemplate = createTemplateWithTheme(Component);
-  const darkTemplate = createTemplateWithTheme(Component, false);
+  const Template: Story = (args) => <Component {...args} />;
 
   let normalizedArgs = [{}];
   if (typeof args === 'number') {
@@ -39,11 +18,13 @@ export const createThemeModeVariants = (
 
   const components = [];
   for (const currentArgs of normalizedArgs) {
-    const lightVariant = lightTemplate.bind({});
+    const lightVariant = Template.bind({});
     lightVariant.args = currentArgs;
+    lightVariant.decorators = [withThemeContext(true)];
 
-    const darkVariant = darkTemplate.bind({});
+    const darkVariant = Template.bind({});
     darkVariant.args = currentArgs;
+    darkVariant.decorators = [withThemeContext(false)];
     components.push([lightVariant, darkVariant]);
   }
   return components;

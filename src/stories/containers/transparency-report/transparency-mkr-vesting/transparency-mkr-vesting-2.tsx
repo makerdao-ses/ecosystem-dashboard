@@ -40,6 +40,7 @@ export const TransparencyMkrVesting2 = (props: TransparencyMkrVestingProps) => {
             marginBottom: '16px',
             whiteSpace: 'break-spaces',
             display: 'inline-block',
+            marginLeft: 0,
           }}
           fontSize={16}
           fontWeight={500}
