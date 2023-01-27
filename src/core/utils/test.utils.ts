@@ -1,8 +1,24 @@
 import { DateTime } from 'luxon';
 import { CommitmentJob } from '../enums/CommitmentJob.enum';
-import type { CuJobEnum } from '../enums/cu-job.enum';
+import { CuJobEnum } from '../enums/cu-job.enum';
+import { BudgetStatus } from '../models/dto/core-unit.dto';
 import type { CuCommentDto } from '../models/dto/comments.dto';
-import type { ContributorCommitmentDto, ContributorDto } from '../models/dto/core-unit.dto';
+import type {
+  ActivityFeedDto,
+  AuditorDto,
+  AuditReportDto,
+  BudgetStatementDto,
+  BudgetStatementFteDto,
+  BudgetStatementMKRVestDto,
+  BudgetStatementWalletDto,
+  CommentsBudgetStatementDto,
+  ContributorCommitmentDto,
+  ContributorDto,
+  CoreUnitDto,
+  CuMipDto,
+  LastActivityDto,
+  SocialMediaChannelDto,
+} from '../models/dto/core-unit.dto';
 
 export const CURRENT_MONTH = DateTime.now().toFormat('y-MM-dd');
 export const CURRENT_MINUS_1_MONTH = DateTime.now().set({ day: 1 }).minus({ month: 1 }).toFormat('y-MM-dd');
@@ -112,3 +128,82 @@ export const COMMENTS_EXAMPLE: CuCommentDto[] = [
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const UsersFakeData: any[] = [];
+
+export const CoreUnit: CoreUnitDto = {
+  id: '1',
+  shortCode: 'SES',
+  code: 'SES-001',
+  name: 'Sustainable Ecosystem Scaling',
+  image: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/logo.png',
+  sentenceDescription:
+    'SES aims to sustainably grow the Maker Protocol’s moats by removing barriers between decentralized workforce, capital, and work.',
+  paragraphDescription:
+    'The SES Core Unit supports a decentralized, effective, and scalable economy on top of the Maker Protocol that continues to push forward its growth in a sustainable manner.',
+  paragraphImage: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/diagram.png',
+  category: ['Operational', 'Growth'],
+  legacyBudgetStatementUrl: '',
+  auditors: [] as AuditorDto[],
+  cuMip: [] as CuMipDto[],
+  activityFeed: [] as ActivityFeedDto[],
+  lastActivity: {} as LastActivityDto,
+  socialMediaChannels: [
+    {
+      discord: 'https://discord.gg/h7GKvqDyDP',
+      forumTag: 'https://forum.makerdao.com/c/core-units/sustainable-ecosystem-scaling',
+      github: 'https://github.com/makerdao-ses',
+      linkedIn: 'https://www.linkedin.com/company/makerdao-ses/',
+      twitter: 'https://twitter.com/MakerDAO_SES',
+      website: 'https://ses.makerdao.network',
+      youtube: 'https://www.youtube.com/channel/UC9c35O2H6fq8fB2CGzzP1bw',
+    },
+  ] as SocialMediaChannelDto[],
+  budgetStatements: [
+    {
+      id: '',
+      month: '23/2/2021',
+      status: BudgetStatus.Escalated,
+      publicationUrl: '',
+      activityFeed: [] as ActivityFeedDto[],
+      comments: [] as CommentsBudgetStatementDto[],
+      budgetStatementFTEs: [
+        {
+          month: '2/2/2034',
+          ftes: 7.5,
+        },
+      ] as BudgetStatementFteDto[],
+      budgetStatementWallet: [] as BudgetStatementWalletDto[],
+      budgetStatementMKRVest: [] as BudgetStatementMKRVestDto[],
+      auditReport: [] as AuditReportDto[],
+    },
+  ] as BudgetStatementDto[],
+  contributorCommitment: [
+    {
+      id: '34',
+      startDate: '2021-05-25',
+      jobTitle: CuJobEnum.Facilitator,
+      contributor: [
+        {
+          discordHandle: 'https://discord.com/users/770632510051975210',
+          forumHandle: 'Juan',
+          twitterHandle: '0x7u4n',
+          name: 'Juan',
+          facilitatorImage: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/users/juan.gif',
+        },
+      ] as ContributorDto[],
+    },
+    {
+      id: '35',
+      startDate: '2021-05-25',
+      jobTitle: CuJobEnum.Facilitator,
+      contributor: [
+        {
+          discordHandle: 'https://discord.com/users/770632510051975210',
+          forumHandle: 'Juan',
+          twitterHandle: '0x7u4n',
+          name: 'Juan',
+          facilitatorImage: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/users/wouter.jpg',
+        },
+      ] as ContributorDto[],
+    },
+  ] as ContributorCommitmentDto[],
+};
