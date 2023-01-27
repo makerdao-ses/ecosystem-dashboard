@@ -9,6 +9,17 @@ export default {
   parameters: {
     layout: 'fullscreen',
   },
+  decorators: [
+    (Story) => (
+      <div
+        style={{
+          width: 'fit-content',
+        }}
+      >
+        <Story />
+      </div>
+    ),
+  ],
 } as ComponentMeta<typeof CuTableColumnLinks>;
 
 const variantsArgs = [
@@ -54,8 +65,8 @@ Links.parameters = {
       'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=8853%3A101218&t=8qeht4ZmJlXvVXrb-4',
     options: {
       style: {
-        top: -12,
-        left: 960,
+        top: -15,
+        left: -14,
       },
     },
   },
@@ -66,8 +77,8 @@ LinksDark.parameters = {
       'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=8853%3A101218&t=8qeht4ZmJlXvVXrb-4',
     options: {
       style: {
-        top: -12,
-        left: 960,
+        top: -15,
+        left: -14,
       },
     },
   },
