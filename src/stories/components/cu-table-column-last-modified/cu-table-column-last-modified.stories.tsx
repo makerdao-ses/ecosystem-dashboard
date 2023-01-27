@@ -9,14 +9,14 @@ export default {
 
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1194, 1440],
+      viewports: [1280, 375],
     },
   },
 } as ComponentMeta<typeof CuTableColumnLastModified>;
 
 const variantsArgs = [
   {
-    date: DateTime.fromISO('2023-01-24T09:08:34.123'),
+    date: DateTime.fromISO('2022-12-25T09:08:34.123'),
     code: 'SES',
   },
   {
@@ -31,9 +31,7 @@ ModifiedData.parameters = {
   figma: {
     component: {
       375: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13146%3A131949&t=hcRG1Rif0SbJoAGa-4',
-      834: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13146%3A131949&t=hcRG1Rif0SbJoAGa-4',
-      1194: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13140%3A131671&t=hcRG1Rif0SbJoAGa-4',
-      1280: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13140%3A131671&t=hcRG1Rif0SbJoAGa-4',
+      1280: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13146%3A131949&t=VvlIsHwhC6CtvGqf-4',
     },
     options: {
       style: {
@@ -48,9 +46,7 @@ ModifiedDataDark.parameters = {
   figma: {
     component: {
       375: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13146%3A131949&t=hcRG1Rif0SbJoAGa-4',
-      834: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13146%3A131949&t=hcRG1Rif0SbJoAGa-4',
-      1194: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13140%3A131671&t=hcRG1Rif0SbJoAGa-4',
-      1280: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13140%3A131671&t=hcRG1Rif0SbJoAGa-4',
+      1280: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13146%3A131949&t=VvlIsHwhC6CtvGqf-4',
     },
     options: {
       style: {
@@ -65,9 +61,8 @@ ModifiedWithoutData.parameters = {
   figma: {
     component: {
       375: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13146%3A131950&t=hcRG1Rif0SbJoAGa-4',
-      834: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13146%3A131950&t=hcRG1Rif0SbJoAGa-4',
-      1194: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13140%3A131657&t=hcRG1Rif0SbJoAGa-4',
-      1280: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13140%3A131657&t=hcRG1Rif0SbJoAGa-4',
+
+      1280: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13146%3A131949&t=VvlIsHwhC6CtvGqf-4',
     },
 
     options: {
@@ -83,9 +78,7 @@ ModifiedWithoutDataDark.parameters = {
   figma: {
     component: {
       375: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13146%3A131950&t=hcRG1Rif0SbJoAGa-4',
-      834: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13146%3A131950&t=hcRG1Rif0SbJoAGa-4',
-      1194: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13140%3A131657&t=hcRG1Rif0SbJoAGa-4',
-      1280: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13140%3A131657&t=hcRG1Rif0SbJoAGa-4',
+      1280: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13146%3A131949&t=VvlIsHwhC6CtvGqf-4',
     },
 
     options: {
