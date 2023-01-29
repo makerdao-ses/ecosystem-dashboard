@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
+import ActivityTable2 from '@ses/components/cu-activity-table/cu-activity-table2';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
-import ActivityTable from '../../components/cu-activity-table/cu-activity-table';
 import { SEOHead } from '../../components/seo-head/seo-head';
-import { useCuActivityMvvm } from './cu-activity.mvvm';
+import { useCuActivityMvvm2 } from './cu-activity.mvvm2';
 import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 interface CUActivityContainerProps {
@@ -14,7 +14,9 @@ interface CUActivityContainerProps {
 }
 
 export default ({ coreUnit, coreUnits }: CUActivityContainerProps) => {
-  const { isLight, columns, onSortClick } = useCuActivityMvvm();
+  const { isLight, columns, onSortClick, activities, hasMoreElements, isLoadingMore, loadMore } = useCuActivityMvvm2(
+    coreUnit.id
+  );
   return (
     <Wrapper>
       <SEOHead
@@ -27,13 +29,15 @@ export default ({ coreUnit, coreUnits }: CUActivityContainerProps) => {
       <Container isLight={isLight}>
         <InnerPage>
           <TableWrapper>
-            <ActivityTable
+            <ActivityTable2
               columns={columns}
               shortCode={coreUnit.shortCode}
-              activityFeed={coreUnit.activityFeed.map((activity) => ({
-                activityFeed: activity,
-              }))}
+              isGlobal={false}
               sortClick={onSortClick}
+              activities={activities}
+              loadMore={loadMore}
+              hasMoreElements={hasMoreElements}
+              isLoadingMore={isLoadingMore}
             />
           </TableWrapper>
           <Title isLight={isLight}>Additional Notes</Title>

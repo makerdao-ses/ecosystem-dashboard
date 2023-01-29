@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import CoreUnitSelectItem from '@ses/components/core-unit-select-item/core-unit-select-item';
-import ActivityTable from '@ses/components/cu-activity-table/cu-activity-table';
 import ActivityTable2 from '@ses/components/cu-activity-table/cu-activity-table2';
 import { CustomMultiSelect } from '@ses/components/custom-multi-select/custom-multi-select';
 import ResetButton from '@ses/components/reset-button/reset-button';
@@ -13,7 +12,7 @@ import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { Paragraph, Title } from '../cu-activity/cu-activity';
 import { ButtonFilter, SmallSeparator } from '../cu-table/cu-table-filters';
-import { useGlobalActivityMvvm } from './global-activity.mvvm';
+import { useGlobalActivityMvvm2 } from './global-activity.mvvm2';
 import type { SelectItemProps } from '@ses/components/custom-multi-select/custom-multi-select';
 import type { CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
 
@@ -21,14 +20,12 @@ interface Props {
   coreUnits: CoreUnitDto[];
 }
 
-export default ({ coreUnits }: Props) => {
+const GlobalActivityFeed = ({ coreUnits }: Props) => {
   const { isLight } = useThemeContext();
   const {
     columns,
-    activityFeed,
     clearFilters,
     filtersActive,
-    inputRef,
     handleClearSearch,
     searchText,
     setSearchText,
@@ -37,7 +34,13 @@ export default ({ coreUnits }: Props) => {
     handleSelectChange,
     filtersVisible,
     toggleFiltersVisible,
-  } = useGlobalActivityMvvm(coreUnits);
+
+    activities,
+    loadMore,
+    isLoadingMore,
+    hasMoreElements,
+  } = useGlobalActivityMvvm2(coreUnits);
+
   return (
     <Wrapper>
       <SEOHead
@@ -80,7 +83,6 @@ export default ({ coreUnits }: Props) => {
             <SmallSeparator isLight={isLight} />
             <Search>
               <SearchInput
-                inputRef={inputRef}
                 handleClearSearch={handleClearSearch}
                 placeholder="Search"
                 value={searchText}
@@ -103,21 +105,16 @@ export default ({ coreUnits }: Props) => {
             </ButtonFilter>
           </FiltersContainer>
           <TableWrapper>
-            <ActivityTable
-              columns={columns}
-              shortCode={'global'}
-              activityFeed={activityFeed}
-              hasFilter={filtersActive}
-              clearAction={clearFilters}
-              isGlobal
-            />
             <ActivityTable2
               columns={columns}
               shortCode={'global'}
-              activityFeed={activityFeed}
               hasFilter={filtersActive}
               clearAction={clearFilters}
               isGlobal
+              activities={activities}
+              loadMore={loadMore}
+              isLoadingMore={isLoadingMore}
+              hasMoreElements={hasMoreElements}
             />
           </TableWrapper>
           <Title isLight={isLight}>Additional Notes</Title>
@@ -130,6 +127,8 @@ export default ({ coreUnits }: Props) => {
     </Wrapper>
   );
 };
+
+export default GlobalActivityFeed;
 
 const Wrapper = styled.div({
   display: 'flex',
