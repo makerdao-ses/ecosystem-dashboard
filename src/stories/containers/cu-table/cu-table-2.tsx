@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
 import { CuTableHeaderSkeleton } from '@ses/components/cu-table-header-skeleton/header-skeleton';
 import { CustomTable2 } from '@ses/components/custom-table/custom-table-2';
+import { SEOHead } from '@ses/components/seo-head/seo-head';
 import { useCookiesContextTracking } from '@ses/core/context/CookiesContext';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { SortEnum } from '@ses/core/enums/sort.enum';
+import { toAbsoluteURL } from '@ses/core/utils/url.utils';
 import React, { useMemo } from 'react';
 import lightTheme from 'styles/theme/light';
 
@@ -72,6 +74,16 @@ export const CuTable2 = () => {
   ]);
   return (
     <ContainerHome isLight={isLight} allowPadding={isShowBanner}>
+      <SEOHead
+        title="MakerDAO Ecosystem Performance Dashboard | Maker Expenses"
+        description="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
+        image={{
+          src: toAbsoluteURL('/assets/img/social-385x200.png'),
+          width: 385,
+          height: 200,
+        }}
+        twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
+      />
       <Wrapper>
         {siteHeader}
         <CustomTable2

@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
+import Link from 'next/link';
 import React from 'react';
 import { useThemeContext } from '../../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../custom-button/custom-button';
@@ -38,69 +39,71 @@ export const ItemWebSite = ({
 }: Props) => {
   const { isLight } = useThemeContext();
   return (
-    <Container height={height} isLight={isLight}>
-      <ContainerRow>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
-          <ContainerLogo>{props.logo}</ContainerLogo>
-          {props.title && (
-            <Typography
-              fontSize={fontSize}
-              color={isLight ? color : colorDark}
-              fontWeight={fontWeight}
-              fontFamily={fontFamily}
-              letterSpacing={props.letterSpacing}
-              lineHeight={props.lineHeight}
-            >
-              {props.title}
-            </Typography>
-          )}
-          {subtract && <ContainerSubtract>{subtract}</ContainerSubtract>}
-        </div>
-        <LinkWrapper>
+    <Link href={props.link || ''} passHref legacyBehavior>
+      <Container height={height} isLight={isLight}>
+        <ContainerRow>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}
+          >
+            <ContainerLogo>{props.logo}</ContainerLogo>
+            {props.title && (
+              <Typography
+                fontSize={fontSize}
+                color={isLight ? color : colorDark}
+                fontWeight={fontWeight}
+                fontFamily={fontFamily}
+                letterSpacing={props.letterSpacing}
+                lineHeight={props.lineHeight}
+              >
+                {props.title}
+              </Typography>
+            )}
+            {subtract && <ContainerSubtract>{subtract}</ContainerSubtract>}
+          </div>
+          <LinkWrapper>
+            <CustomButton
+              className="visitWebsiteButton"
+              label="Visit Website"
+              onClick={onClick}
+              style={{
+                width: '137px',
+                height: '34px',
+                padding: '8px 24px',
+              }}
+              styleText={{
+                color: isLight ? '#31424E' : '#D2D4EF',
+              }}
+            />
+          </LinkWrapper>
+        </ContainerRow>
+        <ContainerTextDescription>
+          <TypographyDescription isLight={isLight}>{description}</TypographyDescription>
+        </ContainerTextDescription>
+        <BottomLinkWrapper>
           <CustomButton
-            className="visitWebsiteButton"
             label="Visit Website"
             onClick={onClick}
             style={{
               width: '137px',
               height: '34px',
               padding: '8px 24px',
+              borderColor: isLight ? '#D4D9E1' : '#D2D4EF',
             }}
             styleText={{
-              color: isLight ? '#31424E' : '#D2D4EF',
+              fontFamily: 'Inter, sans-serif',
+              fontStyle: 'normal',
+              fontWeight: 500,
+              fontSize: '14px',
+              lineHeight: '18px',
             }}
           />
-        </LinkWrapper>
-      </ContainerRow>
-      <ContainerTextDescription>
-        <TypographyDescription isLight={isLight}>{description}</TypographyDescription>
-      </ContainerTextDescription>
-      <BottomLinkWrapper>
-        <CustomButton
-          label="Visit Website"
-          onClick={onClick}
-          style={{
-            width: '137px',
-            height: '34px',
-            padding: '8px 24px',
-            borderColor: isLight ? '#D4D9E1' : '#D2D4EF',
-          }}
-          styleText={{
-            fontFamily: 'Inter, sans-serif',
-            fontStyle: 'normal',
-            fontWeight: 500,
-            fontSize: '14px',
-            lineHeight: '18px',
-          }}
-        />
-      </BottomLinkWrapper>
-    </Container>
+        </BottomLinkWrapper>
+      </Container>
+    </Link>
   );
 };
 
@@ -121,7 +124,7 @@ const BottomLinkWrapper = styled.div({
   },
 });
 
-const Container = styled.div<{ height?: string; isLight: boolean }>(({ height, isLight }) => ({
+const Container = styled.a<{ height?: string; isLight: boolean }>(({ height, isLight }) => ({
   display: 'block',
   flexDirection: 'column',
   justifyContent: 'flex-start',
@@ -144,6 +147,7 @@ const Container = styled.div<{ height?: string; isLight: boolean }>(({ height, i
     margin: 0,
     padding: '16px 24px',
   },
+  textDecoration: 'none',
 }));
 
 const ContainerRow = styled.div({
