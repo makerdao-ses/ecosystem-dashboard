@@ -8,10 +8,25 @@ export default {
   parameters: {
     layout: 'fullscreen',
     chromatic: {
-      viewports: [1920 | 1440 | 1280 | 1194 | 834 | 0],
+      viewports: [1194 | 375],
       pauseAnimationAtEnd: true,
     },
   },
+  decorators: [
+    (Story) => (
+      <div
+        style={{
+          width: '100vw',
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+        }}
+      >
+        <Story />
+      </div>
+    ),
+  ],
+
   argTypes: {
     handleAcceptCookies: {
       action: 'handleAcceptCookies',
@@ -40,12 +55,34 @@ export const [[Banner, BannerDarkMode]] = createThemeModeVariants(CookiesPolicyB
 Banner.parameters = {
   figma: {
     component: {
-      0: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=12894%3A119657&t=yK9WUFoHPWMfKjKB-4',
-      834: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=12894%3A119619&t=feJZwRzZjZ2QfeYW-4',
-      1194: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=12894%3A119600&t=feJZwRzZjZ2QfeYW-4',
-      1280: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=12894%3A119581&t=feJZwRzZjZ2QfeYW-4',
-      1440: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=9524%3A97525&t=yK9WUFoHPWMfKjKB-4',
-      1920: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=12894%3A119543&t=feJZwRzZjZ2QfeYW-4',
+      375: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=12894%3A119640&t=24E0CRrP3tj5hMo7-4',
+        options: {
+          style: {
+            top: 23,
+            left: 8,
+          },
+          componentStyle: {
+            width: 375,
+            height: 458,
+          },
+        },
+      },
+      1194: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=9524%3A97525&t=24E0CRrP3tj5hMo7-4',
+        options: {
+          style: {
+            top: '22px',
+            left: '-10px',
+            width: '100%',
+            display: 'flex',
+            flexGrow: 'row',
+            justifyContent: 'center',
+          },
+        },
+      },
     },
   },
 };
@@ -53,12 +90,34 @@ Banner.parameters = {
 BannerDarkMode.parameters = {
   figma: {
     component: {
-      0: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=12894%3A119658&t=feJZwRzZjZ2QfeYW-4',
-      834: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=12894%3A119619&t=feJZwRzZjZ2QfeYW-4',
-      1194: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=12894%3A119600&t=feJZwRzZjZ2QfeYW-4',
-      1280: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=12894%3A119581&t=feJZwRzZjZ2QfeYW-4',
-      1440: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=12894%3A119562&t=feJZwRzZjZ2QfeYW-4',
-      1920: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=12894%3A119543&t=feJZwRzZjZ2QfeYW-4',
+      375: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=12894%3A119640&t=24E0CRrP3tj5hMo7-4',
+        options: {
+          style: {
+            top: 23,
+            left: 8,
+          },
+          componentStyle: {
+            width: 375,
+            height: 458,
+          },
+        },
+      },
+      1194: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=9838%3A102735&t=24E0CRrP3tj5hMo7-4',
+        options: {
+          style: {
+            top: '22px',
+            left: '-10px',
+            width: '100%',
+            display: 'flex',
+            flexGrow: 'row',
+            justifyContent: 'center',
+          },
+        },
+      },
     },
   },
 };
