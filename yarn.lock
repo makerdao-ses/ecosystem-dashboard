@@ -12841,10 +12841,10 @@ store2@^2.12.0:
   resolved "https://registry.yarnpkg.com/store2/-/store2-2.13.2.tgz#01ad8802ca5b445b9c316b55e72645c13a3cd7e3"
   integrity sha512-CMtO2Uneg3SAz/d6fZ/6qbqqQHi2ynq6/KzMD/26gTkiEShCcpqFfTHgOxsE0egAq6SX3FmN4CeSqn8BzXQkJg==
 
-storybook-addon-figma-comparator@^0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/storybook-addon-figma-comparator/-/storybook-addon-figma-comparator-0.0.6.tgz#dda401287a4ad04996564deedfcd12213e7611b6"
-  integrity sha512-Jbp/Ilbl7kUNF0rEwC5uJRtcYeiCqV3fKndATuhXPBpdeAmH9wpWdqDJbMKVxTQoSRXQQe+4EyAYCmO3eh0pEg==
+storybook-addon-figma-comparator@0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/storybook-addon-figma-comparator/-/storybook-addon-figma-comparator-0.0.10.tgz#304bbb41fffe7589d9dec1631607a76e3091742b"
+  integrity sha512-IGim53aFaAqaRkwxEr1DzP75LkGty5lfzGZlu9k00t+u8YjEv+aSI6pT774f20wKIf1vOYZFvwdYqZW+Haxc1Q==
 
 storybook-addon-next-router@^4.0.2:
   version "4.0.2"
