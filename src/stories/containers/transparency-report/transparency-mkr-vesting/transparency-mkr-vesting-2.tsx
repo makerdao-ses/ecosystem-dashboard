@@ -29,7 +29,7 @@ export const TransparencyMkrVesting2 = (props: TransparencyMkrVestingProps) => {
   return (
     <Container>
       <LinkDescription isLight={isLight}>
-        <span>To see the onchain transactions from the Maker Protocol to the {getShortCode(props.code)} Core Unit</span>
+        <span> Visit makerburn.com to</span>
         <CustomLink
           href={`${MAKER_BURN_LINK}/${props.longCode}`}
           style={{
@@ -48,7 +48,7 @@ export const TransparencyMkrVesting2 = (props: TransparencyMkrVestingProps) => {
           iconHeight={10}
           marginLeft="7px"
         >
-          visit makerburn.com
+          {`view the ${getShortCode(props.code)} Core Unit on-chain transaction history`}
         </CustomLink>
       </LinkDescription>
       <Title isLight={isLight} marginBottom={24}>
