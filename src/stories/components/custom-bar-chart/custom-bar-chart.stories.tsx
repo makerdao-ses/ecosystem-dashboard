@@ -25,26 +25,35 @@ export const [[LightMode, DarkMode], [WithoutValue, WithoutValueDarkMode]] = cre
   args
 );
 
+const options = {
+  style: {
+    top: 3,
+    left: 9,
+  },
+};
+
 LightMode.parameters = {
   figma: {
     component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2104%3A10084',
-    options: {
-      style: {
-        top: 3,
-        left: 9,
-      },
-    },
+    options,
+  },
+};
+DarkMode.parameters = {
+  figma: {
+    component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2104%3A10084',
+    options,
   },
 };
 
 WithoutValue.parameters = {
   figma: {
     component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2344%3A12537',
-    options: {
-      style: {
-        top: 3,
-        left: 9,
-      },
-    },
+    options,
+  },
+};
+WithoutValueDarkMode.parameters = {
+  figma: {
+    component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2344%3A12537',
+    options,
   },
 };
