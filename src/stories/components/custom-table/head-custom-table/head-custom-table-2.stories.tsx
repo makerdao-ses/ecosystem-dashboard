@@ -1,6 +1,7 @@
-import { SortEnum } from '@ses/core/enums/sort.enum';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
+import { columns, headersSort } from '@ses/core/utils/test.utils';
 import { HeadCustomTable } from './head-custom-table-2';
+
 import type { ComponentMeta } from '@storybook/react';
 
 export default {
@@ -16,44 +17,8 @@ export default {
 
 const variantsArgs = [
   {
-    columns: [
-      {
-        header: 'Core Unit',
-        justifyContent: 'flex-start',
-        style: { paddingLeft: '16px' },
-        width: '400px',
-        hasSort: true,
-      },
-      {
-        header: 'Expenditure',
-        justifyContent: 'flex-start',
-        width: '215px',
-        sortReverse: true,
-        hasSort: true,
-      },
-      {
-        header: 'Team Members',
-        justifyContent: 'center',
-        width: '205px',
-        sortReverse: true,
-        hasSort: true,
-      },
-      {
-        header: 'Last Modified',
-        justifyContent: 'flex-start',
-        width: '122px',
-        sortReverse: true,
-        hasSort: true,
-      },
-      {
-        header: '',
-        justifyContent: 'center',
-        width: '358px',
-        responsiveWidth: '186px',
-        hasSort: false,
-      },
-    ],
-    headersSort: [SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled],
+    columns,
+    headersSort,
   },
 ];
 
