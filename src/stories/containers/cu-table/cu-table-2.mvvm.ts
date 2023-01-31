@@ -187,7 +187,22 @@ export const useCoreUnitsTableMvvm = () => {
       if (headersSort[sortColumn] === SortEnum.Disabled) return items;
 
       const multiplier = headersSort[sortColumn] === SortEnum.Asc ? 1 : -1;
-      const nameSort = (a: CoreUnitDto, b: CoreUnitDto) => sortAlphaNum(a.name, b.name) * multiplier;
+      // Give number much bigger than assigned in giveWeightByStatus
+      const multiplierStatus = 45;
+      const statusSort = (a: CoreUnitDto, b: CoreUnitDto) => {
+        const aCoreUnit = {
+          ...a,
+          status: giveWeightByStatus(getStautsMip39AccetedOrObsolete(a)),
+        };
+        const bCoreUnit = {
+          ...b,
+          status: giveWeightByStatus(getStautsMip39AccetedOrObsolete(b)),
+        };
+        return (
+          sortAlphaNum(aCoreUnit.name, bCoreUnit.name) * multiplier -
+          (aCoreUnit.status - bCoreUnit.status) * multiplierStatus
+        );
+      };
       const expendituresSort = (a: CoreUnitDto, b: CoreUnitDto) =>
         (getExpenditureValueFromCoreUnit(a) - getExpenditureValueFromCoreUnit(b)) * multiplier;
       const teamMembersSort = (a: CoreUnitDto, b: CoreUnitDto) =>
@@ -202,7 +217,7 @@ export const useCoreUnitsTableMvvm = () => {
         }
         return ((getLastMonthWithData(a)?.toMillis() ?? 0) - (getLastMonthWithData(b)?.toMillis() ?? 0)) * multiplier;
       };
-      const sortAlg = [nameSort, expendituresSort, teamMembersSort, lastModifiedSort, () => 0];
+      const sortAlg = [statusSort, expendituresSort, teamMembersSort, lastModifiedSort, () => 0];
       return [...items].sort(sortAlg[sortColumn]);
     };
     return sortDataFunction;

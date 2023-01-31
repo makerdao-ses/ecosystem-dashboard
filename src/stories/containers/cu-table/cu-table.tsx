@@ -272,7 +272,6 @@ export const CuTable = () => {
               border: 'none',
               background: 'none',
             }}
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
             onClick={clearFilters}
             disabled={!filteredStatuses?.length && !filteredCategories?.length && !searchText}
           />

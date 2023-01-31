@@ -7,7 +7,7 @@ interface Props {
   fill?: string;
 }
 
-const CheckboxOff = ({ height = 16, width = 16, fill = '#9FAFB9', ...props }: Props) => (
+const CheckboxOff = ({ height = 12, width = 12, fill = '#9FAFB9', ...props }: Props) => (
   <svg
     width={width}
     height={height}

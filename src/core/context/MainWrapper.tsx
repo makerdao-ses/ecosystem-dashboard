@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
+import CookiesPolicyBanner from '@ses/components/cookies-policy-banner/cookies-policy-banner';
 import { useLayoutEffect } from 'react';
 import lightTheme from '../../../styles/theme/light';
-import CookiesPolicyBanner from '../../stories/containers/cookies-policy/cookies-policy-banner';
 import { useScrollLock } from '../hooks/scroll-hooks';
 import { useCookiesContextTracking } from './CookiesContext';
 import { useThemeContext } from './ThemeContext';
@@ -41,14 +41,12 @@ const MainWrapper = ({ children }: { children: ReactNode }) => {
       {isShowBanner && themeMode !== undefined && (
         <PolicyBannerPosition>
           <CookiesPolicyBanner
-            isShowBanner={isShowBanner}
             functionalCheckbox={functionalCheckbox}
             analyticsCheckbox={analyticsCheckbox}
             setFunctionalCheckbox={setFunctionalCheckbox}
             setAnalyticsCheckbox={setAnalyticsCheckbox}
             handleAcceptCookies={handleAcceptCookies}
             handleRejectCookies={handleRejectCookies}
-            isLight={isLight}
           />
         </PolicyBannerPosition>
       )}

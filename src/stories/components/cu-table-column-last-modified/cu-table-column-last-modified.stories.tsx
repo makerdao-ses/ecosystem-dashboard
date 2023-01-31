@@ -9,7 +9,7 @@ export default {
 
   parameters: {
     chromatic: {
-      viewports: [1280, 375],
+      viewports: [1194, 375],
     },
   },
 } as ComponentMeta<typeof CuTableColumnLastModified>;
@@ -30,13 +30,20 @@ export const [[ModifiedData, ModifiedDataDark], [ModifiedWithoutData, ModifiedWi
 ModifiedData.parameters = {
   figma: {
     component: {
-      375: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13146%3A131949&t=hcRG1Rif0SbJoAGa-4',
-      1280: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13146%3A131949&t=VvlIsHwhC6CtvGqf-4',
-    },
-    options: {
-      style: {
-        top: -8,
-        left: 0,
+      375: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13146%3A131949&t=hcRG1Rif0SbJoAGa-4',
+      },
+
+      1280: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13146%3A131949&t=VvlIsHwhC6CtvGqf-4',
+        options: {
+          style: {
+            left: -5,
+          },
+          componentStyle: {},
+        },
       },
     },
   },
@@ -45,13 +52,21 @@ ModifiedData.parameters = {
 ModifiedDataDark.parameters = {
   figma: {
     component: {
-      375: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13146%3A131949&t=hcRG1Rif0SbJoAGa-4',
-      1280: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13146%3A131949&t=VvlIsHwhC6CtvGqf-4',
-    },
-    options: {
-      style: {
-        top: -8,
-        left: 0,
+      375: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13146%3A131949&t=hcRG1Rif0SbJoAGa-4',
+
+        options: {
+          style: {
+            left: 12,
+          },
+          componentStyle: {},
+        },
+      },
+
+      1194: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13146%3A131949&t=VvlIsHwhC6CtvGqf-4',
       },
     },
   },
@@ -60,15 +75,20 @@ ModifiedDataDark.parameters = {
 ModifiedWithoutData.parameters = {
   figma: {
     component: {
-      375: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13146%3A131950&t=hcRG1Rif0SbJoAGa-4',
+      375: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13146%3A131950&t=ztdR8H6oxEhBiohV-4',
+        options: {
+          style: {
+            left: 5,
+          },
+          componentStyle: {},
+        },
+      },
 
-      1280: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13146%3A131949&t=VvlIsHwhC6CtvGqf-4',
-    },
-
-    options: {
-      style: {
-        top: -6,
-        left: 0,
+      1194: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13140%3A131657&t=ztdR8H6oxEhBiohV-4',
       },
     },
   },
@@ -77,14 +97,14 @@ ModifiedWithoutData.parameters = {
 ModifiedWithoutDataDark.parameters = {
   figma: {
     component: {
-      375: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13146%3A131950&t=hcRG1Rif0SbJoAGa-4',
-      1280: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13146%3A131949&t=VvlIsHwhC6CtvGqf-4',
-    },
+      375: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13146%3A131950&t=ztdR8H6oxEhBiohV-4',
+      },
 
-    options: {
-      style: {
-        top: -6,
-        left: 0,
+      1194: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13140%3A131657&t=ztdR8H6oxEhBiohV-4',
       },
     },
   },

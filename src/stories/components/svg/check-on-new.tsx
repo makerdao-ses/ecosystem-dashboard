@@ -9,8 +9,8 @@ interface Props {
 
 const CheckOnComponent = ({
   fill = '#1AAB9B',
-  height = 13,
-  width = 13,
+  height = 12,
+  width = 12,
   fillBorderArrow = 'transparent',
   ...props
 }: Props) => (

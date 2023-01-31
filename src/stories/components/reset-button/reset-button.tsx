@@ -25,7 +25,6 @@ export default ({ onClick, disabled, label = 'Reset Filters', hasIcon = true, la
               background: 'none',
               padding: '0px',
             }}
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
             onClick={onClick}
             disabled={disabled}
           />
@@ -40,7 +39,6 @@ export default ({ onClick, disabled, label = 'Reset Filters', hasIcon = true, la
           border: 'none',
           background: 'none',
         }}
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
         onClick={onClick}
         disabled={disabled}
       />

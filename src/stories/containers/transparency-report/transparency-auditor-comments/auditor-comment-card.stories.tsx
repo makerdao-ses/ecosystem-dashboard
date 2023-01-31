@@ -6,13 +6,14 @@ import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AuditorCommentCard from './auditor-comment-card';
 import type { CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
 import type { ComponentMeta } from '@storybook/react';
+import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
 export default {
   title: 'Components/AuditorComments/CommentCard',
   component: AuditorCommentCard,
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1194, 1440],
+      viewports: [375, 834, 1194, 1280],
       pauseAnimationAtEnd: true,
     },
   },
@@ -62,10 +63,41 @@ export const [[StatusChange, StatusChangeDarkMode], [Comment, DarkModeComment]] 
 StatusChange.parameters = {
   figma: {
     component: {
-      0: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10662%3A140374',
-      834: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10662%3A132865',
-      1194: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10662%3A127300',
-      1280: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10662%3A124775',
+      0: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10662%3A140374',
+        options: {
+          componentStyle: {
+            width: 343,
+          },
+        },
+      },
+      834: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10662%3A132865',
+        options: {
+          componentStyle: {
+            width: 545,
+          },
+          style: {
+            top: -18,
+          },
+        },
+      },
+      1194: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10662%3A127300',
+        options: {
+          componentStyle: {
+            width: 866,
+          },
+        },
+      },
+      1280: {
+        component: 'https:// www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10662%3A124775',
+        options: {
+          componentStyle: {
+            width: 912,
+          },
+        },
+      },
     },
     options: {
       style: {
@@ -73,5 +105,5 @@ StatusChange.parameters = {
         left: -40,
       },
     },
-  },
+  } as FigmaParams,
 };
