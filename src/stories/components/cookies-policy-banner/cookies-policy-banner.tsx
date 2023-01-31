@@ -1,16 +1,15 @@
 import styled from '@emotion/styled';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 
 import { ButtonType } from '../../../core/enums/button-type.enum';
-import CheckBox from '../../components/check-box/check-box';
 import { CustomButton } from '../../components/custom-button/custom-button';
+import CheckBox from '../check-box/check-box';
 
 interface Props {
-  isShowBanner: boolean;
   functionalCheckbox: boolean;
   analyticsCheckbox: boolean;
-  isLight: boolean;
   setFunctionalCheckbox: (isChecked: boolean) => void;
   setAnalyticsCheckbox: (isChecked: boolean) => void;
   handleAcceptCookies: () => void;
@@ -24,8 +23,8 @@ const CookiesPolicyBanner = ({
   setAnalyticsCheckbox,
   handleAcceptCookies,
   handleRejectCookies,
-  isLight,
 }: Props) => {
+  const { isLight } = useThemeContext();
   const handleCheckbox = (key: (val: boolean) => void) => (val: boolean) => {
     key(!val);
   };
@@ -44,11 +43,13 @@ const CookiesPolicyBanner = ({
             label="Functional cookies"
             isChecked={functionalCheckbox}
             setIsChecked={handleCheckbox(setFunctionalCheckbox)}
+            isLight={isLight}
           />
           <CheckBox
             label="Analytics cookies"
             isChecked={analyticsCheckbox}
             setIsChecked={handleCheckbox(setAnalyticsCheckbox)}
+            isLight={isLight}
           />
         </ContainerCheckBox>
         <ContainerButton>
@@ -88,7 +89,6 @@ const CookiesPolicyBanner = ({
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   background: isLight ? '#FFFFFF' : '#10191F',
   borderRadius: '6px',
-  width: '100%',
   padding: '40px 24px',
   height: '458px',
   boxShadow: !isLight ? '0px -15px 35px 10px rgba(0, 27, 141, 0.15)' : 'none',
