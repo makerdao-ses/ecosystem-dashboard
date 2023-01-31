@@ -104,15 +104,16 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
       expenditureLevel = ExpenditureLevel.OPTIMAL;
     }
 
-    if (percent > 90 && percent <= 100) {
+    if (percent > 90 && percent < 100) {
       expenditureLevel = ExpenditureLevel.STRETCHED;
     }
-    if (percent > 100) {
+    if (percent >= 100) {
       expenditureLevel = ExpenditureLevel.OVERBUDGET;
     }
 
     return expenditureLevel;
   };
+
   return (
     <>
       <Popover
@@ -137,8 +138,8 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
           <Container
             levelExpenditure={
               getExpenditureLevel(
-                parseFloat((description?.actual || '0').replace(/,/, '.')),
-                parseFloat((description?.budgetCap || '0').replace(/,/, '.'))
+                Number(description?.actual.split(',').join('') || 0),
+                Number(description?.budgetCap.split(',').join('') || 0)
               ) as ExpenditureLevel
             }
             isLight={isLight}
@@ -149,14 +150,14 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
                 isLight={isLight}
                 levelExpenditure={
                   getExpenditureLevel(
-                    parseFloat((description?.actual || '0').replace(/,/, '.')),
-                    parseFloat((description?.budgetCap || '0').replace(/,/, '.'))
+                    Number(description?.actual.split(',').join('') || 0),
+                    Number(description?.budgetCap.split(',').join('') || 0)
                   ) as ExpenditureLevel
                 }
               >
                 {getExpenditureLevel(
-                  parseFloat((description?.actual || '0').replace(/,/, '.')),
-                  parseFloat((description?.budgetCap || '0').replace(/,/, '.'))
+                  Number(description?.actual.split(',').join('') || 0),
+                  Number(description?.budgetCap.split(',').join('') || 0)
                 )}
               </StyleLevelExpenditure>
             </Row>
