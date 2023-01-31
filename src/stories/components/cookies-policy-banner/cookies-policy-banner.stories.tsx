@@ -8,7 +8,7 @@ export default {
   parameters: {
     layout: 'fullscreen',
     chromatic: {
-      viewports: [1194 | 375],
+      viewports: [1194, 375],
       pauseAnimationAtEnd: true,
     },
   },
