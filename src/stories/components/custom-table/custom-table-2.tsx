@@ -1,20 +1,17 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from '@emotion/styled';
 import Link from 'next/link';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { SortEnum } from '../../../core/enums/sort.enum';
-import { CustomTableHeader } from '../custom-table-header/custom-table-header';
-import { CustomTableHeaderSkeleton } from './custom-table-header.skeleton';
+import { HeadCustomTable } from './head-custom-table/head-custom-table-2';
 import { TablePlaceholder } from './placeholder';
+import type { SortEnum } from '../../../core/enums/sort.enum';
 import type { CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
 import type { CSSProperties } from 'react';
 
 export interface CustomTableColumn {
   justifyContent?: string;
   header?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  cellRender?: (data: any) => JSX.Element;
+  cellRender?: (data: CoreUnitDto) => JSX.Element;
   headerAlign?: 'flex-start' | 'center' | 'flex-end';
   isCardHeader?: boolean;
   isCardFooter?: boolean;
@@ -47,34 +44,6 @@ interface Props {
 export const CustomTable2 = (props: Props) => {
   const { isLight } = useThemeContext();
 
-  const tableHead = useMemo(() => {
-    if (props.loading) {
-      return <CustomTableHeaderSkeleton isLight={isLight} />;
-    }
-    return (
-      <TableHead isLight={isLight}>
-        <TableHeadRow columns={props.columns}>
-          {props.columns?.map((column, i) => (
-            <TableCell
-              key={`header-${i}`}
-              style={{
-                justifyContent: column.justifyContent,
-              }}
-            >
-              <CustomTableHeader
-                style={column.style}
-                align={column.headerAlign}
-                state={props.headersSort?.[i] ?? SortEnum.Neutral}
-                title={column.header ?? ''}
-                onSort={() => props.handleSort?.(i)}
-              />
-            </TableCell>
-          ))}
-        </TableHeadRow>
-      </TableHead>
-    );
-  }, [props, isLight]);
-
   if (!props.loading && props.items?.length === 0) return <TablePlaceholder />;
 
   const rows = props.loading ? new Array(10).fill(null) : props.items;
@@ -83,7 +52,7 @@ export const CustomTable2 = (props: Props) => {
       <TableWrapper>
         <TableContainer isLight={isLight}>
           <Table>
-            {tableHead}
+            <HeadCustomTable {...props} />
             <TableBody isLight={isLight}>
               {rows?.map((row, i) => (
                 <Link
@@ -125,18 +94,6 @@ const Table = styled.div({
   flex: '1',
 });
 
-const TableHead = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  position: 'relative',
-  zIndex: 1,
-  background: isLight ? '#F7F8F9' : '#25273D',
-  padding: '14px 0',
-  borderTopLeftRadius: '5px',
-  borderTopRightRadius: '5px',
-  boxShadow: isLight
-    ? 'inset .25px -.25px .25px .25px rgba(190, 190, 190, 0.25), 0px 20px 40px rgba(190, 190, 190, .25), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-    : '0px 20px 40px rgba(7, 22, 40, 0.4)',
-}));
-
 const TableRow = styled.a<{ isLight: boolean; isLoading?: boolean; columns: CustomTableColumn[] }>(
   ({ isLight, isLoading, columns }) => ({
     background: isLight ? 'white' : '#10191F',
@@ -158,15 +115,7 @@ const TableRow = styled.a<{ isLight: boolean; isLoading?: boolean; columns: Cust
   })
 );
 
-const TableHeadRow = styled.div<{ columns: CustomTableColumn[] }>(({ columns }) => ({
-  display: 'inline-grid',
-  gridTemplateColumns: columns?.reduce((prev, curr) => `${prev} ${curr.responsiveWidth ?? curr.width}`, ''),
-  '@media (min-width: 1410px)': {
-    gridTemplateColumns: columns?.reduce((prev, curr) => `${prev} ${curr.width}`, ''),
-  },
-}));
-
-const TableCell = styled.div({
+export const TableCell = styled.div({
   color: '#231536',
   display: 'flex',
   alignItems: 'center',

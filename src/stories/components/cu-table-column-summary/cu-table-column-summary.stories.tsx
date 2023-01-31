@@ -1,29 +1,47 @@
-import React from 'react';
-import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
+import { CuStatusEnum } from '@ses/core/enums/cu-status.enum';
+import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
+import { DateTime } from 'luxon';
 import { CuTableColumnSummary } from './cu-table-column-summary';
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta } from '@storybook/react';
 
 export default {
   title: 'Components/CUTable/ColumnSummary',
   component: CuTableColumnSummary,
 } as ComponentMeta<typeof CuTableColumnSummary>;
 
-const Template: ComponentStory<typeof CuTableColumnSummary> = (args) => <CuTableColumnSummary {...args} />;
+const variantsArgs = [
+  {
+    title: 'Risk',
+    status: CuStatusEnum.Accepted,
+    statusModified: DateTime.fromISO('2021-11-25').toJSDate(),
+    imageUrl: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/risk-001/RISK_logo.png',
+    code: 'RISK-001',
+  },
+];
 
-export const WithImage = Template.bind({});
-WithImage.args = {
-  title: 'SES Sustainable Ecosystem Scaling',
-  status: CuStatusEnum.Accepted,
-  statusModified: new Date(1673804566),
-  imageUrl:
-    'https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/53/92/77/53927729-28a4-b94a-40d9-9abbc9583078/source/512x512bb.jpg',
-  code: 'CU-01',
+export const [[Summary, SummaryDark]] = createThemeModeVariants(CuTableColumnSummary, variantsArgs);
+
+Summary.parameters = {
+  figma: {
+    component:
+      'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2527%3A13994&t=iDXzm6LhfULmvnWw-4',
+    options: {
+      style: {
+        top: 20,
+        left: 6,
+      },
+    },
+  },
 };
-
-export const NoImage = Template.bind({});
-NoImage.args = {
-  title: 'Lorem Ipsum Name',
-  status: CuStatusEnum.FormalSubmission,
-  statusModified: new Date(1673804566),
-  code: 'CU-02',
+SummaryDark.parameters = {
+  figma: {
+    component:
+      'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2527%3A13994&t=iDXzm6LhfULmvnWw-4',
+    options: {
+      style: {
+        top: 20,
+        left: 6,
+      },
+    },
+  },
 };
