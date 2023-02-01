@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
-import Link from 'next/link';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import CardItemCoreUnitMobile from './custom-table-mobile/card-mobile';
 import { HeadCustomTable } from './head-custom-table/head-custom-table-2';
+import ListCoreUnit from './list-core-unit/list-core-unit';
 import { TablePlaceholder } from './placeholder';
 import type { SortEnum } from '../../../core/enums/sort.enum';
 import type { CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
@@ -26,7 +27,7 @@ export interface CustomTableColumn {
 }
 
 export interface CustomTableRow {
-  value: unknown;
+  value: CoreUnitDto;
   key: string;
 }
 
@@ -37,7 +38,6 @@ interface Props {
   sortState?: SortEnum[];
   handleSort?: (index: number) => void;
   headersSort?: SortEnum[];
-  renderCard?: (data: CustomTableRow, index: number) => JSX.Element;
   queryStrings?: string;
 }
 
@@ -54,25 +54,21 @@ export const CustomTable2 = (props: Props) => {
           <Table>
             <HeadCustomTable {...props} />
             <TableBody isLight={isLight}>
-              {rows?.map((row, i) => (
-                <Link
-                  href={`/core-unit/${(row?.value as CoreUnitDto)?.shortCode}${props.queryStrings}` || ''}
-                  passHref
-                  legacyBehavior
-                  key={`row-${row?.key ?? i}`}
-                >
-                  <TableRow isLight={isLight} isLoading={props.loading} columns={props.columns}>
-                    {props.columns?.map((column) => (
-                      <TableCell key={column?.header}>{column.cellRender?.(row?.value as CoreUnitDto)}</TableCell>
-                    ))}
-                  </TableRow>
-                </Link>
-              ))}
+              <ListCoreUnit
+                columns={props.columns}
+                isLoading={props.loading}
+                queryStrings={props.queryStrings}
+                rows={rows}
+              />
             </TableBody>
           </Table>
         </TableContainer>
       </TableWrapper>
-      <ListWrapper>{rows?.map((row, i) => props.renderCard?.(row, i))}</ListWrapper>
+      <ListWrapper>
+        {rows?.map((row: CustomTableRow, i) => (
+          <CardItemCoreUnitMobile coreUnit={row?.value} keyForSkeleton={Number(row?.key)} key={i} />
+        ))}
+      </ListWrapper>
     </>
   );
 };
@@ -93,27 +89,6 @@ const Table = styled.div({
   tableLayout: 'fixed',
   flex: '1',
 });
-
-const TableRow = styled.a<{ isLight: boolean; isLoading?: boolean; columns: CustomTableColumn[] }>(
-  ({ isLight, isLoading, columns }) => ({
-    background: isLight ? 'white' : '#10191F',
-    display: 'grid',
-    gridTemplateColumns: columns?.reduce((prev, curr) => `${prev} ${curr.responsiveWidth ?? curr.width}`, ''),
-    gridTemplateRows: '120px',
-    marginTop: '16px',
-    cursor: 'pointer',
-    boxShadow: isLight
-      ? '0px 0px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-      : '0px 20px 40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
-    ':hover': {
-      background: !isLoading ? (isLight ? '#ECF1F3' : '#1E2C37') : isLight ? 'white' : '#10191F',
-    },
-    '@media (min-width: 1410px)': {
-      gridTemplateColumns: columns?.reduce((prev, curr) => `${prev} ${curr.width}`, ''),
-      gridTemplateRows: '98px',
-    },
-  })
-);
 
 export const TableCell = styled.div({
   color: '#231536',

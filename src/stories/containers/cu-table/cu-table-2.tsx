@@ -11,9 +11,6 @@ import lightTheme from 'styles/theme/light';
 
 import { useCoreUnitsTableMvvm } from './cu-table-2.mvvm';
 import { Filters } from './cu-table-filters';
-import { renderCard } from './cu-table.renders';
-import type { CustomTableRow } from '@ses/components/custom-table/custom-table-2';
-import type { CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
 
 export const CuTable2 = () => {
   const { themeMode } = useThemeContext();
@@ -92,7 +89,6 @@ export const CuTable2 = () => {
           loading={status === 'loading'}
           handleSort={onSortClick}
           headersSort={headersSort}
-          renderCard={(row: CustomTableRow, index: number) => renderCard(row?.value as CoreUnitDto, index)}
           queryStrings={queryStrings}
         />
       </Wrapper>

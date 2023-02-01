@@ -14,7 +14,7 @@ import {
   getStautsMip39AccetedOrObsolete,
 } from '../../../core/business-logic/core-units';
 import { getShortCode } from '../../../core/utils/string.utils';
-import { CoreUnitCard } from '../../components/core-unit-card/core-unit-card';
+import CoreUnitCard from '../../components/core-unit-card/core-unit-card';
 import { CuTableColumnExpenditures } from '../../components/cu-table-column-expenditures/cu-table-column-expenditures';
 import { CuTableColumnLastModified } from '../../components/cu-table-column-last-modified/cu-table-column-last-modified';
 import { CuTableColumnLinks } from '../../components/cu-table-column-links/cu-table-column-links';
