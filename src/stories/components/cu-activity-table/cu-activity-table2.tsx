@@ -127,6 +127,13 @@ export default function ActivityTable2({
           isNew,
         });
       }
+    } else {
+      for (const update of activities) {
+        _extendedActivity.push({
+          ...update,
+          isNew: false,
+        });
+      }
     }
 
     setExtendedActivity(_extendedActivity);
