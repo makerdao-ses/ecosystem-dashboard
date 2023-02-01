@@ -12,15 +12,25 @@ export const getAuthFromStorage = () => {
   const parsedAuth = JSON.parse(auth) as LoginDTO;
   const authToken = parsedAuth?.authToken;
   if (!authToken) {
+    // invalid stored auth data
     localStorage.removeItem(LOCAL_STORAGE_AUTH_KEY);
     return;
   }
 
-  const jwtDecoded = jwt_decode(authToken);
+  let jwtDecoded;
+  try {
+    jwtDecoded = jwt_decode(authToken);
+  } catch (e) {
+    // invalid jwt
+    localStorage.removeItem(LOCAL_STORAGE_AUTH_KEY);
+    return;
+  }
+
   const { exp } = jwtDecoded as { exp: number };
   const expirationDate = new Date(exp * 1000);
   const now = new Date();
   if (!exp || expirationDate < now) {
+    // session expired
     localStorage.removeItem(LOCAL_STORAGE_AUTH_KEY);
     return;
   }
