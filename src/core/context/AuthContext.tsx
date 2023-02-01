@@ -4,6 +4,7 @@ import { GRAPHQL_ENDPOINT } from '../../config/endpoints';
 import PermissionManager from '../auth/permission-manager';
 import { useIsAdmin } from '../hooks/useIsAdmin';
 import { getAuthFromStorage } from '../utils/auth-storage';
+import { LOCAL_STORAGE_AUTH_KEY } from '../utils/const';
 import type { LoginDTO, UserDTO } from '../models/dto/auth.dto';
 
 interface AuthContextProps {
@@ -50,13 +51,13 @@ export const AuthContextProvider: React.FC<{ children: JSX.Element | JSX.Element
   const setCredentials = (value: LoginDTO) => {
     setAuthToken(value.authToken || '');
     setUser(value.user);
-    window.localStorage.setItem('auth', JSON.stringify(value));
+    window.localStorage.setItem(LOCAL_STORAGE_AUTH_KEY, JSON.stringify(value));
   };
 
   const clearCredentials = useCallback(() => {
     setAuthToken('');
     setUser(undefined);
-    window.localStorage.setItem('auth', '{}');
+    window.localStorage.removeItem(LOCAL_STORAGE_AUTH_KEY);
   }, []);
 
   return (

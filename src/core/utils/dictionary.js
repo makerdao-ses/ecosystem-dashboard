@@ -106,6 +106,7 @@ const dictionary = [
   'comparator',
   'viewports',
   'dropdown',
+  'camelcase',
 ];
 
 module.exports = dictionary;
