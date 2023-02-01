@@ -53,7 +53,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout, hiddenTextDescription }:
         <ContainerTitle>
           <ContainerSeparateData>
             <ResponsiveTitle>
-              <TypographySES isLight={isLight}>{getShortCode(coreUnitAbout.code)}</TypographySES>
+              <TypographySES isLight={isLight}>{coreUnitAbout.shortCode}</TypographySES>
               {coreUnitAbout.name && <TypographyTitle isLight={isLight}>{coreUnitAbout.name}</TypographyTitle>}
             </ResponsiveTitle>
 
