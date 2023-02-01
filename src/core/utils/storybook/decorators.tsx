@@ -66,3 +66,9 @@ const TemplateThemeWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => (
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
 }));
+
+export const withoutSBPadding = (Story: Story) => (
+  <div style={{ margin: '-1rem' }}>
+    <Story />
+  </div>
+);

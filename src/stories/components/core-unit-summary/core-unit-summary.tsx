@@ -6,7 +6,6 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
-import { getShortCode } from '../../../core/utils/string.utils';
 import { buildQueryString } from '../../../core/utils/url.utils';
 import { sortData } from '../../containers/cu-table/cu-table';
 import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
@@ -41,7 +40,7 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
 
   const cu = data?.find((cu) => cu.shortCode === code);
-  const buildCULabel = () => (!_.isEmpty(cu) ? `${getShortCode(cu?.code ?? '')} - ${cu?.name}` : '');
+  const buildCULabel = () => (!_.isEmpty(cu) ? `${cu?.shortCode ?? ''} - ${cu?.name}` : '');
 
   const ref = useRef<HTMLDivElement>(null);
 

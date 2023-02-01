@@ -24,6 +24,16 @@ export class CuMipBuilder {
     return this;
   }
 
+  withFormalSubmission(formalSubmission: string): CuMipBuilder {
+    this._cuMip.formalSubmission = formalSubmission;
+    return this;
+  }
+
+  withMipCode(code: string): CuMipBuilder {
+    this._cuMip.mipCode = code;
+    return this;
+  }
+
   addMip40(mip40: Mip40Dto): CuMipBuilder {
     this._cuMip.mip40.push(mip40);
     return this;
