@@ -36,7 +36,7 @@ interface CoreUnitCardProps {
   isLoading?: boolean;
 }
 
-export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
+const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
   const router = useRouter();
   const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
   const { isLight } = useThemeContext();
@@ -87,7 +87,7 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
   }
 
   return (
-    <Link href={`/core-unit/${coreUnit.shortCode}${queryStrings}`} passHref>
+    <Link href={`/core-unit/${coreUnit?.shortCode}${queryStrings}`} passHref>
       <CuCard>
         <Container isLight={isLight}>
           <Summary>
@@ -149,6 +149,7 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
   );
 };
 
+export default CoreUnitCard;
 const CuCard = styled.a({
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     ':last-child': {

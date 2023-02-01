@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
-import { buildQueryString } from '@ses/core/utils/url.utils';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 import { SUBMIT_EXPENSES_URL } from '../../../config/external-urls';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { capitalizeSentence } from '../../../core/utils/string.utils';
+import { buildQueryString } from '../../../core/utils/url.utils';
 import { CustomLink } from '../custom-link/custom-link';
 import { CuTableColumnLastModifiedSkeleton } from './cu-table-column-last-modified.skeleton';
 import type { DateTime } from 'luxon';

@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
-import { buildQueryString } from '@ses/core/utils/url.utils';
 import isEmpty from 'lodash/isEmpty';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { buildQueryString } from '../../../core/utils/url.utils';
 import { CustomBarChart } from '../custom-bar-chart/custom-bar-chart';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { ColumnExpendituresSkeleton } from './cu-table-column-expenditures-skeleton';

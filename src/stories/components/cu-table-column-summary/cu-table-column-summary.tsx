@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
-import { buildQueryString } from '@ses/core/utils/url.utils';
 import { DateTime } from 'luxon';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { buildQueryString } from '../../../core/utils/url.utils';
 import { CategoryChip } from '../category-chip/category-chip';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
 import { CustomLink } from '../custom-link/custom-link';
