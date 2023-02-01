@@ -66,7 +66,6 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
     const newMax = 50;
     const min = Math.min(...allItems);
     const max = Math.max(...allItems);
-
     return ((value - min) / (max - min)) * (newMax - newMin) + newMin;
   };
 
