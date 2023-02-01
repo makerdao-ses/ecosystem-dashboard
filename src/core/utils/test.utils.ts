@@ -1,6 +1,14 @@
 import { DateTime } from 'luxon';
+import {
+  renderExpenditures,
+  renderLastModified,
+  renderLinks,
+  renderSummary,
+  renderTeamMember,
+} from 'src/stories/containers/cu-table/cu-table.renders';
 import { CommitmentJob } from '../enums/CommitmentJob.enum';
 import { CuJobEnum } from '../enums/cu-job.enum';
+import { SortEnum } from '../enums/sort.enum';
 import { BudgetStatus } from '../models/dto/core-unit.dto';
 import type { CuCommentDto } from '../models/dto/comments.dto';
 import type {
@@ -207,3 +215,48 @@ export const CoreUnit: CoreUnitDto = {
     },
   ] as ContributorCommitmentDto[],
 };
+
+export const columns = [
+  {
+    header: 'Core Unit',
+    justifyContent: 'flex-start',
+    style: { paddingLeft: '16px' },
+    cellRender: renderSummary,
+    width: '400px',
+    hasSort: true,
+  },
+  {
+    header: 'Expenditure',
+    justifyContent: 'flex-start',
+    cellRender: renderExpenditures,
+    width: '215px',
+    sortReverse: true,
+    hasSort: true,
+  },
+  {
+    header: 'Team Members',
+    justifyContent: 'center',
+    cellRender: renderTeamMember,
+    width: '205px',
+    sortReverse: true,
+    hasSort: true,
+  },
+  {
+    header: 'Last Modified',
+    justifyContent: 'flex-start',
+    cellRender: renderLastModified,
+    width: '122px',
+    sortReverse: true,
+    hasSort: true,
+  },
+  {
+    header: '',
+    justifyContent: 'center',
+    cellRender: renderLinks,
+    width: '358px',
+    responsiveWidth: '186px',
+    hasSort: false,
+  },
+];
+
+export const headersSort = [SortEnum.Asc, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled];
