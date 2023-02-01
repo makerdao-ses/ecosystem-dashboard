@@ -52,7 +52,7 @@ export const Filters = (props: FilterProps) => {
       const search = router.query;
       search[key] = Array.isArray(value) ? value.join(',') : value || '';
       router.push({
-        pathname: '/',
+        pathname: '/core-units',
         search: stringify(search),
       });
     },
@@ -63,7 +63,7 @@ export const Filters = (props: FilterProps) => {
     const search = router.query;
     delete search.searchText;
     router.push({
-      pathname: '/',
+      pathname: '/core-units',
       search: stringify(search),
     });
     if (inputRef.current !== null) {
