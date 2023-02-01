@@ -50,20 +50,15 @@ const Header = ({ links }: Props) => {
   }, [router]);
 
   const activeMenuItem = useMemo(() => {
-    for (const item of menuItems) {
-      if (item.link === '/') {
-        if (router.pathname === '/' || router.pathname.includes('core-unit')) {
-          return item;
-        }
-      } else {
-        if (router.pathname.includes(item.link)) {
-          return item;
-        }
-      }
+    if (router.pathname.startsWith('/core-unit')) {
+      return menuItems[1];
+    } else if (router.pathname.startsWith('/activity-feed')) {
+      return menuItems[2];
+    } else {
+      return menuItems[0];
     }
-
-    return menuItems[0];
   }, [router.pathname]);
+
   const hrefAccountManager = useMemo(() => `/auth/${isAdmin ? 'manage/my-profile' : 'user-profile'}/`, [isAdmin]);
   const hrefProfile = '/auth/manage/accounts';
 

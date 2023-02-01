@@ -93,7 +93,7 @@ export const useCoreUnitsTableMvvm = () => {
 
   const clearFilters = () => {
     router.push({
-      pathname: '/',
+      pathname: '/core-units',
       search: '',
     });
 
