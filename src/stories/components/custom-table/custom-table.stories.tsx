@@ -54,8 +54,6 @@ const variantsArgs = [
     sortState: [] as SortEnum[],
     handleSort: () => undefined,
     headersSort,
-    // renderCard: (data: CustomTableRow, index: number) =>,
-    // renderCard?: (data: CustomTableRow, index: number) => JSX.Element //(data: CustomTableRow, index: number) => JSX.Element;
     queryStrings: '',
   },
 ];
@@ -74,10 +72,6 @@ Table.parameters = {
           style: {
             top: '-2px',
             left: '30px',
-            // width: '100%',
-            // display: 'flex',
-            // flexGrow: 'row',
-            // justifyContent: 'center',
           },
         },
       },
@@ -89,7 +83,16 @@ TableDark.parameters = {
     component: {
       375: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=8868%3A143329&t=t4FrzPIVoc7xPgpL-4',
       834: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=5232%3A93999&t=t4FrzPIVoc7xPgpL-4',
-      1194: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=8868%3A139602&t=BJYSrpHcrXx2uY02-4',
+      1194: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=8868%3A139602&t=BJYSrpHcrXx2uY02-4',
+        options: {
+          style: {
+            top: '-2px',
+            left: '30px',
+          },
+        },
+      },
     },
   },
 };
