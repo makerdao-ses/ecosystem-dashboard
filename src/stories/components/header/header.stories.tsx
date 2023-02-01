@@ -28,7 +28,7 @@ HeaderLight.parameters = {
     component: {
       375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=4769%3A47888&t=8faDQ5tH3jpv3T5V-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13307%3A140501&t=V1pxP4kAG5abeRm8-4',
         options: {
           style: {
             top: -36,
@@ -38,18 +38,18 @@ HeaderLight.parameters = {
       },
       834: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=8868%3A145097&t=8faDQ5tH3jpv3T5V-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13307%3A148510&t=V1pxP4kAG5abeRm8-4',
         options: {
           style: {
             top: -36,
-            left: 0,
+            left: -51,
           },
         },
       },
 
       1440: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13234%3A129691&t=533vG4NJVj6mlbo7-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13307%3A134704&t=V1pxP4kAG5abeRm8-4',
         options: {
           style: {
             top: -36,
@@ -66,7 +66,7 @@ HeaderLightDarkMode.parameters = {
     component: {
       375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=4769%3A47888&t=8faDQ5tH3jpv3T5V-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13307%3A140501&t=V1pxP4kAG5abeRm8-4',
         options: {
           style: {
             top: -36,
@@ -76,7 +76,7 @@ HeaderLightDarkMode.parameters = {
       },
       834: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=4769%3A47888&t=8faDQ5tH3jpv3T5V-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13307%3A148510&t=V1pxP4kAG5abeRm8-4',
         options: {
           style: {
             top: -36,
@@ -87,7 +87,7 @@ HeaderLightDarkMode.parameters = {
 
       1440: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13234%3A129691&t=8faDQ5tH3jpv3T5V-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13307%3A134704&t=V1pxP4kAG5abeRm8-4',
         options: {
           style: {
             top: -36,
