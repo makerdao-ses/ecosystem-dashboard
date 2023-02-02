@@ -104,7 +104,7 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
                     Core Units <b>({filteredData.length})</b>
                   </CoreUnitStyle>
                 ),
-                url: `/${queryStrings}`,
+                url: `/core-units/${queryStrings}`,
               },
               {
                 label: buildCULabel(),
@@ -148,7 +148,7 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
                       Core Units <Value isLight={isLight}>({filteredData.length})</Value>
                     </span>
                   ),
-                  url: `/${queryStrings}`,
+                  url: `/core-units/${queryStrings}`,
                 },
               ]}
               title={breadcrumbTitle || buildCULabel()}

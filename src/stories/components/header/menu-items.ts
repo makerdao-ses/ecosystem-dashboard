@@ -9,8 +9,13 @@ export interface MenuType {
 
 const menuItems = [
   {
-    title: 'Core Units',
+    title: 'Finances',
     link: '/',
+    marginRight: '32px',
+  },
+  {
+    title: 'Core Units',
+    link: '/core-units',
     marginRight: '32px',
   },
   ...(featureFlags[CURRENT_ENVIRONMENT].FEATURE_GLOBAL_ACTIVITIES

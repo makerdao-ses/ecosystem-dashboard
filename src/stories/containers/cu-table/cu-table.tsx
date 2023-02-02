@@ -131,7 +131,7 @@ export const CuTable = () => {
 
   const clearFilters = useCallback(() => {
     router.push({
-      pathname: '/',
+      pathname: '/core-units',
       search: '',
     });
 
