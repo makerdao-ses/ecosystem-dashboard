@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
+import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo } from 'react';
+import { featureFlags } from '../../../../feature-flags/feature-flags';
 import lightTheme from '../../../../styles/theme/light';
 import { useAuthContext } from '../../../core/context/AuthContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';
@@ -51,9 +53,12 @@ const Header = ({ links }: Props) => {
 
   const activeMenuItem = useMemo(() => {
     if (router.pathname.startsWith('/core-unit')) {
-      return menuItems[1];
-    } else if (router.pathname.startsWith('/activity-feed')) {
-      return menuItems[2];
+      return featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW ? menuItems[1] : menuItems[0];
+    } else if (
+      router.pathname.startsWith('/activity-feed') &&
+      featureFlags[CURRENT_ENVIRONMENT].FEATURE_GLOBAL_ACTIVITIES
+    ) {
+      return featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW ? menuItems[2] : menuItems[1];
     } else {
       return menuItems[0];
     }
