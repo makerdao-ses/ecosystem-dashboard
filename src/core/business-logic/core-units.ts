@@ -119,7 +119,8 @@ export const getLinksFromCoreUnit = (cu: CoreUnitDto) => {
 const getLatestBudgetStatementWithFTE = (budgetStatements: BudgetStatementDto[]): BudgetStatementDto | null => {
   if (!budgetStatements || budgetStatements.length === 0) return null;
   const filtered = budgetStatements.filter((bs) => bs.budgetStatementFTEs.length > 0);
-  return filtered.length ? filtered[filtered.length - 1] : null;
+  const orderBudget = _.orderBy(filtered, 'month');
+  return orderBudget.length ? orderBudget[orderBudget.length - 1] : null;
 };
 
 export const getFTEsFromCoreUnit = (cu: CoreUnitDto) => {
