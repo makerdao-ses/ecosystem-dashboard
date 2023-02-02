@@ -44,8 +44,13 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
             />
           </CloseWrapper>
           {menuItems.map((item) => (
-            <Link href={item.link} passHref key={item.title}>
-              <LinkWrapper isLight={isLight} isActive={item.title === props.selectedOption}>
+            <Link href={item.link} passHref>
+              <LinkWrapper
+                isLight={isLight}
+                isActive={item.title === props.selectedOption}
+                key={item.title}
+                onClick={item.title === props.selectedOption ? togglePopup : undefined}
+              >
                 {item.title}
               </LinkWrapper>
             </Link>
