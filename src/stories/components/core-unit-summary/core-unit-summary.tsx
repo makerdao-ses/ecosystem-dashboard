@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { Typography, useMediaQuery } from '@mui/material';
+import { siteRoutes } from '@ses/config/routes';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -104,11 +105,11 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
                     Core Units <b>({filteredData.length})</b>
                   </CoreUnitStyle>
                 ),
-                url: `/core-units/${queryStrings}`,
+                url: `${siteRoutes.coreUnitsOverview}/${queryStrings}`,
               },
               {
                 label: buildCULabel(),
-                url: `/core-unit/${code}/${queryStrings}`,
+                url: `${siteRoutes.coreUnitAbout(code)}/${queryStrings}`,
               },
               ...trailingAddress.map((adr) => ({
                 label: adr,
@@ -139,7 +140,7 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
                     ? { color: isLight ? '#25273D' : '#D2D4EF' }
                     : undefined,
                   label: buildCULabel(),
-                  url: `/core-unit/${code}/${queryStrings}`,
+                  url: `${siteRoutes.coreUnitAbout(code)}/${queryStrings}`,
                 },
 
                 {
@@ -148,7 +149,7 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
                       Core Units <Value isLight={isLight}>({filteredData.length})</Value>
                     </span>
                   ),
-                  url: `/core-units/${queryStrings}`,
+                  url: `${siteRoutes.coreUnitsOverview}/${queryStrings}`,
                 },
               ]}
               title={breadcrumbTitle || buildCULabel()}

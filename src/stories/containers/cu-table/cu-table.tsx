@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { siteRoutes } from '@ses/config/routes';
 import isEmpty from 'lodash/isEmpty';
 import sortBy from 'lodash/sortBy';
 import { useRouter } from 'next/router';
@@ -131,7 +132,7 @@ export const CuTable = () => {
 
   const clearFilters = useCallback(() => {
     router.push({
-      pathname: '/core-units',
+      pathname: siteRoutes.coreUnitsOverview,
       search: '',
     });
 
