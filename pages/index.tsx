@@ -1,5 +1,6 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import { CuTable2 } from '@ses/containers/cu-table/cu-table-2';
+import FinancesOverviewContainer from '@ses/containers/finances-overview/finances-overview';
 import React from 'react';
 import { featureFlags } from '../feature-flags/feature-flags';
 import type { NextPage } from 'next';
@@ -10,7 +11,7 @@ const FinanceOverviewPage: NextPage = () => {
     return <CuTable2 />;
   }
 
-  return <div style={{ marginTop: 70 }}>Finance Overview Page</div>;
+  return <FinancesOverviewContainer />;
 };
 
 export default FinanceOverviewPage;
