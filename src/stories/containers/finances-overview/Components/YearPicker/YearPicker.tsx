@@ -20,12 +20,7 @@ const YearPicker = ({ years = [], selectedYear, handleOnclick }: Props) => {
   };
 
   return (
-    <Container
-      style={{
-        display: 'flex',
-        marginBottom: 40,
-      }}
-    >
+    <Container>
       {years?.map((year) => (
         <ContainerButtons key={year}>
           <PickerButtonStyle
@@ -59,6 +54,7 @@ const Container = styled.div({
   flexDirection: 'row',
   justifyContent: 'center',
   gap: 16,
+  marginBottom: 40,
 });
 
 const ContainerButtons = styled.div({

@@ -15,7 +15,7 @@ export default {
 const variantsArgs = [
   {
     years: [2021, 2022, 2023],
-    yearSelect: 2022,
+    selectedYear: 2022,
   },
 ];
 

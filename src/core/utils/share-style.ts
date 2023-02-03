@@ -165,12 +165,6 @@ export const ButtonPickerStyle = (isLight: boolean, selected: boolean) => ({
   background: isLight ? (selected ? '#1AAB9B' : 'transparent') : selected ? '#098C7D' : 'transparent',
 
   borderColor: isLight ? (selected ? '#1AAB9B' : '#D4D9E1') : selected ? '#098C7D' : '#708390',
-  boxShadow: isLight
-    ? selected
-      ? '2px 4px 7px rgba(26, 171, 155, 0.25)'
-      : 'none'
-    : selected
-    ? '2px 4px 7px rgba(26, 171, 155, 0.25)'
-    : 'none',
+  boxShadow: selected ? '2px 4px 7px rgba(26, 171, 155, 0.25)' : 'none',
   textColor: isLight ? (selected ? '#FFFFFF' : '#9FAFB9') : selected ? '#FFFFFF' : '#ADAFD4',
 });
