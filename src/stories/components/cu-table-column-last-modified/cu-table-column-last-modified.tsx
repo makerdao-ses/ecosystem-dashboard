@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { buildQueryString } from '@ses/core/utils/url.utils';
+import { DateTime } from 'luxon';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
@@ -8,27 +9,31 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { capitalizeSentence } from '../../../core/utils/string.utils';
 import { CustomLink } from '../custom-link/custom-link';
 import { CuTableColumnLastModifiedSkeleton } from './cu-table-column-last-modified.skeleton';
-import type { DateTime } from 'luxon';
 
 interface Props {
   date?: DateTime;
   isLoading?: boolean;
   code?: string;
+  now?: DateTime;
 }
 
-export const CuTableColumnLastModified = ({ date, isLoading, code }: Props) => {
+export const CuTableColumnLastModified = ({ date, isLoading, code, now = DateTime.now() }: Props) => {
   const { isLight } = useThemeContext();
   const router = useRouter();
   const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
-
   return !isLoading ? (
     <Link href={`/core-unit/${code}/activity-feed${queryStrings}`} passHref>
       <Wrapper>
         <Container>
           <DateLabel isLight={isLight}>{date?.toFormat('dd-MMM-yyyy')?.toUpperCase() ?? 'No Data'}</DateLabel>
           {date ? (
-            <DifferenceLabel isLight={isLight}>
-              {capitalizeSentence(date?.toRelative({ unit: 'days' }) ?? '')}
+            <DifferenceLabel data-chromatic="ignore" isLight={isLight}>
+              {capitalizeSentence(
+                date?.toRelative({
+                  base: now,
+                  unit: 'days',
+                }) ?? ''
+              )}
             </DifferenceLabel>
           ) : (
             <CustomLink
