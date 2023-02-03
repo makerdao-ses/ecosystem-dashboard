@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { differenceDays } from '@ses/core/utils/date.utils';
 import { buildQueryString } from '@ses/core/utils/url.utils';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -20,15 +21,14 @@ export const CuTableColumnLastModified = ({ date, isLoading, code }: Props) => {
   const { isLight } = useThemeContext();
   const router = useRouter();
   const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
-
   return !isLoading ? (
     <Link href={`/core-unit/${code}/activity-feed${queryStrings}`} passHref>
       <Wrapper>
         <Container>
           <DateLabel isLight={isLight}>{date?.toFormat('dd-MMM-yyyy')?.toUpperCase() ?? 'No Data'}</DateLabel>
           {date ? (
-            <DifferenceLabel isLight={isLight}>
-              {capitalizeSentence(date?.toRelative({ unit: 'days' }) ?? '')}
+            <DifferenceLabel data-chromatic="ignore" isLight={isLight}>
+              {capitalizeSentence(differenceDays(date))}
             </DifferenceLabel>
           ) : (
             <CustomLink
