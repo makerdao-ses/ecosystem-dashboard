@@ -7,7 +7,7 @@ import YearPicker from './Components/YearPicker/YearPicker';
 import useFinancesOverview from './useFinancesOverview';
 
 const FinancesOverviewContainer: React.FC = () => {
-  const { isLight } = useFinancesOverview();
+  const { isLight, year, handleChangeSelectYear, years } = useFinancesOverview();
 
   return (
     <Container isLight={isLight}>
@@ -15,7 +15,7 @@ const FinancesOverviewContainer: React.FC = () => {
         <PageTitle isLight={isLight}>Total Core Unit Expenses</PageTitle>
 
         <QuarterCarousel />
-        <YearPicker />
+        <YearPicker yearSelect={year} handleOnclick={handleChangeSelectYear} years={years} />
         <ExpensesChartSection />
         <div>Core Unit Button</div>
       </InnerPage>
