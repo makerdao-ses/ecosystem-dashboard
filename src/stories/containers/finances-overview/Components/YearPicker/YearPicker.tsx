@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { CustomButton } from '@ses/components/custom-button/custom-button';
-import ArrowIndicatorYearPicker from '@ses/components/svg/arrow-indicator-year-picker';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ButtonType } from '@ses/core/enums/button-type.enum';
 import { ButtonPickerStyle } from '@ses/core/utils/share-style';
@@ -55,19 +54,6 @@ const YearPicker = ({ years = [], yearSelect, handleOnclick }: Props) => {
               color: ButtonPickerStyle(isLight, year, yearSelect).textColor,
             }}
           />
-          {year === yearSelect && (
-            <ArrowIndicatorYearPicker
-              style={{
-                position: 'absolute',
-                marginLeft: 'auto',
-                marginRight: ' auto',
-                left: 0,
-                right: 0,
-                top: '100%',
-                marginTop: '8px',
-              }}
-            />
-          )}
         </ContainerButtons>
       ))}
     </Container>
