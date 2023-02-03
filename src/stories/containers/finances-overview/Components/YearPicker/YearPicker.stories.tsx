@@ -1,4 +1,3 @@
-// import { withoutSBPadding } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import YearPicker from './YearPicker';
 import type { ComponentMeta } from '@storybook/react';

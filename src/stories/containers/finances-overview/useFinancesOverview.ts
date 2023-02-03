@@ -3,18 +3,16 @@ import { DateTime } from 'luxon';
 import { useState } from 'react';
 
 const useFinancesOverview = () => {
-  const actualYear = DateTime.local().minus({ year: 1 }).year;
-  const [year, setYear] = useState<number>(actualYear);
+  const [selectedYear, setSelectedYear] = useState<number>(() => DateTime.local().minus({ year: 1 }).year);
   const { isLight } = useThemeContext();
   const years = [2021, 2022, 2023];
 
   const handleChangeSelectYear = (year: number) => {
-    setYear(year);
+    setSelectedYear(year);
   };
   return {
     isLight,
-    year,
-    setYear,
+    selectedYear,
     years,
     handleChangeSelectYear,
   };
