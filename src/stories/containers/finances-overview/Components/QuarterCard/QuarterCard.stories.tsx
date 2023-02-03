@@ -4,7 +4,7 @@ import type { ComponentMeta, Story } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
 export default {
-  title: 'Components/Finances/GenericCommentCard',
+  title: 'Components/Finances/QuarterCard',
   component: QuarterCard,
   decorators: [
     (Story: Story) => (
