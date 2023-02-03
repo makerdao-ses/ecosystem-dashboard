@@ -8,12 +8,12 @@ import React from 'react';
 import lightTheme from 'styles/theme/light';
 
 interface Props {
-  years?: number[];
+  years: number[];
   selectedYear: number;
   handleOnclick: (year: number) => void;
 }
 
-const YearPicker = ({ years = [], selectedYear, handleOnclick }: Props) => {
+const YearPicker = ({ years, selectedYear, handleOnclick }: Props) => {
   const { isLight } = useThemeContext();
   const onclick = (year: number) => () => {
     handleOnclick(year);
@@ -21,7 +21,7 @@ const YearPicker = ({ years = [], selectedYear, handleOnclick }: Props) => {
 
   return (
     <Container>
-      {years?.map((year) => (
+      {years.map((year) => (
         <ContainerButtons key={year}>
           <PickerButtonStyle
             onClick={onclick(year)}
