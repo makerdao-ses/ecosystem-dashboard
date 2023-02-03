@@ -160,3 +160,23 @@ export const allowsHoverText = (allowsHover: boolean, isLight: boolean, active: 
           : 'transparent',
       }
     : undefined;
+
+export const ButtonPickerStyle = (isLight: boolean, yearSelect: number, year: number) => ({
+  background: isLight
+    ? yearSelect === year
+      ? '#1AAB9B'
+      : 'transparent'
+    : year === yearSelect
+    ? '#098C7D'
+    : 'transparent',
+
+  borderColor: isLight ? (yearSelect === year ? '#1AAB9B' : '#D4D9E1') : yearSelect === year ? '#098C7D' : '#708390',
+  boxShadow: isLight
+    ? yearSelect === year
+      ? '2px 4px 7px rgba(26, 171, 155, 0.25)'
+      : 'none'
+    : yearSelect === year
+    ? '2px 4px 7px rgba(26, 171, 155, 0.25)'
+    : 'none',
+  textColor: isLight ? (yearSelect === year ? '#FFFFFF' : '#9FAFB9') : yearSelect === year ? '#FFFFFF' : '#ADAFD4',
+});
