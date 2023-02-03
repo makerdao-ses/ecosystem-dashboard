@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { Popover, Typography, useMediaQuery } from '@mui/material';
 import max from 'lodash/max';
-import min from 'lodash/min';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ExpenditureLevel } from '../../../core/enums/expenditure-level.enum';
@@ -63,26 +62,20 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
     if (!value) return 0;
 
     const allItems = [...(props?.items?.map((item) => item?.value || 0) || []), ...(props?.maxValues || [])];
-    const newMin = 5;
-    const newMax = 50;
-    const minValue = min([...allItems]) ?? 0;
-    const maxValue = max([...allItems]) ?? 0;
+    const min = Math.min(...allItems);
+    const max = Math.max(...allItems);
+    let minLimit = 5;
+    let maxLimit = 50;
 
-    if (((maxValue - minValue) * 100) / maxValue >= 85) {
-      const newMin = 20;
-      const newMax = 40;
-
-      return ((value - minValue) / (maxValue - minValue)) * (newMax - newMin) + newMin;
+    if (((max - min) * 100) / max >= 85) {
+      minLimit = 20;
+      maxLimit = 40;
+    } else if (((max - min) * 100) / max <= 1) {
+      minLimit = 45;
+      maxLimit = 50;
     }
 
-    if (((maxValue - minValue) * 100) / maxValue <= 1) {
-      const newMin = 45;
-      const newMax = 50;
-
-      return ((value - minValue) / (maxValue - minValue)) * (newMax - newMin) + newMin;
-    }
-
-    return ((value - minValue) / (maxValue - minValue)) * (newMax - newMin) + newMin;
+    return ((value - min) / (max - min)) * (maxLimit - minLimit) + minLimit;
   };
 
   const isValueValid = (value: number): boolean => value > 0 && !!max(props.maxValues);
