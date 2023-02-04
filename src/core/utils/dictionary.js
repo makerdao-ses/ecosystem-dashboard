@@ -107,6 +107,7 @@ const dictionary = [
   'viewports',
   'dropdown',
   'camelcase',
+  'swiper',
 ];
 
 module.exports = dictionary;

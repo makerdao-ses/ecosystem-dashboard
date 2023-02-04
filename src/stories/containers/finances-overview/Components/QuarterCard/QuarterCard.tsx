@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { threeDigitsPrecisionHumanization } from '@ses/core/utils/humanization';
 import React, { useMemo } from 'react';
+import lightTheme from 'styles/theme/light';
 import HorizontalBudgetBar from '../HorizontalBudgetBar/HorizontalBudgetBar';
 import type { WithIsLight } from '@ses/core/utils/types-helpers';
 
@@ -32,7 +33,7 @@ const QuarterCard: React.FC<QuarterCardProps> = ({ period, prediction, actuals, 
             <PredictionNumber>{humanizedPrediction.value}</PredictionNumber>
             <PredictionUnits>
               <PredictionSymbol isLight={isLight}>DAI</PredictionSymbol>
-              <NumberSize>{humanizedPrediction.suffix}</NumberSize>
+              <NumberSuffix>{humanizedPrediction.suffix}</NumberSuffix>
             </PredictionUnits>
           </Prediction>
         </PredictionWrapper>
@@ -41,13 +42,17 @@ const QuarterCard: React.FC<QuarterCardProps> = ({ period, prediction, actuals, 
         </BarWrapper>
         <Legend>
           <LegendItem isLight={isLight} dotColor={isLight ? '#2DC1B1' : '#1AAB9B'}>
-            <LegendNumber>{humanizedActuals.value}</LegendNumber>
-            <LegendNumberSize>{humanizedActuals.suffix}</LegendNumberSize>
+            <LegendNumberWrapper>
+              <LegendNumber>{humanizedActuals.value}</LegendNumber>
+              <LegendNumberSuffix>{humanizedActuals.suffix}</LegendNumberSuffix>
+            </LegendNumberWrapper>
             <LegendLabel>Actuals</LegendLabel>
           </LegendItem>
           <LegendItem isLight={isLight} dotColor={'#F75524'}>
-            <LegendNumber>{humanizedBudgetCap.value}</LegendNumber>
-            <LegendNumberSize>{humanizedBudgetCap.suffix}</LegendNumberSize>
+            <LegendNumberWrapper>
+              <LegendNumber>{humanizedBudgetCap.value}</LegendNumber>
+              <LegendNumberSuffix>{humanizedBudgetCap.suffix}</LegendNumberSuffix>
+            </LegendNumberWrapper>
             <LegendLabel>Cap</LegendLabel>
           </LegendItem>
         </Legend>
@@ -79,6 +84,11 @@ const Card = styled.div<WithIsLight>(({ isLight }) => ({
   boxShadow: isLight
     ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
     : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+  overflow: 'hidden',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    padding: 16,
+  },
 }));
 
 const PredictionWrapper = styled.div({
@@ -117,11 +127,16 @@ const PredictionSymbol = styled.div<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#9FAFB9' : '#708390',
 }));
 
-const NumberSize = styled.div({});
+const NumberSuffix = styled.div({});
 
 const BarWrapper = styled.div({
   marginTop: 8,
   marginBottom: 8,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 16,
+    marginBottom: 16,
+  },
 });
 
 const Legend = styled.div({
@@ -137,8 +152,15 @@ const LegendItem = styled.div<WithIsLight & { dotColor: string }>(({ isLight, do
   color: isLight ? '#231536' : '#EDEFFF',
   paddingRight: 6,
   display: 'flex',
-  alignItems: 'baseline',
+  alignItems: 'flex-start ',
   height: 'fit-content',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: 14,
+    lineHeight: '17px',
+    alignItems: 'center',
+    paddingRight: 12,
+  },
 
   '&::after': {
     content: '""',
@@ -150,19 +172,53 @@ const LegendItem = styled.div<WithIsLight & { dotColor: string }>(({ isLight, do
     height: 4,
     borderRadius: '50%',
     backgroundColor: dotColor,
+
+    [lightTheme.breakpoints.up('table_834')]: {
+      width: 8,
+      height: 8,
+      top: 'calc(50% - 4px)',
+    },
   },
 }));
 
-const LegendNumber = styled.div({
-  fontWeight: 700,
+const LegendNumberWrapper = styled.div({
+  display: 'flex',
+  alignItems: 'baseline',
 });
 
-const LegendNumberSize = styled.div({
+const LegendNumber = styled.div({
+  fontWeight: 700,
+  fontSize: 10,
+  lineHeight: '12px',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: 16,
+    lineHeight: '19px',
+    letterSpacing: '0.3px',
+  },
+});
+
+const LegendNumberSuffix = styled.div({
   fontSize: 7,
   lineHeight: '8px',
   marginLeft: 1.1,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: 12,
+    fontWeight: 600,
+    lineHeight: '15px',
+    letterSpacing: '1px',
+    textTransform: 'uppercase',
+  },
 });
 
 const LegendLabel = styled.div({
   marginLeft: 3.1,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginLeft: 6,
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '17px',
+  },
 });

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
+import lightTheme from 'styles/theme/light';
 import type { WithIsLight } from '@ses/core/utils/types-helpers';
 
 export type HorizontalBudgetBarProps = {
@@ -32,6 +33,11 @@ const BarContainer = styled.div<WithIsLight>(({ isLight }) => ({
   overflow: 'hidden',
   borderRadius: 4,
   background: isLight ? '#ECF1F3' : '#10191F',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    height: 16,
+    borderRadius: 8,
+  },
 }));
 
 const Actuals = styled.div<WithIsLight & { width: number }>(({ isLight, width }) => ({
@@ -42,6 +48,10 @@ const Actuals = styled.div<WithIsLight & { width: number }>(({ isLight, width })
   borderRadius: 4,
   width: `${width}%`,
   height: '100%',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    borderRadius: 8,
+  },
 }));
 
 const Difference = styled.div<WithIsLight & { width: number }>(({ isLight, width }) => ({
@@ -52,6 +62,10 @@ const Difference = styled.div<WithIsLight & { width: number }>(({ isLight, width
   borderRadius: 4,
   width: `calc(${width}% - 4px)`,
   height: '100%',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    borderRadius: 8,
+  },
 }));
 
 const BudgetCapLine = styled.div({
