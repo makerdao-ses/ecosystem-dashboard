@@ -13,6 +13,12 @@ export default {
       </div>
     ),
   ],
+  parameters: {
+    chromatic: {
+      viewports: [375, 834],
+      pauseAnimationAtEnd: true,
+    },
+  },
   argTypes: {},
 } as ComponentMeta<typeof QuarterCard>;
 
