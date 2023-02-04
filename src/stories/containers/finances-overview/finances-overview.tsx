@@ -34,6 +34,8 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
+  maxWidth: '100vw',
+  overflow: 'hidden',
 }));
 
 const InnerPage = styled.div({
@@ -77,5 +79,6 @@ const PageTitle = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
     fontSize: 32,
     fontWeight: 500,
     lineHeight: '38px',
+    marginBottom: 32,
   },
 }));
