@@ -12,8 +12,7 @@
     "storybook": "start-storybook -s ./public -p 6006",
     "build-storybook": "build-storybook",
     "prettier": "prettier --write .",
-    "prepare": "husky install",
-    "chromatic": "npx chromatic --project-token=CHROMATIC_PROJECT_TOKEN"
+    "prepare": "husky install"
   },
   "dependencies": {
     "@emotion/react": "^11.9.3",
