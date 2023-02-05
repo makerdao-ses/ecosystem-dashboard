@@ -1,8 +1,60 @@
+/* eslint-disable spellcheck/spell-checker */
+/* eslint-disable comma-spacing */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import ReactECharts from 'echarts-for-react';
 import React from 'react';
 
 const ExpensesChart: React.FC = () => {
   const options = {
+    legend: {
+      align: 'left',
+      itemGap: 25,
+      itemHeight: 8,
+      itemWidth: 8,
+      itemStyle: {
+        borderCap: 'round',
+        borderJoin: 'round',
+      },
+      icon: 'circle',
+      data: [
+        {
+          name: 'Active Budget',
+          icon: 'circle',
+          textStyle: {
+            fontFamily: 'Inter, sans-serif',
+            fontStyle: 'normal',
+            fontWeight: 400,
+            fontSize: 11,
+            lineHeight: 13,
+            color: '#231536',
+          },
+        },
+        {
+          name: 'Discontinued',
+          icon: 'circle',
+          textStyle: {
+            fontFamily: 'Inter, sans-serif',
+            fontStyle: 'normal',
+            fontWeight: 400,
+            fontSize: 11,
+            lineHeight: 13,
+            color: '#231536',
+          },
+        },
+        {
+          name: 'Expense forecasts',
+          icon: 'circle',
+          textStyle: {
+            fontFamily: 'Inter, sans-serif',
+            fontStyle: 'normal',
+            fontWeight: 400,
+            fontSize: 11,
+            lineHeight: 13,
+            color: '#231536',
+          },
+        },
+      ],
+    },
     xAxis: {
       type: 'category',
       data: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUNE', 'JULY', 'AUG', 'SEPT', 'OCT', 'NOV', 'DEC'],
@@ -31,13 +83,23 @@ const ExpensesChart: React.FC = () => {
       },
     },
     yAxis: {
+      axisLabel: {
+        formatter: function (value: number) {
+          if (value >= 1000000) {
+            return (value / 1000000).toFixed(1) + 'M';
+          } else if (value >= 1000) {
+            return (value / 1000).toFixed(1) + 'K';
+          } else {
+            return value.toString();
+          }
+        },
+      },
+
       type: 'value',
       // eslint-disable-next-line spellcheck/spell-checker
       zlevel: 1,
       axisLine: {
-        lineStyle: {
-          // color:'red',
-        },
+        show: false,
       },
       splitLine: {
         lineStyle: {
@@ -48,10 +110,9 @@ const ExpensesChart: React.FC = () => {
     },
     series: [
       {
-        name: 'actual',
+        name: 'Active Budget',
         type: 'bar',
-        data: [34, 22, 28, 43, 49, 10, 22, 28, 43, 49, 56, 89],
-
+        data: [0, 500000, 1000000, 1500000, 2000000, 2500000, 3000000, 3500000, 2500000, 3000000, 3500000, 3500000],
         showBackground: true,
         stack: 'x',
         backgroundStyle: {
@@ -65,8 +126,8 @@ const ExpensesChart: React.FC = () => {
         },
       },
       {
-        name: 'discontinued',
-        data: [10, 22, 28, 43, 49, 10, 22, 28, 43, 49, 56, 89],
+        name: 'Discontinued',
+        data: [10000, 50000, 1000000, 1500000, 2000000, 2500000, 3000000, 3500000, 2500000, 3000000, 3500000, 3500000],
         type: 'bar',
         stack: 'x',
         showBackground: true,
@@ -79,8 +140,10 @@ const ExpensesChart: React.FC = () => {
         },
       },
       {
-        name: 'prediction',
-        data: [10, 22, 28, 43, 49, 10, 22, 28, 43, 49, 56, 89],
+        name: 'Expense forecasts',
+        data: [
+          928890, 500000, 1000000, 1500000, 2000000, 2500000, 3000000, 3500000, 2500000, 3000000, 3500000, 3500000,
+        ],
         type: 'bar',
 
         showBackground: true,
@@ -99,8 +162,19 @@ const ExpensesChart: React.FC = () => {
   };
 
   return (
-    <div style={{}}>
-      <ReactECharts option={options} opts={{ renderer: 'svg' }} />
+    <div
+      style={{
+        height: 400,
+        width: '100vw',
+      }}
+    >
+      <ReactECharts
+        option={options}
+        style={{
+          height: '100%',
+          width: '100%',
+        }}
+      />
     </div>
   );
 };
