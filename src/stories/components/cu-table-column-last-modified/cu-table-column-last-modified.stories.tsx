@@ -16,11 +16,14 @@ export default {
 
 const variantsArgs = [
   {
-    date: DateTime.fromISO('2022-12-25T09:08:34.123'),
+    date: DateTime.fromISO('2022-12-26T09:08:34.123'),
     code: 'SES',
+    now: DateTime.fromISO('2023-02-03T09:08:34.123'),
   },
   {
+    date: DateTime.fromISO('2022-12-26T09:08:34.123'),
     code: 'SES',
+    now: DateTime.fromISO('2023-02-03T09:08:34.123'),
   },
 ];
 

@@ -7,16 +7,15 @@ import YearPicker from './Components/YearPicker/YearPicker';
 import useFinancesOverview from './useFinancesOverview';
 
 const FinancesOverviewContainer: React.FC = () => {
-  const { isLight } = useFinancesOverview();
+  const { isLight, selectedYear, handleChangeSelectYear, years } = useFinancesOverview();
 
   return (
     <Container isLight={isLight}>
       <InnerPage>
         <PageTitle isLight={isLight}>Total Core Unit Expenses</PageTitle>
-
         <QuarterCarousel />
-        <YearPicker />
         <ExpensesChartSection total={17892312} />
+        <YearPicker selectedYear={selectedYear} handleOnclick={handleChangeSelectYear} years={years} />
         <div>Core Unit Button</div>
       </InnerPage>
     </Container>
@@ -34,6 +33,8 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
+  maxWidth: '100vw',
+  overflow: 'hidden',
 }));
 
 const InnerPage = styled.div({
@@ -77,5 +78,6 @@ const PageTitle = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
     fontSize: 32,
     fontWeight: 500,
     lineHeight: '38px',
+    marginBottom: 32,
   },
 }));
