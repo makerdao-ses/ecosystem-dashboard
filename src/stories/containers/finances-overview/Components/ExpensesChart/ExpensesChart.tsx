@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import ReactECharts from 'echarts-for-react'; // or var ReactECharts =
+import ReactECharts from 'echarts-for-react';
 import React from 'react';
 
 const ExpensesChart: React.FC = () => {

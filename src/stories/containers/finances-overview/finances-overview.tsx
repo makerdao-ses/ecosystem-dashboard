@@ -16,7 +16,7 @@ const FinancesOverviewContainer: React.FC = () => {
 
         <QuarterCarousel />
         <YearPicker />
-        <ExpensesChartSection total={445454} />
+        <ExpensesChartSection total={17892312} />
         <div>Core Unit Button</div>
       </InnerPage>
     </Container>
