@@ -13,10 +13,9 @@ const FinancesOverviewContainer: React.FC = () => {
     <Container isLight={isLight}>
       <InnerPage>
         <PageTitle isLight={isLight}>Total Core Unit Expenses</PageTitle>
-
         <QuarterCarousel />
+        <ExpensesChartSection total={17892312} />
         <YearPicker selectedYear={selectedYear} handleOnclick={handleChangeSelectYear} years={years} />
-        <ExpensesChartSection />
         <div>Core Unit Button</div>
       </InnerPage>
     </Container>
