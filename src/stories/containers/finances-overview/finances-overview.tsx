@@ -1,4 +1,7 @@
 import styled from '@emotion/styled';
+import { LinkButton } from '@ses/components/link-button/link-button';
+import { siteRoutes } from '@ses/config/routes';
+import { ButtonType } from '@ses/core/enums/button-type.enum';
 import React from 'react';
 import lightTheme from 'styles/theme/light';
 import ExpensesChartSection from './Components/ExpensesChartSection/ExpensesChartSection';
@@ -23,7 +26,21 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ q
         <YearPicker selectedYear={selectedYear} handleOnclick={handleChangeSelectYear} years={years} />
         <ExpensesChartSection total={17892312} />
 
-        <div>Core Unit Button</div>
+        <FooterButtonContainer>
+          <LinkButton
+            href={siteRoutes.coreUnitsOverview}
+            label="Core Units"
+            buttonType={ButtonType.Primary}
+            styleText={{
+              fontSize: 16,
+              fontWeight: 500,
+              lineHeight: '19px',
+            }}
+            style={{
+              padding: '14.5px 40px',
+            }}
+          />
+        </FooterButtonContainer>
       </InnerPage>
     </Container>
   );
@@ -88,3 +105,8 @@ const PageTitle = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
     marginBottom: 32,
   },
 }));
+
+const FooterButtonContainer = styled.div({
+  textAlign: 'center',
+  marginBottom: 32,
+});
