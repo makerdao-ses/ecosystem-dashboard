@@ -5,8 +5,13 @@ import ExpensesChartSection from './Components/ExpensesChartSection/ExpensesChar
 import QuarterCarousel from './Components/QuarterCarousel/QuarterCarousel';
 import YearPicker from './Components/YearPicker/YearPicker';
 import useFinancesOverview from './useFinancesOverview';
+import type { ExpenseDto } from '@ses/core/models/dto/expenses.dto';
 
-const FinancesOverviewContainer: React.FC = () => {
+type FinancesOverviewContainerProps = {
+  quarterExpenses: ExpenseDto[];
+};
+
+const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ quarterExpenses }) => {
   const { isLight, selectedYear, handleChangeSelectYear, years } = useFinancesOverview();
 
   return (
@@ -14,7 +19,7 @@ const FinancesOverviewContainer: React.FC = () => {
       <InnerPage>
         <PageTitle isLight={isLight}>Total Core Unit Expenses</PageTitle>
 
-        <QuarterCarousel />
+        <QuarterCarousel quarters={quarterExpenses} />
         <YearPicker selectedYear={selectedYear} handleOnclick={handleChangeSelectYear} years={years} />
         <ExpensesChartSection />
         <div>Core Unit Button</div>
