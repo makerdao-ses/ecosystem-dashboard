@@ -3,6 +3,55 @@ import React from 'react';
 
 const ExpensesChart: React.FC = () => {
   const options = {
+    legend: {
+      width: '100%',
+      itemGap: 29,
+      itemHeight: 8,
+      itemWidth: 8,
+      itemStyle: {
+        borderCap: 'round',
+        borderJoin: 'round',
+      },
+      icon: 'circle',
+      data: [
+        {
+          name: 'Active Budget',
+          icon: 'circle',
+          textStyle: {
+            fontFamily: 'Inter, sans-serif',
+            fontStyle: 'normal',
+            fontWeight: 400,
+            fontSize: 11,
+            lineHeight: 13,
+            color: '#231536',
+          },
+        },
+        {
+          name: 'Discontinued',
+          icon: 'circle',
+          textStyle: {
+            fontFamily: 'Inter, sans-serif',
+            fontStyle: 'normal',
+            fontWeight: 400,
+            fontSize: 11,
+            lineHeight: 13,
+            color: '#231536',
+          },
+        },
+        {
+          name: 'Expense forecasts',
+          icon: 'circle',
+          textStyle: {
+            fontFamily: 'Inter, sans-serif',
+            fontStyle: 'normal',
+            fontWeight: 400,
+            fontSize: 11,
+            lineHeight: 13,
+            color: '#231536',
+          },
+        },
+      ],
+    },
     xAxis: {
       type: 'category',
       data: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUNE', 'JULY', 'AUG', 'SEPT', 'OCT', 'NOV', 'DEC'],
@@ -48,7 +97,7 @@ const ExpensesChart: React.FC = () => {
     },
     series: [
       {
-        name: 'actual',
+        name: 'Active Budget',
         type: 'bar',
         data: [34, 22, 28, 43, 49, 10, 22, 28, 43, 49, 56, 89],
 
@@ -65,7 +114,7 @@ const ExpensesChart: React.FC = () => {
         },
       },
       {
-        name: 'discontinued',
+        name: 'Discontinued',
         data: [10, 22, 28, 43, 49, 10, 22, 28, 43, 49, 56, 89],
         type: 'bar',
         stack: 'x',
@@ -79,7 +128,7 @@ const ExpensesChart: React.FC = () => {
         },
       },
       {
-        name: 'prediction',
+        name: 'Expense forecasts',
         data: [10, 22, 28, 43, 49, 10, 22, 28, 43, 49, 56, 89],
         type: 'bar',
 
