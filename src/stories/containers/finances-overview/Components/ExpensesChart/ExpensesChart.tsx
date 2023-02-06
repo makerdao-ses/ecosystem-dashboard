@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import ReactECharts from 'echarts-for-react';
 import { DateTime } from 'luxon';
@@ -6,94 +7,7 @@ import useFinancesOverview from '../../useFinancesOverview';
 
 const ExpensesChart: React.FC = () => {
   const { isLight } = useThemeContext();
-  const { processDataPerMonth } = useFinancesOverview();
-  const mockData = [
-    {
-      period: '2023-01',
-      budget: '/makerdao/core-units',
-      prediction: 13512500.0,
-      actuals: 12465122.0,
-      discontinued: 13512500.0,
-    },
-    {
-      period: '2023-02',
-      budget: '/makerdao/core-units',
-      prediction: 13512500.0,
-      actuals: 12465122.0,
-      discontinued: 15132650.0,
-    },
-    {
-      period: '2023-03',
-      budget: '/makerdao/core-units',
-      prediction: 13512500.0,
-      actuals: 12465122.0,
-      discontinued: 15132650.0,
-    },
-    {
-      period: '2023-04',
-      budget: '/makerdao/core-units',
-      prediction: 13512500.0,
-      actuals: 30000.0,
-      discontinued: 15132650.0,
-    },
-    {
-      period: '2023-05',
-      budget: '/makerdao/core-units',
-      prediction: 13512500.0,
-      actuals: 30000.0,
-      discontinued: 15132650.0,
-    },
-    {
-      period: '2023-06',
-      budget: '/makerdao/core-units',
-      prediction: 13512500.0,
-      actuals: 30000.0,
-      discontinued: 15132650.0,
-    },
-    {
-      period: '2023-07',
-      budget: '/makerdao/core-units',
-      prediction: 13512500.0,
-      actuals: 1000.0,
-      discontinued: 15132650.0,
-    },
-    {
-      period: '2023-08',
-      budget: '/makerdao/core-units',
-      prediction: 13512500.0,
-      actuals: 1000.0,
-      discontinued: 15132650.0,
-    },
-    {
-      period: '2023-09',
-      budget: '/makerdao/core-units',
-      prediction: 13512500.0,
-      actuals: 9000000.0,
-      discontinued: 15132650.0,
-    },
-    {
-      period: '2023-10',
-      budget: '/makerdao/core-units',
-      prediction: 13512500.0,
-      actuals: 5000.0,
-      discontinued: 15132650.0,
-    },
-    {
-      period: '2023-11',
-      budget: '/makerdao/core-units',
-      prediction: 13512500.0,
-      actuals: 30000.0,
-      discontinued: 15132650.0,
-    },
-    {
-      period: '2023-12',
-      budget: '/makerdao/core-units',
-      prediction: 13512500.0,
-      actuals: 30000.0,
-      discontinued: 15132650.0,
-    },
-  ];
-  const valuesForChart = processDataPerMonth(mockData, DateTime.fromISO('2023-01'));
+  const { processDataPerMonth, newDiscontinued, newPrediction, newActual } = useFinancesOverview();
 
   const options = {
     legend: {
@@ -152,7 +66,7 @@ const ExpensesChart: React.FC = () => {
         show: false,
       },
       axisLine: {
-        show: true,
+        show: false,
         symbolOffset: 'left',
         lineStyle: {
           color: 'transparent',
@@ -203,7 +117,7 @@ const ExpensesChart: React.FC = () => {
     series: [
       {
         name: 'Active Budget',
-        data: valuesForChart.actuals,
+        data: newActual,
         type: 'bar',
         stack: 'x',
         showBackground: true,
@@ -214,12 +128,11 @@ const ExpensesChart: React.FC = () => {
 
         itemStyle: {
           color: isLight ? '#0EB19F' : '#027265',
-          borderRadius: [0, 0, 6, 6],
         },
       },
       {
         name: 'Discontinued',
-        data: valuesForChart.discontinued,
+        data: newDiscontinued,
         type: 'bar',
         stack: 'x',
         showBackground: true,
@@ -229,12 +142,11 @@ const ExpensesChart: React.FC = () => {
         },
         itemStyle: {
           color: isLight ? '#027265' : '#2C3F3B',
-          borderRadius: [0, 0, 6, 6],
         },
       },
       {
         name: 'Expense forecasts',
-        data: valuesForChart.prediction,
+        data: newPrediction,
         type: 'bar',
         stack: 'x',
         showBackground: true,
@@ -244,7 +156,6 @@ const ExpensesChart: React.FC = () => {
         },
         itemStyle: {
           color: isLight ? '#68FEE3' : '#1AAB9B',
-          borderRadius: [6, 6, 0, 0],
         },
       },
     ],
