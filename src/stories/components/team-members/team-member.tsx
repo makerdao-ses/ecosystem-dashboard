@@ -6,10 +6,10 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CustomPopover } from '../custom-popover/custom-popover';
 
 interface Props {
-  fte: number;
+  ftes: number;
 }
 
-const TeamMember = ({ fte }: Props) => {
+const TeamMember = ({ ftes }: Props) => {
   const { isLight } = useThemeContext();
   return (
     <Container>
@@ -23,7 +23,7 @@ const TeamMember = ({ fte }: Props) => {
         <Data>
           <ContainerRow>
             {' '}
-            <StyleTypography isLight={isLight}>{fte}</StyleTypography>{' '}
+            <StyleTypography isLight={isLight}>{ftes}</StyleTypography>{' '}
           </ContainerRow>
           <Title isLight={isLight}>FTEs</Title>
         </Data>
