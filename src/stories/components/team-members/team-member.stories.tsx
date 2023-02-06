@@ -11,10 +11,10 @@ const Template: ComponentStory<typeof TeamMember> = (args) => <TeamMember {...ar
 
 export const Default = Template.bind({});
 Default.args = {
-  fte: 7.5,
+  ftes: 7.5,
 };
 
 export const Empty = Template.bind({});
 Empty.args = {
-  fte: 1,
+  ftes: 1,
 };
