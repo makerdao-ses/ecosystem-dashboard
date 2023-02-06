@@ -57,3 +57,11 @@ export interface Graph {
   yAxis: YCoordinate;
   series: Series | Series[];
 }
+
+export interface SeriesDataApi {
+  period: string;
+  budget: string;
+  prediction: number;
+  actuals: number;
+  discontinued: number;
+}

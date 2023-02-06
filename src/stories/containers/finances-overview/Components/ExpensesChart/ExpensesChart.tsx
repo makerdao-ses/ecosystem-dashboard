@@ -1,10 +1,100 @@
-/* eslint-disable spellcheck/spell-checker */
-/* eslint-disable comma-spacing */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import ReactECharts from 'echarts-for-react';
+import { DateTime } from 'luxon';
 import React from 'react';
+import useFinancesOverview from '../../useFinancesOverview';
 
 const ExpensesChart: React.FC = () => {
+  const { isLight } = useThemeContext();
+  const { processDataPerMonth } = useFinancesOverview();
+  const mockData = [
+    {
+      period: '2023-01',
+      budget: '/makerdao/core-units',
+      prediction: 13512500.0,
+      actuals: 12465122.0,
+      discontinued: 13512500.0,
+    },
+    {
+      period: '2023-02',
+      budget: '/makerdao/core-units',
+      prediction: 13512500.0,
+      actuals: 12465122.0,
+      discontinued: 15132650.0,
+    },
+    {
+      period: '2023-03',
+      budget: '/makerdao/core-units',
+      prediction: 13512500.0,
+      actuals: 12465122.0,
+      discontinued: 15132650.0,
+    },
+    {
+      period: '2023-04',
+      budget: '/makerdao/core-units',
+      prediction: 13512500.0,
+      actuals: 30000.0,
+      discontinued: 15132650.0,
+    },
+    {
+      period: '2023-05',
+      budget: '/makerdao/core-units',
+      prediction: 13512500.0,
+      actuals: 30000.0,
+      discontinued: 15132650.0,
+    },
+    {
+      period: '2023-06',
+      budget: '/makerdao/core-units',
+      prediction: 13512500.0,
+      actuals: 30000.0,
+      discontinued: 15132650.0,
+    },
+    {
+      period: '2023-07',
+      budget: '/makerdao/core-units',
+      prediction: 13512500.0,
+      actuals: 1000.0,
+      discontinued: 15132650.0,
+    },
+    {
+      period: '2023-08',
+      budget: '/makerdao/core-units',
+      prediction: 13512500.0,
+      actuals: 1000.0,
+      discontinued: 15132650.0,
+    },
+    {
+      period: '2023-09',
+      budget: '/makerdao/core-units',
+      prediction: 13512500.0,
+      actuals: 9000000.0,
+      discontinued: 15132650.0,
+    },
+    {
+      period: '2023-10',
+      budget: '/makerdao/core-units',
+      prediction: 13512500.0,
+      actuals: 5000.0,
+      discontinued: 15132650.0,
+    },
+    {
+      period: '2023-11',
+      budget: '/makerdao/core-units',
+      prediction: 13512500.0,
+      actuals: 30000.0,
+      discontinued: 15132650.0,
+    },
+    {
+      period: '2023-12',
+      budget: '/makerdao/core-units',
+      prediction: 13512500.0,
+      actuals: 30000.0,
+      discontinued: 15132650.0,
+    },
+  ];
+  const valuesForChart = processDataPerMonth(mockData, DateTime.fromISO('2023-01'));
+
   const options = {
     legend: {
       align: 'left',
@@ -26,7 +116,7 @@ const ExpensesChart: React.FC = () => {
             fontWeight: 400,
             fontSize: 11,
             lineHeight: 13,
-            color: '#231536',
+            color: isLight ? '#231536' : '#EDEFFF',
           },
         },
         {
@@ -38,7 +128,7 @@ const ExpensesChart: React.FC = () => {
             fontWeight: 400,
             fontSize: 11,
             lineHeight: 13,
-            color: '#231536',
+            color: isLight ? '#231536' : '#EDEFFF',
           },
         },
         {
@@ -50,7 +140,7 @@ const ExpensesChart: React.FC = () => {
             fontWeight: 400,
             fontSize: 11,
             lineHeight: 13,
-            color: '#231536',
+            color: isLight ? '#231536' : '#EDEFFF',
           },
         },
       ],
@@ -73,7 +163,7 @@ const ExpensesChart: React.FC = () => {
         show: false,
       },
       axisLabel: {
-        color: '#434358',
+        color: isLight ? '#434358' : '#708390',
         align: 'center',
         fontFamily: 'Inter,san-serif',
         fontWeight: 400,
@@ -84,6 +174,7 @@ const ExpensesChart: React.FC = () => {
     },
     yAxis: {
       axisLabel: {
+        // eslint-disable-next-line spellcheck/spell-checker
         formatter: function (value: number) {
           if (value >= 1000000) {
             return (value / 1000000).toFixed(1) + 'M';
@@ -93,6 +184,7 @@ const ExpensesChart: React.FC = () => {
             return value.toString();
           }
         },
+        color: isLight ? '#231536' : '#EDEFFF',
       },
 
       type: 'value',
@@ -103,7 +195,7 @@ const ExpensesChart: React.FC = () => {
       },
       splitLine: {
         lineStyle: {
-          color: '#9FAFB9',
+          color: isLight ? '#9FAFB9' : '#D8E0E3',
           width: 0.25,
         },
       },
@@ -111,52 +203,49 @@ const ExpensesChart: React.FC = () => {
     series: [
       {
         name: 'Active Budget',
+        data: valuesForChart.actuals,
         type: 'bar',
-        data: [0, 500000, 1000000, 1500000, 2000000, 2500000, 3000000, 3500000, 2500000, 3000000, 3500000, 3500000],
-        showBackground: true,
         stack: 'x',
+        showBackground: true,
         backgroundStyle: {
-          color: '#ECF1F3',
+          color: isLight ? '#ECF1F3' : '#10191F',
           borderRadius: 6,
         },
 
         itemStyle: {
-          color: '#0EB19F',
+          color: isLight ? '#0EB19F' : '#027265',
           borderRadius: [0, 0, 6, 6],
         },
       },
       {
         name: 'Discontinued',
-        data: [10000, 50000, 1000000, 1500000, 2000000, 2500000, 3000000, 3500000, 2500000, 3000000, 3500000, 3500000],
+        data: valuesForChart.discontinued,
         type: 'bar',
         stack: 'x',
         showBackground: true,
         backgroundStyle: {
-          color: '#ECF1F3',
+          color: isLight ? '#ECF1F3' : '#10191F',
           borderRadius: 6,
         },
         itemStyle: {
-          color: '#027265',
+          color: isLight ? '#027265' : '#2C3F3B',
+          borderRadius: [0, 0, 6, 6],
         },
       },
       {
         name: 'Expense forecasts',
-        data: [
-          928890, 500000, 1000000, 1500000, 2000000, 2500000, 3000000, 3500000, 2500000, 3000000, 3500000, 3500000,
-        ],
+        data: valuesForChart.prediction,
         type: 'bar',
-
+        stack: 'x',
         showBackground: true,
-
         backgroundStyle: {
-          color: 'rgba(180, 180, 180, 0.2)',
+          color: isLight ? '#ECF1F3' : '#10191F',
           borderRadius: 6,
         },
         itemStyle: {
-          color: '#68FEE3',
+          color: isLight ? '#68FEE3' : '#1AAB9B',
           borderRadius: [6, 6, 0, 0],
         },
-        stack: 'x',
       },
     ],
   };
