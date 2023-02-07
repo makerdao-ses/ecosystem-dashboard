@@ -1,10 +1,12 @@
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { DateTime } from 'luxon';
-import { useState } from 'react';
-import type { SeriesDataApi } from '@ses/core/models/dto/chart.dto';
+import { useCallback, useState } from 'react';
+import type { ExpenseDto } from '@ses/core/models/dto/expenses.dto';
 
-const useFinancesOverview = () => {
-  const mockData = [
+const useFinancesOverview = (monthly: Partial<ExpenseDto>[]) => {
+  // Only for mock data until Api has enough data
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const mockData: Partial<ExpenseDto>[] = [
     {
       period: '2023-01',
       budget: '/makerdao/core-units',
@@ -90,19 +92,33 @@ const useFinancesOverview = () => {
       discontinued: 0,
     },
   ];
-  const [selectedYear, setSelectedYear] = useState<number>(() => DateTime.local().minus({ year: 1 }).year);
+  const [selectedYear, setSelectedYear] = useState<number>(() => DateTime.local().year);
   const { isLight } = useThemeContext();
   const years = [2021, 2022, 2023];
 
   const handleChangeSelectYear = (year: number) => {
     setSelectedYear(year);
   };
+
+  const totalExpenses = useCallback(() => {
+    const valuesYearSelect = monthly.filter(
+      (charValue) => DateTime.fromISO(charValue?.period || '').year === selectedYear
+    );
+    console.log('valuesYearSelect', valuesYearSelect);
+    const prediction = valuesYearSelect.map((item) => item?.prediction) || [];
+    const moment = prediction?.reduce((current, next) => (current || 0) + (next || 0), 0);
+    console.log('moment', moment);
+    return moment;
+  }, [monthly, selectedYear]);
+
   // implement function to process data from APi for the chart
-  const processDataPerMonth = (charValues: SeriesDataApi[], year: DateTime) => {
-    const valuesYearSelect = charValues.filter((charValue) => DateTime.fromISO(charValue.period).year === year.year);
-    const prediction = valuesYearSelect.map((item) => item.prediction);
-    const actuals = valuesYearSelect.map((item) => item.actuals);
-    const discontinued = valuesYearSelect.map((item) => item.discontinued);
+  const processDataPerMonth = (charValues: Partial<ExpenseDto>[], year: DateTime) => {
+    const valuesYearSelect = charValues.filter(
+      (charValue) => DateTime.fromISO(charValue?.period || '').year === year.year
+    );
+    const prediction = valuesYearSelect.map((item) => item?.prediction);
+    const actuals = valuesYearSelect.map((item) => item?.actuals);
+    const discontinued = valuesYearSelect.map((item) => item?.discontinued);
     return {
       prediction,
       actuals,
@@ -110,7 +126,7 @@ const useFinancesOverview = () => {
     };
   };
 
-  const valuesForChart = processDataPerMonth(mockData, DateTime.fromISO('2023-01'));
+  const valuesForChart = processDataPerMonth(monthly, DateTime.fromISO('2023-01'));
   const noneBorder = [0, 0, 0, 0];
   const lowerBorder = [0, 0, 6, 6];
   const superiorBorder = [6, 6, 0, 0];
@@ -158,6 +174,7 @@ const useFinancesOverview = () => {
     newDiscontinued,
     newPrediction,
     newActual,
+    totalExpenses,
   };
 };
 

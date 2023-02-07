@@ -12,10 +12,20 @@ import type { ExpenseDto } from '@ses/core/models/dto/expenses.dto';
 
 type FinancesOverviewContainerProps = {
   quarterExpenses: ExpenseDto[];
+  monthlyExpenses: Partial<ExpenseDto>[];
 };
 
-const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ quarterExpenses }) => {
-  const { isLight, selectedYear, handleChangeSelectYear, years } = useFinancesOverview();
+const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ quarterExpenses, monthlyExpenses }) => {
+  const {
+    isLight,
+    selectedYear,
+    handleChangeSelectYear,
+    years,
+    newActual,
+    newDiscontinued,
+    newPrediction,
+    totalExpenses,
+  } = useFinancesOverview(monthlyExpenses);
 
   return (
     <Container isLight={isLight}>
@@ -24,7 +34,13 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ q
 
         <QuarterCarousel quarters={quarterExpenses} />
         <YearPicker selectedYear={selectedYear} handleOnclick={handleChangeSelectYear} years={years} />
-        <ExpensesChartSection total={17892312} />
+        <ExpensesChartSection
+          totalExpenses={totalExpenses()?.toLocaleString('es-US') || '0'}
+          monthly={monthlyExpenses}
+          newActual={newActual}
+          newDiscontinued={newDiscontinued}
+          newPrediction={newPrediction}
+        />
 
         <FooterButtonContainer>
           <LinkButton

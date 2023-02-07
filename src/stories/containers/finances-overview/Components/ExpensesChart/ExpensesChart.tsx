@@ -4,11 +4,21 @@ import ReactECharts from 'echarts-for-react';
 import { DateTime } from 'luxon';
 import React from 'react';
 import useFinancesOverview from '../../useFinancesOverview';
+import type { ValuesDataWithBorder } from '@ses/core/models/dto/chart.dto';
+import type { ExpenseDto } from '@ses/core/models/dto/expenses.dto';
 
-const ExpensesChart: React.FC = () => {
+interface Props {
+  monthly: Partial<ExpenseDto>[];
+  newActual: ValuesDataWithBorder[];
+  newDiscontinued: ValuesDataWithBorder[];
+  newPrediction: ValuesDataWithBorder[];
+}
+
+const ExpensesChart: React.FC<Props> = ({ monthly, newActual, newDiscontinued, newPrediction }: Props) => {
   const { isLight } = useThemeContext();
-  const { processDataPerMonth, newDiscontinued, newPrediction, newActual } = useFinancesOverview();
-
+  // eslint-disable-next-line spellcheck/spell-checker
+  const isZeroValue = false;
+  console.log('monthly', monthly);
   const options = {
     legend: {
       align: 'left',
@@ -110,7 +120,7 @@ const ExpensesChart: React.FC = () => {
       splitLine: {
         lineStyle: {
           color: isLight ? '#9FAFB9' : '#D8E0E3',
-          width: 0.25,
+          width: isZeroValue ? 0 : 0.25,
         },
       },
     },

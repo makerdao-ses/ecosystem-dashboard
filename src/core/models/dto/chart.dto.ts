@@ -65,3 +65,11 @@ export interface SeriesDataApi {
   actuals: number;
   discontinued: number;
 }
+
+export interface ValuesDataWithBorder {
+  name: string;
+  value: number | null | undefined;
+  itemStyle: {
+    borderRadius: number[];
+  };
+}
