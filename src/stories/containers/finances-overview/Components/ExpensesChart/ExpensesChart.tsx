@@ -21,7 +21,6 @@ const ExpensesChart: React.FC<Props> = ({ monthly, newActual, newDiscontinued, n
   const { isLight } = useThemeContext();
   // eslint-disable-next-line spellcheck/spell-checker
   const isZeroValue = false;
-  console.log('monthly', monthly);
   const options = {
     legend: {
       align: 'left',
@@ -107,7 +106,7 @@ const ExpensesChart: React.FC<Props> = ({ monthly, newActual, newDiscontinued, n
             const formatWithTwoTensAndDot = replaceAllNumberLetOneBeforeDot(value, 1000000);
             return formatWithTwoTensAndDot + 'M';
           } else if (value >= 1000) {
-            const formatWithTwoTensAndDot = replaceAllNumberLetOneBeforeDot(value, 1000000);
+            const formatWithTwoTensAndDot = replaceAllNumberLetOneBeforeDot(value, 10000);
             return formatWithTwoTensAndDot + 'K';
           } else {
             return value.toString();
