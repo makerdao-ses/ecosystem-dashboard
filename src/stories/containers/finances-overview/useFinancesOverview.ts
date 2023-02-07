@@ -115,28 +115,32 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
     const valuesYearSelect = monthly.filter(
       (charValue) => DateTime.fromISO(charValue?.period || '').year === selectedYear
     );
-    console.log('valuesYearSelect', valuesYearSelect);
+
     const prediction = valuesYearSelect.map((item) => item?.prediction) || [];
     const moment = prediction?.reduce((current, next) => (current || 0) + (next || 0), 0);
-    console.log('moment', moment);
+
     return moment;
   }, [monthly, selectedYear]);
 
-  const fillArrayWhenNoData = (arr: { period: string; value: number }[]) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const fillArrayWhenNoData = useCallback((series: { period: string; value: number }[]) => {
     const filledArray = new Array<{ period: string; value: number }>(12).fill({
-      period: '',
       value: 0,
+      period: '',
     });
 
-    const monthWithData = arr.map((item) => DateTime.fromISO(item.period || '').month);
-    monthWithData.forEach((item) => {
-      filledArray[item - 1] = {
-        period: '',
-        value: item,
+    const monthWithData = series.map((item) => ({
+      value: item.value,
+      period: Number(DateTime.fromISO(item.period || '').month),
+    }));
+    monthWithData.forEach((itemY) => {
+      filledArray[itemY.period - 1] = {
+        value: itemY.value,
+        period: itemY.period.toString(),
       };
     });
     return filledArray;
-  };
+  }, []);
   // implement function to process data from APi for the chart
   const processDataPerMonth = useCallback(() => {
     const valuesYearSelect = monthly.filter(
@@ -148,12 +152,14 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
         period: item.period || '',
       }))
     );
+
     const actuals = fillArrayWhenNoData(
       valuesYearSelect.map((item) => ({
         value: item.actuals || 0,
         period: item.period || '',
       }))
     );
+
     const discontinued = fillArrayWhenNoData(
       valuesYearSelect.map((item) => ({
         value: item.discontinued || 0,
@@ -166,7 +172,7 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
       actuals,
       discontinued,
     };
-  }, [monthly, selectedYear]);
+  }, [fillArrayWhenNoData, monthly, selectedYear]);
 
   const valuesForChart = processDataPerMonth();
   const noneBorder = [0, 0, 0, 0];
