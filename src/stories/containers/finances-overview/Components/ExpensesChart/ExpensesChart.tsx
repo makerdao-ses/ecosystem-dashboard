@@ -8,6 +8,7 @@ import ReactECharts from 'echarts-for-react';
 import { DateTime } from 'luxon';
 import React, { useState } from 'react';
 import useFinancesOverview from '../../useFinancesOverview';
+import LegendItem from './LegendItem';
 import type { ValuesDataWithBorder } from '@ses/core/models/dto/chart.dto';
 import type { ExpenseDto } from '@ses/core/models/dto/expenses.dto';
 
@@ -24,55 +25,6 @@ const ExpensesChart: React.FC<Props> = ({ monthly, newActual, newDiscontinued, n
   // eslint-disable-next-line spellcheck/spell-checker
   const isZeroValue = false;
   const options = {
-    legend: {
-      align: 'left',
-      itemGap: 25,
-      itemHeight: 8,
-      itemWidth: 8,
-      itemStyle: {
-        borderCap: 'round',
-        borderJoin: 'round',
-      },
-      icon: 'circle',
-      data: [
-        {
-          name: 'Active Budget',
-          icon: 'circle',
-          textStyle: {
-            fontFamily: 'Inter, sans-serif',
-            fontStyle: 'normal',
-            fontWeight: 400,
-            fontSize: 11,
-            lineHeight: 13,
-            color: isLight ? '#231536' : '#EDEFFF',
-          },
-        },
-        {
-          name: 'Discontinued',
-          icon: 'circle',
-          textStyle: {
-            fontFamily: 'Inter, sans-serif',
-            fontStyle: 'normal',
-            fontWeight: 400,
-            fontSize: 11,
-            lineHeight: 13,
-            color: isLight ? '#231536' : '#EDEFFF',
-          },
-        },
-        {
-          name: 'Expense forecasts',
-          icon: 'circle',
-          textStyle: {
-            fontFamily: 'Inter, sans-serif',
-            fontStyle: 'normal',
-            fontWeight: 400,
-            fontSize: 11,
-            lineHeight: 13,
-            color: isLight ? '#231536' : '#EDEFFF',
-          },
-        },
-      ],
-    },
     xAxis: {
       type: 'category',
       data: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUNE', 'JULY', 'AUG', 'SEPT', 'OCT', 'NOV', 'DEC'],
@@ -180,26 +132,43 @@ const ExpensesChart: React.FC<Props> = ({ monthly, newActual, newDiscontinued, n
   };
 
   return (
-    <Container>
-      <ReactECharts
-        option={options}
-        style={{
-          height: '100%',
-          width: '100vw',
-        }}
-      />
-    </Container>
+    <>
+      <Legend>
+        <LegendItem color={isLight ? '#0EB19F' : '#027265'} text="Active Budget" />
+        <LegendItem color={isLight ? '#027265' : '#2C3F3B'} text="Discontinued" />
+        <LegendItem color={isLight ? '#68FEE3' : '#1AAB9B'} text="Expense forecasts" />
+      </Legend>
+      <Container>
+        <ReactECharts
+          option={options}
+          style={{
+            height: '100%',
+            width: '100vw',
+          }}
+        />
+      </Container>
+    </>
   );
 };
 
 const Container = styled.div({
-  height: 400,
-  width: '',
+  height: 387,
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
   [lightTheme.breakpoints.up('table_834')]: {
     maxWidth: 607,
+  },
+});
+
+const Legend = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+
+  gap: 29,
+  [lightTheme.breakpoints.up('table_834')]: {
+    gap: 50,
   },
 });
 
