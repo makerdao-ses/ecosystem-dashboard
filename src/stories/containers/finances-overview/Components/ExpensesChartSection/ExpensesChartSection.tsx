@@ -2,26 +2,43 @@ import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
 import ExpensesChart from '../ExpensesChart/ExpensesChart';
+import type { ValuesDataWithBorder } from '@ses/core/models/dto/chart.dto';
+import type { ExpenseDto } from '@ses/core/models/dto/expenses.dto';
 
 interface Props {
-  total: number;
+  totalExpenses: string;
+  monthly: Partial<ExpenseDto>[];
+  newActual: ValuesDataWithBorder[];
+  newDiscontinued: ValuesDataWithBorder[];
+  newPrediction: ValuesDataWithBorder[];
 }
 
-const ExpensesChartSection: React.FC<Props> = ({ total }: Props) => {
+const ExpensesChartSection: React.FC<Props> = ({
+  totalExpenses,
+  monthly,
+  newActual,
+  newDiscontinued,
+  newPrediction,
+}: Props) => {
   const { isLight } = useThemeContext();
 
   return (
     <Container>
       <DetailContainer>
         <div>
-          <Label isLight={isLight}>{`${total} dai`}</Label>
+          <Label isLight={isLight}>{`${totalExpenses} dai`}</Label>
           <Line isLight={isLight} />
         </div>
 
         <TotalDescription isLight={isLight}>Total Expenses</TotalDescription>
       </DetailContainer>
 
-      <ExpensesChart />
+      <ExpensesChart
+        monthly={monthly}
+        newActual={newActual}
+        newDiscontinued={newDiscontinued}
+        newPrediction={newPrediction}
+      />
     </Container>
   );
 };
@@ -35,7 +52,7 @@ const DetailContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  marginTop: '64px',
+  marginBottom: 16,
 });
 
 const Label = styled.label<{ isLight: boolean }>(({ isLight }) => ({

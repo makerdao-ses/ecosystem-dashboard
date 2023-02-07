@@ -10,15 +10,16 @@ import type { NextPage } from 'next';
 
 type FinanceOverviewPageProps = {
   quarterExpenses: ExpenseDto[];
+  monthlyExpenses: Partial<ExpenseDto>[];
 };
 
-const FinanceOverviewPage: NextPage<FinanceOverviewPageProps> = ({ quarterExpenses }) => {
+const FinanceOverviewPage: NextPage<FinanceOverviewPageProps> = ({ quarterExpenses, monthlyExpenses }) => {
   if (!featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW) {
     // core unit overview would be the home page if the finances overview is disabled
     return <CuTable2 />;
   }
 
-  return <FinancesOverviewContainer quarterExpenses={quarterExpenses} />;
+  return <FinancesOverviewContainer quarterExpenses={quarterExpenses} monthlyExpenses={monthlyExpenses || []} />;
 };
 
 export default FinanceOverviewPage;
@@ -26,10 +27,12 @@ export default FinanceOverviewPage;
 export async function getServerSideProps() {
   if (featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW) {
     const quarterExpenses = await fetchExpenses(ExpenseGranularity.quarterly);
+    const monthlyExpenses = await fetchExpenses(ExpenseGranularity.monthly);
 
     return {
       props: {
         quarterExpenses,
+        monthlyExpenses,
       },
     };
   }

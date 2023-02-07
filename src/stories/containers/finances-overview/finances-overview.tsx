@@ -11,12 +11,22 @@ import useFinancesOverview from './useFinancesOverview';
 import type { ExpenseDto } from '@ses/core/models/dto/expenses.dto';
 
 type FinancesOverviewContainerProps = {
+  monthlyExpenses: Partial<ExpenseDto>[];
   quarterExpenses: ExpenseDto[];
 };
 
-const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ quarterExpenses }) => {
-  const { isLight, sortedQuarters, selectedYear, handleChangeSelectYear, years } = useFinancesOverview(quarterExpenses);
-
+const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ monthlyExpenses, quarterExpenses }) => {
+  const {
+    isLight,
+    selectedYear,
+    handleChangeSelectYear,
+    years,
+    newActual,
+    newDiscontinued,
+    newPrediction,
+    totalExpenses,
+    sortedQuarters,
+  } = useFinancesOverview(quarterExpenses, monthlyExpenses);
   return (
     <Container isLight={isLight}>
       <InnerPage>
@@ -24,7 +34,13 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ q
 
         <QuarterCarousel quarters={sortedQuarters} />
         <YearPicker selectedYear={selectedYear} handleOnclick={handleChangeSelectYear} years={years} />
-        <ExpensesChartSection total={17892312} />
+        <ExpensesChartSection
+          totalExpenses={totalExpenses()?.toLocaleString('es-US') || '0'}
+          monthly={monthlyExpenses}
+          newActual={newActual}
+          newDiscontinued={newDiscontinued}
+          newPrediction={newPrediction}
+        />
 
         <FooterButtonContainer>
           <LinkButton
