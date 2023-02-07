@@ -1,8 +1,64 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import ReactECharts from 'echarts-for-react';
+import { DateTime } from 'luxon';
 import React from 'react';
+import useFinancesOverview from '../../useFinancesOverview';
 
 const ExpensesChart: React.FC = () => {
+  const { isLight } = useThemeContext();
+  const { processDataPerMonth, newDiscontinued, newPrediction, newActual } = useFinancesOverview();
+
   const options = {
+    legend: {
+      align: 'left',
+      itemGap: 25,
+      itemHeight: 8,
+      itemWidth: 8,
+      itemStyle: {
+        borderCap: 'round',
+        borderJoin: 'round',
+      },
+      icon: 'circle',
+      data: [
+        {
+          name: 'Active Budget',
+          icon: 'circle',
+          textStyle: {
+            fontFamily: 'Inter, sans-serif',
+            fontStyle: 'normal',
+            fontWeight: 400,
+            fontSize: 11,
+            lineHeight: 13,
+            color: isLight ? '#231536' : '#EDEFFF',
+          },
+        },
+        {
+          name: 'Discontinued',
+          icon: 'circle',
+          textStyle: {
+            fontFamily: 'Inter, sans-serif',
+            fontStyle: 'normal',
+            fontWeight: 400,
+            fontSize: 11,
+            lineHeight: 13,
+            color: isLight ? '#231536' : '#EDEFFF',
+          },
+        },
+        {
+          name: 'Expense forecasts',
+          icon: 'circle',
+          textStyle: {
+            fontFamily: 'Inter, sans-serif',
+            fontStyle: 'normal',
+            fontWeight: 400,
+            fontSize: 11,
+            lineHeight: 13,
+            color: isLight ? '#231536' : '#EDEFFF',
+          },
+        },
+      ],
+    },
     xAxis: {
       type: 'category',
       data: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUNE', 'JULY', 'AUG', 'SEPT', 'OCT', 'NOV', 'DEC'],
@@ -10,7 +66,7 @@ const ExpensesChart: React.FC = () => {
         show: false,
       },
       axisLine: {
-        show: true,
+        show: false,
         symbolOffset: 'left',
         lineStyle: {
           color: 'transparent',
@@ -21,7 +77,7 @@ const ExpensesChart: React.FC = () => {
         show: false,
       },
       axisLabel: {
-        color: '#434358',
+        color: isLight ? '#434358' : '#708390',
         align: 'center',
         fontFamily: 'Inter,san-serif',
         fontWeight: 400,
@@ -31,76 +87,94 @@ const ExpensesChart: React.FC = () => {
       },
     },
     yAxis: {
+      axisLabel: {
+        // eslint-disable-next-line spellcheck/spell-checker
+        formatter: function (value: number) {
+          if (value >= 1000000) {
+            return (value / 1000000).toFixed(1) + 'M';
+          } else if (value >= 1000) {
+            return (value / 1000).toFixed(1) + 'K';
+          } else {
+            return value.toString();
+          }
+        },
+        color: isLight ? '#231536' : '#EDEFFF',
+      },
+
       type: 'value',
       // eslint-disable-next-line spellcheck/spell-checker
       zlevel: 1,
       axisLine: {
-        lineStyle: {
-          // color:'red',
-        },
+        show: false,
       },
       splitLine: {
         lineStyle: {
-          color: '#9FAFB9',
+          color: isLight ? '#9FAFB9' : '#D8E0E3',
           width: 0.25,
         },
       },
     },
     series: [
       {
-        name: 'actual',
+        name: 'Active Budget',
+        data: newActual,
         type: 'bar',
-        data: [34, 22, 28, 43, 49, 10, 22, 28, 43, 49, 56, 89],
-
-        showBackground: true,
         stack: 'x',
+        showBackground: true,
         backgroundStyle: {
-          color: '#ECF1F3',
+          color: isLight ? '#ECF1F3' : '#10191F',
           borderRadius: 6,
         },
 
         itemStyle: {
-          color: '#0EB19F',
-          borderRadius: [0, 0, 6, 6],
+          color: isLight ? '#0EB19F' : '#027265',
         },
       },
       {
-        name: 'discontinued',
-        data: [10, 22, 28, 43, 49, 10, 22, 28, 43, 49, 56, 89],
+        name: 'Discontinued',
+        data: newDiscontinued,
         type: 'bar',
         stack: 'x',
         showBackground: true,
         backgroundStyle: {
-          color: '#ECF1F3',
+          color: isLight ? '#ECF1F3' : '#10191F',
           borderRadius: 6,
         },
         itemStyle: {
-          color: '#027265',
+          color: isLight ? '#027265' : '#2C3F3B',
         },
       },
       {
-        name: 'prediction',
-        data: [10, 22, 28, 43, 49, 10, 22, 28, 43, 49, 56, 89],
+        name: 'Expense forecasts',
+        data: newPrediction,
         type: 'bar',
-
+        stack: 'x',
         showBackground: true,
-
         backgroundStyle: {
-          color: 'rgba(180, 180, 180, 0.2)',
+          color: isLight ? '#ECF1F3' : '#10191F',
           borderRadius: 6,
         },
         itemStyle: {
-          color: '#68FEE3',
-          borderRadius: [6, 6, 0, 0],
+          color: isLight ? '#68FEE3' : '#1AAB9B',
         },
-        stack: 'x',
       },
     ],
   };
 
   return (
-    <div style={{}}>
-      <ReactECharts option={options} opts={{ renderer: 'svg' }} />
+    <div
+      style={{
+        height: 400,
+        width: '100vw',
+      }}
+    >
+      <ReactECharts
+        option={options}
+        style={{
+          height: '100%',
+          width: '100%',
+        }}
+      />
     </div>
   );
 };

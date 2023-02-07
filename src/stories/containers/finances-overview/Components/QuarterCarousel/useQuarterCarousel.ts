@@ -13,7 +13,7 @@ const useQuarterCarousel = (quarters: ExpenseDto[]) => {
     let canShowDivider = false;
 
     for (let i = swiper.activeIndex; i < swiper.activeIndex + slidesOnScreen; i++) {
-      if (isQuarter4(quarters[i].period)) {
+      if (i < quarters.length && isQuarter4(quarters[i].period)) {
         canShowDivider = true;
         break;
       }
