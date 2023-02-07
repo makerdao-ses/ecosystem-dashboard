@@ -46,6 +46,7 @@ const ExpensesChartSection: React.FC<Props> = ({
 const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'center',
   flex: 1,
 });
 const DetailContainer = styled.div({
