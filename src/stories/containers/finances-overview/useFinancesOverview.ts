@@ -14,6 +14,10 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
       }),
     [quarterExpenses]
   );
+  const [selectedYear, setSelectedYear] = useState<number>(() => DateTime.local().year);
+
+  const { isLight } = useThemeContext();
+  const years = [2021, 2022, 2023];
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const mockData = [
@@ -102,10 +106,6 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
       discontinued: 0,
     },
   ];
-  const [selectedYear, setSelectedYear] = useState<number>(() => DateTime.local().year);
-
-  const { isLight } = useThemeContext();
-  const years = [2021, 2022, 2023];
 
   const handleChangeSelectYear = (year: number) => {
     setSelectedYear(year);
@@ -123,9 +123,9 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
   }, [monthly, selectedYear]);
 
   // implement function to process data from APi for the chart
-  const processDataPerMonth = (charValues: Partial<ExpenseDto>[], year: DateTime) => {
-    const valuesYearSelect = charValues.filter(
-      (charValue) => DateTime.fromISO(charValue?.period || '').year === year.year
+  const processDataPerMonth = useCallback(() => {
+    const valuesYearSelect = monthly.filter(
+      (charValue) => DateTime.fromISO(charValue?.period || '').year === selectedYear
     );
     const prediction = valuesYearSelect.map((item) => item?.prediction);
     const actuals = valuesYearSelect.map((item) => item?.actuals);
@@ -135,9 +135,9 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
       actuals,
       discontinued,
     };
-  };
+  }, [monthly, selectedYear]);
 
-  const valuesForChart = processDataPerMonth(monthly, DateTime.fromISO('2023-01'));
+  const valuesForChart = processDataPerMonth();
   const noneBorder = [0, 0, 0, 0];
   const lowerBorder = [0, 0, 6, 6];
   const superiorBorder = [6, 6, 0, 0];
