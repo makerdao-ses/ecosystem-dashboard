@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string.utils';
 import lightTheme from '@ses/styles/theme/light';
@@ -19,6 +20,7 @@ interface Props {
 
 const ExpensesChart: React.FC<Props> = ({ monthly, newActual, newDiscontinued, newPrediction }: Props) => {
   const { isLight } = useThemeContext();
+  const upTable = useMediaQuery(lightTheme.breakpoints.up('table_834'));
   // eslint-disable-next-line spellcheck/spell-checker
   const isZeroValue = false;
   const options = {
@@ -139,7 +141,7 @@ const ExpensesChart: React.FC<Props> = ({ monthly, newActual, newDiscontinued, n
           color: isLight ? '#ECF1F3' : '#10191F',
           borderRadius: 6,
         },
-
+        barWidth: upTable ? 36 : 22,
         itemStyle: {
           color: isLight ? '#0EB19F' : '#027265',
         },
@@ -154,6 +156,7 @@ const ExpensesChart: React.FC<Props> = ({ monthly, newActual, newDiscontinued, n
           color: isLight ? '#ECF1F3' : '#10191F',
           borderRadius: 6,
         },
+        barWidth: upTable ? 40 : 24,
         itemStyle: {
           color: isLight ? '#027265' : '#2C3F3B',
         },
@@ -168,6 +171,7 @@ const ExpensesChart: React.FC<Props> = ({ monthly, newActual, newDiscontinued, n
           color: isLight ? '#ECF1F3' : '#10191F',
           borderRadius: 6,
         },
+        barWidth: upTable ? 40 : 24,
         itemStyle: {
           color: isLight ? '#68FEE3' : '#1AAB9B',
         },
