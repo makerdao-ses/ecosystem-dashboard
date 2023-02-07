@@ -3,6 +3,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { threeDigitsPrecisionHumanization } from '@ses/core/utils/humanization';
 import React, { useMemo } from 'react';
 import lightTheme from 'styles/theme/light';
+import { formatQuarter } from '../../utils/quarters';
 import HorizontalBudgetBar from '../HorizontalBudgetBar/HorizontalBudgetBar';
 import type { WithIsLight } from '@ses/core/utils/types-helpers';
 
@@ -15,10 +16,7 @@ export type QuarterCardProps = {
 
 const QuarterCard: React.FC<QuarterCardProps> = ({ period, prediction, actuals, budgetCap }) => {
   const { isLight } = useThemeContext();
-  const formattedPeriod = useMemo(() => {
-    const [year, quarter] = period.split('-');
-    return `${quarter} ${year}`;
-  }, [period]);
+  const formattedPeriod = useMemo(() => formatQuarter(period), [period]);
 
   const humanizedPrediction = threeDigitsPrecisionHumanization(prediction);
   const humanizedActuals = threeDigitsPrecisionHumanization(actuals);

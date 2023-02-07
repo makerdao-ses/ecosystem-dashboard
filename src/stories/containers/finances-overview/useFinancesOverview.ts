@@ -1,12 +1,22 @@
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { DateTime } from 'luxon';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
+import { parseQuarter } from './utils/quarters';
 import type { ExpenseDto } from '@ses/core/models/dto/expenses.dto';
+const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partial<ExpenseDto>[]) => {
+  const sortedQuarters = useMemo(
+    () =>
+      quarterExpenses.sort((a, b) => {
+        const [aYear, aQuarter] = parseQuarter(a.period);
+        const [bYear, bQuarter] = parseQuarter(b.period);
 
-const useFinancesOverview = (monthly: Partial<ExpenseDto>[]) => {
-  // Only for mock data until Api has enough data
+        return aYear !== bYear ? aYear - bYear : aQuarter - bQuarter;
+      }),
+    [quarterExpenses]
+  );
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const mockData: Partial<ExpenseDto>[] = [
+  const mockData = [
     {
       period: '2023-01',
       budget: '/makerdao/core-units',
@@ -93,6 +103,7 @@ const useFinancesOverview = (monthly: Partial<ExpenseDto>[]) => {
     },
   ];
   const [selectedYear, setSelectedYear] = useState<number>(() => DateTime.local().year);
+
   const { isLight } = useThemeContext();
   const years = [2021, 2022, 2023];
 
@@ -167,6 +178,7 @@ const useFinancesOverview = (monthly: Partial<ExpenseDto>[]) => {
 
   return {
     isLight,
+    sortedQuarters,
     selectedYear,
     years,
     handleChangeSelectYear,

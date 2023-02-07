@@ -71,7 +71,7 @@ const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
             </MarkdownContainer>
             <TeamMemberContainer>
               <TeamMemberTitle isLight={isLight}>Team Size</TeamMemberTitle>
-              <TeamMember fte={getFTEsFromCoreUnit(cuAbout)} />
+              <TeamMember ftes={getFTEsFromCoreUnit(cuAbout)} />
             </TeamMemberContainer>
             {cuAbout.contributorCommitment.length > 0 && (
               <ContactInfoContainer>

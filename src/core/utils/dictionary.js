@@ -108,6 +108,7 @@ const dictionary = [
   'dropdown',
   'camelcase',
   'swiper',
+  'Breakpoint',
 ];
 
 module.exports = dictionary;

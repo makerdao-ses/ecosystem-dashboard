@@ -11,11 +11,11 @@ import useFinancesOverview from './useFinancesOverview';
 import type { ExpenseDto } from '@ses/core/models/dto/expenses.dto';
 
 type FinancesOverviewContainerProps = {
-  quarterExpenses: ExpenseDto[];
   monthlyExpenses: Partial<ExpenseDto>[];
+  quarterExpenses: ExpenseDto[];
 };
 
-const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ quarterExpenses, monthlyExpenses }) => {
+const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ monthlyExpenses, quarterExpenses }) => {
   const {
     isLight,
     selectedYear,
@@ -25,14 +25,14 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ q
     newDiscontinued,
     newPrediction,
     totalExpenses,
-  } = useFinancesOverview(monthlyExpenses);
-
+    sortedQuarters,
+  } = useFinancesOverview(quarterExpenses, monthlyExpenses);
   return (
     <Container isLight={isLight}>
       <InnerPage>
         <PageTitle isLight={isLight}>Total Core Unit Expenses</PageTitle>
 
-        <QuarterCarousel quarters={quarterExpenses} />
+        <QuarterCarousel quarters={sortedQuarters} />
         <YearPicker selectedYear={selectedYear} handleOnclick={handleChangeSelectYear} years={years} />
         <ExpensesChartSection
           totalExpenses={totalExpenses()?.toLocaleString('es-US') || '0'}
@@ -118,6 +118,10 @@ const PageTitle = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
     fontSize: 32,
     fontWeight: 500,
     lineHeight: '38px',
+    marginBottom: 40,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     marginBottom: 32,
   },
 }));
