@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import { DateTime } from 'luxon';
 import React from 'react';
@@ -172,21 +174,27 @@ const ExpensesChart: React.FC<Props> = ({ monthly, newActual, newDiscontinued, n
   };
 
   return (
-    <div
-      style={{
-        height: 400,
-        width: '100vw',
-      }}
-    >
+    <Container>
       <ReactECharts
         option={options}
         style={{
           height: '100%',
-          width: '100%',
+          width: '100vw',
         }}
       />
-    </div>
+    </Container>
   );
 };
+
+const Container = styled.div({
+  height: 400,
+  width: '',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  [lightTheme.breakpoints.up('table_834')]: {
+    maxWidth: 607,
+  },
+});
 
 export default ExpensesChart;
