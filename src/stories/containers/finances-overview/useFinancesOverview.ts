@@ -14,6 +14,10 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
       }),
     [quarterExpenses]
   );
+  const [selectedYear, setSelectedYear] = useState<number>(() => DateTime.local().year);
+
+  const { isLight } = useThemeContext();
+  const years = [2021, 2022, 2023];
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const mockData = [
@@ -102,10 +106,6 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
       discontinued: 0,
     },
   ];
-  const [selectedYear, setSelectedYear] = useState<number>(() => DateTime.local().year);
-
-  const { isLight } = useThemeContext();
-  const years = [2021, 2022, 2023];
 
   const handleChangeSelectYear = (year: number) => {
     setSelectedYear(year);
@@ -122,22 +122,53 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
     return moment;
   }, [monthly, selectedYear]);
 
+  const fillArrayWhenNoData = (arr: { period: string; value: number }[]) => {
+    const filledArray = new Array<{ period: string; value: number }>(12).fill({
+      period: '',
+      value: 0,
+    });
+
+    const monthWithData = arr.map((item) => DateTime.fromISO(item.period || '').month);
+    monthWithData.forEach((item) => {
+      filledArray[item - 1] = {
+        period: '',
+        value: item,
+      };
+    });
+    return filledArray;
+  };
   // implement function to process data from APi for the chart
-  const processDataPerMonth = (charValues: Partial<ExpenseDto>[], year: DateTime) => {
-    const valuesYearSelect = charValues.filter(
-      (charValue) => DateTime.fromISO(charValue?.period || '').year === year.year
+  const processDataPerMonth = useCallback(() => {
+    const valuesYearSelect = monthly.filter(
+      (charValue) => DateTime.fromISO(charValue?.period || '').year === selectedYear
     );
-    const prediction = valuesYearSelect.map((item) => item?.prediction);
-    const actuals = valuesYearSelect.map((item) => item?.actuals);
-    const discontinued = valuesYearSelect.map((item) => item?.discontinued);
+    const prediction = fillArrayWhenNoData(
+      valuesYearSelect.map((item) => ({
+        value: item.prediction || 0,
+        period: item.period || '',
+      }))
+    );
+    const actuals = fillArrayWhenNoData(
+      valuesYearSelect.map((item) => ({
+        value: item.actuals || 0,
+        period: item.period || '',
+      }))
+    );
+    const discontinued = fillArrayWhenNoData(
+      valuesYearSelect.map((item) => ({
+        value: item.discontinued || 0,
+        period: item.period || '',
+      }))
+    );
+
     return {
       prediction,
       actuals,
       discontinued,
     };
-  };
+  }, [monthly, selectedYear]);
 
-  const valuesForChart = processDataPerMonth(monthly, DateTime.fromISO('2023-01'));
+  const valuesForChart = processDataPerMonth();
   const noneBorder = [0, 0, 0, 0];
   const lowerBorder = [0, 0, 6, 6];
   const superiorBorder = [6, 6, 0, 0];
@@ -145,23 +176,25 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
 
   const newActual = valuesForChart.actuals.map((item, index: number) => ({
     name: 'Active Budget',
-    value: item,
+    value: item.value,
     itemStyle: {
       borderRadius:
-        valuesForChart.discontinued[index] === 0 && valuesForChart.prediction[index] === 0 ? fullBorder : lowerBorder,
+        valuesForChart.discontinued[index].value === 0 && valuesForChart.prediction[index].value === 0
+          ? fullBorder
+          : lowerBorder,
     },
   }));
 
   const newDiscontinued = valuesForChart.discontinued.map((item, index: number) => ({
     name: 'Discontinued',
-    value: item,
+    value: item.value,
     itemStyle: {
       borderRadius:
-        valuesForChart.actuals[index] === 0 && valuesForChart.prediction[index] === 0
+        valuesForChart.actuals[index].value === 0 && valuesForChart.prediction[index].value === 0
           ? fullBorder
-          : valuesForChart.actuals[index] !== 0 && valuesForChart.prediction[index] !== 0
+          : valuesForChart.actuals[index].value !== 0 && valuesForChart.prediction[index].value !== 0
           ? noneBorder
-          : valuesForChart.actuals[index] !== 0 && valuesForChart.prediction[index] === 0
+          : valuesForChart.actuals[index].value !== 0 && valuesForChart.prediction[index].value === 0
           ? superiorBorder
           : lowerBorder,
     },
@@ -169,10 +202,12 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
 
   const newPrediction = valuesForChart.prediction.map((item, index: number) => ({
     name: 'Expense forecasts',
-    value: item,
+    value: item.value,
     itemStyle: {
       borderRadius:
-        valuesForChart.actuals[index] === 0 && valuesForChart.prediction[index] === 0 ? fullBorder : superiorBorder,
+        valuesForChart.actuals[index].value === 0 && valuesForChart.prediction[index].value === 0
+          ? fullBorder
+          : superiorBorder,
     },
   }));
 
