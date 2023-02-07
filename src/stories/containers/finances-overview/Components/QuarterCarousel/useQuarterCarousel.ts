@@ -23,7 +23,7 @@ const useQuarterCarousel = (quarters: ExpenseDto[]) => {
   };
 
   const moveToRightQuarter = (swiper: SwiperCore) => {
-    const currentDate = DateTime.now().minus({ month: 1 });
+    const currentDate = DateTime.now();
     const currentQuarter = currentDate.quarter;
 
     const monthOfQuarter = ((currentDate.month - 1) % 3) + 1;
