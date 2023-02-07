@@ -15,14 +15,14 @@ type FinancesOverviewContainerProps = {
 };
 
 const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ quarterExpenses }) => {
-  const { isLight, selectedYear, handleChangeSelectYear, years } = useFinancesOverview();
+  const { isLight, sortedQuarters, selectedYear, handleChangeSelectYear, years } = useFinancesOverview(quarterExpenses);
 
   return (
     <Container isLight={isLight}>
       <InnerPage>
         <PageTitle isLight={isLight}>Total Core Unit Expenses</PageTitle>
 
-        <QuarterCarousel quarters={quarterExpenses} />
+        <QuarterCarousel quarters={sortedQuarters} />
         <YearPicker selectedYear={selectedYear} handleOnclick={handleChangeSelectYear} years={years} />
         <ExpensesChartSection total={17892312} />
 
@@ -102,6 +102,10 @@ const PageTitle = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
     fontSize: 32,
     fontWeight: 500,
     lineHeight: '38px',
+    marginBottom: 40,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     marginBottom: 32,
   },
 }));
