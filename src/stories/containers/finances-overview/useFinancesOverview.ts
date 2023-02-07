@@ -15,6 +15,10 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
     [quarterExpenses]
   );
 
+  const [selectedYear, setSelectedYear] = useState<number>(() => DateTime.local().year);
+
+  const { isLight } = useThemeContext();
+  const years = [2021, 2022, 2023];
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const mockData = [
     {
@@ -102,11 +106,6 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
       discontinued: 0,
     },
   ];
-  const [selectedYear, setSelectedYear] = useState<number>(() => DateTime.local().year);
-
-  const { isLight } = useThemeContext();
-  const years = [2021, 2022, 2023];
-
   const handleChangeSelectYear = (year: number) => {
     setSelectedYear(year);
   };

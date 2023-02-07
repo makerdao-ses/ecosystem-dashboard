@@ -139,3 +139,12 @@ export const getCommentVerb = (
   }
   return 'wrote';
 };
+
+export const replaceAllNumberLetOneBeforeDot = (value: number, dividerValue: number) => {
+  const getNumberBeforeDot = (value / dividerValue).toString().replace('0', '');
+  if (getNumberBeforeDot.length === 2) {
+    return getNumberBeforeDot.split('').join('.');
+  } else {
+    return getNumberBeforeDot;
+  }
+};

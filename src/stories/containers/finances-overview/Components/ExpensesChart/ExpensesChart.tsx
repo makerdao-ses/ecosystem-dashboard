@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string.utils';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import { DateTime } from 'luxon';
-import React from 'react';
+import React, { useState } from 'react';
 import useFinancesOverview from '../../useFinancesOverview';
 import type { ValuesDataWithBorder } from '@ses/core/models/dto/chart.dto';
 import type { ExpenseDto } from '@ses/core/models/dto/expenses.dto';
@@ -103,9 +104,11 @@ const ExpensesChart: React.FC<Props> = ({ monthly, newActual, newDiscontinued, n
         // eslint-disable-next-line spellcheck/spell-checker
         formatter: function (value: number) {
           if (value >= 1000000) {
-            return (value / 1000000).toFixed(1) + 'M';
+            const formatWithTwoTensAndDot = replaceAllNumberLetOneBeforeDot(value, 1000000);
+            return formatWithTwoTensAndDot + 'M';
           } else if (value >= 1000) {
-            return (value / 1000).toFixed(1) + 'K';
+            const formatWithTwoTensAndDot = replaceAllNumberLetOneBeforeDot(value, 1000000);
+            return formatWithTwoTensAndDot + 'K';
           } else {
             return value.toString();
           }
