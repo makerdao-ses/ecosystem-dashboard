@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-// import useMediaQuery from '@mui/material/useMediaQuery';
 import { CustomButton } from '@ses/components/custom-button/custom-button';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ButtonType } from '@ses/core/enums/button-type.enum';
@@ -13,7 +12,7 @@ interface Props {
   handleOnclick: (year: number) => void;
 }
 
-const YearPicker = ({ years, selectedYear, handleOnclick }: Props) => {
+const YearPicker: React.FC<Props> = ({ years, selectedYear, handleOnclick }) => {
   const { isLight } = useThemeContext();
   const onclick = (year: number) => () => {
     handleOnclick(year);
@@ -21,33 +20,54 @@ const YearPicker = ({ years, selectedYear, handleOnclick }: Props) => {
 
   return (
     <Container>
-      {years.map((year) => (
-        <ContainerButtons key={year}>
-          <PickerButtonStyle
-            onClick={onclick(year)}
-            buttonType={ButtonType.Secondary}
-            widthText="100%"
-            label={year.toString()}
-            style={{
-              background: ButtonPickerStyle(isLight, year === selectedYear).background,
-              textAlign: 'center',
-              borderRadius: '22px',
-              borderColor: ButtonPickerStyle(isLight, year === selectedYear).borderColor,
-              boxShadow: ButtonPickerStyle(isLight, year === selectedYear).boxShadow,
-              fontFamily: 'Inter, sans serif',
-              fontStyle: 'normal',
-              fontWeight: 500,
-            }}
-            allowsHover={false}
-            styleText={{
-              color: ButtonPickerStyle(isLight, year === selectedYear).textColor,
-            }}
-          />
-        </ContainerButtons>
-      ))}
+      {years.map((year) => {
+        const currentButtonStyles = ButtonPickerStyle(isLight, year === selectedYear);
+        return (
+          <ContainerButtons key={year}>
+            <CustomButton
+              onClick={onclick(year)}
+              buttonType={ButtonType.Secondary}
+              widthText="100%"
+              label={year.toString()}
+              style={{
+                background: currentButtonStyles.background,
+                borderColor: currentButtonStyles.borderColor,
+                boxShadow: currentButtonStyles.boxShadow,
+                borderRadius: '22px',
+                fontFamily: 'Inter, sans serif',
+                fontStyle: 'normal',
+                width: 83,
+                height: 34,
+
+                [lightTheme.breakpoints.up('table_834')]: {
+                  width: 120,
+                  height: 48,
+                },
+              }}
+              allowsHover={false}
+              styleText={{
+                color: currentButtonStyles.textColor,
+                fontWeight: 500,
+                fontSize: 14,
+                lineHeight: '18px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+
+                [lightTheme.breakpoints.up('table_834')]: {
+                  fontSize: '16px!important',
+                  lineHeight: '19px!important',
+                },
+              }}
+            />
+          </ContainerButtons>
+        );
+      })}
     </Container>
   );
 };
+
+export default YearPicker;
 
 const Container = styled.div({
   display: 'flex',
@@ -60,20 +80,3 @@ const ContainerButtons = styled.div({
   display: 'flex',
   position: 'relative',
 });
-
-const PickerButtonStyle = styled(CustomButton)({
-  width: '83px',
-  height: '34px',
-  padding: '8px 24px',
-  fontSize: '14px',
-  lineHeight: '18px',
-  [lightTheme.breakpoints.up('table_834')]: {
-    width: '120px',
-    height: '48px',
-    padding: '14.5px 40px',
-    fontSize: '16px',
-    lineHeight: '19px',
-  },
-});
-
-export default YearPicker;
