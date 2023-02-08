@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 import { LinkButton } from '@ses/components/link-button/link-button';
+import { SEOHead } from '@ses/components/seo-head/seo-head';
 import { siteRoutes } from '@ses/config/routes';
 import { ButtonType } from '@ses/core/enums/button-type.enum';
+import { toAbsoluteURL } from '@ses/core/utils/url.utils';
 import React from 'react';
 import lightTheme from 'styles/theme/light';
 import ExpensesChartSection from './Components/ExpensesChartSection/ExpensesChartSection';
@@ -30,6 +32,16 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ m
 
   return (
     <Container isLight={isLight}>
+      <SEOHead
+        title="MakerDAO Ecosystem Performance Dashboard | Maker Expenses"
+        description="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
+        image={{
+          src: toAbsoluteURL('/assets/img/social-385x200.png'),
+          width: 385,
+          height: 200,
+        }}
+        twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
+      />
       <InnerPage>
         <PageTitle isLight={isLight}>Total Core Unit Expenses</PageTitle>
 
