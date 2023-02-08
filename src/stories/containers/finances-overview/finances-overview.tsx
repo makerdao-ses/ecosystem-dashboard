@@ -128,5 +128,5 @@ const PageTitle = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
 
 const FooterButtonContainer = styled.div({
   textAlign: 'center',
-  marginBottom: 32,
+  marginBottom: 64,
 });
