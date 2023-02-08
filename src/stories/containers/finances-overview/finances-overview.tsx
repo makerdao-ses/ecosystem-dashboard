@@ -27,6 +27,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ m
     totalExpenses,
     sortedQuarters,
   } = useFinancesOverview(quarterExpenses, monthlyExpenses);
+
   return (
     <Container isLight={isLight}>
       <InnerPage>
@@ -36,7 +37,6 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ m
         <YearPicker selectedYear={selectedYear} handleOnclick={handleChangeSelectYear} years={years} />
         <ExpensesChartSection
           totalExpenses={totalExpenses()?.toLocaleString('es-US') || '0'}
-          monthly={monthlyExpenses}
           newActual={newActual}
           newDiscontinued={newDiscontinued}
           newPrediction={newPrediction}

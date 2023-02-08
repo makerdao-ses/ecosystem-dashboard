@@ -1,25 +1,22 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string.utils';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
-import { DateTime } from 'luxon';
-import React, { useState } from 'react';
-import useFinancesOverview from '../../useFinancesOverview';
+
+import React from 'react';
+
 import LegendItem from './LegendItem';
 import type { ValuesDataWithBorder } from '@ses/core/models/dto/chart.dto';
-import type { ExpenseDto } from '@ses/core/models/dto/expenses.dto';
 
 interface Props {
-  monthly: Partial<ExpenseDto>[];
   newActual: ValuesDataWithBorder[];
   newDiscontinued: ValuesDataWithBorder[];
   newPrediction: ValuesDataWithBorder[];
 }
 
-const ExpensesChart: React.FC<Props> = ({ monthly, newActual, newDiscontinued, newPrediction }: Props) => {
+const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPrediction }: Props) => {
   const { isLight } = useThemeContext();
   const upTable = useMediaQuery(lightTheme.breakpoints.up('table_834'));
   // eslint-disable-next-line spellcheck/spell-checker
@@ -50,21 +47,18 @@ const ExpensesChart: React.FC<Props> = ({ monthly, newActual, newDiscontinued, n
         fontSize: 9,
         lineHeight: 11,
         baseline: 'top',
+        interval: 0,
       },
     },
     yAxis: {
       axisLabel: {
         // eslint-disable-next-line spellcheck/spell-checker
-        formatter: function (value: number) {
-          if (value >= 1000000) {
-            const formatWithTwoTensAndDot = replaceAllNumberLetOneBeforeDot(value, 1000000);
-            return formatWithTwoTensAndDot + 'M';
-          } else if (value >= 1000) {
-            const formatWithTwoTensAndDot = replaceAllNumberLetOneBeforeDot(value, 10000);
-            return formatWithTwoTensAndDot + 'K';
-          } else {
+        formatter: function (value: number, index: number) {
+          if (value === 0 && index === 0) {
             return value.toString();
           }
+
+          return replaceAllNumberLetOneBeforeDot(value).replace(/\.?0+$/g, '');
         },
         color: isLight ? '#231536' : '#EDEFFF',
       },
