@@ -20,7 +20,7 @@ const HorizontalBudgetBar: React.FC<HorizontalBudgetBarProps> = ({ actuals, pred
   const updateBars = useCallback(() => {
     if (!barRef) return;
     const barWidth = barRef.current?.offsetWidth || 1;
-    const maxPercentage = 90;
+    const maxPercentage = 87;
     const max = (barWidth * maxPercentage) / 100;
     const maxValue = Math.max(actuals, prediction, budgetCap) || 1;
 
