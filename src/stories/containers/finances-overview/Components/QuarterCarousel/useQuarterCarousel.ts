@@ -44,6 +44,8 @@ const useQuarterCarousel = (quarters: ExpenseDto[]) => {
       targetIndex = newIndex >= 0 ? newIndex : targetIndex;
     }
     swiper.slideTo(targetIndex, 0);
+
+    handleDivider(swiper);
   };
 
   const swiperOptions = {
