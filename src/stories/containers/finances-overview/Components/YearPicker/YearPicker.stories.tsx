@@ -19,72 +19,31 @@ const variantsArgs = [
   },
 ];
 
-export const [[Picker, YearPickerDark]] = createThemeModeVariants(YearPicker, variantsArgs);
-Picker.parameters = {
+export const [[LightMode, DarkMode]] = createThemeModeVariants(YearPicker, variantsArgs);
+LightMode.parameters = {
   figma: {
     component: {
       375: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13399%3A147675&t=utVlw3yjgH350GT2-4',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13399%3A147675',
         options: {
           componentStyle: {
-            width: 375,
+            width: 'fit-content',
           },
           style: {
-            top: -5,
-            left: -50,
-            width: 375,
+            top: -3,
+            left: -99,
           },
         },
       },
       834: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13451%3A150494&t=utVlw3yjgH350GT2-4',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13451%3A150494',
         options: {
           componentStyle: {
-            width: 834,
-            display: 'flex',
-            justifyContent: 'center',
+            width: 'fit-content',
           },
           style: {
             top: -4,
-            left: 223,
-          },
-        },
-      },
-    },
-  } as FigmaParams,
-};
-
-YearPickerDark.parameters = {
-  figma: {
-    component: {
-      375: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13451%3A150493&t=utVlw3yjgH350GT2-4',
-        options: {
-          componentStyle: {
-            width: 375,
-          },
-          style: {
-            top: -5,
-            left: -50,
-            width: 375,
-          },
-        },
-      },
-      834: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13451%3A150493&t=utVlw3yjgH350GT2-4',
-        options: {
-          componentStyle: {
-            width: 834,
-            display: 'flex',
-            justifyContent: 'center',
-          },
-          style: {
-            top: -4,
-            left: 223,
+            left: 0,
           },
         },
       },
