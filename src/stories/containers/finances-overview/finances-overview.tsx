@@ -34,7 +34,9 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ m
         <PageTitle isLight={isLight}>Total Core Unit Expenses</PageTitle>
 
         <QuarterCarousel quarters={sortedQuarters} />
-        <YearPicker selectedYear={selectedYear} handleOnclick={handleChangeSelectYear} years={years} />
+        <ContainerYearPicker>
+          <YearPicker selectedYear={selectedYear} handleOnclick={handleChangeSelectYear} years={years} />
+        </ContainerYearPicker>
         <ExpensesChartSection
           totalExpenses={totalExpenses()?.toLocaleString('es-US') || '0'}
           newActual={newActual}
@@ -129,4 +131,11 @@ const PageTitle = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
 const FooterButtonContainer = styled.div({
   textAlign: 'center',
   marginBottom: 64,
+});
+
+const ContainerYearPicker = styled.div({
+  marginBottom: 24,
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginBottom: 16,
+  },
 });

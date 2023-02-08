@@ -150,17 +150,20 @@ const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPredict
 };
 
 const Container = styled.div({
-  height: 387,
+  height: 343,
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
+  [lightTheme.breakpoints.up('table_834')]: {
+    height: 387,
+  },
 });
 
 const Legend = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'flex-start',
-
+  marginBottom: -24,
   gap: 29,
   [lightTheme.breakpoints.up('table_834')]: {
     gap: 50,
