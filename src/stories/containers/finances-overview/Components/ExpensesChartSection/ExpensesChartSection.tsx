@@ -23,7 +23,7 @@ const ExpensesChartSection: React.FC<Props> = ({ totalExpenses, newActual, newDi
           <Line isLight={isLight} />
         </div>
 
-        <TotalDescription isLight={isLight}>Total Expenses</TotalDescription>
+        <TotalDescription isLight={isLight}>Total Reported Expenses</TotalDescription>
       </DetailContainer>
 
       <ExpensesChart newActual={newActual} newDiscontinued={newDiscontinued} newPrediction={newPrediction} />

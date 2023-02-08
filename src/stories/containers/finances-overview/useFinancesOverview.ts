@@ -14,7 +14,7 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
       }),
     [quarterExpenses]
   );
-  const [selectedYear, setSelectedYear] = useState<number>(() => DateTime.local().year);
+  const [selectedYear, setSelectedYear] = useState<number>(() => DateTime.local().minus({ year: 1 }).year);
 
   const { isLight } = useThemeContext();
   const years = [2021, 2022, 2023];
@@ -146,19 +146,6 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
     const valuesYearSelect = monthly.filter(
       (charValue) => DateTime.fromISO(charValue?.period || '').year === selectedYear
     );
-    const prediction = fillArrayWhenNoData(
-      valuesYearSelect.map((item) => ({
-        value: item.prediction || 0,
-        period: item.period || '',
-      }))
-    );
-
-    const actuals = fillArrayWhenNoData(
-      valuesYearSelect.map((item) => ({
-        value: item.actuals || 0,
-        period: item.period || '',
-      }))
-    );
 
     const discontinued = fillArrayWhenNoData(
       valuesYearSelect.map((item) => ({
@@ -166,7 +153,18 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
         period: item.period || '',
       }))
     );
-
+    const actuals = fillArrayWhenNoData(
+      valuesYearSelect.map((item, index) => ({
+        value: (item.actuals || 0) - discontinued[index].value,
+        period: item.period || '',
+      }))
+    );
+    const prediction = fillArrayWhenNoData(
+      valuesYearSelect.map((item, index) => ({
+        value: (item.prediction || 0) - actuals[index].value,
+        period: item.period || '',
+      }))
+    );
     return {
       prediction,
       actuals,
