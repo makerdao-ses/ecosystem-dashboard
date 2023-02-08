@@ -54,7 +54,6 @@ const Container = styled.div({
   flexDirection: 'row',
   justifyContent: 'center',
   gap: 16,
-  marginBottom: 40,
 });
 
 const ContainerButtons = styled.div({

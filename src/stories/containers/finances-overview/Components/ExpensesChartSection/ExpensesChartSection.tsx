@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import ExpensesChart from '../ExpensesChart/ExpensesChart';
 import type { ValuesDataWithBorder } from '@ses/core/models/dto/chart.dto';
@@ -14,7 +15,6 @@ interface Props {
 
 const ExpensesChartSection: React.FC<Props> = ({ totalExpenses, newActual, newDiscontinued, newPrediction }) => {
   const { isLight } = useThemeContext();
-
   return (
     <Container>
       <DetailContainer>
@@ -42,6 +42,9 @@ const DetailContainer = styled.div({
   flexDirection: 'column',
   alignItems: 'center',
   marginBottom: 16,
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    marginBottom: 32,
+  },
 });
 
 const Label = styled.label<{ isLight: boolean }>(({ isLight }) => ({
@@ -53,6 +56,11 @@ const Label = styled.label<{ isLight: boolean }>(({ isLight }) => ({
   letterSpacing: ' 0.4px',
   textTransform: 'uppercase',
   color: isLight ? '#231536' : '#EDEFFF',
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: '32px',
+    lineHeight: '39px',
+    letterSpacing: '0.4px',
+  },
 }));
 
 const TotalDescription = styled.label<{ isLight: boolean }>(({ isLight }) => ({
@@ -63,6 +71,13 @@ const TotalDescription = styled.label<{ isLight: boolean }>(({ isLight }) => ({
   lineHeight: '22px',
   color: isLight ? '#231536' : '#EDEFFF',
   marginTop: 4,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontWeight: 500,
+    fontSize: 20,
+    lineHeight: ' 24px',
+    letterSpacing: '0.4px',
+  },
 }));
 
 const Line = styled.div<{ isLight: boolean }>(({ isLight }) => ({

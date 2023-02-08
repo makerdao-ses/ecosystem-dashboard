@@ -1,4 +1,5 @@
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { truncateDecimal } from '@ses/core/utils/number.utils';
 import { DateTime } from 'luxon';
 import { useCallback, useMemo, useState } from 'react';
 import { parseQuarter } from './utils/quarters';
@@ -35,9 +36,9 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
     );
 
     const prediction = valuesYearSelect.map((item) => item?.prediction) || [];
-    const moment = prediction?.reduce((current, next) => (current || 0) + (next || 0), 0);
+    const total = prediction?.reduce((current, next) => (current || 0) + (next || 0), 0);
 
-    return moment;
+    return truncateDecimal(total || 0, 0);
   }, [monthly, selectedYear]);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
