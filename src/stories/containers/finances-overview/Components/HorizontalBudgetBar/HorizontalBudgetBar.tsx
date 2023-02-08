@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import React from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import lightTheme from 'styles/theme/light';
 import type { WithIsLight } from '@ses/core/utils/types-helpers';
 
@@ -10,16 +10,34 @@ export type HorizontalBudgetBarProps = {
   budgetCap: number;
 };
 
-// disable unused variable till this implementation is finished
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const HorizontalBudgetBar: React.FC<HorizontalBudgetBarProps> = ({ actuals, prediction, budgetCap }) => {
   const { isLight } = useThemeContext();
+  const barRef = useRef<HTMLDivElement>(null);
+  const [actualsWidth, setActualsWidth] = useState<number>(0);
+  const [predictionWidth, setPredictionWidth] = useState<number>(0);
+  const [budgetCapPosition, setBudgetCapPosition] = useState<number>(0);
+
+  const updateBars = useCallback(() => {
+    if (!barRef) return;
+    const barWidth = barRef.current?.offsetWidth || 1;
+    const maxPercentage = 87;
+    const max = (barWidth * maxPercentage) / 100;
+    const maxValue = Math.max(actuals, prediction, budgetCap) || 1;
+
+    setActualsWidth(((actuals / maxValue) * max * maxPercentage) / max);
+    setPredictionWidth(((prediction / maxValue) * max * maxPercentage) / max);
+    setBudgetCapPosition(((budgetCap / maxValue) * max * maxPercentage) / max);
+  }, [actuals, budgetCap, prediction]);
+
+  useEffect(() => {
+    updateBars();
+  }, [updateBars]);
 
   return (
-    <BarContainer isLight={isLight}>
-      {prediction - actuals > 0 && <Difference isLight={isLight} width={40 + 15} />}
-      <Actuals isLight={isLight} width={40} />
-      <BudgetCapLine />
+    <BarContainer isLight={isLight} ref={barRef}>
+      {prediction - actuals > 0 && <Prediction isLight={isLight} width={predictionWidth} />}
+      <Actuals isLight={isLight} width={actualsWidth} />
+      <BudgetCapLine position={budgetCapPosition} />
     </BarContainer>
   );
 };
@@ -48,31 +66,33 @@ const Actuals = styled.div<WithIsLight & { width: number }>(({ isLight, width })
   borderRadius: 4,
   width: `${width}%`,
   height: '100%',
+  transition: 'width 0.85s ease-in-out',
 
   [lightTheme.breakpoints.up('table_834')]: {
     borderRadius: 8,
   },
 }));
 
-const Difference = styled.div<WithIsLight & { width: number }>(({ isLight, width }) => ({
+const Prediction = styled.div<WithIsLight & { width: number }>(({ isLight, width }) => ({
   position: 'absolute',
   top: 0,
   left: 0,
   background: isLight ? '#68FEE3' : '#1AAB9B',
   borderRadius: 4,
-  width: `calc(${width}% - 4px)`,
+  width: `${width}%`,
   height: '100%',
+  transition: 'width 0.85s ease-in-out',
 
   [lightTheme.breakpoints.up('table_834')]: {
     borderRadius: 8,
   },
 }));
 
-const BudgetCapLine = styled.div({
+const BudgetCapLine = styled.div<{ position: number }>(({ position }) => ({
   position: 'absolute',
   top: 0,
-  right: 19,
+  left: `${position}%`,
   width: 1,
   height: '100%',
   background: '#F75524',
-});
+}));
