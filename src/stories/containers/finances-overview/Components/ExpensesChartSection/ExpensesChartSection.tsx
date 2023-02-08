@@ -3,23 +3,16 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
 import ExpensesChart from '../ExpensesChart/ExpensesChart';
 import type { ValuesDataWithBorder } from '@ses/core/models/dto/chart.dto';
-import type { ExpenseDto } from '@ses/core/models/dto/expenses.dto';
 
 interface Props {
   totalExpenses: string;
-  monthly: Partial<ExpenseDto>[];
+
   newActual: ValuesDataWithBorder[];
   newDiscontinued: ValuesDataWithBorder[];
   newPrediction: ValuesDataWithBorder[];
 }
 
-const ExpensesChartSection: React.FC<Props> = ({
-  totalExpenses,
-  monthly,
-  newActual,
-  newDiscontinued,
-  newPrediction,
-}: Props) => {
+const ExpensesChartSection: React.FC<Props> = ({ totalExpenses, newActual, newDiscontinued, newPrediction }: Props) => {
   const { isLight } = useThemeContext();
 
   return (
@@ -33,12 +26,7 @@ const ExpensesChartSection: React.FC<Props> = ({
         <TotalDescription isLight={isLight}>Total Expenses</TotalDescription>
       </DetailContainer>
 
-      <ExpensesChart
-        monthly={monthly}
-        newActual={newActual}
-        newDiscontinued={newDiscontinued}
-        newPrediction={newPrediction}
-      />
+      <ExpensesChart newActual={newActual} newDiscontinued={newDiscontinued} newPrediction={newPrediction} />
     </Container>
   );
 };
