@@ -35,9 +35,9 @@ const HorizontalBudgetBar: React.FC<HorizontalBudgetBarProps> = ({ actuals, pred
 
   return (
     <BarContainer isLight={isLight} ref={barRef}>
-      {prediction - actuals > 0 && <Prediction isLight={isLight} width={predictionWidth} />}
-      <Actuals isLight={isLight} width={actualsWidth} />
-      <BudgetCapLine position={budgetCapPosition} />
+      {prediction > 0 && <Prediction isLight={isLight} width={predictionWidth} />}
+      {actuals > 0 && <Actuals isLight={isLight} width={actualsWidth} />}
+      {budgetCap > 0 && <BudgetCapLine position={budgetCapPosition} />}
     </BarContainer>
   );
 };
