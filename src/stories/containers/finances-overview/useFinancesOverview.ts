@@ -124,7 +124,7 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
     value: item.value,
     itemStyle: {
       borderRadius:
-        valuesForChart.actuals[index].value === 0 && valuesForChart.prediction[index].value === 0
+        valuesForChart.actuals[index].value === 0 && valuesForChart.discontinued[index].value === 0
           ? fullBorder
           : superiorBorder,
     },
