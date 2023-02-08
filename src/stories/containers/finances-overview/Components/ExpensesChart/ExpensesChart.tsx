@@ -22,6 +22,9 @@ const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPredict
   // eslint-disable-next-line spellcheck/spell-checker
   const isZeroValue = false;
   const options = {
+    grid: {
+      right: upTable ? '10%' : '3%',
+    },
     xAxis: {
       type: 'category',
       data: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUNE', 'JULY', 'AUG', 'SEPT', 'OCT', 'NOV', 'DEC'],
@@ -138,6 +141,7 @@ const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPredict
           style={{
             height: '100%',
             width: '100vw',
+            maxWidth: upTable ? 607 : 343,
           }}
         />
       </Container>
@@ -150,9 +154,6 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
-  [lightTheme.breakpoints.up('table_834')]: {
-    maxWidth: 607,
-  },
 });
 
 const Legend = styled.div({
