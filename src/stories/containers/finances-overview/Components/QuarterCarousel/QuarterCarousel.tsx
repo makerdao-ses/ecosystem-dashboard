@@ -63,11 +63,10 @@ const CardWrapper = styled.div({
 
 const Divider = styled.div({
   width: 1,
-  height: 108,
+  height: 131,
   background: '#D4D9E1',
-  marginTop: 24,
 
   [lightTheme.breakpoints.up('table_834')]: {
-    height: 136,
+    height: 161,
   },
 });

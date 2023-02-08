@@ -157,6 +157,10 @@ const LegendItem = styled.div<WithIsLight & { dotColor: string }>(({ isLight, do
     fontSize: 14,
     lineHeight: '17px',
     alignItems: 'center',
+    paddingRight: 10,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     paddingRight: 12,
   },
 
@@ -190,6 +194,12 @@ const LegendNumber = styled.div({
   lineHeight: '12px',
 
   [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: 14,
+    lineHeight: '17px',
+    letterSpacing: '0.3px',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     fontSize: 16,
     lineHeight: '19px',
     letterSpacing: '0.3px',
@@ -214,6 +224,13 @@ const LegendLabel = styled.div({
   marginLeft: 3.1,
 
   [lightTheme.breakpoints.up('table_834')]: {
+    marginLeft: 4,
+    fontWeight: 400,
+    fontSize: 12,
+    lineHeight: '15px',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     marginLeft: 6,
     fontWeight: 400,
     fontSize: 14,
