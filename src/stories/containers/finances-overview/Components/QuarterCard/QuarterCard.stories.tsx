@@ -8,14 +8,14 @@ export default {
   component: QuarterCard,
   decorators: [
     (Story: Story) => (
-      <div style={{ maxWidth: 270 }}>
+      <div style={{ maxWidth: 270.5 }}>
         <Story />
       </div>
     ),
   ],
   parameters: {
     chromatic: {
-      viewports: [375, 834],
+      viewports: [375, 834, 1194],
       pauseAnimationAtEnd: true,
     },
   },
@@ -24,8 +24,8 @@ export default {
 
 const args = [
   {
-    period: '2022-Q4',
-    prediction: 5822365.0,
+    period: '2023-Q1',
+    prediction: 4232236.0,
     actuals: 5083445.0,
     budgetCap: 8394564.0,
   },
@@ -35,7 +35,7 @@ LightMode.parameters = {
   figma: {
     component: {
       0: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13399%3A147614',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13399%3A147644',
         options: {
           componentStyle: {
             width: 164,
@@ -47,10 +47,22 @@ LightMode.parameters = {
         },
       },
       834: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13399%3A144213 ',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13399%3A144929',
         options: {
           componentStyle: {
-            width: 266.5,
+            width: 246,
+          },
+          style: {
+            top: -1,
+            left: -40,
+          },
+        },
+      },
+      1194: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13399%3A144244',
+        options: {
+          componentStyle: {
+            width: 270.5,
           },
           style: {
             top: -1,
