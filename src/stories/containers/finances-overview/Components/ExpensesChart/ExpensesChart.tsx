@@ -47,6 +47,7 @@ const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPredict
         fontSize: 9,
         lineHeight: 11,
         baseline: 'top',
+        interval: 0,
       },
     },
     yAxis: {

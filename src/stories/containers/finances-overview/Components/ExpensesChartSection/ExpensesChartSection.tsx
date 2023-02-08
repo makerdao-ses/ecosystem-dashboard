@@ -12,7 +12,7 @@ interface Props {
   newPrediction: ValuesDataWithBorder[];
 }
 
-const ExpensesChartSection: React.FC<Props> = ({ totalExpenses, newActual, newDiscontinued, newPrediction }: Props) => {
+const ExpensesChartSection: React.FC<Props> = ({ totalExpenses, newActual, newDiscontinued, newPrediction }) => {
   const { isLight } = useThemeContext();
 
   return (

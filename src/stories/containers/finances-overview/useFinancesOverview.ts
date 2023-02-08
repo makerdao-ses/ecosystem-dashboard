@@ -3,6 +3,12 @@ import { DateTime } from 'luxon';
 import { useCallback, useMemo, useState } from 'react';
 import { parseQuarter } from './utils/quarters';
 import type { ExpenseDto } from '@ses/core/models/dto/expenses.dto';
+
+const noneBorder = [0, 0, 0, 0];
+const lowerBorder = [0, 0, 6, 6];
+const superiorBorder = [6, 6, 0, 0];
+const fullBorder = [16, 16, 46, 46];
+
 const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partial<ExpenseDto>[]) => {
   const sortedQuarters = useMemo(
     () =>
@@ -18,94 +24,6 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
 
   const { isLight } = useThemeContext();
   const years = [2021, 2022, 2023];
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const mockData = [
-    {
-      period: '2023-01',
-      budget: '/makerdao/core-units',
-      prediction: 13512500.0,
-      actuals: 12465122.0,
-      discontinued: 13512500.0,
-    },
-    {
-      period: '2023-02',
-      budget: '/makerdao/core-units',
-      prediction: 13512500.0,
-      actuals: 12465122.0,
-      discontinued: 15132650.0,
-    },
-    {
-      period: '2023-03',
-      budget: '/makerdao/core-units',
-      prediction: 13512500.0,
-      actuals: 12465122.0,
-      discontinued: 15132650.0,
-    },
-    {
-      period: '2023-04',
-      budget: '/makerdao/core-units',
-      prediction: 13512500.0,
-      actuals: 1230000.0,
-      discontinued: 15132650.0,
-    },
-    {
-      period: '2023-05',
-      budget: '/makerdao/core-units',
-      prediction: 13512500.0,
-      actuals: 34234343.0,
-      discontinued: 15132650.0,
-    },
-    {
-      period: '2023-06',
-      budget: '/makerdao/core-units',
-      prediction: 13512500.0,
-      actuals: 23234343.0,
-      discontinued: 15132650.0,
-    },
-    {
-      period: '2023-07',
-      budget: '/makerdao/core-units',
-      prediction: 13512500.0,
-      actuals: 4451000.0,
-      discontinued: 15132650.0,
-    },
-    {
-      period: '2023-08',
-      budget: '/makerdao/core-units',
-      prediction: 13512500.0,
-      actuals: 23212343.0,
-      discontinued: 15132650.0,
-    },
-    {
-      period: '2023-09',
-      budget: '/makerdao/core-units',
-      prediction: 13512500.0,
-      actuals: 3234343.0,
-      discontinued: 15132650.0,
-    },
-    {
-      period: '2023-10',
-      budget: '/makerdao/core-units',
-      prediction: 0.0,
-      actuals: 1934343.0,
-      discontinued: 3932650.0,
-    },
-    {
-      period: '2023-11',
-      budget: '/makerdao/core-units',
-      prediction: 0,
-      actuals: 3334343.0,
-      discontinued: 433432,
-    },
-    {
-      period: '2023-12',
-      budget: '/makerdao/core-units',
-      prediction: 41345123.0,
-      actuals: 34545456,
-      discontinued: 0,
-    },
-  ];
 
   const handleChangeSelectYear = (year: number) => {
     setSelectedYear(year);
@@ -155,13 +73,14 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
     );
     const actuals = fillArrayWhenNoData(
       valuesYearSelect.map((item, index) => ({
-        value: (item.actuals || 0) - discontinued[index].value,
+        value:
+          (item.actuals ?? 0) - discontinued[index].value < 0 ? 0 : (item.actuals ?? 0) - discontinued[index].value,
         period: item.period || '',
       }))
     );
     const prediction = fillArrayWhenNoData(
       valuesYearSelect.map((item, index) => ({
-        value: (item.prediction || 0) - actuals[index].value,
+        value: (item.prediction ?? 0) - actuals[index].value < 0 ? 0 : (item.prediction ?? 0) - actuals[index].value,
         period: item.period || '',
       }))
     );
@@ -173,10 +92,6 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
   }, [fillArrayWhenNoData, monthly, selectedYear]);
 
   const valuesForChart = processDataPerMonth();
-  const noneBorder = [0, 0, 0, 0];
-  const lowerBorder = [0, 0, 6, 6];
-  const superiorBorder = [6, 6, 0, 0];
-  const fullBorder = [16, 16, 46, 46];
 
   const newActual = valuesForChart.actuals.map((item, index: number) => ({
     name: 'Active Budget',
