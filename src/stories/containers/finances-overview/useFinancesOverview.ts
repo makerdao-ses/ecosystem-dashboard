@@ -73,13 +73,14 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
     );
     const actuals = fillArrayWhenNoData(
       valuesYearSelect.map((item, index) => ({
-        value: (item.actuals || 0) - discontinued[index].value,
+        value:
+          (item.actuals ?? 0) - discontinued[index].value < 0 ? 0 : (item.actuals ?? 0) - discontinued[index].value,
         period: item.period || '',
       }))
     );
     const prediction = fillArrayWhenNoData(
       valuesYearSelect.map((item, index) => ({
-        value: (item.prediction || 0) - actuals[index].value,
+        value: (item.prediction ?? 0) - actuals[index].value < 0 ? 0 : (item.prediction ?? 0) - actuals[index].value,
         period: item.period || '',
       }))
     );
