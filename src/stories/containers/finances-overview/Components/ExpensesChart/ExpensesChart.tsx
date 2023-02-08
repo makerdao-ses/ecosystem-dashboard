@@ -56,7 +56,7 @@ const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPredict
           if (value === 0 && index === 0) {
             return value.toString();
           }
-          console.log('value: ' + typeof value);
+
           return replaceAllNumberLetOneBeforeDot(value).replace(/\.?0+$/g, '');
         },
         color: isLight ? '#231536' : '#EDEFFF',
