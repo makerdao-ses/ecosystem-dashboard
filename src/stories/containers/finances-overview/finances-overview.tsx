@@ -71,10 +71,8 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   alignItems: 'center',
   marginTop: '64px',
   flex: 1,
-  backgroundColor: isLight ? '#FFFFFF' : '#000000',
-  backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
-  backgroundAttachment: 'fixed',
-  backgroundSize: 'cover',
+  background: isLight ? '#FFFFFF' : '#000000',
+  backgroundImage: isLight ? '#FFFFFF' : 'linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 16, 32, 0.4) 100%)',
   maxWidth: '100vw',
   overflow: 'hidden',
 }));
