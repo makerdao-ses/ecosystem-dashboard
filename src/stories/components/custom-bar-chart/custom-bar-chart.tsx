@@ -62,20 +62,10 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
     if (!value) return 0;
 
     const allItems = [...(props?.items?.map((item) => item?.value || 0) || []), ...(props?.maxValues || [])];
-    const min = Math.min(...allItems);
     const max = Math.max(...allItems);
-    let minLimit = 5;
-    let maxLimit = 50;
+    const maxLimit = 45;
 
-    if (((max - min) * 100) / max >= 85) {
-      minLimit = 20;
-      maxLimit = 40;
-    } else if (((max - min) * 100) / max <= 1) {
-      minLimit = 45;
-      maxLimit = 50;
-    }
-
-    return ((value - min) / (max - min)) * (maxLimit - minLimit) + minLimit;
+    return (value / max) * maxLimit;
   };
 
   const isValueValid = (value: number): boolean => value > 0 && !!max(props.maxValues);
