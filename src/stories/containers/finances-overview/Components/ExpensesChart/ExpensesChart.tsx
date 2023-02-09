@@ -74,7 +74,7 @@ const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPredict
       },
       splitLine: {
         lineStyle: {
-          color: isLight ? '#9FAFB9' : '#D8E0E3',
+          color: isLight ? '#31424E' : '#D8E0E3',
           width: isZeroValue ? 0 : 0.25,
         },
       },
