@@ -27,7 +27,7 @@ const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPredict
     },
     xAxis: {
       type: 'category',
-      data: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUNE', 'JULY', 'AUG', 'SEPT', 'OCT', 'NOV', 'DEC'],
+      data: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
       splitLine: {
         show: false,
       },
