@@ -7,7 +7,7 @@ import type { ExpenseDto } from '@ses/core/models/dto/expenses.dto';
 const noneBorder = [0, 0, 0, 0];
 const lowerBorder = [0, 0, 6, 6];
 const superiorBorder = [6, 6, 0, 0];
-const fullBorder = [16, 16, 46, 46];
+const fullBorder = [6, 6, 6, 6];
 
 const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partial<ExpenseDto>[]) => {
   const sortedQuarters = useMemo(
