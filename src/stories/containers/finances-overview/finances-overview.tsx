@@ -127,9 +127,10 @@ const PageTitle = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
   marginBottom: 24,
 
   [lightTheme.breakpoints.up('table_834')]: {
-    fontSize: 32,
-    fontWeight: 500,
-    lineHeight: '38px',
+    fontSize: 24,
+    fontWeight: 600,
+    lineHeight: '29px',
+    letterSpacing: '0.4px',
     marginBottom: 40,
   },
 
