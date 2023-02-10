@@ -31,6 +31,10 @@ const Doter = styled.div<{ color: string }>(({ color }) => ({
   width: 8,
   height: 8,
   borderRadius: '50%',
+  [lightTheme.breakpoints.up('table_834')]: {
+    width: 12,
+    height: 12,
+  },
 }));
 
 const Label = styled.label<{ isLight: boolean }>(({ isLight }) => ({

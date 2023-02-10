@@ -94,7 +94,6 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
   const valuesForChart = processDataPerMonth();
 
   const newActual = valuesForChart.actuals.map((item, index: number) => ({
-    name: 'Active Budget',
     value: item.value,
     itemStyle: {
       borderRadius:
@@ -105,7 +104,6 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
   }));
 
   const newDiscontinued = valuesForChart.discontinued.map((item, index: number) => ({
-    name: 'Discontinued',
     value: item.value,
     itemStyle: {
       borderRadius:
@@ -120,7 +118,6 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
   }));
 
   const newPrediction = valuesForChart.prediction.map((item, index: number) => ({
-    name: 'Expense forecasts',
     value: item.value,
     itemStyle: {
       borderRadius:
