@@ -37,6 +37,10 @@ const SwiperWrapper = styled.div({
   margin: '0 -8px',
 
   [lightTheme.breakpoints.up('table_834')]: {
+    marginBottom: 32,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     marginBottom: 24,
   },
 
