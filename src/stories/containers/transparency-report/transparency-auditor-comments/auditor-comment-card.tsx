@@ -36,7 +36,7 @@ const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({ comment, hasSta
 
   return (
     <GenericCommentCard variant={comment.status}>
-      <CommentHeader hasComment={!!comment.comment}>
+      <CommentHeader hasComment={!!comment.comment.trim()}>
         <CommentInfo isLight={isLight}>
           {hasStatusChange && (
             <StatusLabelWrapper>
@@ -60,7 +60,7 @@ const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({ comment, hasSta
           )}
         </CommentInfo>
       </CommentHeader>
-      {comment.comment && (
+      {comment.comment.trim() && (
         <CommentMessage isLight={isLight}>
           <Markdown value={comment.comment} renderer={isLight ? customRenderer : customRendererDark} />
         </CommentMessage>
