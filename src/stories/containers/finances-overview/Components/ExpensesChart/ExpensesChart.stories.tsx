@@ -1,0 +1,291 @@
+import { TotalExpenseReportsBuilder } from '@ses/core/business-logic/builders/total-expense-reports.builder';
+import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
+import ExpensesChart from './ExpensesChart';
+import type { ComponentMeta } from '@storybook/react';
+import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+
+export default {
+  title: 'Components/Finances/ExpensesChart',
+  component: ExpensesChart,
+  parameters: {
+    chromatic: {
+      viewports: [375, 834],
+    },
+  },
+} as ComponentMeta<typeof ExpensesChart>;
+
+const args = [
+  {
+    newActual: [
+      {
+        value: new TotalExpenseReportsBuilder().withActuals(713684).build().actuals,
+        itemStyle: {
+          borderRadius: [0, 0, 6, 6],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withActuals(1813684).build().actuals,
+        itemStyle: {
+          borderRadius: [0, 0, 6, 6],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withActuals(1313684).build().actuals,
+        itemStyle: {
+          borderRadius: [0, 0, 6, 6],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withActuals(1113684).build().actuals,
+        itemStyle: {
+          borderRadius: [0, 0, 6, 6],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withActuals(532238).build().actuals,
+        itemStyle: {
+          borderRadius: [0, 0, 6, 6],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withActuals(900000).build().actuals,
+        itemStyle: {
+          borderRadius: [6, 6, 6, 6],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withActuals(1200000).build().actuals,
+        itemStyle: {
+          borderRadius: [6, 6, 6, 6],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withActuals(1200000).build().actuals,
+        itemStyle: {
+          borderRadius: [6, 6, 6, 6],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withActuals(402385).build().actuals,
+        itemStyle: {
+          borderRadius: [0, 0, 6, 6],
+        },
+      },
+
+      {
+        value: new TotalExpenseReportsBuilder().withActuals(700000).build().actuals,
+        itemStyle: {
+          borderRadius: [0, 0, 6, 6],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withActuals(500000).build().actuals,
+        itemStyle: {
+          borderRadius: [0, 0, 6, 6],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withActuals(300000).build().actuals,
+        itemStyle: {
+          borderRadius: [0, 0, 6, 6],
+        },
+      },
+    ],
+    newDiscontinued: [
+      {
+        // value: new TotalExpenseReportsBuilder().withDiscontinued(686316).build().discontinued,
+        value: new TotalExpenseReportsBuilder().withDiscontinued(291567).build().discontinued,
+        itemStyle: {
+          borderRadius: [6, 6, 0, 0],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withDiscontinued(544567).build().discontinued,
+        // value: new TotalExpenseReportsBuilder().withDiscontinued(339316).build().discontinued,
+        itemStyle: {
+          borderRadius: [6, 6, 0, 0],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withDiscontinued(1001576).build().discontinued,
+        // value: new TotalExpenseReportsBuilder().withDiscontinued(796316).build().discontinued,
+        itemStyle: {
+          borderRadius: [6, 6, 0, 0],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withDiscontinued(801576).build().discontinued,
+        // value: new TotalExpenseReportsBuilder().withDiscontinued(596316).build().discontinued,
+        itemStyle: {
+          borderRadius: [6, 6, 0, 0],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withDiscontinued(855260).build().discontinued,
+        // value: new TotalExpenseReportsBuilder().withDiscontinued(650000).build().discontinued,
+        itemStyle: {
+          borderRadius: [6, 6, 0, 0],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withDiscontinued(0).build().discontinued,
+        itemStyle: {
+          borderRadius: [6, 6, 0, 0],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withDiscontinued(0).build().discontinued,
+        itemStyle: {
+          borderRadius: [6, 6, 6, 6],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withDiscontinued(0).build().discontinued,
+        itemStyle: {
+          // borderRadius: [0, 0, 6, 6],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withDiscontinued(1231563).build().discontinued,
+        // value: new TotalExpenseReportsBuilder().withDiscontinued(1231563).build().discontinued,
+        itemStyle: {
+          // borderRadius: [0, 0, 6, 6],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withDiscontinued(172334).build().discontinued,
+        itemStyle: {
+          // borderRadius: [0, 0, 6, 6],
+        },
+      },
+      {
+        // value: new TotalExpenseReportsBuilder().withDiscontinued(0).build().discontinued,
+        value: new TotalExpenseReportsBuilder().withDiscontinued(1172334).build().discontinued,
+        itemStyle: {
+          borderRadius: [0, 0, 6, 6],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withDiscontinued(0).build().discontinued,
+        itemStyle: {
+          borderRadius: [0, 0, 6, 6],
+        },
+      },
+    ],
+    newPrediction: [
+      {
+        value: new TotalExpenseReportsBuilder().withPrediction(0).build().prediction,
+        itemStyle: {
+          borderRadius: [0, 0, 6, 6],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withPrediction(0).build().prediction,
+        itemStyle: {
+          borderRadius: [0, 0, 6, 6],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withPrediction(0).build().prediction,
+        itemStyle: {
+          borderRadius: [0, 0, 6, 6],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withPrediction(0).build().prediction,
+        itemStyle: {
+          borderRadius: [0, 0, 6, 6],
+        },
+      },
+
+      {
+        value: new TotalExpenseReportsBuilder().withPrediction(0).build().prediction,
+        itemStyle: {
+          borderRadius: [0, 0, 6, 6],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withPrediction(0).build().prediction,
+        itemStyle: {
+          borderRadius: [0, 0, 6, 6],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withPrediction(0).build().prediction,
+        itemStyle: {
+          borderRadius: [0, 0, 6, 6],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withPrediction(0).build().prediction,
+        itemStyle: {
+          borderRadius: [0, 0, 6, 6],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withPrediction(1000000).build().prediction,
+        itemStyle: {
+          borderRadius: [6, 6, 0, 0],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withPrediction(1600000).build().prediction,
+        itemStyle: {
+          borderRadius: [6, 6, 0, 0],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withPrediction(1370000).build().prediction,
+        itemStyle: {
+          borderRadius: [6, 6, 0, 0],
+        },
+      },
+      {
+        value: new TotalExpenseReportsBuilder().withPrediction(900000).build().prediction,
+        itemStyle: {
+          borderRadius: [6, 6, 0, 0],
+        },
+      },
+    ],
+  },
+];
+
+export const [[LightMode, DarkMode]] = createThemeModeVariants(ExpensesChart, args);
+LightMode.parameters = {
+  figma: {
+    component: {
+      375: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13056%3A123466&t=CFEpU7Gadr2fxQ94-4',
+        options: {
+          componentStyle: {
+            width: 343,
+            height: 265,
+          },
+          style: {
+            top: 0,
+            left: -1,
+            width: 342,
+            height: 260,
+          },
+        },
+      },
+      834: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13562%3A143904&t=3sj8JoMArfel9d4j-4',
+        options: {
+          componentStyle: {
+            width: 607,
+            height: 387,
+          },
+          style: {
+            top: -2,
+            left: 3,
+            width: 607,
+            height: 382,
+          },
+        },
+      },
+    },
+  } as FigmaParams,
+};
