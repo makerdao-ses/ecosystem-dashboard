@@ -93,7 +93,6 @@ const args = [
     ],
     newDiscontinued: [
       {
-        // value: new TotalExpenseReportsBuilder().withDiscontinued(686316).build().discontinued,
         value: new TotalExpenseReportsBuilder().withDiscontinued(291567).build().discontinued,
         itemStyle: {
           borderRadius: [6, 6, 0, 0],
@@ -101,28 +100,28 @@ const args = [
       },
       {
         value: new TotalExpenseReportsBuilder().withDiscontinued(544567).build().discontinued,
-        // value: new TotalExpenseReportsBuilder().withDiscontinued(339316).build().discontinued,
+
         itemStyle: {
           borderRadius: [6, 6, 0, 0],
         },
       },
       {
         value: new TotalExpenseReportsBuilder().withDiscontinued(1001576).build().discontinued,
-        // value: new TotalExpenseReportsBuilder().withDiscontinued(796316).build().discontinued,
+
         itemStyle: {
           borderRadius: [6, 6, 0, 0],
         },
       },
       {
         value: new TotalExpenseReportsBuilder().withDiscontinued(801576).build().discontinued,
-        // value: new TotalExpenseReportsBuilder().withDiscontinued(596316).build().discontinued,
+
         itemStyle: {
           borderRadius: [6, 6, 0, 0],
         },
       },
       {
         value: new TotalExpenseReportsBuilder().withDiscontinued(855260).build().discontinued,
-        // value: new TotalExpenseReportsBuilder().withDiscontinued(650000).build().discontinued,
+
         itemStyle: {
           borderRadius: [6, 6, 0, 0],
         },
@@ -141,25 +140,14 @@ const args = [
       },
       {
         value: new TotalExpenseReportsBuilder().withDiscontinued(0).build().discontinued,
-        itemStyle: {
-          // borderRadius: [0, 0, 6, 6],
-        },
       },
       {
         value: new TotalExpenseReportsBuilder().withDiscontinued(1231563).build().discontinued,
-        // value: new TotalExpenseReportsBuilder().withDiscontinued(1231563).build().discontinued,
-        itemStyle: {
-          // borderRadius: [0, 0, 6, 6],
-        },
       },
       {
         value: new TotalExpenseReportsBuilder().withDiscontinued(172334).build().discontinued,
-        itemStyle: {
-          // borderRadius: [0, 0, 6, 6],
-        },
       },
       {
-        // value: new TotalExpenseReportsBuilder().withDiscontinued(0).build().discontinued,
         value: new TotalExpenseReportsBuilder().withDiscontinued(1172334).build().discontinued,
         itemStyle: {
           borderRadius: [0, 0, 6, 6],
@@ -265,8 +253,6 @@ LightMode.parameters = {
           style: {
             top: 0,
             left: -1,
-            width: 342,
-            height: 260,
           },
         },
       },
@@ -281,8 +267,6 @@ LightMode.parameters = {
           style: {
             top: -2,
             left: 3,
-            width: 607,
-            height: 382,
           },
         },
       },

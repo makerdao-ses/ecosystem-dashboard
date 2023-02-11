@@ -19,7 +19,6 @@ interface Props {
 const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPrediction }: Props) => {
   const { isLight } = useThemeContext();
   const upTable = useMediaQuery(lightTheme.breakpoints.up('table_834'));
-  // eslint-disable-next-line spellcheck/spell-checker
   const isZeroValue = false;
   const options = {
     grid: {
@@ -58,7 +57,6 @@ const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPredict
     yAxis: {
       axisLabel: {
         margin: upTable ? 16 : 7,
-        // eslint-disable-next-line spellcheck/spell-checker
         formatter: function (value: number, index: number) {
           if (value === 0 && index === 0) {
             return value.toString();
@@ -68,7 +66,6 @@ const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPredict
         },
         color: isLight ? '#231536' : '#EDEFFF',
         fontSize: upTable ? 12 : 10,
-
         height: upTable ? 15 : 12,
         fontFamily: 'Inter, sans-serif',
         fontWeight: upTable ? 600 : 400,
@@ -77,7 +74,6 @@ const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPredict
       height: upTable ? 15 : 12,
 
       type: 'value',
-      // eslint-disable-next-line spellcheck/spell-checker
       zlevel: 1,
       axisLine: {
         show: false,
