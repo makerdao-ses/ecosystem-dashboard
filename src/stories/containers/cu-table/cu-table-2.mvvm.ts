@@ -1,3 +1,4 @@
+import { siteRoutes } from '@ses/config/routes';
 import request from 'graphql-request';
 import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';
@@ -93,7 +94,7 @@ export const useCoreUnitsTableMvvm = () => {
 
   const clearFilters = () => {
     router.push({
-      pathname: '/',
+      pathname: siteRoutes.coreUnitsOverview,
       search: '',
     });
 

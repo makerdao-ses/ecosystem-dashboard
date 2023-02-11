@@ -11,4 +11,5 @@ export const flagsProduction: FeatureFlagsInterface = {
   FEATURE_AUTH: true,
   FEATURE_MKR_VESTING: true,
   FEATURE_AUDIT_REPORTS: false,
+  FEATURE_FINANCES_OVERVIEW: true,
 };

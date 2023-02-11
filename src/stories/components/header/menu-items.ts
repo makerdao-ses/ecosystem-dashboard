@@ -1,3 +1,4 @@
+import { siteRoutes } from '@ses/config/routes';
 import { featureFlags } from '../../../../feature-flags/feature-flags';
 import { CURRENT_ENVIRONMENT } from '../../../config/endpoints';
 
@@ -8,16 +9,25 @@ export interface MenuType {
 }
 
 const menuItems = [
+  ...(featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW
+    ? [
+        {
+          title: 'Finances',
+          link: siteRoutes.financesOverview,
+          marginRight: '32px',
+        },
+      ]
+    : []),
   {
     title: 'Core Units',
-    link: '/',
+    link: siteRoutes.coreUnitsOverview,
     marginRight: '32px',
   },
   ...(featureFlags[CURRENT_ENVIRONMENT].FEATURE_GLOBAL_ACTIVITIES
     ? [
         {
           title: 'Activity Feed',
-          link: '/activity-feed',
+          link: siteRoutes.globalActivityFeed,
           marginRight: '32px',
         },
       ]

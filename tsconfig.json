@@ -16,9 +16,11 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
+      "@ses/containers/*": ["src/stories/containers/*"],
       "@ses/components/*": ["src/stories/components/*"],
       "@ses/core/*": ["src/core/*"],
-      "@ses/config/*": ["src/config/*"]
+      "@ses/config/*": ["src/config/*"],
+      "@ses/styles/*": ["styles/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

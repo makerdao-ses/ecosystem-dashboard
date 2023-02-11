@@ -1,6 +1,7 @@
 import { stringify } from 'querystring';
 import styled from '@emotion/styled';
 import { Divider } from '@mui/material';
+import { siteRoutes } from '@ses/config/routes';
 import { useRouter } from 'next/router';
 import React, { useCallback, useMemo, useRef } from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
@@ -52,7 +53,7 @@ export const Filters = (props: FilterProps) => {
       const search = router.query;
       search[key] = Array.isArray(value) ? value.join(',') : value || '';
       router.push({
-        pathname: '/',
+        pathname: siteRoutes.coreUnitsOverview,
         search: stringify(search),
       });
     },
@@ -63,7 +64,7 @@ export const Filters = (props: FilterProps) => {
     const search = router.query;
     delete search.searchText;
     router.push({
-      pathname: '/',
+      pathname: siteRoutes.coreUnitsOverview,
       search: stringify(search),
     });
     if (inputRef.current !== null) {

@@ -14,6 +14,7 @@ import type {
   Mip40BudgetPeriodDto,
   Mip40Dto,
   Mip40WalletDto,
+  BudgetStatementFteDto,
 } from '../models/dto/core-unit.dto';
 
 export const setCuMipStatusModifiedDate = (mip: CuMipDto, status: CuStatusEnum, date: string) => {
@@ -116,18 +117,28 @@ export const getLinksFromCoreUnit = (cu: CoreUnitDto) => {
   return result;
 };
 
-const getLatestBudgetStatementWithFTE = (budgetStatements: BudgetStatementDto[]): BudgetStatementDto | null => {
+const getLatestBudgetStatementWithFTE = (budgetStatements: BudgetStatementDto[]): BudgetStatementFteDto | null => {
   if (!budgetStatements || budgetStatements.length === 0) return null;
-  const filtered = budgetStatements.filter((bs) => bs.budgetStatementFTEs.length > 0);
-  return filtered.length ? filtered[filtered.length - 1] : null;
+  const filtered = budgetStatements.filter((bs: BudgetStatementDto) => bs.budgetStatementFTEs.length > 0);
+  const arrayItemsFts: BudgetStatementFteDto[] = [];
+
+  filtered.forEach((item: BudgetStatementDto) => {
+    item.budgetStatementFTEs.forEach((budgetStatementFTEs: BudgetStatementFteDto) => {
+      arrayItemsFts.push({
+        ftes: budgetStatementFTEs.ftes,
+        month: budgetStatementFTEs.month,
+      });
+    });
+  });
+
+  const orderBudget = _.orderBy(arrayItemsFts, 'month');
+  return orderBudget.length > 0 ? orderBudget[orderBudget.length - 1] : null;
 };
 
 export const getFTEsFromCoreUnit = (cu: CoreUnitDto) => {
   if (cu.budgetStatements?.length === 0) return 0;
 
-  return (
-    getLatestBudgetStatementWithFTE(cu.budgetStatements as BudgetStatementDto[])?.budgetStatementFTEs[0]?.ftes ?? 0
-  );
+  return getLatestBudgetStatementWithFTE(cu.budgetStatements as BudgetStatementDto[])?.ftes ?? 0;
 };
 
 export const getFacilitatorsFromCoreUnit = (cu: CoreUnitDto) =>

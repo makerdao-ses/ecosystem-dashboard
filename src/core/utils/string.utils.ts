@@ -139,3 +139,19 @@ export const getCommentVerb = (
   }
   return 'wrote';
 };
+
+export const replaceAllNumberLetOneBeforeDot = (num: number) => {
+  if (num < 1000) {
+    return num.toString();
+  } else if (num < 1000000) {
+    return (num / 1000).toFixed(1).replace(/\.?0+$/g, '') + 'K';
+  } else if (num < 1000000000) {
+    return (num / 1000000).toFixed(1).replace(/\.?0+$/g, '') + 'M';
+  } else if (num < 1000000000000) {
+    return (num / 1000000000).toFixed(1).replace(/\.?0+$/g, '') + 'B';
+  } else if (num < 1000000000000000) {
+    return (num / 1000000000000).toFixed(1).replace(/\.?0+$/g, '') + 'T';
+  } else {
+    return num.toString();
+  }
+};

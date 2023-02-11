@@ -73,7 +73,7 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
               fontWeight: 500,
               fontSize: '14px',
               lineHeight: '18px',
-              padding: '8px 24px',
+              padding: '7px 23px',
               height: 'auto',
             }}
             allowsHover={false}
@@ -91,7 +91,7 @@ const ActivityItem = styled.a<{ isLight: boolean; isLoading?: boolean; isGlobal:
     flexDirection: 'column',
     background: isLight ? 'white' : '#10191F',
     marginTop: '16px',
-    padding: '16px 16px 24px',
+    padding: isGlobal ? 16 : '16px 16px 24px',
     cursor: 'pointer',
     borderRadius: '6px',
     boxShadow: isLight
@@ -144,13 +144,13 @@ const Details = styled.div<{ isLight: boolean; isGlobal: boolean }>(({ isLight =
   marginBottom: '32px',
   letterSpacing: 0,
 
-  [lightTheme.breakpoints.up(833)]: {
+  [lightTheme.breakpoints.up('table_834')]: {
     marginBottom: '16px',
+    fontSize: '16px',
   },
 
   [lightTheme.breakpoints.up(isGlobal ? 1000 : 'table_834')]: {
     width: 'calc(100% - 230px)',
-    fontSize: '16px',
     marginBottom: 0,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
@@ -217,7 +217,13 @@ const CoreUnit = styled.div<{ isGlobal: boolean }>(({ isGlobal }) => ({
   display: 'flex',
   alignItems: 'center',
   minWidth: '327px',
-  marginTop: '18px',
+  marginTop: '32px',
+  paddingLeft: 7,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 16,
+    paddingLeft: 0,
+  },
 
   [lightTheme.breakpoints.up(isGlobal ? 1000 : 'table_834')]: {
     marginTop: 0,
@@ -249,7 +255,11 @@ const CoreUnitName = styled.span<{ isLight: boolean }>(({ isLight }) => ({
 const FlexWrapper = styled.div<{ isGlobal: boolean }>(({ isGlobal }) => ({
   display: 'flex',
   flexDirection: isGlobal ? 'column-reverse' : 'column',
-  marginBottom: isGlobal ? '24px' : '34px',
+  marginBottom: 32,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginBottom: 24,
+  },
 
   [lightTheme.breakpoints.up(isGlobal ? 1000 : 'table_834')]: {
     flexDirection: 'row',
