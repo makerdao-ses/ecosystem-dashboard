@@ -7,6 +7,7 @@ import type { CoreUnitContextValues } from '@ses/core/context/CoreUnitContext';
 import type { UserDTO } from '@ses/core/models/dto/auth.dto';
 import type { CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
 import type { Story } from '@storybook/react';
+import type { PropsWithChildren } from 'react';
 
 export const withUserLoggedIn = (user: UserDTO) => (Story: Story) =>
   (
@@ -51,14 +52,18 @@ export const withCoreUnitContext = (CuOrStory: Story | CoreUnitDto) => {
   }
 };
 
-export const withThemeContext = (isLight: boolean) => (Story: Story) =>
-  (
-    <ThemeProvider isLightApp={isLight}>
-      <TemplateThemeWrapper isLight={isLight}>
-        <Story />
-      </TemplateThemeWrapper>
-    </ThemeProvider>
-  );
+export const withThemeContext =
+  (isLight: boolean, useBackground = true) =>
+  (Story: Story) => {
+    const Background = useBackground ? TemplateThemeWrapper : ({ children }: PropsWithChildren) => <>{children}</>;
+    return (
+      <ThemeProvider isLightApp={isLight}>
+        <Background isLight={isLight}>
+          <Story />
+        </Background>
+      </ThemeProvider>
+    );
+  };
 
 const TemplateThemeWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   background: isLight ? '#FFFFFF' : '#000000',
