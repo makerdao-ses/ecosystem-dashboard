@@ -20,7 +20,7 @@ interface Props {
   coreUnits: CoreUnitDto[];
 }
 
-export default ({ coreUnits }: Props) => {
+const GlobalActivityFeedContainer: React.FC<Props> = ({ coreUnits }) => {
   const { isLight } = useThemeContext();
   const {
     columns,
@@ -121,6 +121,8 @@ export default ({ coreUnits }: Props) => {
     </Wrapper>
   );
 };
+
+export default GlobalActivityFeedContainer;
 
 const Wrapper = styled.div({
   display: 'flex',
