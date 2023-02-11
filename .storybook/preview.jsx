@@ -1,5 +1,6 @@
 import { RouterContext } from 'next/dist/shared/lib/router-context'; // next 12
 import { WithNextRouter } from 'storybook-addon-next-router/dist/decorators';
+import { mockDateDecorator } from 'storybook-mock-date-decorator';
 import '../styles/globals.scss';
 
 export const parameters = {
@@ -72,4 +73,4 @@ export const parameters = {
   },
 };
 
-export const decorators = [WithNextRouter];
+export const decorators = [WithNextRouter, mockDateDecorator];
