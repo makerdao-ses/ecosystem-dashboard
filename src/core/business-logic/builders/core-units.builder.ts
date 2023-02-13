@@ -1,5 +1,6 @@
 import type { CuCategoryEnum } from '../../enums/cu-category.enum';
 import type {
+  ActivityFeedDto,
   AuditorDto,
   BudgetStatementDto,
   ContributorCommitmentDto,
@@ -26,6 +27,7 @@ export class CoreUnitsBuilder {
       socialMediaChannels: [] as SocialMediaChannelDto[],
       cuMip: [] as CuMipDto[],
       contributorCommitment: [] as ContributorCommitmentDto[],
+      activityFeed: [] as ActivityFeedDto[],
     } as CoreUnitDto;
   }
 
@@ -95,6 +97,11 @@ export class CoreUnitsBuilder {
 
   addContributorCommitment(contributorCommitment: ContributorCommitmentDto): CoreUnitsBuilder {
     this._coreUnit.contributorCommitment.push(contributorCommitment);
+    return this;
+  }
+
+  addActivity(activity: ActivityFeedDto): CoreUnitsBuilder {
+    this._coreUnit.activityFeed.push(activity);
     return this;
   }
 

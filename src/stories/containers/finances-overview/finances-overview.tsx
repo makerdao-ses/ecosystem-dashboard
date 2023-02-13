@@ -49,13 +49,14 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ m
         <ContainerYearPicker>
           <YearPicker selectedYear={selectedYear} handleOnclick={handleChangeSelectYear} years={years} />
         </ContainerYearPicker>
-        <ExpensesChartSection
-          totalExpenses={totalExpenses()?.toLocaleString('es-US') || '0'}
-          newActual={newActual}
-          newDiscontinued={newDiscontinued}
-          newPrediction={newPrediction}
-        />
-
+        <ChartContainer>
+          <ExpensesChartSection
+            totalExpenses={totalExpenses()?.toLocaleString('es-US') || '0'}
+            newActual={newActual}
+            newDiscontinued={newDiscontinued}
+            newPrediction={newPrediction}
+          />
+        </ChartContainer>
         <FooterButtonContainer>
           <LinkButton
             href={siteRoutes.coreUnitsOverview}
@@ -148,5 +149,15 @@ const ContainerYearPicker = styled.div({
   marginBottom: 24,
   [lightTheme.breakpoints.up('desktop_1194')]: {
     marginBottom: 16,
+  },
+});
+
+const ChartContainer = styled.div({
+  marginBottom: 19,
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    marginBottom: 47,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginBottom: 8,
   },
 });
