@@ -149,7 +149,7 @@ export const CoreUnit: CoreUnitDto = {
   paragraphDescription:
     'The SES Core Unit supports a decentralized, effective, and scalable economy on top of the Maker Protocol that continues to push forward its growth in a sustainable manner.',
   paragraphImage: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/diagram.png',
-  category: ['Operational', 'Growth'],
+  category: ['Technical', 'Business', 'Operational', 'Finance'],
   legacyBudgetStatementUrl: '',
   auditors: [] as AuditorDto[],
   cuMip: [] as CuMipDto[],
