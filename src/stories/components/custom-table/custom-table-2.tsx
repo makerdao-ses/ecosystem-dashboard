@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import CardItemCoreUnitMobile from './custom-table-mobile/card-mobile';
 import { HeadCustomTable } from './head-custom-table/head-custom-table-2';
 import ListCoreUnit from './list-core-unit/list-core-unit';
 import { TablePlaceholder } from './placeholder';
@@ -48,28 +47,21 @@ export const CustomTable2 = (props: Props) => {
 
   const rows = props.loading ? new Array(10).fill(null) : props.items;
   return (
-    <>
-      <TableWrapper>
-        <TableContainer isLight={isLight}>
-          <Table>
-            <HeadCustomTable {...props} />
-            <TableBody isLight={isLight}>
-              <ListCoreUnit
-                columns={props.columns}
-                isLoading={props.loading}
-                queryStrings={props.queryStrings}
-                rows={rows}
-              />
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </TableWrapper>
-      <ListWrapper>
-        {rows?.map((row: CustomTableRow, i) => (
-          <CardItemCoreUnitMobile coreUnit={row?.value} key={i} />
-        ))}
-      </ListWrapper>
-    </>
+    <TableContainer isLight={isLight}>
+      <Table>
+        <TableWrapper>
+          <HeadCustomTable {...props} />
+        </TableWrapper>
+        <TableBody isLight={isLight}>
+          <ListCoreUnit
+            columns={props.columns}
+            isLoading={props.loading}
+            queryStrings={props.queryStrings}
+            rows={rows}
+          />
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 
@@ -104,14 +96,5 @@ const TableWrapper = styled.div({
   display: 'none',
   '@media (min-width: 1194px)': {
     display: 'flex',
-  },
-});
-
-const ListWrapper = styled.div({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 32,
-  '@media (min-width: 1194px)': {
-    display: 'none',
   },
 });

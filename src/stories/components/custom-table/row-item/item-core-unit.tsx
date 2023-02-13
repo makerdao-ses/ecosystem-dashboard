@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import Link from 'next/link';
 import React from 'react';
+import CardItemCoreUnitMobile from '../custom-table-mobile/card-mobile';
 import type { CustomTableColumn } from '../custom-table-2';
 import type { CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
 
@@ -16,15 +17,28 @@ export const ItemCoreUnit = ({ queryStrings, isLoading, columns, cu }: Props) =>
   const { isLight } = useThemeContext();
   return (
     <Link href={`/core-unit/${cu?.shortCode}/${queryStrings}`} passHref>
-      <TableRow isLight={isLight} isLoading={isLoading} columns={columns}>
-        {columns?.map((column) => (
-          <TableCell key={column?.header}>{column.cellRender?.(cu)}</TableCell>
-        ))}
-      </TableRow>
+      <>
+        <TableWrapper>
+          <TableRow isLight={isLight} isLoading={isLoading} columns={columns}>
+            {columns?.map((column) => (
+              <TableCell key={column?.header}>{column.cellRender?.(cu)}</TableCell>
+            ))}
+          </TableRow>
+        </TableWrapper>
+        <ListWrapper>
+          <CardItemCoreUnitMobile coreUnit={cu} />
+        </ListWrapper>
+      </>
     </Link>
   );
 };
 
+const TableWrapper = styled.div({
+  display: 'none',
+  '@media (min-width: 1194px)': {
+    display: 'flex',
+  },
+});
 const TableRow = styled.a<{ isLight: boolean; isLoading?: boolean; columns: CustomTableColumn[] }>(
   ({ isLight, isLoading, columns }) => ({
     background: isLight ? 'white' : '#10191F',
@@ -52,4 +66,13 @@ export const TableCell = styled.div({
   alignItems: 'center',
 });
 
+const ListWrapper = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  marginTop: '16px',
+  gap: 32,
+  '@media (min-width: 1194px)': {
+    display: 'none',
+  },
+});
 export default ItemCoreUnit;
