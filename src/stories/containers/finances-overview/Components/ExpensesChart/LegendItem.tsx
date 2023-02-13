@@ -6,12 +6,13 @@ import React from 'react';
 interface Props {
   color: string;
   text: string;
+  style?: React.CSSProperties;
 }
 
-const LegendItem = ({ color, text }: Props) => {
+const LegendItem = ({ color, text, style = {} }: Props) => {
   const { isLight } = useThemeContext();
   return (
-    <Container>
+    <Container style={style}>
       <Doter color={color} />
       <Label isLight={isLight}>{text}</Label>
     </Container>
@@ -31,6 +32,11 @@ const Doter = styled.div<{ color: string }>(({ color }) => ({
   width: 8,
   height: 8,
   borderRadius: '50%',
+  [lightTheme.breakpoints.up('table_834')]: {
+    width: 12,
+    height: 12,
+    marginRight: 6,
+  },
 }));
 
 const Label = styled.label<{ isLight: boolean }>(({ isLight }) => ({

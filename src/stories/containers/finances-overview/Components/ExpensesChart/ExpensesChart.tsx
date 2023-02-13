@@ -19,11 +19,12 @@ interface Props {
 const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPrediction }: Props) => {
   const { isLight } = useThemeContext();
   const upTable = useMediaQuery(lightTheme.breakpoints.up('table_834'));
-  // eslint-disable-next-line spellcheck/spell-checker
   const isZeroValue = false;
   const options = {
     grid: {
-      right: upTable ? '10%' : '3%',
+      height: upTable ? 317 : 204,
+      right: '0%',
+      bottom: '10%',
     },
     xAxis: {
       type: 'category',
@@ -47,15 +48,15 @@ const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPredict
         align: 'center',
         fontFamily: 'Inter,san-serif',
         fontWeight: 400,
-        fontSize: 9,
-        lineHeight: 11,
+        fontSize: upTable ? 12 : 9,
+        height: upTable ? 15 : 11,
         baseline: 'top',
         interval: 0,
       },
     },
     yAxis: {
       axisLabel: {
-        // eslint-disable-next-line spellcheck/spell-checker
+        margin: upTable ? 16 : 7,
         formatter: function (value: number, index: number) {
           if (value === 0 && index === 0) {
             return value.toString();
@@ -64,10 +65,15 @@ const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPredict
           return replaceAllNumberLetOneBeforeDot(value).replace(/\.?0+$/g, '');
         },
         color: isLight ? '#231536' : '#EDEFFF',
+        fontSize: upTable ? 12 : 10,
+        height: upTable ? 15 : 12,
+        fontFamily: 'Inter, sans-serif',
+        fontWeight: upTable ? 600 : 400,
       },
+      verticalAlign: 'middle',
+      height: upTable ? 15 : 12,
 
       type: 'value',
-      // eslint-disable-next-line spellcheck/spell-checker
       zlevel: 1,
       axisLine: {
         show: false,
@@ -90,7 +96,7 @@ const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPredict
           color: isLight ? '#ECF1F3' : '#10191F',
           borderRadius: 6,
         },
-        barWidth: upTable ? 36 : 22,
+        barWidth: upTable ? 38 : 22,
         itemStyle: {
           color: isLight ? '#0EB19F' : '#027265',
         },
@@ -105,7 +111,7 @@ const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPredict
           color: isLight ? '#ECF1F3' : '#10191F',
           borderRadius: 6,
         },
-        barWidth: upTable ? 40 : 24,
+        barWidth: upTable ? 38 : 22,
         itemStyle: {
           color: isLight ? '#027265' : '#2C3F3B',
         },
@@ -120,7 +126,7 @@ const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPredict
           color: isLight ? '#ECF1F3' : '#10191F',
           borderRadius: 6,
         },
-        barWidth: upTable ? 40 : 24,
+        barWidth: upTable ? 38 : 22,
         itemStyle: {
           color: isLight ? '#68FEE3' : '#1AAB9B',
         },
@@ -129,9 +135,13 @@ const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPredict
   };
 
   return (
-    <>
+    <ContainerAndLegend>
       <Legend>
-        <LegendItem color={isLight ? '#0EB19F' : '#027265'} text="Active Budget" />
+        <LegendItem
+          color={isLight ? '#0EB19F' : '#027265'}
+          text="Active Budget"
+          style={{ paddingLeft: upTable ? 60 : 8 }}
+        />
         <LegendItem color={isLight ? '#027265' : '#2C3F3B'} text="Discontinued" />
         <LegendItem color={isLight ? '#68FEE3' : '#1AAB9B'} text="Expense forecasts" />
       </Legend>
@@ -140,33 +150,46 @@ const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPredict
           option={options}
           style={{
             height: '100%',
-            width: '100vw',
-            maxWidth: upTable ? 607 : 343,
+            width: '100%',
           }}
+          opts={{ renderer: 'svg' }}
         />
       </Container>
-    </>
+    </ContainerAndLegend>
   );
 };
 
+const ContainerAndLegend = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+});
+
 const Container = styled.div({
-  height: 343,
+  height: 260,
+  width: 343,
+  maxWidth: 343,
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
+  paddingLeft: 4,
   [lightTheme.breakpoints.up('table_834')]: {
     height: 387,
+    width: 607,
+    maxWidth: 607,
   },
 });
 
 const Legend = styled.div({
+  maxWidth: 343,
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'flex-start',
-  marginBottom: -24,
+  justifyContent: 'space-between',
+  marginBottom: -4,
   gap: 29,
   [lightTheme.breakpoints.up('table_834')]: {
-    gap: 50,
+    marginBottom: -8,
+    gap: 73,
+    maxWidth: 607,
   },
 });
 

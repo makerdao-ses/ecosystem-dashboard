@@ -109,6 +109,8 @@ const dictionary = [
   'camelcase',
   'swiper',
   'Breakpoint',
+  'formatter',
+  'zlevel',
 ];
 
 module.exports = dictionary;
