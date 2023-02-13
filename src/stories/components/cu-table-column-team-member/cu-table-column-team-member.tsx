@@ -75,7 +75,7 @@ const Container = styled.div({
   marginLeft: '7px',
 
   '@media (min-width: 1194px)': {
-    marginLeft: '40px',
+    marginLeft: '24px',
   },
 });
 

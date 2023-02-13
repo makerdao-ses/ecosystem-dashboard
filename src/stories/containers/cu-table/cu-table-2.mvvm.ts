@@ -156,7 +156,7 @@ export const useCoreUnitsTableMvvm = () => {
     },
     {
       header: 'Team Members',
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
       cellRender: renderTeamMember,
       onClick: onClickRow,
       width: '205px',

@@ -8,7 +8,7 @@ export default {
   component: ItemCoreUnit,
   parameters: {
     chromatic: {
-      viewports: [1194, 1280],
+      viewports: [375, 834, 1194],
       pauseAnimationAtEnd: true,
     },
   },
@@ -49,7 +49,7 @@ CoreUnitItem.parameters = {
           },
           style: {
             top: 14,
-            left: 3,
+            left: 0,
           },
         },
       },
@@ -64,19 +64,6 @@ CoreUnitItem.parameters = {
           style: {
             top: 12,
             left: -2,
-          },
-        },
-      },
-      1284: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=9016%3A93789&t=pLOkuWP1eCxO98xA-4',
-        options: {
-          componentStyle: {
-            width: 1190,
-          },
-          style: {
-            top: 14,
-            left: -4,
           },
         },
       },
@@ -123,19 +110,6 @@ CoreUnitItemDark.parameters = {
           style: {
             top: 12,
             left: -2,
-          },
-        },
-      },
-      1284: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=9016%3A93813&t=pLOkuWP1eCxO98xA-4',
-        options: {
-          componentStyle: {
-            width: 1184,
-          },
-          style: {
-            top: 14,
-            left: -4,
           },
         },
       },
