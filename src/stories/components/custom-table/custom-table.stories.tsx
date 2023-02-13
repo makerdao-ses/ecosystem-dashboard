@@ -23,31 +23,24 @@ const variantsArgs = [
     items: [
       {
         value: CoreUnit,
-        key: CoreUnit.shortCode,
       },
       {
         value: CoreUnit,
-        key: CoreUnit.shortCode,
       },
       {
         value: CoreUnit,
-        key: CoreUnit.shortCode,
       },
       {
         value: CoreUnit,
-        key: CoreUnit.shortCode,
       },
       {
         value: CoreUnit,
-        key: CoreUnit.shortCode,
       },
       {
         value: CoreUnit,
-        key: CoreUnit.shortCode,
       },
       {
         value: CoreUnit,
-        key: CoreUnit.shortCode,
       },
     ] as CustomTableRow[],
     loading: false,

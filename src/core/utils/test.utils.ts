@@ -26,6 +26,7 @@ import type {
   CuMipDto,
   LastActivityDto,
   SocialMediaChannelDto,
+  BudgetStatementLineItemDto,
 } from '../models/dto/core-unit.dto';
 
 export const CURRENT_MONTH = DateTime.now().toFormat('y-MM-dd');
@@ -153,7 +154,12 @@ export const CoreUnit: CoreUnitDto = {
   auditors: [] as AuditorDto[],
   cuMip: [] as CuMipDto[],
   activityFeed: [] as ActivityFeedDto[],
-  lastActivity: {} as LastActivityDto,
+  lastActivity: {
+    id: '3',
+    created_at: '2023-02-02T09:56:16.349Z',
+    event: 'this is one event',
+    description: 'event test',
+  } as LastActivityDto,
   socialMediaChannels: [
     {
       discord: 'https://discord.gg/h7GKvqDyDP',
@@ -168,7 +174,7 @@ export const CoreUnit: CoreUnitDto = {
   budgetStatements: [
     {
       id: '',
-      month: '23/2/2021',
+      month: '2022-11-01',
       status: BudgetStatus.Escalated,
       publicationUrl: '',
       activityFeed: [] as ActivityFeedDto[],
@@ -179,7 +185,63 @@ export const CoreUnit: CoreUnitDto = {
           ftes: 7.5,
         },
       ] as BudgetStatementFteDto[],
-      budgetStatementWallet: [] as BudgetStatementWalletDto[],
+      budgetStatementWallet: [
+        {
+          budgetStatementLineItem: [
+            {
+              month: '2022-12-01',
+              actual: 200.83,
+            },
+
+            {
+              month: '2022-12-01',
+              actual: 1030.92,
+            },
+            {
+              month: '2022-12-01',
+              actual: 1654,
+            },
+          ] as BudgetStatementLineItemDto[],
+        },
+        {
+          budgetStatementLineItem: [
+            {
+              month: '2022-11-01',
+              actual: 14051,
+            },
+
+            {
+              month: '2022-11-01',
+              actual: 1000,
+            },
+            {
+              month: '2022-11-01',
+              actual: 1000,
+            },
+            {
+              month: '2022-11-01',
+              actual: 654,
+            },
+          ] as BudgetStatementLineItemDto[],
+        },
+        {
+          budgetStatementLineItem: [
+            {
+              month: '2022-10-01',
+              actual: 10000,
+            },
+
+            {
+              month: '2022-10-01',
+              actual: 10000,
+            },
+            {
+              month: '2022-10-01',
+              actual: 10000,
+            },
+          ] as BudgetStatementLineItemDto[],
+        },
+      ] as BudgetStatementWalletDto[],
       budgetStatementMKRVest: [] as BudgetStatementMKRVestDto[],
       auditReport: [] as AuditReportDto[],
     },

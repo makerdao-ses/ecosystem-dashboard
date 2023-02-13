@@ -66,7 +66,7 @@ export const CustomTable2 = (props: Props) => {
       </TableWrapper>
       <ListWrapper>
         {rows?.map((row: CustomTableRow, i) => (
-          <CardItemCoreUnitMobile coreUnit={row?.value} keyForSkeleton={Number(row?.key)} key={i} />
+          <CardItemCoreUnitMobile coreUnit={row?.value} key={i} />
         ))}
       </ListWrapper>
     </>

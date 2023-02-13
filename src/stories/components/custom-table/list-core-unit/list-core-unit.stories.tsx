@@ -40,9 +40,9 @@ const variantsArgs = [
     ],
   },
 ];
-export const [[Summary, SummaryDark]] = createThemeModeVariants(ListCoreUnit, variantsArgs);
+export const [[CoreUnitList, CoreUnitListDark]] = createThemeModeVariants(ListCoreUnit, variantsArgs);
 
-Summary.parameters = {
+CoreUnitList.parameters = {
   figma: {
     component: {
       1194: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=8868%3A139604&t=3CQ5tXdbVw9JDdFv-4',
@@ -51,7 +51,7 @@ Summary.parameters = {
     },
   },
 };
-SummaryDark.parameters = {
+CoreUnitListDark.parameters = {
   figma: {
     component: {
       1194: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=8868%3A139604&t=3CQ5tXdbVw9JDdFv-4',

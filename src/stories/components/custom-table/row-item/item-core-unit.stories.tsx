@@ -7,50 +7,79 @@ export default {
   title: 'Components/CUTable/ItemCoreUnit',
   component: ItemCoreUnit,
   parameters: {
-    fullscreen: 'centered',
     chromatic: {
       viewports: [1194, 1280],
       pauseAnimationAtEnd: true,
     },
   },
-  decorators: [
-    (Story) => (
-      <div
-        style={{
-          margin: '3em',
-          width: 'fit-content',
-        }}
-      >
-        <Story />
-      </div>
-    ),
-  ],
 } as ComponentMeta<typeof ItemCoreUnit>;
 
 const variantsArgs = [
   {
     queryStrings: '',
-    key: '2',
     loading: false,
     columns,
     cu: CoreUnit,
   },
 ];
-export const [[Summary, SummaryDark]] = createThemeModeVariants(ItemCoreUnit, variantsArgs);
+export const [[CoreUnitItem, CoreUnitItemDark]] = createThemeModeVariants(ItemCoreUnit, variantsArgs);
 
-Summary.parameters = {
+CoreUnitItem.parameters = {
   figma: {
     component: {
-      1194: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2527%3A13993&t=t4FrzPIVoc7xPgpL-4',
-      1284: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2527%3A13993&t=t4FrzPIVoc7xPgpL-4',
+      1194: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=8868%3A139604&t=KBY21y7w6jiMfV8R-4',
+        options: {
+          componentStyle: {
+            width: 1130,
+            height: 120,
+          },
+          style: {
+            top: 12,
+            left: 0,
+          },
+        },
+      },
+      1284: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2527%3A13993&t=t4FrzPIVoc7xPgpL-4',
+      },
     },
   },
 };
-SummaryDark.parameters = {
+CoreUnitItemDark.parameters = {
   figma: {
     component: {
-      1194: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2527%3A13993&t=t4FrzPIVoc7xPgpL-4',
-      1284: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2527%3A13993&t=t4FrzPIVoc7xPgpL-4',
+      1194: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=8868%3A139604&t=KBY21y7w6jiMfV8R-4',
+        options: {
+          componentStyle: {
+            width: 1130,
+            height: 120,
+          },
+          style: {
+            top: 12,
+            left: 0,
+          },
+        },
+      },
+
+      1284: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2527%3A13993&t=t4FrzPIVoc7xPgpL-4',
+        options: {
+          componentStyle: {
+            width: 1130,
+            height: 120,
+          },
+          style: {
+            top: 12,
+            left: 0,
+          },
+        },
+      },
     },
   },
 };

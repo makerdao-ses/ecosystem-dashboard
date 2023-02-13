@@ -4,14 +4,13 @@ import type { CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
 
 interface Props {
   coreUnit: CoreUnitDto;
-  keyForSkeleton?: number;
 }
 
-const CardItemCoreUnitMobile = ({ coreUnit, keyForSkeleton }: Props) => {
+const CardItemCoreUnitMobile = ({ coreUnit }: Props) => {
   if (!coreUnit) {
-    return <CoreUnitCard coreUnit={{} as CoreUnitDto} key={`card-placeholder-${keyForSkeleton}`} isLoading />;
+    return <CoreUnitCard coreUnit={{} as CoreUnitDto} isLoading />;
   }
-  return <CoreUnitCard coreUnit={coreUnit as CoreUnitDto} key={`card-${coreUnit?.code}`} />;
+  return <CoreUnitCard coreUnit={coreUnit as CoreUnitDto} />;
 };
 
 export default CardItemCoreUnitMobile;

@@ -63,7 +63,7 @@ const Wrapper = styled.a({
   display: 'flex',
   alignItems: 'flex-start',
   margin: 'auto 0',
-  height: '50px',
+  height: '48px',
   textDecoration: 'none',
 });
 
