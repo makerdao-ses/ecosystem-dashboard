@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import React from 'react';
 import FooterDark from '../../../../public/assets/img/bg-footer-dark.png';
 import FooterLight from '../../../../public/assets/img/bg-footer-light.png';
@@ -34,11 +33,6 @@ const Footer = ({ governesses, products, developer }: Props) => {
   const { isLight } = useThemeContext();
   const isTable = useMediaQuery(lightTheme.breakpoints.between('table_375', 835));
   const upTable = useMediaQuery(lightTheme.breakpoints.up(835));
-  const router = useRouter();
-
-  if (router.route.toString().includes('login') || router.route.toString().includes('auth')) {
-    return <></>;
-  }
 
   return (
     <FooterWrapper>

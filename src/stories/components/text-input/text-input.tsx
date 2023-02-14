@@ -85,7 +85,7 @@ const Wrapper = styled.div({
 
 const IconWrapper = styled.span({
   position: 'absolute',
-  right: 10,
+  right: 15,
   top: 8,
   cursor: 'pointer',
 });
