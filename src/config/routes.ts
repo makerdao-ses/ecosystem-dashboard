@@ -15,5 +15,8 @@ export const siteRoutes = {
 
   // auth
   login: '/login',
+  manageAccounts: '/auth/manage/accounts',
+  adminProfile: '/auth/manage/my-profile',
+  userProfile: '/auth/user-profile',
   // TODO: add the accounts routes
 };

@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
+import { siteRoutes } from '@ses/config/routes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo } from 'react';
@@ -37,7 +38,7 @@ const Header = ({ links }: Props) => {
 
   const handleOnClickLogOut = () => {
     clearCredentials?.();
-    router.push('/login');
+    router.push(siteRoutes.login);
   };
 
   const onClick = useCallback(
@@ -48,7 +49,7 @@ const Header = ({ links }: Props) => {
   );
 
   const handleGoHome = useCallback(() => {
-    router.push('/');
+    router.push(siteRoutes.home);
   }, [router]);
 
   const activeMenuItem = useMemo(() => {
@@ -63,9 +64,6 @@ const Header = ({ links }: Props) => {
       return menuItems[0];
     }
   }, [router.pathname]);
-
-  const hrefAccountManager = useMemo(() => `/auth/${isAdmin ? 'manage/my-profile' : 'user-profile'}/`, [isAdmin]);
-  const hrefProfile = '/auth/manage/accounts';
 
   return (
     <Container isLight={isLight}>
@@ -108,8 +106,8 @@ const Header = ({ links }: Props) => {
                 isAdmin={isAdmin}
                 onClickLogOut={handleOnClickLogOut}
                 username={user?.username || ''}
-                hrefAccountManager={hrefAccountManager}
-                hrefProfile={hrefProfile}
+                hrefAccountManager={siteRoutes.manageAccounts}
+                hrefProfile={isAdmin ? siteRoutes.adminProfile : siteRoutes.userProfile}
               />
             ) : (
               <LinkWrapper>

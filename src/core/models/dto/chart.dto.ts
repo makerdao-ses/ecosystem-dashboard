@@ -67,7 +67,6 @@ export interface SeriesDataApi {
 }
 
 export interface ValuesDataWithBorder {
-  name: string;
   value: number | null | undefined;
   itemStyle: {
     borderRadius: number[];

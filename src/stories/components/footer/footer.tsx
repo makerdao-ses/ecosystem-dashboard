@@ -37,9 +37,6 @@ const Footer = ({ governesses, products, developer }: Props) => {
   return (
     <FooterWrapper>
       <Image
-        style={{
-          zIndex: -1,
-        }}
         src={
           isLight
             ? isTable

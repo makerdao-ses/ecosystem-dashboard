@@ -13,7 +13,7 @@ interface CUActivityContainerProps {
   coreUnit: CoreUnitDto;
 }
 
-export default ({ coreUnit, coreUnits }: CUActivityContainerProps) => {
+const CUActivityFeedContainer: React.FC<CUActivityContainerProps> = ({ coreUnit, coreUnits }) => {
   const { isLight, columns, onSortClick } = useCuActivityMvvm();
   return (
     <Wrapper>
@@ -46,6 +46,8 @@ export default ({ coreUnit, coreUnits }: CUActivityContainerProps) => {
     </Wrapper>
   );
 };
+
+export default CUActivityFeedContainer;
 
 const Wrapper = styled.div({
   display: 'flex',
