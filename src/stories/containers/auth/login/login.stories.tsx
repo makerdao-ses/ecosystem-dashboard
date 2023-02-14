@@ -6,7 +6,7 @@ import type { ComponentMeta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
 export default {
-  title: 'Pages/Login',
+  title: 'Pages/Auth/Login',
   component: LoginContainer,
   decorators: [withoutSBPadding],
   chromatic: {
