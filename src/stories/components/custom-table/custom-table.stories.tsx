@@ -33,15 +33,6 @@ const variantsArgs = [
       {
         value: CoreUnit,
       },
-      {
-        value: CoreUnit,
-      },
-      {
-        value: CoreUnit,
-      },
-      {
-        value: CoreUnit,
-      },
     ] as CustomTableRow[],
     loading: false,
     sortState: [] as SortEnum[],
@@ -52,40 +43,3 @@ const variantsArgs = [
 ];
 
 export const [[Table, TableDark]] = createThemeModeVariants(CustomTable2, variantsArgs);
-
-Table.parameters = {
-  figma: {
-    component: {
-      375: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=8868%3A143329&t=t4FrzPIVoc7xPgpL-4',
-      834: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=5232%3A93999&t=t4FrzPIVoc7xPgpL-4',
-      1194: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=8868%3A139602&t=BJYSrpHcrXx2uY02-4',
-        options: {
-          style: {
-            top: '-2px',
-            left: '30px',
-          },
-        },
-      },
-    },
-  },
-};
-TableDark.parameters = {
-  figma: {
-    component: {
-      375: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=8868%3A143329&t=t4FrzPIVoc7xPgpL-4',
-      834: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=5232%3A93999&t=t4FrzPIVoc7xPgpL-4',
-      1194: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=8868%3A139602&t=BJYSrpHcrXx2uY02-4',
-        options: {
-          style: {
-            top: '-2px',
-            left: '30px',
-          },
-        },
-      },
-    },
-  },
-};

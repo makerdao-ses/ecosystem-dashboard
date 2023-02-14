@@ -105,7 +105,7 @@ const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
           </Summary>
           <Link href={`/core-unit/${coreUnit.shortCode}/finances/reports${queryStrings}`} passHref>
             <Expenditure>
-              <Title style={{ marginBottom: '11px' }}>Expenditure</Title>
+              <Title style={{ marginBottom: '14px' }}>Expenditure</Title>
               <CuTableColumnExpenditures
                 value={getExpenditureValueFromCoreUnit(coreUnit)}
                 percent={getPercentFromCoreUnit(coreUnit)}
@@ -223,7 +223,7 @@ const Expenditure = styled.a({
 
 const Team = styled.div({
   gridArea: 'team',
-  paddingTop: '32px',
+  paddingTop: '20px',
   width: 'fit-content',
   '@media (min-width: 375px)': {
     marginLeft: '0auto',
@@ -239,7 +239,7 @@ const Team = styled.div({
 
 const LastModified = styled.a({
   gridArea: 'lastModified',
-  marginTop: '20px',
+  marginTop: '32px',
   width: 'fit-content',
   '@media (min-width: 375px)': {
     marginLeft: 0,
