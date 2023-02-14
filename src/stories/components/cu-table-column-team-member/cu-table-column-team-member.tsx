@@ -77,6 +77,9 @@ const Container = styled.div({
   '@media (min-width: 1194px)': {
     marginLeft: '24px',
   },
+  '@media (min-width: 1140px)': {
+    alignItems: 'center',
+  },
 });
 
 const Data = styled.div({

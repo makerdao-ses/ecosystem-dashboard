@@ -29,13 +29,13 @@ CoreUnitItem.parameters = {
     component: {
       375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=8868%3A142787&t=pLOkuWP1eCxO98xA-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=8868%3A143329&t=dYLq7P56qu0pz8sc-4',
         options: {
           componentStyle: {
             width: 343,
           },
           style: {
-            top: -8,
+            top: -4,
             left: -40,
           },
         },
@@ -60,6 +60,32 @@ CoreUnitItem.parameters = {
         options: {
           componentStyle: {
             width: 1130,
+          },
+          style: {
+            top: 12,
+            left: -2,
+          },
+        },
+      },
+      1440: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=8613%3A86751&t=aOydtnf6uboTcy3u-4',
+        options: {
+          componentStyle: {
+            width: 1312,
+          },
+          style: {
+            top: 12,
+            left: -2,
+          },
+        },
+      },
+      1920: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14171%3A254374&t=qZAPiyjv5nxXIEeC-4',
+        options: {
+          componentStyle: {
+            width: 1312,
           },
           style: {
             top: 12,

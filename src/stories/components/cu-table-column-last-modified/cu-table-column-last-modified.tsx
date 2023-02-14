@@ -65,6 +65,10 @@ const Wrapper = styled.a({
   margin: 'auto 0',
   height: '48px',
   textDecoration: 'none',
+  '@media (min-width: 1440px)': {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
 });
 
 const Container = styled.div({

@@ -57,7 +57,11 @@ export const CuTableColumnExpenditures = ({ isLoading = false, ...props }: CuTab
               </CustomPopover>
             </Data>
           </DataWrapper>
-          <div style={{ marginBottom: -12 }}>
+          <div
+            style={{
+              marginBottom: -12,
+            }}
+          >
             <CustomBarChart
               items={isEmpty(props.items) ? new Array(3).fill({ value: 0 }) : props.items}
               maxValues={props.budgetCaps}
@@ -104,14 +108,12 @@ const Wrapper = styled.a({
 
 const DataWrapper = styled.div({
   display: 'flex',
-  alignItems: 'flex-end',
   paddingBottom: '4px',
 });
 
 const Data = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'flex-end',
 });
 
 const TotalPopup = styled.div({

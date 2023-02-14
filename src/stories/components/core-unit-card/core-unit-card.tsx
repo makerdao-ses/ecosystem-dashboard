@@ -117,7 +117,7 @@ const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
             </Expenditure>
           </Link>
           <Team>
-            <Title style={{ marginBottom: '16px' }}>Team Members</Title>
+            <Title style={{ marginBottom: '8px' }}>Team Members</Title>
             <CuTableColumnTeamMember
               members={getFacilitatorsFromCoreUnit(coreUnit)}
               fte={getFTEsFromCoreUnit(coreUnit)}
@@ -125,7 +125,7 @@ const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
           </Team>
           <Link href={`/core-unit/${coreUnit.shortCode}/activity-feed${queryStrings}`} passHref>
             <LastModified>
-              <Title style={{ marginBottom: '16px' }}>Last Modified</Title>
+              <Title style={{ marginBottom: '8px' }}>Last Modified</Title>
               <CuTableColumnLastModified date={getLastMonthWithData(coreUnit)} code={getShortCode(coreUnit.code)} />
             </LastModified>
           </Link>
@@ -212,7 +212,7 @@ const Summary = styled.div({
 
 const Expenditure = styled.a({
   gridArea: 'expenditure',
-  paddingTop: '32px',
+  paddingTop: '20px',
   '@media (min-width: 685px)': {
     paddingTop: '0',
   },
@@ -239,7 +239,7 @@ const Team = styled.div({
 
 const LastModified = styled.a({
   gridArea: 'lastModified',
-  marginTop: '32px',
+  marginTop: '20px',
   width: 'fit-content',
   '@media (min-width: 375px)': {
     marginLeft: 0,
@@ -277,7 +277,10 @@ const Categories = styled.div({
   marginBottom: '16px',
   justifyContent: 'center',
   '& > div': {
-    marginRight: '16px',
+    marginRight: '8px',
+    [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+      marginRight: '16px',
+    },
   },
   '& div:last-child': {
     marginRight: '0px',
@@ -306,7 +309,7 @@ const Title = styled.div<{ hideSmall?: boolean }>(({ hideSmall = false }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
-  fontSize: '16px',
+  fontSize: '14px',
   lineHeight: '22px',
   color: '#9FAFB9',
   '@media (min-width: 834px)': {
