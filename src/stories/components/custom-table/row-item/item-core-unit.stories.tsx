@@ -76,7 +76,7 @@ CoreUnitItem.parameters = {
           },
           style: {
             top: 12,
-            left: -2,
+            left: -6,
           },
         },
       },
@@ -89,7 +89,7 @@ CoreUnitItem.parameters = {
           },
           style: {
             top: 12,
-            left: -2,
+            left: -6,
           },
         },
       },

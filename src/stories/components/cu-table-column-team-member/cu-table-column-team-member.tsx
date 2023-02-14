@@ -75,10 +75,10 @@ const Container = styled.div({
   marginLeft: '7px',
 
   '@media (min-width: 1194px)': {
-    marginLeft: '24px',
-  },
-  '@media (min-width: 1140px)': {
     alignItems: 'center',
+  },
+  '@media (min-width: 1440px)': {
+    marginLeft: '64px',
   },
 });
 

@@ -109,9 +109,15 @@ const Container = styled.div<{ spacings?: number; align: string; isIndex?: boole
         ' & > div:first-of-type': {
           marginRight: '8px',
           marginTop: '0px',
+          '@media (min-width: 1440px)': {
+            marginRight: '16px',
+          },
         },
         '* + *': {
           marginRight: '8px',
+          '@media (min-width: 1440px)': {
+            marginRight: '16px',
+          },
         },
         ' & > div:last-child': {
           marginRight: '8px',

@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import {
   getBudgetCapsFromCoreUnit,
   getExpenditureValueFromCoreUnit,
@@ -89,18 +90,7 @@ export const renderTeamMember = (coreUnit: CoreUnitDto) => {
 export const renderLinks = (coreUnit: CoreUnitDto) => {
   if (!coreUnit) return <CuTableColumnLinks isLoading />;
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'flex-end',
-        alignItems: 'flex-end',
-        paddingRight: '16px',
-        width: '100%',
-        height: '50px',
-        margin: 'auto 0',
-        cursor: 'pointer',
-      }}
-    >
+    <LinksContainer>
       <CuTableColumnLinks
         links={getLinksFromCoreUnit(coreUnit)}
         spacings={16}
@@ -108,7 +98,7 @@ export const renderLinks = (coreUnit: CoreUnitDto) => {
         fillDark="#D2D4EF"
         isIndex
       />
-    </div>
+    </LinksContainer>
   );
 };
 
@@ -121,3 +111,17 @@ export const renderLastModified = (coreUnit: CoreUnitDto) => {
   if (!coreUnit) return <CuTableColumnLastModified date={undefined} isLoading={!coreUnit} />;
   return <CuTableColumnLastModified date={getLastMonthWithData(coreUnit)} code={getShortCode(coreUnit.shortCode)} />;
 };
+
+const LinksContainer = styled.div({
+  display: 'flex',
+  justifyContent: 'flex-end',
+  alignItems: 'flex-end',
+  paddingRight: '16px',
+  width: '100%',
+  height: '50px',
+  margin: 'auto 0',
+  cursor: 'pointer',
+  '@media (min-width: 1440px)': {
+    paddingRight: '0px',
+  },
+});
