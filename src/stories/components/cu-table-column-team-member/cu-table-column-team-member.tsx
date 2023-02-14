@@ -73,7 +73,9 @@ const Container = styled.div({
   fontWeight: 400,
   cursor: 'pointer',
   marginLeft: '7px',
-
+  '@media (min-width: 834px) and (max-width: 1194px)': {
+    marginLeft: '0px',
+  },
   '@media (min-width: 1194px)': {
     alignItems: 'center',
   },

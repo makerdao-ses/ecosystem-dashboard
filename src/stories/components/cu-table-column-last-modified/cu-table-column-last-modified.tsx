@@ -64,6 +64,9 @@ const Wrapper = styled.a({
   alignItems: 'flex-start',
   margin: 'auto 0',
   textDecoration: 'none',
+  '@media (min-width: 834px) and (max-width: 1194px)': {
+    margin: 0,
+  },
   '@media (min-width: 1440px)': {
     flex: 1,
     justifyContent: 'flex-end',

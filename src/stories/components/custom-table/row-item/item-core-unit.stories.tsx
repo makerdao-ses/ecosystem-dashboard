@@ -35,7 +35,7 @@ CoreUnitItem.parameters = {
             width: 343,
           },
           style: {
-            top: -4,
+            top: -2,
             left: -40,
           },
         },
@@ -45,7 +45,7 @@ CoreUnitItem.parameters = {
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=5232%3A94026&t=pLOkuWP1eCxO98xA-4',
         options: {
           componentStyle: {
-            width: 770,
+            width: 776,
           },
           style: {
             top: 14,

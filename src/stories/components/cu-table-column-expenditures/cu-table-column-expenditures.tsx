@@ -3,6 +3,7 @@ import isEmpty from 'lodash/isEmpty';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
+import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { buildQueryString } from '../../../core/utils/url.utils';
 import { CustomBarChart } from '../custom-bar-chart/custom-bar-chart';
@@ -57,17 +58,13 @@ export const CuTableColumnExpenditures = ({ isLoading = false, ...props }: CuTab
               </CustomPopover>
             </Data>
           </DataWrapper>
-          <div
-            style={{
-              marginBottom: -12,
-            }}
-          >
+          <CustomBarCharContainer>
             <CustomBarChart
               items={isEmpty(props.items) ? new Array(3).fill({ value: 0 }) : props.items}
               maxValues={props.budgetCaps}
               months={props.months}
             />
-          </div>
+          </CustomBarCharContainer>
           <ValueWrapper>
             <CustomPopover
               css={{ alignSelf: 'center' }}
@@ -102,7 +99,7 @@ const Container = styled.div({
 
 const Wrapper = styled.a({
   display: 'flex',
-  marginTop: '2px',
+  // marginTop: '2px',
   textDecoration: 'none',
 });
 
@@ -172,3 +169,10 @@ const Percent = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   lineHeight: '22px',
   color: isLight ? '#231536' : '#EDEFFF',
 }));
+
+const CustomBarCharContainer = styled.div({
+  marginBottom: -12,
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    marginBottom: -16,
+  },
+});
