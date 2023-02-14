@@ -320,7 +320,6 @@ const Title = styled.div<{ hideSmall?: boolean; isCoreUnitTitle?: boolean; isExp
     lineHeight: '22px',
     color: '#9FAFB9',
     marginBottom: isExpenditure ? '14px' : '8px',
-    border: '2px solid blue',
     '@media (min-width: 834px)': {
       display: 'block',
       fontSize: '14px',
