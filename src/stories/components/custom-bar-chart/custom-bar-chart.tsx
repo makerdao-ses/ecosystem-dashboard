@@ -189,7 +189,15 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
               key={`month-${i}`}
               x={i * 20 + padding - 2}
               y={57}
-              fill={props.items?.[i]?.value ? '#434358' : '#D8E0E3'}
+              fill={
+                isLight
+                  ? props.items?.[i]?.value
+                    ? '#434358'
+                    : '#D8E0E3'
+                  : props.items?.[i]?.value
+                  ? '#D8E0E3'
+                  : '#434358'
+              }
             >
               {month.charAt(0)}
             </text>
