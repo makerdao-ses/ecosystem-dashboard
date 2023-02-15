@@ -60,10 +60,8 @@ const DelegateSummary: React.FC<Props> = ({ code = 'del' }) => {
         <div style={{ marginBottom: 8 }}>
           <CustomLink
             children="Onchain transactions"
-            // fontWeight={500}
             fontSize={11}
             fontWeight={400}
-            // lineHeight="13px"
             href="#"
             style={{
               fontFamily: 'Inter, sans serif',
