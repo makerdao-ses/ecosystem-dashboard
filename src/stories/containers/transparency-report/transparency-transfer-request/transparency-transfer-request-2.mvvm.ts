@@ -79,8 +79,9 @@ export const useTransparencyTransferRequestMvvm2 = (currentMonth: DateTime, budg
 
     if (!budgetStatement || !budgetStatement.budgetStatementWallet) return 0;
 
-    budgetStatement.budgetStatementWallet?.forEach((wallet) => {
-      result += wallet?.currentBalance ?? 0;
+    budgetStatement?.budgetStatementWallet?.forEach((wallet) => {
+      if (!wallet || !wallet.budgetStatementTransferRequest) return 0;
+      result += wallet?.budgetStatementTransferRequest[0]?.walletBalance ?? 0;
     });
 
     return result;
