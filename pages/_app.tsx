@@ -61,6 +61,7 @@ function MyApp(props: MyAppProps) {
       router.push('/login');
     }
   }, [props.pageProps?.protected, router]);
+
   return (
     <CookiesProvider>
       <Provider store={store}>

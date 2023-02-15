@@ -1,12 +1,15 @@
 import styled from '@emotion/styled';
+import { CustomLink } from '@ses/components/custom-link/custom-link';
+import lightTheme from '@ses/styles/theme/light';
 import Image from 'next/image';
 import React from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import TextInput from '../../../components/text-input/text-input';
 import { useLoginMvvm } from './login.mvvm';
+import type { WithIsLight } from '@ses/core/utils/types-helpers';
 
-export default () => {
+const LoginContainer: React.FC = () => {
   const { form: formLogic, loading, error, clearErrors, isMobile, isTable, hasUserInactive } = useLoginMvvm();
   const { isLight } = useThemeContext();
 
@@ -70,10 +73,31 @@ export default () => {
             />
           </ButtonWrapper>
         </Form>
+
+        <RequestContainer>
+          <RequestText isLight={isLight}>Don't have your Log In credentials yet?</RequestText>
+          <CustomLink
+            href="https://discord.gg/yPadwNU7"
+            style={{
+              fontWeight: 500,
+              fontSize: '16px',
+              lineHeight: '18px',
+              letterSpacing: 'normal',
+              marginLeft: 0,
+            }}
+            iconHeight={10}
+            iconWidth={10}
+            target="_blank"
+          >
+            Request Access
+          </CustomLink>
+        </RequestContainer>
       </Container>
     </Wrapper>
   );
 };
+
+export default LoginContainer;
 
 export const Wrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
@@ -81,47 +105,57 @@ export const Wrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   width: '100%',
-  height: '100vh',
-  overflow: 'hidden',
   backgroundColor: isLight ? '#FFFFFF' : '#000000',
   backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/login-bg.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
+  marginTop: 64,
 }));
 
 export const Container = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  padding: '24px',
-  position: 'absolute',
-  top: 104,
-  width: 343,
   background: isLight ? '#FFFFFF' : '#10191F',
   boxShadow: isLight
     ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
     : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
-
   borderRadius: '6px',
-  '@media (min-width: 834px)': {
+  padding: '24px',
+  marginTop: 40,
+  marginBottom: 148,
+
+  [lightTheme.breakpoints.up('table_834')]: {
     padding: '40px 64px',
-    width: '484px',
+    marginTop: 64,
+    marginBottom: 128,
+    width: 484,
     top: 128,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginTop: 40,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    marginTop: 64,
   },
 }));
 
 const Title = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
   fontWeight: 600,
   fontSize: 24,
-  lineHeight: '39px',
+  lineHeight: '29px',
   textAlign: 'center',
   letterSpacing: 0.4,
   color: isLight ? '#231536' : '#D2D4EF',
   marginTop: 24,
   marginBottom: 0,
+
   '@media (min-width: 834px)': {
     marginTop: 40,
     fontSize: 32,
+    lineHeight: '39px',
   },
 }));
 
@@ -133,6 +167,15 @@ const Description = styled.h3<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   marginBottom: 42,
   maxWidth: 294,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    maxWidth: '100%',
+    marginBottom: 64,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginBottom: 42,
+  },
 }));
 
 export const ButtonWrapper = styled.div({
@@ -141,7 +184,8 @@ export const ButtonWrapper = styled.div({
 
 export const InputsWrapper = styled.div({
   width: '100%',
-  marginBottom: 42,
+  marginBottom: 40,
+
   '@media (min-width: 834px)': {
     marginBottom: 64,
   },
@@ -152,3 +196,22 @@ export const Form = styled.form({
   flexDirection: 'column',
   width: '100%',
 });
+
+const RequestContainer = styled.div({
+  display: 'block',
+  width: '100%',
+  textAlign: 'center',
+  marginTop: 48,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 40,
+  },
+});
+
+const RequestText = styled.div<WithIsLight>(({ isLight }) => ({
+  fontWeight: 400,
+  fontSize: 16,
+  lineHeight: '22px',
+  marginBottom: 2,
+  color: isLight ? '#231536' : '#D2D4EF',
+}));
