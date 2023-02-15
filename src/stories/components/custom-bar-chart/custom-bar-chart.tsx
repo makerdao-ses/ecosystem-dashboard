@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { Popover, Typography, useMediaQuery } from '@mui/material';
 import max from 'lodash/max';
 import React from 'react';
+import lightTheme from '../../../../styles/theme/dark';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ExpenditureLevel } from '../../../core/enums/expenditure-level.enum';
 import type { CustomChartItemModel } from '../../../core/models/custom-chart-item.model';
@@ -174,15 +175,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
           <NoDataProvided isLight={isLight}>No Data Provided</NoDataProvided>
         )}
       </Popover>
-      <svg
-        width={60}
-        height={57}
-        viewBox={'0 0 60 57'}
-        style={{
-          marginRight: '8px',
-          marginLeft: '8px',
-        }}
-      >
+      <SVGStyle>
         <MonthTextGroup>
           {props.months?.map((month: string, i: number) => (
             <text
@@ -242,7 +235,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
             );
           })}
         </g>
-      </svg>
+      </SVGStyle>
     </>
   );
 };
@@ -347,4 +340,15 @@ const MonthTextGroup = styled.g({
   lineHeight: '12px',
   letterSpacing: '1px',
   textTransform: 'uppercase',
+});
+
+const SVGStyle = styled.svg({
+  width: 60,
+  height: 57,
+  viewBox: '0 0 60 57',
+  marginRight: '8px',
+  marginLeft: '8px',
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginRight: '4px',
+  },
 });

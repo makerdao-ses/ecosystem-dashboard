@@ -106,6 +106,9 @@ const Wrapper = styled.a({
 const DataWrapper = styled.div({
   display: 'flex',
   paddingBottom: '4px',
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    marginLeft: '33px',
+  },
 });
 
 const Data = styled.div({
@@ -145,6 +148,9 @@ export const Title = styled.span<{ isLight?: boolean }>(({ isLight }) => ({
   lineHeight: '13px',
   fontFamily: 'Inter, sans-serif',
   whiteSpace: 'nowrap',
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginTop: '6px',
+  },
 }));
 
 const ValueWrapper = styled.div({
@@ -171,8 +177,8 @@ const Percent = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
 }));
 
 const CustomBarCharContainer = styled.div({
-  marginBottom: -12,
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  marginBottom: -25,
+  [lightTheme.breakpoints.up('table_834')]: {
     marginBottom: -16,
   },
 });

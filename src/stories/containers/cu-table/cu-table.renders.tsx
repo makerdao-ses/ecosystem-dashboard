@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import lightTheme from '../../../../styles/theme/light';
+
 import {
   getBudgetCapsFromCoreUnit,
   getExpenditureValueFromCoreUnit,
@@ -44,20 +46,8 @@ export const renderExpenditures = (coreUnit: CoreUnitDto) => {
   if (!coreUnit) return <CuTableColumnExpenditures isLoading />;
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'flex-end',
-        margin: 'auto 0',
-        height: '52px',
-      }}
-    >
-      <div
-        style={{
-          display: 'block',
-          paddingLeft: '8px',
-        }}
-      >
+    <ExpendituresContainer>
+      <InsideExpenditureContainer>
         <CuTableColumnExpenditures
           value={getExpenditureValueFromCoreUnit(coreUnit)}
           percent={getPercentFromCoreUnit(coreUnit)}
@@ -66,8 +56,8 @@ export const renderExpenditures = (coreUnit: CoreUnitDto) => {
           budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
           code={getShortCode(coreUnit.shortCode)}
         />
-      </div>
-    </div>
+      </InsideExpenditureContainer>
+    </ExpendituresContainer>
   );
 };
 
@@ -121,7 +111,27 @@ const LinksContainer = styled.div({
   height: '50px',
   margin: 'auto 0',
   cursor: 'pointer',
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    paddingRight: '0px',
+    height: 'fit-content',
+  },
   '@media (min-width: 1440px)': {
     paddingRight: '0px',
+  },
+});
+
+const ExpendituresContainer = styled.div({
+  display: 'flex',
+  alignItems: 'flex-end',
+  margin: 'auto 0',
+  height: '50px',
+});
+
+const InsideExpenditureContainer = styled.div({
+  display: 'block',
+  paddingLeft: '8px',
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginLeft: '-4px',
+    paddingLeft: 0,
   },
 });

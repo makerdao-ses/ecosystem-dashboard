@@ -210,14 +210,20 @@ const Summary = styled.div({
   display: 'block',
   paddingRight: '8px',
   minWidth: '300px',
+  [lightTheme.breakpoints.up('table_834')]: {
+    minWidth: 295,
+  },
 });
 
 const Expenditure = styled.a({
   gridArea: 'expenditure',
   paddingTop: '32px',
-  marginBottom: '14px',
+  marginBottom: '29px',
   '@media (min-width: 685px)': {
     paddingTop: '0',
+  },
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginBottom: '14px',
   },
   '@media (min-width: 685px) and (max-width: 834px)': {
     marginBottom: '16px',
@@ -229,10 +235,10 @@ const Team = styled.div({
   marginTop: '0px',
   width: 'fit-content',
   '@media (min-width: 375px)': {
-    marginLeft: '0auto',
+    marginLeft: '0 auto',
   },
   '@media (min-width: 685px) and (max-width: 834px)': {
-    paddingTop: '0',
+    paddingTop: 0,
   },
   '@media (min-width: 834px)': {
     paddingTop: '0',
@@ -267,9 +273,9 @@ const Line = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   gridArea: 'line',
   height: 1,
   background: isLight ? '#D4D9E1' : '#405361',
-  margin: '32px 0 16px',
+  margin: '30px 0 16px',
   '@media (min-width: 834px)': {
-    margin: '6px 0 8px',
+    margin: '10px 0 8px',
   },
   '@media (min-width: 1194px)': {
     margin: '16px 0 8px',
@@ -319,6 +325,7 @@ const Title = styled.div<{ hideSmall?: boolean; isCoreUnitTitle?: boolean; isExp
     fontSize: '14px',
     lineHeight: '22px',
     color: '#9FAFB9',
+    marginLeft: isExpenditure ? '3px' : '0px',
     marginBottom: isExpenditure ? '14px' : '8px',
     '@media (min-width: 834px)': {
       display: 'block',

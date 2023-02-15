@@ -162,13 +162,13 @@ export const CoreUnit: CoreUnitDto = {
   } as LastActivityDto,
   socialMediaChannels: [
     {
-      discord: 'https://discord.gg/h7GKvqDyDP',
-      forumTag: 'https://forum.makerdao.com/c/core-units/sustainable-ecosystem-scaling',
-      github: 'https://github.com/makerdao-ses',
-      linkedIn: 'https://www.linkedin.com/company/makerdao-ses/',
-      twitter: 'https://twitter.com/MakerDAO_SES',
       website: 'https://ses.makerdao.network',
+      github: 'https://github.com/makerdao-ses',
+      forumTag: 'https://forum.makerdao.com/c/core-units/sustainable-ecosystem-scaling',
+      discord: 'https://discord.gg/h7GKvqDyDP',
+      twitter: 'https://twitter.com/MakerDAO_SES',
       youtube: 'https://www.youtube.com/channel/UC9c35O2H6fq8fB2CGzzP1bw',
+      linkedIn: 'https://www.linkedin.com/company/makerdao-ses/',
     },
   ] as SocialMediaChannelDto[],
   budgetStatements: [

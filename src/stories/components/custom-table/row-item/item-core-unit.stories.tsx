@@ -35,8 +35,8 @@ CoreUnitItem.parameters = {
             width: 343,
           },
           style: {
-            top: -2,
-            left: -40,
+            top: -4,
+            left: -38,
           },
         },
       },
@@ -75,8 +75,8 @@ CoreUnitItem.parameters = {
             width: 1312,
           },
           style: {
-            top: 12,
-            left: -6,
+            top: 13,
+            left: -3,
           },
         },
       },
@@ -88,8 +88,8 @@ CoreUnitItem.parameters = {
             width: 1312,
           },
           style: {
-            top: 12,
-            left: -6,
+            top: 13,
+            left: -3,
           },
         },
       },

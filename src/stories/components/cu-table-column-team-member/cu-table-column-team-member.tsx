@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import CardInfoMember from '../card-info-member/card-info-member';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
@@ -74,7 +75,10 @@ const Container = styled.div({
   cursor: 'pointer',
   marginLeft: '7px',
   '@media (min-width: 834px) and (max-width: 1194px)': {
-    marginLeft: '0px',
+    marginLeft: '-4px',
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginLeft: '12px',
   },
   '@media (min-width: 1194px)': {
     alignItems: 'center',
@@ -89,6 +93,13 @@ const Data = styled.div({
   flexDirection: 'column',
   alignItems: 'center',
   marginRight: '10px',
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginRight: '10px',
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    marginRight: '10px',
+    marginLeft: '4px',
+  },
 });
 
 const CirclesWrapper = styled.div({
