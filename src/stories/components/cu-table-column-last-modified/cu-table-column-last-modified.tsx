@@ -27,7 +27,7 @@ export const CuTableColumnLastModified = ({ date, isLoading, code, now = DateTim
         <Container>
           <DateLabel isLight={isLight}>{date?.toFormat('dd-MMM-yyyy')?.toUpperCase() ?? 'No Data'}</DateLabel>
           {date ? (
-            <DifferenceLabel data-chromatic="ignore" isLight={isLight}>
+            <DifferenceLabel isLight={isLight}>
               {capitalizeSentence(
                 date?.toRelative({
                   base: now,
