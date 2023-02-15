@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { Popover, Typography, useMediaQuery } from '@mui/material';
 import max from 'lodash/max';
 import React from 'react';
-import lightTheme from '../../../../styles/theme/dark';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ExpenditureLevel } from '../../../core/enums/expenditure-level.enum';
 import type { CustomChartItemModel } from '../../../core/models/custom-chart-item.model';
@@ -348,7 +347,4 @@ const SVGStyle = styled.svg({
   viewBox: '0 0 60 57',
   marginRight: '8px',
   marginLeft: '8px',
-  [lightTheme.breakpoints.up('table_834')]: {
-    marginRight: '4px',
-  },
 });

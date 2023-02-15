@@ -174,11 +174,20 @@ const Percent = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   fontSize: '16px',
   lineHeight: '22px',
   color: isLight ? '#231536' : '#EDEFFF',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    marginBottom: 4,
+  },
 }));
 
 const CustomBarCharContainer = styled.div({
   marginBottom: -25,
-  [lightTheme.breakpoints.up('table_834')]: {
-    marginBottom: -16,
+  marginTop: -10,
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    marginBottom: -6,
+    marginLeft: -3,
+    marginTop: -10,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginTop: 0,
   },
 });
