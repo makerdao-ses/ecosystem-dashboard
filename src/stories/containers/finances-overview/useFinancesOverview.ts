@@ -40,21 +40,22 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
     return Math.trunc(total || 0);
   }, [monthly, selectedYear]);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const fillArrayWhenNoData = useCallback((series: { period: string; value: number }[]) => {
-    const filledArray = new Array<{ period: string; value: number }>(12).fill({
-      value: 0,
-      period: '',
-    });
+    const filledArr = new Array<{ period: string; value: number }>(12);
 
-    const monthWithData = series.map((item) => ({
-      value: item.value,
-      period: Number(DateTime.fromISO(item.period || '').month),
+    const filledArray = [...filledArr].map((item, index) => ({
+      value: 0,
+      period: index.toString(),
     }));
-    monthWithData.forEach((itemY) => {
+
+    const monthWithData = series.map((item, index) => ({
+      value: item.value,
+      period: Number(DateTime.fromISO(item.period || '').month) || index,
+    }));
+    monthWithData.forEach((itemY, index) => {
       filledArray[itemY.period - 1] = {
         value: itemY.value,
-        period: itemY.period.toString(),
+        period: itemY.period.toString() ? itemY.period.toString() : index.toString(),
       };
     });
     return filledArray;
@@ -72,15 +73,15 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
       }))
     );
     const actuals = fillArrayWhenNoData(
-      valuesYearSelect.map((item, index) => ({
-        value:
-          (item.actuals ?? 0) - discontinued[index].value < 0 ? 0 : (item.actuals ?? 0) - discontinued[index].value,
+      valuesYearSelect.map((item) => ({
+        value: (item.actuals ?? 0) - (item.discontinued ?? 0) < 0 ? 0 : (item.actuals ?? 0) - (item.discontinued ?? 0),
+
         period: item.period || '',
       }))
     );
     const prediction = fillArrayWhenNoData(
-      valuesYearSelect.map((item, index) => ({
-        value: (item.prediction ?? 0) - actuals[index].value < 0 ? 0 : (item.prediction ?? 0) - actuals[index].value,
+      valuesYearSelect.map((item) => ({
+        value: (item.prediction ?? 0) - (item?.actuals ?? 0) < 0 ? 0 : (item.prediction ?? 0) - (item.actuals ?? 0),
         period: item.period || '',
       }))
     );
