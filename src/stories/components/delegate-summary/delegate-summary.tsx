@@ -57,7 +57,7 @@ const DelegateSummary: React.FC<Props> = ({ code = 'del' }) => {
           <Code>{code.toUpperCase()}</Code>
           <Text>Recognized Delegates</Text>
         </ContainerLogoDescription>
-        <div style={{ marginBottom: 8 }}>
+        <ContainerLink>
           <CustomLink
             children="Onchain transactions"
             fontSize={11}
@@ -75,7 +75,7 @@ const DelegateSummary: React.FC<Props> = ({ code = 'del' }) => {
             iconHeight={6}
             iconWidth={6}
           />
-        </div>
+        </ContainerLink>
       </div>
       <div>
         <CuTableColumnLinks links={links} align="flex-start" />
@@ -136,5 +136,12 @@ const Text = styled.div({
     fontSize: '24px',
     lineHeight: '29px',
     letterSpacing: '0.4px',
+  },
+});
+
+const ContainerLink = styled.div({
+  marginBottom: 8,
+  [lightTheme.breakpoints.between('desktop_1440', 'desktop_1920')]: {
+    marginBottom: 0,
   },
 });

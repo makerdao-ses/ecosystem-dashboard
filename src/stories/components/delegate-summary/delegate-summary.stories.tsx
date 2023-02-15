@@ -27,11 +27,14 @@ Banner.parameters = {
     component: {
       1440: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14171%3A258355&t=WdT48bEY0jFS780n-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14171%3A258356&t=WCAGvNfUJOZmR3GA-4',
         options: {
+          componentStyle: {
+            width: 1312,
+          },
           style: {
             top: -16,
-            left: -16,
+            left: -20,
           },
         },
       },

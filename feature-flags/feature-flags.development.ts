@@ -12,4 +12,5 @@ export const flagsDevelopment: FeatureFlagsInterface = {
   FEATURE_MKR_VESTING: true,
   FEATURE_AUDIT_REPORTS: false,
   FEATURE_FINANCES_OVERVIEW: true,
+  FEATURE_RECOGNIZED_DELEGATES: true,
 };
