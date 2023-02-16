@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
-import { Divider, IconButton, Menu, MenuItem, Typography } from '@mui/material';
-import Link from 'next/link';
+import { IconButton, Menu, MenuItem, Typography } from '@mui/material';
+import { CustomButton } from '@ses/components/custom-button/custom-button';
+import { CustomLink } from '@ses/components/custom-link/custom-link';
+import { HOW_TO_SUBMIT_EXPENSES } from '@ses/core/utils/const';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import ArrowSelect from '../../svg/arrow-select';
@@ -15,14 +17,21 @@ import type { WebSiteLinks } from './menu-items';
 
 interface Props {
   links: WebSiteLinks[] | [];
-  onClick: (link: string) => () => void;
   fill?: string;
   themeMode: ThemeMode;
   responsive?: boolean;
   toggleTheme: () => void;
+  popupDefault?: boolean;
 }
 
-const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, toggleTheme }: Props) => {
+const SelectLink: React.FC<Props> = ({
+  links,
+  fill = '',
+  themeMode,
+  responsive = false,
+  toggleTheme,
+  popupDefault = false,
+}) => {
   const { isLight } = useThemeContext();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -35,22 +44,15 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
     setAnchorEl(null);
   };
 
-  const [popup, setPopup] = useState(false);
-  const togglePopup = () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    document.querySelector('body').style.overflow = popup ? 'auto' : 'hidden';
-    setPopup(!popup);
-  };
+  const [popup, setPopup] = useState(popupDefault);
+  const togglePopup = () => setPopup(!popup);
 
-  useEffect(
-    () =>
-      function setScroll() {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        document.querySelector('body').style.overflow = 'auto';
-      }
-  );
+  useEffect(() => {
+    const body = document.querySelector('body');
+    if (body) {
+      body.style.overflow = popup ? 'hidden' : 'auto';
+    }
+  }, [popup]);
 
   const background = useMemo(
     () =>
@@ -89,7 +91,7 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
         sx={{
           '& .MuiMenu-paper': {
             padding: '24px',
-            minHeight: '711px',
+            maxHeight: 'calc(100% - 50px)',
             width: '545px',
             background: isLight ? '#FFFFFF' : '#000A13',
             position: 'absolute',
@@ -126,7 +128,6 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
             disableGutters={true}
             disableTouchRipple={true}
             sx={{
-              paddingBottom: '16px',
               paddingTop: '0px',
               '&:hover': {
                 background: 'none',
@@ -151,7 +152,6 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
               padding={link.padding}
               subtract={link.subtract}
               description={link.description}
-              onClick={onClick(link.link)}
               letterSpacing={link.letterSpacing}
               lineHeight={link.lineHeight}
               colorDark={link.colorDark}
@@ -168,12 +168,73 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
             <CloseWrapper>
               <Close onClick={togglePopup} />
             </CloseWrapper>
-            <div onClick={toggleTheme}>
-              <DarkModeText isLight={isLight}>{isLight ? 'Dark Mode' : 'Light Mode'}</DarkModeText>
-              <IconButton>
-                {isLight ? <MoonMode width={16} height={16} /> : <ToggleDarkMode width={16} height={16} />}
-              </IconButton>
-            </div>
+            <CustomButton
+              onClick={toggleTheme}
+              style={{
+                padding: '8px 18px 8px 24px',
+                marginBottom: 32,
+              }}
+              styleText={{
+                display: 'flex',
+                alignItems: 'center',
+                fontSize: 14,
+                fontWeight: 500,
+                lineHeight: '18px',
+                color: isLight ? '#31424E' : '#E2D8EE',
+
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                '& span': {
+                  marginRight: 10,
+                },
+              }}
+              label={
+                <>
+                  <DarkModeText isLight={isLight}>{isLight ? 'Dark Mode' : 'Light Mode'}</DarkModeText>
+                  {isLight ? <MoonMode width={16} height={16} /> : <ToggleDarkMode width={16} height={16} />}
+                </>
+              }
+            />
+            <CustomButton
+              onClick={toggleTheme}
+              style={{
+                padding: '7px 24px',
+              }}
+              styleText={{
+                display: 'flex',
+                alignItems: 'center',
+                fontSize: 14,
+                fontWeight: 500,
+                lineHeight: '18px',
+                color: isLight ? '#31424E' : '#E2D8EE',
+
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                '& span': {
+                  marginRight: 10,
+                },
+              }}
+              label={
+                <CustomLink
+                  children="How to Submit Expenses"
+                  fontWeight={500}
+                  fontSize={16}
+                  href={HOW_TO_SUBMIT_EXPENSES}
+                  style={{
+                    fontFamily: 'Inter, sans serif',
+                    color: '#447AFB',
+                    fontStyle: 'normal',
+                    marginLeft: '0px',
+                    fontSize: 16,
+                    fontWeight: 500,
+                    lineHeight: '18px',
+                  }}
+                  withArrow
+                  iconHeight={10}
+                  iconWidth={10}
+                />
+              }
+            />
 
             <Line isLight={isLight} />
             <StyleTitle isLight={isLight}>Essential MakerDAO Governance Websites </StyleTitle>
@@ -195,36 +256,25 @@ const SelectLink = ({ links, fill = '', themeMode, onClick, responsive = false, 
                 padding={link.padding}
                 subtract={link.subtract}
                 description={link.description}
-                onClick={onClick(link.link)}
                 letterSpacing={link.letterSpacing}
                 lineHeight={link.lineHeight}
                 colorDark={link.colorDark}
               />
             ))}
           </ContainerInside>
-          <Divider
-            light
-            sx={{
-              width: '100%',
-              bgcolor: isLight ? '#D4D9E1' : '#405361',
-              marginTop: '10px',
-            }}
-            variant="fullWidth"
-          />
-          <Link passHref href="https://expenses.makerdao.network/login">
-            <LoginLink>Expenses.makerdao.com/login</LoginLink>
-          </Link>
         </Container>
       )}
     </div>
   );
 };
 
+export default SelectLink;
+
 const Line = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   width: '100%',
-  margin: '18px 0 32px',
-  border: isLight ? ' 1px solid #D4D9E1' : '1px solid #405361',
+  margin: '32px 0 24px',
+  borderBottom: isLight ? ' 1px solid #D4D9E1' : '1px solid #405361',
 }));
 
 const DarkModeText = styled.span<{ isLight: boolean }>(({ isLight }) => ({
@@ -261,9 +311,6 @@ const ContainerInside = styled.div({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  ':last-child': {
-    border: '2px solid red',
-  },
 });
 
 const ContainerIcon = styled.div<{ background: string }>(({ background }) => ({
@@ -325,17 +372,3 @@ const CloseWrapper = styled.div({
   marginBottom: '22px',
   cursor: 'pointer',
 });
-
-const LoginLink = styled.a({
-  fontFamily: 'Inter, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 500,
-  fontSize: '14px',
-  lineHeight: '18px',
-  textAlign: 'center',
-  color: '#447AFB',
-  marginTop: '32px',
-  marginBottom: '32px',
-});
-
-export default SelectLink;

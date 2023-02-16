@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
+import { CustomButton } from '@ses/components/custom-button/custom-button';
 import Link from 'next/link';
 import React from 'react';
 import { useThemeContext } from '../../../../../core/context/ThemeContext';
-import { CustomButton } from '../../../custom-button/custom-button';
 import type { ReactNode } from 'react';
 
 interface Props {
@@ -20,7 +20,6 @@ interface Props {
   description: string;
   height?: string;
   letterSpacing?: string;
-  onClick: () => void;
   lineHeight?: string;
   colorDark?: string;
 }
@@ -34,13 +33,12 @@ export const ItemWebSite = ({
   subtract = '',
   description,
   height = '134px',
-  onClick,
   ...props
 }: Props) => {
   const { isLight } = useThemeContext();
   return (
     <Link href={props.link || ''} passHref legacyBehavior>
-      <Container height={height} isLight={isLight}>
+      <Container height={height} isLight={isLight} target="_blank">
         <ContainerRow>
           <div
             style={{
@@ -68,7 +66,6 @@ export const ItemWebSite = ({
             <CustomButton
               className="visitWebsiteButton"
               label="Visit Website"
-              onClick={onClick}
               style={{
                 width: '137px',
                 height: '34px',
@@ -86,7 +83,6 @@ export const ItemWebSite = ({
         <BottomLinkWrapper>
           <CustomButton
             label="Visit Website"
-            onClick={onClick}
             style={{
               width: '137px',
               height: '34px',
@@ -135,19 +131,20 @@ const Container = styled.a<{ height?: string; isLight: boolean }>(({ height, isL
   width: '100%',
   height: 'fit-content',
   marginBottom: '16px',
+  textDecoration: 'none',
+
   '&:hover': {
     background: isLight ? '#ECF1F3' : '#1E2C37',
     '& .visitWebsiteButton': {
       background: isLight ? '#ECF1F3' : '#1E2C37',
     },
   },
+
   '@media (min-width: 635px)': {
     width: '497px',
     height,
-    margin: 0,
     padding: '16px 24px',
   },
-  textDecoration: 'none',
 }));
 
 const ContainerRow = styled.div({

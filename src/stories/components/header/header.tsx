@@ -12,7 +12,6 @@ import { useIsAdmin } from '../../../core/hooks/useIsAdmin';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
 import ThemeSwitcherButton from '../button/switch-button/switch-buttom';
 import { CustomLink } from '../custom-link/custom-link';
-import MenuTheme from '../menu-navigation/menu-theme/menu-theme';
 import MenuUserOptions from '../menu-navigation/menu-user/menu-user';
 import Expenses from '../svg/expenses';
 import Logo from '../svg/logo';
@@ -40,13 +39,6 @@ const Header = ({ links }: Props) => {
     clearCredentials?.();
     router.push(siteRoutes.login);
   };
-
-  const onClick = useCallback(
-    (link: string) => () => {
-      window.open(link, '_blank');
-    },
-    []
-  );
 
   const handleGoHome = useCallback(() => {
     router.push(siteRoutes.home);
@@ -78,7 +70,6 @@ const Header = ({ links }: Props) => {
               links={links}
               themeMode={themeMode}
               fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'}
-              onClick={onClick}
               toggleTheme={toggleTheme}
             />
           </LogoLinksWrapper>
@@ -134,23 +125,18 @@ const Header = ({ links }: Props) => {
         </Navigation>
       </LeftPart>
       <RightPart>
-        {authToken ? (
-          <MenuTheme themeMode={themeMode} toggleTheme={toggleTheme} />
-        ) : (
-          <div>
-            <SelectLink
-              links={links}
-              themeMode={themeMode}
-              fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'}
-              onClick={onClick}
-              responsive={true}
-              toggleTheme={toggleTheme}
-            />
-            <WrapperIcon>
-              <ThemeSwitcherButton themeMode={themeMode} toggleTheme={toggleTheme} />
-            </WrapperIcon>
-          </div>
-        )}
+        <div>
+          <SelectLink
+            links={links}
+            themeMode={themeMode}
+            fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'}
+            responsive={true}
+            toggleTheme={toggleTheme}
+          />
+          <WrapperIcon>
+            <ThemeSwitcherButton themeMode={themeMode} toggleTheme={toggleTheme} />
+          </WrapperIcon>
+        </div>
       </RightPart>
     </Container>
   );
