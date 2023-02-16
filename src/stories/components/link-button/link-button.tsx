@@ -27,6 +27,7 @@ interface CustomButtonProps {
   type?: 'button' | 'submit';
   padding?: string;
   href?: string;
+  target?: '_self' | '_blank' | '_parent' | '_top';
 }
 
 export const LinkButton = ({
@@ -41,12 +42,14 @@ export const LinkButton = ({
   type = 'button',
   padding = '15px 16px',
   href,
+  target = '_self',
   ...props
 }: CustomButtonProps) => {
   const { isLight } = useThemeContext();
   return (
     <Link href={href || ''} passHref>
       <Container
+        target={target}
         padding={padding}
         active={active}
         allowsHover={allowsHover}
