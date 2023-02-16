@@ -1,36 +1,45 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import { store } from '../../../../src/core/store/store';
-import { CustomTable } from './custom-table';
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
+import { columns, CoreUnit, headersSort } from '@ses/core/utils/test.utils';
+import { CustomTable2 } from './custom-table-2';
+import type { CustomTableColumn, CustomTableRow } from './custom-table-2';
+import type { SortEnum } from '@ses/core/enums/sort.enum';
+import type { ComponentMeta } from '@storybook/react';
 
 export default {
-  title: 'Components/General/CustomTable',
-  component: CustomTable,
-} as ComponentMeta<typeof CustomTable>;
+  title: 'Components/CuTable/CustomTable2',
+  component: CustomTable2,
+  parameters: {
+    layout: 'centered',
+    chromatic: {
+      viewports: [375, 834, 1194],
+      pauseAnimationAtEnd: true,
+    },
+  },
+} as ComponentMeta<typeof CustomTable2>;
 
-const Template: ComponentStory<typeof CustomTable> = (args) => (
-  <Provider store={store}>
-    <CustomTable {...args} />
-  </Provider>
-);
+const variantsArgs = [
+  {
+    columns: columns as CustomTableColumn[],
+    items: [
+      {
+        value: CoreUnit,
+      },
+      {
+        value: CoreUnit,
+      },
+      {
+        value: CoreUnit,
+      },
+      {
+        value: CoreUnit,
+      },
+    ] as CustomTableRow[],
+    loading: false,
+    sortState: [] as SortEnum[],
+    handleSort: () => undefined,
+    headersSort,
+    queryStrings: '',
+  },
+];
 
-export const Default = Template.bind({});
-Default.args = {
-  headers: ['Lorem', 'Ipsum', 'Dolor', 'Sit', 'Amet'],
-  items: [
-    ['Lorem', 'Ipsum', 'Dolor', 'Sit', 'Amet'],
-    ['Ipsum', 'Ipsum', 'Dolor', 'Sit', 'Amet'],
-    ['Lorem', 'Ipsum', 'Dolor', 'Sit', 'Amet'],
-    ['Lorem', 'Ipsum', 'Dolor', 'Sit', 'Amet'],
-    ['Lorem', 'Ipsum', 'Dolor', 'Sit', 'Amet'],
-    ['Lorem', 'Ipsum', 'Dolor', 'Sit', 'Amet'],
-    ['Lorem', 'Ipsum', 'Dolor', 'Sit', 'Amet'],
-  ],
-};
-
-export const Empty = Template.bind({});
-Empty.args = {
-  headers: ['Lorem', 'Ipsum', 'Dolor', 'Sit', 'Amet'],
-  items: [],
-};
+export const [[Table, TableDark]] = createThemeModeVariants(CustomTable2, variantsArgs);

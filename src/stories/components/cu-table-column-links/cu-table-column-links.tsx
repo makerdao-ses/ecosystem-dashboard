@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Box } from '@mui/material';
 import React from 'react';
+import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
 import Discord from '../svg/discord';
@@ -110,17 +111,30 @@ const Container = styled.div<{ spacings?: number; align: string; isIndex?: boole
           marginRight: '8px',
           marginTop: '0px',
         },
-        '* + *': {
-          marginRight: '8px',
-        },
         ' & > div:last-child': {
           marginRight: '8px',
+          [lightTheme.breakpoints.up('desktop_1194')]: {
+            marginRight: '16px',
+          },
         },
       }
     : undefined,
   '@media (min-width: 1410px)': {
     maxWidth: 'unset',
     flexWrap: 'nowrap',
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    ' & > div:first-of-type': {
+      marginRight: '16px',
+      marginTop: '10px',
+    },
+    '* + *': {
+      marginRight: '16px',
+      marginTop: '10px',
+    },
+    ' & > div:last-child': {
+      marginRight: '6px',
+    },
   },
 }));
 

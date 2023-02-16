@@ -36,7 +36,7 @@ interface CoreUnitCardProps {
   isLoading?: boolean;
 }
 
-export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
+const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
   const router = useRouter();
   const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
   const { isLight } = useThemeContext();
@@ -87,11 +87,13 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
   }
 
   return (
-    <Link href={`/core-unit/${coreUnit.shortCode}${queryStrings}`} passHref>
+    <Link href={`/core-unit/${coreUnit?.shortCode}${queryStrings}`} passHref>
       <CuCard>
         <Container isLight={isLight}>
           <Summary>
-            <Title hideSmall>Core Unit</Title>
+            <Title hideSmall isCoreUnitTitle>
+              Core Unit
+            </Title>
             <CuTableColumnSummary
               title={coreUnit?.name}
               status={getStautsMip39AccetedOrObsolete(coreUnit)}
@@ -105,7 +107,7 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
           </Summary>
           <Link href={`/core-unit/${coreUnit.shortCode}/finances/reports${queryStrings}`} passHref>
             <Expenditure>
-              <Title style={{ marginBottom: '11px' }}>Expenditure</Title>
+              <Title isExpenditure>Expenditure</Title>
               <CuTableColumnExpenditures
                 value={getExpenditureValueFromCoreUnit(coreUnit)}
                 percent={getPercentFromCoreUnit(coreUnit)}
@@ -117,7 +119,7 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
             </Expenditure>
           </Link>
           <Team>
-            <Title style={{ marginBottom: '16px' }}>Team Members</Title>
+            <Title>Team Members</Title>
             <CuTableColumnTeamMember
               members={getFacilitatorsFromCoreUnit(coreUnit)}
               fte={getFTEsFromCoreUnit(coreUnit)}
@@ -125,7 +127,7 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
           </Team>
           <Link href={`/core-unit/${coreUnit.shortCode}/activity-feed${queryStrings}`} passHref>
             <LastModified>
-              <Title style={{ marginBottom: '16px' }}>Last Modified</Title>
+              <Title>Last Modified</Title>
               <CuTableColumnLastModified date={getLastMonthWithData(coreUnit)} code={getShortCode(coreUnit.code)} />
             </LastModified>
           </Link>
@@ -149,6 +151,7 @@ export const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps)
   );
 };
 
+export default CoreUnitCard;
 const CuCard = styled.a({
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     ':last-child': {
@@ -207,13 +210,20 @@ const Summary = styled.div({
   display: 'block',
   paddingRight: '8px',
   minWidth: '300px',
+  [lightTheme.breakpoints.up('table_834')]: {
+    minWidth: 295,
+  },
 });
 
 const Expenditure = styled.a({
   gridArea: 'expenditure',
   paddingTop: '32px',
+  marginBottom: '29px',
   '@media (min-width: 685px)': {
     paddingTop: '0',
+  },
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginBottom: '14px',
   },
   '@media (min-width: 685px) and (max-width: 834px)': {
     marginBottom: '16px',
@@ -222,13 +232,13 @@ const Expenditure = styled.a({
 
 const Team = styled.div({
   gridArea: 'team',
-  paddingTop: '32px',
+  marginTop: '0px',
   width: 'fit-content',
   '@media (min-width: 375px)': {
-    marginLeft: '0auto',
+    marginLeft: '0 auto',
   },
   '@media (min-width: 685px) and (max-width: 834px)': {
-    paddingTop: '0',
+    paddingTop: 0,
   },
   '@media (min-width: 834px)': {
     paddingTop: '0',
@@ -238,7 +248,7 @@ const Team = styled.div({
 
 const LastModified = styled.a({
   gridArea: 'lastModified',
-  marginTop: '32px',
+  marginTop: '0px',
   width: 'fit-content',
   '@media (min-width: 375px)': {
     marginLeft: 0,
@@ -263,8 +273,11 @@ const Line = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   gridArea: 'line',
   height: 1,
   background: isLight ? '#D4D9E1' : '#405361',
-  margin: '32px 0 16px',
+  margin: '30px 0 16px',
   '@media (min-width: 834px)': {
+    margin: '10px 0 8px',
+  },
+  '@media (min-width: 1194px)': {
     margin: '16px 0 8px',
   },
 }));
@@ -276,7 +289,10 @@ const Categories = styled.div({
   marginBottom: '16px',
   justifyContent: 'center',
   '& > div': {
-    marginRight: '16px',
+    marginRight: '8px',
+    [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+      marginRight: '16px',
+    },
   },
   '& div:last-child': {
     marginRight: '0px',
@@ -300,16 +316,23 @@ const Links = styled.div({
   },
 });
 
-const Title = styled.div<{ hideSmall?: boolean }>(({ hideSmall = false }) => ({
-  display: hideSmall ? 'none' : 'block',
-  fontFamily: 'Inter, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 400,
-  fontSize: '16px',
-  lineHeight: '22px',
-  color: '#9FAFB9',
-  '@media (min-width: 834px)': {
-    display: 'block',
+const Title = styled.div<{ hideSmall?: boolean; isCoreUnitTitle?: boolean; isExpenditure?: boolean }>(
+  ({ hideSmall = false, isCoreUnitTitle = false, isExpenditure = false }) => ({
+    display: hideSmall ? 'none' : 'block',
+    fontFamily: 'Inter, sans-serif',
+    fontStyle: 'normal',
+    fontWeight: 400,
     fontSize: '14px',
-  },
-}));
+    lineHeight: '22px',
+    color: '#9FAFB9',
+    marginLeft: isExpenditure ? '3px' : '0px',
+    marginBottom: isExpenditure ? '14px' : '8px',
+    '@media (min-width: 834px)': {
+      display: 'block',
+      fontSize: '14px',
+    },
+    [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+      marginBottom: isCoreUnitTitle ? '0px' : '16px',
+    },
+  })
+);

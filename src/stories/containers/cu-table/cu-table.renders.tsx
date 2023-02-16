@@ -1,3 +1,6 @@
+import styled from '@emotion/styled';
+import lightTheme from '../../../../styles/theme/light';
+
 import {
   getBudgetCapsFromCoreUnit,
   getExpenditureValueFromCoreUnit,
@@ -14,7 +17,7 @@ import {
   getStautsMip39AccetedOrObsolete,
 } from '../../../core/business-logic/core-units';
 import { getShortCode } from '../../../core/utils/string.utils';
-import { CoreUnitCard } from '../../components/core-unit-card/core-unit-card';
+import CoreUnitCard from '../../components/core-unit-card/core-unit-card';
 import { CuTableColumnExpenditures } from '../../components/cu-table-column-expenditures/cu-table-column-expenditures';
 import { CuTableColumnLastModified } from '../../components/cu-table-column-last-modified/cu-table-column-last-modified';
 import { CuTableColumnLinks } from '../../components/cu-table-column-links/cu-table-column-links';
@@ -43,20 +46,8 @@ export const renderExpenditures = (coreUnit: CoreUnitDto) => {
   if (!coreUnit) return <CuTableColumnExpenditures isLoading />;
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'flex-end',
-        margin: 'auto 0',
-        height: '52px',
-      }}
-    >
-      <div
-        style={{
-          display: 'block',
-          paddingLeft: '8px',
-        }}
-      >
+    <ExpendituresContainer>
+      <InsideExpenditureContainer>
         <CuTableColumnExpenditures
           value={getExpenditureValueFromCoreUnit(coreUnit)}
           percent={getPercentFromCoreUnit(coreUnit)}
@@ -65,8 +56,8 @@ export const renderExpenditures = (coreUnit: CoreUnitDto) => {
           budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
           code={getShortCode(coreUnit.shortCode)}
         />
-      </div>
-    </div>
+      </InsideExpenditureContainer>
+    </ExpendituresContainer>
   );
 };
 
@@ -89,18 +80,7 @@ export const renderTeamMember = (coreUnit: CoreUnitDto) => {
 export const renderLinks = (coreUnit: CoreUnitDto) => {
   if (!coreUnit) return <CuTableColumnLinks isLoading />;
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'flex-end',
-        alignItems: 'flex-end',
-        paddingRight: '16px',
-        width: '100%',
-        height: '50px',
-        margin: 'auto 0',
-        cursor: 'pointer',
-      }}
-    >
+    <LinksContainer>
       <CuTableColumnLinks
         links={getLinksFromCoreUnit(coreUnit)}
         spacings={16}
@@ -108,7 +88,7 @@ export const renderLinks = (coreUnit: CoreUnitDto) => {
         fillDark="#D2D4EF"
         isIndex
       />
-    </div>
+    </LinksContainer>
   );
 };
 
@@ -121,3 +101,37 @@ export const renderLastModified = (coreUnit: CoreUnitDto) => {
   if (!coreUnit) return <CuTableColumnLastModified date={undefined} isLoading={!coreUnit} />;
   return <CuTableColumnLastModified date={getLastMonthWithData(coreUnit)} code={getShortCode(coreUnit.shortCode)} />;
 };
+
+const LinksContainer = styled.div({
+  display: 'flex',
+  justifyContent: 'flex-end',
+  alignItems: 'flex-end',
+  paddingRight: '16px',
+  width: '100%',
+  height: '50px',
+  margin: 'auto 0',
+  cursor: 'pointer',
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    paddingRight: '0px',
+    height: 'fit-content',
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    paddingRight: '0px',
+  },
+});
+
+const ExpendituresContainer = styled.div({
+  display: 'flex',
+  alignItems: 'flex-end',
+  margin: 'auto 0',
+  height: '50px',
+});
+
+const InsideExpenditureContainer = styled.div({
+  display: 'block',
+  paddingLeft: '8px',
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginLeft: '-4px',
+    paddingLeft: 0,
+  },
+});

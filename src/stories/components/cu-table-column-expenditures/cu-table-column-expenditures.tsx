@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
-import { buildQueryString } from '@ses/core/utils/url.utils';
 import isEmpty from 'lodash/isEmpty';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
+import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { buildQueryString } from '../../../core/utils/url.utils';
 import { CustomBarChart } from '../custom-bar-chart/custom-bar-chart';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { ColumnExpendituresSkeleton } from './cu-table-column-expenditures-skeleton';
@@ -57,13 +58,13 @@ export const CuTableColumnExpenditures = ({ isLoading = false, ...props }: CuTab
               </CustomPopover>
             </Data>
           </DataWrapper>
-          <div style={{ marginBottom: -12 }}>
+          <CustomBarCharContainer>
             <CustomBarChart
               items={isEmpty(props.items) ? new Array(3).fill({ value: 0 }) : props.items}
               maxValues={props.budgetCaps}
               months={props.months}
             />
-          </div>
+          </CustomBarCharContainer>
           <ValueWrapper>
             <CustomPopover
               css={{ alignSelf: 'center' }}
@@ -98,20 +99,21 @@ const Container = styled.div({
 
 const Wrapper = styled.a({
   display: 'flex',
-  marginTop: '2px',
+  // marginTop: '2px',
   textDecoration: 'none',
 });
 
 const DataWrapper = styled.div({
   display: 'flex',
-  alignItems: 'flex-end',
   paddingBottom: '4px',
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    marginLeft: '33px',
+  },
 });
 
 const Data = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'flex-end',
 });
 
 const TotalPopup = styled.div({
@@ -146,6 +148,9 @@ export const Title = styled.span<{ isLight?: boolean }>(({ isLight }) => ({
   lineHeight: '13px',
   fontFamily: 'Inter, sans-serif',
   whiteSpace: 'nowrap',
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginTop: '6px',
+  },
 }));
 
 const ValueWrapper = styled.div({
@@ -169,4 +174,20 @@ const Percent = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   fontSize: '16px',
   lineHeight: '22px',
   color: isLight ? '#231536' : '#EDEFFF',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    marginBottom: 4,
+  },
 }));
+
+const CustomBarCharContainer = styled.div({
+  marginBottom: -25,
+  marginTop: -10,
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    marginBottom: -6,
+    marginLeft: -3,
+    marginTop: -10,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginTop: 0,
+  },
+});

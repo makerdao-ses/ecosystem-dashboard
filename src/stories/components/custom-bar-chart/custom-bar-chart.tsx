@@ -174,15 +174,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
           <NoDataProvided isLight={isLight}>No Data Provided</NoDataProvided>
         )}
       </Popover>
-      <svg
-        width={60}
-        height={57}
-        viewBox={'0 0 60 57'}
-        style={{
-          marginRight: '8px',
-          marginLeft: '8px',
-        }}
-      >
+      <SVGStyle>
         <MonthTextGroup>
           {props.months?.map((month: string, i: number) => (
             <text
@@ -250,7 +242,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
             );
           })}
         </g>
-      </svg>
+      </SVGStyle>
     </>
   );
 };
@@ -355,4 +347,12 @@ const MonthTextGroup = styled.g({
   lineHeight: '12px',
   letterSpacing: '1px',
   textTransform: 'uppercase',
+});
+
+const SVGStyle = styled.svg({
+  width: 60,
+  height: 57,
+  viewBox: '0 0 60 57',
+  marginRight: '8px',
+  marginLeft: '8px',
 });

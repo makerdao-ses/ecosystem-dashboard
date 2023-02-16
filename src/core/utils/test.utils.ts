@@ -1,8 +1,33 @@
 import { DateTime } from 'luxon';
+import {
+  renderExpenditures,
+  renderLastModified,
+  renderLinks,
+  renderSummary,
+  renderTeamMember,
+} from 'src/stories/containers/cu-table/cu-table.renders';
 import { CommitmentJob } from '../enums/CommitmentJob.enum';
-import type { CuJobEnum } from '../enums/cu-job.enum';
+import { CuJobEnum } from '../enums/cu-job.enum';
+import { SortEnum } from '../enums/sort.enum';
+import { BudgetStatus } from '../models/dto/core-unit.dto';
 import type { CuCommentDto } from '../models/dto/comments.dto';
-import type { ContributorCommitmentDto, ContributorDto } from '../models/dto/core-unit.dto';
+import type {
+  ActivityFeedDto,
+  AuditorDto,
+  AuditReportDto,
+  BudgetStatementDto,
+  BudgetStatementFteDto,
+  BudgetStatementMKRVestDto,
+  BudgetStatementWalletDto,
+  CommentsBudgetStatementDto,
+  ContributorCommitmentDto,
+  ContributorDto,
+  CoreUnitDto,
+  CuMipDto,
+  LastActivityDto,
+  SocialMediaChannelDto,
+  BudgetStatementLineItemDto,
+} from '../models/dto/core-unit.dto';
 
 export const CURRENT_MONTH = DateTime.now().toFormat('y-MM-dd');
 export const CURRENT_MINUS_1_MONTH = DateTime.now().set({ day: 1 }).minus({ month: 1 }).toFormat('y-MM-dd');
@@ -112,3 +137,188 @@ export const COMMENTS_EXAMPLE: CuCommentDto[] = [
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const UsersFakeData: any[] = [];
+
+export const CoreUnit: CoreUnitDto = {
+  id: '1',
+  shortCode: 'SES',
+  code: 'SES-001',
+  name: 'Sustainable Ecosystem Scaling',
+  image: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/logo.png',
+  sentenceDescription:
+    'SES aims to sustainably grow the Maker Protocol’s moats by removing barriers between decentralized workforce, capital, and work.',
+  paragraphDescription:
+    'The SES Core Unit supports a decentralized, effective, and scalable economy on top of the Maker Protocol that continues to push forward its growth in a sustainable manner.',
+  paragraphImage: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/diagram.png',
+  category: ['Technical', 'Business', 'Operational', 'Finance'],
+  legacyBudgetStatementUrl: '',
+  auditors: [] as AuditorDto[],
+  cuMip: [] as CuMipDto[],
+  activityFeed: [] as ActivityFeedDto[],
+  lastActivity: {
+    id: '3',
+    created_at: '2023-02-02T09:56:16.349Z',
+    event: 'this is one event',
+    description: 'event test',
+  } as LastActivityDto,
+  socialMediaChannels: [
+    {
+      website: 'https://ses.makerdao.network',
+      github: 'https://github.com/makerdao-ses',
+      forumTag: 'https://forum.makerdao.com/c/core-units/sustainable-ecosystem-scaling',
+      discord: 'https://discord.gg/h7GKvqDyDP',
+      twitter: 'https://twitter.com/MakerDAO_SES',
+      youtube: 'https://www.youtube.com/channel/UC9c35O2H6fq8fB2CGzzP1bw',
+      linkedIn: 'https://www.linkedin.com/company/makerdao-ses/',
+    },
+  ] as SocialMediaChannelDto[],
+  budgetStatements: [
+    {
+      id: '',
+      month: '2022-11-01',
+      status: BudgetStatus.Escalated,
+      publicationUrl: '',
+      activityFeed: [] as ActivityFeedDto[],
+      comments: [] as CommentsBudgetStatementDto[],
+      budgetStatementFTEs: [
+        {
+          month: '2/2/2034',
+          ftes: 7.5,
+        },
+      ] as BudgetStatementFteDto[],
+      budgetStatementWallet: [
+        {
+          budgetStatementLineItem: [
+            {
+              month: '2022-12-01',
+              actual: 200.83,
+            },
+
+            {
+              month: '2022-12-01',
+              actual: 1030.92,
+            },
+            {
+              month: '2022-12-01',
+              actual: 1654,
+            },
+          ] as BudgetStatementLineItemDto[],
+        },
+        {
+          budgetStatementLineItem: [
+            {
+              month: '2022-11-01',
+              actual: 14051,
+            },
+
+            {
+              month: '2022-11-01',
+              actual: 1000,
+            },
+            {
+              month: '2022-11-01',
+              actual: 1000,
+            },
+            {
+              month: '2022-11-01',
+              actual: 654,
+            },
+          ] as BudgetStatementLineItemDto[],
+        },
+        {
+          budgetStatementLineItem: [
+            {
+              month: '2022-10-01',
+              actual: 10000,
+            },
+
+            {
+              month: '2022-10-01',
+              actual: 10000,
+            },
+            {
+              month: '2022-10-01',
+              actual: 10000,
+            },
+          ] as BudgetStatementLineItemDto[],
+        },
+      ] as BudgetStatementWalletDto[],
+      budgetStatementMKRVest: [] as BudgetStatementMKRVestDto[],
+      auditReport: [] as AuditReportDto[],
+    },
+  ] as BudgetStatementDto[],
+  contributorCommitment: [
+    {
+      id: '34',
+      startDate: '2021-05-25',
+      jobTitle: CuJobEnum.Facilitator,
+      contributor: [
+        {
+          discordHandle: 'https://discord.com/users/770632510051975210',
+          forumHandle: 'Juan',
+          twitterHandle: '0x7u4n',
+          name: 'Juan',
+          facilitatorImage: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/users/juan.gif',
+        },
+      ] as ContributorDto[],
+    },
+    {
+      id: '35',
+      startDate: '2021-05-25',
+      jobTitle: CuJobEnum.Facilitator,
+      contributor: [
+        {
+          discordHandle: 'https://discord.com/users/770632510051975210',
+          forumHandle: 'Juan',
+          twitterHandle: '0x7u4n',
+          name: 'Juan',
+          facilitatorImage: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/users/wouter.jpg',
+        },
+      ] as ContributorDto[],
+    },
+  ] as ContributorCommitmentDto[],
+};
+
+export const columns = [
+  {
+    header: 'Core Unit',
+    justifyContent: 'flex-start',
+    style: { paddingLeft: '16px' },
+    cellRender: renderSummary,
+    width: '400px',
+    hasSort: true,
+  },
+  {
+    header: 'Expenditure',
+    justifyContent: 'flex-start',
+    cellRender: renderExpenditures,
+    width: '215px',
+    sortReverse: true,
+    hasSort: true,
+  },
+  {
+    header: 'Team Members',
+    justifyContent: 'center',
+    cellRender: renderTeamMember,
+    width: '205px',
+    sortReverse: true,
+    hasSort: true,
+  },
+  {
+    header: 'Last Modified',
+    justifyContent: 'flex-start',
+    cellRender: renderLastModified,
+    width: '122px',
+    sortReverse: true,
+    hasSort: true,
+  },
+  {
+    header: '',
+    justifyContent: 'center',
+    cellRender: renderLinks,
+    width: '358px',
+    responsiveWidth: '186px',
+    hasSort: false,
+  },
+];
+
+export const headersSort = [SortEnum.Asc, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Disabled];

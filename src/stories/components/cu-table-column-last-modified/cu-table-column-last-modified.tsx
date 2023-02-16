@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { buildQueryString } from '@ses/core/utils/url.utils';
 import { DateTime } from 'luxon';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -7,6 +6,7 @@ import React, { useMemo } from 'react';
 import { SUBMIT_EXPENSES_URL } from '../../../config/external-urls';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { capitalizeSentence } from '../../../core/utils/string.utils';
+import { buildQueryString } from '../../../core/utils/url.utils';
 import { CustomLink } from '../custom-link/custom-link';
 import { CuTableColumnLastModifiedSkeleton } from './cu-table-column-last-modified.skeleton';
 
@@ -27,7 +27,7 @@ export const CuTableColumnLastModified = ({ date, isLoading, code, now = DateTim
         <Container>
           <DateLabel isLight={isLight}>{date?.toFormat('dd-MMM-yyyy')?.toUpperCase() ?? 'No Data'}</DateLabel>
           {date ? (
-            <DifferenceLabel data-chromatic="ignore" isLight={isLight}>
+            <DifferenceLabel isLight={isLight}>
               {capitalizeSentence(
                 date?.toRelative({
                   base: now,
@@ -63,8 +63,14 @@ const Wrapper = styled.a({
   display: 'flex',
   alignItems: 'flex-start',
   margin: 'auto 0',
-  height: '50px',
   textDecoration: 'none',
+  '@media (min-width: 834px) and (max-width: 1194px)': {
+    margin: 0,
+  },
+  '@media (min-width: 1440px)': {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
 });
 
 const Container = styled.div({
@@ -80,6 +86,8 @@ const Container = styled.div({
   },
   '@media (min-width: 1194px)': {
     alignItems: 'flex-start',
+    marginLeft: '-35px',
+    marginTop: '4px',
   },
 });
 

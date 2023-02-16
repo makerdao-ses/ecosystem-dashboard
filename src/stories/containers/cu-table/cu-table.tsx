@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import CoreUnitCard from '@ses/components/core-unit-card/core-unit-card';
 import { siteRoutes } from '@ses/config/routes';
 import isEmpty from 'lodash/isEmpty';
 import sortBy from 'lodash/sortBy';
@@ -29,7 +30,6 @@ import { filterData, getArrayParam, getStringParam } from '../../../core/utils/f
 import { sortAlphaNum } from '../../../core/utils/sort.utils';
 import { getShortCode } from '../../../core/utils/string.utils';
 import { buildQueryString, toAbsoluteURL } from '../../../core/utils/url.utils';
-import { CoreUnitCard } from '../../components/core-unit-card/core-unit-card';
 import { CuTableColumnExpenditures } from '../../components/cu-table-column-expenditures/cu-table-column-expenditures';
 import { CuTableColumnLinks } from '../../components/cu-table-column-links/cu-table-column-links';
 import { CuTableColumnSummary } from '../../components/cu-table-column-summary/cu-table-column-summary';
