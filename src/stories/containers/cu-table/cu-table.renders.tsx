@@ -115,7 +115,7 @@ const LinksContainer = styled.div({
     paddingRight: '0px',
     height: 'fit-content',
   },
-  '@media (min-width: 1440px)': {
+  [lightTheme.breakpoints.up('desktop_1440')]: {
     paddingRight: '0px',
   },
 });
