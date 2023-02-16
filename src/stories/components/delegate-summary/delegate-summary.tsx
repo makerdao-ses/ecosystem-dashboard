@@ -95,7 +95,7 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  [lightTheme.breakpoints.between('desktop_1440', 'desktop_1920')]: {
+  [lightTheme.breakpoints.up('desktop_1440')]: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -110,7 +110,7 @@ const ContainerRow = styled.div({
 const ContainerDescription = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  [lightTheme.breakpoints.between('desktop_1440', 'desktop_1920')]: {
+  [lightTheme.breakpoints.up('desktop_1440')]: {
     flexDirection: 'row',
     width: '100%',
     alignItems: 'center',
@@ -119,7 +119,7 @@ const ContainerDescription = styled.div({
 });
 const CircleContainer = styled.div({
   marginRight: 8,
-  [lightTheme.breakpoints.between('desktop_1440', 'desktop_1920')]: {
+  [lightTheme.breakpoints.up('desktop_1440')]: {
     marginRight: 16,
   },
 });
@@ -131,7 +131,7 @@ const Code = styled.div({
   fontSize: ' 16px',
   lineHeight: '19px',
   color: '#9FAFB9',
-  [lightTheme.breakpoints.between('desktop_1440', 'desktop_1920')]: {
+  [lightTheme.breakpoints.up('desktop_1440')]: {
     marginRight: 16,
     fontWeight: 600,
     fontSize: '24px',
@@ -147,7 +147,7 @@ const Text = styled.div({
   fontSize: '16px',
   lineHeight: '19px',
   color: '#231536',
-  [lightTheme.breakpoints.between('desktop_1440', 'desktop_1920')]: {
+  [lightTheme.breakpoints.up('desktop_1440')]: {
     marginRight: 16,
     fontWeight: 600,
     fontSize: '24px',
@@ -161,20 +161,22 @@ const ContainerLink = styled.div({
   display: 'flex',
   alignItems: 'flex-start',
   marginTop: 4,
-  [lightTheme.breakpoints.between('desktop_1440', 'desktop_1920')]: {
+  [lightTheme.breakpoints.up('desktop_1440')]: {
     marginBottom: 0,
+    marginTop: 0,
     alignItems: 'center',
   },
 });
 
 const ContainerLinks = styled.div({
   display: 'flex',
+  marginLeft: -9,
 });
 
 const ContainerMoment = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  [lightTheme.breakpoints.between('desktop_1440', 'desktop_1920')]: {
+  [lightTheme.breakpoints.up('desktop_1440')]: {
     display: 'flex',
     flexDirection: 'row',
   },
