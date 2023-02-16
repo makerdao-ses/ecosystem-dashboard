@@ -170,7 +170,7 @@ const ContainerLink = styled.div({
 
 const ContainerLinks = styled.div({
   display: 'flex',
-  marginLeft: -9,
+  marginLeft: -6,
 });
 
 const ContainerMoment = styled.div({
