@@ -10,6 +10,7 @@ export default {
   chromatic: {
     viewports: [375],
     pauseAnimationAtEnd: true,
+    delay: 300,
   },
 } as ComponentMeta<typeof SelectLink>;
 
