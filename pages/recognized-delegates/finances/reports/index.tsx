@@ -11,9 +11,7 @@ export default RecognizedDelegates;
 export async function getServerSideProps() {
   if (!featureFlags[CURRENT_ENVIRONMENT].FEATURE_RECOGNIZED_DELEGATES) {
     return {
-      props: {
-        notFound: true,
-      },
+      notFound: true,
     };
   }
 
