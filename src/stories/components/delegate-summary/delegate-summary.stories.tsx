@@ -8,7 +8,7 @@ export default {
   parameters: {
     layout: 'fullscreen',
     chromatic: {
-      viewports: [1440],
+      viewports: [375, 1440],
       pauseAnimationAtEnd: true,
     },
   },
@@ -20,11 +20,24 @@ const variantsArgs = [
   },
 ];
 
-export const [[Banner, BannerDarkMode]] = createThemeModeVariants(DelegateSummary, variantsArgs);
+export const [[LightMode, DarkMode]] = createThemeModeVariants(DelegateSummary, variantsArgs);
 
-Banner.parameters = {
+LightMode.parameters = {
   figma: {
     component: {
+      375: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14310%3A260967&t=RQw5OvfIDN7GgH70-4',
+        options: {
+          componentStyle: {
+            width: 343,
+          },
+          style: {
+            top: -16,
+            left: -18,
+          },
+        },
+      },
       1440: {
         component:
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14171%3A258356&t=WCAGvNfUJOZmR3GA-4',

@@ -35,51 +35,56 @@ const DelegateSummary: React.FC<Props> = ({ code = 'del' }) => {
 
   return (
     <Container>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}
-      >
-        <ContainerLogoDescription>
-          <CircleContainer>
-            <CircleAvatar
-              style={{
-                filter: 'filter: drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25));',
-              }}
-              width={isUp1440 ? '68px' : '32px'}
-              height={isUp1440 ? '68px' : '32px'}
-              name=""
-              image="https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/logo.png"
-            />
-          </CircleContainer>
-          <Code>{code.toUpperCase()}</Code>
-          <Text>Recognized Delegates</Text>
-        </ContainerLogoDescription>
-        <ContainerLink>
-          <CustomLink
-            children="Onchain transactions"
-            fontSize={11}
-            fontWeight={400}
-            href="#"
+      <ContainerRow>
+        <CircleContainer>
+          <CircleAvatar
             style={{
-              fontFamily: 'Inter, sans serif',
-              color: '#447AFB',
-              fontStyle: 'normal',
-              marginLeft: '0px',
-              letterSpacing: '0px',
+              filter: 'filter: drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25));',
             }}
-            marginLeft="5px"
-            withArrow
-            iconHeight={6}
-            iconWidth={6}
+            width={isUp1440 ? '68px' : '32px'}
+            height={isUp1440 ? '68px' : '32px'}
+            name=""
+            image="https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/logo.png"
           />
-        </ContainerLink>
-      </div>
-      <div>
-        <CuTableColumnLinks links={links} align="flex-start" />
-      </div>
+        </CircleContainer>
+        <ContainerDescription>
+          <ContainerMoment>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+              }}
+            >
+              <Code>{code.toUpperCase()}</Code>
+              <Text>Recognized Delegates</Text>
+            </div>
+            <ContainerLink>
+              <CustomLink
+                children="Onchain transactions"
+                fontSize={11}
+                fontWeight={400}
+                href="#"
+                style={{
+                  fontFamily: 'Inter, sans serif',
+                  color: '#447AFB',
+                  fontStyle: 'normal',
+                  marginLeft: '0px',
+                  letterSpacing: '0px',
+                  height: '13px',
+                }}
+                marginLeft="5px"
+                withArrow
+                iconHeight={6}
+                iconWidth={6}
+              />
+            </ContainerLink>
+          </ContainerMoment>
+
+          <ContainerLinks>
+            <CuTableColumnLinks links={links} align="flex-start" />
+          </ContainerLinks>
+        </ContainerDescription>
+      </ContainerRow>
     </Container>
   );
 };
@@ -89,16 +94,28 @@ export default DelegateSummary;
 const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  width: '100%',
   [lightTheme.breakpoints.between('desktop_1440', 'desktop_1920')]: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
 });
-const ContainerLogoDescription = styled.div({
+
+const ContainerRow = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  alignItems: 'center',
+  width: '100%',
+});
+const ContainerDescription = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  [lightTheme.breakpoints.between('desktop_1440', 'desktop_1920')]: {
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
 });
 const CircleContainer = styled.div({
   marginRight: 8,
@@ -140,8 +157,25 @@ const Text = styled.div({
 });
 
 const ContainerLink = styled.div({
-  marginBottom: 8,
+  marginBottom: 16,
+  display: 'flex',
+  alignItems: 'flex-start',
+  marginTop: 4,
   [lightTheme.breakpoints.between('desktop_1440', 'desktop_1920')]: {
     marginBottom: 0,
+    alignItems: 'center',
+  },
+});
+
+const ContainerLinks = styled.div({
+  display: 'flex',
+});
+
+const ContainerMoment = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  [lightTheme.breakpoints.between('desktop_1440', 'desktop_1920')]: {
+    display: 'flex',
+    flexDirection: 'row',
   },
 });

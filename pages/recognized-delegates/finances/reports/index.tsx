@@ -4,20 +4,16 @@ import { featureFlags } from 'feature-flags/feature-flags';
 import React from 'react';
 import type { NextPage } from 'next';
 
-const RecognizedDelegates: NextPage = () => {
-  if (!featureFlags[CURRENT_ENVIRONMENT].FEATURE_RECOGNIZED_DELEGATES) {
-    return <div />;
-  }
-
-  return <RecognizedDelegatesContainer />;
-};
+const RecognizedDelegates: NextPage = () => <RecognizedDelegatesContainer />;
 
 export default RecognizedDelegates;
 
 export async function getServerSideProps() {
-  if (featureFlags[CURRENT_ENVIRONMENT].FEATURE_RECOGNIZED_DELEGATES) {
+  if (!featureFlags[CURRENT_ENVIRONMENT].FEATURE_RECOGNIZED_DELEGATES) {
     return {
-      props: {},
+      props: {
+        notFound: true,
+      },
     };
   }
 
