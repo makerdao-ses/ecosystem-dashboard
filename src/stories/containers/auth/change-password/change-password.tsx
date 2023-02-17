@@ -6,7 +6,7 @@ import CloseButton from '../../../components/close-button/close-button';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import TextInput from '../../../components/text-input/text-input';
-import { ButtonWrapper, Form } from '../login/login';
+import { ButtonWrapper, Form } from '../login/login-form/login-form';
 import { useUserChangePasswordMvvm } from './change-password.mvvm';
 
 const ChangePassword: React.FC<{ adminChange?: boolean }> = ({ adminChange = false }) => {

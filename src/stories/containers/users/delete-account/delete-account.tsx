@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import Skeleton from '@mui/material/Skeleton';
+import { ButtonWrapper } from '@ses/containers/auth/login/login-form/login-form';
 import { useRouter } from 'next/router';
 import React, { useCallback } from 'react';
 import { useAuthContext } from '../../../../core/context/AuthContext';
@@ -12,7 +13,6 @@ import { CustomButton } from '../../../components/custom-button/custom-button';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import TextInput from '../../../components/text-input/text-input';
 import { Spacer, UserLabel, Username } from '../../auth/change-password/change-password';
-import { ButtonWrapper } from '../../auth/login/login';
 import { useDeleteAccountMvvm } from './delete-account.mvvm';
 import type { UserDTO } from '../../../../core/models/dto/auth.dto';
 

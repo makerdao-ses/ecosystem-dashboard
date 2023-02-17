@@ -3,21 +3,16 @@ import { useMediaQuery } from '@mui/material';
 import { LinkButton } from '@ses/components/link-button/link-button';
 import Profile from '@ses/components/svg/profile';
 import { siteRoutes } from '@ses/config/routes';
+import LoginModal from '@ses/containers/auth/login/login-modal/login-modal';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
-import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 import type { WithIsLight } from '@ses/core/utils/types-helpers';
 
 const LoginButton: React.FC = () => {
   const { isLight } = useThemeContext();
   const isUpTablet = useMediaQuery(lightTheme.breakpoints.up('table_834'));
-  const router = useRouter();
-
-  const openLoginModal = () => {
-    // TODO: replace the redirect by a modal window of the login
-    router.push(siteRoutes.login);
-  };
+  const [openLogin, setOpenLogin] = useState<boolean>(false);
 
   return (
     <LoginButtonContainer>
@@ -32,10 +27,12 @@ const LoginButton: React.FC = () => {
           href={siteRoutes.login}
         />
       ) : (
-        <MobileIcon isLight={isLight} onClick={openLoginModal}>
+        <MobileIcon isLight={isLight} onClick={() => setOpenLogin(true)}>
           <Profile width={20} height={17} fill={isLight ? '#231536' : '#EDEFFF'} />
         </MobileIcon>
       )}
+
+      <LoginModal open={openLogin} handleClose={() => setOpenLogin(false)} autoClose={true} />
     </LoginButtonContainer>
   );
 };
