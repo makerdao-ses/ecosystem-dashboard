@@ -28,6 +28,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ m
     newPrediction,
     totalExpenses,
     sortedQuarters,
+    isMobile,
   } = useFinancesOverview(quarterExpenses, monthlyExpenses);
 
   return (
@@ -57,22 +58,37 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ m
             newPrediction={newPrediction}
           />
         </ChartContainer>
-        <FooterButtonContainer>
-          <LinkButton
-            href={siteRoutes.coreUnitsOverview}
-            label="Core Units"
-            buttonType={ButtonType.Primary}
-            styleText={{
-              fontSize: 16,
-              fontWeight: 500,
-              lineHeight: '19px',
-            }}
-            style={{
-              padding: '14.5px 40px',
-            }}
-          />
-        </FooterButtonContainer>
       </InnerPage>
+      <FooterButtonContainer>
+        <LinkButton
+          href={siteRoutes.coreUnitsOverview}
+          label="Core Units"
+          buttonType={ButtonType.Primary}
+          styleText={{
+            fontSize: isMobile ? 14 : 16,
+            fontWeight: 500,
+            lineHeight: isMobile ? '18px' : '19px',
+          }}
+          style={{
+            padding: isMobile ? '8px 24px' : '14.5px 85.5px',
+          }}
+        />
+
+        {/* Correct the links in this button once page is add */}
+        <LinkButton
+          href="change-this-for-route"
+          label="Recognized Delegates"
+          buttonType={ButtonType.Primary}
+          styleText={{
+            fontSize: isMobile ? 14 : 16,
+            fontWeight: 500,
+            lineHeight: isMobile ? '18px' : '19px',
+          }}
+          style={{
+            padding: isMobile ? '8px 24px' : '14.5px 40px',
+          }}
+        />
+      </FooterButtonContainer>
     </Container>
   );
 };
@@ -141,8 +157,18 @@ const PageTitle = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
 }));
 
 const FooterButtonContainer = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  gap: 24,
   textAlign: 'center',
-  marginBottom: 64,
+  marginBottom: 78,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    maxWidth: '528px',
+    margin: '0px auto',
+    marginBottom: 64,
+  },
 });
 
 const ContainerYearPicker = styled.div({

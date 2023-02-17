@@ -18,6 +18,7 @@ interface Props {
 
 const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPrediction }: Props) => {
   const { isLight } = useThemeContext();
+  const isTable = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const upTable = useMediaQuery(lightTheme.breakpoints.up('table_834'));
   const isZeroValue = false;
   const options = {
@@ -140,7 +141,7 @@ const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPredict
         <LegendItem
           color={isLight ? '#0EB19F' : '#027265'}
           text="Active Budget"
-          style={{ paddingLeft: upTable ? 60 : 8 }}
+          style={{ paddingLeft: isTable ? 0 : upTable ? 10 : 8 }}
         />
         <LegendItem color={isLight ? '#027265' : '#2C3F3B'} text="Discontinued" />
         <LegendItem color={isLight ? '#68FEE3' : '#1AAB9B'} text="Expense forecasts" />
@@ -176,6 +177,7 @@ const Container = styled.div({
     height: 387,
     width: 607,
     maxWidth: 607,
+    marginLeft: -60,
   },
 });
 
