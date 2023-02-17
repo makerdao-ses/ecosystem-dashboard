@@ -1,37 +1,23 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from '@emotion/styled';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { LinkTypeEnum } from '@ses/core/enums/link-type.enum';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
 import { CuTableColumnLinks } from '../cu-table-column-links/cu-table-column-links';
 import { CustomLink } from '../custom-link/custom-link';
+import type { LinkModel } from '../cu-table-column-links/cu-table-column-links';
 
 interface Props {
   code?: string;
+  links: LinkModel[];
 }
 
-const DelegateSummary: React.FC<Props> = ({ code = 'del' }) => {
-  const isUp1440 = useMediaQuery(lightTheme.breakpoints.between('desktop_1440', 'desktop_1920'));
-  const links = [
-    {
-      linkType: LinkTypeEnum.WWW,
-      href: 'sm.website',
-    },
-    {
-      linkType: LinkTypeEnum.Forum,
-      href: 'sm.website',
-    },
-    {
-      linkType: LinkTypeEnum.Discord,
-      href: 'sm.website',
-    },
-    {
-      linkType: LinkTypeEnum.Youtube,
-      href: 'sm.website',
-    },
-  ];
+const DelegateSummary: React.FC<Props> = ({ code = 'del', links }) => {
+  const { isLight } = useThemeContext();
+  const isUp1280 = useMediaQuery(lightTheme.breakpoints.up('desktop_1280'));
 
   return (
     <Container>
@@ -39,31 +25,28 @@ const DelegateSummary: React.FC<Props> = ({ code = 'del' }) => {
         <CircleContainer>
           <CircleAvatar
             style={{
-              filter: 'filter: drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25));',
+              filter: isLight
+                ? 'filter: drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))'
+                : 'drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25));',
             }}
-            width={isUp1440 ? '68px' : '32px'}
-            height={isUp1440 ? '68px' : '32px'}
-            name=""
-            image="https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/logo.png"
+            width={isUp1280 ? '68px' : '32px'}
+            height={isUp1280 ? '68px' : '32px'}
+            name="mk-logo"
+            image="/assets/img/mk-logo.png"
           />
         </CircleContainer>
         <ContainerDescription>
-          <ContainerMoment>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-              }}
-            >
-              <Code>{code.toUpperCase()}</Code>
-              <Text>Recognized Delegates</Text>
-            </div>
+          <ContainerColumnMobile>
+            <ContainerText>
+              <Code isLight={isLight}>{code.toUpperCase()}</Code>
+              <Text isLight={isLight}>Recognized Delegates</Text>
+            </ContainerText>
             <ContainerLink>
               <CustomLink
                 children="Onchain transactions"
                 fontSize={11}
                 fontWeight={400}
-                href="#"
+                href="https://makerburn.com/#/expenses/core-units/DELEGATES"
                 style={{
                   fontFamily: 'Inter, sans serif',
                   color: '#447AFB',
@@ -78,7 +61,7 @@ const DelegateSummary: React.FC<Props> = ({ code = 'del' }) => {
                 iconWidth={6}
               />
             </ContainerLink>
-          </ContainerMoment>
+          </ContainerColumnMobile>
 
           <ContainerLinks>
             <CuTableColumnLinks links={links} align="flex-start" />
@@ -95,7 +78,7 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -110,7 +93,7 @@ const ContainerRow = styled.div({
 const ContainerDescription = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     flexDirection: 'row',
     width: '100%',
     alignItems: 'center',
@@ -119,49 +102,49 @@ const ContainerDescription = styled.div({
 });
 const CircleContainer = styled.div({
   marginRight: 8,
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     marginRight: 16,
   },
 });
-const Code = styled.div({
+const Code = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   marginRight: 4,
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
   fontSize: ' 16px',
   lineHeight: '19px',
-  color: '#9FAFB9',
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  color: isLight ? '#9FAFB9' : '#546978',
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     marginRight: 16,
     fontWeight: 600,
     fontSize: '24px',
     lineHeight: '29px',
     letterSpacing: '0.4px',
   },
-});
+}));
 
-const Text = styled.div({
+const Text = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
   fontSize: '16px',
   lineHeight: '19px',
-  color: '#231536',
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  color: isLight ? '#231536' : '#E2D8EE',
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     marginRight: 16,
     fontWeight: 600,
     fontSize: '24px',
     lineHeight: '29px',
     letterSpacing: '0.4px',
   },
-});
+}));
 
 const ContainerLink = styled.div({
   marginBottom: 16,
   display: 'flex',
   alignItems: 'flex-start',
   marginTop: 4,
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     marginBottom: 0,
     marginTop: 0,
     alignItems: 'center',
@@ -173,11 +156,16 @@ const ContainerLinks = styled.div({
   marginLeft: -6,
 });
 
-const ContainerMoment = styled.div({
+const ContainerColumnMobile = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     display: 'flex',
     flexDirection: 'row',
   },
+});
+
+const ContainerText = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
 });
