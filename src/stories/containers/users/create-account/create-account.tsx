@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { ButtonWrapper, Form } from '@ses/containers/auth/login/login-form/login-form';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useCallback } from 'react';
@@ -9,7 +10,6 @@ import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
 import CloseButton from '../../../components/close-button/close-button';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import TextInput from '../../../components/text-input/text-input';
-import { ButtonWrapper, Form } from '../../auth/login/login';
 import { useCreateAccountMvvm } from './create-account.mvvm';
 import type { UserDTO } from '../../../../core/models/dto/auth.dto';
 
