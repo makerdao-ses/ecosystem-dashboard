@@ -1,16 +1,17 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
-import { CustomButton } from '@ses/components/custom-button/custom-button';
+import { LinkButton } from '@ses/components/link-button/link-button';
 import Profile from '@ses/components/svg/profile';
 import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import { useRouter } from 'next/router';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/types-helpers';
 
 const LoginButton: React.FC = () => {
   const { isLight } = useThemeContext();
-  const isDesktop = useMediaQuery('(min-width: 834px)');
+  const isUpTablet = useMediaQuery(lightTheme.breakpoints.up('table_834'));
   const router = useRouter();
 
   const openLoginModal = () => {
@@ -20,15 +21,15 @@ const LoginButton: React.FC = () => {
 
   return (
     <LoginButtonContainer>
-      {isDesktop ? (
-        <CustomButton
+      {isUpTablet ? (
+        <LinkButton
           label={'Log in'}
           style={{
             padding: '8px 24px',
             border: `1px solid ${isLight ? '#D4D9E1' : '#31424E'}!important`,
           }}
           styleText={{ color: isLight ? '#31424E' : '#EDEFFF' }}
-          onClick={openLoginModal}
+          href={siteRoutes.login}
         />
       ) : (
         <MobileIcon isLight={isLight} onClick={openLoginModal}>
