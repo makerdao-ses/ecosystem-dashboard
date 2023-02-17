@@ -32,7 +32,7 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
     <>
       <Button onClick={togglePopup} isLight={isLight}>
         {props.selectedOption}{' '}
-        <SelectChevronDown style={{ marginLeft: '11px' }} fill={isLight ? '#1AAB9B' : '#2DC1B1'} />
+        <SelectChevronDown style={{ marginLeft: '29px' }} fill={isLight ? '#1AAB9B' : '#2DC1B1'} />
       </Button>
       {popup && (
         <Popup isLight={isLight}>

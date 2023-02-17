@@ -150,11 +150,15 @@ const ContainerLogoSelect = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     ? 'linear-gradient(125.61deg, rgba(182, 237, 231, 0.5) -69.93%, rgba(182, 237, 231, 0.05) 130.99%)'
     : 'linear-gradient(125.61deg, rgba(0, 68, 61, 0.5) -69.93%, rgba(27, 45, 43, 0.05) 130.99%)',
   backdropFilter: 'blur(30px)',
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    paddingRight: 32,
+    marginRight: 32,
+  },
 }));
 
 const LogoContainer = styled.div({
-  marginTop: '13px',
-  marginBottom: '13px',
+  marginTop: 8,
   cursor: 'pointer',
   '@media (min-width: 834px)': {
     marginRight: '32px',
@@ -177,7 +181,7 @@ const Navigation = styled.div({
 const RightPart = styled.div({
   display: 'flex',
   alignItems: 'center',
-  paddingRight: '10px',
+  paddingRight: '16px',
   '@media (min-width: 835px)': {
     paddingRight: '26px',
   },
@@ -216,7 +220,7 @@ const RightElementsWrapper = styled.div({
   display: 'flex',
   '@media (min-width: 834px)': {
     position: 'absolute',
-    right: 16,
+    right: 24,
   },
   '@media (min-width: 1194px)': {
     right: 24,
