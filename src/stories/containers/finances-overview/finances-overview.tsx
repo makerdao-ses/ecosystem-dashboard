@@ -74,9 +74,8 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ m
           }}
         />
 
-        {/* Correct the links in this button once page is add */}
         <LinkButton
-          href="change-this-for-route"
+          href={siteRoutes.recognizedDelegate}
           label="Recognized Delegates"
           buttonType={ButtonType.Primary}
           styleText={{
