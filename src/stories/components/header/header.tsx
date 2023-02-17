@@ -8,10 +8,8 @@ import { featureFlags } from '../../../../feature-flags/feature-flags';
 import lightTheme from '../../../../styles/theme/light';
 import { useAuthContext } from '../../../core/context/AuthContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { useIsAdmin } from '../../../core/hooks/useIsAdmin';
-import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
-import ThemeSwitcherButton from '../button/switch-button/switch-buttom';
-import { CustomLink } from '../custom-link/custom-link';
+import LoginButton from '../menu-navigation/header-login-button/header-login-button';
+import MenuTheme from '../menu-navigation/menu-theme/menu-theme';
 import MenuUserOptions from '../menu-navigation/menu-user/menu-user';
 import Expenses from '../svg/expenses';
 import Logo from '../svg/logo';
@@ -20,7 +18,6 @@ import { TopBarSelect } from '../top-bar-select/top-bar-select';
 
 import menuItems from './menu-items';
 import SelectLink from './select-link-website/select-link';
-import type { UserDTO } from '../../../core/models/dto/auth.dto';
 import type { MenuType } from './menu-items';
 import type { WebSiteLinks } from './select-link-website/menu-items';
 
@@ -31,9 +28,7 @@ const Header = ({ links }: Props) => {
   const router = useRouter();
 
   const { themeMode, toggleTheme, isLight } = useThemeContext();
-  const { authToken, user, clearCredentials } = useAuthContext();
-
-  const isAdmin = useIsAdmin(user || ({} as UserDTO));
+  const { clearCredentials, permissionManager } = useAuthContext();
 
   const handleOnClickLogOut = () => {
     clearCredentials?.();
@@ -92,34 +87,16 @@ const Header = ({ links }: Props) => {
             <TopBarSelect selectedOption={activeMenuItem.title} />
           </ItemMenuResponsive>
           <RightElementsWrapper>
-            {authToken ? (
+            {permissionManager.isAuthenticated() ? (
               <MenuUserOptions
-                isAdmin={isAdmin}
+                isAdmin={permissionManager.isAdmin()}
                 onClickLogOut={handleOnClickLogOut}
-                username={user?.username || ''}
+                username={permissionManager.loggedUser?.username ?? ''}
                 hrefAccountManager={siteRoutes.manageAccounts}
-                hrefProfile={isAdmin ? siteRoutes.adminProfile : siteRoutes.userProfile}
+                hrefProfile={permissionManager.isAdmin() ? siteRoutes.adminProfile : siteRoutes.userProfile}
               />
             ) : (
-              <LinkWrapper>
-                <CustomLink
-                  children="How to Submit Expenses"
-                  fontWeight={500}
-                  fontSize={16}
-                  href={HOW_TO_SUBMIT_EXPENSES}
-                  style={{
-                    fontFamily: 'Inter, sans serif',
-                    color: '#447AFB',
-                    fontStyle: 'normal',
-                    letterSpacing: '0.3px',
-                    marginLeft: '0px',
-                  }}
-                  marginLeft="7px"
-                  withArrow
-                  iconHeight={10}
-                  iconWidth={10}
-                />
-              </LinkWrapper>
+              <LoginButton />
             )}
           </RightElementsWrapper>
         </Navigation>
@@ -134,7 +111,7 @@ const Header = ({ links }: Props) => {
             toggleTheme={toggleTheme}
           />
           <WrapperIcon>
-            <ThemeSwitcherButton themeMode={themeMode} toggleTheme={toggleTheme} />
+            <MenuTheme themeMode={themeMode} toggleTheme={toggleTheme} />
           </WrapperIcon>
         </div>
       </RightPart>
@@ -232,13 +209,6 @@ const ItemMenuStyle = styled.a<{ active: boolean; marginRight?: string; isLight:
 const ItemMenuResponsive = styled.div({
   '@media (min-width: 1194px)': {
     display: 'none',
-  },
-});
-
-const LinkWrapper = styled.div({
-  display: 'none',
-  '@media (min-width: 834px)': {
-    display: 'flex',
   },
 });
 

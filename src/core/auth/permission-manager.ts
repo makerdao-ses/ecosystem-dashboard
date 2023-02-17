@@ -1,3 +1,4 @@
+import { PermissionsEnum } from '../enums/permissions.enum';
 import { RoleEnum } from '../enums/role.enum';
 import CoreUnitExtension from './core-unit-extension';
 import type { UserDTO, UserRole } from '../models/dto/auth.dto';
@@ -14,7 +15,7 @@ class PermissionManager {
     this.coreUnit = new CoreUnitExtension(this);
   }
 
-  setLoggedUser(loggedUser?: UserDTO) {
+  setLoggedUser(loggedUser?: UserDTO): void {
     this.loggedUser = loggedUser;
   }
 
@@ -22,7 +23,7 @@ class PermissionManager {
     this.token = token;
   }
 
-  isAuthenticated() {
+  isAuthenticated(): boolean {
     return !!this.loggedUser;
   }
 
@@ -48,6 +49,10 @@ class PermissionManager {
 
   isCoreUnitFacilitator(): boolean {
     return this.hasRole(RoleEnum.CoreUnitFacilitator);
+  }
+
+  isAdmin(): boolean {
+    return this.hasPermission(PermissionsEnum.SystemManage);
   }
 }
 
