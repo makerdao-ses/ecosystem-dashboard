@@ -12,6 +12,7 @@ export const siteRoutes = {
   coreUnitActivityFeed: (shortCode: string) => `core-unit/${shortCode}/activity-feed`,
   globalActivityFeed: '/activity-feed',
   cookiesPolicy: '/cookies-policy',
+  recognizedDelegate: '/recognized-delegates/finances/reports',
 
   // auth
   login: '/login',
