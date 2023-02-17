@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from '@emotion/styled';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { LinkTypeEnum } from '@ses/core/enums/link-type.enum';
@@ -13,7 +12,7 @@ interface Props {
 }
 
 const DelegateSummary: React.FC<Props> = ({ code = 'del' }) => {
-  const isUp1440 = useMediaQuery(lightTheme.breakpoints.between('desktop_1440', 'desktop_1920'));
+  const isUp1440 = useMediaQuery(lightTheme.breakpoints.up('desktop_1440'));
   const links = [
     {
       linkType: LinkTypeEnum.WWW,
@@ -171,6 +170,19 @@ const ContainerLink = styled.div({
 const ContainerLinks = styled.div({
   display: 'flex',
   marginLeft: -6,
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    ' & > div:first-of-type': {
+      marginRight: '26px',
+      marginTop: '-6px',
+    },
+    '* + *': {
+      marginRight: '26px',
+      marginTop: '1px',
+    },
+    ' & > div:last-child': {
+      marginRight: '6px',
+    },
+  },
 });
 
 const ContainerMoment = styled.div({
