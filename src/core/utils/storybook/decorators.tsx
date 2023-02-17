@@ -77,3 +77,9 @@ export const withoutSBPadding = (Story: Story) => (
     <Story />
   </div>
 );
+
+export const withFixedPositionRelative = (Story: Story) => (
+  <div style={{ transform: 'translateZ(0)' }}>
+    <Story />
+  </div>
+);

@@ -1,16 +1,22 @@
+import { withFixedPositionRelative } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import Header from './header';
 import { itemsWebSiteLinks } from './select-link-website/menu-items';
 import type { ComponentMeta } from '@storybook/react';
+import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
 export default {
   title: 'Components/General/Header',
   component: Header,
+  decorators: [withFixedPositionRelative],
   parameters: {
     layout: 'fullscreen',
     chromatic: {
-      viewports: [1440, 834, 375],
+      viewports: [375, 834, 1194],
       pauseAnimationAtEnd: true,
+    },
+    nextRouter: {
+      pathname: '/core-unit',
     },
   },
 } as ComponentMeta<typeof Header>;
@@ -27,8 +33,7 @@ HeaderLight.parameters = {
   figma: {
     component: {
       375: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13307%3A140501&t=V1pxP4kAG5abeRm8-4',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13307%3A144905',
         options: {
           style: {
             top: -36,
@@ -37,64 +42,29 @@ HeaderLight.parameters = {
         },
       },
       834: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13307%3A148510&t=V1pxP4kAG5abeRm8-4',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13307%3A149185',
         options: {
+          componentStyle: {
+            width: 803,
+          },
           style: {
             top: -36,
-            left: -51,
+            left: -57,
           },
         },
       },
-
-      1440: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13307%3A134704&t=V1pxP4kAG5abeRm8-4',
+      1194: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13399%3A144147',
         options: {
-          style: {
-            top: -36,
-            left: -56,
+          componentStyle: {
+            width: 1174,
           },
-        },
-      },
-    },
-  },
-};
-
-HeaderLightDarkMode.parameters = {
-  figma: {
-    component: {
-      375: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13307%3A140501&t=V1pxP4kAG5abeRm8-4',
-        options: {
           style: {
             top: -36,
-            left: -56,
-          },
-        },
-      },
-      834: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13307%3A148510&t=V1pxP4kAG5abeRm8-4',
-        options: {
-          style: {
-            top: -36,
-            left: -56,
-          },
-        },
-      },
-
-      1440: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13307%3A134704&t=V1pxP4kAG5abeRm8-4',
-        options: {
-          style: {
-            top: -36,
-            left: -56,
+            left: -57,
           },
         },
       },
     },
-  },
+  } as FigmaParams,
 };
