@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from '@emotion/styled';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { LinkTypeEnum } from '@ses/core/enums/link-type.enum';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
@@ -18,7 +16,6 @@ interface Props {
 const DelegateSummary: React.FC<Props> = ({ code = 'del', links }) => {
   const { isLight } = useThemeContext();
   const isUp1280 = useMediaQuery(lightTheme.breakpoints.up('desktop_1280'));
-
   return (
     <Container>
       <ContainerRow>
@@ -154,6 +151,19 @@ const ContainerLink = styled.div({
 const ContainerLinks = styled.div({
   display: 'flex',
   marginLeft: -6,
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    ' & > div:first-of-type': {
+      marginRight: '26px',
+      marginTop: '-6px',
+    },
+    '* + *': {
+      marginRight: '26px',
+      marginTop: '1px',
+    },
+    ' & > div:last-child': {
+      marginRight: '6px',
+    },
+  },
 });
 
 const ContainerColumnMobile = styled.div({
