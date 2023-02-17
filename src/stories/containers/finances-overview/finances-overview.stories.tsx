@@ -132,6 +132,36 @@ LightMode.parameters = {
           ...optionStyles,
         },
       },
+      1280: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13399%3A143348&t=S4S1EOIX3ZWEgsv5-4',
+        options: {
+          componentStyle: {
+            width: 1280,
+          },
+          ...optionStyles,
+        },
+      },
+      1440: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13399%3A141978&t=S4S1EOIX3ZWEgsv5-4',
+        options: {
+          componentStyle: {
+            width: 1440,
+          },
+          ...optionStyles,
+        },
+      },
+      1920: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13399%3A142663&t=S4S1EOIX3ZWEgsv5-4',
+        options: {
+          componentStyle: {
+            width: 1920,
+          },
+          ...optionStyles,
+        },
+      },
     },
   } as FigmaParams,
 };

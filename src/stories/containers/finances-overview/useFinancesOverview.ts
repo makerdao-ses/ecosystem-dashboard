@@ -1,4 +1,6 @@
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
 import { useCallback, useMemo, useState } from 'react';
 import { parseQuarter } from './utils/quarters';
@@ -23,6 +25,8 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
   const [selectedYear, setSelectedYear] = useState<number>(() => DateTime.local().minus({ year: 1 }).year);
 
   const { isLight } = useThemeContext();
+  const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+  const isTable = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const years = [2021, 2022, 2023];
 
   const handleChangeSelectYear = (year: number) => {
@@ -139,6 +143,8 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
     newPrediction,
     newActual,
     totalExpenses,
+    isMobile,
+    isTable,
   };
 };
 
