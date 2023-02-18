@@ -1,7 +1,10 @@
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { siteRoutes } from '@ses/config/routes';
 import { LinkTypeEnum } from '@ses/core/enums/link-type.enum';
+import lightTheme from '@ses/styles/theme/light';
 
 const useRecognizedDelegates = () => {
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const links = [
     {
       linkType: LinkTypeEnum.WWW,
@@ -34,6 +37,7 @@ const useRecognizedDelegates = () => {
   return {
     links,
     itemsBreadcrumb,
+    isMobile,
   };
 };
 
