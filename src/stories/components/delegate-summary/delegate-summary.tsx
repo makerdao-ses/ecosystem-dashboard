@@ -152,16 +152,17 @@ const ContainerLinks = styled.div({
   display: 'flex',
   marginLeft: -6,
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    ' & > div:first-of-type': {
-      marginRight: '26px',
-      marginTop: '-6px',
+    '& > div > div:first-of-type': {
+      marginRight: '10px',
+      marginTop: '2px',
+      marginLeft: 0,
     },
     '* + *': {
-      marginRight: '26px',
-      marginTop: '1px',
+      marginRight: '14px',
+      marginTop: '0px',
     },
-    ' & > div:last-child': {
-      marginRight: '6px',
+    ' & > div> div:last-child': {
+      marginRight: '0px',
     },
   },
 });
