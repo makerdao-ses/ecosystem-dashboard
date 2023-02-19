@@ -44,7 +44,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ m
         twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
       />
       <InnerPage>
-        <PageTitle isLight={isLight}>Total Core Unit Expenses</PageTitle>
+        <PageTitle isLight={isLight}>Total Expenses</PageTitle>
 
         <QuarterCarousel quarters={sortedQuarters} />
         <ContainerYearPicker>

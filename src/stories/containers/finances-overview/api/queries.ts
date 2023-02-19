@@ -21,7 +21,7 @@ export const totalExpensesAPI = (granularity: ExpenseGranularity) => ({
   `,
   filter: {
     filter: {
-      budgets: '/makerdao/core-units',
+      budgets: 'makerdao/*',
       granularity,
     },
   },
