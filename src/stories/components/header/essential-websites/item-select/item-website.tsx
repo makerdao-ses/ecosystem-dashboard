@@ -141,7 +141,7 @@ const Container = styled.a<{ height?: string; isLight: boolean }>(({ height, isL
   },
 
   '@media (min-width: 635px)': {
-    width: '497px',
+    maxWidth: '497px',
     height,
     padding: '16px 24px',
   },
