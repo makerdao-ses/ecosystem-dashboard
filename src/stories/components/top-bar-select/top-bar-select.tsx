@@ -18,14 +18,23 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
   const router = useRouter();
   const [popup, setPopup] = useState(false);
   const togglePopup = () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    document.querySelector('body').style.overflow = popup ? 'auto' : 'hidden';
+    const body = document?.querySelector('body');
+    if (body) {
+      body.style.overflow = popup ? 'auto' : 'hidden';
+    }
     setPopup(!popup);
   };
 
   useEffect(() => {
     setPopup(false);
+
+    return () => {
+      // restore the scroll property
+      const body = document?.querySelector('body');
+      if (body) {
+        body.style.overflow = 'auto';
+      }
+    };
   }, [router.route]);
 
   return (
