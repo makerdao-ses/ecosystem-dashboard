@@ -46,6 +46,7 @@ export const HeadCustomTable = (props: Props) => {
 const TableHead = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   position: 'relative',
   zIndex: 1,
+  width: '100%',
   background: isLight ? '#F7F8F9' : '#25273D',
   padding: '14px 0',
   borderTopLeftRadius: '5px',
