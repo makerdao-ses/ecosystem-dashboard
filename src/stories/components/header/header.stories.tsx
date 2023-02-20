@@ -1,12 +1,11 @@
 import { withFixedPositionRelative } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import Header from './header';
-import { itemsWebSiteLinks } from './select-link-website/menu-items';
 import type { ComponentMeta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
 export default {
-  title: 'Components/General/Header',
+  title: 'Components/General/Header/Header',
   component: Header,
   decorators: [withFixedPositionRelative],
   parameters: {
@@ -21,15 +20,11 @@ export default {
   },
 } as ComponentMeta<typeof Header>;
 
-const variantsArgs = [
-  {
-    links: itemsWebSiteLinks,
-  },
-];
+const variantsArgs = [{}];
 
-export const [[HeaderLight, HeaderLightDarkMode]] = createThemeModeVariants(Header, variantsArgs);
+export const [[LightMode, DarkMode]] = createThemeModeVariants(Header, variantsArgs);
 
-HeaderLight.parameters = {
+LightMode.parameters = {
   figma: {
     component: {
       375: {

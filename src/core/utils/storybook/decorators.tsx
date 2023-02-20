@@ -72,14 +72,13 @@ const TemplateThemeWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => (
   backgroundSize: 'cover',
 }));
 
-export const withoutSBPadding = (Story: Story) => (
-  <div style={{ margin: '-1rem' }}>
-    <Story />
-  </div>
-);
+export const withWrappedStyles = (styles: React.CSSProperties) => (Story: Story) =>
+  (
+    <div style={styles}>
+      <Story />
+    </div>
+  );
 
-export const withFixedPositionRelative = (Story: Story) => (
-  <div style={{ transform: 'translateZ(0)' }}>
-    <Story />
-  </div>
-);
+export const withoutSBPadding = (Story: Story) => withWrappedStyles({ margin: '-1rem' })(Story);
+
+export const withFixedPositionRelative = (Story: Story) => withWrappedStyles({ transform: 'translateZ(0)' })(Story);

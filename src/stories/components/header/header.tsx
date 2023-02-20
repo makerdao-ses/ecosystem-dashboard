@@ -16,15 +16,12 @@ import Logo from '../svg/logo';
 
 import { TopBarSelect } from '../top-bar-select/top-bar-select';
 
+import EssentialWebsitesMenuTrigger from './essentials-triggers/menu-trigger';
+import EssentialWebsitesModalTrigger from './essentials-triggers/modal-trigger';
 import menuItems from './menu-items';
-import SelectLink from './select-link-website/select-link';
 import type { MenuType } from './menu-items';
-import type { WebSiteLinks } from './select-link-website/menu-items';
 
-interface Props {
-  links: WebSiteLinks[];
-}
-const Header = ({ links }: Props) => {
+const Header: React.FC = () => {
   const router = useRouter();
 
   const { themeMode, toggleTheme, isLight } = useThemeContext();
@@ -61,12 +58,7 @@ const Header = ({ links }: Props) => {
           </LogoContainer>
           <LogoLinksWrapper>
             <Expenses fill={themeMode === 'dark' ? '#6EDBD0' : '#211634'} />
-            <SelectLink
-              links={links}
-              themeMode={themeMode}
-              fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'}
-              toggleTheme={toggleTheme}
-            />
+            <EssentialWebsitesMenuTrigger />
           </LogoLinksWrapper>
         </ContainerLogoSelect>
 
@@ -103,13 +95,9 @@ const Header = ({ links }: Props) => {
       </LeftPart>
       <RightPart>
         <div>
-          <SelectLink
-            links={links}
-            themeMode={themeMode}
-            fill={themeMode === 'dark' ? '#EDEFFF' : '#25273D'}
-            responsive={true}
-            toggleTheme={toggleTheme}
-          />
+          <MobileOnly>
+            <EssentialWebsitesModalTrigger />
+          </MobileOnly>
           <WrapperIcon>
             <MenuTheme themeMode={themeMode} toggleTheme={toggleTheme} />
           </WrapperIcon>
@@ -184,6 +172,14 @@ const RightPart = styled.div({
   paddingRight: '16px',
   '@media (min-width: 835px)': {
     paddingRight: '26px',
+  },
+});
+
+const MobileOnly = styled.div({
+  display: 'block',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'none',
   },
 });
 

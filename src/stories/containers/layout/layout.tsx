@@ -4,7 +4,6 @@ import MainWrapper from '../../../core/context/MainWrapper';
 import Footer from '../../components/footer/footer';
 import { developer, governesses, products } from '../../components/footer/iconsData';
 import Header from '../../components/header/header';
-import { itemsWebSiteLinks } from '../../components/header/select-link-website/menu-items';
 
 export type AppLayoutProps = {
   children: React.ReactNode;
@@ -12,7 +11,7 @@ export type AppLayoutProps = {
 
 const AppLayout: React.FC<AppLayoutProps> = ({ children }) => (
   <>
-    <Header links={itemsWebSiteLinks} />
+    <Header />
     <Container>
       <MainWrapper>{children}</MainWrapper>
     </Container>
