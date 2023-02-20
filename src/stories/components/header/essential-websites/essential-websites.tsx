@@ -11,6 +11,7 @@ import React from 'react';
 import ItemWebSite from './item-select/item-website';
 import { itemsWebSiteLinks } from './menu-items';
 import type { WebSiteLinks } from './menu-items';
+import type { WithIsLight } from '@ses/core/utils/types-helpers';
 
 export type EssentialWebsitesProps = {
   showButtons?: boolean;
@@ -47,7 +48,7 @@ const EssentialWebsites: React.FC<EssentialWebsitesProps> = ({
     );
 
   return (
-    <Container>
+    <Container isLight={isLight}>
       {showButtons && (
         <>
           <ButtonsContainer>
@@ -155,13 +156,14 @@ const EssentialWebsites: React.FC<EssentialWebsitesProps> = ({
 
 export default EssentialWebsites;
 
-const Container = styled.div({
+const Container = styled.div<WithIsLight>(({ isLight }) => ({
   position: 'relative',
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-});
+  background: isLight ? 'white' : '#000a13',
+}));
 
 const ButtonsContainer = styled.div({
   display: 'flex',

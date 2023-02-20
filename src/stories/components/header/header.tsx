@@ -17,7 +17,7 @@ import Logo from '../svg/logo';
 import { TopBarSelect } from '../top-bar-select/top-bar-select';
 
 import EssentialWebsitesMenuTrigger from './essentials-triggers/menu-trigger';
-import EssentialWebsitesModalTrigger from './essentials-triggers/modal-trigger/modal-trigger';
+import EssentialWebsitesModalTrigger from './essentials-triggers/modal-trigger';
 import menuItems from './menu-items';
 import type { MenuType } from './menu-items';
 

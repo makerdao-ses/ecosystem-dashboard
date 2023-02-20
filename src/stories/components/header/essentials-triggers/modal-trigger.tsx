@@ -4,7 +4,7 @@ import { ThreeDots } from '@ses/components/svg/three-dots';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React, { useCallback, useEffect, useState } from 'react';
-import EssentialWebsites from '../../essential-websites/essential-websites';
+import EssentialWebsites from '../essential-websites/essential-websites';
 import type { WithIsLight } from '@ses/core/utils/types-helpers';
 
 const EssentialWebsitesModalTrigger: React.FC = () => {
