@@ -15,7 +15,7 @@ interface Props {
 
 const DelegateSummary: React.FC<Props> = ({ code = 'del', links }) => {
   const { isLight } = useThemeContext();
-  const isUp1280 = useMediaQuery(lightTheme.breakpoints.up('desktop_1280'));
+  const isUp1280 = useMediaQuery(lightTheme.breakpoints.up('table_834'));
   return (
     <Container>
       <ContainerRow>
@@ -50,7 +50,6 @@ const DelegateSummary: React.FC<Props> = ({ code = 'del', links }) => {
                   fontStyle: 'normal',
                   marginLeft: '0px',
                   letterSpacing: '0px',
-                  height: '13px',
                 }}
                 marginLeft="5px"
                 withArrow
@@ -75,6 +74,11 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
+  [lightTheme.breakpoints.up('table_834')]: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -90,6 +94,12 @@ const ContainerRow = styled.div({
 const ContainerDescription = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  [lightTheme.breakpoints.up('table_834')]: {
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     flexDirection: 'row',
     width: '100%',
@@ -111,7 +121,7 @@ const Code = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: ' 16px',
   lineHeight: '19px',
   color: isLight ? '#9FAFB9' : '#546978',
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [lightTheme.breakpoints.up('table_834')]: {
     marginRight: 16,
     fontWeight: 600,
     fontSize: '24px',
@@ -127,7 +137,7 @@ const Text = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: '16px',
   lineHeight: '19px',
   color: isLight ? '#231536' : '#E2D8EE',
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [lightTheme.breakpoints.up('table_834')]: {
     marginRight: 16,
     fontWeight: 600,
     fontSize: '24px',
@@ -141,9 +151,23 @@ const ContainerLink = styled.div({
   display: 'flex',
   alignItems: 'flex-start',
   marginTop: 4,
+  height: 13,
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 10,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    height: 'fit-content',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     marginBottom: 0,
     marginTop: 0,
+    alignItems: 'center',
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    marginTop: 3,
     alignItems: 'center',
   },
 });
@@ -151,10 +175,24 @@ const ContainerLink = styled.div({
 const ContainerLinks = styled.div({
   display: 'flex',
   marginLeft: -6,
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     '& > div > div:first-of-type': {
       marginRight: '10px',
       marginTop: '2px',
+      marginLeft: 0,
+    },
+    '* + *': {
+      marginRight: '14px',
+      marginTop: '0px',
+    },
+    ' & > div> div:last-child': {
+      marginRight: '0px',
+    },
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    '& > div > div:first-of-type': {
+      marginRight: '16px',
+      marginTop: '4px',
       marginLeft: 0,
     },
     '* + *': {
@@ -170,9 +208,17 @@ const ContainerLinks = styled.div({
 const ContainerColumnMobile = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 6,
+    marginLeft: 6,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     display: 'flex',
     flexDirection: 'row',
+    alignItems: 'center',
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    marginLeft: 0,
   },
 });
 
