@@ -9,12 +9,27 @@ interface BreadcrumbsProps {
     label: string | JSX.Element;
     url: string;
   }[];
+  height?: number;
+  width?: number;
+  paddingBreadcrumbs?: string;
+  heightBreadcrumbs?: string;
+  fontSize?: string;
+  borderRadius?: string;
+  marginLeft?: string;
+  marginRight?: string;
+  className?: string;
 }
 
 export const Breadcrumbs = (props: BreadcrumbsProps) => {
   const { isLight } = useThemeContext();
   return (
-    <Container>
+    <Container
+      className={props.className}
+      isLight={isLight}
+      padding={props.paddingBreadcrumbs}
+      height={props.heightBreadcrumbs}
+      borderRadius={props.borderRadius}
+    >
       {props.items.map((item, i) => (
         <LinkWrapper key={item.label.toString()}>
           <Link
@@ -25,25 +40,41 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
               pointerEvents: item.url && !(i === props.items.length - 1) ? 'all' : 'none',
             }}
           >
-            <Crumb isLight={isLight} last={i === props.items.length - 1} first={i === 0}>
+            <Crumb
+              className="crumb"
+              isLight={isLight}
+              last={i === props.items.length - 1}
+              first={i === 0}
+              fontSize={props.fontSize}
+              marginLeft={props.marginLeft}
+              marginRight={props.marginRight}
+            >
               {item.label}
             </Crumb>
           </Link>
-          {i !== props.items.length - 1 && <BreadcrumbSeparator fillDark="#787A9B" fill="#D1DEE6" />}
+          {i !== props.items.length - 1 && (
+            <BreadcrumbSeparator fillDark="#787A9B" fill="#D1DEE6" height={props.height} width={props.width} />
+          )}
         </LinkWrapper>
       ))}
     </Container>
   );
 };
 
-const Container = styled.div({
+const Container = styled.div<{
+  padding?: string;
+  height?: string;
+  borderRadius?: string;
+  isLight: boolean;
+}>(({ height = '47px', padding = '27px 0', borderRadius }) => ({
   display: 'flex',
   flex: 1,
-  padding: '27px 0',
+  padding,
   boxSizing: 'border-box',
-  height: '74px',
+  height,
   alignSelf: 'flex-start',
-});
+  borderRadius,
+}));
 
 const LinkWrapper = styled.div({
   display: 'flex',
@@ -60,16 +91,23 @@ const LinkWrapper = styled.div({
   },
 });
 
-const Crumb = styled.a<{ first: boolean; last: boolean; isLight: boolean }>(({ first, last, isLight }) => ({
+const Crumb = styled.a<{
+  first: boolean;
+  last: boolean;
+  isLight: boolean;
+  fontSize?: string;
+  marginLeft?: string;
+  marginRight?: string;
+}>(({ first, last, isLight, fontSize = '16px', marginLeft, marginRight = '15px' }) => ({
   fontFamily: 'Inter, sans-serif',
   fontWeight: last ? 700 : 400,
-  fontSize: '16px',
+  fontSize,
   lineHeight: '19px',
   textAlign: 'center',
   letterSpacing: '0.4px',
   color: last && isLight ? '#231536' : !last && isLight ? '#708390' : last && !isLight ? '#D2D4EF' : '#787A9B',
-  marginRight: '15px',
-  marginLeft: first ? '0' : '15px',
+  marginRight,
+  marginLeft: first ? '0' : marginLeft ?? '15px',
   cursor: 'pointer',
   textDecoration: 'none',
 }));
