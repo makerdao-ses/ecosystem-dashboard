@@ -27,7 +27,9 @@ const RecognizedDelegatesContainer = () => {
         />
       </ContainerBreadCrumb>
       <ContainerInside>
-        <DelegateSummary links={links} />
+        <ContainerDelegate>
+          <DelegateSummary links={links} />
+        </ContainerDelegate>
       </ContainerInside>
       <Line />
       <ContainerInside>
@@ -50,16 +52,43 @@ const Container = styled.div({
   marginTop: 64,
 });
 
+const ContainerDelegate = styled.div({
+  marginTop: 8,
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 36,
+    marginLeft: 0,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    marginTop: 36,
+    marginLeft: 0,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    marginTop: 22,
+    marginLeft: 0,
+  },
+});
+
 const ContainerInside = styled.div({
   width: '343px',
+  flexDirection: 'column',
   display: 'flex',
   margin: '0px auto',
-  marginTop: 10,
-  flexDirection: 'column',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    minWidth: '770px',
+    margin: '0px auto',
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    minWidth: '1130px',
+    margin: '0px auto',
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    minWidth: '1184px',
+    margin: '0px auto',
+  },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     minWidth: '1312px',
     margin: '0px auto',
-    marginTop: 23,
   },
 });
 
@@ -67,6 +96,9 @@ const Line = styled.div({
   borderBottom: '1px solid #B6EDE7',
   width: '100%',
   marginTop: '16px',
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginTop: '26px',
+  },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
     marginTop: '24px',
@@ -79,14 +111,15 @@ const StyledBreadcrumbs = styled(Breadcrumbs)<{ isLight: boolean }>(({ isLight }
   margin: '0px auto',
   background: isLight ? '#ECF1F3' : '#000A13',
   '&.crumb-container': {
-    [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-      '& .crumb': {
+    '& .crumb': {
+      letterSpacing: 0,
+      ':last-child': {
+        letterSpacing: 0,
+      },
+      [lightTheme.breakpoints.between('table_375', 'table_834')]: {
         lineHeight: '13px',
       },
-    },
-    lineHeight: '13px',
-    [lightTheme.breakpoints.up('desktop_1280')]: {
-      '& .crumb': {
+      [lightTheme.breakpoints.up('table_834')]: {
         fontSize: '16px',
         lineHeight: '22px',
         marginRight: 15,
@@ -94,12 +127,11 @@ const StyledBreadcrumbs = styled(Breadcrumbs)<{ isLight: boolean }>(({ isLight }
       },
     },
 
-    [lightTheme.breakpoints.up('desktop_1440')]: {
+    [lightTheme.breakpoints.up('table_834')]: {
       background: 'none',
-      maxWidth: '1376px',
+      maxWidth: '768px',
       padding: 0,
       marginTop: 5,
-
       '& .crumb': {
         fontSize: '16px',
         lineHeight: '22px',
@@ -110,6 +142,27 @@ const StyledBreadcrumbs = styled(Breadcrumbs)<{ isLight: boolean }>(({ isLight }
         },
       },
     },
+    [lightTheme.breakpoints.up('desktop_1194')]: {
+      background: 'none',
+      maxWidth: '1130px',
+    },
+    [lightTheme.breakpoints.up('desktop_1280')]: {
+      background: 'none',
+      maxWidth: '1184px',
+    },
+    [lightTheme.breakpoints.up('desktop_1280')]: {
+      background: 'none',
+      maxWidth: '1184px',
+    },
+
+    [lightTheme.breakpoints.up('desktop_1440')]: {
+      background: 'none',
+      maxWidth: '1376px',
+    },
+    [lightTheme.breakpoints.up('desktop_1920')]: {
+      background: 'none',
+      maxWidth: '1855px',
+    },
   },
 }));
 
@@ -119,9 +172,21 @@ const ContainerBreadCrumb = styled.div({
   paddingLeft: 16,
   paddingRight: 16,
   paddingBottom: 8,
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [lightTheme.breakpoints.up('table_834')]: {
     paddingLeft: 32,
     paddingRight: 32,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    paddingLeft: 32,
+    paddingRight: 32,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    paddingLeft: 48,
+    paddingRight: 48,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
     height: 74,
+    paddingLeft: 32,
+    paddingRight: 32,
   },
 });

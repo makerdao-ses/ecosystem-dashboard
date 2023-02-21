@@ -10,7 +10,7 @@ export default {
   parameters: {
     layout: 'fullscreen',
     chromatic: {
-      viewports: [375, 1280, 1440],
+      viewports: [375, 834, 1194],
       pauseAnimationAtEnd: true,
     },
   },
@@ -58,43 +58,30 @@ LightMode.parameters = {
           },
         },
       },
-      1280: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14373%3A159677&t=CPxU3URf0kVMynJT-4',
-        options: {
-          componentStyle: {
-            width: 1184,
-          },
-          style: {
-            top: -18,
-            left: -20,
-          },
-        },
-      },
 
-      1440: {
+      834: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14171%3A258356&t=WCAGvNfUJOZmR3GA-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14539%3A157717&t=nnlMhBVyl5KbS8g1-4',
         options: {
           componentStyle: {
-            width: 1312,
+            width: 770,
           },
           style: {
-            top: -18,
-            left: -20,
+            top: -20,
+            left: -22,
           },
         },
       },
-      1920: {
+      1194: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14373%3A157310&t=CPxU3URf0kVMynJT-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14539%3A154161&t=nnlMhBVyl5KbS8g1-4',
         options: {
           componentStyle: {
-            width: 1312,
+            width: 1130,
           },
           style: {
             top: -18,
-            left: -20,
+            left: -22,
           },
         },
       },
