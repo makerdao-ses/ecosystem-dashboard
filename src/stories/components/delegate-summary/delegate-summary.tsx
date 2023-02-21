@@ -144,6 +144,9 @@ const Text = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     lineHeight: '29px',
     letterSpacing: '0.4px',
   },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginTop: -2,
+  },
 }));
 
 const ContainerLink = styled.div({
@@ -153,13 +156,12 @@ const ContainerLink = styled.div({
   marginTop: 4,
   height: 13,
   [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: 10,
+    marginTop: 9,
+    marginLeft: 1,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    height: 'fit-content',
     display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
+    marginLeft: '2px',
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     marginBottom: 0,
@@ -209,13 +211,15 @@ const ContainerColumnMobile = styled.div({
   display: 'flex',
   flexDirection: 'column',
   [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: 6,
+    marginTop: 10,
     marginLeft: 6,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: 6,
+    marginLeft: 6,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     marginLeft: 0,

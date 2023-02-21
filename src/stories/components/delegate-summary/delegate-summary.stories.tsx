@@ -10,7 +10,7 @@ export default {
   parameters: {
     layout: 'fullscreen',
     chromatic: {
-      viewports: [375, 834, 1194, 1280, 1440],
+      viewports: [375, 834, 1194],
       pauseAnimationAtEnd: true,
     },
   },
@@ -67,7 +67,7 @@ LightMode.parameters = {
             width: 770,
           },
           style: {
-            top: -18,
+            top: -20,
             left: -22,
           },
         },
@@ -82,47 +82,6 @@ LightMode.parameters = {
           style: {
             top: -18,
             left: -22,
-          },
-        },
-      },
-
-      1280: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14373%3A159678&t=nnlMhBVyl5KbS8g1-4',
-        options: {
-          componentStyle: {
-            width: 1184,
-          },
-          style: {
-            top: -18,
-            left: -20,
-          },
-        },
-      },
-
-      1440: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14171%3A258356&t=WCAGvNfUJOZmR3GA-4',
-        options: {
-          componentStyle: {
-            width: 1312,
-          },
-          style: {
-            top: -18,
-            left: -20,
-          },
-        },
-      },
-      1920: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14373%3A157310&t=CPxU3URf0kVMynJT-4',
-        options: {
-          componentStyle: {
-            width: 1312,
-          },
-          style: {
-            top: -18,
-            left: -20,
           },
         },
       },

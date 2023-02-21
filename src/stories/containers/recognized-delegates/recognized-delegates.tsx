@@ -112,6 +112,10 @@ const StyledBreadcrumbs = styled(Breadcrumbs)<{ isLight: boolean }>(({ isLight }
   background: isLight ? '#ECF1F3' : '#000A13',
   '&.crumb-container': {
     '& .crumb': {
+      letterSpacing: 0,
+      ':last-child': {
+        letterSpacing: 0,
+      },
       [lightTheme.breakpoints.between('table_375', 'table_834')]: {
         lineHeight: '13px',
       },
