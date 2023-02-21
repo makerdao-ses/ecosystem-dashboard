@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import CoreUnitCard from '@ses/components/core-unit-card/core-unit-card';
 import { siteRoutes } from '@ses/config/routes';
+import { enablePageOverflow } from '@ses/core/utils/dom';
 import isEmpty from 'lodash/isEmpty';
 import sortBy from 'lodash/sortBy';
 import { useRouter } from 'next/router';
@@ -89,9 +90,7 @@ export const CuTable = () => {
   const [filtersPopup, setFiltersPopup] = useState(false);
 
   const toggleFiltersPopup = useCallback(() => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    document.querySelector('body').style.overflow = filtersPopup ? 'auto' : 'hidden';
+    enablePageOverflow(filtersPopup);
     setFiltersPopup(!filtersPopup);
   }, [filtersPopup]);
 

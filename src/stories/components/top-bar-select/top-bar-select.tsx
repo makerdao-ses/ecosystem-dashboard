@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { enablePageOverflow, getPageWrapper } from '@ses/core/utils/dom';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -18,14 +19,20 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
   const router = useRouter();
   const [popup, setPopup] = useState(false);
   const togglePopup = () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    document.querySelector('body').style.overflow = popup ? 'auto' : 'hidden';
+    enablePageOverflow(popup);
     setPopup(!popup);
   };
 
   useEffect(() => {
     setPopup(false);
+
+    return () => {
+      // restore the scroll property
+      const wrapper = getPageWrapper();
+      if (wrapper) {
+        wrapper.style.removeProperty('overflow');
+      }
+    };
   }, [router.route]);
 
   return (

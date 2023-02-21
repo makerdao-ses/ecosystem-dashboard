@@ -37,7 +37,7 @@ LightMode.parameters = {
     component: {
       375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14373%3A152908&t=KwMSsB47i43O3yWF-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14373%3A152908&t=nnlMhBVyl5KbS8g1-4',
         options: {
           componentStyle: {
             width: 375,
@@ -45,9 +45,40 @@ LightMode.parameters = {
           ...optionStyles,
         },
       },
+      834: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14539%3A156480&t=nnlMhBVyl5KbS8g1-4',
+        options: {
+          componentStyle: {
+            width: 834,
+          },
+          ...optionStyles,
+        },
+      },
+      1194: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14373%3A164183&t=nnlMhBVyl5KbS8g1-4',
+        options: {
+          componentStyle: {
+            width: 1194,
+          },
+          ...optionStyles,
+        },
+      },
+      1280: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14373%3A158198&t=nnlMhBVyl5KbS8g1-4',
+        options: {
+          componentStyle: {
+            width: 1280,
+          },
+          ...optionStyles,
+        },
+      },
+
       1440: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14373%3A152093&t=kbWt0cOvr2KYcuOj-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14373%3A152093&t=nnlMhBVyl5KbS8g1-4',
         options: {
           componentStyle: {
             width: 1440,
@@ -57,7 +88,7 @@ LightMode.parameters = {
       },
       1920: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14373%3A154395&t=kbWt0cOvr2KYcuOj-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14373%3A154395&t=nnlMhBVyl5KbS8g1-4',
         options: {
           componentStyle: {
             width: 1920,

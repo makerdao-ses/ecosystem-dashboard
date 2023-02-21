@@ -57,6 +57,7 @@ const TableRow = styled.a<{ isLight: boolean; isLoading?: boolean; columns: Cust
     '@media (min-width: 1410px)': {
       gridTemplateColumns: columns?.reduce((prev, curr) => `${prev} ${curr.width}`, ''),
       gridTemplateRows: '98px',
+      width: '100%',
     },
   })
 );
