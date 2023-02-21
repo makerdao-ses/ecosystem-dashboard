@@ -3,6 +3,7 @@ import CookiesPolicyBanner from '@ses/components/cookies-policy-banner/cookies-p
 import { useLayoutEffect } from 'react';
 import lightTheme from '../../../styles/theme/light';
 import { useScrollLock } from '../hooks/scroll-hooks';
+import { getPageWrapper } from '../utils/dom';
 import { useCookiesContextTracking } from './CookiesContext';
 import { useThemeContext } from './ThemeContext';
 import type { ReactNode } from 'react';
@@ -25,7 +26,10 @@ const MainWrapper = ({ children }: { children: ReactNode }) => {
     if (isShowBanner) {
       setTimeout(() => {
         window.scrollTo(0, 0);
-        document.body.style.overflow = 'hidden';
+        const pageWrapper = getPageWrapper();
+        if (pageWrapper) {
+          pageWrapper.style.overflow = 'hidden';
+        }
       }, 100);
       lockScroll();
     }

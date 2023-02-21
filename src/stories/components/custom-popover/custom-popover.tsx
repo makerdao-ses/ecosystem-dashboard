@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { Popover } from '@mui/material';
+import { getPageWrapper } from '@ses/core/utils/dom';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import type { CSSProperties } from 'react';
@@ -38,17 +39,19 @@ export const CustomPopover = ({
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const [leaveTimeout, setLeaveTimeout] = React.useState<NodeJS.Timeout>();
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    document.querySelector('body').onscroll = handlePopoverClose;
+    const wrapper = getPageWrapper();
+    if (wrapper) {
+      wrapper.onscroll = handlePopoverClose;
+    }
     setAnchorEl(event.currentTarget);
   };
 
   const handlePopoverClose = () => {
     setAnchorEl(null);
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    document.querySelector('body').removeEventListener('onscroll', handlePopoverClose);
+    const wrapper = getPageWrapper();
+    if (wrapper) {
+      wrapper.removeEventListener('onscroll', handlePopoverClose);
+    }
   };
 
   return (

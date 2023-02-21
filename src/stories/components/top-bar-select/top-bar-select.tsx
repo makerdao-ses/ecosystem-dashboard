@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { enablePageOverflow, getPageWrapper } from '@ses/core/utils/dom';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -18,14 +19,7 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
   const router = useRouter();
   const [popup, setPopup] = useState(false);
   const togglePopup = () => {
-    const body = document?.querySelector('body');
-    if (body) {
-      if (popup) {
-        body.style.removeProperty('overflow');
-      } else {
-        body.style.overflow = 'hidden';
-      }
-    }
+    enablePageOverflow(popup);
     setPopup(!popup);
   };
 
@@ -34,9 +28,9 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
 
     return () => {
       // restore the scroll property
-      const body = document?.querySelector('body');
-      if (body) {
-        body.style.removeProperty('overflow');
+      const wrapper = getPageWrapper();
+      if (wrapper) {
+        wrapper.style.removeProperty('overflow');
       }
     };
   }, [router.route]);
