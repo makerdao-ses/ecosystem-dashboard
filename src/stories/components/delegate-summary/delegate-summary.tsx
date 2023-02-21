@@ -24,11 +24,12 @@ const DelegateSummary: React.FC<Props> = ({ code = 'del', links }) => {
             style={{
               filter: isLight
                 ? 'filter: drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))'
-                : 'drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25));',
+                : 'filter: drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))',
             }}
             width={isUp1280 ? '68px' : '32px'}
             height={isUp1280 ? '68px' : '32px'}
             name="mk-logo"
+            border="none"
             image="/assets/img/mk-logo.png"
           />
         </CircleContainer>
@@ -177,9 +178,23 @@ const ContainerLink = styled.div({
 const ContainerLinks = styled.div({
   display: 'flex',
   marginLeft: -6,
+  [lightTheme.breakpoints.up('table_834')]: {
+    '& > div > div:first-of-type': {
+      marginTop: -4,
+    },
+    '* + *': {
+      marginRight: '14px',
+      marginTop: '0px',
+    },
+    ' & > div> div:last-child': {
+      marginFight: -3,
+      marginTop: -2,
+    },
+  },
+
   [lightTheme.breakpoints.up('desktop_1280')]: {
     '& > div > div:first-of-type': {
-      marginRight: '10px',
+      marginRight: '14px',
       marginTop: '2px',
       marginLeft: 0,
     },
