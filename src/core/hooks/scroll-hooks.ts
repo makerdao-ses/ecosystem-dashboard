@@ -1,15 +1,12 @@
 import { useCallback } from 'react';
+import { enablePageOverflow } from '../utils/dom';
 export const useScrollLock = () => {
   const lockScroll = useCallback(() => {
-    if (typeof window !== 'undefined') {
-      document.body.style.overflowY = 'hidden';
-    }
+    enablePageOverflow(false);
   }, []);
 
   const unlockScroll = useCallback(() => {
-    if (typeof window !== 'undefined') {
-      document.body.style.overflowY = 'scroll';
-    }
+    enablePageOverflow(true);
   }, []);
 
   return {

@@ -1,4 +1,5 @@
 import { siteRoutes } from '@ses/config/routes';
+import { enablePageOverflow } from '@ses/core/utils/dom';
 import request from 'graphql-request';
 import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';
@@ -57,14 +58,7 @@ export const useCoreUnitsTableMvvm = () => {
   const [filtersPopup, setFiltersPopup] = useState(false);
 
   const toggleFiltersPopup = () => {
-    const body = document.querySelector('body');
-    if (body) {
-      if (filtersPopup) {
-        body.style.removeProperty('overflow');
-      } else {
-        body.style.overflow = 'hidden';
-      }
-    }
+    enablePageOverflow(filtersPopup);
     setFiltersPopup(!filtersPopup);
   };
 
