@@ -50,8 +50,10 @@ export default class MyDocument extends Document<Props> {
           )}
         </Head>
         <body>
-          <Main />
-          <NextScript />
+          <div id="ses-wrapper">
+            <Main />
+            <NextScript />
+          </div>
         </body>
       </Html>
     );

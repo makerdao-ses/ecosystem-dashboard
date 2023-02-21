@@ -57,9 +57,14 @@ export const useCoreUnitsTableMvvm = () => {
   const [filtersPopup, setFiltersPopup] = useState(false);
 
   const toggleFiltersPopup = () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    document.querySelector('body').style.overflow = filtersPopup ? 'auto' : 'hidden';
+    const body = document.querySelector('body');
+    if (body) {
+      if (filtersPopup) {
+        body.style.removeProperty('overflow');
+      } else {
+        body.style.overflow = 'hidden';
+      }
+    }
     setFiltersPopup(!filtersPopup);
   };
 

@@ -20,7 +20,11 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
   const togglePopup = () => {
     const body = document?.querySelector('body');
     if (body) {
-      body.style.overflow = popup ? 'auto' : 'hidden';
+      if (popup) {
+        body.style.removeProperty('overflow');
+      } else {
+        body.style.overflow = 'hidden';
+      }
     }
     setPopup(!popup);
   };
@@ -32,7 +36,7 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
       // restore the scroll property
       const body = document?.querySelector('body');
       if (body) {
-        body.style.overflow = 'auto';
+        body.style.removeProperty('overflow');
       }
     };
   }, [router.route]);
