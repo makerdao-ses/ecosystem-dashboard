@@ -110,7 +110,7 @@ const ContainerDescription = styled.div({
 });
 const CircleContainer = styled.div({
   marginRight: 8,
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [lightTheme.breakpoints.up('table_834')]: {
     marginRight: 16,
   },
 });
@@ -157,12 +157,10 @@ const ContainerLink = styled.div({
   marginTop: 4,
   height: 13,
   [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: 9,
-    marginLeft: 1,
+    marginTop: 8,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     display: 'flex',
-    marginLeft: '2px',
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     marginBottom: 0,
@@ -226,15 +224,15 @@ const ContainerColumnMobile = styled.div({
   display: 'flex',
   flexDirection: 'column',
   [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: 10,
-    marginLeft: 6,
+    marginTop: 8,
+    marginLeft: 0,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 6,
-    marginLeft: 6,
+    marginLeft: 0,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     marginLeft: 0,
