@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
 import { Modal, useMediaQuery } from '@mui/material';
 import { Close } from '@ses/components/svg/close';
+import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
+import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import LoginForm from '../login-form/login-form';
 import { useLoginMvvm } from '../login.mvvm';
@@ -15,9 +17,10 @@ export type LoginModalProps = {
 };
 
 const LoginModal: React.FC<LoginModalProps> = ({ open = false, handleClose, autoClose = false }) => {
-  const { form, loading, error, clearErrors, hasUserInactive } = useLoginMvvm();
+  const { form, loading, error, clearErrors, hasUserInactive, shouldKeepOpenModal } = useLoginMvvm();
   const { isLight } = useThemeContext();
   const isUpTablet = useMediaQuery(lightTheme.breakpoints.up('table_834'));
+  const router = useRouter();
 
   useEffect(() => {
     if (autoClose && isUpTablet && open) {
@@ -25,11 +28,18 @@ const LoginModal: React.FC<LoginModalProps> = ({ open = false, handleClose, auto
     }
   }, [autoClose, isUpTablet, open, handleClose]);
 
+  const handleRedirectOrClose = () => {
+    if (router.pathname === siteRoutes.login) {
+      router.push(siteRoutes.home);
+    }
+    handleClose();
+  };
+
   return (
-    <Modal open={open} onClose={handleClose}>
+    <Modal open={open || shouldKeepOpenModal} onClose={handleClose}>
       <LoginModalWrapper isLight={isLight}>
         <CloseWrapper>
-          <Close onClick={handleClose} />
+          <Close onClick={handleRedirectOrClose} />
         </CloseWrapper>
         <FormContainer>
           <LoginForm
