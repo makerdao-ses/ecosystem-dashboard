@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { Breadcrumbs } from '@ses/components/breadcrumbs/breadcrumbs';
+import { CustomLink } from '@ses/components/custom-link/custom-link';
 import DelegateSummary from '@ses/components/delegate-summary/delegate-summary';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
@@ -33,11 +34,36 @@ const RecognizedDelegatesContainer = () => {
       </ContainerInside>
       <Line />
       <ContainerInside>
-        <div>Last update</div>
-        <div>View the onchain transaction for recognized delegates</div>
-        <div>Tab Sections</div>
-        <div>Sep 2022 Totals (Sectios)</div>
-        <div>Sep 2022 Breakdown (Sectios)</div>
+        <ContainerAdditionalNotes>
+          <TitleNotes isLight={isLight}>Additional Notes</TitleNotes>
+          <Description isLight={isLight}>
+            The expenses on this page are for all Recognized Delegates that receive compensation. To view all delegates
+            visit
+            <span>
+              <CustomLink
+                iconWidth={10}
+                iconHeight={10}
+                children={'vote.makerdao.com/delegates'}
+                href="https://vote.makerdao.com/delegates"
+                marginLeft="7px"
+              />
+            </span>
+          </Description>
+          <Description isLight={isLight}>
+            MakerDAO forum reports for delegate can be found
+            <Spacer style={{ width: 1 }} />
+            <CustomLink
+              iconWidth={10}
+              iconHeight={10}
+              children={'here'}
+              href="https://forum.makerdao.com/tag/compensation"
+              marginLeft="7px"
+              style={{
+                marginLeft: isMobile ? '0px' : '4px',
+              }}
+            />
+          </Description>
+        </ContainerAdditionalNotes>
       </ContainerInside>
     </Container>
   );
@@ -188,5 +214,63 @@ const ContainerBreadCrumb = styled.div({
     height: 74,
     paddingLeft: 32,
     paddingRight: 32,
+  },
+});
+
+const ContainerAdditionalNotes = styled.div({
+  marginTop: 40,
+  marginBottom: 64,
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 16,
+});
+
+const Description = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
+  fontWeight: 400,
+  fontSize: 14,
+  lineHeight: '22px',
+  letterSpacing: 0,
+  color: isLight ? '#231536' : '#d2d4ef',
+  '> a': {
+    fontSize: 14,
+    lineHeight: '18px',
+    letterSpacing: 0,
+  },
+  '> span a': {
+    fontSize: 14,
+    lineHeight: '18px',
+    letterSpacing: 0,
+  },
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: 16,
+    '> a': {
+      fontSize: 16,
+      lineHeight: '18px',
+      letterSpacing: 0,
+    },
+    '> span a': {
+      fontSize: 16,
+      lineHeight: '18px',
+      letterSpacing: 0,
+    },
+  },
+}));
+const TitleNotes = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
+  fontWeight: 700,
+  fontSize: '16px',
+  lineHeight: '19px',
+  display: 'flex',
+  color: isLight ? '#231536' : '#d2d4ef',
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: 20,
+    lineHeight: '24px',
+  },
+}));
+
+const Spacer = styled.div({
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'none',
   },
 });
