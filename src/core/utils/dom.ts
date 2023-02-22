@@ -1,4 +1,4 @@
-export const getPageWrapper = (): HTMLDivElement | null => document?.querySelector<HTMLDivElement>('#ses-wrapper');
+export const getPageWrapper = (): HTMLElement | null => document?.querySelector<HTMLElement>('body');
 
 export const enablePageOverflow = (enable = true): void => {
   const pageWrapper = getPageWrapper();
