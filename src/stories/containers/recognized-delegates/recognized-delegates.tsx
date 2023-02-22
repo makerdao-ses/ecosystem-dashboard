@@ -4,19 +4,15 @@ import { CustomPager } from '@ses/components/custom-pager/custom-pager';
 import DelegateSummary from '@ses/components/delegate-summary/delegate-summary';
 import { Tabs } from '@ses/components/tabs/tabs';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { BudgetStatus } from '@ses/core/models/dto/core-unit.dto';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import ExpenseReportStatusIndicator from '../transparency-report/common/expense-report-status-indicator/expense-report-status-indicator';
-import { TransparencyActuals2 } from '../transparency-report/transparency-actuals/transparency-actuals-2';
-import { TransparencyForecast2 } from '../transparency-report/transparency-forecast/transparency-forecast-2';
 import { ParenthesisNumber } from '../transparency-report/transparency-report';
 import { TRANSPARENCY_IDS_ENUM } from '../transparency-report/transparency-report.mvvm';
 import useRecognizedDelegates from './useRecognizedDelegates.mvvm';
 
 const RecognizedDelegatesContainer = () => {
-  const [isEnabled] = useFlagsActive();
   const {
     links,
     itemsBreadcrumb,
@@ -30,20 +26,19 @@ const RecognizedDelegatesContainer = () => {
     tabsIndex,
   } = useRecognizedDelegates();
   const { isLight } = useThemeContext();
-  if (isEnabled('FEATURE_TRANSPARENCY_COMMENTS')) {
-    const CommentsComponent = {
-      item: (
-        <CommentsContainer>
-          {hasNewComments && <DotIndicator isLight={isLight} />}
-          <ParenthesisNumber>
-            Comments<span>{`(${numbersComments})`}</span>
-          </ParenthesisNumber>
-        </CommentsContainer>
-      ),
-      id: TRANSPARENCY_IDS_ENUM.COMMENTS,
-    };
-    tabItems.push(CommentsComponent);
-  }
+  // Add de conditional in case that comments be disable
+  const CommentsComponent = {
+    item: (
+      <CommentsContainer>
+        {hasNewComments && <DotIndicator isLight={isLight} />}
+        <ParenthesisNumber>
+          Comments<span>{`(${numbersComments})`}</span>
+        </ParenthesisNumber>
+      </CommentsContainer>
+    ),
+    id: TRANSPARENCY_IDS_ENUM.COMMENTS,
+  };
+  tabItems.push(CommentsComponent);
 
   return (
     <Container>
@@ -62,9 +57,6 @@ const RecognizedDelegatesContainer = () => {
         />
       </ContainerBreadCrumb>
       <ContainerInside>
-        {/* <ContainerDelegateSummary>
-          <DelegateSummary links={links} />
-        </ContainerDelegateSummary> */}
         <ContainerDelegate>
           <DelegateSummary links={links} />
         </ContainerDelegate>
@@ -76,8 +68,6 @@ const RecognizedDelegatesContainer = () => {
             <PagerBarLeft>
               <StyledPagerBar
                 className="styledPagerBar"
-                // width={5}
-                // height={10}
                 label={currentMonth.toFormat('MMM yyyy').toUpperCase()}
                 // eslint-disable-next-line @typescript-eslint/no-empty-function
                 onPrev={() => {}}
@@ -108,17 +98,9 @@ const RecognizedDelegatesContainer = () => {
               margin: '32px 0',
             }}
           />
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.ACTUALS && (
-            <TransparencyActuals2 code={'SES'} currentMonth={currentMonth} budgetStatements={[]} longCode={'SES-001'} />
-          )}
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.FORECAST && (
-            <TransparencyForecast2
-              currentMonth={currentMonth}
-              budgetStatements={[]}
-              code={'SES'}
-              longCode={'SES-001'}
-            />
-          )}
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.ACTUALS && <div>Actuals</div>}
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.FORECAST && <div>Forecast</div>}
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS && <div>Comments</div>}
         </ContainerTabs>
 
         <div>Sep 2022 Totals (Sectios)</div>
@@ -166,49 +148,37 @@ const ContainerInside = styled.div({
   [lightTheme.breakpoints.up('table_834')]: {
     minWidth: '770px',
     margin: '0px auto',
-    // marginTop: 23,
   },
-  // [lightTheme.breakpoints.up('table_834')]: {
-  //   minWidth: '770px',
-  //   margin: '0px auto',
-  // },
+
   [lightTheme.breakpoints.up('desktop_1194')]: {
     minWidth: '1130px',
     margin: '0px auto',
-    // marginTop: 23,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     minWidth: '1184px',
     margin: '0px auto',
-    // marginTop: 23,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     minWidth: '1312px',
     margin: '0px auto',
-    // marginTop: 23,
   },
 });
 
 const ContainerPagerBar = styled.div({
-  marginBottom: 32,
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: -3,
+  },
 });
-
-// const ContainerDelegateSummary = styled.div({
-//   marginTop: 10,
-// });
 
 const Line = styled.div({
   borderBottom: '1px solid #B6EDE7',
   width: '100%',
   marginTop: '16px',
   marginBottom: 24,
-  // [lightTheme.breakpoints.up('desktop_1194')]: {
-  //   marginTop: '26px',
-  // },
 
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     marginBottom: 37,
-    marginTop: '24px',
+    marginTop: '18px',
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     marginBottom: 32,
@@ -306,10 +276,16 @@ const StyledPagerBar = styled(CustomPager)({
   '&.styledPagerBar': {
     'div:first-of-type': {
       gap: 24,
+      [lightTheme.breakpoints.up('table_834')]: {
+        gap: 8,
+      },
     },
     '> div:last-of-type': {
       marginLeft: 8,
       letterSpacing: 0,
+      [lightTheme.breakpoints.up('table_834')]: {
+        letterSpacing: ' 0.4px',
+      },
     },
   },
 });
@@ -319,8 +295,10 @@ const PagerBar = styled.div({
   alignItems: 'flex-start',
   flex: 1,
   marginTop: 2,
-  '@media (min-width: 834px)': {
+  [lightTheme.breakpoints.up('table_834')]: {
     alignItems: 'center',
+    marginTop: 4,
+    marginLeft: 2,
   },
 });
 
@@ -344,6 +322,12 @@ const LastUpdate = styled.div({
   flexDirection: 'column',
   alignItems: 'flex-end',
   fontFamily: 'Inter, sans-serif',
+  marginTop: -3,
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 0,
+    marginRight: -2,
+    marginLeft: 8,
+  },
 });
 
 const Since = styled.div<{ isLight: boolean }>(({ isLight = true }) => ({
@@ -357,6 +341,7 @@ const Since = styled.div<{ isLight: boolean }>(({ isLight = true }) => ({
   textTransform: 'uppercase',
   '@media (min-width: 834px)': {
     fontSize: '12px',
+    letterSpacing: '1px',
   },
 }));
 
@@ -373,6 +358,7 @@ const SinceDate = styled.div({
   '@media (min-width: 834px)': {
     fontSize: '12px',
     marginTop: '4px',
+    letterSpacing: '1px',
   },
 });
 
@@ -386,12 +372,28 @@ const DotIndicator = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   right: -8,
 }));
 
-const ContainerTabs = styled.div({});
+const ContainerTabs = styled.div({
+  'div:first-of-type > div:first-of-type > div': {
+    paddingBottom: 8,
+  },
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 2,
+    'div:first-of-type > div:first-of-type > div': {
+      paddingBottom: 14,
+    },
+  },
+});
 
 const ContainerExpense = styled.div({
   marginTop: -2,
   'div a': {
     marginLeft: 4,
+    [lightTheme.breakpoints.up('table_834')]: {
+      marginLeft: 8,
+    },
+  },
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginLeft: -3,
   },
 });
 
