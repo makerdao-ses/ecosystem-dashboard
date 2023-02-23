@@ -4,17 +4,18 @@ import { CustomLink } from '@ses/components/custom-link/custom-link';
 import { CustomPager } from '@ses/components/custom-pager/custom-pager';
 import DelegateSummary from '@ses/components/delegate-summary/delegate-summary';
 import { Tabs } from '@ses/components/tabs/tabs';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { BudgetStatus } from '@ses/core/models/dto/core-unit.dto';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import ExpenseReportStatusIndicator from '../transparency-report/common/expense-report-status-indicator/expense-report-status-indicator';
 import { ParenthesisNumber } from '../transparency-report/transparency-report';
-import { TRANSPARENCY_IDS_ENUM } from '../transparency-report/transparency-report.mvvm';
-import useRecognizedDelegates from './useRecognizedDelegates.mvvm';
+import DelegatesActuals from './delegates-actuals/delegates-actuals';
+import DelegatesForecast from './delegates-forecast/delegates-forecast';
+import useRecognizedDelegates, { DELEGATES_IDS_ENUM } from './useRecognizedDelegates.mvvm';
 
 const RecognizedDelegatesContainer = () => {
   const {
+    isLight,
     links,
     itemsBreadcrumb,
     isMobile,
@@ -26,7 +27,7 @@ const RecognizedDelegatesContainer = () => {
     tabsIndexNumber,
     tabsIndex,
   } = useRecognizedDelegates();
-  const { isLight } = useThemeContext();
+
   // Add de conditional in case that comments be disable
   const CommentsComponent = {
     item: (
@@ -37,7 +38,7 @@ const RecognizedDelegatesContainer = () => {
         </ParenthesisNumber>
       </CommentsContainer>
     ),
-    id: TRANSPARENCY_IDS_ENUM.COMMENTS,
+    id: DELEGATES_IDS_ENUM.COMMENTS,
   };
   tabItems.push(CommentsComponent);
 
@@ -97,14 +98,11 @@ const RecognizedDelegatesContainer = () => {
               margin: '32px 0',
             }}
           />
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.ACTUALS && <div>Actuals</div>}
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.FORECAST && <div>Forecast</div>}
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS && <div>Comments</div>}
+          {tabsIndex === DELEGATES_IDS_ENUM.ACTUALS && <DelegatesActuals />}
+          {tabsIndex === DELEGATES_IDS_ENUM.FORECAST && <DelegatesForecast />}
+          {tabsIndex === DELEGATES_IDS_ENUM.COMMENTS && <div>comments</div>}
         </ContainerTabs>
 
-        <div>Sep 2022 Totals (Sectios)</div>
-        <div>Sep 2022 Breakdown (Sectios)</div>
-        <ContainerAdditionalNotes>Sep 2022 Breakdown (Sectios)</ContainerAdditionalNotes>
         <ContainerAdditionalNotes>
           <TitleNotes isLight={isLight}>Additional Notes</TitleNotes>
           <Description isLight={isLight}>
