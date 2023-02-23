@@ -1,4 +1,5 @@
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { siteRoutes } from '@ses/config/routes';
 import { useFormik } from 'formik';
 import request, { ClientError } from 'graphql-request';
 import { useRouter } from 'next/router';
@@ -22,6 +23,16 @@ export const useLoginMvvm = () => {
   const [hasUserInactive, setHasUserInactive] = useState<boolean>(false);
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const isTable = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
+
+  const shouldKeepOpenModal = router.pathname === siteRoutes.login && isMobile;
+
+  useEffect(() => {
+    if (shouldKeepOpenModal && !(router.query.modal === 'true')) {
+      router.replace(`${siteRoutes.login}?modal=true`, undefined, { shallow: true });
+    } else if (!shouldKeepOpenModal && router.query.modal === 'true') {
+      router.replace(siteRoutes.login, undefined, { shallow: true });
+    }
+  }, [isMobile, router, shouldKeepOpenModal]);
 
   useEffect(() => {
     clearCredentials?.();
@@ -76,5 +87,6 @@ export const useLoginMvvm = () => {
     isTable,
     clearCredentials,
     hasUserInactive,
+    shouldKeepOpenModal,
   };
 };
