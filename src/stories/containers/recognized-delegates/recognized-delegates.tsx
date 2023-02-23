@@ -69,10 +69,8 @@ const RecognizedDelegatesContainer = () => {
               <StyledPagerBar
                 className="styledPagerBar"
                 label={currentMonth.toFormat('MMM yyyy').toUpperCase()}
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
-                onPrev={() => {}}
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
-                onNext={() => {}}
+                onPrev={() => null}
+                onNext={() => null}
                 hasNext={false}
                 hasPrevious={false}
               />

@@ -50,7 +50,6 @@ const Label = styled.div({
 const Arrows = styled.div({
   display: 'flex',
   alignItems: 'center',
-  // gap: '24px',
   gap: '16px',
 });
 
