@@ -1,15 +1,45 @@
 import styled from '@emotion/styled';
 import { Breadcrumbs } from '@ses/components/breadcrumbs/breadcrumbs';
 import { CustomLink } from '@ses/components/custom-link/custom-link';
+import { CustomPager } from '@ses/components/custom-pager/custom-pager';
 import DelegateSummary from '@ses/components/delegate-summary/delegate-summary';
+import { Tabs } from '@ses/components/tabs/tabs';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { BudgetStatus } from '@ses/core/models/dto/core-unit.dto';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import ExpenseReportStatusIndicator from '../transparency-report/common/expense-report-status-indicator/expense-report-status-indicator';
+import { ParenthesisNumber } from '../transparency-report/transparency-report';
+import { TRANSPARENCY_IDS_ENUM } from '../transparency-report/transparency-report.mvvm';
 import useRecognizedDelegates from './useRecognizedDelegates.mvvm';
 
 const RecognizedDelegatesContainer = () => {
-  const { links, itemsBreadcrumb, isMobile } = useRecognizedDelegates();
+  const {
+    links,
+    itemsBreadcrumb,
+    isMobile,
+    currentMonth,
+    lastUpdateForBudgetStatement,
+    hasNewComments,
+    numbersComments,
+    tabItems,
+    tabsIndexNumber,
+    tabsIndex,
+  } = useRecognizedDelegates();
   const { isLight } = useThemeContext();
+  // Add de conditional in case that comments be disable
+  const CommentsComponent = {
+    item: (
+      <CommentsContainer>
+        {hasNewComments && <DotIndicator isLight={isLight} />}
+        <ParenthesisNumber>
+          Comments<span>{`(${numbersComments})`}</span>
+        </ParenthesisNumber>
+      </CommentsContainer>
+    ),
+    id: TRANSPARENCY_IDS_ENUM.COMMENTS,
+  };
+  tabItems.push(CommentsComponent);
 
   return (
     <Container>
@@ -34,6 +64,47 @@ const RecognizedDelegatesContainer = () => {
       </ContainerInside>
       <Line />
       <ContainerInside>
+        <ContainerPagerBar>
+          <PagerBar className="no-select" ref={null}>
+            <PagerBarLeft>
+              <StyledPagerBar
+                className="styledPagerBar"
+                label={currentMonth.toFormat('MMM yyyy').toUpperCase()}
+                onPrev={() => null}
+                onNext={() => null}
+                hasNext={false}
+                hasPrevious={false}
+              />
+              <ContainerExpense>
+                <ExpenseReportStatusIndicator budgetStatus={BudgetStatus.Review} showCTA={true} />
+              </ContainerExpense>
+            </PagerBarLeft>
+
+            <Spacer />
+            {lastUpdateForBudgetStatement && (
+              <LastUpdate>
+                <Since isLight={isLight}>Last Update</Since>
+                <SinceDate>{lastUpdateForBudgetStatement.setZone('UTC').toFormat('dd-LLL-y HH:mm ZZZZ')}</SinceDate>
+              </LastUpdate>
+            )}
+          </PagerBar>
+        </ContainerPagerBar>
+        <ContainerTabs>
+          <Tabs
+            items={tabItems}
+            currentIndex={tabsIndexNumber}
+            style={{
+              margin: '32px 0',
+            }}
+          />
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.ACTUALS && <div>Actuals</div>}
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.FORECAST && <div>Forecast</div>}
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS && <div>Comments</div>}
+        </ContainerTabs>
+
+        <div>Sep 2022 Totals (Sectios)</div>
+        <div>Sep 2022 Breakdown (Sectios)</div>
+        <ContainerAdditionalNotes>Sep 2022 Breakdown (Sectios)</ContainerAdditionalNotes>
         <ContainerAdditionalNotes>
           <TitleNotes isLight={isLight}>Additional Notes</TitleNotes>
           <Description isLight={isLight}>
@@ -51,7 +122,7 @@ const RecognizedDelegatesContainer = () => {
           </Description>
           <Description isLight={isLight}>
             MakerDAO forum reports for delegate can be found
-            <Spacer style={{ width: 1 }} />
+            <SpacerDescription style={{ width: 1 }} />
             <CustomLink
               iconWidth={10}
               iconHeight={10}
@@ -70,6 +141,10 @@ const RecognizedDelegatesContainer = () => {
 };
 
 export default RecognizedDelegatesContainer;
+
+const CommentsContainer = styled.div({
+  position: 'relative',
+});
 
 const Container = styled.div({
   display: 'flex',
@@ -96,14 +171,14 @@ const ContainerDelegate = styled.div({
 
 const ContainerInside = styled.div({
   width: '343px',
-  flexDirection: 'column',
   display: 'flex',
   margin: '0px auto',
-
+  flexDirection: 'column',
   [lightTheme.breakpoints.up('table_834')]: {
     minWidth: '770px',
     margin: '0px auto',
   },
+
   [lightTheme.breakpoints.up('desktop_1194')]: {
     minWidth: '1130px',
     margin: '0px auto',
@@ -118,15 +193,24 @@ const ContainerInside = styled.div({
   },
 });
 
+const ContainerPagerBar = styled.div({
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: -3,
+  },
+});
+
 const Line = styled.div({
   borderBottom: '1px solid #B6EDE7',
   width: '100%',
   marginTop: '16px',
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginTop: '26px',
-  },
+  marginBottom: 24,
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    marginBottom: 37,
+    marginTop: '18px',
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginBottom: 32,
     marginTop: '24px',
   },
 });
@@ -217,6 +301,131 @@ const ContainerBreadCrumb = styled.div({
   },
 });
 
+const StyledPagerBar = styled(CustomPager)({
+  '&.styledPagerBar': {
+    'div:first-of-type': {
+      gap: 24,
+      [lightTheme.breakpoints.up('table_834')]: {
+        gap: 8,
+      },
+    },
+    '> div:last-of-type': {
+      marginLeft: 8,
+      letterSpacing: 0,
+      [lightTheme.breakpoints.up('table_834')]: {
+        letterSpacing: ' 0.4px',
+      },
+    },
+  },
+});
+
+const PagerBar = styled.div({
+  display: 'flex',
+  alignItems: 'flex-start',
+  flex: 1,
+  marginTop: 2,
+  [lightTheme.breakpoints.up('table_834')]: {
+    alignItems: 'center',
+    marginTop: 4,
+    marginLeft: 2,
+  },
+});
+
+const PagerBarLeft = styled.div({
+  display: 'flex',
+  alignItems: 'flex-start',
+  flexDirection: 'column',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+});
+
+const Spacer = styled.div({
+  flex: '1',
+});
+
+const LastUpdate = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-end',
+  fontFamily: 'Inter, sans-serif',
+  marginTop: -3,
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 0,
+    marginRight: -2,
+    marginLeft: 8,
+  },
+});
+
+const Since = styled.div<{ isLight: boolean }>(({ isLight = true }) => ({
+  color: isLight ? '#231536' : '#D2D4EF',
+  fontSize: '11px',
+  lineHeight: '15px',
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 600,
+  letterSpacing: '0px',
+  textTransform: 'uppercase',
+  '@media (min-width: 834px)': {
+    fontSize: '12px',
+    letterSpacing: '1px',
+  },
+}));
+
+const SinceDate = styled.div({
+  color: '#708390',
+  fontFamily: 'Inter, sans-serif',
+  fontSize: '11px',
+  fontWeight: 600,
+  letterSpacing: '0px',
+  lineHeight: '15px',
+  textTransform: 'uppercase',
+  marginTop: '2px',
+  textAlign: 'right',
+  '@media (min-width: 834px)': {
+    fontSize: '12px',
+    marginTop: '4px',
+    letterSpacing: '1px',
+  },
+});
+
+const DotIndicator = styled.span<{ isLight: boolean }>(({ isLight }) => ({
+  minWidth: '6px',
+  minHeight: '6px',
+  borderRadius: '50%',
+  background: isLight ? '#F75524' : '#FF8237',
+  position: 'absolute',
+  top: 0,
+  right: -8,
+}));
+
+const ContainerTabs = styled.div({
+  'div:first-of-type > div:first-of-type > div': {
+    paddingBottom: 8,
+  },
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 2,
+    'div:first-of-type > div:first-of-type > div': {
+      paddingBottom: 14,
+    },
+  },
+});
+
+const ContainerExpense = styled.div({
+  marginTop: -2,
+  'div a': {
+    marginLeft: 4,
+    [lightTheme.breakpoints.up('table_834')]: {
+      marginLeft: 8,
+    },
+  },
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginLeft: -3,
+  },
+});
+
 const ContainerAdditionalNotes = styled.div({
   marginTop: 40,
   marginBottom: 64,
@@ -269,7 +478,7 @@ const TitleNotes = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   },
 }));
 
-const Spacer = styled.div({
+const SpacerDescription = styled.div({
   [lightTheme.breakpoints.up('table_834')]: {
     display: 'none',
   },
