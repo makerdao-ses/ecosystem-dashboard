@@ -14,6 +14,7 @@ export default {
       viewports: [375, 834, 1194],
       pauseAnimationAtEnd: true,
     },
+    date: new Date('2022-12-26T09:08:34.123'),
   },
 } as ComponentMeta<typeof CustomTable2>;
 
