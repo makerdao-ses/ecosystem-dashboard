@@ -1,5 +1,6 @@
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { siteRoutes } from '@ses/config/routes';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 
 import { LinkTypeEnum } from '@ses/core/enums/link-type.enum';
 import { useUrlAnchor } from '@ses/core/hooks/useUrlAnchor';
@@ -8,11 +9,17 @@ import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
 import { useEffect, useState } from 'react';
 
-import { TRANSPARENCY_IDS_ENUM } from '../transparency-report/transparency-report.mvvm';
 import type { TableItems } from '../transparency-report/transparency-report';
 
+export enum DELEGATES_IDS_ENUM {
+  ACTUALS = 'actuals',
+  FORECAST = 'forecast',
+  COMMENTS = 'comments',
+}
+
 const useRecognizedDelegates = () => {
-  const [tabsIndex, setTabsIndex] = useState<TRANSPARENCY_IDS_ENUM>(TRANSPARENCY_IDS_ENUM.ACTUALS);
+  const { isLight } = useThemeContext();
+  const [tabsIndex, setTabsIndex] = useState<DELEGATES_IDS_ENUM>(DELEGATES_IDS_ENUM.ACTUALS);
   const [tabsIndexNumber, setTabsIndexNumber] = useState<number>(0);
   const anchor = useUrlAnchor();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
@@ -55,31 +62,33 @@ const useRecognizedDelegates = () => {
   const tabItems: TableItems[] = [
     {
       item: 'Actuals',
-      id: TRANSPARENCY_IDS_ENUM.ACTUALS,
+      id: DELEGATES_IDS_ENUM.ACTUALS,
     },
     {
       item: 'Forecast',
-      id: TRANSPARENCY_IDS_ENUM.FORECAST,
+      id: DELEGATES_IDS_ENUM.FORECAST,
     },
   ];
   useEffect(() => {
     if (anchor) {
-      const index = Object.values(TRANSPARENCY_IDS_ENUM).findIndex((id) => anchor.indexOf(id) > -1);
+      const index = Object.values(DELEGATES_IDS_ENUM).findIndex((id) => anchor.indexOf(id) > -1);
       if (index !== -1) {
-        const indexKey = Object.keys(TRANSPARENCY_IDS_ENUM)[index];
+        const indexKey = Object.keys(DELEGATES_IDS_ENUM)[index];
 
-        setTabsIndex(TRANSPARENCY_IDS_ENUM[indexKey as keyof typeof TRANSPARENCY_IDS_ENUM]);
+        setTabsIndex(DELEGATES_IDS_ENUM[indexKey as keyof typeof DELEGATES_IDS_ENUM]);
       }
     }
   }, [anchor]);
 
   useEffect(() => {
-    const values = Object.values(TRANSPARENCY_IDS_ENUM);
+    const values = Object.values(DELEGATES_IDS_ENUM);
     const index = values.indexOf(tabsIndex);
 
     setTabsIndexNumber(index);
   }, [tabsIndex]);
+
   return {
+    isLight,
     links,
     itemsBreadcrumb,
     isMobile,
