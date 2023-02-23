@@ -54,8 +54,6 @@ const useRecognizedDelegates = (delegates: DelegatesDto) => {
   const anchor = useUrlAnchor();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // const [currentMonth, setCurrentMonth] = useState(DateTime.fromISO('2022-10-05T09:08:34.123'));
   const hasNewComments = true;
   const numbersComments = 5;
 

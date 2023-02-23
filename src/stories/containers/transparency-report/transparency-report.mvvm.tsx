@@ -47,7 +47,6 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;
-  // const viewMonthStr = query.viewMonth;
   const anchor = useUrlAnchor();
   const transparencyTableRef = useRef<HTMLDivElement>(null);
   const { permissionManager } = useAuthContext();
@@ -55,8 +54,6 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
 
   const [tabsIndex, setTabsIndex] = useState<TRANSPARENCY_IDS_ENUM>(TRANSPARENCY_IDS_ENUM.ACTUALS);
   const [tabsIndexNumber, setTabsIndexNumber] = useState<number>(0);
-
-  // const [currentMonth, setCurrentMonth] = useState(DateTime.now());
 
   useEffect(() => {
     if (anchor) {

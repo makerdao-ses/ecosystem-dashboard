@@ -88,9 +88,6 @@ const useBudgetStatementPager = (element: WithBudget, options?: BudgetStatementP
   const handlePreviousMonth = useCallback(() => {
     if (hasPreviousMonth()) {
       options?.onPrevious?.();
-      //   if (tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS) {
-      //     lastVisitHandler.visit(); // mark the current budget statement as visited before leave
-      //   }
       const month = currentMonth.minus({ month: 1 });
       replaceViewMonthRoute(month.toFormat('LLLyyyy'));
       setCurrentMonth(month);
@@ -106,9 +103,6 @@ const useBudgetStatementPager = (element: WithBudget, options?: BudgetStatementP
 
   const handleNextMonth = useCallback(() => {
     if (hasNextMonth()) {
-      //   if (tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS) {
-      //     lastVisitHandler.visit(); // mark the current budget statement as visited before leave
-      //   }
       options?.onNext?.();
       const month = currentMonth.plus({ month: 1 });
       replaceViewMonthRoute(month.toFormat('LLLyyyy'));
