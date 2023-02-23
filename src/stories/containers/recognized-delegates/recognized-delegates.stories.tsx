@@ -1,3 +1,5 @@
+import { BudgetStatementBuilder } from '@ses/core/business-logic/builders/budget-statement.builder';
+import { RecognizedDelegatesBuilder } from '@ses/core/business-logic/builders/delegates.builder';
 import { withoutSBPadding } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AppLayout from '../layout/layout';
@@ -13,9 +15,16 @@ export default {
     viewports: [375, 1440, 1920],
     pauseAnimationAtEnd: true,
   },
+  date: '2023-02-23T04:02:02Z',
 } as ComponentMeta<typeof RecognizedDelegatesContainer>;
 
-const variantsArgs = [{}];
+const variantsArgs = [
+  {
+    delegates: new RecognizedDelegatesBuilder()
+      .addBudgetStatement(new BudgetStatementBuilder().withMonth('2023-02').build())
+      .build(),
+  },
+];
 
 export const [[LightMode, DarkMode]] = createThemeModeVariants(
   (props) => (
