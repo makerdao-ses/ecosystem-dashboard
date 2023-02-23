@@ -50,28 +50,12 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
     tabsIndex,
     tabsIndexNumber,
     lastUpdateForBudgetStatement,
-    numbersComments,
     longCode,
     comments,
     showExpenseReportStatusCTA,
     lastVisitHandler,
-    hasNewComments,
   } = useTransparencyReportViewModel(coreUnit);
 
-  if (isEnabled('FEATURE_TRANSPARENCY_COMMENTS')) {
-    const CommentsComponent = {
-      item: (
-        <CommentsContainer>
-          {hasNewComments && <DotIndicator isLight={isLight} />}
-          <ParenthesisNumber>
-            Comments<span>{`(${numbersComments})`}</span>
-          </ParenthesisNumber>
-        </CommentsContainer>
-      ),
-      id: TRANSPARENCY_IDS_ENUM.COMMENTS,
-    };
-    tabItems.push(CommentsComponent);
-  }
   return (
     <Wrapper>
       <SEOHead
@@ -413,20 +397,6 @@ export const ParenthesisNumber = styled.label({
     marginLeft: '5px',
   },
 });
-
-const CommentsContainer = styled.div({
-  position: 'relative',
-});
-
-const DotIndicator = styled.span<{ isLight: boolean }>(({ isLight }) => ({
-  minWidth: '6px',
-  minHeight: '6px',
-  borderRadius: '50%',
-  background: isLight ? '#F75524' : '#FF8237',
-  position: 'absolute',
-  top: 0,
-  right: -8,
-}));
 
 const AdditionalNotesSection = styled.div({
   paddingBottom: 113,

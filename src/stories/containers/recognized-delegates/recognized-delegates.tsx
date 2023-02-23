@@ -8,39 +8,33 @@ import { BudgetStatus } from '@ses/core/models/dto/core-unit.dto';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import ExpenseReportStatusIndicator from '../transparency-report/common/expense-report-status-indicator/expense-report-status-indicator';
-import { ParenthesisNumber } from '../transparency-report/transparency-report';
 import DelegatesActuals from './delegates-actuals/delegates-actuals';
 import DelegatesForecast from './delegates-forecast/delegates-forecast';
 import useRecognizedDelegates, { DELEGATES_IDS_ENUM } from './useRecognizedDelegates.mvvm';
+import type { DelegatesDto } from '@ses/core/models/dto/delegates.dto';
 
-const RecognizedDelegatesContainer = () => {
+type RecognizedDelegatesProps = {
+  delegates: DelegatesDto;
+};
+
+const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ delegates }) => {
   const {
     isLight,
     links,
     itemsBreadcrumb,
     isMobile,
-    currentMonth,
     lastUpdateForBudgetStatement,
-    hasNewComments,
-    numbersComments,
+    showExpenseReportStatusCTA,
     tabItems,
     tabsIndexNumber,
     tabsIndex,
-  } = useRecognizedDelegates();
-
-  // Add de conditional in case that comments be disable
-  const CommentsComponent = {
-    item: (
-      <CommentsContainer>
-        {hasNewComments && <DotIndicator isLight={isLight} />}
-        <ParenthesisNumber>
-          Comments<span>{`(${numbersComments})`}</span>
-        </ParenthesisNumber>
-      </CommentsContainer>
-    ),
-    id: DELEGATES_IDS_ENUM.COMMENTS,
-  };
-  tabItems.push(CommentsComponent);
+    currentMonth,
+    currentBudgetStatement,
+    handleNextMonth,
+    handlePreviousMonth,
+    hasNextMonth,
+    hasPreviousMonth,
+  } = useRecognizedDelegates(delegates);
 
   return (
     <Container>
@@ -71,13 +65,16 @@ const RecognizedDelegatesContainer = () => {
               <StyledPagerBar
                 className="styledPagerBar"
                 label={currentMonth.toFormat('MMM yyyy').toUpperCase()}
-                onPrev={() => null}
-                onNext={() => null}
-                hasNext={false}
-                hasPrevious={false}
+                onPrev={handlePreviousMonth}
+                onNext={handleNextMonth}
+                hasNext={hasNextMonth()}
+                hasPrevious={hasPreviousMonth()}
               />
               <ContainerExpense>
-                <ExpenseReportStatusIndicator budgetStatus={BudgetStatus.Review} showCTA={true} />
+                <ExpenseReportStatusIndicator
+                  budgetStatus={currentBudgetStatement?.status || BudgetStatus.Draft}
+                  showCTA={showExpenseReportStatusCTA}
+                />
               </ContainerExpense>
             </PagerBarLeft>
 
@@ -139,10 +136,6 @@ const RecognizedDelegatesContainer = () => {
 };
 
 export default RecognizedDelegatesContainer;
-
-const CommentsContainer = styled.div({
-  position: 'relative',
-});
 
 const Container = styled.div({
   display: 'flex',
@@ -388,16 +381,6 @@ const SinceDate = styled.div({
     letterSpacing: '1px',
   },
 });
-
-const DotIndicator = styled.span<{ isLight: boolean }>(({ isLight }) => ({
-  minWidth: '6px',
-  minHeight: '6px',
-  borderRadius: '50%',
-  background: isLight ? '#F75524' : '#FF8237',
-  position: 'absolute',
-  top: 0,
-  right: -8,
-}));
 
 const ContainerTabs = styled.div({
   'div:first-of-type > div:first-of-type > div': {
