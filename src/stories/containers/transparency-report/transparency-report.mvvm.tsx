@@ -1,17 +1,16 @@
+import CommentsTab from '@ses/components/tabs/comments-tab/comments-tab';
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import {
   getAllCommentsBudgetStatementLine,
-  getCurrentOrLastMonthWithData,
-  getLastMonthWithActualOrForecast,
   getLastUpdateForBudgetStatement,
 } from '@ses/core/business-logic/core-units';
 import { useAuthContext } from '@ses/core/context/AuthContext';
 import { useCookiesContextTracking } from '@ses/core/context/CookiesContext';
+import useBudgetStatementPager from '@ses/core/hooks/useBudgetStatementPager';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { useUrlAnchor } from '@ses/core/hooks/useUrlAnchor';
 import { BudgetStatus } from '@ses/core/models/dto/core-unit.dto';
 import { budgetStatementCommentsCollectionId } from '@ses/core/utils/collections-ids';
-import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date.utils';
 import { LastVisitHandler } from '@ses/core/utils/last-visit-handler';
 import { isActivity } from '@ses/core/utils/types-helpers';
 import { DateTime } from 'luxon';
@@ -19,12 +18,7 @@ import { useRouter } from 'next/router';
 import { useRef, useState, useEffect, useCallback, useMemo, useReducer } from 'react';
 import { featureFlags } from '../../../../feature-flags/feature-flags';
 import type { TableItems } from './transparency-report';
-import type {
-  ActivityFeedDto,
-  BudgetStatementDto,
-  CommentsBudgetStatementDto,
-  CoreUnitDto,
-} from '@ses/core/models/dto/core-unit.dto';
+import type { ActivityFeedDto, CommentsBudgetStatementDto, CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
 import type { WithDate } from '@ses/core/utils/types-helpers';
 
 export enum TRANSPARENCY_IDS_ENUM {
@@ -53,7 +47,6 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;
-  const viewMonthStr = query.viewMonth;
   const anchor = useUrlAnchor();
   const transparencyTableRef = useRef<HTMLDivElement>(null);
   const { permissionManager } = useAuthContext();
@@ -61,8 +54,6 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
 
   const [tabsIndex, setTabsIndex] = useState<TRANSPARENCY_IDS_ENUM>(TRANSPARENCY_IDS_ENUM.ACTUALS);
   const [tabsIndexNumber, setTabsIndexNumber] = useState<number>(0);
-
-  const [currentMonth, setCurrentMonth] = useState(DateTime.now());
 
   useEffect(() => {
     if (anchor) {
@@ -118,104 +109,34 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     }
   }, [anchor, scrolled]);
 
+  const [lastVisitHandler, setLastVisitHandler] = useState<LastVisitHandler>();
+
+  const onPrevious = useCallback(() => {
+    if (tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS) {
+      lastVisitHandler?.visit(); // mark the current budget statement as visited before leave
+    }
+  }, [lastVisitHandler, tabsIndex]);
+
+  const onNext = useCallback(() => {
+    if (tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS) {
+      lastVisitHandler?.visit(); // mark the current budget statement as visited before leave
+    }
+  }, [lastVisitHandler, tabsIndex]);
+
+  const { currentMonth, currentBudgetStatement, handleNextMonth, handlePreviousMonth, hasNextMonth, hasPreviousMonth } =
+    useBudgetStatementPager(coreUnit, {
+      onNext,
+      onPrevious,
+    });
+
   useEffect(() => {
-    if (viewMonthStr) {
-      const month = DateTime.fromFormat(viewMonthStr as string, 'LLLyyyy');
-      setCurrentMonth(month);
-    } else {
-      const month = getCurrentOrLastMonthWithData(coreUnit?.budgetStatements);
-      if (month) {
-        setCurrentMonth(month);
-      }
-    }
-  }, [router.route, router.query, viewMonthStr, coreUnit?.budgetStatements]);
-
-  const replaceViewMonthRoute = useCallback(
-    (viewMonth: string) => {
-      router.replace(
-        {
-          hash: anchor,
-          query: {
-            ...router.query,
-            viewMonth,
-          },
-        },
-        undefined,
-        {
-          shallow: true,
-        }
+    // update lastVisitHandler for the current budgetStatement
+    if (currentBudgetStatement) {
+      setLastVisitHandler(
+        new LastVisitHandler(budgetStatementCommentsCollectionId(currentBudgetStatement.id), permissionManager)
       );
-    },
-    [anchor, router]
-  );
-
-  const hasPreviousMonth = useCallback(() => {
-    const limit = getLastMonthWithActualOrForecast(coreUnit?.budgetStatements, true).minus({
-      month: 1,
-    });
-    return currentMonth.startOf('month') > limit.startOf('month');
-  }, [coreUnit?.budgetStatements, currentMonth]);
-
-  const handlePreviousMonth = useCallback(() => {
-    if (hasPreviousMonth()) {
-      if (tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS) {
-        lastVisitHandler.visit(); // mark the current budget statement as visited before leave
-      }
-      const month = currentMonth.minus({ month: 1 });
-      replaceViewMonthRoute(month.toFormat('LLLyyyy'));
-      setCurrentMonth(month);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setCurrentMonth, currentMonth, router, tabsIndex]);
-
-  const hasNextMonth = useCallback(() => {
-    const limit = getLastMonthWithActualOrForecast(coreUnit?.budgetStatements).plus({
-      month: 1,
-    });
-    return currentMonth.startOf('month') < limit.startOf('month');
-  }, [coreUnit?.budgetStatements, currentMonth]);
-
-  const prepareWalletsName = (budgetStatement?: BudgetStatementDto) => {
-    const walletNames = new Map<string, number>();
-    budgetStatement?.budgetStatementWallet?.forEach((wallet) => {
-      const amount = walletNames.get(wallet.name.toLowerCase().trim()) ?? 0;
-
-      if (amount) {
-        wallet.name = `${wallet.name} ${amount + 1}`;
-        walletNames.set(wallet.name.toLowerCase().trim(), amount + 1);
-      } else {
-        walletNames.set(wallet.name.toLowerCase().trim(), 1);
-      }
-    });
-
-    return budgetStatement;
-  };
-
-  const currentBudgetStatement = useMemo(
-    () =>
-      prepareWalletsName(
-        coreUnit?.budgetStatements?.find(
-          (bs: BudgetStatementDto) => bs.month === currentMonth.toFormat(API_MONTH_TO_FORMAT)
-        )
-      ),
-    [coreUnit, currentMonth]
-  );
-  const lastVisitHandler = useMemo(
-    () =>
-      new LastVisitHandler(budgetStatementCommentsCollectionId(currentBudgetStatement?.id || ''), permissionManager),
-    [permissionManager, currentBudgetStatement]
-  );
-
-  const handleNextMonth = useCallback(() => {
-    if (hasNextMonth()) {
-      if (tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS) {
-        lastVisitHandler.visit(); // mark the current budget statement as visited before leave
-      }
-      const month = currentMonth.plus({ month: 1 });
-      replaceViewMonthRoute(month.toFormat('LLLyyyy'));
-      setCurrentMonth(month);
-    }
-  }, [hasNextMonth, tabsIndex, currentMonth, replaceViewMonthRoute, lastVisitHandler]);
+  }, [currentBudgetStatement, permissionManager]);
 
   const comments = useMemo(() => {
     const comments = getAllCommentsBudgetStatementLine(currentBudgetStatement) as (CommentsBudgetStatementDto &
@@ -236,35 +157,6 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
 
   const numbersComments = useMemo(() => comments.length, [comments]);
   const longCode = coreUnit?.code;
-
-  const [isEnabled] = useFlagsActive();
-
-  const tabItems: TableItems[] = [
-    {
-      item: 'Actuals',
-      id: TRANSPARENCY_IDS_ENUM.ACTUALS,
-    },
-    {
-      item: 'Forecast',
-      id: TRANSPARENCY_IDS_ENUM.FORECAST,
-    },
-  ];
-  if (isEnabled('FEATURE_MKR_VESTING')) {
-    tabItems.push({
-      item: 'MKR Vesting',
-      id: TRANSPARENCY_IDS_ENUM.MKR_VESTING,
-    });
-  }
-  tabItems.push({
-    item: 'Transfer Requests',
-    id: TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS,
-  });
-  if (isEnabled('FEATURE_AUDIT_REPORTS')) {
-    tabItems.push({
-      item: 'Audit Reports',
-      id: TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS,
-    });
-  }
 
   const lastUpdateForBudgetStatement = useMemo(
     () => getLastUpdateForBudgetStatement(coreUnit, currentBudgetStatement?.id ?? '0'),
@@ -323,7 +215,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
 
   const updateHasNewComments = async (date?: DateTime) => {
     commentsLastVisitDispatch({ type: 'START_FETCHING' });
-    const lastVisit = date || (await lastVisitHandler.lastVisit());
+    const lastVisit = date || (await lastVisitHandler?.lastVisit());
     if (lastVisit) {
       let hasNewComments: boolean = comments.length > 0 && !lastVisit;
       for (const comment of comments) {
@@ -358,7 +250,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     timeout = setTimeout(async () => {
       if (isTimestampTrackingAccepted && tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS) {
-        const lastVisit = (await lastVisitHandler.visit()) || DateTime.now().toMillis();
+        const lastVisit = (await lastVisitHandler?.visit()) || DateTime.now().toMillis();
         await updateHasNewComments(DateTime.fromMillis(lastVisit));
       }
     }, 3000);
@@ -367,6 +259,45 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     };
   }, [lastVisitHandler, isTimestampTrackingAccepted, tabsIndex]);
   // end of "hasNewComments" related logic
+
+  const [isEnabled] = useFlagsActive();
+  const tabItems: TableItems[] = [
+    {
+      item: 'Actuals',
+      id: TRANSPARENCY_IDS_ENUM.ACTUALS,
+    },
+    {
+      item: 'Forecast',
+      id: TRANSPARENCY_IDS_ENUM.FORECAST,
+    },
+  ];
+  if (isEnabled('FEATURE_MKR_VESTING')) {
+    tabItems.push({
+      item: 'MKR Vesting',
+      id: TRANSPARENCY_IDS_ENUM.MKR_VESTING,
+    });
+  }
+  tabItems.push({
+    item: 'Transfer Requests',
+    id: TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS,
+  });
+  if (isEnabled('FEATURE_AUDIT_REPORTS')) {
+    tabItems.push({
+      item: 'Audit Reports',
+      id: TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS,
+    });
+  }
+  if (isEnabled('FEATURE_TRANSPARENCY_COMMENTS')) {
+    tabItems.push({
+      item: (
+        <CommentsTab
+          hasNewComments={!commentsLastVisitState.isFetching && commentsLastVisitState.hasNewComments}
+          numbersComments={numbersComments}
+        />
+      ),
+      id: TRANSPARENCY_IDS_ENUM.COMMENTS,
+    });
+  }
 
   return {
     tabItems,
@@ -381,12 +312,10 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     tabsIndexNumber,
     showExpenseReportStatusCTA,
     lastUpdateForBudgetStatement,
-    numbersComments,
     differenceInDays,
     longCode,
     hasPreviousMonth,
     comments,
     lastVisitHandler,
-    hasNewComments: !commentsLastVisitState.isFetching && commentsLastVisitState.hasNewComments,
   };
 };

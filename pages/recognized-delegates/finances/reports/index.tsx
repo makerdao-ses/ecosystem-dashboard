@@ -1,10 +1,18 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
+import { fetchRecognizedDelegates } from '@ses/containers/recognized-delegates/delegates.api';
 import RecognizedDelegatesContainer from '@ses/containers/recognized-delegates/recognized-delegates';
 import { featureFlags } from 'feature-flags/feature-flags';
 import React from 'react';
+import type { DelegatesDto } from '@ses/core/models/dto/delegates.dto';
 import type { NextPage } from 'next';
 
-const RecognizedDelegates: NextPage = () => <RecognizedDelegatesContainer />;
+type RecognizedDelegatesProps = {
+  delegates: DelegatesDto;
+};
+
+const RecognizedDelegates: NextPage<RecognizedDelegatesProps> = ({ delegates }) => (
+  <RecognizedDelegatesContainer delegates={delegates} />
+);
 
 export default RecognizedDelegates;
 
@@ -15,7 +23,11 @@ export async function getServerSideProps() {
     };
   }
 
+  const delegates = await fetchRecognizedDelegates();
+
   return {
-    props: {},
+    props: {
+      delegates,
+    },
   };
 }

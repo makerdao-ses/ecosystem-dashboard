@@ -15,6 +15,7 @@ import type {
   Mip40Dto,
   Mip40WalletDto,
   BudgetStatementFteDto,
+  ActivityFeedDto,
 } from '../models/dto/core-unit.dto';
 
 export const setCuMipStatusModifiedDate = (mip: CuMipDto, status: CuStatusEnum, date: string) => {
@@ -307,8 +308,11 @@ export const getLastMonthWithData = (cu: CoreUnitDto) => {
   return undefined;
 };
 
-export const getLastUpdateForBudgetStatement = (cu: CoreUnitDto, budgetStatementId: string) => {
-  const activityFeed = cu.activityFeed?.filter(
+export const getLastUpdateForBudgetStatement = (
+  element: { activityFeed: ActivityFeedDto[] },
+  budgetStatementId: string
+) => {
+  const activityFeed = element.activityFeed?.filter(
     (af) => Number(af.params.budgetStatementId) === Number(budgetStatementId)
   );
 
