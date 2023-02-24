@@ -12,6 +12,7 @@ export default {
       viewports: [1194, 1280, 1440],
       pauseAnimationAtEnd: false,
     },
+    date: new Date('2022-12-26T09:08:34.123'),
   },
 } as ComponentMeta<typeof ListCoreUnit>;
 

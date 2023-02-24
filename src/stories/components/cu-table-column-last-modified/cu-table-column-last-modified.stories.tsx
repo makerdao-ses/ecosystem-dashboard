@@ -6,12 +6,11 @@ import type { ComponentMeta } from '@storybook/react';
 export default {
   title: 'Components/CUTable/LastModified',
   component: CuTableColumnLastModified,
-
   parameters: {
     chromatic: {
       viewports: [1194, 375],
     },
-    date: DateTime.fromISO('2022-12-26T09:08:34.123'),
+    date: new Date('2022-12-26T09:08:34.123'),
   },
 } as ComponentMeta<typeof CuTableColumnLastModified>;
 
