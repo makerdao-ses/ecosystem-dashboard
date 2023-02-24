@@ -34,7 +34,7 @@ export const capitalizeSentence = (sentence: string) => {
 
 export const formatNumber = (number: number) =>
   number?.toLocaleString('en-US', {
-    minimumFractionDigits: 2,
+    minimumFractionDigits: 0,
   });
 
 export const getShortCode = (code: string) => {

@@ -51,6 +51,9 @@ const Container = styled.div({
 
 const Data = styled.div({
   height: '34px',
+  '@media (min-width: 1194px)': {
+    height: '43px',
+  },
 });
 
 const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({

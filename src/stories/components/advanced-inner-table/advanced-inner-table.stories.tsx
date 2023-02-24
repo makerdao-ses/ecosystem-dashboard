@@ -1,10 +1,11 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import React from 'react';
-import { formatAddressForOutput } from '../../../core/utils/string.utils';
+import { formatAddressForOutput, getWalletWidthForWallets } from '../../../core/utils/string.utils';
 import { CustomLink } from '../custom-link/custom-link';
 import { WalletTableCell } from '../wallet-table-cell/wallet-table-cell';
 import { AdvancedInnerTable } from './advanced-inner-table';
 import type { InnerTableColumn, InnerTableRow } from './advanced-inner-table';
+import type { BudgetStatementWalletDto } from '@ses/core/models/dto/core-unit.dto';
 import type { ComponentMeta } from '@storybook/react';
 
 export default {
@@ -13,19 +14,21 @@ export default {
   parameters: {
     layout: 'fullscreen',
     chromatic: {
-      viewports: [375, 834],
+      viewports: [375, 834, 1194],
       pauseAnimationAtEnd: true,
     },
   },
 } as ComponentMeta<typeof AdvancedInnerTable>;
 
-const budgetStatement = {
-  name: 'Recognized Delegates',
-  address: '0x232b8482',
-  currentBalance: 454,
-  budgetStatementLineItem: [],
-  budgetStatementTransferRequest: [],
-};
+const budgetStatement = [
+  {
+    name: 'Recognized Delegates',
+    address: '0x232b8482',
+    currentBalance: 454,
+    budgetStatementLineItem: [],
+    budgetStatementTransferRequest: [],
+  },
+] as BudgetStatementWalletDto[];
 
 const mainTableColumns: InnerTableColumn[] = [
   {
@@ -33,8 +36,8 @@ const mainTableColumns: InnerTableColumn[] = [
     align: 'left',
     type: 'custom',
     isCardHeader: true,
-    width: '202px',
-    minWidth: '202px',
+    width: getWalletWidthForWallets(budgetStatement),
+    minWidth: getWalletWidthForWallets(budgetStatement),
     padding: '24px 26px 24px 16px',
   },
   {
@@ -92,10 +95,10 @@ const variantsArgs = [
               cellRender() {
                 return (
                   <WalletTableCell
-                    key={budgetStatement.address}
-                    name={budgetStatement.name}
-                    wallet={formatAddressForOutput(budgetStatement.address)}
-                    address={budgetStatement.address}
+                    key={budgetStatement[0].address}
+                    name={budgetStatement[0].name}
+                    wallet={formatAddressForOutput(budgetStatement[0].address)}
+                    address={budgetStatement[0].address}
                   />
                 );
               },
@@ -185,6 +188,19 @@ LightMode.parameters = {
         options: {
           componentStyle: {
             width: 770,
+          },
+          style: {
+            top: -18,
+            left: -20,
+          },
+        },
+      },
+      1194: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14539%3A154613&t=JhnuzLSyg12MErfx-4',
+        options: {
+          componentStyle: {
+            width: 1130,
           },
           style: {
             top: -18,
