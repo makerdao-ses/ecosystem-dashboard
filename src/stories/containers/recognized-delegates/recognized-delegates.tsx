@@ -37,7 +37,7 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
   } = useRecognizedDelegates(delegates);
 
   return (
-    <Container>
+    <Container isLight={isLight}>
       <ContainerBreadCrumb>
         <StyledBreadcrumbs
           className="crumb-container"
@@ -137,12 +137,21 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
 
 export default RecognizedDelegatesContainer;
 
-const Container = styled.div({
+const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
-  width: '100vw',
+  width: '100%',
   marginTop: 64,
-});
+  backgroundColor: isLight ? '#FFFFFF' : '#000000',
+  backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
+  backgroundAttachment: 'fixed',
+  backgroundSize: 'cover',
+  paddingBottom: '128px',
+  [lightTheme.breakpoints.down('table_375')]: {
+    width: '100%',
+    minWidth: '360px',
+  },
+}));
 
 const ContainerDelegate = styled.div({
   marginTop: 8,
