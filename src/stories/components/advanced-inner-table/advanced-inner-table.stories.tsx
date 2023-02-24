@@ -13,7 +13,7 @@ export default {
   parameters: {
     layout: 'fullscreen',
     chromatic: {
-      viewports: [375, 834, 1194],
+      viewports: [375, 834],
       pauseAnimationAtEnd: true,
     },
   },
@@ -21,7 +21,7 @@ export default {
 
 const budgetStatement = {
   name: 'Recognized Delegates',
-  address: '0x232b…8482',
+  address: '0x232b8482',
   currentBalance: 454,
   budgetStatementLineItem: [],
   budgetStatementTransferRequest: [],
@@ -32,38 +32,45 @@ const mainTableColumns: InnerTableColumn[] = [
     header: 'budget',
     align: 'left',
     type: 'custom',
-    // cellRender: renderWallet,
     isCardHeader: true,
-    width: '202px', // getWalletWidthForWallets(wallets),
-    minWidth: '202px', // getWalletWidthForWallets(wallets),
+    width: '202px',
+    minWidth: '202px',
+    padding: '24px 26px 24px 16px',
   },
   {
     header: 'Forecast',
-    align: 'left',
-    type: 'text',
-    headerAlign: 'left',
+    align: 'right',
+    type: 'number',
+    width: '101px',
+    padding: '24px 16px 24px 13px',
   },
   {
     header: 'Actuals',
-    align: 'left',
+    align: 'center',
     type: 'number',
+    width: '101px',
+    padding: '24px 16px 24px 21px',
   },
   {
     header: 'Difference',
     align: 'left',
     type: 'number',
+    width: '101px',
+    padding: '24px 16px 24px 2px',
   },
   {
     header: 'Payments',
     align: 'left',
     type: 'number',
+    width: '101px',
+    padding: '24px 16px 24px 11px',
   },
   {
     header: 'External Links',
     align: 'left',
     type: 'custom',
-
-    // cellRender: renderLinks,
+    width: '101px',
+    padding: '24px 70px 24px 16px',
     isCardFooter: true,
   },
 ];
@@ -98,36 +105,36 @@ const variantsArgs = [
           {
             column: {
               type: 'number',
-              align: 'top',
+              align: 'right',
             },
-            value: Math.trunc(134468),
-          },
-          {
-            column: {
-              type: 'number',
-            },
-            value: Math.trunc(132897),
+            value: 134468,
           },
           {
             column: {
               type: 'number',
               align: 'right',
             },
-            value: Math.trunc(1571),
+            value: 132897,
           },
           {
             column: {
               type: 'number',
               align: 'right',
-              // width: '101px',
-              // minWidth: '101px',
             },
-            value: Math.trunc(138754),
+            value: 1571,
           },
           {
             column: {
-              type: 'custom',
+              type: 'number',
+              align: 'right',
+            },
+            value: 138754,
+          },
+          {
+            column: {
+              type: 'text',
               isCardFooter: true,
+              padding: '16px 16px 16px 8px',
             },
             value: (
               <CustomLink
@@ -151,7 +158,6 @@ const variantsArgs = [
     style: { marginBottom: '64px' },
     cardsTotalPosition: 'center',
     longCode: 'SES',
-    // lineHeightHead: '15px',
   },
 ];
 
@@ -173,14 +179,12 @@ LightMode.parameters = {
           },
         },
       },
-
       834: {
         component:
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14539%3A160194&t=Z9DVcTvtdJLpeRRQ-4',
         options: {
           componentStyle: {
             width: 770,
-            height: 129,
           },
           style: {
             top: -18,

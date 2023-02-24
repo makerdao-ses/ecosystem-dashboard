@@ -37,20 +37,20 @@ export const WalletTableCell = (props: WalletTableCellProps) => {
 const Container = styled.div({
   display: 'flex',
   alignItems: 'center',
-  height: '77px',
-  '@media (min-width: 835px)': {
-    height: '72px',
+  height: '76px',
+  '@media (min-width: 834px)': {
+    height: '66px',
   },
   '.circle-avatar': {
     margin: '0 16px',
     '@media (min-width: 834px) and (max-width: 1193px)': {
-      margin: '0 16px 0 8px',
+      margin: '0 16px 0 16px',
     },
   },
 });
 
 const Data = styled.div({
-  height: '40px',
+  height: '34px',
 });
 
 const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
@@ -59,6 +59,8 @@ const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontWeight: 400,
   fontSize: '16px',
   lineHeight: '22px',
+  letterSpacing: '0px',
+  marginBottom: -2,
   color: isLight ? '#231536' : '#D2D4EF',
   '@media (min-width: 834px)': {
     fontSize: '12px',
@@ -74,10 +76,11 @@ const StyledLink = styled(CustomLink)({
   fontSize: 14,
   lineHeight: '17px',
   margin: 0,
-  letterSpacing: '0px',
+  letterSpacing: '0.3px',
   '@media (min-width: 834px)': {
     fontSize: 12,
     lineHeight: '15px',
+    marginLeft: -2,
   },
   '@media (min-width: 1194px)': {
     fontSize: 14,
