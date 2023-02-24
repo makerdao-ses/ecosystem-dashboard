@@ -48,10 +48,10 @@ const FooterWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   justifyContent: 'center',
   borderTop: isLight ? '1px solid #D4D9E1' : '1px solid #405361',
-  marginTop: '32px',
-  padding: '8px 0 0',
+  marginTop: '20px',
+  padding: '10px 0 0',
   '& a': {
-    marginTop: '2px',
+    marginTop: '0px',
   },
 }));
 
