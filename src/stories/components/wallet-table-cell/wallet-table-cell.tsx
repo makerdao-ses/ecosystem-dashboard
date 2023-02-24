@@ -26,20 +26,9 @@ export const WalletTableCell = (props: WalletTableCellProps) => {
       />
       <Data>
         <Label isLight={isLight}>{capitalizeSentence(props.name)}</Label>
-        <CustomLink
-          style={{
-            margin: 0,
-            lineHeight: '17px',
-            fontFamily: 'Inter, sans-serif',
-            fontStyle: 'normal',
-          }}
-          fontSize={14}
-          fontWeight={400}
-          href={`https://etherscan.io/address/${props.address}`}
-          withArrow={false}
-        >
+        <StyledLink href={`https://etherscan.io/address/${props.address}`} withArrow={false}>
           {props.wallet.toLowerCase()}
-        </CustomLink>
+        </StyledLink>
       </Data>
     </Container>
   );
@@ -68,11 +57,30 @@ const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
-  fontSize: '14px',
-  lineHeight: '17px',
+  fontSize: '16px',
+  lineHeight: '22px',
   color: isLight ? '#231536' : '#D2D4EF',
-  '@media (min-width: 835px)': {
+  '@media (min-width: 834px)': {
+    fontSize: '12px',
+    lineHeight: '15px',
+  },
+  '@media (min-width: 1194px)': {
     fontSize: '16px',
     lineHeight: '22px',
   },
 }));
+
+const StyledLink = styled(CustomLink)({
+  fontSize: 14,
+  lineHeight: '17px',
+  margin: 0,
+  letterSpacing: '0px',
+  '@media (min-width: 834px)': {
+    fontSize: 12,
+    lineHeight: '15px',
+  },
+  '@media (min-width: 1194px)': {
+    fontSize: 14,
+    lineHeight: '17px',
+  },
+});
