@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { Breadcrumbs } from '@ses/components/breadcrumbs/breadcrumbs';
 import { CustomLink } from '@ses/components/custom-link/custom-link';
 import { CustomPager } from '@ses/components/custom-pager/custom-pager';
 import DelegateSummary from '@ses/components/delegate-summary/delegate-summary';
@@ -37,267 +36,139 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
   } = useRecognizedDelegates(delegates);
 
   return (
-    <Container isLight={isLight}>
-      <ContainerBreadCrumb>
-        <StyledBreadcrumbs
-          className="crumb-container"
-          paddingBreadcrumbs="9px 8px"
-          width={isMobile ? 5 : 10}
-          height={isMobile ? 10 : 20}
-          fontSize="11px"
-          items={itemsBreadcrumb}
-          borderRadius="6px"
-          marginLeft="4px"
-          marginRight="6px"
-          isLight={isLight}
-        />
-      </ContainerBreadCrumb>
-      <ContainerInside>
-        <ContainerDelegate>
-          <DelegateSummary links={links} />
-        </ContainerDelegate>
-      </ContainerInside>
-      <Line />
-      <ContainerInside>
-        <ContainerPagerBar>
-          <PagerBar className="no-select" ref={null}>
-            <PagerBarLeft>
-              <StyledPagerBar
-                className="styledPagerBar"
-                label={currentMonth.toFormat('MMM yyyy').toUpperCase()}
-                onPrev={handlePreviousMonth}
-                onNext={handleNextMonth}
-                hasNext={hasNextMonth()}
-                hasPrevious={hasPreviousMonth()}
-              />
-              <ContainerExpense>
-                <ExpenseReportStatusIndicator
-                  budgetStatus={currentBudgetStatement?.status || BudgetStatus.Draft}
-                  showCTA={showExpenseReportStatusCTA}
+    <Wrapper>
+      <Container isLight={isLight}>
+        <DelegateSummary links={links} items={itemsBreadcrumb} />
+        <ContainerInside>
+          <ContainerPagerBar>
+            <PagerBar className="no-select" ref={null}>
+              <PagerBarLeft>
+                <StyledPagerBar
+                  className="styledPagerBar"
+                  label={currentMonth.toFormat('MMM yyyy').toUpperCase()}
+                  onPrev={handlePreviousMonth}
+                  onNext={handleNextMonth}
+                  hasNext={hasNextMonth()}
+                  hasPrevious={hasPreviousMonth()}
                 />
-              </ContainerExpense>
-            </PagerBarLeft>
+                <ContainerExpense>
+                  <ExpenseReportStatusIndicator
+                    budgetStatus={currentBudgetStatement?.status || BudgetStatus.Draft}
+                    showCTA={showExpenseReportStatusCTA}
+                  />
+                </ContainerExpense>
+              </PagerBarLeft>
 
-            <Spacer />
-            {lastUpdateForBudgetStatement && (
-              <LastUpdate>
-                <Since isLight={isLight}>Last Update</Since>
-                <SinceDate>{lastUpdateForBudgetStatement.setZone('UTC').toFormat('dd-LLL-y HH:mm ZZZZ')}</SinceDate>
-              </LastUpdate>
-            )}
-          </PagerBar>
-        </ContainerPagerBar>
-        <ContainerTabs>
-          <Tabs
-            items={tabItems}
-            currentIndex={tabsIndexNumber}
-            style={{
-              margin: '32px 0',
-            }}
-          />
-          {tabsIndex === DELEGATES_IDS_ENUM.ACTUALS && <DelegatesActuals />}
-          {tabsIndex === DELEGATES_IDS_ENUM.FORECAST && <DelegatesForecast />}
-          {tabsIndex === DELEGATES_IDS_ENUM.COMMENTS && <div>comments</div>}
-        </ContainerTabs>
+              <Spacer />
+              {lastUpdateForBudgetStatement && (
+                <LastUpdate>
+                  <Since isLight={isLight}>Last Update</Since>
+                  <SinceDate>{lastUpdateForBudgetStatement.setZone('UTC').toFormat('dd-LLL-y HH:mm ZZZZ')}</SinceDate>
+                </LastUpdate>
+              )}
+            </PagerBar>
+          </ContainerPagerBar>
+          <ContainerTabs>
+            <Tabs
+              items={tabItems}
+              currentIndex={tabsIndexNumber}
+              style={{
+                margin: '32px 0',
+              }}
+            />
+            {tabsIndex === DELEGATES_IDS_ENUM.ACTUALS && <DelegatesActuals />}
+            {tabsIndex === DELEGATES_IDS_ENUM.FORECAST && <DelegatesForecast />}
+            {tabsIndex === DELEGATES_IDS_ENUM.COMMENTS && <div>comments</div>}
+          </ContainerTabs>
 
-        <ContainerAdditionalNotes>
-          <TitleNotes isLight={isLight}>Additional Notes</TitleNotes>
-          <Description isLight={isLight}>
-            The expenses on this page are for all Recognized Delegates that receive compensation. To view all delegates
-            visit
-            <span>
+          <ContainerAdditionalNotes>
+            <TitleNotes isLight={isLight}>Additional Notes</TitleNotes>
+            <Description isLight={isLight}>
+              The expenses on this page are for all Recognized Delegates that receive compensation. To view all
+              delegates visit
+              <span>
+                <CustomLink
+                  iconWidth={10}
+                  iconHeight={10}
+                  children={'vote.makerdao.com/delegates'}
+                  href="https://vote.makerdao.com/delegates"
+                  marginLeft="7px"
+                />
+              </span>
+            </Description>
+            <Description isLight={isLight}>
+              MakerDAO forum reports for delegate can be found
+              <SpacerDescription style={{ width: 1 }} />
               <CustomLink
                 iconWidth={10}
                 iconHeight={10}
-                children={'vote.makerdao.com/delegates'}
-                href="https://vote.makerdao.com/delegates"
+                children={'here'}
+                href="https://forum.makerdao.com/tag/compensation"
                 marginLeft="7px"
+                style={{
+                  marginLeft: isMobile ? '0px' : '4px',
+                }}
               />
-            </span>
-          </Description>
-          <Description isLight={isLight}>
-            MakerDAO forum reports for delegate can be found
-            <SpacerDescription style={{ width: 1 }} />
-            <CustomLink
-              iconWidth={10}
-              iconHeight={10}
-              children={'here'}
-              href="https://forum.makerdao.com/tag/compensation"
-              marginLeft="7px"
-              style={{
-                marginLeft: isMobile ? '0px' : '4px',
-              }}
-            />
-          </Description>
-        </ContainerAdditionalNotes>
-      </ContainerInside>
-    </Container>
+            </Description>
+          </ContainerAdditionalNotes>
+        </ContainerInside>
+      </Container>
+    </Wrapper>
   );
 };
 
 export default RecognizedDelegatesContainer;
-
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  display: 'flex',
+  alignItems: 'center',
+  marginTop: '64px',
   flexDirection: 'column',
   width: '100%',
-  marginTop: 64,
+  flex: 1,
   backgroundColor: isLight ? '#FFFFFF' : '#000000',
   backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
   paddingBottom: '128px',
-  [lightTheme.breakpoints.down('table_375')]: {
-    width: '100%',
-    minWidth: '360px',
-  },
 }));
-
-const ContainerDelegate = styled.div({
-  marginTop: 8,
-  [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: 36,
-    marginLeft: 0,
-  },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginTop: 36,
-    marginLeft: 0,
-  },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginTop: 22,
-    marginLeft: 0,
-  },
+const Wrapper = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  height: '100vh',
 });
 
 const ContainerInside = styled.div({
   width: '343px',
   display: 'flex',
   margin: '0px auto',
+  marginTop: 24,
   flexDirection: 'column',
   [lightTheme.breakpoints.up('table_834')]: {
     minWidth: '770px',
     margin: '0px auto',
+    marginTop: 37,
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
     minWidth: '1130px',
     margin: '0px auto',
+    marginTop: 32,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     minWidth: '1184px',
     margin: '0px auto',
+    marginTop: 32,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     minWidth: '1312px',
     margin: '0px auto',
+    marginTop: 32,
   },
 });
 
 const ContainerPagerBar = styled.div({
   [lightTheme.breakpoints.up('table_834')]: {
     marginTop: -3,
-  },
-});
-
-const Line = styled.div({
-  borderBottom: '1px solid #B6EDE7',
-  width: '100%',
-  marginTop: '16px',
-  marginBottom: 24,
-
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    marginBottom: 37,
-    marginTop: '18px',
-  },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginBottom: 32,
-    marginTop: '24px',
-  },
-});
-
-const StyledBreadcrumbs = styled(Breadcrumbs)<{ isLight: boolean }>(({ isLight }) => ({
-  maxWidth: '343px',
-  height: 32,
-  margin: '0px auto',
-  background: isLight ? '#ECF1F3' : '#000A13',
-  '&.crumb-container': {
-    '& .crumb': {
-      letterSpacing: 0,
-      ':last-child': {
-        letterSpacing: 0,
-      },
-      [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-        lineHeight: '13px',
-      },
-      [lightTheme.breakpoints.up('table_834')]: {
-        fontSize: '16px',
-        lineHeight: '22px',
-        marginRight: 15,
-        marginLeft: 15,
-      },
-    },
-
-    [lightTheme.breakpoints.up('table_834')]: {
-      background: 'none',
-      maxWidth: '768px',
-      padding: 0,
-      marginTop: 5,
-      '& .crumb': {
-        fontSize: '16px',
-        lineHeight: '22px',
-        marginRight: 15,
-        marginLeft: 0,
-        ':last-child': {
-          marginLeft: 15,
-        },
-      },
-    },
-    [lightTheme.breakpoints.up('desktop_1194')]: {
-      background: 'none',
-      maxWidth: '1130px',
-    },
-    [lightTheme.breakpoints.up('desktop_1280')]: {
-      background: 'none',
-      maxWidth: '1184px',
-    },
-    [lightTheme.breakpoints.up('desktop_1280')]: {
-      background: 'none',
-      maxWidth: '1184px',
-    },
-
-    [lightTheme.breakpoints.up('desktop_1440')]: {
-      background: 'none',
-      maxWidth: '1376px',
-    },
-    [lightTheme.breakpoints.up('desktop_1920')]: {
-      background: 'none',
-      maxWidth: '1855px',
-    },
-  },
-}));
-
-const ContainerBreadCrumb = styled.div({
-  display: 'flex',
-  paddingTop: 16,
-  paddingLeft: 16,
-  paddingRight: 16,
-  paddingBottom: 8,
-  [lightTheme.breakpoints.up('table_834')]: {
-    paddingLeft: 32,
-    paddingRight: 32,
-  },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    paddingLeft: 32,
-    paddingRight: 32,
-  },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    paddingLeft: 48,
-    paddingRight: 48,
-  },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    height: 74,
-    paddingLeft: 32,
-    paddingRight: 32,
   },
 });
 

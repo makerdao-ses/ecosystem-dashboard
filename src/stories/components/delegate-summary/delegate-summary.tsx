@@ -2,7 +2,9 @@ import styled from '@emotion/styled';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
-import React from 'react';
+import _ from 'lodash';
+import React, { useEffect, useState } from 'react';
+import CustomizeBreadCrumbs from '../breadcrumbs/customize-breadcrumbs/customize-breadcrums';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
 import { CuTableColumnLinks } from '../cu-table-column-links/cu-table-column-links';
 import { CustomLink } from '../custom-link/custom-link';
@@ -11,79 +13,152 @@ import type { LinkModel } from '../cu-table-column-links/cu-table-column-links';
 interface Props {
   code?: string;
   links: LinkModel[];
+  items: {
+    label: string | JSX.Element;
+    url: string;
+  }[];
 }
 
-const DelegateSummary: React.FC<Props> = ({ code = 'del', links }) => {
+const DelegateSummary: React.FC<Props> = ({ code = 'del', links, items }) => {
   const { isLight } = useThemeContext();
   const isUp1280 = useMediaQuery(lightTheme.breakpoints.up('table_834'));
-  return (
-    <Container>
-      <ContainerRow>
-        <CircleContainer>
-          <CircleAvatar
-            style={{
-              filter: isLight
-                ? 'filter: drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))'
-                : 'filter: drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))',
-            }}
-            width={isUp1280 ? '68px' : '32px'}
-            height={isUp1280 ? '68px' : '32px'}
-            name="mk-logo"
-            border="none"
-            image="/assets/img/mk-logo.png"
-          />
-        </CircleContainer>
-        <ContainerDescription>
-          <ContainerColumnMobile>
-            <ContainerText>
-              <Code isLight={isLight}>{code.toUpperCase()}</Code>
-              <Text isLight={isLight}>Recognized Delegates</Text>
-            </ContainerText>
-            <ContainerLink>
-              <CustomLink
-                children="Onchain transactions"
-                fontSize={11}
-                fontWeight={400}
-                href="https://makerburn.com/#/expenses/core-units/DELEGATES"
-                style={{
-                  fontFamily: 'Inter, sans serif',
-                  color: '#447AFB',
-                  fontStyle: 'normal',
-                  marginLeft: '0px',
-                  letterSpacing: '0px',
-                }}
-                marginLeft="5px"
-                withArrow
-                iconHeight={6}
-                iconWidth={6}
-              />
-            </ContainerLink>
-          </ContainerColumnMobile>
+  const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+  const [showIcons, setShowIcons] = useState(true);
+  const [positionScroll, setPositionScroll] = useState(0);
 
-          <ContainerLinks>
-            <CuTableColumnLinks links={links} align="flex-start" />
-          </ContainerLinks>
-        </ContainerDescription>
-      </ContainerRow>
-    </Container>
+  const scrollMargin = 20;
+
+  const handleScroll = () => {
+    const position = window.pageYOffset || document.documentElement.scrollTop;
+    console.log(position);
+    setPositionScroll(position);
+  };
+  useEffect(() => {
+    handleScroll();
+    window.addEventListener('scroll', _.debounce(handleScroll, 50));
+    window.addEventListener('touchmove', _.debounce(handleScroll, 50));
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('touchmove', handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (positionScroll > scrollMargin) {
+      setShowIcons(false);
+    } else {
+      setShowIcons(true);
+    }
+  }, [positionScroll]);
+  return (
+    <ContainerWithBreadCrumb isLight={isLight} showIcons={showIcons}>
+      <CustomizeBreadCrumbs isLight={isLight} items={items} />
+      <Container>
+        <ContainerRow>
+          <CircleContainer>
+            <CircleAvatar
+              style={{
+                filter: isLight
+                  ? 'filter: drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))'
+                  : 'filter: drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))',
+              }}
+              width={isUp1280 ? '68px' : '32px'}
+              height={isUp1280 ? '68px' : '32px'}
+              name="mk-logo"
+              border="none"
+              image="/assets/img/mk-logo.png"
+            />
+          </CircleContainer>
+          <ContainerDescription>
+            <ContainerColumnMobile>
+              <ContainerText>
+                <Code isLight={isLight}>{code.toUpperCase()}</Code>
+                <Text isLight={isLight}>Recognized Delegates</Text>
+              </ContainerText>
+              <ContainerLink>
+                <CustomLink
+                  children="Onchain transactions"
+                  fontSize={11}
+                  fontWeight={400}
+                  href="https://makerburn.com/#/expenses/core-units/DELEGATES"
+                  style={{
+                    fontFamily: 'Inter, sans serif',
+                    color: '#447AFB',
+                    fontStyle: 'normal',
+                    marginLeft: '0px',
+                    letterSpacing: '0px',
+                  }}
+                  marginLeft="5px"
+                  withArrow
+                  iconHeight={6}
+                  iconWidth={6}
+                />
+              </ContainerLink>
+            </ContainerColumnMobile>
+            {isMobile && showIcons && (
+              <ContainerLinks>
+                <CuTableColumnLinks links={links} align="flex-start" />
+              </ContainerLinks>
+            )}
+            {!isMobile && (
+              <ContainerLinks>
+                <CuTableColumnLinks links={links} align="flex-start" />
+              </ContainerLinks>
+            )}
+          </ContainerDescription>
+        </ContainerRow>
+      </Container>
+    </ContainerWithBreadCrumb>
   );
 };
 
 export default DelegateSummary;
 
+const ContainerWithBreadCrumb = styled.div<{ isLight: boolean; showIcons?: boolean; isMobile?: boolean }>(
+  ({ isLight, showIcons }) => ({
+    position: 'sticky',
+    top: 64,
+    flexDirection: 'column',
+    width: '100%',
+    height: 'fit-content',
+    background: isLight ? '#FFFFFF' : '#25273D',
+    backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
+    backgroundSize: 'cover',
+    zIndex: 3,
+    borderBottom: '1px solid #B6EDE7',
+    paddingBottom: showIcons ? 16 : undefined,
+    [lightTheme.breakpoints.up('table_834')]: {
+      paddingBottom: 22,
+    },
+  })
+);
+
 const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  width: '100%',
+
+  width: '343px',
+  margin: '0px auto',
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    minWidth: '770px',
+    margin: '0px auto',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    minWidth: '1130px',
+    margin: '0px auto',
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    minWidth: '1184px',
+    margin: '0px auto',
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    minWidth: '1312px',
+    margin: '0px auto',
   },
 });
 
@@ -158,9 +233,12 @@ const ContainerLink = styled.div({
   height: 13,
   [lightTheme.breakpoints.up('table_834')]: {
     marginTop: 8,
+    marginBottom: 0,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     display: 'flex',
+    marginTop: 0,
+    marginBottom: 0,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     marginBottom: 0,
@@ -176,6 +254,7 @@ const ContainerLink = styled.div({
 const ContainerLinks = styled.div({
   display: 'flex',
   marginLeft: -6,
+  transition: 'all .3s ease',
   [lightTheme.breakpoints.up('table_834')]: {
     '& > div > div:first-of-type': {
       marginTop: -4,
@@ -224,14 +303,14 @@ const ContainerColumnMobile = styled.div({
   display: 'flex',
   flexDirection: 'column',
   [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: 8,
+    marginTop: -4,
     marginLeft: 0,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 6,
+    marginTop: 4,
     marginLeft: 0,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {

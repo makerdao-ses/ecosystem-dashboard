@@ -26,7 +26,6 @@ const StyledBreadcrumbs = styled(Breadcrumbs)<{ isLight: boolean }>(({ isLight }
   marginTop: 16,
   marginBottom: 16,
   fontWeight: 400,
-
   background: isLight ? '#ECF1F3' : '#000A13',
   '&.crumb-container': {
     width: '100%',
@@ -34,32 +33,35 @@ const StyledBreadcrumbs = styled(Breadcrumbs)<{ isLight: boolean }>(({ isLight }
       background: 'none',
       maxWidth: '768px',
       padding: 0,
-      marginBottom: 0,
+      marginBottom: 24,
       marginTop: 0,
       height: 74,
     },
     [lightTheme.breakpoints.up('desktop_1194')]: {
       background: 'none',
       maxWidth: '1130px',
-      marginBottom: 0,
+
       marginTop: 0,
+      marginBottom: 24,
     },
     [lightTheme.breakpoints.up('desktop_1280')]: {
       background: 'none',
       maxWidth: '1184px',
-      marginBottom: 0,
+      marginBottom: 24,
       marginTop: 0,
     },
 
     [lightTheme.breakpoints.up('desktop_1440')]: {
       background: 'none',
       maxWidth: '1376px',
-      marginBottom: 0,
+
+      marginBottom: 24,
       marginTop: 0,
     },
     [lightTheme.breakpoints.up('desktop_1920')]: {
       background: 'none',
       maxWidth: '1855px',
+      marginBottom: 24,
     },
 
     '& .crumb': {
@@ -75,6 +77,7 @@ const StyledBreadcrumbs = styled(Breadcrumbs)<{ isLight: boolean }>(({ isLight }
       },
       [lightTheme.breakpoints.between('table_375', 'table_834')]: {
         lineHeight: '13px',
+        letterSpacing: 0,
       },
       [lightTheme.breakpoints.up('table_834')]: {
         fontSize: '16px',

@@ -1,3 +1,4 @@
+import { siteRoutes } from '@ses/config/routes';
 import { LinkTypeEnum } from '@ses/core/enums/link-type.enum';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import DelegateSummary from './delegate-summary';
@@ -37,6 +38,16 @@ const variantsArgs = [
         href: 'https://www.youtube.com/@MakerDAO/videos',
       },
     ] as LinkModel[],
+    items: [
+      {
+        label: 'Finances',
+        url: siteRoutes.financesOverview,
+      },
+      {
+        label: 'Recognized Delegates',
+        url: siteRoutes.recognizedDelegate,
+      },
+    ],
   },
 ];
 
@@ -47,41 +58,41 @@ LightMode.parameters = {
     component: {
       375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14310%3A260967&t=RQw5OvfIDN7GgH70-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14373%3A153088&t=7GuGRFEMTECsE9fy-4',
         options: {
           componentStyle: {
-            width: 343,
+            width: 375,
           },
           style: {
-            top: -18,
-            left: -22,
+            top: -36,
+            left: -40,
           },
         },
       },
 
       834: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14539%3A157717&t=nnlMhBVyl5KbS8g1-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14539%3A157641&t=7GuGRFEMTECsE9fy-4',
         options: {
           componentStyle: {
-            width: 770,
+            width: 834,
           },
           style: {
-            top: -20,
-            left: -22,
+            top: -18,
+            left: -14,
           },
         },
       },
       1194: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14539%3A154161&t=nnlMhBVyl5KbS8g1-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14539%3A154084&t=7GuGRFEMTECsE9fy-4',
         options: {
           componentStyle: {
-            width: 1130,
+            width: 1194,
           },
           style: {
-            top: -18,
-            left: -22,
+            top: -16,
+            left: -16,
           },
         },
       },
