@@ -3,8 +3,10 @@ import { Breadcrumbs } from '@ses/components/breadcrumbs/breadcrumbs';
 import { CustomLink } from '@ses/components/custom-link/custom-link';
 import { CustomPager } from '@ses/components/custom-pager/custom-pager';
 import DelegateSummary from '@ses/components/delegate-summary/delegate-summary';
+import { SEOHead } from '@ses/components/seo-head/seo-head';
 import { Tabs } from '@ses/components/tabs/tabs';
 import { BudgetStatus } from '@ses/core/models/dto/core-unit.dto';
+import { toAbsoluteURL } from '@ses/core/utils/url.utils';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import ExpenseReportStatusIndicator from '../transparency-report/common/expense-report-status-indicator/expense-report-status-indicator';
@@ -38,6 +40,18 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
 
   return (
     <Container>
+      <SEOHead
+        title={'MakerDAO Recognized Delegates Expense Reports | Finances'}
+        description={
+          'MakerDAO Recognized Delegates Expenses Reports provides a transparent overview of recognized delegates expenses, compensations, and benefits'
+        }
+        image={{
+          src: toAbsoluteURL('/assets/img/social-385x200.png'),
+          width: 385,
+          height: 200,
+        }}
+        twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
+      />
       <ContainerBreadCrumb>
         <StyledBreadcrumbs
           className="crumb-container"
