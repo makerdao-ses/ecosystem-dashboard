@@ -39,26 +39,28 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
 
   return (
     <Container isLight={isLight}>
-      <ContainerBreadCrumb>
-        <StyledBreadcrumbs
-          className="crumb-container"
-          paddingBreadcrumbs="9px 8px"
-          width={isMobile ? 5 : 10}
-          height={isMobile ? 10 : 20}
-          fontSize="11px"
-          items={itemsBreadcrumb}
-          borderRadius="6px"
-          marginLeft="4px"
-          marginRight="6px"
-          isLight={isLight}
-        />
-      </ContainerBreadCrumb>
-      <ContainerInside>
-        <ContainerDelegate>
-          <DelegateSummary links={links} />
-        </ContainerDelegate>
-      </ContainerInside>
-      <Line />
+      <SummaryContainer isLight={isLight}>
+        <ContainerBreadCrumb>
+          <StyledBreadcrumbs
+            className="crumb-container"
+            paddingBreadcrumbs="9px 8px"
+            width={isMobile ? 5 : 10}
+            height={isMobile ? 10 : 20}
+            fontSize="11px"
+            items={itemsBreadcrumb}
+            borderRadius="6px"
+            marginLeft="4px"
+            marginRight="6px"
+            isLight={isLight}
+          />
+        </ContainerBreadCrumb>
+        <ContainerInside>
+          <ContainerDelegate>
+            <DelegateSummary links={links} />
+          </ContainerDelegate>
+        </ContainerInside>
+        <Line />
+      </SummaryContainer>
       <ContainerInside>
         <ContainerPagerBar>
           <PagerBar className="no-select" ref={null}>
@@ -149,6 +151,24 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
   backgroundSize: 'cover',
 }));
 
+const SummaryContainer = styled.div<WithIsLight>(({ isLight }) => ({
+  position: 'sticky',
+  top: 64,
+  width: '100%',
+  background: isLight ? '#FFFFFF' : '#25273D',
+  backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
+  backgroundSize: 'cover',
+  zIndex: 3,
+  marginBottom: 24,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginBottom: 37,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginBottom: 32,
+  },
+}));
+
 const ContainerDelegate = styled.div({
   marginTop: 8,
   [lightTheme.breakpoints.up('table_834')]: {
@@ -199,14 +219,11 @@ const Line = styled.div({
   borderBottom: '1px solid #B6EDE7',
   width: '100%',
   marginTop: '16px',
-  marginBottom: 24,
 
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    marginBottom: 37,
     marginTop: '18px',
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginBottom: 32,
     marginTop: '24px',
   },
 });
