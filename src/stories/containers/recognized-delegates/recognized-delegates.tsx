@@ -12,6 +12,7 @@ import DelegatesActuals from './delegates-actuals/delegates-actuals';
 import DelegatesForecast from './delegates-forecast/delegates-forecast';
 import useRecognizedDelegates, { DELEGATES_IDS_ENUM } from './useRecognizedDelegates.mvvm';
 import type { DelegatesDto } from '@ses/core/models/dto/delegates.dto';
+import type { WithIsLight } from '@ses/core/utils/types-helpers';
 
 type RecognizedDelegatesProps = {
   delegates: DelegatesDto;
@@ -37,7 +38,7 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
   } = useRecognizedDelegates(delegates);
 
   return (
-    <Container>
+    <Container isLight={isLight}>
       <ContainerBreadCrumb>
         <StyledBreadcrumbs
           className="crumb-container"
@@ -137,12 +138,16 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
 
 export default RecognizedDelegatesContainer;
 
-const Container = styled.div({
+const Container = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100vw',
   marginTop: 64,
-});
+  backgroundColor: isLight ? '#FFFFFF' : '#000000',
+  backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
+  backgroundAttachment: 'fixed',
+  backgroundSize: 'cover',
+}));
 
 const ContainerDelegate = styled.div({
   marginTop: 8,
