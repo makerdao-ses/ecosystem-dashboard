@@ -1,10 +1,12 @@
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { siteRoutes } from '@ses/config/routes';
 import { getLastUpdateForBudgetStatement } from '@ses/core/business-logic/core-units';
+import { useAuthContext } from '@ses/core/context/AuthContext';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { LinkTypeEnum } from '@ses/core/enums/link-type.enum';
 import useBudgetStatementPager from '@ses/core/hooks/useBudgetStatementPager';
 import { useUrlAnchor } from '@ses/core/hooks/useUrlAnchor';
+import { BudgetStatus } from '@ses/core/models/dto/core-unit.dto';
 import lightTheme from '@ses/styles/theme/light';
 import { useEffect, useMemo, useState } from 'react';
 import CommentsTab from '../../components/tabs/comments-tab/comments-tab';
@@ -51,6 +53,7 @@ const useRecognizedDelegates = (delegates: DelegatesDto) => {
   const { isLight } = useThemeContext();
   const [tabsIndex, setTabsIndex] = useState<DELEGATES_IDS_ENUM>(DELEGATES_IDS_ENUM.ACTUALS);
   const [tabsIndexNumber, setTabsIndexNumber] = useState<number>(0);
+  const { permissionManager } = useAuthContext();
   const anchor = useUrlAnchor();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
 
@@ -93,9 +96,16 @@ const useRecognizedDelegates = (delegates: DelegatesDto) => {
     [currentBudgetStatement, delegates]
   );
 
-  // TODO: update when the CTA should be displayed according to the current budget statement
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [showExpenseReportStatusCTA, setShowExpenseReportStatusCTA] = useState<boolean>(false);
+  useEffect(() => {
+    switch (currentBudgetStatement?.status) {
+      case BudgetStatus.Draft:
+        setShowExpenseReportStatusCTA(permissionManager.coreUnit.isCoreUnitAdmin(delegates.id));
+        break;
+      default:
+        setShowExpenseReportStatusCTA(false);
+    }
+  }, [currentBudgetStatement, delegates.id, permissionManager]);
 
   return {
     isLight,
