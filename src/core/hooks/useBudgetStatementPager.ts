@@ -33,7 +33,6 @@ const useBudgetStatementPager = (element: WithBudget, options?: BudgetStatementP
         walletNames.set(wallet.name.toLowerCase().trim(), 1);
       }
     });
-
     return budgetStatement;
   };
 

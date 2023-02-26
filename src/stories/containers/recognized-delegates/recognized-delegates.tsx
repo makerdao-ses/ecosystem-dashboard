@@ -34,6 +34,13 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
     handlePreviousMonth,
     hasNextMonth,
     hasPreviousMonth,
+    mainTableColumns,
+    mainTableItems,
+    breakdownTabs,
+    thirdIndex,
+    headerIds,
+    breakdownColumns,
+    breakdownItems,
   } = useRecognizedDelegates(delegates);
 
   return (
@@ -95,7 +102,19 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
               margin: '32px 0',
             }}
           />
-          {tabsIndex === DELEGATES_IDS_ENUM.ACTUALS && <DelegatesActuals />}
+          {tabsIndex === DELEGATES_IDS_ENUM.ACTUALS && (
+            <DelegatesActuals
+              currentMonth={currentMonth}
+              mainTableColumns={mainTableColumns}
+              mainTableItems={mainTableItems}
+              breakdownTabs={breakdownTabs}
+              currentIndex={thirdIndex}
+              headerIds={headerIds}
+              breakdownColumns={breakdownColumns}
+              breakdownItems={breakdownItems}
+              longCode="DEL"
+            />
+          )}
           {tabsIndex === DELEGATES_IDS_ENUM.FORECAST && <DelegatesForecast />}
           {tabsIndex === DELEGATES_IDS_ENUM.COMMENTS && <div>comments</div>}
         </ContainerTabs>
