@@ -11,7 +11,7 @@ import lightTheme from '@ses/styles/theme/light';
 import _ from 'lodash';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import CommentsTab from '../../components/tabs/comments-tab/comments-tab';
-import { renderLinks, renderWallet } from '../transparency-report/transparency-report.utils';
+import { renderLinksWithToken, renderWallet } from '../transparency-report/transparency-report.utils';
 import type { TableItems } from '../transparency-report/transparency-report';
 import type {
   InnerTableColumn,
@@ -64,6 +64,7 @@ const useRecognizedDelegates = (delegates: DelegatesDto) => {
   const [headerIds, setHeaderIds] = useState<string[]>([]);
   const anchor = useUrlAnchor();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const allBudgetStatement = delegates?.budgetStatements || [];
   const { currentMonth, currentBudgetStatement, handleNextMonth, handlePreviousMonth, hasNextMonth, hasPreviousMonth } =
     useBudgetStatementPager(delegates);
 
@@ -185,7 +186,7 @@ const useRecognizedDelegates = (delegates: DelegatesDto) => {
         header: 'External Links',
         align: 'left',
         type: 'custom',
-        cellRender: renderLinks,
+        cellRender: renderLinksWithToken,
         isCardFooter: true,
       },
     ];
@@ -678,6 +679,7 @@ const useRecognizedDelegates = (delegates: DelegatesDto) => {
     breakdownColumns,
     getBreakdownItems,
     breakdownItems,
+    allBudgetStatement,
   };
 };
 

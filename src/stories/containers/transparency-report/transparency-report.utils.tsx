@@ -37,3 +37,18 @@ export const renderLinks = (address: string) => (
     </CustomLink>
   </TextCell>
 );
+
+export const renderLinksWithToken = (address: string) => (
+  <TextCell key={6} responsivePadding="0">
+    <CustomLink
+      fontFamily={'Inter, sans-serif'}
+      href={`https://etherscan.io/address/${address}#tokentxns`}
+      style={{ marginRight: '16px' }}
+      fontSize={16}
+      fontSizeMobile={14}
+      fontWeight={500}
+    >
+      Etherscan
+    </CustomLink>
+  </TextCell>
+);
