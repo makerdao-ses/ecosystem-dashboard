@@ -1,25 +1,21 @@
 import CommentsTab from '@ses/components/tabs/comments-tab/comments-tab';
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
-import {
-  getAllCommentsBudgetStatementLine,
-  getLastUpdateForBudgetStatement,
-} from '@ses/core/business-logic/core-units';
+import { getLastUpdateForBudgetStatement } from '@ses/core/business-logic/core-units';
 import { useAuthContext } from '@ses/core/context/AuthContext';
 import { useCookiesContextTracking } from '@ses/core/context/CookiesContext';
+import useBudgetStatementComments from '@ses/core/hooks/useBudgetStatementComments';
 import useBudgetStatementPager from '@ses/core/hooks/useBudgetStatementPager';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { useUrlAnchor } from '@ses/core/hooks/useUrlAnchor';
 import { BudgetStatus } from '@ses/core/models/dto/core-unit.dto';
 import { budgetStatementCommentsCollectionId } from '@ses/core/utils/collections-ids';
 import { LastVisitHandler } from '@ses/core/utils/last-visit-handler';
-import { isActivity } from '@ses/core/utils/types-helpers';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
-import { useRef, useState, useEffect, useCallback, useMemo, useReducer } from 'react';
+import { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import { featureFlags } from '../../../../feature-flags/feature-flags';
 import type { TableItems } from './transparency-report';
-import type { ActivityFeedDto, CommentsBudgetStatementDto, CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
-import type { WithDate } from '@ses/core/utils/types-helpers';
+import type { CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
 
 export enum TRANSPARENCY_IDS_ENUM {
   ACTUALS = 'actuals',
@@ -33,15 +29,6 @@ const DISABLED_ID = [
   featureFlags[CURRENT_ENVIRONMENT].FEATURE_MKR_VESTING ? null : TRANSPARENCY_IDS_ENUM.MKR_VESTING,
   featureFlags[CURRENT_ENVIRONMENT].FEATURE_AUDIT_REPORTS ? null : TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS,
 ];
-
-type CommentsLastVisitState = {
-  hasNewComments: boolean;
-  isFetching: boolean;
-};
-type CommentLastVisitAction = {
-  type: 'START_FETCHING' | 'SET_HAS_NEW_COMMENTS';
-  hasNewComments?: boolean;
-};
 
 export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   const router = useRouter();
@@ -138,37 +125,12 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     }
   }, [currentBudgetStatement, permissionManager]);
 
-  const comments = useMemo(() => {
-    const comments = getAllCommentsBudgetStatementLine(currentBudgetStatement) as (CommentsBudgetStatementDto &
-      WithDate)[];
-    let activities = currentBudgetStatement?.activityFeed.filter(
-      (activity) => activity.event === 'CU_BUDGET_STATEMENT_CREATED'
-    ) as (ActivityFeedDto & WithDate)[];
-    activities =
-      activities?.map((activity) => {
-        activity.date = DateTime.fromISO(activity.created_at);
-        return activity;
-      }) || [];
-    const result = (comments as unknown[]).concat(activities) as WithDate[];
-    result.sort((a, b) => a.date.toMillis() - b.date.toMillis());
-
-    return result as unknown as (CommentsBudgetStatementDto | ActivityFeedDto)[];
-  }, [currentBudgetStatement]);
-
-  const numbersComments = useMemo(() => comments.length, [comments]);
   const longCode = coreUnit?.code;
 
   const lastUpdateForBudgetStatement = useMemo(
     () => getLastUpdateForBudgetStatement(coreUnit, currentBudgetStatement?.id ?? '0'),
     [currentBudgetStatement, coreUnit]
   );
-
-  const differenceInDays = useMemo(() => {
-    if (!lastUpdateForBudgetStatement) return null;
-
-    const dayCount = DateTime.now().diff(lastUpdateForBudgetStatement, ['day', 'milliseconds']).days;
-    return dayCount === 0 ? 'Today' : `${dayCount} ${dayCount === 1 ? 'Day' : 'Days'}`;
-  }, [lastUpdateForBudgetStatement]);
 
   const [showExpenseReportStatusCTA, setShowExpenseReportStatusCTA] = useState<boolean>(false);
   useEffect(() => {
@@ -189,76 +151,11 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     }
   }, [coreUnit, currentBudgetStatement, permissionManager]);
 
-  // "hasNewComments" related logic
-  const [commentsLastVisitState, commentsLastVisitDispatch] = useReducer(
-    (state: CommentsLastVisitState, action: CommentLastVisitAction): never | CommentsLastVisitState => {
-      switch (action.type) {
-        case 'START_FETCHING':
-          return {
-            hasNewComments: false,
-            isFetching: true,
-          };
-        case 'SET_HAS_NEW_COMMENTS':
-          return {
-            isFetching: false,
-            hasNewComments: !!action.hasNewComments,
-          };
-        default:
-          throw new Error(`Unhandled action type: ${action.type}. Current state: ${state}`);
-      }
-    },
-    {
-      isFetching: false,
-      hasNewComments: false,
-    }
+  const { comments, numbersComments, commentsLastVisitState, updateHasNewComments } = useBudgetStatementComments(
+    currentBudgetStatement,
+    lastVisitHandler,
+    tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS
   );
-
-  const updateHasNewComments = async (date?: DateTime) => {
-    commentsLastVisitDispatch({ type: 'START_FETCHING' });
-    const lastVisit = date || (await lastVisitHandler?.lastVisit());
-    if (lastVisit) {
-      let hasNewComments: boolean = comments.length > 0 && !lastVisit;
-      for (const comment of comments) {
-        const commentDate = isActivity(comment)
-          ? DateTime.fromISO(comment.created_at)
-          : DateTime.fromISO(comment.timestamp);
-        if (commentDate > lastVisit) {
-          hasNewComments = true;
-          break;
-        }
-      }
-      commentsLastVisitDispatch({
-        type: 'SET_HAS_NEW_COMMENTS',
-        hasNewComments,
-      });
-    } else {
-      commentsLastVisitDispatch({
-        type: 'SET_HAS_NEW_COMMENTS',
-        hasNewComments: comments.length > 0,
-      });
-    }
-  };
-  useEffect(() => {
-    updateHasNewComments();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lastVisitHandler, comments]);
-
-  // update the visit date (preventing multiple renderings)
-  let timeout: NodeJS.Timeout;
-  useEffect(() => {
-    clearTimeout(timeout);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    timeout = setTimeout(async () => {
-      if (isTimestampTrackingAccepted && tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS) {
-        const lastVisit = (await lastVisitHandler?.visit()) || DateTime.now().toMillis();
-        await updateHasNewComments(DateTime.fromMillis(lastVisit));
-      }
-    }, 3000);
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [lastVisitHandler, isTimestampTrackingAccepted, tabsIndex]);
-  // end of "hasNewComments" related logic
 
   const [isEnabled] = useFlagsActive();
   const tabItems: TableItems[] = [
@@ -312,7 +209,6 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     tabsIndexNumber,
     showExpenseReportStatusCTA,
     lastUpdateForBudgetStatement,
-    differenceInDays,
     longCode,
     hasPreviousMonth,
     comments,

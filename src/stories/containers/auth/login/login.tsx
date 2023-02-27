@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import { SEOHead } from '@ses/components/seo-head/seo-head';
+import { toAbsoluteURL } from '@ses/core/utils/url.utils';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
@@ -11,6 +13,16 @@ const LoginContainer: React.FC = () => {
 
   return (
     <Wrapper isLight={isLight}>
+      <SEOHead
+        title="MakerDAO Ecosystem Performance Dashboard | Login Page"
+        description="Login Page for Core Unit administrators and auditors provides easy access to MakerDAO Ecosystem Performance Dashboard to manage expense reports"
+        image={{
+          src: toAbsoluteURL('/assets/img/social-385x200.png'),
+          width: 385,
+          height: 200,
+        }}
+        twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
+      />
       <Container isLight={isLight}>
         <LoginForm
           form={formLogic}
