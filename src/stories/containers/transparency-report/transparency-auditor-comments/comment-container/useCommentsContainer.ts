@@ -24,7 +24,10 @@ const useCommentsContainer = (
 
     for (const comment of comments) {
       if (!isActivity(comment)) {
-        if (currentCoreUnit?.auditors?.findIndex((a) => a.id === comment.author.id) === -1) {
+        if (
+          !currentCoreUnit?.auditors?.length ||
+          currentCoreUnit?.auditors?.findIndex((a) => a.id === comment.author.id) === -1
+        ) {
           cu.set(comment.author.id, comment.author);
         }
       }

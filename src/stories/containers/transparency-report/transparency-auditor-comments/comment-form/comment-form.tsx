@@ -6,13 +6,15 @@ import BudgetStatusSelect from '../budget-status-select';
 import GenericCommentCard from '../generic-comment-card';
 import useCommentForm from './useCommentForm';
 import type { BudgetStatus } from '../../../../../core/models/dto/core-unit.dto';
+import type { CommentMode } from '../comment-container/auditor-comments-container';
 
 export type CommentFormProps = {
   currentBudgetStatus: BudgetStatus;
   budgetStatementId: string;
+  mode?: CommentMode;
 };
 
-const CommentForm: React.FC<CommentFormProps> = ({ currentBudgetStatus, budgetStatementId }) => {
+const CommentForm: React.FC<CommentFormProps> = ({ currentBudgetStatus, budgetStatementId, mode = 'CoreUnits' }) => {
   const {
     isLight,
     isMobile,
@@ -41,7 +43,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ currentBudgetStatus, budgetSt
         </Select>
         <User>
           <Username isLight={isLight}>{username}</Username>
-          <UserRole isLight={isLight}>({roleString})</UserRole>
+          <UserRole isLight={isLight}>({mode === 'CoreUnits' ? roleString : 'Recognized Delegate'})</UserRole>
         </User>
       </CommentHeader>
       <FormContainer>
