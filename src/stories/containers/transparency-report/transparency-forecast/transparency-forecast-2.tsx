@@ -101,4 +101,5 @@ export const TransparencyForecast2 = (props: Props) => {
 const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  marginBottom: 64,
 });
