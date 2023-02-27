@@ -146,15 +146,15 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
 export default RecognizedDelegatesContainer;
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   alignItems: 'center',
-  marginTop: '64px',
+  marginTop: 64,
   flexDirection: 'column',
-  width: '100%',
-  flex: 1,
+
+  width: '100vw',
+
   backgroundColor: isLight ? '#FFFFFF' : '#000000',
   backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
-  paddingBottom: '128px',
 }));
 const Wrapper = styled.div({
   display: 'flex',

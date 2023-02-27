@@ -8,6 +8,7 @@ import { LinkTypeEnum } from '@ses/core/enums/link-type.enum';
 import useBudgetStatementComments from '@ses/core/hooks/useBudgetStatementComments';
 import useBudgetStatementPager from '@ses/core/hooks/useBudgetStatementPager';
 import { useUrlAnchor } from '@ses/core/hooks/useUrlAnchor';
+import { BudgetStatus } from '@ses/core/models/dto/core-unit.dto';
 import { budgetStatementCommentsCollectionId } from '@ses/core/utils/collections-ids';
 import { LastVisitHandler } from '@ses/core/utils/last-visit-handler';
 import lightTheme from '@ses/styles/theme/light';
@@ -109,9 +110,16 @@ const useRecognizedDelegates = (delegates: DelegatesDto) => {
     [currentBudgetStatement, delegates]
   );
 
-  // TODO: update when the CTA should be displayed according to the current budget statement
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [showExpenseReportStatusCTA, setShowExpenseReportStatusCTA] = useState<boolean>(false);
+  useEffect(() => {
+    switch (currentBudgetStatement?.status) {
+      case BudgetStatus.Draft:
+        setShowExpenseReportStatusCTA(permissionManager.coreUnit.isCoreUnitAdmin(delegates.id));
+        break;
+      default:
+        setShowExpenseReportStatusCTA(false);
+    }
+  }, [currentBudgetStatement, delegates.id, permissionManager]);
 
   // TODO: remove next line (eslint disable)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
