@@ -1,17 +1,19 @@
 import styled from '@emotion/styled';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import lightTheme from '../../../../../styles/theme/light';
-import { useThemeContext } from '../../../../core/context/ThemeContext';
 import InlineUser from '../common/inline-user/inline-user';
-import type { UserDTO } from '../../../../core/models/dto/auth.dto';
+import type { CommentMode } from './comment-container/auditor-comments-container';
+import type { UserDTO } from '@ses/core/models/dto/auth.dto';
 
 export type ParticipantRolesProps = {
   coreUnitCode: string;
   cu: UserDTO[];
   auditors: UserDTO[];
+  mode?: CommentMode;
 };
 
-const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ coreUnitCode, cu, auditors }) => {
+const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ coreUnitCode, cu, auditors, mode = 'CoreUnits' }) => {
   const { isLight } = useThemeContext();
 
   return (
@@ -20,7 +22,9 @@ const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ coreUnitCode, cu, a
       <Card isLight={isLight}>
         {cu.length > 0 && (
           <RoleSection>
-            <RoleName isLight={isLight}>{coreUnitCode} Core Unit</RoleName>
+            <RoleName isLight={isLight}>
+              {mode === 'CoreUnits' ? `${coreUnitCode} Core Unit` : 'Recognized Delegate'}
+            </RoleName>
             {cu.map((author) => (
               <UserWrapper key={author.id}>
                 <InlineUser username={author.username} />
@@ -39,7 +43,10 @@ const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ coreUnitCode, cu, a
             ))}
           </RoleSection>
         ) : (
-          <EmptyState isLight={isLight}>The {coreUnitCode} Core Unit is currently working without auditor</EmptyState>
+          <EmptyState isLight={isLight}>
+            The {mode === 'CoreUnits' ? `${coreUnitCode} Core Unit` : 'Recognized Delegate'} is currently working
+            without auditor
+          </EmptyState>
         )}
       </Card>
     </ParticipantContainer>

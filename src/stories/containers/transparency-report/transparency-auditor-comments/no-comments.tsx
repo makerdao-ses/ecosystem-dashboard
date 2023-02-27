@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import lightTheme from '../../../../../styles/theme/light';
 import GenericCommentCard from './generic-comment-card';
 
 const NoComments: React.FC = () => (
