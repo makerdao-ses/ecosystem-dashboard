@@ -16,6 +16,7 @@ import DelegatesActuals from './delegates-actuals/delegates-actuals';
 import DelegatesForecast from './delegates-forecast/delegates-forecast';
 import useRecognizedDelegates, { DELEGATES_IDS_ENUM } from './useRecognizedDelegates.mvvm';
 import type { DelegatesDto } from '@ses/core/models/dto/delegates.dto';
+import type { WithIsLight } from '@ses/core/utils/types-helpers';
 
 type RecognizedDelegatesProps = {
   delegates: DelegatesDto;
@@ -43,7 +44,7 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
   } = useRecognizedDelegates(delegates);
 
   return (
-    <Container>
+    <Container isLight={isLight}>
       <SEOHead
         title={'MakerDAO Recognized Delegates Expense Reports | Finances'}
         description={
@@ -56,26 +57,28 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
         }}
         twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
       />
-      <ContainerBreadCrumb>
-        <StyledBreadcrumbs
-          className="crumb-container"
-          paddingBreadcrumbs="9px 8px"
-          width={isMobile ? 5 : 10}
-          height={isMobile ? 10 : 20}
-          fontSize="11px"
-          items={itemsBreadcrumb}
-          borderRadius="6px"
-          marginLeft="4px"
-          marginRight="6px"
-          isLight={isLight}
-        />
-      </ContainerBreadCrumb>
-      <ContainerInside>
-        <ContainerDelegate>
-          <DelegateSummary links={links} />
-        </ContainerDelegate>
-      </ContainerInside>
-      <Line />
+      <SummaryContainer isLight={isLight}>
+        <ContainerBreadCrumb>
+          <StyledBreadcrumbs
+            className="crumb-container"
+            paddingBreadcrumbs="9px 8px"
+            width={isMobile ? 5 : 10}
+            height={isMobile ? 10 : 20}
+            fontSize="11px"
+            items={itemsBreadcrumb}
+            borderRadius="6px"
+            marginLeft="4px"
+            marginRight="6px"
+            isLight={isLight}
+          />
+        </ContainerBreadCrumb>
+        <ContainerInside>
+          <ContainerDelegate>
+            <DelegateSummary links={links} />
+          </ContainerDelegate>
+        </ContainerInside>
+        <Line />
+      </SummaryContainer>
       <ContainerInside>
         <ContainerPagerBar>
           <PagerBar className="no-select" ref={null}>
@@ -159,12 +162,34 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
 
 export default RecognizedDelegatesContainer;
 
-const Container = styled.div({
+const Container = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100vw',
   marginTop: 64,
-});
+  backgroundColor: isLight ? '#FFFFFF' : '#000000',
+  backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
+  backgroundAttachment: 'fixed',
+  backgroundSize: 'cover',
+}));
+
+const SummaryContainer = styled.div<WithIsLight>(({ isLight }) => ({
+  position: 'sticky',
+  top: 64,
+  width: '100%',
+  background: isLight ? '#FFFFFF' : '#25273D',
+  backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
+  backgroundSize: 'cover',
+  zIndex: 3,
+  marginBottom: 24,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginBottom: 37,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginBottom: 32,
+  },
+}));
 
 const ContainerDelegate = styled.div({
   marginTop: 8,
@@ -216,14 +241,11 @@ const Line = styled.div({
   borderBottom: '1px solid #B6EDE7',
   width: '100%',
   marginTop: '16px',
-  marginBottom: 24,
 
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    marginBottom: 37,
     marginTop: '18px',
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginBottom: 32,
     marginTop: '24px',
   },
 });
