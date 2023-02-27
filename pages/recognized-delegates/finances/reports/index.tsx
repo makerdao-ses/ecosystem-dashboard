@@ -1,8 +1,10 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import { fetchRecognizedDelegates } from '@ses/containers/recognized-delegates/delegates.api';
 import RecognizedDelegatesContainer from '@ses/containers/recognized-delegates/recognized-delegates';
+import { CoreUnitContext } from '@ses/core/context/CoreUnitContext';
 import { featureFlags } from 'feature-flags/feature-flags';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import type { CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
 import type { DelegatesDto } from '@ses/core/models/dto/delegates.dto';
 import type { NextPage } from 'next';
 
@@ -10,9 +12,24 @@ type RecognizedDelegatesProps = {
   delegates: DelegatesDto;
 };
 
-const RecognizedDelegates: NextPage<RecognizedDelegatesProps> = ({ delegates }) => (
-  <RecognizedDelegatesContainer delegates={delegates} />
-);
+const RecognizedDelegates: NextPage<RecognizedDelegatesProps> = ({ delegates }) => {
+  const [currentDelegates, setCurrentDelegates] = useState<DelegatesDto>(delegates);
+  useEffect(() => {
+    setCurrentDelegates(delegates);
+  }, [delegates]);
+
+  return (
+    // make the delegates accessible from the comments components
+    <CoreUnitContext.Provider
+      value={{
+        currentCoreUnit: currentDelegates as CoreUnitDto,
+        setCurrentCoreUnit: setCurrentDelegates,
+      }}
+    >
+      <RecognizedDelegatesContainer delegates={currentDelegates} />
+    </CoreUnitContext.Provider>
+  );
+};
 
 export default RecognizedDelegates;
 
