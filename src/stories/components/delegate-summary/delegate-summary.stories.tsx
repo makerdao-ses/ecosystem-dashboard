@@ -65,7 +65,7 @@ LightMode.parameters = {
           },
           style: {
             top: -36,
-            left: -40,
+            left: -42,
           },
         },
       },

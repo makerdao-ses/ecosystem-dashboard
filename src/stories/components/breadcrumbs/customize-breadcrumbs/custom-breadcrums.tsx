@@ -10,7 +10,7 @@ interface Props {
   isLight: boolean;
 }
 
-const CustomizeBreadCrumbs = ({ items, isLight }: Props) => (
+const CustomBreadCrumbs = ({ items, isLight }: Props) => (
   <StyledBreadcrumbs items={items} isLight={isLight} className="crumb-container" />
 );
 
@@ -102,4 +102,4 @@ const StyledBreadcrumbs = styled(Breadcrumbs)<{ isLight: boolean }>(({ isLight }
   },
 }));
 
-export default CustomizeBreadCrumbs;
+export default CustomBreadCrumbs;

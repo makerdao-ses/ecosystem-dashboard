@@ -4,7 +4,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
-import CustomizeBreadCrumbs from '../breadcrumbs/customize-breadcrumbs/customize-breadcrums';
+import CustomBreadCrumbs from '../breadcrumbs/customize-breadcrumbs/custom-breadcrums';
 import { CircleAvatar } from '../circle-avatar/circle-avatar';
 import { CuTableColumnLinks } from '../cu-table-column-links/cu-table-column-links';
 import { CustomLink } from '../custom-link/custom-link';
@@ -18,7 +18,7 @@ interface Props {
     url: string;
   }[];
 }
-
+const scrollMargin = 20;
 const DelegateSummary: React.FC<Props> = ({ code = 'del', links, items }) => {
   const { isLight } = useThemeContext();
   const isUp1280 = useMediaQuery(lightTheme.breakpoints.up('table_834'));
@@ -26,11 +26,8 @@ const DelegateSummary: React.FC<Props> = ({ code = 'del', links, items }) => {
   const [showIcons, setShowIcons] = useState(true);
   const [positionScroll, setPositionScroll] = useState(0);
 
-  const scrollMargin = 20;
-
   const handleScroll = () => {
     const position = window.pageYOffset || document.documentElement.scrollTop;
-    console.log(position);
     setPositionScroll(position);
   };
   useEffect(() => {
@@ -53,7 +50,7 @@ const DelegateSummary: React.FC<Props> = ({ code = 'del', links, items }) => {
   }, [positionScroll]);
   return (
     <ContainerWithBreadCrumb isLight={isLight} showIcons={showIcons}>
-      <CustomizeBreadCrumbs isLight={isLight} items={items} />
+      <CustomBreadCrumbs isLight={isLight} items={items} />
       <Container>
         <ContainerRow>
           <CircleContainer>
