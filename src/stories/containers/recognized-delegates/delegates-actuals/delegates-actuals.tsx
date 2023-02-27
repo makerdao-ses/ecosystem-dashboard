@@ -37,7 +37,7 @@ const DelegatesActuals: React.FC<Props> = ({ currentMonth, budgetStatement }) =>
         View the onchain transaction for recognized delegates
         <CustomLink
           children="this month"
-          href="#"
+          href="https://makerburn.com/#/expenses/core-units/DELEGATES"
           fontSize={isMobile ? 14 : 16}
           lineHeight="18px"
           iconWidth={10}
@@ -52,6 +52,7 @@ const DelegatesActuals: React.FC<Props> = ({ currentMonth, budgetStatement }) =>
         style={{ marginBottom: '64px' }}
         cardsTotalPosition="top"
         longCode="DEL"
+        tablePlaceholder={<TransparencyEmptyTable breakdown longCode="DEL" />}
       />
       {mainTableItemsActuals.length > 0 && (
         <TitleBreakdown isLight={isLight}>{currentMonth.toFormat('MMM yyyy')} Breakdown</TitleBreakdown>
