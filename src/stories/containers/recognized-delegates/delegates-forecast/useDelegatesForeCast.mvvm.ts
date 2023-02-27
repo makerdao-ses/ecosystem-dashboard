@@ -477,6 +477,7 @@ export const useDelegatesForesCat = (currentMonth: DateTime, propBudgetStatement
         isCardHeader: true,
         width: hasGroups ? '220px' : '240px',
         type: 'text',
+        hidden: true,
       },
       {
         header: firstMonthForecast.toFormat('MMMM'),
