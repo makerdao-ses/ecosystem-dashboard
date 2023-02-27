@@ -252,6 +252,7 @@ export const useDelegatesActuals = (
         type: 'text',
         isCardHeader: true,
         width: hasGroups ? '220px' : '240px',
+        hidden: true,
       },
       {
         header: 'Forecast',
