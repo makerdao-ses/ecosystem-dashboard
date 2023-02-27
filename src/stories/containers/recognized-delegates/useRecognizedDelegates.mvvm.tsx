@@ -10,12 +10,20 @@ import useBudgetStatementPager from '@ses/core/hooks/useBudgetStatementPager';
 import { useUrlAnchor } from '@ses/core/hooks/useUrlAnchor';
 import { BudgetStatus } from '@ses/core/models/dto/core-unit.dto';
 import { budgetStatementCommentsCollectionId } from '@ses/core/utils/collections-ids';
+
 import { LastVisitHandler } from '@ses/core/utils/last-visit-handler';
+
 import lightTheme from '@ses/styles/theme/light';
+
 import { DateTime } from 'luxon';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import CommentsTab from '../../components/tabs/comments-tab/comments-tab';
+
 import type { TableItems } from '../transparency-report/transparency-report';
+import type {} from // InnerTableColumn,
+
+'@ses/components/advanced-inner-table/advanced-inner-table';
+
 import type { DelegatesDto } from '@ses/core/models/dto/delegates.dto';
 
 export enum DELEGATES_IDS_ENUM {
@@ -58,25 +66,12 @@ const useRecognizedDelegates = (delegates: DelegatesDto) => {
   const { isLight } = useThemeContext();
   const [tabsIndex, setTabsIndex] = useState<DELEGATES_IDS_ENUM>(DELEGATES_IDS_ENUM.ACTUALS);
   const [tabsIndexNumber, setTabsIndexNumber] = useState<number>(0);
+  const [lastVisitHandler, setLastVisitHandler] = useState<LastVisitHandler>();
   const { permissionManager } = useAuthContext();
   const { isTimestampTrackingAccepted } = useCookiesContextTracking();
   const anchor = useUrlAnchor();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
-
-  useEffect(() => {
-    // change the tabs when anchor changes
-    if (anchor) {
-      const index = Object.values(DELEGATES_IDS_ENUM).findIndex((id) => anchor.indexOf(id) > -1);
-      if (index !== -1) {
-        const indexKey = Object.keys(DELEGATES_IDS_ENUM)[index];
-
-        setTabsIndex(DELEGATES_IDS_ENUM[indexKey as keyof typeof DELEGATES_IDS_ENUM]);
-        setTabsIndexNumber(index);
-      }
-    }
-  }, [anchor]);
-
-  const [lastVisitHandler, setLastVisitHandler] = useState<LastVisitHandler>();
+  const allBudgetStatement = delegates?.budgetStatements || [];
 
   const onPrevious = useCallback(() => {
     if (tabsIndex === DELEGATES_IDS_ENUM.COMMENTS) {
@@ -97,6 +92,19 @@ const useRecognizedDelegates = (delegates: DelegatesDto) => {
     });
 
   useEffect(() => {
+    // change the tabs when anchor changes
+    if (anchor) {
+      const index = Object.values(DELEGATES_IDS_ENUM).findIndex((id) => anchor.indexOf(id) > -1);
+      if (index !== -1) {
+        const indexKey = Object.keys(DELEGATES_IDS_ENUM)[index];
+
+        setTabsIndex(DELEGATES_IDS_ENUM[indexKey as keyof typeof DELEGATES_IDS_ENUM]);
+        setTabsIndexNumber(index);
+      }
+    }
+  }, [anchor]);
+
+  useEffect(() => {
     // update lastVisitHandler for the current budgetStatement
     if (currentBudgetStatement) {
       setLastVisitHandler(
@@ -110,6 +118,8 @@ const useRecognizedDelegates = (delegates: DelegatesDto) => {
     [currentBudgetStatement, delegates]
   );
 
+  // TODO: update when the CTA should be displayed according to the current budget statement
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [showExpenseReportStatusCTA, setShowExpenseReportStatusCTA] = useState<boolean>(false);
   useEffect(() => {
     switch (currentBudgetStatement?.status) {
@@ -183,13 +193,13 @@ const useRecognizedDelegates = (delegates: DelegatesDto) => {
     showExpenseReportStatusCTA,
     lastUpdateForBudgetStatement,
     lastVisitHandler,
-    // budget statement pager
     currentMonth,
     currentBudgetStatement,
     handleNextMonth,
     handlePreviousMonth,
     hasNextMonth,
     hasPreviousMonth,
+    allBudgetStatement,
     comments,
   };
 };

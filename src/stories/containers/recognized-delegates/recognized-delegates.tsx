@@ -12,7 +12,9 @@ import React from 'react';
 import ExpenseReportStatusIndicator from '../transparency-report/common/expense-report-status-indicator/expense-report-status-indicator';
 import AuditorCommentsContainer from '../transparency-report/transparency-auditor-comments/comment-container/auditor-comments-container';
 import DelegatesActuals from './delegates-actuals/delegates-actuals';
+
 import DelegatesForecast from './delegates-forecast/delegates-forecast';
+
 import useRecognizedDelegates, { DELEGATES_IDS_ENUM } from './useRecognizedDelegates.mvvm';
 import type { DelegatesDto } from '@ses/core/models/dto/delegates.dto';
 
@@ -38,6 +40,7 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
     handlePreviousMonth,
     hasNextMonth,
     hasPreviousMonth,
+    allBudgetStatement,
     comments,
   } = useRecognizedDelegates(delegates);
 
@@ -95,8 +98,12 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
               }}
             />
           </ContainerTabs>
-          {tabsIndex === DELEGATES_IDS_ENUM.ACTUALS && <DelegatesActuals />}
-          {tabsIndex === DELEGATES_IDS_ENUM.FORECAST && <DelegatesForecast />}
+          {tabsIndex === DELEGATES_IDS_ENUM.ACTUALS && (
+            <DelegatesActuals budgetStatement={allBudgetStatement} currentMonth={currentMonth} />
+          )}
+          {tabsIndex === DELEGATES_IDS_ENUM.FORECAST && (
+            <DelegatesForecast budgetStatement={allBudgetStatement} currentMonth={currentMonth} />
+          )}
           {tabsIndex === DELEGATES_IDS_ENUM.COMMENTS && (
             <CommentActivityContext.Provider value={{ lastVisitHandler }}>
               <AuditorCommentsContainer
@@ -148,8 +155,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   alignItems: 'center',
   marginTop: 64,
   flexDirection: 'column',
-
-  width: '100vw',
+  width: '100%',
 
   backgroundColor: isLight ? '#FFFFFF' : '#000000',
   backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
@@ -160,7 +166,6 @@ const Wrapper = styled.div({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  height: '100vh',
 });
 
 const ContainerInside = styled.div({

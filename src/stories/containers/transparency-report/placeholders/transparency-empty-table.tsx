@@ -278,6 +278,7 @@ export const TransparencyEmptyTable = ({ breakdown = false, longCode }: Props) =
         )}
         <ContainerIndications>
           <Title>{`No data reported by ${getShortCode(longCode)} Core Unit`}</Title>
+
           <Description>View on-chain transfers on makerburn.com </Description>
           <ContainerButton>
             <CustomButton
@@ -429,6 +430,7 @@ export const TransparencyEmptyTable = ({ breakdown = false, longCode }: Props) =
         )}
         <ContainerIndications>
           <TitleMobile>{`No data reported by ${getShortCode(longCode)} Core Unit`}</TitleMobile>
+
           <Description>View on-chain transfers on makerburn.com </Description>
           <ContainerButton>
             <CustomButton
