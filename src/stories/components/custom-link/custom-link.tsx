@@ -20,8 +20,6 @@ interface CustomLinkProps {
   padding?: string;
   border?: string;
   lineHeight?: string;
-  className?: string;
-  letterSpacing?: string;
 }
 
 export const CustomLink = ({
@@ -37,16 +35,13 @@ export const CustomLink = ({
   styleIcon = {},
   border = 'none',
   padding = '0px',
-  letterSpacing = '1px',
   ...props
 }: CustomLinkProps) => (
   <Container
-    className={props.className}
     padding={padding}
     border={border}
     href={props.href}
     target={target}
-    letterSpacing={letterSpacing}
     style={{
       pointerEvents: props.href ? 'all' : 'none',
       ...props.style,
@@ -81,7 +76,6 @@ const Container = styled.a<{
   padding: string;
   border?: string;
   lineHeight?: string;
-  letterSpacing?: string;
 }>(
   ({
     fontSize,
@@ -92,7 +86,6 @@ const Container = styled.a<{
     padding,
     border,
     lineHeight,
-    letterSpacing = '1px',
   }) => ({
     fontStyle: 'normal',
     border,
@@ -101,7 +94,7 @@ const Container = styled.a<{
     fontFamily,
     fontSize: `${fontSizeMobile || fontSize}px`,
     lineHeight,
-    letterSpacing,
+    letterSpacing: '1px',
     color: '#447AFB',
     textDecoration: 'none',
     marginLeft,

@@ -19,7 +19,6 @@ export interface InnerTableColumn {
   width?: string;
   minWidth?: string;
   hidden?: boolean;
-  padding?: string;
 }
 
 export interface InnerTableCell {
@@ -60,7 +59,7 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
         return <NumberCell key={column.header} value={Number(value)} bold={isBold} />;
       case 'text':
         return (
-          <TextCell key={column.header} bold={isBold} isHeader={column.isCardHeader} paddingUpTable={column.padding}>
+          <TextCell key={column.header} bold={isBold} isHeader={column.isCardHeader}>
             {value as string}
           </TextCell>
         );
@@ -103,7 +102,6 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
                         minWidth: column.minWidth ?? 'unset',
                         overflow: 'hidden',
                       }}
-                      padding={column.padding}
                     >
                       {column.header}
                     </HeadCell>
@@ -209,8 +207,8 @@ const TableHead = styled.thead<{ isLight: boolean }>(({ isLight }) => ({
   whiteSpace: 'nowrap',
 }));
 
-const HeadCell = styled.th<{ padding?: string }>(({ padding = '24px 16px' }) => ({
-  padding,
+const HeadCell = styled.th(() => ({
+  padding: '24px 16px',
   fontWeight: 600,
 }));
 

@@ -111,8 +111,6 @@ const dictionary = [
   'Breakpoint',
   'formatter',
   'zlevel',
-  'tnum',
-  'lnum',
 ];
 
 module.exports = dictionary;

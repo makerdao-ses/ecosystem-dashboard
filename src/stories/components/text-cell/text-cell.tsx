@@ -11,7 +11,6 @@ interface TableCellProps {
   responsivePadding?: string;
   bold?: boolean;
   isHeader?: boolean;
-  paddingUpTable?: string;
 }
 
 export const TextCell = ({ responsivePadding = '10px 16px', ...props }: TableCellProps) => {
@@ -25,7 +24,6 @@ export const TextCell = ({ responsivePadding = '10px 16px', ...props }: TableCel
       negative={props.negative}
       responsivePadding={responsivePadding}
       isHeader={props.isHeader}
-      paddingUpTable={props.paddingUpTable}
     >
       {props.children}
     </Container>
@@ -39,8 +37,7 @@ const Container = styled.div<{
   responsivePadding?: string;
   isLight: boolean;
   isHeader?: boolean;
-  paddingUpTable?: string;
-}>(({ negative = false, fontFamily = 'Inter, sans-serif', isLight, bold, isHeader, paddingUpTable }) => ({
+}>(({ negative = false, fontFamily = 'Inter, sans-serif', isLight, bold, isHeader }) => ({
   fontFamily,
   fontWeight: bold ? 700 : 400,
   lineHeight: '19px',
@@ -56,7 +53,7 @@ const Container = styled.div<{
     fontWeight: 700,
   },
   '@media (min-width: 834px)': {
-    padding: paddingUpTable ?? '16px',
+    padding: '16px',
     lineHeight: '19px',
     fontSize: '16px',
     textAlign: 'left',

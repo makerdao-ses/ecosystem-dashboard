@@ -20,7 +20,7 @@ export const formatAddressForOutput = (address: string | undefined) => {
   if (!address) {
     return '';
   }
-  return `${address.slice(0, 6)}..${address.slice(address.length - 4, address.length)}`;
+  return `${address.slice(0, 5)}..${address.slice(address.length - 5, address.length)}`;
 };
 
 export const capitalizeWord = (word: string) =>
@@ -34,7 +34,7 @@ export const capitalizeSentence = (sentence: string) => {
 
 export const formatNumber = (number: number) =>
   number?.toLocaleString('en-US', {
-    minimumFractionDigits: 0,
+    minimumFractionDigits: 2,
   });
 
 export const getShortCode = (code: string) => {

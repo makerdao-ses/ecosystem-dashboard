@@ -48,11 +48,8 @@ const FooterWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   justifyContent: 'center',
   borderTop: isLight ? '1px solid #D4D9E1' : '1px solid #405361',
-  marginTop: '20px',
-  padding: '10px 0 0',
-  '& a': {
-    marginTop: '0px',
-  },
+  marginTop: '16px',
+  padding: '8px 0 0',
 }));
 
 const Row = styled.div({
@@ -67,7 +64,7 @@ const Label = styled.div({
   fontFamily: 'Inter, sans-serif',
   fontWeight: 600,
   fontSize: '12px',
-  height: '40px',
+  height: '37px',
   letterSpacing: '1px',
   textTransform: 'uppercase',
 });
