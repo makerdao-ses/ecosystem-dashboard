@@ -1,15 +1,12 @@
 import { renderLinks } from '@ses/containers/cu-table/cu-table.renders';
 import { renderWallet } from '@ses/containers/transparency-report/transparency-report.utils';
+import { getAllWallets } from '@ses/core/utils/finances.utils';
 import _ from 'lodash';
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
 import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
-import { capitalizeSentence, getWalletWidthForWallets } from '../../../../core/utils/string.utils';
-import type {
-  BudgetStatementDto,
-  BudgetStatementLineItemDto,
-  BudgetStatementWalletDto,
-} from '../../../../core/models/dto/core-unit.dto';
+import { getWalletWidthForWallets } from '../../../../core/utils/string.utils';
+import type { BudgetStatementDto, BudgetStatementLineItemDto } from '../../../../core/models/dto/core-unit.dto';
 import type {
   InnerTableColumn,
   InnerTableRow,
@@ -22,25 +19,10 @@ export const useDelegatesForesCat = (currentMonth: DateTime, propBudgetStatement
   const secondMonthForecast = useMemo(() => currentMonth.plus({ month: 2 }), [currentMonth]);
   const thirdMonthForecast = useMemo(() => currentMonth.plus({ month: 3 }), [currentMonth]);
   const [thirdIndexForecast, setThirdIndexForecast] = useState(0);
-
-  const walletsForecast: BudgetStatementWalletDto[] = useMemo(() => {
-    const dict: { [id: string]: BudgetStatementWalletDto } = {};
-
-    const budgetStatement = propBudgetStatements?.find((bs) => bs.month === currentMonth.toFormat(API_MONTH_TO_FORMAT));
-
-    if (!budgetStatement || !budgetStatement.budgetStatementWallet) return [];
-
-    budgetStatement.budgetStatementWallet.forEach((wallet) => {
-      if (wallet.address) {
-        if (!dict[wallet.address.toLowerCase()]) {
-          wallet.name = capitalizeSentence(wallet.name);
-          dict[wallet.address.toLowerCase()] = wallet;
-        }
-      }
-    });
-
-    return _.sortBy(Object.values(dict), 'id');
-  }, [currentMonth, propBudgetStatements]);
+  const walletsForecast = useMemo(
+    () => getAllWallets(propBudgetStatements, currentMonth),
+    [currentMonth, propBudgetStatements]
+  );
 
   const getForecastForMonthOnWalletOnBudgetStatement = (
     budgetStatements: BudgetStatementDto[],

@@ -13,9 +13,9 @@ import React from 'react';
 import ExpenseReportStatusIndicator from '../transparency-report/common/expense-report-status-indicator/expense-report-status-indicator';
 import AuditorCommentsContainer from '../transparency-report/transparency-auditor-comments/comment-container/auditor-comments-container';
 import DelegatesActuals from './delegates-actuals/delegates-actuals';
-import { useDelegatesActuals } from './delegates-actuals/useDelegatesActuals.mvvm';
+
 import DelegatesForecast from './delegates-forecast/delegates-forecast';
-import { useDelegatesForesCat } from './delegates-forecast/useDelegatesForeCast.mvvm';
+
 import useRecognizedDelegates, { DELEGATES_IDS_ENUM } from './useRecognizedDelegates.mvvm';
 import type { DelegatesDto } from '@ses/core/models/dto/delegates.dto';
 
@@ -44,25 +44,6 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
     allBudgetStatement,
     comments,
   } = useRecognizedDelegates(delegates);
-
-  const {
-    breakdownColumnsActuals,
-    breakdownItemsActuals,
-    breakdownTabsActuals,
-    headerIdsActuals,
-    mainTableColumnsActuals,
-    mainTableItemsActuals,
-    thirdIndexActuals,
-  } = useDelegatesActuals(currentMonth, allBudgetStatement);
-  const {
-    breakdownHeadersForecast,
-    breakdownItemsForecast,
-    breakdownTabsForecast,
-    headerIdsForecast,
-    mainTableColumnsForecast,
-    mainTableItemsForecast,
-    thirdIndexForecast,
-  } = useDelegatesForesCat(currentMonth, allBudgetStatement);
 
   return (
     <Container>
@@ -136,30 +117,10 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
             }}
           />
           {tabsIndex === DELEGATES_IDS_ENUM.ACTUALS && (
-            <DelegatesActuals
-              currentMonth={currentMonth}
-              mainTableColumns={mainTableColumnsActuals}
-              mainTableItems={mainTableItemsActuals}
-              breakdownTabs={breakdownTabsActuals}
-              currentIndex={thirdIndexActuals}
-              headerIds={headerIdsActuals}
-              breakdownColumns={breakdownColumnsActuals}
-              breakdownItems={breakdownItemsActuals}
-              longCode="DEL"
-            />
+            <DelegatesActuals currentMonth={currentMonth} budgetStatement={allBudgetStatement} />
           )}
           {tabsIndex === DELEGATES_IDS_ENUM.FORECAST && (
-            <DelegatesForecast
-              mainTableColumns={mainTableColumnsForecast}
-              mainTableItems={mainTableItemsForecast}
-              breakdownColumns={breakdownHeadersForecast}
-              breakdownItems={breakdownItemsForecast}
-              breakdownTabs={breakdownTabsForecast}
-              currentIndex={thirdIndexForecast}
-              currentMonth={currentMonth}
-              headerIds={headerIdsForecast}
-              longCode="DEL"
-            />
+            <DelegatesForecast budgetStatement={allBudgetStatement} currentMonth={currentMonth} />
           )}
         </ContainerTabs>
 

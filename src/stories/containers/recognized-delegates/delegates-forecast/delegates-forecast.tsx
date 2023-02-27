@@ -5,64 +5,58 @@ import { TransparencyEmptyTable } from '@ses/containers/transparency-report/plac
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import type { InnerTableColumn, InnerTableRow } from '@ses/components/advanced-inner-table/advanced-inner-table';
+import { useDelegatesForesCat } from './useDelegatesForeCast.mvvm';
+
+import type { BudgetStatementDto } from '@ses/core/models/dto/core-unit.dto';
 import type { DateTime } from 'luxon';
 
 interface Props {
   currentMonth: DateTime;
-  mainTableColumns: InnerTableColumn[];
-  mainTableItems: InnerTableRow[];
-  longCode: string;
-  breakdownTabs: string[];
-  currentIndex: number;
-  headerIds: string[];
-  breakdownColumns: InnerTableColumn[];
-  breakdownItems: InnerTableRow[];
+  budgetStatement: BudgetStatementDto[];
 }
 
-const DelegatesForecast: React.FC<Props> = ({
-  currentMonth,
-  mainTableItems,
-  mainTableColumns,
-  longCode,
-  breakdownTabs,
-  headerIds,
-  currentIndex,
-  breakdownColumns,
-  breakdownItems,
-}) => {
+const DelegatesForecast: React.FC<Props> = ({ currentMonth, budgetStatement }) => {
   const { isLight } = useThemeContext();
+  const {
+    breakdownHeadersForecast,
+    breakdownItemsForecast,
+    breakdownTabsForecast,
+    headerIdsForecast,
+    mainTableColumnsForecast,
+    mainTableItemsForecast,
+    thirdIndexForecast,
+  } = useDelegatesForesCat(currentMonth, budgetStatement);
   return (
     <Container>
       <TotalsMonth isLight={isLight}>{currentMonth.toFormat('MMM yyyy')} Totals</TotalsMonth>
       <AdvancedInnerTable
-        columns={mainTableColumns}
-        items={mainTableItems}
+        columns={mainTableColumnsForecast}
+        items={mainTableItemsForecast}
         style={{ marginBottom: '64px' }}
         cardsTotalPosition="top"
-        longCode={longCode}
+        longCode="DEL"
       />
-      {mainTableItems.length > 0 && (
+      {mainTableItemsForecast.length > 0 && (
         <TitleBreakdown isLight={isLight}>{currentMonth.toFormat('MMM yyyy')} Breakdown</TitleBreakdown>
       )}
 
-      {mainTableItems.length > 0 && (
+      {mainTableItemsForecast.length > 0 && (
         <Tabs
-          items={breakdownTabs?.map((header, i) => ({
+          items={breakdownTabsForecast?.map((header, i) => ({
             item: header,
-            id: headerIds[i],
+            id: headerIdsForecast[i],
           }))}
-          currentIndex={currentIndex}
+          currentIndex={thirdIndexForecast}
           style={{
             marginBottom: '32px',
           }}
         />
       )}
 
-      {mainTableItems.length > 0 && (
+      {mainTableItemsForecast.length > 0 && (
         <AdvancedInnerTable
-          columns={breakdownColumns}
-          items={breakdownItems}
+          columns={breakdownHeadersForecast}
+          items={breakdownItemsForecast}
           longCode="DEL"
           style={{ marginBottom: '64px' }}
           tablePlaceholder={<TransparencyEmptyTable breakdown longCode="DEL" />}

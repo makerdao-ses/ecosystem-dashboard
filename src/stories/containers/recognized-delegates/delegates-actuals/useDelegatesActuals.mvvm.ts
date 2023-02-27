@@ -1,14 +1,25 @@
 import { renderLinksWithToken, renderWallet } from '@ses/containers/transparency-report/transparency-report.utils';
+
+import {
+  budgetTotalActual,
+  budgetTotalDifference,
+  budgetTotalForecast,
+  budgetTotalPayment,
+  currentBudgetStatementWorking,
+  getAllWallets,
+  getGroupActual,
+  getGroupForecast,
+  getWalletActual,
+  getWalletDifference,
+  getWalletForecast,
+  getWalletPayment,
+} from '@ses/core/utils/finances.utils';
 import _ from 'lodash';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
 import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
-import { capitalizeSentence, getWalletWidthForWallets } from '../../../../core/utils/string.utils';
-import type {
-  BudgetStatementDto,
-  BudgetStatementLineItemDto,
-  BudgetStatementWalletDto,
-} from '../../../../core/models/dto/core-unit.dto';
+import { getWalletWidthForWallets } from '../../../../core/utils/string.utils';
+import type { BudgetStatementDto, BudgetStatementLineItemDto } from '../../../../core/models/dto/core-unit.dto';
 import type {
   InnerTableColumn,
   InnerTableRow,
@@ -22,127 +33,20 @@ export const useDelegatesActuals = (
 ) => {
   const currentMonth = useMemo(() => propsCurrentMonth.toFormat(API_MONTH_TO_FORMAT), [propsCurrentMonth]);
   const anchor = useUrlAnchor();
-
-  const walletsActuals: BudgetStatementWalletDto[] = useMemo(() => {
-    const dict: { [id: string]: BudgetStatementWalletDto } = {};
-
-    const budgetStatement = budgetStatements?.find(
-      (bs) => bs.month === propsCurrentMonth.toFormat(API_MONTH_TO_FORMAT)
-    );
-
-    if (!budgetStatement || !budgetStatement.budgetStatementWallet) return [];
-
-    budgetStatement.budgetStatementWallet.forEach((wallet) => {
-      if (wallet.address) {
-        if (!dict[wallet.address.toLowerCase()]) {
-          wallet.name = capitalizeSentence(wallet.name);
-          dict[wallet.address.toLowerCase()] = wallet;
-        }
-      }
-    });
-
-    return _.sortBy(Object.values(dict), 'id');
-  }, [propsCurrentMonth, budgetStatements]);
-
-  const getWalletForecast = useMemo(() => {
-    const getWalletForecast = (wallet: BudgetStatementWalletDto) =>
-      _.sumBy(
-        wallet?.budgetStatementLineItem.filter((item) => item.month === currentMonth),
-        (i) => i.forecast ?? 0
-      );
-    return getWalletForecast;
-  }, [currentMonth]);
-
-  const getWalletActual = useMemo(() => {
-    const getWalletActual = (wallet: BudgetStatementWalletDto) =>
-      _.sumBy(
-        wallet?.budgetStatementLineItem.filter((item) => item.month === currentMonth),
-        (i) => i.actual ?? 0
-      );
-    return getWalletActual;
-  }, [currentMonth]);
-
-  const getWalletPayment = useMemo(() => {
-    const getWalletPayment = (wallet: BudgetStatementWalletDto) =>
-      _.sumBy(
-        wallet?.budgetStatementLineItem.filter((item) => item.month === currentMonth),
-        (i) => i.payment ?? 0
-      );
-    return getWalletPayment;
-  }, [currentMonth]);
-
-  const getWalletDifference = useMemo(() => {
-    const getWalletDifference = (wallet: BudgetStatementWalletDto) =>
-      getWalletForecast(wallet) - getWalletActual(wallet);
-    return getWalletDifference;
-  }, [getWalletActual, getWalletForecast]);
+  const walletsActuals = useMemo(
+    () => getAllWallets(budgetStatements, propsCurrentMonth),
+    [budgetStatements, propsCurrentMonth]
+  );
 
   const currentBudgetStatement = useMemo(
-    () => budgetStatements?.find((x) => x.month === currentMonth) ?? null,
+    () => currentBudgetStatementWorking(budgetStatements, currentMonth),
     [budgetStatements, currentMonth]
   );
-
   const breakdownTabsActuals = useMemo(() => walletsActuals.map((wallet) => wallet.name), [walletsActuals]);
-
-  const budgetTotalForecast = useMemo(
-    () =>
-      _.sumBy(currentBudgetStatement?.budgetStatementWallet, (wallet) =>
-        _.sumBy(
-          wallet.budgetStatementLineItem.filter((item) => item.month === currentMonth),
-          (item) => item?.forecast ?? 0
-        )
-      ),
-    [currentBudgetStatement?.budgetStatementWallet, currentMonth]
-  );
-
-  const budgetTotalActual = useMemo(
-    () =>
-      _.sumBy(currentBudgetStatement?.budgetStatementWallet, (wallet) =>
-        _.sumBy(
-          wallet.budgetStatementLineItem.filter((item) => item.month === currentMonth),
-          (item) => item?.actual ?? 0
-        )
-      ),
-    [currentBudgetStatement?.budgetStatementWallet, currentMonth]
-  );
-
-  const budgetTotalPayment = useMemo(
-    () =>
-      _.sumBy(currentBudgetStatement?.budgetStatementWallet, (wallet) =>
-        _.sumBy(
-          wallet.budgetStatementLineItem.filter((item) => item.month === currentMonth),
-          (item) => item?.payment ?? 0
-        )
-      ),
-    [currentBudgetStatement?.budgetStatementWallet, currentMonth]
-  );
-
-  const budgetTotalDifference = useMemo(
-    () => budgetTotalForecast - budgetTotalActual,
-    [budgetTotalForecast, budgetTotalActual]
-  );
-
-  const getGroupForecast = useCallback(
-    (group: BudgetStatementLineItemDto[]) =>
-      _.sumBy(
-        group.filter((item) => item.month === currentMonth),
-        (item) => item.forecast ?? 0
-      ),
-    [currentMonth]
-  );
-
-  const getGroupActual = useCallback(
-    (group: BudgetStatementLineItemDto[]) =>
-      _.sumBy(
-        group.filter((item) => item.month === currentMonth),
-        (item) => item.actual ?? 0
-      ),
-    [currentMonth]
-  );
-
   const getGroupDifference = useCallback(
-    (group: BudgetStatementLineItemDto[]) => getGroupForecast(group) - getGroupActual(group),
-    [getGroupActual, getGroupForecast]
+    (group: BudgetStatementLineItemDto[]) =>
+      getGroupForecast(group, currentMonth) - getGroupActual(group, currentMonth),
+    [currentMonth]
   );
 
   const getCommentsFromCategory = useCallback(
@@ -260,10 +164,10 @@ export const useDelegatesActuals = (
     if (currentBudgetStatement) {
       walletsActuals.forEach((wallet) => {
         const numberCellData = [
-          getWalletForecast(wallet),
-          getWalletActual(wallet),
-          getWalletDifference(wallet),
-          getWalletPayment(wallet),
+          getWalletForecast(wallet, currentMonth),
+          getWalletActual(wallet, currentMonth),
+          getWalletDifference(wallet, currentMonth),
+          getWalletPayment(wallet, currentMonth),
         ];
 
         if (numberCellData.some((n) => n !== 0)) {
@@ -309,19 +213,19 @@ export const useDelegatesActuals = (
             },
             {
               column: mainTableColumnsActuals[1],
-              value: budgetTotalForecast,
+              value: budgetTotalForecast(currentBudgetStatement, currentMonth),
             },
             {
               column: mainTableColumnsActuals[2],
-              value: budgetTotalActual,
+              value: budgetTotalActual(currentBudgetStatement, currentMonth),
             },
             {
               column: mainTableColumnsActuals[3],
-              value: budgetTotalDifference,
+              value: budgetTotalDifference(currentBudgetStatement, currentMonth),
             },
             {
               column: mainTableColumnsActuals[4],
-              value: budgetTotalPayment,
+              value: budgetTotalPayment(currentBudgetStatement, currentMonth),
             },
           ],
           hideMobile: result.length < 2,
@@ -330,19 +234,7 @@ export const useDelegatesActuals = (
     }
 
     return result;
-  }, [
-    budgetTotalActual,
-    budgetTotalDifference,
-    budgetTotalForecast,
-    budgetTotalPayment,
-    currentBudgetStatement,
-    getWalletActual,
-    getWalletDifference,
-    getWalletForecast,
-    getWalletPayment,
-    mainTableColumnsActuals,
-    walletsActuals,
-  ]);
+  }, [currentBudgetStatement, currentMonth, mainTableColumnsActuals, walletsActuals]);
 
   const breakdownColumnsActuals = useMemo(() => {
     const breakdownColumns: InnerTableColumn[] = [
@@ -397,7 +289,11 @@ export const useDelegatesActuals = (
       const grouped = _.groupBy(items, (item) => item.group);
 
       for (const groupedKey in grouped) {
-        if (Math.abs(getGroupForecast(grouped[groupedKey])) + Math.abs(getGroupActual(grouped[groupedKey])) === 0) {
+        if (
+          Math.abs(getGroupForecast(grouped[groupedKey], currentMonth)) +
+            Math.abs(getGroupActual(grouped[groupedKey], currentMonth)) ===
+          0
+        ) {
           continue;
         }
 
@@ -406,8 +302,8 @@ export const useDelegatesActuals = (
         let i = 1;
         for (const groupedCatKey in groupedCategory) {
           if (
-            Math.abs(getGroupForecast(groupedCategory[groupedCatKey])) +
-              Math.abs(getGroupActual(groupedCategory[groupedCatKey])) ===
+            Math.abs(getGroupForecast(groupedCategory[groupedCatKey], currentMonth)) +
+              Math.abs(getGroupActual(groupedCategory[groupedCatKey], currentMonth)) ===
             0
           ) {
             continue;
@@ -426,11 +322,11 @@ export const useDelegatesActuals = (
               },
               {
                 column: breakdownColumnsActuals[2],
-                value: getGroupForecast(groupedCategory[groupedCatKey]),
+                value: getGroupForecast(groupedCategory[groupedCatKey], currentMonth),
               },
               {
                 column: breakdownColumnsActuals[3],
-                value: getGroupActual(groupedCategory[groupedCatKey]),
+                value: getGroupActual(groupedCategory[groupedCatKey], currentMonth),
               },
               {
                 column: breakdownColumnsActuals[4],
@@ -453,14 +349,7 @@ export const useDelegatesActuals = (
 
       return result;
     },
-    [
-      breakdownColumnsActuals,
-      getCommentsFromCategory,
-      getGroupActual,
-      getGroupDifference,
-      getGroupForecast,
-      getGroupPayment,
-    ]
+    [breakdownColumnsActuals, currentMonth, getCommentsFromCategory, getGroupDifference, getGroupPayment]
   );
 
   const getLineItemsSubtotal = useCallback(
@@ -572,15 +461,15 @@ export const useDelegatesActuals = (
           },
           {
             column: breakdownColumnsActuals[2],
-            value: getWalletForecast(currentWallet),
+            value: getWalletForecast(currentWallet, currentMonth),
           },
           {
             column: breakdownColumnsActuals[3],
-            value: getWalletActual(currentWallet),
+            value: getWalletActual(currentWallet, currentMonth),
           },
           {
             column: breakdownColumnsActuals[4],
-            value: getWalletDifference(currentWallet),
+            value: getWalletDifference(currentWallet, currentMonth),
           },
           {
             column: breakdownColumnsActuals[5],
@@ -588,7 +477,7 @@ export const useDelegatesActuals = (
           },
           {
             column: breakdownColumnsActuals[6],
-            value: getWalletPayment(currentWallet),
+            value: getWalletPayment(currentWallet, currentMonth),
           },
         ],
       });
@@ -597,13 +486,10 @@ export const useDelegatesActuals = (
     return result;
   }, [
     breakdownColumnsActuals,
+    currentMonth,
     currentWallet,
     getBreakdownItems,
     getLineItemsSubtotal,
-    getWalletActual,
-    getWalletDifference,
-    getWalletForecast,
-    getWalletPayment,
     hasExpenses,
     hasGroups,
     walletsActuals,

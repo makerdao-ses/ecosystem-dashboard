@@ -7,35 +7,30 @@ import { TransparencyEmptyTable } from '@ses/containers/transparency-report/plac
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import type { InnerTableColumn, InnerTableRow } from '@ses/components/advanced-inner-table/advanced-inner-table';
+import { useDelegatesActuals } from './useDelegatesActuals.mvvm';
+
+import type { BudgetStatementDto } from '@ses/core/models/dto/core-unit.dto';
 
 import type { DateTime } from 'luxon';
 
 interface Props {
   currentMonth: DateTime;
-  longCode: string;
-  mainTableColumns: InnerTableColumn[];
-  mainTableItems: InnerTableRow[];
-  breakdownTabs: string[];
-  currentIndex: number;
-  headerIds: string[];
-  breakdownColumns: InnerTableColumn[];
-  breakdownItems: InnerTableRow[];
+  budgetStatement: BudgetStatementDto[];
 }
 
-const DelegatesActuals: React.FC<Props> = ({
-  currentMonth,
-  longCode,
-  mainTableColumns,
-  mainTableItems,
-  breakdownTabs,
-  currentIndex,
-  headerIds,
-  breakdownColumns,
-  breakdownItems,
-}) => {
+const DelegatesActuals: React.FC<Props> = ({ currentMonth, budgetStatement }) => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+
+  const {
+    breakdownColumnsActuals,
+    breakdownItemsActuals,
+    breakdownTabsActuals,
+    headerIdsActuals,
+    mainTableColumnsActuals,
+    mainTableItemsActuals,
+    thirdIndexActuals,
+  } = useDelegatesActuals(currentMonth, budgetStatement);
   return (
     <Container>
       <TransactionLink isLight={isLight}>
@@ -52,33 +47,33 @@ const DelegatesActuals: React.FC<Props> = ({
 
       <TotalsMonth isLight={isLight}>{currentMonth.toFormat('MMM yyyy')} Totals</TotalsMonth>
       <AdvancedInnerTable
-        columns={mainTableColumns}
-        items={mainTableItems}
+        columns={mainTableColumnsActuals}
+        items={mainTableItemsActuals}
         style={{ marginBottom: '64px' }}
         cardsTotalPosition="top"
-        longCode={longCode}
+        longCode="DEL"
       />
-      {mainTableItems.length > 0 && (
+      {mainTableItemsActuals.length > 0 && (
         <TitleBreakdown isLight={isLight}>{currentMonth.toFormat('MMM yyyy')} Breakdown</TitleBreakdown>
       )}
 
-      {mainTableItems.length > 0 && (
+      {mainTableItemsActuals.length > 0 && (
         <Tabs
-          items={breakdownTabs?.map((header, i) => ({
+          items={breakdownTabsActuals?.map((header, i) => ({
             item: header,
-            id: headerIds[i],
+            id: headerIdsActuals[i],
           }))}
-          currentIndex={currentIndex}
+          currentIndex={thirdIndexActuals}
           style={{
             marginBottom: '32px',
           }}
         />
       )}
 
-      {mainTableItems.length > 0 && (
+      {mainTableItemsActuals.length > 0 && (
         <AdvancedInnerTable
-          columns={breakdownColumns}
-          items={breakdownItems}
+          columns={breakdownColumnsActuals}
+          items={breakdownItemsActuals}
           longCode="DEL"
           style={{ marginBottom: '64px' }}
           tablePlaceholder={<TransparencyEmptyTable breakdown longCode="DEL" />}
