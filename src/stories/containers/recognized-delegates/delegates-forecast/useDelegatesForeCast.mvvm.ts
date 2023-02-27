@@ -14,7 +14,7 @@ import type {
 } from '../../../components/advanced-inner-table/advanced-inner-table';
 import type { DateTime } from 'luxon';
 
-export const useDelegatesForesCat = (currentMonth: DateTime, propBudgetStatements: BudgetStatementDto[]) => {
+export const useDelegatesForecast = (currentMonth: DateTime, propBudgetStatements: BudgetStatementDto[]) => {
   const firstMonthForecast = useMemo(() => currentMonth.plus({ month: 1 }), [currentMonth]);
   const secondMonthForecast = useMemo(() => currentMonth.plus({ month: 2 }), [currentMonth]);
   const thirdMonthForecast = useMemo(() => currentMonth.plus({ month: 3 }), [currentMonth]);

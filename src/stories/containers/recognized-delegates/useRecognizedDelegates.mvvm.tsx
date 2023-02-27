@@ -75,8 +75,7 @@ const useRecognizedDelegates = (delegates: DelegatesDto) => {
   const anchor = useUrlAnchor();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const allBudgetStatement = delegates?.budgetStatements || [];
-  // const { currentMonth, currentBudgetStatement, handleNextMonth, handlePreviousMonth, hasNextMonth, hasPreviousMonth } =
-  //   useBudgetStatementPager(delegates);
+
   const onPrevious = useCallback(() => {
     if (tabsIndex === DELEGATES_IDS_ENUM.COMMENTS) {
       lastVisitHandler?.visit(); // mark the current budget statement as visited before leave
@@ -110,14 +109,10 @@ const useRecognizedDelegates = (delegates: DelegatesDto) => {
   const wallets: BudgetStatementWalletDto[] = useMemo(() => {
     const dict: { [id: string]: BudgetStatementWalletDto } = {};
     if (!delegates.budgetStatements) return [];
-    const budgetStatement = delegates.budgetStatements?.find(
-      (bs) => bs.month === currentMonth.toFormat(API_MONTH_TO_FORMAT)
-    );
-    console.log('budgetStatement', budgetStatement);
 
-    if (!budgetStatement || !budgetStatement.budgetStatementWallet) return [];
+    if (!currentBudgetStatement || !currentBudgetStatement.budgetStatementWallet) return [];
 
-    budgetStatement.budgetStatementWallet.forEach((wallet) => {
+    currentBudgetStatement.budgetStatementWallet.forEach((wallet) => {
       if (wallet.address) {
         if (!dict[wallet.address.toLowerCase()]) {
           wallet.name = capitalizeSentence(wallet.name);
@@ -127,7 +122,7 @@ const useRecognizedDelegates = (delegates: DelegatesDto) => {
     });
 
     return _.sortBy(Object.values(dict), 'id');
-  }, [currentMonth, delegates.budgetStatements]);
+  }, [currentBudgetStatement, delegates.budgetStatements]);
 
   const breakdownTabs = useMemo(() => wallets.map((wallet) => wallet.name), [wallets]);
   const thirdIndex = useMemo(() => Math.max(headerIds?.indexOf(anchor ?? ''), 0), [headerIds, anchor]);
@@ -291,7 +286,7 @@ const useRecognizedDelegates = (delegates: DelegatesDto) => {
           getWalletDifference(wallet),
           getWalletPayment(wallet),
         ];
-        console.log('numberCellData', numberCellData[0], numberCellData[1]);
+
         if (numberCellData.some((n) => n !== 0)) {
           result.push({
             type: 'normal',
@@ -743,7 +738,6 @@ const useRecognizedDelegates = (delegates: DelegatesDto) => {
     showExpenseReportStatusCTA,
     lastUpdateForBudgetStatement,
     lastVisitHandler,
-    // budget statement pager
     currentMonth,
     currentBudgetStatement,
     handleNextMonth,
