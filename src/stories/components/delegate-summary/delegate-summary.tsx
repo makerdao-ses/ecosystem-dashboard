@@ -182,7 +182,9 @@ const ContainerDescription = styled.div({
 });
 const CircleContainer = styled.div({
   marginRight: 8,
+  marginTop: 1,
   [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: -1,
     marginRight: 16,
   },
 });
@@ -193,8 +195,10 @@ const Code = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontWeight: 700,
   fontSize: ' 16px',
   lineHeight: '19px',
+  marginTop: 2,
   color: isLight ? '#9FAFB9' : '#546978',
   [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 0,
     marginRight: 16,
     fontWeight: 600,
     fontSize: '24px',
@@ -218,7 +222,7 @@ const Text = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     letterSpacing: '0.4px',
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginTop: -2,
+    marginTop: 0,
   },
 }));
 
@@ -231,11 +235,14 @@ const ContainerLink = styled.div({
   [lightTheme.breakpoints.up('table_834')]: {
     marginTop: 8,
     marginBottom: 0,
+    marginLeft: 3,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     display: 'flex',
     marginTop: 0,
     marginBottom: 0,
+    marginLeft: 0,
+    height: 'fit-content',
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     marginBottom: 0,

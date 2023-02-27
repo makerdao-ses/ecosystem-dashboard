@@ -36,6 +36,7 @@ const StyledBreadcrumbs = styled(Breadcrumbs)<{ isLight: boolean }>(({ isLight }
       marginBottom: 24,
       marginTop: 0,
       height: 74,
+      letterSpacing: '0.4px',
     },
     [lightTheme.breakpoints.up('desktop_1194')]: {
       background: 'none',
@@ -83,9 +84,20 @@ const StyledBreadcrumbs = styled(Breadcrumbs)<{ isLight: boolean }>(({ isLight }
         fontSize: '16px',
         lineHeight: '22px',
         marginRight: 15,
+        marginTop: -2,
 
         ':last-child': {
-          marginLeft: 15,
+          marginLeft: 14,
+          lineHeight: '19px',
+          fontWeight: 700,
+        },
+      },
+      [lightTheme.breakpoints.up('desktop_1194')]: {
+        border: 'none',
+        marginTop: 0,
+
+        ':last-child': {
+          marginLeft: 16,
           lineHeight: '19px',
           fontWeight: 700,
         },
