@@ -5,12 +5,14 @@ import { isActivity } from '../../../../core/utils/types-helpers';
 import AuditorCommentCard from './auditor-comment-card';
 import CUNewExpenseReport from './cu-new-expense-report';
 import type { ActivityFeedDto, CommentsBudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
+import type { CommentMode } from './comment-container/auditor-comments-container';
 
 export type AuditorCommentListProps = {
   comments: (CommentsBudgetStatementDto | ActivityFeedDto)[];
+  mode?: CommentMode;
 };
 
-const AuditorCommentList: React.FC<AuditorCommentListProps> = ({ comments }) => {
+const AuditorCommentList: React.FC<AuditorCommentListProps> = ({ comments, mode = 'CoreUnits' }) => {
   const memorizedComments = useMemo(
     () =>
       comments.map((comment, index) => {
@@ -39,11 +41,12 @@ const AuditorCommentList: React.FC<AuditorCommentListProps> = ({ comments }) => 
               comment={comment}
               hasStatusChange={hasStatusChange}
               verb={getCommentVerb(comment, previousComment)}
+              mode={mode}
             />
           );
         }
       }),
-    [comments]
+    [comments, mode]
   );
 
   return <div>{memorizedComments}</div>;

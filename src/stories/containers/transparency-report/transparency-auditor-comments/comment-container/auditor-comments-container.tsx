@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import lightTheme from '../../../../../../styles/theme/light';
 import CommentForm from '../comment-form/comment-form';
 import AuditorCommentList from '../comment-list';
 import NoComments from '../no-comments';
@@ -10,14 +10,21 @@ import type {
   ActivityFeedDto,
   BudgetStatementDto,
   CommentsBudgetStatementDto,
-} from '../../../../../core/models/dto/core-unit.dto';
+} from '@ses/core/models/dto/core-unit.dto';
+
+export type CommentMode = 'CoreUnits' | 'Delegates';
 
 export type AuditorCommentsContainerProps = {
   comments: (CommentsBudgetStatementDto | ActivityFeedDto)[];
   budgetStatement?: BudgetStatementDto;
+  mode?: CommentMode;
 };
 
-const AuditorCommentsContainer: React.FC<AuditorCommentsContainerProps> = ({ budgetStatement, comments }) => {
+const AuditorCommentsContainer: React.FC<AuditorCommentsContainerProps> = ({
+  budgetStatement,
+  comments,
+  mode = 'CoreUnits',
+}) => {
   const { cuParticipants, auditors, canComment, currentBudgetStatus, coreUnitCode } = useCommentsContainer(
     comments,
     budgetStatement
@@ -30,18 +37,19 @@ const AuditorCommentsContainer: React.FC<AuditorCommentsContainerProps> = ({ bud
           <NoComments />
         ) : (
           <>
-            <AuditorCommentList comments={comments} />
+            <AuditorCommentList comments={comments} mode={mode} />
             {canComment && (
               <CommentForm
                 currentBudgetStatus={currentBudgetStatus}
                 budgetStatementId={budgetStatement?.id?.toString() || ''}
+                mode={mode}
               />
             )}
           </>
         )}
       </CommentsContainer>
       <ParticipantsColumn>
-        <ParticipantRoles cu={cuParticipants} auditors={auditors} coreUnitCode={coreUnitCode} />
+        <ParticipantRoles cu={cuParticipants} auditors={auditors} coreUnitCode={coreUnitCode} mode={mode} />
       </ParticipantsColumn>
     </Container>
   );

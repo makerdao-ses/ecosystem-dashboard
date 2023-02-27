@@ -2,11 +2,15 @@ import styled from '@emotion/styled';
 import { CustomLink } from '@ses/components/custom-link/custom-link';
 import { CustomPager } from '@ses/components/custom-pager/custom-pager';
 import DelegateSummary from '@ses/components/delegate-summary/delegate-summary';
+import { SEOHead } from '@ses/components/seo-head/seo-head';
 import { Tabs } from '@ses/components/tabs/tabs';
+import { CommentActivityContext } from '@ses/core/context/CommentActivityContext';
 import { BudgetStatus } from '@ses/core/models/dto/core-unit.dto';
+import { toAbsoluteURL } from '@ses/core/utils/url.utils';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import ExpenseReportStatusIndicator from '../transparency-report/common/expense-report-status-indicator/expense-report-status-indicator';
+import AuditorCommentsContainer from '../transparency-report/transparency-auditor-comments/comment-container/auditor-comments-container';
 import DelegatesActuals from './delegates-actuals/delegates-actuals';
 import DelegatesForecast from './delegates-forecast/delegates-forecast';
 import useRecognizedDelegates, { DELEGATES_IDS_ENUM } from './useRecognizedDelegates.mvvm';
@@ -27,17 +31,31 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
     tabItems,
     tabsIndexNumber,
     tabsIndex,
+    lastVisitHandler,
     currentMonth,
     currentBudgetStatement,
     handleNextMonth,
     handlePreviousMonth,
     hasNextMonth,
     hasPreviousMonth,
+    comments,
   } = useRecognizedDelegates(delegates);
 
   return (
     <Wrapper>
       <Container isLight={isLight}>
+        <SEOHead
+          title={'MakerDAO Recognized Delegates Expense Reports | Finances'}
+          description={
+            'MakerDAO Recognized Delegates Expenses Reports provides a transparent overview of recognized delegates expenses, compensations, and benefits'
+          }
+          image={{
+            src: toAbsoluteURL('/assets/img/social-385x200.png'),
+            width: 385,
+            height: 200,
+          }}
+          twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
+        />
         <DelegateSummary links={links} items={itemsBreadcrumb} />
         <ContainerInside>
           <ContainerPagerBar>
@@ -76,10 +94,18 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
                 margin: '32px 0',
               }}
             />
-            {tabsIndex === DELEGATES_IDS_ENUM.ACTUALS && <DelegatesActuals />}
-            {tabsIndex === DELEGATES_IDS_ENUM.FORECAST && <DelegatesForecast />}
-            {tabsIndex === DELEGATES_IDS_ENUM.COMMENTS && <div>comments</div>}
           </ContainerTabs>
+          {tabsIndex === DELEGATES_IDS_ENUM.ACTUALS && <DelegatesActuals />}
+          {tabsIndex === DELEGATES_IDS_ENUM.FORECAST && <DelegatesForecast />}
+          {tabsIndex === DELEGATES_IDS_ENUM.COMMENTS && (
+            <CommentActivityContext.Provider value={{ lastVisitHandler }}>
+              <AuditorCommentsContainer
+                budgetStatement={currentBudgetStatement}
+                comments={comments}
+                mode={'Delegates'}
+              />
+            </CommentActivityContext.Provider>
+          )}
 
           <ContainerAdditionalNotes>
             <TitleNotes isLight={isLight}>Additional Notes</TitleNotes>
