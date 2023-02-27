@@ -86,7 +86,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ form, clearErrors, hasUserInactiv
       <RequestContainer>
         <RequestText isLight={isLight}>Don't have your Log In credentials yet?</RequestText>
         <CustomLink
-          href="https://discord.gg/yPadwNU7"
+          href="https://discord.gg/UJpfgQDA"
           style={{
             fontWeight: 500,
             fontSize: '16px',
