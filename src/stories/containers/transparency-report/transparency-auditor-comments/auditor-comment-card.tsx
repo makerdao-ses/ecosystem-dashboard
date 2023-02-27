@@ -10,14 +10,21 @@ import { customRenderer, customRendererDark } from '../../../components/markdown
 import ExpenseReportStatus from '../common/expense-report-status/expense-report-status';
 import GenericCommentCard from './generic-comment-card';
 import type { CommentsBudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
+import type { CommentMode } from './comment-container/auditor-comments-container';
 
 export type AuditorCommentCardProps = {
   comment: CommentsBudgetStatementDto;
   hasStatusChange: boolean;
   verb: string;
+  mode?: CommentMode;
 };
 
-const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({ comment, hasStatusChange, verb = 'wrote' }) => {
+const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({
+  comment,
+  hasStatusChange,
+  verb = 'wrote',
+  mode = 'CoreUnits',
+}) => {
   const { isLight } = useThemeContext();
   const { currentCoreUnit } = useCoreUnitContext();
   const isTablet = useMediaQuery(lightTheme.breakpoints.down('table_834'));
@@ -28,11 +35,14 @@ const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({ comment, hasSta
   );
 
   const roleString = useMemo(() => {
+    if (mode === 'Delegates') {
+      return 'Recognized Delegate';
+    }
     if (currentCoreUnit?.auditors?.some((auditor) => auditor.id === comment.author.id)) {
       return 'Auditor';
     }
     return `${currentCoreUnit?.shortCode} Core Unit`;
-  }, [comment, currentCoreUnit]);
+  }, [comment, currentCoreUnit, mode]);
 
   return (
     <GenericCommentCard variant={comment.status}>

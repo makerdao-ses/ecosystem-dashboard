@@ -4,10 +4,12 @@ import { CustomLink } from '@ses/components/custom-link/custom-link';
 import { CustomPager } from '@ses/components/custom-pager/custom-pager';
 import DelegateSummary from '@ses/components/delegate-summary/delegate-summary';
 import { Tabs } from '@ses/components/tabs/tabs';
+import { CommentActivityContext } from '@ses/core/context/CommentActivityContext';
 import { BudgetStatus } from '@ses/core/models/dto/core-unit.dto';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import ExpenseReportStatusIndicator from '../transparency-report/common/expense-report-status-indicator/expense-report-status-indicator';
+import AuditorCommentsContainer from '../transparency-report/transparency-auditor-comments/comment-container/auditor-comments-container';
 import DelegatesActuals from './delegates-actuals/delegates-actuals';
 import DelegatesForecast from './delegates-forecast/delegates-forecast';
 import useRecognizedDelegates, { DELEGATES_IDS_ENUM } from './useRecognizedDelegates.mvvm';
@@ -28,12 +30,14 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
     tabItems,
     tabsIndexNumber,
     tabsIndex,
+    lastVisitHandler,
     currentMonth,
     currentBudgetStatement,
     handleNextMonth,
     handlePreviousMonth,
     hasNextMonth,
     hasPreviousMonth,
+    comments,
   } = useRecognizedDelegates(delegates);
 
   return (
@@ -95,10 +99,14 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
               margin: '32px 0',
             }}
           />
-          {tabsIndex === DELEGATES_IDS_ENUM.ACTUALS && <DelegatesActuals />}
-          {tabsIndex === DELEGATES_IDS_ENUM.FORECAST && <DelegatesForecast />}
-          {tabsIndex === DELEGATES_IDS_ENUM.COMMENTS && <div>comments</div>}
         </ContainerTabs>
+        {tabsIndex === DELEGATES_IDS_ENUM.ACTUALS && <DelegatesActuals />}
+        {tabsIndex === DELEGATES_IDS_ENUM.FORECAST && <DelegatesForecast />}
+        {tabsIndex === DELEGATES_IDS_ENUM.COMMENTS && (
+          <CommentActivityContext.Provider value={{ lastVisitHandler }}>
+            <AuditorCommentsContainer budgetStatement={currentBudgetStatement} comments={comments} mode={'Delegates'} />
+          </CommentActivityContext.Provider>
+        )}
 
         <ContainerAdditionalNotes>
           <TitleNotes isLight={isLight}>Additional Notes</TitleNotes>
