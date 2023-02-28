@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { AdvancedInnerTable } from '@ses/components/advanced-inner-table/advanced-inner-table';
 import { CustomLink } from '@ses/components/custom-link/custom-link';
-import { Tabs } from '@ses/components/tabs/tabs';
 import { TransparencyEmptyTable } from '@ses/containers/transparency-report/placeholders/transparency-empty-table';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
@@ -25,11 +24,9 @@ const DelegatesActuals: React.FC<Props> = ({ currentMonth, budgetStatement }) =>
   const {
     breakdownColumnsActuals,
     breakdownItemsActuals,
-    breakdownTabsActuals,
-    headerIdsActuals,
+
     mainTableColumnsActuals,
     mainTableItemsActuals,
-    thirdIndexActuals,
   } = useDelegatesActuals(currentMonth, budgetStatement);
   return (
     <Container>
@@ -56,19 +53,6 @@ const DelegatesActuals: React.FC<Props> = ({ currentMonth, budgetStatement }) =>
       />
       {mainTableItemsActuals.length > 0 && (
         <TitleBreakdown isLight={isLight}>{currentMonth.toFormat('MMM yyyy')} Breakdown</TitleBreakdown>
-      )}
-
-      {mainTableItemsActuals.length > 0 && (
-        <Tabs
-          items={breakdownTabsActuals?.map((header, i) => ({
-            item: header,
-            id: headerIdsActuals[i],
-          }))}
-          currentIndex={thirdIndexActuals}
-          style={{
-            marginBottom: '32px',
-          }}
-        />
       )}
 
       {mainTableItemsActuals.length > 0 && (

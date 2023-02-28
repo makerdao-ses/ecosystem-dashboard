@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { AdvancedInnerTable } from '@ses/components/advanced-inner-table/advanced-inner-table';
-import { Tabs } from '@ses/components/tabs/tabs';
+// import { Tabs } from '@ses/components/tabs/tabs';
 import { TransparencyEmptyTable } from '@ses/containers/transparency-report/placeholders/transparency-empty-table';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
@@ -17,15 +17,8 @@ interface Props {
 
 const DelegatesForecast: React.FC<Props> = ({ currentMonth, budgetStatement }) => {
   const { isLight } = useThemeContext();
-  const {
-    breakdownHeadersForecast,
-    breakdownItemsForecast,
-    breakdownTabsForecast,
-    headerIdsForecast,
-    mainTableColumnsForecast,
-    mainTableItemsForecast,
-    thirdIndexForecast,
-  } = useDelegatesForecast(currentMonth, budgetStatement);
+  const { breakdownHeadersForecast, breakdownItemsForecast, mainTableColumnsForecast, mainTableItemsForecast } =
+    useDelegatesForecast(currentMonth, budgetStatement);
   return (
     <Container>
       <TotalsMonth isLight={isLight}>{currentMonth.toFormat('MMM yyyy')} Totals</TotalsMonth>
@@ -39,19 +32,6 @@ const DelegatesForecast: React.FC<Props> = ({ currentMonth, budgetStatement }) =
       />
       {mainTableItemsForecast.length > 0 && (
         <TitleBreakdown isLight={isLight}>{currentMonth.toFormat('MMM yyyy')} Breakdown</TitleBreakdown>
-      )}
-
-      {mainTableItemsForecast.length > 0 && (
-        <Tabs
-          items={breakdownTabsForecast?.map((header, i) => ({
-            item: header,
-            id: headerIdsForecast[i],
-          }))}
-          currentIndex={thirdIndexForecast}
-          style={{
-            marginBottom: '32px',
-          }}
-        />
       )}
 
       {mainTableItemsForecast.length > 0 && (
