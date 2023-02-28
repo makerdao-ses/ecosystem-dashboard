@@ -50,8 +50,8 @@ const DelegateSummary: React.FC<Props> = ({ code = 'del', links, items }) => {
   }, [positionScroll]);
   return (
     <ContainerWithBreadCrumb isLight={isLight} showIcons={showIcons}>
-      <CustomBreadCrumbs isLight={isLight} items={items} />
       <Container>
+        <CustomBreadCrumbs isLight={isLight} items={items} />
         <ContainerRow>
           <CircleContainer>
             <CircleAvatar
@@ -125,6 +125,7 @@ const ContainerWithBreadCrumb = styled.div<{ isLight: boolean; showIcons?: boole
     zIndex: 3,
     borderBottom: '1px solid #B6EDE7',
     paddingBottom: showIcons ? 16 : undefined,
+
     [lightTheme.breakpoints.up('table_834')]: {
       paddingBottom: 22,
     },
@@ -134,28 +135,23 @@ const ContainerWithBreadCrumb = styled.div<{ isLight: boolean; showIcons?: boole
 const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'center',
+  width: '100%',
+  maxWidth: '100%',
+  margin: '0 auto',
+  padding: '16px 16px 0',
 
-  width: '343px',
-  margin: '0px auto',
   [lightTheme.breakpoints.up('table_834')]: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    minWidth: '770px',
-    margin: '0px auto',
+    padding: '21px 32px 0 ',
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    minWidth: '1130px',
-    margin: '0px auto',
-  },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    minWidth: '1184px',
-    margin: '0px auto',
+    padding: '21px  48px 0',
   },
+
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    minWidth: '1312px',
-    margin: '0px auto',
+    padding: '21px 0 0',
+    maxWidth: '1312px',
   },
 });
 

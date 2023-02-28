@@ -67,15 +67,13 @@ export const Tabs = (props: TabsProps) => {
 };
 
 const Wrapper = styled.div({
-  width: 'calc(100vw - 32px)',
+  width: '100%',
   overflowX: 'scroll',
   msOverflowStyle: 'none',
   scrollbarWidth: 'none',
+
   '&::-webkit-scrollbar': {
     display: 'none',
-  },
-  '@media (min-width: 834px)': {
-    width: '100%',
   },
 });
 
