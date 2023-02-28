@@ -7,7 +7,6 @@ import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { ButtonType } from '../../../../core/enums/button-type.enum';
 import { MAKER_BURN_LINK } from '../../../../core/utils/const';
 import { getShortCode } from '../../../../core/utils/string.utils';
-import { CustomButton } from '../../../components/custom-button/custom-button';
 
 interface Props {
   breakdown?: boolean;
@@ -438,7 +437,10 @@ export const TransparencyEmptyTable = ({ breakdown = false, longCode, isDelegate
 
           <Description>View on-chain transfers on makerburn.com </Description>
           <ContainerButton>
-            <CustomButton
+            <LinkButton
+              href={
+                isDelegate ? 'https://makerburn.com/#/expenses/core-units/DELEGATES' : `${MAKER_BURN_LINK}/${longCode}`
+              }
               label="Go to Makerburn"
               styleText={{
                 fontSize: '16px',
