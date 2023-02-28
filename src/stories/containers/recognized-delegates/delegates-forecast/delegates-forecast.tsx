@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { AdvancedInnerTable } from '@ses/components/advanced-inner-table/advanced-inner-table';
-import { Tabs } from '@ses/components/tabs/tabs';
 import { TransparencyEmptyTable } from '@ses/containers/transparency-report/placeholders/transparency-empty-table';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
@@ -17,15 +16,8 @@ interface Props {
 
 const DelegatesForecast: React.FC<Props> = ({ currentMonth, budgetStatement }) => {
   const { isLight } = useThemeContext();
-  const {
-    breakdownHeadersForecast,
-    breakdownItemsForecast,
-    breakdownTabsForecast,
-    headerIdsForecast,
-    mainTableColumnsForecast,
-    mainTableItemsForecast,
-    thirdIndexForecast,
-  } = useDelegatesForecast(currentMonth, budgetStatement);
+  const { breakdownHeadersForecast, breakdownItemsForecast, mainTableColumnsForecast, mainTableItemsForecast } =
+    useDelegatesForecast(currentMonth, budgetStatement);
   return (
     <Container>
       <TotalsMonth isLight={isLight}>{currentMonth.toFormat('MMM yyyy')} Totals</TotalsMonth>
@@ -35,23 +27,10 @@ const DelegatesForecast: React.FC<Props> = ({ currentMonth, budgetStatement }) =
         style={{ marginBottom: '64px' }}
         cardsTotalPosition="top"
         longCode="DEL"
-        tablePlaceholder={<TransparencyEmptyTable breakdown longCode="DEL" />}
+        tablePlaceholder={<TransparencyEmptyTable breakdown longCode="DEL" isDelegate />}
       />
       {mainTableItemsForecast.length > 0 && (
         <TitleBreakdown isLight={isLight}>{currentMonth.toFormat('MMM yyyy')} Breakdown</TitleBreakdown>
-      )}
-
-      {mainTableItemsForecast.length > 0 && (
-        <Tabs
-          items={breakdownTabsForecast?.map((header, i) => ({
-            item: header,
-            id: headerIdsForecast[i],
-          }))}
-          currentIndex={thirdIndexForecast}
-          style={{
-            marginBottom: '32px',
-          }}
-        />
       )}
 
       {mainTableItemsForecast.length > 0 && (
@@ -60,7 +39,7 @@ const DelegatesForecast: React.FC<Props> = ({ currentMonth, budgetStatement }) =
           items={breakdownItemsForecast}
           longCode="DEL"
           style={{ marginBottom: '64px' }}
-          tablePlaceholder={<TransparencyEmptyTable breakdown longCode="DEL" />}
+          tablePlaceholder={<TransparencyEmptyTable breakdown longCode="DEL" isDelegate />}
         />
       )}
     </Container>
@@ -95,7 +74,6 @@ const TitleBreakdown = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   lineHeight: '19px',
   letterSpacing: '0.4px',
   marginTop: 40,
-  marginBottom: 32,
   color: isLight ? '#231536' : '#9FAFB9',
   [lightTheme.breakpoints.up('table_834')]: {
     marginTop: 64,

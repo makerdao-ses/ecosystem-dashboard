@@ -33,6 +33,7 @@ export const useDelegatesActuals = (
 ) => {
   const currentMonth = useMemo(() => propsCurrentMonth.toFormat(API_MONTH_TO_FORMAT), [propsCurrentMonth]);
   const anchor = useUrlAnchor();
+
   const walletsActuals = useMemo(
     () => getAllWallets(budgetStatements, propsCurrentMonth),
     [budgetStatements, propsCurrentMonth]
@@ -383,20 +384,6 @@ export const useDelegatesActuals = (
     }
 
     if (hasExpenses(true)) {
-      result.push({
-        items: [
-          {
-            column: breakdownColumnsActuals[0],
-            value: 'Headcount Expenses',
-          },
-          {
-            column: breakdownColumnsActuals[1],
-            value: hasGroups ? '' : 'Headcount Expenses',
-          },
-        ],
-        type: 'section',
-      });
-
       result.push(
         ...getBreakdownItems(currentWallet?.budgetStatementLineItem?.filter((item) => item.headcountExpense))
       );
@@ -506,5 +493,6 @@ export const useDelegatesActuals = (
     mainTableItemsActuals,
     breakdownTabsActuals,
     walletsActuals,
+    currentBudgetStatement,
   };
 };

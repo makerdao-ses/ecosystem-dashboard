@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { AdvancedInnerTable } from '@ses/components/advanced-inner-table/advanced-inner-table';
 import { CustomLink } from '@ses/components/custom-link/custom-link';
-import { Tabs } from '@ses/components/tabs/tabs';
 import { TransparencyEmptyTable } from '@ses/containers/transparency-report/placeholders/transparency-empty-table';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
@@ -25,26 +24,25 @@ const DelegatesActuals: React.FC<Props> = ({ currentMonth, budgetStatement }) =>
   const {
     breakdownColumnsActuals,
     breakdownItemsActuals,
-    breakdownTabsActuals,
-    headerIdsActuals,
+    currentBudgetStatement,
     mainTableColumnsActuals,
     mainTableItemsActuals,
-    thirdIndexActuals,
   } = useDelegatesActuals(currentMonth, budgetStatement);
   return (
     <Container>
-      <TransactionLink isLight={isLight}>
-        View the onchain transaction for recognized delegates
-        <CustomLink
-          children="this month"
-          href="https://makerburn.com/#/expenses/core-units/DELEGATES"
-          fontSize={isMobile ? 14 : 16}
-          lineHeight="18px"
-          iconWidth={10}
-          iconHeight={10}
-        />
-      </TransactionLink>
-
+      {currentBudgetStatement && (
+        <TransactionLink isLight={isLight}>
+          View the
+          <CustomLink
+            children="onchain transactions for recognized delegates"
+            href="https://makerburn.com/#/expenses/core-units/DELEGATES"
+            fontSize={isMobile ? 14 : 16}
+            lineHeight="18px"
+            iconWidth={10}
+            iconHeight={10}
+          />
+        </TransactionLink>
+      )}
       <TotalsMonth isLight={isLight}>{currentMonth.toFormat('MMM yyyy')} Totals</TotalsMonth>
       <AdvancedInnerTable
         columns={mainTableColumnsActuals}
@@ -52,32 +50,18 @@ const DelegatesActuals: React.FC<Props> = ({ currentMonth, budgetStatement }) =>
         style={{ marginBottom: '64px' }}
         cardsTotalPosition="top"
         longCode="DEL"
-        tablePlaceholder={<TransparencyEmptyTable breakdown longCode="DEL" />}
+        tablePlaceholder={<TransparencyEmptyTable breakdown longCode="DEL" isDelegate />}
       />
       {mainTableItemsActuals.length > 0 && (
         <TitleBreakdown isLight={isLight}>{currentMonth.toFormat('MMM yyyy')} Breakdown</TitleBreakdown>
       )}
-
-      {mainTableItemsActuals.length > 0 && (
-        <Tabs
-          items={breakdownTabsActuals?.map((header, i) => ({
-            item: header,
-            id: headerIdsActuals[i],
-          }))}
-          currentIndex={thirdIndexActuals}
-          style={{
-            marginBottom: '32px',
-          }}
-        />
-      )}
-
       {mainTableItemsActuals.length > 0 && (
         <AdvancedInnerTable
           columns={breakdownColumnsActuals}
           items={breakdownItemsActuals}
           longCode="DEL"
           style={{ marginBottom: '64px' }}
-          tablePlaceholder={<TransparencyEmptyTable breakdown longCode="DEL" />}
+          tablePlaceholder={<TransparencyEmptyTable breakdown longCode="DEL" isDelegate />}
         />
       )}
     </Container>
