@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
-import React, { useCallback } from 'react';
+import { LinkButton } from '@ses/components/link-button/link-button';
+import React from 'react';
 import lightTheme from '../../../../../styles/theme/light';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { ButtonType } from '../../../../core/enums/button-type.enum';
@@ -17,12 +18,6 @@ interface Props {
 export const TransparencyEmptyTable = ({ breakdown = false, longCode, isDelegate = false }: Props) => {
   const { isLight } = useThemeContext();
   const isTable = useMediaQuery(lightTheme.breakpoints.down('table_834'));
-
-  const handleClickMakerburn = useCallback(() => {
-    isDelegate
-      ? window.open('https://makerburn.com/#/expenses/core-units/DELEGATES', '_blank')
-      : window.open(`${MAKER_BURN_LINK}/${longCode}`, '_blank');
-  }, [isDelegate, longCode]);
 
   return (
     <>
@@ -280,17 +275,18 @@ export const TransparencyEmptyTable = ({ breakdown = false, longCode, isDelegate
           </Container>
         )}
         <ContainerIndications>
-          {isDelegate ? (
-            <Title>No data reported by the Delegates Administrator</Title>
-          ) : (
-            <Title>{`No data reported by ${getShortCode(longCode)} Core Unit`}</Title>
-          )}
+          <Title>{`No data reported by ${
+            isDelegate ? 'the Delegates Administrator' : `${getShortCode(longCode)} Core Unit`
+          }`}</Title>
 
           <Description>View on-chain transfers on makerburn.com </Description>
+
           <ContainerButton>
-            <CustomButton
+            <LinkButton
+              href={
+                isDelegate ? 'https://makerburn.com/#/expenses/core-units/DELEGATES' : `${MAKER_BURN_LINK}/${longCode}`
+              }
               label="Go to Makerburn"
-              onClick={handleClickMakerburn}
               styleText={{
                 fontSize: '16px',
                 lineHeight: '19px',
@@ -436,17 +432,14 @@ export const TransparencyEmptyTable = ({ breakdown = false, longCode, isDelegate
           </Container>
         )}
         <ContainerIndications>
-          {isDelegate ? (
-            <Title>No data reported by the Delegates Administrator</Title>
-          ) : (
-            <TitleMobile>{`No data reported by ${getShortCode(longCode)} Core Unit`}</TitleMobile>
-          )}
+          <TitleMobile>{`No data reported by ${
+            isDelegate ? 'the Delegates Administrator' : `${getShortCode(longCode)} Core Unit`
+          }`}</TitleMobile>
 
           <Description>View on-chain transfers on makerburn.com </Description>
           <ContainerButton>
             <CustomButton
               label="Go to Makerburn"
-              onClick={handleClickMakerburn}
               styleText={{
                 fontSize: '16px',
                 lineHeight: '19px',

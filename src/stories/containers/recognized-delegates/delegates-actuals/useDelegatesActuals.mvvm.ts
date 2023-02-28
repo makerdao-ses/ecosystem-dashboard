@@ -1,4 +1,3 @@
-// import { useMediaQuery } from '@mui/material';
 import { renderLinksWithToken, renderWallet } from '@ses/containers/transparency-report/transparency-report.utils';
 
 import {
@@ -15,7 +14,6 @@ import {
   getWalletForecast,
   getWalletPayment,
 } from '@ses/core/utils/finances.utils';
-// import lightTheme from '@ses/styles/theme/light';
 import _ from 'lodash';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
