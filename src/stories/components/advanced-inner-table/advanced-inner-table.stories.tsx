@@ -22,7 +22,7 @@ export default {
 
 const budgetStatement = {
   name: 'Recognized Delegates',
-  address: '0x232b…8482',
+  address: '0x232b...8482',
   currentBalance: 454,
   budgetStatementLineItem: [],
   budgetStatementTransferRequest: [],

@@ -88,6 +88,7 @@ const StyledLink = styled(CustomLink)({
     fontWeight: 400,
     lineHeight: '17px',
     margin: 0,
+    letterSpacing: '0px',
     [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
       fontSize: 12,
       lineHeight: '15px',
