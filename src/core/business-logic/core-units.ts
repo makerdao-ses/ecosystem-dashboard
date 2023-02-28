@@ -67,7 +67,7 @@ export const getSubmissionDateFromCuMip = (mip: CuMipDto | null) => {
 
 export const getLinksFromCoreUnit = (cu: CoreUnitDto) => {
   const result = [] as LinkModel[];
-
+  if (!cu.socialMediaChannels) return result;
   if (cu.socialMediaChannels.length === 0) return result;
 
   const sm = cu.socialMediaChannels[0];

@@ -142,7 +142,7 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
               header={
                 <>
                   {item.items
-                    .filter((x) => x.column?.isCardHeader && x.value)
+                    .filter((x) => x.column?.isCardHeader && x.value && !x.column.hidden)
                     .map((x) => getCell(x.column, item.type, x.value))}
                 </>
               }
