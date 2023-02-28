@@ -24,24 +24,25 @@ const DelegatesActuals: React.FC<Props> = ({ currentMonth, budgetStatement }) =>
   const {
     breakdownColumnsActuals,
     breakdownItemsActuals,
-
+    currentBudgetStatement,
     mainTableColumnsActuals,
     mainTableItemsActuals,
   } = useDelegatesActuals(currentMonth, budgetStatement);
   return (
     <Container>
-      <TransactionLink isLight={isLight}>
-        View the onchain transaction for recognized delegates
-        <CustomLink
-          children="this month"
-          href="https://makerburn.com/#/expenses/core-units/DELEGATES"
-          fontSize={isMobile ? 14 : 16}
-          lineHeight="18px"
-          iconWidth={10}
-          iconHeight={10}
-        />
-      </TransactionLink>
-
+      {currentBudgetStatement && (
+        <TransactionLink isLight={isLight}>
+          View the
+          <CustomLink
+            children="onchain transactions for recognized delegates"
+            href="https://makerburn.com/#/expenses/core-units/DELEGATES"
+            fontSize={isMobile ? 14 : 16}
+            lineHeight="18px"
+            iconWidth={10}
+            iconHeight={10}
+          />
+        </TransactionLink>
+      )}
       <TotalsMonth isLight={isLight}>{currentMonth.toFormat('MMM yyyy')} Totals</TotalsMonth>
       <AdvancedInnerTable
         columns={mainTableColumnsActuals}
@@ -49,19 +50,18 @@ const DelegatesActuals: React.FC<Props> = ({ currentMonth, budgetStatement }) =>
         style={{ marginBottom: '64px' }}
         cardsTotalPosition="top"
         longCode="DEL"
-        tablePlaceholder={<TransparencyEmptyTable breakdown longCode="DEL" />}
+        tablePlaceholder={<TransparencyEmptyTable breakdown longCode="DEL" isDelegate />}
       />
       {mainTableItemsActuals.length > 0 && (
         <TitleBreakdown isLight={isLight}>{currentMonth.toFormat('MMM yyyy')} Breakdown</TitleBreakdown>
       )}
-
       {mainTableItemsActuals.length > 0 && (
         <AdvancedInnerTable
           columns={breakdownColumnsActuals}
           items={breakdownItemsActuals}
           longCode="DEL"
           style={{ marginBottom: '64px' }}
-          tablePlaceholder={<TransparencyEmptyTable breakdown longCode="DEL" />}
+          tablePlaceholder={<TransparencyEmptyTable breakdown longCode="DEL" isDelegate />}
         />
       )}
     </Container>

@@ -495,5 +495,6 @@ export const useDelegatesActuals = (
     mainTableItemsActuals,
     breakdownTabsActuals,
     walletsActuals,
+    currentBudgetStatement,
   };
 };

@@ -27,7 +27,7 @@ const DelegatesForecast: React.FC<Props> = ({ currentMonth, budgetStatement }) =
         style={{ marginBottom: '64px' }}
         cardsTotalPosition="top"
         longCode="DEL"
-        tablePlaceholder={<TransparencyEmptyTable breakdown longCode="DEL" />}
+        tablePlaceholder={<TransparencyEmptyTable breakdown longCode="DEL" isDelegate />}
       />
       {mainTableItemsForecast.length > 0 && (
         <TitleBreakdown isLight={isLight}>{currentMonth.toFormat('MMM yyyy')} Breakdown</TitleBreakdown>
@@ -39,7 +39,7 @@ const DelegatesForecast: React.FC<Props> = ({ currentMonth, budgetStatement }) =
           items={breakdownItemsForecast}
           longCode="DEL"
           style={{ marginBottom: '64px' }}
-          tablePlaceholder={<TransparencyEmptyTable breakdown longCode="DEL" />}
+          tablePlaceholder={<TransparencyEmptyTable breakdown longCode="DEL" isDelegate />}
         />
       )}
     </Container>

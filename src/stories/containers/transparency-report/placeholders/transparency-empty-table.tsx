@@ -11,15 +11,18 @@ import { CustomButton } from '../../../components/custom-button/custom-button';
 interface Props {
   breakdown?: boolean;
   longCode: string;
+  isDelegate?: boolean;
 }
 
-export const TransparencyEmptyTable = ({ breakdown = false, longCode }: Props) => {
+export const TransparencyEmptyTable = ({ breakdown = false, longCode, isDelegate = false }: Props) => {
   const { isLight } = useThemeContext();
   const isTable = useMediaQuery(lightTheme.breakpoints.down('table_834'));
 
   const handleClickMakerburn = useCallback(() => {
-    window.open(`${MAKER_BURN_LINK}/${longCode}`, '_blank');
-  }, [longCode]);
+    isDelegate
+      ? window.open('https://makerburn.com/#/expenses/core-units/DELEGATES', '_blank')
+      : window.open(`${MAKER_BURN_LINK}/${longCode}`, '_blank');
+  }, [isDelegate, longCode]);
 
   return (
     <>
@@ -277,7 +280,11 @@ export const TransparencyEmptyTable = ({ breakdown = false, longCode }: Props) =
           </Container>
         )}
         <ContainerIndications>
-          <Title>{`No data reported by ${getShortCode(longCode)} Core Unit`}</Title>
+          {isDelegate ? (
+            <Title>No data reported by the Delegates Administrator</Title>
+          ) : (
+            <Title>{`No data reported by ${getShortCode(longCode)} Core Unit`}</Title>
+          )}
 
           <Description>View on-chain transfers on makerburn.com </Description>
           <ContainerButton>
@@ -429,7 +436,11 @@ export const TransparencyEmptyTable = ({ breakdown = false, longCode }: Props) =
           </Container>
         )}
         <ContainerIndications>
-          <TitleMobile>{`No data reported by ${getShortCode(longCode)} Core Unit`}</TitleMobile>
+          {isDelegate ? (
+            <Title>No data reported by the Delegates Administrator</Title>
+          ) : (
+            <TitleMobile>{`No data reported by ${getShortCode(longCode)} Core Unit`}</TitleMobile>
+          )}
 
           <Description>View on-chain transfers on makerburn.com </Description>
           <ContainerButton>
