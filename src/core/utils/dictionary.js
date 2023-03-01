@@ -112,6 +112,8 @@ const dictionary = [
   'formatter',
   'zlevel',
   'tokentxns',
+  'tnum',
+  'lnum',
 ];
 
 module.exports = dictionary;

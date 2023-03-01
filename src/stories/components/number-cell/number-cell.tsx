@@ -31,9 +31,12 @@ export const NumberCell = (props: NumberCellProps) => {
 const Container = styled.div<{ negative?: boolean; fontFamily?: string; isLight: boolean }>(
   ({ negative = false, fontFamily = 'Inter, sans-serif', isLight }) => ({
     fontFamily,
+    fontWeight: 400,
     fontSize: '14px',
     lineHeight: '17px',
-    padding: '10px 0',
+    padding: '10px 0px',
+    letterSpacing: '0.3px',
+    fontFeatureSettings: "'tnum' on, 'lnum' on",
     color:
       isLight && negative ? '#F75524' : isLight && !negative ? '#231536' : !isLight && negative ? '#F75524' : '#D2D4EF',
     '@media (min-width: 834px)': {
