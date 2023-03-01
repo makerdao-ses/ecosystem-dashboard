@@ -11,11 +11,13 @@ export default {
   title: 'Pages/Recognized Delegates',
   component: RecognizedDelegatesContainer,
   decorators: [withoutSBPadding],
-  chromatic: {
-    viewports: [375, 834, 1194, 1440, 1920],
-    pauseAnimationAtEnd: true,
+  parameters: {
+    chromatic: {
+      viewports: [375, 834, 1194, 1440, 1920],
+      pauseAnimationAtEnd: true,
+    },
+    date: '2023-02-23T04:02:02Z',
   },
-  date: '2023-02-23T04:02:02Z',
 } as ComponentMeta<typeof RecognizedDelegatesContainer>;
 
 const variantsArgs = [
