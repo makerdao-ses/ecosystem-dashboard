@@ -4,7 +4,7 @@ import { TransparencyEmptyTable } from '@ses/containers/transparency-report/plac
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import { useDelegatesForecast } from './useDelegatesForecast.mvvm';
+import { useDelegatesForecast } from './useDelegatesForeCast.mvvm';
 
 import type { BudgetStatementDto } from '@ses/core/models/dto/core-unit.dto';
 import type { DateTime } from 'luxon';
