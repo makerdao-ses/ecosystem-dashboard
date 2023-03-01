@@ -240,7 +240,7 @@ export const useDelegatesActuals = (
   const breakdownColumnsActuals = useMemo(() => {
     const breakdownColumns: InnerTableColumn[] = [
       {
-        header: 'Group',
+        header: 'Recognized delegates',
         align: 'left',
         type: 'text',
         hidden: !hasGroups,
