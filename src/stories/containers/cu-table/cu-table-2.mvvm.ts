@@ -1,5 +1,7 @@
+import { useMediaQuery } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
 import { enablePageOverflow } from '@ses/core/utils/dom';
+import lightTheme from '@ses/styles/theme/light';
 import request from 'graphql-request';
 import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';
@@ -39,6 +41,7 @@ export const useCoreUnitsTableMvvm = () => {
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
 
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
+  const desktop = useMediaQuery(lightTheme.breakpoints.up('desktop_1440'));
 
   const fetcher = (query: string) => request(GRAPHQL_ENDPOINT, query);
   const { data: res, error } = useSWR(GETCoreUnits, fetcher);
@@ -155,7 +158,7 @@ export const useCoreUnitsTableMvvm = () => {
     },
     {
       header: 'Team Members',
-      justifyContent: 'flex-start',
+      justifyContent: desktop ? 'center' : 'flex-start',
       cellRender: renderTeamMember,
       onClick: onClickRow,
       width: '205px',
