@@ -36,20 +36,12 @@ const StyledBreadcrumbs = styled(Breadcrumbs)<{ isLight: boolean }>(({ isLight }
       letterSpacing: '0.4px',
     },
 
-    [lightTheme.breakpoints.up('desktop_1194')]: {
-      // background: 'none',
-    },
-
     [lightTheme.breakpoints.up('desktop_1280')]: {
       padding: '0 48px',
     },
 
     [lightTheme.breakpoints.up('desktop_1440')]: {
       padding: '0 32px',
-    },
-
-    [lightTheme.breakpoints.up('desktop_1920')]: {
-      // background: 'none',
     },
 
     '& .crumb': {
