@@ -303,12 +303,12 @@ export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetS
         align: 'right',
       },
       {
-        header: '3 Months',
+        header: 'Mthly Budget',
         type: 'number',
         align: 'right',
       },
       {
-        header: 'Mthly Budget',
+        header: '3 Months',
         type: 'number',
         align: 'right',
       },
@@ -342,17 +342,18 @@ export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetS
         getForecastForMonthOnWalletOnBudgetStatement(propBudgetStatements, wallet?.address, currentMonth, firstMonth),
         getForecastForMonthOnWalletOnBudgetStatement(propBudgetStatements, wallet?.address, currentMonth, secondMonth),
         getForecastForMonthOnWalletOnBudgetStatement(propBudgetStatements, wallet?.address, currentMonth, thirdMonth),
-        getForecastSumOfMonthsOnWallet(propBudgetStatements, wallet?.address, currentMonth, [
-          firstMonth,
-          secondMonth,
-          thirdMonth,
-        ]),
         getBudgetCapForMonthOnWalletOnBudgetStatement(
           propBudgetStatements,
           wallet?.address,
           currentMonth,
           currentMonth
         ),
+        getForecastSumOfMonthsOnWallet(propBudgetStatements, wallet?.address, currentMonth, [
+          firstMonth,
+          secondMonth,
+          thirdMonth,
+        ]),
+
         getBudgetCapSumOfMonthsOnWallet(propBudgetStatements, wallet?.address, currentMonth, [
           firstMonth,
           secondMonth,
@@ -428,11 +429,11 @@ export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetS
         },
         {
           column: mainTableColumns[4],
-          value: getForecastSumForMonths(propBudgetStatements, currentMonth, [firstMonth, secondMonth, thirdMonth]),
+          value: getBudgetCapForMonthOnBudgetStatement(propBudgetStatements, currentMonth, currentMonth),
         },
         {
           column: mainTableColumns[5],
-          value: getBudgetCapForMonthOnBudgetStatement(propBudgetStatements, currentMonth, currentMonth),
+          value: getForecastSumForMonths(propBudgetStatements, currentMonth, [firstMonth, secondMonth, thirdMonth]),
         },
         {
           column: mainTableColumns[6],
@@ -492,12 +493,12 @@ export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetS
         align: 'right',
       },
       {
-        header: '3 Months',
+        header: 'Mthly Budget',
         type: 'number',
         align: 'right',
       },
       {
-        header: 'Mthly Budget',
+        header: '3 Months',
         type: 'number',
         align: 'right',
       },
@@ -593,6 +594,11 @@ export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetS
                 column: breakdownHeaders[4],
                 value: getLineItemForecastSumForMonth(groupedCategory[groupedCatKey], thirdMonth),
               },
+
+              {
+                column: breakdownHeaders[6],
+                value: getBudgetCapForMonthOnLineItem(groupedCategory[groupedCatKey], currentMonth),
+              },
               {
                 column: breakdownHeaders[5],
                 value: getLineItemForecastSumForMonths(groupedCategory[groupedCatKey], [
@@ -600,10 +606,6 @@ export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetS
                   secondMonth,
                   thirdMonth,
                 ]),
-              },
-              {
-                column: breakdownHeaders[6],
-                value: getBudgetCapForMonthOnLineItem(groupedCategory[groupedCatKey], currentMonth),
               },
               {
                 column: breakdownHeaders[7],
@@ -644,12 +646,12 @@ export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetS
             value: subTotal[4],
           },
           {
-            column: breakdownHeaders[5],
-            value: subTotal[5],
-          },
-          {
             column: breakdownHeaders[6],
             value: subTotal[6],
+          },
+          {
+            column: breakdownHeaders[5],
+            value: subTotal[5],
           },
           {
             column: breakdownHeaders[7],
@@ -767,14 +769,6 @@ export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetS
           ),
         },
         {
-          column: breakdownHeaders[5],
-          value: getForecastSumOfMonthsOnWallet(propBudgetStatements, currentWalletAddress, currentMonth, [
-            firstMonth,
-            secondMonth,
-            thirdMonth,
-          ]),
-        },
-        {
           column: breakdownHeaders[6],
           value: getBudgetCapForMonthOnWalletOnBudgetStatement(
             propBudgetStatements,
@@ -782,6 +776,14 @@ export const useTransparencyForecastMvvm2 = (currentMonth: DateTime, propBudgetS
             currentMonth,
             currentMonth
           ),
+        },
+        {
+          column: breakdownHeaders[5],
+          value: getForecastSumOfMonthsOnWallet(propBudgetStatements, currentWalletAddress, currentMonth, [
+            firstMonth,
+            secondMonth,
+            thirdMonth,
+          ]),
         },
         {
           column: breakdownHeaders[7],
