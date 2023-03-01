@@ -27,7 +27,8 @@ const AuditorCommentsContainer: React.FC<AuditorCommentsContainerProps> = ({
 }) => {
   const { cuParticipants, auditors, canComment, currentBudgetStatus, coreUnitCode } = useCommentsContainer(
     comments,
-    budgetStatement
+    budgetStatement,
+    mode
   );
 
   return (

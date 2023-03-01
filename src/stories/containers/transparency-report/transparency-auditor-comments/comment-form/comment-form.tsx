@@ -43,7 +43,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ currentBudgetStatus, budgetSt
         </Select>
         <User>
           <Username isLight={isLight}>{username}</Username>
-          <UserRole isLight={isLight}>({mode === 'CoreUnits' ? roleString : 'Recognized Delegate'})</UserRole>
+          <UserRole isLight={isLight}>({mode === 'CoreUnits' ? roleString : 'Delegates Administrator'})</UserRole>
         </User>
       </CommentHeader>
       <FormContainer>
