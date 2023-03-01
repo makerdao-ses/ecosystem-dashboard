@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import React from 'react';
 import { formatAddressForOutput } from '../../../core/utils/string.utils';
 import { CustomLink } from '../../components/custom-link/custom-link';
@@ -40,7 +41,7 @@ export const renderLinks = (address: string) => (
 
 export const renderLinksWithToken = (address: string) => (
   <TextCell key={6} responsivePadding="0">
-    <CustomLink
+    <StyledCustomLink
       fontFamily={'Inter, sans-serif'}
       href={`https://etherscan.io/address/${address}#tokentxns`}
       style={{ marginRight: '16px' }}
@@ -49,6 +50,12 @@ export const renderLinksWithToken = (address: string) => (
       fontWeight={500}
     >
       Etherscan
-    </CustomLink>
+    </StyledCustomLink>
   </TextCell>
 );
+
+const StyledCustomLink = styled(CustomLink)({
+  fontSize: 14,
+  lineHeight: '18px',
+  letterSpacing: '0px',
+});

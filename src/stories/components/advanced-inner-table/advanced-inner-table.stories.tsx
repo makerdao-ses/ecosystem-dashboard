@@ -1,8 +1,7 @@
-import { renderLinks } from '@ses/containers/transparency-report/transparency-report.utils';
+import { renderLinks, renderLinksWithToken } from '@ses/containers/transparency-report/transparency-report.utils';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import React from 'react';
 import { formatAddressForOutput } from '../../../core/utils/string.utils';
-import { CustomLink } from '../custom-link/custom-link';
 import { WalletTableCell } from '../wallet-table-cell/wallet-table-cell';
 import { AdvancedInnerTable } from './advanced-inner-table';
 import type { InnerTableColumn, InnerTableRow } from './advanced-inner-table';
@@ -22,7 +21,7 @@ export default {
 
 const budgetStatement = {
   name: 'Recognized Delegates',
-  address: '0x232b...8482',
+  address: '0x232b8482',
   currentBalance: 454,
   budgetStatementLineItem: [],
   budgetStatementTransferRequest: [],
@@ -123,23 +122,11 @@ const variantsArgs = [
           },
           {
             column: {
+              cellRender: renderLinksWithToken,
               type: 'custom',
               isCardFooter: true,
             },
-            value: (
-              <CustomLink
-                fontFamily={'Inter, sans-serif'}
-                href={'https://etherscan.io/address/'}
-                style={{
-                  marginRight: '16px',
-                }}
-                fontSize={16}
-                fontSizeMobile={14}
-                fontWeight={500}
-              >
-                Etherscan
-              </CustomLink>
-            ),
+            value: 'some_address',
           },
         ],
       },
