@@ -39,13 +39,13 @@ const Container = styled.div<{
   isHeader?: boolean;
 }>(({ negative = false, fontFamily = 'Inter, sans-serif', isLight, bold, isHeader }) => ({
   fontFamily,
-  fontWeight: bold ? 700 : 400,
-  lineHeight: '19px',
+  fontWeight: isHeader ? (bold ? 700 : 500) : 400,
+  lineHeight: isHeader ? (bold ? '19px' : '18px') : '15px',
   display: 'flex',
   alignItems: 'center',
   padding: isHeader ? 16 : 0,
   textAlign: isHeader ? 'left' : 'right',
-  fontSize: '14px',
+  fontSize: isHeader ? '16px' : '14px',
   paddingLeft: 16,
   color:
     isLight && negative ? '#F75524' : isLight && !negative ? '#231536' : !isLight && negative ? '#F75524' : '#D2D4EF',
@@ -57,5 +57,6 @@ const Container = styled.div<{
     lineHeight: '19px',
     fontSize: '16px',
     textAlign: 'left',
+    fontWeight: isHeader ? (bold ? 700 : 400) : 400,
   },
 }));

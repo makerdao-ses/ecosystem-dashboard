@@ -64,6 +64,7 @@ const Label = styled.div({
   fontFamily: 'Inter, sans-serif',
   fontWeight: 600,
   fontSize: '12px',
+  lineHeight: '15px',
   height: '37px',
   letterSpacing: '1px',
   textTransform: 'uppercase',

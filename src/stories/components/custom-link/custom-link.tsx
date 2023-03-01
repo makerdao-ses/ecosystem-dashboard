@@ -20,6 +20,7 @@ interface CustomLinkProps {
   padding?: string;
   border?: string;
   lineHeight?: string;
+  className?: string;
 }
 
 export const CustomLink = ({
@@ -35,9 +36,11 @@ export const CustomLink = ({
   styleIcon = {},
   border = 'none',
   padding = '0px',
+  className,
   ...props
 }: CustomLinkProps) => (
   <Container
+    className={className}
     padding={padding}
     border={border}
     href={props.href}

@@ -71,7 +71,7 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
     }
 
     return (
-      <TextCell key={column.header} bold={isBold}>
+      <TextCell key={column.header} bold={isBold} isHeader={column.isCardHeader}>
         {value as string}
       </TextCell>
     );
@@ -198,7 +198,7 @@ const TableCell = styled.td<{ textAlign: 'left' | 'center' | 'right'; isSubTotal
 const TableHead = styled.thead<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontSize: '12px',
-  lineHeight: '14px',
+  lineHeight: '15px',
   letterSpacing: '1px',
   textTransform: 'uppercase',
   fontWeight: 600,
