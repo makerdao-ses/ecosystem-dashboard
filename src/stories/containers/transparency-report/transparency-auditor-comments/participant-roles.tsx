@@ -23,7 +23,7 @@ const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ coreUnitCode, cu, a
         {cu.length > 0 && (
           <RoleSection>
             <RoleName isLight={isLight}>
-              {mode === 'CoreUnits' ? `${coreUnitCode} Core Unit` : 'Recognized Delegate'}
+              {mode === 'CoreUnits' ? `${coreUnitCode} Core Unit` : 'Delegates Administrators'}
             </RoleName>
             {cu.map((author) => (
               <UserWrapper key={author.id}>

@@ -1,6 +1,7 @@
 import { PermissionsEnum } from '../enums/permissions.enum';
 import { RoleEnum } from '../enums/role.enum';
 import CoreUnitExtension from './core-unit-extension';
+import DelegatesExtension from './delegates-extension';
 import type { UserDTO, UserRole } from '../models/dto/auth.dto';
 
 class PermissionManager {
@@ -8,11 +9,13 @@ class PermissionManager {
   token?: string;
 
   coreUnit: CoreUnitExtension;
+  delegates: DelegatesExtension;
 
   constructor(loggedUser?: UserDTO, token?: string) {
     this.loggedUser = loggedUser;
     this.token = token;
     this.coreUnit = new CoreUnitExtension(this);
+    this.delegates = new DelegatesExtension(this);
   }
 
   setLoggedUser(loggedUser?: UserDTO): void {

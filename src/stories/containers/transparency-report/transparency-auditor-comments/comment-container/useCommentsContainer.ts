@@ -9,10 +9,12 @@ import type {
   BudgetStatementDto,
   CommentsBudgetStatementDto,
 } from '../../../../../core/models/dto/core-unit.dto';
+import type { CommentMode } from './auditor-comments-container';
 
 const useCommentsContainer = (
   comments: (CommentsBudgetStatementDto | ActivityFeedDto)[],
-  budgetStatement?: BudgetStatementDto
+  budgetStatement?: BudgetStatementDto,
+  mode: CommentMode = 'CoreUnits'
 ) => {
   const { permissionManager } = useAuthContext();
   const { currentCoreUnit } = useCoreUnitContext();
@@ -36,10 +38,13 @@ const useCommentsContainer = (
     setAuditors((currentCoreUnit?.auditors || []) as UserDTO[]);
   }, [comments, currentCoreUnit]);
 
-  const canComment = useMemo(
-    () => permissionManager.coreUnit.canComment(currentCoreUnit || '-1'),
-    [permissionManager, currentCoreUnit]
-  );
+  const canComment = useMemo(() => {
+    if (mode === 'CoreUnits') {
+      return permissionManager.coreUnit.canComment(currentCoreUnit || '-1');
+    } else {
+      return permissionManager.delegates.canComment(currentCoreUnit?.id || '-1');
+    }
+  }, [permissionManager, currentCoreUnit, mode]);
 
   const currentBudgetStatus = useMemo(() => budgetStatement?.status || BudgetStatus.Draft, [budgetStatement]);
   return {

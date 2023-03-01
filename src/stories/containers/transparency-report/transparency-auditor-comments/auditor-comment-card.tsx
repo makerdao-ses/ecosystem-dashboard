@@ -36,7 +36,7 @@ const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({
 
   const roleString = useMemo(() => {
     if (mode === 'Delegates') {
-      return 'Recognized Delegate';
+      return 'Delegates Administrator';
     }
     if (currentCoreUnit?.auditors?.some((auditor) => auditor.id === comment.author.id)) {
       return 'Auditor';
