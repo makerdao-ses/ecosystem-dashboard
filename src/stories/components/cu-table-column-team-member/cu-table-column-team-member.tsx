@@ -84,7 +84,10 @@ const Container = styled.div({
     alignItems: 'center',
   },
   '@media (min-width: 1440px)': {
-    marginLeft: '64px',
+    marginLeft: '24px',
+    width: '100%',
+    flex: 1,
+    justifyContent: 'flex-start',
   },
 });
 

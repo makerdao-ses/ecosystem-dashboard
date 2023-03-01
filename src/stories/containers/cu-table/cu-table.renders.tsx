@@ -64,16 +64,9 @@ export const renderExpenditures = (coreUnit: CoreUnitDto) => {
 export const renderTeamMember = (coreUnit: CoreUnitDto) => {
   if (!coreUnit) return <CuTableColumnTeamMember isLoading />;
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'flex-end',
-        margin: 'auto 0',
-        height: '50px',
-      }}
-    >
+    <TeamMemberContainer>
       <CuTableColumnTeamMember members={getFacilitatorsFromCoreUnit(coreUnit)} fte={getFTEsFromCoreUnit(coreUnit)} />
-    </div>
+    </TeamMemberContainer>
   );
 };
 
@@ -133,5 +126,15 @@ const InsideExpenditureContainer = styled.div({
   [lightTheme.breakpoints.up('desktop_1194')]: {
     marginLeft: '-4px',
     paddingLeft: 0,
+  },
+});
+
+const TeamMemberContainer = styled.div({
+  display: 'flex',
+  flex: 1,
+  alignItems: 'flex-end',
+  height: '50px',
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    justifyContent: 'flex-start',
   },
 });

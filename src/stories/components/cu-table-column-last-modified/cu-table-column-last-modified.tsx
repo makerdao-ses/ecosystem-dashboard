@@ -69,7 +69,8 @@ const Wrapper = styled.a({
   },
   '@media (min-width: 1440px)': {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
   },
 });
 
@@ -85,8 +86,8 @@ const Container = styled.div({
     alignItems: 'flex-start',
   },
   '@media (min-width: 1194px)': {
+    justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    marginLeft: '-35px',
     marginTop: '4px',
   },
 });
