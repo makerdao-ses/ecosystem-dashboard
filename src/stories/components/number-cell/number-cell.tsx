@@ -34,6 +34,9 @@ const Container = styled.div<{ negative?: boolean; fontFamily?: string; isLight:
     fontSize: '14px',
     lineHeight: '17px',
     padding: '10px 0',
+    fontWeight: 400,
+    letterSpacing: '0.3px',
+    fontFeatureSettings: "'tnum' on, 'lnum' on",
     color:
       isLight && negative ? '#F75524' : isLight && !negative ? '#231536' : !isLight && negative ? '#F75524' : '#D2D4EF',
     '@media (min-width: 834px)': {
