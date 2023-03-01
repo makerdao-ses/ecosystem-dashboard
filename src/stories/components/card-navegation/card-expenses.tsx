@@ -200,6 +200,7 @@ const AuditorTitle = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 
 const Auditors = styled.div({
   display: 'flex',
+  flexWrap: 'wrap',
 });
 
 const Auditor = styled.div({
