@@ -160,9 +160,17 @@ const ContainerInside = styled.div({
   textAlign: 'left',
   width: '100%',
   maxWidth: '1440px',
-  margin: '24px auto 0',
+  margin: '22px auto 0',
   paddingRight: '64px',
   paddingLeft: '64px',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 45,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginTop: 40,
+  },
 
   [lightTheme.breakpoints.up('desktop_1920')]: {
     maxWidth: '1312px',

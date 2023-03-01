@@ -49,9 +49,11 @@ const DelegateSummary: React.FC<Props> = ({ code = 'del', links, items }) => {
     }
   }, [positionScroll]);
   return (
-    <ContainerWithBreadCrumb isLight={isLight} showIcons={showIcons}>
-      <Container>
+    <ContainerWithBreadcrumb isLight={isLight} showIcons={showIcons}>
+      <BreadcrumbsContainer>
         <CustomBreadCrumbs isLight={isLight} items={items} />
+      </BreadcrumbsContainer>
+      <Container>
         <ContainerRow>
           <CircleContainer>
             <CircleAvatar
@@ -106,13 +108,13 @@ const DelegateSummary: React.FC<Props> = ({ code = 'del', links, items }) => {
           </ContainerDescription>
         </ContainerRow>
       </Container>
-    </ContainerWithBreadCrumb>
+    </ContainerWithBreadcrumb>
   );
 };
 
 export default DelegateSummary;
 
-const ContainerWithBreadCrumb = styled.div<{ isLight: boolean; showIcons?: boolean; isMobile?: boolean }>(
+const ContainerWithBreadcrumb = styled.div<{ isLight: boolean; showIcons?: boolean; isMobile?: boolean }>(
   ({ isLight, showIcons }) => ({
     position: 'sticky',
     top: 64,
@@ -132,6 +134,15 @@ const ContainerWithBreadCrumb = styled.div<{ isLight: boolean; showIcons?: boole
   })
 );
 
+const BreadcrumbsContainer = styled.div({
+  padding: '16px',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    padding: '3px 0 0',
+    borderBottom: '2px solid rgba(95, 196, 185, 0.1)',
+  },
+});
+
 const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
@@ -139,18 +150,18 @@ const Container = styled.div({
   width: '100%',
   maxWidth: '100%',
   margin: '0 auto',
-  padding: '16px 16px 0',
+  padding: '0 16px',
 
   [lightTheme.breakpoints.up('table_834')]: {
-    padding: '21px 32px 0 ',
+    padding: '26px 32px 0px',
   },
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    padding: '21px  48px 0',
+    padding: '26px 48px 0px',
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    padding: '21px 0 0',
+    padding: '26px 0px 0px',
     maxWidth: '1312px',
   },
 });
@@ -160,15 +171,18 @@ const ContainerRow = styled.div({
   flexDirection: 'row',
   width: '100%',
 });
+
 const ContainerDescription = styled.div({
   display: 'flex',
   flexDirection: 'column',
+
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row',
     width: '100%',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+
   [lightTheme.breakpoints.up('desktop_1280')]: {
     flexDirection: 'row',
     width: '100%',
@@ -176,14 +190,16 @@ const ContainerDescription = styled.div({
     justifyContent: 'space-between',
   },
 });
+
 const CircleContainer = styled.div({
   marginRight: 8,
-  marginTop: 1,
+  marginTop: 3,
   [lightTheme.breakpoints.up('table_834')]: {
     marginTop: -1,
     marginRight: 16,
   },
 });
+
 const Code = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   marginRight: 4,
   fontFamily: 'Inter, sans-serif',
@@ -191,10 +207,9 @@ const Code = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontWeight: 700,
   fontSize: ' 16px',
   lineHeight: '19px',
-  marginTop: 2,
   color: isLight ? '#9FAFB9' : '#546978',
+
   [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: 0,
     marginRight: 16,
     fontWeight: 600,
     fontSize: '24px',
@@ -226,25 +241,22 @@ const ContainerLink = styled.div({
   marginBottom: 16,
   display: 'flex',
   alignItems: 'flex-start',
-  marginTop: 4,
+  marginTop: 6,
   height: 13,
+
   [lightTheme.breakpoints.up('table_834')]: {
     marginTop: 8,
     marginBottom: 0,
-    marginLeft: 3,
   },
+
   [lightTheme.breakpoints.up('desktop_1194')]: {
     display: 'flex',
-    marginTop: 0,
+    marginTop: 3,
     marginBottom: 0,
     marginLeft: 0,
     height: 'fit-content',
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginBottom: 0,
-    marginTop: 0,
-    alignItems: 'center',
-  },
+
   [lightTheme.breakpoints.up('desktop_1440')]: {
     marginTop: 3,
     alignItems: 'center',
@@ -256,37 +268,15 @@ const ContainerLinks = styled.div({
   marginLeft: -6,
   transition: 'all .3s ease',
   [lightTheme.breakpoints.up('table_834')]: {
-    '& > div > div:first-of-type': {
-      marginTop: -4,
-    },
-    '* + *': {
-      marginRight: '14px',
-      marginTop: '0px',
-    },
     ' & > div> div:last-child': {
-      marginFight: -3,
-      marginTop: -2,
+      marginTop: -4,
     },
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    '& > div > div:first-of-type': {
-      marginRight: '14px',
-      marginTop: '2px',
-      marginLeft: 0,
-    },
-    '* + *': {
-      marginRight: '14px',
-      marginTop: '0px',
-    },
-    ' & > div> div:last-child': {
-      marginRight: '0px',
-    },
-  },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     '& > div > div:first-of-type': {
       marginRight: '16px',
-      marginTop: '4px',
+      marginTop: '0px',
       marginLeft: 0,
     },
     '* + *': {
@@ -302,18 +292,17 @@ const ContainerLinks = styled.div({
 const ContainerColumnMobile = styled.div({
   display: 'flex',
   flexDirection: 'column',
+
   [lightTheme.breakpoints.up('table_834')]: {
     marginTop: -4,
     marginLeft: 0,
   },
+
   [lightTheme.breakpoints.up('desktop_1194')]: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 4,
-    marginLeft: 0,
-  },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+    marginTop: -4,
     marginLeft: 0,
   },
 });

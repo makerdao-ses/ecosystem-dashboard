@@ -22,7 +22,6 @@ const StyledBreadcrumbs = styled(Breadcrumbs)<{ isLight: boolean }>(({ isLight }
   display: 'flex',
   height: 32,
   justifyContent: 'flex-start',
-  marginBottom: 16,
   fontWeight: 400,
   background: isLight ? '#ECF1F3' : '#000A13',
 
@@ -31,41 +30,26 @@ const StyledBreadcrumbs = styled(Breadcrumbs)<{ isLight: boolean }>(({ isLight }
 
     [lightTheme.breakpoints.up('table_834')]: {
       background: 'none',
-      maxWidth: '768px',
-      padding: 0,
-      marginBottom: 24,
+      padding: '0 32px',
       marginTop: 0,
-      height: 74,
+      height: 69,
       letterSpacing: '0.4px',
     },
 
     [lightTheme.breakpoints.up('desktop_1194')]: {
-      background: 'none',
-      maxWidth: '1130px',
-
-      marginTop: 0,
-      marginBottom: 24,
+      // background: 'none',
     },
 
     [lightTheme.breakpoints.up('desktop_1280')]: {
-      background: 'none',
-      maxWidth: '1184px',
-      marginBottom: 24,
-      marginTop: 0,
+      padding: '0 48px',
     },
 
     [lightTheme.breakpoints.up('desktop_1440')]: {
-      background: 'none',
-      maxWidth: '1376px',
-
-      marginBottom: 24,
-      marginTop: 0,
+      padding: '0 32px',
     },
 
     [lightTheme.breakpoints.up('desktop_1920')]: {
-      background: 'none',
-      maxWidth: '1855px',
-      marginBottom: 24,
+      // background: 'none',
     },
 
     '& .crumb': {
@@ -93,15 +77,15 @@ const StyledBreadcrumbs = styled(Breadcrumbs)<{ isLight: boolean }>(({ isLight }
         marginTop: -2,
 
         ':last-child': {
-          marginLeft: 14,
+          marginLeft: 16,
           lineHeight: '19px',
           fontWeight: 700,
+          marginTop: 2,
         },
       },
 
       [lightTheme.breakpoints.up('desktop_1194')]: {
         border: 'none',
-        marginTop: 0,
 
         ':last-child': {
           marginLeft: 16,
