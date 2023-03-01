@@ -74,13 +74,26 @@ const Container = styled.div({
 });
 
 const TransactionLink = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  display: 'inline',
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
-  fontSize: '14px',
+  fontSize: 14,
   lineHeight: '22px',
   marginBottom: 32,
+  '> a ': {
+    whiteSpace: 'unset',
+  },
   color: isLight ? '#231536' : '#D2D4EF',
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'block',
+    fontSize: 16,
+    lineHeight: '22px',
+    '> a ': {
+      fontSize: 16,
+      lineHeight: '18px',
+    },
+  },
 }));
 
 const TotalsMonth = styled.div<{ isLight: boolean }>(({ isLight }) => ({
