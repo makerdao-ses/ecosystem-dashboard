@@ -11,11 +11,13 @@ export default {
   title: 'Pages/Recognized Delegates',
   component: RecognizedDelegatesContainer,
   decorators: [withoutSBPadding],
-  chromatic: {
-    viewports: [375, 1440, 1920],
-    pauseAnimationAtEnd: true,
+  parameters: {
+    chromatic: {
+      viewports: [375, 834, 1194, 1440, 1920],
+      pauseAnimationAtEnd: true,
+    },
+    date: '2023-02-23T04:02:02Z',
   },
-  date: '2023-02-23T04:02:02Z',
 } as ComponentMeta<typeof RecognizedDelegatesContainer>;
 
 const variantsArgs = [
@@ -59,7 +61,7 @@ LightMode.parameters = {
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14539%3A156480&t=nnlMhBVyl5KbS8g1-4',
         options: {
           componentStyle: {
-            width: 834,
+            width: 802,
           },
           ...optionStyles,
         },
@@ -69,7 +71,7 @@ LightMode.parameters = {
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14373%3A164183&t=nnlMhBVyl5KbS8g1-4',
         options: {
           componentStyle: {
-            width: 1194,
+            width: 1162,
           },
           ...optionStyles,
         },
@@ -79,7 +81,7 @@ LightMode.parameters = {
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14373%3A158198&t=nnlMhBVyl5KbS8g1-4',
         options: {
           componentStyle: {
-            width: 1280,
+            width: 1248,
           },
           ...optionStyles,
         },
@@ -90,7 +92,7 @@ LightMode.parameters = {
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14373%3A152093&t=nnlMhBVyl5KbS8g1-4',
         options: {
           componentStyle: {
-            width: 1440,
+            width: 1407,
           },
           ...optionStyles,
         },
@@ -100,7 +102,7 @@ LightMode.parameters = {
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14373%3A154395&t=nnlMhBVyl5KbS8g1-4',
         options: {
           componentStyle: {
-            width: 1920,
+            width: 1888,
           },
           ...optionStyles,
         },

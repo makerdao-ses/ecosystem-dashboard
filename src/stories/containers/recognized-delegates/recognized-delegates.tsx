@@ -45,155 +45,152 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
   } = useRecognizedDelegates(delegates);
 
   return (
-    <Wrapper>
-      <Container isLight={isLight}>
-        <SEOHead
-          title={'MakerDAO Recognized Delegates Expense Reports | Finances'}
-          description={
-            'MakerDAO Recognized Delegates Expenses Reports provides a transparent overview of recognized delegates expenses, compensations, and benefits'
-          }
-          image={{
-            src: toAbsoluteURL('/assets/img/social-385x200.png'),
-            width: 385,
-            height: 200,
-          }}
-          twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
-        />
-        <DelegateSummary links={links} items={itemsBreadcrumb} />
-        <ContainerInside>
-          <ContainerPagerBar>
-            <PagerBar className="no-select" ref={null}>
-              <PagerBarLeft>
-                <StyledPagerBar
-                  className="styledPagerBar"
-                  label={currentMonth.toFormat('MMM yyyy').toUpperCase()}
-                  onPrev={handlePreviousMonth}
-                  onNext={handleNextMonth}
-                  hasNext={hasNextMonth()}
-                  hasPrevious={hasPreviousMonth()}
-                />
-                <ContainerExpense>
-                  <ExpenseReportStatusIndicator
-                    budgetStatus={currentBudgetStatement?.status || BudgetStatus.Draft}
-                    showCTA={showExpenseReportStatusCTA}
-                  />
-                </ContainerExpense>
-              </PagerBarLeft>
-
-              <Spacer />
-              {lastUpdateForBudgetStatement && (
-                <LastUpdate>
-                  <Since isLight={isLight}>Last Update</Since>
-                  <SinceDate>{lastUpdateForBudgetStatement.setZone('UTC').toFormat('dd-LLL-y HH:mm ZZZZ')}</SinceDate>
-                </LastUpdate>
-              )}
-            </PagerBar>
-          </ContainerPagerBar>
-          <ContainerTabs>
-            <Tabs
-              items={tabItems}
-              currentIndex={tabsIndexNumber}
-              style={{
-                margin: '32px 0',
-              }}
-            />
-          </ContainerTabs>
-          {tabsIndex === DELEGATES_IDS_ENUM.ACTUALS && (
-            <DelegatesActuals budgetStatement={allBudgetStatement} currentMonth={currentMonth} />
-          )}
-          {tabsIndex === DELEGATES_IDS_ENUM.FORECAST && (
-            <DelegatesForecast budgetStatement={allBudgetStatement} currentMonth={currentMonth} />
-          )}
-          {tabsIndex === DELEGATES_IDS_ENUM.COMMENTS && (
-            <CommentActivityContext.Provider value={{ lastVisitHandler }}>
-              <AuditorCommentsContainer
-                budgetStatement={currentBudgetStatement}
-                comments={comments}
-                mode={'Delegates'}
+    <Container isLight={isLight}>
+      <SEOHead
+        title={'MakerDAO Recognized Delegates Expense Reports | Finances'}
+        description={
+          'MakerDAO Recognized Delegates Expenses Reports provides a transparent overview of recognized delegates expenses, compensations, and benefits'
+        }
+        image={{
+          src: toAbsoluteURL('/assets/img/social-385x200.png'),
+          width: 385,
+          height: 200,
+        }}
+        twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
+      />
+      <DelegateSummary links={links} items={itemsBreadcrumb} />
+      <ContainerInside>
+        <ContainerPagerBar>
+          <PagerBar className="no-select" ref={null}>
+            <PagerBarLeft>
+              <StyledPagerBar
+                className="styledPagerBar"
+                label={currentMonth.toFormat('MMM yyyy').toUpperCase()}
+                onPrev={handlePreviousMonth}
+                onNext={handleNextMonth}
+                hasNext={hasNextMonth()}
+                hasPrevious={hasPreviousMonth()}
               />
-            </CommentActivityContext.Provider>
-          )}
-
-          <ContainerAdditionalNotes>
-            <TitleNotes isLight={isLight}>Additional Notes</TitleNotes>
-            <Description isLight={isLight}>
-              The expenses on this page are for all Recognized Delegates that receive compensation. To view all
-              delegates visit
-              <span>
-                <CustomLink
-                  iconWidth={10}
-                  iconHeight={10}
-                  children={'vote.makerdao.com/delegates'}
-                  href="https://vote.makerdao.com/delegates"
-                  marginLeft="7px"
+              <ContainerExpense>
+                <ExpenseReportStatusIndicator
+                  budgetStatus={currentBudgetStatement?.status || BudgetStatus.Draft}
+                  showCTA={showExpenseReportStatusCTA}
                 />
-              </span>
-            </Description>
-            <Description isLight={isLight}>
-              MakerDAO forum reports for delegate can be found
-              <SpacerDescription style={{ width: 1 }} />
+              </ContainerExpense>
+            </PagerBarLeft>
+
+            <Spacer />
+            {lastUpdateForBudgetStatement && (
+              <LastUpdate>
+                <Since isLight={isLight}>Last Update</Since>
+                <SinceDate>{lastUpdateForBudgetStatement.setZone('UTC').toFormat('dd-LLL-y HH:mm ZZZZ')}</SinceDate>
+              </LastUpdate>
+            )}
+          </PagerBar>
+        </ContainerPagerBar>
+        <ContainerTabs>
+          <Tabs
+            items={tabItems}
+            currentIndex={tabsIndexNumber}
+            style={{
+              margin: '32px 0',
+            }}
+          />
+        </ContainerTabs>
+        {tabsIndex === DELEGATES_IDS_ENUM.ACTUALS && (
+          <DelegatesActuals budgetStatement={allBudgetStatement} currentMonth={currentMonth} />
+        )}
+        {tabsIndex === DELEGATES_IDS_ENUM.FORECAST && (
+          <DelegatesForecast budgetStatement={allBudgetStatement} currentMonth={currentMonth} />
+        )}
+        {tabsIndex === DELEGATES_IDS_ENUM.COMMENTS && (
+          <CommentActivityContext.Provider value={{ lastVisitHandler }}>
+            <AuditorCommentsContainer budgetStatement={currentBudgetStatement} comments={comments} mode={'Delegates'} />
+          </CommentActivityContext.Provider>
+        )}
+
+        <ContainerAdditionalNotes>
+          <TitleNotes isLight={isLight}>Additional Notes</TitleNotes>
+          <Description isLight={isLight}>
+            The expenses on this page are for all Recognized Delegates that receive compensation. To view all delegates
+            visit
+            <span>
               <CustomLink
                 iconWidth={10}
                 iconHeight={10}
-                children={'here'}
-                href="https://forum.makerdao.com/tag/compensation"
+                children={'vote.makerdao.com/delegates'}
+                href="https://vote.makerdao.com/delegates"
                 marginLeft="7px"
-                style={{
-                  marginLeft: isMobile ? '0px' : '4px',
-                }}
               />
-            </Description>
-          </ContainerAdditionalNotes>
-        </ContainerInside>
-      </Container>
-    </Wrapper>
+            </span>
+          </Description>
+          <Description isLight={isLight}>
+            MakerDAO forum reports for delegate can be found
+            <SpacerDescription style={{ width: 1 }} />
+            <CustomLink
+              iconWidth={10}
+              iconHeight={10}
+              children={'here'}
+              href="https://forum.makerdao.com/tag/compensation"
+              marginLeft="7px"
+              style={{
+                marginLeft: isMobile ? '0px' : '4px',
+              }}
+            />
+          </Description>
+        </ContainerAdditionalNotes>
+      </ContainerInside>
+    </Container>
   );
 };
 
 export default RecognizedDelegatesContainer;
-const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  alignItems: 'center',
-  marginTop: 64,
-  flexDirection: 'column',
-  width: '100%',
 
+const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  marginTop: 64,
+  width: '100%',
   backgroundColor: isLight ? '#FFFFFF' : '#000000',
   backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
 }));
-const Wrapper = styled.div({
-  display: 'flex',
-  flexDirection: 'column',
-  width: '100%',
-});
 
 const ContainerInside = styled.div({
-  width: '343px',
-  display: 'flex',
-  margin: '0px auto',
-  marginTop: 24,
-  flexDirection: 'column',
+  display: 'block',
+  textAlign: 'left',
+  width: '100%',
+  maxWidth: '1440px',
+  margin: '22px auto 0',
+  paddingRight: '64px',
+  paddingLeft: '64px',
+
   [lightTheme.breakpoints.up('table_834')]: {
-    minWidth: '770px',
-    margin: '0px auto',
-    marginTop: 37,
+    marginTop: 45,
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    minWidth: '1130px',
-    margin: '0px auto',
-    marginTop: 32,
+    marginTop: 40,
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    minWidth: '1184px',
-    margin: '0px auto',
-    marginTop: 32,
+
+  [lightTheme.breakpoints.up('desktop_1920')]: {
+    maxWidth: '1312px',
+    paddingRight: '0px',
+    paddingLeft: '0px',
   },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    minWidth: '1312px',
-    margin: '0px auto',
-    marginTop: 32,
+
+  [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
+    paddingRight: '48px',
+    paddingLeft: '48px',
+  },
+
+  [lightTheme.breakpoints.between('table_834', 'desktop_1280')]: {
+    paddingRight: '32px',
+    paddingLeft: '32px',
+  },
+
+  [lightTheme.breakpoints.down('table_834')]: {
+    paddingRight: '16px',
+    paddingLeft: '16px',
   },
 });
 
