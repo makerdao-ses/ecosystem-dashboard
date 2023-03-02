@@ -46,7 +46,11 @@ export const useCoreUnitsTableMvvm = () => {
   const fetcher = (query: string) => request(GRAPHQL_ENDPOINT, query);
   const { data: res, error } = useSWR(GETCoreUnits, fetcher);
 
-  const data = res?.coreUnits ?? null;
+  const data = useMemo(
+    // remove "DEL" Core Unit as it is the Recognized Delegates and it shouldn't be displayed in the CU list
+    () => res?.coreUnits?.filter((coreUnit: CoreUnitDto) => coreUnit.shortCode.toLocaleLowerCase() !== 'del') ?? null,
+    [res]
+  );
   const status = !data && !error ? 'loading' : data ? 'success' : 'idle';
 
   const [sortColumn, setSortColumn] = useState<number>(-1);
