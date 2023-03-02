@@ -82,7 +82,6 @@ export const TransparencyForecast2 = (props: Props) => {
             item: header,
             id: headerIds[i],
           }))}
-          style={{ marginBottom: '64px' }}
           currentIndex={thirdIndex}
         />
       )}

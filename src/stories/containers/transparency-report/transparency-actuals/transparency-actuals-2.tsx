@@ -82,9 +82,6 @@ export const TransparencyActuals2 = (props: Props) => {
             id: headerIds[i],
           }))}
           currentIndex={thirdIndex}
-          style={{
-            marginBottom: '32px',
-          }}
         />
       )}
 
