@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { MAKER_BURN_LINK } from '../../../../core/utils/const';
@@ -19,6 +21,7 @@ interface Props {
 
 export const TransparencyTransferRequest2 = (props: Props) => {
   const { isLight } = useThemeContext();
+  const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const { mainTableColumns, mainTableItems } = useTransparencyTransferRequestMvvm2(
     props.currentMonth,
     props.budgetStatements
@@ -35,7 +38,7 @@ export const TransparencyTransferRequest2 = (props: Props) => {
             color: '#447AFB',
             letterSpacing: '0.3px',
             lineHeight: '18px',
-            marginBottom: '16px',
+            marginBottom: isMobile ? '0px' : '32px',
             whiteSpace: 'break-spaces',
             display: 'inline-block',
             marginLeft: 0,
@@ -49,13 +52,15 @@ export const TransparencyTransferRequest2 = (props: Props) => {
           {`view the ${getShortCode(props.code)} Core Unit on-chain transaction history`}
         </CustomLink>
       </LinkDescription>
-      <AdvancedInnerTable
-        columns={mainTableColumns}
-        items={mainTableItems}
-        style={{ marginBottom: '64px' }}
-        cardsTotalPosition={'top'}
-        longCode={props.longCode}
-      />
+      <div style={{ marginTop: 32 }}>
+        <AdvancedInnerTable
+          columns={mainTableColumns}
+          items={mainTableItems}
+          style={{ marginBottom: '64px' }}
+          cardsTotalPosition={'top'}
+          longCode={props.longCode}
+        />
+      </div>
     </Container>
   );
 };
