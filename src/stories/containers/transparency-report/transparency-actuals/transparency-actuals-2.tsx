@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { MAKER_BURN_LINK } from '../../../../core/utils/const';
@@ -21,6 +23,7 @@ interface Props {
 
 export const TransparencyActuals2 = (props: Props) => {
   const { isLight } = useThemeContext();
+  const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
 
   const {
     headerIds,
@@ -44,7 +47,7 @@ export const TransparencyActuals2 = (props: Props) => {
             color: '#447AFB',
             letterSpacing: '0.3px',
             lineHeight: '18px',
-            marginBottom: '16px',
+            marginBottom: isMobile ? '0px' : '32px',
             marginLeft: 0,
             whiteSpace: 'break-spaces',
             display: 'inline-block',
@@ -58,9 +61,7 @@ export const TransparencyActuals2 = (props: Props) => {
           {`view the ${getShortCode(props.code)} Core Unit on-chain transaction history`}
         </CustomLink>
       </LinkDescription>
-      <Title isLight={isLight} responsiveMarginBottom={16}>
-        {props.currentMonth.toFormat('MMM yyyy')} Totals
-      </Title>
+      <Title isLight={isLight}>{props.currentMonth.toFormat('MMM yyyy')} Totals</Title>
       <AdvancedInnerTable
         columns={mainTableColumns}
         items={mainTableItems}
@@ -81,9 +82,6 @@ export const TransparencyActuals2 = (props: Props) => {
             id: headerIds[i],
           }))}
           currentIndex={thirdIndex}
-          style={{
-            marginBottom: '32px',
-          }}
         />
       )}
 
@@ -112,7 +110,6 @@ export const LinkDescription = styled.div<{ isLight: boolean }>(({ isLight }) =>
   fontSize: '16px',
   lineHeight: '22px',
   color: isLight ? '#231536' : '#D2D4EF',
-  marginBottom: '32px',
   span: {
     marginRight: 4,
   },

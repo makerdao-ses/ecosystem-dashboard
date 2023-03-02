@@ -231,7 +231,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   flexDirection: 'column',
   alignItems: 'center',
   marginTop: '64px',
-  paddingBottom: '128px',
+  paddingBottom: '64px',
   flex: 1,
   backgroundColor: isLight ? '#FFFFFF' : '#000000',
   backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
@@ -253,7 +253,16 @@ const InnerPage = styled.div({
   margin: '0 auto',
   paddingRight: '64px',
   paddingLeft: '64px',
+  marginTop: 32,
+  [lightTheme.breakpoints.up('table_834')]: {
+    paddingTop: 32,
+    marginTop: 0,
+  },
 
+  [lightTheme.breakpoints.between('table_834', 'desktop_1280')]: {
+    paddingRight: '32px',
+    paddingLeft: '32px',
+  },
   [lightTheme.breakpoints.up('desktop_1920')]: {
     maxWidth: '1312px',
     paddingRight: '0px',
@@ -263,13 +272,7 @@ const InnerPage = styled.div({
     paddingRight: '48px',
     paddingLeft: '48px',
   },
-  [lightTheme.breakpoints.between('table_834', 'desktop_1280')]: {
-    paddingRight: '32px',
-    paddingLeft: '32px',
-  },
-  [lightTheme.breakpoints.up('table_834')]: {
-    paddingTop: 32,
-  },
+
   [lightTheme.breakpoints.down('table_834')]: {
     paddingRight: '16px',
     paddingLeft: '16px',
@@ -297,7 +300,7 @@ export const Title = styled.div<{
     marginBottom: `${responsiveMarginBottom || marginBottom}px`,
   },
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-    marginTop: '40px',
+    marginTop: '32px',
     fontWeight: 700,
   },
 }));
@@ -399,7 +402,7 @@ export const ParenthesisNumber = styled.label({
 });
 
 const AdditionalNotesSection = styled.div({
-  paddingBottom: 113,
+  paddingBottom: 0,
 
   [lightTheme.breakpoints.up('table_834')]: {
     paddingBottom: 0,

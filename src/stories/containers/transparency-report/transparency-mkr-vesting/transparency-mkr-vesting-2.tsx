@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { MAKER_BURN_LINK } from '../../../../core/utils/const';
@@ -24,6 +26,7 @@ export const TransparencyMkrVesting2 = (props: TransparencyMkrVestingProps) => {
     props.currentMonth,
     props.budgetStatements
   );
+  const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const { isLight } = useThemeContext();
 
   return (
@@ -37,7 +40,7 @@ export const TransparencyMkrVesting2 = (props: TransparencyMkrVestingProps) => {
             color: '#447AFB',
             letterSpacing: '0.3px',
             lineHeight: '18px',
-            marginBottom: '16px',
+            marginBottom: isMobile ? '0px' : '32px',
             whiteSpace: 'break-spaces',
             display: 'inline-block',
             marginLeft: 0,

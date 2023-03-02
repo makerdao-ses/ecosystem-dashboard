@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { MAKER_BURN_LINK } from '../../../../core/utils/const';
@@ -22,6 +24,7 @@ interface Props {
 
 export const TransparencyForecast2 = (props: Props) => {
   const { isLight } = useThemeContext();
+  const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
 
   const {
     thirdIndex,
@@ -45,7 +48,7 @@ export const TransparencyForecast2 = (props: Props) => {
             color: '#447AFB',
             letterSpacing: '0.3px',
             lineHeight: '18px',
-            marginBottom: '16px',
+            marginBottom: isMobile ? '0px' : '32px',
             whiteSpace: 'break-spaces',
             display: 'inline-block',
             marginLeft: 0,
@@ -59,9 +62,7 @@ export const TransparencyForecast2 = (props: Props) => {
           {`view the ${getShortCode(props.code)} Core Unit on-chain transaction history`}
         </CustomLink>
       </LinkDescription>
-      <Title isLight={isLight} marginBottom={16}>
-        {props.currentMonth.toFormat('MMM yyyy')} Totals
-      </Title>
+      <Title isLight={isLight}>{props.currentMonth.toFormat('MMM yyyy')} Totals</Title>
       <AdvancedInnerTable
         longCode={props.longCode}
         columns={mainTableColumns}
@@ -81,7 +82,6 @@ export const TransparencyForecast2 = (props: Props) => {
             item: header,
             id: headerIds[i],
           }))}
-          style={{ marginBottom: '64px' }}
           currentIndex={thirdIndex}
         />
       )}
