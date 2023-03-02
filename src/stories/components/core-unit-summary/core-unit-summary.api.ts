@@ -48,5 +48,5 @@ const CORE_UNITS_REQUEST = {
 
 export const fetchCoreUnits = async () => {
   const res = (await request(GRAPHQL_ENDPOINT, CORE_UNITS_REQUEST.query)) as { coreUnits: CoreUnitDto[] };
-  return res?.coreUnits;
+  return res?.coreUnits?.filter((coreUnit) => coreUnit.shortCode.toLocaleLowerCase() !== 'del');
 };

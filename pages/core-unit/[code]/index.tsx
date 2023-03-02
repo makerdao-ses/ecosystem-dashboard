@@ -38,7 +38,7 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
 
   const [cuAbout, coreUnits] = await Promise.all([fetchCoreUnitByCode(code), fetchCoreUnits()]);
 
-  if (isEmpty(cuAbout)) {
+  if (isEmpty(cuAbout) || code === 'DEL') {
     return {
       notFound: true,
     };

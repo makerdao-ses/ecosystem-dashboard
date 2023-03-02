@@ -41,7 +41,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
   const [data, coreUnits] = await Promise.all([request(GRAPHQL_ENDPOINT, gqlQuery, filter), fetchCoreUnits()]);
 
-  if (data?.coreUnits?.length === 0) {
+  if (data?.coreUnits?.length === 0 || code === 'DEL') {
     return {
       notFound: true,
     };
