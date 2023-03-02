@@ -12,7 +12,6 @@ interface BreadcrumbsProps {
   height?: number;
   width?: number;
   paddingBreadcrumbs?: string;
-  heightBreadcrumbs?: string;
   fontSize?: string;
   borderRadius?: string;
   marginLeft?: string;
@@ -27,7 +26,6 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
       className={props.className}
       isLight={isLight}
       padding={props.paddingBreadcrumbs}
-      height={props.heightBreadcrumbs}
       borderRadius={props.borderRadius}
     >
       {props.items.map((item, i) => (
@@ -63,15 +61,14 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
 
 const Container = styled.div<{
   padding?: string;
-  height?: string;
   borderRadius?: string;
   isLight: boolean;
-}>(({ height = '47px', padding = '27px 0', borderRadius }) => ({
+}>(({ padding = '27px 0', borderRadius }) => ({
   display: 'flex',
   flex: 1,
   padding,
   boxSizing: 'border-box',
-  height,
+  height: '100%',
   alignSelf: 'flex-start',
   borderRadius,
 }));
