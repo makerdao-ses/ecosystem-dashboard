@@ -89,6 +89,7 @@ const Container = styled.div({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     marginTop: '4px',
+    paddingLeft: 8,
   },
 });
 

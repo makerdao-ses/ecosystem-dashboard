@@ -325,7 +325,7 @@ const Title = styled.div<{ hideSmall?: boolean; isCoreUnitTitle?: boolean; isExp
     fontSize: '14px',
     lineHeight: '22px',
     color: '#9FAFB9',
-    marginLeft: isExpenditure ? '3px' : '0px',
+    marginLeft: '0px',
     marginBottom: isExpenditure ? '14px' : '8px',
     '@media (min-width: 834px)': {
       display: 'block',

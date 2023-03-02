@@ -99,15 +99,14 @@ const Container = styled.div({
 
 const Wrapper = styled.a({
   display: 'flex',
-  // marginTop: '2px',
   textDecoration: 'none',
 });
 
 const DataWrapper = styled.div({
   display: 'flex',
   paddingBottom: '4px',
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginLeft: '33px',
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    paddingLeft: 5,
   },
 });
 
