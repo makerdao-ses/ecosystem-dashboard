@@ -74,20 +74,22 @@ const Container = styled.div({
   fontWeight: 400,
   cursor: 'pointer',
   marginLeft: '7px',
+
   '@media (min-width: 834px) and (max-width: 1194px)': {
-    marginLeft: '-4px',
+    marginLeft: '0px',
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     marginLeft: '12px',
-  },
-  '@media (min-width: 1194px)': {
     alignItems: 'center',
   },
-  '@media (min-width: 1440px)': {
+  [lightTheme.breakpoints.up('desktop_1440')]: {
     marginLeft: '24px',
     width: '100%',
     flex: 1,
     justifyContent: 'flex-start',
+  },
+  [lightTheme.breakpoints.up('desktop_1920')]: {
+    paddingLeft: 6,
   },
 });
 
