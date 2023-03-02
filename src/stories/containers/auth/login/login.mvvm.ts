@@ -35,8 +35,10 @@ export const useLoginMvvm = () => {
   }, [isMobile, router, shouldKeepOpenModal]);
 
   useEffect(() => {
-    clearCredentials?.();
-  }, [clearCredentials]);
+    if (router.pathname === siteRoutes.login) {
+      clearCredentials?.();
+    }
+  }, [clearCredentials, router.pathname]);
 
   const form = useFormik({
     initialValues: {
