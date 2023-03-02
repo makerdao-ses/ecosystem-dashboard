@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { Popover, Typography, useMediaQuery } from '@mui/material';
-import max from 'lodash/max';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ExpenditureLevel } from '../../../core/enums/expenditure-level.enum';
@@ -68,7 +67,8 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
     return (value / max) * maxLimit;
   };
 
-  const isValueValid = (value: number): boolean => value > 0 && !!max(props.maxValues);
+  const hasMonthValue = (monthIndex: number): boolean =>
+    !!props.items?.[monthIndex]?.value || !!props.maxValues?.[monthIndex];
 
   const getColor = (value: number, pos: number): string => {
     if (!props.maxValues || props.maxValues.length === 0) return COLOR_RED;
@@ -204,10 +204,10 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
               width="12"
               rx="1"
               aria-describedby="id"
-              height={isValueValid(item.value) ? calculateHeight(item.value) : 16}
+              height={hasMonthValue(i) ? calculateHeight(item.value) : 16}
               onMouseOver={(e) => handleMouseOver(e, i)}
               onMouseLeave={handleClose}
-              fill={isValueValid(item.value) ? getColor(item.value, i) : COLOR_GRAY}
+              fill={hasMonthValue(i) ? getColor(item.value, i) : COLOR_GRAY}
             >
               <animate
                 attributeName="height"
