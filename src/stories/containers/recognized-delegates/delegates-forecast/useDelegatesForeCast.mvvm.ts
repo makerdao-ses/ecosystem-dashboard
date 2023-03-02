@@ -263,7 +263,7 @@ export const useDelegatesForecast = (currentMonth: DateTime, propBudgetStatement
   const mainTableColumnsForecast: InnerTableColumn[] = useMemo(
     () => [
       {
-        header: 'Wallet',
+        header: 'BUDGET',
         type: 'custom',
         cellRender: renderWallet,
         isCardHeader: true,
@@ -468,7 +468,7 @@ export const useDelegatesForecast = (currentMonth: DateTime, propBudgetStatement
   const breakdownHeadersForecast = useMemo(() => {
     const result: InnerTableColumn[] = [
       {
-        header: 'Group',
+        header: 'recognized delegates',
         hidden: !hasGroups,
         isCardHeader: true,
         width: '240px',
