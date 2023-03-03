@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
-import { useTransparencyForecastMvvm2 } from '../transparency-forecast/transparency-forecast-2.mvvm';
+import { useTransparencyForecastMvvm } from '../transparency-forecast/transparency-forecast.mvvm';
 import { renderLinks, renderWallet } from '../transparency-report.utils';
 import type { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 import type { InnerTableColumn, InnerTableRow } from '../../../components/advanced-inner-table/advanced-inner-table';
@@ -8,7 +8,7 @@ import type { DateTime } from 'luxon';
 
 export const useTransparencyTransferRequestMvvm2 = (currentMonth: DateTime, budgetStatements: BudgetStatementDto[]) => {
   const { firstMonth, secondMonth, thirdMonth, getForecastSumOfMonthsOnWallet, getForecastSumForMonths, wallets } =
-    useTransparencyForecastMvvm2(currentMonth, budgetStatements);
+    useTransparencyForecastMvvm(currentMonth, budgetStatements);
 
   const getTransferRequestForMonthOnWallet = useMemo(() => {
     const getTransferRequestForMonthOnWalletFunction = (walletAddress: string | undefined) => {
