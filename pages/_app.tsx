@@ -62,6 +62,33 @@ function MyApp(props: MyAppProps) {
     }
   }, [props.pageProps?.protected, router]);
 
+  useEffect(() => {
+    let lastY: number;
+    const onStart = (e: TouchEvent) => {
+      // Save position of touch
+      const touch = e.touches[0] || e.changedTouches[0];
+      lastY = touch.pageY;
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      // Check user isn't scrolling past content. If so, cancel move to prevent ios bouncing
+      const touch = e.touches[0] || e.changedTouches[0];
+      const y = touch.pageY;
+      const targetElement = e.target as HTMLElement;
+      if (y < lastY && targetElement?.scrollTop === targetElement?.scrollHeight - targetElement?.clientHeight) {
+        e.preventDefault();
+      } else if (y > lastY && targetElement?.scrollTop === 0) {
+        e.preventDefault();
+      }
+    };
+
+    document.addEventListener('touchstart', onStart);
+    document.addEventListener('touchmove', onTouchMove);
+    return () => {
+      document.removeEventListener('touchstart', onStart);
+      document.removeEventListener('touchmove', onTouchMove);
+    };
+  }, []);
+
   return (
     <CookiesProvider>
       <Provider store={store}>
