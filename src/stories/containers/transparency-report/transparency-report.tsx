@@ -321,6 +321,7 @@ const PagerBar = styled.div({
   flex: 1,
   '@media (min-width: 834px)': {
     alignItems: 'center',
+    height: '34px',
   },
 });
 
