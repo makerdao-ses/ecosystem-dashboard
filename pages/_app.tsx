@@ -63,26 +63,31 @@ function MyApp(props: MyAppProps) {
   }, [props.pageProps?.protected, router]);
 
   useEffect(() => {
-    let lastY: number;
+    let startY = 0; // Initial touch position
+    const threshold = 10; // Threshold to prevent overscroll
+
     const onStart = (e: TouchEvent) => {
-      // Save position of touch
-      const touch = e.touches[0] || e.changedTouches[0];
-      lastY = touch.pageY;
+      startY = e.touches[0].clientY; // Get initial touch position
     };
-    const onTouchMove = (e: TouchEvent) => {
-      // Check user isn't scrolling past content. If so, cancel move to prevent ios bouncing
-      const touch = e.touches[0] || e.changedTouches[0];
-      const y = touch.pageY;
-      const targetElement = e.target as HTMLElement;
-      if (y < lastY && targetElement?.scrollTop === targetElement?.scrollHeight - targetElement?.clientHeight) {
+
+    const onTouchMove = function (e: TouchEvent) {
+      const currentY = e.touches[0].clientY; // Get current touch position
+      const scrollableElement = document.documentElement.scrollHeight - document.documentElement.clientHeight; // Get scrollable area
+      if (startY < threshold && window.pageYOffset <= 0 && currentY > startY) {
+        // Prevent over scrolling at the top of the page
         e.preventDefault();
-      } else if (y > lastY && targetElement?.scrollTop === 0) {
+      } else if (
+        currentY < window.innerHeight - threshold &&
+        window.pageYOffset >= scrollableElement &&
+        currentY < startY
+      ) {
+        // Prevent over scrolling at the bottom of the page
         e.preventDefault();
       }
     };
 
     document.addEventListener('touchstart', onStart);
-    document.addEventListener('touchmove', onTouchMove);
+    document.addEventListener('touchmove', onTouchMove, { passive: false });
     return () => {
       document.removeEventListener('touchstart', onStart);
       document.removeEventListener('touchmove', onTouchMove);
