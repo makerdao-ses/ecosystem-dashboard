@@ -111,6 +111,10 @@
   font-style: normal;
 }
 
+body {
+  overscroll-behavior: none;
+}
+
 html,
 body {
   padding: 0;
