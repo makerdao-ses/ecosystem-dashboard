@@ -1,13 +1,15 @@
 import styled from '@emotion/styled';
-import React, { useMemo } from 'react';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import lightTheme from '@ses/styles/theme/light';
+import React from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
+import { MAKER_BURN_LINK } from '../../../../core/utils/const';
+import { getShortCode } from '../../../../core/utils/string.utils';
+import { AdvancedInnerTable } from '../../../components/advanced-inner-table/advanced-inner-table';
+import { CustomLink } from '../../../components/custom-link/custom-link';
 import { CustomPopover } from '../../../components/custom-popover/custom-popover';
-import { InnerTable } from '../../../components/inner-table/inner-table';
-import { NumberCell } from '../../../components/number-cell/number-cell';
-import { TextCell } from '../../../components/text-cell/text-cell';
-import { TransparencyCard } from '../../../components/transparency-card/transparency-card';
-import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
-import { CardsWrapper, TableWrapper, Title } from '../transparency-report';
+import { LinkDescription } from '../transparency-actuals/transparency-actuals';
+import { Title } from '../transparency-report';
 import { useTransparencyMkrVesting } from './transparency-mkr-vesting.mvvm';
 import type { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 import type { DateTime } from 'luxon';
@@ -15,46 +17,43 @@ import type { DateTime } from 'luxon';
 interface TransparencyMkrVestingProps {
   currentMonth: DateTime;
   budgetStatements: BudgetStatementDto[];
+  code: string;
   longCode: string;
 }
 
-const headers = ['Vesting Date', 'MKR Amount', 'Last month', 'difference', 'reason(s)'];
-
 export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
-  const { mkrVestings, totalAmount, totalOldAmount, FTEs } = useTransparencyMkrVesting(
+  const { mainTableItems, mainTableColumns, FTEs } = useTransparencyMkrVesting(
     props.currentMonth,
     props.budgetStatements
   );
+  const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const { isLight } = useThemeContext();
-
-  const items = useMemo(() => {
-    const result: JSX.Element[][] = [];
-
-    mkrVestings?.forEach((mkr) => {
-      result.push([
-        <TextCell>{mkr.vestingDate}</TextCell>,
-        <NumberCell value={mkr.mkrAmount} />,
-        <NumberCell value={mkr.mkrAmountOld} />,
-        <NumberCell value={Number(mkr.mkrAmount) - Number(mkr.mkrAmountOld)} />,
-        <TextCell style={{ paddingLeft: '36px' }}>{mkr.comments}</TextCell>,
-      ]);
-    });
-
-    result.push([
-      <TextCell>
-        <b>Total</b>
-      </TextCell>,
-      <NumberCell value={Number(totalAmount)} bold />,
-      <NumberCell value={Number(totalOldAmount)} bold />,
-      <NumberCell value={Number(totalAmount) - Number(totalOldAmount)} bold />,
-      <TextCell />,
-    ]);
-
-    return result;
-  }, [mkrVestings, totalAmount, totalOldAmount]);
 
   return (
     <Container>
+      <LinkDescription isLight={isLight}>
+        <span> Visit makerburn.com to</span>
+        <CustomLink
+          href={`${MAKER_BURN_LINK}/${props.longCode}`}
+          style={{
+            flexWrap: 'wrap',
+            color: '#447AFB',
+            letterSpacing: '0.3px',
+            lineHeight: '18px',
+            marginBottom: isMobile ? '0px' : '32px',
+            whiteSpace: 'break-spaces',
+            display: 'inline-block',
+            marginLeft: 0,
+          }}
+          fontSize={16}
+          fontWeight={500}
+          iconWidth={10}
+          iconHeight={10}
+          marginLeft="7px"
+        >
+          {`view the ${getShortCode(props.code)} Core Unit on-chain transaction history`}
+        </CustomLink>
+      </LinkDescription>
       <Title isLight={isLight} marginBottom={24}>
         MKR Vesting Overview
       </Title>
@@ -72,29 +71,12 @@ export const TransparencyMkrVesting = (props: TransparencyMkrVestingProps) => {
           </TotalFte>
         </CustomPopover>
       </ContainerPopover>
-      {items.length - 1 <= 0 ? (
-        <TransparencyEmptyTable longCode={props.longCode} />
-      ) : (
+      <AdvancedInnerTable columns={mainTableColumns} items={mainTableItems} longCode={props.longCode} />
+      {mainTableItems.length > 0 && (
         <>
-          <TableWrapper>
-            <InnerTable
-              headers={headers}
-              headersAlign={['left', 'right', 'right', 'right', 'left']}
-              headerStyles={[{}, {}, {}, {}, { paddingLeft: '38px' }]}
-              items={items}
-              minWidth={200}
-              headerWidths={['200px', '210px', '210px', '210px', '354px']}
-              style={{ marginBottom: '32px' }}
-            />
-          </TableWrapper>
-
-          <CardsWrapper>
-            {items.map((item) => (
-              <TransparencyCard header={item[0]} headers={headers.slice(1)} items={item.slice(1)} />
-            ))}
-          </CardsWrapper>
-
-          <Text isLight={isLight}>This Overview is based on MIP40c3-SP17, SES’ MKR Incentive Proposal.</Text>
+          <Text isLight={isLight} style={{ marginTop: '32px' }}>
+            This Overview is based on MIP40c3-SP17, SES’ MKR Incentive Proposal.
+          </Text>
 
           <Text isLight={isLight} style={{ marginBottom: '90px' }}>
             The Difference column indicates any changes in the MKR vesting amounts compared to last month, with the
@@ -115,7 +97,7 @@ const Container = styled.div({
 const TotalFte = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
-  fontWeight: 700,
+  fontWeight: 600,
   fontSize: '16px',
   lineHeight: '19px',
   color: isLight ? '#231536' : '#D2D4EF',
@@ -125,7 +107,7 @@ const TotalFte = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   '> u': {
     fontStyle: 'normal',
     fontFamily: 'Inter, sans-serif',
-    fontWeight: 700,
+    fontWeight: 800,
     fontSize: '22px',
     lineHeight: '27px',
     paddingBottom: '2px',

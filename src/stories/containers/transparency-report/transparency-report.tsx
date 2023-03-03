@@ -18,7 +18,6 @@ import { TransparencyAudit } from './transparency-audit/transparency-audit';
 import AuditorCommentsContainer from './transparency-auditor-comments/comment-container/auditor-comments-container';
 import { TransparencyForecast } from './transparency-forecast/transparency-forecast';
 import { TransparencyMkrVesting } from './transparency-mkr-vesting/transparency-mkr-vesting';
-import { TransparencyMkrVesting2 } from './transparency-mkr-vesting/transparency-mkr-vesting-2';
 import { TRANSPARENCY_IDS_ENUM, useTransparencyReportViewModel } from './transparency-report.mvvm';
 import { TransparencyTransferRequest } from './transparency-transfer-request/transparency-transfer-request';
 import { TransparencyTransferRequest2 } from './transparency-transfer-request/transparency-transfer-request-2';
@@ -115,20 +114,14 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
           )}
           {tabsIndex === TRANSPARENCY_IDS_ENUM.MKR_VESTING &&
             isEnabled('FEATURE_MKR_VESTING') &&
-            (isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') ? (
-              <TransparencyMkrVesting2
+            isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
+              <TransparencyMkrVesting
                 currentMonth={currentMonth}
                 budgetStatements={coreUnit?.budgetStatements}
                 code={code}
                 longCode={longCode}
               />
-            ) : (
-              <TransparencyMkrVesting
-                currentMonth={currentMonth}
-                budgetStatements={coreUnit?.budgetStatements}
-                longCode={longCode}
-              />
-            ))}
+            )}
           {tabsIndex === TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS &&
             (isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') ? (
               <TransparencyTransferRequest2
