@@ -225,6 +225,7 @@ const PagerBar = styled.div({
   marginTop: 2,
   [lightTheme.breakpoints.up('table_834')]: {
     alignItems: 'center',
+    height: '34px',
     marginTop: 4,
     marginLeft: 2,
   },
