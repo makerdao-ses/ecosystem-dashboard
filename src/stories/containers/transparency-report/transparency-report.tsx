@@ -20,7 +20,6 @@ import { TransparencyForecast } from './transparency-forecast/transparency-forec
 import { TransparencyMkrVesting } from './transparency-mkr-vesting/transparency-mkr-vesting';
 import { TRANSPARENCY_IDS_ENUM, useTransparencyReportViewModel } from './transparency-report.mvvm';
 import { TransparencyTransferRequest } from './transparency-transfer-request/transparency-transfer-request';
-import { TransparencyTransferRequest2 } from './transparency-transfer-request/transparency-transfer-request-2';
 import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 interface TransparencyReportProps {
@@ -122,21 +121,14 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
                 longCode={longCode}
               />
             )}
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS &&
-            (isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') ? (
-              <TransparencyTransferRequest2
-                currentMonth={currentMonth}
-                budgetStatements={coreUnit?.budgetStatements}
-                code={code}
-                longCode={longCode}
-              />
-            ) : (
-              <TransparencyTransferRequest
-                currentMonth={currentMonth}
-                budgetStatements={coreUnit?.budgetStatements}
-                longCode={longCode}
-              />
-            ))}
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
+            <TransparencyTransferRequest
+              currentMonth={currentMonth}
+              budgetStatements={coreUnit?.budgetStatements}
+              code={code}
+              longCode={longCode}
+            />
+          )}
           {tabsIndex === TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS && isEnabled('FEATURE_AUDIT_REPORTS') && (
             <TransparencyAudit budgetStatement={currentBudgetStatement} />
           )}
