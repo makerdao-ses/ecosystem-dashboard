@@ -114,6 +114,7 @@ const dictionary = [
   'tokentxns',
   'tnum',
   'lnum',
+  'touchstart',
 ];
 
 module.exports = dictionary;
