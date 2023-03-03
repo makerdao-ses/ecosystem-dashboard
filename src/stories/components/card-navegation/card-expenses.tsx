@@ -6,7 +6,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/button-type.enum';
 import { MAKER_BURN_LINK } from '../../../core/utils/const';
 import { getShortCode } from '../../../core/utils/string.utils';
-import { DividerStyle } from '../../containers/cu-about-2/cu-about-container-2';
+import { DividerStyle } from '../../containers/cu-about/cu-about-container';
 import InlineUser from '../../containers/transparency-report/common/inline-user/inline-user';
 import { CustomLink } from '../custom-link/custom-link';
 import { LinkButton } from '../link-button/link-button';
