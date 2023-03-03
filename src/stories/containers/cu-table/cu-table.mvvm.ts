@@ -319,5 +319,6 @@ export const useCoreUnitsTableMvvm = () => {
     onSortClick,
     applySort,
     queryStrings,
+    sortData,
   };
 };

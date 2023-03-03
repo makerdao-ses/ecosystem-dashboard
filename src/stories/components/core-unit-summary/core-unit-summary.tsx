@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Typography, useMediaQuery } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
+import { useCoreUnitsTableMvvm } from '@ses/containers/cu-table/cu-table.mvvm';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -8,7 +9,6 @@ import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
 import { buildQueryString } from '../../../core/utils/url.utils';
-import { sortData } from '../../containers/cu-table/cu-table';
 import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
 import InsidePagination from '../pagination/InsidePagination';
 import BreadCrumbMobile from '../pagination/bread-crumb-mobile';
@@ -29,6 +29,7 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
   showDescription = false,
 }) => {
   const { isLight } = useThemeContext();
+  const { sortData } = useCoreUnitsTableMvvm();
   const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const lessThanPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
   const [hiddenTextDescription, setHiddenTextDescription] = useState(true);
@@ -72,7 +73,7 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
       searchText,
     });
     return sortData(filtered);
-  }, [data, filteredCategories, filteredStatuses, searchText]);
+  }, [data, filteredCategories, filteredStatuses, searchText, sortData]);
 
   const page = useMemo(() => filteredData?.findIndex((item) => item.shortCode === code) + 1, [code, filteredData]);
 
