@@ -8,7 +8,7 @@ import { getShortCode } from '../../../../core/utils/string.utils';
 import { AdvancedInnerTable } from '../../../components/advanced-inner-table/advanced-inner-table';
 import { CustomLink } from '../../../components/custom-link/custom-link';
 import { CustomPopover } from '../../../components/custom-popover/custom-popover';
-import { LinkDescription } from '../transparency-actuals/transparency-actuals-2';
+import { LinkDescription } from '../transparency-actuals/transparency-actuals';
 import { Title } from '../transparency-report';
 import { useTransparencyMkrVesting2 } from './transparency-mkr-vesting-2.mvvm';
 import type { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';

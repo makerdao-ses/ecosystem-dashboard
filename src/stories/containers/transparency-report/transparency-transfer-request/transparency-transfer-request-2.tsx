@@ -7,7 +7,7 @@ import { MAKER_BURN_LINK } from '../../../../core/utils/const';
 import { getShortCode } from '../../../../core/utils/string.utils';
 import { AdvancedInnerTable } from '../../../components/advanced-inner-table/advanced-inner-table';
 import { CustomLink } from '../../../components/custom-link/custom-link';
-import { LinkDescription } from '../transparency-actuals/transparency-actuals-2';
+import { LinkDescription } from '../transparency-actuals/transparency-actuals';
 import { useTransparencyTransferRequestMvvm2 } from './transparency-transfer-request-2.mvvm';
 import type { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 import type { DateTime } from 'luxon';

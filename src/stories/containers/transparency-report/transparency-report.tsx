@@ -13,7 +13,7 @@ import { SEOHead } from '../../components/seo-head/seo-head';
 import { Tabs } from '../../components/tabs/tabs';
 import ExpenseReportStatusIndicator from './common/expense-report-status-indicator/expense-report-status-indicator';
 import { TransparencyActuals } from './transparency-actuals/transparency-actuals';
-import { TransparencyActuals2 } from './transparency-actuals/transparency-actuals-2';
+
 import { TransparencyAudit } from './transparency-audit/transparency-audit';
 import AuditorCommentsContainer from './transparency-auditor-comments/comment-container/auditor-comments-container';
 import { TransparencyForecast } from './transparency-forecast/transparency-forecast';
@@ -98,22 +98,14 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
               margin: '32px 0',
             }}
           />
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.ACTUALS &&
-            (isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') ? (
-              <TransparencyActuals2
-                code={code}
-                currentMonth={currentMonth}
-                budgetStatements={coreUnit?.budgetStatements}
-                longCode={longCode}
-              />
-            ) : (
-              <TransparencyActuals
-                code={code}
-                currentMonth={currentMonth}
-                budgetStatements={coreUnit?.budgetStatements}
-                longCode={longCode}
-              />
-            ))}
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.ACTUALS && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
+            <TransparencyActuals
+              code={code}
+              currentMonth={currentMonth}
+              budgetStatements={coreUnit?.budgetStatements}
+              longCode={longCode}
+            />
+          )}
           {tabsIndex === TRANSPARENCY_IDS_ENUM.FORECAST &&
             (isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') ? (
               <TransparencyForecast2
