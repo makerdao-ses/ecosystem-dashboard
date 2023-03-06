@@ -111,16 +111,14 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
               longCode={longCode}
             />
           )}
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.MKR_VESTING &&
-            isEnabled('FEATURE_MKR_VESTING') &&
-            isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-              <TransparencyMkrVesting
-                currentMonth={currentMonth}
-                budgetStatements={coreUnit?.budgetStatements}
-                code={code}
-                longCode={longCode}
-              />
-            )}
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.MKR_VESTING && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
+            <TransparencyMkrVesting
+              currentMonth={currentMonth}
+              budgetStatements={coreUnit?.budgetStatements}
+              code={code}
+              longCode={longCode}
+            />
+          )}
           {tabsIndex === TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
             <TransparencyTransferRequest
               currentMonth={currentMonth}
@@ -129,11 +127,11 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
               longCode={longCode}
             />
           )}
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS && isEnabled('FEATURE_AUDIT_REPORTS') && (
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS && (
             <TransparencyAudit budgetStatement={currentBudgetStatement} />
           )}
 
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS && isEnabled('FEATURE_TRANSPARENCY_COMMENTS') && (
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS && (
             <CommentActivityContext.Provider value={{ lastVisitHandler }}>
               <AuditorCommentsContainer budgetStatement={currentBudgetStatement} comments={comments} />
             </CommentActivityContext.Provider>
