@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 
-export const useTransparencyAuditMvvm = () => {
+export const useTransparencyAudit = () => {
   const getDate = (timestamp: string) => DateTime.fromSeconds(Number(timestamp) / 1000).toFormat('dd-MMM-y');
 
   const getTime = (timestamp: string) => DateTime.fromSeconds(Number(timestamp) / 1000).toFormat('hh:mm');

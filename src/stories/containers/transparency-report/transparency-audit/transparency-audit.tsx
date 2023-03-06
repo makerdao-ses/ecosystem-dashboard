@@ -4,7 +4,7 @@ import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { AuditStatusChip } from '../../../components/audit-status-chip/audit-status-chip';
 import { Download } from '../../../components/svg/download';
 import { TransparencyEmptyAudit } from '../placeholders/transparency-empty-audit';
-import { useTransparencyAuditMvvm } from './transparency-audit.mvvm';
+import { useTransparencyAudit } from './useTransparencyAudit';
 import type { AuditStatusEnum } from '../../../../core/enums/audit-status.enum';
 import type { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 
@@ -13,7 +13,7 @@ interface TransparencyAuditProps {
 }
 
 export const TransparencyAudit = (props: TransparencyAuditProps) => {
-  const { getDate, getTime, getFilenameFromUrl } = useTransparencyAuditMvvm();
+  const { getDate, getTime, getFilenameFromUrl } = useTransparencyAudit();
   const { isLight } = useThemeContext();
 
   return !props.budgetStatement?.auditReport?.length ? (

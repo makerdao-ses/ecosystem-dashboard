@@ -16,7 +16,7 @@ import type {
 } from '../../../components/advanced-inner-table/advanced-inner-table';
 import type { DateTime } from 'luxon';
 
-export const useTransparencyActualsMvvm = (
+export const useTransparencyActuals = (
   propsCurrentMonth: DateTime,
   budgetStatements: BudgetStatementDto[] | undefined
 ) => {

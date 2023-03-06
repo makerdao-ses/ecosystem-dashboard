@@ -10,7 +10,7 @@ import { CustomLink } from '../../../components/custom-link/custom-link';
 import { Tabs } from '../../../components/tabs/tabs';
 import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
 import { Title } from '../transparency-report';
-import { useTransparencyActualsMvvm } from './transparency-actuals.mvvm';
+import { useTransparencyActuals } from './useTransparencyActuals';
 import type { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 import type { DateTime } from 'luxon';
 
@@ -34,7 +34,7 @@ export const TransparencyActuals = (props: Props) => {
     mainTableColumns,
     mainTableItems,
     breakdownTabs,
-  } = useTransparencyActualsMvvm(props.currentMonth, props.budgetStatements);
+  } = useTransparencyActuals(props.currentMonth, props.budgetStatements);
 
   return (
     <Container>

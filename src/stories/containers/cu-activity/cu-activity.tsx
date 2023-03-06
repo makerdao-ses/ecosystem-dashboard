@@ -5,7 +5,7 @@ import { toAbsoluteURL } from '../../../core/utils/url.utils';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
 import ActivityTable from '../../components/cu-activity-table/cu-activity-table';
 import { SEOHead } from '../../components/seo-head/seo-head';
-import { useCuActivityMvvm } from './cu-activity.mvvm';
+import { useCuActivity } from './useCuActivity';
 import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 interface CUActivityContainerProps {
@@ -14,7 +14,7 @@ interface CUActivityContainerProps {
 }
 
 const CUActivityFeedContainer: React.FC<CUActivityContainerProps> = ({ coreUnit, coreUnits }) => {
-  const { isLight, columns, onSortClick } = useCuActivityMvvm();
+  const { isLight, columns, onSortClick } = useCuActivity();
   return (
     <Wrapper>
       <SEOHead
