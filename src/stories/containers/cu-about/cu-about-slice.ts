@@ -71,7 +71,7 @@ export const cuAboutSlice = createSlice({
   },
 });
 
-export const cuAboutSelector = (state: RootState) => state.cuAbout;
-export const contributorCommitmentSelector = (state: RootState) => cuAboutSelector(state).cuAbout.contributorCommitment;
+export const cuAboutSelector = (state: RootState) => state.cuAbout as unknown as CoreUnitDto;
+export const contributorCommitmentSelector = (state: RootState) => cuAboutSelector(state).contributorCommitment;
 export const { clearCoreUNit } = cuAboutSlice.actions;
 export default cuAboutSlice.reducer;

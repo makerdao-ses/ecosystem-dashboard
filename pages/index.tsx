@@ -1,5 +1,5 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
-import { CuTable2 } from '@ses/containers/cu-table/cu-table-2';
+import { CuTable } from '@ses/containers/cu-table/cu-table';
 import { fetchExpenses } from '@ses/containers/finances-overview/api/queries';
 import FinancesOverviewContainer from '@ses/containers/finances-overview/finances-overview';
 import { ExpenseGranularity } from '@ses/core/models/dto/expenses.dto';
@@ -16,7 +16,7 @@ type FinanceOverviewPageProps = {
 const FinanceOverviewPage: NextPage<FinanceOverviewPageProps> = ({ quarterExpenses, monthlyExpenses }) => {
   if (!featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW) {
     // core unit overview would be the home page if the finances overview is disabled
-    return <CuTable2 />;
+    return <CuTable />;
   }
 
   return <FinancesOverviewContainer quarterExpenses={quarterExpenses} monthlyExpenses={monthlyExpenses || []} />;

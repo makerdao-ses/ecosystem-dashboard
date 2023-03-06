@@ -26,7 +26,7 @@ interface Props {
   code: string;
 }
 
-const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
+const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
   const router = useRouter();
   const { isLight } = useThemeContext();
   const [showThreeMIPs, setShowThreeMIPs] = useState<boolean>(true);
@@ -162,7 +162,7 @@ const CuAboutContainer2 = ({ code, coreUnits, cuAbout }: Props) => {
   );
 };
 
-export default CuAboutContainer2;
+export default CuAboutContainer;
 
 const ContainerAbout = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',

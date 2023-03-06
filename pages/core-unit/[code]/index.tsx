@@ -2,7 +2,7 @@ import isEmpty from 'lodash/isEmpty';
 import React, { useState, useEffect } from 'react';
 import { CoreUnitContext } from '../../../src/core/context/CoreUnitContext';
 import { fetchCoreUnits } from '../../../src/stories/components/core-unit-summary/core-unit-summary.api';
-import CuAboutContainer2 from '../../../src/stories/containers/cu-about-2/cu-about-container-2';
+import CuAboutContainer from '../../../src/stories/containers/cu-about/cu-about-container';
 import { fetchCoreUnitByCode } from '../../../src/stories/containers/cu-about/cu-about.api';
 import type { CoreUnitDto } from '../../../src/core/models/dto/core-unit.dto';
 import type { NextPage, GetServerSideProps, InferGetServerSidePropsType, GetServerSidePropsContext } from 'next';
@@ -25,7 +25,7 @@ const CoreUnitAboutPage: NextPage = ({
         coreUnits,
       }}
     >
-      <CuAboutContainer2 code={code} coreUnits={coreUnits} cuAbout={cuAbout as CoreUnitDto} />
+      <CuAboutContainer code={code} coreUnits={coreUnits} cuAbout={cuAbout as CoreUnitDto} />
     </CoreUnitContext.Provider>
   );
 };
