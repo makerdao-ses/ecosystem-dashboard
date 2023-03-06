@@ -1,14 +1,18 @@
 import styled from '@emotion/styled';
 import { Popover, Typography, useMediaQuery } from '@mui/material';
+import { siteRoutes } from '@ses/config/routes';
+import Link from 'next/link';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ExpenditureLevel } from '../../../core/enums/expenditure-level.enum';
 import type { CustomChartItemModel } from '../../../core/models/custom-chart-item.model';
+import type { DateTime } from 'luxon';
 
 interface CustomBarChartProps {
   items?: Array<CustomChartItemModel>;
   maxValues?: number[];
-  months?: string[];
+  months?: DateTime[];
+  code: string;
 }
 
 const COLOR_GREEN = '#02CB9B';
@@ -32,12 +36,12 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
     null
   );
   if (!props.items) return <span />;
-
+  const monthsProps = props?.months && props?.months.map((date) => date.toFormat('MMMM'));
   const handleMouseOver = (event: React.MouseEvent<SVGRectElement>, i: number) => {
     if (props.months?.length === 0) return;
     setAnchorEl(event.currentTarget);
     setDescription({
-      month: (props?.months && props.months[i]) || 'unknown',
+      month: (monthsProps && monthsProps[i]) || 'unknown',
       budgetCap: ((props.maxValues && props.maxValues[i]) || 0).toLocaleString('en-US', {
         maximumFractionDigits: 0,
       }),
@@ -176,52 +180,70 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
       </Popover>
       <SVGStyle>
         <MonthTextGroup>
-          {props.months?.map((month: string, i: number) => (
-            <text
+          {monthsProps?.map((month: string, i: number) => (
+            <Link
               key={`month-${i}`}
-              x={i * 20 + padding - 2}
-              y={57}
-              fill={
-                isLight
-                  ? props.items?.[i]?.value
-                    ? '#434358'
-                    : '#D8E0E3'
-                  : props.items?.[i]?.value
-                  ? '#D8E0E3'
-                  : '#434358'
-              }
+              href={`${siteRoutes.coreUnitReports(props.code)}?viewMonth=${
+                props?.months && props?.months[i].toFormat('LLLyyyy')
+              }`}
+              legacyBehavior
             >
-              {month.charAt(0)}
-            </text>
+              <a>
+                <text
+                  x={i * 20 + padding - 2}
+                  y={57}
+                  fill={
+                    isLight
+                      ? props.items?.[i]?.value
+                        ? '#434358'
+                        : '#D8E0E3'
+                      : props.items?.[i]?.value
+                      ? '#D8E0E3'
+                      : '#434358'
+                  }
+                >
+                  {month.charAt(0)}
+                </text>
+              </a>
+            </Link>
           ))}
         </MonthTextGroup>
         <g transform={'scale(1, -1) translate(-6, -50)'}>
           {props.items.map((item: CustomChartItemModel, i: number) => (
-            <rect
+            <Link
               key={`item-${i}`}
-              x={i * 20 + padding + 2.5}
-              y="5"
-              width="12"
-              rx="1"
-              aria-describedby="id"
-              height={hasMonthValue(i) ? calculateHeight(item.value) : 16}
-              onMouseOver={(e) => handleMouseOver(e, i)}
-              onMouseLeave={handleClose}
-              fill={hasMonthValue(i) ? getColor(item.value, i) : COLOR_GRAY}
+              href={`${siteRoutes.coreUnitReports(props?.code || '')}?viewMonth=${
+                props?.months && props?.months[i].toFormat('LLLyyyy')
+              }`}
+              legacyBehavior
             >
-              <animate
-                attributeName="height"
-                from="0"
-                to={calculateHeight(item.value)}
-                values={`0; ${calculateHeight(item.value) + 5}; ${calculateHeight(item.value) - 3}; ${calculateHeight(
-                  item.value
-                )}`}
-                keyTimes="0; .7; .85; 1"
-                dur="0.3s"
-                fill="normal"
-                begin={`${i * 0.02}s`}
-              />
-            </rect>
+              <a>
+                <rect
+                  x={i * 20 + padding + 2.5}
+                  y="5"
+                  width="12"
+                  rx="1"
+                  aria-describedby="id"
+                  height={hasMonthValue(i) ? calculateHeight(item.value) : 16}
+                  onMouseOver={(e) => handleMouseOver(e, i)}
+                  onMouseLeave={handleClose}
+                  fill={hasMonthValue(i) ? getColor(item.value, i) : COLOR_GRAY}
+                >
+                  <animate
+                    attributeName="height"
+                    from="0"
+                    to={calculateHeight(item.value)}
+                    values={`0; ${calculateHeight(item.value) + 5}; ${
+                      calculateHeight(item.value) - 3
+                    }; ${calculateHeight(item.value)}`}
+                    keyTimes="0; .7; .85; 1"
+                    dur="0.3s"
+                    fill="normal"
+                    begin={`${i * 0.02}s`}
+                  />
+                </rect>
+              </a>
+            </Link>
           ))}
           {props.maxValues?.map((cap: number, i: number) => {
             if (cap === 0) return <line key={`cap-${i}`} />;

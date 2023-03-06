@@ -10,15 +10,16 @@ import { CustomBarChart } from '../custom-bar-chart/custom-bar-chart';
 import { CustomPopover } from '../custom-popover/custom-popover';
 import { ColumnExpendituresSkeleton } from './cu-table-column-expenditures-skeleton';
 import type { CustomChartItemModel } from '../../../core/models/custom-chart-item.model';
+import type { DateTime } from 'luxon';
 
 interface CuTableColumnExpendituresProps {
   value?: number;
   percent?: number | null;
   items?: Array<CustomChartItemModel>;
   budgetCaps?: number[];
-  months?: string[];
+  months?: DateTime[];
   isLoading?: boolean;
-  code?: string;
+  code: string;
 }
 
 export const CuTableColumnExpenditures = ({ isLoading = false, ...props }: CuTableColumnExpendituresProps) => {
@@ -63,6 +64,7 @@ export const CuTableColumnExpenditures = ({ isLoading = false, ...props }: CuTab
               items={isEmpty(props.items) ? new Array(3).fill({ value: 0 }) : props.items}
               maxValues={props.budgetCaps}
               months={props.months}
+              code={props.code}
             />
           </CustomBarCharContainer>
           <ValueWrapper>

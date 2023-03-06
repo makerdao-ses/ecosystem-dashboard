@@ -346,7 +346,7 @@ export const getLast3MonthsWithData = (budgetStatements: BudgetStatementDto[]) =
 export const getLast3MonthsWithDataFormatted = (cu: CoreUnitDto) => {
   const dates = getLast3MonthsWithData(cu.budgetStatements);
 
-  return dates.map((date) => date.toFormat('MMMM'));
+  return dates;
 };
 
 export const getMipUrlFromCoreUnit = (cu: CoreUnitDto) => {
