@@ -79,17 +79,18 @@ const Container = styled.div({
     marginLeft: '0px',
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginLeft: '12px',
+    marginRight: 36,
+
     alignItems: 'center',
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginLeft: '24px',
     width: '100%',
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
   },
   [lightTheme.breakpoints.up('desktop_1920')]: {
     paddingLeft: 6,
+    marginLeft: 0,
   },
 });
 

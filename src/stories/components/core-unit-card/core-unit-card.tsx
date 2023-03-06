@@ -119,7 +119,7 @@ const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
             </Expenditure>
           </Link>
           <Team>
-            <Title>Team Members</Title>
+            <Title>Team</Title>
             <CuTableColumnTeamMember
               members={getFacilitatorsFromCoreUnit(coreUnit)}
               fte={getFTEsFromCoreUnit(coreUnit)}

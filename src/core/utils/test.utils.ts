@@ -296,7 +296,7 @@ export const columns = [
     hasSort: true,
   },
   {
-    header: 'Team Members',
+    header: 'Team',
     justifyContent: 'center',
     cellRender: renderTeamMember,
     width: '205px',
