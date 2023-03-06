@@ -17,7 +17,7 @@ import MdViewerContainer from '../../components/markdown/md-view-container';
 import RelateMips from '../../components/relate-mips/relate-mips';
 import { SEOHead } from '../../components/seo-head/seo-head';
 import TeamMember from '../../components/team-members/team-member';
-import { useCuAboutMvvm } from './cu-about.mvvm';
+import { useCuAbout } from './useCuAbout';
 import type { ContributorCommitmentDto, CoreUnitDto, CuMipDto } from '../../../core/models/dto/core-unit.dto';
 
 interface Props {
@@ -37,7 +37,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
   const LessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
   const lessDesktop1194 = useMediaQuery(lightTheme.breakpoints.down('desktop_1194'));
 
-  const { onClickLessMips, relateMipsOrder, hasMipsNotAccepted, queryStrings } = useCuAboutMvvm({
+  const { onClickLessMips, relateMipsOrder, hasMipsNotAccepted, queryStrings } = useCuAbout({
     cuAbout,
     code,
     router,

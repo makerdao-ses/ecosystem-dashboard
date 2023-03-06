@@ -10,7 +10,7 @@ import { QUERY_USERS } from './user-manager.api';
 import type { UserDTO } from '../../../../core/models/dto/auth.dto';
 import type { TabItem } from '../../../components/tabs/tabs';
 
-export const useManagerAccountLayoutViewModel = () => {
+export const useManagerAccountLayout = () => {
   const [FEATURE_AUTH] = useState<boolean>(featureFlags[CURRENT_ENVIRONMENT].FEATURE_AUTH);
   const { hasToken, authToken, isAdmin } = useAuthContext();
 

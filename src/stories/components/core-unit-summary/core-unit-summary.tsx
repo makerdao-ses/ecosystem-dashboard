@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Typography, useMediaQuery } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
-import { useCoreUnitsTableMvvm } from '@ses/containers/cu-table/cu-table.mvvm';
+import { useCoreUnitsTable } from '@ses/containers/cu-table/useCoreUnitsTable';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -29,7 +29,7 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
   showDescription = false,
 }) => {
   const { isLight } = useThemeContext();
-  const { sortData } = useCoreUnitsTableMvvm();
+  const { sortData } = useCoreUnitsTable();
   const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const lessThanPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
   const [hiddenTextDescription, setHiddenTextDescription] = useState(true);

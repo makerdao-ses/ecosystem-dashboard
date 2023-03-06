@@ -4,7 +4,7 @@ import * as React from 'react';
 import UserBadge from '../../user-badge/user-badge';
 import { MenuPaperStyle } from '../menu-theme/menu-theme';
 import MenuItemUser from './menu-item-user';
-import useMenuUser from './menu-user.mvvm';
+import useMenuUser from './useMenuUser';
 
 interface Props {
   username: string;

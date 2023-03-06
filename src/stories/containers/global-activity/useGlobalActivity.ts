@@ -6,7 +6,7 @@ import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import type { Activity, ActivityTableHeader } from '../../components/cu-activity-table/cu-activity-table';
 import type { MultiSelectItem } from '../../components/custom-multi-select/custom-multi-select';
 
-export const useGlobalActivityMvvm = (coreUnits: CoreUnitDto[]) => {
+export const useGlobalActivity = (coreUnits: CoreUnitDto[]) => {
   const [searchText, setSearchText] = useState('');
   const [activeElements, setActiveElements] = useState<string[]>([]);
   const [filtersVisible, setFiltersVisible] = useState(false);

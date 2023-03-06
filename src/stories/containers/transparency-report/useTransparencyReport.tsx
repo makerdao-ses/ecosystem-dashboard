@@ -30,7 +30,7 @@ const DISABLED_ID = [
   featureFlags[CURRENT_ENVIRONMENT].FEATURE_AUDIT_REPORTS ? null : TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS,
 ];
 
-export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
+export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;
