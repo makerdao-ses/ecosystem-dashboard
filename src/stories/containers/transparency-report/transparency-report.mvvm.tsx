@@ -1,11 +1,11 @@
 import CommentsTab from '@ses/components/tabs/comments-tab/comments-tab';
-// import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
+import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import { getLastUpdateForBudgetStatement } from '@ses/core/business-logic/core-units';
 import { useAuthContext } from '@ses/core/context/AuthContext';
 import { useCookiesContextTracking } from '@ses/core/context/CookiesContext';
 import useBudgetStatementComments from '@ses/core/hooks/useBudgetStatementComments';
 import useBudgetStatementPager from '@ses/core/hooks/useBudgetStatementPager';
-
+import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { useUrlAnchor } from '@ses/core/hooks/useUrlAnchor';
 import { BudgetStatus } from '@ses/core/models/dto/core-unit.dto';
 import { budgetStatementCommentsCollectionId } from '@ses/core/utils/collections-ids';
@@ -13,6 +13,7 @@ import { LastVisitHandler } from '@ses/core/utils/last-visit-handler';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useRef, useState, useEffect, useCallback, useMemo } from 'react';
+import { featureFlags } from '../../../../feature-flags/feature-flags';
 import type { TableItems } from './transparency-report';
 import type { CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
 
@@ -24,8 +25,12 @@ export enum TRANSPARENCY_IDS_ENUM {
   AUDIT_REPORTS = 'audit-reports',
   COMMENTS = 'comments',
 }
+const DISABLED_ID = [
+  featureFlags[CURRENT_ENVIRONMENT].FEATURE_MKR_VESTING ? null : TRANSPARENCY_IDS_ENUM.MKR_VESTING,
+  featureFlags[CURRENT_ENVIRONMENT].FEATURE_AUDIT_REPORTS ? null : TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS,
+];
 
-export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
+export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;
@@ -39,7 +44,9 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
 
   useEffect(() => {
     if (anchor) {
-      const index = Object.values(TRANSPARENCY_IDS_ENUM).findIndex((id) => anchor.indexOf(id) > -1);
+      const index = Object.values(TRANSPARENCY_IDS_ENUM).findIndex(
+        (id) => anchor.indexOf(id) > -1 && !DISABLED_ID.includes(id)
+      );
       if (index !== -1) {
         const indexKey = Object.keys(TRANSPARENCY_IDS_ENUM)[index];
         if (
@@ -63,8 +70,10 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
   useEffect(() => {
     const values = Object.values(TRANSPARENCY_IDS_ENUM);
     const index = values.indexOf(tabsIndex);
+    let difference = 0;
+    values.forEach((value, i) => (DISABLED_ID.includes(value) && i < index ? difference++ : null));
 
-    setTabsIndexNumber(index);
+    setTabsIndexNumber(index - difference);
   }, [tabsIndex]);
 
   const [scrolled, setScrolled] = useState<boolean>(false);
@@ -148,6 +157,7 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
     tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS
   );
 
+  const [isEnabled] = useFlagsActive();
   const tabItems: TableItems[] = [
     {
       item: 'Actuals',
@@ -158,31 +168,33 @@ export const useTransparencyReportViewModel = (coreUnit: CoreUnitDto) => {
       id: TRANSPARENCY_IDS_ENUM.FORECAST,
     },
   ];
-
-  tabItems.push({
-    item: 'MKR Vesting',
-    id: TRANSPARENCY_IDS_ENUM.MKR_VESTING,
-  });
-
+  if (isEnabled('FEATURE_MKR_VESTING')) {
+    tabItems.push({
+      item: 'MKR Vesting',
+      id: TRANSPARENCY_IDS_ENUM.MKR_VESTING,
+    });
+  }
   tabItems.push({
     item: 'Transfer Requests',
     id: TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS,
   });
-
-  tabItems.push({
-    item: 'Audit Reports',
-    id: TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS,
-  });
-
-  tabItems.push({
-    item: (
-      <CommentsTab
-        hasNewComments={!commentsLastVisitState.isFetching && commentsLastVisitState.hasNewComments}
-        numbersComments={numbersComments}
-      />
-    ),
-    id: TRANSPARENCY_IDS_ENUM.COMMENTS,
-  });
+  if (isEnabled('FEATURE_AUDIT_REPORTS')) {
+    tabItems.push({
+      item: 'Audit Reports',
+      id: TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS,
+    });
+  }
+  if (isEnabled('FEATURE_TRANSPARENCY_COMMENTS')) {
+    tabItems.push({
+      item: (
+        <CommentsTab
+          hasNewComments={!commentsLastVisitState.isFetching && commentsLastVisitState.hasNewComments}
+          numbersComments={numbersComments}
+        />
+      ),
+      id: TRANSPARENCY_IDS_ENUM.COMMENTS,
+    });
+  }
 
   return {
     tabItems,

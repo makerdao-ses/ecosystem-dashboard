@@ -3,7 +3,6 @@ import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { CommentActivityContext } from '../../../core/context/CommentActivityContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { BudgetStatus } from '../../../core/models/dto/core-unit.dto';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
 import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
@@ -18,7 +17,7 @@ import { TransparencyAudit } from './transparency-audit/transparency-audit';
 import AuditorCommentsContainer from './transparency-auditor-comments/comment-container/auditor-comments-container';
 import { TransparencyForecast } from './transparency-forecast/transparency-forecast';
 import { TransparencyMkrVesting } from './transparency-mkr-vesting/transparency-mkr-vesting';
-import { TRANSPARENCY_IDS_ENUM, useTransparencyReportViewModel } from './transparency-report.mvvm';
+import { TRANSPARENCY_IDS_ENUM, useTransparencyReport } from './transparency-report.mvvm';
 import { TransparencyTransferRequest } from './transparency-transfer-request/transparency-transfer-request';
 import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
@@ -33,7 +32,6 @@ export type TableItems = {
 
 export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportProps) => {
   const { isLight } = useThemeContext();
-  const [isEnabled] = useFlagsActive();
   const {
     tabItems,
     code,
@@ -51,7 +49,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
     comments,
     showExpenseReportStatusCTA,
     lastVisitHandler,
-  } = useTransparencyReportViewModel(coreUnit);
+  } = useTransparencyReport(coreUnit);
 
   return (
     <Wrapper>
@@ -95,7 +93,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
               margin: '32px 0',
             }}
           />
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.ACTUALS && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.ACTUALS && (
             <TransparencyActuals
               code={code}
               currentMonth={currentMonth}
@@ -103,7 +101,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
               longCode={longCode}
             />
           )}
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.FORECAST && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.FORECAST && (
             <TransparencyForecast
               currentMonth={currentMonth}
               budgetStatements={coreUnit?.budgetStatements}
@@ -111,7 +109,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
               longCode={longCode}
             />
           )}
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.MKR_VESTING && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.MKR_VESTING && (
             <TransparencyMkrVesting
               currentMonth={currentMonth}
               budgetStatements={coreUnit?.budgetStatements}
@@ -119,7 +117,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
               longCode={longCode}
             />
           )}
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS && (
             <TransparencyTransferRequest
               currentMonth={currentMonth}
               budgetStatements={coreUnit?.budgetStatements}
