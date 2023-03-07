@@ -174,7 +174,7 @@ export const useCoreUnitsTable = () => {
       justifyContent: 'flex-start',
       cellRender: renderLastModified,
       onClick: onClickLastModified,
-      width: '122px',
+      width: '130px',
       sortReverse: true,
       hasSort: true,
     },
