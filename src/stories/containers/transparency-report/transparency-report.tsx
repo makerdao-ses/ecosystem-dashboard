@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
+import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { CommentActivityContext } from '../../../core/context/CommentActivityContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { BudgetStatus } from '../../../core/models/dto/core-unit.dto';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
 import { CoreUnitSummary } from '../../components/CoreUnitSummary/CoreUnitSummary';
@@ -33,7 +33,6 @@ export type TableItems = {
 
 export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportProps) => {
   const { isLight } = useThemeContext();
-  const [isEnabled] = useFlagsActive();
   const {
     tabItems,
     code,
@@ -52,6 +51,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
     showExpenseReportStatusCTA,
     lastVisitHandler,
   } = useTransparencyReport(coreUnit);
+  const [isEnabled] = useFlagsActive();
 
   return (
     <Wrapper>
@@ -95,7 +95,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
               margin: '32px 0',
             }}
           />
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.ACTUALS && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.ACTUALS && (
             <TransparencyActuals
               code={code}
               currentMonth={currentMonth}
@@ -103,7 +103,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
               longCode={longCode}
             />
           )}
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.FORECAST && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.FORECAST && (
             <TransparencyForecast
               currentMonth={currentMonth}
               budgetStatements={coreUnit?.budgetStatements}
@@ -111,17 +111,15 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
               longCode={longCode}
             />
           )}
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.MKR_VESTING &&
-            isEnabled('FEATURE_MKR_VESTING') &&
-            isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
-              <TransparencyMkrVesting
-                currentMonth={currentMonth}
-                budgetStatements={coreUnit?.budgetStatements}
-                code={code}
-                longCode={longCode}
-              />
-            )}
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS && isEnabled('FEATURE_TRANSPARENCY_NEW_TABLE') && (
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.MKR_VESTING && (
+            <TransparencyMkrVesting
+              currentMonth={currentMonth}
+              budgetStatements={coreUnit?.budgetStatements}
+              code={code}
+              longCode={longCode}
+            />
+          )}
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS && (
             <TransparencyTransferRequest
               currentMonth={currentMonth}
               budgetStatements={coreUnit?.budgetStatements}
@@ -133,7 +131,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
             <TransparencyAudit budgetStatement={currentBudgetStatement} />
           )}
 
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS && isEnabled('FEATURE_TRANSPARENCY_COMMENTS') && (
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS && (
             <CommentActivityContext.Provider value={{ lastVisitHandler }}>
               <AuditorCommentsContainer budgetStatement={currentBudgetStatement} comments={comments} />
             </CommentActivityContext.Provider>
