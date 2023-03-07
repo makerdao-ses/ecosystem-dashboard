@@ -15,7 +15,7 @@ import DelegatesActuals from './delegates-actuals/delegates-actuals';
 
 import DelegatesForecast from './delegates-forecast/delegates-forecast';
 
-import useRecognizedDelegates, { DELEGATES_IDS_ENUM } from './useRecognizedDelegates.mvvm';
+import useRecognizedDelegates, { DELEGATES_IDS_ENUM } from './useRecognizedDelegates';
 import type { DelegatesDto } from '@ses/core/models/dto/delegates.dto';
 
 type RecognizedDelegatesProps = {

@@ -4,7 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import * as React from 'react';
 import { ThreeDots } from '../../svg/three-dots';
 import MenuItemTheme from './menu-item-theme';
-import useMenuThemeMVVM from './menu-theme.mvvm';
+import useMenuThemeMVVM from './useMenuTheme';
 import type { ThemeType } from '../../../../core/enums/theme.enum';
 
 interface Props {

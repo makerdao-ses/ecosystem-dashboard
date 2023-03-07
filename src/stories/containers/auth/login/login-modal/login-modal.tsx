@@ -7,7 +7,7 @@ import lightTheme from '@ses/styles/theme/light';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import LoginForm from '../login-form/login-form';
-import { useLoginMvvm } from '../login.mvvm';
+import { useLogin } from '../useLogin';
 import type { WithIsLight } from '@ses/core/utils/types-helpers';
 
 export type LoginModalProps = {
@@ -17,7 +17,7 @@ export type LoginModalProps = {
 };
 
 const LoginModal: React.FC<LoginModalProps> = ({ open = false, handleClose, autoClose = false }) => {
-  const { form, loading, error, clearErrors, hasUserInactive, shouldKeepOpenModal } = useLoginMvvm();
+  const { form, loading, error, clearErrors, hasUserInactive, shouldKeepOpenModal } = useLogin();
   const { isLight } = useThemeContext();
   const isUpTablet = useMediaQuery(lightTheme.breakpoints.up('table_834'));
   const router = useRouter();

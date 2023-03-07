@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 
-const useMenuThemeMVVM = () => {
+const useMenuTheme = () => {
   const { isLight } = useThemeContext();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -35,4 +35,4 @@ const useMenuThemeMVVM = () => {
     handleClick,
   };
 };
-export default useMenuThemeMVVM;
+export default useMenuTheme;

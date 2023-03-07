@@ -22,7 +22,7 @@ const validationSchema = yup.object({
   //
 });
 
-export const useCreateAccountMvvm = () => {
+export const useCreateAccount = () => {
   const router = useRouter();
   const { authToken } = useAuthContext();
   const [error, setError] = useState<string>('');

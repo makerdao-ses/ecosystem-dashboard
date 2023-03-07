@@ -6,7 +6,7 @@ import { TransparencyEmptyTable } from '@ses/containers/transparency-report/plac
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import { useDelegatesActuals } from './useDelegatesActuals.mvvm';
+import { useDelegatesActuals } from './useDelegatesActuals';
 
 import type { BudgetStatementDto } from '@ses/core/models/dto/core-unit.dto';
 

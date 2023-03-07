@@ -17,8 +17,8 @@ import { TransparencyAudit } from './transparency-audit/transparency-audit';
 import AuditorCommentsContainer from './transparency-auditor-comments/comment-container/auditor-comments-container';
 import { TransparencyForecast } from './transparency-forecast/transparency-forecast';
 import { TransparencyMkrVesting } from './transparency-mkr-vesting/transparency-mkr-vesting';
-import { TRANSPARENCY_IDS_ENUM, useTransparencyReport } from './transparency-report.mvvm';
 import { TransparencyTransferRequest } from './transparency-transfer-request/transparency-transfer-request';
+import { TRANSPARENCY_IDS_ENUM, useTransparencyReport } from './useTransparencyReport';
 import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 interface TransparencyReportProps {

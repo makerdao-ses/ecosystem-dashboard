@@ -15,7 +15,7 @@ interface Props {
   showThreeMIPs: boolean;
 }
 
-export const useCuAboutMvvm = ({ cuAbout, code, router, setShowThreeMIPs, showThreeMIPs }: Props) => {
+export const useCuAbout = ({ cuAbout, code, router, setShowThreeMIPs, showThreeMIPs }: Props) => {
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);

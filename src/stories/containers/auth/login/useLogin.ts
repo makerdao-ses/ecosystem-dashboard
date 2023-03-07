@@ -15,7 +15,7 @@ const validationSchema = yup.object({
   password: yup.string().required('Password is required'),
 });
 
-export const useLoginMvvm = () => {
+export const useLogin = () => {
   const { setCredentials, clearCredentials } = useAuthContext();
   const router = useRouter();
   const [error, setError] = useState<string>('');

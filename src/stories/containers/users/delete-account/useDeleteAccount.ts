@@ -12,7 +12,7 @@ import { FETCH_USER_BY_USERNAME } from '../managed-user-profile/managed-user-pro
 import { USERS_DELETE_FROM_ADMIN } from './delete-account.api';
 import type { UserDTO } from '../../../../core/models/dto/auth.dto';
 
-export const useDeleteAccountMvvm = (username?: string) => {
+export const useDeleteAccount = (username?: string) => {
   const router = useRouter();
   const { authToken, user, isAdmin, clearCredentials } = useAuthContext();
   const [isDeleting, setIsDeleting] = useState<boolean>(false);

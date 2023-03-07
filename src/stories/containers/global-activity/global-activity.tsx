@@ -12,7 +12,7 @@ import { SEOHead } from '../../components/seo-head/seo-head';
 import Filter from '../../components/svg/filter';
 import { Paragraph, Title } from '../cu-activity/cu-activity';
 import { ButtonFilter, SmallSeparator } from '../cu-table/cu-table-filters';
-import { useGlobalActivityMvvm } from './global-activity.mvvm';
+import { useGlobalActivity } from './useGlobalActivity';
 import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import type { SelectItemProps } from '../../components/custom-multi-select/custom-multi-select';
 
@@ -36,7 +36,7 @@ const GlobalActivityFeedContainer: React.FC<Props> = ({ coreUnits }) => {
     handleSelectChange,
     filtersVisible,
     toggleFiltersVisible,
-  } = useGlobalActivityMvvm(coreUnits);
+  } = useGlobalActivity(coreUnits);
   return (
     <Wrapper>
       <SEOHead

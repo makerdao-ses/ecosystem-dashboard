@@ -11,7 +11,7 @@ import ControlledSwitches from '../../../components/button/switch-toogle/switch-
 import CloseButton from '../../../components/close-button/close-button';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
-import useManagedUserProfile from './managed-user.profile.mvvm';
+import useManagedUserProfile from './useManagedUserProfile';
 
 const arrayPassword = new Array<string>(8);
 const resultPassword = fill(arrayPassword, 'a');

@@ -41,7 +41,7 @@ const adminChangeValidationSchema = yup.object({
     .required('Password confirmation is required'),
 });
 
-export const useUserChangePasswordMvvm = (adminChange: boolean) => {
+export const useUserChangePassword = (adminChange: boolean) => {
   const { isLight } = useThemeContext();
   const router = useRouter();
   const { user: authenticatedUser, authToken, isAdmin } = useAuthContext();

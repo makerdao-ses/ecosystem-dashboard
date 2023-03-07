@@ -10,14 +10,14 @@ import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
 import CloseButton from '../../../components/close-button/close-button';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import TextInput from '../../../components/text-input/text-input';
-import { useCreateAccountMvvm } from './create-account.mvvm';
+import { useCreateAccount } from './useCreateAccount';
 import type { UserDTO } from '../../../../core/models/dto/auth.dto';
 
 export default () => {
   const { isLight } = useThemeContext();
   const { user } = useAuthContext();
   const router = useRouter();
-  const { form, loading, error, hasUserTakenError, setHasUserTakenError } = useCreateAccountMvvm();
+  const { form, loading, error, hasUserTakenError, setHasUserTakenError } = useCreateAccount();
 
   const isAdmin = useIsAdmin(user || ({} as UserDTO));
 
