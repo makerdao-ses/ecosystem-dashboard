@@ -98,7 +98,7 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
         isCardHeader: true,
       },
       {
-        header: '3 Month Forecast',
+        header: 'Target Balance',
         type: 'number',
         align: 'right',
       },
