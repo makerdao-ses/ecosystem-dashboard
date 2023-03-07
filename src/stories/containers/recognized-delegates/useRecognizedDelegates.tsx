@@ -1,17 +1,17 @@
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { siteRoutes } from '@ses/config/routes';
-import { getLastUpdateForBudgetStatement } from '@ses/core/business-logic/core-units';
+import { getLastUpdateForBudgetStatement } from '@ses/core/business-logic/coreUnits';
 import { useAuthContext } from '@ses/core/context/AuthContext';
 import { useCookiesContextTracking } from '@ses/core/context/CookiesContext';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { LinkTypeEnum } from '@ses/core/enums/link-type.enum';
+import { LinkTypeEnum } from '@ses/core/enums/linkTypeEnum';
 import useBudgetStatementComments from '@ses/core/hooks/useBudgetStatementComments';
 import useBudgetStatementPager from '@ses/core/hooks/useBudgetStatementPager';
 import { useUrlAnchor } from '@ses/core/hooks/useUrlAnchor';
-import { BudgetStatus } from '@ses/core/models/dto/core-unit.dto';
-import { budgetStatementCommentsCollectionId } from '@ses/core/utils/collections-ids';
+import { BudgetStatus } from '@ses/core/models/dto/coreUnitDTO';
+import { budgetStatementCommentsCollectionId } from '@ses/core/utils/collectionsIds';
 
-import { LastVisitHandler } from '@ses/core/utils/last-visit-handler';
+import { LastVisitHandler } from '@ses/core/utils/lastVisitHandler';
 
 import lightTheme from '@ses/styles/theme/light';
 
@@ -24,7 +24,7 @@ import type {} from // InnerTableColumn,
 
 '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 
-import type { DelegatesDto } from '@ses/core/models/dto/delegates.dto';
+import type { DelegatesDto } from '@ses/core/models/dto/delegatesDTO';
 
 export enum DELEGATES_IDS_ENUM {
   ACTUALS = 'actuals',

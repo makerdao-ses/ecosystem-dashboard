@@ -1,4 +1,4 @@
-import { SortEnum } from '@ses/core/enums/sort.enum';
+import { SortEnum } from '@ses/core/enums/sortEnum';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import lightTheme from '@ses/styles/theme/light';
 import ActivityTable from './ActivityTable';

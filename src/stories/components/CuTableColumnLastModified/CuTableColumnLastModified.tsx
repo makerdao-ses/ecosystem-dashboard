@@ -3,10 +3,10 @@ import { DateTime } from 'luxon';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
-import { SUBMIT_EXPENSES_URL } from '../../../config/external-urls';
+import { SUBMIT_EXPENSES_URL } from '../../../config/externalUrls';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { capitalizeSentence } from '../../../core/utils/string.utils';
-import { buildQueryString } from '../../../core/utils/url.utils';
+import { capitalizeSentence } from '../../../core/utils/string';
+import { buildQueryString } from '../../../core/utils/urls';
 import { CustomLink } from '../CustomLink/CustomLink';
 import { CuTableColumnLastModifiedSkeleton } from './CuTableColumnLastModifiedSkeleton';
 

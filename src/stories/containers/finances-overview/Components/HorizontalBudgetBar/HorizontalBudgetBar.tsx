@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import lightTheme from 'styles/theme/light';
-import type { WithIsLight } from '@ses/core/utils/types-helpers';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export type HorizontalBudgetBarProps = {
   actuals: number;

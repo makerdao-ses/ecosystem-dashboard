@@ -1,10 +1,10 @@
 import sortBy from 'lodash/sortBy';
 import { useMemo, useCallback } from 'react';
-import { getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-unit-about';
-import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
+import { getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/coreUnitAbout';
+import { CuStatusEnum } from '../../../core/enums/cuStatusEnum';
 import { getArrayParam, getStringParam } from '../../../core/utils/filters';
-import { buildQueryString } from '../../../core/utils/url.utils';
-import type { CoreUnitDto, CuMipDto } from '../../../core/models/dto/core-unit.dto';
+import { buildQueryString } from '../../../core/utils/urls';
+import type { CoreUnitDto, CuMipDto } from '../../../core/models/dto/coreUnitDTO';
 import type { NextRouter } from 'next/router';
 
 interface Props {

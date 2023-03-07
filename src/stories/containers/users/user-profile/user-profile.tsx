@@ -6,11 +6,11 @@ import React, { useCallback } from 'react';
 import lightTheme from '../../../../../styles/theme/light';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { ButtonType } from '../../../../core/enums/button-type.enum';
-import { capitalizeWordWithoutConvertLowerCase, getCorrectRoleApi } from '../../../../core/utils/string.utils';
+import { ButtonType } from '../../../../core/enums/buttonTypeEnum';
+import { capitalizeWordWithoutConvertLowerCase, getCorrectRoleApi } from '../../../../core/utils/string';
 import { CustomButton } from '../../../components/CustomButton/CustomButton';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
-import type { UserDTO } from '../../../../core/models/dto/auth.dto';
+import type { UserDTO } from '../../../../core/models/dto/authDTO';
 
 const arrayPassword = new Array<string>(8);
 const resultPassword = fill(arrayPassword, 'a');

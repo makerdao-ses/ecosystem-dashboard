@@ -5,11 +5,11 @@ import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { buildQueryString } from '../../../core/utils/url.utils';
+import { buildQueryString } from '../../../core/utils/urls';
 import { CustomBarChart } from '../CustomBarChart/CustomBarChart';
 import { CustomPopover } from '../CustomPopover/CustomPopover';
 import { ColumnExpendituresSkeleton } from './CuTableColumnExpendituresSkeleton';
-import type { CustomChartItemModel } from '../../../core/models/custom-chart-item.model';
+import type { CustomChartItemModel } from '../../../core/models/customChartItemModel';
 
 interface CuTableColumnExpendituresProps {
   value?: number;

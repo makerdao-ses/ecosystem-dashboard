@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
+import { LinkTypeEnum } from '../../../core/enums/linkTypeEnum';
 import Discord from '../svg/discord';
 import Forum from '../svg/forum';
 import Github from '../svg/github';

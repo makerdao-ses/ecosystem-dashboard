@@ -1,7 +1,7 @@
 import { withCoreUnitContext, withUserLoggedIn } from '@ses/core/utils/storybook/decorators';
-import { CoreUnitsBuilder } from '../../../../../core/business-logic/builders/core-units.builder';
-import { UserBuilder } from '../../../../../core/business-logic/builders/user.builder';
-import { BudgetStatus } from '../../../../../core/models/dto/core-unit.dto';
+import { CoreUnitsBuilder } from '../../../../../core/business-logic/builders/coreUnitsBuilder';
+import { UserBuilder } from '../../../../../core/business-logic/builders/userBuilder';
+import { BudgetStatus } from '../../../../../core/models/dto/coreUnitDTO';
 import { createThemeModeVariants } from '../../../../../core/utils/storybook/factories';
 import CommentForm from './comment-form';
 import type { ComponentMeta } from '@storybook/react';

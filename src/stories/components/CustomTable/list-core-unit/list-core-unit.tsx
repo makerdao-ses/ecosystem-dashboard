@@ -3,7 +3,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
 import ItemCoreUnit from '../ItemCoreUnit/ItemCoreUnit';
 import type { CustomTableColumn, CustomTableRow } from '../CustomTable2';
-import type { CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
+import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
 
 interface Props {
   rows?: CustomTableRow[];

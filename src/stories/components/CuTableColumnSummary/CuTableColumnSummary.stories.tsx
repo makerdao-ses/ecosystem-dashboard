@@ -1,4 +1,4 @@
-import { CuStatusEnum } from '@ses/core/enums/cu-status.enum';
+import { CuStatusEnum } from '@ses/core/enums/cuStatusEnum';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { DateTime } from 'luxon';
 import { CuTableColumnSummary } from './CuTableColumnSummary';

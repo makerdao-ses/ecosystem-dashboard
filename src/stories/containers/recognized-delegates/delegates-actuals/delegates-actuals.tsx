@@ -8,7 +8,7 @@ import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { useDelegatesActuals } from './useDelegatesActuals';
 
-import type { BudgetStatementDto } from '@ses/core/models/dto/core-unit.dto';
+import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
 
 import type { DateTime } from 'luxon';
 

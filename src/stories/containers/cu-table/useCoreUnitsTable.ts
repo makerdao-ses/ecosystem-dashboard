@@ -15,13 +15,13 @@ import {
   getFTEsFromCoreUnit,
   getLastMonthWithData,
   getStautsMip39AccetedOrObsolete,
-} from '../../../core/business-logic/core-units';
-import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
-import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
-import { SortEnum } from '../../../core/enums/sort.enum';
+} from '../../../core/business-logic/coreUnits';
+import { CuCategoryEnum } from '../../../core/enums/cuCategoryEnum';
+import { CuStatusEnum } from '../../../core/enums/cuStatusEnum';
+import { SortEnum } from '../../../core/enums/sortEnum';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
-import { sortAlphaNum } from '../../../core/utils/sort.utils';
-import { buildQueryString } from '../../../core/utils/url.utils';
+import { sortAlphaNum } from '../../../core/utils/sort';
+import { buildQueryString } from '../../../core/utils/urls';
 import { GETCoreUnits } from './cu-table.api';
 import {
   renderExpenditures,
@@ -30,7 +30,7 @@ import {
   renderSummary,
   renderTeamMember,
 } from './cu-table.renders';
-import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import type { CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
 import type { CustomTableColumn, CustomTableRow } from '../../components/CustomTable/CustomTable2';
 
 export const useCoreUnitsTable = () => {

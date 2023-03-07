@@ -6,14 +6,14 @@ import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { buildQueryString } from '../../../core/utils/url.utils';
+import { buildQueryString } from '../../../core/utils/urls';
 import { CategoryChip } from '../CategoryChip/CategoryChip';
 import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 import { CustomLink } from '../CustomLink/CustomLink';
 import { CustomPopover } from '../CustomPopover/CustomPopover';
 import { StatusChip } from '../StatusChip/StatusChip';
 import { ColumnSummarySkeleton } from './CuTableColumnSummarySkeleton';
-import type { CuStatusEnum } from '../../../core/enums/cu-status.enum';
+import type { CuStatusEnum } from '../../../core/enums/cuStatusEnum';
 
 interface CuTableColumnSummaryProps {
   title?: string;

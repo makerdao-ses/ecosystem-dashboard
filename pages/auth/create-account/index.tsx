@@ -1,5 +1,5 @@
 import React from 'react';
-import { getSSRPropsDefaultAuth } from '../../../src/core/utils/common-get-ssr-props';
+import { getSSRPropsDefaultAuth } from '../../../src/core/utils/commonGetSSRProps';
 import CreateAccount from '../../../src/stories/containers/users/create-account/create-account';
 import { ManagerTabs } from '../../../src/stories/containers/users/users-manager/manager-tabs.enum';
 import UserManagerLayout from '../../../src/stories/containers/users/users-manager/user-manager-layout';

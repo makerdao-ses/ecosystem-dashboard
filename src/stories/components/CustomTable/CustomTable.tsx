@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { useAppDispatch } from '../../../core/hooks/hooks';
+import { useAppDispatch } from '../../../core/hooks/reduxHooks';
 import { selectCuTableHeadersSort, setSort } from '../../containers/cu-table/cu-table.slice';
 import { CustomTableHeader } from '../CustomTableHeader/CustomTableHeader';
 import { CustomTableHeaderSkeleton } from './CustomTableHeaderSkeleton';

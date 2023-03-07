@@ -1,10 +1,10 @@
-import { CommentBuilder } from '@ses/core/business-logic/builders/comment.builder';
-import { UserBuilder } from '@ses/core/business-logic/builders/user.builder';
-import { BudgetStatus } from '@ses/core/models/dto/core-unit.dto';
+import { CommentBuilder } from '@ses/core/business-logic/builders/commentBuilder';
+import { UserBuilder } from '@ses/core/business-logic/builders/userBuilder';
+import { BudgetStatus } from '@ses/core/models/dto/coreUnitDTO';
 import { withCoreUnitContext } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AuditorCommentCard from './auditor-comment-card';
-import type { CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
+import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
 import type { ComponentMeta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 

@@ -1,5 +1,5 @@
-import { getCorrectRoleApi } from '../utils/string.utils';
-import type { UserDTO } from '../models/dto/auth.dto';
+import { getCorrectRoleApi } from '../utils/string';
+import type { UserDTO } from '../models/dto/authDTO';
 
 export const useIsAdmin = (user: UserDTO) => {
   const isAdmin = false;

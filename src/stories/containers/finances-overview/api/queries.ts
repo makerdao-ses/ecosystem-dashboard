@@ -1,6 +1,6 @@
 import { GRAPHQL_ENDPOINT } from '@ses/config/endpoints';
 import request, { gql } from 'graphql-request';
-import type { ExpenseDto, ExpenseGranularity } from '@ses/core/models/dto/expenses.dto';
+import type { ExpenseDto, ExpenseGranularity } from '@ses/core/models/dto/expensesDTO';
 
 export const totalExpensesAPI = (granularity: ExpenseGranularity) => ({
   query: gql`

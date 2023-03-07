@@ -9,7 +9,7 @@ import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { customRenderer, customRendererDark } from '../../../components/Markdown/renderUtils';
 import ExpenseReportStatus from '../common/expense-report-status/expense-report-status';
 import GenericCommentCard from './generic-comment-card';
-import type { CommentsBudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
+import type { CommentsBudgetStatementDto } from '../../../../core/models/dto/coreUnitDTO';
 import type { CommentMode } from './comment-container/auditor-comments-container';
 
 export type AuditorCommentCardProps = {

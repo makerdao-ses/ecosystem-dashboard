@@ -1,8 +1,8 @@
-import { daysToExpire } from '@ses/core/utils/date.utils';
+import { daysToExpire } from '@ses/core/utils/date';
 import { useCallback, useMemo, useState } from 'react';
 import { useCookies } from 'react-cookie';
-import { useScrollLock } from '../../../core/hooks/scroll-hooks';
-import type { CookiesInterface } from '../../../core/utils/types-helpers';
+import { useScrollLock } from '../../../core/hooks/useScrollLock';
+import type { CookiesInterface } from '../../../core/utils/typesHelpers';
 interface Props {
   cookiesObject: CookiesInterface;
 }

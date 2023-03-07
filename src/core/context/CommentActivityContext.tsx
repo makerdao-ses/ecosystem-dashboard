@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import type { LastVisitHandler } from '../utils/last-visit-handler';
+import type { LastVisitHandler } from '../utils/lastVisitHandler';
 
 export type CommentActivityContextValues = {
   lastVisitHandler?: LastVisitHandler;

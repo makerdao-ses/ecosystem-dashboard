@@ -4,7 +4,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import './CustomMultiSelect.module.scss';
 import SimpleBar from 'simplebar-react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import useOutsideClick from '../../../core/utils/use-outside-click';
+import useOutsideClick from '../../../core/hooks/useOutsideClick';
 import { SearchInput } from '../SearchInput/SearchInput';
 import { SelectItem } from '../SelectItem/SelectItem';
 import { SelectChevronDown } from '../svg/select-chevron-down';

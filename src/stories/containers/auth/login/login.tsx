@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
-import { toAbsoluteURL } from '@ses/core/utils/url.utils';
+import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';

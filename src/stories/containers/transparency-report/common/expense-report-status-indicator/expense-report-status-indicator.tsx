@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import Link from 'next/link';
 import React from 'react';
 import lightTheme from '../../../../../../styles/theme/light';
-import { BudgetStatus } from '../../../../../core/models/dto/core-unit.dto';
+import { BudgetStatus } from '../../../../../core/models/dto/coreUnitDTO';
 import ExpenseReportStatus from '../expense-report-status/expense-report-status';
 
 export type ExpenseReportStatusIndicatorProps = {

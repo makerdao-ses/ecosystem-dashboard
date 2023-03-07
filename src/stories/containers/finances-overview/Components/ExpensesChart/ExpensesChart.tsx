@@ -1,14 +1,14 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string.utils';
+import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 
 import React from 'react';
 
 import LegendItem from './LegendItem';
-import type { ValuesDataWithBorder } from '@ses/core/models/dto/chart.dto';
+import type { ValuesDataWithBorder } from '@ses/core/models/dto/chartDTO';
 
 interface Props {
   newActual: ValuesDataWithBorder[];

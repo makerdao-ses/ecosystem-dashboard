@@ -6,11 +6,7 @@ import AuditorCommentList from '../comment-list';
 import NoComments from '../no-comments';
 import ParticipantRoles from '../participant-roles';
 import useCommentsContainer from './useCommentsContainer';
-import type {
-  ActivityFeedDto,
-  BudgetStatementDto,
-  CommentsBudgetStatementDto,
-} from '@ses/core/models/dto/core-unit.dto';
+import type { ActivityFeedDto, BudgetStatementDto, CommentsBudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
 
 export type CommentMode = 'CoreUnits' | 'Delegates';
 

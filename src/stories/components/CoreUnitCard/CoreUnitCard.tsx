@@ -18,10 +18,10 @@ import {
   getPercentFromCoreUnit,
   getSubmissionDateFromCuMip,
   getStautsMip39AccetedOrObsolete,
-} from '../../../core/business-logic/core-units';
+} from '../../../core/business-logic/coreUnits';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { getShortCode } from '../../../core/utils/string.utils';
-import { buildQueryString } from '../../../core/utils/url.utils';
+import { getShortCode } from '../../../core/utils/string';
+import { buildQueryString } from '../../../core/utils/urls';
 import { CategoryChip } from '../CategoryChip/CategoryChip';
 import { CuTableColumnExpenditures } from '../CuTableColumnExpenditures/CuTableColumnExpenditures';
 import { CuTableColumnLastModified } from '../CuTableColumnLastModified/CuTableColumnLastModified';
@@ -29,7 +29,7 @@ import { CuTableColumnLinks } from '../CuTableColumnLinks/CuTableColumnLinks';
 import { CuTableColumnSummary } from '../CuTableColumnSummary/CuTableColumnSummary';
 import { CuTableColumnTeamMember } from '../CuTableColumnTeamMember/CuTableColumnTeamMember';
 import { CategoriesSkeleton } from './CategoriesSkeleton';
-import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import type { CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
 
 interface CoreUnitCardProps {
   coreUnit: CoreUnitDto;

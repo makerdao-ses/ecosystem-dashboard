@@ -5,7 +5,7 @@ import React, { useMemo } from 'react';
 import lightTheme from 'styles/theme/light';
 import { formatQuarter } from '../../utils/quarters';
 import HorizontalBudgetBar from '../HorizontalBudgetBar/HorizontalBudgetBar';
-import type { WithIsLight } from '@ses/core/utils/types-helpers';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export type QuarterCardProps = {
   period: string;

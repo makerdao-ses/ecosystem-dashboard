@@ -1,6 +1,6 @@
 import { GRAPHQL_ENDPOINT } from '@ses/config/endpoints';
 import request, { gql } from 'graphql-request';
-import type { DelegatesDto } from '@ses/core/models/dto/delegates.dto';
+import type { DelegatesDto } from '@ses/core/models/dto/delegatesDTO';
 
 export const DELEGATES_REQUEST = () => ({
   query: gql`

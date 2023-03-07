@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { SortEnum } from '../../../core/enums/sort.enum';
-import useOutsideClick from '../../../core/utils/use-outside-click';
+import { SortEnum } from '../../../core/enums/sortEnum';
+import useOutsideClick from '../../../core/hooks/useOutsideClick';
 import { CustomButton } from '../CustomButton/CustomButton';
 import { SelectChevronDown } from '../svg/select-chevron-down';
 import TriangleDown from '../svg/triangle-down';

@@ -1,5 +1,5 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import { columns, headersSort } from '@ses/core/utils/test.utils';
+import { columns, headersSort } from '@ses/core/utils/tests';
 import { HeadCustomTable } from './HeadCustomTable';
 
 import type { ComponentMeta } from '@storybook/react';

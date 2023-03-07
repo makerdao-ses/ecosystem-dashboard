@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { CustomButton } from '@ses/components/CustomButton/CustomButton';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { ButtonType } from '@ses/core/enums/button-type.enum';
-import { ButtonPickerStyle } from '@ses/core/utils/share-style';
+import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
+import { ButtonPickerStyle } from '@ses/core/utils/sharedStyle';
 import React from 'react';
 import lightTheme from 'styles/theme/light';
 

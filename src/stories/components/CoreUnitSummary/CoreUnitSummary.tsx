@@ -8,12 +8,12 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
-import { buildQueryString } from '../../../core/utils/url.utils';
+import { buildQueryString } from '../../../core/utils/urls';
 import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs';
 import BreadCrumbMobile from '../Pagination/BreadcrumbMobile';
 import InsidePagination from '../Pagination/InsidePagination';
 import TitleNavigationCuAbout from '../TitleNavigationCuAbout/TitleNavigationCuAbout';
-import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import type { CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
 
 interface CoreUnitSummaryProps {
   coreUnits: CoreUnitDto[];

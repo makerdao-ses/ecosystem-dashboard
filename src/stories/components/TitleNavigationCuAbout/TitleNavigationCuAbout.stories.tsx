@@ -1,7 +1,7 @@
 import React from 'react';
-import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
+import { CuStatusEnum } from '../../../core/enums/cuStatusEnum';
 import TitleNavigationCuAbout from './TitleNavigationCuAbout';
-import type { CoreUnitDto, CuMipDto, SocialMediaChannelDto } from '../../../core/models/dto/core-unit.dto';
+import type { CoreUnitDto, CuMipDto, SocialMediaChannelDto } from '../../../core/models/dto/coreUnitDTO';
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {

@@ -7,14 +7,14 @@ import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
 import { goBack } from '../../../../core/utils/routing';
-import { capitalizeWordWithoutConvertLowerCase } from '../../../../core/utils/string.utils';
+import { capitalizeWordWithoutConvertLowerCase } from '../../../../core/utils/string';
 import CloseButton from '../../../components/CloseButton/CloseButton';
 import { CustomButton } from '../../../components/CustomButton/CustomButton';
 import TextInput from '../../../components/TextInput/TextInput';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import { Spacer, UserLabel, Username } from '../../auth/change-password/change-password';
 import { useDeleteAccount } from './useDeleteAccount';
-import type { UserDTO } from '../../../../core/models/dto/auth.dto';
+import type { UserDTO } from '../../../../core/models/dto/authDTO';
 
 const DeleteAccount: React.FC<{ username?: string }> = ({ username }) => {
   const router = useRouter();

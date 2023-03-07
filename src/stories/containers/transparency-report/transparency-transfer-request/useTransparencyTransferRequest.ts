@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
-import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
+import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date';
 import { useTransparencyForecast } from '../transparency-forecast/useTransparencyForecast';
 import { renderLinks, renderWallet } from '../transparency-report.utils';
-import type { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
+import type { BudgetStatementDto } from '../../../../core/models/dto/coreUnitDTO';
 import type { InnerTableColumn, InnerTableRow } from '../../../components/AdvancedInnerTable/AdvancedInnerTable';
 import type { DateTime } from 'luxon';
 

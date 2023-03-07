@@ -1,8 +1,8 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import { columns, CoreUnit, headersSort } from '@ses/core/utils/test.utils';
+import { columns, CoreUnit, headersSort } from '@ses/core/utils/tests';
 import { CustomTable2 } from './CustomTable2';
 import type { CustomTableColumn, CustomTableRow } from './CustomTable2';
-import type { SortEnum } from '@ses/core/enums/sort.enum';
+import type { SortEnum } from '@ses/core/enums/sortEnum';
 import type { ComponentMeta } from '@storybook/react';
 
 export default {

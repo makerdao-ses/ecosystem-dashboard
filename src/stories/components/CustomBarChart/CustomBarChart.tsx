@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 import { Popover, Typography, useMediaQuery } from '@mui/material';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { ExpenditureLevel } from '../../../core/enums/expenditure-level.enum';
-import type { CustomChartItemModel } from '../../../core/models/custom-chart-item.model';
+import { ExpenditureLevel } from '../../../core/enums/expenditureLevelEnum';
+import type { CustomChartItemModel } from '../../../core/models/customChartItemModel';
 
 interface CustomBarChartProps {
   items?: Array<CustomChartItemModel>;

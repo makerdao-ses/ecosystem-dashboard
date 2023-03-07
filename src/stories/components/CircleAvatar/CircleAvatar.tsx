@@ -2,8 +2,8 @@ import { useTheme } from '@mui/material';
 import Identicon from 'identicon.js';
 import padEnd from 'lodash/padEnd';
 import React from 'react';
-import { getColorForString } from '../../../core/utils/color.utils';
-import { getTwoInitials } from '../../../core/utils/string.utils';
+import { getColorForString } from '../../../core/utils/colors';
+import { getTwoInitials } from '../../../core/utils/string';
 import type { Theme } from '@mui/material';
 import type { CSSProperties } from 'react';
 

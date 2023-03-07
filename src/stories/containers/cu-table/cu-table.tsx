@@ -4,8 +4,8 @@ import { CustomTable2 } from '@ses/components/CustomTable/CustomTable2';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { useCookiesContextTracking } from '@ses/core/context/CookiesContext';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { SortEnum } from '@ses/core/enums/sort.enum';
-import { toAbsoluteURL } from '@ses/core/utils/url.utils';
+import { SortEnum } from '@ses/core/enums/sortEnum';
+import { toAbsoluteURL } from '@ses/core/utils/urls';
 import React, { useMemo } from 'react';
 import lightTheme from 'styles/theme/light';
 

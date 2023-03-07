@@ -1,7 +1,7 @@
 import { useState, useLayoutEffect, useCallback } from 'react';
 import { useCookies } from 'react-cookie';
-import { ThemeType } from '../enums/theme.enum';
-import { daysToExpire } from '../utils/date.utils';
+import { ThemeType } from '../enums/themeEnum';
+import { daysToExpire } from '../utils/date';
 
 interface Props {
   isLightApp: boolean;

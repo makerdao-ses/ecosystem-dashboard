@@ -5,7 +5,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React, { useCallback, useEffect, useState } from 'react';
 import EssentialWebsites from '../EssentialWebsites/EssentialWebsites';
-import type { WithIsLight } from '@ses/core/utils/types-helpers';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 const EssentialWebsitesModalTrigger: React.FC = () => {
   const { isLight } = useThemeContext();
