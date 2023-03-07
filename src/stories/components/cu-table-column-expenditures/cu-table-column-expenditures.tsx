@@ -19,7 +19,7 @@ interface CuTableColumnExpendituresProps {
   budgetCaps?: number[];
   months?: DateTime[];
   isLoading?: boolean;
-  code: string;
+  code?: string;
 }
 
 export const CuTableColumnExpenditures = ({ isLoading = false, ...props }: CuTableColumnExpendituresProps) => {
@@ -64,7 +64,7 @@ export const CuTableColumnExpenditures = ({ isLoading = false, ...props }: CuTab
               items={isEmpty(props.items) ? new Array(3).fill({ value: 0 }) : props.items}
               maxValues={props.budgetCaps}
               months={props.months}
-              code={props.code}
+              code={props?.code}
             />
           </CustomBarCharContainer>
           <ValueWrapper>

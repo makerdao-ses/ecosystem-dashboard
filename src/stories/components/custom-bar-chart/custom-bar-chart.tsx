@@ -12,7 +12,7 @@ interface CustomBarChartProps {
   items?: Array<CustomChartItemModel>;
   maxValues?: number[];
   months?: DateTime[];
-  code: string;
+  code?: string;
 }
 
 const COLOR_GREEN = '#02CB9B';
@@ -183,7 +183,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
           {monthsProps?.map((month: string, i: number) => (
             <Link
               key={`month-${i}`}
-              href={`${siteRoutes.coreUnitReports(props.code)}?viewMonth=${
+              href={`${siteRoutes.coreUnitReports(props?.code || '')}?viewMonth=${
                 props?.months && props?.months[i].toFormat('LLLyyyy')
               }`}
               legacyBehavior
