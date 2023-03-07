@@ -7,9 +7,9 @@ import lightTheme from '../../../../../styles/theme/light';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
-import CloseButton from '../../../components/close-button/close-button';
-import { CustomButton } from '../../../components/custom-button/custom-button';
-import TextInput from '../../../components/text-input/text-input';
+import CloseButton from '../../../components/CloseButton/CloseButton';
+import { CustomButton } from '../../../components/CustomButton/CustomButton';
+import TextInput from '../../../components/TextInput/TextInput';
 import { useCreateAccount } from './useCreateAccount';
 import type { UserDTO } from '../../../../core/models/dto/auth.dto';
 

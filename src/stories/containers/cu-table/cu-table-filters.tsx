@@ -9,15 +9,15 @@ import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
 import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 import { SortEnum } from '../../../core/enums/sort.enum';
 import { useDebounce } from '../../../core/utils/use-debounce';
-import { CategoryChip } from '../../components/category-chip/category-chip';
-import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
-import { CustomSortSelect } from '../../components/custom-sort-select/custom-sort-select';
-import ResetButton from '../../components/reset-button/reset-button';
-import { SearchInput } from '../../components/search-input/search-input';
-import { StatusChip } from '../../components/status-chip/status-chip';
+import { CategoryChip } from '../../components/CategoryChip/CategoryChip';
+import { CustomMultiSelect } from '../../components/CustomMultiSelect/CustomMultiSelect';
+import { CustomSortSelect } from '../../components/CustomSortSelect/CustomSortSelect';
+import ResetButton from '../../components/ResetButton/ResetButton';
+import { SearchInput } from '../../components/SearchInput/SearchInput';
+import { StatusChip } from '../../components/StatusChip/StatusChip';
 import Filter from '../../components/svg/filter';
-import type { SortSelectItem } from '../../components/custom-sort-select/custom-sort-select';
-import type { CustomTableColumn } from '../../components/custom-table/custom-table-2';
+import type { SortSelectItem } from '../../components/CustomSortSelect/CustomSortSelect';
+import type { CustomTableColumn } from '../../components/CustomTable/CustomTable2';
 
 interface FilterProps {
   filtersPopup: boolean;

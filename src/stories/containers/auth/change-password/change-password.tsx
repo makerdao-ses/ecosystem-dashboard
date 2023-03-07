@@ -2,10 +2,10 @@ import styled from '@emotion/styled';
 import { Skeleton } from '@mui/material';
 import React from 'react';
 import { capitalizeWordWithoutConvertLowerCase } from '../../../../core/utils/string.utils';
-import CloseButton from '../../../components/close-button/close-button';
-import { CustomButton } from '../../../components/custom-button/custom-button';
+import CloseButton from '../../../components/CloseButton/CloseButton';
+import { CustomButton } from '../../../components/CustomButton/CustomButton';
+import TextInput from '../../../components/TextInput/TextInput';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
-import TextInput from '../../../components/text-input/text-input';
 import { ButtonWrapper, Form } from '../login/login-form/login-form';
 import { useUserChangePassword } from './useUserChangePassword';
 

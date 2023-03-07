@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import lightTheme from '../../../../../../styles/theme/light';
-import { CustomButton } from '../../../../components/custom-button/custom-button';
+import { CustomButton } from '../../../../components/CustomButton/CustomButton';
 import BudgetStatusSelect from '../budget-status-select';
 import GenericCommentCard from '../generic-comment-card';
 import useCommentForm from './useCommentForm';

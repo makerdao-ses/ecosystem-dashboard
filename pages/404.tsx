@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '../src/core/context/ThemeContext';
-import CardNotFoundPage from '../src/stories/components/404/not-found-component-404';
+import NotFound404 from '../src/stories/components/404/NotFound404';
 import lightTheme from '../styles/theme/light';
 import type { NextPage } from 'next';
 
@@ -9,7 +9,7 @@ const NotFoundPage: NextPage = () => {
 
   return (
     <Container isLight={isLight}>
-      <CardNotFoundPage />
+      <NotFound404 />
     </Container>
   );
 };

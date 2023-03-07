@@ -7,9 +7,9 @@ import lightTheme from '../../../../../styles/theme/light';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { ButtonType } from '../../../../core/enums/button-type.enum';
 import { capitalizeWordWithoutConvertLowerCase } from '../../../../core/utils/string.utils';
-import ControlledSwitches from '../../../components/button/switch-toogle/switch-component';
-import CloseButton from '../../../components/close-button/close-button';
-import { CustomButton } from '../../../components/custom-button/custom-button';
+import ControlledSwitches from '../../../components/Button/ControlledSwitches/ControlledSwitches';
+import CloseButton from '../../../components/CloseButton/CloseButton';
+import { CustomButton } from '../../../components/CustomButton/CustomButton';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import useManagedUserProfile from './useManagedUserProfile';
 

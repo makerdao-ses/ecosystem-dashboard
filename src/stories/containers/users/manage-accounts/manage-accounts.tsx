@@ -2,10 +2,10 @@ import styled from '@emotion/styled';
 import Skeleton from '@mui/material/Skeleton';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { ButtonType } from '../../../../core/enums/button-type.enum';
-import { CustomButton } from '../../../components/custom-button/custom-button';
-import { SearchInput } from '../../../components/search-input/search-input';
-import UserCard from '../../../components/user-card/user-card';
-import UserCardSkeleton from '../../../components/user-card/user-card.skeleton';
+import { CustomButton } from '../../../components/CustomButton/CustomButton';
+import { SearchInput } from '../../../components/SearchInput/SearchInput';
+import UserCard from '../../../components/UserCard/UserCard';
+import UserCardSkeleton from '../../../components/UserCard/UserCardSkeleton';
 import useManageAccounts from './useManageAccounts';
 import type { UserDTO } from '../../../../core/models/dto/auth.dto';
 

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { AdvancedInnerTable } from '@ses/components/advanced-inner-table/advanced-inner-table';
-import { CustomLink } from '@ses/components/custom-link/custom-link';
+import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
+import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import { TransparencyEmptyTable } from '@ses/containers/transparency-report/placeholders/transparency-empty-table';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
