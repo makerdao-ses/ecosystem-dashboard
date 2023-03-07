@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import lightTheme from '@ses/styles/theme/light';
-import { Breadcrumbs } from '../breadcrumbs';
+import { Breadcrumbs } from '../Breadcrumbs';
 
 interface Props {
   items: {
