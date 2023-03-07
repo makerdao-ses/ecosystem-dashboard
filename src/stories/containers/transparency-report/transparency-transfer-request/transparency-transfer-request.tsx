@@ -8,7 +8,8 @@ import { getShortCode } from '../../../../core/utils/string.utils';
 import { AdvancedInnerTable } from '../../../components/advanced-inner-table/advanced-inner-table';
 import { CustomLink } from '../../../components/custom-link/custom-link';
 import { LinkDescription } from '../transparency-actuals/transparency-actuals';
-import { useTransparencyTransferRequestMvvm } from './transparency-transfer-request.mvvm';
+// import { useTransparencyTransferRequestMvvm } from './useTransparencyTransferRequest';
+import { useTransparencyTransferRequest } from './useTransparencyTransferRequest';
 import type { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 import type { DateTime } from 'luxon';
 
@@ -22,7 +23,7 @@ interface Props {
 export const TransparencyTransferRequest = (props: Props) => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
-  const { mainTableColumns, mainTableItems } = useTransparencyTransferRequestMvvm(
+  const { mainTableColumns, mainTableItems } = useTransparencyTransferRequest(
     props.currentMonth,
     props.budgetStatements
   );

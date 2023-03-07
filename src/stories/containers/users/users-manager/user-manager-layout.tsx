@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { Tabs } from '../../../components/tabs/tabs';
-import { useManagerAccountLayoutViewModel } from './manager-account-layout.mvvm';
 import { ManagerTabs } from './manager-tabs.enum';
+import { useManagerAccountLayout } from './useManagerAccountLayout';
 
 export interface UserManagerLayoutProps {
   children: React.ReactNode;
@@ -12,7 +12,7 @@ export interface UserManagerLayoutProps {
 
 const UserManagerLayout: React.FC<UserManagerLayoutProps> = ({ children, tabIndex = ManagerTabs.PROFILE }) => {
   const { isLight } = useThemeContext();
-  const { tabItems, hasToken, isAdmin } = useManagerAccountLayoutViewModel();
+  const { tabItems, hasToken, isAdmin } = useManagerAccountLayout();
 
   if (!hasToken) {
     return <Message>Loading...</Message>;

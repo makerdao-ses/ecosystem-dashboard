@@ -33,7 +33,7 @@ import {
 import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 import type { CustomTableColumn, CustomTableRow } from '../../components/custom-table/custom-table-2';
 
-export const useCoreUnitsTableMvvm = () => {
+export const useCoreUnitsTable = () => {
   const router = useRouter();
 
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);

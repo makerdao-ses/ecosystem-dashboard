@@ -7,7 +7,7 @@ interface Props {
   cookiesObject: CookiesInterface;
 }
 
-export const useCookiesPolicyBannerMvvm = ({ cookiesObject }: Props) => {
+export const useCookiesPolicyBanner = ({ cookiesObject }: Props) => {
   const [cookies, setCookie, removeCookie] = useCookies([
     'themeTracking',
     'timestampTracking',

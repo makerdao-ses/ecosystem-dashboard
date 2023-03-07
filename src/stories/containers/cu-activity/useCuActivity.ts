@@ -4,7 +4,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SortEnum } from '../../../core/enums/sort.enum';
 import type { ActivityTableHeader } from '../../components/cu-activity-table/cu-activity-table';
 
-export const useCuActivityMvvm = () => {
+export const useCuActivity = () => {
   const { isLight } = useThemeContext();
 
   const [columns, setColumns] = useState<ActivityTableHeader[]>([

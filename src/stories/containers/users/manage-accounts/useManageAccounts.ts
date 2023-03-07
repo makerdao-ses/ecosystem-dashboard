@@ -7,7 +7,7 @@ import { fetcher } from '../../../../core/utils/fetcher';
 import { QUERY_USERS } from '../users-manager/user-manager.api';
 import type { UserDTO } from '../../../../core/models/dto/auth.dto';
 
-const useManageAccountsViewModel = () => {
+const useManageAccounts = () => {
   const router = useRouter();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
 
@@ -57,4 +57,4 @@ const useManageAccountsViewModel = () => {
   };
 };
 
-export default useManageAccountsViewModel;
+export default useManageAccounts;

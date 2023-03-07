@@ -13,7 +13,7 @@ import { CustomButton } from '../../../components/custom-button/custom-button';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import TextInput from '../../../components/text-input/text-input';
 import { Spacer, UserLabel, Username } from '../../auth/change-password/change-password';
-import { useDeleteAccountMvvm } from './delete-account.mvvm';
+import { useDeleteAccount } from './useDeleteAccount';
 import type { UserDTO } from '../../../../core/models/dto/auth.dto';
 
 const DeleteAccount: React.FC<{ username?: string }> = ({ username }) => {
@@ -22,7 +22,7 @@ const DeleteAccount: React.FC<{ username?: string }> = ({ username }) => {
   const isAdminRouter = router.pathname.includes('manage/delete-my-account');
 
   const { isLight } = useThemeContext();
-  const { form: formLogic, isFetchingUser, deletingUser, isDeleting } = useDeleteAccountMvvm(username);
+  const { form: formLogic, isFetchingUser, deletingUser, isDeleting } = useDeleteAccount(username);
 
   const isLoggedAdmin = useIsAdmin(user || ({} as UserDTO));
 

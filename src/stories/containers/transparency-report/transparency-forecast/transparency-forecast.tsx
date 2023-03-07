@@ -11,7 +11,7 @@ import { Tabs } from '../../../components/tabs/tabs';
 import { TransparencyEmptyTable } from '../placeholders/transparency-empty-table';
 import { LinkDescription } from '../transparency-actuals/transparency-actuals';
 import { Title } from '../transparency-report';
-import { useTransparencyForecastMvvm } from './transparency-forecast.mvvm';
+import { useTransparencyForecast } from './useTransparencyForecast';
 import type { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 import type { DateTime } from 'luxon';
 
@@ -35,7 +35,7 @@ export const TransparencyForecast = (props: Props) => {
     breakdownItems,
     breakdownTitleRef,
     breakdownTabs,
-  } = useTransparencyForecastMvvm(props.currentMonth, props.budgetStatements);
+  } = useTransparencyForecast(props.currentMonth, props.budgetStatements);
 
   return (
     <Container>

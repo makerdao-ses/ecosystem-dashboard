@@ -10,7 +10,7 @@ import { CustomLink } from '../../../components/custom-link/custom-link';
 import { CustomPopover } from '../../../components/custom-popover/custom-popover';
 import { LinkDescription } from '../transparency-actuals/transparency-actuals';
 import { Title } from '../transparency-report';
-import { useTransparencyMkrVesting } from './transparency-mkr-vesting.mvvm';
+import { useTransparencyMkrVesting } from './useTransparencyMkrVesting';
 import type { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
 import type { DateTime } from 'luxon';
 

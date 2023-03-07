@@ -5,10 +5,10 @@ import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import LoginForm from './login-form/login-form';
-import { useLoginMvvm } from './login.mvvm';
+import { useLogin } from './useLogin';
 
 const LoginContainer: React.FC = () => {
-  const { form: formLogic, loading, error, clearErrors, hasUserInactive } = useLoginMvvm();
+  const { form: formLogic, loading, error, clearErrors, hasUserInactive } = useLogin();
   const { isLight } = useThemeContext();
 
   return (

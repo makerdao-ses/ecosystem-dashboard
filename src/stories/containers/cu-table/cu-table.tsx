@@ -10,7 +10,7 @@ import React, { useMemo } from 'react';
 import lightTheme from 'styles/theme/light';
 
 import { Filters } from './cu-table-filters';
-import { useCoreUnitsTableMvvm } from './cu-table.mvvm';
+import { useCoreUnitsTable } from './useCoreUnitsTable';
 
 export const CuTable = () => {
   const { themeMode } = useThemeContext();
@@ -32,7 +32,7 @@ export const CuTable = () => {
     headersSort,
     applySort,
     queryStrings,
-  } = useCoreUnitsTableMvvm();
+  } = useCoreUnitsTable();
 
   const siteHeader = useMemo(() => {
     if (status === 'loading') {

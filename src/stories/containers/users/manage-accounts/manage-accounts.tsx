@@ -6,7 +6,7 @@ import { CustomButton } from '../../../components/custom-button/custom-button';
 import { SearchInput } from '../../../components/search-input/search-input';
 import UserCard from '../../../components/user-card/user-card';
 import UserCardSkeleton from '../../../components/user-card/user-card.skeleton';
-import useManageAccountsViewModel from './manage-accounts.mvvm';
+import useManageAccounts from './useManageAccounts';
 import type { UserDTO } from '../../../../core/models/dto/auth.dto';
 
 const ManageAccounts = () => {
@@ -21,7 +21,7 @@ const ManageAccounts = () => {
     handleCreateNewAccount,
     handleDeleteAccount,
     handleGoProfileView,
-  } = useManageAccountsViewModel();
+  } = useManageAccounts();
 
   return (
     <>
