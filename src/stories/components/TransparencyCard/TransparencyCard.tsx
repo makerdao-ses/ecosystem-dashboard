@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from '@emotion/styled';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';

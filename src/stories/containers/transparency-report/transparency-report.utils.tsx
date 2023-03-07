@@ -1,3 +1,8 @@
+import styled from '@emotion/styled';
+import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
+import { NumberCell } from '@ses/components/NumberCell/NumberCell';
+import Information from '@ses/components/svg/information';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { formatAddressForOutput } from '../../../core/utils/string.utils';
 import { CustomLink } from '../../components/CustomLink/CustomLink';
@@ -52,3 +57,50 @@ export const renderLinksWithToken = (address: string) => (
     </CustomLink>
   </TextCell>
 );
+
+export const renderNumberWithIcon = (number: number) => (
+  <PopoverContainer>
+    <Container>
+      <CustomPopover
+        id="information"
+        popupStyle={{
+          padding: 10,
+        }}
+        title={<p>Place for Tooltip</p>}
+        leaveOnChildrenMouseOut
+      >
+        <ContainerInfo>
+          <Information />
+        </ContainerInfo>
+      </CustomPopover>
+
+      <NumberCell value={number} />
+    </Container>
+  </PopoverContainer>
+);
+
+const PopoverContainer = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  flex: 1,
+});
+const Container = styled.div({
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  marginLeft: 8.5,
+  [lightTheme.breakpoints.up('table_834')]: {
+    flexDirection: 'row-reverse',
+    marginLeft: 0,
+  },
+});
+
+const ContainerInfo = styled.div({
+  paddingRight: 0,
+  [lightTheme.breakpoints.up('table_834')]: {
+    paddingRight: 30,
+  },
+});
