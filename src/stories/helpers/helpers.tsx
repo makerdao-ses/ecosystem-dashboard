@@ -1,6 +1,6 @@
 import React from 'react';
 import { toast } from 'react-toastify';
-import Notification from '../components/notification-rename/notification-rename';
+import Notification from '../components/Notification/Notification';
 import CheckMark from '../components/svg/check-mark';
 import Warning from '../components/svg/warning';
 import type { IconProps } from '@mui/material';

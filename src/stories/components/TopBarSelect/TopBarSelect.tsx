@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../core/utils/const';
 import { CustomLink } from '../CustomLink/CustomLink';
-import menuItems from '../header-rename/menuItems';
+import menuItems from '../Header/menuItems';
 import { Close } from '../svg/close';
 import { SelectChevronDown } from '../svg/select-chevron-down';
 

@@ -11,12 +11,12 @@ import { toAbsoluteURL } from '../../../core/utils/url.utils';
 import BigButton from '../../components/Button/BigButton/BigButton';
 import CardInfoMember from '../../components/CardInfoMember/CardInfoMember';
 import { CoreUnitSummary } from '../../components/CoreUnitSummary/CoreUnitSummary';
+import MdViewerContainer from '../../components/Markdown/MdViewerContainer';
 import CardExpenses from '../../components/NavigationCard/CardExpenses';
 import CardSomethingWrong from '../../components/NavigationCard/CardSomethingWrong';
 import RelateMips from '../../components/RelateMips/RelateMips';
 import { SEOHead } from '../../components/SEOHead/SEOHead';
 import TeamMember from '../../components/TeamMember/TeamMember';
-import MdViewerContainer from '../../components/markdown-rename/MdViewerContainer';
 import { useCuAbout } from './useCuAbout';
 import type { ContributorCommitmentDto, CoreUnitDto, CuMipDto } from '../../../core/models/dto/core-unit.dto';
 

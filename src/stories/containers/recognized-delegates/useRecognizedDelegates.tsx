@@ -17,7 +17,7 @@ import lightTheme from '@ses/styles/theme/light';
 
 import { DateTime } from 'luxon';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import CommentsTab from '../../components/tabs-rename/CommentsTab/CommentsTab';
+import CommentsTab from '../../components/Tabs/CommentsTab/CommentsTab';
 
 import type { TableItems } from '../transparency-report/transparency-report';
 import type {} from // InnerTableColumn,

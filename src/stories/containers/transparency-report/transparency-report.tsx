@@ -10,7 +10,7 @@ import { CoreUnitSummary } from '../../components/CoreUnitSummary/CoreUnitSummar
 import { CustomLink } from '../../components/CustomLink/CustomLink';
 import { CustomPager } from '../../components/CustomPager/CustomPager';
 import { SEOHead } from '../../components/SEOHead/SEOHead';
-import { Tabs } from '../../components/tabs-rename/Tabs';
+import { Tabs } from '../../components/Tabs/Tabs';
 import ExpenseReportStatusIndicator from './common/expense-report-status-indicator/expense-report-status-indicator';
 import { TransparencyActuals } from './transparency-actuals/transparency-actuals';
 
