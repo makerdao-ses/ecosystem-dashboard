@@ -3,7 +3,7 @@ import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
 import { useTransparencyForecast } from '../transparency-forecast/useTransparencyForecast';
 import { renderLinks, renderWallet } from '../transparency-report.utils';
 import type { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
-import type { InnerTableColumn, InnerTableRow } from '../../../components/advanced-inner-table/advanced-inner-table';
+import type { InnerTableColumn, InnerTableRow } from '../../../components/AdvancedInnerTable/AdvancedInnerTable';
 import type { DateTime } from 'luxon';
 
 export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetStatements: BudgetStatementDto[]) => {

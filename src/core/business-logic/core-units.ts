@@ -4,7 +4,7 @@ import { CuStatusEnum } from '../enums/cu-status.enum';
 import { LinkTypeEnum } from '../enums/link-type.enum';
 import { BudgetStatus } from '../models/dto/core-unit.dto';
 import { API_MONTH_FROM_FORMAT, API_MONTH_TO_FORMAT } from '../utils/date.utils';
-import type { LinkModel } from '../../stories/components/cu-table-column-links/cu-table-column-links';
+import type { LinkModel } from '../../stories/components/CuTableColumnLinks/CuTableColumnLinks';
 import type { CustomChartItemModel } from '../models/custom-chart-item.model';
 import type {
   BudgetStatementDto,

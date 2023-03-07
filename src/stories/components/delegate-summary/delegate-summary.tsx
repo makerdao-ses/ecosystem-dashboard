@@ -4,11 +4,11 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
-import CustomBreadCrumbs from '../breadcrumbs/customize-breadcrumbs/custom-breadcrums';
-import { CircleAvatar } from '../circle-avatar/circle-avatar';
-import { CuTableColumnLinks } from '../cu-table-column-links/cu-table-column-links';
+import CustomBreadCrumbs from '../Breadcrumbs/CustomBreadcrumbs/CustomBreadcrumbs';
+import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
+import { CuTableColumnLinks } from '../CuTableColumnLinks/CuTableColumnLinks';
 import { CustomLink } from '../custom-link/custom-link';
-import type { LinkModel } from '../cu-table-column-links/cu-table-column-links';
+import type { LinkModel } from '../CuTableColumnLinks/CuTableColumnLinks';
 
 interface Props {
   code?: string;

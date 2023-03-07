@@ -5,7 +5,7 @@ import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/button-type.enum';
-import CardExpenses from '../card-navegation/card-expenses';
+import CardExpenses from '../NavigationCard/CardExpenses';
 import { CustomButton } from '../custom-button/custom-button';
 import { customRenderer, customRendererDark } from './renderUtils';
 import type { AuditorDto } from '../../../core/models/dto/core-unit.dto';

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { AuditStatusChip } from '../../../components/audit-status-chip/audit-status-chip';
+import { AuditStatusChip } from '../../../components/AuditStatusChip/AuditStatusChip';
 import { Download } from '../../../components/svg/download';
 import { TransparencyEmptyAudit } from '../placeholders/transparency-empty-audit';
 import { useTransparencyAudit } from './useTransparencyAudit';

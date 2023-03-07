@@ -2,7 +2,7 @@ import { CommitmentJob } from '../enums/CommitmentJob.enum';
 import { CuStatusEnum } from '../enums/cu-status.enum';
 import { LinkTypeEnum } from '../enums/link-type.enum';
 import { getCuMipStatusModifiedDate } from './core-units';
-import type { LinkModel } from '../../stories/components/cu-table-column-links/cu-table-column-links';
+import type { LinkModel } from '../../stories/components/CuTableColumnLinks/CuTableColumnLinks';
 import type { ContributorCommitmentDto, CuMipDto } from '../models/dto/core-unit.dto';
 
 export const getMipsStatus = (mip: CuMipDto) => {

@@ -3,7 +3,7 @@ import { useMemo, useRef, useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { SortEnum } from '../../../core/enums/sort.enum';
 import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
-import type { Activity, ActivityTableHeader } from '../../components/cu-activity-table/cu-activity-table';
+import type { Activity, ActivityTableHeader } from '../../components/CUActivityTable/ActivityTable';
 import type { MultiSelectItem } from '../../components/custom-multi-select/custom-multi-select';
 
 export const useGlobalActivity = (coreUnits: CoreUnitDto[]) => {

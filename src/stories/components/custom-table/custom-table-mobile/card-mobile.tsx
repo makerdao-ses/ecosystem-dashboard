@@ -1,4 +1,4 @@
-import CoreUnitCard from '@ses/components/core-unit-card/core-unit-card';
+import CoreUnitCard from '@ses/components/CoreUnitCard/CoreUnitCard';
 import React from 'react';
 import type { CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
 

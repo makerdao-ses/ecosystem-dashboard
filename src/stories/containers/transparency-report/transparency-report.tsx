@@ -6,7 +6,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { BudgetStatus } from '../../../core/models/dto/core-unit.dto';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
-import { CoreUnitSummary } from '../../components/core-unit-summary/core-unit-summary';
+import { CoreUnitSummary } from '../../components/CoreUnitSummary/CoreUnitSummary';
 import { CustomLink } from '../../components/custom-link/custom-link';
 import { CustomPager } from '../../components/custom-pager/custom-pager';
 import { SEOHead } from '../../components/seo-head/seo-head';

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { CuTableHeaderSkeleton } from '@ses/components/cu-table-header-skeleton/header-skeleton';
+import { CuTableHeaderSkeleton } from '@ses/components/CuTableHeaderSkeleton/CuTableHeaderSkeleton';
 import { CustomTable2 } from '@ses/components/custom-table/custom-table-2';
 import { SEOHead } from '@ses/components/seo-head/seo-head';
 import { useCookiesContextTracking } from '@ses/core/context/CookiesContext';

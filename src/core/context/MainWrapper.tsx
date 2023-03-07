@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import CookiesPolicyBanner from '@ses/components/cookies-policy-banner/cookies-policy-banner';
+import CookiesPolicyBanner from '@ses/components/CookiesPolicyBanner/CookiesPolicyBanner';
 import { useLayoutEffect } from 'react';
 import lightTheme from '../../../styles/theme/light';
 import { useScrollLock } from '../hooks/scroll-hooks';

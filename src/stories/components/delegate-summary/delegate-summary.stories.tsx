@@ -2,7 +2,7 @@ import { siteRoutes } from '@ses/config/routes';
 import { LinkTypeEnum } from '@ses/core/enums/link-type.enum';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import DelegateSummary from './delegate-summary';
-import type { LinkModel } from '../cu-table-column-links/cu-table-column-links';
+import type { LinkModel } from '../CuTableColumnLinks/CuTableColumnLinks';
 import type { ComponentMeta } from '@storybook/react';
 
 export default {
