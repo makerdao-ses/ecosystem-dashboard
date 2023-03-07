@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { CircleAvatar } from '../circle-avatar/circle-avatar';
+import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 
 interface Props {
   username?: string;

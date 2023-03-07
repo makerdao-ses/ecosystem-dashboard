@@ -3,7 +3,7 @@ import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { capitalizeSentence } from '../../../core/utils/string.utils';
-import { CircleAvatar } from '../circle-avatar/circle-avatar';
+import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 import { CustomLink } from '../custom-link/custom-link';
 
 interface WalletTableCellProps {

@@ -24,7 +24,7 @@ import type {
   InnerTableColumn,
   InnerTableRow,
   RowType,
-} from '../../../components/advanced-inner-table/advanced-inner-table';
+} from '../../../components/AdvancedInnerTable/AdvancedInnerTable';
 import type { DateTime } from 'luxon';
 
 export const useDelegatesActuals = (

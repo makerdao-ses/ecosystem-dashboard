@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import CoreUnitCard from '@ses/components/core-unit-card/core-unit-card';
+import CoreUnitCard from '@ses/components/CoreUnitCard/CoreUnitCard';
 import { siteRoutes } from '@ses/config/routes';
 import { enablePageOverflow } from '@ses/core/utils/dom';
 import isEmpty from 'lodash/isEmpty';
@@ -31,7 +31,7 @@ import { filterData, getArrayParam, getStringParam } from '../../../core/utils/f
 import { sortAlphaNum } from '../../../core/utils/sort.utils';
 import { getShortCode } from '../../../core/utils/string.utils';
 import { buildQueryString, toAbsoluteURL } from '../../../core/utils/url.utils';
-import { CuTableColumnExpenditures } from '../../components/cu-table-column-expenditures/cu-table-column-expenditures';
+import { CuTableColumnExpenditures } from '../../components/CuTableColumnExpenditures/CuTableColumnExpenditures';
 import { CuTableColumnLinks } from '../../components/cu-table-column-links/cu-table-column-links';
 import { CuTableColumnSummary } from '../../components/cu-table-column-summary/cu-table-column-summary';
 import { CuTableColumnTeamMember } from '../../components/cu-table-column-team-member/cu-table-column-team-member';

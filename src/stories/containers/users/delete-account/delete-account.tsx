@@ -8,7 +8,7 @@ import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
 import { goBack } from '../../../../core/utils/routing';
 import { capitalizeWordWithoutConvertLowerCase } from '../../../../core/utils/string.utils';
-import CloseButton from '../../../components/close-button/close-button';
+import CloseButton from '../../../components/CloseButton/CloseButton';
 import { CustomButton } from '../../../components/custom-button/custom-button';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import TextInput from '../../../components/text-input/text-input';

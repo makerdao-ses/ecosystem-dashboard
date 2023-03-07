@@ -1,7 +1,7 @@
 import isEmpty from 'lodash/isEmpty';
 import React, { useState, useEffect } from 'react';
 import { CoreUnitContext } from '../../../src/core/context/CoreUnitContext';
-import { fetchCoreUnits } from '../../../src/stories/components/core-unit-summary/core-unit-summary.api';
+import { fetchCoreUnits } from '../../../src/stories/components/CoreUnitSummary/CoreUnitSummaryApi';
 import CuAboutContainer2 from '../../../src/stories/containers/cu-about-2/cu-about-container-2';
 import { fetchCoreUnitByCode } from '../../../src/stories/containers/cu-about/cu-about.api';
 import type { CoreUnitDto } from '../../../src/core/models/dto/core-unit.dto';

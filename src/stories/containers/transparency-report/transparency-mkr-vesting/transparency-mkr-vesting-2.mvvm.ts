@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { useMemo } from 'react';
 import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
 import type { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
-import type { InnerTableColumn, InnerTableRow } from '../../../components/advanced-inner-table/advanced-inner-table';
+import type { InnerTableColumn, InnerTableRow } from '../../../components/AdvancedInnerTable/AdvancedInnerTable';
 import type { DateTime } from 'luxon';
 
 export const useTransparencyMkrVesting2 = (currentMonth: DateTime, budgetStatements: BudgetStatementDto[]) => {

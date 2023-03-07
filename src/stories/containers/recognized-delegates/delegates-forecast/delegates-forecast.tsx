@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { AdvancedInnerTable } from '@ses/components/advanced-inner-table/advanced-inner-table';
+import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import { TransparencyEmptyTable } from '@ses/containers/transparency-report/placeholders/transparency-empty-table';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';

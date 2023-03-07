@@ -14,8 +14,8 @@ import {
 } from '../../../core/business-logic/core-units';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { getShortCode } from '../../../core/utils/string.utils';
-import { CategoryChip } from '../category-chip/category-chip';
-import { CircleAvatar } from '../circle-avatar/circle-avatar';
+import { CategoryChip } from '../CategoryChip/CategoryChip';
+import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 import { CuTableColumnLinks } from '../cu-table-column-links/cu-table-column-links';
 import { CustomLink } from '../custom-link/custom-link';
 import { StatusChip } from '../status-chip/status-chip';

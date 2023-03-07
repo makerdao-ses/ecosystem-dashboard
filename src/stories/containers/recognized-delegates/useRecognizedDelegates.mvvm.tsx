@@ -22,7 +22,7 @@ import CommentsTab from '../../components/tabs/comments-tab/comments-tab';
 import type { TableItems } from '../transparency-report/transparency-report';
 import type {} from // InnerTableColumn,
 
-'@ses/components/advanced-inner-table/advanced-inner-table';
+'@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 
 import type { DelegatesDto } from '@ses/core/models/dto/delegates.dto';
 
