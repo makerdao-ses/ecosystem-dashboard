@@ -1,8 +1,8 @@
 import React from 'react';
 import { toast } from 'react-toastify';
-import Notification from '../components/Notification/Notification';
-import CheckMark from '../components/svg/check-mark';
-import Warning from '../components/svg/warning';
+import Notification from '../../stories/components/Notification/Notification';
+import CheckMark from '../../stories/components/svg/check-mark';
+import Warning from '../../stories/components/svg/warning';
 import type { IconProps } from '@mui/material';
 import type { ReactElement } from 'react';
 
