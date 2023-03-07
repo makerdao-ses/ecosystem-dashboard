@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { CommentActivityContext } from '../../../core/context/CommentActivityContext';
@@ -50,6 +51,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
     showExpenseReportStatusCTA,
     lastVisitHandler,
   } = useTransparencyReport(coreUnit);
+  const [isEnabled] = useFlagsActive();
 
   return (
     <Wrapper>
@@ -125,7 +127,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
               longCode={longCode}
             />
           )}
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS && (
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS && isEnabled('FEATURE_AUDIT_REPORTS') && (
             <TransparencyAudit budgetStatement={currentBudgetStatement} />
           )}
 
