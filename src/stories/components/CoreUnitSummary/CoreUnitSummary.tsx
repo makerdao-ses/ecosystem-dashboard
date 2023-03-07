@@ -10,9 +10,9 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
 import { buildQueryString } from '../../../core/utils/url.utils';
 import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs';
-import InsidePagination from '../pagination/InsidePagination';
-import BreadCrumbMobile from '../pagination/bread-crumb-mobile';
-import TitleNavigationCuAbout from '../title-navigation-cu-about/title-navigation-cu-about';
+import TitleNavigationCuAbout from '../TitleNavigationCuAbout/TitleNavigationCuAbout';
+import BreadCrumbMobile from '../pagination-rename/BreadcrumbMobile';
+import InsidePagination from '../pagination-rename/InsidePagination';
 import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 
 interface CoreUnitSummaryProps {

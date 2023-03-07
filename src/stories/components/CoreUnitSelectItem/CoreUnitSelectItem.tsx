@@ -2,9 +2,9 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
-import { Container } from '../select-item/select-item';
+import { Container } from '../SelectItem/SelectItem';
 import Check from '../svg/check';
-import type { SelectItemProps } from '../custom-multi-select/custom-multi-select';
+import type { SelectItemProps } from '../CustomMultiSelect/CustomMultiSelect';
 
 const CoreUnitSelectItem: React.FC<SelectItemProps> = ({ checked = false, ...props }) => {
   const { isLight } = useThemeContext();

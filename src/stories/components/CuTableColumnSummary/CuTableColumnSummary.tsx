@@ -9,9 +9,9 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { buildQueryString } from '../../../core/utils/url.utils';
 import { CategoryChip } from '../CategoryChip/CategoryChip';
 import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
-import { CustomLink } from '../custom-link/custom-link';
-import { CustomPopover } from '../custom-popover/custom-popover';
-import { StatusChip } from '../status-chip/status-chip';
+import { CustomLink } from '../CustomLink/CustomLink';
+import { CustomPopover } from '../CustomPopover/CustomPopover';
+import { StatusChip } from '../StatusChip/StatusChip';
 import { ColumnSummarySkeleton } from './CuTableColumnSummarySkeleton';
 import type { CuStatusEnum } from '../../../core/enums/cu-status.enum';
 

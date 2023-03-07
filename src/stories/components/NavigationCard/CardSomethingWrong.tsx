@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SES_DASHBOARD, TYPE_FORM } from '../../../core/utils/const';
-import { CustomLink } from '../custom-link/custom-link';
+import { CustomLink } from '../CustomLink/CustomLink';
 import InformationCard from './InformationCard';
 
 interface Props {

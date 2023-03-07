@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
-import { LinkButton } from '@ses/components/link-button/link-button';
+import { LinkButton } from '@ses/components/LinkButton/LinkButton';
 import React from 'react';
 import lightTheme from '../../../../../styles/theme/light';
 import { useThemeContext } from '../../../../core/context/ThemeContext';

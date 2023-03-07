@@ -1,4 +1,4 @@
-import CommentsTab from '@ses/components/tabs/comments-tab/comments-tab';
+import CommentsTab from '@ses/components/tabs-rename/CommentsTab/CommentsTab';
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import { getLastUpdateForBudgetStatement } from '@ses/core/business-logic/core-units';
 import { useAuthContext } from '@ses/core/context/AuthContext';

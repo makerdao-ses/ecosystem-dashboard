@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { LinkButton } from '@ses/components/link-button/link-button';
-import { SEOHead } from '@ses/components/seo-head/seo-head';
+import { LinkButton } from '@ses/components/LinkButton/LinkButton';
+import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { siteRoutes } from '@ses/config/routes';
 import { ButtonType } from '@ses/core/enums/button-type.enum';
 import { toAbsoluteURL } from '@ses/core/utils/url.utils';

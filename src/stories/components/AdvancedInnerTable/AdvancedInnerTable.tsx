@@ -3,9 +3,9 @@ import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { TransparencyEmptyTable } from '../../containers/transparency-report/placeholders/transparency-empty-table';
 import { Title } from '../../containers/transparency-report/transparency-report';
-import { NumberCell } from '../number-cell/number-cell';
-import { TextCell } from '../text-cell/text-cell';
-import { TransparencyCard } from '../transparency-card/transparency-card';
+import { NumberCell } from '../NumberCell/NumberCell';
+import { TextCell } from '../TextCell/TextCell';
+import { TransparencyCard } from '../TransparencyCard/TransparencyCard';
 
 export interface InnerTableColumn {
   align?: string;

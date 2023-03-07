@@ -1,8 +1,8 @@
 import React from 'react';
 import { formatAddressForOutput } from '../../../core/utils/string.utils';
-import { CustomLink } from '../../components/custom-link/custom-link';
-import { TextCell } from '../../components/text-cell/text-cell';
-import { WalletTableCell } from '../../components/wallet-table-cell/wallet-table-cell';
+import { CustomLink } from '../../components/CustomLink/CustomLink';
+import { TextCell } from '../../components/TextCell/TextCell';
+import { WalletTableCell } from '../../components/WalletTableCell/WalletTableCell';
 import type { BudgetStatementWalletDto } from '../../../core/models/dto/core-unit.dto';
 
 export const renderWallet = (wallet: BudgetStatementWalletDto) => (

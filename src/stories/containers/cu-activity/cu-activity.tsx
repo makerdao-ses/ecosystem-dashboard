@@ -4,7 +4,7 @@ import lightTheme from '../../../../styles/theme/light';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
 import ActivityTable from '../../components/CUActivityTable/ActivityTable';
 import { CoreUnitSummary } from '../../components/CoreUnitSummary/CoreUnitSummary';
-import { SEOHead } from '../../components/seo-head/seo-head';
+import { SEOHead } from '../../components/SEOHead/SEOHead';
 import { useCuActivity } from './useCuActivity';
 import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
 

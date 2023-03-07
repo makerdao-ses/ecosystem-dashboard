@@ -31,7 +31,7 @@ import {
   renderTeamMember,
 } from './cu-table.renders';
 import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
-import type { CustomTableColumn, CustomTableRow } from '../../components/custom-table/custom-table-2';
+import type { CustomTableColumn, CustomTableRow } from '../../components/CustomTable/CustomTable2';
 
 export const useCoreUnitsTable = () => {
   const router = useRouter();

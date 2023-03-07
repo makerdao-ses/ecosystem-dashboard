@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import React from 'react';
-import { CustomButton } from '../custom-button/custom-button';
+import { CustomButton } from '../CustomButton/CustomButton';
 import { Close } from '../svg/close';
 
 interface Props {

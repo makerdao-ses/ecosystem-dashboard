@@ -13,10 +13,10 @@ import CardInfoMember from '../../components/CardInfoMember/CardInfoMember';
 import { CoreUnitSummary } from '../../components/CoreUnitSummary/CoreUnitSummary';
 import CardExpenses from '../../components/NavigationCard/CardExpenses';
 import CardSomethingWrong from '../../components/NavigationCard/CardSomethingWrong';
-import MdViewerContainer from '../../components/markdown/md-view-container';
-import RelateMips from '../../components/relate-mips/relate-mips';
-import { SEOHead } from '../../components/seo-head/seo-head';
-import TeamMember from '../../components/team-members/team-member';
+import RelateMips from '../../components/RelateMips/RelateMips';
+import { SEOHead } from '../../components/SEOHead/SEOHead';
+import TeamMember from '../../components/TeamMember/TeamMember';
+import MdViewerContainer from '../../components/markdown-rename/MdViewerContainer';
 import { useCuAbout } from './useCuAbout';
 import type { ContributorCommitmentDto, CoreUnitDto, CuMipDto } from '../../../core/models/dto/core-unit.dto';
 

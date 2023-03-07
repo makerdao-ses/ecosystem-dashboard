@@ -10,7 +10,7 @@ import {
   COOKIES_POLICY_PARAGRAPH_THREE,
   COOKIES_POLICY_PARAGRAPH_TWO,
 } from '../../../core/utils/const';
-import { CustomButton } from '../../components/custom-button/custom-button';
+import { CustomButton } from '../../components/CustomButton/CustomButton';
 
 const CookiesPolicyContainer = () => {
   const { isLight } = useThemeContext();

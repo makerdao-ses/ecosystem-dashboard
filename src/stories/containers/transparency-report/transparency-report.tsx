@@ -7,10 +7,10 @@ import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { BudgetStatus } from '../../../core/models/dto/core-unit.dto';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
 import { CoreUnitSummary } from '../../components/CoreUnitSummary/CoreUnitSummary';
-import { CustomLink } from '../../components/custom-link/custom-link';
-import { CustomPager } from '../../components/custom-pager/custom-pager';
-import { SEOHead } from '../../components/seo-head/seo-head';
-import { Tabs } from '../../components/tabs/tabs';
+import { CustomLink } from '../../components/CustomLink/CustomLink';
+import { CustomPager } from '../../components/CustomPager/CustomPager';
+import { SEOHead } from '../../components/SEOHead/SEOHead';
+import { Tabs } from '../../components/tabs-rename/Tabs';
 import ExpenseReportStatusIndicator from './common/expense-report-status-indicator/expense-report-status-indicator';
 import { TransparencyActuals } from './transparency-actuals/transparency-actuals';
 

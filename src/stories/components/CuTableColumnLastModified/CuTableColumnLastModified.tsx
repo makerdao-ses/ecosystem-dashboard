@@ -7,7 +7,7 @@ import { SUBMIT_EXPENSES_URL } from '../../../config/external-urls';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { capitalizeSentence } from '../../../core/utils/string.utils';
 import { buildQueryString } from '../../../core/utils/url.utils';
-import { CustomLink } from '../custom-link/custom-link';
+import { CustomLink } from '../CustomLink/CustomLink';
 import { CuTableColumnLastModifiedSkeleton } from './CuTableColumnLastModifiedSkeleton';
 
 interface Props {

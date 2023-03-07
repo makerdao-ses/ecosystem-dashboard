@@ -6,7 +6,7 @@ import React, { useMemo } from 'react';
 import lightTheme from '../../../../../styles/theme/light';
 import { useCoreUnitContext } from '../../../../core/context/CoreUnitContext';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { customRenderer, customRendererDark } from '../../../components/markdown/renderUtils';
+import { customRenderer, customRendererDark } from '../../../components/markdown-rename/renderUtils';
 import ExpenseReportStatus from '../common/expense-report-status/expense-report-status';
 import GenericCommentCard from './generic-comment-card';
 import type { CommentsBudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';

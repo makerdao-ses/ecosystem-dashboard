@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { SEOHead } from '@ses/components/seo-head/seo-head';
+import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { toAbsoluteURL } from '@ses/core/utils/url.utils';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';

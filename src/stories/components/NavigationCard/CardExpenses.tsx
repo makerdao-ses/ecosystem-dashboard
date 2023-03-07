@@ -8,8 +8,8 @@ import { MAKER_BURN_LINK } from '../../../core/utils/const';
 import { getShortCode } from '../../../core/utils/string.utils';
 import { DividerStyle } from '../../containers/cu-about/cu-about-container';
 import InlineUser from '../../containers/transparency-report/common/inline-user/inline-user';
-import { CustomLink } from '../custom-link/custom-link';
-import { LinkButton } from '../link-button/link-button';
+import { CustomLink } from '../CustomLink/CustomLink';
+import { LinkButton } from '../LinkButton/LinkButton';
 import InformationCard from './InformationCard';
 import type { AuditorDto } from '../../../core/models/dto/core-unit.dto';
 

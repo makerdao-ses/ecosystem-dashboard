@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import MainWrapper from '../../../core/context/MainWrapper';
-import Footer from '../../components/footer/footer';
-import { developer, governesses, products } from '../../components/footer/iconsData';
-import Header from '../../components/header/header';
+import Footer from '../../components/footer-rename/Footer';
+import { developer, governesses, products } from '../../components/footer-rename/iconsData';
+import Header from '../../components/header-rename/Header';
 
 export type AppLayoutProps = {
   children: React.ReactNode;

@@ -6,8 +6,8 @@ import React, { useMemo } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { buildQueryString } from '../../../core/utils/url.utils';
-import { CustomBarChart } from '../custom-bar-chart/custom-bar-chart';
-import { CustomPopover } from '../custom-popover/custom-popover';
+import { CustomBarChart } from '../CustomBarChart/CustomBarChart';
+import { CustomPopover } from '../CustomPopover/CustomPopover';
 import { ColumnExpendituresSkeleton } from './CuTableColumnExpendituresSkeleton';
 import type { CustomChartItemModel } from '../../../core/models/custom-chart-item.model';
 

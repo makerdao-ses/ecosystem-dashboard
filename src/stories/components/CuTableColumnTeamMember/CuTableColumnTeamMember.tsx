@@ -5,7 +5,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import CardInfoMember from '../CardInfoMember/CardInfoMember';
 import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 import { Title } from '../CuTableColumnExpenditures/CuTableColumnExpenditures';
-import { CustomPopover } from '../custom-popover/custom-popover';
+import { CustomPopover } from '../CustomPopover/CustomPopover';
 import { ColumnTeamMemberSkeleton } from './CuTableColumnTeamMemberSkeleton';
 import type { ContributorCommitmentDto } from '../../../core/models/dto/core-unit.dto';
 

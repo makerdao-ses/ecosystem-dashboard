@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import { CustomLink } from '@ses/components/custom-link/custom-link';
-import { CustomPager } from '@ses/components/custom-pager/custom-pager';
-import DelegateSummary from '@ses/components/delegate-summary/delegate-summary';
-import { SEOHead } from '@ses/components/seo-head/seo-head';
-import { Tabs } from '@ses/components/tabs/tabs';
+import { CustomLink } from '@ses/components/CustomLink/CustomLink';
+import { CustomPager } from '@ses/components/CustomPager/CustomPager';
+import DelegateSummary from '@ses/components/DelegateSummary/DelegateSummary';
+import { SEOHead } from '@ses/components/SEOHead/SEOHead';
+import { Tabs } from '@ses/components/tabs-rename/Tabs';
 import { CommentActivityContext } from '@ses/core/context/CommentActivityContext';
 import { BudgetStatus } from '@ses/core/models/dto/core-unit.dto';
 import { toAbsoluteURL } from '@ses/core/utils/url.utils';

@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
-import { CustomButton } from '@ses/components/custom-button/custom-button';
-import { CustomLink } from '@ses/components/custom-link/custom-link';
-import TextInput from '@ses/components/text-input/text-input';
+import { CustomButton } from '@ses/components/CustomButton/CustomButton';
+import { CustomLink } from '@ses/components/CustomLink/CustomLink';
+import TextInput from '@ses/components/TextInput/TextInput';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import Image from 'next/image';

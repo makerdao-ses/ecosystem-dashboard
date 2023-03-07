@@ -7,7 +7,7 @@ import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/button-type.enum';
 import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
-import { CustomButton } from '../custom-button/custom-button';
+import { CustomButton } from '../CustomButton/CustomButton';
 import type { Activity } from './ActivityTable';
 
 interface CUActivityItemProps {

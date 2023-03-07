@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import { CustomPopover } from '../custom-popover/custom-popover';
+import { CustomPopover } from '../CustomPopover/CustomPopover';
 
 interface CuTableColumnInitiativesProps {
   initiatives: number;

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { CustomButton } from '@ses/components/custom-button/custom-button';
+import { CustomButton } from '@ses/components/CustomButton/CustomButton';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ButtonType } from '@ses/core/enums/button-type.enum';
 import { ButtonPickerStyle } from '@ses/core/utils/share-style';

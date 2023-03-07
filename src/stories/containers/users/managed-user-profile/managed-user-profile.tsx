@@ -9,7 +9,7 @@ import { ButtonType } from '../../../../core/enums/button-type.enum';
 import { capitalizeWordWithoutConvertLowerCase } from '../../../../core/utils/string.utils';
 import ControlledSwitches from '../../../components/Button/ControlledSwitches/ControlledSwitches';
 import CloseButton from '../../../components/CloseButton/CloseButton';
-import { CustomButton } from '../../../components/custom-button/custom-button';
+import { CustomButton } from '../../../components/CustomButton/CustomButton';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
 import useManagedUserProfile from './useManagedUserProfile';
 

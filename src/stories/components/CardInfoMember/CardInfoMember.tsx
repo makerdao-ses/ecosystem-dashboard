@@ -8,7 +8,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { getColorJobPosition } from '../../../core/utils/color.utils';
 import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 import { CuTableColumnLinks } from '../CuTableColumnLinks/CuTableColumnLinks';
-import { CustomPopover } from '../custom-popover/custom-popover';
+import { CustomPopover } from '../CustomPopover/CustomPopover';
 import type { ContributorCommitmentDto } from '../../../core/models/dto/core-unit.dto';
 
 interface Props {

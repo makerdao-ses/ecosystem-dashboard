@@ -11,7 +11,7 @@ import Logo404 from '../../../../public/assets/img/logo-404.png';
 import Logo404Dark from '../../../../public/assets/img/logo-dark-404.png';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { CustomButton } from '../custom-button/custom-button';
+import { CustomButton } from '../CustomButton/CustomButton';
 
 const NotFound404: React.FC = () => {
   const router = useRouter();

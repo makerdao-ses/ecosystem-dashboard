@@ -5,16 +5,16 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { toAbsoluteURL } from '../../../core/utils/url.utils';
 import ActivityTable from '../../components/CUActivityTable/ActivityTable';
 import CoreUnitSelectItem from '../../components/CoreUnitSelectItem/CoreUnitSelectItem';
-import { CustomMultiSelect } from '../../components/custom-multi-select/custom-multi-select';
-import ResetButton from '../../components/reset-button/reset-button';
-import { SearchInput } from '../../components/search-input/search-input';
-import { SEOHead } from '../../components/seo-head/seo-head';
+import { CustomMultiSelect } from '../../components/CustomMultiSelect/CustomMultiSelect';
+import ResetButton from '../../components/ResetButton/ResetButton';
+import { SEOHead } from '../../components/SEOHead/SEOHead';
+import { SearchInput } from '../../components/SearchInput/SearchInput';
 import Filter from '../../components/svg/filter';
 import { Paragraph, Title } from '../cu-activity/cu-activity';
 import { ButtonFilter, SmallSeparator } from '../cu-table/cu-table-filters';
 import { useGlobalActivity } from './useGlobalActivity';
 import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
-import type { SelectItemProps } from '../../components/custom-multi-select/custom-multi-select';
+import type { SelectItemProps } from '../../components/CustomMultiSelect/CustomMultiSelect';
 
 interface Props {
   coreUnits: CoreUnitDto[];

@@ -5,7 +5,7 @@ import lightTheme from '../../../../styles/theme/light';
 
 import { ButtonType } from '../../../core/enums/button-type.enum';
 import CheckBox from '../CheckBox/CheckBox';
-import { CustomButton } from '../custom-button/custom-button';
+import { CustomButton } from '../CustomButton/CustomButton';
 
 interface Props {
   functionalCheckbox: boolean;
