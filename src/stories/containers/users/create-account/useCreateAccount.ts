@@ -6,7 +6,7 @@ import { useState } from 'react';
 import * as yup from 'yup';
 import { GRAPHQL_ENDPOINT } from '../../../../config/endpoints';
 import { useAuthContext } from '../../../../core/context/AuthContext';
-import { passwordValidationYup } from '../../../../core/utils/form-validation';
+import { passwordValidationYup } from '../../../../core/utils/formValidation';
 import { CREATE_ACCOUNT_REQUEST } from './create-account.api';
 
 const validationSchema = yup.object({

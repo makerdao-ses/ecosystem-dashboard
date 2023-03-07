@@ -1,5 +1,5 @@
 import { ActivityBuilder } from '@ses/core/business-logic/builders/activity.builder';
-import { CoreUnitsBuilder } from '@ses/core/business-logic/builders/core-units.builder';
+import { CoreUnitsBuilder } from '@ses/core/business-logic/builders/coreUnitsBuilder';
 import { withoutSBPadding } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { withLocalStorageItem } from '@ses/core/utils/storybook/loaders';

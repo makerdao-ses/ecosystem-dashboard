@@ -1,5 +1,5 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import { LinkTypeEnum } from '../../../core/enums/link-type.enum';
+import { LinkTypeEnum } from '../../../core/enums/linkTypeEnum';
 import { CuTableColumnLinks } from './CuTableColumnLinks';
 import type { ComponentMeta } from '@storybook/react';
 

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import { getSSRPropsDefaultAuth } from '../../../src/core/utils/common-get-ssr-props';
+import { getSSRPropsDefaultAuth } from '../../../src/core/utils/commonGetSSRProps';
 import UserProfile from '../../../src/stories/containers/users/user-profile/user-profile';
 import { ManagerTabs } from '../../../src/stories/containers/users/users-manager/manager-tabs.enum';
 import UserManagerLayout from '../../../src/stories/containers/users/users-manager/user-manager-layout';

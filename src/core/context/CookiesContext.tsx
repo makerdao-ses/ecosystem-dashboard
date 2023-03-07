@@ -1,6 +1,6 @@
 import { useCookiesPolicyBanner } from '@ses/containers/cookies-policy/useCookiesPolicyBanner';
 import React, { createContext, useContext } from 'react';
-import type { CookiesInterface } from '../utils/types-helpers';
+import type { CookiesInterface } from '../utils/typesHelpers';
 import type { ReactNode } from 'react';
 
 export type CookiesContextValues = {

@@ -5,7 +5,7 @@ import useSWR from 'swr';
 import lightTheme from '../../../../../styles/theme/light';
 import { fetcher } from '../../../../core/utils/fetcher';
 import { QUERY_USERS } from '../users-manager/user-manager.api';
-import type { UserDTO } from '../../../../core/models/dto/auth.dto';
+import type { UserDTO } from '../../../../core/models/dto/authDTO';
 
 const useManageAccounts = () => {
   const router = useRouter();

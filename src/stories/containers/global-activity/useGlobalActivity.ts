@@ -1,8 +1,8 @@
 import sortBy from 'lodash/sortBy';
 import { useMemo, useRef, useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
-import { SortEnum } from '../../../core/enums/sort.enum';
-import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import { SortEnum } from '../../../core/enums/sortEnum';
+import type { CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
 import type { Activity, ActivityTableHeader } from '../../components/CUActivityTable/ActivityTable';
 import type { MultiSelectItem } from '../../components/CustomMultiSelect/CustomMultiSelect';
 

@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import LoginForm from '../login-form/login-form';
 import { useLogin } from '../useLogin';
-import type { WithIsLight } from '@ses/core/utils/types-helpers';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export type LoginModalProps = {
   open: boolean;

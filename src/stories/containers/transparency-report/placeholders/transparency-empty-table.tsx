@@ -4,9 +4,9 @@ import { LinkButton } from '@ses/components/LinkButton/LinkButton';
 import React from 'react';
 import lightTheme from '../../../../../styles/theme/light';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { ButtonType } from '../../../../core/enums/button-type.enum';
+import { ButtonType } from '../../../../core/enums/buttonTypeEnum';
 import { MAKER_BURN_LINK } from '../../../../core/utils/const';
-import { getShortCode } from '../../../../core/utils/string.utils';
+import { getShortCode } from '../../../../core/utils/string';
 
 interface Props {
   breakdown?: boolean;

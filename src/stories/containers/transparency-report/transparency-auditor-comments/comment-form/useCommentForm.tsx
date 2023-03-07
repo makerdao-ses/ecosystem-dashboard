@@ -7,10 +7,10 @@ import { useAuthContext } from '../../../../../core/context/AuthContext';
 import { useCommentActivityContext } from '../../../../../core/context/CommentActivityContext';
 import { useCoreUnitContext } from '../../../../../core/context/CoreUnitContext';
 import { useThemeContext } from '../../../../../core/context/ThemeContext';
-import { BudgetStatus } from '../../../../../core/models/dto/core-unit.dto';
+import { BudgetStatus } from '../../../../../core/models/dto/coreUnitDTO';
 import { triggerToast } from '../../../../helpers/helpers';
 import { CREATE_BUDGET_STATEMENT_COMMENT } from './auditor-comenting.api';
-import type { CommentsBudgetStatementDto, CoreUnitDto } from '../../../../../core/models/dto/core-unit.dto';
+import type { CommentsBudgetStatementDto, CoreUnitDto } from '../../../../../core/models/dto/coreUnitDTO';
 
 const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: string) => {
   const { isLight } = useThemeContext();

@@ -1,5 +1,5 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import { SortEnum } from '../../../core/enums/sort.enum';
+import { SortEnum } from '../../../core/enums/sortEnum';
 import { CustomTableHeader } from './CustomTableHeader';
 import type { ComponentMeta } from '@storybook/react';
 

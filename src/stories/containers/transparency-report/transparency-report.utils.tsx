@@ -1,9 +1,9 @@
 import React from 'react';
-import { formatAddressForOutput } from '../../../core/utils/string.utils';
+import { formatAddressForOutput } from '../../../core/utils/string';
 import { CustomLink } from '../../components/CustomLink/CustomLink';
 import { TextCell } from '../../components/TextCell/TextCell';
 import { WalletTableCell } from '../../components/WalletTableCell/WalletTableCell';
-import type { BudgetStatementWalletDto } from '../../../core/models/dto/core-unit.dto';
+import type { BudgetStatementWalletDto } from '../../../core/models/dto/coreUnitDTO';
 
 export const renderWallet = (wallet: BudgetStatementWalletDto) => (
   <WalletTableCell

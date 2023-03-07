@@ -4,8 +4,8 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { HeadCustomTable } from './HeadCustomTable/HeadCustomTable';
 import { TablePlaceholder } from './TablePlaceholder';
 import ListCoreUnit from './list-core-unit/list-core-unit';
-import type { SortEnum } from '../../../core/enums/sort.enum';
-import type { CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
+import type { SortEnum } from '../../../core/enums/sortEnum';
+import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
 import type { CSSProperties } from 'react';
 
 export interface CustomTableColumn {

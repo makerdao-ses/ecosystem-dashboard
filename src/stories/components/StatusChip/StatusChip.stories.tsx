@@ -1,5 +1,5 @@
 import React from 'react';
-import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
+import { CuStatusEnum } from '../../../core/enums/cuStatusEnum';
 import { StatusChip } from './StatusChip';
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 

@@ -3,7 +3,7 @@ import React from 'react';
 import { fetchCoreUnits } from '../../../src/stories/components/CoreUnitSummary/CoreUnitSummaryApi';
 import CUActivityContainer from '../../../src/stories/containers/cu-activity/cu-activity';
 import { fetchCoreUnitWithActivitiesByCode } from '../../../src/stories/containers/cu-activity/cu-activity.api';
-import type { ActivityFeedDto, CoreUnitDto } from '../../../src/core/models/dto/core-unit.dto';
+import type { ActivityFeedDto, CoreUnitDto } from '../../../src/core/models/dto/coreUnitDTO';
 import type { NextPage, GetServerSideProps, GetServerSidePropsContext } from 'next';
 
 interface CUActivityProps {

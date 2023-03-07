@@ -1,14 +1,14 @@
 import _ from 'lodash';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
-import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
-import { capitalizeSentence, getWalletWidthForWallets } from '../../../../core/utils/string.utils';
+import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date';
+import { capitalizeSentence, getWalletWidthForWallets } from '../../../../core/utils/string';
 import { renderLinks, renderWallet } from '../transparency-report.utils';
 import type {
   BudgetStatementDto,
   BudgetStatementLineItemDto,
   BudgetStatementWalletDto,
-} from '../../../../core/models/dto/core-unit.dto';
+} from '../../../../core/models/dto/coreUnitDTO';
 import type {
   InnerTableColumn,
   InnerTableRow,

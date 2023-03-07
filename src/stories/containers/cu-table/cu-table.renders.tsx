@@ -15,15 +15,15 @@ import {
   getPercentFromCoreUnit,
   getSubmissionDateFromCuMip,
   getStautsMip39AccetedOrObsolete,
-} from '../../../core/business-logic/core-units';
-import { getShortCode } from '../../../core/utils/string.utils';
+} from '../../../core/business-logic/coreUnits';
+import { getShortCode } from '../../../core/utils/string';
 import CoreUnitCard from '../../components/CoreUnitCard/CoreUnitCard';
 import { CuTableColumnExpenditures } from '../../components/CuTableColumnExpenditures/CuTableColumnExpenditures';
 import { CuTableColumnLastModified } from '../../components/CuTableColumnLastModified/CuTableColumnLastModified';
 import { CuTableColumnLinks } from '../../components/CuTableColumnLinks/CuTableColumnLinks';
 import { CuTableColumnSummary } from '../../components/CuTableColumnSummary/CuTableColumnSummary';
 import { CuTableColumnTeamMember } from '../../components/CuTableColumnTeamMember/CuTableColumnTeamMember';
-import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import type { CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
 
 export const renderSummary = (coreUnit: CoreUnitDto) => {
   if (!coreUnit) return <CuTableColumnSummary isLoading />;

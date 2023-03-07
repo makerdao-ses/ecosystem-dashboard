@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 import React, { useMemo } from 'react';
 import lightTheme from '../../../../../styles/theme/light';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { BudgetStatus } from '../../../../core/models/dto/core-unit.dto';
-import { getExpenseReportStatusColor } from '../../../../core/utils/color.utils';
+import { BudgetStatus } from '../../../../core/models/dto/coreUnitDTO';
+import { getExpenseReportStatusColor } from '../../../../core/utils/colors';
 
 export type GenericCommentCardProps = {
   variant?: BudgetStatus;

@@ -5,7 +5,7 @@ import * as React from 'react';
 import { ThreeDots } from '../../svg/three-dots';
 import MenuItemTheme from './MenuItemTheme';
 import useMenuThemeMVVM from './useMenuTheme';
-import type { ThemeType } from '../../../../core/enums/theme.enum';
+import type { ThemeType } from '../../../../core/enums/themeEnum';
 
 interface Props {
   themeMode: ThemeType;

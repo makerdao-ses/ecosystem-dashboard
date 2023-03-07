@@ -10,7 +10,7 @@ import { notificationHelper } from '../../../helpers/helpers';
 import { LOGIN_REQUEST } from '../../auth/login/login.api';
 import { FETCH_USER_BY_USERNAME } from '../managed-user-profile/managed-user-profile.api';
 import { USERS_DELETE_FROM_ADMIN } from './delete-account.api';
-import type { UserDTO } from '../../../../core/models/dto/auth.dto';
+import type { UserDTO } from '../../../../core/models/dto/authDTO';
 
 export const useDeleteAccount = (username?: string) => {
   const router = useRouter();

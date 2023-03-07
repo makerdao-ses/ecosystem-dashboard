@@ -5,7 +5,7 @@ import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { HOW_TO_SUBMIT_EXPENSES } from '../../../../core/utils/const';
 import { CustomLink } from '../../CustomLink/CustomLink';
 import SwitcherButton from '../SwitcherButton';
-import type { ThemeType } from '../../../../core/enums/theme.enum';
+import type { ThemeType } from '../../../../core/enums/themeEnum';
 
 interface Props {
   toggleTheme: () => void;

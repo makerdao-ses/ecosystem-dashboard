@@ -11,7 +11,7 @@ import React from 'react';
 import ItemWebSite from './ItemWebSite/ItemWebSite';
 import { itemsWebSiteLinks } from './menuItems';
 import type { WebSiteLinks } from './menuItems';
-import type { WithIsLight } from '@ses/core/utils/types-helpers';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export type EssentialWebsitesProps = {
   showButtons?: boolean;

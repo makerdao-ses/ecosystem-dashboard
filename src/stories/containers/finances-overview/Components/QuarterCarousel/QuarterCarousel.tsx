@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { isQuarter4 } from '../../utils/quarters';
 import QuarterCard from '../QuarterCard/QuarterCard';
 import useQuarterCarousel from './useQuarterCarousel';
-import type { ExpenseDto } from '@ses/core/models/dto/expenses.dto';
+import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 import 'swiper/css';
 
 type QuarterCarouselProps = {

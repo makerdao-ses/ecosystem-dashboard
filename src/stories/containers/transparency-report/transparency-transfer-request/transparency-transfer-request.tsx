@@ -4,13 +4,13 @@ import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { MAKER_BURN_LINK } from '../../../../core/utils/const';
-import { getShortCode } from '../../../../core/utils/string.utils';
+import { getShortCode } from '../../../../core/utils/string';
 import { AdvancedInnerTable } from '../../../components/AdvancedInnerTable/AdvancedInnerTable';
 import { CustomLink } from '../../../components/CustomLink/CustomLink';
 import { LinkDescription } from '../transparency-actuals/transparency-actuals';
 // import { useTransparencyTransferRequestMvvm } from './useTransparencyTransferRequest';
 import { useTransparencyTransferRequest } from './useTransparencyTransferRequest';
-import type { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
+import type { BudgetStatementDto } from '../../../../core/models/dto/coreUnitDTO';
 import type { DateTime } from 'luxon';
 
 interface Props {

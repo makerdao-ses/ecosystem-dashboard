@@ -7,7 +7,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import Image from 'next/image';
 import React from 'react';
-import type { WithIsLight } from '@ses/core/utils/types-helpers';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { FormikProps } from 'formik';
 
 export type LoginFormProps = {

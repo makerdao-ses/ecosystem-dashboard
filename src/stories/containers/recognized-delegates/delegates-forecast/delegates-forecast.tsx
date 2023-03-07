@@ -6,7 +6,7 @@ import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { useDelegatesForecast } from './useDelegatesForecast';
 
-import type { BudgetStatementDto } from '@ses/core/models/dto/core-unit.dto';
+import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
 import type { DateTime } from 'luxon';
 
 interface Props {

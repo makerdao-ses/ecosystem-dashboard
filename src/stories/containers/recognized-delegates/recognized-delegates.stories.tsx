@@ -1,5 +1,5 @@
-import { BudgetStatementBuilder } from '@ses/core/business-logic/builders/budget-statement.builder';
-import { RecognizedDelegatesBuilder } from '@ses/core/business-logic/builders/delegates.builder';
+import { BudgetStatementBuilder } from '@ses/core/business-logic/builders/budgetStatementBuilder';
+import { RecognizedDelegatesBuilder } from '@ses/core/business-logic/builders/delegatesBuilder';
 import { withoutSBPadding } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AppLayout from '../layout/layout';

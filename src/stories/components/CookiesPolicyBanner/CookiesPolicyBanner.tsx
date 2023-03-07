@@ -3,7 +3,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 
-import { ButtonType } from '../../../core/enums/button-type.enum';
+import { ButtonType } from '../../../core/enums/buttonTypeEnum';
 import CheckBox from '../CheckBox/CheckBox';
 import { CustomButton } from '../CustomButton/CustomButton';
 

@@ -3,15 +3,15 @@ import { Typography, useMediaQuery } from '@mui/material';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { ButtonType } from '../../../core/enums/button-type.enum';
+import { ButtonType } from '../../../core/enums/buttonTypeEnum';
 import { MAKER_BURN_LINK } from '../../../core/utils/const';
-import { getShortCode } from '../../../core/utils/string.utils';
+import { getShortCode } from '../../../core/utils/string';
 import { DividerStyle } from '../../containers/cu-about/cu-about-container';
 import InlineUser from '../../containers/transparency-report/common/inline-user/inline-user';
 import { CustomLink } from '../CustomLink/CustomLink';
 import { LinkButton } from '../LinkButton/LinkButton';
 import InformationCard from './InformationCard';
-import type { AuditorDto } from '../../../core/models/dto/core-unit.dto';
+import type { AuditorDto } from '../../../core/models/dto/coreUnitDTO';
 
 interface Props {
   code: string;

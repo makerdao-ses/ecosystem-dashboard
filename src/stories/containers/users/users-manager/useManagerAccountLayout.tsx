@@ -7,7 +7,7 @@ import { useAuthContext } from '../../../../core/context/AuthContext';
 import { fetcher } from '../../../../core/utils/fetcher';
 import { ParenthesisNumber } from '../../transparency-report/transparency-report';
 import { QUERY_USERS } from './user-manager.api';
-import type { UserDTO } from '../../../../core/models/dto/auth.dto';
+import type { UserDTO } from '../../../../core/models/dto/authDTO';
 import type { TabItem } from '../../../components/Tabs/Tabs';
 
 export const useManagerAccountLayout = () => {

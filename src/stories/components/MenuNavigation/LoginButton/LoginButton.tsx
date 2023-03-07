@@ -7,7 +7,7 @@ import LoginModal from '@ses/containers/auth/login/login-modal/login-modal';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React, { useState } from 'react';
-import type { WithIsLight } from '@ses/core/utils/types-helpers';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 const LoginButton: React.FC = () => {
   const { isLight } = useThemeContext();

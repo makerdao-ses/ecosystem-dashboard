@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuditStatusEnum } from '../../../core/enums/audit-status.enum';
+import { AuditStatusEnum } from '../../../core/enums/auditStatusEnum';
 import { AuditStatusChip } from './AuditStatusChip';
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 

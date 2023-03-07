@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { toAbsoluteURL } from '../../../core/utils/url.utils';
+import { toAbsoluteURL } from '../../../core/utils/urls';
 import ActivityTable from '../../components/CUActivityTable/ActivityTable';
 import CoreUnitSelectItem from '../../components/CoreUnitSelectItem/CoreUnitSelectItem';
 import { CustomMultiSelect } from '../../components/CustomMultiSelect/CustomMultiSelect';
@@ -13,7 +13,7 @@ import Filter from '../../components/svg/filter';
 import { Paragraph, Title } from '../cu-activity/cu-activity';
 import { ButtonFilter, SmallSeparator } from '../cu-table/cu-table-filters';
 import { useGlobalActivity } from './useGlobalActivity';
-import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import type { CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
 import type { SelectItemProps } from '../../components/CustomMultiSelect/CustomMultiSelect';
 
 interface Props {

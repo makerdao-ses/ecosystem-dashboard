@@ -1,9 +1,9 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 
-import { CuJobEnum } from '../../../core/enums/cu-job.enum';
+import { CuJobEnum } from '../../../core/enums/cuJobEnum';
 
 import { CuTableColumnTeamMember } from './CuTableColumnTeamMember';
-import type { ContributorCommitmentDto } from '../../../core/models/dto/core-unit.dto';
+import type { ContributorCommitmentDto } from '../../../core/models/dto/coreUnitDTO';
 
 import type { ComponentMeta } from '@storybook/react';
 

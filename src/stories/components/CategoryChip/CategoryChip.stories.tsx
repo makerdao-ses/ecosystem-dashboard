@@ -1,5 +1,5 @@
 import React from 'react';
-import { CuCategoryEnum } from '../../../core/enums/cu-category.enum';
+import { CuCategoryEnum } from '../../../core/enums/cuCategoryEnum';
 import { CategoryChip } from './CategoryChip';
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 

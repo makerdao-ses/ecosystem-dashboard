@@ -1,4 +1,4 @@
-import { BudgetStatus } from '@ses/core/models/dto/core-unit.dto';
+import { BudgetStatus } from '@ses/core/models/dto/coreUnitDTO';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import ExpenseReportStatusIndicator from './expense-report-status-indicator';
 import type { ComponentMeta } from '@storybook/react';

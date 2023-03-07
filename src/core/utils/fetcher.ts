@@ -1,6 +1,6 @@
 import { GraphQLClient } from 'graphql-request';
 import { GRAPHQL_ENDPOINT } from '../../config/endpoints';
-import { getAuthFromStorage } from './auth-storage';
+import { getAuthFromStorage } from './authStorage';
 
 export type GraphQLFetcherOptions = {
   query: string;

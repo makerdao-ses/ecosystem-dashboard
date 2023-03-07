@@ -5,22 +5,22 @@ import _ from 'lodash';
 import { DateTime } from 'luxon';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
-import { getMipsStatus, getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/core-unit-about';
+import { getMipsStatus, getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/coreUnitAbout';
 import {
   getLatestMip39FromCoreUnit,
   getLinksFromCoreUnit,
   getStautsMip39AccetedOrObsolete,
   getSubmissionDateFromCuMip,
-} from '../../../core/business-logic/core-units';
+} from '../../../core/business-logic/coreUnits';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { getShortCode } from '../../../core/utils/string.utils';
+import { getShortCode } from '../../../core/utils/string';
 import { CategoryChip } from '../CategoryChip/CategoryChip';
 import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 import { CuTableColumnLinks } from '../CuTableColumnLinks/CuTableColumnLinks';
 import { CustomLink } from '../CustomLink/CustomLink';
 import { StatusChip } from '../StatusChip/StatusChip';
-import type { CuStatusEnum } from '../../../core/enums/cu-status.enum';
-import type { CoreUnitDto, CuMipDto } from '../../../core/models/dto/core-unit.dto';
+import type { CuStatusEnum } from '../../../core/enums/cuStatusEnum';
+import type { CoreUnitDto, CuMipDto } from '../../../core/models/dto/coreUnitDTO';
 
 interface Props {
   coreUnitAbout?: CoreUnitDto;

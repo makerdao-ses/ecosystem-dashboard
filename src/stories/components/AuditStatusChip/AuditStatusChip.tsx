@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { getAuditStatusLabel } from '../../../core/enums/audit-status.enum';
-import type { AuditStatusEnum } from '../../../core/enums/audit-status.enum';
+import { getAuditStatusLabel } from '../../../core/enums/auditStatusEnum';
+import type { AuditStatusEnum } from '../../../core/enums/auditStatusEnum';
 
 interface AuditStatusChipProps {
   status: AuditStatusEnum;

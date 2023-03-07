@@ -5,8 +5,8 @@ import { AuditStatusChip } from '../../../components/AuditStatusChip/AuditStatus
 import { Download } from '../../../components/svg/download';
 import { TransparencyEmptyAudit } from '../placeholders/transparency-empty-audit';
 import { useTransparencyAudit } from './useTransparencyAudit';
-import type { AuditStatusEnum } from '../../../../core/enums/audit-status.enum';
-import type { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
+import type { AuditStatusEnum } from '../../../../core/enums/auditStatusEnum';
+import type { BudgetStatementDto } from '../../../../core/models/dto/coreUnitDTO';
 
 interface TransparencyAuditProps {
   budgetStatement?: BudgetStatementDto;

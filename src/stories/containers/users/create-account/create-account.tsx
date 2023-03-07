@@ -11,7 +11,7 @@ import CloseButton from '../../../components/CloseButton/CloseButton';
 import { CustomButton } from '../../../components/CustomButton/CustomButton';
 import TextInput from '../../../components/TextInput/TextInput';
 import { useCreateAccount } from './useCreateAccount';
-import type { UserDTO } from '../../../../core/models/dto/auth.dto';
+import type { UserDTO } from '../../../../core/models/dto/authDTO';
 
 export default () => {
   const { isLight } = useThemeContext();

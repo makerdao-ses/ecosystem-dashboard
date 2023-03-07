@@ -4,7 +4,7 @@ import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
 import { useCallback, useMemo, useState } from 'react';
 import { parseQuarter } from './utils/quarters';
-import type { ExpenseDto } from '@ses/core/models/dto/expenses.dto';
+import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 
 const noneBorder = [0, 0, 0, 0];
 const lowerBorder = [0, 0, 6, 6];

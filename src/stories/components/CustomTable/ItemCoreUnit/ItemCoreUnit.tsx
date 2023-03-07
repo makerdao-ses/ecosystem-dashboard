@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 import CardItemCoreUnitMobile from '../CardItemCoreUnitMobile/CardItemCoreUnitMobile';
 import type { CustomTableColumn } from '../CustomTable2';
-import type { CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
+import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
 
 interface Props {
   queryStrings?: string;

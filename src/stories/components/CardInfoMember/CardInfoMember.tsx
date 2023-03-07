@@ -3,13 +3,13 @@ import { Box, Card, CardContent, CardHeader, Divider, Typography } from '@mui/ma
 import { DateTime } from 'luxon';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
-import { getContributorCommitment, getLinksFromContributor } from '../../../core/business-logic/core-unit-about';
+import { getContributorCommitment, getLinksFromContributor } from '../../../core/business-logic/coreUnitAbout';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { getColorJobPosition } from '../../../core/utils/color.utils';
+import { getColorJobPosition } from '../../../core/utils/colors';
 import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 import { CuTableColumnLinks } from '../CuTableColumnLinks/CuTableColumnLinks';
 import { CustomPopover } from '../CustomPopover/CustomPopover';
-import type { ContributorCommitmentDto } from '../../../core/models/dto/core-unit.dto';
+import type { ContributorCommitmentDto } from '../../../core/models/dto/coreUnitDTO';
 
 interface Props {
   contributorCommitment: ContributorCommitmentDto;

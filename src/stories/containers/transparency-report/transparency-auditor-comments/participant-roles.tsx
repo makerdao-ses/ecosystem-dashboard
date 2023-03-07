@@ -4,7 +4,7 @@ import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import InlineUser from '../common/inline-user/inline-user';
 import type { CommentMode } from './comment-container/auditor-comments-container';
-import type { UserDTO } from '@ses/core/models/dto/auth.dto';
+import type { UserDTO } from '@ses/core/models/dto/authDTO';
 
 export type ParticipantRolesProps = {
   coreUnitCode: string;

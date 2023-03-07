@@ -4,7 +4,7 @@ import { CoreUnitContext } from '../../../src/core/context/CoreUnitContext';
 import { fetchCoreUnits } from '../../../src/stories/components/CoreUnitSummary/CoreUnitSummaryApi';
 import CuAboutContainer from '../../../src/stories/containers/cu-about/cu-about-container';
 import { fetchCoreUnitByCode } from '../../../src/stories/containers/cu-about/cu-about.api';
-import type { CoreUnitDto } from '../../../src/core/models/dto/core-unit.dto';
+import type { CoreUnitDto } from '../../../src/core/models/dto/coreUnitDTO';
 import type { NextPage, GetServerSideProps, InferGetServerSidePropsType, GetServerSidePropsContext } from 'next';
 
 const CoreUnitAboutPage: NextPage = ({

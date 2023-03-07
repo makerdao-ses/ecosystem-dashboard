@@ -1,5 +1,5 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import { columns, CoreUnit } from '@ses/core/utils/test.utils';
+import { columns, CoreUnit } from '@ses/core/utils/tests';
 
 import ListCoreUnit from './list-core-unit';
 import type { ComponentMeta } from '@storybook/react';

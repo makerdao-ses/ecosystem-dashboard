@@ -3,11 +3,11 @@ import { Divider, useMediaQuery } from '@mui/material';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
-import { getMarkdownInformation } from '../../../core/business-logic/core-unit-about';
-import { getFTEsFromCoreUnit } from '../../../core/business-logic/core-units';
+import { getMarkdownInformation } from '../../../core/business-logic/coreUnitAbout';
+import { getFTEsFromCoreUnit } from '../../../core/business-logic/coreUnits';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
-import { toAbsoluteURL } from '../../../core/utils/url.utils';
+import { toAbsoluteURL } from '../../../core/utils/urls';
 import BigButton from '../../components/Button/BigButton/BigButton';
 import CardInfoMember from '../../components/CardInfoMember/CardInfoMember';
 import { CoreUnitSummary } from '../../components/CoreUnitSummary/CoreUnitSummary';
@@ -18,7 +18,7 @@ import RelateMips from '../../components/RelateMips/RelateMips';
 import { SEOHead } from '../../components/SEOHead/SEOHead';
 import TeamMember from '../../components/TeamMember/TeamMember';
 import { useCuAbout } from './useCuAbout';
-import type { ContributorCommitmentDto, CoreUnitDto, CuMipDto } from '../../../core/models/dto/core-unit.dto';
+import type { ContributorCommitmentDto, CoreUnitDto, CuMipDto } from '../../../core/models/dto/coreUnitDTO';
 
 interface Props {
   coreUnits: CoreUnitDto[];

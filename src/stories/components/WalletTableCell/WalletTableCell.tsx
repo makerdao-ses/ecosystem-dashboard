@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { capitalizeSentence } from '../../../core/utils/string.utils';
+import { capitalizeSentence } from '../../../core/utils/string';
 import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 import { CustomLink } from '../CustomLink/CustomLink';
 

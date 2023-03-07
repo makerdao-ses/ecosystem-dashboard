@@ -1,6 +1,6 @@
 import { BASE_URL } from '../../config/routes';
 import { fetchCoreUnits } from '../../stories/containers/cu-table/cu-table.api';
-import type { CoreUnitDto } from '../models/dto/core-unit.dto';
+import type { CoreUnitDto } from '../models/dto/coreUnitDTO';
 
 export class SitemapBuilder {
   getXMLForRoute(url: string, lastMod?: string, changeFreq?: string): string {

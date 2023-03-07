@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
-import { BudgetStatus } from '../../../../core/models/dto/core-unit.dto';
-import { getCommentVerb } from '../../../../core/utils/string.utils';
-import { isActivity } from '../../../../core/utils/types-helpers';
+import { BudgetStatus } from '../../../../core/models/dto/coreUnitDTO';
+import { getCommentVerb } from '../../../../core/utils/string';
+import { isActivity } from '../../../../core/utils/typesHelpers';
 import AuditorCommentCard from './auditor-comment-card';
 import CUNewExpenseReport from './cu-new-expense-report';
-import type { ActivityFeedDto, CommentsBudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
+import type { ActivityFeedDto, CommentsBudgetStatementDto } from '../../../../core/models/dto/coreUnitDTO';
 import type { CommentMode } from './comment-container/auditor-comments-container';
 
 export type AuditorCommentListProps = {
