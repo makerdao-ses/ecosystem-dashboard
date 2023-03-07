@@ -8,7 +8,7 @@ import { useCommentActivityContext } from '../../../../../core/context/CommentAc
 import { useCoreUnitContext } from '../../../../../core/context/CoreUnitContext';
 import { useThemeContext } from '../../../../../core/context/ThemeContext';
 import { BudgetStatus } from '../../../../../core/models/dto/core-unit.dto';
-import { triggerToast } from '../../../../helpers/helpers';
+import { triggerToast } from '../../../../../core/utils/notifications';
 import { CREATE_BUDGET_STATEMENT_COMMENT } from './auditor-comenting.api';
 import type { CommentsBudgetStatementDto, CoreUnitDto } from '../../../../../core/models/dto/core-unit.dto';
 
