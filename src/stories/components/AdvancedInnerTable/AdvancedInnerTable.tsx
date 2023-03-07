@@ -138,6 +138,7 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
             </Title>
           ) : (
             <TransparencyCard
+              itemType={item.type}
               key={`item-${i}`}
               header={
                 <>
