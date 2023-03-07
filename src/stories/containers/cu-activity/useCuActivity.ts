@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { SortEnum } from '../../../core/enums/sort.enum';
+import { SortEnum } from '../../../core/enums/sortEnum';
 import type { ActivityTableHeader } from '../../components/CUActivityTable/ActivityTable';
 
 export const useCuActivity = () => {

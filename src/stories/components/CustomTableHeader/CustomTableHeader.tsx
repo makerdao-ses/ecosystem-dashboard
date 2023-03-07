@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { SortEnum } from '../../../core/enums/sort.enum';
+import { SortEnum } from '../../../core/enums/sortEnum';
 import ArrowDown from '../svg/arrow-down';
 import ArrowUp from '../svg/arrow-up';
 import type { CSSProperties } from 'react';

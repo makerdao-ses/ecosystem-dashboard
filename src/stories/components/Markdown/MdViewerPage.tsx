@@ -4,11 +4,11 @@ import Markdown from 'marked-react';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { ButtonType } from '../../../core/enums/button-type.enum';
+import { ButtonType } from '../../../core/enums/buttonTypeEnum';
 import { CustomButton } from '../CustomButton/CustomButton';
 import CardExpenses from '../NavigationCard/CardExpenses';
 import { customRenderer, customRendererDark } from './renderUtils';
-import type { AuditorDto } from '../../../core/models/dto/core-unit.dto';
+import type { AuditorDto } from '../../../core/models/dto/coreUnitDTO';
 
 export type MarkDownHeaders = {
   level: number;

@@ -4,8 +4,8 @@ import RecognizedDelegatesContainer from '@ses/containers/recognized-delegates/r
 import { CoreUnitContext } from '@ses/core/context/CoreUnitContext';
 import { featureFlags } from 'feature-flags/feature-flags';
 import React, { useEffect, useState } from 'react';
-import type { CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
-import type { DelegatesDto } from '@ses/core/models/dto/delegates.dto';
+import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
+import type { DelegatesDto } from '@ses/core/models/dto/delegatesDTO';
 import type { NextPage } from 'next';
 
 type RecognizedDelegatesProps = {

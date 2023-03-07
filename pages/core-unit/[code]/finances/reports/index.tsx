@@ -5,7 +5,7 @@ import { CoreUnitContext } from '../../../../../src/core/context/CoreUnitContext
 import { fetchCoreUnits } from '../../../../../src/stories/components/CoreUnitSummary/CoreUnitSummaryApi';
 import { TransparencyReport } from '../../../../../src/stories/containers/transparency-report/transparency-report';
 import { CORE_UNIT_REQUEST } from '../../../../../src/stories/containers/transparency-report/transparency-report.api';
-import type { CoreUnitDto } from '../../../../../src/core/models/dto/core-unit.dto';
+import type { CoreUnitDto } from '../../../../../src/core/models/dto/coreUnitDTO';
 import type { GetServerSidePropsContext } from 'next';
 
 interface TransparencyProps {

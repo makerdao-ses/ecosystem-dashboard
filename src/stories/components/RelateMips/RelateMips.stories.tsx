@@ -1,7 +1,7 @@
 import React from 'react';
-import { CuStatusEnum } from '../../../core/enums/cu-status.enum';
+import { CuStatusEnum } from '../../../core/enums/cuStatusEnum';
 import RelateMips from './RelateMips';
-import type { CuMipDto } from '../../../core/models/dto/core-unit.dto';
+import type { CuMipDto } from '../../../core/models/dto/coreUnitDTO';
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {

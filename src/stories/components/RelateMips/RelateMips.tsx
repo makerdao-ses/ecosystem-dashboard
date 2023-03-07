@@ -3,14 +3,14 @@ import { Typography, useMediaQuery } from '@mui/material';
 import { DateTime } from 'luxon';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
-import { getMipsStatus } from '../../../core/business-logic/core-unit-about';
+import { getMipsStatus } from '../../../core/business-logic/coreUnitAbout';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { getMipTitle } from '../../../core/utils/string.utils';
+import { getMipTitle } from '../../../core/utils/string';
 import { CustomLink } from '../CustomLink/CustomLink';
 import { StatusChip } from '../StatusChip/StatusChip';
 import ExternalLinkArrow from '../svg/external-link-arrow';
-import type { CuStatusEnum } from '../../../core/enums/cu-status.enum';
-import type { CuMipDto } from '../../../core/models/dto/core-unit.dto';
+import type { CuStatusEnum } from '../../../core/enums/cuStatusEnum';
+import type { CuMipDto } from '../../../core/models/dto/coreUnitDTO';
 
 export type RelateMipType = {
   status: CuStatusEnum;

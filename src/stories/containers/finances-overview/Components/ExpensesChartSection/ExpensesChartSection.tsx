@@ -3,7 +3,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import ExpensesChart from '../ExpensesChart/ExpensesChart';
-import type { ValuesDataWithBorder } from '@ses/core/models/dto/chart.dto';
+import type { ValuesDataWithBorder } from '@ses/core/models/dto/chartDTO';
 
 interface Props {
   totalExpenses: string;

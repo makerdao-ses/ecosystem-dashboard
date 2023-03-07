@@ -5,7 +5,7 @@ import type {
   ContributorCommitmentDto,
   CoreUnitDto,
   SocialMediaChannelDto,
-} from '../../../core/models/dto/core-unit.dto';
+} from '../../../core/models/dto/coreUnitDTO';
 import type { RootState } from '../../../core/store/store';
 
 export enum status {

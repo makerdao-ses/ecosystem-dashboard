@@ -6,14 +6,14 @@ import lightTheme from '../../../../styles/theme/light';
 import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
 import { useAuthContext } from '../../../core/context/AuthContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { ButtonType } from '../../../core/enums/button-type.enum';
-import { getColorRole } from '../../../core/utils/color.utils';
-import { capitalizeWordWithoutConvertLowerCase, getCorrectRoleApi } from '../../../core/utils/string.utils';
+import { ButtonType } from '../../../core/enums/buttonTypeEnum';
+import { getColorRole } from '../../../core/utils/colors';
+import { capitalizeWordWithoutConvertLowerCase, getCorrectRoleApi } from '../../../core/utils/string';
 import { ENABLE_DISABLE_USER_REQUEST } from '../../containers/auth/enable-disable-accounts/enable-disable.api';
 import ControlledSwitches from '../Button/ControlledSwitches/ControlledSwitches';
 import { CustomButton } from '../CustomButton/CustomButton';
 import AvatarPlaceholder from '../svg/avatar-placeholder';
-import type { UserDTO } from '../../../core/models/dto/auth.dto';
+import type { UserDTO } from '../../../core/models/dto/authDTO';
 
 interface Props {
   user: UserDTO;

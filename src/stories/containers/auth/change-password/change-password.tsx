@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Skeleton } from '@mui/material';
 import React from 'react';
-import { capitalizeWordWithoutConvertLowerCase } from '../../../../core/utils/string.utils';
+import { capitalizeWordWithoutConvertLowerCase } from '../../../../core/utils/string';
 import CloseButton from '../../../components/CloseButton/CloseButton';
 import { CustomButton } from '../../../components/CustomButton/CustomButton';
 import TextInput from '../../../components/TextInput/TextInput';

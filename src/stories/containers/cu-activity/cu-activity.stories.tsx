@@ -1,4 +1,4 @@
-import { ActivityBuilder } from '@ses/core/business-logic/builders/activity.builder';
+import { ActivityBuilder } from '@ses/core/business-logic/builders/activityBuilder';
 import { withoutSBPadding } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { withLocalStorageItem } from '@ses/core/utils/storybook/loaders';

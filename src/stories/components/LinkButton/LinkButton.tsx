@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import AddIcon from '@ses/components/svg/add';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { ButtonType } from '@ses/core/enums/button-type.enum';
+import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
 import Link from 'next/link';
 import React from 'react';
 import lightTheme from 'styles/theme/light';
-import { allowsHoverStyleButton, customStyles } from '../../../core/utils/share-style';
+import { allowsHoverStyleButton, customStyles } from '../../../core/utils/sharedStyle';
 import type { CSSProperties } from 'react';
 
 interface CustomButtonProps {

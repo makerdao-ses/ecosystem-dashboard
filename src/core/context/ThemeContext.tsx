@@ -2,7 +2,7 @@ import { CssBaseline, ThemeProvider as MuiThemeProvider } from '@mui/material';
 import { createContext, useContext, useMemo } from 'react';
 import darkTheme from '../../../styles/theme/dark';
 import lightTheme from '../../../styles/theme/light';
-import { ThemeType } from '../enums/theme.enum';
+import { ThemeType } from '../enums/themeEnum';
 import useThemeMode from '../hooks/useThemeMode';
 import type { ReactNode } from 'react';
 

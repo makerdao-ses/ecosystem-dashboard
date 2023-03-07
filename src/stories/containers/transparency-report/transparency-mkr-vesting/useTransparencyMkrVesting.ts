@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { useMemo } from 'react';
-import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
-import type { BudgetStatementDto } from '../../../../core/models/dto/core-unit.dto';
+import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date';
+import type { BudgetStatementDto } from '../../../../core/models/dto/coreUnitDTO';
 import type { InnerTableColumn, InnerTableRow } from '../../../components/AdvancedInnerTable/AdvancedInnerTable';
 import type { DateTime } from 'luxon';
 

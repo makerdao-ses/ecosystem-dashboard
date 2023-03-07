@@ -1,5 +1,5 @@
 import React from 'react';
-import { BudgetStatus } from '../../../../core/models/dto/core-unit.dto';
+import { BudgetStatus } from '../../../../core/models/dto/coreUnitDTO';
 import { createThemeModeVariants } from '../../../../core/utils/storybook/factories';
 import BudgetStatusSelect from './budget-status-select';
 import type { ComponentMeta } from '@storybook/react';

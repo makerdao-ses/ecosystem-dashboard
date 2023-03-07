@@ -9,13 +9,13 @@ import lightTheme from '../../../../styles/theme/light';
 import { useAuthContext } from '../../../core/context/AuthContext';
 import { useCookiesContextTracking } from '../../../core/context/CookiesContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { SortEnum } from '../../../core/enums/sort.enum';
-import { LastVisitHandler } from '../../../core/utils/last-visit-handler';
+import { SortEnum } from '../../../core/enums/sortEnum';
+import { LastVisitHandler } from '../../../core/utils/lastVisitHandler';
 import ArrowDown from '../svg/arrow-down';
 import ArrowUp from '../svg/arrow-up';
 import { ActivityPlaceholder } from './ActivityTablePlaceholder';
 import CUActivityItem from './CUActivityItem';
-import type { ActivityFeedDto, CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import type { ActivityFeedDto, CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
 
 export interface ActivityTableHeader {
   header: string;

@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 import Skeleton from '@mui/material/Skeleton';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { ButtonType } from '../../../../core/enums/button-type.enum';
+import { ButtonType } from '../../../../core/enums/buttonTypeEnum';
 import { CustomButton } from '../../../components/CustomButton/CustomButton';
 import { SearchInput } from '../../../components/SearchInput/SearchInput';
 import UserCard from '../../../components/UserCard/UserCard';
 import UserCardSkeleton from '../../../components/UserCard/UserCardSkeleton';
 import useManageAccounts from './useManageAccounts';
-import type { UserDTO } from '../../../../core/models/dto/auth.dto';
+import type { UserDTO } from '../../../../core/models/dto/authDTO';
 
 const ManageAccounts = () => {
   const { isLight } = useThemeContext();

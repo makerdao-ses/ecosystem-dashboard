@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { useState } from 'react';
 import { isQuarter4, parseQuarter } from '../../utils/quarters';
-import type { ExpenseDto } from '@ses/core/models/dto/expenses.dto';
+import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 import type SwiperCore from 'swiper';
 import type { SwiperProps } from 'swiper/react';
 

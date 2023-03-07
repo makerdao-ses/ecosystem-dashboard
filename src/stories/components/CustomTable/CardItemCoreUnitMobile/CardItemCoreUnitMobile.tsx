@@ -1,6 +1,6 @@
 import CoreUnitCard from '@ses/components/CoreUnitCard/CoreUnitCard';
 import React from 'react';
-import type { CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
+import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
 
 interface Props {
   coreUnit: CoreUnitDto;

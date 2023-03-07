@@ -2,15 +2,15 @@ import styled from '@emotion/styled';
 import { LinkButton } from '@ses/components/LinkButton/LinkButton';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { siteRoutes } from '@ses/config/routes';
-import { ButtonType } from '@ses/core/enums/button-type.enum';
-import { toAbsoluteURL } from '@ses/core/utils/url.utils';
+import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
+import { toAbsoluteURL } from '@ses/core/utils/urls';
 import React from 'react';
 import lightTheme from 'styles/theme/light';
 import ExpensesChartSection from './Components/ExpensesChartSection/ExpensesChartSection';
 import QuarterCarousel from './Components/QuarterCarousel/QuarterCarousel';
 import YearPicker from './Components/YearPicker/YearPicker';
 import useFinancesOverview from './useFinancesOverview';
-import type { ExpenseDto } from '@ses/core/models/dto/expenses.dto';
+import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 
 type FinancesOverviewContainerProps = {
   monthlyExpenses: Partial<ExpenseDto>[];

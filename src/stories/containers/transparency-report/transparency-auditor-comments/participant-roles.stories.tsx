@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserBuilder } from '../../../../core/business-logic/builders/user.builder';
+import { UserBuilder } from '../../../../core/business-logic/builders/userBuilder';
 import { createThemeModeVariants } from '../../../../core/utils/storybook/factories';
 import ParticipantRoles from './participant-roles';
 import type { ComponentMeta } from '@storybook/react';

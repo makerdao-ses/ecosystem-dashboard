@@ -7,7 +7,7 @@ import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 import { Title } from '../CuTableColumnExpenditures/CuTableColumnExpenditures';
 import { CustomPopover } from '../CustomPopover/CustomPopover';
 import { ColumnTeamMemberSkeleton } from './CuTableColumnTeamMemberSkeleton';
-import type { ContributorCommitmentDto } from '../../../core/models/dto/core-unit.dto';
+import type { ContributorCommitmentDto } from '../../../core/models/dto/coreUnitDTO';
 
 interface CuTableColumnTeamMemberProps {
   members?: ContributorCommitmentDto[];

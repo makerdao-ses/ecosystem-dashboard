@@ -1,11 +1,11 @@
 import { GraphQLClient } from 'graphql-request';
 import React, { useLayoutEffect, useCallback } from 'react';
 import { GRAPHQL_ENDPOINT } from '../../config/endpoints';
-import PermissionManager from '../auth/permission-manager';
+import PermissionManager from '../auth/permissionManager';
 import { useIsAdmin } from '../hooks/useIsAdmin';
-import { getAuthFromStorage } from '../utils/auth-storage';
+import { getAuthFromStorage } from '../utils/authStorage';
 import { LOCAL_STORAGE_AUTH_KEY } from '../utils/const';
-import type { LoginDTO, UserDTO } from '../models/dto/auth.dto';
+import type { LoginDTO, UserDTO } from '../models/dto/authDTO';
 
 interface AuthContextProps {
   user?: UserDTO;

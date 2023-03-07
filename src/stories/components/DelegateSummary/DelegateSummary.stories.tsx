@@ -1,5 +1,5 @@
 import { siteRoutes } from '@ses/config/routes';
-import { LinkTypeEnum } from '@ses/core/enums/link-type.enum';
+import { LinkTypeEnum } from '@ses/core/enums/linkTypeEnum';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import DelegateSummary from './DelegateSummary';
 import type { LinkModel } from '../CuTableColumnLinks/CuTableColumnLinks';

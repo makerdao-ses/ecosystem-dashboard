@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { useThemeContext } from '../../../src/core/context/ThemeContext';
-import { getSSRPropsDefaultAuth } from '../../../src/core/utils/common-get-ssr-props';
+import { getSSRPropsDefaultAuth } from '../../../src/core/utils/commonGetSSRProps';
 import ChangePassword from '../../../src/stories/containers/auth/change-password/change-password';
 import lightTheme from '../../../styles/theme/light';
 import type { NextPage } from 'next';

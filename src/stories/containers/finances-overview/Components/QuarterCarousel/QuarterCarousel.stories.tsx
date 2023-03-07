@@ -1,4 +1,4 @@
-import { TotalExpenseReportsBuilder } from '@ses/core/business-logic/builders/total-expense-reports.builder';
+import { TotalExpenseReportsBuilder } from '@ses/core/business-logic/builders/totalExpenseReportsBuilder';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import QuarterCarousel from './QuarterCarousel';
 import type { ComponentMeta } from '@storybook/react';

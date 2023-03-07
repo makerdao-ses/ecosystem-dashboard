@@ -1,6 +1,6 @@
 import request, { gql } from 'graphql-request';
 import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
-import type { CoreUnitDto } from '../../../core/models/dto/core-unit.dto';
+import type { CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
 
 const CORE_UNITS_REQUEST = {
   query: gql`

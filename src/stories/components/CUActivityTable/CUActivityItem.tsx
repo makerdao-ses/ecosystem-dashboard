@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { ButtonType } from '../../../core/enums/button-type.enum';
+import { ButtonType } from '../../../core/enums/buttonTypeEnum';
 import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 import { CustomButton } from '../CustomButton/CustomButton';
 import type { Activity } from './ActivityTable';

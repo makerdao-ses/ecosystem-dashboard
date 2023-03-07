@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { useAuthContext } from '../../../src/core/context/AuthContext';
-import { getSSRPropsDefaultAuth } from '../../../src/core/utils/common-get-ssr-props';
+import { getSSRPropsDefaultAuth } from '../../../src/core/utils/commonGetSSRProps';
 import DeleteAccount from '../../../src/stories/containers/users/delete-account/delete-account';
 import { ManagerTabs } from '../../../src/stories/containers/users/users-manager/manager-tabs.enum';
 import UserManagerLayout from '../../../src/stories/containers/users/users-manager/user-manager-layout';

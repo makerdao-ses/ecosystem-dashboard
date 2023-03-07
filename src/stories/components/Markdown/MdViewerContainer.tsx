@@ -1,6 +1,6 @@
 import React from 'react';
 import MdViewerPage from './MdViewerPage';
-import type { AuditorDto } from '../../../core/models/dto/core-unit.dto';
+import type { AuditorDto } from '../../../core/models/dto/coreUnitDTO';
 interface Props {
   sentenceDescription: string;
   paragraphDescription: string;

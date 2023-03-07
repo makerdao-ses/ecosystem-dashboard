@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { SortEnum } from '@ses/core/enums/sort.enum';
+import { SortEnum } from '@ses/core/enums/sortEnum';
 import React from 'react';
 import { CustomTableHeader } from '../../CustomTableHeader/CustomTableHeader';
 import { TableCell } from '../CustomTable2';

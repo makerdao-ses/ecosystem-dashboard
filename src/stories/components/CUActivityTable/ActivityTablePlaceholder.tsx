@@ -5,7 +5,7 @@ import React from 'react';
 import PlaceholderImgDark from '../../../../public/assets/img/rectangles-dark.png';
 import PlaceholderImg from '../../../../public/assets/img/rectangles.png';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { ButtonType } from '../../../core/enums/button-type.enum';
+import { ButtonType } from '../../../core/enums/buttonTypeEnum';
 import { CustomButton } from '../CustomButton/CustomButton';
 
 export const ActivityPlaceholder = (props: { hasFilter: boolean; clearAction?: () => void }) => {

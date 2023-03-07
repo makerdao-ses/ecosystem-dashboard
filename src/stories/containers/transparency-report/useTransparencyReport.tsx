@@ -1,21 +1,21 @@
 import CommentsTab from '@ses/components/Tabs/CommentsTab/CommentsTab';
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
-import { getLastUpdateForBudgetStatement } from '@ses/core/business-logic/core-units';
+import { getLastUpdateForBudgetStatement } from '@ses/core/business-logic/coreUnits';
 import { useAuthContext } from '@ses/core/context/AuthContext';
 import { useCookiesContextTracking } from '@ses/core/context/CookiesContext';
 import useBudgetStatementComments from '@ses/core/hooks/useBudgetStatementComments';
 import useBudgetStatementPager from '@ses/core/hooks/useBudgetStatementPager';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { useUrlAnchor } from '@ses/core/hooks/useUrlAnchor';
-import { BudgetStatus } from '@ses/core/models/dto/core-unit.dto';
-import { budgetStatementCommentsCollectionId } from '@ses/core/utils/collections-ids';
-import { LastVisitHandler } from '@ses/core/utils/last-visit-handler';
+import { BudgetStatus } from '@ses/core/models/dto/coreUnitDTO';
+import { budgetStatementCommentsCollectionId } from '@ses/core/utils/collectionsIds';
+import { LastVisitHandler } from '@ses/core/utils/lastVisitHandler';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import { featureFlags } from '../../../../feature-flags/feature-flags';
 import type { TableItems } from './transparency-report';
-import type { CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
+import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
 
 export enum TRANSPARENCY_IDS_ENUM {
   ACTUALS = 'actuals',

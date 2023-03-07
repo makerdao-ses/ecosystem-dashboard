@@ -1,12 +1,12 @@
 import { renderLinks } from '@ses/containers/cu-table/cu-table.renders';
 import { renderWallet } from '@ses/containers/transparency-report/transparency-report.utils';
-import { getAllWallets } from '@ses/core/utils/finances.utils';
+import { getAllWallets } from '@ses/core/utils/finances';
 import _ from 'lodash';
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
-import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date.utils';
-import { getWalletWidthForWallets } from '../../../../core/utils/string.utils';
-import type { BudgetStatementDto, BudgetStatementLineItemDto } from '../../../../core/models/dto/core-unit.dto';
+import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date';
+import { getWalletWidthForWallets } from '../../../../core/utils/string';
+import type { BudgetStatementDto, BudgetStatementLineItemDto } from '../../../../core/models/dto/coreUnitDTO';
 import type {
   InnerTableColumn,
   InnerTableRow,
