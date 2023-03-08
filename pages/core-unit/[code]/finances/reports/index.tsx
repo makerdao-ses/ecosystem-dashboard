@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { GRAPHQL_ENDPOINT } from '../../../../../src/config/endpoints';
 import { CoreUnitContext } from '../../../../../src/core/context/CoreUnitContext';
 import { fetchCoreUnits } from '../../../../../src/stories/components/CoreUnitSummary/CoreUnitSummaryApi';
-import { TransparencyReport } from '../../../../../src/stories/containers/transparency-report/transparency-report';
-import { CORE_UNIT_REQUEST } from '../../../../../src/stories/containers/transparency-report/transparency-report.api';
+import { TransparencyReport } from '../../../../../src/stories/containers/TransparencyReport/TransparencyReport';
+import { CORE_UNIT_REQUEST } from '../../../../../src/stories/containers/TransparencyReport/transparencyReportAPI';
 import type { CoreUnitDto } from '../../../../../src/core/models/dto/coreUnitDTO';
 import type { GetServerSidePropsContext } from 'next';
 

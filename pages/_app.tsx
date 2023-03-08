@@ -16,7 +16,7 @@ import { parseCookie } from '../src/core/utils/cookieHelpers';
 import * as gtag from '../src/core/utils/gtag';
 import { ContainerNotification } from '../src/stories/components/Notification/Notification';
 import { SEOHead } from '../src/stories/components/SEOHead/SEOHead';
-import AppLayout from '../src/stories/containers/layout/layout';
+import AppLayout from '../src/stories/containers/AppLayout/AppLayout';
 import type { CookiesInterface } from '../src/core/utils/typesHelpers';
 import type { EmotionCache } from '@emotion/react';
 import type { NextPage, NextPageContext } from 'next';

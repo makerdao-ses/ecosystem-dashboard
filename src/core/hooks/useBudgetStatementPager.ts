@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { getCurrentOrLastMonthWithData, getLastMonthWithActualOrForecast } from '../business-logic/coreUnits';
+import { getCurrentOrLastMonthWithData, getLastMonthWithActualOrForecast } from '../businessLogic/coreUnits';
 import { API_MONTH_TO_FORMAT } from '../utils/date';
 import { useUrlAnchor } from './useUrlAnchor';
 import type { BudgetStatementDto } from '../models/dto/coreUnitDTO';

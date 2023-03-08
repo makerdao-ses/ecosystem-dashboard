@@ -1,8 +1,8 @@
 import React from 'react';
 import { getSSRPropsDefaultAuth } from '../../../src/core/utils/commonGetSSRProps';
-import ManageAccounts from '../../../src/stories/containers/users/manage-accounts/manage-accounts';
-import { ManagerTabs } from '../../../src/stories/containers/users/users-manager/manager-tabs.enum';
-import UserManagerLayout from '../../../src/stories/containers/users/users-manager/user-manager-layout';
+import ManageAccounts from '../../../src/stories/containers/Users/ManageAccounts/ManageAccounts';
+import UserManagerLayout from '../../../src/stories/containers/Users/UsersManager/UserManagerLayout';
+import { ManagerTabs } from '../../../src/stories/containers/Users/UsersManager/managerTabsEnum';
 import type { NextPage } from 'next';
 
 const ManageAccountsPage: NextPage = () => (

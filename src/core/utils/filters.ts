@@ -1,4 +1,4 @@
-import { getStautsMip39AccetedOrObsolete } from '../business-logic/coreUnits';
+import { getStautsMip39AccetedOrObsolete } from '../businessLogic/coreUnits';
 import type { CoreUnitDto } from '../models/dto/coreUnitDTO';
 import type { ParsedUrlQuery } from 'querystring';
 

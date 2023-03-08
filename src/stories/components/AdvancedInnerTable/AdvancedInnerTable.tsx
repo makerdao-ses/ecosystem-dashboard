@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { TransparencyEmptyTable } from '../../containers/transparency-report/placeholders/transparency-empty-table';
-import { Title } from '../../containers/transparency-report/transparency-report';
+import { Title } from '../../containers/TransparencyReport/TransparencyReport';
+import { TransparencyEmptyTable } from '../../containers/TransparencyReport/components/Placeholders/TransparencyEmptyTable';
 import { NumberCell } from '../NumberCell/NumberCell';
 import { TextCell } from '../TextCell/TextCell';
 import { TransparencyCard } from '../TransparencyCard/TransparencyCard';

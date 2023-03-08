@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { useEffect, useMemo, useReducer } from 'react';
-import { getAllCommentsBudgetStatementLine } from '../business-logic/coreUnits';
+import { getAllCommentsBudgetStatementLine } from '../businessLogic/coreUnits';
 import { useCookiesContextTracking } from '../context/CookiesContext';
 import { isActivity } from '../utils/typesHelpers';
 import type { ActivityFeedDto, BudgetStatementDto, CommentsBudgetStatementDto } from '../models/dto/coreUnitDTO';

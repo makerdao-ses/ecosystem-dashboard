@@ -18,7 +18,7 @@ import {
   getPercentFromCoreUnit,
   getSubmissionDateFromCuMip,
   getStautsMip39AccetedOrObsolete,
-} from '../../../core/business-logic/coreUnits';
+} from '../../../core/businessLogic/coreUnits';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { getShortCode } from '../../../core/utils/string';
 import { buildQueryString } from '../../../core/utils/urls';

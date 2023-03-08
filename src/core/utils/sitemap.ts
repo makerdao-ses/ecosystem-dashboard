@@ -1,5 +1,5 @@
 import { BASE_URL } from '../../config/routes';
-import { fetchCoreUnits } from '../../stories/containers/cu-table/cu-table.api';
+import { fetchCoreUnits } from '../../stories/containers/CUTable/cuTableAPI';
 import type { CoreUnitDto } from '../models/dto/coreUnitDTO';
 
 export class SitemapBuilder {

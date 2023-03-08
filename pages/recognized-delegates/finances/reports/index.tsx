@@ -1,6 +1,6 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
-import { fetchRecognizedDelegates } from '@ses/containers/recognized-delegates/delegates.api';
-import RecognizedDelegatesContainer from '@ses/containers/recognized-delegates/recognized-delegates';
+import RecognizedDelegatesContainer from '@ses/containers/RecognizedDelegates/RecognizedDelegatesContainer';
+import { fetchRecognizedDelegates } from '@ses/containers/RecognizedDelegates/delegatesAPI';
 import { CoreUnitContext } from '@ses/core/context/CoreUnitContext';
 import { featureFlags } from 'feature-flags/feature-flags';
 import React, { useEffect, useState } from 'react';

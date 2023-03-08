@@ -5,13 +5,13 @@ import _ from 'lodash';
 import { DateTime } from 'luxon';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
-import { getMipsStatus, getRelateMipObjectFromCoreUnit } from '../../../core/business-logic/coreUnitAbout';
+import { getMipsStatus, getRelateMipObjectFromCoreUnit } from '../../../core/businessLogic/coreUnitAbout';
 import {
   getLatestMip39FromCoreUnit,
   getLinksFromCoreUnit,
   getStautsMip39AccetedOrObsolete,
   getSubmissionDateFromCuMip,
-} from '../../../core/business-logic/coreUnits';
+} from '../../../core/businessLogic/coreUnits';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { getShortCode } from '../../../core/utils/string';
 import { CategoryChip } from '../CategoryChip/CategoryChip';
