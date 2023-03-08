@@ -330,7 +330,7 @@ const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => 
   fontWeight: 400,
   fontSize: '14px',
   lineHeight: '17px',
-  color: isLight ? '#231536' : '#9FAFB9;',
+  color: isLight ? '#231536' : '#9FAFB9',
 }));
 
 const NoDataProvided = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
