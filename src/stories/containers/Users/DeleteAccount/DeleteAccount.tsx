@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import Skeleton from '@mui/material/Skeleton';
-import { ButtonWrapper } from '@ses/containers/AuthChange/Login/LoginForm/LoginForm';
+import { ButtonWrapper } from '@ses/containers/Auth/Login/LoginForm/LoginForm';
 import { useRouter } from 'next/router';
 import React, { useCallback } from 'react';
 import { useAuthContext } from '../../../../core/context/AuthContext';
@@ -12,7 +12,7 @@ import CloseButton from '../../../components/CloseButton/CloseButton';
 import { CustomButton } from '../../../components/CustomButton/CustomButton';
 import TextInput from '../../../components/TextInput/TextInput';
 import AvatarPlaceholder from '../../../components/svg/avatar-placeholder';
-import { Spacer, UserLabel, Username } from '../../AuthChange/ChangePassword/ChangePassword';
+import { Spacer, UserLabel, Username } from '../../Auth/ChangePassword/ChangePassword';
 import { useDeleteAccount } from './useDeleteAccount';
 import type { UserDTO } from '../../../../core/models/dto/authDTO';
 

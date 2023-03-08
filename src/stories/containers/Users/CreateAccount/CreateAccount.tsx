@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { ButtonWrapper, Form } from '@ses/containers/AuthChange/Login/LoginForm/LoginForm';
+import { ButtonWrapper, Form } from '@ses/containers/Auth/Login/LoginForm/LoginForm';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useCallback } from 'react';

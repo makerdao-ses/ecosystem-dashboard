@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import ChangePassword from '@ses/containers/AuthChange/ChangePassword/ChangePassword';
+import ChangePassword from '@ses/containers/Auth/ChangePassword/ChangePassword';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { getSSRPropsDefaultAuth } from '@ses/core/utils/commonGetSSRProps';
 import lightTheme from '@ses/styles/theme/light';
