@@ -22,7 +22,7 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
       }),
     [quarterExpenses]
   );
-  const [selectedYear, setSelectedYear] = useState<number>(() => DateTime.local().minus({ year: 1 }).year);
+  const [selectedYear, setSelectedYear] = useState<number>(() => DateTime.local().year);
 
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
