@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date';
 import { useTransparencyForecast } from '../transparency-forecast/useTransparencyForecast';
-import { renderLinks, renderWallet } from '../transparency-report.utils';
+import { renderLinks, renderNumberWithIcon, renderWallet } from '../transparency-report.utils';
 import type { BudgetStatementDto } from '../../../../core/models/dto/coreUnitDTO';
 import type { InnerTableColumn, InnerTableRow } from '../../../components/AdvancedInnerTable/AdvancedInnerTable';
 import type { DateTime } from 'luxon';
@@ -98,9 +98,10 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
         isCardHeader: true,
       },
       {
-        header: '3 Month Forecast',
-        type: 'number',
-        align: 'right',
+        header: 'Target Balance',
+        type: 'custom',
+        align: 'left',
+        cellRender: renderNumberWithIcon,
       },
       {
         header: 'Current Balance',

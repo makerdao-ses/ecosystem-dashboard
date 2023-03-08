@@ -8,6 +8,8 @@ interface Props {
   headers: JSX.Element[] | string[];
   items?: JSX.Element[];
   footer?: JSX.Element | string;
+  hasIcon?: boolean;
+  itemType: string;
 }
 
 export const TransparencyCard = (props: Props) => {
@@ -16,7 +18,7 @@ export const TransparencyCard = (props: Props) => {
     <Container isLight={isLight}>
       <HeaderWrapper>{props.header}</HeaderWrapper>
       {props.headers.map((header, i) => (
-        <Row key={header.toString()}>
+        <Row key={header.toString()} hasIcon={header === 'Target Balance' && props.itemType === 'Total'}>
           <Label>{header}</Label>
           {(props.items && props.items[i]) ?? ''}
         </Row>
@@ -27,7 +29,8 @@ export const TransparencyCard = (props: Props) => {
 };
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  display: 'block',
+  display: 'flex',
+  flexDirection: 'column',
   boxShadow: isLight ? '0px 0px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : 'none',
   background: isLight ? 'white' : '#10191F',
   padding: '20px 24px 10px',
@@ -52,10 +55,11 @@ const FooterWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   padding: '8px 0 0',
 }));
 
-const Row = styled.div({
+const Row = styled.div<{ hasIcon?: boolean }>(({ hasIcon = false }) => ({
   display: 'flex',
-  justifyContent: 'space-between',
-});
+  flex: 1,
+  justifyContent: hasIcon ? 'flex-start' : 'space-between',
+}));
 
 const Label = styled.div({
   display: 'flex',
