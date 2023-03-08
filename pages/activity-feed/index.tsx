@@ -1,6 +1,6 @@
 import React from 'react';
-import GlobalActivity from '../../src/stories/containers/global-activity/global-activity';
-import { fetchCoreUnitsWithActivities } from '../../src/stories/containers/global-activity/global-activity.api';
+import { fetchCoreUnitsWithActivities } from '../../src/stories/containers/GlobalActivity/GlobalActivityAPI';
+import GlobalActivity from '../../src/stories/containers/GlobalActivity/GlobalActivityFeedContainer';
 import type { CoreUnitDto } from '../../src/core/models/dto/coreUnitDTO';
 import type { GetServerSideProps, NextPage } from 'next';
 

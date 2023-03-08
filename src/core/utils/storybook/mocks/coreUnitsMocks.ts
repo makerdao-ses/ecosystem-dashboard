@@ -1,5 +1,5 @@
-import { CoreUnitsBuilder } from '@ses/core/business-logic/builders/coreUnitsBuilder';
-import { CuMipBuilder } from '@ses/core/business-logic/builders/cuMIPBuilder';
+import { CoreUnitsBuilder } from '@ses/core/businessLogic/builders/coreUnitsBuilder';
+import { CuMipBuilder } from '@ses/core/businessLogic/builders/cuMIPBuilder';
 import { CuCategoryEnum } from '@ses/core/enums/cuCategoryEnum';
 import { CuStatusEnum } from '@ses/core/enums/cuStatusEnum';
 

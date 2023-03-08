@@ -3,7 +3,7 @@ import { Typography, useMediaQuery } from '@mui/material';
 import { DateTime } from 'luxon';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
-import { getMipsStatus } from '../../../core/business-logic/coreUnitAbout';
+import { getMipsStatus } from '../../../core/businessLogic/coreUnitAbout';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { getMipTitle } from '../../../core/utils/string';
 import { CustomLink } from '../CustomLink/CustomLink';

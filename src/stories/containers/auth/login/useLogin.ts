@@ -8,7 +8,7 @@ import * as yup from 'yup';
 import lightTheme from '../../../../../styles/theme/light';
 import { GRAPHQL_ENDPOINT } from '../../../../config/endpoints';
 import { useAuthContext } from '../../../../core/context/AuthContext';
-import { LOGIN_REQUEST } from './login.api';
+import { LOGIN_REQUEST } from './LoginAPI';
 
 const validationSchema = yup.object({
   username: yup.string().required('Username is required'),

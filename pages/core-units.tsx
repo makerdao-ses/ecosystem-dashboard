@@ -1,6 +1,6 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 
-import { CuTable } from '@ses/containers/cu-table/cu-table';
+import { CuTable } from '@ses/containers/CUTable/CuTable';
 
 import React from 'react';
 import { featureFlags } from '../feature-flags/feature-flags';

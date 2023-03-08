@@ -1,11 +1,11 @@
-import { DateTime } from 'luxon';
 import {
   renderExpenditures,
   renderLastModified,
   renderLinks,
   renderSummary,
   renderTeamMember,
-} from 'src/stories/containers/cu-table/cu-table.renders';
+} from '@ses/containers/CUTable/CuTableRenders';
+import { DateTime } from 'luxon';
 import { CommitmentJob } from '../enums/commitmentJobEnum';
 import { CuJobEnum } from '../enums/cuJobEnum';
 import { SortEnum } from '../enums/sortEnum';

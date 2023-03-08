@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Typography, useMediaQuery } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
-import { useCoreUnitsTable } from '@ses/containers/cu-table/useCoreUnitsTable';
+import { useCoreUnitsTable } from '@ses/containers/CUTable/useCoreUnitsTable';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
