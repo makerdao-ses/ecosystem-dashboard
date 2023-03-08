@@ -43,6 +43,19 @@ const YearPicker: React.FC<Props> = ({ years, selectedYear, handleOnclick }) => 
                   width: 120,
                   height: 48,
                 },
+
+                ...(year !== selectedYear
+                  ? {
+                      '&:hover': {
+                        background: isLight ? '#F6F8F9' : '#10191F',
+                        border: `1px solid ${isLight ? '#ECF1F3' : '#1E2C37'}}`,
+
+                        '&:hover > *': {
+                          color: `${isLight ? '#787A9B' : '#D2D4EF'}!important`,
+                        },
+                      },
+                    }
+                  : {}),
               }}
               allowsHover={false}
               styleText={{
