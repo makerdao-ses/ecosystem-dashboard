@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import ChangePassword from '@ses/containers/Auth/ChangePassword/ChangePassword';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { getSSRPropsDefaultAuth } from '@ses/core/utils/commonGetSSRProps';
-import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import { useThemeContext } from '../../../src/core/context/ThemeContext';
+import { getSSRPropsDefaultAuth } from '../../../src/core/utils/commonGetSSRProps';
+import ChangePassword from '../../../src/stories/containers/Auth/ChangePassword/ChangePassword';
+import lightTheme from '../../../styles/theme/light';
 import type { NextPage } from 'next';
 
 const ChangePasswordPage: NextPage = () => {
