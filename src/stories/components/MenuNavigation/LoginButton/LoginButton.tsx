@@ -3,7 +3,7 @@ import { useMediaQuery } from '@mui/material';
 import { LinkButton } from '@ses/components/LinkButton/LinkButton';
 import Profile from '@ses/components/svg/profile';
 import { siteRoutes } from '@ses/config/routes';
-import LoginModal from '@ses/containers/Auth/Login/LoginModal/LoginModal';
+import LoginModal from '@ses/containers/AuthChange/Login/LoginModal/LoginModal';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React, { useState } from 'react';

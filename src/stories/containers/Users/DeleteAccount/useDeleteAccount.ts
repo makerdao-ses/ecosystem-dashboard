@@ -7,7 +7,7 @@ import { GRAPHQL_ENDPOINT } from '../../../../config/endpoints';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { fetcher } from '../../../../core/utils/fetcher';
 import { notificationHelper } from '../../../../core/utils/notifications';
-import { LOGIN_REQUEST } from '../../Auth/Login/LoginAPI';
+import { LOGIN_REQUEST } from '../../AuthChange/Login/LoginAPI';
 import { FETCH_USER_BY_USERNAME } from '../ManagedUserProfile/managedUserProfileAPI';
 import { USERS_DELETE_FROM_ADMIN } from './deleteAccountAPI';
 import type { UserDTO } from '../../../../core/models/dto/authDTO';

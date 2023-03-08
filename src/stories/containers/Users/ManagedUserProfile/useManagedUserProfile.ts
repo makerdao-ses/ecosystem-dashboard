@@ -7,7 +7,7 @@ import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';
 import { fetcher } from '../../../../core/utils/fetcher';
 import { getCorrectRoleApi } from '../../../../core/utils/string';
-import { ENABLE_DISABLE_USER_REQUEST } from '../../Auth/ToggleAccountsActiveFlag/ToggleAccountsActiveFlagAPI';
+import { ENABLE_DISABLE_USER_REQUEST } from '../../AuthChange/ToggleAccountsActiveFlag/ToggleAccountsActiveFlagAPI';
 import { QUERY_USERS } from '../UsersManager/userManagerAPI';
 import { FETCH_USER_BY_USERNAME } from './managedUserProfileAPI';
 import type { UserDTO } from '../../../../core/models/dto/authDTO';
