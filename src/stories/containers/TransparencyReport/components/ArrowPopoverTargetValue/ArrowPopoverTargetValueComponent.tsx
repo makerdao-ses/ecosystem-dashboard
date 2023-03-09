@@ -3,6 +3,7 @@ import React from 'react';
 import ArrowPopover from '../../../../components/ArrowPopover/ArrowPopover';
 import ArrowPopoverTargetValueContent from './ArrowPopoverTargetValueContent';
 import type { AlignArrowTooTip } from '../../../../components/ArrowPopover/ArrowPopover';
+import type { CSSProperties } from 'react';
 
 interface Props {
   name: string;
@@ -11,10 +12,19 @@ interface Props {
   mipNumber: string;
   align: AlignArrowTooTip;
   link?: string;
+  style?: CSSProperties;
 }
 
-const ArrowPopoverTargetValueComponent: React.FC<Props> = ({ description, longCode, mipNumber, name, align, link }) => (
-  <Container>
+const ArrowPopoverTargetValueComponent: React.FC<Props> = ({
+  description,
+  longCode,
+  mipNumber,
+  name,
+  align,
+  link,
+  style = {},
+}) => (
+  <Container style={style}>
     <ArrowPopover align={align}>
       <ArrowPopoverTargetValueContent
         longCode={longCode}

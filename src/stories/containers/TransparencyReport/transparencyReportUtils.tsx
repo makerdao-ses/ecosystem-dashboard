@@ -83,7 +83,7 @@ export const renderNumberWithIcon = (number: number) => (
             link="#"
             align="left"
             description="2 Month Budget Cap"
-            longCode="SES-01"
+            longCode="SES-001"
             mipNumber="MIP40c3-SP14:"
             name="Collateral Engineering Services"
           />

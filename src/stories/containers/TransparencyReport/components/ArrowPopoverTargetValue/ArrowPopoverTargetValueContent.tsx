@@ -20,8 +20,19 @@ const ArrowPopoverTargetValueContent: React.FC<Props> = ({ description, link, na
         <CustomLink
           children={`Modify Core Unit Budget - ${name} (${longCode})`}
           withArrow
+          marginLeft="4px"
           href={link}
-          style={{ whiteSpace: 'normal' }}
+          iconWidth={10}
+          fontWeight={400}
+          iconHeight={10}
+          style={{
+            whiteSpace: 'normal',
+            lineHeight: '15px',
+            fontSize: '12px',
+            letterSpacing: '1px',
+            marginLeft: 0,
+            paddingRight: 0,
+          }}
         />
       </ContainerLink>
     </ContainerLinkWithMip>
@@ -34,6 +45,7 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-start',
+  // border: '2px solid red',
 });
 const Description = styled.div({
   marginBottom: 16,
@@ -59,12 +71,12 @@ const ContainerLinkWithMip = styled.div({
   flexDirection: 'column',
   background: '#EDEFFF',
   borderRadius: 6,
-  padding: 8,
+  padding: 6,
 });
 
 const ContainerLink = styled.div({
   display: 'flex',
-  flexWrap: 'wrap',
+  flexDirection: 'column',
 });
 
 const MipNumber = styled.div({
@@ -73,8 +85,10 @@ const MipNumber = styled.div({
   fontWeight: 600,
   fontSize: 12,
   lineHeight: '15px',
-  letterSpacing: '1px',
+  letterSpacing: 1,
   textTransform: 'uppercase',
   color: '#708390',
   marginBottom: 2,
+  marginTop: 2,
+  marginLeft: 1,
 });
