@@ -94,6 +94,7 @@ const Container = styled.div({
   justifyContent: 'space-between',
   marginLeft: 8.5,
   marginTop: -8,
+
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row-reverse',
     marginLeft: 0,

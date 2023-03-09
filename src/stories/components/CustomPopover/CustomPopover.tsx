@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
 import { Popover } from '@mui/material';
 import { getPageWrapper } from '@ses/core/utils/dom';
+
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import type { PopoverPaperType } from '@ses/core/utils/typesHelpers';
 import type { CSSProperties } from 'react';
 
 interface CustomPopoverProps {
@@ -16,6 +18,7 @@ interface CustomPopoverProps {
     horizontal: 'left' | 'center' | 'right';
   };
   leaveOnChildrenMouseOut?: boolean;
+  popoverStyle?: PopoverPaperType;
 }
 
 export const PopoverPaperStyle = (isLight: boolean) => ({
@@ -29,6 +32,7 @@ export const PopoverPaperStyle = (isLight: boolean) => ({
 
 export const CustomPopover = ({
   leaveOnChildrenMouseOut = false,
+  popoverStyle,
   anchorOrigin = {
     vertical: 'bottom',
     horizontal: 'center',
@@ -89,7 +93,7 @@ export const CustomPopover = ({
         onClose={handlePopoverClose}
         disableRestoreFocus
         PaperProps={{
-          style: PopoverPaperStyle(isLight),
+          style: popoverStyle || PopoverPaperStyle(isLight),
         }}
       >
         <Container

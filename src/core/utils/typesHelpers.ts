@@ -19,3 +19,10 @@ export interface CookiesInterface {
 export function isActivity(activity: CommentsBudgetStatementDto | ActivityFeedDto): activity is ActivityFeedDto {
   return (activity as ActivityFeedDto).event !== undefined;
 }
+
+export type PopoverPaperType = {
+  background: string;
+  border: string;
+  boxShadow: string;
+  borderRadius: string;
+};
