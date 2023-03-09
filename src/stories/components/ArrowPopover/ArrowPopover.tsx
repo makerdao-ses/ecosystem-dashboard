@@ -7,7 +7,7 @@ interface Props extends PropsWithChildren {
   align: AlignArrowTooTip;
 }
 
-const ArrowToolTip: React.FC<Props> = ({ children, align }) => {
+const ArrowPopover: React.FC<Props> = ({ children, align }) => {
   const positionArrow = align === 'center' ? 135 : align === 'right' ? 257 : 32;
   return (
     <Container>
@@ -17,7 +17,7 @@ const ArrowToolTip: React.FC<Props> = ({ children, align }) => {
   );
 };
 
-export default ArrowToolTip;
+export default ArrowPopover;
 
 const Container = styled.div({
   display: 'flex',

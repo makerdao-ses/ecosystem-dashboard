@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
+import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import React from 'react';
-import { CustomLink } from '../CustomLink/CustomLink';
 
 interface Props {
   description?: string;
@@ -10,7 +10,7 @@ interface Props {
   longCode: string;
 }
 
-const BodyArrowToolTip: React.FC<Props> = ({ description, link, name, mipNumber, longCode }) => (
+const ArrowPopoverTargetValueContent: React.FC<Props> = ({ description, link, name, mipNumber, longCode }) => (
   <Container>
     <Description>{description}</Description>
     <Source>Source</Source>
@@ -28,7 +28,7 @@ const BodyArrowToolTip: React.FC<Props> = ({ description, link, name, mipNumber,
   </Container>
 );
 
-export default BodyArrowToolTip;
+export default ArrowPopoverTargetValueContent;
 
 const Container = styled.div({
   display: 'flex',

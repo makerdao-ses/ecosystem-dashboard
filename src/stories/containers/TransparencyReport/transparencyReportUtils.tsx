@@ -1,10 +1,9 @@
 import styled from '@emotion/styled';
 
-import ArrowTooltipComponent from '@ses/components/ArrowToolTip/ArrowTootipComponent';
-
 import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
 import { NumberCell } from '@ses/components/NumberCell/NumberCell';
 import Information from '@ses/components/svg/information';
+import ArrowPopoverTargetValueComponent from '@ses/containers/TransparencyReport/components/ArrowPopoverTargetValue/ArrowPopoverTargetValueComponent';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { formatAddressForOutput } from '../../../core/utils/string';
@@ -81,7 +80,7 @@ export const renderNumberWithIcon = (number: number) => (
           padding: 10,
         }}
         title={
-          <ArrowTooltipComponent
+          <ArrowPopoverTargetValueComponent
             link="#"
             align="left"
             description="2 Month Budget Cap"
