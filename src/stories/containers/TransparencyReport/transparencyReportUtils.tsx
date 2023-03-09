@@ -1,4 +1,7 @@
 import styled from '@emotion/styled';
+
+import ArrowTooltipComponent from '@ses/components/ArrowToolTip/ArrowTootipComponent';
+
 import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
 import { NumberCell } from '@ses/components/NumberCell/NumberCell';
 import Information from '@ses/components/svg/information';
@@ -62,11 +65,30 @@ export const renderNumberWithIcon = (number: number) => (
   <PopoverContainer>
     <Container>
       <CustomPopover
+        anchorOrigin={{
+          horizontal: 'center',
+          vertical: 'bottom',
+        }}
+        sxProps={{
+          '& .css-3bmhjh-MuiPaper-root-MuiPopover-paper': {
+            overflowX: 'unset',
+            overflowY: 'unset',
+          },
+          // marginLeft: -10,
+        }}
         id="information"
         popupStyle={{
           padding: 10,
         }}
-        title={<p>Place for Tooltip</p>}
+        title={
+          <ArrowTooltipComponent
+            align="left"
+            description="2 Month Budget Cap"
+            longCode="SES-01"
+            mipNumber="MIP40c3-SP14:"
+            name="Collateral Engineering Services"
+          />
+        }
         leaveOnChildrenMouseOut
       >
         <ContainerInfo>

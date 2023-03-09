@@ -3,6 +3,7 @@ import { Popover } from '@mui/material';
 import { getPageWrapper } from '@ses/core/utils/dom';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import type { SxProps } from '@mui/material/styles';
 import type { CSSProperties } from 'react';
 
 interface CustomPopoverProps {
@@ -16,6 +17,7 @@ interface CustomPopoverProps {
     horizontal: 'left' | 'center' | 'right';
   };
   leaveOnChildrenMouseOut?: boolean;
+  sxProps?: SxProps;
 }
 
 export const PopoverPaperStyle = (isLight: boolean) => ({
@@ -78,6 +80,7 @@ export const CustomPopover = ({
         id={props.id}
         sx={{
           pointerEvents: 'none',
+          ...props.sxProps,
         }}
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
