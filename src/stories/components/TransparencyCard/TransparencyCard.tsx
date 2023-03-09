@@ -19,7 +19,7 @@ export const TransparencyCard = (props: Props) => {
       <HeaderWrapper>{props.header}</HeaderWrapper>
       {props.headers.map((header, i) => (
         <Row key={header.toString()} hasIcon={header === 'Target Balance' && props.itemType === 'Total'}>
-          <Label>{header}</Label>
+          <Label hasIcon={header === 'Target Balance'}>{header}</Label>
           {(props.items && props.items[i]) ?? ''}
         </Row>
       ))}
@@ -55,15 +55,20 @@ const FooterWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   padding: '8px 0 0',
 }));
 
-const Row = styled.div<{ hasIcon?: boolean }>(({ hasIcon = false }) => ({
+const Row = styled.div<{ hasIcon?: boolean; height?: string }>(({ hasIcon = false }) => ({
   display: 'flex',
+  alignItems: hasIcon ? 'flex-start' : 'center',
   flex: 1,
   justifyContent: hasIcon ? 'flex-start' : 'space-between',
+  [lightTheme.breakpoints.up('table_834')]: {
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+  },
 }));
 
-const Label = styled.div({
+const Label = styled.div<{ hasIcon?: boolean; height?: string }>(({ hasIcon = false }) => ({
   display: 'flex',
-  alignItems: 'center',
+  alignItems: hasIcon ? 'flex-start' : 'center',
   color: '#708390',
   fontFamily: 'Inter, sans-serif',
   fontWeight: 600,
@@ -72,4 +77,4 @@ const Label = styled.div({
   height: '37px',
   letterSpacing: '1px',
   textTransform: 'uppercase',
-});
+}));
