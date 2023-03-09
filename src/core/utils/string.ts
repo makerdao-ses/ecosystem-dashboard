@@ -52,7 +52,7 @@ export const getWalletWidthForWallets = (wallets: BudgetStatementWalletDto[]) =>
     }
   }
 
-  return '180px';
+  return '220px';
 };
 
 export const getCorrectRoleApi = (user: UserDTO) => {

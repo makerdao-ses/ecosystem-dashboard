@@ -286,6 +286,7 @@ export const useTransparencyForecast = (currentMonth: DateTime, propBudgetStatem
         isCardHeader: true,
         width: getWalletWidthForWallets(wallets),
         minWidth: getWalletWidthForWallets(wallets),
+        hasBorderRight: true,
       },
       {
         header: firstMonth.toFormat('MMMM'),
@@ -311,6 +312,7 @@ export const useTransparencyForecast = (currentMonth: DateTime, propBudgetStatem
         header: '3 Months',
         type: 'number',
         align: 'right',
+        hasBorderRight: true,
       },
       {
         header: 'Qtly Budget',
