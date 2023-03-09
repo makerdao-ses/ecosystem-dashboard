@@ -10,12 +10,13 @@ interface Props {
   description: string;
   mipNumber: string;
   align: AlignArrowTooTip;
+  link?: string;
 }
 
-const ArrowTooltipComponent: React.FC<Props> = ({ description, longCode, mipNumber, name, align }) => (
+const ArrowTooltipComponent: React.FC<Props> = ({ description, longCode, mipNumber, name, align, link }) => (
   <Container>
     <ArrowToolTip align={align}>
-      <BodyArrowToolTip longCode={longCode} name={name} description={description} mipNumber={mipNumber} />
+      <BodyArrowToolTip longCode={longCode} name={name} description={description} mipNumber={mipNumber} link={link} />
     </ArrowToolTip>
   </Container>
 );
