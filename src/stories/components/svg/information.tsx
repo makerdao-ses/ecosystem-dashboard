@@ -5,12 +5,14 @@ import * as React from 'react';
 interface Props {
   width?: number;
   height?: number;
+  style?: React.CSSProperties;
 }
 
-const Information: React.FC<Props> = ({ height = 15, width = 15, ...props }) => {
+const Information: React.FC<Props> = ({ height = 15, width = 15, style, ...props }) => {
   const { isLight } = useThemeContext();
   return (
     <ContainerSVg
+      style={style}
       isLight={isLight}
       width={height}
       height={width}
