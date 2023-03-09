@@ -19,6 +19,7 @@ export interface InnerTableColumn {
   width?: string;
   minWidth?: string;
   hidden?: boolean;
+  hasBorderRight?: boolean;
 }
 
 export interface InnerTableCell {
@@ -95,6 +96,7 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
                   ?.filter((x) => !x.hidden)
                   .map((column, i) => (
                     <HeadCell
+                      hasBorderRight={column.hasBorderRight}
                       key={`header-${i}`}
                       style={{
                         textAlign: (column.headerAlign ?? column.align ?? 'left') as Alignment,
@@ -115,6 +117,7 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
                     ?.filter((x) => !x.column.hidden)
                     .map((item, j) => (
                       <TableCell
+                        hasBorderRight={item.column.hasBorderRight}
                         isSubTotal={row.type === 'subTotal'}
                         isLight={isLight}
                         key={`${i}-${j}`}
@@ -125,6 +128,7 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
                       </TableCell>
                     ))}
                 </tr>
+                // </ContainerTR>
               ))}
             </tbody>
           </Table>
@@ -187,14 +191,18 @@ const Table = styled.table({
   width: '100%',
 });
 
-const TableCell = styled.td<{ textAlign: 'left' | 'center' | 'right'; isSubTotal?: boolean; isLight?: boolean }>(
-  ({ textAlign, isSubTotal, isLight }) => ({
-    textAlign,
-    ...(isSubTotal && {
-      borderBottom: isLight ? '1px solid #D4D9E1' : '1px solid #405361',
-    }),
-  })
-);
+const TableCell = styled.td<{
+  textAlign: 'left' | 'center' | 'right';
+  isSubTotal?: boolean;
+  isLight?: boolean;
+  hasBorderRight?: boolean;
+}>(({ textAlign, isSubTotal, isLight, hasBorderRight }) => ({
+  textAlign,
+  ...(isSubTotal && {
+    borderBottom: isLight ? '1px solid #D4D9E1' : '1px solid #405361',
+  }),
+  borderRight: hasBorderRight ? '1px solid #D4D9E1' : 'none',
+}));
 
 const TableHead = styled.thead<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
@@ -208,9 +216,10 @@ const TableHead = styled.thead<{ isLight: boolean }>(({ isLight }) => ({
   whiteSpace: 'nowrap',
 }));
 
-const HeadCell = styled.th(() => ({
+const HeadCell = styled.th<{ hasBorderRight?: boolean }>(({ hasBorderRight }) => ({
   padding: '24px 16px',
   fontWeight: 600,
+  borderRight: hasBorderRight ? '1px solid #D4D9E1' : 'none',
 }));
 
 const TableWrapper = styled.div({
