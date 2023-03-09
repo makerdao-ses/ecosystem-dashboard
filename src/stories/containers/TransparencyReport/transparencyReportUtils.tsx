@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
-import { NumberCell } from '@ses/components/NumberCell/NumberCell';
 import Information from '@ses/components/svg/information';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
@@ -69,12 +68,14 @@ export const renderNumberWithIcon = (number: number) => (
         title={<p>Place for Tooltip</p>}
         leaveOnChildrenMouseOut
       >
-        <ContainerInfo>
+        <ContainerInfoIcon>
           <Information />
-        </ContainerInfo>
+        </ContainerInfoIcon>
       </CustomPopover>
-
-      <NumberCell value={number} />
+      <ContainerInformation>
+        <ContainerNumber>{number}</ContainerNumber>
+        <ContainerMonth>FEB + MAR Budget Cap</ContainerMonth>
+      </ContainerInformation>
     </Container>
   </PopoverContainer>
 );
@@ -92,15 +93,56 @@ const Container = styled.div({
   alignItems: 'center',
   justifyContent: 'space-between',
   marginLeft: 8.5,
+  marginTop: -8,
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row-reverse',
     marginLeft: 0,
+    marginTop: 0,
   },
 });
 
-const ContainerInfo = styled.div({
+const ContainerInfoIcon = styled.div({
   paddingRight: 0,
+  marginTop: -10,
   [lightTheme.breakpoints.up('table_834')]: {
-    paddingRight: 30,
+    height: 32,
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: 0,
   },
+});
+
+const ContainerInformation = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-end',
+  [lightTheme.breakpoints.up('table_834')]: {
+    alignItems: 'flex-start',
+  },
+});
+
+const ContainerNumber = styled.div({
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 400,
+  fontSize: '16px',
+  lineHeight: '19px',
+  letterSpacing: '0.3px',
+  fontFeatureSettings: " 'tnum' on, 'lnum' on",
+  color: '#231536',
+  marginBottom: 2,
+  marginTop: 2,
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginBottom: 0,
+    marginTop: 0,
+  },
+});
+
+const ContainerMonth = styled.div({
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 400,
+  fontSize: '11px',
+  lineHeight: '13px',
+  color: '#546978',
 });
