@@ -1,5 +1,5 @@
-import { getStautsMip39AccetedOrObsolete } from '../business-logic/core-units';
-import type { CoreUnitDto } from '../models/dto/core-unit.dto';
+import { getStautsMip39AccetedOrObsolete } from '../businessLogic/coreUnits';
+import type { CoreUnitDto } from '../models/dto/coreUnitDTO';
 import type { ParsedUrlQuery } from 'querystring';
 
 const filterStatus = (lowerCaseStatuses: string[], data: CoreUnitDto) =>

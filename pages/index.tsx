@@ -1,11 +1,11 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
-import { CuTable } from '@ses/containers/cu-table/cu-table';
-import { fetchExpenses } from '@ses/containers/finances-overview/api/queries';
-import FinancesOverviewContainer from '@ses/containers/finances-overview/finances-overview';
-import { ExpenseGranularity } from '@ses/core/models/dto/expenses.dto';
+import { CuTable } from '@ses/containers/CUTable/CuTable';
+import FinancesOverviewContainer from '@ses/containers/FinancesOverview/FinancesOverviewContainer';
+import { fetchExpenses } from '@ses/containers/FinancesOverview/api/queries';
+import { ExpenseGranularity } from '@ses/core/models/dto/expensesDTO';
 import React from 'react';
 import { featureFlags } from '../feature-flags/feature-flags';
-import type { ExpenseDto } from '@ses/core/models/dto/expenses.dto';
+import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 import type { NextPage } from 'next';
 
 type FinanceOverviewPageProps = {

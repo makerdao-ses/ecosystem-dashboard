@@ -1,11 +1,11 @@
 import { DateTime } from 'luxon';
 import { useEffect, useMemo, useReducer } from 'react';
-import { getAllCommentsBudgetStatementLine } from '../business-logic/core-units';
+import { getAllCommentsBudgetStatementLine } from '../businessLogic/coreUnits';
 import { useCookiesContextTracking } from '../context/CookiesContext';
-import { isActivity } from '../utils/types-helpers';
-import type { ActivityFeedDto, BudgetStatementDto, CommentsBudgetStatementDto } from '../models/dto/core-unit.dto';
-import type { LastVisitHandler } from '../utils/last-visit-handler';
-import type { WithDate } from '../utils/types-helpers';
+import { isActivity } from '../utils/typesHelpers';
+import type { ActivityFeedDto, BudgetStatementDto, CommentsBudgetStatementDto } from '../models/dto/coreUnitDTO';
+import type { LastVisitHandler } from '../utils/lastVisitHandler';
+import type { WithDate } from '../utils/typesHelpers';
 
 type CommentsLastVisitState = {
   hasNewComments: boolean;

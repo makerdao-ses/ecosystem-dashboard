@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import { getSSRPropsDefaultAuth } from '../../../../../src/core/utils/common-get-ssr-props';
-import ChangePassword from '../../../../../src/stories/containers/auth/change-password/change-password';
-import { ManagerTabs } from '../../../../../src/stories/containers/users/users-manager/manager-tabs.enum';
-import UserManagerLayout from '../../../../../src/stories/containers/users/users-manager/user-manager-layout';
+import { getSSRPropsDefaultAuth } from '../../../../../src/core/utils/commonGetSSRProps';
+import ChangePassword from '../../../../../src/stories/containers/Auth/ChangePassword/ChangePassword';
+import UserManagerLayout from '../../../../../src/stories/containers/Users/UsersManager/UserManagerLayout';
+import { ManagerTabs } from '../../../../../src/stories/containers/Users/UsersManager/managerTabsEnum';
 import lightTheme from '../../../../../styles/theme/light';
 import type { NextPage } from 'next';
 

@@ -1,5 +1,5 @@
 import { useContext, createContext } from 'react';
-import type { CoreUnitDto } from '../models/dto/core-unit.dto';
+import type { CoreUnitDto } from '../models/dto/coreUnitDTO';
 
 export type CoreUnitContextValues = {
   coreUnits?: CoreUnitDto[];

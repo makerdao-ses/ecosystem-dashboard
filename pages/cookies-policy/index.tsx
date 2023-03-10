@@ -1,5 +1,5 @@
 import React from 'react';
-import CookiesPolicyContainer from '../../src/stories/containers/cookies-policy/cookies-policy-container';
+import CookiesPolicyContainer from '../../src/stories/containers/CookiesPolicy/CookiesPolicyContainer';
 
 const CookiesPolicy = () => <CookiesPolicyContainer />;
 

@@ -1,7 +1,7 @@
-import { CoreUnitsBuilder } from '@ses/core/business-logic/builders/core-units.builder';
-import { CuMipBuilder } from '@ses/core/business-logic/builders/cu-mip.builder';
-import { CuCategoryEnum } from '@ses/core/enums/cu-category.enum';
-import { CuStatusEnum } from '@ses/core/enums/cu-status.enum';
+import { CoreUnitsBuilder } from '@ses/core/businessLogic/builders/coreUnitsBuilder';
+import { CuMipBuilder } from '@ses/core/businessLogic/builders/cuMIPBuilder';
+import { CuCategoryEnum } from '@ses/core/enums/cuCategoryEnum';
+import { CuStatusEnum } from '@ses/core/enums/cuStatusEnum';
 
 export const SESCoreUnitMocked = new CoreUnitsBuilder()
   .withId('1')

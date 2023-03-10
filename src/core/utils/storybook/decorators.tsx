@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
-import PermissionManager from '@ses/core/auth/permission-manager';
+import PermissionManager from '@ses/core/auth/permissionManager';
 import { AuthContext } from '@ses/core/context/AuthContext';
 import { CoreUnitContext } from '@ses/core/context/CoreUnitContext';
 import { ThemeProvider } from '@ses/core/context/ThemeContext';
 import type { CoreUnitContextValues } from '@ses/core/context/CoreUnitContext';
-import type { UserDTO } from '@ses/core/models/dto/auth.dto';
-import type { CoreUnitDto } from '@ses/core/models/dto/core-unit.dto';
+import type { UserDTO } from '@ses/core/models/dto/authDTO';
+import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
 import type { Story } from '@storybook/react';
 import type { PropsWithChildren } from 'react';
 
