@@ -4,6 +4,7 @@ import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
 import { useCallback, useMemo, useState } from 'react';
 import { parseQuarter } from './utils/quarters';
+import type { CostBreakdownFilterValue } from './financesOverviewTypes';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 
 const noneBorder = [0, 0, 0, 0];
@@ -132,6 +133,9 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
     },
   }));
 
+  // cost breakdown
+  const [selectedFilter, setSelectedFilter] = useState<CostBreakdownFilterValue>('By budget');
+
   return {
     isLight,
     sortedQuarters,
@@ -145,6 +149,8 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
     totalExpenses,
     isMobile,
     isTable,
+    selectedFilter,
+    setSelectedFilter,
   };
 };
 

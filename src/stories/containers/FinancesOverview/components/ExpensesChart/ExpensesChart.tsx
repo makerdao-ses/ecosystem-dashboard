@@ -97,7 +97,7 @@ const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPredict
           color: isLight ? '#ECF1F3' : '#10191F',
           borderRadius: 6,
         },
-        barWidth: upTable ? 38 : 22,
+        barWidth: upTable ? 32 : 22,
         itemStyle: {
           color: isLight ? '#0EB19F' : '#027265',
         },
@@ -112,7 +112,7 @@ const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPredict
           color: isLight ? '#ECF1F3' : '#10191F',
           borderRadius: 6,
         },
-        barWidth: upTable ? 38 : 22,
+        barWidth: upTable ? 32 : 22,
         itemStyle: {
           color: isLight ? '#027265' : '#2C3F3B',
         },
@@ -127,7 +127,7 @@ const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPredict
           color: isLight ? '#ECF1F3' : '#10191F',
           borderRadius: 6,
         },
-        barWidth: upTable ? 38 : 22,
+        barWidth: upTable ? 32 : 22,
         itemStyle: {
           color: isLight ? '#68FEE3' : '#1AAB9B',
         },
@@ -173,11 +173,11 @@ const Container = styled.div({
   flexDirection: 'row',
   justifyContent: 'center',
   paddingLeft: 4,
+
   [lightTheme.breakpoints.up('table_834')]: {
     height: 387,
-    width: 607,
-    maxWidth: 607,
-    marginLeft: -60,
+    width: 504,
+    maxWidth: 504,
   },
 });
 
@@ -187,11 +187,11 @@ const Legend = styled.div({
   flexDirection: 'row',
   justifyContent: 'space-between',
   marginBottom: -4,
-  gap: 29,
+
   [lightTheme.breakpoints.up('table_834')]: {
     marginBottom: -8,
-    gap: 73,
-    maxWidth: 607,
+    paddingLeft: 39,
+    maxWidth: 504,
   },
 });
 
