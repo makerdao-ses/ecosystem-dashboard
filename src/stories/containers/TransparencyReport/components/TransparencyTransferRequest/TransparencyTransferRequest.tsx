@@ -8,7 +8,6 @@ import { getShortCode } from '../../../../../core/utils/string';
 import { AdvancedInnerTable } from '../../../../components/AdvancedInnerTable/AdvancedInnerTable';
 import { CustomLink } from '../../../../components/CustomLink/CustomLink';
 import { LinkDescription } from '../TransparencyActuals/TransparencyActuals';
-// import { useTransparencyTransferRequestMvvm } from './useTransparencyTransferRequest';
 import { useTransparencyTransferRequest } from './useTransparencyTransferRequest';
 import type { BudgetStatementDto } from '../../../../../core/models/dto/coreUnitDTO';
 import type { DateTime } from 'luxon';

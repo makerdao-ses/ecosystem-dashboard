@@ -104,7 +104,7 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
         cellRender: renderNumberWithIcon,
       },
       {
-        header: 'Current Balance',
+        header: ` ${currentMonth.toFormat('dd-LLL')} Balance`,
         type: 'number',
         align: 'right',
       },
@@ -114,7 +114,7 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
         align: 'right',
       },
       {
-        header: 'External Links',
+        header: 'multi-sig address',
         type: 'custom',
         width: '240px',
         cellRender: renderLinks,
@@ -122,7 +122,7 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
       },
     ];
     return mainTableColumns;
-  }, []);
+  }, [currentMonth]);
 
   const mainTableItems: InnerTableRow[] = useMemo(() => {
     const result: InnerTableRow[] = [];

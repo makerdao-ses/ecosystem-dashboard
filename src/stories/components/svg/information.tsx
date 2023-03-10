@@ -36,7 +36,7 @@ const Information: React.FC<Props> = ({ height = 15, width = 15, style, ...props
 export default Information;
 
 const ContainerSVg = styled.svg<{ isLight?: boolean }>(({ isLight }) => ({
-  fill: isLight ? '#9FAFB9' : '#434358',
+  fill: isLight ? '#9FAFB9' : '#787A9B',
   ':hover': {
     fill: '#447AFB',
   },

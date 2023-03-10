@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
+import { NumberCell } from '@ses/components/NumberCell/NumberCell';
 import Information from '@ses/components/svg/information';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
@@ -57,7 +58,7 @@ export const renderLinksWithToken = (address: string) => (
   </TextCell>
 );
 
-export const renderNumberWithIcon = (number: number) => (
+export const renderNumberWithIcon = (value: number) => (
   <PopoverContainer>
     <Container>
       <CustomPopover
@@ -73,7 +74,7 @@ export const renderNumberWithIcon = (number: number) => (
         </ContainerInfoIcon>
       </CustomPopover>
       <ContainerInformation>
-        <ContainerNumber>{number}</ContainerNumber>
+        <NumberCell value={value} />
         <ContainerMonth>FEB + MAR Budget Cap</ContainerMonth>
       </ContainerInformation>
     </Container>
@@ -121,23 +122,6 @@ const ContainerInformation = styled.div({
   },
 });
 
-const ContainerNumber = styled.div({
-  fontFamily: 'Inter, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 400,
-  fontSize: '16px',
-  lineHeight: '19px',
-  letterSpacing: '0.3px',
-  fontFeatureSettings: " 'tnum' on, 'lnum' on",
-  color: '#231536',
-  marginBottom: 2,
-  marginTop: 2,
-  [lightTheme.breakpoints.up('table_834')]: {
-    marginBottom: 0,
-    marginTop: 0,
-  },
-});
-
 const ContainerMonth = styled.div({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
@@ -145,4 +129,5 @@ const ContainerMonth = styled.div({
   fontSize: '11px',
   lineHeight: '13px',
   color: '#546978',
+  marginLeft: 16,
 });
