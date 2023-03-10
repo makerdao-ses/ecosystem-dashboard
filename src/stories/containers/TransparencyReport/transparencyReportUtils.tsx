@@ -9,6 +9,7 @@ import { CustomLink } from '../../components/CustomLink/CustomLink';
 import { TextCell } from '../../components/TextCell/TextCell';
 import { WalletTableCell } from '../../components/WalletTableCell/WalletTableCell';
 import type { BudgetStatementWalletDto } from '../../../core/models/dto/coreUnitDTO';
+import type { TargetBalanceTooltipInformation } from '@ses/core/utils/typesHelpers';
 
 export const renderWallet = (wallet: BudgetStatementWalletDto) => (
   <WalletTableCell
@@ -58,7 +59,7 @@ export const renderLinksWithToken = (address: string) => (
   </TextCell>
 );
 
-export const renderNumberWithIcon = (value: number) => (
+export const renderNumberWithIcon = (data: TargetBalanceTooltipInformation) => (
   <PopoverContainer>
     <Container>
       <CustomPopover
@@ -74,8 +75,12 @@ export const renderNumberWithIcon = (value: number) => (
         </ContainerInfoIcon>
       </CustomPopover>
       <ContainerInformation>
-        <NumberCell value={value} />
-        <ContainerMonth>FEB + MAR Budget Cap</ContainerMonth>
+        <ContainerNumberCell value={data.balance} />
+        <ContainerStyleMonths style={{}}>{`${data.targetBalanceFirstMonth
+          .toFormat('LLL')
+          .toLocaleUpperCase()} + ${data.targetBalanceSecondMonth
+          .toFormat('LLL')
+          .toLocaleUpperCase()}  Budget Cap`}</ContainerStyleMonths>
       </ContainerInformation>
     </Container>
   </PopoverContainer>
@@ -115,6 +120,7 @@ const ContainerInfoIcon = styled.div({
 
 const ContainerInformation = styled.div({
   display: 'flex',
+  flex: 1,
   flexDirection: 'column',
   alignItems: 'flex-end',
   [lightTheme.breakpoints.up('table_834')]: {
@@ -122,9 +128,14 @@ const ContainerInformation = styled.div({
   },
 });
 
-const ContainerMonth = styled.div({
-  fontFamily: 'Inter, sans-serif',
-  fontStyle: 'normal',
+const ContainerNumberCell = styled(NumberCell)({
+  paddingBottom: 2,
+  '@media (min-width: 834px)': {
+    paddingBottom: 0,
+  },
+});
+
+const ContainerStyleMonths = styled.div({
   fontWeight: 400,
   fontSize: '11px',
   lineHeight: '13px',
