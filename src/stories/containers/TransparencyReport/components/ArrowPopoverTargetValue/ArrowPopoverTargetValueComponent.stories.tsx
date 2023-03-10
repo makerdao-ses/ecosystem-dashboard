@@ -17,7 +17,7 @@ const variantsArgs = [
   {
     align: 'center',
     name: 'Collateral Engineering Services',
-    longCode: 'SES-01',
+    longCode: 'SES-001',
     description: '2 Month Budget Cap',
     mipNumber: 'MIP40c3-SP14:',
     link: '#',
