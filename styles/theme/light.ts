@@ -22,6 +22,9 @@ const lightTheme = responsiveFontSizes(
       primary: {
         main: '#1AAB9B',
       },
+      background: {
+        default: '#FFFFFF',
+      },
     },
     typography: {
       fontFamily: 'Inter, sans-serif',
