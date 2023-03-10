@@ -56,8 +56,11 @@ export const renderLinksWithToken = (address: string) => (
     </CustomLink>
   </TextCell>
 );
+interface TargetBalanceProps {
+  value: number;
+}
 
-export const renderNumberWithIcon = (number: number) => (
+export const RenderNumberWithIcon = ({ value }: TargetBalanceProps) => (
   <PopoverContainer>
     <Container>
       <CustomPopover
@@ -73,7 +76,7 @@ export const renderNumberWithIcon = (number: number) => (
         </ContainerInfoIcon>
       </CustomPopover>
       <ContainerInformation>
-        <ContainerNumber>{number}</ContainerNumber>
+        <ContainerNumber>{value}</ContainerNumber>
         <ContainerMonth>FEB + MAR Budget Cap</ContainerMonth>
       </ContainerInformation>
     </Container>
@@ -94,7 +97,6 @@ const Container = styled.div({
   justifyContent: 'space-between',
   marginLeft: 8.5,
   marginTop: -8,
-
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row-reverse',
     marginLeft: 0,
@@ -102,7 +104,7 @@ const Container = styled.div({
   },
 });
 
-const ContainerInfoIcon = styled.div({
+export const ContainerInfoIcon = styled.div({
   paddingRight: 0,
   marginTop: -10,
   [lightTheme.breakpoints.up('table_834')]: {

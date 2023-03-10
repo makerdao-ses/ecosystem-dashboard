@@ -128,7 +128,6 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
                       </TableCell>
                     ))}
                 </tr>
-                // </ContainerTR>
               ))}
             </tbody>
           </Table>
