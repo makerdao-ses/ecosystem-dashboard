@@ -24,7 +24,8 @@ export interface InnerTableColumn {
 
 export interface InnerTableCell {
   column: InnerTableColumn;
-  value: unknown;
+  value: unknown | React.ReactElement;
+  isBold?: boolean;
 }
 
 export type RowType = 'normal' | 'total' | 'section' | 'subTotal';

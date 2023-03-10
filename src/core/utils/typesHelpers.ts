@@ -19,3 +19,9 @@ export interface CookiesInterface {
 export function isActivity(activity: CommentsBudgetStatementDto | ActivityFeedDto): activity is ActivityFeedDto {
   return (activity as ActivityFeedDto).event !== undefined;
 }
+
+export type TargetBalanceTooltipInformation = {
+  balance: number;
+  targetBalanceFirstMonth: DateTime;
+  targetBalanceSecondMonth: DateTime;
+};
