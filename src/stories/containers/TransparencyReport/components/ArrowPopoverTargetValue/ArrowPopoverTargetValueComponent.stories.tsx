@@ -1,5 +1,6 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import ArrowPopoverTargetValueComponent from './ArrowPopoverTargetValueComponent';
+import type { TargetBalanceTooltipInformation } from '@ses/core/utils/typesHelpers';
 import type { ComponentMeta } from '@storybook/react';
 
 export default {
@@ -15,28 +16,14 @@ export default {
 
 const variantsArgs = [
   {
-    align: 'center',
-    name: 'Collateral Engineering Services',
+    months: 'FEB + MAR Budget Cap',
     longCode: 'SES-001',
-    description: '2 Month Budget Cap',
-    mipNumber: 'MIP40c3-SP14:',
-    link: '#',
-    style: {
-      padding: 10,
-      width: '305px',
-      background: 'white',
-      border: '1px solid #D4D9E1',
-      boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
-      borderRadius: '6px',
-    },
-  },
-  {
-    align: 'left',
-    name: 'Collateral Engineering Services',
-    longCode: 'SES-01',
-    description: '2 Month Budget Cap',
-    mipNumber: 'MIP40c3-SP14:',
-    link: '#',
+    name: 'Sustainable Ecosystem Scaling',
+    toolTipData: {
+      description: '2 Month Budget Cap',
+      link: '#',
+      mipNumber: 'MIP40c3-SP14:',
+    } as Pick<TargetBalanceTooltipInformation, 'description' | 'mipNumber' | 'link'>,
     style: {
       padding: 10,
       width: '305px',
@@ -48,12 +35,12 @@ const variantsArgs = [
   },
 ];
 
-export const [[LightCenter, DarkCenter], [LightLeft, DarkLeft]] = createThemeModeVariants(
+export const [[PopoverContainerWithoutArrow, PopoverContainerWithoutArrowDark]] = createThemeModeVariants(
   ArrowPopoverTargetValueComponent,
   variantsArgs
 );
 
-LightCenter.parameters = {
+PopoverContainerWithoutArrow.parameters = {
   figma: {
     component: {
       375: {
@@ -69,12 +56,6 @@ LightCenter.parameters = {
           },
         },
       },
-    },
-  },
-};
-LightLeft.parameters = {
-  figma: {
-    component: {
       834: {
         component:
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14723%3A160960&t=GfCJNnX1UcXL4afU-4',
