@@ -84,11 +84,13 @@ export const renderNumberWithIcon = (data: TargetBalanceTooltipInformation) => (
         }}
         title={
           <ArrowPopoverTargetValueComponent
-            link="#"
-            description="2 Month Budget Cap"
-            longCode="SES-001"
-            mipNumber="MIP40c3-SP14:"
-            name="Collateral Engineering Services"
+            toolTipData={{
+              link: data.link,
+              description: data.description,
+              mipNumber: data.mipNumber,
+            }}
+            longCode={data.longCode}
+            name={data.name}
           />
         }
         leaveOnChildrenMouseOut
@@ -99,11 +101,7 @@ export const renderNumberWithIcon = (data: TargetBalanceTooltipInformation) => (
       </CustomPopover>
       <ContainerInformation>
         <ContainerNumberCell value={data.balance} />
-        <ContainerStyleMonths style={{}}>{`${data.targetBalanceFirstMonth
-          .toFormat('LLL')
-          .toLocaleUpperCase()} + ${data.targetBalanceSecondMonth
-          .toFormat('LLL')
-          .toLocaleUpperCase()}  Budget Cap`}</ContainerStyleMonths>
+        <ContainerStyleMonths>{data.months}</ContainerStyleMonths>
       </ContainerInformation>
     </Container>
   </PopoverContainer>
