@@ -9,12 +9,14 @@ interface NumberCellProps {
   fontFamily?: string;
   value: number;
   bold?: boolean;
+  className?: string;
 }
 
 export const NumberCell = (props: NumberCellProps) => {
   const { isLight } = useThemeContext();
   return (
     <Container
+      className={props.className}
       fontFamily={props.fontFamily}
       isLight={isLight}
       style={{

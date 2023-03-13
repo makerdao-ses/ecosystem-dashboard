@@ -3,7 +3,7 @@ import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import type { CSSProperties } from 'react';
 
-interface TableCellProps {
+export interface TableCellProps {
   negative?: boolean;
   children?: string | JSX.Element | JSX.Element[];
   style?: CSSProperties;
@@ -11,12 +11,14 @@ interface TableCellProps {
   responsivePadding?: string;
   bold?: boolean;
   isHeader?: boolean;
+  className?: string;
 }
 
 export const TextCell = ({ responsivePadding = '10px 16px', ...props }: TableCellProps) => {
   const { isLight } = useThemeContext();
   return (
     <Container
+      className={props.className}
       bold={!!props.bold}
       isLight={isLight}
       fontFamily={props.fontFamily}
