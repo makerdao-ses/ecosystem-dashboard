@@ -1,6 +1,9 @@
 import styled from '@emotion/styled';
+
 import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
+import { NumberCell } from '@ses/components/NumberCell/NumberCell';
 import Information from '@ses/components/svg/information';
+import ArrowPopoverTargetValueComponent from '@ses/containers/TransparencyReport/components/ArrowPopoverTargetValue/ArrowPopoverTargetValueComponent';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { formatAddressForOutput } from '../../../core/utils/string';
@@ -8,6 +11,7 @@ import { CustomLink } from '../../components/CustomLink/CustomLink';
 import { TextCell } from '../../components/TextCell/TextCell';
 import { WalletTableCell } from '../../components/WalletTableCell/WalletTableCell';
 import type { BudgetStatementWalletDto } from '../../../core/models/dto/coreUnitDTO';
+import type { TargetBalanceTooltipInformation } from '@ses/core/utils/typesHelpers';
 
 export const renderWallet = (wallet: BudgetStatementWalletDto) => (
   <WalletTableCell
@@ -56,19 +60,37 @@ export const renderLinksWithToken = (address: string) => (
     </CustomLink>
   </TextCell>
 );
-interface TargetBalanceProps {
-  value: number;
-}
 
-export const RenderNumberWithIcon = ({ value }: TargetBalanceProps) => (
+export const renderNumberWithIcon = (data: TargetBalanceTooltipInformation) => (
   <PopoverContainer>
     <Container>
       <CustomPopover
+        widthArrow
+        anchorOrigin={{
+          horizontal: 'left',
+          vertical: 'bottom',
+        }}
+        sxProps={{
+          '& .css-3bmhjh-MuiPaper-root-MuiPopover-paper': {
+            overflowX: 'unset',
+            overflowY: 'unset',
+          },
+          marginLeft: -4.5,
+          marginTop: 0.6,
+        }}
         id="information"
         popupStyle={{
           padding: 10,
         }}
-        title={<p>Place for Tooltip</p>}
+        title={
+          <ArrowPopoverTargetValueComponent
+            link="#"
+            description="2 Month Budget Cap"
+            longCode="SES-001"
+            mipNumber="MIP40c3-SP14:"
+            name="Collateral Engineering Services"
+          />
+        }
         leaveOnChildrenMouseOut
       >
         <ContainerInfoIcon>
@@ -76,8 +98,12 @@ export const RenderNumberWithIcon = ({ value }: TargetBalanceProps) => (
         </ContainerInfoIcon>
       </CustomPopover>
       <ContainerInformation>
-        <ContainerNumber>{value}</ContainerNumber>
-        <ContainerMonth>FEB + MAR Budget Cap</ContainerMonth>
+        <ContainerNumberCell value={data.balance} />
+        <ContainerStyleMonths style={{}}>{`${data.targetBalanceFirstMonth
+          .toFormat('LLL')
+          .toLocaleUpperCase()} + ${data.targetBalanceSecondMonth
+          .toFormat('LLL')
+          .toLocaleUpperCase()}  Budget Cap`}</ContainerStyleMonths>
       </ContainerInformation>
     </Container>
   </PopoverContainer>
@@ -117,6 +143,7 @@ export const ContainerInfoIcon = styled.div({
 
 const ContainerInformation = styled.div({
   display: 'flex',
+  flex: 1,
   flexDirection: 'column',
   alignItems: 'flex-end',
   [lightTheme.breakpoints.up('table_834')]: {
@@ -124,28 +151,17 @@ const ContainerInformation = styled.div({
   },
 });
 
-const ContainerNumber = styled.div({
-  fontFamily: 'Inter, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 400,
-  fontSize: '16px',
-  lineHeight: '19px',
-  letterSpacing: '0.3px',
-  fontFeatureSettings: " 'tnum' on, 'lnum' on",
-  color: '#231536',
-  marginBottom: 2,
-  marginTop: 2,
-  [lightTheme.breakpoints.up('table_834')]: {
-    marginBottom: 0,
-    marginTop: 0,
+const ContainerNumberCell = styled(NumberCell)({
+  paddingBottom: 2,
+  '@media (min-width: 834px)': {
+    paddingBottom: 0,
   },
 });
 
-const ContainerMonth = styled.div({
-  fontFamily: 'Inter, sans-serif',
-  fontStyle: 'normal',
+const ContainerStyleMonths = styled.div({
   fontWeight: 400,
   fontSize: '11px',
   lineHeight: '13px',
   color: '#546978',
+  marginLeft: 16,
 });

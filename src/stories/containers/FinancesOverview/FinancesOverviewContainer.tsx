@@ -6,11 +6,13 @@ import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import React from 'react';
 import lightTheme from 'styles/theme/light';
-import ExpensesChartSection from './components/ExpensesChartSection/ExpensesChartSection';
+import CostBreakdownTable from './components/CostBreakdownTable/CostBreakdownTable';
+import ExpensesChart from './components/ExpensesChart/ExpensesChart';
 import QuarterCarousel from './components/QuarterCarousel/QuarterCarousel';
 import YearPicker from './components/YearPicker/YearPicker';
 import useFinancesOverview from './useFinancesOverview';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 type FinancesOverviewContainerProps = {
   monthlyExpenses: Partial<ExpenseDto>[];
@@ -29,6 +31,8 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ m
     totalExpenses,
     sortedQuarters,
     isMobile,
+    selectedFilter,
+    setSelectedFilter,
   } = useFinancesOverview(quarterExpenses, monthlyExpenses);
 
   return (
@@ -47,47 +51,56 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ m
         <PageTitle isLight={isLight}>Total Reported Expenses</PageTitle>
 
         <QuarterCarousel quarters={sortedQuarters} />
+
         <ContainerYearPicker>
           <YearPicker selectedYear={selectedYear} handleOnclick={handleChangeSelectYear} years={years} />
         </ContainerYearPicker>
-        <ChartContainer>
-          <ExpensesChartSection
-            totalExpenses={totalExpenses()?.toLocaleString('es-US') || '0'}
-            newActual={newActual}
-            newDiscontinued={newDiscontinued}
-            newPrediction={newPrediction}
-          />
-        </ChartContainer>
-      </InnerPage>
-      <FooterButtonContainer>
-        <LinkButton
-          href={siteRoutes.coreUnitsOverview}
-          label="Core Units"
-          buttonType={ButtonType.Primary}
-          styleText={{
-            fontSize: isMobile ? 14 : 16,
-            fontWeight: 500,
-            lineHeight: isMobile ? '18px' : '19px',
-          }}
-          style={{
-            padding: isMobile ? '8px 24px' : '14.5px 85.5px',
-          }}
-        />
+        <TotalReported>
+          <div>
+            <Label isLight={isLight}>{`${totalExpenses()?.toLocaleString('es-US') || '0'} dai`}</Label>
+            <Line isLight={isLight} />
+          </div>
+          <TotalDescription isLight={isLight}>Total Reported Expenses</TotalDescription>
+        </TotalReported>
 
-        <LinkButton
-          href={siteRoutes.recognizedDelegate}
-          label="Recognized Delegates"
-          buttonType={ButtonType.Primary}
-          styleText={{
-            fontSize: isMobile ? 14 : 16,
-            fontWeight: 500,
-            lineHeight: isMobile ? '18px' : '19px',
-          }}
-          style={{
-            padding: isMobile ? '8px 24px' : '14.5px 40px',
-          }}
-        />
-      </FooterButtonContainer>
+        <BreakdownSectionContainer>
+          <ExpensesChartColumn>
+            <ExpensesChart newActual={newActual} newDiscontinued={newDiscontinued} newPrediction={newPrediction} />
+            <NavigationButtonsContainer>
+              <LinkButton
+                href={siteRoutes.coreUnitsOverview}
+                label="Core Units"
+                buttonType={ButtonType.Primary}
+                styleText={{
+                  fontSize: isMobile ? 14 : 16,
+                  fontWeight: 500,
+                  lineHeight: isMobile ? '18px' : '19px',
+                }}
+                style={{
+                  padding: isMobile ? '8px 24px' : '14.5px 85.5px',
+                }}
+              />
+
+              <LinkButton
+                href={siteRoutes.recognizedDelegate}
+                label="Recognized Delegates"
+                buttonType={ButtonType.Primary}
+                styleText={{
+                  fontSize: isMobile ? 14 : 16,
+                  fontWeight: 500,
+                  lineHeight: isMobile ? '18px' : '19px',
+                }}
+                style={{
+                  padding: isMobile ? '8px 24px' : '14.5px 40px',
+                }}
+              />
+            </NavigationButtonsContainer>
+          </ExpensesChartColumn>
+          <BreakdownTableColumn>
+            <CostBreakdownTable selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter} />
+          </BreakdownTableColumn>
+        </BreakdownSectionContainer>
+      </InnerPage>
     </Container>
   );
 };
@@ -113,6 +126,7 @@ const InnerPage = styled.div({
   margin: '0 auto',
   paddingRight: '64px',
   paddingLeft: '64px',
+  paddingBottom: '64px',
 
   [lightTheme.breakpoints.up('desktop_1920')]: {
     maxWidth: '1312px',
@@ -155,19 +169,13 @@ const PageTitle = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
   },
 }));
 
-const FooterButtonContainer = styled.div({
+const NavigationButtonsContainer = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
   gap: 24,
   textAlign: 'center',
-  marginBottom: 78,
-
-  [lightTheme.breakpoints.up('table_834')]: {
-    maxWidth: '528px',
-    margin: '0px auto',
-    marginBottom: 64,
-  },
+  marginTop: 40,
 });
 
 const ContainerYearPicker = styled.div({
@@ -177,12 +185,67 @@ const ContainerYearPicker = styled.div({
   },
 });
 
-const ChartContainer = styled.div({
-  marginBottom: 19,
+const TotalReported = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  marginBottom: 16,
+
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    marginBottom: 47,
+    marginBottom: 32,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginBottom: 8,
+});
+
+const Label = styled.label<WithIsLight>(({ isLight }) => ({
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 600,
+  fontSize: 24,
+  lineHeight: '29px',
+  letterSpacing: ' 0.4px',
+  textTransform: 'uppercase',
+  color: isLight ? '#231536' : '#EDEFFF',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: '32px',
+    lineHeight: '39px',
+    letterSpacing: '0.4px',
   },
+}));
+
+const Line = styled.div<WithIsLight>(({ isLight }) => ({
+  width: 'fix-content',
+  border: isLight ? '1px solid #B6EDE7' : '1px solid #06554C',
+  marginTop: 4,
+}));
+
+const TotalDescription = styled.label<WithIsLight>(({ isLight }) => ({
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 400,
+  fontSize: '16px',
+  lineHeight: '22px',
+  color: isLight ? '#231536' : '#EDEFFF',
+  marginTop: 4,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontWeight: 500,
+    fontSize: 20,
+    lineHeight: ' 24px',
+    letterSpacing: '0.4px',
+  },
+}));
+
+const BreakdownSectionContainer = styled.div({
+  display: 'flex',
+  gap: 64,
+});
+
+const ExpensesChartColumn = styled.div({
+  width: 504,
+  marginTop: 48,
+});
+
+const BreakdownTableColumn = styled.div({
+  width: '100%',
 });

@@ -26,3 +26,8 @@ export type PopoverPaperType = {
   boxShadow: string;
   borderRadius: string;
 };
+export type TargetBalanceTooltipInformation = {
+  balance: number;
+  targetBalanceFirstMonth: DateTime;
+  targetBalanceSecondMonth: DateTime;
+};
