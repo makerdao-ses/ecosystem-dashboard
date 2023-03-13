@@ -2,7 +2,7 @@ import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
 import { formatNumber } from '@ses/core/utils/string';
 import { DateTime } from 'luxon';
 import { useMemo } from 'react';
-import { renderLinks, RenderNumberWithIcon, renderWallet } from '../../transparencyReportUtils';
+import { renderLinks, renderNumberWithIcon, renderWallet } from '../../transparencyReportUtils';
 import { useTransparencyForecast } from '../TransparencyForecast/useTransparencyForecast';
 import type { InnerTableColumn, InnerTableRow } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
@@ -104,7 +104,7 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
         type: 'custom',
         align: 'left',
 
-        cellRender: RenderNumberWithIcon,
+        cellRender: renderNumberWithIcon,
       },
       {
         header: `${currentMonth.toFormat('dd-LLL')} Balance`,
