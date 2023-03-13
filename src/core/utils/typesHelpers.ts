@@ -22,6 +22,10 @@ export function isActivity(activity: CommentsBudgetStatementDto | ActivityFeedDt
 
 export type TargetBalanceTooltipInformation = {
   balance: number;
-  targetBalanceFirstMonth: DateTime;
-  targetBalanceSecondMonth: DateTime;
+  months: string;
+  description: string;
+  mipNumber: string;
+  link: string;
+  longCode: string;
+  name: string;
 };

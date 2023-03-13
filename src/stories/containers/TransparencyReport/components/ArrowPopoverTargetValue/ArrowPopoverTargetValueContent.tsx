@@ -1,46 +1,49 @@
 import styled from '@emotion/styled';
 import { CustomLink } from '@ses/components/CustomLink/CustomLink';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
+import type { TargetBalanceTooltipInformation, WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  description?: string;
-  mipNumber?: string;
-  link?: string;
+  toolTipData: Pick<TargetBalanceTooltipInformation, 'description' | 'mipNumber' | 'link'>;
   name: string;
   longCode: string;
 }
 
-const ArrowPopoverTargetValueContent: React.FC<Props> = ({ description, link, name, mipNumber, longCode }) => (
-  <Container>
-    <Description>{description}</Description>
-    <Source>Source</Source>
-    <ContainerLinkWithMip>
-      <MipNumber>{mipNumber}</MipNumber>
-      <ContainerLink>
-        <CustomLink
-          children={`Modify Core Unit Budget -
+const ArrowPopoverTargetValueContent: React.FC<Props> = ({ toolTipData, name, longCode }) => {
+  const { isLight } = useThemeContext();
+  return (
+    <Container>
+      <Description isLight={isLight}>{toolTipData.description}</Description>
+      <Source isLight={isLight}>Source</Source>
+      <ContainerLinkWithMip isLight={isLight}>
+        <MipNumber>{toolTipData.mipNumber}</MipNumber>
+        <ContainerLink>
+          <CustomLink
+            children={`Modify Core Unit Budget -
            ${name} (${longCode})`}
-          withArrow
-          marginLeft="7px"
-          href={link}
-          iconWidth={10}
-          fontWeight={400}
-          iconHeight={10}
-          style={{
-            lineHeight: '15px',
-            fontSize: '12px',
-            letterSpacing: '0px',
-            marginLeft: 0,
-            paddingRight: 0,
-            whiteSpace: 'pre-line',
-            overflowWrap: 'break-word',
-            width: '259px',
-          }}
-        />
-      </ContainerLink>
-    </ContainerLinkWithMip>
-  </Container>
-);
+            withArrow
+            marginLeft="7px"
+            href={toolTipData.link}
+            iconWidth={10}
+            fontWeight={400}
+            iconHeight={10}
+            style={{
+              lineHeight: '15px',
+              fontSize: '12px',
+              letterSpacing: '0px',
+              marginLeft: 0,
+              paddingRight: 0,
+              whiteSpace: 'pre-line',
+              overflowWrap: 'break-word',
+              width: '259px',
+            }}
+          />
+        </ContainerLink>
+      </ContainerLinkWithMip>
+    </Container>
+  );
+};
 
 export default ArrowPopoverTargetValueContent;
 
@@ -49,33 +52,33 @@ const Container = styled.div({
   flexDirection: 'column',
   justifyContent: 'flex-start',
 });
-const Description = styled.div({
+const Description = styled.div<WithIsLight>(({ isLight }) => ({
   marginBottom: 16,
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: 14,
   lineHeight: '17px',
-  color: '#231536',
-});
-const Source = styled.div({
+  color: isLight ? '#231536' : '#ADAFD4',
+}));
+const Source = styled.div<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 600,
   fontSize: 11,
   lineHeight: '13px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#ADAFD4',
   marginBottom: 4,
-});
+}));
 
-const ContainerLinkWithMip = styled.div({
+const ContainerLinkWithMip = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
-  background: '#EDEFFF',
+  background: isLight ? '#EDEFFF' : '#25273D',
   borderRadius: 6,
   padding: 6,
   height: '64px',
-});
+}));
 
 const ContainerLink = styled.div({
   display: 'flex',
