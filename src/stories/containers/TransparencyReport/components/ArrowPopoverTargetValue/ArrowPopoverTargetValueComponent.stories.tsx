@@ -23,6 +23,7 @@ const variantsArgs = [
     link: '#',
     style: {
       padding: 10,
+      width: '305px',
       background: 'white',
       border: '1px solid #D4D9E1',
       boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
@@ -38,6 +39,7 @@ const variantsArgs = [
     link: '#',
     style: {
       padding: 10,
+      width: '305px',
       background: 'white',
       border: '1px solid #D4D9E1',
       boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',

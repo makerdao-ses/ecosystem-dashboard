@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import React from 'react';
 import ArrowPopover from '../../../../components/ArrowPopover/ArrowPopover';
 import ArrowPopoverTargetValueContent from './ArrowPopoverTargetValueContent';
-import type { AlignArrowTooTip } from '../../../../components/ArrowPopover/ArrowPopover';
 import type { CSSProperties } from 'react';
 
 interface Props {
@@ -10,7 +9,6 @@ interface Props {
   longCode: string;
   description: string;
   mipNumber: string;
-  align: AlignArrowTooTip;
   link?: string;
   style?: CSSProperties;
 }
@@ -20,12 +18,11 @@ const ArrowPopoverTargetValueComponent: React.FC<Props> = ({
   longCode,
   mipNumber,
   name,
-  align,
   link,
   style = {},
 }) => (
   <Container style={style}>
-    <ArrowPopover align={align}>
+    <ArrowPopover>
       <ArrowPopoverTargetValueContent
         longCode={longCode}
         name={name}
@@ -40,7 +37,8 @@ const ArrowPopoverTargetValueComponent: React.FC<Props> = ({
 export default ArrowPopoverTargetValueComponent;
 
 const Container = styled.div({
-  width: 305,
   display: 'flex',
   borderRadius: 6,
+
+  width: '100%',
 });

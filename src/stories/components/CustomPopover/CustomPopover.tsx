@@ -5,7 +5,6 @@ import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import type { SxProps } from '@mui/material/styles';
 import type { CSSProperties } from 'react';
-
 interface CustomPopoverProps {
   title?: JSX.Element | string;
   children: JSX.Element | JSX.Element[] | boolean;
@@ -18,6 +17,8 @@ interface CustomPopoverProps {
   };
   leaveOnChildrenMouseOut?: boolean;
   sxProps?: SxProps;
+  widthArrow?: boolean;
+  alignArrow?: 'center' | 'right';
 }
 
 export const PopoverPaperStyle = (isLight: boolean) => ({
@@ -35,6 +36,8 @@ export const CustomPopover = ({
     vertical: 'bottom',
     horizontal: 'center',
   },
+  widthArrow,
+  alignArrow,
   ...props
 }: CustomPopoverProps) => {
   const { isLight } = useThemeContext();
@@ -106,6 +109,7 @@ export const CustomPopover = ({
         >
           {props.title}
         </Container>
+        {widthArrow && <ContainerTriangle alignArrow={alignArrow} />}
       </Popover>
     </React.Fragment>
   );
@@ -118,3 +122,25 @@ const Container = styled.div({
   fontStyle: 'normal',
   fontWeight: 400,
 });
+
+const ContainerTriangle = styled.div<{ alignArrow?: 'center' | 'right' }>(({ alignArrow }) => ({
+  backgroundColor: 'white',
+  borderRadius: '6px',
+  '&:after , &:before': {
+    content: '""',
+    display: 'block',
+    position: 'absolute',
+    width: 0,
+    height: 0,
+    borderStyle: 'solid',
+    left: alignArrow === 'center' ? 135 : alignArrow === 'right' ? 257 : 35,
+    borderColor: 'transparent',
+    borderWidth: '0 8px  16px  8px',
+    borderBottomColor: 'white',
+    top: -14,
+  },
+  ':before': {
+    top: -16,
+    borderBottomColor: '#D4D9E1',
+  },
+}));

@@ -63,6 +63,7 @@ export const renderNumberWithIcon = (number: number) => (
   <PopoverContainer>
     <Container>
       <CustomPopover
+        widthArrow
         anchorOrigin={{
           horizontal: 'left',
           vertical: 'bottom',
@@ -73,6 +74,7 @@ export const renderNumberWithIcon = (number: number) => (
             overflowY: 'unset',
           },
           marginLeft: -4.5,
+          marginTop: 0.6,
         }}
         id="information"
         popupStyle={{
@@ -81,7 +83,6 @@ export const renderNumberWithIcon = (number: number) => (
         title={
           <ArrowPopoverTargetValueComponent
             link="#"
-            align="left"
             description="2 Month Budget Cap"
             longCode="SES-001"
             mipNumber="MIP40c3-SP14:"
