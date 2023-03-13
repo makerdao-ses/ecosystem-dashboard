@@ -8,7 +8,7 @@ export default {
   component: ArrowPopoverTargetValueComponent,
   parameters: {
     chromatic: {
-      viewports: [375, 834],
+      viewports: [375],
       pauseAnimationAtEnd: true,
     },
   },
@@ -53,19 +53,6 @@ PopoverContainerWithoutArrow.parameters = {
           style: {
             top: -32,
             left: -40,
-          },
-        },
-      },
-      834: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14723%3A160960&t=GfCJNnX1UcXL4afU-4',
-        options: {
-          componentStyle: {
-            width: 305,
-          },
-          style: {
-            top: -16,
-            left: 0,
           },
         },
       },
