@@ -9,6 +9,7 @@ interface Props {
   items?: JSX.Element[];
   footer?: JSX.Element | string;
   hasIcon?: boolean;
+  // TODO: Type this to avoid lower and uppercase error
   itemType: string;
 }
 
@@ -17,12 +18,30 @@ export const TransparencyCard = (props: Props) => {
   return (
     <Container isLight={isLight}>
       <HeaderWrapper>{props.header}</HeaderWrapper>
-      {props.headers.map((header, i) => (
-        <Row key={header.toString()} hasIcon={header === 'Target Balance' && props.itemType === 'Total'}>
-          <Label hasIcon={header === 'Target Balance'}>{header}</Label>
-          {(props.items && props.items[i]) ?? ''}
-        </Row>
-      ))}
+      {props.headers.map((header, i) => {
+        console.log('props.itemType', props.itemType === 'total', header === 'Target Balance');
+        return (
+          <Row
+            key={header.toString()}
+            hasIcon={header !== 'Target Balance' || (header === 'Target Balance' && props.itemType === 'total')}
+          >
+            <Label hasIcon={header === 'Target Balance'}>{header}</Label>
+            <div
+              style={{
+                display: props.itemType === 'total' ? 'flex' : undefined,
+                justifyContent: props.itemType ? 'flex-end' : undefined,
+                width:
+                  header === 'Target Balance' || (header === 'Target Balance' && props.itemType !== 'total')
+                    ? '100%'
+                    : undefined,
+              }}
+            >
+              {(props.items && props.items[i]) ?? ''}
+            </div>
+          </Row>
+        );
+      })}
+
       {props.footer && <FooterWrapper isLight={isLight}>{props.footer}</FooterWrapper>}
     </Container>
   );
@@ -58,8 +77,9 @@ const FooterWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 const Row = styled.div<{ hasIcon?: boolean; height?: string }>(({ hasIcon = false }) => ({
   display: 'flex',
   alignItems: hasIcon ? 'flex-start' : 'center',
+
   flex: 1,
-  justifyContent: hasIcon ? 'flex-start' : 'space-between',
+  justifyContent: hasIcon ? 'space-between' : undefined,
   [lightTheme.breakpoints.up('table_834')]: {
     alignItems: 'flex-start',
     justifyContent: 'space-between',
@@ -68,6 +88,7 @@ const Row = styled.div<{ hasIcon?: boolean; height?: string }>(({ hasIcon = fals
 
 const Label = styled.div<{ hasIcon?: boolean; height?: string }>(({ hasIcon = false }) => ({
   display: 'flex',
+
   alignItems: hasIcon ? 'flex-start' : 'center',
   color: '#708390',
   fontFamily: 'Inter, sans-serif',
@@ -77,4 +98,5 @@ const Label = styled.div<{ hasIcon?: boolean; height?: string }>(({ hasIcon = fa
   height: '37px',
   letterSpacing: '1px',
   textTransform: 'uppercase',
+  minWidth: 140,
 }));

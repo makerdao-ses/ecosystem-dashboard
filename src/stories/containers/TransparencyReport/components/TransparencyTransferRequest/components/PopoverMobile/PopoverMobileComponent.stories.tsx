@@ -1,6 +1,7 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 
 import PopoverMobileComponent from './PopoverMobileComponent';
+import type { TargetBalanceTooltipInformation } from '@ses/core/utils/typesHelpers';
 import type { ComponentMeta } from '@storybook/react';
 
 export default {
@@ -17,9 +18,11 @@ export default {
 
 const variantsArgs = [
   {
-    description: '3 Months of Forecasts',
-    mipNumber: 'MIP40c3-SP14:',
-    link: '#',
+    toolTipData: {
+      description: '3 Months of Forecasts',
+      mipNumber: 'MIP40c3-SP14:',
+      link: '#',
+    } as Pick<TargetBalanceTooltipInformation, 'description' | 'mipNumber' | 'link'>,
     name: 'Collateral Engineering Services',
     longCode: 'SES-001',
   },

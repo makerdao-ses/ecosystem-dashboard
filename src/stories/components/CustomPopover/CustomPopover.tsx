@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Popover } from '@mui/material';
 import { getPageWrapper } from '@ses/core/utils/dom';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import type { SxProps } from '@mui/material/styles';
 import type { PopoverPaperType, WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -23,6 +23,7 @@ interface CustomPopoverProps {
   sxProps?: SxProps;
   widthArrow?: boolean;
   alignArrow?: 'center' | 'right';
+  handleIsOpen?: (isOpen: boolean) => void;
 }
 
 export const PopoverPaperStyle = (isLight: boolean) => ({
@@ -41,6 +42,7 @@ export const CustomPopover = ({
     vertical: 'bottom',
     horizontal: 'center',
   },
+  handleIsOpen,
   widthArrow,
   alignArrow,
   ...props
@@ -48,6 +50,7 @@ export const CustomPopover = ({
   const { isLight } = useThemeContext();
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const [leaveTimeout, setLeaveTimeout] = React.useState<NodeJS.Timeout>();
+  const isOpen = Boolean(anchorEl);
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
     const wrapper = getPageWrapper();
     if (wrapper) {
@@ -58,11 +61,16 @@ export const CustomPopover = ({
 
   const handlePopoverClose = () => {
     setAnchorEl(null);
+
     const wrapper = getPageWrapper();
     if (wrapper) {
       wrapper.removeEventListener('onscroll', handlePopoverClose);
     }
   };
+
+  useEffect(() => {
+    handleIsOpen && handleIsOpen(isOpen);
+  }, [handleIsOpen, isOpen]);
 
   return (
     <React.Fragment>
@@ -88,9 +96,15 @@ export const CustomPopover = ({
         id={props.id}
         sx={{
           pointerEvents: 'none',
+          // position: 'fixed',
+          // bottom: 0,
+          // right: 0,
+          // margin: 20px;
+          // zIndex: 40,
           ...props.sxProps,
         }}
         open={Boolean(anchorEl)}
+        // open={true}
         anchorEl={anchorEl}
         anchorOrigin={anchorOrigin}
         transformOrigin={{

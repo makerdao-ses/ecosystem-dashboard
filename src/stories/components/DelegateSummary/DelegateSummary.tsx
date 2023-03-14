@@ -1,13 +1,14 @@
 import styled from '@emotion/styled';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import lightTheme from '@ses/styles/theme/light';
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
-import CustomBreadCrumbs from '../Breadcrumbs/CustomBreadcrumbs/CustomBreadcrumbs';
 import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 import { CuTableColumnLinks } from '../CuTableColumnLinks/CuTableColumnLinks';
 import { CustomLink } from '../CustomLink/CustomLink';
+import CustomBreadcrumbs from '../breadcrumbs/CustomBreadcrumbs/CustomBreadcrumbs';
 import type { LinkModel } from '../CuTableColumnLinks/CuTableColumnLinks';
 
 interface Props {
@@ -51,7 +52,7 @@ const DelegateSummary: React.FC<Props> = ({ code = 'del', links, items }) => {
   return (
     <ContainerWithBreadcrumb isLight={isLight} showIcons={showIcons}>
       <BreadcrumbsContainer>
-        <CustomBreadCrumbs isLight={isLight} items={items} />
+        <CustomBreadcrumbs isLight={isLight} items={items} />
       </BreadcrumbsContainer>
       <Container>
         <ContainerRow>
@@ -124,7 +125,7 @@ const ContainerWithBreadcrumb = styled.div<{ isLight: boolean; showIcons?: boole
     background: isLight ? '#FFFFFF' : '#25273D',
     backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
     backgroundSize: 'cover',
-    zIndex: 3,
+    zIndex: zIndexEnum.DELEGATE_SUMMARY,
     borderBottom: '1px solid #B6EDE7',
     paddingBottom: showIcons ? 16 : undefined,
 
