@@ -7,8 +7,8 @@ import { MAKER_BURN_LINK } from '../../../../../core/utils/const';
 import { getShortCode } from '../../../../../core/utils/string';
 import { AdvancedInnerTable } from '../../../../components/AdvancedInnerTable/AdvancedInnerTable';
 import { CustomLink } from '../../../../components/CustomLink/CustomLink';
+import { Title } from '../../TransparencyReport';
 import { LinkDescription } from '../TransparencyActuals/TransparencyActuals';
-// import { useTransparencyTransferRequestMvvm } from './useTransparencyTransferRequest';
 import { useTransparencyTransferRequest } from './useTransparencyTransferRequest';
 import type { BudgetStatementDto } from '../../../../../core/models/dto/coreUnitDTO';
 import type { DateTime } from 'luxon';
@@ -53,6 +53,7 @@ export const TransparencyTransferRequest = (props: Props) => {
           {`view the ${getShortCode(props.code)} Core Unit on-chain transaction history`}
         </CustomLink>
       </LinkDescription>
+      <Title isLight={isLight}>{props.currentMonth.toFormat('MMM yyyy')} Totals</Title>
       <div style={{ marginTop: 32 }}>
         <AdvancedInnerTable
           columns={mainTableColumns}

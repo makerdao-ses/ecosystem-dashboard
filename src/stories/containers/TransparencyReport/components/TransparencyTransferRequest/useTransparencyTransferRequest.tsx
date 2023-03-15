@@ -1,9 +1,11 @@
 import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
+import { formatNumber } from '@ses/core/utils/string';
 import { useMemo } from 'react';
 import { renderLinks, renderNumberWithIcon, renderWallet } from '../../transparencyReportUtils';
 import { useTransparencyForecast } from '../TransparencyForecast/useTransparencyForecast';
 import type { InnerTableColumn, InnerTableRow } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
+import type { TargetBalanceTooltipInformation } from '@ses/core/utils/typesHelpers';
 import type { DateTime } from 'luxon';
 
 export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetStatements: BudgetStatementDto[]) => {
@@ -104,7 +106,7 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
         cellRender: renderNumberWithIcon,
       },
       {
-        header: 'Current Balance',
+        header: `${currentMonth.toFormat('dd-LLL')} Balance`,
         type: 'number',
         align: 'right',
       },
@@ -114,7 +116,7 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
         align: 'right',
       },
       {
-        header: 'External Links',
+        header: 'multi-sig address',
         type: 'custom',
         width: '240px',
         cellRender: renderLinks,
@@ -122,7 +124,7 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
       },
     ];
     return mainTableColumns;
-  }, []);
+  }, [currentMonth]);
 
   const mainTableItems: InnerTableRow[] = useMemo(() => {
     const result: InnerTableRow[] = [];
@@ -137,11 +139,19 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
           },
           {
             column: mainTableColumns[1],
-            value: getForecastSumOfMonthsOnWallet(budgetStatements, wallet?.address, currentMonth, [
-              firstMonth,
-              secondMonth,
-              thirdMonth,
-            ]),
+            value: {
+              balance: getForecastSumOfMonthsOnWallet(budgetStatements, wallet?.address, currentMonth, [
+                firstMonth,
+                secondMonth,
+                thirdMonth,
+              ]),
+              months: 'FEB + MAR Budget Cap',
+              mipNumber: 'MIP40c3-SP14:',
+              link: '#',
+              description: '2 Month Budget Cap',
+              longCode: 'SES-001',
+              name: 'Sustainable Ecosystem Scaling',
+            } as TargetBalanceTooltipInformation,
           },
           {
             column: mainTableColumns[2],
@@ -169,7 +179,14 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
           },
           {
             column: mainTableColumns[1],
-            value: getForecastSumForMonths(budgetStatements, currentMonth, [firstMonth, secondMonth, thirdMonth]),
+
+            value: (
+              <b>
+                {formatNumber(
+                  getForecastSumForMonths(budgetStatements, currentMonth, [firstMonth, secondMonth, thirdMonth])
+                )}
+              </b>
+            ),
           },
           {
             column: mainTableColumns[2],

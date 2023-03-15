@@ -19,3 +19,13 @@ export interface CookiesInterface {
 export function isActivity(activity: CommentsBudgetStatementDto | ActivityFeedDto): activity is ActivityFeedDto {
   return (activity as ActivityFeedDto).event !== undefined;
 }
+
+export type TargetBalanceTooltipInformation = {
+  balance: number;
+  months: string;
+  description: string;
+  mipNumber: string;
+  link: string;
+  longCode: string;
+  name: string;
+};
