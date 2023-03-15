@@ -18,29 +18,26 @@ export const TransparencyCard = (props: Props) => {
   return (
     <Container isLight={isLight}>
       <HeaderWrapper>{props.header}</HeaderWrapper>
-      {props.headers.map((header, i) => {
-        console.log('props.itemType', props.itemType === 'total', header === 'Target Balance');
-        return (
-          <Row
-            key={header.toString()}
-            hasIcon={header !== 'Target Balance' || (header === 'Target Balance' && props.itemType === 'total')}
+      {props.headers.map((header, i) => (
+        <Row
+          key={header.toString()}
+          hasIcon={header !== 'Target Balance' || (header === 'Target Balance' && props.itemType === 'total')}
+        >
+          <Label hasIcon={header === 'Target Balance'}>{header}</Label>
+          <div
+            style={{
+              display: props.itemType === 'total' ? 'flex' : undefined,
+              justifyContent: props.itemType ? 'flex-end' : undefined,
+              width:
+                header === 'Target Balance' || (header === 'Target Balance' && props.itemType !== 'total')
+                  ? '100%'
+                  : undefined,
+            }}
           >
-            <Label hasIcon={header === 'Target Balance'}>{header}</Label>
-            <div
-              style={{
-                display: props.itemType === 'total' ? 'flex' : undefined,
-                justifyContent: props.itemType ? 'flex-end' : undefined,
-                width:
-                  header === 'Target Balance' || (header === 'Target Balance' && props.itemType !== 'total')
-                    ? '100%'
-                    : undefined,
-              }}
-            >
-              {(props.items && props.items[i]) ?? ''}
-            </div>
-          </Row>
-        );
-      })}
+            {(props.items && props.items[i]) ?? ''}
+          </div>
+        </Row>
+      ))}
 
       {props.footer && <FooterWrapper isLight={isLight}>{props.footer}</FooterWrapper>}
     </Container>

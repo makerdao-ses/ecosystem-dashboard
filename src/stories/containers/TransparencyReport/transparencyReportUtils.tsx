@@ -6,15 +6,17 @@ import Information from '@ses/components/svg/information';
 import ArrowPopoverTargetValueComponent from '@ses/containers/TransparencyReport/components/ArrowPopoverTargetValue/ArrowPopoverTargetValueComponent';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
+import { useScrollLock } from '@ses/core/hooks/useScrollLock';
+import { getPageWrapper } from '@ses/core/utils/dom';
 import lightTheme from '@ses/styles/theme/light';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { formatAddressForOutput } from '../../../core/utils/string';
 import { CustomLink } from '../../components/CustomLink/CustomLink';
 import { TextCell } from '../../components/TextCell/TextCell';
 import { WalletTableCell } from '../../components/WalletTableCell/WalletTableCell';
-import PopoverMobileComponent from './components/TransparencyTransferRequest/components/PopoverMobile/PopoverMobileComponent';
+import ModalSheetValueContent from './components/TransparencyTransferRequest/components/ModalSheet/ModalSheetValueContent';
 import type { BudgetStatementWalletDto } from '../../../core/models/dto/coreUnitDTO';
-import type { TargetBalanceTooltipInformation, WithIsLight } from '@ses/core/utils/typesHelpers';
+import type { TargetBalanceTooltipInformation } from '@ses/core/utils/typesHelpers';
 
 export const renderWallet = (wallet: BudgetStatementWalletDto) => (
   <WalletTableCell
@@ -64,13 +66,34 @@ export const renderLinksWithToken = (address: string) => (
   </TextCell>
 );
 
+interface WithIsLightAndClick {
+  isLight: boolean;
+  onClick?: () => void;
+}
 export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
   const { isLight } = useThemeContext();
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const [isOpen, setIsOpen] = useState(false);
-  const handleIsOpen = (isOpen: boolean) => {
-    setIsOpen(isOpen);
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const { lockScroll, unlockScroll } = useScrollLock();
+
+  useEffect(() => {
+    if (isOpen) {
+      const pageWrapper = getPageWrapper();
+      if (pageWrapper) {
+        pageWrapper.style.overflow = 'hidden';
+      }
+
+      lockScroll();
+    }
+    return () => {
+      unlockScroll();
+    };
+  }, [isOpen, lockScroll, unlockScroll]);
+
+  const handleOnClick = () => {
+    setIsOpen(!isOpen);
   };
+
   return (
     <div>
       <PopoverContainer>
@@ -78,17 +101,12 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
           <Container>
             <CustomPopover
               widthArrow
-              alignArrow="center"
-              anchorOrigin={{
-                horizontal: 'left',
-                vertical: 'bottom',
-              }}
               sxProps={{
                 '& .css-3bmhjh-MuiPaper-root-MuiPopover-paper': {
                   overflowX: 'unset',
                   overflowY: 'unset',
                 },
-                marginLeft: -4.5,
+                marginLeft: -5.5,
                 marginTop: 0.6,
               }}
               id="information"
@@ -122,22 +140,9 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
       {isMobile && (
         <PopoverContainer>
           <Container>
-            <PopoverMobileComponent
-              sxProps={{}}
-              handleIsOpen={handleIsOpen}
-              children={
-                <ContainerInfoIcon>
-                  <Information />
-                </ContainerInfoIcon>
-              }
-              longCode={data.longCode}
-              name={data.name}
-              toolTipData={{
-                link: data.link,
-                description: data.description,
-                mipNumber: data.mipNumber,
-              }}
-            />
+            <ContainerInfoIcon onClick={handleOnClick}>
+              <Information />
+            </ContainerInfoIcon>
 
             <ContainerInformation>
               <ContainerNumberCell value={data.balance} />
@@ -146,12 +151,25 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
           </Container>
         </PopoverContainer>
       )}
-      {isMobile && isOpen && <ContainerOverlay isLight={isLight} />}
+      {isMobile && isOpen && (
+        <ModalSheet>
+          <ModalSheetValueContent
+            toolTipData={{
+              description: data.description,
+              link: data.link,
+              mipNumber: data.mipNumber,
+            }}
+            longCode={data.longCode}
+            name={data.name}
+          />
+        </ModalSheet>
+      )}
+      {isMobile && isOpen && <ContainerOverlay isLight={isLight} onClick={handleOnClick} />}
     </div>
   );
 };
 
-const ContainerOverlay = styled.div<WithIsLight>(({ isLight }) => ({
+const ContainerOverlay = styled.div<WithIsLightAndClick>(({ isLight, onClick }) => ({
   position: 'fixed',
   top: 0,
   left: 0,
@@ -163,7 +181,18 @@ const ContainerOverlay = styled.div<WithIsLight>(({ isLight }) => ({
   justifyContent: 'center',
   alignItems: 'center',
   zIndex: zIndexEnum.OVERLAY_MOBILE_TOOLTIP,
+  cursor: onClick ? 'default' : undefined,
 }));
+
+const ModalSheet = styled.div({
+  width: 375,
+  zIndex: 5,
+  position: 'fixed',
+  bottom: 0,
+  left: 0,
+  right: 0,
+  margin: '0 auto',
+});
 
 const PopoverContainer = styled.div({
   display: 'flex',

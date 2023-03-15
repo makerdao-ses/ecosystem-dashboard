@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Popover } from '@mui/material';
 import { getPageWrapper } from '@ses/core/utils/dom';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import type { SxProps } from '@mui/material/styles';
 import type { PopoverPaperType, WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -23,7 +23,6 @@ interface CustomPopoverProps {
   sxProps?: SxProps;
   widthArrow?: boolean;
   alignArrow?: 'center' | 'right';
-  handleIsOpen?: (isOpen: boolean) => void;
 }
 
 export const PopoverPaperStyle = (isLight: boolean) => ({
@@ -42,7 +41,6 @@ export const CustomPopover = ({
     vertical: 'bottom',
     horizontal: 'center',
   },
-  handleIsOpen,
   widthArrow,
   alignArrow,
   ...props
@@ -50,7 +48,6 @@ export const CustomPopover = ({
   const { isLight } = useThemeContext();
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const [leaveTimeout, setLeaveTimeout] = React.useState<NodeJS.Timeout>();
-  const isOpen = Boolean(anchorEl);
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
     const wrapper = getPageWrapper();
     if (wrapper) {
@@ -67,10 +64,6 @@ export const CustomPopover = ({
       wrapper.removeEventListener('onscroll', handlePopoverClose);
     }
   };
-
-  useEffect(() => {
-    handleIsOpen && handleIsOpen(isOpen);
-  }, [handleIsOpen, isOpen]);
 
   return (
     <React.Fragment>
@@ -96,15 +89,9 @@ export const CustomPopover = ({
         id={props.id}
         sx={{
           pointerEvents: 'none',
-          // position: 'fixed',
-          // bottom: 0,
-          // right: 0,
-          // margin: 20px;
-          // zIndex: 40,
           ...props.sxProps,
         }}
         open={Boolean(anchorEl)}
-        // open={true}
         anchorEl={anchorEl}
         anchorOrigin={anchorOrigin}
         transformOrigin={{
@@ -142,24 +129,26 @@ const Container = styled.div({
   fontWeight: 400,
 });
 
-const ContainerTriangle = styled.div<WithIsLight & { alignArrow?: 'center' | 'right' }>(({ alignArrow, isLight }) => ({
-  backgroundColor: isLight ? 'white' : '#000A13',
-  borderRadius: '6px',
-  '&:after , &:before': {
-    content: '""',
-    display: 'block',
-    position: 'absolute',
-    width: 0,
-    height: 0,
-    borderStyle: 'solid',
-    left: alignArrow === 'center' ? 135 : alignArrow === 'right' ? 257 : 35,
-    borderColor: 'transparent',
-    borderWidth: '0 8px  16px  8px',
-    borderBottomColor: isLight ? 'white' : '#000A13',
-    top: -14,
-  },
-  ':before': {
-    top: -16,
-    borderBottomColor: isLight ? '#D4D9E1' : '#231536',
-  },
-}));
+const ContainerTriangle = styled.div<WithIsLight & { alignArrow?: 'center' | 'right' }>(
+  ({ alignArrow = undefined, isLight }) => ({
+    backgroundColor: isLight ? 'white' : '#000A13',
+    borderRadius: '6px',
+    '&:after , &:before': {
+      content: '""',
+      display: 'block',
+      position: 'absolute',
+      width: 0,
+      height: 0,
+      borderStyle: 'solid',
+      left: alignArrow === 'center' ? 135 : alignArrow === 'right' ? 257 : 35,
+      borderColor: 'transparent',
+      borderWidth: '0 8px  16px  8px',
+      borderBottomColor: isLight ? 'white' : '#000A13',
+      top: -14,
+    },
+    ':before': {
+      top: -16,
+      borderBottomColor: isLight ? '#D4D9E1' : '#231536',
+    },
+  })
+);
