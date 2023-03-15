@@ -107,8 +107,6 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
         {!isMobileResolution && (
           <Container>
             <CustomPopover
-              // alignArrow={alignArrow ? 'center' : undefined}
-              // alignArrow="center"
               widthArrow
               sxProps={{
                 '& .css-3bmhjh-MuiPaper-root-MuiPopover-paper': {
