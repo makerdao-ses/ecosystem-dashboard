@@ -5,20 +5,15 @@ import React from 'react';
 import type { TargetBalanceTooltipInformation, WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  description?: string;
-  mipNumber?: string;
-  link?: string;
-
   name: string;
   longCode: string;
-
   toolTipData: Pick<TargetBalanceTooltipInformation, 'description' | 'mipNumber' | 'link'>;
 }
 
-const PopoverMobileTargetValueContent: React.FC<Props> = ({ toolTipData, name, longCode }) => {
+const ModalSheetValueContent: React.FC<Props> = ({ toolTipData, name, longCode }) => {
   const { isLight } = useThemeContext();
   return (
-    <Container>
+    <Container isLight={isLight}>
       <Description isLight={isLight}>{toolTipData.description}</Description>
       <Source isLight={isLight}>Source</Source>
       <ContainerLinkWithMip isLight={isLight}>
@@ -27,8 +22,10 @@ const PopoverMobileTargetValueContent: React.FC<Props> = ({ toolTipData, name, l
           <CustomLink
             children={`Modify Core Unit Budget - ${name} (${longCode})`}
             withArrow
+            iconWidth={10}
+            iconHeight={10}
             styleIcon={{
-              marginLeft: '7px',
+              marginLeft: '0px',
             }}
             fontSize={12}
             lineHeight="15px"
@@ -45,13 +42,21 @@ const PopoverMobileTargetValueContent: React.FC<Props> = ({ toolTipData, name, l
   );
 };
 
-export default PopoverMobileTargetValueContent;
+export default ModalSheetValueContent;
 
-const Container = styled.div({
+const Container = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-start',
-});
+  background: isLight ? 'white' : '#000A13',
+  border: isLight ? '1px solid #D4D9E1' : '1px solid #231536',
+  boxShadow: isLight
+    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+    : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
+  borderRadius: '22px 22px 0px 0px',
+  padding: 16,
+  width: 375,
+}));
 const Description = styled.div<WithIsLight>(({ isLight }) => ({
   marginBottom: 16,
   fontFamily: 'Inter, sans-serif',
