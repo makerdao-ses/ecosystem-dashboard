@@ -221,7 +221,7 @@ const BreakdownSectionContainer = styled.div({
 
 const ExpensesChartColumn = styled.div({
   width: 343,
-  marginTop: 16,
+  marginTop: '16px auto 0',
 
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     margin: '32px auto 0',

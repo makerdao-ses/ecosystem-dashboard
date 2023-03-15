@@ -25,19 +25,36 @@ const TableHeader = styled.div({
 const CategoryColumn = styled(TableHeaderItem)({
   width: '100%',
   textAlign: 'left',
-  // paddingLeft: 16,
 });
 
 const TotalPercentageColumn = styled(TableHeaderItem)({
   width: 240,
   minWidth: 240,
   textAlign: 'right',
-  // paddingRight: 8,
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    width: 164,
+    minWidth: 164,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    width: 240,
+    minWidth: 240,
+  },
 });
 
 const TotalSpendColumn = styled(TableHeaderItem)({
-  width: 240,
-  minWidth: 240,
+  width: 200,
+  minWidth: 200,
   textAlign: 'right',
-  // paddingRight: 16,
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    width: 154,
+    minWidth: 154,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    width: 200,
+    minWidth: 200,
+  },
 });

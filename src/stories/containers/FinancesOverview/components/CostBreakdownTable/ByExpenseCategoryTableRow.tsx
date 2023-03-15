@@ -111,10 +111,15 @@ const TotalPercentageColumn = styled.div({
     minWidth: 240,
   },
 
-  // [lightTheme.breakpoints.up('desktop_1440')]: {
-  //   width: 180,
-  //   minWidth: 180,
-  // },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    width: 180,
+    minWidth: 180,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    width: 240,
+    minWidth: 240,
+  },
 });
 
 const TotalSpendColumn = styled.div({
@@ -124,18 +129,20 @@ const TotalSpendColumn = styled.div({
 
   [lightTheme.breakpoints.up('table_834')]: {
     textAlign: 'right',
-  },
-
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    width: 256,
-    minWidth: 256,
+    width: 216,
+    minWidth: 216,
     paddingRight: 16,
   },
 
-  // [lightTheme.breakpoints.up('desktop_1280')]: {
-  //   width: 157,
-  //   minWidth: 157,
-  // },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    width: 170,
+    minWidth: 170,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    width: 216,
+    minWidth: 216,
+  },
 });
 
 const Name = styled.span<WithIsLight>(({ isLight }) => ({
