@@ -17,13 +17,13 @@ const ExpenseCategoryGroup: React.FC<ExpenseCategoryGroupProps> = ({ name, child
       <NameContainer>
         <NameLines
           sx={{
-            bgcolor: isLight ? '#9FAFB9' : 'red',
+            bgcolor: isLight ? '#9FAFB9' : '#9FAFB9',
           }}
         />
         <Name isLight={isLight}>{name}</Name>
         <NameLines
           sx={{
-            bgcolor: isLight ? '#9FAFB9' : 'red',
+            bgcolor: isLight ? '#9FAFB9' : '#9FAFB9',
           }}
         />
       </NameContainer>
@@ -62,7 +62,7 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 600,
   lineHeight: '15px',
   letterSpacing: 1,
-  color: isLight ? '#9FAFB9' : 'red',
+  color: isLight ? '#9FAFB9' : '#9FAFB9',
   padding: '0 16px',
   minWidth: 'fit-content',
 

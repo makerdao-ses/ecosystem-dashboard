@@ -27,18 +27,18 @@ const TableFooter: React.FC<TableFooterProps> = ({ mode, total = 0 }) => {
 export default TableFooter;
 
 const TableFooterContainer = styled.div<WithIsLight>(({ isLight }) => ({
-  background: isLight ? '#F6F8F9' : 'red',
+  background: isLight ? '#F6F8F9' : '#25273D',
   display: 'flex',
   flexDirection: 'column',
   borderRadius: 6,
   padding: 8,
   boxShadow: isLight
     ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-    : '0px 20px 40px rgba(219, 0, 0, 0.8)',
+    : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
 
   [lightTheme.breakpoints.up('table_834')]: {
     boxShadow: 'none',
-    background: isLight ? '#ECF1F3' : 'red',
+    background: isLight ? '#ECF1F3' : '#25273D',
     padding: '14px 16px',
     justifyContent: 'space-between',
     flexDirection: 'row',
@@ -50,7 +50,7 @@ const Total = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 16,
   fontWeight: 700,
   lineHeight: '19px',
-  color: isLight ? '#231536' : 'blue',
+  color: isLight ? '#231536' : '#D2D4EF',
   textAlign: 'center',
   marginBottom: 10,
 
@@ -64,7 +64,7 @@ const TotalNumber = styled.div<WithIsLight & { extraPadding: boolean }>(({ isLig
   fontSize: 24,
   fontWeight: 600,
   lineHeight: '29px',
-  color: isLight ? '#231536' : 'blue',
+  color: isLight ? '#231536' : '#D2D4EF',
   textAlign: 'center',
   letterSpacing: '0.4px',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
@@ -96,7 +96,7 @@ const DAISpan = styled.span<WithIsLight>(({ isLight }) => ({
   lineHeight: '29px',
   textTransform: 'uppercase',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
-  color: isLight ? '#9FAFB9' : 'blue',
+  color: isLight ? '#9FAFB9' : '#546978',
 
   [lightTheme.breakpoints.up('table_834')]: {
     fontWeight: 'inherit',

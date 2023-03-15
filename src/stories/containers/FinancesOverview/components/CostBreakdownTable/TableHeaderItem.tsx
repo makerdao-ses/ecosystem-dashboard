@@ -20,7 +20,7 @@ const TableHeaderItem: React.FC<TableHeaderItemProps> = ({ children, className }
 export default TableHeaderItem;
 
 const Content = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#708390' : 'blue',
+  color: isLight ? '#708390' : '#708390',
   letterSpacing: '1px',
   textTransform: 'uppercase',
   fontSize: 12,

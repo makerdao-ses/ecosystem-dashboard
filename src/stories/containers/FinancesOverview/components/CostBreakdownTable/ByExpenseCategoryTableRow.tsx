@@ -37,11 +37,11 @@ const Row = styled.div<WithIsLight>(({ isLight }) => ({
   justifyContent: 'space-between',
   alignItems: 'center',
   padding: 8,
-  background: '#FFFFFF',
+  background: isLight ? '#FFFFFF' : '#1E2C37',
   marginBottom: 8,
   boxShadow: isLight
     ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-    : '0px 20px 40px rgba(219, 0, 0, 0.8)',
+    : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25))',
   borderRadius: 6,
 
   [lightTheme.breakpoints.up('table_834')]: {
@@ -81,13 +81,13 @@ const TotalPercentageColumnComponent: React.FC<WithIsLight> = ({ isLight }) => (
 const TotalSpendColumnComponent: React.FC<WithIsLight & { total: number }> = ({ isLight, total }) => (
   <TotalSpendColumn>
     <TotalNumber isLight={isLight}>
-      {usLocalizedNumber(total)} <DAISpan isLight={isLight}>DAI</DAISpan>
+      {usLocalizedNumber(total)} <DAISpan>DAI</DAISpan>
     </TotalNumber>
   </TotalSpendColumn>
 );
 
 const NameColumn = styled.div({
-  width: 145,
+  width: '100%',
   minWidth: 145,
   marginBottom: 10,
   lineHeight: '15px',
@@ -149,7 +149,7 @@ const Name = styled.span<WithIsLight>(({ isLight }) => ({
   fontSize: 12,
   fontWeight: 500,
   lineHeight: '15px',
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
 
   [lightTheme.breakpoints.up('table_834')]: {
     fontSize: 16,
@@ -168,7 +168,7 @@ const TotalPercentage = styled.span<WithIsLight>(({ isLight }) => ({
   fontWeight: 400,
   lineHeight: '15px',
   textAlign: 'right',
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   width: 34,
   minWidth: 34,
   marginLeft: 4,
@@ -179,7 +179,7 @@ const TotalNumber = styled.span<WithIsLight>(({ isLight }) => ({
   fontWeight: 600,
   lineHeight: '17px',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
 
   [lightTheme.breakpoints.up('table_834')]: {
     fontSize: 16,
@@ -189,13 +189,13 @@ const TotalNumber = styled.span<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const DAISpan = styled.span<WithIsLight>(({ isLight }) => ({
+const DAISpan = styled.span({
   fontSize: 14,
   fontWeight: 600,
   lineHeight: '17px',
   textTransform: 'uppercase',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
-  color: isLight ? '#9FAFB9' : 'red',
+  color: '#9FAFB9',
 
   [lightTheme.breakpoints.up('table_834')]: {
     fontSize: 'inherit',
@@ -203,4 +203,4 @@ const DAISpan = styled.span<WithIsLight>(({ isLight }) => ({
     lineHeight: 'inherit',
     color: 'inherit',
   },
-}));
+});

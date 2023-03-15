@@ -22,7 +22,7 @@ export default ByBudgetTableHeader;
 
 const TableHeader = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'none',
-  borderBottom: `1px solid ${isLight ? '#D4D9E1' : 'red'}`,
+  borderBottom: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
   padding: '16px 0 14px 0',
 
   [lightTheme.breakpoints.up('table_834')]: {

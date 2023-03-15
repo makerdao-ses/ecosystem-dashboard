@@ -80,11 +80,11 @@ const Table = styled.div<WithIsLight>(({ isLight }) => ({
   marginTop: 24,
 
   [lightTheme.breakpoints.up('table_834')]: {
-    background: '#FFFFFF',
+    background: isLight ? '#FFFFFF' : '#1E2C37',
     borderRadius: 6,
-    filter: isLight
-      ? 'drop-shadow(0px 20px 40px rgba(219, 227, 237, 0.4)) drop-shadow(0px 1px 3px rgba(190, 190, 190, 0.25))'
-      : 'drop-shadow(0px 20px 40px rgba(219, 0, 0, 0.8))',
+    boxShadow: isLight
+      ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+      : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
@@ -97,8 +97,8 @@ const TableBody = styled.div({});
 const RemainingContainer = styled.div<WithIsLight>(({ isLight }) => ({
   margin: '24px -16px',
   padding: '24px 16px 16px',
-  background: isLight ? '#F6F8F9' : 'red',
-  boxShadow: isLight ? '0px -1px 1px #EDEFFF' : '0px -1px 0px red',
+  background: isLight ? '#F6F8F9' : '#131420',
+  boxShadow: isLight ? '0px -1px 1px #EDEFFF' : '0px -1px 1px #292F5B',
   display: 'flex',
   flexDirection: 'column',
   gap: 24,
