@@ -20,6 +20,12 @@ export function isActivity(activity: CommentsBudgetStatementDto | ActivityFeedDt
   return (activity as ActivityFeedDto).event !== undefined;
 }
 
+export type PopoverPaperType = {
+  background: string;
+  border: string;
+  boxShadow: string;
+  borderRadius: string;
+};
 export type TargetBalanceTooltipInformation = {
   balance: number;
   months: string;

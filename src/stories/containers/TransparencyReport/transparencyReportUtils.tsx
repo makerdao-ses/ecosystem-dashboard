@@ -1,15 +1,20 @@
 import styled from '@emotion/styled';
-
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
 import { NumberCell } from '@ses/components/NumberCell/NumberCell';
 import Information from '@ses/components/svg/information';
 import ArrowPopoverTargetValueComponent from '@ses/containers/TransparencyReport/components/ArrowPopoverTargetValue/ArrowPopoverTargetValueComponent';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
+import { useScrollLock } from '@ses/core/hooks/useScrollLock';
+import { getPageWrapper } from '@ses/core/utils/dom';
 import lightTheme from '@ses/styles/theme/light';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { formatAddressForOutput } from '../../../core/utils/string';
 import { CustomLink } from '../../components/CustomLink/CustomLink';
 import { TextCell } from '../../components/TextCell/TextCell';
 import { WalletTableCell } from '../../components/WalletTableCell/WalletTableCell';
+import ModalSheetValueContent from './components/TransparencyTransferRequest/components/ModalSheet/ModalSheetValueContent';
 import type { BudgetStatementWalletDto } from '../../../core/models/dto/coreUnitDTO';
 import type { TargetBalanceTooltipInformation } from '@ses/core/utils/typesHelpers';
 
@@ -61,51 +66,136 @@ export const renderLinksWithToken = (address: string) => (
   </TextCell>
 );
 
-export const renderNumberWithIcon = (data: TargetBalanceTooltipInformation) => (
-  <PopoverContainer>
-    <Container>
-      <CustomPopover
-        widthArrow
-        anchorOrigin={{
-          horizontal: 'left',
-          vertical: 'bottom',
-        }}
-        sxProps={{
-          '& .css-3bmhjh-MuiPaper-root-MuiPopover-paper': {
-            overflowX: 'unset',
-            overflowY: 'unset',
-          },
-          marginLeft: -4.5,
-          marginTop: 0.6,
-        }}
-        id="information"
-        popupStyle={{
-          padding: 10,
-        }}
-        title={
-          <ArrowPopoverTargetValueComponent
+interface WithIsLightAndClick {
+  isLight: boolean;
+  onClick?: () => void;
+}
+export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
+  const { isLight } = useThemeContext();
+  const [isOpen, setIsOpen] = useState(false);
+  // Remove this condition to library when be ready to testing real device
+  const isMobileDevice = true;
+
+  const isMobileResolution = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const { lockScroll, unlockScroll } = useScrollLock();
+
+  useEffect(() => {
+    if (isOpen && isMobileDevice) {
+      const pageWrapper = getPageWrapper();
+      if (pageWrapper) {
+        pageWrapper.style.overflow = 'hidden';
+      }
+
+      lockScroll();
+    }
+    return () => {
+      unlockScroll();
+    };
+  }, [isMobileDevice, isOpen, lockScroll, unlockScroll]);
+
+  const handleOnClick = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <div>
+      <PopoverContainer>
+        {!isMobileResolution && (
+          <Container>
+            <CustomPopover
+              widthArrow
+              sxProps={{
+                '& .css-3bmhjh-MuiPaper-root-MuiPopover-paper': {
+                  overflowX: 'unset',
+                  overflowY: 'unset',
+                },
+                marginLeft: -5.5,
+                marginTop: 0.6,
+              }}
+              id="information"
+              popupStyle={{
+                padding: 10,
+              }}
+              title={
+                <ArrowPopoverTargetValueComponent
+                  toolTipData={{
+                    link: data.link,
+                    description: data.description,
+                    mipNumber: data.mipNumber,
+                  }}
+                  longCode={data.longCode}
+                  name={data.name}
+                />
+              }
+              leaveOnChildrenMouseOut
+            >
+              <ContainerInfoIcon>
+                <Information />
+              </ContainerInfoIcon>
+            </CustomPopover>
+            <ContainerInformation>
+              <ContainerNumberCell value={data.balance} />
+              <ContainerStyleMonths>{data.months}</ContainerStyleMonths>
+            </ContainerInformation>
+          </Container>
+        )}
+      </PopoverContainer>
+      {isMobileResolution && (
+        <PopoverContainer>
+          <Container>
+            <ContainerInfoIcon onClick={handleOnClick}>
+              <Information />
+            </ContainerInfoIcon>
+
+            <ContainerInformation>
+              <ContainerNumberCell value={data.balance} />
+              <ContainerStyleMonths>{data.months}</ContainerStyleMonths>
+            </ContainerInformation>
+          </Container>
+        </PopoverContainer>
+      )}
+      {isMobileResolution && isOpen && isMobileDevice && (
+        <ModalSheet>
+          <ModalSheetValueContent
             toolTipData={{
-              link: data.link,
               description: data.description,
+              link: data.link,
               mipNumber: data.mipNumber,
             }}
             longCode={data.longCode}
             name={data.name}
           />
-        }
-        leaveOnChildrenMouseOut
-      >
-        <ContainerInfoIcon>
-          <Information />
-        </ContainerInfoIcon>
-      </CustomPopover>
-      <ContainerInformation>
-        <ContainerNumberCell value={data.balance} />
-        <ContainerStyleMonths>{data.months}</ContainerStyleMonths>
-      </ContainerInformation>
-    </Container>
-  </PopoverContainer>
-);
+        </ModalSheet>
+      )}
+      {isMobileResolution && isOpen && isMobileDevice && <ContainerOverlay isLight={isLight} onClick={handleOnClick} />}
+    </div>
+  );
+};
+
+const ContainerOverlay = styled.div<WithIsLightAndClick>(({ isLight, onClick }) => ({
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  background: isLight ? 'rgba(52, 52, 66, 0.1)' : 'rgba(0, 22, 78, 0.1);',
+  backdropFilter: isLight ? 'blur(2px)' : 'blur(4px)',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  zIndex: zIndexEnum.OVERLAY_MOBILE_TOOLTIP,
+  cursor: onClick ? 'default' : undefined,
+}));
+
+const ModalSheet = styled.div({
+  width: 375,
+  zIndex: 5,
+  position: 'fixed',
+  bottom: 0,
+  left: 0,
+  right: 0,
+  margin: '0 auto',
+});
 
 const PopoverContainer = styled.div({
   display: 'flex',
@@ -115,22 +205,26 @@ const PopoverContainer = styled.div({
 });
 const Container = styled.div({
   flex: 1,
+  width: '100%',
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'space-between',
-  marginLeft: 8.5,
   marginTop: -8,
   [lightTheme.breakpoints.up('table_834')]: {
+    width: '100%',
     flexDirection: 'row-reverse',
     marginLeft: 0,
     marginTop: 0,
   },
 });
 
-const ContainerInfoIcon = styled.div({
+export const ContainerInfoIcon = styled.div({
   paddingRight: 0,
   marginTop: -10,
+  display: 'flex',
+
+  flexDirection: 'row',
   [lightTheme.breakpoints.up('table_834')]: {
     height: 32,
     display: 'flex',
