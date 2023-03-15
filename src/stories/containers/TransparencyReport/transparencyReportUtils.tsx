@@ -73,11 +73,14 @@ interface WithIsLightAndClick {
 export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
   const { isLight } = useThemeContext();
   const [isOpen, setIsOpen] = useState(false);
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  // Remove this condition to library when be ready to testing real device
+  const isMobileDevice = true;
+
+  const isMobileResolution = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const { lockScroll, unlockScroll } = useScrollLock();
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && isMobileDevice) {
       const pageWrapper = getPageWrapper();
       if (pageWrapper) {
         pageWrapper.style.overflow = 'hidden';
@@ -88,7 +91,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
     return () => {
       unlockScroll();
     };
-  }, [isOpen, lockScroll, unlockScroll]);
+  }, [isMobileDevice, isOpen, lockScroll, unlockScroll]);
 
   const handleOnClick = () => {
     setIsOpen(!isOpen);
@@ -97,7 +100,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
   return (
     <div>
       <PopoverContainer>
-        {!isMobile && (
+        {!isMobileResolution && (
           <Container>
             <CustomPopover
               widthArrow
@@ -137,7 +140,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
           </Container>
         )}
       </PopoverContainer>
-      {isMobile && (
+      {isMobileResolution && (
         <PopoverContainer>
           <Container>
             <ContainerInfoIcon onClick={handleOnClick}>
@@ -151,7 +154,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
           </Container>
         </PopoverContainer>
       )}
-      {isMobile && isOpen && (
+      {isMobileResolution && isOpen && isMobileDevice && (
         <ModalSheet>
           <ModalSheetValueContent
             toolTipData={{
@@ -164,7 +167,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
           />
         </ModalSheet>
       )}
-      {isMobile && isOpen && <ContainerOverlay isLight={isLight} onClick={handleOnClick} />}
+      {isMobileResolution && isOpen && isMobileDevice && <ContainerOverlay isLight={isLight} onClick={handleOnClick} />}
     </div>
   );
 };
