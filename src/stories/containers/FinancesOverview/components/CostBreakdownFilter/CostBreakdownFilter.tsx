@@ -29,6 +29,7 @@ const CostBreakdownFilter: React.FC<CostBreakdownFilterProps> = ({ selectedFilte
         selected={selectedFilter === 'By Category'}
         label={'By Expense Category'}
         allowsHover={false}
+        padding={'8px 23px!important'}
       />
     </FiltersContainer>
   );
@@ -45,9 +46,10 @@ const FiltersContainer = styled.div({
 const FilterButton = styled(CustomButton)<{ selected?: boolean }>(({ selected = false }) => ({
   background: selected ? '#1AAB9B' : '#FFFFFF',
   border: `1px solid ${selected ? 'transparent' : '#D4D9E1'}`,
-  padding: '8px 24px',
+  padding: '6px 24px',
 
   '& > div': {
     color: selected ? '#FFFFFF' : '#9FAFB9',
+    lineHeight: '16px',
   },
 }));

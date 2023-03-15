@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Divider } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -34,14 +35,25 @@ const ExpenseCategoryGroup: React.FC<ExpenseCategoryGroupProps> = ({ name, child
 
 export default ExpenseCategoryGroup;
 
-const GroupContainer = styled.div({});
-
 const NameContainer = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
   overflow: 'hidden',
+  margin: '24px 0',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    margin: '16px 0',
+  },
+});
+
+const GroupContainer = styled.div({
+  [lightTheme.breakpoints.down('table_834')]: {
+    '&:first-child > div:first-child': {
+      marginTop: 40,
+    },
+  },
 });
 
 const Name = styled.div<WithIsLight>(({ isLight }) => ({
@@ -53,6 +65,11 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#9FAFB9' : 'red',
   padding: '0 16px',
   minWidth: 'fit-content',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: 12,
+    lineHeight: '15px',
+  },
 }));
 
 const NameLines = styled(Divider)({

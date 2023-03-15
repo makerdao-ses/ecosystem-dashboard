@@ -1,13 +1,11 @@
 import styled from '@emotion/styled';
-import { LinkButton } from '@ses/components/LinkButton/LinkButton';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
-import { siteRoutes } from '@ses/config/routes';
-import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import React from 'react';
 import lightTheme from 'styles/theme/light';
 import CostBreakdownTable from './components/CostBreakdownTable/CostBreakdownTable';
 import ExpensesChart from './components/ExpensesChart/ExpensesChart';
+import NavigationButtons from './components/NavigationButtons/NavigationButtons';
 import QuarterCarousel from './components/QuarterCarousel/QuarterCarousel';
 import YearPicker from './components/YearPicker/YearPicker';
 import useFinancesOverview from './useFinancesOverview';
@@ -30,7 +28,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ m
     newPrediction,
     totalExpenses,
     sortedQuarters,
-    isMobile,
+    isDownTable,
     selectedFilter,
     setSelectedFilter,
   } = useFinancesOverview(quarterExpenses, monthlyExpenses);
@@ -66,39 +64,12 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ m
         <BreakdownSectionContainer>
           <ExpensesChartColumn>
             <ExpensesChart newActual={newActual} newDiscontinued={newDiscontinued} newPrediction={newPrediction} />
-            <NavigationButtonsContainer>
-              <LinkButton
-                href={siteRoutes.coreUnitsOverview}
-                label="Core Units"
-                buttonType={ButtonType.Primary}
-                styleText={{
-                  fontSize: isMobile ? 14 : 16,
-                  fontWeight: 500,
-                  lineHeight: isMobile ? '18px' : '19px',
-                }}
-                style={{
-                  padding: isMobile ? '8px 24px' : '14.5px 85.5px',
-                }}
-              />
-
-              <LinkButton
-                href={siteRoutes.recognizedDelegate}
-                label="Recognized Delegates"
-                buttonType={ButtonType.Primary}
-                styleText={{
-                  fontSize: isMobile ? 14 : 16,
-                  fontWeight: 500,
-                  lineHeight: isMobile ? '18px' : '19px',
-                }}
-                style={{
-                  padding: isMobile ? '8px 24px' : '14.5px 40px',
-                }}
-              />
-            </NavigationButtonsContainer>
+            {!isDownTable && <NavigationButtons />}
           </ExpensesChartColumn>
           <BreakdownTableColumn>
             <CostBreakdownTable selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter} />
           </BreakdownTableColumn>
+          {isDownTable && <NavigationButtons />}
         </BreakdownSectionContainer>
       </InnerPage>
     </Container>
@@ -154,7 +125,7 @@ const PageTitle = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
   letterSpacing: '0.4px',
   color: isLight ? '#231536' : '#FFFFFF',
   marginTop: 32,
-  marginBottom: 24,
+  marginBottom: 32,
 
   [lightTheme.breakpoints.up('table_834')]: {
     fontSize: 24,
@@ -169,18 +140,11 @@ const PageTitle = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
   },
 }));
 
-const NavigationButtonsContainer = styled.div({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'center',
-  gap: 24,
-  textAlign: 'center',
-  marginTop: 40,
-});
-
 const ContainerYearPicker = styled.div({
   marginBottom: 24,
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  marginTop: 8,
+
+  [lightTheme.breakpoints.between('desktop_1194', 'desktop_1440')]: {
     marginBottom: 16,
   },
 });
@@ -192,7 +156,7 @@ const TotalReported = styled.div({
   marginBottom: 16,
 
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    marginBottom: 32,
+    marginBottom: 0,
   },
 });
 
@@ -226,7 +190,7 @@ const TotalDescription = styled.label<WithIsLight>(({ isLight }) => ({
   fontSize: '16px',
   lineHeight: '22px',
   color: isLight ? '#231536' : '#EDEFFF',
-  marginTop: 4,
+  marginTop: 2,
 
   [lightTheme.breakpoints.up('table_834')]: {
     fontWeight: 500,
@@ -238,12 +202,41 @@ const TotalDescription = styled.label<WithIsLight>(({ isLight }) => ({
 
 const BreakdownSectionContainer = styled.div({
   display: 'flex',
-  gap: 64,
+  flexDirection: 'column',
+  gap: 38,
+
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    gap: 18,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    flexDirection: 'row',
+    gap: 40,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    gap: 64,
+  },
 });
 
 const ExpensesChartColumn = styled.div({
-  width: 504,
-  marginTop: 48,
+  width: 343,
+  marginTop: 16,
+
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    margin: '32px auto 0',
+    width: 666,
+    paddingRight: 59,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    margin: '52px auto 0',
+    width: 479,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    width: 504,
+  },
 });
 
 const BreakdownTableColumn = styled.div({
