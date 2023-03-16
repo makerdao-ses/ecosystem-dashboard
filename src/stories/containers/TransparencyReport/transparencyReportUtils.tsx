@@ -157,8 +157,6 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                   marginLeft: '43px',
                   marginTop: 1.5,
                 },
-                display: 'flex',
-                justifyContent: 'center',
               }}
               id="information"
               popupStyle={{
