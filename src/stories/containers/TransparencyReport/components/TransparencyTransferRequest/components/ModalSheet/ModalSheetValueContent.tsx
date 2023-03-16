@@ -55,7 +55,6 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
     : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
   borderRadius: '22px 22px 0px 0px',
   padding: 16,
-  width: 375,
 }));
 const Description = styled.div<WithIsLight>(({ isLight }) => ({
   marginBottom: 16,

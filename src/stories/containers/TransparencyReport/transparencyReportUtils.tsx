@@ -9,6 +9,7 @@ import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import { useScrollLock } from '@ses/core/hooks/useScrollLock';
 import { getPageWrapper } from '@ses/core/utils/dom';
 import lightTheme from '@ses/styles/theme/light';
+import MobileDetect from 'mobile-detect';
 import React, { useEffect, useState } from 'react';
 import { formatAddressForOutput } from '../../../core/utils/string';
 import { CustomLink } from '../../components/CustomLink/CustomLink';
@@ -73,20 +74,23 @@ interface WithIsLightAndClick {
 export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
   const { isLight } = useThemeContext();
   const [isOpen, setIsOpen] = useState(false);
-  // Remove this condition to library when be ready to testing real device
-  const isMobileDevice = true;
 
+  const md = new MobileDetect(window.navigator.userAgent);
+  const isMobileDevice = !!md.mobile();
   const isMobileResolution = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+
   const { lockScroll, unlockScroll } = useScrollLock();
 
   useEffect(() => {
-    if (isOpen && isMobileDevice) {
-      const pageWrapper = getPageWrapper();
-      if (pageWrapper) {
-        pageWrapper.style.overflow = 'hidden';
-      }
+    if (isMobileDevice) {
+      if (isOpen) {
+        const pageWrapper = getPageWrapper();
+        if (pageWrapper) {
+          pageWrapper.style.overflow = 'hidden';
+        }
 
-      lockScroll();
+        lockScroll();
+      }
     }
     return () => {
       unlockScroll();
@@ -139,19 +143,61 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
             </ContainerInformation>
           </Container>
         )}
-      </PopoverContainer>
-      {isMobileResolution && (
-        <PopoverContainer>
+        {isMobileResolution && !isMobileDevice && (
           <Container>
-            <ContainerInfoIcon onClick={handleOnClick}>
-              <Information />
-            </ContainerInfoIcon>
-
+            <CustomPopover
+              widthArrow
+              alignArrow="center"
+              sxProps={{
+                '& .css-3bmhjh-MuiPaper-root-MuiPopover-paper': {
+                  overflowX: 'unset',
+                  overflowY: 'unset',
+                },
+                marginLeft: -13,
+                marginTop: 2,
+              }}
+              id="information"
+              popupStyle={{
+                padding: 10,
+              }}
+              title={
+                <ArrowPopoverTargetValueComponent
+                  toolTipData={{
+                    link: data.link,
+                    description: data.description,
+                    mipNumber: data.mipNumber,
+                  }}
+                  longCode={data.longCode}
+                  name={data.name}
+                />
+              }
+              leaveOnChildrenMouseOut
+            >
+              <ContainerInfoIcon>
+                <Information />
+              </ContainerInfoIcon>
+            </CustomPopover>
             <ContainerInformation>
               <ContainerNumberCell value={data.balance} />
               <ContainerStyleMonths>{data.months}</ContainerStyleMonths>
             </ContainerInformation>
           </Container>
+        )}
+      </PopoverContainer>
+      {isMobileResolution && (
+        <PopoverContainer>
+          {isMobileResolution && isMobileDevice && (
+            <Container>
+              <ContainerInfoIcon onClick={handleOnClick}>
+                <Information />
+              </ContainerInfoIcon>
+
+              <ContainerInformation>
+                <ContainerNumberCell value={data.balance} />
+                <ContainerStyleMonths>{data.months}</ContainerStyleMonths>
+              </ContainerInformation>
+            </Container>
+          )}
         </PopoverContainer>
       )}
       {isMobileResolution && isOpen && isMobileDevice && (
@@ -188,13 +234,12 @@ const ContainerOverlay = styled.div<WithIsLightAndClick>(({ isLight, onClick }) 
 }));
 
 const ModalSheet = styled.div({
-  width: 375,
+  width: '100%',
   zIndex: 5,
   position: 'fixed',
   bottom: 0,
   left: 0,
   right: 0,
-  margin: '0 auto',
 });
 
 const PopoverContainer = styled.div({
