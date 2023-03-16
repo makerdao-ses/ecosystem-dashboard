@@ -26,8 +26,7 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
   const [selectedYear, setSelectedYear] = useState<number>(() => DateTime.local().year);
 
   const { isLight } = useThemeContext();
-  const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
-  const isTable = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
+  const isDownTable = useMediaQuery(lightTheme.breakpoints.down('desktop_1194'));
   const years = [2021, 2022, 2023];
 
   const handleChangeSelectYear = (year: number) => {
@@ -147,8 +146,7 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
     newPrediction,
     newActual,
     totalExpenses,
-    isMobile,
-    isTable,
+    isDownTable,
     selectedFilter,
     setSelectedFilter,
   };

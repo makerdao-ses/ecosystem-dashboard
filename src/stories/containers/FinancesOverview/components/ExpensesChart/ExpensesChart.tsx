@@ -18,9 +18,11 @@ interface Props {
 
 const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPrediction }: Props) => {
   const { isLight } = useThemeContext();
+  const isUpDesktop1194 = useMediaQuery(lightTheme.breakpoints.up('desktop_1194'));
   const isTable = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const upTable = useMediaQuery(lightTheme.breakpoints.up('table_834'));
   const isZeroValue = false;
+
   const options = {
     grid: {
       height: upTable ? 317 : 204,
@@ -97,7 +99,7 @@ const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPredict
           color: isLight ? '#ECF1F3' : '#10191F',
           borderRadius: 6,
         },
-        barWidth: upTable ? 32 : 22,
+        barWidth: upTable && !isUpDesktop1194 ? 40 : isUpDesktop1194 ? 32 : 22,
         itemStyle: {
           color: isLight ? '#0EB19F' : '#027265',
         },
@@ -112,7 +114,7 @@ const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPredict
           color: isLight ? '#ECF1F3' : '#10191F',
           borderRadius: 6,
         },
-        barWidth: upTable ? 32 : 22,
+        barWidth: upTable && !isUpDesktop1194 ? 40 : isUpDesktop1194 ? 32 : 22,
         itemStyle: {
           color: isLight ? '#027265' : '#2C3F3B',
         },
@@ -127,7 +129,7 @@ const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPredict
           color: isLight ? '#ECF1F3' : '#10191F',
           borderRadius: 6,
         },
-        barWidth: upTable ? 32 : 22,
+        barWidth: upTable && !isUpDesktop1194 ? 40 : isUpDesktop1194 ? 32 : 22,
         itemStyle: {
           color: isLight ? '#68FEE3' : '#1AAB9B',
         },
@@ -141,7 +143,7 @@ const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPredict
         <LegendItem
           color={isLight ? '#0EB19F' : '#027265'}
           text="Active Budget"
-          style={{ paddingLeft: isTable ? 0 : upTable ? 10 : 8 }}
+          style={{ paddingLeft: isTable ? 0 : upTable ? 10 : 10 }}
         />
         <LegendItem color={isLight ? '#027265' : '#2C3F3B'} text="Discontinued" />
         <LegendItem color={isLight ? '#68FEE3' : '#1AAB9B'} text="Expense forecasts" />
@@ -174,8 +176,19 @@ const Container = styled.div({
   justifyContent: 'center',
   paddingLeft: 4,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     height: 387,
+    width: 607,
+    maxWidth: 607,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    height: 387,
+    width: 479,
+    maxWidth: 479,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     width: 504,
     maxWidth: 504,
   },
@@ -190,8 +203,19 @@ const Legend = styled.div({
 
   [lightTheme.breakpoints.up('table_834')]: {
     marginBottom: -8,
-    paddingLeft: 39,
+    paddingLeft: 60,
+    maxWidth: 607,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginBottom: -8,
+    paddingLeft: 11,
+    maxWidth: 479,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     maxWidth: 504,
+    paddingLeft: 36,
   },
 });
 
