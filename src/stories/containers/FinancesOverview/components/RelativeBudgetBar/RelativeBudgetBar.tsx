@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -14,7 +15,6 @@ const RelativeBudgetBar: React.FC<RelativeBudgetBarProps> = ({ budgetCap, actual
   const barRef = useRef<HTMLDivElement>(null);
   const [actualsWidth, setActualsWidth] = useState<number>(0);
   const [predictionWidth, setPredictionWidth] = useState<number>(0);
-  const [budgetCapPosition, setBudgetCapPosition] = useState<number>(0);
 
   const updateBars = useCallback(() => {
     if (!barRef) return;
@@ -25,7 +25,6 @@ const RelativeBudgetBar: React.FC<RelativeBudgetBarProps> = ({ budgetCap, actual
 
     setActualsWidth(((actuals / maxValue) * max * maxPercentage) / max);
     setPredictionWidth(((prediction / maxValue) * max * maxPercentage) / max);
-    setBudgetCapPosition(((budgetCap / maxValue) * max * maxPercentage) / max);
   }, [actuals, budgetCap, prediction]);
 
   useEffect(() => {
@@ -36,7 +35,6 @@ const RelativeBudgetBar: React.FC<RelativeBudgetBarProps> = ({ budgetCap, actual
     <BudgetBar isLight={isLight} ref={barRef}>
       {prediction > 0 && <Prediction isLight={isLight} width={predictionWidth} />}
       {actuals > 0 && <Actuals isLight={isLight} width={actualsWidth} />}
-      {budgetCap > 0 && <BudgetCapLine position={budgetCapPosition} />}
     </BudgetBar>
   );
 };
@@ -46,13 +44,15 @@ export default RelativeBudgetBar;
 const BudgetBar = styled.div<WithIsLight>(({ isLight }) => ({
   position: 'relative',
   width: '100%',
-  height: 12,
+  height: 24,
   overflow: 'hidden',
   borderRadius: 6,
-  background: isLight ? '#ECF1F3' : 'orange',
-  filter: isLight
-    ? 'drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))'
-    : 'drop-shadow(2px 4px 7px rgba(255, 0, 0, 0.8))',
+  background: isLight ? '#ECF1F3' : '#10191F',
+  boxShadow: isLight ? '2px 4px 7px rgba(26, 171, 155, 0.25)' : '2px 3px 10px rgba(23, 35, 44, 0.7)',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    height: 12,
+  },
 }));
 
 const Actuals = styled.div<WithIsLight & { width: number }>(({ isLight, width }) => ({
@@ -75,13 +75,4 @@ const Prediction = styled.div<WithIsLight & { width: number }>(({ isLight, width
   width: `${width}%`,
   height: '100%',
   transition: 'width 0.85s ease-in-out',
-}));
-
-const BudgetCapLine = styled.div<{ position: number }>(({ position }) => ({
-  position: 'absolute',
-  top: 0,
-  left: `${position}%`,
-  width: 1,
-  height: '100%',
-  background: '#F75524',
 }));

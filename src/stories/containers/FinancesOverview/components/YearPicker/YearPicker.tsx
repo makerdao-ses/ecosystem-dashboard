@@ -86,7 +86,11 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
-  gap: 16,
+  gap: 8,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    gap: 16,
+  },
 });
 
 const ContainerButtons = styled.div({

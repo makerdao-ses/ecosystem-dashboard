@@ -1,10 +1,12 @@
 import styled from '@emotion/styled';
 import { Popover } from '@mui/material';
 import { getPageWrapper } from '@ses/core/utils/dom';
+
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import type { SxProps } from '@mui/material/styles';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
+import type { PopoverPaperType, WithIsLight } from '@ses/core/utils/typesHelpers';
+
 import type { CSSProperties } from 'react';
 interface CustomPopoverProps {
   title?: JSX.Element | string;
@@ -17,6 +19,7 @@ interface CustomPopoverProps {
     horizontal: 'left' | 'center' | 'right';
   };
   leaveOnChildrenMouseOut?: boolean;
+  popoverStyle?: PopoverPaperType;
   sxProps?: SxProps;
   widthArrow?: boolean;
   alignArrow?: 'center' | 'right';
@@ -33,6 +36,7 @@ export const PopoverPaperStyle = (isLight: boolean) => ({
 
 export const CustomPopover = ({
   leaveOnChildrenMouseOut = false,
+  popoverStyle,
   anchorOrigin = {
     vertical: 'bottom',
     horizontal: 'center',
@@ -54,6 +58,7 @@ export const CustomPopover = ({
 
   const handlePopoverClose = () => {
     setAnchorEl(null);
+
     const wrapper = getPageWrapper();
     if (wrapper) {
       wrapper.removeEventListener('onscroll', handlePopoverClose);
@@ -96,7 +101,7 @@ export const CustomPopover = ({
         onClose={handlePopoverClose}
         disableRestoreFocus
         PaperProps={{
-          style: PopoverPaperStyle(isLight),
+          style: popoverStyle || PopoverPaperStyle(isLight),
         }}
       >
         <Container
@@ -124,24 +129,26 @@ const Container = styled.div({
   fontWeight: 400,
 });
 
-const ContainerTriangle = styled.div<WithIsLight & { alignArrow?: 'center' | 'right' }>(({ alignArrow, isLight }) => ({
-  backgroundColor: isLight ? 'white' : '#000A13',
-  borderRadius: '6px',
-  '&:after , &:before': {
-    content: '""',
-    display: 'block',
-    position: 'absolute',
-    width: 0,
-    height: 0,
-    borderStyle: 'solid',
-    left: alignArrow === 'center' ? 135 : alignArrow === 'right' ? 257 : 35,
-    borderColor: 'transparent',
-    borderWidth: '0 8px  16px  8px',
-    borderBottomColor: isLight ? 'white' : '#000A13',
-    top: -14,
-  },
-  ':before': {
-    top: -16,
-    borderBottomColor: isLight ? '#D4D9E1' : '#231536',
-  },
-}));
+const ContainerTriangle = styled.div<WithIsLight & { alignArrow?: 'center' | 'right' }>(
+  ({ alignArrow = undefined, isLight }) => ({
+    backgroundColor: isLight ? 'white' : '#000A13',
+    borderRadius: '6px',
+    '&:after , &:before': {
+      content: '""',
+      display: 'block',
+      position: 'absolute',
+      width: 0,
+      height: 0,
+      borderStyle: 'solid',
+      left: alignArrow === 'center' ? 135 : alignArrow === 'right' ? 257 : 35,
+      borderColor: 'transparent',
+      borderWidth: '0 8px  16px  8px',
+      borderBottomColor: isLight ? 'white' : '#000A13',
+      top: -14,
+    },
+    ':before': {
+      top: -16,
+      borderBottomColor: isLight ? '#D4D9E1' : '#231536',
+    },
+  })
+);
