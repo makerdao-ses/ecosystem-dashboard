@@ -87,6 +87,9 @@ const Card = styled.div<WithIsLight>(({ isLight }) => ({
   [lightTheme.breakpoints.up('table_834')]: {
     padding: 16,
   },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    padding: '16px 24px',
+  },
 }));
 
 const PredictionWrapper = styled.div({
