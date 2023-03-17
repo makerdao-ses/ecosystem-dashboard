@@ -249,7 +249,6 @@ const PopoverContainer = styled.div({
   flex: 1,
 });
 const Container = styled.div({
-  flex: 1,
   width: '100%',
   display: 'flex',
   flexDirection: 'row',
@@ -260,6 +259,7 @@ const Container = styled.div({
     width: '100%',
     flexDirection: 'row-reverse',
     marginLeft: 0,
+
     marginTop: 0,
   },
 });
@@ -268,12 +268,20 @@ export const ContainerInfoIcon = styled.div({
   paddingRight: 0,
   marginTop: -10,
   display: 'flex',
-
   flexDirection: 'row',
-  [lightTheme.breakpoints.up('table_834')]: {
+
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     height: 32,
     display: 'flex',
     alignItems: 'center',
+    marginTop: 0,
+    marginRight: 12.5,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    height: 32,
+    alignItems: 'center',
+
+    marginRight: 20,
     marginTop: 0,
   },
 });
@@ -283,8 +291,14 @@ const ContainerInformation = styled.div({
   flex: 1,
   flexDirection: 'column',
   alignItems: 'flex-end',
-  [lightTheme.breakpoints.up('table_834')]: {
-    alignItems: 'flex-start',
+
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    alignItems: 'flex-end',
+    marginRight: 4.5,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    alignItems: 'flex-end',
+    marginRight: 14,
   },
 });
 
@@ -292,6 +306,8 @@ const ContainerNumberCell = styled(NumberCell)({
   paddingBottom: 2,
   '@media (min-width: 834px)': {
     paddingBottom: 0,
+    paddingRight: 0,
+    paddingTop: 0,
   },
 });
 
@@ -300,5 +316,19 @@ const ContainerStyleMonths = styled.div({
   fontSize: '11px',
   lineHeight: '13px',
   color: '#546978',
-  marginLeft: 16,
+  [lightTheme.breakpoints.up('table_834')]: {
+    whiteSpace: 'nowrap',
+  },
+});
+
+export const TotalTargetBalance = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  flex: 1,
+  justifyContent: 'flex-end',
+  textAlign: 'center',
+  fontWeight: 700,
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginRight: 32,
+  },
 });
