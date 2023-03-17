@@ -113,7 +113,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                   overflowX: 'unset',
                   overflowY: 'unset',
                 },
-                marginLeft: -5.5,
+                marginLeft: -6.7,
                 marginTop: 0.6,
               }}
               id="information"
