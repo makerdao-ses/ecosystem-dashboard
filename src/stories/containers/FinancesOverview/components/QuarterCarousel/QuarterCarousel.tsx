@@ -63,6 +63,10 @@ const CardWrapper = styled.div({
   marginRight: 8,
   marginBottom: 40,
   width: '100%',
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    marginLeft: 12,
+    marginRight: 12,
+  },
 });
 
 const Divider = styled.div({
