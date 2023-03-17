@@ -8,14 +8,14 @@ export default {
   component: QuarterCard,
   decorators: [
     (Story: Story) => (
-      <div style={{ maxWidth: 270.5 }}>
+      <div style={{ maxWidth: 310 }}>
         <Story />
       </div>
     ),
   ],
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1194],
+      viewports: [375, 834, 1194, 1440],
       pauseAnimationAtEnd: true,
     },
   },
@@ -63,6 +63,19 @@ LightMode.parameters = {
         options: {
           componentStyle: {
             width: 270.5,
+          },
+          style: {
+            top: -1,
+            left: -40,
+          },
+        },
+      },
+      1440: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=15343:199281&t=u7vF8lSvHCDE6Xof-4',
+        options: {
+          componentStyle: {
+            width: 310,
           },
           style: {
             top: -1,
