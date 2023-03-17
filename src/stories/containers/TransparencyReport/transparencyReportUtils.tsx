@@ -152,9 +152,11 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                 '& .css-3bmhjh-MuiPaper-root-MuiPopover-paper': {
                   overflowX: 'unset',
                   overflowY: 'unset',
+
+                  left: '0px!important',
+                  marginLeft: '43px',
+                  marginTop: 1.5,
                 },
-                marginLeft: -13,
-                marginTop: 2,
               }}
               id="information"
               popupStyle={{
