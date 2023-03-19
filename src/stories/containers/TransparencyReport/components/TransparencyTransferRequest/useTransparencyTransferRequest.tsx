@@ -1,7 +1,7 @@
 import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
 import { formatNumber } from '@ses/core/utils/string';
 import { useMemo } from 'react';
-import { renderLinks, RenderNumberWithIcon, renderWallet } from '../../transparencyReportUtils';
+import { renderLinks, RenderNumberWithIcon, renderWallet, TotalTargetBalance } from '../../transparencyReportUtils';
 import { useTransparencyForecast } from '../TransparencyForecast/useTransparencyForecast';
 import type { InnerTableColumn, InnerTableRow } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
@@ -102,7 +102,7 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
       {
         header: 'Target Balance',
         type: 'custom',
-        align: 'left',
+        align: 'right',
 
         cellRender: RenderNumberWithIcon,
       },
@@ -182,11 +182,11 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
             column: mainTableColumns[1],
 
             value: (
-              <b>
+              <TotalTargetBalance>
                 {formatNumber(
                   getForecastSumForMonths(budgetStatements, currentMonth, [firstMonth, secondMonth, thirdMonth])
                 )}
-              </b>
+              </TotalTargetBalance>
             ),
           },
           {
