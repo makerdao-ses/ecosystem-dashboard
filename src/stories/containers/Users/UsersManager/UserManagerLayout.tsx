@@ -56,7 +56,7 @@ const MainWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   flexDirection: 'column',
   width: '100%',
   minHeight: '100vh',
-  marginTop: 64,
+  paddingTop: 64,
   backgroundColor: isLight ? '#FFFFFF' : '#000000',
   backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/login-bg.png)',
   backgroundAttachment: 'fixed',

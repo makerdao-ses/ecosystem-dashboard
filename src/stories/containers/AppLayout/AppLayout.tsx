@@ -23,6 +23,6 @@ export default AppLayout;
 
 const Container = styled.div({
   display: 'flex',
-  background: 'white',
+  // background: 'white',
   minHeight: 'calc(100vh - 320px)',
 });
