@@ -3,8 +3,9 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
 import { useCallback, useMemo, useState } from 'react';
+import { isCoreUnitExpense, mutableCombinationExpenseByAdding } from './utils/costBreakdown';
 import { parseQuarter } from './utils/quarters';
-import type { CostBreakdownFilterValue } from './financesOverviewTypes';
+import type { CostBreakdownFilterValue, ExtendedExpense } from './financesOverviewTypes';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 
 const noneBorder = [0, 0, 0, 0];
@@ -12,7 +13,11 @@ const lowerBorder = [0, 0, 6, 6];
 const superiorBorder = [6, 6, 0, 0];
 const fullBorder = [6, 6, 6, 6];
 
-const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partial<ExpenseDto>[]) => {
+const useFinancesOverview = (
+  quarterExpenses: ExpenseDto[] = [],
+  monthly: Partial<ExpenseDto>[],
+  breakdownExpenses: ExtendedExpense[]
+) => {
   const sortedQuarters = useMemo(
     () =>
       quarterExpenses.sort((a, b) => {
@@ -135,6 +140,53 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
   // cost breakdown
   const [selectedFilter, setSelectedFilter] = useState<CostBreakdownFilterValue>('By budget');
 
+  const { byBudgetExpenses, costBreakdownTotal, remainingBudgetCU, remainingBudgetDelegates } = useMemo(() => {
+    let costBreakdownTotal = 0;
+    const byBudgetExpenses: ExtendedExpense[] = [];
+    // const byCategory: ExtendedExpense[] = [];
+    const remainingBudgetCU = {
+      shortCode: 'CU',
+      name: 'Remaining Core Units',
+      actuals: 0,
+      budgetCap: 0,
+      budget: 'makerdao/core-units',
+      discontinued: 0,
+      period: selectedYear.toString(),
+      prediction: 0,
+    } as ExtendedExpense;
+    const remainingBudgetDelegates = {
+      shortCode: 'DEL',
+      name: 'Remaining Recognized Delegates',
+      actuals: 0,
+      budgetCap: 0,
+      budget: 'makerdao/delegates',
+      discontinued: 0,
+      period: selectedYear.toString(),
+      prediction: 0,
+    } as ExtendedExpense;
+
+    breakdownExpenses
+      .filter((expense) => expense.period === selectedYear.toString())
+      .sort((a, b) => b.prediction - a.prediction)
+      .forEach((expense, index) => {
+        costBreakdownTotal += expense.prediction;
+        if (index < 10) {
+          byBudgetExpenses.push(expense);
+        } else if (isCoreUnitExpense(expense)) {
+          mutableCombinationExpenseByAdding(remainingBudgetCU, expense);
+        } else {
+          mutableCombinationExpenseByAdding(remainingBudgetDelegates, expense);
+        }
+      });
+
+    return {
+      byBudgetExpenses,
+      remainingBudgetCU,
+      remainingBudgetDelegates,
+      costBreakdownTotal,
+    };
+  }, [breakdownExpenses, selectedYear]);
+
   return {
     isLight,
     sortedQuarters,
@@ -149,6 +201,11 @@ const useFinancesOverview = (quarterExpenses: ExpenseDto[] = [], monthly: Partia
     isDownTable,
     selectedFilter,
     setSelectedFilter,
+    byBudgetExpenses,
+    // byCategoryExpenses,
+    remainingBudgetCU,
+    remainingBudgetDelegates,
+    costBreakdownTotal,
   };
 };
 

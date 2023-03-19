@@ -88,6 +88,74 @@ const variantsArgs = [
       new TotalExpenseReportsBuilder().withPrediction(231563).withActuals(632531).withMonthlyPeriod(2023, 11).build(),
       new TotalExpenseReportsBuilder().withPrediction(231563).withActuals(1242156).withMonthlyPeriod(2023, 12).build(),
     ] as Partial<ExpenseDto>[],
+    breakdownExpenses: [
+      new TotalExpenseReportsBuilder()
+        .withPrediction(5827878)
+        .withActuals(1082362)
+        .withAnnualPeriod(2023)
+        .extend('PE', 'Protocol Engineering')
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(3433400)
+        .withActuals(1082362)
+        .withAnnualPeriod(2023)
+        .extend('GRO', 'Growth')
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(3112752)
+        .withActuals(1082362)
+        .withAnnualPeriod(2023)
+        .extend('CES', 'Collateral Engineering Services')
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(2633200)
+        .withActuals(1082362)
+        .withAnnualPeriod(2023)
+        .extend('RISK', 'Risk')
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(2539612)
+        .withActuals(1082362)
+        .withAnnualPeriod(2023)
+        .extend('ORA', 'Oracles')
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(2364780)
+        .withActuals(1082362)
+        .withAnnualPeriod(2023)
+        .extend('DECO', 'Deco Protocol')
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(2364780)
+        .withActuals(1082362)
+        .withAnnualPeriod(2023)
+        .extend('TECH', 'TechOps')
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(1739908)
+        .withActuals(1082362)
+        .withAnnualPeriod(2023)
+        .extend('SF', 'Strategic Happiness')
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(1573652)
+        .withActuals(1082362)
+        .withAnnualPeriod(2023)
+        .extend('DEL', 'Feedback Loops LLC')
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(1240280)
+        .withActuals(1082362)
+        .withAnnualPeriod(2023)
+        .extend('DUX', 'Development & UX')
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(425631)
+        .withActuals(1082362)
+        .withAnnualPeriod(2023)
+        .extend('TEST', 'Testing')
+        .build(),
+    ],
   },
 ];
 

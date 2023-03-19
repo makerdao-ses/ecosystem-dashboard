@@ -7,30 +7,49 @@ import lightTheme from '@ses/styles/theme/light';
 import Link from 'next/link';
 import React from 'react';
 import RelativeBudgetBar from '../RelativeBudgetBar/RelativeBudgetBar';
+import type { ExtendedExpense } from '../../financesOverviewTypes';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface ByBudgetTableRowProps {
-  shortCode: string;
-  name: string;
+  expense: ExtendedExpense;
   total: number;
+  relativePercentage?: number;
+  rowType: 'coreUnit' | 'delegate' | 'remaining';
 }
 
-const ByBudgetTableRow: React.FC<ByBudgetTableRowProps> = ({ shortCode, name, total }) => {
+const ByBudgetTableRow: React.FC<ByBudgetTableRowProps> = ({
+  expense,
+  total,
+  relativePercentage = 100,
+  rowType = 'coreUnit',
+}) => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+
+  const link =
+    rowType === 'coreUnit'
+      ? siteRoutes.coreUnitReports(expense.shortCode ?? '')
+      : rowType === 'delegate' || expense.shortCode === 'DEL'
+      ? siteRoutes.recognizedDelegate
+      : siteRoutes.coreUnitsOverview;
 
   return (
     <Row isLight={isLight}>
       <MobileColumn>
-        <NameColumnComponent isLight={isLight} shortCode={shortCode} name={name} />
-        {isMobile && <TotalSpendColumnComponent isLight={isLight} total={total} />}
+        <NameColumnComponent isLight={isLight} shortCode={expense.shortCode ?? ''} name={expense.name} />
+        {isMobile && <TotalSpendColumnComponent isLight={isLight} total={expense.prediction} />}
       </MobileColumn>
 
-      <TotalPercentageColumnComponent isLight={isLight} />
-      {!isMobile && <TotalSpendColumnComponent isLight={isLight} total={total} />}
+      <TotalPercentageColumnComponent
+        isLight={isLight}
+        total={total}
+        expense={expense}
+        maxPercentage={relativePercentage}
+      />
+      {!isMobile && <TotalSpendColumnComponent isLight={isLight} total={expense.prediction} />}
 
       <ViewColumn>
-        <Link href={siteRoutes.coreUnitReports(shortCode)}>
+        <Link href={link} passHref>
           <ViewLink>View</ViewLink>
         </Link>
       </ViewColumn>
@@ -51,11 +70,18 @@ const NameColumnComponent: React.FC<WithIsLight & { shortCode: string; name: str
   </NameColumn>
 );
 
-const TotalPercentageColumnComponent: React.FC<WithIsLight> = ({ isLight }) => (
+const TotalPercentageColumnComponent: React.FC<
+  WithIsLight & { total: number; expense: ExtendedExpense; maxPercentage: number }
+> = ({ isLight, total, expense, maxPercentage }) => (
   <TotalPercentageColumn>
     <TotalBarContainer>
-      <RelativeBudgetBar budgetCap={20} actuals={14} prediction={16} />
-      <TotalPercentage isLight={isLight}>32%</TotalPercentage>
+      <RelativeBudgetBar
+        discontinued={expense.discontinued || 0}
+        actuals={expense.actuals}
+        prediction={expense.prediction || 0}
+        maxPercentage={maxPercentage}
+      />
+      <TotalPercentage isLight={isLight}>{Math.floor((expense.prediction * 100) / total)}%</TotalPercentage>
     </TotalBarContainer>
   </TotalPercentageColumn>
 );
@@ -63,7 +89,7 @@ const TotalPercentageColumnComponent: React.FC<WithIsLight> = ({ isLight }) => (
 const TotalSpendColumnComponent: React.FC<WithIsLight & { total: number }> = ({ isLight, total }) => (
   <TotalSpendColumn>
     <TotalNumber isLight={isLight}>
-      {usLocalizedNumber(total)} <DAISpan>DAI</DAISpan>
+      {usLocalizedNumber(Math.round(total))} <DAISpan>DAI</DAISpan>
     </TotalNumber>
   </TotalSpendColumn>
 );

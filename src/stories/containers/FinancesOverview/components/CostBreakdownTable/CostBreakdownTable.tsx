@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { percentageRespectTo } from '@ses/core/utils/math';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import { isCoreUnitExpense } from '../../utils/costBreakdown';
 import CostBreakdownFilter from '../CostBreakdownFilter/CostBreakdownFilter';
 import ByBudgetTableHeader from './ByBudgetTableHeader';
 import ByBudgetTableRow from './ByBudgetTableRow';
@@ -9,15 +11,26 @@ import ByExpenseCategoryTableHeader from './ByExpenseCategoryTableHeader';
 import ByExpenseCategoryTableRow from './ByExpenseCategoryTableRow';
 import ExpenseCategoryGroup from './ExpenseCategoryGroup';
 import TableFooter from './TableFooter';
-import type { CostBreakdownFilterValue } from '../../financesOverviewTypes';
+import type { CostBreakdownFilterValue, ExtendedExpense } from '../../financesOverviewTypes';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export interface CostBreakdownTableProps {
   selectedFilter: CostBreakdownFilterValue;
   setSelectedFilter: (value: CostBreakdownFilterValue) => void;
+  byBudgetExpenses: ExtendedExpense[];
+  remainingBudgetCU: ExtendedExpense;
+  remainingBudgetDelegates: ExtendedExpense;
+  total: number;
 }
 
-const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({ selectedFilter, setSelectedFilter }) => {
+const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
+  selectedFilter,
+  setSelectedFilter,
+  byBudgetExpenses,
+  remainingBudgetCU,
+  remainingBudgetDelegates,
+  total,
+}) => {
   const { isLight } = useThemeContext();
 
   return (
@@ -28,20 +41,37 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({ selectedFilter,
         <TableBody>
           {selectedFilter === 'By budget' ? (
             <>
-              <ByBudgetTableRow shortCode="PE" name="Protocol Engineering" total={5827878} />
-              <ByBudgetTableRow shortCode="GRO" name="Growth" total={3433400} />
-              <ByBudgetTableRow shortCode="CES" name="Collateral Engineering Services" total={3112752} />
-              <ByBudgetTableRow shortCode="RISK" name="Risk " total={2633200} />
-              <ByBudgetTableRow shortCode="SES" name="Sustainable Ecosystem Scaling" total={3112752} />
-              <ByBudgetTableRow shortCode="RISK" name="Risk " total={2633200} />
-              <ByBudgetTableRow shortCode="CES" name="Collateral" total={3112752} />
-              <ByBudgetTableRow shortCode="RISK" name="Risk " total={2633200} />
-              <ByBudgetTableRow shortCode="CES" name="Collateral" total={3112752} />
-              <ByBudgetTableRow shortCode="RISK" name="Risk " total={2633200} />
+              {byBudgetExpenses.map((budget, i) => (
+                <ByBudgetTableRow
+                  expense={budget}
+                  total={total}
+                  relativePercentage={
+                    i === 0 ? 100 : percentageRespectTo(byBudgetExpenses[i].prediction, byBudgetExpenses[0].prediction)
+                  }
+                  rowType={isCoreUnitExpense(budget) ? 'coreUnit' : 'delegate'}
+                  key={i}
+                />
+              ))}
 
               <RemainingContainer isLight={isLight}>
-                <ByBudgetTableRow shortCode="CU" name="Remaining Core Units" total={1226382} />
-                <ByBudgetTableRow shortCode="DEL" name="Remaining Recognized Delegates " total={1108500} />
+                <ByBudgetTableRow
+                  expense={remainingBudgetCU}
+                  total={total}
+                  relativePercentage={percentageRespectTo(
+                    remainingBudgetCU?.prediction,
+                    byBudgetExpenses[0]?.prediction
+                  )}
+                  rowType={'remaining'}
+                />
+                <ByBudgetTableRow
+                  expense={remainingBudgetDelegates}
+                  total={total}
+                  relativePercentage={percentageRespectTo(
+                    remainingBudgetDelegates?.prediction,
+                    byBudgetExpenses[0]?.prediction
+                  )}
+                  rowType={'remaining'}
+                />
               </RemainingContainer>
             </>
           ) : (
@@ -65,7 +95,7 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({ selectedFilter,
             </>
           )}
         </TableBody>
-        <TableFooter mode={selectedFilter} total={17892312} />
+        <TableFooter mode={selectedFilter} total={total} />
       </Table>
     </BreakdownTableContainer>
   );

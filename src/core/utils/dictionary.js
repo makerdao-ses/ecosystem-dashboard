@@ -116,6 +116,7 @@ const dictionary = [
   'lnum',
   'touchstart',
   'scrollable',
+  'deco',
 ];
 
 module.exports = dictionary;
