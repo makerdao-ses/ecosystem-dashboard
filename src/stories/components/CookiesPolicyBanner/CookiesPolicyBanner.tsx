@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
@@ -28,6 +29,7 @@ const CookiesPolicyBanner = ({
   const handleCheckbox = (key: (val: boolean) => void) => (val: boolean) => {
     key(!val);
   };
+  const notMobile = useMediaQuery(lightTheme.breakpoints.up('table_834'));
   return (
     <Container isLight={isLight}>
       <ContainerData>
@@ -60,6 +62,7 @@ const CookiesPolicyBanner = ({
               width: 285,
               height: 48,
               padding: '14.5px 76px',
+              marginRight: notMobile ? 24 : 0,
             }}
             styleText={{
               fontSize: '16px',
@@ -156,7 +159,6 @@ const ContainerButton = styled.div({
     display: 'flex',
     flexDirection: 'row',
     margin: '0 auto',
-    gap: '24px',
     marginTop: '24px',
     height: '48px',
   },
