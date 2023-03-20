@@ -44,8 +44,8 @@ const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ coreUnitCode, cu, a
           </RoleSection>
         ) : (
           <EmptyState isLight={isLight}>
-            The {mode === 'CoreUnits' ? `${coreUnitCode} Core Unit` : 'Recognized Delegate'} is currently working
-            without auditor
+            {mode === 'CoreUnits' ? ` The ${coreUnitCode}  Core Unit` : 'Recognized Delegate'} is currently working
+            without an auditor
           </EmptyState>
         )}
       </Card>

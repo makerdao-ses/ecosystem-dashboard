@@ -145,7 +145,7 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
 export default RecognizedDelegatesContainer;
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  marginTop: 64,
+  paddingTop: 64,
   width: '100%',
   backgroundColor: isLight ? '#FFFFFF' : '#000000',
   backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',

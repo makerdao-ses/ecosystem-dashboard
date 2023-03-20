@@ -9,7 +9,7 @@ export default {
   component: QuarterCarousel,
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1194],
+      viewports: [375, 834, 1194, 1440],
       pauseAnimationAtEnd: true,
     },
   },
@@ -68,8 +68,9 @@ export const [[LightMode, DarkMode]] = createThemeModeVariants(QuarterCarousel, 
 LightMode.parameters = {
   figma: {
     component: {
-      0: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13399%3A147553',
+      375: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=15491:165961&t=0uzloS94rCOJjOj1-4',
         options: {
           componentStyle: {
             maxWidth: 348,
@@ -97,6 +98,19 @@ LightMode.parameters = {
         options: {
           componentStyle: {
             width: 1130,
+          },
+          style: {
+            top: 0,
+            left: -40,
+          },
+        },
+      },
+      1440: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=15343:199190&t=1jQcjZZk6fFlTwlR-4',
+        options: {
+          componentStyle: {
+            width: 1312,
           },
           style: {
             top: 0,

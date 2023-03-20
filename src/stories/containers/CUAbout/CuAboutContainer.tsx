@@ -167,7 +167,7 @@ export default CuAboutContainer;
 const ContainerAbout = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
-  marginTop: '64px',
+  paddingTop: '64px',
   width: '100%',
   backgroundColor: isLight ? '#FFFFFF' : '#000000',
   backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
