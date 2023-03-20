@@ -220,7 +220,7 @@ const TotalDescription = styled.label<WithIsLight>(({ isLight }) => ({
 const BreakdownSectionContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  gap: 38,
+  gap: 39,
 
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     gap: 18,

@@ -11,12 +11,12 @@ export default {
   title: 'Pages/Finances Overview',
   component: FinancesOverviewContainer,
   decorators: [withoutSBPadding],
-  chromatic: {
-    viewports: [375, 834, 1194],
-    pauseAnimationAtEnd: true,
-  },
   parameters: {
     date: new Date('2023-02-14T04:14:00.000Z'),
+    chromatic: {
+      viewports: [375, 834, 1194, 1280, 1440, 1920],
+      pauseAnimationAtEnd: true,
+    },
   },
 } as ComponentMeta<typeof FinancesOverviewContainer>;
 

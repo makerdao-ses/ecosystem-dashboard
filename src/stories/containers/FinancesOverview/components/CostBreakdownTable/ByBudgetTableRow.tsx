@@ -136,6 +136,10 @@ const NameColumn = styled.div({
     paddingRight: 4,
     marginBottom: 0,
   },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    lineHeight: '23px',
+  },
 });
 
 const TotalPercentageColumn = styled.div({
