@@ -34,8 +34,9 @@ export const [[LightMode, DarkMode]] = createThemeModeVariants(QuarterCard, args
 LightMode.parameters = {
   figma: {
     component: {
-      0: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13399%3A147644',
+      375: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=15491:166053&t=0uzloS94rCOJjOj1-4',
         options: {
           componentStyle: {
             width: 164,
