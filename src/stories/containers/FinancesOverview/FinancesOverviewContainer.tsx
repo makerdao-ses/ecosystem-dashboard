@@ -81,7 +81,7 @@ export default FinancesOverviewContainer;
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   flexDirection: 'column',
   alignItems: 'center',
-  marginTop: '64px',
+  paddingTop: '64px',
   flex: 1,
   background: isLight ? '#FFFFFF' : '#000000',
   backgroundImage: isLight ? '#FFFFFF' : 'linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 16, 32, 0.4) 100%)',

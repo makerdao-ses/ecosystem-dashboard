@@ -99,19 +99,19 @@ export const CuTable = () => {
 const ContainerHome = styled.div<{ isLight: boolean; allowPadding?: boolean }>(({ isLight, allowPadding = false }) => ({
   display: 'flex',
   flexDirection: 'column',
-  padding: !allowPadding ? '32px 16px 128px' : 'none',
-  margin: '64px auto 0',
+  padding: !allowPadding ? '96px 16px 128px' : 'none',
+  margin: '0 auto',
   width: '100%',
   background: isLight ? '#FFFFFF' : '#000000',
   backgroundImage: isLight ? '#FFFFFF' : 'linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 16, 32, 0.4) 100%)',
   '@media (min-width: 834px)': {
-    padding: !allowPadding ? '24px 32px 128px' : 'none',
+    padding: !allowPadding ? '88px 32px 128px' : 'none',
   },
   '@media (min-width: 1280px)': {
-    padding: !allowPadding ? '24px 48px 128px' : 'none',
+    padding: !allowPadding ? '88px 48px 128px' : 'none',
   },
   '@media (min-width: 1440px)': {
-    padding: !allowPadding ? '24px auto 128px' : 'none',
+    padding: !allowPadding ? '88px 0 128px' : 'none',
   },
 }));
 

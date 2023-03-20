@@ -197,7 +197,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   flexDirection: 'column',
   alignItems: 'center',
-  marginTop: '64px',
+  paddingTop: '64px',
   paddingBottom: '64px',
   flex: 1,
   backgroundColor: isLight ? '#FFFFFF' : '#000000',

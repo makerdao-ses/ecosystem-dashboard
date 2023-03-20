@@ -58,7 +58,7 @@ const Wrapper = styled.div({
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   flexDirection: 'column',
   alignItems: 'center',
-  marginTop: '64px',
+  paddingTop: '64px',
   flex: 1,
   backgroundColor: isLight ? '#FFFFFF' : '#000000',
   backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
