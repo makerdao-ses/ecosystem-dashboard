@@ -72,7 +72,7 @@ const NameColumnComponent: React.FC<WithIsLight & { name: string }> = ({ isLight
 const TotalPercentageColumnComponent: React.FC<WithIsLight> = ({ isLight }) => (
   <TotalPercentageColumn>
     <TotalBarContainer>
-      <RelativeBudgetBar budgetCap={20} actuals={14} prediction={16} />
+      <RelativeBudgetBar discontinued={20} actuals={14} prediction={16} maxPercentage={100} />
       <TotalPercentage isLight={isLight}>32%</TotalPercentage>
     </TotalBarContainer>
   </TotalPercentageColumn>
