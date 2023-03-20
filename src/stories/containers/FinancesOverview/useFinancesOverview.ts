@@ -143,7 +143,6 @@ const useFinancesOverview = (
   const { byBudgetExpenses, costBreakdownTotal, remainingBudgetCU, remainingBudgetDelegates } = useMemo(() => {
     let costBreakdownTotal = 0;
     const byBudgetExpenses: ExtendedExpense[] = [];
-    // const byCategory: ExtendedExpense[] = [];
     const remainingBudgetCU = {
       shortCode: 'CU',
       name: 'Remaining Core Units',
@@ -202,7 +201,6 @@ const useFinancesOverview = (
     selectedFilter,
     setSelectedFilter,
     byBudgetExpenses,
-    // byCategoryExpenses,
     remainingBudgetCU,
     remainingBudgetDelegates,
     costBreakdownTotal,

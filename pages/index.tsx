@@ -41,7 +41,6 @@ export async function getServerSideProps() {
     const [quarterExpenses, monthlyExpenses, breakdownExpenses] = await Promise.all([
       fetchExpenses(ExpenseGranularity.quarterly),
       fetchExpenses(ExpenseGranularity.monthly),
-      // fetchExpenses(ExpenseGranularity.annual, 'makerdao/*:*/*:*'),
       fetchCostBreakdownExpenses(),
     ]);
 
