@@ -87,6 +87,9 @@ const Card = styled.div<WithIsLight>(({ isLight }) => ({
   [lightTheme.breakpoints.up('table_834')]: {
     padding: 16,
   },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    padding: '16px 24px',
+  },
 }));
 
 const PredictionWrapper = styled.div({
@@ -101,6 +104,7 @@ const Prediction = styled.div<WithIsLight>(({ isLight }) => ({
   marginLeft: 'auto',
   marginRight: 'auto',
   color: isLight ? '#231536' : '#EDEFFF',
+  fontFeatureSettings: "'tnum' on, 'lnum' on",
 }));
 
 const PredictionNumber = styled.div({
@@ -192,6 +196,7 @@ const LegendNumber = styled.div({
   fontWeight: 700,
   fontSize: 10,
   lineHeight: '12px',
+  fontFeatureSettings: "'tnum' on, 'lnum' on",
 
   [lightTheme.breakpoints.up('table_834')]: {
     fontSize: 14,

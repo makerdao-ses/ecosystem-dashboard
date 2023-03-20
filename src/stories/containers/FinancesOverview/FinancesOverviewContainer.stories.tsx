@@ -12,7 +12,7 @@ export default {
   component: FinancesOverviewContainer,
   decorators: [withoutSBPadding],
   chromatic: {
-    viewports: [375, 834, 1194],
+    viewports: [375, 834, 1194, 1440],
     pauseAnimationAtEnd: true,
   },
   parameters: {
@@ -146,7 +146,8 @@ LightMode.parameters = {
         },
       },
       1440: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=15343%3A199079',
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=15343:199079&t=u7vF8lSvHCDE6Xof-4',
         options: {
           componentStyle: {
             width: 1440,
@@ -155,7 +156,8 @@ LightMode.parameters = {
         },
       },
       1920: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13399%3A142663',
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13399:142663&t=u7vF8lSvHCDE6Xof-4',
         options: {
           componentStyle: {
             width: 1920,
