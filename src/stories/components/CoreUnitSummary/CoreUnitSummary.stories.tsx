@@ -8,9 +8,11 @@ import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types
 export default {
   title: 'Components/General/CoreUnitSummary',
   component: CoreUnitSummary,
-  chromatic: {
-    viewports: [375, 834, 1194],
-    pauseAnimationAtEnd: true,
+  parameters: {
+    chromatic: {
+      viewports: [375, 834, 1194],
+      pauseAnimationAtEnd: true,
+    },
   },
   decorators: [withoutSBPadding],
 } as ComponentMeta<typeof CoreUnitSummary>;

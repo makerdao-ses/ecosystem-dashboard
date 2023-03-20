@@ -11,10 +11,7 @@ export default {
   title: 'Pages/CU Activity Feed',
   component: CUActivityFeedContainer,
   decorators: [withoutSBPadding],
-  chromatic: {
-    viewports: [375, 834, 1194],
-    pauseAnimationAtEnd: true,
-  },
+
   parameters: {
     nextRouter: {
       path: '/core-unit/[code]/activity-feed',
@@ -22,6 +19,10 @@ export default {
       query: {
         code: 'SES',
       },
+    },
+    chromatic: {
+      viewports: [375, 834, 1194],
+      pauseAnimationAtEnd: true,
     },
     date: new Date('2022-09-22T12:23:00Z'),
   },
