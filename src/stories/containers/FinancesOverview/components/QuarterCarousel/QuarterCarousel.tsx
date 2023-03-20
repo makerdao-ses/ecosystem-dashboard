@@ -35,7 +35,9 @@ export default QuarterCarousel;
 
 const SwiperWrapper = styled.div({
   margin: '0 -8px',
-
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    margin: '0 -12px',
+  },
   [lightTheme.breakpoints.up('table_834')]: {
     marginBottom: 32,
   },
