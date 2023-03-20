@@ -1,12 +1,12 @@
 import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
 import { formatNumber } from '@ses/core/utils/string';
-import { DateTime } from 'luxon';
 import { useMemo } from 'react';
-import { renderLinks, renderNumberWithIcon, renderWallet } from '../../transparencyReportUtils';
+import { renderLinks, RenderNumberWithIcon, renderWallet, TotalTargetBalance } from '../../transparencyReportUtils';
 import { useTransparencyForecast } from '../TransparencyForecast/useTransparencyForecast';
 import type { InnerTableColumn, InnerTableRow } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
 import type { TargetBalanceTooltipInformation } from '@ses/core/utils/typesHelpers';
+import type { DateTime } from 'luxon';
 
 export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetStatements: BudgetStatementDto[]) => {
   const { firstMonth, secondMonth, thirdMonth, getForecastSumOfMonthsOnWallet, getForecastSumForMonths, wallets } =
@@ -102,8 +102,9 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
       {
         header: 'Target Balance',
         type: 'custom',
-        align: 'left',
-        cellRender: renderNumberWithIcon,
+        align: 'right',
+
+        cellRender: RenderNumberWithIcon,
       },
       {
         header: `${currentMonth.toFormat('dd-LLL')} Balance`,
@@ -145,8 +146,12 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
                 secondMonth,
                 thirdMonth,
               ]),
-              targetBalanceFirstMonth: DateTime.now(),
-              targetBalanceSecondMonth: DateTime.now(),
+              months: 'FEB + MAR Budget Cap',
+              mipNumber: 'MIP40c3-SP14:',
+              link: '#',
+              description: '2 Month Budget Cap',
+              longCode: 'SES-001',
+              name: 'Collateral Engineering Services',
             } as TargetBalanceTooltipInformation,
           },
           {
@@ -177,11 +182,11 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
             column: mainTableColumns[1],
 
             value: (
-              <b>
+              <TotalTargetBalance>
                 {formatNumber(
                   getForecastSumForMonths(budgetStatements, currentMonth, [firstMonth, secondMonth, thirdMonth])
                 )}
-              </b>
+              </TotalTargetBalance>
             ),
           },
           {

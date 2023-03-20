@@ -9,9 +9,11 @@ export default {
   title: 'Pages/Auth/Login',
   component: LoginContainer,
   decorators: [withoutSBPadding],
-  chromatic: {
-    viewports: [375, 834, 1194],
-    pauseAnimationAtEnd: true,
+  parameters: {
+    chromatic: {
+      viewports: [375, 834, 1194],
+      pauseAnimationAtEnd: true,
+    },
   },
 } as ComponentMeta<typeof LoginContainer>;
 

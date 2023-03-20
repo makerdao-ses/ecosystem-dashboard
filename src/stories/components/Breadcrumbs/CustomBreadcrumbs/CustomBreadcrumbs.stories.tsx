@@ -1,12 +1,13 @@
 import { siteRoutes } from '@ses/config/routes';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import CustomBreadCrumbs from './CustomBreadcrumbs';
+// import CustomBreadCrumbs from './CustomBreadcrumbs';
+import CustomBreadcrumbs from './CustomBreadcrumbs';
 import type { ComponentMeta } from '@storybook/react';
 
 export default {
   title: 'Components/General/CustomBreadcrumbs',
-  component: CustomBreadCrumbs,
-} as ComponentMeta<typeof CustomBreadCrumbs>;
+  component: CustomBreadcrumbs,
+} as ComponentMeta<typeof CustomBreadcrumbs>;
 
 const variantsArgs = [
   {
@@ -39,7 +40,7 @@ const variantsArgs = [
   },
 ];
 
-export const [[Light, Dark]] = createThemeModeVariants(CustomBreadCrumbs, variantsArgs);
+export const [[Light, Dark]] = createThemeModeVariants(CustomBreadcrumbs, variantsArgs);
 
 Light.parameters = {
   figma: {

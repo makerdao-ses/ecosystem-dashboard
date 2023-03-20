@@ -15,7 +15,6 @@ export const useTransparencyMkrVesting = (currentMonth: DateTime, budgetStatemen
     if (!currentMonth || !budgetStatements || !budgetStatements.length) {
       return [];
     }
-
     return currentBudgetStatement?.budgetStatementMKRVest ?? [];
   }, [currentMonth, budgetStatements, currentBudgetStatement?.budgetStatementMKRVest]);
 
@@ -71,7 +70,9 @@ export const useTransparencyMkrVesting = (currentMonth: DateTime, budgetStatemen
   const mainTableItems: InnerTableRow[] = useMemo(() => {
     const result: InnerTableRow[] = [];
 
-    mkrVestings.forEach((mkrVesting) => {
+    const mkrVestingsOrdered = _.orderBy(mkrVestings, 'vestingDate', 'desc');
+
+    mkrVestingsOrdered.forEach((mkrVesting) => {
       result.push({
         type: 'normal',
         items: [

@@ -6,9 +6,11 @@ import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types
 export default {
   title: 'Components/General/Auth/Login Modal',
   component: LoginModal,
-  chromatic: {
-    viewports: [375],
-    pauseAnimationAtEnd: true,
+  parameters: {
+    chromatic: {
+      viewports: [375],
+      pauseAnimationAtEnd: true,
+    },
   },
 } as ComponentMeta<typeof LoginModal>;
 

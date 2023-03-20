@@ -48,7 +48,7 @@ export const Wrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/login-bg.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
-  marginTop: 64,
+  paddingTop: 64,
 }));
 
 const Container = styled.div<{ isLight?: boolean }>(({ isLight }) => ({

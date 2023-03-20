@@ -307,12 +307,12 @@ export const useTransparencyForecast = (currentMonth: DateTime, propBudgetStatem
         header: 'Mthly Budget',
         type: 'number',
         align: 'right',
+        hasBorderRight: true,
       },
       {
         header: '3 Months',
         type: 'number',
         align: 'right',
-        hasBorderRight: true,
       },
       {
         header: 'Qtly Budget',
