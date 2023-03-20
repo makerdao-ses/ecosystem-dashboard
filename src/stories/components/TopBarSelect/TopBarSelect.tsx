@@ -47,6 +47,7 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
             <Close
               style={{
                 cursor: 'pointer',
+                marginBottom: 32,
               }}
             />
           </CloseWrapper>
@@ -70,7 +71,7 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
               borderColor: isLight ? '#D4D9E1' : '',
             }}
           >
-            <LinkWrapper isActive={false} isLight={isLight}>
+            <LinkWrapper isActive={false} isLight={isLight} hasMarginBottom={false}>
               <CustomLink
                 children="How to Submit Expenses"
                 fontWeight={500}
@@ -138,7 +139,6 @@ const Popup = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  gap: '32px',
   padding: '22px',
   background: isLight ? 'white' : '#000A13',
   position: 'fixed',
@@ -152,22 +152,29 @@ const Popup = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   },
 }));
 
-const LinkWrapper = styled.a<{ isLight: boolean; isActive: boolean }>(({ isLight, isActive }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  background: isActive ? (isLight ? '#E7FCFA' : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)') : 'transparent',
-  border: '1px solid #139D8D',
-  borderColor: isActive ? (isLight ? '#139D8D' : '#06554C') : isLight ? '#D4D9E1' : '#343442',
-  borderRadius: '6px',
-  width: '100%',
-  maxWidth: '326px',
-  height: '52px',
-  fontWeight: 700,
-  fontSize: '16px',
-  color: isActive ? (isLight ? '#1AAB9B' : '#2DC1B1') : isLight ? '#25273D' : '#D2D4EF',
-  boxSizing: 'border-box',
-  boxShadow: isLight ? 'none' : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
-  cursor: 'pointer',
-  textDecoration: 'none',
-}));
+const LinkWrapper = styled.a<{ isLight: boolean; isActive: boolean; hasMarginBottom?: boolean }>(
+  ({ isLight, isActive, hasMarginBottom = true }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: isActive
+      ? isLight
+        ? '#E7FCFA'
+        : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)'
+      : 'transparent',
+    border: '1px solid #139D8D',
+    borderColor: isActive ? (isLight ? '#139D8D' : '#06554C') : isLight ? '#D4D9E1' : '#343442',
+    borderRadius: '6px',
+    width: '100%',
+    maxWidth: '326px',
+    height: '52px',
+    fontWeight: 700,
+    fontSize: '16px',
+    color: isActive ? (isLight ? '#1AAB9B' : '#2DC1B1') : isLight ? '#25273D' : '#D2D4EF',
+    boxSizing: 'border-box',
+    boxShadow: isLight ? 'none' : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+    cursor: 'pointer',
+    textDecoration: 'none',
+    marginBottom: hasMarginBottom ? 32 : 0,
+  })
+);
