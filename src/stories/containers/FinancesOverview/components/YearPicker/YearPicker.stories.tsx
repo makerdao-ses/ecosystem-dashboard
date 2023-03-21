@@ -6,9 +6,11 @@ import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types
 export default {
   title: 'Components/Finances/YearPicker',
   component: YearPicker,
-  chromatic: {
-    viewports: [375, 834],
-    pauseAnimationAtEnd: true,
+  parameters: {
+    chromatic: {
+      viewports: [375, 834],
+      pauseAnimationAtEnd: true,
+    },
   },
 } as ComponentMeta<typeof YearPicker>;
 
