@@ -100,7 +100,7 @@ const Row = styled.div<WithIsLight>(({ isLight }) => ({
   alignItems: 'center',
   padding: 8,
   background: isLight ? '#FFFFFF' : '#1E2C37',
-  marginBottom: 8,
+  marginBottom: 9,
   boxShadow: isLight
     ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
     : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
@@ -128,7 +128,7 @@ const MobileColumn = styled.div({
 const NameColumn = styled.div({
   width: '100%',
   marginBottom: 9.2,
-  lineHeight: '15px',
+  lineHeight: '14px',
   fontSize: 14,
 
   [lightTheme.breakpoints.up('table_834')]: {
@@ -211,7 +211,7 @@ const ViewColumn = styled.div({
 const ShortCode = styled.span<WithIsLight>(({ isLight }) => ({
   fontSize: 12,
   fontWeight: 800,
-  lineHeight: '15px',
+  lineHeight: '14px',
   letterSpacing: 0.3,
   textTransform: 'uppercase',
   color: isLight ? '#9FAFB9' : '#546978',
@@ -227,7 +227,7 @@ const ShortCode = styled.span<WithIsLight>(({ isLight }) => ({
 const Name = styled.span<WithIsLight>(({ isLight }) => ({
   fontSize: 12,
   fontWeight: 400,
-  lineHeight: '15px',
+  lineHeight: '14px',
   color: isLight ? '#231536' : '#D2D4EF ',
 
   [lightTheme.breakpoints.up('table_834')]: {
