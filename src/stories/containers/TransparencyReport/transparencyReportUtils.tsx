@@ -268,7 +268,7 @@ const Container = styled.div({
 
 export const ContainerInfoIcon = styled.div({
   paddingRight: 0,
-  marginTop: -10,
+  marginTop: -16,
   display: 'flex',
   flexDirection: 'row',
 
