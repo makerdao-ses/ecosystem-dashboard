@@ -7,30 +7,49 @@ import lightTheme from '@ses/styles/theme/light';
 import Link from 'next/link';
 import React from 'react';
 import RelativeBudgetBar from '../RelativeBudgetBar/RelativeBudgetBar';
+import type { ExtendedExpense } from '../../financesOverviewTypes';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface ByBudgetTableRowProps {
-  shortCode: string;
-  name: string;
+  expense: ExtendedExpense;
   total: number;
+  relativePercentage?: number;
+  rowType: 'coreUnit' | 'delegate' | 'remaining';
 }
 
-const ByBudgetTableRow: React.FC<ByBudgetTableRowProps> = ({ shortCode, name, total }) => {
+const ByBudgetTableRow: React.FC<ByBudgetTableRowProps> = ({
+  expense,
+  total,
+  relativePercentage = 100,
+  rowType = 'coreUnit',
+}) => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+
+  const link =
+    rowType === 'coreUnit'
+      ? siteRoutes.coreUnitReports(expense.shortCode ?? '')
+      : rowType === 'delegate' || expense.shortCode === 'DEL'
+      ? siteRoutes.recognizedDelegate
+      : siteRoutes.coreUnitsOverview;
 
   return (
     <Row isLight={isLight}>
       <MobileColumn>
-        <NameColumnComponent isLight={isLight} shortCode={shortCode} name={name} />
-        {isMobile && <TotalSpendColumnComponent isLight={isLight} total={total} />}
+        <NameColumnComponent isLight={isLight} shortCode={expense.shortCode ?? ''} name={expense.name} />
+        {isMobile && <TotalSpendColumnComponent isLight={isLight} total={expense.prediction} />}
       </MobileColumn>
 
-      <TotalPercentageColumnComponent isLight={isLight} />
-      {!isMobile && <TotalSpendColumnComponent isLight={isLight} total={total} />}
+      <TotalPercentageColumnComponent
+        isLight={isLight}
+        total={total}
+        expense={expense}
+        maxPercentage={relativePercentage}
+      />
+      {!isMobile && <TotalSpendColumnComponent isLight={isLight} total={expense.prediction} />}
 
       <ViewColumn>
-        <Link href={siteRoutes.coreUnitReports(shortCode)}>
+        <Link href={link} passHref>
           <ViewLink>View</ViewLink>
         </Link>
       </ViewColumn>
@@ -51,11 +70,18 @@ const NameColumnComponent: React.FC<WithIsLight & { shortCode: string; name: str
   </NameColumn>
 );
 
-const TotalPercentageColumnComponent: React.FC<WithIsLight> = ({ isLight }) => (
+const TotalPercentageColumnComponent: React.FC<
+  WithIsLight & { total: number; expense: ExtendedExpense; maxPercentage: number }
+> = ({ isLight, total, expense, maxPercentage }) => (
   <TotalPercentageColumn>
     <TotalBarContainer>
-      <RelativeBudgetBar budgetCap={20} actuals={14} prediction={16} />
-      <TotalPercentage isLight={isLight}>32%</TotalPercentage>
+      <RelativeBudgetBar
+        discontinued={expense.discontinued || 0}
+        actuals={expense.actuals}
+        prediction={expense.prediction || 0}
+        maxPercentage={maxPercentage}
+      />
+      <TotalPercentage isLight={isLight}>{Math.floor((expense.prediction * 100) / total)}%</TotalPercentage>
     </TotalBarContainer>
   </TotalPercentageColumn>
 );
@@ -63,7 +89,7 @@ const TotalPercentageColumnComponent: React.FC<WithIsLight> = ({ isLight }) => (
 const TotalSpendColumnComponent: React.FC<WithIsLight & { total: number }> = ({ isLight, total }) => (
   <TotalSpendColumn>
     <TotalNumber isLight={isLight}>
-      {usLocalizedNumber(total)} <DAISpan>DAI</DAISpan>
+      {usLocalizedNumber(Math.round(total))} <DAISpan>DAI</DAISpan>
     </TotalNumber>
   </TotalSpendColumn>
 );
@@ -74,7 +100,7 @@ const Row = styled.div<WithIsLight>(({ isLight }) => ({
   alignItems: 'center',
   padding: 8,
   background: isLight ? '#FFFFFF' : '#1E2C37',
-  marginBottom: 8,
+  marginBottom: 9,
   boxShadow: isLight
     ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
     : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
@@ -102,13 +128,17 @@ const MobileColumn = styled.div({
 const NameColumn = styled.div({
   width: '100%',
   marginBottom: 9.2,
-  lineHeight: '15px',
+  lineHeight: '14px',
   fontSize: 14,
 
   [lightTheme.breakpoints.up('table_834')]: {
     paddingLeft: 16,
     paddingRight: 4,
     marginBottom: 0,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    lineHeight: '23px',
   },
 });
 
@@ -181,7 +211,7 @@ const ViewColumn = styled.div({
 const ShortCode = styled.span<WithIsLight>(({ isLight }) => ({
   fontSize: 12,
   fontWeight: 800,
-  lineHeight: '15px',
+  lineHeight: '14px',
   letterSpacing: 0.3,
   textTransform: 'uppercase',
   color: isLight ? '#9FAFB9' : '#546978',
@@ -197,7 +227,7 @@ const ShortCode = styled.span<WithIsLight>(({ isLight }) => ({
 const Name = styled.span<WithIsLight>(({ isLight }) => ({
   fontSize: 12,
   fontWeight: 400,
-  lineHeight: '15px',
+  lineHeight: '14px',
   color: isLight ? '#231536' : '#D2D4EF ',
 
   [lightTheme.breakpoints.up('table_834')]: {

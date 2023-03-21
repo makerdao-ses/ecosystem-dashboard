@@ -18,7 +18,7 @@ const TableFooter: React.FC<TableFooterProps> = ({ mode, total = 0 }) => {
     <TableFooterContainer isLight={isLight}>
       <Total isLight={isLight}>Total </Total>
       <TotalNumber isLight={isLight} extraPadding={mode === 'By budget'}>
-        {usLocalizedNumber(total)} <DAISpan isLight={isLight}>DAI</DAISpan>
+        {usLocalizedNumber(Math.round(total))} <DAISpan isLight={isLight}>DAI</DAISpan>
       </TotalNumber>
     </TableFooterContainer>
   );

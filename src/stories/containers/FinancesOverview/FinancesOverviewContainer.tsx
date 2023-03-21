@@ -9,15 +9,21 @@ import NavigationButtons from './components/NavigationButtons/NavigationButtons'
 import QuarterCarousel from './components/QuarterCarousel/QuarterCarousel';
 import YearPicker from './components/YearPicker/YearPicker';
 import useFinancesOverview from './useFinancesOverview';
+import type { ExtendedExpense } from './financesOverviewTypes';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-type FinancesOverviewContainerProps = {
+interface FinancesOverviewContainerProps {
   monthlyExpenses: Partial<ExpenseDto>[];
   quarterExpenses: ExpenseDto[];
-};
+  breakdownExpenses: ExtendedExpense[];
+}
 
-const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ monthlyExpenses, quarterExpenses }) => {
+const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
+  monthlyExpenses,
+  quarterExpenses,
+  breakdownExpenses,
+}) => {
   const {
     isLight,
     selectedYear,
@@ -31,7 +37,11 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ m
     isDownTable,
     selectedFilter,
     setSelectedFilter,
-  } = useFinancesOverview(quarterExpenses, monthlyExpenses);
+    byBudgetExpenses,
+    remainingBudgetCU,
+    remainingBudgetDelegates,
+    costBreakdownTotal,
+  } = useFinancesOverview(quarterExpenses, monthlyExpenses, breakdownExpenses);
 
   return (
     <Container isLight={isLight}>
@@ -67,7 +77,14 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({ m
             {!isDownTable && <NavigationButtons />}
           </ExpensesChartColumn>
           <BreakdownTableColumn>
-            <CostBreakdownTable selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter} />
+            <CostBreakdownTable
+              selectedFilter={selectedFilter}
+              setSelectedFilter={setSelectedFilter}
+              byBudgetExpenses={byBudgetExpenses}
+              remainingBudgetCU={remainingBudgetCU}
+              remainingBudgetDelegates={remainingBudgetDelegates}
+              total={costBreakdownTotal}
+            />
           </BreakdownTableColumn>
           {isDownTable && <NavigationButtons />}
         </BreakdownSectionContainer>
@@ -203,7 +220,7 @@ const TotalDescription = styled.label<WithIsLight>(({ isLight }) => ({
 const BreakdownSectionContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  gap: 38,
+  gap: 39,
 
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     gap: 18,

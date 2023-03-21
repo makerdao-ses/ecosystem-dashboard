@@ -1,3 +1,4 @@
+import type { ExtendedExpense } from '@ses/containers/FinancesOverview/financesOverviewTypes';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 
 export class TotalExpenseReportsBuilder {
@@ -51,6 +52,18 @@ export class TotalExpenseReportsBuilder {
 
   withMonthlyPeriod(year: number, month: number): TotalExpenseReportsBuilder {
     this._expense.period = `${year}-${month < 10 ? `0${month}` : month}`;
+    return this;
+  }
+
+  withAnnualPeriod(year: number): TotalExpenseReportsBuilder {
+    this._expense.period = `${year}`;
+    return this;
+  }
+
+  extend(shortCode: string, name: string): TotalExpenseReportsBuilder {
+    const ref = this._expense as ExtendedExpense;
+    ref.shortCode = shortCode;
+    ref.name = name;
     return this;
   }
 

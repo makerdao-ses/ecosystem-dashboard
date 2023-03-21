@@ -19,7 +19,7 @@ const NavigationButtonsContainer = styled.div({
   flexDirection: 'column',
   gap: 16,
   width: '100%',
-  margin: '6px auto 0',
+  margin: '10px auto 0',
   padding: '0 22px',
 
   [lightTheme.breakpoints.up('table_834')]: {
