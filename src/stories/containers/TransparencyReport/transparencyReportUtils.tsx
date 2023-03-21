@@ -154,7 +154,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                   overflowY: 'unset',
 
                   left: '0px!important',
-                  marginLeft: '43px',
+                  marginLeft: '36px',
                   marginTop: 1.5,
                 },
               }}
@@ -306,6 +306,7 @@ const ContainerInformation = styled.div({
 
 const ContainerNumberCell = styled(NumberCell)({
   paddingBottom: 2,
+  paddingTop: 0,
   '@media (min-width: 834px)': {
     paddingBottom: 0,
     paddingRight: 0,

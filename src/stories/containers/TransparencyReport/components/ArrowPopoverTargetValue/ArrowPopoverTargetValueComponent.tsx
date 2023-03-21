@@ -1,5 +1,3 @@
-import styled from '@emotion/styled';
-import ArrowPopover from '@ses/components/ArrowPopover/ArrowPopover';
 import React from 'react';
 import ArrowPopoverTargetValueContent from './ArrowPopoverTargetValueContent';
 import type { TargetBalanceTooltipInformation } from '@ses/core/utils/typesHelpers';
@@ -12,19 +10,7 @@ interface Props {
   toolTipData: Pick<TargetBalanceTooltipInformation, 'description' | 'mipNumber' | 'link'>;
 }
 
-const ArrowPopoverTargetValueComponent: React.FC<Props> = ({ toolTipData, longCode, name, style = {} }) => (
-  <Container style={style}>
-    <ArrowPopover>
-      <ArrowPopoverTargetValueContent longCode={longCode} name={name} toolTipData={toolTipData} />
-    </ArrowPopover>
-  </Container>
+const ArrowPopoverTargetValueComponent: React.FC<Props> = ({ toolTipData, longCode, name }) => (
+  <ArrowPopoverTargetValueContent longCode={longCode} name={name} toolTipData={toolTipData} />
 );
-
 export default ArrowPopoverTargetValueComponent;
-
-const Container = styled.div({
-  display: 'flex',
-  borderRadius: 6,
-
-  width: '100%',
-});

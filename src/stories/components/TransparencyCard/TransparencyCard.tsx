@@ -75,9 +75,7 @@ const Row = styled.div<{ hasIcon?: boolean; height?: string }>(({ hasIcon = fals
   display: 'flex',
   alignItems: hasIcon ? 'flex-start' : 'center',
   flex: 1,
-  '& > div > div > div:nth-child(2) > div >div:nth-child(2) > div': {
-    paddingTop: 4,
-  },
+
   justifyContent: hasIcon ? 'space-between' : undefined,
   [lightTheme.breakpoints.up('table_834')]: {
     alignItems: 'flex-start',

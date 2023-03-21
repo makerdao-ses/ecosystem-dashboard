@@ -51,6 +51,8 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-start',
+  borderRadius: 6,
+  padding: 6,
 });
 const Description = styled.div<WithIsLight>(({ isLight }) => ({
   marginBottom: 16,
