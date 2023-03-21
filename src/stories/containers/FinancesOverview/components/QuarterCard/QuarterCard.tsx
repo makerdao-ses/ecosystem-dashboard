@@ -172,7 +172,7 @@ const LegendItem = styled.div<WithIsLight & { dotColor: string }>(({ isLight, do
     content: '""',
     display: 'block',
     position: 'absolute',
-    top: 'calc(50% - 2px)',
+    top: 'calc(50% - 0.5px)',
     right: 0,
     width: 4,
     height: 4,

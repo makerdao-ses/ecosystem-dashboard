@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
@@ -29,7 +28,6 @@ const CookiesPolicyBanner = ({
   const handleCheckbox = (key: (val: boolean) => void) => (val: boolean) => {
     key(!val);
   };
-  const notMobile = useMediaQuery(lightTheme.breakpoints.up('table_834'));
   return (
     <Container isLight={isLight}>
       <ContainerData>
@@ -55,32 +53,14 @@ const CookiesPolicyBanner = ({
           />
         </ContainerCheckBox>
         <ContainerButton>
-          <CustomButton
+          <RejectAllCookiesButton
             label="Reject all cookies"
             buttonType={ButtonType.Secondary}
-            style={{
-              width: 285,
-              height: 48,
-              padding: '14.5px 76px',
-              marginRight: notMobile ? 24 : 0,
-            }}
-            styleText={{
-              fontSize: '16px',
-              lineHeight: '19px',
-            }}
             onClick={handleRejectCookies}
           />
           <CustomButtonStyle
             label="Accept configured cookies"
-            style={{
-              width: 285,
-              height: 48,
-            }}
             buttonType={ButtonType.Primary}
-            styleText={{
-              fontSize: '16px',
-              lineHeight: '19px',
-            }}
             onClick={handleAcceptCookies}
           />
         </ContainerButton>
@@ -167,8 +147,30 @@ const ContainerButton = styled.div({
 const CustomButtonStyle = styled(CustomButton)({
   padding: '14.5px 40px',
   marginTop: '24px',
+  width: 285,
+  height: 48,
+
+  '& > div': {
+    fontSize: '16px',
+    lineHeight: '19px',
+  },
   [lightTheme.breakpoints.up('table_834')]: {
     marginTop: '0px',
+  },
+});
+
+const RejectAllCookiesButton = styled(CustomButton)({
+  width: 285,
+  height: 48,
+  padding: '14.5px 76px',
+
+  '& > div': {
+    fontSize: '16px',
+    lineHeight: '19px',
+  },
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginRight: 24,
   },
 });
 
