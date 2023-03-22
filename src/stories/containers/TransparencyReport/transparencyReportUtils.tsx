@@ -127,7 +127,6 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                     description: data.description,
                     mipNumber: data.mipNumber,
                   }}
-                  longCode={data.longCode}
                   name={data.name}
                 />
               }
@@ -169,7 +168,6 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                     description: data.description,
                     mipNumber: data.mipNumber,
                   }}
-                  longCode={data.longCode}
                   name={data.name}
                 />
               }
@@ -324,7 +322,7 @@ const ContainerStyleMonths = styled.div({
   },
 });
 
-export const TotalTargetBalance = styled.div({
+export const TotalTargetBalance = styled.div<{ hasMarginRight?: boolean }>(({ hasMarginRight = false }) => ({
   display: 'flex',
   flexDirection: 'row',
   flex: 1,
@@ -332,6 +330,6 @@ export const TotalTargetBalance = styled.div({
   textAlign: 'center',
   fontWeight: 700,
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginRight: 32,
+    marginRight: hasMarginRight ? 32 : 0,
   },
-});
+}));
