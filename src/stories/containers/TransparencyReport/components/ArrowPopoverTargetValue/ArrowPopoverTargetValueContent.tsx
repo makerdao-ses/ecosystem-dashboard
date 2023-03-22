@@ -52,6 +52,7 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-start',
+  width: 305,
 
   padding: 6,
 });
