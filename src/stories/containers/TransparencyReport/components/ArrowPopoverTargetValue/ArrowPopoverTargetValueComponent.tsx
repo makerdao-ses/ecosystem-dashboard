@@ -10,7 +10,7 @@ interface Props {
   toolTipData: Pick<TargetBalanceTooltipInformation, 'description' | 'mipNumber' | 'link'>;
 }
 
-const ArrowPopoverTargetValueComponent: React.FC<Props> = ({ toolTipData, longCode, name }) => (
-  <ArrowPopoverTargetValueContent longCode={longCode} name={name} toolTipData={toolTipData} />
+const ArrowPopoverTargetValueComponent: React.FC<Props> = ({ toolTipData, longCode, name, style }) => (
+  <ArrowPopoverTargetValueContent longCode={longCode} name={name} toolTipData={toolTipData} style={style} />
 );
 export default ArrowPopoverTargetValueComponent;
