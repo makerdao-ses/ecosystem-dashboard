@@ -3,17 +3,19 @@ import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
 import type { TargetBalanceTooltipInformation, WithIsLight } from '@ses/core/utils/typesHelpers';
+import type { CSSProperties } from 'react';
 
 interface Props {
   toolTipData: Pick<TargetBalanceTooltipInformation, 'description' | 'mipNumber' | 'link'>;
   name: string;
   longCode: string;
+  style?: CSSProperties;
 }
 
-const ArrowPopoverTargetValueContent: React.FC<Props> = ({ toolTipData, name, longCode }) => {
+const ArrowPopoverTargetValueContent: React.FC<Props> = ({ toolTipData, name, longCode, style }) => {
   const { isLight } = useThemeContext();
   return (
-    <Container>
+    <Container style={style}>
       <Description isLight={isLight}>{toolTipData.description}</Description>
       <Source isLight={isLight}>Source</Source>
       <ContainerLinkWithMip isLight={isLight}>
@@ -51,6 +53,8 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-start',
+
+  padding: 6,
 });
 const Description = styled.div<WithIsLight>(({ isLight }) => ({
   marginBottom: 16,

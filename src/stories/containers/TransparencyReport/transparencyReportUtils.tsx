@@ -109,7 +109,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
             <CustomPopover
               widthArrow
               sxProps={{
-                '& .css-3bmhjh-MuiPaper-root-MuiPopover-paper': {
+                '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
                   overflowX: 'unset',
                   overflowY: 'unset',
                 },
@@ -149,12 +149,12 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
               widthArrow
               alignArrow="center"
               sxProps={{
-                '& .css-3bmhjh-MuiPaper-root-MuiPopover-paper': {
+                '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
                   overflowX: 'unset',
                   overflowY: 'unset',
 
                   left: '0px!important',
-                  marginLeft: '43px',
+                  marginLeft: '36px',
                   marginTop: 1.5,
                 },
               }}
@@ -268,7 +268,7 @@ const Container = styled.div({
 
 export const ContainerInfoIcon = styled.div({
   paddingRight: 0,
-  marginTop: -10,
+  marginTop: -16,
   display: 'flex',
   flexDirection: 'row',
 
@@ -306,6 +306,7 @@ const ContainerInformation = styled.div({
 
 const ContainerNumberCell = styled(NumberCell)({
   paddingBottom: 2,
+  paddingTop: 0,
   '@media (min-width: 834px)': {
     paddingBottom: 0,
     paddingRight: 0,
