@@ -352,7 +352,7 @@ export const useTransparencyActuals = (
         width: '240px',
       },
       {
-        header: 'Budget Category',
+        header: 'Expense Category',
         align: 'left',
         type: 'text',
         isCardHeader: true,
