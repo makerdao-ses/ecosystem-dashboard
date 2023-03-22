@@ -7,6 +7,7 @@ export class CuMipBuilder {
 
   constructor() {
     this._cuMip = {
+      mipTitle: '',
       mipStatus: 'Accepted',
       mip40: [] as Mip40Dto[],
       mip41: [] as Mip41Dto[],
@@ -16,6 +17,11 @@ export class CuMipBuilder {
       formalSubmission: '',
       obsolete: '',
     } as CuMipDto;
+  }
+
+  withMipTitle(title: string): CuMipBuilder {
+    this._cuMip.mipTitle = title;
+    return this;
   }
 
   withStatus(status: CuStatusEnum, date: string): CuMipBuilder {
