@@ -155,7 +155,7 @@ const useFinancesOverview = (
     } as ExtendedExpense;
     const remainingBudgetDelegates = {
       shortCode: 'DEL',
-      name: 'Remaining Recognized Delegates',
+      name: 'Recognized Delegates',
       actuals: 0,
       budgetCap: 0,
       budget: 'makerdao/delegates',

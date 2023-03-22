@@ -89,7 +89,7 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
                 <ByExpenseCategoryTableRow name="Gas Expense" total={1252461} />
 
                 <RemainingContainer isLight={isLight}>
-                  <ByExpenseCategoryTableRow name="All Remaining Non-Headcount" total={301568} />
+                  <ByExpenseCategoryTableRow name="All Remaining Categories" total={301568} />
                 </RemainingContainer>
               </ExpenseCategoryGroup>
             </>
