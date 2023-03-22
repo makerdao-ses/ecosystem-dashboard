@@ -8,11 +8,11 @@ import type { CSSProperties } from 'react';
 interface Props {
   toolTipData: Pick<TargetBalanceTooltipInformation, 'description' | 'mipNumber' | 'link'>;
   name: string;
-  longCode: string;
+
   style?: CSSProperties;
 }
 
-const ArrowPopoverTargetValueContent: React.FC<Props> = ({ toolTipData, name, longCode, style }) => {
+const ArrowPopoverTargetValueContent: React.FC<Props> = ({ toolTipData, name, style }) => {
   const { isLight } = useThemeContext();
   return (
     <Container style={style}>
@@ -22,8 +22,7 @@ const ArrowPopoverTargetValueContent: React.FC<Props> = ({ toolTipData, name, lo
         <MipNumber>{toolTipData.mipNumber}</MipNumber>
         <ContainerLink>
           <CustomLink
-            children={`Modify Core Unit Budget -
-           ${name} (${longCode})`}
+            children={name}
             withArrow
             marginLeft="7px"
             href={toolTipData.link}
@@ -81,7 +80,6 @@ const ContainerLinkWithMip = styled.div<WithIsLight>(({ isLight }) => ({
   background: isLight ? '#EDEFFF' : '#25273D',
   borderRadius: 6,
   padding: 6,
-  height: '64px',
 }));
 
 const ContainerLink = styled.div({
