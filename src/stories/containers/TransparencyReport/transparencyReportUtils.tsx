@@ -109,7 +109,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
             <CustomPopover
               widthArrow
               sxProps={{
-                '& .css-3bmhjh-MuiPaper-root-MuiPopover-paper': {
+                '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
                   overflowX: 'unset',
                   overflowY: 'unset',
                 },
@@ -149,7 +149,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
               widthArrow
               alignArrow="center"
               sxProps={{
-                '& .css-3bmhjh-MuiPaper-root-MuiPopover-paper': {
+                '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
                   overflowX: 'unset',
                   overflowY: 'unset',
 
