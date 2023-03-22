@@ -1,38 +1,39 @@
 import { request, gql } from 'graphql-request';
 import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
-import type { CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
+import type { ActivityFeedDto, CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
 
-export const GET_CUS_WITH_ACTIVITY = gql`
-  query CoreUnits {
-    coreUnits {
-      id
-      shortCode
-      code
-      name
-      image
-      category
-      sentenceDescription
-      activityFeed {
-        id
+export const getGlobalActivityFeedQuery = () => ({
+  query: gql`
+    query GlobalActivityFeed($limit: Int, $offset: Int) {
+      activityFeed(limit: $limit, offset: $offset) {
         created_at
-        event
-        params
         description
+        event
+        id
+        params
       }
-      socialMediaChannels {
-        discord
-        forumTag
-        linkedIn
-        twitter
-        website
-        youtube
-        github
+      coreUnits {
+        id
+        shortCode
+        name
+        image
       }
     }
-  }
-`;
+  `,
+  filter: {
+    limit: 500,
+    offset: 0,
+  },
+});
 
-export const fetchCoreUnitsWithActivities = async () => {
-  const res = (await request(GRAPHQL_ENDPOINT, GET_CUS_WITH_ACTIVITY)) as { coreUnits: CoreUnitDto[] };
-  return res.coreUnits;
+interface GlobalActivityFeedResponse {
+  coreUnits: Partial<CoreUnitDto>[];
+  activityFeed: ActivityFeedDto[];
+}
+
+export const fetchGlobalActivityFeedData = async (): Promise<GlobalActivityFeedResponse> => {
+  const { query, filter } = getGlobalActivityFeedQuery();
+  const response = (await request(GRAPHQL_ENDPOINT, query, filter)) as GlobalActivityFeedResponse;
+
+  return response;
 };

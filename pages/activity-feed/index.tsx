@@ -1,21 +1,27 @@
 import React from 'react';
-import { fetchCoreUnitsWithActivities } from '../../src/stories/containers/GlobalActivity/GlobalActivityAPI';
+import { fetchGlobalActivityFeedData } from '../../src/stories/containers/GlobalActivity/GlobalActivityAPI';
 import GlobalActivity from '../../src/stories/containers/GlobalActivity/GlobalActivityFeedContainer';
-import type { CoreUnitDto } from '../../src/core/models/dto/coreUnitDTO';
+import type { ActivityFeedDto, CoreUnitDto } from '../../src/core/models/dto/coreUnitDTO';
 import type { GetServerSideProps, NextPage } from 'next';
 
-const GlobalActivityPage: NextPage<{ coreUnits: CoreUnitDto[] }> = ({ coreUnits }) => (
-  <GlobalActivity coreUnits={coreUnits} />
+interface GlobalActivityPageProps {
+  coreUnits: CoreUnitDto[];
+  activityFeed: ActivityFeedDto[];
+}
+
+const GlobalActivityPage: NextPage<GlobalActivityPageProps> = ({ coreUnits, activityFeed }) => (
+  <GlobalActivity coreUnits={coreUnits} activityFeed={activityFeed} />
 );
 
 export default GlobalActivityPage;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const coreUnits = await fetchCoreUnitsWithActivities();
+  const { activityFeed, coreUnits } = await fetchGlobalActivityFeedData();
 
   return {
     props: {
       coreUnits,
+      activityFeed,
     },
   };
 };

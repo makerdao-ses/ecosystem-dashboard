@@ -1,12 +1,13 @@
 import sortBy from 'lodash/sortBy';
+import { DateTime } from 'luxon';
 import { useMemo, useRef, useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { SortEnum } from '../../../core/enums/sortEnum';
-import type { CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
+import type { ActivityFeedDto, CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
 import type { Activity, ActivityTableHeader } from '../../components/CUActivityTable/ActivityTable';
 import type { MultiSelectItem } from '../../components/CustomMultiSelect/CustomMultiSelect';
 
-export const useGlobalActivity = (coreUnits: CoreUnitDto[]) => {
+export const useGlobalActivity = (coreUnits: CoreUnitDto[], activityFeed: ActivityFeedDto[]) => {
   const [searchText, setSearchText] = useState('');
   const [activeElements, setActiveElements] = useState<string[]>([]);
   const [filtersVisible, setFiltersVisible] = useState(false);
@@ -69,31 +70,37 @@ export const useGlobalActivity = (coreUnits: CoreUnitDto[]) => {
     [coreUnits]
   );
 
-  const activityFeed = useMemo(
+  const coreUnitsMap = useMemo(() => {
+    const map = new Map<string, CoreUnitDto>();
+    coreUnits.forEach((cu) => map.set(cu.shortCode, cu));
+    return map;
+  }, [coreUnits]);
+
+  const extendedActivityFeed = useMemo(
     () =>
       sortBy(
-        coreUnits
-          .filter((cu) => !activeElements.length || activeElements.includes(cu.shortCode))
-          .reduce(
-            (acc, cu) => [
-              ...acc,
-              ...cu.activityFeed
-                .filter((af) => !searchText || af.description.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
-                .map((act) => ({
-                  coreUnit: cu,
-                  activityFeed: act,
-                })),
-            ],
-            [] as Activity[]
+        activityFeed
+          .map(
+            (activity) =>
+              ({
+                activityFeed: activity,
+                coreUnit: coreUnitsMap.get(activity.params.coreUnit.shortCode),
+              } as Activity)
+          )
+          .filter(
+            (activity) =>
+              (!activeElements.length || activeElements.includes(activity.coreUnit?.shortCode || '')) &&
+              (!searchText || activity.activityFeed.description.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
           ),
-        'created_at'
+        // sort by:
+        (activity) => DateTime.fromISO(activity.activityFeed.created_at)
       ),
-    [activeElements, coreUnits, searchText]
+    [activeElements, activityFeed, coreUnitsMap, searchText]
   );
 
   return {
     columns,
-    activityFeed,
+    extendedActivityFeed,
     searchText,
     setSearchText,
     handleClearSearch,
