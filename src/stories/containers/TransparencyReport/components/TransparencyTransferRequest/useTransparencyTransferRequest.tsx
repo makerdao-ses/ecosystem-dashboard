@@ -1,8 +1,5 @@
-/* eslint-disable no-lone-blocks */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
 import { formatNumber } from '@ses/core/utils/string';
-import _ from 'lodash';
 import { DateTime } from 'luxon';
 import { useCallback, useMemo } from 'react';
 import { renderLinks, RenderNumberWithIcon, renderWallet, TotalTargetBalance } from '../../transparencyReportUtils';
@@ -12,14 +9,11 @@ import type {
   BudgetStatementDto,
   BudgetStatementWalletDto,
   BudgetStatementWalletTransferRequestDto,
-  SourceDto,
-  TargetDto,
 } from '@ses/core/models/dto/coreUnitDTO';
 import type { TargetBalanceTooltipInformation } from '@ses/core/utils/typesHelpers';
 
 export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetStatements: BudgetStatementDto[]) => {
-  const { firstMonth, secondMonth, thirdMonth, getForecastSumOfMonthsOnWallet, getForecastSumForMonths, wallets } =
-    useTransparencyForecast(currentMonth, budgetStatements);
+  const { wallets } = useTransparencyForecast(currentMonth, budgetStatements);
 
   const getTransferRequestForMonthOnWallet = useMemo(() => {
     const getTransferRequestForMonthOnWalletFunction = (walletAddress: string | undefined) => {
