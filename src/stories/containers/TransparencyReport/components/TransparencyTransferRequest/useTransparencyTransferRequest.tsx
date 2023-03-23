@@ -148,10 +148,10 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
               ]),
               months: 'FEB + MAR Budget Cap',
               mipNumber: 'MIP40c3-SP14:',
-              link: '#',
+              link: '',
               description: '2 Month Budget Cap',
               longCode: 'SES-001',
-              name: 'Collateral Engineering Services',
+              name: '',
             } as TargetBalanceTooltipInformation,
           },
           {
