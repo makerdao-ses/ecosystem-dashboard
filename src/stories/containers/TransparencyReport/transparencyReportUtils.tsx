@@ -107,15 +107,13 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
         {!isMobileResolution && (
           <Container>
             {showIconToolTip && (
-              <CustomPopover
+              <CustomerPopoverExtends
                 widthArrow
                 sxProps={{
                   '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
                     overflowX: 'unset',
                     overflowY: 'unset',
                   },
-                  marginLeft: -4.3,
-                  marginTop: 2.5,
                 }}
                 id="information"
                 popupStyle={{
@@ -136,7 +134,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                 <ContainerInfoIcon>
                   <IconPosition />
                 </ContainerInfoIcon>
-              </CustomPopover>
+              </CustomerPopoverExtends>
             )}
             <ContainerInformation>
               <ContainerNumberCell value={data.balance} />
@@ -340,4 +338,23 @@ export const TotalTargetBalance = styled.div({
 
 const BiggerContainer = styled.div({
   width: '100%',
+});
+
+const CustomerPopoverExtends = styled(CustomPopover)({
+  // '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
+  //   overflowX: 'unset',
+  //   overflowY: 'unset',
+  //   marginLeft: -20.3,
+  //   marginTop: 2.5,
+  // },
+  '& > div': {
+    [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+      marginLeft: -45,
+      marginTop: 16,
+    },
+    [lightTheme.breakpoints.up('desktop_1194')]: {
+      marginLeft: -32,
+      marginTop: 18,
+    },
+  },
 });
