@@ -100,6 +100,13 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
       targetWithTimeSpan.walletBalanceTimeStamp = item.walletBalanceTimeStamp;
     });
 
+    const lastIndex = (wallet.budgetStatementTransferRequest ?? []).length - 1;
+    if (wallet.budgetStatementTransferRequest && wallet.budgetStatementTransferRequest.length > 0) {
+      targetWithTimeSpan.target = wallet.budgetStatementTransferRequest[lastIndex].target;
+      targetWithTimeSpan.walletBalanceTimeStamp =
+        wallet.budgetStatementTransferRequest[lastIndex]?.walletBalanceTimeStamp;
+    }
+
     return targetWithTimeSpan;
   }, []);
 
@@ -117,7 +124,7 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
     return formatData;
   }, [wallets]);
 
-  const getTransferRequestTargetBalanceColumnTotal = useMemo(() => {
+  const transferRequestTargetBalanceColumnTotal = useMemo(() => {
     let result = 0;
     if (!wallets) return result;
 
@@ -217,7 +224,7 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
             column: mainTableColumns[1],
             value: (
               <TotalTargetBalance hasMarginRight={true}>
-                {formatNumber(getTransferRequestTargetBalanceColumnTotal)}
+                {formatNumber(transferRequestTargetBalanceColumnTotal)}
               </TotalTargetBalance>
             ),
           },
@@ -241,7 +248,7 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
     getTransferRequestTargetBalanceColumn,
     getCurrentBalanceForMonthOnWallet,
     getTransferRequestForMonthOnWallet,
-    getTransferRequestTargetBalanceColumnTotal,
+    transferRequestTargetBalanceColumnTotal,
     getCurrentBalanceForMonth,
     getTransferRequestForMonth,
   ]);
