@@ -10,7 +10,6 @@ import type {
   BudgetStatementWalletDto,
   BudgetStatementWalletTransferRequestDto,
 } from '@ses/core/models/dto/coreUnitDTO';
-import type { TargetBalanceTooltipInformation } from '@ses/core/utils/typesHelpers';
 
 export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetStatements: BudgetStatementDto[]) => {
   const { wallets } = useTransparencyForecast(currentMonth, budgetStatements);
@@ -151,7 +150,6 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
         header: 'Target Balance',
         type: 'custom',
         align: 'right',
-        cellRender: RenderNumberWithIcon,
       },
       {
         header: `${getWalletBalanceTimeStamp()} Balance`,
@@ -187,14 +185,16 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
           },
           {
             column: mainTableColumns[1],
-            value: {
-              balance: getTransferRequestTargetBalanceColumn(wallet).target?.amount || 0,
-              months: getTransferRequestTargetBalanceColumn(wallet).target?.calculation || '',
-              link: getTransferRequestTargetBalanceColumn(wallet).target?.source.url || '',
-              description: getTransferRequestTargetBalanceColumn(wallet).target?.description || '',
-              name: getTransferRequestTargetBalanceColumn(wallet).target?.source.title || '',
-              mipNumber: getTransferRequestTargetBalanceColumn(wallet).target?.source.code || '',
-            } as TargetBalanceTooltipInformation,
+            value: (
+              <RenderNumberWithIcon
+                balance={getTransferRequestTargetBalanceColumn(wallet).target?.amount || 0}
+                months={getTransferRequestTargetBalanceColumn(wallet).target?.calculation || ''}
+                link={getTransferRequestTargetBalanceColumn(wallet).target?.source.url || ''}
+                description={getTransferRequestTargetBalanceColumn(wallet).target?.description || ''}
+                name={getTransferRequestTargetBalanceColumn(wallet).target?.source.title || ''}
+                mipNumber={getTransferRequestTargetBalanceColumn(wallet).target?.source.code || ''}
+              />
+            ),
           },
           {
             column: mainTableColumns[2],

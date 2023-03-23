@@ -67,8 +67,7 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
         );
       case 'custom':
         if (column?.cellRender) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          return column?.cellRender(value as any);
+          return column?.cellRender(value as unknown);
         }
     }
 

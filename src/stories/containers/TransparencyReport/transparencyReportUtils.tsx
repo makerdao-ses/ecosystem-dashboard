@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from '@emotion/styled';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
@@ -10,7 +11,7 @@ import { useScrollLock } from '@ses/core/hooks/useScrollLock';
 import { getPageWrapper } from '@ses/core/utils/dom';
 import lightTheme from '@ses/styles/theme/light';
 import MobileDetect from 'mobile-detect';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { formatAddressForOutput } from '../../../core/utils/string';
 import { CustomLink } from '../../components/CustomLink/CustomLink';
 import { TextCell } from '../../components/TextCell/TextCell';
@@ -67,20 +68,19 @@ export const renderLinksWithToken = (address: string) => (
   </TextCell>
 );
 
-interface WithIsLightAndClick {
+export interface WithIsLightAndClick {
   isLight: boolean;
   onClick?: () => void;
 }
 export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
-  const { isLight } = useThemeContext();
   const [isOpen, setIsOpen] = useState(false);
+  const { isLight } = useThemeContext();
+  const isMobileResolution = false; // useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const { lockScroll, unlockScroll } = useScrollLock();
   const showIconToolTip = !!(data.description && data.link);
 
   const md = new MobileDetect(window.navigator.userAgent);
   const isMobileDevice = !!md.mobile();
-  const isMobileResolution = useMediaQuery(lightTheme.breakpoints.down('table_834'));
-
-  const { lockScroll, unlockScroll } = useScrollLock();
 
   useEffect(() => {
     if (isMobileDevice) {
@@ -98,12 +98,12 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
     };
   }, [isMobileDevice, isOpen, lockScroll, unlockScroll]);
 
-  const handleOnClick = () => {
+  const handleOnClick = useCallback(() => {
     setIsOpen(!isOpen);
-  };
+  }, [isOpen]);
 
   return (
-    <div>
+    <>
       <PopoverContainer>
         {!isMobileResolution && (
           <Container>
@@ -215,13 +215,12 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
               link: data.link,
               mipNumber: data.mipNumber,
             }}
-            longCode={data.longCode}
             name={data.name}
           />
         </ModalSheet>
       )}
       {isMobileResolution && isOpen && isMobileDevice && <ContainerOverlay isLight={isLight} onClick={handleOnClick} />}
-    </div>
+    </>
   );
 };
 
