@@ -113,8 +113,8 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                   overflowX: 'unset',
                   overflowY: 'unset',
                 },
-                marginLeft: -6.7,
-                marginTop: 0.6,
+                marginLeft: -4.7,
+                marginTop: 2.5,
               }}
               id="information"
               popupStyle={{
@@ -267,24 +267,11 @@ const Container = styled.div({
 });
 
 export const ContainerInfoIcon = styled.div({
-  paddingRight: 0,
-  marginTop: -16,
-  display: 'flex',
-  flexDirection: 'row',
-
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    height: 32,
-    display: 'flex',
+  position: 'absolute',
+  marginTop: -18,
+  [lightTheme.breakpoints.up('table_834')]: {
     alignItems: 'center',
-    marginTop: 0,
-    marginRight: 12.5,
-  },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    height: 32,
-    alignItems: 'center',
-
-    marginRight: 20,
-    marginTop: 0,
+    marginTop: -8,
   },
 });
 
@@ -331,7 +318,10 @@ export const TotalTargetBalance = styled.div({
   justifyContent: 'flex-end',
   textAlign: 'center',
   fontWeight: 700,
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginRight: 4,
+  },
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginRight: 32,
+    marginRight: 16,
   },
 });

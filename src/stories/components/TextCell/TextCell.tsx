@@ -55,7 +55,6 @@ const Container = styled.div<{
     fontWeight: 700,
   },
   '@media (min-width: 834px)': {
-    padding: '16px',
     lineHeight: '19px',
     fontSize: '16px',
     textAlign: 'left',
