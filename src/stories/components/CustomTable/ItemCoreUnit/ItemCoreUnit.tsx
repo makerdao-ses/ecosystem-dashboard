@@ -16,20 +16,20 @@ interface Props {
 export const ItemCoreUnit = ({ queryStrings, isLoading, columns, cu }: Props) => {
   const { isLight } = useThemeContext();
   return (
-    <Link href={`/core-unit/${cu?.shortCode}/${queryStrings}`} passHref>
-      <>
-        <TableWrapper>
+    <>
+      <TableWrapper>
+        <Link href={`/core-unit/${cu?.shortCode}/${queryStrings}`} passHref legacyBehavior>
           <TableRow isLight={isLight} isLoading={isLoading} columns={columns}>
             {columns?.map((column) => (
               <TableCell key={column?.header}>{column.cellRender?.(cu)}</TableCell>
             ))}
           </TableRow>
-        </TableWrapper>
-        <ListWrapper>
-          <CardItemCoreUnitMobile coreUnit={cu} />
-        </ListWrapper>
-      </>
-    </Link>
+        </Link>
+      </TableWrapper>
+      <ListWrapper>
+        <CardItemCoreUnitMobile coreUnit={cu} />
+      </ListWrapper>
+    </>
   );
 };
 
