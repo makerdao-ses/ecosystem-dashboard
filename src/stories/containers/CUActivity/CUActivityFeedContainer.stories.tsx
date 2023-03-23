@@ -31,47 +31,46 @@ export default {
 
 const variantsArgs = [
   {
+    activities: [],
     coreUnit: SESCoreUnitMocked,
     coreUnits: [SESCoreUnitMocked],
   },
   {
-    coreUnit: {
-      ...SESCoreUnitMocked,
-      activityFeed: [
-        new ActivityBuilder()
-          .withCreatedAt('2022-09-21T12:23:00Z')
-          .withDescription(
-            'Signal your support or opposition to prioritising onboarding GUNIV3-BUSD-DAI (Gelato Uniswap v3 BUSD-DAI).'
-          )
-          .withParams({
-            coreUnit: {
-              shortCode: 'SES',
-            },
-            month: '2022-09',
-          })
-          .build(),
-        new ActivityBuilder()
-          .withCreatedAt('2022-09-10T12:23:00Z')
-          .withDescription('Increase Headcount Expense Forecast Lorem Ipsum test some text.')
-          .withParams({
-            coreUnit: {
-              shortCode: 'SES',
-            },
-            month: '2022-09',
-          })
-          .build(),
-        new ActivityBuilder()
-          .withCreatedAt('2022-08-20T12:23:00Z')
-          .withDescription('Increase Headcount Expense Forecast Lorem Ipsum test some text.')
-          .withParams({
-            coreUnit: {
-              shortCode: 'SES',
-            },
-            month: '2022-08',
-          })
-          .build(),
-      ],
-    },
+    activities: [
+      new ActivityBuilder()
+        .withCreatedAt('2022-09-21T12:23:00Z')
+        .withDescription(
+          'Signal your support or opposition to prioritising onboarding GUNIV3-BUSD-DAI (Gelato Uniswap v3 BUSD-DAI).'
+        )
+        .withParams({
+          coreUnit: {
+            shortCode: 'SES',
+          },
+          month: '2022-09',
+        })
+        .build(),
+      new ActivityBuilder()
+        .withCreatedAt('2022-09-10T12:23:00Z')
+        .withDescription('Increase Headcount Expense Forecast Lorem Ipsum test some text.')
+        .withParams({
+          coreUnit: {
+            shortCode: 'SES',
+          },
+          month: '2022-09',
+        })
+        .build(),
+      new ActivityBuilder()
+        .withCreatedAt('2022-08-20T12:23:00Z')
+        .withDescription('Increase Headcount Expense Forecast Lorem Ipsum test some text.')
+        .withParams({
+          coreUnit: {
+            shortCode: 'SES',
+          },
+          month: '2022-08',
+        })
+        .build(),
+    ],
+    coreUnit: SESCoreUnitMocked,
     coreUnits: [SESCoreUnitMocked],
   },
 ];

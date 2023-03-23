@@ -74,6 +74,7 @@ interface WithIsLightAndClick {
 export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
   const { isLight } = useThemeContext();
   const [isOpen, setIsOpen] = useState(false);
+  const showIconToolTip = !!(data.description && data.link);
 
   const md = new MobileDetect(window.navigator.userAgent);
   const isMobileDevice = !!md.mobile();
@@ -106,36 +107,38 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
       <PopoverContainer>
         {!isMobileResolution && (
           <Container>
-            <CustomPopover
-              widthArrow
-              sxProps={{
-                '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
-                  overflowX: 'unset',
-                  overflowY: 'unset',
-                },
-                marginLeft: -6.7,
-                marginTop: 0.6,
-              }}
-              id="information"
-              popupStyle={{
-                padding: 10,
-              }}
-              title={
-                <ArrowPopoverTargetValueComponent
-                  toolTipData={{
-                    link: data.link,
-                    description: data.description,
-                    mipNumber: data.mipNumber,
-                  }}
-                  name={data.name}
-                />
-              }
-              leaveOnChildrenMouseOut
-            >
-              <ContainerInfoIcon>
-                <Information />
-              </ContainerInfoIcon>
-            </CustomPopover>
+            {showIconToolTip && (
+              <CustomPopover
+                widthArrow
+                sxProps={{
+                  '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
+                    overflowX: 'unset',
+                    overflowY: 'unset',
+                  },
+                  marginLeft: -4.7,
+                  marginTop: 2.5,
+                }}
+                id="information"
+                popupStyle={{
+                  padding: 10,
+                }}
+                title={
+                  <ArrowPopoverTargetValueComponent
+                    toolTipData={{
+                      link: data.link,
+                      description: data.description,
+                      mipNumber: data.mipNumber,
+                    }}
+                    name={data.name}
+                  />
+                }
+                leaveOnChildrenMouseOut
+              >
+                <ContainerInfoIcon>
+                  <Information />
+                </ContainerInfoIcon>
+              </CustomPopover>
+            )}
             <ContainerInformation>
               <ContainerNumberCell value={data.balance} />
               <ContainerStyleMonths>{data.months}</ContainerStyleMonths>
@@ -144,39 +147,41 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
         )}
         {isMobileResolution && !isMobileDevice && (
           <Container>
-            <CustomPopover
-              widthArrow
-              alignArrow="center"
-              sxProps={{
-                '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
-                  overflowX: 'unset',
-                  overflowY: 'unset',
+            {showIconToolTip && (
+              <CustomPopover
+                widthArrow
+                alignArrow="center"
+                sxProps={{
+                  '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
+                    overflowX: 'unset',
+                    overflowY: 'unset',
 
-                  left: '0px!important',
-                  marginLeft: '36px',
-                  marginTop: 1.5,
-                },
-              }}
-              id="information"
-              popupStyle={{
-                padding: 10,
-              }}
-              title={
-                <ArrowPopoverTargetValueComponent
-                  toolTipData={{
-                    link: data.link,
-                    description: data.description,
-                    mipNumber: data.mipNumber,
-                  }}
-                  name={data.name}
-                />
-              }
-              leaveOnChildrenMouseOut
-            >
-              <ContainerInfoIcon>
-                <Information />
-              </ContainerInfoIcon>
-            </CustomPopover>
+                    left: '0px!important',
+                    marginLeft: '36px',
+                    marginTop: 1.5,
+                  },
+                }}
+                id="information"
+                popupStyle={{
+                  padding: 10,
+                }}
+                title={
+                  <ArrowPopoverTargetValueComponent
+                    toolTipData={{
+                      link: data.link,
+                      description: data.description,
+                      mipNumber: data.mipNumber,
+                    }}
+                    name={data.name}
+                  />
+                }
+                leaveOnChildrenMouseOut
+              >
+                <ContainerInfoIcon>
+                  <Information />
+                </ContainerInfoIcon>
+              </CustomPopover>
+            )}
             <ContainerInformation>
               <ContainerNumberCell value={data.balance} />
               <ContainerStyleMonths>{data.months}</ContainerStyleMonths>
@@ -188,9 +193,11 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
         <PopoverContainer>
           {isMobileResolution && isMobileDevice && (
             <Container>
-              <ContainerInfoIcon onClick={handleOnClick}>
-                <Information />
-              </ContainerInfoIcon>
+              {showIconToolTip && (
+                <ContainerInfoIcon onClick={handleOnClick}>
+                  <Information />
+                </ContainerInfoIcon>
+              )}
 
               <ContainerInformation>
                 <ContainerNumberCell value={data.balance} />
@@ -265,24 +272,11 @@ const Container = styled.div({
 });
 
 export const ContainerInfoIcon = styled.div({
-  paddingRight: 0,
-  marginTop: -16,
-  display: 'flex',
-  flexDirection: 'row',
-
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    height: 32,
-    display: 'flex',
+  position: 'absolute',
+  marginTop: -18,
+  [lightTheme.breakpoints.up('table_834')]: {
     alignItems: 'center',
-    marginTop: 0,
-    marginRight: 12.5,
-  },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    height: 32,
-    alignItems: 'center',
-
-    marginRight: 20,
-    marginTop: 0,
+    marginTop: -8,
   },
 });
 
@@ -322,14 +316,18 @@ const ContainerStyleMonths = styled.div({
   },
 });
 
-export const TotalTargetBalance = styled.div<{ hasMarginRight?: boolean }>(({ hasMarginRight = false }) => ({
+export const TotalTargetBalance = styled.div(() => ({
   display: 'flex',
   flexDirection: 'row',
   flex: 1,
   justifyContent: 'flex-end',
   textAlign: 'center',
   fontWeight: 700,
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginRight: 4,
+  },
+
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginRight: hasMarginRight ? 32 : 0,
+    marginRight: 16,
   },
 }));
