@@ -222,11 +222,7 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
           },
           {
             column: mainTableColumns[1],
-            value: (
-              <TotalTargetBalance hasMarginRight={true}>
-                {formatNumber(transferRequestTargetBalanceColumnTotal)}
-              </TotalTargetBalance>
-            ),
+            value: <TotalTargetBalance>{formatNumber(transferRequestTargetBalanceColumnTotal)}</TotalTargetBalance>,
           },
           {
             column: mainTableColumns[2],
