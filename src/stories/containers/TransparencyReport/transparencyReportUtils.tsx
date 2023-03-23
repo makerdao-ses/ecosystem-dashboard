@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from '@emotion/styled';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
@@ -75,7 +74,7 @@ export interface WithIsLightAndClick {
 export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
   const [isOpen, setIsOpen] = useState(false);
   const { isLight } = useThemeContext();
-  const isMobileResolution = false; // useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const isMobileResolution = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const { lockScroll, unlockScroll } = useScrollLock();
   const showIconToolTip = !!(data.description && data.link);
 
@@ -103,7 +102,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
   }, [isOpen]);
 
   return (
-    <>
+    <BiggerContainer>
       <PopoverContainer>
         {!isMobileResolution && (
           <Container>
@@ -115,7 +114,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                     overflowX: 'unset',
                     overflowY: 'unset',
                   },
-                  marginLeft: -4.7,
+                  marginLeft: -4.3,
                   marginTop: 2.5,
                 }}
                 id="information"
@@ -135,7 +134,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                 leaveOnChildrenMouseOut
               >
                 <ContainerInfoIcon>
-                  <Information />
+                  <IconPosition />
                 </ContainerInfoIcon>
               </CustomPopover>
             )}
@@ -155,7 +154,6 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                   '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
                     overflowX: 'unset',
                     overflowY: 'unset',
-
                     left: '0px!important',
                     marginLeft: '36px',
                     marginTop: 1.5,
@@ -178,7 +176,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                 leaveOnChildrenMouseOut
               >
                 <ContainerInfoIcon>
-                  <Information />
+                  <IconPosition />
                 </ContainerInfoIcon>
               </CustomPopover>
             )}
@@ -195,7 +193,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
             <Container>
               {showIconToolTip && (
                 <ContainerInfoIcon onClick={handleOnClick}>
-                  <Information />
+                  <IconPosition />
                 </ContainerInfoIcon>
               )}
 
@@ -220,7 +218,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
         </ModalSheet>
       )}
       {isMobileResolution && isOpen && isMobileDevice && <ContainerOverlay isLight={isLight} onClick={handleOnClick} />}
-    </>
+    </BiggerContainer>
   );
 };
 
@@ -242,6 +240,7 @@ const ContainerOverlay = styled.div<WithIsLightAndClick>(({ isLight, onClick }) 
 const ModalSheet = styled.div({
   width: '100%',
   zIndex: 5,
+  textAlign: 'left',
   position: 'fixed',
   bottom: 0,
   left: 0,
@@ -257,6 +256,7 @@ const PopoverContainer = styled.div({
 const Container = styled.div({
   width: '100%',
   display: 'flex',
+  flex: 1,
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'space-between',
@@ -265,17 +265,28 @@ const Container = styled.div({
     width: '100%',
     flexDirection: 'row-reverse',
     marginLeft: 0,
-
     marginTop: 0,
   },
 });
 
 export const ContainerInfoIcon = styled.div({
+  position: 'relative',
+});
+
+const IconPosition = styled(Information)({
   position: 'absolute',
-  marginTop: -18,
+  top: -14,
+  left: -14,
   [lightTheme.breakpoints.up('table_834')]: {
     alignItems: 'center',
-    marginTop: -8,
+    top: -8,
+    left: -10,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    alignItems: 'center',
+
+    top: -8,
+    left: 4,
   },
 });
 
@@ -287,7 +298,7 @@ const ContainerInformation = styled.div({
 
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     alignItems: 'flex-end',
-    marginRight: 4.5,
+    marginRight: 14,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     alignItems: 'flex-end',
@@ -315,7 +326,7 @@ const ContainerStyleMonths = styled.div({
   },
 });
 
-export const TotalTargetBalance = styled.div(() => ({
+export const TotalTargetBalance = styled.div({
   display: 'flex',
   flexDirection: 'row',
   flex: 1,
@@ -323,10 +334,10 @@ export const TotalTargetBalance = styled.div(() => ({
   textAlign: 'center',
   fontWeight: 700,
   [lightTheme.breakpoints.up('table_834')]: {
-    marginRight: 4,
-  },
-
-  [lightTheme.breakpoints.up('desktop_1194')]: {
     marginRight: 16,
   },
-}));
+});
+
+const BiggerContainer = styled.div({
+  width: '100%',
+});
