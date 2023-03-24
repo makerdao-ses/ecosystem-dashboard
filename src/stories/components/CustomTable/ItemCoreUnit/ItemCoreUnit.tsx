@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import Link from 'next/link';
 import React from 'react';
@@ -18,7 +19,7 @@ export const ItemCoreUnit = ({ queryStrings, isLoading, columns, cu }: Props) =>
   return (
     <>
       <TableWrapper>
-        <Link href={`/core-unit/${cu?.shortCode}/${queryStrings}`} passHref legacyBehavior>
+        <Link href={`${siteRoutes.coreUnitAbout(cu?.shortCode)}/${queryStrings}`} passHref legacyBehavior>
           <TableRow isLight={isLight} isLoading={isLoading} columns={columns}>
             {columns?.map((column) => (
               <TableCell key={column?.header}>{column.cellRender?.(cu)}</TableCell>
