@@ -20,6 +20,7 @@ export interface CostBreakdownTableProps {
   byBudgetExpenses: ExtendedExpense[];
   remainingBudgetCU: ExtendedExpense;
   remainingBudgetDelegates: ExtendedExpense;
+  maxValueByBudget: number;
   total: number;
 }
 
@@ -29,6 +30,7 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
   byBudgetExpenses,
   remainingBudgetCU,
   remainingBudgetDelegates,
+  maxValueByBudget,
   total,
 }) => {
   const { isLight } = useThemeContext();
@@ -45,9 +47,7 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
                 <ByBudgetTableRow
                   expense={budget}
                   total={total}
-                  relativePercentage={
-                    i === 0 ? 100 : percentageRespectTo(byBudgetExpenses[i].prediction, byBudgetExpenses[0].prediction)
-                  }
+                  relativePercentage={percentageRespectTo(budget.prediction, maxValueByBudget)}
                   rowType={isCoreUnitExpense(budget) ? 'coreUnit' : 'delegate'}
                   key={i}
                 />
@@ -89,7 +89,7 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
                 <ByExpenseCategoryTableRow name="Gas Expense" total={1252461} />
 
                 <RemainingContainer isLight={isLight}>
-                  <ByExpenseCategoryTableRow name="All Remaining Non-Headcount" total={301568} />
+                  <ByExpenseCategoryTableRow name="All Remaining Categories" total={301568} />
                 </RemainingContainer>
               </ExpenseCategoryGroup>
             </>
@@ -134,7 +134,7 @@ const RemainingContainer = styled.div<WithIsLight>(({ isLight }) => ({
   flexDirection: 'column',
   gap: 24,
 
-  '& > div': {
+  '& > *': {
     marginBottom: 0,
   },
 

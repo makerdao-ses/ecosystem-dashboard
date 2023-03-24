@@ -113,8 +113,12 @@ export const fetchCostBreakdownExpenses = async (): Promise<{
       } as ExtendedExpense;
     } else {
       // it is a delegate expense
-      // TODO: extend with the delegate name
-      return expense as ExtendedExpense;
+      // it is supposed to be only one DEL expense per year
+      return {
+        ...expense,
+        name: 'Recognized Delegates',
+        shortCode: 'DEL',
+      } as ExtendedExpense;
     }
   });
 
