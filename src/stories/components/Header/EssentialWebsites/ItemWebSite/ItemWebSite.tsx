@@ -64,7 +64,6 @@ export const ItemWebSite = ({
           </div>
           <LinkWrapper>
             <CustomButton
-              className="visitWebsiteButton"
               label="Visit Website"
               style={{
                 width: '137px',
@@ -135,9 +134,6 @@ const Container = styled.a<{ height?: string; isLight: boolean }>(({ height, isL
 
   '&:hover': {
     background: isLight ? '#ECF1F3' : '#1E2C37',
-    '& .visitWebsiteButton': {
-      background: isLight ? '#ECF1F3' : '#1E2C37',
-    },
   },
 
   '@media (min-width: 635px)': {
