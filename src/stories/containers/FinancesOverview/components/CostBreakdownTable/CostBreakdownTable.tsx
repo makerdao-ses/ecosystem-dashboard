@@ -20,6 +20,7 @@ export interface CostBreakdownTableProps {
   byBudgetExpenses: ExtendedExpense[];
   remainingBudgetCU: ExtendedExpense;
   remainingBudgetDelegates: ExtendedExpense;
+  maxValueByBudget: number;
   total: number;
 }
 
@@ -29,6 +30,7 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
   byBudgetExpenses,
   remainingBudgetCU,
   remainingBudgetDelegates,
+  maxValueByBudget,
   total,
 }) => {
   const { isLight } = useThemeContext();
@@ -45,9 +47,7 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
                 <ByBudgetTableRow
                   expense={budget}
                   total={total}
-                  relativePercentage={
-                    i === 0 ? 100 : percentageRespectTo(byBudgetExpenses[i].prediction, byBudgetExpenses[0].prediction)
-                  }
+                  relativePercentage={percentageRespectTo(budget.prediction, maxValueByBudget)}
                   rowType={isCoreUnitExpense(budget) ? 'coreUnit' : 'delegate'}
                   key={i}
                 />

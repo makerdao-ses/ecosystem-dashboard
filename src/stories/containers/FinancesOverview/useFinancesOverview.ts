@@ -140,51 +140,57 @@ const useFinancesOverview = (
   // cost breakdown
   const [selectedFilter, setSelectedFilter] = useState<CostBreakdownFilterValue>('By budget');
 
-  const { byBudgetExpenses, costBreakdownTotal, remainingBudgetCU, remainingBudgetDelegates } = useMemo(() => {
-    let costBreakdownTotal = 0;
-    const byBudgetExpenses: ExtendedExpense[] = [];
-    const remainingBudgetCU = {
-      shortCode: 'CU',
-      name: 'Remaining Core Units',
-      actuals: 0,
-      budgetCap: 0,
-      budget: 'makerdao/core-units',
-      discontinued: 0,
-      period: selectedYear.toString(),
-      prediction: 0,
-    } as ExtendedExpense;
-    const remainingBudgetDelegates = {
-      shortCode: 'DEL',
-      name: 'Recognized Delegates',
-      actuals: 0,
-      budgetCap: 0,
-      budget: 'makerdao/delegates',
-      discontinued: 0,
-      period: selectedYear.toString(),
-      prediction: 0,
-    } as ExtendedExpense;
+  const { byBudgetExpenses, costBreakdownTotal, remainingBudgetCU, maxValueByBudget, remainingBudgetDelegates } =
+    useMemo(() => {
+      let costBreakdownTotal = 0;
+      const byBudgetExpenses: ExtendedExpense[] = [];
+      const remainingBudgetCU = {
+        shortCode: 'CU',
+        name: 'Remaining Core Units',
+        actuals: 0,
+        budgetCap: 0,
+        budget: 'makerdao/core-units',
+        discontinued: 0,
+        period: selectedYear.toString(),
+        prediction: 0,
+      } as ExtendedExpense;
+      const remainingBudgetDelegates = {
+        shortCode: 'DEL',
+        name: 'Recognized Delegates',
+        actuals: 0,
+        budgetCap: 0,
+        budget: 'makerdao/delegates',
+        discontinued: 0,
+        period: selectedYear.toString(),
+        prediction: 0,
+      } as ExtendedExpense;
 
-    breakdownExpenses
-      .filter((expense) => expense.period === selectedYear.toString())
-      .sort((a, b) => b.prediction - a.prediction)
-      .forEach((expense, index) => {
-        costBreakdownTotal += expense.prediction;
-        if (index < 10) {
-          byBudgetExpenses.push(expense);
-        } else if (isCoreUnitExpense(expense)) {
-          mutableCombinationExpenseByAdding(remainingBudgetCU, expense);
-        } else {
-          mutableCombinationExpenseByAdding(remainingBudgetDelegates, expense);
-        }
-      });
+      breakdownExpenses
+        .filter((expense) => expense.period === selectedYear.toString())
+        .sort((a, b) => b.prediction - a.prediction)
+        .forEach((expense, index) => {
+          costBreakdownTotal += expense.prediction;
+          if (index < 10) {
+            byBudgetExpenses.push(expense);
+          } else if (isCoreUnitExpense(expense)) {
+            mutableCombinationExpenseByAdding(remainingBudgetCU, expense);
+          } else {
+            mutableCombinationExpenseByAdding(remainingBudgetDelegates, expense);
+          }
+        });
 
-    return {
-      byBudgetExpenses,
-      remainingBudgetCU,
-      remainingBudgetDelegates,
-      costBreakdownTotal,
-    };
-  }, [breakdownExpenses, selectedYear]);
+      const maxValueByBudget = Math.max(
+        ...[...byBudgetExpenses, remainingBudgetCU, remainingBudgetDelegates].map((item) => item.prediction)
+      );
+
+      return {
+        byBudgetExpenses,
+        remainingBudgetCU,
+        remainingBudgetDelegates,
+        maxValueByBudget,
+        costBreakdownTotal,
+      };
+    }, [breakdownExpenses, selectedYear]);
 
   return {
     isLight,
@@ -203,6 +209,7 @@ const useFinancesOverview = (
     byBudgetExpenses,
     remainingBudgetCU,
     remainingBudgetDelegates,
+    maxValueByBudget,
     costBreakdownTotal,
   };
 };

@@ -106,12 +106,17 @@ const Row = styled.div<WithIsLight>(({ isLight }) => ({
     : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
   borderRadius: 6,
 
+  '&:hover': {
+    background: isLight ? '#ECF1F3' : '#31424E',
+  },
+
   [lightTheme.breakpoints.up('table_834')]: {
     padding: '15px 0',
     boxShadow: 'none',
     background: 'transparent',
     justifyContent: 'normal',
     marginBottom: 0,
+    borderRadius: 0,
   },
 }));
 
