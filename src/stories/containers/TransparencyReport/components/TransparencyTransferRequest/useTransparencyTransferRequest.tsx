@@ -94,10 +94,6 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
   const getTransferRequestTargetBalanceColumn = useCallback((wallet: BudgetStatementWalletDto) => {
     const targetWithTimeSpan: Pick<BudgetStatementWalletTransferRequestDto, 'target' | 'walletBalanceTimeStamp'> =
       {} as BudgetStatementWalletTransferRequestDto;
-    wallet.budgetStatementTransferRequest?.forEach((item: BudgetStatementWalletTransferRequestDto) => {
-      targetWithTimeSpan.target = item.target;
-      targetWithTimeSpan.walletBalanceTimeStamp = item.walletBalanceTimeStamp;
-    });
 
     const lastIndex = (wallet.budgetStatementTransferRequest ?? []).length - 1;
     if (wallet.budgetStatementTransferRequest && wallet.budgetStatementTransferRequest.length > 0) {
