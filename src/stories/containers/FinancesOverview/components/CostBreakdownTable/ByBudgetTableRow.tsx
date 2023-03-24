@@ -34,7 +34,7 @@ const ByBudgetTableRow: React.FC<ByBudgetTableRowProps> = ({
       : siteRoutes.coreUnitsOverview;
 
   return (
-    <Row isLight={isLight}>
+    <NavigableOnMobileRow isLight={isLight} isMobile={isMobile} href={link}>
       <MobileColumn>
         <NameColumnComponent isLight={isLight} shortCode={expense.shortCode ?? ''} name={expense.name} />
         {isMobile && <TotalSpendColumnComponent isLight={isLight} total={expense.prediction} />}
@@ -53,7 +53,7 @@ const ByBudgetTableRow: React.FC<ByBudgetTableRowProps> = ({
           <ViewLink>View</ViewLink>
         </Link>
       </ViewColumn>
-    </Row>
+    </NavigableOnMobileRow>
   );
 };
 
@@ -93,6 +93,25 @@ const TotalSpendColumnComponent: React.FC<WithIsLight & { total: number }> = ({ 
     </TotalNumber>
   </TotalSpendColumn>
 );
+
+const NavigableOnMobileRow: React.FC<WithIsLight & React.PropsWithChildren & { isMobile: boolean; href: string }> = ({
+  isLight,
+  isMobile,
+  href,
+  children,
+}) => {
+  if (isMobile) {
+    return (
+      <Link href={href} passHref>
+        <Row isLight={isLight} as={'a'}>
+          {children}
+        </Row>
+      </Link>
+    );
+  }
+
+  return <Row isLight={isLight}>{children}</Row>;
+};
 
 const Row = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
