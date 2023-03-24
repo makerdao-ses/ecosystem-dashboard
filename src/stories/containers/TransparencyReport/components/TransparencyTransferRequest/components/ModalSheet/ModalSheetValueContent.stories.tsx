@@ -17,8 +17,7 @@ export default {
 const variantsArgs = [
   {
     months: 'FEB + MAR Budget Cap',
-    longCode: 'SES-001',
-    name: 'Collateral Engineering Services',
+    name: 'Modify Core Unit Budget - Collateral Engineering Services (SES-001)',
     toolTipData: {
       description: '3 Months of Forecasts',
       link: '#',
