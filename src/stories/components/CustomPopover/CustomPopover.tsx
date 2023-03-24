@@ -23,6 +23,7 @@ interface CustomPopoverProps {
   sxProps?: SxProps;
   widthArrow?: boolean;
   alignArrow?: 'center' | 'right';
+  className?: string;
 }
 
 export const PopoverPaperStyle = (isLight: boolean) => ({
@@ -43,6 +44,7 @@ export const CustomPopover = ({
   },
   widthArrow,
   alignArrow,
+  className,
   ...props
 }: CustomPopoverProps) => {
   const { isLight } = useThemeContext();
@@ -85,6 +87,7 @@ export const CustomPopover = ({
         {props.children}
       </div>
       <Popover
+        className={className}
         disableScrollLock
         id={props.id}
         sx={{

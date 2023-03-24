@@ -5,12 +5,11 @@ import type { CSSProperties } from 'react';
 
 interface Props {
   name: string;
-  longCode: string;
   style?: CSSProperties;
   toolTipData: Pick<TargetBalanceTooltipInformation, 'description' | 'mipNumber' | 'link'>;
 }
 
-const ArrowPopoverTargetValueComponent: React.FC<Props> = ({ toolTipData, longCode, name, style }) => (
-  <ArrowPopoverTargetValueContent longCode={longCode} name={name} toolTipData={toolTipData} style={style} />
+const ArrowPopoverTargetValueComponent: React.FC<Props> = ({ toolTipData, name, style }) => (
+  <ArrowPopoverTargetValueContent name={name} toolTipData={toolTipData} style={style} />
 );
 export default ArrowPopoverTargetValueComponent;

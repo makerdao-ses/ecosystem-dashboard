@@ -64,8 +64,19 @@ export const CORE_UNIT_REQUEST = (shortCode: string) => ({
               payment
             }
             budgetStatementTransferRequest {
+              target {
+                amount
+                calculation
+                description
+                source {
+                  code
+                  url
+                  title
+                }
+              }
               requestAmount
               walletBalance
+              walletBalanceTimeStamp
             }
           }
           budgetStatementMKRVest {

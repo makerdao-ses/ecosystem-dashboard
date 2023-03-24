@@ -10,7 +10,7 @@ import { useScrollLock } from '@ses/core/hooks/useScrollLock';
 import { getPageWrapper } from '@ses/core/utils/dom';
 import lightTheme from '@ses/styles/theme/light';
 import MobileDetect from 'mobile-detect';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { formatAddressForOutput } from '../../../core/utils/string';
 import { CustomLink } from '../../components/CustomLink/CustomLink';
 import { TextCell } from '../../components/TextCell/TextCell';
@@ -67,20 +67,19 @@ export const renderLinksWithToken = (address: string) => (
   </TextCell>
 );
 
-interface WithIsLightAndClick {
+export interface WithIsLightAndClick {
   isLight: boolean;
   onClick?: () => void;
 }
 export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
-  const { isLight } = useThemeContext();
   const [isOpen, setIsOpen] = useState(false);
+  const { isLight } = useThemeContext();
+  const isMobileResolution = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const { lockScroll, unlockScroll } = useScrollLock();
   const showIconToolTip = !!(data.description && data.link);
 
   const md = new MobileDetect(window.navigator.userAgent);
   const isMobileDevice = !!md.mobile();
-  const isMobileResolution = useMediaQuery(lightTheme.breakpoints.down('table_834'));
-
-  const { lockScroll, unlockScroll } = useScrollLock();
 
   useEffect(() => {
     if (isMobileDevice) {
@@ -98,25 +97,23 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
     };
   }, [isMobileDevice, isOpen, lockScroll, unlockScroll]);
 
-  const handleOnClick = () => {
+  const handleOnClick = useCallback(() => {
     setIsOpen(!isOpen);
-  };
+  }, [isOpen]);
 
   return (
-    <div>
+    <BiggerContainer>
       <PopoverContainer>
         {!isMobileResolution && (
           <Container>
             {showIconToolTip && (
-              <CustomPopover
+              <CustomerPopoverExtends
                 widthArrow
                 sxProps={{
                   '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
                     overflowX: 'unset',
                     overflowY: 'unset',
                   },
-                  marginLeft: -4.7,
-                  marginTop: 2.5,
                 }}
                 id="information"
                 popupStyle={{
@@ -129,16 +126,15 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                       description: data.description,
                       mipNumber: data.mipNumber,
                     }}
-                    longCode={data.longCode}
                     name={data.name}
                   />
                 }
                 leaveOnChildrenMouseOut
               >
                 <ContainerInfoIcon>
-                  <Information />
+                  <IconPosition />
                 </ContainerInfoIcon>
-              </CustomPopover>
+              </CustomerPopoverExtends>
             )}
             <ContainerInformation>
               <ContainerNumberCell value={data.balance} />
@@ -156,7 +152,6 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                   '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
                     overflowX: 'unset',
                     overflowY: 'unset',
-
                     left: '0px!important',
                     marginLeft: '36px',
                     marginTop: 1.5,
@@ -173,14 +168,13 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                       description: data.description,
                       mipNumber: data.mipNumber,
                     }}
-                    longCode={data.longCode}
                     name={data.name}
                   />
                 }
                 leaveOnChildrenMouseOut
               >
                 <ContainerInfoIcon>
-                  <Information />
+                  <IconPosition />
                 </ContainerInfoIcon>
               </CustomPopover>
             )}
@@ -197,7 +191,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
             <Container>
               {showIconToolTip && (
                 <ContainerInfoIcon onClick={handleOnClick}>
-                  <Information />
+                  <IconPosition />
                 </ContainerInfoIcon>
               )}
 
@@ -217,13 +211,12 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
               link: data.link,
               mipNumber: data.mipNumber,
             }}
-            longCode={data.longCode}
             name={data.name}
           />
         </ModalSheet>
       )}
       {isMobileResolution && isOpen && isMobileDevice && <ContainerOverlay isLight={isLight} onClick={handleOnClick} />}
-    </div>
+    </BiggerContainer>
   );
 };
 
@@ -245,6 +238,7 @@ const ContainerOverlay = styled.div<WithIsLightAndClick>(({ isLight, onClick }) 
 const ModalSheet = styled.div({
   width: '100%',
   zIndex: 5,
+  textAlign: 'left',
   position: 'fixed',
   bottom: 0,
   left: 0,
@@ -260,6 +254,7 @@ const PopoverContainer = styled.div({
 const Container = styled.div({
   width: '100%',
   display: 'flex',
+  flex: 1,
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'space-between',
@@ -268,17 +263,28 @@ const Container = styled.div({
     width: '100%',
     flexDirection: 'row-reverse',
     marginLeft: 0,
-
     marginTop: 0,
   },
 });
 
 export const ContainerInfoIcon = styled.div({
+  position: 'relative',
+});
+
+const IconPosition = styled(Information)({
   position: 'absolute',
-  marginTop: -18,
+  top: -14,
+  left: -14,
   [lightTheme.breakpoints.up('table_834')]: {
     alignItems: 'center',
-    marginTop: -8,
+    top: -8,
+    left: -10,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    alignItems: 'center',
+
+    top: -8,
+    left: 4,
   },
 });
 
@@ -290,7 +296,7 @@ const ContainerInformation = styled.div({
 
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     alignItems: 'flex-end',
-    marginRight: 4.5,
+    marginRight: 14,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     alignItems: 'flex-end',
@@ -326,9 +332,29 @@ export const TotalTargetBalance = styled.div({
   textAlign: 'center',
   fontWeight: 700,
   [lightTheme.breakpoints.up('table_834')]: {
-    marginRight: 4,
-  },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
     marginRight: 16,
+  },
+});
+
+const BiggerContainer = styled.div({
+  width: '100%',
+});
+
+const CustomerPopoverExtends = styled(CustomPopover)({
+  // '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
+  //   overflowX: 'unset',
+  //   overflowY: 'unset',
+  //   marginLeft: -20.3,
+  //   marginTop: 2.5,
+  // },
+  '& > div': {
+    [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+      marginLeft: -45,
+      marginTop: 16,
+    },
+    [lightTheme.breakpoints.up('desktop_1194')]: {
+      marginLeft: -32,
+      marginTop: 18,
+    },
   },
 });

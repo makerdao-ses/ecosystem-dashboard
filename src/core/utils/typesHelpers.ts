@@ -32,6 +32,5 @@ export type TargetBalanceTooltipInformation = {
   description: string;
   mipNumber: string;
   link: string;
-  longCode: string;
   name: string;
 };

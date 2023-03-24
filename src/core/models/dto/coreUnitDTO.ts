@@ -75,9 +75,23 @@ export interface BudgetStatementLineItemDto {
   group?: string;
 }
 
+export interface SourceDto {
+  code: string;
+  url: string;
+  title: string;
+}
+export interface TargetDto {
+  amount: number;
+  calculation: string;
+  description: string;
+  source: SourceDto;
+}
+
 export interface BudgetStatementWalletTransferRequestDto {
   requestAmount: number;
   walletBalance: number;
+  target: TargetDto;
+  walletBalanceTimeStamp: string;
 }
 
 export interface BudgetStatementWalletDto {

@@ -17,8 +17,8 @@ export default {
 const variantsArgs = [
   {
     months: 'FEB + MAR Budget Cap',
-    longCode: 'SES-001',
-    name: 'Sustainable Ecosystem Scaling',
+
+    name: 'Modify Core Unit Budget - Collateral Engineering Services (SES-001)',
     toolTipData: {
       description: '2 Month Budget Cap',
       link: '#',
