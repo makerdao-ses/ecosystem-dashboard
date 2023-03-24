@@ -16,7 +16,9 @@ const fullBorder = [6, 6, 6, 6];
 const useFinancesOverview = (
   quarterExpenses: ExpenseDto[] = [],
   monthly: Partial<ExpenseDto>[],
-  breakdownExpenses: ExtendedExpense[]
+  byBudgetBreakdownExpenses: ExtendedExpense[],
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  byCategoryBreakdownExpenses: ExpenseDto[]
 ) => {
   const sortedQuarters = useMemo(
     () =>
@@ -164,7 +166,7 @@ const useFinancesOverview = (
       prediction: 0,
     } as ExtendedExpense;
 
-    breakdownExpenses
+    byBudgetBreakdownExpenses
       .filter((expense) => expense.period === selectedYear.toString())
       .sort((a, b) => b.prediction - a.prediction)
       .forEach((expense, index) => {
@@ -184,7 +186,7 @@ const useFinancesOverview = (
       remainingBudgetDelegates,
       costBreakdownTotal,
     };
-  }, [breakdownExpenses, selectedYear]);
+  }, [byBudgetBreakdownExpenses, selectedYear]);
 
   return {
     isLight,

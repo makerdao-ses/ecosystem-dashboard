@@ -1,4 +1,5 @@
 export interface ExpenseDto {
+  category: string;
   actuals: number;
   budget: string;
   budgetCap: number;
