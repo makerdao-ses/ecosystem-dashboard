@@ -134,7 +134,7 @@ const RemainingContainer = styled.div<WithIsLight>(({ isLight }) => ({
   flexDirection: 'column',
   gap: 24,
 
-  '& > div': {
+  '& > *': {
     marginBottom: 0,
   },
 
