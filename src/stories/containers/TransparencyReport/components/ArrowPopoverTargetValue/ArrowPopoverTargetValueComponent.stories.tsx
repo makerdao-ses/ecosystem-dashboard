@@ -4,7 +4,7 @@ import type { TargetBalanceTooltipInformation } from '@ses/core/utils/typesHelpe
 import type { ComponentMeta } from '@storybook/react';
 
 export default {
-  title: 'Components/General/ArrowPopoverTargetValueComponent.stories',
+  title: 'Components/General/ArrowPopoverTargetValueComponent',
   component: ArrowPopoverTargetValueComponent,
   parameters: {
     chromatic: {
@@ -17,15 +17,15 @@ export default {
 const variantsArgs = [
   {
     months: 'FEB + MAR Budget Cap',
-    longCode: 'SES-001',
-    name: 'Sustainable Ecosystem Scaling',
+
+    name: 'Modify Core Unit Budget - Collateral Engineering Services (SES-001)',
     toolTipData: {
       description: '2 Month Budget Cap',
       link: '#',
       mipNumber: 'MIP40c3-SP14:',
     } as Pick<TargetBalanceTooltipInformation, 'description' | 'mipNumber' | 'link'>,
     style: {
-      padding: 10,
+      padding: 16,
       width: '305px',
       background: 'white',
       border: '1px solid #D4D9E1',

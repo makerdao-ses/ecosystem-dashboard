@@ -13,6 +13,7 @@ export class BudgetStatementBuilder {
 
   constructor() {
     this._budgetStatement = {
+      id: '',
       month: '',
       budgetStatementFTEs: [] as BudgetStatementFteDto[],
       budgetStatementWallet: [] as BudgetStatementWalletDto[],
@@ -20,6 +21,11 @@ export class BudgetStatementBuilder {
       status: BudgetStatus.Draft,
       publicationUrl: '',
     } as BudgetStatementDto;
+  }
+
+  withId(id: string): BudgetStatementBuilder {
+    this._budgetStatement.id = id;
+    return this;
   }
 
   withMonth(month: string): BudgetStatementBuilder {

@@ -6,11 +6,10 @@ import type { TargetBalanceTooltipInformation, WithIsLight } from '@ses/core/uti
 
 interface Props {
   name: string;
-  longCode: string;
   toolTipData: Pick<TargetBalanceTooltipInformation, 'description' | 'mipNumber' | 'link'>;
 }
 
-const ModalSheetValueContent: React.FC<Props> = ({ toolTipData, name, longCode }) => {
+const ModalSheetValueContent: React.FC<Props> = ({ toolTipData, name }) => {
   const { isLight } = useThemeContext();
   return (
     <Container isLight={isLight}>
@@ -20,7 +19,7 @@ const ModalSheetValueContent: React.FC<Props> = ({ toolTipData, name, longCode }
         <MipNumber>{toolTipData.mipNumber}</MipNumber>
         <ContainerLink>
           <CustomLink
-            children={`Modify Core Unit Budget - ${name} (${longCode})`}
+            children={name}
             withArrow
             iconWidth={10}
             iconHeight={10}

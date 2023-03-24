@@ -19,24 +19,27 @@ export const TransparencyCard = (props: Props) => {
     <Container isLight={isLight}>
       <HeaderWrapper>{props.header}</HeaderWrapper>
       {props.headers.map((header, i) => (
-        <Row
-          key={header.toString()}
-          hasIcon={header !== 'Target Balance' || (header === 'Target Balance' && props.itemType === 'total')}
-        >
-          <Label hasIcon={header === 'Target Balance'}>{header}</Label>
-          <div
-            style={{
-              display: props.itemType === 'total' ? 'flex' : undefined,
-              justifyContent: props.itemType ? 'flex-end' : undefined,
-              width:
-                header === 'Target Balance' || (header === 'Target Balance' && props.itemType !== 'total')
-                  ? '100%'
-                  : undefined,
-            }}
+        <>
+          <Row
+            key={header.toString()}
+            hasIcon={header !== 'Target Balance' || (header === 'Target Balance' && props.itemType === 'total')}
           >
-            {(props.items && props.items[i]) ?? ''}
-          </div>
-        </Row>
+            <Label hasIcon={header === 'Target Balance'}>{header}</Label>
+            <div
+              style={{
+                display: props.itemType === 'total' ? 'flex' : undefined,
+                justifyContent: props.itemType ? 'flex-end' : undefined,
+                width:
+                  header === 'Target Balance' || (header === 'Target Balance' && props.itemType !== 'total')
+                    ? '100%'
+                    : undefined,
+              }}
+            >
+              {(props.items && props.items[i]) ?? ''}
+            </div>
+          </Row>
+          {header === 'Mthly Budget' && <ContainerLine isLight={isLight} />}
+        </>
       ))}
 
       {props.footer && <FooterWrapper isLight={isLight}>{props.footer}</FooterWrapper>}
@@ -74,8 +77,8 @@ const FooterWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 const Row = styled.div<{ hasIcon?: boolean; height?: string }>(({ hasIcon = false }) => ({
   display: 'flex',
   alignItems: hasIcon ? 'flex-start' : 'center',
-
   flex: 1,
+
   justifyContent: hasIcon ? 'space-between' : undefined,
   [lightTheme.breakpoints.up('table_834')]: {
     alignItems: 'flex-start',
@@ -95,5 +98,13 @@ const Label = styled.div<{ hasIcon?: boolean; height?: string }>(({ hasIcon = fa
   height: '37px',
   letterSpacing: '1px',
   textTransform: 'uppercase',
-  minWidth: 140,
+  minWidth: 132,
+}));
+
+const ContainerLine = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  display: 'flex',
+  flex: 1,
+  border: isLight ? '1px solid #D4D9E1' : '1px solid #405361',
+  marginBottom: 20,
+  marginTop: 20,
 }));

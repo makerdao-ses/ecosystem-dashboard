@@ -1,42 +1,31 @@
 import { request, gql } from 'graphql-request';
 import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
-import type { CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
+import type { ActivityFeedDto } from '../../../core/models/dto/coreUnitDTO';
 
-export const GET_CU_ACTIVITY_BY_CODE = gql`
-  query CoreUnits($filter: CoreUnitFilter) {
-    coreUnits(filter: $filter) {
-      id
-      shortCode
-      code
-      name
-      image
-      category
-      sentenceDescription
-      activityFeed {
-        id
+export const getCoreUnitActivityFeedQuery = (coreUnitId: string) => ({
+  query: gql`
+    query CUActivityFeed($limit: Int, $offset: Int, $filter: ActivityFeedFilter) {
+      activityFeed(limit: $limit, offset: $offset, filter: $filter) {
         created_at
-        event
-        params
         description
-      }
-      socialMediaChannels {
-        discord
-        forumTag
-        linkedIn
-        twitter
-        website
-        youtube
-        github
+        event
+        id
+        params
       }
     }
-  }
-`;
-
-export const fetchCoreUnitWithActivitiesByCode = async (shortCode: string) => {
-  const res = (await request(GRAPHQL_ENDPOINT, GET_CU_ACTIVITY_BY_CODE, {
+  `,
+  filter: {
+    limit: 500,
+    offset: 0,
     filter: {
-      shortCode,
+      objectId: coreUnitId,
+      objectType: 'CoreUnit',
     },
-  })) as { coreUnits: CoreUnitDto[] };
-  return res.coreUnits[0];
+  },
+});
+
+export const fetchCoreUnitActivityFeedData = async (coreUnitId: string): Promise<ActivityFeedDto[]> => {
+  const { query, filter } = getCoreUnitActivityFeedQuery(coreUnitId);
+  const res = (await request(GRAPHQL_ENDPOINT, query, filter)) as { activityFeed: ActivityFeedDto[] };
+  return res.activityFeed;
 };

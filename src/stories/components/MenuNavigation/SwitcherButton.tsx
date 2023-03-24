@@ -37,6 +37,7 @@ const Container = styled.div({
   flexDirection: 'row',
   alignItems: 'center',
   cursor: 'pointer',
+  height: 40,
 });
 
 const Label = styled.p<{ isLight: boolean }>(({ isLight }) => ({

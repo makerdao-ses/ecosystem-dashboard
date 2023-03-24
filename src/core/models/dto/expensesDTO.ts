@@ -10,4 +10,5 @@ export interface ExpenseDto {
 export enum ExpenseGranularity {
   monthly = 'monthly',
   quarterly = 'quarterly',
+  annual = 'annual',
 }

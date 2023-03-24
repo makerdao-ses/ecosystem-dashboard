@@ -97,6 +97,7 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
                   ?.filter((x) => !x.hidden)
                   .map((column, i) => (
                     <HeadCell
+                      isLight={isLight}
                       hasBorderRight={column.hasBorderRight}
                       key={`header-${i}`}
                       style={{
@@ -201,7 +202,7 @@ const TableCell = styled.td<{
   ...(isSubTotal && {
     borderBottom: isLight ? '1px solid #D4D9E1' : '1px solid #405361',
   }),
-  borderRight: hasBorderRight ? '1px solid #D4D9E1' : 'none',
+  borderRight: hasBorderRight ? (isLight ? '1px solid #D4D9E1' : '1px solid #405361') : 'none',
 }));
 
 const TableHead = styled.thead<{ isLight: boolean }>(({ isLight }) => ({
@@ -216,10 +217,10 @@ const TableHead = styled.thead<{ isLight: boolean }>(({ isLight }) => ({
   whiteSpace: 'nowrap',
 }));
 
-const HeadCell = styled.th<{ hasBorderRight?: boolean }>(({ hasBorderRight }) => ({
+const HeadCell = styled.th<{ hasBorderRight?: boolean; isLight: boolean }>(({ hasBorderRight, isLight }) => ({
   padding: '24px 16px',
   fontWeight: 600,
-  borderRight: hasBorderRight ? '1px solid #D4D9E1' : 'none',
+  borderRight: hasBorderRight ? (isLight ? '1px solid #D4D9E1' : '1px solid #405361') : 'none',
 }));
 
 const TableWrapper = styled.div({

@@ -53,31 +53,14 @@ const CookiesPolicyBanner = ({
           />
         </ContainerCheckBox>
         <ContainerButton>
-          <CustomButton
+          <RejectAllCookiesButton
             label="Reject all cookies"
             buttonType={ButtonType.Secondary}
-            style={{
-              width: 285,
-              height: 48,
-              padding: '14.5px 76px',
-            }}
-            styleText={{
-              fontSize: '16px',
-              lineHeight: '19px',
-            }}
             onClick={handleRejectCookies}
           />
           <CustomButtonStyle
             label="Accept configured cookies"
-            style={{
-              width: 285,
-              height: 48,
-            }}
             buttonType={ButtonType.Primary}
-            styleText={{
-              fontSize: '16px',
-              lineHeight: '19px',
-            }}
             onClick={handleAcceptCookies}
           />
         </ContainerButton>
@@ -156,7 +139,6 @@ const ContainerButton = styled.div({
     display: 'flex',
     flexDirection: 'row',
     margin: '0 auto',
-    gap: '24px',
     marginTop: '24px',
     height: '48px',
   },
@@ -165,8 +147,30 @@ const ContainerButton = styled.div({
 const CustomButtonStyle = styled(CustomButton)({
   padding: '14.5px 40px',
   marginTop: '24px',
+  width: 285,
+  height: 48,
+
+  '& > div': {
+    fontSize: '16px',
+    lineHeight: '19px',
+  },
   [lightTheme.breakpoints.up('table_834')]: {
     marginTop: '0px',
+  },
+});
+
+const RejectAllCookiesButton = styled(CustomButton)({
+  width: 285,
+  height: 48,
+  padding: '14.5px 76px',
+
+  '& > div': {
+    fontSize: '16px',
+    lineHeight: '19px',
+  },
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginRight: 24,
   },
 });
 

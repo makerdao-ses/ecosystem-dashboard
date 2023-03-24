@@ -6,14 +6,15 @@ import ActivityTable from '../../components/CUActivityTable/ActivityTable';
 import { CoreUnitSummary } from '../../components/CoreUnitSummary/CoreUnitSummary';
 import { SEOHead } from '../../components/SEOHead/SEOHead';
 import { useCuActivity } from './useCuActivity';
-import type { CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
+import type { ActivityFeedDto, CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
 
 interface CUActivityContainerProps {
   coreUnits: CoreUnitDto[];
   coreUnit: CoreUnitDto;
+  activities: ActivityFeedDto[];
 }
 
-const CUActivityFeedContainer: React.FC<CUActivityContainerProps> = ({ coreUnit, coreUnits }) => {
+const CUActivityFeedContainer: React.FC<CUActivityContainerProps> = ({ coreUnit, coreUnits, activities }) => {
   const { isLight, columns, onSortClick } = useCuActivity();
   return (
     <Wrapper>
@@ -30,7 +31,7 @@ const CUActivityFeedContainer: React.FC<CUActivityContainerProps> = ({ coreUnit,
             <ActivityTable
               columns={columns}
               shortCode={coreUnit.shortCode}
-              activityFeed={coreUnit.activityFeed.map((activity) => ({
+              activityFeed={activities.map((activity) => ({
                 activityFeed: activity,
               }))}
               sortClick={onSortClick}

@@ -25,7 +25,7 @@ const useBudgetStatementComments = (
 
   const comments = useMemo(() => {
     const comments = getAllCommentsBudgetStatementLine(budgetStatement) as (CommentsBudgetStatementDto & WithDate)[];
-    let activities = budgetStatement?.activityFeed.filter(
+    let activities = budgetStatement?.activityFeed?.filter(
       (activity) => activity.event === 'CU_BUDGET_STATEMENT_CREATED'
     ) as (ActivityFeedDto & WithDate)[];
     activities =

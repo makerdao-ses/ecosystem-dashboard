@@ -11,13 +11,14 @@ export default {
   title: 'Pages/Global Activity Feed',
   component: GlobalActivityFeedContainer,
   decorators: [withoutSBPadding],
-  chromatic: {
-    viewports: [375, 834, 1194],
-    pauseAnimationAtEnd: true,
-  },
+
   parameters: {
     nextRouter: {
       pathname: '/activity-feed',
+    },
+    chromatic: {
+      viewports: [375, 834, 1194],
+      pauseAnimationAtEnd: true,
     },
     date: new Date('2022-09-22T12:23:00Z'),
   },
@@ -26,57 +27,54 @@ export default {
 
 const variantsArgs = [
   {
+    activityFeed: [],
     coreUnits: [],
   },
   {
+    activityFeed: [
+      new ActivityBuilder()
+        .withCreatedAt('2022-09-21T12:23:00Z')
+        .withDescription(
+          'Signal your support or opposition to prioritising onboarding GUNIV3-BUSD-DAI (Gelato Uniswap v3 BUSD-DAI).'
+        )
+        .withParams({
+          coreUnit: {
+            shortCode: 'SES',
+          },
+          month: '2022-09',
+        })
+        .build(),
+      new ActivityBuilder()
+        .withCreatedAt('2022-09-10T12:23:00Z')
+        .withDescription('Increase Headcount Expense Forecast Lorem Ipsum test some text.')
+        .withParams({
+          coreUnit: {
+            shortCode: 'SES',
+          },
+          month: '2022-09',
+        })
+        .build(),
+      new ActivityBuilder()
+        .withCreatedAt('2022-08-20T12:23:00Z')
+        .withDescription('Increase Headcount Expense Forecast Lorem Ipsum test some text.')
+        .withParams({
+          coreUnit: {
+            shortCode: 'DUX',
+          },
+          month: '2022-08',
+        })
+        .build(),
+    ],
     coreUnits: [
       new CoreUnitsBuilder()
         .withImage('https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/logo.png')
         .withShortCode('SES')
         .withName('Sustainable Ecosystem Scaling')
-        .addActivity(
-          new ActivityBuilder()
-            .withCreatedAt('2022-09-21T12:23:00Z')
-            .withDescription(
-              'Signal your support or opposition to prioritising onboarding GUNIV3-BUSD-DAI (Gelato Uniswap v3 BUSD-DAI).'
-            )
-            .withParams({
-              coreUnit: {
-                shortCode: 'SES',
-              },
-              month: '2022-09',
-            })
-            .build()
-        )
-        .addActivity(
-          new ActivityBuilder()
-            .withCreatedAt('2022-09-10T12:23:00Z')
-            .withDescription('Increase Headcount Expense Forecast Lorem Ipsum test some text.')
-            .withParams({
-              coreUnit: {
-                shortCode: 'SES',
-              },
-              month: '2022-09',
-            })
-            .build()
-        )
         .build(),
       new CoreUnitsBuilder()
         .withImage('https://makerdao-ses.github.io/ecosystem-dashboard/core-units/dux-001/dux_logo.png')
         .withShortCode('DUX')
         .withName('Development & UX')
-        .addActivity(
-          new ActivityBuilder()
-            .withCreatedAt('2022-08-20T12:23:00Z')
-            .withDescription('Increase Headcount Expense Forecast Lorem Ipsum test some text.')
-            .withParams({
-              coreUnit: {
-                shortCode: 'DUX',
-              },
-              month: '2022-08',
-            })
-            .build()
-        )
         .build(),
     ],
   },

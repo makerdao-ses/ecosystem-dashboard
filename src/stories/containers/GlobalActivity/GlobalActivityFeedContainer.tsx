@@ -13,18 +13,19 @@ import Filter from '../../components/svg/filter';
 import { Paragraph, Title } from '../CUActivity/CUActivityFeedContainer';
 import { ButtonFilter, SmallSeparator } from '../CUTable/cuTableFilters';
 import { useGlobalActivity } from './useGlobalActivity';
-import type { CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
+import type { ActivityFeedDto, CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
 import type { SelectItemProps } from '../../components/CustomMultiSelect/CustomMultiSelect';
 
 interface Props {
   coreUnits: CoreUnitDto[];
+  activityFeed: ActivityFeedDto[];
 }
 
-const GlobalActivityFeedContainer: React.FC<Props> = ({ coreUnits }) => {
+const GlobalActivityFeedContainer: React.FC<Props> = ({ coreUnits, activityFeed }) => {
   const { isLight } = useThemeContext();
   const {
     columns,
-    activityFeed,
+    extendedActivityFeed,
     clearFilters,
     filtersActive,
     inputRef,
@@ -36,7 +37,8 @@ const GlobalActivityFeedContainer: React.FC<Props> = ({ coreUnits }) => {
     handleSelectChange,
     filtersVisible,
     toggleFiltersVisible,
-  } = useGlobalActivity(coreUnits);
+  } = useGlobalActivity(coreUnits, activityFeed);
+
   return (
     <Wrapper>
       <SEOHead
@@ -105,7 +107,7 @@ const GlobalActivityFeedContainer: React.FC<Props> = ({ coreUnits }) => {
             <ActivityTable
               columns={columns}
               shortCode={'global'}
-              activityFeed={activityFeed}
+              activityFeed={extendedActivityFeed}
               hasFilter={filtersActive}
               clearAction={clearFilters}
               isGlobal

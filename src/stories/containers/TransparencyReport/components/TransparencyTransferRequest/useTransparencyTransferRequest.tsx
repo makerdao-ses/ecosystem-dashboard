@@ -1,16 +1,18 @@
 import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
 import { formatNumber } from '@ses/core/utils/string';
-import { useMemo } from 'react';
+import { DateTime } from 'luxon';
+import { useCallback, useMemo } from 'react';
 import { renderLinks, RenderNumberWithIcon, renderWallet, TotalTargetBalance } from '../../transparencyReportUtils';
 import { useTransparencyForecast } from '../TransparencyForecast/useTransparencyForecast';
 import type { InnerTableColumn, InnerTableRow } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
-import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
-import type { TargetBalanceTooltipInformation } from '@ses/core/utils/typesHelpers';
-import type { DateTime } from 'luxon';
+import type {
+  BudgetStatementDto,
+  BudgetStatementWalletDto,
+  BudgetStatementWalletTransferRequestDto,
+} from '@ses/core/models/dto/coreUnitDTO';
 
 export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetStatements: BudgetStatementDto[]) => {
-  const { firstMonth, secondMonth, thirdMonth, getForecastSumOfMonthsOnWallet, getForecastSumForMonths, wallets } =
-    useTransparencyForecast(currentMonth, budgetStatements);
+  const { wallets } = useTransparencyForecast(currentMonth, budgetStatements);
 
   const getTransferRequestForMonthOnWallet = useMemo(() => {
     const getTransferRequestForMonthOnWalletFunction = (walletAddress: string | undefined) => {
@@ -89,6 +91,47 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
     return result;
   }, [currentMonth, budgetStatements]);
 
+  const getTransferRequestTargetBalanceColumn = useCallback((wallet: BudgetStatementWalletDto) => {
+    const targetWithTimeSpan: Pick<BudgetStatementWalletTransferRequestDto, 'target' | 'walletBalanceTimeStamp'> =
+      {} as BudgetStatementWalletTransferRequestDto;
+
+    const lastIndex = (wallet.budgetStatementTransferRequest ?? []).length - 1;
+    if (wallet.budgetStatementTransferRequest && wallet.budgetStatementTransferRequest.length > 0) {
+      targetWithTimeSpan.target = wallet.budgetStatementTransferRequest[lastIndex].target;
+      targetWithTimeSpan.walletBalanceTimeStamp =
+        wallet.budgetStatementTransferRequest[lastIndex]?.walletBalanceTimeStamp;
+    }
+
+    return targetWithTimeSpan;
+  }, []);
+
+  const getWalletBalanceTimeStamp = useCallback(() => {
+    if (!wallets || !wallets[0].budgetStatementTransferRequest) return '';
+    const timeStampAnyWallet = wallets[0]?.budgetStatementTransferRequest[0]?.walletBalanceTimeStamp;
+
+    if (!DateTime.fromISO(timeStampAnyWallet).isValid) {
+      return '';
+    }
+
+    const dateTime = DateTime.fromISO(timeStampAnyWallet);
+    const formatData = dateTime.toFormat('dd-LLL');
+
+    return formatData;
+  }, [wallets]);
+
+  const transferRequestTargetBalanceColumnTotal = useMemo(() => {
+    let result = 0;
+    if (!wallets) return result;
+
+    wallets.forEach((wallet: BudgetStatementWalletDto) => {
+      wallet.budgetStatementTransferRequest?.forEach((item: BudgetStatementWalletTransferRequestDto) => {
+        result += item.target.amount || 0;
+      });
+    });
+
+    return result;
+  }, [wallets]);
+
   const mainTableColumns = useMemo(() => {
     const mainTableColumns: InnerTableColumn[] = [
       {
@@ -103,11 +146,9 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
         header: 'Target Balance',
         type: 'custom',
         align: 'right',
-
-        cellRender: RenderNumberWithIcon,
       },
       {
-        header: `${currentMonth.toFormat('dd-LLL')} Balance`,
+        header: `${getWalletBalanceTimeStamp()} Balance`,
         type: 'number',
         align: 'right',
       },
@@ -125,12 +166,12 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
       },
     ];
     return mainTableColumns;
-  }, [currentMonth]);
+  }, [getWalletBalanceTimeStamp]);
 
   const mainTableItems: InnerTableRow[] = useMemo(() => {
     const result: InnerTableRow[] = [];
 
-    wallets.forEach((wallet) => {
+    wallets.forEach((wallet: BudgetStatementWalletDto) => {
       result.push({
         type: 'normal',
         items: [
@@ -140,19 +181,16 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
           },
           {
             column: mainTableColumns[1],
-            value: {
-              balance: getForecastSumOfMonthsOnWallet(budgetStatements, wallet?.address, currentMonth, [
-                firstMonth,
-                secondMonth,
-                thirdMonth,
-              ]),
-              months: 'FEB + MAR Budget Cap',
-              mipNumber: 'MIP40c3-SP14:',
-              link: '#',
-              description: '2 Month Budget Cap',
-              longCode: 'SES-001',
-              name: 'Collateral Engineering Services',
-            } as TargetBalanceTooltipInformation,
+            value: (
+              <RenderNumberWithIcon
+                balance={getTransferRequestTargetBalanceColumn(wallet).target?.amount || 0}
+                months={getTransferRequestTargetBalanceColumn(wallet).target?.calculation || ''}
+                link={getTransferRequestTargetBalanceColumn(wallet).target?.source.url || ''}
+                description={getTransferRequestTargetBalanceColumn(wallet).target?.description || ''}
+                name={getTransferRequestTargetBalanceColumn(wallet).target?.source.title || ''}
+                mipNumber={getTransferRequestTargetBalanceColumn(wallet).target?.source.code || ''}
+              />
+            ),
           },
           {
             column: mainTableColumns[2],
@@ -180,14 +218,7 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
           },
           {
             column: mainTableColumns[1],
-
-            value: (
-              <TotalTargetBalance>
-                {formatNumber(
-                  getForecastSumForMonths(budgetStatements, currentMonth, [firstMonth, secondMonth, thirdMonth])
-                )}
-              </TotalTargetBalance>
-            ),
+            value: <TotalTargetBalance>{formatNumber(transferRequestTargetBalanceColumnTotal)}</TotalTargetBalance>,
           },
           {
             column: mainTableColumns[2],
@@ -206,15 +237,10 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
   }, [
     wallets,
     mainTableColumns,
-    getForecastSumOfMonthsOnWallet,
-    budgetStatements,
-    currentMonth,
-    firstMonth,
-    secondMonth,
-    thirdMonth,
+    getTransferRequestTargetBalanceColumn,
     getCurrentBalanceForMonthOnWallet,
     getTransferRequestForMonthOnWallet,
-    getForecastSumForMonths,
+    transferRequestTargetBalanceColumnTotal,
     getCurrentBalanceForMonth,
     getTransferRequestForMonth,
   ]);

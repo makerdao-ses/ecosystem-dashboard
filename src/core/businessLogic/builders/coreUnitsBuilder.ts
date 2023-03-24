@@ -21,6 +21,8 @@ export class CoreUnitsBuilder {
       id: '',
       legacyBudgetStatementUrl: '',
       sentenceDescription: '',
+      paragraphDescription: '',
+      paragraphImage: '',
       category: [] as string[],
       auditors: [] as AuditorDto[],
       budgetStatements: [] as BudgetStatementDto[],
@@ -63,6 +65,16 @@ export class CoreUnitsBuilder {
 
   withDescription(description: string): CoreUnitsBuilder {
     this._coreUnit.sentenceDescription = description;
+    return this;
+  }
+
+  withParagraphDescription(description: string): CoreUnitsBuilder {
+    this._coreUnit.paragraphDescription = description;
+    return this;
+  }
+
+  withParagraphImage(image: string): CoreUnitsBuilder {
+    this._coreUnit.paragraphImage = image;
     return this;
   }
 
