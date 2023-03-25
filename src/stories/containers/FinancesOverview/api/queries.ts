@@ -82,9 +82,9 @@ export const costBreakdownExpensesQuery = () => ({
 
 export const fetchExpenses = async (granularity: ExpenseGranularity, budgets = 'makerdao/*'): Promise<ExpenseDto[]> => {
   const { query, filter } = totalExpensesQuery(granularity, budgets);
-  const res = (await request(GRAPHQL_ENDPOINT, query, filter)) as {
+  const res = await request<{
     totalQuarterlyExpenses: { reports: { expenses: ExpenseDto[] } };
-  };
+  }>(GRAPHQL_ENDPOINT, query, filter);
   return res.totalQuarterlyExpenses.reports.expenses;
 };
 
@@ -93,17 +93,16 @@ export const fetchCostBreakdownExpenses = async (): Promise<{
   byCategory: ExpenseDto[];
 }> => {
   const { query, filter } = costBreakdownExpensesQuery();
-  const res = (await request(GRAPHQL_ENDPOINT, query, filter)) as {
+  const res = await request<{
     byBudget: { reports: { expenses: ExpenseDto[] } };
     byCategory: { reports: { expenses: ExpenseDto[] } };
     coreUnits: CoreUnitDto[];
-  };
+  }>(GRAPHQL_ENDPOINT, query, filter);
 
-  const byBudget = res.byBudget.reports.expenses;
   const coreUnitsMap = new Map<string, CoreUnitDto>();
   res.coreUnits.forEach((cu) => coreUnitsMap.set(cu.shortCode, cu));
 
-  const extendedExpenses = byBudget.map((expense) => {
+  const byBudget = res.byBudget.reports.expenses.map((expense) => {
     if (isCoreUnitExpense(expense)) {
       const shortCode = getShortCode(expense.budget.replace('makerdao/core-units/', ''));
       return {
@@ -111,19 +110,18 @@ export const fetchCostBreakdownExpenses = async (): Promise<{
         shortCode,
         name: coreUnitsMap.get(shortCode)?.name,
       } as ExtendedExpense;
-    } else {
-      // it is a delegate expense
-      // it is supposed to be only one DEL expense per year
-      return {
-        ...expense,
-        name: 'Recognized Delegates',
-        shortCode: 'DEL',
-      } as ExtendedExpense;
     }
+    // it is a delegate expense
+    // it is supposed to be only one DEL expense per year
+    return {
+      ...expense,
+      name: 'Recognized Delegates',
+      shortCode: 'DEL',
+    } as ExtendedExpense;
   });
 
   return {
-    byBudget: extendedExpenses,
+    byBudget,
     byCategory: res.byCategory.reports.expenses,
   };
 };

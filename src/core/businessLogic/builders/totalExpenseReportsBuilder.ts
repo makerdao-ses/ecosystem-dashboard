@@ -6,6 +6,7 @@ export class TotalExpenseReportsBuilder {
 
   constructor() {
     this._expense = {
+      category: '*',
       actuals: 0,
       budgetCap: 0,
       discontinued: 0,
@@ -13,6 +14,11 @@ export class TotalExpenseReportsBuilder {
       budget: '/makerdao/core-units',
       period: '',
     } as ExpenseDto;
+  }
+
+  withCategory(category: string): TotalExpenseReportsBuilder {
+    this._expense.category = category;
+    return this;
   }
 
   withActuals(actuals: number): TotalExpenseReportsBuilder {

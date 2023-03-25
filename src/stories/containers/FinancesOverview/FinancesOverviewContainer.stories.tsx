@@ -88,7 +88,7 @@ const variantsArgs = [
       new TotalExpenseReportsBuilder().withPrediction(231563).withActuals(632531).withMonthlyPeriod(2023, 11).build(),
       new TotalExpenseReportsBuilder().withPrediction(231563).withActuals(1242156).withMonthlyPeriod(2023, 12).build(),
     ] as Partial<ExpenseDto>[],
-    breakdownExpenses: [
+    byBudgetBreakdownExpenses: [
       new TotalExpenseReportsBuilder()
         .withPrediction(5827878)
         .withActuals(1082362)
@@ -154,6 +154,68 @@ const variantsArgs = [
         .withActuals(1082362)
         .withAnnualPeriod(2023)
         .extend('TEST', 'Testing')
+        .build(),
+    ],
+    byCategoryBreakdownExpenses: [
+      new TotalExpenseReportsBuilder()
+        .withCategory('headcount/CompensationAndBenefits')
+        .withPrediction(3021102)
+        .withActuals(2082362)
+        .withAnnualPeriod(2023)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withCategory('headcount/TravelAndEntertainment')
+        .withPrediction(2802112)
+        .withActuals(2602124)
+        .withAnnualPeriod(2023)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withCategory('non-headcount/GasExpense')
+        .withPrediction(2725452)
+        .withActuals(2700000)
+        .withAnnualPeriod(2023)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withCategory('non-headcount/HardwareExpense')
+        .withPrediction(2500045)
+        .withActuals(2302145)
+        .withAnnualPeriod(2023)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withCategory('non-headcount/ProfessionalServices')
+        .withPrediction(1825452)
+        .withActuals(1800125)
+        .withAnnualPeriod(2023)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withCategory('non-headcount/SoftwareExpense')
+        .withPrediction(1421456)
+        .withActuals(1400456)
+        .withAnnualPeriod(2023)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withCategory('non-headcount/ContingencyBuffer')
+        .withPrediction(1000000)
+        .withActuals(1000000)
+        .withAnnualPeriod(2023)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withCategory('non-headcount/TrainingExpense')
+        .withPrediction(980452)
+        .withActuals(752865)
+        .withAnnualPeriod(2023)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withCategory('non-headcount/AdminExpense')
+        .withPrediction(456325)
+        .withActuals(444256)
+        .withAnnualPeriod(2023)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withCategory('non-headcount/SoftwareDevelopmentExpense')
+        .withPrediction(256256)
+        .withActuals(202456)
+        .withAnnualPeriod(2023)
         .build(),
     ],
   },
