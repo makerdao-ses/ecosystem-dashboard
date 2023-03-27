@@ -1,4 +1,8 @@
-import type { BudgetStatementLineItemDto, BudgetStatementWalletDto } from '../../models/dto/coreUnitDTO';
+import type {
+  BudgetStatementLineItemDto,
+  BudgetStatementWalletDto,
+  BudgetStatementWalletTransferRequestDto,
+} from '../../models/dto/coreUnitDTO';
 
 export class BudgetStatementWalletBuilder {
   private readonly _wallet: BudgetStatementWalletDto;
@@ -9,7 +13,8 @@ export class BudgetStatementWalletBuilder {
       address: '',
       currentBalance: 0,
       budgetStatementLineItem: [] as BudgetStatementLineItemDto[],
-    };
+      budgetStatementTransferRequest: [] as BudgetStatementWalletTransferRequestDto[],
+    } as BudgetStatementWalletDto;
   }
 
   withLineItems(actualArray: number[], month: string) {
@@ -26,11 +31,20 @@ export class BudgetStatementWalletBuilder {
     lineItem: BudgetStatementLineItemDto | BudgetStatementLineItemDto[]
   ): BudgetStatementWalletBuilder {
     if (Array.isArray(lineItem)) {
-      lineItem.forEach((item) => {
-        this._wallet.budgetStatementLineItem.push(item);
-      });
+      this._wallet.budgetStatementLineItem.push(...lineItem);
     } else {
       this._wallet.budgetStatementLineItem.push(lineItem);
+    }
+    return this;
+  }
+
+  addBudgetStatementTransferRequest(
+    transferRequest: BudgetStatementWalletTransferRequestDto | BudgetStatementWalletTransferRequestDto[]
+  ): BudgetStatementWalletBuilder {
+    if (Array.isArray(transferRequest)) {
+      this._wallet.budgetStatementTransferRequest?.push(...transferRequest);
+    } else {
+      this._wallet.budgetStatementTransferRequest?.push(transferRequest);
     }
     return this;
   }

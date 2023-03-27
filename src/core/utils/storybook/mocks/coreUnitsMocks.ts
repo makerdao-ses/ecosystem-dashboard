@@ -2,6 +2,7 @@ import { BudgetStatementBuilder } from '@ses/core/businessLogic/builders/budgetS
 import { BudgetStatementLineItemBuilder } from '@ses/core/businessLogic/builders/budgetStatementLineItemBuilder';
 import { BudgetStatementMKRVestBuilder } from '@ses/core/businessLogic/builders/budgetStatementMKRVestBuilder ';
 import { BudgetStatementWalletBuilder } from '@ses/core/businessLogic/builders/budgetStatementWalletBuilder';
+import { BudgetStatementWalletTransferRequestBuilder } from '@ses/core/businessLogic/builders/budgetStatementWalletTransferRequestBuilder';
 import { CoreUnitsBuilder } from '@ses/core/businessLogic/builders/coreUnitsBuilder';
 import { CuMipBuilder } from '@ses/core/businessLogic/builders/cuMIPBuilder';
 import { UserBuilder } from '@ses/core/businessLogic/builders/userBuilder';
@@ -124,6 +125,21 @@ export const SESCoreUnitMocked = new CoreUnitsBuilder()
               .withBudgetCap(965548)
               .build(),
           ])
+          .addBudgetStatementTransferRequest([
+            new BudgetStatementWalletTransferRequestBuilder()
+              .withRequestAmount(332276.72)
+              .withWalletBalance(238253.38)
+              .withWalletBalanceTimeStamp('2022-09-22T18:22:03.856Z')
+              .withTargetAmount(506063.09)
+              .withTargetCalculation('FEB + MAR Budget Cap')
+              .withTargetDescription('Auditor wallets are topped up to 2 times the budget cap')
+              .withTargetSource(
+                'MIP40C3-SP14',
+                'https://mips.makerdao.com/mips/details/MIP40c3SP14',
+                'Modify Core Unit Budget - Collateral Engineering Services (SES-001)'
+              )
+              .build(),
+          ])
           .build()
       )
       .addBudgetStatementWallet(
@@ -143,6 +159,21 @@ export const SESCoreUnitMocked = new CoreUnitsBuilder()
               .withActual(256)
               .withForecast(865)
               .withBudgetCap(7445)
+              .build(),
+          ])
+          .addBudgetStatementTransferRequest([
+            new BudgetStatementWalletTransferRequestBuilder()
+              .withRequestAmount(-18915.2)
+              .withWalletBalance(101478.2)
+              .withWalletBalanceTimeStamp('2022-28-22T18:22:03.856Z')
+              .withTargetAmount(506063.09)
+              .withTargetCalculation('FEB + MAR Budget Cap')
+              .withTargetDescription('Auditor wallets are topped up to 2 times the budget cap')
+              .withTargetSource(
+                'MIP40C3-SP14',
+                'https://mips.makerdao.com/mips/details/MIP40c3SP14',
+                'Modify Core Unit Budget - Collateral Engineering Services (SES-001)'
+              )
               .build(),
           ])
           .build()
