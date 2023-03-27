@@ -14,7 +14,7 @@ import {
   getMipUrlFromCoreUnit,
   getPercentFromCoreUnit,
   getSubmissionDateFromCuMip,
-  getStautsMip39AccetedOrObsolete,
+  getStatusMip39AcceptedOrObsolete,
 } from '../../../core/businessLogic/coreUnits';
 import { getShortCode } from '../../../core/utils/string';
 import CoreUnitCard from '../../components/CoreUnitCard/CoreUnitCard';
@@ -32,7 +32,7 @@ export const renderSummary = (coreUnit: CoreUnitDto) => {
     <CuTableColumnSummary
       key={`summary-${coreUnit.code}`}
       title={coreUnit.name}
-      status={getStautsMip39AccetedOrObsolete(coreUnit)}
+      status={getStatusMip39AcceptedOrObsolete(coreUnit)}
       statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
       imageUrl={coreUnit.image}
       mipUrl={getMipUrlFromCoreUnit(coreUnit)}

@@ -1,10 +1,10 @@
-import { getStautsMip39AccetedOrObsolete } from '../businessLogic/coreUnits';
+import { getStatusMip39AcceptedOrObsolete } from '../businessLogic/coreUnits';
 import type { CoreUnitDto } from '../models/dto/coreUnitDTO';
 import type { ParsedUrlQuery } from 'querystring';
 
 const filterStatus = (lowerCaseStatuses: string[], data: CoreUnitDto) =>
   lowerCaseStatuses.length === 0 ||
-  lowerCaseStatuses.indexOf(getStautsMip39AccetedOrObsolete(data)?.toLowerCase() ?? 'non-present') > -1;
+  lowerCaseStatuses.indexOf(getStatusMip39AcceptedOrObsolete(data)?.toLowerCase() ?? 'non-present') > -1;
 
 const filterCategories = (lowerCaseCategories: string[], data: CoreUnitDto) =>
   lowerCaseCategories.length === 0 || data.category?.some((x) => lowerCaseCategories.indexOf(x.toLowerCase()) > -1);
