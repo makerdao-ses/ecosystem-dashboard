@@ -172,6 +172,7 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
     const result: InnerTableRow[] = [];
 
     wallets.forEach((wallet: BudgetStatementWalletDto) => {
+      const { target } = getTransferRequestTargetBalanceColumn(wallet);
       result.push({
         type: 'normal',
         items: [
@@ -183,12 +184,12 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
             column: mainTableColumns[1],
             value: (
               <RenderNumberWithIcon
-                balance={getTransferRequestTargetBalanceColumn(wallet).target?.amount || 0}
-                months={getTransferRequestTargetBalanceColumn(wallet).target?.calculation || ''}
-                link={getTransferRequestTargetBalanceColumn(wallet).target?.source.url || ''}
-                description={getTransferRequestTargetBalanceColumn(wallet).target?.description || ''}
-                name={getTransferRequestTargetBalanceColumn(wallet).target?.source.title || ''}
-                mipNumber={getTransferRequestTargetBalanceColumn(wallet).target?.source.code || ''}
+                balance={target?.amount || 0}
+                months={target?.calculation || ''}
+                link={target?.source.url || ''}
+                description={target?.description || ''}
+                name={target?.source.title || ''}
+                mipNumber={target?.source.code || ''}
               />
             ),
           },
