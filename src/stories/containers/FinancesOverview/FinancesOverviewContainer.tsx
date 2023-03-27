@@ -40,6 +40,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
     byBudgetExpenses,
     remainingBudgetCU,
     remainingBudgetDelegates,
+    maxValueByBudget,
     costBreakdownTotal,
   } = useFinancesOverview(quarterExpenses, monthlyExpenses, breakdownExpenses);
 
@@ -83,6 +84,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
               byBudgetExpenses={byBudgetExpenses}
               remainingBudgetCU={remainingBudgetCU}
               remainingBudgetDelegates={remainingBudgetDelegates}
+              maxValueByBudget={maxValueByBudget}
               total={costBreakdownTotal}
             />
           </BreakdownTableColumn>
