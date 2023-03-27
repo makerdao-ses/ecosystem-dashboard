@@ -43,11 +43,16 @@ const variantsArgs = [
     },
     coreUnits: [SESCoreUnitMocked],
   },
+  {
+    coreUnit: SESCoreUnitMocked,
+    coreUnits: [SESCoreUnitMocked],
+  },
 ];
 
 export const [
   [ActualsWithDataLightMode, ActualsWithDataDarkMode],
   [ActualsWithoutDataLightMode, ActualsWithoutDataDarkMode],
+  [ForecastTabLightMode, ForecastTabDarkMode],
 ] = createThemeModeVariants(
   (props) => (
     <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
@@ -59,3 +64,12 @@ export const [
   variantsArgs,
   false
 );
+
+const forecastParams = {
+  nextRouter: {
+    path: '/core-unit/[code]/finances/reports#forecast',
+    asPath: '/core-unit/SES/finances/reports#forecast',
+  },
+};
+ForecastTabLightMode.parameters = forecastParams;
+ForecastTabDarkMode.parameters = forecastParams;
