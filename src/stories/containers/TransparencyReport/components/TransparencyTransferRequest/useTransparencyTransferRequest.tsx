@@ -106,7 +106,7 @@ export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetSta
   }, []);
 
   const getWalletBalanceTimeStamp = useCallback(() => {
-    if (!wallets || !wallets[0].budgetStatementTransferRequest) return '';
+    if (!wallets || !wallets[0]?.budgetStatementTransferRequest) return '';
     const timeStampAnyWallet = wallets[0]?.budgetStatementTransferRequest[0]?.walletBalanceTimeStamp;
 
     if (!DateTime.fromISO(timeStampAnyWallet).isValid) {
