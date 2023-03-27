@@ -152,7 +152,7 @@ const TableBody = styled.div({});
 const RemainingContainer = styled.div<WithIsLight>(({ isLight }) => ({
   margin: '24px -16px',
   padding: '24px 16px 16px',
-  background: isLight ? '#F6F8F9' : '#131420',
+  background: isLight ? '#F6F8F9' : '#1D1E34',
   boxShadow: isLight ? '0px -1px 1px #EDEFFF' : '0px -1px 1px #292F5B',
   display: 'flex',
   flexDirection: 'column',
