@@ -12,13 +12,15 @@ import type { NextPage } from 'next';
 interface FinanceOverviewPageProps {
   quarterExpenses: ExpenseDto[];
   monthlyExpenses: Partial<ExpenseDto>[];
-  breakdownExpenses: ExtendedExpense[];
+  byBudgetBreakdownExpenses: ExtendedExpense[];
+  byCategoryBreakdownExpenses: ExpenseDto[];
 }
 
 const FinanceOverviewPage: NextPage<FinanceOverviewPageProps> = ({
   quarterExpenses,
   monthlyExpenses,
-  breakdownExpenses,
+  byBudgetBreakdownExpenses,
+  byCategoryBreakdownExpenses,
 }) => {
   if (!featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW) {
     // core unit overview would be the home page if the finances overview is disabled
@@ -29,7 +31,8 @@ const FinanceOverviewPage: NextPage<FinanceOverviewPageProps> = ({
     <FinancesOverviewContainer
       quarterExpenses={quarterExpenses}
       monthlyExpenses={monthlyExpenses || []}
-      breakdownExpenses={breakdownExpenses}
+      byBudgetBreakdownExpenses={byBudgetBreakdownExpenses}
+      byCategoryBreakdownExpenses={byCategoryBreakdownExpenses}
     />
   );
 };
@@ -48,7 +51,8 @@ export async function getServerSideProps() {
       props: {
         quarterExpenses,
         monthlyExpenses,
-        breakdownExpenses,
+        byBudgetBreakdownExpenses: breakdownExpenses.byBudget,
+        byCategoryBreakdownExpenses: breakdownExpenses.byCategory,
       },
     };
   }

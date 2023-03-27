@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { percentageRespectTo } from '@ses/core/utils/math';
+import { pascalCaseToNormalString } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { isCoreUnitExpense } from '../../utils/costBreakdown';
@@ -12,6 +13,7 @@ import ByExpenseCategoryTableRow from './ByExpenseCategoryTableRow';
 import ExpenseCategoryGroup from './ExpenseCategoryGroup';
 import TableFooter from './TableFooter';
 import type { CostBreakdownFilterValue, ExtendedExpense } from '../../financesOverviewTypes';
+import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export interface CostBreakdownTableProps {
@@ -21,6 +23,12 @@ export interface CostBreakdownTableProps {
   remainingBudgetCU: ExtendedExpense;
   remainingBudgetDelegates: ExtendedExpense;
   maxValueByBudget: number;
+  byCategoryExpenses: {
+    headcount: ExpenseDto[];
+    nonHeadcount: ExpenseDto[];
+  };
+  remainingCategories: ExpenseDto;
+  maxValueByCategory: number;
   total: number;
 }
 
@@ -31,6 +39,9 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
   remainingBudgetCU,
   remainingBudgetDelegates,
   maxValueByBudget,
+  byCategoryExpenses,
+  remainingCategories,
+  maxValueByCategory,
   total,
 }) => {
   const { isLight } = useThemeContext();
@@ -77,19 +88,32 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
           ) : (
             <>
               <ExpenseCategoryGroup name="Headcount">
-                <ByExpenseCategoryTableRow name="Compensation & Benefits" total={8230463} />
+                {byCategoryExpenses.headcount.map((expense) => (
+                  <ByExpenseCategoryTableRow
+                    name={pascalCaseToNormalString(expense.category.split('/')[1])}
+                    expense={expense}
+                    relativePercentage={percentageRespectTo(expense.prediction, maxValueByCategory)}
+                    total={total}
+                  />
+                ))}
               </ExpenseCategoryGroup>
               <ExpenseCategoryGroup name="Non-Headcount">
-                <ByExpenseCategoryTableRow name="Software Expense" total={3339529} />
-                <ByExpenseCategoryTableRow name="Marketing" total={1968154} />
-                <ByExpenseCategoryTableRow name="Gas Expense" total={1252461} />
-                <ByExpenseCategoryTableRow name="Software Expense" total={3339529} />
-                <ByExpenseCategoryTableRow name="Marketing" total={1968154} />
-                <ByExpenseCategoryTableRow name="Gas Expense" total={1252461} />
-                <ByExpenseCategoryTableRow name="Gas Expense" total={1252461} />
+                {byCategoryExpenses.nonHeadcount.map((expense) => (
+                  <ByExpenseCategoryTableRow
+                    name={pascalCaseToNormalString(expense.category.split('/')[1])}
+                    expense={expense}
+                    relativePercentage={percentageRespectTo(expense.prediction, maxValueByCategory)}
+                    total={total}
+                  />
+                ))}
 
                 <RemainingContainer isLight={isLight}>
-                  <ByExpenseCategoryTableRow name="All Remaining Categories" total={301568} />
+                  <ByExpenseCategoryTableRow
+                    name="All Remaining Categories"
+                    expense={remainingCategories}
+                    relativePercentage={percentageRespectTo(remainingCategories.prediction, maxValueByCategory)}
+                    total={total}
+                  />
                 </RemainingContainer>
               </ExpenseCategoryGroup>
             </>

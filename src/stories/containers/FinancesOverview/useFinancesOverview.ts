@@ -3,7 +3,12 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
 import { useCallback, useMemo, useState } from 'react';
-import { isCoreUnitExpense, mutableCombinationExpenseByAdding } from './utils/costBreakdown';
+import {
+  isCoreUnitExpense,
+  isHeadcountExpense,
+  isNonHeadcountExpense,
+  mutableCombinationExpenseByAdding,
+} from './utils/costBreakdown';
 import { parseQuarter } from './utils/quarters';
 import type { CostBreakdownFilterValue, ExtendedExpense } from './financesOverviewTypes';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
@@ -16,7 +21,8 @@ const fullBorder = [6, 6, 6, 6];
 const useFinancesOverview = (
   quarterExpenses: ExpenseDto[] = [],
   monthly: Partial<ExpenseDto>[],
-  breakdownExpenses: ExtendedExpense[]
+  byBudgetBreakdownExpenses: ExtendedExpense[],
+  byCategoryBreakdownExpenses: ExpenseDto[]
 ) => {
   const sortedQuarters = useMemo(
     () =>
@@ -165,7 +171,7 @@ const useFinancesOverview = (
         prediction: 0,
       } as ExtendedExpense;
 
-      breakdownExpenses
+      byBudgetBreakdownExpenses
         .filter((expense) => expense.period === selectedYear.toString())
         .sort((a, b) => b.prediction - a.prediction)
         .forEach((expense, index) => {
@@ -190,7 +196,48 @@ const useFinancesOverview = (
         maxValueByBudget,
         costBreakdownTotal,
       };
-    }, [breakdownExpenses, selectedYear]);
+    }, [byBudgetBreakdownExpenses, selectedYear]);
+
+  const { byCategoryExpenses, remainingCategories, maxValueByCategory } = useMemo(() => {
+    const byCategoryExpenses = {
+      headcount: [] as ExpenseDto[],
+      nonHeadcount: [] as ExpenseDto[],
+    };
+    const remainingCategories = {
+      category: '',
+      actuals: 0,
+      budgetCap: 0,
+      budget: 'makerdao/delegates',
+      discontinued: 0,
+      period: selectedYear.toString(),
+      prediction: 0,
+    } as ExpenseDto;
+
+    byCategoryBreakdownExpenses
+      .filter((expense) => expense.period === selectedYear.toString())
+      .sort((a, b) => b.prediction - a.prediction)
+      .forEach((expense) => {
+        if (isHeadcountExpense(expense)) {
+          byCategoryExpenses.headcount.push(expense);
+        } else if (isNonHeadcountExpense(expense) && byCategoryExpenses.nonHeadcount.length < 7) {
+          byCategoryExpenses.nonHeadcount.push(expense);
+        } else {
+          mutableCombinationExpenseByAdding(remainingCategories, expense);
+        }
+      });
+
+    const maxValueByCategory = Math.max(
+      ...[...byCategoryExpenses.headcount, ...byCategoryExpenses.nonHeadcount, remainingCategories].map(
+        (item) => item.prediction
+      )
+    );
+
+    return {
+      byCategoryExpenses,
+      remainingCategories,
+      maxValueByCategory,
+    };
+  }, [byCategoryBreakdownExpenses, selectedYear]);
 
   return {
     isLight,
@@ -210,6 +257,9 @@ const useFinancesOverview = (
     remainingBudgetCU,
     remainingBudgetDelegates,
     maxValueByBudget,
+    byCategoryExpenses,
+    remainingCategories,
+    maxValueByCategory,
     costBreakdownTotal,
   };
 };
