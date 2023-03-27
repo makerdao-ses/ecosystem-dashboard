@@ -47,12 +47,17 @@ const variantsArgs = [
     coreUnit: SESCoreUnitMocked,
     coreUnits: [SESCoreUnitMocked],
   },
+  {
+    coreUnit: SESCoreUnitMocked,
+    coreUnits: [SESCoreUnitMocked],
+  },
 ];
 
 export const [
   [ActualsWithDataLightMode, ActualsWithDataDarkMode],
   [ActualsWithoutDataLightMode, ActualsWithoutDataDarkMode],
   [ForecastTabLightMode, ForecastTabDarkMode],
+  [MKRVestingLightMode, MKRVestingDarkMode],
 ] = createThemeModeVariants(
   (props) => (
     <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
@@ -73,3 +78,12 @@ const forecastParams = {
 };
 ForecastTabLightMode.parameters = forecastParams;
 ForecastTabDarkMode.parameters = forecastParams;
+
+const mkrVestingParams = {
+  nextRouter: {
+    path: '/core-unit/[code]/finances/reports#mkr-vesting',
+    asPath: '/core-unit/SES/finances/reports#mkr-vesting',
+  },
+};
+MKRVestingLightMode.parameters = mkrVestingParams;
+MKRVestingDarkMode.parameters = mkrVestingParams;

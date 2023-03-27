@@ -6,6 +6,7 @@ import type {
   BudgetStatementFteDto,
   BudgetStatementWalletDto,
   CommentsBudgetStatementDto,
+  BudgetStatementMKRVestDto,
 } from '../../models/dto/coreUnitDTO';
 
 export class BudgetStatementBuilder {
@@ -17,6 +18,7 @@ export class BudgetStatementBuilder {
       month: '',
       budgetStatementFTEs: [] as BudgetStatementFteDto[],
       budgetStatementWallet: [] as BudgetStatementWalletDto[],
+      budgetStatementMKRVest: [] as BudgetStatementMKRVestDto[],
       comments: [] as CommentsBudgetStatementDto[],
       status: BudgetStatus.Draft,
       publicationUrl: '',
@@ -45,6 +47,17 @@ export class BudgetStatementBuilder {
 
   addBudgetStatementWallet(budgetStatementWallet: BudgetStatementWalletDto): BudgetStatementBuilder {
     this._budgetStatement.budgetStatementWallet.push(budgetStatementWallet);
+    return this;
+  }
+
+  addBudgetStatementMKRVest(
+    budgetStatementMKRVest: BudgetStatementMKRVestDto | BudgetStatementMKRVestDto[]
+  ): BudgetStatementBuilder {
+    if (Array.isArray(budgetStatementMKRVest)) {
+      this._budgetStatement.budgetStatementMKRVest?.push(...budgetStatementMKRVest);
+    } else {
+      this._budgetStatement.budgetStatementMKRVest?.push(budgetStatementMKRVest);
+    }
     return this;
   }
 

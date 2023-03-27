@@ -1,5 +1,6 @@
 import { BudgetStatementBuilder } from '@ses/core/businessLogic/builders/budgetStatementBuilder';
 import { BudgetStatementLineItemBuilder } from '@ses/core/businessLogic/builders/budgetStatementLineItemBuilder';
+import { BudgetStatementMKRVestBuilder } from '@ses/core/businessLogic/builders/budgetStatementMKRVestBuilder ';
 import { BudgetStatementWalletBuilder } from '@ses/core/businessLogic/builders/budgetStatementWalletBuilder';
 import { CoreUnitsBuilder } from '@ses/core/businessLogic/builders/coreUnitsBuilder';
 import { CuMipBuilder } from '@ses/core/businessLogic/builders/cuMIPBuilder';
@@ -146,6 +147,30 @@ export const SESCoreUnitMocked = new CoreUnitsBuilder()
           ])
           .build()
       )
+      .addBudgetStatementMKRVest([
+        new BudgetStatementMKRVestBuilder()
+          .withComments('Vesting for the SES-001 Core Unit')
+          .withMKRAmount(10)
+          .withMKRAmountOld(10)
+          .withVestingDate('1021-09-01')
+          .build(),
+        new BudgetStatementMKRVestBuilder()
+          .withMKRAmount(2.47)
+          .withMKRAmountOld(2.47)
+          .withVestingDate('1021-08-24')
+          .build(),
+        new BudgetStatementMKRVestBuilder()
+          .withComments('Vesting testing')
+          .withMKRAmount(9.04)
+          .withMKRAmountOld(9.04)
+          .withVestingDate('1021-08-01')
+          .build(),
+        new BudgetStatementMKRVestBuilder()
+          .withMKRAmount(5.36)
+          .withMKRAmountOld(5.36)
+          .withVestingDate('1021-07-16')
+          .build(),
+      ])
       .build()
   )
   .build();
