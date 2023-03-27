@@ -22,7 +22,6 @@ const useFinancesOverview = (
   quarterExpenses: ExpenseDto[] = [],
   monthly: Partial<ExpenseDto>[],
   byBudgetBreakdownExpenses: ExtendedExpense[],
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   byCategoryBreakdownExpenses: ExpenseDto[]
 ) => {
   const sortedQuarters = useMemo(
