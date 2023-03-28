@@ -1,5 +1,3 @@
-import styled from '@emotion/styled';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
 import ItemCoreUnit from '../ItemCoreUnit/ItemCoreUnit';
 import type { CustomTableColumn, CustomTableRow } from '../CustomTable2';
@@ -12,24 +10,18 @@ interface Props {
   queryStrings?: string;
 }
 
-const ListCoreUnit = ({ rows, isLoading, columns, queryStrings }: Props) => {
-  const { isLight } = useThemeContext();
-  return (
-    <TableBody isLight={isLight}>
-      {rows?.map((row, i) => (
-        <ItemCoreUnit
-          key={`row-${row?.key ?? i}`}
-          isLoading={isLoading}
-          columns={columns}
-          queryStrings={queryStrings}
-          cu={row?.value as CoreUnitDto}
-        />
-      ))}
-    </TableBody>
-  );
-};
-const TableBody = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  background: isLight ? '#F7F8F966' : 'none',
-}));
+const ListCoreUnit = ({ rows, isLoading, columns, queryStrings }: Props) => (
+  <>
+    {rows?.map((row, i) => (
+      <ItemCoreUnit
+        key={`row-${row?.key ?? i}`}
+        isLoading={isLoading}
+        columns={columns}
+        queryStrings={queryStrings}
+        cu={row?.value as CoreUnitDto}
+      />
+    ))}
+  </>
+);
 
 export default ListCoreUnit;
