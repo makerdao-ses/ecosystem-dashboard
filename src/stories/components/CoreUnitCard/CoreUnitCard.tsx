@@ -17,7 +17,7 @@ import {
   getMipUrlFromCoreUnit,
   getPercentFromCoreUnit,
   getSubmissionDateFromCuMip,
-  getStautsMip39AccetedOrObsolete,
+  getStatusMip39AcceptedOrObsolete,
 } from '../../../core/businessLogic/coreUnits';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { getShortCode } from '../../../core/utils/string';
@@ -96,7 +96,7 @@ const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
             </Title>
             <CuTableColumnSummary
               title={coreUnit?.name}
-              status={getStautsMip39AccetedOrObsolete(coreUnit)}
+              status={getStatusMip39AcceptedOrObsolete(coreUnit)}
               statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
               imageUrl={coreUnit?.image}
               mipUrl={getMipUrlFromCoreUnit(coreUnit)}
