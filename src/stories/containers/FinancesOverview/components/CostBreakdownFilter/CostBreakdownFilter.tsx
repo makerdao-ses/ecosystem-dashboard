@@ -57,4 +57,17 @@ const FilterButton = styled(CustomButton)<WithIsLight & { selected?: boolean }>(
     color: selected ? '#FFFFFF' : isLight ? '#9FAFB9' : '#ADAFD4',
     lineHeight: '16px',
   },
+
+  ...(!selected
+    ? {
+        '&:hover': {
+          background: isLight ? '#F6F8F9' : '#10191F',
+          border: `1px solid ${isLight ? '#ECF1F3' : '#1E2C37'}}`,
+
+          '&:hover > div': {
+            color: `${isLight ? '#787A9B' : '#D2D4EF'}!important`,
+          },
+        },
+      }
+    : {}),
 }));
