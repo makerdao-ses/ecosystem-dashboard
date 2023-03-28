@@ -74,15 +74,17 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
                   )}
                   rowType={'remaining'}
                 />
-                <ByBudgetTableRow
-                  expense={remainingBudgetDelegates}
-                  total={total}
-                  relativePercentage={percentageRespectTo(
-                    remainingBudgetDelegates?.prediction,
-                    byBudgetExpenses[0]?.prediction
-                  )}
-                  rowType={'remaining'}
-                />
+                {remainingBudgetDelegates?.prediction > 0 && (
+                  <ByBudgetTableRow
+                    expense={remainingBudgetDelegates}
+                    total={total}
+                    relativePercentage={percentageRespectTo(
+                      remainingBudgetDelegates?.prediction,
+                      byBudgetExpenses[0]?.prediction
+                    )}
+                    rowType={'remaining'}
+                  />
+                )}
               </RemainingContainer>
             </>
           ) : (
