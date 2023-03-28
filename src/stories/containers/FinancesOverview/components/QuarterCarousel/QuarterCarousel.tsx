@@ -7,13 +7,14 @@ import QuarterCard from '../QuarterCard/QuarterCard';
 import useQuarterCarousel from './useQuarterCarousel';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 import 'swiper/css';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 type QuarterCarouselProps = {
   quarters: ExpenseDto[];
 };
 
 const QuarterCarousel: React.FC<QuarterCarouselProps> = ({ quarters }) => {
-  const { showDivider, swiperOptions } = useQuarterCarousel(quarters);
+  const { showDivider, swiperOptions, isLight } = useQuarterCarousel(quarters);
 
   return (
     <SwiperWrapper>
@@ -23,7 +24,7 @@ const QuarterCarousel: React.FC<QuarterCarouselProps> = ({ quarters }) => {
             <CardWrapper>
               <QuarterCard {...item} />
             </CardWrapper>
-            {showDivider && isQuarter4(item.period) && index < quarters.length - 1 && <Divider />}
+            {showDivider && isQuarter4(item.period) && index < quarters.length - 1 && <Divider isLight={isLight} />}
           </SwiperSlide>
         ))}
       </Swiper>
@@ -71,12 +72,12 @@ const CardWrapper = styled.div({
   },
 });
 
-const Divider = styled.div({
+const Divider = styled.div<WithIsLight>(({ isLight }) => ({
   width: 1,
   height: 131,
-  background: '#D4D9E1',
+  background: isLight ? '#D4D9E1' : '#30363C',
 
   [lightTheme.breakpoints.up('table_834')]: {
     height: 161,
   },
-});
+}));

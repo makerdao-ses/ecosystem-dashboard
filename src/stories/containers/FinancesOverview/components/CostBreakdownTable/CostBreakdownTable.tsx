@@ -163,8 +163,8 @@ const RemainingContainer = styled.div<WithIsLight>(({ isLight }) => ({
   },
 
   [lightTheme.breakpoints.up('table_834')]: {
-    margin: '30px 0 0',
-    padding: '2px 0 0',
+    margin: '32px 0 0',
+    padding: 0,
     gap: 0,
     boxShadow: 'none',
   },
