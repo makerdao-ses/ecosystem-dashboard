@@ -45,6 +45,10 @@ const LinkImage = styled.a(
     alignItems: 'center',
     justifyContent: 'center',
     cursor: 'pointer',
+
+    '& svg:hover path': {
+      fill: '#48495F',
+    },
   },
   ({ width = 32, height = 32 }: StickyLinkProps) => ({
     width,
