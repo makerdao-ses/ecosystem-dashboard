@@ -155,6 +155,13 @@ const variantsArgs = [
         .withAnnualPeriod(2023)
         .extend('TEST', 'Testing')
         .build(),
+      new TotalExpenseReportsBuilder()
+        .withBudget('delegates')
+        .withPrediction(415631)
+        .withActuals(1082362)
+        .withAnnualPeriod(2023)
+        .extend('DEL', 'Recognized Delegates')
+        .build(),
     ],
     byCategoryBreakdownExpenses: [
       new TotalExpenseReportsBuilder()
