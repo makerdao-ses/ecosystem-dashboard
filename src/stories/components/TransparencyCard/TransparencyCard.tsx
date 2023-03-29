@@ -104,7 +104,7 @@ const Label = styled.div<{ hasIcon?: boolean; height?: string }>(({ hasIcon = fa
 const ContainerLine = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
   flex: 1,
-  border: isLight ? '1px solid #D4D9E1' : '1px solid #405361',
+  borderTop: isLight ? '1px solid #D4D9E1' : '1px solid #405361',
   marginBottom: 20,
   marginTop: 20,
 }));
