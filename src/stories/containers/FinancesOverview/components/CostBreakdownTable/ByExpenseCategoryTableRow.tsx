@@ -28,7 +28,7 @@ const ByExpenseCategoryTableRow: React.FC<ByExpenseCategoryTableRowProps> = ({
     <Row isLight={isLight}>
       <MobileColumn>
         <NameColumnComponent name={name} isLight={isLight} />
-        {isMobile && <TotalSpendColumnComponent isLight={isLight} total={total} />}
+        {isMobile && <TotalSpendColumnComponent isLight={isLight} total={expense.prediction} />}
       </MobileColumn>
 
       <TotalPercentageColumnComponent

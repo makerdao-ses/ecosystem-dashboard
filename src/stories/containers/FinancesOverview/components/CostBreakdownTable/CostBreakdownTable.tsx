@@ -45,7 +45,6 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
   total,
 }) => {
   const { isLight } = useThemeContext();
-
   return (
     <BreakdownTableContainer>
       <CostBreakdownFilter selectedFilter={selectedFilter} onFilterChange={setSelectedFilter} />
@@ -90,22 +89,24 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
           ) : (
             <>
               <ExpenseCategoryGroup name="Headcount">
-                {byCategoryExpenses.headcount.map((expense) => (
+                {byCategoryExpenses.headcount.map((expense, i) => (
                   <ByExpenseCategoryTableRow
                     name={pascalCaseToNormalString(expense.category.split('/')[1])}
                     expense={expense}
                     relativePercentage={percentageRespectTo(expense.prediction, maxValueByCategory)}
                     total={total}
+                    key={i}
                   />
                 ))}
               </ExpenseCategoryGroup>
               <ExpenseCategoryGroup name="Non-Headcount">
-                {byCategoryExpenses.nonHeadcount.map((expense) => (
+                {byCategoryExpenses.nonHeadcount.map((expense, i) => (
                   <ByExpenseCategoryTableRow
                     name={pascalCaseToNormalString(expense.category.split('/')[1])}
                     expense={expense}
                     relativePercentage={percentageRespectTo(expense.prediction, maxValueByCategory)}
                     total={total}
+                    key={i}
                   />
                 ))}
 
