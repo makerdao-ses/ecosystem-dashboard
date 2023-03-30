@@ -21,8 +21,16 @@ const InsidePagination = ({ page, count, onClickLeft, onClickRight }: Props) => 
         <StyleTextCoreUnit isLight={isLight}>{` of ${count} Core Units`} </StyleTextCoreUnit>
       </PaginationLabel>
       <Arrows>
-        <ArrowLeft onClick={onClickLeft} fill={page !== 1 ? undefined : '#d1dee6'} disabled={page === 1} />
-        <ArrowRight onClick={onClickRight} fill={page !== count ? undefined : '#d1dee6'} disabled={page === count} />
+        <ArrowLeft
+          onClick={onClickLeft}
+          fill={page !== 1 ? undefined : isLight ? '#d1dee6' : '#31424E'}
+          disabled={page === 1}
+        />
+        <ArrowRight
+          onClick={onClickRight}
+          fill={page !== count ? undefined : isLight ? '#d1dee6' : '#31424E'}
+          disabled={page === count}
+        />
       </Arrows>
     </Container>
   );
