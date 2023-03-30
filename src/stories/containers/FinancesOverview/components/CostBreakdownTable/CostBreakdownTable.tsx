@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { percentageRespectTo } from '@ses/core/utils/math';
+import { pascalCaseToNormalString } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { isCoreUnitExpense } from '../../utils/costBreakdown';
@@ -12,6 +13,7 @@ import ByExpenseCategoryTableRow from './ByExpenseCategoryTableRow';
 import ExpenseCategoryGroup from './ExpenseCategoryGroup';
 import TableFooter from './TableFooter';
 import type { CostBreakdownFilterValue, ExtendedExpense } from '../../financesOverviewTypes';
+import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export interface CostBreakdownTableProps {
@@ -20,6 +22,13 @@ export interface CostBreakdownTableProps {
   byBudgetExpenses: ExtendedExpense[];
   remainingBudgetCU: ExtendedExpense;
   remainingBudgetDelegates: ExtendedExpense;
+  maxValueByBudget: number;
+  byCategoryExpenses: {
+    headcount: ExpenseDto[];
+    nonHeadcount: ExpenseDto[];
+  };
+  remainingCategories: ExpenseDto;
+  maxValueByCategory: number;
   total: number;
 }
 
@@ -29,10 +38,13 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
   byBudgetExpenses,
   remainingBudgetCU,
   remainingBudgetDelegates,
+  maxValueByBudget,
+  byCategoryExpenses,
+  remainingCategories,
+  maxValueByCategory,
   total,
 }) => {
   const { isLight } = useThemeContext();
-
   return (
     <BreakdownTableContainer>
       <CostBreakdownFilter selectedFilter={selectedFilter} onFilterChange={setSelectedFilter} />
@@ -45,9 +57,7 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
                 <ByBudgetTableRow
                   expense={budget}
                   total={total}
-                  relativePercentage={
-                    i === 0 ? 100 : percentageRespectTo(byBudgetExpenses[i].prediction, byBudgetExpenses[0].prediction)
-                  }
+                  relativePercentage={percentageRespectTo(budget.prediction, maxValueByBudget)}
                   rowType={isCoreUnitExpense(budget) ? 'coreUnit' : 'delegate'}
                   key={i}
                 />
@@ -63,33 +73,50 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
                   )}
                   rowType={'remaining'}
                 />
-                <ByBudgetTableRow
-                  expense={remainingBudgetDelegates}
-                  total={total}
-                  relativePercentage={percentageRespectTo(
-                    remainingBudgetDelegates?.prediction,
-                    byBudgetExpenses[0]?.prediction
-                  )}
-                  rowType={'remaining'}
-                />
+                {remainingBudgetDelegates?.prediction > 0 && (
+                  <ByBudgetTableRow
+                    expense={remainingBudgetDelegates}
+                    total={total}
+                    relativePercentage={percentageRespectTo(
+                      remainingBudgetDelegates?.prediction,
+                      byBudgetExpenses[0]?.prediction
+                    )}
+                    rowType={'remaining'}
+                  />
+                )}
               </RemainingContainer>
             </>
           ) : (
             <>
               <ExpenseCategoryGroup name="Headcount">
-                <ByExpenseCategoryTableRow name="Compensation & Benefits" total={8230463} />
+                {byCategoryExpenses.headcount.map((expense, i) => (
+                  <ByExpenseCategoryTableRow
+                    name={pascalCaseToNormalString(expense.category.split('/')[1])}
+                    expense={expense}
+                    relativePercentage={percentageRespectTo(expense.prediction, maxValueByCategory)}
+                    total={total}
+                    key={i}
+                  />
+                ))}
               </ExpenseCategoryGroup>
               <ExpenseCategoryGroup name="Non-Headcount">
-                <ByExpenseCategoryTableRow name="Software Expense" total={3339529} />
-                <ByExpenseCategoryTableRow name="Marketing" total={1968154} />
-                <ByExpenseCategoryTableRow name="Gas Expense" total={1252461} />
-                <ByExpenseCategoryTableRow name="Software Expense" total={3339529} />
-                <ByExpenseCategoryTableRow name="Marketing" total={1968154} />
-                <ByExpenseCategoryTableRow name="Gas Expense" total={1252461} />
-                <ByExpenseCategoryTableRow name="Gas Expense" total={1252461} />
+                {byCategoryExpenses.nonHeadcount.map((expense, i) => (
+                  <ByExpenseCategoryTableRow
+                    name={pascalCaseToNormalString(expense.category.split('/')[1])}
+                    expense={expense}
+                    relativePercentage={percentageRespectTo(expense.prediction, maxValueByCategory)}
+                    total={total}
+                    key={i}
+                  />
+                ))}
 
                 <RemainingContainer isLight={isLight}>
-                  <ByExpenseCategoryTableRow name="All Remaining Non-Headcount" total={301568} />
+                  <ByExpenseCategoryTableRow
+                    name="All Remaining Categories"
+                    expense={remainingCategories}
+                    relativePercentage={percentageRespectTo(remainingCategories.prediction, maxValueByCategory)}
+                    total={total}
+                  />
                 </RemainingContainer>
               </ExpenseCategoryGroup>
             </>
@@ -128,19 +155,19 @@ const TableBody = styled.div({});
 const RemainingContainer = styled.div<WithIsLight>(({ isLight }) => ({
   margin: '24px -16px',
   padding: '24px 16px 16px',
-  background: isLight ? '#F6F8F9' : '#131420',
+  background: isLight ? '#F6F8F9' : '#1D1E34',
   boxShadow: isLight ? '0px -1px 1px #EDEFFF' : '0px -1px 1px #292F5B',
   display: 'flex',
   flexDirection: 'column',
   gap: 24,
 
-  '& > div': {
+  '& > *': {
     marginBottom: 0,
   },
 
   [lightTheme.breakpoints.up('table_834')]: {
-    margin: '30px 0 0',
-    padding: '2px 0 0',
+    margin: '32px 0 0',
+    padding: 0,
     gap: 0,
     boxShadow: 'none',
   },

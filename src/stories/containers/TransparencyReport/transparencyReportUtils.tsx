@@ -341,12 +341,6 @@ const BiggerContainer = styled.div({
 });
 
 const CustomerPopoverExtends = styled(CustomPopover)({
-  // '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
-  //   overflowX: 'unset',
-  //   overflowY: 'unset',
-  //   marginLeft: -20.3,
-  //   marginTop: 2.5,
-  // },
   '& > div': {
     [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
       marginLeft: -45,

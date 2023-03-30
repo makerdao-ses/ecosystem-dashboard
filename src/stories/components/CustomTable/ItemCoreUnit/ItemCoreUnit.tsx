@@ -16,6 +16,7 @@ interface Props {
 
 export const ItemCoreUnit = ({ queryStrings, isLoading, columns, cu }: Props) => {
   const { isLight } = useThemeContext();
+
   return (
     <>
       <TableWrapper>
@@ -40,6 +41,7 @@ const TableWrapper = styled.div({
     display: 'flex',
   },
 });
+
 const TableRow = styled.a<{ isLight: boolean; isLoading?: boolean; columns: CustomTableColumn[] }>(
   ({ isLight, isLoading, columns }) => ({
     background: isLight ? 'white' : '#10191F',
@@ -62,6 +64,7 @@ const TableRow = styled.a<{ isLight: boolean; isLoading?: boolean; columns: Cust
     },
   })
 );
+
 export const TableCell = styled.div({
   color: '#231536',
   display: 'flex',

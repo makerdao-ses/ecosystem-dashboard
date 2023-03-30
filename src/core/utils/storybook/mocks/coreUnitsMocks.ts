@@ -1,6 +1,8 @@
 import { BudgetStatementBuilder } from '@ses/core/businessLogic/builders/budgetStatementBuilder';
 import { BudgetStatementLineItemBuilder } from '@ses/core/businessLogic/builders/budgetStatementLineItemBuilder';
+import { BudgetStatementMKRVestBuilder } from '@ses/core/businessLogic/builders/budgetStatementMKRVestBuilder ';
 import { BudgetStatementWalletBuilder } from '@ses/core/businessLogic/builders/budgetStatementWalletBuilder';
+import { BudgetStatementWalletTransferRequestBuilder } from '@ses/core/businessLogic/builders/budgetStatementWalletTransferRequestBuilder';
 import { CoreUnitsBuilder } from '@ses/core/businessLogic/builders/coreUnitsBuilder';
 import { CuMipBuilder } from '@ses/core/businessLogic/builders/cuMIPBuilder';
 import { UserBuilder } from '@ses/core/businessLogic/builders/userBuilder';
@@ -90,12 +92,52 @@ export const SESCoreUnitMocked = new CoreUnitsBuilder()
               .withMonth('2022-09-01')
               .withActual(10500)
               .withForecast(10500)
+              .withPayment(566)
               .build(),
             new BudgetStatementLineItemBuilder()
               .withGroup('Marketing Expense')
               .withMonth('2022-09-01')
               .withActual(1500)
               .withForecast(0)
+              .build(),
+            // forecast
+            new BudgetStatementLineItemBuilder()
+              .withGroup('Compensation & Benefits')
+              .withMonth('2022-10-01')
+              .withActual(1500)
+              .withForecast(152)
+              .withBudgetCap(554)
+              .withPayment(566)
+              .build(),
+            new BudgetStatementLineItemBuilder()
+              .withGroup('Travel & Entertainment')
+              .withMonth('2022-11-01')
+              .withActual(1500)
+              .withForecast(425)
+              .withBudgetCap(458)
+              .withHeadcountExpense(true)
+              .build(),
+            new BudgetStatementLineItemBuilder()
+              .withGroup('Software Expense')
+              .withMonth('2022-12-01')
+              .withActual(1500)
+              .withForecast(778)
+              .withBudgetCap(965548)
+              .build(),
+          ])
+          .addBudgetStatementTransferRequest([
+            new BudgetStatementWalletTransferRequestBuilder()
+              .withRequestAmount(332276.72)
+              .withWalletBalance(238253.38)
+              .withWalletBalanceTimeStamp('2022-09-22T18:22:03.856Z')
+              .withTargetAmount(506063.09)
+              .withTargetCalculation('FEB + MAR Budget Cap')
+              .withTargetDescription('Auditor wallets are topped up to 2 times the budget cap')
+              .withTargetSource(
+                'MIP40C3-SP14',
+                'https://mips.makerdao.com/mips/details/MIP40c3SP14',
+                'Modify Core Unit Budget - Collateral Engineering Services (SES-001)'
+              )
               .build(),
           ])
           .build()
@@ -104,11 +146,62 @@ export const SESCoreUnitMocked = new CoreUnitsBuilder()
         new BudgetStatementWalletBuilder()
           .withName('Permanent Team')
           .withAddress('0xb5eb779ce300024edb3df9b6c007e312584f6f4f')
-          .addBudgetStatementLineItem(
-            new BudgetStatementLineItemBuilder().withMonth('2022-09-01').withActual(1000).withForecast(1500).build()
-          )
+          .addBudgetStatementLineItem([
+            new BudgetStatementLineItemBuilder()
+              .withMonth('2022-09-01')
+              .withActual(2000)
+              .withForecast(1500)
+              .withPayment(2200)
+              .build(),
+            new BudgetStatementLineItemBuilder()
+              .withGroup('Marketing Expense')
+              .withMonth('2022-11-01')
+              .withActual(256)
+              .withForecast(865)
+              .withBudgetCap(7445)
+              .build(),
+          ])
+          .addBudgetStatementTransferRequest([
+            new BudgetStatementWalletTransferRequestBuilder()
+              .withRequestAmount(-18915.2)
+              .withWalletBalance(101478.2)
+              .withWalletBalanceTimeStamp('2022-28-22T18:22:03.856Z')
+              .withTargetAmount(506063.09)
+              .withTargetCalculation('FEB + MAR Budget Cap')
+              .withTargetDescription('Auditor wallets are topped up to 2 times the budget cap')
+              .withTargetSource(
+                'MIP40C3-SP14',
+                'https://mips.makerdao.com/mips/details/MIP40c3SP14',
+                'Modify Core Unit Budget - Collateral Engineering Services (SES-001)'
+              )
+              .build(),
+          ])
           .build()
       )
+      .addBudgetStatementMKRVest([
+        new BudgetStatementMKRVestBuilder()
+          .withComments('Vesting for the SES-001 Core Unit')
+          .withMKRAmount(10)
+          .withMKRAmountOld(10)
+          .withVestingDate('1021-09-01')
+          .build(),
+        new BudgetStatementMKRVestBuilder()
+          .withMKRAmount(2.47)
+          .withMKRAmountOld(2.47)
+          .withVestingDate('1021-08-24')
+          .build(),
+        new BudgetStatementMKRVestBuilder()
+          .withComments('Vesting testing')
+          .withMKRAmount(9.04)
+          .withMKRAmountOld(9.04)
+          .withVestingDate('1021-08-01')
+          .build(),
+        new BudgetStatementMKRVestBuilder()
+          .withMKRAmount(5.36)
+          .withMKRAmountOld(5.36)
+          .withVestingDate('1021-07-16')
+          .build(),
+      ])
       .build()
   )
   .build();

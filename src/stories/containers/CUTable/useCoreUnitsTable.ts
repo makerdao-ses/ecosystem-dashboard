@@ -14,7 +14,7 @@ import {
   getExpenditureValueFromCoreUnit,
   getFTEsFromCoreUnit,
   getLastMonthWithData,
-  getStautsMip39AccetedOrObsolete,
+  getStatusMip39AcceptedOrObsolete,
 } from '../../../core/businessLogic/coreUnits';
 import { CuCategoryEnum } from '../../../core/enums/cuCategoryEnum';
 import { CuStatusEnum } from '../../../core/enums/cuStatusEnum';
@@ -86,7 +86,7 @@ export const useCoreUnitsTable = () => {
   const statusCount = useMemo(() => {
     const result: { [id: string]: number } = {};
     Object.values(CuStatusEnum).forEach((cat) => {
-      result[cat] = statusesFiltered?.filter((cu) => getStautsMip39AccetedOrObsolete(cu) === cat).length;
+      result[cat] = statusesFiltered?.filter((cu) => getStatusMip39AcceptedOrObsolete(cu) === cat).length;
     });
     result.All = statusesFiltered.length;
     return result;
@@ -159,7 +159,7 @@ export const useCoreUnitsTable = () => {
       justifyContent: desktop ? 'center' : 'flex-start',
       cellRender: renderTeamMember,
       onClick: onClickRow,
-      width: '205px',
+      width: '200px',
       sortReverse: true,
       hasSort: true,
     },
@@ -178,7 +178,7 @@ export const useCoreUnitsTable = () => {
       cellRender: renderLinks,
       onClick: onClickRow,
       width: '358px',
-      responsiveWidth: '186px',
+      responsiveWidth: '185px',
       hasSort: false,
     },
   ];
@@ -193,11 +193,11 @@ export const useCoreUnitsTable = () => {
       const statusSort = (a: CoreUnitDto, b: CoreUnitDto) => {
         const aCoreUnit = {
           ...a,
-          status: giveWeightByStatus(getStautsMip39AccetedOrObsolete(a)),
+          status: giveWeightByStatus(getStatusMip39AcceptedOrObsolete(a)),
         };
         const bCoreUnit = {
           ...b,
-          status: giveWeightByStatus(getStautsMip39AccetedOrObsolete(b)),
+          status: giveWeightByStatus(getStatusMip39AcceptedOrObsolete(b)),
         };
         return (
           sortAlphaNum(aCoreUnit.name, bCoreUnit.name) * multiplier -
@@ -241,7 +241,7 @@ export const useCoreUnitsTable = () => {
     () =>
       filteredData?.map((item) => ({
         ...item,
-        status: giveWeightByStatus(getStautsMip39AccetedOrObsolete(item)),
+        status: giveWeightByStatus(getStatusMip39AcceptedOrObsolete(item)),
       })),
     [filteredData]
   );

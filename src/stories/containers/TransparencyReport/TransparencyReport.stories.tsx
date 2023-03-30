@@ -32,10 +32,12 @@ export default {
 } as ComponentMeta<typeof TransparencyReport>;
 
 const variantsArgs = [
+  // actuals
   {
     coreUnit: SESCoreUnitMocked,
     coreUnits: [SESCoreUnitMocked],
   },
+  // actuals without data (empty)
   {
     coreUnit: {
       ...SESCoreUnitMocked,
@@ -43,11 +45,29 @@ const variantsArgs = [
     },
     coreUnits: [SESCoreUnitMocked],
   },
+  // forecast
+  {
+    coreUnit: SESCoreUnitMocked,
+    coreUnits: [SESCoreUnitMocked],
+  },
+  // mkr vesting
+  {
+    coreUnit: SESCoreUnitMocked,
+    coreUnits: [SESCoreUnitMocked],
+  },
+  // transfer requests
+  {
+    coreUnit: SESCoreUnitMocked,
+    coreUnits: [SESCoreUnitMocked],
+  },
 ];
 
 export const [
   [ActualsWithDataLightMode, ActualsWithDataDarkMode],
   [ActualsWithoutDataLightMode, ActualsWithoutDataDarkMode],
+  [ForecastTabLightMode, ForecastTabDarkMode],
+  [MKRVestingLightMode, MKRVestingDarkMode],
+  [TransferRequestsLightMode, TransferRequestsDarkMode],
 ] = createThemeModeVariants(
   (props) => (
     <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
@@ -59,3 +79,30 @@ export const [
   variantsArgs,
   false
 );
+
+const forecastParams = {
+  nextRouter: {
+    path: '/core-unit/[code]/finances/reports#forecast',
+    asPath: '/core-unit/SES/finances/reports#forecast',
+  },
+};
+ForecastTabLightMode.parameters = forecastParams;
+ForecastTabDarkMode.parameters = forecastParams;
+
+const mkrVestingParams = {
+  nextRouter: {
+    path: '/core-unit/[code]/finances/reports#mkr-vesting',
+    asPath: '/core-unit/SES/finances/reports#mkr-vesting',
+  },
+};
+MKRVestingLightMode.parameters = mkrVestingParams;
+MKRVestingDarkMode.parameters = mkrVestingParams;
+
+const transferRequestsParams = {
+  nextRouter: {
+    path: '/core-unit/[code]/finances/reports#transfer-requests',
+    asPath: '/core-unit/SES/finances/reports#transfer-requests',
+  },
+};
+TransferRequestsLightMode.parameters = transferRequestsParams;
+TransferRequestsDarkMode.parameters = transferRequestsParams;

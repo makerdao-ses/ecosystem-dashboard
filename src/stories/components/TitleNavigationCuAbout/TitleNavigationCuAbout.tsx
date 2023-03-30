@@ -7,7 +7,7 @@ import lightTheme from '../../../../styles/theme/light';
 import {
   getLatestMip39FromCoreUnit,
   getLinksFromCoreUnit,
-  getStautsMip39AccetedOrObsolete,
+  getStatusMip39AcceptedOrObsolete,
   getSubmissionDateFromCuMip,
 } from '../../../core/businessLogic/coreUnits';
 import { useThemeContext } from '../../../core/context/ThemeContext';
@@ -30,7 +30,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout, hiddenTextDescription }:
   const tableDimensions = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const lessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
   if (!coreUnitAbout || coreUnitAbout.cuMip.length === 0) return null;
-  const mipStatus = getStautsMip39AccetedOrObsolete(coreUnitAbout as CoreUnitDto);
+  const mipStatus = getStatusMip39AcceptedOrObsolete(coreUnitAbout as CoreUnitDto);
   const newDate = getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnitAbout as CoreUnitDto));
 
   return (

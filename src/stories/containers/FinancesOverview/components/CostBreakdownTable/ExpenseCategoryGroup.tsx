@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { Divider } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
@@ -15,17 +14,9 @@ const ExpenseCategoryGroup: React.FC<ExpenseCategoryGroupProps> = ({ name, child
   return (
     <GroupContainer>
       <NameContainer>
-        <NameLines
-          sx={{
-            bgcolor: isLight ? '#9FAFB9' : '#9FAFB9',
-          }}
-        />
+        <Lines isLight={isLight} />
         <Name isLight={isLight}>{name}</Name>
-        <NameLines
-          sx={{
-            bgcolor: isLight ? '#9FAFB9' : '#9FAFB9',
-          }}
-        />
+        <Lines isLight={isLight} />
       </NameContainer>
 
       <div>{children}</div>
@@ -62,7 +53,7 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 600,
   lineHeight: '15px',
   letterSpacing: 1,
-  color: isLight ? '#9FAFB9' : '#9FAFB9',
+  color: isLight ? '#9FAFB9' : '#708390',
   padding: '0 16px',
   minWidth: 'fit-content',
 
@@ -72,6 +63,8 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const NameLines = styled(Divider)({
+const Lines = styled.div<WithIsLight>(({ isLight }) => ({
   width: '100%',
-});
+  height: 1,
+  background: isLight ? '#D4D9E1' : '#405361',
+}));

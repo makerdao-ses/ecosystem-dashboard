@@ -16,13 +16,15 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 interface FinancesOverviewContainerProps {
   monthlyExpenses: Partial<ExpenseDto>[];
   quarterExpenses: ExpenseDto[];
-  breakdownExpenses: ExtendedExpense[];
+  byBudgetBreakdownExpenses: ExtendedExpense[];
+  byCategoryBreakdownExpenses: ExpenseDto[];
 }
 
 const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
   monthlyExpenses,
   quarterExpenses,
-  breakdownExpenses,
+  byBudgetBreakdownExpenses,
+  byCategoryBreakdownExpenses,
 }) => {
   const {
     isLight,
@@ -40,8 +42,12 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
     byBudgetExpenses,
     remainingBudgetCU,
     remainingBudgetDelegates,
+    maxValueByBudget,
+    byCategoryExpenses,
+    remainingCategories,
+    maxValueByCategory,
     costBreakdownTotal,
-  } = useFinancesOverview(quarterExpenses, monthlyExpenses, breakdownExpenses);
+  } = useFinancesOverview(quarterExpenses, monthlyExpenses, byBudgetBreakdownExpenses, byCategoryBreakdownExpenses);
 
   return (
     <Container isLight={isLight}>
@@ -83,6 +89,10 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
               byBudgetExpenses={byBudgetExpenses}
               remainingBudgetCU={remainingBudgetCU}
               remainingBudgetDelegates={remainingBudgetDelegates}
+              maxValueByBudget={maxValueByBudget}
+              byCategoryExpenses={byCategoryExpenses}
+              remainingCategories={remainingCategories}
+              maxValueByCategory={maxValueByCategory}
               total={costBreakdownTotal}
             />
           </BreakdownTableColumn>

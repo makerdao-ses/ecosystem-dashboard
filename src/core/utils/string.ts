@@ -155,3 +155,5 @@ export const replaceAllNumberLetOneBeforeDot = (num: number) => {
     return num.toString();
   }
 };
+
+export const pascalCaseToNormalString = (str: string): string => str.replace(/([a-z])([A-Z])/g, '$1 $2');

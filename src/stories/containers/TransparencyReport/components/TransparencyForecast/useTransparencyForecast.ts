@@ -723,7 +723,7 @@ export const useTransparencyForecast = (currentMonth: DateTime, propBudgetStatem
 
     const groupedNonHeadCount = _.groupBy(
       ungrouped.filter((x) => !x.headcountExpense),
-      (item) => item.group
+      (item) => item.group?.trim() || ''
     );
 
     result.push(...getBreakdownItemsForGroup(groupedNonHeadCount, 'subTotal'));

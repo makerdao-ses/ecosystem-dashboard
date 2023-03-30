@@ -1,3 +1,4 @@
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { DateTime } from 'luxon';
 import { useState } from 'react';
 import { isQuarter4, parseQuarter } from '../../utils/quarters';
@@ -6,6 +7,7 @@ import type SwiperCore from 'swiper';
 import type { SwiperProps } from 'swiper/react';
 
 const useQuarterCarousel = (quarters: ExpenseDto[]) => {
+  const { isLight } = useThemeContext();
   const [showDivider, setShowDivider] = useState<boolean>(false);
 
   const handleDivider = (swiper: SwiperCore) => {
@@ -69,6 +71,7 @@ const useQuarterCarousel = (quarters: ExpenseDto[]) => {
   return {
     swiperOptions,
     showDivider,
+    isLight,
   };
 };
 

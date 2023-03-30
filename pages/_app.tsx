@@ -62,38 +62,6 @@ function MyApp(props: MyAppProps) {
     }
   }, [props.pageProps?.protected, router]);
 
-  useEffect(() => {
-    let startY = 0; // Initial touch position
-    const threshold = 10; // Threshold to prevent overscroll
-
-    const onStart = (e: TouchEvent) => {
-      startY = e.touches[0].clientY; // Get initial touch position
-    };
-
-    const onTouchMove = function (e: TouchEvent) {
-      const currentY = e.touches[0].clientY; // Get current touch position
-      const scrollableElement = document.documentElement.scrollHeight - document.documentElement.clientHeight; // Get scrollable area
-      if (startY < threshold && window.pageYOffset <= 0 && currentY > startY) {
-        // Prevent over scrolling at the top of the page
-        e.preventDefault();
-      } else if (
-        currentY < window.innerHeight - threshold &&
-        window.pageYOffset >= scrollableElement &&
-        currentY < startY
-      ) {
-        // Prevent over scrolling at the bottom of the page
-        e.preventDefault();
-      }
-    };
-
-    document.addEventListener('touchstart', onStart);
-    document.addEventListener('touchmove', onTouchMove, { passive: false });
-    return () => {
-      document.removeEventListener('touchstart', onStart);
-      document.removeEventListener('touchmove', onTouchMove);
-    };
-  }, []);
-
   return (
     <CookiesProvider>
       <Provider store={store}>

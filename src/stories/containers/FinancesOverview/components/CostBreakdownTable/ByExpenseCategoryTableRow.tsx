@@ -5,14 +5,22 @@ import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import RelativeBudgetBar from '../RelativeBudgetBar/RelativeBudgetBar';
+import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface ByExpenseCategoryTableRowProps {
   name: string;
+  expense: ExpenseDto;
+  relativePercentage?: number;
   total: number;
 }
 
-const ByExpenseCategoryTableRow: React.FC<ByExpenseCategoryTableRowProps> = ({ name, total }) => {
+const ByExpenseCategoryTableRow: React.FC<ByExpenseCategoryTableRowProps> = ({
+  name,
+  expense,
+  relativePercentage = 100,
+  total,
+}) => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
 
@@ -20,12 +28,17 @@ const ByExpenseCategoryTableRow: React.FC<ByExpenseCategoryTableRowProps> = ({ n
     <Row isLight={isLight}>
       <MobileColumn>
         <NameColumnComponent name={name} isLight={isLight} />
-        {isMobile && <TotalSpendColumnComponent isLight={isLight} total={total} />}
+        {isMobile && <TotalSpendColumnComponent isLight={isLight} total={expense.prediction} />}
       </MobileColumn>
 
-      <TotalPercentageColumnComponent isLight={isLight} />
+      <TotalPercentageColumnComponent
+        isLight={isLight}
+        total={total}
+        expense={expense}
+        maxPercentage={relativePercentage}
+      />
 
-      {!isMobile && <TotalSpendColumnComponent isLight={isLight} total={total} />}
+      {!isMobile && <TotalSpendColumnComponent isLight={isLight} total={expense.prediction} />}
     </Row>
   );
 };
@@ -44,12 +57,17 @@ const Row = styled.div<WithIsLight>(({ isLight }) => ({
     : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25))',
   borderRadius: 6,
 
+  '&:hover': {
+    background: isLight ? '#ECF1F3' : '#31424E',
+  },
+
   [lightTheme.breakpoints.up('table_834')]: {
     padding: '15px 0',
     boxShadow: 'none',
     background: 'transparent',
     justifyContent: 'normal',
     marginBottom: 0,
+    borderRadius: 0,
   },
 }));
 
@@ -69,11 +87,18 @@ const NameColumnComponent: React.FC<WithIsLight & { name: string }> = ({ isLight
   </NameColumn>
 );
 
-const TotalPercentageColumnComponent: React.FC<WithIsLight> = ({ isLight }) => (
+const TotalPercentageColumnComponent: React.FC<
+  WithIsLight & { total: number; expense: ExpenseDto; maxPercentage: number }
+> = ({ isLight, total, expense, maxPercentage }) => (
   <TotalPercentageColumn>
     <TotalBarContainer>
-      <RelativeBudgetBar discontinued={20} actuals={14} prediction={16} maxPercentage={100} />
-      <TotalPercentage isLight={isLight}>32%</TotalPercentage>
+      <RelativeBudgetBar
+        discontinued={expense.discontinued || 0}
+        actuals={expense.actuals}
+        prediction={expense.prediction || 0}
+        maxPercentage={maxPercentage}
+      />
+      <TotalPercentage isLight={isLight}>{Math.floor((expense.prediction * 100) / total)}%</TotalPercentage>
     </TotalBarContainer>
   </TotalPercentageColumn>
 );
@@ -81,7 +106,7 @@ const TotalPercentageColumnComponent: React.FC<WithIsLight> = ({ isLight }) => (
 const TotalSpendColumnComponent: React.FC<WithIsLight & { total: number }> = ({ isLight, total }) => (
   <TotalSpendColumn>
     <TotalNumber isLight={isLight}>
-      {usLocalizedNumber(total)} <DAISpan>DAI</DAISpan>
+      {usLocalizedNumber(Math.round(total))} <DAISpan>DAI</DAISpan>
     </TotalNumber>
   </TotalSpendColumn>
 );
