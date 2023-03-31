@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import Container from '@ses/components/Container/Container';
+import PageContainer from '@ses/components/Container/PageContainer';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import React from 'react';
@@ -50,7 +52,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
   } = useFinancesOverview(quarterExpenses, monthlyExpenses, byBudgetBreakdownExpenses, byCategoryBreakdownExpenses);
 
   return (
-    <Container isLight={isLight}>
+    <PageWrapper isLight={isLight}>
       <SEOHead
         title="MakerDAO Ecosystem Performance Dashboard | Maker Expenses"
         description="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
@@ -61,7 +63,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
         }}
         twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
       />
-      <InnerPage>
+      <Container>
         <PageTitle isLight={isLight}>Total Reported Expenses</PageTitle>
 
         <QuarterCarousel quarters={sortedQuarters} />
@@ -98,52 +100,16 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
           </BreakdownTableColumn>
           {isDownTable && <NavigationButtons />}
         </BreakdownSectionContainer>
-      </InnerPage>
-    </Container>
+      </Container>
+    </PageWrapper>
   );
 };
 
 export default FinancesOverviewContainer;
 
-const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  flexDirection: 'column',
-  alignItems: 'center',
-  paddingTop: '64px',
-  flex: 1,
-  background: isLight ? '#FFFFFF' : '#000000',
+const PageWrapper = styled(PageContainer)<WithIsLight>(({ isLight }) => ({
   backgroundImage: isLight ? '#FFFFFF' : 'linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 16, 32, 0.4) 100%)',
-  maxWidth: '100vw',
-  overflow: 'hidden',
 }));
-
-const InnerPage = styled.div({
-  display: 'block',
-  textAlign: 'left',
-  width: '100%',
-  maxWidth: '1440px',
-  margin: '0 auto',
-  paddingRight: '64px',
-  paddingLeft: '64px',
-  paddingBottom: '64px',
-
-  [lightTheme.breakpoints.up('desktop_1920')]: {
-    maxWidth: '1312px',
-    paddingRight: '0px',
-    paddingLeft: '0px',
-  },
-  [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
-    paddingRight: '48px',
-    paddingLeft: '48px',
-  },
-  [lightTheme.breakpoints.between('table_834', 'desktop_1280')]: {
-    paddingRight: '32px',
-    paddingLeft: '32px',
-  },
-  [lightTheme.breakpoints.down('table_834')]: {
-    paddingRight: '16px',
-    paddingLeft: '16px',
-  },
-});
 
 const PageTitle = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: 20,
