@@ -155,8 +155,11 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
         {isMobileResolution && !isMobileDevice && (
           <Container>
             {showIconToolTip && (
-              <CustomPopover
+              <ExtendedCustomPopover
                 widthArrow
+                handleShowPopoverWhenNotSpace={handleShowPopoverWhenNotSpace}
+                refElementShowPopover={hrefPopoverElement}
+                hasSpacePositionArrow={marginTopPopoverPosition}
                 alignArrow="center"
                 sxProps={{
                   '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
@@ -164,7 +167,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                     overflowY: 'unset',
                     left: '0px!important',
                     marginLeft: '36px',
-                    marginTop: marginTopPopoverPosition ? 1.5 : -3,
+                    marginTop: marginTopPopoverPosition ? 3 : -3,
                   },
                 }}
                 id="information"
@@ -186,7 +189,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                 <ContainerInfoIcon>
                   <IconPosition />
                 </ContainerInfoIcon>
-              </CustomPopover>
+              </ExtendedCustomPopover>
             )}
             <ContainerInformation>
               <ContainerNumberCell value={data.balance} />
