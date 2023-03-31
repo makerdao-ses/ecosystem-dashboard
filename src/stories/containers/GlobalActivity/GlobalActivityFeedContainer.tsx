@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import Container from '@ses/components/Container/Container';
+import PageContainer from '@ses/components/Container/PageContainer';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
@@ -51,8 +53,8 @@ const GlobalActivityFeedContainer: React.FC<Props> = ({ coreUnits, activityFeed 
         }}
         twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
       />
-      <Container isLight={isLight}>
-        <InnerPage>
+      <PageWrapper hasImageBackground={true}>
+        <Container>
           <FiltersContainer>
             <Reset filtersVisible={filtersVisible}>
               <ResetButton onClick={clearFilters} disabled={!filtersActive} hasIcon={false} labelMobile="Reset" />
@@ -118,8 +120,8 @@ const GlobalActivityFeedContainer: React.FC<Props> = ({ coreUnits, activityFeed 
             Change tracking displays all changes that have occurred regarding all Core Unit activity. Here you will be
             able to see all previous modifications the Core Units made to its Expense Reports, FTEs, and more
           </Paragraph>
-        </InnerPage>
-      </Container>
+        </Container>
+      </PageWrapper>
     </Wrapper>
   );
 };
@@ -132,30 +134,11 @@ const Wrapper = styled.div({
   width: '100%',
 });
 
-const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  flexDirection: 'column',
-  alignItems: 'center',
-  flex: 1,
-  backgroundColor: isLight ? '#FFFFFF' : '#000000',
-  backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
-  backgroundAttachment: 'fixed',
-  backgroundSize: 'cover',
-  padding: '64px 16px 128px',
+const PageWrapper = styled(PageContainer)({
+  paddingTop: 88,
 
   [lightTheme.breakpoints.up('table_834')]: {
-    padding: '64px 32px 128px',
-  },
-}));
-
-const InnerPage = styled.div({
-  display: 'block',
-  margin: '24px auto 0',
-  width: '100%',
-  maxWidth: '1312px',
-  textAlign: 'left',
-
-  [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: '32px',
+    paddingTop: 96,
   },
 });
 

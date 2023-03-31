@@ -155,6 +155,13 @@ const variantsArgs = [
         .withAnnualPeriod(2023)
         .extend('TEST', 'Testing')
         .build(),
+      new TotalExpenseReportsBuilder()
+        .withBudget('delegates')
+        .withPrediction(415631)
+        .withActuals(1082362)
+        .withAnnualPeriod(2023)
+        .extend('DEL', 'Recognized Delegates')
+        .build(),
     ],
     byCategoryBreakdownExpenses: [
       new TotalExpenseReportsBuilder()
@@ -243,7 +250,7 @@ LightMode.parameters = {
         component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=15491%3A165746',
         options: {
           componentStyle: {
-            width: 375,
+            width: 343,
           },
           ...optionStyles,
         },
@@ -252,7 +259,7 @@ LightMode.parameters = {
         component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13399%3A144726',
         options: {
           componentStyle: {
-            width: 834,
+            width: 802,
           },
           ...optionStyles,
         },
@@ -261,7 +268,7 @@ LightMode.parameters = {
         component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13399%3A144041',
         options: {
           componentStyle: {
-            width: 1194,
+            width: 1162,
           },
           ...optionStyles,
         },
@@ -270,7 +277,7 @@ LightMode.parameters = {
         component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13399%3A143348',
         options: {
           componentStyle: {
-            width: 1280,
+            width: 1248,
           },
           ...optionStyles,
         },
@@ -280,7 +287,7 @@ LightMode.parameters = {
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=15343:199079&t=u7vF8lSvHCDE6Xof-4',
         options: {
           componentStyle: {
-            width: 1440,
+            width: 1408,
           },
           ...optionStyles,
         },
@@ -290,7 +297,7 @@ LightMode.parameters = {
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13399:142663&t=u7vF8lSvHCDE6Xof-4',
         options: {
           componentStyle: {
-            width: 1920,
+            width: 1888,
           },
           ...optionStyles,
         },

@@ -62,6 +62,7 @@ export const CustomPopover = ({
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const [leaveTimeout, setLeaveTimeout] = React.useState<NodeJS.Timeout>();
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
+    clearTimeout(leaveTimeout);
     const wrapper = getPageWrapper();
     if (wrapper) {
       wrapper.onscroll = handlePopoverClose;

@@ -154,7 +154,7 @@ const LinkImage = styled.a(
     width,
     height,
     '&:hover svg path': {
-      fill: isLight ? '#231536' : 'white',
+      fill: isLight ? '#231536' : '#48495F',
     },
   })
 );

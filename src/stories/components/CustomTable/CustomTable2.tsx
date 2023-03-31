@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import { useThemeContext } from '../../../core/context/ThemeContext';
 import { HeadCustomTable } from './HeadCustomTable/HeadCustomTable';
 import { TablePlaceholder } from './TablePlaceholder';
 import ListCoreUnit from './list-core-unit/list-core-unit';
@@ -41,32 +40,22 @@ interface Props {
 }
 
 export const CustomTable2 = (props: Props) => {
-  const { isLight } = useThemeContext();
-
   if (!props.loading && props.items?.length === 0) return <TablePlaceholder />;
 
   const rows = props.loading ? new Array(10).fill(null) : props.items;
   return (
-    <TableContainer isLight={isLight}>
+    <TableContainer>
       <Table>
         <TableWrapper>
           <HeadCustomTable {...props} />
         </TableWrapper>
-        <TableBody isLight={isLight}>
-          <ListCoreUnit
-            columns={props.columns}
-            isLoading={props.loading}
-            queryStrings={props.queryStrings}
-            rows={rows}
-          />
-        </TableBody>
+        <ListCoreUnit columns={props.columns} isLoading={props.loading} queryStrings={props.queryStrings} rows={rows} />
       </Table>
     </TableContainer>
   );
 };
 
-const TableContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  background: isLight ? 'white' : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
+const TableContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
   boxSizing: 'border-box',
@@ -74,7 +63,7 @@ const TableContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   '& *': {
     boxSizing: 'border-box',
   },
-}));
+});
 
 const Table = styled.div({
   borderCollapse: 'separate',
@@ -87,10 +76,6 @@ export const TableCell = styled.div({
   display: 'flex',
   alignItems: 'center',
 });
-
-const TableBody = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  background: isLight ? '#F7F8F966' : 'none',
-}));
 
 const TableWrapper = styled.div({
   display: 'none',

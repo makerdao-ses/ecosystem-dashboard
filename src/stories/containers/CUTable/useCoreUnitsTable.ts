@@ -159,7 +159,7 @@ export const useCoreUnitsTable = () => {
       justifyContent: desktop ? 'center' : 'flex-start',
       cellRender: renderTeamMember,
       onClick: onClickRow,
-      width: '205px',
+      width: '200px',
       sortReverse: true,
       hasSort: true,
     },
@@ -178,7 +178,7 @@ export const useCoreUnitsTable = () => {
       cellRender: renderLinks,
       onClick: onClickRow,
       width: '358px',
-      responsiveWidth: '186px',
+      responsiveWidth: '185px',
       hasSort: false,
     },
   ];
