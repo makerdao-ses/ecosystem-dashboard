@@ -10,14 +10,13 @@ import { useScrollLock } from '@ses/core/hooks/useScrollLock';
 import { getPageWrapper } from '@ses/core/utils/dom';
 import lightTheme from '@ses/styles/theme/light';
 import MobileDetect from 'mobile-detect';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { formatAddressForOutput } from '../../../core/utils/string';
 import { CustomLink } from '../../components/CustomLink/CustomLink';
 import { TextCell } from '../../components/TextCell/TextCell';
 import { WalletTableCell } from '../../components/WalletTableCell/WalletTableCell';
 import ModalSheetValueContent from './components/TransparencyTransferRequest/components/ModalSheet/ModalSheetValueContent';
 import type { BudgetStatementWalletDto } from '../../../core/models/dto/coreUnitDTO';
-import type { PopoverOrigin } from '@mui/material';
 import type { TargetBalanceTooltipInformation } from '@ses/core/utils/typesHelpers';
 
 export const renderWallet = (wallet: BudgetStatementWalletDto) => (
@@ -73,13 +72,13 @@ export interface WithIsLightAndClick {
   onClick?: () => void;
 }
 
-const ArrowDown = {
-  vertical: 'bottom',
-  horizontal: 'left',
-} as PopoverOrigin;
 export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
   const [isOpen, setIsOpen] = useState(false);
-  const hasSpacePositionArrow = true;
+  const hrefPopoverElement = useRef<HTMLDivElement>(null);
+  const [marginTopPopoverPosition, setMarginTopPopoverPosition] = useState<boolean>(false);
+  const handleShowPopoverWhenNotSpace = (value: boolean) => {
+    setMarginTopPopoverPosition(value);
+  };
   const { isLight } = useThemeContext();
   const isMobileResolution = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const { lockScroll, unlockScroll } = useScrollLock();
@@ -114,18 +113,18 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
         {!isMobileResolution && (
           <Container>
             {showIconToolTip && (
-              <CustomerPopoverExtends
+              <ExtendedCustomPopover
+                handleShowPopoverWhenNotSpace={handleShowPopoverWhenNotSpace}
+                refElementShowPopover={hrefPopoverElement}
                 sxProps={{
                   '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
                     overflowX: 'unset',
                     overflowY: 'unset',
-                    marginTop: hasSpacePositionArrow ? 2.5 : -2,
+                    marginTop: marginTopPopoverPosition ? 3 : -3,
                   },
                 }}
                 widthArrow
-                hasSpacePositionArrow={hasSpacePositionArrow}
-                arrowPosition={hasSpacePositionArrow ? 'up' : 'down'}
-                transformOrigin={hasSpacePositionArrow ? undefined : ArrowDown}
+                hasSpacePositionArrow={marginTopPopoverPosition}
                 id="information"
                 popupStyle={{
                   padding: 10,
@@ -145,7 +144,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                 <ContainerInfoIcon>
                   <IconPosition />
                 </ContainerInfoIcon>
-              </CustomerPopoverExtends>
+              </ExtendedCustomPopover>
             )}
             <ContainerInformation>
               <ContainerNumberCell value={data.balance} />
@@ -158,8 +157,6 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
             {showIconToolTip && (
               <CustomPopover
                 widthArrow
-                arrowPosition={hasSpacePositionArrow ? 'up' : 'down'}
-                transformOrigin={hasSpacePositionArrow ? undefined : ArrowDown}
                 alignArrow="center"
                 sxProps={{
                   '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
@@ -167,7 +164,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                     overflowY: 'unset',
                     left: '0px!important',
                     marginLeft: '36px',
-                    marginTop: hasSpacePositionArrow ? 1.5 : -3,
+                    marginTop: marginTopPopoverPosition ? 1.5 : -3,
                   },
                 }}
                 id="information"
@@ -353,7 +350,7 @@ const BiggerContainer = styled.div({
   width: '100%',
 });
 
-const CustomerPopoverExtends = styled(CustomPopover)<{ hasSpacePositionArrow: boolean }>(
+const ExtendedCustomPopover = styled(CustomPopover)<{ hasSpacePositionArrow?: boolean }>(
   ({ hasSpacePositionArrow }) => ({
     '& > div': {
       [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
