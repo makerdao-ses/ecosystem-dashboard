@@ -22,8 +22,8 @@ export default PageContainer;
 
 const PageBackground = styled.div<WithIsLight & { hasImageBackground: boolean }>(({ isLight, hasImageBackground }) => ({
   backgroundColor: isLight ? '#FFFFFF' : '#000000',
-  paddingTop: '64px', // set below the header height
-  paddingBottom: '128px',
+  paddingTop: 64, // set below the header height
+  paddingBottom: 64,
   width: '100%',
 
   ...(hasImageBackground && {
