@@ -124,7 +124,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                   },
                 }}
                 widthArrow
-                // hasSpacePositionArrow={marginTopPopoverPosition}
+                hasSpacePositionArrow={marginTopPopoverPosition}
                 id="information"
                 popupStyle={{
                   padding: 10,
@@ -159,7 +159,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                 widthArrow
                 handleShowPopoverWhenNotSpace={handleShowPopoverWhenNotSpace}
                 refElementShowPopover={hrefPopoverElement}
-                // hasSpacePositionArrow={marginTopPopoverPosition}
+                hasSpacePositionArrow={marginTopPopoverPosition}
                 alignArrow="center"
                 sxProps={{
                   '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
