@@ -9,7 +9,7 @@ import type { PopoverOrigin } from '@mui/material';
 import type { SxProps } from '@mui/material/styles';
 import type { PopoverPaperType, WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { CSSProperties } from 'react';
-type ArrowPosition = 'up' | 'down';
+type ArrowPosition = 'up' | 'down' | 'none';
 type PopoverActions = {
   type: ArrowPosition;
   payload: HTMLElement | null;
@@ -47,12 +47,17 @@ const updateStatePositionPopoverReducer = (
       return {
         ...state,
         anchorEl: payload,
-
         popoverPosition: {
           vertical: 'bottom',
           horizontal: 'left',
         },
       };
+    case 'none': {
+      return {
+        ...state,
+        anchorEl: null,
+      };
+    }
     default:
       return state;
   }
@@ -113,7 +118,7 @@ export const CustomPopover = ({
   const isArrowPositionUp = isEqual(state.popoverPosition, ArrowUp);
   const handlePopoverClose = useCallback(() => {
     dispatch({
-      type: 'down',
+      type: 'none',
       payload: null,
     });
 
@@ -131,9 +136,9 @@ export const CustomPopover = ({
       if (refElementShowPopover) {
         const elementPosition = refElementShowPopover?.current?.getBoundingClientRect().top;
         const windowPosition = window.innerHeight;
-        console.log('heightComponentPopover', windowPosition - (elementPosition || 0));
         const distance = windowPosition - (elementPosition || 0);
-        if (distance < 350) {
+        // TODO: Change hard code to real height of Popover
+        if (distance < 285) {
           arrowPosition = 'down';
         }
       }
@@ -147,7 +152,7 @@ export const CustomPopover = ({
       });
       handleShowPopoverWhenNotSpace?.(arrowPosition === 'up');
     },
-    [leaveTimeout, handleShowPopoverWhenNotSpace, refElementShowPopover, handlePopoverClose]
+    [leaveTimeout, refElementShowPopover, handleShowPopoverWhenNotSpace, handlePopoverClose]
   );
 
   return (
