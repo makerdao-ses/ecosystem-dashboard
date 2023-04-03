@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import AuditorCommentList from '../AuditorCommentList';
@@ -7,6 +8,7 @@ import NoComments from '../NoComments';
 import ParticipantRoles from '../ParticipantRoles';
 import useCommentsContainer from './useCommentsContainer';
 import type { ActivityFeedDto, BudgetStatementDto, CommentsBudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export type CommentMode = 'CoreUnits' | 'Delegates';
 
@@ -21,6 +23,7 @@ const AuditorCommentsContainer: React.FC<AuditorCommentsContainerProps> = ({
   comments,
   mode = 'CoreUnits',
 }) => {
+  const { isLight } = useThemeContext();
   const { cuParticipants, auditors, canComment, currentBudgetStatus, coreUnitCode } = useCommentsContainer(
     comments,
     budgetStatement,
@@ -45,7 +48,7 @@ const AuditorCommentsContainer: React.FC<AuditorCommentsContainerProps> = ({
           </>
         )}
       </CommentsContainer>
-      <ParticipantsColumn>
+      <ParticipantsColumn isLight={isLight}>
         <ParticipantRoles cu={cuParticipants} auditors={auditors} coreUnitCode={coreUnitCode} mode={mode} />
       </ParticipantsColumn>
     </Container>
@@ -80,11 +83,12 @@ const CommentsContainer = styled.div({
   },
 });
 
-const ParticipantsColumn = styled.div({
+const ParticipantsColumn = styled.div<WithIsLight>(({ isLight }) => ({
   [lightTheme.breakpoints.down('table_834')]: {
-    borderTop: '1px solid #D4D9E1',
+    borderTop: isLight ? '1px solid #D4D9E1' : '1px solid  #405361',
     paddingTop: 32,
     width: '100%',
+    marginBottom: 8,
   },
 
   [lightTheme.breakpoints.up('table_834')]: {
@@ -103,4 +107,4 @@ const ParticipantsColumn = styled.div({
   [lightTheme.breakpoints.up('desktop_1440')]: {
     marginLeft: 40,
   },
-});
+}));
