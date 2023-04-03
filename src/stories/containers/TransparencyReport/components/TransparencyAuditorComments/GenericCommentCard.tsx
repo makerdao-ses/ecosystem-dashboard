@@ -38,6 +38,7 @@ const CommentCard = styled.div<{ isLight: boolean; variantColorSet: { [key: stri
     marginBottom: 32,
     background: isLight ? '#FFFFFF' : '#10191F',
     borderRadius: 6,
+    wordBreak: 'break-word',
     boxShadow: isLight
       ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
       : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
