@@ -69,12 +69,11 @@ export const CuTableColumnTeamMember = ({ isLoading = false, ...props }: CuTable
 
 const Container = styled.div({
   display: 'flex',
-  flex: 1,
   alignItems: 'flex-end',
   fontWeight: 400,
   cursor: 'pointer',
   marginLeft: '7px',
-
+  width: 'fit-content',
   '@media (min-width: 834px) and (max-width: 1194px)': {
     marginLeft: '0px',
   },
