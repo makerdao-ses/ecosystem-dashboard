@@ -37,7 +37,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
     null
   );
   if (!props.items) return <span />;
-  const monthsProps = props?.months && props?.months.map((date) => date.toFormat('MMMM'));
+  const monthsProps = props?.months?.map((date) => date.toFormat('MMMM'));
   const handleMouseOver = (event: React.MouseEvent<SVGRectElement>, i: number) => {
     if (props.months?.length === 0) return;
     setAnchorEl(event.currentTarget);
