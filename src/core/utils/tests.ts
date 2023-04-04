@@ -152,11 +152,22 @@ export const CoreUnit: CoreUnitDto = {
   category: ['Technical', 'Business', 'Operational', 'Finance'],
   legacyBudgetStatementUrl: '',
   auditors: [] as AuditorDto[],
-  cuMip: [] as CuMipDto[],
+  cuMip: [
+    {
+      mipCode: 'MIP39c2SP37',
+      accepted: '2021-05-25',
+      mipTitle: 'MIP39c2-SP20: Adding Collateral Engineering Services Core Unit',
+      dateMip: DateTime.fromISO('2021-09-27').toJSDate(),
+      mipStatus: 'Accepted',
+      mipUrl: 'https://mips.makerdao.com/mips/details/MIP39c2SP20',
+      obsolete: 'null',
+      rejected: 'null',
+    },
+  ] as CuMipDto[],
   activityFeed: [] as ActivityFeedDto[],
   lastActivity: {
     id: '3',
-    created_at: '2023-02-02T09:56:16.349Z',
+    created_at: '2023-04-03T09:56:16.349Z',
     event: 'this is one event',
     description: 'event test',
   } as LastActivityDto,
@@ -297,7 +308,7 @@ export const columns = [
   },
   {
     header: 'Team',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     cellRender: renderTeamMember,
     width: '205px',
     sortReverse: true,

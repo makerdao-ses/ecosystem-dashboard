@@ -87,15 +87,14 @@ export const CategoryChip = (props: StatusChipProps) => {
 const Chip = styled.div({
   fontFamily: 'Inter, sans-serif',
   display: 'flex',
+  textAlign: 'center',
   alignItems: 'center',
   fontWeight: 400,
   fontSize: '11px',
   borderRadius: '12px',
   padding: '4px 8px',
-  height: '22px',
   lineHeight: '13px',
   width: 'fit-content',
   border: '1px solid black',
   boxSizing: 'border-box',
-  paddingBottom: '2px',
 });

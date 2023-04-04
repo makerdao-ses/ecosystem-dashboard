@@ -156,12 +156,15 @@ const checkDateOnPeriod = (period: Mip40BudgetPeriodDto, date: DateTime) => {
 
 const findMip40 = (cu: CoreUnitDto, date: DateTime): Mip40Dto | null => {
   const cuMips = cu.cuMip?.filter((mip) => mip.mipStatus === CuStatusEnum.Accepted || CuStatusEnum.Obsolete) ?? [];
-
+  if (cuMips.length === 0) return null;
   for (const mip of cuMips) {
-    for (const mip40 of mip.mip40.filter((mip) => !mip.mkrOnly)) {
-      for (const period of mip40.mip40BudgetPeriod) {
-        if (checkDateOnPeriod(period, date)) {
-          return mip40;
+    if (mip.mip40) {
+      // Verifica si mip.mip40 no es undefined
+      for (const mip40 of mip?.mip40.filter((mip) => !mip.mkrOnly)) {
+        for (const period of mip40.mip40BudgetPeriod) {
+          if (checkDateOnPeriod(period, date)) {
+            return mip40;
+          }
         }
       }
     }
