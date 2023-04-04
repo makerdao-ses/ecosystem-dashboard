@@ -2,12 +2,67 @@ import styled from '@emotion/styled';
 import { Popover } from '@mui/material';
 import { getPageWrapper } from '@ses/core/utils/dom';
 
-import React from 'react';
+import isEqual from 'lodash/isEqual';
+import React, { useCallback, useReducer, useRef } from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import type { PopoverOrigin } from '@mui/material';
 import type { SxProps } from '@mui/material/styles';
 import type { PopoverPaperType, WithIsLight } from '@ses/core/utils/typesHelpers';
-
 import type { CSSProperties } from 'react';
+type ArrowPosition = 'up' | 'down' | 'none';
+type PopoverActions = {
+  type: ArrowPosition;
+  payload: HTMLElement | null;
+};
+
+interface PopoverPositionState {
+  anchorEl: HTMLElement | null;
+  popoverPosition: PopoverOrigin;
+}
+
+const InitialState = {
+  anchorEl: null,
+  popoverPosition: {
+    vertical: 'bottom',
+    horizontal: 'left',
+  },
+} as PopoverPositionState;
+
+const updateStatePositionPopoverReducer = (
+  state: PopoverPositionState,
+  action: PopoverActions
+): PopoverPositionState => {
+  const { type, payload } = action;
+  switch (type) {
+    case 'up':
+      return {
+        ...state,
+        anchorEl: payload,
+        popoverPosition: {
+          vertical: 'top',
+          horizontal: 'left',
+        },
+      };
+    case 'down':
+      return {
+        ...state,
+        anchorEl: payload,
+        popoverPosition: {
+          vertical: 'bottom',
+          horizontal: 'left',
+        },
+      };
+    case 'none': {
+      return {
+        ...state,
+        anchorEl: null,
+      };
+    }
+    default:
+      return state;
+  }
+};
+
 interface CustomPopoverProps {
   title?: JSX.Element | string;
   children: JSX.Element | JSX.Element[] | boolean;
@@ -24,6 +79,8 @@ interface CustomPopoverProps {
   widthArrow?: boolean;
   alignArrow?: 'center' | 'right';
   className?: string;
+  handleShowPopoverWhenNotSpace?: (arrowPosition: boolean) => void;
+  refElementShowPopover?: React.RefObject<HTMLDivElement>;
 }
 
 export const PopoverPaperStyle = (isLight: boolean) => ({
@@ -35,6 +92,11 @@ export const PopoverPaperStyle = (isLight: boolean) => ({
   borderRadius: '6px',
 });
 
+const ArrowUp = {
+  vertical: 'top',
+  horizontal: 'left',
+};
+
 export const CustomPopover = ({
   leaveOnChildrenMouseOut = false,
   popoverStyle,
@@ -45,32 +107,58 @@ export const CustomPopover = ({
   widthArrow,
   alignArrow,
   className,
+  refElementShowPopover,
+  handleShowPopoverWhenNotSpace,
   ...props
 }: CustomPopoverProps) => {
+  const [state, dispatch] = useReducer(updateStatePositionPopoverReducer, InitialState);
   const { isLight } = useThemeContext();
-  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+  const refPopoverComponent = useRef<HTMLDivElement>(null);
   const [leaveTimeout, setLeaveTimeout] = React.useState<NodeJS.Timeout>();
-  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
-    clearTimeout(leaveTimeout);
-    const wrapper = getPageWrapper();
-    if (wrapper) {
-      wrapper.onscroll = handlePopoverClose;
-    }
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
+  const isArrowPositionUp = isEqual(state.popoverPosition, ArrowUp);
+  const handlePopoverClose = useCallback(() => {
+    dispatch({
+      type: 'none',
+      payload: null,
+    });
 
     const wrapper = getPageWrapper();
     if (wrapper) {
       wrapper.removeEventListener('onscroll', handlePopoverClose);
     }
-  };
+  }, []);
+
+  const handlePopoverOpen = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      clearTimeout(leaveTimeout);
+
+      let arrowPosition = 'up' as ArrowPosition;
+      if (refElementShowPopover) {
+        const elementPosition = refElementShowPopover?.current?.getBoundingClientRect().top;
+        const windowPosition = window.innerHeight;
+        const distance = windowPosition - (elementPosition || 0);
+        // TODO: Change hard code to real height of Popover
+        if (distance < 285) {
+          arrowPosition = 'down';
+        }
+      }
+      const wrapper = getPageWrapper();
+      if (wrapper) {
+        wrapper.onscroll = handlePopoverClose;
+      }
+      dispatch({
+        type: arrowPosition,
+        payload: event.currentTarget,
+      });
+      handleShowPopoverWhenNotSpace?.(arrowPosition === 'up');
+    },
+    [leaveTimeout, refElementShowPopover, handleShowPopoverWhenNotSpace, handlePopoverClose]
+  );
 
   return (
     <React.Fragment>
       <div
+        ref={refElementShowPopover}
         style={props.css}
         aria-owns={props.id}
         aria-haspopup="true"
@@ -88,6 +176,7 @@ export const CustomPopover = ({
         {props.children}
       </div>
       <Popover
+        ref={refPopoverComponent}
         className={className}
         disableScrollLock
         id={props.id}
@@ -95,13 +184,10 @@ export const CustomPopover = ({
           pointerEvents: 'none',
           ...props.sxProps,
         }}
-        open={Boolean(anchorEl)}
-        anchorEl={anchorEl}
+        open={Boolean(state.anchorEl)}
+        anchorEl={state.anchorEl}
         anchorOrigin={anchorOrigin}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
+        transformOrigin={state.popoverPosition}
         onClose={handlePopoverClose}
         disableRestoreFocus
         PaperProps={{
@@ -119,7 +205,14 @@ export const CustomPopover = ({
         >
           {props.title}
         </Container>
-        {widthArrow && <ContainerTriangle alignArrow={alignArrow} isLight={isLight} />}
+
+        {widthArrow && (
+          <ContainerTriangle
+            alignArrow={alignArrow}
+            isLight={isLight}
+            arrowPosition={isArrowPositionUp ? 'up' : 'down'}
+          />
+        )}
       </Popover>
     </React.Fragment>
   );
@@ -133,26 +226,30 @@ const Container = styled.div({
   fontWeight: 400,
 });
 
-const ContainerTriangle = styled.div<WithIsLight & { alignArrow?: 'center' | 'right' }>(
-  ({ alignArrow = undefined, isLight }) => ({
+const ContainerTriangle = styled.div<WithIsLight & { alignArrow?: 'center' | 'right'; arrowPosition: ArrowPosition }>(
+  ({ alignArrow = undefined, isLight, arrowPosition }) => ({
     backgroundColor: isLight ? 'white' : '#000A13',
     borderRadius: '6px',
     '&:after , &:before': {
       content: '""',
-      display: 'block',
       position: 'absolute',
       width: 0,
       height: 0,
       borderStyle: 'solid',
       left: alignArrow === 'center' ? 135 : alignArrow === 'right' ? 257 : 35,
       borderColor: 'transparent',
-      borderWidth: '0 8px  16px  8px',
+      borderWidth: arrowPosition === 'up' ? '0px 8px  16px  8px' : '16px 8px  0px  8px',
       borderBottomColor: isLight ? 'white' : '#000A13',
-      top: -14,
+      borderTopColor: isLight ? 'white' : '#000A13',
+      top: arrowPosition === 'up' ? -14 : undefined,
+      bottom: arrowPosition === 'down' ? -14 : undefined,
     },
     ':before': {
-      top: -16,
-      borderBottomColor: isLight ? '#D4D9E1' : '#231536',
+      top: arrowPosition === 'up' ? -16 : undefined,
+      bottom: arrowPosition === 'down' ? -16 : undefined,
+      borderBottomColor: arrowPosition === 'up' ? (isLight ? '#D4D9E1' : '#231536') : 'white',
+
+      borderTopColor: arrowPosition === 'down' ? (isLight ? '#D4D9E1' : '#231536') : 'white',
     },
   })
 );

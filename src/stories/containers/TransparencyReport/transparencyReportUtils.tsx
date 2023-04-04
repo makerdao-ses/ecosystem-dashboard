@@ -10,7 +10,7 @@ import { useScrollLock } from '@ses/core/hooks/useScrollLock';
 import { getPageWrapper } from '@ses/core/utils/dom';
 import lightTheme from '@ses/styles/theme/light';
 import MobileDetect from 'mobile-detect';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { formatAddressForOutput } from '../../../core/utils/string';
 import { CustomLink } from '../../components/CustomLink/CustomLink';
 import { TextCell } from '../../components/TextCell/TextCell';
@@ -71,8 +71,14 @@ export interface WithIsLightAndClick {
   isLight: boolean;
   onClick?: () => void;
 }
+
 export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
   const [isOpen, setIsOpen] = useState(false);
+  const hrefPopoverElement = useRef<HTMLDivElement>(null);
+  const [marginTopPopoverPosition, setMarginTopPopoverPosition] = useState<boolean>(false);
+  const handleShowPopoverWhenNotSpace = (value: boolean) => {
+    setMarginTopPopoverPosition(value);
+  };
   const { isLight } = useThemeContext();
   const isMobileResolution = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const { lockScroll, unlockScroll } = useScrollLock();
@@ -107,14 +113,18 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
         {!isMobileResolution && (
           <Container>
             {showIconToolTip && (
-              <CustomerPopoverExtends
-                widthArrow
+              <ExtendedCustomPopover
+                handleShowPopoverWhenNotSpace={handleShowPopoverWhenNotSpace}
+                refElementShowPopover={hrefPopoverElement}
                 sxProps={{
                   '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
                     overflowX: 'unset',
                     overflowY: 'unset',
+                    marginTop: marginTopPopoverPosition ? 3 : -3,
                   },
                 }}
+                widthArrow
+                hasSpacePositionArrow={marginTopPopoverPosition}
                 id="information"
                 popupStyle={{
                   padding: 10,
@@ -134,7 +144,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                 <ContainerInfoIcon>
                   <IconPosition />
                 </ContainerInfoIcon>
-              </CustomerPopoverExtends>
+              </ExtendedCustomPopover>
             )}
             <ContainerInformation>
               <ContainerNumberCell value={data.balance} />
@@ -145,8 +155,11 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
         {isMobileResolution && !isMobileDevice && (
           <Container>
             {showIconToolTip && (
-              <CustomPopover
+              <ExtendedCustomPopover
                 widthArrow
+                handleShowPopoverWhenNotSpace={handleShowPopoverWhenNotSpace}
+                refElementShowPopover={hrefPopoverElement}
+                hasSpacePositionArrow={marginTopPopoverPosition}
                 alignArrow="center"
                 sxProps={{
                   '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
@@ -154,7 +167,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                     overflowY: 'unset',
                     left: '0px!important',
                     marginLeft: '36px',
-                    marginTop: 1.5,
+                    marginTop: marginTopPopoverPosition ? 1.5 : -3,
                   },
                 }}
                 id="information"
@@ -176,7 +189,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                 <ContainerInfoIcon>
                   <IconPosition />
                 </ContainerInfoIcon>
-              </CustomPopover>
+              </ExtendedCustomPopover>
             )}
             <ContainerInformation>
               <ContainerNumberCell value={data.balance} />
@@ -340,15 +353,17 @@ const BiggerContainer = styled.div({
   width: '100%',
 });
 
-const CustomerPopoverExtends = styled(CustomPopover)({
-  '& > div': {
-    [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-      marginLeft: -45,
-      marginTop: 16,
+const ExtendedCustomPopover = styled(CustomPopover)<{ hasSpacePositionArrow?: boolean }>(
+  ({ hasSpacePositionArrow }) => ({
+    '& > div': {
+      [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+        marginLeft: -45,
+        marginTop: 16,
+      },
+      [lightTheme.breakpoints.up('desktop_1194')]: {
+        marginLeft: -32,
+        marginTop: hasSpacePositionArrow ? -18 : 18,
+      },
     },
-    [lightTheme.breakpoints.up('desktop_1194')]: {
-      marginLeft: -32,
-      marginTop: 18,
-    },
-  },
-});
+  })
+);
