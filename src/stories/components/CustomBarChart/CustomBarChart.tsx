@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { Popover, Typography, useMediaQuery } from '@mui/material';
-// import { siteRoutes } from '@ses/config/routes';
 import { siteRoutes } from '@ses/config/routes';
 import Link from 'next/link';
 import React from 'react';
