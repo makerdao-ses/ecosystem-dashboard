@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import Tabs from '@ses/components/Tabs/Tabs';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { CommentActivityContext } from '../../../core/context/CommentActivityContext';
@@ -10,7 +11,6 @@ import { CoreUnitSummary } from '../../components/CoreUnitSummary/CoreUnitSummar
 import { CustomLink } from '../../components/CustomLink/CustomLink';
 import { CustomPager } from '../../components/CustomPager/CustomPager';
 import { SEOHead } from '../../components/SEOHead/SEOHead';
-import { Tabs } from '../../components/Tabs/Tabs';
 import ExpenseReportStatusIndicator from './components/ExpenseReportStatusIndicator/ExpenseReportStatusIndicator';
 import { TransparencyActuals } from './components/TransparencyActuals/TransparencyActuals';
 
@@ -44,12 +44,13 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
     hasPreviousMonth,
     currentBudgetStatement,
     tabsIndex,
-    tabsIndexNumber,
     lastUpdateForBudgetStatement,
     longCode,
     comments,
     showExpenseReportStatusCTA,
     lastVisitHandler,
+    onTabChange,
+    compressedTabItems,
   } = useTransparencyReport(coreUnit);
   const [isEnabled] = useFlagsActive();
 
@@ -88,13 +89,27 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
             )}
           </PagerBar>
 
-          <Tabs
-            items={tabItems}
-            currentIndex={tabsIndexNumber}
-            style={{
-              margin: '32px 0',
-            }}
-          />
+          <TabsContainer>
+            <Tabs
+              tabs={tabItems}
+              expandable
+              compressedTabs={compressedTabItems}
+              onChange={onTabChange}
+              expandToolTip={{
+                default: 'Default View',
+                compressed: 'Auditor View',
+              }}
+              viewValues={{
+                default: 'default',
+                compressed: 'auditor',
+              }}
+              anchorToActualId={(anchor) => {
+                if (anchor.startsWith('actuals-')) return 'actuals';
+                if (anchor.startsWith('forecast-')) return 'forecast';
+                return anchor;
+              }}
+            />
+          </TabsContainer>
           {tabsIndex === TRANSPARENCY_IDS_ENUM.ACTUALS && (
             <TransparencyActuals
               code={code}
@@ -135,6 +150,10 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
             <CommentActivityContext.Provider value={{ lastVisitHandler }}>
               <AuditorCommentsContainer budgetStatement={currentBudgetStatement} comments={comments} />
             </CommentActivityContext.Provider>
+          )}
+
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.BUDGET_REPORT && (
+            <div style={{ margin: '3rem 0' }}>(WIP) Budget Report tabs is activated</div>
           )}
 
           <AdditionalNotesSection>
@@ -345,6 +364,10 @@ const SinceDate = styled.div({
 
 const Spacer = styled.div({
   flex: '1',
+});
+
+const TabsContainer = styled.div({
+  margin: '32px 0',
 });
 
 export const TableWrapper = styled.div({

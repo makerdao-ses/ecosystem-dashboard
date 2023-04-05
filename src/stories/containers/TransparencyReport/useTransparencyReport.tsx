@@ -1,5 +1,4 @@
 import CommentsTab from '@ses/components/Tabs/CommentsTab/CommentsTab';
-import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import { getLastUpdateForBudgetStatement } from '@ses/core/businessLogic/coreUnits';
 import { useAuthContext } from '@ses/core/context/AuthContext';
 import { useCookiesContextTracking } from '@ses/core/context/CookiesContext';
@@ -13,7 +12,6 @@ import { LastVisitHandler } from '@ses/core/utils/lastVisitHandler';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useRef, useState, useEffect, useCallback, useMemo } from 'react';
-import { featureFlags } from '../../../../feature-flags/feature-flags';
 import type { TableItems } from './TransparencyReport';
 import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
 
@@ -24,11 +22,8 @@ export enum TRANSPARENCY_IDS_ENUM {
   TRANSFER_REQUESTS = 'transfer-requests',
   AUDIT_REPORTS = 'audit-reports',
   COMMENTS = 'comments',
+  BUDGET_REPORT = 'budget-report',
 }
-const DISABLED_ID = [
-  featureFlags[CURRENT_ENVIRONMENT].FEATURE_MKR_VESTING ? null : TRANSPARENCY_IDS_ENUM.MKR_VESTING,
-  featureFlags[CURRENT_ENVIRONMENT].FEATURE_AUDIT_REPORTS ? null : TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS,
-];
 
 export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
   const router = useRouter();
@@ -40,41 +35,6 @@ export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
   const { isTimestampTrackingAccepted } = useCookiesContextTracking();
 
   const [tabsIndex, setTabsIndex] = useState<TRANSPARENCY_IDS_ENUM>(TRANSPARENCY_IDS_ENUM.ACTUALS);
-  const [tabsIndexNumber, setTabsIndexNumber] = useState<number>(0);
-
-  useEffect(() => {
-    if (anchor) {
-      const index = Object.values(TRANSPARENCY_IDS_ENUM).findIndex(
-        (id) => anchor.indexOf(id) > -1 && !DISABLED_ID.includes(id)
-      );
-      if (index !== -1) {
-        const indexKey = Object.keys(TRANSPARENCY_IDS_ENUM)[index];
-        if (
-          isTimestampTrackingAccepted &&
-          tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS &&
-          TRANSPARENCY_IDS_ENUM[indexKey as keyof typeof TRANSPARENCY_IDS_ENUM] !== TRANSPARENCY_IDS_ENUM.COMMENTS
-        ) {
-          // changing from "comments tab" to any other tab should mark the budget statement as visited
-          const visit = async () => {
-            const lastVisit = (await lastVisitHandler?.visit()) || DateTime.now().toMillis();
-            await updateHasNewComments(DateTime.fromMillis(lastVisit));
-          };
-          visit();
-        }
-        setTabsIndex(TRANSPARENCY_IDS_ENUM[indexKey as keyof typeof TRANSPARENCY_IDS_ENUM]);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [anchor, isTimestampTrackingAccepted]);
-
-  useEffect(() => {
-    const values = Object.values(TRANSPARENCY_IDS_ENUM);
-    const index = values.indexOf(tabsIndex);
-    let difference = 0;
-    values.forEach((value, i) => (DISABLED_ID.includes(value) && i < index ? difference++ : null));
-
-    setTabsIndexNumber(index - difference);
-  }, [tabsIndex]);
 
   const [scrolled, setScrolled] = useState<boolean>(false);
 
@@ -184,17 +144,41 @@ export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
       id: TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS,
     });
   }
+  const commentTab = {
+    item: (
+      <CommentsTab
+        hasNewComments={!commentsLastVisitState.isFetching && commentsLastVisitState.hasNewComments}
+        numbersComments={numbersComments}
+      />
+    ),
+    id: TRANSPARENCY_IDS_ENUM.COMMENTS,
+  };
   if (isEnabled('FEATURE_TRANSPARENCY_COMMENTS')) {
-    tabItems.push({
-      item: (
-        <CommentsTab
-          hasNewComments={!commentsLastVisitState.isFetching && commentsLastVisitState.hasNewComments}
-          numbersComments={numbersComments}
-        />
-      ),
-      id: TRANSPARENCY_IDS_ENUM.COMMENTS,
-    });
+    tabItems.push(commentTab);
   }
+
+  const compressedTabItems: TableItems[] = [
+    {
+      item: 'Budget Report',
+      id: TRANSPARENCY_IDS_ENUM.BUDGET_REPORT,
+    },
+    commentTab,
+  ];
+
+  const onTabChange = useCallback(
+    (current?: string, previous?: string) => {
+      // changing from "comments tab" to any other tab should mark the budget statement as visited
+      if (isTimestampTrackingAccepted && previous === TRANSPARENCY_IDS_ENUM.COMMENTS) {
+        const visit = async () => {
+          const lastVisit = (await lastVisitHandler?.visit()) || DateTime.now().toMillis();
+          await updateHasNewComments(DateTime.fromMillis(lastVisit));
+        };
+        visit();
+      }
+      setTabsIndex(current as TRANSPARENCY_IDS_ENUM);
+    },
+    [isTimestampTrackingAccepted, lastVisitHandler, updateHasNewComments]
+  );
 
   return {
     tabItems,
@@ -206,12 +190,13 @@ export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
     hasNextMonth,
     currentBudgetStatement,
     tabsIndex,
-    tabsIndexNumber,
     showExpenseReportStatusCTA,
     lastUpdateForBudgetStatement,
     longCode,
     hasPreviousMonth,
     comments,
     lastVisitHandler,
+    onTabChange,
+    compressedTabItems,
   };
 };

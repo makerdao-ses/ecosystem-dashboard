@@ -1,5 +1,5 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import { Tabs } from './Tabs';
+import { Tabs } from './TabsLegacy';
 import type { ComponentMeta } from '@storybook/react';
 
 export default {

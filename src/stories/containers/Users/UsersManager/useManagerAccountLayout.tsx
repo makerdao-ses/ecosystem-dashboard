@@ -8,7 +8,7 @@ import { fetcher } from '../../../../core/utils/fetcher';
 import { ParenthesisNumber } from '../../TransparencyReport/TransparencyReport';
 import { QUERY_USERS } from './userManagerAPI';
 import type { UserDTO } from '../../../../core/models/dto/authDTO';
-import type { TabItem } from '../../../components/Tabs/Tabs';
+import type { TabItem } from '../../../components/Tabs/TabsLegacy';
 
 export const useManagerAccountLayout = () => {
   const [FEATURE_AUTH] = useState<boolean>(featureFlags[CURRENT_ENVIRONMENT].FEATURE_AUTH);
