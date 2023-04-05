@@ -30,6 +30,7 @@ import { CuTableColumnSummary } from '../CuTableColumnSummary/CuTableColumnSumma
 import { CuTableColumnTeamMember } from '../CuTableColumnTeamMember/CuTableColumnTeamMember';
 import { CategoriesSkeleton } from './CategoriesSkeleton';
 import type { CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface CoreUnitCardProps {
   coreUnit: CoreUnitDto;
@@ -91,7 +92,7 @@ const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
       <CuCard>
         <Container isLight={isLight}>
           <Summary>
-            <Title hideSmall isCoreUnitTitle>
+            <Title hideSmall isCoreUnitTitle isLight={isLight}>
               Core Unit
             </Title>
             <CuTableColumnSummary
@@ -107,7 +108,9 @@ const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
           </Summary>
           <Link href={`/core-unit/${coreUnit.shortCode}/finances/reports${queryStrings}`} passHref>
             <Expenditure>
-              <Title isExpenditure>Expenditure</Title>
+              <Title isExpenditure isLight={isLight}>
+                Expenditure
+              </Title>
               <CuTableColumnExpenditures
                 value={getExpenditureValueFromCoreUnit(coreUnit)}
                 percent={getPercentFromCoreUnit(coreUnit)}
@@ -119,7 +122,7 @@ const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
             </Expenditure>
           </Link>
           <Team>
-            <Title>Team Members</Title>
+            <Title isLight={isLight}>Team Members</Title>
             <CuTableColumnTeamMember
               members={getFacilitatorsFromCoreUnit(coreUnit)}
               fte={getFTEsFromCoreUnit(coreUnit)}
@@ -127,7 +130,7 @@ const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
           </Team>
           <Link href={`/core-unit/${coreUnit.shortCode}/activity-feed${queryStrings}`} passHref>
             <LastModified>
-              <Title>Last Modified</Title>
+              <Title isLight={isLight}>Last Modified</Title>
               <CuTableColumnLastModified date={getLastMonthWithData(coreUnit)} code={getShortCode(coreUnit.code)} />
             </LastModified>
           </Link>
@@ -316,15 +319,15 @@ const Links = styled.div({
   },
 });
 
-const Title = styled.div<{ hideSmall?: boolean; isCoreUnitTitle?: boolean; isExpenditure?: boolean }>(
-  ({ hideSmall = false, isCoreUnitTitle = false, isExpenditure = false }) => ({
+const Title = styled.div<WithIsLight & { hideSmall?: boolean; isCoreUnitTitle?: boolean; isExpenditure?: boolean }>(
+  ({ hideSmall = false, isCoreUnitTitle = false, isExpenditure = false, isLight }) => ({
     display: hideSmall ? 'none' : 'block',
     fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: '14px',
     lineHeight: '22px',
-    color: '#9FAFB9',
+    color: isLight ? '#9FAFB9' : '#405361',
     marginLeft: '0px',
     marginBottom: isExpenditure ? '14px' : '8px',
     '@media (min-width: 834px)': {
