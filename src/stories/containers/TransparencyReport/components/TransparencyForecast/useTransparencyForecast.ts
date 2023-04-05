@@ -815,7 +815,6 @@ export const useTransparencyForecast = (currentMonth: DateTime, propBudgetStatem
   ]);
 
   return {
-    thirdIndex,
     mainTableItems,
     mainTableColumns,
     headerIds,

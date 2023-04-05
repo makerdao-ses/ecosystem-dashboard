@@ -1,19 +1,15 @@
+import { useUrlAnchor } from '@ses/core/hooks/useUrlAnchor';
+import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
+import { capitalizeSentence, getWalletWidthForWallets } from '@ses/core/utils/string';
 import _ from 'lodash';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useUrlAnchor } from '../../../../../core/hooks/useUrlAnchor';
-import { API_MONTH_TO_FORMAT } from '../../../../../core/utils/date';
-import { capitalizeSentence, getWalletWidthForWallets } from '../../../../../core/utils/string';
 import { renderLinks, renderWallet } from '../../transparencyReportUtils';
+import type { InnerTableColumn, InnerTableRow, RowType } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import type {
   BudgetStatementDto,
   BudgetStatementLineItemDto,
   BudgetStatementWalletDto,
-} from '../../../../../core/models/dto/coreUnitDTO';
-import type {
-  InnerTableColumn,
-  InnerTableRow,
-  RowType,
-} from '../../../../components/AdvancedInnerTable/AdvancedInnerTable';
+} from '@ses/core/models/dto/coreUnitDTO';
 import type { DateTime } from 'luxon';
 
 export const useTransparencyActuals = (
@@ -601,7 +597,6 @@ export const useTransparencyActuals = (
 
   return {
     headerIds,
-    thirdIndex,
     breakdownTitleRef,
     breakdownColumns,
     breakdownItems,
