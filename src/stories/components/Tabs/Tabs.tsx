@@ -111,6 +111,13 @@ const Tabs: React.FC<TabsProps> = ({
       } else {
         setCompressedActiveId(actualId);
       }
+    } else {
+      // select the first tab
+      if (expanded) {
+        setExpandedActiveId(tabs?.[0]?.id);
+      } else {
+        setCompressedActiveId(compressedTabs?.[0]?.id);
+      }
     }
   }, [
     activeId,

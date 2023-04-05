@@ -1,18 +1,18 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
+import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
+import { CustomLink } from '@ses/components/CustomLink/CustomLink';
+import Tabs from '@ses/components/Tabs/Tabs';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { MAKER_BURN_LINK } from '@ses/core/utils/const';
+import { getShortCode } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import { useThemeContext } from '../../../../../core/context/ThemeContext';
-import { MAKER_BURN_LINK } from '../../../../../core/utils/const';
-import { getShortCode } from '../../../../../core/utils/string';
-import { AdvancedInnerTable } from '../../../../components/AdvancedInnerTable/AdvancedInnerTable';
-import { CustomLink } from '../../../../components/CustomLink/CustomLink';
-import { Tabs } from '../../../../components/Tabs/TabsLegacy';
 import { Title } from '../../TransparencyReport';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import { LinkDescription } from '../TransparencyActuals/TransparencyActuals';
 import { useTransparencyForecast } from './useTransparencyForecast';
-import type { BudgetStatementDto } from '../../../../../core/models/dto/coreUnitDTO';
+import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
 import type { DateTime } from 'luxon';
 
 interface Props {
@@ -27,7 +27,6 @@ export const TransparencyForecast = (props: Props) => {
   const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
 
   const {
-    thirdIndex,
     headerIds,
     mainTableColumns,
     mainTableItems,
@@ -78,11 +77,10 @@ export const TransparencyForecast = (props: Props) => {
 
       {!!breakdownItems.length && (
         <Tabs
-          items={breakdownTabs.map((header, i) => ({
+          tabs={breakdownTabs.map((header, i) => ({
             item: header,
             id: headerIds[i],
           }))}
-          currentIndex={thirdIndex}
         />
       )}
 
