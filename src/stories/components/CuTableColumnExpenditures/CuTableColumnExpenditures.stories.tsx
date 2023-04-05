@@ -7,6 +7,7 @@ export default {
   component: CuTableColumnExpenditures,
   parameters: {
     chromatic: {
+      viewports: [375, 834, 1194],
       pauseAnimationAtEnd: true,
     },
   },
@@ -23,24 +24,36 @@ const args = [
 ];
 
 export const [[LightMode, DarkMode]] = createThemeModeVariants(CuTableColumnExpenditures, args);
-
 LightMode.parameters = {
   figma: {
-    component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2108%3A9986',
-    options: {
-      style: {
-        top: -5,
+    component: {
+      375: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2108%3A9986',
+        options: {
+          style: {
+            top: -6,
+            left: -27,
+          },
+        },
       },
-    },
-  },
-};
 
-DarkMode.parameters = {
-  figma: {
-    component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2108%3A9986',
-    options: {
-      style: {
-        top: -5,
+      834: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2108%3A9986',
+        options: {
+          style: {
+            top: -6,
+            left: -27,
+          },
+        },
+      },
+      1194: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2108%3A9986',
+        options: {
+          style: {
+            top: -1,
+            left: -22,
+          },
+        },
       },
     },
   },

@@ -184,10 +184,10 @@ const CustomBarCharContainer = styled.div({
   marginTop: -10,
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     marginBottom: -6,
-    marginLeft: -3,
-    marginTop: -10,
+    marginLeft: 0,
+    marginTop: -11,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginTop: 0,
+    marginTop: -2,
   },
 });
