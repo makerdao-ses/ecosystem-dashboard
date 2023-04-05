@@ -10,14 +10,13 @@ import { CustomBarChart } from '../CustomBarChart/CustomBarChart';
 import { CustomPopover } from '../CustomPopover/CustomPopover';
 import { ColumnExpendituresSkeleton } from './CuTableColumnExpendituresSkeleton';
 import type { CustomChartItemModel } from '../../../core/models/customChartItemModel';
-import type { DateTime } from 'luxon';
 
 interface CuTableColumnExpendituresProps {
   value?: number;
   percent?: number | null;
   items?: Array<CustomChartItemModel>;
   budgetCaps?: number[];
-  months?: DateTime[];
+  months?: string[];
   isLoading?: boolean;
   code?: string;
 }

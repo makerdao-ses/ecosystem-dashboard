@@ -1,17 +1,17 @@
 import styled from '@emotion/styled';
 import { Popover, Typography, useMediaQuery } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
+import { DateTime } from 'luxon';
 import Link from 'next/link';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ExpenditureLevel } from '../../../core/enums/expenditureLevelEnum';
 import type { CustomChartItemModel } from '../../../core/models/customChartItemModel';
-import type { DateTime } from 'luxon';
 
 interface CustomBarChartProps {
   items?: Array<CustomChartItemModel>;
   maxValues?: number[];
-  months?: DateTime[];
+  months?: string[];
   code?: string;
 }
 
@@ -36,7 +36,9 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
     null
   );
   if (!props.items) return <span />;
-  const monthsProps = props?.months?.map((date) => date.toFormat('MMMM'));
+  const monthsProps = props?.months?.map((date) => DateTime.fromISO(date).toFormat('MMMM'));
+  const monthsLinks = props?.months?.map((date) => DateTime.fromISO(date).toFormat('LLLyyyy'));
+
   const handleMouseOver = (event: React.MouseEvent<SVGRectElement>, i: number) => {
     if (props.months?.length === 0) return;
     setAnchorEl(event.currentTarget);
@@ -183,9 +185,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
           {monthsProps?.map((month: string, i: number) => (
             <Link
               key={`month-${i}`}
-              href={`${siteRoutes.coreUnitReports(props?.code || '')}?viewMonth=${
-                props?.months && props?.months[i].toFormat('LLLyyyy')
-              }`}
+              href={`${siteRoutes.coreUnitReports(props?.code || '')}?viewMonth=${monthsLinks && monthsLinks[i]}`}
               legacyBehavior
             >
               <a>
@@ -212,9 +212,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
           {props.items.map((item: CustomChartItemModel, i: number) => (
             <Link
               key={`item-${i}`}
-              href={`${siteRoutes.coreUnitReports(props?.code || '')}?viewMonth=${
-                props?.months && props?.months[i].toFormat('LLLyyyy')
-              }`}
+              href={`${siteRoutes.coreUnitReports(props?.code || '')}?viewMonth=${monthsLinks && monthsLinks[i]}`}
               legacyBehavior
             >
               <a>
