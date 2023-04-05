@@ -18,7 +18,7 @@ const args = [
     percent: 96,
     items: [{ value: 70 }, { value: 85 }, { value: 120 }],
     budgetCaps: [90, 80, 100],
-    months: ['October', 'November', 'December'],
+    months: ['2022-12-26T09:08:34.123', '2022-12-26T09:08:34.123', '2022-12-26T09:08:34.123'],
   },
 ];
 
@@ -29,8 +29,7 @@ LightMode.parameters = {
     component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2108%3A9986',
     options: {
       style: {
-        top: 5,
-        left: -27,
+        top: -5,
       },
     },
   },
@@ -41,8 +40,7 @@ DarkMode.parameters = {
     component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2108%3A9986',
     options: {
       style: {
-        top: 5,
-        left: -27,
+        top: -5,
       },
     },
   },
