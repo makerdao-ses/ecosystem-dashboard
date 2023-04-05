@@ -3,7 +3,7 @@ import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import { CustomPager } from '@ses/components/CustomPager/CustomPager';
 import DelegateSummary from '@ses/components/DelegateSummary/DelegateSummary';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
-import { Tabs } from '@ses/components/Tabs/Tabs';
+import { Tabs } from '@ses/components/Tabs/TabsLegacy';
 import { CommentActivityContext } from '@ses/core/context/CommentActivityContext';
 import { BudgetStatus } from '@ses/core/models/dto/coreUnitDTO';
 import { toAbsoluteURL } from '@ses/core/utils/urls';

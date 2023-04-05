@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { Tabs } from '../../../components/Tabs/Tabs';
+import { Tabs } from '../../../components/Tabs/TabsLegacy';
 import { ManagerTabs } from './managerTabsEnum';
 import { useManagerAccountLayout } from './useManagerAccountLayout';
 

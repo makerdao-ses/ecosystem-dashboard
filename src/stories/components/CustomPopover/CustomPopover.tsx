@@ -8,9 +8,8 @@ import type { SxProps } from '@mui/material/styles';
 import type { PopoverPaperType, WithIsLight } from '@ses/core/utils/typesHelpers';
 
 import type { CSSProperties } from 'react';
-interface CustomPopoverProps {
+interface CustomPopoverProps extends React.PropsWithChildren {
   title?: JSX.Element | string;
-  children: JSX.Element | JSX.Element[] | boolean;
   id: string;
   css?: CSSProperties;
   popupStyle?: CSSProperties;

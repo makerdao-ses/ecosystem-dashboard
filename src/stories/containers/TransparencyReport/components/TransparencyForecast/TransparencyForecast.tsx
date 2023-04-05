@@ -7,7 +7,7 @@ import { MAKER_BURN_LINK } from '../../../../../core/utils/const';
 import { getShortCode } from '../../../../../core/utils/string';
 import { AdvancedInnerTable } from '../../../../components/AdvancedInnerTable/AdvancedInnerTable';
 import { CustomLink } from '../../../../components/CustomLink/CustomLink';
-import { Tabs } from '../../../../components/Tabs/Tabs';
+import { Tabs } from '../../../../components/Tabs/TabsLegacy';
 import { Title } from '../../TransparencyReport';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import { LinkDescription } from '../TransparencyActuals/TransparencyActuals';
