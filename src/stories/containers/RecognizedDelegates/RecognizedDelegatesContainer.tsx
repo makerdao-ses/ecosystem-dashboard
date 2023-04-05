@@ -86,9 +86,11 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
             )}
           </PagerBar>
         </ContainerPagerBar>
+
         <ContainerTabs>
           <Tabs tabs={tabItems} onChange={onTabChange} />
         </ContainerTabs>
+
         {selectedTab === DELEGATES_IDS_ENUM.ACTUALS && (
           <DelegatesActuals budgetStatement={allBudgetStatement} currentMonth={currentMonth} />
         )}
@@ -286,7 +288,7 @@ const SinceDate = styled.div({
 const ContainerTabs = styled.div({
   margin: '32px 0',
 
-  'div:first-of-type > div:first-of-type > div': {
+  '& > div > div > a': {
     paddingBottom: 8,
 
     [lightTheme.breakpoints.up('table_834')]: {
