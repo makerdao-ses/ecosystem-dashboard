@@ -10,33 +10,33 @@ import type { DelegatesReportDto } from '@ses/core/models/dto/delegatesDTO';
 
 import type { NextPage } from 'next';
 
-type RecognizedDelegatesProps = {
+type RecognizedDelegatesReportProps = {
   delegates: DelegatesReportDto;
 };
 
-const RecognizedDelegates: NextPage<RecognizedDelegatesProps> = ({ delegates }) => {
-  const [currentDelegates, setCurrentDelegates] = useState<DelegatesReportDto>(delegates);
+const RecognizedDelegatesReport: NextPage<RecognizedDelegatesReportProps> = ({ delegates }) => {
+  const [currentDelegatesReport, setCurrentDelegatesReport] = useState<DelegatesReportDto>(delegates);
   useEffect(() => {
-    setCurrentDelegates(delegates);
+    setCurrentDelegatesReport(delegates);
   }, [delegates]);
 
   return (
     // make the delegates accessible from the comments components
     <CoreUnitContext.Provider
       value={{
-        currentCoreUnit: currentDelegates as CoreUnitDto,
-        setCurrentCoreUnit: setCurrentDelegates,
+        currentCoreUnit: currentDelegatesReport as CoreUnitDto,
+        setCurrentCoreUnit: setCurrentDelegatesReport,
       }}
     >
-      <RecognizedDelegatesReportContainer delegates={currentDelegates} />
+      <RecognizedDelegatesReportContainer delegates={currentDelegatesReport} />
     </CoreUnitContext.Provider>
   );
 };
 
-export default RecognizedDelegates;
+export default RecognizedDelegatesReport;
 
 export async function getServerSideProps() {
-  if (!featureFlags[CURRENT_ENVIRONMENT].FEATURE_RECOGNIZED_DELEGATES) {
+  if (!featureFlags[CURRENT_ENVIRONMENT].FEATURE_RECOGNIZED_DELEGATES_REPORT) {
     return {
       notFound: true,
     };
