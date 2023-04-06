@@ -3,7 +3,7 @@ import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import { CustomPager } from '@ses/components/CustomPager/CustomPager';
 import DelegateSummary from '@ses/components/DelegateSummary/DelegateSummary';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
-import { Tabs } from '@ses/components/Tabs/TabsLegacy';
+import Tabs from '@ses/components/Tabs/Tabs';
 import { CommentActivityContext } from '@ses/core/context/CommentActivityContext';
 import { BudgetStatus } from '@ses/core/models/dto/coreUnitDTO';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
@@ -29,8 +29,6 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
     lastUpdateForBudgetStatement,
     showExpenseReportStatusCTA,
     tabItems,
-    tabsIndexNumber,
-    tabsIndex,
     lastVisitHandler,
     currentMonth,
     currentBudgetStatement,
@@ -40,6 +38,8 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
     hasPreviousMonth,
     allBudgetStatement,
     comments,
+    selectedTab,
+    onTabChange,
   } = useRecognizedDelegates(delegates);
 
   return (
@@ -86,22 +86,18 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
             )}
           </PagerBar>
         </ContainerPagerBar>
+
         <ContainerTabs>
-          <Tabs
-            items={tabItems}
-            currentIndex={tabsIndexNumber}
-            style={{
-              margin: '32px 0',
-            }}
-          />
+          <Tabs tabs={tabItems} onChange={onTabChange} />
         </ContainerTabs>
-        {tabsIndex === DELEGATES_IDS_ENUM.ACTUALS && (
+
+        {selectedTab === DELEGATES_IDS_ENUM.ACTUALS && (
           <DelegatesActuals budgetStatement={allBudgetStatement} currentMonth={currentMonth} />
         )}
-        {tabsIndex === DELEGATES_IDS_ENUM.FORECAST && (
+        {selectedTab === DELEGATES_IDS_ENUM.FORECAST && (
           <DelegatesForecast budgetStatement={allBudgetStatement} currentMonth={currentMonth} />
         )}
-        {tabsIndex === DELEGATES_IDS_ENUM.COMMENTS && (
+        {selectedTab === DELEGATES_IDS_ENUM.COMMENTS && (
           <CommentActivityContext.Provider value={{ lastVisitHandler }}>
             <AuditorCommentsContainer budgetStatement={currentBudgetStatement} comments={comments} mode={'Delegates'} />
           </CommentActivityContext.Provider>
@@ -290,12 +286,12 @@ const SinceDate = styled.div({
 });
 
 const ContainerTabs = styled.div({
-  'div:first-of-type > div:first-of-type > div': {
+  margin: '32px 0',
+
+  '& > div > div > a': {
     paddingBottom: 8,
-  },
-  [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: 2,
-    'div:first-of-type > div:first-of-type > div': {
+
+    [lightTheme.breakpoints.up('table_834')]: {
       paddingBottom: 14,
     },
   },
