@@ -1,8 +1,8 @@
 import { GRAPHQL_ENDPOINT } from '@ses/config/endpoints';
 import request, { gql } from 'graphql-request';
-import type { DelegatesDto } from '@ses/core/models/dto/delegatesDTO';
+import type { DelegatesReportDto } from '@ses/core/models/dto/delegatesDTO';
 
-export const DELEGATES_REQUEST = () => ({
+export const RECOGNIED_DELEGATES_REPORT_REQUEST = () => ({
   query: gql`
     query CoreUnits($filter: CoreUnitFilter) {
       coreUnits(filter: $filter) {
@@ -80,9 +80,9 @@ export const DELEGATES_REQUEST = () => ({
   },
 });
 
-export const fetchRecognizedDelegates = async (): Promise<DelegatesDto> => {
-  const { query: gqlQuery, filter } = DELEGATES_REQUEST();
+export const fetchRecognizedDelegatesReport = async (): Promise<DelegatesReportDto> => {
+  const { query: gqlQuery, filter } = RECOGNIED_DELEGATES_REPORT_REQUEST();
 
-  const response = await request<{ coreUnits: [DelegatesDto] }>(GRAPHQL_ENDPOINT, gqlQuery, filter);
+  const response = await request<{ coreUnits: [DelegatesReportDto] }>(GRAPHQL_ENDPOINT, gqlQuery, filter);
   return response.coreUnits[0];
 };

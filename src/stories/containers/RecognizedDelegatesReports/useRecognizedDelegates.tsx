@@ -16,9 +16,9 @@ import { DateTime } from 'luxon';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import CommentsTab from '../../components/Tabs/CommentsTab/CommentsTab';
 import type { TableItems } from '../TransparencyReport/TransparencyReport';
-import type { DelegatesDto } from '@ses/core/models/dto/delegatesDTO';
+import type { DelegatesReportDto } from '@ses/core/models/dto/delegatesDTO';
 
-export enum DELEGATES_IDS_ENUM {
+export enum DELEGATES_REPORT_IDS_ENUM {
   ACTUALS = 'actuals',
   FORECAST = 'forecast',
   COMMENTS = 'comments',
@@ -54,9 +54,9 @@ const itemsBreadcrumb = [
   },
 ];
 
-const useRecognizedDelegates = (delegates: DelegatesDto) => {
+const useRecognizedDelegatesReport = (delegates: DelegatesReportDto) => {
   const { isLight } = useThemeContext();
-  const [tabsIndex, setTabsIndex] = useState<DELEGATES_IDS_ENUM>(DELEGATES_IDS_ENUM.ACTUALS);
+  const [tabsIndex, setTabsIndex] = useState<DELEGATES_REPORT_IDS_ENUM>(DELEGATES_REPORT_IDS_ENUM.ACTUALS);
   const [tabsIndexNumber, setTabsIndexNumber] = useState<number>(0);
   const [lastVisitHandler, setLastVisitHandler] = useState<LastVisitHandler>();
   const { permissionManager } = useAuthContext();
@@ -66,13 +66,13 @@ const useRecognizedDelegates = (delegates: DelegatesDto) => {
   const allBudgetStatement = delegates?.budgetStatements || [];
 
   const onPrevious = useCallback(() => {
-    if (tabsIndex === DELEGATES_IDS_ENUM.COMMENTS) {
+    if (tabsIndex === DELEGATES_REPORT_IDS_ENUM.COMMENTS) {
       lastVisitHandler?.visit(); // mark the current budget statement as visited before leave
     }
   }, [lastVisitHandler, tabsIndex]);
 
   const onNext = useCallback(() => {
-    if (tabsIndex === DELEGATES_IDS_ENUM.COMMENTS) {
+    if (tabsIndex === DELEGATES_REPORT_IDS_ENUM.COMMENTS) {
       lastVisitHandler?.visit(); // mark the current budget statement as visited before leave
     }
   }, [lastVisitHandler, tabsIndex]);
@@ -86,11 +86,11 @@ const useRecognizedDelegates = (delegates: DelegatesDto) => {
   useEffect(() => {
     // change the tabs when anchor changes
     if (anchor) {
-      const index = Object.values(DELEGATES_IDS_ENUM).findIndex((id) => anchor.indexOf(id) > -1);
+      const index = Object.values(DELEGATES_REPORT_IDS_ENUM).findIndex((id) => anchor.indexOf(id) > -1);
       if (index !== -1) {
-        const indexKey = Object.keys(DELEGATES_IDS_ENUM)[index];
+        const indexKey = Object.keys(DELEGATES_REPORT_IDS_ENUM)[index];
 
-        setTabsIndex(DELEGATES_IDS_ENUM[indexKey as keyof typeof DELEGATES_IDS_ENUM]);
+        setTabsIndex(DELEGATES_REPORT_IDS_ENUM[indexKey as keyof typeof DELEGATES_REPORT_IDS_ENUM]);
         setTabsIndexNumber(index);
       }
     }
@@ -128,17 +128,17 @@ const useRecognizedDelegates = (delegates: DelegatesDto) => {
   const { comments, numbersComments, commentsLastVisitState, updateHasNewComments } = useBudgetStatementComments(
     currentBudgetStatement,
     lastVisitHandler,
-    tabsIndex === DELEGATES_IDS_ENUM.COMMENTS
+    tabsIndex === DELEGATES_REPORT_IDS_ENUM.COMMENTS
   );
 
   const tabItems: TableItems[] = [
     {
       item: 'Actuals',
-      id: DELEGATES_IDS_ENUM.ACTUALS,
+      id: DELEGATES_REPORT_IDS_ENUM.ACTUALS,
     },
     {
       item: 'Forecast',
-      id: DELEGATES_IDS_ENUM.FORECAST,
+      id: DELEGATES_REPORT_IDS_ENUM.FORECAST,
     },
     {
       item: (
@@ -147,19 +147,20 @@ const useRecognizedDelegates = (delegates: DelegatesDto) => {
           numbersComments={numbersComments}
         />
       ),
-      id: DELEGATES_IDS_ENUM.COMMENTS,
+      id: DELEGATES_REPORT_IDS_ENUM.COMMENTS,
     },
   ];
 
   useEffect(() => {
     if (anchor) {
-      const index = Object.values(DELEGATES_IDS_ENUM).findIndex((id) => anchor.indexOf(id) > -1);
+      const index = Object.values(DELEGATES_REPORT_IDS_ENUM).findIndex((id) => anchor.indexOf(id) > -1);
       if (index !== -1) {
-        const indexKey = Object.keys(DELEGATES_IDS_ENUM)[index];
+        const indexKey = Object.keys(DELEGATES_REPORT_IDS_ENUM)[index];
         if (
           isTimestampTrackingAccepted &&
-          tabsIndex === DELEGATES_IDS_ENUM.COMMENTS &&
-          DELEGATES_IDS_ENUM[indexKey as keyof typeof DELEGATES_IDS_ENUM] !== DELEGATES_IDS_ENUM.COMMENTS
+          tabsIndex === DELEGATES_REPORT_IDS_ENUM.COMMENTS &&
+          DELEGATES_REPORT_IDS_ENUM[indexKey as keyof typeof DELEGATES_REPORT_IDS_ENUM] !==
+            DELEGATES_REPORT_IDS_ENUM.COMMENTS
         ) {
           // changing from "comments tab" to any other tab should mark the budget statement as visited
           const visit = async () => {
@@ -168,7 +169,7 @@ const useRecognizedDelegates = (delegates: DelegatesDto) => {
           };
           visit();
         }
-        setTabsIndex(DELEGATES_IDS_ENUM[indexKey as keyof typeof DELEGATES_IDS_ENUM]);
+        setTabsIndex(DELEGATES_REPORT_IDS_ENUM[indexKey as keyof typeof DELEGATES_REPORT_IDS_ENUM]);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -196,4 +197,4 @@ const useRecognizedDelegates = (delegates: DelegatesDto) => {
   };
 };
 
-export default useRecognizedDelegates;
+export default useRecognizedDelegatesReport;

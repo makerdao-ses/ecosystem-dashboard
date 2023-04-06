@@ -1,8 +1,8 @@
 import type { ActivityFeedDto, BudgetStatementDto } from '../../models/dto/coreUnitDTO';
-import type { DelegatesDto } from '@ses/core/models/dto/delegatesDTO';
+import type { DelegatesReportDto } from '@ses/core/models/dto/delegatesDTO';
 
-export class RecognizedDelegatesBuilder {
-  private readonly _delegates: DelegatesDto;
+export class RecognizedDelegatesReportBuilder {
+  private readonly _delegates: DelegatesReportDto;
 
   constructor() {
     this._delegates = {
@@ -11,35 +11,35 @@ export class RecognizedDelegatesBuilder {
       shortCode: '',
       budgetStatements: [] as BudgetStatementDto[],
       activityFeed: [] as ActivityFeedDto[],
-    } as DelegatesDto;
+    } as DelegatesReportDto;
   }
 
-  withId(id: string): RecognizedDelegatesBuilder {
+  withId(id: string): RecognizedDelegatesReportBuilder {
     this._delegates.id = id;
     return this;
   }
 
-  withCode(code: string): RecognizedDelegatesBuilder {
+  withCode(code: string): RecognizedDelegatesReportBuilder {
     this._delegates.code = code;
     return this;
   }
 
-  withShortCode(code: string): RecognizedDelegatesBuilder {
+  withShortCode(code: string): RecognizedDelegatesReportBuilder {
     this._delegates.shortCode = code;
     return this;
   }
 
-  addBudgetStatement(budgetStatement: BudgetStatementDto): RecognizedDelegatesBuilder {
+  addBudgetStatement(budgetStatement: BudgetStatementDto): RecognizedDelegatesReportBuilder {
     this._delegates.budgetStatements.push(budgetStatement);
     return this;
   }
 
-  addActivity(activity: ActivityFeedDto): RecognizedDelegatesBuilder {
+  addActivity(activity: ActivityFeedDto): RecognizedDelegatesReportBuilder {
     this._delegates.activityFeed.push(activity);
     return this;
   }
 
-  build(): DelegatesDto {
+  build(): DelegatesReportDto {
     return this._delegates;
   }
 }

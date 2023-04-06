@@ -1,19 +1,21 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
-import RecognizedDelegatesContainer from '@ses/containers/RecognizedDelegates/RecognizedDelegatesContainer';
-import { fetchRecognizedDelegates } from '@ses/containers/RecognizedDelegates/delegatesAPI';
+
+import { fetchRecognizedDelegatesReport } from '@ses/containers/RecognizedDelegatesReports/RecognizedDelegatesReportAPI';
+import RecognizedDelegatesReportContainer from '@ses/containers/RecognizedDelegatesReports/RecognizedDelegatesReportContainer';
 import { CoreUnitContext } from '@ses/core/context/CoreUnitContext';
 import { featureFlags } from 'feature-flags/feature-flags';
 import React, { useEffect, useState } from 'react';
 import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
-import type { DelegatesDto } from '@ses/core/models/dto/delegatesDTO';
+import type { DelegatesReportDto } from '@ses/core/models/dto/delegatesDTO';
+
 import type { NextPage } from 'next';
 
 type RecognizedDelegatesProps = {
-  delegates: DelegatesDto;
+  delegates: DelegatesReportDto;
 };
 
 const RecognizedDelegates: NextPage<RecognizedDelegatesProps> = ({ delegates }) => {
-  const [currentDelegates, setCurrentDelegates] = useState<DelegatesDto>(delegates);
+  const [currentDelegates, setCurrentDelegates] = useState<DelegatesReportDto>(delegates);
   useEffect(() => {
     setCurrentDelegates(delegates);
   }, [delegates]);
@@ -26,7 +28,7 @@ const RecognizedDelegates: NextPage<RecognizedDelegatesProps> = ({ delegates }) 
         setCurrentCoreUnit: setCurrentDelegates,
       }}
     >
-      <RecognizedDelegatesContainer delegates={currentDelegates} />
+      <RecognizedDelegatesReportContainer delegates={currentDelegates} />
     </CoreUnitContext.Provider>
   );
 };
@@ -40,7 +42,7 @@ export async function getServerSideProps() {
     };
   }
 
-  const delegates = await fetchRecognizedDelegates();
+  const delegates = await fetchRecognizedDelegatesReport();
 
   return {
     props: {

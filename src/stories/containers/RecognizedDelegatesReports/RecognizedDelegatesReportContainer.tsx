@@ -13,14 +13,15 @@ import ExpenseReportStatusIndicator from '../TransparencyReport/components/Expen
 import AuditorCommentsContainer from '../TransparencyReport/components/TransparencyAuditorComments/AuditorCommentsContainer/AuditorCommentsContainer';
 import DelegatesActuals from './DelegatesActuals/DelegatesActuals';
 import DelegatesForecast from './DelegatesForecast/DelegatesForecast';
-import useRecognizedDelegates, { DELEGATES_IDS_ENUM } from './useRecognizedDelegates';
-import type { DelegatesDto } from '@ses/core/models/dto/delegatesDTO';
+// import useRecognizedDelegates, { DELEGATES_IDS_ENUM } from './useRecognizedDelegates';
+import useRecognizedDelegatesReport, { DELEGATES_REPORT_IDS_ENUM } from './useRecognizedDelegates';
+import type { DelegatesReportDto } from '@ses/core/models/dto/delegatesDTO';
 
-type RecognizedDelegatesProps = {
-  delegates: DelegatesDto;
+type RecognizedDelegatesReportContainerProps = {
+  delegates: DelegatesReportDto;
 };
 
-const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ delegates }) => {
+const RecognizedDelegatesReportContainer: React.FC<RecognizedDelegatesReportContainerProps> = ({ delegates }) => {
   const {
     isLight,
     links,
@@ -40,7 +41,7 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
     hasPreviousMonth,
     allBudgetStatement,
     comments,
-  } = useRecognizedDelegates(delegates);
+  } = useRecognizedDelegatesReport(delegates);
 
   return (
     <Container isLight={isLight}>
@@ -95,13 +96,13 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
             }}
           />
         </ContainerTabs>
-        {tabsIndex === DELEGATES_IDS_ENUM.ACTUALS && (
+        {tabsIndex === DELEGATES_REPORT_IDS_ENUM.ACTUALS && (
           <DelegatesActuals budgetStatement={allBudgetStatement} currentMonth={currentMonth} />
         )}
-        {tabsIndex === DELEGATES_IDS_ENUM.FORECAST && (
+        {tabsIndex === DELEGATES_REPORT_IDS_ENUM.FORECAST && (
           <DelegatesForecast budgetStatement={allBudgetStatement} currentMonth={currentMonth} />
         )}
-        {tabsIndex === DELEGATES_IDS_ENUM.COMMENTS && (
+        {tabsIndex === DELEGATES_REPORT_IDS_ENUM.COMMENTS && (
           <CommentActivityContext.Provider value={{ lastVisitHandler }}>
             <AuditorCommentsContainer budgetStatement={currentBudgetStatement} comments={comments} mode={'Delegates'} />
           </CommentActivityContext.Provider>
@@ -142,7 +143,7 @@ const RecognizedDelegatesContainer: React.FC<RecognizedDelegatesProps> = ({ dele
   );
 };
 
-export default RecognizedDelegatesContainer;
+export default RecognizedDelegatesReportContainer;
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   paddingTop: 64,
