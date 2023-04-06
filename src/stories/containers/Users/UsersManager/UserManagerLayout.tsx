@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
+import Tabs from '@ses/components/Tabs/Tabs';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
-import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { Tabs } from '../../../components/Tabs/TabsLegacy';
 import { ManagerTabs } from './managerTabsEnum';
 import { useManagerAccountLayout } from './useManagerAccountLayout';
 
@@ -27,8 +27,9 @@ const UserManagerLayout: React.FC<UserManagerLayoutProps> = ({ children, tabInde
     <MainWrapper isLight={isLight}>
       <Container>
         <Tabs
-          currentIndex={tabIndex}
-          items={tabItems}
+          tabs={tabItems}
+          controlled={true}
+          selectedTabId={tabIndex as unknown as string}
           styleForTab={{
             fontSize: 16,
           }}

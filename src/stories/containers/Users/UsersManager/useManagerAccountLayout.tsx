@@ -1,17 +1,15 @@
 import Skeleton from '@mui/material/Skeleton';
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import useSWR from 'swr';
-import { featureFlags } from '../../../../../feature-flags/feature-flags';
-import { CURRENT_ENVIRONMENT } from '../../../../config/endpoints';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { fetcher } from '../../../../core/utils/fetcher';
 import { ParenthesisNumber } from '../../TransparencyReport/TransparencyReport';
+import { ManagerTabs } from './managerTabsEnum';
 import { QUERY_USERS } from './userManagerAPI';
 import type { UserDTO } from '../../../../core/models/dto/authDTO';
-import type { TabItem } from '../../../components/Tabs/TabsLegacy';
+import type { TabItem } from '../../../components/Tabs/Tabs';
 
 export const useManagerAccountLayout = () => {
-  const [FEATURE_AUTH] = useState<boolean>(featureFlags[CURRENT_ENVIRONMENT].FEATURE_AUTH);
   const { hasToken, authToken, isAdmin } = useAuthContext();
 
   const { data, error: errorFetchingUsers } = useSWR<{ users: UserDTO[] }, string>(QUERY_USERS, fetcher);
@@ -21,7 +19,7 @@ export const useManagerAccountLayout = () => {
     () => [
       {
         item: 'Your Profile',
-        id: '',
+        id: ManagerTabs.PROFILE,
         href: '/auth/manage/my-profile',
       },
       {
@@ -47,7 +45,7 @@ export const useManagerAccountLayout = () => {
             </span>
           </ParenthesisNumber>
         ),
-        id: '',
+        id: ManagerTabs.MANAGER,
         href: '/auth/manage/accounts',
       },
     ],
@@ -59,7 +57,6 @@ export const useManagerAccountLayout = () => {
     hasToken,
     authToken,
     isAdmin,
-    FEATURE_AUTH,
     users,
     errorFetchingUsers,
   };
