@@ -8,4 +8,5 @@ export interface FeatureFlagsInterface {
   FEATURE_FINANCES_OVERVIEW: boolean; // disable Finances Overview page
   FEATURE_RECOGNIZED_DELEGATES_REPORT: boolean; // disable Finances Delegates Report page
   FEATURE_TRANSPARENCY_COMMENTS: boolean; // disable Comments Tab
+  FEATURE_RECOGNIZED_DELEGATES: boolean; // disable  Recognized Delegates page
 }

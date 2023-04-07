@@ -10,4 +10,5 @@ export const flagsDevelopment: FeatureFlagsInterface = {
   FEATURE_FINANCES_OVERVIEW: true,
   FEATURE_RECOGNIZED_DELEGATES_REPORT: true,
   FEATURE_TRANSPARENCY_COMMENTS: true,
+  FEATURE_RECOGNIZED_DELEGATES: true,
 };
