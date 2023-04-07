@@ -472,128 +472,135 @@ export const useTransparencyActuals = (
     [currentBudgetStatement?.month, hasGroups]
   );
 
-  const breakdownItems = useMemo(() => {
-    const result: InnerTableRow[] = [];
-    if (!wallets) {
+  const getBreakdownItemsForWallet = useCallback(
+    (walletAddress: string) => {
+      const result: InnerTableRow[] = [];
+
+      const wallet = wallets?.find((w) => w.address === walletAddress);
+      if (!wallet) {
+        return result;
+      }
+
+      if (hasExpenses(true)) {
+        result.push({
+          items: [
+            {
+              column: breakdownColumns[0],
+              value: 'Headcount Expenses',
+            },
+            {
+              column: breakdownColumns[1],
+              value: hasGroups ? '' : 'Headcount Expenses',
+            },
+          ],
+          type: 'section',
+        });
+
+        result.push(...getBreakdownItems(wallet?.budgetStatementLineItem?.filter((item) => item.headcountExpense)));
+
+        result.push(
+          ...getBreakdownItems(
+            [
+              getLineItemsSubtotal(
+                wallet?.budgetStatementLineItem?.filter((item) => item.headcountExpense),
+                'Subtotal'
+              ),
+            ],
+            'subTotal'
+          )
+        );
+      }
+
+      if (hasExpenses(false)) {
+        result.push({
+          items: [
+            {
+              column: breakdownColumns[0],
+              value: 'Non-Headcount Expenses',
+            },
+            {
+              column: breakdownColumns[1],
+              value: hasGroups ? '' : 'Non-Headcount Expenses',
+            },
+          ],
+          type: 'section',
+        });
+
+        const headcountExpenseItems = getBreakdownItems(
+          wallet?.budgetStatementLineItem?.filter((item) => !item.headcountExpense)
+        );
+
+        result.push(...headcountExpenseItems);
+
+        result.push(
+          ...getBreakdownItems(
+            [
+              getLineItemsSubtotal(
+                wallet?.budgetStatementLineItem?.filter((item) => !item.headcountExpense),
+                'Subtotal'
+              ),
+            ],
+            'subTotal'
+          )
+        );
+      }
+
+      if (result.length > 0) {
+        result.push({
+          type: 'total',
+          items: [
+            {
+              column: breakdownColumns[0],
+              value: hasGroups ? 'Total' : '',
+            },
+            {
+              column: breakdownColumns[1],
+              value: hasGroups ? '' : 'Total',
+            },
+            {
+              column: breakdownColumns[2],
+              value: getWalletForecast(wallet),
+            },
+            {
+              column: breakdownColumns[3],
+              value: getWalletActual(wallet),
+            },
+            {
+              column: breakdownColumns[4],
+              value: getWalletDifference(wallet),
+            },
+            {
+              column: breakdownColumns[5],
+              value: '',
+            },
+            {
+              column: breakdownColumns[6],
+              value: getWalletPayment(wallet),
+            },
+          ],
+        });
+      }
+
       return result;
-    }
+    },
+    [
+      breakdownColumns,
+      getBreakdownItems,
+      getLineItemsSubtotal,
+      getWalletActual,
+      getWalletDifference,
+      getWalletForecast,
+      getWalletPayment,
+      hasExpenses,
+      hasGroups,
+      wallets,
+    ]
+  );
 
-    if (hasExpenses(true)) {
-      result.push({
-        items: [
-          {
-            column: breakdownColumns[0],
-            value: 'Headcount Expenses',
-          },
-          {
-            column: breakdownColumns[1],
-            value: hasGroups ? '' : 'Headcount Expenses',
-          },
-        ],
-        type: 'section',
-      });
-
-      result.push(
-        ...getBreakdownItems(currentWallet?.budgetStatementLineItem?.filter((item) => item.headcountExpense))
-      );
-
-      result.push(
-        ...getBreakdownItems(
-          [
-            getLineItemsSubtotal(
-              currentWallet?.budgetStatementLineItem?.filter((item) => item.headcountExpense),
-              'Subtotal'
-            ),
-          ],
-          'subTotal'
-        )
-      );
-    }
-
-    if (hasExpenses(false)) {
-      result.push({
-        items: [
-          {
-            column: breakdownColumns[0],
-            value: 'Non-Headcount Expenses',
-          },
-          {
-            column: breakdownColumns[1],
-            value: hasGroups ? '' : 'Non-Headcount Expenses',
-          },
-        ],
-        type: 'section',
-      });
-
-      const headcountExpenseItems = getBreakdownItems(
-        currentWallet?.budgetStatementLineItem?.filter((item) => !item.headcountExpense)
-      );
-
-      result.push(...headcountExpenseItems);
-
-      result.push(
-        ...getBreakdownItems(
-          [
-            getLineItemsSubtotal(
-              currentWallet?.budgetStatementLineItem?.filter((item) => !item.headcountExpense),
-              'Subtotal'
-            ),
-          ],
-          'subTotal'
-        )
-      );
-    }
-
-    if (result.length > 0) {
-      result.push({
-        type: 'total',
-        items: [
-          {
-            column: breakdownColumns[0],
-            value: hasGroups ? 'Total' : '',
-          },
-          {
-            column: breakdownColumns[1],
-            value: hasGroups ? '' : 'Total',
-          },
-          {
-            column: breakdownColumns[2],
-            value: getWalletForecast(currentWallet),
-          },
-          {
-            column: breakdownColumns[3],
-            value: getWalletActual(currentWallet),
-          },
-          {
-            column: breakdownColumns[4],
-            value: getWalletDifference(currentWallet),
-          },
-          {
-            column: breakdownColumns[5],
-            value: '',
-          },
-          {
-            column: breakdownColumns[6],
-            value: getWalletPayment(currentWallet),
-          },
-        ],
-      });
-    }
-
-    return result;
-  }, [
-    breakdownColumns,
-    currentWallet,
-    getBreakdownItems,
-    getLineItemsSubtotal,
-    getWalletActual,
-    getWalletDifference,
-    getWalletForecast,
-    getWalletPayment,
-    hasExpenses,
-    hasGroups,
-    wallets,
-  ]);
+  const breakdownItems = useMemo(
+    () => getBreakdownItemsForWallet(currentWallet.address as string),
+    [currentWallet.address, getBreakdownItemsForWallet]
+  );
 
   return {
     headerIds,

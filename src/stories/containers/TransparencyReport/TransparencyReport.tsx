@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import Container from '@ses/components/Container/Container';
+import PageContainer from '@ses/components/Container/PageContainer';
 import Tabs from '@ses/components/Tabs/Tabs';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
@@ -11,6 +13,7 @@ import { CoreUnitSummary } from '../../components/CoreUnitSummary/CoreUnitSummar
 import { CustomLink } from '../../components/CustomLink/CustomLink';
 import { CustomPager } from '../../components/CustomPager/CustomPager';
 import { SEOHead } from '../../components/SEOHead/SEOHead';
+import BudgetReport from './components/BudgetReport/BudgetReport';
 import ExpenseReportStatusIndicator from './components/ExpenseReportStatusIndicator/ExpenseReportStatusIndicator';
 import { TransparencyActuals } from './components/TransparencyActuals/TransparencyActuals';
 
@@ -63,167 +66,167 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
         twitterCard={coreUnit.image ? 'summary' : 'summary_large_image'}
       />
       <CoreUnitSummary coreUnits={coreUnits} trailingAddress={['Expense Reports']} breadcrumbTitle="Expense Reports" />
-      <Container isLight={isLight}>
-        <InnerPage>
-          <PagerBar className="no-select" ref={transparencyTableRef}>
-            <PagerBarLeft>
-              <CustomPager
-                label={currentMonth.toFormat('MMM yyyy').toUpperCase()}
-                onPrev={handlePreviousMonth}
-                onNext={handleNextMonth}
-                hasNext={hasNextMonth()}
-                hasPrevious={hasPreviousMonth()}
-              />
-              <ExpenseReportStatusIndicator
-                budgetStatus={currentBudgetStatement?.status || BudgetStatus.Draft}
-                showCTA={showExpenseReportStatusCTA}
-              />
-            </PagerBarLeft>
+      <PageContainer hasImageBackground={true}>
+        <PageSeparator>
+          <Container>
+            <PagerBar className="no-select" ref={transparencyTableRef}>
+              <PagerBarLeft>
+                <CustomPager
+                  label={currentMonth.toFormat('MMM yyyy').toUpperCase()}
+                  onPrev={handlePreviousMonth}
+                  onNext={handleNextMonth}
+                  hasNext={hasNextMonth()}
+                  hasPrevious={hasPreviousMonth()}
+                />
+                <ExpenseReportStatusIndicator
+                  budgetStatus={currentBudgetStatement?.status || BudgetStatus.Draft}
+                  showCTA={showExpenseReportStatusCTA}
+                />
+              </PagerBarLeft>
 
-            <Spacer />
-            {lastUpdateForBudgetStatement && (
-              <LastUpdate>
-                <Since isLight={isLight}>Last Update</Since>
-                <SinceDate>{lastUpdateForBudgetStatement.setZone('UTC').toFormat('dd-LLL-y HH:mm ZZZZ')}</SinceDate>
-              </LastUpdate>
+              <Spacer />
+              {lastUpdateForBudgetStatement && (
+                <LastUpdate>
+                  <Since isLight={isLight}>Last Update</Since>
+                  <SinceDate>{lastUpdateForBudgetStatement.setZone('UTC').toFormat('dd-LLL-y HH:mm ZZZZ')}</SinceDate>
+                </LastUpdate>
+              )}
+            </PagerBar>
+
+            <TabsContainer>
+              <Tabs
+                tabs={tabItems}
+                expandable
+                compressedTabs={compressedTabItems}
+                onChange={onTabChange}
+                expandToolTip={{
+                  default: 'Default View',
+                  compressed: 'Auditor View',
+                }}
+                viewValues={{
+                  default: 'default',
+                  compressed: 'auditor',
+                }}
+                anchorToActualId={(anchor) => {
+                  if (anchor.startsWith('actuals-')) return 'actuals';
+                  if (anchor.startsWith('forecast-')) return 'forecast';
+                  return anchor;
+                }}
+              />
+            </TabsContainer>
+          </Container>
+
+          <Container>
+            {tabsIndex === TRANSPARENCY_IDS_ENUM.ACTUALS && (
+              <TransparencyActuals
+                code={code}
+                currentMonth={currentMonth}
+                budgetStatements={coreUnit?.budgetStatements}
+                longCode={longCode}
+              />
             )}
-          </PagerBar>
+            {tabsIndex === TRANSPARENCY_IDS_ENUM.FORECAST && (
+              <TransparencyForecast
+                currentMonth={currentMonth}
+                budgetStatements={coreUnit?.budgetStatements}
+                code={code}
+                longCode={longCode}
+              />
+            )}
+            {tabsIndex === TRANSPARENCY_IDS_ENUM.MKR_VESTING && (
+              <TransparencyMkrVesting
+                currentMonth={currentMonth}
+                budgetStatements={coreUnit?.budgetStatements}
+                code={code}
+                longCode={longCode}
+              />
+            )}
+            {tabsIndex === TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS && (
+              <TransparencyTransferRequest
+                currentMonth={currentMonth}
+                budgetStatements={coreUnit?.budgetStatements}
+                code={code}
+                longCode={longCode}
+              />
+            )}
+            {tabsIndex === TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS && isEnabled('FEATURE_AUDIT_REPORTS') && (
+              <TransparencyAudit budgetStatement={currentBudgetStatement} />
+            )}
 
-          <TabsContainer>
-            <Tabs
-              tabs={tabItems}
-              expandable
-              compressedTabs={compressedTabItems}
-              onChange={onTabChange}
-              expandToolTip={{
-                default: 'Default View',
-                compressed: 'Auditor View',
-              }}
-              viewValues={{
-                default: 'default',
-                compressed: 'auditor',
-              }}
-              anchorToActualId={(anchor) => {
-                if (anchor.startsWith('actuals-')) return 'actuals';
-                if (anchor.startsWith('forecast-')) return 'forecast';
-                return anchor;
-              }}
-            />
-          </TabsContainer>
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.ACTUALS && (
-            <TransparencyActuals
-              code={code}
-              currentMonth={currentMonth}
-              budgetStatements={coreUnit?.budgetStatements}
-              longCode={longCode}
-            />
-          )}
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.FORECAST && (
-            <TransparencyForecast
-              currentMonth={currentMonth}
-              budgetStatements={coreUnit?.budgetStatements}
-              code={code}
-              longCode={longCode}
-            />
-          )}
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.MKR_VESTING && (
-            <TransparencyMkrVesting
-              currentMonth={currentMonth}
-              budgetStatements={coreUnit?.budgetStatements}
-              code={code}
-              longCode={longCode}
-            />
-          )}
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS && (
-            <TransparencyTransferRequest
-              currentMonth={currentMonth}
-              budgetStatements={coreUnit?.budgetStatements}
-              code={code}
-              longCode={longCode}
-            />
-          )}
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS && isEnabled('FEATURE_AUDIT_REPORTS') && (
-            <TransparencyAudit budgetStatement={currentBudgetStatement} />
-          )}
-
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS && (
-            <CommentActivityContext.Provider value={{ lastVisitHandler }}>
-              <AuditorCommentsContainer budgetStatement={currentBudgetStatement} comments={comments} />
-            </CommentActivityContext.Provider>
-          )}
+            {tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS && (
+              <CommentActivityContext.Provider value={{ lastVisitHandler }}>
+                <AuditorCommentsContainer budgetStatement={currentBudgetStatement} comments={comments} />
+              </CommentActivityContext.Provider>
+            )}
+          </Container>
 
           {tabsIndex === TRANSPARENCY_IDS_ENUM.BUDGET_REPORT && (
-            <div style={{ margin: '3rem 0' }}>(WIP) Budget Report tabs is activated</div>
+            <BudgetReport
+              code={code}
+              currentMonth={currentMonth}
+              budgetStatements={coreUnit?.budgetStatements}
+              longCode={longCode}
+            />
           )}
 
-          <AdditionalNotesSection>
-            <Title isLight={isLight} isTitleOfPage={false}>
-              Additional Notes
-            </Title>
+          <Container>
+            <AdditionalNotesSection>
+              <Title isLight={isLight} isTitleOfPage={false}>
+                Additional Notes
+              </Title>
 
-            <Paragraph isLight={isLight}>
-              {coreUnit.auditors.length === 0 ? (
-                <div>
-                  Every month, the {coreUnit.shortCode} Core Unit submits an Expense Report to MakerDAO governance with
-                  a detailed budget update. The Core Unit works <b>without auditor</b>, submitting its reports directly
-                  to the community.
-                </div>
-              ) : (
-                <div>
-                  Every month, the {coreUnit.shortCode} Core Unit submits an Expense Report to MakerDAO governance with
-                  a detailed budget update. The Core Unit's reports are reviewed{' '}
-                  <b>
-                    by auditor(s){' '}
-                    {coreUnit.auditors.map((auditor, index, array) => (
-                      <span key={auditor.id}>
-                        <b>{auditor.username}</b>
-                        {array.length > 1 && index !== array.length - 1
-                          ? index !== array.length - 2
-                            ? ', '
-                            : ', and '
-                          : ''}
-                      </span>
-                    ))}{' '}
-                  </b>
-                  before they are marked as final.
-                </div>
-              )}
+              <Paragraph isLight={isLight}>
+                {coreUnit.auditors.length === 0 ? (
+                  <div>
+                    Every month, the {coreUnit.shortCode} Core Unit submits an Expense Report to MakerDAO governance
+                    with a detailed budget update. The Core Unit works <b>without auditor</b>, submitting its reports
+                    directly to the community.
+                  </div>
+                ) : (
+                  <div>
+                    Every month, the {coreUnit.shortCode} Core Unit submits an Expense Report to MakerDAO governance
+                    with a detailed budget update. The Core Unit's reports are reviewed{' '}
+                    <b>
+                      by auditor(s){' '}
+                      {coreUnit.auditors.map((auditor, index, array) => (
+                        <span key={auditor.id}>
+                          <b>{auditor.username}</b>
+                          {array.length > 1 && index !== array.length - 1
+                            ? index !== array.length - 2
+                              ? ', '
+                              : ', and '
+                            : ''}
+                        </span>
+                      ))}{' '}
+                    </b>
+                    before they are marked as final.
+                  </div>
+                )}
 
-              {coreUnit.legacyBudgetStatementUrl && (
-                <LegacyReportParagraph>
-                  <span>Legacy expense reports can be found</span>
-                  <CustomLink
-                    fontWeight={500}
-                    href={coreUnit.legacyBudgetStatementUrl}
-                    iconHeight={10}
-                    iconWidth={10}
-                    fontSize={16}
-                    fontSizeMobile={14}
-                    fontFamily={'Inter, sans-serif'}
-                  >
-                    here
-                  </CustomLink>
-                </LegacyReportParagraph>
-              )}
-            </Paragraph>
-          </AdditionalNotesSection>
-        </InnerPage>
-      </Container>
+                {coreUnit.legacyBudgetStatementUrl && (
+                  <LegacyReportParagraph>
+                    <span>Legacy expense reports can be found</span>
+                    <CustomLink
+                      fontWeight={500}
+                      href={coreUnit.legacyBudgetStatementUrl}
+                      iconHeight={10}
+                      iconWidth={10}
+                      fontSize={16}
+                      fontSizeMobile={14}
+                      fontFamily={'Inter, sans-serif'}
+                    >
+                      here
+                    </CustomLink>
+                  </LegacyReportParagraph>
+                )}
+              </Paragraph>
+            </AdditionalNotesSection>
+          </Container>
+        </PageSeparator>
+      </PageContainer>
     </Wrapper>
   );
 };
-
-const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  flexDirection: 'column',
-  alignItems: 'center',
-  paddingTop: '64px',
-  paddingBottom: '64px',
-  flex: 1,
-  backgroundColor: isLight ? '#FFFFFF' : '#000000',
-  backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
-  backgroundAttachment: 'fixed',
-  backgroundSize: 'cover',
-}));
 
 const Wrapper = styled.div({
   display: 'flex',
@@ -231,37 +234,12 @@ const Wrapper = styled.div({
   width: '100%',
 });
 
-const InnerPage = styled.div({
-  display: 'block',
-  textAlign: 'left',
-  width: '100%',
-  maxWidth: '1440px',
-  margin: '0 auto',
-  paddingRight: '64px',
-  paddingLeft: '64px',
+const PageSeparator = styled.div({
   marginTop: 32,
+
   [lightTheme.breakpoints.up('table_834')]: {
     paddingTop: 32,
     marginTop: 0,
-  },
-
-  [lightTheme.breakpoints.between('table_834', 'desktop_1280')]: {
-    paddingRight: '32px',
-    paddingLeft: '32px',
-  },
-  [lightTheme.breakpoints.up('desktop_1920')]: {
-    maxWidth: '1312px',
-    paddingRight: '0px',
-    paddingLeft: '0px',
-  },
-  [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
-    paddingRight: '48px',
-    paddingLeft: '48px',
-  },
-
-  [lightTheme.breakpoints.down('table_834')]: {
-    paddingRight: '16px',
-    paddingLeft: '16px',
   },
 });
 
