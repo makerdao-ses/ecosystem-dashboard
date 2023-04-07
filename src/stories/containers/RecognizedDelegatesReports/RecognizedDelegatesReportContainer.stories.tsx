@@ -8,7 +8,7 @@ import type { ComponentMeta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
 export default {
-  title: 'Pages/Recognized Delegates',
+  title: 'Pages/Recognized Delegates Report',
   component: RecognizedDelegatesReportContainer,
   decorators: [withoutSBPadding],
   parameters: {
