@@ -1,5 +1,5 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import { Tabs } from './TabsLegacy';
+import Tabs from './Tabs';
 import type { ComponentMeta } from '@storybook/react';
 
 export default {
@@ -9,8 +9,7 @@ export default {
 
 const args = [
   {
-    styleForTab: {},
-    items: [
+    tabs: [
       {
         item: 'Actuals',
         id: 'one',
@@ -28,7 +27,6 @@ const args = [
         id: 'four',
       },
     ],
-    currentIndex: 0,
   },
 ];
 

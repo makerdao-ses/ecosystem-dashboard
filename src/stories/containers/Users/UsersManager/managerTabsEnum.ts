@@ -1,4 +1,4 @@
 export enum ManagerTabs {
-  PROFILE = 0,
-  MANAGER = 1,
+  PROFILE = 'profile',
+  MANAGER = 'manager',
 }

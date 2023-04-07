@@ -6,12 +6,13 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface TabProps extends React.PropsWithChildren {
   id?: string;
+  href?: string;
   active: boolean;
   onClick?: (e: React.MouseEvent) => void;
   className?: string;
 }
 
-const Tab: React.FC<TabProps> = ({ children, id, active = false, onClick, className }) => {
+const Tab: React.FC<TabProps> = ({ children, id, href, active = false, onClick, className }) => {
   const { isLight } = useThemeContext();
 
   const content = (
@@ -20,10 +21,10 @@ const Tab: React.FC<TabProps> = ({ children, id, active = false, onClick, classN
     </StyledTab>
   );
 
-  if (!id) return content;
+  if (!id && !href) return content;
 
   return (
-    <Link href={`#${id}`} passHref>
+    <Link href={href || `#${id}`} passHref>
       {content}
     </Link>
   );
