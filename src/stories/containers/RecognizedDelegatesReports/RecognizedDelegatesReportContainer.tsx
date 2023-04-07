@@ -13,8 +13,7 @@ import ExpenseReportStatusIndicator from '../TransparencyReport/components/Expen
 import AuditorCommentsContainer from '../TransparencyReport/components/TransparencyAuditorComments/AuditorCommentsContainer/AuditorCommentsContainer';
 import DelegatesActuals from './DelegatesActuals/DelegatesActuals';
 import DelegatesForecast from './DelegatesForecast/DelegatesForecast';
-// import useRecognizedDelegates, { DELEGATES_IDS_ENUM } from './useRecognizedDelegates';
-import useRecognizedDelegatesReport, { DELEGATES_REPORT_IDS_ENUM } from './useRecognizedDelegates';
+import useRecognizedDelegatesReport, { DELEGATES_REPORT_IDS_ENUM } from './useRecognizedDelegatesReport';
 import type { DelegatesReportDto } from '@ses/core/models/dto/delegatesDTO';
 
 type RecognizedDelegatesReportContainerProps = {
