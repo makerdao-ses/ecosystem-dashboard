@@ -1,9 +1,9 @@
 import { RoleEnum } from '../enums/roleEnum';
 import type { UserDTO } from '../models/dto/authDTO';
-import type { DelegatesDto } from '../models/dto/delegatesDTO';
+import type { DelegatesReportDto } from '../models/dto/delegatesDTO';
 import type PermissionManager from './permissionManager';
 
-class DelegatesExtension {
+class DelegatesReportExtension {
   static UPDATE_PERMISSION = 'Delegates/Update';
   permissionManager;
 
@@ -11,7 +11,7 @@ class DelegatesExtension {
     this.permissionManager = permissionManager;
   }
 
-  private getDelegatesId(delegates: DelegatesDto | string): string {
+  private getDelegatesId(delegates: DelegatesReportDto | string): string {
     if (typeof delegates === 'string') {
       return delegates;
     }
@@ -19,7 +19,7 @@ class DelegatesExtension {
     return delegates.id;
   }
 
-  canComment(delegates: DelegatesDto | string, user?: UserDTO): boolean {
+  canComment(delegates: DelegatesReportDto | string, user?: UserDTO): boolean {
     if (!user) {
       user = this.permissionManager.loggedUser;
     }
@@ -31,8 +31,8 @@ class DelegatesExtension {
 
     const id = this.getDelegatesId(delegates);
     return this.permissionManager.hasAnyPermission([
-      DelegatesExtension.UPDATE_PERMISSION,
-      `${DelegatesExtension.UPDATE_PERMISSION}/${id}`,
+      DelegatesReportExtension.UPDATE_PERMISSION,
+      `${DelegatesReportExtension.UPDATE_PERMISSION}/${id}`,
     ]);
   }
 
@@ -49,4 +49,4 @@ class DelegatesExtension {
   }
 }
 
-export default DelegatesExtension;
+export default DelegatesReportExtension;
