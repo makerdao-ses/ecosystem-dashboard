@@ -6,16 +6,16 @@ import { CoreUnitContext } from '@ses/core/context/CoreUnitContext';
 import { featureFlags } from 'feature-flags/feature-flags';
 import React, { useEffect, useState } from 'react';
 import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
-import type { DelegatesReportDto } from '@ses/core/models/dto/delegatesDTO';
+import type { DelegatesDto } from '@ses/core/models/dto/delegatesDTO';
 
 import type { NextPage } from 'next';
 
 type RecognizedDelegatesReportProps = {
-  delegates: DelegatesReportDto;
+  delegates: DelegatesDto;
 };
 
 const RecognizedDelegatesReport: NextPage<RecognizedDelegatesReportProps> = ({ delegates }) => {
-  const [currentDelegatesReport, setCurrentDelegatesReport] = useState<DelegatesReportDto>(delegates);
+  const [currentDelegatesReport, setCurrentDelegatesReport] = useState<DelegatesDto>(delegates);
   useEffect(() => {
     setCurrentDelegatesReport(delegates);
   }, [delegates]);
