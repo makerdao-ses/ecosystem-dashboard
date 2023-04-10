@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import KeyStats from './KeyStats/KeyStats';
 import Range from './Range';
 import TotalDaiExpense from './TotalDaiExpense';
 
@@ -11,12 +12,13 @@ interface Props {
 
 export const TotalAndKeyStatsComponent: React.FC<Props> = ({ totalDAI, start, end }) => (
   <BackgroundContainer>
-    <DescriptionContainer>
-      <ContainerTotalDai>
-        <TotalDaiExpense totalDAI={totalDAI} />
-      </ContainerTotalDai>
-    </DescriptionContainer>
+    <ContainerTotalDai>
+      <TotalDaiExpense totalDAI={totalDAI} />
+    </ContainerTotalDai>
     <Range start={start} end={end} />
+    <KeyContainer>
+      <KeyStats />
+    </KeyContainer>
   </BackgroundContainer>
 );
 
@@ -30,13 +32,14 @@ const BackgroundContainer = styled.div({
   padding: '24px 16px',
   maxWidth: 343,
 });
-const DescriptionContainer = styled.div({
+const ContainerTotalDai = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
   margin: '0 auto',
+  marginBottom: 15,
 });
 
-const ContainerTotalDai = styled.div({
-  marginBottom: 16,
+const KeyContainer = styled.div({
+  marginTop: 16,
 });
