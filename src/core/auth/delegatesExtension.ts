@@ -1,6 +1,6 @@
 import { RoleEnum } from '../enums/roleEnum';
 import type { UserDTO } from '../models/dto/authDTO';
-import type { DelegatesReportDto } from '../models/dto/delegatesDTO';
+import type { DelegatesDto } from '../models/dto/delegatesDTO';
 import type PermissionManager from './permissionManager';
 
 class DelegatesExtension {
@@ -11,7 +11,7 @@ class DelegatesExtension {
     this.permissionManager = permissionManager;
   }
 
-  private getDelegatesId(delegates: DelegatesReportDto | string): string {
+  private getDelegatesId(delegates: DelegatesDto | string): string {
     if (typeof delegates === 'string') {
       return delegates;
     }
@@ -19,7 +19,7 @@ class DelegatesExtension {
     return delegates.id;
   }
 
-  canComment(delegates: DelegatesReportDto | string, user?: UserDTO): boolean {
+  canComment(delegates: DelegatesDto | string, user?: UserDTO): boolean {
     if (!user) {
       user = this.permissionManager.loggedUser;
     }

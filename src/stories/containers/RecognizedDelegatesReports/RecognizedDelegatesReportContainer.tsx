@@ -3,7 +3,7 @@ import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import { CustomPager } from '@ses/components/CustomPager/CustomPager';
 import DelegateSummary from '@ses/components/DelegateSummary/DelegateSummary';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
-import { Tabs } from '@ses/components/Tabs/TabsLegacy';
+import Tabs from '@ses/components/Tabs/Tabs';
 import { CommentActivityContext } from '@ses/core/context/CommentActivityContext';
 import { BudgetStatus } from '@ses/core/models/dto/coreUnitDTO';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
@@ -14,13 +14,13 @@ import AuditorCommentsContainer from '../TransparencyReport/components/Transpare
 import DelegatesActuals from './DelegatesActuals/DelegatesActuals';
 import DelegatesForecast from './DelegatesForecast/DelegatesForecast';
 import useRecognizedDelegatesReport, { DELEGATES_REPORT_IDS_ENUM } from './useRecognizedDelegatesReport';
-import type { DelegatesReportDto } from '@ses/core/models/dto/delegatesDTO';
+import type { DelegatesDto } from '@ses/core/models/dto/delegatesDTO';
 
-type RecognizedDelegatesReportContainerProps = {
-  delegates: DelegatesReportDto;
+type RecognizedDelegatesProps = {
+  delegates: DelegatesDto;
 };
 
-const RecognizedDelegatesReportContainer: React.FC<RecognizedDelegatesReportContainerProps> = ({ delegates }) => {
+const RecognizedDelegatesReportContainer: React.FC<RecognizedDelegatesProps> = ({ delegates }) => {
   const {
     isLight,
     links,
@@ -29,8 +29,6 @@ const RecognizedDelegatesReportContainer: React.FC<RecognizedDelegatesReportCont
     lastUpdateForBudgetStatement,
     showExpenseReportStatusCTA,
     tabItems,
-    tabsIndexNumber,
-    tabsIndex,
     lastVisitHandler,
     currentMonth,
     currentBudgetStatement,
@@ -40,6 +38,8 @@ const RecognizedDelegatesReportContainer: React.FC<RecognizedDelegatesReportCont
     hasPreviousMonth,
     allBudgetStatement,
     comments,
+    selectedTab,
+    onTabChange,
   } = useRecognizedDelegatesReport(delegates);
 
   return (
@@ -86,22 +86,18 @@ const RecognizedDelegatesReportContainer: React.FC<RecognizedDelegatesReportCont
             )}
           </PagerBar>
         </ContainerPagerBar>
+
         <ContainerTabs>
-          <Tabs
-            items={tabItems}
-            currentIndex={tabsIndexNumber}
-            style={{
-              margin: '32px 0',
-            }}
-          />
+          <Tabs tabs={tabItems} onChange={onTabChange} />
         </ContainerTabs>
-        {tabsIndex === DELEGATES_REPORT_IDS_ENUM.ACTUALS && (
+
+        {selectedTab === DELEGATES_REPORT_IDS_ENUM.ACTUALS && (
           <DelegatesActuals budgetStatement={allBudgetStatement} currentMonth={currentMonth} />
         )}
-        {tabsIndex === DELEGATES_REPORT_IDS_ENUM.FORECAST && (
+        {selectedTab === DELEGATES_REPORT_IDS_ENUM.FORECAST && (
           <DelegatesForecast budgetStatement={allBudgetStatement} currentMonth={currentMonth} />
         )}
-        {tabsIndex === DELEGATES_REPORT_IDS_ENUM.COMMENTS && (
+        {selectedTab === DELEGATES_REPORT_IDS_ENUM.COMMENTS && (
           <CommentActivityContext.Provider value={{ lastVisitHandler }}>
             <AuditorCommentsContainer budgetStatement={currentBudgetStatement} comments={comments} mode={'Delegates'} />
           </CommentActivityContext.Provider>
@@ -290,12 +286,12 @@ const SinceDate = styled.div({
 });
 
 const ContainerTabs = styled.div({
-  'div:first-of-type > div:first-of-type > div': {
+  margin: '32px 0',
+
+  '& > div > div > a': {
     paddingBottom: 8,
-  },
-  [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: 2,
-    'div:first-of-type > div:first-of-type > div': {
+
+    [lightTheme.breakpoints.up('table_834')]: {
       paddingBottom: 14,
     },
   },

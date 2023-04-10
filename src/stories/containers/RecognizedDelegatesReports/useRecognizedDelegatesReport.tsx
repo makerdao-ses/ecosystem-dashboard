@@ -7,7 +7,6 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { LinkTypeEnum } from '@ses/core/enums/linkTypeEnum';
 import useBudgetStatementComments from '@ses/core/hooks/useBudgetStatementComments';
 import useBudgetStatementPager from '@ses/core/hooks/useBudgetStatementPager';
-import { useUrlAnchor } from '@ses/core/hooks/useUrlAnchor';
 import { BudgetStatus } from '@ses/core/models/dto/coreUnitDTO';
 import { budgetStatementCommentsCollectionId } from '@ses/core/utils/collectionsIds';
 import { LastVisitHandler } from '@ses/core/utils/lastVisitHandler';
@@ -16,7 +15,7 @@ import { DateTime } from 'luxon';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import CommentsTab from '../../components/Tabs/CommentsTab/CommentsTab';
 import type { TableItems } from '../TransparencyReport/TransparencyReport';
-import type { DelegatesReportDto } from '@ses/core/models/dto/delegatesDTO';
+import type { DelegatesDto } from '@ses/core/models/dto/delegatesDTO';
 
 export enum DELEGATES_REPORT_IDS_ENUM {
   ACTUALS = 'actuals',
@@ -50,51 +49,36 @@ const itemsBreadcrumb = [
   },
   {
     label: 'Recognized Delegates',
-    url: siteRoutes.recognizedDelegateReport,
+    url: siteRoutes.recognizedDelegate,
   },
 ];
 
-const useRecognizedDelegatesReport = (delegates: DelegatesReportDto) => {
+const useRecognizedDelegatesReport = (delegates: DelegatesDto) => {
   const { isLight } = useThemeContext();
-  const [tabsIndex, setTabsIndex] = useState<DELEGATES_REPORT_IDS_ENUM>(DELEGATES_REPORT_IDS_ENUM.ACTUALS);
-  const [tabsIndexNumber, setTabsIndexNumber] = useState<number>(0);
+  const [selectedTab, setSelectedTab] = useState<DELEGATES_REPORT_IDS_ENUM>(DELEGATES_REPORT_IDS_ENUM.ACTUALS);
   const [lastVisitHandler, setLastVisitHandler] = useState<LastVisitHandler>();
   const { permissionManager } = useAuthContext();
   const { isTimestampTrackingAccepted } = useCookiesContextTracking();
-  const anchor = useUrlAnchor();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const allBudgetStatement = delegates?.budgetStatements || [];
 
   const onPrevious = useCallback(() => {
-    if (tabsIndex === DELEGATES_REPORT_IDS_ENUM.COMMENTS) {
+    if (isTimestampTrackingAccepted && selectedTab === DELEGATES_REPORT_IDS_ENUM.COMMENTS) {
       lastVisitHandler?.visit(); // mark the current budget statement as visited before leave
     }
-  }, [lastVisitHandler, tabsIndex]);
+  }, [isTimestampTrackingAccepted, lastVisitHandler, selectedTab]);
 
   const onNext = useCallback(() => {
-    if (tabsIndex === DELEGATES_REPORT_IDS_ENUM.COMMENTS) {
+    if (isTimestampTrackingAccepted && selectedTab === DELEGATES_REPORT_IDS_ENUM.COMMENTS) {
       lastVisitHandler?.visit(); // mark the current budget statement as visited before leave
     }
-  }, [lastVisitHandler, tabsIndex]);
+  }, [isTimestampTrackingAccepted, lastVisitHandler, selectedTab]);
 
   const { currentMonth, currentBudgetStatement, handleNextMonth, handlePreviousMonth, hasNextMonth, hasPreviousMonth } =
     useBudgetStatementPager(delegates, {
       onNext,
       onPrevious,
     });
-
-  useEffect(() => {
-    // change the tabs when anchor changes
-    if (anchor) {
-      const index = Object.values(DELEGATES_REPORT_IDS_ENUM).findIndex((id) => anchor.indexOf(id) > -1);
-      if (index !== -1) {
-        const indexKey = Object.keys(DELEGATES_REPORT_IDS_ENUM)[index];
-
-        setTabsIndex(DELEGATES_REPORT_IDS_ENUM[indexKey as keyof typeof DELEGATES_REPORT_IDS_ENUM]);
-        setTabsIndexNumber(index);
-      }
-    }
-  }, [anchor]);
 
   useEffect(() => {
     // update lastVisitHandler for the current budgetStatement
@@ -110,8 +94,6 @@ const useRecognizedDelegatesReport = (delegates: DelegatesReportDto) => {
     [currentBudgetStatement, delegates]
   );
 
-  // TODO: update when the CTA should be displayed according to the current budget statement
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [showExpenseReportStatusCTA, setShowExpenseReportStatusCTA] = useState<boolean>(false);
   useEffect(() => {
     switch (currentBudgetStatement?.status) {
@@ -123,12 +105,10 @@ const useRecognizedDelegatesReport = (delegates: DelegatesReportDto) => {
     }
   }, [currentBudgetStatement, delegates.id, permissionManager]);
 
-  // TODO: remove next line (eslint disable)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { comments, numbersComments, commentsLastVisitState, updateHasNewComments } = useBudgetStatementComments(
     currentBudgetStatement,
     lastVisitHandler,
-    tabsIndex === DELEGATES_REPORT_IDS_ENUM.COMMENTS
+    selectedTab === DELEGATES_REPORT_IDS_ENUM.COMMENTS
   );
 
   const tabItems: TableItems[] = [
@@ -151,29 +131,21 @@ const useRecognizedDelegatesReport = (delegates: DelegatesReportDto) => {
     },
   ];
 
-  useEffect(() => {
-    if (anchor) {
-      const index = Object.values(DELEGATES_REPORT_IDS_ENUM).findIndex((id) => anchor.indexOf(id) > -1);
-      if (index !== -1) {
-        const indexKey = Object.keys(DELEGATES_REPORT_IDS_ENUM)[index];
-        if (
-          isTimestampTrackingAccepted &&
-          tabsIndex === DELEGATES_REPORT_IDS_ENUM.COMMENTS &&
-          DELEGATES_REPORT_IDS_ENUM[indexKey as keyof typeof DELEGATES_REPORT_IDS_ENUM] !==
-            DELEGATES_REPORT_IDS_ENUM.COMMENTS
-        ) {
-          // changing from "comments tab" to any other tab should mark the budget statement as visited
-          const visit = async () => {
-            const lastVisit = (await lastVisitHandler?.visit()) || DateTime.now().toMillis();
-            await updateHasNewComments(DateTime.fromMillis(lastVisit));
-          };
-          visit();
-        }
-        setTabsIndex(DELEGATES_REPORT_IDS_ENUM[indexKey as keyof typeof DELEGATES_REPORT_IDS_ENUM]);
+  const onTabChange = useCallback(
+    (current?: string, previous?: string) => {
+      setSelectedTab(current as DELEGATES_REPORT_IDS_ENUM);
+
+      if (isTimestampTrackingAccepted && previous === DELEGATES_REPORT_IDS_ENUM.COMMENTS) {
+        // changing from "comments tab" to any other tab should mark the budget statement as visited
+        const visit = async () => {
+          const lastVisit = (await lastVisitHandler?.visit()) || DateTime.now().toMillis();
+          await updateHasNewComments(DateTime.fromMillis(lastVisit));
+        };
+        visit();
       }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [anchor, isTimestampTrackingAccepted]);
+    },
+    [isTimestampTrackingAccepted, lastVisitHandler, updateHasNewComments]
+  );
 
   return {
     isLight,
@@ -181,8 +153,6 @@ const useRecognizedDelegatesReport = (delegates: DelegatesReportDto) => {
     itemsBreadcrumb,
     isMobile,
     tabItems,
-    tabsIndex,
-    tabsIndexNumber,
     showExpenseReportStatusCTA,
     lastUpdateForBudgetStatement,
     lastVisitHandler,
@@ -194,6 +164,8 @@ const useRecognizedDelegatesReport = (delegates: DelegatesReportDto) => {
     hasPreviousMonth,
     allBudgetStatement,
     comments,
+    selectedTab,
+    onTabChange,
   };
 };
 
