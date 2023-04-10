@@ -81,8 +81,8 @@ const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStateme
 
               {actualsBreakdownSelected ? (
                 <AdvancedInnerTable
-                  columns={actualsData.breakdownColumns}
-                  items={actualsData.breakdownItems}
+                  columns={actualsData.breakdownColumnsForActiveTab}
+                  items={actualsData.breakdownItemsForActiveTab}
                   longCode={longCode}
                   style={{ marginTop: 16 }}
                   tablePlaceholder={<TransparencyEmptyTable breakdown longCode={longCode} />}
@@ -94,7 +94,15 @@ const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStateme
                       <SectionTitle level={2} hasIcon={true}>
                         {header}
                       </SectionTitle>
-                      <div>table here...</div>
+                      <div>
+                        <AdvancedInnerTable
+                          columns={actualsData.allBreakdownColumns[header]}
+                          items={actualsData.allBreakdownItems[header]}
+                          longCode={longCode}
+                          style={{ marginTop: 16 }}
+                          tablePlaceholder={<TransparencyEmptyTable breakdown longCode={longCode} />}
+                        />
+                      </div>
                     </div>
                   ))}
                 </BudgetSection>

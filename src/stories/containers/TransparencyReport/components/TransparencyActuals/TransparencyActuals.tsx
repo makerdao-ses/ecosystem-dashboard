@@ -28,8 +28,8 @@ export const TransparencyActuals = (props: Props) => {
   const {
     headerIds,
     breakdownTitleRef,
-    breakdownColumns,
-    breakdownItems,
+    breakdownColumnsForActiveTab,
+    breakdownItemsForActiveTab,
     mainTableColumns,
     mainTableItems,
     breakdownTabs,
@@ -85,8 +85,8 @@ export const TransparencyActuals = (props: Props) => {
 
       {mainTableItems.length > 0 && (
         <AdvancedInnerTable
-          columns={breakdownColumns}
-          items={breakdownItems}
+          columns={breakdownColumnsForActiveTab}
+          items={breakdownItemsForActiveTab}
           longCode={props.longCode}
           style={{ marginBottom: '64px' }}
           tablePlaceholder={<TransparencyEmptyTable breakdown longCode={props.longCode} />}
