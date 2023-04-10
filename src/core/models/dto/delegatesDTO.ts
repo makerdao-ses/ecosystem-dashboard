@@ -1,6 +1,6 @@
 import type { ActivityFeedDto, BudgetStatementDto } from './coreUnitDTO';
 
-export interface DelegatesReportDto {
+export interface DelegatesDto {
   id: string;
   shortCode: string;
   code: string;

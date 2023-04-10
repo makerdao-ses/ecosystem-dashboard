@@ -1,5 +1,5 @@
 import { BudgetStatementBuilder } from '@ses/core/businessLogic/builders/budgetStatementBuilder';
-import { RecognizedDelegatesReportBuilder } from '@ses/core/businessLogic/builders/delegatesReportBuilder';
+import { RecognizedDelegatesBuilder } from '@ses/core/businessLogic/builders/delegatesBuilder';
 import { withoutSBPadding } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AppLayout from '../AppLayout/AppLayout';
@@ -22,7 +22,7 @@ export default {
 
 const variantsArgs = [
   {
-    delegates: new RecognizedDelegatesReportBuilder()
+    delegates: new RecognizedDelegatesBuilder()
       .addBudgetStatement(new BudgetStatementBuilder().withMonth('2023-02').build())
       .build(),
   },

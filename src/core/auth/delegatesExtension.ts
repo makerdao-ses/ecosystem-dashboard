@@ -3,7 +3,7 @@ import type { UserDTO } from '../models/dto/authDTO';
 import type { DelegatesReportDto } from '../models/dto/delegatesDTO';
 import type PermissionManager from './permissionManager';
 
-class DelegatesReportExtension {
+class DelegatesExtension {
   static UPDATE_PERMISSION = 'Delegates/Update';
   permissionManager;
 
@@ -31,8 +31,8 @@ class DelegatesReportExtension {
 
     const id = this.getDelegatesId(delegates);
     return this.permissionManager.hasAnyPermission([
-      DelegatesReportExtension.UPDATE_PERMISSION,
-      `${DelegatesReportExtension.UPDATE_PERMISSION}/${id}`,
+      DelegatesExtension.UPDATE_PERMISSION,
+      `${DelegatesExtension.UPDATE_PERMISSION}/${id}`,
     ]);
   }
 
@@ -49,4 +49,4 @@ class DelegatesReportExtension {
   }
 }
 
-export default DelegatesReportExtension;
+export default DelegatesExtension;
