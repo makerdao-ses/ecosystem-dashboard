@@ -5,19 +5,23 @@ import React from 'react';
 import DelegateExpenseBreakdown from './DelegateExpenseBreakdown';
 import DelegateExpenseTrend from './DelegateExpenseTrend';
 import KeyStats from './KeyStats';
-import TotalDaiExpense from './TotalDaiExpense';
+import TotalAndKeyStatsComponent from './TotalAndkeyStatusComponent';
+import { useRecognizedDelegates } from './useRecognizedDelegates';
 
-const RecognizedDelegatesContainer: React.FC = () => (
-  <PageContainer>
-    <Container>
-      <Title>Recognized Delegates</Title>
-      <TotalDaiExpense />
-      <KeyStats />
-      <DelegateExpenseTrend />
-      <DelegateExpenseBreakdown />
-    </Container>
-  </PageContainer>
-);
+const RecognizedDelegatesContainer: React.FC = () => {
+  const { totalDAI, startMonth, endMonth } = useRecognizedDelegates();
+  return (
+    <PageContainer>
+      <Container>
+        <Title>Recognized Delegates</Title>
+        <TotalAndKeyStatsComponent totalDAI={totalDAI} start={startMonth} end={endMonth} />
+        <KeyStats />
+        <DelegateExpenseTrend />
+        <DelegateExpenseBreakdown />
+      </Container>
+    </PageContainer>
+  );
+};
 
 export default RecognizedDelegatesContainer;
 
@@ -30,4 +34,5 @@ const Title = styled.h1({
   letterSpacing: '0.4px',
   color: '#231536',
   marginTop: 32,
+  marginBottom: 32,
 });
