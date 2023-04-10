@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import Skeleton from '@mui/material/Skeleton';
+import { siteRoutes } from '@ses/config/routes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
@@ -88,7 +89,7 @@ const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
   }
 
   return (
-    <Link href={`/core-unit/${coreUnit?.shortCode}${queryStrings}`} passHref>
+    <Link href={`${siteRoutes.coreUnitReports(coreUnit.shortCode)}/${queryStrings}`} passHref>
       <CuCard>
         <Container isLight={isLight}>
           <Summary>
@@ -122,7 +123,7 @@ const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
             </Expenditure>
           </Link>
           <Team>
-            <Title isLight={isLight}>Team Members</Title>
+            <Title isLight={isLight}>Team</Title>
             <CuTableColumnTeamMember
               members={getFacilitatorsFromCoreUnit(coreUnit)}
               fte={getFTEsFromCoreUnit(coreUnit)}
