@@ -13,6 +13,7 @@ import type { CSSProperties } from 'react';
 export interface TabItem {
   item: string | JSX.Element;
   id: string;
+  href?: string;
 }
 
 export interface TabsProps {
@@ -47,6 +48,10 @@ export interface TabsProps {
   };
   // translate the anchor to the actual id. By default both are equals
   anchorToActualId?: (anchor: string) => string;
+  // is this `Tabs` self managed or managed by the user (dev)
+  controlled?: boolean;
+  // selected tab when this `Tabs` are controlled (true)
+  selectedTabId?: string;
 }
 
 const Tabs: React.FC<TabsProps> = ({
@@ -66,6 +71,8 @@ const Tabs: React.FC<TabsProps> = ({
     compressed: 'compressed',
   },
   anchorToActualId = (anchor) => anchor,
+  controlled = false,
+  selectedTabId,
 }) => {
   const { isLight } = useThemeContext();
   const anchor = useUrlAnchor();
@@ -96,27 +103,29 @@ const Tabs: React.FC<TabsProps> = ({
   }, [anchor, anchorToActualId, compressedTabs, expanded, tabs]);
 
   useEffect(() => {
-    // update active id
-    if (anchor && isValidAnchor()) {
-      const actualId = anchorToActualId(anchor);
-      if (
-        actualId !== activeId ||
-        (expanded && actualId === tabs?.[0]?.id) ||
-        (!expanded && actualId === compressedTabs?.[0]?.id)
-      ) {
-        onChange?.(actualId, activeId);
-      }
-      if (expanded) {
-        setExpandedActiveId(actualId);
+    if (!controlled) {
+      // update active id
+      if (anchor && isValidAnchor()) {
+        const actualId = anchorToActualId(anchor);
+        if (
+          actualId !== activeId ||
+          (expanded && actualId === tabs?.[0]?.id) ||
+          (!expanded && actualId === compressedTabs?.[0]?.id)
+        ) {
+          onChange?.(actualId, activeId);
+        }
+        if (expanded) {
+          setExpandedActiveId(actualId);
+        } else {
+          setCompressedActiveId(actualId);
+        }
       } else {
-        setCompressedActiveId(actualId);
-      }
-    } else {
-      // select the first tab
-      if (expanded) {
-        setExpandedActiveId(tabs?.[0]?.id);
-      } else {
-        setCompressedActiveId(compressedTabs?.[0]?.id);
+        // select the first tab
+        if (expanded) {
+          setExpandedActiveId(tabs?.[0]?.id);
+        } else {
+          setCompressedActiveId(compressedTabs?.[0]?.id);
+        }
       }
     }
   }, [
@@ -125,6 +134,7 @@ const Tabs: React.FC<TabsProps> = ({
     anchorToActualId,
     compressedActiveId,
     compressedTabs,
+    controlled,
     expanded,
     expandedActiveId,
     isValidAnchor,
@@ -170,7 +180,14 @@ const Tabs: React.FC<TabsProps> = ({
         {activeTabs?.map((element, index) => (
           <StyledTab
             id={element.id}
-            active={expanded ? element.id === expandedActiveId : element.id === compressedActiveId}
+            href={element.href}
+            active={
+              controlled
+                ? element.id === selectedTabId
+                : expanded
+                ? element.id === expandedActiveId
+                : element.id === compressedActiveId
+            }
             isFirst={index === 0}
             additionalStyles={styleForTab}
             key={`${element?.item}-${index}`}
