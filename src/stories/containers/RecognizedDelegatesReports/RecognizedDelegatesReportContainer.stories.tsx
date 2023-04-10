@@ -3,13 +3,13 @@ import { RecognizedDelegatesBuilder } from '@ses/core/businessLogic/builders/del
 import { withoutSBPadding } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AppLayout from '../AppLayout/AppLayout';
-import RecognizedDelegatesContainer from './RecognizedDelegatesContainer';
+import RecognizedDelegatesReportContainer from './RecognizedDelegatesReportContainer';
 import type { ComponentMeta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
 export default {
-  title: 'Pages/Recognized Delegates',
-  component: RecognizedDelegatesContainer,
+  title: 'Pages/Recognized Delegates Report',
+  component: RecognizedDelegatesReportContainer,
   decorators: [withoutSBPadding],
   parameters: {
     chromatic: {
@@ -18,7 +18,7 @@ export default {
     },
     date: '2023-02-23T04:02:02Z',
   },
-} as ComponentMeta<typeof RecognizedDelegatesContainer>;
+} as ComponentMeta<typeof RecognizedDelegatesReportContainer>;
 
 const variantsArgs = [
   {
@@ -31,7 +31,7 @@ const variantsArgs = [
 export const [[LightMode, DarkMode]] = createThemeModeVariants(
   (props) => (
     <AppLayout>
-      <RecognizedDelegatesContainer {...props} />
+      <RecognizedDelegatesReportContainer {...props} />
     </AppLayout>
   ),
   variantsArgs

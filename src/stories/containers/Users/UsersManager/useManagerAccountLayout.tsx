@@ -7,7 +7,7 @@ import { ParenthesisNumber } from '../../TransparencyReport/TransparencyReport';
 import { ManagerTabs } from './managerTabsEnum';
 import { QUERY_USERS } from './userManagerAPI';
 import type { UserDTO } from '../../../../core/models/dto/authDTO';
-import type { TabItem } from '../../../components/Tabs/Tabs';
+import type { TabItem } from '@ses/components/Tabs/Tabs';
 
 export const useManagerAccountLayout = () => {
   const { hasToken, authToken, isAdmin } = useAuthContext();

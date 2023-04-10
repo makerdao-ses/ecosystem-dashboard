@@ -30,7 +30,7 @@ const ByBudgetTableRow: React.FC<ByBudgetTableRowProps> = ({
     rowType === 'coreUnit'
       ? siteRoutes.coreUnitReports(expense.shortCode ?? '')
       : rowType === 'delegate' || expense.shortCode === 'DEL'
-      ? siteRoutes.recognizedDelegate
+      ? siteRoutes.recognizedDelegateReport
       : siteRoutes.coreUnitsOverview;
 
   return (

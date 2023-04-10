@@ -6,6 +6,7 @@ export interface FeatureFlagsInterface {
   FEATURE_MKR_VESTING: boolean; // disable MKR Vesting tab in the expense reports tab
   FEATURE_AUDIT_REPORTS: boolean; // disable Audit Reports tab in the expense reports tab
   FEATURE_FINANCES_OVERVIEW: boolean; // disable Finances Overview page
-  FEATURE_RECOGNIZED_DELEGATES: boolean; // disable Finances Delegates page
+  FEATURE_RECOGNIZED_DELEGATES_REPORT: boolean; // disable Finances Delegates Report page
   FEATURE_TRANSPARENCY_COMMENTS: boolean; // disable Comments Tab
+  FEATURE_RECOGNIZED_DELEGATES: boolean; // disable  Recognized Delegates page
 }

@@ -173,7 +173,6 @@ const Tabs: React.FC<TabsProps> = ({
     onExpand?.();
   };
 
-  console.log(controlled, selectedTabId);
   const activeTabs = expanded ? tabs : compressedTabs;
   return (
     <Wrapper className="no-select">

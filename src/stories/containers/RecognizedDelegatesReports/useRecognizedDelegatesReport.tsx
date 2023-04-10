@@ -17,7 +17,7 @@ import CommentsTab from '../../components/Tabs/CommentsTab/CommentsTab';
 import type { TableItems } from '../TransparencyReport/TransparencyReport';
 import type { DelegatesDto } from '@ses/core/models/dto/delegatesDTO';
 
-export enum DELEGATES_IDS_ENUM {
+export enum DELEGATES_REPORT_IDS_ENUM {
   ACTUALS = 'actuals',
   FORECAST = 'forecast',
   COMMENTS = 'comments',
@@ -53,9 +53,9 @@ const itemsBreadcrumb = [
   },
 ];
 
-const useRecognizedDelegates = (delegates: DelegatesDto) => {
+const useRecognizedDelegatesReport = (delegates: DelegatesDto) => {
   const { isLight } = useThemeContext();
-  const [selectedTab, setSelectedTab] = useState<DELEGATES_IDS_ENUM>(DELEGATES_IDS_ENUM.ACTUALS);
+  const [selectedTab, setSelectedTab] = useState<DELEGATES_REPORT_IDS_ENUM>(DELEGATES_REPORT_IDS_ENUM.ACTUALS);
   const [lastVisitHandler, setLastVisitHandler] = useState<LastVisitHandler>();
   const { permissionManager } = useAuthContext();
   const { isTimestampTrackingAccepted } = useCookiesContextTracking();
@@ -63,13 +63,13 @@ const useRecognizedDelegates = (delegates: DelegatesDto) => {
   const allBudgetStatement = delegates?.budgetStatements || [];
 
   const onPrevious = useCallback(() => {
-    if (isTimestampTrackingAccepted && selectedTab === DELEGATES_IDS_ENUM.COMMENTS) {
+    if (isTimestampTrackingAccepted && selectedTab === DELEGATES_REPORT_IDS_ENUM.COMMENTS) {
       lastVisitHandler?.visit(); // mark the current budget statement as visited before leave
     }
   }, [isTimestampTrackingAccepted, lastVisitHandler, selectedTab]);
 
   const onNext = useCallback(() => {
-    if (isTimestampTrackingAccepted && selectedTab === DELEGATES_IDS_ENUM.COMMENTS) {
+    if (isTimestampTrackingAccepted && selectedTab === DELEGATES_REPORT_IDS_ENUM.COMMENTS) {
       lastVisitHandler?.visit(); // mark the current budget statement as visited before leave
     }
   }, [isTimestampTrackingAccepted, lastVisitHandler, selectedTab]);
@@ -108,17 +108,17 @@ const useRecognizedDelegates = (delegates: DelegatesDto) => {
   const { comments, numbersComments, commentsLastVisitState, updateHasNewComments } = useBudgetStatementComments(
     currentBudgetStatement,
     lastVisitHandler,
-    selectedTab === DELEGATES_IDS_ENUM.COMMENTS
+    selectedTab === DELEGATES_REPORT_IDS_ENUM.COMMENTS
   );
 
   const tabItems: TableItems[] = [
     {
       item: 'Actuals',
-      id: DELEGATES_IDS_ENUM.ACTUALS,
+      id: DELEGATES_REPORT_IDS_ENUM.ACTUALS,
     },
     {
       item: 'Forecast',
-      id: DELEGATES_IDS_ENUM.FORECAST,
+      id: DELEGATES_REPORT_IDS_ENUM.FORECAST,
     },
     {
       item: (
@@ -127,15 +127,15 @@ const useRecognizedDelegates = (delegates: DelegatesDto) => {
           numbersComments={numbersComments}
         />
       ),
-      id: DELEGATES_IDS_ENUM.COMMENTS,
+      id: DELEGATES_REPORT_IDS_ENUM.COMMENTS,
     },
   ];
 
   const onTabChange = useCallback(
     (current?: string, previous?: string) => {
-      setSelectedTab(current as DELEGATES_IDS_ENUM);
+      setSelectedTab(current as DELEGATES_REPORT_IDS_ENUM);
 
-      if (isTimestampTrackingAccepted && previous === DELEGATES_IDS_ENUM.COMMENTS) {
+      if (isTimestampTrackingAccepted && previous === DELEGATES_REPORT_IDS_ENUM.COMMENTS) {
         // changing from "comments tab" to any other tab should mark the budget statement as visited
         const visit = async () => {
           const lastVisit = (await lastVisitHandler?.visit()) || DateTime.now().toMillis();
@@ -169,4 +169,4 @@ const useRecognizedDelegates = (delegates: DelegatesDto) => {
   };
 };
 
-export default useRecognizedDelegates;
+export default useRecognizedDelegatesReport;

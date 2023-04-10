@@ -18,7 +18,7 @@ const variantsArgs = [
       },
       {
         label: 'Recognized Delegates',
-        url: siteRoutes.recognizedDelegate,
+        url: siteRoutes.recognizedDelegateReport,
       },
     ],
     isLight: true,
@@ -32,7 +32,7 @@ const variantsArgs = [
       },
       {
         label: 'Recognized Delegates',
-        url: siteRoutes.recognizedDelegate,
+        url: siteRoutes.recognizedDelegateReport,
       },
     ],
     isLight: true,
