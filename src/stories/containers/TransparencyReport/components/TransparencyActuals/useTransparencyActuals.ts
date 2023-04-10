@@ -256,17 +256,17 @@ export const useTransparencyActuals = (
       allBreakdownColumns[wallet?.name] = getActualsBreakdownColumns(wallet);
     }
 
-    return [allBreakdownColumns[currentWallet.name], allBreakdownColumns];
-  }, [currentWallet.name, wallets]);
+    return [allBreakdownColumns[currentWallet?.name], allBreakdownColumns];
+  }, [currentWallet, wallets]);
 
   const allBreakdownItems = useMemo(() => {
     const result: { [key: string]: InnerTableRow[] } = {};
 
     for (const wallet of wallets) {
-      result[wallet.name] = getActualsBreakdownItemsForWallet(
+      result[wallet?.name] = getActualsBreakdownItemsForWallet(
         wallet.address as string,
         wallets,
-        allBreakdownColumns[wallet.name],
+        allBreakdownColumns[wallet?.name],
         currentMonth
       );
     }
@@ -275,8 +275,8 @@ export const useTransparencyActuals = (
   }, [allBreakdownColumns, currentMonth, wallets]);
 
   const breakdownItemsForActiveTab = useMemo(
-    () => allBreakdownItems[currentWallet.name as string],
-    [allBreakdownItems, currentWallet.name]
+    () => allBreakdownItems[currentWallet?.name as string],
+    [allBreakdownItems, currentWallet]
   );
 
   return {
