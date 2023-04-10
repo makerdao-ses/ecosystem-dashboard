@@ -4,7 +4,7 @@ import PageContainer from '@ses/components/Container/PageContainer';
 import React from 'react';
 import DelegateExpenseBreakdown from './DelegateExpenseBreakdown';
 import DelegateExpenseTrend from './DelegateExpenseTrend';
-import KeyStats from './KeyStats';
+
 import TotalAndKeyStatsComponent from './TotalAndkeyStatusComponent';
 import { useRecognizedDelegates } from './useRecognizedDelegates';
 
@@ -15,7 +15,6 @@ const RecognizedDelegatesContainer: React.FC = () => {
       <Container>
         <Title>Recognized Delegates</Title>
         <TotalAndKeyStatsComponent totalDAI={totalDAI} start={startMonth} end={endMonth} />
-        <KeyStats />
         <DelegateExpenseTrend />
         <DelegateExpenseBreakdown />
       </Container>
