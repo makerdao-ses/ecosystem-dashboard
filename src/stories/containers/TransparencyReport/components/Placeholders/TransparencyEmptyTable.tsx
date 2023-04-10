@@ -467,7 +467,7 @@ const MobileWrapper = styled.div<{ breakdown: boolean }>(({ breakdown = false })
   position: 'relative',
   width: '100%',
   height: breakdown ? '215px' : '253px',
-  // marginBottom: '64px',
+
   '@media (min-width: 834px)': {
     display: 'none',
   },
@@ -480,7 +480,7 @@ const Wrapper = styled.div({
   position: 'relative',
   height: '329px',
   width: '100%',
-  // marginBottom: '64px',
+
   '@media (min-width: 834px)': {
     display: 'flex',
   },

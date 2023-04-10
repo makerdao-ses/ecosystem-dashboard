@@ -5,7 +5,6 @@ import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import Tabs from '@ses/components/Tabs/Tabs';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { MAKER_BURN_LINK } from '@ses/core/utils/const';
-import lightTheme from '@ses/styles/theme/light';
 import React, { useState } from 'react';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import { LinkDescription } from '../TransparencyActuals/TransparencyActuals';
@@ -128,18 +127,13 @@ const BudgetReportWrapper = styled.div({
 const ActualsSection = styled.div({});
 
 const ActualViewOnChainLink = styled(CustomLink)({
-  flexWrap: 'wrap',
   color: '#447AFB',
   letterSpacing: '0.3px',
   lineHeight: '18px',
   marginLeft: 0,
   whiteSpace: 'break-spaces',
   display: 'inline-block',
-  marginBottom: 0,
-
-  [lightTheme.breakpoints.up('table_834')]: {
-    marginBottom: 32,
-  },
+  marginBottom: 32,
 });
 
 const BudgetDateTitle = styled.h1<WithIsLight>(({ isLight }) => ({

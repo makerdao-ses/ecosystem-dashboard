@@ -42,7 +42,6 @@ export const TransparencyActuals = (props: Props) => {
         <CustomLink
           href={`${MAKER_BURN_LINK}/${props.longCode}`}
           style={{
-            flexWrap: 'wrap',
             color: '#447AFB',
             letterSpacing: '0.3px',
             lineHeight: '18px',
