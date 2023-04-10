@@ -45,7 +45,7 @@ const variantsArgs = [
       },
       {
         label: 'Recognized Delegates',
-        url: siteRoutes.recognizedDelegate,
+        url: siteRoutes.recognizedDelegateReport,
       },
     ],
   },
