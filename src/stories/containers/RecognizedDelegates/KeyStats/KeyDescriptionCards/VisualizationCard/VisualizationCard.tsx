@@ -17,7 +17,7 @@ const VisualizationCard: React.FC<Props> = ({ percent }) => (
     </Legend>
     <ContainerBar>
       <BarPercent>
-        <RelativeDelegateBar otherExpenses={343434} recognizedDelegates={234233} totalDai={95453435353} />
+        <RelativeDelegateBar otherExpenses={90} recognizedDelegates={15} />
       </BarPercent>
       <BarDescription>
         <NumberPercent>{`${percent}%`}</NumberPercent>
