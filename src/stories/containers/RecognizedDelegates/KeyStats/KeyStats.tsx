@@ -4,6 +4,7 @@ import MedianAnnualDai from './KeyDescriptionCards/MedianAnnualDai';
 import PercentageTotalCard from './KeyDescriptionCards/PercentageTotalCard';
 import ShadowDelegatesCard from './KeyDescriptionCards/ShadowDelegatesCard';
 import TotalRecognizedDelegatesCard from './KeyDescriptionCards/TotalRecognizedDelegatesCard';
+import VisualizationCard from './KeyDescriptionCards/VisualizationCard/VisualizationCard';
 
 const KeyStats = () => (
   <Container>
@@ -17,6 +18,8 @@ const KeyStats = () => (
         <MedianAnnualDai annual="89,928" />
         <PercentageTotalCard percent="4.22%" />
       </CardRow>
+
+      <VisualizationCard percent={4.22} totalDai={4353453453} />
     </ContainerCards>
   </Container>
 );
