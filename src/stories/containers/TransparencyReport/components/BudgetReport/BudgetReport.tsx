@@ -89,8 +89,8 @@ const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStateme
                 />
               ) : (
                 <BudgetSection level={2}>
-                  {actualsData.breakdownTabs.map((header) => (
-                    <div key={header}>
+                  {actualsData.breakdownTabs.map((header, index) => (
+                    <BudgetSubsectionContainer isFirst={index === 0} key={header}>
                       <SectionTitle level={2} hasIcon={true}>
                         {header}
                       </SectionTitle>
@@ -100,10 +100,14 @@ const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStateme
                           items={actualsData.allBreakdownItems[header]}
                           longCode={longCode}
                           style={{ marginTop: 16 }}
-                          tablePlaceholder={<TransparencyEmptyTable breakdown longCode={longCode} />}
+                          tablePlaceholder={
+                            <div style={{ marginTop: 16 }}>
+                              <TransparencyEmptyTable breakdown longCode={longCode} />
+                            </div>
+                          }
                         />
                       </div>
-                    </div>
+                    </BudgetSubsectionContainer>
                   ))}
                 </BudgetSection>
               )}
@@ -117,7 +121,9 @@ const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStateme
 
 export default BudgetReport;
 
-const BudgetReportWrapper = styled.div({});
+const BudgetReportWrapper = styled.div({
+  marginBottom: 32,
+});
 
 const ActualsSection = styled.div({});
 
@@ -150,3 +156,5 @@ const TitleSpacer = styled.div({
   marginTop: 32,
   marginBottom: 16,
 });
+
+const BudgetSubsectionContainer = styled.div<{ isFirst: boolean }>(({ isFirst }) => (isFirst ? {} : { marginTop: 24 }));

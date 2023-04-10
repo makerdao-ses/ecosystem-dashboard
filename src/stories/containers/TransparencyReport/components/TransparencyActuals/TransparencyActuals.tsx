@@ -67,6 +67,11 @@ export const TransparencyActuals = (props: Props) => {
         style={{ marginBottom: '64px' }}
         cardsTotalPosition="top"
         longCode={props.longCode}
+        tablePlaceholder={
+          <div style={{ marginBottom: 64 }}>
+            <TransparencyEmptyTable longCode={props.longCode} />
+          </div>
+        }
       />
       {mainTableItems.length > 0 && (
         <Title isLight={isLight} ref={breakdownTitleRef}>
@@ -89,7 +94,11 @@ export const TransparencyActuals = (props: Props) => {
           items={breakdownItemsForActiveTab}
           longCode={props.longCode}
           style={{ marginBottom: '64px' }}
-          tablePlaceholder={<TransparencyEmptyTable breakdown longCode={props.longCode} />}
+          tablePlaceholder={
+            <div style={{ marginBottom: 64 }}>
+              <TransparencyEmptyTable breakdown longCode={props.longCode} />
+            </div>
+          }
         />
       )}
     </Container>
