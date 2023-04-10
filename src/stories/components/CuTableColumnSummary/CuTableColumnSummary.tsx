@@ -161,17 +161,17 @@ export const CuTableColumnSummary = ({
 
 const Container = styled.a({
   display: 'flex',
-  width: '100%',
+  width: 'fit-content',
   alignItems: 'stretch',
   boxSizing: 'border-box',
   cursor: 'pointer',
+  textDecoration: 'none',
   '@media (min-width: 834px)': {
     padding: '8px 0 16px',
   },
   '@media (min-width: 1194px)': {
     padding: '24px 16px',
   },
-  textDecoration: 'none',
 });
 
 const CircleContainer = styled.div({

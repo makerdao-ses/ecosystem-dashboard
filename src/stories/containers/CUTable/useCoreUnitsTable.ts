@@ -155,7 +155,7 @@ export const useCoreUnitsTable = () => {
       hasSort: true,
     },
     {
-      header: 'Team Members',
+      header: 'Team',
       justifyContent: desktop ? 'center' : 'flex-start',
       cellRender: renderTeamMember,
       onClick: onClickRow,
