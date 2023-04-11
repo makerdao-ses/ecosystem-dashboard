@@ -1,18 +1,21 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import DelegateExpenseBreakdownCard from './DelegateExpenseBreakdownCard';
-import type { LinkModel } from '@ses/components/CuTableColumnLinks/CuTableColumnLinks';
+import type { DelegateDataCard } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  imageUrl: string;
-  walletName: string;
-  links: LinkModel[];
+  arrayOfDelegate: DelegateDataCard[];
+  totalDai: number;
 }
 
-const DelegateExpenseBreakdown: React.FC<Props> = ({ imageUrl, links, walletName }) => (
+const DelegateExpenseBreakdown: React.FC<Props> = ({ arrayOfDelegate, totalDai }) => (
   <Container>
     <Title>Delegate Expense Breakdown</Title>
-    <DelegateExpenseBreakdownCard imageUrl={imageUrl} walletName={walletName} links={links} />
+    <ContainerBreakdown>
+      {arrayOfDelegate.map((delegate, index) => (
+        <DelegateExpenseBreakdownCard delegateCard={delegate} totalDai={totalDai} key={index} />
+      ))}
+    </ContainerBreakdown>
   </Container>
 );
 
@@ -35,9 +38,8 @@ const Title = styled.h2({
   marginBottom: 24,
 });
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const CardContainer = styled.div({
-  // marginTop: 24,
-  // display: 'flex',
-  // flex: 1,
+const ContainerBreakdown = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 24,
 });

@@ -9,14 +9,15 @@ import GenericDelegateCard from '../GenericDelegateCard';
 import DelegateBarPercentTotal from './DelegateBarPercentTotal';
 import { DelegateSocialLinks } from './DelegateSocialLink';
 import type { LinkModel } from '@ses/components/CuTableColumnLinks/CuTableColumnLinks';
+import type { DelegateDataCard } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  walletName: string;
-  imageUrl: string;
-  links?: LinkModel[];
+  delegateCard: DelegateDataCard;
+  totalDai: number;
 }
 
-const DelegateExpenseBreakdownCard: React.FC<Props> = ({ walletName, imageUrl, links }) => {
+const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai }) => {
+  const percent = (delegateCard.numberDai * 100) / totalDai;
   const { isLight } = useThemeContext();
   return (
     <ExtendedGenericDelegate>
@@ -25,19 +26,19 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ walletName, imageUrl, l
           <CircleAvatar
             width="48px"
             height="48px"
-            name={walletName || 'Wallet'}
-            image={imageUrl}
+            name={delegateCard.walletName || 'Wallet'}
+            image={delegateCard.imageUrl}
             style={{
               boxShadow: isLight ? '2px 4px 7px rgba(26, 171, 155, 0.25)' : '2px 4px 7px rgba(26, 171, 155, 0.25)',
             }}
           />
           <NameAddressColumn>
-            <Name>Flip Flop Flap Delegate LLC</Name>
-            <Address>0x86914...2e02</Address>
+            <Name>{delegateCard.walletName}</Name>
+            <Address>{delegateCard.address}</Address>
           </NameAddressColumn>
         </WalletAvatar>
         <WalletLink>
-          <ArrowLink fill={isLight ? '#447AFB' : '#626472'} />
+          <ArrowLink fill={isLight ? '#447AFB' : '#626472'} href={delegateCard.address} />
         </WalletLink>
       </AvatarSection>
       <DescriptionSection>
@@ -50,9 +51,9 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ walletName, imageUrl, l
                 width: 140,
               }}
             >
-              <DelegateBarPercentTotal numberDai={685} totalDai={1000} />
+              <DelegateBarPercentTotal numberDai={delegateCard.numberDai} totalDai={totalDai} />
             </div>
-            <PercentNumber>32%</PercentNumber>
+            <PercentNumber>{Math.trunc(percent || 0)}</PercentNumber>
           </PercentBarContainer>
         </ContainerBar>
         <ContainerTotal>
@@ -62,9 +63,9 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ walletName, imageUrl, l
           </Total>
         </ContainerTotal>
       </DescriptionSection>
-      {links && (
+      {delegateCard.links && (
         <SocialIconsSection>
-          <DelegateSocialLinks links={links} fillDark="#ADAFD4" />
+          <DelegateSocialLinks links={delegateCard.links} fillDark="#ADAFD4" />
         </SocialIconsSection>
       )}
     </ExtendedGenericDelegate>
