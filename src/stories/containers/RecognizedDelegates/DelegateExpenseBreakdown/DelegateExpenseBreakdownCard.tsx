@@ -156,6 +156,7 @@ const TotalTitle = styled.div({
   textAlign: 'end',
 });
 const Total = styled.div({
+  display: 'flex',
   fontWeight: 500,
   fontSize: '14px',
   lineHeight: '17px',
