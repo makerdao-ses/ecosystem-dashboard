@@ -161,19 +161,17 @@ const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStateme
                     <SectionTitle level={2} hasIcon={true}>
                       {header}
                     </SectionTitle>
-                    <div>
-                      <AdvancedInnerTable
-                        columns={forecastData.allBreakdownColumns[header]}
-                        items={forecastData.allBreakdownItems[header]}
-                        longCode={longCode}
-                        style={{ marginTop: 16 }}
-                        tablePlaceholder={
-                          <div style={{ marginTop: 16 }}>
-                            <TransparencyEmptyTable breakdown longCode={longCode} />
-                          </div>
-                        }
-                      />
-                    </div>
+                    <AdvancedInnerTable
+                      columns={forecastData.allBreakdownColumns[header]}
+                      items={forecastData.allBreakdownItems[header]}
+                      longCode={longCode}
+                      style={{ marginTop: 16 }}
+                      tablePlaceholder={
+                        <div style={{ marginTop: 16 }}>
+                          <TransparencyEmptyTable breakdown longCode={longCode} />
+                        </div>
+                      }
+                    />
                   </BudgetSubsectionContainer>
                 ))}
               </BudgetSection>
