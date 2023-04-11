@@ -18,6 +18,7 @@ export const WalletTableCell = (props: WalletTableCellProps) => {
   return (
     <Container>
       <CircleAvatar
+        className="circle-avatar"
         width={'32px'}
         height={'32px'}
         name={props.address ?? ''}

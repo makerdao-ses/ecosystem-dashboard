@@ -23,14 +23,12 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
     <ExtendedGenericDelegate>
       <AvatarSection>
         <WalletAvatar>
-          <CircleAvatar
+          <CircleAvatarExtended
+            isLight={isLight}
             width="48px"
             height="48px"
             name={delegateCard.walletName || 'Wallet'}
             image={delegateCard.imageUrl}
-            style={{
-              boxShadow: isLight ? '2px 4px 7px rgba(26, 171, 155, 0.25)' : '2px 4px 7px rgba(26, 171, 155, 0.25)',
-            }}
           />
           <NameAddressColumn>
             <Name>{delegateCard.walletName}</Name>
@@ -45,15 +43,10 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
         <ContainerBar>
           <PercentTitle>% of Total</PercentTitle>
           <PercentBarContainer>
-            <div
-              style={{
-                marginRight: 4,
-                width: 140,
-              }}
-            >
+            <ContainerBarDelegate>
               <DelegateBarPercentTotal numberDai={delegateCard.numberDai} totalDai={totalDai} />
-            </div>
-            <PercentNumber>{Math.trunc(percent || 0)}</PercentNumber>
+            </ContainerBarDelegate>
+            <PercentNumber>{Math.trunc(percent || 0)}%</PercentNumber>
           </PercentBarContainer>
         </ContainerBar>
         <ContainerTotal>
@@ -199,3 +192,12 @@ const SocialIconsSection = styled.div({
   flexDirection: 'row',
   margin: '0 auto',
 });
+
+const ContainerBarDelegate = styled.div({
+  marginRight: 4,
+  width: 140,
+});
+
+const CircleAvatarExtended = styled(CircleAvatar)<{ isLight?: boolean }>(({ isLight }) => ({
+  boxShadow: isLight ? '2px 4px 7px rgba(26, 171, 155, 0.25)' : '2px 4px 7px rgba(26, 171, 155, 0.25)',
+}));

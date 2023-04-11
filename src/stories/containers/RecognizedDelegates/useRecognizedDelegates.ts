@@ -6,6 +6,10 @@ export const useRecognizedDelegates = () => {
   const totalDAI = Math.trunc(17892312 || 0).toLocaleString('es-US');
   const startMonth = 'Nov 2021';
   const endMonth = 'Jun 2023';
+  const totalDelegates = 23;
+  const shadowTotal = 43;
+  const mediaAnnual = 89928;
+  const percent = 4.22;
   const linksCardOne: LinkModel[] = [
     {
       linkType: LinkTypeEnum.Forum,
@@ -128,5 +132,9 @@ export const useRecognizedDelegates = () => {
     startMonth,
     endMonth,
     arrayOfDelegate,
+    totalDelegates,
+    shadowTotal,
+    percent,
+    mediaAnnual,
   };
 };
