@@ -125,8 +125,9 @@ const DescriptionSection = styled.div({
   flexDirection: 'row',
   justifyContent: 'space-between',
   marginBottom: 24,
-  marginLeft: 6,
+  marginLeft: 8,
   marginRight: 8,
+  marginTop: 1,
 });
 const ContainerBar = styled.div({
   display: 'flex',
