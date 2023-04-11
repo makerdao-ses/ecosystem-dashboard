@@ -1,15 +1,27 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import DelegateExpenseBreakdownCard from './DelegateExpenseBreakdownCard';
+import type { LinkModel } from '@ses/components/CuTableColumnLinks/CuTableColumnLinks';
 
-const DelegateExpenseBreakdown = () => (
-  <div>
+interface Props {
+  imageUrl: string;
+  walletName: string;
+  links: LinkModel[];
+}
+
+const DelegateExpenseBreakdown: React.FC<Props> = ({ imageUrl, links, walletName }) => (
+  <Container>
     <Title>Delegate Expense Breakdown</Title>
-
-    <CardContainer>Card</CardContainer>
-  </div>
+    <DelegateExpenseBreakdownCard imageUrl={imageUrl} walletName={walletName} links={links} />
+  </Container>
 );
 
 export default DelegateExpenseBreakdown;
+
+const Container = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+});
 
 const Title = styled.h2({
   fontFamily: 'Inter, sans-serif',
@@ -17,13 +29,15 @@ const Title = styled.h2({
   fontWeight: 600,
   fontSize: '18px',
   lineHeight: '22px',
-
   letterSpacing: '0.75px',
   color: '#231536',
   marginTop: 0,
-  marginBottom: 0,
+  marginBottom: 24,
 });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const CardContainer = styled.div({
-  marginTop: 24,
+  // marginTop: 24,
+  // display: 'flex',
+  // flex: 1,
 });

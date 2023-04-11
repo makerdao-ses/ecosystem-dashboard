@@ -9,7 +9,7 @@ import TotalAndKeyStatsComponent from './TotalAndkeyStatusComponent';
 import { useRecognizedDelegates } from './useRecognizedDelegates';
 
 const RecognizedDelegatesContainer: React.FC = () => {
-  const { totalDAI, startMonth, endMonth } = useRecognizedDelegates();
+  const { totalDAI, startMonth, endMonth, links } = useRecognizedDelegates();
   return (
     <PageContainer>
       <Container>
@@ -19,7 +19,11 @@ const RecognizedDelegatesContainer: React.FC = () => {
           <DelegateExpenseTrend />
         </ContainerTrend>
         <ContainerBreakdown>
-          <DelegateExpenseBreakdown />
+          <DelegateExpenseBreakdown
+            imageUrl="https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg"
+            walletName="Flip Flop Flap Delegate LLC"
+            links={links}
+          />
         </ContainerBreakdown>
       </Container>
     </PageContainer>
