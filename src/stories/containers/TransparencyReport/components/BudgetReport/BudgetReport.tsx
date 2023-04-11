@@ -9,6 +9,7 @@ import React, { useState } from 'react';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import { LinkDescription } from '../TransparencyActuals/TransparencyActuals';
 import { useTransparencyActuals } from '../TransparencyActuals/useTransparencyActuals';
+import { useTransparencyForecast } from '../TransparencyForecast/useTransparencyForecast';
 import BudgetSection from './components/BudgetSection/BudgetSection';
 import SectionTitle from './components/SectionTitle/SectionTitle';
 import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
@@ -26,10 +27,12 @@ const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStateme
   const { isLight } = useThemeContext();
 
   const actualsData = useTransparencyActuals(currentMonth, budgetStatements);
-  const [actualsBreakdownSelected, setActualsBreakdownSelected] = useState<string | undefined>();
+  const forecastData = useTransparencyForecast(currentMonth, budgetStatements);
 
-  const handleActualsBreakdownChange = (current?: string) => {
-    setActualsBreakdownSelected(current);
+  const [breakdownSelected, setBreakdownSelected] = useState<string | undefined>();
+
+  const handleBreakdownChange = (current?: string) => {
+    setBreakdownSelected(current);
   };
 
   return (
@@ -64,7 +67,7 @@ const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStateme
           {actualsData.mainTableItems.length > 0 && (
             <>
               <TitleSpacer>
-                <SectionTitle>Actuals Breakdown</SectionTitle>
+                <SectionTitle level={2}>Actuals - Breakdown</SectionTitle>
               </TitleSpacer>
 
               <Tabs
@@ -75,10 +78,10 @@ const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStateme
                 expandable
                 expandedDefault={false}
                 viewKey={'breakdownView'}
-                onChange={handleActualsBreakdownChange}
+                onChange={handleBreakdownChange}
               />
 
-              {actualsBreakdownSelected ? (
+              {breakdownSelected ? (
                 <AdvancedInnerTable
                   columns={actualsData.breakdownColumnsForActiveTab}
                   items={actualsData.breakdownItemsForActiveTab}
@@ -97,6 +100,68 @@ const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStateme
                         <AdvancedInnerTable
                           columns={actualsData.allBreakdownColumns[header]}
                           items={actualsData.allBreakdownItems[header]}
+                          longCode={longCode}
+                          style={{ marginTop: 16 }}
+                          tablePlaceholder={
+                            <div style={{ marginTop: 16 }}>
+                              <TransparencyEmptyTable breakdown longCode={longCode} />
+                            </div>
+                          }
+                        />
+                      </div>
+                    </BudgetSubsectionContainer>
+                  ))}
+                </BudgetSection>
+              )}
+            </>
+          )}
+        </BudgetSection>
+
+        <BudgetSection title={'Forecast - Totals'}>
+          <AdvancedInnerTable
+            longCode={longCode}
+            columns={forecastData.mainTableColumns}
+            items={forecastData.mainTableItems}
+            style={{ marginBottom: 32 }}
+            cardsTotalPosition={'top'}
+          />
+
+          {forecastData.breakdownItems.length > 0 && (
+            <>
+              <TitleSpacer>
+                <SectionTitle level={2}>Forecast - Breakdown</SectionTitle>
+              </TitleSpacer>
+
+              <Tabs
+                tabs={forecastData.breakdownTabs.map((header, i) => ({
+                  item: header,
+                  id: forecastData.headerIds[i],
+                }))}
+                expandable
+                expandedDefault={false}
+                viewKey={'breakdownView'}
+                onChange={handleBreakdownChange}
+              />
+
+              {breakdownSelected ? (
+                <AdvancedInnerTable
+                  longCode={longCode}
+                  columns={forecastData.breakdownColumnsForActiveTab}
+                  items={forecastData.breakdownItems}
+                  style={{ marginTop: 16 }}
+                  tablePlaceholder={<TransparencyEmptyTable breakdown longCode={longCode} />}
+                />
+              ) : (
+                <BudgetSection level={2}>
+                  {forecastData.breakdownTabs.map((header, index) => (
+                    <BudgetSubsectionContainer isFirst={index === 0} key={header}>
+                      <SectionTitle level={2} hasIcon={true}>
+                        {header}
+                      </SectionTitle>
+                      <div>
+                        <AdvancedInnerTable
+                          columns={forecastData.allBreakdownColumns[header]}
+                          items={forecastData.allBreakdownItems[header]}
                           longCode={longCode}
                           style={{ marginTop: 16 }}
                           tablePlaceholder={

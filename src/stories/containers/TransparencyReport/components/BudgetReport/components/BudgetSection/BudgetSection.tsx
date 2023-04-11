@@ -43,5 +43,5 @@ const WrapperL2 = styled.div<WithIsLight>(({ isLight }) => ({
 }));
 
 const ChildrenContainer = styled.div<{ hasMargin: boolean }>(({ hasMargin }) => ({
-  marginTop: hasMargin ? 32 : 0,
+  marginTop: hasMargin ? 24 : 0,
 }));
