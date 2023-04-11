@@ -4,13 +4,13 @@ import { capitalizeSentence, getWalletWidthForWallets } from '@ses/core/utils/st
 import _ from 'lodash';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { renderLinks, renderWallet } from '../../transparencyReportUtils';
+import { getActualsBreakdownColumns, getActualsBreakdownItemsForWallet } from '../../utils/actualsTableHelpers';
 import {
   getWalletActual,
   getWalletDifference,
   getWalletForecast,
   getWalletPayment,
 } from '../../utils/budgetStatementsUtils';
-import { getActualsBreakdownColumns, getActualsBreakdownItemsForWallet } from '../../utils/tableHelpers';
 import type { InnerTableColumn, InnerTableRow } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import type { BudgetStatementDto, BudgetStatementWalletDto } from '@ses/core/models/dto/coreUnitDTO';
 import type { DateTime } from 'luxon';
