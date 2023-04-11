@@ -5,11 +5,11 @@ interface Props extends React.PropsWithChildren {
   className?: string;
 }
 
-const KeyStatsCard: React.FC<Props> = ({ children, className }) => (
+const GenericDelegateCard: React.FC<Props> = ({ children, className }) => (
   <Container className={className}>{children}</Container>
 );
 
-export default KeyStatsCard;
+export default GenericDelegateCard;
 
 const Container = styled.div({
   background: '#FFFFFF',

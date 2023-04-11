@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import KeyStatsCard from './KeyStatsCard';
+import KeyStatsCard from '../../GenericDelegateCard';
 import { DescriptionDelegates } from './TotalRecognizedDelegatesCard';
 
 interface Props {
@@ -8,15 +8,15 @@ interface Props {
 }
 
 const PercentageTotalCard: React.FC<Props> = ({ percent }) => (
-  <ExtendedKeyCard>
+  <ExtendedGenericDelegate>
     <Annual>{percent}</Annual>
     <DescriptionDelegatesExtended>{'Percentage of Total DAO Expense Nov 2021 - Jun 2023'}</DescriptionDelegatesExtended>
-  </ExtendedKeyCard>
+  </ExtendedGenericDelegate>
 );
 
 export default PercentageTotalCard;
 
-const ExtendedKeyCard = styled(KeyStatsCard)({
+const ExtendedGenericDelegate = styled(KeyStatsCard)({
   padding: '8px 18.5px',
   display: 'flex',
   flexDirection: 'column',

@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import React from 'react';
-import DelegateExpenseBreakdown from './DelegateExpenseBreakdown';
+import DelegateExpenseBreakdown from './DelegateExpenseBreakdown/DelegateExpenseBreakdown';
 import DelegateExpenseTrend from './DelegateExpenseTrend';
 
 import TotalAndKeyStatsComponent from './TotalAndkeyStatusComponent';
@@ -15,8 +15,12 @@ const RecognizedDelegatesContainer: React.FC = () => {
       <Container>
         <Title>Recognized Delegates</Title>
         <TotalAndKeyStatsComponent totalDAI={totalDAI} start={startMonth} end={endMonth} />
-        <DelegateExpenseTrend />
-        <DelegateExpenseBreakdown />
+        <ContainerTrend>
+          <DelegateExpenseTrend />
+        </ContainerTrend>
+        <ContainerBreakdown>
+          <DelegateExpenseBreakdown />
+        </ContainerBreakdown>
       </Container>
     </PageContainer>
   );
@@ -35,3 +39,12 @@ const Title = styled.h1({
   marginTop: 32,
   marginBottom: 32,
 });
+
+const ContainerTrend = styled.div({
+  marginTop: 40,
+  marginBottom: 32,
+  // TODO: Delete height when the chart is implemented
+  height: 378,
+});
+
+const ContainerBreakdown = styled.div({});

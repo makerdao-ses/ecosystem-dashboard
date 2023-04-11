@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import KeyStatsCard from './KeyStatsCard';
+import GenericDelegateCard from '../../GenericDelegateCard';
 import { DescriptionDelegates } from './TotalRecognizedDelegatesCard';
 
 interface Props {
@@ -8,15 +8,15 @@ interface Props {
 }
 
 const MedianAnnualDai: React.FC<Props> = ({ annual }) => (
-  <ExtendedKeyCard>
+  <ExtendedGenericDelegate>
     <Annual>{`${annual} dai`}</Annual>
     <DescriptionDelegates>{'Median Annual Compensation / Delegate'}</DescriptionDelegates>
-  </ExtendedKeyCard>
+  </ExtendedGenericDelegate>
 );
 
 export default MedianAnnualDai;
 
-const ExtendedKeyCard = styled(KeyStatsCard)({
+const ExtendedGenericDelegate = styled(GenericDelegateCard)({
   padding: '8px 26px',
   display: 'flex',
   flexDirection: 'column',

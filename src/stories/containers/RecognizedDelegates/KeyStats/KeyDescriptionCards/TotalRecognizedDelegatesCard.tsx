@@ -1,21 +1,21 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import KeyStatsCard from './KeyStatsCard';
+import KeyStatsCard from '../../GenericDelegateCard';
 
 interface Props {
   total: number;
 }
 
 const TotalRecognizedDelegates: React.FC<Props> = ({ total }) => (
-  <ExtendedKeyCard>
+  <ExtendedGenericDelegate>
     <TotalDelegates>{total}</TotalDelegates>
     <DescriptionDelegates>{'Recognized Delegates'}</DescriptionDelegates>
-  </ExtendedKeyCard>
+  </ExtendedGenericDelegate>
 );
 
 export default TotalRecognizedDelegates;
 
-const ExtendedKeyCard = styled(KeyStatsCard)({
+const ExtendedGenericDelegate = styled(KeyStatsCard)({
   padding: '8px 15px',
   display: 'flex',
   flexDirection: 'column',

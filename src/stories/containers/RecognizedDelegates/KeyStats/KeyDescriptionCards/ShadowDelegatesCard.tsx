@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import KeyStatsCard from './KeyStatsCard';
+import KeyStatsCard from '../../GenericDelegateCard';
 import { DescriptionDelegates, TotalDelegates } from './TotalRecognizedDelegatesCard';
 
 interface Props {
@@ -8,15 +8,15 @@ interface Props {
 }
 
 const ShadowDelegates: React.FC<Props> = ({ shadowTotal }) => (
-  <ExtendedKeyCard>
+  <ExtendedGenericDelegate>
     <TotalDelegates>{shadowTotal}</TotalDelegates>
     <DescriptionDelegates>{'Shadow Delegates'}</DescriptionDelegates>
-  </ExtendedKeyCard>
+  </ExtendedGenericDelegate>
 );
 
 export default ShadowDelegates;
 
-const ExtendedKeyCard = styled(KeyStatsCard)({
+const ExtendedGenericDelegate = styled(KeyStatsCard)({
   padding: '8px 24.5px',
   display: 'flex',
   flexDirection: 'column',
