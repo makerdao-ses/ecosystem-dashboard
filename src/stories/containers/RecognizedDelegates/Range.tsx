@@ -37,11 +37,10 @@ const Container = styled.div({
 });
 
 const Dash = styled.div({
-  display: 'flex',
-  height: 1,
-  borderSpacing: 20,
-  border: '1px dashed #6EDBD0',
-  flexDirection: 'row',
-  alignItems: 'center',
-  flex: 1,
+  margin: 'auto',
+  width: '25%',
+  borderStyle: 'dashed none none none',
+  transform: 'scaleX(4)',
+  color: '#6EDBD0',
+  borderWidth: 0.5,
 });

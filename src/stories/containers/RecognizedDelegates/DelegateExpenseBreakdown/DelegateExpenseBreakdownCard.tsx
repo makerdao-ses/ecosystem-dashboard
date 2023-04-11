@@ -125,7 +125,7 @@ const DescriptionSection = styled.div({
   flexDirection: 'row',
   justifyContent: 'space-between',
   marginBottom: 24,
-  marginLeft: 8,
+  marginLeft: 6,
   marginRight: 8,
 });
 const ContainerBar = styled.div({
@@ -144,6 +144,7 @@ const PercentTitle = styled.div({
 const ContainerTotal = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  paddingLeft: 1,
 });
 
 const TotalTitle = styled.div({
@@ -187,6 +188,7 @@ const PercentNumber = styled.div({
   textTransform: 'uppercase',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
   color: '#231536',
+  marginTop: 1,
 });
 
 const SocialIconsSection = styled.div({

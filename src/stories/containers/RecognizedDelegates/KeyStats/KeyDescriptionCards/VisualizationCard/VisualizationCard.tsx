@@ -21,7 +21,10 @@ const VisualizationCard: React.FC<Props> = ({ percent }) => (
       </BarPercent>
       <BarDescription>
         <NumberPercent>{`${percent}%`}</NumberPercent>
-        <Total>{'19,614,105 DAI'}</Total>
+        <Total>
+          19, 614, 105
+          <span>DAI</span>
+        </Total>
       </BarDescription>
     </ContainerBar>
   </ExtendedKeyStatsCard>
@@ -68,7 +71,7 @@ const NumberPercent = styled.div({
   letterSpacing: ' 0.3px',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
   color: '#243465',
-  marginRight: 6,
+  marginRight: 9,
 });
 
 const Total = styled.div({
@@ -80,4 +83,10 @@ const Total = styled.div({
   letterSpacing: '0.3px',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
   color: '#243465',
+  marginTop: 1,
+  '& > span': {
+    fontWeight: 600,
+    color: '#9FAFB9',
+    fontFeatureSettings: "'tnum' on, 'lnum' on",
+  },
 });
