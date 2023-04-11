@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import KeyStats from './KeyStats/KeyStats';
+import KeyStats from '../KeyStats/KeyStats';
 import Range from './Range';
 import TotalDaiExpense from './TotalDaiExpense';
 

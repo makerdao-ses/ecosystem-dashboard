@@ -5,7 +5,7 @@ import React from 'react';
 import DelegateExpenseBreakdown from './DelegateExpenseBreakdown/DelegateExpenseBreakdown';
 import DelegateExpenseTrend from './DelegateExpenseTrend';
 
-import TotalAndKeyStatsComponent from './TotalAndkeyStatusComponent';
+import TotalAndKeyStatsComponent from './TotalAndKeyStatsComponent/TotalAndkeyStatusComponent';
 import { useRecognizedDelegates } from './useRecognizedDelegates';
 
 const RecognizedDelegatesContainer: React.FC = () => {
