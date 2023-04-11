@@ -10,6 +10,9 @@ import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import { LinkDescription } from '../TransparencyActuals/TransparencyActuals';
 import { useTransparencyActuals } from '../TransparencyActuals/useTransparencyActuals';
 import { useTransparencyForecast } from '../TransparencyForecast/useTransparencyForecast';
+import MkrVestingInfo from '../TransparencyMkrVesting/MkrVestingInfo';
+import MkrVestingTotalFTE from '../TransparencyMkrVesting/MkrVestingTotalFTE';
+import { useTransparencyMkrVesting } from '../TransparencyMkrVesting/useTransparencyMkrVesting';
 import BudgetSection from './components/BudgetSection/BudgetSection';
 import SectionTitle from './components/SectionTitle/SectionTitle';
 import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
@@ -28,6 +31,7 @@ const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStateme
 
   const actualsData = useTransparencyActuals(currentMonth, budgetStatements);
   const forecastData = useTransparencyForecast(currentMonth, budgetStatements);
+  const mkrVestingData = useTransparencyMkrVesting(currentMonth, budgetStatements);
 
   const [breakdownSelected, setBreakdownSelected] = useState<string | undefined>();
 
@@ -37,148 +41,160 @@ const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStateme
 
   return (
     <BudgetReportWrapper>
-      <ActualsSection>
-        <Container>
-          <LinkDescription isLight={isLight}>
-            <span> Visit makerburn.com to</span>
-            <ActualViewOnChainLink
-              href={`${MAKER_BURN_LINK}/${longCode}`}
-              fontSize={16}
-              fontWeight={500}
-              iconWidth={10}
-              iconHeight={10}
-              marginLeft="7px"
-            >
-              {`view the ${code} Core Unit on-chain transaction history`}
-            </ActualViewOnChainLink>
+      <Container>
+        <LinkDescription isLight={isLight}>
+          <span> Visit makerburn.com to</span>
+          <ActualViewOnChainLink
+            href={`${MAKER_BURN_LINK}/${longCode}`}
+            fontSize={16}
+            fontWeight={500}
+            iconWidth={10}
+            iconHeight={10}
+            marginLeft="7px"
+          >
+            {`view the ${code} Core Unit on-chain transaction history`}
+          </ActualViewOnChainLink>
 
-            <BudgetDateTitle isLight={isLight}>{currentMonth.toFormat('MMMM yyyy')} Budget Report</BudgetDateTitle>
-          </LinkDescription>
-        </Container>
+          <BudgetDateTitle isLight={isLight}>{currentMonth.toFormat('MMMM yyyy')} Budget Report</BudgetDateTitle>
+        </LinkDescription>
+      </Container>
 
-        <BudgetSection title={'Actuals - Totals'}>
-          <AdvancedInnerTable
-            columns={actualsData.mainTableColumns}
-            items={actualsData.mainTableItems}
-            cardsTotalPosition="top"
-            longCode={longCode}
-          />
+      <BudgetSection title={'Actuals - Totals'}>
+        <AdvancedInnerTable
+          columns={actualsData.mainTableColumns}
+          items={actualsData.mainTableItems}
+          cardsTotalPosition="top"
+          longCode={longCode}
+        />
 
-          {actualsData.mainTableItems.length > 0 && (
-            <>
-              <TitleSpacer>
-                <SectionTitle level={2}>Actuals - Breakdown</SectionTitle>
-              </TitleSpacer>
+        {actualsData.mainTableItems.length > 0 && (
+          <>
+            <TitleSpacer>
+              <SectionTitle level={2}>Actuals - Breakdown</SectionTitle>
+            </TitleSpacer>
 
-              <Tabs
-                tabs={actualsData.breakdownTabs.map((header, i) => ({
-                  item: header,
-                  id: actualsData.headerIds[i],
-                }))}
-                expandable
-                expandedDefault={false}
-                viewKey={'breakdownView'}
-                onChange={handleBreakdownChange}
+            <Tabs
+              tabs={actualsData.breakdownTabs.map((header, i) => ({
+                item: header,
+                id: actualsData.headerIds[i],
+              }))}
+              expandable
+              expandedDefault={false}
+              viewKey={'breakdownView'}
+              onChange={handleBreakdownChange}
+            />
+
+            {breakdownSelected ? (
+              <AdvancedInnerTable
+                columns={actualsData.breakdownColumnsForActiveTab}
+                items={actualsData.breakdownItemsForActiveTab}
+                longCode={longCode}
+                style={{ marginTop: 16 }}
+                tablePlaceholder={<TransparencyEmptyTable breakdown longCode={longCode} />}
               />
+            ) : (
+              <BudgetSection level={2}>
+                {actualsData.breakdownTabs.map((header, index) => (
+                  <BudgetSubsectionContainer isFirst={index === 0} key={header}>
+                    <SectionTitle level={2} hasIcon={true}>
+                      {header}
+                    </SectionTitle>
+                    <div>
+                      <AdvancedInnerTable
+                        columns={actualsData.allBreakdownColumns[header]}
+                        items={actualsData.allBreakdownItems[header]}
+                        longCode={longCode}
+                        style={{ marginTop: 16 }}
+                        tablePlaceholder={
+                          <div style={{ marginTop: 16 }}>
+                            <TransparencyEmptyTable breakdown longCode={longCode} />
+                          </div>
+                        }
+                      />
+                    </div>
+                  </BudgetSubsectionContainer>
+                ))}
+              </BudgetSection>
+            )}
+          </>
+        )}
+      </BudgetSection>
 
-              {breakdownSelected ? (
-                <AdvancedInnerTable
-                  columns={actualsData.breakdownColumnsForActiveTab}
-                  items={actualsData.breakdownItemsForActiveTab}
-                  longCode={longCode}
-                  style={{ marginTop: 16 }}
-                  tablePlaceholder={<TransparencyEmptyTable breakdown longCode={longCode} />}
-                />
-              ) : (
-                <BudgetSection level={2}>
-                  {actualsData.breakdownTabs.map((header, index) => (
-                    <BudgetSubsectionContainer isFirst={index === 0} key={header}>
-                      <SectionTitle level={2} hasIcon={true}>
-                        {header}
-                      </SectionTitle>
-                      <div>
-                        <AdvancedInnerTable
-                          columns={actualsData.allBreakdownColumns[header]}
-                          items={actualsData.allBreakdownItems[header]}
-                          longCode={longCode}
-                          style={{ marginTop: 16 }}
-                          tablePlaceholder={
-                            <div style={{ marginTop: 16 }}>
-                              <TransparencyEmptyTable breakdown longCode={longCode} />
-                            </div>
-                          }
-                        />
-                      </div>
-                    </BudgetSubsectionContainer>
-                  ))}
-                </BudgetSection>
-              )}
-            </>
-          )}
-        </BudgetSection>
+      <BudgetSection title={'Forecast - Totals'}>
+        <AdvancedInnerTable
+          longCode={longCode}
+          columns={forecastData.mainTableColumns}
+          items={forecastData.mainTableItems}
+          style={{ marginBottom: 32 }}
+          cardsTotalPosition={'top'}
+        />
 
-        <BudgetSection title={'Forecast - Totals'}>
-          <AdvancedInnerTable
-            longCode={longCode}
-            columns={forecastData.mainTableColumns}
-            items={forecastData.mainTableItems}
-            style={{ marginBottom: 32 }}
-            cardsTotalPosition={'top'}
-          />
+        {forecastData.breakdownItems.length > 0 && (
+          <>
+            <TitleSpacer>
+              <SectionTitle level={2}>Forecast - Breakdown</SectionTitle>
+            </TitleSpacer>
 
-          {forecastData.breakdownItems.length > 0 && (
-            <>
-              <TitleSpacer>
-                <SectionTitle level={2}>Forecast - Breakdown</SectionTitle>
-              </TitleSpacer>
+            <Tabs
+              tabs={forecastData.breakdownTabs.map((header, i) => ({
+                item: header,
+                id: forecastData.headerIds[i],
+              }))}
+              expandable
+              expandedDefault={false}
+              viewKey={'breakdownView'}
+              onChange={handleBreakdownChange}
+            />
 
-              <Tabs
-                tabs={forecastData.breakdownTabs.map((header, i) => ({
-                  item: header,
-                  id: forecastData.headerIds[i],
-                }))}
-                expandable
-                expandedDefault={false}
-                viewKey={'breakdownView'}
-                onChange={handleBreakdownChange}
+            {breakdownSelected ? (
+              <AdvancedInnerTable
+                longCode={longCode}
+                columns={forecastData.breakdownColumnsForActiveTab}
+                items={forecastData.breakdownItems}
+                style={{ marginTop: 16 }}
+                tablePlaceholder={<TransparencyEmptyTable breakdown longCode={longCode} />}
               />
+            ) : (
+              <BudgetSection level={2}>
+                {forecastData.breakdownTabs.map((header, index) => (
+                  <BudgetSubsectionContainer isFirst={index === 0} key={header}>
+                    <SectionTitle level={2} hasIcon={true}>
+                      {header}
+                    </SectionTitle>
+                    <AdvancedInnerTable
+                      columns={forecastData.allBreakdownColumns[header]}
+                      items={forecastData.allBreakdownItems[header]}
+                      longCode={longCode}
+                      style={{ marginTop: 16 }}
+                      tablePlaceholder={
+                        <div style={{ marginTop: 16 }}>
+                          <TransparencyEmptyTable breakdown longCode={longCode} />
+                        </div>
+                      }
+                    />
+                  </BudgetSubsectionContainer>
+                ))}
+              </BudgetSection>
+            )}
+          </>
+        )}
+      </BudgetSection>
 
-              {breakdownSelected ? (
-                <AdvancedInnerTable
-                  longCode={longCode}
-                  columns={forecastData.breakdownColumnsForActiveTab}
-                  items={forecastData.breakdownItems}
-                  style={{ marginTop: 16 }}
-                  tablePlaceholder={<TransparencyEmptyTable breakdown longCode={longCode} />}
-                />
-              ) : (
-                <BudgetSection level={2}>
-                  {forecastData.breakdownTabs.map((header, index) => (
-                    <BudgetSubsectionContainer isFirst={index === 0} key={header}>
-                      <SectionTitle level={2} hasIcon={true}>
-                        {header}
-                      </SectionTitle>
-                      <div>
-                        <AdvancedInnerTable
-                          columns={forecastData.allBreakdownColumns[header]}
-                          items={forecastData.allBreakdownItems[header]}
-                          longCode={longCode}
-                          style={{ marginTop: 16 }}
-                          tablePlaceholder={
-                            <div style={{ marginTop: 16 }}>
-                              <TransparencyEmptyTable breakdown longCode={longCode} />
-                            </div>
-                          }
-                        />
-                      </div>
-                    </BudgetSubsectionContainer>
-                  ))}
-                </BudgetSection>
-              )}
-            </>
-          )}
-        </BudgetSection>
-      </ActualsSection>
+      <BudgetSection title={'MKR Vesting Overview'}>
+        <MkrVestingTotalFTE totalFTE={mkrVestingData.FTEs} />
+
+        <AdvancedInnerTable
+          columns={mkrVestingData.mainTableColumns}
+          items={mkrVestingData.mainTableItems}
+          longCode={longCode}
+        />
+
+        {mkrVestingData.mainTableItems.length > 0 && (
+          <MkrVestingInfoContainer>
+            <MkrVestingInfo />
+          </MkrVestingInfoContainer>
+        )}
+      </BudgetSection>
     </BudgetReportWrapper>
   );
 };
@@ -188,8 +204,6 @@ export default BudgetReport;
 const BudgetReportWrapper = styled.div({
   marginBottom: 32,
 });
-
-const ActualsSection = styled.div({});
 
 const ActualViewOnChainLink = styled(CustomLink)({
   color: '#447AFB',
@@ -217,3 +231,7 @@ const TitleSpacer = styled.div({
 });
 
 const BudgetSubsectionContainer = styled.div<{ isFirst: boolean }>(({ isFirst }) => (isFirst ? {} : { marginTop: 24 }));
+
+const MkrVestingInfoContainer = styled.div({
+  marginTop: 32,
+});
