@@ -22,6 +22,8 @@ interface CuTableColumnLinksProps {
   height?: number;
   fill?: string;
   fillDark?: string;
+  boxLinkWidth?: number;
+  boxLinkHeight?: number;
 }
 
 const linkComponents = {
@@ -39,10 +41,18 @@ const getImageForLink = (link: LinkModel, fill: string, width?: number, height?:
   const LinkComponent = linkComponents[link.linkType] || WWW;
   return <LinkComponent fill={fill} width={width} height={height} fillDark={fillDark} />;
 };
-export const DelegateSocialLinks = ({ width, height, links, fill = '#708390', fillDark }: CuTableColumnLinksProps) => (
+export const DelegateSocialLinks = ({
+  width,
+  height,
+  links,
+  fill = '#708390',
+  fillDark,
+  boxLinkHeight = 32,
+  boxLinkWidth = 32,
+}: CuTableColumnLinksProps) => (
   <Container>
     {links?.map((link, i) => (
-      <BoxContainer>
+      <BoxContainer boxLinkWidth={boxLinkWidth} boxLinkHeight={boxLinkHeight}>
         <Link href={link} passHref>
           <LinkImage
             key={i}
@@ -65,14 +75,16 @@ const Container = styled.div({
   alignItems: 'center',
 });
 
-const BoxContainer = styled.div({
-  width: 32,
-  height: 32,
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'center',
-});
+const BoxContainer = styled.div<{ boxLinkWidth: number; boxLinkHeight: number }>(
+  ({ boxLinkHeight = 32, boxLinkWidth = 32 }) => ({
+    width: boxLinkWidth,
+    height: boxLinkHeight,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })
+);
 const LinkImage = styled.a({
   display: 'flex',
 });

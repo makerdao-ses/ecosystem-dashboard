@@ -6,20 +6,27 @@ import ShadowDelegatesCard from '../components/ShadowDelegatesCard';
 import TotalRecognizedDelegatesCard from '../components/TotalRecognizedDelegatesCard';
 import VisualizationCard from '../components/VisualizationCard';
 
-const KeyStats = () => (
+interface Props {
+  totalDelegates: number;
+  shadowTotal: number;
+  annual: number;
+  percent: number;
+}
+
+const KeyStats: React.FC<Props> = ({ annual, percent, shadowTotal, totalDelegates }) => (
   <Container>
     <Title>Key Stats</Title>
     <ContainerCards>
       <CardRow>
-        <TotalRecognizedDelegatesCard total={23} />
-        <ShadowDelegatesCard shadowTotal={'43'} />
+        <TotalRecognizedDelegatesCard total={totalDelegates} />
+        <ShadowDelegatesCard shadowTotal={shadowTotal} />
       </CardRow>
       <CardRow>
-        <MedianAnnualDai annual="89,928" />
-        <PercentageTotalCard percent="4.22%" />
+        <MedianAnnualDai annual={annual} />
+        <PercentageTotalCard percent={percent} />
       </CardRow>
 
-      <VisualizationCard percent={4.22} totalDai={4353453453} />
+      <VisualizationCard percent={percent} totalDai={4353453453} recognizedNumberDelegate={21} />
     </ContainerCards>
   </Container>
 );

@@ -8,16 +8,28 @@ interface Props {
   totalDAI: string;
   start: string;
   end: string;
+  totalDelegates: number;
+  shadowTotal: number;
+  annual: number;
+  percent: number;
 }
 
-export const TotalAndKeyStatsComponent: React.FC<Props> = ({ totalDAI, start, end }) => (
+export const TotalAndKeyStatsComponent: React.FC<Props> = ({
+  totalDAI,
+  start,
+  end,
+  annual,
+  percent,
+  shadowTotal,
+  totalDelegates,
+}) => (
   <BackgroundContainer>
     <ContainerTotalDai>
       <TotalDaiExpense totalDAI={totalDAI} />
     </ContainerTotalDai>
     <Range start={start} end={end} />
     <KeyContainer>
-      <KeyStats />
+      <KeyStats annual={annual} percent={percent} shadowTotal={shadowTotal} totalDelegates={totalDelegates} />
     </KeyContainer>
   </BackgroundContainer>
 );

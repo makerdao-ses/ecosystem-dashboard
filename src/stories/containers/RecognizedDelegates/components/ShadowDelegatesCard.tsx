@@ -4,7 +4,7 @@ import GenericDelegateCard from './GenericDelegateCard';
 import { DescriptionDelegates, TotalDelegates } from './TotalRecognizedDelegatesCard';
 
 interface Props {
-  shadowTotal: string;
+  shadowTotal: number;
 }
 
 const ShadowDelegates: React.FC<Props> = ({ shadowTotal }) => (

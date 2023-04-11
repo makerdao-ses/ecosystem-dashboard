@@ -41,7 +41,7 @@ const OtherExpenses = styled.div<WithIsLight & { width: number }>(({ isLight, wi
   background: isLight ? '#ECF1F3' : '#ECF1F3',
 
   width: `${width}%`,
-  height: 24,
+  height: '100%',
   transition: 'width 0.5s ease-in-out',
 }));
 

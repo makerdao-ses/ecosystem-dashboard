@@ -1,18 +1,22 @@
 import styled from '@emotion/styled';
+import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import React from 'react';
 import GenericDelegateCard from './GenericDelegateCard';
 import { DescriptionDelegates } from './TotalRecognizedDelegatesCard';
 
 interface Props {
-  annual: string;
+  annual: number;
 }
 
-const MedianAnnualDai: React.FC<Props> = ({ annual }) => (
-  <ExtendedGenericDelegate>
-    <Annual>{`${annual} dai`}</Annual>
-    <DescriptionDelegates>{'Median Annual Compensation / Delegate'}</DescriptionDelegates>
-  </ExtendedGenericDelegate>
-);
+const MedianAnnualDai: React.FC<Props> = ({ annual }) => {
+  const formatted = usLocalizedNumber(annual);
+  return (
+    <ExtendedGenericDelegate>
+      <Annual>{`${formatted} dai`}</Annual>
+      <DescriptionDelegates>{'Median Annual Compensation / Delegate'}</DescriptionDelegates>
+    </ExtendedGenericDelegate>
+  );
+};
 
 export default MedianAnnualDai;
 

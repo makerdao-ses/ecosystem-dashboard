@@ -1,38 +1,43 @@
 import styled from '@emotion/styled';
+import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import React from 'react';
-import KeyStatsCard from './GenericDelegateCard';
+import GenericDelegateCard from './GenericDelegateCard';
 import LegendItem from './LegendItem';
 import { RelativeDelegateBar } from './RelativeDelegateBar';
 
 interface Props {
   percent: number;
   totalDai: number;
+  recognizedNumberDelegate?: number;
 }
 
-const VisualizationCard: React.FC<Props> = ({ percent }) => (
-  <ExtendedKeyStatsCard>
-    <Legend>
-      <LegendItem color="#ECF1F3" description="Other Expenses" />
-      <LegendItem color="#447AFB" description="Recognized Delegates (21)" />
-    </Legend>
-    <ContainerBar>
-      <BarPercent>
-        <RelativeDelegateBar otherExpenses={90} recognizedDelegates={15} />
-      </BarPercent>
-      <BarDescription>
-        <NumberPercent>{`${percent}%`}</NumberPercent>
-        <Total>
-          19, 614, 105
-          <span>DAI</span>
-        </Total>
-      </BarDescription>
-    </ContainerBar>
-  </ExtendedKeyStatsCard>
-);
+const VisualizationCard: React.FC<Props> = ({ percent, recognizedNumberDelegate, totalDai }) => {
+  const totalDaiFormatted = usLocalizedNumber(totalDai);
+  return (
+    <ExtendedKeyStatsCard>
+      <Legend>
+        <LegendItem color="#ECF1F3" description="Other Expenses" />
+        <LegendItem color="#447AFB" description={`Recognized Delegates (${recognizedNumberDelegate})`} />
+      </Legend>
+      <ContainerBar>
+        <BarPercent>
+          <RelativeDelegateBar otherExpenses={90} recognizedDelegates={15} />
+        </BarPercent>
+        <BarDescription>
+          <NumberPercent>{`${percent}%`}</NumberPercent>
+          <Total>
+            {totalDaiFormatted}
+            <span>DAI</span>
+          </Total>
+        </BarDescription>
+      </ContainerBar>
+    </ExtendedKeyStatsCard>
+  );
+};
 
 export default VisualizationCard;
 
-const ExtendedKeyStatsCard = styled(KeyStatsCard)({
+const ExtendedKeyStatsCard = styled(GenericDelegateCard)({
   padding: '8px',
   display: 'flex',
   flexDirection: 'column',
