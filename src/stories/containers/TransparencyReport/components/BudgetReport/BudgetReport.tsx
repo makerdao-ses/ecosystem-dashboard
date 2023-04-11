@@ -10,6 +10,9 @@ import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import { LinkDescription } from '../TransparencyActuals/TransparencyActuals';
 import { useTransparencyActuals } from '../TransparencyActuals/useTransparencyActuals';
 import { useTransparencyForecast } from '../TransparencyForecast/useTransparencyForecast';
+import MkrVestingInfo from '../TransparencyMkrVesting/MkrVestingInfo';
+import MkrVestingTotalFTE from '../TransparencyMkrVesting/MkrVestingTotalFTE';
+import { useTransparencyMkrVesting } from '../TransparencyMkrVesting/useTransparencyMkrVesting';
 import BudgetSection from './components/BudgetSection/BudgetSection';
 import SectionTitle from './components/SectionTitle/SectionTitle';
 import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
@@ -28,6 +31,7 @@ const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStateme
 
   const actualsData = useTransparencyActuals(currentMonth, budgetStatements);
   const forecastData = useTransparencyForecast(currentMonth, budgetStatements);
+  const mkrVestingData = useTransparencyMkrVesting(currentMonth, budgetStatements);
 
   const [breakdownSelected, setBreakdownSelected] = useState<string | undefined>();
 
@@ -178,6 +182,22 @@ const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStateme
             </>
           )}
         </BudgetSection>
+
+        <BudgetSection title={'MKR Vesting Overview'}>
+          <MkrVestingTotalFTE totalFTE={mkrVestingData.FTEs} />
+
+          <AdvancedInnerTable
+            columns={mkrVestingData.mainTableColumns}
+            items={mkrVestingData.mainTableItems}
+            longCode={longCode}
+          />
+
+          {mkrVestingData.mainTableItems.length > 0 && (
+            <MkrVestingInfoContainer>
+              <MkrVestingInfo />
+            </MkrVestingInfoContainer>
+          )}
+        </BudgetSection>
       </ActualsSection>
     </BudgetReportWrapper>
   );
@@ -217,3 +237,7 @@ const TitleSpacer = styled.div({
 });
 
 const BudgetSubsectionContainer = styled.div<{ isFirst: boolean }>(({ isFirst }) => (isFirst ? {} : { marginTop: 24 }));
+
+const MkrVestingInfoContainer = styled.div({
+  marginTop: 32,
+});
