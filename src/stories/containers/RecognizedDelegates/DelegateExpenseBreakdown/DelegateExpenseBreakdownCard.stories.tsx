@@ -1,6 +1,6 @@
 import { LinkTypeEnum } from '@ses/core/enums/linkTypeEnum';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import DelegateExpenseBreakdownCard from './DelegateExpenseBreakdownCard';
+import DelegateExpenseBreakdownCard from '../components/DelegateExpenseBreakdownCard';
 import type { ComponentMeta } from '@storybook/react';
 
 export default {

@@ -5,9 +5,9 @@ import ArrowLink from '@ses/components/svg/ArrowLink';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { LinkTypeEnum } from '@ses/core/enums/linkTypeEnum';
 import React from 'react';
-import GenericDelegateCard from '../GenericDelegateCard';
+import { DelegateSocialLinks } from '../DelegateExpenseBreakdown/DelegateSocialLink';
 import DelegateBarPercentTotal from './DelegateBarPercentTotal';
-import { DelegateSocialLinks } from './DelegateSocialLink';
+import GenericDelegateCard from './GenericDelegateCard';
 import type { LinkModel } from '@ses/components/CuTableColumnLinks/CuTableColumnLinks';
 import type { DelegateDataCard } from '@ses/core/utils/typesHelpers';
 

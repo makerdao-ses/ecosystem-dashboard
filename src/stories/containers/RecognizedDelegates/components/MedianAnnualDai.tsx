@@ -1,23 +1,23 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import KeyStatsCard from '../../GenericDelegateCard';
+import GenericDelegateCard from './GenericDelegateCard';
 import { DescriptionDelegates } from './TotalRecognizedDelegatesCard';
 
 interface Props {
-  percent: string;
+  annual: string;
 }
 
-const PercentageTotalCard: React.FC<Props> = ({ percent }) => (
+const MedianAnnualDai: React.FC<Props> = ({ annual }) => (
   <ExtendedGenericDelegate>
-    <Annual>{percent}</Annual>
-    <DescriptionDelegatesExtended>{'Percentage of Total DAO Expense Nov 2021 - Jun 2023'}</DescriptionDelegatesExtended>
+    <Annual>{`${annual} dai`}</Annual>
+    <DescriptionDelegates>{'Median Annual Compensation / Delegate'}</DescriptionDelegates>
   </ExtendedGenericDelegate>
 );
 
-export default PercentageTotalCard;
+export default MedianAnnualDai;
 
-const ExtendedGenericDelegate = styled(KeyStatsCard)({
-  padding: '8px 18.5px',
+const ExtendedGenericDelegate = styled(GenericDelegateCard)({
+  padding: '8px 26px',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -35,8 +35,4 @@ export const Annual = styled.div({
   color: '#243465',
   marginBottom: 4,
   textTransform: 'uppercase',
-});
-
-const DescriptionDelegatesExtended = styled(DescriptionDelegates)({
-  width: 110,
 });

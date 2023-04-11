@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import MedianAnnualDai from './KeyDescriptionCards/MedianAnnualDai';
-import PercentageTotalCard from './KeyDescriptionCards/PercentageTotalCard';
-import ShadowDelegatesCard from './KeyDescriptionCards/ShadowDelegatesCard';
-import TotalRecognizedDelegatesCard from './KeyDescriptionCards/TotalRecognizedDelegatesCard';
-import VisualizationCard from './KeyDescriptionCards/VisualizationCard/VisualizationCard';
+import MedianAnnualDai from '../components/MedianAnnualDai';
+import PercentageTotalCard from '../components/PercentageTotalCard';
+import ShadowDelegatesCard from '../components/ShadowDelegatesCard';
+import TotalRecognizedDelegatesCard from '../components/TotalRecognizedDelegatesCard';
+import VisualizationCard from '../components/VisualizationCard';
 
 const KeyStats = () => (
   <Container>

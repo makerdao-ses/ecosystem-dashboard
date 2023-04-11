@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import DelegateExpenseBreakdownCard from './DelegateExpenseBreakdownCard';
+import DelegateExpenseBreakdownCard from '../components/DelegateExpenseBreakdownCard';
 import type { DelegateDataCard } from '@ses/core/utils/typesHelpers';
 
 interface Props {

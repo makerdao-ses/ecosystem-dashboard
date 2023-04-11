@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import KeyStatsCard from '../../../GenericDelegateCard';
+import KeyStatsCard from './GenericDelegateCard';
 import LegendItem from './LegendItem';
 import { RelativeDelegateBar } from './RelativeDelegateBar';
 
