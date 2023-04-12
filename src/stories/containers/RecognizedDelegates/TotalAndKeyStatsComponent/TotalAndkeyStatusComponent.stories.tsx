@@ -14,7 +14,14 @@ export default {
 
 const variantsArgs = [
   {
-    totalDAI: Math.trunc(17892312 || 0).toLocaleString('es-US'),
+    totalDelegates: 52,
+    shadowTotal: 31,
+    annual: 12345,
+    percent: 4.22,
+    delegatesExpenses: 123456,
+    otherExpenses: 343434,
+    amountDelegates: 21,
+    totalDAI: 17892312,
     start: 'Nov 2021',
     end: 'Jun 2023',
   },

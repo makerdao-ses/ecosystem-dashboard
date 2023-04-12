@@ -15,28 +15,32 @@ export default {
 
 const variantsArgs = [
   {
-    walletName: 'Flip Flop Flap Delegate LLC',
-    imageUrl: 'https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg',
-    links: [
-      {
-        linkType: LinkTypeEnum.Forum,
-        href: '#',
-      },
-      {
-        linkType: LinkTypeEnum.Twitter,
-        href: '#',
-      },
+    delegateCard: {
+      imageUrl: 'https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg',
+      walletName: 'Flip Flop Flap Delegate LLC',
+      links: [
+        {
+          linkType: LinkTypeEnum.Forum,
+          href: '#',
+        },
+        {
+          linkType: LinkTypeEnum.Twitter,
+          href: '#',
+        },
 
-      {
-        linkType: LinkTypeEnum.Github,
-        href: '#',
-      },
+        {
+          linkType: LinkTypeEnum.Github,
+          href: '#',
+        },
 
-      {
-        linkType: LinkTypeEnum.LinkedIn,
-        href: '#',
-      },
-    ],
+        {
+          linkType: LinkTypeEnum.LinkedIn,
+          href: '#',
+        },
+      ],
+      address: '0x86914...2e02',
+      totalDai: 232325,
+    },
   },
 ];
 

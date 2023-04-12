@@ -1,17 +1,19 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  totalDAI: string;
+  totalDAI: number;
 }
 
 const TotalDaiExpense: React.FC<Props> = ({ totalDAI }) => {
+  const formattedDai = usLocalizedNumber(totalDAI);
   const { isLight } = useThemeContext();
   return (
     <Container>
-      <TotalDai>{`${totalDAI} dai`}</TotalDai>
+      <TotalDai>{`${formattedDai} dai`}</TotalDai>
       <Line isLight={isLight} />
       <Description>Total DAI Expenses</Description>
     </Container>
