@@ -22,6 +22,7 @@ const args = [
       activityFeed: {
         id: 1,
         created_at: '2022-09-20T12:23:00Z',
+        event: 'CU_BUDGET_STATEMENT_COMMENT',
         description:
           'Signal your support or opposition to prioritising onboarding GUNIV3-BUSD-DAI (Gelato Uniswap v3 BUSD-DAI).',
         params: {
@@ -45,6 +46,7 @@ const args = [
       activityFeed: {
         id: 1,
         created_at: '2022-09-20T12:23:00Z',
+        event: 'CU_BUDGET_STATEMENT_COMMENT',
         description:
           'Signal your support or opposition to prioritising onboarding GUNIV3-BUSD-DAI (Gelato Uniswap v3 BUSD-DAI).',
         params: {
