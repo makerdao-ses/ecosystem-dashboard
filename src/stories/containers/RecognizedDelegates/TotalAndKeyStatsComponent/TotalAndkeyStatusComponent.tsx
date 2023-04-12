@@ -5,7 +5,7 @@ import Range from '../components/Range';
 import TotalDaiExpense from '../components/TotalDaiExpense';
 
 interface Props {
-  totalDAI: string;
+  totalDAI: number;
   start: string;
   end: string;
   totalDelegates: number;

@@ -15,7 +15,6 @@ interface Props {
 const VisualizationCard: React.FC<Props> = ({ delegatesExpenses, otherExpenses, amountDelegates }) => {
   const percent = percentageRespectTo(delegatesExpenses, delegatesExpenses + otherExpenses);
   const totalDaiFormatted = usLocalizedNumber(otherExpenses + delegatesExpenses);
-  console.log('totalDaiFormatted', totalDaiFormatted);
   return (
     <ExtendedKeyStatsCard>
       <Legend>
