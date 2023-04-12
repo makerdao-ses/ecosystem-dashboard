@@ -18,6 +18,11 @@ const menuItems = [
         },
       ]
     : []),
+  {
+    title: 'Core Units',
+    link: siteRoutes.coreUnitsOverview,
+    marginRight: '32px',
+  },
   ...(featureFlags[CURRENT_ENVIRONMENT].FEATURE_RECOGNIZED_DELEGATES
     ? [
         {
@@ -27,11 +32,6 @@ const menuItems = [
         },
       ]
     : []),
-  {
-    title: 'Core Units',
-    link: siteRoutes.coreUnitsOverview,
-    marginRight: '32px',
-  },
   ...(featureFlags[CURRENT_ENVIRONMENT].FEATURE_GLOBAL_ACTIVITIES
     ? [
         {
