@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { percentageRespectTo } from '@ses/core/utils/math';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -11,11 +12,13 @@ interface RelativeBarProps {
 
 export const RelativeDelegateBar: React.FC<RelativeBarProps> = ({ otherExpenses, recognizedDelegates }) => {
   const { isLight } = useThemeContext();
+  const percentOther = percentageRespectTo(otherExpenses, otherExpenses + recognizedDelegates);
+  const percentDelegates = percentageRespectTo(recognizedDelegates, otherExpenses + recognizedDelegates);
 
   return (
     <DelegateBar isLight={isLight}>
-      {otherExpenses > 0 && <OtherExpenses isLight={isLight} width={otherExpenses} />}
-      {recognizedDelegates > 0 && <RecognizedDelegates isLight={isLight} width={recognizedDelegates} />}
+      {otherExpenses > 0 && <OtherExpenses isLight={isLight} width={percentOther} />}
+      {recognizedDelegates > 0 && <RecognizedDelegates isLight={isLight} width={percentDelegates} />}
     </DelegateBar>
   );
 };

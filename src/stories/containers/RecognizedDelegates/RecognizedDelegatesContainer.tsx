@@ -9,13 +9,25 @@ import TotalAndKeyStatsComponent from './TotalAndKeyStatsComponent/TotalAndkeySt
 import { useRecognizedDelegates } from './useRecognizedDelegates';
 
 const RecognizedDelegatesContainer: React.FC = () => {
-  const { totalDAI, startMonth, endMonth, arrayOfDelegate, mediaAnnual, percent, shadowTotal, totalDelegates } =
-    useRecognizedDelegates();
+  const {
+    totalDAI,
+    startMonth,
+    endMonth,
+    arrayOfDelegate,
+    mediaAnnual,
+    percent,
+    shadowTotal,
+    totalDelegates,
+    delegatesExpenses,
+    otherExpenses,
+    amountDelegates,
+  } = useRecognizedDelegates();
   return (
     <PageContainer>
       <Container>
         <Title>Recognized Delegates</Title>
         <TotalAndKeyStatsComponent
+          amountDelegates={amountDelegates}
           totalDAI={totalDAI}
           start={startMonth}
           end={endMonth}
@@ -23,6 +35,8 @@ const RecognizedDelegatesContainer: React.FC = () => {
           percent={percent}
           shadowTotal={shadowTotal}
           totalDelegates={totalDelegates}
+          delegatesExpenses={delegatesExpenses}
+          otherExpenses={otherExpenses}
         />
         <ContainerTrend>
           <DelegateExpenseTrend />

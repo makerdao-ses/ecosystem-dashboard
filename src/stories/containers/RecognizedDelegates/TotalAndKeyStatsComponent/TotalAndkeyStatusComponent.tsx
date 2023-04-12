@@ -12,6 +12,9 @@ interface Props {
   shadowTotal: number;
   annual: number;
   percent: number;
+  delegatesExpenses: number;
+  otherExpenses: number;
+  amountDelegates: number;
 }
 
 export const TotalAndKeyStatsComponent: React.FC<Props> = ({
@@ -22,6 +25,9 @@ export const TotalAndKeyStatsComponent: React.FC<Props> = ({
   percent,
   shadowTotal,
   totalDelegates,
+  otherExpenses,
+  delegatesExpenses,
+  amountDelegates,
 }) => (
   <BackgroundContainer>
     <ContainerTotalDai>
@@ -29,7 +35,15 @@ export const TotalAndKeyStatsComponent: React.FC<Props> = ({
     </ContainerTotalDai>
     <Range start={start} end={end} />
     <KeyContainer>
-      <KeyStats annual={annual} percent={percent} shadowTotal={shadowTotal} totalDelegates={totalDelegates} />
+      <KeyStats
+        amountDelegates={amountDelegates}
+        annual={annual}
+        percent={percent}
+        shadowTotal={shadowTotal}
+        totalDelegates={totalDelegates}
+        delegatesExpenses={delegatesExpenses}
+        otherExpenses={otherExpenses}
+      />
     </KeyContainer>
   </BackgroundContainer>
 );

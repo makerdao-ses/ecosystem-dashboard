@@ -1,32 +1,35 @@
 import styled from '@emotion/styled';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
+import { percentageRespectTo } from '@ses/core/utils/math';
 import React from 'react';
 import GenericDelegateCard from './GenericDelegateCard';
 import LegendItem from './LegendItem';
 import { RelativeDelegateBar } from './RelativeDelegateBar';
 
 interface Props {
-  percent: number;
-  totalDai: number;
-  recognizedNumberDelegate?: number;
+  otherExpenses: number;
+  delegatesExpenses: number;
+  amountDelegates: number;
 }
 
-const VisualizationCard: React.FC<Props> = ({ percent, recognizedNumberDelegate, totalDai }) => {
-  const totalDaiFormatted = usLocalizedNumber(totalDai);
+const VisualizationCard: React.FC<Props> = ({ delegatesExpenses, otherExpenses, amountDelegates }) => {
+  const percent = percentageRespectTo(delegatesExpenses, delegatesExpenses + otherExpenses);
+  const totalDaiFormatted = usLocalizedNumber(otherExpenses + delegatesExpenses);
+  console.log('totalDaiFormatted', totalDaiFormatted);
   return (
     <ExtendedKeyStatsCard>
       <Legend>
         <LegendItem color="#ECF1F3" description="Other Expenses" />
-        <LegendItem color="#447AFB" description={`Recognized Delegates (${recognizedNumberDelegate})`} />
+        <LegendItem color="#447AFB" description={`Recognized Delegates (${amountDelegates})`} />
       </Legend>
       <ContainerBar>
         <BarPercent>
-          <RelativeDelegateBar otherExpenses={90} recognizedDelegates={15} />
+          <RelativeDelegateBar otherExpenses={otherExpenses} recognizedDelegates={delegatesExpenses} />
         </BarPercent>
         <BarDescription>
-          <NumberPercent>{`${percent}%`}</NumberPercent>
+          <NumberPercent>{`${percent.toFixed(2)}%`}</NumberPercent>
           <Total>
-            {totalDaiFormatted}
+            {`(${totalDaiFormatted})`}
             <span>DAI</span>
           </Total>
         </BarDescription>
@@ -64,7 +67,7 @@ const BarDescription = styled.div({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
-  width: 157,
+  paddingLeft: 3,
 });
 
 const NumberPercent = styled.div({
@@ -76,7 +79,7 @@ const NumberPercent = styled.div({
   letterSpacing: ' 0.3px',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
   color: '#243465',
-  marginRight: 9,
+  marginRight: 6,
 });
 
 const Total = styled.div({
@@ -93,5 +96,6 @@ const Total = styled.div({
     fontWeight: 600,
     color: '#9FAFB9',
     fontFeatureSettings: "'tnum' on, 'lnum' on",
+    marginRight: 3,
   },
 });

@@ -11,9 +11,20 @@ interface Props {
   shadowTotal: number;
   annual: number;
   percent: number;
+  otherExpenses: number;
+  delegatesExpenses: number;
+  amountDelegates: number;
 }
 
-const KeyStats: React.FC<Props> = ({ annual, percent, shadowTotal, totalDelegates }) => (
+const KeyStats: React.FC<Props> = ({
+  annual,
+  percent,
+  shadowTotal,
+  totalDelegates,
+  delegatesExpenses,
+  otherExpenses,
+  amountDelegates,
+}) => (
   <Container>
     <Title>Key Stats</Title>
     <ContainerCards>
@@ -26,7 +37,11 @@ const KeyStats: React.FC<Props> = ({ annual, percent, shadowTotal, totalDelegate
         <PercentageTotalCard percent={percent} />
       </CardRow>
 
-      <VisualizationCard percent={percent} totalDai={4353453453} recognizedNumberDelegate={21} />
+      <VisualizationCard
+        delegatesExpenses={delegatesExpenses}
+        otherExpenses={otherExpenses}
+        amountDelegates={amountDelegates}
+      />
     </ContainerCards>
   </Container>
 );
