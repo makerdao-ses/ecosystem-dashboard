@@ -13,6 +13,7 @@ import { useTransparencyForecast } from '../TransparencyForecast/useTransparency
 import MkrVestingInfo from '../TransparencyMkrVesting/MkrVestingInfo';
 import MkrVestingTotalFTE from '../TransparencyMkrVesting/MkrVestingTotalFTE';
 import { useTransparencyMkrVesting } from '../TransparencyMkrVesting/useTransparencyMkrVesting';
+import { useTransparencyTransferRequest } from '../TransparencyTransferRequest/useTransparencyTransferRequest';
 import BudgetSection from './components/BudgetSection/BudgetSection';
 import SectionTitle from './components/SectionTitle/SectionTitle';
 import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
@@ -32,6 +33,7 @@ const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStateme
   const actualsData = useTransparencyActuals(currentMonth, budgetStatements);
   const forecastData = useTransparencyForecast(currentMonth, budgetStatements);
   const mkrVestingData = useTransparencyMkrVesting(currentMonth, budgetStatements);
+  const transferRequestsData = useTransparencyTransferRequest(currentMonth, budgetStatements);
 
   const [breakdownSelected, setBreakdownSelected] = useState<string | undefined>();
 
@@ -194,6 +196,15 @@ const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStateme
             <MkrVestingInfo />
           </MkrVestingInfoContainer>
         )}
+      </BudgetSection>
+
+      <BudgetSection title={'Transfer Request'}>
+        <AdvancedInnerTable
+          columns={transferRequestsData.mainTableColumns}
+          items={transferRequestsData.mainTableItems}
+          cardsTotalPosition={'top'}
+          longCode={longCode}
+        />
       </BudgetSection>
     </BudgetReportWrapper>
   );

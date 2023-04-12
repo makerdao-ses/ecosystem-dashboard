@@ -11,7 +11,10 @@ import type {
   BudgetStatementWalletTransferRequestDto,
 } from '@ses/core/models/dto/coreUnitDTO';
 
-export const useTransparencyTransferRequest = (currentMonth: DateTime, budgetStatements: BudgetStatementDto[]) => {
+export const useTransparencyTransferRequest = (
+  currentMonth: DateTime,
+  budgetStatements: BudgetStatementDto[] | undefined
+) => {
   const { wallets } = useTransparencyForecast(currentMonth, budgetStatements);
 
   const getTransferRequestForMonthOnWallet = useMemo(() => {
