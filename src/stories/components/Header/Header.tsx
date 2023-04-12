@@ -37,12 +37,14 @@ const Header: React.FC = () => {
 
   const activeMenuItem = useMemo(() => {
     if (router.pathname.startsWith('/core-unit')) {
-      return featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW ? menuItems[1] : menuItems[0];
+      return featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW ? menuItems[2] : menuItems[0];
     } else if (
       router.pathname.startsWith('/activity-feed') &&
       featureFlags[CURRENT_ENVIRONMENT].FEATURE_GLOBAL_ACTIVITIES
     ) {
-      return featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW ? menuItems[2] : menuItems[1];
+      return featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW ? menuItems[3] : menuItems[0];
+    } else if (router.pathname.startsWith('/recognized-delegates')) {
+      return menuItems[1];
     } else {
       return menuItems[0];
     }
