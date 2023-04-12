@@ -15,7 +15,7 @@ export const useGlobalActivity = (coreUnits: CoreUnitDto[], activityFeed: Activi
 
   const columns: ActivityTableHeader[] = [
     {
-      header: 'Core Unit',
+      header: 'Team',
       styles: {
         minWidth: 360,
         paddingLeft: 32,
@@ -84,7 +84,7 @@ export const useGlobalActivity = (coreUnits: CoreUnitDto[], activityFeed: Activi
             (activity) =>
               ({
                 activityFeed: activity,
-                coreUnit: coreUnitsMap.get(activity.params.coreUnit.shortCode),
+                coreUnit: coreUnitsMap.get(activity.params.coreUnit?.shortCode),
               } as Activity)
           )
           .filter(
