@@ -2,15 +2,20 @@ import styled from '@emotion/styled';
 import React from 'react';
 
 const DelegateExpenseTrend = () => (
-  <div>
+  <Container>
     <Title>Delegate Expense Trend</Title>
     <Description>Delegate Compensation / Month</Description>
     <div>Filter</div>
     <div>Chart</div>
-  </div>
+  </Container>
 );
 
 export default DelegateExpenseTrend;
+
+const Container = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+});
 
 const Title = styled.h2({
   fontFamily: 'Inter, sans-serif',
@@ -33,4 +38,5 @@ const Description = styled.div({
   lineHeight: '15px',
   color: '#231536',
   marginTop: 4,
+  marginBottom: 24,
 });
