@@ -16,7 +16,7 @@ const TotalRecognizedDelegates: React.FC<Props> = ({ total }) => (
 export default TotalRecognizedDelegates;
 
 const ExtendedGenericDelegate = styled(GenericDelegateCard)({
-  padding: '8px 15px',
+  padding: '16px 13.5px',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',

@@ -21,11 +21,11 @@ const MedianAnnualDai: React.FC<Props> = ({ annual }) => {
 export default MedianAnnualDai;
 
 const ExtendedGenericDelegate = styled(GenericDelegateCard)({
-  padding: '8px 26px',
+  padding: '16px 26px',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  width: 147,
+  width: 311,
 });
 
 export const Annual = styled.div({

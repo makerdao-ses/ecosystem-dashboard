@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import React from 'react';
+
 import MedianAnnualDai from '../components/MedianAnnualDai';
-import PercentageTotalCard from '../components/PercentageTotalCard';
 import ShadowDelegatesCard from '../components/ShadowDelegatesCard';
 import TotalRecognizedDelegatesCard from '../components/TotalRecognizedDelegatesCard';
 import VisualizationCard from '../components/VisualizationCard';
@@ -18,7 +18,6 @@ interface Props {
 
 const KeyStats: React.FC<Props> = ({
   annual,
-  percent,
   shadowTotal,
   totalDelegates,
   delegatesExpenses,
@@ -34,14 +33,14 @@ const KeyStats: React.FC<Props> = ({
       </CardRow>
       <CardRow>
         <MedianAnnualDai annual={annual} />
-        <PercentageTotalCard percent={percent} />
       </CardRow>
-
-      <VisualizationCard
-        delegatesExpenses={delegatesExpenses}
-        otherExpenses={otherExpenses}
-        amountDelegates={amountDelegates}
-      />
+      <CardRow>
+        <VisualizationCard
+          delegatesExpenses={delegatesExpenses}
+          otherExpenses={otherExpenses}
+          amountDelegates={amountDelegates}
+        />
+      </CardRow>
     </ContainerCards>
   </Container>
 );
@@ -62,18 +61,18 @@ const Title = styled.h2({
   color: '#000000',
   padding: 0,
   marginTop: 0,
-  marginBottom: 24,
+  marginBottom: 16,
   textAlign: 'center',
 });
 
 const ContainerCards = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  gap: 24,
+  gap: 16,
 });
 
 const CardRow = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  gap: 17,
+  gap: 24,
 });
