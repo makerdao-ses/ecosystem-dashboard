@@ -1,3 +1,5 @@
+import { ActivityBuilder } from '@ses/core/businessLogic/builders/activityBuilder';
+import { CoreUnitsBuilder } from '@ses/core/businessLogic/builders/coreUnitsBuilder';
 import { LinkTypeEnum } from '@ses/core/enums/linkTypeEnum';
 import type { LinkModel } from '@ses/components/CuTableColumnLinks/CuTableColumnLinks';
 import type { DelegateDataCard } from '@ses/core/utils/typesHelpers';
@@ -129,6 +131,55 @@ export const useRecognizedDelegates = () => {
       links: linksCardFour,
     },
   ];
+  // TODO: Delete this to real Delegate in the filters
+  const activityFeed = [
+    new ActivityBuilder()
+      .withCreatedAt('2022-09-21T12:23:00Z')
+      .withDescription(
+        'Signal your support or opposition to prioritising onboarding GUNIV3-BUSD-DAI (Gelato Uniswap v3 BUSD-DAI).'
+      )
+      .withParams({
+        coreUnit: {
+          shortCode: 'SES',
+        },
+        month: '2022-09',
+      })
+      .build(),
+    new ActivityBuilder()
+      .withCreatedAt('2022-09-10T12:23:00Z')
+      .withDescription('Increase Headcount Expense Forecast Lorem Ipsum test some text.')
+      .withParams({
+        coreUnit: {
+          shortCode: 'SES',
+        },
+        month: '2022-09',
+      })
+      .build(),
+    new ActivityBuilder()
+      .withCreatedAt('2022-08-20T12:23:00Z')
+      .withDescription('Increase Headcount Expense Forecast Lorem Ipsum test some text.')
+      .withParams({
+        coreUnit: {
+          shortCode: 'DUX',
+        },
+        month: '2022-08',
+      })
+      .build(),
+  ];
+
+  // TODO: Delete this to real Delegate in the filters
+  const coreUnits = [
+    new CoreUnitsBuilder()
+      .withImage('https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/logo.png')
+      .withShortCode('SES')
+      .withName('Sustainable Ecosystem Scaling')
+      .build(),
+    new CoreUnitsBuilder()
+      .withImage('https://makerdao-ses.github.io/ecosystem-dashboard/core-units/dux-001/dux_logo.png')
+      .withShortCode('DUX')
+      .withName('Development & UX')
+      .build(),
+  ];
 
   return {
     totalDAI,
@@ -142,5 +193,7 @@ export const useRecognizedDelegates = () => {
     delegatesExpenses,
     otherExpenses,
     amountDelegates,
+    coreUnits,
+    activityFeed,
   };
 };

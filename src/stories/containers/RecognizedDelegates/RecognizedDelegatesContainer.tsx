@@ -21,6 +21,8 @@ const RecognizedDelegatesContainer: React.FC = () => {
     delegatesExpenses,
     otherExpenses,
     amountDelegates,
+    // activityFeed,
+    // coreUnits,
   } = useRecognizedDelegates();
   return (
     <PageContainer>
