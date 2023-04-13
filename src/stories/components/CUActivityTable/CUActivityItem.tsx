@@ -67,8 +67,9 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
                   image={'/assets/img/mk-logo.png'}
                   name={'Recognized Delegates'}
                 />
-                <CoreUnitCode isLight={isLight}>DEL</CoreUnitCode>
-                <CoreUnitName isLight={isLight}>Recognized Delegates</CoreUnitName>
+                <CoreUnitName style={{ marginLeft: 16 }} isLight={isLight}>
+                  Recognized Delegates
+                </CoreUnitName>
               </CoreUnit>
             )
           )}
