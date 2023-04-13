@@ -76,6 +76,7 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   maxWidth: 343,
+  height: 182,
 });
 
 const AvatarSection = styled.div({
