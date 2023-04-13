@@ -30,7 +30,7 @@ export const TransparencyForecast = (props: Props) => {
     headerIds,
     mainTableColumns,
     mainTableItems,
-    breakdownHeaders,
+    breakdownColumnsForActiveTab,
     breakdownItems,
     breakdownTitleRef,
     breakdownTabs,
@@ -87,7 +87,7 @@ export const TransparencyForecast = (props: Props) => {
       {!!breakdownItems.length && (
         <AdvancedInnerTable
           longCode={props.longCode}
-          columns={breakdownHeaders}
+          columns={breakdownColumnsForActiveTab}
           items={breakdownItems}
           tablePlaceholder={<TransparencyEmptyTable breakdown longCode={props.longCode} />}
         />
