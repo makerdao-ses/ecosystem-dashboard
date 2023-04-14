@@ -5,7 +5,10 @@ import type { BudgetStatementDto } from '../../../../../core/models/dto/coreUnit
 import type { InnerTableColumn, InnerTableRow } from '../../../../components/AdvancedInnerTable/AdvancedInnerTable';
 import type { DateTime } from 'luxon';
 
-export const useTransparencyMkrVesting = (currentMonth: DateTime, budgetStatements: BudgetStatementDto[]) => {
+export const useTransparencyMkrVesting = (
+  currentMonth: DateTime,
+  budgetStatements: BudgetStatementDto[] | undefined
+) => {
   const currentBudgetStatement = useMemo(
     () => budgetStatements?.find((bs) => bs.month === currentMonth.toFormat(API_MONTH_TO_FORMAT)),
     [currentMonth, budgetStatements]

@@ -4,10 +4,11 @@ import React from 'react';
 interface Props {
   color: string;
   description: string;
+  className?: string;
 }
 
-const LegendItem: React.FC<Props> = ({ color, description }) => (
-  <Container>
+const LegendItem: React.FC<Props> = ({ color, description, className }) => (
+  <Container className={className}>
     <Circle color={color} />
     <Description>{description} </Description>
   </Container>

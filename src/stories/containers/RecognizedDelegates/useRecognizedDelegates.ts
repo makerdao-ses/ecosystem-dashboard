@@ -5,15 +5,15 @@ import type { LinkModel } from '@ses/components/CuTableColumnLinks/CuTableColumn
 import type { DelegateDataCard } from '@ses/core/utils/typesHelpers';
 
 export const useRecognizedDelegates = () => {
-  const totalDAI = 17892312;
+  const totalDAI = 2130885;
   const startMonth = 'Nov 2021';
   const endMonth = 'Jun 2023';
   const totalDelegates = 23;
   const shadowTotal = 43;
   const mediaAnnual = 89928;
   const percent = 4.22;
-  const delegatesExpenses = 826359;
-  const otherExpenses = 19581971;
+  const delegatesExpenses = 2160000;
+  const otherExpenses = 50500000;
   const amountDelegates = 21;
   const linksCardOne: LinkModel[] = [
     {

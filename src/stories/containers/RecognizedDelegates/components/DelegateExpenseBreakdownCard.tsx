@@ -1,14 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from '@emotion/styled';
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import ArrowLink from '@ses/components/svg/ArrowLink';
+import ClipBoard from '@ses/components/svg/ClipBoard';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { LinkTypeEnum } from '@ses/core/enums/linkTypeEnum';
+import { usLocalizedNumber } from '@ses/core/utils/humanization';
+import { percentageRespectTo } from '@ses/core/utils/math';
 import React from 'react';
 import { DelegateSocialLinks } from '../DelegateExpenseBreakdown/DelegateSocialLink';
 import DelegateBarPercentTotal from './DelegateBarPercentTotal';
 import GenericDelegateCard from './GenericDelegateCard';
-import type { LinkModel } from '@ses/components/CuTableColumnLinks/CuTableColumnLinks';
 import type { DelegateDataCard } from '@ses/core/utils/typesHelpers';
 
 interface Props {
@@ -17,7 +17,8 @@ interface Props {
 }
 
 const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai }) => {
-  const percent = (delegateCard.numberDai * 100) / totalDai;
+  const percent = percentageRespectTo(delegateCard.numberDai, totalDai);
+  const humanizeTotal = usLocalizedNumber(totalDai);
   const { isLight } = useThemeContext();
   return (
     <ExtendedGenericDelegate>
@@ -32,7 +33,12 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
           />
           <NameAddressColumn>
             <Name>{delegateCard.walletName}</Name>
-            <Address>{delegateCard.address}</Address>
+            <ClipBoardRow>
+              <Address>{delegateCard.address}</Address>
+              <ClipBoardContainer>
+                <ClipBoard />
+              </ClipBoardContainer>
+            </ClipBoardRow>
           </NameAddressColumn>
         </WalletAvatar>
         <WalletLink>
@@ -52,7 +58,8 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
         <ContainerTotal>
           <TotalTitle>Total DAI Comp</TotalTitle>
           <Total>
-            227,878 <span>DAI</span>
+            {humanizeTotal}
+            <span>DAI</span>
           </Total>
         </ContainerTotal>
       </DescriptionSection>
@@ -72,7 +79,7 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)({
   flexDirection: 'column',
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
-  maxWidth: 343,
+  height: 182,
 });
 
 const AvatarSection = styled.div({
@@ -96,17 +103,16 @@ const NameAddressColumn = styled.div({
 
 const Name = styled.div({
   fontWeight: 400,
-  fontSize: '16px',
-  lineHeight: '22px',
+  fontSize: '14px',
+  lineHeight: '17px',
   color: '#231536',
 });
 
 const Address = styled.div({
   fontWeight: 400,
-  fontSize: '14px',
-  lineHeight: '17px',
+  fontSize: '12px',
+  lineHeight: '15px',
   color: '#447AFB',
-  marginTop: 4,
 });
 
 const WalletLink = styled.div({
@@ -169,7 +175,7 @@ const PercentBarContainer = styled.div({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
-  marginTop: 0.5,
+  marginTop: -1,
 });
 
 const PercentNumber = styled.div({
@@ -201,3 +207,16 @@ const ContainerBarDelegate = styled.div({
 const CircleAvatarExtended = styled(CircleAvatar)<{ isLight?: boolean }>(({ isLight }) => ({
   boxShadow: isLight ? '2px 4px 7px rgba(26, 171, 155, 0.25)' : '2px 4px 7px rgba(26, 171, 155, 0.25)',
 }));
+
+const ClipBoardRow = styled.div({
+  display: 'flex',
+  marginTop: 4,
+  flexDirection: 'row',
+  alignItems: 'center',
+});
+
+const ClipBoardContainer = styled.div({
+  marginLeft: 16,
+  display: 'flex',
+  alignItems: 'center',
+});

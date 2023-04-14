@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { siteRoutes } from '@ses/config/routes';
 import { DateTime } from 'luxon';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -17,7 +18,8 @@ interface CUActivityItemProps {
 export default function CUActivityItem({ activity, isNew }: CUActivityItemProps) {
   const { isLight } = useThemeContext();
   const router = useRouter();
-  const isGlobal = !!activity.coreUnit;
+  const isDelegate = useMemo(() => activity.activityFeed.event.startsWith('DELEGATES_BUDGET_STATEMENT'), [activity]);
+  const isGlobal = !!activity.coreUnit || isDelegate;
 
   const dayDiffNow = useMemo(
     () => Math.abs(Math.ceil(DateTime.fromISO(activity.activityFeed.created_at).diffNow('days').days)),
@@ -26,14 +28,20 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
 
   const detailsUrl = useMemo(() => {
     let anchor = '';
-    if (activity.activityFeed.event === 'CU_BUDGET_STATEMENT_COMMENT') {
+    if (['CU_BUDGET_STATEMENT_COMMENT', 'DELEGATES_BUDGET_STATEMENT_COMMENT'].includes(activity.activityFeed.event)) {
       anchor = '#comments';
     }
-    return `/core-unit/${
-      activity.activityFeed.params.coreUnit.shortCode
-    }/finances/reports?viewMonth=${DateTime.fromFormat(activity.activityFeed.params.month, 'y-M').toFormat(
-      'LLLy'
-    )}${anchor}`;
+
+    const month = DateTime.fromFormat(activity.activityFeed.params.month, 'y-M').toFormat('LLLy');
+    if (activity.activityFeed.event.startsWith('DELEGATES')) {
+      // it is a delegate
+      return `${siteRoutes.recognizedDelegateReport}?viewMonth=${month}${anchor}`;
+    }
+
+    // it is a core unit
+    return `${siteRoutes.coreUnitReports(
+      activity.activityFeed.params.coreUnit?.shortCode
+    )}?viewMonth=${month}${anchor}`;
   }, [activity]);
 
   const goToDetails = () => {
@@ -44,12 +52,26 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
     <Link href={detailsUrl} passHref>
       <ActivityItem isLight={isLight} isGlobal={isGlobal}>
         <FlexWrapper isGlobal={isGlobal}>
-          {activity.coreUnit && (
+          {activity.coreUnit ? (
             <CoreUnit isGlobal={isGlobal}>
               <CircleAvatar width="32px" height="32px" image={activity.coreUnit.image} name={activity.coreUnit.name} />
               <CoreUnitCode isLight={isLight}>{activity.coreUnit.shortCode}</CoreUnitCode>
               <CoreUnitName isLight={isLight}>{activity.coreUnit.name}</CoreUnitName>
             </CoreUnit>
+          ) : (
+            isDelegate && (
+              <CoreUnit isGlobal={isGlobal}>
+                <CircleAvatar
+                  width="32px"
+                  height="32px"
+                  image={'/assets/img/mk-logo.png'}
+                  name={'Recognized Delegates'}
+                />
+                <CoreUnitName style={{ marginLeft: 16 }} isLight={isLight}>
+                  Recognized Delegates
+                </CoreUnitName>
+              </CoreUnit>
+            )
           )}
           <Timestamp isGlobal={isGlobal}>
             <UTCDate isLight={isLight} isGlobal={isGlobal}>

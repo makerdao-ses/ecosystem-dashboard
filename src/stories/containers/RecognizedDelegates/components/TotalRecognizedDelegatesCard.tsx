@@ -9,17 +9,19 @@ interface Props {
 const TotalRecognizedDelegates: React.FC<Props> = ({ total }) => (
   <ExtendedGenericDelegate>
     <TotalDelegates>{total}</TotalDelegates>
-    <DescriptionDelegates>{'Recognized Delegates'}</DescriptionDelegates>
+    <DescriptionDelegates>Recognized Delegates</DescriptionDelegates>
   </ExtendedGenericDelegate>
 );
 
 export default TotalRecognizedDelegates;
 
 const ExtendedGenericDelegate = styled(GenericDelegateCard)({
-  padding: '8px 15px',
+  padding: '16px 13.25px',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  minWidth: 143.5,
+  flex: 1,
 });
 
 export const TotalDelegates = styled.div({
@@ -40,6 +42,5 @@ export const DescriptionDelegates = styled.div({
   fontWeight: 400,
   fontSize: '11px',
   lineHeight: '13px',
-
   color: '#708390',
 });

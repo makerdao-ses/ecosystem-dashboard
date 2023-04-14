@@ -12,7 +12,6 @@ export default {
     },
   },
 } as ComponentMeta<typeof DelegateExpenseBreakdownCard>;
-
 const variantsArgs = [
   {
     delegateCard: {
@@ -39,8 +38,9 @@ const variantsArgs = [
         },
       ],
       address: '0x86914...2e02',
-      totalDai: 232325,
+      numberDai: 2325,
     },
+    totalDai: 232325,
   },
 ];
 
@@ -51,7 +51,7 @@ BreakdownCard.parameters = {
     component: {
       375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16411:176227&t=7GidtstNwOjeimn4-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16759:208199&t=SXR1v9cUgs1wOSb8-4',
         options: {
           style: {
             left: -40,

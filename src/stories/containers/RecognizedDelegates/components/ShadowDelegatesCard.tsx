@@ -17,8 +17,9 @@ const ShadowDelegates: React.FC<Props> = ({ shadowTotal }) => (
 export default ShadowDelegates;
 
 const ExtendedGenericDelegate = styled(GenericDelegateCard)({
-  padding: '8px 24.5px',
+  padding: '16px 22.75px',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  flex: 1,
 });
