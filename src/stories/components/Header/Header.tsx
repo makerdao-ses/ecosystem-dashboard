@@ -43,7 +43,7 @@ const Header: React.FC = () => {
       featureFlags[CURRENT_ENVIRONMENT].FEATURE_GLOBAL_ACTIVITIES
     ) {
       return featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW ? menuItems[3] : menuItems[0];
-    } else if (router.pathname === '/delegates') {
+    } else if (router.pathname.startsWith('/delegates')) {
       return menuItems[2];
     } else {
       return menuItems[0];
