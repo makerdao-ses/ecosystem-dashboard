@@ -82,8 +82,11 @@ export const [
 
 const forecastParams = {
   nextRouter: {
-    path: '/core-unit/[code]/finances/reports#forecast',
-    asPath: '/core-unit/SES/finances/reports#forecast',
+    path: '/core-unit/[code]/finances/reports?section=forecast',
+    asPath: '/core-unit/SES/finances/reports?section=forecast',
+    query: {
+      section: 'forecast',
+    },
   },
 };
 ForecastTabLightMode.parameters = forecastParams;
@@ -91,8 +94,11 @@ ForecastTabDarkMode.parameters = forecastParams;
 
 const mkrVestingParams = {
   nextRouter: {
-    path: '/core-unit/[code]/finances/reports#mkr-vesting',
-    asPath: '/core-unit/SES/finances/reports#mkr-vesting',
+    path: '/core-unit/[code]/finances/reports?section=mkr-vesting',
+    asPath: '/core-unit/SES/finances/reports?section=mkr-vesting',
+    query: {
+      section: 'mkr-vesting',
+    },
   },
 };
 MKRVestingLightMode.parameters = mkrVestingParams;
@@ -100,8 +106,11 @@ MKRVestingDarkMode.parameters = mkrVestingParams;
 
 const transferRequestsParams = {
   nextRouter: {
-    path: '/core-unit/[code]/finances/reports#transfer-requests',
-    asPath: '/core-unit/SES/finances/reports#transfer-requests',
+    path: '/core-unit/[code]/finances/reports?section=transfer-requests',
+    asPath: '/core-unit/SES/finances/reports?section=transfer-requests',
+    query: {
+      section: 'transfer-requests',
+    },
   },
 };
 TransferRequestsLightMode.parameters = transferRequestsParams;
