@@ -34,6 +34,7 @@ export const TransparencyForecast = (props: Props) => {
     breakdownItems,
     breakdownTitleRef,
     breakdownTabs,
+    tabQuery,
   } = useTransparencyForecast(props.currentMonth, props.budgetStatements);
 
   return (
@@ -81,6 +82,7 @@ export const TransparencyForecast = (props: Props) => {
             item: header,
             id: headerIds[i],
           }))}
+          tabQuery={tabQuery}
         />
       )}
 

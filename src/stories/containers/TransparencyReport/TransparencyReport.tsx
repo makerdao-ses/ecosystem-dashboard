@@ -103,14 +103,10 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
                   default: 'Default View',
                   compressed: 'Auditor View',
                 }}
+                tabQuery={'section'}
                 viewValues={{
                   default: 'default',
                   compressed: 'auditor',
-                }}
-                anchorToActualId={(anchor) => {
-                  if (anchor.startsWith('actuals-')) return 'actuals';
-                  if (anchor.startsWith('forecast-')) return 'forecast';
-                  return anchor;
                 }}
               />
             </TabsContainer>
