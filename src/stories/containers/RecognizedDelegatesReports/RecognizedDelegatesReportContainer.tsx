@@ -88,7 +88,7 @@ const RecognizedDelegatesReportContainer: React.FC<RecognizedDelegatesProps> = (
         </ContainerPagerBar>
 
         <ContainerTabs>
-          <Tabs tabs={tabItems} onChange={onTabChange} />
+          <Tabs tabs={tabItems} onChange={onTabChange} tabQuery={'section'} />
         </ContainerTabs>
 
         {selectedTab === DELEGATES_REPORT_IDS_ENUM.ACTUALS && (

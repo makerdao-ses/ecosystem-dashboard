@@ -82,6 +82,7 @@ const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStateme
               }))}
               expandable
               expandedDefault={false}
+              tabQuery={actualsData.tabQuery}
               viewKey={'breakdownView'}
               onChange={handleBreakdownChange}
             />
@@ -144,6 +145,7 @@ const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStateme
               }))}
               expandable
               expandedDefault={false}
+              tabQuery={forecastData.tabQuery}
               viewKey={'breakdownView'}
               onChange={handleBreakdownChange}
             />

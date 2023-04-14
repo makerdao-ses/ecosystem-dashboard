@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
+import { BASE_URL } from '@ses/config/routes';
 import Link from 'next/link';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useMemo } from 'react';
 import lightTheme from '../../../../../../styles/theme/light';
 import { BudgetStatus } from '../../../../../core/models/dto/coreUnitDTO';
 import ExpenseReportStatus from '../ExpenseReportStatus/ExpenseReportStatus';
@@ -13,16 +15,27 @@ export type ExpenseReportStatusIndicatorProps = {
 const ExpenseReportStatusIndicator: React.FC<ExpenseReportStatusIndicatorProps> = ({
   budgetStatus = BudgetStatus.Draft,
   showCTA,
-}) => (
-  <IndicatorContainer>
-    <ExpenseReportStatus status={budgetStatus} />
-    {showCTA && budgetStatus !== BudgetStatus.Final && (
-      <Link href={'#comments'}>
-        <StyledLink>Go to {budgetStatus}</StyledLink>
-      </Link>
-    )}
-  </IndicatorContainer>
-);
+}) => {
+  const router = useRouter();
+  const url = useMemo(() => {
+    const currentUrl = new URL(router.asPath, BASE_URL);
+    const currentQueryParams = new URLSearchParams(currentUrl.search);
+    currentQueryParams.set('section', 'comments');
+
+    return `${currentUrl.pathname}?${currentQueryParams.toString()}${currentUrl.hash}`;
+  }, [router.asPath]);
+
+  return (
+    <IndicatorContainer>
+      <ExpenseReportStatus status={budgetStatus} />
+      {showCTA && budgetStatus !== BudgetStatus.Final && (
+        <Link href={url} shallow={true}>
+          <StyledLink>Go to {budgetStatus}</StyledLink>
+        </Link>
+      )}
+    </IndicatorContainer>
+  );
+};
 
 export default ExpenseReportStatusIndicator;
 

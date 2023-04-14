@@ -1,6 +1,6 @@
 import { useUrlAnchor } from '@ses/core/hooks/useUrlAnchor';
 import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
-import { capitalizeSentence, getWalletWidthForWallets } from '@ses/core/utils/string';
+import { capitalizeSentence, getWalletWidthForWallets, toKebabCase } from '@ses/core/utils/string';
 import _ from 'lodash';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { renderLinks, renderWallet } from '../../transparencyReportUtils';
@@ -97,13 +97,8 @@ export const useTransparencyActuals = (
 
   const breakdownTitleRef = useRef<HTMLDivElement>(null);
 
-  const headerToId = (header: string): string => {
-    const id = header.toLowerCase().trim().replaceAll(/ /g, '-');
-    return `actuals-${id}`;
-  };
-
   useEffect(() => {
-    setHeaderIds(breakdownTabs.map((header: string) => headerToId(header)));
+    setHeaderIds(breakdownTabs.map((header: string) => toKebabCase(header)));
   }, [breakdownTabs]);
 
   useEffect(() => {
@@ -290,5 +285,6 @@ export const useTransparencyActuals = (
     mainTableItems,
     breakdownTabs,
     wallets,
+    tabQuery: 'actual-account',
   };
 };
