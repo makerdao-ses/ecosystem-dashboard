@@ -14,10 +14,12 @@ const TotalExpenseReportCard: React.FC<Props> = ({ start, end, totalDAI }) => {
   const formatted = usLocalizedNumber(totalDAI);
   return (
     <ExtendedGenericDelegate>
-      <Text>Total Reported Expenses</Text>
-      <RangeContainer>
-        <Range start={start} end={end} />
-      </RangeContainer>
+      <ContainerRangeText>
+        <Text>Total Reported Expenses</Text>
+        <RangeContainer>
+          <Range start={start} end={end} />
+        </RangeContainer>
+      </ContainerRangeText>
       <Annual>
         {`${formatted}`}
         <Coin>DAI</Coin>
@@ -28,7 +30,7 @@ const TotalExpenseReportCard: React.FC<Props> = ({ start, end, totalDAI }) => {
 
 export default TotalExpenseReportCard;
 const ExtendedGenericDelegate = styled(GenericDelegateCard)({
-  padding: '24px 32px',
+  padding: '24px 31.5px',
   height: 138,
   flexDirection: 'column',
   alignItems: 'center',
@@ -74,4 +76,13 @@ const Coin = styled.span({
 
 const RangeContainer = styled.div({
   marginBottom: 16,
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+});
+
+const ContainerRangeText = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
 });

@@ -13,7 +13,7 @@ const MedianAnnualDai: React.FC<Props> = ({ annual }) => {
   return (
     <ExtendedGenericDelegate>
       <Annual>{`${formatted} dai`}</Annual>
-      <DescriptionDelegates>{'Median Annual Compensation / Delegate'}</DescriptionDelegates>
+      <DescriptionDelegates>Median Annual Compensation / Delegate</DescriptionDelegates>
     </ExtendedGenericDelegate>
   );
 };
@@ -25,7 +25,8 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  width: 311,
+  minWidth: 311,
+  flex: 1,
 });
 
 export const Annual = styled.div({

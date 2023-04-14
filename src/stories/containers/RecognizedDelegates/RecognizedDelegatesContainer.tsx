@@ -43,7 +43,7 @@ const RecognizedDelegatesContainer: React.FC = () => {
           <DelegateExpenseTrend />
         </ContainerTrend>
         <ContainerBreakdown>
-          <DelegateExpenseBreakdown arrayOfDelegate={arrayOfDelegate} totalDai={17892312} />
+          <DelegateExpenseBreakdown arrayOfDelegate={arrayOfDelegate} totalDai={totalDAI} />
         </ContainerBreakdown>
       </Container>
     </PageContainer>

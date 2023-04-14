@@ -32,7 +32,7 @@ export default DelegateBarPercentTotal;
 const BudgetBar = styled.div<WithIsLight>(({ isLight }) => ({
   position: 'relative',
   width: '100%',
-  height: 12,
+  height: 17,
   overflow: 'hidden',
   borderRadius: 6,
   background: isLight ? '#ECF1F3' : '#10191F',

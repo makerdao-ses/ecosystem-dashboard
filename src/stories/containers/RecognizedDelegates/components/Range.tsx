@@ -34,6 +34,7 @@ const Container = styled.div({
   flexDirection: 'row',
   justifyContent: 'space-between',
   color: '#139D8D',
+  width: 248,
 });
 
 const Dash = styled.div({

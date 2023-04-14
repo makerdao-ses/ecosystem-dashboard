@@ -56,6 +56,7 @@ const ExtendedKeyStatsCard = styled(GenericDelegateCard)({
   display: 'flex',
   flexDirection: 'column',
   gap: 16,
+  flex: 1,
 });
 
 const Legend = styled.div({
@@ -65,7 +66,6 @@ const Legend = styled.div({
 });
 const ContainerBar = styled.div({
   display: 'flex',
-
   flexDirection: 'column',
 });
 const BarPercent = styled.div({

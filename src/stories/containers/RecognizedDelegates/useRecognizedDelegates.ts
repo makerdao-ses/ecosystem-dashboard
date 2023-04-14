@@ -3,7 +3,7 @@ import type { LinkModel } from '@ses/components/CuTableColumnLinks/CuTableColumn
 import type { DelegateDataCard } from '@ses/core/utils/typesHelpers';
 
 export const useRecognizedDelegates = () => {
-  const totalDAI = 17892312;
+  const totalDAI = 2130885;
   const startMonth = 'Nov 2021';
   const endMonth = 'Jun 2023';
   const totalDelegates = 23;

@@ -3,6 +3,8 @@ import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import ArrowLink from '@ses/components/svg/ArrowLink';
 import ClipBoard from '@ses/components/svg/ClipBoard';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { usLocalizedNumber } from '@ses/core/utils/humanization';
+import { percentageRespectTo } from '@ses/core/utils/math';
 import React from 'react';
 import { DelegateSocialLinks } from '../DelegateExpenseBreakdown/DelegateSocialLink';
 import DelegateBarPercentTotal from './DelegateBarPercentTotal';
@@ -15,7 +17,8 @@ interface Props {
 }
 
 const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai }) => {
-  const percent = (delegateCard.numberDai * 100) / totalDai;
+  const percent = percentageRespectTo(delegateCard.numberDai, totalDai);
+  const humanizeTotal = usLocalizedNumber(totalDai);
   const { isLight } = useThemeContext();
   return (
     <ExtendedGenericDelegate>
@@ -55,7 +58,8 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
         <ContainerTotal>
           <TotalTitle>Total DAI Comp</TotalTitle>
           <Total>
-            227,878 <span>DAI</span>
+            {humanizeTotal}
+            <span>DAI</span>
           </Total>
         </ContainerTotal>
       </DescriptionSection>
@@ -75,7 +79,6 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)({
   flexDirection: 'column',
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
-  maxWidth: 343,
   height: 182,
 });
 
@@ -100,15 +103,15 @@ const NameAddressColumn = styled.div({
 
 const Name = styled.div({
   fontWeight: 400,
-  fontSize: '16px',
-  lineHeight: '22px',
+  fontSize: '14px',
+  lineHeight: '17px',
   color: '#231536',
 });
 
 const Address = styled.div({
   fontWeight: 400,
-  fontSize: '14px',
-  lineHeight: '17px',
+  fontSize: '12px',
+  lineHeight: '15px',
   color: '#447AFB',
 });
 
@@ -172,7 +175,7 @@ const PercentBarContainer = styled.div({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
-  marginTop: 0.5,
+  marginTop: -1,
 });
 
 const PercentNumber = styled.div({

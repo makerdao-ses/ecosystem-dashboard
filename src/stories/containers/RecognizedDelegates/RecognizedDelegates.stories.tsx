@@ -39,12 +39,9 @@ LightMode.parameters = {
     component: {
       375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:202678&t=faN0xkmslBHAjD0T-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16759:207820&t=SXR1v9cUgs1wOSb8-4',
 
         options: {
-          componentStyle: {
-            width: 375,
-          },
           ...optionStyles,
         },
       },
