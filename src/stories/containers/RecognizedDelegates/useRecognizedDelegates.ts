@@ -10,8 +10,8 @@ export const useRecognizedDelegates = () => {
   const shadowTotal = 43;
   const mediaAnnual = 89928;
   const percent = 4.22;
-  const delegatesExpenses = 3826359;
-  const otherExpenses = 19581971;
+  const delegatesExpenses = 2160000;
+  const otherExpenses = 50500000;
   const amountDelegates = 21;
   const linksCardOne: LinkModel[] = [
     {

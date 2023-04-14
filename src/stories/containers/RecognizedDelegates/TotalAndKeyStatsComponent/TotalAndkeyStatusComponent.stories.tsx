@@ -14,14 +14,14 @@ export default {
 
 const variantsArgs = [
   {
-    totalDelegates: 52,
-    shadowTotal: 31,
+    totalDelegates: 23,
+    shadowTotal: 43,
     annual: 12345,
     percent: 4.22,
-    delegatesExpenses: 123456,
-    otherExpenses: 343434,
+    delegatesExpenses: 2160000,
+    otherExpenses: 50500000,
     amountDelegates: 21,
-    totalDAI: 17892312,
+    totalDAI: 2130885,
     start: 'Nov 2021',
     end: 'Jun 2023',
   },
