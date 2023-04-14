@@ -10,7 +10,7 @@ import { TransparencyCard } from '../TransparencyCard/TransparencyCard';
 export interface InnerTableColumn {
   align?: string;
   header?: string;
-  type?: 'number' | 'text' | 'custom';
+  type?: 'number' | 'incomeNumber' | 'text' | 'custom';
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   cellRender?: (data: any) => JSX.Element;
   headerAlign?: string;
@@ -59,6 +59,8 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
     switch (columnType) {
       case 'number':
         return <NumberCell key={column.header} value={Number(value)} bold={isBold} />;
+      case 'incomeNumber':
+        return <NumberCell key={column.header} value={Number(value)} bold={isBold} isIncome={true} />;
       case 'text':
         return (
           <TextCell key={column.header} bold={isBold} isHeader={column.isCardHeader}>
