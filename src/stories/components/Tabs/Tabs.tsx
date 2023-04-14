@@ -22,9 +22,6 @@ export interface TabsProps {
   styleForTab?: CSSProperties;
   // default selected tab
   activeIdDefault?: string;
-
-  // managedBy?: 'hash' | 'query'; // TODO: do I use this methodology????
-
   // do this this `Tabs` allow to be expanded/compressed
   expandable?: boolean;
   // is this `Tabs` expanded by default
