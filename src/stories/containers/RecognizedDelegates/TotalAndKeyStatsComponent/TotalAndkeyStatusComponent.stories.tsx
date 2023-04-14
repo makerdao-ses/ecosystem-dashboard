@@ -37,13 +37,15 @@ TotalAndKeyStats.parameters = {
     component: {
       375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16324:172948&t=EXZpxduJdSuerj2c-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:202894&t=viia54PcWYSfsI5r-4',
         options: {
           style: {
             left: -40,
             top: -20,
           },
-          componentStyle: {},
+          componentStyle: {
+            width: 343,
+          },
         },
       },
     },
