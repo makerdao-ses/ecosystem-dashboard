@@ -52,11 +52,11 @@ const Container = styled.div<{ negative?: boolean; fontFamily?: string; isLight:
         ? '#1AAB9B'
         : '#F75524'
       : '#D2D4EF',
-    // color:
-    //   isLight && negative ? '#F75524' : isLight && !negative ? '#231536' : !isLight && negative ? '#F75524' : '#D2D4EF',
+
     '@media (min-width: 834px)': {
       padding: '10px 16px',
     },
+
     '@media (min-width: 1194px)': {
       fontSize: '16px',
       lineHeight: '19px',
