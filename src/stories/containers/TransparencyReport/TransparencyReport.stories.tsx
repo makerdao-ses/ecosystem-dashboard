@@ -124,10 +124,11 @@ TransferRequestsDarkMode.parameters = transferRequestsParams;
 
 const budgetReportParams = {
   nextRouter: {
-    path: '/core-unit/[code]/finances/reports?view=auditor',
-    asPath: '/core-unit/SES/finances/reports?view=auditor',
+    path: '/core-unit/[code]/finances/reports?view=auditor&section=budget-report',
+    asPath: '/core-unit/SES/finances/reports?view=auditor&section=budget-report',
     query: {
       view: 'auditor',
+      section: 'budget-report',
     },
   },
 };
