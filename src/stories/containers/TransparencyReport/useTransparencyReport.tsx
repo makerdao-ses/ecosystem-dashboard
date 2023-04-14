@@ -34,7 +34,9 @@ export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
   const { permissionManager } = useAuthContext();
   const { isTimestampTrackingAccepted } = useCookiesContextTracking();
 
-  const [tabsIndex, setTabsIndex] = useState<TRANSPARENCY_IDS_ENUM>(TRANSPARENCY_IDS_ENUM.ACTUALS);
+  const [tabsIndex, setTabsIndex] = useState<TRANSPARENCY_IDS_ENUM>(
+    query?.view === 'auditor' ? TRANSPARENCY_IDS_ENUM.BUDGET_REPORT : TRANSPARENCY_IDS_ENUM.ACTUALS
+  );
 
   const [scrolled, setScrolled] = useState<boolean>(false);
 
