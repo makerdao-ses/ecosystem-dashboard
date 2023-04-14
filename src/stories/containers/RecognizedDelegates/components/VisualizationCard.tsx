@@ -22,7 +22,7 @@ const VisualizationCard: React.FC<Props> = ({ delegatesExpenses, otherExpenses, 
     <ExtendedKeyStatsCard>
       <Legend>
         <LegendItem color="#ECF1F3" description="Other Expenses" />
-        <LegendItem color="#447AFB" description={`Recognized Delegates (${amountDelegates})`} />
+        <ExtendedLegendItem color="#447AFB" description={`Recognized Delegates (${amountDelegates})`} />
       </Legend>
       <ContainerBar>
         <BarPercent>
@@ -162,4 +162,8 @@ const ContainerDescription = styled.div({
   flexDirection: 'row',
   marginTop: '-1px',
   marginBottom: 4,
+});
+
+const ExtendedLegendItem = styled(LegendItem)({
+  marginRight: 1,
 });
