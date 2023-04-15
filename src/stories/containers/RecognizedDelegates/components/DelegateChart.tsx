@@ -40,6 +40,7 @@ const DelegateChart: React.FC = () => {
         show: false,
       },
       axisLine: {
+        interval: 0,
         show: false,
         symbolOffset: 'left',
         lineStyle: {
@@ -51,47 +52,43 @@ const DelegateChart: React.FC = () => {
         show: false,
       },
       axisLabel: {
+        interval: 0,
+        color: isLight ? '#434358' : '#708390',
+        //     align: 'center',
+        //     fontFamily: 'Inter,san-serif',
+        //     fontWeight: 400,
+        //     fontSize: 9,
+        //     lineHeight: 11,
+        //     // height: upTable ? 15 : 11,
+        //     baseline: 'top',
+        //     interval: 0,
+        //     fontFeatureSettings: "'tnum' on, 'lnum' on",
+        //     backgroundColor: {
+        //       image: '/drop.png',
         formatter: function (value: any) {
-          // Agrega un círculo alrededor de cada letra
-          return value;
+          return `{bgImg|${value}}`;
+          // return value;
         },
         rich: {
-          backgroundColor: {
-            image: '/drop.png',
-            // It can be URL of a image,
-            // or dataURI,
-            // or HTMLImageElement,
-            // or HTMLCanvasElement.
+          bgImg: {
+            // height: 17,
+            // width: 5,
+            padding: 3,
+            //     color: isLight ? '#434358' : '#708390',
+            //     align: 'center',
+            fontFamily: 'Inter,san-serif',
+            //     fontWeight: 400,
+            fontSize: 9,
+            lineHeight: 11,
+            //     // height: upTable ? 15 : 11,
+            //     baseline: 'top',
+            interval: 0,
+            //     fontFeatureSettings: "'tnum' on, 'lnum' on",
+            backgroundColor: {
+              image: '/drop.png',
+            },
           },
-          // Define la apariencia del círculo
-          // drop: {
-          //   width: 30,
-          //   height: 40,
-          //   lineHeight: 40,
-          //   borderRadius: 15,
-          //   backgroundColor: '#739BFC',
-          //   textAlign: 'center',
-          //   color: '#fff',
-          //   fontWeight: 'bold',
-          //   fontSize: 18,
-          //   textShadowColor: '#000',
-          //   textShadowBlur: 5,
-          //   textShadowOffsetX: 2,
-          //   textShadowOffsetY: 2,
-          //   // Agrega la forma de gota de lluvia
-          //   backgroundImage: 'radial-gradient(circle at 50% 60%, transparent 20px, #739BFC 21px)',
-          //   backgroundSize: '100% 100%',
-          // },
         },
-        color: isLight ? '#434358' : '#708390',
-        align: 'center',
-        fontFamily: 'Inter,san-serif',
-        fontWeight: 400,
-        fontSize: upTable ? 12 : 9,
-        height: upTable ? 15 : 11,
-        baseline: 'top',
-        interval: 0,
-        fontFeatureSettings: "'tnum' on, 'lnum' on",
       },
     },
     yAxis: {

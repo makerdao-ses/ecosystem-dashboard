@@ -25,7 +25,6 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  minWidth: 311,
   flex: 1,
 });
 
