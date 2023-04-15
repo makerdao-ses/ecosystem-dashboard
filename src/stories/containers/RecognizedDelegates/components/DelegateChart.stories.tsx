@@ -7,7 +7,7 @@ export default {
   component: DelegateChart,
   parameters: {
     chromatic: {
-      viewports: [375],
+      viewports: [375, 834],
     },
   },
 } as ComponentMeta<typeof DelegateChart>;
@@ -35,7 +35,21 @@ Chart.parameters = {
             top: 24,
           },
           componentStyle: {
-            width: 311,
+            width: 343,
+          },
+        },
+      },
+      834: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:198656&t=Lk6dSYBrypHOTQ8a-4',
+        options: {
+          style: {
+            left: 21,
+            top: 21,
+            width: 690,
+          },
+          componentStyle: {
+            // width: 689,
           },
         },
       },

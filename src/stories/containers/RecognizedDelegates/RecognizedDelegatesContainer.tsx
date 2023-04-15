@@ -23,7 +23,6 @@ const RecognizedDelegatesContainer: React.FC = () => {
     otherExpenses,
     amountDelegates,
     expensesMock,
-    months,
   } = useRecognizedDelegates();
   return (
     <PageContainer>
@@ -42,7 +41,7 @@ const RecognizedDelegatesContainer: React.FC = () => {
           otherExpenses={otherExpenses}
         />
         <ContainerTrend>
-          <DelegateExpenseTrend expenses={expensesMock} months={months} />
+          <DelegateExpenseTrend expenses={expensesMock} />
         </ContainerTrend>
         <ContainerBreakdown>
           <DelegateExpenseBreakdown arrayOfDelegate={arrayOfDelegate} totalDai={totalDAI} />

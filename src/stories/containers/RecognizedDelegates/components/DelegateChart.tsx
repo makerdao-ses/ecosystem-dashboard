@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { MONTHS_DESK, MONTS_MOBILE } from '@ses/core/utils/const';
 import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
@@ -10,9 +11,8 @@ import React from 'react';
 
 interface Props {
   expenses: number[];
-  months: string[];
 }
-const DelegateChart: React.FC<Props> = ({ expenses, months }) => {
+const DelegateChart: React.FC<Props> = ({ expenses }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { isLight } = useThemeContext();
 
@@ -21,15 +21,13 @@ const DelegateChart: React.FC<Props> = ({ expenses, months }) => {
 
   const options = {
     grid: {
-      border: '2px solid red',
-      height: 190,
+      height: upTable ? 230 : 190,
       right: '0%',
       bottom: '10%',
-      // left: '2%',
     },
     xAxis: {
       type: 'category',
-      data: months,
+      data: upTable ? MONTHS_DESK : MONTS_MOBILE,
       splitLine: {
         show: false,
       },
@@ -46,27 +44,29 @@ const DelegateChart: React.FC<Props> = ({ expenses, months }) => {
         show: false,
       },
       axisLabel: {
-        color: '#434358',
+        color: upTable ? '#708390' : '#434358',
         interval: 0,
-        fontSize: 9,
-        lineHeight: 11,
+
+        fontSize: upTable ? 12 : 9,
+        lineHeight: upTable ? 15 : 11,
 
         formatter: function (value: string, index: number) {
-          if (value === 'J' && months[index - 1] === 'D') {
+          if ((value === 'J' && MONTHS_DESK[index - 1] === 'D') || MONTS_MOBILE[index - 1] === 'D') {
             return `{bgImg|${value}}`;
           }
           return value;
         },
         rich: {
           bgImg: {
+            verticalAlign: 'top',
             color: '#139D8D',
-            padding: 3,
+            padding: upTable ? 4 : 3,
             fontFamily: 'Inter,san-serif',
-            fontSize: 9,
-            lineHeight: 11,
+            fontSize: upTable ? 12 : 9,
+            lineHeight: upTable ? 15 : 11,
             interval: 0,
             backgroundColor: {
-              image: '/drop.png',
+              image: upTable ? '/assets/img/drop-desk.png' : '/assets/img/drop.png',
             },
           },
         },
@@ -80,26 +80,23 @@ const DelegateChart: React.FC<Props> = ({ expenses, months }) => {
         align: 'center',
       },
       axisLabel: {
-        margin: 7,
-
+        margin: upTable ? 14 : 7,
         formatter: function (value: number, index: number) {
           if (value === 0 && index === 0) {
             return value.toString();
           }
-
           return replaceAllNumberLetOneBeforeDot(value).replace(/\.?0+$/g, '');
         },
 
-        fontSize: 10,
-        height: '12px',
+        fontSize: upTable ? 12 : 10,
+        height: upTable ? 15 : 12,
         fontFamily: 'Inter, sans-serif',
         fontWeight: upTable ? 600 : 400,
-
         fontFeatureSettings: "'tnum' on, 'lnum' on",
+        color: upTable ? '#708390' : '#434358',
       },
       verticalAlign: 'middle',
       height: upTable ? 15 : 12,
-
       type: 'value',
       zlevel: 1,
       axisLine: {
@@ -120,11 +117,14 @@ const DelegateChart: React.FC<Props> = ({ expenses, months }) => {
         type: 'bar',
         stack: 'x',
         showBackground: false,
-
+        barWidth: upTable ? 16 : 8,
+        barGapCategory: upTable ? 17 : 7,
+        // barGap: 40,
         itemStyle: {
-          barWidth: 6,
+          // barWidth: upTable ? 4 : 6, // 8,
+          // barWidth: 20, // establece el ancho de la barra en 20
           borderRadius: 4,
-          barGapCategory: 7,
+          barGapCategory: upTable ? 43 : 7,
           color: '#739BFC',
         },
       },
@@ -142,11 +142,9 @@ const DelegateChart: React.FC<Props> = ({ expenses, months }) => {
         opts={{ renderer: 'svg' }}
       />
       <ContainerYears>
-        <Year marginLeft={21} marginRight={17}>
-          2021
-        </Year>
-        <Year marginRight={153}>2022</Year>
-        <Year>2023</Year>
+        <Year>2021</Year>
+        <ExtendedYearSecond>2022</ExtendedYearSecond>
+        <ExtendedYearThird>2023</ExtendedYearThird>
       </ContainerYears>
     </Container>
   );
@@ -162,9 +160,9 @@ const Container = styled.div({
   justifyContent: 'center',
 
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    height: 387,
-    width: 607,
-    maxWidth: 607,
+    height: 289,
+    width: 690,
+    maxWidth: 690,
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
@@ -184,9 +182,12 @@ const ContainerYears = styled.div({
   flexDirection: 'row',
   position: 'absolute',
   bottom: -19,
+  [lightTheme.breakpoints.up('table_834')]: {
+    bottom: -21,
+  },
 });
 
-const Year = styled.div<{ marginRight?: number; marginLeft?: number }>(({ marginRight = 0, marginLeft = 0 }) => ({
+const Year = styled.div({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
@@ -194,8 +195,31 @@ const Year = styled.div<{ marginRight?: number; marginLeft?: number }>(({ margin
   lineHeight: '13px',
   alignItems: 'center',
   color: '#139D8D',
-  marginRight,
-  marginLeft,
-}));
+  marginLeft: 21,
+  marginRight: 17,
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginLeft: 60,
+    marginRight: 48,
+    fontSize: 12,
+    lineHeight: '15px',
+  },
+});
 
+const ExtendedYearSecond = styled(Year)({
+  marginLeft: 0,
+  marginRight: 153,
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginLeft: 0,
+    marginRight: 356,
+  },
+});
+
+const ExtendedYearThird = styled(Year)({
+  marginLeft: 0,
+  marginRight: 0,
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginLeft: 0,
+    marginRight: 0,
+  },
+});
 export default DelegateChart;

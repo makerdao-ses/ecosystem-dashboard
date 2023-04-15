@@ -6,10 +6,9 @@ import FilterDelegate from './components/FilterDelegate';
 
 interface Props {
   expenses: number[];
-  months: string[];
 }
 
-const DelegateExpenseTrend: React.FC<Props> = ({ expenses, months }) => (
+const DelegateExpenseTrend: React.FC<Props> = ({ expenses }) => (
   <Container>
     <Title>Delegate Expense Trend</Title>
     <Description>Delegate Compensation / Month</Description>
@@ -17,7 +16,7 @@ const DelegateExpenseTrend: React.FC<Props> = ({ expenses, months }) => (
       <FilterDelegate />
     </FilterContainer>
     <ExpensesChartColumn>
-      <DelegateChart expenses={expenses} months={months} />
+      <DelegateChart expenses={expenses} />
     </ExpensesChartColumn>
   </Container>
 );
@@ -56,8 +55,7 @@ const Description = styled.div({
 const ExpensesChartColumn = styled.div({
   width: 343,
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    margin: '32px auto 0',
-    width: 666,
+    width: 690,
     paddingRight: 59,
   },
 
@@ -73,4 +71,6 @@ const ExpensesChartColumn = styled.div({
 
 const FilterContainer = styled.div({
   marginBottom: 32,
+  // TODO: This should be remove and put correct as page in story:
+  // marginBottom: 6,
 });
