@@ -5,10 +5,11 @@ export const FilterDelegate = () => (
     style={{
       width: '343px',
       height: 34,
-      border: '2px solid red',
       display: 'flex',
     }}
-  />
+  >
+    Here is part of the filtet
+  </div>
 );
 
 export default FilterDelegate;

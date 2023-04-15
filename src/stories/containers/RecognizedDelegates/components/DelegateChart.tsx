@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
-// import LegendItem from '@ses/containers/FinancesOverview/components/ExpensesChart/LegendItem';
+
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
@@ -8,34 +8,28 @@ import ReactECharts from 'echarts-for-react';
 
 import React from 'react';
 
-// import type { ValuesDataWithBorder } from '@ses/core/models/dto/chartDTO';
-
-// const dataMock = [
-//   6091, 8412, 8232, 8117, 9839, 4879, 1749, 8823, 3373, 1517, 6743, 7642, 9434, 8604, 9674, 1663, 5783, 3297, 3423,
-//   6762, 4264, 9644, 4304, 1867, 7411, 7322,
-// ];
-const dataMock = [
-  64523, 72053, 91478, 105432, 78823, 46823, 23456, 98765, 78964, 86543, 93021, 110540, 100032, 120032, 88023, 97321,
-  120453, 105432, 87654, 99432, 65023, 100021, 89054, 105032, 78965, 93021,
-];
-const DelegateChart: React.FC = () => {
-  console.log('first', dataMock.length);
+interface Props {
+  expenses: number[];
+  months: string[];
+}
+const DelegateChart: React.FC<Props> = ({ expenses, months }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { isLight } = useThemeContext();
-  //   const isUpDesktop1194 = useMediaQuery(lightTheme.breakpoints.up('desktop_1194'));
-  // const isTable = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
+
   const upTable = useMediaQuery(lightTheme.breakpoints.up('table_834'));
   const isZeroValue = false;
 
   const options = {
     grid: {
-      height: 200,
+      border: '2px solid red',
+      height: 190,
       right: '0%',
       bottom: '10%',
-      // left: '6%',
+      // left: '2%',
     },
     xAxis: {
       type: 'category',
-      data: ['N', 'D', 'J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D', 'J', 'F', 'M', 'A', 'M', 'J'],
+      data: months,
       splitLine: {
         show: false,
       },
@@ -52,38 +46,25 @@ const DelegateChart: React.FC = () => {
         show: false,
       },
       axisLabel: {
+        color: '#434358',
         interval: 0,
-        color: isLight ? '#434358' : '#708390',
-        //     align: 'center',
-        //     fontFamily: 'Inter,san-serif',
-        //     fontWeight: 400,
-        //     fontSize: 9,
-        //     lineHeight: 11,
-        //     // height: upTable ? 15 : 11,
-        //     baseline: 'top',
-        //     interval: 0,
-        //     fontFeatureSettings: "'tnum' on, 'lnum' on",
-        //     backgroundColor: {
-        //       image: '/drop.png',
-        formatter: function (value: any) {
-          return `{bgImg|${value}}`;
-          // return value;
+        fontSize: 9,
+        lineHeight: 11,
+
+        formatter: function (value: string, index: number) {
+          if (value === 'J' && months[index - 1] === 'D') {
+            return `{bgImg|${value}}`;
+          }
+          return value;
         },
         rich: {
           bgImg: {
-            // height: 17,
-            // width: 5,
+            color: '#139D8D',
             padding: 3,
-            //     color: isLight ? '#434358' : '#708390',
-            //     align: 'center',
             fontFamily: 'Inter,san-serif',
-            //     fontWeight: 400,
             fontSize: 9,
             lineHeight: 11,
-            //     // height: upTable ? 15 : 11,
-            //     baseline: 'top',
             interval: 0,
-            //     fontFeatureSettings: "'tnum' on, 'lnum' on",
             backgroundColor: {
               image: '/drop.png',
             },
@@ -95,12 +76,12 @@ const DelegateChart: React.FC = () => {
       min: 0,
       max: 120000,
       interval: 20000,
-      // interval: 4,
+      nameTextStyle: {
+        align: 'center',
+      },
       axisLabel: {
         margin: 7,
-        // splitNumber: 9,
-        // interval: 2,
-        // margin: upTable ? 16 : 7,
+
         formatter: function (value: number, index: number) {
           if (value === 0 && index === 0) {
             return value.toString();
@@ -108,9 +89,9 @@ const DelegateChart: React.FC = () => {
 
           return replaceAllNumberLetOneBeforeDot(value).replace(/\.?0+$/g, '');
         },
-        // color: isLight ? '#231536' : '#EDEFFF',
-        fontSize: upTable ? 12 : 10,
-        height: upTable ? 15 : 12,
+
+        fontSize: 10,
+        height: '12px',
         fontFamily: 'Inter, sans-serif',
         fontWeight: upTable ? 600 : 400,
 
@@ -126,9 +107,8 @@ const DelegateChart: React.FC = () => {
       },
       splitLine: {
         lineStyle: {
-          //   color: 'none',
-          color: dataMock.map((item, index) => (index === 0 ? 'none' : '#9FAFB9')),
-          //   color: isLight ? '#31424E' : '#D8E0E3',
+          color: expenses.map((item, index) => (index === 0 ? 'none' : '#9FAFB9')),
+
           width: isZeroValue ? 0 : 0.25,
         },
       },
@@ -136,21 +116,15 @@ const DelegateChart: React.FC = () => {
     series: [
       {
         name: 'Active Budget',
-        data: dataMock,
+        data: expenses,
         type: 'bar',
         stack: 'x',
         showBackground: false,
-        // backgroundStyle: {
-        //   color: isLight ? '#ECF1F3' : '#10191F',
-        //   borderRadius: 4,
-        // },
-        // barWidth: upTable && !isUpDesktop1194 ? 40 : isUpDesktop1194 ? 32 : 22,
-        // barWidth: 8,
-        itemStyle: {
-          barWidth: 8,
-          borderRadius: 4,
 
-          //   color: isLight ? '#0EB19F' : '#027265',
+        itemStyle: {
+          barWidth: 6,
+          borderRadius: 4,
+          barGapCategory: 7,
           color: '#739BFC',
         },
       },
@@ -158,16 +132,6 @@ const DelegateChart: React.FC = () => {
   };
 
   return (
-    // <ContainerAndLegend>
-    //   <Legend>
-    //     <LegendItem
-    //       color={isLight ? '#0EB19F' : '#027265'}
-    //       text="Active Budget"
-    //       style={{ paddingLeft: isTable ? 0 : upTable ? 10 : 10 }}
-    //     />
-    //     <LegendItem color={isLight ? '#027265' : '#2C3F3B'} text="Discontinued" />
-    //     <LegendItem color={isLight ? '#68FEE3' : '#1AAB9B'} text="Expense forecasts" />
-    //   </Legend>
     <Container>
       <ReactECharts
         option={options}
@@ -177,22 +141,24 @@ const DelegateChart: React.FC = () => {
         }}
         opts={{ renderer: 'svg' }}
       />
+      <ContainerYears>
+        <Year marginLeft={21} marginRight={17}>
+          2021
+        </Year>
+        <Year marginRight={153}>2022</Year>
+        <Year>2023</Year>
+      </ContainerYears>
     </Container>
-    // </ContainerAndLegend>
   );
 };
 
-// const ContainerAndLegend = styled.div({
-//   display: 'flex',
-//   flexDirection: 'column',
-// });
-
 const Container = styled.div({
-  height: 230,
+  position: 'relative',
+  height: 247,
   width: 343,
   maxWidth: 343,
   display: 'flex',
-  flexDirection: 'row',
+  flexDirection: 'column',
   justifyContent: 'center',
 
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
@@ -213,29 +179,23 @@ const Container = styled.div({
   },
 });
 
-// const Legend = styled.div({
-//   maxWidth: 343,
-//   display: 'flex',
-//   flexDirection: 'row',
-//   justifyContent: 'space-between',
-//   marginBottom: -4,
+const ContainerYears = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  position: 'absolute',
+  bottom: -19,
+});
 
-//   [lightTheme.breakpoints.up('table_834')]: {
-//     marginBottom: -8,
-//     paddingLeft: 60,
-//     maxWidth: 607,
-//   },
-
-//   [lightTheme.breakpoints.up('desktop_1194')]: {
-//     marginBottom: -8,
-//     paddingLeft: 11,
-//     maxWidth: 479,
-//   },
-
-//   [lightTheme.breakpoints.up('desktop_1280')]: {
-//     maxWidth: 504,
-//     paddingLeft: 36,
-//   },
-// });
+const Year = styled.div<{ marginRight?: number; marginLeft?: number }>(({ marginRight = 0, marginLeft = 0 }) => ({
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 400,
+  fontSize: '11px',
+  lineHeight: '13px',
+  alignItems: 'center',
+  color: '#139D8D',
+  marginRight,
+  marginLeft,
+}));
 
 export default DelegateChart;
