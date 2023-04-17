@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import ButtonLink from '@ses/components/ButtonLink';
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import ArrowLink from '@ses/components/svg/ArrowLink';
 import ClipBoard from '@ses/components/svg/ClipBoard';
+import ButtonLink from '@ses/containers/RecognizedDelegates/components/ButtonLink';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
