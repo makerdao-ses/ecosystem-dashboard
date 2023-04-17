@@ -130,12 +130,12 @@ export const useTransparencyActuals = (
       {
         header: 'Forecast',
         align: 'right',
-        type: 'number',
+        type: 'incomeNumber',
       },
       {
         header: 'Actuals',
         align: 'right',
-        type: 'number',
+        type: 'incomeNumber',
       },
       {
         header: 'Difference',
