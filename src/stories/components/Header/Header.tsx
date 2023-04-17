@@ -65,19 +65,19 @@ const Header: React.FC = () => {
 
         <Navigation>
           {menuItems.map((item: MenuType) => (
-            <Link href={item.link} passHref key={item.title}>
+            <Link href={item.link} passHref key={item?.title}>
               <ItemMenuStyle
                 isLight={isLight}
                 style={{ marginRight: item.marginRight }}
                 href={item.link}
                 active={activeMenuItem === item}
               >
-                {item.title}
+                {item?.title}
               </ItemMenuStyle>
             </Link>
           ))}
           <ItemMenuResponsive>
-            <TopBarSelect selectedOption={activeMenuItem.title} />
+            <TopBarSelect selectedOption={activeMenuItem?.title} />
           </ItemMenuResponsive>
           <RightElementsWrapper>
             {permissionManager.isAuthenticated() ? (
