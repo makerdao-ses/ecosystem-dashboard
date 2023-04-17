@@ -20,13 +20,12 @@ jobs:
           yarn
           yarn build
       - name: Copy file via scp
-        uses: appleboy/scp-action@master
-        env:
-          HOST: ${{ secrets.SSH_HOST }}
-          USERNAME: ${{ secrets.SSH_USER }}
-          PORT: ${{ secrets.SSH_PORT }}
-          PASSWORD: ${{ secrets.SSH_PASS }}
+        uses: appleboy/scp-action@v0.1.4
         with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT }}
+          password: ${{ secrets.SSH_PASS }}
           source: "./"
           target: "/var/www/next/app-staging-tmp"
       - name: Executing remote command
