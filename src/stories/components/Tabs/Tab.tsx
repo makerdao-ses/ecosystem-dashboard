@@ -1,19 +1,34 @@
 import styled from '@emotion/styled';
+import { BASE_URL } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import Link from 'next/link';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useMemo } from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface TabProps extends React.PropsWithChildren {
   id?: string;
   href?: string;
+  tabQuery?: string;
   active: boolean;
   onClick?: (e: React.MouseEvent) => void;
   className?: string;
 }
 
-const Tab: React.FC<TabProps> = ({ children, id, href, active = false, onClick, className }) => {
+const Tab: React.FC<TabProps> = ({ children, id, href, tabQuery, active = false, onClick, className }) => {
   const { isLight } = useThemeContext();
+  const router = useRouter();
+  const url = useMemo(() => {
+    if (href) return href;
+
+    const currentUrl = new URL(router.asPath, BASE_URL);
+    const currentQueryParams = new URLSearchParams(currentUrl.search);
+    currentQueryParams.set(tabQuery || 'tab', id || '');
+
+    const updatedUrl = `${currentUrl.pathname}?${currentQueryParams.toString()}${currentUrl.hash}`;
+
+    return updatedUrl;
+  }, [href, id, router.asPath, tabQuery]);
 
   const content = (
     <StyledTab isLight={isLight} active={active} onClick={onClick} className={className}>
@@ -24,7 +39,7 @@ const Tab: React.FC<TabProps> = ({ children, id, href, active = false, onClick, 
   if (!id && !href) return content;
 
   return (
-    <Link href={href || `#${id}`} passHref>
+    <Link href={url} passHref shallow={true}>
       {content}
     </Link>
   );

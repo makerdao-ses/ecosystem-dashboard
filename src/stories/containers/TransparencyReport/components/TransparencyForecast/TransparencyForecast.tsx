@@ -34,6 +34,7 @@ export const TransparencyForecast = (props: Props) => {
     breakdownItems,
     breakdownTitleRef,
     breakdownTabs,
+    tabQuery,
   } = useTransparencyForecast(props.currentMonth, props.budgetStatements);
 
   return (
@@ -69,22 +70,23 @@ export const TransparencyForecast = (props: Props) => {
         style={{ marginBottom: '64px' }}
         cardsTotalPosition={'top'}
       />
-      {!!breakdownItems.length && (
+      {!!breakdownItems?.length && (
         <Title isLight={isLight} marginBottom={24} ref={breakdownTitleRef}>
           {props.currentMonth.toFormat('MMM yyyy')} Breakdown
         </Title>
       )}
 
-      {!!breakdownItems.length && (
+      {!!breakdownItems?.length && (
         <Tabs
           tabs={breakdownTabs.map((header, i) => ({
             item: header,
             id: headerIds[i],
           }))}
+          tabQuery={tabQuery}
         />
       )}
 
-      {!!breakdownItems.length && (
+      {!!breakdownItems?.length && (
         <AdvancedInnerTable
           longCode={props.longCode}
           columns={breakdownColumnsForActiveTab}

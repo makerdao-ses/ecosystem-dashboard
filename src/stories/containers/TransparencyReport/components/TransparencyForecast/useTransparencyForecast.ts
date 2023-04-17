@@ -1,6 +1,6 @@
 import { useUrlAnchor } from '@ses/core/hooks/useUrlAnchor';
 import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
-import { capitalizeSentence, getWalletWidthForWallets } from '@ses/core/utils/string';
+import { capitalizeSentence, getWalletWidthForWallets, toKebabCase } from '@ses/core/utils/string';
 import _ from 'lodash';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { renderLinks, renderWallet } from '../../transparencyReportUtils';
@@ -49,14 +49,9 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
     return wallets?.map((wallet) => wallet.name);
   }, [budgetStatements, wallets]);
 
-  const headerToId = (header: string): string => {
-    const id = header.toLowerCase().trim().replaceAll(/ /g, '-');
-    return `forecast-${id}`;
-  };
-
   const [headerIds, setHeaderIds] = useState<string[]>([]);
   useEffect(() => {
-    setHeaderIds(breakdownTabs.map((header) => headerToId(header)));
+    setHeaderIds(breakdownTabs.map((header) => toKebabCase(header)));
   }, [breakdownTabs]);
 
   const anchor = useUrlAnchor();
@@ -300,8 +295,7 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
     firstMonth,
     secondMonth,
     thirdMonth,
-    getForecastSumOfMonthsOnWallet,
-    getForecastSumForMonths,
     wallets,
+    tabQuery: 'forecast-account',
   };
 };
