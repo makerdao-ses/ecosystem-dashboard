@@ -1,10 +1,12 @@
 import styled from '@emotion/styled';
+import ButtonLink from '@ses/components/ButtonLink';
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import ArrowLink from '@ses/components/svg/ArrowLink';
 import ClipBoard from '@ses/components/svg/ClipBoard';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { DelegateSocialLinks } from '../DelegateExpenseBreakdown/DelegateSocialLink';
 import DelegateBarPercentTotal from './DelegateBarPercentTotal';
@@ -22,52 +24,60 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
   const { isLight } = useThemeContext();
   return (
     <ExtendedGenericDelegate>
-      <AvatarSection>
-        <WalletAvatar>
-          <CircleAvatarExtended
-            isLight={isLight}
-            width="48px"
-            height="48px"
-            name={delegateCard.walletName || 'Wallet'}
-            image={delegateCard.imageUrl}
-          />
-          <NameAddressColumn>
-            <Name>{delegateCard.walletName}</Name>
-            <ClipBoardRow>
-              <Address>{delegateCard.address}</Address>
-              <ClipBoardContainer>
-                <ClipBoard />
-              </ClipBoardContainer>
-            </ClipBoardRow>
-          </NameAddressColumn>
-        </WalletAvatar>
-        <WalletLink>
-          <ArrowLink fill={isLight ? '#447AFB' : '#626472'} href={delegateCard.address} />
-        </WalletLink>
-      </AvatarSection>
-      <DescriptionSection>
-        <ContainerBar>
-          <PercentTitle>% of Total</PercentTitle>
-          <PercentBarContainer>
-            <ContainerBarDelegate>
-              <DelegateBarPercentTotal numberDai={delegateCard.numberDai} totalDai={totalDai} />
-            </ContainerBarDelegate>
-            <PercentNumber>{Math.trunc(percent || 0)}%</PercentNumber>
-          </PercentBarContainer>
-        </ContainerBar>
-        <ContainerTotal>
-          <TotalTitle>Total DAI Comp</TotalTitle>
-          <Total>
-            {humanizeTotal}
-            <span>DAI</span>
-          </Total>
-        </ContainerTotal>
-      </DescriptionSection>
-      {delegateCard.links && (
-        <SocialIconsSection>
-          <DelegateSocialLinks links={delegateCard.links} fillDark="#ADAFD4" />
-        </SocialIconsSection>
-      )}
+      <ContainerAvatarDescription>
+        <AvatarSection>
+          <WalletAvatar>
+            <CircleAvatarExtended
+              isLight={isLight}
+              width="48px"
+              height="48px"
+              name={delegateCard.walletName || 'Wallet'}
+              image={delegateCard.imageUrl}
+            />
+            <NameAddressColumn>
+              <Name>{delegateCard.walletName}</Name>
+              <ClipBoardRow>
+                <Address>{delegateCard.address}</Address>
+                <ClipBoardContainer>
+                  <ClipBoard />
+                </ClipBoardContainer>
+              </ClipBoardRow>
+            </NameAddressColumn>
+          </WalletAvatar>
+          <WalletLink>
+            <ArrowLink fill={isLight ? '#447AFB' : '#626472'} href={delegateCard.address} />
+          </WalletLink>
+        </AvatarSection>
+        <DescriptionSection>
+          <ContainerBar>
+            <PercentTitle>% of Total</PercentTitle>
+            <PercentBarContainer>
+              <ContainerBarDelegate>
+                <DelegateBarPercentTotal numberDai={delegateCard.numberDai} totalDai={totalDai} />
+              </ContainerBarDelegate>
+              <PercentNumber>{Math.trunc(percent || 0)}%</PercentNumber>
+            </PercentBarContainer>
+          </ContainerBar>
+          <ContainerTotal>
+            <TotalTitle>Total DAI Comp</TotalTitle>
+            <Total>
+              {humanizeTotal}
+              <span>DAI</span>
+            </Total>
+          </ContainerTotal>
+        </DescriptionSection>
+      </ContainerAvatarDescription>
+
+      <SocialIconsSection>
+        {delegateCard.links && (
+          <LinkContainer>
+            <DelegateSocialLinks links={delegateCard.links} fillDark="#ADAFD4" />
+          </LinkContainer>
+        )}
+        <ContainerButton>
+          <ButtonLink iconName="arrowLink" label="Profile" href="" />
+        </ContainerButton>
+      </SocialIconsSection>
     </ExtendedGenericDelegate>
   );
 };
@@ -79,7 +89,10 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)({
   flexDirection: 'column',
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
-  height: 182,
+  [lightTheme.breakpoints.up('table_834')]: {
+    padding: '16px',
+    height: 138,
+  },
 });
 
 const AvatarSection = styled.div({
@@ -87,6 +100,10 @@ const AvatarSection = styled.div({
   flexDirection: 'row',
   justifyContent: 'space-between',
   marginBottom: 24,
+  [lightTheme.breakpoints.up('table_834')]: {
+    flex: 1,
+    marginBottom: 25,
+  },
 });
 
 const WalletAvatar = styled.div({
@@ -118,6 +135,9 @@ const Address = styled.div({
 const WalletLink = styled.div({
   marginRight: 4,
   marginTop: 5,
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'none',
+  },
 });
 
 const DescriptionSection = styled.div({
@@ -128,10 +148,18 @@ const DescriptionSection = styled.div({
   marginLeft: 8,
   marginRight: 8,
   marginTop: 1,
+  [lightTheme.breakpoints.up('table_834')]: {
+    flex: 1,
+    marginRight: 0,
+  },
 });
 const ContainerBar = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  [lightTheme.breakpoints.up('table_834')]: {
+    flex: 1,
+    marginLeft: -18,
+  },
 });
 
 const PercentTitle = styled.div({
@@ -140,12 +168,18 @@ const PercentTitle = styled.div({
   lineHeight: '13px',
   color: '#708390',
   marginBottom: 8,
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginBottom: 16,
+  },
 });
 
 const ContainerTotal = styled.div({
   display: 'flex',
   flexDirection: 'column',
   paddingLeft: 1,
+  [lightTheme.breakpoints.up('table_834')]: {
+    textAlign: 'end',
+  },
 });
 
 const TotalTitle = styled.div({
@@ -168,6 +202,16 @@ const Total = styled.div({
     fontWeight: 600,
     color: '#9FAFB9',
     marginLeft: 4,
+  },
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 16,
+    fontSize: '16px',
+    lineHeight: '18px',
+    '& > span': {
+      fontWeight: 600,
+      color: '#9FAFB9',
+      marginLeft: 8,
+    },
   },
 });
 
@@ -197,6 +241,10 @@ const SocialIconsSection = styled.div({
   display: 'flex',
   flexDirection: 'row',
   margin: '0 auto',
+  [lightTheme.breakpoints.up('table_834')]: {
+    justifyContent: 'space-between',
+    margin: 'unset',
+  },
 });
 
 const ContainerBarDelegate = styled.div({
@@ -219,4 +267,30 @@ const ClipBoardContainer = styled.div({
   marginLeft: 16,
   display: 'flex',
   alignItems: 'center',
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginLeft: 2,
+  },
+});
+
+const ContainerButton = styled.div({
+  display: 'none',
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'flex',
+    width: 107,
+  },
+});
+
+const ContainerAvatarDescription = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  [lightTheme.breakpoints.up('table_834')]: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+});
+
+const LinkContainer = styled.div({
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginLeft: 8,
+  },
 });
