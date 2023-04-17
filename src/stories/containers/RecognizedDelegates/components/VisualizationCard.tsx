@@ -246,15 +246,21 @@ const ContainerChart = styled.div({
     justifyContent: 'flex-end',
     alignContent: 'center',
   },
-  // [lightTheme.breakpoints.up('table_834')]: {
-  //   flex: 1,
-  // },
 });
 
 const DoughnutChartContainer = styled.div({
   display: 'none',
   [lightTheme.breakpoints.up('table_834')]: {
     display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    width: 128,
+    height: 128,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
     width: 128,
     height: 128,
   },

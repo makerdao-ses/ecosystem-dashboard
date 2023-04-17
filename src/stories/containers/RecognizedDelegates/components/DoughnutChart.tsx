@@ -87,14 +87,9 @@ const Container = styled.div({
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    height: 387,
-    width: 479,
-    maxWidth: 479,
-  },
-
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    width: 504,
-    maxWidth: 504,
+    height: 128,
+    width: 128,
+    maxWidth: 128,
   },
 });
 
