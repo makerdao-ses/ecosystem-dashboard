@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 import { threeDigitsPrecisionHumanization } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import DoughnutChart from './DoughnutChart';
 import GenericDelegateCard from './GenericDelegateCard';
 import LegendItem from './LegendItem';
 import { RelativeDelegateBar } from './RelativeDelegateBar';
@@ -20,15 +22,20 @@ const VisualizationCard: React.FC<Props> = ({ delegatesExpenses, otherExpenses, 
 
   return (
     <ExtendedKeyStatsCard>
-      <Legend>
-        <LegendItem color="#ECF1F3" description="Other Expenses" />
-        <ExtendedLegendItem color="#447AFB" description={`Recognized Delegates (${amountDelegates})`} />
-      </Legend>
-      <ContainerBar>
-        <BarPercent>
-          <RelativeDelegateBar otherExpenses={otherExpenses} recognizedDelegates={delegatesExpenses} />
-        </BarPercent>
-      </ContainerBar>
+      <ContainerChart>
+        <Legend>
+          <LegendItem color="#ECF1F3" description="Other Expenses" />
+          <ExtendedLegendItem color="#447AFB" description={`Recognized Delegates (${amountDelegates})`} />
+        </Legend>
+        <ContainerBar>
+          <BarPercent>
+            <RelativeDelegateBar otherExpenses={otherExpenses} recognizedDelegates={delegatesExpenses} />
+          </BarPercent>
+        </ContainerBar>
+        <DoughnutChartContainer>
+          <DoughnutChart delegatesExpenses={delegatesExpenses} otherExpenses={otherExpenses} />
+        </DoughnutChartContainer>
+      </ContainerChart>
       <BarDescription>
         <Annual>{`${percent.toFixed(2)} %`}</Annual>
         <ContainerDescription>
@@ -57,16 +64,30 @@ const ExtendedKeyStatsCard = styled(GenericDelegateCard)({
   flexDirection: 'column',
   gap: 16,
   flex: 1,
+  [lightTheme.breakpoints.up('table_834')]: {
+    flexDirection: 'row-reverse',
+  },
 });
 
 const Legend = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
+  marginBottom: 16,
+  [lightTheme.breakpoints.up('table_834')]: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    marginLeft: 16,
+    gap: 16,
+    marginTop: 19,
+  },
 });
 const ContainerBar = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'none',
+  },
 });
 const BarPercent = styled.div({
   width: 279,
@@ -76,6 +97,12 @@ const BarDescription = styled.div({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  [lightTheme.breakpoints.up('table_834')]: {
+    flex: 1,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    flex: 1,
+  },
 });
 
 const Annual = styled.div({
@@ -90,6 +117,15 @@ const Annual = styled.div({
   marginBottom: 3,
   marginTop: 1,
   textTransform: 'uppercase',
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontWeight: 500,
+    fontSize: '30px',
+    lineHeight: '36px',
+    color: '#231536',
+    marginBottom: 8,
+    marginTop: 6.5,
+    paddingLeft: 45,
+  },
 });
 
 const LegendNumberWrapper = styled.div({
@@ -106,6 +142,12 @@ const LegendNumber = styled.div({
   letterSpacing: '0.3px',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
   color: '#231536',
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontWeight: 400,
+    fontSize: '24px',
+    lineHeight: '29px',
+    color: '#231536',
+  },
 });
 
 const LegendNumberSuffix = styled.div({
@@ -117,6 +159,12 @@ const LegendNumberSuffix = styled.div({
   letterSpacing: '0.3px',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
   color: '#231536',
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontWeight: 400,
+    fontSize: '24px',
+    lineHeight: '29px',
+    color: '#231536',
+  },
 });
 
 const Divider = styled.div({
@@ -130,6 +178,11 @@ const Divider = styled.div({
   color: '#9FAFB9',
   marginLeft: 4,
   marginRight: 4,
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontsize: '24px',
+    fontWeight: 400,
+    lineHeight: '30px',
+  },
 });
 
 const Coin = styled.div({
@@ -142,6 +195,11 @@ const Coin = styled.div({
   fontFeatureSettings: "'tnum' on, 'lnum' on",
   color: '#9FAFB9',
   marginLeft: 6,
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontWeight: 600,
+    fontSize: '24px',
+    lineHeight: '29px',
+  },
 });
 
 const Description = styled.div({
@@ -155,6 +213,14 @@ const Description = styled.div({
   textAlign: 'center',
   width: 179,
   marginLeft: -2,
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: '14px',
+    lineHeight: '17px',
+    height: 34,
+    width: 229,
+    marginBottom: 6.5,
+    marginLeft: 38,
+  },
 });
 
 const ContainerDescription = styled.div({
@@ -162,8 +228,34 @@ const ContainerDescription = styled.div({
   flexDirection: 'row',
   marginTop: '-1px',
   marginBottom: 4,
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginBottom: 8,
+    paddingLeft: 30,
+  },
 });
 
 const ExtendedLegendItem = styled(LegendItem)({
   marginRight: 1,
+});
+
+const ContainerChart = styled.div({
+  [lightTheme.breakpoints.up('table_834')]: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    justifyContent: 'flex-end',
+    alignContent: 'center',
+  },
+  // [lightTheme.breakpoints.up('table_834')]: {
+  //   flex: 1,
+  // },
+});
+
+const DoughnutChartContainer = styled.div({
+  display: 'none',
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'flex',
+    width: 128,
+    height: 128,
+  },
 });
