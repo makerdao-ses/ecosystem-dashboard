@@ -90,29 +90,33 @@ const Tabs: React.FC<TabsProps> = ({
     }
     return expandedDefault;
   });
-  const [expandedActiveId, setExpandedActiveId] = useState<string | undefined>(activeIdDefault ?? tabs?.[0]?.id);
+  const isValidQueryValue = useCallback(
+    (value: string): boolean => {
+      if (value) {
+        const actualId = value;
+        if (expanded) {
+          return tabs.some((element) => element.id === actualId);
+        } else {
+          return !!compressedTabs?.some((element) => element.id === actualId);
+        }
+      } else {
+        return true;
+      }
+    },
+    [compressedTabs, expanded, tabs]
+  );
+  const [expandedActiveId, setExpandedActiveId] = useState<string | undefined>(
+    activeIdDefault ?? (!!queryValue && isValidQueryValue(queryValue)) ? queryValue : tabs?.[0]?.id
+  );
   const [compressedActiveId, setCompressedActiveId] = useState<string | undefined>(
-    activeIdDefault ?? compressedTabs?.[0]?.id
+    activeIdDefault ?? (!!queryValue && isValidQueryValue(queryValue)) ? queryValue : compressedTabs?.[0]?.id
   );
   const activeId = expanded ? expandedActiveId : compressedActiveId;
-
-  const isValidQueryValue = useCallback(() => {
-    if (queryValue) {
-      const actualId = queryValue;
-      if (expanded) {
-        return tabs.some((element) => element.id === actualId);
-      } else {
-        return !!compressedTabs?.some((element) => element.id === actualId);
-      }
-    } else {
-      return true;
-    }
-  }, [compressedTabs, expanded, queryValue, tabs]);
 
   useEffect(() => {
     if (!controlled) {
       // update active id
-      if (queryValue && isValidQueryValue()) {
+      if (queryValue && isValidQueryValue(queryValue)) {
         if (
           queryValue !== activeId ||
           (expanded && queryValue === tabs?.[0]?.id) ||

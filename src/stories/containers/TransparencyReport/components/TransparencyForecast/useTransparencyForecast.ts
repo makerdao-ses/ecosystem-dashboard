@@ -1,7 +1,7 @@
-import { useUrlAnchor } from '@ses/core/hooks/useUrlAnchor';
 import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
 import { capitalizeSentence, getWalletWidthForWallets, toKebabCase } from '@ses/core/utils/string';
 import _ from 'lodash';
+import { useRouter } from 'next/router';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { renderLinks, renderWallet } from '../../transparencyReportUtils';
 import {
@@ -14,6 +14,7 @@ import {
   getForecastSumOfMonthsOnWallet,
   getTotalQuarterlyBudgetCapOnBudgetStatement,
 } from '../../utils/budgetStatementsUtils';
+import { FORECAST_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
 import { getBreakdownItemsForWallet, getForecastBreakdownColumns } from '../../utils/forecastTableHelpers';
 import type { InnerTableColumn, InnerTableRow } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import type { BudgetStatementDto, BudgetStatementWalletDto } from '@ses/core/models/dto/coreUnitDTO';
@@ -54,12 +55,15 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
     setHeaderIds(breakdownTabs.map((header) => toKebabCase(header)));
   }, [breakdownTabs]);
 
-  const anchor = useUrlAnchor();
+  const query = useRouter().query;
+  const selectedBreakdown = Array.isArray(query[FORECAST_BREAKDOWN_QUERY_PARAM])
+    ? query[FORECAST_BREAKDOWN_QUERY_PARAM][0]
+    : query[FORECAST_BREAKDOWN_QUERY_PARAM];
   const breakdownTitleRef = useRef<HTMLDivElement>(null);
   const [scrolled, setScrolled] = useState<boolean>(false);
 
   useEffect(() => {
-    if (!scrolled && anchor && !_.isEmpty(headerIds) && headerIds.includes(anchor)) {
+    if (!scrolled && selectedBreakdown && !_.isEmpty(headerIds) && headerIds.includes(selectedBreakdown)) {
       setScrolled(true);
       let offset = (breakdownTitleRef?.current?.offsetTop || 0) - 260;
       const windowsWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
@@ -71,13 +75,13 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
       }
       window.scrollTo(0, Math.max(0, offset));
     }
-  }, [anchor, headerIds, scrolled]);
+  }, [selectedBreakdown, headerIds, scrolled]);
 
   useEffect(() => {
-    if (anchor && !_.isEmpty(headerIds)) {
-      setThirdIndex(Math.max(headerIds.indexOf(anchor), 0));
+    if (selectedBreakdown && !_.isEmpty(headerIds)) {
+      setThirdIndex(Math.max(headerIds.indexOf(selectedBreakdown), 0));
     }
-  }, [anchor, headerIds]);
+  }, [selectedBreakdown, headerIds]);
 
   const mainTableColumns: InnerTableColumn[] = useMemo(
     () => [
@@ -296,6 +300,5 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
     secondMonth,
     thirdMonth,
     wallets,
-    tabQuery: 'forecast-account',
   };
 };
