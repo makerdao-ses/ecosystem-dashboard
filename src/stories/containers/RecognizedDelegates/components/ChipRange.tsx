@@ -1,11 +1,12 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import type { DateTime } from 'luxon';
 
 interface Props {
-  text: string;
+  text: DateTime;
 }
 
-const ChipRange: React.FC<Props> = ({ text }) => <Container>{text}</Container>;
+const ChipRange: React.FC<Props> = ({ text }) => <Container>{text.toFormat('LLL yyyy')}</Container>;
 
 export default ChipRange;
 

@@ -2,10 +2,11 @@ import styled from '@emotion/styled';
 
 import React from 'react';
 import ChipRange from './ChipRange';
+import type { DateTime } from 'luxon';
 
 interface Props {
-  start: string;
-  end: string;
+  start: DateTime;
+  end: DateTime;
 }
 
 const Range: React.FC<Props> = ({ start, end }) => (

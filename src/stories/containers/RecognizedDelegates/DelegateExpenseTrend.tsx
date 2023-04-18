@@ -3,12 +3,15 @@ import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import DelegateChart from './components/DelegateChart';
 import FilterDelegate from './components/FilterDelegate';
+import type { DateTime } from 'luxon';
 
 interface Props {
   expenses: number[];
+  startDate: DateTime;
+  endDate: DateTime;
 }
 
-const DelegateExpenseTrend: React.FC<Props> = ({ expenses }) => (
+const DelegateExpenseTrend: React.FC<Props> = ({ expenses, endDate, startDate }) => (
   <Container>
     <Title>Delegate Expense Trend</Title>
     <Description>Delegate Compensation / Month</Description>
@@ -16,7 +19,7 @@ const DelegateExpenseTrend: React.FC<Props> = ({ expenses }) => (
       <FilterDelegate />
     </FilterContainer>
     <ExpensesChartColumn>
-      <DelegateChart expenses={expenses} />
+      <DelegateChart expenses={expenses} endDate={endDate} startDate={startDate} />
     </ExpensesChartColumn>
   </Container>
 );

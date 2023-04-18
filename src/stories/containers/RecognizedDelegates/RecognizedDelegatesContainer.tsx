@@ -13,8 +13,6 @@ import { useRecognizedDelegates } from './useRecognizedDelegates';
 const RecognizedDelegatesContainer: React.FC = () => {
   const {
     totalDAI,
-    startMonth,
-    endMonth,
     arrayOfDelegate,
     mediaAnnual,
     percent,
@@ -24,6 +22,8 @@ const RecognizedDelegatesContainer: React.FC = () => {
     otherExpenses,
     amountDelegates,
     expensesMock,
+    startDate,
+    endDate,
   } = useRecognizedDelegates();
   return (
     <PageContainer>
@@ -32,8 +32,8 @@ const RecognizedDelegatesContainer: React.FC = () => {
         <TotalAndKeyStatsComponent
           amountDelegates={amountDelegates}
           totalDAI={totalDAI}
-          start={startMonth}
-          end={endMonth}
+          start={startDate}
+          end={endDate}
           annual={mediaAnnual}
           percent={percent}
           shadowTotal={shadowTotal}
@@ -42,7 +42,7 @@ const RecognizedDelegatesContainer: React.FC = () => {
           otherExpenses={otherExpenses}
         />
         <ContainerTrend>
-          <DelegateExpenseTrend expenses={expensesMock} />
+          <DelegateExpenseTrend expenses={expensesMock} endDate={endDate} startDate={startDate} />
         </ContainerTrend>
         <ContainerBreakdown>
           <DelegateExpenseBreakdown arrayOfDelegate={arrayOfDelegate} totalDai={totalDAI} />

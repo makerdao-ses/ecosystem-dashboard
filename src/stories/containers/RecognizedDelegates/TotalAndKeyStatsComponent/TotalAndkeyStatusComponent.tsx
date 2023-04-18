@@ -2,11 +2,12 @@ import styled from '@emotion/styled';
 import React from 'react';
 import KeyStats from '../KeyStats/KeyStats';
 import TotalExpenseReportCard from '../components/TotalExpenseReportCard';
+import type { DateTime } from 'luxon';
 
 interface Props {
   totalDAI: number;
-  start: string;
-  end: string;
+  start: DateTime;
+  end: DateTime;
   totalDelegates: number;
   shadowTotal: number;
   annual: number;

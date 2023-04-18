@@ -2,19 +2,24 @@ import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { MONTHS_DESK, MONTS_MOBILE } from '@ses/core/utils/const';
+import { getMonthsBetweenDateDeskFormat, getMonthsBetweenDatesMobileFormat } from '@ses/core/utils/chart';
 import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
-
 import React from 'react';
+import type { DateTime } from 'luxon';
 
 interface Props {
   expenses: number[];
+  startDate: DateTime;
+  endDate: DateTime;
 }
-const DelegateChart: React.FC<Props> = ({ expenses }) => {
+
+const DelegateChart: React.FC<Props> = ({ expenses, endDate, startDate }) => {
   const { isLight } = useThemeContext();
 
+  const MONTHS_DESK = getMonthsBetweenDateDeskFormat(startDate, endDate);
+  const MONTS_MOBILE = getMonthsBetweenDatesMobileFormat(startDate, endDate);
   const upTable = useMediaQuery(lightTheme.breakpoints.up('table_834'));
   const isZeroValue = false;
 
@@ -63,11 +68,11 @@ const DelegateChart: React.FC<Props> = ({ expenses }) => {
             backgroundColor: {
               image: isLight
                 ? upTable
-                  ? '/assets/img/drop-desk.png'
-                  : '/assets/img/drop.png'
+                  ? '/assets/img/drop-desk.svg'
+                  : '/assets/img/drop.svg'
                 : upTable
-                ? '/assets/img/drop-desk-dark.png'
-                : '/assets/img/drop-dark.png',
+                ? '/assets/img/drop-dark-desk.svg'
+                : '/assets/img/drop-dark.svg',
             },
           },
         },
