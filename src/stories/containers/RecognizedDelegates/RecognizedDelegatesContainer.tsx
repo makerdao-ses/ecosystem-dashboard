@@ -74,9 +74,7 @@ const ContainerTrend = styled.div({
   [lightTheme.breakpoints.up('table_834')]: {
     width: 690,
     margin: '0 auto',
-    marginBottom: 32,
-    // TODO: Delete height when the chart is implemented
-    // height: 369,
+    marginBottom: 62,
   },
 });
 

@@ -54,10 +54,9 @@ const DelegateChart: React.FC<Props> = ({ expenses }) => {
           bgImg: {
             verticalAlign: 'top',
             color: '#139D8D',
-            padding: upTable ? 4 : 3,
+            padding: upTable ? [1, 4, 8, 4] : 3,
 
             fontFamily: 'Inter, sans-serif',
-
             fontSize: upTable ? 12 : 9,
             lineHeight: upTable ? 15 : 11,
             interval: 0,
@@ -169,6 +168,7 @@ const Container = styled.div({
   [lightTheme.breakpoints.up('table_834')]: {
     width: 690,
     maxWidth: 690,
+    height: 289,
     margin: '0 auto',
   },
 });
