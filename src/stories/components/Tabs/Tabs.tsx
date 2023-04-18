@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { removeEmptyProperties } from '@ses/core/utils/urls';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
@@ -90,8 +91,9 @@ const Tabs: React.FC<TabsProps> = ({
     }
     return expandedDefault;
   });
+
   const isValidQueryValue = useCallback(
-    (value: string): boolean => {
+    (value: string, expanded: boolean): boolean => {
       if (value) {
         const actualId = value;
         if (expanded) {
@@ -103,17 +105,18 @@ const Tabs: React.FC<TabsProps> = ({
         return true;
       }
     },
-    [compressedTabs, expanded, tabs]
+    [compressedTabs, tabs]
   );
+
   const [expandedActiveId, setExpandedActiveId] = useState<string | undefined>(() => {
-    if (!!queryValue && isValidQueryValue(queryValue)) {
+    if (!!queryValue && isValidQueryValue(queryValue, true)) {
       onChange?.(queryValue, undefined);
       return queryValue;
     }
     return activeIdDefault ?? tabs?.[0]?.id;
   });
   const [compressedActiveId, setCompressedActiveId] = useState<string | undefined>(() => {
-    if (!!queryValue && isValidQueryValue(queryValue)) {
+    if (!!queryValue && isValidQueryValue(queryValue, false)) {
       onChange?.(queryValue, undefined);
       return queryValue;
     }
@@ -124,7 +127,7 @@ const Tabs: React.FC<TabsProps> = ({
   useEffect(() => {
     if (!controlled) {
       // update active id
-      if (queryValue && isValidQueryValue(queryValue)) {
+      if (queryValue && isValidQueryValue(queryValue, expanded)) {
         if (
           queryValue !== activeId ||
           (expanded && queryValue === tabs?.[0]?.id) ||
@@ -178,7 +181,7 @@ const Tabs: React.FC<TabsProps> = ({
       {
         pathname: router.pathname,
         query: {
-          ...router.query,
+          ...removeEmptyProperties(router.query),
           [viewKey]: view,
           [tabQuery]: id,
         },
@@ -190,7 +193,19 @@ const Tabs: React.FC<TabsProps> = ({
     onExpand?.();
   };
 
+  useEffect(() => {
+    // sync expanded status with the URL to keep the tabs synced with other tabs in the page
+    if (
+      [viewValues.default, viewValues.compressed].includes(router.query[viewKey] as string) &&
+      (router.query[viewKey] === viewValues.default) !== expanded
+    ) {
+      setExpanded(!expanded);
+      // onExpand callback should not be fired to avoid double calls when tabs are synced
+    }
+  }, [expanded, router.query, viewKey, viewValues]);
+
   const activeTabs = expanded ? tabs : compressedTabs;
+
   return (
     <Wrapper className="no-select">
       <Container isLight={isLight}>

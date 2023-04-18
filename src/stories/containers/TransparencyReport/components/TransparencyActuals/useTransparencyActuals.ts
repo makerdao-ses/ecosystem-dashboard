@@ -94,7 +94,6 @@ export const useTransparencyActuals = (
   );
 
   const [headerIds, setHeaderIds] = useState<string[]>([]);
-  const [scrolled, setScrolled] = useState<boolean>(false);
 
   const thirdIndex = useMemo(
     () => Math.max(headerIds?.indexOf(selectedBreakdown ?? ''), 0),
@@ -108,21 +107,6 @@ export const useTransparencyActuals = (
   useEffect(() => {
     setHeaderIds(breakdownTabs.map((header: string) => toKebabCase(header)));
   }, [breakdownTabs]);
-
-  useEffect(() => {
-    if (!scrolled && selectedBreakdown && !_.isEmpty(headerIds) && headerIds.includes(selectedBreakdown)) {
-      setScrolled(true);
-      let offset = (breakdownTitleRef?.current?.offsetTop || 0) - 260;
-      const windowsWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-      if (windowsWidth < 834) {
-        offset += 90;
-      }
-      if ('scrollRestoration' in window.history) {
-        window.history.scrollRestoration = 'manual';
-      }
-      window.scrollTo(0, Math.max(0, offset));
-    }
-  }, [selectedBreakdown, headerIds, scrolled]);
 
   const mainTableColumns = useMemo(() => {
     const mainTableColumns: InnerTableColumn[] = [

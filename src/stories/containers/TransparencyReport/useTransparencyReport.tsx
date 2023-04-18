@@ -36,29 +36,6 @@ export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
     query?.view === 'auditor' ? TRANSPARENCY_IDS_ENUM.BUDGET_REPORT : TRANSPARENCY_IDS_ENUM.ACTUALS
   );
 
-  const [scrolled, setScrolled] = useState<boolean>(false);
-  useEffect(() => {
-    if (query.section === '') {
-      setScrolled(true);
-    }
-    if (
-      !scrolled &&
-      query.section &&
-      Object.values(TRANSPARENCY_IDS_ENUM).includes(query.section as TRANSPARENCY_IDS_ENUM)
-    ) {
-      setScrolled(true);
-      let offset = (transparencyTableRef?.current?.offsetTop || 0) - 280;
-      const windowsWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-      if (windowsWidth < 834) {
-        offset += 100;
-      }
-      if ('scrollRestoration' in window.history) {
-        window.history.scrollRestoration = 'manual';
-      }
-      window.scrollTo(0, Math.max(0, offset));
-    }
-  }, [query.section, scrolled]);
-
   const [lastVisitHandler, setLastVisitHandler] = useState<LastVisitHandler>();
 
   const onPrevious = useCallback(() => {
