@@ -13,7 +13,6 @@ interface Props {
   expenses: number[];
 }
 const DelegateChart: React.FC<Props> = ({ expenses }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { isLight } = useThemeContext();
 
   const upTable = useMediaQuery(lightTheme.breakpoints.up('table_834'));
@@ -44,7 +43,7 @@ const DelegateChart: React.FC<Props> = ({ expenses }) => {
         show: false,
       },
       axisLabel: {
-        color: upTable ? '#708390' : '#434358',
+        color: isLight ? '#434358' : '#708390',
         interval: 0,
 
         fontSize: upTable ? 12 : 9,
@@ -66,7 +65,13 @@ const DelegateChart: React.FC<Props> = ({ expenses }) => {
             lineHeight: upTable ? 15 : 11,
             interval: 0,
             backgroundColor: {
-              image: upTable ? '/assets/img/drop-desk.png' : '/assets/img/drop.png',
+              image: isLight
+                ? upTable
+                  ? '/assets/img/drop-desk.png'
+                  : '/assets/img/drop.png'
+                : upTable
+                ? ''
+                : '/assets/img/drop-dark.png',
             },
           },
         },
@@ -93,7 +98,7 @@ const DelegateChart: React.FC<Props> = ({ expenses }) => {
         fontFamily: 'Inter, sans-serif',
         fontWeight: upTable ? 600 : 400,
         fontFeatureSettings: "'tnum' on, 'lnum' on",
-        color: upTable ? '#708390' : '#434358',
+        color: isLight ? '#231536' : '#EDEFFF',
       },
       verticalAlign: 'middle',
       height: upTable ? 15 : 12,
@@ -104,7 +109,7 @@ const DelegateChart: React.FC<Props> = ({ expenses }) => {
       },
       splitLine: {
         lineStyle: {
-          color: expenses.map((item, index) => (index === 0 ? 'none' : '#9FAFB9')),
+          color: expenses.map((item, index) => (index === 0 ? 'none' : isLight ? '#9FAFB9' : '#D8E0E3')),
 
           width: isZeroValue ? 0 : 0.25,
         },
@@ -119,13 +124,11 @@ const DelegateChart: React.FC<Props> = ({ expenses }) => {
         showBackground: false,
         barWidth: upTable ? 16 : 8,
         barGapCategory: upTable ? 17 : 7,
-        // barGap: 40,
+
         itemStyle: {
-          // barWidth: upTable ? 4 : 6, // 8,
-          // barWidth: 20, // establece el ancho de la barra en 20
           borderRadius: 4,
           barGapCategory: upTable ? 43 : 7,
-          color: '#739BFC',
+          color: isLight ? '#739BFC' : '#447AFB',
         },
       },
     ],
@@ -142,9 +145,9 @@ const DelegateChart: React.FC<Props> = ({ expenses }) => {
         opts={{ renderer: 'svg' }}
       />
       <ContainerYears>
-        <Year>2021</Year>
-        <ExtendedYearSecond>2022</ExtendedYearSecond>
-        <ExtendedYearThird>2023</ExtendedYearThird>
+        <Year isLight={isLight}>2021</Year>
+        <ExtendedYearSecond isLight={isLight}>2022</ExtendedYearSecond>
+        <ExtendedYearThird isLight={isLight}>2023</ExtendedYearThird>
       </ContainerYears>
     </Container>
   );
@@ -187,14 +190,14 @@ const ContainerYears = styled.div({
   },
 });
 
-const Year = styled.div({
+const Year = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '11px',
   lineHeight: '13px',
   alignItems: 'center',
-  color: '#139D8D',
+  color: isLight ? '#139D8D' : '#2DC1B1',
   marginLeft: 21,
   marginRight: 17,
   [lightTheme.breakpoints.up('table_834')]: {
@@ -203,7 +206,7 @@ const Year = styled.div({
     fontSize: 12,
     lineHeight: '15px',
   },
-});
+}));
 
 const ExtendedYearSecond = styled(Year)({
   marginLeft: 0,
