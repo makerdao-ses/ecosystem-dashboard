@@ -1,16 +1,35 @@
 import styled from '@emotion/styled';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import DelegateChart from './components/DelegateChart';
+import FilterDelegate from './components/FilterDelegate';
+import type { DateTime } from 'luxon';
 
-const DelegateExpenseTrend = () => (
-  <div>
+interface Props {
+  expenses: number[];
+  startDate: DateTime;
+  endDate: DateTime;
+}
+
+const DelegateExpenseTrend: React.FC<Props> = ({ expenses, endDate, startDate }) => (
+  <Container>
     <Title>Delegate Expense Trend</Title>
     <Description>Delegate Compensation / Month</Description>
-    <div>Filter</div>
-    <div>Chart</div>
-  </div>
+    <FilterContainer>
+      <FilterDelegate />
+    </FilterContainer>
+    <ExpensesChartColumn>
+      <DelegateChart expenses={expenses} endDate={endDate} startDate={startDate} />
+    </ExpensesChartColumn>
+  </Container>
 );
 
 export default DelegateExpenseTrend;
+
+const Container = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+});
 
 const Title = styled.h2({
   fontFamily: 'Inter, sans-serif',
@@ -33,4 +52,20 @@ const Description = styled.div({
   lineHeight: '15px',
   color: '#231536',
   marginTop: 4,
+  marginBottom: 24,
+});
+
+const ExpensesChartColumn = styled.div({
+  width: 343,
+  margin: '0 auto',
+  [lightTheme.breakpoints.up('table_834')]: {
+    width: 690,
+    margin: '0 auto',
+  },
+});
+
+const FilterContainer = styled.div({
+  // TODO: This should be remove the fix values when filter component is implement:
+  height: 34,
+  marginBottom: 6,
 });

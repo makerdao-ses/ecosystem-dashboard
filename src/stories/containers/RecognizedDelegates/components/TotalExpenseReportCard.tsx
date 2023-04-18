@@ -3,10 +3,11 @@ import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import React from 'react';
 import GenericDelegateCard from './GenericDelegateCard';
 import Range from './Range';
+import type { DateTime } from 'luxon';
 
 interface Props {
-  start: string;
-  end: string;
+  start: DateTime;
+  end: DateTime;
   totalDAI: number;
 }
 
