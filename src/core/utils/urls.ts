@@ -34,3 +34,13 @@ export const toAbsoluteURL = (relativeURL: string): string => {
   }
   return `${BASE_URL}${relativeURL}`;
 };
+
+export const removeEmptyProperties = <T extends object>(obj: T): Partial<T> => {
+  const newObj: Partial<T> = {};
+  for (const [key, value] of Object.entries(obj)) {
+    if (value) {
+      newObj[key as keyof T] = value;
+    }
+  }
+  return newObj;
+};

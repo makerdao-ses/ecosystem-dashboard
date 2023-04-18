@@ -1,5 +1,7 @@
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { useCallback, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { BREAKDOWN_VIEW_QUERY_KEY } from '../../utils/constants';
 import { useTransparencyActuals } from '../TransparencyActuals/useTransparencyActuals';
 import { useTransparencyForecast } from '../TransparencyForecast/useTransparencyForecast';
 import { useTransparencyMkrVesting } from '../TransparencyMkrVesting/useTransparencyMkrVesting';
@@ -9,16 +11,19 @@ import type { DateTime } from 'luxon';
 
 const useBudgetReport = (currentMonth: DateTime, budgetStatements?: BudgetStatementDto[]) => {
   const { isLight } = useThemeContext();
+  const query = useRouter().query;
 
   const actualsData = useTransparencyActuals(currentMonth, budgetStatements);
   const forecastData = useTransparencyForecast(currentMonth, budgetStatements);
   const mkrVestingData = useTransparencyMkrVesting(currentMonth, budgetStatements);
   const transferRequestsData = useTransparencyTransferRequest(currentMonth, budgetStatements);
 
-  const [breakdownSelected, setBreakdownSelected] = useState<string | undefined>();
-  const handleBreakdownChange = useCallback((current?: string) => {
-    setBreakdownSelected(current);
-  }, []);
+  const [isBreakdownExpanded, setIsBreakdownExpanded] = useState(() => query[BREAKDOWN_VIEW_QUERY_KEY] === 'default');
+  useEffect(() => {
+    // update breakdown expanded state when its query param changes
+    // this keeps both breakdown tabs content synced
+    setIsBreakdownExpanded(query[BREAKDOWN_VIEW_QUERY_KEY] === 'default');
+  }, [query]);
 
   return {
     isLight,
@@ -26,8 +31,7 @@ const useBudgetReport = (currentMonth: DateTime, budgetStatements?: BudgetStatem
     forecastData,
     mkrVestingData,
     transferRequestsData,
-    breakdownSelected,
-    handleBreakdownChange,
+    isBreakdownExpanded,
   };
 };
 
