@@ -18,7 +18,7 @@ export const RelativeDelegateBar: React.FC<RelativeBarProps> = ({ otherExpenses,
   return (
     <DelegateBar isLight={isLight}>
       {otherExpenses > 0 && <OtherExpenses isLight={isLight} width={percentOther} />}
-      {recognizedDelegates > 0 && <RecognizedDelegates isLight={isLight} width={percentDelegates} />}
+      {recognizedDelegates > 0 && <RecognizedDelegates width={percentDelegates} />}
     </DelegateBar>
   );
 };
@@ -29,7 +29,7 @@ const DelegateBar = styled.div<WithIsLight>(({ isLight }) => ({
   height: 24,
   overflow: 'hidden',
   borderRadius: 6,
-  background: isLight ? '#ECF1F3' : '#10191F',
+  background: isLight ? '#ECF1F3' : ' #10191F',
   alignItems: 'center',
 
   [lightTheme.breakpoints.up('table_834')]: {
@@ -41,19 +41,18 @@ const OtherExpenses = styled.div<WithIsLight & { width: number }>(({ isLight, wi
   position: 'absolute',
   top: 0,
   right: 0,
-  background: isLight ? '#ECF1F3' : '#ECF1F3',
+  background: isLight ? '#ECF1F3' : '#10191F',
 
   width: `${width}%`,
   height: '100%',
   transition: 'width 0.5s ease-in-out',
 }));
 
-const RecognizedDelegates = styled.div<WithIsLight & { width: number }>(({ isLight, width }) => ({
+const RecognizedDelegates = styled.div<{ width: number }>(({ width }) => ({
   position: 'absolute',
   top: 0,
   right: 0,
-  background: isLight ? '#447AFB' : '#447AFB',
-
+  background: '#447AFB',
   width: `${width}%`,
   height: '100%',
   transition: 'width 0.5s ease-in-out',

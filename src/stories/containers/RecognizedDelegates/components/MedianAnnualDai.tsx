@@ -1,18 +1,22 @@
 import styled from '@emotion/styled';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import React from 'react';
 import GenericDelegateCard from './GenericDelegateCard';
 import { DescriptionDelegates } from './TotalRecognizedDelegatesCard';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   annual: number;
 }
 
 const MedianAnnualDai: React.FC<Props> = ({ annual }) => {
+  const { isLight } = useThemeContext();
   const formatted = usLocalizedNumber(annual);
+
   return (
     <ExtendedGenericDelegate>
-      <Annual>{`${formatted} dai`}</Annual>
+      <Annual isLight={isLight}>{`${formatted} dai`}</Annual>
       <DescriptionDelegates>Median Annual Compensation / Delegate</DescriptionDelegates>
     </ExtendedGenericDelegate>
   );
@@ -29,7 +33,7 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)({
   flex: 1,
 });
 
-export const Annual = styled.div({
+export const Annual = styled.div<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
@@ -37,7 +41,7 @@ export const Annual = styled.div({
   lineHeight: '19px',
   letterSpacing: '0.3px',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
-  color: '#243465',
+  color: isLight ? '#24346 : ' : '#EDEFFF',
   marginBottom: 4,
   textTransform: 'uppercase',
-});
+}));

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
 
 import DelegateExpenseBreakdown from './DelegateExpenseBreakdown/DelegateExpenseBreakdown';
@@ -8,8 +9,10 @@ import DelegateExpenseTrend from './DelegateExpenseTrend';
 
 import TotalAndKeyStatsComponent from './TotalAndKeyStatsComponent/TotalAndkeyStatusComponent';
 import { useRecognizedDelegates } from './useRecognizedDelegates';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 const RecognizedDelegatesContainer: React.FC = () => {
+  const { isLight } = useThemeContext();
   const {
     totalDAI,
     startMonth,
@@ -24,9 +27,9 @@ const RecognizedDelegatesContainer: React.FC = () => {
     amountDelegates,
   } = useRecognizedDelegates();
   return (
-    <PageContainer>
+    <ExtendedPageContainer isLight={isLight}>
       <Container>
-        <Title>Recognized Delegates</Title>
+        <Title isLight={isLight}>Recognized Delegates</Title>
         <TotalAndKeyStatsComponent
           amountDelegates={amountDelegates}
           totalDAI={totalDAI}
@@ -46,23 +49,27 @@ const RecognizedDelegatesContainer: React.FC = () => {
           <DelegateExpenseBreakdown arrayOfDelegate={arrayOfDelegate} totalDai={totalDAI} />
         </ContainerBreakdown>
       </Container>
-    </PageContainer>
+    </ExtendedPageContainer>
   );
 };
 
 export default RecognizedDelegatesContainer;
 
-const Title = styled.h1({
+const Title = styled.h1<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter,san-serif',
   fontStyle: 'normal',
   fontWeight: 600,
   fontSize: '20px',
   lineHeight: '24px',
   letterSpacing: '0.4px',
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   marginTop: 32,
   marginBottom: 32,
-});
+}));
+
+const ExtendedPageContainer = styled(PageContainer)<WithIsLight>(({ isLight }) => ({
+  backgroundColor: isLight ? '#FFFFFF' : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
+}));
 
 const ContainerTrend = styled.div({
   marginTop: 40,

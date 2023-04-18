@@ -7,9 +7,11 @@ import LinkedIn from '@ses/components/svg/linkedin';
 import Twitter from '@ses/components/svg/twitter';
 import WWW from '@ses/components/svg/www';
 import Youtube from '@ses/components/svg/youtube';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { LinkTypeEnum } from '@ses/core/enums/linkTypeEnum';
 import Link from 'next/link';
 import React from 'react';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export interface LinkModel {
   href: string;
@@ -49,24 +51,28 @@ export const DelegateSocialLinks = ({
   fillDark,
   boxLinkHeight = 32,
   boxLinkWidth = 32,
-}: CuTableColumnLinksProps) => (
-  <Container>
-    {links?.map((link, i) => (
-      <BoxContainer boxLinkWidth={boxLinkWidth} boxLinkHeight={boxLinkHeight}>
-        <Link href={link} passHref>
-          <LinkImage
-            key={i}
-            href={link.href}
-            target="_blank"
-            onClick={(event: React.SyntheticEvent) => event.stopPropagation()}
-          >
-            {getImageForLink(link, fill, width, height, fillDark)}
-          </LinkImage>
-        </Link>
-      </BoxContainer>
-    ))}
-  </Container>
-);
+}: CuTableColumnLinksProps) => {
+  const { isLight } = useThemeContext();
+  return (
+    <Container>
+      {links?.map((link, i) => (
+        <BoxContainer boxLinkWidth={boxLinkWidth} boxLinkHeight={boxLinkHeight}>
+          <Link href={link} passHref>
+            <LinkImage
+              isLight={isLight}
+              key={i}
+              href={link.href}
+              target="_blank"
+              onClick={(event: React.SyntheticEvent) => event.stopPropagation()}
+            >
+              {getImageForLink(link, fill, width, height, fillDark)}
+            </LinkImage>
+          </Link>
+        </BoxContainer>
+      ))}
+    </Container>
+  );
+};
 
 const Container = styled.div({
   display: 'flex',
@@ -85,6 +91,9 @@ const BoxContainer = styled.div<{ boxLinkWidth: number; boxLinkHeight: number }>
     justifyContent: 'center',
   })
 );
-const LinkImage = styled.a({
+const LinkImage = styled.a<WithIsLight>(({ isLight }) => ({
   display: 'flex',
-});
+  '&:hover svg path': {
+    fill: isLight ? '#231536' : '#48495F',
+  },
+}));

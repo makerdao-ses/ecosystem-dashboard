@@ -1,17 +1,22 @@
 import styled from '@emotion/styled';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
 import GenericDelegateCard from './GenericDelegateCard';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   total: number;
 }
 
-const TotalRecognizedDelegates: React.FC<Props> = ({ total }) => (
-  <ExtendedGenericDelegate>
-    <TotalDelegates>{total}</TotalDelegates>
-    <DescriptionDelegates>Recognized Delegates</DescriptionDelegates>
-  </ExtendedGenericDelegate>
-);
+const TotalRecognizedDelegates: React.FC<Props> = ({ total }) => {
+  const { isLight } = useThemeContext();
+  return (
+    <ExtendedGenericDelegate>
+      <TotalDelegates isLight={isLight}>{total}</TotalDelegates>
+      <DescriptionDelegates>Recognized Delegates</DescriptionDelegates>
+    </ExtendedGenericDelegate>
+  );
+};
 
 export default TotalRecognizedDelegates;
 
@@ -24,7 +29,7 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)({
   flex: 1,
 });
 
-export const TotalDelegates = styled.div({
+export const TotalDelegates = styled.div<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
@@ -32,9 +37,9 @@ export const TotalDelegates = styled.div({
   lineHeight: '19px',
   letterSpacing: '0.3px',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
-  color: '#243465',
+  color: isLight ? '#243465' : '#EDEFFF',
   marginBottom: 4,
-});
+}));
 
 export const DescriptionDelegates = styled.div({
   fontFamily: 'Inter, sans-serif',
