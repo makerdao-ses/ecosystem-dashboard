@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import GenericDelegateCard from './GenericDelegateCard';
 import Range from './Range';
@@ -35,6 +36,16 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)({
   flexDirection: 'column',
   alignItems: 'center',
   minWidth: 311,
+  [lightTheme.breakpoints.up('table_834')]: {
+    height: 144,
+    minWidth: 738,
+    paddingTop: '24 auto 26',
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    height: 160,
+    minWidth: 1098,
+    paddingTop: '24px auto ',
+  },
 });
 
 const Text = styled.div({
@@ -46,6 +57,15 @@ const Text = styled.div({
   color: '#708390',
   marginBottom: 8,
   textAlign: 'center',
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontWeight: 500,
+    fontSize: 20,
+    lineHeight: '24px',
+    letterSpacing: '0.4px',
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginBottom: 17,
+  },
 });
 
 const Annual = styled.div({
@@ -60,6 +80,12 @@ const Annual = styled.div({
   marginBottom: 4,
   textTransform: 'uppercase',
   textAlign: 'center',
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontWeight: 600,
+    fontSize: 32,
+    lineHeight: '39px',
+    letterSpacing: '0.4px',
+  },
 });
 
 const Coin = styled.span({
@@ -73,6 +99,11 @@ const Coin = styled.span({
   color: '#9FAFB9',
   marginLeft: 6,
   textTransform: 'uppercase',
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: '32px',
+    lineHeight: '39px',
+    marginLeft: 2,
+  },
 });
 
 const RangeContainer = styled.div({
@@ -80,6 +111,12 @@ const RangeContainer = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginBottom: 8,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginBottom: 17,
+  },
 });
 
 const ContainerRangeText = styled.div({

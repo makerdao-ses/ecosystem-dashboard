@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 
 interface Props {
@@ -15,4 +16,10 @@ const Container = styled.div({
   fontWeight: 400,
   fontSize: '12px',
   lineHeight: '15px',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontWeight: 600,
+    textTransform: 'uppercase',
+    letterSpacing: '1px',
+  },
 });
