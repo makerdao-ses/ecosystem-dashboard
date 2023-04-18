@@ -22,7 +22,7 @@ const MkrVestingInfo: React.FC = () => {
 export default MkrVestingInfo;
 
 const InfoContainer = styled.div({
-  '& > div:first-child': {
+  '& > div:first-of-type': {
     marginBottom: 16,
   },
 });

@@ -34,6 +34,7 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)({
   height: 138,
   flexDirection: 'column',
   alignItems: 'center',
+  minWidth: 311,
 });
 
 const Text = styled.div({

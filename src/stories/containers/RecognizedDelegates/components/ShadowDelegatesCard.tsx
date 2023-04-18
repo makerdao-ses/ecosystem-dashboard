@@ -10,7 +10,7 @@ interface Props {
 const ShadowDelegates: React.FC<Props> = ({ shadowTotal }) => (
   <ExtendedGenericDelegate>
     <TotalDelegates>{shadowTotal}</TotalDelegates>
-    <DescriptionDelegates>{'Shadow Delegates'}</DescriptionDelegates>
+    <DescriptionDelegates>Shadow Delegates</DescriptionDelegates>
   </ExtendedGenericDelegate>
 );
 
@@ -21,5 +21,6 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  minWidth: 143.5,
   flex: 1,
 });

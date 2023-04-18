@@ -33,6 +33,7 @@ export const TransparencyActuals = (props: Props) => {
     mainTableColumns,
     mainTableItems,
     breakdownTabs,
+    tabQuery,
   } = useTransparencyActuals(props.currentMonth, props.budgetStatements);
 
   return (
@@ -84,6 +85,7 @@ export const TransparencyActuals = (props: Props) => {
             item: header,
             id: headerIds[i],
           }))}
+          tabQuery={tabQuery}
         />
       )}
 

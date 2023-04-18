@@ -131,12 +131,12 @@ export const useDelegatesActuals = (
       {
         header: 'Forecast',
         align: 'right',
-        type: 'number',
+        type: 'incomeNumber',
       },
       {
         header: 'Actuals',
         align: 'right',
-        type: 'number',
+        type: 'incomeNumber',
       },
       {
         header: 'Difference',
@@ -258,12 +258,12 @@ export const useDelegatesActuals = (
       {
         header: 'Forecast',
         align: 'right',
-        type: 'number',
+        type: 'incomeNumber',
       },
       {
         header: 'Actuals',
         align: 'right',
-        type: 'number',
+        type: 'incomeNumber',
       },
       {
         header: 'Difference',
