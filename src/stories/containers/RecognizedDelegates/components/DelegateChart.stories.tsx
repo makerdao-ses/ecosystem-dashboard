@@ -46,10 +46,9 @@ Chart.parameters = {
           style: {
             left: 21,
             top: 21,
-            width: 690,
           },
           componentStyle: {
-            // width: 689,
+            width: 690,
           },
         },
       },

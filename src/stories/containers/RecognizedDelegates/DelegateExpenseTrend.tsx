@@ -48,12 +48,13 @@ const Description = styled.div({
   fontSize: '12px',
   lineHeight: '15px',
   color: '#231536',
-  marginTop: 5,
+  marginTop: 4,
   marginBottom: 24,
 });
 
 const ExpensesChartColumn = styled.div({
   width: 343,
+  margin: '0 auto',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     width: 690,
     paddingRight: 59,
@@ -70,7 +71,7 @@ const ExpensesChartColumn = styled.div({
 });
 
 const FilterContainer = styled.div({
-  marginBottom: 32,
-  // TODO: This should be remove and put correct as page in story:
-  // marginBottom: 6,
+  // TODO: This should be remove the fix values when filter component is implement:
+  height: 34,
+  marginBottom: 6,
 });

@@ -70,7 +70,7 @@ const DelegateChart: React.FC<Props> = ({ expenses }) => {
                   ? '/assets/img/drop-desk.png'
                   : '/assets/img/drop.png'
                 : upTable
-                ? ''
+                ? '/assets/img/drop-desk-dark.png'
                 : '/assets/img/drop-dark.png',
             },
           },
@@ -161,22 +161,12 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
+  margin: '0 auto',
 
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [lightTheme.breakpoints.up('table_834')]: {
     height: 289,
     width: 690,
     maxWidth: 690,
-  },
-
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    height: 387,
-    width: 479,
-    maxWidth: 479,
-  },
-
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    width: 504,
-    maxWidth: 504,
   },
 });
 
@@ -213,7 +203,7 @@ const ExtendedYearSecond = styled(Year)({
   marginRight: 153,
   [lightTheme.breakpoints.up('table_834')]: {
     marginLeft: 0,
-    marginRight: 356,
+    marginRight: 340,
   },
 });
 
