@@ -43,12 +43,7 @@ const DelegateChart: React.FC<Props> = ({ expenses }) => {
         show: false,
       },
       axisLabel: {
-        color: isLight ? '#434358' : '#708390',
         interval: 0,
-
-        fontSize: upTable ? 12 : 9,
-        lineHeight: upTable ? 15 : 11,
-
         formatter: function (value: string, index: number) {
           if ((value === 'J' && MONTHS_DESK[index - 1] === 'D') || MONTS_MOBILE[index - 1] === 'D') {
             return `{bgImg|${value}}`;
@@ -60,7 +55,9 @@ const DelegateChart: React.FC<Props> = ({ expenses }) => {
             verticalAlign: 'top',
             color: '#139D8D',
             padding: upTable ? 4 : 3,
-            fontFamily: 'Inter,san-serif',
+
+            fontFamily: 'Inter, sans-serif',
+
             fontSize: upTable ? 12 : 9,
             lineHeight: upTable ? 15 : 11,
             interval: 0,
@@ -74,6 +71,12 @@ const DelegateChart: React.FC<Props> = ({ expenses }) => {
                 : '/assets/img/drop-dark.png',
             },
           },
+        },
+        textStyle: {
+          fontFamily: 'Inter, sans-serif',
+          color: upTable ? (isLight ? '#708390' : '#708390') : isLight ? '#434358' : '#708390',
+          fontSize: upTable ? 12 : 9,
+          lineHeight: upTable ? 15 : 11,
         },
       },
     },
@@ -164,9 +167,9 @@ const Container = styled.div({
   margin: '0 auto',
 
   [lightTheme.breakpoints.up('table_834')]: {
-    height: 289,
     width: 690,
     maxWidth: 690,
+    margin: '0 auto',
   },
 });
 

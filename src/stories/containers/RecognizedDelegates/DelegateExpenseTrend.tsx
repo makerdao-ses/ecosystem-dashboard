@@ -55,18 +55,9 @@ const Description = styled.div({
 const ExpensesChartColumn = styled.div({
   width: 343,
   margin: '0 auto',
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [lightTheme.breakpoints.up('table_834')]: {
     width: 690,
-    paddingRight: 59,
-  },
-
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    margin: '52px auto 0',
-    width: 479,
-  },
-
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    width: 504,
+    margin: '0 auto',
   },
 });
 

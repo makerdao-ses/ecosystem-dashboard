@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 
 import DelegateExpenseBreakdown from './DelegateExpenseBreakdown/DelegateExpenseBreakdown';
@@ -70,6 +71,13 @@ const ContainerTrend = styled.div({
   marginBottom: 32,
   // TODO: Delete height when the chart is implemented
   height: 378,
+  [lightTheme.breakpoints.up('table_834')]: {
+    width: 690,
+    margin: '0 auto',
+    marginBottom: 32,
+    // TODO: Delete height when the chart is implemented
+    // height: 369,
+  },
 });
 
 const ContainerBreakdown = styled.div({
