@@ -90,29 +90,41 @@ const Tabs: React.FC<TabsProps> = ({
     }
     return expandedDefault;
   });
-  const [expandedActiveId, setExpandedActiveId] = useState<string | undefined>(activeIdDefault ?? tabs?.[0]?.id);
-  const [compressedActiveId, setCompressedActiveId] = useState<string | undefined>(
-    activeIdDefault ?? compressedTabs?.[0]?.id
-  );
-  const activeId = expanded ? expandedActiveId : compressedActiveId;
-
-  const isValidQueryValue = useCallback(() => {
-    if (queryValue) {
-      const actualId = queryValue;
-      if (expanded) {
-        return tabs.some((element) => element.id === actualId);
+  const isValidQueryValue = useCallback(
+    (value: string): boolean => {
+      if (value) {
+        const actualId = value;
+        if (expanded) {
+          return tabs.some((element) => element.id === actualId);
+        } else {
+          return !!compressedTabs?.some((element) => element.id === actualId);
+        }
       } else {
-        return !!compressedTabs?.some((element) => element.id === actualId);
+        return true;
       }
-    } else {
-      return true;
+    },
+    [compressedTabs, expanded, tabs]
+  );
+  const [expandedActiveId, setExpandedActiveId] = useState<string | undefined>(() => {
+    if (!!queryValue && isValidQueryValue(queryValue)) {
+      onChange?.(queryValue, undefined);
+      return queryValue;
     }
-  }, [compressedTabs, expanded, queryValue, tabs]);
+    return activeIdDefault ?? tabs?.[0]?.id;
+  });
+  const [compressedActiveId, setCompressedActiveId] = useState<string | undefined>(() => {
+    if (!!queryValue && isValidQueryValue(queryValue)) {
+      onChange?.(queryValue, undefined);
+      return queryValue;
+    }
+    return activeIdDefault ?? compressedTabs?.[0]?.id;
+  });
+  const activeId = expanded ? expandedActiveId : compressedActiveId;
 
   useEffect(() => {
     if (!controlled) {
       // update active id
-      if (queryValue && isValidQueryValue()) {
+      if (queryValue && isValidQueryValue(queryValue)) {
         if (
           queryValue !== activeId ||
           (expanded && queryValue === tabs?.[0]?.id) ||
