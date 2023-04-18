@@ -9,6 +9,7 @@ import { getShortCode } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { Title } from '../../TransparencyReport';
+import { FORECAST_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import { LinkDescription } from '../TransparencyActuals/TransparencyActuals';
 import { useTransparencyForecast } from './useTransparencyForecast';
@@ -34,7 +35,6 @@ export const TransparencyForecast = (props: Props) => {
     breakdownItems,
     breakdownTitleRef,
     breakdownTabs,
-    tabQuery,
   } = useTransparencyForecast(props.currentMonth, props.budgetStatements);
 
   return (
@@ -82,7 +82,7 @@ export const TransparencyForecast = (props: Props) => {
             item: header,
             id: headerIds[i],
           }))}
-          tabQuery={tabQuery}
+          tabQuery={FORECAST_BREAKDOWN_QUERY_PARAM}
         />
       )}
 

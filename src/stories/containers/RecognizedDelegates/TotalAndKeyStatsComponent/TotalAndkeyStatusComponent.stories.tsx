@@ -1,4 +1,5 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
+import { DateTime } from 'luxon';
 import TotalAndKeyStatsComponent from './TotalAndkeyStatusComponent';
 import type { ComponentMeta } from '@storybook/react';
 
@@ -22,8 +23,8 @@ const variantsArgs = [
     otherExpenses: 50500000,
     amountDelegates: 21,
     totalDAI: 2130885,
-    start: 'Nov 2021',
-    end: 'Jun 2023',
+    start: DateTime.fromISO('2021-11-01'),
+    end: DateTime.fromISO('2023-06-01'),
   },
 ];
 

@@ -1,11 +1,16 @@
 import { LinkTypeEnum } from '@ses/core/enums/linkTypeEnum';
+import { DateTime } from 'luxon';
 import type { LinkModel } from '@ses/components/CuTableColumnLinks/CuTableColumnLinks';
 import type { DelegateDataCard } from '@ses/core/utils/typesHelpers';
 
 export const useRecognizedDelegates = () => {
   const totalDAI = 2130885;
-  const startMonth = 'Nov 2021';
-  const endMonth = 'Jun 2023';
+  const expensesMock = [
+    64523, 72053, 91478, 105432, 78823, 46823, 23456, 98765, 78964, 86543, 93021, 110540, 100032, 120032, 88023, 97321,
+    120453, 105432, 87654, 99432, 65023, 100021, 89054, 105032, 78965, 93021,
+  ];
+  const startDate = DateTime.fromISO('2021-11-01');
+  const endDate = DateTime.fromISO('2023-06-01');
   const totalDelegates = 23;
   const shadowTotal = 43;
   const mediaAnnual = 89928;
@@ -132,8 +137,6 @@ export const useRecognizedDelegates = () => {
 
   return {
     totalDAI,
-    startMonth,
-    endMonth,
     arrayOfDelegate,
     totalDelegates,
     shadowTotal,
@@ -142,5 +145,8 @@ export const useRecognizedDelegates = () => {
     delegatesExpenses,
     otherExpenses,
     amountDelegates,
+    expensesMock,
+    startDate,
+    endDate,
   };
 };

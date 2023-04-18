@@ -1,4 +1,5 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
+import { DateTime } from 'luxon';
 import TotalExpenseReportCard from './TotalExpenseReportCard';
 import type { ComponentMeta } from '@storybook/react';
 
@@ -13,8 +14,8 @@ export default {
 } as ComponentMeta<typeof TotalExpenseReportCard>;
 const variantsArgs = [
   {
-    start: 'Nov 2021',
-    end: 'Jun 2023',
+    start: DateTime.fromISO('2021-11-01'),
+    end: DateTime.fromISO('2023-06-01'),
     totalDAI: 2130885,
   },
 ];

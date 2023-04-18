@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 
 import DelegateExpenseBreakdown from './DelegateExpenseBreakdown/DelegateExpenseBreakdown';
@@ -15,8 +16,6 @@ const RecognizedDelegatesContainer: React.FC = () => {
   const { isLight } = useThemeContext();
   const {
     totalDAI,
-    startMonth,
-    endMonth,
     arrayOfDelegate,
     mediaAnnual,
     percent,
@@ -25,6 +24,9 @@ const RecognizedDelegatesContainer: React.FC = () => {
     delegatesExpenses,
     otherExpenses,
     amountDelegates,
+    expensesMock,
+    startDate,
+    endDate,
   } = useRecognizedDelegates();
   return (
     <ExtendedPageContainer isLight={isLight}>
@@ -33,8 +35,8 @@ const RecognizedDelegatesContainer: React.FC = () => {
         <TotalAndKeyStatsComponent
           amountDelegates={amountDelegates}
           totalDAI={totalDAI}
-          start={startMonth}
-          end={endMonth}
+          start={startDate}
+          end={endDate}
           annual={mediaAnnual}
           percent={percent}
           shadowTotal={shadowTotal}
@@ -43,7 +45,7 @@ const RecognizedDelegatesContainer: React.FC = () => {
           otherExpenses={otherExpenses}
         />
         <ContainerTrend>
-          <DelegateExpenseTrend />
+          <DelegateExpenseTrend expenses={expensesMock} endDate={endDate} startDate={startDate} />
         </ContainerTrend>
         <ContainerBreakdown>
           <DelegateExpenseBreakdown arrayOfDelegate={arrayOfDelegate} totalDai={totalDAI} />
@@ -76,6 +78,11 @@ const ContainerTrend = styled.div({
   marginBottom: 32,
   // TODO: Delete height when the chart is implemented
   height: 378,
+  [lightTheme.breakpoints.up('table_834')]: {
+    width: 690,
+    margin: '0 auto',
+    marginBottom: 62,
+  },
 });
 
 const ContainerBreakdown = styled.div({

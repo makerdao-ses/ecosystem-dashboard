@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { removeEmptyProperties } from '@ses/core/utils/urls';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
@@ -90,29 +91,43 @@ const Tabs: React.FC<TabsProps> = ({
     }
     return expandedDefault;
   });
-  const [expandedActiveId, setExpandedActiveId] = useState<string | undefined>(activeIdDefault ?? tabs?.[0]?.id);
-  const [compressedActiveId, setCompressedActiveId] = useState<string | undefined>(
-    activeIdDefault ?? compressedTabs?.[0]?.id
-  );
-  const activeId = expanded ? expandedActiveId : compressedActiveId;
 
-  const isValidQueryValue = useCallback(() => {
-    if (queryValue) {
-      const actualId = queryValue;
-      if (expanded) {
-        return tabs.some((element) => element.id === actualId);
+  const isValidQueryValue = useCallback(
+    (value: string, expanded: boolean): boolean => {
+      if (value) {
+        const actualId = value;
+        if (expanded) {
+          return tabs.some((element) => element.id === actualId);
+        } else {
+          return !!compressedTabs?.some((element) => element.id === actualId);
+        }
       } else {
-        return !!compressedTabs?.some((element) => element.id === actualId);
+        return true;
       }
-    } else {
-      return true;
+    },
+    [compressedTabs, tabs]
+  );
+
+  const [expandedActiveId, setExpandedActiveId] = useState<string | undefined>(() => {
+    if (!!queryValue && isValidQueryValue(queryValue, true)) {
+      onChange?.(queryValue, undefined);
+      return queryValue;
     }
-  }, [compressedTabs, expanded, queryValue, tabs]);
+    return activeIdDefault ?? tabs?.[0]?.id;
+  });
+  const [compressedActiveId, setCompressedActiveId] = useState<string | undefined>(() => {
+    if (!!queryValue && isValidQueryValue(queryValue, false)) {
+      onChange?.(queryValue, undefined);
+      return queryValue;
+    }
+    return activeIdDefault ?? compressedTabs?.[0]?.id;
+  });
+  const activeId = expanded ? expandedActiveId : compressedActiveId;
 
   useEffect(() => {
     if (!controlled) {
       // update active id
-      if (queryValue && isValidQueryValue()) {
+      if (queryValue && isValidQueryValue(queryValue, expanded)) {
         if (
           queryValue !== activeId ||
           (expanded && queryValue === tabs?.[0]?.id) ||
@@ -166,7 +181,7 @@ const Tabs: React.FC<TabsProps> = ({
       {
         pathname: router.pathname,
         query: {
-          ...router.query,
+          ...removeEmptyProperties(router.query),
           [viewKey]: view,
           [tabQuery]: id,
         },
@@ -178,7 +193,19 @@ const Tabs: React.FC<TabsProps> = ({
     onExpand?.();
   };
 
+  useEffect(() => {
+    // sync expanded status with the URL to keep the tabs synced with other tabs in the page
+    if (
+      [viewValues.default, viewValues.compressed].includes(router.query[viewKey] as string) &&
+      (router.query[viewKey] === viewValues.default) !== expanded
+    ) {
+      setExpanded(!expanded);
+      // onExpand callback should not be fired to avoid double calls when tabs are synced
+    }
+  }, [expanded, router.query, viewKey, viewValues]);
+
   const activeTabs = expanded ? tabs : compressedTabs;
+
   return (
     <Wrapper className="no-select">
       <Container isLight={isLight}>

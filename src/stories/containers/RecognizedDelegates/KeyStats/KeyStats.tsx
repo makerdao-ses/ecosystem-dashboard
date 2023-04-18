@@ -78,6 +78,7 @@ const ContainerCards = styled.div({
 
 const CardRow = styled.div({
   display: 'flex',
+  flex: 1,
   flexDirection: 'row',
   gap: 24,
 });

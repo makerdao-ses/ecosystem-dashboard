@@ -27,10 +27,10 @@ export default MedianAnnualDai;
 const ExtendedGenericDelegate = styled(GenericDelegateCard)({
   padding: '16px 26px',
   display: 'flex',
+  minWidth: 311,
+  flex: 1,
   flexDirection: 'column',
   alignItems: 'center',
-
-  flex: 1,
 });
 
 export const Annual = styled.div<WithIsLight>(({ isLight }) => ({

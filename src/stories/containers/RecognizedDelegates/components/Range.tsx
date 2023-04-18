@@ -4,10 +4,11 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
 import ChipRange from './ChipRange';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
+import type { DateTime } from 'luxon';
 
 interface Props {
-  start: string;
-  end: string;
+  start: DateTime;
+  end: DateTime;
 }
 
 const Range: React.FC<Props> = ({ start, end }) => {

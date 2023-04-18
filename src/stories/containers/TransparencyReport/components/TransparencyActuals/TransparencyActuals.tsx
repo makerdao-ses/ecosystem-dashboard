@@ -9,6 +9,7 @@ import { getShortCode } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { Title } from '../../TransparencyReport';
+import { ACTUALS_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import { useTransparencyActuals } from './useTransparencyActuals';
 import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
@@ -33,7 +34,6 @@ export const TransparencyActuals = (props: Props) => {
     mainTableColumns,
     mainTableItems,
     breakdownTabs,
-    tabQuery,
   } = useTransparencyActuals(props.currentMonth, props.budgetStatements);
 
   return (
@@ -85,7 +85,7 @@ export const TransparencyActuals = (props: Props) => {
             item: header,
             id: headerIds[i],
           }))}
-          tabQuery={tabQuery}
+          tabQuery={ACTUALS_BREAKDOWN_QUERY_PARAM}
         />
       )}
 

@@ -5,10 +5,11 @@ import React from 'react';
 import GenericDelegateCard from './GenericDelegateCard';
 import Range from './Range';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
+import type { DateTime } from 'luxon';
 
 interface Props {
-  start: string;
-  end: string;
+  start: DateTime;
+  end: DateTime;
   totalDAI: number;
 }
 
