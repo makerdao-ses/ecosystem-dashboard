@@ -6,7 +6,7 @@ interface Props {
   text: DateTime;
 }
 
-const ChipRange: React.FC<Props> = ({ text }) => <Container>{text.toFormat('LLL yyyy')}</Container>;
+const ChipRange: React.FC<Props> = ({ text }) => <Container>{text?.toFormat('LLL yyyy')}</Container>;
 
 export default ChipRange;
 
