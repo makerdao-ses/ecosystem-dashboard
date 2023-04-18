@@ -105,12 +105,20 @@ const Tabs: React.FC<TabsProps> = ({
     },
     [compressedTabs, expanded, tabs]
   );
-  const [expandedActiveId, setExpandedActiveId] = useState<string | undefined>(
-    activeIdDefault ?? (!!queryValue && isValidQueryValue(queryValue)) ? queryValue : tabs?.[0]?.id
-  );
-  const [compressedActiveId, setCompressedActiveId] = useState<string | undefined>(
-    activeIdDefault ?? (!!queryValue && isValidQueryValue(queryValue)) ? queryValue : compressedTabs?.[0]?.id
-  );
+  const [expandedActiveId, setExpandedActiveId] = useState<string | undefined>(() => {
+    if (!!queryValue && isValidQueryValue(queryValue)) {
+      onChange?.(queryValue, undefined);
+      return queryValue;
+    }
+    return activeIdDefault ?? tabs?.[0]?.id;
+  });
+  const [compressedActiveId, setCompressedActiveId] = useState<string | undefined>(() => {
+    if (!!queryValue && isValidQueryValue(queryValue)) {
+      onChange?.(queryValue, undefined);
+      return queryValue;
+    }
+    return activeIdDefault ?? compressedTabs?.[0]?.id;
+  });
   const activeId = expanded ? expandedActiveId : compressedActiveId;
 
   useEffect(() => {
