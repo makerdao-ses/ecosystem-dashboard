@@ -23,6 +23,15 @@ const menuItems = [
     link: siteRoutes.coreUnitsOverview,
     marginRight: '32px',
   },
+  ...(featureFlags[CURRENT_ENVIRONMENT].FEATURE_RECOGNIZED_DELEGATES
+    ? [
+        {
+          title: 'Delegates',
+          link: siteRoutes.recognizedDelegate,
+          marginRight: '32px',
+        },
+      ]
+    : []),
   ...(featureFlags[CURRENT_ENVIRONMENT].FEATURE_GLOBAL_ACTIVITIES
     ? [
         {

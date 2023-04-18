@@ -10,6 +10,9 @@ export default {
   component: RecognizedDelegatesContainer,
   decorators: [withoutSBPadding],
   parameters: {
+    nextRouter: {
+      pathname: '/delegates',
+    },
     chromatic: {
       viewports: [375],
       pauseAnimationAtEnd: true,
@@ -39,12 +42,8 @@ LightMode.parameters = {
     component: {
       375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16323:171953&t=NOVSbkNnl3eH7ql1-4',
-
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16759:207820&t=EXhAWyS0WhslJhTP-4',
         options: {
-          componentStyle: {
-            width: 375,
-          },
           ...optionStyles,
         },
       },

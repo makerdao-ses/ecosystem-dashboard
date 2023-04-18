@@ -6,7 +6,7 @@ import type { LinkModel } from '../CuTableColumnLinks/CuTableColumnLinks';
 import type { ComponentMeta } from '@storybook/react';
 
 export default {
-  title: 'Components/Delegate/DelegateSummary',
+  title: 'Components/DelegateReport/DelegateSummary',
   component: DelegateSummary,
   parameters: {
     layout: 'fullscreen',

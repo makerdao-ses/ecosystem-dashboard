@@ -13,7 +13,6 @@ const Range: React.FC<Props> = ({ start, end }) => (
     <ChipRange text={start} />
     <div
       style={{
-        // border: '2px solid red',
         display: 'flex',
         marginLeft: 5,
         marginRight: 5,
@@ -32,18 +31,17 @@ export default Range;
 const Container = styled.div({
   display: 'flex',
   flex: 1,
-
   flexDirection: 'row',
   justifyContent: 'space-between',
   color: '#139D8D',
+  width: 248,
 });
 
 const Dash = styled.div({
-  display: 'flex',
-  height: 1,
-  borderSpacing: 20,
-  border: '1px dashed #6EDBD0',
-  flexDirection: 'row',
-  alignItems: 'center',
-  flex: 1,
+  margin: 'auto',
+  width: '25%',
+  borderStyle: 'dashed none none none',
+  transform: 'scaleX(4)',
+  color: '#6EDBD0',
+  borderWidth: 0.5,
 });

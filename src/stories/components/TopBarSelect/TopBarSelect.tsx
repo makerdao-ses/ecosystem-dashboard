@@ -55,11 +55,11 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
             <Link href={item.link} passHref>
               <LinkWrapper
                 isLight={isLight}
-                isActive={item.title === props.selectedOption}
-                key={item.title}
-                onClick={item.title === props.selectedOption ? togglePopup : undefined}
+                isActive={item?.title === props.selectedOption}
+                key={item?.title}
+                onClick={item?.title === props.selectedOption ? togglePopup : undefined}
               >
-                {item.title}
+                {item?.title}
               </LinkWrapper>
             </Link>
           ))}
