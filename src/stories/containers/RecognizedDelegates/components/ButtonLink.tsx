@@ -34,10 +34,13 @@ const Container = styled.a({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
-  border: '1px solid #25273D',
+  border: '1px solid #D4D9E1',
   borderRadius: 22,
   padding: '8px 16px 8px 24px',
   height: 34,
+  ':hover': {
+    border: '1px solid #25273D',
+  },
 });
 
 const Text = styled.div({

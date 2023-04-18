@@ -93,6 +93,17 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)({
     padding: '16px',
     height: 138,
   },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    height: 80,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    height: 80,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    maxWidth: 1312,
+  },
 });
 
 const AvatarSection = styled.div({
@@ -103,6 +114,10 @@ const AvatarSection = styled.div({
   [lightTheme.breakpoints.up('table_834')]: {
     flex: 1,
     marginBottom: 25,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    flex: 1,
+    marginBottom: 0,
   },
 });
 
@@ -123,6 +138,10 @@ const Name = styled.div({
   fontSize: '14px',
   lineHeight: '17px',
   color: '#231536',
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    fontSize: '16px',
+    lineHeight: '22px',
+  },
 });
 
 const Address = styled.div({
@@ -130,6 +149,10 @@ const Address = styled.div({
   fontSize: '12px',
   lineHeight: '15px',
   color: '#447AFB',
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    fontSize: '14px',
+    lineHeight: '17px',
+  },
 });
 
 const WalletLink = styled.div({
@@ -152,6 +175,16 @@ const DescriptionSection = styled.div({
     flex: 1,
     marginRight: 0,
   },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginLeft: 0,
+    marginRight: 0,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    marginLeft: 40,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    marginLeft: 30,
+  },
 });
 const ContainerBar = styled.div({
   display: 'flex',
@@ -159,6 +192,9 @@ const ContainerBar = styled.div({
   [lightTheme.breakpoints.up('table_834')]: {
     flex: 1,
     marginLeft: -18,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    flex: 1,
   },
 });
 
@@ -179,6 +215,15 @@ const ContainerTotal = styled.div({
   paddingLeft: 1,
   [lightTheme.breakpoints.up('table_834')]: {
     textAlign: 'end',
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginRight: 26,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    marginRight: 16,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    marginRight: 30,
   },
 });
 
@@ -245,6 +290,10 @@ const SocialIconsSection = styled.div({
     justifyContent: 'space-between',
     margin: 'unset',
   },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    flexDirection: 'row-reverse',
+    flex: 1,
+  },
 });
 
 const ContainerBarDelegate = styled.div({
@@ -278,6 +327,16 @@ const ContainerButton = styled.div({
     display: 'flex',
     width: 107,
   },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginLeft: 16,
+    marginTop: 8,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    marginLeft: 32,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    marginLeft: 52,
+  },
 });
 
 const ContainerAvatarDescription = styled.div({
@@ -287,10 +346,18 @@ const ContainerAvatarDescription = styled.div({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flex: 1.5,
+  },
 });
 
 const LinkContainer = styled.div({
   [lightTheme.breakpoints.up('table_834')]: {
     marginLeft: 8,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginTop: 8,
   },
 });

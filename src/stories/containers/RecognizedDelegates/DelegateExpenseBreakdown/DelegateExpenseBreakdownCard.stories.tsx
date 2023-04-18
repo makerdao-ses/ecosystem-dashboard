@@ -73,6 +73,45 @@ BreakdownCard.parameters = {
           },
         },
       },
+      1194: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:196096&t=BNZ9FlhQrwKTnYGZ-4',
+        options: {
+          style: {
+            left: -40,
+            top: -20,
+          },
+          componentStyle: {
+            width: 1130,
+          },
+        },
+      },
+      1280: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:193440&t=h6cNElW1YXydT6mT-4',
+        options: {
+          style: {
+            left: -40,
+            top: -20,
+          },
+          componentStyle: {
+            width: 1184,
+          },
+        },
+      },
+      1440: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:190013&t=h6cNElW1YXydT6mT-4',
+        options: {
+          style: {
+            left: -40,
+            top: -20,
+          },
+          componentStyle: {
+            width: 1312,
+          },
+        },
+      },
     },
   },
 };
