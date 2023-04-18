@@ -13,7 +13,7 @@ export const siteRoutes = {
   globalActivityFeed: '/activity-feed',
   cookiesPolicy: '/cookies-policy',
   recognizedDelegateReport: '/recognized-delegates/finances/reports',
-  recognizedDelegate: '/recognized-delegates',
+  recognizedDelegate: '/delegates',
 
   // auth
   login: '/login',

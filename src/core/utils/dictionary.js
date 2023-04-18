@@ -117,6 +117,8 @@ const dictionary = [
   'touchstart',
   'scrollable',
   'deco',
+  'Feedblack',
+  'Coldirion',
 ];
 
 module.exports = dictionary;
