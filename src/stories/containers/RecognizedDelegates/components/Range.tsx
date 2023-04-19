@@ -12,15 +12,6 @@ interface Props {
   end: DateTime;
 }
 
-// const Range: React.FC<Props> = ({ start, end }) => (
-//   <Container>
-//     <ChipRange text={start} />
-//     <ContainerDash>
-//       <Dash />
-//     </ContainerDash>
-//     <ChipRange text={end} />
-//   </Container>
-// );
 const Range: React.FC<Props> = ({ start, end }) => {
   const { isLight } = useThemeContext();
   return (
