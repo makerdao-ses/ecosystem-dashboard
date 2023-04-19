@@ -39,7 +39,7 @@ const DoughnutChart: React.FC<Props> = ({ delegatesExpenses, otherExpenses }) =>
             name: 'Other Expenses',
             itemStyle: {
               color: isLight ? '#D2D4EF' : ' #48495F',
-              emphasis: { color: '#ECF1F3' },
+              emphasis: { color: isLight ? '#D2D4EF' : ' #48495F' },
             },
           },
           {
@@ -80,7 +80,6 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
-  paddingLeft: 4,
   transform: 'rotate(90deg)',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     height: 128,

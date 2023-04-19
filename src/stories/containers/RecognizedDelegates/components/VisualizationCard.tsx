@@ -27,7 +27,7 @@ const VisualizationCard: React.FC<Props> = ({ delegatesExpenses, otherExpenses, 
     <ExtendedKeyStatsCard>
       <ContainerChart>
         <Legend>
-          <LegendItem color={isLight ? '#D2D4EF' : '#48495F'} description="Other Expenses" />
+          <LegendItemOtherExpenses color={isLight ? '#D2D4EF' : '#48495F'} description="Other Expenses" />
           <ExtendedLegendItem color="#447AFB" description={`Recognized Delegates (${amountDelegates})`} />
         </Legend>
         <ContainerBar>
@@ -82,7 +82,7 @@ const Legend = styled.div({
     justifyContent: 'center',
     marginLeft: 16,
     gap: 16,
-    marginTop: 19,
+    marginTop: 18,
   },
 });
 const ContainerBar = styled.div({
@@ -238,6 +238,12 @@ const ExtendedLegendItem = styled(LegendItem)({
   marginRight: 1,
 });
 
+const LegendItemOtherExpenses = styled(LegendItem)({
+  '& :first-child': {
+    marginTop: -2,
+  },
+});
+
 const ContainerChart = styled.div({
   [lightTheme.breakpoints.up('table_834')]: {
     flex: 1,
@@ -256,6 +262,7 @@ const DoughnutChartContainer = styled.div({
     justifyContent: 'flex-start',
     width: 128,
     height: 128,
+    marginBottom: 1,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     display: 'flex',

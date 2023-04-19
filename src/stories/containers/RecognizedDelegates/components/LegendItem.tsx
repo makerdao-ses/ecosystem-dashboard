@@ -21,6 +21,9 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: -1,
+  },
 });
 
 const Circle = styled.div<{ color: string }>(({ color }) => ({
