@@ -27,7 +27,7 @@ const VisualizationCard: React.FC<Props> = ({ delegatesExpenses, otherExpenses, 
     <ExtendedKeyStatsCard>
       <ContainerChart>
         <Legend>
-          <LegendItem color={isLight ? '#ECF1F3' : '#10191F'} description="Other Expenses" />
+          <LegendItem color={isLight ? '#D2D4EF' : '#48495F'} description="Other Expenses" />
           <ExtendedLegendItem color="#447AFB" description={`Recognized Delegates (${amountDelegates})`} />
         </Legend>
         <ContainerBar>

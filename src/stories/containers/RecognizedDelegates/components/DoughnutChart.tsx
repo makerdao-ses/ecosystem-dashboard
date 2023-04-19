@@ -38,7 +38,7 @@ const DoughnutChart: React.FC<Props> = ({ delegatesExpenses, otherExpenses }) =>
             value: otherExpenses,
             name: 'Other Expenses',
             itemStyle: {
-              color: isLight ? '#ECF1F3' : '#10191F',
+              color: isLight ? '#D2D4EF' : ' #48495F',
               emphasis: { color: '#ECF1F3' },
             },
           },
