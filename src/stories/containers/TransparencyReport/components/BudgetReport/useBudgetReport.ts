@@ -1,4 +1,7 @@
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { useHashFragment } from '@ses/core/hooks/useHashFragment';
+import lightTheme from '@ses/styles/theme/light';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { BREAKDOWN_VIEW_QUERY_KEY } from '../../utils/constants';
@@ -12,6 +15,14 @@ import type { DateTime } from 'luxon';
 const useBudgetReport = (currentMonth: DateTime, budgetStatements?: BudgetStatementDto[]) => {
   const { isLight } = useThemeContext();
   const query = useRouter().query;
+
+  // move to the hash id when the page loads
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  useHashFragment({
+    offset: isMobile ? 180 : 270,
+    addListeners: false,
+    delayOnLoad: 300,
+  });
 
   const actualsData = useTransparencyActuals(currentMonth, budgetStatements);
   const forecastData = useTransparencyForecast(currentMonth, budgetStatements);
