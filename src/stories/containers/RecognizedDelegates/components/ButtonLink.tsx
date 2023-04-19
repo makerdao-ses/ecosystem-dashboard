@@ -4,6 +4,7 @@ import React from 'react';
 
 import Icon from './Icon/Icon';
 import type { IconNames } from './Icon/IconNames';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface CustomButtonProps {
   className?: string;
@@ -13,16 +14,14 @@ interface CustomButtonProps {
   height?: number;
   fill?: string;
   styleIcon?: React.CSSProperties;
-
   href: string;
 }
 
 const ButtonLink = ({ fill, height, width, iconName, className, href, label, styleIcon }: CustomButtonProps) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { isLight } = useThemeContext();
   return (
     <Container href={href} className={className}>
-      <Text>{label}</Text>
+      <Text isLight={isLight}>{label}</Text>
       {iconName && <Icon fill={fill} height={height} width={width} name={iconName} styleIcon={styleIcon} />}
     </Container>
   );
@@ -43,7 +42,7 @@ const Container = styled.a({
   },
 });
 
-const Text = styled.div({
+const Text = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: '14px',
   lineHeight: '18px',
   fontFamily: 'Inter, sans-serif',
@@ -51,5 +50,5 @@ const Text = styled.div({
   fontWeight: 500,
   whiteSpace: 'nowrap',
   marginRight: 8,
-  color: ' #231536',
-});
+  color: isLight ? ' #231536' : '#D2D4EF',
+}));

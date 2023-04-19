@@ -95,7 +95,7 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight>(({ isLi
   flexDirection: 'column',
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
-  // height: 182,
+  height: 182,
   [lightTheme.breakpoints.up('table_834')]: {
     padding: '16px',
     height: 138,
