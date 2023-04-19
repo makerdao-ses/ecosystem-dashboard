@@ -10,13 +10,13 @@ import DelegateExpenseTrend from './DelegateExpenseTrend';
 
 import TotalAndKeyStatsComponent from './TotalAndKeyStatsComponent/TotalAndkeyStatusComponent';
 import { useRecognizedDelegates } from './useRecognizedDelegates';
+import type { RecognizedDelegatesDto } from '@ses/core/models/dto/delegatesDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 const RecognizedDelegatesContainer: React.FC = () => {
   const { isLight } = useThemeContext();
   const {
     totalDAI,
-    arrayOfDelegate,
     mediaAnnual,
     percent,
     shadowTotal,
@@ -27,6 +27,11 @@ const RecognizedDelegatesContainer: React.FC = () => {
     expensesMock,
     startDate,
     endDate,
+    handleSelectChange,
+    activeElements,
+    selectElements,
+    handleResetFilter,
+    CardsDelegateFiltered,
   } = useRecognizedDelegates();
   return (
     <ExtendedPageContainer isLight={isLight}>
@@ -45,10 +50,18 @@ const RecognizedDelegatesContainer: React.FC = () => {
           otherExpenses={otherExpenses}
         />
         <ContainerTrend>
-          <DelegateExpenseTrend expenses={expensesMock} endDate={endDate} startDate={startDate} />
+          <DelegateExpenseTrend
+            handleResetFilter={handleResetFilter}
+            expenses={expensesMock}
+            endDate={endDate}
+            startDate={startDate}
+            activeItems={activeElements}
+            items={selectElements}
+            handleSelectChange={handleSelectChange}
+          />
         </ContainerTrend>
         <ContainerBreakdown>
-          <DelegateExpenseBreakdown arrayOfDelegate={arrayOfDelegate} totalDai={totalDAI} />
+          <DelegateExpenseBreakdown delegates={CardsDelegateFiltered as RecognizedDelegatesDto[]} totalDai={totalDAI} />
         </ContainerBreakdown>
       </Container>
     </ExtendedPageContainer>
@@ -70,7 +83,8 @@ const Title = styled.h1<WithIsLight>(({ isLight }) => ({
 }));
 
 const ExtendedPageContainer = styled(PageContainer)<WithIsLight>(({ isLight }) => ({
-  backgroundColor: isLight ? '#FFFFFF' : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
+  background: isLight ? '#FFFFFF' : '#000000',
+  backgroundImage: isLight ? '#FFFFFF' : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
 }));
 
 const ContainerTrend = styled.div({

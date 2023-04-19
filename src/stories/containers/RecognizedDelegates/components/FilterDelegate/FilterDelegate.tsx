@@ -8,26 +8,29 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 
 import React from 'react';
 import DelegateSelectItem from './DelegateSelectItem';
-import type { SelectItemProps } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
+import type { SelectItemProps, MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-const FilterDelegate = () => {
+interface Props {
+  items: MultiSelectItem[];
+  activeItems: string[];
+  handleSelectChange: (value: string[]) => void;
+  handleResetFilter: () => void;
+}
+
+const FilterDelegate: React.FC<Props> = ({ items, activeItems, handleSelectChange, handleResetFilter }) => {
   const { isLight } = useThemeContext();
-  const handleSelectChange = (value: string[]) => {
-    console.log(value);
-  };
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const handleResetFilter = () => {};
+
   return (
     <FiltersContainer>
       <Reset>
         <ResetButton onClick={handleResetFilter} disabled={true} hasIcon={false} />
       </Reset>
-      <FilterDelegates>
+      <FilterDelegatesContainer>
         <CustomMultiSelect
           label="Recognized Delegates"
-          activeItems={[]}
-          items={[]}
+          activeItems={activeItems}
+          items={items}
           width={224}
           onChange={(value: string[]) => {
             handleSelectChange(value);
@@ -43,7 +46,7 @@ const FilterDelegate = () => {
           }}
           customItemRender={(props: SelectItemProps) => <DelegateSelectItem {...props} />}
         />
-      </FilterDelegates>
+      </FilterDelegatesContainer>
 
       <ResponsiveButton onClick={handleResetFilter} isLight={isLight}>
         <Close width={10} height={10} fill={'#D1DEE6'} />
@@ -62,13 +65,14 @@ const FiltersContainer = styled.div({
   gridTemplateRows: 'auto auto',
   placeItems: 'space-between',
   justifyContent: 'end',
-  width: '100%',
+  width: 343,
+  margin: '0 auto',
   gridTemplateAreas: `
   "filterDelegates buttonFilter"
   `,
   '@media (min-width: 834px)': {
     gridTemplateRows: 'auto',
-    gridTemplateColumns: 'auto auto',
+    margin: 'none',
     justifyContent: 'flex-end',
     gridTemplateAreas: '"reset filterDelegates"',
   },
@@ -83,7 +87,7 @@ const Reset = styled.div({
   },
 });
 
-const FilterDelegates = styled.div({
+const FilterDelegatesContainer = styled.div({
   display: 'flex',
   gridArea: 'filterDelegates',
   '@media (min-width: 834px)': {

@@ -27,7 +27,7 @@ const DelegateSelectItem: React.FC<SelectItemProps> = ({ checked = false, ...pro
           <CircleAvatar name={props.label.toString()} image={props.params?.url} width={'32px'} height={'32px'} />
         </>
       )}
-      <CoreUnitName isLight={isLight}>{props.label}</CoreUnitName>
+      <DelegateName isLight={isLight}>{props.label}</DelegateName>
       <CheckWrapper>
         <Check fill={checked ? (isLight ? '#231536' : 'white') : isLight ? '#D1DEE6' : 'rgb(159, 175, 185)'} />
       </CheckWrapper>
@@ -37,14 +37,14 @@ const DelegateSelectItem: React.FC<SelectItemProps> = ({ checked = false, ...pro
 
 export default DelegateSelectItem;
 
-const CoreUnitName = styled.span<{ isLight: boolean }>(({ isLight }) => ({
+const DelegateName = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '14px',
   lineHeight: '17px',
   color: isLight ? '#231536' : '#FFFFFF',
-  marginLeft: '4px',
+  marginLeft: '16px',
 }));
 
 const CheckWrapper = styled.span({
