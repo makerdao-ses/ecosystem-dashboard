@@ -35,9 +35,8 @@ const BudgetBar = styled.div<WithIsLight>(({ isLight }) => ({
   height: 17,
   overflow: 'hidden',
   borderRadius: 6,
-  background: isLight ? '#ECF1F3' : '#10191F',
+  background: isLight ? '#ECF1F3' : '#1E2C37',
   boxShadow: isLight ? '2px 4px 7px rgba(26, 171, 155, 0.25)' : '2px 3px 10px rgba(23, 35, 44, 0.7)',
-
   [lightTheme.breakpoints.up('table_834')]: {
     height: 19,
   },
@@ -47,7 +46,7 @@ const BarPercent = styled.div<WithIsLight & { width: number }>(({ isLight, width
   position: 'absolute',
   top: 0,
   left: 0,
-  background: isLight ? '#0EB19F' : '#1AAB9B',
+  background: isLight ? '#0EB19F' : '#027265',
   borderRadius: 6,
   width: `${width}%`,
   height: '100%',

@@ -5,7 +5,6 @@ import { useCookiesContextTracking } from '@ses/core/context/CookiesContext';
 import useBudgetStatementComments from '@ses/core/hooks/useBudgetStatementComments';
 import useBudgetStatementPager from '@ses/core/hooks/useBudgetStatementPager';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
-import { useUrlAnchor } from '@ses/core/hooks/useUrlAnchor';
 import { BudgetStatus } from '@ses/core/models/dto/coreUnitDTO';
 import { budgetStatementCommentsCollectionId } from '@ses/core/utils/collectionsIds';
 import { LastVisitHandler } from '@ses/core/utils/lastVisitHandler';
@@ -29,7 +28,6 @@ export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;
-  const anchor = useUrlAnchor();
   const transparencyTableRef = useRef<HTMLDivElement>(null);
   const { permissionManager } = useAuthContext();
   const { isTimestampTrackingAccepted } = useCookiesContextTracking();
@@ -37,26 +35,6 @@ export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
   const [tabsIndex, setTabsIndex] = useState<TRANSPARENCY_IDS_ENUM>(
     query?.view === 'auditor' ? TRANSPARENCY_IDS_ENUM.BUDGET_REPORT : TRANSPARENCY_IDS_ENUM.ACTUALS
   );
-
-  const [scrolled, setScrolled] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (anchor === '') {
-      setScrolled(true);
-    }
-    if (!scrolled && anchor && Object.values(TRANSPARENCY_IDS_ENUM).includes(anchor as TRANSPARENCY_IDS_ENUM)) {
-      setScrolled(true);
-      let offset = (transparencyTableRef?.current?.offsetTop || 0) - 280;
-      const windowsWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-      if (windowsWidth < 834) {
-        offset += 100;
-      }
-      if ('scrollRestoration' in window.history) {
-        window.history.scrollRestoration = 'manual';
-      }
-      window.scrollTo(0, Math.max(0, offset));
-    }
-  }, [anchor, scrolled]);
 
   const [lastVisitHandler, setLastVisitHandler] = useState<LastVisitHandler>();
 
