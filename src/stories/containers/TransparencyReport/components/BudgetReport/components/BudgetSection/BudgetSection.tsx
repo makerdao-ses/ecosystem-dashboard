@@ -18,7 +18,7 @@ const BudgetSection: React.FC<BudgetSectionProps> = ({ children, level = 1, titl
   return (
     <Wrapper isLight={isLight}>
       <LevelContainer>
-        {title && <SectionTitle>{title}</SectionTitle>}
+        {title && <SectionTitle hasExternalIcon={true}>{title}</SectionTitle>}
 
         <ChildrenContainer hasMargin={!!title}>{children}</ChildrenContainer>
       </LevelContainer>

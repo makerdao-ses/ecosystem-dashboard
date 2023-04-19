@@ -63,7 +63,9 @@ const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStateme
         {actualsData.mainTableItems.length > 0 && (
           <>
             <TitleSpacer>
-              <SectionTitle level={2}>Actuals - Breakdown</SectionTitle>
+              <SectionTitle level={2} hasExternalIcon={isBreakdownExpanded}>
+                Actuals - Breakdown
+              </SectionTitle>
             </TitleSpacer>
 
             <Tabs
@@ -89,7 +91,7 @@ const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStateme
               <BudgetSection level={2}>
                 {actualsData.breakdownTabs.map((header, index) => (
                   <BudgetSubsectionContainer isFirst={index === 0} key={header}>
-                    <SectionTitle level={2} hasIcon={true}>
+                    <SectionTitle level={2} hasIcon={true} hasExternalIcon={true} idPrefix={'actuals'}>
                       {header}
                     </SectionTitle>
                     <div>
@@ -125,7 +127,9 @@ const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStateme
         {forecastData.breakdownItems.length > 0 && (
           <>
             <TitleSpacer>
-              <SectionTitle level={2}>Forecast - Breakdown</SectionTitle>
+              <SectionTitle level={2} hasExternalIcon={isBreakdownExpanded}>
+                Forecast - Breakdown
+              </SectionTitle>
             </TitleSpacer>
 
             <Tabs
@@ -151,7 +155,7 @@ const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStateme
               <BudgetSection level={2}>
                 {forecastData.breakdownTabs.map((header, index) => (
                   <BudgetSubsectionContainer isFirst={index === 0} key={header}>
-                    <SectionTitle level={2} hasIcon={true}>
+                    <SectionTitle level={2} hasIcon={true} hasExternalIcon={true} idPrefix={'forecast'}>
                       {header}
                     </SectionTitle>
                     <AdvancedInnerTable
