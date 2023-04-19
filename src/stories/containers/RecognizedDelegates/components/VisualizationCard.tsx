@@ -124,7 +124,6 @@ const Annual = styled.div<WithIsLight>(({ isLight }) => ({
     fontWeight: 500,
     fontSize: '30px',
     lineHeight: '36px',
-    color: '#231536',
     marginBottom: 8,
     marginTop: 6.5,
     paddingLeft: 45,
