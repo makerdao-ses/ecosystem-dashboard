@@ -9,7 +9,7 @@ import React from 'react';
 import { DelegateSocialLinks } from '../DelegateExpenseBreakdown/DelegateSocialLink';
 import DelegateBarPercentTotal from './DelegateBarPercentTotal';
 import GenericDelegateCard from './GenericDelegateCard';
-import type { DelegateDataCard } from '@ses/core/utils/typesHelpers';
+import type { DelegateDataCard, WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   delegateCard: DelegateDataCard;
@@ -17,11 +17,12 @@ interface Props {
 }
 
 const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai }) => {
+  const { isLight } = useThemeContext();
   const percent = percentageRespectTo(delegateCard.numberDai, totalDai);
   const humanizeTotal = usLocalizedNumber(totalDai);
-  const { isLight } = useThemeContext();
+
   return (
-    <ExtendedGenericDelegate>
+    <ExtendedGenericDelegate isLight={isLight}>
       <AvatarSection>
         <WalletAvatar>
           <CircleAvatarExtended
@@ -32,7 +33,7 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
             image={delegateCard.imageUrl}
           />
           <NameAddressColumn>
-            <Name>{delegateCard.walletName}</Name>
+            <Name isLight={isLight}>{delegateCard.walletName}</Name>
             <ClipBoardRow>
               <Address>{delegateCard.address}</Address>
               <ClipBoardContainer>
@@ -42,22 +43,22 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
           </NameAddressColumn>
         </WalletAvatar>
         <WalletLink>
-          <ArrowLink fill={isLight ? '#447AFB' : '#626472'} href={delegateCard.address} />
+          <ArrowLink fill={'#447AFB'} href={delegateCard.address} />
         </WalletLink>
       </AvatarSection>
       <DescriptionSection>
         <ContainerBar>
-          <PercentTitle>% of Total</PercentTitle>
+          <PercentTitle isLight={isLight}>% of Total</PercentTitle>
           <PercentBarContainer>
             <ContainerBarDelegate>
               <DelegateBarPercentTotal numberDai={delegateCard.numberDai} totalDai={totalDai} />
             </ContainerBarDelegate>
-            <PercentNumber>{Math.trunc(percent || 0)}%</PercentNumber>
+            <PercentNumber isLight={isLight}>{Math.trunc(percent || 0)}%</PercentNumber>
           </PercentBarContainer>
         </ContainerBar>
         <ContainerTotal>
-          <TotalTitle>Total DAI Comp</TotalTitle>
-          <Total>
+          <TotalTitle isLight={isLight}>Total DAI Comp</TotalTitle>
+          <Total isLight={isLight}>
             {humanizeTotal}
             <span>DAI</span>
           </Total>
@@ -73,14 +74,19 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
 };
 
 export default DelegateExpenseBreakdownCard;
-const ExtendedGenericDelegate = styled(GenericDelegateCard)({
+const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight>(({ isLight }) => ({
+  background: isLight ? '#FFFFFF' : '#10191F',
+  boxShadow: isLight
+    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+    : 'box-shadow: 0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+
   padding: '8px',
   display: 'flex',
   flexDirection: 'column',
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   height: 182,
-});
+}));
 
 const AvatarSection = styled.div({
   display: 'flex',
@@ -101,12 +107,12 @@ const NameAddressColumn = styled.div({
   marginLeft: 8,
 });
 
-const Name = styled.div({
+const Name = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 400,
   fontSize: '14px',
   lineHeight: '17px',
-  color: '#231536',
-});
+  color: isLight ? '#231536' : '#D2D4EF',
+}));
 
 const Address = styled.div({
   fontWeight: 400,
@@ -134,13 +140,13 @@ const ContainerBar = styled.div({
   flexDirection: 'column',
 });
 
-const PercentTitle = styled.div({
+const PercentTitle = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 400,
   fontSize: '11px',
   lineHeight: '13px',
-  color: '#708390',
+  color: isLight ? '#708390' : '#405361',
   marginBottom: 8,
-});
+}));
 
 const ContainerTotal = styled.div({
   display: 'flex',
@@ -148,28 +154,28 @@ const ContainerTotal = styled.div({
   paddingLeft: 1,
 });
 
-const TotalTitle = styled.div({
+const TotalTitle = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 400,
   fontSize: '11px',
   lineHeight: '13px',
-  color: '#708390',
+  color: isLight ? '#708390' : '#405361',
   textAlign: 'end',
-});
-const Total = styled.div({
+}));
+const Total = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   fontWeight: 500,
   fontSize: '14px',
   lineHeight: '17px',
   textTransform: 'uppercase',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   marginTop: 8,
   '& > span': {
     fontWeight: 600,
     color: '#9FAFB9',
     marginLeft: 4,
   },
-});
+}));
 
 const PercentBarContainer = styled.div({
   display: 'flex',
@@ -178,7 +184,7 @@ const PercentBarContainer = styled.div({
   marginTop: -1,
 });
 
-const PercentNumber = styled.div({
+const PercentNumber = styled.div<WithIsLight>(({ isLight }) => ({
   width: 34,
   height: 15,
   alignItems: 'center',
@@ -189,9 +195,9 @@ const PercentNumber = styled.div({
   textAlign: 'right',
   textTransform: 'uppercase',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   marginTop: 1,
-});
+}));
 
 const SocialIconsSection = styled.div({
   display: 'flex',
@@ -204,7 +210,7 @@ const ContainerBarDelegate = styled.div({
   width: 140,
 });
 
-const CircleAvatarExtended = styled(CircleAvatar)<{ isLight?: boolean }>(({ isLight }) => ({
+const CircleAvatarExtended = styled(CircleAvatar)<WithIsLight>(({ isLight }) => ({
   boxShadow: isLight ? '2px 4px 7px rgba(26, 171, 155, 0.25)' : '2px 4px 7px rgba(26, 171, 155, 0.25)',
 }));
 
