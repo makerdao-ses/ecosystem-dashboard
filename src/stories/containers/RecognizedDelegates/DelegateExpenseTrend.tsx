@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import DelegateChart from './components/DelegateChart';
-import FilterDelegate from './components/FilterDelegate';
+import FilterDelegate from './components/FilterDelegate/FilterDelegate';
 import type { DateTime } from 'luxon';
 
 interface Props {
