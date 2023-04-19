@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { threeDigitsPrecisionHumanization } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import lightTheme from '@ses/styles/theme/light';
@@ -7,6 +8,7 @@ import DoughnutChart from './DoughnutChart';
 import GenericDelegateCard from './GenericDelegateCard';
 import LegendItem from './LegendItem';
 import { RelativeDelegateBar } from './RelativeDelegateBar';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   otherExpenses: number;
@@ -17,6 +19,7 @@ interface Props {
 const VisualizationCard: React.FC<Props> = ({ delegatesExpenses, otherExpenses, amountDelegates }) => {
   const humanizedDelegates = threeDigitsPrecisionHumanization(delegatesExpenses);
   const humanizedTotalDelegates = threeDigitsPrecisionHumanization(delegatesExpenses + otherExpenses);
+  const { isLight } = useThemeContext();
 
   const percent = percentageRespectTo(delegatesExpenses, delegatesExpenses + otherExpenses);
 
@@ -24,7 +27,7 @@ const VisualizationCard: React.FC<Props> = ({ delegatesExpenses, otherExpenses, 
     <ExtendedKeyStatsCard>
       <ContainerChart>
         <Legend>
-          <LegendItem color="#ECF1F3" description="Other Expenses" />
+          <LegendItem color={isLight ? '#ECF1F3' : '#10191F'} description="Other Expenses" />
           <ExtendedLegendItem color="#447AFB" description={`Recognized Delegates (${amountDelegates})`} />
         </Legend>
         <ContainerBar>
@@ -37,18 +40,18 @@ const VisualizationCard: React.FC<Props> = ({ delegatesExpenses, otherExpenses, 
         </DoughnutChartContainer>
       </ContainerChart>
       <BarDescription>
-        <Annual>{`${percent.toFixed(2)} %`}</Annual>
+        <Annual isLight={isLight}>{`${percent.toFixed(2)} %`}</Annual>
         <ContainerDescription>
           <LegendNumberWrapper>
-            <LegendNumber>{humanizedDelegates.value}</LegendNumber>
-            <LegendNumberSuffix>{humanizedDelegates.suffix}</LegendNumberSuffix>
+            <LegendNumber isLight={isLight}>{humanizedDelegates.value}</LegendNumber>
+            <LegendNumberSuffix isLight={isLight}>{humanizedDelegates.suffix}</LegendNumberSuffix>
           </LegendNumberWrapper>
           <Divider>/</Divider>
           <LegendNumberWrapper>
-            <LegendNumber>{humanizedTotalDelegates.value}</LegendNumber>
-            <LegendNumberSuffix>{humanizedTotalDelegates.suffix}</LegendNumberSuffix>
+            <LegendNumber isLight={isLight}>{humanizedTotalDelegates.value}</LegendNumber>
+            <LegendNumberSuffix isLight={isLight}>{humanizedTotalDelegates.suffix}</LegendNumberSuffix>
           </LegendNumberWrapper>
-          <Coin>DAI</Coin>
+          <Coin isLight={isLight}>DAI</Coin>
         </ContainerDescription>
         <Description>Percentage of Total DAO Expense Nov 2021 - Jun 2023 </Description>
       </BarDescription>
@@ -105,7 +108,7 @@ const BarDescription = styled.div({
   },
 });
 
-const Annual = styled.div({
+const Annual = styled.div<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
@@ -113,7 +116,7 @@ const Annual = styled.div({
   lineHeight: '19px',
   letterSpacing: '0.3px',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
-  color: '#243465',
+  color: isLight ? '#243465' : '#EDEFFF',
   marginBottom: 3,
   marginTop: 1,
   textTransform: 'uppercase',
@@ -126,14 +129,14 @@ const Annual = styled.div({
     marginTop: 6.5,
     paddingLeft: 45,
   },
-});
+}));
 
 const LegendNumberWrapper = styled.div({
   display: 'flex',
   alignItems: 'baseline',
 });
 
-const LegendNumber = styled.div({
+const LegendNumber = styled.div<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
@@ -141,16 +144,15 @@ const LegendNumber = styled.div({
   lineHeight: '17px',
   letterSpacing: '0.3px',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   [lightTheme.breakpoints.up('table_834')]: {
     fontWeight: 400,
     fontSize: '24px',
     lineHeight: '29px',
-    color: '#231536',
   },
-});
+}));
 
-const LegendNumberSuffix = styled.div({
+const LegendNumberSuffix = styled.div<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
@@ -158,14 +160,13 @@ const LegendNumberSuffix = styled.div({
   lineHeight: '17px',
   letterSpacing: '0.3px',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   [lightTheme.breakpoints.up('table_834')]: {
     fontWeight: 400,
     fontSize: '24px',
     lineHeight: '29px',
-    color: '#231536',
   },
-});
+}));
 
 const Divider = styled.div({
   fontFamily: 'Inter, sans-serif',
@@ -185,7 +186,7 @@ const Divider = styled.div({
   },
 });
 
-const Coin = styled.div({
+const Coin = styled.div<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 600,
@@ -193,14 +194,14 @@ const Coin = styled.div({
   lineHeight: '17px',
   letterSpacing: '0.3px',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
-  color: '#9FAFB9',
+  color: isLight ? '#9FAFB9' : '#708390',
   marginLeft: 6,
   [lightTheme.breakpoints.up('table_834')]: {
     fontWeight: 600,
     fontSize: '24px',
     lineHeight: '29px',
   },
-});
+}));
 
 const Description = styled.div({
   fontFamily: 'Inter, sans-serif',

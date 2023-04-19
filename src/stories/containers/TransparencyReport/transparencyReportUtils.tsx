@@ -84,8 +84,11 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
   const { lockScroll, unlockScroll } = useScrollLock();
   const showIconToolTip = !!(data.description && data.link);
 
-  const md = new MobileDetect(window.navigator.userAgent);
-  const isMobileDevice = !!md.mobile();
+  let md;
+  if (typeof window !== 'undefined') {
+    md = new MobileDetect(window.navigator?.userAgent);
+  }
+  const isMobileDevice = !!md?.mobile();
 
   useEffect(() => {
     if (isMobileDevice) {

@@ -27,21 +27,26 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
   );
 
   const detailsUrl = useMemo(() => {
-    let anchor = '';
+    let goToComments = false;
     if (['CU_BUDGET_STATEMENT_COMMENT', 'DELEGATES_BUDGET_STATEMENT_COMMENT'].includes(activity.activityFeed.event)) {
-      anchor = '#comments';
+      goToComments = true;
     }
 
     const month = DateTime.fromFormat(activity.activityFeed.params.month, 'y-M').toFormat('LLLy');
+    let url = '';
     if (activity.activityFeed.event.startsWith('DELEGATES')) {
       // it is a delegate
-      return `${siteRoutes.recognizedDelegateReport}?viewMonth=${month}${anchor}`;
+      url = `${siteRoutes.recognizedDelegateReport}?viewMonth=${month}`;
+    } else {
+      // it is a core unit
+      url = `${siteRoutes.coreUnitReports(activity.activityFeed.params.coreUnit?.shortCode)}?viewMonth=${month}`;
     }
 
-    // it is a core unit
-    return `${siteRoutes.coreUnitReports(
-      activity.activityFeed.params.coreUnit?.shortCode
-    )}?viewMonth=${month}${anchor}`;
+    if (goToComments) {
+      url += '&section=comments';
+    }
+
+    return url;
   }, [activity]);
 
   const goToDetails = () => {

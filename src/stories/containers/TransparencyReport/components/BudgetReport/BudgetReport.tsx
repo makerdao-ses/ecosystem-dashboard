@@ -3,19 +3,20 @@ import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedI
 import Container from '@ses/components/Container/Container';
 import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import Tabs from '@ses/components/Tabs/Tabs';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { MAKER_BURN_LINK } from '@ses/core/utils/const';
-import React, { useState } from 'react';
+import React from 'react';
+import {
+  ACTUALS_BREAKDOWN_QUERY_PARAM,
+  BREAKDOWN_VIEW_QUERY_KEY,
+  FORECAST_BREAKDOWN_QUERY_PARAM,
+} from '../../utils/constants';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import { LinkDescription } from '../TransparencyActuals/TransparencyActuals';
-import { useTransparencyActuals } from '../TransparencyActuals/useTransparencyActuals';
-import { useTransparencyForecast } from '../TransparencyForecast/useTransparencyForecast';
 import MkrVestingInfo from '../TransparencyMkrVesting/MkrVestingInfo';
 import MkrVestingTotalFTE from '../TransparencyMkrVesting/MkrVestingTotalFTE';
-import { useTransparencyMkrVesting } from '../TransparencyMkrVesting/useTransparencyMkrVesting';
-import { useTransparencyTransferRequest } from '../TransparencyTransferRequest/useTransparencyTransferRequest';
 import BudgetSection from './components/BudgetSection/BudgetSection';
 import SectionTitle from './components/SectionTitle/SectionTitle';
+import useBudgetReport from './useBudgetReport';
 import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { DateTime } from 'luxon';
@@ -28,18 +29,8 @@ interface BudgetReportProps {
 }
 
 const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStatements, code, longCode }) => {
-  const { isLight } = useThemeContext();
-
-  const actualsData = useTransparencyActuals(currentMonth, budgetStatements);
-  const forecastData = useTransparencyForecast(currentMonth, budgetStatements);
-  const mkrVestingData = useTransparencyMkrVesting(currentMonth, budgetStatements);
-  const transferRequestsData = useTransparencyTransferRequest(currentMonth, budgetStatements);
-
-  const [breakdownSelected, setBreakdownSelected] = useState<string | undefined>();
-
-  const handleBreakdownChange = (current?: string) => {
-    setBreakdownSelected(current);
-  };
+  const { isLight, actualsData, forecastData, mkrVestingData, transferRequestsData, isBreakdownExpanded } =
+    useBudgetReport(currentMonth, budgetStatements);
 
   return (
     <BudgetReportWrapper>
@@ -82,11 +73,11 @@ const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStateme
               }))}
               expandable
               expandedDefault={false}
-              viewKey={'breakdownView'}
-              onChange={handleBreakdownChange}
+              tabQuery={ACTUALS_BREAKDOWN_QUERY_PARAM}
+              viewKey={BREAKDOWN_VIEW_QUERY_KEY}
             />
 
-            {breakdownSelected ? (
+            {isBreakdownExpanded ? (
               <AdvancedInnerTable
                 columns={actualsData.breakdownColumnsForActiveTab}
                 items={actualsData.breakdownItemsForActiveTab}
@@ -144,11 +135,11 @@ const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStateme
               }))}
               expandable
               expandedDefault={false}
-              viewKey={'breakdownView'}
-              onChange={handleBreakdownChange}
+              tabQuery={FORECAST_BREAKDOWN_QUERY_PARAM}
+              viewKey={BREAKDOWN_VIEW_QUERY_KEY}
             />
 
-            {breakdownSelected ? (
+            {isBreakdownExpanded ? (
               <AdvancedInnerTable
                 longCode={longCode}
                 columns={forecastData.breakdownColumnsForActiveTab}

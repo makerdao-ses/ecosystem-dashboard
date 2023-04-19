@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import { useUrlAnchor } from '@ses/core/hooks/useUrlAnchor';
+import { removeEmptyProperties } from '@ses/core/utils/urls';
 import { useRouter } from 'next/router';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import Compress from '../svg/compress';
 import Expand from '../svg/expand';
@@ -23,7 +23,6 @@ export interface TabsProps {
   styleForTab?: CSSProperties;
   // default selected tab
   activeIdDefault?: string;
-
   // do this this `Tabs` allow to be expanded/compressed
   expandable?: boolean;
   // is this `Tabs` expanded by default
@@ -39,6 +38,8 @@ export interface TabsProps {
     default: string;
     compressed: string;
   };
+  // query string to be used
+  tabQuery?: string;
   // view key to be used in the URL
   viewKey?: string;
   // values to be used as `viewKey` query string
@@ -46,8 +47,6 @@ export interface TabsProps {
     default: string;
     compressed: string;
   };
-  // translate the anchor to the actual id. By default both are equals
-  anchorToActualId?: (anchor: string) => string;
   // is this `Tabs` self managed or managed by the user (dev)
   controlled?: boolean;
   // selected tab when this `Tabs` are controlled (true)
@@ -65,59 +64,81 @@ const Tabs: React.FC<TabsProps> = ({
   onExpand,
   onChange,
   expandToolTip,
+  tabQuery = 'tab',
   viewKey = 'view',
   viewValues = {
     default: 'default',
     compressed: 'compressed',
   },
-  anchorToActualId = (anchor) => anchor,
   controlled = false,
   selectedTabId,
 }) => {
   const { isLight } = useThemeContext();
-  const anchor = useUrlAnchor();
   const router = useRouter();
+  const query = router.query;
+  const queryValue = useMemo(() => {
+    const value = query[tabQuery];
+    if (Array.isArray(value) && value.length > 0) {
+      return value[0];
+    }
+    if (typeof value === 'string') {
+      return value;
+    }
+  }, [query, tabQuery]);
   const [expanded, setExpanded] = useState(() => {
     if ([viewValues.default, viewValues.compressed].includes(router.query[viewKey] as string)) {
       return router.query[viewKey] === viewValues.default;
     }
     return expandedDefault;
   });
-  const [expandedActiveId, setExpandedActiveId] = useState<string | undefined>(activeIdDefault ?? tabs?.[0]?.id);
-  const [compressedActiveId, setCompressedActiveId] = useState<string | undefined>(
-    activeIdDefault ?? compressedTabs?.[0]?.id
-  );
-  const activeId = expanded ? expandedActiveId : compressedActiveId;
 
-  const isValidAnchor = useCallback(() => {
-    if (anchor) {
-      const actualId = anchorToActualId(anchor);
-      if (expanded) {
-        return tabs.some((element) => element.id === actualId);
+  const isValidQueryValue = useCallback(
+    (value: string, expanded: boolean): boolean => {
+      if (value) {
+        const actualId = value;
+        if (expanded) {
+          return tabs.some((element) => element.id === actualId);
+        } else {
+          return !!compressedTabs?.some((element) => element.id === actualId);
+        }
       } else {
-        return !!compressedTabs?.some((element) => element.id === actualId);
+        return true;
       }
-    } else {
-      return true;
+    },
+    [compressedTabs, tabs]
+  );
+
+  const [expandedActiveId, setExpandedActiveId] = useState<string | undefined>(() => {
+    if (!!queryValue && isValidQueryValue(queryValue, true)) {
+      onChange?.(queryValue, undefined);
+      return queryValue;
     }
-  }, [anchor, anchorToActualId, compressedTabs, expanded, tabs]);
+    return activeIdDefault ?? tabs?.[0]?.id;
+  });
+  const [compressedActiveId, setCompressedActiveId] = useState<string | undefined>(() => {
+    if (!!queryValue && isValidQueryValue(queryValue, false)) {
+      onChange?.(queryValue, undefined);
+      return queryValue;
+    }
+    return activeIdDefault ?? compressedTabs?.[0]?.id;
+  });
+  const activeId = expanded ? expandedActiveId : compressedActiveId;
 
   useEffect(() => {
     if (!controlled) {
       // update active id
-      if (anchor && isValidAnchor()) {
-        const actualId = anchorToActualId(anchor);
+      if (queryValue && isValidQueryValue(queryValue, expanded)) {
         if (
-          actualId !== activeId ||
-          (expanded && actualId === tabs?.[0]?.id) ||
-          (!expanded && actualId === compressedTabs?.[0]?.id)
+          queryValue !== activeId ||
+          (expanded && queryValue === tabs?.[0]?.id) ||
+          (!expanded && queryValue === compressedTabs?.[0]?.id)
         ) {
-          onChange?.(actualId, activeId);
+          onChange?.(queryValue, activeId);
         }
         if (expanded) {
-          setExpandedActiveId(actualId);
+          setExpandedActiveId(queryValue);
         } else {
-          setCompressedActiveId(actualId);
+          setCompressedActiveId(queryValue);
         }
       } else {
         // select the first tab
@@ -130,15 +151,14 @@ const Tabs: React.FC<TabsProps> = ({
     }
   }, [
     activeId,
-    anchor,
-    anchorToActualId,
     compressedActiveId,
     compressedTabs,
     controlled,
     expanded,
     expandedActiveId,
-    isValidAnchor,
+    isValidQueryValue,
     onChange,
+    queryValue,
     tabs,
   ]);
 
@@ -161,10 +181,10 @@ const Tabs: React.FC<TabsProps> = ({
       {
         pathname: router.pathname,
         query: {
-          ...router.query,
+          ...removeEmptyProperties(router.query),
           [viewKey]: view,
+          [tabQuery]: id,
         },
-        hash: id,
       },
       undefined,
       { shallow: true }
@@ -173,7 +193,19 @@ const Tabs: React.FC<TabsProps> = ({
     onExpand?.();
   };
 
+  useEffect(() => {
+    // sync expanded status with the URL to keep the tabs synced with other tabs in the page
+    if (
+      [viewValues.default, viewValues.compressed].includes(router.query[viewKey] as string) &&
+      (router.query[viewKey] === viewValues.default) !== expanded
+    ) {
+      setExpanded(!expanded);
+      // onExpand callback should not be fired to avoid double calls when tabs are synced
+    }
+  }, [expanded, router.query, viewKey, viewValues]);
+
   const activeTabs = expanded ? tabs : compressedTabs;
+
   return (
     <Wrapper className="no-select">
       <Container isLight={isLight}>
@@ -181,6 +213,7 @@ const Tabs: React.FC<TabsProps> = ({
           <StyledTab
             id={element.id}
             href={element.href}
+            tabQuery={tabQuery}
             active={
               controlled
                 ? element.id === selectedTabId

@@ -9,6 +9,7 @@ import { getShortCode } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { Title } from '../../TransparencyReport';
+import { FORECAST_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import { LinkDescription } from '../TransparencyActuals/TransparencyActuals';
 import { useTransparencyForecast } from './useTransparencyForecast';
@@ -69,22 +70,23 @@ export const TransparencyForecast = (props: Props) => {
         style={{ marginBottom: '64px' }}
         cardsTotalPosition={'top'}
       />
-      {!!breakdownItems.length && (
+      {!!breakdownItems?.length && (
         <Title isLight={isLight} marginBottom={24} ref={breakdownTitleRef}>
           {props.currentMonth.toFormat('MMM yyyy')} Breakdown
         </Title>
       )}
 
-      {!!breakdownItems.length && (
+      {!!breakdownItems?.length && (
         <Tabs
           tabs={breakdownTabs.map((header, i) => ({
             item: header,
             id: headerIds[i],
           }))}
+          tabQuery={FORECAST_BREAKDOWN_QUERY_PARAM}
         />
       )}
 
-      {!!breakdownItems.length && (
+      {!!breakdownItems?.length && (
         <AdvancedInnerTable
           longCode={props.longCode}
           columns={breakdownColumnsForActiveTab}

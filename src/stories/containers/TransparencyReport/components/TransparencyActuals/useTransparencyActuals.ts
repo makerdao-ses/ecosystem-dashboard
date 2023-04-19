@@ -1,7 +1,7 @@
-import { useUrlAnchor } from '@ses/core/hooks/useUrlAnchor';
 import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
-import { capitalizeSentence, getWalletWidthForWallets } from '@ses/core/utils/string';
+import { capitalizeSentence, getWalletWidthForWallets, toKebabCase } from '@ses/core/utils/string';
 import _ from 'lodash';
+import { useRouter } from 'next/router';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { renderLinks, renderWallet } from '../../transparencyReportUtils';
 import { getActualsBreakdownColumns, getActualsBreakdownItemsForWallet } from '../../utils/actualsTableHelpers';
@@ -11,6 +11,7 @@ import {
   getWalletForecast,
   getWalletPayment,
 } from '../../utils/budgetStatementsUtils';
+import { ACTUALS_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
 import type { InnerTableColumn, InnerTableRow } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import type { BudgetStatementDto, BudgetStatementWalletDto } from '@ses/core/models/dto/coreUnitDTO';
 import type { DateTime } from 'luxon';
@@ -20,7 +21,11 @@ export const useTransparencyActuals = (
   budgetStatements: BudgetStatementDto[] | undefined
 ) => {
   const currentMonth = useMemo(() => propsCurrentMonth.toFormat(API_MONTH_TO_FORMAT), [propsCurrentMonth]);
-  const anchor = useUrlAnchor();
+  const router = useRouter();
+  const query = router.query;
+  const selectedBreakdown = Array.isArray(query[ACTUALS_BREAKDOWN_QUERY_PARAM])
+    ? query[ACTUALS_BREAKDOWN_QUERY_PARAM][0]
+    : query[ACTUALS_BREAKDOWN_QUERY_PARAM];
 
   const wallets: BudgetStatementWalletDto[] = useMemo(() => {
     const dict: { [id: string]: BudgetStatementWalletDto } = {};
@@ -89,37 +94,19 @@ export const useTransparencyActuals = (
   );
 
   const [headerIds, setHeaderIds] = useState<string[]>([]);
-  const [scrolled, setScrolled] = useState<boolean>(false);
 
-  const thirdIndex = useMemo(() => Math.max(headerIds?.indexOf(anchor ?? ''), 0), [headerIds, anchor]);
+  const thirdIndex = useMemo(
+    () => Math.max(headerIds?.indexOf(selectedBreakdown ?? ''), 0),
+    [headerIds, selectedBreakdown]
+  );
 
   const currentWallet = useMemo(() => wallets[thirdIndex], [thirdIndex, wallets]);
 
   const breakdownTitleRef = useRef<HTMLDivElement>(null);
 
-  const headerToId = (header: string): string => {
-    const id = header.toLowerCase().trim().replaceAll(/ /g, '-');
-    return `actuals-${id}`;
-  };
-
   useEffect(() => {
-    setHeaderIds(breakdownTabs.map((header: string) => headerToId(header)));
+    setHeaderIds(breakdownTabs.map((header: string) => toKebabCase(header)));
   }, [breakdownTabs]);
-
-  useEffect(() => {
-    if (!scrolled && anchor && !_.isEmpty(headerIds) && headerIds.includes(anchor)) {
-      setScrolled(true);
-      let offset = (breakdownTitleRef?.current?.offsetTop || 0) - 260;
-      const windowsWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-      if (windowsWidth < 834) {
-        offset += 90;
-      }
-      if ('scrollRestoration' in window.history) {
-        window.history.scrollRestoration = 'manual';
-      }
-      window.scrollTo(0, Math.max(0, offset));
-    }
-  }, [anchor, headerIds, scrolled]);
 
   const mainTableColumns = useMemo(() => {
     const mainTableColumns: InnerTableColumn[] = [
@@ -135,12 +122,12 @@ export const useTransparencyActuals = (
       {
         header: 'Forecast',
         align: 'right',
-        type: 'number',
+        type: 'incomeNumber',
       },
       {
         header: 'Actuals',
         align: 'right',
-        type: 'number',
+        type: 'incomeNumber',
       },
       {
         header: 'Difference',

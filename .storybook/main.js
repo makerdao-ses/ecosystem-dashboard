@@ -15,6 +15,10 @@ module.exports = {
   core: {
     builder: '@storybook/builder-webpack5',
   },
+  env: (config) => ({
+    ...config,
+    NEXT_PUBLIC_ENVIRONMENT: 'development', // storybook should run on development environment
+  }),
   webpackFinal: async (config) => {
     // use custom next/image to avoid image issues
     config.resolve.alias['next/image'] = require.resolve('./NextImage.js');
