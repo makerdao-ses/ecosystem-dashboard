@@ -7,7 +7,6 @@ export default {
   title: 'Components/CUTransparencyReport/Section Title',
   component: SectionTitle,
   argTypes: {
-    // level
     hasIcon: {
       defaultValue: true,
       control: { type: 'boolean' },
