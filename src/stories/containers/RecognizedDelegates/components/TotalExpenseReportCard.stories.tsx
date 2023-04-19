@@ -25,7 +25,7 @@ export const [[TotalExpense, TotalExpenseDark]] = createThemeModeVariants(TotalE
 TotalExpense.parameters = {
   figma: {
     component: {
-      375: {
+      0: {
         component:
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16759:208037&t=SXR1v9cUgs1wOSb8-4',
         options: {

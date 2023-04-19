@@ -86,15 +86,17 @@ const Annual = styled.div<WithIsLight>(({ isLight }) => ({
   textTransform: 'uppercase',
   textAlign: 'center',
   [lightTheme.breakpoints.up('table_834')]: {
+    textTransform: 'uppercase',
     fontWeight: 600,
     fontSize: 32,
     lineHeight: '39px',
-    letterSpacing: '0.4px',
+    letterSpacing: '-2px',
   },
 }));
 
 const Coin = styled.span<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
+
   fontStyle: 'normal',
   fontWeight: 600,
   fontSize: '24px',
@@ -102,12 +104,13 @@ const Coin = styled.span<WithIsLight>(({ isLight }) => ({
   letterSpacing: '0.4px',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
   color: isLight ? '#9FAFB9' : '#708390',
-  marginLeft: 6,
+  marginLeft: 10,
   textTransform: 'uppercase',
   [lightTheme.breakpoints.up('table_834')]: {
     fontSize: '32px',
     lineHeight: '39px',
-    marginLeft: 2,
+    marginLeft: 10,
+    letterSpacing: '0.4px',
   },
 }));
 
