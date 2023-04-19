@@ -28,6 +28,7 @@ const FilterDelegate: React.FC<Props> = ({ items, activeItems, handleSelectChang
       </Reset>
       <FilterDelegatesContainer>
         <CustomMultiSelect
+          positionRight={true}
           label="Recognized Delegates"
           activeItems={activeItems}
           items={items}
@@ -36,8 +37,8 @@ const FilterDelegate: React.FC<Props> = ({ items, activeItems, handleSelectChang
             handleSelectChange(value);
           }}
           withAll
-          popupContainerWidth={360}
-          listItemWidth={330}
+          popupContainerWidth={343}
+          listItemWidth={311}
           customAll={{
             content: 'All Recognized Delegates',
             id: 'all',
