@@ -61,7 +61,6 @@ export const DelegateSocialLinks = ({
             <LinkImage
               isLight={isLight}
               key={i}
-              href={link.href}
               target="_blank"
               onClick={(event: React.SyntheticEvent) => event.stopPropagation()}
             >
