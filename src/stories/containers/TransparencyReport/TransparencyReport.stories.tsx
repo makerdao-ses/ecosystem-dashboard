@@ -60,7 +60,7 @@ const variantsArgs = [
     coreUnit: SESCoreUnitMocked,
     coreUnits: [SESCoreUnitMocked],
   },
-  // budget report
+  // expense report
   {
     coreUnit: SESCoreUnitMocked,
     coreUnits: [SESCoreUnitMocked],
@@ -73,7 +73,7 @@ export const [
   [ForecastTabLightMode, ForecastTabDarkMode],
   [MKRVestingLightMode, MKRVestingDarkMode],
   [TransferRequestsLightMode, TransferRequestsDarkMode],
-  [BudgetReportLightMode, BudgetReportDarkMode],
+  [ExpenseReportLightMode, ExpenseReportDarkMode],
 ] = createThemeModeVariants(
   (props) => (
     <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
@@ -122,7 +122,7 @@ const transferRequestsParams = {
 TransferRequestsLightMode.parameters = transferRequestsParams;
 TransferRequestsDarkMode.parameters = transferRequestsParams;
 
-const budgetReportParams = {
+const expenseReportParams = {
   nextRouter: {
     path: '/core-unit/[code]/finances/reports?view=auditor&section=budget-report',
     asPath: '/core-unit/SES/finances/reports?view=auditor&section=budget-report',
@@ -132,5 +132,5 @@ const budgetReportParams = {
     },
   },
 };
-BudgetReportLightMode.parameters = budgetReportParams;
-BudgetReportDarkMode.parameters = budgetReportParams;
+ExpenseReportLightMode.parameters = expenseReportParams;
+ExpenseReportDarkMode.parameters = expenseReportParams;

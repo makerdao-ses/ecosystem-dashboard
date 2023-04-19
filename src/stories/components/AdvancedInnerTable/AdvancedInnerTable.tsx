@@ -43,11 +43,20 @@ interface Props {
   cardsTotalPosition?: 'top' | 'bottom';
   tablePlaceholder?: JSX.Element;
   longCode: string;
+  className?: string;
 }
 
 type Alignment = 'left' | 'center' | 'right';
 
-export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: Props) => {
+export const AdvancedInnerTable = ({
+  cardsTotalPosition = 'bottom',
+  columns,
+  items,
+  longCode,
+  style,
+  className,
+  tablePlaceholder,
+}: Props) => {
   const { isLight } = useThemeContext();
   const getCell = (column: InnerTableColumn, rowType: RowType, value: unknown) => {
     if (value !== 0 && !value) {
@@ -82,20 +91,20 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
   };
 
   let cardItems =
-    cardsTotalPosition === 'top' && props.items.length > 0
-      ? [props.items[props.items.length - 1], ...props.items.slice(0, props.items.length - 1)]
-      : props.items;
+    cardsTotalPosition === 'top' && items.length > 0
+      ? [items[items.length - 1], ...items.slice(0, items.length - 1)]
+      : items;
 
   cardItems = cardItems.filter((x) => !x.hideMobile);
 
-  return props.items.length > 0 ? (
+  return items.length > 0 ? (
     <>
       <TableWrapper>
-        <Container isLight={isLight} style={props.style}>
+        <Container isLight={isLight} style={style} className={className}>
           <Table>
             <TableHead isLight={isLight}>
               <tr>
-                {props.columns
+                {columns
                   ?.filter((x) => !x.hidden)
                   .map((column, i) => (
                     <HeadCell
@@ -115,7 +124,7 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
               </tr>
             </TableHead>
             <tbody>
-              {props.items?.map((row, i) => (
+              {items?.map((row, i) => (
                 <tr key={i}>
                   {row.items
                     ?.filter((x) => !x.column.hidden)
@@ -140,7 +149,7 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
       <CardsWrapper>
         {cardItems.map((item, i) =>
           item.type === 'section' ? (
-            <Title isLight={isLight} fontSize="14px" key={`section-${i}`}>
+            <Title isLight={isLight} fontSize="14px" key={`section-${i}`} className="table-section">
               {item.items[0].value as string}
             </Title>
           ) : (
@@ -154,7 +163,7 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
                     .map((x) => getCell(x.column, item.type, x.value))}
                 </>
               }
-              headers={props.columns.filter((x) => !x.isCardHeader && !x.isCardFooter).map((x) => x.header ?? '')}
+              headers={columns.filter((x) => !x.isCardHeader && !x.isCardFooter).map((x) => x.header ?? '')}
               items={
                 item.items
                   .filter((x) => !x.column?.isCardFooter && !x.column?.isCardHeader)
@@ -173,7 +182,7 @@ export const AdvancedInnerTable = ({ cardsTotalPosition = 'bottom', ...props }: 
       </CardsWrapper>
     </>
   ) : (
-    props.tablePlaceholder ?? <TransparencyEmptyTable longCode={props.longCode} />
+    tablePlaceholder ?? <TransparencyEmptyTable longCode={longCode} />
   );
 };
 
