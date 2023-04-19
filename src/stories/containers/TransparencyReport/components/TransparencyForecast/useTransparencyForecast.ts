@@ -60,22 +60,6 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
     ? query[FORECAST_BREAKDOWN_QUERY_PARAM][0]
     : query[FORECAST_BREAKDOWN_QUERY_PARAM];
   const breakdownTitleRef = useRef<HTMLDivElement>(null);
-  const [scrolled, setScrolled] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (!scrolled && selectedBreakdown && !_.isEmpty(headerIds) && headerIds.includes(selectedBreakdown)) {
-      setScrolled(true);
-      let offset = (breakdownTitleRef?.current?.offsetTop || 0) - 260;
-      const windowsWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-      if (windowsWidth < 834) {
-        offset += 90;
-      }
-      if ('scrollRestoration' in window.history) {
-        window.history.scrollRestoration = 'manual';
-      }
-      window.scrollTo(0, Math.max(0, offset));
-    }
-  }, [selectedBreakdown, headerIds, scrolled]);
 
   useEffect(() => {
     if (selectedBreakdown && !_.isEmpty(headerIds)) {

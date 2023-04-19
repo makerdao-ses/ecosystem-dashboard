@@ -1,46 +1,61 @@
 import styled from '@emotion/styled';
 
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import ChipRange from './ChipRange';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
+import type { DateTime } from 'luxon';
 
 interface Props {
-  start: string;
-  end: string;
+  start: DateTime;
+  end: DateTime;
 }
 
-const Range: React.FC<Props> = ({ start, end }) => (
-  <Container>
-    <ChipRange text={start} />
-    <ContainerDash>
-      <Dash />
-    </ContainerDash>
-    <ChipRange text={end} />
-  </Container>
-);
+// const Range: React.FC<Props> = ({ start, end }) => (
+//   <Container>
+//     <ChipRange text={start} />
+//     <ContainerDash>
+//       <Dash />
+//     </ContainerDash>
+//     <ChipRange text={end} />
+//   </Container>
+// );
+const Range: React.FC<Props> = ({ start, end }) => {
+  const { isLight } = useThemeContext();
+  return (
+    <Container isLight={isLight}>
+      <ChipRange text={start} />
+      <ContainerDash>
+        <Dash isLight={isLight} />
+      </ContainerDash>
+      <ChipRange text={end} />
+    </Container>
+  );
+};
 
 export default Range;
 
-const Container = styled.div({
+const Container = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   flex: 1,
   flexDirection: 'row',
   justifyContent: 'space-between',
-  color: '#139D8D',
+  color: isLight ? '#139D8D' : '#2DC1B1',
   width: 248,
   [lightTheme.breakpoints.up('desktop_1194')]: {
     width: 240,
   },
-});
+}));
 
-const Dash = styled.div({
+const Dash = styled.div<WithIsLight>(({ isLight }) => ({
   margin: 'auto',
   width: '25%',
   borderStyle: 'dashed none none none',
   transform: 'scaleX(4)',
-  color: '#6EDBD0',
+  color: isLight ? '#6EDBD0' : '#027265',
   borderWidth: 0.5,
-});
+}));
 
 const ContainerDash = styled.div({
   display: 'flex',

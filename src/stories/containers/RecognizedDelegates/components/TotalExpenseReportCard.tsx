@@ -1,18 +1,23 @@
 import styled from '@emotion/styled';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import GenericDelegateCard from './GenericDelegateCard';
 import Range from './Range';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
+import type { DateTime } from 'luxon';
 
 interface Props {
-  start: string;
-  end: string;
+  start: DateTime;
+  end: DateTime;
   totalDAI: number;
 }
 
 const TotalExpenseReportCard: React.FC<Props> = ({ start, end, totalDAI }) => {
+  const { isLight } = useThemeContext();
   const formatted = usLocalizedNumber(totalDAI);
+
   return (
     <ExtendedGenericDelegate>
       <ContainerRangeText>
@@ -21,9 +26,9 @@ const TotalExpenseReportCard: React.FC<Props> = ({ start, end, totalDAI }) => {
           <Range start={start} end={end} />
         </RangeContainer>
       </ContainerRangeText>
-      <Annual>
+      <Annual isLight={isLight}>
         {`${formatted}`}
-        <Coin>DAI</Coin>
+        <Coin isLight={isLight}>DAI</Coin>
       </Annual>
     </ExtendedGenericDelegate>
   );
@@ -68,7 +73,7 @@ const Text = styled.div({
   },
 });
 
-const Annual = styled.div({
+const Annual = styled.div<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 600,
@@ -76,7 +81,7 @@ const Annual = styled.div({
   lineHeight: '29px',
   letterSpacing: '0.4px',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
-  color: '#231536',
+  color: isLight ? '#231536' : '#EDEFFF',
   marginBottom: 4,
   textTransform: 'uppercase',
   textAlign: 'center',
@@ -86,9 +91,9 @@ const Annual = styled.div({
     lineHeight: '39px',
     letterSpacing: '0.4px',
   },
-});
+}));
 
-const Coin = styled.span({
+const Coin = styled.span<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 600,
@@ -96,7 +101,7 @@ const Coin = styled.span({
   lineHeight: '29px',
   letterSpacing: '0.4px',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
-  color: '#9FAFB9',
+  color: isLight ? '#9FAFB9' : '#708390',
   marginLeft: 6,
   textTransform: 'uppercase',
   [lightTheme.breakpoints.up('table_834')]: {
@@ -104,7 +109,7 @@ const Coin = styled.span({
     lineHeight: '39px',
     marginLeft: 2,
   },
-});
+}));
 
 const RangeContainer = styled.div({
   marginBottom: 16,

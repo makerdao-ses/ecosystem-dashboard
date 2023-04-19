@@ -29,15 +29,8 @@ interface BudgetReportProps {
 }
 
 const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStatements, code, longCode }) => {
-  const {
-    isLight,
-    actualsData,
-    forecastData,
-    mkrVestingData,
-    transferRequestsData,
-    breakdownSelected,
-    handleBreakdownChange,
-  } = useBudgetReport(currentMonth, budgetStatements);
+  const { isLight, actualsData, forecastData, mkrVestingData, transferRequestsData, isBreakdownExpanded } =
+    useBudgetReport(currentMonth, budgetStatements);
 
   return (
     <BudgetReportWrapper>
@@ -82,10 +75,9 @@ const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStateme
               expandedDefault={false}
               tabQuery={ACTUALS_BREAKDOWN_QUERY_PARAM}
               viewKey={BREAKDOWN_VIEW_QUERY_KEY}
-              onChange={handleBreakdownChange}
             />
 
-            {breakdownSelected ? (
+            {isBreakdownExpanded ? (
               <AdvancedInnerTable
                 columns={actualsData.breakdownColumnsForActiveTab}
                 items={actualsData.breakdownItemsForActiveTab}
@@ -145,10 +137,9 @@ const BudgetReport: React.FC<BudgetReportProps> = ({ currentMonth, budgetStateme
               expandedDefault={false}
               tabQuery={FORECAST_BREAKDOWN_QUERY_PARAM}
               viewKey={BREAKDOWN_VIEW_QUERY_KEY}
-              onChange={handleBreakdownChange}
             />
 
-            {breakdownSelected ? (
+            {isBreakdownExpanded ? (
               <AdvancedInnerTable
                 longCode={longCode}
                 columns={forecastData.breakdownColumnsForActiveTab}
