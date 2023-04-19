@@ -160,6 +160,7 @@ export const pascalCaseToNormalString = (str: string): string => str.replace(/([
 
 export const toKebabCase = (str: string): string =>
   str
+    .replace(/-/g, ' ')
     .replace(/([a-z])([A-Z])/g, '$1-$2') // Convert camel case to kebab case
     .replace(/[\s_]+/g, '-') // Replace spaces and underscores with hyphens
     .replace(/[^a-zA-Z0-9-]/g, '') // Remove any non-alphanumeric characters (except hyphens)
