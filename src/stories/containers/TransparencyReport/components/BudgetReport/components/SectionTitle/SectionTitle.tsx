@@ -1,25 +1,49 @@
 import styled from '@emotion/styled';
+import ArrowLink from '@ses/components/svg/ArrowLink';
 import Wallet from '@ses/components/svg/wallet';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { toKebabCase } from '@ses/core/utils/string';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface SectionTitleProps extends React.PropsWithChildren {
   level?: 1 | 2;
   hasIcon?: boolean;
+  hasExternalIcon?: boolean;
+  idPrefix?: string;
 }
 
-const SectionTitle: React.FC<SectionTitleProps> = ({ children, level = 1, hasIcon = false }) => {
+const SectionTitle: React.FC<SectionTitleProps> = ({
+  children,
+  level = 1,
+  hasIcon = false,
+  hasExternalIcon = false,
+  idPrefix = '',
+}) => {
   const { isLight } = useThemeContext();
 
   return (
-    <Title isLight={isLight} level={level} as={level === 1 ? 'h2' : 'h3'}>
+    <Title
+      isLight={isLight}
+      level={level}
+      as={level === 1 ? 'h2' : 'h3'}
+      id={`#${idPrefix}-${toKebabCase(children as string)}`}
+    >
       {hasIcon && (
         <IconContainer>
           <Wallet fill={isLight ? '#231536' : '#F00'} />
         </IconContainer>
       )}
       {children}
+      {hasExternalIcon && (
+        <StyledArrowLink
+          href={`#${idPrefix}-${toKebabCase(children as string)}`}
+          target="_blank"
+          fill={isLight ? '#447AFB' : 'red'}
+          width={20}
+          height={20}
+        />
+      )}
     </Title>
   );
 };
@@ -39,4 +63,10 @@ const Title = styled.h2<{ level: number } & WithIsLight>(({ isLight, level }) =>
 const IconContainer = styled.div({
   display: 'inline-flex',
   marginRight: 14,
+});
+
+const StyledArrowLink = styled(ArrowLink)({
+  marginLeft: 10,
+  display: 'flex',
+  alignItems: 'center',
 });
