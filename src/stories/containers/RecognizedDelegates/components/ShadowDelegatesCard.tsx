@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import GenericDelegateCard from './GenericDelegateCard';
 import { DescriptionDelegates, TotalDelegates } from './TotalRecognizedDelegatesCard';
@@ -27,4 +28,8 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)({
   alignItems: 'center',
   minWidth: 143.5,
   flex: 1,
+  [lightTheme.breakpoints.up('table_834')]: {
+    minWidth: 235.33,
+    padding: '24px 16px 16px',
+  },
 });

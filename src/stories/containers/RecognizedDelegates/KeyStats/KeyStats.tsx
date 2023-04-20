@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 
 import MedianAnnualDai from '../components/MedianAnnualDai';
@@ -31,13 +32,16 @@ const KeyStats: React.FC<Props> = ({
     <Container>
       <Title isLight={isLight}>Key Stats</Title>
       <ContainerCards>
-        <CardRow>
-          <TotalRecognizedDelegatesCard total={totalDelegates} />
-          <ShadowDelegatesCard shadowTotal={shadowTotal} />
-        </CardRow>
-        <CardRow>
-          <MedianAnnualDai annual={annual} />
-        </CardRow>
+        <CardsRowsContainer>
+          <CardRow>
+            <TotalRecognizedDelegatesCard total={totalDelegates} />
+            <ShadowDelegatesCard shadowTotal={shadowTotal} />
+          </CardRow>
+          <CardRow>
+            <MedianAnnualDai annual={annual} />
+          </CardRow>
+        </CardsRowsContainer>
+
         <CardRow>
           <VisualizationCard
             delegatesExpenses={delegatesExpenses}
@@ -68,6 +72,15 @@ const Title = styled.h2<WithIsLight>(({ isLight }) => ({
   marginTop: 0,
   marginBottom: 16,
   textAlign: 'center',
+  [lightTheme.breakpoints.up('table_834')]: {
+    textAlign: 'left',
+    marginLeft: 10,
+    fontSize: '20px',
+    lineHeight: '24px',
+    fontWeight: 600,
+    letterSpacing: '0.4px',
+    marginBottom: 8,
+  },
 }));
 
 const ContainerCards = styled.div({
@@ -81,4 +94,17 @@ const CardRow = styled.div({
   flex: 1,
   flexDirection: 'row',
   gap: 24,
+  [lightTheme.breakpoints.up('table_834')]: {
+    gap: 16,
+  },
+});
+
+const CardsRowsContainer = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 16,
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
 });

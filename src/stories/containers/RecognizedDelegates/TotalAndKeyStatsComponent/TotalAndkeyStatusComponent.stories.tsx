@@ -8,7 +8,7 @@ export default {
   component: TotalAndKeyStatsComponent,
   parameters: {
     chromatic: {
-      viewports: [375],
+      viewports: [375, 834],
     },
   },
 } as ComponentMeta<typeof TotalAndKeyStatsComponent>;
@@ -36,7 +36,7 @@ export const [[TotalAndKeyStats, TotalAndKeyStatsDark]] = createThemeModeVariant
 TotalAndKeyStats.parameters = {
   figma: {
     component: {
-      375: {
+      0: {
         component:
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16759:208036&t=ZzkWyPsIPh7BIgKB-4',
         options: {
@@ -46,6 +46,19 @@ TotalAndKeyStats.parameters = {
           },
           componentStyle: {
             width: 343,
+          },
+        },
+      },
+      834: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:203738&t=oRxIEkwi7dkVYRAp-4',
+        options: {
+          style: {
+            left: -24,
+            top: 4,
+          },
+          componentStyle: {
+            width: '770px',
           },
         },
       },

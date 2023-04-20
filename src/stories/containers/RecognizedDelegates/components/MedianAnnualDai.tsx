@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import GenericDelegateCard from './GenericDelegateCard';
 import { DescriptionDelegates } from './TotalRecognizedDelegatesCard';
@@ -17,7 +18,7 @@ const MedianAnnualDai: React.FC<Props> = ({ annual }) => {
   return (
     <ExtendedGenericDelegate>
       <Annual isLight={isLight}>{`${formatted} dai`}</Annual>
-      <DescriptionDelegates>Median Annual Compensation / Delegate</DescriptionDelegates>
+      <DescriptionDelegatesExtended>Median Annual Compensation / Delegate</DescriptionDelegatesExtended>
     </ExtendedGenericDelegate>
   );
 };
@@ -31,6 +32,10 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)({
   flex: 1,
   flexDirection: 'column',
   alignItems: 'center',
+  [lightTheme.breakpoints.up('table_834')]: {
+    minWidth: 235.33,
+    padding: '24px 16px 16px',
+  },
 });
 
 export const Annual = styled.div<WithIsLight>(({ isLight }) => ({
@@ -44,4 +49,17 @@ export const Annual = styled.div<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#24346 : ' : '#EDEFFF',
   marginBottom: 4,
   textTransform: 'uppercase',
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontWeight: 500,
+    fontSize: '30px',
+    lineHeight: '36px',
+    marginBottom: 8,
+  },
 }));
+
+const DescriptionDelegatesExtended = styled(DescriptionDelegates)({
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: -8,
+    textAlign: 'center',
+  },
+});
