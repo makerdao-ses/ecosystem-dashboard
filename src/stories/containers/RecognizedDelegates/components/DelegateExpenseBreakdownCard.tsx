@@ -6,7 +6,7 @@ import { getLinksFromRecognizedDelegates } from '@ses/core/businessLogic/reconiz
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
-import { formatAddressForOutput } from '@ses/core/utils/string';
+import { formatAddressForOutputDelegateWallet } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { DelegateSocialDtoLinks } from '../DelegateExpenseBreakdown/DelegateSocialLink';
@@ -40,7 +40,7 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
             <NameAddressColumn>
               <Name isLight={isLight}>{delegateCard.name}</Name>
               <ClipBoardRow>
-                <Address>{formatAddressForOutput(delegateCard.latestVotingContract)}</Address>
+                <Address>{formatAddressForOutputDelegateWallet(delegateCard.latestVotingContract)}</Address>
                 <ClipBoardContainer>
                   <ClipBoard />
                 </ClipBoardContainer>
@@ -322,11 +322,11 @@ const ClipBoardRow = styled.div({
 });
 
 const ClipBoardContainer = styled.div({
-  marginLeft: 16,
+  marginLeft: 20,
   display: 'flex',
   alignItems: 'center',
   [lightTheme.breakpoints.up('table_834')]: {
-    marginLeft: 2,
+    marginLeft: 6,
   },
 });
 

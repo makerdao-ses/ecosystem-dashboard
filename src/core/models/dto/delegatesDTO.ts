@@ -9,12 +9,12 @@ export interface DelegatesDto {
 }
 
 export interface DelegateSocialDto {
-  [key: string]: string;
-  forumProfile: string;
-  forumPlatform: string;
-  youtube: string;
-  votingPortal: string;
-  twitter: string;
+  [key: string]: string | undefined;
+  forumProfile?: string;
+  forumPlatform?: string;
+  youtube?: string;
+  votingPortal?: string;
+  twitter?: string;
 }
 
 export interface RecognizedDelegatesDto {

@@ -11,9 +11,9 @@ export const getLinksFromRecognizedDelegates = (del: RecognizedDelegatesDto): Li
   const sm = del.socials as DelegateSocialDto;
 
   const linkTypeMap: Record<string, LinkTypeEnum> = {
+    forumPlatform: LinkTypeEnum.Forum,
     twitter: LinkTypeEnum.Twitter,
     youtube: LinkTypeEnum.Youtube,
-    forumPlatform: LinkTypeEnum.Forum,
     forumProfile: LinkTypeEnum.ProfileForum,
     votingPortal: LinkTypeEnum.VotingSocialPortal,
   };
