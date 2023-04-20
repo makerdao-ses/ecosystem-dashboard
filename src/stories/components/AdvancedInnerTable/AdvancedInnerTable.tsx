@@ -36,7 +36,7 @@ export interface InnerTableRow {
   hideMobile?: boolean;
 }
 
-interface Props {
+interface AdvancedInnerTableProps {
   columns: InnerTableColumn[];
   items: InnerTableRow[];
   style?: React.CSSProperties;
@@ -48,7 +48,7 @@ interface Props {
 
 type Alignment = 'left' | 'center' | 'right';
 
-export const AdvancedInnerTable = ({
+export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
   cardsTotalPosition = 'bottom',
   columns,
   items,
@@ -56,7 +56,7 @@ export const AdvancedInnerTable = ({
   style,
   className,
   tablePlaceholder,
-}: Props) => {
+}) => {
   const { isLight } = useThemeContext();
   const getCell = (column: InnerTableColumn, rowType: RowType, value: unknown) => {
     if (value !== 0 && !value) {
