@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import ChipRange from './ChipRange';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -33,6 +34,9 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
   justifyContent: 'space-between',
   color: isLight ? '#139D8D' : '#2DC1B1',
   width: 248,
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    width: 240,
+  },
 }));
 
 const Dash = styled.div<WithIsLight>(({ isLight }) => ({
@@ -50,4 +54,8 @@ const ContainerDash = styled.div({
   marginRight: 5,
   flex: 1,
   alignItems: 'center',
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginLeft: 6,
+    marginRight: 6,
+  },
 });

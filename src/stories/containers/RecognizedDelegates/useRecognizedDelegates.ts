@@ -40,10 +40,6 @@ export const useRecognizedDelegates = () => {
   ];
   const linksCardTwo: LinkModel[] = [
     {
-      linkType: LinkTypeEnum.WWW,
-      href: '#',
-    },
-    {
       linkType: LinkTypeEnum.Forum,
       href: '#',
     },
