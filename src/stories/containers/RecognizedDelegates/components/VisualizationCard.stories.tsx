@@ -13,21 +13,14 @@ export default {
 } as ComponentMeta<typeof VisualizationCard>;
 const variantsArgs = [
   {
-    delegatesExpenses: 2160000,
+    delegatesExpenses: 2222252,
     otherExpenses: 50500000,
-    amountDelegates: 21,
-  },
-  {
-    delegatesExpenses: 65,
-    otherExpenses: 1000,
+
     amountDelegates: 21,
   },
 ];
 
-export const [[TotalExpense, TotalExpenseDark], [TotalExpenseDesk, TotalExpenseDeskDark]] = createThemeModeVariants(
-  VisualizationCard,
-  variantsArgs
-);
+export const [[TotalExpense, TotalExpenseDark]] = createThemeModeVariants(VisualizationCard, variantsArgs);
 
 TotalExpense.parameters = {
   figma: {

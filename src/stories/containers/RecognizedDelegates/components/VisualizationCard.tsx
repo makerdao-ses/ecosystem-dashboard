@@ -40,7 +40,7 @@ const VisualizationCard: React.FC<Props> = ({ delegatesExpenses, otherExpenses, 
         </DoughnutChartContainer>
       </ContainerChart>
       <BarDescription>
-        <Annual isLight={isLight}>{`${percent.toFixed(2)} %`}</Annual>
+        <Annual isLight={isLight}>{`${percent.toFixed(2)}`}%</Annual>
         <ContainerDescription>
           <LegendNumberWrapper>
             <LegendNumber isLight={isLight}>{humanizedDelegates.value}</LegendNumber>
@@ -125,8 +125,8 @@ const Annual = styled.div<WithIsLight>(({ isLight }) => ({
     fontSize: '30px',
     lineHeight: '36px',
     marginBottom: 8,
-    marginTop: 6.5,
-    paddingLeft: 45,
+    marginTop: 7,
+    paddingLeft: 41,
   },
 }));
 
