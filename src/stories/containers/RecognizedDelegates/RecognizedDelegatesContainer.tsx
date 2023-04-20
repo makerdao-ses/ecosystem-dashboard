@@ -13,7 +13,11 @@ import { useRecognizedDelegates } from './useRecognizedDelegates';
 import type { RecognizedDelegatesDto } from '@ses/core/models/dto/delegatesDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-const RecognizedDelegatesContainer: React.FC = () => {
+interface Props {
+  delegates: RecognizedDelegatesDto[];
+}
+
+const RecognizedDelegatesContainer: React.FC<Props> = ({ delegates }) => {
   const { isLight } = useThemeContext();
   const {
     totalDAI,
@@ -31,8 +35,8 @@ const RecognizedDelegatesContainer: React.FC = () => {
     activeElements,
     selectElements,
     handleResetFilter,
-    CardsDelegateFiltered,
-  } = useRecognizedDelegates();
+    resultFiltered,
+  } = useRecognizedDelegates(delegates);
   return (
     <ExtendedPageContainer isLight={isLight}>
       <Container>
@@ -61,7 +65,7 @@ const RecognizedDelegatesContainer: React.FC = () => {
           />
         </ContainerTrend>
         <ContainerBreakdown>
-          <DelegateExpenseBreakdown delegates={CardsDelegateFiltered as RecognizedDelegatesDto[]} totalDai={totalDAI} />
+          <DelegateExpenseBreakdown delegates={resultFiltered} totalDai={totalDAI} />
         </ContainerBreakdown>
       </Container>
     </ExtendedPageContainer>

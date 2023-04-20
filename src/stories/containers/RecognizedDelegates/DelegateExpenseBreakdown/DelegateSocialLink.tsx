@@ -61,7 +61,7 @@ export const DelegateSocialDtoLinks = ({
   return (
     <Container>
       {links?.map((link, i) => (
-        <BoxContainer boxLinkWidth={boxLinkWidth} boxLinkHeight={boxLinkHeight}>
+        <BoxContainer boxLinkWidth={boxLinkWidth} boxLinkHeight={boxLinkHeight} key={link.linkType}>
           <Link href={link} passHref>
             <LinkImage
               isLight={isLight}

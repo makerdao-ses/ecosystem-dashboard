@@ -3,9 +3,9 @@ import { DateTime } from 'luxon';
 import { useMemo, useState } from 'react';
 
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
-import type { DelegateSocialDto } from '@ses/core/models/dto/delegatesDTO';
+import type { RecognizedDelegatesDto } from '@ses/core/models/dto/delegatesDTO';
 
-export const useRecognizedDelegates = () => {
+export const useRecognizedDelegates = (delegates: RecognizedDelegatesDto[]) => {
   const [activeElements, setActiveElements] = useState<string[]>([]);
   const handleSelectChange = (value: string[]) => {
     setActiveElements(value);
@@ -30,95 +30,6 @@ export const useRecognizedDelegates = () => {
   const otherExpenses = 50500000;
   const amountDelegates = 21;
 
-  const linksCardOne: DelegateSocialDto[] = useMemo(
-    () => [
-      {
-        forumProfile: '#',
-        forumPlatform: '#',
-        youtube: '#',
-        votingPortal: '#',
-        twitter: '#',
-      },
-    ],
-    []
-  );
-  const linksCardTwo: DelegateSocialDto[] = useMemo(
-    () => [
-      {
-        forumProfile: '#',
-        forumPlatform: '#',
-        youtube: '#',
-        votingPortal: '#',
-        twitter: '#',
-      },
-    ],
-    []
-  );
-
-  const linksCardThree: DelegateSocialDto[] = useMemo(
-    () => [
-      {
-        forumProfile: '#',
-        forumPlatform: '#',
-        youtube: '#',
-        votingPortal: '#',
-        twitter: '#',
-      },
-    ],
-    []
-  );
-  const linksCardFour: DelegateSocialDto[] = useMemo(
-    () => [
-      {
-        forumProfile: '#',
-        forumPlatform: '#',
-        youtube: '#',
-        votingPortal: '#',
-        twitter: '#',
-      },
-    ],
-    []
-  );
-
-  const delegates = useMemo(
-    () => [
-      {
-        image: 'https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg',
-        name: 'Flip Flop Flap Delegate LLC',
-
-        numberDai: 323434,
-        socials: linksCardOne,
-
-        latestVotingContract: '0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7',
-      },
-      {
-        image: 'https://live.staticflickr.com/65535/52810223844_2d0373859d_m.jpg',
-        name: 'GFX Labs',
-
-        numberDai: 323434,
-        socials: linksCardTwo,
-        latestVotingContract: '0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7',
-      },
-      {
-        image: 'https://live.staticflickr.com/65535/52810430960_7de9c1a7d6_m.jpg',
-        name: 'Coldirion.eth',
-
-        numberDai: 323434,
-        socials: linksCardThree,
-        latestVotingContract: '0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7',
-      },
-      {
-        image: 'https://live.staticflickr.com/65535/52810223904_8919f81bef_m.jpg',
-        name: 'Feedblack Loops LLC',
-
-        numberDai: 323434,
-        socials: linksCardFour,
-        latestVotingContract: '0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7',
-      },
-    ],
-    [linksCardFour, linksCardOne, linksCardThree, linksCardTwo]
-  );
-
   const selectElements = useMemo(
     () =>
       sortBy(delegates, (del) => del.name).map((delegates) => ({
@@ -130,8 +41,8 @@ export const useRecognizedDelegates = () => {
       })) as MultiSelectItem[],
     [delegates]
   );
-  const filterCards = delegates.filter((delegate) => activeElements.includes(delegate.name));
-  const CardsDelegateFiltered = activeElements.length === 0 ? delegates : filterCards;
+  const filteredCardsDelegates = delegates.filter((delegate) => activeElements.includes(delegate.name));
+  const resultFiltered = activeElements.length === 0 ? delegates : filteredCardsDelegates;
 
   return {
     totalDAI,
@@ -149,8 +60,6 @@ export const useRecognizedDelegates = () => {
     handleSelectChange,
     activeElements,
     handleResetFilter,
-    filterCards,
-    CardsDelegateFiltered,
-    delegates,
+    resultFiltered,
   };
 };

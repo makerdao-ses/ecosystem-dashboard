@@ -23,7 +23,6 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
   const { isLight } = useThemeContext();
   const percent = percentageRespectTo(delegateCard.numberDai, totalDai);
   const humanizeTotal = usLocalizedNumber(totalDai);
-  console.log('delegateCard', delegateCard.socials);
   return (
     <ExtendedGenericDelegate isLight={isLight}>
       <AvatarSection>

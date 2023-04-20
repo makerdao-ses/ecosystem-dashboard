@@ -4,11 +4,11 @@ import type { LinkModel } from '@ses/components/CuTableColumnLinks/CuTableColumn
 
 export const getLinksFromRecognizedDelegates = (del: RecognizedDelegatesDto): LinkModel[] => {
   const result = [] as LinkModel[];
-  if (!del.socials || del.socials.length === 0) {
+  if (!del.socials) {
     return result;
   }
 
-  const sm = del.socials[0] as DelegateSocialDto;
+  const sm = del.socials as DelegateSocialDto;
 
   const linkTypeMap: Record<string, LinkTypeEnum> = {
     twitter: LinkTypeEnum.Twitter,

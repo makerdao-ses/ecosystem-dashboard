@@ -16,8 +16,8 @@ const DelegateExpenseBreakdown: React.FC<Props> = ({ delegates, totalDai }) => {
     <Container>
       <Title isLight={isLight}> Delegate Expense Breakdown</Title>
       <ContainerBreakdown>
-        {delegates.map((delegate, index) => (
-          <DelegateExpenseBreakdownCard delegateCard={delegate} totalDai={totalDai} key={index} />
+        {delegates?.map((delegate) => (
+          <DelegateExpenseBreakdownCard delegateCard={delegate} totalDai={totalDai} key={delegate.name} />
         ))}
       </ContainerBreakdown>
     </Container>

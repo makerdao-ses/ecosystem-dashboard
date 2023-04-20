@@ -21,7 +21,7 @@ export interface RecognizedDelegatesDto {
   name: string;
   image: string;
   latestVotingContract: string;
-  socials: DelegateSocialDto[];
+  socials: DelegateSocialDto;
   // TODO: Add correct value when Api be ready
   numberDai: number;
 }
