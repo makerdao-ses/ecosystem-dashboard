@@ -197,10 +197,10 @@ const Year = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   alignItems: 'center',
   color: isLight ? '#139D8D' : '#2DC1B1',
   marginLeft: 21,
-  marginRight: 17,
+  marginRight: 12,
   [lightTheme.breakpoints.up('table_834')]: {
     marginLeft: 60,
-    marginRight: 48,
+    marginRight: 45,
     fontSize: 12,
     lineHeight: '15px',
   },
@@ -208,10 +208,10 @@ const Year = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 
 const ExtendedYearSecond = styled(Year)({
   marginLeft: 0,
-  marginRight: 153,
+  marginRight: 160,
   [lightTheme.breakpoints.up('table_834')]: {
     marginLeft: 0,
-    marginRight: 340,
+    marginRight: 343,
   },
 });
 
