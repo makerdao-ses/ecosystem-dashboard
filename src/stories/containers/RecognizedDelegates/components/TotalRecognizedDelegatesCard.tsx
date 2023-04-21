@@ -32,6 +32,10 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)({
     minWidth: 235.33,
     padding: '24px 16px 16px',
   },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    minWidth: 235.33,
+    padding: '24px 16px',
+  },
 });
 
 export const TotalDelegates = styled.div<WithIsLight>(({ isLight }) => ({
@@ -63,5 +67,8 @@ export const DescriptionDelegates = styled.div({
     fontSize: '14px',
     lineHeight: '17px',
     fontWeight: 500,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    textAlign: 'center',
   },
 });

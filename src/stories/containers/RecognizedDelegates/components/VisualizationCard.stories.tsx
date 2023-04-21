@@ -7,7 +7,7 @@ export default {
   component: VisualizationCard,
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1194, 1280],
+      viewports: [375, 834, 1194],
     },
   },
 } as ComponentMeta<typeof VisualizationCard>;
@@ -47,37 +47,37 @@ TotalExpense.parameters = {
             top: -20,
           },
           componentStyle: {
-            width: 738,
+            width: '738px',
           },
         },
       },
     },
     1194: {
       component:
-        'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:195974&t=qcJp8iQtowTTi5I4-4',
+        'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:195974&t=gzHrEzPrqS6ghKec-4',
       options: {
         style: {
           left: -40,
           top: -20,
         },
         componentStyle: {
-          width: 522,
+          width: '522px',
         },
       },
     },
-    1280: {
-      component:
-        'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:193318&t=qcJp8iQtowTTi5I4-4',
-      options: {
-        style: {
-          left: -40,
-          top: -20,
-        },
-        componentStyle: {
-          width: 538,
-        },
-      },
-    },
+    // 1280: {
+    //   component:
+    //     'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:193318&t=qcJp8iQtowTTi5I4-4',
+    //   options: {
+    //     style: {
+    //       left: -40,
+    //       top: -20,
+    //     },
+    //     componentStyle: {
+    //       width: 538,
+    //     },
+    //   },
+    // },
   },
 };
 

@@ -36,6 +36,10 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)({
     minWidth: 235.33,
     padding: '24px 16px 16px',
   },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    minWidth: 216,
+    padding: '24px 16px',
+  },
 });
 
 export const Annual = styled.div<WithIsLight>(({ isLight }) => ({
@@ -60,6 +64,9 @@ export const Annual = styled.div<WithIsLight>(({ isLight }) => ({
 const DescriptionDelegatesExtended = styled(DescriptionDelegates)({
   [lightTheme.breakpoints.up('table_834')]: {
     marginTop: -8,
+    textAlign: 'center',
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     textAlign: 'center',
   },
 });

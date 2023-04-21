@@ -32,4 +32,8 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)({
     minWidth: 235.33,
     padding: '24px 16px 16px',
   },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    minWidth: 235.33,
+    padding: '24px 16px',
+  },
 });
