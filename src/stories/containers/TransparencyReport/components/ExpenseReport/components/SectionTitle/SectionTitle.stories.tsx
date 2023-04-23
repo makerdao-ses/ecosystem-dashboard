@@ -40,8 +40,7 @@ L1WithoutIconLightMode.parameters = {
   figma: {
     component: {
       0: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16948%3A288375&t=GWd1sRImP81dQTUt-4',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16858%3A223537',
       },
     },
   } as FigmaParams,
@@ -51,14 +50,13 @@ L2FullLightMode.parameters = {
   figma: {
     component: {
       0: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16948%3A288420&t=GWd1sRImP81dQTUt-4',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16858%3A223630',
       },
     },
     options: {
       style: {
-        top: -5,
-        left: -5,
+        top: 0,
+        left: -3,
       },
     },
   } as FigmaParams,

@@ -4,6 +4,7 @@ import Container from '@ses/components/Container/Container';
 import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import Tabs from '@ses/components/Tabs/Tabs';
 import { MAKER_BURN_LINK } from '@ses/core/utils/const';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import {
   ACTUALS_BREAKDOWN_QUERY_PARAM,
@@ -33,10 +34,10 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
     useExpenseReport(currentMonth, budgetStatements);
 
   return (
-    <ExpenseReportWrapper isLight={isLight}>
+    <ExpenseReportWrapper>
       <Container>
         <LinkDescription isLight={isLight}>
-          <span> Visit makerburn.com to</span>
+          <span> Visit makerburn.com to view the</span>
           <ActualViewOnChainLink
             href={`${MAKER_BURN_LINK}/${longCode}`}
             fontSize={16}
@@ -45,7 +46,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
             iconHeight={10}
             marginLeft="7px"
           >
-            {`view the ${code} Core Unit on-chain transaction history`}
+            {`${code} Core Unit on-chain transaction history`}
           </ActualViewOnChainLink>
 
           <BudgetDateTitle isLight={isLight}>{currentMonth.toFormat('MMMM yyyy')} Expense Report</BudgetDateTitle>
@@ -90,9 +91,9 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
                 tablePlaceholder={<TransparencyEmptyTable breakdown longCode={longCode} />}
               />
             ) : (
-              <ExpenseSection level={2}>
-                {actualsData.breakdownTabs.map((header, index) => (
-                  <BudgetSubsectionContainer isFirst={index === 0} key={header}>
+              actualsData.breakdownTabs.map((header, index) => (
+                <ExpenseSection level={2} key={header}>
+                  <BudgetSubsectionContainer isFirst={index === 0}>
                     <SectionTitle level={2} hasIcon={true} hasExternalIcon={true} idPrefix={'actuals'}>
                       {header}
                     </SectionTitle>
@@ -111,8 +112,8 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
                       />
                     </div>
                   </BudgetSubsectionContainer>
-                ))}
-              </ExpenseSection>
+                </ExpenseSection>
+              ))
             )}
           </>
         )}
@@ -157,9 +158,9 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
                 tablePlaceholder={<TransparencyEmptyTable breakdown longCode={longCode} />}
               />
             ) : (
-              <ExpenseSection level={2}>
-                {forecastData.breakdownTabs.map((header, index) => (
-                  <BudgetSubsectionContainer isFirst={index === 0} key={header}>
+              forecastData.breakdownTabs.map((header, index) => (
+                <ExpenseSection level={2} key={header}>
+                  <BudgetSubsectionContainer isFirst={index === 0}>
                     <SectionTitle level={2} hasIcon={true} hasExternalIcon={true} idPrefix={'forecast'}>
                       {header}
                     </SectionTitle>
@@ -176,8 +177,8 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
                       }
                     />
                   </BudgetSubsectionContainer>
-                ))}
-              </ExpenseSection>
+                </ExpenseSection>
+              ))
             )}
           </>
         )}
@@ -215,27 +216,22 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
 
 export default ExpenseReport;
 
-const ExpenseReportWrapper = styled.div<WithIsLight>(({ isLight }) => ({
+const ExpenseReportWrapper = styled.div({
   marginBottom: 32,
-
-  '.table-section': {
-    lineHeight: '17px',
-    background: isLight ? 'rgba(255, 255, 255, 0.4)' : 'rgba(30, 44, 55, 0.7)',
-    padding: '8px 16px',
-    borderRadius: 6,
-    marginTop: 24,
-    marginBottom: 8,
-  },
-}));
+});
 
 const ActualViewOnChainLink = styled(CustomLink)({
   color: '#447AFB',
   letterSpacing: '0.3px',
-  lineHeight: '18px',
+  fontSize: 14,
+  lineHeight: '22px',
   marginLeft: 0,
   whiteSpace: 'break-spaces',
-  display: 'inline-block',
-  marginBottom: 32,
+  display: 'inline',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    lineHeight: '18px',
+  },
 });
 
 const BudgetTable = styled((props: React.ComponentProps<typeof AdvancedInnerTable>) => (
@@ -247,21 +243,35 @@ const BudgetTable = styled((props: React.ComponentProps<typeof AdvancedInnerTabl
 }));
 
 const BudgetDateTitle = styled.h1<WithIsLight>(({ isLight }) => ({
-  fontSize: 24,
+  fontSize: 20,
   fontWeight: 600,
-  lineHeight: '29px',
+  lineHeight: '24px',
   letterSpacing: '0.4px',
   color: isLight ? '#231536' : '#D2D4EF',
-  marginTop: 0,
-  marginBottom: 32,
+  marginTop: 24,
+  marginBottom: 24,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: 24,
+    lineHeight: '29px',
+    marginTop: 32,
+    marginBottom: 32,
+  },
 }));
 
 const TitleSpacer = styled.div({
-  marginTop: 32,
+  marginTop: 16,
   marginBottom: 16,
 });
 
-const BudgetSubsectionContainer = styled.div<{ isFirst: boolean }>(({ isFirst }) => (isFirst ? {} : { marginTop: 24 }));
+const BudgetSubsectionContainer = styled.div<{ isFirst: boolean }>(({ isFirst }) => ({
+  marginTop: 0,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    // TODO: is this necessary?
+    ...(isFirst ? {} : { marginTop: 24 }),
+  },
+}));
 
 const MkrVestingInfoContainer = styled.div({
   marginTop: 32,

@@ -3,6 +3,7 @@ import ArrowLink from '@ses/components/svg/ArrowLink';
 import Wallet from '@ses/components/svg/wallet';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { toKebabCase } from '@ses/core/utils/string';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -36,13 +37,7 @@ const SectionTitle: React.FC<SectionTitleProps> = ({
       )}
       {children}
       {hasExternalIcon && (
-        <StyledArrowLink
-          href={`#${idPrefix}-${toKebabCase(children as string)}`}
-          target="_blank"
-          fill={'#447AFB'}
-          width={20}
-          height={20}
-        />
+        <StyledArrowLink href={`#${idPrefix}-${toKebabCase(children as string)}`} target="_blank" fill={'#447AFB'} />
       )}
     </Title>
   );
@@ -52,21 +47,40 @@ export default SectionTitle;
 
 const Title = styled.h2<{ level: number } & WithIsLight>(({ isLight, level }) => ({
   display: 'flex',
-  fontSize: 20,
-  lineHeight: '24px',
-  letterSpacing: '0.4px',
-  fontWeight: level === 1 ? 600 : 500,
+  alignItems: 'center',
+  fontSize: 16,
+  lineHeight: '19px',
+  letterSpacing: level === 1 ? 0 : '0.3px',
+  fontWeight: 700,
   color: isLight ? '#231536' : '#D2D4EF',
   margin: 0,
+  fontFeatureSettings: "'tnum' on, 'lnum' on",
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: 20,
+    lineHeight: '24px',
+    letterSpacing: '0.4px',
+    fontWeight: level === 1 ? 600 : 500,
+  },
 }));
 
 const IconContainer = styled.div({
   display: 'inline-flex',
-  marginRight: 14,
+  marginRight: 12,
+
+  svg: {
+    width: 10,
+    height: 10,
+  },
 });
 
 const StyledArrowLink = styled(ArrowLink)({
-  marginLeft: 10,
+  marginLeft: 8,
   display: 'flex',
   alignItems: 'center',
+
+  svg: {
+    width: 16,
+    height: 16,
+  },
 });
