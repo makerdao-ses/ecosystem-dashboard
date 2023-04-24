@@ -29,7 +29,7 @@ const DelegateChart: React.FC<Props> = ({ expenses, endDate, startDate }) => {
 
       right: upTable ? '0%' : 2,
       ...(!upTable && { left: 40 }),
-
+      ...(upTable && { left: 44 }),
       bottom: '10%',
     },
     xAxis: {
@@ -96,7 +96,7 @@ const DelegateChart: React.FC<Props> = ({ expenses, endDate, startDate }) => {
         align: 'center',
       },
       axisLabel: {
-        margin: upTable ? 16 : 12,
+        margin: upTable ? 14 : 12,
         formatter: function (value: number, index: number) {
           if (value === 0 && index === 0) {
             return value.toString();
@@ -176,8 +176,8 @@ const Container = styled.div({
   margin: '0 auto',
 
   [lightTheme.breakpoints.up('table_834')]: {
-    width: 710,
-    maxWidth: 710,
+    width: 690,
+    maxWidth: 690,
     height: 289,
     margin: '0 auto',
   },
@@ -204,7 +204,7 @@ const Year = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   marginLeft: 21,
   marginRight: 18,
   [lightTheme.breakpoints.up('table_834')]: {
-    marginLeft: 62,
+    marginLeft: 40,
     marginRight: 46,
 
     fontSize: 12,
