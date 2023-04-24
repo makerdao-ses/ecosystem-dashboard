@@ -87,6 +87,9 @@ const ContainerCards = styled.div({
   display: 'flex',
   flexDirection: 'column',
   gap: 16,
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    flexDirection: 'row',
+  },
 });
 
 const CardRow = styled.div({

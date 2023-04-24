@@ -38,6 +38,7 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)({
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     minWidth: 216,
+    fontWeight: 400,
     padding: '24px 16px',
   },
 });
@@ -67,6 +68,11 @@ const DescriptionDelegatesExtended = styled(DescriptionDelegates)({
     textAlign: 'center',
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
+    display: 'flex',
     textAlign: 'center',
+    alignItems: 'end',
+    fontWeight: 400,
+    height: 72,
+    marginTop: -20,
   },
 });

@@ -14,7 +14,7 @@ const ShadowDelegates: React.FC<Props> = ({ shadowTotal }) => {
   return (
     <ExtendedGenericDelegate>
       <TotalDelegates isLight={isLight}>{shadowTotal}</TotalDelegates>
-      <DescriptionDelegates>Shadow Delegates</DescriptionDelegates>
+      <DescriptionDelegatesExtended>Shadow Delegates</DescriptionDelegatesExtended>
     </ExtendedGenericDelegate>
   );
 };
@@ -33,7 +33,18 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)({
     padding: '24px 16px 16px',
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    minWidth: 235.33,
+    minWidth: 156,
+    fontWeight: 400,
     padding: '24px 16px',
+  },
+});
+
+const DescriptionDelegatesExtended = styled(DescriptionDelegates)({
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    display: 'flex',
+    textAlign: 'center',
+    alignItems: 'center',
+    fontWeight: 400,
+    height: 72,
   },
 });
