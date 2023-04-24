@@ -62,6 +62,11 @@ const Title = styled.h2<{ level: number } & WithIsLight>(({ isLight, level }) =>
     letterSpacing: '0.4px',
     fontWeight: level === 1 ? 600 : 500,
   },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    fontSize: 20,
+    lineHeight: '24px',
+  },
 }));
 
 const IconContainer = styled.div({

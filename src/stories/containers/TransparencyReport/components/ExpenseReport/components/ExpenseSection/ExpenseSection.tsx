@@ -48,6 +48,11 @@ const L1Container = styled(Container)({
     paddingLeft: 16,
     paddingRight: 16,
   },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    paddingLeft: 24,
+    paddingRight: 24,
+  },
 });
 
 const WrapperL1 = styled.div<WithIsLight>(({ isLight }) => ({
@@ -72,6 +77,11 @@ const WrapperL2 = styled.div<WithIsLight>(({ isLight }) => ({
 
   [lightTheme.breakpoints.up('table_834')]: {
     padding: 16,
+    marginTop: 32,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    padding: '16px 24px 32px',
     marginTop: 32,
   },
 
