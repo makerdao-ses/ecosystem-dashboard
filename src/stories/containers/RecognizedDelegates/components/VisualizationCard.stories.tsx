@@ -7,7 +7,7 @@ export default {
   component: VisualizationCard,
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1194, 1280],
+      viewports: [375, 834, 1194, 1280, 1440],
     },
   },
 } as ComponentMeta<typeof VisualizationCard>;
@@ -73,6 +73,19 @@ TotalExpense.parameters = {
           },
           componentStyle: {
             width: 538,
+          },
+        },
+      },
+      1440: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:189891&t=9oUrboY6uTU5mhxB-4',
+        options: {
+          style: {
+            left: -40,
+            top: -20,
+          },
+          componentStyle: {
+            width: 546,
           },
         },
       },

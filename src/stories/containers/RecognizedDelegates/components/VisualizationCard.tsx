@@ -70,6 +70,12 @@ const ExtendedKeyStatsCard = styled(GenericDelegateCard)({
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row-reverse',
   },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    padding: '16px 24px',
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    gap: 24,
+  },
 });
 
 const Legend = styled.div({
