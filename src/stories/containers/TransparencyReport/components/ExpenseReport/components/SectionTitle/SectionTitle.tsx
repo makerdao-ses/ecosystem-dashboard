@@ -57,8 +57,8 @@ const Title = styled.h2<{ level: number } & WithIsLight>(({ isLight, level }) =>
   fontFeatureSettings: "'tnum' on, 'lnum' on",
 
   [lightTheme.breakpoints.up('table_834')]: {
-    fontSize: 20,
-    lineHeight: '24px',
+    fontSize: level === 1 ? 20 : 18,
+    lineHeight: level === 1 ? '24px' : '22px',
     letterSpacing: '0.4px',
     fontWeight: level === 1 ? 600 : 500,
   },
@@ -71,6 +71,11 @@ const IconContainer = styled.div({
   svg: {
     width: 10,
     height: 10,
+
+    [lightTheme.breakpoints.up('table_834')]: {
+      width: 20,
+      height: 20,
+    },
   },
 });
 
@@ -79,8 +84,17 @@ const StyledArrowLink = styled(ArrowLink)({
   display: 'flex',
   alignItems: 'center',
 
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginLeft: 10,
+  },
+
   svg: {
     width: 16,
     height: 16,
+
+    [lightTheme.breakpoints.up('table_834')]: {
+      width: 20,
+      height: 20,
+    },
   },
 });

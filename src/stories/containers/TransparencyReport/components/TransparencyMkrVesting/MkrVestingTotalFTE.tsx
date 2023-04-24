@@ -39,7 +39,11 @@ export const ContainerPopover = styled.div({
   marginBottom: 16,
 
   [lightTheme.breakpoints.up('table_834')]: {
-    marginBottom: 36,
+    marginBottom: 24,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginBottom: 32,
   },
 });
 
@@ -63,13 +67,24 @@ export const TotalFte = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     marginLeft: 8,
 
     [lightTheme.breakpoints.up('table_834')]: {
+      fontSize: '20px',
+      lineHeight: '24px',
+      marginLeft: 16,
+    },
+
+    [lightTheme.breakpoints.up('desktop_1194')]: {
       fontSize: '22px',
       lineHeight: '27px',
-      marginLeft: 16,
     },
   },
 
   [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: '16px',
+    lineHeight: '19px',
+    fontWeight: 700,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     fontSize: '20px',
     lineHeight: '24px',
   },

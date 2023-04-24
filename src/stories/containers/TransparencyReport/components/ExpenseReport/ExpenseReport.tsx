@@ -30,8 +30,16 @@ interface ExpenseReportProps {
 }
 
 const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetStatements, code, longCode }) => {
-  const { isLight, actualsData, forecastData, mkrVestingData, transferRequestsData, isBreakdownExpanded } =
-    useExpenseReport(currentMonth, budgetStatements);
+  const {
+    isLight,
+    L2SectionInner,
+    L2SectionOuter,
+    actualsData,
+    forecastData,
+    mkrVestingData,
+    transferRequestsData,
+    isBreakdownExpanded,
+  } = useExpenseReport(currentMonth, budgetStatements);
 
   return (
     <ExpenseReportWrapper>
@@ -91,29 +99,31 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
                 tablePlaceholder={<TransparencyEmptyTable breakdown longCode={longCode} />}
               />
             ) : (
-              actualsData.breakdownTabs.map((header, index) => (
-                <ExpenseSection level={2} key={header}>
-                  <BudgetSubsectionContainer isFirst={index === 0}>
-                    <SectionTitle level={2} hasIcon={true} hasExternalIcon={true} idPrefix={'actuals'}>
-                      {header}
-                    </SectionTitle>
-                    <div>
-                      <BudgetTable
-                        isLight={isLight}
-                        columns={actualsData.allBreakdownColumns[header]}
-                        items={actualsData.allBreakdownItems[header]}
-                        longCode={longCode}
-                        style={{ marginTop: 16 }}
-                        tablePlaceholder={
-                          <div style={{ marginTop: 16 }}>
-                            <TransparencyEmptyTable breakdown longCode={longCode} />
-                          </div>
-                        }
-                      />
-                    </div>
-                  </BudgetSubsectionContainer>
-                </ExpenseSection>
-              ))
+              <L2SectionOuter>
+                {actualsData.breakdownTabs.map((header, index) => (
+                  <L2SectionInner key={header}>
+                    <BudgetSubsectionContainer isFirst={index === 0}>
+                      <SectionTitle level={2} hasIcon={true} hasExternalIcon={true} idPrefix={'actuals'}>
+                        {header}
+                      </SectionTitle>
+                      <div>
+                        <BudgetTable
+                          isLight={isLight}
+                          columns={actualsData.allBreakdownColumns[header]}
+                          items={actualsData.allBreakdownItems[header]}
+                          longCode={longCode}
+                          style={{ marginTop: 16 }}
+                          tablePlaceholder={
+                            <div style={{ marginTop: 16 }}>
+                              <TransparencyEmptyTable breakdown longCode={longCode} />
+                            </div>
+                          }
+                        />
+                      </div>
+                    </BudgetSubsectionContainer>
+                  </L2SectionInner>
+                ))}
+              </L2SectionOuter>
             )}
           </>
         )}
@@ -158,27 +168,29 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
                 tablePlaceholder={<TransparencyEmptyTable breakdown longCode={longCode} />}
               />
             ) : (
-              forecastData.breakdownTabs.map((header, index) => (
-                <ExpenseSection level={2} key={header}>
-                  <BudgetSubsectionContainer isFirst={index === 0}>
-                    <SectionTitle level={2} hasIcon={true} hasExternalIcon={true} idPrefix={'forecast'}>
-                      {header}
-                    </SectionTitle>
-                    <BudgetTable
-                      isLight={isLight}
-                      columns={forecastData.allBreakdownColumns[header]}
-                      items={forecastData.allBreakdownItems[header]}
-                      longCode={longCode}
-                      style={{ marginTop: 16 }}
-                      tablePlaceholder={
-                        <div style={{ marginTop: 16 }}>
-                          <TransparencyEmptyTable breakdown longCode={longCode} />
-                        </div>
-                      }
-                    />
-                  </BudgetSubsectionContainer>
-                </ExpenseSection>
-              ))
+              <L2SectionOuter>
+                {forecastData.breakdownTabs.map((header, index) => (
+                  <L2SectionInner key={header}>
+                    <BudgetSubsectionContainer isFirst={index === 0}>
+                      <SectionTitle level={2} hasIcon={true} hasExternalIcon={true} idPrefix={'forecast'}>
+                        {header}
+                      </SectionTitle>
+                      <BudgetTable
+                        isLight={isLight}
+                        columns={forecastData.allBreakdownColumns[header]}
+                        items={forecastData.allBreakdownItems[header]}
+                        longCode={longCode}
+                        style={{ marginTop: 16 }}
+                        tablePlaceholder={
+                          <div style={{ marginTop: 16 }}>
+                            <TransparencyEmptyTable breakdown longCode={longCode} />
+                          </div>
+                        }
+                      />
+                    </BudgetSubsectionContainer>
+                  </L2SectionInner>
+                ))}
+              </L2SectionOuter>
             )}
           </>
         )}
@@ -254,7 +266,6 @@ const BudgetDateTitle = styled.h1<WithIsLight>(({ isLight }) => ({
   [lightTheme.breakpoints.up('table_834')]: {
     fontSize: 24,
     lineHeight: '29px',
-    marginTop: 32,
     marginBottom: 32,
   },
 }));
@@ -262,6 +273,10 @@ const BudgetDateTitle = styled.h1<WithIsLight>(({ isLight }) => ({
 const TitleSpacer = styled.div({
   marginTop: 16,
   marginBottom: 16,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 32,
+  },
 });
 
 const BudgetSubsectionContainer = styled.div<{ isFirst: boolean }>(({ isFirst }) => ({

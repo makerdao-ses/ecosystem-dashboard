@@ -14,10 +14,10 @@ interface ExpenseSectionProps extends React.PropsWithChildren {
 const ExpenseSection: React.FC<ExpenseSectionProps> = ({ children, level = 1, title }) => {
   const { isLight } = useThemeContext();
   const Wrapper = level === 1 ? WrapperL1 : WrapperL2;
-  const LevelContainer = level === 1 ? Container : React.Fragment;
+  const LevelContainer = level === 1 ? L1Container : React.Fragment;
 
   return (
-    <ExpensesContainer>
+    <ExpensesContainer level={level}>
       <Wrapper isLight={isLight}>
         <LevelContainer>
           {title && <SectionTitle hasExternalIcon={true}>{title}</SectionTitle>}
@@ -31,9 +31,23 @@ const ExpenseSection: React.FC<ExpenseSectionProps> = ({ children, level = 1, ti
 
 export default ExpenseSection;
 
-const ExpensesContainer = styled(Container)({
+const ExpensesContainer = styled(Container)<{ level: 1 | 2 }>(({ level }) => ({
   paddingLeft: 0,
   paddingRight: 0,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    ...(level === 2 && {
+      paddingLeft: 0,
+      paddingRight: 0,
+    }),
+  },
+}));
+
+const L1Container = styled(Container)({
+  [lightTheme.breakpoints.up('table_834')]: {
+    paddingLeft: 16,
+    paddingRight: 16,
+  },
 });
 
 const WrapperL1 = styled.div<WithIsLight>(({ isLight }) => ({
@@ -45,6 +59,7 @@ const WrapperL1 = styled.div<WithIsLight>(({ isLight }) => ({
   marginBottom: 24,
 
   [lightTheme.breakpoints.up('table_834')]: {
+    padding: '16px 0 32px',
     marginBottom: 32,
   },
 }));
@@ -54,6 +69,11 @@ const WrapperL2 = styled.div<WithIsLight>(({ isLight }) => ({
   background: isLight ? '#ECF1F3' : '#0C1318',
   marginTop: 16,
   borderRadius: 6,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    padding: 16,
+    marginTop: 32,
+  },
 
   // custom style for the table header sections
   '.table-section': {
