@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 
 interface MkrVestingTotalFTEProps {
@@ -35,30 +36,55 @@ export const ContainerPopover = styled.div({
   flex: 1,
   alignItems: 'center',
   cursor: 'pointer',
-  marginBottom: '36px',
+  marginBottom: 16,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginBottom: 24,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginBottom: 32,
+  },
 });
 
 export const TotalFte = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 600,
-  fontSize: '16px',
-  lineHeight: '19px',
+  fontSize: '14px',
+  lineHeight: '17px',
   color: isLight ? '#231536' : '#D2D4EF',
-  '> span': {
-    marginRight: '16px',
-  },
+
   '> u': {
     fontStyle: 'normal',
     fontFamily: 'Inter, sans-serif',
     fontWeight: 800,
-    fontSize: '22px',
-    lineHeight: '27px',
+    fontSize: '16px',
+    lineHeight: '19px',
     paddingBottom: '2px',
     textDecoration: 'none',
     color: isLight ? '#25273D' : '#708390',
+    marginLeft: 8,
+
+    [lightTheme.breakpoints.up('table_834')]: {
+      fontSize: '20px',
+      lineHeight: '24px',
+      marginLeft: 16,
+    },
+
+    [lightTheme.breakpoints.up('desktop_1194')]: {
+      fontSize: '22px',
+      lineHeight: '27px',
+    },
   },
-  '@media (min-width: 834px)': {
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: '16px',
+    lineHeight: '19px',
+    fontWeight: 700,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     fontSize: '20px',
     lineHeight: '24px',
   },

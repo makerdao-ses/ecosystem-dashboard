@@ -16,7 +16,7 @@ interface Props {
 export const TransparencyCard = (props: Props) => {
   const { isLight } = useThemeContext();
   return (
-    <Container isLight={isLight}>
+    <Container isLight={isLight} className="advance-table--transparency-card">
       <HeaderWrapper>{props.header}</HeaderWrapper>
       {props.headers.map((header, i) => (
         <>
