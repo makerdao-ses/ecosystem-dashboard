@@ -21,7 +21,7 @@ export enum TRANSPARENCY_IDS_ENUM {
   TRANSFER_REQUESTS = 'transfer-requests',
   AUDIT_REPORTS = 'audit-reports',
   COMMENTS = 'comments',
-  BUDGET_REPORT = 'budget-report',
+  EXPENSE_REPORT = 'expense-report',
 }
 
 export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
@@ -33,7 +33,7 @@ export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
   const { isTimestampTrackingAccepted } = useCookiesContextTracking();
 
   const [tabsIndex, setTabsIndex] = useState<TRANSPARENCY_IDS_ENUM>(
-    query?.view === 'auditor' ? TRANSPARENCY_IDS_ENUM.BUDGET_REPORT : TRANSPARENCY_IDS_ENUM.ACTUALS
+    query?.view === 'auditor' ? TRANSPARENCY_IDS_ENUM.EXPENSE_REPORT : TRANSPARENCY_IDS_ENUM.ACTUALS
   );
 
   const [lastVisitHandler, setLastVisitHandler] = useState<LastVisitHandler>();
@@ -139,8 +139,8 @@ export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
 
   const compressedTabItems: TableItems[] = [
     {
-      item: 'Budget Report',
-      id: TRANSPARENCY_IDS_ENUM.BUDGET_REPORT,
+      item: 'Expense Report',
+      id: TRANSPARENCY_IDS_ENUM.EXPENSE_REPORT,
     },
     commentTab,
   ];

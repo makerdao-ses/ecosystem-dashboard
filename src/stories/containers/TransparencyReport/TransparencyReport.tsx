@@ -13,7 +13,7 @@ import { CoreUnitSummary } from '../../components/CoreUnitSummary/CoreUnitSummar
 import { CustomLink } from '../../components/CustomLink/CustomLink';
 import { CustomPager } from '../../components/CustomPager/CustomPager';
 import { SEOHead } from '../../components/SEOHead/SEOHead';
-import BudgetReport from './components/BudgetReport/BudgetReport';
+import ExpenseReport from './components/ExpenseReport/ExpenseReport';
 import ExpenseReportStatusIndicator from './components/ExpenseReportStatusIndicator/ExpenseReportStatusIndicator';
 import { TransparencyActuals } from './components/TransparencyActuals/TransparencyActuals';
 
@@ -156,8 +156,8 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
             )}
           </Container>
 
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.BUDGET_REPORT && (
-            <BudgetReport
+          {tabsIndex === TRANSPARENCY_IDS_ENUM.EXPENSE_REPORT && (
+            <ExpenseReport
               code={code}
               currentMonth={currentMonth}
               budgetStatements={coreUnit?.budgetStatements}
