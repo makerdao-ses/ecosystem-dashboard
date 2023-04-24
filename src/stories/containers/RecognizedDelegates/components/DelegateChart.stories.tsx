@@ -46,7 +46,7 @@ Chart.parameters = {
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:198656&t=Lk6dSYBrypHOTQ8a-4',
         options: {
           style: {
-            left: 21,
+            left: -2,
             top: 21,
           },
           componentStyle: {
