@@ -53,6 +53,11 @@ const L1Container = styled(Container)({
     paddingLeft: 24,
     paddingRight: 24,
   },
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    paddingLeft: 32,
+    paddingRight: 32,
+  },
 });
 
 const WrapperL1 = styled.div<WithIsLight>(({ isLight }) => ({
@@ -82,7 +87,10 @@ const WrapperL2 = styled.div<WithIsLight>(({ isLight }) => ({
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
     padding: '16px 24px 32px',
-    marginTop: 32,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    padding: '16px 32px 32px',
   },
 
   // custom style for the table header sections
