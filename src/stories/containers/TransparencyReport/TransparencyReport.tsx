@@ -341,7 +341,11 @@ const Spacer = styled.div({
 });
 
 const TabsContainer = styled.div({
-  margin: '32px 0',
+  margin: '32px 0 16px',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    margin: '32px 0',
+  },
 });
 
 export const TableWrapper = styled.div({

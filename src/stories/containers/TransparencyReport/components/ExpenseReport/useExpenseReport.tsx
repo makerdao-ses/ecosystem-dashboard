@@ -3,12 +3,13 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useHashFragment } from '@ses/core/hooks/useHashFragment';
 import lightTheme from '@ses/styles/theme/light';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { BREAKDOWN_VIEW_QUERY_KEY } from '../../utils/constants';
 import { useTransparencyActuals } from '../TransparencyActuals/useTransparencyActuals';
 import { useTransparencyForecast } from '../TransparencyForecast/useTransparencyForecast';
 import { useTransparencyMkrVesting } from '../TransparencyMkrVesting/useTransparencyMkrVesting';
 import { useTransparencyTransferRequest } from '../TransparencyTransferRequest/useTransparencyTransferRequest';
+import ExpenseSection from './components/ExpenseSection/ExpenseSection';
 import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
 import type { DateTime } from 'luxon';
 
@@ -36,7 +37,22 @@ const useExpenseReport = (currentMonth: DateTime, budgetStatements?: BudgetState
     setIsBreakdownExpanded(query[BREAKDOWN_VIEW_QUERY_KEY] === 'default');
   }, [query]);
 
+  const [L2SectionInner, L2SectionOuter] = useMemo(
+    () => [
+      isMobile
+        ? ({ children }: React.PropsWithChildren) => <ExpenseSection level={2}>{children}</ExpenseSection>
+        : React.Fragment,
+      isMobile
+        ? React.Fragment
+        : ({ children }: React.PropsWithChildren) => <ExpenseSection level={2}>{children}</ExpenseSection>,
+    ],
+    [isMobile]
+  );
+
   return {
+    isMobile,
+    L2SectionInner,
+    L2SectionOuter,
     isLight,
     actualsData,
     forecastData,
