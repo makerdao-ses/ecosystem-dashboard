@@ -104,7 +104,8 @@ const BarDescription = styled.div({
     flex: 1,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    flex: 1,
+    flex: 'none',
+    minWidth: 227,
   },
 });
 
@@ -128,6 +129,12 @@ const Annual = styled.div<WithIsLight>(({ isLight }) => ({
     marginTop: 7,
     paddingLeft: 41,
   },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    letterSpacing: '0.4px',
+    marginBottom: 14.5,
+    marginTop: 0,
+    paddingLeft: 0,
+  },
 }));
 
 const LegendNumberWrapper = styled.div({
@@ -148,6 +155,10 @@ const LegendNumber = styled.div<WithIsLight>(({ isLight }) => ({
     fontWeight: 400,
     fontSize: '24px',
     lineHeight: '29px',
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    letterSpacing: '0px',
+    fontFeatureSettings: 'revert',
   },
 }));
 
@@ -183,6 +194,9 @@ const Divider = styled.div({
     fontWeight: 400,
     lineHeight: '30px',
   },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    lineHeight: '29px',
+  },
 });
 
 const Coin = styled.div<WithIsLight>(({ isLight }) => ({
@@ -199,6 +213,9 @@ const Coin = styled.div<WithIsLight>(({ isLight }) => ({
     fontWeight: 600,
     fontSize: '24px',
     lineHeight: '29px',
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginLeft: 4,
   },
 }));
 
@@ -221,16 +238,28 @@ const Description = styled.div({
     marginBottom: 6.5,
     marginLeft: 38,
   },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    width: 227,
+    marginBottom: 0,
+    marginLeft: -2,
+  },
 });
 
 const ContainerDescription = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  marginTop: '-1px',
+  marginTop: -1,
   marginBottom: 4,
   [lightTheme.breakpoints.up('table_834')]: {
     marginBottom: 8,
     paddingLeft: 30,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    paddingLeft: 0,
+    marginLeft: 4,
+    marginTop: 0,
+
+    marginBottom: 14.5,
   },
 });
 
@@ -251,6 +280,10 @@ const ContainerChart = styled.div({
     flexDirection: 'row-reverse',
     justifyContent: 'flex-end',
     alignContent: 'center',
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    // flex: 0.6,
+    width: 247,
   },
 });
 

@@ -29,6 +29,8 @@ const Container = styled.div({
 const Circle = styled.div<{ color: string }>(({ color }) => ({
   width: 8,
   height: 8,
+  minWidth: 8,
+  maxHeight: 8,
   backgroundColor: color,
   marginRight: 4,
   borderRadius: '50%',

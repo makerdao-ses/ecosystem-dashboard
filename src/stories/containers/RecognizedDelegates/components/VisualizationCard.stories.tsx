@@ -15,7 +15,6 @@ const variantsArgs = [
   {
     delegatesExpenses: 2222252,
     otherExpenses: 50500000,
-
     amountDelegates: 21,
   },
 ];
@@ -25,7 +24,7 @@ export const [[TotalExpense, TotalExpenseDark]] = createThemeModeVariants(Visual
 TotalExpense.parameters = {
   figma: {
     component: {
-      375: {
+      0: {
         component:
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16759:208068&t=Lk6dSYBrypHOTQ8a-4',
         options: {
@@ -51,30 +50,30 @@ TotalExpense.parameters = {
           },
         },
       },
-    },
-    1194: {
-      component:
-        'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:195974&t=qcJp8iQtowTTi5I4-4',
-      options: {
-        style: {
-          left: -40,
-          top: -20,
-        },
-        componentStyle: {
-          width: 522,
+
+      1194: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724%3A195974',
+        options: {
+          style: {
+            left: -40,
+            top: -20,
+          },
+          componentStyle: {
+            width: 522,
+          },
         },
       },
-    },
-    1280: {
-      component:
-        'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:193318&t=qcJp8iQtowTTi5I4-4',
-      options: {
-        style: {
-          left: -40,
-          top: -20,
-        },
-        componentStyle: {
-          width: 538,
+      1280: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:193318&t=qcJp8iQtowTTi5I4-4',
+        options: {
+          style: {
+            left: -40,
+            top: -20,
+          },
+          componentStyle: {
+            width: 538,
+          },
         },
       },
     },
