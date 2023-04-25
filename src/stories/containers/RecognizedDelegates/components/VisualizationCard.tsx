@@ -46,7 +46,7 @@ const VisualizationCard: React.FC<Props> = ({ delegatesExpenses, otherExpenses, 
             <LegendNumber isLight={isLight}>{humanizedDelegates.value}</LegendNumber>
             <LegendNumberSuffix isLight={isLight}>{humanizedDelegates.suffix}</LegendNumberSuffix>
           </LegendNumberWrapper>
-          <Divider>/</Divider>
+          <Divider />
           <LegendNumberWrapper>
             <LegendNumber isLight={isLight}>{humanizedTotalDelegates.value}</LegendNumber>
             <LegendNumberSuffix isLight={isLight}>{humanizedTotalDelegates.suffix}</LegendNumberSuffix>
@@ -185,6 +185,7 @@ const LegendNumberSuffix = styled.div<WithIsLight>(({ isLight }) => ({
 }));
 
 const Divider = styled.div({
+  display: 'flex',
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
@@ -195,8 +196,19 @@ const Divider = styled.div({
   color: '#9FAFB9',
   marginLeft: 4,
   marginRight: 4,
+
+  height: 13,
+  alignItems: 'baseline',
+  border: '0.5px solid',
+  marginTop: 3,
+
+  transform: 'rotate(15deg)',
   [lightTheme.breakpoints.up('table_834')]: {
     fontsize: '24px',
+    marginTop: 4,
+    height: 22,
+    marginLeft: 9,
+    marginRight: 6,
     fontWeight: 400,
     lineHeight: '30px',
   },
@@ -214,7 +226,7 @@ const Coin = styled.div<WithIsLight>(({ isLight }) => ({
   letterSpacing: '0.3px',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
   color: isLight ? '#9FAFB9' : '#708390',
-  marginLeft: 6,
+  marginLeft: 7,
   [lightTheme.breakpoints.up('table_834')]: {
     fontWeight: 600,
     fontSize: '24px',
