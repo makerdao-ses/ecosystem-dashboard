@@ -37,6 +37,15 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)({
     fontWeight: 400,
     padding: '24px 16px',
   },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    minWidth: 188.67,
+    fontWeight: 500,
+    padding: '24px',
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    minWidth: 220.67,
+    padding: '24px 32px',
+  },
 });
 
 const DescriptionDelegatesExtended = styled(DescriptionDelegates)({

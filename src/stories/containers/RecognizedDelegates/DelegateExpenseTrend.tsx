@@ -97,7 +97,10 @@ const ExpensesChartColumn = styled.div({
 });
 
 const FilterContainer = styled.div({
-  // TODO: This should be remove the fix values when filter component is implement:
   height: 34,
   marginBottom: 6,
+  [lightTheme.breakpoints.up('table_834')]: {
+    height: 48,
+    marginBottom: 12,
+  },
 });

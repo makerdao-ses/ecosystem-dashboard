@@ -15,7 +15,7 @@ export default {
       pathname: '/delegates',
     },
     chromatic: {
-      viewports: [375],
+      viewports: [375, 834, 1194, 1280, 1440],
       pauseAnimationAtEnd: true,
     },
   },
@@ -106,6 +106,58 @@ LightMode.parameters = {
           componentStyle: {
             width: 375,
           },
+        },
+      },
+      834: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:198497&t=2slOLmhn2jXaUBIK-4',
+        options: {
+          style: {
+            top: -16,
+            left: -16,
+          },
+        },
+        componentStyle: {
+          width: '834px',
+        },
+      },
+      1194: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:195841&t=2slOLmhn2jXaUBIK-4',
+        options: {
+          style: {
+            top: -16,
+            left: -16,
+          },
+        },
+        componentStyle: {
+          width: '1194px',
+        },
+      },
+      1280: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:193184&t=2slOLmhn2jXaUBIK-4',
+        options: {
+          style: {
+            top: -16,
+            left: -16,
+          },
+        },
+        componentStyle: {
+          width: '1280px',
+        },
+      },
+      1440: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:189758&t=2slOLmhn2jXaUBIK-4',
+        options: {
+          style: {
+            top: -16,
+            left: -16,
+          },
+        },
+        componentStyle: {
+          width: '1440px',
         },
       },
     },

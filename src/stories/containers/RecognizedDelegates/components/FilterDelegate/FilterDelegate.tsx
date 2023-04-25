@@ -24,7 +24,7 @@ const FilterDelegate: React.FC<Props> = ({ items, activeItems, handleSelectChang
   return (
     <FiltersContainer>
       <Reset>
-        <ResetButton onClick={handleResetFilter} disabled={true} hasIcon={false} />
+        <ResetButton onClick={handleResetFilter} disabled={true} hasIcon={false} label="Reset filters" />
       </Reset>
       <FilterDelegatesContainer>
         <CustomMultiSelect
@@ -62,8 +62,8 @@ const FiltersContainer = styled.div({
   display: 'grid',
   gap: '16px',
   marginBottom: '32px',
-  gridTemplateColumns: 'auto 34px',
-  gridTemplateRows: 'auto auto',
+  gridTemplateColumns: 'auto auto',
+  gridTemplateRows: 'auto',
   placeItems: 'space-between',
   justifyContent: 'end',
   width: 343,
@@ -72,8 +72,10 @@ const FiltersContainer = styled.div({
   "filterDelegates buttonFilter"
   `,
   '@media (min-width: 834px)': {
+    width: 690,
     gridTemplateRows: 'auto',
     margin: 'none',
+    gap: '14px',
     justifyContent: 'flex-end',
     gridTemplateAreas: '"reset filterDelegates"',
   },

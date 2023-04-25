@@ -90,6 +90,9 @@ const ContainerCards = styled.div({
   [lightTheme.breakpoints.up('desktop_1194')]: {
     flexDirection: 'row',
   },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    gap: 24,
+  },
 });
 
 const CardRow = styled.div({
@@ -100,6 +103,9 @@ const CardRow = styled.div({
   [lightTheme.breakpoints.up('table_834')]: {
     gap: 16,
   },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    gap: 24,
+  },
 });
 
 const CardsRowsContainer = styled.div({
@@ -109,5 +115,8 @@ const CardsRowsContainer = styled.div({
   [lightTheme.breakpoints.up('table_834')]: {
     display: 'flex',
     flexDirection: 'row',
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    gap: 24,
   },
 });

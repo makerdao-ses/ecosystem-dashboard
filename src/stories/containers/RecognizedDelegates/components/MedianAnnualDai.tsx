@@ -41,6 +41,14 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)({
     fontWeight: 400,
     padding: '24px 16px',
   },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    minWidth: 188.67,
+    padding: '24px 10px',
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    minWidth: 220.67,
+    padding: '24px 16px',
+  },
 });
 
 export const Annual = styled.div<WithIsLight>(({ isLight }) => ({
@@ -60,6 +68,13 @@ export const Annual = styled.div<WithIsLight>(({ isLight }) => ({
     lineHeight: '36px',
     marginBottom: 8,
   },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    marginBottom: -1,
+    letterSpacing: '0.3px',
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    letterSpacing: '0.3px',
+  },
 }));
 
 const DescriptionDelegatesExtended = styled(DescriptionDelegates)({
@@ -74,5 +89,15 @@ const DescriptionDelegatesExtended = styled(DescriptionDelegates)({
     fontWeight: 400,
     height: 72,
     marginTop: -20,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    marginTop: -5,
+    paddingLeft: 14,
+    paddingRight: 14,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    marginTop: -14,
+    paddingLeft: 0,
+    paddingRight: 0,
   },
 });

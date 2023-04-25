@@ -62,6 +62,9 @@ const BackgroundContainer = styled.div<WithIsLight>(({ isLight }) => ({
   padding: '24px 16px',
   display: 'flex',
   flexDirection: 'column',
+  [lightTheme.breakpoints.up('table_834')]: {
+    padding: '16px',
+  },
 }));
 
 const KeyContainer = styled.div({
