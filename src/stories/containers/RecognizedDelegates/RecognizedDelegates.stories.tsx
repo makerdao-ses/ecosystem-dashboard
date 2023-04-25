@@ -77,6 +77,7 @@ const variantsArgs = [
         })
         .build(),
     ],
+    totalDaiDelegates: 2130885,
   },
 ];
 
