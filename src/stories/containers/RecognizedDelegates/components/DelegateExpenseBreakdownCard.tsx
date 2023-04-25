@@ -79,7 +79,7 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
           </LinkContainer>
         )}
         <ContainerButton>
-          <ButtonLink iconName="arrowLink" label="Profile" href="" />
+          <ButtonLink iconName="arrowLink" label="Profile" href="#" />
         </ContainerButton>
       </SocialIconsSection>
     </ExtendedGenericDelegate>
