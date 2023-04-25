@@ -49,7 +49,12 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
             </NameAddressColumn>
           </WalletAvatar>
           <WalletLink>
-            <ArrowLink fill={isLight ? '#447AFB' : '#626472'} href={delegateCard.latestVotingContract} />
+            <ArrowLink
+              fill={isLight ? '#447AFB' : '#626472'}
+              href={delegateCard.latestVotingContract}
+              width={20}
+              height={20}
+            />
           </WalletLink>
         </AvatarSection>
         <DescriptionSection>
@@ -166,8 +171,8 @@ const Address = styled.div({
 });
 
 const WalletLink = styled.div({
-  marginRight: 4,
-  marginTop: 5,
+  marginRight: 2,
+  marginTop: 4,
   [lightTheme.breakpoints.up('table_834')]: {
     display: 'none',
   },
