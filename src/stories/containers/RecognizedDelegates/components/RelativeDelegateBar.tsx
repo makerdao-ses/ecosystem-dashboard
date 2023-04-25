@@ -29,7 +29,7 @@ const DelegateBar = styled.div<WithIsLight>(({ isLight }) => ({
   height: 24,
   overflow: 'hidden',
   borderRadius: 6,
-  background: isLight ? '#ECF1F3' : ' #10191F',
+  background: isLight ? '#D2D4EF' : ' #48495F',
   alignItems: 'center',
 
   [lightTheme.breakpoints.up('table_834')]: {
@@ -41,7 +41,7 @@ const OtherExpenses = styled.div<WithIsLight & { width: number }>(({ isLight, wi
   position: 'absolute',
   top: 0,
   right: 0,
-  background: isLight ? '#ECF1F3' : '#10191F',
+  background: isLight ? '#D2D4EF' : '#48495F',
 
   width: `${width}%`,
   height: '100%',
