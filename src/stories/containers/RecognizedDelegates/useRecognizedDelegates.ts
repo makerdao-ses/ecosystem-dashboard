@@ -1,7 +1,6 @@
 import sortBy from 'lodash/sortBy';
 import { DateTime } from 'luxon';
 import { useMemo, useState } from 'react';
-
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { RecognizedDelegatesDto } from '@ses/core/models/dto/delegatesDTO';
 
@@ -29,7 +28,6 @@ export const useRecognizedDelegates = (delegates: RecognizedDelegatesDto[]) => {
   const delegatesExpenses = 2160000;
   const otherExpenses = 50500000;
   const amountDelegates = 21;
-
   const selectElements = useMemo(
     () =>
       sortBy(delegates, (del) => del.name).map((delegates) => ({

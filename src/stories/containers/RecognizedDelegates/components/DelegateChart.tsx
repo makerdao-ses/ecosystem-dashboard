@@ -26,7 +26,10 @@ const DelegateChart: React.FC<Props> = ({ expenses, endDate, startDate }) => {
   const options = {
     grid: {
       height: upTable ? 230 : 190,
-      right: '0%',
+
+      right: upTable ? '0%' : 2,
+      ...(!upTable && { left: 40 }),
+      ...(upTable && { left: 44 }),
       bottom: '10%',
     },
     xAxis: {
@@ -59,7 +62,7 @@ const DelegateChart: React.FC<Props> = ({ expenses, endDate, startDate }) => {
           bgImg: {
             verticalAlign: 'top',
             color: '#139D8D',
-            padding: upTable ? [1, 4, 8, 4] : 3,
+            padding: upTable ? [1, 4, 7, 4] : 3,
 
             fontFamily: 'Inter, sans-serif',
             fontSize: upTable ? 12 : 9,
@@ -81,6 +84,7 @@ const DelegateChart: React.FC<Props> = ({ expenses, endDate, startDate }) => {
           color: upTable ? (isLight ? '#708390' : '#708390') : isLight ? '#434358' : '#708390',
           fontSize: upTable ? 12 : 9,
           lineHeight: upTable ? 15 : 11,
+          padding: upTable ? [1, 4, 8, 4] : 3,
         },
       },
     },
@@ -92,7 +96,7 @@ const DelegateChart: React.FC<Props> = ({ expenses, endDate, startDate }) => {
         align: 'center',
       },
       axisLabel: {
-        margin: upTable ? 14 : 7,
+        margin: upTable ? 14 : 12,
         formatter: function (value: number, index: number) {
           if (value === 0 && index === 0) {
             return value.toString();
@@ -130,11 +134,12 @@ const DelegateChart: React.FC<Props> = ({ expenses, endDate, startDate }) => {
         stack: 'x',
         showBackground: false,
         barWidth: upTable ? 16 : 8,
-        barGapCategory: upTable ? 17 : 7,
+        barGapCategory: upTable ? 16 : 7,
 
         itemStyle: {
           borderRadius: 4,
-          barGapCategory: upTable ? 43 : 7,
+          barGap: 32,
+          barGapCategory: upTable ? 16 : 7,
           color: isLight ? '#739BFC' : '#447AFB',
         },
       },
@@ -197,10 +202,11 @@ const Year = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   alignItems: 'center',
   color: isLight ? '#139D8D' : '#2DC1B1',
   marginLeft: 21,
-  marginRight: 17,
+  marginRight: 18,
   [lightTheme.breakpoints.up('table_834')]: {
-    marginLeft: 60,
-    marginRight: 48,
+    marginLeft: 40,
+    marginRight: 46,
+
     fontSize: 12,
     lineHeight: '15px',
   },
@@ -208,10 +214,11 @@ const Year = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 
 const ExtendedYearSecond = styled(Year)({
   marginLeft: 0,
-  marginRight: 153,
+  marginRight: 152,
   [lightTheme.breakpoints.up('table_834')]: {
     marginLeft: 0,
-    marginRight: 340,
+
+    marginRight: 354,
   },
 });
 
