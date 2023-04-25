@@ -1,7 +1,10 @@
 import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
+import { LinkButton } from '@ses/components/LinkButton/LinkButton';
+import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 
@@ -50,6 +53,9 @@ const RecognizedDelegatesContainer: React.FC = () => {
         <ContainerBreakdown>
           <DelegateExpenseBreakdown arrayOfDelegate={arrayOfDelegate} totalDai={totalDAI} />
         </ContainerBreakdown>
+        <ContainerButton>
+          <Button href={siteRoutes.recognizedDelegateReport} label="View Expenses" buttonType={ButtonType.Primary} />
+        </ContainerButton>
       </Container>
     </ExtendedPageContainer>
   );
@@ -89,4 +95,23 @@ const ContainerBreakdown = styled.div({
   display: 'flex',
   flexDirection: 'column',
   gap: 24,
+});
+
+const ContainerButton = styled.div({
+  margin: '46px auto 64px',
+  width: 244,
+  height: 48,
+});
+
+const Button = styled(LinkButton)({
+  padding: '14.5px 64px',
+  width: '100%',
+
+  '& > div': {
+    fontWeight: 500,
+    textAlign: 'center',
+    width: '100%',
+    fontSize: 16,
+    lineHeight: '19px',
+  },
 });
