@@ -23,7 +23,7 @@ const variantsArgs = [
         forumPlatform: '#',
         youtube: '#',
       })
-      .withLatestVotingContract('latestVotingContract')
+      .withLatestVotingContract('0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7')
       .withNumberDai(2325)
       .build(),
 

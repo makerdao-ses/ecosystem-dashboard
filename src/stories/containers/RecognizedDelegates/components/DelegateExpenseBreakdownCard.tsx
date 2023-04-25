@@ -54,12 +54,6 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
               width={20}
               height={20}
             />
-            <ArrowLink
-              fill={isLight ? '#447AFB' : '#626472'}
-              href={delegateCard.latestVotingContract}
-              width={20}
-              height={20}
-            />
           </WalletLink>
         </AvatarSection>
         <DescriptionSection>
