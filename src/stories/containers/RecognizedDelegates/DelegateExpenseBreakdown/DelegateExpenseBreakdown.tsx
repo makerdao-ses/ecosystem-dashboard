@@ -2,21 +2,22 @@ import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
 import DelegateExpenseBreakdownCard from '../components/DelegateExpenseBreakdownCard';
-import type { DelegateDataCard, WithIsLight } from '@ses/core/utils/typesHelpers';
+import type { RecognizedDelegatesDto } from '@ses/core/models/dto/delegatesDTO';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  arrayOfDelegate: DelegateDataCard[];
+  delegates: RecognizedDelegatesDto[];
   totalDai: number;
 }
 
-const DelegateExpenseBreakdown: React.FC<Props> = ({ arrayOfDelegate, totalDai }) => {
+const DelegateExpenseBreakdown: React.FC<Props> = ({ delegates, totalDai }) => {
   const { isLight } = useThemeContext();
   return (
     <Container>
       <Title isLight={isLight}> Delegate Expense Breakdown</Title>
       <ContainerBreakdown>
-        {arrayOfDelegate.map((delegate, index) => (
-          <DelegateExpenseBreakdownCard delegateCard={delegate} totalDai={totalDai} key={index} />
+        {delegates?.map((delegate) => (
+          <DelegateExpenseBreakdownCard delegateCard={delegate} totalDai={totalDai} key={delegate.name} />
         ))}
       </ContainerBreakdown>
     </Container>
