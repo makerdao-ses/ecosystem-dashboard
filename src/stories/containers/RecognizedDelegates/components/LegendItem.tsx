@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 
 interface Props {
@@ -20,11 +21,16 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: -1,
+  },
 });
 
 const Circle = styled.div<{ color: string }>(({ color }) => ({
   width: 8,
   height: 8,
+  minWidth: 8,
+  maxHeight: 8,
   backgroundColor: color,
   marginRight: 4,
   borderRadius: '50%',
@@ -37,4 +43,8 @@ const Description = styled.div({
   fontSize: '11px',
   lineHeight: '13px',
   color: '#708390',
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: '12px',
+    lineHeight: '15px',
+  },
 });
