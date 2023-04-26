@@ -53,6 +53,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
     showExpenseReportStatusCTA,
     lastVisitHandler,
     onTabChange,
+    onTabsExpand,
     compressedTabItems,
   } = useTransparencyReport(coreUnit);
   const [isEnabled] = useFlagsActive();
@@ -99,6 +100,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
                 expandable
                 compressedTabs={compressedTabItems}
                 onChange={onTabChange}
+                onExpand={onTabsExpand}
                 expandToolTip={{
                   default: 'Default View',
                   compressed: 'Auditor View',

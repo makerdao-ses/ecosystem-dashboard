@@ -8,9 +8,12 @@ import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { BudgetStatus } from '@ses/core/models/dto/coreUnitDTO';
 import { budgetStatementCommentsCollectionId } from '@ses/core/utils/collectionsIds';
 import { LastVisitHandler } from '@ses/core/utils/lastVisitHandler';
+import { removeEmptyProperties } from '@ses/core/utils/urls';
+import UserActivityManager from '@ses/core/utils/userActivity';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useRef, useState, useEffect, useCallback, useMemo } from 'react';
+import { AUDITOR_VIEW_STORAGE_COLLECTION_KEY } from './utils/constants';
 import type { TableItems } from './TransparencyReport';
 import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
 
@@ -160,6 +163,52 @@ export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
     [isTimestampTrackingAccepted, lastVisitHandler, updateHasNewComments]
   );
 
+  interface AuditorViewStoragePayload {
+    isAuditorViewEnabled: boolean;
+  }
+  const onTabsExpand = useCallback(
+    // save the auditor view status on the storage/server
+    async (isExpanded: boolean) => {
+      if (isTimestampTrackingAccepted) {
+        const manager = new UserActivityManager(permissionManager);
+        await manager.create({
+          userId: permissionManager.loggedUser?.id || '',
+          collection: AUDITOR_VIEW_STORAGE_COLLECTION_KEY,
+          data: {
+            isAuditorViewEnabled: !isExpanded,
+          },
+        });
+      }
+    },
+    [isTimestampTrackingAccepted, permissionManager]
+  );
+
+  useEffect(() => {
+    const restoreAuditorViewFunction = async () => {
+      // restore the auditor view status form the storage/server if needed
+      // the auditor view status in the query param has priority over the stored value
+      if (!query.view) {
+        const manager = new UserActivityManager(permissionManager);
+        const result = await manager.getLastActivity(AUDITOR_VIEW_STORAGE_COLLECTION_KEY);
+        if ((result?.data as AuditorViewStoragePayload)?.isAuditorViewEnabled) {
+          // activate the auditor view
+          router.replace(
+            {
+              pathname: router.pathname,
+              query: {
+                ...removeEmptyProperties(router.query),
+                view: 'auditor',
+              },
+            },
+            undefined,
+            { shallow: true }
+          );
+        }
+      }
+    };
+    restoreAuditorViewFunction();
+  }, [permissionManager, query.view, router]);
+
   return {
     tabItems,
     code,
@@ -177,6 +226,7 @@ export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
     comments,
     lastVisitHandler,
     onTabChange,
+    onTabsExpand,
     compressedTabItems,
   };
 };
