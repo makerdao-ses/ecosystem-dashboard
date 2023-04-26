@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
 import Discord from '@ses/components/svg/discord';
 import Forum from '@ses/components/svg/forum';
 import Github from '@ses/components/svg/github';
@@ -18,6 +19,7 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 export interface LinkModel {
   href: string;
   linkType: LinkTypeEnum;
+  toolTipDescription?: string;
 }
 
 interface CuTableColumnLinksProps {
@@ -28,6 +30,7 @@ interface CuTableColumnLinksProps {
   fillDark?: string;
   boxLinkWidth?: number;
   boxLinkHeight?: number;
+  hasTooltip?: boolean;
 }
 
 const linkComponents = {
@@ -56,22 +59,44 @@ export const DelegateSocialDtoLinks = ({
   fillDark,
   boxLinkHeight = 32,
   boxLinkWidth = 32,
+  hasTooltip = false,
 }: CuTableColumnLinksProps) => {
   const { isLight } = useThemeContext();
   return (
     <Container>
       {links?.map((link, i) => (
         <BoxContainer boxLinkWidth={boxLinkWidth} boxLinkHeight={boxLinkHeight} key={link.linkType}>
-          <Link href={link} passHref>
-            <LinkImage
-              isLight={isLight}
-              key={i}
-              target="_blank"
-              onClick={(event: React.SyntheticEvent) => event.stopPropagation()}
+          {hasTooltip ? (
+            <CustomPopover
+              title={link.toolTipDescription}
+              id={'popover-fulltime equivalent'}
+              popupStyle={{
+                color: isLight ? '#231536' : '#D2D4EF',
+              }}
             >
-              {getImageForLink(link, fill, width, height, fillDark)}
-            </LinkImage>
-          </Link>
+              <Link href={link} passHref>
+                <LinkImage
+                  isLight={isLight}
+                  key={i}
+                  target="_blank"
+                  onClick={(event: React.SyntheticEvent) => event.stopPropagation()}
+                >
+                  {getImageForLink(link, fill, width, height, fillDark)}
+                </LinkImage>
+              </Link>
+            </CustomPopover>
+          ) : (
+            <Link href={link} passHref>
+              <LinkImage
+                isLight={isLight}
+                key={i}
+                target="_blank"
+                onClick={(event: React.SyntheticEvent) => event.stopPropagation()}
+              >
+                {getImageForLink(link, fill, width, height, fillDark)}
+              </LinkImage>
+            </Link>
+          )}
         </BoxContainer>
       ))}
     </Container>

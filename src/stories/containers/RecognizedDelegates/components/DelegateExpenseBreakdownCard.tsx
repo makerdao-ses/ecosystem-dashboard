@@ -79,7 +79,11 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
       <SocialIconsSection>
         {delegateCard.socials && (
           <LinkContainer>
-            <DelegateSocialDtoLinks links={getLinksFromRecognizedDelegates(delegateCard)} fillDark="#ADAFD4" />
+            <DelegateSocialDtoLinks
+              links={getLinksFromRecognizedDelegates(delegateCard)}
+              fillDark="#ADAFD4"
+              hasTooltip
+            />
           </LinkContainer>
         )}
       </SocialIconsSection>
