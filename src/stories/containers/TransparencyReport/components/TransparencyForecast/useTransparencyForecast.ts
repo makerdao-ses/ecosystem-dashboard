@@ -3,7 +3,7 @@ import { capitalizeSentence, getWalletWidthForWallets, toKebabCase } from '@ses/
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { renderLinks, renderWallet } from '../../transparencyReportUtils';
+import { renderWallet } from '../../transparencyReportUtils';
 import {
   getBudgetCapForMonthOnBudgetStatement,
   getBudgetCapForMonthOnWalletOnBudgetStatement,
@@ -109,13 +109,6 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
         type: 'number',
         align: 'right',
       },
-      {
-        header: 'External Links',
-        type: 'custom',
-        align: 'left',
-        isCardFooter: true,
-        cellRender: renderLinks,
-      },
     ],
     [firstMonth, secondMonth, thirdMonth, wallets]
   );
@@ -182,10 +175,6 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
           {
             column: mainTableColumns[6],
             value: numberCellData[5],
-          },
-          {
-            column: mainTableColumns[7],
-            value: wallet.address,
           },
         ],
       });

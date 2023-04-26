@@ -3,7 +3,7 @@ import { capitalizeSentence, getWalletWidthForWallets, toKebabCase } from '@ses/
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { renderLinks, renderWallet } from '../../transparencyReportUtils';
+import { renderWallet } from '../../transparencyReportUtils';
 import { getActualsBreakdownColumns, getActualsBreakdownItemsForWallet } from '../../utils/actualsTableHelpers';
 import {
   getWalletActual,
@@ -120,6 +120,11 @@ export const useTransparencyActuals = (
         minWidth: getWalletWidthForWallets(wallets),
       },
       {
+        header: 'Mthly Budget',
+        align: 'right',
+        type: 'number',
+      },
+      {
         header: 'Forecast',
         align: 'right',
         type: 'incomeNumber',
@@ -138,13 +143,6 @@ export const useTransparencyActuals = (
         header: 'Payments',
         align: 'right',
         type: 'number',
-      },
-      {
-        header: 'External Links',
-        align: 'left',
-        type: 'custom',
-        cellRender: renderLinks,
-        isCardFooter: true,
       },
     ];
     return mainTableColumns;
@@ -172,23 +170,23 @@ export const useTransparencyActuals = (
               },
               {
                 column: mainTableColumns[1],
-                value: numberCellData[0],
+                value: 0,
               },
               {
                 column: mainTableColumns[2],
-                value: numberCellData[1],
+                value: numberCellData[0],
               },
               {
                 column: mainTableColumns[3],
-                value: numberCellData[2],
+                value: numberCellData[1],
               },
               {
                 column: mainTableColumns[4],
-                value: numberCellData[3],
+                value: numberCellData[2],
               },
               {
                 column: mainTableColumns[5],
-                value: wallet.address,
+                value: numberCellData[3],
               },
             ],
           });
@@ -205,18 +203,22 @@ export const useTransparencyActuals = (
             },
             {
               column: mainTableColumns[1],
-              value: budgetTotalForecast,
+              value: 0,
             },
             {
               column: mainTableColumns[2],
-              value: budgetTotalActual,
+              value: budgetTotalForecast,
             },
             {
               column: mainTableColumns[3],
-              value: budgetTotalDifference,
+              value: budgetTotalActual,
             },
             {
               column: mainTableColumns[4],
+              value: budgetTotalDifference,
+            },
+            {
+              column: mainTableColumns[5],
               value: budgetTotalPayment,
             },
           ],
