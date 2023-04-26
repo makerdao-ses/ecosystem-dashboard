@@ -1,21 +1,19 @@
 import sortBy from 'lodash/sortBy';
 import { DateTime } from 'luxon';
 import { useMemo, useState } from 'react';
-
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { RecognizedDelegatesDto } from '@ses/core/models/dto/delegatesDTO';
 
-export const useRecognizedDelegates = (delegates: RecognizedDelegatesDto[]) => {
+export const useRecognizedDelegates = (delegates: RecognizedDelegatesDto[], totalDaiDelegates: number) => {
   const [activeElements, setActiveElements] = useState<string[]>([]);
   const handleSelectChange = (value: string[]) => {
     setActiveElements(value);
   };
-
+  const totalDAI = totalDaiDelegates;
   const handleResetFilter = () => {
     setActiveElements([]);
   };
 
-  const totalDAI = 2130885;
   const expensesMock = [
     64523, 72053, 91478, 105432, 78823, 46823, 23456, 98765, 78964, 86543, 93021, 110540, 100032, 120032, 88023, 97321,
     120453, 105432, 87654, 99432, 65023, 100021, 89054, 105032, 78965, 93021,

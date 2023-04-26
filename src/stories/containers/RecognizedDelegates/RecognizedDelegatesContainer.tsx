@@ -18,9 +18,10 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   delegates: RecognizedDelegatesDto[];
+  totalDaiDelegates: number;
 }
 
-const RecognizedDelegatesContainer: React.FC<Props> = ({ delegates }) => {
+const RecognizedDelegatesContainer: React.FC<Props> = ({ delegates, totalDaiDelegates }) => {
   const { isLight } = useThemeContext();
   const {
     totalDAI,
@@ -39,7 +40,7 @@ const RecognizedDelegatesContainer: React.FC<Props> = ({ delegates }) => {
     selectElements,
     handleResetFilter,
     resultFiltered,
-  } = useRecognizedDelegates(delegates);
+  } = useRecognizedDelegates(delegates, totalDaiDelegates);
   return (
     <ExtendedPageContainer isLight={isLight}>
       <Container>

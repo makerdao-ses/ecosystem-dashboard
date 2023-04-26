@@ -8,6 +8,7 @@ import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import { formatAddressForOutputDelegateWallet } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
+
 import React from 'react';
 import { DelegateSocialDtoLinks } from '../DelegateExpenseBreakdown/DelegateSocialLink';
 import ButtonLink from './ButtonLink';
@@ -41,6 +42,7 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
               <Name isLight={isLight}>{delegateCard.name}</Name>
               <ClipBoardRow>
                 <Address>{formatAddressForOutputDelegateWallet(delegateCard.latestVotingContract)}</Address>
+
                 <ClipBoardContainer>
                   <ClipBoard />
                 </ClipBoardContainer>
@@ -83,7 +85,7 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
           </LinkContainer>
         )}
         <ContainerButton>
-          <ButtonLink iconName="arrowLink" label="Profile" href="" />
+          <ButtonLink iconName="arrowLink" label="Profile" href="#" />
         </ContainerButton>
       </SocialIconsSection>
     </ExtendedGenericDelegate>

@@ -12,4 +12,5 @@ export enum ExpenseGranularity {
   monthly = 'monthly',
   quarterly = 'quarterly',
   annual = 'annual',
+  total = 'total',
 }

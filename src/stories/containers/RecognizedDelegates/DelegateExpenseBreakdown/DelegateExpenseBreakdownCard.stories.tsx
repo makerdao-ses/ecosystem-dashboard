@@ -17,16 +17,16 @@ const variantsArgs = [
     delegateCard: new RecognizedDelegatesBuilder()
       .withName('Flip Flop Flap Delegate LLC')
       .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
+      .withLatestVotingContract('0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7')
+      .withNumberDai(2325)
       .withSocials({
         twitter: '#',
         forumProfile: '#',
         forumPlatform: '#',
         youtube: '#',
+        votingPortal: '#',
       })
-      .withLatestVotingContract('0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7')
-      .withNumberDai(2325)
       .build(),
-
     totalDai: 232325,
   },
 ];

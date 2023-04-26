@@ -20,11 +20,23 @@ interface Props {
 
 const FilterDelegate: React.FC<Props> = ({ items, activeItems, handleSelectChange, handleResetFilter }) => {
   const { isLight } = useThemeContext();
+  const isEnable = isLight
+    ? activeItems.length > 0
+      ? '#231536'
+      : '#d1dee6'
+    : activeItems.length > 0
+    ? '#D2D4EF'
+    : '#48495F';
 
   return (
     <FiltersContainer>
       <Reset>
-        <ResetButton onClick={handleResetFilter} disabled={true} hasIcon={false} label="Reset filters" />
+        <ResetButton
+          onClick={handleResetFilter}
+          disabled={activeItems.length <= 0}
+          hasIcon={false}
+          label="Reset filters"
+        />
       </Reset>
       <FilterDelegatesContainer>
         <CustomMultiSelect
@@ -50,7 +62,7 @@ const FilterDelegate: React.FC<Props> = ({ items, activeItems, handleSelectChang
       </FilterDelegatesContainer>
 
       <ResponsiveButton onClick={handleResetFilter} isLight={isLight}>
-        <Close width={10} height={10} fill={'#D1DEE6'} />
+        <Close width={10} height={10} fill={isEnable} fillDark={isEnable} />
       </ResponsiveButton>
     </FiltersContainer>
   );
