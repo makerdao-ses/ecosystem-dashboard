@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import ArrowLink from '@ses/components/svg/ArrowLink';
 import ClipBoard from '@ses/components/svg/ClipBoard';
-import ButtonLink from '@ses/containers/RecognizedDelegates/components/ButtonLink';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
@@ -68,16 +67,13 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
           </ContainerTotal>
         </DescriptionSection>
       </ContainerAvatarDescription>
-
+      <Divider />
       <SocialIconsSection>
         {delegateCard.links && (
           <LinkContainer>
             <DelegateSocialLinks links={delegateCard.links} fillDark="#ADAFD4" />
           </LinkContainer>
         )}
-        <ContainerButton>
-          <ButtonLink iconName="arrowLink" label="Profile" href="" />
-        </ContainerButton>
       </SocialIconsSection>
     </ExtendedGenericDelegate>
   );
@@ -97,12 +93,13 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight>(({ isLi
   fontStyle: 'normal',
   height: 182,
   [lightTheme.breakpoints.up('table_834')]: {
-    padding: '16px',
-    height: 138,
+    padding: '0px',
+    height: 136,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     height: 80,
     flexDirection: 'row',
+    padding: '16px',
     justifyContent: 'space-between',
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
@@ -120,7 +117,7 @@ const AvatarSection = styled.div({
   marginBottom: 24,
   [lightTheme.breakpoints.up('table_834')]: {
     flex: 1,
-    marginBottom: 25,
+    marginBottom: 0,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     flex: 1,
@@ -181,13 +178,14 @@ const DescriptionSection = styled.div({
   [lightTheme.breakpoints.up('table_834')]: {
     flex: 1,
     marginRight: 0,
+    marginBottom: 0,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     marginLeft: 0,
     marginRight: 0,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginLeft: 40,
+    marginLeft: 0,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     marginLeft: 30,
@@ -202,6 +200,10 @@ const ContainerBar = styled.div({
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     flex: 1,
+    marginLeft: 6,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    marginLeft: -12,
   },
 });
 
@@ -224,13 +226,13 @@ const ContainerTotal = styled.div({
     textAlign: 'end',
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginRight: 26,
+    marginRight: 8,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginRight: 16,
+    marginRight: 12,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginRight: 30,
+    marginRight: 18,
   },
 });
 
@@ -294,12 +296,12 @@ const SocialIconsSection = styled.div({
   flexDirection: 'row',
   margin: '0 auto',
   [lightTheme.breakpoints.up('table_834')]: {
-    justifyContent: 'space-between',
-    margin: 'unset',
+    justifyContent: 'center',
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    flexDirection: 'row-reverse',
-    flex: 1,
+    flexDirection: 'row',
+    flex: 0.4,
+    justifyContent: 'flex-end',
   },
 });
 
@@ -328,43 +330,39 @@ const ClipBoardContainer = styled.div({
   },
 });
 
-const ContainerButton = styled.div({
-  display: 'none',
-  [lightTheme.breakpoints.up('table_834')]: {
-    display: 'flex',
-    width: 107,
-  },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginLeft: 16,
-    marginTop: 8,
-  },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginLeft: 32,
-  },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginLeft: 52,
-  },
-});
-
 const ContainerAvatarDescription = styled.div({
   display: 'flex',
   flexDirection: 'column',
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row',
+    padding: '16px 16px 0px 16px',
     justifyContent: 'space-between',
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     flexDirection: 'row',
+    padding: '0px',
+
     justifyContent: 'space-between',
-    flex: 1.5,
+    flex: 1,
+    alignItems: 'center',
   },
 });
 
 const LinkContainer = styled.div({
-  [lightTheme.breakpoints.up('table_834')]: {
-    marginLeft: 8,
-  },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     marginTop: 8,
+  },
+});
+
+const Divider = styled.div({
+  display: 'none',
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'flex',
+    border: '1px solid #D4D9E1',
+    marginBottom: 8,
+    marginTop: 24,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    display: 'none',
   },
 });

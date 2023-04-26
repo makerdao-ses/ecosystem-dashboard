@@ -36,6 +36,10 @@ const variantsArgs = [
           linkType: LinkTypeEnum.LinkedIn,
           href: '#',
         },
+        {
+          linkType: LinkTypeEnum.Youtube,
+          href: '#',
+        },
       ],
       address: '0x86914...2e02',
       numberDai: 2325,
@@ -62,7 +66,7 @@ BreakdownCard.parameters = {
       },
       834: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:201374&t=d03O1KT2Nl8fpPce-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:201374&t=rZFX885hWtT01PVt-4',
         options: {
           style: {
             left: -40,
@@ -75,7 +79,7 @@ BreakdownCard.parameters = {
       },
       1194: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:196096&t=BNZ9FlhQrwKTnYGZ-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=17435:201047&t=rZFX885hWtT01PVt-4',
         options: {
           style: {
             left: -40,
@@ -88,7 +92,7 @@ BreakdownCard.parameters = {
       },
       1280: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:193440&t=h6cNElW1YXydT6mT-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=17435:200367&t=rZFX885hWtT01PVt-4',
         options: {
           style: {
             left: -40,
@@ -101,7 +105,7 @@ BreakdownCard.parameters = {
       },
       1440: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:190013&t=h6cNElW1YXydT6mT-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=17435:199371&t=rZFX885hWtT01PVt-4',
         options: {
           style: {
             left: -40,
