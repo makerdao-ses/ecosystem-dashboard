@@ -30,7 +30,7 @@ export interface TabsProps {
   // tabs to be shown in compressed view
   compressedTabs?: TabItem[];
   // callback when the `Tabs` is expanded/compressed
-  onExpand?: () => void;
+  onExpand?: (isExpanded: boolean) => void;
   // callback when the active tab is changed
   onChange?: ((currentId?: string, previousId?: string) => void) | ((currentId?: string) => void);
   // tooltip for the expand button
@@ -189,8 +189,8 @@ const Tabs: React.FC<TabsProps> = ({
       undefined,
       { shallow: true }
     );
+    onExpand?.(!expanded);
     setExpanded(!expanded);
-    onExpand?.();
   };
 
   useEffect(() => {
