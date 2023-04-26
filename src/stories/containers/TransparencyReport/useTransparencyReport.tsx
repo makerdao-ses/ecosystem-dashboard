@@ -169,23 +169,25 @@ export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
   const onTabsExpand = useCallback(
     // save the auditor view status on the storage/server
     async (isExpanded: boolean) => {
-      const manager = new UserActivityManager(permissionManager);
-      await manager.create({
-        userId: permissionManager.loggedUser?.id || '',
-        collection: AUDITOR_VIEW_STORAGE_COLLECTION_KEY,
-        data: {
-          isAuditorViewEnabled: !isExpanded,
-        },
-      });
+      if (isTimestampTrackingAccepted) {
+        const manager = new UserActivityManager(permissionManager);
+        await manager.create({
+          userId: permissionManager.loggedUser?.id || '',
+          collection: AUDITOR_VIEW_STORAGE_COLLECTION_KEY,
+          data: {
+            isAuditorViewEnabled: !isExpanded,
+          },
+        });
+      }
     },
-    [permissionManager]
+    [isTimestampTrackingAccepted, permissionManager]
   );
 
   useEffect(() => {
     const restoreAuditorViewFunction = async () => {
       // restore the auditor view status form the storage/server if needed
       // the auditor view status in the query param has priority over the stored value
-      if (!query.view && isTimestampTrackingAccepted) {
+      if (!query.view) {
         const manager = new UserActivityManager(permissionManager);
         const result = await manager.getLastActivity(AUDITOR_VIEW_STORAGE_COLLECTION_KEY);
         if ((result?.data as AuditorViewStoragePayload)?.isAuditorViewEnabled) {
@@ -205,7 +207,7 @@ export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
       }
     };
     restoreAuditorViewFunction();
-  }, [isTimestampTrackingAccepted, permissionManager, query.view, router]);
+  }, [permissionManager, query.view, router]);
 
   return {
     tabItems,
