@@ -7,7 +7,6 @@ export enum LinkTypeEnum {
   LinkedIn = 'LinkedIn',
   Gmail = 'Gmail',
   Github = 'Github',
-  ForumPlatform = 'Forum',
   VotingSocialPortal = 'VotingSocialPortal',
   ProfileForum = 'ProfileForum',
 }

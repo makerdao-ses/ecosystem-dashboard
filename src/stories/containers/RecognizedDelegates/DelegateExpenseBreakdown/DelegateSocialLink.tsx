@@ -36,14 +36,13 @@ interface CuTableColumnLinksProps {
 const linkComponents = {
   [LinkTypeEnum.WWW]: WWW,
   [LinkTypeEnum.Forum]: Forum,
+  [LinkTypeEnum.ProfileForum]: ProfileForum,
   [LinkTypeEnum.Discord]: Discord,
   [LinkTypeEnum.Twitter]: Twitter,
   [LinkTypeEnum.Youtube]: Youtube,
   [LinkTypeEnum.LinkedIn]: LinkedIn,
   [LinkTypeEnum.Gmail]: Gmail,
   [LinkTypeEnum.Github]: Github,
-  [LinkTypeEnum.ForumPlatform]: Forum,
-  [LinkTypeEnum.ProfileForum]: ProfileForum,
   [LinkTypeEnum.VotingSocialPortal]: VotingSocialPortal,
 };
 
