@@ -19,7 +19,7 @@ const variantsArgs = [
       97321, 120453, 105432, 87654, 99432, 65023, 100021, 89054, 105032, 78965, 93021,
     ],
     startDate: DateTime.fromISO('2021-11-01'),
-    endDate: DateTime.fromISO('2023-06-01'),
+    endDate: DateTime.fromISO('2023-03-01'),
   },
 ];
 

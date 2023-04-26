@@ -1,6 +1,4 @@
 import styled from '@emotion/styled';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import React from 'react';
@@ -11,7 +9,6 @@ interface Props {
 }
 
 const DoughnutChart: React.FC<Props> = ({ delegatesExpenses, otherExpenses }) => {
-  const { isLight } = useThemeContext();
   const options = {
     tooltip: {
       show: false,
@@ -38,8 +35,8 @@ const DoughnutChart: React.FC<Props> = ({ delegatesExpenses, otherExpenses }) =>
             value: otherExpenses,
             name: 'Other Expenses',
             itemStyle: {
-              color: isLight ? '#D2D4EF' : ' #48495F',
-              emphasis: { color: isLight ? '#D2D4EF' : ' #48495F' },
+              color: '#D2D4EF',
+              emphasis: { color: '#D2D4EF' },
             },
           },
           {

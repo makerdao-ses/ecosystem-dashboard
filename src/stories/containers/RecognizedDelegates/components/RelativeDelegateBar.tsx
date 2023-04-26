@@ -1,9 +1,7 @@
 import styled from '@emotion/styled';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface RelativeBarProps {
   otherExpenses: number;
@@ -11,37 +9,37 @@ interface RelativeBarProps {
 }
 
 export const RelativeDelegateBar: React.FC<RelativeBarProps> = ({ otherExpenses, recognizedDelegates }) => {
-  const { isLight } = useThemeContext();
   const percentOther = percentageRespectTo(otherExpenses, otherExpenses + recognizedDelegates);
   const percentDelegates = percentageRespectTo(recognizedDelegates, otherExpenses + recognizedDelegates);
 
   return (
-    <DelegateBar isLight={isLight}>
-      {otherExpenses > 0 && <OtherExpenses isLight={isLight} width={percentOther} />}
+    <DelegateBar>
+      {otherExpenses > 0 && <OtherExpenses width={percentOther} />}
       {recognizedDelegates > 0 && <RecognizedDelegates width={percentDelegates} />}
     </DelegateBar>
   );
 };
 
-const DelegateBar = styled.div<WithIsLight>(({ isLight }) => ({
+const DelegateBar = styled.div({
   position: 'relative',
   width: '100%',
   height: 24,
   overflow: 'hidden',
   borderRadius: 6,
-  background: isLight ? '#D2D4EF' : ' #48495F',
+
+  background: '#D2D4EF',
   alignItems: 'center',
 
   [lightTheme.breakpoints.up('table_834')]: {
     height: 12,
   },
-}));
+});
 
-const OtherExpenses = styled.div<WithIsLight & { width: number }>(({ isLight, width }) => ({
+const OtherExpenses = styled.div<{ width: number }>(({ width }) => ({
   position: 'absolute',
   top: 0,
   right: 0,
-  background: isLight ? '#D2D4EF' : '#48495F',
+  background: '#D2D4EF',
 
   width: `${width}%`,
   height: '100%',

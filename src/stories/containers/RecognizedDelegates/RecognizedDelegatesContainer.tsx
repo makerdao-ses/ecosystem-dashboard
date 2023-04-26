@@ -54,7 +54,11 @@ const RecognizedDelegatesContainer: React.FC = () => {
           <DelegateExpenseBreakdown arrayOfDelegate={arrayOfDelegate} totalDai={totalDAI} />
         </ContainerBreakdown>
         <ContainerButton>
-          <Button href={siteRoutes.recognizedDelegateReport} label="View Expenses" buttonType={ButtonType.Primary} />
+          <Button
+            href={siteRoutes.recognizedDelegateReport}
+            label="View Expense Reports"
+            buttonType={ButtonType.Primary}
+          />
         </ContainerButton>
       </Container>
     </ExtendedPageContainer>
@@ -99,7 +103,7 @@ const ContainerBreakdown = styled.div({
 
 const ContainerButton = styled.div({
   margin: '46px auto 64px',
-  width: 244,
+  width: 300,
   height: 48,
 });
 
