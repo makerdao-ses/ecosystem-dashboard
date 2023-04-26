@@ -133,7 +133,7 @@ const DelegateChart: React.FC<Props> = ({ expenses, endDate, startDate }) => {
         type: 'bar',
         stack: 'x',
         showBackground: false,
-        barWidth: upTable ? 16 : 8,
+        barWidth: upTable ? 22 : 12,
         barGapCategory: upTable ? 16 : 7,
 
         itemStyle: {
@@ -202,11 +202,12 @@ const Year = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   alignItems: 'center',
   color: isLight ? '#139D8D' : '#2DC1B1',
   marginLeft: 21,
-  marginRight: 18,
+
+  marginRight: 22,
   [lightTheme.breakpoints.up('table_834')]: {
     marginLeft: 40,
-    marginRight: 46,
 
+    marginRight: 55,
     fontSize: 12,
     lineHeight: '15px',
   },
@@ -214,11 +215,13 @@ const Year = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 
 const ExtendedYearSecond = styled(Year)({
   marginLeft: 0,
-  marginRight: 152,
+
+  marginRight: 189,
+
   [lightTheme.breakpoints.up('table_834')]: {
     marginLeft: 0,
 
-    marginRight: 354,
+    marginRight: 428,
   },
 });
 

@@ -30,7 +30,7 @@ Chart.parameters = {
     component: {
       375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16759:208103&t=neFYoZhbEqS5Zn38-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16759:208103&t=rZFX885hWtT01PVt-4',
         options: {
           style: {
             left: 2,
@@ -43,7 +43,7 @@ Chart.parameters = {
       },
       834: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:198656&t=Lk6dSYBrypHOTQ8a-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=17435:201839&t=rZFX885hWtT01PVt-4',
         options: {
           style: {
             left: -2,
