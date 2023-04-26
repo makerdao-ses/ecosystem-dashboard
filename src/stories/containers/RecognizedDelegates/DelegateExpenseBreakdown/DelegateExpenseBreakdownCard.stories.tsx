@@ -1,4 +1,4 @@
-import { LinkTypeEnum } from '@ses/core/enums/linkTypeEnum';
+import { RecognizedDelegatesBuilder } from '@ses/core/businessLogic/builders/recognizedDelegatesBuilder';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import DelegateExpenseBreakdownCard from '../components/DelegateExpenseBreakdownCard';
 import type { ComponentMeta } from '@storybook/react';
@@ -14,36 +14,19 @@ export default {
 } as ComponentMeta<typeof DelegateExpenseBreakdownCard>;
 const variantsArgs = [
   {
-    delegateCard: {
-      imageUrl: 'https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg',
-      walletName: 'Flip Flop Flap Delegate LLC',
-      links: [
-        {
-          linkType: LinkTypeEnum.Forum,
-          href: '#',
-        },
-        {
-          linkType: LinkTypeEnum.Twitter,
-          href: '#',
-        },
-
-        {
-          linkType: LinkTypeEnum.Github,
-          href: '#',
-        },
-
-        {
-          linkType: LinkTypeEnum.LinkedIn,
-          href: '#',
-        },
-        {
-          linkType: LinkTypeEnum.Youtube,
-          href: '#',
-        },
-      ],
-      address: '0x86914...2e02',
-      numberDai: 2325,
-    },
+    delegateCard: new RecognizedDelegatesBuilder()
+      .withName('Flip Flop Flap Delegate LLC')
+      .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
+      .withLatestVotingContract('0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7')
+      .withNumberDai(2325)
+      .withSocials({
+        twitter: '#',
+        forumProfile: '#',
+        forumPlatform: '#',
+        youtube: '#',
+        votingPortal: '#',
+      })
+      .build(),
     totalDai: 232325,
   },
 ];

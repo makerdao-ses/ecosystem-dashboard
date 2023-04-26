@@ -2,18 +2,22 @@ import styled from '@emotion/styled';
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import ArrowLink from '@ses/components/svg/ArrowLink';
 import ClipBoard from '@ses/components/svg/ClipBoard';
+import { getLinksFromRecognizedDelegates } from '@ses/core/businessLogic/reconizedDelegate';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
+import { formatAddressForOutput } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
+
 import React from 'react';
-import { DelegateSocialLinks } from '../DelegateExpenseBreakdown/DelegateSocialLink';
+import { DelegateSocialDtoLinks } from '../DelegateExpenseBreakdown/DelegateSocialLink';
 import DelegateBarPercentTotal from './DelegateBarPercentTotal';
 import GenericDelegateCard from './GenericDelegateCard';
-import type { DelegateDataCard, WithIsLight } from '@ses/core/utils/typesHelpers';
+import type { RecognizedDelegatesDto } from '@ses/core/models/dto/delegatesDTO';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  delegateCard: DelegateDataCard;
+  delegateCard: RecognizedDelegatesDto;
   totalDai: number;
 }
 
@@ -21,7 +25,6 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
   const { isLight } = useThemeContext();
   const percent = percentageRespectTo(delegateCard.numberDai, totalDai);
   const humanizeTotal = usLocalizedNumber(totalDai);
-
   return (
     <ExtendedGenericDelegate isLight={isLight}>
       <ContainerAvatarDescription>
@@ -31,13 +34,13 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
               isLight={isLight}
               width="48px"
               height="48px"
-              name={delegateCard.walletName || 'Wallet'}
-              image={delegateCard.imageUrl}
+              name={delegateCard.name || 'Wallet'}
+              image={delegateCard.image}
             />
             <NameAddressColumn>
-              <Name isLight={isLight}>{delegateCard.walletName}</Name>
+              <Name isLight={isLight}>{delegateCard.name}</Name>
               <ClipBoardRow>
-                <Address>{delegateCard.address}</Address>
+                <Address>{formatAddressForOutput(delegateCard.latestVotingContract)}</Address>
                 <ClipBoardContainer>
                   <ClipBoard />
                 </ClipBoardContainer>
@@ -45,7 +48,12 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
             </NameAddressColumn>
           </WalletAvatar>
           <WalletLink>
-            <ArrowLink fill={isLight ? '#447AFB' : '#626472'} href={delegateCard.address} width={20} height={20} />
+            <ArrowLink
+              fill={isLight ? '#447AFB' : '#626472'}
+              href={delegateCard.latestVotingContract}
+              width={20}
+              height={20}
+            />
           </WalletLink>
         </AvatarSection>
         <DescriptionSection>
@@ -69,9 +77,9 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
       </ContainerAvatarDescription>
       <Divider />
       <SocialIconsSection>
-        {delegateCard.links && (
+        {delegateCard.socials && (
           <LinkContainer>
-            <DelegateSocialLinks links={delegateCard.links} fillDark="#ADAFD4" />
+            <DelegateSocialDtoLinks links={getLinksFromRecognizedDelegates(delegateCard)} fillDark="#ADAFD4" />
           </LinkContainer>
         )}
       </SocialIconsSection>

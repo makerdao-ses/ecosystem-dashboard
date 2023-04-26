@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import lightTheme from '@ses/styles/theme/light';
 import React, { useCallback, useRef, useState } from 'react';
 
 import './CustomMultiSelect.module.scss';
@@ -9,6 +10,7 @@ import { SearchInput } from '../SearchInput/SearchInput';
 import { SelectItem } from '../SelectItem/SelectItem';
 import { SelectChevronDown } from '../svg/select-chevron-down';
 import type { CSSProperties } from 'react';
+
 export interface MultiSelectItem {
   id: string;
   content: string | JSX.Element;
@@ -41,6 +43,7 @@ interface CustomMultiSelectProps {
   popupContainerWidth?: number;
   listItemWidth?: number;
   withSearch?: boolean;
+  positionRight?: boolean;
 }
 
 const defaultItemRender = (props: SelectItemProps) => <SelectItem {...props} />;
@@ -49,6 +52,7 @@ export const CustomMultiSelect = ({
   withAll = true,
   activeItems = [],
   customItemRender = defaultItemRender,
+  positionRight = false,
   ...props
 }: CustomMultiSelectProps) => {
   const { isLight } = useThemeContext();
@@ -122,7 +126,7 @@ export const CustomMultiSelect = ({
         </IconWrapper>
       </SelectContainer>
       {popupVisible && (
-        <PopupContainer width={props.popupContainerWidth ?? 212} isLight={isLight}>
+        <PopupContainer width={props.popupContainerWidth ?? 212} isLight={isLight} positionRight={positionRight}>
           {props.withSearch && (
             <SearchInput
               placeholder="Search"
@@ -268,22 +272,27 @@ const IconWrapper = styled.div({
   marginTop: '-4px',
 });
 
-const PopupContainer = styled.div<{ isLight: boolean; width: number }>(({ isLight, width }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '4px',
-  width,
-  background: isLight ? 'white' : '#000A13',
-  height: 'fit-content',
-  padding: '16px 0 16px 16px',
-  boxShadow: isLight ? '0px 20px 40px #dbe3ed66, 0px 1px 3px #bebebe40' : 'none',
-  position: 'absolute',
-  top: '50px',
-  left: '0',
-  zIndex: 3,
-  '::-webkit-scrollbar': {
-    opacity: !isLight ? 0 : 'none',
-    width: !isLight ? 0 : 'none',
-    backgroundColor: !isLight ? 'transparent' : 'none',
-  },
-}));
+const PopupContainer = styled.div<{ isLight: boolean; width: number; positionRight?: boolean }>(
+  ({ isLight, width, positionRight }) => ({
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '4px',
+    width,
+    background: isLight ? 'white' : '#000A13',
+    height: 'fit-content',
+    padding: '16px 0 16px 16px',
+    boxShadow: isLight ? '0px 20px 40px #dbe3ed66, 0px 1px 3px #bebebe40' : 'none',
+    position: 'absolute',
+    top: '50px',
+    ...(positionRight ? { right: -50 } : { left: '0' }),
+    zIndex: 3,
+    '::-webkit-scrollbar': {
+      opacity: !isLight ? 0 : 'none',
+      width: !isLight ? 0 : 'none',
+      backgroundColor: !isLight ? 'transparent' : 'none',
+    },
+    [lightTheme.breakpoints.up('table_834')]: {
+      ...(positionRight && { right: '0' }),
+    },
+  })
+);

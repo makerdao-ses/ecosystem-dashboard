@@ -3,7 +3,8 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import DelegateChart from './components/DelegateChart';
-import FilterDelegate from './components/FilterDelegate';
+import FilterDelegate from './components/FilterDelegate/FilterDelegate';
+import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { DateTime } from 'luxon';
 
@@ -11,16 +12,33 @@ interface Props {
   expenses: number[];
   startDate: DateTime;
   endDate: DateTime;
+  items: MultiSelectItem[];
+  activeItems: string[];
+  handleSelectChange: (value: string[]) => void;
+  handleResetFilter: () => void;
 }
 
-const DelegateExpenseTrend: React.FC<Props> = ({ expenses, endDate, startDate }) => {
+const DelegateExpenseTrend: React.FC<Props> = ({
+  expenses,
+  endDate,
+  startDate,
+  activeItems,
+  items,
+  handleSelectChange,
+  handleResetFilter,
+}) => {
   const { isLight } = useThemeContext();
   return (
     <Container>
       <Title isLight={isLight}>Delegate Expense Trend</Title>
       <Description isLight={isLight}>Delegate Compensation / Month</Description>
       <FilterContainer>
-        <FilterDelegate />
+        <FilterDelegate
+          activeItems={activeItems}
+          items={items}
+          handleSelectChange={handleSelectChange}
+          handleResetFilter={handleResetFilter}
+        />
       </FilterContainer>
       <ExpensesChartColumn>
         <DelegateChart expenses={expenses} endDate={endDate} startDate={startDate} />
