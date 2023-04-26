@@ -22,9 +22,9 @@ const variantsArgs = [
       .withSocials({
         twitter: '#',
         forumProfile: '#',
+        votingPortal: '#',
         forumPlatform: '#',
         youtube: '#',
-        votingPortal: '#',
       })
       .build(),
     totalDai: 232325,

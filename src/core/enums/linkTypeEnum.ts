@@ -9,4 +9,5 @@ export enum LinkTypeEnum {
   Github = 'Github',
   VotingSocialPortal = 'VotingSocialPortal',
   ProfileForum = 'ProfileForum',
+  TwitterFooter = 'TwitterFooter',
 }

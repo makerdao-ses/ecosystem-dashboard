@@ -7,6 +7,7 @@ import Gmail from '@ses/components/svg/gmail';
 import LinkedIn from '@ses/components/svg/linkedin';
 import ProfileForum from '@ses/components/svg/profileForum';
 import Twitter from '@ses/components/svg/twitter';
+import TwitterFooter from '@ses/components/svg/twitter-footer';
 import VotingSocialPortal from '@ses/components/svg/votingSocialPortal';
 import WWW from '@ses/components/svg/www';
 import Youtube from '@ses/components/svg/youtube';
@@ -44,6 +45,7 @@ const linkComponents = {
   [LinkTypeEnum.Gmail]: Gmail,
   [LinkTypeEnum.Github]: Github,
   [LinkTypeEnum.VotingSocialPortal]: VotingSocialPortal,
+  [LinkTypeEnum.TwitterFooter]: TwitterFooter,
 };
 
 const getImageForLink = (link: LinkModel, fill: string, width?: number, height?: number, fillDark?: string) => {
@@ -117,6 +119,9 @@ const BoxContainer = styled.div<{ boxLinkWidth: number; boxLinkHeight: number }>
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    ':nth-of-type(3)': {
+      paddingBottom: 8,
+    },
   })
 );
 const LinkImage = styled.a<WithIsLight>(({ isLight }) => ({

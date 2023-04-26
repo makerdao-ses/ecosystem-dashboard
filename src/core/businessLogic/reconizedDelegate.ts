@@ -14,7 +14,7 @@ export const getLinksFromRecognizedDelegates = (del: RecognizedDelegatesDto): Li
     forumPlatform: LinkTypeEnum.Forum,
     forumProfile: LinkTypeEnum.ProfileForum,
     votingPortal: LinkTypeEnum.VotingSocialPortal,
-    twitter: LinkTypeEnum.Twitter,
+    twitter: LinkTypeEnum.TwitterFooter,
     youtube: LinkTypeEnum.Youtube,
   };
   const descriptionOfTooltip: Record<string, string> = {
