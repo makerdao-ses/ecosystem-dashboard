@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
 import Discord from '@ses/components/svg/discord';
 import Forum from '@ses/components/svg/forum';
 import Github from '@ses/components/svg/github';
@@ -6,6 +7,7 @@ import Gmail from '@ses/components/svg/gmail';
 import LinkedIn from '@ses/components/svg/linkedin';
 import ProfileForum from '@ses/components/svg/profileForum';
 import Twitter from '@ses/components/svg/twitter';
+import TwitterFooter from '@ses/components/svg/twitter-footer';
 import VotingSocialPortal from '@ses/components/svg/votingSocialPortal';
 import WWW from '@ses/components/svg/www';
 import Youtube from '@ses/components/svg/youtube';
@@ -18,6 +20,7 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 export interface LinkModel {
   href: string;
   linkType: LinkTypeEnum;
+  toolTipDescription?: string;
 }
 
 interface CuTableColumnLinksProps {
@@ -28,20 +31,21 @@ interface CuTableColumnLinksProps {
   fillDark?: string;
   boxLinkWidth?: number;
   boxLinkHeight?: number;
+  hasTooltip?: boolean;
 }
 
 const linkComponents = {
   [LinkTypeEnum.WWW]: WWW,
   [LinkTypeEnum.Forum]: Forum,
+  [LinkTypeEnum.ProfileForum]: ProfileForum,
   [LinkTypeEnum.Discord]: Discord,
   [LinkTypeEnum.Twitter]: Twitter,
   [LinkTypeEnum.Youtube]: Youtube,
   [LinkTypeEnum.LinkedIn]: LinkedIn,
   [LinkTypeEnum.Gmail]: Gmail,
   [LinkTypeEnum.Github]: Github,
-  [LinkTypeEnum.ForumPlatform]: Forum,
-  [LinkTypeEnum.ProfileForum]: ProfileForum,
   [LinkTypeEnum.VotingSocialPortal]: VotingSocialPortal,
+  [LinkTypeEnum.TwitterFooter]: TwitterFooter,
 };
 
 const getImageForLink = (link: LinkModel, fill: string, width?: number, height?: number, fillDark?: string) => {
@@ -56,22 +60,46 @@ export const DelegateSocialDtoLinks = ({
   fillDark,
   boxLinkHeight = 32,
   boxLinkWidth = 32,
+  hasTooltip = false,
 }: CuTableColumnLinksProps) => {
   const { isLight } = useThemeContext();
   return (
     <Container>
       {links?.map((link, i) => (
         <BoxContainer boxLinkWidth={boxLinkWidth} boxLinkHeight={boxLinkHeight} key={link.linkType}>
-          <Link href={link} passHref>
-            <LinkImage
-              isLight={isLight}
-              key={i}
-              target="_blank"
-              onClick={(event: React.SyntheticEvent) => event.stopPropagation()}
+          {hasTooltip ? (
+            <CustomPopover
+              title={link.toolTipDescription}
+              id={'popover-fulltime equivalent'}
+              popupStyle={{
+                color: isLight ? '#231536' : '#D2D4EF',
+              }}
             >
-              {getImageForLink(link, fill, width, height, fillDark)}
-            </LinkImage>
-          </Link>
+              <Link href={link} passHref>
+                <LinkImage
+                  marginBottom={link.linkType === LinkTypeEnum.VotingSocialPortal}
+                  isLight={isLight}
+                  key={i}
+                  target="_blank"
+                  onClick={(event: React.SyntheticEvent) => event.stopPropagation()}
+                >
+                  {getImageForLink(link, fill, width, height, fillDark)}
+                </LinkImage>
+              </Link>
+            </CustomPopover>
+          ) : (
+            <Link href={link} passHref>
+              <LinkImage
+                marginBottom={link.linkType === LinkTypeEnum.VotingSocialPortal}
+                isLight={isLight}
+                key={i}
+                target="_blank"
+                onClick={(event: React.SyntheticEvent) => event.stopPropagation()}
+              >
+                {getImageForLink(link, fill, width, height, fillDark)}
+              </LinkImage>
+            </Link>
+          )}
         </BoxContainer>
       ))}
     </Container>
@@ -95,9 +123,11 @@ const BoxContainer = styled.div<{ boxLinkWidth: number; boxLinkHeight: number }>
     justifyContent: 'center',
   })
 );
-const LinkImage = styled.a<WithIsLight>(({ isLight }) => ({
+const LinkImage = styled.a<WithIsLight & { marginBottom?: boolean }>(({ isLight, marginBottom = false }) => ({
   display: 'flex',
   '&:hover svg path': {
     fill: isLight ? '#231536' : '#48495F',
+    stroke: isLight ? '#231536' : '#48495F',
   },
+  ...(marginBottom && { marginBottom: 8 }),
 }));
