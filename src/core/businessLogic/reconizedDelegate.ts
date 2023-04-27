@@ -12,9 +12,9 @@ export const getLinksFromRecognizedDelegates = (del: RecognizedDelegatesDto): Li
 
   const linkTypeMap: Record<string, LinkTypeEnum> = {
     forumPlatform: LinkTypeEnum.Forum,
-    twitter: LinkTypeEnum.TwitterFooter,
     forumProfile: LinkTypeEnum.ProfileForum,
     votingPortal: LinkTypeEnum.VotingSocialPortal,
+    twitter: LinkTypeEnum.TwitterFooter,
     youtube: LinkTypeEnum.Youtube,
   };
   const descriptionOfTooltip: Record<string, string> = {
