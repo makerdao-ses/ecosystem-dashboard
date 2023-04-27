@@ -9,6 +9,7 @@ import {
   getWalletActual,
   getWalletDifference,
   getWalletForecast,
+  getWalletMonthlyBudget,
   getWalletPayment,
 } from '../../utils/budgetStatementsUtils';
 import { ACTUALS_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
@@ -54,6 +55,17 @@ export const useTransparencyActuals = (
   );
 
   const breakdownTabs = useMemo(() => wallets.map((wallet) => wallet.name), [wallets]);
+
+  const budgetTotalMonthlyBudget = useMemo(
+    () =>
+      _.sumBy(currentBudgetStatement?.budgetStatementWallet, (wallet) =>
+        _.sumBy(
+          wallet.budgetStatementLineItem.filter((item) => item.month === currentMonth),
+          (item) => item?.budgetCap ?? 0
+        )
+      ),
+    [currentBudgetStatement?.budgetStatementWallet, currentMonth]
+  );
 
   const budgetTotalForecast = useMemo(
     () =>
@@ -154,6 +166,7 @@ export const useTransparencyActuals = (
     if (currentBudgetStatement) {
       wallets.forEach((wallet) => {
         const numberCellData = [
+          getWalletMonthlyBudget(wallet, currentMonth),
           getWalletForecast(wallet, currentMonth),
           getWalletActual(wallet, currentMonth),
           getWalletDifference(wallet, currentMonth),
@@ -170,23 +183,23 @@ export const useTransparencyActuals = (
               },
               {
                 column: mainTableColumns[1],
-                value: 0,
-              },
-              {
-                column: mainTableColumns[2],
                 value: numberCellData[0],
               },
               {
-                column: mainTableColumns[3],
+                column: mainTableColumns[2],
                 value: numberCellData[1],
               },
               {
-                column: mainTableColumns[4],
+                column: mainTableColumns[3],
                 value: numberCellData[2],
               },
               {
-                column: mainTableColumns[5],
+                column: mainTableColumns[4],
                 value: numberCellData[3],
+              },
+              {
+                column: mainTableColumns[5],
+                value: numberCellData[4],
               },
             ],
           });
@@ -203,7 +216,7 @@ export const useTransparencyActuals = (
             },
             {
               column: mainTableColumns[1],
-              value: 0,
+              value: budgetTotalMonthlyBudget,
             },
             {
               column: mainTableColumns[2],
@@ -232,6 +245,7 @@ export const useTransparencyActuals = (
     budgetTotalActual,
     budgetTotalDifference,
     budgetTotalForecast,
+    budgetTotalMonthlyBudget,
     budgetTotalPayment,
     currentBudgetStatement,
     currentMonth,
