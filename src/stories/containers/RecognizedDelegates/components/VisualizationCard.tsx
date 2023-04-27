@@ -99,7 +99,6 @@ const ContainerBar = styled.div({
   },
 });
 const BarPercent = styled.div({
-  width: 279,
   height: 24,
 });
 const BarDescription = styled.div({
