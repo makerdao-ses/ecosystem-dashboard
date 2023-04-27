@@ -119,6 +119,7 @@ const dictionary = [
   'deco',
   'Feedblack',
   'Coldirion',
+  'Gnosis',
 ];
 
 module.exports = dictionary;
