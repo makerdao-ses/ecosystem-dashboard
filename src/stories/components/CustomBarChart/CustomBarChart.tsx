@@ -188,7 +188,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
               href={`${siteRoutes.coreUnitReports(props?.code || '')}?viewMonth=${monthsLinks && monthsLinks[i]}`}
               legacyBehavior
             >
-              <a>
+              <a onClick={(event: React.SyntheticEvent) => event.stopPropagation()}>
                 <text
                   x={i * 20 + padding - 2}
                   y={57}
@@ -215,7 +215,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
               href={`${siteRoutes.coreUnitReports(props?.code || '')}?viewMonth=${monthsLinks && monthsLinks[i]}`}
               legacyBehavior
             >
-              <a>
+              <a onClick={(event: React.SyntheticEvent) => event.stopPropagation()}>
                 <rect
                   x={i * 20 + padding + 2.5}
                   y="5"

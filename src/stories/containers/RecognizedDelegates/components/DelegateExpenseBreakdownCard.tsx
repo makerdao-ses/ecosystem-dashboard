@@ -6,12 +6,11 @@ import { getLinksFromRecognizedDelegates } from '@ses/core/businessLogic/reconiz
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
-import { formatAddressForOutput } from '@ses/core/utils/string';
+import { formatAddressForOutputDelegateWallet } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 
 import React from 'react';
 import { DelegateSocialDtoLinks } from '../DelegateExpenseBreakdown/DelegateSocialLink';
-import ButtonLink from './ButtonLink';
 import DelegateBarPercentTotal from './DelegateBarPercentTotal';
 import GenericDelegateCard from './GenericDelegateCard';
 import type { RecognizedDelegatesDto } from '@ses/core/models/dto/delegatesDTO';
@@ -41,7 +40,7 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
             <NameAddressColumn>
               <Name isLight={isLight}>{delegateCard.name}</Name>
               <ClipBoardRow>
-                <Address>{formatAddressForOutput(delegateCard.latestVotingContract)}</Address>
+                <Address>{formatAddressForOutputDelegateWallet(delegateCard.latestVotingContract)}</Address>
                 <ClipBoardContainer>
                   <ClipBoard />
                 </ClipBoardContainer>
@@ -76,16 +75,17 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
           </ContainerTotal>
         </DescriptionSection>
       </ContainerAvatarDescription>
-
+      <Divider />
       <SocialIconsSection>
         {delegateCard.socials && (
           <LinkContainer>
-            <DelegateSocialDtoLinks links={getLinksFromRecognizedDelegates(delegateCard)} fillDark="#ADAFD4" />
+            <DelegateSocialDtoLinks
+              links={getLinksFromRecognizedDelegates(delegateCard)}
+              fillDark="#ADAFD4"
+              hasTooltip
+            />
           </LinkContainer>
         )}
-        <ContainerButton>
-          <ButtonLink iconName="arrowLink" label="Profile" href="#" />
-        </ContainerButton>
       </SocialIconsSection>
     </ExtendedGenericDelegate>
   );
@@ -105,12 +105,13 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight>(({ isLi
   fontStyle: 'normal',
   height: 182,
   [lightTheme.breakpoints.up('table_834')]: {
-    padding: '16px',
-    height: 138,
+    padding: '0px',
+    height: 136,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     height: 80,
     flexDirection: 'row',
+    padding: '16px',
     justifyContent: 'space-between',
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
@@ -128,7 +129,7 @@ const AvatarSection = styled.div({
   marginBottom: 24,
   [lightTheme.breakpoints.up('table_834')]: {
     flex: 1,
-    marginBottom: 25,
+    marginBottom: 0,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     flex: 1,
@@ -189,13 +190,14 @@ const DescriptionSection = styled.div({
   [lightTheme.breakpoints.up('table_834')]: {
     flex: 1,
     marginRight: 0,
+    marginBottom: 0,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     marginLeft: 0,
     marginRight: 0,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginLeft: 40,
+    marginLeft: 0,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     marginLeft: 30,
@@ -210,6 +212,10 @@ const ContainerBar = styled.div({
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     flex: 1,
+    marginLeft: 6,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    marginLeft: -12,
   },
 });
 
@@ -232,13 +238,13 @@ const ContainerTotal = styled.div({
     textAlign: 'end',
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginRight: 26,
+    marginRight: 8,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginRight: 16,
+    marginRight: 12,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginRight: 30,
+    marginRight: 18,
   },
 });
 
@@ -302,12 +308,12 @@ const SocialIconsSection = styled.div({
   flexDirection: 'row',
   margin: '0 auto',
   [lightTheme.breakpoints.up('table_834')]: {
-    justifyContent: 'space-between',
-    margin: 'unset',
+    justifyContent: 'center',
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    flexDirection: 'row-reverse',
-    flex: 1,
+    flexDirection: 'row',
+    flex: 0.4,
+    justifyContent: 'flex-end',
   },
 });
 
@@ -328,29 +334,11 @@ const ClipBoardRow = styled.div({
 });
 
 const ClipBoardContainer = styled.div({
-  marginLeft: 16,
+  marginLeft: 18,
   display: 'flex',
   alignItems: 'center',
   [lightTheme.breakpoints.up('table_834')]: {
-    marginLeft: 2,
-  },
-});
-
-const ContainerButton = styled.div({
-  display: 'none',
-  [lightTheme.breakpoints.up('table_834')]: {
-    display: 'flex',
-    width: 107,
-  },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginLeft: 16,
-    marginTop: 8,
-  },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginLeft: 32,
-  },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginLeft: 52,
+    marginLeft: 6,
   },
 });
 
@@ -359,20 +347,34 @@ const ContainerAvatarDescription = styled.div({
   flexDirection: 'column',
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row',
+    padding: '16px 16px 0px 16px',
     justifyContent: 'space-between',
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     flexDirection: 'row',
+    padding: '0px',
+
     justifyContent: 'space-between',
-    flex: 1.5,
+    flex: 1,
+    alignItems: 'center',
   },
 });
 
 const LinkContainer = styled.div({
-  [lightTheme.breakpoints.up('table_834')]: {
-    marginLeft: 8,
-  },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     marginTop: 8,
+  },
+});
+
+const Divider = styled.div({
+  display: 'none',
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'flex',
+    border: '1px solid #D4D9E1',
+    marginBottom: 8,
+    marginTop: 24,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    display: 'none',
   },
 });

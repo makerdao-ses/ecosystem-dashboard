@@ -19,7 +19,7 @@ export const useRecognizedDelegates = (delegates: RecognizedDelegatesDto[], tota
     120453, 105432, 87654, 99432, 65023, 100021, 89054, 105032, 78965, 93021,
   ];
   const startDate = DateTime.fromISO('2021-11-01');
-  const endDate = DateTime.fromISO('2023-06-01');
+  const endDate = DateTime.fromISO('2023-03-01');
   const totalDelegates = 23;
   const shadowTotal = 43;
   const mediaAnnual = 89928;

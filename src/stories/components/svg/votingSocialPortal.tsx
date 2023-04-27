@@ -9,30 +9,26 @@ interface Props {
 }
 
 const VotingSocialPortal: React.FC<Props> = ({
-  fill = '#9FAFB9',
-  height = 22,
-  width = 23,
+  fill = '#708390',
+  height = 20,
+  width = 22,
   fillDark = '#D1DEE6',
   ...props
 }) => {
   const { isLight } = useThemeContext();
   return (
-    <svg width={width} height={height} viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <svg width={width} height={height} viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <path
+        d="M20.172 5.777V1.062M15.54 1.063h4.634"
+        stroke={isLight ? fill : fillDark}
+        strokeWidth={2.10642}
+        strokeLinecap="round"
+      />
       <path
         fillRule="evenodd"
         clipRule="evenodd"
-        d="M21.005.752L9.755.729a1.25 1.25 0 00-.005 2.5l8.232.017L16.21 5.01a2 2 0 011.777 1.758l1.759-1.752-.017 8.232a1.25 1.25 0 002.5.006l.023-11.25A1.25 1.25 0 0021.005.752zm-5.019 8.01a2 2 0 00-1.784-1.752l-6.194 6.17a2 2 0 001.731 1.803l6.247-6.221z"
+        d="M2.106 4.95A2.106 2.106 0 000 7.055V17.89c0 1.163.943 2.106 2.106 2.106h11.636a2.106 2.106 0 002.107-2.106V7.056a2.106 2.106 0 00-2.107-2.107H2.107zm.432 8.046a1.222 1.222 0 01-.055-1.706 1.172 1.172 0 011.677-.055l2.08 2.186 5.517-5.612a1.172 1.172 0 011.678 0 1.222 1.222 0 010 1.707l-7.14 7.264-3.757-3.784zM20.694 1.813a1.075 1.075 0 000-1.502 1.032 1.032 0 00-1.477 0l-3.647 3.71a2.11 2.11 0 011.314 1.654c.037-.029.073-.06.106-.094l3.704-3.768z"
         fill={isLight ? fill : fillDark}
-      />
-      <path
-        d="M7.026 10.94a1.25 1.25 0 00-1.767 1.768l1.767-1.768zm.72 4.255l.883.883 1.768-1.767-.884-.884-1.768 1.768zm-2.487-2.487l2.486 2.486 1.768-1.767-2.487-2.487-1.767 1.768z"
-        fill={isLight ? fill : fillDark}
-      />
-      <path
-        d="M17.747 16.004v3.032c0 .5-.405.905-.905.905H2.905A.905.905 0 012 19.036V5.1c0-.5.405-.905.905-.905h3.032"
-        stroke={fill}
-        strokeWidth={2.5}
-        strokeLinecap="round"
       />
     </svg>
   );
