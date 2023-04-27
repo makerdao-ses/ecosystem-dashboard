@@ -77,6 +77,7 @@ export const DelegateSocialDtoLinks = ({
             >
               <Link href={link} passHref>
                 <LinkImage
+                  marginBottom={link.linkType === LinkTypeEnum.VotingSocialPortal}
                   isLight={isLight}
                   key={i}
                   target="_blank"
@@ -89,6 +90,7 @@ export const DelegateSocialDtoLinks = ({
           ) : (
             <Link href={link} passHref>
               <LinkImage
+                marginBottom={link.linkType === LinkTypeEnum.VotingSocialPortal}
                 isLight={isLight}
                 key={i}
                 target="_blank"
@@ -119,14 +121,12 @@ const BoxContainer = styled.div<{ boxLinkWidth: number; boxLinkHeight: number }>
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    ':nth-of-type(3)': {
-      paddingBottom: 8,
-    },
   })
 );
-const LinkImage = styled.a<WithIsLight>(({ isLight }) => ({
+const LinkImage = styled.a<WithIsLight & { marginBottom?: boolean }>(({ isLight, marginBottom = false }) => ({
   display: 'flex',
   '&:hover svg path': {
     fill: isLight ? '#231536' : '#48495F',
   },
+  ...(marginBottom && { marginBottom: 8 }),
 }));
