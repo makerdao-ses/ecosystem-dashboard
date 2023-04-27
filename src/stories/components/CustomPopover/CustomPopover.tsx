@@ -80,6 +80,8 @@ interface CustomPopoverProps extends React.PropsWithChildren {
   className?: string;
   handleShowPopoverWhenNotSpace?: (arrowPosition: boolean) => void;
   refElementShowPopover?: React.RefObject<HTMLDivElement>;
+  closeOnClick?: boolean;
+  onClose?: () => void;
 }
 
 export const PopoverPaperStyle = (isLight: boolean) => ({
@@ -108,6 +110,8 @@ export const CustomPopover = ({
   className,
   refElementShowPopover,
   handleShowPopoverWhenNotSpace,
+  closeOnClick = true,
+  onClose,
   ...props
 }: CustomPopoverProps) => {
   const [state, dispatch] = useReducer(updateStatePositionPopoverReducer, InitialState);
@@ -125,7 +129,9 @@ export const CustomPopover = ({
     if (wrapper) {
       wrapper.removeEventListener('onscroll', handlePopoverClose);
     }
-  }, []);
+
+    onClose?.();
+  }, [onClose]);
 
   const handlePopoverOpen = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
@@ -162,7 +168,7 @@ export const CustomPopover = ({
         aria-owns={props.id}
         aria-haspopup="true"
         onMouseEnter={handlePopoverOpen}
-        onClick={handlePopoverClose}
+        onClick={() => closeOnClick && handlePopoverClose()}
         onMouseLeave={() => {
           if (leaveOnChildrenMouseOut) {
             clearTimeout(leaveTimeout);
