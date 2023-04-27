@@ -1,6 +1,6 @@
 import { LinkTypeEnum } from '../enums/linkTypeEnum';
 import type { DelegateSocialDto, RecognizedDelegatesDto } from '../models/dto/delegatesDTO';
-import type { LinkModel } from '@ses/components/CuTableColumnLinks/CuTableColumnLinks';
+import type { LinkModel } from '@ses/containers/RecognizedDelegates/DelegateExpenseBreakdown/DelegateSocialLink';
 
 export const getLinksFromRecognizedDelegates = (del: RecognizedDelegatesDto): LinkModel[] => {
   const result = [] as LinkModel[];
@@ -12,10 +12,17 @@ export const getLinksFromRecognizedDelegates = (del: RecognizedDelegatesDto): Li
 
   const linkTypeMap: Record<string, LinkTypeEnum> = {
     forumPlatform: LinkTypeEnum.Forum,
-    twitter: LinkTypeEnum.Twitter,
-    youtube: LinkTypeEnum.Youtube,
+    twitter: LinkTypeEnum.TwitterFooter,
     forumProfile: LinkTypeEnum.ProfileForum,
     votingPortal: LinkTypeEnum.VotingSocialPortal,
+    youtube: LinkTypeEnum.Youtube,
+  };
+  const descriptionOfTooltip: Record<string, string> = {
+    twitter: 'Twitter',
+    youtube: 'youtube',
+    forumPlatform: 'Forum',
+    forumProfile: 'Profile',
+    votingPortal: 'Voting Portal',
   };
 
   for (const [property, linkType] of Object.entries(linkTypeMap)) {
@@ -23,6 +30,7 @@ export const getLinksFromRecognizedDelegates = (del: RecognizedDelegatesDto): Li
       result.push({
         href: sm[property] || '',
         linkType,
+        toolTipDescription: descriptionOfTooltip[property],
       });
     }
   }

@@ -165,6 +165,7 @@ export const toKebabCase = (str: string): string =>
     .replace(/[\s_]+/g, '-') // Replace spaces and underscores with hyphens
     .replace(/[^a-zA-Z0-9-]/g, '') // Remove any non-alphanumeric characters (except hyphens)
     .toLowerCase(); // Convert all characters to lowercase
+
 export const formatAddressForOutputDelegateWallet = (address: string | undefined) => {
   if (!address) {
     return '';
