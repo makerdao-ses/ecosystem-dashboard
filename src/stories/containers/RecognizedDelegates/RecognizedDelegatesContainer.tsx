@@ -2,9 +2,11 @@ import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import { LinkButton } from '@ses/components/LinkButton/LinkButton';
+import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
+import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 
@@ -43,6 +45,16 @@ const RecognizedDelegatesContainer: React.FC<Props> = ({ delegates, totalDaiDele
   } = useRecognizedDelegates(delegates, totalDaiDelegates);
   return (
     <ExtendedPageContainer isLight={isLight}>
+      <SEOHead
+        title="MakerDAO Recognized Delegates Aggregated Views | Finances"
+        description="MakerDAO Recognized Delegates Aggregated Views provides a granular, detailed and transparent breakdown of recognized delegates expenses and compensations trends"
+        image={{
+          src: toAbsoluteURL('/assets/img/social-385x200.png'),
+          width: 385,
+          height: 200,
+        }}
+        twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
+      />
       <Container>
         <Title isLight={isLight}>Recognized Delegates</Title>
         <TotalAndKeyStatsComponent
