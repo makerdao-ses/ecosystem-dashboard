@@ -160,6 +160,7 @@ const LegendNumber = styled.div<WithIsLight>(({ isLight }) => ({
     fontWeight: 400,
     fontSize: '24px',
     lineHeight: '29px',
+    color: isLight ? '#231536' : '#EDEFFF',
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     letterSpacing: '0px',
@@ -180,6 +181,7 @@ const LegendNumberSuffix = styled.div<WithIsLight>(({ isLight }) => ({
     fontWeight: 400,
     fontSize: '24px',
     lineHeight: '29px',
+    color: isLight ? '#231536' : '#EDEFFF',
   },
 }));
 

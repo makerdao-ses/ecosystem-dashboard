@@ -10,11 +10,15 @@ interface CopyIconProps {
   className?: string;
   defaultTooltip?: string;
   defaultCopyTooltip?: string;
+  width?: number;
+  height?: number;
 }
 
 const CopyIcon: React.FC<CopyIconProps> = ({
   className,
   text,
+  height,
+  width,
   defaultTooltip = 'Copy',
   defaultCopyTooltip = 'Copied!',
 }) => {
@@ -37,7 +41,7 @@ const CopyIcon: React.FC<CopyIconProps> = ({
         }}
       >
         <CopyToClipboard text={text} onCopy={() => setPopoverText(defaultCopyTooltip)}>
-          <ClipBoard />
+          <ClipBoard width={width} height={height} />
         </CopyToClipboard>
       </CustomPopover>
     </IconContainer>
