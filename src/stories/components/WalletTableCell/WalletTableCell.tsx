@@ -4,7 +4,9 @@ import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { capitalizeSentence } from '../../../core/utils/string';
 import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
+import CopyIcon from '../CopyIcon/CopyIcon';
 import { CustomLink } from '../CustomLink/CustomLink';
+import Gnosis from '../svg/Gnosis';
 
 interface WalletTableCellProps {
   imgUrl?: string;
@@ -17,7 +19,7 @@ export const WalletTableCell = (props: WalletTableCellProps) => {
   const { isLight } = useThemeContext();
   return (
     <Container>
-      <CircleAvatar
+      <WalletAvatar
         className="circle-avatar"
         width={'32px'}
         height={'32px'}
@@ -28,18 +30,28 @@ export const WalletTableCell = (props: WalletTableCellProps) => {
       />
       <Data>
         <Label isLight={isLight}>{capitalizeSentence(props.name)}</Label>
-        <StyledLink
-          className="custom-link"
-          style={{
-            margin: 0,
-            fontFamily: 'Inter, sans-serif',
-            fontStyle: 'normal',
-          }}
-          href={`https://etherscan.io/address/${props.address}`}
-          withArrow={false}
-        >
-          {props.wallet.toLowerCase()}
-        </StyledLink>
+        <LinkContainer>
+          <StyledLink
+            className="custom-link"
+            style={{
+              margin: 0,
+              fontFamily: 'Inter, sans-serif',
+              fontStyle: 'normal',
+            }}
+            href={`https://etherscan.io/address/${props.address}`}
+            withArrow={false}
+          >
+            {props.wallet.toLowerCase()}
+          </StyledLink>
+
+          <IconsContainer>
+            <CopyIcon text={props.address ?? ''} defaultTooltip="Copy Address" />
+
+            <a href={`https://gnosis-safe.io/app/eth:${props.address}`} target="_blank">
+              <Gnosis />
+            </a>
+          </IconsContainer>
+        </LinkContainer>
       </Data>
     </Container>
   );
@@ -57,6 +69,18 @@ const Container = styled.div({
     '@media (min-width: 834px) and (max-width: 1193px)': {
       margin: '0 16px 0 8px',
     },
+  },
+});
+
+const WalletAvatar = styled(CircleAvatar)({
+  [lightTheme.breakpoints.up('table_834')]: {
+    // !important is needed to override the inline style
+    marginTop: '-6px!important',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    // !important is needed to override the inline style
+    marginTop: '3px!important',
   },
 });
 
@@ -85,12 +109,24 @@ const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   },
 }));
 
+const LinkContainer = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  marginTop: 4,
+
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    marginTop: 3,
+  },
+});
+
 const StyledLink = styled(CustomLink)({
   '&.custom-link': {
     fontSize: 14,
     fontWeight: 400,
     lineHeight: '17px',
+    letterSpacing: 0,
     margin: 0,
+
     [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
       fontSize: 12,
       lineHeight: '15px',
@@ -100,6 +136,37 @@ const StyledLink = styled(CustomLink)({
       fontSize: 14,
       lineHeight: '17px',
       fontWeight: 400,
+    },
+  },
+});
+
+const IconsContainer = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+
+  '& > div': {
+    cursor: 'pointer',
+    marginLeft: 13,
+
+    '> *': {
+      display: 'flex',
+    },
+
+    [lightTheme.breakpoints.up('table_834')]: {
+      marginLeft: 5,
+    },
+
+    [lightTheme.breakpoints.up('desktop_1194')]: {
+      marginLeft: -1,
+    },
+  },
+
+  a: {
+    display: 'flex',
+    marginLeft: 32,
+
+    [lightTheme.breakpoints.up('table_834')]: {
+      marginLeft: 16,
     },
   },
 });

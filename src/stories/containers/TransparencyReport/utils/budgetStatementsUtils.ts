@@ -21,6 +21,12 @@ export const getGroupActual = (group: BudgetStatementLineItemDto[], month: strin
     (item) => item.actual ?? 0
   );
 
+export const getWalletMonthlyBudget = (wallet: BudgetStatementWalletDto, month: string) =>
+  _.sumBy(
+    wallet.budgetStatementLineItem.filter((item) => item.month === month),
+    (i) => i.budgetCap ?? 0
+  );
+
 export const getWalletActual = (wallet: BudgetStatementWalletDto, month: string) =>
   _.sumBy(
     wallet?.budgetStatementLineItem.filter((item) => item.month === month),

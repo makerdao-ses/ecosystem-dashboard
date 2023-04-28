@@ -17,7 +17,11 @@ const MedianAnnualDai: React.FC<Props> = ({ annual }) => {
 
   return (
     <ExtendedGenericDelegate>
-      <Annual isLight={isLight}>{`${formatted} dai`}</Annual>
+      <Annual isLight={isLight}>
+        {`${formatted}`}
+        <span>Dai</span>
+      </Annual>
+
       <DescriptionDelegatesExtended>Median Annual Compensation / Delegate</DescriptionDelegatesExtended>
     </ExtendedGenericDelegate>
   );
@@ -74,6 +78,10 @@ export const Annual = styled.div<WithIsLight>(({ isLight }) => ({
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     letterSpacing: '0.3px',
+    '& span': {
+      marginLeft: 2,
+      color: isLight ? '#243465' : '#708390',
+    },
   },
 }));
 

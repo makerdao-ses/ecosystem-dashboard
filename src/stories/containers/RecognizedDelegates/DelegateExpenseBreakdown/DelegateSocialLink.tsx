@@ -127,6 +127,7 @@ const LinkImage = styled.a<WithIsLight & { marginBottom?: boolean }>(({ isLight,
   display: 'flex',
   '&:hover svg path': {
     fill: isLight ? '#231536' : '#48495F',
+    stroke: isLight ? '#231536' : '#48495F',
   },
   ...(marginBottom && { marginBottom: 8 }),
 }));
