@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
+import CopyIcon from '@ses/components/CopyIcon/CopyIcon';
 import ArrowLink from '@ses/components/svg/ArrowLink';
-import ClipBoard from '@ses/components/svg/ClipBoard';
 import { getLinksFromRecognizedDelegates } from '@ses/core/businessLogic/reconizedDelegate';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
@@ -42,7 +42,7 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
               <ClipBoardRow>
                 <Address>{formatAddressForOutputDelegateWallet(delegateCard.latestVotingContract)}</Address>
                 <ClipBoardContainer>
-                  <ClipBoard />
+                  <CopyIcon text={delegateCard.latestVotingContract ?? ''} defaultTooltip="Copy Address" />
                 </ClipBoardContainer>
               </ClipBoardRow>
             </NameAddressColumn>
@@ -334,9 +334,12 @@ const ClipBoardRow = styled.div({
 });
 
 const ClipBoardContainer = styled.div({
-  marginLeft: 18,
+  marginLeft: 20,
   display: 'flex',
   alignItems: 'center',
+  '& div': {
+    display: 'flex',
+  },
   [lightTheme.breakpoints.up('table_834')]: {
     marginLeft: 6,
   },

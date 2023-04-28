@@ -108,10 +108,10 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
       expenditureLevel = ExpenditureLevel.OPTIMAL;
     }
 
-    if (percent > 90 && percent < 100) {
+    if (percent > 90 && percent <= 100) {
       expenditureLevel = ExpenditureLevel.STRETCHED;
     }
-    if (percent >= 100) {
+    if (percent > 100) {
       expenditureLevel = ExpenditureLevel.OVERBUDGET;
     }
 
