@@ -21,7 +21,8 @@ export const getActualsBreakdownColumns = (wallet: BudgetStatementWalletDto) => 
 
   return [
     {
-      header: 'Group',
+      // group column
+      header: '',
       align: 'left',
       type: 'text',
       hidden: !hasGroups,
