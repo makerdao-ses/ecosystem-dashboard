@@ -6,6 +6,7 @@ import { TransparencyEmptyTable } from '../../containers/TransparencyReport/comp
 import { NumberCell } from '../NumberCell/NumberCell';
 import { TextCell } from '../TextCell/TextCell';
 import { TransparencyCard } from '../TransparencyCard/TransparencyCard';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export interface InnerTableColumn {
   align?: string;
@@ -20,6 +21,7 @@ export interface InnerTableColumn {
   minWidth?: string;
   hidden?: boolean;
   hasBorderRight?: boolean;
+  hasBorderBottomOnCard?: boolean;
 }
 
 export interface InnerTableCell {
@@ -28,11 +30,13 @@ export interface InnerTableCell {
   isBold?: boolean;
 }
 
-export type RowType = 'normal' | 'total' | 'section' | 'subTotal';
+export type RowType = 'normal' | 'total' | 'section' | 'groupTitle' | 'subTotal';
 
 export interface InnerTableRow {
   type: RowType;
   items: InnerTableCell[];
+  borderTop?: boolean;
+  borderBottom?: boolean;
   hideMobile?: boolean;
 }
 
@@ -62,7 +66,7 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
     if (value !== 0 && !value) {
       return <></>;
     }
-    const isBold = rowType === 'total' || rowType === 'section' || rowType === 'subTotal';
+    const isBold = rowType === 'total' || rowType === 'section' || rowType === 'groupTitle' || rowType === 'subTotal';
     const columnType = rowType === 'total' && column?.type === 'custom' ? 'text' : column?.type;
 
     switch (columnType) {
@@ -71,7 +75,13 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
       case 'incomeNumber':
         return <NumberCell key={column.header} value={Number(value)} bold={isBold} isIncome={true} />;
       case 'text':
-        return (
+        return rowType === 'groupTitle' ? (
+          <TextCell key={column.header} isHeader={true}>
+            <GroupTitle isLight={isLight} className="table-groupTitle">
+              {value as string}
+            </GroupTitle>
+          </TextCell>
+        ) : (
           <TextCell key={column.header} bold={isBold} isHeader={column.isCardHeader}>
             {value as string}
           </TextCell>
@@ -125,13 +135,12 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
             </TableHead>
             <tbody>
               {items?.map((row, i) => (
-                <tr key={i}>
+                <TableRow key={i} isLight={isLight} borderTop={row.borderTop} borderBottom={row.borderBottom}>
                   {row.items
                     ?.filter((x) => !x.column.hidden)
                     .map((item, j) => (
                       <TableCell
                         hasBorderRight={item.column.hasBorderRight}
-                        isSubTotal={row.type === 'subTotal'}
                         isLight={isLight}
                         key={`${i}-${j}`}
                         textAlign={(item.column?.align ?? 'left') as Alignment}
@@ -140,7 +149,7 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
                         {getCell(item.column, row.type, item.value as any)}
                       </TableCell>
                     ))}
-                </tr>
+                </TableRow>
               ))}
             </tbody>
           </Table>
@@ -148,7 +157,11 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
       </TableWrapper>
       <CardsWrapper>
         {cardItems.map((item, i) =>
-          item.type === 'section' ? (
+          item.type === 'groupTitle' ? (
+            <GroupTitle isLight={isLight} key={`groupTitle-${i}`} className="table-groupTitle">
+              {item.items[0].value as string}
+            </GroupTitle>
+          ) : item.type === 'section' ? (
             <Title isLight={isLight} fontSize="14px" key={`section-${i}`} className="table-section">
               {item.items[0].value as string}
             </Title>
@@ -156,6 +169,9 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
             <TransparencyCard
               itemType={item.type}
               key={`item-${i}`}
+              separators={item.items
+                .filter((x) => !x.column.hidden && !x.column.isCardHeader && !x.column.isCardFooter)
+                .map((x) => !!x.column.hasBorderBottomOnCard)}
               header={
                 <>
                   {item.items
@@ -163,10 +179,12 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
                     .map((x) => getCell(x.column, item.type, x.value))}
                 </>
               }
-              headers={columns.filter((x) => !x.isCardHeader && !x.isCardFooter).map((x) => x.header ?? '')}
+              headers={columns
+                .filter((x) => !x.hidden && !x.isCardHeader && !x.isCardFooter)
+                .map((x) => x.header ?? '')}
               items={
                 item.items
-                  .filter((x) => !x.column?.isCardFooter && !x.column?.isCardHeader)
+                  .filter((x) => !x.column.hidden && !x.column?.isCardFooter && !x.column?.isCardHeader)
                   .map((x) => getCell(x.column, item.type, x.value)) ?? []
               }
               footer={
@@ -205,14 +223,10 @@ const Table = styled.table({
 
 const TableCell = styled.td<{
   textAlign: 'left' | 'center' | 'right';
-  isSubTotal?: boolean;
   isLight?: boolean;
   hasBorderRight?: boolean;
-}>(({ textAlign, isSubTotal, isLight, hasBorderRight }) => ({
+}>(({ textAlign, isLight, hasBorderRight }) => ({
   textAlign,
-  ...(isSubTotal && {
-    borderBottom: isLight ? '1px solid #D4D9E1' : '1px solid #405361',
-  }),
   borderRight: hasBorderRight ? (isLight ? '1px solid #D4D9E1' : '1px solid #405361') : 'none',
 }));
 
@@ -247,3 +261,19 @@ const CardsWrapper = styled.div({
     display: 'none',
   },
 });
+
+const GroupTitle = styled.div<WithIsLight>(({ isLight }) => ({
+  fontSize: 12,
+  lineHeight: '15px',
+  fontWeight: 600,
+  letterSpacing: '1px',
+  textTransform: 'uppercase',
+  color: isLight ? '#231536' : 'red',
+}));
+
+const TableRow = styled.tr<WithIsLight & { borderTop?: boolean; borderBottom?: boolean }>(
+  ({ isLight, borderTop = false, borderBottom = false }) => ({
+    borderTop: borderTop ? `1px solid ${isLight ? '#D4D9E1' : '#405361'}` : 'none',
+    borderBottom: borderBottom ? `1px solid ${isLight ? '#D4D9E1' : '#405361'}` : 'none',
+  })
+);

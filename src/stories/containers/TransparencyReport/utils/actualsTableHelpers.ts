@@ -1,40 +1,112 @@
-import _ from 'lodash';
+import groupBy from 'lodash/groupBy';
 import {
   getCommentsFromCategory,
   getGroupActual,
   getGroupDifference,
   getGroupForecast,
+  getGroupMonthlyBudget,
   getGroupPayment,
-  getLineItemsSubtotal,
   getWalletActual,
   getWalletDifference,
   getWalletForecast,
+  getWalletMonthlyBudget,
   getWalletPayment,
-  hasExpenses,
+  hasGroupExpenses,
   hasWalletGroups,
+  reduceLineItemsToTotals,
 } from './budgetStatementsUtils';
 import type { InnerTableColumn, InnerTableRow, RowType } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import type { BudgetStatementLineItemDto, BudgetStatementWalletDto } from '@ses/core/models/dto/coreUnitDTO';
+
+export const getActualsBreakdownItems = (
+  items: BudgetStatementLineItemDto[],
+  month: string,
+  breakdownColumns: InnerTableColumn[],
+  type?: RowType
+) => {
+  const result: InnerTableRow[] = [];
+  const grouped = groupBy(items, (item) => item.group);
+
+  for (const groupedKey in grouped) {
+    if (
+      Math.abs(getGroupForecast(grouped[groupedKey], month)) + Math.abs(getGroupActual(grouped[groupedKey], month)) ===
+      0
+    ) {
+      continue;
+    }
+
+    const groupedCategory = groupBy(grouped[groupedKey], (item) => item.budgetCategory);
+
+    for (const groupedCatKey in groupedCategory) {
+      if (
+        Math.abs(getGroupForecast(groupedCategory[groupedCatKey], month)) +
+          Math.abs(getGroupActual(groupedCategory[groupedCatKey], month)) ===
+        0
+      ) {
+        continue;
+      }
+
+      result.push({
+        type: type || 'normal',
+        ...(type === 'subTotal'
+          ? {
+              borderTop: true,
+              borderBottom: true,
+            }
+          : {}),
+        items: [
+          {
+            column: breakdownColumns[0],
+            value: groupedCategory[groupedCatKey][0].budgetCategory,
+          },
+          {
+            column: breakdownColumns[1],
+            value: getGroupMonthlyBudget(groupedCategory[groupedCatKey], month),
+          },
+          {
+            column: breakdownColumns[2],
+            value: getGroupForecast(groupedCategory[groupedCatKey], month),
+          },
+          {
+            column: breakdownColumns[3],
+            value: getGroupActual(groupedCategory[groupedCatKey], month),
+          },
+          {
+            column: breakdownColumns[4],
+            value: getGroupDifference(groupedCategory[groupedCatKey], month),
+          },
+          {
+            column: breakdownColumns[5],
+            value: getCommentsFromCategory(groupedCategory[groupedCatKey], month),
+          },
+          {
+            column: breakdownColumns[6],
+            value: getGroupPayment(groupedCategory[groupedCatKey], month),
+          },
+        ],
+      });
+    }
+  }
+
+  return result;
+};
 
 export const getActualsBreakdownColumns = (wallet: BudgetStatementWalletDto) => {
   const hasGroups = hasWalletGroups(wallet);
 
   return [
     {
-      // group column
-      header: '',
-      align: 'left',
-      type: 'text',
-      hidden: !hasGroups,
-      isCardHeader: true,
-      width: '240px',
-    },
-    {
       header: 'Expense Category',
       align: 'left',
       type: 'text',
       isCardHeader: true,
       width: hasGroups ? '220px' : '240px',
+    },
+    {
+      header: 'Mthly Budget',
+      align: 'right',
+      hidden: !hasGroups,
+      type: 'number',
     },
     {
       header: 'Forecast',
@@ -65,154 +137,145 @@ export const getActualsBreakdownColumns = (wallet: BudgetStatementWalletDto) => 
   ] as InnerTableColumn[];
 };
 
-export const getActualsBreakdownItems = (
-  items: BudgetStatementLineItemDto[],
-  month: string,
-  breakdownColumns: InnerTableColumn[],
-  type?: RowType
-) => {
-  const result: InnerTableRow[] = [];
-  const grouped = _.groupBy(items, (item) => item.group);
-
-  for (const groupedKey in grouped) {
-    if (
-      Math.abs(getGroupForecast(grouped[groupedKey], month)) + Math.abs(getGroupActual(grouped[groupedKey], month)) ===
-      0
-    ) {
-      continue;
-    }
-
-    const groupedCategory = _.groupBy(grouped[groupedKey], (item) => item.budgetCategory);
-
-    let i = 1;
-    for (const groupedCatKey in groupedCategory) {
-      if (
-        Math.abs(getGroupForecast(groupedCategory[groupedCatKey], month)) +
-          Math.abs(getGroupActual(groupedCategory[groupedCatKey], month)) ===
-        0
-      ) {
-        continue;
-      }
-
-      result.push({
-        type: type || 'normal',
-        items: [
-          {
-            column: breakdownColumns[0],
-            value: i === 1 && groupedKey !== 'null' ? groupedKey : '',
-          },
-          {
-            column: breakdownColumns[1],
-            value: groupedCategory[groupedCatKey][0].budgetCategory,
-          },
-          {
-            column: breakdownColumns[2],
-            value: getGroupForecast(groupedCategory[groupedCatKey], month),
-          },
-          {
-            column: breakdownColumns[3],
-            value: getGroupActual(groupedCategory[groupedCatKey], month),
-          },
-          {
-            column: breakdownColumns[4],
-            value: getGroupDifference(groupedCategory[groupedCatKey], month),
-          },
-          {
-            column: breakdownColumns[5],
-            value: getCommentsFromCategory(groupedCategory[groupedCatKey], month),
-          },
-          {
-            column: breakdownColumns[6],
-            value: getGroupPayment(groupedCategory[groupedCatKey], month),
-          },
-        ],
-      });
-
-      i++;
-    }
-  }
-
-  return result;
-};
-
 export const getActualsBreakdownItemsForWallet = (
-  walletAddress: string,
-  wallets: BudgetStatementWalletDto[],
+  wallet: BudgetStatementWalletDto,
   breakdownColumns: InnerTableColumn[],
   month: string
 ) => {
+  const hasGroups = hasWalletGroups(wallet);
+  const grouped = groupBy(wallet.budgetStatementLineItem, (item) => (item.group?.trim() ? item.group : ''));
+
   const result: InnerTableRow[] = [];
 
-  const wallet = wallets?.find((w) => w.address === walletAddress);
-  if (!wallet) {
-    return result;
-  }
+  for (const groupedKey in grouped) {
+    const hasHeadcount = hasGroupExpenses(wallet, groupedKey, month, true);
+    const hasNonHeadcount = hasGroupExpenses(wallet, groupedKey, month, false);
+    if (!hasHeadcount && !hasNonHeadcount) {
+      continue;
+    }
 
-  const hasGroups = hasWalletGroups(wallet);
-  if (hasExpenses(wallet, month, true)) {
-    result.push({
-      items: [
-        {
-          column: breakdownColumns[0],
-          value: 'Headcount Expenses',
-        },
-        {
-          column: breakdownColumns[1],
-          value: hasGroups ? '' : 'Headcount Expenses',
-        },
-      ],
-      type: 'section',
-    });
+    if (hasGroups) {
+      // it is a project group
+      result.push({
+        type: 'groupTitle',
+        items: [
+          {
+            column: breakdownColumns[0],
+            value: groupedKey === '' ? 'Core Unit' : groupedKey,
+          },
+        ],
+      });
+    }
+    if (hasHeadcount) {
+      result.push({
+        items: [
+          {
+            column: breakdownColumns[0],
+            value: 'Headcount Expenses',
+          },
+        ],
+        type: 'section',
+      });
 
-    result.push(
-      ...getActualsBreakdownItems(
-        wallet?.budgetStatementLineItem?.filter((item) => item.headcountExpense),
-        month,
-        breakdownColumns
-      )
-    );
+      result.push(
+        ...getActualsBreakdownItems(
+          wallet?.budgetStatementLineItem?.filter(
+            (item) => item.headcountExpense && (item.group === groupedKey || (!item.group && !groupedKey))
+          ),
+          month,
+          breakdownColumns
+        )
+      );
 
-    result.push(
-      ...getActualsBreakdownItems(
-        [getLineItemsSubtotal(wallet, true, month, 'Subtotal')],
-        month,
-        breakdownColumns,
-        'subTotal'
-      )
-    );
-  }
+      if (!hasGroups) {
+        // subtotal when it is a headcount without a group
+        result.push(
+          ...getActualsBreakdownItems(
+            [
+              {
+                ...reduceLineItemsToTotals(
+                  wallet.budgetStatementLineItem.filter(
+                    (item) =>
+                      item.month === month &&
+                      ['', 'null', null].includes(item.group?.trim() ?? '') &&
+                      item.headcountExpense
+                  )
+                ),
+                budgetCategory: 'Subtotal',
+              },
+            ],
+            month,
+            breakdownColumns,
+            'subTotal'
+          )
+        );
+      }
+    }
 
-  if (hasExpenses(wallet, month, false)) {
-    result.push({
-      items: [
-        {
-          column: breakdownColumns[0],
-          value: 'Non-Headcount Expenses',
-        },
-        {
-          column: breakdownColumns[1],
-          value: hasGroups ? '' : 'Non-Headcount Expenses',
-        },
-      ],
-      type: 'section',
-    });
+    if (hasNonHeadcount) {
+      result.push({
+        items: [
+          {
+            column: breakdownColumns[0],
+            value: 'Non-Headcount Expenses',
+          },
+        ],
+        type: 'section',
+      });
 
-    const headcountExpenseItems = getActualsBreakdownItems(
-      wallet?.budgetStatementLineItem?.filter((item) => !item.headcountExpense),
-      month,
-      breakdownColumns
-    );
+      result.push(
+        ...getActualsBreakdownItems(
+          wallet?.budgetStatementLineItem?.filter(
+            (item) => !item.headcountExpense && (item.group === groupedKey || (!item.group && !groupedKey))
+          ),
+          month,
+          breakdownColumns
+        )
+      );
 
-    result.push(...headcountExpenseItems);
+      if (!hasGroups) {
+        // subtotal when it is a non headcount without a group
+        result.push(
+          ...getActualsBreakdownItems(
+            [
+              {
+                ...reduceLineItemsToTotals(
+                  wallet.budgetStatementLineItem.filter(
+                    (item) =>
+                      item.month === month &&
+                      ['', undefined, null].includes(item.group?.trim() ?? '') &&
+                      !item.headcountExpense
+                  )
+                ),
+                budgetCategory: 'Subtotal',
+              },
+            ],
+            month,
+            breakdownColumns,
+            'subTotal'
+          )
+        );
+      }
+    }
 
-    result.push(
-      ...getActualsBreakdownItems(
-        [getLineItemsSubtotal(wallet, false, month, 'Subtotal')],
-        month,
-        breakdownColumns,
-        'subTotal'
-      )
-    );
+    if (hasGroups) {
+      // subtotal of the whole group (headcount and non headcount)
+      result.push(
+        ...getActualsBreakdownItems(
+          [
+            {
+              ...reduceLineItemsToTotals(
+                wallet.budgetStatementLineItem.filter((item) => item.month === month && item.group === groupedKey)
+              ),
+              budgetCategory: 'Subtotal',
+            },
+          ],
+          month,
+          breakdownColumns,
+          'subTotal'
+        )
+      );
+    }
   }
 
   if (result.length > 0) {
@@ -221,11 +284,11 @@ export const getActualsBreakdownItemsForWallet = (
       items: [
         {
           column: breakdownColumns[0],
-          value: hasGroups ? 'Total' : '',
+          value: 'Total',
         },
         {
           column: breakdownColumns[1],
-          value: hasGroups ? '' : 'Total',
+          value: getWalletMonthlyBudget(wallet, month),
         },
         {
           column: breakdownColumns[2],

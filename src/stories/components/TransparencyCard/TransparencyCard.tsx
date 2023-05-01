@@ -7,6 +7,7 @@ interface Props {
   header: JSX.Element | string;
   headers: JSX.Element[] | string[];
   items?: JSX.Element[];
+  separators?: boolean[];
   footer?: JSX.Element | string;
   hasIcon?: boolean;
   // TODO: Type this to avoid lower and uppercase error
@@ -38,7 +39,7 @@ export const TransparencyCard = (props: Props) => {
               {(props.items && props.items[i]) ?? ''}
             </div>
           </Row>
-          {header === 'Mthly Budget' && <ContainerLine isLight={isLight} />}
+          {props.separators?.[i] && <ContainerLine isLight={isLight} />}
         </>
       ))}
 

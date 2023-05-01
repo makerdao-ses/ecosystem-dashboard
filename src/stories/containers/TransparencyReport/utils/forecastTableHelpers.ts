@@ -191,6 +191,8 @@ export const getBreakdownItemsForGroup = (
 
   result.push({
     type: type || 'normal',
+    borderTop: true,
+    borderBottom: true,
     items: [
       {
         column: breakdownColumns[0],

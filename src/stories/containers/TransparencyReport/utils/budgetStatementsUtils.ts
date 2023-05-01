@@ -10,9 +10,9 @@ import type { DateTime } from 'luxon';
 export const hasWalletGroups = (wallet: BudgetStatementWalletDto) =>
   wallet.budgetStatementLineItem.some((item) => item.group && item.actual);
 
-export const hasExpenses = (wallet: BudgetStatementWalletDto, month: string, isHeadcount = true) =>
+export const hasGroupExpenses = (wallet: BudgetStatementWalletDto, group: string, month: string, isHeadcount = true) =>
   wallet.budgetStatementLineItem
-    ?.filter((item) => item.headcountExpense === isHeadcount)
+    ?.filter((item) => item.headcountExpense === isHeadcount && (item.group === group || (!item.group && !group)))
     .some((x) => (x.actual || x.forecast) && x.month === month);
 
 export const getGroupActual = (group: BudgetStatementLineItemDto[], month: string) =>
@@ -31,6 +31,12 @@ export const getWalletActual = (wallet: BudgetStatementWalletDto, month: string)
   _.sumBy(
     wallet?.budgetStatementLineItem.filter((item) => item.month === month),
     (i) => i.actual ?? 0
+  );
+
+export const getGroupMonthlyBudget = (group: BudgetStatementLineItemDto[], month: string) =>
+  _.sumBy(
+    group.filter((item) => item.month === month),
+    (item) => item.budgetCap ?? 0
   );
 
 export const getGroupForecast = (group: BudgetStatementLineItemDto[], month: string) =>
@@ -68,36 +74,23 @@ export const getCommentsFromCategory = (group: BudgetStatementLineItemDto[], mon
     .filter((item) => item.month === month && item.comments !== undefined)
     .reduce((current, next) => `${current} ${next.comments !== '' ? next.comments : ''}`, '');
 
-export const getLineItemsSubtotal = (
-  wallet: BudgetStatementWalletDto,
-  isHeadcount: boolean,
-  month: string,
-  title: string
-) => {
-  const items = wallet.budgetStatementLineItem.filter((item) => item.headcountExpense === isHeadcount);
-  const hasGroups = hasWalletGroups(wallet);
-
-  return (
-    items?.reduce(
-      (prv, curr) =>
-        curr.month === month
-          ? {
-              group: hasGroups ? title : '',
-              budgetCategory: !hasGroups ? title : '',
-              actual: prv.actual + curr.actual,
-              forecast: (prv?.forecast ?? 0) + (curr?.forecast ?? 0),
-              payment: (prv?.payment ?? 0) + (curr?.payment ?? 0),
-              month,
-            }
-          : prv,
-      {
-        actual: 0,
-        forecast: 0,
-        payment: 0,
-      }
-    ) ?? {}
+export const reduceLineItemsToTotals = (lineItems: BudgetStatementLineItemDto[]) =>
+  lineItems.reduce(
+    (prv, curr) => ({
+      group: curr.group,
+      budgetCap: (prv.budgetCap ?? 0) + (curr.budgetCap ?? 0),
+      actual: prv.actual + curr.actual,
+      forecast: (prv.forecast ?? 0) + (curr.forecast ?? 0),
+      payment: (prv.payment ?? 0) + (curr.payment ?? 0),
+      month: curr.month,
+    }),
+    {
+      budgetCap: 0,
+      actual: 0,
+      forecast: 0,
+      payment: 0,
+    }
   );
-};
 
 // forecast
 

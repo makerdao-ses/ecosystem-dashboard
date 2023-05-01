@@ -98,6 +98,7 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
         type: 'number',
         align: 'right',
         hasBorderRight: true,
+        hasBorderBottomOnCard: true,
       },
       {
         header: '3 Months',
