@@ -8,7 +8,7 @@ export default {
   component: TotalAndKeyStatsComponent,
   parameters: {
     chromatic: {
-      viewports: [375, 834],
+      viewports: [375, 834, 1194, 1280, 1440],
     },
   },
 } as ComponentMeta<typeof TotalAndKeyStatsComponent>;
@@ -55,7 +55,7 @@ TotalAndKeyStats.parameters = {
         options: {
           style: {
             left: -24,
-            top: 4,
+            top: -4,
           },
           componentStyle: {
             width: '770px',
@@ -68,10 +68,36 @@ TotalAndKeyStats.parameters = {
         options: {
           style: {
             left: -24,
-            top: 4,
+            top: -4,
           },
           componentStyle: {
             width: '1130px',
+          },
+        },
+      },
+      1280: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:193296&t=PBXmLL3ksPWeEFvH-4',
+        options: {
+          style: {
+            left: -24,
+            top: -4,
+          },
+          componentStyle: {
+            width: '1184px',
+          },
+        },
+      },
+      1440: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:189869&t=PBXmLL3ksPWeEFvH-4',
+        options: {
+          style: {
+            left: -24,
+            top: -4,
+          },
+          componentStyle: {
+            width: '1312px',
           },
         },
       },
