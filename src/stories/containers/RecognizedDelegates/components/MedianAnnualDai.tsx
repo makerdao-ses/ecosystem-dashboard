@@ -66,6 +66,10 @@ export const Annual = styled.div<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#24346 : ' : '#EDEFFF',
   marginBottom: 4,
   textTransform: 'uppercase',
+  '& span': {
+    marginLeft: 2,
+    color: isLight ? '#243465' : '#708390',
+  },
   [lightTheme.breakpoints.up('table_834')]: {
     fontWeight: 500,
     fontSize: '30px',
@@ -78,10 +82,6 @@ export const Annual = styled.div<WithIsLight>(({ isLight }) => ({
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     letterSpacing: '0.3px',
-    '& span': {
-      marginLeft: 2,
-      color: isLight ? '#243465' : '#708390',
-    },
   },
 }));
 
@@ -96,7 +96,7 @@ const DescriptionDelegatesExtended = styled(DescriptionDelegates)({
     alignItems: 'end',
     fontWeight: 400,
     height: 72,
-    marginTop: -20,
+    marginTop: -22,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     marginTop: -5,
