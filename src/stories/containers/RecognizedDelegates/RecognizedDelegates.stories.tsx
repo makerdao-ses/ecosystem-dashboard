@@ -116,9 +116,9 @@ LightMode.parameters = {
             top: -16,
             left: -16,
           },
-        },
-        componentStyle: {
-          width: '834px',
+          componentStyle: {
+            width: '834px',
+          },
         },
       },
       1194: {
@@ -129,9 +129,9 @@ LightMode.parameters = {
             top: -16,
             left: -16,
           },
-        },
-        componentStyle: {
-          width: '1194px',
+          componentStyle: {
+            width: '1194px',
+          },
         },
       },
       1280: {
@@ -142,9 +142,9 @@ LightMode.parameters = {
             top: -16,
             left: -16,
           },
-        },
-        componentStyle: {
-          width: '1280px',
+          componentStyle: {
+            width: '1280px',
+          },
         },
       },
       1440: {
@@ -155,9 +155,9 @@ LightMode.parameters = {
             top: -16,
             left: -16,
           },
-        },
-        componentStyle: {
-          width: '1440px',
+          componentStyle: {
+            width: '1440px',
+          },
         },
       },
     },
