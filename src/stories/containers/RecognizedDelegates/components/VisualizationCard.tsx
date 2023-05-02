@@ -287,7 +287,7 @@ const ExtendedLegendItem = styled(LegendItem)({
 });
 
 const LegendItemOtherExpenses = styled(LegendItem)({
-  '& :first-child': {
+  '& :first-of-type': {
     marginTop: -2,
   },
 });
@@ -301,7 +301,6 @@ const ContainerChart = styled.div({
     alignContent: 'center',
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    // flex: 0.6,
     width: 247,
   },
 });
