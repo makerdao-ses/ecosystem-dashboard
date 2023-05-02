@@ -1,5 +1,4 @@
 import { RecognizedDelegatesBuilder } from '@ses/core/businessLogic/builders/recognizedDelegatesBuilder';
-import { withoutSBPadding } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AppLayout from '../AppLayout/AppLayout';
 import RecognizedDelegatesContainer from './RecognizedDelegatesContainer';
@@ -9,8 +8,8 @@ import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types
 export default {
   title: 'Pages/Recognized Delegates',
   component: RecognizedDelegatesContainer,
-  decorators: [withoutSBPadding],
   parameters: {
+    layout: 'fullscreen',
     nextRouter: {
       pathname: '/delegates',
     },
@@ -105,7 +104,7 @@ LightMode.parameters = {
         options: {
           ...optionStyles,
           componentStyle: {
-            width: 375,
+            width: '375px',
           },
         },
       },
