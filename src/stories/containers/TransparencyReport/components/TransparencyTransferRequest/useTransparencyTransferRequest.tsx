@@ -2,7 +2,7 @@ import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
 import { formatNumber } from '@ses/core/utils/string';
 import { DateTime } from 'luxon';
 import { useCallback, useMemo } from 'react';
-import { renderLinks, RenderNumberWithIcon, renderWallet, TotalTargetBalance } from '../../transparencyReportUtils';
+import { RenderNumberWithIcon, renderWallet, TotalTargetBalance } from '../../transparencyReportUtils';
 import { useTransparencyForecast } from '../TransparencyForecast/useTransparencyForecast';
 import type { InnerTableColumn, InnerTableRow } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import type {
@@ -160,13 +160,6 @@ export const useTransparencyTransferRequest = (
         type: 'number',
         align: 'right',
       },
-      {
-        header: 'multi-sig address',
-        type: 'custom',
-        width: '240px',
-        cellRender: renderLinks,
-        isCardFooter: true,
-      },
     ];
     return mainTableColumns;
   }, [getWalletBalanceTimeStamp]);
@@ -203,10 +196,6 @@ export const useTransparencyTransferRequest = (
           {
             column: mainTableColumns[3],
             value: getTransferRequestForMonthOnWallet(wallet?.address),
-          },
-          {
-            column: mainTableColumns[4],
-            value: wallet.address,
           },
         ],
       });

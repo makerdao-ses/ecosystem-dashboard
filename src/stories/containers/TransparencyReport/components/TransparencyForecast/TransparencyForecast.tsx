@@ -70,13 +70,13 @@ export const TransparencyForecast = (props: Props) => {
         style={{ marginBottom: '64px' }}
         cardsTotalPosition={'top'}
       />
-      {!!breakdownItems?.length && (
+      {!!mainTableItems?.length && (
         <Title isLight={isLight} marginBottom={24} ref={breakdownTitleRef}>
           {props.currentMonth.toFormat('MMM yyyy')} Breakdown
         </Title>
       )}
 
-      {!!breakdownItems?.length && (
+      {!!mainTableItems?.length && (
         <Tabs
           tabs={breakdownTabs.map((header, i) => ({
             item: header,
@@ -86,7 +86,7 @@ export const TransparencyForecast = (props: Props) => {
         />
       )}
 
-      {!!breakdownItems?.length && (
+      {!!mainTableItems?.length && (
         <AdvancedInnerTable
           longCode={props.longCode}
           columns={breakdownColumnsForActiveTab}

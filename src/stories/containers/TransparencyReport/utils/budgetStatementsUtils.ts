@@ -1,5 +1,6 @@
 import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
 import _ from 'lodash';
+import type { InnerTableColumn } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import type {
   BudgetStatementDto,
   BudgetStatementLineItemDto,
@@ -10,9 +11,9 @@ import type { DateTime } from 'luxon';
 export const hasWalletGroups = (wallet: BudgetStatementWalletDto) =>
   wallet.budgetStatementLineItem.some((item) => item.group && item.actual);
 
-export const hasExpenses = (wallet: BudgetStatementWalletDto, month: string, isHeadcount = true) =>
+export const hasGroupExpenses = (wallet: BudgetStatementWalletDto, group: string, month: string, isHeadcount = true) =>
   wallet.budgetStatementLineItem
-    ?.filter((item) => item.headcountExpense === isHeadcount)
+    ?.filter((item) => item.headcountExpense === isHeadcount && (item.group === group || (!item.group && !group)))
     .some((x) => (x.actual || x.forecast) && x.month === month);
 
 export const getGroupActual = (group: BudgetStatementLineItemDto[], month: string) =>
@@ -31,6 +32,12 @@ export const getWalletActual = (wallet: BudgetStatementWalletDto, month: string)
   _.sumBy(
     wallet?.budgetStatementLineItem.filter((item) => item.month === month),
     (i) => i.actual ?? 0
+  );
+
+export const getGroupMonthlyBudget = (group: BudgetStatementLineItemDto[], month: string) =>
+  _.sumBy(
+    group.filter((item) => item.month === month),
+    (item) => item.budgetCap ?? 0
   );
 
 export const getGroupForecast = (group: BudgetStatementLineItemDto[], month: string) =>
@@ -68,38 +75,40 @@ export const getCommentsFromCategory = (group: BudgetStatementLineItemDto[], mon
     .filter((item) => item.month === month && item.comments !== undefined)
     .reduce((current, next) => `${current} ${next.comments !== '' ? next.comments : ''}`, '');
 
-export const getLineItemsSubtotal = (
-  wallet: BudgetStatementWalletDto,
-  isHeadcount: boolean,
-  month: string,
-  title: string
-) => {
-  const items = wallet.budgetStatementLineItem.filter((item) => item.headcountExpense === isHeadcount);
-  const hasGroups = hasWalletGroups(wallet);
-
-  return (
-    items?.reduce(
-      (prv, curr) =>
-        curr.month === month
-          ? {
-              group: hasGroups ? title : '',
-              budgetCategory: !hasGroups ? title : '',
-              actual: prv.actual + curr.actual,
-              forecast: (prv?.forecast ?? 0) + (curr?.forecast ?? 0),
-              payment: (prv?.payment ?? 0) + (curr?.payment ?? 0),
-              month,
-            }
-          : prv,
-      {
-        actual: 0,
-        forecast: 0,
-        payment: 0,
-      }
-    ) ?? {}
+export const reduceLineItemsToTotals = (lineItems: BudgetStatementLineItemDto[]) =>
+  lineItems.reduce(
+    (prv, curr) => ({
+      group: curr.group,
+      budgetCap: (prv.budgetCap ?? 0) + (curr.budgetCap ?? 0),
+      actual: prv.actual + curr.actual,
+      forecast: (prv.forecast ?? 0) + (curr.forecast ?? 0),
+      payment: (prv.payment ?? 0) + (curr.payment ?? 0),
+      month: curr.month,
+    }),
+    {
+      budgetCap: 0,
+      actual: 0,
+      forecast: 0,
+      payment: 0,
+    }
   );
-};
 
 // forecast
+
+export const hasExpensesInRange = (
+  lineItems: BudgetStatementLineItemDto[],
+  currentMonth: DateTime,
+  months: DateTime[],
+  isHeadcount = true
+) => {
+  const formattedCurrentMonth = currentMonth.toFormat(API_MONTH_TO_FORMAT);
+  const formattedMonths = months.map((x) => x.toFormat(API_MONTH_TO_FORMAT));
+  return lineItems.some((item) => {
+    if (!!item.headcountExpense !== isHeadcount) return false;
+    if (item.month === formattedCurrentMonth) return !!item.budgetCap;
+    return formattedMonths.includes(item.month ?? '') && (item.budgetCap || item.forecast);
+  });
+};
 
 export const getForecastForMonthOnWalletOnBudgetStatement = (
   budgetStatements: BudgetStatementDto[],
@@ -270,7 +279,7 @@ export const getLineItemForecastSumForMonth = (items: BudgetStatementLineItemDto
 export const getLineItemForecastSumForMonths = (items: BudgetStatementLineItemDto[], months: DateTime[]) => {
   const formattedMonths = months.map((x) => x.toFormat(API_MONTH_TO_FORMAT));
   return _.sumBy(
-    items.filter((item) => formattedMonths.indexOf(item.month ?? '') > -1),
+    items.filter((item) => formattedMonths.includes(item.month ?? '')),
     (item) => item.forecast ?? 0
   );
 };
@@ -288,3 +297,31 @@ export const getTotalQuarterlyBudgetCapOnLineItem = (items: BudgetStatementLineI
     (item) => item.budgetCap ?? 0
   );
 };
+
+export const getExtraEmptyColumnsForHeaders = (breakdownColumns: InnerTableColumn[]) => [
+  // column 0 would be the header column
+  {
+    column: breakdownColumns[1],
+    value: '',
+  },
+  {
+    column: breakdownColumns[2],
+    value: '',
+  },
+  {
+    column: breakdownColumns[3],
+    value: '',
+  },
+  {
+    column: breakdownColumns[4],
+    value: '',
+  },
+  {
+    column: breakdownColumns[5],
+    value: '',
+  },
+  {
+    column: breakdownColumns[6],
+    value: '',
+  },
+];

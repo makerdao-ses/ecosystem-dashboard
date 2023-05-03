@@ -266,12 +266,7 @@ export const useTransparencyActuals = (
     const result: { [key: string]: InnerTableRow[] } = {};
 
     for (const wallet of wallets) {
-      result[wallet?.name] = getActualsBreakdownItemsForWallet(
-        wallet.address as string,
-        wallets,
-        allBreakdownColumns[wallet?.name],
-        currentMonth
-      );
+      result[wallet?.name] = getActualsBreakdownItemsForWallet(wallet, allBreakdownColumns[wallet?.name], currentMonth);
     }
 
     return result;
