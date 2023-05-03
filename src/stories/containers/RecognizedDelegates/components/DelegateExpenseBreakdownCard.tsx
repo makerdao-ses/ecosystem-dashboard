@@ -41,6 +41,7 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
               <Name isLight={isLight}>{delegateCard.name}</Name>
               <ClipBoardRow>
                 <Address>{formatAddressForOutputDelegateWallet(delegateCard.latestVotingContract)}</Address>
+
                 <ClipBoardContainer>
                   <CopyIcon text={delegateCard.latestVotingContract ?? ''} defaultTooltip="Copy Address" />
                 </ClipBoardContainer>
@@ -75,7 +76,7 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
           </ContainerTotal>
         </DescriptionSection>
       </ContainerAvatarDescription>
-      <Divider />
+      <Divider isLight={isLight} />
       <SocialIconsSection>
         {delegateCard.socials && (
           <LinkContainer>
@@ -369,15 +370,15 @@ const LinkContainer = styled.div({
   },
 });
 
-const Divider = styled.div({
+const Divider = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'none',
   [lightTheme.breakpoints.up('table_834')]: {
     display: 'flex',
-    border: '1px solid #D4D9E1',
+    border: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
     marginBottom: 8,
     marginTop: 24,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     display: 'none',
   },
-});
+}));

@@ -107,6 +107,16 @@ const Title = styled.h1<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   marginTop: 32,
   marginBottom: 32,
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: 24,
+    lineHeight: '29px',
+    letterSpacing: '0.4px',
+    marginTop: 34,
+    marginBottom: 32,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginTop: 32,
+  },
 }));
 
 const ExtendedPageContainer = styled(PageContainer)<WithIsLight>(({ isLight }) => ({
@@ -117,12 +127,10 @@ const ExtendedPageContainer = styled(PageContainer)<WithIsLight>(({ isLight }) =
 const ContainerTrend = styled.div({
   marginTop: 40,
   marginBottom: 32,
-  // TODO: Delete height when the chart is implemented
   height: 378,
   [lightTheme.breakpoints.up('table_834')]: {
     width: 690,
-    margin: '0 auto',
-    marginBottom: 62,
+    margin: '38px auto 24px',
   },
 });
 
@@ -136,6 +144,9 @@ const ContainerButton = styled.div({
   margin: '46px auto 64px',
   width: 300,
   height: 48,
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    margin: '48px auto 64px',
+  },
 });
 
 const Button = styled(LinkButton)({

@@ -66,7 +66,7 @@ export const DelegateSocialDtoLinks = ({
   return (
     <Container>
       {links?.map((link, i) => (
-        <BoxContainer boxLinkWidth={boxLinkWidth} boxLinkHeight={boxLinkHeight} key={link.linkType}>
+        <BoxContainer boxLinkWidth={boxLinkWidth} boxLinkHeight={boxLinkHeight} key={link.linkType.toString()}>
           {hasTooltip ? (
             <CustomPopover
               title={link.toolTipDescription}
@@ -75,7 +75,7 @@ export const DelegateSocialDtoLinks = ({
                 color: isLight ? '#231536' : '#D2D4EF',
               }}
             >
-              <Link href={link} passHref>
+              <Link href={link.href} passHref>
                 <LinkImage
                   marginBottom={link.linkType === LinkTypeEnum.VotingSocialPortal}
                   isLight={isLight}
@@ -88,7 +88,7 @@ export const DelegateSocialDtoLinks = ({
               </Link>
             </CustomPopover>
           ) : (
-            <Link href={link} passHref>
+            <Link href={link.href} passHref>
               <LinkImage
                 marginBottom={link.linkType === LinkTypeEnum.VotingSocialPortal}
                 isLight={isLight}

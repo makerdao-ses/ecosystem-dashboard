@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import DelegateExpenseBreakdownCard from '../components/DelegateExpenseBreakdownCard';
 import type { RecognizedDelegatesDto } from '@ses/core/models/dto/delegatesDTO';
@@ -41,6 +42,11 @@ const Title = styled.h2<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   marginTop: 0,
   marginBottom: 24,
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: 20,
+    lineHeight: '24px',
+    letterSpacing: '0.4px',
+  },
 }));
 
 const ContainerBreakdown = styled.div({

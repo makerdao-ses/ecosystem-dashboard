@@ -21,12 +21,13 @@ export const useRecognizedDelegates = (delegates: RecognizedDelegatesDto[], tota
   const startDate = DateTime.fromISO('2021-11-01');
   const endDate = DateTime.fromISO('2023-03-01');
   const totalDelegates = 23;
-  const shadowTotal = 43;
+  const shadowTotal = 178;
   const mediaAnnual = 89928;
   const percent = 4.22;
   const delegatesExpenses = 2160000;
   const otherExpenses = 50500000;
   const amountDelegates = 21;
+
   const selectElements = useMemo(
     () =>
       sortBy(delegates, (del) => del.name).map((delegates) => ({

@@ -74,8 +74,8 @@ const FiltersContainer = styled.div({
   display: 'grid',
   gap: '16px',
   marginBottom: '32px',
-  gridTemplateColumns: 'auto 34px',
-  gridTemplateRows: 'auto auto',
+  gridTemplateColumns: 'auto auto',
+  gridTemplateRows: 'auto',
   placeItems: 'space-between',
   justifyContent: 'end',
   width: 343,
@@ -84,8 +84,10 @@ const FiltersContainer = styled.div({
   "filterDelegates buttonFilter"
   `,
   '@media (min-width: 834px)': {
+    width: 690,
     gridTemplateRows: 'auto',
     margin: 'none',
+    gap: '14px',
     justifyContent: 'flex-end',
     gridTemplateAreas: '"reset filterDelegates"',
   },

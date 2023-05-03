@@ -30,8 +30,10 @@ const DelegateExpenseTrend: React.FC<Props> = ({
   const { isLight } = useThemeContext();
   return (
     <Container>
-      <Title isLight={isLight}>Delegate Expense Trend</Title>
-      <Description isLight={isLight}>Delegate Compensation / Month</Description>
+      <WrapperTextMobile>
+        <Title isLight={isLight}>Delegate Expense Trend</Title>
+        <Description isLight={isLight}>Delegate Compensation / Month</Description>
+      </WrapperTextMobile>
       <FilterContainer>
         <FilterDelegate
           activeItems={activeItems}
@@ -54,13 +56,20 @@ const Container = styled.div({
   flexDirection: 'column',
 });
 
+const WrapperTextMobile = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'none',
+  },
+});
+
 const Title = styled.h2<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 600,
   fontSize: '18px',
   lineHeight: '22px',
-
   letterSpacing: '0.75px',
   color: isLight ? '#231536' : '#D2D4EF',
   marginTop: 0,
@@ -88,7 +97,10 @@ const ExpensesChartColumn = styled.div({
 });
 
 const FilterContainer = styled.div({
-  // TODO: This should be remove the fix values when filter component is implement:
   height: 34,
   marginBottom: 6,
+  [lightTheme.breakpoints.up('table_834')]: {
+    height: 48,
+    marginBottom: 12,
+  },
 });

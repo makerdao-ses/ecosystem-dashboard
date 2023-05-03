@@ -46,11 +46,10 @@ TotalExpense.parameters = {
             top: -20,
           },
           componentStyle: {
-            width: 738,
+            width: '738px',
           },
         },
       },
-
       1194: {
         component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724%3A195974',
         options: {

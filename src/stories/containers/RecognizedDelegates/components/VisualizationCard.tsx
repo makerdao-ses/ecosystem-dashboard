@@ -215,6 +215,8 @@ const Divider = styled.div({
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     lineHeight: '29px',
+    marginLeft: 9,
+    marginRight: 9,
   },
 });
 
@@ -275,9 +277,8 @@ const ContainerDescription = styled.div({
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     paddingLeft: 0,
-    marginLeft: 4,
     marginTop: 0,
-
+    marginLeft: 0,
     marginBottom: 14.5,
   },
 });
@@ -287,7 +288,7 @@ const ExtendedLegendItem = styled(LegendItem)({
 });
 
 const LegendItemOtherExpenses = styled(LegendItem)({
-  '& :first-child': {
+  '& :first-of-type': {
     marginTop: -2,
   },
 });
@@ -301,7 +302,6 @@ const ContainerChart = styled.div({
     alignContent: 'center',
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    // flex: 0.6,
     width: 247,
   },
 });

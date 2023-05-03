@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import KeyStats from '../KeyStats/KeyStats';
 import TotalExpenseReportCard from '../components/TotalExpenseReportCard';
@@ -61,8 +62,14 @@ const BackgroundContainer = styled.div<WithIsLight>(({ isLight }) => ({
   padding: '24px 16px',
   display: 'flex',
   flexDirection: 'column',
+  [lightTheme.breakpoints.up('table_834')]: {
+    padding: '16px',
+  },
 }));
 
 const KeyContainer = styled.div({
   marginTop: 16,
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 8,
+  },
 });

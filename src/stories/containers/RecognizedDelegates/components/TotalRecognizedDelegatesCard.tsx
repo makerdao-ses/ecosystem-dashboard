@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import GenericDelegateCard from './GenericDelegateCard';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -27,6 +28,24 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)({
   alignItems: 'center',
   minWidth: 143.5,
   flex: 1,
+  [lightTheme.breakpoints.up('table_834')]: {
+    minWidth: 235.33,
+    padding: '24px 16px 16px',
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    minWidth: 156,
+    fontWeight: 400,
+    padding: '24px 16px',
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    minWidth: 188.67,
+    fontWeight: 500,
+    padding: '24px',
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    minWidth: 220.67,
+    padding: '24px 32px',
+  },
 });
 
 export const TotalDelegates = styled.div<WithIsLight>(({ isLight }) => ({
@@ -39,6 +58,15 @@ export const TotalDelegates = styled.div<WithIsLight>(({ isLight }) => ({
   fontFeatureSettings: "'tnum' on, 'lnum' on",
   color: isLight ? '#243465' : '#EDEFFF',
   marginBottom: 4,
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: '30px',
+    lineHeight: '36px',
+    fontWeight: 500,
+    marginBottom: 8,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginBottom: 4,
+  },
 }));
 
 export const DescriptionDelegates = styled.div({
@@ -48,4 +76,16 @@ export const DescriptionDelegates = styled.div({
   fontSize: '11px',
   lineHeight: '13px',
   color: '#708390',
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: '14px',
+    lineHeight: '17px',
+    fontWeight: 500,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    alignItems: 'center',
+    display: 'flex',
+    textAlign: 'center',
+    height: 72,
+    fontWeight: 400,
+  },
 });
