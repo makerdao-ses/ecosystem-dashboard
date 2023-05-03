@@ -268,7 +268,7 @@ const GroupTitle = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 600,
   letterSpacing: '1px',
   textTransform: 'uppercase',
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
 }));
 
 const TableRow = styled.tr<WithIsLight & { borderTop?: boolean; borderBottom?: boolean }>(
