@@ -62,9 +62,8 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
 
   const padding = 8;
   const maxBarHeight = 50;
-
   const calculateHeight = (value: number): number => {
-    if (!value) return 0;
+    if (!value) return 16;
 
     const allItems = [...(props?.items?.map((item) => item?.value || 0) || []), ...(props?.maxValues || [])];
     const max = Math.max(...allItems);
@@ -78,6 +77,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
 
   const getColor = (value: number, pos: number): string => {
     if (!props.maxValues || props.maxValues.length === 0) return COLOR_RED;
+    if (!value) return COLOR_GRAY;
     if (props.maxValues[pos] === 0) return COLOR_RED;
     const percent = (value * 100) / props.maxValues[pos];
     let color = COLOR_RED;
@@ -108,10 +108,10 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
       expenditureLevel = ExpenditureLevel.OPTIMAL;
     }
 
-    if (percent > 90 && percent < 100) {
+    if (percent > 90 && percent <= 100) {
       expenditureLevel = ExpenditureLevel.STRETCHED;
     }
-    if (percent >= 100) {
+    if (percent > 100) {
       expenditureLevel = ExpenditureLevel.OVERBUDGET;
     }
 

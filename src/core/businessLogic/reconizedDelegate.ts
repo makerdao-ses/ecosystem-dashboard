@@ -19,7 +19,7 @@ export const getLinksFromRecognizedDelegates = (del: RecognizedDelegatesDto): Li
   };
   const descriptionOfTooltip: Record<string, string> = {
     twitter: 'Twitter',
-    youtube: 'youtube',
+    youtube: 'Youtube',
     forumPlatform: 'Forum',
     forumProfile: 'Profile',
     votingPortal: 'Voting Portal',
