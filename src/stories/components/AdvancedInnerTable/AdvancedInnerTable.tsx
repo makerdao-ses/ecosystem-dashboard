@@ -66,7 +66,7 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
     if (value !== 0 && !value) {
       return <></>;
     }
-    const isBold = rowType === 'total' || rowType === 'section' || rowType === 'groupTitle' || rowType === 'subTotal';
+    const isBold = rowType === 'total' || rowType === 'section' || rowType === 'groupTitle';
     const columnType = rowType === 'total' && column?.type === 'custom' ? 'text' : column?.type;
 
     switch (columnType) {
@@ -82,7 +82,7 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
             </GroupTitle>
           </TextCell>
         ) : (
-          <TextCell key={column.header} bold={isBold} isHeader={column.isCardHeader}>
+          <TextCell key={column.header} bold={isBold || rowType === 'subTotal'} isHeader={column.isCardHeader}>
             {value as string}
           </TextCell>
         );
@@ -135,7 +135,12 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
             </TableHead>
             <tbody>
               {items?.map((row, i) => (
-                <TableRow key={i} isLight={isLight} borderTop={row.borderTop} borderBottom={row.borderBottom}>
+                <TableRow
+                  key={i}
+                  isLight={isLight}
+                  borderTop={row.borderTop || row.type === 'total'}
+                  borderBottom={row.borderBottom}
+                >
                   {row.items
                     ?.filter((x) => !x.column.hidden)
                     .map((item, j) => (
