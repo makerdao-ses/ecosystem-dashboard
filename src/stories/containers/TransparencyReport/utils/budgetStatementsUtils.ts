@@ -94,6 +94,21 @@ export const reduceLineItemsToTotals = (lineItems: BudgetStatementLineItemDto[])
 
 // forecast
 
+export const hasExpensesInRange = (
+  lineItems: BudgetStatementLineItemDto[],
+  currentMonth: DateTime,
+  months: DateTime[],
+  isHeadcount = true
+) => {
+  const formattedCurrentMonth = currentMonth.toFormat(API_MONTH_TO_FORMAT);
+  const formattedMonths = months.map((x) => x.toFormat(API_MONTH_TO_FORMAT));
+  return lineItems.some((item) => {
+    if (!!item.headcountExpense !== isHeadcount) return false;
+    if (item.month === formattedCurrentMonth) return !!item.budgetCap;
+    return formattedMonths.includes(item.month ?? '') && (item.budgetCap || item.forecast);
+  });
+};
+
 export const getForecastForMonthOnWalletOnBudgetStatement = (
   budgetStatements: BudgetStatementDto[],
   walletAddress: string | undefined,
@@ -263,7 +278,7 @@ export const getLineItemForecastSumForMonth = (items: BudgetStatementLineItemDto
 export const getLineItemForecastSumForMonths = (items: BudgetStatementLineItemDto[], months: DateTime[]) => {
   const formattedMonths = months.map((x) => x.toFormat(API_MONTH_TO_FORMAT));
   return _.sumBy(
-    items.filter((item) => formattedMonths.indexOf(item.month ?? '') > -1),
+    items.filter((item) => formattedMonths.includes(item.month ?? '')),
     (item) => item.forecast ?? 0
   );
 };

@@ -258,7 +258,7 @@ export const getActualsBreakdownItemsForWallet = (
       }
     }
 
-    if (hasGroups) {
+    if ((hasHeadcount || hasNonHeadcount) && hasGroups) {
       // subtotal of the whole group (headcount and non headcount)
       result.push(
         ...getActualsBreakdownItems(
