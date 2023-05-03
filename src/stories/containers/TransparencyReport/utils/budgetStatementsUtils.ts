@@ -1,5 +1,6 @@
 import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
 import _ from 'lodash';
+import type { InnerTableColumn } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import type {
   BudgetStatementDto,
   BudgetStatementLineItemDto,
@@ -296,3 +297,31 @@ export const getTotalQuarterlyBudgetCapOnLineItem = (items: BudgetStatementLineI
     (item) => item.budgetCap ?? 0
   );
 };
+
+export const getExtraEmptyColumnsForHeaders = (breakdownColumns: InnerTableColumn[]) => [
+  // column 0 would be the header column
+  {
+    column: breakdownColumns[1],
+    value: '',
+  },
+  {
+    column: breakdownColumns[2],
+    value: '',
+  },
+  {
+    column: breakdownColumns[3],
+    value: '',
+  },
+  {
+    column: breakdownColumns[4],
+    value: '',
+  },
+  {
+    column: breakdownColumns[5],
+    value: '',
+  },
+  {
+    column: breakdownColumns[6],
+    value: '',
+  },
+];

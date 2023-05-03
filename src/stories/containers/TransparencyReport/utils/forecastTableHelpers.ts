@@ -3,6 +3,7 @@ import {
   getBudgetCapForMonthOnLineItem,
   getBudgetCapForMonthOnWalletOnBudgetStatement,
   getBudgetCapSumOfMonthsOnWallet,
+  getExtraEmptyColumnsForHeaders,
   getForecastForMonthOnWalletOnBudgetStatement,
   getForecastSumOfMonthsOnWallet,
   getLineItemForecastSumForMonth,
@@ -34,6 +35,7 @@ export const getForecastBreakdownColumns = (
       isCardHeader: true,
       width: hasGroups ? '220px' : '240px',
       type: 'text',
+      hasBorderRight: true,
     },
     {
       header: firstMonth.toFormat('MMMM'),
@@ -54,6 +56,7 @@ export const getForecastBreakdownColumns = (
       header: 'Mthly Budget',
       type: 'number',
       align: 'right',
+      hasBorderRight: true,
     },
     {
       header: '3 Months',
@@ -194,6 +197,7 @@ export const getBreakdownItemsForWallet = (
             column: breakdownColumns[0],
             value: groupedKey === '' ? 'Core Unit' : groupedKey,
           },
+          ...getExtraEmptyColumnsForHeaders(breakdownColumns),
         ],
       });
     }
@@ -205,6 +209,7 @@ export const getBreakdownItemsForWallet = (
             column: breakdownColumns[0],
             value: 'Headcount Expenses',
           },
+          ...getExtraEmptyColumnsForHeaders(breakdownColumns),
         ],
         type: 'section',
       });
@@ -250,6 +255,7 @@ export const getBreakdownItemsForWallet = (
             column: breakdownColumns[0],
             value: 'Non-Headcount Expenses',
           },
+          ...getExtraEmptyColumnsForHeaders(breakdownColumns),
         ],
         type: 'section',
       });
@@ -345,7 +351,7 @@ export const getBreakdownItemsForWallet = (
           ),
         },
         {
-          column: breakdownColumns[5],
+          column: breakdownColumns[4],
           value: getBudgetCapForMonthOnWalletOnBudgetStatement(
             budgetStatements,
             currentWalletAddress,
@@ -354,7 +360,7 @@ export const getBreakdownItemsForWallet = (
           ),
         },
         {
-          column: breakdownColumns[4],
+          column: breakdownColumns[5],
           value: getForecastSumOfMonthsOnWallet(budgetStatements, currentWalletAddress, currentMonth, [
             firstMonth,
             secondMonth,
