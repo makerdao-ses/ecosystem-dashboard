@@ -14,7 +14,7 @@ export const useRecognizedDelegates = (delegates: RecognizedDelegatesDto[], dele
 
   const resultDelegatesWithActuals = delegateWithActuals(delegates, delegatesNumbers);
   const totalDAI = delegatesNumbers
-    .map((delegate: ExpenseDto) => delegate.budgetCap)
+    .map((delegate: ExpenseDto) => delegate.actuals)
     .reduce((prev, next) => prev + next, 0);
 
   const handleResetFilter = () => {
