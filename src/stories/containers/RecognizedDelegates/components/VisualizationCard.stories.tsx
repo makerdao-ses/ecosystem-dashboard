@@ -15,7 +15,7 @@ const variantsArgs = [
   {
     delegatesExpenses: 2222252,
     otherExpenses: 50500000,
-    amountDelegates: 21,
+    totalDelegates: 25,
   },
 ];
 

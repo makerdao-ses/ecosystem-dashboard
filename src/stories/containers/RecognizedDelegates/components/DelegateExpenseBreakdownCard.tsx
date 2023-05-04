@@ -236,6 +236,7 @@ const PercentTitle = styled.div<WithIsLight>(({ isLight }) => ({
 const ContainerTotal = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'flex-end',
   paddingLeft: 1,
   [lightTheme.breakpoints.up('table_834')]: {
     textAlign: 'end',

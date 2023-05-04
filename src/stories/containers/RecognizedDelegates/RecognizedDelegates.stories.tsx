@@ -29,7 +29,7 @@ const variantsArgs = [
         .withName('Flip Flop Flap Delegate LLC')
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
         .withLatestVotingContract('0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7')
-        .withNumberDai(2325)
+        .withNumberDai(232325)
         .withSocials({
           twitter: '#',
           forumProfile: '#',
@@ -42,7 +42,7 @@ const variantsArgs = [
         .withName('GFX Labs')
         .withImage('https://live.staticflickr.com/65535/52832350651_0506c1ff2a_m.jpg')
         .withLatestVotingContract('0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7')
-        .withNumberDai(2325)
+        .withNumberDai(232325)
         .withSocials({
           twitter: '#',
           forumProfile: '#',
@@ -55,7 +55,7 @@ const variantsArgs = [
         .withName('Coldirion.eth')
         .withImage('https://live.staticflickr.com/65535/52832350671_ac70b94b13_m.jpg')
         .withLatestVotingContract('0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7')
-        .withNumberDai(2325)
+        .withNumberDai(232325)
         .withSocials({
           twitter: '#',
           forumProfile: '#',
@@ -68,7 +68,7 @@ const variantsArgs = [
         .withName('Feedblack Loops LLC')
         .withImage('https://live.staticflickr.com/65535/52832796763_a0e2339b3b_m.jpg')
         .withLatestVotingContract('0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7')
-        .withNumberDai(2325)
+        .withNumberDai(232325)
         .withSocials({
           twitter: '#',
           forumProfile: '#',
