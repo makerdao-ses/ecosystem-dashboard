@@ -19,12 +19,13 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 interface Props {
   delegateCard: RecognizedDelegatesDto;
   totalDai: number;
+  numberDaiDelegate: number;
 }
 
-const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai }) => {
+const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai, numberDaiDelegate }) => {
   const { isLight } = useThemeContext();
-  const percent = percentageRespectTo(delegateCard.numberDai, totalDai);
-  const humanizeTotal = usLocalizedNumber(totalDai);
+  const percent = percentageRespectTo(numberDaiDelegate, totalDai);
+  const humanizeTotal = usLocalizedNumber(numberDaiDelegate);
   return (
     <ExtendedGenericDelegate isLight={isLight}>
       <ContainerAvatarDescription>
@@ -62,7 +63,7 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
             <PercentTitle isLight={isLight}>% of Total</PercentTitle>
             <PercentBarContainer>
               <ContainerBarDelegate>
-                <DelegateBarPercentTotal numberDai={delegateCard.numberDai} totalDai={totalDai} />
+                <DelegateBarPercentTotal numberDai={numberDaiDelegate} totalDai={totalDai} />
               </ContainerBarDelegate>
               <PercentNumber isLight={isLight}>{Math.trunc(percent || 0)}%</PercentNumber>
             </PercentBarContainer>

@@ -1,20 +1,23 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
-import { fetchExpenses } from '@ses/containers/FinancesOverview/api/queries';
-import { fetchRecognizedDelegates } from '@ses/containers/RecognizedDelegates/RecognizedDelegatesAPI';
 import RecognizedDelegatesContainer from '@ses/containers/RecognizedDelegates/RecognizedDelegatesContainer';
-import { ExpenseGranularity } from '@ses/core/models/dto/expensesDTO';
+import {
+  fetchDelegatesNumbers,
+  fetchRecognizedDelegates,
+} from '@ses/containers/RecognizedDelegates/api/RecognizedDelegatesAPI';
+
 import { featureFlags } from 'feature-flags/feature-flags';
 import React from 'react';
 import type { RecognizedDelegatesDto } from '@ses/core/models/dto/delegatesDTO';
+import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 import type { GetServerSideProps, NextPage } from 'next';
 
 interface Props {
   delegates: RecognizedDelegatesDto[];
-  totalDaiDelegates: number;
+  delegatesNumbers: ExpenseDto[];
 }
 
-const RecognizedDelegates: NextPage<Props> = ({ delegates, totalDaiDelegates }) => (
-  <RecognizedDelegatesContainer delegates={delegates} totalDaiDelegates={totalDaiDelegates} />
+const RecognizedDelegates: NextPage<Props> = ({ delegates, delegatesNumbers }) => (
+  <RecognizedDelegatesContainer delegates={delegates} delegatesNumbers={delegatesNumbers} />
 );
 
 export default RecognizedDelegates;
@@ -26,15 +29,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
     };
   }
 
-  const [delegates, totalDaiDelegates] = await Promise.all([
-    fetchRecognizedDelegates(),
-    fetchExpenses(ExpenseGranularity.total, 'makerdao/delegates'),
-  ]);
-
+  const [delegates, delegatesNumbers] = await Promise.all([fetchRecognizedDelegates(), fetchDelegatesNumbers()]);
   return {
     props: {
       delegates,
-      totalDaiDelegates: totalDaiDelegates[0].prediction || 0,
+      delegatesNumbers,
     },
   };
 };
