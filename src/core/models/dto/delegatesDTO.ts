@@ -1,4 +1,5 @@
 import type { ActivityFeedDto, BudgetStatementDto } from './coreUnitDTO';
+import type { ExpenseDto } from './expensesDTO';
 
 export interface DelegatesDto {
   id: string;
@@ -23,4 +24,9 @@ export interface RecognizedDelegatesDto {
   latestVotingContract: string;
   socials: DelegateSocialDto;
   actuals: number;
+}
+
+export interface TotalDelegateDto {
+  delegatesExpenses: ExpenseDto[];
+  totalExpenses: ExpenseDto[];
 }

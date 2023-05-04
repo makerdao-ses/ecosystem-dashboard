@@ -2,22 +2,28 @@ import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import RecognizedDelegatesContainer from '@ses/containers/RecognizedDelegates/RecognizedDelegatesContainer';
 import {
   fetchDelegatesNumbers,
+  fetchRecognizedDelegateDoughnutChart,
   fetchRecognizedDelegates,
 } from '@ses/containers/RecognizedDelegates/api/RecognizedDelegatesAPI';
 
 import { featureFlags } from 'feature-flags/feature-flags';
 import React from 'react';
-import type { RecognizedDelegatesDto } from '@ses/core/models/dto/delegatesDTO';
+import type { RecognizedDelegatesDto, TotalDelegateDto } from '@ses/core/models/dto/delegatesDTO';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 import type { GetServerSideProps, NextPage } from 'next';
 
 interface Props {
   delegates: RecognizedDelegatesDto[];
   delegatesNumbers: ExpenseDto[];
+  totalQuarterlyExpenses: TotalDelegateDto;
 }
 
-const RecognizedDelegates: NextPage<Props> = ({ delegates, delegatesNumbers }) => (
-  <RecognizedDelegatesContainer delegates={delegates} delegatesNumbers={delegatesNumbers} />
+const RecognizedDelegates: NextPage<Props> = ({ delegates, delegatesNumbers, totalQuarterlyExpenses }) => (
+  <RecognizedDelegatesContainer
+    delegates={delegates}
+    delegatesNumbers={delegatesNumbers}
+    totalQuarterlyExpenses={totalQuarterlyExpenses}
+  />
 );
 
 export default RecognizedDelegates;
@@ -29,11 +35,16 @@ export const getServerSideProps: GetServerSideProps = async () => {
     };
   }
 
-  const [delegates, delegatesNumbers] = await Promise.all([fetchRecognizedDelegates(), fetchDelegatesNumbers()]);
+  const [delegates, delegatesNumbers, totalQuarterlyExpenses] = await Promise.all([
+    fetchRecognizedDelegates(),
+    fetchDelegatesNumbers(),
+    fetchRecognizedDelegateDoughnutChart(),
+  ]);
   return {
     props: {
       delegates,
       delegatesNumbers,
+      totalQuarterlyExpenses,
     },
   };
 };

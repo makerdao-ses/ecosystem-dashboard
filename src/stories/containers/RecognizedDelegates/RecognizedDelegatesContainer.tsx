@@ -15,23 +15,22 @@ import DelegateExpenseTrend from './DelegateExpenseTrend';
 
 import TotalAndKeyStatsComponent from './TotalAndKeyStatsComponent/TotalAndkeyStatusComponent';
 import { useRecognizedDelegates } from './useRecognizedDelegates';
-import type { RecognizedDelegatesDto } from '@ses/core/models/dto/delegatesDTO';
+import type { RecognizedDelegatesDto, TotalDelegateDto } from '@ses/core/models/dto/delegatesDTO';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   delegates: RecognizedDelegatesDto[];
-
   delegatesNumbers: ExpenseDto[];
+  totalQuarterlyExpenses: TotalDelegateDto;
 }
 
-const RecognizedDelegatesContainer: React.FC<Props> = ({ delegates, delegatesNumbers }) => {
+const RecognizedDelegatesContainer: React.FC<Props> = ({ delegates, delegatesNumbers, totalQuarterlyExpenses }) => {
   const { isLight } = useThemeContext();
-
   const {
     totalDAI,
     mediaAnnual,
-    percent,
+
     shadowTotal,
     recognizedDelegates,
     startDate,
@@ -42,7 +41,9 @@ const RecognizedDelegatesContainer: React.FC<Props> = ({ delegates, delegatesNum
     handleResetFilter,
     resultFiltered,
     newArray,
-  } = useRecognizedDelegates(delegates, delegatesNumbers);
+    delegatesExpenses,
+    otherExpenses,
+  } = useRecognizedDelegates(delegates, delegatesNumbers, totalQuarterlyExpenses);
   return (
     <ExtendedPageContainer isLight={isLight}>
       <SEOHead
@@ -62,11 +63,10 @@ const RecognizedDelegatesContainer: React.FC<Props> = ({ delegates, delegatesNum
           start={startDate}
           end={endDate}
           annual={mediaAnnual}
-          percent={percent}
           shadowTotal={shadowTotal}
           totalDelegates={recognizedDelegates}
-          delegatesExpenses={recognizedDelegates}
-          otherExpenses={shadowTotal}
+          delegatesExpenses={delegatesExpenses}
+          otherExpenses={otherExpenses}
         />
         <ContainerTrend>
           <DelegateExpenseTrend

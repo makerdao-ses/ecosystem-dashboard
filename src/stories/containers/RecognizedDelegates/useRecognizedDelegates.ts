@@ -3,15 +3,18 @@ import sortBy from 'lodash/sortBy';
 import { DateTime } from 'luxon';
 import { useMemo, useState } from 'react';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
-import type { RecognizedDelegatesDto } from '@ses/core/models/dto/delegatesDTO';
+import type { RecognizedDelegatesDto, TotalDelegateDto } from '@ses/core/models/dto/delegatesDTO';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 
-export const useRecognizedDelegates = (delegates: RecognizedDelegatesDto[], delegatesNumbers: ExpenseDto[]) => {
+export const useRecognizedDelegates = (
+  delegates: RecognizedDelegatesDto[],
+  delegatesNumbers: ExpenseDto[],
+  totalQuarterlyExpenses: TotalDelegateDto
+) => {
   const [activeElements, setActiveElements] = useState<string[]>([]);
   const handleSelectChange = (value: string[]) => {
     setActiveElements(value);
   };
-
   const resultDelegatesWithActuals = delegateWithActuals(delegates, delegatesNumbers);
   const totalDAI = delegatesNumbers
     .map((delegate: ExpenseDto) => delegate.actuals)
@@ -25,12 +28,12 @@ export const useRecognizedDelegates = (delegates: RecognizedDelegatesDto[], dele
   const endDate = DateTime.fromISO('2023-03-01');
 
   const recognizedDelegates = delegates.length;
+  // TODO: Those number will be delete next release
   const shadowTotal = 178;
-  // TODO: This data is mock, so when the api es ready should be remove
-  const mediaAnnual = 89928;
-  const percent = 4.22;
-  const delegatesExpenses = 2160000;
-  const otherExpenses = 50500000;
+  const mediaAnnual = 610451;
+  const delegatesExpenses = totalQuarterlyExpenses.delegatesExpenses[0].actuals;
+  const otherExpenses =
+    totalQuarterlyExpenses.totalExpenses[0].actuals - totalQuarterlyExpenses.delegatesExpenses[0].actuals;
 
   const selectElements = useMemo(
     () =>
@@ -54,7 +57,6 @@ export const useRecognizedDelegates = (delegates: RecognizedDelegatesDto[], dele
     totalDAI,
     recognizedDelegates,
     shadowTotal,
-    percent,
     mediaAnnual,
     delegatesExpenses,
     otherExpenses,

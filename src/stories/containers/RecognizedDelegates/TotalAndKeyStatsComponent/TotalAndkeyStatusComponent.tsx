@@ -14,7 +14,6 @@ interface Props {
   totalDelegates: number;
   shadowTotal: number;
   annual: number;
-  percent: number;
   delegatesExpenses: number;
   otherExpenses: number;
 }
@@ -24,7 +23,6 @@ export const TotalAndKeyStatsComponent: React.FC<Props> = ({
   start,
   end,
   annual,
-  percent,
   shadowTotal,
   totalDelegates,
   otherExpenses,
@@ -37,7 +35,6 @@ export const TotalAndKeyStatsComponent: React.FC<Props> = ({
       <KeyContainer>
         <KeyStats
           annual={annual}
-          percent={percent}
           shadowTotal={shadowTotal}
           totalDelegates={totalDelegates}
           delegatesExpenses={delegatesExpenses}

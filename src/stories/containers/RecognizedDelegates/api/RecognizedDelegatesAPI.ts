@@ -48,6 +48,45 @@ export const delegateNumbers = () => ({
   },
 });
 
+export const recognizedDelegateDoughnutChart = () => ({
+  query: gql`
+    query TotalQuarterlyExpenses($f1: AggregateExpensesFilter, $f2: AggregateExpensesFilter) {
+      delegatesExpenses: totalQuarterlyExpenses(filter: $f1) {
+        reports {
+          expenses {
+            period
+            budget
+            actuals
+          }
+        }
+      }
+      totalExpenses: totalQuarterlyExpenses(filter: $f2) {
+        reports {
+          expenses {
+            period
+            budget
+            actuals
+          }
+        }
+      }
+    }
+  `,
+  filter: {
+    f1: {
+      budgets: 'makerdao/delegates:*/',
+      end: '2023/03',
+      start: '2021/11',
+      granularity: 'total',
+    },
+    f2: {
+      budgets: 'makerdao/*',
+      end: '2023/03',
+      start: '2021/11',
+      granularity: 'total',
+    },
+  },
+});
+
 interface RecognizedDelegatesResponse {
   recognizedDelegates: RecognizedDelegatesDto[];
 }
@@ -63,4 +102,20 @@ export const fetchDelegatesNumbers = async (): Promise<ExpenseDto[]> => {
     totalQuarterlyExpenses: { reports: { expenses: ExpenseDto[] } };
   }>(GRAPHQL_ENDPOINT, query, filter);
   return res.totalQuarterlyExpenses.reports.expenses;
+};
+
+export const fetchRecognizedDelegateDoughnutChart = async (): Promise<{
+  delegatesExpenses: ExpenseDto[];
+  totalExpenses: ExpenseDto[];
+}> => {
+  const { query, filter } = recognizedDelegateDoughnutChart();
+  const res = await request<{
+    delegatesExpenses: { reports: { expenses: ExpenseDto[] } };
+    totalExpenses: { reports: { expenses: ExpenseDto[] } };
+  }>(GRAPHQL_ENDPOINT, query, filter);
+
+  return {
+    delegatesExpenses: res.delegatesExpenses.reports.expenses,
+    totalExpenses: res.totalExpenses.reports.expenses,
+  };
 };

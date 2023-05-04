@@ -13,7 +13,6 @@ interface Props {
   totalDelegates: number;
   shadowTotal: number;
   annual: number;
-  percent: number;
   otherExpenses: number;
   delegatesExpenses: number;
 }
