@@ -179,14 +179,14 @@ export const getBreakdownItemsForWallet = (
   const threeMonths = [firstMonth, secondMonth, thirdMonth];
   const grouped = groupBy(ungrouped, (item) => (item.group?.trim() ? item.group : ''));
 
-  let linesWithActualData = 0;
-
   for (const groupedKey in grouped) {
     const hasHeadcount = hasExpensesInRange(grouped[groupedKey], currentMonth, threeMonths, true);
     const hasNonHeadcount = hasExpensesInRange(grouped[groupedKey], currentMonth, threeMonths, false);
     if (!hasHeadcount && !hasNonHeadcount) {
       continue;
     }
+
+    let groupItemsCount = 0;
 
     if (hasGroups) {
       // it is a project group
@@ -222,10 +222,10 @@ export const getBreakdownItemsForWallet = (
         secondMonth,
         thirdMonth
       );
-      linesWithActualData += items.length;
+      groupItemsCount += items.length;
       result.push(...items);
 
-      if (!hasGroups) {
+      if (!hasGroups && items.length > 1) {
         // subtotal when it is a non headcount without a group
         result.push(
           ...getBreakdownItemsForGroup(
@@ -268,10 +268,10 @@ export const getBreakdownItemsForWallet = (
         secondMonth,
         thirdMonth
       );
-      linesWithActualData += items.length;
+      groupItemsCount += items.length;
       result.push(...items);
 
-      if (!hasGroups) {
+      if (!hasGroups && items.length > 1) {
         // subtotal when it is a non headcount without a group
         result.push(
           ...getBreakdownItemsForGroup(
@@ -294,7 +294,7 @@ export const getBreakdownItemsForWallet = (
       }
     }
 
-    if ((hasHeadcount || hasNonHeadcount) && hasGroups) {
+    if ((hasHeadcount || hasNonHeadcount) && hasGroups && groupItemsCount > 1) {
       // subtotal of the whole group (headcount and non headcount)
       result.push(
         ...getBreakdownItemsForGroup(
@@ -315,7 +315,7 @@ export const getBreakdownItemsForWallet = (
     }
   }
 
-  if (linesWithActualData > 0) {
+  if (result.length > 0) {
     result.push({
       type: 'total',
       items: [
