@@ -7,24 +7,22 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface RelativeDaiBarProps {
   totalDai: number;
-  numberDai: number;
+  actuals: number;
 }
 
-export const DelegateBarPercentTotal: React.FC<RelativeDaiBarProps> = ({ totalDai, numberDai }) => {
+export const DelegateBarPercentTotal: React.FC<RelativeDaiBarProps> = ({ totalDai, actuals }) => {
   const { isLight } = useThemeContext();
   const [percentDai, setPercentDai] = useState<number>(0);
 
   const updateBars = useCallback(() => {
-    setPercentDai((numberDai * 100) / totalDai);
-  }, [numberDai, totalDai]);
+    setPercentDai((actuals * 100) / totalDai);
+  }, [actuals, totalDai]);
 
   useEffect(() => {
     updateBars();
   }, [updateBars]);
 
-  return (
-    <BudgetBar isLight={isLight}>{numberDai > 0 && <BarPercent isLight={isLight} width={percentDai} />}</BudgetBar>
-  );
+  return <BudgetBar isLight={isLight}>{actuals > 0 && <BarPercent isLight={isLight} width={percentDai} />}</BudgetBar>;
 };
 
 export default DelegateBarPercentTotal;

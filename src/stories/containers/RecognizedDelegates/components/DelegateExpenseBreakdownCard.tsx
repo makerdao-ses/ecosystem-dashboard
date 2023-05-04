@@ -64,7 +64,7 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
             <PercentTitle isLight={isLight}>% of Total</PercentTitle>
             <PercentBarContainer>
               <ContainerBarDelegate>
-                <DelegateBarPercentTotal numberDai={delegateCard.actuals} totalDai={totalDai} />
+                <DelegateBarPercentTotal actuals={delegateCard.actuals} totalDai={totalDai} />
               </ContainerBarDelegate>
               <PercentNumber isLight={isLight}>{Math.trunc(percent || 0)}%</PercentNumber>
             </PercentBarContainer>
