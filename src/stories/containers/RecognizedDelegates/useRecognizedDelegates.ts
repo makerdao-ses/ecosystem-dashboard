@@ -1,3 +1,4 @@
+import { delegateWithActuals } from '@ses/core/businessLogic/reconizedDelegate';
 import sortBy from 'lodash/sortBy';
 import { DateTime } from 'luxon';
 import { useMemo, useState } from 'react';
@@ -11,6 +12,7 @@ export const useRecognizedDelegates = (delegates: RecognizedDelegatesDto[], dele
     setActiveElements(value);
   };
 
+  const resultDelegatesWithActuals = delegateWithActuals(delegates, delegatesNumbers);
   const totalDAI = delegatesNumbers
     .map((delegate: ExpenseDto) => delegate.budgetCap)
     .reduce((prev, next) => prev + next, 0);
@@ -21,40 +23,32 @@ export const useRecognizedDelegates = (delegates: RecognizedDelegatesDto[], dele
 
   const startDate = DateTime.fromISO('2021-11-01');
   const endDate = DateTime.fromISO('2023-03-01');
-  const differenceMonths = endDate.diff(startDate, 'months').months + 1;
-  const emptyExpense: ExpenseDto = {
-    category: '',
-    actuals: 0,
-    budget: '',
-    budgetCap: 0,
-    discontinued: null,
-    period: '',
-    prediction: 0,
-  };
 
   const recognizedDelegates = delegates.length;
   const shadowTotal = 178;
+  // TODO: This data is mock, so when the api es ready should be remove
   const mediaAnnual = 89928;
   const percent = 4.22;
   const delegatesExpenses = 2160000;
   const otherExpenses = 50500000;
 
-  const amountDelegates = delegates.length;
   const selectElements = useMemo(
     () =>
-      sortBy(delegates, (del) => del.name).map((delegates) => ({
+      sortBy(resultDelegatesWithActuals, (del) => del.name).map((delegates) => ({
         id: delegates.name,
         content: delegates.name,
         params: {
           url: delegates.image,
         },
       })) as MultiSelectItem[],
-    [delegates]
+    [resultDelegatesWithActuals]
   );
-  const filteredCardsDelegates = delegates.filter((delegate) => activeElements.includes(delegate.name));
-  const resultFiltered = activeElements.length === 0 ? delegates : filteredCardsDelegates;
+  const filteredCardsDelegates = resultDelegatesWithActuals.filter((delegate: RecognizedDelegatesDto) =>
+    activeElements.includes(delegate.name)
+  );
+  const resultFiltered = activeElements.length === 0 ? resultDelegatesWithActuals : filteredCardsDelegates;
 
-  const newArray: number[] = new Array(differenceMonths).fill(emptyExpense.prediction);
+  const newArray: number[] = resultFiltered.map((delegate) => delegate.actuals);
 
   return {
     totalDAI,
@@ -64,7 +58,6 @@ export const useRecognizedDelegates = (delegates: RecognizedDelegatesDto[], dele
     mediaAnnual,
     delegatesExpenses,
     otherExpenses,
-    amountDelegates,
     startDate,
     endDate,
     selectElements,
@@ -73,5 +66,6 @@ export const useRecognizedDelegates = (delegates: RecognizedDelegatesDto[], dele
     handleResetFilter,
     resultFiltered,
     newArray,
+    resultDelegatesWithActuals,
   };
 };

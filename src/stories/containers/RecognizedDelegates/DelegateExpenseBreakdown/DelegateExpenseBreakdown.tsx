@@ -9,7 +9,6 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 interface Props {
   delegates: RecognizedDelegatesDto[];
   totalDai: number;
-  numbersDaiDelegate: number[];
 }
 
 const DelegateExpenseBreakdown: React.FC<Props> = ({ delegates, totalDai }) => {
@@ -19,12 +18,7 @@ const DelegateExpenseBreakdown: React.FC<Props> = ({ delegates, totalDai }) => {
       <Title isLight={isLight}> Delegate Expense Breakdown</Title>
       <ContainerBreakdown>
         {delegates?.map((delegate) => (
-          <DelegateExpenseBreakdownCard
-            delegateCard={delegate}
-            totalDai={totalDai}
-            key={delegate.name}
-            numberDaiDelegate={456}
-          />
+          <DelegateExpenseBreakdownCard delegateCard={delegate} totalDai={totalDai} key={delegate.name} />
         ))}
       </ContainerBreakdown>
     </Container>

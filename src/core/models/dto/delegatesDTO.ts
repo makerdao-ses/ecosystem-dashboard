@@ -22,4 +22,5 @@ export interface RecognizedDelegatesDto {
   image: string;
   latestVotingContract: string;
   socials: DelegateSocialDto;
+  actuals: number;
 }

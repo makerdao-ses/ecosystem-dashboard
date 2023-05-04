@@ -4,6 +4,7 @@ import CopyIcon from '@ses/components/CopyIcon/CopyIcon';
 import ArrowLink from '@ses/components/svg/ArrowLink';
 import { getLinksFromRecognizedDelegates } from '@ses/core/businessLogic/reconizedDelegate';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { DELEGATE_PAGE } from '@ses/core/utils/const';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import { formatAddressForOutputDelegateWallet } from '@ses/core/utils/string';
@@ -19,13 +20,12 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 interface Props {
   delegateCard: RecognizedDelegatesDto;
   totalDai: number;
-  numberDaiDelegate: number;
 }
 
-const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai, numberDaiDelegate }) => {
+const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai }) => {
   const { isLight } = useThemeContext();
-  const percent = percentageRespectTo(numberDaiDelegate, totalDai);
-  const humanizeTotal = usLocalizedNumber(numberDaiDelegate);
+  const percent = percentageRespectTo(delegateCard.actuals, totalDai);
+  const humanizeTotal = usLocalizedNumber(delegateCard.actuals);
   return (
     <ExtendedGenericDelegate isLight={isLight}>
       <ContainerAvatarDescription>
@@ -52,9 +52,10 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai,
           <WalletLink>
             <ArrowLink
               fill={isLight ? '#447AFB' : '#626472'}
-              href={delegateCard.latestVotingContract}
+              href={DELEGATE_PAGE}
               width={20}
               height={20}
+              target="_blank"
             />
           </WalletLink>
         </AvatarSection>
@@ -63,7 +64,7 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai,
             <PercentTitle isLight={isLight}>% of Total</PercentTitle>
             <PercentBarContainer>
               <ContainerBarDelegate>
-                <DelegateBarPercentTotal numberDai={numberDaiDelegate} totalDai={totalDai} />
+                <DelegateBarPercentTotal numberDai={delegateCard.actuals} totalDai={totalDai} />
               </ContainerBarDelegate>
               <PercentNumber isLight={isLight}>{Math.trunc(percent || 0)}%</PercentNumber>
             </PercentBarContainer>

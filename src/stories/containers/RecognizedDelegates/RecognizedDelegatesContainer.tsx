@@ -36,7 +36,6 @@ const RecognizedDelegatesContainer: React.FC<Props> = ({ delegates, delegatesNum
     recognizedDelegates,
     delegatesExpenses,
     otherExpenses,
-    amountDelegates,
     startDate,
     endDate,
     handleSelectChange,
@@ -61,7 +60,6 @@ const RecognizedDelegatesContainer: React.FC<Props> = ({ delegates, delegatesNum
       <Container>
         <Title isLight={isLight}>Recognized Delegates</Title>
         <TotalAndKeyStatsComponent
-          amountDelegates={amountDelegates}
           totalDAI={totalDAI}
           start={startDate}
           end={endDate}
@@ -84,7 +82,7 @@ const RecognizedDelegatesContainer: React.FC<Props> = ({ delegates, delegatesNum
           />
         </ContainerTrend>
         <ContainerBreakdown>
-          <DelegateExpenseBreakdown delegates={resultFiltered} totalDai={totalDAI} numbersDaiDelegate={newArray} />
+          <DelegateExpenseBreakdown delegates={resultFiltered} totalDai={totalDAI} />
         </ContainerBreakdown>
         <ContainerButton>
           <Button
