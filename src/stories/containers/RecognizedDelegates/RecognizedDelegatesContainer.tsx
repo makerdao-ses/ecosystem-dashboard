@@ -34,8 +34,6 @@ const RecognizedDelegatesContainer: React.FC<Props> = ({ delegates, delegatesNum
     percent,
     shadowTotal,
     recognizedDelegates,
-    delegatesExpenses,
-    otherExpenses,
     startDate,
     endDate,
     handleSelectChange,
@@ -67,8 +65,8 @@ const RecognizedDelegatesContainer: React.FC<Props> = ({ delegates, delegatesNum
           percent={percent}
           shadowTotal={shadowTotal}
           totalDelegates={recognizedDelegates}
-          delegatesExpenses={delegatesExpenses}
-          otherExpenses={otherExpenses}
+          delegatesExpenses={recognizedDelegates}
+          otherExpenses={shadowTotal}
         />
         <ContainerTrend>
           <DelegateExpenseTrend
