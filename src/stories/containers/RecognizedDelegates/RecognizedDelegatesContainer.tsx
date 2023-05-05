@@ -23,9 +23,15 @@ interface Props {
   delegates: RecognizedDelegatesDto[];
   delegatesNumbers: ExpenseDto[];
   totalQuarterlyExpenses: TotalDelegateDto;
+  totalMonthlyExpenses: ExpenseDto[];
 }
 
-const RecognizedDelegatesContainer: React.FC<Props> = ({ delegates, delegatesNumbers, totalQuarterlyExpenses }) => {
+const RecognizedDelegatesContainer: React.FC<Props> = ({
+  delegates,
+  delegatesNumbers,
+  totalQuarterlyExpenses,
+  totalMonthlyExpenses,
+}) => {
   const { isLight } = useThemeContext();
   const {
     totalDAI,
@@ -39,11 +45,11 @@ const RecognizedDelegatesContainer: React.FC<Props> = ({ delegates, delegatesNum
     activeElements,
     selectElements,
     handleResetFilter,
-    resultFiltered,
-    newArray,
+    resultFilteredCards,
+    totalDelegateMonthly,
     delegatesExpenses,
     otherExpenses,
-  } = useRecognizedDelegates(delegates, delegatesNumbers, totalQuarterlyExpenses);
+  } = useRecognizedDelegates(delegates, delegatesNumbers, totalQuarterlyExpenses, totalMonthlyExpenses);
   return (
     <ExtendedPageContainer isLight={isLight}>
       <SEOHead
@@ -71,7 +77,7 @@ const RecognizedDelegatesContainer: React.FC<Props> = ({ delegates, delegatesNum
         <ContainerTrend>
           <DelegateExpenseTrend
             handleResetFilter={handleResetFilter}
-            expenses={newArray}
+            expenses={totalDelegateMonthly}
             endDate={endDate}
             startDate={startDate}
             activeItems={activeElements}
@@ -80,7 +86,7 @@ const RecognizedDelegatesContainer: React.FC<Props> = ({ delegates, delegatesNum
           />
         </ContainerTrend>
         <ContainerBreakdown>
-          <DelegateExpenseBreakdown delegates={resultFiltered} totalDai={totalDAI} />
+          <DelegateExpenseBreakdown delegates={resultFilteredCards} totalDai={totalDAI} />
         </ContainerBreakdown>
         <ContainerButton>
           <Button

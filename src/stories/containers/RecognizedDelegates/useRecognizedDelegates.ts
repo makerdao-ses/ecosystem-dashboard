@@ -1,5 +1,7 @@
-import { delegateWithActuals } from '@ses/core/businessLogic/reconizedDelegate';
+import { delegateWithActuals, sumActualsByPeriod } from '@ses/core/businessLogic/reconizedDelegate';
+import orderBy from 'lodash/orderBy';
 import sortBy from 'lodash/sortBy';
+
 import { DateTime } from 'luxon';
 import { useMemo, useState } from 'react';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
@@ -9,8 +11,12 @@ import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 export const useRecognizedDelegates = (
   delegates: RecognizedDelegatesDto[],
   delegatesNumbers: ExpenseDto[],
-  totalQuarterlyExpenses: TotalDelegateDto
+  totalQuarterlyExpenses: TotalDelegateDto,
+  totalMonthlyExpenses: ExpenseDto[]
 ) => {
+  const orderAllMonthExpense = orderBy(totalMonthlyExpenses, ['period']);
+  const totalDelegateMonthly = sumActualsByPeriod(orderAllMonthExpense);
+
   const [activeElements, setActiveElements] = useState<string[]>([]);
   const handleSelectChange = (value: string[]) => {
     setActiveElements(value);
@@ -49,9 +55,7 @@ export const useRecognizedDelegates = (
   const filteredCardsDelegates = resultDelegatesWithActuals.filter((delegate: RecognizedDelegatesDto) =>
     activeElements.includes(delegate.name)
   );
-  const resultFiltered = activeElements.length === 0 ? resultDelegatesWithActuals : filteredCardsDelegates;
-
-  const newArray: number[] = resultFiltered.map((delegate) => delegate.actuals);
+  const resultFilteredCards = activeElements.length === 0 ? resultDelegatesWithActuals : filteredCardsDelegates;
 
   return {
     totalDAI,
@@ -66,8 +70,8 @@ export const useRecognizedDelegates = (
     handleSelectChange,
     activeElements,
     handleResetFilter,
-    resultFiltered,
-    newArray,
+    resultFilteredCards,
+    totalDelegateMonthly,
     resultDelegatesWithActuals,
   };
 };

@@ -1,3 +1,4 @@
+import forEach from 'lodash/forEach';
 import { LinkTypeEnum } from '../enums/linkTypeEnum';
 import { getNameDelegates } from '../utils/string';
 import type { DelegateSocialDto, RecognizedDelegatesDto } from '../models/dto/delegatesDTO';
@@ -51,4 +52,18 @@ export const delegateWithActuals = (delegates: RecognizedDelegatesDto[], delegat
       : delegate;
   });
   return delegatesWithActuals;
+};
+
+export const sumActualsByPeriod = (expenses: ExpenseDto[]): number[] => {
+  const mapTotalDelegate: Record<string, number> = {};
+  forEach(expenses, (expense) => {
+    const { period, actuals } = expense;
+    if (period in mapTotalDelegate) {
+      mapTotalDelegate[period] += actuals;
+    } else {
+      mapTotalDelegate[period] = actuals;
+    }
+  });
+  const totalMonthlyDelegates = Object.entries(mapTotalDelegate).map(([, value]) => value);
+  return totalMonthlyDelegates;
 };
