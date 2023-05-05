@@ -1,4 +1,8 @@
-import { delegateWithActuals, sumActualsByPeriod } from '@ses/core/businessLogic/reconizedDelegate';
+import {
+  delegateWithActuals,
+  filteredDelegatesChart,
+  sumActualsByPeriod,
+} from '@ses/core/businessLogic/reconizedDelegate';
 import orderBy from 'lodash/orderBy';
 import sortBy from 'lodash/sortBy';
 
@@ -14,13 +18,13 @@ export const useRecognizedDelegates = (
   totalQuarterlyExpenses: TotalDelegateDto,
   totalMonthlyExpenses: ExpenseDto[]
 ) => {
-  const orderAllMonthExpense = orderBy(totalMonthlyExpenses, ['period']);
-  const totalDelegateMonthly = sumActualsByPeriod(orderAllMonthExpense);
-
   const [activeElements, setActiveElements] = useState<string[]>([]);
   const handleSelectChange = (value: string[]) => {
     setActiveElements(value);
   };
+  const orderAllMonthExpense = orderBy(totalMonthlyExpenses, ['period']);
+  const totalDelegateMonthly = sumActualsByPeriod(orderAllMonthExpense);
+
   const resultDelegatesWithActuals = delegateWithActuals(delegates, delegatesNumbers);
   const totalDAI = delegatesNumbers
     .map((delegate: ExpenseDto) => delegate.actuals)
@@ -57,6 +61,9 @@ export const useRecognizedDelegates = (
   );
   const resultFilteredCards = activeElements.length === 0 ? resultDelegatesWithActuals : filteredCardsDelegates;
 
+  const resultFilteredChart =
+    activeElements.length === 0 ? totalDelegateMonthly : filteredDelegatesChart(orderAllMonthExpense, activeElements);
+
   return {
     totalDAI,
     recognizedDelegates,
@@ -73,5 +80,6 @@ export const useRecognizedDelegates = (
     resultFilteredCards,
     totalDelegateMonthly,
     resultDelegatesWithActuals,
+    resultFilteredChart,
   };
 };

@@ -1,4 +1,6 @@
 import forEach from 'lodash/forEach';
+import groupBy from 'lodash/groupBy';
+import { DateTime } from 'luxon';
 import { LinkTypeEnum } from '../enums/linkTypeEnum';
 import { getNameDelegates } from '../utils/string';
 import type { DelegateSocialDto, RecognizedDelegatesDto } from '../models/dto/delegatesDTO';
@@ -66,4 +68,48 @@ export const sumActualsByPeriod = (expenses: ExpenseDto[]): number[] => {
   });
   const totalMonthlyDelegates = Object.entries(mapTotalDelegate).map(([, value]) => value);
   return totalMonthlyDelegates;
+};
+
+const generateArrayDates = (startDate: DateTime, endDate: DateTime) => {
+  const monthsArray = [];
+
+  let currentDate = startDate;
+  while (currentDate <= endDate) {
+    const formattedDate = currentDate.toFormat('yyyy-MM');
+    monthsArray.push(formattedDate);
+    currentDate = currentDate.plus({ months: 1 });
+  }
+  return monthsArray;
+};
+
+const generateActualsArray = (expenses: ExpenseDto[]): number[] => {
+  const allPeriodWithDataDelegate = expenses.map((delegate) => delegate.period);
+  const resultActualsPerDelegateForDate: number[] = [];
+  const startDate = DateTime.fromISO('2021-11-01');
+  const endDate = DateTime.fromISO('2023-03-01');
+  const monthlyArray = generateArrayDates(startDate, endDate);
+  monthlyArray.forEach((monthlyArray) => {
+    if (allPeriodWithDataDelegate.includes(monthlyArray)) {
+      resultActualsPerDelegateForDate.push(expenses.find((item) => item.period === monthlyArray)?.actuals || 0);
+    } else {
+      resultActualsPerDelegateForDate.push(0);
+    }
+  });
+  return resultActualsPerDelegateForDate;
+};
+
+export const filteredDelegatesChart = (expenses: ExpenseDto[], activeElements: string[]) => {
+  const filteredDelegates = expenses.filter((delegate: ExpenseDto) =>
+    activeElements.includes(getNameDelegates(delegate.budget))
+  );
+
+  const resultGroupEachDelegate = groupBy(filteredDelegates, 'budget');
+  let sumArrayDelegate: number[] = [];
+  for (const key in resultGroupEachDelegate) {
+    sumArrayDelegate = sumArrayDelegate.length
+      ? sumArrayDelegate.map((value, index) => value + generateActualsArray(resultGroupEachDelegate[key])[index])
+      : generateActualsArray(resultGroupEachDelegate[key]);
+  }
+
+  return sumArrayDelegate;
 };

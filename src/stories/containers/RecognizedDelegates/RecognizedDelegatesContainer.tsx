@@ -46,9 +46,9 @@ const RecognizedDelegatesContainer: React.FC<Props> = ({
     selectElements,
     handleResetFilter,
     resultFilteredCards,
-    totalDelegateMonthly,
     delegatesExpenses,
     otherExpenses,
+    resultFilteredChart,
   } = useRecognizedDelegates(delegates, delegatesNumbers, totalQuarterlyExpenses, totalMonthlyExpenses);
   return (
     <ExtendedPageContainer isLight={isLight}>
@@ -77,7 +77,7 @@ const RecognizedDelegatesContainer: React.FC<Props> = ({
         <ContainerTrend>
           <DelegateExpenseTrend
             handleResetFilter={handleResetFilter}
-            expenses={totalDelegateMonthly}
+            expenses={resultFilteredChart}
             endDate={endDate}
             startDate={startDate}
             activeItems={activeElements}
