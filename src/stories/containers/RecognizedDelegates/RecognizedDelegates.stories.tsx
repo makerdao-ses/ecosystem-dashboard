@@ -3,6 +3,7 @@ import { TotalExpenseReportsBuilder } from '@ses/core/businessLogic/builders/tot
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AppLayout from '../AppLayout/AppLayout';
 import RecognizedDelegatesContainer from './RecognizedDelegatesContainer';
+import type { TotalDelegateDto } from '@ses/core/models/dto/delegatesDTO';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 import type { ComponentMeta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
@@ -97,6 +98,50 @@ const variantsArgs = [
         .withBudgetCap(6392563)
         .withQuarterPeriod(2022, 3)
         .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(5821236)
+        .withActuals(5082362)
+        .withBudgetCap(8392323)
+        .withQuarterPeriod(2022, 4)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(4231563)
+        .withActuals(5082362)
+        .withBudgetCap(8392323)
+        .withQuarterPeriod(2023, 1)
+        .build(),
+    ] as ExpenseDto[],
+    totalQuarterlyExpenses: {
+      delegatesExpenses: [
+        new TotalExpenseReportsBuilder()
+          .withPrediction(5821236)
+          .withActuals(5082362)
+          .withBudgetCap(8392323)
+          .withQuarterPeriod(2022, 4)
+          .build(),
+        new TotalExpenseReportsBuilder()
+          .withPrediction(4231563)
+          .withActuals(5082362)
+          .withBudgetCap(8392323)
+          .withQuarterPeriod(2023, 1)
+          .build(),
+      ] as ExpenseDto[],
+      totalExpenses: [
+        new TotalExpenseReportsBuilder()
+          .withPrediction(5821236)
+          .withActuals(5082362)
+          .withBudgetCap(8392323)
+          .withQuarterPeriod(2022, 4)
+          .build(),
+        new TotalExpenseReportsBuilder()
+          .withPrediction(4231563)
+          .withActuals(5082362)
+          .withBudgetCap(8392323)
+          .withQuarterPeriod(2023, 1)
+          .build(),
+      ] as ExpenseDto[],
+    } as TotalDelegateDto,
+    totalMonthlyExpenses: [
       new TotalExpenseReportsBuilder()
         .withPrediction(5821236)
         .withActuals(5082362)
