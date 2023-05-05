@@ -1,7 +1,7 @@
 import { GRAPHQL_ENDPOINT } from '@ses/config/endpoints';
 import request, { gql } from 'graphql-request';
 import type { RecognizedDelegatesDto } from '@ses/core/models/dto/delegatesDTO';
-import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
+import type { ExpenseDto, ExpenseGranularity } from '@ses/core/models/dto/expensesDTO';
 
 export const GET_RECOGNIZED_DELEGATES = gql`
   query RecognizedDelegates {
@@ -20,7 +20,7 @@ export const GET_RECOGNIZED_DELEGATES = gql`
   }
 `;
 
-export const delegateNumbers = () => ({
+export const delegateNumbers = (granularity: ExpenseGranularity) => ({
   query: gql`
     query Query($filter: AggregateExpensesFilter) {
       totalQuarterlyExpenses(filter: $filter) {
@@ -41,7 +41,7 @@ export const delegateNumbers = () => ({
   filter: {
     filter: {
       budgets: 'makerdao/delegates:*/*/*:*',
-      granularity: 'total',
+      granularity,
       start: null,
       end: null,
     },
@@ -96,8 +96,8 @@ export const fetchRecognizedDelegates = async (): Promise<RecognizedDelegatesDto
   return response.recognizedDelegates;
 };
 
-export const fetchDelegatesNumbers = async (): Promise<ExpenseDto[]> => {
-  const { query, filter } = delegateNumbers();
+export const fetchDelegatesNumbers = async (granularity: ExpenseGranularity): Promise<ExpenseDto[]> => {
+  const { query, filter } = delegateNumbers(granularity);
   const res = await request<{
     totalQuarterlyExpenses: { reports: { expenses: ExpenseDto[] } };
   }>(GRAPHQL_ENDPOINT, query, filter);

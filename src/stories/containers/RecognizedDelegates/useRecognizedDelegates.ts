@@ -1,5 +1,11 @@
-import { delegateWithActuals } from '@ses/core/businessLogic/reconizedDelegate';
+import {
+  delegateWithActuals,
+  filteredDelegatesChart,
+  sumActualsByPeriod,
+} from '@ses/core/businessLogic/reconizedDelegate';
+import orderBy from 'lodash/orderBy';
 import sortBy from 'lodash/sortBy';
+
 import { DateTime } from 'luxon';
 import { useMemo, useState } from 'react';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
@@ -9,12 +15,16 @@ import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 export const useRecognizedDelegates = (
   delegates: RecognizedDelegatesDto[],
   delegatesNumbers: ExpenseDto[],
-  totalQuarterlyExpenses: TotalDelegateDto
+  totalQuarterlyExpenses: TotalDelegateDto,
+  totalMonthlyExpenses: ExpenseDto[]
 ) => {
   const [activeElements, setActiveElements] = useState<string[]>([]);
   const handleSelectChange = (value: string[]) => {
     setActiveElements(value);
   };
+  const orderAllMonthExpense = orderBy(totalMonthlyExpenses, ['period']);
+  const totalDelegateMonthly = sumActualsByPeriod(orderAllMonthExpense);
+
   const resultDelegatesWithActuals = delegateWithActuals(delegates, delegatesNumbers);
   const totalDAI = delegatesNumbers
     .map((delegate: ExpenseDto) => delegate.actuals)
@@ -49,9 +59,10 @@ export const useRecognizedDelegates = (
   const filteredCardsDelegates = resultDelegatesWithActuals.filter((delegate: RecognizedDelegatesDto) =>
     activeElements.includes(delegate.name)
   );
-  const resultFiltered = activeElements.length === 0 ? resultDelegatesWithActuals : filteredCardsDelegates;
+  const resultFilteredCards = activeElements.length === 0 ? resultDelegatesWithActuals : filteredCardsDelegates;
 
-  const newArray: number[] = resultFiltered.map((delegate) => delegate.actuals);
+  const resultFilteredChart =
+    activeElements.length === 0 ? totalDelegateMonthly : filteredDelegatesChart(orderAllMonthExpense, activeElements);
 
   return {
     totalDAI,
@@ -66,8 +77,9 @@ export const useRecognizedDelegates = (
     handleSelectChange,
     activeElements,
     handleResetFilter,
-    resultFiltered,
-    newArray,
+    resultFilteredCards,
+    totalDelegateMonthly,
     resultDelegatesWithActuals,
+    resultFilteredChart,
   };
 };
