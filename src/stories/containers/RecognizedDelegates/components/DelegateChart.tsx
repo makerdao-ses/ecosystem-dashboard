@@ -17,7 +17,6 @@ interface Props {
 
 const DelegateChart: React.FC<Props> = ({ expenses, endDate, startDate }) => {
   const { isLight } = useThemeContext();
-
   const MONTHS_DESK = getMonthsBetweenDateDeskFormat(startDate, endDate);
   const MONTS_MOBILE = getMonthsBetweenDatesMobileFormat(startDate, endDate);
   const upTable = useMediaQuery(lightTheme.breakpoints.up('table_834'));

@@ -119,9 +119,9 @@ const TitleBreakdown = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   marginTop: 40,
   marginBottom: 32,
   color: isLight ? '#231536' : '#9FAFB9',
+
   [lightTheme.breakpoints.up('table_834')]: {
     marginTop: 0,
-    marginBottom: 24,
     fontSize: '20px',
     lineHeight: '24px',
   },
