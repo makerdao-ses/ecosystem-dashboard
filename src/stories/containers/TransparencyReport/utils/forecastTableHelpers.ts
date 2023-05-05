@@ -192,6 +192,7 @@ export const getBreakdownItemsForWallet = (
       // it is a project group
       result.push({
         type: 'groupTitle',
+        borderTop: true,
         items: [
           {
             column: breakdownColumns[0],
