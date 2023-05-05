@@ -96,6 +96,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
                 items={actualsData.breakdownItemsForActiveTab}
                 longCode={longCode}
                 style={{ marginTop: 16 }}
+                cardSpacingSize="small"
                 tablePlaceholder={<TransparencyEmptyTable breakdown longCode={longCode} />}
               />
             ) : (
@@ -113,6 +114,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
                           items={actualsData.allBreakdownItems[header]}
                           longCode={longCode}
                           style={{ marginTop: 16 }}
+                          cardSpacingSize="small"
                           tablePlaceholder={
                             <div style={{ marginTop: 16 }}>
                               <TransparencyEmptyTable breakdown longCode={longCode} />
@@ -165,6 +167,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
                 columns={forecastData.breakdownColumnsForActiveTab}
                 items={forecastData.breakdownItems}
                 style={{ marginTop: 16 }}
+                cardSpacingSize="small"
                 tablePlaceholder={<TransparencyEmptyTable breakdown longCode={longCode} />}
               />
             ) : (
@@ -181,6 +184,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
                         items={forecastData.allBreakdownItems[header]}
                         longCode={longCode}
                         style={{ marginTop: 16 }}
+                        cardSpacingSize="small"
                         tablePlaceholder={
                           <div style={{ marginTop: 16 }}>
                             <TransparencyEmptyTable breakdown longCode={longCode} />
