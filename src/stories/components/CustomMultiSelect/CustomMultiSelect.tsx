@@ -73,9 +73,11 @@ export const CustomMultiSelect = ({
       temp.splice(pos, 1);
       props.onChange && props.onChange(temp);
     } else {
-      const temp = [...activeItems];
-      temp.push(item);
-      props.onChange && props.onChange(temp);
+      if (activeItems.length < 6) {
+        const temp = [...activeItems];
+        temp.push(item);
+        props.onChange && props.onChange(temp);
+      }
     }
   };
 
