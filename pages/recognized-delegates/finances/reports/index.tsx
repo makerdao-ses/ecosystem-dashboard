@@ -1,6 +1,6 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 
-import { fetchRecognizedDelegatesReport } from '@ses/containers/RecognizedDelegatesReports/RecognizedDelegatesReportAPI';
+import { fetchRecognizedDelegatesBudgetStatements } from '@ses/containers/RecognizedDelegatesReports/RecognizedDelegatesReportAPI';
 import RecognizedDelegatesReportContainer from '@ses/containers/RecognizedDelegatesReports/RecognizedDelegatesReportContainer';
 import { CoreUnitContext } from '@ses/core/context/CoreUnitContext';
 import { featureFlags } from 'feature-flags/feature-flags';
@@ -42,7 +42,7 @@ export async function getServerSideProps() {
     };
   }
 
-  const delegates = await fetchRecognizedDelegatesReport();
+  const delegates = await fetchRecognizedDelegatesBudgetStatements();
 
   return {
     props: {

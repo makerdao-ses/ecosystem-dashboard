@@ -101,11 +101,6 @@ const WrapperL2 = styled.div<WithIsLight>(({ isLight }) => ({
     marginTop: 24,
     marginBottom: 8,
   },
-
-  // custom style for the table transparency card on mobile view
-  // '.advance-table--transparency-card': {
-  //   padding: '16px 16px 6px',
-  // },
 }));
 
 const ChildrenContainer = styled.div<{ hasMargin: boolean }>(({ hasMargin }) => ({
