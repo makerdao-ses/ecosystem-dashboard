@@ -16,6 +16,7 @@ interface Props {
   activeItems: string[];
   handleSelectChange: (value: string[]) => void;
   handleResetFilter: () => void;
+  totalDaiDelegates?: number;
 }
 
 const DelegateExpenseTrend: React.FC<Props> = ({
@@ -26,6 +27,7 @@ const DelegateExpenseTrend: React.FC<Props> = ({
   items,
   handleSelectChange,
   handleResetFilter,
+  totalDaiDelegates,
 }) => {
   const { isLight } = useThemeContext();
   return (
@@ -43,7 +45,12 @@ const DelegateExpenseTrend: React.FC<Props> = ({
         />
       </FilterContainer>
       <ExpensesChartColumn>
-        <DelegateChart expenses={expenses} endDate={endDate} startDate={startDate} />
+        <DelegateChart
+          expenses={expenses}
+          endDate={endDate}
+          startDate={startDate}
+          totalDaiDelegates={totalDaiDelegates}
+        />
       </ExpensesChartColumn>
     </Container>
   );
