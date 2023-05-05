@@ -1,4 +1,5 @@
 import type { ActivityFeedDto, BudgetStatementDto } from './coreUnitDTO';
+import type { ExpenseDto } from './expensesDTO';
 
 export interface DelegatesDto {
   id: string;
@@ -22,6 +23,10 @@ export interface RecognizedDelegatesDto {
   image: string;
   latestVotingContract: string;
   socials: DelegateSocialDto;
-  // TODO: Add correct value when Api be ready
-  numberDai: number;
+  actuals: number;
+}
+
+export interface TotalDelegateDto {
+  delegatesExpenses: ExpenseDto[];
+  totalExpenses: ExpenseDto[];
 }

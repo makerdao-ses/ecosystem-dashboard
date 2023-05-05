@@ -13,20 +13,11 @@ interface Props {
   totalDelegates: number;
   shadowTotal: number;
   annual: number;
-  percent: number;
   otherExpenses: number;
   delegatesExpenses: number;
-  amountDelegates: number;
 }
 
-const KeyStats: React.FC<Props> = ({
-  annual,
-  shadowTotal,
-  totalDelegates,
-  delegatesExpenses,
-  otherExpenses,
-  amountDelegates,
-}) => {
+const KeyStats: React.FC<Props> = ({ annual, shadowTotal, totalDelegates, delegatesExpenses, otherExpenses }) => {
   const { isLight } = useThemeContext();
   return (
     <Container>
@@ -46,7 +37,7 @@ const KeyStats: React.FC<Props> = ({
           <VisualizationCard
             delegatesExpenses={delegatesExpenses}
             otherExpenses={otherExpenses}
-            amountDelegates={amountDelegates}
+            totalDelegates={totalDelegates}
           />
         </CardRow>
       </ContainerCards>

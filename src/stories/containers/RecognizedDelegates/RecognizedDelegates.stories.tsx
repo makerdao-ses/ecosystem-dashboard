@@ -1,7 +1,10 @@
 import { RecognizedDelegatesBuilder } from '@ses/core/businessLogic/builders/recognizedDelegatesBuilder';
+import { TotalExpenseReportsBuilder } from '@ses/core/businessLogic/builders/totalExpenseReportsBuilder';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AppLayout from '../AppLayout/AppLayout';
 import RecognizedDelegatesContainer from './RecognizedDelegatesContainer';
+import type { TotalDelegateDto } from '@ses/core/models/dto/delegatesDTO';
+import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 import type { ComponentMeta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
@@ -27,7 +30,7 @@ const variantsArgs = [
         .withName('Flip Flop Flap Delegate LLC')
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
         .withLatestVotingContract('0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7')
-        .withNumberDai(2325)
+        .withNumberDai(232325)
         .withSocials({
           twitter: '#',
           forumProfile: '#',
@@ -40,7 +43,7 @@ const variantsArgs = [
         .withName('GFX Labs')
         .withImage('https://live.staticflickr.com/65535/52832350651_0506c1ff2a_m.jpg')
         .withLatestVotingContract('0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7')
-        .withNumberDai(2325)
+        .withNumberDai(232325)
         .withSocials({
           twitter: '#',
           forumProfile: '#',
@@ -53,7 +56,7 @@ const variantsArgs = [
         .withName('Coldirion.eth')
         .withImage('https://live.staticflickr.com/65535/52832350671_ac70b94b13_m.jpg')
         .withLatestVotingContract('0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7')
-        .withNumberDai(2325)
+        .withNumberDai(232325)
         .withSocials({
           twitter: '#',
           forumProfile: '#',
@@ -66,7 +69,7 @@ const variantsArgs = [
         .withName('Feedblack Loops LLC')
         .withImage('https://live.staticflickr.com/65535/52832796763_a0e2339b3b_m.jpg')
         .withLatestVotingContract('0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7')
-        .withNumberDai(2325)
+        .withNumberDai(232325)
         .withSocials({
           twitter: '#',
           forumProfile: '#',
@@ -76,7 +79,82 @@ const variantsArgs = [
         })
         .build(),
     ],
-    totalDaiDelegates: 2130885,
+    delegatesNumbers: [
+      new TotalExpenseReportsBuilder()
+        .withPrediction(5236845)
+        .withActuals(4521236)
+        .withBudgetCap(6523658)
+        .withQuarterPeriod(2022, 1)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(9121456)
+        .withActuals(9191222)
+        .withBudgetCap(9562451)
+        .withQuarterPeriod(2022, 2)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(4232845)
+        .withActuals(5432168)
+        .withBudgetCap(6392563)
+        .withQuarterPeriod(2022, 3)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(5821236)
+        .withActuals(5082362)
+        .withBudgetCap(8392323)
+        .withQuarterPeriod(2022, 4)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(4231563)
+        .withActuals(5082362)
+        .withBudgetCap(8392323)
+        .withQuarterPeriod(2023, 1)
+        .build(),
+    ] as ExpenseDto[],
+    totalQuarterlyExpenses: {
+      delegatesExpenses: [
+        new TotalExpenseReportsBuilder()
+          .withPrediction(5821236)
+          .withActuals(5082362)
+          .withBudgetCap(8392323)
+          .withQuarterPeriod(2022, 4)
+          .build(),
+        new TotalExpenseReportsBuilder()
+          .withPrediction(4231563)
+          .withActuals(5082362)
+          .withBudgetCap(8392323)
+          .withQuarterPeriod(2023, 1)
+          .build(),
+      ] as ExpenseDto[],
+      totalExpenses: [
+        new TotalExpenseReportsBuilder()
+          .withPrediction(5821236)
+          .withActuals(5082362)
+          .withBudgetCap(8392323)
+          .withQuarterPeriod(2022, 4)
+          .build(),
+        new TotalExpenseReportsBuilder()
+          .withPrediction(4231563)
+          .withActuals(5082362)
+          .withBudgetCap(8392323)
+          .withQuarterPeriod(2023, 1)
+          .build(),
+      ] as ExpenseDto[],
+    } as TotalDelegateDto,
+    totalMonthlyExpenses: [
+      new TotalExpenseReportsBuilder()
+        .withPrediction(5821236)
+        .withActuals(5082362)
+        .withBudgetCap(8392323)
+        .withQuarterPeriod(2022, 4)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(4231563)
+        .withActuals(5082362)
+        .withBudgetCap(8392323)
+        .withQuarterPeriod(2023, 1)
+        .build(),
+    ] as ExpenseDto[],
   },
 ];
 

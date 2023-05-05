@@ -15,26 +15,24 @@ import DelegateExpenseTrend from './DelegateExpenseTrend';
 
 import TotalAndKeyStatsComponent from './TotalAndKeyStatsComponent/TotalAndkeyStatusComponent';
 import { useRecognizedDelegates } from './useRecognizedDelegates';
-import type { RecognizedDelegatesDto } from '@ses/core/models/dto/delegatesDTO';
+import type { RecognizedDelegatesDto, TotalDelegateDto } from '@ses/core/models/dto/delegatesDTO';
+import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   delegates: RecognizedDelegatesDto[];
-  totalDaiDelegates: number;
+  delegatesNumbers: ExpenseDto[];
+  totalQuarterlyExpenses: TotalDelegateDto;
 }
 
-const RecognizedDelegatesContainer: React.FC<Props> = ({ delegates, totalDaiDelegates }) => {
+const RecognizedDelegatesContainer: React.FC<Props> = ({ delegates, delegatesNumbers, totalQuarterlyExpenses }) => {
   const { isLight } = useThemeContext();
   const {
     totalDAI,
     mediaAnnual,
-    percent,
+
     shadowTotal,
-    totalDelegates,
-    delegatesExpenses,
-    otherExpenses,
-    amountDelegates,
-    expensesMock,
+    recognizedDelegates,
     startDate,
     endDate,
     handleSelectChange,
@@ -42,7 +40,10 @@ const RecognizedDelegatesContainer: React.FC<Props> = ({ delegates, totalDaiDele
     selectElements,
     handleResetFilter,
     resultFiltered,
-  } = useRecognizedDelegates(delegates, totalDaiDelegates);
+    newArray,
+    delegatesExpenses,
+    otherExpenses,
+  } = useRecognizedDelegates(delegates, delegatesNumbers, totalQuarterlyExpenses);
   return (
     <ExtendedPageContainer isLight={isLight}>
       <SEOHead
@@ -58,21 +59,19 @@ const RecognizedDelegatesContainer: React.FC<Props> = ({ delegates, totalDaiDele
       <Container>
         <Title isLight={isLight}>Recognized Delegates</Title>
         <TotalAndKeyStatsComponent
-          amountDelegates={amountDelegates}
           totalDAI={totalDAI}
           start={startDate}
           end={endDate}
           annual={mediaAnnual}
-          percent={percent}
           shadowTotal={shadowTotal}
-          totalDelegates={totalDelegates}
+          totalDelegates={recognizedDelegates}
           delegatesExpenses={delegatesExpenses}
           otherExpenses={otherExpenses}
         />
         <ContainerTrend>
           <DelegateExpenseTrend
             handleResetFilter={handleResetFilter}
-            expenses={expensesMock}
+            expenses={newArray}
             endDate={endDate}
             startDate={startDate}
             activeItems={activeElements}

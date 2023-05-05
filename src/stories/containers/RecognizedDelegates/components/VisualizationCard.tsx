@@ -13,10 +13,10 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 interface Props {
   otherExpenses: number;
   delegatesExpenses: number;
-  amountDelegates: number;
+  totalDelegates: number;
 }
 
-const VisualizationCard: React.FC<Props> = ({ delegatesExpenses, otherExpenses, amountDelegates }) => {
+const VisualizationCard: React.FC<Props> = ({ delegatesExpenses, otherExpenses, totalDelegates }) => {
   const humanizedDelegates = threeDigitsPrecisionHumanization(delegatesExpenses);
   const humanizedTotalDelegates = threeDigitsPrecisionHumanization(delegatesExpenses + otherExpenses);
   const { isLight } = useThemeContext();
@@ -28,7 +28,7 @@ const VisualizationCard: React.FC<Props> = ({ delegatesExpenses, otherExpenses, 
       <ContainerChart>
         <Legend>
           <LegendItemOtherExpenses color={'#D2D4EF'} description="Other Expenses" />
-          <ExtendedLegendItem color="#447AFB" description={`Recognized Delegates (${amountDelegates})`} />
+          <ExtendedLegendItem color="#447AFB" description={`Recognized Delegates (${totalDelegates})`} />
         </Legend>
         <ContainerBar>
           <BarPercent>
@@ -53,7 +53,7 @@ const VisualizationCard: React.FC<Props> = ({ delegatesExpenses, otherExpenses, 
           </LegendNumberWrapper>
           <Coin isLight={isLight}>DAI</Coin>
         </ContainerDescription>
-        <Description>Percentage of Total DAO Expense Nov 2021 - Jun 2023 </Description>
+        <Description>Percentage of Total DAO Expense Nov 2021 - Mar 2023 </Description>
       </BarDescription>
     </ExtendedKeyStatsCard>
   );

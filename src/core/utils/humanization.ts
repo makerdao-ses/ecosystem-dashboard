@@ -23,7 +23,7 @@ export const threeDigitsPrecisionHumanization = (num: number): HumanizedNumber =
 };
 
 export const usLocalizedNumber = (num: number): string =>
-  num.toLocaleString('en-US', {
+  num?.toLocaleString('en-US', {
     currency: 'USD',
     currencyDisplay: 'symbol',
   });

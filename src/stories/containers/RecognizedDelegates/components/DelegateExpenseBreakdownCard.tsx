@@ -4,6 +4,7 @@ import CopyIcon from '@ses/components/CopyIcon/CopyIcon';
 import ArrowLink from '@ses/components/svg/ArrowLink';
 import { getLinksFromRecognizedDelegates } from '@ses/core/businessLogic/reconizedDelegate';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { DELEGATE_PAGE } from '@ses/core/utils/const';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import { formatAddressForOutputDelegateWallet } from '@ses/core/utils/string';
@@ -23,8 +24,8 @@ interface Props {
 
 const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai }) => {
   const { isLight } = useThemeContext();
-  const percent = percentageRespectTo(delegateCard.numberDai, totalDai);
-  const humanizeTotal = usLocalizedNumber(totalDai);
+  const percent = percentageRespectTo(delegateCard.actuals, totalDai);
+  const humanizeTotal = usLocalizedNumber(delegateCard.actuals);
   return (
     <ExtendedGenericDelegate isLight={isLight}>
       <ContainerAvatarDescription>
@@ -51,9 +52,10 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
           <WalletLink>
             <ArrowLink
               fill={isLight ? '#447AFB' : '#626472'}
-              href={delegateCard.latestVotingContract}
+              href={DELEGATE_PAGE}
               width={20}
               height={20}
+              target="_blank"
             />
           </WalletLink>
         </AvatarSection>
@@ -62,7 +64,7 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
             <PercentTitle isLight={isLight}>% of Total</PercentTitle>
             <PercentBarContainer>
               <ContainerBarDelegate>
-                <DelegateBarPercentTotal numberDai={delegateCard.numberDai} totalDai={totalDai} />
+                <DelegateBarPercentTotal actuals={delegateCard.actuals} totalDai={totalDai} />
               </ContainerBarDelegate>
               <PercentNumber isLight={isLight}>{Math.trunc(percent || 0)}%</PercentNumber>
             </PercentBarContainer>
@@ -234,6 +236,7 @@ const PercentTitle = styled.div<WithIsLight>(({ isLight }) => ({
 const ContainerTotal = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'flex-end',
   paddingLeft: 1,
   [lightTheme.breakpoints.up('table_834')]: {
     textAlign: 'end',

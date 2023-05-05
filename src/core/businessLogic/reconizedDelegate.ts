@@ -1,5 +1,7 @@
 import { LinkTypeEnum } from '../enums/linkTypeEnum';
+import { getNameDelegates } from '../utils/string';
 import type { DelegateSocialDto, RecognizedDelegatesDto } from '../models/dto/delegatesDTO';
+import type { ExpenseDto } from '../models/dto/expensesDTO';
 import type { LinkModel } from '@ses/containers/RecognizedDelegates/DelegateExpenseBreakdown/DelegateSocialLink';
 
 export const getLinksFromRecognizedDelegates = (del: RecognizedDelegatesDto): LinkModel[] => {
@@ -36,4 +38,17 @@ export const getLinksFromRecognizedDelegates = (del: RecognizedDelegatesDto): Li
   }
 
   return result;
+};
+
+export const delegateWithActuals = (delegates: RecognizedDelegatesDto[], delegatesNumbers: ExpenseDto[]) => {
+  const delegatesWithActuals = delegates.map((delegate) => {
+    const expense = delegatesNumbers.find((number) => getNameDelegates(number.budget) === delegate.name);
+    return expense
+      ? {
+          ...delegate,
+          actuals: expense.actuals || 0,
+        }
+      : delegate;
+  });
+  return delegatesWithActuals;
 };
