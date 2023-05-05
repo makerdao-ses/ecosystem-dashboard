@@ -90,17 +90,20 @@ export const TransparencyActuals = (props: Props) => {
       )}
 
       {mainTableItems.length > 0 && (
-        <AdvancedInnerTable
-          columns={breakdownColumnsForActiveTab}
-          items={breakdownItemsForActiveTab}
-          longCode={props.longCode}
-          style={{ marginBottom: '64px' }}
-          tablePlaceholder={
-            <div style={{ marginBottom: 64 }}>
-              <TransparencyEmptyTable breakdown longCode={props.longCode} />
-            </div>
-          }
-        />
+        <BreakdownTableWrapper>
+          <AdvancedInnerTable
+            columns={breakdownColumnsForActiveTab}
+            items={breakdownItemsForActiveTab}
+            longCode={props.longCode}
+            style={{ marginBottom: 64 }}
+            cardSpacingSize="small"
+            tablePlaceholder={
+              <div style={{ marginBottom: 64 }}>
+                <TransparencyEmptyTable breakdown longCode={props.longCode} />
+              </div>
+            }
+          />
+        </BreakdownTableWrapper>
       )}
     </Container>
   );
@@ -127,3 +130,7 @@ export const LinkDescription = styled.div<{ isLight: boolean }>(({ isLight }) =>
     fontSize: 16,
   },
 }));
+
+export const BreakdownTableWrapper = styled.div({
+  paddingTop: 24,
+});

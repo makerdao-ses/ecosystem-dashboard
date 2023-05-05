@@ -162,7 +162,7 @@ export const getActualsBreakdownItemsForWallet = (
         items: [
           {
             column: breakdownColumns[0],
-            value: groupedKey === '' ? 'Core Unit' : groupedKey,
+            value: groupedKey === '' ? 'General' : groupedKey,
           },
         ],
       });

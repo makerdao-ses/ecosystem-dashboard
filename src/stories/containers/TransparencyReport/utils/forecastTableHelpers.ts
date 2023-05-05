@@ -195,7 +195,7 @@ export const getBreakdownItemsForWallet = (
         items: [
           {
             column: breakdownColumns[0],
-            value: groupedKey === '' ? 'Core Unit' : groupedKey,
+            value: groupedKey === '' ? 'General' : groupedKey,
           },
           ...getExtraEmptyColumnsForHeaders(breakdownColumns),
         ],

@@ -11,7 +11,7 @@ import React from 'react';
 import { Title } from '../../TransparencyReport';
 import { FORECAST_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
-import { LinkDescription } from '../TransparencyActuals/TransparencyActuals';
+import { BreakdownTableWrapper, LinkDescription } from '../TransparencyActuals/TransparencyActuals';
 import { useTransparencyForecast } from './useTransparencyForecast';
 import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
 import type { DateTime } from 'luxon';
@@ -87,12 +87,15 @@ export const TransparencyForecast = (props: Props) => {
       )}
 
       {!!mainTableItems?.length && (
-        <AdvancedInnerTable
-          longCode={props.longCode}
-          columns={breakdownColumnsForActiveTab}
-          items={breakdownItems}
-          tablePlaceholder={<TransparencyEmptyTable breakdown longCode={props.longCode} />}
-        />
+        <BreakdownTableWrapper>
+          <AdvancedInnerTable
+            longCode={props.longCode}
+            columns={breakdownColumnsForActiveTab}
+            items={breakdownItems}
+            cardSpacingSize="small"
+            tablePlaceholder={<TransparencyEmptyTable breakdown longCode={props.longCode} />}
+          />
+        </BreakdownTableWrapper>
       )}
     </Container>
   );
