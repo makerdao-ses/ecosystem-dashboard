@@ -81,43 +81,77 @@ const variantsArgs = [
     ],
     delegatesNumbers: [
       new TotalExpenseReportsBuilder()
-        .withPrediction(5236845)
-        .withActuals(4521236)
+        .withPrediction(1821236)
+        .withActuals(20144)
+        .withBudget('makerdao/delegates/Flip Flop Flap Delegate LLC')
+        .withBudgetCap(8392323)
+        .withQuarterPeriod(2022, 4)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(1236845)
+        .withActuals(1594292)
+        .withBudget('makerdao/delegates/Feedblack Loops LLC')
         .withBudgetCap(6523658)
         .withQuarterPeriod(2022, 1)
         .build(),
       new TotalExpenseReportsBuilder()
-        .withPrediction(9121456)
-        .withActuals(9191222)
+        .withPrediction(3690)
+        .withActuals(4236)
+        .withBudget('makerdao/delegates/GFX Labs')
         .withBudgetCap(9562451)
         .withQuarterPeriod(2022, 2)
         .build(),
       new TotalExpenseReportsBuilder()
         .withPrediction(4232845)
-        .withActuals(5432168)
+        .withActuals(122)
+        .withBudget('makerdao/delegates/Coldirion.eth')
         .withBudgetCap(6392563)
         .withQuarterPeriod(2022, 3)
-        .build(),
-      new TotalExpenseReportsBuilder()
-        .withPrediction(5821236)
-        .withActuals(5082362)
-        .withBudgetCap(8392323)
-        .withQuarterPeriod(2022, 4)
-        .build(),
-      new TotalExpenseReportsBuilder()
-        .withPrediction(4231563)
-        .withActuals(5082362)
-        .withBudgetCap(8392323)
-        .withQuarterPeriod(2023, 1)
         .build(),
     ] as ExpenseDto[],
     totalQuarterlyExpenses: {
       delegatesExpenses: [
         new TotalExpenseReportsBuilder()
           .withPrediction(5821236)
-          .withActuals(5082362)
+          .withActuals(2082362)
           .withBudgetCap(8392323)
           .withQuarterPeriod(2022, 4)
+          .build(),
+        new TotalExpenseReportsBuilder()
+          .withPrediction(4231563)
+          .withActuals(2082362)
+          .withBudgetCap(8392323)
+          .withQuarterPeriod(2023, 1)
+          .build(),
+        new TotalExpenseReportsBuilder()
+          .withPrediction(4231563)
+          .withActuals(2082362)
+          .withBudgetCap(8392323)
+          .withQuarterPeriod(2023, 1)
+          .build(),
+        // new TotalExpenseReportsBuilder()
+        //   .withPrediction(4231563)
+        //   .withActuals(5082362)
+        //   .withBudgetCap(8392323)
+        //   .withQuarterPeriod(2023, 1)
+        //   .build(),
+        // new TotalExpenseReportsBuilder()
+        //   .withPrediction(4231563)
+        //   .withActuals(5082362)
+        //   .withBudgetCap(8392323)
+        //   .withQuarterPeriod(2023, 1)
+        //   .build(),
+        // new TotalExpenseReportsBuilder()
+        //   .withPrediction(4231563)
+        //   .withActuals(5082362)
+        //   .withBudgetCap(8392323)
+        //   .withQuarterPeriod(2023, 1)
+        //   .build(),
+        new TotalExpenseReportsBuilder()
+          .withPrediction(4231563)
+          .withActuals(12394)
+          .withBudgetCap(8392323)
+          .withQuarterPeriod(2023, 1)
           .build(),
         new TotalExpenseReportsBuilder()
           .withPrediction(4231563)
@@ -144,15 +178,105 @@ const variantsArgs = [
     totalMonthlyExpenses: [
       new TotalExpenseReportsBuilder()
         .withPrediction(5821236)
-        .withActuals(5082362)
+        .withActuals(22362)
+        .withBudgetCap(8392323)
+        .withQuarterPeriod(2021, 11)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(4231563)
+        .withActuals(245362)
+        .withBudgetCap(8392323)
+        .withQuarterPeriod(2021, 12)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(4231563)
+        .withActuals(345452)
+        .withBudgetCap(8392323)
+        .withQuarterPeriod(2022, 1)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(4231563)
+        .withActuals(432345)
+        .withBudgetCap(8392323)
+        .withQuarterPeriod(2022, 2)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(4231563)
+        .withActuals(332362)
+        .withBudgetCap(8392323)
+        .withQuarterPeriod(2022, 3)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(4231563)
+        .withActuals(332362)
         .withBudgetCap(8392323)
         .withQuarterPeriod(2022, 4)
         .build(),
       new TotalExpenseReportsBuilder()
         .withPrediction(4231563)
-        .withActuals(5082362)
+        .withActuals(332362)
+        .withBudgetCap(8392323)
+        .withQuarterPeriod(2022, 5)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(4231563)
+        .withActuals(482362)
+        .withBudgetCap(8392323)
+        .withQuarterPeriod(2022, 6)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(4231563)
+        .withActuals(482362)
+        .withBudgetCap(8392323)
+        .withQuarterPeriod(2022, 7)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(4231563)
+        .withActuals(482362)
+        .withBudgetCap(8392323)
+        .withQuarterPeriod(2022, 8)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(4231563)
+        .withActuals(562362)
+        .withBudgetCap(8392323)
+        .withQuarterPeriod(2022, 9)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(4231563)
+        .withActuals(562362)
+        .withBudgetCap(8392323)
+        .withQuarterPeriod(2022, 10)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(4231563)
+        .withActuals(562362)
+        .withBudgetCap(8392323)
+        .withQuarterPeriod(2022, 11)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(4231563)
+        .withActuals(562362)
+        .withBudgetCap(8392323)
+        .withQuarterPeriod(2022, 12)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(4231563)
+        .withActuals(562362)
         .withBudgetCap(8392323)
         .withQuarterPeriod(2023, 1)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(4231563)
+        .withActuals(562362)
+        .withBudgetCap(8392323)
+        .withQuarterPeriod(2023, 2)
+        .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(4231563)
+        .withActuals(562362)
+        .withBudgetCap(8392323)
+        .withQuarterPeriod(2023, 3)
         .build(),
     ] as ExpenseDto[],
   },
