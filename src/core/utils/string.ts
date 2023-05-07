@@ -177,5 +177,7 @@ export const formatAddressForOutputDelegateWallet = (address: string | undefined
 export const getNameDelegates = (format: string) => {
   if (!format) return 'No name';
   const words = format.split('/');
-  return words[words.length - 1];
+  const lastWord = words[words.length - 1];
+  const fullName = lastWord.replace('\\', '');
+  return fullName;
 };

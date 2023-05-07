@@ -129,24 +129,6 @@ const variantsArgs = [
           .withBudgetCap(8392323)
           .withQuarterPeriod(2023, 1)
           .build(),
-        // new TotalExpenseReportsBuilder()
-        //   .withPrediction(4231563)
-        //   .withActuals(5082362)
-        //   .withBudgetCap(8392323)
-        //   .withQuarterPeriod(2023, 1)
-        //   .build(),
-        // new TotalExpenseReportsBuilder()
-        //   .withPrediction(4231563)
-        //   .withActuals(5082362)
-        //   .withBudgetCap(8392323)
-        //   .withQuarterPeriod(2023, 1)
-        //   .build(),
-        // new TotalExpenseReportsBuilder()
-        //   .withPrediction(4231563)
-        //   .withActuals(5082362)
-        //   .withBudgetCap(8392323)
-        //   .withQuarterPeriod(2023, 1)
-        //   .build(),
         new TotalExpenseReportsBuilder()
           .withPrediction(4231563)
           .withActuals(12394)
