@@ -83,6 +83,7 @@ const RecognizedDelegatesContainer: React.FC<Props> = ({
             activeItems={activeElements}
             items={selectElements}
             handleSelectChange={handleSelectChange}
+            totalDaiDelegates={totalDAI}
           />
         </ContainerTrend>
         <ContainerBreakdown>
