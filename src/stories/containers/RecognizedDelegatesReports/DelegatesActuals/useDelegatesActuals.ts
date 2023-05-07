@@ -1,4 +1,4 @@
-import { renderLinksWithToken, renderWallet } from '@ses/containers/TransparencyReport/transparencyReportUtils';
+import { renderWallet } from '@ses/containers/TransparencyReport/transparencyReportUtils';
 
 import {
   budgetTotalActual,
@@ -148,13 +148,6 @@ export const useDelegatesActuals = (
         align: 'right',
         type: 'number',
       },
-      {
-        header: 'External Links',
-        align: 'left',
-        type: 'custom',
-        cellRender: renderLinksWithToken,
-        isCardFooter: true,
-      },
     ];
     return mainTableColumnsActuals;
   }, [walletsActuals]);
@@ -194,10 +187,6 @@ export const useDelegatesActuals = (
               {
                 column: mainTableColumnsActuals[4],
                 value: numberCellData[3],
-              },
-              {
-                column: mainTableColumnsActuals[5],
-                value: wallet.address,
               },
             ],
           });
