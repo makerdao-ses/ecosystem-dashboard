@@ -63,12 +63,12 @@ export const Annual = styled.div<WithIsLight>(({ isLight }) => ({
   lineHeight: '19px',
   letterSpacing: '0.3px',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
-  color: isLight ? '#24346 : ' : '#EDEFFF',
+  color: isLight ? '#9FAFB9 : ' : '#EDEFFF',
   marginBottom: 4,
   textTransform: 'uppercase',
   '& span': {
-    marginLeft: 2,
-    color: isLight ? '#243465' : '#708390',
+    marginLeft: 4,
+    color: isLight ? '#9FAFB9' : '#708390',
   },
   [lightTheme.breakpoints.up('table_834')]: {
     fontWeight: 500,
