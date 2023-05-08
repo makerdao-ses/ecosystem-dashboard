@@ -6,6 +6,7 @@ import {
   fetchRecognizedDelegates,
 } from '@ses/containers/RecognizedDelegates/api/RecognizedDelegatesAPI';
 
+import { ExpenseGranularity } from '@ses/core/models/dto/expensesDTO';
 import { featureFlags } from 'feature-flags/feature-flags';
 import React from 'react';
 import type { RecognizedDelegatesDto, TotalDelegateDto } from '@ses/core/models/dto/delegatesDTO';
@@ -16,13 +17,20 @@ interface Props {
   delegates: RecognizedDelegatesDto[];
   delegatesNumbers: ExpenseDto[];
   totalQuarterlyExpenses: TotalDelegateDto;
+  totalMonthlyExpenses: ExpenseDto[];
 }
 
-const RecognizedDelegates: NextPage<Props> = ({ delegates, delegatesNumbers, totalQuarterlyExpenses }) => (
+const RecognizedDelegates: NextPage<Props> = ({
+  delegates,
+  delegatesNumbers,
+  totalQuarterlyExpenses,
+  totalMonthlyExpenses,
+}) => (
   <RecognizedDelegatesContainer
     delegates={delegates}
     delegatesNumbers={delegatesNumbers}
     totalQuarterlyExpenses={totalQuarterlyExpenses}
+    totalMonthlyExpenses={totalMonthlyExpenses}
   />
 );
 
@@ -35,15 +43,17 @@ export const getServerSideProps: GetServerSideProps = async () => {
     };
   }
 
-  const [delegates, delegatesNumbers, totalQuarterlyExpenses] = await Promise.all([
+  const [delegates, delegatesNumbers, totalMonthlyExpenses, totalQuarterlyExpenses] = await Promise.all([
     fetchRecognizedDelegates(),
-    fetchDelegatesNumbers(),
+    fetchDelegatesNumbers(ExpenseGranularity.total),
+    fetchDelegatesNumbers(ExpenseGranularity.monthly),
     fetchRecognizedDelegateDoughnutChart(),
   ]);
   return {
     props: {
       delegates,
       delegatesNumbers,
+      totalMonthlyExpenses,
       totalQuarterlyExpenses,
     },
   };

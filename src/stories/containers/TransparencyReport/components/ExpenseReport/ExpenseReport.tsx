@@ -70,7 +70,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
           longCode={longCode}
         />
 
-        {actualsData.mainTableItems.length > 0 && (
+        {actualsData.mainTableItems?.length > 0 && (
           <>
             <TitleSpacer>
               <SectionTitle level={2} hasExternalIcon={isBreakdownExpanded}>
@@ -141,7 +141,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
           cardsTotalPosition={'top'}
         />
 
-        {forecastData.breakdownItems.length > 0 && (
+        {forecastData.breakdownItems?.length > 0 && (
           <>
             <TitleSpacer>
               <SectionTitle level={2} hasExternalIcon={isBreakdownExpanded}>
@@ -210,7 +210,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
           longCode={longCode}
         />
 
-        {mkrVestingData.mainTableItems.length > 0 && (
+        {mkrVestingData.mainTableItems?.length > 0 && (
           <MkrVestingInfoContainer>
             <MkrVestingInfo />
           </MkrVestingInfoContainer>

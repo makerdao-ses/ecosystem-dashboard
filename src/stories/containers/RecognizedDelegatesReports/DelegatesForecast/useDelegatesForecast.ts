@@ -1,4 +1,3 @@
-import { renderLinks } from '@ses/containers/CUTable/CuTableRenders';
 import { renderWallet } from '@ses/containers/TransparencyReport/transparencyReportUtils';
 import { getAllWallets } from '@ses/core/utils/finances';
 import _ from 'lodash';
@@ -300,13 +299,6 @@ export const useDelegatesForecast = (currentMonth: DateTime, propBudgetStatement
         type: 'number',
         align: 'right',
       },
-      {
-        header: 'External Links',
-        type: 'custom',
-        align: 'left',
-        isCardFooter: true,
-        cellRender: renderLinks,
-      },
     ],
     [firstMonthForecast, secondMonthForecast, thirdMonthForecast, walletsForecast]
   );
@@ -393,10 +385,6 @@ export const useDelegatesForecast = (currentMonth: DateTime, propBudgetStatement
           {
             column: mainTableColumnsForecast[6],
             value: numberCellData[5],
-          },
-          {
-            column: mainTableColumnsForecast[7],
-            value: wallet.address,
           },
         ],
       });

@@ -105,7 +105,6 @@ export const getActualsBreakdownColumns = (wallet: BudgetStatementWalletDto) => 
     {
       header: 'Mthly Budget',
       align: 'right',
-      hidden: !hasGroups,
       type: 'number',
     },
     {
@@ -159,6 +158,7 @@ export const getActualsBreakdownItemsForWallet = (
       // it is a project group
       result.push({
         type: 'groupTitle',
+        borderTop: true,
         items: [
           {
             column: breakdownColumns[0],

@@ -98,12 +98,12 @@ const useRecognizedDelegatesReport = (delegates: DelegatesDto) => {
   useEffect(() => {
     switch (currentBudgetStatement?.status) {
       case BudgetStatus.Draft:
-        setShowExpenseReportStatusCTA(permissionManager.coreUnit.isCoreUnitAdmin(delegates.id));
+        setShowExpenseReportStatusCTA(permissionManager.delegates.canComment());
         break;
       default:
         setShowExpenseReportStatusCTA(false);
     }
-  }, [currentBudgetStatement, delegates.id, permissionManager]);
+  }, [currentBudgetStatement, permissionManager]);
 
   const { comments, numbersComments, commentsLastVisitState, updateHasNewComments } = useBudgetStatementComments(
     currentBudgetStatement,

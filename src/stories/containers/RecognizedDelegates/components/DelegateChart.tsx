@@ -13,9 +13,10 @@ interface Props {
   expenses: number[];
   startDate: DateTime;
   endDate: DateTime;
+  totalDaiDelegates?: number;
 }
 
-const DelegateChart: React.FC<Props> = ({ expenses, endDate, startDate }) => {
+const DelegateChart: React.FC<Props> = ({ expenses, endDate, startDate, totalDaiDelegates }) => {
   const { isLight } = useThemeContext();
   const MONTHS_DESK = getMonthsBetweenDateDeskFormat(startDate, endDate);
   const MONTS_MOBILE = getMonthsBetweenDatesMobileFormat(startDate, endDate);
@@ -28,7 +29,7 @@ const DelegateChart: React.FC<Props> = ({ expenses, endDate, startDate }) => {
 
       right: upTable ? '0%' : 2,
       ...(!upTable && { left: 40 }),
-      ...(upTable && { left: 44 }),
+      ...(upTable && { left: 48 }),
       bottom: '10%',
     },
     xAxis: {
@@ -89,8 +90,8 @@ const DelegateChart: React.FC<Props> = ({ expenses, endDate, startDate }) => {
     },
     yAxis: {
       min: 0,
-      max: 120000,
-      interval: 20000,
+      max: totalDaiDelegates || 120000,
+      interval: 200000,
       nameTextStyle: {
         align: 'center',
       },
