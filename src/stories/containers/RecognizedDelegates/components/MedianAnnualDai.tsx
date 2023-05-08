@@ -13,7 +13,7 @@ interface Props {
 
 const MedianAnnualDai: React.FC<Props> = ({ annual }) => {
   const { isLight } = useThemeContext();
-  const formatted = usLocalizedNumber(annual);
+  const formatted = usLocalizedNumber(annual, 2);
 
   return (
     <ExtendedGenericDelegate>
@@ -99,7 +99,7 @@ const DescriptionDelegatesExtended = styled(DescriptionDelegates)({
     marginTop: -22,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginTop: -5,
+    marginTop: -12,
     paddingLeft: 14,
     paddingRight: 14,
   },

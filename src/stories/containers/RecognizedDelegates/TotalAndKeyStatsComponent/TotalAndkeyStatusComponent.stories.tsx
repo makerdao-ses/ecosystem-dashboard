@@ -15,9 +15,9 @@ export default {
 
 const variantsArgs = [
   {
-    totalDelegates: 23,
+    totalDelegates: 21,
     shadowTotal: 43,
-    annual: 12345,
+    annual: 89928,
     percent: 4.22,
     delegatesExpenses: 2160000,
     otherExpenses: 50500000,
