@@ -8,7 +8,7 @@ import React from 'react';
 const NavigationButtons: React.FC = () => (
   <NavigationButtonsContainer>
     <Button href={siteRoutes.coreUnitsOverview} label="Core Units" buttonType={ButtonType.Primary} />
-    <Button href={siteRoutes.recognizedDelegateReport} label="Recognized Delegates" buttonType={ButtonType.Primary} />
+    <Button href={siteRoutes.recognizedDelegate} label="Recognized Delegates" buttonType={ButtonType.Primary} />
   </NavigationButtonsContainer>
 );
 

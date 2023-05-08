@@ -40,7 +40,7 @@ export const useRecognizedDelegates = (
   const recognizedDelegates = delegates.length;
   // TODO: Those number will be delete next release
   const shadowTotal = 178;
-  const mediaAnnual = 610451;
+  const mediaAnnual = 73254.1;
   const delegatesExpenses = totalQuarterlyExpenses.delegatesExpenses[0].actuals;
   const otherExpenses =
     totalQuarterlyExpenses.totalExpenses[0].actuals - totalQuarterlyExpenses.delegatesExpenses[0].actuals;
@@ -59,7 +59,10 @@ export const useRecognizedDelegates = (
   const filteredCardsDelegates = resultDelegatesWithActuals.filter((delegate: RecognizedDelegatesDto) =>
     activeElements.includes(delegate.name)
   );
-  const resultFilteredCards = activeElements.length === 0 ? resultDelegatesWithActuals : filteredCardsDelegates;
+  const resultFilteredCards =
+    activeElements.length === 0
+      ? sortBy(resultDelegatesWithActuals, (items) => -items.actuals)
+      : sortBy(filteredCardsDelegates, (items) => -items.actuals);
 
   const resultFilteredChart =
     activeElements.length === 0 ? totalDelegateMonthly : filteredDelegatesChart(orderAllMonthExpense, activeElements);

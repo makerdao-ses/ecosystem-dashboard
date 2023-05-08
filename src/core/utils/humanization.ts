@@ -22,8 +22,9 @@ export const threeDigitsPrecisionHumanization = (num: number): HumanizedNumber =
   }
 };
 
-export const usLocalizedNumber = (num: number): string =>
+export const usLocalizedNumber = (num: number, decimalPlace = 0): string =>
   num?.toLocaleString('en-US', {
     currency: 'USD',
     currencyDisplay: 'symbol',
+    minimumFractionDigits: decimalPlace,
   });
