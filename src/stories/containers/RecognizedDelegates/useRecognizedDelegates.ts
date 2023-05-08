@@ -59,7 +59,10 @@ export const useRecognizedDelegates = (
   const filteredCardsDelegates = resultDelegatesWithActuals.filter((delegate: RecognizedDelegatesDto) =>
     activeElements.includes(delegate.name)
   );
-  const resultFilteredCards = activeElements.length === 0 ? resultDelegatesWithActuals : filteredCardsDelegates;
+  const resultFilteredCards =
+    activeElements.length === 0
+      ? sortBy(resultDelegatesWithActuals, (items) => -items.actuals)
+      : sortBy(filteredCardsDelegates, (items) => -items.actuals);
 
   const resultFilteredChart =
     activeElements.length === 0 ? totalDelegateMonthly : filteredDelegatesChart(orderAllMonthExpense, activeElements);
