@@ -1,9 +1,9 @@
-import { BASE_URL } from '../../config/routes';
+import { BASE_URL, siteRoutes } from '../../config/routes';
 import { fetchCoreUnits } from '../../stories/containers/CUTable/cuTableAPI';
 import type { CoreUnitDto } from '../models/dto/coreUnitDTO';
 
 export class SitemapBuilder {
-  getXMLForRoute(url: string, lastMod?: string, changeFreq?: string): string {
+  private getXMLForRoute(url: string, lastMod?: string, changeFreq?: string): string {
     return `
       <url>
         <loc>${url}</loc>
@@ -18,15 +18,27 @@ export class SitemapBuilder {
     return this.getXMLForRoute(`${BASE_URL}`);
   }
 
-  resolveGlobalActivityRoute(): string {
-    return this.getXMLForRoute(`${BASE_URL}/activity-feed`);
+  resolveCoreUnitsHomeRoute(): string {
+    return this.getXMLForRoute(`${BASE_URL}${siteRoutes.coreUnitsOverview}`);
   }
 
-  resolveSingleCURoutes(cu: CoreUnitDto): string[] {
+  resolveDelegatesRoute(): string {
+    return this.getXMLForRoute(`${BASE_URL}${siteRoutes.recognizedDelegate}`);
+  }
+
+  resolveDelegatesReportsRoute(): string {
+    return this.getXMLForRoute(`${BASE_URL}${siteRoutes.recognizedDelegateReport}`);
+  }
+
+  resolveGlobalActivityRoute(): string {
+    return this.getXMLForRoute(`${BASE_URL}${siteRoutes.globalActivityFeed}`);
+  }
+
+  private resolveSingleCURoutes(cu: CoreUnitDto): string[] {
     const cuRoutes: string[] = [];
-    cuRoutes.push(this.getXMLForRoute(`${BASE_URL}/core-unit/${cu.shortCode}`));
-    cuRoutes.push(this.getXMLForRoute(`${BASE_URL}/core-unit/${cu.shortCode}/finances/reports`));
-    cuRoutes.push(this.getXMLForRoute(`${BASE_URL}/core-unit/${cu.shortCode}/activity-feed`));
+    cuRoutes.push(this.getXMLForRoute(`${BASE_URL}${siteRoutes.coreUnitAbout(cu.shortCode)}`));
+    cuRoutes.push(this.getXMLForRoute(`${BASE_URL}${siteRoutes.coreUnitReports(cu.shortCode)}`));
+    cuRoutes.push(this.getXMLForRoute(`${BASE_URL}${siteRoutes.coreUnitActivityFeed(cu.shortCode)}`));
 
     return cuRoutes;
   }
@@ -47,6 +59,9 @@ export class SitemapBuilder {
     return `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       ${this.resolveHomePageRoute()}
+      ${this.resolveDelegatesRoute()}
+      ${this.resolveDelegatesReportsRoute()}
+      ${this.resolveCoreUnitsHomeRoute()}
       ${this.resolveGlobalActivityRoute()}
       ${cuRoutes.join('')}
     </urlset>
