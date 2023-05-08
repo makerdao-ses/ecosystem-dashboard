@@ -29,7 +29,7 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)({
   minWidth: 143.5,
   flex: 1,
   [lightTheme.breakpoints.up('table_834')]: {
-    minWidth: 235.33,
+    minWidth: 231.5,
     padding: '24px 16px 16px',
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
