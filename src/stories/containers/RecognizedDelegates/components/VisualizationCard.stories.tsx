@@ -7,6 +7,7 @@ export default {
   component: VisualizationCard,
   parameters: {
     chromatic: {
+      pauseAnimationAtEnd: true,
       viewports: [375, 834, 1194, 1280, 1440],
     },
   },
@@ -16,7 +17,6 @@ const variantsArgs = [
     delegatesExpenses: 2222252,
     otherExpenses: 50500000,
     totalDelegates: 25,
-    pauseAnimationAtEnd: true,
   },
 ];
 
