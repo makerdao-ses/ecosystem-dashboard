@@ -370,7 +370,7 @@ const Divider = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'none',
   [lightTheme.breakpoints.up('table_834')]: {
     display: 'flex',
-    border: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
+    borderBottom: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
     marginBottom: 8,
     marginTop: 24,
   },
