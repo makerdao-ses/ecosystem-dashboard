@@ -1,10 +1,8 @@
 import styled from '@emotion/styled';
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import CopyIcon from '@ses/components/CopyIcon/CopyIcon';
-import ArrowLink from '@ses/components/svg/ArrowLink';
 import { getLinksFromRecognizedDelegates } from '@ses/core/businessLogic/reconizedDelegate';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { DELEGATE_PAGE } from '@ses/core/utils/const';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import { formatAddressForOutputDelegateWallet } from '@ses/core/utils/string';
@@ -49,15 +47,6 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
               </ClipBoardRow>
             </NameAddressColumn>
           </WalletAvatar>
-          <WalletLink>
-            <ArrowLink
-              fill={isLight ? '#447AFB' : '#626472'}
-              href={DELEGATE_PAGE}
-              width={20}
-              height={20}
-              target="_blank"
-            />
-          </WalletLink>
         </AvatarSection>
         <DescriptionSection>
           <ContainerBar>
@@ -171,14 +160,6 @@ const Address = styled.div({
   [lightTheme.breakpoints.up('desktop_1194')]: {
     fontSize: '14px',
     lineHeight: '17px',
-  },
-});
-
-const WalletLink = styled.div({
-  marginRight: 2,
-  marginTop: 4,
-  [lightTheme.breakpoints.up('table_834')]: {
-    display: 'none',
   },
 });
 
