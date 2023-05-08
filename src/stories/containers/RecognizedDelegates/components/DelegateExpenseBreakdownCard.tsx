@@ -255,13 +255,25 @@ const Total = styled.div<WithIsLight>(({ isLight }) => ({
     marginLeft: 4,
   },
   [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: 16,
-    fontSize: '16px',
-    lineHeight: '18px',
+    marginTop: 14,
     '& > span': {
       fontWeight: 600,
       color: '#9FAFB9',
-      marginLeft: 8,
+      marginLeft: 6,
+      fontSize: '16px',
+      lineHeight: '19px',
+    },
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginTop: 16,
+    fontSize: '16px',
+    lineHeight: '19px',
+    '& > span': {
+      fontWeight: 600,
+      color: '#9FAFB9',
+      marginLeft: 6,
+      fontSize: '16px',
+      lineHeight: '19px',
     },
   },
 }));

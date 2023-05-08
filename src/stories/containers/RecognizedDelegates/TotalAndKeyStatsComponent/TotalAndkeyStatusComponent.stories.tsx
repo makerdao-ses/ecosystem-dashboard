@@ -15,7 +15,7 @@ export default {
 
 const variantsArgs = [
   {
-    totalDelegates: 21,
+    totalDelegates: 23,
     shadowTotal: 43,
     annual: 89928,
     percent: 4.22,
@@ -51,7 +51,7 @@ TotalAndKeyStats.parameters = {
       },
       834: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:203738&t=oRxIEkwi7dkVYRAp-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=16724:203738&t=RTmp4W2yeFWlwptx-4',
         options: {
           style: {
             left: -24,
