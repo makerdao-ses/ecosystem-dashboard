@@ -9,6 +9,7 @@ export default {
   parameters: {
     chromatic: {
       viewports: [375],
+      pauseAnimationAtEnd: true,
     },
   },
 } as ComponentMeta<typeof TotalExpenseReportCard>;
