@@ -47,15 +47,6 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
               </ClipBoardRow>
             </NameAddressColumn>
           </WalletAvatar>
-          {/* <WalletLink>
-            <ArrowLink
-              fill={isLight ? '#447AFB' : '#626472'}
-              href={DELEGATE_PAGE}
-              width={20}
-              height={20}
-              target="_blank"
-            />
-          </WalletLink> */}
         </AvatarSection>
         <DescriptionSection>
           <ContainerBar>
