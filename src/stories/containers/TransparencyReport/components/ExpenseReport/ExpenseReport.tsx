@@ -140,7 +140,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
           cardsTotalPosition={'top'}
         />
 
-        {forecastData.breakdownItems?.length > 0 && (
+        {forecastData.mainTableItems?.length > 0 && (
           <>
             <TitleSpacer>
               <SectionTitle level={2} hasExternalIcon={isBreakdownExpanded}>
