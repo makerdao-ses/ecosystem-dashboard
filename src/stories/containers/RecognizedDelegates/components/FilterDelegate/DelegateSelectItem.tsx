@@ -40,7 +40,7 @@ const DelegateSelectItem: React.FC<SelectItemProps> = ({ checked = false, isDisa
         {props.label}
       </DelegateName>
       <CheckWrapper>
-        <Check fill={checked ? (isLight ? '#231536' : 'white') : isLight ? '#D1DEE6' : 'rgb(159, 175, 185)'} />
+        <Check fill={checked ? (isLight ? '#231536' : 'white') : isLight ? '#D1DEE6' : '#231536'} />
       </CheckWrapper>
     </StyledContainer>
   );
