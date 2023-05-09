@@ -40,6 +40,7 @@ const FilterDelegate: React.FC<Props> = ({ items, activeItems, handleSelectChang
       </Reset>
       <FilterDelegatesContainer>
         <CustomMultiSelect
+          isNotLimited={activeItems.length < 6}
           positionRight={true}
           label="Recognized Delegates"
           activeItems={activeItems}
