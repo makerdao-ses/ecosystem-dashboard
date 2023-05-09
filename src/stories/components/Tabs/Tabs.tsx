@@ -16,6 +16,16 @@ export interface TabItem {
   href?: string;
 }
 
+export interface InternalTabsProps {
+  isExpanded: boolean;
+  setExpanded: React.Dispatch<React.SetStateAction<boolean>>;
+  queryValue?: string;
+  expandedActiveId?: string;
+  setExpandedActiveId: React.Dispatch<React.SetStateAction<string | undefined>>;
+  compressedActiveId?: string;
+  setCompressedActiveId: React.Dispatch<React.SetStateAction<string | undefined>>;
+}
+
 export interface TabsProps {
   // tabs to be shown in default view
   tabs: TabItem[];
@@ -29,6 +39,8 @@ export interface TabsProps {
   expandedDefault?: boolean;
   // tabs to be shown in compressed view
   compressedTabs?: TabItem[];
+  // callback called after the `Tabs` is initialized
+  onInit?: (internalState: InternalTabsProps) => void;
   // callback when the `Tabs` is expanded/compressed
   onExpand?: (isExpanded: boolean) => void;
   // callback when the active tab is changed
@@ -61,6 +73,7 @@ const Tabs: React.FC<TabsProps> = ({
   activeIdDefault,
   expandedDefault = true,
   compressedTabs = [],
+  onInit,
   onExpand,
   onChange,
   expandToolTip,
@@ -123,6 +136,23 @@ const Tabs: React.FC<TabsProps> = ({
     return activeIdDefault ?? compressedTabs?.[0]?.id;
   });
   const activeId = expanded ? expandedActiveId : compressedActiveId;
+
+  useEffect(() => {
+    // called on init...
+    if (onInit) {
+      onInit({
+        isExpanded: expanded,
+        setExpanded,
+        queryValue,
+        expandedActiveId,
+        setExpandedActiveId,
+        compressedActiveId,
+        setCompressedActiveId,
+      });
+    }
+    // this hook should be called only once even if the dependencies changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (!controlled) {
@@ -192,17 +222,6 @@ const Tabs: React.FC<TabsProps> = ({
     onExpand?.(!expanded);
     setExpanded(!expanded);
   };
-
-  useEffect(() => {
-    // sync expanded status with the URL to keep the tabs synced with other tabs in the page
-    if (
-      [viewValues.default, viewValues.compressed].includes(router.query[viewKey] as string) &&
-      (router.query[viewKey] === viewValues.default) !== expanded
-    ) {
-      setExpanded(!expanded);
-      // onExpand callback should not be fired to avoid double calls when tabs are synced
-    }
-  }, [expanded, router.query, viewKey, viewValues]);
 
   const activeTabs = expanded ? tabs : compressedTabs;
 
