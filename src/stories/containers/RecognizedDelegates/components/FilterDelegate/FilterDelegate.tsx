@@ -58,7 +58,9 @@ const FilterDelegate: React.FC<Props> = ({ items, activeItems, handleSelectChang
             params: { isAll: true },
             count: 0,
           }}
-          customItemRender={(props: SelectItemProps) => <DelegateSelectItem {...props} />}
+          customItemRender={(props: SelectItemProps) => (
+            <DelegateSelectItem {...props} isDisable={activeItems.length === 6} />
+          )}
         />
       </FilterDelegatesContainer>
 

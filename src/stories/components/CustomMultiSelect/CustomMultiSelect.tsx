@@ -25,6 +25,7 @@ export interface SelectItemProps {
   count?: number;
   avatar?: string;
   checked?: boolean;
+  isDisable?: boolean;
   onClick?: () => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   params?: any;
