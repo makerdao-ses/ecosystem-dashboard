@@ -39,7 +39,9 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
             <NameAddressColumn>
               <Name isLight={isLight}>{delegateCard.name}</Name>
               <ClipBoardRow>
-                <Address>{formatAddressForOutputDelegateWallet(delegateCard.latestVotingContract)}</Address>
+                <Address href={`https://etherscan.io/address/${delegateCard.latestVotingContract}`} target="_blank">
+                  {formatAddressForOutputDelegateWallet(delegateCard.latestVotingContract)}
+                </Address>
 
                 <ClipBoardContainer>
                   <CopyIcon text={delegateCard.latestVotingContract ?? ''} defaultTooltip="Copy Address" />
@@ -152,11 +154,12 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const Address = styled.div({
+const Address = styled.a({
   fontWeight: 400,
   fontSize: '12px',
   lineHeight: '15px',
   color: '#447AFB',
+
   [lightTheme.breakpoints.up('desktop_1194')]: {
     fontSize: '14px',
     lineHeight: '17px',
