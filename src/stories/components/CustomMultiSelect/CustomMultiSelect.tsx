@@ -25,7 +25,6 @@ export interface SelectItemProps {
   count?: number;
   avatar?: string;
   checked?: boolean;
-  isDisable?: boolean;
   onClick?: () => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   params?: any;
@@ -45,7 +44,7 @@ interface CustomMultiSelectProps {
   listItemWidth?: number;
   withSearch?: boolean;
   positionRight?: boolean;
-  isNotLimited?: boolean;
+  // isNotLimited?: boolean;
 }
 
 const defaultItemRender = (props: SelectItemProps) => <SelectItem {...props} />;
@@ -53,7 +52,7 @@ const defaultItemRender = (props: SelectItemProps) => <SelectItem {...props} />;
 export const CustomMultiSelect = ({
   withAll = true,
   activeItems = [],
-  isNotLimited = true,
+  // isNotLimited = true,
   customItemRender = defaultItemRender,
   positionRight = false,
   ...props
@@ -76,11 +75,11 @@ export const CustomMultiSelect = ({
       temp.splice(pos, 1);
       props.onChange && props.onChange(temp);
     } else {
-      if (isNotLimited) {
-        const temp = [...activeItems];
-        temp.push(item);
-        props.onChange && props.onChange(temp);
-      }
+      // if (isNotLimited) {
+      const temp = [...activeItems];
+      temp.push(item);
+      props.onChange && props.onChange(temp);
+      // }
     }
   };
 
