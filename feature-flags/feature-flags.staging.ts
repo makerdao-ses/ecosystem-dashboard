@@ -11,4 +11,5 @@ export const flagsStaging: FeatureFlagsInterface = {
   FEATURE_RECOGNIZED_DELEGATES_REPORT: true,
   FEATURE_TRANSPARENCY_COMMENTS: true,
   FEATURE_RECOGNIZED_DELEGATES: true,
+  FEATURE_ACCOUNTS_SNAPSHOT: false,
 };
