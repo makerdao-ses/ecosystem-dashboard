@@ -78,9 +78,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
         {actualsData.mainTableItems?.length > 0 && (
           <>
             <TitleSpacer>
-              <SectionTitle level={2} hasExternalIcon={isBreakdownExpanded}>
-                Actuals - Breakdown
-              </SectionTitle>
+              <SectionTitle level={2}>Actuals - Breakdown</SectionTitle>
             </TitleSpacer>
 
             <Tabs
@@ -150,9 +148,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
         {forecastData.mainTableItems?.length > 0 && (
           <>
             <TitleSpacer>
-              <SectionTitle level={2} hasExternalIcon={isBreakdownExpanded}>
-                Forecast - Breakdown
-              </SectionTitle>
+              <SectionTitle level={2}>Forecast - Breakdown</SectionTitle>
             </TitleSpacer>
 
             <Tabs
