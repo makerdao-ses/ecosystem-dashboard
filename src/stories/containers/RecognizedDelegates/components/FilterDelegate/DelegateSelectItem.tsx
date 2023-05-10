@@ -78,25 +78,28 @@ const CheckWrapper = styled.span({
 });
 
 const StyledContainer = styled(Container)<{ isLight: boolean; checked: boolean; isDisable: boolean }>(
-  ({ isDisable, checked, isLight }) => ({
-    '&:hover': {
-      background: isLight
-        ? isDisable && checked
-          ? '#EDEFFF'
-          : isDisable && !checked
-          ? 'none'
-          : !isDisable && checked
-          ? '#EDEFFF'
-          : '#F6F8F9'
-        : isDisable && checked
-        ? '#231536'
-        : isDisable && !checked
-        ? 'none'
-        : !isDisable && checked
-        ? '#231536'
-        : '#25273D',
-    },
-  })
+  ({ isDisable, checked, isLight }) => {
+    let background = '';
+    if (isLight) {
+      if (isDisable) {
+        background = checked ? '#EDEFFF' : 'none';
+      } else {
+        background = checked ? '#EDEFFF' : '#F6F8F9';
+      }
+    } else {
+      if (isDisable) {
+        background = checked ? '#231536' : 'none';
+      } else {
+        background = checked ? '#231536' : '#25273D';
+      }
+    }
+
+    return {
+      '&:hover': {
+        background,
+      },
+    };
+  }
 );
 
 const StyledCircleAvatar = styled(CircleAvatar)<{ isLight: boolean; isDisable: boolean; checked: boolean }>(
