@@ -15,6 +15,7 @@ import { useRouter } from 'next/router';
 import { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import { AUDITOR_VIEW_STORAGE_COLLECTION_KEY } from './utils/constants';
 import type { TableItems } from './TransparencyReport';
+import type { InternalTabsProps } from '@ses/components/Tabs/Tabs';
 import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
 
 export enum TRANSPARENCY_IDS_ENUM {
@@ -183,15 +184,22 @@ export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
     [isTimestampTrackingAccepted, permissionManager]
   );
 
+  // restore the auditor view status from the storage/server if needed
+  const [handleTabsExpand, setHandleTabsExpand] = useState<InternalTabsProps['setExpanded'] | undefined>();
+  const onTabsInit = useCallback(({ setExpanded }: InternalTabsProps) => {
+    setHandleTabsExpand(() => setExpanded);
+  }, []);
+
   useEffect(() => {
     const restoreAuditorViewFunction = async () => {
       // restore the auditor view status form the storage/server if needed
       // the auditor view status in the query param has priority over the stored value
-      if (!query.view) {
+      if (!query.view && handleTabsExpand && isTimestampTrackingAccepted) {
         const manager = new UserActivityManager(permissionManager);
         const result = await manager.getLastActivity(AUDITOR_VIEW_STORAGE_COLLECTION_KEY);
         if ((result?.data as AuditorViewStoragePayload)?.isAuditorViewEnabled) {
           // activate the auditor view
+          handleTabsExpand(false);
           router.replace(
             {
               pathname: router.pathname,
@@ -203,11 +211,12 @@ export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
             undefined,
             { shallow: true }
           );
+          setTabsIndex(TRANSPARENCY_IDS_ENUM.EXPENSE_REPORT);
         }
       }
     };
     restoreAuditorViewFunction();
-  }, [permissionManager, query.view, router]);
+  }, [handleTabsExpand, isTimestampTrackingAccepted, permissionManager, query.view, router]);
 
   return {
     tabItems,
@@ -225,6 +234,7 @@ export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
     hasPreviousMonth,
     comments,
     lastVisitHandler,
+    onTabsInit,
     onTabChange,
     onTabsExpand,
     compressedTabItems,

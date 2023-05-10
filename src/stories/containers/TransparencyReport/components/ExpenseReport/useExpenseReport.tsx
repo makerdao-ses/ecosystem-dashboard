@@ -51,9 +51,10 @@ const useExpenseReport = (currentMonth: DateTime, budgetStatements?: BudgetState
   );
 
   // sync the actuals and the forecast breakdown tabs expanded state
-  const [handleActualsBreakdownExpand, setHandleActualsBreakdownExpand] = useState<(a: boolean) => void | undefined>();
+  const [handleActualsBreakdownExpand, setHandleActualsBreakdownExpand] =
+    useState<(inExpanded: boolean) => void | undefined>();
   const [handleForecastBreakdownExpand, setHandleForecastBreakdownExpand] =
-    useState<(a: boolean) => void | undefined>();
+    useState<(inExpanded: boolean) => void | undefined>();
 
   const onActualsBreakdownTabsInit = useCallback(({ setExpanded }: InternalTabsProps) => {
     setHandleActualsBreakdownExpand(() => setExpanded);

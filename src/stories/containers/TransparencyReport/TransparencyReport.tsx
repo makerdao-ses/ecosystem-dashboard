@@ -52,6 +52,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
     comments,
     showExpenseReportStatusCTA,
     lastVisitHandler,
+    onTabsInit,
     onTabChange,
     onTabsExpand,
     compressedTabItems,
@@ -99,6 +100,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
                 tabs={tabItems}
                 expandable
                 compressedTabs={compressedTabItems}
+                onInit={onTabsInit}
                 onChange={onTabChange}
                 onExpand={onTabsExpand}
                 expandToolTip={{

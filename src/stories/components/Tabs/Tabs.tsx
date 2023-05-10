@@ -18,7 +18,7 @@ export interface TabItem {
 
 export interface InternalTabsProps {
   isExpanded: boolean;
-  setExpanded: React.Dispatch<React.SetStateAction<boolean>>;
+  setExpanded: (isExpanded: boolean) => void;
   queryValue?: string;
   expandedActiveId?: string;
   setExpandedActiveId: React.Dispatch<React.SetStateAction<string | undefined>>;
