@@ -48,6 +48,7 @@ const RecognizedDelegatesContainer: React.FC<Props> = ({
     resultFilteredCards,
     delegatesExpenses,
     otherExpenses,
+    maxValuesRelative,
     resultFilteredChart,
   } = useRecognizedDelegates(delegates, delegatesNumbers, totalQuarterlyExpenses, totalMonthlyExpenses);
   return (
@@ -86,7 +87,7 @@ const RecognizedDelegatesContainer: React.FC<Props> = ({
           />
         </ContainerTrend>
         <ContainerBreakdown>
-          <DelegateExpenseBreakdown delegates={resultFilteredCards} totalDai={totalDAI} />
+          <DelegateExpenseBreakdown delegates={resultFilteredCards} totalDai={maxValuesRelative} />
         </ContainerBreakdown>
         <ContainerButton>
           <Button

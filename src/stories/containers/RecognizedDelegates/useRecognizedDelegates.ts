@@ -34,6 +34,7 @@ export const useRecognizedDelegates = (
     setActiveElements([]);
   };
 
+  const maxValuesRelative = Math.max(...resultDelegatesWithActuals.map((item) => item.actuals));
   const startDate = DateTime.fromISO('2021-11-01');
   const endDate = DateTime.fromISO('2023-03-01');
 
@@ -66,7 +67,6 @@ export const useRecognizedDelegates = (
 
   const resultFilteredChart =
     activeElements.length === 0 ? totalDelegateMonthly : filteredDelegatesChart(orderAllMonthExpense, activeElements);
-
   return {
     totalDAI,
     recognizedDelegates,
@@ -84,5 +84,6 @@ export const useRecognizedDelegates = (
     totalDelegateMonthly,
     resultDelegatesWithActuals,
     resultFilteredChart,
+    maxValuesRelative,
   };
 };
