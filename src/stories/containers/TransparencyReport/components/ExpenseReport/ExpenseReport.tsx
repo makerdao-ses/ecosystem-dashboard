@@ -39,6 +39,11 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
     mkrVestingData,
     transferRequestsData,
     isBreakdownExpanded,
+
+    onActualsBreakdownTabsInit,
+    onForecastBreakdownTabsInit,
+    onActualsBreakdownExpand,
+    onForecastBreakdownExpand,
   } = useExpenseReport(currentMonth, budgetStatements);
 
   return (
@@ -73,9 +78,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
         {actualsData.mainTableItems?.length > 0 && (
           <>
             <TitleSpacer>
-              <SectionTitle level={2} hasExternalIcon={isBreakdownExpanded}>
-                Actuals - Breakdown
-              </SectionTitle>
+              <SectionTitle level={2}>Actuals - Breakdown</SectionTitle>
             </TitleSpacer>
 
             <Tabs
@@ -87,6 +90,8 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
               expandedDefault={false}
               tabQuery={ACTUALS_BREAKDOWN_QUERY_PARAM}
               viewKey={BREAKDOWN_VIEW_QUERY_KEY}
+              onInit={onActualsBreakdownTabsInit}
+              onExpand={onActualsBreakdownExpand}
             />
 
             {isBreakdownExpanded ? (
@@ -143,9 +148,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
         {forecastData.mainTableItems?.length > 0 && (
           <>
             <TitleSpacer>
-              <SectionTitle level={2} hasExternalIcon={isBreakdownExpanded}>
-                Forecast - Breakdown
-              </SectionTitle>
+              <SectionTitle level={2}>Forecast - Breakdown</SectionTitle>
             </TitleSpacer>
 
             <Tabs
@@ -157,6 +160,8 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
               expandedDefault={false}
               tabQuery={FORECAST_BREAKDOWN_QUERY_PARAM}
               viewKey={BREAKDOWN_VIEW_QUERY_KEY}
+              onInit={onForecastBreakdownTabsInit}
+              onExpand={onForecastBreakdownExpand}
             />
 
             {isBreakdownExpanded ? (

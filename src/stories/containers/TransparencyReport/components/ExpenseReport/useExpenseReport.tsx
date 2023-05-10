@@ -3,13 +3,14 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useHashFragment } from '@ses/core/hooks/useHashFragment';
 import lightTheme from '@ses/styles/theme/light';
 import { useRouter } from 'next/router';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { BREAKDOWN_VIEW_QUERY_KEY } from '../../utils/constants';
 import { useTransparencyActuals } from '../TransparencyActuals/useTransparencyActuals';
 import { useTransparencyForecast } from '../TransparencyForecast/useTransparencyForecast';
 import { useTransparencyMkrVesting } from '../TransparencyMkrVesting/useTransparencyMkrVesting';
 import { useTransparencyTransferRequest } from '../TransparencyTransferRequest/useTransparencyTransferRequest';
 import ExpenseSection from './components/ExpenseSection/ExpenseSection';
+import type { InternalTabsProps } from '@ses/components/Tabs/Tabs';
 import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
 import type { DateTime } from 'luxon';
 
@@ -49,6 +50,33 @@ const useExpenseReport = (currentMonth: DateTime, budgetStatements?: BudgetState
     [isMobile]
   );
 
+  // sync the actuals and the forecast breakdown tabs expanded state
+  const [handleActualsBreakdownExpand, setHandleActualsBreakdownExpand] =
+    useState<(inExpanded: boolean) => void | undefined>();
+  const [handleForecastBreakdownExpand, setHandleForecastBreakdownExpand] =
+    useState<(inExpanded: boolean) => void | undefined>();
+
+  const onActualsBreakdownTabsInit = useCallback(({ setExpanded }: InternalTabsProps) => {
+    setHandleActualsBreakdownExpand(() => setExpanded);
+  }, []);
+  const onForecastBreakdownTabsInit = useCallback(({ setExpanded }: InternalTabsProps) => {
+    setHandleForecastBreakdownExpand(() => setExpanded);
+  }, []);
+
+  const onActualsBreakdownExpand = useCallback(
+    (isExpanded: boolean) => {
+      handleForecastBreakdownExpand?.(isExpanded);
+    },
+    [handleForecastBreakdownExpand]
+  );
+
+  const onForecastBreakdownExpand = useCallback(
+    (isExpanded: boolean) => {
+      handleActualsBreakdownExpand?.(isExpanded);
+    },
+    [handleActualsBreakdownExpand]
+  );
+
   return {
     isMobile,
     L2SectionInner,
@@ -59,6 +87,11 @@ const useExpenseReport = (currentMonth: DateTime, budgetStatements?: BudgetState
     mkrVestingData,
     transferRequestsData,
     isBreakdownExpanded,
+
+    onActualsBreakdownTabsInit,
+    onForecastBreakdownTabsInit,
+    onActualsBreakdownExpand,
+    onForecastBreakdownExpand,
   };
 };
 
