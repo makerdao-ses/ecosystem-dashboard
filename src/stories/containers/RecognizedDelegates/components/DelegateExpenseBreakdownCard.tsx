@@ -17,12 +17,12 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   delegateCard: RecognizedDelegatesDto;
-  totalDai: number;
+  relativeValue: number;
 }
 
-const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai }) => {
+const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, relativeValue }) => {
   const { isLight } = useThemeContext();
-  const percent = percentageRespectTo(delegateCard.actuals, totalDai);
+  const percent = percentageRespectTo(delegateCard.actuals, relativeValue);
   const humanizeTotal = usLocalizedNumber(delegateCard.actuals);
   return (
     <ExtendedGenericDelegate isLight={isLight}>
@@ -53,7 +53,7 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
             <PercentTitle isLight={isLight}>% of Total</PercentTitle>
             <PercentBarContainer>
               <ContainerBarDelegate>
-                <DelegateBarPercentTotal actuals={delegateCard.actuals} totalDai={totalDai} />
+                <DelegateBarPercentTotal actuals={delegateCard.actuals} totalDai={relativeValue} />
               </ContainerBarDelegate>
               <PercentNumber isLight={isLight}>{Math.trunc(percent || 0)}%</PercentNumber>
             </PercentBarContainer>
@@ -298,6 +298,7 @@ const PercentNumber = styled.div<WithIsLight>(({ isLight }) => ({
   fontFeatureSettings: "'tnum' on, 'lnum' on",
   color: isLight ? '#231536' : '#D2D4EF',
   marginTop: 1,
+  marginLeft: 5,
 }));
 
 const SocialIconsSection = styled.div({
