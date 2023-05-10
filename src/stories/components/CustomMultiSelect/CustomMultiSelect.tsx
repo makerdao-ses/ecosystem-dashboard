@@ -44,7 +44,6 @@ interface CustomMultiSelectProps {
   listItemWidth?: number;
   withSearch?: boolean;
   positionRight?: boolean;
-  // isNotLimited?: boolean;
 }
 
 const defaultItemRender = (props: SelectItemProps) => <SelectItem {...props} />;
@@ -52,7 +51,6 @@ const defaultItemRender = (props: SelectItemProps) => <SelectItem {...props} />;
 export const CustomMultiSelect = ({
   withAll = true,
   activeItems = [],
-  // isNotLimited = true,
   customItemRender = defaultItemRender,
   positionRight = false,
   ...props
@@ -75,11 +73,9 @@ export const CustomMultiSelect = ({
       temp.splice(pos, 1);
       props.onChange && props.onChange(temp);
     } else {
-      // if (isNotLimited) {
       const temp = [...activeItems];
       temp.push(item);
       props.onChange && props.onChange(temp);
-      // }
     }
   };
 
