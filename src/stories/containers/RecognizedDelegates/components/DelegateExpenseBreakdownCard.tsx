@@ -3,7 +3,7 @@ import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import CopyIcon from '@ses/components/CopyIcon/CopyIcon';
 import { getLinksFromRecognizedDelegates } from '@ses/core/businessLogic/reconizedDelegate';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { usLocalizedNumber } from '@ses/core/utils/humanization';
+import { deleteTwoDecimalPLace, usLocalizedNumber } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import { formatAddressForOutputDelegateWallet } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
@@ -17,12 +17,13 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   delegateCard: RecognizedDelegatesDto;
+  relativeValue: number;
   totalDai: number;
 }
 
-const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai }) => {
+const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, relativeValue, totalDai }) => {
   const { isLight } = useThemeContext();
-  const percent = percentageRespectTo(delegateCard.actuals, totalDai);
+  const percentBarRelative = percentageRespectTo(delegateCard.actuals, totalDai);
   const humanizeTotal = usLocalizedNumber(delegateCard.actuals);
   return (
     <ExtendedGenericDelegate isLight={isLight}>
@@ -55,9 +56,11 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
             <PercentTitle isLight={isLight}>% of Total</PercentTitle>
             <PercentBarContainer>
               <ContainerBarDelegate>
-                <DelegateBarPercentTotal actuals={delegateCard.actuals} totalDai={totalDai} />
+                <DelegateBarPercentTotal actuals={delegateCard.actuals} totalDai={relativeValue} />
               </ContainerBarDelegate>
-              <PercentNumber isLight={isLight}>{Math.trunc(percent || 0)}%</PercentNumber>
+              <PercentNumber isLight={isLight}>
+                {deleteTwoDecimalPLace(percentBarRelative.toFixed(2)) || 0}%
+              </PercentNumber>
             </PercentBarContainer>
           </ContainerBar>
           <ContainerTotal>
@@ -289,7 +292,7 @@ const PercentBarContainer = styled.div({
 });
 
 const PercentNumber = styled.div<WithIsLight>(({ isLight }) => ({
-  width: 34,
+  width: 44,
   height: 15,
   alignItems: 'center',
   fontWeight: 300,
@@ -301,6 +304,13 @@ const PercentNumber = styled.div<WithIsLight>(({ isLight }) => ({
   fontFeatureSettings: "'tnum' on, 'lnum' on",
   color: isLight ? '#231536' : '#D2D4EF',
   marginTop: 1,
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginLeft: -1,
+    fontFeatureSettings: 'normal',
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginLeft: 0,
+  },
 }));
 
 const SocialIconsSection = styled.div({
@@ -319,7 +329,7 @@ const SocialIconsSection = styled.div({
 
 const ContainerBarDelegate = styled.div({
   marginRight: 4,
-  width: 140,
+  width: 130,
 });
 
 const CircleAvatarExtended = styled(CircleAvatar)<WithIsLight>(({ isLight }) => ({

@@ -28,3 +28,12 @@ export const usLocalizedNumber = (num: number, decimalPlace = 0): string =>
     currencyDisplay: 'symbol',
     minimumFractionDigits: decimalPlace,
   });
+
+export const deleteTwoDecimalPLace = (formattedNumber: string) => {
+  if (!formattedNumber) return '';
+  if (formattedNumber.slice(-2) === '00') {
+    return formattedNumber.slice(0, -3);
+  } else {
+    return formattedNumber;
+  }
+};
