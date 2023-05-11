@@ -28,9 +28,9 @@ const Container = styled.div({
 });
 
 const ContainerButtonRight = styled.div({
-  marginRight: -30,
+  marginRight: -10,
 });
 
 const ContainerButtonLeft = styled.div({
-  marginLeft: -30,
+  marginLeft: -10,
 });

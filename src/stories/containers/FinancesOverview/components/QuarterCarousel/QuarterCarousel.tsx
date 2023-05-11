@@ -1,24 +1,44 @@
 import styled from '@emotion/styled';
 import lightTheme from '@ses/styles/theme/light';
-import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import React, { useRef } from 'react';
+// import Swiper from 'swiper';
+// import { Navigation } from 'swiper/core';
+import { Navigation } from 'swiper';
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { isQuarter4 } from '../../utils/quarters';
 import QuarterCard from '../QuarterCard/QuarterCard';
+import SwiperNavigationButton from './SwiperNavigationButton';
 import useQuarterCarousel from './useQuarterCarousel';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 import 'swiper/css';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
+// import type { SwiperRef } from 'swiper/react';
 
 type QuarterCarouselProps = {
   quarters: ExpenseDto[];
 };
 
 const QuarterCarousel: React.FC<QuarterCarouselProps> = ({ quarters }) => {
+  const swiper = useSwiper();
   const { showDivider, swiperOptions, isLight } = useQuarterCarousel(quarters);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const swiperRef = useRef<any>(null);
 
   return (
     <SwiperWrapper>
-      <Swiper {...swiperOptions}>
+      <Swiper
+        // navigation
+        {...swiperOptions}
+        modules={[Navigation]}
+        onBeforeInit={(swiper) => {
+          if (swiperRef.current === null) {
+            swiperRef.current = swiper;
+          }
+        }}
+      >
         {quarters.map((item, index) => (
           <SwiperSlide key={index}>
             <CardWrapper>
@@ -27,6 +47,9 @@ const QuarterCarousel: React.FC<QuarterCarouselProps> = ({ quarters }) => {
             {showDivider && isQuarter4(item.period) && index < quarters.length - 1 && <Divider isLight={isLight} />}
           </SwiperSlide>
         ))}
+        <ContainerNavigation>
+          <SwiperNavigationButton onNext={() => swiper?.slideNext()} onPrevious={() => swiper?.slidePrev()} />
+        </ContainerNavigation>
       </Swiper>
     </SwiperWrapper>
   );
@@ -36,6 +59,7 @@ export default QuarterCarousel;
 
 const SwiperWrapper = styled.div({
   margin: '0 -8px',
+  position: 'relative',
   [lightTheme.breakpoints.up('desktop_1440')]: {
     margin: '0 -12px',
   },
@@ -81,3 +105,10 @@ const Divider = styled.div<WithIsLight>(({ isLight }) => ({
     height: 161,
   },
 }));
+
+const ContainerNavigation = styled.div({
+  position: 'absolute',
+  width: '100%',
+  zIndex: 1,
+  top: '30%',
+});
