@@ -87,7 +87,11 @@ const RecognizedDelegatesContainer: React.FC<Props> = ({
           />
         </ContainerTrend>
         <ContainerBreakdown>
-          <DelegateExpenseBreakdown delegates={resultFilteredCards} totalDai={maxValuesRelative} />
+          <DelegateExpenseBreakdown
+            delegates={resultFilteredCards}
+            totalDai={maxValuesRelative}
+            relativeValue={totalDAI}
+          />
         </ContainerBreakdown>
         <ContainerButton>
           <Button

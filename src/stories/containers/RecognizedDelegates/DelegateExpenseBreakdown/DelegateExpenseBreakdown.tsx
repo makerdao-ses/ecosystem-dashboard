@@ -8,21 +8,25 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   delegates: RecognizedDelegatesDto[];
+  totalDai: number;
+  relativeValue: number;
 }
 
-const DelegateExpenseBreakdown: React.FC<Props> = ({ delegates }) => {
+const DelegateExpenseBreakdown: React.FC<Props> = ({ delegates, totalDai, relativeValue }) => {
   const { isLight } = useThemeContext();
-  let previousTotal = 0;
+
   return (
     <Container>
       <Title isLight={isLight}> Delegate Expense Breakdown</Title>
       <ContainerBreakdown>
-        {delegates?.map((delegate, index) => {
-          previousTotal = index === 0 ? delegates[index].actuals : delegates[index - 1].actuals;
-          return (
-            <DelegateExpenseBreakdownCard delegateCard={delegate} relativeValue={previousTotal} key={delegate.name} />
-          );
-        })}
+        {delegates?.map((delegate) => (
+          <DelegateExpenseBreakdownCard
+            delegateCard={delegate}
+            relativeValue={relativeValue}
+            key={delegate.name}
+            totalDai={totalDai}
+          />
+        ))}
       </ContainerBreakdown>
     </Container>
   );
