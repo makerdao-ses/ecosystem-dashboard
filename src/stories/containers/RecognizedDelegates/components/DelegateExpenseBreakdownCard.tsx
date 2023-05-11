@@ -3,7 +3,7 @@ import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import CopyIcon from '@ses/components/CopyIcon/CopyIcon';
 import { getLinksFromRecognizedDelegates } from '@ses/core/businessLogic/reconizedDelegate';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { usLocalizedNumber } from '@ses/core/utils/humanization';
+import { deleteTwoDecimalPLace, usLocalizedNumber } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import { formatAddressForOutputDelegateWallet } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
@@ -55,7 +55,7 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, relativeV
               <ContainerBarDelegate>
                 <DelegateBarPercentTotal actuals={delegateCard.actuals} totalDai={relativeValue} />
               </ContainerBarDelegate>
-              <PercentNumber isLight={isLight}>{Math.trunc(percent || 0)}%</PercentNumber>
+              <PercentNumber isLight={isLight}>{deleteTwoDecimalPLace(percent.toFixed(2)) || 0}%</PercentNumber>
             </PercentBarContainer>
           </ContainerBar>
           <ContainerTotal>
