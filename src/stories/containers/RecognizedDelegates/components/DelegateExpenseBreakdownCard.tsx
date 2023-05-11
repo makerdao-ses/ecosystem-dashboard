@@ -23,7 +23,7 @@ interface Props {
 
 const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, relativeValue, totalDai }) => {
   const { isLight } = useThemeContext();
-  const percentBarRelative = percentageRespectTo(delegateCard.actuals, relativeValue);
+  const percentBarRelative = percentageRespectTo(delegateCard.actuals, totalDai);
   const humanizeTotal = usLocalizedNumber(delegateCard.actuals);
   return (
     <ExtendedGenericDelegate isLight={isLight}>
@@ -54,7 +54,7 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, relativeV
             <PercentTitle isLight={isLight}>% of Total</PercentTitle>
             <PercentBarContainer>
               <ContainerBarDelegate>
-                <DelegateBarPercentTotal actuals={delegateCard.actuals} totalDai={totalDai} />
+                <DelegateBarPercentTotal actuals={delegateCard.actuals} totalDai={relativeValue} />
               </ContainerBarDelegate>
               <PercentNumber isLight={isLight}>
                 {deleteTwoDecimalPLace(percentBarRelative.toFixed(2)) || 0}%
