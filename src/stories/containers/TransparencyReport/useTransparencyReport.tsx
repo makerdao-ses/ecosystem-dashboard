@@ -24,6 +24,7 @@ export enum TRANSPARENCY_IDS_ENUM {
   MKR_VESTING = 'mkr-vesting',
   TRANSFER_REQUESTS = 'transfer-requests',
   AUDIT_REPORTS = 'audit-reports',
+  ACCOUNTS_SNAPSHOTS = 'accounts-snapshots',
   COMMENTS = 'comments',
   EXPENSE_REPORT = 'expense-report',
 }
@@ -102,32 +103,10 @@ export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
   );
 
   const [isEnabled] = useFlagsActive();
-  const tabItems: TableItems[] = [
-    {
-      item: 'Actuals',
-      id: TRANSPARENCY_IDS_ENUM.ACTUALS,
-    },
-    {
-      item: 'Forecast',
-      id: TRANSPARENCY_IDS_ENUM.FORECAST,
-    },
-  ];
-  if (isEnabled('FEATURE_MKR_VESTING')) {
-    tabItems.push({
-      item: 'MKR Vesting',
-      id: TRANSPARENCY_IDS_ENUM.MKR_VESTING,
-    });
-  }
-  tabItems.push({
-    item: 'Transfer Requests',
-    id: TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS,
-  });
-  if (isEnabled('FEATURE_AUDIT_REPORTS')) {
-    tabItems.push({
-      item: 'Audit Reports',
-      id: TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS,
-    });
-  }
+  const accountsSnapshotTab = {
+    item: 'Accounts Snapshot',
+    id: TRANSPARENCY_IDS_ENUM.ACCOUNTS_SNAPSHOTS,
+  };
   const commentTab = {
     item: (
       <CommentsTab
@@ -137,15 +116,45 @@ export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
     ),
     id: TRANSPARENCY_IDS_ENUM.COMMENTS,
   };
-  if (isEnabled('FEATURE_TRANSPARENCY_COMMENTS')) {
-    tabItems.push(commentTab);
-  }
+  const tabItems: TableItems[] = [
+    {
+      item: 'Actuals',
+      id: TRANSPARENCY_IDS_ENUM.ACTUALS,
+    },
+    {
+      item: 'Forecast',
+      id: TRANSPARENCY_IDS_ENUM.FORECAST,
+    },
+    ...(isEnabled('FEATURE_MKR_VESTING')
+      ? [
+          {
+            item: 'MKR Vesting',
+            id: TRANSPARENCY_IDS_ENUM.MKR_VESTING,
+          },
+        ]
+      : []),
+    {
+      item: 'Transfer Requests',
+      id: TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS,
+    },
+    ...(isEnabled('FEATURE_ACCOUNTS_SNAPSHOT') ? [accountsSnapshotTab] : []),
+    ...(isEnabled('FEATURE_AUDIT_REPORTS')
+      ? [
+          {
+            item: 'Audit Reports',
+            id: TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS,
+          },
+        ]
+      : []),
+    ...(isEnabled('FEATURE_TRANSPARENCY_COMMENTS') ? [commentTab] : []),
+  ];
 
   const compressedTabItems: TableItems[] = [
     {
       item: 'Expense Report',
       id: TRANSPARENCY_IDS_ENUM.EXPENSE_REPORT,
     },
+    ...(isEnabled('FEATURE_ACCOUNTS_SNAPSHOT') ? [accountsSnapshotTab] : []),
     commentTab,
   ];
 
