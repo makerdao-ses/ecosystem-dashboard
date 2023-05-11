@@ -289,7 +289,7 @@ const PercentBarContainer = styled.div({
 });
 
 const PercentNumber = styled.div<WithIsLight>(({ isLight }) => ({
-  width: 34,
+  width: 44,
   height: 15,
   alignItems: 'center',
   fontWeight: 300,
@@ -301,7 +301,13 @@ const PercentNumber = styled.div<WithIsLight>(({ isLight }) => ({
   fontFeatureSettings: "'tnum' on, 'lnum' on",
   color: isLight ? '#231536' : '#D2D4EF',
   marginTop: 1,
-  marginLeft: 5,
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginLeft: -1,
+    fontFeatureSettings: 'normal',
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginLeft: 0,
+  },
 }));
 
 const SocialIconsSection = styled.div({
@@ -320,7 +326,7 @@ const SocialIconsSection = styled.div({
 
 const ContainerBarDelegate = styled.div({
   marginRight: 4,
-  width: 140,
+  width: 130,
 });
 
 const CircleAvatarExtended = styled(CircleAvatar)<WithIsLight>(({ isLight }) => ({

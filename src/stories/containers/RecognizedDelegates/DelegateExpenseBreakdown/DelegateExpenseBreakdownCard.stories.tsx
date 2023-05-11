@@ -15,19 +15,20 @@ export default {
 const variantsArgs = [
   {
     delegateCard: new RecognizedDelegatesBuilder()
-      .withName('Flip Flop Flap Delegate LLC')
-      .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
+      .withName('Feedblack Loops LLC')
+      .withImage('https://live.staticflickr.com/65535/52832796763_a0e2339b3b_m.jpg')
       .withLatestVotingContract('0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7')
-      .withNumberDai(2325)
+      .withNumberDai(383)
       .withSocials({
         twitter: '#',
         forumProfile: '#',
-        votingPortal: '#',
         forumPlatform: '#',
         youtube: '#',
+        votingPortal: '#',
       })
       .build(),
     totalDai: 232325,
+    relativeValue: 213228,
   },
 ];
 
@@ -38,7 +39,7 @@ BreakdownCard.parameters = {
     component: {
       375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16759:208199&t=SXR1v9cUgs1wOSb8-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=16759:208277&t=5RL0QVnNYAmUph4Q-4',
         options: {
           style: {
             left: -40,
@@ -49,7 +50,7 @@ BreakdownCard.parameters = {
       },
       834: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=16724:201374&t=rZFX885hWtT01PVt-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=16724:201431&t=5RL0QVnNYAmUph4Q-4',
         options: {
           style: {
             left: -40,
@@ -62,7 +63,7 @@ BreakdownCard.parameters = {
       },
       1194: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=17435:201047&t=rZFX885hWtT01PVt-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=17435:201128&t=5RL0QVnNYAmUph4Q-4',
         options: {
           style: {
             left: -40,
@@ -75,7 +76,7 @@ BreakdownCard.parameters = {
       },
       1280: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=17435:200367&t=rZFX885hWtT01PVt-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=17435:200448&t=5RL0QVnNYAmUph4Q-4',
         options: {
           style: {
             left: -40,
@@ -88,7 +89,7 @@ BreakdownCard.parameters = {
       },
       1440: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=17435:199371&t=rZFX885hWtT01PVt-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=17435:199452&t=5RL0QVnNYAmUph4Q-4',
         options: {
           style: {
             left: -40,
