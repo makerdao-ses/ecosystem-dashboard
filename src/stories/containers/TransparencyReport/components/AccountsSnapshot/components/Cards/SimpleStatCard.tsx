@@ -41,7 +41,7 @@ const SimpleStatCard: React.FC<SimpleStatCardProps> = ({ date, value, caption, h
 export default SimpleStatCard;
 
 const Card = styled(OutlinedCard)({
-  padding: '24px 32px 22px',
+  padding: '23px 31px',
 });
 
 const Date = styled.div<WithIsLight>(({ isLight }) => ({
