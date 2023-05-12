@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
+import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import React from 'react';
-import { getDisplacementDashLine, getProgressiveBarColor } from '../../utils/forecastHelper';
+import { getBorderColor, getDisplacementDashLine, getProgressiveBarColor } from '../../utils/forecastHelper';
+import PopoverForecastDescription from '../PopverForecastDescription/PopoverForecastDescription';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
@@ -13,14 +15,39 @@ interface Props {
 
 const BarWithDottedLine: React.FC<Props> = ({ value, relativeValue }) => {
   const { isLight } = useThemeContext();
+  const month = 'August';
   const barColor = getProgressiveBarColor(value, relativeValue, isLight);
   const percent = percentageRespectTo(value, relativeValue);
   const displacement = getDisplacementDashLine(value, relativeValue);
+  const borderColor = getBorderColor(value, relativeValue, isLight);
   return (
     <Container>
       <ContainerBar>
         <BudgetBar isLight={isLight}>{<BarPercent width={percent} color={barColor} />}</BudgetBar>
-        <VerticalBar displacement={displacement} />
+
+        <CustomPopover
+          popoverStyle={{
+            border: `1px solid ${borderColor}`,
+            boxShadow: isLight
+              ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+              : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
+            background: isLight ? 'white' : '#000A13',
+            borderRadius: '6px',
+          }}
+          popupStyle={{}}
+          id="mouse-over-information"
+          title={
+            <PopoverForecastDescription
+              relativeValue={relativeValue}
+              value={value}
+              month={month}
+              budgetCap={relativeValue}
+              forecast={value}
+            />
+          }
+        >
+          <VerticalBar displacement={displacement} />
+        </CustomPopover>
       </ContainerBar>
       <BudgetCap isLight={isLight}>{usLocalizedNumber(relativeValue)}</BudgetCap>
     </Container>
@@ -53,11 +80,13 @@ const VerticalBar = styled.div<{ displacement: number }>(({ displacement }) => (
   height: 14,
   width: 1,
   border: '1px dashed #447AFB',
+  backgroundSize: '4px 4px',
   borderRadius: '6px',
   position: 'absolute',
   top: 0,
   right: `${displacement}%`,
   transform: 'rotate(180deg)',
+  cursor: 'pointer',
 }));
 
 const BudgetBar = styled.div<WithIsLight>(({ isLight }) => ({
@@ -65,8 +94,8 @@ const BudgetBar = styled.div<WithIsLight>(({ isLight }) => ({
   width: '100%',
   height: 6,
   overflow: 'hidden',
-  borderRadius: 6,
-  background: isLight ? '#ECF1F3' : 'red',
+  borderRadius: 2,
+  background: isLight ? '#ECF1F3' : '#48495F',
 }));
 
 const BarPercent = styled.div<{ width: number; color: string }>(({ width, color }) => ({
@@ -74,7 +103,7 @@ const BarPercent = styled.div<{ width: number; color: string }>(({ width, color 
   top: 0,
   left: 0,
   background: color,
-  borderRadius: 6,
+  borderRadius: 2,
   width: `${width}%`,
   height: '100%',
   transition: 'width 0.5s ease-in-out',
@@ -83,5 +112,5 @@ const BudgetCap = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 12,
   lineHeight: '15px',
   textAlign: 'right',
-  color: isLight ? '#708390' : 'red',
+  color: isLight ? '#708390' : '#546978',
 }));
