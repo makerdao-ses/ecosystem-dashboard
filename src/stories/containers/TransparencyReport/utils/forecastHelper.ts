@@ -3,12 +3,15 @@ import { percentageRespectTo } from '@ses/core/utils/math';
 const COLORS_BAR = {
   COLOR_GREEN: '#B6EDE7',
   COLOR_GREEN_DARK: '#06554C',
+  COLOR_GREEN_HOVER: '#1AAB9B',
   COLOR_GRAY: '#D1DEE6',
   COLOR_GRAY_STRONG: '#9FAFB9',
   COLOR_YELLOW: '#FEDB88',
   COLOR_YELLOW_DARK: '#FDC134',
+  COLOR_YELLOW_HOVER: '#FDC134',
   COLOR_RED: '#F77249',
   COLOR_RED_DARK: '#EB4714',
+  COLOR_RED_HOVER: '#EB4714',
 };
 
 const COLORS_BORDERS_POPOVER = {
@@ -22,21 +25,44 @@ const COLORS_BORDERS_POPOVER = {
   COLOR_RED_DARK: 'rgba(255, 64, 133, 0.4)',
 };
 
-export const getProgressiveBarColor = (value: number, valueRelative: number, isLight: boolean): string => {
+export const getProgressiveBarColor = (
+  value: number,
+  valueRelative: number,
+  isLight: boolean,
+  isHover: boolean
+): string => {
   if (!valueRelative) return COLORS_BAR.COLOR_GRAY;
   if (!value) return COLORS_BAR.COLOR_GRAY_STRONG;
   let color = '';
   const percent = percentageRespectTo(value, valueRelative);
   if (percent > 0 && percent <= 90) {
-    color = isLight ? COLORS_BAR.COLOR_GREEN : COLORS_BAR.COLOR_GREEN_DARK;
+    color = isLight
+      ? isHover
+        ? COLORS_BAR.COLOR_GREEN_HOVER
+        : COLORS_BAR.COLOR_GREEN
+      : isHover
+      ? 'red'
+      : COLORS_BAR.COLOR_GREEN_DARK;
   }
 
   if (percent > 90 && percent <= 100) {
-    color = isLight ? COLORS_BAR.COLOR_YELLOW : COLORS_BAR.COLOR_YELLOW_DARK;
+    color = isLight
+      ? isHover
+        ? COLORS_BAR.COLOR_YELLOW_HOVER
+        : COLORS_BAR.COLOR_YELLOW
+      : isHover
+      ? 'red'
+      : COLORS_BAR.COLOR_YELLOW_DARK;
   }
 
   if (percent > 100) {
-    color = isLight ? COLORS_BAR.COLOR_RED : COLORS_BAR.COLOR_RED_DARK;
+    color = isLight
+      ? isHover
+        ? COLORS_BAR.COLOR_RED_HOVER
+        : COLORS_BAR.COLOR_RED
+      : isHover
+      ? 'red'
+      : COLORS_BAR.COLOR_RED_DARK;
   }
   return color;
 };

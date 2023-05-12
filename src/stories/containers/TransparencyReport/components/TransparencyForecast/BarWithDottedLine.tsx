@@ -3,7 +3,7 @@ import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
-import React from 'react';
+import React, { useState } from 'react';
 import { getBorderColor, getDisplacementDashLine, getProgressiveBarColor } from '../../utils/forecastHelper';
 import PopoverForecastDescription from '../PopverForecastDescription/PopoverForecastDescription';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -15,8 +15,17 @@ interface Props {
 
 const BarWithDottedLine: React.FC<Props> = ({ value, relativeValue }) => {
   const { isLight } = useThemeContext();
+  const [hover, setHover] = useState(false);
+
+  const handleMouseOver = () => {
+    setHover(true);
+  };
+
+  const handleMouseOut = () => {
+    setHover(false);
+  };
   const month = 'August';
-  const barColor = getProgressiveBarColor(value, relativeValue, isLight);
+  const barColor = getProgressiveBarColor(value, relativeValue, isLight, hover);
   const percent = percentageRespectTo(value, relativeValue);
   const displacement = getDisplacementDashLine(value, relativeValue);
   const borderColor = getBorderColor(value, relativeValue, isLight);
@@ -46,7 +55,7 @@ const BarWithDottedLine: React.FC<Props> = ({ value, relativeValue }) => {
             />
           }
         >
-          <VerticalBar displacement={displacement} />
+          <VerticalBar displacement={displacement} onMouseEnter={handleMouseOver} onMouseOut={handleMouseOut} />
         </CustomPopover>
       </ContainerBar>
       <BudgetCap isLight={isLight}>{usLocalizedNumber(relativeValue)}</BudgetCap>
