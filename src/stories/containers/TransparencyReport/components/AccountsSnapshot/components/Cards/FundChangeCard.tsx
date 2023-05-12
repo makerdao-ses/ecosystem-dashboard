@@ -4,13 +4,28 @@ import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import React from 'react';
 import NumberWithSignCard from '../NumberWithSignCard/NumberWithSignCard';
 import OutlinedCard from './OutlinedCard';
+import type { ValueColor } from '../NumberWithSignCard/NumberWithSignCard';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface FundChangeCardProps {
   netChange: number;
+  leftValue: number;
+  leftValueColor?: ValueColor;
+  leftText: string;
+  rightValue: number;
+  rightValueColor?: ValueColor;
+  rightText: string;
 }
 
-const FundChangeCard: React.FC<FundChangeCardProps> = ({ netChange }) => {
+const FundChangeCard: React.FC<FundChangeCardProps> = ({
+  netChange,
+  leftValue,
+  leftValueColor = 'normal',
+  leftText,
+  rightValue,
+  rightValueColor = 'normal',
+  rightText,
+}) => {
   const { isLight } = useThemeContext();
 
   return (
@@ -31,8 +46,14 @@ const FundChangeCard: React.FC<FundChangeCardProps> = ({ netChange }) => {
         </RightArrowContainer>
       </ChangeContainer>
       <ValuesContainer>
-        <NumberWithSignCard value={300000} sign="positive" text="Extra Funds Made Available" />
-        <NumberWithSignCard value={242320} valueColor="green" sign="negative" text="Funds Returned via DSSBlow" />
+        <NumberWithSignCard value={leftValue} valueColor={leftValueColor} sign="positive" text={leftText} width={224} />
+        <NumberWithSignCard
+          value={rightValue}
+          valueColor={rightValueColor}
+          sign="negative"
+          text={rightText}
+          width={235}
+        />
       </ValuesContainer>
     </Card>
   );

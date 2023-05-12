@@ -4,16 +4,17 @@ import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-type ValueColor = 'normal' | 'green';
+export type ValueColor = 'normal' | 'green';
 
 interface NumberWithSignCardProps {
   value: number;
   text: string;
   sign: 'positive' | 'negative';
   valueColor?: ValueColor;
+  width?: string | number;
 }
 
-const NumberWithSignCard: React.FC<NumberWithSignCardProps> = ({ value, sign, text, valueColor = 'normal' }) => {
+const NumberWithSignCard: React.FC<NumberWithSignCardProps> = ({ value, sign, text, valueColor = 'normal', width }) => {
   const { isLight } = useThemeContext();
 
   return (
@@ -30,7 +31,7 @@ const NumberWithSignCard: React.FC<NumberWithSignCardProps> = ({ value, sign, te
           </svg>
         )}
       </SignContainer>
-      <Card isLight={isLight}>
+      <Card isLight={isLight} width={width ?? 'auto'}>
         <Value isLight={isLight} valueColor={valueColor}>
           {usLocalizedNumber(Math.round(value))} <span>DAI</span>
         </Value>
@@ -52,11 +53,11 @@ const SignContainer = styled.div({
   marginRight: 8,
 });
 
-const Card = styled.div<WithIsLight>(({ isLight }) => ({
+const Card = styled.div<WithIsLight & { width: string | number }>(({ isLight, width }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  width: '100%',
+  width,
   padding: 8,
   background: isLight ? 'rgba(236, 239, 249, 0.5)' : 'red',
   borderRadius: 6,
