@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
 import Information from '@ses/components/svg/information';
 import lightTheme from '@ses/styles/theme/light';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import HeaderToolTip from './TooltipHeader';
 
 interface Props {
@@ -14,22 +14,27 @@ interface Props {
 }
 
 const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, name }) => {
-  const marginTopPopoverPosition = false;
   const refElementShowPopover = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const handleShowPopoverWhenNotSpace = () => {};
+
+  const [marginTopPopoverPosition, setMarginTopPopoverPosition] = useState<boolean>(false);
+  const handleShowPopoverWhenNotSpace = (value: boolean) => {
+    setMarginTopPopoverPosition(value);
+  };
 
   return (
     <Container>
       <Title style={{ marginRight: 8 }}>{title}</Title>
       <ExtendedCustomPopover
+        hasNotSpaceRight={true}
         handleShowPopoverWhenNotSpace={handleShowPopoverWhenNotSpace}
         refElementShowPopover={refElementShowPopover}
+        // popover
         sxProps={{
           '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
             overflowX: 'unset',
             overflowY: 'unset',
-            marginTop: marginTopPopoverPosition ? 3 : -3,
+            marginTop: marginTopPopoverPosition ? 2 : -3,
           },
         }}
         widthArrow
@@ -51,16 +56,21 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
 
 export default HeaderWithIcon;
 
-const ExtendedCustomPopover = styled(CustomPopover)<{ hasSpacePositionArrow?: boolean }>(
-  ({ hasSpacePositionArrow }) => ({
+const ExtendedCustomPopover = styled(CustomPopover)<{ hasSpacePositionArrow?: boolean; hasNotSpaceRight?: boolean }>(
+  ({ hasSpacePositionArrow, hasNotSpaceRight }) => ({
     '& > div': {
       [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
         marginLeft: -45,
         marginTop: 16,
       },
       [lightTheme.breakpoints.up('desktop_1194')]: {
-        marginLeft: -32,
-        marginTop: hasSpacePositionArrow ? -18 : 18,
+        marginLeft: -42,
+        marginTop: 40,
+        ...(hasNotSpaceRight && {
+          marginRight: -348,
+          marginTop: 40,
+        }),
+        // marginTop: hasSpacePositionArrow ? -18 : 18,
       },
     },
   })
