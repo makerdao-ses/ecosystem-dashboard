@@ -22,25 +22,9 @@ const HeaderToolTip: React.FC<Props> = ({ description, mipNumber, link, style, n
       <ContainerLinkWithMip isLight={isLight}>
         <MipNumber>{mipNumber}</MipNumber>
         <ContainerLink>
-          <CustomLink
-            children={name}
-            withArrow
-            marginLeft="7px"
-            href={link}
-            iconWidth={10}
-            fontWeight={400}
-            iconHeight={10}
-            style={{
-              lineHeight: '15px',
-              fontSize: '12px',
-              letterSpacing: '0px',
-              marginLeft: 0,
-              paddingRight: 0,
-              whiteSpace: 'pre-line',
-              overflowWrap: 'break-word',
-              width: '259px',
-            }}
-          />
+          <StyledCustomLink withArrow marginLeft="7px" href={link} iconWidth={10} fontWeight={400} iconHeight={10}>
+            {name}
+          </StyledCustomLink>
         </ContainerLink>
       </ContainerLinkWithMip>
     </Container>
@@ -101,4 +85,14 @@ const MipNumber = styled.div({
   marginBottom: 2,
   marginTop: 2,
   marginLeft: 1,
+});
+
+const StyledCustomLink = styled(CustomLink)({
+  lineHeight: '15px',
+  fontSize: '12px',
+  letterSpacing: '0px',
+  marginLeft: 0,
+  paddingRight: 0,
+  whiteSpace: 'pre-line',
+  overflowWrap: 'break-word',
 });

@@ -15,7 +15,6 @@ interface Props {
 
 const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, name }) => {
   const refElementShowPopover = useRef<HTMLDivElement>(null);
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
 
   const [marginTopPopoverPosition, setMarginTopPopoverPosition] = useState<boolean>(false);
   const handleShowPopoverWhenNotSpace = (value: boolean) => {
@@ -65,12 +64,11 @@ const ExtendedCustomPopover = styled(CustomPopover)<{ hasSpacePositionArrow?: bo
       },
       [lightTheme.breakpoints.up('desktop_1194')]: {
         marginLeft: -42,
-        marginTop: 40,
         ...(hasNotSpaceRight && {
           marginRight: -348,
           marginTop: 40,
         }),
-        // marginTop: hasSpacePositionArrow ? -18 : 18,
+        marginTop: hasSpacePositionArrow ? -18 : 18,
       },
     },
   })

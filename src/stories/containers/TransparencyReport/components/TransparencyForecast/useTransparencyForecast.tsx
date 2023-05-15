@@ -2,7 +2,7 @@ import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
 import { capitalizeSentence, getWalletWidthForWallets, toKebabCase } from '@ses/core/utils/string';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { renderWallet } from '../../transparencyReportUtils';
 import {
   getBudgetCapForMonthOnBudgetStatement,
@@ -13,16 +13,13 @@ import {
   getForecastSumForMonths,
   getForecastSumOfMonthsOnWallet,
   getTotalQuarterlyBudgetCapOnBudgetStatement,
+  getTransferRequestTargetBalanceColumn,
 } from '../../utils/budgetStatementsUtils';
 import { FORECAST_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
 import { getBreakdownItemsForWallet, getForecastBreakdownColumns } from '../../utils/forecastTableHelpers';
 import HeaderWithIcon from '../HeaderWithIcon/HeaderWithIcon';
 import type { InnerTableColumn, InnerTableRow } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
-import type {
-  BudgetStatementDto,
-  BudgetStatementWalletDto,
-  BudgetStatementWalletTransferRequestDto,
-} from '@ses/core/models/dto/coreUnitDTO';
+import type { BudgetStatementDto, BudgetStatementWalletDto } from '@ses/core/models/dto/coreUnitDTO';
 import type { DateTime } from 'luxon';
 
 export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements: BudgetStatementDto[] | undefined) => {
@@ -50,21 +47,7 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
     return _.sortBy(Object.values(dict), 'id');
   }, [currentMonth, budgetStatements]);
 
-  const getTransferRequestTargetBalanceColumn = useCallback((wallet: BudgetStatementWalletDto) => {
-    const targetWithTimeSpan: Pick<BudgetStatementWalletTransferRequestDto, 'target' | 'walletBalanceTimeStamp'> =
-      {} as BudgetStatementWalletTransferRequestDto;
-
-    const lastIndex = (wallet.budgetStatementTransferRequest ?? []).length - 1;
-    if (wallet.budgetStatementTransferRequest && wallet.budgetStatementTransferRequest.length > 0) {
-      targetWithTimeSpan.target = wallet.budgetStatementTransferRequest[lastIndex].target;
-      targetWithTimeSpan.walletBalanceTimeStamp =
-        wallet.budgetStatementTransferRequest[lastIndex]?.walletBalanceTimeStamp;
-    }
-
-    return targetWithTimeSpan;
-  }, []);
-
-  const headersValuesToolTip = getTransferRequestTargetBalanceColumn(wallets[0]);
+  // const headersValuesToolTip = getTransferRequestTargetBalanceColumn(wallets[0]);
 
   const breakdownTabs = useMemo(() => {
     if (!budgetStatements || budgetStatements.length === 0) return [];
@@ -88,8 +71,9 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
     }
   }, [selectedBreakdown, headerIds]);
 
-  const mainTableColumns: InnerTableColumn[] = useMemo(
-    () => [
+  const mainTableColumns: InnerTableColumn[] = useMemo(() => {
+    const headersValuesToolTip = getTransferRequestTargetBalanceColumn(wallets[0]);
+    return [
       {
         header: 'Wallet',
         type: 'custom',
@@ -167,17 +151,8 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
         align: 'right',
         hidden: true,
       },
-    ],
-    [
-      firstMonth,
-      headersValuesToolTip.target.source.code,
-      headersValuesToolTip.target.source.title,
-      headersValuesToolTip.target.source.url,
-      secondMonth,
-      thirdMonth,
-      wallets,
-    ]
-  );
+    ];
+  }, [firstMonth, secondMonth, thirdMonth, wallets]);
 
   const mainTableItems = useMemo(() => {
     const result: InnerTableRow[] = [];
