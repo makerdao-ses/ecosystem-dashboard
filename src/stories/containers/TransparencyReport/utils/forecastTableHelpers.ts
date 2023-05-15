@@ -57,9 +57,10 @@ export const getForecastBreakdownColumns = (
       type: 'number',
       align: 'right',
       hasBorderRight: true,
+      hidden: true,
     },
     {
-      header: '3 Months',
+      header: 'Totals',
       type: 'number',
       align: 'right',
     },
@@ -67,6 +68,7 @@ export const getForecastBreakdownColumns = (
       header: 'Qtly Budget',
       type: 'number',
       align: 'right',
+      hidden: true,
     },
   ] as InnerTableColumn[];
 };
