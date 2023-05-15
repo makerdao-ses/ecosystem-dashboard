@@ -73,14 +73,14 @@ const ChangeContainer = styled.div({
 
 const LeftArrowContainer = styled.div({
   width: '100%',
-  paddingLeft: 159,
+  paddingLeft: 143,
   marginRight: 8,
   paddingBottom: 1,
 });
 
 const RightArrowContainer = styled.div({
   width: '100%',
-  paddingRight: 129,
+  paddingRight: 113,
   marginLeft: 8,
   paddingBottom: 1,
 });
@@ -97,6 +97,7 @@ const Arrow = styled.div<WithIsLight & { direction: 'left' | 'right' }>(({ isLig
 
     ...(direction === 'left'
       ? {
+          width: 'calc(100% - 25px)',
           borderLeft: borderStyle,
           borderTopLeftRadius: 20,
         }
@@ -135,6 +136,7 @@ const Arrow = styled.div<WithIsLight & { direction: 'left' | 'right' }>(({ isLig
 const ChangeContent = styled.div({
   paddingBottom: 16,
   textAlign: 'center',
+  marginLeft: -25,
 });
 
 const Value = styled.div<WithIsLight>(({ isLight }) => ({
