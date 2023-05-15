@@ -3,6 +3,7 @@ import React from 'react';
 import FundChangeCard from '../Cards/FundChangeCard';
 import SimpleStatCard from '../Cards/SimpleStatCard';
 import SectionHeader from '../SectionHeader/SectionHeader';
+import TransactionHistory from '../TransactionHistory/TransactionHistory';
 
 interface FundingOverviewProps {
   coreUnitCode: string;
@@ -28,6 +29,8 @@ const FundingOverview: React.FC<FundingOverviewProps> = ({ coreUnitCode }) => (
       />
       <SimpleStatCard date="2023-06-14T22:52:54.494Z" value={3685648} caption="New Lifetime Balance" hasEqualSign />
     </CardsContainer>
+
+    <TransactionHistory />
   </div>
 );
 
