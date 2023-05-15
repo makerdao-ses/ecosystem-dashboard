@@ -60,7 +60,7 @@ const IconWrapper = styled.div({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  marginLeft: 12.5,
+  marginLeft: 8,
 });
 
 const Subtitle = styled.div<WithIsLight>(({ isLight }) => ({
