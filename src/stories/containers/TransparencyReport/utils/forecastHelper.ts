@@ -73,9 +73,9 @@ export const getDisplacementDashLine = (value: number, valueRelative: number): n
   if (percentToMove < 100) {
     return 0;
   } else {
-    const displacementPercent = Math.max(percentToMove - 100, 0);
-    const displacement = displacementPercent / 2;
-    return displacement;
+    const percentToMove = percentageRespectTo(valueRelative, value);
+    const minPercent = Math.min(percentToMove, 100);
+    return minPercent;
   }
 };
 
