@@ -1,19 +1,24 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import React from 'react';
+import BarWithDottedLine from './BarWithDottedLine';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   forecast: number;
   budgetCap: number;
+  isTotal?: boolean;
 }
 
-const ProgressiveIndicator: React.FC<Props> = ({ forecast, budgetCap }) => {
+const ProgressiveIndicator: React.FC<Props> = ({ forecast, budgetCap, isTotal = false }) => {
   const { isLight } = useThemeContext();
   return (
     <Container>
-      <Forecast isLight={isLight}>{forecast}</Forecast>
-      <BudgetCap isLight={isLight}>{budgetCap}</BudgetCap>
+      <Forecast isLight={isLight} isTotal={isTotal}>
+        {usLocalizedNumber(forecast)}
+      </Forecast>
+      <BarWithDottedLine value={forecast} relativeValue={budgetCap} />
     </Container>
   );
 };
@@ -30,17 +35,10 @@ const Container = styled.div({
   fontFeatureSettings: "'tnum' on, 'lnum' on",
 });
 
-const Forecast = styled.div<WithIsLight>(({ isLight }) => ({
+const Forecast = styled.div<WithIsLight & { isTotal: boolean }>(({ isLight, isTotal }) => ({
   fontSize: '16px',
   lineHeight: '19px',
   textAlign: 'right',
-
-  color: isLight ? '#231536' : 'red',
-}));
-
-const BudgetCap = styled.div<WithIsLight>(({ isLight }) => ({
-  fontSize: 12,
-  lineHeight: '15px',
-  textAlign: 'right',
-  color: isLight ? '#708390' : 'red',
+  fontWeight: isTotal ? 700 : 400,
+  color: isLight ? '#231536' : '#D2D4EF',
 }));

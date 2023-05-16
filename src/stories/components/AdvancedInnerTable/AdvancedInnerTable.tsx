@@ -26,7 +26,7 @@ export interface InnerTableColumn {
 
 export interface InnerTableCell {
   column: InnerTableColumn;
-  value: unknown | React.ReactElement;
+  value: unknown | React.ReactElement | JSX.Element;
   isBold?: boolean;
 }
 

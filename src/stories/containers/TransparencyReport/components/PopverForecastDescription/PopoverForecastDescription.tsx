@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ExpenditureLevel } from '@ses/core/enums/expenditureLevelEnum';
+import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import React from 'react';
 import { getExpenditureLevelForecast } from '../../utils/forecastHelper';
@@ -35,11 +36,11 @@ const PopoverForecastDescription: React.FC<Props> = ({ value, relativeValue, mon
       </RowPercentBudgetCap>
       <RowAbsoluteNumbers>
         <Forecast>
-          <Value isLight={isLight}>{forecast}</Value>
+          <Value isLight={isLight}>{usLocalizedNumber(forecast)}</Value>
           <DescriptionValue isLight={isLight}>Forecast</DescriptionValue>
         </Forecast>
         <BudgetCap>
-          <Value isLight={isLight}>{budgetCap}</Value>
+          <Value isLight={isLight}>{usLocalizedNumber(budgetCap)}</Value>
           <DescriptionValue isLight={isLight}>Budget Cap</DescriptionValue>
         </BudgetCap>
       </RowAbsoluteNumbers>
@@ -55,6 +56,7 @@ const ContainerInside = styled.div({
   gap: 16,
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
+  width: 188,
 });
 
 const RowMonthDescription = styled.div({

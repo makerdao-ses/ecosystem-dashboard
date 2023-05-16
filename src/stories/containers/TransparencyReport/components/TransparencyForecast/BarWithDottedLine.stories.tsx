@@ -7,7 +7,7 @@ export default {
   component: BarWithDottedLine,
   parameters: {
     chromatic: {
-      viewports: [1440],
+      viewports: [375],
     },
   },
 } as ComponentMeta<typeof BarWithDottedLine>;
@@ -46,16 +46,16 @@ export const [
 ProgressiveGreen.parameters = {
   figma: {
     component: {
-      1440: {
+      375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=17273:217604&t=glCgbUhycsocnnqd-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=17273:217604&t=X5dl1EckgkoawGMb-4',
         options: {
           style: {
-            left: -40,
-            top: -20,
+            left: 0,
+            top: 3,
           },
           componentStyle: {
-            width: 1312,
+            width: 100,
           },
         },
       },
@@ -65,16 +65,16 @@ ProgressiveGreen.parameters = {
 ProgressiveYellow.parameters = {
   figma: {
     component: {
-      1440: {
+      375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=17273:217604&t=PI6pSxhgdF0jUODH-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=17273:217604&t=X5dl1EckgkoawGMb-4',
         options: {
           style: {
-            left: -40,
-            top: -20,
+            left: 0,
+            top: 3,
           },
           componentStyle: {
-            width: 1312,
+            width: 100,
           },
         },
       },
@@ -84,16 +84,16 @@ ProgressiveYellow.parameters = {
 ProgressiveRed.parameters = {
   figma: {
     component: {
-      1440: {
+      375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=17273:217604&t=PI6pSxhgdF0jUODH-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=17273:217604&t=X5dl1EckgkoawGMb-4',
         options: {
           style: {
-            left: -40,
-            top: -20,
+            left: 0,
+            top: 3,
           },
           componentStyle: {
-            width: 1312,
+            width: 100,
           },
         },
       },
@@ -103,16 +103,16 @@ ProgressiveRed.parameters = {
 ProgressiveYellow.parameters = {
   figma: {
     component: {
-      1440: {
+      375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=17273:217604&t=PI6pSxhgdF0jUODH-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=17273:217604&t=X5dl1EckgkoawGMb-4',
         options: {
           style: {
-            left: -40,
-            top: -20,
+            left: 0,
+            top: 3,
           },
           componentStyle: {
-            width: 1312,
+            width: 100,
           },
         },
       },
@@ -122,16 +122,16 @@ ProgressiveYellow.parameters = {
 ProgressiveGrayStrong.parameters = {
   figma: {
     component: {
-      1440: {
+      375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=17273:217604&t=PI6pSxhgdF0jUODH-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=17273:217604&t=X5dl1EckgkoawGMb-4',
         options: {
           style: {
-            left: -40,
-            top: -20,
+            left: 0,
+            top: 3,
           },
           componentStyle: {
-            width: 1312,
+            width: 100,
           },
         },
       },
