@@ -40,7 +40,6 @@ const FilterDelegate: React.FC<Props> = ({ items, activeItems, handleSelectChang
       </Reset>
       <FilterDelegatesContainer>
         <CustomMultiSelect
-          isNotLimited={activeItems.length < 6}
           positionRight={true}
           label="Recognized Delegates"
           activeItems={activeItems}
@@ -58,9 +57,7 @@ const FilterDelegate: React.FC<Props> = ({ items, activeItems, handleSelectChang
             params: { isAll: true },
             count: 0,
           }}
-          customItemRender={(props: SelectItemProps) => (
-            <DelegateSelectItem {...props} isDisable={activeItems.length === 6} />
-          )}
+          customItemRender={(props: SelectItemProps) => <DelegateSelectItem {...props} />}
         />
       </FilterDelegatesContainer>
 

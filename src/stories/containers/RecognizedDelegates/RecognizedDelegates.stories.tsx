@@ -27,10 +27,23 @@ const variantsArgs = [
   {
     delegates: [
       new RecognizedDelegatesBuilder()
+        .withName('Feedblack Loops LLC')
+        .withImage('https://live.staticflickr.com/65535/52832796763_a0e2339b3b_m.jpg')
+        .withLatestVotingContract('0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7')
+        .withNumberDai(23325)
+        .withSocials({
+          twitter: '#',
+          forumProfile: '#',
+          forumPlatform: '#',
+          youtube: '#',
+          votingPortal: '#',
+        })
+        .build(),
+      new RecognizedDelegatesBuilder()
         .withName('Flip Flop Flap Delegate LLC')
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
         .withLatestVotingContract('0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7')
-        .withNumberDai(232325)
+        .withNumberDai(292325)
         .withSocials({
           twitter: '#',
           forumProfile: '#',
@@ -43,7 +56,7 @@ const variantsArgs = [
         .withName('GFX Labs')
         .withImage('https://live.staticflickr.com/65535/52832350651_0506c1ff2a_m.jpg')
         .withLatestVotingContract('0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7')
-        .withNumberDai(232325)
+        .withNumberDai(282325)
         .withSocials({
           twitter: '#',
           forumProfile: '#',
@@ -56,20 +69,7 @@ const variantsArgs = [
         .withName('Coldirion.eth')
         .withImage('https://live.staticflickr.com/65535/52832350671_ac70b94b13_m.jpg')
         .withLatestVotingContract('0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7')
-        .withNumberDai(232325)
-        .withSocials({
-          twitter: '#',
-          forumProfile: '#',
-          forumPlatform: '#',
-          youtube: '#',
-          votingPortal: '#',
-        })
-        .build(),
-      new RecognizedDelegatesBuilder()
-        .withName('Feedblack Loops LLC')
-        .withImage('https://live.staticflickr.com/65535/52832796763_a0e2339b3b_m.jpg')
-        .withLatestVotingContract('0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7')
-        .withNumberDai(232325)
+        .withNumberDai(272325)
         .withSocials({
           twitter: '#',
           forumProfile: '#',
@@ -89,21 +89,21 @@ const variantsArgs = [
         .build(),
       new TotalExpenseReportsBuilder()
         .withPrediction(1236845)
-        .withActuals(1594292)
+        .withActuals(192)
         .withBudget('makerdao/delegates/Feedblack Loops LLC')
         .withBudgetCap(6523658)
         .withQuarterPeriod(2022, 1)
         .build(),
       new TotalExpenseReportsBuilder()
         .withPrediction(3690)
-        .withActuals(4236)
+        .withActuals(14292)
         .withBudget('makerdao/delegates/GFX Labs')
         .withBudgetCap(9562451)
         .withQuarterPeriod(2022, 2)
         .build(),
       new TotalExpenseReportsBuilder()
         .withPrediction(4232845)
-        .withActuals(122)
+        .withActuals(13292)
         .withBudget('makerdao/delegates/Coldirion.eth')
         .withBudgetCap(6392563)
         .withQuarterPeriod(2022, 3)

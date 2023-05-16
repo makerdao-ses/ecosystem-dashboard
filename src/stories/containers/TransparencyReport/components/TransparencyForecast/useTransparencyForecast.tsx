@@ -14,10 +14,13 @@ import {
   getForecastSumForMonths,
   getForecastSumOfMonthsOnWallet,
   getTotalQuarterlyBudgetCapOnBudgetStatement,
+  getTransferRequestTargetBalanceColumn,
   getWalletMonthlyBudget,
 } from '../../utils/budgetStatementsUtils';
+
 import { FORECAST_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
 import { getBreakdownItemsForWallet, getForecastBreakdownColumns } from '../../utils/forecastTableHelpers';
+import HeaderWithIcon from '../HeaderWithIcon/HeaderWithIcon';
 import ProgressiveIndicator from './ProgresiveIndicator';
 import type { InnerTableColumn, InnerTableRow } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import type { BudgetStatementDto, BudgetStatementWalletDto } from '@ses/core/models/dto/coreUnitDTO';
@@ -70,8 +73,9 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
     }
   }, [selectedBreakdown, headerIds]);
 
-  const mainTableColumns: InnerTableColumn[] = useMemo(
-    () => [
+  const mainTableColumns: InnerTableColumn[] = useMemo(() => {
+    const headersValuesToolTip = getTransferRequestTargetBalanceColumn(wallets[0]);
+    return [
       {
         header: 'Wallet',
         type: 'custom',
@@ -81,17 +85,43 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
         minWidth: getWalletWidthForWallets(wallets),
       },
       {
-        header: firstMonth.toFormat('MMMM'),
+        header: (
+          <HeaderWithIcon
+            description="1 Month Budget Cap"
+            link={headersValuesToolTip.target.source.url}
+            mipNumber={headersValuesToolTip.target.source.code}
+            title={firstMonth.toFormat('MMMM')}
+            name={headersValuesToolTip.target.source.title}
+          />
+        ),
+
         type: 'custom',
         align: 'right',
       },
       {
-        header: secondMonth.toFormat('MMMM'),
+        header: (
+          <HeaderWithIcon
+            description="1 Month Budget Cap"
+            link={headersValuesToolTip.target.source.url}
+            mipNumber={headersValuesToolTip.target.source.code}
+            title={secondMonth.toFormat('MMMM')}
+            name={headersValuesToolTip.target.source.title}
+          />
+        ),
+
         type: 'custom',
         align: 'right',
       },
       {
-        header: thirdMonth.toFormat('MMMM'),
+        header: (
+          <HeaderWithIcon
+            description="1 Month Budget Cap"
+            link={headersValuesToolTip.target.source.url}
+            mipNumber={headersValuesToolTip.target.source.code}
+            title={thirdMonth.toFormat('MMMM')}
+            name={headersValuesToolTip.target.source.title}
+          />
+        ),
         type: 'custom',
         align: 'right',
         hasBorderRight: true,
@@ -105,7 +135,15 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
         hidden: true,
       },
       {
-        header: 'Totals',
+        header: (
+          <HeaderWithIcon
+            description="3 Month Budget Caps"
+            link={headersValuesToolTip.target.source.url}
+            mipNumber={headersValuesToolTip.target.source.code}
+            title="Totals"
+            name={headersValuesToolTip.target.source.title}
+          />
+        ),
         type: 'custom',
         align: 'right',
       },
@@ -115,9 +153,8 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
         align: 'right',
         hidden: true,
       },
-    ],
-    [firstMonth, secondMonth, thirdMonth, wallets]
-  );
+    ];
+  }, [firstMonth, secondMonth, thirdMonth, wallets]);
 
   const mainTableItems = useMemo(() => {
     const result: InnerTableRow[] = [];

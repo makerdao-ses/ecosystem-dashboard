@@ -80,7 +80,9 @@ export const CuTableColumnExpenditures = ({ isLoading = false, ...props }: CuTab
                 </TotalPopup>
               }
             >
-              <Percent isLight={isLight}>{props.percent?.toFixed(0)}%</Percent>
+              <Percent isLight={isLight}>
+                {props.percent?.toFixed(0) === '0' ? '-  %' : `${props.percent?.toFixed(0)}%`}
+              </Percent>
             </CustomPopover>
           </ValueWrapper>
         </Container>
