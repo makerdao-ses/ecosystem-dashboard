@@ -47,8 +47,6 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
     return _.sortBy(Object.values(dict), 'id');
   }, [currentMonth, budgetStatements]);
 
-  // const headersValuesToolTip = getTransferRequestTargetBalanceColumn(wallets[0]);
-
   const breakdownTabs = useMemo(() => {
     if (!budgetStatements || budgetStatements.length === 0) return [];
     return wallets?.map((wallet) => wallet.name);
