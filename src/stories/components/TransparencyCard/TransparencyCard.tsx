@@ -6,7 +6,7 @@ import type { CardSpacingSize } from '../AdvancedInnerTable/AdvancedInnerTable';
 
 interface Props {
   header: JSX.Element | string;
-  headers: JSX.Element[] | string[];
+  headers: (JSX.Element | string)[];
   items?: JSX.Element[];
   separators?: boolean[];
   footer?: JSX.Element | string;
