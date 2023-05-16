@@ -34,3 +34,16 @@ export type TargetBalanceTooltipInformation = {
   link: string;
   name: string;
 };
+
+export interface SVGIconProps {
+  width?: number;
+  height?: number;
+  className?: string;
+}
+
+export interface SVGIconWithFillProps {
+  width?: number;
+  height?: number;
+  fill?: string;
+  className?: string;
+}

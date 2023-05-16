@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 import FundChangeCard from '../Cards/FundChangeCard';
 import SimpleStatCard from '../Cards/SimpleStatCard';
+import CurrencyPicker from '../CurrencyPicker/CurrencyPicker';
 import SectionHeader from '../SectionHeader/SectionHeader';
 import TransactionHistory from '../TransactionHistory/TransactionHistory';
 
@@ -11,11 +12,14 @@ interface FundingOverviewProps {
 
 const FundingOverview: React.FC<FundingOverviewProps> = ({ coreUnitCode }) => (
   <div>
-    <SectionHeader
-      title="MakerDAO Funding Overview"
-      subtitle={`Totals funds made available to the ${coreUnitCode} Core Unit over its entire lifetime, since June 2021.`}
-      tooltip={'pending...'}
-    />
+    <HeaderContainer>
+      <SectionHeader
+        title="MakerDAO Funding Overview"
+        subtitle={`Totals funds made available to the ${coreUnitCode} Core Unit over its entire lifetime, since June 2021.`}
+        tooltip={'pending...'}
+      />
+      <CurrencyPicker />
+    </HeaderContainer>
 
     <CardsContainer>
       <SimpleStatCard date="2023-05-12T22:52:54.494Z" value={3685648} caption="Initial Lifetime Balance" />
@@ -35,6 +39,12 @@ const FundingOverview: React.FC<FundingOverviewProps> = ({ coreUnitCode }) => (
 );
 
 export default FundingOverview;
+
+const HeaderContainer = styled.div({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+});
 
 const CardsContainer = styled.div({
   display: 'flex',
