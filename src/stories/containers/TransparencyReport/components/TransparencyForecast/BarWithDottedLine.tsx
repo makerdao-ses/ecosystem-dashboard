@@ -7,14 +7,17 @@ import React, { useState } from 'react';
 import { getBorderColor, getDisplacementDashLine, getProgressiveBarColor } from '../../utils/forecastHelper';
 import PopoverForecastDescription from '../PopverForecastDescription/PopoverForecastDescription';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
+import type { DateTime } from 'luxon';
 
 interface Props {
   value: number;
   relativeValue: number;
+  month?: DateTime;
 }
 
-const BarWithDottedLine: React.FC<Props> = ({ value, relativeValue }) => {
+const BarWithDottedLine: React.FC<Props> = ({ value, relativeValue, month }) => {
   const { isLight } = useThemeContext();
+  const monthFormatted = month?.toFormat('MMMM') || 'monthly';
   const [hover, setHover] = useState(false);
 
   const handleMouseOver = () => {
@@ -24,7 +27,6 @@ const BarWithDottedLine: React.FC<Props> = ({ value, relativeValue }) => {
   const handleMouseOut = () => {
     setHover(false);
   };
-  const month = 'August';
   const barColor = getProgressiveBarColor(value, relativeValue, isLight, hover);
   const percent = percentageRespectTo(value, relativeValue);
   const displacement = getDisplacementDashLine(value, relativeValue);
@@ -49,7 +51,7 @@ const BarWithDottedLine: React.FC<Props> = ({ value, relativeValue }) => {
             <PopoverForecastDescription
               relativeValue={relativeValue}
               value={value}
-              month={month}
+              month={monthFormatted}
               budgetCap={relativeValue}
               forecast={value}
             />
@@ -115,7 +117,7 @@ const BarPercent = styled.div<{ width: number; color: string }>(({ width, color 
   borderRadius: 2,
   width: `${width}%`,
   height: '100%',
-  transition: 'width 0.5s ease-in-out',
+  transition: 'width, background 0.5s ease-in-out',
 }));
 const BudgetCap = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 12,

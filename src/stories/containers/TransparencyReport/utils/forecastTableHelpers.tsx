@@ -125,6 +125,7 @@ export const getBreakdownItemsForGroup = (
               <ProgressiveIndicator
                 budgetCap={getBudgetCapForMonthOnLineItem(groupedCategory[groupedCatKey], firstMonth)}
                 forecast={getLineItemForecastSumForMonth(groupedCategory[groupedCatKey], firstMonth)}
+                month={firstMonth}
               />
             </ContainerProgressiveIndicator>
           ),
@@ -136,6 +137,7 @@ export const getBreakdownItemsForGroup = (
               <ProgressiveIndicator
                 budgetCap={getBudgetCapForMonthOnLineItem(groupedCategory[groupedCatKey], secondMonth)}
                 forecast={getLineItemForecastSumForMonth(groupedCategory[groupedCatKey], secondMonth)}
+                month={secondMonth}
               />
             </ContainerProgressiveIndicator>
           ),
@@ -147,6 +149,7 @@ export const getBreakdownItemsForGroup = (
               <ProgressiveIndicator
                 budgetCap={getBudgetCapForMonthOnLineItem(groupedCategory[groupedCatKey], thirdMonth)}
                 forecast={getLineItemForecastSumForMonth(groupedCategory[groupedCatKey], thirdMonth)}
+                month={thirdMonth}
               />
             </ContainerProgressiveIndicator>
           ),
@@ -370,6 +373,7 @@ export const getBreakdownItemsForWallet = (
             <ContainerProgressiveIndicator>
               <ProgressiveIndicator
                 isTotal
+                month={firstMonth}
                 budgetCap={getBudgetCapForMonthOnWalletOnBudgetStatement(
                   budgetStatements,
                   currentWalletAddress,
@@ -392,6 +396,7 @@ export const getBreakdownItemsForWallet = (
             <ContainerProgressiveIndicator>
               <ProgressiveIndicator
                 isTotal
+                month={secondMonth}
                 budgetCap={getBudgetCapForMonthOnWalletOnBudgetStatement(
                   budgetStatements,
                   currentWalletAddress,
@@ -413,6 +418,7 @@ export const getBreakdownItemsForWallet = (
           value: (
             <ContainerProgressiveIndicator>
               <ProgressiveIndicator
+                month={thirdMonth}
                 budgetCap={getBudgetCapForMonthOnWalletOnBudgetStatement(
                   budgetStatements,
                   currentWalletAddress,

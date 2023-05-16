@@ -4,21 +4,23 @@ import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import React from 'react';
 import BarWithDottedLine from './BarWithDottedLine';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
+import type { DateTime } from 'luxon';
 
 interface Props {
   forecast: number;
   budgetCap: number;
   isTotal?: boolean;
+  month?: DateTime;
 }
 
-const ProgressiveIndicator: React.FC<Props> = ({ forecast, budgetCap, isTotal = false }) => {
+const ProgressiveIndicator: React.FC<Props> = ({ forecast, budgetCap, isTotal = false, month }) => {
   const { isLight } = useThemeContext();
   return (
     <Container>
       <Forecast isLight={isLight} isTotal={isTotal}>
         {usLocalizedNumber(forecast)}
       </Forecast>
-      <BarWithDottedLine value={forecast} relativeValue={budgetCap} />
+      <BarWithDottedLine value={forecast} relativeValue={budgetCap} month={month} />
     </Container>
   );
 };
