@@ -31,7 +31,7 @@ export interface SelectItemProps {
 }
 
 interface CustomMultiSelectProps {
-  label: string;
+  label: string | ((props: CustomMultiSelectProps) => React.ReactNode);
   items: MultiSelectItem[];
   withAll?: boolean;
   customAll?: MultiSelectItem;
@@ -41,6 +41,7 @@ interface CustomMultiSelectProps {
   width?: number;
   customItemRender?: (props: SelectItemProps) => JSX.Element;
   popupContainerWidth?: number;
+  popupContainerHeight?: number | string;
   listItemWidth?: number;
   withSearch?: boolean;
   positionRight?: boolean;
@@ -103,9 +104,19 @@ export const CustomMultiSelect = ({
         onClick={toggleVisible}
         width={props.width}
       >
-        <Label active={activeItems.length > 0} isLight={isLight} hover={hover}>
-          {props.label} {activeItems.length > 0 ? `${activeItems.length}` : ''}
-        </Label>
+        {typeof props.label === 'string' ? (
+          <Label active={activeItems.length > 0} isLight={isLight} hover={hover}>
+            {props.label} {activeItems.length > 0 ? `${activeItems.length}` : ''}
+          </Label>
+        ) : (
+          props.label({
+            withAll,
+            activeItems,
+            customItemRender,
+            positionRight,
+            ...props,
+          })
+        )}
         <IconWrapper>
           <SelectChevronDown
             style={{ transform: popupVisible ? 'scaleY(-1)' : 'scaleY(1)' }}
@@ -140,7 +151,7 @@ export const CustomMultiSelect = ({
           <SimpleBar
             style={{
               width: props.popupContainerWidth ? props.popupContainerWidth - 16 : 196,
-              height: 250,
+              height: props.popupContainerHeight ?? 250,
             }}
             className="filter-popup-scroll"
             scrollbarMaxSize={32}
