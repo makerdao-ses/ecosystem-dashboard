@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useId } from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { Title } from '../../containers/TransparencyReport/TransparencyReport';
 import { TransparencyEmptyTable } from '../../containers/TransparencyReport/components/Placeholders/TransparencyEmptyTable';
@@ -10,7 +10,7 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export interface InnerTableColumn {
   align?: string;
-  header?: string;
+  header: string | JSX.Element;
   type?: 'number' | 'incomeNumber' | 'text' | 'custom';
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   cellRender?: (data: any) => JSX.Element;
@@ -64,6 +64,7 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
   tablePlaceholder,
   cardSpacingSize = 'large',
 }) => {
+  const id = useId();
   const { isLight } = useThemeContext();
   const getCell = (column: InnerTableColumn, rowType: RowType, value: unknown) => {
     if (value !== 0 && !value) {
@@ -74,18 +75,18 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
 
     switch (columnType) {
       case 'number':
-        return <NumberCell key={column.header} value={Number(value)} bold={isBold} />;
+        return <NumberCell key={id} value={Number(value)} bold={isBold} />;
       case 'incomeNumber':
-        return <NumberCell key={column.header} value={Number(value)} bold={isBold} isIncome={true} />;
+        return <NumberCell key={id} value={Number(value)} bold={isBold} isIncome={true} />;
       case 'text':
         return rowType === 'groupTitle' ? (
-          <TextCell key={column.header} isHeader={true}>
+          <TextCell key={id} isHeader={true}>
             <GroupTitle isLight={isLight} className="table-groupTitle">
               {value as string}
             </GroupTitle>
           </TextCell>
         ) : (
-          <TextCell key={column.header} bold={isBold || rowType === 'subTotal'} isHeader={column.isCardHeader}>
+          <TextCell key={id} bold={isBold || rowType === 'subTotal'} isHeader={column.isCardHeader}>
             {value as string}
           </TextCell>
         );
@@ -97,7 +98,7 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
     }
 
     return (
-      <TextCell key={column.header} bold={isBold} isHeader={column.isCardHeader}>
+      <TextCell key={id} bold={isBold} isHeader={column.isCardHeader}>
         {value as string}
       </TextCell>
     );
