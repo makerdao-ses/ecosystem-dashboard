@@ -88,7 +88,7 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
         header: (
           <HeaderWithIcon
             description="1 Month Budget Cap"
-            link={headersValuesToolTip.target.source.url}
+            link={headersValuesToolTip.target?.source.url}
             mipNumber={headersValuesToolTip.target.source.code}
             title={firstMonth.toFormat('MMMM')}
             name={headersValuesToolTip.target.source.title}
@@ -102,7 +102,7 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
         header: (
           <HeaderWithIcon
             description="1 Month Budget Cap"
-            link={headersValuesToolTip.target.source.url}
+            link={headersValuesToolTip.target?.source.url}
             mipNumber={headersValuesToolTip.target.source.code}
             title={secondMonth.toFormat('MMMM')}
             name={headersValuesToolTip.target.source.title}
@@ -116,7 +116,7 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
         header: (
           <HeaderWithIcon
             description="1 Month Budget Cap"
-            link={headersValuesToolTip.target.source.url}
+            link={headersValuesToolTip.target?.source.url}
             mipNumber={headersValuesToolTip.target.source.code}
             title={thirdMonth.toFormat('MMMM')}
             name={headersValuesToolTip.target.source.title}
@@ -138,7 +138,7 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
         header: (
           <HeaderWithIcon
             description="3 Month Budget Caps"
-            link={headersValuesToolTip.target.source.url}
+            link={headersValuesToolTip.target?.source.url}
             mipNumber={headersValuesToolTip.target.source.code}
             title="Totals"
             name={headersValuesToolTip.target.source.title}
