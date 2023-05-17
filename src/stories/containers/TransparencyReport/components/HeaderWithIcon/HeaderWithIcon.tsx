@@ -59,7 +59,6 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
   const handleOnClick = useCallback(() => {
     setIsOpen(!isOpen);
   }, [isOpen]);
-  console.log('isMobileResolution && isOpen && isMobileDevice', isMobileResolution, isOpen, isMobileDevice);
   return (
     <Container>
       <Title style={{ marginRight: 8 }}>{title}</Title>
