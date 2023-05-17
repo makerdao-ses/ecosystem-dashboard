@@ -331,8 +331,8 @@ export const getTransferRequestTargetBalanceColumn = (wallet: BudgetStatementWal
   const targetWithTimeSpan: Pick<BudgetStatementWalletTransferRequestDto, 'target' | 'walletBalanceTimeStamp'> =
     {} as BudgetStatementWalletTransferRequestDto;
 
-  const lastIndex = (wallet.budgetStatementTransferRequest ?? []).length - 1;
-  if (wallet.budgetStatementTransferRequest && wallet.budgetStatementTransferRequest.length > 0) {
+  const lastIndex = (wallet?.budgetStatementTransferRequest ?? []).length - 1;
+  if (wallet?.budgetStatementTransferRequest && wallet.budgetStatementTransferRequest.length > 0) {
     targetWithTimeSpan.target = wallet.budgetStatementTransferRequest[lastIndex].target;
     targetWithTimeSpan.walletBalanceTimeStamp =
       wallet.budgetStatementTransferRequest[lastIndex]?.walletBalanceTimeStamp;

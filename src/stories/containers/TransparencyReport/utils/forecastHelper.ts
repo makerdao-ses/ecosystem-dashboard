@@ -31,8 +31,9 @@ export const getProgressiveBarColor = (
   isLight: boolean,
   isHover: boolean
 ): string => {
-  if (!valueRelative) return COLORS_BAR.COLOR_GRAY;
-  if (!value) return COLORS_BAR.COLOR_GRAY_STRONG;
+  if (!valueRelative) return COLORS_BAR.COLOR_GRAY_STRONG;
+  if (!value) return COLORS_BAR.COLOR_GRAY;
+
   let color = '';
   const percent = percentageRespectTo(value, valueRelative);
   if (percent > 0 && percent <= 90) {
@@ -75,7 +76,7 @@ export const getDisplacementDashLine = (value: number, valueRelative: number): n
   } else {
     const percentToMove = percentageRespectTo(valueRelative, value);
     const minPercent = Math.min(percentToMove, 100);
-    return minPercent;
+    return minPercent === 100 ? 100 : 100 - minPercent;
   }
 };
 
@@ -119,4 +120,11 @@ export const getBorderColor = (value: number, valueRelative: number, isLight: bo
     color = isLight ? COLORS_BORDERS_POPOVER.COLOR_RED : COLORS_BORDERS_POPOVER.COLOR_RED_DARK;
   }
   return color;
+};
+
+export const getPercentFullBar = (forecast: number, budgetCap: number): number => {
+  if (forecast && !budgetCap) return 100;
+  if (budgetCap && !forecast) return 0;
+  const percent = percentageRespectTo(forecast, budgetCap);
+  return percent;
 };
