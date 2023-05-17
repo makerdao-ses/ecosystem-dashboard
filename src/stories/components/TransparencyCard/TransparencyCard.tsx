@@ -84,9 +84,8 @@ const FooterWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 
 const Row = styled.div<{ hasIcon?: boolean; height?: string }>(({ hasIcon = false }) => ({
   display: 'flex',
-  alignItems: hasIcon ? 'flex-start' : 'center',
   flex: 1,
-
+  alignItems: 'center',
   justifyContent: hasIcon ? 'space-between' : undefined,
   [lightTheme.breakpoints.up('table_834')]: {
     alignItems: 'flex-start',

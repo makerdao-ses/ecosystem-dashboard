@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
 import { capitalizeSentence, getWalletWidthForWallets, toKebabCase } from '@ses/core/utils/string';
 import _ from 'lodash';
@@ -14,10 +15,13 @@ import {
   getForecastSumOfMonthsOnWallet,
   getTotalQuarterlyBudgetCapOnBudgetStatement,
   getTransferRequestTargetBalanceColumn,
+  getWalletMonthlyBudget,
 } from '../../utils/budgetStatementsUtils';
+
 import { FORECAST_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
 import { getBreakdownItemsForWallet, getForecastBreakdownColumns } from '../../utils/forecastTableHelpers';
 import HeaderWithIcon from '../HeaderWithIcon/HeaderWithIcon';
+import ProgressiveIndicator from './ProgresiveIndicator';
 import type { InnerTableColumn, InnerTableRow } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import type { BudgetStatementDto, BudgetStatementWalletDto } from '@ses/core/models/dto/coreUnitDTO';
 import type { DateTime } from 'luxon';
@@ -84,41 +88,41 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
         header: (
           <HeaderWithIcon
             description="1 Month Budget Cap"
-            link={headersValuesToolTip.target.source.url}
-            mipNumber={headersValuesToolTip.target.source.code}
+            link={headersValuesToolTip.target?.source.url}
+            mipNumber={headersValuesToolTip.target?.source.code}
             title={firstMonth.toFormat('MMMM')}
-            name={headersValuesToolTip.target.source.title}
+            name={headersValuesToolTip.target?.source?.title}
           />
         ),
 
-        type: 'number',
+        type: 'custom',
         align: 'right',
       },
       {
         header: (
           <HeaderWithIcon
             description="1 Month Budget Cap"
-            link={headersValuesToolTip.target.source.url}
-            mipNumber={headersValuesToolTip.target.source.code}
+            link={headersValuesToolTip.target?.source.url}
+            mipNumber={headersValuesToolTip.target?.source.code}
             title={secondMonth.toFormat('MMMM')}
-            name={headersValuesToolTip.target.source.title}
+            name={headersValuesToolTip.target?.source?.title}
           />
         ),
 
-        type: 'number',
+        type: 'custom',
         align: 'right',
       },
       {
         header: (
           <HeaderWithIcon
             description="1 Month Budget Cap"
-            link={headersValuesToolTip.target.source.url}
-            mipNumber={headersValuesToolTip.target.source.code}
+            link={headersValuesToolTip.target?.source.url}
+            mipNumber={headersValuesToolTip.target?.source.code}
             title={thirdMonth.toFormat('MMMM')}
-            name={headersValuesToolTip.target.source.title}
+            name={headersValuesToolTip.target?.source.title}
           />
         ),
-        type: 'number',
+        type: 'custom',
         align: 'right',
         hasBorderRight: true,
       },
@@ -134,13 +138,13 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
         header: (
           <HeaderWithIcon
             description="3 Month Budget Caps"
-            link={headersValuesToolTip.target.source.url}
-            mipNumber={headersValuesToolTip.target.source.code}
+            link={headersValuesToolTip.target?.source.url}
+            mipNumber={headersValuesToolTip.target?.source.code}
             title="Totals"
-            name={headersValuesToolTip.target.source.title}
+            name={headersValuesToolTip.target?.source.title}
           />
         ),
-        type: 'number',
+        type: 'custom',
         align: 'right',
       },
       {
@@ -160,8 +164,11 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
     }
 
     let emptyWallets = 0;
-
     wallets.forEach((wallet) => {
+      const firstMonthlyBudgetCap = getWalletMonthlyBudget(wallet, firstMonth.toFormat(API_MONTH_TO_FORMAT));
+      const secondMonthBudgetCap = getWalletMonthlyBudget(wallet, secondMonth.toFormat(API_MONTH_TO_FORMAT));
+      const thirdMonthBudgetCap = getWalletMonthlyBudget(wallet, thirdMonth.toFormat(API_MONTH_TO_FORMAT));
+      const totalMonthPerWallet = firstMonthlyBudgetCap + secondMonthBudgetCap + thirdMonthBudgetCap;
       const numberCellData = [
         getForecastForMonthOnWalletOnBudgetStatement(budgetStatements, wallet?.address, currentMonth, firstMonth),
         getForecastForMonthOnWalletOnBudgetStatement(budgetStatements, wallet?.address, currentMonth, secondMonth),
@@ -193,15 +200,36 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
           },
           {
             column: mainTableColumns[1],
-            value: numberCellData[0],
+
+            value: (
+              <ContainerProgressiveIndicator>
+                <ProgressiveIndicator
+                  budgetCap={firstMonthlyBudgetCap}
+                  forecast={numberCellData[0]}
+                  month={firstMonth}
+                />
+              </ContainerProgressiveIndicator>
+            ),
           },
           {
             column: mainTableColumns[2],
-            value: numberCellData[1],
+            value: (
+              <ContainerProgressiveIndicator>
+                <ProgressiveIndicator
+                  budgetCap={secondMonthBudgetCap}
+                  forecast={numberCellData[1]}
+                  month={secondMonth}
+                />
+              </ContainerProgressiveIndicator>
+            ),
           },
           {
             column: mainTableColumns[3],
-            value: numberCellData[2],
+            value: (
+              <ContainerProgressiveIndicator>
+                <ProgressiveIndicator budgetCap={thirdMonthBudgetCap} forecast={numberCellData[2]} month={thirdMonth} />
+              </ContainerProgressiveIndicator>
+            ),
           },
           {
             column: mainTableColumns[4],
@@ -209,7 +237,11 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
           },
           {
             column: mainTableColumns[5],
-            value: numberCellData[4],
+            value: (
+              <ContainerProgressiveIndicator>
+                <ProgressiveIndicator budgetCap={totalMonthPerWallet} forecast={numberCellData[4]} />
+              </ContainerProgressiveIndicator>
+            ),
           },
           {
             column: mainTableColumns[6],
@@ -222,7 +254,9 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
     if (result.length === emptyWallets) {
       return [];
     }
-
+    const totalFirstMonth = getForecastSumForMonth(budgetStatements, currentMonth, firstMonth);
+    const totalSecondMonth = getForecastSumForMonth(budgetStatements, currentMonth, secondMonth);
+    const totalThirdMonth = getForecastSumForMonth(budgetStatements, currentMonth, thirdMonth);
     result.push({
       type: 'total',
       items: [
@@ -232,15 +266,42 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
         },
         {
           column: mainTableColumns[1],
-          value: getForecastSumForMonth(budgetStatements, currentMonth, firstMonth),
+          value: (
+            <ContainerProgressiveIndicator>
+              <ProgressiveIndicator
+                budgetCap={getBudgetCapForMonthOnBudgetStatement(budgetStatements, currentMonth, firstMonth)}
+                forecast={totalFirstMonth}
+                isTotal
+                month={firstMonth}
+              />
+            </ContainerProgressiveIndicator>
+          ),
         },
         {
           column: mainTableColumns[2],
-          value: getForecastSumForMonth(budgetStatements, currentMonth, secondMonth),
+          value: (
+            <ContainerProgressiveIndicator>
+              <ProgressiveIndicator
+                budgetCap={getBudgetCapForMonthOnBudgetStatement(budgetStatements, currentMonth, secondMonth)}
+                forecast={totalSecondMonth}
+                isTotal
+                month={secondMonth}
+              />
+            </ContainerProgressiveIndicator>
+          ),
         },
         {
           column: mainTableColumns[3],
-          value: getForecastSumForMonth(budgetStatements, currentMonth, thirdMonth),
+          value: (
+            <ContainerProgressiveIndicator>
+              <ProgressiveIndicator
+                budgetCap={getBudgetCapForMonthOnBudgetStatement(budgetStatements, currentMonth, thirdMonth)}
+                forecast={totalThirdMonth}
+                isTotal
+                month={thirdMonth}
+              />
+            </ContainerProgressiveIndicator>
+          ),
         },
         {
           column: mainTableColumns[4],
@@ -248,7 +309,24 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
         },
         {
           column: mainTableColumns[5],
-          value: getForecastSumForMonths(budgetStatements, currentMonth, [firstMonth, secondMonth, thirdMonth]),
+          value: (
+            <ContainerProgressiveIndicator>
+              <ProgressiveIndicator
+                isTotal
+                budgetCap={getTotalQuarterlyBudgetCapOnBudgetStatement(
+                  budgetStatements,
+                  [firstMonth, secondMonth, thirdMonth],
+                  wallets,
+                  currentMonth
+                )}
+                forecast={getForecastSumForMonths(budgetStatements, currentMonth, [
+                  firstMonth,
+                  secondMonth,
+                  thirdMonth,
+                ])}
+              />
+            </ContainerProgressiveIndicator>
+          ),
         },
         {
           column: mainTableColumns[6],
@@ -260,7 +338,7 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
           ),
         },
       ],
-      hideMobile: result.length < 2,
+      hideMobile: false,
     });
 
     return result;
@@ -314,3 +392,11 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
     wallets,
   };
 };
+
+export const ContainerProgressiveIndicator = styled.div({
+  display: 'flex',
+  flex: 1,
+  paddingRight: 16,
+  flexDirection: 'row',
+  justifyContent: 'flex-end',
+});
