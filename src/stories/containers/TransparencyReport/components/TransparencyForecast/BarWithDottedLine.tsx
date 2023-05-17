@@ -17,7 +17,7 @@ interface Props {
 
 const BarWithDottedLine: React.FC<Props> = ({ value, relativeValue, month }) => {
   const { isLight } = useThemeContext();
-  const monthFormatted = month?.toFormat('MMMM') || 'monthly';
+  const monthFormatted = month?.toFormat('MMMM') || '3 Months Budget Cap';
   const [hover, setHover] = useState(false);
 
   const handleMouseOver = () => {

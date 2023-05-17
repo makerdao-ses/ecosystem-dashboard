@@ -17,7 +17,7 @@ const ProgressiveIndicator: React.FC<Props> = ({ forecast, budgetCap, isTotal = 
   const { isLight } = useThemeContext();
   return (
     <Container>
-      <Forecast isLight={isLight} isTotal={isTotal}>
+      <Forecast isLight={isLight} isTotal={isTotal} isNegative={forecast < 0}>
         {usLocalizedNumber(forecast)}
       </Forecast>
       <BarWithDottedLine value={forecast} relativeValue={budgetCap} month={month} />
@@ -37,10 +37,12 @@ const Container = styled.div({
   fontFeatureSettings: "'tnum' on, 'lnum' on",
 });
 
-const Forecast = styled.div<WithIsLight & { isTotal: boolean }>(({ isLight, isTotal }) => ({
-  fontSize: '16px',
-  lineHeight: '19px',
-  textAlign: 'right',
-  fontWeight: isTotal ? 700 : 400,
-  color: isLight ? '#231536' : '#D2D4EF',
-}));
+const Forecast = styled.div<WithIsLight & { isTotal: boolean; isNegative?: boolean; isLight: boolean }>(
+  ({ isLight, isTotal, isNegative }) => ({
+    fontSize: '16px',
+    lineHeight: '19px',
+    textAlign: 'right',
+    fontWeight: isTotal ? 700 : 400,
+    color: isLight ? (isNegative ? '#F75524' : '#231536') : isNegative ? '#F75524' : '#D2D4EF',
+  })
+);

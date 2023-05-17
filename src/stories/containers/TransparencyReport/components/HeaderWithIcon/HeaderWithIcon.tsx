@@ -92,7 +92,7 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
-  width: 106,
+  width: 85,
   [lightTheme.breakpoints.up('table_834')]: {
     justifyContent: 'flex-end',
     width: '100%',
