@@ -44,7 +44,7 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
         title={<HeaderToolTip description={description} link={link} mipNumber={mipNumber} name={name} />}
         leaveOnChildrenMouseOut
       >
-        <ContainerInfoIcon>
+        <ContainerInfoIcon className="advance-table--transparency-card_icon_hidden">
           <IconPosition />
         </ContainerInfoIcon>
       </ExtendedCustomPopover>
