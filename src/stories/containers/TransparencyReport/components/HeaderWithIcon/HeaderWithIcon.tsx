@@ -28,7 +28,6 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
         hasNotSpaceRight={true}
         handleShowPopoverWhenNotSpace={handleShowPopoverWhenNotSpace}
         refElementShowPopover={refElementShowPopover}
-        // popover
         sxProps={{
           '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
             overflowX: 'unset',
