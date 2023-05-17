@@ -23,7 +23,9 @@ export const TransparencyCard: React.FC<Props> = ({ cardSpacingSize = 'large', .
       isLight={isLight}
       spacing={cardSpacingSize}
       style={{ marginTop: props.itemType === 'total' ? 24 : 0 }}
-      className="advance-table--transparency-card"
+      className={`advance-table--transparency-card ${
+        props.itemType === 'total' ? 'advance-table--transparency-card_total' : 'advance-table--transparency_item'
+      }`}
     >
       <HeaderWrapper>{props.header}</HeaderWrapper>
       {props.headers.map((header, i) => (

@@ -289,6 +289,9 @@ const TableWrapper = styled.div({
 
 const CardsWrapper = styled.div({
   display: 'block',
+  '& .advance-table--transparency_item .advance-table--transparency-card_icon_hidden': {
+    display: 'none',
+  },
   '@media (min-width: 834px)': {
     display: 'none',
   },
