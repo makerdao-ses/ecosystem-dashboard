@@ -2,9 +2,13 @@ import styled from '@emotion/styled';
 import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
-import { percentageRespectTo } from '@ses/core/utils/math';
 import React, { useState } from 'react';
-import { getBorderColor, getDisplacementDashLine, getProgressiveBarColor } from '../../utils/forecastHelper';
+import {
+  getBorderColor,
+  getDisplacementDashLine,
+  getPercentFullBar,
+  getProgressiveBarColor,
+} from '../../utils/forecastHelper';
 import PopoverForecastDescription from '../PopverForecastDescription/PopoverForecastDescription';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { DateTime } from 'luxon';
@@ -28,7 +32,7 @@ const BarWithDottedLine: React.FC<Props> = ({ value, relativeValue, month }) => 
     setHover(false);
   };
   const barColor = getProgressiveBarColor(value, relativeValue, isLight, hover);
-  const percent = percentageRespectTo(value, relativeValue);
+  const percent = getPercentFullBar(value, relativeValue);
   const displacement = getDisplacementDashLine(value, relativeValue);
   const borderColor = getBorderColor(value, relativeValue, isLight);
   return (
