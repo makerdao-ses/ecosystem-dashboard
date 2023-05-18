@@ -9,7 +9,7 @@ import type { PopoverOrigin } from '@mui/material';
 import type { SxProps } from '@mui/material/styles';
 import type { PopoverPaperType, WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { CSSProperties } from 'react';
-type ArrowPosition = 'up' | 'down' | 'rightUp' | 'none';
+type ArrowPosition = 'up' | 'down' | 'none';
 type PopoverActions = {
   type: ArrowPosition;
   payload: HTMLElement | null;
@@ -48,17 +48,8 @@ const updateStatePositionPopoverReducer = (
         ...state,
         anchorEl: payload,
         popoverPosition: {
-          vertical: 'top',
+          vertical: 'bottom',
           horizontal: 'left',
-        },
-      };
-    case 'rightUp':
-      return {
-        ...state,
-        anchorEl: payload,
-        popoverPosition: {
-          vertical: 'top',
-          horizontal: 'right',
         },
       };
     case 'none': {
@@ -149,17 +140,11 @@ export const CustomPopover = ({
       let arrowPosition = 'up' as ArrowPosition;
       if (refElementShowPopover) {
         const elementPosition = refElementShowPopover?.current?.getBoundingClientRect().top;
-        const elementPositionRight = refElementShowPopover?.current?.getBoundingClientRect().right;
         const windowPosition = window.innerHeight;
-        const windowPositionRight = window.innerWidth;
         const distance = windowPosition - (elementPosition || 0);
-        const distanceRight = windowPositionRight - (elementPositionRight || 0);
         // TODO: Change hard code to real height of Popover
         if (distance < 285) {
           arrowPosition = 'down';
-        }
-        if (distanceRight < 305) {
-          arrowPosition = 'rightUp';
         }
       }
       const wrapper = getPageWrapper();
