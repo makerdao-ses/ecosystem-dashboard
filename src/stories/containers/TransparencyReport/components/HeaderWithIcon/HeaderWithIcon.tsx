@@ -27,9 +27,25 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
   const { isLight } = useThemeContext();
 
   const [marginTopPopoverPosition, setMarginTopPopoverPosition] = useState<boolean>(false);
+  const [hasNotSpaceRight, setHasNotSpaceRight] = useState<boolean>(false);
+  const [hasNotDownRight, setHasNotDownRight] = useState<boolean>(false);
   const handleShowPopoverWhenNotSpace = (value: boolean) => {
     setMarginTopPopoverPosition(value);
   };
+  const handleNotSpaceRight = (value: string) => {
+    if (value === 'arrowUp') {
+      setHasNotSpaceRight(!hasNotSpaceRight);
+    }
+    if (value === 'arrowDown') {
+      setHasNotDownRight(!hasNotDownRight);
+    }
+  };
+  const handleClose = () => {
+    setHasNotSpaceRight(false);
+    setHasNotDownRight(false);
+  };
+
+  console.log({ hasNotSpaceRight });
 
   const isMobileResolution = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const { lockScroll, unlockScroll } = useScrollLock();
@@ -63,18 +79,15 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
     <Container>
       <Title style={{ marginRight: 8 }}>{title}</Title>
       <ExtendedCustomPopover
-        hasNotSpaceRight={true}
+        hasNotDownRight={hasNotDownRight}
+        marginTopPopoverPosition={marginTopPopoverPosition}
+        onClose={handleClose}
+        alignArrow={hasNotSpaceRight || hasNotDownRight ? 'right' : undefined}
+        handleNotSpaceRight={handleNotSpaceRight}
+        hasNotSpaceRight={hasNotSpaceRight}
         handleShowPopoverWhenNotSpace={handleShowPopoverWhenNotSpace}
         refElementShowPopover={refElementShowPopover}
-        sxProps={{
-          '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
-            overflowX: 'unset',
-            overflowY: 'unset',
-            marginTop: marginTopPopoverPosition ? 2 : -3,
-          },
-        }}
         widthArrow
-        hasSpacePositionArrow={marginTopPopoverPosition}
         id="information"
         popupStyle={{
           padding: 10,
@@ -105,24 +118,26 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
 
 export default HeaderWithIcon;
 
-const ExtendedCustomPopover = styled(CustomPopover)<{ hasSpacePositionArrow?: boolean; hasNotSpaceRight?: boolean }>(
-  ({ hasSpacePositionArrow, hasNotSpaceRight }) => ({
-    '& > div': {
-      [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-        marginLeft: -45,
-        marginTop: 16,
-      },
-      [lightTheme.breakpoints.up('desktop_1194')]: {
-        marginLeft: -42,
-        ...(hasNotSpaceRight && {
-          marginRight: -348,
-          marginTop: 40,
-        }),
-        marginTop: hasSpacePositionArrow ? -18 : 18,
-      },
-    },
-  })
-);
+const ExtendedCustomPopover = styled(CustomPopover)<{
+  hasNotDownRight: boolean;
+  hasNotSpaceRight?: boolean;
+  marginTopPopoverPosition?: boolean;
+}>(({ hasNotSpaceRight, marginTopPopoverPosition, hasNotDownRight }) => ({
+  '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
+    overflowX: 'unset',
+    overflowY: 'unset',
+    marginLeft: -45,
+    marginTop: marginTopPopoverPosition ? 16 : -25,
+    ...(hasNotSpaceRight && {
+      marginLeft: 63,
+      marginTop: 15,
+    }),
+    ...(hasNotDownRight && {
+      marginLeft: 63,
+      marginTop: -20,
+    }),
+  },
+}));
 
 export const ContainerInfoIcon = styled.div({
   display: 'flex',
