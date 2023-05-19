@@ -22,8 +22,18 @@ export const threeDigitsPrecisionHumanization = (num: number): HumanizedNumber =
   }
 };
 
-export const usLocalizedNumber = (num: number): string =>
-  num.toLocaleString('en-US', {
+export const usLocalizedNumber = (num: number, decimalPlace = 0): string =>
+  num?.toLocaleString('en-US', {
     currency: 'USD',
     currencyDisplay: 'symbol',
+    minimumFractionDigits: decimalPlace,
   });
+
+export const deleteTwoDecimalPLace = (formattedNumber: string) => {
+  if (!formattedNumber) return '';
+  if (formattedNumber.slice(-2) === '00') {
+    return formattedNumber.slice(0, -3);
+  } else {
+    return formattedNumber;
+  }
+};

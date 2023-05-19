@@ -39,6 +39,11 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
     mkrVestingData,
     transferRequestsData,
     isBreakdownExpanded,
+
+    onActualsBreakdownTabsInit,
+    onForecastBreakdownTabsInit,
+    onActualsBreakdownExpand,
+    onForecastBreakdownExpand,
   } = useExpenseReport(currentMonth, budgetStatements);
 
   return (
@@ -70,12 +75,10 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
           longCode={longCode}
         />
 
-        {actualsData.mainTableItems.length > 0 && (
+        {actualsData.mainTableItems?.length > 0 && (
           <>
             <TitleSpacer>
-              <SectionTitle level={2} hasExternalIcon={isBreakdownExpanded}>
-                Actuals - Breakdown
-              </SectionTitle>
+              <SectionTitle level={2}>Actuals - Breakdown</SectionTitle>
             </TitleSpacer>
 
             <Tabs
@@ -87,17 +90,21 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
               expandedDefault={false}
               tabQuery={ACTUALS_BREAKDOWN_QUERY_PARAM}
               viewKey={BREAKDOWN_VIEW_QUERY_KEY}
+              onInit={onActualsBreakdownTabsInit}
+              onExpand={onActualsBreakdownExpand}
             />
 
             {isBreakdownExpanded ? (
-              <BudgetTable
-                isLight={isLight}
-                columns={actualsData.breakdownColumnsForActiveTab}
-                items={actualsData.breakdownItemsForActiveTab}
-                longCode={longCode}
-                style={{ marginTop: 16 }}
-                tablePlaceholder={<TransparencyEmptyTable breakdown longCode={longCode} />}
-              />
+              <BreakdownTableWrapper>
+                <BudgetTable
+                  isLight={isLight}
+                  columns={actualsData.breakdownColumnsForActiveTab}
+                  items={actualsData.breakdownItemsForActiveTab}
+                  longCode={longCode}
+                  cardSpacingSize="small"
+                  tablePlaceholder={<TransparencyEmptyTable breakdown longCode={longCode} />}
+                />
+              </BreakdownTableWrapper>
             ) : (
               <L2SectionOuter>
                 {actualsData.breakdownTabs.map((header, index) => (
@@ -106,20 +113,19 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
                       <SectionTitle level={2} hasIcon={true} hasExternalIcon={true} idPrefix={'actuals'}>
                         {header}
                       </SectionTitle>
-                      <div>
-                        <BudgetTable
-                          isLight={isLight}
-                          columns={actualsData.allBreakdownColumns[header]}
-                          items={actualsData.allBreakdownItems[header]}
-                          longCode={longCode}
-                          style={{ marginTop: 16 }}
-                          tablePlaceholder={
-                            <div style={{ marginTop: 16 }}>
-                              <TransparencyEmptyTable breakdown longCode={longCode} />
-                            </div>
-                          }
-                        />
-                      </div>
+                      <BudgetTable
+                        isLight={isLight}
+                        columns={actualsData.allBreakdownColumns[header]}
+                        items={actualsData.allBreakdownItems[header]}
+                        longCode={longCode}
+                        style={{ marginTop: 16 }}
+                        cardSpacingSize="small"
+                        tablePlaceholder={
+                          <div style={{ marginTop: 16 }}>
+                            <TransparencyEmptyTable breakdown longCode={longCode} />
+                          </div>
+                        }
+                      />
                     </BudgetSubsectionContainer>
                   </L2SectionInner>
                 ))}
@@ -139,12 +145,10 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
           cardsTotalPosition={'top'}
         />
 
-        {forecastData.breakdownItems.length > 0 && (
+        {forecastData.mainTableItems?.length > 0 && (
           <>
             <TitleSpacer>
-              <SectionTitle level={2} hasExternalIcon={isBreakdownExpanded}>
-                Forecast - Breakdown
-              </SectionTitle>
+              <SectionTitle level={2}>Forecast - Breakdown</SectionTitle>
             </TitleSpacer>
 
             <Tabs
@@ -156,17 +160,21 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
               expandedDefault={false}
               tabQuery={FORECAST_BREAKDOWN_QUERY_PARAM}
               viewKey={BREAKDOWN_VIEW_QUERY_KEY}
+              onInit={onForecastBreakdownTabsInit}
+              onExpand={onForecastBreakdownExpand}
             />
 
             {isBreakdownExpanded ? (
-              <BudgetTable
-                isLight={isLight}
-                longCode={longCode}
-                columns={forecastData.breakdownColumnsForActiveTab}
-                items={forecastData.breakdownItems}
-                style={{ marginTop: 16 }}
-                tablePlaceholder={<TransparencyEmptyTable breakdown longCode={longCode} />}
-              />
+              <BreakdownTableWrapper>
+                <BudgetTable
+                  isLight={isLight}
+                  longCode={longCode}
+                  columns={forecastData.breakdownColumnsForActiveTab}
+                  items={forecastData.breakdownItems}
+                  cardSpacingSize="small"
+                  tablePlaceholder={<TransparencyEmptyTable breakdown longCode={longCode} />}
+                />
+              </BreakdownTableWrapper>
             ) : (
               <L2SectionOuter>
                 {forecastData.breakdownTabs.map((header, index) => (
@@ -181,6 +189,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
                         items={forecastData.allBreakdownItems[header]}
                         longCode={longCode}
                         style={{ marginTop: 16 }}
+                        cardSpacingSize="small"
                         tablePlaceholder={
                           <div style={{ marginTop: 16 }}>
                             <TransparencyEmptyTable breakdown longCode={longCode} />
@@ -206,7 +215,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
           longCode={longCode}
         />
 
-        {mkrVestingData.mainTableItems.length > 0 && (
+        {mkrVestingData.mainTableItems?.length > 0 && (
           <MkrVestingInfoContainer>
             <MkrVestingInfo />
           </MkrVestingInfoContainer>
@@ -283,11 +292,14 @@ const BudgetSubsectionContainer = styled.div<{ isFirst: boolean }>(({ isFirst })
   marginTop: 0,
 
   [lightTheme.breakpoints.up('table_834')]: {
-    // TODO: is this necessary?
     ...(isFirst ? {} : { marginTop: 24 }),
   },
 }));
 
 const MkrVestingInfoContainer = styled.div({
   marginTop: 32,
+});
+
+const BreakdownTableWrapper = styled.div({
+  marginTop: 16,
 });

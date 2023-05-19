@@ -172,3 +172,12 @@ export const formatAddressForOutputDelegateWallet = (address: string | undefined
   }
   return `${address.slice(0, 7)}...${address.slice(address.length - 4, address.length)}`;
 };
+
+// TODO: Remove after backend is ready "budget": "makerdao/delegates/makerdao/delegates/StableNode",
+export const getNameDelegates = (format: string) => {
+  if (!format) return 'No name';
+  const words = format.split('/');
+  const lastWord = words[words.length - 1];
+  const fullName = lastWord.replace('\\', '');
+  return fullName;
+};

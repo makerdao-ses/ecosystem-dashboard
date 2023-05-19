@@ -9,7 +9,7 @@ export class RecognizedDelegatesBuilder {
       image: '',
       latestVotingContract: '',
       socials: {} as DelegateSocialDto,
-      numberDai: 0,
+      actuals: 0,
     } as RecognizedDelegatesDto;
   }
 
@@ -34,7 +34,7 @@ export class RecognizedDelegatesBuilder {
   }
 
   withNumberDai(numberDai: number): RecognizedDelegatesBuilder {
-    this._delegates.numberDai = numberDai;
+    this._delegates.actuals = numberDai;
     return this;
   }
 

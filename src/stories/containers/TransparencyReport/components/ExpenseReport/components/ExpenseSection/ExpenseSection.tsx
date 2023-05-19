@@ -94,18 +94,12 @@ const WrapperL2 = styled.div<WithIsLight>(({ isLight }) => ({
   },
 
   // custom style for the table header sections
-  '.table-section': {
+  '.advanced-table--group-section': {
     lineHeight: '17px',
     background: isLight ? 'rgba(255, 255, 255, 0.4)' : 'rgba(30, 44, 55, 0.7)',
     padding: '8px 16px',
-    borderRadius: 6,
     marginTop: 24,
     marginBottom: 8,
-  },
-
-  // custom style for the table transparency card on mobile view
-  '.advance-table--transparency-card': {
-    padding: '16px 16px 6px',
   },
 }));
 

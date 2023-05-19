@@ -5,6 +5,7 @@ import type {
   BudgetStatementDto,
   BudgetStatementLineItemDto,
   BudgetStatementWalletDto,
+  BudgetStatementWalletTransferRequestDto,
 } from '@ses/core/models/dto/coreUnitDTO';
 import type { DateTime } from 'luxon';
 
@@ -325,3 +326,17 @@ export const getExtraEmptyColumnsForHeaders = (breakdownColumns: InnerTableColum
     value: '',
   },
 ];
+
+export const getTransferRequestTargetBalanceColumn = (wallet: BudgetStatementWalletDto) => {
+  const targetWithTimeSpan: Pick<BudgetStatementWalletTransferRequestDto, 'target' | 'walletBalanceTimeStamp'> =
+    {} as BudgetStatementWalletTransferRequestDto;
+
+  const lastIndex = (wallet?.budgetStatementTransferRequest ?? []).length - 1;
+  if (wallet?.budgetStatementTransferRequest && wallet.budgetStatementTransferRequest.length > 0) {
+    targetWithTimeSpan.target = wallet.budgetStatementTransferRequest[lastIndex].target;
+    targetWithTimeSpan.walletBalanceTimeStamp =
+      wallet.budgetStatementTransferRequest[lastIndex]?.walletBalanceTimeStamp;
+  }
+
+  return targetWithTimeSpan;
+};

@@ -1,10 +1,9 @@
 import styled from '@emotion/styled';
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import CopyIcon from '@ses/components/CopyIcon/CopyIcon';
-import ArrowLink from '@ses/components/svg/ArrowLink';
 import { getLinksFromRecognizedDelegates } from '@ses/core/businessLogic/reconizedDelegate';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { usLocalizedNumber } from '@ses/core/utils/humanization';
+import { deleteTwoDecimalPLace, usLocalizedNumber } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import { formatAddressForOutputDelegateWallet } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
@@ -18,13 +17,14 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   delegateCard: RecognizedDelegatesDto;
+  relativeValue: number;
   totalDai: number;
 }
 
-const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai }) => {
+const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, relativeValue, totalDai }) => {
   const { isLight } = useThemeContext();
-  const percent = percentageRespectTo(delegateCard.numberDai, totalDai);
-  const humanizeTotal = usLocalizedNumber(totalDai);
+  const percentBarRelative = percentageRespectTo(delegateCard.actuals, totalDai);
+  const humanizeTotal = usLocalizedNumber(delegateCard.actuals);
   return (
     <ExtendedGenericDelegate isLight={isLight}>
       <ContainerAvatarDescription>
@@ -40,7 +40,9 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
             <NameAddressColumn>
               <Name isLight={isLight}>{delegateCard.name}</Name>
               <ClipBoardRow>
-                <Address>{formatAddressForOutputDelegateWallet(delegateCard.latestVotingContract)}</Address>
+                <Address href={`https://etherscan.io/address/${delegateCard.latestVotingContract}`} target="_blank">
+                  {formatAddressForOutputDelegateWallet(delegateCard.latestVotingContract)}
+                </Address>
 
                 <ClipBoardContainer>
                   <CopyIcon text={delegateCard.latestVotingContract ?? ''} defaultTooltip="Copy Address" />
@@ -48,23 +50,17 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, totalDai 
               </ClipBoardRow>
             </NameAddressColumn>
           </WalletAvatar>
-          <WalletLink>
-            <ArrowLink
-              fill={isLight ? '#447AFB' : '#626472'}
-              href={delegateCard.latestVotingContract}
-              width={20}
-              height={20}
-            />
-          </WalletLink>
         </AvatarSection>
         <DescriptionSection>
           <ContainerBar>
             <PercentTitle isLight={isLight}>% of Total</PercentTitle>
             <PercentBarContainer>
               <ContainerBarDelegate>
-                <DelegateBarPercentTotal numberDai={delegateCard.numberDai} totalDai={totalDai} />
+                <DelegateBarPercentTotal actuals={delegateCard.actuals} totalDai={relativeValue} />
               </ContainerBarDelegate>
-              <PercentNumber isLight={isLight}>{Math.trunc(percent || 0)}%</PercentNumber>
+              <PercentNumber isLight={isLight}>
+                {deleteTwoDecimalPLace(percentBarRelative.toFixed(2)) || 0}%
+              </PercentNumber>
             </PercentBarContainer>
           </ContainerBar>
           <ContainerTotal>
@@ -161,22 +157,15 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const Address = styled.div({
+const Address = styled.a({
   fontWeight: 400,
   fontSize: '12px',
   lineHeight: '15px',
   color: '#447AFB',
+
   [lightTheme.breakpoints.up('desktop_1194')]: {
     fontSize: '14px',
     lineHeight: '17px',
-  },
-});
-
-const WalletLink = styled.div({
-  marginRight: 2,
-  marginTop: 4,
-  [lightTheme.breakpoints.up('table_834')]: {
-    display: 'none',
   },
 });
 
@@ -234,6 +223,7 @@ const PercentTitle = styled.div<WithIsLight>(({ isLight }) => ({
 const ContainerTotal = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'flex-end',
   paddingLeft: 1,
   [lightTheme.breakpoints.up('table_834')]: {
     textAlign: 'end',
@@ -271,13 +261,25 @@ const Total = styled.div<WithIsLight>(({ isLight }) => ({
     marginLeft: 4,
   },
   [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: 16,
-    fontSize: '16px',
-    lineHeight: '18px',
+    marginTop: 14,
     '& > span': {
       fontWeight: 600,
       color: '#9FAFB9',
-      marginLeft: 8,
+      marginLeft: 6,
+      fontSize: '16px',
+      lineHeight: '19px',
+    },
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginTop: 16,
+    fontSize: '16px',
+    lineHeight: '19px',
+    '& > span': {
+      fontWeight: 600,
+      color: '#9FAFB9',
+      marginLeft: 6,
+      fontSize: '16px',
+      lineHeight: '19px',
     },
   },
 }));
@@ -290,7 +292,7 @@ const PercentBarContainer = styled.div({
 });
 
 const PercentNumber = styled.div<WithIsLight>(({ isLight }) => ({
-  width: 34,
+  width: 44,
   height: 15,
   alignItems: 'center',
   fontWeight: 300,
@@ -302,6 +304,13 @@ const PercentNumber = styled.div<WithIsLight>(({ isLight }) => ({
   fontFeatureSettings: "'tnum' on, 'lnum' on",
   color: isLight ? '#231536' : '#D2D4EF',
   marginTop: 1,
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginLeft: -1,
+    fontFeatureSettings: 'normal',
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginLeft: 0,
+  },
 }));
 
 const SocialIconsSection = styled.div({
@@ -320,7 +329,7 @@ const SocialIconsSection = styled.div({
 
 const ContainerBarDelegate = styled.div({
   marginRight: 4,
-  width: 140,
+  width: 130,
 });
 
 const CircleAvatarExtended = styled(CircleAvatar)<WithIsLight>(({ isLight }) => ({
@@ -374,7 +383,7 @@ const Divider = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'none',
   [lightTheme.breakpoints.up('table_834')]: {
     display: 'flex',
-    border: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
+    borderBottom: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
     marginBottom: 8,
     marginTop: 24,
   },

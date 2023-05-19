@@ -13,7 +13,7 @@ interface Props {
 
 const MedianAnnualDai: React.FC<Props> = ({ annual }) => {
   const { isLight } = useThemeContext();
-  const formatted = usLocalizedNumber(annual);
+  const formatted = usLocalizedNumber(annual, 2);
 
   return (
     <ExtendedGenericDelegate>
@@ -37,7 +37,7 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)({
   flexDirection: 'column',
   alignItems: 'center',
   [lightTheme.breakpoints.up('table_834')]: {
-    minWidth: 235.33,
+    minWidth: 243,
     padding: '24px 16px 16px',
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
@@ -63,12 +63,12 @@ export const Annual = styled.div<WithIsLight>(({ isLight }) => ({
   lineHeight: '19px',
   letterSpacing: '0.3px',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
-  color: isLight ? '#24346 : ' : '#EDEFFF',
+  color: isLight ? '#9FAFB9 : ' : '#EDEFFF',
   marginBottom: 4,
   textTransform: 'uppercase',
   '& span': {
-    marginLeft: 2,
-    color: isLight ? '#243465' : '#708390',
+    marginLeft: 4,
+    color: isLight ? '#9FAFB9' : '#708390',
   },
   [lightTheme.breakpoints.up('table_834')]: {
     fontWeight: 500,
@@ -99,7 +99,7 @@ const DescriptionDelegatesExtended = styled(DescriptionDelegates)({
     marginTop: -22,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginTop: -5,
+    marginTop: -12,
     paddingLeft: 14,
     paddingRight: 14,
   },

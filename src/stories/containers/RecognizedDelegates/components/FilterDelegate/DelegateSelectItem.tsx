@@ -10,7 +10,7 @@ const DelegateSelectItem: React.FC<SelectItemProps> = ({ checked = false, ...pro
   const { isLight } = useThemeContext();
 
   return (
-    <Container
+    <StyledContainer
       className="no-select"
       style={{
         flex: 1,
@@ -24,26 +24,28 @@ const DelegateSelectItem: React.FC<SelectItemProps> = ({ checked = false, ...pro
     >
       {!props.params?.isAll && (
         <>
-          <CircleAvatar name={props.label.toString()} image={props.params?.url} width={'32px'} height={'32px'} />
+          <StyledCircleAvatar name={props.label.toString()} image={props.params?.url} width={'32px'} height={'32px'} />
         </>
       )}
-      <DelegateName isLight={isLight}>{props.label}</DelegateName>
+      <DelegateName isLight={isLight} checked={checked}>
+        {props.label}
+      </DelegateName>
       <CheckWrapper>
-        <Check fill={checked ? (isLight ? '#231536' : 'white') : isLight ? '#D1DEE6' : 'rgb(159, 175, 185)'} />
+        <Check fill={checked ? (isLight ? '#231536' : 'white') : isLight ? '#D1DEE6' : '#231536'} />
       </CheckWrapper>
-    </Container>
+    </StyledContainer>
   );
 };
 
 export default DelegateSelectItem;
 
-const DelegateName = styled.span<{ isLight: boolean }>(({ isLight }) => ({
+const DelegateName = styled.span<{ isLight: boolean; checked: boolean }>(({ isLight, checked = false }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '14px',
   lineHeight: '17px',
-  color: isLight ? '#231536' : '#FFFFFF',
+  color: isLight ? (checked ? '#231536' : '#231536') : '#D2D4EF',
   marginLeft: '16px',
 }));
 
@@ -52,4 +54,14 @@ const CheckWrapper = styled.span({
   position: 'absolute',
   right: 8,
   top: 8,
+});
+
+const StyledContainer = styled(Container)<{ isLight: boolean; checked: boolean }>(({ isLight, checked }) => ({
+  '&:hover': {
+    background: isLight ? (checked ? '#EDEFFF' : '#F6F8F9') : checked ? '#231536' : '#25273D',
+  },
+}));
+
+const StyledCircleAvatar = styled(CircleAvatar)({
+  filter: 'filter: drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))',
 });

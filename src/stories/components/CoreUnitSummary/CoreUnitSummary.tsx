@@ -78,9 +78,11 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
   const page = useMemo(() => filteredData?.findIndex((item) => item.shortCode === code) + 1, [code, filteredData]);
 
   const queryStrings = buildQueryString({
+    ...router.query,
     filteredStatuses,
     filteredCategories,
     searchText,
+    code: null, // override the Core Unit code to avoid add it to the query string
   });
 
   const changeCoreUnitCode = useCallback(

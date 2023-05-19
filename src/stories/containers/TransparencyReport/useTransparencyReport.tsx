@@ -15,6 +15,7 @@ import { useRouter } from 'next/router';
 import { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import { AUDITOR_VIEW_STORAGE_COLLECTION_KEY } from './utils/constants';
 import type { TableItems } from './TransparencyReport';
+import type { InternalTabsProps } from '@ses/components/Tabs/Tabs';
 import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
 
 export enum TRANSPARENCY_IDS_ENUM {
@@ -23,6 +24,7 @@ export enum TRANSPARENCY_IDS_ENUM {
   MKR_VESTING = 'mkr-vesting',
   TRANSFER_REQUESTS = 'transfer-requests',
   AUDIT_REPORTS = 'audit-reports',
+  ACCOUNTS_SNAPSHOTS = 'accounts-snapshots',
   COMMENTS = 'comments',
   EXPENSE_REPORT = 'expense-report',
 }
@@ -101,32 +103,10 @@ export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
   );
 
   const [isEnabled] = useFlagsActive();
-  const tabItems: TableItems[] = [
-    {
-      item: 'Actuals',
-      id: TRANSPARENCY_IDS_ENUM.ACTUALS,
-    },
-    {
-      item: 'Forecast',
-      id: TRANSPARENCY_IDS_ENUM.FORECAST,
-    },
-  ];
-  if (isEnabled('FEATURE_MKR_VESTING')) {
-    tabItems.push({
-      item: 'MKR Vesting',
-      id: TRANSPARENCY_IDS_ENUM.MKR_VESTING,
-    });
-  }
-  tabItems.push({
-    item: 'Transfer Requests',
-    id: TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS,
-  });
-  if (isEnabled('FEATURE_AUDIT_REPORTS')) {
-    tabItems.push({
-      item: 'Audit Reports',
-      id: TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS,
-    });
-  }
+  const accountsSnapshotTab = {
+    item: 'Accounts Snapshot',
+    id: TRANSPARENCY_IDS_ENUM.ACCOUNTS_SNAPSHOTS,
+  };
   const commentTab = {
     item: (
       <CommentsTab
@@ -136,15 +116,45 @@ export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
     ),
     id: TRANSPARENCY_IDS_ENUM.COMMENTS,
   };
-  if (isEnabled('FEATURE_TRANSPARENCY_COMMENTS')) {
-    tabItems.push(commentTab);
-  }
+  const tabItems: TableItems[] = [
+    {
+      item: 'Actuals',
+      id: TRANSPARENCY_IDS_ENUM.ACTUALS,
+    },
+    {
+      item: 'Forecast',
+      id: TRANSPARENCY_IDS_ENUM.FORECAST,
+    },
+    ...(isEnabled('FEATURE_MKR_VESTING')
+      ? [
+          {
+            item: 'MKR Vesting',
+            id: TRANSPARENCY_IDS_ENUM.MKR_VESTING,
+          },
+        ]
+      : []),
+    {
+      item: 'Transfer Requests',
+      id: TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS,
+    },
+    ...(isEnabled('FEATURE_ACCOUNTS_SNAPSHOT') ? [accountsSnapshotTab] : []),
+    ...(isEnabled('FEATURE_AUDIT_REPORTS')
+      ? [
+          {
+            item: 'Audit Reports',
+            id: TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS,
+          },
+        ]
+      : []),
+    ...(isEnabled('FEATURE_TRANSPARENCY_COMMENTS') ? [commentTab] : []),
+  ];
 
   const compressedTabItems: TableItems[] = [
     {
       item: 'Expense Report',
       id: TRANSPARENCY_IDS_ENUM.EXPENSE_REPORT,
     },
+    ...(isEnabled('FEATURE_ACCOUNTS_SNAPSHOT') ? [accountsSnapshotTab] : []),
     commentTab,
   ];
 
@@ -183,15 +193,22 @@ export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
     [isTimestampTrackingAccepted, permissionManager]
   );
 
+  // restore the auditor view status from the storage/server if needed
+  const [handleTabsExpand, setHandleTabsExpand] = useState<InternalTabsProps['setExpanded'] | undefined>();
+  const onTabsInit = useCallback(({ setExpanded }: InternalTabsProps) => {
+    setHandleTabsExpand(() => setExpanded);
+  }, []);
+
   useEffect(() => {
     const restoreAuditorViewFunction = async () => {
       // restore the auditor view status form the storage/server if needed
       // the auditor view status in the query param has priority over the stored value
-      if (!query.view) {
+      if (!query.view && handleTabsExpand && isTimestampTrackingAccepted) {
         const manager = new UserActivityManager(permissionManager);
         const result = await manager.getLastActivity(AUDITOR_VIEW_STORAGE_COLLECTION_KEY);
         if ((result?.data as AuditorViewStoragePayload)?.isAuditorViewEnabled) {
           // activate the auditor view
+          handleTabsExpand(false);
           router.replace(
             {
               pathname: router.pathname,
@@ -203,11 +220,12 @@ export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
             undefined,
             { shallow: true }
           );
+          setTabsIndex(TRANSPARENCY_IDS_ENUM.EXPENSE_REPORT);
         }
       }
     };
     restoreAuditorViewFunction();
-  }, [permissionManager, query.view, router]);
+  }, [handleTabsExpand, isTimestampTrackingAccepted, permissionManager, query.view, router]);
 
   return {
     tabItems,
@@ -225,6 +243,7 @@ export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
     hasPreviousMonth,
     comments,
     lastVisitHandler,
+    onTabsInit,
     onTabChange,
     onTabsExpand,
     compressedTabItems,

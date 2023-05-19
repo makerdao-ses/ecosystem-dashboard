@@ -1,5 +1,6 @@
 import { gql, request } from 'graphql-request';
 import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
+import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
 
 export const GETCoreUnits = gql`
   query CoreUnits {
@@ -93,6 +94,6 @@ export const GETCoreUnits = gql`
 `;
 
 export const fetchCoreUnits = async () => {
-  const result = await request(GRAPHQL_ENDPOINT, GETCoreUnits);
-  return result.coreUnits;
+  const result = await request<{ coreUnits: CoreUnitDto[] }>(GRAPHQL_ENDPOINT, GETCoreUnits);
+  return result.coreUnits.filter((cu) => cu.shortCode !== 'DEL');
 };

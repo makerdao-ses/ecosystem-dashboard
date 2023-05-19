@@ -13,6 +13,7 @@ import { CoreUnitSummary } from '../../components/CoreUnitSummary/CoreUnitSummar
 import { CustomLink } from '../../components/CustomLink/CustomLink';
 import { CustomPager } from '../../components/CustomPager/CustomPager';
 import { SEOHead } from '../../components/SEOHead/SEOHead';
+import AccountsSnapshot from './components/AccountsSnapshot/AccountsSnapshot';
 import ExpenseReport from './components/ExpenseReport/ExpenseReport';
 import ExpenseReportStatusIndicator from './components/ExpenseReportStatusIndicator/ExpenseReportStatusIndicator';
 import { TransparencyActuals } from './components/TransparencyActuals/TransparencyActuals';
@@ -52,6 +53,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
     comments,
     showExpenseReportStatusCTA,
     lastVisitHandler,
+    onTabsInit,
     onTabChange,
     onTabsExpand,
     compressedTabItems,
@@ -99,6 +101,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
                 tabs={tabItems}
                 expandable
                 compressedTabs={compressedTabItems}
+                onInit={onTabsInit}
                 onChange={onTabChange}
                 onExpand={onTabsExpand}
                 expandToolTip={{
@@ -147,6 +150,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
                 longCode={longCode}
               />
             )}
+            {tabsIndex === TRANSPARENCY_IDS_ENUM.ACCOUNTS_SNAPSHOTS && <AccountsSnapshot />}
             {tabsIndex === TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS && isEnabled('FEATURE_AUDIT_REPORTS') && (
               <TransparencyAudit budgetStatement={currentBudgetStatement} />
             )}

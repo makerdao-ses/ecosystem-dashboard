@@ -49,7 +49,7 @@ export default Tab;
 
 const StyledTab = styled.a<WithIsLight & { active: boolean }>(({ active, isLight }) => ({
   fontFamily: 'Inter, sans-serif',
-  color: active && isLight ? '#1AAB9B' : isLight && !active ? '#7E7E88' : !isLight && active ? '#1AAB9B' : '#708390',
+  color: active ? (isLight ? '#1AAB9B' : '#2DC1B1') : isLight ? '#7E7E88' : '#708390',
   fontSize: '14px',
   lineHeight: '22px',
   fontWeight: 400,

@@ -9,7 +9,7 @@ import type { PopoverOrigin } from '@mui/material';
 import type { SxProps } from '@mui/material/styles';
 import type { PopoverPaperType, WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { CSSProperties } from 'react';
-type ArrowPosition = 'up' | 'down' | 'none';
+type ArrowPosition = 'up' | 'down' | 'arrowUp' | 'arrowDown' | 'none';
 type PopoverActions = {
   type: ArrowPosition;
   payload: HTMLElement | null;
@@ -52,6 +52,24 @@ const updateStatePositionPopoverReducer = (
           horizontal: 'left',
         },
       };
+    case 'arrowUp':
+      return {
+        ...state,
+        anchorEl: payload,
+        popoverPosition: {
+          vertical: 'top',
+          horizontal: 'right',
+        },
+      };
+    case 'arrowDown':
+      return {
+        ...state,
+        anchorEl: payload,
+        popoverPosition: {
+          vertical: 'bottom',
+          horizontal: 'right',
+        },
+      };
     case 'none': {
       return {
         ...state,
@@ -82,6 +100,9 @@ interface CustomPopoverProps extends React.PropsWithChildren {
   refElementShowPopover?: React.RefObject<HTMLDivElement>;
   closeOnClick?: boolean;
   onClose?: () => void;
+  handleNotSpaceRight?: (value: string) => void;
+  distanceBottom?: number;
+  distanceRight?: number;
 }
 
 export const PopoverPaperStyle = (isLight: boolean) => ({
@@ -110,15 +131,24 @@ export const CustomPopover = ({
   className,
   refElementShowPopover,
   handleShowPopoverWhenNotSpace,
+  handleNotSpaceRight,
   closeOnClick = true,
+  distanceBottom = 285,
+  distanceRight = 305,
   onClose,
   ...props
 }: CustomPopoverProps) => {
   const [state, dispatch] = useReducer(updateStatePositionPopoverReducer, InitialState);
   const { isLight } = useThemeContext();
   const refPopoverComponent = useRef<HTMLDivElement>(null);
+
   const [leaveTimeout, setLeaveTimeout] = React.useState<NodeJS.Timeout>();
-  const isArrowPositionUp = isEqual(state.popoverPosition, ArrowUp);
+  const isArrowPositionUp =
+    isEqual(state.popoverPosition, ArrowUp) ||
+    isEqual(state.popoverPosition, {
+      vertical: 'top',
+      horizontal: 'right',
+    });
   const handlePopoverClose = useCallback(() => {
     dispatch({
       type: 'none',
@@ -138,26 +168,47 @@ export const CustomPopover = ({
       clearTimeout(leaveTimeout);
 
       let arrowPosition = 'up' as ArrowPosition;
+      let elementPositionRight;
       if (refElementShowPopover) {
         const elementPosition = refElementShowPopover?.current?.getBoundingClientRect().top;
-        const windowPosition = window.innerHeight;
-        const distance = windowPosition - (elementPosition || 0);
+
+        const position = refElementShowPopover?.current?.getBoundingClientRect().right;
+
+        elementPositionRight = window.innerWidth - (position || 0);
+        const distance = window.innerHeight - (elementPosition || 0);
+
         // TODO: Change hard code to real height of Popover
-        if (distance < 285) {
+        if (distance < distanceBottom) {
           arrowPosition = 'down';
+        }
+        if (elementPositionRight < distanceRight) {
+          arrowPosition = 'arrowUp';
+        }
+        if (distance < distanceBottom && elementPositionRight < distanceRight) {
+          arrowPosition = 'arrowDown';
         }
       }
       const wrapper = getPageWrapper();
       if (wrapper) {
         wrapper.onscroll = handlePopoverClose;
       }
+
       dispatch({
         type: arrowPosition,
         payload: event.currentTarget,
       });
       handleShowPopoverWhenNotSpace?.(arrowPosition === 'up');
+      handleNotSpaceRight?.(arrowPosition);
     },
-    [leaveTimeout, refElementShowPopover, handleShowPopoverWhenNotSpace, handlePopoverClose]
+    [
+      leaveTimeout,
+      refElementShowPopover,
+      handleShowPopoverWhenNotSpace,
+      handleNotSpaceRight,
+      distanceBottom,
+      distanceRight,
+      handlePopoverClose,
+    ]
   );
 
   return (
@@ -205,6 +256,7 @@ export const CustomPopover = ({
           style={{
             borderRadius: '6px',
             pointerEvents: 'all',
+
             ...props.popupStyle,
           }}
         >

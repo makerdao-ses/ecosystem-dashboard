@@ -17,7 +17,6 @@ interface Props {
 
 const DelegateChart: React.FC<Props> = ({ expenses, endDate, startDate }) => {
   const { isLight } = useThemeContext();
-
   const MONTHS_DESK = getMonthsBetweenDateDeskFormat(startDate, endDate);
   const MONTS_MOBILE = getMonthsBetweenDatesMobileFormat(startDate, endDate);
   const upTable = useMediaQuery(lightTheme.breakpoints.up('table_834'));
@@ -29,8 +28,8 @@ const DelegateChart: React.FC<Props> = ({ expenses, endDate, startDate }) => {
 
       right: upTable ? '0%' : 2,
       ...(!upTable && { left: 40 }),
-      ...(upTable && { left: 44 }),
-      bottom: '10%',
+      ...(upTable && { left: 48 }),
+      bottom: upTable ? '10%' : '10.5%',
     },
     xAxis: {
       type: 'category',
@@ -89,9 +88,6 @@ const DelegateChart: React.FC<Props> = ({ expenses, endDate, startDate }) => {
       },
     },
     yAxis: {
-      min: 0,
-      max: 120000,
-      interval: 20000,
       nameTextStyle: {
         align: 'center',
       },
@@ -203,11 +199,11 @@ const Year = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#139D8D' : '#2DC1B1',
   marginLeft: 21,
 
-  marginRight: 22,
+  marginRight: 25,
   [lightTheme.breakpoints.up('table_834')]: {
     marginLeft: 40,
 
-    marginRight: 55,
+    marginRight: 60,
     fontSize: 12,
     lineHeight: '15px',
   },
@@ -215,13 +211,11 @@ const Year = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 
 const ExtendedYearSecond = styled(Year)({
   marginLeft: 0,
-
-  marginRight: 189,
+  marginRight: 185,
 
   [lightTheme.breakpoints.up('table_834')]: {
     marginLeft: 0,
-
-    marginRight: 428,
+    marginRight: 425,
   },
 });
 

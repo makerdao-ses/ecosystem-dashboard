@@ -73,7 +73,7 @@ export const useTransparencyMkrVesting = (
   const mainTableItems: InnerTableRow[] = useMemo(() => {
     const result: InnerTableRow[] = [];
 
-    const mkrVestingsOrdered = _.orderBy(mkrVestings, 'vestingDate', 'desc');
+    const mkrVestingsOrdered = _.orderBy(mkrVestings, 'vestingDate', 'asc');
 
     mkrVestingsOrdered.forEach((mkrVesting) => {
       result.push({

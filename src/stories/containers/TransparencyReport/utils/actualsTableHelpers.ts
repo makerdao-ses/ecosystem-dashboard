@@ -105,7 +105,6 @@ export const getActualsBreakdownColumns = (wallet: BudgetStatementWalletDto) => 
     {
       header: 'Mthly Budget',
       align: 'right',
-      hidden: !hasGroups,
       type: 'number',
     },
     {
@@ -153,19 +152,22 @@ export const getActualsBreakdownItemsForWallet = (
     if (!hasHeadcount && !hasNonHeadcount) {
       continue;
     }
+    let groupItemsCount = 0;
 
     if (hasGroups) {
       // it is a project group
       result.push({
         type: 'groupTitle',
+        borderTop: true,
         items: [
           {
             column: breakdownColumns[0],
-            value: groupedKey === '' ? 'Core Unit' : groupedKey,
+            value: groupedKey === '' ? 'General' : groupedKey,
           },
         ],
       });
     }
+
     if (hasHeadcount) {
       result.push({
         items: [
@@ -177,17 +179,17 @@ export const getActualsBreakdownItemsForWallet = (
         type: 'section',
       });
 
-      result.push(
-        ...getActualsBreakdownItems(
-          wallet?.budgetStatementLineItem?.filter(
-            (item) => item.headcountExpense && (item.group === groupedKey || (!item.group && !groupedKey))
-          ),
-          month,
-          breakdownColumns
-        )
+      const items = getActualsBreakdownItems(
+        wallet?.budgetStatementLineItem?.filter(
+          (item) => item.headcountExpense && (item.group === groupedKey || (!item.group && !groupedKey))
+        ),
+        month,
+        breakdownColumns
       );
+      groupItemsCount += items.length;
+      result.push(...items);
 
-      if (!hasGroups) {
+      if (!hasGroups && items.length > 1) {
         // subtotal when it is a headcount without a group
         result.push(
           ...getActualsBreakdownItems(
@@ -223,17 +225,17 @@ export const getActualsBreakdownItemsForWallet = (
         type: 'section',
       });
 
-      result.push(
-        ...getActualsBreakdownItems(
-          wallet?.budgetStatementLineItem?.filter(
-            (item) => !item.headcountExpense && (item.group === groupedKey || (!item.group && !groupedKey))
-          ),
-          month,
-          breakdownColumns
-        )
+      const items = getActualsBreakdownItems(
+        wallet?.budgetStatementLineItem?.filter(
+          (item) => !item.headcountExpense && (item.group === groupedKey || (!item.group && !groupedKey))
+        ),
+        month,
+        breakdownColumns
       );
+      groupItemsCount += items.length;
+      result.push(...items);
 
-      if (!hasGroups) {
+      if (!hasGroups && items.length > 1) {
         // subtotal when it is a non headcount without a group
         result.push(
           ...getActualsBreakdownItems(
@@ -258,7 +260,7 @@ export const getActualsBreakdownItemsForWallet = (
       }
     }
 
-    if ((hasHeadcount || hasNonHeadcount) && hasGroups) {
+    if ((hasHeadcount || hasNonHeadcount) && hasGroups && groupItemsCount > 1) {
       // subtotal of the whole group (headcount and non headcount)
       result.push(
         ...getActualsBreakdownItems(

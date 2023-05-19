@@ -14,10 +14,8 @@ interface Props {
   totalDelegates: number;
   shadowTotal: number;
   annual: number;
-  percent: number;
   delegatesExpenses: number;
   otherExpenses: number;
-  amountDelegates: number;
 }
 
 export const TotalAndKeyStatsComponent: React.FC<Props> = ({
@@ -25,12 +23,10 @@ export const TotalAndKeyStatsComponent: React.FC<Props> = ({
   start,
   end,
   annual,
-  percent,
   shadowTotal,
   totalDelegates,
   otherExpenses,
   delegatesExpenses,
-  amountDelegates,
 }) => {
   const { isLight } = useThemeContext();
   return (
@@ -38,9 +34,7 @@ export const TotalAndKeyStatsComponent: React.FC<Props> = ({
       <TotalExpenseReportCard end={end} start={start} totalDAI={totalDAI} />
       <KeyContainer>
         <KeyStats
-          amountDelegates={amountDelegates}
           annual={annual}
-          percent={percent}
           shadowTotal={shadowTotal}
           totalDelegates={totalDelegates}
           delegatesExpenses={delegatesExpenses}

@@ -2,22 +2,31 @@ import styled from '@emotion/styled';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import type { CardSpacingSize } from '../AdvancedInnerTable/AdvancedInnerTable';
 
 interface Props {
   header: JSX.Element | string;
-  headers: JSX.Element[] | string[];
+  headers: (JSX.Element | string)[];
   items?: JSX.Element[];
   separators?: boolean[];
   footer?: JSX.Element | string;
   hasIcon?: boolean;
   // TODO: Type this to avoid lower and uppercase error
   itemType: string;
+  cardSpacingSize?: CardSpacingSize;
 }
 
-export const TransparencyCard = (props: Props) => {
+export const TransparencyCard: React.FC<Props> = ({ cardSpacingSize = 'large', ...props }) => {
   const { isLight } = useThemeContext();
   return (
-    <Container isLight={isLight} className="advance-table--transparency-card">
+    <Container
+      isLight={isLight}
+      spacing={cardSpacingSize}
+      style={{ marginTop: props.itemType === 'total' ? 24 : 0 }}
+      className={`advance-table--transparency-card ${
+        props.itemType === 'total' ? 'advance-table--transparency-card_total' : 'advance-table--transparency_item'
+      }`}
+    >
       <HeaderWrapper>{props.header}</HeaderWrapper>
       {props.headers.map((header, i) => (
         <>
@@ -48,13 +57,13 @@ export const TransparencyCard = (props: Props) => {
   );
 };
 
-const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const Container = styled.div<{ isLight: boolean; spacing: CardSpacingSize }>(({ isLight, spacing }) => ({
   display: 'flex',
   flexDirection: 'column',
   boxShadow: isLight ? '0px 0px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : 'none',
   background: isLight ? 'white' : '#10191F',
-  padding: '20px 24px 10px',
-  marginBottom: '24px',
+  padding: spacing === 'large' ? '20px 24px 10px' : '16px 16px 6px',
+  marginBottom: spacing === 'large' ? 24 : 8,
   borderRadius: '6px',
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     ':last-child': {
@@ -77,9 +86,8 @@ const FooterWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 
 const Row = styled.div<{ hasIcon?: boolean; height?: string }>(({ hasIcon = false }) => ({
   display: 'flex',
-  alignItems: hasIcon ? 'flex-start' : 'center',
   flex: 1,
-
+  alignItems: 'center',
   justifyContent: hasIcon ? 'space-between' : undefined,
   [lightTheme.breakpoints.up('table_834')]: {
     alignItems: 'flex-start',

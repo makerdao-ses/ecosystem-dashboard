@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useId } from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { Title } from '../../containers/TransparencyReport/TransparencyReport';
 import { TransparencyEmptyTable } from '../../containers/TransparencyReport/components/Placeholders/TransparencyEmptyTable';
@@ -10,7 +10,7 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export interface InnerTableColumn {
   align?: string;
-  header?: string;
+  header: string | JSX.Element;
   type?: 'number' | 'incomeNumber' | 'text' | 'custom';
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   cellRender?: (data: any) => JSX.Element;
@@ -26,11 +26,12 @@ export interface InnerTableColumn {
 
 export interface InnerTableCell {
   column: InnerTableColumn;
-  value: unknown | React.ReactElement;
+  value: unknown | React.ReactElement | JSX.Element;
   isBold?: boolean;
 }
 
 export type RowType = 'normal' | 'total' | 'section' | 'groupTitle' | 'subTotal';
+export type CardSpacingSize = 'small' | 'large';
 
 export interface InnerTableRow {
   type: RowType;
@@ -48,6 +49,7 @@ interface AdvancedInnerTableProps {
   tablePlaceholder?: JSX.Element;
   longCode: string;
   className?: string;
+  cardSpacingSize?: CardSpacingSize;
 }
 
 type Alignment = 'left' | 'center' | 'right';
@@ -60,29 +62,31 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
   style,
   className,
   tablePlaceholder,
+  cardSpacingSize = 'large',
 }) => {
+  const id = useId();
   const { isLight } = useThemeContext();
   const getCell = (column: InnerTableColumn, rowType: RowType, value: unknown) => {
     if (value !== 0 && !value) {
       return <></>;
     }
-    const isBold = rowType === 'total' || rowType === 'section' || rowType === 'groupTitle' || rowType === 'subTotal';
+    const isBold = rowType === 'total' || rowType === 'section' || rowType === 'groupTitle';
     const columnType = rowType === 'total' && column?.type === 'custom' ? 'text' : column?.type;
 
     switch (columnType) {
       case 'number':
-        return <NumberCell key={column.header} value={Number(value)} bold={isBold} />;
+        return <NumberCell key={id} value={Number(value)} bold={isBold} />;
       case 'incomeNumber':
-        return <NumberCell key={column.header} value={Number(value)} bold={isBold} isIncome={true} />;
+        return <NumberCell key={id} value={Number(value)} bold={isBold} isIncome={true} />;
       case 'text':
         return rowType === 'groupTitle' ? (
-          <TextCell key={column.header} isHeader={true}>
+          <TextCell key={id} isHeader={true}>
             <GroupTitle isLight={isLight} className="table-groupTitle">
               {value as string}
             </GroupTitle>
           </TextCell>
         ) : (
-          <TextCell key={column.header} bold={isBold} isHeader={column.isCardHeader}>
+          <TextCell key={id} bold={isBold || rowType === 'subTotal'} isHeader={column.isCardHeader}>
             {value as string}
           </TextCell>
         );
@@ -94,7 +98,7 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
     }
 
     return (
-      <TextCell key={column.header} bold={isBold} isHeader={column.isCardHeader}>
+      <TextCell key={id} bold={isBold} isHeader={column.isCardHeader}>
         {value as string}
       </TextCell>
     );
@@ -135,7 +139,12 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
             </TableHead>
             <tbody>
               {items?.map((row, i) => (
-                <TableRow key={i} isLight={isLight} borderTop={row.borderTop} borderBottom={row.borderBottom}>
+                <TableRow
+                  key={i}
+                  isLight={isLight}
+                  borderTop={row.borderTop || row.type === 'total'}
+                  borderBottom={row.borderBottom}
+                >
                   {row.items
                     ?.filter((x) => !x.column.hidden)
                     .map((item, j) => (
@@ -156,19 +165,42 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
         </Container>
       </TableWrapper>
       <CardsWrapper>
-        {cardItems.map((item, i) =>
-          item.type === 'groupTitle' ? (
-            <GroupTitle isLight={isLight} key={`groupTitle-${i}`} className="table-groupTitle">
-              {item.items[0].value as string}
-            </GroupTitle>
-          ) : item.type === 'section' ? (
-            <Title isLight={isLight} fontSize="14px" key={`section-${i}`} className="table-section">
-              {item.items[0].value as string}
-            </Title>
-          ) : (
+        {cardItems.map((item, i) => {
+          if (item.type === 'groupTitle') {
+            return (
+              <TitleCard
+                isLight={isLight}
+                isGroupCard={true}
+                cardSpacingSize={cardSpacingSize}
+                className="advanced-table--group-section"
+              >
+                <GroupTitle isLight={isLight} key={`groupTitle-${i}`} className="advanced-table--table-groupTitle">
+                  {item.items[0].value as string}
+                </GroupTitle>
+                {i + 1 < cardItems.length && cardItems[i + 1].type === 'section' && (
+                  <Title isLight={isLight} fontSize="14px" className="advanced-table--table-section">
+                    {cardItems[i + 1].items[0].value as string}
+                  </Title>
+                )}
+              </TitleCard>
+            );
+          }
+
+          if (item.type === 'section') {
+            return i === 0 || (i > 0 && cardItems[i - 1].type !== 'groupTitle') ? (
+              <TitleCard isLight={isLight} cardSpacingSize={cardSpacingSize} className="advanced-table--group-section">
+                <Title isLight={isLight} fontSize="14px" key={`section-${i}`} className="advanced-table--table-section">
+                  {item.items[0].value as string}
+                </Title>
+              </TitleCard>
+            ) : null;
+          }
+
+          return (
             <TransparencyCard
               itemType={item.type}
               key={`item-${i}`}
+              cardSpacingSize={cardSpacingSize}
               separators={item.items
                 .filter((x) => !x.column.hidden && !x.column.isCardHeader && !x.column.isCardFooter)
                 .map((x) => !!x.column.hasBorderBottomOnCard)}
@@ -195,8 +227,8 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
                 ) : undefined
               }
             />
-          )
-        )}
+          );
+        })}
       </CardsWrapper>
     </>
   ) : (
@@ -257,10 +289,37 @@ const TableWrapper = styled.div({
 
 const CardsWrapper = styled.div({
   display: 'block',
+  '& .advance-table--transparency_item .advance-table--transparency-card_icon_hidden': {
+    display: 'none',
+  },
   '@media (min-width: 834px)': {
     display: 'none',
   },
 });
+
+const TitleCard = styled.div<{ isLight: boolean; cardSpacingSize?: CardSpacingSize; isGroupCard?: boolean }>(
+  ({ isLight, cardSpacingSize = 'large', isGroupCard = false }) => ({
+    padding: cardSpacingSize === 'large' ? '8px 24px' : '8px 16px',
+    background: isLight ? 'rgba(255, 255, 255, 0.7)' : 'rgba(120, 122, 155, 0.3)',
+    boxShadow: isLight
+      ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+      : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+    borderRadius: 6,
+    marginBottom: 8,
+
+    '&:not(:first-of-type)': {
+      marginTop: isGroupCard ? 24 : 0,
+    },
+
+    '& > .advanced-table--table-groupTitle': {
+      marginBottom: 16,
+    },
+
+    '& > .advanced-table--table-section': {
+      margin: 0,
+    },
+  })
+);
 
 const GroupTitle = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 12,

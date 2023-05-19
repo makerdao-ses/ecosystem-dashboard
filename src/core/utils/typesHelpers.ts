@@ -1,5 +1,4 @@
 import type { ActivityFeedDto, CommentsBudgetStatementDto } from '../models/dto/coreUnitDTO';
-import type { LinkModel } from '@ses/components/CuTableColumnLinks/CuTableColumnLinks';
 import type { DateTime } from 'luxon';
 
 export type WithDate = {
@@ -36,11 +35,15 @@ export type TargetBalanceTooltipInformation = {
   name: string;
 };
 
-// TODO: Replace when the api is ready with real data
-export type DelegateDataCard = {
-  imageUrl: string;
-  walletName: string;
-  links: LinkModel[];
-  address: string;
-  numberDai: number;
-};
+export interface SVGIconProps {
+  width?: number;
+  height?: number;
+  className?: string;
+}
+
+export interface SVGIconWithFillProps {
+  width?: number;
+  height?: number;
+  fill?: string;
+  className?: string;
+}

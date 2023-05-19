@@ -42,7 +42,7 @@ const useCommentsContainer = (
     if (mode === 'CoreUnits') {
       return permissionManager.coreUnit.canComment(currentCoreUnit || '-1');
     } else {
-      return permissionManager.delegates.canComment(currentCoreUnit?.id || '-1');
+      return permissionManager.delegates.canComment();
     }
   }, [permissionManager, currentCoreUnit, mode]);
 
