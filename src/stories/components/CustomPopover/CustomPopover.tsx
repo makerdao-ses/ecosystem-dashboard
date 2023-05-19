@@ -101,6 +101,8 @@ interface CustomPopoverProps extends React.PropsWithChildren {
   closeOnClick?: boolean;
   onClose?: () => void;
   handleNotSpaceRight?: (value: string) => void;
+  distanceBottom?: number;
+  distanceRight?: number;
 }
 
 export const PopoverPaperStyle = (isLight: boolean) => ({
@@ -131,12 +133,15 @@ export const CustomPopover = ({
   handleShowPopoverWhenNotSpace,
   handleNotSpaceRight,
   closeOnClick = true,
+  distanceBottom = 285,
+  distanceRight = 305,
   onClose,
   ...props
 }: CustomPopoverProps) => {
   const [state, dispatch] = useReducer(updateStatePositionPopoverReducer, InitialState);
   const { isLight } = useThemeContext();
   const refPopoverComponent = useRef<HTMLDivElement>(null);
+
   const [leaveTimeout, setLeaveTimeout] = React.useState<NodeJS.Timeout>();
   const isArrowPositionUp =
     isEqual(state.popoverPosition, ArrowUp) ||
@@ -173,13 +178,13 @@ export const CustomPopover = ({
         const distance = window.innerHeight - (elementPosition || 0);
 
         // TODO: Change hard code to real height of Popover
-        if (distance < 285) {
+        if (distance < distanceBottom) {
           arrowPosition = 'down';
         }
-        if (elementPositionRight < 305) {
+        if (elementPositionRight < distanceRight) {
           arrowPosition = 'arrowUp';
         }
-        if (distance < 285 && elementPositionRight < 305) {
+        if (distance < distanceBottom && elementPositionRight < distanceRight) {
           arrowPosition = 'arrowDown';
         }
       }
@@ -195,7 +200,15 @@ export const CustomPopover = ({
       handleShowPopoverWhenNotSpace?.(arrowPosition === 'up');
       handleNotSpaceRight?.(arrowPosition);
     },
-    [leaveTimeout, refElementShowPopover, handleShowPopoverWhenNotSpace, handleNotSpaceRight, handlePopoverClose]
+    [
+      leaveTimeout,
+      refElementShowPopover,
+      handleShowPopoverWhenNotSpace,
+      handleNotSpaceRight,
+      distanceBottom,
+      distanceRight,
+      handlePopoverClose,
+    ]
   );
 
   return (
