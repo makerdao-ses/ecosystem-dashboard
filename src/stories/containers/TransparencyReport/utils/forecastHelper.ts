@@ -1,5 +1,6 @@
 import { ExpenditureLevel } from '@ses/core/enums/expenditureLevelEnum';
 import { percentageRespectTo } from '@ses/core/utils/math';
+import type { BudgetStatementWalletDto, SourceDto } from '@ses/core/models/dto/coreUnitDTO';
 const COLORS_BAR = {
   COLOR_GREEN: '#B6EDE7',
   COLOR_GREEN_DARK: '#06554C',
@@ -121,10 +122,20 @@ export const getBorderColor = (value: number, valueRelative: number, isLight: bo
   }
   return color;
 };
-
 export const getPercentFullBar = (forecast: number, budgetCap: number): number => {
   if (forecast && !budgetCap) return 100;
   if (budgetCap && !forecast) return 0;
   const percent = percentageRespectTo(forecast, budgetCap);
   return percent;
+};
+
+export const getTransferRequestSource = (wallet: BudgetStatementWalletDto): SourceDto => {
+  const resultDefault = {
+    code: '',
+    url: '',
+    title: '',
+  } as SourceDto;
+  const firstElementWithData = wallet?.budgetStatementTransferRequest?.find((item) => item.target.source);
+  if (!firstElementWithData) return resultDefault;
+  return firstElementWithData.target.source;
 };
