@@ -33,13 +33,6 @@ const DefaultCell: React.FC<DefaultCellProps> = ({ cell }) => {
   }
 
   return <TextCell cell={cell} />;
-
-  // return (
-  //   // TODO: create default body cells
-  //   <td colSpan={cell.colSpan} rowSpan={cell.rowSpan}>
-  //     {cell.value as React.ReactNode}
-  //   </td>
-  // );
 };
 
 export default DefaultCell;
