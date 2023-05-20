@@ -1,0 +1,45 @@
+import React from 'react';
+import BasicTHCell from './BasicTHCell';
+import BoldTextCell from './BoldTextCell';
+import TextCell from './TextCell';
+import type { GenericCell } from '../../types';
+
+interface DefaultCellProps {
+  cell: GenericCell;
+}
+
+const DefaultCell: React.FC<DefaultCellProps> = ({ cell }) => {
+  if (cell.isHidden) return null;
+
+  if (cell.render) return cell.render(cell);
+
+  if (cell.defaultRenderer) {
+    switch (cell.defaultRenderer) {
+      case 'basicHeader':
+        return <BasicTHCell cell={cell} />;
+      case 'boldText':
+        return <BoldTextCell cell={cell} />;
+      case 'number':
+      case 'incomeNumber':
+      default:
+        if (cell.isHeader) {
+          return <BasicTHCell cell={cell} />;
+        }
+        return <TextCell cell={cell} as={'td'} />;
+    }
+  }
+  if (cell.isHeader) {
+    return <BasicTHCell cell={cell} />;
+  }
+
+  return <TextCell cell={cell} />;
+
+  // return (
+  //   // TODO: create default body cells
+  //   <td colSpan={cell.colSpan} rowSpan={cell.rowSpan}>
+  //     {cell.value as React.ReactNode}
+  //   </td>
+  // );
+};
+
+export default DefaultCell;
