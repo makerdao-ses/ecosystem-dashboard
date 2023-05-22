@@ -23,6 +23,8 @@ interface Props {
 
 const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, name }) => {
   const refElementShowPopover = useRef<HTMLDivElement>(null);
+  const leaveTimeoutRef = useRef<NodeJS.Timeout>();
+
   const [isOpen, setIsOpen] = useState(false);
   const { isLight } = useThemeContext();
 
@@ -41,11 +43,15 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
     }
   };
   const handleClose = () => {
-    setHasNotSpaceRight(false);
-    setHasNotDownRight(false);
+    clearTimeout(leaveTimeoutRef.current);
+    leaveTimeoutRef.current = setTimeout(() => {
+      setHasNotSpaceRight(false);
+      setHasNotDownRight(false);
+    }, 400);
   };
-
-  console.log({ hasNotSpaceRight });
+  useEffect(() => {
+    clearTimeout(leaveTimeoutRef.current);
+  }, []);
 
   const isMobileResolution = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const { lockScroll, unlockScroll } = useScrollLock();
