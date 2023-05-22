@@ -118,7 +118,7 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
             description="1 Month Budget Cap"
             link={source.url}
             mipNumber={source.code}
-            title={secondMonth.toFormat('MMMM')}
+            title={thirdMonth.toFormat('MMMM')}
             name={source.title}
           />
         ),
@@ -154,7 +154,7 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
         hidden: true,
       },
     ];
-  }, [firstMonth, secondMonth, wallets]);
+  }, [firstMonth, secondMonth, thirdMonth, wallets]);
 
   const mainTableItems = useMemo(() => {
     const result: InnerTableRow[] = [];

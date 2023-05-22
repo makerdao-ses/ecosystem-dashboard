@@ -4,14 +4,17 @@ import type { BudgetStatementWalletDto, SourceDto } from '@ses/core/models/dto/c
 const COLORS_BAR = {
   COLOR_GREEN: '#B6EDE7',
   COLOR_GREEN_DARK: '#06554C',
+  COLOR_GREEN_DARK_HOVER: '#6EDBD0',
   COLOR_GREEN_HOVER: '#1AAB9B',
   COLOR_GRAY: '#D1DEE6',
   COLOR_GRAY_STRONG: '#9FAFB9',
   COLOR_YELLOW: '#FEDB88',
   COLOR_YELLOW_DARK: '#FDC134',
   COLOR_YELLOW_HOVER: '#FDC134',
+  COLOR_YELLOW_DARK_HOVER: '#FEDB88',
   COLOR_RED: '#F77249',
   COLOR_RED_DARK: '#EB4714',
+  COLOR_RED_DARK_HOVER: '#F99374',
   COLOR_RED_HOVER: '#EB4714',
 };
 
@@ -43,7 +46,7 @@ export const getProgressiveBarColor = (
         ? COLORS_BAR.COLOR_GREEN_HOVER
         : COLORS_BAR.COLOR_GREEN
       : isHover
-      ? 'red'
+      ? COLORS_BAR.COLOR_GREEN_DARK_HOVER
       : COLORS_BAR.COLOR_GREEN_DARK;
   }
 
@@ -53,7 +56,7 @@ export const getProgressiveBarColor = (
         ? COLORS_BAR.COLOR_YELLOW_HOVER
         : COLORS_BAR.COLOR_YELLOW
       : isHover
-      ? 'red'
+      ? COLORS_BAR.COLOR_YELLOW_DARK_HOVER
       : COLORS_BAR.COLOR_YELLOW_DARK;
   }
 
@@ -63,7 +66,7 @@ export const getProgressiveBarColor = (
         ? COLORS_BAR.COLOR_RED_HOVER
         : COLORS_BAR.COLOR_RED
       : isHover
-      ? 'red'
+      ? COLORS_BAR.COLOR_RED_DARK_HOVER
       : COLORS_BAR.COLOR_RED_DARK;
   }
   return color;
