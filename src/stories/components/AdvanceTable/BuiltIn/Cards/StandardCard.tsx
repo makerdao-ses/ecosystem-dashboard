@@ -1,10 +1,9 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
-import { CardPadding } from '../../types';
 import BasicTHCell from '../Cells/BasicTHCell';
 import AbstractCard from './AbstractCard';
-import type { CardType, GenericCell } from '../../types';
+import type { CardPadding, CardType, GenericCell } from '../../types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface StandardCardProps {
@@ -23,7 +22,7 @@ const StandardCard: React.FC<StandardCardProps> = ({ type = 'normal', cells, car
 
   return (
     <AbstractCard>
-      <CardPadding padding={cardPadding}>
+      <CardPaddingStyle padding={cardPadding}>
         {headers}
         {cells
           .filter((cell) => !cell.isCardHeader)
@@ -56,14 +55,14 @@ const StandardCard: React.FC<StandardCardProps> = ({ type = 'normal', cells, car
               </Value>
             )
           )}
-      </CardPadding>
+      </CardPaddingStyle>
     </AbstractCard>
   );
 };
 
 export default StandardCard;
 
-const CardPadding = styled.div<{ padding: CardPadding }>(({ padding }) => ({
+const CardPaddingStyle = styled.div<{ padding: CardPadding }>(({ padding }) => ({
   padding,
   marginBottom: 16,
 }));
