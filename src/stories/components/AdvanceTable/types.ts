@@ -1,5 +1,5 @@
 import type { breakpoints } from '@ses/styles/theme/light';
-export type DefaultRenderer = 'basicHeader' | 'boldText' | 'text' | 'number' | 'incomeNumber';
+export type DefaultRenderer = 'basicHeader' | 'boldText' | 'total' | 'text' | 'number' | 'incomeNumber';
 export type Alignment = 'left' | 'center' | 'right';
 
 export interface Border {
@@ -45,6 +45,22 @@ export interface GenericCell {
   defaultRenderer?: DefaultRenderer;
   // render function to use for this cell. It will override the `defaultRenderer` if set
   render?: React.FC<GenericCell>;
+  // in mobile, this cell should be the header of the card
+  isCardHeader?: boolean;
+}
+
+export type CardType = 'normal' | 'total' | 'title' | 'groupTitle';
+export type CardPadding = number | string;
+export interface CardRenderProps {
+  type?: CardType;
+  cells?: GenericCell[];
+  cardPadding?: CardPadding;
+}
+
+export interface CardConfiguration {
+  type?: CardType;
+  render?: React.FC<CardRenderProps>;
+  cardPadding?: CardPadding;
 }
 
 export interface RowProps {
@@ -61,6 +77,8 @@ export interface RowProps {
   // custom render for the entire `tr` row element (it does not affect how the cell
   // of this row are being rendered as the cells are rendered with it own renderer)
   render?: React.FC<RowProps & React.PropsWithChildren>;
+  // === How will looks like this row on mobile? ===
+  rowToCardConfig?: CardConfiguration;
 }
 
 export interface TableProps {
@@ -69,6 +87,7 @@ export interface TableProps {
   body?: RowProps[];
   headerRender?: React.FC<{ header: TableProps['header'] } & React.PropsWithChildren>;
   bodyRender?: React.FC<{ body: TableProps['body'] } & React.PropsWithChildren>;
+  toCardsOnMobile?: boolean;
 }
 
 export const isBorder = (border: BorderConfig | Border): border is Border => {

@@ -18,6 +18,7 @@ const DefaultCell: React.FC<DefaultCellProps> = ({ cell }) => {
       case 'basicHeader':
         return <BasicTHCell cell={cell} />;
       case 'boldText':
+      case 'total': // total rows/cells has bold values
         return <BoldTextCell cell={cell} />;
       case 'number':
       case 'incomeNumber':
