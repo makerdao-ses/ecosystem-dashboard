@@ -24,8 +24,9 @@ interface Props {
 const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, name }) => {
   const refElementShowPopover = useRef<HTMLDivElement>(null);
   const leaveTimeoutRef = useRef<NodeJS.Timeout>();
-
   const [isOpen, setIsOpen] = useState(false);
+  const isMobileResolution = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const { lockScroll, unlockScroll } = useScrollLock();
   const { isLight } = useThemeContext();
 
   const [marginTopPopoverPosition, setMarginTopPopoverPosition] = useState<boolean>(false);
@@ -52,9 +53,6 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
   useEffect(() => {
     clearTimeout(leaveTimeoutRef.current);
   }, []);
-
-  const isMobileResolution = useMediaQuery(lightTheme.breakpoints.down('table_834'));
-  const { lockScroll, unlockScroll } = useScrollLock();
 
   let md;
   if (typeof window !== 'undefined') {
@@ -83,28 +81,84 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
   }, [isOpen]);
   return (
     <Container>
-      <Title style={{ marginRight: 8 }}>{title}</Title>
-      <ExtendedCustomPopover
-        hasNotDownRight={hasNotDownRight}
-        marginTopPopoverPosition={marginTopPopoverPosition}
-        onClose={handleClose}
-        alignArrow={hasNotSpaceRight || hasNotDownRight ? 'right' : undefined}
-        handleNotSpaceRight={handleNotSpaceRight}
-        hasNotSpaceRight={hasNotSpaceRight}
-        handleShowPopoverWhenNotSpace={handleShowPopoverWhenNotSpace}
-        refElementShowPopover={refElementShowPopover}
-        widthArrow
-        id="information"
-        popupStyle={{
-          padding: 10,
-        }}
-        title={<HeaderToolTip description={description} link={link} mipNumber={mipNumber} name={name} />}
-        leaveOnChildrenMouseOut
-      >
-        <ContainerInfoIcon className="advance-table--transparency-card_icon_hidden" onClick={handleOnClick}>
-          <IconPosition />
-        </ContainerInfoIcon>
-      </ExtendedCustomPopover>
+      {!isMobileResolution && (
+        <>
+          <Title style={{ marginRight: 8 }}>{title}</Title>
+          <ExtendedCustomPopover
+            hasNotDownRight={hasNotDownRight}
+            marginTopPopoverPosition={marginTopPopoverPosition}
+            onClose={handleClose}
+            alignArrow={hasNotSpaceRight || hasNotDownRight ? 'right' : undefined}
+            handleNotSpaceRight={handleNotSpaceRight}
+            hasNotSpaceRight={hasNotSpaceRight}
+            handleShowPopoverWhenNotSpace={handleShowPopoverWhenNotSpace}
+            refElementShowPopover={refElementShowPopover}
+            widthArrow
+            id="information"
+            popupStyle={{
+              padding: 10,
+            }}
+            title={<HeaderToolTip description={description} link={link} mipNumber={mipNumber} name={name} />}
+            leaveOnChildrenMouseOut
+          >
+            <ContainerInfoIcon className="advance-table--transparency-card_icon_hidden" onClick={handleOnClick}>
+              <IconPosition />
+            </ContainerInfoIcon>
+          </ExtendedCustomPopover>
+        </>
+      )}
+      {isMobileResolution && !isMobileDevice && (
+        <>
+          <Title style={{ marginRight: 8 }}>{title}</Title>
+          <ExtendedCustomPopoverMobile
+            hasNotDownRight={hasNotDownRight}
+            marginTopPopoverPosition={marginTopPopoverPosition}
+            onClose={handleClose}
+            alignArrow={'center'}
+            handleNotSpaceRight={handleNotSpaceRight}
+            hasNotSpaceRight={hasNotSpaceRight}
+            handleShowPopoverWhenNotSpace={handleShowPopoverWhenNotSpace}
+            refElementShowPopover={refElementShowPopover}
+            widthArrow
+            id="information"
+            popupStyle={{
+              padding: 10,
+            }}
+            title={<HeaderToolTip description={description} link={link} mipNumber={mipNumber} name={name} />}
+            leaveOnChildrenMouseOut
+          >
+            <ContainerInfoIcon className="advance-table--transparency-card_icon_hidden" onClick={handleOnClick}>
+              <IconPosition />
+            </ContainerInfoIcon>
+          </ExtendedCustomPopoverMobile>
+        </>
+      )}
+      {isMobileResolution && isMobileDevice && (
+        <>
+          <Title style={{ marginRight: 8 }}>{title}</Title>
+          <ExtendedCustomPopover
+            hasNotDownRight={hasNotDownRight}
+            marginTopPopoverPosition={marginTopPopoverPosition}
+            onClose={handleClose}
+            alignArrow={hasNotSpaceRight || hasNotDownRight ? 'right' : undefined}
+            handleNotSpaceRight={handleNotSpaceRight}
+            hasNotSpaceRight={hasNotSpaceRight}
+            handleShowPopoverWhenNotSpace={handleShowPopoverWhenNotSpace}
+            refElementShowPopover={refElementShowPopover}
+            widthArrow
+            id="information"
+            popupStyle={{
+              padding: 10,
+            }}
+            title={<HeaderToolTip description={description} link={link} mipNumber={mipNumber} name={name} />}
+            leaveOnChildrenMouseOut
+          >
+            <ContainerInfoIcon className="advance-table--transparency-card_icon_hidden" onClick={handleOnClick}>
+              <IconPosition />
+            </ContainerInfoIcon>
+          </ExtendedCustomPopover>
+        </>
+      )}
       {isMobileResolution && isOpen && isMobileDevice && (
         <ModalSheet>
           <ModalSheetValueContent
@@ -144,6 +198,15 @@ const ExtendedCustomPopover = styled(CustomPopover)<{
     }),
   },
 }));
+
+const ExtendedCustomPopoverMobile = styled(ExtendedCustomPopover)({
+  '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
+    [lightTheme.breakpoints.down('table_834')]: {
+      left: '0px!important',
+      marginLeft: -4,
+    },
+  },
+});
 
 export const ContainerInfoIcon = styled.div({
   display: 'flex',
