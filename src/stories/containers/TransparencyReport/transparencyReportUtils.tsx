@@ -4,8 +4,6 @@ import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
 import { NumberCell } from '@ses/components/NumberCell/NumberCell';
 import Information from '@ses/components/svg/information';
 import ArrowPopoverTargetValueComponent from '@ses/containers/TransparencyReport/components/ArrowPopoverTargetValue/ArrowPopoverTargetValueComponent';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import { useScrollLock } from '@ses/core/hooks/useScrollLock';
 import { getPageWrapper } from '@ses/core/utils/dom';
 import lightTheme from '@ses/styles/theme/light';
@@ -15,6 +13,7 @@ import { formatAddressForOutput } from '../../../core/utils/string';
 import { CustomLink } from '../../components/CustomLink/CustomLink';
 import { TextCell } from '../../components/TextCell/TextCell';
 import { WalletTableCell } from '../../components/WalletTableCell/WalletTableCell';
+import PopoverMobile from './components/PopoverMobile/PopoverMobile';
 import ModalSheetValueContent from './components/TransparencyTransferRequest/components/ModalSheet/ModalSheetValueContent';
 import type { BudgetStatementWalletDto } from '../../../core/models/dto/coreUnitDTO';
 import type { TargetBalanceTooltipInformation } from '@ses/core/utils/typesHelpers';
@@ -79,7 +78,6 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
   const handleShowPopoverWhenNotSpace = (value: boolean) => {
     setMarginTopPopoverPosition(value);
   };
-  const { isLight } = useThemeContext();
   const isMobileResolution = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const { lockScroll, unlockScroll } = useScrollLock();
   const showIconToolTip = !!(data.description && data.link);
@@ -219,47 +217,19 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
           )}
         </PopoverContainer>
       )}
-      {isMobileResolution && isOpen && isMobileDevice && (
-        <ModalSheet>
-          <ModalSheetValueContent
-            toolTipData={{
-              description: data.description,
-              link: data.link,
-              mipNumber: data.mipNumber,
-            }}
-            name={data.name}
-          />
-        </ModalSheet>
-      )}
-      {isMobileResolution && isOpen && isMobileDevice && <ContainerOverlay isLight={isLight} onClick={handleOnClick} />}
+      <PopoverMobile isOpen={isOpen} handleOnClick={handleOnClick}>
+        <ModalSheetValueContent
+          toolTipData={{
+            description: data.description,
+            link: data.link,
+            mipNumber: data.mipNumber,
+          }}
+          name={data.name}
+        />
+      </PopoverMobile>
     </BiggerContainer>
   );
 };
-
-const ContainerOverlay = styled.div<WithIsLightAndClick>(({ isLight, onClick }) => ({
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  width: '100%',
-  height: '100%',
-  background: isLight ? 'rgba(52, 52, 66, 0.1)' : 'rgba(0, 22, 78, 0.1);',
-  backdropFilter: isLight ? 'blur(2px)' : 'blur(4px)',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  zIndex: zIndexEnum.OVERLAY_MOBILE_TOOLTIP,
-  cursor: onClick ? 'default' : undefined,
-}));
-
-const ModalSheet = styled.div({
-  width: '100%',
-  zIndex: 5,
-  textAlign: 'left',
-  position: 'fixed',
-  bottom: 0,
-  left: 0,
-  right: 0,
-});
 
 const PopoverContainer = styled.div({
   display: 'flex',
