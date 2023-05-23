@@ -1,6 +1,9 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import DefaultCard from './BuiltIn/Cards/DefaultCard';
 import DefaultCell from './BuiltIn/Cells/DefaultCell';
 import DefaultTBody from './BuiltIn/DefaultTBody';
 import DefaultTHead from './BuiltIn/DefaultTHead';
@@ -14,60 +17,97 @@ const AdvanceTable: React.FC<TableProps> = ({
   body,
   headerRender = DefaultTHead,
   bodyRender = DefaultTBody,
+  toCardsOnMobile = true,
 }) => {
   const { isLight } = useThemeContext();
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const showCards = isMobile && toCardsOnMobile;
   const THead = headerRender;
   const TBody = bodyRender;
 
-  return (
-    <Table isLight={isLight} className={className}>
-      {header && (
-        <THead header={header}>
-          {header.map((row, rowIndex) => (
-            <DefaultTR {...row} key={`head-${rowIndex}`}>
-              {row.cells.map((cell, colIndex) => (
-                <DefaultCell
-                  key={`head-${rowIndex}-${colIndex}`}
-                  cell={{
-                    ...cell,
-                    isHeader: cell.isHeader ?? true,
-                    cellPadding: cell.cellPadding ?? row.cellPadding,
-                    defaultRenderer: cell.defaultRenderer ?? row.cellDefaultRenderer ?? 'basicHeader',
-                    rowIndex,
-                    colIndex,
-                  }}
-                />
-              ))}
-            </DefaultTR>
-          ))}
-        </THead>
-      )}
+  return showCards ? (
+    <div>
+      {body?.map((row, rowIndex) => {
+        let extendedRow = row;
+        if (
+          row?.rowToCardConfig?.type === 'groupTitle' &&
+          rowIndex + 1 < body?.length &&
+          body[rowIndex + 1].rowToCardConfig?.type === 'title'
+        ) {
+          extendedRow = {
+            ...body[rowIndex + 1],
+            extraProps: {
+              ...((body[rowIndex + 1]?.extraProps as object) ?? {}),
+              groupTitle: row.cells[0].value as string,
+            },
+          };
+        } else if (
+          row.rowToCardConfig?.type === 'title' &&
+          rowIndex > 0 &&
+          body[rowIndex - 1].rowToCardConfig?.type === 'groupTitle'
+        ) {
+          // the title was included in the previous group title
+          return null;
+        }
 
-      {body && (
-        <TBody body={body}>
-          {body.map((row, rowIndex) => (
-            <DefaultTR {...row} key={`body-${rowIndex}`}>
-              {row.cells.map((cell, colIndex) => (
-                <DefaultCell
-                  key={`body-${rowIndex}-${colIndex}`}
-                  cell={{
-                    ...cell,
-                    cellPadding: cell.cellPadding ?? row.cellPadding,
-                    defaultRenderer: cell.defaultRenderer ?? row.cellDefaultRenderer ?? 'text',
-                    rowIndex,
-                    colIndex,
-                  }}
-                />
-              ))}
-            </DefaultTR>
-          ))}
-        </TBody>
-      )}
-    </Table>
+        return <DefaultCard cardProps={extendedRow.rowToCardConfig} row={extendedRow} key={`card-${rowIndex}`} />;
+      })}
+    </div>
+  ) : (
+    <TableWrapper>
+      <Table isLight={isLight} className={className}>
+        {header && (
+          <THead header={header}>
+            {header.map((row, rowIndex) => (
+              <DefaultTR {...row} key={`head-${rowIndex}`}>
+                {row.cells.map((cell, colIndex) => (
+                  <DefaultCell
+                    key={`head-${rowIndex}-${colIndex}`}
+                    cell={{
+                      ...cell,
+                      isHeader: cell.isHeader ?? true,
+                      cellPadding: cell.cellPadding ?? row.cellPadding,
+                      defaultRenderer: cell.defaultRenderer ?? row.cellDefaultRenderer ?? 'basicHeader',
+                      rowIndex,
+                      colIndex,
+                    }}
+                  />
+                ))}
+              </DefaultTR>
+            ))}
+          </THead>
+        )}
+
+        {body && (
+          <TBody body={body}>
+            {body.map((row, rowIndex) => (
+              <DefaultTR {...row} key={`body-${rowIndex}`}>
+                {row.cells.map((cell, colIndex) => (
+                  <DefaultCell
+                    key={`body-${rowIndex}-${colIndex}`}
+                    cell={{
+                      ...cell,
+                      cellPadding: cell.cellPadding ?? row.cellPadding,
+                      defaultRenderer: cell.defaultRenderer ?? row.cellDefaultRenderer ?? 'text',
+                      rowIndex,
+                      colIndex,
+                    }}
+                  />
+                ))}
+              </DefaultTR>
+            ))}
+          </TBody>
+        )}
+      </Table>
+    </TableWrapper>
   );
 };
 
 export default AdvanceTable;
+
+const TableWrapper = styled.div({
+  overflowX: 'auto',
+});
 
 const Table = styled.table<WithIsLight>(({ isLight }) => ({
   borderCollapse: 'collapse',

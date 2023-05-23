@@ -8,12 +8,13 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 interface BasicTHCellProps {
   cell: GenericCell;
   className?: string;
+  as?: keyof JSX.IntrinsicElements;
 }
 
-const BasicTHCell: React.FC<BasicTHCellProps> = ({ cell, className }) => {
+const BasicTHCell: React.FC<BasicTHCellProps> = ({ cell, className, as = 'th' }) => {
   const { isLight } = useThemeContext();
 
-  return <TH className={className} as={'th'} isLight={isLight} cell={cell} />;
+  return <TH className={className} as={as} isLight={isLight} cell={cell} />;
 };
 
 export default BasicTHCell;
