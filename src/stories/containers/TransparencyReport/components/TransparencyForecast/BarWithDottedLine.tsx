@@ -49,7 +49,6 @@ const BarWithDottedLine: React.FC<Props> = ({ value, relativeValue, month }) => 
             background: isLight ? 'white' : '#000A13',
             borderRadius: '6px',
           }}
-          popupStyle={{}}
           id="mouse-over-information"
           title={
             <PopoverForecastDescription
@@ -73,7 +72,7 @@ export default BarWithDottedLine;
 
 const Container = styled.div({
   paddingTop: 4,
-  width: 100,
+  width: 101,
   display: 'flex',
   flexDirection: 'column',
   fontFamily: 'Inter, sans-serif',
@@ -83,19 +82,18 @@ const Container = styled.div({
   fontFeatureSettings: "'tnum' on, 'lnum' on",
 });
 const ContainerBar = styled.div({
-  height: 14,
-  paddingTop: 4,
-  paddingBottom: 4,
-  marginBottom: 2,
+  height: 16,
+  display: 'flex',
+  alignItems: 'center',
   position: 'relative',
   width: '100%',
 });
 
 const VerticalBar = styled.div<{ displacement: number }>(({ displacement }) => ({
-  height: 14,
+  height: 16,
   width: 1,
   border: '1px dashed #447AFB',
-  backgroundSize: '4px 4px',
+  backgroundSize: '5px 5px',
   borderRadius: '6px',
   position: 'absolute',
   top: 0,
@@ -128,4 +126,5 @@ const BudgetCap = styled.div<WithIsLight>(({ isLight }) => ({
   lineHeight: '15px',
   textAlign: 'right',
   color: isLight ? '#708390' : '#546978',
+  marginRight: 2,
 }));
