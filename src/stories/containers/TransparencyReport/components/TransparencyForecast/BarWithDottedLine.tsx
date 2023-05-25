@@ -35,12 +35,18 @@ const BarWithDottedLine: React.FC<Props> = ({ value, relativeValue, month }) => 
   const percent = getPercentFullBar(value, relativeValue);
   const displacement = getDisplacementDashLine(value, relativeValue);
   const borderColor = getBorderColor(value, relativeValue, isLight);
+  const handleNotSpaceRight = (value: string) => {
+    console.log('value', value);
+  };
   return (
     <Container>
       <ContainerBar>
         <BudgetBar isLight={isLight}>{<BarPercent width={percent} color={barColor} />}</BudgetBar>
 
         <CustomPopover
+          distanceRight={330}
+          distanceBottom={290}
+          handleNotSpaceRight={handleNotSpaceRight}
           popoverStyle={{
             border: `1px solid ${borderColor}`,
             boxShadow: isLight
@@ -49,7 +55,6 @@ const BarWithDottedLine: React.FC<Props> = ({ value, relativeValue, month }) => 
             background: isLight ? 'white' : '#000A13',
             borderRadius: '6px',
           }}
-          popupStyle={{}}
           id="mouse-over-information"
           title={
             <PopoverForecastDescription
@@ -61,7 +66,11 @@ const BarWithDottedLine: React.FC<Props> = ({ value, relativeValue, month }) => 
             />
           }
         >
-          <VerticalBar displacement={displacement} onMouseEnter={handleMouseOver} onMouseOut={handleMouseOut} />
+          <ContainerRelative>
+            <ContendBarForSpace onMouseEnter={handleMouseOver} onMouseOut={handleMouseOut} displacement={displacement}>
+              <VerticalBar onMouseEnter={handleMouseOver} onMouseOut={handleMouseOut} />
+            </ContendBarForSpace>
+          </ContainerRelative>
         </CustomPopover>
       </ContainerBar>
       <BudgetCap isLight={isLight}>{usLocalizedNumber(relativeValue)}</BudgetCap>
@@ -73,7 +82,7 @@ export default BarWithDottedLine;
 
 const Container = styled.div({
   paddingTop: 4,
-  width: 100,
+  width: 101,
   display: 'flex',
   flexDirection: 'column',
   fontFamily: 'Inter, sans-serif',
@@ -83,25 +92,21 @@ const Container = styled.div({
   fontFeatureSettings: "'tnum' on, 'lnum' on",
 });
 const ContainerBar = styled.div({
-  height: 14,
-  paddingTop: 4,
-  paddingBottom: 4,
-  marginBottom: 2,
+  height: 16,
+  display: 'flex',
+  alignItems: 'center',
   position: 'relative',
   width: '100%',
 });
 
-const VerticalBar = styled.div<{ displacement: number }>(({ displacement }) => ({
-  height: 14,
-  width: 1,
+const VerticalBar = styled.div<{ displacement?: number }>(({ displacement }) => ({
+  height: 16,
+  borderRadius: 6,
   border: '1px dashed #447AFB',
-  backgroundSize: '4px 4px',
-  borderRadius: '6px',
-  position: 'absolute',
-  top: 0,
   right: `${displacement}%`,
   transform: 'rotate(180deg)',
   cursor: 'pointer',
+  marginRight: -4,
 }));
 
 const BudgetBar = styled.div<WithIsLight>(({ isLight }) => ({
@@ -128,4 +133,21 @@ const BudgetCap = styled.div<WithIsLight>(({ isLight }) => ({
   lineHeight: '15px',
   textAlign: 'right',
   color: isLight ? '#708390' : '#546978',
+  marginRight: 2,
 }));
+
+const ContendBarForSpace = styled.div<{ displacement: number }>(({ displacement }) => ({
+  width: 6,
+  position: 'absolute',
+  right: `${displacement}%`,
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  top: 0,
+  cursor: 'pointer',
+}));
+
+const ContainerRelative = styled.div({
+  height: 20,
+  width: '100%',
+});
