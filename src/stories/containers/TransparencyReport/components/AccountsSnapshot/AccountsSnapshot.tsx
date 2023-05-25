@@ -7,15 +7,14 @@ import FundingOverview from './components/FundingOverview/FundingOverview';
 import useAccountsSnapshot from './useAccountsSnapshot';
 
 const AccountsSnapshot: React.FC = () => {
-  // TODO: use the values from the hook
-  useAccountsSnapshot();
+  const { expensesComparisonRows } = useAccountsSnapshot();
 
   return (
     <Container>
       <Wrapper>
         <FundingOverview coreUnitCode="SES" />
         <CUReserves coreUnitCode="SES" />
-        <ExpensesComparison />
+        <ExpensesComparison rows={expensesComparisonRows} />
       </Wrapper>
     </Container>
   );

@@ -70,6 +70,10 @@ const AdvanceTable: React.FC<TableProps> = ({
                       defaultRenderer: cell.defaultRenderer ?? row.cellDefaultRenderer ?? 'basicHeader',
                       rowIndex,
                       colIndex,
+                      extraProps: {
+                        ...((row.extraProps as object) ?? {}),
+                        ...((cell.extraProps as object) ?? {}),
+                      },
                     }}
                   />
                 ))}
@@ -91,6 +95,10 @@ const AdvanceTable: React.FC<TableProps> = ({
                       defaultRenderer: cell.defaultRenderer ?? row.cellDefaultRenderer ?? 'text',
                       rowIndex,
                       colIndex,
+                      extraProps: {
+                        ...((row.extraProps as object) ?? {}),
+                        ...((cell.extraProps as object) ?? {}),
+                      },
                     }}
                   />
                 ))}
