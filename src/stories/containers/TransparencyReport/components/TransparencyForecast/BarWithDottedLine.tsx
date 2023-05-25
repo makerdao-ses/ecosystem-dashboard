@@ -35,6 +35,7 @@ const BarWithDottedLine: React.FC<Props> = ({ value, relativeValue, month }) => 
   const percent = getPercentFullBar(value, relativeValue);
   const displacement = getDisplacementDashLine(value, relativeValue);
   const borderColor = getBorderColor(value, relativeValue, isLight);
+
   return (
     <Container>
       <ContainerBar>
