@@ -35,13 +35,18 @@ const BarWithDottedLine: React.FC<Props> = ({ value, relativeValue, month }) => 
   const percent = getPercentFullBar(value, relativeValue);
   const displacement = getDisplacementDashLine(value, relativeValue);
   const borderColor = getBorderColor(value, relativeValue, isLight);
-
+  const handleNotSpaceRight = (value: string) => {
+    console.log('value', value);
+  };
   return (
     <Container>
       <ContainerBar>
         <BudgetBar isLight={isLight}>{<BarPercent width={percent} color={barColor} />}</BudgetBar>
 
         <CustomPopover
+          distanceRight={330}
+          distanceBottom={290}
+          handleNotSpaceRight={handleNotSpaceRight}
           popoverStyle={{
             border: `1px solid ${borderColor}`,
             boxShadow: isLight
@@ -61,7 +66,11 @@ const BarWithDottedLine: React.FC<Props> = ({ value, relativeValue, month }) => 
             />
           }
         >
-          <VerticalBar displacement={displacement} onMouseEnter={handleMouseOver} onMouseOut={handleMouseOut} />
+          <ContainerRelative>
+            <ContendBarForSpace onMouseEnter={handleMouseOver} onMouseOut={handleMouseOut} displacement={displacement}>
+              <VerticalBar onMouseEnter={handleMouseOver} onMouseOut={handleMouseOut} />
+            </ContendBarForSpace>
+          </ContainerRelative>
         </CustomPopover>
       </ContainerBar>
       <BudgetCap isLight={isLight}>{usLocalizedNumber(relativeValue)}</BudgetCap>
@@ -90,17 +99,14 @@ const ContainerBar = styled.div({
   width: '100%',
 });
 
-const VerticalBar = styled.div<{ displacement: number }>(({ displacement }) => ({
+const VerticalBar = styled.div<{ displacement?: number }>(({ displacement }) => ({
   height: 16,
-  width: 1,
+  borderRadius: 6,
   border: '1px dashed #447AFB',
-  backgroundSize: '5px 5px',
-  borderRadius: '6px',
-  position: 'absolute',
-  top: 0,
   right: `${displacement}%`,
   transform: 'rotate(180deg)',
   cursor: 'pointer',
+  marginRight: -4,
 }));
 
 const BudgetBar = styled.div<WithIsLight>(({ isLight }) => ({
@@ -129,3 +135,19 @@ const BudgetCap = styled.div<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#708390' : '#546978',
   marginRight: 2,
 }));
+
+const ContendBarForSpace = styled.div<{ displacement: number }>(({ displacement }) => ({
+  width: 6,
+  position: 'absolute',
+  right: `${displacement}%`,
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  top: 0,
+  cursor: 'pointer',
+}));
+
+const ContainerRelative = styled.div({
+  height: 20,
+  width: '100%',
+});
