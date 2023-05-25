@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import merge from 'lodash/merge';
 import React from 'react';
-import { buildBorderStyles, buildWidthStyles } from '../../utils';
+import { buildBorderStyles, buildPaddingStyles, buildWidthStyles } from '../../utils';
 import type { GenericCell } from '../../types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -42,7 +43,5 @@ const TD = styled.td<
   }
 >(({ isLight, align, padding, border, cellWidth }) => ({
   textAlign: align,
-  padding,
-  ...buildBorderStyles(border, isLight),
-  ...buildWidthStyles(cellWidth),
+  ...merge(buildPaddingStyles(padding), buildWidthStyles(cellWidth), buildBorderStyles(border, isLight)),
 }));

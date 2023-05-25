@@ -1,6 +1,7 @@
 import React from 'react';
 import BasicTHCell from './BasicTHCell';
 import BoldTextCell from './BoldTextCell';
+import NumberCell from './NumberCell';
 import TextCell from './TextCell';
 import type { GenericCell } from '../../types';
 
@@ -21,6 +22,7 @@ const DefaultCell: React.FC<DefaultCellProps> = ({ cell }) => {
       case 'total': // total rows/cells has bold values
         return <BoldTextCell cell={cell} />;
       case 'number':
+        return <NumberCell cell={cell} />;
       case 'incomeNumber':
       default:
         if (cell.isHeader) {

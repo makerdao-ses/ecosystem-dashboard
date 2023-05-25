@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import BasicCell from './BasicCell';
 import type { GenericCell } from '../../types';
@@ -22,8 +23,13 @@ export default BoldTextCell;
 const BoldCell = styled(BasicCell)<WithIsLight>(({ isLight }) => ({
   textTransform: 'none',
   fontWeight: 700,
-  fontSize: 16,
-  lineHeight: '19px',
+  fontSize: 14,
+  lineHeight: '17px',
   letterSpacing: 0,
   color: isLight ? '#231536' : '#FFFFFF',
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    fontSize: 16,
+    lineHeight: '19px',
+  },
 }));
