@@ -11,11 +11,9 @@ interface Props {
   value: number;
   relativeValue: number;
   month: string;
-  budgetCap: number;
-  forecast: number;
 }
 
-const PopoverForecastDescription: React.FC<Props> = ({ value, relativeValue, month, forecast, budgetCap }) => {
+const PopoverForecastDescription: React.FC<Props> = ({ value, relativeValue, month }) => {
   const { isLight } = useThemeContext();
   const expenditureLevel = getExpenditureLevelForecast(value, relativeValue);
   const percent = percentageRespectTo(value, relativeValue);
@@ -36,11 +34,11 @@ const PopoverForecastDescription: React.FC<Props> = ({ value, relativeValue, mon
       </RowPercentBudgetCap>
       <RowAbsoluteNumbers>
         <Forecast>
-          <Value isLight={isLight}>{usLocalizedNumber(forecast)}</Value>
+          <Value isLight={isLight}>{usLocalizedNumber(value)}</Value>
           <DescriptionValue isLight={isLight}>Forecast</DescriptionValue>
         </Forecast>
         <BudgetCap>
-          <Value isLight={isLight}>{usLocalizedNumber(budgetCap)}</Value>
+          <Value isLight={isLight}>{usLocalizedNumber(relativeValue)}</Value>
           <DescriptionValue isLight={isLight}>Budget Cap</DescriptionValue>
         </BudgetCap>
       </RowAbsoluteNumbers>
