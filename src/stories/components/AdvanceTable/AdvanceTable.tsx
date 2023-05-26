@@ -50,6 +50,18 @@ const AdvanceTable: React.FC<TableProps> = ({
           return null;
         }
 
+        // add the colIndex and rowIndex
+        extendedRow = {
+          ...extendedRow,
+          cells: [
+            ...extendedRow.cells.map((cell, colIndex) => ({
+              ...cell,
+              rowIndex,
+              colIndex,
+            })),
+          ],
+        };
+
         return <DefaultCard cardProps={extendedRow.rowToCardConfig} row={extendedRow} key={`card-${rowIndex}`} />;
       })}
     </div>
