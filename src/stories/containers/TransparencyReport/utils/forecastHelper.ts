@@ -152,7 +152,6 @@ export const getTransferRequestSource = (wallet: BudgetStatementWalletDto): Sour
 };
 export const getWalletMonthlyBudgetForeCast = (wallet: BudgetStatementWalletDto, month: string) => {
   const itemsSum = wallet.budgetStatementLineItem.filter((item) => item.month === month);
-  console.log('itemsSum', itemsSum);
   if (itemsSum.length === 0) return 'N/A';
   return _.sumBy(itemsSum, (i) => i.budgetCap ?? 0);
 };

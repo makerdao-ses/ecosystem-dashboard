@@ -293,7 +293,6 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
       currentMonth,
       thirdMonth
     );
-    console.log('totalSecondMonthBudGetCap', totalSecondMonthBudGetCap);
     const totalThirdMonthBudGetCap = getBudgetCapForMonthOnBudgetStatementForeCast(
       budgetStatements,
       currentMonth,
