@@ -37,33 +37,35 @@ const BarWithDottedLineMobile: React.FC<Props> = ({ value, relativeValue, month,
   const displacement = getDisplacementDashLine(value, relativeValue);
   const borderColor = getBorderColor(value, relativeValue, isLight);
   return (
-    <Container>
-      <Forecast isLight={isLight} isTotal={isTotal} isNegative={value < 0}>
-        {usLocalizedNumber(value)}
-      </Forecast>
-      <ContainerBar>
-        <BudgetBar isLight={isLight}>{<BarPercent width={percent} color={barColor} />}</BudgetBar>
-        <CustomPopover
-          popoverStyle={{
-            border: `1px solid ${borderColor}`,
-            boxShadow: isLight
-              ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-              : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
-            background: isLight ? 'white' : '#000A13',
-            borderRadius: '6px',
-          }}
-          id="mouse-over-information"
-          title={<PopoverForecastDescription relativeValue={relativeValue} value={value} month={monthFormatted} />}
-        >
+    <CustomPopover
+      popoverStyle={{
+        border: `1px solid ${borderColor}`,
+        boxShadow: isLight
+          ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+          : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
+        background: isLight ? 'white' : '#000A13',
+        borderRadius: '6px',
+      }}
+      id="mouse-over-information"
+      title={<PopoverForecastDescription relativeValue={relativeValue} value={value} month={monthFormatted} />}
+    >
+      <Container onMouseEnter={handleMouseOver} onMouseOut={handleMouseOut}>
+        <Forecast isLight={isLight} isTotal={isTotal} isNegative={value < 0}>
+          {usLocalizedNumber(value)}
+        </Forecast>
+
+        <ContainerBar>
+          <BudgetBar isLight={isLight}>{<BarPercent width={percent} color={barColor} />}</BudgetBar>
+
           <ContainerRelative>
-            <ContendBarForSpace onMouseEnter={handleMouseOver} onMouseOut={handleMouseOut} displacement={displacement}>
+            <ContendBarForSpace displacement={displacement}>
               <VerticalBar onMouseEnter={handleMouseOver} onMouseOut={handleMouseOut} />
             </ContendBarForSpace>
           </ContainerRelative>
-        </CustomPopover>
-      </ContainerBar>
-      <BudgetCap isLight={isLight}>{usLocalizedNumber(relativeValue)}</BudgetCap>
-    </Container>
+        </ContainerBar>
+        <BudgetCap isLight={isLight}>{usLocalizedNumber(relativeValue)}</BudgetCap>
+      </Container>
+    </CustomPopover>
   );
 };
 
@@ -105,6 +107,8 @@ const BudgetBar = styled.div<WithIsLight>(({ isLight }) => ({
   overflow: 'hidden',
   borderRadius: 2,
   background: isLight ? '#ECF1F3' : '#48495F',
+  marginTop: 2,
+  marginBottom: 2,
 }));
 
 const BarPercent = styled.div<{ width: number; color: string }>(({ width, color }) => ({
