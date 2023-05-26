@@ -108,7 +108,7 @@ const Label = styled.div<WithIsLight & { hasIcon?: boolean; height?: string; isT
     display: 'flex',
 
     alignItems: hasIcon ? 'flex-start' : 'center',
-    color: isLight ? (isTotal ? '#434358' : '#708390') : isTotal ? '#D2D4EF' : '#708390',
+    color: isLight ? (isTotal ? '#434358' : '#708390') : isTotal ? '#9FAFB9' : '#708390',
     fontFamily: 'Inter, sans-serif',
     fontWeight: 600,
     fontSize: '12px',
