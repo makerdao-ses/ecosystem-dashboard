@@ -293,7 +293,7 @@ const ContainerTriangle = styled.div<WithIsLight & { alignArrow?: 'center' | 'ri
       width: 0,
       height: 0,
       borderStyle: 'solid',
-      left: alignArrow === 'center' ? 135 : alignArrow === 'right' ? 257 : 35,
+      left: alignArrow === 'center' ? 135 : alignArrow === 'right' ? 265 : 35,
       borderColor: 'transparent',
       borderWidth: arrowPosition === 'up' ? '0px 8px  16px  8px' : '16px 8px  0px  8px',
       borderBottomColor: isLight ? 'white' : '#000A13',
