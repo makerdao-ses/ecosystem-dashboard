@@ -35,18 +35,12 @@ const BarWithDottedLine: React.FC<Props> = ({ value, relativeValue, month }) => 
   const percent = getPercentFullBar(value, relativeValue);
   const displacement = getDisplacementDashLine(value, relativeValue);
   const borderColor = getBorderColor(value, relativeValue, isLight);
-  const handleNotSpaceRight = (value: string) => {
-    console.log('value', value);
-  };
   return (
     <Container>
       <ContainerBar>
         <BudgetBar isLight={isLight}>{<BarPercent width={percent} color={barColor} />}</BudgetBar>
 
         <CustomPopover
-          distanceRight={330}
-          distanceBottom={290}
-          handleNotSpaceRight={handleNotSpaceRight}
           popoverStyle={{
             border: `1px solid ${borderColor}`,
             boxShadow: isLight
@@ -56,15 +50,7 @@ const BarWithDottedLine: React.FC<Props> = ({ value, relativeValue, month }) => 
             borderRadius: '6px',
           }}
           id="mouse-over-information"
-          title={
-            <PopoverForecastDescription
-              relativeValue={relativeValue}
-              value={value}
-              month={monthFormatted}
-              budgetCap={relativeValue}
-              forecast={value}
-            />
-          }
+          title={<PopoverForecastDescription relativeValue={relativeValue} value={value} month={monthFormatted} />}
         >
           <ContainerRelative>
             <ContendBarForSpace onMouseEnter={handleMouseOver} onMouseOut={handleMouseOut} displacement={displacement}>
