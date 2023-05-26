@@ -15,6 +15,8 @@ export interface BorderConfig {
   right?: boolean | Border;
 }
 
+export type CellPadding = string | number | Record<keyof typeof breakpoints, number | string>;
+
 export interface GenericCell {
   // value to be rendered in the cell
   value: unknown;
@@ -25,7 +27,7 @@ export interface GenericCell {
   // cell level alignment. Defaulted to: 'left'
   alignment?: Alignment;
   // padding of this cell. Defaulted to: '16px'
-  cellPadding?: string;
+  cellPadding?: CellPadding;
   // width of this cell. The cell in a table takes the maximum value of the cell width in the col.
   // Defaulted to: 'auto'
   width?: number | string | Record<keyof typeof breakpoints, number | string>;
@@ -43,6 +45,8 @@ export interface GenericCell {
   isHidden?: boolean;
   // builtin renderer to use for this cell. Defaulted to: 'text'
   defaultRenderer?: DefaultRenderer;
+  // extra props at cell level (very useful for custom render methods)
+  extraProps?: unknown;
   // render function to use for this cell. It will override the `defaultRenderer` if set
   render?: React.FC<GenericCell>;
   // in mobile, this cell should be the header of the card
@@ -67,7 +71,7 @@ export interface RowProps {
   // array of cells for this row
   cells: GenericCell[];
   // add some padding to the cells if the `cellPadding` is not set in the cell
-  cellPadding?: string;
+  cellPadding?: CellPadding;
   // use this default render for all the cells in the row that does not have a `defaultRenderer`
   cellDefaultRenderer?: DefaultRenderer;
   // border setup for the entire row (can be configured at cell level too)
@@ -88,6 +92,10 @@ export interface TableProps {
   headerRender?: React.FC<{ header: TableProps['header'] } & React.PropsWithChildren>;
   bodyRender?: React.FC<{ body: TableProps['body'] } & React.PropsWithChildren>;
   toCardsOnMobile?: boolean;
+}
+
+export interface NumberCellExtraProps {
+  isBold?: boolean;
 }
 
 export const isBorder = (border: BorderConfig | Border): border is Border => {

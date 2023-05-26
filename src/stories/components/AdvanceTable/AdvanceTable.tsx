@@ -50,6 +50,18 @@ const AdvanceTable: React.FC<TableProps> = ({
           return null;
         }
 
+        // add the colIndex and rowIndex
+        extendedRow = {
+          ...extendedRow,
+          cells: [
+            ...extendedRow.cells.map((cell, colIndex) => ({
+              ...cell,
+              rowIndex,
+              colIndex,
+            })),
+          ],
+        };
+
         return <DefaultCard cardProps={extendedRow.rowToCardConfig} row={extendedRow} key={`card-${rowIndex}`} />;
       })}
     </div>
@@ -70,6 +82,10 @@ const AdvanceTable: React.FC<TableProps> = ({
                       defaultRenderer: cell.defaultRenderer ?? row.cellDefaultRenderer ?? 'basicHeader',
                       rowIndex,
                       colIndex,
+                      extraProps: {
+                        ...((row.extraProps as object) ?? {}),
+                        ...((cell.extraProps as object) ?? {}),
+                      },
                     }}
                   />
                 ))}
@@ -91,6 +107,10 @@ const AdvanceTable: React.FC<TableProps> = ({
                       defaultRenderer: cell.defaultRenderer ?? row.cellDefaultRenderer ?? 'text',
                       rowIndex,
                       colIndex,
+                      extraProps: {
+                        ...((row.extraProps as object) ?? {}),
+                        ...((cell.extraProps as object) ?? {}),
+                      },
                     }}
                   />
                 ))}
