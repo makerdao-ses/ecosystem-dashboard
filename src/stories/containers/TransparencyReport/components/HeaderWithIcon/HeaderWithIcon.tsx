@@ -177,12 +177,12 @@ const ExtendedCustomPopover = styled(CustomPopover)<{
     marginLeft: -45,
     marginTop: marginTopPopoverPosition ? 16 : -25,
     ...(hasNotSpaceRight && {
-      marginLeft: 63,
+      marginLeft: 45,
       marginTop: 15,
     }),
     ...(hasNotDownRight && {
-      marginLeft: 63,
-      marginTop: -20,
+      marginLeft: 45,
+      marginTop: -22,
     }),
   },
 }));
