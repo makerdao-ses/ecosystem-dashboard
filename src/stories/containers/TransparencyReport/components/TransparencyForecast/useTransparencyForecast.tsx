@@ -9,16 +9,20 @@ import {
   getBudgetCapForMonthOnBudgetStatement,
   getBudgetCapForMonthOnWalletOnBudgetStatement,
   getBudgetCapSumOfMonthsOnWallet,
-  getForecastForMonthOnWalletOnBudgetStatement,
   getForecastSumForMonth,
   getForecastSumForMonths,
-  getForecastSumOfMonthsOnWallet,
   getTotalQuarterlyBudgetCapOnBudgetStatement,
-  getWalletMonthlyBudget,
 } from '../../utils/budgetStatementsUtils';
 
 import { FORECAST_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
-import { getTransferRequestSource } from '../../utils/forecastHelper';
+import {
+  getBudgetCapForMonthOnBudgetStatementForeCast,
+  getForecastForMonthOnWalletOnBudgetStatementOrNA,
+  getForecastSumOfMonthsOnWalletForeCast,
+  getTransferRequestSource,
+  getWalletMonthlyBudgetForeCast,
+  sumAllMonths,
+} from '../../utils/forecastHelper';
 import { getBreakdownItemsForWallet, getForecastBreakdownColumns } from '../../utils/forecastTableHelpers';
 import HeaderWithIcon from '../HeaderWithIcon/HeaderWithIcon';
 import ProgressiveIndicator from './ProgresiveIndicator';
@@ -165,16 +169,17 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
 
     let emptyWallets = 0;
     wallets.forEach((wallet) => {
-      const firstMonthlyBudgetCap = getWalletMonthlyBudget(wallet, firstMonth.toFormat(API_MONTH_TO_FORMAT));
-      const secondMonthBudgetCap = getWalletMonthlyBudget(wallet, secondMonth.toFormat(API_MONTH_TO_FORMAT));
-      const thirdMonthBudgetCap = getWalletMonthlyBudget(wallet, thirdMonth.toFormat(API_MONTH_TO_FORMAT));
-      const totalMonthPerWallet = firstMonthlyBudgetCap + secondMonthBudgetCap + thirdMonthBudgetCap;
+      const firstMonthlyBudgetCap = getWalletMonthlyBudgetForeCast(wallet, firstMonth.toFormat(API_MONTH_TO_FORMAT));
+      const secondMonthBudgetCap = getWalletMonthlyBudgetForeCast(wallet, secondMonth.toFormat(API_MONTH_TO_FORMAT));
+      const thirdMonthBudgetCap = getWalletMonthlyBudgetForeCast(wallet, thirdMonth.toFormat(API_MONTH_TO_FORMAT));
+      const totalMonthPerWallet = sumAllMonths([firstMonthlyBudgetCap, secondMonthBudgetCap, thirdMonthBudgetCap]);
+
       const numberCellData = [
-        getForecastForMonthOnWalletOnBudgetStatement(budgetStatements, wallet?.address, currentMonth, firstMonth),
-        getForecastForMonthOnWalletOnBudgetStatement(budgetStatements, wallet?.address, currentMonth, secondMonth),
-        getForecastForMonthOnWalletOnBudgetStatement(budgetStatements, wallet?.address, currentMonth, thirdMonth),
+        getForecastForMonthOnWalletOnBudgetStatementOrNA(budgetStatements, wallet?.address, currentMonth, firstMonth),
+        getForecastForMonthOnWalletOnBudgetStatementOrNA(budgetStatements, wallet?.address, currentMonth, secondMonth),
+        getForecastForMonthOnWalletOnBudgetStatementOrNA(budgetStatements, wallet?.address, currentMonth, thirdMonth),
         getBudgetCapForMonthOnWalletOnBudgetStatement(budgetStatements, wallet?.address, currentMonth, currentMonth),
-        getForecastSumOfMonthsOnWallet(budgetStatements, wallet?.address, currentMonth, [
+        getForecastSumOfMonthsOnWalletForeCast(budgetStatements, wallet?.address, currentMonth, [
           firstMonth,
           secondMonth,
           thirdMonth,
@@ -203,11 +208,15 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
 
             value: (
               <ContainerProgressiveIndicator>
-                <ProgressiveIndicator
-                  budgetCap={firstMonthlyBudgetCap}
-                  forecast={numberCellData[0]}
-                  month={firstMonth}
-                />
+                {typeof firstMonthlyBudgetCap === 'number' && typeof numberCellData[0] === 'number' ? (
+                  <ProgressiveIndicator
+                    budgetCap={firstMonthlyBudgetCap}
+                    forecast={numberCellData[0]}
+                    month={firstMonth}
+                  />
+                ) : (
+                  <div>N/A</div>
+                )}
               </ContainerProgressiveIndicator>
             ),
           },
@@ -215,11 +224,15 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
             column: mainTableColumns[2],
             value: (
               <ContainerProgressiveIndicator>
-                <ProgressiveIndicator
-                  budgetCap={secondMonthBudgetCap}
-                  forecast={numberCellData[1]}
-                  month={secondMonth}
-                />
+                {typeof secondMonthBudgetCap === 'number' && typeof numberCellData[1] === 'number' ? (
+                  <ProgressiveIndicator
+                    budgetCap={secondMonthBudgetCap}
+                    forecast={numberCellData[1]}
+                    month={secondMonth}
+                  />
+                ) : (
+                  <div>N/A</div>
+                )}
               </ContainerProgressiveIndicator>
             ),
           },
@@ -227,7 +240,15 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
             column: mainTableColumns[3],
             value: (
               <ContainerProgressiveIndicator>
-                <ProgressiveIndicator budgetCap={thirdMonthBudgetCap} forecast={numberCellData[2]} month={thirdMonth} />
+                {typeof thirdMonthBudgetCap === 'number' && typeof numberCellData[2] === 'number' ? (
+                  <ProgressiveIndicator
+                    budgetCap={thirdMonthBudgetCap}
+                    forecast={numberCellData[2]}
+                    month={thirdMonth}
+                  />
+                ) : (
+                  <div>N/A</div>
+                )}
               </ContainerProgressiveIndicator>
             ),
           },
@@ -239,7 +260,11 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
             column: mainTableColumns[5],
             value: (
               <ContainerProgressiveIndicator>
-                <ProgressiveIndicator budgetCap={totalMonthPerWallet} forecast={numberCellData[4]} />
+                {typeof totalMonthPerWallet === 'number' && typeof numberCellData[4] === 'number' ? (
+                  <ProgressiveIndicator budgetCap={totalMonthPerWallet} forecast={numberCellData[4]} />
+                ) : (
+                  <div>N/A</div>
+                )}
               </ContainerProgressiveIndicator>
             ),
           },
@@ -254,9 +279,32 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
     if (result.length === emptyWallets) {
       return [];
     }
+
     const totalFirstMonth = getForecastSumForMonth(budgetStatements, currentMonth, firstMonth);
     const totalSecondMonth = getForecastSumForMonth(budgetStatements, currentMonth, secondMonth);
     const totalThirdMonth = getForecastSumForMonth(budgetStatements, currentMonth, thirdMonth);
+    const totalFirstMonthBudGetCap = getBudgetCapForMonthOnBudgetStatementForeCast(
+      budgetStatements,
+      currentMonth,
+      firstMonth
+    );
+    const totalSecondMonthBudGetCap = getBudgetCapForMonthOnBudgetStatementForeCast(
+      budgetStatements,
+      currentMonth,
+      thirdMonth
+    );
+    console.log('totalSecondMonthBudGetCap', totalSecondMonthBudGetCap);
+    const totalThirdMonthBudGetCap = getBudgetCapForMonthOnBudgetStatementForeCast(
+      budgetStatements,
+      currentMonth,
+      thirdMonth
+    );
+
+    const TotalBudgetCap = sumAllMonths([
+      totalFirstMonthBudGetCap,
+      totalSecondMonthBudGetCap,
+      totalThirdMonthBudGetCap,
+    ]);
     result.push({
       type: 'total',
       items: [
@@ -268,12 +316,16 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
           column: mainTableColumns[1],
           value: (
             <ContainerProgressiveIndicator>
-              <ProgressiveIndicator
-                budgetCap={getBudgetCapForMonthOnBudgetStatement(budgetStatements, currentMonth, firstMonth)}
-                forecast={totalFirstMonth}
-                isTotal
-                month={firstMonth}
-              />
+              {typeof totalFirstMonthBudGetCap === 'number' ? (
+                <ProgressiveIndicator
+                  budgetCap={totalFirstMonthBudGetCap}
+                  forecast={totalFirstMonth}
+                  isTotal
+                  month={firstMonth}
+                />
+              ) : (
+                <div>N/A</div>
+              )}
             </ContainerProgressiveIndicator>
           ),
         },
@@ -281,12 +333,16 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
           column: mainTableColumns[2],
           value: (
             <ContainerProgressiveIndicator>
-              <ProgressiveIndicator
-                budgetCap={getBudgetCapForMonthOnBudgetStatement(budgetStatements, currentMonth, secondMonth)}
-                forecast={totalSecondMonth}
-                isTotal
-                month={secondMonth}
-              />
+              {typeof totalSecondMonthBudGetCap === 'number' ? (
+                <ProgressiveIndicator
+                  budgetCap={totalSecondMonthBudGetCap}
+                  forecast={totalSecondMonth}
+                  isTotal
+                  month={secondMonth}
+                />
+              ) : (
+                <div>N/A</div>
+              )}
             </ContainerProgressiveIndicator>
           ),
         },
@@ -294,12 +350,16 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
           column: mainTableColumns[3],
           value: (
             <ContainerProgressiveIndicator>
-              <ProgressiveIndicator
-                budgetCap={getBudgetCapForMonthOnBudgetStatement(budgetStatements, currentMonth, thirdMonth)}
-                forecast={totalThirdMonth}
-                isTotal
-                month={thirdMonth}
-              />
+              {typeof totalThirdMonthBudGetCap === 'number' ? (
+                <ProgressiveIndicator
+                  budgetCap={totalThirdMonthBudGetCap}
+                  forecast={totalThirdMonth}
+                  isTotal
+                  month={thirdMonth}
+                />
+              ) : (
+                <div>N/A</div>
+              )}
             </ContainerProgressiveIndicator>
           ),
         },
@@ -311,20 +371,19 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
           column: mainTableColumns[5],
           value: (
             <ContainerProgressiveIndicator>
-              <ProgressiveIndicator
-                isTotal
-                budgetCap={getTotalQuarterlyBudgetCapOnBudgetStatement(
-                  budgetStatements,
-                  [firstMonth, secondMonth, thirdMonth],
-                  wallets,
-                  currentMonth
-                )}
-                forecast={getForecastSumForMonths(budgetStatements, currentMonth, [
-                  firstMonth,
-                  secondMonth,
-                  thirdMonth,
-                ])}
-              />
+              {typeof TotalBudgetCap === 'number' ? (
+                <ProgressiveIndicator
+                  isTotal
+                  budgetCap={TotalBudgetCap}
+                  forecast={getForecastSumForMonths(budgetStatements, currentMonth, [
+                    firstMonth,
+                    secondMonth,
+                    thirdMonth,
+                  ])}
+                />
+              ) : (
+                <div>N/A</div>
+              )}
             </ContainerProgressiveIndicator>
           ),
         },
