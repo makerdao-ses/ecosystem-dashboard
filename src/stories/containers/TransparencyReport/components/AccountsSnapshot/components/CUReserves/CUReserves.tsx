@@ -75,6 +75,36 @@ const CUReserves: React.FC<CUReservesProps> = ({ coreUnitCode }) => {
           />
         </ReservesCardsContainer>
       </Subsection>
+
+      <Subsection isDisabled>
+        <SectionHeader
+          title="Off Chain Reserves"
+          subtitle={`Unspent off-chain reserves accessible to the ${coreUnitCode} Core Unit.`}
+          tooltip={'pending...'}
+          isSubsection
+        />
+
+        <ReservesCardsContainer>
+          <ReserveCard
+            name="Payment Processor"
+            isGroup
+            initialBalance={100000}
+            inflow={300000}
+            outflow={300000}
+            newBalance={0}
+          />
+          <ReserveCard
+            // temporary disable as this is a WIP
+            // eslint-disable-next-line spellcheck/spell-checker
+            name="Coinbase Account"
+            isGroup
+            initialBalance={500000}
+            inflow={300000}
+            outflow={250000}
+            newBalance={550680}
+          />
+        </ReservesCardsContainer>
+      </Subsection>
     </div>
   );
 };
@@ -107,9 +137,10 @@ const CheckContainer = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const Subsection = styled.div({
+const Subsection = styled.div<{ isDisabled?: boolean }>(({ isDisabled = false }) => ({
   marginTop: 24,
-});
+  opacity: isDisabled ? 0.3 : 1,
+}));
 
 const ReservesCardsContainer = styled.div({
   display: 'flex',
