@@ -197,7 +197,7 @@ export const CustomPopover = ({
         type: arrowPosition,
         payload: event.currentTarget,
       });
-      handleShowPopoverWhenNotSpace?.(arrowPosition === 'up');
+      handleShowPopoverWhenNotSpace?.(arrowPosition === 'up' || arrowPosition === 'arrowUp');
       handleNotSpaceRight?.(arrowPosition);
     },
     [
