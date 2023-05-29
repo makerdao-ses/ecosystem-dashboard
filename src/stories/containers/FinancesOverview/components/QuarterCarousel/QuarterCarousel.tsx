@@ -1,8 +1,7 @@
 import styled from '@emotion/styled';
+import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import lightTheme from '@ses/styles/theme/light';
 import React, { useRef } from 'react';
-// import Swiper from 'swiper';
-// import { Navigation } from 'swiper/core';
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { isQuarter4 } from '../../utils/quarters';
@@ -15,7 +14,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import 'swiper/css';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
-// import type { SwiperRef } from 'swiper/react';
+import type { SwiperRef } from 'swiper/react';
 
 type QuarterCarouselProps = {
   quarters: ExpenseDto[];
@@ -24,19 +23,39 @@ type QuarterCarouselProps = {
 const QuarterCarousel: React.FC<QuarterCarouselProps> = ({ quarters }) => {
   const swiper = useSwiper();
   const { showDivider, swiperOptions, isLight } = useQuarterCarousel(quarters);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const swiperRef = useRef<any>(null);
+  const ref = useRef<SwiperRef>(null);
+  const navigationPrevRef = useRef<HTMLDivElement>(null);
+  const navigationNextRef = useRef<HTMLDivElement>(null);
+  const handleOnNext = () => {
+    swiper?.slideNext();
+  };
 
+  const handleOnPrevious = () => {
+    swiper?.slidePrev();
+  };
   return (
     <SwiperWrapper>
+      <ContainerNavigation>
+        <SwiperNavigationButton
+          onNext={handleOnNext}
+          onPrevious={handleOnPrevious}
+          refNext={navigationNextRef}
+          refPrevious={navigationPrevRef}
+        />
+      </ContainerNavigation>
       <Swiper
-        // navigation
+        ref={ref}
         {...swiperOptions}
         modules={[Navigation]}
+        navigation={{
+          prevEl: navigationPrevRef.current ? navigationPrevRef.current : undefined,
+          nextEl: navigationNextRef.current ? navigationNextRef.current : undefined,
+        }}
         onBeforeInit={(swiper) => {
-          if (swiperRef.current === null) {
-            swiperRef.current = swiper;
-          }
+          swiper.params.navigation = {
+            nextEl: navigationNextRef.current,
+            prevEl: navigationPrevRef.current,
+          };
         }}
       >
         {quarters.map((item, index) => (
@@ -47,9 +66,6 @@ const QuarterCarousel: React.FC<QuarterCarouselProps> = ({ quarters }) => {
             {showDivider && isQuarter4(item.period) && index < quarters.length - 1 && <Divider isLight={isLight} />}
           </SwiperSlide>
         ))}
-        <ContainerNavigation>
-          <SwiperNavigationButton onNext={() => swiper?.slideNext()} onPrevious={() => swiper?.slidePrev()} />
-        </ContainerNavigation>
       </Swiper>
     </SwiperWrapper>
   );
@@ -83,6 +99,9 @@ const SwiperWrapper = styled.div({
       maxWidth: '25%',
     },
   },
+  '& .swiper-button-prev:after': {
+    display: 'none',
+  },
 });
 
 const CardWrapper = styled.div({
@@ -109,6 +128,6 @@ const Divider = styled.div<WithIsLight>(({ isLight }) => ({
 const ContainerNavigation = styled.div({
   position: 'absolute',
   width: '100%',
-  zIndex: 1,
+  zIndex: zIndexEnum.NAVIGATION_CARDS,
   top: '30%',
 });

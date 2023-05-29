@@ -6,14 +6,16 @@ import React from 'react';
 interface Props {
   onNext?: () => void;
   onPrevious?: () => void;
+  refPrevious?: React.LegacyRef<HTMLDivElement>;
+  refNext?: React.LegacyRef<HTMLDivElement>;
 }
 
-const SwiperNavigationButton: React.FC<Props> = ({ onNext, onPrevious }) => (
+const SwiperNavigationButton: React.FC<Props> = ({ onNext, onPrevious, refNext, refPrevious }) => (
   <Container>
-    <ContainerButtonLeft>
+    <ContainerButtonLeft ref={refPrevious}>
       <ArrowSwiperPrevious onClick={onPrevious} />
     </ContainerButtonLeft>
-    <ContainerButtonRight>
+    <ContainerButtonRight ref={refNext}>
       <ArrowSwiperNext onClick={onNext} />
     </ContainerButtonRight>
   </Container>
