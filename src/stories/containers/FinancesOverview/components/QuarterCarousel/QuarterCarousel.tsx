@@ -39,7 +39,7 @@ const QuarterCarousel: React.FC<QuarterCarouselProps> = ({ quarters }) => {
     <SwiperWrapper>
       <WrapperMobile>
         <ContainerButtonLeft ref={navigationPrevRef}>
-          <ArrowSwiperPrevious onClick={handleOnPrevious} disabled={true} />
+          <ArrowSwiperPrevious onClick={handleOnPrevious} />
         </ContainerButtonLeft>
         <ContainerButtonRight ref={navigationNextRef}>
           <ArrowSwiperNext onClick={handleOnNext} />
