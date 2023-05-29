@@ -16,11 +16,11 @@ export const getMipTitle = (title: string) => {
   return pieces;
 };
 
-export const formatAddressForOutput = (address: string | undefined) => {
+export const formatAddressForOutput = (address: string | undefined, startChars = 5, endChars = 5, divider = '..') => {
   if (!address) {
     return '';
   }
-  return `${address.slice(0, 5)}..${address.slice(address.length - 5, address.length)}`;
+  return `${address.slice(0, startChars)}${divider}${address.slice(address.length - endChars, address.length)}`;
 };
 
 export const capitalizeWord = (word: string) =>
