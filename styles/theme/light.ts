@@ -16,6 +16,16 @@ declare module '@mui/material/styles' {
     table_375: true;
   }
 }
+
+export const breakpoints = {
+  desktop_1920: 1920,
+  desktop_1440: 1440,
+  desktop_1280: 1280,
+  desktop_1194: 1194,
+  table_834: 834,
+  table_375: 375,
+};
+
 const lightTheme = responsiveFontSizes(
   createTheme({
     palette: {
@@ -31,12 +41,7 @@ const lightTheme = responsiveFontSizes(
     },
     breakpoints: {
       values: {
-        desktop_1920: 1920,
-        desktop_1440: 1440,
-        desktop_1280: 1280,
-        desktop_1194: 1194,
-        table_834: 834,
-        table_375: 375,
+        ...breakpoints,
       },
     },
   })

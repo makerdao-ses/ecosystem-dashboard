@@ -3,6 +3,7 @@ import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import type { CardSpacingSize } from '../AdvancedInnerTable/AdvancedInnerTable';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   header: JSX.Element | string;
@@ -28,29 +29,36 @@ export const TransparencyCard: React.FC<Props> = ({ cardSpacingSize = 'large', .
       }`}
     >
       <HeaderWrapper>{props.header}</HeaderWrapper>
-      {props.headers.map((header, i) => (
-        <>
-          <Row
-            key={header.toString()}
-            hasIcon={header !== 'Target Balance' || (header === 'Target Balance' && props.itemType === 'total')}
-          >
-            <Label hasIcon={header === 'Target Balance'}>{header}</Label>
-            <div
-              style={{
-                display: props.itemType === 'total' ? 'flex' : undefined,
-                justifyContent: props.itemType ? 'flex-end' : undefined,
-                width:
-                  header === 'Target Balance' || (header === 'Target Balance' && props.itemType !== 'total')
-                    ? '100%'
-                    : undefined,
-              }}
+      {props.headers.map((header, i) => {
+        const titleReactComponent = (header as JSX.Element).props?.title || '';
+        const totalsStyle = header === 'Totals' || titleReactComponent === 'Totals';
+
+        return (
+          <>
+            <Row
+              key={header.toString()}
+              hasIcon={header !== 'Target Balance' || (header === 'Target Balance' && props.itemType === 'total')}
             >
-              {(props.items && props.items[i]) ?? ''}
-            </div>
-          </Row>
-          {props.separators?.[i] && <ContainerLine isLight={isLight} />}
-        </>
-      ))}
+              <Label hasIcon={header === 'Target Balance'} isTotal={totalsStyle} isLight={isLight}>
+                {header}
+              </Label>
+              <div
+                style={{
+                  display: props.itemType === 'total' ? 'flex' : undefined,
+                  justifyContent: props.itemType ? 'flex-end' : undefined,
+                  width:
+                    header === 'Target Balance' || (header === 'Target Balance' && props.itemType !== 'total')
+                      ? '100%'
+                      : undefined,
+                }}
+              >
+                {(props.items && props.items[i]) ?? ''}
+              </div>
+            </Row>
+            {props.separators?.[i] && <ContainerLine isLight={isLight} />}
+          </>
+        );
+      })}
 
       {props.footer && <FooterWrapper isLight={isLight}>{props.footer}</FooterWrapper>}
     </Container>
@@ -95,20 +103,22 @@ const Row = styled.div<{ hasIcon?: boolean; height?: string }>(({ hasIcon = fals
   },
 }));
 
-const Label = styled.div<{ hasIcon?: boolean; height?: string }>(({ hasIcon = false }) => ({
-  display: 'flex',
+const Label = styled.div<WithIsLight & { hasIcon?: boolean; height?: string; isTotal: boolean }>(
+  ({ hasIcon = false, isTotal, isLight }) => ({
+    display: 'flex',
 
-  alignItems: hasIcon ? 'flex-start' : 'center',
-  color: '#708390',
-  fontFamily: 'Inter, sans-serif',
-  fontWeight: 600,
-  fontSize: '12px',
-  lineHeight: '15px',
-  height: '37px',
-  letterSpacing: '1px',
-  textTransform: 'uppercase',
-  minWidth: 132,
-}));
+    alignItems: hasIcon ? 'flex-start' : 'center',
+    color: isLight ? (isTotal ? '#434358' : '#708390') : isTotal ? '#9FAFB9' : '#708390',
+    fontFamily: 'Inter, sans-serif',
+    fontWeight: 600,
+    fontSize: '12px',
+    lineHeight: '15px',
+    height: '37px',
+    letterSpacing: '1px',
+    textTransform: 'uppercase',
+    minWidth: 132,
+  })
+);
 
 const ContainerLine = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
