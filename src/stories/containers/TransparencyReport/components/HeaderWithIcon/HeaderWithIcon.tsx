@@ -12,6 +12,7 @@ import React, { useCallback, useEffect, useReducer, useRef, useState } from 'rea
 import ModalSheetValueContent from '../TransparencyTransferRequest/components/ModalSheet/ModalSheetValueContent';
 import HeaderToolTip from './TooltipHeader';
 import type { WithIsLightAndClick } from '../../transparencyReportUtils';
+import type { PositionPopoverWithArrow } from '@ses/components/CustomPopover/CustomPopover';
 
 interface Props {
   description: string;
@@ -72,21 +73,24 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
   const [state, dispatch] = useReducer(updatePositionPopoverReducer, InitialState);
 
   const handleShowPopoverWhenNotSpace = (value: boolean) => {
+    // console.log({ value });
     dispatch({
       type: 'notSpaceDown',
       payload: value,
     });
   };
-  const handleNotSpaceRight = (value: string) => {
-    if (value === 'arrowUp') {
+
+  const handleNotSpaceRight = (value: PositionPopoverWithArrow) => {
+    console.log({ value });
+    if (value === 'downLeft') {
       dispatch({
         type: 'NotSpaceRight',
       });
     }
-    if (value === 'arrowDown') {
+    if (value === 'upLeft') {
       dispatch({
         type: 'NotDownRight',
-        payload: state.marginTopPopoverPosition,
+        // payload: state.marginTopPopoverPosition,
       });
     }
   };
@@ -136,7 +140,7 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
               hasNotDownRight={state.hasNotDownRight}
               marginTopPopoverPosition={state.marginTopPopoverPosition}
               onClose={handleClose}
-              alignArrow={state.hasNotSpaceRight || state.hasNotDownRight ? 'right' : undefined}
+              alignArrow={state.hasNotDownRight || state.hasNotDownRight ? 'right' : undefined}
               handleNotSpaceRight={handleNotSpaceRight}
               hasNotSpaceRight={state.hasNotSpaceRight}
               handleShowPopoverWhenNotSpace={handleShowPopoverWhenNotSpace}
@@ -222,7 +226,7 @@ const ExtendedCustomPopover = styled(CustomPopover)<{
     marginLeft: -45,
     marginTop: marginTopPopoverPosition ? 16 : -25,
     ...(hasNotSpaceRight && {
-      marginLeft: 45,
+      marginLeft: 0,
       marginTop: 15,
     }),
     ...(hasNotDownRight && {
