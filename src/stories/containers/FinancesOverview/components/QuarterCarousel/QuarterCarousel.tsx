@@ -37,12 +37,14 @@ const QuarterCarousel: React.FC<QuarterCarouselProps> = ({ quarters }) => {
   };
   return (
     <SwiperWrapper>
-      <ContainerButtonLeft ref={navigationPrevRef}>
-        <ArrowSwiperPrevious onClick={handleOnPrevious} />
-      </ContainerButtonLeft>
-      <ContainerButtonRight ref={navigationNextRef}>
-        <ArrowSwiperNext onClick={handleOnNext} />
-      </ContainerButtonRight>
+      <WrapperMobile>
+        <ContainerButtonLeft ref={navigationPrevRef}>
+          <ArrowSwiperPrevious onClick={handleOnPrevious} disabled={true} />
+        </ContainerButtonLeft>
+        <ContainerButtonRight ref={navigationNextRef}>
+          <ArrowSwiperNext onClick={handleOnNext} />
+        </ContainerButtonRight>
+      </WrapperMobile>
       <Swiper
         ref={ref}
         {...swiperOptions}
@@ -138,4 +140,11 @@ const ContainerButtonLeft = styled.div({
   position: 'absolute',
   top: '30%',
   zIndex: 4,
+});
+
+const WrapperMobile = styled.div({
+  display: 'none',
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    display: 'block',
+  },
 });
