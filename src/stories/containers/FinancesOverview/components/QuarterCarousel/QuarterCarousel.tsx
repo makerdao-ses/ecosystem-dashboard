@@ -1,12 +1,14 @@
 import styled from '@emotion/styled';
-import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
+
+import ArrowSwiperNext from '@ses/components/svg/ArrowSwiperNext';
+import ArrowSwiperPrevious from '@ses/components/svg/ArrowSwiperPrevious';
 import lightTheme from '@ses/styles/theme/light';
 import React, { useRef } from 'react';
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { isQuarter4 } from '../../utils/quarters';
 import QuarterCard from '../QuarterCard/QuarterCard';
-import SwiperNavigationButton from './SwiperNavigationButton';
+
 import useQuarterCarousel from './useQuarterCarousel';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 import 'swiper/css/navigation';
@@ -35,14 +37,12 @@ const QuarterCarousel: React.FC<QuarterCarouselProps> = ({ quarters }) => {
   };
   return (
     <SwiperWrapper>
-      <ContainerNavigation>
-        <SwiperNavigationButton
-          onNext={handleOnNext}
-          onPrevious={handleOnPrevious}
-          refNext={navigationNextRef}
-          refPrevious={navigationPrevRef}
-        />
-      </ContainerNavigation>
+      <ContainerButtonLeft ref={navigationPrevRef}>
+        <ArrowSwiperPrevious onClick={handleOnPrevious} />
+      </ContainerButtonLeft>
+      <ContainerButtonRight ref={navigationNextRef}>
+        <ArrowSwiperNext onClick={handleOnNext} />
+      </ContainerButtonRight>
       <Swiper
         ref={ref}
         {...swiperOptions}
@@ -125,9 +125,17 @@ const Divider = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const ContainerNavigation = styled.div({
+const ContainerButtonRight = styled.div({
+  marginRight: -10,
   position: 'absolute',
-  width: '100%',
-  zIndex: zIndexEnum.NAVIGATION_CARDS,
   top: '30%',
+  right: 0,
+  zIndex: 4,
+});
+
+const ContainerButtonLeft = styled.div({
+  marginLeft: -10,
+  position: 'absolute',
+  top: '30%',
+  zIndex: 4,
 });
