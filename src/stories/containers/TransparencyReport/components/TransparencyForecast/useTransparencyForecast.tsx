@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
 import { capitalizeSentence, getWalletWidthForWallets, toKebabCase } from '@ses/core/utils/string';
+import lightTheme from '@ses/styles/theme/light';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -454,7 +455,9 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
 export const ContainerProgressiveIndicator = styled.div({
   display: 'flex',
   flex: 1,
-  paddingRight: 16,
   flexDirection: 'row',
   justifyContent: 'flex-end',
+  [lightTheme.breakpoints.up('table_834')]: {
+    paddingRight: 16,
+  },
 });
