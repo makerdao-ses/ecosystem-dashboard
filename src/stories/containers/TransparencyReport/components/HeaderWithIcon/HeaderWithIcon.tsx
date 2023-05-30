@@ -46,6 +46,7 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
   };
   const handleClose = () => {
     clearTimeout(leaveTimeoutRef.current);
+    setIsOpen(false);
     leaveTimeoutRef.current = setTimeout(() => {
       setHasNotSpaceRight(false);
       setHasNotDownRight(false);
@@ -78,9 +79,17 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
     };
   }, [isMobileDevice, isOpen, lockScroll, unlockScroll]);
 
-  const handleOnClick = useCallback(() => {
-    setIsOpen(!isOpen);
-  }, [isOpen]);
+  const handleOnClick = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      e.stopPropagation();
+      setIsOpen(!isOpen);
+    },
+    [isOpen]
+  );
+
+  const handleCloseOverLay = () => {
+    setIsOpen(false);
+  };
   return (
     <Container>
       {!isMobileResolution && (
@@ -159,7 +168,9 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
           />
         </ModalSheet>
       )}
-      {isMobileResolution && isOpen && isMobileDevice && <ContainerOverlay isLight={isLight} onClick={handleOnClick} />}
+      {isMobileResolution && isOpen && isMobileDevice && (
+        <ContainerOverlay isLight={isLight} onClick={handleCloseOverLay} />
+      )}
     </Container>
   );
 };

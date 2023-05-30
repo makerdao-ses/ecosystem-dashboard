@@ -25,11 +25,13 @@ const BarWithDottedLineMobile: React.FC<Props> = ({ value, relativeValue, month,
   const monthFormatted = month?.toFormat('MMMM') || '3 Months Budget Cap';
   const [hover, setHover] = useState(false);
 
-  const handleMouseOver = () => {
+  const handleMouseOver = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
     setHover(true);
   };
 
-  const handleMouseOut = () => {
+  const handleMouseOut = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
     setHover(false);
   };
   const barColor = getProgressiveBarColor(value, relativeValue, isLight, hover);
@@ -44,6 +46,7 @@ const BarWithDottedLineMobile: React.FC<Props> = ({ value, relativeValue, month,
       <ContainerBar>
         <BudgetBar isLight={isLight}>{<BarPercent width={percent} color={barColor} />}</BudgetBar>
         <CustomPopover
+          leaveOnChildrenMouseOut
           popoverStyle={{
             border: `1px solid ${borderColor}`,
             boxShadow: isLight
@@ -56,8 +59,13 @@ const BarWithDottedLineMobile: React.FC<Props> = ({ value, relativeValue, month,
           title={<PopoverForecastDescription relativeValue={relativeValue} value={value} month={monthFormatted} />}
         >
           <ContainerRelative>
-            <ContendBarForSpace onMouseEnter={handleMouseOver} onMouseOut={handleMouseOut} displacement={displacement}>
-              <VerticalBar onMouseEnter={handleMouseOver} onMouseOut={handleMouseOut} />
+            <ContendBarForSpace
+              onMouseEnter={handleMouseOver}
+              onMouseOut={handleMouseOut}
+              displacement={displacement}
+              onClick={handleMouseOver}
+            >
+              <VerticalBar onMouseEnter={handleMouseOver} onMouseOut={handleMouseOut} onClick={handleMouseOver} />
             </ContendBarForSpace>
           </ContainerRelative>
         </CustomPopover>
