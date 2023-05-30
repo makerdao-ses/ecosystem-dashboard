@@ -175,7 +175,6 @@ export const CustomPopover = ({
     (event: React.MouseEvent<HTMLElement>) => {
       clearTimeout(leaveTimeout);
       let positionPopoverArrow = 'downRight' as PositionPopoverWithArrow;
-      // const arrowPosition = 'up' as ArrowPosition;
       let elementPositionRight;
       if (refElementShowPopover) {
         const elementPosition = refElementShowPopover?.current?.getBoundingClientRect().top;
@@ -195,18 +194,6 @@ export const CustomPopover = ({
         if (distance > distanceBottom && elementPositionRight < distanceRight) {
           positionPopoverArrow = 'downLeft';
         }
-        // if (distance > distanceBottom && elementPositionRight < distanceRight) {
-        //   positionPopoverArrow = 'downLeft';
-        // }
-        // if (distance < distanceBottom && elementPositionRight > distanceRight) {
-        //   positionPopoverArrow = 'downLeft';
-        // }
-        // if (elementPositionRight < distanceRight) {
-        //   arrowPosition = 'arrowUp';
-        // }
-        // if (distance < distanceBottom && elementPositionRight < distanceRight) {
-        //   arrowPosition = 'arrowDown';
-        // }
       }
       const wrapper = getPageWrapper();
       if (wrapper) {
