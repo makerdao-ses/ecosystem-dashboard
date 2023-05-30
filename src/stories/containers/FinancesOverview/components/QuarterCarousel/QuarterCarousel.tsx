@@ -59,7 +59,7 @@ const QuarterCarousel: React.FC<QuarterCarouselProps> = ({ quarters }) => {
           <ArrowSwiperNext
             onClick={handleOnNext}
             navigationNextRef={!isEnd ? navigationNextRef : null}
-            isDisable={!isEnd}
+            isDisable={isEnd}
           />
         </ContainerButtonRight>
       </WrapperMobile>
