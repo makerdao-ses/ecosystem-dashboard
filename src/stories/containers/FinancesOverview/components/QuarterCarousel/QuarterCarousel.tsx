@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import ArrowSwiperNext from '@ses/components/svg/ArrowSwiperNext';
 import ArrowSwiperPrevious from '@ses/components/svg/ArrowSwiperPrevious';
 import lightTheme from '@ses/styles/theme/light';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { isQuarter4 } from '../../utils/quarters';
@@ -24,10 +24,14 @@ type QuarterCarouselProps = {
 
 const QuarterCarousel: React.FC<QuarterCarouselProps> = ({ quarters }) => {
   const swiper = useSwiper();
+
   const { showDivider, swiperOptions, isLight } = useQuarterCarousel(quarters);
   const ref = useRef<SwiperRef>(null);
-  const navigationPrevRef = useRef<HTMLDivElement>(null);
-  const navigationNextRef = useRef<HTMLDivElement>(null);
+  const navigationPrevRef = useRef<SVGSVGElement>(null);
+  const navigationNextRef = useRef<SVGSVGElement>(null);
+  const [isBegin, setIsBegin] = useState(false);
+  const [isEnd, setIsEnd] = useState(false);
+
   const handleOnNext = () => {
     swiper?.slideNext();
   };
@@ -35,28 +39,43 @@ const QuarterCarousel: React.FC<QuarterCarouselProps> = ({ quarters }) => {
   const handleOnPrevious = () => {
     swiper?.slidePrev();
   };
+
+  const onSlideChange = () => {
+    setIsBegin(ref.current?.swiper?.isBeginning || false);
+    setIsEnd(ref.current?.swiper?.isEnd || false);
+  };
+
   return (
     <SwiperWrapper>
       <WrapperMobile>
-        <ContainerButtonLeft ref={navigationPrevRef}>
-          <ArrowSwiperPrevious onClick={handleOnPrevious} />
+        <ContainerButtonLeft>
+          <ArrowSwiperPrevious
+            onClick={handleOnPrevious}
+            navigationPrevRef={isBegin ? null : navigationPrevRef}
+            isDisable={isBegin}
+          />
         </ContainerButtonLeft>
-        <ContainerButtonRight ref={navigationNextRef}>
-          <ArrowSwiperNext onClick={handleOnNext} />
+        <ContainerButtonRight>
+          <ArrowSwiperNext
+            onClick={handleOnNext}
+            navigationNextRef={!isEnd ? navigationNextRef : null}
+            isDisable={!isEnd}
+          />
         </ContainerButtonRight>
       </WrapperMobile>
       <Swiper
+        onSlideChange={onSlideChange}
         ref={ref}
         {...swiperOptions}
         modules={[Navigation]}
         navigation={{
-          prevEl: navigationPrevRef.current ? navigationPrevRef.current : undefined,
-          nextEl: navigationNextRef.current ? navigationNextRef.current : undefined,
+          prevEl: navigationPrevRef.current as HTMLElement | null,
+          nextEl: navigationNextRef.current as HTMLElement | null,
         }}
         onBeforeInit={(swiper) => {
           swiper.params.navigation = {
-            nextEl: navigationNextRef.current,
-            prevEl: navigationPrevRef.current,
+            prevEl: navigationPrevRef?.current as unknown as HTMLElement | null,
+            nextEl: navigationNextRef?.current as unknown as HTMLElement | null,
           };
         }}
       >

@@ -10,6 +10,8 @@ interface Props {
   fillCircle?: string;
   fillArrowDark?: string;
   onClick?: () => void;
+  navigationPrevRef: React.LegacyRef<SVGSVGElement> | null;
+  isDisable?: boolean;
 }
 
 export const ArrowSwiperPrevious: React.FC<Props> = ({
@@ -20,13 +22,18 @@ export const ArrowSwiperPrevious: React.FC<Props> = ({
   fillArrowDark = '#D2D4EF',
   fillCircleDark = '#787A9B',
   onClick,
+  isDisable = false,
+  navigationPrevRef,
+
   ...props
 }) => {
   const { isLight } = useThemeContext();
   return (
     <StyledSvg
+      ref={navigationPrevRef}
       isLight={isLight}
-      cursor={onClick ? 'pointer' : 'default'}
+      isDisable={isDisable}
+      cursor={isDisable ? 'not-allowed' : 'pointer'}
       onClick={onClick}
       width={width}
       height={height}
@@ -36,12 +43,17 @@ export const ArrowSwiperPrevious: React.FC<Props> = ({
       {...props}
     >
       <g opacity={0.6} filter="url(#filter0_d_17842_226006)">
-        <circle cx={38} cy={32} r={32} fill={isLight ? fillCircle : fillCircleDark} />
+        <circle
+          cx={38}
+          cy={32}
+          r={32}
+          fill={isLight ? (isDisable ? 'red' : fillCircle) : isDisable ? 'red' : fillCircleDark}
+        />
       </g>
       <path
         opacity={0.8}
         d="M19.664 33.73c-1.333-.77-1.333-2.694 0-3.463l26-15.011c1.333-.77 3 .192 3 1.732V47.01c0 1.54-1.667 2.502-3 1.732l-26-15.011z"
-        fill={isLight ? fillArrow : fillArrowDark}
+        fill={isLight ? (isDisable ? 'yellow' : fillArrow) : isDisable ? 'yellow' : fillArrowDark}
       />
       <defs>
         <filter
@@ -69,17 +81,26 @@ export const ArrowSwiperPrevious: React.FC<Props> = ({
 
 export default ArrowSwiperPrevious;
 
-const StyledSvg = styled.svg<{ isLight: boolean }>(({ isLight }) => ({
-  '&:hover circle': {
-    fill: isLight ? 'rgba(231, 252, 250, 0.6)' : '#139D8D',
-  },
-  '&:hover path': {
-    fill: isLight ? '#9FAFB9' : '#2DC1B1',
-  },
-  ':active circle': {
-    fill: isLight ? '#E7FCFA' : '#027265',
-  },
-  ':active path': {
-    fill: isLight ? '#9FAFB9' : '#1AAB9B',
-  },
+const StyledSvg = styled.svg<{ isLight: boolean; isDisable: boolean }>(({ isLight, isDisable }) => ({
+  ...(!isDisable && {
+    '&:hover circle': {
+      fill: isLight ? 'rgba(231, 252, 250, 0.6)' : '#139D8D',
+    },
+  }),
+
+  ...(!isDisable && {
+    '&:hover path': {
+      fill: isLight ? '#9FAFB9' : '#2DC1B1',
+    },
+  }),
+  ...(!isDisable && {
+    ':active circle': {
+      fill: isLight ? '#E7FCFA' : '#027265',
+    },
+  }),
+  ...(!isDisable && {
+    ':active path': {
+      fill: isLight ? '#9FAFB9' : '#1AAB9B',
+    },
+  }),
 }));
