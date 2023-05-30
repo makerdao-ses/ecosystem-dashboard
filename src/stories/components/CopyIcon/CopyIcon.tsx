@@ -41,7 +41,7 @@ const CopyIcon: React.FC<CopyIconProps> = ({
         }}
       >
         <CopyToClipboard text={text} onCopy={() => setPopoverText(defaultCopyTooltip)}>
-          <ClipBoard width={width} height={height} />
+          <ClipBoard width={width} height={height} onClick={(e: React.MouseEvent) => e.stopPropagation()} />
         </CopyToClipboard>
       </CustomPopover>
     </IconContainer>

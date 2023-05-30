@@ -13,7 +13,7 @@ export default {
 } as ComponentMeta<typeof BarWithDottedLine>;
 const variantsArgs = [
   {
-    value: 58000,
+    value: 7500,
     relativeValue: 856579,
   },
   {
@@ -48,11 +48,11 @@ ProgressiveGreen.parameters = {
     component: {
       375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=17273:217604&t=X5dl1EckgkoawGMb-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=17273:217604&t=MjSTXSOlnzAFP2Sr-4',
         options: {
           style: {
             left: 0,
-            top: 3,
+            top: 22,
           },
           componentStyle: {
             width: 100,
@@ -71,7 +71,7 @@ ProgressiveYellow.parameters = {
         options: {
           style: {
             left: 0,
-            top: 3,
+            top: 22,
           },
           componentStyle: {
             width: 100,
@@ -90,7 +90,7 @@ ProgressiveRed.parameters = {
         options: {
           style: {
             left: 0,
-            top: 3,
+            top: 22,
           },
           componentStyle: {
             width: 100,
@@ -109,7 +109,7 @@ ProgressiveYellow.parameters = {
         options: {
           style: {
             left: 0,
-            top: 3,
+            top: 22,
           },
           componentStyle: {
             width: 100,
@@ -128,7 +128,7 @@ ProgressiveGrayStrong.parameters = {
         options: {
           style: {
             left: 0,
-            top: 3,
+            top: 22,
           },
           componentStyle: {
             width: 100,

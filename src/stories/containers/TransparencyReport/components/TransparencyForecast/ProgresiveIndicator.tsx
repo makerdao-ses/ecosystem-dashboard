@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { usLocalizedNumber } from '@ses/core/utils/humanization';
+import { useMediaQuery } from '@mui/material';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import BarWithDottedLine from './BarWithDottedLine';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
+import ProgressiveIndicatorMobile from './ProgresiveIndicatorMobile';
+
 import type { DateTime } from 'luxon';
 
 interface Props {
@@ -14,14 +15,17 @@ interface Props {
 }
 
 const ProgressiveIndicator: React.FC<Props> = ({ forecast, budgetCap, isTotal = false, month }) => {
-  const { isLight } = useThemeContext();
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   return (
-    <Container>
-      <Forecast isLight={isLight} isTotal={isTotal} isNegative={forecast < 0}>
-        {usLocalizedNumber(forecast)}
-      </Forecast>
-      <BarWithDottedLine value={forecast} relativeValue={budgetCap} month={month} />
-    </Container>
+    <>
+      {!isMobile ? (
+        <Container>
+          <BarWithDottedLine value={forecast} relativeValue={budgetCap} month={month} />
+        </Container>
+      ) : (
+        <ProgressiveIndicatorMobile budgetCap={budgetCap} forecast={forecast} isTotal={isTotal} month={month} />
+      )}
+    </>
   );
 };
 
@@ -36,13 +40,3 @@ const Container = styled.div({
   letterSpacing: '0.3px',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
 });
-
-const Forecast = styled.div<WithIsLight & { isTotal: boolean; isNegative?: boolean; isLight: boolean }>(
-  ({ isLight, isTotal, isNegative }) => ({
-    fontSize: '16px',
-    lineHeight: '19px',
-    textAlign: 'right',
-    fontWeight: isTotal ? 700 : 400,
-    color: isLight ? (isNegative ? '#F75524' : '#231536') : isNegative ? '#F75524' : '#D2D4EF',
-  })
-);

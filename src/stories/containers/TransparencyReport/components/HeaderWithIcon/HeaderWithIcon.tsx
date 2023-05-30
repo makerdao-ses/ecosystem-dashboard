@@ -73,7 +73,6 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
   const [state, dispatch] = useReducer(updatePositionPopoverReducer, InitialState);
 
   const handleShowPopoverWhenNotSpace = (value: boolean) => {
-    // console.log({ value });
     dispatch({
       type: 'notSpaceDown',
       payload: value,
@@ -90,7 +89,6 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
     if (value === 'upLeft') {
       dispatch({
         type: 'NotDownRight',
-        // payload: state.marginTopPopoverPosition,
       });
     }
   };
@@ -99,6 +97,7 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
     dispatch({
       type: undefined,
     });
+    setIsOpen(false);
   };
   useEffect(() => {
     clearTimeout(leaveTimeoutRef.current);
@@ -127,9 +126,17 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
     };
   }, [isMobileDevice, isOpen, lockScroll, unlockScroll]);
 
-  const handleOnClick = useCallback(() => {
-    setIsOpen(!isOpen);
-  }, [isOpen]);
+  const handleOnClick = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      e.stopPropagation();
+      setIsOpen(!isOpen);
+    },
+    [isOpen]
+  );
+
+  const handleCloseOverLay = () => {
+    setIsOpen(false);
+  };
   return (
     <Container>
       {!isMobileResolution && (
@@ -208,7 +215,9 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
           />
         </ModalSheet>
       )}
-      {isMobileResolution && isOpen && isMobileDevice && <ContainerOverlay isLight={isLight} onClick={handleOnClick} />}
+      {isMobileResolution && isOpen && isMobileDevice && (
+        <ContainerOverlay isLight={isLight} onClick={handleCloseOverLay} />
+      )}
     </Container>
   );
 };
