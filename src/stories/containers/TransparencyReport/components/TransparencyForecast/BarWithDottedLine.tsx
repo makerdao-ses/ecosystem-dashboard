@@ -45,7 +45,8 @@ const BarWithDottedLineMobile: React.FC<Props> = ({ value, relativeValue, month,
       </Forecast>
       <ContainerBar>
         <BudgetBar isLight={isLight}>{<BarPercent width={percent} color={barColor} />}</BudgetBar>
-        <CustomPopover
+        <StyledPopover
+          displacement={displacement}
           leaveOnChildrenMouseOut
           popoverStyle={{
             border: `1px solid ${borderColor}`,
@@ -68,7 +69,7 @@ const BarWithDottedLineMobile: React.FC<Props> = ({ value, relativeValue, month,
               <VerticalBar onMouseEnter={handleMouseOver} onMouseOut={handleMouseOut} onClick={handleMouseOver} />
             </ContendBarForSpace>
           </ContainerRelative>
-        </CustomPopover>
+        </StyledPopover>
       </ContainerBar>
       <BudgetCap isLight={isLight}>{usLocalizedNumber(relativeValue, 2)}</BudgetCap>
     </Container>
@@ -156,3 +157,11 @@ const Forecast = styled.div<WithIsLight & { isTotal: boolean; isNegative?: boole
     color: isLight ? (isNegative ? '#F75524' : '#231536') : isNegative ? '#F75524' : '#D2D4EF',
   })
 );
+
+const StyledPopover = styled(CustomPopover)<{ displacement: number }>(({ displacement }) => ({
+  '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
+    overflowX: 'unset',
+    overflowY: 'unset',
+    marginLeft: -displacement,
+  },
+}));
