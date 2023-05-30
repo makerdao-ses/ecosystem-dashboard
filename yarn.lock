@@ -11831,6 +11831,11 @@ raw-loader@^4.0.2:
     loader-utils "^2.0.0"
     schema-utils "^3.0.0"
 
+react-18-blockies@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/react-18-blockies/-/react-18-blockies-1.0.6.tgz#595367c6657d33a1edba3d3ba1dcef0b895c13f4"
+  integrity sha512-MPdEdfYm8wO2XEdTDEpwIJJBE0/zdkmZqGbEcypK6EV+nKeqE4qGs6XfBAs6VcrSkZ0ssu8jZNd0qXrplruVqg==
+
 react-cookie@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/react-cookie/-/react-cookie-4.1.1.tgz#832e134ad720e0de3e03deaceaab179c4061a19d"

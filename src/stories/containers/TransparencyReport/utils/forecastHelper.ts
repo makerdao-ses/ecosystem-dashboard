@@ -82,6 +82,8 @@ export const getProgressiveBarColor = (
 
 export const getDisplacementDashLine = (value: number, valueRelative: number): number => {
   if (valueRelative === 0) return 0;
+  if (value === valueRelative) return 0;
+
   const percentToMove = percentageRespectTo(value, valueRelative);
   if (percentToMove < 100) {
     return 0;

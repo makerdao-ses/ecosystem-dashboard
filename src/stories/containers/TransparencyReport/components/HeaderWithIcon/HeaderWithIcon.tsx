@@ -8,10 +8,11 @@ import { useScrollLock } from '@ses/core/hooks/useScrollLock';
 import { getPageWrapper } from '@ses/core/utils/dom';
 import lightTheme from '@ses/styles/theme/light';
 import MobileDetect from 'mobile-detect';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import ModalSheetValueContent from '../TransparencyTransferRequest/components/ModalSheet/ModalSheetValueContent';
 import HeaderToolTip from './TooltipHeader';
 import type { WithIsLightAndClick } from '../../transparencyReportUtils';
+import type { PositionPopoverWithArrow } from '@ses/components/CustomPopover/CustomPopover';
 
 interface Props {
   description: string;
@@ -21,6 +22,46 @@ interface Props {
   title: string;
 }
 
+type PopoverActions = {
+  type: 'notSpaceDown' | 'NotSpaceRight' | 'NotDownRight' | undefined;
+  payload?: boolean;
+};
+
+interface PopoverPosition {
+  marginTopPopoverPosition: boolean;
+  hasNotSpaceRight: boolean;
+  hasNotDownRight: boolean;
+}
+
+const InitialState = {
+  marginTopPopoverPosition: false,
+  hasNotSpaceRight: false,
+  hasNotDownRight: false,
+} as PopoverPosition;
+
+const updatePositionPopoverReducer = (state: PopoverPosition, action: PopoverActions): PopoverPosition => {
+  const { type, payload } = action;
+  switch (type) {
+    case 'notSpaceDown':
+      return {
+        ...state,
+        marginTopPopoverPosition: payload || false,
+      };
+    case 'NotSpaceRight':
+      return {
+        ...state,
+        hasNotDownRight: true,
+      };
+    case 'NotDownRight':
+      return {
+        ...state,
+        hasNotDownRight: true,
+      };
+    default:
+      return state;
+  }
+};
+
 const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, name }) => {
   const showPopover = !!(name && mipNumber && link);
   const refElementShowPopover = useRef<HTMLDivElement>(null);
@@ -29,27 +70,34 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
   const isMobileResolution = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const { lockScroll, unlockScroll } = useScrollLock();
   const { isLight } = useThemeContext();
+  const [state, dispatch] = useReducer(updatePositionPopoverReducer, InitialState);
 
-  const [marginTopPopoverPosition, setMarginTopPopoverPosition] = useState<boolean>(false);
-  const [hasNotSpaceRight, setHasNotSpaceRight] = useState<boolean>(false);
-  const [hasNotDownRight, setHasNotDownRight] = useState<boolean>(false);
   const handleShowPopoverWhenNotSpace = (value: boolean) => {
-    setMarginTopPopoverPosition(value);
+    dispatch({
+      type: 'notSpaceDown',
+      payload: value,
+    });
   };
-  const handleNotSpaceRight = (value: string) => {
-    if (value === 'arrowUp') {
-      setHasNotSpaceRight(!hasNotSpaceRight);
+
+  const handleNotSpaceRight = (value: PositionPopoverWithArrow) => {
+    console.log({ value });
+    if (value === 'downLeft') {
+      dispatch({
+        type: 'NotSpaceRight',
+      });
     }
-    if (value === 'arrowDown') {
-      setHasNotDownRight(!hasNotDownRight);
+    if (value === 'upLeft') {
+      dispatch({
+        type: 'NotDownRight',
+      });
     }
   };
   const handleClose = () => {
     clearTimeout(leaveTimeoutRef.current);
-    leaveTimeoutRef.current = setTimeout(() => {
-      setHasNotSpaceRight(false);
-      setHasNotDownRight(false);
-    }, 400);
+    dispatch({
+      type: undefined,
+    });
+    setIsOpen(false);
   };
   useEffect(() => {
     clearTimeout(leaveTimeoutRef.current);
@@ -78,9 +126,17 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
     };
   }, [isMobileDevice, isOpen, lockScroll, unlockScroll]);
 
-  const handleOnClick = useCallback(() => {
-    setIsOpen(!isOpen);
-  }, [isOpen]);
+  const handleOnClick = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      e.stopPropagation();
+      setIsOpen(!isOpen);
+    },
+    [isOpen]
+  );
+
+  const handleCloseOverLay = () => {
+    setIsOpen(false);
+  };
   return (
     <Container>
       {!isMobileResolution && (
@@ -88,12 +144,12 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
           <Title style={{ marginRight: 8 }}>{title}</Title>
           {showPopover && (
             <ExtendedCustomPopover
-              hasNotDownRight={hasNotDownRight}
-              marginTopPopoverPosition={marginTopPopoverPosition}
+              hasNotDownRight={state.hasNotDownRight}
+              marginTopPopoverPosition={state.marginTopPopoverPosition}
               onClose={handleClose}
-              alignArrow={hasNotSpaceRight || hasNotDownRight ? 'right' : undefined}
+              alignArrow={state.hasNotDownRight || state.hasNotDownRight ? 'right' : undefined}
               handleNotSpaceRight={handleNotSpaceRight}
-              hasNotSpaceRight={hasNotSpaceRight}
+              hasNotSpaceRight={state.hasNotSpaceRight}
               handleShowPopoverWhenNotSpace={handleShowPopoverWhenNotSpace}
               refElementShowPopover={refElementShowPopover}
               widthArrow
@@ -116,12 +172,12 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
           <Title style={{ marginRight: 8 }}>{title}</Title>
           {showPopover && (
             <ExtendedCustomPopoverMobile
-              hasNotDownRight={hasNotDownRight}
-              marginTopPopoverPosition={marginTopPopoverPosition}
+              hasNotDownRight={state.hasNotDownRight}
+              marginTopPopoverPosition={state.marginTopPopoverPosition}
               onClose={handleClose}
               alignArrow={'center'}
               handleNotSpaceRight={handleNotSpaceRight}
-              hasNotSpaceRight={hasNotSpaceRight}
+              hasNotSpaceRight={state.hasNotSpaceRight}
               handleShowPopoverWhenNotSpace={handleShowPopoverWhenNotSpace}
               refElementShowPopover={refElementShowPopover}
               widthArrow
@@ -142,9 +198,11 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
       {isMobileResolution && isMobileDevice && (
         <>
           <Title style={{ marginRight: 8 }}>{title}</Title>
-          <ContainerInfoIcon className="advance-table--transparency-card_icon_hidden" onClick={handleOnClick}>
-            <IconPosition />
-          </ContainerInfoIcon>
+          {showPopover && (
+            <ContainerInfoIcon className="advance-table--transparency-card_icon_hidden" onClick={handleOnClick}>
+              <IconPosition />
+            </ContainerInfoIcon>
+          )}
         </>
       )}
       {isMobileResolution && isOpen && isMobileDevice && (
@@ -159,7 +217,9 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
           />
         </ModalSheet>
       )}
-      {isMobileResolution && isOpen && isMobileDevice && <ContainerOverlay isLight={isLight} onClick={handleOnClick} />}
+      {isMobileResolution && isOpen && isMobileDevice && (
+        <ContainerOverlay isLight={isLight} onClick={handleCloseOverLay} />
+      )}
     </Container>
   );
 };
@@ -177,12 +237,12 @@ const ExtendedCustomPopover = styled(CustomPopover)<{
     marginLeft: -45,
     marginTop: marginTopPopoverPosition ? 16 : -25,
     ...(hasNotSpaceRight && {
-      marginLeft: 45,
+      marginLeft: 0,
       marginTop: 15,
     }),
     ...(hasNotDownRight && {
       marginLeft: 45,
-      marginTop: -22,
+      marginTop: marginTopPopoverPosition ? 16 : -22,
     }),
   },
 }));

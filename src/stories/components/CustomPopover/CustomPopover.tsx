@@ -9,15 +9,18 @@ import type { PopoverOrigin } from '@mui/material';
 import type { SxProps } from '@mui/material/styles';
 import type { PopoverPaperType, WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { CSSProperties } from 'react';
-type ArrowPosition = 'up' | 'down' | 'arrowUp' | 'arrowDown' | 'none';
+export type PositionPopoverWithArrow = 'upRight' | 'downRight' | 'downLeft' | 'upLeft' | 'none';
+type ArrowPosition = 'up' | 'down';
 type PopoverActions = {
-  type: ArrowPosition;
+  type: PositionPopoverWithArrow;
   payload: HTMLElement | null;
 };
 
 interface PopoverPositionState {
   anchorEl: HTMLElement | null;
   popoverPosition: PopoverOrigin;
+  positionPopoverArrow: PositionPopoverWithArrow;
+  arrowPosition: ArrowPosition;
 }
 
 const InitialState = {
@@ -26,6 +29,7 @@ const InitialState = {
     vertical: 'bottom',
     horizontal: 'left',
   },
+  positionPopoverArrow: 'upRight',
 } as PopoverPositionState;
 
 const updateStatePositionPopoverReducer = (
@@ -34,7 +38,7 @@ const updateStatePositionPopoverReducer = (
 ): PopoverPositionState => {
   const { type, payload } = action;
   switch (type) {
-    case 'up':
+    case 'downRight':
       return {
         ...state,
         anchorEl: payload,
@@ -42,8 +46,9 @@ const updateStatePositionPopoverReducer = (
           vertical: 'top',
           horizontal: 'left',
         },
+        arrowPosition: 'up',
       };
-    case 'down':
+    case 'upRight':
       return {
         ...state,
         anchorEl: payload,
@@ -51,8 +56,9 @@ const updateStatePositionPopoverReducer = (
           vertical: 'bottom',
           horizontal: 'left',
         },
+        arrowPosition: 'down',
       };
-    case 'arrowUp':
+    case 'downLeft':
       return {
         ...state,
         anchorEl: payload,
@@ -60,8 +66,9 @@ const updateStatePositionPopoverReducer = (
           vertical: 'top',
           horizontal: 'right',
         },
+        arrowPosition: 'up',
       };
-    case 'arrowDown':
+    case 'upLeft':
       return {
         ...state,
         anchorEl: payload,
@@ -69,6 +76,7 @@ const updateStatePositionPopoverReducer = (
           vertical: 'bottom',
           horizontal: 'right',
         },
+        arrowPosition: 'down',
       };
     case 'none': {
       return {
@@ -100,7 +108,7 @@ interface CustomPopoverProps extends React.PropsWithChildren {
   refElementShowPopover?: React.RefObject<HTMLDivElement>;
   closeOnClick?: boolean;
   onClose?: () => void;
-  handleNotSpaceRight?: (value: string) => void;
+  handleNotSpaceRight?: (value: PositionPopoverWithArrow) => void;
   distanceBottom?: number;
   distanceRight?: number;
 }
@@ -166,8 +174,7 @@ export const CustomPopover = ({
   const handlePopoverOpen = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
       clearTimeout(leaveTimeout);
-
-      let arrowPosition = 'up' as ArrowPosition;
+      let positionPopoverArrow = 'downRight' as PositionPopoverWithArrow;
       let elementPositionRight;
       if (refElementShowPopover) {
         const elementPosition = refElementShowPopover?.current?.getBoundingClientRect().top;
@@ -178,14 +185,14 @@ export const CustomPopover = ({
         const distance = window.innerHeight - (elementPosition || 0);
 
         // TODO: Change hard code to real height of Popover
-        if (distance < distanceBottom) {
-          arrowPosition = 'down';
-        }
-        if (elementPositionRight < distanceRight) {
-          arrowPosition = 'arrowUp';
+        if (distance < distanceBottom && elementPositionRight > distanceRight) {
+          positionPopoverArrow = 'upRight';
         }
         if (distance < distanceBottom && elementPositionRight < distanceRight) {
-          arrowPosition = 'arrowDown';
+          positionPopoverArrow = 'upLeft';
+        }
+        if (distance > distanceBottom && elementPositionRight < distanceRight) {
+          positionPopoverArrow = 'downLeft';
         }
       }
       const wrapper = getPageWrapper();
@@ -194,11 +201,11 @@ export const CustomPopover = ({
       }
 
       dispatch({
-        type: arrowPosition,
+        type: positionPopoverArrow,
         payload: event.currentTarget,
       });
-      handleShowPopoverWhenNotSpace?.(arrowPosition === 'up');
-      handleNotSpaceRight?.(arrowPosition);
+      handleShowPopoverWhenNotSpace?.(positionPopoverArrow === 'downRight' || positionPopoverArrow === 'downLeft');
+      handleNotSpaceRight?.(positionPopoverArrow);
     },
     [
       leaveTimeout,

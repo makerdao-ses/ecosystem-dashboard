@@ -1,24 +1,15 @@
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import * as React from 'react';
 
-interface Props {
+interface Props extends React.HTMLAttributes<SVGElement> {
   width?: number;
   height?: number;
-  onClick?: () => void;
 }
 
-const ClipBoard: React.FC<Props> = ({ height = 17, width = 17, onClick, ...props }) => {
+const ClipBoard: React.FC<Props> = ({ height = 17, width = 17, ...props }) => {
   const { isLight } = useThemeContext();
   return (
-    <svg
-      width={width}
-      height={height}
-      viewBox="0 0 17 17"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-      onClick={onClick}
-    >
+    <svg width={width} height={height} viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path
         fillRule="evenodd"
         clipRule="evenodd"
