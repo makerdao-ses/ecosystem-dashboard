@@ -151,9 +151,11 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
       {isMobileResolution && isMobileDevice && (
         <>
           <Title style={{ marginRight: 8 }}>{title}</Title>
-          <ContainerInfoIcon className="advance-table--transparency-card_icon_hidden" onClick={handleOnClick}>
-            <IconPosition />
-          </ContainerInfoIcon>
+          {showPopover && (
+            <ContainerInfoIcon className="advance-table--transparency-card_icon_hidden" onClick={handleOnClick}>
+              <IconPosition />
+            </ContainerInfoIcon>
+          )}
         </>
       )}
       {isMobileResolution && isOpen && isMobileDevice && (
