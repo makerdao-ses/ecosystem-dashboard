@@ -80,7 +80,6 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
   };
 
   const handleNotSpaceRight = (value: PositionPopoverWithArrow) => {
-    console.log({ value });
     if (value === 'downLeft') {
       dispatch({
         type: 'NotSpaceRight',
