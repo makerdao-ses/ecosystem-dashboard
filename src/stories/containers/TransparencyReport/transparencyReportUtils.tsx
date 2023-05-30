@@ -69,7 +69,7 @@ export const renderLinksWithToken = (address: string) => (
 
 export interface WithIsLightAndClick {
   isLight: boolean;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
