@@ -12,4 +12,5 @@ export const flagsDevelopment: FeatureFlagsInterface = {
   FEATURE_TRANSPARENCY_COMMENTS: true,
   FEATURE_RECOGNIZED_DELEGATES: true,
   FEATURE_ACCOUNTS_SNAPSHOT: false,
+  FEATURE_TEMPORARY_ACCOUNTS_SNAPSHOT_PAGE: true,
 };
