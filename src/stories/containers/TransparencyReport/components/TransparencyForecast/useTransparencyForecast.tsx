@@ -458,6 +458,9 @@ export const ContainerProgressiveIndicator = styled.div({
   flexDirection: 'row',
   justifyContent: 'flex-end',
   [lightTheme.breakpoints.up('table_834')]: {
+    paddingRight: 8,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     paddingRight: 16,
   },
 });
