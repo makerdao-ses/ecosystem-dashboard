@@ -106,10 +106,17 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
     };
   }, [isMobileDevice, isOpen, lockScroll, unlockScroll]);
 
-  const handleOnClick = useCallback(() => {
-    setIsOpen(!isOpen);
-  }, [isOpen]);
+  const handleOnClick = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      e.stopPropagation();
+      setIsOpen(!isOpen);
+    },
+    [isOpen]
+  );
 
+  const handleOnclose = () => {
+    setIsOpen(false);
+  };
   return (
     <BiggerContainer>
       <PopoverContainer>
@@ -117,6 +124,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
           <Container>
             {showIconToolTip && (
               <ExtendedCustomPopover
+                onClose={handleOnclose}
                 handleShowPopoverWhenNotSpace={handleShowPopoverWhenNotSpace}
                 refElementShowPopover={hrefPopoverElement}
                 sxProps={{
@@ -144,7 +152,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                 }
                 leaveOnChildrenMouseOut
               >
-                <ContainerInfoIcon>
+                <ContainerInfoIcon onClick={handleOnClick}>
                   <IconPosition />
                 </ContainerInfoIcon>
               </ExtendedCustomPopover>
@@ -189,12 +197,12 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                 }
                 leaveOnChildrenMouseOut
               >
-                <ContainerInfoIcon>
+                <ContainerInfoIcon onClick={handleOnClick}>
                   <IconPosition />
                 </ContainerInfoIcon>
               </ExtendedCustomPopover>
             )}
-            <ContainerInformation>
+            <ContainerInformation onClick={handleOnClick}>
               <ContainerNumberCell value={data.balance} />
               <ContainerStyleMonths>{data.months}</ContainerStyleMonths>
             </ContainerInformation>
@@ -211,7 +219,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
                 </ContainerInfoIcon>
               )}
 
-              <ContainerInformation>
+              <ContainerInformation onClick={handleOnClick}>
                 <ContainerNumberCell value={data.balance} />
                 <ContainerStyleMonths>{data.months}</ContainerStyleMonths>
               </ContainerInformation>
@@ -231,7 +239,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
           />
         </ModalSheet>
       )}
-      {isMobileResolution && isOpen && isMobileDevice && <ContainerOverlay isLight={isLight} onClick={handleOnClick} />}
+      {isMobileResolution && isOpen && isMobileDevice && <ContainerOverlay isLight={isLight} onClick={handleOnclose} />}
     </BiggerContainer>
   );
 };
