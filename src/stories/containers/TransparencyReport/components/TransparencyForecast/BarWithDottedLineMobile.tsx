@@ -54,7 +54,7 @@ const BarWithDottedLineMobile: React.FC<Props> = ({ value, relativeValue, month,
     >
       <Container onClick={handleMouseOver} onMouseEnter={handleMouseOver} onMouseOut={handleMouseOut}>
         <Forecast isLight={isLight} isTotal={isTotal} isNegative={value < 0}>
-          {usLocalizedNumber(value)}
+          {usLocalizedNumber(value, 2)}
         </Forecast>
 
         <ContainerBar>
@@ -66,7 +66,7 @@ const BarWithDottedLineMobile: React.FC<Props> = ({ value, relativeValue, month,
             </ContendBarForSpace>
           </ContainerRelative>
         </ContainerBar>
-        <BudgetCap isLight={isLight}>{usLocalizedNumber(relativeValue)}</BudgetCap>
+        <BudgetCap isLight={isLight}>{usLocalizedNumber(relativeValue, 2)}</BudgetCap>
       </Container>
     </CustomPopover>
   );
