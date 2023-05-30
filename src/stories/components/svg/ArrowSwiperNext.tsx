@@ -42,18 +42,12 @@ const ArrowSwiperNext: React.FC<Props> = ({
       {...props}
     >
       <g opacity={0.6} filter="url(#filter0_d_17842_226007)">
-        <circle
-          cx={32}
-          cy={32}
-          r={32}
-          transform="matrix(-1 0 0 1 70 0)"
-          fill={isLight ? (isDisable ? 'red' : fillCircle) : isDisable ? 'red' : fillCircleDark}
-        />
+        <circle cx={32} cy={32} r={32} transform="matrix(-1 0 0 1 70 0)" fill={isLight ? fillCircle : fillCircleDark} />
       </g>
       <path
         opacity={0.8}
         d="M56.336 33.73c1.333-.77 1.333-2.694 0-3.463l-26-15.011c-1.333-.77-3 .192-3 1.732V47.01c0 1.54 1.667 2.502 3 1.732l26-15.011z"
-        fill={isLight ? (isDisable ? 'yellow' : fill) : isDisable ? 'yellow' : fillDark}
+        fill={isLight ? fill : fillDark}
       />
       <defs>
         <filter

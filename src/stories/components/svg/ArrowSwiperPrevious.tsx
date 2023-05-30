@@ -43,17 +43,12 @@ export const ArrowSwiperPrevious: React.FC<Props> = ({
       {...props}
     >
       <g opacity={0.6} filter="url(#filter0_d_17842_226006)">
-        <circle
-          cx={38}
-          cy={32}
-          r={32}
-          fill={isLight ? (isDisable ? 'red' : fillCircle) : isDisable ? 'red' : fillCircleDark}
-        />
+        <circle cx={38} cy={32} r={32} fill={isLight ? fillCircle : fillCircleDark} />
       </g>
       <path
         opacity={0.8}
         d="M19.664 33.73c-1.333-.77-1.333-2.694 0-3.463l26-15.011c1.333-.77 3 .192 3 1.732V47.01c0 1.54-1.667 2.502-3 1.732l-26-15.011z"
-        fill={isLight ? (isDisable ? 'yellow' : fillArrow) : isDisable ? 'yellow' : fillArrowDark}
+        fill={isLight ? fillArrow : fillArrowDark}
       />
       <defs>
         <filter
