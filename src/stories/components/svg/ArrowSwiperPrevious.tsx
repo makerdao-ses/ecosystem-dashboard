@@ -16,15 +16,14 @@ interface Props {
 
 export const ArrowSwiperPrevious: React.FC<Props> = ({
   fillCircle = '#fff',
-  height = 76,
-  width = 76,
+  height = 40,
+  width = 40,
   fillArrow = '#D4D9E1',
   fillArrowDark = '#D2D4EF',
   fillCircleDark = '#787A9B',
   onClick,
   isDisable = false,
   navigationPrevRef,
-
   ...props
 }) => {
   const { isLight } = useThemeContext();
@@ -43,12 +42,25 @@ export const ArrowSwiperPrevious: React.FC<Props> = ({
       {...props}
     >
       <g opacity={0.6} filter="url(#filter0_d_17842_226006)">
-        <circle cx={38} cy={32} r={32} fill={isLight ? fillCircle : fillCircleDark} />
+        <circle
+          cx={38}
+          cy={32}
+          r={32}
+          fill={isLight ? (isDisable ? '#FFFFFF' : fillCircle) : isDisable ? 'rgb(120, 122, 155,0.3)' : fillCircleDark}
+        />
       </g>
       <path
         opacity={0.8}
         d="M19.664 33.73c-1.333-.77-1.333-2.694 0-3.463l26-15.011c1.333-.77 3 .192 3 1.732V47.01c0 1.54-1.667 2.502-3 1.732l-26-15.011z"
-        fill={isLight ? fillArrow : fillArrowDark}
+        fill={
+          isLight
+            ? isDisable
+              ? 'rgb(212, 217, 225,0.3)'
+              : fillArrow
+            : isDisable
+            ? 'rgb(210, 212, 239,0.2)'
+            : fillArrowDark
+        }
       />
       <defs>
         <filter

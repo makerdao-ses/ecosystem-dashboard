@@ -16,8 +16,8 @@ interface Props {
 
 const ArrowSwiperNext: React.FC<Props> = ({
   fillCircle = '#fff',
-  height = 76,
-  width = 76,
+  height = 40,
+  width = 40,
   fill = '#D4D9E1',
   fillDark = '#D2D4EF',
   fillCircleDark = '#787A9B',
@@ -42,12 +42,18 @@ const ArrowSwiperNext: React.FC<Props> = ({
       {...props}
     >
       <g opacity={0.6} filter="url(#filter0_d_17842_226007)">
-        <circle cx={32} cy={32} r={32} transform="matrix(-1 0 0 1 70 0)" fill={isLight ? fillCircle : fillCircleDark} />
+        <circle
+          cx={32}
+          cy={32}
+          r={32}
+          transform="matrix(-1 0 0 1 70 0)"
+          fill={isLight ? (isDisable ? '#FFFFFF' : fillCircle) : isDisable ? 'rgb(120, 122, 155,0.3)' : fillCircleDark}
+        />
       </g>
       <path
         opacity={0.8}
         d="M56.336 33.73c1.333-.77 1.333-2.694 0-3.463l-26-15.011c-1.333-.77-3 .192-3 1.732V47.01c0 1.54 1.667 2.502 3 1.732l26-15.011z"
-        fill={isLight ? fill : fillDark}
+        fill={isLight ? (isDisable ? 'rgb(212, 217, 225,0.3)' : fill) : isDisable ? 'rgb(210, 212, 239,0.2)' : fillDark}
       />
       <defs>
         <filter

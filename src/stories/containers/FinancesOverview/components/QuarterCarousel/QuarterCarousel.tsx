@@ -139,17 +139,17 @@ const Divider = styled.div<WithIsLight>(({ isLight }) => ({
 }));
 
 const ContainerButtonRight = styled.div({
-  marginRight: -10,
+  marginRight: -15,
   position: 'absolute',
-  top: '30%',
+  top: '35%',
   right: 0,
   zIndex: 4,
 });
 
 const ContainerButtonLeft = styled.div({
-  marginLeft: -10,
+  marginLeft: -15,
   position: 'absolute',
-  top: '30%',
+  top: '35%',
   zIndex: 4,
 });
 
