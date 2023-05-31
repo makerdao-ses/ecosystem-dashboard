@@ -156,7 +156,7 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
               popupStyle={{
                 padding: 10,
               }}
-              title={<HeaderToolTip description={description} link={link} mipNumber={mipNumber} name={name} />}
+              title={<HeaderToolTip description={description} link={link} name={name} />}
               leaveOnChildrenMouseOut
             >
               <ContainerInfoIcon className="advance-table--transparency-card_icon_hidden" onClick={handleOnClick}>
@@ -184,7 +184,7 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
               popupStyle={{
                 padding: 10,
               }}
-              title={<HeaderToolTip description={description} link={link} mipNumber={mipNumber} name={name} />}
+              title={<HeaderToolTip description={description} link={link} name={name} />}
               leaveOnChildrenMouseOut
             >
               <ContainerInfoIcon className="advance-table--transparency-card_icon_hidden" onClick={handleOnClick}>

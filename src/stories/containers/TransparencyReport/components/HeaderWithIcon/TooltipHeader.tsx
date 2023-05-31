@@ -1,26 +1,28 @@
 import styled from '@emotion/styled';
 import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { getMipTitle } from '@ses/core/utils/string';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { CSSProperties } from 'react';
 
 interface Props {
   description: string;
-  mipNumber: string;
+
   link: string;
   name: string;
   style?: CSSProperties;
 }
 
-const HeaderToolTip: React.FC<Props> = ({ description, mipNumber, link, style, name }) => {
+const HeaderToolTip: React.FC<Props> = ({ description, link, style, name }) => {
   const { isLight } = useThemeContext();
+  const pieces = getMipTitle(name);
   return (
     <Container style={style}>
       <Description isLight={isLight}>{description}</Description>
       <Source isLight={isLight}>Source</Source>
       <ContainerLinkWithMip isLight={isLight}>
-        <MipNumber>{mipNumber}</MipNumber>
+        <MipNumber>{pieces[0]}</MipNumber>
         <ContainerLink>
           <StyledCustomLink
             withArrow
