@@ -109,9 +109,9 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
       ? [items[items.length - 1], ...items.slice(0, items.length - 1)]
       : items;
 
-  cardItems = cardItems.filter((x) => !x.hideMobile);
+  cardItems = cardItems?.filter((x) => !x.hideMobile);
 
-  return items.length > 0 ? (
+  return items?.length > 0 ? (
     <>
       <TableWrapper>
         <Container isLight={isLight} style={style} className={className}>

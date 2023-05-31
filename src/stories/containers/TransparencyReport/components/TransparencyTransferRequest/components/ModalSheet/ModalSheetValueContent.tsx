@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { getMipTitle } from '@ses/core/utils/string';
 import React from 'react';
 import type { TargetBalanceTooltipInformation, WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -11,12 +12,13 @@ interface Props {
 
 const ModalSheetValueContent: React.FC<Props> = ({ toolTipData, name }) => {
   const { isLight } = useThemeContext();
+  const pieces = getMipTitle(name);
   return (
     <Container isLight={isLight}>
       <Description isLight={isLight}>{toolTipData.description}</Description>
       <Source isLight={isLight}>Source</Source>
       <ContainerLinkWithMip isLight={isLight}>
-        <MipNumber>{toolTipData.mipNumber}</MipNumber>
+        <MipNumber>{pieces[0]}</MipNumber>
         <ContainerLink>
           <CustomLink
             children={name}
