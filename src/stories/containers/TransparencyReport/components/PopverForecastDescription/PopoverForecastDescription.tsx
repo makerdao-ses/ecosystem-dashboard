@@ -17,6 +17,7 @@ const PopoverForecastDescription: React.FC<Props> = ({ value, relativeValue, mon
   const { isLight } = useThemeContext();
   const expenditureLevel = getExpenditureLevelForecast(value, relativeValue);
   const percent = percentageRespectTo(value, relativeValue);
+  const valueShowPercent = Math.trunc(percent) === 0 && value !== 0 ? '-' : Math.trunc(percent);
 
   return (
     <ContainerInside>
@@ -30,7 +31,7 @@ const PopoverForecastDescription: React.FC<Props> = ({ value, relativeValue, mon
         </SeverityDistinction>
       </RowMonthDescription>
       <RowPercentBudgetCap>
-        <Percent isLight={isLight}>{Math.trunc(percent) === 0 && value !== 0 ? '-' : Math.trunc(percent)}%</Percent>
+        {value > 0 ? <Percent isLight={isLight}>{valueShowPercent}%</Percent> : <div />}
         <Description isLight={isLight}>of budget cap forecasted</Description>
       </RowPercentBudgetCap>
       <RowAbsoluteNumbers>
