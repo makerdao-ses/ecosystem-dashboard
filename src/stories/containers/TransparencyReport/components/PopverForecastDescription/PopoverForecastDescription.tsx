@@ -31,7 +31,7 @@ const PopoverForecastDescription: React.FC<Props> = ({ value, relativeValue, mon
         </SeverityDistinction>
       </RowMonthDescription>
       <RowPercentBudgetCap>
-        {value > 0 ? <Percent isLight={isLight}>{valueShowPercent}%</Percent> : <div />}
+        {value >= 0 ? <Percent isLight={isLight}>{valueShowPercent}%</Percent> : <div />}
         <Description isLight={isLight}>of budget cap forecasted</Description>
       </RowPercentBudgetCap>
       <RowAbsoluteNumbers>
