@@ -3,7 +3,7 @@ import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
-import React from 'react';
+import React, { useState } from 'react';
 import lightTheme from 'styles/theme/light';
 import CostBreakdownTable from './components/CostBreakdownTable/CostBreakdownTable';
 import ExpensesChart from './components/ExpensesChart/ExpensesChart';
@@ -50,6 +50,11 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
     maxValueByCategory,
     costBreakdownTotal,
   } = useFinancesOverview(quarterExpenses, monthlyExpenses, byBudgetBreakdownExpenses, byCategoryBreakdownExpenses);
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  // TODO: Remove this part when modal is implemented with the correct code:
+  const handleOnClickOpenModal = () => {
+    console.log('openModal', setOpenModal, openModal);
+  };
 
   return (
     <PageWrapper isLight={isLight}>
@@ -96,6 +101,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
               remainingCategories={remainingCategories}
               maxValueByCategory={maxValueByCategory}
               total={costBreakdownTotal}
+              handleOnClick={handleOnClickOpenModal}
             />
           </BreakdownTableColumn>
           {isDownTable && <NavigationButtons />}

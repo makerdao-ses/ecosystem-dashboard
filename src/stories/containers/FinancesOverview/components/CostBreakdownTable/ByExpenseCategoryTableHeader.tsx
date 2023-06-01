@@ -1,11 +1,21 @@
 import styled from '@emotion/styled';
+import CircleIconWithArrow from '@ses/components/svg/CircleIconWithArrow';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import TableHeaderItem from './TableHeaderItem';
 
-const ByExpenseCategoryTableHeader: React.FC = () => (
+interface Props {
+  onClick?: () => void;
+}
+
+const ByExpenseCategoryTableHeader: React.FC<Props> = ({ onClick }) => (
   <TableHeader>
-    <CategoryColumn>Category</CategoryColumn>
+    <CategoryColumn>
+      <CategoryRowInsideColumn>
+        Category <CircleIconWithArrow onClick={onClick} />
+      </CategoryRowInsideColumn>
+    </CategoryColumn>
+
     <TotalPercentageColumn>% of total</TotalPercentageColumn>
     <TotalSpendColumn>Total spend</TotalSpendColumn>
   </TableHeader>
@@ -25,6 +35,11 @@ const TableHeader = styled.div({
 const CategoryColumn = styled(TableHeaderItem)({
   width: '100%',
   textAlign: 'left',
+});
+const CategoryRowInsideColumn = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 8,
 });
 
 const TotalPercentageColumn = styled(TableHeaderItem)({
