@@ -143,14 +143,14 @@ const ContainerButtonRight = styled.div({
   position: 'absolute',
   top: '35%',
   right: 0,
-  zIndex: 4,
+  zIndex: 3,
 });
 
 const ContainerButtonLeft = styled.div({
   marginLeft: -15,
   position: 'absolute',
   top: '35%',
-  zIndex: 4,
+  zIndex: 3,
 });
 
 const WrapperMobile = styled.div({
