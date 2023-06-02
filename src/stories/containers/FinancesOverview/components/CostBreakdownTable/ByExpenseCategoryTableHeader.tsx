@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import CircleIconWithArrow from '@ses/components/svg/CircleIconWithArrow';
+import IconOpenModal from '@ses/components/svg/IconOpenModal';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import TableHeaderItem from './TableHeaderItem';
@@ -12,7 +12,8 @@ const ByExpenseCategoryTableHeader: React.FC<Props> = ({ onClick }) => (
   <TableHeader>
     <CategoryColumn>
       <CategoryRowInsideColumn>
-        Category <CircleIconWithArrow onClick={onClick} />
+        Category
+        <IconOpenModal onClick={onClick} />
       </CategoryRowInsideColumn>
     </CategoryColumn>
 
@@ -39,14 +40,13 @@ const CategoryColumn = styled(TableHeaderItem)({
 const CategoryRowInsideColumn = styled.div({
   display: 'flex',
   alignItems: 'center',
-  gap: 8,
+  gap: 12,
 });
 
 const TotalPercentageColumn = styled(TableHeaderItem)({
   width: 240,
   minWidth: 240,
   textAlign: 'right',
-
   [lightTheme.breakpoints.up('desktop_1194')]: {
     width: 164,
     minWidth: 164,
@@ -55,6 +55,7 @@ const TotalPercentageColumn = styled(TableHeaderItem)({
   [lightTheme.breakpoints.up('desktop_1440')]: {
     width: 240,
     minWidth: 240,
+    paddingRight: 32,
   },
 });
 
