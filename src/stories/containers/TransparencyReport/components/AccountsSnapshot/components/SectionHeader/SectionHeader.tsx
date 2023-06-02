@@ -3,6 +3,7 @@ import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
 import Information from '@ses/components/svg/information';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { toKebabCase } from '@ses/core/utils/string';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -65,6 +66,10 @@ const IconWrapper = styled.div({
 
 const Subtitle = styled.div<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : 'red',
-  fontSize: 16,
+  fontSize: 14,
   lineHeight: '22px',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: 16,
+  },
 }));

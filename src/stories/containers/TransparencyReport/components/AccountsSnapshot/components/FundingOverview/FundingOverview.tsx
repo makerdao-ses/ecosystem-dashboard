@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import FundChangeCard from '../Cards/FundChangeCard';
 import SimpleStatCard from '../Cards/SimpleStatCard';
@@ -31,7 +32,7 @@ const FundingOverview: React.FC<FundingOverviewProps> = ({ coreUnitCode }) => (
         rightValueColor="green"
         rightText="Funds Returned via DSSBlow"
       />
-      <SimpleStatCard date="2023-06-14T22:52:54.494Z" value={3685648} caption="New Lifetime Balance" hasEqualSign />
+      <SimpleStatCard date="2023-06-14T22:52:54.494Z" value={3743328} caption="New Lifetime Balance" hasEqualSign />
     </CardsContainer>
 
     <TransactionHistory />
@@ -43,11 +44,49 @@ export default FundingOverview;
 const HeaderContainer = styled.div({
   display: 'flex',
   justifyContent: 'space-between',
-  alignItems: 'center',
+  alignItems: 'flex-start',
+  flexDirection: 'column',
+  gap: 16,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 0,
+  },
 });
 
 const CardsContainer = styled.div({
   display: 'flex',
-  gap: 24,
+  gap: 8,
   marginTop: 24,
+  flexWrap: 'wrap',
+
+  '& > div:nth-of-type(1)': {
+    order: 1,
+    width: 'calc(50% - 4px)',
+  },
+  '& > div:nth-of-type(2)': {
+    order: 3,
+  },
+  '& > div:nth-of-type(3)': {
+    order: 2,
+    width: 'calc(50% - 4px)',
+  },
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    gap: 24,
+    flexWrap: 'nowrap',
+
+    '& > div:nth-of-type(1)': {
+      order: 1,
+      width: '100%',
+    },
+    '& > div:nth-of-type(2)': {
+      order: 2,
+    },
+    '& > div:nth-of-type(3)': {
+      order: 3,
+      width: '100%',
+    },
+  },
 });
