@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -11,27 +12,33 @@ interface NumberWithSignCardProps {
   text: string;
   sign: 'positive' | 'negative';
   valueColor?: ValueColor;
-  width?: string | number;
+  cardWidth?: string | number;
 }
 
-const NumberWithSignCard: React.FC<NumberWithSignCardProps> = ({ value, sign, text, valueColor = 'normal', width }) => {
+const NumberWithSignCard: React.FC<NumberWithSignCardProps> = ({
+  value,
+  sign,
+  text,
+  valueColor = 'normal',
+  cardWidth,
+}) => {
   const { isLight } = useThemeContext();
 
   return (
     <Container>
       <SignContainer>
         {sign === 'positive' ? (
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="10" width="4" height="24" rx="2" fill="#ADAFD4" />
             <rect y="14" width="4" height="24" rx="2" transform="rotate(-90 0 14)" fill="#ADAFD4" />
           </svg>
         ) : (
-          <svg width="24" height="4" viewBox="0 0 24 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="16" height="4" viewBox="0 0 24 4" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect y="4" width="4" height="24" rx="2" transform="rotate(-90 0 4)" fill="#ADAFD4" />
           </svg>
         )}
       </SignContainer>
-      <Card isLight={isLight} width={width ?? 'auto'}>
+      <Card isLight={isLight} cardWidth={cardWidth ?? 'auto'}>
         <Value isLight={isLight} valueColor={valueColor}>
           {usLocalizedNumber(Math.round(value))} <span>DAI</span>
         </Value>
@@ -45,19 +52,25 @@ export default NumberWithSignCard;
 
 const Container = styled.div({
   display: 'flex',
+  width: '100%',
 });
 
 const SignContainer = styled.div({
   display: 'flex',
   alignItems: 'center',
-  marginRight: 8,
+  marginRight: 4,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginRight: 8,
+  },
 });
 
-const Card = styled.div<WithIsLight & { width: string | number }>(({ isLight, width }) => ({
+const Card = styled.div<WithIsLight & { cardWidth: string | number }>(({ isLight, cardWidth }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  width,
+  minWidth: cardWidth,
+  width: '100%',
   padding: 8,
   background: isLight ? 'rgba(236, 239, 249, 0.5)' : 'red',
   borderRadius: 6,
@@ -72,27 +85,46 @@ const Value = styled.div<WithIsLight & { valueColor: ValueColor }>(({ isLight, v
   return {
     display: 'flex',
     alignItems: 'baseline',
-    fontWeight: 500,
-    fontSize: 30,
-    lineHeight: '36px',
-    letterSpacing: 0.4,
+    fontWeight: 700,
+    fontSize: 16,
+    lineHeight: '19px',
+    letterSpacing: 0.3,
+    fontFeatureSettings: "'tnum' on, 'lnum' on",
     color,
+    textAlign: 'center',
+
+    [lightTheme.breakpoints.up('table_834')]: {
+      fontWeight: 500,
+      fontSize: 30,
+      lineHeight: '36px',
+      letterSpacing: 0.4,
+    },
 
     '& span': {
       marginLeft: 4,
       fontWeight: 700,
-      fontSize: 16,
-      lineHeight: '19px',
+      fontSize: 12,
+      lineHeight: '15px',
       letterSpacing: 0.3,
       fontFeatureSettings: "'tnum' on, 'lnum' on",
       color: isLight ? '#9FAFB9' : 'red',
+
+      [lightTheme.breakpoints.up('table_834')]: {
+        fontSize: 16,
+        lineHeight: '19px',
+      },
     },
   };
 });
 
 const Text = styled.div<WithIsLight>(({ isLight }) => ({
-  fontSize: 16,
-  lineHeight: '22px',
+  fontSize: 11,
+  lineHeight: '13px',
   color: isLight ? '#708390' : 'red',
   marginTop: 4,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: 16,
+    lineHeight: '22px',
+  },
 }));
