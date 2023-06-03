@@ -60,7 +60,11 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
 
   [lightTheme.breakpoints.up('table_834')]: {
     paddingLeft: 24,
-    paddingRight: 24,
+    paddingRight: 16,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    paddingRight: 25,
   },
 
   '& .MuiAccordionSummary-content': {
@@ -74,8 +78,11 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
     [lightTheme.breakpoints.up('table_834')]: {
       fontSize: 16,
       lineHeight: '19px',
-      marginTop: 10.5,
-      marginBottom: 10.5,
+    },
+
+    [lightTheme.breakpoints.up('desktop_1194')]: {
+      marginTop: 10,
+      marginBottom: 10,
     },
   },
 

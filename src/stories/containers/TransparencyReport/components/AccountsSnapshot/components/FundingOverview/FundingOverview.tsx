@@ -74,7 +74,6 @@ const CardsContainer = styled.div({
   },
 
   [lightTheme.breakpoints.up('table_834')]: {
-    gap: 24,
     flexWrap: 'nowrap',
 
     '& > div:nth-of-type(1)': {
@@ -88,5 +87,9 @@ const CardsContainer = styled.div({
       order: 3,
       width: '100%',
     },
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    gap: 24,
   },
 });

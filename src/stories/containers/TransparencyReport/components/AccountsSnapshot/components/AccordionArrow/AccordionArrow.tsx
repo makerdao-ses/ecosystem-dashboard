@@ -23,7 +23,7 @@ const SVG = styled.svg({
   height: 6,
   margin: '5px 3px',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     width: 16,
     height: 10,
   },

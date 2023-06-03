@@ -35,6 +35,7 @@ const FundChangeCard: React.FC<FundChangeCardProps> = ({
     <Card>
       <ChangeContainer>
         <LeftArrowContainer>
+          <FillSpace position="left" />
           {isMobile ? <MobileArrow isLight={isLight} position="top" /> : <Arrow isLight={isLight} direction="left" />}
         </LeftArrowContainer>
         <ChangeContent>
@@ -50,23 +51,12 @@ const FundChangeCard: React.FC<FundChangeCardProps> = ({
           ) : (
             <Arrow isLight={isLight} direction="right" />
           )}
+          <FillSpace position="right" />
         </RightArrowContainer>
       </ChangeContainer>
       <ValuesContainer>
-        <NumberWithSignCard
-          value={leftValue}
-          valueColor={leftValueColor}
-          sign="positive"
-          text={leftText}
-          cardWidth={167}
-        />
-        <NumberWithSignCard
-          value={rightValue}
-          valueColor={rightValueColor}
-          sign="negative"
-          text={rightText}
-          cardWidth={167}
-        />
+        <NumberWithSignCard value={leftValue} valueColor={leftValueColor} sign="positive" text={leftText} />
+        <NumberWithSignCard value={rightValue} valueColor={rightValueColor} sign="negative" text={rightText} />
       </ValuesContainer>
     </Card>
   );
@@ -80,7 +70,14 @@ const Card = styled(OutlinedCard)({
   flexDirection: 'row-reverse',
 
   [lightTheme.breakpoints.up('table_834')]: {
+    minWidth: 390,
+    padding: 7,
+    flexDirection: 'column',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     minWidth: 579,
+    padding: '16px 15px 15px',
   },
 });
 
@@ -88,15 +85,19 @@ const ChangeContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    flexDirection: 'row',
+  },
 });
 
 const LeftArrowContainer = styled.div({
   width: '100%',
 
   [lightTheme.breakpoints.up('table_834')]: {
-    paddingLeft: 143,
     marginRight: 8,
     paddingBottom: 1,
+    display: 'flex',
   },
 });
 
@@ -104,11 +105,22 @@ const RightArrowContainer = styled.div({
   width: '100%',
 
   [lightTheme.breakpoints.up('table_834')]: {
-    paddingRight: 113,
     marginLeft: 8,
     paddingBottom: 1,
+    display: 'flex',
   },
 });
+
+const FillSpace = styled.div<{ position: 'left' | 'right' }>(({ position }) => ({
+  [lightTheme.breakpoints.up('table_834')]: {
+    minWidth: position === 'left' ? 100 : 84,
+    height: '100%',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    minWidth: position === 'left' ? 141 : 112,
+  },
+}));
 
 const MobileArrow = styled.div<WithIsLight & { position: 'top' | 'bottom' }>(({ isLight, position }) => {
   const borderStyle = `2px solid ${isLight ? '#ECEFF9' : 'red'}`;
@@ -168,10 +180,10 @@ const Arrow = styled.div<WithIsLight & { direction: 'left' | 'right' }>(({ isLig
     height: `calc(100% - ${margin}px)`,
     marginTop: margin,
     borderTop: borderStyle,
+    width: '100%',
 
     ...(direction === 'left'
       ? {
-          width: 'calc(100% - 25px)',
           borderLeft: borderStyle,
           borderTopLeftRadius: 20,
         }
@@ -214,9 +226,13 @@ const ChangeContent = styled.div({
   marginTop: 2,
 
   [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 0,
+    paddingBottom: 8,
+    alignItems: 'center',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     paddingBottom: 16,
-    textAlign: 'center',
-    marginLeft: -25,
   },
 });
 
@@ -258,6 +274,7 @@ const NetChangeMessage = styled.div<WithIsLight>(({ isLight }) => ({
   [lightTheme.breakpoints.up('table_834')]: {
     fontSize: 14,
     lineHeight: '17px',
+    margin: 0,
   },
 }));
 
@@ -268,6 +285,10 @@ const ValuesContainer = styled.div({
   width: '100%',
 
   [lightTheme.breakpoints.up('table_834')]: {
+    flexDirection: 'row',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     gap: 24,
   },
 });

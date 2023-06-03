@@ -15,30 +15,24 @@ interface NumberWithSignCardProps {
   cardWidth?: string | number;
 }
 
-const NumberWithSignCard: React.FC<NumberWithSignCardProps> = ({
-  value,
-  sign,
-  text,
-  valueColor = 'normal',
-  cardWidth,
-}) => {
+const NumberWithSignCard: React.FC<NumberWithSignCardProps> = ({ value, sign, text, valueColor = 'normal' }) => {
   const { isLight } = useThemeContext();
 
   return (
     <Container>
       <SignContainer>
         {sign === 'positive' ? (
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <PlusSVG viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="10" width="4" height="24" rx="2" fill="#ADAFD4" />
             <rect y="14" width="4" height="24" rx="2" transform="rotate(-90 0 14)" fill="#ADAFD4" />
-          </svg>
+          </PlusSVG>
         ) : (
-          <svg width="16" height="4" viewBox="0 0 24 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <MinusSVG viewBox="0 0 24 4" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect y="4" width="4" height="24" rx="2" transform="rotate(-90 0 4)" fill="#ADAFD4" />
-          </svg>
+          </MinusSVG>
         )}
       </SignContainer>
-      <Card isLight={isLight} cardWidth={cardWidth ?? 'auto'}>
+      <Card isLight={isLight} sign={sign}>
         <Value isLight={isLight} valueColor={valueColor}>
           {usLocalizedNumber(Math.round(value))} <span>DAI</span>
         </Value>
@@ -60,20 +54,48 @@ const SignContainer = styled.div({
   alignItems: 'center',
   marginRight: 4,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     marginRight: 8,
   },
 });
 
-const Card = styled.div<WithIsLight & { cardWidth: string | number }>(({ isLight, cardWidth }) => ({
+const PlusSVG = styled.svg({
+  width: 16,
+  height: 16,
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    width: 24,
+    height: 24,
+  },
+});
+
+const MinusSVG = styled.svg({
+  width: 16,
+  height: 4,
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    width: 24,
+    height: 4,
+  },
+});
+
+const Card = styled.div<WithIsLight & { sign: 'positive' | 'negative' }>(({ isLight, sign }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  minWidth: cardWidth,
+  minWidth: 167,
   width: '100%',
   padding: 8,
   background: isLight ? 'rgba(236, 239, 249, 0.5)' : 'red',
   borderRadius: 6,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    minWidth: sign === 'positive' ? 159 : 167,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    minWidth: sign === 'positive' ? 224 : 235,
+  },
 }));
 
 const Value = styled.div<WithIsLight & { valueColor: ValueColor }>(({ isLight, valueColor }) => {
@@ -94,10 +116,17 @@ const Value = styled.div<WithIsLight & { valueColor: ValueColor }>(({ isLight, v
     textAlign: 'center',
 
     [lightTheme.breakpoints.up('table_834')]: {
+      fontWeight: 600,
+      fontSize: 20,
+      lineHeight: '24px',
+      letterSpacing: 0.4,
+      fontFeatureSettings: 'normal',
+    },
+
+    [lightTheme.breakpoints.up('desktop_1194')]: {
       fontWeight: 500,
       fontSize: 30,
       lineHeight: '36px',
-      letterSpacing: 0.4,
     },
 
     '& span': {
@@ -123,7 +152,7 @@ const Text = styled.div<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#708390' : 'red',
   marginTop: 4,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     fontSize: 16,
     lineHeight: '22px',
   },
