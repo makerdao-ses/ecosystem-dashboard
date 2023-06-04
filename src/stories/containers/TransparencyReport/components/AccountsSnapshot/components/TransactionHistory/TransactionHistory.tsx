@@ -49,10 +49,10 @@ const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters
 const AccordionSummary = styled((props: AccordionSummaryProps) => (
   <MuiAccordionSummary expandIcon={<AccordionArrow />} {...props} />
 ))<WithIsLight>(({ isLight }) => ({
-  backgroundColor: isLight ? '#FFFFFF' : 'red',
+  backgroundColor: isLight ? '#FFFFFF' : '#1E2C37',
   boxShadow: isLight
     ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-    : '0px 20px 40px red, 0px 1px 3px red',
+    : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
   borderRadius: 6,
   paddingLeft: 16,
   paddingRight: 8,
@@ -71,7 +71,7 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
     fontWeight: 500,
     fontSize: 14,
     lineHeight: '18px',
-    color: isLight ? '#231536' : 'red',
+    color: isLight ? '#231536' : '#D2D4EF',
     marginTop: 8,
     marginBottom: 8,
 
@@ -84,10 +84,6 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
       marginTop: 10,
       marginBottom: 10,
     },
-  },
-
-  '& .MuiAccordionSummary-expandIconWrapper': {
-    // marginRight: 4,
   },
 }));
 

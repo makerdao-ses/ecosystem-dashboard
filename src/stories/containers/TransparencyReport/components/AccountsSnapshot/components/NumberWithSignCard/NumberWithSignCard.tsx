@@ -23,12 +23,26 @@ const NumberWithSignCard: React.FC<NumberWithSignCardProps> = ({ value, sign, te
       <SignContainer>
         {sign === 'positive' ? (
           <PlusSVG viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="10" width="4" height="24" rx="2" fill="#ADAFD4" />
-            <rect y="14" width="4" height="24" rx="2" transform="rotate(-90 0 14)" fill="#ADAFD4" />
+            <rect x="10" width="4" height="24" rx="2" fill={isLight ? '#ADAFD4' : '#48495F'} />
+            <rect
+              y="14"
+              width="4"
+              height="24"
+              rx="2"
+              transform="rotate(-90 0 14)"
+              fill={isLight ? '#ADAFD4' : '#48495F'}
+            />
           </PlusSVG>
         ) : (
           <MinusSVG viewBox="0 0 24 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect y="4" width="4" height="24" rx="2" transform="rotate(-90 0 4)" fill="#ADAFD4" />
+            <rect
+              y="4"
+              width="4"
+              height="24"
+              rx="2"
+              transform="rotate(-90 0 4)"
+              fill={isLight ? '#ADAFD4' : '#48495F'}
+            />
           </MinusSVG>
         )}
       </SignContainer>
@@ -86,7 +100,7 @@ const Card = styled.div<WithIsLight & { sign: 'positive' | 'negative' }>(({ isLi
   minWidth: 167,
   width: '100%',
   padding: 8,
-  background: isLight ? 'rgba(236, 239, 249, 0.5)' : 'red',
+  background: isLight ? 'rgba(236, 239, 249, 0.5)' : 'rgba(72, 73, 95, 0.25)',
   borderRadius: 6,
 
   [lightTheme.breakpoints.up('table_834')]: {
@@ -99,9 +113,9 @@ const Card = styled.div<WithIsLight & { sign: 'positive' | 'negative' }>(({ isLi
 }));
 
 const Value = styled.div<WithIsLight & { valueColor: ValueColor }>(({ isLight, valueColor }) => {
-  let color = isLight ? '#231536' : 'red'; // normal
+  let color = isLight ? '#231536' : '#EDEFFF'; // normal
   if (valueColor === 'green') {
-    color = isLight ? '#1AAB9B' : 'green';
+    color = isLight ? '#1AAB9B' : '#2DC1B1';
   }
 
   return {
@@ -136,7 +150,7 @@ const Value = styled.div<WithIsLight & { valueColor: ValueColor }>(({ isLight, v
       lineHeight: '15px',
       letterSpacing: 0.3,
       fontFeatureSettings: "'tnum' on, 'lnum' on",
-      color: isLight ? '#9FAFB9' : 'red',
+      color: isLight ? '#9FAFB9' : '#708390',
 
       [lightTheme.breakpoints.up('table_834')]: {
         fontSize: 16,
@@ -149,7 +163,7 @@ const Value = styled.div<WithIsLight & { valueColor: ValueColor }>(({ isLight, v
 const Text = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 11,
   lineHeight: '13px',
-  color: isLight ? '#708390' : 'red',
+  color: isLight ? '#708390' : '#708390',
   marginTop: 4,
 
   [lightTheme.breakpoints.up('desktop_1194')]: {

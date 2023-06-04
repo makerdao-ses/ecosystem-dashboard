@@ -47,7 +47,7 @@ const TitleWrapper = styled.div({
 });
 
 const Title = styled.h2<WithIsLight & { isSubsection: boolean }>(({ isLight, isSubsection }) => ({
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   fontWeight: isSubsection ? 700 : 600,
   fontSize: isSubsection ? 16 : 20,
   lineHeight: isSubsection ? '19px' : '24px',
@@ -65,7 +65,7 @@ const IconWrapper = styled.div({
 });
 
 const Subtitle = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   fontSize: 14,
   lineHeight: '22px',
 

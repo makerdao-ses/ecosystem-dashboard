@@ -123,7 +123,7 @@ const FillSpace = styled.div<{ position: 'left' | 'right' }>(({ position }) => (
 }));
 
 const MobileArrow = styled.div<WithIsLight & { position: 'top' | 'bottom' }>(({ isLight, position }) => {
-  const borderStyle = `2px solid ${isLight ? '#ECEFF9' : 'red'}`;
+  const borderStyle = `2px solid ${isLight ? '#ECEFF9' : 'rgba(72, 73, 95, 0.3)'}`;
 
   return {
     position: 'relative',
@@ -165,7 +165,7 @@ const MobileArrow = styled.div<WithIsLight & { position: 'top' | 'bottom' }>(({ 
       ...(position === 'top' ? { bottom: 0 } : { top: 0 }),
       width: 20,
       height: 2,
-      background: isLight ? '#ECEFF9' : 'red',
+      background: isLight ? '#ECEFF9' : 'rgba(72, 73, 95, 0.3)',
       borderRadius: 1,
     },
   };
@@ -173,7 +173,7 @@ const MobileArrow = styled.div<WithIsLight & { position: 'top' | 'bottom' }>(({ 
 
 const Arrow = styled.div<WithIsLight & { direction: 'left' | 'right' }>(({ isLight, direction }) => {
   const margin = 16;
-  const borderStyle = `2px solid ${isLight ? '#ECEFF9' : 'red'}`;
+  const borderStyle = `2px solid ${isLight ? '#ECEFF9' : 'rgba(72, 73, 95, 0.3)'}`;
 
   return {
     position: 'relative',
@@ -213,7 +213,7 @@ const Arrow = styled.div<WithIsLight & { direction: 'left' | 'right' }>(({ isLig
       ...(direction === 'left' ? { right: 0 } : { left: 0 }),
       width: 2,
       height: 14,
-      background: isLight ? '#ECEFF9' : 'red',
+      background: isLight ? '#ECEFF9' : 'rgba(72, 73, 95, 0.3)',
       borderRadius: 1,
     },
   };
@@ -242,7 +242,7 @@ const Value = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 14,
   lineHeight: '17px',
   letterSpacing: 0.4,
-  color: isLight ? '#9FAFB9' : 'red',
+  color: isLight ? '#9FAFB9' : '#546978',
 
   [lightTheme.breakpoints.up('table_834')]: {
     fontSize: 16,
@@ -255,7 +255,7 @@ const Value = styled.div<WithIsLight>(({ isLight }) => ({
     lineHeight: '17px',
     letterSpacing: 0.3,
     fontFeatureSettings: "'tnum' on, 'lnum' on",
-    color: isLight ? '#9FAFB9' : 'red',
+    color: isLight ? '#9FAFB9' : '#31424E',
     marginLeft: 4,
 
     [lightTheme.breakpoints.up('table_834')]: {
@@ -268,7 +268,7 @@ const Value = styled.div<WithIsLight>(({ isLight }) => ({
 const NetChangeMessage = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 12,
   lineHeight: '15px',
-  color: isLight ? '#D1DEE6' : 'red',
+  color: isLight ? '#D1DEE6' : '#405361',
   margin: '4px 10px 3px 0',
 
   [lightTheme.breakpoints.up('table_834')]: {

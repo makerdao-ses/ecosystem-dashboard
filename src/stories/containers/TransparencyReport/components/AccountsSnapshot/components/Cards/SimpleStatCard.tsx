@@ -69,7 +69,7 @@ const Card = styled(OutlinedCard)({
 });
 
 const Date = styled.div<WithIsLight & { align: 'right' | 'left' }>(({ isLight, align }) => ({
-  color: isLight ? '#708390' : 'red',
+  color: isLight ? '#708390' : '#708390',
   fontWeight: 600,
   fontSize: 11,
   lineHeight: '13px',
@@ -124,7 +124,7 @@ const Value = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 16,
   lineHeight: '19px',
   letterSpacing: 0.3,
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#EDEFFF',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
 
   [lightTheme.breakpoints.up('table_834')]: {
@@ -148,7 +148,7 @@ const Value = styled.div<WithIsLight>(({ isLight }) => ({
     lineHeight: '15px',
     letterSpacing: 0.3,
     fontFeatureSettings: "'tnum' on, 'lnum' on",
-    color: isLight ? '#9FAFB9' : 'red',
+    color: isLight ? '#9FAFB9' : '#708390',
 
     [lightTheme.breakpoints.up('table_834')]: {
       fontSize: 16,
@@ -164,7 +164,7 @@ const Value = styled.div<WithIsLight>(({ isLight }) => ({
 const Caption = styled.div<WithIsLight & { position: 'left' | 'right' }>(({ isLight, position }) => ({
   fontSize: 11,
   lineHeight: '13px',
-  color: isLight ? '#708390' : 'red',
+  color: isLight ? '#708390' : '#708390',
   marginTop: 4,
 
   [lightTheme.breakpoints.up('table_834')]: {
