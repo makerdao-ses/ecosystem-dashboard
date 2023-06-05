@@ -40,6 +40,7 @@ const ReserveCard: React.FC<ReserveCardProps> = ({
   const SVG = (
     <Arrow
       isExpanded={expanded}
+      isGroup={isGroup}
       width="10"
       height="6"
       viewBox="0 0 10 6"
@@ -57,7 +58,13 @@ const ReserveCard: React.FC<ReserveCardProps> = ({
     <Accordion onChange={() => setExpanded(!expanded)}>
       <Card isLight={isLight}>
         <NameContainer>
-          {isGroup ? <Name isLight={isLight}>{name}</Name> : <WalletInfo name={name} address={address ?? ''} />}
+          {isGroup ? (
+            <Name isLight={isLight}>{name}</Name>
+          ) : (
+            <WalletInfoWrapper>
+              <WalletInfo name={name} address={address ?? ''} />
+            </WalletInfoWrapper>
+          )}
           {isMobile && SVG}
         </NameContainer>
         <InitialBalance>
@@ -148,7 +155,17 @@ const NameContainer = styled.div({
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: '18.9%',
+    width: '18.4%',
+  },
+});
+
+const WalletInfoWrapper = styled.div({
+  paddingTop: 3,
+  marginBottom: -6,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    paddingTop: 0,
+    margin: 0,
   },
 });
 
@@ -181,11 +198,11 @@ const InitialBalance = styled.div({
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
     padding: 16,
-    width: '18.1%',
+    width: '18.8%',
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: '18.3%',
+    width: '18.4%',
   },
 });
 
@@ -252,7 +269,6 @@ const Inflow = styled.div<WithIsLight>(({ isLight }) => ({
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    padding: '8px 16px',
     margin: '8px 16px',
     width: '15.9%',
   },
@@ -262,7 +278,7 @@ const Inflow = styled.div<WithIsLight>(({ isLight }) => ({
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: '16.5%',
+    width: '16%',
   },
 }));
 
@@ -304,13 +320,21 @@ const ArrowContainer = styled.div({
     width: 72,
     justifyContent: 'center',
   },
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    width: 106,
+  },
 });
 
-const Arrow = styled.svg<{ isExpanded: boolean }>(({ isExpanded }) => ({
+const Arrow = styled.svg<{ isExpanded: boolean; isGroup: boolean }>(({ isExpanded, isGroup }) => ({
   transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
   transition: 'transform 0.2s ease-in-out',
-  marginTop: -2,
+  marginTop: isGroup ? -4 : -30,
   marginRight: -5,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 0,
+  },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
     width: 16,

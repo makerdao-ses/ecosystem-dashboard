@@ -14,9 +14,16 @@ interface SimpleStatCardProps {
   value: number;
   caption: string;
   hasEqualSign?: boolean;
+  isReserves?: boolean;
 }
 
-const SimpleStatCard: React.FC<SimpleStatCardProps> = ({ date, value, caption, hasEqualSign = false }) => {
+const SimpleStatCard: React.FC<SimpleStatCardProps> = ({
+  date,
+  value,
+  caption,
+  hasEqualSign = false,
+  isReserves = false,
+}) => {
   const { isLight } = useThemeContext();
   const isTablet = useMediaQuery(lightTheme.breakpoints.down('desktop_1194'));
 
@@ -36,7 +43,7 @@ const SimpleStatCard: React.FC<SimpleStatCardProps> = ({ date, value, caption, h
           <Value isLight={isLight}>
             {usLocalizedNumber(Math.round(value))} <span>DAI</span>
           </Value>
-          <Caption isLight={isLight} position={hasEqualSign ? 'right' : 'left'}>
+          <Caption isLight={isLight} position={hasEqualSign ? 'right' : 'left'} isReserves={isReserves}>
             {caption}
           </Caption>
         </Wrapper>
@@ -48,7 +55,7 @@ const SimpleStatCard: React.FC<SimpleStatCardProps> = ({ date, value, caption, h
 export default SimpleStatCard;
 
 const Card = styled(OutlinedCard)({
-  padding: '7px 15px 16px',
+  padding: '7px 15px 15px',
 
   [lightTheme.breakpoints.up('table_834')]: {
     padding: '15px 11px 15px 15px',
@@ -56,7 +63,7 @@ const Card = styled(OutlinedCard)({
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    padding: '24px 15px 23px',
+    padding: '24px 10.5px 23px 15px',
   },
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
@@ -86,7 +93,7 @@ const Date = styled.div<WithIsLight & { align: 'right' | 'left' }>(({ isLight, a
 
 const ContentWrapper = styled.div({
   display: 'flex',
-  marginTop: 16,
+  marginTop: 15,
 
   [lightTheme.breakpoints.up('table_834')]: {
     marginTop: 25,
@@ -161,21 +168,31 @@ const Value = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const Caption = styled.div<WithIsLight & { position: 'left' | 'right' }>(({ isLight, position }) => ({
-  fontSize: 11,
-  lineHeight: '13px',
-  color: isLight ? '#708390' : '#708390',
-  marginTop: 4,
+const Caption = styled.div<WithIsLight & { position: 'left' | 'right'; isReserves: boolean }>(
+  ({ isLight, position, isReserves }) => ({
+    fontSize: 11,
+    lineHeight: '13px',
+    color: isLight ? '#708390' : '#708390',
+    marginTop: 4,
+    ...(isReserves && {
+      marginLeft: -13,
+    }),
 
-  [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: 8,
-    textAlign: position,
-    ...(position === 'right' && { marginRight: 2 }),
-  },
+    [lightTheme.breakpoints.up('table_834')]: {
+      marginTop: 8,
+      textAlign: position,
+      ...(position === 'right' && { marginRight: 2 }),
+    },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    fontSize: 16,
-    lineHeight: '22px',
-    textAlign: 'left',
-  },
-}));
+    [lightTheme.breakpoints.up('desktop_1194')]: {
+      fontSize: 16,
+      lineHeight: '22px',
+      textAlign: 'left',
+
+      ...(isReserves && {
+        marginLeft: 0,
+        marginRight: -5,
+      }),
+    },
+  })
+);
