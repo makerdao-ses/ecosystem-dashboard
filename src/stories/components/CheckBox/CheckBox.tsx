@@ -24,9 +24,9 @@ const CheckBox = ({ label, isChecked, setIsChecked, isLight }: Props) => {
         }}
       >
         {isChecked ? (
-          <CheckOnComponent fill="#1AAB9B" width={12} height={12} />
+          <CheckOnComponent fill="#1AAB9B" fillDark="#1AAB9B" width={12} height={12} />
         ) : (
-          <CheckboxOff fill="#1AAB9B" width={12} height={12} />
+          <CheckboxOff fill="#1AAB9B" fillDark="#1AAB9B" width={12} height={12} />
         )}
       </IconButton>
       <StyleLabel isChecked={isChecked} isLight={isLight} onClick={handleClick}>
