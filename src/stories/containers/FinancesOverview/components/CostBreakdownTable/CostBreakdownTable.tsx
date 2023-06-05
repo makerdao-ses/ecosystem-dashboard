@@ -30,6 +30,7 @@ export interface CostBreakdownTableProps {
   remainingCategories: ExpenseDto;
   maxValueByCategory: number;
   total: number;
+  handleOnClick?: () => void;
 }
 
 const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
@@ -42,6 +43,7 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
   byCategoryExpenses,
   remainingCategories,
   maxValueByCategory,
+  handleOnClick,
   total,
 }) => {
   const { isLight } = useThemeContext();
@@ -49,7 +51,11 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
     <BreakdownTableContainer>
       <CostBreakdownFilter selectedFilter={selectedFilter} onFilterChange={setSelectedFilter} />
       <Table isLight={isLight}>
-        {selectedFilter === 'By budget' ? <ByBudgetTableHeader /> : <ByExpenseCategoryTableHeader />}
+        {selectedFilter === 'By budget' ? (
+          <ByBudgetTableHeader />
+        ) : (
+          <ByExpenseCategoryTableHeader onClick={handleOnClick} />
+        )}
         <TableBody>
           {selectedFilter === 'By budget' ? (
             <>

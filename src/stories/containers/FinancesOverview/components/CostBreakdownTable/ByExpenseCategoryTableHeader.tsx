@@ -1,11 +1,22 @@
 import styled from '@emotion/styled';
+import IconOpenModal from '@ses/components/svg/IconOpenModal';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import TableHeaderItem from './TableHeaderItem';
 
-const ByExpenseCategoryTableHeader: React.FC = () => (
+interface Props {
+  onClick?: () => void;
+}
+
+const ByExpenseCategoryTableHeader: React.FC<Props> = ({ onClick }) => (
   <TableHeader>
-    <CategoryColumn>Category</CategoryColumn>
+    <CategoryColumn>
+      <CategoryRowInsideColumn>
+        Category
+        <IconOpenModal onClick={onClick} />
+      </CategoryRowInsideColumn>
+    </CategoryColumn>
+
     <TotalPercentageColumn>% of total</TotalPercentageColumn>
     <TotalSpendColumn>Total spend</TotalSpendColumn>
   </TableHeader>
@@ -26,12 +37,16 @@ const CategoryColumn = styled(TableHeaderItem)({
   width: '100%',
   textAlign: 'left',
 });
+const CategoryRowInsideColumn = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 12,
+});
 
 const TotalPercentageColumn = styled(TableHeaderItem)({
   width: 240,
   minWidth: 240,
   textAlign: 'right',
-
   [lightTheme.breakpoints.up('desktop_1194')]: {
     width: 164,
     minWidth: 164,
@@ -40,6 +55,7 @@ const TotalPercentageColumn = styled(TableHeaderItem)({
   [lightTheme.breakpoints.up('desktop_1440')]: {
     width: 240,
     minWidth: 240,
+    paddingRight: 32,
   },
 });
 
