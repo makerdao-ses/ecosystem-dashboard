@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { CANONNICAL_DESCRIPTION } from '@ses/containers/TransparencyReport/utils/descriptionsConstants';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
 import { Close } from '../svg/close';
@@ -23,7 +22,10 @@ const ContainerModal: React.FC<Props> = ({ headCountCategories, noHeadCountCateg
           <Close />
         </ContainerTitle>
         <ContainerDescription>
-          <Description isLight={isLight}>{CANONNICAL_DESCRIPTION}</Description>
+          <Description isLight={isLight}>
+            Canonical Expense Categories in MakerDAO are standardized classifications of expenses tailored for managing
+            MakerDAO's operational costs.
+          </Description>
           <CheckBoxDescription />
         </ContainerDescription>
       </Header>

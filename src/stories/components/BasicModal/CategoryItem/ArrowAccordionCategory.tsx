@@ -25,17 +25,7 @@ const AccordionCategory: React.FC<Props> = ({ style, category, subCategory }) =>
       <Accordion>
         <AccordionSummary isLight={isLight}>{category}</AccordionSummary>
         <AccordionDetails>
-          <div
-            style={{
-              background: '#FBFBFB',
-              boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
-              padding: 64,
-              borderRadius: '0px 0px 6px 6px',
-              textAlign: 'center',
-            }}
-          >
-            {subCategory}
-          </div>
+          <ItemsStyle>{subCategory}</ItemsStyle>
         </AccordionDetails>
       </Accordion>
     </TransactionHistoryContainer>
@@ -96,4 +86,12 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
 
 const AccordionDetails = styled(MuiAccordionDetails)({
   padding: 0,
+});
+
+const ItemsStyle = styled.div({
+  background: '#FBFBFB',
+  boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
+  padding: 64,
+  borderRadius: '0px 0px 6px 6px',
+  textAlign: 'center',
 });
