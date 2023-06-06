@@ -37,28 +37,18 @@ const ContainerModal: React.FC<Props> = ({ headCountCategories, noHeadCountCateg
             <CategoryItem category={item} />
           ))}
         </HeadCountList>
-        <NoHeadCount isLight={isLight}>Non-Headcount Expense Categories </NoHeadCount>
+        <NoHeadCount isLight={isLight}>Non-Headcount Expense Categories</NoHeadCount>
         <Line isLight={isLight} />
-        <ContainerTowColumns>
-          <ContainerPar>
-            {noHeadCountCategories
-              ?.filter((_, index) => index % 2 === 0)
-              .map((item) => (
-                <CategoryItem category={item} />
-              ))}
-          </ContainerPar>
-          <ContainerOdd>
-            {noHeadCountCategories
-              ?.filter((_, index) => index % 2 !== 0)
-              .map((item) => (
-                <CategoryItem category={item} />
-              ))}
-          </ContainerOdd>
-        </ContainerTowColumns>
+        <ContainerColumns>
+          {noHeadCountCategories?.map((item, index) => (
+            <CategoryItem category={item} className={index % 2 !== 0 ? 'align-end' : ''} />
+          ))}
+        </ContainerColumns>
       </InsideModal>
     </Container>
   );
 };
+
 export default ContainerModal;
 
 const Container = styled.div<WithIsLight>(({ isLight }) => ({
@@ -69,6 +59,7 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
   boxShadow: isLight ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : 'red',
   borderRadius: '16px',
 }));
+
 const Header = styled.div<WithIsLight>(({ isLight }) => ({
   paddingLeft: 40,
   paddingRight: 40,
@@ -87,6 +78,7 @@ const InsideModal = styled.div({
   paddingLeft: 40,
   paddingRight: 40,
 });
+
 const ContainerTitle = styled.div({
   display: 'flex',
   flexDirection: 'row',
@@ -94,6 +86,7 @@ const ContainerTitle = styled.div({
   alignItems: 'center',
   height: 29,
 });
+
 const Title = styled.div<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
@@ -148,23 +141,11 @@ const NoHeadCount = styled(HeadCount)<WithIsLight>({
   marginTop: 64,
 });
 
-const ContainerTowColumns = styled.div({
-  display: 'flex',
-  flex: 1,
-  flexDirection: 'row',
-});
-
-const ContainerPar = styled.div({
-  display: 'flex',
-  flexDirection: 'column',
-  flex: 1,
-  gap: 32,
-});
-
-const ContainerOdd = styled.div({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-end',
-  flex: 1,
-  gap: 32,
+const ContainerColumns = styled.div({
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr',
+  gap: '32px',
+  '& .align-end': {
+    justifySelf: 'end',
+  },
 });

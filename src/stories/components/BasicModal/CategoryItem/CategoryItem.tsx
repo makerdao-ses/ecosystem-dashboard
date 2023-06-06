@@ -5,10 +5,11 @@ interface Props {
   category: string;
   isOpen?: boolean;
   onChange?: () => void;
+  className?: string;
 }
 
-const CategoryItem: React.FC<Props> = ({ category }) => (
-  <Container>
+const CategoryItem: React.FC<Props> = ({ category, className }) => (
+  <Container className={className}>
     <AccordionCategory category={category} />
   </Container>
 );
