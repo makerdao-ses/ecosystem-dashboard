@@ -12,6 +12,7 @@ interface Props {
   noHeadCountCategories: Category[];
   isCheckedExpandedAll?: boolean;
   setIsCheckedExpandedAll?: (isChecked: boolean) => void;
+  handleCloseModal: () => void;
 }
 
 const ContainerModal: React.FC<Props> = ({
@@ -19,6 +20,7 @@ const ContainerModal: React.FC<Props> = ({
   noHeadCountCategories,
   isCheckedExpandedAll,
   setIsCheckedExpandedAll,
+  handleCloseModal,
 }) => {
   const { isLight } = useThemeContext();
 
@@ -27,7 +29,7 @@ const ContainerModal: React.FC<Props> = ({
       <Header isLight={isLight}>
         <ContainerTitle>
           <Title isLight={isLight}>Canonical Expense Categories</Title>
-          <Close />
+          <Close onClick={handleCloseModal} />
         </ContainerTitle>
         <ContainerDescription>
           <Description isLight={isLight}>
@@ -77,6 +79,7 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
   background: isLight ? '#FFFFFF' : 'red',
   boxShadow: isLight ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : 'red',
   borderRadius: '16px',
+  width: 1184,
 }));
 
 const Header = styled.div<WithIsLight>(({ isLight }) => ({
