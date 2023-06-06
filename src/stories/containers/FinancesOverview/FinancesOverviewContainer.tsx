@@ -111,7 +111,16 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
           {isDownTable && <NavigationButtons />}
         </BreakdownSectionContainer>
       </Container>
-      <BasicModalExtended handleClose={handleCloseModal} open={openModal}>
+      <BasicModalExtended
+        handleClose={handleCloseModal}
+        open={openModal}
+        backdropProps={{
+          style: {
+            background: isLight ? 'rgba(52, 52, 66, 0.1)' : 'red',
+            backdropFilter: isLight ? 'blur(2px);' : 'red',
+          },
+        }}
+      >
         <ContainerModal
           headCountCategories={headCountCategory}
           noHeadCountCategories={notHeadCountCategory}
@@ -261,4 +270,7 @@ const BasicModalExtended = styled(BasicModal)({
   top: '175px',
   left: '50%',
   transform: 'translateX(-50%)',
+  '& .MuiModal-backdrop': {
+    border: '2px solid red',
+  },
 });
