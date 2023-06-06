@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
+import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
 import React from 'react';
 import EqualSign from '../SVG/Equals';
@@ -12,26 +14,38 @@ interface SimpleStatCardProps {
   value: number;
   caption: string;
   hasEqualSign?: boolean;
+  isReserves?: boolean;
 }
 
-const SimpleStatCard: React.FC<SimpleStatCardProps> = ({ date, value, caption, hasEqualSign = false }) => {
+const SimpleStatCard: React.FC<SimpleStatCardProps> = ({
+  date,
+  value,
+  caption,
+  hasEqualSign = false,
+  isReserves = false,
+}) => {
   const { isLight } = useThemeContext();
+  const isTablet = useMediaQuery(lightTheme.breakpoints.down('desktop_1194'));
 
   return (
     <Card>
-      <Date isLight={isLight}>{DateTime.fromISO(date).toFormat('d MMM y')}</Date>
+      <Date isLight={isLight} align={hasEqualSign ? 'right' : 'left'}>
+        {DateTime.fromISO(date).toFormat('d MMM y')}
+      </Date>
 
       <ContentWrapper>
         {hasEqualSign && (
           <EqualSignContainer>
-            <EqualSign />
+            <EqualSign width={isTablet ? 16 : 24} height={isTablet ? 10 : 15} />
           </EqualSignContainer>
         )}
         <Wrapper>
           <Value isLight={isLight}>
             {usLocalizedNumber(Math.round(value))} <span>DAI</span>
           </Value>
-          <Caption isLight={isLight}>{caption}</Caption>
+          <Caption isLight={isLight} position={hasEqualSign ? 'right' : 'left'} isReserves={isReserves}>
+            {caption}
+          </Caption>
         </Wrapper>
       </ContentWrapper>
     </Card>
@@ -41,26 +55,68 @@ const SimpleStatCard: React.FC<SimpleStatCardProps> = ({ date, value, caption, h
 export default SimpleStatCard;
 
 const Card = styled(OutlinedCard)({
-  padding: '23px 31px',
+  padding: '7px 15px 15px',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    padding: '15px 11px 15px 15px',
+    minWidth: 182,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    padding: '24px 10.5px 23px 15px',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    padding: '24px 23px 23px',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    padding: '24px 31px 23px',
+  },
 });
 
-const Date = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#708390' : 'red',
+const Date = styled.div<WithIsLight & { align: 'right' | 'left' }>(({ isLight, align }) => ({
+  color: isLight ? '#708390' : '#708390',
   fontWeight: 600,
-  fontSize: 12,
-  lineHeight: '15px',
-  letterSpacing: 1,
+  fontSize: 11,
+  lineHeight: '13px',
   textTransform: 'uppercase',
+  textAlign: align,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: 12,
+    lineHeight: '15px',
+    letterSpacing: 1,
+    textAlign: 'left',
+  },
 }));
 
 const ContentWrapper = styled.div({
   display: 'flex',
-  marginTop: 33,
+  marginTop: 15,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 25,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginTop: 33,
+  },
 });
 
 const EqualSignContainer = styled.div({
-  paddingTop: 7,
-  marginRight: 16,
+  marginTop: -3,
+  marginRight: 6,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginRight: 'auto',
+    marginTop: 0,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginRight: 16,
+    marginTop: 7,
+  },
 });
 
 const Wrapper = styled.div({
@@ -71,26 +127,72 @@ const Wrapper = styled.div({
 const Value = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   alignItems: 'baseline',
-  fontWeight: 500,
-  fontSize: 30,
-  lineHeight: '36px',
-  letterSpacing: 0.4,
-  color: isLight ? '#231536' : 'red',
+  fontWeight: 700,
+  fontSize: 16,
+  lineHeight: '19px',
+  letterSpacing: 0.3,
+  color: isLight ? '#231536' : '#EDEFFF',
+  fontFeatureSettings: "'tnum' on, 'lnum' on",
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontWeight: 600,
+    fontSize: 20,
+    lineHeight: '24px',
+    letterSpacing: 0.4,
+    fontFeatureSettings: 'normal',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    fontWeight: 500,
+    fontSize: 30,
+    lineHeight: '36px',
+  },
 
   '& > span': {
     marginLeft: 4,
     fontWeight: 700,
-    fontSize: 16,
-    lineHeight: '19px',
+    fontSize: 12,
+    lineHeight: '15px',
     letterSpacing: 0.3,
     fontFeatureSettings: "'tnum' on, 'lnum' on",
-    color: isLight ? '#9FAFB9' : 'red',
+    color: isLight ? '#9FAFB9' : '#708390',
+
+    [lightTheme.breakpoints.up('table_834')]: {
+      fontSize: 16,
+      lineHeight: '19px',
+    },
+
+    [lightTheme.breakpoints.up('desktop_1194')]: {
+      fontSize: 16,
+    },
   },
 }));
 
-const Caption = styled.div<WithIsLight>(({ isLight }) => ({
-  fontSize: 16,
-  lineHeight: '22px',
-  color: isLight ? '#708390' : 'red',
-  marginTop: 8,
-}));
+const Caption = styled.div<WithIsLight & { position: 'left' | 'right'; isReserves: boolean }>(
+  ({ isLight, position, isReserves }) => ({
+    fontSize: 11,
+    lineHeight: '13px',
+    color: isLight ? '#708390' : '#708390',
+    marginTop: 4,
+    ...(isReserves && {
+      marginLeft: -13,
+    }),
+
+    [lightTheme.breakpoints.up('table_834')]: {
+      marginTop: 8,
+      textAlign: position,
+      ...(position === 'right' && { marginRight: 2 }),
+    },
+
+    [lightTheme.breakpoints.up('desktop_1194')]: {
+      fontSize: 16,
+      lineHeight: '22px',
+      textAlign: 'left',
+
+      ...(isReserves && {
+        marginLeft: 0,
+        marginRight: -5,
+      }),
+    },
+  })
+);

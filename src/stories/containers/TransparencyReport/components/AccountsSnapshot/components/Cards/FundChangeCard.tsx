@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import NumberWithSignCard from '../NumberWithSignCard/NumberWithSignCard';
 import OutlinedCard from './OutlinedCard';
@@ -27,12 +29,14 @@ const FundChangeCard: React.FC<FundChangeCardProps> = ({
   rightText,
 }) => {
   const { isLight } = useThemeContext();
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
 
   return (
     <Card>
       <ChangeContainer>
         <LeftArrowContainer>
-          <Arrow isLight={isLight} direction="left" />
+          <FillSpace position="left" />
+          {isMobile ? <MobileArrow isLight={isLight} position="top" /> : <Arrow isLight={isLight} direction="left" />}
         </LeftArrowContainer>
         <ChangeContent>
           <Value isLight={isLight}>
@@ -42,18 +46,17 @@ const FundChangeCard: React.FC<FundChangeCardProps> = ({
           <NetChangeMessage isLight={isLight}>Net Change</NetChangeMessage>
         </ChangeContent>
         <RightArrowContainer>
-          <Arrow isLight={isLight} direction="right" />
+          {isMobile ? (
+            <MobileArrow isLight={isLight} position="bottom" />
+          ) : (
+            <Arrow isLight={isLight} direction="right" />
+          )}
+          <FillSpace position="right" />
         </RightArrowContainer>
       </ChangeContainer>
       <ValuesContainer>
-        <NumberWithSignCard value={leftValue} valueColor={leftValueColor} sign="positive" text={leftText} width={224} />
-        <NumberWithSignCard
-          value={rightValue}
-          valueColor={rightValueColor}
-          sign="negative"
-          text={rightText}
-          width={235}
-        />
+        <NumberWithSignCard value={leftValue} valueColor={leftValueColor} sign="positive" text={leftText} />
+        <NumberWithSignCard value={rightValue} valueColor={rightValueColor} sign="negative" text={rightText} />
       </ValuesContainer>
     </Card>
   );
@@ -63,41 +66,124 @@ export default FundChangeCard;
 
 const Card = styled(OutlinedCard)({
   padding: 15,
-  minWidth: 579,
+  display: 'flex',
+  flexDirection: 'row-reverse',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    minWidth: 390,
+    padding: 7,
+    flexDirection: 'column',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    minWidth: 579,
+    padding: '16px 15px 15px',
+  },
 });
 
 const ChangeContainer = styled.div({
   display: 'flex',
+  flexDirection: 'column',
   width: '100%',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    flexDirection: 'row',
+  },
 });
 
 const LeftArrowContainer = styled.div({
   width: '100%',
-  paddingLeft: 143,
-  marginRight: 8,
-  paddingBottom: 1,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginRight: 8,
+    paddingBottom: 1,
+    display: 'flex',
+  },
 });
 
 const RightArrowContainer = styled.div({
   width: '100%',
-  paddingRight: 113,
-  marginLeft: 8,
-  paddingBottom: 1,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginLeft: 8,
+    paddingBottom: 1,
+    display: 'flex',
+  },
+});
+
+const FillSpace = styled.div<{ position: 'left' | 'right' }>(({ position }) => ({
+  [lightTheme.breakpoints.up('table_834')]: {
+    minWidth: position === 'left' ? 100 : 84,
+    height: '100%',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    minWidth: position === 'left' ? 141 : 112,
+  },
+}));
+
+const MobileArrow = styled.div<WithIsLight & { position: 'top' | 'bottom' }>(({ isLight, position }) => {
+  const borderStyle = `2px solid ${isLight ? '#ECEFF9' : 'rgba(72, 73, 95, 0.3)'}`;
+
+  return {
+    position: 'relative',
+    height: position === 'top' ? 14 : 10,
+    borderRight: borderStyle,
+    marginLeft: 8,
+    marginRight: 42,
+
+    ...(position === 'top'
+      ? {
+          marginTop: 22,
+          borderTop: borderStyle,
+          borderTopRightRadius: 20,
+        }
+      : {
+          marginBottom: 16,
+          borderBottom: borderStyle,
+          borderBottomRightRadius: 20,
+        }),
+
+    '&::before': {
+      content: '""',
+      position: 'absolute',
+      left: 0,
+      ...(position === 'top' ? { top: -7.4 } : { bottom: -7.4 }),
+
+      width: 13,
+      height: 13,
+      borderTop: borderStyle,
+      borderLeft: borderStyle,
+      borderTopLeftRadius: 1,
+      transform: 'rotate(-45deg)',
+    },
+
+    '&::after': {
+      content: '""',
+      position: 'absolute',
+      right: -10,
+      ...(position === 'top' ? { bottom: 0 } : { top: 0 }),
+      width: 20,
+      height: 2,
+      background: isLight ? '#ECEFF9' : 'rgba(72, 73, 95, 0.3)',
+      borderRadius: 1,
+    },
+  };
 });
 
 const Arrow = styled.div<WithIsLight & { direction: 'left' | 'right' }>(({ isLight, direction }) => {
   const margin = 16;
-  const borderStyle = `2px solid ${isLight ? '#ECEFF9' : 'red'}`;
+  const borderStyle = `2px solid ${isLight ? '#ECEFF9' : 'rgba(72, 73, 95, 0.3)'}`;
 
   return {
     position: 'relative',
     height: `calc(100% - ${margin}px)`,
     marginTop: margin,
     borderTop: borderStyle,
+    width: '100%',
 
     ...(direction === 'left'
       ? {
-          width: 'calc(100% - 25px)',
           borderLeft: borderStyle,
           borderTopLeftRadius: 20,
         }
@@ -127,44 +213,82 @@ const Arrow = styled.div<WithIsLight & { direction: 'left' | 'right' }>(({ isLig
       ...(direction === 'left' ? { right: 0 } : { left: 0 }),
       width: 2,
       height: 14,
-      background: isLight ? '#ECEFF9' : 'red',
+      background: isLight ? '#ECEFF9' : 'rgba(72, 73, 95, 0.3)',
       borderRadius: 1,
     },
   };
 });
 
 const ChangeContent = styled.div({
-  paddingBottom: 16,
-  textAlign: 'center',
-  marginLeft: -25,
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-end',
+  marginTop: 2,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 0,
+    paddingBottom: 8,
+    alignItems: 'center',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    paddingBottom: 16,
+  },
 });
 
 const Value = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   fontWeight: 500,
-  fontSize: 16,
-  lineHeight: '19px',
+  fontSize: 14,
+  lineHeight: '17px',
   letterSpacing: 0.4,
-  color: isLight ? '#9FAFB9' : 'red',
+  color: isLight ? '#9FAFB9' : '#546978',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: 16,
+    lineHeight: '19px',
+  },
 
   '& > span': {
     fontWeight: 700,
-    fontSize: 16,
-    lineHeight: '19px',
+    fontSize: 14,
+    lineHeight: '17px',
     letterSpacing: 0.3,
     fontFeatureSettings: "'tnum' on, 'lnum' on",
-    color: isLight ? '#9FAFB9' : 'red',
+    color: isLight ? '#9FAFB9' : '#31424E',
     marginLeft: 4,
+
+    [lightTheme.breakpoints.up('table_834')]: {
+      fontSize: 16,
+      lineHeight: '19px',
+    },
   },
 }));
 
 const NetChangeMessage = styled.div<WithIsLight>(({ isLight }) => ({
-  fontSize: 14,
-  lineHeight: '17px',
-  color: isLight ? '#D1DEE6' : 'red',
+  fontSize: 12,
+  lineHeight: '15px',
+  color: isLight ? '#D1DEE6' : '#405361',
+  margin: '4px 10px 3px 0',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: 14,
+    lineHeight: '17px',
+    margin: 0,
+  },
 }));
 
 const ValuesContainer = styled.div({
   display: 'flex',
-  gap: 24,
+  gap: 8,
+  flexDirection: 'column',
+  width: '100%',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    flexDirection: 'row',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    gap: 24,
+  },
 });

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import Checkbox from '@mui/material/Checkbox';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import FundChangeCard from '../Cards/FundChangeCard';
 import ReserveCard from '../Cards/ReserveCard/ReserveCard';
@@ -37,10 +38,16 @@ const CUReserves: React.FC<CUReservesProps> = ({ coreUnitCode }) => {
           rightValue={538320}
           rightText="Outflow"
         />
-        <SimpleStatCard date="2023-06-14T22:52:54.494Z" value={1266680} caption="New Core Unit Reserves" hasEqualSign />
+        <SimpleStatCard
+          date="2023-06-14T22:52:54.494Z"
+          value={1266680}
+          caption="New Core Unit Reserves"
+          hasEqualSign
+          isReserves
+        />
       </CardsContainer>
 
-      <Subsection>
+      <OnChainSubsection>
         <SectionHeader
           title="On Chain Reserves"
           subtitle={`Unspent on-chain reserves to the ${coreUnitCode} Core Unit.`}
@@ -74,12 +81,12 @@ const CUReserves: React.FC<CUReservesProps> = ({ coreUnitCode }) => {
             newBalance={1100000}
           />
         </ReservesCardsContainer>
-      </Subsection>
+      </OnChainSubsection>
 
-      <Subsection isDisabled>
+      <OffChainSubsection isDisabled>
         <SectionHeader
           title="Off Chain Reserves"
-          subtitle={`Unspent off-chain reserves accessible to the ${coreUnitCode} Core Unit.`}
+          subtitle={`Unspent off-chain reserves to the ${coreUnitCode} Core Unit.`}
           tooltip={'pending...'}
           isSubsection
         />
@@ -104,7 +111,7 @@ const CUReserves: React.FC<CUReservesProps> = ({ coreUnitCode }) => {
             newBalance={550680}
           />
         </ReservesCardsContainer>
-      </Subsection>
+      </OffChainSubsection>
     </div>
   );
 };
@@ -113,32 +120,89 @@ export default CUReserves;
 
 const CardsContainer = styled.div({
   display: 'flex',
-  gap: 24,
+  gap: 8,
   marginTop: 24,
+  flexWrap: 'wrap',
+
+  '& > div:nth-of-type(1)': {
+    order: 1,
+    width: 'calc(50% - 4px)',
+  },
+  '& > div:nth-of-type(2)': {
+    order: 3,
+  },
+  '& > div:nth-of-type(3)': {
+    order: 2,
+    width: 'calc(50% - 4px)',
+  },
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    flexWrap: 'nowrap',
+
+    '& > div:nth-of-type(1)': {
+      order: 1,
+      width: '100%',
+    },
+    '& > div:nth-of-type(2)': {
+      order: 2,
+    },
+    '& > div:nth-of-type(3)': {
+      order: 3,
+      width: '100%',
+    },
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    gap: 24,
+  },
 });
 
 const HeaderContainer = styled.div({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'flex-end',
+  flexDirection: 'column',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    alignItems: 'flex-end',
+  },
 });
 
 const CheckContainer = styled.div<WithIsLight>(({ isLight }) => ({
-  fontSize: 16,
-  lineHeight: '22px',
+  fontSize: 14,
+  lineHeight: '17px',
   color: isLight ? '#231536' : 'red',
   display: 'flex',
   marginRight: 2,
   marginBottom: 1,
   gap: 10,
+  marginTop: 20,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 4,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    fontSize: 16,
+    lineHeight: '22px',
+  },
 
   '& span': {
     padding: 0,
   },
 }));
 
-const Subsection = styled.div<{ isDisabled?: boolean }>(({ isDisabled = false }) => ({
+const OnChainSubsection = styled.div({
   marginTop: 24,
+});
+
+const OffChainSubsection = styled.div<{ isDisabled?: boolean }>(({ isDisabled = false }) => ({
+  marginTop: 16,
   opacity: isDisabled ? 0.3 : 1,
 }));
 

@@ -3,6 +3,7 @@ import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
 import Information from '@ses/components/svg/information';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { toKebabCase } from '@ses/core/utils/string';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -46,7 +47,7 @@ const TitleWrapper = styled.div({
 });
 
 const Title = styled.h2<WithIsLight & { isSubsection: boolean }>(({ isLight, isSubsection }) => ({
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   fontWeight: isSubsection ? 700 : 600,
   fontSize: isSubsection ? 16 : 20,
   lineHeight: isSubsection ? '19px' : '24px',
@@ -64,7 +65,11 @@ const IconWrapper = styled.div({
 });
 
 const Subtitle = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : 'red',
-  fontSize: 16,
+  color: isLight ? '#231536' : '#D2D4EF',
+  fontSize: 14,
   lineHeight: '22px',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: 16,
+  },
 }));
