@@ -1,5 +1,6 @@
 import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { MOCK_CATEGORY_HEAD_COUNT, MOCK_CATEGORY_NOT_HEAD_COUNT } from '@ses/core/utils/storybook/mocks/coreUnitsMocks';
 import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
 import { useCallback, useMemo, useState } from 'react';
@@ -24,6 +25,18 @@ const useFinancesOverview = (
   byBudgetBreakdownExpenses: ExtendedExpense[],
   byCategoryBreakdownExpenses: ExpenseDto[]
 ) => {
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [checkOut, setCheckOut] = useState<boolean>(false);
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
+  const handleCheckedExpandedAll = () => {
+    setCheckOut(!checkOut);
+  };
   const sortedQuarters = useMemo(
     () =>
       quarterExpenses.sort((a, b) => {
@@ -239,6 +252,9 @@ const useFinancesOverview = (
     };
   }, [byCategoryBreakdownExpenses, selectedYear]);
 
+  const headCountCategory = MOCK_CATEGORY_HEAD_COUNT;
+  const notHeadCountCategory = MOCK_CATEGORY_NOT_HEAD_COUNT;
+
   return {
     isLight,
     sortedQuarters,
@@ -261,6 +277,13 @@ const useFinancesOverview = (
     remainingCategories,
     maxValueByCategory,
     costBreakdownTotal,
+    openModal,
+    handleOpenModal,
+    handleCloseModal,
+    headCountCategory,
+    notHeadCountCategory,
+    handleCheckedExpandedAll,
+    checkOut,
   };
 };
 

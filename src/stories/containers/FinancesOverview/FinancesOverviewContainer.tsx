@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
+import BasicModal from '@ses/components/BasicModal/BasicModal';
+import ContainerModal from '@ses/components/BasicModal/ContainerModal';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
-import React, { useState } from 'react';
+import React from 'react';
 import lightTheme from 'styles/theme/light';
 import CostBreakdownTable from './components/CostBreakdownTable/CostBreakdownTable';
 import ExpensesChart from './components/ExpensesChart/ExpensesChart';
@@ -49,12 +51,14 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
     remainingCategories,
     maxValueByCategory,
     costBreakdownTotal,
+    openModal,
+    handleCloseModal,
+    handleOpenModal,
+    headCountCategory,
+    notHeadCountCategory,
+    handleCheckedExpandedAll,
+    checkOut,
   } = useFinancesOverview(quarterExpenses, monthlyExpenses, byBudgetBreakdownExpenses, byCategoryBreakdownExpenses);
-  const [openModal, setOpenModal] = useState<boolean>(false);
-  // TODO: Remove this part when modal is implemented with the correct code:
-  const handleOnClickOpenModal = () => {
-    console.log('openModal', setOpenModal, openModal);
-  };
 
   return (
     <PageWrapper isLight={isLight}>
@@ -101,12 +105,21 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
               remainingCategories={remainingCategories}
               maxValueByCategory={maxValueByCategory}
               total={costBreakdownTotal}
-              handleOnClick={handleOnClickOpenModal}
+              handleOnClick={handleOpenModal}
             />
           </BreakdownTableColumn>
           {isDownTable && <NavigationButtons />}
         </BreakdownSectionContainer>
       </Container>
+      <BasicModalExtended handleClose={handleCloseModal} open={openModal}>
+        <ContainerModal
+          headCountCategories={headCountCategory}
+          noHeadCountCategories={notHeadCountCategory}
+          isCheckedExpandedAll={checkOut}
+          handleCloseModal={handleCloseModal}
+          setIsCheckedExpandedAll={handleCheckedExpandedAll}
+        />
+      </BasicModalExtended>
     </PageWrapper>
   );
 };
@@ -240,4 +253,12 @@ const ExpensesChartColumn = styled.div({
 
 const BreakdownTableColumn = styled.div({
   width: '100%',
+});
+
+const BasicModalExtended = styled(BasicModal)({
+  width: 1184,
+  position: 'absolute',
+  top: '175px',
+  left: '50%',
+  transform: 'translateX(-50%)',
 });
