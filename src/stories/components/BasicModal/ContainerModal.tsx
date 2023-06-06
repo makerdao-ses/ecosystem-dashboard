@@ -76,8 +76,10 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   paddingBottom: 32,
-  background: isLight ? '#FFFFFF' : 'red',
-  boxShadow: isLight ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : 'red',
+  background: isLight ? '#FFFFFF' : '#10191F',
+  boxShadow: isLight
+    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+    : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
   borderRadius: '16px',
   width: 1184,
 }));
@@ -92,8 +94,10 @@ const Header = styled.div<WithIsLight>(({ isLight }) => ({
   gap: 24,
   borderTopLeftRadius: '16px',
   borderTopRightRadius: '16px',
-  background: isLight ? '#FFFFFF' : 'white',
-  boxShadow: isLight ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : 'red',
+  background: isLight ? '#FFFFFF' : '#10191F',
+  boxShadow: isLight
+    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+    : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
 }));
 
 const InsideModal = styled.div({
@@ -116,7 +120,7 @@ const Title = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 24,
   lineHeight: '29px',
   letterSpacing: '0.4px',
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
 }));
 
 const Description = styled.div<WithIsLight>(({ isLight }) => ({
@@ -125,7 +129,7 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 400,
   fontSize: 16,
   lineHeight: '22px',
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   width: 725,
 }));
 
@@ -143,12 +147,12 @@ const HeadCount = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 20,
   lineHeight: '24px',
   letterSpacing: '0.4px',
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   marginTop: 32,
 }));
 
 const Line = styled.div<WithIsLight>(({ isLight }) => ({
-  borderBottom: isLight ? '1px solid #D4D9E1' : 'red',
+  borderBottom: isLight ? '1px solid #D4D9E1' : '1px solid #405361',
   marginTop: 15,
   marginBottom: 24,
 }));

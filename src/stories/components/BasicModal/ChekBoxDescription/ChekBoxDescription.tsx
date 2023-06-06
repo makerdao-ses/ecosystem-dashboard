@@ -23,7 +23,7 @@ const CheckBoxDescription: React.FC<Props> = ({ isChecked = false, setIsChecked 
       </Text>
       <ContainerCheckBox onClick={handleClick}>
         {isChecked ? (
-          <CheckOnComponent fill="#231536" width={15} height={15} />
+          <CheckOnComponent fill="#231536" fillDark="#7C6B95" width={15} height={15} />
         ) : (
           <CheckboxOff width={15} height={15} fillDark="#B7A6CD" />
         )}
@@ -46,7 +46,7 @@ const Text = styled.div<WithIsLight & { isChecked: boolean }>(({ isLight, isChec
   fontWeight: isChecked ? 700 : 400,
   fontSize: '16px',
   lineHeight: isChecked ? '19px' : '22px',
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   verticalAlign: 'center',
 }));
 

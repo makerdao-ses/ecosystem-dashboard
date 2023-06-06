@@ -26,8 +26,8 @@ const IconOpenModal: React.FC<Props> = ({ height = 17, width = 16, onClick, ...p
         width={9.97404}
         height={9.97402}
         rx={0.727273}
-        fill={isLight ? '#9FAFB9' : 'red'}
-        stroke={isLight ? '#9FAFB9' : 'red'}
+        fill={isLight ? '#9FAFB9' : 'transparent'}
+        stroke={isLight ? '#9FAFB9' : '#405361'}
         strokeWidth={1.45455}
       />
       <rect
@@ -36,8 +36,8 @@ const IconOpenModal: React.FC<Props> = ({ height = 17, width = 16, onClick, ...p
         width={12.1141}
         height={12.1141}
         rx={0.727273}
-        fill={isLight ? '#fff' : 'red'}
-        stroke={isLight ? '#fff' : 'red'}
+        fill={isLight ? '#fff' : '#405361'}
+        stroke={isLight ? '#fff' : '#405361'}
         strokeWidth={1.45455}
       />
       <rect
@@ -47,7 +47,7 @@ const IconOpenModal: React.FC<Props> = ({ height = 17, width = 16, onClick, ...p
         height={11.1169}
         rx={0.727273}
         fill={isLight ? '#fff' : 'red'}
-        stroke={isLight ? '#9FAFB9' : 'red'}
+        stroke={isLight ? '#9FAFB9' : '#405361'}
         strokeWidth={1.45455}
       />
     </svg>
