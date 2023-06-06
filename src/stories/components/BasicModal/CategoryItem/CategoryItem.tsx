@@ -1,11 +1,12 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import AccordionCategory from './ArrowAccordionCategory';
+import type { Category } from '@ses/core/models/dto/coreUnitDTO';
 interface Props {
-  category: string;
   isOpen?: boolean;
   onChange?: () => void;
   className?: string;
+  category: Category;
 }
 
 const CategoryItem: React.FC<Props> = ({ category, className }) => (
