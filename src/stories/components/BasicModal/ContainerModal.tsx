@@ -34,16 +34,27 @@ const ContainerModal: React.FC<Props> = ({ headCountCategories, noHeadCountCateg
         <Line isLight={isLight} />
         <HeadCountList>
           {headCountCategories?.map((item) => (
-            <CategoryItem category={item} />
+            <CategoryItem category={item} key={item} />
           ))}
         </HeadCountList>
         <NoHeadCount isLight={isLight}>Non-Headcount Expense Categories</NoHeadCount>
         <Line isLight={isLight} />
-        <ContainerColumns>
-          {noHeadCountCategories?.map((item, index) => (
-            <CategoryItem category={item} className={index % 2 !== 0 ? 'align-end' : ''} />
-          ))}
-        </ContainerColumns>
+        <ContainerTowColumns>
+          <ContainerPar>
+            {noHeadCountCategories
+              ?.filter((_, index) => index % 2 === 0)
+              .map((item) => (
+                <CategoryItem category={item} key={item} />
+              ))}
+          </ContainerPar>
+          <ContainerOdd>
+            {noHeadCountCategories
+              ?.filter((_, index) => index % 2 !== 0)
+              .map((item) => (
+                <CategoryItem category={item} key={item} />
+              ))}
+          </ContainerOdd>
+        </ContainerTowColumns>
       </InsideModal>
     </Container>
   );
@@ -141,11 +152,23 @@ const NoHeadCount = styled(HeadCount)<WithIsLight>({
   marginTop: 64,
 });
 
-const ContainerColumns = styled.div({
-  display: 'grid',
-  gridTemplateColumns: '1fr 1fr',
-  gap: '32px',
-  '& .align-end': {
-    justifySelf: 'end',
-  },
+const ContainerTowColumns = styled.div({
+  display: 'flex',
+  flex: 1,
+  flexDirection: 'row',
+});
+
+const ContainerPar = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  flex: 1,
+  gap: 32,
+});
+
+const ContainerOdd = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-end',
+  flex: 1,
+  gap: 32,
 });
