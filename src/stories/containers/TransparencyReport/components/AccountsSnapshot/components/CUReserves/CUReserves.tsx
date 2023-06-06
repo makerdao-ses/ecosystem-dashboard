@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
-import Checkbox from '@mui/material/Checkbox';
+import CheckboxMui from '@mui/material/Checkbox';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import FundChangeCard from '../Cards/FundChangeCard';
-import ReserveCard from '../Cards/ReserveCard/ReserveCard';
+import ReserveCard from '../Cards/ReserveCard';
 import SimpleStatCard from '../Cards/SimpleStatCard';
 import SectionHeader from '../SectionHeader/SectionHeader';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -25,7 +25,7 @@ const CUReserves: React.FC<CUReservesProps> = ({ coreUnitCode }) => {
           tooltip={'pending...'}
         />
         <CheckContainer isLight={isLight}>
-          Include Off-Chain Reserves <Checkbox size="small" />
+          Include Off-Chain Reserves <Checkbox isLight={isLight} size="small" />
         </CheckContainer>
       </HeaderContainer>
 
@@ -176,7 +176,7 @@ const HeaderContainer = styled.div({
 const CheckContainer = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 14,
   lineHeight: '17px',
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#787A9B',
   display: 'flex',
   marginRight: 2,
   marginBottom: 1,
@@ -194,6 +194,12 @@ const CheckContainer = styled.div<WithIsLight>(({ isLight }) => ({
 
   '& span': {
     padding: 0,
+  },
+}));
+
+const Checkbox = styled(CheckboxMui)<WithIsLight>(({ isLight }) => ({
+  svg: {
+    fill: isLight ? '#231536' : '#ADAFD4',
   },
 }));
 

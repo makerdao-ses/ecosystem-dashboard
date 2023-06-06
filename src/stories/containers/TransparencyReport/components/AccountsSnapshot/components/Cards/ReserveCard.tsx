@@ -7,7 +7,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import WalletInfo from '../../WalletInfo/WalletInfo';
+import WalletInfo from '../WalletInfo/WalletInfo';
 import type { AccordionProps } from '@mui/material/Accordion';
 import type { AccordionSummaryProps } from '@mui/material/AccordionSummary';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -49,7 +49,7 @@ const ReserveCard: React.FC<ReserveCardProps> = ({
     >
       <path
         d="M4.69339 5.86308C4.85404 6.04564 5.14598 6.04564 5.30664 5.86308L9.90358 0.639524C10.1255 0.38735 9.93978 0 9.59696 0H0.403059C0.0602253 0 -0.125491 0.38735 0.0964331 0.639525L4.69339 5.86308Z"
-        fill={isLight ? '#546978' : 'red'}
+        fill={isLight ? '#546978' : '#546978'}
       />
     </Arrow>
   );
@@ -113,8 +113,10 @@ const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters
 const Card = styled((props: AccordionSummaryProps) => <MuiAccordionSummary {...props} />)<WithIsLight>(
   ({ isLight }) => ({
     padding: '16px 24px 24px',
-    background: isLight ? '#ffffff' : 'red',
-    boxShadow: isLight ? '0px 4px 6px rgba(196, 196, 196, 0.25)' : 'red',
+    background: isLight ? '#ffffff' : '#1E2C37',
+    boxShadow: isLight
+      ? '0px 4px 6px rgba(196, 196, 196, 0.25)'
+      : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
     borderRadius: 6,
 
     [lightTheme.breakpoints.up('table_834')]: {
@@ -173,7 +175,7 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 700,
   fontSize: 16,
   lineHeight: '19px',
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
 
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     fontSize: 14,
@@ -209,7 +211,7 @@ const InitialBalance = styled.div({
 const Header = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 14,
   lineHeight: '17px',
-  color: isLight ? '#708390' : 'red',
+  color: isLight ? '#708390' : '#708390',
 
   [lightTheme.breakpoints.up('table_834')]: {
     fontSize: 11,
@@ -227,7 +229,7 @@ const Value = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 700,
   fontSize: 14,
   lineHeight: '17px',
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
     fontSize: 16,
@@ -241,7 +243,7 @@ const Currency = styled.span<WithIsLight>(({ isLight }) => ({
   lineHeight: '15px',
   letterSpacing: 1,
   textTransform: 'uppercase',
-  color: isLight ? '#9FAFB9' : 'red',
+  color: isLight ? '#9FAFB9' : '#546978',
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
     fontSize: 14,
@@ -257,7 +259,7 @@ const Inflow = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  background: isLight ? 'rgba(236, 239, 249, 0.5)' : 'red',
+  background: isLight ? 'rgba(236, 239, 249, 0.5)' : 'rgba(72, 73, 95, 0.25)',
 
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'column',
