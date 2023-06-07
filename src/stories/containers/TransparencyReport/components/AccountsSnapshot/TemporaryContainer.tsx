@@ -5,9 +5,14 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import AccountsSnapshot from './AccountsSnapshot';
+import type { Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-const TemporaryContainer: React.FC = () => {
+interface TemporaryContainerProps {
+  snapshot: Snapshots;
+}
+
+const TemporaryContainer: React.FC<TemporaryContainerProps> = ({ snapshot }) => {
   const { isLight } = useThemeContext();
 
   return (
@@ -16,7 +21,7 @@ const TemporaryContainer: React.FC = () => {
         <Title isLight={isLight}>Account Snapshot</Title>
       </Container>
 
-      <AccountsSnapshot />
+      <AccountsSnapshot snapshot={snapshot} />
     </PageContainer>
   );
 };
