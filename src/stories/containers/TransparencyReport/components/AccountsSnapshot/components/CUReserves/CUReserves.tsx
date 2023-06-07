@@ -11,9 +11,11 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface CUReservesProps {
   coreUnitCode: string;
+  includeOffChain: boolean;
+  toggleIncludeOffChain: () => void;
 }
 
-const CUReserves: React.FC<CUReservesProps> = ({ coreUnitCode }) => {
+const CUReserves: React.FC<CUReservesProps> = ({ coreUnitCode, includeOffChain, toggleIncludeOffChain }) => {
   const { isLight } = useThemeContext();
 
   return (
@@ -25,7 +27,8 @@ const CUReserves: React.FC<CUReservesProps> = ({ coreUnitCode }) => {
           tooltip={'pending...'}
         />
         <CheckContainer isLight={isLight}>
-          Include Off-Chain Reserves <Checkbox isLight={isLight} size="small" />
+          Include Off-Chain Reserves{' '}
+          <Checkbox checked={includeOffChain} onChange={toggleIncludeOffChain} isLight={isLight} size="small" />
         </CheckContainer>
       </HeaderContainer>
 
@@ -83,7 +86,7 @@ const CUReserves: React.FC<CUReservesProps> = ({ coreUnitCode }) => {
         </ReservesCardsContainer>
       </OnChainSubsection>
 
-      <OffChainSubsection isDisabled>
+      <OffChainSubsection isDisabled={!includeOffChain}>
         <SectionHeader
           title="Off Chain Reserves"
           subtitle={`Unspent off-chain reserves to the ${coreUnitCode} Core Unit.`}

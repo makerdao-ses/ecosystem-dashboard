@@ -1,7 +1,9 @@
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { useState } from 'react';
 import { EXPENSES_COMPARISON_TABLE_HEADER } from './components/ExpensesComparison/ExpensesComparison';
 import ExpensesComparisonRowCard from './components/ExpensesComparisonRowCard/ExpensesComparisonRowCard';
 import type { CardRenderProps, RowProps } from '@ses/components/AdvanceTable/types';
+import type { Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';
 
 const RenderCurrentMonthRow: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { isLight } = useThemeContext();
@@ -70,8 +72,15 @@ export const buildRow = (
     ],
   } as RowProps);
 
-const useAccountsSnapshot = () => {
+const useAccountsSnapshot = (snapshot: Snapshots) => {
   const { isLight } = useThemeContext();
+
+  const [includeOffChain, setIncludeOffChain] = useState<boolean>(false);
+
+  const toggleIncludeOffChain = () => setIncludeOffChain(!includeOffChain);
+
+  // TODO: process the snapshot object
+  console.log(snapshot);
 
   const expensesComparisonRows = [
     buildRow(['MAY-2023', '221,503.00 DAI', '240,000.00 DAI', '8.35%', '221,504.00 DAI', '0.00%'], true, false),
@@ -83,6 +92,8 @@ const useAccountsSnapshot = () => {
   return {
     isLight,
     expensesComparisonRows,
+    includeOffChain,
+    toggleIncludeOffChain,
   };
 };
 
