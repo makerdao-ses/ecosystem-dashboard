@@ -31,6 +31,7 @@ const useFinancesOverview = (
     setOpenModal(true);
   };
   const handleCloseModal = () => {
+    setCheckOut(false);
     setOpenModal(false);
   };
 

@@ -11,7 +11,7 @@ interface Props {
   headCountCategories: Category[];
   noHeadCountCategories: Category[];
   isCheckedExpandedAll?: boolean;
-  setIsCheckedExpandedAll?: (isChecked: boolean) => void;
+  setIsCheckedExpandedAll: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleCloseModal: () => void;
 }
 

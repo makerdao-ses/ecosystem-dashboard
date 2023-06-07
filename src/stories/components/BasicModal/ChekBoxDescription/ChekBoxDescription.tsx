@@ -1,32 +1,24 @@
 import styled from '@emotion/styled';
-// import { IconButton } from '@mui/material';
-import CheckOnComponent from '@ses/components/svg/check-on-new';
-import CheckboxOff from '@ses/components/svg/checkbox-off';
+import CheckboxMui from '@mui/material/Checkbox';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   isChecked?: boolean;
-  setIsChecked?: (isChecked: boolean) => void;
+
+  setIsChecked: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const CheckBoxDescription: React.FC<Props> = ({ isChecked = false, setIsChecked }) => {
   const { isLight } = useThemeContext();
-  const handleClick = () => {
-    setIsChecked?.(isChecked);
-  };
   return (
     <Container>
       <Text isLight={isLight} isChecked={isChecked}>
         Expand All Categories
       </Text>
-      <ContainerCheckBox onClick={handleClick}>
-        {isChecked ? (
-          <CheckOnComponent fill="#231536" fillDark="#7C6B95" width={15} height={15} />
-        ) : (
-          <CheckboxOff width={15} height={15} fillDark="#B7A6CD" />
-        )}
+      <ContainerCheckBox>
+        <Checkbox isLight={isLight} size="small" checked={isChecked} onChange={setIsChecked} />
       </ContainerCheckBox>
     </Container>
   );
@@ -37,8 +29,9 @@ export default CheckBoxDescription;
 const Container = styled.div({
   display: 'flex',
   gap: 12,
+
+  marginBottom: 4,
   alignItems: 'center',
-  paddingRight: 5,
 });
 const Text = styled.div<WithIsLight & { isChecked: boolean }>(({ isLight, isChecked = false }) => ({
   fontFamily: 'Inter, sans-serif',
@@ -51,6 +44,17 @@ const Text = styled.div<WithIsLight & { isChecked: boolean }>(({ isLight, isChec
 }));
 
 const ContainerCheckBox = styled.div({
-  height: 22,
-  cursor: 'pointer',
+  height: 16,
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  marginRight: 4,
 });
+
+const Checkbox = styled(CheckboxMui)<WithIsLight>(({ isLight }) => ({
+  width: 15,
+  height: 15,
+  svg: {
+    fill: isLight ? '#231536' : '#ADAFD4',
+  },
+}));
