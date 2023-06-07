@@ -13,7 +13,7 @@ interface Props {
 const CheckBoxDescription: React.FC<Props> = ({ isChecked = false, setIsChecked }) => {
   const { isLight } = useThemeContext();
   return (
-    <Container>
+    <Container isChecked={isChecked}>
       <Text isLight={isLight} isChecked={isChecked}>
         Expand All Categories
       </Text>
@@ -26,13 +26,13 @@ const CheckBoxDescription: React.FC<Props> = ({ isChecked = false, setIsChecked 
 
 export default CheckBoxDescription;
 
-const Container = styled.div({
+const Container = styled.div<{ isChecked: boolean }>(({ isChecked }) => ({
   display: 'flex',
   gap: 12,
 
-  marginBottom: 4,
+  marginBottom: isChecked ? 3 : undefined,
   alignItems: 'center',
-});
+}));
 const Text = styled.div<WithIsLight & { isChecked: boolean }>(({ isLight, isChecked = false }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
