@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import Container from '@ses/components/Container/Container';
 import React from 'react';
 import CUReserves from './components/CUReserves/CUReserves';
 import ExpensesComparison from './components/ExpensesComparison/ExpensesComparison';
@@ -10,13 +9,11 @@ const AccountsSnapshot: React.FC = () => {
   const { expensesComparisonRows } = useAccountsSnapshot();
 
   return (
-    <Container>
-      <Wrapper>
-        <FundingOverview coreUnitCode="SES" />
-        <CUReserves coreUnitCode="SES" />
-        <ExpensesComparison rows={expensesComparisonRows} />
-      </Wrapper>
-    </Container>
+    <Wrapper>
+      <FundingOverview coreUnitCode="SES" />
+      <CUReserves coreUnitCode="SES" />
+      <ExpensesComparison rows={expensesComparisonRows} />
+    </Wrapper>
   );
 };
 
