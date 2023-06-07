@@ -208,6 +208,10 @@ const Checkbox = styled(CheckboxMui)<WithIsLight>(({ isLight }) => ({
 
 const OnChainSubsection = styled.div({
   marginTop: 24,
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginTop: 23,
+  },
 });
 
 const OffChainSubsection = styled.div<{ isDisabled?: boolean }>(({ isDisabled = false }) => ({

@@ -41,6 +41,14 @@ export default WalletInfo;
 
 const Container = styled.div({
   display: 'flex',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 10,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    marginTop: 8,
+  },
 });
 
 const BlockiesContainer = styled.div({
