@@ -67,7 +67,7 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 700,
   fontSize: 16,
   lineHeight: '19px',
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   marginBottom: 4,
   marginRight: 8.5,
 
@@ -79,7 +79,7 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
 }));
 
 const InfoIcon = styled(Information)<WithIsLight>(({ isLight }) => ({
-  fill: isLight ? '#D1DEE6' : 'red',
+  fill: isLight ? '#D1DEE6' : '#7C6B95',
   marginTop: 1,
 }));
 
@@ -90,7 +90,7 @@ const AddressContainer = styled.div({
 const Address = styled.a<WithIsLight>(({ isLight }) => ({
   fontSize: 14,
   lineHeight: '17px',
-  color: isLight ? '#447AFB' : 'red',
+  color: isLight ? '#447AFB' : '#447AFB',
   marginRight: 17,
 
   [lightTheme.breakpoints.up('table_834')]: {

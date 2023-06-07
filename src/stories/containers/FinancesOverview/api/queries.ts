@@ -108,7 +108,7 @@ export const fetchCostBreakdownExpenses = async (): Promise<{
       return {
         ...expense,
         shortCode,
-        name: coreUnitsMap.get(shortCode)?.name,
+        name: coreUnitsMap.get(shortCode)?.name ?? 'Unknown',
       } as ExtendedExpense;
     }
     // it is a delegate expense
