@@ -19,9 +19,9 @@ const TemporaryContainer: React.FC<TemporaryContainerProps> = ({ snapshot }) => 
     <PageContainer hasImageBackground>
       <Container>
         <Title isLight={isLight}>Account Snapshot</Title>
-      </Container>
 
-      <AccountsSnapshot snapshot={snapshot} />
+        <AccountsSnapshot snapshot={snapshot} />
+      </Container>
     </PageContainer>
   );
 };

@@ -1,10 +1,12 @@
 import styled from '@emotion/styled';
 import AdvanceTable from '@ses/components/AdvanceTable/AdvanceTable';
 import Information from '@ses/components/svg/information';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import SectionHeader from '../SectionHeader/SectionHeader';
 import type { RowProps } from '@ses/components/AdvanceTable/types';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface ExpensesComparisonProps {
   rows: RowProps[];
@@ -129,22 +131,30 @@ export const EXPENSES_COMPARISON_TABLE_HEADER = [
   },
 ] as RowProps[];
 
-const ExpensesComparison: React.FC<ExpensesComparisonProps> = ({ rows }) => (
-  <div>
-    <SectionHeader
-      title="Reported Expenses Comparison"
-      subtitle={'Reported actuals compared to expense and revenue transactions.'}
-      tooltip={'pending...'}
-    />
+const ExpensesComparison: React.FC<ExpensesComparisonProps> = ({ rows }) => {
+  const { isLight } = useThemeContext();
 
-    <TableWrapper>
-      <AdvanceTable header={EXPENSES_COMPARISON_TABLE_HEADER} body={rows} />
-    </TableWrapper>
-  </div>
-);
+  return (
+    <div>
+      <SectionHeader
+        title="Reported Expenses Comparison"
+        subtitle={'Reported actuals compared to expense and revenue transactions.'}
+        tooltip={'pending...'}
+      />
+
+      <TableWrapper>
+        <StyledTable isLight={isLight} header={EXPENSES_COMPARISON_TABLE_HEADER} body={rows} />
+      </TableWrapper>
+    </div>
+  );
+};
 
 export default ExpensesComparison;
 
 const TableWrapper = styled.div({
   marginTop: 24,
 });
+
+const StyledTable = styled(AdvanceTable)<WithIsLight>(({ isLight }) => ({
+  background: isLight ? '#FFFFFF' : '#1E2C37',
+}));

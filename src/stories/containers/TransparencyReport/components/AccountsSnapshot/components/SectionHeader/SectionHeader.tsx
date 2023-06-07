@@ -20,7 +20,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, tooltip,
   return (
     <Header>
       <TitleWrapper>
-        <Title isLight={isLight} isSubsection={isSubsection}>
+        <Title isLight={isLight} isSubsection={isSubsection} as={isSubsection ? 'h2' : 'h3'}>
           {title}
         </Title>
         {tooltip && (
@@ -38,7 +38,11 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, tooltip,
 
 export default SectionHeader;
 
-const Header = styled.header({});
+const Header = styled.div({
+  [lightTheme.breakpoints.down('table_834')]: {
+    width: '100%',
+  },
+});
 
 const TitleWrapper = styled.div({
   display: 'flex',

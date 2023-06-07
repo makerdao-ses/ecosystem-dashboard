@@ -5,15 +5,18 @@ import ExpensesComparisonRowCard from './components/ExpensesComparisonRowCard/Ex
 import type { CardRenderProps, RowProps } from '@ses/components/AdvanceTable/types';
 import type { Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';
 
+const RenderCurrentMonthRow: React.FC<React.PropsWithChildren> = ({ children }) => {
+  const { isLight } = useThemeContext();
+  return <tr style={{ background: isLight ? 'rgba(236, 239, 249, 0.5)' : '#283341' }}>{children}</tr>;
+};
+
 export const buildRow = (
   values: [string, string, string, string, string, string],
   isCurrentMonth = false,
   isTotal = false
 ): RowProps =>
   ({
-    ...(isCurrentMonth
-      ? { render: ({ children }) => <tr style={{ background: 'rgba(236, 239, 249, 0.5)' }}>{children}</tr> }
-      : {}),
+    ...(isCurrentMonth ? { render: RenderCurrentMonthRow } : {}),
     cellPadding: {
       table_834: isTotal ? '17px 8px 18.5px' : '18.5px 8px',
       desktop_1194: '17.4px 16px',
