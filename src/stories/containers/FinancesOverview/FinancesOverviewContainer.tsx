@@ -14,6 +14,7 @@ import QuarterCarousel from './components/QuarterCarousel/QuarterCarousel';
 import YearPicker from './components/YearPicker/YearPicker';
 import useFinancesOverview from './useFinancesOverview';
 import type { ExtendedExpense } from './financesOverviewTypes';
+import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -22,6 +23,7 @@ interface FinancesOverviewContainerProps {
   quarterExpenses: ExpenseDto[];
   byBudgetBreakdownExpenses: ExtendedExpense[];
   byCategoryBreakdownExpenses: ExpenseDto[];
+  expenseCategories: ExpenseCategory[];
 }
 
 const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
@@ -29,6 +31,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
   quarterExpenses,
   byBudgetBreakdownExpenses,
   byCategoryBreakdownExpenses,
+  expenseCategories,
 }) => {
   const {
     isLight,
@@ -58,7 +61,17 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
     notHeadCountCategory,
     handleCheckedExpandedAll,
     checkOut,
-  } = useFinancesOverview(quarterExpenses, monthlyExpenses, byBudgetBreakdownExpenses, byCategoryBreakdownExpenses);
+    parsedExpenseCategories,
+  } = useFinancesOverview(
+    quarterExpenses,
+    monthlyExpenses,
+    byBudgetBreakdownExpenses,
+    byCategoryBreakdownExpenses,
+    expenseCategories
+  );
+
+  // TODO: render the parsedExpenseCategories in the categories modal
+  console.log(parsedExpenseCategories);
 
   return (
     <PageWrapper isLight={isLight}>

@@ -5,6 +5,7 @@ import request, { gql } from 'graphql-request';
 import { isCoreUnitExpense } from '../utils/costBreakdown';
 import type { ExtendedExpense } from '../financesOverviewTypes';
 import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
+import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 
 export const totalExpensesQuery = (granularity: ExpenseGranularity, budgets: string) => ({
@@ -80,6 +81,20 @@ export const costBreakdownExpensesQuery = () => ({
   },
 });
 
+export const expenseCategoriesQuery = () => ({
+  query: gql`
+    query ExpenseCategories {
+      expenseCategories {
+        id
+        parentId
+        order
+        name
+        headcountExpense
+      }
+    }
+  `,
+});
+
 export const fetchExpenses = async (granularity: ExpenseGranularity, budgets = 'makerdao/*'): Promise<ExpenseDto[]> => {
   const { query, filter } = totalExpensesQuery(granularity, budgets);
   const res = await request<{
@@ -124,4 +139,13 @@ export const fetchCostBreakdownExpenses = async (): Promise<{
     byBudget,
     byCategory: res.byCategory.reports.expenses,
   };
+};
+
+export const fetchExpenseCategories = async (): Promise<ExpenseCategory[]> => {
+  const { query } = expenseCategoriesQuery();
+  const res = await request<{
+    expenseCategories: ExpenseCategory[];
+  }>(GRAPHQL_ENDPOINT, query);
+
+  return res.expenseCategories;
 };

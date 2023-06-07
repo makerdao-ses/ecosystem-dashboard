@@ -1,11 +1,16 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import { CuTable } from '@ses/containers/CUTable/CuTable';
 import FinancesOverviewContainer from '@ses/containers/FinancesOverview/FinancesOverviewContainer';
-import { fetchCostBreakdownExpenses, fetchExpenses } from '@ses/containers/FinancesOverview/api/queries';
+import {
+  fetchCostBreakdownExpenses,
+  fetchExpenseCategories,
+  fetchExpenses,
+} from '@ses/containers/FinancesOverview/api/queries';
 import { ExpenseGranularity } from '@ses/core/models/dto/expensesDTO';
 import React from 'react';
 import { featureFlags } from '../feature-flags/feature-flags';
 import type { ExtendedExpense } from '@ses/containers/FinancesOverview/financesOverviewTypes';
+import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 import type { NextPage } from 'next';
 
@@ -14,6 +19,7 @@ interface FinanceOverviewPageProps {
   monthlyExpenses: Partial<ExpenseDto>[];
   byBudgetBreakdownExpenses: ExtendedExpense[];
   byCategoryBreakdownExpenses: ExpenseDto[];
+  expenseCategories: ExpenseCategory[];
 }
 
 const FinanceOverviewPage: NextPage<FinanceOverviewPageProps> = ({
@@ -21,6 +27,7 @@ const FinanceOverviewPage: NextPage<FinanceOverviewPageProps> = ({
   monthlyExpenses,
   byBudgetBreakdownExpenses,
   byCategoryBreakdownExpenses,
+  expenseCategories,
 }) => {
   if (!featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW) {
     // core unit overview would be the home page if the finances overview is disabled
@@ -33,6 +40,7 @@ const FinanceOverviewPage: NextPage<FinanceOverviewPageProps> = ({
       monthlyExpenses={monthlyExpenses || []}
       byBudgetBreakdownExpenses={byBudgetBreakdownExpenses}
       byCategoryBreakdownExpenses={byCategoryBreakdownExpenses}
+      expenseCategories={expenseCategories}
     />
   );
 };
@@ -41,10 +49,11 @@ export default FinanceOverviewPage;
 
 export async function getServerSideProps() {
   if (featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW) {
-    const [quarterExpenses, monthlyExpenses, breakdownExpenses] = await Promise.all([
+    const [quarterExpenses, monthlyExpenses, breakdownExpenses, expenseCategories] = await Promise.all([
       fetchExpenses(ExpenseGranularity.quarterly),
       fetchExpenses(ExpenseGranularity.monthly),
       fetchCostBreakdownExpenses(),
+      fetchExpenseCategories(),
     ]);
 
     return {
@@ -53,6 +62,7 @@ export async function getServerSideProps() {
         monthlyExpenses,
         byBudgetBreakdownExpenses: breakdownExpenses.byBudget,
         byCategoryBreakdownExpenses: breakdownExpenses.byCategory,
+        expenseCategories,
       },
     };
   }

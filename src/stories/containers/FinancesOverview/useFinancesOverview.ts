@@ -12,6 +12,7 @@ import {
 } from './utils/costBreakdown';
 import { parseQuarter } from './utils/quarters';
 import type { CostBreakdownFilterValue, ExtendedExpense } from './financesOverviewTypes';
+import type { ExpenseCategory, ParsedExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 
 const noneBorder = [0, 0, 0, 0];
@@ -23,7 +24,8 @@ const useFinancesOverview = (
   quarterExpenses: ExpenseDto[] = [],
   monthly: Partial<ExpenseDto>[],
   byBudgetBreakdownExpenses: ExtendedExpense[],
-  byCategoryBreakdownExpenses: ExpenseDto[]
+  byCategoryBreakdownExpenses: ExpenseDto[],
+  expenseCategories: ExpenseCategory[]
 ) => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [checkOut, setCheckOut] = useState<boolean>(false);
@@ -256,6 +258,30 @@ const useFinancesOverview = (
   const headCountCategory = MOCK_CATEGORY_HEAD_COUNT;
   const notHeadCountCategory = MOCK_CATEGORY_NOT_HEAD_COUNT;
 
+  const parsedExpenseCategories = useMemo(() => {
+    const parseSimpleCategory = (category: ExpenseCategory): ParsedExpenseCategory =>
+      ({
+        id: category.id,
+        name: category.name,
+        order: category.order,
+        headcountExpense: category.headcountExpense,
+      } as ParsedExpenseCategory);
+
+    return expenseCategories
+      .filter((category) => category.parentId === null)
+      .map(
+        (category) =>
+          ({
+            ...parseSimpleCategory(category),
+            subcategories: expenseCategories
+              .filter((subcategory) => subcategory.parentId === category.id)
+              .map((subcategory) => parseSimpleCategory(subcategory))
+              .sort((a, b) => a.order - b.order),
+          } as ParsedExpenseCategory)
+      )
+      .sort((a, b) => a.order - b.order);
+  }, [expenseCategories]);
+
   return {
     isLight,
     sortedQuarters,
@@ -285,6 +311,7 @@ const useFinancesOverview = (
     notHeadCountCategory,
     handleCheckedExpandedAll,
     checkOut,
+    parsedExpenseCategories,
   };
 };
 
