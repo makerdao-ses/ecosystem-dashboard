@@ -97,14 +97,11 @@ const AccordionDetails = styled(MuiAccordionDetails)({
 const ItemsStyle = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: 19,
+  gap: 24,
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: 16,
   lineHeight: '22px',
   color: isLight ? '#231536' : 'red',
-  'div:last-of-type': {
-    marginBottom: -4,
-  },
 }));

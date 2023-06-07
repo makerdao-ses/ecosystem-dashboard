@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-// import { IconButton } from '@mui/material';
 import CheckOnComponent from '@ses/components/svg/check-on-new';
 import CheckboxOff from '@ses/components/svg/checkbox-off';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
