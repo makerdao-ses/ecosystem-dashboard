@@ -9,23 +9,27 @@ import React from 'react';
 
 import type { AccordionProps } from '@mui/material/Accordion';
 import type { AccordionSummaryProps } from '@mui/material/AccordionSummary';
+import type { Category } from '@ses/core/models/dto/coreUnitDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   style?: React.CSSProperties;
-  category: string;
-  subCategory?: string;
+  category: Category;
 }
 
-const AccordionCategory: React.FC<Props> = ({ style, category, subCategory }) => {
+const AccordionCategory: React.FC<Props> = ({ style, category }) => {
   const { isLight } = useThemeContext();
-
   return (
     <TransactionHistoryContainer style={style}>
       <Accordion>
-        <AccordionSummary isLight={isLight}>{category}</AccordionSummary>
+        <AccordionSummary isLight={isLight}>{category.name}</AccordionSummary>
+
         <AccordionDetails>
-          <ItemsStyle>{subCategory}</ItemsStyle>
+          <ItemsStyle isLight={isLight}>
+            {category?.subcategories?.map((category, index) => (
+              <div key={index}>{category}</div>
+            ))}
+          </ItemsStyle>
         </AccordionDetails>
       </Accordion>
     </TransactionHistoryContainer>
@@ -86,12 +90,18 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
 
 const AccordionDetails = styled(MuiAccordionDetails)({
   padding: 0,
+  paddingLeft: 32,
+  marginTop: 24,
 });
 
-const ItemsStyle = styled.div({
-  background: '#FBFBFB',
-  boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
-  padding: 64,
-  borderRadius: '0px 0px 6px 6px',
-  textAlign: 'center',
-});
+const ItemsStyle = styled.div<WithIsLight>(({ isLight }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 24,
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 400,
+  fontSize: 16,
+  lineHeight: '22px',
+  color: isLight ? '#231536' : 'red',
+}));

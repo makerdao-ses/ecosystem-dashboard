@@ -4,14 +4,22 @@ import React from 'react';
 import { Close } from '../svg/close';
 import CategoryItem from './CategoryItem/CategoryItem';
 import CheckBoxDescription from './ChekBoxDescription/ChekBoxDescription';
+import type { Category } from '@ses/core/models/dto/coreUnitDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  headCountCategories: string[];
-  noHeadCountCategories: string[];
+  headCountCategories: Category[];
+  noHeadCountCategories: Category[];
+  isCheckedExpandedAll?: boolean;
+  setIsCheckedExpandedAll?: (isChecked: boolean) => void;
 }
 
-const ContainerModal: React.FC<Props> = ({ headCountCategories, noHeadCountCategories }) => {
+const ContainerModal: React.FC<Props> = ({
+  headCountCategories,
+  noHeadCountCategories,
+  isCheckedExpandedAll,
+  setIsCheckedExpandedAll,
+}) => {
   const { isLight } = useThemeContext();
 
   return (
@@ -26,7 +34,7 @@ const ContainerModal: React.FC<Props> = ({ headCountCategories, noHeadCountCateg
             Canonical Expense Categories in MakerDAO are standardized classifications of expenses tailored for managing
             MakerDAO's operational costs.
           </Description>
-          <CheckBoxDescription />
+          <CheckBoxDescription isChecked={isCheckedExpandedAll} setIsChecked={setIsCheckedExpandedAll} />
         </ContainerDescription>
       </Header>
       <InsideModal>
@@ -34,7 +42,7 @@ const ContainerModal: React.FC<Props> = ({ headCountCategories, noHeadCountCateg
         <Line isLight={isLight} />
         <HeadCountList>
           {headCountCategories?.map((item) => (
-            <CategoryItem category={item} key={item} />
+            <CategoryItem key={item.name} category={item} />
           ))}
         </HeadCountList>
         <NoHeadCount isLight={isLight}>Non-Headcount Expense Categories</NoHeadCount>
@@ -44,14 +52,14 @@ const ContainerModal: React.FC<Props> = ({ headCountCategories, noHeadCountCateg
             {noHeadCountCategories
               ?.filter((_, index) => index % 2 === 0)
               .map((item) => (
-                <CategoryItem category={item} key={item} />
+                <CategoryItem category={item} key={item.name} />
               ))}
           </ContainerPar>
           <ContainerOdd>
             {noHeadCountCategories
               ?.filter((_, index) => index % 2 !== 0)
               .map((item) => (
-                <CategoryItem category={item} key={item} />
+                <CategoryItem category={item} key={item.name} />
               ))}
           </ContainerOdd>
         </ContainerTowColumns>

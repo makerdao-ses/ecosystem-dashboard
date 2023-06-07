@@ -200,3 +200,8 @@ export interface CoreUnitDto {
   budgetStatements: BudgetStatementDto[];
   contributorCommitment: ContributorCommitmentDto[];
 }
+
+export interface Category {
+  name: string;
+  subcategories: string[];
+}

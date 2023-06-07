@@ -41,17 +41,58 @@ const variantsArgs = [
 
       new CategoryBuilder().withCategory('Admin Expense').build(),
     ],
+    isCheckedExpandedAll: true,
+  },
+  {
+    headCountCategories: [
+      new CategoryBuilder().withCategory('Compensation & Benefits').build(),
+      new CategoryBuilder()
+        .withCategory('Travel & Entertainment')
+        .withSubCategories(['Hotels', 'Airfare', 'Meals', 'Activities & Events', 'Transportation (Uber, Taxi, etc)'])
+        .build(),
+      new CategoryBuilder().withCategory('Bonus').build(),
+    ],
+    noHeadCountCategories: [
+      new CategoryBuilder().withCategory('Governance Programs').build(),
+      new CategoryBuilder().withCategory('Training Expense').build(),
+      new CategoryBuilder().withCategory('Supplies').build(),
+      new CategoryBuilder().withCategory('Community Development Expense').build(),
+    ],
+    isCheckedExpandedAll: false,
   },
 ];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(ContainerModal, variantsArgs);
+export const [[UnExpanded, UnExpandedDarkMode], [Expanded, ExpandedDarkMode]] = createThemeModeVariants(
+  ContainerModal,
+  variantsArgs
+);
 
-LightMode.parameters = {
+UnExpanded.parameters = {
   figma: {
     component: {
       1140: {
         component:
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19369:219227&t=FobkUgpeTSEk4O7P-4',
+        options: {
+          componentStyle: {
+            width: 1184,
+          },
+          style: {
+            top: -36,
+            left: -57,
+          },
+        },
+      },
+    },
+  } as FigmaParams,
+};
+
+Expanded.parameters = {
+  figma: {
+    component: {
+      1140: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19444:213383&t=wTeFraHPRXrZ38Md-4',
         options: {
           componentStyle: {
             width: 1184,

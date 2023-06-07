@@ -121,6 +121,7 @@ const dictionary = [
   'Coldirion',
   'Gnosis',
   'Blockies',
+  'Uber',
 ];
 
 module.exports = dictionary;

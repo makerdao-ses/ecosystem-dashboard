@@ -1,16 +1,26 @@
+import type { Category } from '@ses/core/models/dto/coreUnitDTO';
+
 export class CategoryBuilder {
-  private _category: string;
+  private readonly _category: Category;
 
   constructor() {
-    this._category = '';
+    this._category = {
+      name: '',
+      subcategories: [],
+    } as Category;
   }
 
   withCategory(category: string): CategoryBuilder {
-    this._category = category;
+    this._category.name = category;
     return this;
   }
 
-  build(): string {
+  withSubCategories(subcategories: string[]): CategoryBuilder {
+    this._category.subcategories = subcategories;
+    return this;
+  }
+
+  build(): Category {
     return this._category;
   }
 }
