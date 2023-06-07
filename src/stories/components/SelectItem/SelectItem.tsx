@@ -22,7 +22,11 @@ export const SelectItem = ({ checked = false, ...props }: SelectItemProps) => {
       {checked ? (
         <CheckboxOn fill={isLight ? '#1AAB9B' : '#7C6B95'} fillBorderArrow={isLight ? '#B6EDE7' : '#D2D4EF'} />
       ) : (
-        <CheckboxOff style={{ padding: '2px' }} fill={hover ? '#708390' : focused ? '#708390' : '#9FAFB9'} />
+        <CheckboxOff
+          style={{ padding: '2px' }}
+          fill={hover ? '#708390' : focused ? '#708390' : '#9FAFB9'}
+          fillDark="#9FAFB9"
+        />
       )}
       <Label>{props.label}</Label>
       <Number className="number" active={checked} isLight={isLight}>

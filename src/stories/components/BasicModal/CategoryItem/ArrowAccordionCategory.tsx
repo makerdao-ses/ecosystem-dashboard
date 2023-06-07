@@ -77,7 +77,7 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
     fontSize: 18,
     lineHeight: '22px',
     letterSpacing: '0.4px',
-    color: isLight ? '#231536' : 'red',
+    color: isLight ? '#231536' : '#D2D4EF',
     padding: 0,
     marginTop: 0,
     marginBottom: 0,
@@ -103,5 +103,5 @@ const ItemsStyle = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 400,
   fontSize: 16,
   lineHeight: '22px',
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
 }));

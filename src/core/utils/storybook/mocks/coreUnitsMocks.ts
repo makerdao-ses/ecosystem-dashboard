@@ -3,6 +3,7 @@ import { BudgetStatementLineItemBuilder } from '@ses/core/businessLogic/builders
 import { BudgetStatementMKRVestBuilder } from '@ses/core/businessLogic/builders/budgetStatementMKRVestBuilder ';
 import { BudgetStatementWalletBuilder } from '@ses/core/businessLogic/builders/budgetStatementWalletBuilder';
 import { BudgetStatementWalletTransferRequestBuilder } from '@ses/core/businessLogic/builders/budgetStatementWalletTransferRequestBuilder';
+import { CategoryBuilder } from '@ses/core/businessLogic/builders/categoriesBuilders';
 import { CoreUnitsBuilder } from '@ses/core/businessLogic/builders/coreUnitsBuilder';
 import { CuMipBuilder } from '@ses/core/businessLogic/builders/cuMIPBuilder';
 import { UserBuilder } from '@ses/core/businessLogic/builders/userBuilder';
@@ -205,3 +206,29 @@ export const SESCoreUnitMocked = new CoreUnitsBuilder()
       .build()
   )
   .build();
+
+export const MOCK_CATEGORY_HEAD_COUNT = [
+  new CategoryBuilder().withCategory('Compensation & Benefits').build(),
+  new CategoryBuilder()
+    .withCategory('Travel & Entertainment')
+    .withSubCategories(['Hotels', 'Airfare', 'Meals', 'Activities & Events', 'Transportation (Uber, Taxi, etc)'])
+    .build(),
+  new CategoryBuilder().withCategory('Bonus').build(),
+];
+
+export const MOCK_CATEGORY_NOT_HEAD_COUNT = [
+  new CategoryBuilder().withCategory('Governance Programs').build(),
+  new CategoryBuilder().withCategory('Training Expense').build(),
+  new CategoryBuilder().withCategory('Supplies').build(),
+  new CategoryBuilder().withCategory('Community Development Expense').build(),
+  new CategoryBuilder().withCategory('Software Development Expense').build(),
+
+  new CategoryBuilder().withCategory('Hardware Expense').build(),
+  new CategoryBuilder().withCategory('Professional Services').build(),
+  new CategoryBuilder().withCategory('Marketing Expense').build(),
+  new CategoryBuilder().withCategory('Freight & Duties').build(),
+  new CategoryBuilder().withCategory('Contingency Buffer').build(),
+  new CategoryBuilder().withCategory('Gas Expense').build(),
+
+  new CategoryBuilder().withCategory('Admin Expense').build(),
+];
