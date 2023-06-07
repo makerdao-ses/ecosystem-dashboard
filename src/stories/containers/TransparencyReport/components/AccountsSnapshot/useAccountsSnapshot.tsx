@@ -1,7 +1,7 @@
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useState } from 'react';
+import ExpensesComparisonRowCard from './components/Cards/ExpensesComparisonRowCard/ExpensesComparisonRowCard';
 import { EXPENSES_COMPARISON_TABLE_HEADER } from './components/ExpensesComparison/ExpensesComparison';
-import ExpensesComparisonRowCard from './components/ExpensesComparisonRowCard/ExpensesComparisonRowCard';
 import type { CardRenderProps, RowProps } from '@ses/components/AdvanceTable/types';
 import type { Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';
 
