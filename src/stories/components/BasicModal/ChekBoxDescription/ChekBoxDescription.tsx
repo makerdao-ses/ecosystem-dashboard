@@ -43,13 +43,13 @@ const Text = styled.div<WithIsLight & { isChecked: boolean }>(({ isLight, isChec
   fontWeight: 500,
   fontSize: 14,
   lineHeight: '18px',
+  color: isLight ? '#231536' : '#D2D4EF',
   [lightTheme.breakpoints.up('table_834')]: {
     fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     fontWeight: isChecked ? 700 : 400,
     fontSize: '16px',
     lineHeight: isChecked ? '19px' : '22px',
-    color: isLight ? '#231536' : '#D2D4EF',
     verticalAlign: 'center',
   },
 }));

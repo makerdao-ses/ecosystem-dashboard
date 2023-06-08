@@ -219,13 +219,13 @@ const HeadCount = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 16,
   lineHeight: '19px',
   marginTop: 16,
+  color: isLight ? '#231536' : '#D2D4EF',
   [lightTheme.breakpoints.up('table_834')]: {
     marginTop: 24,
     fontSize: 20,
     fontWeight: 600,
     lineHeight: '24px',
     letterSpacing: '0.4px',
-    color: isLight ? '#231536' : '#D2D4EF',
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     marginTop: 32,
