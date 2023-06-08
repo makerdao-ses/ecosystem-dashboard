@@ -8,6 +8,7 @@ interface CloseProps {
   style?: React.CSSProperties;
   onClick?: () => void;
   fillDark?: string;
+  className?: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -17,11 +18,13 @@ export const Close = ({
   height = 20,
   fillDark = '#EDEFFF',
   onClick,
+  className,
   ...props
 }: CloseProps) => {
   const { isLight } = useThemeContext();
   return (
     <svg
+      className={className}
       cursor={onClick ? 'pointer' : 'default'}
       width={width}
       height={height}

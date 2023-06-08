@@ -5,6 +5,7 @@ import MuiAccordionSummary from '@mui/material/AccordionSummary';
 
 import { SelectChevronDown } from '@ses/components/svg/select-chevron-down';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 
 import type { AccordionProps } from '@mui/material/Accordion';
@@ -42,13 +43,18 @@ const TransactionHistoryContainer = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
-
   alignItems: 'center',
 });
 
 const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters elevation={0} square {...props} />)({
   backgroundColor: 'transparent',
-  width: 416,
+  width: 343,
+  [lightTheme.breakpoints.up('table_834')]: {
+    width: 335,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    width: 416,
+  },
 });
 
 const AccordionSummary = styled((props: AccordionSummaryProps) => (
@@ -71,16 +77,22 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
   padding: 0,
 
   '& .MuiAccordionSummary-content': {
+    fontWeight: 400,
+    fontSize: 16,
+    lineHeight: '22px',
     fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
-    fontWeight: 500,
-    fontSize: 18,
-    lineHeight: '22px',
-    letterSpacing: '0.4px',
+
     color: isLight ? '#231536' : '#D2D4EF',
     padding: 0,
     marginTop: 0,
     marginBottom: 0,
+    [lightTheme.breakpoints.up('table_834')]: {
+      fontWeight: 500,
+      fontSize: 18,
+      lineHeight: '22px',
+      letterSpacing: '0.4px',
+    },
   },
 
   '& .MuiAccordionSummary-expandIconWrapper': {
@@ -90,18 +102,30 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
 
 const AccordionDetails = styled(MuiAccordionDetails)({
   padding: 0,
-  paddingLeft: 32,
-  marginTop: 24,
+  paddingLeft: 24,
+  marginTop: 8,
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 24,
+    paddingLeft: 32,
+  },
 });
 
 const ItemsStyle = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: 24,
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
-  fontWeight: 400,
-  fontSize: 16,
-  lineHeight: '22px',
+
   color: isLight ? '#231536' : '#D2D4EF',
+
+  gap: 16,
+  fontWeight: 300,
+  fontSize: 14,
+  lineHeight: '17px',
+  [lightTheme.breakpoints.up('table_834')]: {
+    gap: 24,
+    fontWeight: 400,
+    fontSize: 16,
+    lineHeight: '22px',
+  },
 }));

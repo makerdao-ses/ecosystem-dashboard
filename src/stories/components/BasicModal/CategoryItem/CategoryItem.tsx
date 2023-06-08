@@ -21,6 +21,5 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
-  width: 416,
   alignItems: 'center',
 });

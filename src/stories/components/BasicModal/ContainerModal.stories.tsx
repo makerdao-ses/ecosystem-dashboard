@@ -13,7 +13,7 @@ export default {
   parameters: {
     layout: 'fullscreen',
     chromatic: {
-      viewports: [1140],
+      viewports: [375, 834, 1194, 1280, 1440],
       pauseAnimationAtEnd: true,
     },
   },
@@ -41,7 +41,8 @@ const variantsArgs = [
 
       new CategoryBuilder().withCategory('Admin Expense').build(),
     ],
-    isCheckedExpandedAll: true,
+    isCheckedExpandedAll: false,
+    isSomeOpen: true,
   },
   {
     headCountCategories: [
@@ -59,6 +60,7 @@ const variantsArgs = [
       new CategoryBuilder().withCategory('Community Development Expense').build(),
     ],
     isCheckedExpandedAll: false,
+    isSomeOpen: false,
   },
 ];
 
@@ -70,9 +72,61 @@ export const [[UnExpanded, UnExpandedDarkMode], [Expanded, ExpandedDarkMode]] = 
 UnExpanded.parameters = {
   figma: {
     component: {
-      1140: {
+      375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19369:219227&t=FobkUgpeTSEk4O7P-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19645:251384&t=fOGMLXYgBjWme3h3-4',
+        options: {
+          componentStyle: {
+            width: 375,
+          },
+          style: {
+            top: -36,
+            left: -57,
+          },
+        },
+      },
+      834: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19645:247601&t=3rWAHk8rUGngJTx7-4',
+        options: {
+          componentStyle: {
+            width: 770,
+          },
+          style: {
+            top: -36,
+            left: -57,
+          },
+        },
+      },
+      1194: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19614:238996&t=3rWAHk8rUGngJTx7-4',
+        options: {
+          componentStyle: {
+            width: 1114,
+          },
+          style: {
+            top: -36,
+            left: -57,
+          },
+        },
+      },
+      1280: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19614:233065&t=yDPsqRiXJrfl63Km-4',
+        options: {
+          componentStyle: {
+            width: 1184,
+          },
+          style: {
+            top: -36,
+            left: -57,
+          },
+        },
+      },
+      1440: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19614:220712&t=yDPsqRiXJrfl63Km-4',
         options: {
           componentStyle: {
             width: 1184,
@@ -90,7 +144,7 @@ UnExpanded.parameters = {
 Expanded.parameters = {
   figma: {
     component: {
-      1140: {
+      1440: {
         component:
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19444:213383&t=wTeFraHPRXrZ38Md-4',
         options: {
