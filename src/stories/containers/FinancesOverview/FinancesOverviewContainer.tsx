@@ -93,6 +93,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
             <ExpensesChart newActual={newActual} newDiscontinued={newDiscontinued} newPrediction={newPrediction} />
             {!isDownTable && <NavigationButtons />}
           </ExpensesChartColumn>
+
           <BreakdownTableColumn>
             <CostBreakdownTable
               selectedFilter={selectedFilter}
