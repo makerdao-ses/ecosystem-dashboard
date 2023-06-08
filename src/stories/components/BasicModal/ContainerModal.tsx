@@ -15,6 +15,7 @@ interface Props {
   isCheckedExpandedAll?: boolean;
   setIsCheckedExpandedAll: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleCloseModal: () => void;
+  isSomeOpen?: boolean;
 }
 
 const ContainerModal: React.FC<Props> = ({
@@ -23,11 +24,12 @@ const ContainerModal: React.FC<Props> = ({
   isCheckedExpandedAll,
   setIsCheckedExpandedAll,
   handleCloseModal,
+  isSomeOpen = false,
 }) => {
   const { isLight } = useThemeContext();
 
   return (
-    <Container isLight={isLight}>
+    <Container isLight={isLight} isSomeOpen={isSomeOpen}>
       <Header isLight={isLight}>
         <ContainerTitle>
           <Title isLight={isLight}>Canonical Expense Categories</Title>
@@ -78,7 +80,7 @@ const ContainerModal: React.FC<Props> = ({
 
 export default ContainerModal;
 
-const Container = styled.div<WithIsLight>(({ isLight }) => ({
+const Container = styled.div<WithIsLight & { isSomeOpen?: boolean }>(({ isLight, isSomeOpen }) => ({
   display: 'flex',
   flexDirection: 'column',
   paddingBottom: 27,
@@ -100,7 +102,7 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     width: 1184,
-    paddingBottom: 64,
+    paddingBottom: !isSomeOpen ? 50 : 64,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     width: 1184,

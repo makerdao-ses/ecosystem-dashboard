@@ -42,6 +42,7 @@ const variantsArgs = [
       new CategoryBuilder().withCategory('Admin Expense').build(),
     ],
     isCheckedExpandedAll: false,
+    isSomeOpen: true,
   },
   {
     headCountCategories: [
@@ -59,6 +60,7 @@ const variantsArgs = [
       new CategoryBuilder().withCategory('Community Development Expense').build(),
     ],
     isCheckedExpandedAll: false,
+    isSomeOpen: false,
   },
 ];
 
