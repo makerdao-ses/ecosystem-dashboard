@@ -211,7 +211,17 @@ export const MOCK_CATEGORY_HEAD_COUNT = [
   new CategoryBuilder().withCategory('Compensation & Benefits').build(),
   new CategoryBuilder()
     .withCategory('Travel & Entertainment')
-    .withSubCategories(['Hotels', 'Airfare', 'Meals', 'Activities & Events', 'Transportation (Uber, Taxi, etc)'])
+    .withSubCategories([
+      'Hotels',
+      'Airfare',
+      'Meals',
+      'Activities & Events',
+      'Transportation (Uber, Taxi, etc)',
+      'Hotels',
+      'Hotels',
+      'Hotels',
+      'Hotels',
+    ])
     .build(),
   new CategoryBuilder().withCategory('Bonus').build(),
 ];

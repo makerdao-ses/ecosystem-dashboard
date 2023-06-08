@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import CheckboxMui from '@mui/material/Checkbox';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -27,20 +28,30 @@ const CheckBoxDescription: React.FC<Props> = ({ isChecked = false, setIsChecked 
 export default CheckBoxDescription;
 
 const Container = styled.div<{ isChecked: boolean }>(({ isChecked }) => ({
+  gap: 8,
   display: 'flex',
-  gap: 12,
 
-  marginBottom: isChecked ? 3 : undefined,
+  marginBottom: isChecked ? 4 : undefined,
   alignItems: 'center',
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'flex',
+    gap: 12,
+    marginBottom: isChecked ? 3 : undefined,
+  },
 }));
 const Text = styled.div<WithIsLight & { isChecked: boolean }>(({ isLight, isChecked = false }) => ({
-  fontFamily: 'Inter, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: isChecked ? 700 : 400,
-  fontSize: '16px',
-  lineHeight: isChecked ? '19px' : '22px',
-  color: isLight ? '#231536' : '#D2D4EF',
-  verticalAlign: 'center',
+  fontWeight: 500,
+  fontSize: 14,
+  lineHeight: '18px',
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontFamily: 'Inter, sans-serif',
+    fontStyle: 'normal',
+    fontWeight: isChecked ? 700 : 400,
+    fontSize: '16px',
+    lineHeight: isChecked ? '19px' : '22px',
+    color: isLight ? '#231536' : '#D2D4EF',
+    verticalAlign: 'center',
+  },
 }));
 
 const ContainerCheckBox = styled.div({

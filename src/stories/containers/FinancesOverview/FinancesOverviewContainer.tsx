@@ -265,12 +265,18 @@ const BreakdownTableColumn = styled.div({
 });
 
 const BasicModalExtended = styled(BasicModal)({
-  width: 1184,
   position: 'absolute',
-  top: '175px',
+  top: '64px',
   left: '50%',
   transform: 'translateX(-50%)',
-  '& .MuiModal-backdrop': {
-    border: '2px solid red',
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    top: '175px',
+    width: 1114,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    width: 1184,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    width: 1184,
   },
 });
