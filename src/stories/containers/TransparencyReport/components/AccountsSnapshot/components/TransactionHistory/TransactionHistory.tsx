@@ -6,6 +6,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import AccordionArrow from '../AccordionArrow/AccordionArrow';
+import Transaction from '../Transaction/Transaction';
 import type { AccordionProps } from '@mui/material/Accordion';
 import type { AccordionSummaryProps } from '@mui/material/AccordionSummary';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -19,17 +20,11 @@ const TransactionHistory: React.FC = () => {
         <AccordionSummary isLight={isLight}>View Transaction History</AccordionSummary>
         <AccordionDetails>
           {/* NOTE: the transaction history is a WIP, the following element will be replaced entirely after finished the implementation */}
-          <div
-            style={{
-              background: '#FBFBFB',
-              boxShadow: '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)',
-              padding: 64,
-              borderRadius: '0px 0px 6px 6px',
-              textAlign: 'center',
-            }}
-          >
-            WIP
-          </div>
+          <TransactionContainer isLight={isLight}>
+            <Transaction />
+            <Transaction />
+            <Transaction />
+          </TransactionContainer>
         </AccordionDetails>
       </Accordion>
     </TransactionHistoryContainer>
@@ -57,6 +52,13 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
   paddingLeft: 16,
   paddingRight: 8,
   minHeight: 'auto',
+
+  '&.Mui-expanded': {
+    [lightTheme.breakpoints.down('table_834')]: {
+      borderEndEndRadius: 0,
+      borderEndStartRadius: 0,
+    },
+  },
 
   [lightTheme.breakpoints.up('table_834')]: {
     paddingLeft: 24,
@@ -88,5 +90,18 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
 }));
 
 const AccordionDetails = styled(MuiAccordionDetails)({
-  padding: '0 56px',
+  padding: 0,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    padding: '0 56px',
+  },
 });
+
+const TransactionContainer = styled.div<WithIsLight>(({ isLight }) => ({
+  borderRadius: '0 0 6px 6px',
+  background: isLight ? '#ECEFF9' : 'red',
+  padding: 8,
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+}));
