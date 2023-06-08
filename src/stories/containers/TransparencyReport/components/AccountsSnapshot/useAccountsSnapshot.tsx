@@ -1,7 +1,14 @@
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { useState } from 'react';
+import ExpensesComparisonRowCard from './components/Cards/ExpensesComparisonRowCard/ExpensesComparisonRowCard';
 import { EXPENSES_COMPARISON_TABLE_HEADER } from './components/ExpensesComparison/ExpensesComparison';
-import ExpensesComparisonRowCard from './components/ExpensesComparisonRowCard/ExpensesComparisonRowCard';
 import type { CardRenderProps, RowProps } from '@ses/components/AdvanceTable/types';
+import type { Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';
+
+const RenderCurrentMonthRow: React.FC<React.PropsWithChildren> = ({ children }) => {
+  const { isLight } = useThemeContext();
+  return <tr style={{ background: isLight ? 'rgba(236, 239, 249, 0.5)' : '#283341' }}>{children}</tr>;
+};
 
 export const buildRow = (
   values: [string, string, string, string, string, string],
@@ -9,9 +16,7 @@ export const buildRow = (
   isTotal = false
 ): RowProps =>
   ({
-    ...(isCurrentMonth
-      ? { render: ({ children }) => <tr style={{ background: 'rgba(236, 239, 249, 0.5)' }}>{children}</tr> }
-      : {}),
+    ...(isCurrentMonth ? { render: RenderCurrentMonthRow } : {}),
     cellPadding: {
       table_834: isTotal ? '17px 8px 18.5px' : '18.5px 8px',
       desktop_1194: '17.4px 16px',
@@ -67,8 +72,15 @@ export const buildRow = (
     ],
   } as RowProps);
 
-const useAccountsSnapshot = () => {
+const useAccountsSnapshot = (snapshot: Snapshots) => {
   const { isLight } = useThemeContext();
+
+  const [includeOffChain, setIncludeOffChain] = useState<boolean>(false);
+
+  const toggleIncludeOffChain = () => setIncludeOffChain(!includeOffChain);
+
+  // TODO: process the snapshot object
+  console.log(snapshot);
 
   const expensesComparisonRows = [
     buildRow(['MAY-2023', '221,503.00 DAI', '240,000.00 DAI', '8.35%', '221,504.00 DAI', '0.00%'], true, false),
@@ -80,6 +92,8 @@ const useAccountsSnapshot = () => {
   return {
     isLight,
     expensesComparisonRows,
+    includeOffChain,
+    toggleIncludeOffChain,
   };
 };
 
