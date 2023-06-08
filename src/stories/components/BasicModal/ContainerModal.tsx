@@ -46,7 +46,8 @@ const ContainerModal: React.FC<Props> = ({
           <CheckBoxDescription isChecked={isCheckedExpandedAll} setIsChecked={setIsCheckedExpandedAll} />
         </ContainerDescription>
       </Header>
-      <SimpleBar style={{}} className="filter-popup-scroll" scrollbarMaxSize={32}>
+
+      <SimpleBarStyled scrollbarMaxSize={32}>
         <InsideModal>
           <HeadCount isLight={isLight}>Headcount Expense Categories</HeadCount>
           <Line isLight={isLight} />
@@ -74,7 +75,7 @@ const ContainerModal: React.FC<Props> = ({
             </ContainerOdd>
           </ContainerTowColumns>
         </InsideModal>
-      </SimpleBar>
+      </SimpleBarStyled>
     </Container>
   );
 };
@@ -322,5 +323,25 @@ const StyledClose = styled(Close)({
   [lightTheme.breakpoints.up('table_834')]: {
     width: 20,
     height: 20,
+  },
+});
+
+const SimpleBarStyled = styled(SimpleBar)({
+  height: 748,
+  '.simplebar-scrollbar::before': {
+    width: 4,
+    height: 64,
+    marginLeft: 4,
+    background: '#1aab9b',
+    borderRadius: 20,
+  },
+  [lightTheme.breakpoints.up('table_834')]: {
+    height: 813,
+    '.simplebar-scrollbar::before': {
+      width: 6,
+    },
+  },
+  [lightTheme.breakpoints.up('table_834')]: {
+    height: 847,
   },
 });
