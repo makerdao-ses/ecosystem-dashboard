@@ -1,0 +1,59 @@
+import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
+import MobileTransaction from './MobileTransaction';
+import type { ComponentMeta } from '@storybook/react';
+import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+
+export default {
+  title: 'Components/CUTransparencyReport/Accounts Snapshot/MobileTransaction',
+  component: MobileTransaction,
+  parameters: {
+    chromatic: {
+      viewports: [375],
+    },
+  },
+} as ComponentMeta<typeof MobileTransaction>;
+
+const variantsArgs = [{}, { defaultExpanded: true }];
+
+export const [[CollapsedLightMode, CollapsedDarkMode], [ExpandedLightMode, ExpandedDarkMode]] = createThemeModeVariants(
+  MobileTransaction,
+  variantsArgs
+);
+
+CollapsedLightMode.parameters = {
+  figma: {
+    component: {
+      0: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=18738:221531',
+        options: {
+          componentStyle: {
+            width: 327,
+          },
+          style: {
+            top: -20,
+            left: -40,
+          },
+        },
+      },
+    },
+  } as FigmaParams,
+};
+
+ExpandedLightMode.parameters = {
+  figma: {
+    component: {
+      0: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=18738:221818',
+        options: {
+          componentStyle: {
+            width: 327,
+          },
+          style: {
+            top: -20,
+            left: -40,
+          },
+        },
+      },
+    },
+  } as FigmaParams,
+};

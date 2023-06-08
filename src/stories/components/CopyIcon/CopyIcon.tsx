@@ -53,4 +53,8 @@ export default CopyIcon;
 const IconContainer = styled.div({
   display: 'flex',
   cursor: 'pointer',
+
+  '> div': {
+    display: 'flex',
+  },
 });
