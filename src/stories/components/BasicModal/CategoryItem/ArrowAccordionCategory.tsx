@@ -10,12 +10,12 @@ import React from 'react';
 
 import type { AccordionProps } from '@mui/material/Accordion';
 import type { AccordionSummaryProps } from '@mui/material/AccordionSummary';
-import type { Category } from '@ses/core/models/dto/coreUnitDTO';
+import type { ParsedExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   style?: React.CSSProperties;
-  category: Category;
+  category: ParsedExpenseCategory;
 }
 
 const AccordionCategory: React.FC<Props> = ({ style, category }) => {
@@ -28,7 +28,7 @@ const AccordionCategory: React.FC<Props> = ({ style, category }) => {
         <AccordionDetails>
           <ItemsStyle isLight={isLight}>
             {category?.subcategories?.map((category, index) => (
-              <div key={index}>{category}</div>
+              <div key={index}>{category.name}</div>
             ))}
           </ItemsStyle>
         </AccordionDetails>

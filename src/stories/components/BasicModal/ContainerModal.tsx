@@ -6,12 +6,13 @@ import SimpleBar from 'simplebar-react';
 import { Close } from '../svg/close';
 import CategoryItem from './CategoryItem/CategoryItem';
 import CheckBoxDescription from './ChekBoxDescription/ChekBoxDescription';
-import type { Category } from '@ses/core/models/dto/coreUnitDTO';
+// import type { Category } from '@ses/core/models/dto/coreUnitDTO';
+import type { ParsedExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  headCountCategories: Category[];
-  noHeadCountCategories: Category[];
+  headCountCategories: ParsedExpenseCategory[];
+  noHeadCountCategories: ParsedExpenseCategory[];
   isCheckedExpandedAll?: boolean;
   setIsCheckedExpandedAll: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleCloseModal: () => void;

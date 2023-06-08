@@ -1,6 +1,5 @@
 import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { MOCK_CATEGORY_HEAD_COUNT, MOCK_CATEGORY_NOT_HEAD_COUNT } from '@ses/core/utils/storybook/mocks/coreUnitsMocks';
 import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
 import { useCallback, useMemo, useState } from 'react';
@@ -255,9 +254,6 @@ const useFinancesOverview = (
     };
   }, [byCategoryBreakdownExpenses, selectedYear]);
 
-  const headCountCategory = MOCK_CATEGORY_HEAD_COUNT;
-  const notHeadCountCategory = MOCK_CATEGORY_NOT_HEAD_COUNT;
-
   const parsedExpenseCategories = useMemo(() => {
     const parseSimpleCategory = (category: ExpenseCategory): ParsedExpenseCategory =>
       ({
@@ -268,7 +264,7 @@ const useFinancesOverview = (
       } as ParsedExpenseCategory);
 
     return expenseCategories
-      .filter((category) => category.parentId === null)
+      ?.filter((category) => category.parentId === null)
       .map(
         (category) =>
           ({
@@ -281,6 +277,8 @@ const useFinancesOverview = (
       )
       .sort((a, b) => a.order - b.order);
   }, [expenseCategories]);
+  const headCountCategory = parsedExpenseCategories.filter((item) => item.headcountExpense);
+  const notHeadCountCategory = parsedExpenseCategories.filter((item) => !item.headcountExpense);
 
   return {
     isLight,
@@ -311,7 +309,6 @@ const useFinancesOverview = (
     notHeadCountCategory,
     handleCheckedExpandedAll,
     checkOut,
-    parsedExpenseCategories,
   };
 };
 
