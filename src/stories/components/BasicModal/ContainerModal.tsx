@@ -6,7 +6,6 @@ import SimpleBar from 'simplebar-react';
 import { Close } from '../svg/close';
 import CategoryItem from './CategoryItem/CategoryItem';
 import CheckBoxDescription from './ChekBoxDescription/ChekBoxDescription';
-// import type { Category } from '@ses/core/models/dto/coreUnitDTO';
 import type { ParsedExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -28,7 +27,6 @@ const ContainerModal: React.FC<Props> = ({
   isSomeOpen = false,
 }) => {
   const { isLight } = useThemeContext();
-
   return (
     <Container isLight={isLight} isSomeOpen={isSomeOpen}>
       <Header isLight={isLight}>
@@ -61,14 +59,16 @@ const ContainerModal: React.FC<Props> = ({
           <ContainerTowColumns>
             <ContainerPar>
               {noHeadCountCategories
-                ?.filter((_, index) => index % 2 === 0)
+                ?.slice(0, noHeadCountCategories.length / 2)
+
                 .map((item) => (
                   <CategoryItem category={item} key={item.name} />
                 ))}
             </ContainerPar>
             <ContainerOdd>
               {noHeadCountCategories
-                ?.filter((_, index) => index % 2 !== 0)
+                ?.slice(noHeadCountCategories.length / 2, noHeadCountCategories.length)
+
                 .map((item) => (
                   <CategoryItem category={item} key={item.name} />
                 ))}
