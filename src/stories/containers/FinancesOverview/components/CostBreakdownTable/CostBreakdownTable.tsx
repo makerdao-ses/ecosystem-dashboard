@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import ArrowRight from '@ses/components/svg/ArrowRight';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import { pascalCaseToNormalString } from '@ses/core/utils/string';
@@ -94,6 +95,10 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
             </>
           ) : (
             <>
+              <ContainerOpenModal isLight={isLight} onClick={handleOnClick}>
+                <OpenModalText isLight={isLight}>View all Expense Categories</OpenModalText>
+                <ArrowRight fill={isLight ? '#231536' : '#D2D4EF'} />
+              </ContainerOpenModal>
               <ExpenseCategoryGroup name="Headcount">
                 {byCategoryExpenses.headcount.map((expense, i) => (
                   <ByExpenseCategoryTableRow
@@ -176,5 +181,30 @@ const RemainingContainer = styled.div<WithIsLight>(({ isLight }) => ({
     padding: 0,
     gap: 0,
     boxShadow: 'none',
+  },
+}));
+
+const OpenModalText = styled.div<WithIsLight>(({ isLight }) => ({
+  fontFamily: 'Inter ,sans-serif',
+  fontWeight: 400,
+  fontSize: 13,
+  lineHeight: '18px',
+  color: isLight ? '#231536' : '#D2D4EF',
+}));
+
+const ContainerOpenModal = styled.div<WithIsLight>(({ isLight }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  height: 34,
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  background: isLight ? '#F6F8F9' : '#343442',
+
+  border: isLight ? '1px solid #D4D9E1' : '1px solid #48495F',
+  borderRadius: '6px',
+  padding: '8px 16px 8px 16px',
+  marginTop: -2,
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'none',
   },
 }));
