@@ -225,6 +225,7 @@ const variantsArgs = [
         .withAnnualPeriod(2023)
         .build(),
     ],
+    expenseCategories: [],
   },
 ];
 
