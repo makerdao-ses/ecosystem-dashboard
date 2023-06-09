@@ -27,8 +27,8 @@ const AccordionCategory: React.FC<Props> = ({ style, category }) => {
 
         <AccordionDetails>
           <ItemsStyle isLight={isLight}>
-            {category?.subcategories?.map((category, index) => (
-              <div key={index}>{category.name}</div>
+            {category?.subcategories?.map((category) => (
+              <div key={category.name}>{category.name}</div>
             ))}
           </ItemsStyle>
         </AccordionDetails>
