@@ -10,9 +10,10 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface TemporaryContainerProps {
   snapshot: Snapshots;
+  snapshotOwner: string;
 }
 
-const TemporaryContainer: React.FC<TemporaryContainerProps> = ({ snapshot }) => {
+const TemporaryContainer: React.FC<TemporaryContainerProps> = ({ snapshot, snapshotOwner }) => {
   const { isLight } = useThemeContext();
 
   return (
@@ -20,7 +21,7 @@ const TemporaryContainer: React.FC<TemporaryContainerProps> = ({ snapshot }) => 
       <Container>
         <Title isLight={isLight}>Account Snapshot</Title>
 
-        <AccountsSnapshot snapshot={snapshot} />
+        <AccountsSnapshot snapshot={snapshot} snapshotOwner={snapshotOwner} />
       </Container>
     </PageContainer>
   );

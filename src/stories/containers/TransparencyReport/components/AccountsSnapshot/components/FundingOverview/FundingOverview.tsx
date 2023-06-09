@@ -8,15 +8,15 @@ import SectionHeader from '../SectionHeader/SectionHeader';
 import TransactionHistory from '../TransactionHistory/TransactionHistory';
 
 interface FundingOverviewProps {
-  coreUnitCode: string;
+  snapshotOwner: string;
 }
 
-const FundingOverview: React.FC<FundingOverviewProps> = ({ coreUnitCode }) => (
+const FundingOverview: React.FC<FundingOverviewProps> = ({ snapshotOwner }) => (
   <div>
     <HeaderContainer>
       <SectionHeader
         title="MakerDAO Funding Overview"
-        subtitle={`Totals funds made available to the ${coreUnitCode} Core Unit over its entire lifetime, since June 2021.`}
+        subtitle={`Totals funds made available to the ${snapshotOwner} over its entire lifetime, since June 2021.`}
         tooltip={'pending...'}
       />
       <CurrencyPicker />

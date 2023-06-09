@@ -10,12 +10,12 @@ import SectionHeader from '../SectionHeader/SectionHeader';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface CUReservesProps {
-  coreUnitCode: string;
+  snapshotOwner: string;
   includeOffChain: boolean;
   toggleIncludeOffChain: () => void;
 }
 
-const CUReserves: React.FC<CUReservesProps> = ({ coreUnitCode, includeOffChain, toggleIncludeOffChain }) => {
+const CUReserves: React.FC<CUReservesProps> = ({ snapshotOwner, includeOffChain, toggleIncludeOffChain }) => {
   const { isLight } = useThemeContext();
 
   return (
@@ -23,7 +23,7 @@ const CUReserves: React.FC<CUReservesProps> = ({ coreUnitCode, includeOffChain, 
       <HeaderContainer>
         <SectionHeader
           title="Total Core Unit Reserves"
-          subtitle={`On-chain and off-chain reserves accessible to the ${coreUnitCode} Core Unit.`}
+          subtitle={`On-chain and off-chain reserves accessible to the ${snapshotOwner}.`}
           tooltip={'pending...'}
         />
         <CheckContainer isLight={isLight}>
@@ -53,7 +53,7 @@ const CUReserves: React.FC<CUReservesProps> = ({ coreUnitCode, includeOffChain, 
       <OnChainSubsection>
         <SectionHeader
           title="On Chain Reserves"
-          subtitle={`Unspent on-chain reserves to the ${coreUnitCode} Core Unit.`}
+          subtitle={`Unspent on-chain reserves to the ${snapshotOwner}.`}
           tooltip={'pending...'}
           isSubsection
         />
@@ -89,7 +89,7 @@ const CUReserves: React.FC<CUReservesProps> = ({ coreUnitCode, includeOffChain, 
       <OffChainSubsection isDisabled={!includeOffChain}>
         <SectionHeader
           title="Off Chain Reserves"
-          subtitle={`Unspent off-chain reserves to the ${coreUnitCode} Core Unit.`}
+          subtitle={`Unspent off-chain reserves to the ${snapshotOwner}.`}
           tooltip={'pending...'}
           isSubsection
         />
