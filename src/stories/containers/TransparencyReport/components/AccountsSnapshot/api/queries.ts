@@ -98,7 +98,7 @@ interface TeamResponse {
 const getCoreUnitShortCode = async (ownerId: string): Promise<string> => {
   const { query, filter } = coreUnitShortCodeQuery(ownerId);
   const res = await request<CoreUnitResponse>(GRAPHQL_ENDPOINT, query, filter);
-  if (res && res.coreUnits && res.coreUnits[0] && res.coreUnits[0].shortCode) {
+  if (res?.coreUnits?.[0]?.shortCode) {
     return res.coreUnits[0].shortCode;
   }
   return 'UNKNOWN';
@@ -107,7 +107,7 @@ const getCoreUnitShortCode = async (ownerId: string): Promise<string> => {
 const getTeamsShortCode = async (ownerId: string): Promise<string> => {
   const { query, filter } = teamShortCodeQuery(ownerId);
   const res = await request<TeamResponse>(GRAPHQL_ENDPOINT, query, filter);
-  if (res && res.teams && res.teams[0] && res.teams[0].shortCode) {
+  if (res?.teams?.[0]?.shortCode) {
     return res.teams[0].shortCode;
   }
   return 'UNKNOWN';
