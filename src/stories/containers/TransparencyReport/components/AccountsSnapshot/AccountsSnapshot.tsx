@@ -8,15 +8,20 @@ import type { Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';
 
 interface AccountsSnapshotProps {
   snapshot: Snapshots;
+  snapshotOwner: string;
 }
 
-const AccountsSnapshot: React.FC<AccountsSnapshotProps> = ({ snapshot }) => {
+const AccountsSnapshot: React.FC<AccountsSnapshotProps> = ({ snapshot, snapshotOwner }) => {
   const { expensesComparisonRows, includeOffChain, toggleIncludeOffChain } = useAccountsSnapshot(snapshot);
 
   return (
     <Wrapper>
-      <FundingOverview coreUnitCode="SES" />
-      <CUReserves coreUnitCode="SES" includeOffChain={includeOffChain} toggleIncludeOffChain={toggleIncludeOffChain} />
+      <FundingOverview snapshotOwner={snapshotOwner} />
+      <CUReserves
+        snapshotOwner={snapshotOwner}
+        includeOffChain={includeOffChain}
+        toggleIncludeOffChain={toggleIncludeOffChain}
+      />
       <ExpensesComparison rows={expensesComparisonRows} />
     </Wrapper>
   );

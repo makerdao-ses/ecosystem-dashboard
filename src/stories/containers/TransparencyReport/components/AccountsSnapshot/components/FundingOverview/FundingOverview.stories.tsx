@@ -10,7 +10,7 @@ export default {
 
 const variantsArgs = [
   {
-    coreUnitCode: 'SES',
+    snapshotOwner: 'SES Core Unit',
   },
 ];
 
