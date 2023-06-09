@@ -61,6 +61,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
     notHeadCountCategory,
     handleCheckedExpandedAll,
     checkOut,
+    handleChangeItemAccordion,
   } = useFinancesOverview(
     quarterExpenses,
     monthlyExpenses,
@@ -137,6 +138,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
           isCheckedExpandedAll={checkOut}
           handleCloseModal={handleCloseModal}
           setIsCheckedExpandedAll={handleCheckedExpandedAll}
+          handleChangeItemAccordion={handleChangeItemAccordion}
         />
       </BasicModalExtended>
     </PageWrapper>

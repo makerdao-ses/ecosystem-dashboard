@@ -1,6 +1,7 @@
 import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
+import _ from 'lodash';
 import { DateTime } from 'luxon';
 import { useCallback, useMemo, useState } from 'react';
 import {
@@ -11,7 +12,7 @@ import {
 } from './utils/costBreakdown';
 import { parseQuarter } from './utils/quarters';
 import type { CostBreakdownFilterValue, ExtendedExpense } from './financesOverviewTypes';
-import type { ExpenseCategory, ParsedExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
+import type { ExpenseCategory, ParsedExpenseCategoryWithExpanded } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 
 const noneBorder = [0, 0, 0, 0];
@@ -35,10 +36,76 @@ const useFinancesOverview = (
     setCheckOut(false);
     setOpenModal(false);
   };
+  const parsedExpenseCategories = useMemo(() => {
+    const parseSimpleCategory = (category: ExpenseCategory): ParsedExpenseCategoryWithExpanded =>
+      ({
+        id: category.id,
+        name: category.name,
+        order: category.order,
+        headcountExpense: category.headcountExpense,
+        isExpanded: false,
+      } as ParsedExpenseCategoryWithExpanded);
+
+    return expenseCategories
+      ?.filter((category) => category.parentId === null)
+      .map(
+        (category) =>
+          ({
+            ...parseSimpleCategory(category),
+            subcategories: expenseCategories
+              .filter((subcategory) => subcategory.parentId === category.id)
+              .map((subcategory) => parseSimpleCategory(subcategory))
+              .sort((a, b) => a.order - b.order),
+          } as ParsedExpenseCategoryWithExpanded)
+      )
+      .sort((a, b) => a.order - b.order);
+  }, [expenseCategories]);
+  // state for all categories
+  const [allCategory, setAllCategory] = useState<ParsedExpenseCategoryWithExpanded[]>(parsedExpenseCategories);
+  const headCountCategory = allCategory.filter((item) => item.headcountExpense);
+  const notHeadCountCategory = allCategory.filter((item) => !item.headcountExpense);
+  const handleChangeItemAccordion = (id: string, value: boolean) => {
+    const category = allCategory.map((item) => {
+      if (id === item.id) {
+        return {
+          ...item,
+          isExpanded: value,
+        };
+      } else {
+        return item;
+      }
+    });
+    if (category) {
+      setAllCategory(category);
+    }
+    const hasExpandedElement = _.some(
+      allCategory,
+      (element) => _.has(element, 'isExpanded') && element.isExpanded === true
+    );
+
+    if (hasExpandedElement) {
+      setCheckOut(false);
+    }
+  };
 
   const handleCheckedExpandedAll = () => {
     setCheckOut(!checkOut);
+    let newMoment: ParsedExpenseCategoryWithExpanded[] = [];
+    if (checkOut) {
+      newMoment = allCategory.map((item) => ({
+        ...item,
+        isExpanded: false,
+      }));
+    } else {
+      newMoment = allCategory.map((item) => ({
+        ...item,
+        isExpanded: true,
+      }));
+    }
+
+    setAllCategory(newMoment);
   };
+
   const sortedQuarters = useMemo(
     () =>
       quarterExpenses.sort((a, b) => {
@@ -254,32 +321,6 @@ const useFinancesOverview = (
     };
   }, [byCategoryBreakdownExpenses, selectedYear]);
 
-  const parsedExpenseCategories = useMemo(() => {
-    const parseSimpleCategory = (category: ExpenseCategory): ParsedExpenseCategory =>
-      ({
-        id: category.id,
-        name: category.name,
-        order: category.order,
-        headcountExpense: category.headcountExpense,
-      } as ParsedExpenseCategory);
-
-    return expenseCategories
-      ?.filter((category) => category.parentId === null)
-      .map(
-        (category) =>
-          ({
-            ...parseSimpleCategory(category),
-            subcategories: expenseCategories
-              .filter((subcategory) => subcategory.parentId === category.id)
-              .map((subcategory) => parseSimpleCategory(subcategory))
-              .sort((a, b) => a.order - b.order),
-          } as ParsedExpenseCategory)
-      )
-      .sort((a, b) => a.order - b.order);
-  }, [expenseCategories]);
-  const headCountCategory = parsedExpenseCategories.filter((item) => item.headcountExpense);
-  const notHeadCountCategory = parsedExpenseCategories.filter((item) => !item.headcountExpense);
-
   return {
     isLight,
     sortedQuarters,
@@ -309,6 +350,7 @@ const useFinancesOverview = (
     notHeadCountCategory,
     handleCheckedExpandedAll,
     checkOut,
+    handleChangeItemAccordion,
   };
 };
 

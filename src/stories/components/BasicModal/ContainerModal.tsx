@@ -6,16 +6,17 @@ import SimpleBar from 'simplebar-react';
 import { Close } from '../svg/close';
 import CategoryItem from './CategoryItem/CategoryItem';
 import CheckBoxDescription from './ChekBoxDescription/ChekBoxDescription';
-import type { ParsedExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
+import type { ParsedExpenseCategoryWithExpanded } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  headCountCategories: ParsedExpenseCategory[];
-  noHeadCountCategories: ParsedExpenseCategory[];
+  headCountCategories: ParsedExpenseCategoryWithExpanded[];
+  noHeadCountCategories: ParsedExpenseCategoryWithExpanded[];
   isCheckedExpandedAll?: boolean;
   setIsCheckedExpandedAll: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleCloseModal: () => void;
   isSomeOpen?: boolean;
+  handleChangeItemAccordion: (id: string, expanded: boolean) => void;
 }
 
 const ContainerModal: React.FC<Props> = ({
@@ -25,6 +26,7 @@ const ContainerModal: React.FC<Props> = ({
   setIsCheckedExpandedAll,
   handleCloseModal,
   isSomeOpen = false,
+  handleChangeItemAccordion,
 }) => {
   const { isLight } = useThemeContext();
   return (
@@ -51,7 +53,12 @@ const ContainerModal: React.FC<Props> = ({
           <Line isLight={isLight} />
           <HeadCountList>
             {headCountCategories?.map((item) => (
-              <CategoryItem key={item.name} category={item} />
+              <CategoryItem
+                key={item.name}
+                category={item}
+                expanded={item.isExpanded}
+                handleChangeItemAccordion={handleChangeItemAccordion}
+              />
             ))}
           </HeadCountList>
           <NoHeadCount isLight={isLight}>Non-Headcount Expense Categories</NoHeadCount>
@@ -62,7 +69,12 @@ const ContainerModal: React.FC<Props> = ({
                 ?.slice(0, noHeadCountCategories.length / 2)
 
                 .map((item) => (
-                  <CategoryItem category={item} key={item.name} />
+                  <CategoryItem
+                    category={item}
+                    key={item.name}
+                    expanded={item.isExpanded}
+                    handleChangeItemAccordion={handleChangeItemAccordion}
+                  />
                 ))}
             </ContainerPar>
             <ContainerOdd>
@@ -70,7 +82,12 @@ const ContainerModal: React.FC<Props> = ({
                 ?.slice(noHeadCountCategories.length / 2, noHeadCountCategories.length)
 
                 .map((item) => (
-                  <CategoryItem category={item} key={item.name} />
+                  <CategoryItem
+                    category={item}
+                    key={item.name}
+                    expanded={item.isExpanded}
+                    handleChangeItemAccordion={handleChangeItemAccordion}
+                  />
                 ))}
             </ContainerOdd>
           </ContainerTowColumns>
