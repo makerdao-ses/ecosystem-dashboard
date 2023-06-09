@@ -13,7 +13,6 @@ import { CoreUnitSummary } from '../../components/CoreUnitSummary/CoreUnitSummar
 import { CustomLink } from '../../components/CustomLink/CustomLink';
 import { CustomPager } from '../../components/CustomPager/CustomPager';
 import { SEOHead } from '../../components/SEOHead/SEOHead';
-import AccountsSnapshot from './components/AccountsSnapshot/AccountsSnapshot';
 import ExpenseReport from './components/ExpenseReport/ExpenseReport';
 import ExpenseReportStatusIndicator from './components/ExpenseReportStatusIndicator/ExpenseReportStatusIndicator';
 import { TransparencyActuals } from './components/TransparencyActuals/TransparencyActuals';
@@ -25,7 +24,6 @@ import { TransparencyMkrVesting } from './components/TransparencyMkrVesting/Tran
 import { TransparencyTransferRequest } from './components/TransparencyTransferRequest/TransparencyTransferRequest';
 import { TRANSPARENCY_IDS_ENUM, useTransparencyReport } from './useTransparencyReport';
 import type { CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
-import type { Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';
 
 interface TransparencyReportProps {
   coreUnits: CoreUnitDto[];
@@ -151,7 +149,6 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
                 longCode={longCode}
               />
             )}
-            {tabsIndex === TRANSPARENCY_IDS_ENUM.ACCOUNTS_SNAPSHOTS && <AccountsSnapshot snapshot={{} as Snapshots} />}
             {tabsIndex === TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS && isEnabled('FEATURE_AUDIT_REPORTS') && (
               <TransparencyAudit budgetStatement={currentBudgetStatement} />
             )}
