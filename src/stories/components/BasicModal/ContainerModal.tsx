@@ -6,12 +6,12 @@ import SimpleBar from 'simplebar-react';
 import { Close } from '../svg/close';
 import CategoryItem from './CategoryItem/CategoryItem';
 import CheckBoxDescription from './ChekBoxDescription/ChekBoxDescription';
-import type { Category } from '@ses/core/models/dto/coreUnitDTO';
+import type { ParsedExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  headCountCategories: Category[];
-  noHeadCountCategories: Category[];
+  headCountCategories: ParsedExpenseCategory[];
+  noHeadCountCategories: ParsedExpenseCategory[];
   isCheckedExpandedAll?: boolean;
   setIsCheckedExpandedAll: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleCloseModal: () => void;
@@ -27,7 +27,6 @@ const ContainerModal: React.FC<Props> = ({
   isSomeOpen = false,
 }) => {
   const { isLight } = useThemeContext();
-
   return (
     <Container isLight={isLight} isSomeOpen={isSomeOpen}>
       <Header isLight={isLight}>
@@ -45,7 +44,8 @@ const ContainerModal: React.FC<Props> = ({
           <CheckBoxDescription isChecked={isCheckedExpandedAll} setIsChecked={setIsCheckedExpandedAll} />
         </ContainerDescription>
       </Header>
-      <SimpleBar style={{}} className="filter-popup-scroll" scrollbarMaxSize={32}>
+
+      <SimpleBarStyled scrollbarMaxSize={32}>
         <InsideModal>
           <HeadCount isLight={isLight}>Headcount Expense Categories</HeadCount>
           <Line isLight={isLight} />
@@ -59,21 +59,23 @@ const ContainerModal: React.FC<Props> = ({
           <ContainerTowColumns>
             <ContainerPar>
               {noHeadCountCategories
-                ?.filter((_, index) => index % 2 === 0)
+                ?.slice(0, noHeadCountCategories.length / 2)
+
                 .map((item) => (
                   <CategoryItem category={item} key={item.name} />
                 ))}
             </ContainerPar>
             <ContainerOdd>
               {noHeadCountCategories
-                ?.filter((_, index) => index % 2 !== 0)
+                ?.slice(noHeadCountCategories.length / 2, noHeadCountCategories.length)
+
                 .map((item) => (
                   <CategoryItem category={item} key={item.name} />
                 ))}
             </ContainerOdd>
           </ContainerTowColumns>
         </InsideModal>
-      </SimpleBar>
+      </SimpleBarStyled>
     </Container>
   );
 };
@@ -321,5 +323,25 @@ const StyledClose = styled(Close)({
   [lightTheme.breakpoints.up('table_834')]: {
     width: 20,
     height: 20,
+  },
+});
+
+const SimpleBarStyled = styled(SimpleBar)({
+  height: 748,
+  '.simplebar-scrollbar::before': {
+    width: 4,
+    height: 64,
+    marginLeft: 4,
+    background: '#1aab9b',
+    borderRadius: 20,
+  },
+  [lightTheme.breakpoints.up('table_834')]: {
+    height: 813,
+    '.simplebar-scrollbar::before': {
+      width: 6,
+    },
+  },
+  [lightTheme.breakpoints.up('table_834')]: {
+    height: 847,
   },
 });

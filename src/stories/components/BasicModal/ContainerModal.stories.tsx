@@ -1,4 +1,4 @@
-import { CategoryBuilder } from '@ses/core/businessLogic/builders/categoriesBuilders';
+import { ParsedExpenseCategoryBuilder } from '@ses/core/businessLogic/builders/categoriesBuilders';
 import { withFixedPositionRelative } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 
@@ -21,43 +21,74 @@ export default {
 const variantsArgs = [
   {
     headCountCategories: [
-      new CategoryBuilder().withCategory('Compensation & Benefits').build(),
-      new CategoryBuilder().withCategory('Travel & Entertainment').build(),
-      new CategoryBuilder().withCategory('Bonus').build(),
+      new ParsedExpenseCategoryBuilder().withName('Compensation & Benefits').build(),
+      new ParsedExpenseCategoryBuilder().withName('Travel & Entertainment').build(),
+      new ParsedExpenseCategoryBuilder().withName('Bonus').build(),
     ],
     noHeadCountCategories: [
-      new CategoryBuilder().withCategory('Governance Programs').build(),
-      new CategoryBuilder().withCategory('Training Expense').build(),
-      new CategoryBuilder().withCategory('Supplies').build(),
-      new CategoryBuilder().withCategory('Community Development Expense').build(),
-      new CategoryBuilder().withCategory('Software Development Expense').build(),
+      new ParsedExpenseCategoryBuilder().withName('Governance Programs').build(),
+      new ParsedExpenseCategoryBuilder().withName('Training Expense').build(),
+      new ParsedExpenseCategoryBuilder().withName('Supplies').build(),
+      new ParsedExpenseCategoryBuilder().withName('Community Development Expense').build(),
+      new ParsedExpenseCategoryBuilder().withName('Software Development Expense').build(),
 
-      new CategoryBuilder().withCategory('Hardware Expense').build(),
-      new CategoryBuilder().withCategory('Professional Services').build(),
-      new CategoryBuilder().withCategory('Marketing Expense').build(),
-      new CategoryBuilder().withCategory('Freight & Duties').build(),
-      new CategoryBuilder().withCategory('Contingency Buffer').build(),
-      new CategoryBuilder().withCategory('Gas Expense').build(),
+      new ParsedExpenseCategoryBuilder().withName('Hardware Expense').build(),
+      new ParsedExpenseCategoryBuilder().withName('Professional Services').build(),
+      new ParsedExpenseCategoryBuilder().withName('Marketing Expense').build(),
+      new ParsedExpenseCategoryBuilder().withName('Freight & Duties').build(),
+      new ParsedExpenseCategoryBuilder().withName('Contingency Buffer').build(),
+      new ParsedExpenseCategoryBuilder().withName('Gas Expense').build(),
 
-      new CategoryBuilder().withCategory('Admin Expense').build(),
+      new ParsedExpenseCategoryBuilder().withName('Admin Expense').build(),
     ],
     isCheckedExpandedAll: false,
     isSomeOpen: true,
   },
   {
     headCountCategories: [
-      new CategoryBuilder().withCategory('Compensation & Benefits').build(),
-      new CategoryBuilder()
-        .withCategory('Travel & Entertainment')
-        .withSubCategories(['Hotels', 'Airfare', 'Meals', 'Activities & Events', 'Transportation (Uber, Taxi, etc)'])
+      new ParsedExpenseCategoryBuilder().withName('Compensation & Benefits').build(),
+      new ParsedExpenseCategoryBuilder()
+        .withName('Travel & Entertainment')
+        .withSubcategories([
+          {
+            name: 'Hotels',
+            id: '1',
+            headcountExpense: true,
+            order: 1,
+          },
+          {
+            name: 'Airfare',
+            id: '2',
+            headcountExpense: true,
+            order: 2,
+          },
+          {
+            name: 'Meals',
+            id: '3',
+            headcountExpense: true,
+            order: 3,
+          },
+          {
+            name: 'Activities & Events',
+            id: '4',
+            headcountExpense: true,
+            order: 4,
+          },
+          {
+            name: 'Transportation (Uber, Taxi, etc)',
+            id: '5',
+            headcountExpense: true,
+            order: 5,
+          },
+        ])
         .build(),
-      new CategoryBuilder().withCategory('Bonus').build(),
+      new ParsedExpenseCategoryBuilder().withName('Bonus').build(),
     ],
     noHeadCountCategories: [
-      new CategoryBuilder().withCategory('Governance Programs').build(),
-      new CategoryBuilder().withCategory('Training Expense').build(),
-      new CategoryBuilder().withCategory('Supplies').build(),
-      new CategoryBuilder().withCategory('Community Development Expense').build(),
+      new ParsedExpenseCategoryBuilder().withName('Governance Programs').build(),
+      new ParsedExpenseCategoryBuilder().withName('Training Expense').build(),
+      new ParsedExpenseCategoryBuilder().withName('Supplies').build(),
+      new ParsedExpenseCategoryBuilder().withName('Community Development Expense').build(),
     ],
     isCheckedExpandedAll: false,
     isSomeOpen: false,

@@ -1,26 +1,44 @@
-import type { Category } from '@ses/core/models/dto/coreUnitDTO';
+import type { ParsedExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 
-export class CategoryBuilder {
-  private readonly _category: Category;
+export class ParsedExpenseCategoryBuilder {
+  private readonly _parsedExpenseCategory: ParsedExpenseCategory;
 
   constructor() {
-    this._category = {
+    this._parsedExpenseCategory = {
+      id: '',
+      order: 0,
       name: '',
+      headcountExpense: false,
       subcategories: [],
-    } as Category;
+    };
   }
 
-  withCategory(category: string): CategoryBuilder {
-    this._category.name = category;
+  withId(id: string): ParsedExpenseCategoryBuilder {
+    this._parsedExpenseCategory.id = id;
     return this;
   }
 
-  withSubCategories(subcategories: string[]): CategoryBuilder {
-    this._category.subcategories = subcategories;
+  withOrder(order: number): ParsedExpenseCategoryBuilder {
+    this._parsedExpenseCategory.order = order;
     return this;
   }
 
-  build(): Category {
-    return this._category;
+  withName(name: string): ParsedExpenseCategoryBuilder {
+    this._parsedExpenseCategory.name = name;
+    return this;
+  }
+
+  withHeadcountExpense(headcountExpense: boolean): ParsedExpenseCategoryBuilder {
+    this._parsedExpenseCategory.headcountExpense = headcountExpense;
+    return this;
+  }
+
+  withSubcategories(subcategories: Omit<ParsedExpenseCategory, 'subcategories'>[]): ParsedExpenseCategoryBuilder {
+    this._parsedExpenseCategory.subcategories = subcategories;
+    return this;
+  }
+
+  build(): ParsedExpenseCategory {
+    return this._parsedExpenseCategory;
   }
 }

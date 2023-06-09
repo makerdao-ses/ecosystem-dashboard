@@ -61,7 +61,6 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
     notHeadCountCategory,
     handleCheckedExpandedAll,
     checkOut,
-    parsedExpenseCategories,
   } = useFinancesOverview(
     quarterExpenses,
     monthlyExpenses,
@@ -69,9 +68,6 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
     byCategoryBreakdownExpenses,
     expenseCategories
   );
-
-  // TODO: render the parsedExpenseCategories in the categories modal
-  console.log(parsedExpenseCategories);
 
   return (
     <PageWrapper isLight={isLight}>
