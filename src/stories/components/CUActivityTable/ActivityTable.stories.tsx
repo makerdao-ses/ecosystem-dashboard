@@ -1,5 +1,6 @@
 import { SortEnum } from '@ses/core/enums/sortEnum';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
+import { withLocalStorageItem } from '@ses/core/utils/storybook/loaders';
 import lightTheme from '@ses/styles/theme/light';
 import ActivityTable from './ActivityTable';
 import type { ComponentMeta } from '@storybook/react';
@@ -14,6 +15,7 @@ export default {
     },
     date: new Date('2022-09-22T12:23:00Z'),
   },
+  loaders: [withLocalStorageItem('activity-visit-SES', '1663540180000')],
   argTypes: {},
 } as ComponentMeta<typeof ActivityTable>;
 
