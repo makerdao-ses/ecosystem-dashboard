@@ -3,7 +3,14 @@ import { useState } from 'react';
 import ExpensesComparisonRowCard from './components/Cards/ExpensesComparisonRowCard/ExpensesComparisonRowCard';
 import { EXPENSES_COMPARISON_TABLE_HEADER } from './components/ExpensesComparison/ExpensesComparison';
 import type { CardRenderProps, RowProps } from '@ses/components/AdvanceTable/types';
-import type { Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';
+import type { SnapshotAccountBalance, Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';
+
+const EMPTY_BALANCE = {
+  inflow: 0,
+  outflow: 0,
+  initialBalance: 0,
+  newBalance: 0,
+} as SnapshotAccountBalance;
 
 const RenderCurrentMonthRow: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { isLight } = useThemeContext();
@@ -76,12 +83,35 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
   const { isLight } = useThemeContext();
 
   const [includeOffChain, setIncludeOffChain] = useState<boolean>(false);
-
   const toggleIncludeOffChain = () => setIncludeOffChain(!includeOffChain);
 
-  // TODO: process the snapshot object
-  console.log(snapshot);
+  const startDate = snapshot.start ?? undefined;
+  const endDate = snapshot.end ?? undefined;
 
+  const mainAccount = snapshot.snapshotAccount.find(
+    (account) => account.groupAccountId === null && account.upstreamAccountId === null
+  );
+
+  if (!mainAccount) throw new Error('Maker Protocol Wallet not found');
+
+  // the balance is for now the last entry
+  const mainBalance =
+    mainAccount.snapshotAccountBalance.length > 0
+      ? mainAccount.snapshotAccountBalance[mainAccount.snapshotAccountBalance.length - 1]
+      : EMPTY_BALANCE;
+
+  // cu reserves balance
+  const cuReservesAccount = snapshot.snapshotAccount.find(
+    (account) => account.groupAccountId === null && account.upstreamAccountId === mainAccount.id
+  );
+
+  const cuReservesBalance =
+    (cuReservesAccount?.snapshotAccountBalance?.length ?? 0) > 0
+      ? cuReservesAccount?.snapshotAccountBalance?.[cuReservesAccount?.snapshotAccountBalance?.length - 1] ??
+        EMPTY_BALANCE
+      : EMPTY_BALANCE;
+
+  // mocked data for the "Reported Expenses Comparison" table
   const expensesComparisonRows = [
     buildRow(['MAY-2023', '221,503.00 DAI', '240,000.00 DAI', '8.35%', '221,504.00 DAI', '0.00%'], true, false),
     buildRow(['APR-2023', '171,503.00 DAI', '170,000.00 DAI', '-0.88%', '171,500,00 DAI', '0.00%'], false, false),
@@ -94,6 +124,10 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
     expensesComparisonRows,
     includeOffChain,
     toggleIncludeOffChain,
+    startDate,
+    endDate,
+    mainBalance,
+    cuReservesBalance,
   };
 };
 

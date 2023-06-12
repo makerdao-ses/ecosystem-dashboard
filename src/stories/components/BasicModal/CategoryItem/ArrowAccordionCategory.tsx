@@ -5,30 +5,37 @@ import MuiAccordionSummary from '@mui/material/AccordionSummary';
 
 import { SelectChevronDown } from '@ses/components/svg/select-chevron-down';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { pascalCaseToNormalString } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 
 import type { AccordionProps } from '@mui/material/Accordion';
 import type { AccordionSummaryProps } from '@mui/material/AccordionSummary';
-import type { ParsedExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
+import type { ParsedExpenseCategoryWithExpanded } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   style?: React.CSSProperties;
-  category: ParsedExpenseCategory;
+  category: ParsedExpenseCategoryWithExpanded;
+  expanded: boolean;
+  handleChangeItemAccordion: (categoryId: string, expanded: boolean) => void;
 }
 
-const AccordionCategory: React.FC<Props> = ({ style, category }) => {
+const AccordionCategory: React.FC<Props> = ({ style, category, expanded, handleChangeItemAccordion }) => {
   const { isLight } = useThemeContext();
+  const handleOnchange = (event: React.SyntheticEvent, expanded: boolean) => {
+    handleChangeItemAccordion(category.id, expanded);
+  };
+
   return (
     <TransactionHistoryContainer style={style}>
-      <Accordion>
+      <Accordion expanded={expanded} onChange={handleOnchange}>
         <AccordionSummary isLight={isLight}>{category.name}</AccordionSummary>
 
         <AccordionDetails>
           <ItemsStyle isLight={isLight}>
             {category?.subcategories?.map((category) => (
-              <div key={category.name}>{category.name}</div>
+              <div key={category.name}>{pascalCaseToNormalString(category.name)}</div>
             ))}
           </ItemsStyle>
         </AccordionDetails>
@@ -115,7 +122,7 @@ const ItemsStyle = styled.div<WithIsLight>(({ isLight }) => ({
   flexDirection: 'column',
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
-
+  textTransform: 'capitalize',
   color: isLight ? '#231536' : '#D2D4EF',
 
   gap: 16,

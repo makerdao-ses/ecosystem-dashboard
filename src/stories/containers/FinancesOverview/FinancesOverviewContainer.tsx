@@ -61,6 +61,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
     notHeadCountCategory,
     handleCheckedExpandedAll,
     checkOut,
+    handleChangeItemAccordion,
   } = useFinancesOverview(
     quarterExpenses,
     monthlyExpenses,
@@ -137,6 +138,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
           isCheckedExpandedAll={checkOut}
           handleCloseModal={handleCloseModal}
           setIsCheckedExpandedAll={handleCheckedExpandedAll}
+          handleChangeItemAccordion={handleChangeItemAccordion}
         />
       </BasicModalExtended>
     </PageWrapper>
@@ -276,17 +278,28 @@ const BreakdownTableColumn = styled.div({
 
 const BasicModalExtended = styled(BasicModal)({
   position: 'absolute',
-  top: '64px',
   left: '50%',
+  borderRadius: 16,
+  maxHeight: 748,
+  height: 'calc(100% - 64px)',
+  marginTop: 64,
+  marginBottom: 64,
+  overflowY: 'auto',
+  '::-webkit-scrollbar': {
+    width: '1px',
+  },
+  // This to hidden border in safari
+  outline: 'none',
   transform: 'translateX(-50%)',
+  [lightTheme.breakpoints.up('table_834')]: {
+    width: 770,
+    maxHeight: 813,
+  },
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    top: '175px',
     width: 1114,
+    maxHeight: 847,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    width: 1184,
-  },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
     width: 1184,
   },
 });
