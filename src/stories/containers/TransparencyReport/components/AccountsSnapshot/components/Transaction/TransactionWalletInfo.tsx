@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import CopyIcon from '@ses/components/CopyIcon/CopyIcon';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { formatAddressForOutput } from '@ses/core/utils/string';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import Blockies from 'react-18-blockies';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -25,7 +26,7 @@ const TransactionWalletInfo: React.FC<TransactionWalletInfoProps> = ({ name, add
           <Name isLight={isLight}>{name}</Name>
         </NameContainer>
         <AddressContainer>
-          <Address isLight={isLight} href={`https://etherscan.io/address/${address}`} target="_blank">
+          <Address href={`https://etherscan.io/address/${address}`} target="_blank">
             {formatAddressForOutput(address, 6, 4, '...')}
           </Address>
           <CopyIcon text={address ?? ''} defaultTooltip="Copy Address" />
@@ -49,6 +50,13 @@ const BlockiesContainer = styled.div({
   marginTop: 6,
   overflow: 'hidden',
   background: 'gray',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    width: 32,
+    height: 32,
+    marginTop: 0,
+    marginRight: 16,
+  },
 });
 
 const InfoContainer = styled.div({});
@@ -69,9 +77,13 @@ const AddressContainer = styled.div({
   display: 'flex',
 });
 
-const Address = styled.a<WithIsLight>(({ isLight }) => ({
+const Address = styled.a(() => ({
   fontSize: 12,
   lineHeight: '15px',
-  color: isLight ? '#447AFB' : '#447AFB',
+  color: '#447AFB',
   marginRight: 17,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginRight: 4,
+  },
 }));

@@ -8,13 +8,20 @@ export default {
   component: FundingOverview,
 } as ComponentMeta<typeof FundingOverview>;
 
+const CommonArgs = {};
 const variantsArgs = [
   {
     snapshotOwner: 'SES Core Unit',
   },
+  {
+    ...CommonArgs,
+  },
 ];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(FundingOverview, variantsArgs);
+export const [[LightMode, DarkMode], [ExpandedLightMode, ExpandedDarkMode]] = createThemeModeVariants(
+  FundingOverview,
+  variantsArgs
+);
 
 LightMode.parameters = {
   figma: {
@@ -72,6 +79,25 @@ LightMode.parameters = {
         options: {
           componentStyle: {
             width: 1312,
+          },
+          style: {
+            top: 0,
+            left: -40,
+          },
+        },
+      },
+    },
+  } as FigmaParams,
+};
+
+ExpandedLightMode.parameters = {
+  figma: {
+    component: {
+      834: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19867:248091',
+        options: {
+          componentStyle: {
+            width: 770,
           },
           style: {
             top: 0,

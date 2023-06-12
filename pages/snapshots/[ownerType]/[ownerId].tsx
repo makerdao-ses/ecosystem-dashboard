@@ -30,7 +30,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
   const { query } = context;
   const { ownerType, ownerId } = query;
-  if (!ownerType || !ownerId) {
+  if (!ownerType || !ownerId || isNaN(ownerId)) {
     return {
       notFound: true,
     };
