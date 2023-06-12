@@ -288,7 +288,8 @@ const BasicModalExtended = styled(BasicModal)({
   '::-webkit-scrollbar': {
     width: '1px',
   },
-
+  // This to hidden border in safari
+  outline: 'none',
   transform: 'translateX(-50%)',
   [lightTheme.breakpoints.up('table_834')]: {
     width: 770,
