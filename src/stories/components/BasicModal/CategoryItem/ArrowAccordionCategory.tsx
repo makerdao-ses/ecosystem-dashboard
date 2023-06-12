@@ -115,7 +115,7 @@ const ItemsStyle = styled.div<WithIsLight>(({ isLight }) => ({
   flexDirection: 'column',
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
-
+  textTransform: 'capitalize',
   color: isLight ? '#231536' : '#D2D4EF',
 
   gap: 16,
