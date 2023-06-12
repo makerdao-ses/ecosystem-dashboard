@@ -47,7 +47,7 @@ const ContainerModal: React.FC<Props> = ({
         </ContainerDescription>
       </Header>
 
-      <SimpleBarStyled scrollbarMaxSize={32}>
+      <SimpleBarStyled>
         <InsideModal>
           <HeadCount isLight={isLight}>Headcount Expense Categories</HeadCount>
           <Line isLight={isLight} />

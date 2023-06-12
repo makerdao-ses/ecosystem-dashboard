@@ -281,7 +281,7 @@ const BasicModalExtended = styled(BasicModal)({
   left: '50%',
   borderRadius: 16,
   maxHeight: 748,
-  height: '100%',
+  height: 'calc(100% - 64px)',
   marginTop: 64,
   marginBottom: 64,
   overflowY: 'auto',
