@@ -39,7 +39,35 @@ export const accountsSnapshotQuery = (filter: SnapshotFilter) => ({
       }
     }
   `,
-  filter,
+  filter: {
+    filter,
+  },
+});
+
+export const coreUnitShortCodeQuery = (id: string) => ({
+  query: gql`
+    query CoreUnits($filter: CoreUnitFilter) {
+      coreUnits(filter: $filter) {
+        shortCode
+      }
+    }
+  `,
+  filter: {
+    filter: { id },
+  },
+});
+
+export const teamShortCodeQuery = (id: string) => ({
+  query: gql`
+    query Teams($filter: TeamFilter) {
+      teams(filter: $filter) {
+        shortCode
+      }
+    }
+  `,
+  filter: {
+    filter: { id },
+  },
 });
 
 export const fetchAccountsSnapshot = async (ownerType: string, ownerId: string): Promise<Snapshots[]> => {
@@ -52,7 +80,57 @@ export const fetchAccountsSnapshot = async (ownerType: string, ownerId: string):
     snapshots: Snapshots[];
   }>(GRAPHQL_ENDPOINT, query, filter);
 
-  console.log(res);
-
   return res.snapshots;
+};
+
+interface CoreUnitResponse {
+  coreUnits: {
+    shortCode: string;
+  }[];
+}
+
+interface TeamResponse {
+  teams: {
+    shortCode: string;
+  }[];
+}
+
+const getCoreUnitShortCode = async (ownerId: string): Promise<string> => {
+  const { query, filter } = coreUnitShortCodeQuery(ownerId);
+  const res = await request<CoreUnitResponse>(GRAPHQL_ENDPOINT, query, filter);
+  if (res?.coreUnits?.[0]?.shortCode) {
+    return res.coreUnits[0].shortCode;
+  }
+  return 'UNKNOWN';
+};
+
+const getTeamsShortCode = async (ownerId: string): Promise<string> => {
+  const { query, filter } = teamShortCodeQuery(ownerId);
+  const res = await request<TeamResponse>(GRAPHQL_ENDPOINT, query, filter);
+  if (res?.teams?.[0]?.shortCode) {
+    return res.teams[0].shortCode;
+  }
+  return 'UNKNOWN';
+};
+
+export const generateSnapshotOwnerString = async (ownerType: string, ownerId: string): Promise<string> => {
+  try {
+    switch (ownerType) {
+      case 'CoreUnitDraft': {
+        const shortCode = await getCoreUnitShortCode(ownerId);
+        return `${shortCode} Core Unit`;
+      }
+      case 'DelegatesDraft':
+        return 'Recognized Delegates';
+      case 'EcosystemActorDraft': {
+        const shortCode = await getTeamsShortCode(ownerId);
+        return `${shortCode} Ecosystem Actor`;
+      }
+      default:
+        // TODO: add the correct phrase
+        return `<<PENDING: ${ownerType}, ${ownerId}>>`;
+    }
+  } catch (error) {
+    return ownerType;
+  }
 };

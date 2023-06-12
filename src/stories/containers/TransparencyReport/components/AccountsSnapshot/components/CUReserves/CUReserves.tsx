@@ -7,15 +7,26 @@ import FundChangeCard from '../Cards/FundChangeCard';
 import ReserveCard from '../Cards/ReserveCard';
 import SimpleStatCard from '../Cards/SimpleStatCard';
 import SectionHeader from '../SectionHeader/SectionHeader';
+import type { SnapshotAccountBalance } from '@ses/core/models/dto/snapshotAccountDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface CUReservesProps {
-  coreUnitCode: string;
+  snapshotOwner: string;
   includeOffChain: boolean;
   toggleIncludeOffChain: () => void;
+  startDate?: string;
+  endDate?: string;
+  balance: SnapshotAccountBalance;
 }
 
-const CUReserves: React.FC<CUReservesProps> = ({ coreUnitCode, includeOffChain, toggleIncludeOffChain }) => {
+const CUReserves: React.FC<CUReservesProps> = ({
+  snapshotOwner,
+  includeOffChain,
+  toggleIncludeOffChain,
+  startDate,
+  endDate,
+  balance,
+}) => {
   const { isLight } = useThemeContext();
 
   return (
@@ -23,7 +34,7 @@ const CUReserves: React.FC<CUReservesProps> = ({ coreUnitCode, includeOffChain, 
       <HeaderContainer>
         <SectionHeader
           title="Total Core Unit Reserves"
-          subtitle={`On-chain and off-chain reserves accessible to the ${coreUnitCode} Core Unit.`}
+          subtitle={`On-chain and off-chain reserves accessible to the ${snapshotOwner}.`}
           tooltip={'pending...'}
         />
         <CheckContainer isLight={isLight}>
@@ -33,17 +44,17 @@ const CUReserves: React.FC<CUReservesProps> = ({ coreUnitCode, includeOffChain, 
       </HeaderContainer>
 
       <CardsContainer>
-        <SimpleStatCard date="2023-05-12T22:52:54.494Z" value={1500000} caption="Initial Core Unit Reserves" />
+        <SimpleStatCard date={startDate} value={balance.initialBalance} caption="Initial Core Unit Reserves" />
         <FundChangeCard
-          netChange={-242320}
-          leftValue={305000}
+          netChange={balance.inflow - balance.outflow}
+          leftValue={balance.inflow}
           leftText="Inflow"
-          rightValue={538320}
+          rightValue={balance.outflow}
           rightText="Outflow"
         />
         <SimpleStatCard
-          date="2023-06-14T22:52:54.494Z"
-          value={1266680}
+          date={endDate}
+          value={balance.newBalance}
           caption="New Core Unit Reserves"
           hasEqualSign
           isReserves
@@ -53,7 +64,7 @@ const CUReserves: React.FC<CUReservesProps> = ({ coreUnitCode, includeOffChain, 
       <OnChainSubsection>
         <SectionHeader
           title="On Chain Reserves"
-          subtitle={`Unspent on-chain reserves to the ${coreUnitCode} Core Unit.`}
+          subtitle={`Unspent on-chain reserves to the ${snapshotOwner}.`}
           tooltip={'pending...'}
           isSubsection
         />
@@ -89,7 +100,7 @@ const CUReserves: React.FC<CUReservesProps> = ({ coreUnitCode, includeOffChain, 
       <OffChainSubsection isDisabled={!includeOffChain}>
         <SectionHeader
           title="Off Chain Reserves"
-          subtitle={`Unspent off-chain reserves to the ${coreUnitCode} Core Unit.`}
+          subtitle={`Unspent off-chain reserves to the ${snapshotOwner}.`}
           tooltip={'pending...'}
           isSubsection
         />

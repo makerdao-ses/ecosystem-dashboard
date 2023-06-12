@@ -1,38 +1,45 @@
 import styled from '@emotion/styled';
 import lightTheme from '@ses/styles/theme/light';
+import { DateTime } from 'luxon';
 import React from 'react';
 import FundChangeCard from '../Cards/FundChangeCard';
 import SimpleStatCard from '../Cards/SimpleStatCard';
 import CurrencyPicker from '../CurrencyPicker/CurrencyPicker';
 import SectionHeader from '../SectionHeader/SectionHeader';
 import TransactionHistory from '../TransactionHistory/TransactionHistory';
+import type { SnapshotAccountBalance } from '@ses/core/models/dto/snapshotAccountDTO';
 
 interface FundingOverviewProps {
-  coreUnitCode: string;
+  snapshotOwner: string;
+  startDate?: string;
+  endDate?: string;
+  balance: SnapshotAccountBalance;
 }
 
-const FundingOverview: React.FC<FundingOverviewProps> = ({ coreUnitCode }) => (
+const FundingOverview: React.FC<FundingOverviewProps> = ({ snapshotOwner, startDate, endDate, balance }) => (
   <div>
     <HeaderContainer>
       <SectionHeader
         title="MakerDAO Funding Overview"
-        subtitle={`Totals funds made available to the ${coreUnitCode} Core Unit over its entire lifetime, since June 2021.`}
+        subtitle={`Totals funds made available to the ${snapshotOwner} over its entire lifetime${
+          startDate ? `, since ${DateTime.fromISO(startDate).toFormat('LLLL yyyy')}` : ''
+        }.`}
         tooltip={'pending...'}
       />
       <CurrencyPicker />
     </HeaderContainer>
 
     <CardsContainer>
-      <SimpleStatCard date="2023-05-12T22:52:54.494Z" value={3685648} caption="Initial Lifetime Balance" />
+      <SimpleStatCard date={startDate} value={balance.initialBalance} caption="Initial Lifetime Balance" />
       <FundChangeCard
-        netChange={57680}
-        leftValue={300000}
+        netChange={balance.inflow - balance.outflow}
+        leftValue={balance.inflow}
         leftText="Extra Funds Made Available"
-        rightValue={242320}
+        rightValue={balance.outflow}
         rightValueColor="green"
         rightText="Funds Returned via DSSBlow"
       />
-      <SimpleStatCard date="2023-06-14T22:52:54.494Z" value={3743328} caption="New Lifetime Balance" hasEqualSign />
+      <SimpleStatCard date={endDate} value={balance.newBalance} caption="New Lifetime Balance" hasEqualSign />
     </CardsContainer>
 
     <TransactionHistory />
