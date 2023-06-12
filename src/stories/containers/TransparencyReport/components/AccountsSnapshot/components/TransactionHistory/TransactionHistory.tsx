@@ -159,7 +159,7 @@ const TransactionContainer = styled.div<WithIsLight>(({ isLight }) => ({
 
   [lightTheme.breakpoints.up('table_834')]: {
     padding: 0,
-    background: isLight ? '#FBFBFB' : '#38364D',
+    background: isLight ? '#FBFBFB' : '#162530',
     boxShadow: isLight ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : 'none',
     gap: 0,
   },

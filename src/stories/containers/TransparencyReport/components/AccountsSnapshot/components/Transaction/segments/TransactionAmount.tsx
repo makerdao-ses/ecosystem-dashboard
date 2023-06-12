@@ -41,7 +41,7 @@ const Wrapper = styled.div({
 const Title = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 11,
   lineHeight: '13px',
-  color: isLight ? '#546978' : 'red',
+  color: isLight ? '#546978' : '#708390',
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
     fontSize: 12,
