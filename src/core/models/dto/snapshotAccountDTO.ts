@@ -40,8 +40,8 @@ export interface SnapshotAccount {
 
 export interface Snapshots {
   id: string;
-  start: string;
-  end: string;
+  start: string | null;
+  end: string | null;
   ownerType: string;
   ownerId: string;
   snapshotAccount: SnapshotAccount[];
