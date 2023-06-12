@@ -283,7 +283,7 @@ const BasicModalExtended = styled(BasicModal)({
   maxHeight: 748,
   height: 'calc(100% - 64px)',
   marginTop: 64,
-  marginBottom: 64,
+  marginBottom: 0,
   overflowY: 'auto',
   '::-webkit-scrollbar': {
     width: '1px',
@@ -292,6 +292,7 @@ const BasicModalExtended = styled(BasicModal)({
   outline: 'none',
   transform: 'translateX(-50%)',
   [lightTheme.breakpoints.up('table_834')]: {
+    marginBottom: 64,
     width: 770,
     maxHeight: 813,
   },
