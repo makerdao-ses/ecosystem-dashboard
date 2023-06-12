@@ -278,17 +278,27 @@ const BreakdownTableColumn = styled.div({
 
 const BasicModalExtended = styled(BasicModal)({
   position: 'absolute',
-  top: '64px',
   left: '50%',
+  borderRadius: 16,
+  maxHeight: 748,
+  height: '100%',
+  marginTop: 64,
+  marginBottom: 64,
+  overflowY: 'auto',
+  '::-webkit-scrollbar': {
+    width: '1px',
+  },
+
   transform: 'translateX(-50%)',
+  [lightTheme.breakpoints.up('table_834')]: {
+    width: 770,
+    maxHeight: 813,
+  },
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    top: '175px',
     width: 1114,
+    maxHeight: 847,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    width: 1184,
-  },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
     width: 1184,
   },
 });

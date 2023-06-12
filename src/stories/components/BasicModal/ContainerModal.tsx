@@ -344,7 +344,7 @@ const StyledClose = styled(Close)({
 });
 
 const SimpleBarStyled = styled(SimpleBar)({
-  height: 748,
+  maxHeight: 748,
   '.simplebar-scrollbar::before': {
     width: 4,
     height: 64,
@@ -353,12 +353,12 @@ const SimpleBarStyled = styled(SimpleBar)({
     borderRadius: 20,
   },
   [lightTheme.breakpoints.up('table_834')]: {
-    height: 813,
+    maxHeight: 813,
     '.simplebar-scrollbar::before': {
       width: 6,
     },
   },
-  [lightTheme.breakpoints.up('table_834')]: {
-    height: 847,
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    maxHeight: 847,
   },
 });
