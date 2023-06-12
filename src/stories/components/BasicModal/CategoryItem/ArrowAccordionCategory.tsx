@@ -11,20 +11,26 @@ import React from 'react';
 
 import type { AccordionProps } from '@mui/material/Accordion';
 import type { AccordionSummaryProps } from '@mui/material/AccordionSummary';
-import type { ParsedExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
+import type { ParsedExpenseCategoryWithExpanded } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   style?: React.CSSProperties;
-  category: ParsedExpenseCategory;
+  category: ParsedExpenseCategoryWithExpanded;
+  expanded: boolean;
+  handleChangeItemAccordion: (categoryId: string, expanded: boolean) => void;
 }
 
-const AccordionCategory: React.FC<Props> = ({ style, category }) => {
+const AccordionCategory: React.FC<Props> = ({ style, category, expanded, handleChangeItemAccordion }) => {
   const { isLight } = useThemeContext();
+  const handleOnchange = (event: React.SyntheticEvent, expanded: boolean) => {
+    handleChangeItemAccordion(category.id, expanded);
+  };
+
   return (
     <TransactionHistoryContainer style={style}>
-      <Accordion>
-        <AccordionSummary isLight={isLight}>{pascalCaseToNormalString(category.name)}</AccordionSummary>
+      <Accordion expanded={expanded} onChange={handleOnchange}>
+        <AccordionSummary isLight={isLight}>{category.name}</AccordionSummary>
 
         <AccordionDetails>
           <ItemsStyle isLight={isLight}>
