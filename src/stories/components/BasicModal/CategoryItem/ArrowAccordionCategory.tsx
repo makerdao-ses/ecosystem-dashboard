@@ -5,7 +5,6 @@ import MuiAccordionSummary from '@mui/material/AccordionSummary';
 
 import { SelectChevronDown } from '@ses/components/svg/select-chevron-down';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { capitalizeWord } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 
@@ -29,7 +28,7 @@ const AccordionCategory: React.FC<Props> = ({ style, category }) => {
         <AccordionDetails>
           <ItemsStyle isLight={isLight}>
             {category?.subcategories?.map((category) => (
-              <div key={category.name}>{capitalizeWord(category.name)}</div>
+              <div key={category.name}>{category.name}</div>
             ))}
           </ItemsStyle>
         </AccordionDetails>
@@ -116,7 +115,7 @@ const ItemsStyle = styled.div<WithIsLight>(({ isLight }) => ({
   flexDirection: 'column',
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
-
+  textTransform: 'capitalize',
   color: isLight ? '#231536' : '#D2D4EF',
 
   gap: 16,
