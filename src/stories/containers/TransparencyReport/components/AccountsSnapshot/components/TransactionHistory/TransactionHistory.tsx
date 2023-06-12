@@ -4,19 +4,25 @@ import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
-import React from 'react';
+import React, { useState } from 'react';
 import AccordionArrow from '../AccordionArrow/AccordionArrow';
 import Transaction from '../Transaction/Transaction';
 import type { AccordionProps } from '@mui/material/Accordion';
 import type { AccordionSummaryProps } from '@mui/material/AccordionSummary';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-const TransactionHistory: React.FC = () => {
+interface TransactionHistoryProps {
+  // Only used for storybook
+  defaultExpanded?: boolean;
+}
+
+const TransactionHistory: React.FC<TransactionHistoryProps> = ({ defaultExpanded = false }) => {
   const { isLight } = useThemeContext();
+  const [expanded, setExpanded] = useState<boolean>(defaultExpanded);
 
   return (
     <TransactionHistoryContainer>
-      <Accordion>
+      <Accordion expanded={expanded} onChange={() => setExpanded(!expanded)}>
         <AccordionSummary isLight={isLight}>View Transaction History</AccordionSummary>
         <AccordionDetails>
           <TransactionContainer isLight={isLight}>
@@ -128,6 +134,18 @@ const AccordionDetails = styled(MuiAccordionDetails)({
 
   [lightTheme.breakpoints.up('table_834')]: {
     padding: '0 24px',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    padding: '0 32px',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    padding: '0 40px',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    padding: '0 56px',
   },
 });
 

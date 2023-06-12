@@ -7,7 +7,7 @@ import TransactionAmount from './segments/TransactionAmount';
 import TransactionCounterParty from './segments/TransactionCounterParty';
 import TransactionHeader from './segments/TransactionHeader';
 
-interface TransactionProps {
+export interface TransactionProps {
   name: string;
   date: string;
   toDate?: string | null;
@@ -31,7 +31,16 @@ const Transaction: React.FC<TransactionProps> = ({
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
 
   return isMobile ? (
-    <MobileTransaction />
+    <MobileTransaction
+      isIncomingTransaction={isIncomingTransaction}
+      name={name}
+      date={date}
+      toDate={toDate}
+      txHash={txHash}
+      counterPartyName={counterPartyName}
+      counterPartyAddress={counterPartyAddress}
+      amount={amount}
+    />
   ) : (
     <TransactionContainer>
       <TransactionHeader
@@ -56,5 +65,20 @@ export default Transaction;
 const TransactionContainer = styled.div({
   display: 'grid',
   gridTemplateColumns: '1.35fr 1fr 1fr',
-  padding: '16px 32px 12px 20px',
+  padding: '16px 32px 13px 20px',
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    gridTemplateColumns: '1.365fr 1fr 1fr',
+    padding: '16px 56px 14px 20px',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    gridTemplateColumns: '1.296fr 1fr 1fr',
+    padding: '16px 64px 14px 20px',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    gridTemplateColumns: '1.311fr 1fr 1fr',
+    padding: '16px 80px 14px 20px',
+  },
 });

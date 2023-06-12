@@ -40,6 +40,10 @@ export default TransactionWalletInfo;
 
 const Container = styled.div({
   display: 'flex',
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    alignItems: 'center',
+  },
 });
 
 const BlockiesContainer = styled.div({
@@ -57,6 +61,10 @@ const BlockiesContainer = styled.div({
     marginTop: 0,
     marginRight: 16,
   },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginRight: 15,
+  },
 });
 
 const InfoContainer = styled.div({});
@@ -70,7 +78,12 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 12,
   lineHeight: '15px',
   color: isLight ? '#231536' : '#D2D4EF',
-  marginBottom: 5,
+  marginBottom: 4,
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    fontSize: 16,
+    lineHeight: '22px',
+  },
 }));
 
 const AddressContainer = styled.div({
@@ -85,5 +98,10 @@ const Address = styled.a(() => ({
 
   [lightTheme.breakpoints.up('table_834')]: {
     marginRight: 4,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    fontSize: 14,
+    lineHeight: '17px',
   },
 }));

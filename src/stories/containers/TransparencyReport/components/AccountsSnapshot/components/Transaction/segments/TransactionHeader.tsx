@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
 import React from 'react';
 import GreenArrowDown from '../../SVG/GreenArrowDown';
@@ -66,6 +67,12 @@ const Name = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: 12,
   lineHeight: '15px',
   color: isLight ? '#231536' : '#D2D4EF',
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    fontWeight: 400,
+    fontSize: 16,
+    lineHeight: '22px',
+  },
 }));
 
 const Date = styled.div<{ isLight: boolean }>(({ isLight }) => ({

@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { usLocalizedNumber } from '@ses/core/utils/humanization';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -15,7 +17,7 @@ const TransactionAmount: React.FC<TransactionAmountProps> = ({ amount }) => {
       <Title isLight={isLight}>Amount</Title>
       <Amount isLight={isLight}>
         <Sign>{amount < 0 ? '-' : '+'}</Sign>
-        {Math.abs(amount)}
+        {usLocalizedNumber(Math.abs(amount))}
         <Currency isLight={isLight}>DAI</Currency>
       </Amount>
     </Wrapper>
@@ -30,12 +32,21 @@ const Wrapper = styled.div({
   alignItems: 'flex-end',
   justifyContent: 'center',
   gap: 8,
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginTop: -1,
+  },
 });
 
 const Title = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 11,
   lineHeight: '13px',
   color: isLight ? '#546978' : 'red',
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    fontSize: 12,
+    lineHeight: '15px',
+  },
 }));
 
 const Amount = styled.div<WithIsLight>(({ isLight }) => ({
@@ -46,6 +57,10 @@ const Amount = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 14,
   lineHeight: '22px',
 
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    fontSize: 16,
+  },
+
   '&, & > span:first-of-type': {
     color: isLight ? '#231536' : '#D2D4EF',
   },
@@ -55,6 +70,11 @@ const Sign = styled.span({
   fontWeight: 700,
   fontSize: 14,
   lineHeight: '17px',
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    fontSize: 16,
+    lineHeight: '19px',
+  },
 });
 
 const Currency = styled.span<WithIsLight>(({ isLight }) => ({
@@ -64,4 +84,9 @@ const Currency = styled.span<WithIsLight>(({ isLight }) => ({
   letterSpacing: 1,
   textTransform: 'uppercase',
   color: isLight ? '#9FAFB9' : '#546978',
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    fontSize: 14,
+    lineHeight: '17px',
+  },
 }));

@@ -3,37 +3,58 @@ import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { usLocalizedNumber } from '@ses/core/utils/humanization';
+import { DateTime } from 'luxon';
 import React, { useState } from 'react';
 import GreenArrowDown from '../SVG/GreenArrowDown';
+import RedArrowUp from '../SVG/RedArrowUp';
 import TxHash from '../TxHash/TxHash';
 import TransactionWalletInfo from './TransactionWalletInfo';
+import type { TransactionProps } from './Transaction';
 import type { AccordionProps } from '@mui/material/Accordion';
 import type { AccordionSummaryProps } from '@mui/material/AccordionSummary';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-interface MobileTransactionProps {
+interface MobileTransactionProps extends TransactionProps {
   // prop to allow the component to be expanded by default (used in the storybook)
   defaultExpanded?: boolean;
 }
 
-const MobileTransaction: React.FC<MobileTransactionProps> = ({ defaultExpanded = false }) => {
+const MobileTransaction: React.FC<MobileTransactionProps> = ({
+  name,
+  date,
+  toDate,
+  txHash,
+  counterPartyName,
+  counterPartyAddress,
+  amount,
+  isIncomingTransaction = true,
+  defaultExpanded = false,
+}) => {
   const { isLight } = useThemeContext();
   const [expanded, setExpanded] = useState<boolean>(defaultExpanded);
+  const formattedDate = toDate ? (
+    <>
+      from {DateTime.fromISO(date).toUTC().toFormat('dd-MMM-yyyy')}
+      <br />
+      to {DateTime.fromISO(toDate).toUTC().toFormat('dd-MMM-yyyy')}
+    </>
+  ) : (
+    DateTime.fromISO(date).toUTC().toFormat("dd-MMM-yyyy HH:mm 'UTC'")
+  );
 
   return (
     <Accordion expanded={expanded} isLight={isLight} onChange={() => setExpanded(!expanded)}>
       <TransactionSummary expanded={expanded}>
-        <ArrowContainer>
-          <GreenArrowDown />
-        </ArrowContainer>
+        <ArrowContainer>{isIncomingTransaction ? <GreenArrowDown /> : <RedArrowUp />}</ArrowContainer>
         <Content>
           <Data>
-            <Name isLight={isLight}>DSS Blow</Name>
-            <Date isLight={isLight}>17-apr-2023 11:36 UTC</Date>
+            <Name isLight={isLight}>{name}</Name>
+            <Date isLight={isLight}>{formattedDate}</Date>
           </Data>
           <Value isLight={isLight}>
-            <Sign>+</Sign>
-            1,153,480
+            <Sign>{amount < 0 ? '-' : '+'}</Sign>
+            {usLocalizedNumber(Math.abs(amount))}
             <Currency isLight={isLight}>DAI</Currency>
           </Value>
         </Content>
@@ -57,13 +78,13 @@ const MobileTransaction: React.FC<MobileTransactionProps> = ({ defaultExpanded =
       </TransactionSummary>
       <TransactionDetails>
         <TxContainer>
-          <TxHash txHash="0xe079d59dbf813d2541a345ef4786cc44a8w" />
+          <TxHash txHash={txHash} />
         </TxContainer>
         <Divider isLight={isLight} />
         <TargetContainer>
-          <TargetType isLight={isLight}>Sender Address</TargetType>
+          <TargetType isLight={isLight}>{isIncomingTransaction ? 'Sender Address' : 'Recipient Address'}</TargetType>
           <WalletContainer>
-            <TransactionWalletInfo name="Auditor Wallet" address="0x232b5483e5a5cd22188482" />
+            <TransactionWalletInfo name={counterPartyName} address={counterPartyAddress} />
           </WalletContainer>
         </TargetContainer>
       </TransactionDetails>
@@ -111,7 +132,7 @@ const ArrowContainer = styled.div({
 const Content = styled.div({
   display: 'flex',
   justifyContent: 'space-between',
-  alignItems: 'center',
+  alignItems: 'flex-start',
   width: '100%',
 });
 
@@ -144,6 +165,7 @@ const Value = styled.div<WithIsLight>(({ isLight }) => ({
   gap: 4,
   fontSize: 14,
   lineHeight: '22px',
+  marginTop: 5,
 
   '&, & > span:first-of-type': {
     color: isLight ? '#231536' : '#D2D4EF',

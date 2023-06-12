@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import CopyIcon from '@ses/components/CopyIcon/CopyIcon';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 
 interface TxHashProps {
@@ -30,4 +31,9 @@ const Hash = styled.a(() => ({
   fontSize: 12,
   lineHeight: '15px',
   color: '#447AFB',
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    fontSize: 14,
+    lineHeight: '17px',
+  },
 }));
