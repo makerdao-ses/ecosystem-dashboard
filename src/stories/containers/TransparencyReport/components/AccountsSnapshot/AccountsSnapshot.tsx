@@ -12,8 +12,15 @@ interface AccountsSnapshotProps {
 }
 
 const AccountsSnapshot: React.FC<AccountsSnapshotProps> = ({ snapshot, snapshotOwner }) => {
-  const { expensesComparisonRows, includeOffChain, toggleIncludeOffChain, startDate, endDate, mainBalance } =
-    useAccountsSnapshot(snapshot);
+  const {
+    expensesComparisonRows,
+    includeOffChain,
+    toggleIncludeOffChain,
+    startDate,
+    endDate,
+    mainBalance,
+    cuReservesBalance,
+  } = useAccountsSnapshot(snapshot);
 
   return (
     <Wrapper>
@@ -22,6 +29,9 @@ const AccountsSnapshot: React.FC<AccountsSnapshotProps> = ({ snapshot, snapshotO
         snapshotOwner={snapshotOwner}
         includeOffChain={includeOffChain}
         toggleIncludeOffChain={toggleIncludeOffChain}
+        startDate={startDate}
+        endDate={endDate}
+        balance={cuReservesBalance}
       />
       <ExpensesComparison rows={expensesComparisonRows} />
     </Wrapper>
