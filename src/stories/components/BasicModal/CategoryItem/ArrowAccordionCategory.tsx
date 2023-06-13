@@ -30,7 +30,7 @@ const AccordionCategory: React.FC<Props> = ({ style, category, expanded, handleC
   return (
     <TransactionHistoryContainer style={style}>
       <Accordion expanded={expanded} onChange={handleOnchange}>
-        <AccordionSummary isLight={isLight}>{category.name}</AccordionSummary>
+        <AccordionSummary isLight={isLight}>{pascalCaseToNormalString(category.name)}</AccordionSummary>
 
         <AccordionDetails>
           <ItemsStyle isLight={isLight}>
