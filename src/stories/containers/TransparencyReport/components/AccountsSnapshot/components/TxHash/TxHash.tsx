@@ -1,8 +1,7 @@
 import styled from '@emotion/styled';
 import CopyIcon from '@ses/components/CopyIcon/CopyIcon';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface TxHashProps {
   txHash: string;
@@ -10,12 +9,11 @@ interface TxHashProps {
 }
 
 const TxHash: React.FC<TxHashProps> = ({ txHash, ...props }) => {
-  const { isLight } = useThemeContext();
   const formattedHash = txHash.length <= 16 ? txHash : `${txHash.slice(0, 16)}...`;
 
   return (
     <TxHashContainer {...props}>
-      <Hash href={`https://etherscan.io/tx/${txHash}`} target="_blank" isLight={isLight}>
+      <Hash href={`https://etherscan.io/tx/${txHash}`} target="_blank">
         {formattedHash}
       </Hash>
       <CopyIcon text={txHash} defaultTooltip="Copy Transaction Hash" />
@@ -29,8 +27,13 @@ const TxHashContainer = styled.div({
   display: 'flex',
 });
 
-const Hash = styled.a<WithIsLight>(({ isLight }) => ({
+const Hash = styled.a(() => ({
   fontSize: 12,
   lineHeight: '15px',
-  color: isLight ? '#447AFB' : 'red',
+  color: '#447AFB',
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    fontSize: 14,
+    lineHeight: '17px',
+  },
 }));

@@ -14,9 +14,18 @@ interface FundingOverviewProps {
   startDate?: string;
   endDate?: string;
   balance: SnapshotAccountBalance;
+
+  // Only used for storybook
+  defaultExpanded?: boolean;
 }
 
-const FundingOverview: React.FC<FundingOverviewProps> = ({ snapshotOwner, startDate, endDate, balance }) => (
+const FundingOverview: React.FC<FundingOverviewProps> = ({
+  snapshotOwner,
+  startDate,
+  endDate,
+  balance,
+  defaultExpanded = false,
+}) => (
   <div>
     <HeaderContainer>
       <SectionHeader
@@ -42,7 +51,7 @@ const FundingOverview: React.FC<FundingOverviewProps> = ({ snapshotOwner, startD
       <SimpleStatCard date={endDate} value={balance.newBalance} caption="New Lifetime Balance" hasEqualSign />
     </CardsContainer>
 
-    <TransactionHistory />
+    <TransactionHistory defaultExpanded={defaultExpanded} />
   </div>
 );
 
