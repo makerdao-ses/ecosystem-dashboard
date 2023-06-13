@@ -162,13 +162,6 @@ const Header = styled.div<WithIsLight>(({ isLight }) => ({
     paddingLeft: 40,
     paddingRight: 40,
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    paddingLeft: 40,
-    paddingRight: 40,
-    paddingTop: 24,
-    paddingBottom: 16,
-    gap: 24,
-  },
 }));
 
 const InsideModal = styled.div({
@@ -179,10 +172,6 @@ const InsideModal = styled.div({
     paddingRight: 24,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    paddingLeft: 40,
-    paddingRight: 40,
-  },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
     paddingLeft: 40,
     paddingRight: 40,
   },
@@ -295,9 +284,6 @@ const NoHeadCount = styled(HeadCount)<WithIsLight>({
   [lightTheme.breakpoints.up('desktop_1194')]: {
     marginTop: 64,
   },
-  // [lightTheme.breakpoints.up('desktop_1280')]: {
-  //   marginTop: 64,
-  // },
 });
 
 const ContainerTowColumns = styled.div({
