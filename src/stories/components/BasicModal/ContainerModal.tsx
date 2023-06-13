@@ -66,7 +66,7 @@ const ContainerModal: React.FC<Props> = ({
             <ContainerTowColumns>
               <ContainerPar>
                 {noHeadCountCategories
-                  ?.slice(0, noHeadCountCategories.length / 2)
+                  ?.slice(0, noHeadCountCategories.length / 2 + 1)
 
                   .map((item) => (
                     <CategoryItem
@@ -79,7 +79,7 @@ const ContainerModal: React.FC<Props> = ({
               </ContainerPar>
               <ContainerOdd>
                 {noHeadCountCategories
-                  ?.slice(noHeadCountCategories.length / 2, noHeadCountCategories.length)
+                  ?.slice(noHeadCountCategories.length / 2 + 1, noHeadCountCategories.length)
 
                   .map((item) => (
                     <CategoryItem
