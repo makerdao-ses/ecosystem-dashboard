@@ -279,19 +279,15 @@ const BreakdownTableColumn = styled.div({
 const BasicModalExtended = styled(BasicModal)({
   position: 'absolute',
   left: '50%',
-  borderRadius: 16,
-  maxHeight: 748,
   height: 'calc(100% - 64px)',
+  maxHeight: 748,
   marginTop: 64,
   marginBottom: 0,
-  overflowY: 'auto',
-  '::-webkit-scrollbar': {
-    width: '1px',
-  },
   // This to hidden border in safari
   outline: 'none',
   transform: 'translateX(-50%)',
   [lightTheme.breakpoints.up('table_834')]: {
+    height: 'calc(100% - 128px)',
     marginBottom: 64,
     width: 770,
     maxHeight: 813,

@@ -46,53 +46,54 @@ const ContainerModal: React.FC<Props> = ({
           <CheckBoxDescription isChecked={isCheckedExpandedAll} setIsChecked={setIsCheckedExpandedAll} />
         </ContainerDescription>
       </Header>
+      <ContainerScroll>
+        <SimpleBarStyled>
+          <InsideModal>
+            <HeadCount isLight={isLight}>Headcount Expense Categories</HeadCount>
+            <Line isLight={isLight} />
+            <HeadCountList>
+              {headCountCategories?.map((item) => (
+                <CategoryItem
+                  key={item.name}
+                  category={item}
+                  expanded={item.isExpanded}
+                  handleChangeItemAccordion={handleChangeItemAccordion}
+                />
+              ))}
+            </HeadCountList>
+            <NoHeadCount isLight={isLight}>Non-Headcount Expense Categories</NoHeadCount>
+            <Line isLight={isLight} />
+            <ContainerTowColumns>
+              <ContainerPar>
+                {noHeadCountCategories
+                  ?.slice(0, noHeadCountCategories.length / 2)
 
-      <SimpleBarStyled>
-        <InsideModal>
-          <HeadCount isLight={isLight}>Headcount Expense Categories</HeadCount>
-          <Line isLight={isLight} />
-          <HeadCountList>
-            {headCountCategories?.map((item) => (
-              <CategoryItem
-                key={item.name}
-                category={item}
-                expanded={item.isExpanded}
-                handleChangeItemAccordion={handleChangeItemAccordion}
-              />
-            ))}
-          </HeadCountList>
-          <NoHeadCount isLight={isLight}>Non-Headcount Expense Categories</NoHeadCount>
-          <Line isLight={isLight} />
-          <ContainerTowColumns>
-            <ContainerPar>
-              {noHeadCountCategories
-                ?.slice(0, noHeadCountCategories.length / 2)
+                  .map((item) => (
+                    <CategoryItem
+                      category={item}
+                      key={item.name}
+                      expanded={item.isExpanded}
+                      handleChangeItemAccordion={handleChangeItemAccordion}
+                    />
+                  ))}
+              </ContainerPar>
+              <ContainerOdd>
+                {noHeadCountCategories
+                  ?.slice(noHeadCountCategories.length / 2, noHeadCountCategories.length)
 
-                .map((item) => (
-                  <CategoryItem
-                    category={item}
-                    key={item.name}
-                    expanded={item.isExpanded}
-                    handleChangeItemAccordion={handleChangeItemAccordion}
-                  />
-                ))}
-            </ContainerPar>
-            <ContainerOdd>
-              {noHeadCountCategories
-                ?.slice(noHeadCountCategories.length / 2, noHeadCountCategories.length)
-
-                .map((item) => (
-                  <CategoryItem
-                    category={item}
-                    key={item.name}
-                    expanded={item.isExpanded}
-                    handleChangeItemAccordion={handleChangeItemAccordion}
-                  />
-                ))}
-            </ContainerOdd>
-          </ContainerTowColumns>
-        </InsideModal>
-      </SimpleBarStyled>
+                  .map((item) => (
+                    <CategoryItem
+                      category={item}
+                      key={item.name}
+                      expanded={item.isExpanded}
+                      handleChangeItemAccordion={handleChangeItemAccordion}
+                    />
+                  ))}
+              </ContainerOdd>
+            </ContainerTowColumns>
+          </InsideModal>
+        </SimpleBarStyled>
+      </ContainerScroll>
     </Container>
   );
 };
@@ -103,6 +104,13 @@ const Container = styled.div<WithIsLight & { isSomeOpen?: boolean }>(({ isLight,
   display: 'flex',
   flexDirection: 'column',
   paddingBottom: 27,
+  overflowY: 'auto',
+
+  '::-webkit-scrollbar': {
+    width: '1px',
+  },
+
+  height: '100%',
   background: isLight ? '#FFFFFF' : '#10191F',
   boxShadow: isLight
     ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
@@ -117,7 +125,7 @@ const Container = styled.div<WithIsLight & { isSomeOpen?: boolean }>(({ isLight,
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
     width: 1114,
-    paddingBottom: 32,
+    paddingBottom: 64,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     width: 1184,
@@ -125,6 +133,7 @@ const Container = styled.div<WithIsLight & { isSomeOpen?: boolean }>(({ isLight,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     width: 1184,
+    paddingBottom: 64,
   },
 }));
 
@@ -344,7 +353,7 @@ const StyledClose = styled(Close)({
 });
 
 const SimpleBarStyled = styled(SimpleBar)({
-  maxHeight: 748,
+  height: '100%',
   '.simplebar-scrollbar::before': {
     width: 4,
     height: 64,
@@ -360,5 +369,14 @@ const SimpleBarStyled = styled(SimpleBar)({
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     maxHeight: 847,
+  },
+});
+
+const ContainerScroll = styled.div({
+  borderRadius: 16,
+  height: '100%',
+  overflowY: 'auto',
+  '::-webkit-scrollbar': {
+    width: '1px',
   },
 });
