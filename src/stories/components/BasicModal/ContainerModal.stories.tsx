@@ -131,7 +131,7 @@ UnExpanded.parameters = {
       },
       1194: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19614:238996&t=3rWAHk8rUGngJTx7-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19614:238996&t=QN0Rot6AvH91wak3-4',
         options: {
           componentStyle: {
             width: 1114,

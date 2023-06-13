@@ -66,7 +66,7 @@ const ContainerModal: React.FC<Props> = ({
             <ContainerTowColumns>
               <ContainerPar>
                 {noHeadCountCategories
-                  ?.slice(0, noHeadCountCategories.length / 2 + 1)
+                  ?.slice(0, noHeadCountCategories.length / 2)
 
                   .map((item) => (
                     <CategoryItem
@@ -79,7 +79,7 @@ const ContainerModal: React.FC<Props> = ({
               </ContainerPar>
               <ContainerOdd>
                 {noHeadCountCategories
-                  ?.slice(noHeadCountCategories.length / 2 + 1, noHeadCountCategories.length)
+                  ?.slice(noHeadCountCategories.length / 2, noHeadCountCategories.length)
 
                   .map((item) => (
                     <CategoryItem
@@ -158,6 +158,10 @@ const Header = styled.div<WithIsLight>(({ isLight }) => ({
     paddingBottom: 16,
     gap: 24,
   },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    paddingLeft: 40,
+    paddingRight: 40,
+  },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     paddingLeft: 40,
     paddingRight: 40,
@@ -173,6 +177,10 @@ const InsideModal = styled.div({
   [lightTheme.breakpoints.up('table_834')]: {
     paddingLeft: 24,
     paddingRight: 24,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    paddingLeft: 40,
+    paddingRight: 40,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     paddingLeft: 40,
@@ -221,7 +229,7 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
     lineHeight: '22px',
     alignItems: 'baseline',
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     width: 725,
   },
 }));
@@ -255,7 +263,7 @@ const HeadCount = styled.div<WithIsLight>(({ isLight }) => ({
     lineHeight: '24px',
     letterSpacing: '0.4px',
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     marginTop: 32,
   },
 }));
@@ -284,9 +292,12 @@ const NoHeadCount = styled(HeadCount)<WithIsLight>({
   [lightTheme.breakpoints.up('table_834')]: {
     marginTop: 40,
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     marginTop: 64,
   },
+  // [lightTheme.breakpoints.up('desktop_1280')]: {
+  //   marginTop: 64,
+  // },
 });
 
 const ContainerTowColumns = styled.div({
@@ -329,13 +340,7 @@ const ContainerClose = styled.div({
     alignItems: 'center',
     paddingRight: 6,
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    paddingRight: 3,
-  },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

@@ -59,7 +59,7 @@ const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters
   [lightTheme.breakpoints.up('table_834')]: {
     width: 335,
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     width: 416,
   },
 });
