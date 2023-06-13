@@ -32,10 +32,7 @@ const useFinancesOverview = (
   const handleOpenModal = () => {
     setOpenModal(true);
   };
-  const handleCloseModal = () => {
-    setCheckOut(false);
-    setOpenModal(false);
-  };
+
   const parsedExpenseCategories = useMemo(() => {
     const parseSimpleCategory = (category: ExpenseCategory): ParsedExpenseCategoryWithExpanded =>
       ({
@@ -86,6 +83,15 @@ const useFinancesOverview = (
     if (hasExpandedElement) {
       setCheckOut(false);
     }
+  };
+  const handleCloseModal = () => {
+    const newItemUnExpanded: ParsedExpenseCategoryWithExpanded[] = allCategory.map((item) => ({
+      ...item,
+      isExpanded: false,
+    }));
+    setAllCategory(newItemUnExpanded);
+    setCheckOut(false);
+    setOpenModal(false);
   };
 
   const handleCheckedExpandedAll = () => {
