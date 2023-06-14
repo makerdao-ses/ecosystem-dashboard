@@ -51,7 +51,7 @@ const TransactionHistoryContainer = styled.div({
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
-  [lightTheme.breakpoints.between(375, 834)]: {
+  [lightTheme.breakpoints.down(834)]: {
     width: '100%',
   },
 });
