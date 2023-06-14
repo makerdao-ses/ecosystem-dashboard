@@ -51,11 +51,14 @@ const TransactionHistoryContainer = styled.div({
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
+  [lightTheme.breakpoints.between(375, 834)]: {
+    width: '100%',
+  },
 });
 
 const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters elevation={0} square {...props} />)({
   backgroundColor: 'transparent',
-  width: 343,
+  width: '100%',
   [lightTheme.breakpoints.up('table_834')]: {
     width: 335,
   },

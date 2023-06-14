@@ -210,6 +210,9 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
   fontStyle: 'normal',
   color: isLight ? '#231536' : '#D2D4EF',
   width: 343,
+  [lightTheme.breakpoints.between(375, 834)]: {
+    width: '100%',
+  },
   [lightTheme.breakpoints.up('table_834')]: {
     width: 466,
     fontWeight: 400,
@@ -302,6 +305,12 @@ const ContainerPar = styled.div({
   flexDirection: 'column',
   flex: 1,
   gap: 16,
+
+  [lightTheme.breakpoints.between(376, 834)]: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    width: '100%',
+  },
   [lightTheme.breakpoints.up('table_834')]: {
     gap: 32,
   },
@@ -312,7 +321,13 @@ const ContainerOdd = styled.div({
   flexDirection: 'column',
   alignItems: 'flex-end',
   flex: 1,
+
   gap: 16,
+  [lightTheme.breakpoints.between(375, 834)]: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    width: '100%',
+  },
   [lightTheme.breakpoints.up('table_834')]: {
     gap: 32,
   },
