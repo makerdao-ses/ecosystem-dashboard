@@ -209,7 +209,7 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   color: isLight ? '#231536' : '#D2D4EF',
-  width: 343,
+  width: '100%',
   [lightTheme.breakpoints.up('table_834')]: {
     width: 466,
     fontWeight: 400,
