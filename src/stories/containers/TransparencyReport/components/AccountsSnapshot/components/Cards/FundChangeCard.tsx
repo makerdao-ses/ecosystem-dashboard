@@ -270,6 +270,7 @@ const NetChangeMessage = styled.div<WithIsLight>(({ isLight }) => ({
   lineHeight: '15px',
   color: isLight ? '#D1DEE6' : '#405361',
   margin: '4px 10px 3px 0',
+  whiteSpace: 'nowrap',
 
   [lightTheme.breakpoints.up('table_834')]: {
     fontSize: 14,

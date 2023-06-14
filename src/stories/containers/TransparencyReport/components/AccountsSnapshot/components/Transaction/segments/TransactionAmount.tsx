@@ -85,6 +85,10 @@ const Currency = styled.span<WithIsLight>(({ isLight }) => ({
   textTransform: 'uppercase',
   color: isLight ? '#9FAFB9' : '#546978',
 
+  [lightTheme.breakpoints.up('table_834')]: {
+    color: '#9FAFB9',
+  },
+
   [lightTheme.breakpoints.up('desktop_1194')]: {
     fontSize: 14,
     lineHeight: '17px',
