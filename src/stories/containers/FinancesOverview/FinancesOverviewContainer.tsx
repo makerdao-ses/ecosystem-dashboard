@@ -286,10 +286,11 @@ const BasicModalExtended = styled(BasicModal)({
   // This to hidden border in safari
   outline: 'none',
   transform: 'translateX(-50%)',
+  width: 'max(100%, 375px)',
   [lightTheme.breakpoints.up('table_834')]: {
+    width: 'max(90%, 770px)',
     height: 'calc(100% - 128px)',
     marginBottom: 64,
-    width: 770,
     maxHeight: 813,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
