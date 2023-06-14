@@ -115,7 +115,8 @@ const Container = styled.div<WithIsLight & { isSomeOpen?: boolean }>(({ isLight,
   boxShadow: isLight
     ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
     : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
-  borderRadius: '6px',
+  borderTopLeftRadius: '6px',
+  borderTopRightRadius: '6px',
   width: '100%',
   [lightTheme.breakpoints.up('table_834')]: {
     width: 770,
