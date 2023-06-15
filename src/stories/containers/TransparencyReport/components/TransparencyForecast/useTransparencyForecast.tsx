@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useModalCategory } from '@ses/components/BasicModal/useModalCategory';
 import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
 import { capitalizeSentence, getWalletWidthForWallets, toKebabCase } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
@@ -29,9 +30,14 @@ import HeaderWithIcon from '../HeaderWithIcon/HeaderWithIcon';
 import ProgressiveIndicator from './ProgresiveIndicator';
 import type { InnerTableColumn, InnerTableRow } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import type { BudgetStatementDto, BudgetStatementWalletDto } from '@ses/core/models/dto/coreUnitDTO';
+import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { DateTime } from 'luxon';
 
-export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements: BudgetStatementDto[] | undefined) => {
+export const useTransparencyForecast = (
+  currentMonth: DateTime,
+  budgetStatements: BudgetStatementDto[] | undefined,
+  expenseCategories: ExpenseCategory[]
+) => {
   const firstMonth = useMemo(() => currentMonth.plus({ month: 1 }), [currentMonth]);
   const secondMonth = useMemo(() => currentMonth.plus({ month: 2 }), [currentMonth]);
   const thirdMonth = useMemo(() => currentMonth.plus({ month: 3 }), [currentMonth]);
@@ -403,14 +409,30 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
     return result;
   }, [budgetStatements, wallets, mainTableColumns, currentMonth, firstMonth, secondMonth, thirdMonth]);
 
+  const {
+    checkOut,
+    handleChangeItemAccordion,
+    handleCheckedExpandedAll,
+    handleCloseModal,
+    handleOpenModal,
+    headCountCategory,
+    notHeadCountCategory,
+    openModal,
+  } = useModalCategory(expenseCategories);
   const [breakdownColumnsForActiveTab, allBreakdownColumns] = useMemo(() => {
     const allBreakdownColumns: { [key: string]: InnerTableColumn[] } = {};
     for (const wallet of wallets) {
-      allBreakdownColumns[wallet.name] = getForecastBreakdownColumns(wallet, firstMonth, secondMonth, thirdMonth);
+      allBreakdownColumns[wallet.name] = getForecastBreakdownColumns(
+        wallet,
+        firstMonth,
+        secondMonth,
+        thirdMonth,
+        handleOpenModal
+      );
     }
 
     return [allBreakdownColumns[wallets[thirdIndex]?.name], allBreakdownColumns];
-  }, [firstMonth, secondMonth, thirdIndex, thirdMonth, wallets]);
+  }, [firstMonth, handleOpenModal, secondMonth, thirdIndex, thirdMonth, wallets]);
 
   const allBreakdownItems = useMemo(() => {
     const result: { [key: string]: InnerTableRow[] } = {};
@@ -449,6 +471,14 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
     secondMonth,
     thirdMonth,
     wallets,
+    openModal,
+    handleOpenModal,
+    handleCloseModal,
+    handleCheckedExpandedAll,
+    headCountCategory,
+    notHeadCountCategory,
+    handleChangeItemAccordion,
+    checkOut,
   };
 };
 

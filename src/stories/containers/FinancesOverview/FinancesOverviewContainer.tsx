@@ -276,7 +276,7 @@ const BreakdownTableColumn = styled.div({
   width: '100%',
 });
 
-const BasicModalExtended = styled(BasicModal)({
+export const BasicModalExtended = styled(BasicModal)({
   position: 'absolute',
   left: '50%',
   height: 'calc(100% - 64px)',
