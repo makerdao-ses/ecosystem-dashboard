@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
+import ContainerModal from '@ses/components/BasicModal/ContainerModal';
 import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import Tabs from '@ses/components/Tabs/Tabs';
+import { BasicModalExtended } from '@ses/containers/FinancesOverview/FinancesOverviewContainer';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { MAKER_BURN_LINK } from '@ses/core/utils/const';
 import { getShortCode } from '@ses/core/utils/string';
@@ -13,10 +15,12 @@ import { ACTUALS_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import { useTransparencyActuals } from './useTransparencyActuals';
 import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
+import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { DateTime } from 'luxon';
 
 interface Props {
   currentMonth: DateTime;
+  expenseCategories: ExpenseCategory[];
   budgetStatements?: BudgetStatementDto[];
   code: string;
   longCode: string;
@@ -34,7 +38,14 @@ export const TransparencyActuals = (props: Props) => {
     mainTableColumns,
     mainTableItems,
     breakdownTabs,
-  } = useTransparencyActuals(props.currentMonth, props.budgetStatements);
+    openModal,
+    handleCloseModal,
+    handleChangeItemAccordion,
+    handleCheckedExpandedAll,
+    headCountCategory,
+    notHeadCountCategory,
+    checkOut,
+  } = useTransparencyActuals(props.currentMonth, props.budgetStatements, props.expenseCategories);
 
   return (
     <Container>
@@ -105,6 +116,25 @@ export const TransparencyActuals = (props: Props) => {
           />
         </BreakdownTableWrapper>
       )}
+      <BasicModalExtended
+        handleClose={handleCloseModal}
+        open={openModal}
+        backdropProps={{
+          style: {
+            background: isLight ? 'rgba(52, 52, 66, 0.1)' : 'rgba(0, 22, 78, 0.1)',
+            backdropFilter: isLight ? 'blur(2px);' : 'blur(4px)',
+          },
+        }}
+      >
+        <ContainerModal
+          headCountCategories={headCountCategory}
+          noHeadCountCategories={notHeadCountCategory}
+          isCheckedExpandedAll={checkOut}
+          handleCloseModal={handleCloseModal}
+          setIsCheckedExpandedAll={handleCheckedExpandedAll}
+          handleChangeItemAccordion={handleChangeItemAccordion}
+        />
+      </BasicModalExtended>
     </Container>
   );
 };
