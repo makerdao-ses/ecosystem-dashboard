@@ -103,7 +103,6 @@ export default ContainerModal;
 const Container = styled.div<WithIsLight & { isSomeOpen?: boolean }>(({ isLight, isSomeOpen }) => ({
   display: 'flex',
   flexDirection: 'column',
-  paddingBottom: 27,
   overflowY: 'auto',
 
   '::-webkit-scrollbar': {
