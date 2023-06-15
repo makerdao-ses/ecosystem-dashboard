@@ -75,7 +75,7 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
         width={10}
         height={6}
         style={{
-          transform: 'scaleY(-1)',
+          transform: 'scaleY(1)',
           marginRight: 2,
         }}
       />
