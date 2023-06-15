@@ -7,6 +7,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import TransactionList from '../TransactionList/TransactionList';
 import WalletInfo from '../WalletInfo/WalletInfo';
 import type { AccordionProps } from '@mui/material/Accordion';
 import type { AccordionSummaryProps } from '@mui/material/AccordionSummary';
@@ -93,7 +94,9 @@ const ReserveCard: React.FC<ReserveCardProps> = ({
         </NewBalance>
         {!isMobile && <ArrowContainer>{SVG}</ArrowContainer>}
       </Card>
-      <TransactionContainer>transaction list</TransactionContainer>
+      <TransactionContainer>
+        <TransactionList showGroup={true} />
+      </TransactionContainer>
     </Accordion>
   );
 };
@@ -118,9 +121,16 @@ const Card = styled((props: AccordionSummaryProps) => <MuiAccordionSummary {...p
       ? '0px 4px 6px rgba(196, 196, 196, 0.25)'
       : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
     borderRadius: 6,
+    zIndex: 1,
 
     [lightTheme.breakpoints.up('table_834')]: {
       padding: 0,
+    },
+
+    '&.Mui-expanded': {
+      [lightTheme.breakpoints.down('table_834')]: {
+        borderRadius: '6px 6px 0 0',
+      },
     },
 
     '& .MuiAccordionSummary-content': {
@@ -137,8 +147,11 @@ const Card = styled((props: AccordionSummaryProps) => <MuiAccordionSummary {...p
 );
 
 const TransactionContainer = styled(MuiAccordionDetails)(() => ({
-  padding: '0 0 14px',
-  background: 'red',
+  padding: 0,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginBottom: 24,
+  },
 }));
 
 const NameContainer = styled.div({
@@ -308,7 +321,7 @@ const NewBalance = styled(InitialBalance)({
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    padding: '16px 64px 16px 16px',
+    padding: '16px 32px 16px 16px',
   },
 });
 
