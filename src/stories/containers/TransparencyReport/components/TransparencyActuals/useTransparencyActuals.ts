@@ -22,7 +22,7 @@ import type { DateTime } from 'luxon';
 export const useTransparencyActuals = (
   propsCurrentMonth: DateTime,
   budgetStatements: BudgetStatementDto[] | undefined,
-  expenseCategories: ExpenseCategory[]
+  expenseCategories?: ExpenseCategory[]
 ) => {
   const currentMonth = useMemo(() => propsCurrentMonth.toFormat(API_MONTH_TO_FORMAT), [propsCurrentMonth]);
   const router = useRouter();

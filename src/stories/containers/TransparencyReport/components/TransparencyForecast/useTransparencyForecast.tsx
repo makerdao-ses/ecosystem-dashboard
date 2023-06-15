@@ -36,7 +36,7 @@ import type { DateTime } from 'luxon';
 export const useTransparencyForecast = (
   currentMonth: DateTime,
   budgetStatements: BudgetStatementDto[] | undefined,
-  expenseCategories: ExpenseCategory[]
+  expenseCategories?: ExpenseCategory[]
 ) => {
   const firstMonth = useMemo(() => currentMonth.plus({ month: 1 }), [currentMonth]);
   const secondMonth = useMemo(() => currentMonth.plus({ month: 2 }), [currentMonth]);
