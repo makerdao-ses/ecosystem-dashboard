@@ -53,7 +53,7 @@ const BasicModalExtended = styled(BasicModal)({
   position: 'absolute',
   left: '50%',
   height: 'calc(100% - 64px)',
-  maxHeight: 748,
+  maxHeight: '100%',
   marginTop: 64,
   marginBottom: 0,
   // This to hidden border in safari
