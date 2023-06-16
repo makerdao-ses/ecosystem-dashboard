@@ -14,9 +14,9 @@ const CommonArgs = {
   endDate: '2023-06-14T22:52:54.494Z',
   balance: {
     initialBalance: 3685648,
-    newBalance: 3743328,
+    newBalance: -3743328,
     inflow: 300000,
-    outflow: 242320,
+    outflow: -242320,
   },
 };
 const variantsArgs = [
