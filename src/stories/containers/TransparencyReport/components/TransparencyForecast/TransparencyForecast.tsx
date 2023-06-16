@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
+import CategoryModalComponent from '@ses/components/BasicModal/CategoryModalComponent';
 import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import Tabs from '@ses/components/Tabs/Tabs';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
@@ -14,6 +15,7 @@ import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import { BreakdownTableWrapper, LinkDescription } from '../TransparencyActuals/TransparencyActuals';
 import { useTransparencyForecast } from './useTransparencyForecast';
 import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
+import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { DateTime } from 'luxon';
 
 interface Props {
@@ -21,6 +23,7 @@ interface Props {
   budgetStatements: BudgetStatementDto[];
   code: string;
   longCode: string;
+  expenseCategories: ExpenseCategory[];
 }
 
 export const TransparencyForecast = (props: Props) => {
@@ -35,7 +38,14 @@ export const TransparencyForecast = (props: Props) => {
     breakdownItems,
     breakdownTitleRef,
     breakdownTabs,
-  } = useTransparencyForecast(props.currentMonth, props.budgetStatements);
+    handleCloseModal,
+    openModal,
+    headCountCategory,
+    notHeadCountCategory,
+    handleChangeItemAccordion,
+    checkOut,
+    handleCheckedExpandedAll,
+  } = useTransparencyForecast(props.currentMonth, props.budgetStatements, props.expenseCategories);
 
   return (
     <Container>
@@ -97,6 +107,16 @@ export const TransparencyForecast = (props: Props) => {
           />
         </BreakdownTableWrapper>
       )}
+      <CategoryModalComponent
+        checkOut={checkOut}
+        headCountCategories={headCountCategory}
+        notHeadCountCategory={notHeadCountCategory}
+        handleCloseModal={handleCloseModal}
+        handleCheckedExpandedAll={handleCheckedExpandedAll}
+        handleChangeItemAccordion={handleChangeItemAccordion}
+        isLight={isLight}
+        openModal={openModal}
+      />
     </Container>
   );
 };

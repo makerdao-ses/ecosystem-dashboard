@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
+import CategoryModalComponent from '@ses/components/BasicModal/CategoryModalComponent';
 import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import Tabs from '@ses/components/Tabs/Tabs';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
@@ -13,10 +14,12 @@ import { ACTUALS_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import { useTransparencyActuals } from './useTransparencyActuals';
 import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
+import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { DateTime } from 'luxon';
 
 interface Props {
   currentMonth: DateTime;
+  expenseCategories: ExpenseCategory[];
   budgetStatements?: BudgetStatementDto[];
   code: string;
   longCode: string;
@@ -34,7 +37,14 @@ export const TransparencyActuals = (props: Props) => {
     mainTableColumns,
     mainTableItems,
     breakdownTabs,
-  } = useTransparencyActuals(props.currentMonth, props.budgetStatements);
+    openModal,
+    handleCloseModal,
+    handleChangeItemAccordion,
+    handleCheckedExpandedAll,
+    headCountCategory,
+    notHeadCountCategory,
+    checkOut,
+  } = useTransparencyActuals(props.currentMonth, props.budgetStatements, props.expenseCategories);
 
   return (
     <Container>
@@ -105,6 +115,16 @@ export const TransparencyActuals = (props: Props) => {
           />
         </BreakdownTableWrapper>
       )}
+      <CategoryModalComponent
+        checkOut={checkOut}
+        headCountCategories={headCountCategory}
+        notHeadCountCategory={notHeadCountCategory}
+        handleCloseModal={handleCloseModal}
+        handleCheckedExpandedAll={handleCheckedExpandedAll}
+        handleChangeItemAccordion={handleChangeItemAccordion}
+        isLight={isLight}
+        openModal={openModal}
+      />
     </Container>
   );
 };

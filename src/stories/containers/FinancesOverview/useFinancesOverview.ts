@@ -1,7 +1,7 @@
 import { useMediaQuery } from '@mui/material';
+import { useModalCategory } from '@ses/components/BasicModal/useModalCategory';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
-import _ from 'lodash';
 import { DateTime } from 'luxon';
 import { useCallback, useMemo, useState } from 'react';
 import {
@@ -12,7 +12,7 @@ import {
 } from './utils/costBreakdown';
 import { parseQuarter } from './utils/quarters';
 import type { CostBreakdownFilterValue, ExtendedExpense } from './financesOverviewTypes';
-import type { ExpenseCategory, ParsedExpenseCategoryWithExpanded } from '@ses/core/models/dto/expenseCategoriesDTO';
+import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 
 const noneBorder = [0, 0, 0, 0];
@@ -27,90 +27,16 @@ const useFinancesOverview = (
   byCategoryBreakdownExpenses: ExpenseDto[],
   expenseCategories: ExpenseCategory[]
 ) => {
-  const [openModal, setOpenModal] = useState<boolean>(false);
-  const [checkOut, setCheckOut] = useState<boolean>(false);
-  const handleOpenModal = () => {
-    setOpenModal(true);
-  };
-
-  const parsedExpenseCategories = useMemo(() => {
-    const parseSimpleCategory = (category: ExpenseCategory): ParsedExpenseCategoryWithExpanded =>
-      ({
-        id: category.id,
-        name: category.name,
-        order: category.order,
-        headcountExpense: category.headcountExpense,
-        isExpanded: false,
-      } as ParsedExpenseCategoryWithExpanded);
-
-    return expenseCategories
-      ?.filter((category) => category.parentId === null)
-      .map(
-        (category) =>
-          ({
-            ...parseSimpleCategory(category),
-            subcategories: expenseCategories
-              .filter((subcategory) => subcategory.parentId === category.id)
-              .map((subcategory) => parseSimpleCategory(subcategory))
-              .sort((a, b) => a.order - b.order),
-          } as ParsedExpenseCategoryWithExpanded)
-      )
-      .sort((a, b) => a.order - b.order);
-  }, [expenseCategories]);
-  // state for all categories
-  const [allCategory, setAllCategory] = useState<ParsedExpenseCategoryWithExpanded[]>(parsedExpenseCategories);
-  const headCountCategory = allCategory.filter((item) => item.headcountExpense);
-  const notHeadCountCategory = allCategory.filter((item) => !item.headcountExpense);
-  const handleChangeItemAccordion = (id: string, value: boolean) => {
-    const category = allCategory.map((item) => {
-      if (id === item.id) {
-        return {
-          ...item,
-          isExpanded: value,
-        };
-      } else {
-        return item;
-      }
-    });
-    if (category) {
-      setAllCategory(category);
-    }
-    const hasExpandedElement = _.some(
-      allCategory,
-      (element) => _.has(element, 'isExpanded') && element.isExpanded === true
-    );
-
-    if (hasExpandedElement) {
-      setCheckOut(false);
-    }
-  };
-  const handleCloseModal = () => {
-    const newItemUnExpanded: ParsedExpenseCategoryWithExpanded[] = allCategory.map((item) => ({
-      ...item,
-      isExpanded: false,
-    }));
-    setAllCategory(newItemUnExpanded);
-    setCheckOut(false);
-    setOpenModal(false);
-  };
-
-  const handleCheckedExpandedAll = () => {
-    setCheckOut(!checkOut);
-    let newMoment: ParsedExpenseCategoryWithExpanded[] = [];
-    if (checkOut) {
-      newMoment = allCategory.map((item) => ({
-        ...item,
-        isExpanded: false,
-      }));
-    } else {
-      newMoment = allCategory.map((item) => ({
-        ...item,
-        isExpanded: true,
-      }));
-    }
-
-    setAllCategory(newMoment);
-  };
+  const {
+    checkOut,
+    handleChangeItemAccordion,
+    handleCheckedExpandedAll,
+    handleCloseModal,
+    handleOpenModal,
+    headCountCategory,
+    notHeadCountCategory,
+    openModal,
+  } = useModalCategory(expenseCategories);
 
   const sortedQuarters = useMemo(
     () =>

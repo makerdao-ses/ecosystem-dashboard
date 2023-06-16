@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import BasicModal from '@ses/components/BasicModal/BasicModal';
-import ContainerModal from '@ses/components/BasicModal/ContainerModal';
+import CategoryModalComponent from '@ses/components/BasicModal/CategoryModalComponent';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
@@ -122,25 +122,16 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
           {isDownTable && <NavigationButtons />}
         </BreakdownSectionContainer>
       </Container>
-      <BasicModalExtended
-        handleClose={handleCloseModal}
-        open={openModal}
-        backdropProps={{
-          style: {
-            background: isLight ? 'rgba(52, 52, 66, 0.1)' : 'rgba(0, 22, 78, 0.1)',
-            backdropFilter: isLight ? 'blur(2px);' : 'blur(4px)',
-          },
-        }}
-      >
-        <ContainerModal
-          headCountCategories={headCountCategory}
-          noHeadCountCategories={notHeadCountCategory}
-          isCheckedExpandedAll={checkOut}
-          handleCloseModal={handleCloseModal}
-          setIsCheckedExpandedAll={handleCheckedExpandedAll}
-          handleChangeItemAccordion={handleChangeItemAccordion}
-        />
-      </BasicModalExtended>
+      <CategoryModalComponent
+        checkOut={checkOut}
+        headCountCategories={headCountCategory}
+        notHeadCountCategory={notHeadCountCategory}
+        handleCloseModal={handleCloseModal}
+        handleCheckedExpandedAll={handleCheckedExpandedAll}
+        handleChangeItemAccordion={handleChangeItemAccordion}
+        isLight={isLight}
+        openModal={openModal}
+      />
     </PageWrapper>
   );
 };
@@ -276,7 +267,7 @@ const BreakdownTableColumn = styled.div({
   width: '100%',
 });
 
-const BasicModalExtended = styled(BasicModal)({
+export const BasicModalExtended = styled(BasicModal)({
   position: 'absolute',
   left: '50%',
   height: 'calc(100% - 64px)',
