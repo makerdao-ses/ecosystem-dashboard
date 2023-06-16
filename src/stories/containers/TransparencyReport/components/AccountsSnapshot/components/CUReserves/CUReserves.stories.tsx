@@ -1,3 +1,5 @@
+import { SnapshotAccountBuilder } from '@ses/core/businessLogic/builders/accountSnapshot/accountSnapshotBuilder';
+import { SnapshotAccountBalanceBuilder } from '@ses/core/businessLogic/builders/accountSnapshot/snapshotAccountBalanceBuilder';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import CUReserves from './CUReserves';
 import type { ComponentMeta } from '@storybook/react';
@@ -13,12 +15,54 @@ const variantsArgs = [
     snapshotOwner: 'SES Core Unit',
     startDate: '2023-05-12T22:52:54.494Z',
     endDate: '2023-06-14T22:52:54.494Z',
-    balance: {
-      initialBalance: 1500000,
-      newBalance: 1266680,
-      inflow: 305000,
-      outflow: 538320,
-    },
+    balance: new SnapshotAccountBalanceBuilder()
+      .withInitialBalance(1500000)
+      .withNewBalance(1266680)
+      .withInflow(305000)
+      .withOutflow(-538320)
+      .build(),
+    accounts: [
+      new SnapshotAccountBuilder()
+        .withId('1')
+        .withAccountLabel('DSS Vest')
+        .withAccountType('group')
+        .addSnapshotAccountBalance(
+          new SnapshotAccountBalanceBuilder()
+            .withInitialBalance(100000)
+            .withNewBalance(100000)
+            .withInflow(300000)
+            .withOutflow(-300000)
+            .build()
+        )
+        .build(),
+      new SnapshotAccountBuilder()
+        .withId('2')
+        .withAccountLabel('Auditor')
+        .withAccountType('singular')
+        .withAccountAddress('0x23b554585a4ef8482')
+        .addSnapshotAccountBalance(
+          new SnapshotAccountBalanceBuilder()
+            .withInitialBalance(500000)
+            .withNewBalance(550000)
+            .withInflow(300000)
+            .withOutflow(-250000)
+            .build()
+        )
+        .build(),
+      new SnapshotAccountBuilder()
+        .withId('3')
+        .withAccountLabel('Operational')
+        .withAccountType('group')
+        .addSnapshotAccountBalance(
+          new SnapshotAccountBalanceBuilder()
+            .withInitialBalance(900000)
+            .withNewBalance(1100000)
+            .withInflow(250000)
+            .withOutflow(-50000)
+            .build()
+        )
+        .build(),
+    ],
   },
 ];
 

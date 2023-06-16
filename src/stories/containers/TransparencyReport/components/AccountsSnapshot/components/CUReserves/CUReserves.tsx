@@ -7,7 +7,7 @@ import FundChangeCard from '../Cards/FundChangeCard';
 import ReserveCard from '../Cards/ReserveCard';
 import SimpleStatCard from '../Cards/SimpleStatCard';
 import SectionHeader from '../SectionHeader/SectionHeader';
-import type { SnapshotAccountBalance } from '@ses/core/models/dto/snapshotAccountDTO';
+import type { SnapshotAccount, SnapshotAccountBalance } from '@ses/core/models/dto/snapshotAccountDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface CUReservesProps {
@@ -16,7 +16,8 @@ interface CUReservesProps {
   toggleIncludeOffChain: () => void;
   startDate?: string;
   endDate?: string;
-  balance: SnapshotAccountBalance;
+  balance?: SnapshotAccountBalance;
+  accounts?: SnapshotAccount[];
 }
 
 const CUReserves: React.FC<CUReservesProps> = ({
@@ -26,6 +27,7 @@ const CUReserves: React.FC<CUReservesProps> = ({
   startDate,
   endDate,
   balance,
+  accounts,
 }) => {
   const { isLight } = useThemeContext();
 
@@ -44,17 +46,17 @@ const CUReserves: React.FC<CUReservesProps> = ({
       </HeaderContainer>
 
       <CardsContainer>
-        <SimpleStatCard date={startDate} value={balance.initialBalance} caption="Initial Core Unit Reserves" />
+        <SimpleStatCard date={startDate} value={balance?.initialBalance} caption="Initial Core Unit Reserves" />
         <FundChangeCard
-          netChange={balance.inflow - balance.outflow}
-          leftValue={balance.inflow}
+          netChange={balance?.inflow && balance?.outflow ? balance.outflow - balance.inflow * -1 : undefined}
+          leftValue={balance?.inflow}
           leftText="Inflow"
-          rightValue={balance.outflow}
+          rightValue={balance?.outflow ? balance?.outflow * -1 : undefined}
           rightText="Outflow"
         />
         <SimpleStatCard
           date={endDate}
-          value={balance.newBalance}
+          value={balance?.newBalance}
           caption="New Core Unit Reserves"
           hasEqualSign
           isReserves
@@ -70,30 +72,22 @@ const CUReserves: React.FC<CUReservesProps> = ({
         />
 
         <ReservesCardsContainer>
-          <ReserveCard
-            name="DSS Vest"
-            isGroup
-            initialBalance={100000}
-            inflow={300000}
-            outflow={300000}
-            newBalance={100000}
-          />
-          <ReserveCard
-            name="Auditor"
-            address={'0x23b554585a4ef8482'}
-            initialBalance={500000}
-            inflow={300000}
-            outflow={250000}
-            newBalance={550000}
-          />
-          <ReserveCard
-            name="Operational"
-            isGroup
-            initialBalance={900000}
-            inflow={250000}
-            outflow={50000}
-            newBalance={1100000}
-          />
+          {accounts?.map((account) => (
+            <ReserveCard
+              key={account.id}
+              name={account.accountLabel}
+              isGroup={account.accountType !== 'singular'}
+              address={account.accountAddress}
+              initialBalance={account.snapshotAccountBalance?.[0]?.initialBalance}
+              inflow={account.snapshotAccountBalance?.[0]?.inflow}
+              outflow={
+                account.snapshotAccountBalance?.[0]?.outflow
+                  ? account.snapshotAccountBalance?.[0]?.outflow * -1
+                  : account.snapshotAccountBalance?.[0]?.outflow
+              }
+              newBalance={account.snapshotAccountBalance?.[0]?.newBalance}
+            />
+          ))}
         </ReservesCardsContainer>
       </OnChainSubsection>
 

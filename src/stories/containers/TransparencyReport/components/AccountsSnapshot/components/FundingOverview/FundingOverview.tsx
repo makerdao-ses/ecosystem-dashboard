@@ -13,7 +13,7 @@ interface FundingOverviewProps {
   snapshotOwner: string;
   startDate?: string;
   endDate?: string;
-  balance: SnapshotAccountBalance;
+  balance?: SnapshotAccountBalance;
 
   // Only used for storybook
   defaultExpanded?: boolean;
@@ -39,16 +39,21 @@ const FundingOverview: React.FC<FundingOverviewProps> = ({
     </HeaderContainer>
 
     <CardsContainer>
-      <SimpleStatCard date={startDate} value={balance.initialBalance} caption="Initial Lifetime Balance" />
+      <SimpleStatCard date={startDate} value={balance?.initialBalance} caption="Initial Lifetime Balance" />
       <FundChangeCard
-        netChange={balance.inflow - balance.outflow}
-        leftValue={balance.inflow}
+        netChange={balance?.inflow && balance?.outflow ? balance.outflow * -1 - balance.inflow : undefined}
+        leftValue={balance?.outflow ? balance?.outflow * -1 : undefined}
         leftText="Extra Funds Made Available"
-        rightValue={balance.outflow}
+        rightValue={balance?.inflow}
         rightValueColor="green"
         rightText="Funds Returned via DSSBlow"
       />
-      <SimpleStatCard date={endDate} value={balance.newBalance} caption="New Lifetime Balance" hasEqualSign />
+      <SimpleStatCard
+        date={endDate}
+        value={balance?.newBalance ? balance.newBalance * -1 : balance?.newBalance}
+        caption="New Lifetime Balance"
+        hasEqualSign
+      />
     </CardsContainer>
 
     <TransactionHistory defaultExpanded={defaultExpanded} />

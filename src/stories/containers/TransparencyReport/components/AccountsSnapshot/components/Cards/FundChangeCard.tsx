@@ -10,11 +10,11 @@ import type { ValueColor } from '../NumberWithSignCard/NumberWithSignCard';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface FundChangeCardProps {
-  netChange: number;
-  leftValue: number;
+  netChange?: number;
+  leftValue?: number;
   leftValueColor?: ValueColor;
   leftText: string;
-  rightValue: number;
+  rightValue?: number;
   rightValueColor?: ValueColor;
   rightText: string;
 }
@@ -40,8 +40,14 @@ const FundChangeCard: React.FC<FundChangeCardProps> = ({
         </LeftArrowContainer>
         <ChangeContent>
           <Value isLight={isLight}>
-            {netChange > 0 && '+'}
-            {usLocalizedNumber(Math.round(netChange))} <span>DAI</span>
+            {netChange !== undefined ? (
+              <>
+                {netChange > 0 && '+'}
+                {usLocalizedNumber(Math.round(netChange))} <span>DAI</span>
+              </>
+            ) : (
+              'N/A'
+            )}
           </Value>
           <NetChangeMessage isLight={isLight}>Net Change</NetChangeMessage>
         </ChangeContent>

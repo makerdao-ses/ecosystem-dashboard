@@ -8,7 +8,7 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 export type ValueColor = 'normal' | 'green';
 
 interface NumberWithSignCardProps {
-  value: number;
+  value?: number;
   text: string;
   sign: 'positive' | 'negative';
   valueColor?: ValueColor;
@@ -48,7 +48,13 @@ const NumberWithSignCard: React.FC<NumberWithSignCardProps> = ({ value, sign, te
       </SignContainer>
       <Card isLight={isLight} sign={sign}>
         <Value isLight={isLight} valueColor={valueColor}>
-          {usLocalizedNumber(Math.round(value))} <span>DAI</span>
+          {value !== undefined ? (
+            <>
+              {usLocalizedNumber(Math.round(value))} <span>DAI</span>
+            </>
+          ) : (
+            'N/A'
+          )}
         </Value>
         <Text isLight={isLight}>{text}</Text>
       </Card>
