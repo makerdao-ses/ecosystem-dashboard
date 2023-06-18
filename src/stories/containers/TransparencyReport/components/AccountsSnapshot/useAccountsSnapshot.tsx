@@ -94,7 +94,6 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
   const transactionHistory = mainAccount.snapshotAccountTransaction.filter(
     (transaction) => transaction.token === selectedToken
   );
-  console.log(transactionHistory);
 
   // cu reserves balance
   const cuReservesAccount = snapshot.snapshotAccount.find(
