@@ -12,9 +12,14 @@ import { useTransparencyTransferRequest } from '../TransparencyTransferRequest/u
 import ExpenseSection from './components/ExpenseSection/ExpenseSection';
 import type { InternalTabsProps } from '@ses/components/Tabs/Tabs';
 import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
+import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { DateTime } from 'luxon';
 
-const useExpenseReport = (currentMonth: DateTime, budgetStatements?: BudgetStatementDto[]) => {
+const useExpenseReport = (
+  currentMonth: DateTime,
+  budgetStatements?: BudgetStatementDto[],
+  expenseCategories?: ExpenseCategory[]
+) => {
   const { isLight } = useThemeContext();
   const query = useRouter().query;
 
@@ -26,8 +31,8 @@ const useExpenseReport = (currentMonth: DateTime, budgetStatements?: BudgetState
     delayOnLoad: 300,
   });
 
-  const actualsData = useTransparencyActuals(currentMonth, budgetStatements);
-  const forecastData = useTransparencyForecast(currentMonth, budgetStatements);
+  const actualsData = useTransparencyActuals(currentMonth, budgetStatements, expenseCategories);
+  const forecastData = useTransparencyForecast(currentMonth, budgetStatements, expenseCategories);
   const mkrVestingData = useTransparencyMkrVesting(currentMonth, budgetStatements);
   const transferRequestsData = useTransparencyTransferRequest(currentMonth, budgetStatements);
 

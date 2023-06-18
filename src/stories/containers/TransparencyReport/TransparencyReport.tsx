@@ -170,6 +170,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: T
               currentMonth={currentMonth}
               budgetStatements={coreUnit?.budgetStatements}
               longCode={longCode}
+              expenseCategories={expenseCategories}
             />
           )}
 
