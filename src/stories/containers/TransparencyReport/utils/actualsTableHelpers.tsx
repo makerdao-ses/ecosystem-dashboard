@@ -102,6 +102,7 @@ export const getActualsBreakdownColumns = (wallet: BudgetStatementWalletDto, han
       type: 'text',
       isCardHeader: true,
       width: hasGroups ? '220px' : '240px',
+      handleOpenModal,
     },
     {
       header: 'Mthly Budget',
@@ -185,7 +186,8 @@ export const getActualsBreakdownItemsForWallet = (
           (item) => item.headcountExpense && (item.group === groupedKey || (!item.group && !groupedKey))
         ),
         month,
-        breakdownColumns
+        breakdownColumns,
+        'category'
       );
       groupItemsCount += items.length;
       result.push(...items);
@@ -231,8 +233,10 @@ export const getActualsBreakdownItemsForWallet = (
           (item) => !item.headcountExpense && (item.group === groupedKey || (!item.group && !groupedKey))
         ),
         month,
-        breakdownColumns
+        breakdownColumns,
+        'category'
       );
+      console.log('items', items);
       groupItemsCount += items.length;
       result.push(...items);
 

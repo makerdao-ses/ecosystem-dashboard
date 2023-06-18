@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import { OpenModalTransparency } from '@ses/containers/TransparencyReport/transparencyReportUtils';
+import lightTheme from '@ses/styles/theme/light';
 import React, { useId } from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { Title } from '../../containers/TransparencyReport/TransparencyReport';
@@ -22,6 +24,7 @@ export interface InnerTableColumn {
   hidden?: boolean;
   hasBorderRight?: boolean;
   hasBorderBottomOnCard?: boolean;
+  handleOpenModal?: () => void;
 }
 
 export interface InnerTableCell {
@@ -30,7 +33,7 @@ export interface InnerTableCell {
   isBold?: boolean;
 }
 
-export type RowType = 'normal' | 'total' | 'section' | 'groupTitle' | 'subTotal';
+export type RowType = 'normal' | 'total' | 'section' | 'groupTitle' | 'subTotal' | 'category';
 export type CardSpacingSize = 'small' | 'large';
 
 export interface InnerTableRow {
@@ -72,7 +75,6 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
     }
     const isBold = rowType === 'total' || rowType === 'section' || rowType === 'groupTitle';
     const columnType = rowType === 'total' && column?.type === 'custom' ? 'text' : column?.type;
-
     switch (columnType) {
       case 'number':
         return <NumberCell key={id} value={Number(value)} bold={isBold} />;
@@ -85,6 +87,19 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
               {value as string}
             </GroupTitle>
           </TextCell>
+        ) : rowType === 'category' ? (
+          <StyledOpenModalTransparency
+            isLight={isLight}
+            handleOpenModal={column.handleOpenModal}
+            name={value as string}
+            className={
+              value === 'Total' || value === 'Subtotal'
+                ? 'advanced-table__cell-row--category'
+                : column.header === 'Comments'
+                ? 'advanced-table__cell-row--category--comments'
+                : ''
+            }
+          />
         ) : (
           <TextCell key={id} bold={isBold || rowType === 'subTotal'} isHeader={column.isCardHeader}>
             {value as string}
@@ -336,3 +351,45 @@ const TableRow = styled.tr<WithIsLight & { borderTop?: boolean; borderBottom?: b
     borderBottom: borderBottom ? `1px solid ${isLight ? '#D4D9E1' : '#405361'}` : 'none',
   })
 );
+
+const StyledOpenModalTransparency = styled(OpenModalTransparency)<WithIsLight>(({ isLight }) => ({
+  color: isLight ? '#231536' : '#D2D4EF',
+  fontSize: 16,
+  lineHeight: '18px',
+  fontWeight: 500,
+  paddingLeft: 16,
+  paddingTop: 16,
+  marginBottom: 16,
+
+  fontFamily: 'Inter, sans-serif',
+  justifyContent: 'space-between',
+  gap: 0,
+  '&.advanced-table__cell-row--category--comments': {
+    paddingTop: 0,
+    fontSize: 14,
+    lineHeight: '15px',
+    marginBottom: 0,
+    fontWeight: 400,
+    svg: {
+      display: 'none',
+    },
+    [lightTheme.breakpoints.up('table_834')]: {
+      fontSize: 16,
+      lineHeight: '19px',
+      padding: '8px  0px 16px 16px',
+    },
+  },
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontWeight: 400,
+    paddingTop: 0,
+    marginBottom: 0,
+    svg: {
+      display: 'none',
+    },
+  },
+  '&.advanced-table__cell-row--category': {
+    svg: {
+      display: 'none',
+    },
+  },
+}));

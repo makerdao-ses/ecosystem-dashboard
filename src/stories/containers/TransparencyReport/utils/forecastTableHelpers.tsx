@@ -44,6 +44,7 @@ export const getForecastBreakdownColumns = (
       isCardHeader: true,
       width: hasGroups ? '220px' : '240px',
       type: 'text',
+      handleOpenModal,
     },
     {
       header: firstMonth.toFormat('MMMM'),
@@ -286,11 +287,11 @@ export const getBreakdownItemsForWallet = (
         currentMonth,
         firstMonth,
         secondMonth,
-        thirdMonth
+        thirdMonth,
+        'category'
       );
       groupItemsCount += items.length;
       result.push(...items);
-
       if (!hasGroups && items.length > 1) {
         // subtotal when it is a non headcount without a group
         result.push(
@@ -332,7 +333,8 @@ export const getBreakdownItemsForWallet = (
         currentMonth,
         firstMonth,
         secondMonth,
-        thirdMonth
+        thirdMonth,
+        'category'
       );
       groupItemsCount += items.length;
       result.push(...items);

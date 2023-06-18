@@ -308,5 +308,6 @@ export const useTransparencyActuals = (
     notHeadCountCategory,
     handleChangeItemAccordion,
     checkOut,
+    handleOpenModal,
   };
 };
