@@ -4,54 +4,76 @@ import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import GroupItem from '../GroupItem/GroupItem';
 import Transaction from '../Transaction/Transaction';
+import type { SnapshotAccountTransaction } from '@ses/core/models/dto/snapshotAccountDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-const TransactionList: React.FC<{ showGroup?: boolean }> = ({ showGroup = false }) => {
+interface TransactionListProps {
+  transactions?: SnapshotAccountTransaction[];
+  showGroup?: boolean;
+}
+
+const TransactionList: React.FC<TransactionListProps> = ({ transactions, showGroup = false }) => {
   const { isLight } = useThemeContext();
 
   return (
     <TransactionListContainer isLight={isLight}>
       <TransactionCard isLight={isLight}>
-        {showGroup && <GroupItem />}
-
-        <Transaction
-          name={'DSS Blow'}
-          date={'2023-04-17T11:36:05.188Z'}
-          toDate={null}
-          txHash={'0xe079d59dbf813d2541a345ef4786cc44a8a'}
-          counterPartyName={'Auditor Wallet'}
-          counterPartyAddress={'0x232b5483e5a5cd22188482'}
-          amount={-1153480}
-        />
-        <Transaction
-          isIncomingTransaction={false}
-          name={'DSS Vest'}
-          date={'2023-04-15T11:36:05.188Z'}
-          toDate={'2023-05-15T11:36:05.188Z'}
-          txHash={'0xe079d59dbf813d2541a345ef4786cc44a8a'}
-          counterPartyName={'Stream #14'}
-          counterPartyAddress={'0x232b5483e5a5cd22188482'}
-          amount={153480}
-        />
-        <Transaction
-          name={'DSS Blow'}
-          date={'2023-03-28T17:32:05.188Z'}
-          toDate={null}
-          txHash={'0xe079d59dbf813d2541a345ef4786cc44a8a'}
-          counterPartyName={'Auditor Wallet'}
-          counterPartyAddress={'0x232b5483e5a5cd22188482'}
-          amount={-1153480}
-        />
-        <Transaction
-          isIncomingTransaction={false}
-          name={'Direct Transaction'}
-          date={'2023-03-28T09:45:05.188Z'}
-          toDate={null}
-          txHash={'0xe079d59dbf813d2541a345ef4786cc44a8a'}
-          counterPartyName={'Auditor Wallet'}
-          counterPartyAddress={'0x232b5483e5a5cd22188482'}
-          amount={153480}
-        />
+        {transactions?.map((transaction) => (
+          <Transaction
+            key={transaction.id}
+            name={'Unknown'}
+            date={transaction.timestamp}
+            toDate={null}
+            txHash={transaction.tx_hash}
+            counterPartyName={'Unknown'}
+            counterPartyAddress={transaction.counterParty}
+            amount={transaction.amount}
+          />
+        ))}
+        {/* just kept for development/mock purposes */}
+        {showGroup && (
+          <>
+            <GroupItem />
+            <Transaction
+              name={'DSS Blow'}
+              date={'2023-04-17T11:36:05.188Z'}
+              toDate={null}
+              txHash={'0xe079d59dbf813d2541a345ef4786cc44a8a'}
+              counterPartyName={'Auditor Wallet'}
+              counterPartyAddress={'0x232b5483e5a5cd22188482'}
+              amount={-1153480}
+            />
+            <Transaction
+              isIncomingTransaction={false}
+              name={'DSS Vest'}
+              date={'2023-04-15T11:36:05.188Z'}
+              toDate={'2023-05-15T11:36:05.188Z'}
+              txHash={'0xe079d59dbf813d2541a345ef4786cc44a8a'}
+              counterPartyName={'Stream #14'}
+              counterPartyAddress={'0x232b5483e5a5cd22188482'}
+              amount={153480}
+            />
+            <Transaction
+              name={'DSS Blow'}
+              date={'2023-03-28T17:32:05.188Z'}
+              toDate={null}
+              txHash={'0xe079d59dbf813d2541a345ef4786cc44a8a'}
+              counterPartyName={'Auditor Wallet'}
+              counterPartyAddress={'0x232b5483e5a5cd22188482'}
+              amount={-1153480}
+            />
+            <Transaction
+              isIncomingTransaction={false}
+              name={'Direct Transaction'}
+              date={'2023-03-28T09:45:05.188Z'}
+              toDate={null}
+              txHash={'0xe079d59dbf813d2541a345ef4786cc44a8a'}
+              counterPartyName={'Auditor Wallet'}
+              counterPartyAddress={'0x232b5483e5a5cd22188482'}
+              amount={153480}
+            />
+          </>
+        )}
       </TransactionCard>
     </TransactionListContainer>
   );

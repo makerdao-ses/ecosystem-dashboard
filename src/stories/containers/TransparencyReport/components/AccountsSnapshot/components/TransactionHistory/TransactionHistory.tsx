@@ -9,14 +9,16 @@ import AccordionArrow from '../AccordionArrow/AccordionArrow';
 import TransactionList from '../TransactionList/TransactionList';
 import type { AccordionProps } from '@mui/material/Accordion';
 import type { AccordionSummaryProps } from '@mui/material/AccordionSummary';
+import type { SnapshotAccountTransaction } from '@ses/core/models/dto/snapshotAccountDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface TransactionHistoryProps {
+  transactionHistory: SnapshotAccountTransaction[];
   // Only used for storybook
   defaultExpanded?: boolean;
 }
 
-const TransactionHistory: React.FC<TransactionHistoryProps> = ({ defaultExpanded = false }) => {
+const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transactionHistory, defaultExpanded = false }) => {
   const { isLight } = useThemeContext();
   const [expanded, setExpanded] = useState<boolean>(defaultExpanded);
 
@@ -25,7 +27,7 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({ defaultExpanded
       <Accordion expanded={expanded} onChange={() => setExpanded(!expanded)}>
         <AccordionSummary isLight={isLight}>View Transaction History</AccordionSummary>
         <AccordionDetails>
-          <TransactionList />
+          <TransactionList transactions={transactionHistory} />
         </AccordionDetails>
       </Accordion>
     </TransactionHistoryContainer>
