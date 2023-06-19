@@ -33,6 +33,8 @@ const Transaction: React.FC<TransactionProps> = ({
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
 
+  isIncomingTransaction = amount > 0;
+
   return isMobile ? (
     <MobileTransaction
       isIncomingTransaction={isIncomingTransaction}

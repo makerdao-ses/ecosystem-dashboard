@@ -1,3 +1,4 @@
+import { SnapshotAccountTransactionBuilder } from '@ses/core/businessLogic/builders/accountSnapshot/snapshotAccountTransactionBuilder';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import FundingOverview from './FundingOverview';
 import type { ComponentMeta } from '@storybook/react';
@@ -6,6 +7,11 @@ import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types
 export default {
   title: 'Components/CUTransparencyReport/Accounts Snapshot/Funding Overview',
   component: FundingOverview,
+  parameters: {
+    chromatic: {
+      viewports: [375, 834, 1194, 1280, 1440],
+    },
+  },
 } as ComponentMeta<typeof FundingOverview>;
 
 const CommonArgs = {
@@ -25,6 +31,32 @@ const variantsArgs = [
   },
   {
     ...CommonArgs,
+    transactionHistory: [
+      new SnapshotAccountTransactionBuilder()
+        .withTimestamp('2023-04-17T11:36:05.188Z')
+        .withTxHash('0xe079d59dbf813d2541a345ef4786cc44a8a')
+        .withCounterParty('0x232b5483e5a5cd22188482')
+        .withAmount(-1153480)
+        .build(),
+      new SnapshotAccountTransactionBuilder()
+        .withTimestamp('2023-04-15T11:36:05.188Z')
+        .withTxHash('0xe079d59dbf813d2541a345ef4786cc44a8a')
+        .withCounterParty('0x232b5483e5a5cd22188482')
+        .withAmount(153480)
+        .build(),
+      new SnapshotAccountTransactionBuilder()
+        .withTimestamp('2023-03-28T17:32:05.188Z')
+        .withTxHash('0xe079d59dbf813d2541a345ef4786cc44a8a')
+        .withCounterParty('0x232b5483e5a5cd22188482')
+        .withAmount(-1153480)
+        .build(),
+      new SnapshotAccountTransactionBuilder()
+        .withTimestamp('2023-03-28T09:45:05.188Z')
+        .withTxHash('0xe079d59dbf813d2541a345ef4786cc44a8a')
+        .withCounterParty('0x232b5483e5a5cd22188482')
+        .withAmount(153480)
+        .build(),
+    ],
     defaultExpanded: true,
   },
 ];

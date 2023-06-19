@@ -91,6 +91,10 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
   if (!mainAccount) throw new Error('Maker Protocol Wallet not found');
   const mainBalance = mainAccount.snapshotAccountBalance.find((balance) => balance.token === selectedToken);
 
+  const transactionHistory = mainAccount.snapshotAccountTransaction.filter(
+    (transaction) => transaction.token === selectedToken
+  );
+
   // cu reserves balance
   const cuReservesAccount = snapshot.snapshotAccount.find(
     (account) => account.groupAccountId === null && account.upstreamAccountId === mainAccount.id
@@ -130,6 +134,7 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
     startDate,
     endDate,
     mainBalance,
+    transactionHistory,
     cuReservesBalance,
     onChainAccounts,
   };

@@ -19,13 +19,20 @@ const AccountsSnapshot: React.FC<AccountsSnapshotProps> = ({ snapshot, snapshotO
     startDate,
     endDate,
     mainBalance,
+    transactionHistory,
     cuReservesBalance,
     onChainAccounts,
   } = useAccountsSnapshot(snapshot);
 
   return (
     <Wrapper>
-      <FundingOverview snapshotOwner={snapshotOwner} startDate={startDate} endDate={endDate} balance={mainBalance} />
+      <FundingOverview
+        snapshotOwner={snapshotOwner}
+        startDate={startDate}
+        endDate={endDate}
+        balance={mainBalance}
+        transactionHistory={transactionHistory}
+      />
       <CUReserves
         snapshotOwner={snapshotOwner}
         includeOffChain={includeOffChain}

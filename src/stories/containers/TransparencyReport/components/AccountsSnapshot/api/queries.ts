@@ -101,7 +101,7 @@ const getCoreUnitShortCode = async (ownerId: string): Promise<string> => {
   if (res?.coreUnits?.[0]?.shortCode) {
     return res.coreUnits[0].shortCode;
   }
-  return 'UNKNOWN';
+  return '';
 };
 
 const getTeamsShortCode = async (ownerId: string): Promise<string> => {
@@ -110,7 +110,7 @@ const getTeamsShortCode = async (ownerId: string): Promise<string> => {
   if (res?.teams?.[0]?.shortCode) {
     return res.teams[0].shortCode;
   }
-  return 'UNKNOWN';
+  return '';
 };
 
 export const generateSnapshotOwnerString = async (ownerType: string, ownerId: string): Promise<string> => {

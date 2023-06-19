@@ -7,13 +7,14 @@ import SimpleStatCard from '../Cards/SimpleStatCard';
 import CurrencyPicker from '../CurrencyPicker/CurrencyPicker';
 import SectionHeader from '../SectionHeader/SectionHeader';
 import TransactionHistory from '../TransactionHistory/TransactionHistory';
-import type { SnapshotAccountBalance } from '@ses/core/models/dto/snapshotAccountDTO';
+import type { SnapshotAccountBalance, SnapshotAccountTransaction } from '@ses/core/models/dto/snapshotAccountDTO';
 
 interface FundingOverviewProps {
   snapshotOwner: string;
   startDate?: string;
   endDate?: string;
   balance?: SnapshotAccountBalance;
+  transactionHistory: SnapshotAccountTransaction[];
 
   // Only used for storybook
   defaultExpanded?: boolean;
@@ -24,6 +25,7 @@ const FundingOverview: React.FC<FundingOverviewProps> = ({
   startDate,
   endDate,
   balance,
+  transactionHistory,
   defaultExpanded = false,
 }) => (
   <div>
@@ -56,7 +58,7 @@ const FundingOverview: React.FC<FundingOverviewProps> = ({
       />
     </CardsContainer>
 
-    <TransactionHistory defaultExpanded={defaultExpanded} />
+    <TransactionHistory transactionHistory={transactionHistory} defaultExpanded={defaultExpanded} />
   </div>
 );
 
