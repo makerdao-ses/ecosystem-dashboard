@@ -11,7 +11,7 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface SimpleStatCardProps {
   date?: string;
-  value: number;
+  value?: number;
   caption: string;
   hasEqualSign?: boolean;
   isReserves?: boolean;
@@ -41,7 +41,13 @@ const SimpleStatCard: React.FC<SimpleStatCardProps> = ({
         )}
         <Wrapper>
           <Value isLight={isLight}>
-            {usLocalizedNumber(Math.round(value))} <span>DAI</span>
+            {value !== undefined ? (
+              <>
+                {usLocalizedNumber(Math.round(value))} <span>DAI</span>
+              </>
+            ) : (
+              'N/A'
+            )}
           </Value>
           <Caption isLight={isLight} position={hasEqualSign ? 'right' : 'left'} isReserves={isReserves}>
             {caption}

@@ -3,14 +3,7 @@ import { useState } from 'react';
 import ExpensesComparisonRowCard from './components/Cards/ExpensesComparisonRowCard/ExpensesComparisonRowCard';
 import { EXPENSES_COMPARISON_TABLE_HEADER } from './components/ExpensesComparison/ExpensesComparison';
 import type { CardRenderProps, RowProps } from '@ses/components/AdvanceTable/types';
-import type { SnapshotAccountBalance, Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';
-
-const EMPTY_BALANCE = {
-  inflow: 0,
-  outflow: 0,
-  initialBalance: 0,
-  newBalance: 0,
-} as SnapshotAccountBalance;
+import type { SnapshotAccount, Snapshots, Token } from '@ses/core/models/dto/snapshotAccountDTO';
 
 const RenderCurrentMonthRow: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { isLight } = useThemeContext();
@@ -82,6 +75,10 @@ export const buildRow = (
 const useAccountsSnapshot = (snapshot: Snapshots) => {
   const { isLight } = useThemeContext();
 
+  // TODO: the `setSelectedTo` is not used yet, but it will be used to filter the data
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [selectedToken, setSelectedToken] = useState<Token>('DAI');
+
   const [includeOffChain, setIncludeOffChain] = useState<boolean>(false);
   const toggleIncludeOffChain = () => setIncludeOffChain(!includeOffChain);
 
@@ -91,25 +88,31 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
   const mainAccount = snapshot.snapshotAccount.find(
     (account) => account.groupAccountId === null && account.upstreamAccountId === null
   );
-
   if (!mainAccount) throw new Error('Maker Protocol Wallet not found');
-
-  // the balance is for now the last entry
-  const mainBalance =
-    mainAccount.snapshotAccountBalance.length > 0
-      ? mainAccount.snapshotAccountBalance[mainAccount.snapshotAccountBalance.length - 1]
-      : EMPTY_BALANCE;
+  const mainBalance = mainAccount.snapshotAccountBalance.find((balance) => balance.token === selectedToken);
 
   // cu reserves balance
   const cuReservesAccount = snapshot.snapshotAccount.find(
     (account) => account.groupAccountId === null && account.upstreamAccountId === mainAccount.id
   );
+  const cuReservesBalance = cuReservesAccount?.snapshotAccountBalance?.find(
+    (balance) => balance.token === selectedToken
+  );
 
-  const cuReservesBalance =
-    (cuReservesAccount?.snapshotAccountBalance?.length ?? 0) > 0
-      ? cuReservesAccount?.snapshotAccountBalance?.[cuReservesAccount?.snapshotAccountBalance?.length - 1] ??
-        EMPTY_BALANCE
-      : EMPTY_BALANCE;
+  // on chain
+  const onChainAccount = snapshot.snapshotAccount.filter(
+    (account) => account.groupAccountId === cuReservesAccount?.id && account.upstreamAccountId === mainAccount.id
+  )?.[0];
+
+  const onChainAccounts = snapshot.snapshotAccount
+    .filter((account) => account.groupAccountId === onChainAccount?.id)
+    .map(
+      (account) =>
+        ({
+          ...account,
+          snapshotAccountBalance: account.snapshotAccountBalance.filter((balance) => balance.token === selectedToken),
+        } as SnapshotAccount)
+    );
 
   // mocked data for the "Reported Expenses Comparison" table
   const expensesComparisonRows = [
@@ -128,6 +131,7 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
     endDate,
     mainBalance,
     cuReservesBalance,
+    onChainAccounts,
   };
 };
 

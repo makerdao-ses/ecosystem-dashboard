@@ -54,6 +54,7 @@ const Container = styled.div({
 const BlockiesContainer = styled.div({
   width: 32,
   height: 32,
+  minWidth: 32,
   borderRadius: '50%',
   marginRight: 16,
   marginTop: 2,
@@ -89,6 +90,7 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
 const InfoIcon = styled(Information)<WithIsLight>(({ isLight }) => ({
   fill: isLight ? '#D1DEE6' : '#7C6B95',
   marginTop: 1,
+  minWidth: 15,
 }));
 
 const AddressContainer = styled.div({
