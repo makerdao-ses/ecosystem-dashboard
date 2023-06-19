@@ -383,10 +383,11 @@ const ExtendedCustomPopover = styled(CustomPopover)<{ hasSpacePositionArrow?: bo
 interface Props {
   name: string;
   handleOpenModal?: () => void;
+  className?: string;
 }
 
-export const OpenModalTransparency: React.FC<Props> = ({ name, handleOpenModal }) => (
-  <CategoryRowInsideColumn>
+export const OpenModalTransparency: React.FC<Props> = ({ name, handleOpenModal, className }) => (
+  <CategoryRowInsideColumn className={className}>
     {name}
     <IconOpenModal onClick={handleOpenModal} />
   </CategoryRowInsideColumn>
