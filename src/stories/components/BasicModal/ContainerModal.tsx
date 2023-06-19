@@ -47,7 +47,7 @@ const ContainerModal: React.FC<Props> = ({
         </ContainerDescription>
       </Header>
       <ContainerScroll>
-        <SimpleBarStyled>
+        <SimpleBarStyled scrollbarMaxSize={64}>
           <InsideModal>
             <HeadCount isLight={isLight}>Headcount Expense Categories</HeadCount>
             <Line isLight={isLight} />
@@ -346,7 +346,6 @@ const SimpleBarStyled = styled(SimpleBar)({
   height: '100%',
   '.simplebar-scrollbar::before': {
     width: 4,
-    height: 64,
     marginLeft: 4,
     background: '#1aab9b',
     borderRadius: 20,
