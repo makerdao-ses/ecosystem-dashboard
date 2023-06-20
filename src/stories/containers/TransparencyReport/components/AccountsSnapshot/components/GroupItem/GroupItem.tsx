@@ -6,20 +6,39 @@ import React from 'react';
 import GreenArrowDown from '../SVG/GreenArrowDown';
 import RedArrowUp from '../SVG/RedArrowUp';
 import WalletInfo from '../WalletInfo/WalletInfo';
+import type { Token } from '@ses/core/models/dto/snapshotAccountDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-const GroupItem: React.FC = () => {
+interface GroupItemProps {
+  name: string;
+  address: string;
+  initialBalance: number;
+  inflow: number;
+  outflow: number;
+  newBalance: number;
+  currency: Token;
+}
+
+const GroupItem: React.FC<GroupItemProps> = ({
+  name,
+  address,
+  initialBalance,
+  inflow,
+  outflow,
+  newBalance,
+  currency,
+}) => {
   const { isLight } = useThemeContext();
 
   return (
     <GroupItemContainer isLight={isLight}>
       <WalletContainer>
-        <WalletInfo name={'Stream #13'} address={'0x232b54886a238482'} />
+        <WalletInfo name={name} address={address} />
       </WalletContainer>
       <InitialBalance>
         <Label isLight={isLight}>Initial Balance</Label>
         <Value isLight={isLight}>
-          {usLocalizedNumber(153480)} <Currency isLight={isLight}>DAI</Currency>
+          {usLocalizedNumber(initialBalance)} <Currency isLight={isLight}>{currency}</Currency>
         </Value>
       </InitialBalance>
       <Inflow>
@@ -30,7 +49,7 @@ const GroupItem: React.FC = () => {
           <GreenArrowDown width={16} height={16} />
           <Value isLight={isLight}>
             <Sign>{'+'}</Sign>
-            {usLocalizedNumber(150000)} <Currency isLight={isLight}>DAI</Currency>
+            {usLocalizedNumber(inflow)} <Currency isLight={isLight}>{currency}</Currency>
           </Value>
         </ValueContainer>
       </Inflow>
@@ -43,14 +62,14 @@ const GroupItem: React.FC = () => {
           <RedArrowUp width={16} height={16} />
           <Value isLight={isLight}>
             <Sign>{'-'}</Sign>
-            {usLocalizedNumber(300000)} <Currency isLight={isLight}>DAI</Currency>
+            {usLocalizedNumber(Math.abs(outflow))} <Currency isLight={isLight}>{currency}</Currency>
           </Value>
         </ValueContainer>
       </Outflow>
       <NewBalance>
         <Label isLight={isLight}>New Balance</Label>
         <Value isLight={isLight}>
-          <span>{usLocalizedNumber(100000)}</span> <Currency isLight={isLight}>DAI</Currency>
+          <span>{usLocalizedNumber(Math.abs(newBalance))}</span> <Currency isLight={isLight}>{currency}</Currency>
         </Value>
       </NewBalance>
     </GroupItemContainer>
@@ -79,6 +98,10 @@ const GroupItemContainer = styled.div<WithIsLight>(({ isLight }) => ({
 
     '&:hover': {
       background: isLight ? '#F6F8F9' : '#1F2931',
+    },
+
+    '&:not(:first-of-type)': {
+      borderTop: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
     },
   },
 

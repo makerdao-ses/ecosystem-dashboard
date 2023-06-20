@@ -2,77 +2,52 @@ import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import { isSnapshotAccount } from '../../utils/typesHelpers';
 import GroupItem from '../GroupItem/GroupItem';
+import InitialBalanceRow from '../Transaction/InitialBalanceRow';
 import Transaction from '../Transaction/Transaction';
-import type { SnapshotAccountTransaction } from '@ses/core/models/dto/snapshotAccountDTO';
+import type { SnapshotAccount, SnapshotAccountTransaction } from '@ses/core/models/dto/snapshotAccountDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
-
 interface TransactionListProps {
-  transactions?: SnapshotAccountTransaction[];
-  showGroup?: boolean;
+  items?: (SnapshotAccountTransaction | SnapshotAccount)[];
 }
 
-const TransactionList: React.FC<TransactionListProps> = ({ transactions, showGroup = false }) => {
+const TransactionList: React.FC<TransactionListProps> = ({ items }) => {
   const { isLight } = useThemeContext();
+  const renderTransaction = (transaction: SnapshotAccountTransaction) => (
+    <Transaction
+      key={transaction.id}
+      name={'Unknown'}
+      date={transaction.timestamp}
+      toDate={null}
+      txHash={transaction.tx_hash}
+      counterPartyName={'Unknown'}
+      counterPartyAddress={transaction.counterParty}
+      amount={transaction.amount}
+    />
+  );
 
   return (
     <TransactionListContainer isLight={isLight}>
       <TransactionCard isLight={isLight}>
-        {transactions?.map((transaction) => (
-          <Transaction
-            key={transaction.id}
-            name={'Unknown'}
-            date={transaction.timestamp}
-            toDate={null}
-            txHash={transaction.tx_hash}
-            counterPartyName={'Unknown'}
-            counterPartyAddress={transaction.counterParty}
-            amount={transaction.amount}
-          />
-        ))}
-        {/* just kept for development/mock purposes */}
-        {showGroup && (
-          <>
-            <GroupItem />
-            <Transaction
-              name={'DSS Blow'}
-              date={'2023-04-17T11:36:05.188Z'}
-              toDate={null}
-              txHash={'0xe079d59dbf813d2541a345ef4786cc44a8a'}
-              counterPartyName={'Auditor Wallet'}
-              counterPartyAddress={'0x232b5483e5a5cd22188482'}
-              amount={-1153480}
-            />
-            <Transaction
-              isIncomingTransaction={false}
-              name={'DSS Vest'}
-              date={'2023-04-15T11:36:05.188Z'}
-              toDate={'2023-05-15T11:36:05.188Z'}
-              txHash={'0xe079d59dbf813d2541a345ef4786cc44a8a'}
-              counterPartyName={'Stream #14'}
-              counterPartyAddress={'0x232b5483e5a5cd22188482'}
-              amount={153480}
-            />
-            <Transaction
-              name={'DSS Blow'}
-              date={'2023-03-28T17:32:05.188Z'}
-              toDate={null}
-              txHash={'0xe079d59dbf813d2541a345ef4786cc44a8a'}
-              counterPartyName={'Auditor Wallet'}
-              counterPartyAddress={'0x232b5483e5a5cd22188482'}
-              amount={-1153480}
-            />
-            <Transaction
-              isIncomingTransaction={false}
-              name={'Direct Transaction'}
-              date={'2023-03-28T09:45:05.188Z'}
-              toDate={null}
-              txHash={'0xe079d59dbf813d2541a345ef4786cc44a8a'}
-              counterPartyName={'Auditor Wallet'}
-              counterPartyAddress={'0x232b5483e5a5cd22188482'}
-              amount={153480}
-            />
-          </>
+        {items?.map((item: SnapshotAccountTransaction | SnapshotAccount) =>
+          isSnapshotAccount(item) ? (
+            <GroupContainer key={item.id}>
+              <GroupItem
+                name={item.accountLabel}
+                address={item.accountAddress}
+                initialBalance={item.snapshotAccountBalance?.[0]?.initialBalance}
+                inflow={item.snapshotAccountBalance?.[0]?.inflow}
+                outflow={item.snapshotAccountBalance?.[0]?.outflow}
+                newBalance={item.snapshotAccountBalance?.[0]?.newBalance}
+                currency={item.snapshotAccountBalance?.[0]?.token}
+              />
+              {item.snapshotAccountTransaction.map((transaction) => renderTransaction(transaction))}
+              <InitialBalanceRow initialBalance={item.snapshotAccountBalance?.[0]?.initialBalance} />
+            </GroupContainer>
+          ) : (
+            renderTransaction(item)
+          )
         )}
       </TransactionCard>
     </TransactionListContainer>
@@ -134,3 +109,13 @@ const TransactionCard = styled.div<WithIsLight>(({ isLight }) => ({
     gap: 0,
   },
 }));
+
+const GroupContainer = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    gap: 0,
+  },
+});

@@ -21,7 +21,7 @@ const variantsArgs = [
       .withInflow(305000)
       .withOutflow(-538320)
       .build(),
-    accounts: [
+    onChainData: [
       new SnapshotAccountBuilder()
         .withId('1')
         .withAccountLabel('DSS Vest')

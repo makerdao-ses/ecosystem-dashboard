@@ -10,7 +10,7 @@ import TransactionHistory from '../TransactionHistory/TransactionHistory';
 import type { SnapshotAccountBalance, SnapshotAccountTransaction } from '@ses/core/models/dto/snapshotAccountDTO';
 
 interface FundingOverviewProps {
-  snapshotOwner: string;
+  snapshotOwner?: string;
   startDate?: string;
   endDate?: string;
   balance?: SnapshotAccountBalance;
@@ -32,9 +32,9 @@ const FundingOverview: React.FC<FundingOverviewProps> = ({
     <HeaderContainer>
       <SectionHeader
         title="MakerDAO Funding Overview"
-        subtitle={`Totals funds made available to the ${snapshotOwner} over its entire lifetime${
-          startDate ? `, since ${DateTime.fromISO(startDate).toFormat('LLLL yyyy')}` : ''
-        }.`}
+        subtitle={`Totals funds made available ${
+          snapshotOwner ? `to the ${snapshotOwner}` : ''
+        } over its entire lifetime${startDate ? `, since ${DateTime.fromISO(startDate).toFormat('LLLL yyyy')}` : ''}.`}
         tooltip={'pending...'}
       />
       <CurrencyPicker />
