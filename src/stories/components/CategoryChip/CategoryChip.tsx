@@ -59,8 +59,19 @@ const colors: { [id: string]: any } = {
     colorDark: '#34AAFF',
     backgroundDark: '#4992ff26',
   },
-  // TODO: Add correct color when it's ready
   Legal: {
+    color: '#5D48FF',
+    background: '#F7F5FF',
+    colorDark: '#5D48FF',
+    backgroundDark: '#54697826',
+  },
+  ScopeFacilitator: {
+    color: '#FF78F2',
+    background: '#F7F5FF',
+    colorDark: '#FF78F2',
+    backgroundDark: '#54697826',
+  },
+  Default: {
     color: '#546978',
     background: 'rgba(246, 245, 255, 0.5)',
     colorDark: '#546978',
@@ -70,6 +81,19 @@ const colors: { [id: string]: any } = {
 
 export const CategoryChip = (props: StatusChipProps) => {
   const { isLight } = useThemeContext();
+  if (!colors[props.category]) {
+    <Chip
+      style={{
+        color: isLight ? colors.Default.color : colors.Default.colorDark,
+        borderColor: isLight ? colors.Default.color : colors.Default.colorDark,
+        background: isLight ? colors.Default.background : colors.Default.backgroundDark,
+        ...props.style,
+      }}
+    >
+      {props.category}
+    </Chip>;
+  }
+
   return (
     <Chip
       style={{
