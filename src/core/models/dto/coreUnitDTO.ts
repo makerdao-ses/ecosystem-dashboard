@@ -140,6 +140,11 @@ export interface ActivityFeedDto {
       code: string;
       shortCode: string;
     };
+    owner: {
+      code: string;
+      shortCode: string;
+      type: string;
+    };
     month: string;
     budgetStatementId: number;
   };

@@ -236,7 +236,6 @@ export const getActualsBreakdownItemsForWallet = (
         breakdownColumns,
         'category'
       );
-      console.log('items', items);
       groupItemsCount += items.length;
       result.push(...items);
 

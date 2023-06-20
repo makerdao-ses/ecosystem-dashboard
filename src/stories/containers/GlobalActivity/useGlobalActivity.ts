@@ -84,7 +84,7 @@ export const useGlobalActivity = (coreUnits: CoreUnitDto[], activityFeed: Activi
             (activity) =>
               ({
                 activityFeed: activity,
-                coreUnit: coreUnitsMap.get(activity.params.coreUnit?.shortCode),
+                coreUnit: coreUnitsMap.get(activity.params.coreUnit?.shortCode || activity.params.owner?.shortCode),
               } as Activity)
           )
           .filter(

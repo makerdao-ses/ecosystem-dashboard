@@ -39,7 +39,9 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
       url = `${siteRoutes.recognizedDelegateReport}?viewMonth=${month}`;
     } else {
       // it is a core unit
-      url = `${siteRoutes.coreUnitReports(activity.activityFeed.params.coreUnit?.shortCode)}?viewMonth=${month}`;
+      url = `${siteRoutes.coreUnitReports(
+        activity.activityFeed.params.coreUnit?.shortCode || activity.activityFeed.params.owner.shortCode
+      )}?viewMonth=${month}`;
     }
 
     if (goToComments) {
@@ -57,11 +59,18 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
     <Link href={detailsUrl} passHref>
       <ActivityItem isLight={isLight} isGlobal={isGlobal}>
         <FlexWrapper isGlobal={isGlobal}>
-          {activity.coreUnit ? (
+          {activity.coreUnit || activity.activityFeed.params.owner ? (
             <CoreUnit isGlobal={isGlobal}>
-              <CircleAvatar width="32px" height="32px" image={activity.coreUnit.image} name={activity.coreUnit.name} />
-              <CoreUnitCode isLight={isLight}>{activity.coreUnit.shortCode}</CoreUnitCode>
-              <CoreUnitName isLight={isLight}>{activity.coreUnit.name}</CoreUnitName>
+              <CircleAvatar
+                width="32px"
+                height="32px"
+                image={activity?.coreUnit?.image}
+                name={activity?.coreUnit?.name || activity.activityFeed.params?.owner.shortCode}
+              />
+              <CoreUnitCode isLight={isLight}>
+                {activity?.coreUnit?.shortCode || activity.activityFeed.params?.owner?.shortCode}
+              </CoreUnitCode>
+              <CoreUnitName isLight={isLight}>{activity?.coreUnit?.name}</CoreUnitName>
             </CoreUnit>
           ) : (
             isDelegate && (
