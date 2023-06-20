@@ -1,4 +1,5 @@
 import type {
+  AccountType,
   SnapshotAccount,
   SnapshotAccountBalance,
   SnapshotAccountTransaction,
@@ -11,7 +12,7 @@ export class SnapshotAccountBuilder {
     this._snapshotAccount = {
       id: '',
       accountLabel: '',
-      accountType: '',
+      accountType: 'singular',
       accountAddress: '',
       groupAccountId: '',
       upstreamAccountId: '',
@@ -30,7 +31,7 @@ export class SnapshotAccountBuilder {
     return this;
   }
 
-  withAccountType(accountType: string): SnapshotAccountBuilder {
+  withAccountType(accountType: AccountType): SnapshotAccountBuilder {
     this._snapshotAccount.accountType = accountType;
     return this;
   }
