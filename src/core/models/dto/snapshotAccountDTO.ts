@@ -1,5 +1,7 @@
 export type Token = 'DAI' | 'ETH' | 'MKR';
 
+export type AccountType = 'singular' | 'group';
+
 export interface SnapshotFilter {
   id?: string;
   start?: string;
@@ -30,7 +32,7 @@ export interface SnapshotAccountBalance {
 export interface SnapshotAccount {
   id: string;
   accountLabel: string;
-  accountType: string;
+  accountType: AccountType;
   accountAddress: string;
   groupAccountId: string;
   upstreamAccountId: string;
@@ -45,4 +47,8 @@ export interface Snapshots {
   ownerType: string;
   ownerId: string;
   snapshotAccount: SnapshotAccount[];
+}
+
+export interface UIReservesData extends SnapshotAccount {
+  groups?: SnapshotAccount[];
 }

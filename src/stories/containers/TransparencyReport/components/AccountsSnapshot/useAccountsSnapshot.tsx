@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ExpensesComparisonRowCard from './components/Cards/ExpensesComparisonRowCard/ExpensesComparisonRowCard';
 import { EXPENSES_COMPARISON_TABLE_HEADER } from './components/ExpensesComparison/ExpensesComparison';
 import type { CardRenderProps, RowProps } from '@ses/components/AdvanceTable/types';
-import type { SnapshotAccount, Snapshots, Token } from '@ses/core/models/dto/snapshotAccountDTO';
+import type { Snapshots, Token, UIReservesData } from '@ses/core/models/dto/snapshotAccountDTO';
 
 const RenderCurrentMonthRow: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { isLight } = useThemeContext();
@@ -91,9 +91,9 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
   if (!mainAccount) throw new Error('Maker Protocol Wallet not found');
   const mainBalance = mainAccount.snapshotAccountBalance.find((balance) => balance.token === selectedToken);
 
-  const transactionHistory = mainAccount.snapshotAccountTransaction.filter(
-    (transaction) => transaction.token === selectedToken
-  );
+  const transactionHistory = mainAccount.snapshotAccountTransaction
+    .filter((transaction) => transaction.token === selectedToken)
+    .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
 
   // cu reserves balance
   const cuReservesAccount = snapshot.snapshotAccount.find(
@@ -108,14 +108,28 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
     (account) => account.groupAccountId === cuReservesAccount?.id && account.upstreamAccountId === mainAccount.id
   )?.[0];
 
-  const onChainAccounts = snapshot.snapshotAccount
+  const onChainData = snapshot.snapshotAccount
     .filter((account) => account.groupAccountId === onChainAccount?.id)
     .map(
       (account) =>
         ({
           ...account,
           snapshotAccountBalance: account.snapshotAccountBalance.filter((balance) => balance.token === selectedToken),
-        } as SnapshotAccount)
+          snapshotAccountTransaction: account.snapshotAccountTransaction
+            .filter((transaction) => transaction.token === selectedToken)
+            .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()),
+          groups: snapshot.snapshotAccount
+            .filter((childrenAccount) => childrenAccount.groupAccountId === account.id)
+            .map((childrenAccount) => ({
+              ...childrenAccount,
+              snapshotAccountBalance: childrenAccount.snapshotAccountBalance.filter(
+                (balance) => balance.token === selectedToken
+              ),
+              snapshotAccountTransaction: childrenAccount.snapshotAccountTransaction
+                .filter((transaction) => transaction.token === selectedToken)
+                .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()),
+            })),
+        } as UIReservesData)
     );
 
   // mocked data for the "Reported Expenses Comparison" table
@@ -136,7 +150,7 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
     mainBalance,
     transactionHistory,
     cuReservesBalance,
-    onChainAccounts,
+    onChainData,
   };
 };
 

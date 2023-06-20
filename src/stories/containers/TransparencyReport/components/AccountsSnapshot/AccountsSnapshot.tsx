@@ -8,7 +8,7 @@ import type { Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';
 
 interface AccountsSnapshotProps {
   snapshot: Snapshots;
-  snapshotOwner: string;
+  snapshotOwner?: string;
 }
 
 const AccountsSnapshot: React.FC<AccountsSnapshotProps> = ({ snapshot, snapshotOwner }) => {
@@ -21,7 +21,7 @@ const AccountsSnapshot: React.FC<AccountsSnapshotProps> = ({ snapshot, snapshotO
     mainBalance,
     transactionHistory,
     cuReservesBalance,
-    onChainAccounts,
+    onChainData,
   } = useAccountsSnapshot(snapshot);
 
   return (
@@ -40,7 +40,7 @@ const AccountsSnapshot: React.FC<AccountsSnapshotProps> = ({ snapshot, snapshotO
         startDate={startDate}
         endDate={endDate}
         balance={cuReservesBalance}
-        accounts={onChainAccounts}
+        onChainData={onChainData}
       />
       <ExpensesComparison rows={expensesComparisonRows} />
     </Wrapper>

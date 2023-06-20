@@ -113,7 +113,7 @@ const getTeamsShortCode = async (ownerId: string): Promise<string> => {
   return '';
 };
 
-export const generateSnapshotOwnerString = async (ownerType: string, ownerId: string): Promise<string> => {
+export const generateSnapshotOwnerString = async (ownerType: string, ownerId: string): Promise<string | undefined> => {
   try {
     switch (ownerType) {
       case 'CoreUnitDraft': {
@@ -126,11 +126,6 @@ export const generateSnapshotOwnerString = async (ownerType: string, ownerId: st
         const shortCode = await getTeamsShortCode(ownerId);
         return `${shortCode} Ecosystem Actor`;
       }
-      default:
-        // TODO: add the correct phrase
-        return `<<PENDING: ${ownerType}, ${ownerId}>>`;
     }
-  } catch (error) {
-    return ownerType;
-  }
+  } catch (error) {}
 };

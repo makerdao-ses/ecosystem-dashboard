@@ -7,17 +7,17 @@ import FundChangeCard from '../Cards/FundChangeCard';
 import ReserveCard from '../Cards/ReserveCard';
 import SimpleStatCard from '../Cards/SimpleStatCard';
 import SectionHeader from '../SectionHeader/SectionHeader';
-import type { SnapshotAccount, SnapshotAccountBalance } from '@ses/core/models/dto/snapshotAccountDTO';
+import type { SnapshotAccountBalance, UIReservesData } from '@ses/core/models/dto/snapshotAccountDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface CUReservesProps {
-  snapshotOwner: string;
+  snapshotOwner?: string;
   includeOffChain: boolean;
   toggleIncludeOffChain: () => void;
   startDate?: string;
   endDate?: string;
   balance?: SnapshotAccountBalance;
-  accounts?: SnapshotAccount[];
+  onChainData?: UIReservesData[];
 }
 
 const CUReserves: React.FC<CUReservesProps> = ({
@@ -27,7 +27,7 @@ const CUReserves: React.FC<CUReservesProps> = ({
   startDate,
   endDate,
   balance,
-  accounts,
+  onChainData,
 }) => {
   const { isLight } = useThemeContext();
 
@@ -36,7 +36,7 @@ const CUReserves: React.FC<CUReservesProps> = ({
       <HeaderContainer>
         <SectionHeader
           title="Total Core Unit Reserves"
-          subtitle={`On-chain and off-chain reserves accessible to the ${snapshotOwner}.`}
+          subtitle={`On-chain and off-chain reserves accessible${snapshotOwner ? ` to the ${snapshotOwner}` : ''}.`}
           tooltip={'pending...'}
         />
         <CheckContainer isLight={isLight}>
@@ -66,27 +66,14 @@ const CUReserves: React.FC<CUReservesProps> = ({
       <OnChainSubsection>
         <SectionHeader
           title="On Chain Reserves"
-          subtitle={`Unspent on-chain reserves to the ${snapshotOwner}.`}
+          subtitle={`Unspent on-chain reserves${snapshotOwner ? ` to the ${snapshotOwner}` : ''}.`}
           tooltip={'pending...'}
           isSubsection
         />
 
         <ReservesCardsContainer>
-          {accounts?.map((account) => (
-            <ReserveCard
-              key={account.id}
-              name={account.accountLabel}
-              isGroup={account.accountType !== 'singular'}
-              address={account.accountAddress}
-              initialBalance={account.snapshotAccountBalance?.[0]?.initialBalance}
-              inflow={account.snapshotAccountBalance?.[0]?.inflow}
-              outflow={
-                account.snapshotAccountBalance?.[0]?.outflow
-                  ? account.snapshotAccountBalance?.[0]?.outflow * -1
-                  : account.snapshotAccountBalance?.[0]?.outflow
-              }
-              newBalance={account.snapshotAccountBalance?.[0]?.newBalance}
-            />
+          {onChainData?.map((account) => (
+            <ReserveCard key={account.id} account={account} />
           ))}
         </ReservesCardsContainer>
       </OnChainSubsection>
@@ -94,29 +81,47 @@ const CUReserves: React.FC<CUReservesProps> = ({
       <OffChainSubsection isDisabled={!includeOffChain}>
         <SectionHeader
           title="Off Chain Reserves"
-          subtitle={`Unspent off-chain reserves to the ${snapshotOwner}.`}
+          subtitle={`Unspent off-chain reserves${snapshotOwner ? ` to the ${snapshotOwner}` : ''}.`}
           tooltip={'pending...'}
           isSubsection
         />
 
         <ReservesCardsContainer>
           <ReserveCard
-            name="Payment Processor"
-            isGroup
-            initialBalance={100000}
-            inflow={300000}
-            outflow={300000}
-            newBalance={0}
+            account={
+              {
+                accountLabel: 'Payment Processor',
+                accountType: 'group',
+                snapshotAccountBalance: [
+                  {
+                    initialBalance: 100000,
+                    inflow: 300000,
+                    outflow: -300000,
+                    newBalance: 0,
+                  },
+                ],
+                groups: [],
+              } as unknown as UIReservesData
+            }
           />
           <ReserveCard
-            // temporary disable as this is a WIP
-            // eslint-disable-next-line spellcheck/spell-checker
-            name="Coinbase Account"
-            isGroup
-            initialBalance={500000}
-            inflow={300000}
-            outflow={250000}
-            newBalance={550680}
+            account={
+              {
+                // temporary disable as this is a WIP
+                // eslint-disable-next-line spellcheck/spell-checker
+                accountLabel: 'Coinbase Account',
+                accountType: 'group',
+                snapshotAccountBalance: [
+                  {
+                    initialBalance: 500000,
+                    inflow: 300000,
+                    outflow: -250000,
+                    newBalance: 550680,
+                  },
+                ],
+                groups: [],
+              } as unknown as UIReservesData
+            }
           />
         </ReservesCardsContainer>
       </OffChainSubsection>
