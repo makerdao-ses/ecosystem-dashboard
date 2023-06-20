@@ -81,25 +81,14 @@ const colors: { [id: string]: any } = {
 
 export const CategoryChip = (props: StatusChipProps) => {
   const { isLight } = useThemeContext();
-  if (!colors[props.category]) {
-    <Chip
-      style={{
-        color: isLight ? colors.Default.color : colors.Default.colorDark,
-        borderColor: isLight ? colors.Default.color : colors.Default.colorDark,
-        background: isLight ? colors.Default.background : colors.Default.backgroundDark,
-        ...props.style,
-      }}
-    >
-      {props.category}
-    </Chip>;
-  }
+  const paletteColor = colors[props.category] ? colors[props.category] : colors.Default;
 
   return (
     <Chip
       style={{
-        color: isLight ? colors[props.category]?.color : colors[props.category]?.colorDark,
-        borderColor: isLight ? colors[props.category]?.color : colors[props.category]?.colorDark,
-        background: isLight ? colors[props.category]?.background : colors[props.category]?.backgroundDark,
+        color: isLight ? paletteColor.color : paletteColor.colorDark,
+        borderColor: isLight ? paletteColor.color : paletteColor.colorDark,
+        background: isLight ? paletteColor.background : paletteColor.backgroundDark,
         ...props.style,
       }}
     >
