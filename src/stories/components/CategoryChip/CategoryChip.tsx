@@ -73,9 +73,9 @@ export const CategoryChip = (props: StatusChipProps) => {
   return (
     <Chip
       style={{
-        color: isLight ? colors[props.category].color : colors[props.category].colorDark,
-        borderColor: isLight ? colors[props.category].color : colors[props.category].colorDark,
-        background: isLight ? colors[props.category].background : colors[props.category].backgroundDark,
+        color: isLight ? colors[props.category]?.color : colors[props.category]?.colorDark,
+        borderColor: isLight ? colors[props.category]?.color : colors[props.category]?.colorDark,
+        background: isLight ? colors[props.category]?.background : colors[props.category]?.backgroundDark,
         ...props.style,
       }}
     >
