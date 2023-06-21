@@ -406,13 +406,7 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
   const [breakdownColumnsForActiveTab, allBreakdownColumns] = useMemo(() => {
     const allBreakdownColumns: { [key: string]: InnerTableColumn[] } = {};
     for (const wallet of wallets) {
-      allBreakdownColumns[wallet.name] = getForecastBreakdownColumns(
-        wallet,
-        firstMonth,
-        secondMonth,
-        thirdMonth
-        // handleOpenModal
-      );
+      allBreakdownColumns[wallet.name] = getForecastBreakdownColumns(wallet, firstMonth, secondMonth, thirdMonth);
     }
 
     return [allBreakdownColumns[wallets[thirdIndex]?.name], allBreakdownColumns];
