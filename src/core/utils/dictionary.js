@@ -123,6 +123,7 @@ const dictionary = [
   'Blockies',
   'Uber',
   'simplebar',
+  'nullable',
 ];
 
 module.exports = dictionary;
