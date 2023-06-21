@@ -27,7 +27,7 @@ const Identicon = ({ address, size, className }: IdenticonProps): ReactElement =
   }, [address, size]);
 
   return !style ? (
-    <Skeleton variant="circular" width={size} height={size} />
+    <Skeleton className={className} variant="circular" width={size} height={size} />
   ) : (
     <Icon className={className} style={style} />
   );

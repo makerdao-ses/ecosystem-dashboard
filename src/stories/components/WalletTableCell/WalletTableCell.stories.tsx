@@ -15,6 +15,7 @@ export default {
 
 const variantsArgs = [
   {
+    address: '0x232b779ce300024ed58692b6c007e312584f8482',
     wallet: '0x232b…8482',
     name: 'Permanent Team',
   },
