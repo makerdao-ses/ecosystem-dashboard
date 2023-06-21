@@ -1,4 +1,4 @@
-import { useModalCategory } from '@ses/components/BasicModal/useModalCategory';
+import { useCategoriesContextModal } from '@ses/core/context/CategoryModalContext';
 import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
 import { capitalizeSentence, getWalletWidthForWallets, toKebabCase } from '@ses/core/utils/string';
 import _ from 'lodash';
@@ -16,14 +16,23 @@ import {
 import { ACTUALS_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
 import type { InnerTableColumn, InnerTableRow } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import type { BudgetStatementDto, BudgetStatementWalletDto } from '@ses/core/models/dto/coreUnitDTO';
-import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
+
 import type { DateTime } from 'luxon';
 
 export const useTransparencyActuals = (
   propsCurrentMonth: DateTime,
-  budgetStatements: BudgetStatementDto[] | undefined,
-  expenseCategories?: ExpenseCategory[]
+  budgetStatements: BudgetStatementDto[] | undefined
 ) => {
+  const {
+    checkOut,
+    handleChangeItemAccordion,
+    handleCheckedExpandedAll,
+    handleCloseModal,
+    handleOpenModal,
+    headCountCategories,
+    noHeadCountCategories,
+    openModal,
+  } = useCategoriesContextModal();
   const currentMonth = useMemo(() => propsCurrentMonth.toFormat(API_MONTH_TO_FORMAT), [propsCurrentMonth]);
   const router = useRouter();
   const query = router.query;
@@ -256,16 +265,6 @@ export const useTransparencyActuals = (
     wallets,
   ]);
 
-  const {
-    openModal,
-    handleChangeItemAccordion,
-    handleCheckedExpandedAll,
-    handleCloseModal,
-    handleOpenModal,
-    headCountCategory,
-    notHeadCountCategory,
-    checkOut,
-  } = useModalCategory(expenseCategories);
   const [breakdownColumnsForActiveTab, allBreakdownColumns] = useMemo(() => {
     const allBreakdownColumns: { [key: string]: InnerTableColumn[] } = {};
     for (const wallet of wallets) {
@@ -304,10 +303,10 @@ export const useTransparencyActuals = (
     openModal,
     handleCheckedExpandedAll,
     handleCloseModal,
-    headCountCategory,
-    notHeadCountCategory,
     handleChangeItemAccordion,
     checkOut,
     handleOpenModal,
+    headCountCategories,
+    noHeadCountCategories,
   };
 };

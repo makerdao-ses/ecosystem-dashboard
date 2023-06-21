@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import Tabs from '@ses/components/Tabs/Tabs';
+import { ModalCategoriesProvider } from '@ses/core/context/CategoryModalContext';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { CommentActivityContext } from '../../../core/context/CommentActivityContext';
@@ -117,115 +118,114 @@ export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: T
               />
             </TabsContainer>
           </Container>
+          <ModalCategoriesProvider expenseCategories={expenseCategories}>
+            <Container>
+              {tabsIndex === TRANSPARENCY_IDS_ENUM.ACTUALS && (
+                <TransparencyActuals
+                  code={code}
+                  currentMonth={currentMonth}
+                  budgetStatements={coreUnit?.budgetStatements}
+                  longCode={longCode}
+                />
+              )}
+              {tabsIndex === TRANSPARENCY_IDS_ENUM.FORECAST && (
+                <TransparencyForecast
+                  currentMonth={currentMonth}
+                  budgetStatements={coreUnit?.budgetStatements}
+                  code={code}
+                  longCode={longCode}
+                />
+              )}
+              {tabsIndex === TRANSPARENCY_IDS_ENUM.MKR_VESTING && (
+                <TransparencyMkrVesting
+                  currentMonth={currentMonth}
+                  budgetStatements={coreUnit?.budgetStatements}
+                  code={code}
+                  longCode={longCode}
+                />
+              )}
+              {tabsIndex === TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS && (
+                <TransparencyTransferRequest
+                  currentMonth={currentMonth}
+                  budgetStatements={coreUnit?.budgetStatements}
+                  code={code}
+                  longCode={longCode}
+                />
+              )}
+              {tabsIndex === TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS && isEnabled('FEATURE_AUDIT_REPORTS') && (
+                <TransparencyAudit budgetStatement={currentBudgetStatement} />
+              )}
 
-          <Container>
-            {tabsIndex === TRANSPARENCY_IDS_ENUM.ACTUALS && (
-              <TransparencyActuals
-                expenseCategories={expenseCategories}
+              {tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS && (
+                <CommentActivityContext.Provider value={{ lastVisitHandler }}>
+                  <AuditorCommentsContainer budgetStatement={currentBudgetStatement} comments={comments} />
+                </CommentActivityContext.Provider>
+              )}
+            </Container>
+
+            {tabsIndex === TRANSPARENCY_IDS_ENUM.EXPENSE_REPORT && (
+              <ExpenseReport
                 code={code}
                 currentMonth={currentMonth}
                 budgetStatements={coreUnit?.budgetStatements}
                 longCode={longCode}
               />
             )}
-            {tabsIndex === TRANSPARENCY_IDS_ENUM.FORECAST && (
-              <TransparencyForecast
-                currentMonth={currentMonth}
-                budgetStatements={coreUnit?.budgetStatements}
-                code={code}
-                longCode={longCode}
-              />
-            )}
-            {tabsIndex === TRANSPARENCY_IDS_ENUM.MKR_VESTING && (
-              <TransparencyMkrVesting
-                currentMonth={currentMonth}
-                budgetStatements={coreUnit?.budgetStatements}
-                code={code}
-                longCode={longCode}
-              />
-            )}
-            {tabsIndex === TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS && (
-              <TransparencyTransferRequest
-                currentMonth={currentMonth}
-                budgetStatements={coreUnit?.budgetStatements}
-                code={code}
-                longCode={longCode}
-              />
-            )}
-            {tabsIndex === TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS && isEnabled('FEATURE_AUDIT_REPORTS') && (
-              <TransparencyAudit budgetStatement={currentBudgetStatement} />
-            )}
 
-            {tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS && (
-              <CommentActivityContext.Provider value={{ lastVisitHandler }}>
-                <AuditorCommentsContainer budgetStatement={currentBudgetStatement} comments={comments} />
-              </CommentActivityContext.Provider>
-            )}
-          </Container>
+            <Container>
+              <AdditionalNotesSection>
+                <Title isLight={isLight} isTitleOfPage={false}>
+                  Additional Notes
+                </Title>
 
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.EXPENSE_REPORT && (
-            <ExpenseReport
-              code={code}
-              currentMonth={currentMonth}
-              budgetStatements={coreUnit?.budgetStatements}
-              longCode={longCode}
-              expenseCategories={expenseCategories}
-            />
-          )}
+                <Paragraph isLight={isLight}>
+                  {coreUnit.auditors.length === 0 ? (
+                    <div>
+                      Every month, the {coreUnit.shortCode} Core Unit submits an Expense Report to MakerDAO governance
+                      with a detailed budget update. The Core Unit works <b>without auditor</b>, submitting its reports
+                      directly to the community.
+                    </div>
+                  ) : (
+                    <div>
+                      Every month, the {coreUnit.shortCode} Core Unit submits an Expense Report to MakerDAO governance
+                      with a detailed budget update. The Core Unit's reports are reviewed{' '}
+                      <b>
+                        by auditor(s){' '}
+                        {coreUnit.auditors.map((auditor, index, array) => (
+                          <span key={auditor.id}>
+                            <b>{auditor.username}</b>
+                            {array.length > 1 && index !== array.length - 1
+                              ? index !== array.length - 2
+                                ? ', '
+                                : ', and '
+                              : ''}
+                          </span>
+                        ))}{' '}
+                      </b>
+                      before they are marked as final.
+                    </div>
+                  )}
 
-          <Container>
-            <AdditionalNotesSection>
-              <Title isLight={isLight} isTitleOfPage={false}>
-                Additional Notes
-              </Title>
-
-              <Paragraph isLight={isLight}>
-                {coreUnit.auditors.length === 0 ? (
-                  <div>
-                    Every month, the {coreUnit.shortCode} Core Unit submits an Expense Report to MakerDAO governance
-                    with a detailed budget update. The Core Unit works <b>without auditor</b>, submitting its reports
-                    directly to the community.
-                  </div>
-                ) : (
-                  <div>
-                    Every month, the {coreUnit.shortCode} Core Unit submits an Expense Report to MakerDAO governance
-                    with a detailed budget update. The Core Unit's reports are reviewed{' '}
-                    <b>
-                      by auditor(s){' '}
-                      {coreUnit.auditors.map((auditor, index, array) => (
-                        <span key={auditor.id}>
-                          <b>{auditor.username}</b>
-                          {array.length > 1 && index !== array.length - 1
-                            ? index !== array.length - 2
-                              ? ', '
-                              : ', and '
-                            : ''}
-                        </span>
-                      ))}{' '}
-                    </b>
-                    before they are marked as final.
-                  </div>
-                )}
-
-                {coreUnit.legacyBudgetStatementUrl && (
-                  <LegacyReportParagraph>
-                    <span>Legacy expense reports can be found</span>
-                    <CustomLink
-                      fontWeight={500}
-                      href={coreUnit.legacyBudgetStatementUrl}
-                      iconHeight={10}
-                      iconWidth={10}
-                      fontSize={16}
-                      fontSizeMobile={14}
-                      fontFamily={'Inter, sans-serif'}
-                    >
-                      here
-                    </CustomLink>
-                  </LegacyReportParagraph>
-                )}
-              </Paragraph>
-            </AdditionalNotesSection>
-          </Container>
+                  {coreUnit.legacyBudgetStatementUrl && (
+                    <LegacyReportParagraph>
+                      <span>Legacy expense reports can be found</span>
+                      <CustomLink
+                        fontWeight={500}
+                        href={coreUnit.legacyBudgetStatementUrl}
+                        iconHeight={10}
+                        iconWidth={10}
+                        fontSize={16}
+                        fontSizeMobile={14}
+                        fontFamily={'Inter, sans-serif'}
+                      >
+                        here
+                      </CustomLink>
+                    </LegacyReportParagraph>
+                  )}
+                </Paragraph>
+              </AdditionalNotesSection>
+            </Container>
+          </ModalCategoriesProvider>
         </PageSeparator>
       </PageContainer>
     </Wrapper>

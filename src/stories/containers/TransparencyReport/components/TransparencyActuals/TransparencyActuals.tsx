@@ -4,6 +4,7 @@ import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedI
 import CategoryModalComponent from '@ses/components/BasicModal/CategoryModalComponent';
 import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import Tabs from '@ses/components/Tabs/Tabs';
+import { useCategoriesContextModal } from '@ses/core/context/CategoryModalContext';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { MAKER_BURN_LINK } from '@ses/core/utils/const';
 import { getShortCode } from '@ses/core/utils/string';
@@ -14,12 +15,11 @@ import { ACTUALS_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import { useTransparencyActuals } from './useTransparencyActuals';
 import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
-import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
+
 import type { DateTime } from 'luxon';
 
 interface Props {
   currentMonth: DateTime;
-  expenseCategories: ExpenseCategory[];
   budgetStatements?: BudgetStatementDto[];
   code: string;
   longCode: string;
@@ -28,6 +28,16 @@ interface Props {
 export const TransparencyActuals = (props: Props) => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+  const {
+    checkOut,
+    handleChangeItemAccordion,
+    handleCheckedExpandedAll,
+    handleCloseModal,
+
+    headCountCategories,
+    noHeadCountCategories,
+    openModal,
+  } = useCategoriesContextModal();
 
   const {
     headerIds,
@@ -37,14 +47,7 @@ export const TransparencyActuals = (props: Props) => {
     mainTableColumns,
     mainTableItems,
     breakdownTabs,
-    openModal,
-    handleCloseModal,
-    handleChangeItemAccordion,
-    handleCheckedExpandedAll,
-    headCountCategory,
-    notHeadCountCategory,
-    checkOut,
-  } = useTransparencyActuals(props.currentMonth, props.budgetStatements, props.expenseCategories);
+  } = useTransparencyActuals(props.currentMonth, props.budgetStatements);
 
   return (
     <Container>
@@ -117,8 +120,8 @@ export const TransparencyActuals = (props: Props) => {
       )}
       <CategoryModalComponent
         checkOut={checkOut}
-        headCountCategories={headCountCategory}
-        notHeadCountCategory={notHeadCountCategory}
+        headCountCategories={headCountCategories}
+        notHeadCountCategory={noHeadCountCategories}
         handleCloseModal={handleCloseModal}
         handleCheckedExpandedAll={handleCheckedExpandedAll}
         handleChangeItemAccordion={handleChangeItemAccordion}
