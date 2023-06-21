@@ -3,9 +3,9 @@ import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { capitalizeSentence } from '../../../core/utils/string';
-import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 import CopyIcon from '../CopyIcon/CopyIcon';
 import { CustomLink } from '../CustomLink/CustomLink';
+import Identicon from '../Identicon/Identicon';
 import Gnosis from '../svg/Gnosis';
 
 interface WalletTableCellProps {
@@ -19,15 +19,7 @@ export const WalletTableCell = (props: WalletTableCellProps) => {
   const { isLight } = useThemeContext();
   return (
     <Container>
-      <WalletAvatar
-        className="circle-avatar"
-        width={'32px'}
-        height={'32px'}
-        name={props.address ?? ''}
-        image={props.imgUrl}
-        border={'none'}
-        identIcon
-      />
+      <BlockiesIdenticon address={props.address ?? ''} size={32} className="circle-avatar" />
       <Data>
         <Label isLight={isLight}>{capitalizeSentence(props.name)}</Label>
         <LinkContainer>
@@ -72,7 +64,7 @@ const Container = styled.div({
   },
 });
 
-const WalletAvatar = styled(CircleAvatar)({
+const BlockiesIdenticon = styled(Identicon)({
   [lightTheme.breakpoints.up('table_834')]: {
     // !important is needed to override the inline style
     marginTop: '-6px!important',

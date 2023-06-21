@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import CopyIcon from '@ses/components/CopyIcon/CopyIcon';
+import Identicon from '@ses/components/Identicon/Identicon';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { formatAddressForOutput } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import Blockies from 'react-18-blockies';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface TransactionWalletInfoProps {
@@ -19,7 +19,7 @@ const TransactionWalletInfo: React.FC<TransactionWalletInfoProps> = ({ name, add
   return (
     <Container {...props}>
       <BlockiesContainer>
-        <Blockies seed={address ?? name} size={10} scale={3.2} />
+        <BlockieIdenticon address={address ?? name} />
       </BlockiesContainer>
       <InfoContainer>
         <NameContainer>
@@ -47,8 +47,8 @@ const Container = styled.div({
 });
 
 const BlockiesContainer = styled.div({
-  width: 24,
-  height: 24,
+  width: 'fit-content',
+  height: 'fit-content',
   borderRadius: '50%',
   marginRight: 8,
   marginTop: 6,
@@ -56,14 +56,23 @@ const BlockiesContainer = styled.div({
   background: 'gray',
 
   [lightTheme.breakpoints.up('table_834')]: {
-    width: 32,
-    height: 32,
     marginTop: 0,
     marginRight: 16,
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
     marginRight: 15,
+  },
+});
+
+const BlockieIdenticon = styled(Identicon)({
+  width: 24,
+  height: 24,
+  minWidth: 24,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    width: 32,
+    height: 32,
   },
 });
 

@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import CopyIcon from '@ses/components/CopyIcon/CopyIcon';
+import Identicon from '@ses/components/Identicon/Identicon';
 import Information from '@ses/components/svg/information';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { formatAddressForOutput } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import Blockies from 'react-18-blockies';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface WalletInfoProps {
@@ -19,7 +19,7 @@ const WalletInfo: React.FC<WalletInfoProps> = ({ name, address }) => {
   return (
     <Container>
       <BlockiesContainer>
-        <Blockies seed={address ?? name} size={10} scale={3.2} />
+        <BlockieIdenticon address={address ?? name} />
       </BlockiesContainer>
       <InfoContainer>
         <NameContainer>
@@ -64,6 +64,11 @@ const BlockiesContainer = styled.div({
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     marginTop: 1,
   },
+});
+
+const BlockieIdenticon = styled(Identicon)({
+  width: 32,
+  height: 32,
 });
 
 const InfoContainer = styled.div({});

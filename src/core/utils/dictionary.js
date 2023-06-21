@@ -121,6 +121,7 @@ const dictionary = [
   'Coldirion',
   'Gnosis',
   'Blockies',
+  'Blockie',
   'Uber',
   'simplebar',
   'nullable',
