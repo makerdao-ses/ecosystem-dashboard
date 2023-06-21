@@ -41,7 +41,11 @@ const FundingOverview: React.FC<FundingOverviewProps> = ({
     </HeaderContainer>
 
     <CardsContainer>
-      <SimpleStatCard date={startDate} value={balance?.initialBalance} caption="Initial Lifetime Balance" />
+      <SimpleStatCard
+        date={startDate}
+        value={typeof balance?.initialBalance === 'number' ? Math.abs(balance?.initialBalance ?? 0) : undefined}
+        caption="Initial Lifetime Balance"
+      />
       <FundChangeCard
         netChange={balance?.inflow && balance?.outflow ? balance.outflow * -1 - balance.inflow : undefined}
         leftValue={balance?.outflow ? balance?.outflow * -1 : undefined}

@@ -19,7 +19,7 @@ const TransactionWalletInfo: React.FC<TransactionWalletInfoProps> = ({ name, add
   return (
     <Container {...props}>
       <BlockiesContainer>
-        <Blockies seed={address ?? name} size={10} scale={3} />
+        <Blockies seed={address ?? name} size={10} scale={3.2} />
       </BlockiesContainer>
       <InfoContainer>
         <NameContainer>

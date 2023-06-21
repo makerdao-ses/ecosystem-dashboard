@@ -11,6 +11,7 @@ export class SnapshotAccountBalanceBuilder {
       newBalance: 0,
       inflow: 0,
       outflow: 0,
+      includesOffChain: false,
     };
   }
 
@@ -41,6 +42,11 @@ export class SnapshotAccountBalanceBuilder {
 
   withOutflow(outflow: number): SnapshotAccountBalanceBuilder {
     this._snapshotAccountBalance.outflow = outflow;
+    return this;
+  }
+
+  withIncludesOffChain(includesOffChain: boolean): SnapshotAccountBalanceBuilder {
+    this._snapshotAccountBalance.includesOffChain = includesOffChain;
     return this;
   }
 

@@ -6,11 +6,12 @@ export class SnapshotAccountTransactionBuilder {
   constructor() {
     this._snapshotAccountTransaction = {
       id: '',
-      block: 0,
       timestamp: '',
-      tx_hash: '',
+      txHash: '',
+      txLabel: null,
       token: 'DAI',
       counterParty: '',
+      counterPartyName: null,
       amount: 0,
     };
   }
@@ -20,18 +21,13 @@ export class SnapshotAccountTransactionBuilder {
     return this;
   }
 
-  withBlock(block: number): SnapshotAccountTransactionBuilder {
-    this._snapshotAccountTransaction.block = block;
-    return this;
-  }
-
   withTimestamp(timestamp: string): SnapshotAccountTransactionBuilder {
     this._snapshotAccountTransaction.timestamp = timestamp;
     return this;
   }
 
   withTxHash(txHash: string): SnapshotAccountTransactionBuilder {
-    this._snapshotAccountTransaction.tx_hash = txHash;
+    this._snapshotAccountTransaction.txHash = txHash;
     return this;
   }
 
@@ -47,6 +43,11 @@ export class SnapshotAccountTransactionBuilder {
 
   withAmount(amount: number): SnapshotAccountTransactionBuilder {
     this._snapshotAccountTransaction.amount = amount;
+    return this;
+  }
+
+  withCounterPartyName(counterPartyName: string): SnapshotAccountTransactionBuilder {
+    this._snapshotAccountTransaction.counterPartyName = counterPartyName;
     return this;
   }
 
