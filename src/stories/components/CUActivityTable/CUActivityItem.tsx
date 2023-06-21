@@ -9,6 +9,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/buttonTypeEnum';
 import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 import { CustomButton } from '../CustomButton/CustomButton';
+import { getCorrectCodeFromActivity } from './utils/helpers';
 import type { Activity } from './ActivityTable';
 
 interface CUActivityItemProps {
@@ -16,6 +17,8 @@ interface CUActivityItemProps {
   isNew: boolean;
 }
 export default function CUActivityItem({ activity, isNew }: CUActivityItemProps) {
+  const activityCode = getCorrectCodeFromActivity(activity.activityFeed);
+
   const { isLight } = useThemeContext();
   const router = useRouter();
   const isDelegate = useMemo(() => activity.activityFeed.event.startsWith('DELEGATES_BUDGET_STATEMENT'), [activity]);
@@ -39,9 +42,7 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
       url = `${siteRoutes.recognizedDelegateReport}?viewMonth=${month}`;
     } else {
       // it is a core unit
-      url = `${siteRoutes.coreUnitReports(
-        activity.activityFeed.params.coreUnit?.shortCode || activity.activityFeed.params.owner.shortCode
-      )}?viewMonth=${month}`;
+      url = `${siteRoutes.coreUnitReports(activityCode?.shortCode)}?viewMonth=${month}`;
     }
 
     if (goToComments) {
@@ -49,7 +50,7 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
     }
 
     return url;
-  }, [activity]);
+  }, [activity.activityFeed.event, activity.activityFeed.params.month, activityCode?.shortCode]);
 
   const goToDetails = () => {
     router.push(detailsUrl);
@@ -59,17 +60,15 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
     <Link href={detailsUrl} passHref>
       <ActivityItem isLight={isLight} isGlobal={isGlobal}>
         <FlexWrapper isGlobal={isGlobal}>
-          {activity.coreUnit || activity.activityFeed.params.owner ? (
+          {activityCode ? (
             <CoreUnit isGlobal={isGlobal}>
               <CircleAvatar
                 width="32px"
                 height="32px"
                 image={activity?.coreUnit?.image}
-                name={activity?.coreUnit?.name || activity.activityFeed.params?.owner.shortCode}
+                name={activity?.coreUnit?.name || ''}
               />
-              <CoreUnitCode isLight={isLight}>
-                {activity?.coreUnit?.shortCode || activity.activityFeed.params?.owner?.shortCode}
-              </CoreUnitCode>
+              <CoreUnitCode isLight={isLight}>{activityCode.shortCode}</CoreUnitCode>
               <CoreUnitName isLight={isLight}>{activity?.coreUnit?.name}</CoreUnitName>
             </CoreUnit>
           ) : (

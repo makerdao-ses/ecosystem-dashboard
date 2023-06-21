@@ -1,3 +1,4 @@
+import { getCorrectCodeFromActivity } from '@ses/components/CUActivityTable/utils/helpers';
 import sortBy from 'lodash/sortBy';
 import { DateTime } from 'luxon';
 import { useMemo, useRef, useState } from 'react';
@@ -84,7 +85,7 @@ export const useGlobalActivity = (coreUnits: CoreUnitDto[], activityFeed: Activi
             (activity) =>
               ({
                 activityFeed: activity,
-                coreUnit: coreUnitsMap.get(activity.params.coreUnit?.shortCode || activity.params.owner?.shortCode),
+                coreUnit: coreUnitsMap.get(getCorrectCodeFromActivity(activity).shortCode),
               } as Activity)
           )
           .filter(

@@ -131,23 +131,32 @@ export interface CommentsBudgetStatementDto {
   status: BudgetStatus;
 }
 
+interface CoreUnitParam {
+  coreUnit: {
+    code: string;
+    shortCode: string;
+  };
+  month: string;
+  budgetStatementId: number;
+}
+
+interface OwnerParam {
+  owner: {
+    code: string;
+    shortCode: string;
+    type: string;
+  };
+  month: string;
+  budgetStatementId: number;
+}
+
+export type ActivityFeedParams = CoreUnitParam | OwnerParam;
+
 export interface ActivityFeedDto {
   id: string;
   created_at: string;
   event: string;
-  params: {
-    coreUnit: {
-      code: string;
-      shortCode: string;
-    };
-    owner: {
-      code: string;
-      shortCode: string;
-      type: string;
-    };
-    month: string;
-    budgetStatementId: number;
-  };
+  params: ActivityFeedParams;
   description: string;
 }
 
