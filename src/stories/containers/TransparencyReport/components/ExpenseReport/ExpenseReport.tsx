@@ -222,16 +222,6 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({
             )}
           </>
         )}
-        <CategoryModalComponent
-          checkOut={forecastData.checkOut}
-          headCountCategories={forecastData.headCountCategory}
-          notHeadCountCategory={forecastData.notHeadCountCategory}
-          handleCloseModal={forecastData.handleCloseModal}
-          handleCheckedExpandedAll={forecastData.handleCheckedExpandedAll}
-          handleChangeItemAccordion={forecastData.handleCheckedExpandedAll}
-          isLight={isLight}
-          openModal={forecastData.openModal}
-        />
       </ExpenseSection>
 
       <ExpenseSection title={'MKR Vesting Overview'}>
