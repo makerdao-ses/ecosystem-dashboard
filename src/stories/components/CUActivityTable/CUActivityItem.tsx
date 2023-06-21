@@ -68,7 +68,7 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
                 image={activity?.coreUnit?.image}
                 name={activity?.coreUnit?.name || ''}
               />
-              <CoreUnitCode isLight={isLight}>{activityCode.shortCode}</CoreUnitCode>
+              <CoreUnitCode isLight={isLight}>{activity?.coreUnit?.shortCode}</CoreUnitCode>
               <CoreUnitName isLight={isLight}>{activity?.coreUnit?.name}</CoreUnitName>
             </CoreUnit>
           ) : (
