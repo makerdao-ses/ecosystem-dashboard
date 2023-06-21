@@ -5,11 +5,16 @@ import type { TooltipProps } from '@mui/material';
 
 export interface CustomTooltipProps extends Omit<TooltipProps, 'title'> {
   content: NonNullable<React.ReactNode>;
+  enableClickListener?: boolean;
 }
 
-export default function CustomTooltip({ content, children, ...props }: CustomTooltipProps) {
+export default function CustomTooltip({ content, children, enableClickListener, ...props }: CustomTooltipProps) {
+  const [controlledOpen, setControlledOpen] = React.useState(props.open ?? enableClickListener ? false : undefined);
+
   const defaultProps: Partial<CustomTooltipProps> = {
     placement: 'bottom-end',
+    open: controlledOpen,
+    disableHoverListener: enableClickListener, // disable hover listener if click listener is enabled by default
     PopperProps: {
       modifiers: [
         {
@@ -34,11 +39,18 @@ export default function CustomTooltip({ content, children, ...props }: CustomToo
     },
   };
 
+  if (enableClickListener) {
+    defaultProps.onClose = () => setControlledOpen(false);
+  }
+
   const finalProps = merge(defaultProps, props);
-  console.log('.');
   return (
     <Tooltip title={content} {...finalProps}>
-      {children}
+      {enableClickListener
+        ? React.cloneElement(children as React.ReactElement, {
+            onClick: () => setControlledOpen((prev) => !prev),
+          })
+        : children}
     </Tooltip>
   );
 }
