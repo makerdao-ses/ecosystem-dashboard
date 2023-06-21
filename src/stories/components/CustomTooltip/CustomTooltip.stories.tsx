@@ -1,42 +1,9 @@
-import { Box } from '@mui/material';
+import styled from '@emotion/styled';
 import React from 'react';
 import CustomTooltip from './CustomTooltip';
-import type { CustomTooltipProps } from './CustomTooltip';
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
-export default {
-  title: 'Components/CustomTooltip',
-  component: CustomTooltip,
-  parameters: {
-    chromatic: { disableSnapshot: true },
-  },
-} as ComponentMeta<typeof CustomTooltip>;
-
-const getCustomBtnTemplate: (btnText?: string) => ComponentStory<typeof CustomTooltip> =
-  (btnText = 'Hover me') =>
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  ({ content, ...args }) =>
-    (
-      <CustomTooltip
-        content={
-          <Box
-            sx={{
-              border: 1,
-              p: 1,
-              bgcolor: 'background.paper',
-              color: 'text.primary',
-            }}
-          >
-            Custom content here.
-          </Box>
-        }
-        {...args}
-      >
-        <button>{btnText}</button>
-      </CustomTooltip>
-    );
-
-const alignments = [
+const ALIGNMENTS = [
   'top-start',
   'top',
   'top-end',
@@ -51,52 +18,48 @@ const alignments = [
   'bottom-end',
 ];
 
-const MultipleAlignmentsTemplate: ComponentStory<typeof CustomTooltip> = () => (
-  <Box
-    sx={{
-      p: 5,
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-      gap: 1,
-      alignItems: 'center',
-      width: '100%',
-      height: '100%',
-    }}
-  >
-    {alignments.map((customPlacement) => (
-      <CustomTooltip
-        key={customPlacement}
-        content={
-          <>
-            Custom content here.
-            <br />
-            Meant to be used as a tooltip.
-          </>
-        }
-        placement={customPlacement as CustomTooltipProps['placement']}
-        componentsProps={{
-          tooltip: {
-            sx: {
-              p: 1,
-              bgcolor: 'background.paper',
-              boxShadow: 1,
-            },
-          },
-        }}
-        disableInteractive
-      >
-        <button
-          style={{
-            width: 180,
-            height: 30,
-          }}
-        >
-          {customPlacement}
-        </button>
+export default {
+  title: 'Components/CustomTooltip',
+  component: CustomTooltip,
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
+  argTypes: {
+    placement: {
+      control: {
+        type: 'select',
+        options: ALIGNMENTS,
+      },
+    },
+  },
+} as ComponentMeta<typeof CustomTooltip>;
+
+const getCustomBtnTemplate: (btnText?: string) => ComponentStory<typeof CustomTooltip> =
+  (btnText = 'Hover me') =>
+  ({ ...args }) =>
+    (
+      <CustomTooltip {...args} content={<TooltipContent>Custom content here.</TooltipContent>}>
+        <button>{btnText}</button>
       </CustomTooltip>
-    ))}
-  </Box>
+    );
+
+const VariablePlacementTemplate: ComponentStory<typeof CustomTooltip> = ({ placement, ...args }) => (
+  <CenteredContent>
+    <CustomTooltip
+      placement={placement}
+      {...args}
+      disableInteractive
+      content={
+        <TooltipContent>
+          Custom content here.
+          <br />
+          Meant to be used as a tooltip.
+        </TooltipContent>
+      }
+    >
+      <FixedWidthButton>{placement as string}</FixedWidthButton>
+    </CustomTooltip>
+  </CenteredContent>
 );
 
 export const Default = getCustomBtnTemplate().bind({});
@@ -109,4 +72,31 @@ OpenOnClick.args = {
   enableClickListener: true,
 };
 
-export const MultipleAlignments = MultipleAlignmentsTemplate.bind({});
+export const VariablePlacement = VariablePlacementTemplate.bind({});
+VariablePlacement.args = {
+  placement: 'top',
+  open: true,
+};
+
+const TooltipContent = styled.div(() => ({
+  border: '2px solid #000000',
+  padding: '10px',
+  backgroundColor: 'white',
+  color: 'black',
+}));
+
+const CenteredContent = styled.div(() => ({
+  padding: '10px',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  gap: '8px',
+  alignItems: 'center',
+  width: '100%',
+  height: 500,
+}));
+
+const FixedWidthButton = styled.button(() => ({
+  width: 180,
+  height: 30,
+}));

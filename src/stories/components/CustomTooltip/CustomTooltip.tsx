@@ -15,7 +15,7 @@ export default function CustomTooltip({ content, children, enableClickListener, 
     () => ({
       placement: 'bottom-end',
       open: controlledOpen,
-      disableHoverListener: enableClickListener, // disable hover listener if click listener is enabled by default
+      disableHoverListener: enableClickListener,
       PopperProps: {
         modifiers: [
           {
@@ -43,7 +43,6 @@ export default function CustomTooltip({ content, children, enableClickListener, 
     [controlledOpen, enableClickListener]
   );
 
-  console.log('props', props);
   const finalProps = merge(defaultProps, props);
   return (
     <Tooltip title={content} {...finalProps}>
