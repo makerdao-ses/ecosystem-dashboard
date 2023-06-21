@@ -18,6 +18,15 @@ const menuItems = [
         },
       ]
     : []),
+  ...(featureFlags[CURRENT_ENVIRONMENT].FEATURE_ECOSYSTEM_ACTORS
+    ? [
+        {
+          title: 'Ecosystem Actors',
+          link: siteRoutes.ecosystemActors,
+          marginRight: '32px',
+        },
+      ]
+    : []),
   {
     title: 'Core Units',
     link: siteRoutes.coreUnitsOverview,
