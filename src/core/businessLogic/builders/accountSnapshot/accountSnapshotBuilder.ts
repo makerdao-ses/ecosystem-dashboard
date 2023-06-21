@@ -16,6 +16,7 @@ export class SnapshotAccountBuilder {
       accountAddress: '',
       groupAccountId: '',
       upstreamAccountId: '',
+      offChain: null,
       snapshotAccountTransaction: [] as SnapshotAccountTransaction[],
       snapshotAccountBalance: [] as SnapshotAccountBalance[],
     };
@@ -48,6 +49,11 @@ export class SnapshotAccountBuilder {
 
   withUpstreamAccountId(upstreamAccountId: string): SnapshotAccountBuilder {
     this._snapshotAccount.upstreamAccountId = upstreamAccountId;
+    return this;
+  }
+
+  withOffChain(offChain: boolean | null): SnapshotAccountBuilder {
+    this._snapshotAccount.offChain = offChain;
     return this;
   }
 

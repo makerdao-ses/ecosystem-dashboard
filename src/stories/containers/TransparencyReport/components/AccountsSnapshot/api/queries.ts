@@ -16,14 +16,16 @@ export const accountsSnapshotQuery = (filter: SnapshotFilter) => ({
           accountLabel
           accountType
           accountAddress
+          offChain
           groupAccountId
           upstreamAccountId
           snapshotAccountTransaction {
             id
-            block
             timestamp
-            tx_hash
+            txHash
             token
+            txLabel
+            counterPartyName
             counterParty
             amount
           }
@@ -34,6 +36,7 @@ export const accountsSnapshotQuery = (filter: SnapshotFilter) => ({
             newBalance
             inflow
             outflow
+            includesOffChain
           }
         }
       }

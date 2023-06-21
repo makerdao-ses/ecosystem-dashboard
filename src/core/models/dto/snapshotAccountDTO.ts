@@ -12,11 +12,12 @@ export interface SnapshotFilter {
 
 export interface SnapshotAccountTransaction {
   id: string;
-  block: number;
   timestamp: string;
-  tx_hash: string;
+  txHash: string;
+  txLabel: string | null;
   token: Token;
   counterParty: string;
+  counterPartyName: string | null;
   amount: number;
 }
 
@@ -27,12 +28,14 @@ export interface SnapshotAccountBalance {
   newBalance: number;
   inflow: number;
   outflow: number;
+  includesOffChain: boolean | null;
 }
 
 export interface SnapshotAccount {
   id: string;
   accountLabel: string;
   accountType: AccountType;
+  offChain: boolean | null;
   accountAddress: string;
   groupAccountId: string;
   upstreamAccountId: string;

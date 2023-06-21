@@ -17,11 +17,11 @@ const TransactionList: React.FC<TransactionListProps> = ({ items }) => {
   const renderTransaction = (transaction: SnapshotAccountTransaction) => (
     <Transaction
       key={transaction.id}
-      name={'Unknown'}
+      name={transaction.txLabel ?? 'N/A'}
       date={transaction.timestamp}
       toDate={null}
-      txHash={transaction.tx_hash}
-      counterPartyName={'Unknown'}
+      txHash={transaction.txHash}
+      counterPartyName={transaction.counterPartyName ?? 'N/A'}
       counterPartyAddress={transaction.counterParty}
       amount={transaction.amount}
     />
