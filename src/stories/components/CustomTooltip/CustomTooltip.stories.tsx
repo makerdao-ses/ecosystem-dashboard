@@ -30,6 +30,7 @@ export default {
         type: 'select',
         options: ALIGNMENTS,
       },
+      defaultValue: 'bottom-start',
     },
   },
 } as ComponentMeta<typeof CustomTooltip>;
@@ -53,13 +54,42 @@ const VariablePlacementTemplate: ComponentStory<typeof CustomTooltip> = ({ place
         <TooltipContent>
           Custom content here.
           <br />
-          Meant to be used as a tooltip.
+          Tooltip placed at {placement}.
         </TooltipContent>
       }
     >
       <FixedWidthButton>{placement as string}</FixedWidthButton>
     </CustomTooltip>
   </CenteredContent>
+);
+
+const BoundariesTemplate: ComponentStory<typeof CustomTooltip> = ({ placement, ...args }) => (
+  <OverflownContainer
+    ref={(node: HTMLElement | null) => {
+      if (node) {
+        node.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'center',
+        });
+      }
+    }}
+  >
+    <CustomTooltip
+      open
+      placement={placement}
+      {...args}
+      content={
+        <TooltipContent>
+          Custom content here.
+          <br />
+          Tooltip placed at {placement}.
+        </TooltipContent>
+      }
+    >
+      <button>{placement}</button>
+    </CustomTooltip>
+  </OverflownContainer>
 );
 
 export const Default = getCustomBtnTemplate().bind({});
@@ -78,6 +108,16 @@ VariablePlacement.args = {
   open: true,
 };
 
+export const Boundaries = BoundariesTemplate.bind({});
+BoundariesTemplate.args = {
+  placement: 'bottom-start',
+};
+
+export const DelayedClose = getCustomBtnTemplate('Closes in 2s').bind({});
+DelayedClose.args = {
+  leaveDelay: 2000,
+};
+
 const TooltipContent = styled.div(() => ({
   border: '2px solid #000000',
   padding: '10px',
@@ -94,6 +134,14 @@ const CenteredContent = styled.div(() => ({
   alignItems: 'center',
   width: '100%',
   height: 500,
+}));
+
+const OverflownContainer = styled.div(() => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  minWidth: '200vw',
+  minHeight: '200vh',
 }));
 
 const FixedWidthButton = styled.button(() => ({
