@@ -130,7 +130,6 @@ export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: T
             )}
             {tabsIndex === TRANSPARENCY_IDS_ENUM.FORECAST && (
               <TransparencyForecast
-                expenseCategories={expenseCategories}
                 currentMonth={currentMonth}
                 budgetStatements={coreUnit?.budgetStatements}
                 code={code}

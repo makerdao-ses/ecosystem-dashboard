@@ -1,7 +1,6 @@
 import groupBy from 'lodash/groupBy';
 import ProgressiveIndicator from '../components/TransparencyForecast/ProgresiveIndicator';
 import { ContainerProgressiveIndicator } from '../components/TransparencyForecast/useTransparencyForecast';
-import { OpenModalTransparency } from '../transparencyReportUtils';
 import {
   getBudgetCapForMonthOnLineItem,
   getBudgetCapForMonthOnWalletOnBudgetStatement,
@@ -33,18 +32,16 @@ export const getForecastBreakdownColumns = (
   wallet: BudgetStatementWalletDto,
   firstMonth: DateTime,
   secondMonth: DateTime,
-  thirdMonth: DateTime,
-  handleOpenModal: () => void
+  thirdMonth: DateTime
 ) => {
   const hasGroups = hasWalletGroups(wallet);
 
   return [
     {
-      header: <OpenModalTransparency handleOpenModal={handleOpenModal} name="Budget Category" />,
+      header: 'Budget Category',
       isCardHeader: true,
       width: hasGroups ? '220px' : '240px',
       type: 'text',
-      handleOpenModal,
     },
     {
       header: firstMonth.toFormat('MMMM'),
@@ -287,8 +284,7 @@ export const getBreakdownItemsForWallet = (
         currentMonth,
         firstMonth,
         secondMonth,
-        thirdMonth,
-        'category'
+        thirdMonth
       );
       groupItemsCount += items.length;
       result.push(...items);
@@ -333,8 +329,7 @@ export const getBreakdownItemsForWallet = (
         currentMonth,
         firstMonth,
         secondMonth,
-        thirdMonth,
-        'category'
+        thirdMonth
       );
       groupItemsCount += items.length;
       result.push(...items);

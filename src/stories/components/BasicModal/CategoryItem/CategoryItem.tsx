@@ -3,7 +3,6 @@ import AccordionCategory from './ArrowAccordionCategory';
 import type { ParsedExpenseCategoryWithExpanded } from '@ses/core/models/dto/expenseCategoriesDTO';
 interface Props {
   isOpen?: boolean;
-  onChange?: () => void;
   className?: string;
   category: ParsedExpenseCategoryWithExpanded;
   expanded: boolean;

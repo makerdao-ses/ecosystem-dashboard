@@ -32,7 +32,7 @@ const useExpenseReport = (
   });
 
   const actualsData = useTransparencyActuals(currentMonth, budgetStatements, expenseCategories);
-  const forecastData = useTransparencyForecast(currentMonth, budgetStatements, expenseCategories);
+  const forecastData = useTransparencyForecast(currentMonth, budgetStatements);
   const mkrVestingData = useTransparencyMkrVesting(currentMonth, budgetStatements);
   const transferRequestsData = useTransparencyTransferRequest(currentMonth, budgetStatements);
 
