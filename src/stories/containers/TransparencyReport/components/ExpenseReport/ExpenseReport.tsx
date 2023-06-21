@@ -148,7 +148,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({
           notHeadCountCategory={actualsData.notHeadCountCategory}
           handleCloseModal={actualsData.handleCloseModal}
           handleCheckedExpandedAll={actualsData.handleCheckedExpandedAll}
-          handleChangeItemAccordion={actualsData.handleCheckedExpandedAll}
+          handleChangeItemAccordion={actualsData.handleChangeItemAccordion}
           isLight={isLight}
           openModal={actualsData.openModal}
         />
