@@ -60,7 +60,7 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
     <Link href={detailsUrl} passHref>
       <ActivityItem isLight={isLight} isGlobal={isGlobal}>
         <FlexWrapper isGlobal={isGlobal}>
-          {activityCode ? (
+          {activity.coreUnit ? (
             <CoreUnit isGlobal={isGlobal}>
               <CircleAvatar
                 width="32px"
