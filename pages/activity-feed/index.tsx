@@ -1,6 +1,6 @@
 import React from 'react';
 import { fetchGlobalActivityFeedData } from '../../src/stories/containers/GlobalActivity/GlobalActivityAPI';
-import GlobalActivity from '../../src/stories/containers/GlobalActivity/GlobalActivityFeedContainer';
+import GlobalActivityFeedContainer from '../../src/stories/containers/GlobalActivity/GlobalActivityFeedContainer';
 import type { ActivityFeedDto, CoreUnitDto } from '../../src/core/models/dto/coreUnitDTO';
 import type { GetServerSideProps, NextPage } from 'next';
 
@@ -10,7 +10,7 @@ interface GlobalActivityPageProps {
 }
 
 const GlobalActivityPage: NextPage<GlobalActivityPageProps> = ({ coreUnits, activityFeed }) => (
-  <GlobalActivity coreUnits={coreUnits} activityFeed={activityFeed} />
+  <GlobalActivityFeedContainer coreUnits={coreUnits} activityFeed={activityFeed} />
 );
 
 export default GlobalActivityPage;
