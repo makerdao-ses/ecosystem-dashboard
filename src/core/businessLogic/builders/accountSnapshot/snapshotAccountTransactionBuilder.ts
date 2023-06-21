@@ -11,7 +11,7 @@ export class SnapshotAccountTransactionBuilder {
       txLabel: null,
       token: 'DAI',
       counterParty: '',
-      counterPartyName: '',
+      counterPartyName: null,
       amount: 0,
     };
   }
