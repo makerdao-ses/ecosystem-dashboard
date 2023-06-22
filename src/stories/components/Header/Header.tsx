@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import { siteRoutes } from '@ses/config/routes';
 import Link from 'next/link';
@@ -22,6 +23,7 @@ import type { MenuType } from './menuItems';
 
 const Header: React.FC = () => {
   const router = useRouter();
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
 
   const { themeMode, toggleTheme, isLight } = useThemeContext();
   const { clearCredentials, permissionManager } = useAuthContext();
@@ -51,7 +53,7 @@ const Header: React.FC = () => {
       return menuItems[0];
     }
   }, [router.pathname]);
-
+  const activeItemMobile = isMobile ? activeMenuItem.titleMobile : activeMenuItem.title;
   return (
     <Container isLight={isLight}>
       <LeftPart>
@@ -79,7 +81,7 @@ const Header: React.FC = () => {
             </Link>
           ))}
           <ItemMenuResponsive>
-            <TopBarSelect selectedOption={activeMenuItem?.title} />
+            <TopBarSelect selectedOption={activeItemMobile || ''} />
           </ItemMenuResponsive>
           <RightElementsWrapper>
             {permissionManager.isAuthenticated() ? (
