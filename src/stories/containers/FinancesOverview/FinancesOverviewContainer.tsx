@@ -4,6 +4,7 @@ import CategoryModalComponent from '@ses/components/BasicModal/CategoryModalComp
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
+import { useCategoriesContextModal } from '@ses/core/context/CategoryModalContext';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import React from 'react';
 import lightTheme from 'styles/theme/light';
@@ -31,8 +32,17 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
   quarterExpenses,
   byBudgetBreakdownExpenses,
   byCategoryBreakdownExpenses,
-  expenseCategories,
 }) => {
+  const {
+    checkOut,
+    handleChangeItemAccordion,
+    handleCheckedExpandedAll,
+    handleCloseModal,
+    headCountCategories,
+    noHeadCountCategories,
+    openModal,
+    handleOpenModal,
+  } = useCategoriesContextModal();
   const {
     isLight,
     selectedYear,
@@ -54,21 +64,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
     remainingCategories,
     maxValueByCategory,
     costBreakdownTotal,
-    openModal,
-    handleCloseModal,
-    handleOpenModal,
-    headCountCategory,
-    notHeadCountCategory,
-    handleCheckedExpandedAll,
-    checkOut,
-    handleChangeItemAccordion,
-  } = useFinancesOverview(
-    quarterExpenses,
-    monthlyExpenses,
-    byBudgetBreakdownExpenses,
-    byCategoryBreakdownExpenses,
-    expenseCategories
-  );
+  } = useFinancesOverview(quarterExpenses, monthlyExpenses, byBudgetBreakdownExpenses, byCategoryBreakdownExpenses);
 
   return (
     <PageWrapper isLight={isLight}>
@@ -124,8 +120,8 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
       </Container>
       <CategoryModalComponent
         checkOut={checkOut}
-        headCountCategories={headCountCategory}
-        notHeadCountCategory={notHeadCountCategory}
+        headCountCategories={headCountCategories}
+        notHeadCountCategory={noHeadCountCategories}
         handleCloseModal={handleCloseModal}
         handleCheckedExpandedAll={handleCheckedExpandedAll}
         handleChangeItemAccordion={handleChangeItemAccordion}

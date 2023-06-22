@@ -6,6 +6,7 @@ import {
   fetchExpenseCategories,
   fetchExpenses,
 } from '@ses/containers/FinancesOverview/api/queries';
+import { ModalCategoriesProvider } from '@ses/core/context/CategoryModalContext';
 import { ExpenseGranularity } from '@ses/core/models/dto/expensesDTO';
 import React from 'react';
 import { featureFlags } from '../feature-flags/feature-flags';
@@ -35,13 +36,15 @@ const FinanceOverviewPage: NextPage<FinanceOverviewPageProps> = ({
   }
 
   return (
-    <FinancesOverviewContainer
-      quarterExpenses={quarterExpenses}
-      monthlyExpenses={monthlyExpenses || []}
-      byBudgetBreakdownExpenses={byBudgetBreakdownExpenses}
-      byCategoryBreakdownExpenses={byCategoryBreakdownExpenses}
-      expenseCategories={expenseCategories}
-    />
+    <ModalCategoriesProvider expenseCategories={expenseCategories}>
+      <FinancesOverviewContainer
+        quarterExpenses={quarterExpenses}
+        monthlyExpenses={monthlyExpenses || []}
+        byBudgetBreakdownExpenses={byBudgetBreakdownExpenses}
+        byCategoryBreakdownExpenses={byCategoryBreakdownExpenses}
+        expenseCategories={expenseCategories}
+      />
+    </ModalCategoriesProvider>
   );
 };
 

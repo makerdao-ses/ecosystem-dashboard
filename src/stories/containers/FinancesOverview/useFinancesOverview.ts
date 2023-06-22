@@ -1,5 +1,5 @@
 import { useMediaQuery } from '@mui/material';
-import { useModalCategory } from '@ses/components/BasicModal/useModalCategory';
+// import { useModalCategory } from '@ses/components/BasicModal/useModalCategory';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
@@ -12,7 +12,7 @@ import {
 } from './utils/costBreakdown';
 import { parseQuarter } from './utils/quarters';
 import type { CostBreakdownFilterValue, ExtendedExpense } from './financesOverviewTypes';
-import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
+// import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 
 const noneBorder = [0, 0, 0, 0];
@@ -24,20 +24,8 @@ const useFinancesOverview = (
   quarterExpenses: ExpenseDto[] = [],
   monthly: Partial<ExpenseDto>[],
   byBudgetBreakdownExpenses: ExtendedExpense[],
-  byCategoryBreakdownExpenses: ExpenseDto[],
-  expenseCategories: ExpenseCategory[]
+  byCategoryBreakdownExpenses: ExpenseDto[]
 ) => {
-  const {
-    checkOut,
-    handleChangeItemAccordion,
-    handleCheckedExpandedAll,
-    handleCloseModal,
-    handleOpenModal,
-    headCountCategory,
-    notHeadCountCategory,
-    openModal,
-  } = useModalCategory(expenseCategories);
-
   const sortedQuarters = useMemo(
     () =>
       quarterExpenses.sort((a, b) => {
@@ -275,14 +263,6 @@ const useFinancesOverview = (
     remainingCategories,
     maxValueByCategory,
     costBreakdownTotal,
-    openModal,
-    handleOpenModal,
-    handleCloseModal,
-    headCountCategory,
-    notHeadCountCategory,
-    handleCheckedExpandedAll,
-    checkOut,
-    handleChangeItemAccordion,
   };
 };
 
