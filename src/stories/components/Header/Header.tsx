@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import { siteRoutes } from '@ses/config/routes';
 import Link from 'next/link';
@@ -37,21 +37,24 @@ const Header: React.FC = () => {
     router.push(siteRoutes.home);
   }, [router]);
 
-  const activeMenuItem = useMemo(() => {
+  const activeMenuItem: MenuType = useMemo(() => {
     if (router.pathname.startsWith('/core-unit')) {
-      return featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW ? menuItems[2] : menuItems[0];
+      return featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW ? menuItems.coreUnits : menuItems.finances;
     } else if (
       router.pathname.startsWith('/activity-feed') &&
       featureFlags[CURRENT_ENVIRONMENT].FEATURE_GLOBAL_ACTIVITIES
     ) {
-      return featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW ? menuItems[4] : menuItems[0];
+      return featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW
+        ? menuItems.globalActivityFeed
+        : menuItems.finances;
     } else if (router.pathname.startsWith('/delegates')) {
-      return menuItems[3];
+      return menuItems.recognizedDelegate;
     } else if (router.pathname.startsWith('/ecosystem-actors')) {
-      return menuItems[1];
-    } else return menuItems[0];
+      return menuItems.ecosystemActors;
+    } else return menuItems.finances;
   }, [router.pathname]);
-  const activeItem = isMobile && activeMenuItem.titleMobile ? activeMenuItem.titleMobile : activeMenuItem?.title;
+
+  const activeItem = isMobile && activeMenuItem?.titleMobile ? activeMenuItem?.titleMobile : activeMenuItem.title;
   return (
     <Container isLight={isLight}>
       <LeftPart>
@@ -66,15 +69,15 @@ const Header: React.FC = () => {
         </ContainerLogoSelect>
 
         <Navigation>
-          {menuItems.map((item: MenuType) => (
-            <Link href={item.link} passHref key={item?.title}>
+          {Object.keys(menuItems).map((item) => (
+            <Link href={menuItems[item].link} passHref key={menuItems[item].title}>
               <ItemMenuStyle
                 isLight={isLight}
-                style={{ marginRight: item.marginRight }}
-                href={item.link}
-                active={activeMenuItem === item}
+                style={{ marginRight: menuItems[item].marginRight }}
+                href={menuItems[item].link}
+                active={activeItem === menuItems[item].title}
               >
-                {item?.title}
+                {menuItems[item].title}
               </ItemMenuStyle>
             </Link>
           ))}
