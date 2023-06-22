@@ -7,35 +7,31 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import TransactionList from '../TransactionList/TransactionList';
 import WalletInfo from '../WalletInfo/WalletInfo';
 import type { AccordionProps } from '@mui/material/Accordion';
 import type { AccordionSummaryProps } from '@mui/material/AccordionSummary';
+import type { Token, UIReservesData } from '@ses/core/models/dto/snapshotAccountDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface ReserveCardProps {
-  name: string;
-  address?: string;
-  isGroup?: boolean;
-  initialBalance: number;
-  inflow: number;
-  outflow: number;
-  newBalance: number;
-  currency?: 'DAI' | 'ETH' | 'MKR';
+  account: UIReservesData;
+  currency?: Token;
 }
 
-const ReserveCard: React.FC<ReserveCardProps> = ({
-  name,
-  address,
-  isGroup = false,
-  initialBalance,
-  inflow,
-  outflow,
-  newBalance,
-  currency = 'DAI',
-}) => {
+const ReserveCard: React.FC<ReserveCardProps> = ({ account, currency = 'DAI' }) => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const [expanded, setExpanded] = React.useState<boolean>(false);
+
+  const isGroup = account.accountType === 'group';
+  const initialBalance = account.snapshotAccountBalance?.[0]?.initialBalance ?? 0;
+  const inflow = account.snapshotAccountBalance?.[0]?.inflow ?? 0;
+  const outflow =
+    (account.snapshotAccountBalance?.[0]?.outflow
+      ? account.snapshotAccountBalance?.[0]?.outflow * -1
+      : account.snapshotAccountBalance?.[0]?.outflow) ?? 0;
+  const newBalance = account.snapshotAccountBalance?.[0]?.newBalance ?? 0;
 
   const SVG = (
     <Arrow
@@ -49,7 +45,7 @@ const ReserveCard: React.FC<ReserveCardProps> = ({
     >
       <path
         d="M4.69339 5.86308C4.85404 6.04564 5.14598 6.04564 5.30664 5.86308L9.90358 0.639524C10.1255 0.38735 9.93978 0 9.59696 0H0.403059C0.0602253 0 -0.125491 0.38735 0.0964331 0.639525L4.69339 5.86308Z"
-        fill={isLight ? '#546978' : '#546978'}
+        fill={'#546978'}
       />
     </Arrow>
   );
@@ -59,10 +55,10 @@ const ReserveCard: React.FC<ReserveCardProps> = ({
       <Card isLight={isLight}>
         <NameContainer>
           {isGroup ? (
-            <Name isLight={isLight}>{name}</Name>
+            <Name isLight={isLight}>{account?.accountLabel}</Name>
           ) : (
             <WalletInfoWrapper>
-              <WalletInfo name={name} address={address ?? ''} />
+              <WalletInfo name={account.accountLabel} address={account.accountAddress ?? ''} />
             </WalletInfoWrapper>
           )}
           {isMobile && SVG}
@@ -93,7 +89,9 @@ const ReserveCard: React.FC<ReserveCardProps> = ({
         </NewBalance>
         {!isMobile && <ArrowContainer>{SVG}</ArrowContainer>}
       </Card>
-      <TransactionContainer>transaction list</TransactionContainer>
+      <TransactionContainer>
+        <TransactionList items={isGroup ? account.groups : account.snapshotAccountTransaction} />
+      </TransactionContainer>
     </Accordion>
   );
 };
@@ -118,9 +116,16 @@ const Card = styled((props: AccordionSummaryProps) => <MuiAccordionSummary {...p
       ? '0px 4px 6px rgba(196, 196, 196, 0.25)'
       : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
     borderRadius: 6,
+    zIndex: 1,
 
     [lightTheme.breakpoints.up('table_834')]: {
       padding: 0,
+    },
+
+    '&.Mui-expanded': {
+      [lightTheme.breakpoints.down('table_834')]: {
+        borderRadius: '6px 6px 0 0',
+      },
     },
 
     '& .MuiAccordionSummary-content': {
@@ -137,8 +142,11 @@ const Card = styled((props: AccordionSummaryProps) => <MuiAccordionSummary {...p
 );
 
 const TransactionContainer = styled(MuiAccordionDetails)(() => ({
-  padding: '0 0 14px',
-  background: 'red',
+  padding: 0,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginBottom: 24,
+  },
 }));
 
 const NameContainer = styled.div({
@@ -308,7 +316,7 @@ const NewBalance = styled(InitialBalance)({
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    padding: '16px 64px 16px 16px',
+    padding: '16px 32px 16px 16px',
   },
 });
 

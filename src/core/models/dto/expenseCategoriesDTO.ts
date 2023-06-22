@@ -15,3 +15,5 @@ export interface ParsedExpenseCategory {
   // only for top-level categories
   subcategories: Omit<ParsedExpenseCategory, 'subcategories'>[];
 }
+
+export type ParsedExpenseCategoryWithExpanded = ParsedExpenseCategory & { isExpanded: boolean };

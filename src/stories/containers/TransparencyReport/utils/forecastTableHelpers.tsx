@@ -288,7 +288,6 @@ export const getBreakdownItemsForWallet = (
       );
       groupItemsCount += items.length;
       result.push(...items);
-
       if (!hasGroups && items.length > 1) {
         // subtotal when it is a non headcount without a group
         result.push(

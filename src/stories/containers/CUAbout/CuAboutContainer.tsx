@@ -145,7 +145,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
               {isEnabled('FEATURE_CARD_NAVIGATION') && (
                 <ContainerScroll>
                   <ContainerCard>
-                    <CardExpenses queryStrings={queryStrings} code={cuAbout.shortCode} auditors={cuAbout.auditors} />
+                    <CardExpenses queryStrings={queryStrings} code={cuAbout.code} auditors={cuAbout.auditors} />
                   </ContainerCard>
                   {!(table834 || phone || LessPhone) && (
                     <ContainerCard>

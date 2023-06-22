@@ -1,41 +1,68 @@
 import styled from '@emotion/styled';
 import lightTheme from '@ses/styles/theme/light';
+import { DateTime } from 'luxon';
 import React from 'react';
 import FundChangeCard from '../Cards/FundChangeCard';
 import SimpleStatCard from '../Cards/SimpleStatCard';
 import CurrencyPicker from '../CurrencyPicker/CurrencyPicker';
 import SectionHeader from '../SectionHeader/SectionHeader';
 import TransactionHistory from '../TransactionHistory/TransactionHistory';
+import type { SnapshotAccountBalance, SnapshotAccountTransaction } from '@ses/core/models/dto/snapshotAccountDTO';
 
 interface FundingOverviewProps {
-  snapshotOwner: string;
+  snapshotOwner?: string;
+  startDate?: string;
+  endDate?: string;
+  balance?: SnapshotAccountBalance;
+  transactionHistory: SnapshotAccountTransaction[];
+
+  // Only used for storybook
+  defaultExpanded?: boolean;
 }
 
-const FundingOverview: React.FC<FundingOverviewProps> = ({ snapshotOwner }) => (
+const FundingOverview: React.FC<FundingOverviewProps> = ({
+  snapshotOwner,
+  startDate,
+  endDate,
+  balance,
+  transactionHistory,
+  defaultExpanded = false,
+}) => (
   <div>
     <HeaderContainer>
       <SectionHeader
         title="MakerDAO Funding Overview"
-        subtitle={`Totals funds made available to the ${snapshotOwner} over its entire lifetime, since June 2021.`}
+        subtitle={`Totals funds made available ${
+          snapshotOwner ? `to the ${snapshotOwner}` : ''
+        } over its entire lifetime${startDate ? `, since ${DateTime.fromISO(startDate).toFormat('LLLL yyyy')}` : ''}.`}
         tooltip={'pending...'}
       />
       <CurrencyPicker />
     </HeaderContainer>
 
     <CardsContainer>
-      <SimpleStatCard date="2023-05-12T22:52:54.494Z" value={3685648} caption="Initial Lifetime Balance" />
+      <SimpleStatCard
+        date={startDate}
+        value={typeof balance?.initialBalance === 'number' ? Math.abs(balance?.initialBalance ?? 0) : undefined}
+        caption="Initial Lifetime Balance"
+      />
       <FundChangeCard
-        netChange={57680}
-        leftValue={300000}
+        netChange={balance?.inflow && balance?.outflow ? balance.outflow * -1 - balance.inflow : undefined}
+        leftValue={balance?.outflow ? balance?.outflow * -1 : undefined}
         leftText="Extra Funds Made Available"
-        rightValue={242320}
+        rightValue={balance?.inflow}
         rightValueColor="green"
         rightText="Funds Returned via DSSBlow"
       />
-      <SimpleStatCard date="2023-06-14T22:52:54.494Z" value={3743328} caption="New Lifetime Balance" hasEqualSign />
+      <SimpleStatCard
+        date={endDate}
+        value={balance?.newBalance ? balance.newBalance * -1 : balance?.newBalance}
+        caption="New Lifetime Balance"
+        hasEqualSign
+      />
     </CardsContainer>
 
-    <TransactionHistory />
+    <TransactionHistory transactionHistory={transactionHistory} defaultExpanded={defaultExpanded} />
   </div>
 );
 

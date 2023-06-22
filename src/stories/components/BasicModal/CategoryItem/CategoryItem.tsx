@@ -1,25 +1,16 @@
-import styled from '@emotion/styled';
 import React from 'react';
 import AccordionCategory from './ArrowAccordionCategory';
-import type { ParsedExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
+import type { ParsedExpenseCategoryWithExpanded } from '@ses/core/models/dto/expenseCategoriesDTO';
 interface Props {
   isOpen?: boolean;
-  onChange?: () => void;
   className?: string;
-  category: ParsedExpenseCategory;
+  category: ParsedExpenseCategoryWithExpanded;
+  expanded: boolean;
+  handleChangeItemAccordion: (id: string, expanded: boolean) => void;
 }
 
-const CategoryItem: React.FC<Props> = ({ category, className }) => (
-  <Container className={className}>
-    <AccordionCategory category={category} />
-  </Container>
+const CategoryItem: React.FC<Props> = ({ category, expanded, handleChangeItemAccordion }) => (
+  <AccordionCategory category={category} expanded={expanded} handleChangeItemAccordion={handleChangeItemAccordion} />
 );
 
 export default CategoryItem;
-
-const Container = styled.div({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-});

@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
+import CategoryModalComponent from '@ses/components/BasicModal/CategoryModalComponent';
 import Container from '@ses/components/Container/Container';
 import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import Tabs from '@ses/components/Tabs/Tabs';
@@ -19,6 +20,7 @@ import ExpenseSection from './components/ExpenseSection/ExpenseSection';
 import SectionTitle from './components/SectionTitle/SectionTitle';
 import useExpenseReport from './useExpenseReport';
 import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
+import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { DateTime } from 'luxon';
 
@@ -27,9 +29,16 @@ interface ExpenseReportProps {
   budgetStatements?: BudgetStatementDto[];
   code: string;
   longCode: string;
+  expenseCategories: ExpenseCategory[];
 }
 
-const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetStatements, code, longCode }) => {
+const ExpenseReport: React.FC<ExpenseReportProps> = ({
+  currentMonth,
+  budgetStatements,
+  code,
+  longCode,
+  expenseCategories,
+}) => {
   const {
     isLight,
     L2SectionInner,
@@ -44,7 +53,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
     onForecastBreakdownTabsInit,
     onActualsBreakdownExpand,
     onForecastBreakdownExpand,
-  } = useExpenseReport(currentMonth, budgetStatements);
+  } = useExpenseReport(currentMonth, budgetStatements, expenseCategories);
 
   return (
     <ExpenseReportWrapper>
@@ -133,6 +142,16 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
             )}
           </>
         )}
+        <CategoryModalComponent
+          checkOut={actualsData.checkOut}
+          headCountCategories={actualsData.headCountCategory}
+          notHeadCountCategory={actualsData.notHeadCountCategory}
+          handleCloseModal={actualsData.handleCloseModal}
+          handleCheckedExpandedAll={actualsData.handleCheckedExpandedAll}
+          handleChangeItemAccordion={actualsData.handleChangeItemAccordion}
+          isLight={isLight}
+          openModal={actualsData.openModal}
+        />
       </ExpenseSection>
 
       <ExpenseSection title={'Forecast - Totals'}>

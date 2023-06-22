@@ -6,16 +6,17 @@ import SimpleBar from 'simplebar-react';
 import { Close } from '../svg/close';
 import CategoryItem from './CategoryItem/CategoryItem';
 import CheckBoxDescription from './ChekBoxDescription/ChekBoxDescription';
-import type { ParsedExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
+import type { ParsedExpenseCategoryWithExpanded } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  headCountCategories: ParsedExpenseCategory[];
-  noHeadCountCategories: ParsedExpenseCategory[];
+  headCountCategories: ParsedExpenseCategoryWithExpanded[];
+  noHeadCountCategories: ParsedExpenseCategoryWithExpanded[];
   isCheckedExpandedAll?: boolean;
   setIsCheckedExpandedAll: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleCloseModal: () => void;
   isSomeOpen?: boolean;
+  handleChangeItemAccordion: (id: string, expanded: boolean) => void;
 }
 
 const ContainerModal: React.FC<Props> = ({
@@ -25,6 +26,7 @@ const ContainerModal: React.FC<Props> = ({
   setIsCheckedExpandedAll,
   handleCloseModal,
   isSomeOpen = false,
+  handleChangeItemAccordion,
 }) => {
   const { isLight } = useThemeContext();
   return (
@@ -44,38 +46,54 @@ const ContainerModal: React.FC<Props> = ({
           <CheckBoxDescription isChecked={isCheckedExpandedAll} setIsChecked={setIsCheckedExpandedAll} />
         </ContainerDescription>
       </Header>
+      <ContainerScroll>
+        <SimpleBarStyled scrollbarMaxSize={64}>
+          <InsideModal>
+            <HeadCount isLight={isLight}>Headcount Expense Categories</HeadCount>
+            <Line isLight={isLight} />
+            <HeadCountList>
+              {headCountCategories?.map((item) => (
+                <CategoryItem
+                  key={item.name}
+                  category={item}
+                  expanded={item.isExpanded}
+                  handleChangeItemAccordion={handleChangeItemAccordion}
+                />
+              ))}
+            </HeadCountList>
+            <NoHeadCount isLight={isLight}>Non-Headcount Expense Categories</NoHeadCount>
+            <Line isLight={isLight} />
+            <ContainerTowColumns>
+              <ContainerPar>
+                {noHeadCountCategories
+                  ?.slice(0, noHeadCountCategories.length / 2)
 
-      <SimpleBarStyled scrollbarMaxSize={32}>
-        <InsideModal>
-          <HeadCount isLight={isLight}>Headcount Expense Categories</HeadCount>
-          <Line isLight={isLight} />
-          <HeadCountList>
-            {headCountCategories?.map((item) => (
-              <CategoryItem key={item.name} category={item} />
-            ))}
-          </HeadCountList>
-          <NoHeadCount isLight={isLight}>Non-Headcount Expense Categories</NoHeadCount>
-          <Line isLight={isLight} />
-          <ContainerTowColumns>
-            <ContainerPar>
-              {noHeadCountCategories
-                ?.slice(0, noHeadCountCategories.length / 2)
+                  .map((item) => (
+                    <CategoryItem
+                      category={item}
+                      key={item.name}
+                      expanded={item.isExpanded}
+                      handleChangeItemAccordion={handleChangeItemAccordion}
+                    />
+                  ))}
+              </ContainerPar>
+              <ContainerOdd>
+                {noHeadCountCategories
+                  ?.slice(noHeadCountCategories.length / 2, noHeadCountCategories.length)
 
-                .map((item) => (
-                  <CategoryItem category={item} key={item.name} />
-                ))}
-            </ContainerPar>
-            <ContainerOdd>
-              {noHeadCountCategories
-                ?.slice(noHeadCountCategories.length / 2, noHeadCountCategories.length)
-
-                .map((item) => (
-                  <CategoryItem category={item} key={item.name} />
-                ))}
-            </ContainerOdd>
-          </ContainerTowColumns>
-        </InsideModal>
-      </SimpleBarStyled>
+                  .map((item) => (
+                    <CategoryItem
+                      category={item}
+                      key={item.name}
+                      expanded={item.isExpanded}
+                      handleChangeItemAccordion={handleChangeItemAccordion}
+                    />
+                  ))}
+              </ContainerOdd>
+            </ContainerTowColumns>
+          </InsideModal>
+        </SimpleBarStyled>
+      </ContainerScroll>
     </Container>
   );
 };
@@ -86,21 +104,27 @@ const Container = styled.div<WithIsLight & { isSomeOpen?: boolean }>(({ isLight,
   display: 'flex',
   flexDirection: 'column',
   paddingBottom: 27,
+  overflowY: 'auto',
+
+  '::-webkit-scrollbar': {
+    width: '1px',
+  },
+
+  height: '100%',
   background: isLight ? '#FFFFFF' : '#10191F',
   boxShadow: isLight
     ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
     : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
-  borderRadius: '16px',
-  width: 375,
-
+  borderTopLeftRadius: '6px',
+  borderTopRightRadius: '6px',
   [lightTheme.breakpoints.up('table_834')]: {
-    width: 770,
     paddingBottom: 40,
+    borderRadius: '16px',
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
     width: 1114,
-    paddingBottom: 32,
+    paddingBottom: 64,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     width: 1184,
@@ -108,6 +132,7 @@ const Container = styled.div<WithIsLight & { isSomeOpen?: boolean }>(({ isLight,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     width: 1184,
+    paddingBottom: 64,
   },
 }));
 
@@ -132,12 +157,9 @@ const Header = styled.div<WithIsLight>(({ isLight }) => ({
     paddingBottom: 16,
     gap: 24,
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     paddingLeft: 40,
     paddingRight: 40,
-    paddingTop: 24,
-    paddingBottom: 16,
-    gap: 24,
   },
 }));
 
@@ -148,7 +170,7 @@ const InsideModal = styled.div({
     paddingLeft: 24,
     paddingRight: 24,
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     paddingLeft: 40,
     paddingRight: 40,
   },
@@ -187,7 +209,7 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   color: isLight ? '#231536' : '#D2D4EF',
-  width: 343,
+  width: '100%',
   [lightTheme.breakpoints.up('table_834')]: {
     width: 466,
     fontWeight: 400,
@@ -195,7 +217,7 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
     lineHeight: '22px',
     alignItems: 'baseline',
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     width: 725,
   },
 }));
@@ -229,7 +251,7 @@ const HeadCount = styled.div<WithIsLight>(({ isLight }) => ({
     lineHeight: '24px',
     letterSpacing: '0.4px',
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     marginTop: 32,
   },
 }));
@@ -258,7 +280,7 @@ const NoHeadCount = styled(HeadCount)<WithIsLight>({
   [lightTheme.breakpoints.up('table_834')]: {
     marginTop: 40,
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     marginTop: 64,
   },
 });
@@ -303,13 +325,7 @@ const ContainerClose = styled.div({
     alignItems: 'center',
     paddingRight: 6,
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    paddingRight: 3,
-  },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -327,21 +343,28 @@ const StyledClose = styled(Close)({
 });
 
 const SimpleBarStyled = styled(SimpleBar)({
-  height: 748,
+  height: '100%',
   '.simplebar-scrollbar::before': {
     width: 4,
-    height: 64,
     marginLeft: 4,
     background: '#1aab9b',
     borderRadius: 20,
   },
   [lightTheme.breakpoints.up('table_834')]: {
-    height: 813,
+    maxHeight: 813,
     '.simplebar-scrollbar::before': {
       width: 6,
     },
   },
-  [lightTheme.breakpoints.up('table_834')]: {
-    height: 847,
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    maxHeight: 847,
+  },
+});
+
+const ContainerScroll = styled.div({
+  height: '100%',
+  overflowY: 'auto',
+  '::-webkit-scrollbar': {
+    width: '1px',
   },
 });

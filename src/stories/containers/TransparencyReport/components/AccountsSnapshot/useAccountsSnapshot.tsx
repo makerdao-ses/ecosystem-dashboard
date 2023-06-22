@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ExpensesComparisonRowCard from './components/Cards/ExpensesComparisonRowCard/ExpensesComparisonRowCard';
 import { EXPENSES_COMPARISON_TABLE_HEADER } from './components/ExpensesComparison/ExpensesComparison';
 import type { CardRenderProps, RowProps } from '@ses/components/AdvanceTable/types';
-import type { Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';
+import type { Snapshots, Token, UIReservesData } from '@ses/core/models/dto/snapshotAccountDTO';
 
 const RenderCurrentMonthRow: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { isLight } = useThemeContext();
@@ -75,13 +75,64 @@ export const buildRow = (
 const useAccountsSnapshot = (snapshot: Snapshots) => {
   const { isLight } = useThemeContext();
 
-  const [includeOffChain, setIncludeOffChain] = useState<boolean>(false);
+  // TODO: the `setSelectedTo` is not used yet, but it will be used to filter the data
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [selectedToken, setSelectedToken] = useState<Token>('DAI');
 
+  const [includeOffChain, setIncludeOffChain] = useState<boolean>(false);
   const toggleIncludeOffChain = () => setIncludeOffChain(!includeOffChain);
 
-  // TODO: process the snapshot object
-  console.log(snapshot);
+  const startDate = snapshot.start ?? undefined;
+  const endDate = snapshot.end ?? undefined;
 
+  const mainAccount = snapshot.snapshotAccount.find(
+    (account) => account.groupAccountId === null && account.upstreamAccountId === null
+  );
+  if (!mainAccount) throw new Error('Maker Protocol Wallet not found');
+  const mainBalance = mainAccount.snapshotAccountBalance.find((balance) => balance.token === selectedToken);
+
+  const transactionHistory = mainAccount.snapshotAccountTransaction
+    .filter((transaction) => transaction.token === selectedToken)
+    .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+
+  // cu reserves balance
+  const cuReservesAccount = snapshot.snapshotAccount.find(
+    (account) => account.groupAccountId === null && account.upstreamAccountId === mainAccount.id
+  );
+  const cuReservesBalance = cuReservesAccount?.snapshotAccountBalance?.find(
+    (balance) => balance.token === selectedToken
+  );
+
+  // on chain
+  const onChainAccount = snapshot.snapshotAccount.filter(
+    (account) => account.groupAccountId === cuReservesAccount?.id && account.upstreamAccountId === mainAccount.id
+  )?.[0];
+
+  const onChainData = snapshot.snapshotAccount
+    .filter((account) => account.groupAccountId === onChainAccount?.id)
+    .map(
+      (account) =>
+        ({
+          ...account,
+          snapshotAccountBalance: account.snapshotAccountBalance.filter((balance) => balance.token === selectedToken),
+          snapshotAccountTransaction: account.snapshotAccountTransaction
+            .filter((transaction) => transaction.token === selectedToken)
+            .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()),
+          groups: snapshot.snapshotAccount
+            .filter((childrenAccount) => childrenAccount.groupAccountId === account.id)
+            .map((childrenAccount) => ({
+              ...childrenAccount,
+              snapshotAccountBalance: childrenAccount.snapshotAccountBalance.filter(
+                (balance) => balance.token === selectedToken
+              ),
+              snapshotAccountTransaction: childrenAccount.snapshotAccountTransaction
+                .filter((transaction) => transaction.token === selectedToken)
+                .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()),
+            })),
+        } as UIReservesData)
+    );
+
+  // mocked data for the "Reported Expenses Comparison" table
   const expensesComparisonRows = [
     buildRow(['MAY-2023', '221,503.00 DAI', '240,000.00 DAI', '8.35%', '221,504.00 DAI', '0.00%'], true, false),
     buildRow(['APR-2023', '171,503.00 DAI', '170,000.00 DAI', '-0.88%', '171,500,00 DAI', '0.00%'], false, false),
@@ -94,6 +145,12 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
     expensesComparisonRows,
     includeOffChain,
     toggleIncludeOffChain,
+    startDate,
+    endDate,
+    mainBalance,
+    transactionHistory,
+    cuReservesBalance,
+    onChainData,
   };
 };
 

@@ -10,8 +10,8 @@ import OutlinedCard from './OutlinedCard';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface SimpleStatCardProps {
-  date: string;
-  value: number;
+  date?: string;
+  value?: number;
   caption: string;
   hasEqualSign?: boolean;
   isReserves?: boolean;
@@ -30,7 +30,7 @@ const SimpleStatCard: React.FC<SimpleStatCardProps> = ({
   return (
     <Card>
       <Date isLight={isLight} align={hasEqualSign ? 'right' : 'left'}>
-        {DateTime.fromISO(date).toFormat('d MMM y')}
+        {date ? DateTime.fromISO(date).toFormat('d MMM y') : 'N/A'}
       </Date>
 
       <ContentWrapper>
@@ -41,7 +41,13 @@ const SimpleStatCard: React.FC<SimpleStatCardProps> = ({
         )}
         <Wrapper>
           <Value isLight={isLight}>
-            {usLocalizedNumber(Math.round(value))} <span>DAI</span>
+            {value !== undefined ? (
+              <>
+                {usLocalizedNumber(Math.round(value))} <span>DAI</span>
+              </>
+            ) : (
+              'N/A'
+            )}
           </Value>
           <Caption isLight={isLight} position={hasEqualSign ? 'right' : 'left'} isReserves={isReserves}>
             {caption}

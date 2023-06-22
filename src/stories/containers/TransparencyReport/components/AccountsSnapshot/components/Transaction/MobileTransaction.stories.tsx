@@ -13,7 +13,21 @@ export default {
   },
 } as ComponentMeta<typeof MobileTransaction>;
 
-const variantsArgs = [{}, { defaultExpanded: true }];
+const commonArgs = {
+  name: 'DSS Blow',
+  date: '2023-04-17T11:36:54.494Z',
+  txHash: '0xe079d59dbf813d2541a345ef4786cc44a8a',
+  counterPartyName: 'Auditor Wallet',
+  counterPartyAddress: '0x232b5483e5a5cd22188482',
+  amount: 1153480,
+};
+const variantsArgs = [
+  { ...commonArgs },
+  {
+    ...commonArgs,
+    defaultExpanded: true,
+  },
+];
 
 export const [[CollapsedLightMode, CollapsedDarkMode], [ExpandedLightMode, ExpandedDarkMode]] = createThemeModeVariants(
   MobileTransaction,

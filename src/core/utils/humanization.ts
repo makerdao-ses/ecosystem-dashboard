@@ -27,6 +27,7 @@ export const usLocalizedNumber = (num: number, decimalPlace = 0): string =>
     currency: 'USD',
     currencyDisplay: 'symbol',
     minimumFractionDigits: decimalPlace,
+    maximumFractionDigits: decimalPlace,
   });
 
 export const deleteTwoDecimalPLace = (formattedNumber: string) => {

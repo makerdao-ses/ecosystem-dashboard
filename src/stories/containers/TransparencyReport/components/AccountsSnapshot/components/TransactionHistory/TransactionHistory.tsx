@@ -4,27 +4,30 @@ import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
-import React from 'react';
+import React, { useState } from 'react';
 import AccordionArrow from '../AccordionArrow/AccordionArrow';
-import Transaction from '../Transaction/Transaction';
+import TransactionList from '../TransactionList/TransactionList';
 import type { AccordionProps } from '@mui/material/Accordion';
 import type { AccordionSummaryProps } from '@mui/material/AccordionSummary';
+import type { SnapshotAccountTransaction } from '@ses/core/models/dto/snapshotAccountDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-const TransactionHistory: React.FC = () => {
+interface TransactionHistoryProps {
+  transactionHistory: SnapshotAccountTransaction[];
+  // Only used for storybook
+  defaultExpanded?: boolean;
+}
+
+const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transactionHistory, defaultExpanded = false }) => {
   const { isLight } = useThemeContext();
+  const [expanded, setExpanded] = useState<boolean>(defaultExpanded);
 
   return (
     <TransactionHistoryContainer>
-      <Accordion>
+      <Accordion expanded={expanded} onChange={() => setExpanded(!expanded)}>
         <AccordionSummary isLight={isLight}>View Transaction History</AccordionSummary>
         <AccordionDetails>
-          {/* NOTE: the transaction history is a WIP, the following element will be replaced entirely after finished the implementation */}
-          <TransactionContainer isLight={isLight}>
-            <Transaction />
-            <Transaction />
-            <Transaction />
-          </TransactionContainer>
+          <TransactionList items={transactionHistory} />
         </AccordionDetails>
       </Accordion>
     </TransactionHistoryContainer>
@@ -52,6 +55,7 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
   paddingLeft: 16,
   paddingRight: 8,
   minHeight: 'auto',
+  zIndex: 1,
 
   '&.Mui-expanded': {
     [lightTheme.breakpoints.down('table_834')]: {
@@ -91,17 +95,4 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
 
 const AccordionDetails = styled(MuiAccordionDetails)({
   padding: 0,
-
-  [lightTheme.breakpoints.up('table_834')]: {
-    padding: '0 56px',
-  },
 });
-
-const TransactionContainer = styled.div<WithIsLight>(({ isLight }) => ({
-  borderRadius: '0 0 6px 6px',
-  background: isLight ? '#ECEFF9' : 'red',
-  padding: 8,
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 8,
-}));

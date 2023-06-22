@@ -1,4 +1,5 @@
 import groupBy from 'lodash/groupBy';
+import { OpenModalTransparency } from '../transparencyReportUtils';
 import {
   getCommentsFromCategory,
   getGroupActual,
@@ -91,16 +92,17 @@ export const getActualsBreakdownItems = (
   return result;
 };
 
-export const getActualsBreakdownColumns = (wallet: BudgetStatementWalletDto) => {
+export const getActualsBreakdownColumns = (wallet: BudgetStatementWalletDto, handleOpenModal: () => void) => {
   const hasGroups = hasWalletGroups(wallet);
 
   return [
     {
-      header: 'Expense Category',
+      header: <OpenModalTransparency name="Expense Category" handleOpenModal={handleOpenModal} />,
       align: 'left',
       type: 'text',
       isCardHeader: true,
       width: hasGroups ? '220px' : '240px',
+      handleOpenModal,
     },
     {
       header: 'Mthly Budget',
@@ -184,7 +186,8 @@ export const getActualsBreakdownItemsForWallet = (
           (item) => item.headcountExpense && (item.group === groupedKey || (!item.group && !groupedKey))
         ),
         month,
-        breakdownColumns
+        breakdownColumns,
+        'category'
       );
       groupItemsCount += items.length;
       result.push(...items);
@@ -230,7 +233,8 @@ export const getActualsBreakdownItemsForWallet = (
           (item) => !item.headcountExpense && (item.group === groupedKey || (!item.group && !groupedKey))
         ),
         month,
-        breakdownColumns
+        breakdownColumns,
+        'category'
       );
       groupItemsCount += items.length;
       result.push(...items);

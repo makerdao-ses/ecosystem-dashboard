@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
 import { NumberCell } from '@ses/components/NumberCell/NumberCell';
+import IconOpenModal from '@ses/components/svg/IconOpenModal';
 import Information from '@ses/components/svg/information';
 import ArrowPopoverTargetValueComponent from '@ses/containers/TransparencyReport/components/ArrowPopoverTargetValue/ArrowPopoverTargetValueComponent';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
@@ -378,3 +379,22 @@ const ExtendedCustomPopover = styled(CustomPopover)<{ hasSpacePositionArrow?: bo
     },
   })
 );
+
+interface Props {
+  name: string;
+  handleOpenModal?: () => void;
+  className?: string;
+}
+
+export const OpenModalTransparency: React.FC<Props> = ({ name, handleOpenModal, className }) => (
+  <CategoryRowInsideColumn className={className}>
+    {name}
+    <IconOpenModal onClick={handleOpenModal} />
+  </CategoryRowInsideColumn>
+);
+
+const CategoryRowInsideColumn = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 12,
+});

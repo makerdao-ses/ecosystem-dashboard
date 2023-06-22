@@ -7,15 +7,28 @@ import FundChangeCard from '../Cards/FundChangeCard';
 import ReserveCard from '../Cards/ReserveCard';
 import SimpleStatCard from '../Cards/SimpleStatCard';
 import SectionHeader from '../SectionHeader/SectionHeader';
+import type { SnapshotAccountBalance, UIReservesData } from '@ses/core/models/dto/snapshotAccountDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface CUReservesProps {
-  snapshotOwner: string;
+  snapshotOwner?: string;
   includeOffChain: boolean;
   toggleIncludeOffChain: () => void;
+  startDate?: string;
+  endDate?: string;
+  balance?: SnapshotAccountBalance;
+  onChainData?: UIReservesData[];
 }
 
-const CUReserves: React.FC<CUReservesProps> = ({ snapshotOwner, includeOffChain, toggleIncludeOffChain }) => {
+const CUReserves: React.FC<CUReservesProps> = ({
+  snapshotOwner,
+  includeOffChain,
+  toggleIncludeOffChain,
+  startDate,
+  endDate,
+  balance,
+  onChainData,
+}) => {
   const { isLight } = useThemeContext();
 
   return (
@@ -23,7 +36,7 @@ const CUReserves: React.FC<CUReservesProps> = ({ snapshotOwner, includeOffChain,
       <HeaderContainer>
         <SectionHeader
           title="Total Core Unit Reserves"
-          subtitle={`On-chain and off-chain reserves accessible to the ${snapshotOwner}.`}
+          subtitle={`On-chain and off-chain reserves accessible${snapshotOwner ? ` to the ${snapshotOwner}` : ''}.`}
           tooltip={'pending...'}
         />
         <CheckContainer isLight={isLight}>
@@ -33,17 +46,17 @@ const CUReserves: React.FC<CUReservesProps> = ({ snapshotOwner, includeOffChain,
       </HeaderContainer>
 
       <CardsContainer>
-        <SimpleStatCard date="2023-05-12T22:52:54.494Z" value={1500000} caption="Initial Core Unit Reserves" />
+        <SimpleStatCard date={startDate} value={balance?.initialBalance} caption="Initial Core Unit Reserves" />
         <FundChangeCard
-          netChange={-242320}
-          leftValue={305000}
+          netChange={balance?.inflow && balance?.outflow ? balance.outflow - balance.inflow * -1 : undefined}
+          leftValue={balance?.inflow}
           leftText="Inflow"
-          rightValue={538320}
+          rightValue={balance?.outflow ? balance?.outflow * -1 : undefined}
           rightText="Outflow"
         />
         <SimpleStatCard
-          date="2023-06-14T22:52:54.494Z"
-          value={1266680}
+          date={endDate}
+          value={balance?.newBalance}
           caption="New Core Unit Reserves"
           hasEqualSign
           isReserves
@@ -53,65 +66,62 @@ const CUReserves: React.FC<CUReservesProps> = ({ snapshotOwner, includeOffChain,
       <OnChainSubsection>
         <SectionHeader
           title="On Chain Reserves"
-          subtitle={`Unspent on-chain reserves to the ${snapshotOwner}.`}
+          subtitle={`Unspent on-chain reserves${snapshotOwner ? ` to the ${snapshotOwner}` : ''}.`}
           tooltip={'pending...'}
           isSubsection
         />
 
         <ReservesCardsContainer>
-          <ReserveCard
-            name="DSS Vest"
-            isGroup
-            initialBalance={100000}
-            inflow={300000}
-            outflow={300000}
-            newBalance={100000}
-          />
-          <ReserveCard
-            name="Auditor"
-            address={'0x23b554585a4ef8482'}
-            initialBalance={500000}
-            inflow={300000}
-            outflow={250000}
-            newBalance={550000}
-          />
-          <ReserveCard
-            name="Operational"
-            isGroup
-            initialBalance={900000}
-            inflow={250000}
-            outflow={50000}
-            newBalance={1100000}
-          />
+          {onChainData?.map((account) => (
+            <ReserveCard key={account.id} account={account} />
+          ))}
         </ReservesCardsContainer>
       </OnChainSubsection>
 
       <OffChainSubsection isDisabled={!includeOffChain}>
         <SectionHeader
           title="Off Chain Reserves"
-          subtitle={`Unspent off-chain reserves to the ${snapshotOwner}.`}
+          subtitle={`Unspent off-chain reserves${snapshotOwner ? ` to the ${snapshotOwner}` : ''}.`}
           tooltip={'pending...'}
           isSubsection
         />
 
         <ReservesCardsContainer>
           <ReserveCard
-            name="Payment Processor"
-            isGroup
-            initialBalance={100000}
-            inflow={300000}
-            outflow={300000}
-            newBalance={0}
+            account={
+              {
+                accountLabel: 'Payment Processor',
+                accountType: 'group',
+                snapshotAccountBalance: [
+                  {
+                    initialBalance: 100000,
+                    inflow: 300000,
+                    outflow: -300000,
+                    newBalance: 0,
+                  },
+                ],
+                groups: [],
+              } as unknown as UIReservesData
+            }
           />
           <ReserveCard
-            // temporary disable as this is a WIP
-            // eslint-disable-next-line spellcheck/spell-checker
-            name="Coinbase Account"
-            isGroup
-            initialBalance={500000}
-            inflow={300000}
-            outflow={250000}
-            newBalance={550680}
+            account={
+              {
+                // temporary disable as this is a WIP
+                // eslint-disable-next-line spellcheck/spell-checker
+                accountLabel: 'Coinbase Account',
+                accountType: 'group',
+                snapshotAccountBalance: [
+                  {
+                    initialBalance: 500000,
+                    inflow: 300000,
+                    outflow: -250000,
+                    newBalance: 550680,
+                  },
+                ],
+                groups: [],
+              } as unknown as UIReservesData
+            }
           />
         </ReservesCardsContainer>
       </OffChainSubsection>

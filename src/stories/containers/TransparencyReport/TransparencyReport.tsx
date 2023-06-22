@@ -24,17 +24,19 @@ import { TransparencyMkrVesting } from './components/TransparencyMkrVesting/Tran
 import { TransparencyTransferRequest } from './components/TransparencyTransferRequest/TransparencyTransferRequest';
 import { TRANSPARENCY_IDS_ENUM, useTransparencyReport } from './useTransparencyReport';
 import type { CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
+import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 
 interface TransparencyReportProps {
   coreUnits: CoreUnitDto[];
   coreUnit: CoreUnitDto;
+  expenseCategories: ExpenseCategory[];
 }
 export type TableItems = {
   item: string | JSX.Element;
   id: string;
 };
 
-export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportProps) => {
+export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: TransparencyReportProps) => {
   const { isLight } = useThemeContext();
   const {
     tabItems,
@@ -119,6 +121,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
           <Container>
             {tabsIndex === TRANSPARENCY_IDS_ENUM.ACTUALS && (
               <TransparencyActuals
+                expenseCategories={expenseCategories}
                 code={code}
                 currentMonth={currentMonth}
                 budgetStatements={coreUnit?.budgetStatements}
@@ -166,6 +169,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit }: TransparencyReportPr
               currentMonth={currentMonth}
               budgetStatements={coreUnit?.budgetStatements}
               longCode={longCode}
+              expenseCategories={expenseCategories}
             />
           )}
 
