@@ -53,7 +53,7 @@ const Header: React.FC = () => {
       return menuItems[0];
     }
   }, [router.pathname]);
-  const activeItemMobile = isMobile ? activeMenuItem.titleMobile : activeMenuItem.title;
+  const activeItem = isMobile && activeMenuItem.titleMobile ? activeMenuItem.titleMobile : activeMenuItem?.title;
   return (
     <Container isLight={isLight}>
       <LeftPart>
@@ -81,7 +81,7 @@ const Header: React.FC = () => {
             </Link>
           ))}
           <ItemMenuResponsive>
-            <TopBarSelect selectedOption={activeItemMobile || ''} />
+            <TopBarSelect selectedOption={activeItem} />
           </ItemMenuResponsive>
           <RightElementsWrapper>
             {permissionManager.isAuthenticated() ? (
