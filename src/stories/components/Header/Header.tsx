@@ -69,15 +69,15 @@ const Header: React.FC = () => {
         </ContainerLogoSelect>
 
         <Navigation>
-          {Object.keys(menuItems).map((item) => (
-            <Link href={menuItems[item].link} passHref key={menuItems[item].title}>
+          {Object.values(menuItems).map((item) => (
+            <Link href={item.link} passHref key={item.title}>
               <ItemMenuStyle
                 isLight={isLight}
-                style={{ marginRight: menuItems[item].marginRight }}
-                href={menuItems[item].link}
-                active={activeItem === menuItems[item].title}
+                style={{ marginRight: item.marginRight }}
+                href={item.link}
+                active={activeItem === item.title}
               >
-                {menuItems[item].title}
+                {item.title}
               </ItemMenuStyle>
             </Link>
           ))}
