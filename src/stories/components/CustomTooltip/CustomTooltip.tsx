@@ -31,11 +31,7 @@ export default function CustomTooltip({ content, children, enableClickListener, 
       },
       componentsProps: {
         tooltip: {
-          sx: {
-            p: 0,
-            bgcolor: 'transparent',
-            color: 'text.primary',
-          },
+          style: tooltipCommonStyles,
         },
       },
       onClose: controlledOpen ? () => setControlledOpen(false) : undefined,
@@ -54,3 +50,9 @@ export default function CustomTooltip({ content, children, enableClickListener, 
     </Tooltip>
   );
 }
+
+const tooltipCommonStyles = {
+  padding: 0,
+  backgroundColor: 'transparent',
+  color: 'text.primary',
+};

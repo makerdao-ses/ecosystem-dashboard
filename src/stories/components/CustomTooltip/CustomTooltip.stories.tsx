@@ -93,9 +93,6 @@ const BoundariesTemplate: ComponentStory<typeof CustomTooltip> = ({ placement, .
 );
 
 export const Default = getCustomBtnTemplate().bind({});
-Default.args = {
-  arrow: true,
-};
 
 export const OpenOnClick = getCustomBtnTemplate('Click me').bind({});
 OpenOnClick.args = {
@@ -109,13 +106,24 @@ VariablePlacement.args = {
 };
 
 export const Boundaries = BoundariesTemplate.bind({});
-BoundariesTemplate.args = {
+Boundaries.args = {
   placement: 'bottom-start',
+  arrow: true,
 };
 
 export const DelayedClose = getCustomBtnTemplate('Closes in 2s').bind({});
 DelayedClose.args = {
   leaveDelay: 2000,
+};
+
+export const NonInteractive = getCustomBtnTemplate('Non-interactive').bind({});
+NonInteractive.args = {
+  disableInteractive: true,
+};
+
+export const WithArrow = getCustomBtnTemplate('With arrow').bind({});
+WithArrow.args = {
+  arrow: true,
 };
 
 const TooltipContent = styled.div(() => ({
