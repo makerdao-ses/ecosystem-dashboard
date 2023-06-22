@@ -15,7 +15,7 @@ if (featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW) {
   menuItems.finances = {
     title: 'Finances',
     link: siteRoutes.financesOverview,
-    marginRight: '26px',
+    marginRight: '32px',
   };
 }
 
@@ -23,7 +23,7 @@ if (featureFlags[CURRENT_ENVIRONMENT].FEATURE_ECOSYSTEM_ACTORS) {
   menuItems.ecosystemActors = {
     title: 'Ecosystem Actors',
     link: siteRoutes.ecosystemActors,
-    marginRight: '28px',
+    marginRight: '33px',
     titleMobile: 'Eco Actors',
   };
 }
@@ -31,14 +31,14 @@ if (featureFlags[CURRENT_ENVIRONMENT].FEATURE_ECOSYSTEM_ACTORS) {
 menuItems.coreUnits = {
   title: 'Core Units',
   link: siteRoutes.coreUnitsOverview,
-  marginRight: '28px',
+  marginRight: '32px',
 };
 
 if (featureFlags[CURRENT_ENVIRONMENT].FEATURE_RECOGNIZED_DELEGATES) {
   menuItems.recognizedDelegate = {
     title: 'Delegates',
     link: siteRoutes.recognizedDelegate,
-    marginRight: '30px',
+    marginRight: '33px',
   };
 }
 

@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { enablePageOverflow, getPageWrapper } from '@ses/core/utils/dom';
+import lightTheme from '@ses/styles/theme/light';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -113,10 +114,11 @@ const CloseWrapper = styled.div({
 
 const Button = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
+  marginTop: 1,
   alignItems: 'center',
   justifyContent: 'center',
   width: 'fit-content',
-  height: '35px',
+  height: '38px',
   border: isLight ? '1px solid #D4D9E1' : '1px solid #343442',
   borderRadius: '22px',
   background: isLight ? 'white' : '#10191F',
@@ -132,6 +134,9 @@ const Button = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   },
   '.disabled': {
     color: '#9FAFB9',
+  },
+  [lightTheme.breakpoints.up('table_834')]: {
+    padding: '8px 17px',
   },
 }));
 

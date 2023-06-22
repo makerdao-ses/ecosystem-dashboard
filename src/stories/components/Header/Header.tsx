@@ -179,6 +179,9 @@ const RightPart = styled.div({
   '@media (min-width: 835px)': {
     paddingRight: '26px',
   },
+  '@media (min-width: 1280px)': {
+    paddingRight: '24px',
+  },
 });
 
 const MobileOnly = styled.div({
@@ -208,6 +211,8 @@ const ItemMenuStyle = styled.a<{ active: boolean; marginRight?: string; isLight:
     },
     '@media (min-width: 1194px)': {
       display: 'block',
+
+      letterSpacing: 0,
     },
   })
 );
@@ -224,8 +229,8 @@ const RightElementsWrapper = styled.div({
     position: 'absolute',
     right: 24,
   },
-  '@media (min-width: 1194px)': {
-    right: 24,
+  '@media (min-width: 1280px)': {
+    right: 22,
   },
 });
 
