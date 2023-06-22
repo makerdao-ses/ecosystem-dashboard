@@ -10,7 +10,7 @@ export const siteRoutes = {
   financesOverview: '/',
   coreUnitAbout: (shortCode: string) => `/core-unit/${shortCode}`,
   coreUnitReports: (shortCode: string) => `/core-unit/${shortCode}/finances/reports`,
-  coreUnitActivityFeed: (shortCode: string) => `core-unit/${shortCode}/activity-feed`,
+  coreUnitActivityFeed: (shortCode: string) => `/core-unit/${shortCode}/activity-feed`,
   globalActivityFeed: '/activity-feed',
   cookiesPolicy: '/cookies-policy',
   recognizedDelegateReport: '/recognized-delegates/finances/reports',
