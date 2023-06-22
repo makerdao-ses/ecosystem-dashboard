@@ -16,9 +16,19 @@ interface SEOProps {
   twitterImage?: string;
   twitterCard?: 'summary' | 'summary_large_image';
   children?: JSX.Element[] | JSX.Element | React.ReactNode;
+  canonicalURL?: string;
 }
 
-export const SEOHead = ({ title, description, favicon, image, twitterImage, twitterCard, children }: SEOProps) => {
+export const SEOHead = ({
+  title,
+  description,
+  favicon,
+  image,
+  twitterImage,
+  twitterCard,
+  canonicalURL,
+  children,
+}: SEOProps) => {
   const { isLight } = useThemeContext();
   const faviconType = useMemo(() => {
     if (!favicon) {
@@ -90,6 +100,7 @@ export const SEOHead = ({ title, description, favicon, image, twitterImage, twit
       <link rel="apple-touch-icon" sizes="120x120" href="/icons/icon-120.png" />
 
       {children}
+      {canonicalURL && <link rel="canonical" href={canonicalURL} />}
       <meta name="robots" content="index,follow" />
     </Head>
   );

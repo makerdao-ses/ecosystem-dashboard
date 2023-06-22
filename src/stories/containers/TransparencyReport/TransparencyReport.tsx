@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import Tabs from '@ses/components/Tabs/Tabs';
+import { siteRoutes } from '@ses/config/routes';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { CommentActivityContext } from '../../../core/context/CommentActivityContext';
@@ -68,6 +69,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: T
         description={`Learn about the ${coreUnit.name} Core Unit at MakerDAO: their finances, expense reports, and more.`}
         image={coreUnit.image || toAbsoluteURL('/assets/img/social-1200x630.png')}
         twitterCard={coreUnit.image ? 'summary' : 'summary_large_image'}
+        canonicalURL={siteRoutes.coreUnitReports(coreUnit.shortCode)}
       />
       <CoreUnitSummary coreUnits={coreUnits} trailingAddress={['Expense Reports']} breadcrumbTitle="Expense Reports" />
       <PageContainer hasImageBackground={true}>

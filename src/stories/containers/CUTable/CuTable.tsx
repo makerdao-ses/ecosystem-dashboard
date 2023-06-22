@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { CuTableHeaderSkeleton } from '@ses/components/CuTableHeaderSkeleton/CuTableHeaderSkeleton';
 import { CustomTable2 } from '@ses/components/CustomTable/CustomTable2';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
+import { siteRoutes } from '@ses/config/routes';
 import { useCookiesContextTracking } from '@ses/core/context/CookiesContext';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { SortEnum } from '@ses/core/enums/sortEnum';
@@ -80,6 +81,7 @@ export const CuTable = () => {
           height: 200,
         }}
         twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
+        canonicalURL={siteRoutes.coreUnitsOverview}
       />
       <Wrapper>
         {siteHeader}
