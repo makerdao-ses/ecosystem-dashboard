@@ -23,16 +23,7 @@ export const useTransparencyActuals = (
   propsCurrentMonth: DateTime,
   budgetStatements: BudgetStatementDto[] | undefined
 ) => {
-  const {
-    checkOut,
-    handleChangeItemAccordion,
-    handleCheckedExpandedAll,
-    handleCloseModal,
-    handleOpenModal,
-    headCountCategories,
-    noHeadCountCategories,
-    openModal,
-  } = useCategoriesModalContext();
+  const { handleOpenModal } = useCategoriesModalContext();
   const currentMonth = useMemo(() => propsCurrentMonth.toFormat(API_MONTH_TO_FORMAT), [propsCurrentMonth]);
   const router = useRouter();
   const query = router.query;
@@ -300,13 +291,7 @@ export const useTransparencyActuals = (
     mainTableItems,
     breakdownTabs,
     wallets,
-    openModal,
-    handleCheckedExpandedAll,
-    handleCloseModal,
-    handleChangeItemAccordion,
-    checkOut,
+
     handleOpenModal,
-    headCountCategories,
-    noHeadCountCategories,
   };
 };

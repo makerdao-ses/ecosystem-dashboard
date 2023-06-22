@@ -42,7 +42,6 @@ const FinanceOverviewPage: NextPage<FinanceOverviewPageProps> = ({
         monthlyExpenses={monthlyExpenses || []}
         byBudgetBreakdownExpenses={byBudgetBreakdownExpenses}
         byCategoryBreakdownExpenses={byCategoryBreakdownExpenses}
-        expenseCategories={expenseCategories}
       />
     </ModalCategoriesProvider>
   );

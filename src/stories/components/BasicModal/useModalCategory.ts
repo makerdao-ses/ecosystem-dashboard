@@ -95,5 +95,6 @@ export const useModalCategory = (expenseCategories: ExpenseCategory[] = []) => {
     notHeadCountCategory,
     handleOpenModal,
     checkOut,
+    expenseCategories,
   };
 };

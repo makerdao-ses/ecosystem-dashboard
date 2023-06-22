@@ -1,5 +1,4 @@
 import { useMediaQuery } from '@mui/material';
-// import { useModalCategory } from '@ses/components/BasicModal/useModalCategory';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
@@ -12,7 +11,6 @@ import {
 } from './utils/costBreakdown';
 import { parseQuarter } from './utils/quarters';
 import type { CostBreakdownFilterValue, ExtendedExpense } from './financesOverviewTypes';
-// import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 
 const noneBorder = [0, 0, 0, 0];
