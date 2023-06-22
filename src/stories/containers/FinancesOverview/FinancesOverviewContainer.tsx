@@ -4,7 +4,7 @@ import CategoryModalComponent from '@ses/components/BasicModal/CategoryModalComp
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
-import { useCategoriesContextModal } from '@ses/core/context/CategoryModalContext';
+import { useCategoriesModalContext } from '@ses/core/context/CategoryModalContext';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import React from 'react';
 import lightTheme from 'styles/theme/light';
@@ -33,16 +33,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
   byBudgetBreakdownExpenses,
   byCategoryBreakdownExpenses,
 }) => {
-  const {
-    checkOut,
-    handleChangeItemAccordion,
-    handleCheckedExpandedAll,
-    handleCloseModal,
-    headCountCategories,
-    noHeadCountCategories,
-    openModal,
-    handleOpenModal,
-  } = useCategoriesContextModal();
+  const { handleOpenModal } = useCategoriesModalContext();
   const {
     isLight,
     selectedYear,
@@ -118,16 +109,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
           {isDownTable && <NavigationButtons />}
         </BreakdownSectionContainer>
       </Container>
-      <CategoryModalComponent
-        checkOut={checkOut}
-        headCountCategories={headCountCategories}
-        notHeadCountCategory={noHeadCountCategories}
-        handleCloseModal={handleCloseModal}
-        handleCheckedExpandedAll={handleCheckedExpandedAll}
-        handleChangeItemAccordion={handleChangeItemAccordion}
-        isLight={isLight}
-        openModal={openModal}
-      />
+      <CategoryModalComponent />
     </PageWrapper>
   );
 };

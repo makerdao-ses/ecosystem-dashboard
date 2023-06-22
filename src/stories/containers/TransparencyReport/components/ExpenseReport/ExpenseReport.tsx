@@ -5,8 +5,6 @@ import CategoryModalComponent from '@ses/components/BasicModal/CategoryModalComp
 import Container from '@ses/components/Container/Container';
 import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import Tabs from '@ses/components/Tabs/Tabs';
-
-import { useCategoriesContextModal } from '@ses/core/context/CategoryModalContext';
 import { MAKER_BURN_LINK } from '@ses/core/utils/const';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
@@ -35,8 +33,6 @@ interface ExpenseReportProps {
 }
 
 const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetStatements, code, longCode }) => {
-  const { checkOut, handleChangeItemAccordion, handleCheckedExpandedAll, headCountCategories, noHeadCountCategories } =
-    useCategoriesContextModal();
   const {
     isLight,
     L2SectionInner,
@@ -140,16 +136,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
             )}
           </>
         )}
-        <CategoryModalComponent
-          checkOut={checkOut}
-          headCountCategories={headCountCategories}
-          notHeadCountCategory={noHeadCountCategories}
-          handleCloseModal={actualsData.handleCloseModal}
-          handleCheckedExpandedAll={handleCheckedExpandedAll}
-          handleChangeItemAccordion={handleChangeItemAccordion}
-          isLight={isLight}
-          openModal={actualsData.openModal}
-        />
+        <CategoryModalComponent />
       </ExpenseSection>
 
       <ExpenseSection title={'Forecast - Totals'}>

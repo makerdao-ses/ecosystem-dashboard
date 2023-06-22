@@ -1,7 +1,6 @@
 import { useModalCategory } from '@ses/components/BasicModal/useModalCategory';
 import React, { createContext, useContext } from 'react';
 import type { ExpenseCategory, ParsedExpenseCategoryWithExpanded } from '../models/dto/expenseCategoriesDTO';
-import type { ReactNode } from 'react';
 
 export type CategoryModalContextValues = {
   handleCloseModal: () => void;
@@ -16,11 +15,10 @@ export type CategoryModalContextValues = {
 };
 
 const CategoriesModalContext = createContext<CategoryModalContextValues>({} as CategoryModalContextValues);
-const useCategoriesContextModal = () => useContext(CategoriesModalContext);
+const useCategoriesModalContext = () => useContext(CategoriesModalContext);
 
 interface Props extends React.PropsWithChildren {
   expenseCategories: ExpenseCategory[];
-  children: ReactNode;
 }
 
 const ModalCategoriesProvider = ({ expenseCategories, children }: Props) => {
@@ -52,4 +50,4 @@ const ModalCategoriesProvider = ({ expenseCategories, children }: Props) => {
   );
 };
 
-export { useCategoriesContextModal, ModalCategoriesProvider };
+export { useCategoriesModalContext, ModalCategoriesProvider };

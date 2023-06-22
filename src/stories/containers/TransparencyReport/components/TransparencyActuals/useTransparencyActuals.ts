@@ -1,4 +1,4 @@
-import { useCategoriesContextModal } from '@ses/core/context/CategoryModalContext';
+import { useCategoriesModalContext } from '@ses/core/context/CategoryModalContext';
 import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
 import { capitalizeSentence, getWalletWidthForWallets, toKebabCase } from '@ses/core/utils/string';
 import _ from 'lodash';
@@ -32,7 +32,7 @@ export const useTransparencyActuals = (
     headCountCategories,
     noHeadCountCategories,
     openModal,
-  } = useCategoriesContextModal();
+  } = useCategoriesModalContext();
   const currentMonth = useMemo(() => propsCurrentMonth.toFormat(API_MONTH_TO_FORMAT), [propsCurrentMonth]);
   const router = useRouter();
   const query = router.query;

@@ -4,7 +4,6 @@ import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedI
 import CategoryModalComponent from '@ses/components/BasicModal/CategoryModalComponent';
 import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import Tabs from '@ses/components/Tabs/Tabs';
-import { useCategoriesContextModal } from '@ses/core/context/CategoryModalContext';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { MAKER_BURN_LINK } from '@ses/core/utils/const';
 import { getShortCode } from '@ses/core/utils/string';
@@ -28,16 +27,6 @@ interface Props {
 export const TransparencyActuals = (props: Props) => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
-  const {
-    checkOut,
-    handleChangeItemAccordion,
-    handleCheckedExpandedAll,
-    handleCloseModal,
-
-    headCountCategories,
-    noHeadCountCategories,
-    openModal,
-  } = useCategoriesContextModal();
 
   const {
     headerIds,
@@ -118,16 +107,7 @@ export const TransparencyActuals = (props: Props) => {
           />
         </BreakdownTableWrapper>
       )}
-      <CategoryModalComponent
-        checkOut={checkOut}
-        headCountCategories={headCountCategories}
-        notHeadCountCategory={noHeadCountCategories}
-        handleCloseModal={handleCloseModal}
-        handleCheckedExpandedAll={handleCheckedExpandedAll}
-        handleChangeItemAccordion={handleChangeItemAccordion}
-        isLight={isLight}
-        openModal={openModal}
-      />
+      <CategoryModalComponent />
     </Container>
   );
 };
