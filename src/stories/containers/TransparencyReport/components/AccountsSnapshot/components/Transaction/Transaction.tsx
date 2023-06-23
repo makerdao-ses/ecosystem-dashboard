@@ -17,7 +17,7 @@ export interface TransactionProps {
   counterPartyName: string;
   counterPartyAddress: string;
   amount: number;
-  isIncomingTransaction?: boolean;
+  highlightPositiveAmounts?: boolean;
 }
 
 const Transaction: React.FC<TransactionProps> = ({
@@ -28,16 +28,14 @@ const Transaction: React.FC<TransactionProps> = ({
   counterPartyName,
   counterPartyAddress,
   amount,
-  isIncomingTransaction = true,
+  highlightPositiveAmounts = false,
 }) => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
-
-  isIncomingTransaction = amount > 0;
+  const isIncomingTransaction = amount > 0;
 
   return isMobile ? (
     <MobileTransaction
-      isIncomingTransaction={isIncomingTransaction}
       name={name}
       date={date}
       toDate={toDate}
@@ -45,6 +43,7 @@ const Transaction: React.FC<TransactionProps> = ({
       counterPartyName={counterPartyName}
       counterPartyAddress={counterPartyAddress}
       amount={amount}
+      highlightPositiveAmounts={highlightPositiveAmounts}
     />
   ) : (
     <TransactionContainer isLight={isLight}>
@@ -60,7 +59,7 @@ const Transaction: React.FC<TransactionProps> = ({
         name={counterPartyName}
         address={counterPartyAddress}
       />
-      <TransactionAmount amount={amount} />
+      <TransactionAmount amount={amount} highlightPositiveAmounts={highlightPositiveAmounts} />
     </TransactionContainer>
   );
 };

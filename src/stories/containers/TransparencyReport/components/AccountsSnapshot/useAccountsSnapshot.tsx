@@ -118,7 +118,7 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
           snapshotAccountTransaction: account.snapshotAccountTransaction
             .filter((transaction) => transaction.token === selectedToken)
             .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()),
-          groups: snapshot.snapshotAccount
+          children: snapshot.snapshotAccount
             .filter((childrenAccount) => childrenAccount.groupAccountId === account.id)
             .map((childrenAccount) => ({
               ...childrenAccount,
@@ -130,7 +130,8 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
                 .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()),
             })),
         } as UIReservesData)
-    );
+    )
+    .sort((a, b) => parseInt(a.id) - parseInt(b.id));
 
   // mocked data for the "Reported Expenses Comparison" table
   const expensesComparisonRows = [

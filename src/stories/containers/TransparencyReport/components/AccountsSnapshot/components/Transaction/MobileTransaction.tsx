@@ -28,11 +28,12 @@ const MobileTransaction: React.FC<MobileTransactionProps> = ({
   counterPartyName,
   counterPartyAddress,
   amount,
-  isIncomingTransaction = true,
   defaultExpanded = false,
+  highlightPositiveAmounts,
 }) => {
   const { isLight } = useThemeContext();
   const [expanded, setExpanded] = useState<boolean>(defaultExpanded);
+  const isIncomingTransaction = amount > 0;
   const formattedDate = toDate ? (
     <>
       from {DateTime.fromISO(date).toUTC().toFormat('dd-MMM-yyyy')}
@@ -52,7 +53,7 @@ const MobileTransaction: React.FC<MobileTransactionProps> = ({
             <Name isLight={isLight}>{name}</Name>
             <Date isLight={isLight}>{formattedDate}</Date>
           </Data>
-          <Value isLight={isLight}>
+          <Value isLight={isLight} isGreen={amount > 0 && !!highlightPositiveAmounts}>
             <Sign>{amount < 0 ? '-' : '+'}</Sign>
             {usLocalizedNumber(Math.abs(amount))}
             <Currency isLight={isLight}>DAI</Currency>
@@ -158,7 +159,7 @@ const Date = styled.div<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#9FAFB9' : '#405361',
 }));
 
-const Value = styled.div<WithIsLight>(({ isLight }) => ({
+const Value = styled.div<WithIsLight & { isGreen: boolean }>(({ isLight, isGreen }) => ({
   display: 'flex',
   alignItems: 'baseline',
   justifyContent: 'flex-end',
@@ -168,7 +169,7 @@ const Value = styled.div<WithIsLight>(({ isLight }) => ({
   marginTop: 5,
 
   '&, & > span:first-of-type': {
-    color: isLight ? '#231536' : '#D2D4EF',
+    color: isGreen ? '#1AAB9B' : isLight ? '#231536' : '#D2D4EF',
   },
 }));
 

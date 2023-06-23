@@ -90,7 +90,7 @@ const ReserveCard: React.FC<ReserveCardProps> = ({ account, currency = 'DAI' }) 
         {!isMobile && <ArrowContainer>{SVG}</ArrowContainer>}
       </Card>
       <TransactionContainer>
-        <TransactionList items={isGroup ? account.groups : account.snapshotAccountTransaction} />
+        <TransactionList items={isGroup ? account.children : account.snapshotAccountTransaction} />
       </TransactionContainer>
     </Accordion>
   );
