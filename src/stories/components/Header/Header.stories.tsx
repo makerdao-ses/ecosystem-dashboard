@@ -15,7 +15,7 @@ export default {
       pauseAnimationAtEnd: true,
     },
     nextRouter: {
-      pathname: '/core-unit',
+      pathname: '/ecosystem-actors',
     },
   },
 } as ComponentMeta<typeof Header>;
@@ -28,7 +28,8 @@ LightMode.parameters = {
   figma: {
     component: {
       375: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13307%3A144905',
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20187:244490&mode=design&t=pfqz22dPEWKnkidY-4',
         options: {
           style: {
             top: -36,
@@ -37,7 +38,8 @@ LightMode.parameters = {
         },
       },
       834: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13307%3A149185',
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20191:258350&mode=design&t=pfqz22dPEWKnkidY-4',
         options: {
           componentStyle: {
             width: 803,
@@ -49,10 +51,50 @@ LightMode.parameters = {
         },
       },
       1194: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13399%3A144147',
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20187:230562&mode=design&t=pfqz22dPEWKnkidY-4',
         options: {
           componentStyle: {
             width: 1174,
+          },
+          style: {
+            top: -36,
+            left: -57,
+          },
+        },
+      },
+      1280: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20187:230319&mode=design&t=pfqz22dPEWKnkidY-4',
+        options: {
+          componentStyle: {
+            width: 1255,
+          },
+          style: {
+            top: -36,
+            left: -57,
+          },
+        },
+      },
+      1440: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=13234:127734&mode=design&t=pfqz22dPEWKnkidY-4',
+        options: {
+          componentStyle: {
+            width: 1415,
+          },
+          style: {
+            top: -36,
+            left: -57,
+          },
+        },
+      },
+      1920: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20187:229592&mode=design&t=pfqz22dPEWKnkidY-4',
+        options: {
+          componentStyle: {
+            width: 1895,
           },
           style: {
             top: -36,
