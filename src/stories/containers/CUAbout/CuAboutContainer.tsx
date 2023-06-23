@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { Divider, useMediaQuery } from '@mui/material';
+import { siteRoutes } from '@ses/config/routes';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
@@ -52,6 +53,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
         description={`Learn about the ${cuAbout.name} Core Unit at MakerDAO: their mandate, vision, mission, strategy, and more.`}
         image={cuAbout.image || toAbsoluteURL('/assets/img/social-1200x630.png')}
         twitterCard={cuAbout.image ? 'summary' : 'summary_large_image'}
+        canonicalURL={siteRoutes.coreUnitAbout(code)}
       />
 
       <CoreUnitSummary coreUnits={coreUnits} showDescription={true} />

@@ -4,6 +4,7 @@ import { CustomPager } from '@ses/components/CustomPager/CustomPager';
 import DelegateSummary from '@ses/components/DelegateSummary/DelegateSummary';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import Tabs from '@ses/components/Tabs/Tabs';
+import { siteRoutes } from '@ses/config/routes';
 import { CommentActivityContext } from '@ses/core/context/CommentActivityContext';
 import { BudgetStatus } from '@ses/core/models/dto/coreUnitDTO';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
@@ -55,6 +56,7 @@ const RecognizedDelegatesReportContainer: React.FC<RecognizedDelegatesProps> = (
           height: 200,
         }}
         twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
+        canonicalURL={siteRoutes.recognizedDelegateReport}
       />
       <DelegateSummary links={links} items={itemsBreadcrumb} />
       <ContainerInside>

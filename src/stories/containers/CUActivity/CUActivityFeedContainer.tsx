@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { siteRoutes } from '@ses/config/routes';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { toAbsoluteURL } from '../../../core/utils/urls';
@@ -23,6 +24,7 @@ const CUActivityFeedContainer: React.FC<CUActivityContainerProps> = ({ coreUnit,
         description={`Learn about the ${coreUnit.name} Core Unit's activity: updates to Core Unit Expense Reports, FTEs, and more.`}
         image={coreUnit.image || toAbsoluteURL('/assets/img/social-1200x630.png')}
         twitterCard={coreUnit.image ? 'summary' : 'summary_large_image'}
+        canonicalURL={siteRoutes.coreUnitActivityFeed(coreUnit.shortCode)}
       />
       <CoreUnitSummary coreUnits={coreUnits} trailingAddress={['Activity Feed']} breadcrumbTitle="Activity Feed" />
       <Container isLight={isLight}>
