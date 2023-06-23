@@ -28,8 +28,10 @@ const ActorsContainer: React.FC<Props> = ({ actors }) => {
             <StyledParagraphOne readMore={readMore}>
               Ecosystem Actors serve as external entities offering valuable services to both Maker Core and SubDAOs.
               {!showTextDesk && isLessPhone && <br />}
-              These actors are further classified into two categories: Advisory Ecosystem Actors and Active Ecosystem
-              Actors.
+              <span>
+                These actors are further classified into two categories: Advisory Ecosystem Actors and Active Ecosystem
+                Actors.
+              </span>
             </StyledParagraphOne>
             {showTextDesk && (
               <StyledParagraph>
@@ -118,9 +120,11 @@ const StyledParagraphOne = styled.p<{ readMore: boolean }>(({ readMore }) => ({
   overflow: 'hidden',
   WebkitLineClamp: !readMore ? 3 : 'unset',
   WebkitBoxOrient: !readMore ? 'vertical' : 'unset',
+  '> span': {
+    marginLeft: 4,
+  },
   [lightTheme.breakpoints.up(376)]: {
-    display: 'inline-block',
-    WebkitLineClamp: 'unset',
+    display: 'block',
     width: '100%',
   },
 }));
