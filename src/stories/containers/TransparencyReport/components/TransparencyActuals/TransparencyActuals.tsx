@@ -14,12 +14,11 @@ import { ACTUALS_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import { useTransparencyActuals } from './useTransparencyActuals';
 import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
-import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
+
 import type { DateTime } from 'luxon';
 
 interface Props {
   currentMonth: DateTime;
-  expenseCategories: ExpenseCategory[];
   budgetStatements?: BudgetStatementDto[];
   code: string;
   longCode: string;
@@ -37,14 +36,7 @@ export const TransparencyActuals = (props: Props) => {
     mainTableColumns,
     mainTableItems,
     breakdownTabs,
-    openModal,
-    handleCloseModal,
-    handleChangeItemAccordion,
-    handleCheckedExpandedAll,
-    headCountCategory,
-    notHeadCountCategory,
-    checkOut,
-  } = useTransparencyActuals(props.currentMonth, props.budgetStatements, props.expenseCategories);
+  } = useTransparencyActuals(props.currentMonth, props.budgetStatements);
 
   return (
     <Container>
@@ -115,16 +107,7 @@ export const TransparencyActuals = (props: Props) => {
           />
         </BreakdownTableWrapper>
       )}
-      <CategoryModalComponent
-        checkOut={checkOut}
-        headCountCategories={headCountCategory}
-        notHeadCountCategory={notHeadCountCategory}
-        handleCloseModal={handleCloseModal}
-        handleCheckedExpandedAll={handleCheckedExpandedAll}
-        handleChangeItemAccordion={handleChangeItemAccordion}
-        isLight={isLight}
-        openModal={openModal}
-      />
+      <CategoryModalComponent />
     </Container>
   );
 };

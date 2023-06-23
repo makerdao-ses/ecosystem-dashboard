@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import { siteRoutes } from '@ses/config/routes';
 import Link from 'next/link';
@@ -22,6 +23,7 @@ import type { MenuType } from './menuItems';
 
 const Header: React.FC = () => {
   const router = useRouter();
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
 
   const { themeMode, toggleTheme, isLight } = useThemeContext();
   const { clearCredentials, permissionManager } = useAuthContext();
@@ -35,21 +37,24 @@ const Header: React.FC = () => {
     router.push(siteRoutes.home);
   }, [router]);
 
-  const activeMenuItem = useMemo(() => {
+  const activeMenuItem: MenuType = useMemo(() => {
     if (router.pathname.startsWith('/core-unit')) {
-      return featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW ? menuItems[1] : menuItems[0];
+      return featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW ? menuItems.coreUnits : menuItems.finances;
     } else if (
       router.pathname.startsWith('/activity-feed') &&
       featureFlags[CURRENT_ENVIRONMENT].FEATURE_GLOBAL_ACTIVITIES
     ) {
-      return featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW ? menuItems[3] : menuItems[0];
+      return featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW
+        ? menuItems.globalActivityFeed
+        : menuItems.finances;
     } else if (router.pathname.startsWith('/delegates')) {
-      return menuItems[2];
-    } else {
-      return menuItems[0];
-    }
+      return menuItems.recognizedDelegate;
+    } else if (router.pathname.startsWith('/ecosystem-actors')) {
+      return menuItems.ecosystemActors;
+    } else return menuItems.finances;
   }, [router.pathname]);
 
+  const activeItem = isMobile && activeMenuItem?.titleMobile ? activeMenuItem?.titleMobile : activeMenuItem.title;
   return (
     <Container isLight={isLight}>
       <LeftPart>
@@ -64,20 +69,20 @@ const Header: React.FC = () => {
         </ContainerLogoSelect>
 
         <Navigation>
-          {menuItems.map((item: MenuType) => (
-            <Link href={item.link} passHref key={item?.title}>
+          {Object.values(menuItems).map((item) => (
+            <Link href={item.link} passHref key={item.title}>
               <ItemMenuStyle
                 isLight={isLight}
                 style={{ marginRight: item.marginRight }}
                 href={item.link}
-                active={activeMenuItem === item}
+                active={activeItem === item.title}
               >
-                {item?.title}
+                {item.title}
               </ItemMenuStyle>
             </Link>
           ))}
           <ItemMenuResponsive>
-            <TopBarSelect selectedOption={activeMenuItem?.title} />
+            <TopBarSelect selectedOption={activeItem} />
           </ItemMenuResponsive>
           <RightElementsWrapper>
             {permissionManager.isAuthenticated() ? (
@@ -174,6 +179,9 @@ const RightPart = styled.div({
   '@media (min-width: 835px)': {
     paddingRight: '26px',
   },
+  '@media (min-width: 1280px)': {
+    paddingRight: '24px',
+  },
 });
 
 const MobileOnly = styled.div({
@@ -203,6 +211,8 @@ const ItemMenuStyle = styled.a<{ active: boolean; marginRight?: string; isLight:
     },
     '@media (min-width: 1194px)': {
       display: 'block',
+
+      letterSpacing: 0,
     },
   })
 );
@@ -219,8 +229,8 @@ const RightElementsWrapper = styled.div({
     position: 'absolute',
     right: 24,
   },
-  '@media (min-width: 1194px)': {
-    right: 24,
+  '@media (min-width: 1280px)': {
+    right: 22,
   },
 });
 

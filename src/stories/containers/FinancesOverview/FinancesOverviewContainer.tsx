@@ -4,6 +4,7 @@ import CategoryModalComponent from '@ses/components/BasicModal/CategoryModalComp
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
+import { useCategoriesModalContext } from '@ses/core/context/CategoryModalContext';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import React from 'react';
 import lightTheme from 'styles/theme/light';
@@ -14,7 +15,6 @@ import QuarterCarousel from './components/QuarterCarousel/QuarterCarousel';
 import YearPicker from './components/YearPicker/YearPicker';
 import useFinancesOverview from './useFinancesOverview';
 import type { ExtendedExpense } from './financesOverviewTypes';
-import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -23,7 +23,6 @@ interface FinancesOverviewContainerProps {
   quarterExpenses: ExpenseDto[];
   byBudgetBreakdownExpenses: ExtendedExpense[];
   byCategoryBreakdownExpenses: ExpenseDto[];
-  expenseCategories: ExpenseCategory[];
 }
 
 const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
@@ -31,8 +30,8 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
   quarterExpenses,
   byBudgetBreakdownExpenses,
   byCategoryBreakdownExpenses,
-  expenseCategories,
 }) => {
+  const { handleOpenModal } = useCategoriesModalContext();
   const {
     isLight,
     selectedYear,
@@ -54,21 +53,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
     remainingCategories,
     maxValueByCategory,
     costBreakdownTotal,
-    openModal,
-    handleCloseModal,
-    handleOpenModal,
-    headCountCategory,
-    notHeadCountCategory,
-    handleCheckedExpandedAll,
-    checkOut,
-    handleChangeItemAccordion,
-  } = useFinancesOverview(
-    quarterExpenses,
-    monthlyExpenses,
-    byBudgetBreakdownExpenses,
-    byCategoryBreakdownExpenses,
-    expenseCategories
-  );
+  } = useFinancesOverview(quarterExpenses, monthlyExpenses, byBudgetBreakdownExpenses, byCategoryBreakdownExpenses);
 
   return (
     <PageWrapper isLight={isLight}>
@@ -122,16 +107,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
           {isDownTable && <NavigationButtons />}
         </BreakdownSectionContainer>
       </Container>
-      <CategoryModalComponent
-        checkOut={checkOut}
-        headCountCategories={headCountCategory}
-        notHeadCountCategory={notHeadCountCategory}
-        handleCloseModal={handleCloseModal}
-        handleCheckedExpandedAll={handleCheckedExpandedAll}
-        handleChangeItemAccordion={handleChangeItemAccordion}
-        isLight={isLight}
-        openModal={openModal}
-      />
+      <CategoryModalComponent />
     </PageWrapper>
   );
 };

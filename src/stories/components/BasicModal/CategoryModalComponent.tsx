@@ -1,51 +1,44 @@
 import styled from '@emotion/styled';
+import { useCategoriesModalContext } from '@ses/core/context/CategoryModalContext';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import BasicModal from './BasicModal';
 import ContainerModal from './ContainerModal';
-import type { ParsedExpenseCategoryWithExpanded } from '@ses/core/models/dto/expenseCategoriesDTO';
 
-interface Props {
-  handleCloseModal: () => void;
-  openModal: boolean;
-  isLight: boolean;
-  headCountCategories: ParsedExpenseCategoryWithExpanded[];
-  notHeadCountCategory: ParsedExpenseCategoryWithExpanded[];
-  checkOut: boolean;
-  handleCheckedExpandedAll: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleChangeItemAccordion: (id: string, expanded: boolean) => void;
-}
-
-const CategoryModalComponent: React.FC<Props> = ({
-  handleCloseModal,
-  openModal,
-  isLight,
-  checkOut,
-  headCountCategories,
-  notHeadCountCategory,
-  handleCheckedExpandedAll,
-  handleChangeItemAccordion,
-}) => (
-  <BasicModalExtended
-    handleClose={handleCloseModal}
-    open={openModal}
-    backdropProps={{
-      style: {
-        background: isLight ? 'rgba(52, 52, 66, 0.1)' : 'rgba(0, 22, 78, 0.1)',
-        backdropFilter: isLight ? 'blur(2px);' : 'blur(4px)',
-      },
-    }}
-  >
-    <ContainerModal
-      headCountCategories={headCountCategories}
-      noHeadCountCategories={notHeadCountCategory}
-      isCheckedExpandedAll={checkOut}
-      handleCloseModal={handleCloseModal}
-      setIsCheckedExpandedAll={handleCheckedExpandedAll}
-      handleChangeItemAccordion={handleChangeItemAccordion}
-    />
-  </BasicModalExtended>
-);
+const CategoryModalComponent: React.FC = () => {
+  const {
+    checkOut,
+    handleChangeItemAccordion,
+    handleCheckedExpandedAll,
+    headCountCategories,
+    noHeadCountCategories,
+    handleCloseModal,
+    openModal,
+  } = useCategoriesModalContext();
+  const { isLight } = useThemeContext();
+  return (
+    <BasicModalExtended
+      handleClose={handleCloseModal}
+      open={openModal}
+      backdropProps={{
+        style: {
+          background: isLight ? 'rgba(52, 52, 66, 0.1)' : 'rgba(0, 22, 78, 0.1)',
+          backdropFilter: isLight ? 'blur(2px);' : 'blur(4px)',
+        },
+      }}
+    >
+      <ContainerModal
+        headCountCategories={headCountCategories}
+        noHeadCountCategories={noHeadCountCategories}
+        isCheckedExpandedAll={checkOut}
+        handleCloseModal={handleCloseModal}
+        setIsCheckedExpandedAll={handleCheckedExpandedAll}
+        handleChangeItemAccordion={handleChangeItemAccordion}
+      />
+    </BasicModalExtended>
+  );
+};
 
 export default CategoryModalComponent;
 
