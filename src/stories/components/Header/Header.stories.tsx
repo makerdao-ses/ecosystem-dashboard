@@ -42,11 +42,11 @@ LightMode.parameters = {
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20191:258350&mode=design&t=pfqz22dPEWKnkidY-4',
         options: {
           componentStyle: {
-            width: 803,
+            width: 834,
           },
           style: {
             top: -36,
-            left: -57,
+            left: -40,
           },
         },
       },
@@ -55,11 +55,11 @@ LightMode.parameters = {
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20187:230562&mode=design&t=pfqz22dPEWKnkidY-4',
         options: {
           componentStyle: {
-            width: 1174,
+            width: 1194,
           },
           style: {
             top: -36,
-            left: -57,
+            left: -40,
           },
         },
       },
@@ -68,11 +68,11 @@ LightMode.parameters = {
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20187:230319&mode=design&t=pfqz22dPEWKnkidY-4',
         options: {
           componentStyle: {
-            width: 1255,
+            width: 1280,
           },
           style: {
             top: -36,
-            left: -57,
+            left: -40,
           },
         },
       },
@@ -81,11 +81,11 @@ LightMode.parameters = {
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=13234:127734&mode=design&t=pfqz22dPEWKnkidY-4',
         options: {
           componentStyle: {
-            width: 1415,
+            width: 1440,
           },
           style: {
             top: -36,
-            left: -57,
+            left: -40,
           },
         },
       },
@@ -94,11 +94,11 @@ LightMode.parameters = {
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20187:229592&mode=design&t=pfqz22dPEWKnkidY-4',
         options: {
           componentStyle: {
-            width: 1895,
+            width: 1920,
           },
           style: {
             top: -36,
-            left: -57,
+            left: -40,
           },
         },
       },

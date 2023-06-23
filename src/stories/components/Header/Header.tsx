@@ -155,7 +155,8 @@ const LogoContainer = styled.div({
   marginTop: 8,
   cursor: 'pointer',
   '@media (min-width: 834px)': {
-    marginRight: '32px',
+    marginRight: 32,
+    marginLeft: 16,
   },
 });
 
@@ -169,6 +170,7 @@ const Navigation = styled.div({
   position: 'relative',
   '@media (min-width: 1194px)': {
     justifyContent: 'flex-start',
+    marginTop: 1,
   },
 });
 
@@ -176,11 +178,8 @@ const RightPart = styled.div({
   display: 'flex',
   alignItems: 'center',
   paddingRight: '16px',
-  '@media (min-width: 835px)': {
-    paddingRight: '26px',
-  },
-  '@media (min-width: 1280px)': {
-    paddingRight: '24px',
+  '@media (min-width: 834px)': {
+    paddingRight: 31,
   },
 });
 
@@ -227,10 +226,11 @@ const RightElementsWrapper = styled.div({
   display: 'flex',
   '@media (min-width: 834px)': {
     position: 'absolute',
-    right: 24,
+    right: 23,
   },
-  '@media (min-width: 1280px)': {
-    right: 22,
+  '@media (min-width: 1194px)': {
+    right: 23,
+    marginTop: -1,
   },
 });
 
