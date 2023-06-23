@@ -2,7 +2,9 @@ import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import { useActors } from './useActors';
 import type { EcosystemActor } from '@ses/core/models/dto/teamsDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -11,8 +13,10 @@ interface Props {
 }
 
 const ActorsContainer: React.FC<Props> = ({ actors }) => {
-  // TODO:delete this commit when implement
-  console.log(actors);
+  console.log('actors', actors);
+
+  const { readMore, handleRead, showTextDesk, isLessPhone } = useActors();
+
   const { isLight } = useThemeContext();
   return (
     <ExtendedPageContainer isLight={isLight}>
@@ -21,17 +25,28 @@ const ActorsContainer: React.FC<Props> = ({ actors }) => {
           <Title isLight={isLight}>Ecosystem Actors</Title>
           <SubTitle isLight={isLight}>What are Ecosystem Actors? </SubTitle>
           <Description isLight={isLight}>
-            Ecosystem Actors serve as external entities offering valuable services to both Maker Core and SubDAOs. These
-            actors are further classified into two categories: Advisory Ecosystem Actors and Active Ecosystem Actors.
-            Active Ecosystem Actors work according to the specifications of Scope Alignment Artifacts to receive funding
-            for performing specific projects such as developing new features, data collection, marketing, growth, and
-            other operational activities that benefit the Maker Ecosystem. In contrast, Advisory Council Member
-            Ecosystem Actors engage in research and offer guidance to the DAO, contributing to the refinement of Scopes
-            Artifacts and their underlying procedures.
+            <StyledParagraphOne readMore={readMore}>
+              Ecosystem Actors serve as external entities offering valuable services to both Maker Core and SubDAOs.
+              {!showTextDesk && isLessPhone && <br />}
+              These actors are further classified into two categories: Advisory Ecosystem Actors and Active Ecosystem
+              Actors.
+            </StyledParagraphOne>
+            {showTextDesk && (
+              <StyledParagraph>
+                Active Ecosystem Actors work according to the specifications of Scope Alignment Artifacts to receive
+                funding for performing specific projects such as developing new features, data collection, marketing,
+                growth, and other operational activities that benefit the Maker Ecosystem.
+              </StyledParagraph>
+            )}
+            {showTextDesk && (
+              <StyledParagraphThere>
+                In contrast, Advisory Council Member Ecosystem Actors engage in research and offer guidance to the DAO,
+                contributing to the refinement of Scopes Artifacts and their underlying procedures.
+              </StyledParagraphThere>
+            )}
           </Description>
         </ContainerText>
-        <div>Filter</div>
-        <div>List of Actores</div>
+        <ReadMore onClick={handleRead}>{!readMore ? 'Read more' : 'Read less'}</ReadMore>
       </Container>
     </ExtendedPageContainer>
   );
@@ -48,30 +63,43 @@ const Title = styled.h1<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: ' normal',
   fontWeight: 600,
-  fontSize: 24,
-  lineHeight: '29px',
+  fontSize: 20,
+  lineHeight: '24px',
   letterSpacing: '0.4px',
   marginTop: 0,
   marginBottom: 0,
   color: isLight ? '#231536' : 'red',
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: 24,
+    lineHeight: '29px',
+  },
 }));
 
 const SubTitle = styled.div<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: ' normal',
   fontWeight: 700,
-  fontSize: 16,
-  lineHeight: '19px',
+  fontSize: 14,
+  lineHeight: '17px',
   color: isLight ? '#231536' : 'red',
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: 16,
+    lineHeight: '19px',
+  },
 }));
 
 const Description = styled.div<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: ' normal',
   fontWeight: 400,
-  fontSize: 16,
+  fontSize: 14,
   lineHeight: '22px',
   color: isLight ? '#231536' : 'red',
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: 16,
+    lineHeight: '22px',
+    marginTop: 0,
+  },
 }));
 
 const ContainerText = styled.div({
@@ -79,5 +107,37 @@ const ContainerText = styled.div({
   flexDirection: 'column',
   gap: 16,
   marginTop: 24,
-  marginBottom: 32,
+  marginBottom: 8,
+});
+
+const StyledParagraphOne = styled.p<{ readMore: boolean }>(({ readMore }) => ({
+  width: 343,
+  marginTop: 0,
+  marginBottom: 0,
+  display: !readMore ? '-webkit-box' : 'unset',
+  overflow: 'hidden',
+  WebkitLineClamp: !readMore ? 3 : 'unset',
+  WebkitBoxOrient: !readMore ? 'vertical' : 'unset',
+  [lightTheme.breakpoints.up(376)]: {
+    display: 'inline-block',
+    WebkitLineClamp: 'unset',
+    width: '100%',
+  },
+}));
+const StyledParagraph = styled.p({
+  marginTop: 22,
+});
+const StyledParagraphThere = styled(StyledParagraph)({
+  marginTop: 22,
+  marginBottom: 0,
+});
+const ReadMore = styled.div({
+  textAlign: 'end',
+  fontFamily: 'Inter, sans-serif',
+  fontSize: 14,
+  fontWeight: 600,
+  marginTop: 1,
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    display: 'none',
+  },
 });
