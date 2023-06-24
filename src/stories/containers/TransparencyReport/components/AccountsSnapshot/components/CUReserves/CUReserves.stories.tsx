@@ -63,6 +63,35 @@ const variantsArgs = [
         )
         .build(),
     ],
+    offChainData: [
+      new SnapshotAccountBuilder()
+        .withId('1')
+        .withAccountLabel('Payment Processor')
+        .withAccountType('group')
+        .addSnapshotAccountBalance(
+          new SnapshotAccountBalanceBuilder()
+            .withInitialBalance(100000)
+            .withNewBalance(100000)
+            .withInflow(300000)
+            .withOutflow(-300000)
+            .build()
+        )
+        .build(),
+      new SnapshotAccountBuilder()
+        .withId('2')
+        .withAccountLabel('Auditor 2')
+        .withAccountType('singular')
+        .withAccountAddress('0x23b554585a4ef8483')
+        .addSnapshotAccountBalance(
+          new SnapshotAccountBalanceBuilder()
+            .withInitialBalance(500000)
+            .withNewBalance(550000)
+            .withInflow(300000)
+            .withOutflow(-250000)
+            .build()
+        )
+        .build(),
+    ],
   },
 ];
 

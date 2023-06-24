@@ -22,6 +22,7 @@ const AccountsSnapshot: React.FC<AccountsSnapshotProps> = ({ snapshot, snapshotO
     transactionHistory,
     cuReservesBalance,
     onChainData,
+    offChainData,
   } = useAccountsSnapshot(snapshot);
 
   return (
@@ -41,6 +42,7 @@ const AccountsSnapshot: React.FC<AccountsSnapshotProps> = ({ snapshot, snapshotO
         endDate={endDate}
         balance={cuReservesBalance}
         onChainData={onChainData}
+        offChainData={offChainData}
       />
       <ExpensesComparison rows={expensesComparisonRows} />
     </Wrapper>
