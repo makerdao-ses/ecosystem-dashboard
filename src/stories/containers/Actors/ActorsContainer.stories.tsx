@@ -14,7 +14,7 @@ export default {
       pathname: '/ecosystem-actors',
     },
     chromatic: {
-      viewports: [375, 834, 1194, 1280, 1440],
+      viewports: [375, 834, 1194, 1280, 1440, 1920],
       pauseAnimationAtEnd: true,
     },
   },
@@ -82,7 +82,7 @@ LightMode.parameters = {
       },
       1280: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20187:230150&t=hZK6atDM9zUQz9LQ-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20187:230150&mode=design&t=8sNCGJSu8QDLRKO0-4',
         options: {
           style: {
             top: -16,
@@ -103,6 +103,19 @@ LightMode.parameters = {
           },
           componentStyle: {
             width: 1440,
+          },
+        },
+      },
+      1920: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20187:229451&mode=design&t=8sNCGJSu8QDLRKO0-4',
+        options: {
+          style: {
+            top: -16,
+            left: -16,
+          },
+          componentStyle: {
+            width: 1920,
           },
         },
       },
