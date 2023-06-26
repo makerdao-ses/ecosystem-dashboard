@@ -1,7 +1,6 @@
 import useMediaQuery from '@mui/material/useMediaQuery';
 import lightTheme from '@ses/styles/theme/light';
 import { useState } from 'react';
-import { filteredActors } from './utils/utils';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { EcosystemActor } from '@ses/core/models/dto/teamsDTO';
 
@@ -23,7 +22,7 @@ export const useActors = (actors: EcosystemActor[]) => {
     setActiveElements([]);
   };
 
-  const filtersActive = activeElements.length <= 0 ? actors : filteredActors(actors, activeElements);
+  const filtersActive = [] as EcosystemActor[];
 
   const handleSelectChange = (value: string[]) => {
     setActiveElements(value);
