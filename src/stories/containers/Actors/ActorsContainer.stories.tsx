@@ -14,7 +14,7 @@ export default {
       pathname: '/ecosystem-actors',
     },
     chromatic: {
-      viewports: [375, 834, 1194, 1280, 1440],
+      viewports: [375, 834, 1194, 1280, 1440, 1920],
       pauseAnimationAtEnd: true,
     },
   },
@@ -23,10 +23,15 @@ export default {
 const variantsArgs = [
   {
     actors: [] as EcosystemActor[],
+    stories: true,
+  },
+  {
+    actors: [] as EcosystemActor[],
+    stories: false,
   },
 ];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(
+export const [[LightMode, DarkMode], [LightModeMobile, DarkModeMobile]] = createThemeModeVariants(
   (props) => (
     <AppLayout>
       <ActorsContainer {...props} />
@@ -82,7 +87,7 @@ LightMode.parameters = {
       },
       1280: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20187:230150&t=hZK6atDM9zUQz9LQ-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20187:230150&mode=design&t=8sNCGJSu8QDLRKO0-4',
         options: {
           style: {
             top: -16,
@@ -106,6 +111,37 @@ LightMode.parameters = {
           },
         },
       },
+      1920: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20187:229451&mode=design&t=8sNCGJSu8QDLRKO0-4',
+        options: {
+          style: {
+            top: -16,
+            left: -16,
+          },
+          componentStyle: {
+            width: 1920,
+          },
+        },
+      },
     },
   } as FigmaParams,
 };
+
+LightModeMobile.parameters = {
+  figma: {
+    component: {
+      0: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20802:265996&mode=design&t=BFZUaHoGzRars0yc-4',
+        options: {
+          ...optionStyles,
+          componentStyle: {
+            width: 375,
+          },
+        },
+      },
+    },
+  } as FigmaParams,
+};
+DarkModeMobile.parameters = {};
