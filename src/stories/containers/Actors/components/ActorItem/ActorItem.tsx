@@ -297,6 +297,4 @@ const SocialIconsSection = styled.div({
   },
 });
 
-const LinkContainer = styled.div({
-  [lightTheme.breakpoints.up('desktop_1194')]: {},
-});
+const LinkContainer = styled.div({});

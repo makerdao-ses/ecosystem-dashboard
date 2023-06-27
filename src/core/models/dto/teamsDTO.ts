@@ -7,6 +7,11 @@ export interface ActorSocialDto {
   youtube?: string;
   votingPortal?: string;
   twitter?: string;
+  forumTag?: string;
+  github?: string;
+  discord?: string;
+  website?: string;
+  linkedIn?: string;
 }
 
 export interface Scope {
@@ -20,7 +25,8 @@ export interface EcosystemActor {
   code: string;
   name: string;
   type: string;
+  image: string;
   category: string[];
-  scope: Scope[];
-  socials: ActorSocialDto;
+  scopes: Scope[];
+  socialMediaChannels: ActorSocialDto[];
 }
