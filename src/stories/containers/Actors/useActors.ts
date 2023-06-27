@@ -4,13 +4,13 @@ import { useState } from 'react';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { EcosystemActor } from '@ses/core/models/dto/teamsDTO';
 
-export const useActors = (actors: EcosystemActor[]) => {
+export const useActors = (actors: EcosystemActor[], stories = false) => {
   // Remove this after implementation
   console.log('actors', actors);
   const [activeElements, setActiveElements] = useState<string[]>([]);
   const phone = useMediaQuery(lightTheme.breakpoints.up('desktop_1194'));
   const isLessPhone = useMediaQuery(lightTheme.breakpoints.down(376));
-  const [readMore, setReadMore] = useState<boolean>(false);
+  const [readMore, setReadMore] = useState<boolean>(stories);
   const showTextDesk = phone || readMore;
   const handleRead = () => {
     setReadMore(!readMore);

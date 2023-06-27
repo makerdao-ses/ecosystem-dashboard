@@ -13,9 +13,11 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   actors: EcosystemActor[];
+  // only for stories
+  stories?: boolean;
 }
 
-const ActorsContainer: React.FC<Props> = ({ actors }) => {
+const ActorsContainer: React.FC<Props> = ({ actors, stories }) => {
   const {
     readMore,
     handleRead,
@@ -25,7 +27,7 @@ const ActorsContainer: React.FC<Props> = ({ actors }) => {
     clearFilters,
     handleSelectChange,
     activeElements,
-  } = useActors(actors);
+  } = useActors(actors, stories);
 
   const { isLight } = useThemeContext();
 

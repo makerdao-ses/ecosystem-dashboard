@@ -23,9 +23,11 @@ export default {
 const variantsArgs = [
   {
     actors: [] as EcosystemActor[],
+    stories: true,
   },
   {
     actors: [] as EcosystemActor[],
+    stories: false,
   },
 ];
 
@@ -141,9 +143,5 @@ LightModeMobile.parameters = {
       },
     },
   } as FigmaParams,
-  chromatic: {
-    viewports: [375],
-    pauseAnimationAtEnd: true,
-  },
 };
 DarkModeMobile.parameters = {};
