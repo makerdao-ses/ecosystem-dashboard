@@ -3,6 +3,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import DefaultCountUp from '../DefaultCountUp/DefaultCountUp';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export type ValueColor = 'normal' | 'green';
@@ -13,9 +14,16 @@ interface NumberWithSignCardProps {
   sign: 'positive' | 'negative';
   valueColor?: ValueColor;
   cardWidth?: string | number;
+  dynamicChanges?: boolean;
 }
 
-const NumberWithSignCard: React.FC<NumberWithSignCardProps> = ({ value, sign, text, valueColor = 'normal' }) => {
+const NumberWithSignCard: React.FC<NumberWithSignCardProps> = ({
+  value,
+  sign,
+  text,
+  valueColor = 'normal',
+  dynamicChanges = false,
+}) => {
   const { isLight } = useThemeContext();
 
   return (
@@ -50,7 +58,12 @@ const NumberWithSignCard: React.FC<NumberWithSignCardProps> = ({ value, sign, te
         <Value isLight={isLight} valueColor={valueColor}>
           {value !== undefined ? (
             <>
-              {usLocalizedNumber(Math.round(value))} <span>DAI</span>
+              {dynamicChanges ? (
+                <DefaultCountUp end={Math.round(value)} formattingFn={usLocalizedNumber} />
+              ) : (
+                usLocalizedNumber(Math.round(value))
+              )}
+              <div>DAI</div>
             </>
           ) : (
             'N/A'
@@ -149,7 +162,7 @@ const Value = styled.div<WithIsLight & { valueColor: ValueColor }>(({ isLight, v
       lineHeight: '36px',
     },
 
-    '& span': {
+    '& div': {
       marginLeft: 4,
       fontWeight: 700,
       fontSize: 12,
