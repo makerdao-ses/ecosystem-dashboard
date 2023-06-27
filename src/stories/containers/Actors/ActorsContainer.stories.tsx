@@ -24,9 +24,12 @@ const variantsArgs = [
   {
     actors: [] as EcosystemActor[],
   },
+  {
+    actors: [] as EcosystemActor[],
+  },
 ];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(
+export const [[LightMode, DarkMode], [LightModeMobile, DarkModeMobile]] = createThemeModeVariants(
   (props) => (
     <AppLayout>
       <ActorsContainer {...props} />
@@ -122,3 +125,21 @@ LightMode.parameters = {
     },
   } as FigmaParams,
 };
+
+LightModeMobile.parameters = {
+  figma: {
+    component: {
+      0: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20802:265996&mode=design&t=BFZUaHoGzRars0yc-4',
+        options: {
+          ...optionStyles,
+          componentStyle: {
+            width: 375,
+          },
+        },
+      },
+    },
+  } as FigmaParams,
+};
+DarkModeMobile.parameters = {};
