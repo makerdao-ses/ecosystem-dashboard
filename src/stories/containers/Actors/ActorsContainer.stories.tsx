@@ -14,7 +14,7 @@ export default {
       pathname: '/ecosystem-actors',
     },
     chromatic: {
-      viewports: [0, 834, 1194, 1280, 1440, 1920],
+      viewports: [375, 834, 1194, 1280, 1440, 1920],
       pauseAnimationAtEnd: true,
     },
   },
