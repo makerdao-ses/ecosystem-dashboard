@@ -7,15 +7,16 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface TransactionAmountProps {
   amount: number;
+  highlightPositiveAmounts?: boolean;
 }
 
-const TransactionAmount: React.FC<TransactionAmountProps> = ({ amount }) => {
+const TransactionAmount: React.FC<TransactionAmountProps> = ({ amount, highlightPositiveAmounts }) => {
   const { isLight } = useThemeContext();
 
   return (
     <Wrapper>
       <Title isLight={isLight}>Amount</Title>
-      <Amount isLight={isLight}>
+      <Amount isLight={isLight} isGreen={amount > 0 && !!highlightPositiveAmounts}>
         <Sign>{amount < 0 ? '-' : '+'}</Sign>
         {usLocalizedNumber(Math.abs(amount))}
         <Currency isLight={isLight}>DAI</Currency>
@@ -49,7 +50,7 @@ const Title = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const Amount = styled.div<WithIsLight>(({ isLight }) => ({
+const Amount = styled.div<WithIsLight & { isGreen: boolean }>(({ isLight, isGreen }) => ({
   display: 'flex',
   alignItems: 'baseline',
   justifyContent: 'flex-end',
@@ -62,7 +63,7 @@ const Amount = styled.div<WithIsLight>(({ isLight }) => ({
   },
 
   '&, & > span:first-of-type': {
-    color: isLight ? '#231536' : '#D2D4EF',
+    color: isGreen ? '#1AAB9B' : isLight ? '#231536' : '#D2D4EF',
   },
 }));
 

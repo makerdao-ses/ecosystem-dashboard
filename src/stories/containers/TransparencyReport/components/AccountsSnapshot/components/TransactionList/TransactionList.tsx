@@ -10,9 +10,10 @@ import type { SnapshotAccount, SnapshotAccountTransaction } from '@ses/core/mode
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 interface TransactionListProps {
   items?: (SnapshotAccountTransaction | SnapshotAccount)[];
+  highlightPositiveAmounts?: boolean;
 }
 
-const TransactionList: React.FC<TransactionListProps> = ({ items }) => {
+const TransactionList: React.FC<TransactionListProps> = ({ items, highlightPositiveAmounts = false }) => {
   const { isLight } = useThemeContext();
   const renderTransaction = (transaction: SnapshotAccountTransaction) => (
     <Transaction
@@ -24,6 +25,7 @@ const TransactionList: React.FC<TransactionListProps> = ({ items }) => {
       counterPartyName={transaction.counterPartyName ?? 'N/A'}
       counterPartyAddress={transaction.counterParty}
       amount={transaction.amount}
+      highlightPositiveAmounts={highlightPositiveAmounts}
     />
   );
 

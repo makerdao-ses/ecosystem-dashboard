@@ -13,9 +13,11 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   actors: EcosystemActor[];
+  // only for stories
+  stories?: boolean;
 }
 
-const ActorsContainer: React.FC<Props> = ({ actors }) => {
+const ActorsContainer: React.FC<Props> = ({ actors, stories }) => {
   const {
     readMore,
     handleRead,
@@ -25,7 +27,7 @@ const ActorsContainer: React.FC<Props> = ({ actors }) => {
     clearFilters,
     handleSelectChange,
     activeElements,
-  } = useActors(actors);
+  } = useActors(actors, stories);
 
   const { isLight } = useThemeContext();
 
@@ -165,8 +167,8 @@ const FilterContainer = styled.div({
 
 const StyledParagraphOne = styled.p<{ readMore: boolean }>(({ readMore }) => ({
   width: 343,
-  marginTop: 0,
-  marginBottom: 0,
+  marginTop: -8,
+  marginBottom: 8,
   display: !readMore ? '-webkit-box' : 'unset',
   overflow: 'hidden',
   WebkitLineClamp: !readMore ? 3 : 'unset',
@@ -175,6 +177,8 @@ const StyledParagraphOne = styled.p<{ readMore: boolean }>(({ readMore }) => ({
     marginLeft: 4,
   },
   [lightTheme.breakpoints.up(376)]: {
+    marginTop: 0,
+    marginBottom: 0,
     display: 'inline-block',
     WebkitLineClamp: 'unset',
     width: '100%',

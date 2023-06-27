@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
+import { siteRoutes } from '@ses/config/routes';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
@@ -52,6 +53,7 @@ const GlobalActivityFeedContainer: React.FC<Props> = ({ coreUnits, activityFeed 
           height: 200,
         }}
         twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
+        canonicalURL={siteRoutes.globalActivityFeed}
       />
       <PageWrapper hasImageBackground={true}>
         <Container>

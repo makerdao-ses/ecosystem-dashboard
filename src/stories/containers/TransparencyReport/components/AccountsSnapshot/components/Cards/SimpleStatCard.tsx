@@ -5,6 +5,7 @@ import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
 import React from 'react';
+import DefaultCountUp from '../DefaultCountUp/DefaultCountUp';
 import EqualSign from '../SVG/Equals';
 import OutlinedCard from './OutlinedCard';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -15,6 +16,7 @@ interface SimpleStatCardProps {
   caption: string;
   hasEqualSign?: boolean;
   isReserves?: boolean;
+  dynamicChanges?: boolean;
 }
 
 const SimpleStatCard: React.FC<SimpleStatCardProps> = ({
@@ -23,6 +25,7 @@ const SimpleStatCard: React.FC<SimpleStatCardProps> = ({
   caption,
   hasEqualSign = false,
   isReserves = false,
+  dynamicChanges = false,
 }) => {
   const { isLight } = useThemeContext();
   const isTablet = useMediaQuery(lightTheme.breakpoints.down('desktop_1194'));
@@ -43,7 +46,12 @@ const SimpleStatCard: React.FC<SimpleStatCardProps> = ({
           <Value isLight={isLight}>
             {value !== undefined ? (
               <>
-                {usLocalizedNumber(Math.round(value))} <span>DAI</span>
+                {dynamicChanges ? (
+                  <DefaultCountUp end={Math.round(value)} formattingFn={usLocalizedNumber} />
+                ) : (
+                  usLocalizedNumber(Math.round(value))
+                )}
+                <div>DAI</div>
               </>
             ) : (
               'N/A'
@@ -154,7 +162,7 @@ const Value = styled.div<WithIsLight>(({ isLight }) => ({
     lineHeight: '36px',
   },
 
-  '& > span': {
+  '& > div': {
     marginLeft: 4,
     fontWeight: 700,
     fontSize: 12,

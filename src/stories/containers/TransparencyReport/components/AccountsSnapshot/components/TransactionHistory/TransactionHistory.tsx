@@ -27,7 +27,7 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transactionHist
       <Accordion expanded={expanded} onChange={() => setExpanded(!expanded)}>
         <AccordionSummary isLight={isLight}>View Transaction History</AccordionSummary>
         <AccordionDetails>
-          <TransactionList items={transactionHistory} />
+          <TransactionList items={transactionHistory} highlightPositiveAmounts={true} />
         </AccordionDetails>
       </Accordion>
     </TransactionHistoryContainer>

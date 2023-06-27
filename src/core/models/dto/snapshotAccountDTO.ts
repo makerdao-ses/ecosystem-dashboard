@@ -53,5 +53,5 @@ export interface Snapshots {
 }
 
 export interface UIReservesData extends SnapshotAccount {
-  groups?: SnapshotAccount[];
+  children?: SnapshotAccount[];
 }
