@@ -165,8 +165,8 @@ const FilterContainer = styled.div({
 
 const StyledParagraphOne = styled.p<{ readMore: boolean }>(({ readMore }) => ({
   width: 343,
-  marginTop: 0,
-  marginBottom: 0,
+  marginTop: -8,
+  marginBottom: 8,
   display: !readMore ? '-webkit-box' : 'unset',
   overflow: 'hidden',
   WebkitLineClamp: !readMore ? 3 : 'unset',
@@ -175,6 +175,8 @@ const StyledParagraphOne = styled.p<{ readMore: boolean }>(({ readMore }) => ({
     marginLeft: 4,
   },
   [lightTheme.breakpoints.up(376)]: {
+    marginTop: 0,
+    marginBottom: 0,
     display: 'inline-block',
     WebkitLineClamp: 'unset',
     width: '100%',
