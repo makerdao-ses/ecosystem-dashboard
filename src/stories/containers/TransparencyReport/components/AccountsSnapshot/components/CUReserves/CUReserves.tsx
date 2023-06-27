@@ -48,13 +48,19 @@ const CUReserves: React.FC<CUReservesProps> = ({
       </HeaderContainer>
 
       <CardsContainer>
-        <SimpleStatCard date={startDate} value={balance?.initialBalance} caption="Initial Core Unit Reserves" />
+        <SimpleStatCard
+          date={startDate}
+          value={balance?.initialBalance}
+          caption="Initial Core Unit Reserves"
+          dynamicChanges
+        />
         <FundChangeCard
           netChange={balance?.inflow && balance?.outflow ? balance.outflow - balance.inflow * -1 : undefined}
           leftValue={balance?.inflow}
           leftText="Inflow"
           rightValue={balance?.outflow ? balance?.outflow * -1 : undefined}
           rightText="Outflow"
+          dynamicChanges
         />
         <SimpleStatCard
           date={endDate}
@@ -62,6 +68,7 @@ const CUReserves: React.FC<CUReservesProps> = ({
           caption="New Core Unit Reserves"
           hasEqualSign
           isReserves
+          dynamicChanges
         />
       </CardsContainer>
 

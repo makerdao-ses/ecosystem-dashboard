@@ -4,6 +4,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import DefaultCountUp from '../DefaultCountUp/DefaultCountUp';
 import NumberWithSignCard from '../NumberWithSignCard/NumberWithSignCard';
 import OutlinedCard from './OutlinedCard';
 import type { ValueColor } from '../NumberWithSignCard/NumberWithSignCard';
@@ -17,6 +18,7 @@ interface FundChangeCardProps {
   rightValue?: number;
   rightValueColor?: ValueColor;
   rightText: string;
+  dynamicChanges?: boolean;
 }
 
 const FundChangeCard: React.FC<FundChangeCardProps> = ({
@@ -27,6 +29,7 @@ const FundChangeCard: React.FC<FundChangeCardProps> = ({
   rightValue,
   rightValueColor = 'normal',
   rightText,
+  dynamicChanges = false,
 }) => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
@@ -43,7 +46,12 @@ const FundChangeCard: React.FC<FundChangeCardProps> = ({
             {netChange !== undefined ? (
               <>
                 {netChange > 0 && '+'}
-                {usLocalizedNumber(Math.round(netChange))} <span>DAI</span>
+                {dynamicChanges ? (
+                  <DefaultCountUp end={Math.round(netChange)} formattingFn={usLocalizedNumber} />
+                ) : (
+                  usLocalizedNumber(Math.round(netChange))
+                )}
+                <div>DAI</div>
               </>
             ) : (
               'N/A'
@@ -61,8 +69,20 @@ const FundChangeCard: React.FC<FundChangeCardProps> = ({
         </RightArrowContainer>
       </ChangeContainer>
       <ValuesContainer>
-        <NumberWithSignCard value={leftValue} valueColor={leftValueColor} sign="positive" text={leftText} />
-        <NumberWithSignCard value={rightValue} valueColor={rightValueColor} sign="negative" text={rightText} />
+        <NumberWithSignCard
+          dynamicChanges={dynamicChanges}
+          value={leftValue}
+          valueColor={leftValueColor}
+          sign="positive"
+          text={leftText}
+        />
+        <NumberWithSignCard
+          dynamicChanges={dynamicChanges}
+          value={rightValue}
+          valueColor={rightValueColor}
+          sign="negative"
+          text={rightText}
+        />
       </ValuesContainer>
     </Card>
   );
@@ -255,7 +275,7 @@ const Value = styled.div<WithIsLight>(({ isLight }) => ({
     lineHeight: '19px',
   },
 
-  '& > span': {
+  '& > div': {
     fontWeight: 700,
     fontSize: 14,
     lineHeight: '17px',
