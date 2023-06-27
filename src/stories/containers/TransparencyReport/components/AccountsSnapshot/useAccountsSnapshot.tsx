@@ -2,8 +2,9 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useState } from 'react';
 import ExpensesComparisonRowCard from './components/Cards/ExpensesComparisonRowCard/ExpensesComparisonRowCard';
 import { EXPENSES_COMPARISON_TABLE_HEADER } from './components/ExpensesComparison/ExpensesComparison';
+import { getReserveAccounts, transactionSort } from './utils/reserveUtils';
 import type { CardRenderProps, RowProps } from '@ses/components/AdvanceTable/types';
-import type { Snapshots, Token, UIReservesData } from '@ses/core/models/dto/snapshotAccountDTO';
+import type { Snapshots, Token } from '@ses/core/models/dto/snapshotAccountDTO';
 
 const RenderCurrentMonthRow: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { isLight } = useThemeContext();
@@ -93,45 +94,24 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
 
   const transactionHistory = mainAccount.snapshotAccountTransaction
     .filter((transaction) => transaction.token === selectedToken)
-    .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+    .sort(transactionSort);
 
   // cu reserves balance
   const cuReservesAccount = snapshot.snapshotAccount.find(
     (account) => account.groupAccountId === null && account.upstreamAccountId === mainAccount.id
   );
-  const cuReservesBalance = cuReservesAccount?.snapshotAccountBalance?.find(
+  const cuReservesBalances = cuReservesAccount?.snapshotAccountBalance?.filter(
     (balance) => balance.token === selectedToken
   );
+  // balance with or without the off-chain data
+  const cuReservesBalance =
+    (cuReservesBalances?.length ?? 0) > 1
+      ? cuReservesBalances?.find((account) => account.includesOffChain === includeOffChain)
+      : cuReservesBalances?.[0];
 
-  // on chain
-  const onChainAccount = snapshot.snapshotAccount.filter(
-    (account) => account.groupAccountId === cuReservesAccount?.id && account.upstreamAccountId === mainAccount.id
-  )?.[0];
+  const onChainData = getReserveAccounts(snapshot, false, cuReservesAccount?.id, mainAccount.id, selectedToken);
 
-  const onChainData = snapshot.snapshotAccount
-    .filter((account) => account.groupAccountId === onChainAccount?.id)
-    .map(
-      (account) =>
-        ({
-          ...account,
-          snapshotAccountBalance: account.snapshotAccountBalance.filter((balance) => balance.token === selectedToken),
-          snapshotAccountTransaction: account.snapshotAccountTransaction
-            .filter((transaction) => transaction.token === selectedToken)
-            .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()),
-          children: snapshot.snapshotAccount
-            .filter((childrenAccount) => childrenAccount.groupAccountId === account.id)
-            .map((childrenAccount) => ({
-              ...childrenAccount,
-              snapshotAccountBalance: childrenAccount.snapshotAccountBalance.filter(
-                (balance) => balance.token === selectedToken
-              ),
-              snapshotAccountTransaction: childrenAccount.snapshotAccountTransaction
-                .filter((transaction) => transaction.token === selectedToken)
-                .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()),
-            })),
-        } as UIReservesData)
-    )
-    .sort((a, b) => parseInt(a.id) - parseInt(b.id));
+  const offChainData = getReserveAccounts(snapshot, true, cuReservesAccount?.id, mainAccount.id, selectedToken);
 
   // mocked data for the "Reported Expenses Comparison" table
   const expensesComparisonRows = [
@@ -152,6 +132,7 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
     transactionHistory,
     cuReservesBalance,
     onChainData,
+    offChainData,
   };
 };
 

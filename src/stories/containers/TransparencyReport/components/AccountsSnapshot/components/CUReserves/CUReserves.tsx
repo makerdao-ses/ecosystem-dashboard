@@ -18,6 +18,7 @@ interface CUReservesProps {
   endDate?: string;
   balance?: SnapshotAccountBalance;
   onChainData?: UIReservesData[];
+  offChainData?: UIReservesData[];
 }
 
 const CUReserves: React.FC<CUReservesProps> = ({
@@ -28,6 +29,7 @@ const CUReserves: React.FC<CUReservesProps> = ({
   endDate,
   balance,
   onChainData,
+  offChainData,
 }) => {
   const { isLight } = useThemeContext();
 
@@ -87,42 +89,9 @@ const CUReserves: React.FC<CUReservesProps> = ({
         />
 
         <ReservesCardsContainer>
-          <ReserveCard
-            account={
-              {
-                accountLabel: 'Payment Processor',
-                accountType: 'group',
-                snapshotAccountBalance: [
-                  {
-                    initialBalance: 100000,
-                    inflow: 300000,
-                    outflow: -300000,
-                    newBalance: 0,
-                  },
-                ],
-                groups: [],
-              } as unknown as UIReservesData
-            }
-          />
-          <ReserveCard
-            account={
-              {
-                // temporary disable as this is a WIP
-                // eslint-disable-next-line spellcheck/spell-checker
-                accountLabel: 'Coinbase Account',
-                accountType: 'group',
-                snapshotAccountBalance: [
-                  {
-                    initialBalance: 500000,
-                    inflow: 300000,
-                    outflow: -250000,
-                    newBalance: 550680,
-                  },
-                ],
-                groups: [],
-              } as unknown as UIReservesData
-            }
-          />
+          {offChainData?.map((account) => (
+            <ReserveCard key={account.id} account={account} />
+          ))}
         </ReservesCardsContainer>
       </OffChainSubsection>
     </div>
