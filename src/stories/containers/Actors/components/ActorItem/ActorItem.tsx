@@ -82,6 +82,7 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight>(({ isLi
   [lightTheme.breakpoints.up('table_834')]: {
     padding: '8px 16px',
     flexDirection: 'column',
+    height: 129,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     height: 82,
@@ -280,7 +281,7 @@ const ScopeSection = styled.div({
 
 const SocialIconsSection = styled.div({
   display: 'flex',
-  marginLeft: -6,
+  marginLeft: -5,
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row',
     alignItems: 'center',
