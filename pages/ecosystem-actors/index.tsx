@@ -1,8 +1,8 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import ActorsContainer from '@ses/containers/Actors/ActorsContainer';
+import { fetchActors } from '@ses/containers/Actors/api/queries';
 import { featureFlags } from 'feature-flags/feature-flags';
 import React from 'react';
-
 import type { EcosystemActor } from '@ses/core/models/dto/teamsDTO';
 import type { GetServerSideProps, NextPage } from 'next';
 
@@ -21,7 +21,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
     };
   }
 
-  const actors: EcosystemActor[] = [];
+  const actors = await fetchActors('EcosystemActor');
   return {
     props: {
       actors,

@@ -71,7 +71,7 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight>(({ isLi
   background: isLight ? '#FFFFFF' : '#10191F',
   boxShadow: isLight
     ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-    : 'box-shadow: 0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+    : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
 
   padding: '16px',
   display: 'flex',
@@ -114,7 +114,7 @@ const EcosystemActorText = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 400,
   fontSize: 14,
   lineHeight: '17px',
-  color: isLight ? '#9FAFB9' : 'red',
+  color: isLight ? '#9FAFB9' : '#D2D4EF',
   marginBottom: 7,
   [lightTheme.breakpoints.down('table_834')]: {
     display: 'none',
@@ -189,7 +189,7 @@ const WrapperType = styled.div<WithIsLight>(({ isLight }) => ({
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: 14,
-    color: isLight ? '#9FAFB9' : 'red',
+    color: isLight ? '#9FAFB9' : '#9FAFB9',
     marginBottom: 4,
     lineHeight: '17px',
     alignItems: 'end',
@@ -199,7 +199,7 @@ const WrapperType = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 const Line = styled.div<WithIsLight>(({ isLight }) => ({
-  borderBottom: isLight ? '1px solid #D4D9E1' : '1px solid #405361',
+  borderBottom: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
   marginTop: 22,
   marginBottom: 16,
   [lightTheme.breakpoints.up('table_834')]: {
@@ -217,12 +217,12 @@ const ActorTitle = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 700,
   fontSize: 12,
   lineHeight: '17px',
-  color: isLight ? '#708390' : 'red',
+  color: '#708390',
   borderRadius: 3,
   width: 'fit-content',
   paddingTop: 4,
   paddingBottom: 2,
-  borderBottom: '2px solid #708390',
+  borderBottom: `2px solid ${isLight ? '#708390' : '#787A9B'}`,
   [lightTheme.breakpoints.up('table_834')]: {
     marginTop: 10,
   },

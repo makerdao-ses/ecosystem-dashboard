@@ -1,42 +1,26 @@
 import useMediaQuery from '@mui/material/useMediaQuery';
+
 import lightTheme from '@ses/styles/theme/light';
 import { useState } from 'react';
-import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
+
 import type { EcosystemActor } from '@ses/core/models/dto/teamsDTO';
 
 export const useActors = (actors: EcosystemActor[], stories = false) => {
-  // Remove this after implementation
-  console.log('actors', actors);
-  const [activeElements, setActiveElements] = useState<string[]>([]);
-  const phone = useMediaQuery(lightTheme.breakpoints.up('desktop_1194'));
   const isLessPhone = useMediaQuery(lightTheme.breakpoints.down(376));
   const [readMore, setReadMore] = useState<boolean>(stories);
-  const showTextDesk = phone || readMore;
+  const showTextDesk = readMore;
   const handleRead = () => {
     setReadMore(!readMore);
   };
 
-  const selectElements = [] as MultiSelectItem[];
-
-  const clearFilters = () => {
-    setActiveElements([]);
-  };
-
-  const filtersActive = [] as EcosystemActor[];
-
-  const handleSelectChange = (value: string[]) => {
-    setActiveElements(value);
-  };
+  // TODO: Remove this add new search when filter is add
+  const filtersActive = actors;
 
   return {
     handleRead,
     readMore,
     showTextDesk,
     isLessPhone,
-    selectElements,
-    clearFilters,
-    handleSelectChange,
-    activeElements,
     filtersActive,
   };
 };
