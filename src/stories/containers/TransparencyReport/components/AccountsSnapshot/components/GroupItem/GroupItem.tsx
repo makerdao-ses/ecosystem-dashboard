@@ -130,8 +130,8 @@ const WalletContainer = styled.div({
     },
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    width: '39.5%',
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    width: 'calc(295px + 16%)',
   },
 });
 

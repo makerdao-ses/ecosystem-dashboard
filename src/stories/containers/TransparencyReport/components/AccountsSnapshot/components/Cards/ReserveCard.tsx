@@ -208,11 +208,15 @@ const InitialBalance = styled.div({
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
     padding: 16,
-    width: '17.2%',
+    width: '16.4%',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    width: '17.1%',
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: '17.2%',
+    width: '17.3%',
   },
 });
 
@@ -280,15 +284,11 @@ const Inflow = styled.div<WithIsLight>(({ isLight }) => ({
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
     margin: '8px 16px',
-    width: '15.9%',
+    minWidth: 'calc(16.8% - 32px)',
   },
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    width: '16.2%',
-  },
-
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: '15%',
+    minWidth: 'calc(17.2% - 32px)',
   },
 }));
 
