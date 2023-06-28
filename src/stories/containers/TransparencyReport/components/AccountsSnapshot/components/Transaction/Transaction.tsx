@@ -68,7 +68,7 @@ export default Transaction;
 
 const TransactionContainer = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'grid',
-  gridTemplateColumns: '1.35fr 1fr 1fr',
+  gridTemplateColumns: '204px 17% max-content 1fr',
   padding: '16px 32px 13px 20px',
 
   [lightTheme.breakpoints.up('desktop_1194')]: {

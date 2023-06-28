@@ -156,7 +156,7 @@ const NameContainer = styled.div({
   width: '100%',
 
   [lightTheme.breakpoints.up('table_834')]: {
-    width: '300px',
+    width: '220px',
     padding: '0 16px',
   },
 
@@ -186,7 +186,7 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
 
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    fontSize: 14,
+    fontSize: 12,
     lineHeight: '17px',
   },
 }));
@@ -202,8 +202,8 @@ const InitialBalance = styled.div({
     marginTop: 0,
     justifyContent: 'normal',
     alignItems: 'normal',
-    padding: '16px 8px',
-    width: '17.1%',
+    padding: '16px 2px',
+    width: '17.08%',
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
@@ -271,11 +271,11 @@ const Inflow = styled.div<WithIsLight>(({ isLight }) => ({
 
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'column',
-    margin: 8,
+    margin: '8px 2px',
     padding: 8,
     justifyContent: 'normal',
     alignItems: 'normal',
-    width: '16%',
+    minWidth: 'calc(16.1% - 4px)',
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
@@ -298,8 +298,9 @@ const NewBalance = styled(InitialBalance)({
   marginTop: 8,
 
   [lightTheme.breakpoints.up('table_834')]: {
-    padding: '16px 8px',
+    padding: 2,
     marginLeft: 'auto',
+    width: 'unset',
 
     '& > div': {
       textAlign: 'right',

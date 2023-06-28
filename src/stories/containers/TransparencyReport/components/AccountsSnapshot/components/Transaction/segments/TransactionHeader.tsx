@@ -40,6 +40,8 @@ export default TransactionHeader;
 const Wrapper = styled.div({
   display: 'flex',
   gap: 16,
+  gridColumn: '1 / 3',
+  padding: '0 16px',
 });
 
 const commonArrowStyles = {
