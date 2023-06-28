@@ -53,7 +53,8 @@ const ActorItem: React.FC<Props> = ({ actor }) => {
         <SocialIconsSection>
           {actor?.socialMediaChannels && (
             <LinkContainer>
-              <DelegateSocialDtoLinks
+              <DelegateSocialDtoLinksStyled
+                isLight={isLight}
                 links={getLinksFromRecognizedActors(actor, ActorsLinkType)}
                 fillDark="#ADAFD4"
                 hasTooltip
@@ -299,3 +300,11 @@ const SocialIconsSection = styled.div({
 });
 
 const LinkContainer = styled.div({});
+const DelegateSocialDtoLinksStyled = styled(DelegateSocialDtoLinks)<WithIsLight>(({ isLight }) => ({
+  '& a': {
+    '&:hover svg path': {
+      fill: isLight ? '#231536' : '#48495F',
+      stroke: 'none',
+    },
+  },
+}));
