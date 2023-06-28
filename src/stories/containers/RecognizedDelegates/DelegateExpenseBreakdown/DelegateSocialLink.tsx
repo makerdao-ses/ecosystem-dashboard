@@ -32,6 +32,7 @@ interface CuTableColumnLinksProps {
   boxLinkWidth?: number;
   boxLinkHeight?: number;
   hasTooltip?: boolean;
+  className?: string;
 }
 
 const linkComponents = {
@@ -61,15 +62,16 @@ export const DelegateSocialDtoLinks = ({
   boxLinkHeight = 32,
   boxLinkWidth = 32,
   hasTooltip = false,
+  className,
 }: CuTableColumnLinksProps) => {
   const { isLight } = useThemeContext();
   return (
-    <Container>
+    <Container className={className}>
       {links?.map((link, i) => (
         <BoxContainer boxLinkWidth={boxLinkWidth} boxLinkHeight={boxLinkHeight} key={link.linkType.toString()}>
           {hasTooltip ? (
             <CustomPopover
-              title={link.toolTipDescription}
+              title={link?.toolTipDescription}
               id={'popover-fulltime equivalent'}
               popupStyle={{
                 color: isLight ? '#231536' : '#D2D4EF',
