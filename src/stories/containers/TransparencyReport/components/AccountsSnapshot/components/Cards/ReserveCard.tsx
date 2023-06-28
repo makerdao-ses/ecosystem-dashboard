@@ -156,22 +156,22 @@ const NameContainer = styled.div({
   width: '100%',
 
   [lightTheme.breakpoints.up('table_834')]: {
-    width: '22.7%',
+    width: '300px',
     padding: '0 16px',
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    width: '18.7%',
+    width: '300px',
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: '18.4%',
+    width: '300px',
   },
 });
 
 const WalletInfoWrapper = styled.div({
   paddingTop: 3,
-  marginBottom: -6,
+  marginBottom: 1,
 
   [lightTheme.breakpoints.up('table_834')]: {
     paddingTop: 0,
@@ -208,11 +208,11 @@ const InitialBalance = styled.div({
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
     padding: 16,
-    width: '18.8%',
+    width: '17.2%',
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: '18.4%',
+    width: '17.2%',
   },
 });
 
@@ -288,7 +288,7 @@ const Inflow = styled.div<WithIsLight>(({ isLight }) => ({
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: '16%',
+    width: '15%',
   },
 }));
 
@@ -333,6 +333,7 @@ const ArrowContainer = styled.div({
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
     width: 106,
+    marginLeft: 32,
   },
 });
 

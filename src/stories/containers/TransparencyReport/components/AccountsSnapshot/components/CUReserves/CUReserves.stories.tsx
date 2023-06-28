@@ -79,15 +79,15 @@ const variantsArgs = [
         .build(),
       new SnapshotAccountBuilder()
         .withId('2')
-        .withAccountLabel('Auditor 2')
-        .withAccountType('singular')
-        .withAccountAddress('0x23b554585a4ef8483')
+        // eslint-disable-next-line spellcheck/spell-checker
+        .withAccountLabel('Coinbase Account')
+        .withAccountType('group')
         .addSnapshotAccountBalance(
           new SnapshotAccountBalanceBuilder()
-            .withInitialBalance(500000)
-            .withNewBalance(550000)
-            .withInflow(300000)
-            .withOutflow(-250000)
+            .withInitialBalance(900000)
+            .withNewBalance(1100000)
+            .withInflow(250000)
+            .withOutflow(-50000)
             .build()
         )
         .build(),
@@ -149,7 +149,7 @@ LightMode.parameters = {
         },
       },
       1440: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=18149%3A200168',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19847%3A227648',
         options: {
           componentStyle: {
             width: 1312,

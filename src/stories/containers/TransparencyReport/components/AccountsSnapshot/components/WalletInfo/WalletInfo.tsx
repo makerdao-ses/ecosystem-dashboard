@@ -47,7 +47,7 @@ const Container = styled.div({
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginTop: 8,
+    marginTop: 3,
   },
 });
 
