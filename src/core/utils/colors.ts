@@ -1,3 +1,4 @@
+import { ActorScopeEnum } from '../enums/actorScopeEnum';
 import { CuCategoryEnum } from '../enums/cuCategoryEnum';
 import { CuJobEnum } from '../enums/cuJobEnum';
 
@@ -182,6 +183,48 @@ export const getExpenseReportStatusColor = (
       };
 
     default: // default to draft
+      return {
+        color: '#447AFB',
+        darkColor: '#447AFB',
+        background: '#EDF2FF',
+        darkBackground: '#061D58',
+      };
+  }
+};
+
+export const getScopeColor = (
+  variant: ActorScopeEnum
+): { color: string; background: string; darkColor: string; darkBackground: string } => {
+  switch (variant) {
+    case ActorScopeEnum.SupportScope:
+      return {
+        color: '#5D48FF',
+        background: '#F7F5FF',
+        darkColor: '#5D48FF',
+        darkBackground: '#432CFF33',
+      };
+    case ActorScopeEnum.ProtocolScope:
+      return {
+        color: '#02CB9B',
+        background: '#EBFFFA',
+        darkColor: '#00ED18',
+        darkBackground: '#17FFC833',
+      };
+    case ActorScopeEnum.StabilityScope:
+      return {
+        color: '#8F2EC1',
+        background: '#FBF2FF',
+        darkColor: '#8F2EC1',
+        darkBackground: '#B72EFF33',
+      };
+    case ActorScopeEnum.GovernanceScope:
+      return {
+        color: '#00B5D3',
+        background: '#EEFAFC',
+        darkColor: '#00B5D3',
+        darkBackground: '#42E8FF33',
+      };
+    default:
       return {
         color: '#447AFB',
         darkColor: '#447AFB',

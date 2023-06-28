@@ -17,6 +17,7 @@ import { ColumnLinksSkeleton } from './CuTableColumnLinksSkeleton';
 export interface LinkModel {
   href: string;
   linkType: LinkTypeEnum;
+  toolTipDescription?: string;
 }
 
 interface CuTableColumnLinksProps {
