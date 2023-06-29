@@ -131,8 +131,8 @@ const ContainerList = styled.div({
 
 const StyledParagraphOne = styled.p<{ readMore: boolean }>(({ readMore }) => ({
   width: 343,
-  marginTop: 0,
-  marginBottom: 0,
+  marginTop: -8,
+  marginBottom: 8,
   display: !readMore ? '-webkit-box' : 'unset',
   overflow: 'hidden',
   WebkitLineClamp: !readMore ? 3 : 'unset',
