@@ -43,11 +43,11 @@ const Container = styled.div({
   display: 'flex',
 
   [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: 10,
+    marginTop: 4,
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginTop: 8,
+    marginTop: 3,
   },
 });
 
@@ -86,9 +86,10 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
   marginRight: 8.5,
 
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    fontSize: 14,
+    fontSize: 12,
     lineHeight: '17px',
     marginBottom: 6,
+    marginRight: 4,
   },
 }));
 

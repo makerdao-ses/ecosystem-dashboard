@@ -68,22 +68,12 @@ export default Transaction;
 
 const TransactionContainer = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'grid',
-  gridTemplateColumns: '1.35fr 1fr 1fr',
+  gridTemplateColumns: '204px 17% max-content 1fr',
   padding: '16px 32px 13px 20px',
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    gridTemplateColumns: '1.365fr 1fr 1fr',
+    gridTemplateColumns: '295px 16% max-content 1fr',
     padding: '16px 56px 14px 20px',
-  },
-
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    gridTemplateColumns: '1.296fr 1fr 1fr',
-    padding: '16px 64px 14px 20px',
-  },
-
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    gridTemplateColumns: '1.311fr 1fr 1fr',
-    padding: '16px 80px 14px 20px',
   },
 
   '&:hover': {

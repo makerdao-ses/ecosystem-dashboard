@@ -156,22 +156,22 @@ const NameContainer = styled.div({
   width: '100%',
 
   [lightTheme.breakpoints.up('table_834')]: {
-    width: '22.7%',
+    width: '220px',
     padding: '0 16px',
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    width: '18.7%',
+    width: '300px',
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: '18.4%',
+    width: '300px',
   },
 });
 
 const WalletInfoWrapper = styled.div({
   paddingTop: 3,
-  marginBottom: -6,
+  marginBottom: 1,
 
   [lightTheme.breakpoints.up('table_834')]: {
     paddingTop: 0,
@@ -186,7 +186,7 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
 
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    fontSize: 14,
+    fontSize: 12,
     lineHeight: '17px',
   },
 }));
@@ -202,17 +202,21 @@ const InitialBalance = styled.div({
     marginTop: 0,
     justifyContent: 'normal',
     alignItems: 'normal',
-    padding: '16px 8px',
-    width: '17.1%',
+    padding: '16px 2px',
+    width: '17.08%',
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
     padding: 16,
-    width: '18.8%',
+    width: '16.4%',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    width: '17.1%',
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: '18.4%',
+    width: '17.3%',
   },
 });
 
@@ -271,24 +275,20 @@ const Inflow = styled.div<WithIsLight>(({ isLight }) => ({
 
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'column',
-    margin: 8,
+    margin: '8px 2px',
     padding: 8,
     justifyContent: 'normal',
     alignItems: 'normal',
-    width: '16%',
+    minWidth: 'calc(16.1% - 4px)',
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
     margin: '8px 16px',
-    width: '15.9%',
+    minWidth: 'calc(16.8% - 32px)',
   },
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    width: '16.2%',
-  },
-
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: '16%',
+    minWidth: 'calc(17.2% - 32px)',
   },
 }));
 
@@ -298,8 +298,9 @@ const NewBalance = styled(InitialBalance)({
   marginTop: 8,
 
   [lightTheme.breakpoints.up('table_834')]: {
-    padding: '16px 8px',
+    padding: 2,
     marginLeft: 'auto',
+    width: 'unset',
 
     '& > div': {
       textAlign: 'right',
@@ -333,6 +334,7 @@ const ArrowContainer = styled.div({
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
     width: 106,
+    marginLeft: 32,
   },
 });
 

@@ -123,15 +123,15 @@ const WalletContainer = styled.div({
 
   [lightTheme.breakpoints.up('table_834')]: {
     marginBottom: 0,
-    width: '40.5%',
+    width: 'calc(204px + 17%)',
 
     '& > div': {
       marginTop: 0,
     },
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    width: '39.5%',
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    width: 'calc(295px + 16%)',
   },
 });
 
@@ -170,6 +170,7 @@ const Label = styled.div<WithIsLight>(({ isLight }) => ({
 const ValueContainer = styled.div({
   display: 'flex',
   alignItems: 'center',
+  flexWrap: 'wrap',
   gap: 4,
 
   '& > svg': {
@@ -186,6 +187,7 @@ const ValueContainer = styled.div({
 const Value = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   alignItems: 'baseline',
+  flexWrap: 'wrap',
   gap: 4,
   fontWeight: 700,
   fontSize: 14,
@@ -227,7 +229,7 @@ const Inflow = styled.div({
     flexDirection: 'column',
     justifyContent: 'normal',
     gap: 8,
-    width: '20.5%',
+    minWidth: '18%',
   },
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
