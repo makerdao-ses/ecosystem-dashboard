@@ -10,7 +10,7 @@ export const ScopeChipText = (scope: string) => {
 
 export const ActorsLinkType: Record<string, LinkTypeEnum> = {
   website: LinkTypeEnum.WWW,
-  forumPlatform: LinkTypeEnum.Forum,
+  forumTag: LinkTypeEnum.Forum,
   discord: LinkTypeEnum.Discord,
   twitter: LinkTypeEnum.Twitter,
   github: LinkTypeEnum.Github,
@@ -31,13 +31,14 @@ export const getLinksFromRecognizedActors = (
   const sm = actor.socialMediaChannels[0] as ActorSocialDto;
   if (!linkTypeMap) {
     delegateLinkTypeMap = {
-      forumPlatform: LinkTypeEnum.Forum,
+      forumTag: LinkTypeEnum.Forum,
       forumProfile: LinkTypeEnum.ProfileForum,
       votingPortal: LinkTypeEnum.VotingSocialPortal,
       twitter: LinkTypeEnum.TwitterFooter,
       youtube: LinkTypeEnum.Youtube,
       linkedIn: LinkTypeEnum.LinkedIn,
       github: LinkTypeEnum.Github,
+      discord: LinkTypeEnum.Discord,
     };
   } else {
     delegateLinkTypeMap = linkTypeMap;
@@ -46,7 +47,7 @@ export const getLinksFromRecognizedActors = (
   const descriptionOfTooltip: Record<string, string> = {
     twitter: 'Twitter',
     youtube: 'Youtube',
-    forumPlatform: 'Forum',
+    forumTag: 'Forum',
     forumProfile: 'Profile',
     votingPortal: 'Voting Portal',
     linkedIn: 'LinkedIn',
@@ -66,9 +67,4 @@ export const getLinksFromRecognizedActors = (
   }
 
   return result;
-};
-
-export const filteredActors = (actors: EcosystemActor[], activeElements: string[]) => {
-  const filteredDelegates = actors.filter((actor: EcosystemActor) => activeElements.includes(actor.code));
-  return filteredDelegates;
 };

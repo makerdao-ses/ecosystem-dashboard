@@ -19,8 +19,8 @@ const ScopeChip = (props: ScopeChipProps) => {
   return (
     <Chip
       style={{
-        color: isLight ? colorsChip.color : colorsChip.darkBackground,
-        background: isLight ? colorsChip.darkBackground : colorsChip.darkBackground,
+        color: isLight ? colorsChip.color : colorsChip.darkColor,
+        background: isLight ? colorsChip.background : colorsChip.darkBackground,
         ...props.style,
       }}
     >
