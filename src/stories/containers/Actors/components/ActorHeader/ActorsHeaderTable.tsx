@@ -85,10 +85,9 @@ const TableHeaderTitle = styled.div<{
   fontSize: '16px',
   fontWeight: 400,
   lineHeight: '22px',
-  ...{
-    textAlign: align,
-    ...(width && { width }),
-  },
+
+  textAlign: align,
+  ...(width && { width }),
 
   ...(styles || {}),
 }));

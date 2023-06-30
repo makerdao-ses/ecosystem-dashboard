@@ -244,7 +244,7 @@ const TableHeaderTitle = styled.div<{
     ...(width && { width }),
   },
 
-  ...(styles || {}),
+  ...styles,
 }));
 
 const ChangesButtonContainer = styled.div({
