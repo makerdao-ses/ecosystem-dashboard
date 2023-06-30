@@ -15,7 +15,7 @@ interface Props {
 }
 
 const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
-  const { readMore, handleRead, showTextDesk, isLessPhone, filtersActive } = useActors(actors, stories);
+  const { readMore, handleRead, showTextDesk, isLessPhone, filtersActive, columns } = useActors(actors, stories);
 
   const { isLight } = useThemeContext();
 
@@ -55,7 +55,7 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
           </ReadMore>
         </ContainerReadMore>
         <ContainerList>
-          <ActorTable actors={filtersActive} />
+          <ActorTable actors={filtersActive} columns={columns} />
         </ContainerList>
       </Container>
     </ExtendedPageContainer>
@@ -126,7 +126,13 @@ const ContainerText = styled.div({
 const ContainerList = styled.div({
   marginBottom: 64,
   // TODO:Remove this margin when add filter
-  marginTop: 32,
+  marginTop: 56,
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 80,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginTop: 46,
+  },
 });
 
 const StyledParagraphOne = styled.p<{ readMore: boolean }>(({ readMore }) => ({

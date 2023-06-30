@@ -1,17 +1,21 @@
 import styled from '@emotion/styled';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import ActorsHeaderTable from '../ActorHeader/ActorsHeaderTable';
 import ActorItem from '../ActorItem/ActorItem';
+import type { ActorTableHeader } from '../ActorHeader/ActorsHeaderTable';
 import type { EcosystemActor } from '@ses/core/models/dto/teamsDTO';
 
 interface Props {
   actors: EcosystemActor[];
   sortClick?: (index: number) => void;
+  columns: ActorTableHeader[];
 }
 
-const ActorTable: React.FC<Props> = ({ actors }) => (
+const ActorTable: React.FC<Props> = ({ actors, columns, sortClick }) => (
   <TableWrapper>
     <ContainerList>
+      <ActorsHeaderTable actors={actors} columns={columns} sortClick={sortClick} />
       {actors?.map((actor) => (
         <ActorItem actor={actor} key={actor.name} />
       ))}
