@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
+import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import React from 'react';
 import CustomTooltip from './CustomTooltip';
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
 const ALIGNMENTS = [
   'top-start',
@@ -95,26 +95,6 @@ const BoundariesTemplate: ComponentStory<typeof CustomTooltip> = ({ placement, .
   </OverflownContainer>
 );
 
-const OnlyTooltipTemplate: ComponentStory<typeof CustomTooltip> = ({ placement, ...args }) => (
-  <CenteredContent>
-    {' '}
-    <CustomTooltip
-      placement={placement}
-      {...args}
-      // eslint-disable-next-line spellcheck/spell-checker
-      content="Loren ipsum dolor sit amet, consectetur adipiscing elit. Nullam id purus ac nunc ultricies. Nullam id purus ac nunc ultricies."
-    >
-      <div
-        style={{
-          border: '2px solid blue',
-          width: '24px',
-          height: '24px',
-        }}
-      />
-    </CustomTooltip>
-  </CenteredContent>
-);
-
 export const Default = getCustomBtnTemplate().bind({});
 
 export const OpenOnClick = getCustomBtnTemplate('Click me').bind({});
@@ -144,24 +124,9 @@ NonInteractive.args = {
   disableInteractive: true,
 };
 
-export const WithArrow = getCustomBtnTemplate('With arrow').bind({});
-WithArrow.args = {
-  arrow: true,
-  open: true,
-};
-
-export const OnlyTooltip = OnlyTooltipTemplate.bind({});
-OnlyTooltip.args = {
-  open: true,
-  arrow: true,
-  placement: 'bottom',
-};
-OnlyTooltip.parameters = {
-  figma: {
-    component:
-      'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19369:217386&mode=dev',
-  } as FigmaParams,
-};
+export const [[withArrowLight, withArrowDark]] = createThemeModeVariants(getCustomBtnTemplate('With Arrow'), [
+  { arrow: true },
+]);
 
 const WideContainer = styled.div(() => ({
   width: '100vw',

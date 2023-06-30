@@ -1,4 +1,5 @@
 import Tooltip from '@mui/material/Tooltip';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import merge from 'deepmerge';
 import React, { useMemo } from 'react';
 import type { TooltipProps } from '@mui/material';
@@ -13,9 +14,12 @@ export default function CustomTooltip({
   content,
   children,
   enableClickListener,
-  borderColor = '#D4D9E1',
+  borderColor: borderColorProp,
   ...props
 }: CustomTooltipProps) {
+  const { isLight } = useThemeContext();
+  const borderColor = borderColorProp || (isLight === false ? '#231536' : '#D4D9E1');
+
   const [controlledOpen, setControlledOpen] = React.useState(props.open ?? enableClickListener ? false : undefined);
 
   const defaultProps = useMemo<Partial<CustomTooltipProps>>(
@@ -28,18 +32,21 @@ export default function CustomTooltip({
           {
             name: 'offset',
             options: {
-              offset: props.arrow ? [0, 0] : [0, -5],
+              offset: props.arrow ? [0, -1] : [0, -5],
             },
+          },
+          {
+            name: 'flip',
           },
         ],
       },
       componentsProps: {
-        tooltip: tooltipProps(borderColor),
-        arrow: arrowProps(borderColor),
+        tooltip: tooltipProps(borderColor, isLight),
+        arrow: arrowProps(borderColor, isLight),
       },
       onClose: controlledOpen ? () => setControlledOpen(false) : undefined,
     }),
-    [controlledOpen, enableClickListener, borderColor, props.arrow]
+    [controlledOpen, enableClickListener, borderColor, props.arrow, isLight]
   );
 
   const finalProps = merge(defaultProps, props);
@@ -54,20 +61,20 @@ export default function CustomTooltip({
   );
 }
 
-const arrowProps = (borderColor: React.CSSProperties['color']) => ({
+const arrowProps = (borderColor: React.CSSProperties['color'], isLight = true) => ({
   // using sx to access pseudo-elements
   sx: {
     '&:before': {
-      border: `1px solid ${borderColor}`,
-      background: '#FFF',
       boxSizing: 'border-box',
+      border: `1px solid ${borderColor}`,
+      background: isLight ? 'white' : '#000A13',
     },
-    color: '#FFF',
+    color: isLight ? 'white' : '#000A13',
     fontSize: 16,
   },
 });
 
-const tooltipProps = (borderColor: React.CSSProperties['color']) => ({
+const tooltipProps = (borderColor: React.CSSProperties['color'], isLight = true) => ({
   sx: {
     display: 'flex',
     padding: '8px 16px',
@@ -75,25 +82,35 @@ const tooltipProps = (borderColor: React.CSSProperties['color']) => ({
     gap: 8,
 
     maxWidth: 330,
-    color: 'inherit',
+    color: isLight ? '#231536' : '#D2D4EF',
     borderRadius: '6px',
     border: `1px solid ${borderColor}`,
-    background: '#FFF',
+
+    fontSize: 14,
+    fontFamily: 'FT Base',
+    fontStyle: 'normal',
+    fontWeight: 400,
+    lineHeight: 'normal',
+
+    background: isLight ? 'white' : '#000A13',
+    boxShadow: isLight
+      ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+      : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
 
     '&.MuiTooltip-tooltipPlacementRight .MuiTooltip-arrow': {
-      margin: '0 -1em',
+      margin: '0 -0.95em',
       scale: '1.81 1',
     },
     '&.MuiTooltip-tooltipPlacementLeft .MuiTooltip-arrow': {
-      margin: '0 -1em',
+      margin: '0 -0.95em',
       scale: '1.81 1',
     },
     '&.MuiTooltip-tooltipPlacementTop .MuiTooltip-arrow': {
-      margin: '-1em 0',
+      margin: '-0.95em 0',
       scale: '1 1.81',
     },
     '&.MuiTooltip-tooltipPlacementBottom .MuiTooltip-arrow': {
-      margin: '-1em 0',
+      margin: '-0.95em 0',
       scale: '1 1.81',
     },
   },
