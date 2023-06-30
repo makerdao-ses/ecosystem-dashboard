@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 import CustomTooltip from './CustomTooltip';
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
 const ALIGNMENTS = [
   'top-start',
@@ -39,9 +40,11 @@ const getCustomBtnTemplate: (btnText?: string) => ComponentStory<typeof CustomTo
   (btnText = 'Hover me') =>
   ({ ...args }) =>
     (
-      <CustomTooltip {...args} content={<TooltipContent>Custom content here.</TooltipContent>}>
-        <button>{btnText}</button>
-      </CustomTooltip>
+      <WideContainer>
+        <CustomTooltip {...args} content={<>Custom content here.</>}>
+          <button>{btnText}</button>
+        </CustomTooltip>
+      </WideContainer>
     );
 
 const VariablePlacementTemplate: ComponentStory<typeof CustomTooltip> = ({ placement, ...args }) => (
@@ -51,11 +54,11 @@ const VariablePlacementTemplate: ComponentStory<typeof CustomTooltip> = ({ place
       {...args}
       disableInteractive
       content={
-        <TooltipContent>
+        <>
           Custom content here.
           <br />
           Tooltip placed at {placement}.
-        </TooltipContent>
+        </>
       }
     >
       <FixedWidthButton>{placement as string}</FixedWidthButton>
@@ -80,16 +83,36 @@ const BoundariesTemplate: ComponentStory<typeof CustomTooltip> = ({ placement, .
       placement={placement}
       {...args}
       content={
-        <TooltipContent>
+        <>
           Custom content here.
           <br />
           Tooltip placed at {placement}.
-        </TooltipContent>
+        </>
       }
     >
       <button>{placement}</button>
     </CustomTooltip>
   </OverflownContainer>
+);
+
+const OnlyTooltipTemplate: ComponentStory<typeof CustomTooltip> = ({ placement, ...args }) => (
+  <CenteredContent>
+    {' '}
+    <CustomTooltip
+      placement={placement}
+      {...args}
+      // eslint-disable-next-line spellcheck/spell-checker
+      content="Loren ipsum dolor sit amet, consectetur adipiscing elit. Nullam id purus ac nunc ultricies. Nullam id purus ac nunc ultricies."
+    >
+      <div
+        style={{
+          border: '2px solid blue',
+          width: '24px',
+          height: '24px',
+        }}
+      />
+    </CustomTooltip>
+  </CenteredContent>
 );
 
 export const Default = getCustomBtnTemplate().bind({});
@@ -124,13 +147,28 @@ NonInteractive.args = {
 export const WithArrow = getCustomBtnTemplate('With arrow').bind({});
 WithArrow.args = {
   arrow: true,
+  open: true,
 };
 
-const TooltipContent = styled.div(() => ({
-  border: '2px solid #000000',
-  padding: '10px',
-  backgroundColor: 'white',
-  color: 'black',
+export const OnlyTooltip = OnlyTooltipTemplate.bind({});
+OnlyTooltip.args = {
+  open: true,
+  arrow: true,
+  placement: 'bottom',
+};
+OnlyTooltip.parameters = {
+  figma: {
+    component:
+      'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19369:217386&mode=dev',
+  } as FigmaParams,
+};
+
+const WideContainer = styled.div(() => ({
+  width: '100vw',
+  height: '100vh',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 }));
 
 const CenteredContent = styled.div(() => ({
