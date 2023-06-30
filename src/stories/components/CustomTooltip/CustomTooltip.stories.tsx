@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import React from 'react';
 import CustomTooltip from './CustomTooltip';
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
@@ -39,9 +40,11 @@ const getCustomBtnTemplate: (btnText?: string) => ComponentStory<typeof CustomTo
   (btnText = 'Hover me') =>
   ({ ...args }) =>
     (
-      <CustomTooltip {...args} content={<TooltipContent>Custom content here.</TooltipContent>}>
-        <button>{btnText}</button>
-      </CustomTooltip>
+      <WideContainer>
+        <CustomTooltip {...args} content={<>Custom content here.</>}>
+          <button>{btnText}</button>
+        </CustomTooltip>
+      </WideContainer>
     );
 
 const VariablePlacementTemplate: ComponentStory<typeof CustomTooltip> = ({ placement, ...args }) => (
@@ -51,11 +54,11 @@ const VariablePlacementTemplate: ComponentStory<typeof CustomTooltip> = ({ place
       {...args}
       disableInteractive
       content={
-        <TooltipContent>
+        <>
           Custom content here.
           <br />
           Tooltip placed at {placement}.
-        </TooltipContent>
+        </>
       }
     >
       <FixedWidthButton>{placement as string}</FixedWidthButton>
@@ -80,11 +83,11 @@ const BoundariesTemplate: ComponentStory<typeof CustomTooltip> = ({ placement, .
       placement={placement}
       {...args}
       content={
-        <TooltipContent>
+        <>
           Custom content here.
           <br />
           Tooltip placed at {placement}.
-        </TooltipContent>
+        </>
       }
     >
       <button>{placement}</button>
@@ -121,16 +124,16 @@ NonInteractive.args = {
   disableInteractive: true,
 };
 
-export const WithArrow = getCustomBtnTemplate('With arrow').bind({});
-WithArrow.args = {
-  arrow: true,
-};
+export const [[withArrowLight, withArrowDark]] = createThemeModeVariants(getCustomBtnTemplate('With Arrow'), [
+  { arrow: true },
+]);
 
-const TooltipContent = styled.div(() => ({
-  border: '2px solid #000000',
-  padding: '10px',
-  backgroundColor: 'white',
-  color: 'black',
+const WideContainer = styled.div(() => ({
+  width: '100vw',
+  height: '100vh',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 }));
 
 const CenteredContent = styled.div(() => ({
