@@ -55,10 +55,14 @@ const CUReserves: React.FC<CUReservesProps> = ({
           dynamicChanges
         />
         <FundChangeCard
-          netChange={balance?.inflow && balance?.outflow ? balance.outflow - balance.inflow * -1 : undefined}
+          netChange={
+            typeof balance?.inflow === 'number' && typeof balance?.outflow === 'number'
+              ? balance.outflow - balance.inflow * -1
+              : undefined
+          }
           leftValue={balance?.inflow}
           leftText="Inflow"
-          rightValue={balance?.outflow ? balance?.outflow * -1 : undefined}
+          rightValue={typeof balance?.outflow === 'number' ? balance?.outflow * -1 : undefined}
           rightText="Outflow"
           dynamicChanges
         />

@@ -18,7 +18,7 @@ const AccountsSnapshot: React.FC<AccountsSnapshotProps> = ({ snapshot, snapshotO
     toggleIncludeOffChain,
     startDate,
     endDate,
-    mainBalance,
+    rootBalance,
     transactionHistory,
     cuReservesBalance,
     onChainData,
@@ -31,7 +31,7 @@ const AccountsSnapshot: React.FC<AccountsSnapshotProps> = ({ snapshot, snapshotO
         snapshotOwner={snapshotOwner}
         startDate={startDate}
         endDate={endDate}
-        balance={mainBalance}
+        balance={rootBalance}
         transactionHistory={transactionHistory}
       />
       <CUReserves
