@@ -9,6 +9,7 @@ export interface CustomTooltipProps extends Omit<TooltipProps, 'title'> {
   content: NonNullable<React.ReactNode>;
   enableClickListener?: boolean;
   borderColor?: React.CSSProperties['color'];
+  fallbackPlacements?: TooltipProps['placement'][];
 }
 
 export default function CustomTooltip({
@@ -17,6 +18,7 @@ export default function CustomTooltip({
   enableClickListener,
   borderColor: borderColorProp,
   className,
+  fallbackPlacements,
   ...props
 }: CustomTooltipProps) {
   const { isLight } = useThemeContext();
@@ -42,6 +44,7 @@ export default function CustomTooltip({
           },
           {
             name: 'flip',
+            ...(fallbackPlacements && { options: { fallbackPlacements } }),
           },
         ],
       },
@@ -51,7 +54,16 @@ export default function CustomTooltip({
       },
       onClose: controlledOpen ? () => setControlledOpen(false) : undefined,
     }),
-    [controlledOpen, enableClickListener, borderColor, props.arrow, isLight, className, props.classes?.tooltip]
+    [
+      controlledOpen,
+      enableClickListener,
+      borderColor,
+      props.arrow,
+      isLight,
+      className,
+      props.classes?.tooltip,
+      fallbackPlacements,
+    ]
   );
 
   const finalProps = merge(defaultProps, props);
