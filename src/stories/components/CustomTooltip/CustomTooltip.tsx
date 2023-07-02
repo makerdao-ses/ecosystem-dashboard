@@ -1,5 +1,6 @@
 import Tooltip from '@mui/material/Tooltip';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import classNames from 'classnames';
 import merge from 'deepmerge';
 import React, { useMemo } from 'react';
 import type { TooltipProps } from '@mui/material';
@@ -15,6 +16,7 @@ export default function CustomTooltip({
   children,
   enableClickListener,
   borderColor: borderColorProp,
+  className,
   ...props
 }: CustomTooltipProps) {
   const { isLight } = useThemeContext();
@@ -27,6 +29,9 @@ export default function CustomTooltip({
       placement: 'bottom-end',
       open: controlledOpen,
       disableHoverListener: enableClickListener,
+      classes: {
+        tooltip: classNames(className, props.classes?.tooltip),
+      },
       PopperProps: {
         modifiers: [
           {
@@ -46,7 +51,7 @@ export default function CustomTooltip({
       },
       onClose: controlledOpen ? () => setControlledOpen(false) : undefined,
     }),
-    [controlledOpen, enableClickListener, borderColor, props.arrow, isLight]
+    [controlledOpen, enableClickListener, borderColor, props.arrow, isLight, className, props.classes?.tooltip]
   );
 
   const finalProps = merge(defaultProps, props);

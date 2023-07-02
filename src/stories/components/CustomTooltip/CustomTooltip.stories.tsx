@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { tooltipClasses } from '@mui/material/Tooltip';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import React from 'react';
 import CustomTooltip from './CustomTooltip';
@@ -95,6 +96,24 @@ const BoundariesTemplate: ComponentStory<typeof CustomTooltip> = ({ placement, .
   </OverflownContainer>
 );
 
+const CustomStyledTemplate: ComponentStory<typeof CustomTooltip> = ({ placement, ...args }) => (
+  <CenteredContent>
+    <StyledTooltip
+      placement={placement}
+      {...args}
+      content={
+        <>
+          Custom content here.
+          <br />
+          Tooltip placed at {placement}.
+        </>
+      }
+    >
+      <button>{placement}</button>
+    </StyledTooltip>
+  </CenteredContent>
+);
+
 export const Default = getCustomBtnTemplate().bind({});
 
 export const OpenOnClick = getCustomBtnTemplate('Click me').bind({});
@@ -127,6 +146,23 @@ NonInteractive.args = {
 export const [[withArrowLight, withArrowDark]] = createThemeModeVariants(getCustomBtnTemplate('With Arrow'), [
   { arrow: true },
 ]);
+
+export const ColorfullyStyled = CustomStyledTemplate.bind({});
+ColorfullyStyled.args = {
+  placement: 'bottom-start',
+  arrow: true,
+};
+
+const StyledTooltip = styled(CustomTooltip)(() => ({
+  backgroundColor: 'red',
+  color: 'white',
+
+  // see https://mui.com/material-ui/react-tooltip/#variable-width for reference about this approach
+  [`& .${tooltipClasses.arrow}:before`]: {
+    backgroundColor: 'red',
+    color: 'white',
+  },
+}));
 
 const WideContainer = styled.div(() => ({
   width: '100vw',
