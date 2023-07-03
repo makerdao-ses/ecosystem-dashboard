@@ -15,7 +15,7 @@ interface Props {
 const ActorTable: React.FC<Props> = ({ actors, columns, sortClick }) => (
   <TableWrapper>
     <ContainerList>
-      <ActorsHeaderTable actors={actors} columns={columns} sortClick={sortClick} />
+      <ActorsHeaderTable columns={columns} sortClick={sortClick} />
       {actors?.map((actor) => (
         <ActorItem actor={actor} key={actor.name} />
       ))}

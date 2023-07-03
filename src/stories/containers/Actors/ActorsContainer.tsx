@@ -17,7 +17,10 @@ interface Props {
 }
 
 const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
-  const { readMore, handleRead, showTextDesk, isLessPhone, filtersActive, columns } = useActors(actors, stories);
+  const { readMore, handleRead, showTextDesk, isLessPhone, filtersActive, columns, onSortClick } = useActors(
+    actors,
+    stories
+  );
 
   const { isLight } = useThemeContext();
 
@@ -69,7 +72,7 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
           </ReadMore>
         </ContainerReadMore>
         <ContainerList>
-          <ActorTable actors={filtersActive} columns={columns} />
+          <ActorTable actors={filtersActive} columns={columns} sortClick={onSortClick} />
         </ContainerList>
       </Container>
     </ExtendedPageContainer>
