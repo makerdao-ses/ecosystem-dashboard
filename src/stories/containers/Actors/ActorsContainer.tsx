@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
+import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import ActorTable from './components/ActorTable/ActorTable';
@@ -21,6 +23,18 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
 
   return (
     <ExtendedPageContainer isLight={isLight}>
+      <SEOHead
+        title={'MakerDAO Ecosystem Actors | Endgame Overview'}
+        description={
+          'MakerDAO Ecosystem Actors provides a centralized directory of ecosystem actors and their roles for a clear understanding of who is involved in the ecosystem'
+        }
+        image={{
+          src: toAbsoluteURL('/assets/img/social-385x200.png'),
+          width: 385,
+          height: 200,
+        }}
+        twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
+      />
       <Container>
         <ContainerText>
           <Title isLight={isLight}>Ecosystem Actors</Title>
