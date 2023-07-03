@@ -271,16 +271,16 @@ const ScopeSection = styled.div({
     alignItems: 'flex-start',
     width: 150,
     gap: 4,
-    marginRight: 58,
+    marginRight: 52,
     marginBottom: 0,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginRight: 76,
+    marginRight: 70,
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
     width: 220,
-    marginRight: 64,
+    marginRight: 58,
     flexDirection: 'column',
     gap: 4,
   },
@@ -288,7 +288,8 @@ const ScopeSection = styled.div({
 
 const SocialIconsSection = styled.div({
   display: 'flex',
-  marginLeft: -5,
+  flexDirection: 'row',
+  justifyContent: 'center',
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row',
     alignItems: 'center',

@@ -5,8 +5,6 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { SortEnum } from '@ses/core/enums/sortEnum';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import type { EcosystemActor } from '@ses/core/models/dto/teamsDTO';
-
 export interface ActorTableHeader {
   header: string;
   width?: string;
@@ -14,11 +12,11 @@ export interface ActorTableHeader {
   styles?: React.CSSProperties;
   sort?: SortEnum;
   hidden?: boolean;
+  sortReverse?: boolean;
 }
 
 export interface Props {
   columns: ActorTableHeader[];
-  actors?: EcosystemActor[];
   sortClick?: (index: number) => void;
 }
 
