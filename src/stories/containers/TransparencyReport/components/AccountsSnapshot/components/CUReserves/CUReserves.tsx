@@ -41,10 +41,12 @@ const CUReserves: React.FC<CUReservesProps> = ({
           subtitle={`On-chain and off-chain reserves accessible${snapshotOwner ? ` to the ${snapshotOwner}` : ''}.`}
           tooltip={'pending...'}
         />
-        <CheckContainer isLight={isLight}>
-          Include Off-Chain Reserves{' '}
-          <Checkbox checked={includeOffChain} onChange={toggleIncludeOffChain} isLight={isLight} size="small" />
-        </CheckContainer>
+        {!!offChainData?.length && (
+          <CheckContainer isLight={isLight}>
+            Include Off-Chain Reserves{' '}
+            <Checkbox checked={includeOffChain} onChange={toggleIncludeOffChain} isLight={isLight} size="small" />
+          </CheckContainer>
+        )}
       </HeaderContainer>
 
       <CardsContainer>
@@ -91,20 +93,22 @@ const CUReserves: React.FC<CUReservesProps> = ({
         </ReservesCardsContainer>
       </OnChainSubsection>
 
-      <OffChainSubsection isDisabled={!includeOffChain}>
-        <SectionHeader
-          title="Off Chain Reserves"
-          subtitle={`Unspent off-chain reserves${snapshotOwner ? ` to the ${snapshotOwner}` : ''}.`}
-          tooltip={'pending...'}
-          isSubsection
-        />
+      {!!offChainData?.length && (
+        <OffChainSubsection isDisabled={!includeOffChain}>
+          <SectionHeader
+            title="Off Chain Reserves"
+            subtitle={`Unspent off-chain reserves${snapshotOwner ? ` to the ${snapshotOwner}` : ''}.`}
+            tooltip={'pending...'}
+            isSubsection
+          />
 
-        <ReservesCardsContainer>
-          {offChainData?.map((account) => (
-            <ReserveCard key={account.id} account={account} />
-          ))}
-        </ReservesCardsContainer>
-      </OffChainSubsection>
+          <ReservesCardsContainer>
+            {offChainData?.map((account) => (
+              <ReserveCard key={account.id} account={account} />
+            ))}
+          </ReservesCardsContainer>
+        </OffChainSubsection>
+      )}
     </div>
   );
 };

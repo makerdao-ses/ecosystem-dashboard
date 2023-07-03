@@ -86,27 +86,27 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
   const startDate = snapshot.start ?? undefined;
   const endDate = snapshot.end ?? undefined;
 
+  // root account
   const rootAccount = snapshot.snapshotAccount.find(
     (account) => account.groupAccountId === null && account.upstreamAccountId === null
   );
   if (!rootAccount) throw new Error('Maker Protocol Wallet not found');
 
+  // main account (MakerDAO Funding Overview section)
   const mainAccount = snapshot.snapshotAccount.find(
     (account) => account.groupAccountId === rootAccount.id && account.upstreamAccountId === null
   );
   if (!mainAccount) throw new Error('Maker Protocol Wallet not found');
   const rootBalance = rootAccount.snapshotAccountBalance.find((balance) => balance.token === selectedToken);
 
+  // transaction history (MakerDAO Funding Overview section)
   const transactionHistory = mainAccount.snapshotAccountTransaction
     .filter((transaction) => transaction.token === selectedToken)
     .sort(transactionSort);
 
-  // cu reserves balance
+  // Total Core Unit Reserves section
   const cuReservesAccount = snapshot.snapshotAccount.find(
-    // eslint-disable-next-line arrow-body-style
-    (account) => {
-      return account.groupAccountId === rootAccount.id && account.upstreamAccountId !== null;
-    }
+    (account) => account.groupAccountId === rootAccount.id && account.upstreamAccountId !== null
   );
   const cuReservesBalances = cuReservesAccount?.snapshotAccountBalance?.filter(
     (balance) => balance.token === selectedToken
