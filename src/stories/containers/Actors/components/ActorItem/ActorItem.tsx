@@ -289,6 +289,8 @@ const ScopeSection = styled.div({
 const SocialIconsSection = styled.div({
   display: 'flex',
   marginLeft: -5,
+  flexDirection: 'row',
+  justifyContent: 'center',
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row',
     alignItems: 'center',
