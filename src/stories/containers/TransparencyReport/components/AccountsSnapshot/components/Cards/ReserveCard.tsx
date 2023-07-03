@@ -33,8 +33,11 @@ const ReserveCard: React.FC<ReserveCardProps> = ({ account, currency = 'DAI' }) 
       : account.snapshotAccountBalance?.[0]?.outflow) ?? 0;
   const newBalance = account.snapshotAccountBalance?.[0]?.newBalance ?? 0;
 
+  const hasTransactions = isGroup ? !!account.children?.length : !!account.snapshotAccountTransaction?.length;
+
   const SVG = (
     <Arrow
+      hasTransactions={hasTransactions}
       isExpanded={expanded}
       isGroup={isGroup}
       width="10"
@@ -51,8 +54,8 @@ const ReserveCard: React.FC<ReserveCardProps> = ({ account, currency = 'DAI' }) 
   );
 
   return (
-    <Accordion onChange={() => setExpanded(!expanded)}>
-      <Card isLight={isLight}>
+    <Accordion onChange={() => hasTransactions && setExpanded(!expanded)}>
+      <Card isLight={isLight} hasTransactions={hasTransactions}>
         <NameContainer>
           {isGroup ? (
             <Name isLight={isLight}>{account?.accountLabel}</Name>
@@ -89,9 +92,11 @@ const ReserveCard: React.FC<ReserveCardProps> = ({ account, currency = 'DAI' }) 
         </NewBalance>
         {!isMobile && <ArrowContainer>{SVG}</ArrowContainer>}
       </Card>
-      <TransactionContainer>
-        <TransactionList items={isGroup ? account.children : account.snapshotAccountTransaction} />
-      </TransactionContainer>
+      {hasTransactions && (
+        <TransactionContainer>
+          <TransactionList items={isGroup ? account.children : account.snapshotAccountTransaction} />
+        </TransactionContainer>
+      )}
     </Accordion>
   );
 };
@@ -108,38 +113,40 @@ const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters
   },
 });
 
-const Card = styled((props: AccordionSummaryProps) => <MuiAccordionSummary {...props} />)<WithIsLight>(
-  ({ isLight }) => ({
-    padding: '16px 24px 24px',
-    background: isLight ? '#ffffff' : '#1E2C37',
-    boxShadow: isLight
-      ? '0px 4px 6px rgba(196, 196, 196, 0.25)'
-      : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
-    borderRadius: 6,
-    zIndex: 1,
+const Card = styled((props: AccordionSummaryProps) => <MuiAccordionSummary {...props} />)<
+  WithIsLight & { hasTransactions: boolean }
+>(({ isLight, hasTransactions }) => ({
+  padding: '16px 24px 24px',
+  background: isLight ? '#ffffff' : '#1E2C37',
+  boxShadow: isLight
+    ? '0px 4px 6px rgba(196, 196, 196, 0.25)'
+    : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+  borderRadius: 6,
+  zIndex: 1,
+  // !important is required to override default cursor style
+  cursor: hasTransactions ? 'pointer' : 'auto!important',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    padding: 0,
+  },
+
+  '&.Mui-expanded': {
+    [lightTheme.breakpoints.down('table_834')]: {
+      borderRadius: '6px 6px 0 0',
+    },
+  },
+
+  '& .MuiAccordionSummary-content': {
+    margin: 0,
+    width: '100%',
+    flexDirection: 'column',
 
     [lightTheme.breakpoints.up('table_834')]: {
-      padding: 0,
+      flexDirection: 'row',
+      alignItems: 'center',
     },
-
-    '&.Mui-expanded': {
-      [lightTheme.breakpoints.down('table_834')]: {
-        borderRadius: '6px 6px 0 0',
-      },
-    },
-
-    '& .MuiAccordionSummary-content': {
-      margin: 0,
-      width: '100%',
-      flexDirection: 'column',
-
-      [lightTheme.breakpoints.up('table_834')]: {
-        flexDirection: 'row',
-        alignItems: 'center',
-      },
-    },
-  })
-);
+  },
+}));
 
 const TransactionContainer = styled(MuiAccordionDetails)(() => ({
   padding: 0,
@@ -338,19 +345,22 @@ const ArrowContainer = styled.div({
   },
 });
 
-const Arrow = styled.svg<{ isExpanded: boolean; isGroup: boolean }>(({ isExpanded, isGroup }) => ({
-  transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
-  transition: 'transform 0.2s ease-in-out',
-  marginTop: isGroup ? -4 : -30,
-  marginRight: -5,
+const Arrow = styled.svg<{ hasTransactions?: boolean; isExpanded: boolean; isGroup: boolean }>(
+  ({ hasTransactions, isExpanded, isGroup }) => ({
+    transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+    transition: 'transform 0.2s ease-in-out',
+    marginTop: isGroup ? -4 : -30,
+    marginRight: -5,
+    visibility: hasTransactions ? 'visible' : 'hidden',
 
-  [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: 0,
-  },
+    [lightTheme.breakpoints.up('table_834')]: {
+      marginTop: 0,
+    },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    width: 16,
-    height: 10,
-    marginRight: 0,
-  },
-}));
+    [lightTheme.breakpoints.up('desktop_1194')]: {
+      width: 16,
+      height: 10,
+      marginRight: 0,
+    },
+  })
+);
