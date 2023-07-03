@@ -3,7 +3,7 @@ import { Popover } from '@mui/material';
 import { getPageWrapper } from '@ses/core/utils/dom';
 
 import isEqual from 'lodash/isEqual';
-import React, { useCallback, useReducer, useRef } from 'react';
+import React, { useCallback, useEffect, useReducer, useRef } from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import type { PopoverOrigin } from '@mui/material';
 import type { SxProps } from '@mui/material/styles';
@@ -171,6 +171,21 @@ export const CustomPopover = ({
     onClose?.();
   }, [onClose]);
 
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        dispatch({
+          type: 'none',
+          payload: null,
+        });
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
   const handlePopoverOpen = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
       clearTimeout(leaveTimeout);
