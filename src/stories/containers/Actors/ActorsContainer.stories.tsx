@@ -303,6 +303,9 @@ LightMode.parameters = {
 };
 
 LightModeMobile.parameters = {
+  chromatic: {
+    viewports: [375],
+  },
   figma: {
     component: {
       0: {
