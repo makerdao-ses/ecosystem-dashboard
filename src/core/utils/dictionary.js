@@ -125,6 +125,9 @@ const dictionary = [
   'Uber',
   'simplebar',
   'nullable',
+  'Zoenix',
+  'Phoeull',
+  'Certora',
 ];
 
 module.exports = dictionary;

@@ -271,11 +271,11 @@ const ScopeSection = styled.div({
     alignItems: 'flex-start',
     width: 150,
     gap: 4,
-    marginRight: 58,
+    marginRight: 56,
     marginBottom: 0,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginRight: 76,
+    marginRight: 75,
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
@@ -288,7 +288,6 @@ const ScopeSection = styled.div({
 
 const SocialIconsSection = styled.div({
   display: 'flex',
-  marginLeft: -5,
   flexDirection: 'row',
   justifyContent: 'center',
   [lightTheme.breakpoints.up('table_834')]: {

@@ -136,19 +136,19 @@ const ContainerText = styled.div({
   marginTop: 24,
   marginBottom: 8,
   [lightTheme.breakpoints.up('table_834')]: {
-    marginBottom: 6,
+    marginBottom: 0,
   },
 });
 
 const ContainerList = styled.div({
   marginBottom: 64,
   // TODO:Remove this margin when add filter
-  marginTop: 56,
+  marginTop: -2,
   [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: 80,
+    marginTop: 1,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginTop: 46,
+    marginTop: 1,
   },
 });
 
@@ -193,6 +193,9 @@ const ReadMore = styled.div<WithIsLight>(({ isLight }) => ({
   marginBottom: 32,
   cursor: 'pointer',
   color: isLight ? '#231536' : '#D2D4EF',
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginBottom: 30,
+  },
 }));
 
 const ContainerReadMore = styled.div({
