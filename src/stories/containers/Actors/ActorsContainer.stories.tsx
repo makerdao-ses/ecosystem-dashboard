@@ -5,7 +5,18 @@ import ActorsContainer from './ActorsContainer';
 import type { EcosystemActor } from '@ses/core/models/dto/teamsDTO';
 import type { ComponentMeta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
-
+const defaultSocials = {
+  twitter: '#',
+  forumProfile: '#',
+  forumPlatform: '#',
+  youtube: '#',
+  votingPortal: '#',
+  forumTag: '#',
+  github: '#',
+  discord: '#',
+  website: '#',
+  linkedIn: '#',
+};
 export default {
   title: 'Pages/Actors',
   component: ActorsContainer,
@@ -41,18 +52,7 @@ const variantsArgs = [
           code: 'STA',
           name: 'Stability Scope',
         })
-        .withSocials({
-          twitter: '#',
-          forumProfile: '#',
-          forumPlatform: '#',
-          youtube: '#',
-          votingPortal: '#',
-          forumTag: '#',
-          github: '#',
-          discord: '#',
-          website: '#',
-          linkedIn: '#',
-        })
+        .withSocials(defaultSocials)
         .build(),
       new EcosystemActorBuilder()
         .withId('23')
@@ -71,18 +71,7 @@ const variantsArgs = [
           code: 'STA',
           name: 'Stability Scope',
         })
-        .withSocials({
-          twitter: '#',
-          forumProfile: '#',
-          forumPlatform: '#',
-          youtube: '#',
-          votingPortal: '#',
-          forumTag: '#',
-          github: '#',
-          discord: '#',
-          website: '#',
-          linkedIn: '#',
-        })
+        .withSocials(defaultSocials)
         .build(),
       new EcosystemActorBuilder()
         .withId('23')
@@ -101,18 +90,7 @@ const variantsArgs = [
           code: 'STA',
           name: 'Stability Scope',
         })
-        .withSocials({
-          twitter: '#',
-          forumProfile: '#',
-          forumPlatform: '#',
-          youtube: '#',
-          votingPortal: '#',
-          forumTag: '#',
-          github: '#',
-          discord: '#',
-          website: '#',
-          linkedIn: '#',
-        })
+        .withSocials(defaultSocials)
         .build(),
       new EcosystemActorBuilder()
         .withId('23')
@@ -131,18 +109,7 @@ const variantsArgs = [
           code: 'STA',
           name: 'Stability Scope',
         })
-        .withSocials({
-          twitter: '#',
-          forumProfile: '#',
-          forumPlatform: '#',
-          youtube: '#',
-          votingPortal: '#',
-          forumTag: '#',
-          github: '#',
-          discord: '#',
-          website: '#',
-          linkedIn: '#',
-        })
+        .withSocials(defaultSocials)
         .build(),
       new EcosystemActorBuilder()
         .withId('23')
@@ -161,18 +128,7 @@ const variantsArgs = [
           code: 'STA',
           name: 'Stability Scope',
         })
-        .withSocials({
-          twitter: '#',
-          forumProfile: '#',
-          forumPlatform: '#',
-          youtube: '#',
-          votingPortal: '#',
-          forumTag: '#',
-          github: '#',
-          discord: '#',
-          website: '#',
-          linkedIn: '#',
-        })
+        .withSocials(defaultSocials)
         .build(),
       new EcosystemActorBuilder()
         .withId('23')
@@ -181,18 +137,7 @@ const variantsArgs = [
         .withType('EcosystemActor')
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
         .addCategory('Scope Facilitators')
-        .withSocials({
-          twitter: '#',
-          forumProfile: '#',
-          forumPlatform: '#',
-          youtube: '#',
-          votingPortal: '#',
-          forumTag: '#',
-          github: '#',
-          discord: '#',
-          website: '#',
-          linkedIn: '#',
-        })
+        .withSocials(defaultSocials)
         .build(),
       new EcosystemActorBuilder()
         .withId('23')
@@ -211,18 +156,7 @@ const variantsArgs = [
           code: 'STA',
           name: 'Stability Scope',
         })
-        .withSocials({
-          twitter: '#',
-          forumProfile: '#',
-          forumPlatform: '#',
-          youtube: '#',
-          votingPortal: '#',
-          forumTag: '#',
-          github: '#',
-          discord: '#',
-          website: '#',
-          linkedIn: '#',
-        })
+        .withSocials(defaultSocials)
         .build(),
       new EcosystemActorBuilder()
         .withId('23')
@@ -241,18 +175,7 @@ const variantsArgs = [
           code: 'STA',
           name: 'Stability Scope',
         })
-        .withSocials({
-          twitter: '#',
-          forumProfile: '#',
-          forumPlatform: '#',
-          youtube: '#',
-          votingPortal: '#',
-          forumTag: '#',
-          github: '#',
-          discord: '#',
-          website: '#',
-          linkedIn: '#',
-        })
+        .withSocials(defaultSocials)
         .build(),
       new EcosystemActorBuilder()
         .withId('23')
@@ -271,18 +194,7 @@ const variantsArgs = [
           code: 'STA',
           name: 'Stability Scope',
         })
-        .withSocials({
-          twitter: '#',
-          forumProfile: '#',
-          forumPlatform: '#',
-          youtube: '#',
-          votingPortal: '#',
-          forumTag: '#',
-          github: '#',
-          discord: '#',
-          website: '#',
-          linkedIn: '#',
-        })
+        .withSocials(defaultSocials)
         .build(),
     ] as EcosystemActor[],
     stories: true,
