@@ -321,4 +321,8 @@ LightModeMobile.parameters = {
     },
   } as FigmaParams,
 };
-DarkModeMobile.parameters = {};
+DarkModeMobile.parameters = {
+  chromatic: {
+    viewports: [375],
+  },
+};
