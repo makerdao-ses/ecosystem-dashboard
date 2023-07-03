@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { tooltipClasses } from '@mui/material/Tooltip';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import React from 'react';
 import CustomTooltip from './CustomTooltip';
@@ -95,8 +96,30 @@ const BoundariesTemplate: ComponentStory<typeof CustomTooltip> = ({ placement, .
   </OverflownContainer>
 );
 
+const CustomStyledTemplate: ComponentStory<typeof CustomTooltip> = ({ placement, ...args }) => (
+  <CenteredContent>
+    <StyledTooltip
+      placement={placement}
+      {...args}
+      content={
+        <>
+          Custom content here.
+          <br />
+          Tooltip placed at {placement}.
+        </>
+      }
+    >
+      <button>{placement}</button>
+    </StyledTooltip>
+  </CenteredContent>
+);
+
 export const Default = getCustomBtnTemplate().bind({});
 
+/** This variant will set the tooltip to be triggered by click and by default disables the hover trigger,
+ *  which in principle can be enabled back by setting disableHoverListener to false
+ * see: https://mui.com/material-ui/react-tooltip/#triggers
+ */
 export const OpenOnClick = getCustomBtnTemplate('Click me').bind({});
 OpenOnClick.args = {
   enableClickListener: true,
@@ -108,17 +131,23 @@ VariablePlacement.args = {
   open: true,
 };
 
+/** Provides a playground to test the tooltip behavior when reaching the borders of it's container */
 export const Boundaries = BoundariesTemplate.bind({});
 Boundaries.args = {
   placement: 'bottom-start',
   arrow: true,
 };
 
+/* Waits an specified amount of time before closing the tooltip */
 export const DelayedClose = getCustomBtnTemplate('Closes in 2s').bind({});
 DelayedClose.args = {
   leaveDelay: 2000,
 };
 
+/** The tooltip is interactive by default which means that it will not close when the mouse
+ * is over it's content. This behavior can be disabled by setting the disableInteractive prop to true
+ * see: https://mui.com/material-ui/react-tooltip/#interactive
+ */
 export const NonInteractive = getCustomBtnTemplate('Non-interactive').bind({});
 NonInteractive.args = {
   disableInteractive: true,
@@ -127,6 +156,37 @@ NonInteractive.args = {
 export const [[withArrowLight, withArrowDark]] = createThemeModeVariants(getCustomBtnTemplate('With Arrow'), [
   { arrow: true },
 ]);
+
+/** Styling is made throw regular styled components though in this case as the arrow is also
+ * styled, the approach used is similar to the one suggested in the MUI docs:
+ * https://mui.com/material-ui/react-tooltip/#variable-width for reference about this approach
+ */
+export const ColorfullyStyled = CustomStyledTemplate.bind({});
+ColorfullyStyled.args = {
+  placement: 'bottom-start',
+  arrow: true,
+};
+
+/** For this case the fallback placement overrides the default behavior of the flip effect
+ * and the tooltip is placed at the first available placement from the list. Changing to 'bottom'
+ * when overflown on the right instead of 'bottom-end' which would be it's default behavior
+ */
+export const WithFallbackPlacements = BoundariesTemplate.bind({});
+WithFallbackPlacements.args = {
+  placement: 'bottom-start',
+  arrow: true,
+  fallbackPlacements: ['bottom', 'bottom-end', 'top'],
+};
+
+const StyledTooltip = styled(CustomTooltip)(() => ({
+  backgroundColor: 'red',
+  color: 'white',
+
+  [`& .${tooltipClasses.arrow}:before`]: {
+    backgroundColor: 'red',
+    color: 'white',
+  },
+}));
 
 const WideContainer = styled.div(() => ({
   width: '100vw',
