@@ -19,6 +19,17 @@ import {
 import type { InnerTableColumn, InnerTableRow, RowType } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import type { BudgetStatementLineItemDto, BudgetStatementWalletDto } from '@ses/core/models/dto/coreUnitDTO';
 
+export const filterRowsByNonZeroValue = (rows: InnerTableRow[]): InnerTableRow[] =>
+  rows.filter((row) =>
+    row.items.some((item) => {
+      if (typeof item.value === 'number') {
+        return item.value !== 0;
+      } else {
+        return false;
+      }
+    })
+  );
+
 export const getActualsBreakdownItems = (
   items: BudgetStatementLineItemDto[],
   month: string,
@@ -30,8 +41,11 @@ export const getActualsBreakdownItems = (
 
   for (const groupedKey in grouped) {
     if (
-      Math.abs(getGroupForecast(grouped[groupedKey], month)) + Math.abs(getGroupActual(grouped[groupedKey], month)) ===
-      0
+      Math.abs(getGroupForecast(grouped[groupedKey], month)) === 0 &&
+      Math.abs(getGroupActual(grouped[groupedKey], month)) === 0 &&
+      Math.abs(getGroupMonthlyBudget(grouped[groupedKey], month)) === 0 &&
+      Math.abs(getGroupDifference(grouped[groupedKey], month)) === 0 &&
+      Math.abs(getGroupPayment(grouped[groupedKey], month)) === 0
     ) {
       continue;
     }
@@ -40,9 +54,11 @@ export const getActualsBreakdownItems = (
 
     for (const groupedCatKey in groupedCategory) {
       if (
-        Math.abs(getGroupForecast(groupedCategory[groupedCatKey], month)) +
-          Math.abs(getGroupActual(groupedCategory[groupedCatKey], month)) ===
-        0
+        Math.abs(getGroupForecast(groupedCategory[groupedCatKey], month)) === 0 &&
+        Math.abs(getGroupActual(groupedCategory[groupedCatKey], month)) === 0 &&
+        Math.abs(getGroupMonthlyBudget(grouped[groupedKey], month)) === 0 &&
+        Math.abs(getGroupDifference(grouped[groupedKey], month)) === 0 &&
+        Math.abs(getGroupPayment(grouped[groupedKey], month)) === 0
       ) {
         continue;
       }
@@ -190,9 +206,9 @@ export const getActualsBreakdownItemsForWallet = (
         'category'
       );
       groupItemsCount += items.length;
-      result.push(...items);
-
-      if (!hasGroups && items.length > 1) {
+      const newItemsNoZroValues = filterRowsByNonZeroValue(items);
+      result.push(...newItemsNoZroValues);
+      if (!hasGroups && newItemsNoZroValues.length > 1) {
         // subtotal when it is a headcount without a group
         result.push(
           ...getActualsBreakdownItems(
@@ -237,9 +253,10 @@ export const getActualsBreakdownItemsForWallet = (
         'category'
       );
       groupItemsCount += items.length;
-      result.push(...items);
+      const newItemsNoZroValues = filterRowsByNonZeroValue(items);
+      result.push(...newItemsNoZroValues);
 
-      if (!hasGroups && items.length > 1) {
+      if (!hasGroups && newItemsNoZroValues.length > 1) {
         // subtotal when it is a non headcount without a group
         result.push(
           ...getActualsBreakdownItems(
