@@ -26,8 +26,29 @@ export const CustomTableHeader = (props: CustomTableHeaderProps) => {
       <Label isLight={isLight}>{props.title}</Label>
       {props.state !== SortEnum.Disabled && (
         <Arrows>
-          <ArrowUp fill={props.state === SortEnum.Asc ? '#231536' : '#708390'} style={{ margin: '4px 0' }} />
-          <ArrowDown fill={props.state === SortEnum.Desc ? '#231536' : '#708390'} />
+          <ArrowUp
+            fill={
+              isLight
+                ? props.state === SortEnum.Asc
+                  ? '#231536'
+                  : '#708390'
+                : props.state === SortEnum.Asc
+                ? '#434358'
+                : '#708390'
+            }
+            style={{ margin: '4px 0' }}
+          />
+          <ArrowDown
+            fill={
+              isLight
+                ? props.state === SortEnum.Desc
+                  ? '#231536'
+                  : '#708390'
+                : props.state === SortEnum.Desc
+                ? '#434358'
+                : '#708390'
+            }
+          />
         </Arrows>
       )}
     </Container>
