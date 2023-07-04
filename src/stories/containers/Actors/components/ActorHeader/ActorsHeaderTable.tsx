@@ -38,8 +38,29 @@ const ActorsHeaderTable: React.FC<Props> = ({ columns, sortClick }) => {
               {column.header}
               {column.sort !== SortEnum.Disabled && (
                 <Arrows>
-                  <ArrowUp fill={column.sort === SortEnum.Asc ? '#231536' : '#708390'} style={{ margin: '4px 0' }} />
-                  <ArrowDown fill={column.sort === SortEnum.Desc ? '#231536' : '#708390'} />
+                  <ArrowUp
+                    fill={
+                      isLight
+                        ? column.sort === SortEnum.Asc
+                          ? '#231536'
+                          : '#708390'
+                        : column.sort === SortEnum.Asc
+                        ? '#434358'
+                        : '#708390'
+                    }
+                    style={{ margin: '4px 0' }}
+                  />
+                  <ArrowDown
+                    fill={
+                      isLight
+                        ? column.sort === SortEnum.Desc
+                          ? '#231536'
+                          : '#708390'
+                        : column.sort === SortEnum.Desc
+                        ? '#434358'
+                        : '#708390'
+                    }
+                  />
                 </Arrows>
               )}
             </TableHeaderTitle>

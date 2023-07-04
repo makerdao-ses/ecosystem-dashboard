@@ -196,6 +196,9 @@ const ReadMore = styled.div<WithIsLight>(({ isLight }) => ({
   [lightTheme.breakpoints.up('table_834')]: {
     marginBottom: 30,
   },
+  ':hover': {
+    color: isLight ? 'rgba(35, 21, 54, 0.8)' : 'rgba(210, 212, 239, 0.8)',
+  },
 }));
 
 const ContainerReadMore = styled.div({
