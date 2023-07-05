@@ -12,7 +12,7 @@ interface TransactionHeaderProps {
   name: string;
   date: string;
   toDate?: string | null;
-  txHash: string;
+  txHash: string | null;
 }
 
 const TransactionHeader: React.FC<TransactionHeaderProps> = ({ isIncomingTransaction, name, date, toDate, txHash }) => {

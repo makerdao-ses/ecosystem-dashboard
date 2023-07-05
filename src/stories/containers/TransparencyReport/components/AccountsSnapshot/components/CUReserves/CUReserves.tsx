@@ -209,7 +209,7 @@ const OnChainSubsection = styled.div({
 });
 
 const OffChainSubsection = styled.div<{ isDisabled?: boolean }>(({ isDisabled = false }) => ({
-  marginTop: 16,
+  marginTop: 24,
   opacity: isDisabled ? 0.3 : 1,
 }));
 

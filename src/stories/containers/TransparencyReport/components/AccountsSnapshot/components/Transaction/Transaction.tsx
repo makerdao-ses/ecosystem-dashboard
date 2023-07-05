@@ -13,7 +13,7 @@ export interface TransactionProps {
   name: string;
   date: string;
   toDate?: string | null;
-  txHash: string;
+  txHash: string | null;
   counterPartyName: string;
   counterPartyAddress: string;
   amount: number;
