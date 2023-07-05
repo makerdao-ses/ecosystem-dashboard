@@ -41,11 +41,11 @@ export const getActualsBreakdownItems = (
 
   for (const groupedKey in grouped) {
     if (
-      Math.abs(getGroupForecast(grouped[groupedKey], month)) === 0 &&
-      Math.abs(getGroupActual(grouped[groupedKey], month)) === 0 &&
-      Math.abs(getGroupMonthlyBudget(grouped[groupedKey], month)) === 0 &&
-      Math.abs(getGroupDifference(grouped[groupedKey], month)) === 0 &&
-      Math.abs(getGroupPayment(grouped[groupedKey], month)) === 0
+      getGroupForecast(grouped[groupedKey], month) === 0 &&
+      getGroupActual(grouped[groupedKey], month) === 0 &&
+      getGroupMonthlyBudget(grouped[groupedKey], month) === 0 &&
+      getGroupDifference(grouped[groupedKey], month) === 0 &&
+      getGroupPayment(grouped[groupedKey], month) === 0
     ) {
       continue;
     }
@@ -54,11 +54,11 @@ export const getActualsBreakdownItems = (
 
     for (const groupedCatKey in groupedCategory) {
       if (
-        Math.abs(getGroupForecast(groupedCategory[groupedCatKey], month)) === 0 &&
-        Math.abs(getGroupActual(groupedCategory[groupedCatKey], month)) === 0 &&
-        Math.abs(getGroupMonthlyBudget(grouped[groupedKey], month)) === 0 &&
-        Math.abs(getGroupDifference(grouped[groupedKey], month)) === 0 &&
-        Math.abs(getGroupPayment(grouped[groupedKey], month)) === 0
+        getGroupForecast(groupedCategory[groupedCatKey], month) === 0 &&
+        getGroupActual(groupedCategory[groupedCatKey], month) === 0 &&
+        getGroupMonthlyBudget(grouped[groupedKey], month) === 0 &&
+        getGroupDifference(grouped[groupedKey], month) === 0 &&
+        getGroupPayment(grouped[groupedKey], month) === 0
       ) {
         continue;
       }
