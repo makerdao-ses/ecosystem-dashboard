@@ -4,19 +4,19 @@ import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 
 interface TxHashProps {
-  txHash: string;
+  txHash: string | null;
   className?: string;
 }
 
 const TxHash: React.FC<TxHashProps> = ({ txHash, ...props }) => {
-  const formattedHash = txHash.length <= 16 ? txHash : `${txHash.slice(0, 16)}...`;
+  const formattedHash = !txHash ? '' : txHash?.length <= 16 ? txHash : `${txHash.slice(0, 16)}...`;
 
   return (
     <TxHashContainer {...props}>
       <Hash href={`https://etherscan.io/tx/${txHash}`} target="_blank">
         {formattedHash}
       </Hash>
-      <CopyIcon text={txHash} defaultTooltip="Copy Transaction Hash" />
+      <CopyIcon text={txHash ?? ''} defaultTooltip="Copy Transaction Hash" />
     </TxHashContainer>
   );
 };

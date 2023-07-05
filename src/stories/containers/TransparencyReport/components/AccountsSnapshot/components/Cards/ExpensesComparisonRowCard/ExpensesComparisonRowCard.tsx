@@ -12,10 +12,15 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface ExpensesComparisonRowCardProps {
   row: RowProps;
+  hasOffChainData: boolean;
   expandable?: boolean;
 }
 
-const ExpensesComparisonRowCard: React.FC<ExpensesComparisonRowCardProps> = ({ row, expandable = true }) => {
+const ExpensesComparisonRowCard: React.FC<ExpensesComparisonRowCardProps> = ({
+  row,
+  hasOffChainData,
+  expandable = true,
+}) => {
   const { isLight } = useThemeContext();
   const [expanded, setExpanded] = React.useState<boolean>(!expandable);
   const isTotalCard = row.cells[0].value === 'Totals';
@@ -61,7 +66,9 @@ const ExpensesComparisonRowCard: React.FC<ExpensesComparisonRowCardProps> = ({ r
                 {row.cells[1].value as React.ReactNode}
               </Value>
             </Item>
-            <NetExpenseTransactions isLight={isLight}>Net Expense Transactions</NetExpenseTransactions>
+            {hasOffChainData && (
+              <NetExpenseTransactions isLight={isLight}>Net Expense Transactions</NetExpenseTransactions>
+            )}
           </Reported>
           <BorderedContainer isLight={isLight}>
             {/* on chain only */}
@@ -91,33 +98,37 @@ const ExpensesComparisonRowCard: React.FC<ExpensesComparisonRowCardProps> = ({ r
                 {row.cells[3].value as React.ReactNode}
               </Value>
             </Item>
-            <HorizontalDivider isLight={isLight} />
-            {/* including off-chain */}
-            <Item>
-              <BasicTHCell
-                as="div"
-                cell={{
-                  ...(row.cells[4].inherit ?? ({} as GenericCell)),
-                  cellPadding: 0,
-                }}
-              />
-              <Value isLight={isLight} isTotal={isTotalCard}>
-                {row.cells[4].value as React.ReactNode}
-              </Value>
-            </Item>
-            {/* difference */}
-            <Item marginTop={20}>
-              <BasicTHCell
-                as="div"
-                cell={{
-                  ...(row.cells[5].inherit ?? ({} as GenericCell)),
-                  cellPadding: 0,
-                }}
-              />
-              <Value isLight={isLight} isTotal={isTotalCard}>
-                {row.cells[5].value as React.ReactNode}
-              </Value>
-            </Item>
+            {hasOffChainData && (
+              <>
+                <HorizontalDivider isLight={isLight} />
+                {/* including off-chain */}
+                <Item>
+                  <BasicTHCell
+                    as="div"
+                    cell={{
+                      ...(row.cells[4].inherit ?? ({} as GenericCell)),
+                      cellPadding: 0,
+                    }}
+                  />
+                  <Value isLight={isLight} isTotal={isTotalCard}>
+                    {row.cells[4].value as React.ReactNode}
+                  </Value>
+                </Item>
+                {/* difference */}
+                <Item marginTop={20}>
+                  <BasicTHCell
+                    as="div"
+                    cell={{
+                      ...(row.cells[5].inherit ?? ({} as GenericCell)),
+                      cellPadding: 0,
+                    }}
+                  />
+                  <Value isLight={isLight} isTotal={isTotalCard}>
+                    {row.cells[5].value as React.ReactNode}
+                  </Value>
+                </Item>
+              </>
+            )}
           </BorderedContainer>
         </AccordionDetails>
       </Accordion>

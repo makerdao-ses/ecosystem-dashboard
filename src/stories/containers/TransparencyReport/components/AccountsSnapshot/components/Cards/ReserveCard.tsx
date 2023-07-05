@@ -10,7 +10,6 @@ import React from 'react';
 import TransactionList from '../TransactionList/TransactionList';
 import WalletInfo from '../WalletInfo/WalletInfo';
 import type { AccordionProps } from '@mui/material/Accordion';
-import type { AccordionSummaryProps } from '@mui/material/AccordionSummary';
 import type { Token, UIReservesData } from '@ses/core/models/dto/snapshotAccountDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -105,48 +104,51 @@ export default ReserveCard;
 
 const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters elevation={0} square {...props} />)({
   backgroundColor: 'transparent',
-  marginBottom: 8,
   borderRadius: '6px',
+
+  '&:not(:last-of-type)': {
+    marginBottom: 8,
+  },
 
   '&:before': {
     display: 'none',
   },
 });
 
-const Card = styled((props: AccordionSummaryProps) => <MuiAccordionSummary {...props} />)<
-  WithIsLight & { hasTransactions: boolean }
->(({ isLight, hasTransactions }) => ({
-  padding: '16px 24px 24px',
-  background: isLight ? '#ffffff' : '#1E2C37',
-  boxShadow: isLight
-    ? '0px 4px 6px rgba(196, 196, 196, 0.25)'
-    : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
-  borderRadius: 6,
-  zIndex: 1,
-  // !important is required to override default cursor style
-  cursor: hasTransactions ? 'pointer' : 'auto!important',
-
-  [lightTheme.breakpoints.up('table_834')]: {
-    padding: 0,
-  },
-
-  '&.Mui-expanded': {
-    [lightTheme.breakpoints.down('table_834')]: {
-      borderRadius: '6px 6px 0 0',
-    },
-  },
-
-  '& .MuiAccordionSummary-content': {
-    margin: 0,
-    width: '100%',
-    flexDirection: 'column',
+const Card = styled(MuiAccordionSummary)<WithIsLight & { hasTransactions: boolean }>(
+  ({ isLight, hasTransactions }) => ({
+    padding: '16px 24px 24px',
+    background: isLight ? '#ffffff' : '#1E2C37',
+    boxShadow: isLight
+      ? '0px 4px 6px rgba(196, 196, 196, 0.25)'
+      : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+    borderRadius: 6,
+    zIndex: 1,
+    // !important is required to override default cursor style
+    cursor: hasTransactions ? 'pointer' : 'auto!important',
 
     [lightTheme.breakpoints.up('table_834')]: {
-      flexDirection: 'row',
-      alignItems: 'center',
+      padding: 0,
     },
-  },
-}));
+
+    '&.Mui-expanded': {
+      [lightTheme.breakpoints.down('table_834')]: {
+        borderRadius: '6px 6px 0 0',
+      },
+    },
+
+    '& .MuiAccordionSummary-content': {
+      margin: 0,
+      width: '100%',
+      flexDirection: 'column',
+
+      [lightTheme.breakpoints.up('table_834')]: {
+        flexDirection: 'row',
+        alignItems: 'center',
+      },
+    },
+  })
+);
 
 const TransactionContainer = styled(MuiAccordionDetails)(() => ({
   padding: 0,

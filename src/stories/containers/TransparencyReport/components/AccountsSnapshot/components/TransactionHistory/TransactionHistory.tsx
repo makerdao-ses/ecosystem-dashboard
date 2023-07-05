@@ -8,7 +8,6 @@ import React, { useState } from 'react';
 import AccordionArrow from '../AccordionArrow/AccordionArrow';
 import TransactionList from '../TransactionList/TransactionList';
 import type { AccordionProps } from '@mui/material/Accordion';
-import type { AccordionSummaryProps } from '@mui/material/AccordionSummary';
 import type { SnapshotAccountTransaction } from '@ses/core/models/dto/snapshotAccountDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -25,7 +24,9 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transactionHist
   return (
     <TransactionHistoryContainer>
       <Accordion expanded={expanded} onChange={() => setExpanded(!expanded)}>
-        <AccordionSummary isLight={isLight}>View Transaction History</AccordionSummary>
+        <AccordionSummary isLight={isLight} expandIcon={<AccordionArrow />}>
+          View Transaction History
+        </AccordionSummary>
         <AccordionDetails>
           <TransactionList items={transactionHistory} highlightPositiveAmounts={true} />
         </AccordionDetails>
@@ -44,9 +45,7 @@ const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters
   backgroundColor: 'transparent',
 });
 
-const AccordionSummary = styled((props: AccordionSummaryProps) => (
-  <MuiAccordionSummary expandIcon={<AccordionArrow />} {...props} />
-))<WithIsLight>(({ isLight }) => ({
+const AccordionSummary = styled(MuiAccordionSummary)<WithIsLight>(({ isLight }) => ({
   backgroundColor: isLight ? '#FFFFFF' : '#1E2C37',
   boxShadow: isLight
     ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
