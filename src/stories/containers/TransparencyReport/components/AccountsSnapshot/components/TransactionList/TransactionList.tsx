@@ -32,7 +32,7 @@ const TransactionList: React.FC<TransactionListProps> = ({ items, highlightPosit
   return (
     <TransactionListContainer isLight={isLight}>
       <TransactionCard isLight={isLight}>
-        {!items?.length && <EmptyList isLight={isLight}>N/A</EmptyList>}
+        {!items?.length && <EmptyList isLight={isLight}>No transactions this month</EmptyList>}
         {items?.map((item: SnapshotAccountTransaction | SnapshotAccount) =>
           isSnapshotAccount(item) ? (
             <GroupContainer key={item.id}>
