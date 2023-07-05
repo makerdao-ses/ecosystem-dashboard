@@ -47,8 +47,12 @@ const FundingOverview: React.FC<FundingOverviewProps> = ({
         caption="Initial Lifetime Balance"
       />
       <FundChangeCard
-        netChange={balance?.inflow && balance?.outflow ? balance.outflow * -1 - balance.inflow : undefined}
-        leftValue={balance?.outflow ? balance?.outflow * -1 : undefined}
+        netChange={
+          typeof balance?.inflow === 'number' && typeof balance?.outflow === 'number'
+            ? balance.outflow * -1 - balance.inflow
+            : undefined
+        }
+        leftValue={typeof balance?.outflow === 'number' ? balance?.outflow * -1 : undefined}
         leftText="Extra Funds Made Available"
         rightValue={balance?.inflow}
         rightValueColor="green"

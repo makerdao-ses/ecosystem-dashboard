@@ -1,7 +1,10 @@
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import ExpensesComparisonRowCard from './components/Cards/ExpensesComparisonRowCard/ExpensesComparisonRowCard';
-import { EXPENSES_COMPARISON_TABLE_HEADER } from './components/ExpensesComparison/ExpensesComparison';
+import {
+  EXPENSES_COMPARISON_TABLE_HEADER,
+  EXPENSES_COMPARISON_TABLE_HEADER_WITHOUT_OFF_CHAIN,
+} from './components/ExpensesComparison/headers';
 import { getReserveAccounts, transactionSort } from './utils/reserveUtils';
 import type { CardRenderProps, RowProps } from '@ses/components/AdvanceTable/types';
 import type { Snapshots, Token } from '@ses/core/models/dto/snapshotAccountDTO';
@@ -24,7 +27,11 @@ export const buildRow = (
     },
     rowToCardConfig: {
       render: (props: CardRenderProps) => (
-        <ExpensesComparisonRowCard row={{ cells: props.cells ?? [] }} expandable={!!props.cells?.[0].rowIndex} />
+        <ExpensesComparisonRowCard
+          row={{ cells: props.cells ?? [] }}
+          hasOffChainData={true}
+          expandable={!!props.cells?.[0].rowIndex}
+        />
       ),
       ...(isTotal ? { type: 'total' } : {}),
     },
@@ -73,6 +80,62 @@ export const buildRow = (
     ],
   } as RowProps);
 
+export const buildRowWithoutOffChain = (
+  values: [string, string, string, string],
+  isCurrentMonth = false,
+  isTotal = false
+): RowProps =>
+  ({
+    ...(isCurrentMonth ? { render: RenderCurrentMonthRow } : {}),
+    cellPadding: {
+      table_834: isTotal ? '17px 8px 18.5px' : '18.5px 8px',
+      desktop_1194: '17.4px 16px',
+    },
+    rowToCardConfig: {
+      render: (props: CardRenderProps) => (
+        <ExpensesComparisonRowCard
+          row={{ cells: props.cells ?? [] }}
+          hasOffChainData={false}
+          expandable={!!props.cells?.[0].rowIndex}
+        />
+      ),
+      ...(isTotal ? { type: 'total' } : {}),
+    },
+    ...(isTotal
+      ? {
+          extraProps: {
+            isBold: true,
+          },
+          border: {
+            top: true,
+          },
+        }
+      : {}),
+    cells: [
+      {
+        value: values[0],
+        defaultRenderer: 'boldText',
+        inherit: EXPENSES_COMPARISON_TABLE_HEADER_WITHOUT_OFF_CHAIN[0].cells[0],
+        isCardHeader: true,
+      },
+      {
+        value: values[1],
+        defaultRenderer: 'number',
+        inherit: EXPENSES_COMPARISON_TABLE_HEADER_WITHOUT_OFF_CHAIN[0].cells[1],
+      },
+      {
+        value: values[2],
+        defaultRenderer: 'number',
+        inherit: EXPENSES_COMPARISON_TABLE_HEADER_WITHOUT_OFF_CHAIN[0].cells[3],
+      },
+      {
+        value: values[3],
+        defaultRenderer: 'number',
+        inherit: EXPENSES_COMPARISON_TABLE_HEADER_WITHOUT_OFF_CHAIN[0].cells[4],
+      },
+    ],
+  } as RowProps);
+
 const useAccountsSnapshot = (snapshot: Snapshots) => {
   const { isLight } = useThemeContext();
 
@@ -86,40 +149,89 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
   const startDate = snapshot.start ?? undefined;
   const endDate = snapshot.end ?? undefined;
 
-  const mainAccount = snapshot.snapshotAccount.find(
-    (account) => account.groupAccountId === null && account.upstreamAccountId === null
+  // root account
+  const rootAccount = useMemo(
+    () =>
+      snapshot.snapshotAccount.find((account) => account.groupAccountId === null && account.upstreamAccountId === null),
+    [snapshot.snapshotAccount]
+  );
+  if (!rootAccount) throw new Error('Maker Protocol Wallet not found');
+
+  // main account (MakerDAO Funding Overview section)
+  const mainAccount = useMemo(
+    () =>
+      snapshot.snapshotAccount.find(
+        (account) => account.groupAccountId === rootAccount.id && account.upstreamAccountId === null
+      ),
+    [rootAccount?.id, snapshot.snapshotAccount]
   );
   if (!mainAccount) throw new Error('Maker Protocol Wallet not found');
-  const mainBalance = mainAccount.snapshotAccountBalance.find((balance) => balance.token === selectedToken);
-
-  const transactionHistory = mainAccount.snapshotAccountTransaction
-    .filter((transaction) => transaction.token === selectedToken)
-    .sort(transactionSort);
-
-  // cu reserves balance
-  const cuReservesAccount = snapshot.snapshotAccount.find(
-    (account) => account.groupAccountId === null && account.upstreamAccountId === mainAccount.id
+  const rootBalance = useMemo(
+    () => rootAccount.snapshotAccountBalance.find((balance) => balance.token === selectedToken),
+    [rootAccount?.snapshotAccountBalance, selectedToken]
   );
-  const cuReservesBalances = cuReservesAccount?.snapshotAccountBalance?.filter(
-    (balance) => balance.token === selectedToken
+
+  // transaction history (MakerDAO Funding Overview section)
+  const transactionHistory = useMemo(
+    () =>
+      mainAccount.snapshotAccountTransaction
+        .filter((transaction) => transaction.token === selectedToken)
+        .sort(transactionSort),
+    [mainAccount?.snapshotAccountTransaction, selectedToken]
   );
+
+  // Total Core Unit Reserves section
+  const cuReservesAccount = useMemo(
+    () =>
+      snapshot.snapshotAccount.find(
+        (account) => account.groupAccountId === rootAccount.id && account.upstreamAccountId !== null
+      ),
+    [rootAccount?.id, snapshot?.snapshotAccount]
+  );
+  const cuReservesBalances = useMemo(
+    () => cuReservesAccount?.snapshotAccountBalance?.filter((balance) => balance.token === selectedToken),
+    [cuReservesAccount?.snapshotAccountBalance, selectedToken]
+  );
+
   // balance with or without the off-chain data
-  const cuReservesBalance =
-    (cuReservesBalances?.length ?? 0) > 1
-      ? cuReservesBalances?.find((account) => account.includesOffChain === includeOffChain)
-      : cuReservesBalances?.[0];
+  const cuReservesBalance = useMemo(
+    () =>
+      (cuReservesBalances?.length ?? 0) > 1
+        ? cuReservesBalances?.find((account) => account.includesOffChain === includeOffChain)
+        : cuReservesBalances?.[0],
+    [cuReservesBalances, includeOffChain]
+  );
 
-  const onChainData = getReserveAccounts(snapshot, false, cuReservesAccount?.id, mainAccount.id, selectedToken);
+  const onChainData = useMemo(
+    () => getReserveAccounts(snapshot, false, cuReservesAccount?.id, mainAccount.id, selectedToken),
+    [cuReservesAccount?.id, mainAccount.id, selectedToken, snapshot]
+  );
 
-  const offChainData = getReserveAccounts(snapshot, true, cuReservesAccount?.id, mainAccount.id, selectedToken);
+  const offChainData = useMemo(
+    () => getReserveAccounts(snapshot, true, cuReservesAccount?.id, mainAccount.id, selectedToken),
+    [cuReservesAccount?.id, mainAccount?.id, selectedToken, snapshot]
+  );
+
+  const hasOffChainData = offChainData.length > 0;
 
   // mocked data for the "Reported Expenses Comparison" table
-  const expensesComparisonRows = [
-    buildRow(['MAY-2023', '221,503.00 DAI', '240,000.00 DAI', '8.35%', '221,504.00 DAI', '0.00%'], true, false),
-    buildRow(['APR-2023', '171,503.00 DAI', '170,000.00 DAI', '-0.88%', '171,500,00 DAI', '0.00%'], false, false),
-    buildRow(['MAR-2023', '288,503.00 DAI', '280,000.00 DAI', '-2,95%', '288,300.00 DAI', '-0.07%'], false, false),
-    buildRow(['Totals', '681,509.00 DAI', '681,509.00 DAI', '1.25%', '681,304.25 DAI', '-0.03%'], false, true),
-  ] as RowProps[];
+  const expensesComparisonRows = useMemo(() => {
+    if (hasOffChainData) {
+      return [
+        buildRow(['MAY-2023', '221,503.00 DAI', '240,000.00 DAI', '8.35%', '221,504.00 DAI', '0.00%'], true, false),
+        buildRow(['APR-2023', '171,503.00 DAI', '170,000.00 DAI', '-0.88%', '171,500,00 DAI', '0.00%'], false, false),
+        buildRow(['MAR-2023', '288,503.00 DAI', '280,000.00 DAI', '-2,95%', '288,300.00 DAI', '-0.07%'], false, false),
+        buildRow(['Totals', '681,509.00 DAI', '681,509.00 DAI', '1.25%', '681,304.25 DAI', '-0.03%'], false, true),
+      ] as RowProps[];
+    } else {
+      return [
+        buildRowWithoutOffChain(['MAY-2023', '221,503.00 DAI', '240,000.00 DAI', '8.35%'], true, false),
+        buildRowWithoutOffChain(['APR-2023', '171,503.00 DAI', '170,000.00 DAI', '-0.88%'], false, false),
+        buildRowWithoutOffChain(['MAR-2023', '288,503.00 DAI', '280,000.00 DAI', '-2,95%'], false, false),
+        buildRowWithoutOffChain(['Totals', '681,509.00 DAI', '681,509.00 DAI', '1.25%'], false, true),
+      ] as RowProps[];
+    }
+  }, [hasOffChainData]);
 
   return {
     isLight,
@@ -128,11 +240,12 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
     toggleIncludeOffChain,
     startDate,
     endDate,
-    mainBalance,
+    rootBalance,
     transactionHistory,
     cuReservesBalance,
     onChainData,
     offChainData,
+    hasOffChainData,
   };
 };
 

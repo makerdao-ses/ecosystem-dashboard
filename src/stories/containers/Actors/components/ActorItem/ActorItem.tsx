@@ -21,7 +21,7 @@ const ActorItem: React.FC<Props> = ({ actor }) => {
   const { isLight } = useThemeContext();
 
   return (
-    <ExtendedGenericDelegate isLight={isLight}>
+    <ExtendedGenericDelegate isLight={isLight} hasScope={actor?.scopes.length > 0}>
       <ContainerActorType>
         <WrapperEcosystemActor>
           <EcosystemActorText isLight={isLight}>Ecosystem Actor</EcosystemActorText>
@@ -43,13 +43,14 @@ const ActorItem: React.FC<Props> = ({ actor }) => {
         </TypeSection>
       </ContainerActorType>
       <Line isLight={isLight} />
-      <WrapperScopeLinks>
-        <ScopeSection>
-          {actor?.scopes?.map((item) => (
-            <ScopeChip status={item.name as ActorScopeEnum} code={item.code} />
-          ))}
-        </ScopeSection>
-
+      <WrapperScopeLinks alignEnd={actor?.scopes.length === 0}>
+        {actor?.scopes.length > 0 && (
+          <ScopeSection>
+            {actor?.scopes?.map((item) => (
+              <ScopeChip status={item.name as ActorScopeEnum} code={item.code} />
+            ))}
+          </ScopeSection>
+        )}
         <SocialIconsSection>
           {actor?.socialMediaChannels && (
             <LinkContainer>
@@ -68,38 +69,43 @@ const ActorItem: React.FC<Props> = ({ actor }) => {
 };
 
 export default ActorItem;
-const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight>(({ isLight }) => ({
-  background: isLight ? '#FFFFFF' : '#10191F',
-  boxShadow: isLight
-    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-    : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight & { hasScope: boolean }>(
+  ({ isLight, hasScope }) => ({
+    background: isLight ? '#FFFFFF' : '#10191F',
+    boxShadow: isLight
+      ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+      : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
 
-  padding: '16px',
-  display: 'flex',
-  flexDirection: 'column',
-  fontFamily: 'Inter, sans-serif',
-  fontStyle: 'normal',
-
-  [lightTheme.breakpoints.up('table_834')]: {
-    padding: '8px 16px',
-    flexDirection: 'column',
-    height: 129,
-  },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    height: 82,
-    flexDirection: 'row',
     padding: '16px',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    flexDirection: 'row',
-    gap: 59,
-    height: 82,
-    maxWidth: 1312,
-    alignItems: 'center',
-  },
-}));
+    display: 'flex',
+    flexDirection: 'column',
+    fontFamily: 'Inter, sans-serif',
+    fontStyle: 'normal',
+    minHeight: hasScope ? '214px' : '183px',
+
+    [lightTheme.breakpoints.up('table_834')]: {
+      padding: '8px 16px',
+      flexDirection: 'column',
+      maxHeight: 'revert',
+      height: 129,
+      minHeight: 'revert',
+    },
+    [lightTheme.breakpoints.up('desktop_1194')]: {
+      height: 82,
+      flexDirection: 'row',
+      padding: '16px',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+    [lightTheme.breakpoints.up('desktop_1440')]: {
+      flexDirection: 'row',
+      gap: 59,
+      height: 82,
+      maxWidth: 1312,
+      alignItems: 'center',
+    },
+  })
+);
 
 const ContainerActorType = styled.div({
   display: 'flex',
@@ -240,15 +246,15 @@ const CircleAvatarExtended = styled(CircleAvatar)<WithIsLight>(({ isLight }) => 
   boxShadow: isLight ? '2px 4px 7px rgba(26, 171, 155, 0.25)' : '2px 4px 7px rgba(26, 171, 155, 0.25)',
 }));
 
-const WrapperScopeLinks = styled.div({
+const WrapperScopeLinks = styled.div<{ alignEnd: boolean }>(({ alignEnd }) => ({
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'space-between',
+  justifyContent: alignEnd ? 'flex-end' : 'space-between',
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-});
+}));
 
 const ScopeSection = styled.div({
   display: 'flex',
@@ -265,16 +271,16 @@ const ScopeSection = styled.div({
     alignItems: 'flex-start',
     width: 150,
     gap: 4,
-    marginRight: 58,
+    marginRight: 52,
     marginBottom: 0,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginRight: 76,
+    marginRight: 70,
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
     width: 220,
-    marginRight: 64,
+    marginRight: 58,
     flexDirection: 'column',
     gap: 4,
   },
@@ -282,7 +288,8 @@ const ScopeSection = styled.div({
 
 const SocialIconsSection = styled.div({
   display: 'flex',
-  marginLeft: -5,
+  flexDirection: 'row',
+  justifyContent: 'center',
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row',
     alignItems: 'center',

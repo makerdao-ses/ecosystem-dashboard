@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
+import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import ActorTable from './components/ActorTable/ActorTable';
@@ -15,12 +17,27 @@ interface Props {
 }
 
 const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
-  const { readMore, handleRead, showTextDesk, isLessPhone, filtersActive } = useActors(actors, stories);
+  const { readMore, handleRead, showTextDesk, isLessPhone, filtersActive, columns, onSortClick } = useActors(
+    actors,
+    stories
+  );
 
   const { isLight } = useThemeContext();
 
   return (
     <ExtendedPageContainer isLight={isLight}>
+      <SEOHead
+        title={'MakerDAO Ecosystem Actors | Endgame Overview'}
+        description={
+          'MakerDAO Ecosystem Actors provides a centralized directory of ecosystem actors and their roles for a clear understanding of who is involved in the ecosystem'
+        }
+        image={{
+          src: toAbsoluteURL('/assets/img/social-385x200.png'),
+          width: 385,
+          height: 200,
+        }}
+        twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
+      />
       <Container>
         <ContainerText>
           <Title isLight={isLight}>Ecosystem Actors</Title>
@@ -55,7 +72,7 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
           </ReadMore>
         </ContainerReadMore>
         <ContainerList>
-          <ActorTable actors={filtersActive} />
+          <ActorTable actors={filtersActive} columns={columns} sortClick={onSortClick} />
         </ContainerList>
       </Container>
     </ExtendedPageContainer>
@@ -119,14 +136,20 @@ const ContainerText = styled.div({
   marginTop: 24,
   marginBottom: 8,
   [lightTheme.breakpoints.up('table_834')]: {
-    marginBottom: 6,
+    marginBottom: 0,
   },
 });
 
 const ContainerList = styled.div({
   marginBottom: 64,
   // TODO:Remove this margin when add filter
-  marginTop: 32,
+  marginTop: -2,
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 1,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginTop: 1,
+  },
 });
 
 const StyledParagraphOne = styled.p<{ readMore: boolean }>(({ readMore }) => ({
@@ -170,6 +193,12 @@ const ReadMore = styled.div<WithIsLight>(({ isLight }) => ({
   marginBottom: 32,
   cursor: 'pointer',
   color: isLight ? '#231536' : '#D2D4EF',
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginBottom: 30,
+  },
+  ':hover': {
+    color: isLight ? 'rgba(35, 21, 54, 0.8)' : 'rgba(210, 212, 239, 0.8)',
+  },
 }));
 
 const ContainerReadMore = styled.div({

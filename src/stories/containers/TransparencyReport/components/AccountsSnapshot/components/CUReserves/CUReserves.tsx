@@ -41,10 +41,12 @@ const CUReserves: React.FC<CUReservesProps> = ({
           subtitle={`On-chain and off-chain reserves accessible${snapshotOwner ? ` to the ${snapshotOwner}` : ''}.`}
           tooltip={'pending...'}
         />
-        <CheckContainer isLight={isLight}>
-          Include Off-Chain Reserves{' '}
-          <Checkbox checked={includeOffChain} onChange={toggleIncludeOffChain} isLight={isLight} size="small" />
-        </CheckContainer>
+        {!!offChainData?.length && (
+          <CheckContainer isLight={isLight}>
+            Include Off-Chain Reserves{' '}
+            <Checkbox checked={includeOffChain} onChange={toggleIncludeOffChain} isLight={isLight} size="small" />
+          </CheckContainer>
+        )}
       </HeaderContainer>
 
       <CardsContainer>
@@ -55,10 +57,14 @@ const CUReserves: React.FC<CUReservesProps> = ({
           dynamicChanges
         />
         <FundChangeCard
-          netChange={balance?.inflow && balance?.outflow ? balance.outflow - balance.inflow * -1 : undefined}
+          netChange={
+            typeof balance?.inflow === 'number' && typeof balance?.outflow === 'number'
+              ? balance.outflow - balance.inflow * -1
+              : undefined
+          }
           leftValue={balance?.inflow}
           leftText="Inflow"
-          rightValue={balance?.outflow ? balance?.outflow * -1 : undefined}
+          rightValue={typeof balance?.outflow === 'number' ? balance?.outflow * -1 : undefined}
           rightText="Outflow"
           dynamicChanges
         />
@@ -87,20 +93,22 @@ const CUReserves: React.FC<CUReservesProps> = ({
         </ReservesCardsContainer>
       </OnChainSubsection>
 
-      <OffChainSubsection isDisabled={!includeOffChain}>
-        <SectionHeader
-          title="Off Chain Reserves"
-          subtitle={`Unspent off-chain reserves${snapshotOwner ? ` to the ${snapshotOwner}` : ''}.`}
-          tooltip={'pending...'}
-          isSubsection
-        />
+      {!!offChainData?.length && (
+        <OffChainSubsection isDisabled={!includeOffChain}>
+          <SectionHeader
+            title="Off Chain Reserves"
+            subtitle={`Unspent off-chain reserves${snapshotOwner ? ` to the ${snapshotOwner}` : ''}.`}
+            tooltip={'pending...'}
+            isSubsection
+          />
 
-        <ReservesCardsContainer>
-          {offChainData?.map((account) => (
-            <ReserveCard key={account.id} account={account} />
-          ))}
-        </ReservesCardsContainer>
-      </OffChainSubsection>
+          <ReservesCardsContainer>
+            {offChainData?.map((account) => (
+              <ReserveCard key={account.id} account={account} />
+            ))}
+          </ReservesCardsContainer>
+        </OffChainSubsection>
+      )}
     </div>
   );
 };
@@ -201,7 +209,7 @@ const OnChainSubsection = styled.div({
 });
 
 const OffChainSubsection = styled.div<{ isDisabled?: boolean }>(({ isDisabled = false }) => ({
-  marginTop: 16,
+  marginTop: 24,
   opacity: isDisabled ? 0.3 : 1,
 }));
 

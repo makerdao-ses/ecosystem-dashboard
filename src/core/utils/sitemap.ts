@@ -34,6 +34,10 @@ export class SitemapBuilder {
     return this.getXMLForRoute(`${BASE_URL}${siteRoutes.globalActivityFeed}`);
   }
 
+  resolveActorsRouter(): string {
+    return this.getXMLForRoute(`${BASE_URL}${siteRoutes.ecosystemActors}`);
+  }
+
   private resolveSingleCURoutes(cu: CoreUnitDto): string[] {
     const cuRoutes: string[] = [];
     cuRoutes.push(this.getXMLForRoute(`${BASE_URL}${siteRoutes.coreUnitAbout(cu.shortCode)}`));
@@ -63,6 +67,7 @@ export class SitemapBuilder {
       ${this.resolveDelegatesReportsRoute()}
       ${this.resolveCoreUnitsHomeRoute()}
       ${this.resolveGlobalActivityRoute()}
+      ${this.resolveActorsRouter()}
       ${cuRoutes.join('')}
     </urlset>
     `;
