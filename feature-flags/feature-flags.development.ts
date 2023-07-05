@@ -14,4 +14,5 @@ export const flagsDevelopment: FeatureFlagsInterface = {
   FEATURE_ACCOUNTS_SNAPSHOT: false,
   FEATURE_TEMPORARY_ACCOUNTS_SNAPSHOT_PAGE: true,
   FEATURE_ECOSYSTEM_ACTORS: true,
+  FEATURE_ECOSYSTEM_ACTORS_ABOUT: true,
 };
