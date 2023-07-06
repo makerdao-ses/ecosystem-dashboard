@@ -10,7 +10,7 @@ export interface FeatureFlagsInterface {
   FEATURE_TRANSPARENCY_COMMENTS: boolean; // disable Comments Tab
   FEATURE_RECOGNIZED_DELEGATES: boolean; // disable  Recognized Delegates page
   FEATURE_ACCOUNTS_SNAPSHOT: boolean; // disable Accounts Snapshot tab in the expense reports tab
-  FEATURE_ECOSYSTEM_ACTORS: boolean; // disable Actors Snapshot page
+  FEATURE_ECOSYSTEM_ACTORS: boolean; // disable Actors List Page page
   FEATURE_TEMPORARY_ACCOUNTS_SNAPSHOT_PAGE: boolean; // disable Accounts Snapshot page
-  FEATURE_ECOSYSTEM_ACTORS_ABOUT: boolean; // disable Actors Snapshot page
+  FEATURE_ECOSYSTEM_ACTORS_ABOUT: boolean; // disable Actors About page
 }
