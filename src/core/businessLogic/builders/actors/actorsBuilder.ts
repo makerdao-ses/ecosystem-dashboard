@@ -1,3 +1,4 @@
+import type { AuditorDto } from '@ses/core/models/dto/coreUnitDTO';
 import type { ActorSocialDto, EcosystemActor, Scope, TeamType } from '@ses/core/models/dto/teamsDTO';
 
 export class EcosystemActorBuilder {
@@ -7,6 +8,9 @@ export class EcosystemActorBuilder {
     this._ecosystemActor = {
       id: '',
       code: '',
+      paragraphDescription: '',
+      sentenceDescription: '',
+      auditors: [] as AuditorDto[],
       name: '',
       type: '',
       image: '',
@@ -23,6 +27,21 @@ export class EcosystemActorBuilder {
 
   withCode(code: string): EcosystemActorBuilder {
     this._ecosystemActor.code = code;
+    return this;
+  }
+
+  withParagraphDescription(description: string): EcosystemActorBuilder {
+    this._ecosystemActor.paragraphDescription = description;
+    return this;
+  }
+
+  withSentenceDescription(description: string): EcosystemActorBuilder {
+    this._ecosystemActor.sentenceDescription = description;
+    return this;
+  }
+
+  withAuditor(description: AuditorDto): EcosystemActorBuilder {
+    this._ecosystemActor.auditors.push(description);
     return this;
   }
 

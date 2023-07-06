@@ -13,4 +13,5 @@ export interface FeatureFlagsInterface {
   FEATURE_ECOSYSTEM_ACTORS: boolean; // disable Actors List Page page
   FEATURE_TEMPORARY_ACCOUNTS_SNAPSHOT_PAGE: boolean; // disable Accounts Snapshot page
   FEATURE_ECOSYSTEM_ACTORS_ABOUT: boolean; // disable Actors About page
+  FEATURE_CARD_NAVIGATION_ACTOR_ABOUT_PAGE: boolean; // disable Card Expense in Actors About Page
 }
