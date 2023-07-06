@@ -14,13 +14,13 @@ interface Props {
 
 export const ActorTitleWithDescription: React.FC<Props> = ({ hiddenTextDescription, actorAbout, showDescription }) => {
   const { isLight } = useThemeContext();
-  const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
-  const lessThanPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
+
+  const isPhone = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   return (
     <ContainerTitle hiddenTextDescription={hiddenTextDescription}>
       <ActorTitleAbout actorAbout={actorAbout} hiddenTextDescription={hiddenTextDescription} />
       {showDescription && actorAbout?.sentenceDescription && (
-        <SummaryDescription hiddenTextDescription={lessThanPhone || phone || hiddenTextDescription}>
+        <SummaryDescription hiddenTextDescription={isPhone || hiddenTextDescription}>
           <TypographyDescription isLight={isLight}>{actorAbout?.sentenceDescription || ''}</TypographyDescription>
         </SummaryDescription>
       )}

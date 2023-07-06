@@ -3,10 +3,10 @@ import { Typography, useMediaQuery } from '@mui/material';
 
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 
+import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
 import ScopeChip from '@ses/containers/Actors/components/ScopeChip/ScopeChip';
 import { ActorsLinkType, getLinksFromRecognizedActors } from '@ses/containers/Actors/utils/utils';
 
-import { DelegateSocialDtoLinks } from '@ses/containers/RecognizedDelegates/DelegateExpenseBreakdown/DelegateSocialLink';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { pascalCaseToNormalString } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
@@ -25,7 +25,6 @@ interface Props {
 export const ActorTitleAbout = ({ actorAbout, hiddenTextDescription }: Props) => {
   const { isLight } = useThemeContext();
   const phoneDimensions = useMediaQuery(lightTheme.breakpoints.down('table_834'));
-  const lessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
 
   return (
     <Container>
@@ -63,16 +62,16 @@ export const ActorTitleAbout = ({ actorAbout, hiddenTextDescription }: Props) =>
         </WrapperShowDesk>
 
         <ContainerCategoryConditional>
-          {(!(phoneDimensions || lessPhone) || hiddenTextDescription) && (
+          {(!phoneDimensions || hiddenTextDescription) && (
             <CategoryContainer>
               {actorAbout?.scopes?.map((item, index) => (
                 <ScopeChip status={item.name as ActorScopeEnum} code={item.code} key={index} />
               ))}
             </CategoryContainer>
           )}
-          {(phoneDimensions || lessPhone) && hiddenTextDescription && (
+          {phoneDimensions && hiddenTextDescription && (
             <ContainerLinks>
-              <DelegateSocialDtoLinks
+              <SocialMediaComponent
                 links={getLinksFromRecognizedActors(actorAbout, ActorsLinkType) || []}
                 fill="#708390"
                 fillDark="#ADAFD4"
@@ -81,9 +80,9 @@ export const ActorTitleAbout = ({ actorAbout, hiddenTextDescription }: Props) =>
           )}
         </ContainerCategoryConditional>
       </ContainerColum>
-      {!(phoneDimensions || lessPhone) && (
+      {!phoneDimensions && (
         <ContainerLinks>
-          <DelegateSocialDtoLinks
+          <SocialMediaComponent
             links={getLinksFromRecognizedActors(actorAbout, ActorsLinkType) || []}
             fill="#708390"
             fillDark="#ADAFD4"

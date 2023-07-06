@@ -40,7 +40,7 @@ export class EcosystemActorBuilder {
     return this;
   }
 
-  withAuditor(description: AuditorDto): EcosystemActorBuilder {
+  addAuditor(description: AuditorDto): EcosystemActorBuilder {
     this._ecosystemActor.auditors.push(description);
     return this;
   }

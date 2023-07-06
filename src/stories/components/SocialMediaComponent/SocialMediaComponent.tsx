@@ -53,7 +53,7 @@ const getImageForLink = (link: LinkModel, fill: string, width?: number, height?:
   const LinkComponent = linkComponents[link.linkType] || WWW;
   return <LinkComponent fill={fill} width={width} height={height} fillDark={fillDark} />;
 };
-export const DelegateSocialDtoLinks = ({
+const SocialMediaComponent = ({
   width,
   height,
   links,
@@ -107,7 +107,7 @@ export const DelegateSocialDtoLinks = ({
     </Container>
   );
 };
-
+export default SocialMediaComponent;
 const Container = styled.div({
   display: 'flex',
   flexDirection: 'row',
