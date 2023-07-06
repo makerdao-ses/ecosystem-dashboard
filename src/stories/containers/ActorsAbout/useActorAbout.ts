@@ -7,11 +7,9 @@ import type { NextRouter } from 'next/router';
 
 interface Props {
   router: NextRouter;
-  code: string;
 }
 
-const useActorAboutAbout = ({ router, code }: Props) => {
-  console.log('code', code);
+const useActorAboutAbout = ({ router }: Props) => {
   const table834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const LessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));

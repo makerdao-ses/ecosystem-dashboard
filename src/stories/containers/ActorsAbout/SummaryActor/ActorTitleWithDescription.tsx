@@ -56,8 +56,6 @@ const ContainerTitle = styled.div<{ hiddenTextDescription: boolean }>(({ hiddenT
     minHeight: hiddenTextDescription ? 'fit-content' : 64,
     paddingLeft: 32,
     paddingRight: 32,
-    // border: '2px solid red',
-    // paddingTop: 4,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     maxWidth: 1130,
