@@ -6,6 +6,7 @@ export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://expenses.ma
 export const siteRoutes = {
   home: '/',
   ecosystemActors: '/ecosystem-actors',
+  ecosystemActorAbout: (code: string) => `/ecosystem-actors/${code}`,
   coreUnitsOverview: featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW ? '/core-units' : '/',
   financesOverview: '/',
   coreUnitAbout: (shortCode: string) => `/core-unit/${shortCode}`,

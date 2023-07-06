@@ -1,11 +1,14 @@
 import styled from '@emotion/styled';
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
+import { siteRoutes } from '@ses/config/routes';
 import { DelegateSocialDtoLinks } from '@ses/containers/RecognizedDelegates/DelegateExpenseBreakdown/DelegateSocialLink';
 import GenericDelegateCard from '@ses/containers/RecognizedDelegates/components/GenericDelegateCard';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 
+import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { pascalCaseToNormalString } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
+import Link from 'next/link';
 import React from 'react';
 import { ActorsLinkType, getLinksFromRecognizedActors } from '../../utils/utils';
 import ScopeChip from '../ScopeChip/ScopeChip';
@@ -19,58 +22,122 @@ interface Props {
 
 const ActorItem: React.FC<Props> = ({ actor }) => {
   const { isLight } = useThemeContext();
+  const [isEnabled] = useFlagsActive();
 
   return (
-    <ExtendedGenericDelegate isLight={isLight} hasScope={actor?.scopes.length > 0}>
-      <ContainerActorType>
-        <WrapperEcosystemActor>
-          <EcosystemActorText isLight={isLight}>Ecosystem Actor</EcosystemActorText>
-          <ActorAvatar>
-            <CircleAvatarExtended
+    <>
+      {isEnabled('FEATURE_ECOSYSTEM_ACTORS_ABOUT') ? (
+        <Link href={`${siteRoutes.ecosystemActorAbout(actor.code)}`} passHref legacyBehavior>
+          <Item isLight={isLight}>
+            <ExtendedGenericDelegate
               isLight={isLight}
-              width="32px"
-              height="32px"
-              name={actor.name || 'Wallet'}
-              image={actor.image}
-            />
-            <Name isLight={isLight}>{actor.name}</Name>
-          </ActorAvatar>
-        </WrapperEcosystemActor>
+              hasScope={actor?.scopes.length > 0}
+              isHoveEnable={isEnabled('FEATURE_ECOSYSTEM_ACTORS_ABOUT')}
+            >
+              <ContainerActorType>
+                <WrapperEcosystemActor>
+                  <EcosystemActorText isLight={isLight}>Ecosystem Actor</EcosystemActorText>
+                  <ActorAvatar>
+                    <CircleAvatarExtended
+                      isLight={isLight}
+                      width="32px"
+                      height="32px"
+                      name={actor.name || 'Wallet'}
+                      image={actor.image}
+                    />
+                    <Name isLight={isLight}>{actor.name}</Name>
+                  </ActorAvatar>
+                </WrapperEcosystemActor>
 
-        <TypeSection>
-          <WrapperType isLight={isLight}>Role</WrapperType>
-          <ActorTitle isLight={isLight}>{pascalCaseToNormalString(actor.category[0])}</ActorTitle>
-        </TypeSection>
-      </ContainerActorType>
-      <Line isLight={isLight} />
-      <WrapperScopeLinks alignEnd={actor?.scopes.length === 0}>
-        {actor?.scopes.length > 0 && (
-          <ScopeSection>
-            {actor?.scopes?.map((item) => (
-              <ScopeChip status={item.name as ActorScopeEnum} code={item.code} />
-            ))}
-          </ScopeSection>
-        )}
-        <SocialIconsSection>
-          {actor?.socialMediaChannels && (
-            <LinkContainer>
-              <DelegateSocialDtoLinksStyled
-                isLight={isLight}
-                links={getLinksFromRecognizedActors(actor, ActorsLinkType)}
-                fillDark="#ADAFD4"
-                hasTooltip
-              />
-            </LinkContainer>
-          )}
-        </SocialIconsSection>
-      </WrapperScopeLinks>
-    </ExtendedGenericDelegate>
+                <TypeSection>
+                  <WrapperType isLight={isLight}>Role</WrapperType>
+                  <ActorTitle isLight={isLight}>{pascalCaseToNormalString(actor.category[0])}</ActorTitle>
+                </TypeSection>
+              </ContainerActorType>
+              <Line isLight={isLight} />
+              <WrapperScopeLinks alignEnd={actor?.scopes.length === 0}>
+                {actor?.scopes.length > 0 && (
+                  <ScopeSection>
+                    {actor?.scopes?.map((item) => (
+                      <ScopeChip status={item.name as ActorScopeEnum} code={item.code} />
+                    ))}
+                  </ScopeSection>
+                )}
+                <SocialIconsSection>
+                  {actor?.socialMediaChannels && (
+                    <LinkContainer>
+                      <DelegateSocialDtoLinksStyled
+                        isLight={isLight}
+                        links={getLinksFromRecognizedActors(actor, ActorsLinkType)}
+                        fillDark="#ADAFD4"
+                        hasTooltip
+                      />
+                    </LinkContainer>
+                  )}
+                </SocialIconsSection>
+              </WrapperScopeLinks>
+            </ExtendedGenericDelegate>
+          </Item>
+        </Link>
+      ) : (
+        <ExtendedGenericDelegate
+          isLight={isLight}
+          hasScope={actor?.scopes.length > 0}
+          isHoveEnable={isEnabled('FEATURE_ECOSYSTEM_ACTORS_ABOUT')}
+        >
+          <ContainerActorType>
+            <WrapperEcosystemActor>
+              <EcosystemActorText isLight={isLight}>Ecosystem Actor</EcosystemActorText>
+              <ActorAvatar>
+                <CircleAvatarExtended
+                  isLight={isLight}
+                  width="32px"
+                  height="32px"
+                  name={actor.name || 'Wallet'}
+                  image={actor.image}
+                />
+                <Name isLight={isLight}>{actor.name}</Name>
+              </ActorAvatar>
+            </WrapperEcosystemActor>
+
+            <TypeSection>
+              <WrapperType isLight={isLight}>Role</WrapperType>
+              <ActorTitle isLight={isLight}>{pascalCaseToNormalString(actor.category[0])}</ActorTitle>
+            </TypeSection>
+          </ContainerActorType>
+          <Line isLight={isLight} />
+          <WrapperScopeLinks alignEnd={actor?.scopes.length === 0}>
+            {actor?.scopes.length > 0 && (
+              <ScopeSection>
+                {actor?.scopes?.map((item) => (
+                  <ScopeChip status={item.name as ActorScopeEnum} code={item.code} />
+                ))}
+              </ScopeSection>
+            )}
+            <SocialIconsSection>
+              {actor?.socialMediaChannels && (
+                <LinkContainer>
+                  <DelegateSocialDtoLinksStyled
+                    isLight={isLight}
+                    links={getLinksFromRecognizedActors(actor, ActorsLinkType)}
+                    fillDark="#ADAFD4"
+                    hasTooltip
+                  />
+                </LinkContainer>
+              )}
+            </SocialIconsSection>
+          </WrapperScopeLinks>
+        </ExtendedGenericDelegate>
+      )}
+    </>
   );
 };
 
 export default ActorItem;
-const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight & { hasScope: boolean }>(
-  ({ isLight, hasScope }) => ({
+
+const Item = styled.a<WithIsLight>({});
+const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight & { hasScope: boolean; isHoveEnable: boolean }>(
+  ({ isLight, hasScope, isHoveEnable }) => ({
     background: isLight ? '#FFFFFF' : '#10191F',
     boxShadow: isLight
       ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
@@ -82,6 +149,11 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight & { hasS
     fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     minHeight: hasScope ? '214px' : '183px',
+    ...(isHoveEnable && {
+      ':hover': {
+        background: isLight ? '#ECF1F3' : '#1E2C37',
+      },
+    }),
 
     [lightTheme.breakpoints.up('table_834')]: {
       padding: '8px 16px',
