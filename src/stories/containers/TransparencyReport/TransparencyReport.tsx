@@ -15,6 +15,7 @@ import { CoreUnitSummary } from '../../components/CoreUnitSummary/CoreUnitSummar
 import { CustomLink } from '../../components/CustomLink/CustomLink';
 import { CustomPager } from '../../components/CustomPager/CustomPager';
 import { SEOHead } from '../../components/SEOHead/SEOHead';
+import AccountsSnapshotTabContainer from './components/AccountsSnapshot/AccountsSnapshotTabContainer';
 import ExpenseReport from './components/ExpenseReport/ExpenseReport';
 import ExpenseReportStatusIndicator from './components/ExpenseReportStatusIndicator/ExpenseReportStatusIndicator';
 import { TransparencyActuals } from './components/TransparencyActuals/TransparencyActuals';
@@ -156,6 +157,13 @@ export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: T
               )}
               {tabsIndex === TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS && isEnabled('FEATURE_AUDIT_REPORTS') && (
                 <TransparencyAudit budgetStatement={currentBudgetStatement} />
+              )}
+              {tabsIndex === TRANSPARENCY_IDS_ENUM.ACCOUNTS_SNAPSHOTS && isEnabled('FEATURE_ACCOUNTS_SNAPSHOT') && (
+                <AccountsSnapshotTabContainer
+                  snapshotOwner={`${code} Core Unit`}
+                  currentMonth={currentMonth}
+                  ownerId={coreUnit.id}
+                />
               )}
 
               {tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS && (

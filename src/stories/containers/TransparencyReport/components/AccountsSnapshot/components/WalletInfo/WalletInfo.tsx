@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import CopyIcon from '@ses/components/CopyIcon/CopyIcon';
 import Identicon from '@ses/components/Identicon/Identicon';
-import Information from '@ses/components/svg/information';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { formatAddressForOutput } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
@@ -24,7 +23,6 @@ const WalletInfo: React.FC<WalletInfoProps> = ({ name, address }) => {
       <InfoContainer>
         <NameContainer>
           <Name isLight={isLight}>{name}</Name>
-          <InfoIcon isLight={isLight} />
         </NameContainer>
         <AddressContainer>
           <Address isLight={isLight} href={`https://etherscan.io/address/${address}`} target="_blank">
@@ -91,12 +89,6 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
     marginBottom: 6,
     marginRight: 4,
   },
-}));
-
-const InfoIcon = styled(Information)<WithIsLight>(({ isLight }) => ({
-  fill: isLight ? '#D1DEE6' : '#7C6B95',
-  marginTop: 1,
-  minWidth: 15,
 }));
 
 const AddressContainer = styled.div({

@@ -155,28 +155,26 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
       snapshot.snapshotAccount.find((account) => account.groupAccountId === null && account.upstreamAccountId === null),
     [snapshot.snapshotAccount]
   );
-  if (!rootAccount) throw new Error('Maker Protocol Wallet not found');
 
   // main account (MakerDAO Funding Overview section)
   const mainAccount = useMemo(
     () =>
       snapshot.snapshotAccount.find(
-        (account) => account.groupAccountId === rootAccount.id && account.upstreamAccountId === null
+        (account) => account.groupAccountId === rootAccount?.id && account.upstreamAccountId === null
       ),
     [rootAccount?.id, snapshot.snapshotAccount]
   );
-  if (!mainAccount) throw new Error('Maker Protocol Wallet not found');
   const rootBalance = useMemo(
-    () => rootAccount.snapshotAccountBalance.find((balance) => balance.token === selectedToken),
+    () => rootAccount?.snapshotAccountBalance?.find((balance) => balance.token === selectedToken),
     [rootAccount?.snapshotAccountBalance, selectedToken]
   );
 
   // transaction history (MakerDAO Funding Overview section)
   const transactionHistory = useMemo(
     () =>
-      mainAccount.snapshotAccountTransaction
-        .filter((transaction) => transaction.token === selectedToken)
-        .sort(transactionSort),
+      mainAccount?.snapshotAccountTransaction
+        ?.filter((transaction) => transaction.token === selectedToken)
+        ?.sort(transactionSort) ?? [],
     [mainAccount?.snapshotAccountTransaction, selectedToken]
   );
 
@@ -184,7 +182,7 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
   const cuReservesAccount = useMemo(
     () =>
       snapshot.snapshotAccount.find(
-        (account) => account.groupAccountId === rootAccount.id && account.upstreamAccountId !== null
+        (account) => account.groupAccountId === rootAccount?.id && account.upstreamAccountId !== null
       ),
     [rootAccount?.id, snapshot?.snapshotAccount]
   );
@@ -203,12 +201,12 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
   );
 
   const onChainData = useMemo(
-    () => getReserveAccounts(snapshot, false, cuReservesAccount?.id, mainAccount.id, selectedToken),
-    [cuReservesAccount?.id, mainAccount.id, selectedToken, snapshot]
+    () => getReserveAccounts(snapshot, false, cuReservesAccount?.id, mainAccount?.id, selectedToken),
+    [cuReservesAccount?.id, mainAccount?.id, selectedToken, snapshot]
   );
 
   const offChainData = useMemo(
-    () => getReserveAccounts(snapshot, true, cuReservesAccount?.id, mainAccount.id, selectedToken),
+    () => getReserveAccounts(snapshot, true, cuReservesAccount?.id, mainAccount?.id, selectedToken),
     [cuReservesAccount?.id, mainAccount?.id, selectedToken, snapshot]
   );
 
