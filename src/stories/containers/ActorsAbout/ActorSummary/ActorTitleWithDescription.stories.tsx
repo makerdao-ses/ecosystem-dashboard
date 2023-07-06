@@ -15,7 +15,7 @@ export default {
       },
     },
     chromatic: {
-      viewports: [375, 834, 1194, 1440],
+      viewports: [834, 1194, 1280, 1440],
     },
   },
 } as ComponentMeta<typeof ActorTitleWithDescription>;
@@ -59,19 +59,6 @@ export const [[Actors, ActorsDark]] = createThemeModeVariants(ActorTitleWithDesc
 Actors.parameters = {
   figma: {
     component: {
-      375: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20296:268892&mode=design&t=7xT9hZ0jQBSnHsLp-4',
-        options: {
-          style: {
-            left: -32,
-            top: 0,
-          },
-          componentStyle: {
-            width: 343,
-          },
-        },
-      },
       834: {
         component:
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20298:289949&mode=design&t=0HwrXMZTcoozvoKG-4',
