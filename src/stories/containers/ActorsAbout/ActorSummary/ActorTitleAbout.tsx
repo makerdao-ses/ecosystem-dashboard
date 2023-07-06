@@ -8,6 +8,7 @@ import { ActorsLinkType, getLinksFromRecognizedActors } from '@ses/containers/Ac
 
 import { DelegateSocialDtoLinks } from '@ses/containers/RecognizedDelegates/DelegateExpenseBreakdown/DelegateSocialLink';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { pascalCaseToNormalString } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 
 import React from 'react';
@@ -23,32 +24,43 @@ interface Props {
 
 export const ActorTitleAbout = ({ actorAbout, hiddenTextDescription }: Props) => {
   const { isLight } = useThemeContext();
-  const phoneDimensions = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+  const phoneDimensions = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const lessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
 
   return (
     <Container>
       <CircleContainer>
         <CircleAvatar
-          width={'68px'}
-          height={'68px'}
+          width={phoneDimensions ? '32px' : '68px'}
+          height={phoneDimensions ? '32px' : '68px'}
           name={actorAbout?.name || 'Ecosystem Actors'}
           image={actorAbout?.image}
           style={{
             filter: 'drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))',
           }}
         />
+        <WrapperShowOnlyMobile>
+          <ContainerTitle>
+            <ContainerSeparateData>
+              <ResponsiveTitle>
+                {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
+                <TypographySES isLight={isLight}>{pascalCaseToNormalString(actorAbout?.category[0])}</TypographySES>
+              </ResponsiveTitle>
+            </ContainerSeparateData>
+          </ContainerTitle>
+        </WrapperShowOnlyMobile>
       </CircleContainer>
       <ContainerColum>
-        <ContainerTitle>
-          <ContainerSeparateData>
-            <ResponsiveTitle>
-              <CodeActor>{actorAbout?.code}</CodeActor>
-              {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
-              <TypographySES isLight={isLight}>{actorAbout?.category[0]}</TypographySES>
-            </ResponsiveTitle>
-          </ContainerSeparateData>
-        </ContainerTitle>
+        <WrapperShowDesk>
+          <ContainerTitle>
+            <ContainerSeparateData>
+              <ResponsiveTitle>
+                {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
+                <TypographySES isLight={isLight}>{pascalCaseToNormalString(actorAbout?.category[0])}</TypographySES>
+              </ResponsiveTitle>
+            </ContainerSeparateData>
+          </ContainerTitle>
+        </WrapperShowDesk>
 
         <ContainerCategoryConditional>
           {(!(phoneDimensions || lessPhone) || hiddenTextDescription) && (
@@ -82,12 +94,19 @@ export const ActorTitleAbout = ({ actorAbout, hiddenTextDescription }: Props) =>
   );
 };
 
+export default ActorTitleAbout;
+
 const Container = styled.div({
   display: 'flex',
-  flexDirection: 'row',
+  flexDirection: 'column',
   justifyContent: 'flex-start',
   alignItems: 'flex-start',
   fontWeight: 400,
+  [lightTheme.breakpoints.up('table_834')]: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+  },
 });
 
 const ContainerTitle = styled.div({
@@ -115,8 +134,9 @@ const TypographyTitle = styled(Typography, { shouldForwardProp: (prop) => prop !
       fontWeight: 700,
       fontSize: '16px',
       lineHeight: '19px',
-      marginLeft: '4px',
+      marginLeft: '12px',
       marginRight: '0px',
+      marginTop: 4,
     },
     [lightTheme.breakpoints.up('table_834')]: {
       fontStyle: 'normal',
@@ -124,40 +144,41 @@ const TypographyTitle = styled(Typography, { shouldForwardProp: (prop) => prop !
       fontSize: '24px',
       letterSpacing: '0.4px',
       color: isLight ? '#231536' : '#E2D8EE',
-      marginRight: '8px',
+      marginRight: '4px',
       fontFamily: 'Inter, sans-serif',
     },
   })
 );
 
 const TypographySES = styled.div<WithIsLight>(({ isLight }) => ({
-  display: 'none',
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'end',
+  marginBottom: 8,
+  fontFamily: 'Inter, sans-serif',
+  fontWeight: 700,
+  fontSize: 12,
+  fontStyle: 'normal',
+  lineHeight: 'normal',
+  borderRadius: 3,
+  marginTop: 1,
+  marginLeft: 12,
+  padding: '4px 0px',
+  borderBottom: `2px solid ${isLight ? '#708390' : '#787A9B'}`,
+  color: isLight ? '#708390' : 'red',
   [lightTheme.breakpoints.up('table_834')]: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'end',
     marginBottom: 8,
-    fontFamily: 'Inter, sans-serif',
+    marginTop: 6,
+    marginLeft: 4,
     fontWeight: 400,
     fontSize: 14,
-    fontStyle: 'normal',
-    lineHeight: 'normal',
-    color: isLight ? '#708390' : 'red',
+    borderRadius: 'revert',
+    borderBottom: 'revert',
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginBottom: 6,
+    marginBottom: 2,
   },
 }));
-const CodeActor = styled.div({
-  fontSize: 14,
-  fontFamily: 'Inter, sans-serif',
-  fontWeight: 400,
-  lineHeight: 'normal',
-  marginRight: 4,
-  [lightTheme.breakpoints.up('table_834')]: {
-    display: 'none',
-  },
-});
 
 const ContainerLinks = styled.div({
   display: 'flex',
@@ -174,7 +195,8 @@ const ContainerLinks = styled.div({
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     flexDirection: 'column',
     height: 'fit-content',
-    marginTop: '4px',
+    marginTop: -1,
+    marginLeft: 4,
   },
   [lightTheme.breakpoints.up('table_834')]: {
     width: '272px',
@@ -186,12 +208,11 @@ const ContainerLinks = styled.div({
 });
 
 const CircleContainer = styled.div({
-  marginRight: '16px',
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-    display: 'none',
-  },
-  [lightTheme.breakpoints.down('table_375')]: {
-    display: 'none',
+  marginRight: 10,
+  display: 'flex',
+  flexDirection: 'row',
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginRight: 16,
   },
 });
 
@@ -224,7 +245,7 @@ const CategoryContainer = styled.div({
   },
   height: '22px',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    marginTop: 6,
+    marginTop: 4,
     '> div:first-of-type': {
       marginRight: '8px',
     },
@@ -233,9 +254,9 @@ const CategoryContainer = styled.div({
     },
   },
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-    marginBottom: '16px',
-    marginTop: '20px',
-    marginRight: '24px',
+    marginBottom: '18px',
+    marginTop: 6,
+    marginLeft: 4,
     '> div:first-of-type': {
       marginRight: '8px',
     },
@@ -244,7 +265,7 @@ const CategoryContainer = styled.div({
     },
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginTop: 12,
+    marginTop: 4,
     marginRight: '24px',
     '> div:first-of-type': {
       marginRight: '8px',
@@ -254,7 +275,7 @@ const CategoryContainer = styled.div({
     },
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginTop: 14,
+    marginTop: 8,
   },
 });
 const ContainerCategoryConditional = styled.div({
@@ -296,17 +317,32 @@ const ContainerSeparateData = styled.div({
 
 const ResponsiveTitle = styled.div({
   display: 'flex',
-  flexDirection: 'row',
+  flexDirection: 'column',
   width: '100%',
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    width: '100%',
-    marginBottom: '6px',
-  },
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+
+  [lightTheme.breakpoints.up('table_375')]: {
     width: 'auto',
     marginRight: '24px',
     marginBottom: '2px',
   },
+  [lightTheme.breakpoints.up('table_834')]: {
+    width: '100%',
+    marginBottom: '6px',
+    flexDirection: 'row',
+    borderRadius: 'revert',
+    borderBottom: 'revert',
+  },
 });
 
-export default ActorTitleAbout;
+const WrapperShowOnlyMobile = styled.div({
+  display: 'flex',
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'none',
+  },
+});
+const WrapperShowDesk = styled.div({
+  display: 'none',
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'flex',
+  },
+});

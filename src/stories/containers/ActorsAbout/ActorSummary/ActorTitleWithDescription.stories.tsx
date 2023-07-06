@@ -59,6 +59,19 @@ export const [[Actors, ActorsDark]] = createThemeModeVariants(ActorTitleWithDesc
 Actors.parameters = {
   figma: {
     component: {
+      375: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20296:268991&mode=design&t=GpgZz7tpji7PCidt-4',
+        options: {
+          style: {
+            left: 4,
+            top: -6,
+          },
+          componentStyle: {
+            width: 375,
+          },
+        },
+      },
       834: {
         component:
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20298:289949&mode=design&t=0HwrXMZTcoozvoKG-4',

@@ -83,6 +83,10 @@ const SummaryDescription = styled.div<{ hiddenTextDescription: boolean }>(({ hid
   height: hiddenTextDescription ? 'auto' : 0,
   transition: 'all 0.3s ease',
   overflow: 'hidden',
+  marginLeft: 4,
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginLeft: 0,
+  },
 }));
 
 const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
