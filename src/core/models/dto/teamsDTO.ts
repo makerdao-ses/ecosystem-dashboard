@@ -1,3 +1,5 @@
+import type { AuditorDto } from './coreUnitDTO';
+
 export type TeamType = 'AlignedDelegates' | 'CoreUnit' | 'Delegates' | 'EcosystemActor' | 'System';
 
 export interface ActorSocialDto {
@@ -25,6 +27,9 @@ export interface EcosystemActor {
   code: string;
   name: string;
   type: string;
+  sentenceDescription: string;
+  paragraphDescription: string;
+  auditors: AuditorDto[];
   image: string;
   category: string[];
   scopes: Scope[];

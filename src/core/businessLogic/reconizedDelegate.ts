@@ -5,7 +5,7 @@ import { LinkTypeEnum } from '../enums/linkTypeEnum';
 import { getNameDelegates } from '../utils/string';
 import type { DelegateSocialDto, RecognizedDelegatesDto } from '../models/dto/delegatesDTO';
 import type { ExpenseDto } from '../models/dto/expensesDTO';
-import type { LinkModel } from '@ses/containers/RecognizedDelegates/DelegateExpenseBreakdown/DelegateSocialLink';
+import type { LinkModel } from '@ses/components/SocialMediaComponent/SocialMediaComponent';
 
 export const getLinksFromRecognizedDelegates = (del: RecognizedDelegatesDto): LinkModel[] => {
   const result = [] as LinkModel[];

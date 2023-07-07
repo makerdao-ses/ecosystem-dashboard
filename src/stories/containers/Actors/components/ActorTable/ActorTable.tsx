@@ -17,7 +17,7 @@ const ActorTable: React.FC<Props> = ({ actors, columns, sortClick }) => (
     <ContainerList>
       <ActorsHeaderTable columns={columns} sortClick={sortClick} />
       {actors?.map((actor) => (
-        <ActorItem actor={actor} key={actor.name} />
+        <ActorItem actor={actor} key={actor.code} />
       ))}
     </ContainerList>
   </TableWrapper>
