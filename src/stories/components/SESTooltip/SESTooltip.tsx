@@ -5,14 +5,14 @@ import merge from 'deepmerge';
 import React, { useMemo } from 'react';
 import type { TooltipProps } from '@mui/material';
 
-export interface CustomTooltipProps extends Omit<TooltipProps, 'title'> {
+export interface SESTooltipProps extends Omit<TooltipProps, 'title'> {
   content: NonNullable<React.ReactNode>;
   enableClickListener?: boolean;
   borderColor?: React.CSSProperties['color'];
   fallbackPlacements?: TooltipProps['placement'][];
 }
 
-export default function CustomTooltip({
+const SESTooltip: React.FC<SESTooltipProps> = ({
   content,
   children,
   enableClickListener,
@@ -20,13 +20,13 @@ export default function CustomTooltip({
   className,
   fallbackPlacements,
   ...props
-}: CustomTooltipProps) {
+}) => {
   const { isLight } = useThemeContext();
   const borderColor = borderColorProp || (isLight === false ? '#231536' : '#D4D9E1');
 
   const [controlledOpen, setControlledOpen] = React.useState(props.open ?? enableClickListener ? false : undefined);
 
-  const defaultProps = useMemo<Partial<CustomTooltipProps>>(
+  const defaultProps = useMemo<Partial<SESTooltipProps>>(
     () => ({
       placement: 'bottom-end',
       open: controlledOpen,
@@ -76,7 +76,9 @@ export default function CustomTooltip({
         : children}
     </Tooltip>
   );
-}
+};
+
+export default SESTooltip;
 
 const arrowProps = (borderColor: React.CSSProperties['color'], isLight = true) => ({
   // using sx to access pseudo-elements
