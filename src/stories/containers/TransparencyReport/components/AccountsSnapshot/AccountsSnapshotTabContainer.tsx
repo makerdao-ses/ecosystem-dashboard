@@ -17,7 +17,7 @@ const AccountsSnapshotTabContainer: React.FC<AccountsSnapshotTabContainerProps> 
   currentMonth,
   ownerId,
 }) => {
-  const { isLoading, snapshot } = useAccountsSnapshotTab(ownerId);
+  const { isLoading, snapshot } = useAccountsSnapshotTab(ownerId, currentMonth);
 
   return isLoading ? (
     // TODO: implement a fancy loading state
@@ -30,20 +30,18 @@ const AccountsSnapshotTabContainer: React.FC<AccountsSnapshotTabContainerProps> 
     >
       loading...
     </Box>
+  ) : snapshot ? (
+    <AccountsSnapshot snapshot={snapshot} snapshotOwner={snapshotOwner} />
   ) : (
-    <AccountsSnapshot
-      snapshot={
-        snapshot ?? {
-          id: '1',
-          start: null,
-          end: null,
-          ownerType: 'CoreUnit',
-          ownerId: '1',
-          snapshotAccount: [],
-        }
-      }
-      snapshotOwner={snapshotOwner}
-    />
+    <Box
+      sx={{
+        textAlign: 'center',
+        mt: 2,
+        mb: 5,
+      }}
+    >
+      There is no snapshot data for this month
+    </Box>
   );
 };
 
