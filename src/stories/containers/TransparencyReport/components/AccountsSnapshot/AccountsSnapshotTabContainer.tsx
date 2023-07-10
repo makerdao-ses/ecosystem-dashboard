@@ -1,6 +1,6 @@
-import { Box } from '@mui/material';
 import React from 'react';
 import AccountsSnapshot from './AccountsSnapshot';
+import AccountsSnapshotSkeleton from './AccountsSnapshotSkeleton';
 import useAccountsSnapshotTab from './components/useAccountsSnapshotTab';
 import type { DateTime } from 'luxon';
 
@@ -20,16 +20,7 @@ const AccountsSnapshotTabContainer: React.FC<AccountsSnapshotTabContainerProps> 
   const { isLoading, snapshot } = useAccountsSnapshotTab(ownerId);
 
   return isLoading ? (
-    // TODO: implement a fancy loading state
-    <Box
-      sx={{
-        textAlign: 'center',
-        mt: 2,
-        mb: 5,
-      }}
-    >
-      loading...
-    </Box>
+    <AccountsSnapshotSkeleton />
   ) : (
     <AccountsSnapshot
       snapshot={
