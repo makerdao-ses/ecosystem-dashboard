@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
+import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
 import { siteRoutes } from '@ses/config/routes';
-import { DelegateSocialDtoLinks } from '@ses/containers/RecognizedDelegates/DelegateExpenseBreakdown/DelegateSocialLink';
 import GenericDelegateCard from '@ses/containers/RecognizedDelegates/components/GenericDelegateCard';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 
@@ -66,7 +66,7 @@ const ActorItem: React.FC<Props> = ({ actor }) => {
                 <SocialIconsSection>
                   {actor?.socialMediaChannels && (
                     <LinkContainer>
-                      <DelegateSocialDtoLinksStyled
+                      <SocialMediaComponentStyled
                         isLight={isLight}
                         links={getLinksFromRecognizedActors(actor, ActorsLinkType)}
                         fillDark="#ADAFD4"
@@ -117,7 +117,7 @@ const ActorItem: React.FC<Props> = ({ actor }) => {
             <SocialIconsSection>
               {actor?.socialMediaChannels && (
                 <LinkContainer>
-                  <DelegateSocialDtoLinksStyled
+                  <SocialMediaComponentStyled
                     isLight={isLight}
                     links={getLinksFromRecognizedActors(actor, ActorsLinkType)}
                     fillDark="#ADAFD4"
@@ -379,7 +379,7 @@ const SocialIconsSection = styled.div({
 });
 
 const LinkContainer = styled.div({});
-const DelegateSocialDtoLinksStyled = styled(DelegateSocialDtoLinks)<WithIsLight>(({ isLight }) => ({
+const SocialMediaComponentStyled = styled(SocialMediaComponent)<WithIsLight>(({ isLight }) => ({
   '& a': {
     '&:hover svg path': {
       fill: isLight ? '#231536' : '#48495F',

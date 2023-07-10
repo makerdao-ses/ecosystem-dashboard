@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import React from 'react';
 import AccountsSnapshot from './AccountsSnapshot';
 import AccountsSnapshotSkeleton from './AccountsSnapshotSkeleton';
@@ -12,29 +13,25 @@ interface AccountsSnapshotTabContainerProps {
 
 const AccountsSnapshotTabContainer: React.FC<AccountsSnapshotTabContainerProps> = ({
   snapshotOwner,
-  // this parameter is no used till the API is completed
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   currentMonth,
   ownerId,
 }) => {
-  const { isLoading, snapshot } = useAccountsSnapshotTab(ownerId);
+  const { isLoading, snapshot } = useAccountsSnapshotTab(ownerId, currentMonth);
 
   return isLoading ? (
     <AccountsSnapshotSkeleton />
+  ) : snapshot ? (
+    <AccountsSnapshot snapshot={snapshot} snapshotOwner={snapshotOwner} />
   ) : (
-    <AccountsSnapshot
-      snapshot={
-        snapshot ?? {
-          id: '1',
-          start: null,
-          end: null,
-          ownerType: 'CoreUnit',
-          ownerId: '1',
-          snapshotAccount: [],
-        }
-      }
-      snapshotOwner={snapshotOwner}
-    />
+    <Box
+      sx={{
+        textAlign: 'center',
+        mt: 2,
+        mb: 5,
+      }}
+    >
+      There is no snapshot data for this month
+    </Box>
   );
 };
 

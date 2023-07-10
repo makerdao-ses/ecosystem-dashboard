@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { tooltipClasses } from '@mui/material/Tooltip';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import React from 'react';
-import CustomTooltip from './CustomTooltip';
+import SESTooltip from './SESTooltip';
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 const ALIGNMENTS = [
@@ -21,8 +21,8 @@ const ALIGNMENTS = [
 ];
 
 export default {
-  title: 'Components/CustomTooltip',
-  component: CustomTooltip,
+  title: 'Components/General/SESTooltip',
+  component: SESTooltip,
   parameters: {
     chromatic: { disableSnapshot: true },
   },
@@ -35,22 +35,22 @@ export default {
       defaultValue: 'bottom-start',
     },
   },
-} as ComponentMeta<typeof CustomTooltip>;
+} as ComponentMeta<typeof SESTooltip>;
 
-const getCustomBtnTemplate: (btnText?: string) => ComponentStory<typeof CustomTooltip> =
+const getCustomBtnTemplate: (btnText?: string) => ComponentStory<typeof SESTooltip> =
   (btnText = 'Hover me') =>
   ({ ...args }) =>
     (
       <WideContainer>
-        <CustomTooltip {...args} content={<>Custom content here.</>}>
+        <SESTooltip {...args} content={<>Custom content here.</>}>
           <button>{btnText}</button>
-        </CustomTooltip>
+        </SESTooltip>
       </WideContainer>
     );
 
-const VariablePlacementTemplate: ComponentStory<typeof CustomTooltip> = ({ placement, ...args }) => (
+const VariablePlacementTemplate: ComponentStory<typeof SESTooltip> = ({ placement, ...args }) => (
   <CenteredContent>
-    <CustomTooltip
+    <SESTooltip
       placement={placement}
       {...args}
       disableInteractive
@@ -63,11 +63,11 @@ const VariablePlacementTemplate: ComponentStory<typeof CustomTooltip> = ({ place
       }
     >
       <FixedWidthButton>{placement as string}</FixedWidthButton>
-    </CustomTooltip>
+    </SESTooltip>
   </CenteredContent>
 );
 
-const BoundariesTemplate: ComponentStory<typeof CustomTooltip> = ({ placement, ...args }) => (
+const BoundariesTemplate: ComponentStory<typeof SESTooltip> = ({ placement, ...args }) => (
   <OverflownContainer
     ref={(node: HTMLElement | null) => {
       if (node) {
@@ -79,7 +79,7 @@ const BoundariesTemplate: ComponentStory<typeof CustomTooltip> = ({ placement, .
       }
     }}
   >
-    <CustomTooltip
+    <SESTooltip
       open
       placement={placement}
       {...args}
@@ -92,11 +92,11 @@ const BoundariesTemplate: ComponentStory<typeof CustomTooltip> = ({ placement, .
       }
     >
       <button>{placement}</button>
-    </CustomTooltip>
+    </SESTooltip>
   </OverflownContainer>
 );
 
-const CustomStyledTemplate: ComponentStory<typeof CustomTooltip> = ({ placement, ...args }) => (
+const CustomStyledTemplate: ComponentStory<typeof SESTooltip> = ({ placement, ...args }) => (
   <CenteredContent>
     <StyledTooltip
       placement={placement}
@@ -178,7 +178,7 @@ WithFallbackPlacements.args = {
   fallbackPlacements: ['bottom', 'bottom-end', 'top'],
 };
 
-const StyledTooltip = styled(CustomTooltip)(() => ({
+const StyledTooltip = styled(SESTooltip)(() => ({
   backgroundColor: 'red',
   color: 'white',
 

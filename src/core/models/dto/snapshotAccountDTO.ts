@@ -4,10 +4,9 @@ export type AccountType = 'singular' | 'group';
 
 export interface SnapshotFilter {
   id?: string;
-  start?: string;
-  end?: string;
   ownerType?: string;
   ownerId?: string;
+  period?: string;
 }
 
 export interface SnapshotAccountTransaction {
@@ -43,13 +42,32 @@ export interface SnapshotAccount {
   snapshotAccountBalance: SnapshotAccountBalance[];
 }
 
+export interface ActualsComparisonNetExpensesItem {
+  amount: number;
+  difference: number;
+}
+
+export interface ActualsComparisonNetExpenses {
+  onChainOnly: ActualsComparisonNetExpensesItem;
+  offChainIncluded: ActualsComparisonNetExpensesItem;
+}
+
+export interface ActualsComparison {
+  month: string;
+  currency: Token;
+  reportedActuals: number;
+  netExpenses: ActualsComparisonNetExpenses;
+}
+
 export interface Snapshots {
   id: string;
+  period: string;
   start: string | null;
   end: string | null;
   ownerType: string;
   ownerId: string;
   snapshotAccount: SnapshotAccount[];
+  actualsComparison: ActualsComparison[];
 }
 
 export interface UIReservesData extends SnapshotAccount {

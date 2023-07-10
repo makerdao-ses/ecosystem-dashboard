@@ -1,15 +1,14 @@
 import styled from '@emotion/styled';
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import CopyIcon from '@ses/components/CopyIcon/CopyIcon';
+import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
 import { getLinksFromRecognizedDelegates } from '@ses/core/businessLogic/reconizedDelegate';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { deleteTwoDecimalPLace, usLocalizedNumber } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import { formatAddressForOutputDelegateWallet } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
-
 import React from 'react';
-import { DelegateSocialDtoLinks } from '../DelegateExpenseBreakdown/DelegateSocialLink';
 import DelegateBarPercentTotal from './DelegateBarPercentTotal';
 import GenericDelegateCard from './GenericDelegateCard';
 import type { RecognizedDelegatesDto } from '@ses/core/models/dto/delegatesDTO';
@@ -76,11 +75,7 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, relativeV
       <SocialIconsSection>
         {delegateCard.socials && (
           <LinkContainer>
-            <DelegateSocialDtoLinks
-              links={getLinksFromRecognizedDelegates(delegateCard)}
-              fillDark="#ADAFD4"
-              hasTooltip
-            />
+            <SocialMediaComponent links={getLinksFromRecognizedDelegates(delegateCard)} fillDark="#ADAFD4" hasTooltip />
           </LinkContainer>
         )}
       </SocialIconsSection>

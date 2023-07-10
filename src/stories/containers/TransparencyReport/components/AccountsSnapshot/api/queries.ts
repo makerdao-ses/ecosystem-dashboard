@@ -1,12 +1,14 @@
 import { GRAPHQL_ENDPOINT } from '@ses/config/endpoints';
 import request, { gql } from 'graphql-request';
 import type { SnapshotFilter, Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';
+import type { DateTime } from 'luxon';
 
 export const accountsSnapshotQuery = (filter: SnapshotFilter) => ({
   query: gql`
     query Snapshots($filter: SnapshotFilter) {
       snapshots(filter: $filter) {
         id
+        period
         start
         end
         ownerType
@@ -37,6 +39,21 @@ export const accountsSnapshotQuery = (filter: SnapshotFilter) => ({
             inflow
             outflow
             includesOffChain
+          }
+        }
+        actualsComparison {
+          month
+          reportedActuals
+          currency
+          netExpenses {
+            offChainIncluded {
+              amount
+              difference
+            }
+            onChainOnly {
+              amount
+              difference
+            }
           }
         }
       }
@@ -73,10 +90,15 @@ export const teamShortCodeQuery = (id: string) => ({
   },
 });
 
-export const fetchAccountsSnapshot = async (ownerType: string, ownerId: string): Promise<Snapshots[]> => {
+export const fetchAccountsSnapshot = async (
+  ownerType: string,
+  ownerId: string,
+  period?: DateTime
+): Promise<Snapshots[]> => {
   const { query, filter } = accountsSnapshotQuery({
     ownerType,
     ownerId,
+    period: period?.toFormat('yyyy/MM'),
   });
 
   const res = await request<{
@@ -119,6 +141,7 @@ const getTeamsShortCode = async (ownerId: string): Promise<string> => {
 export const generateSnapshotOwnerString = async (ownerType: string, ownerId: string): Promise<string | undefined> => {
   try {
     switch (ownerType) {
+      case 'CoreUnit':
       case 'CoreUnitDraft': {
         const shortCode = await getCoreUnitShortCode(ownerId);
         return `${shortCode} Core Unit`;
@@ -131,4 +154,5 @@ export const generateSnapshotOwnerString = async (ownerType: string, ownerId: st
       }
     }
   } catch (error) {}
+  return '';
 };

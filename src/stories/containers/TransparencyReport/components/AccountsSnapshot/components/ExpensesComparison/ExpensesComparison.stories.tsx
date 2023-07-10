@@ -1,5 +1,5 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import { buildRow, buildRowWithoutOffChain } from '../../useAccountsSnapshot';
+import { buildRow, buildRowWithoutOffChain } from '../../utils/expenseComparisonUtils';
 import ExpensesComparison from './ExpensesComparison';
 import type { RowProps } from '@ses/components/AdvanceTable/types';
 import type { ComponentMeta } from '@storybook/react';
