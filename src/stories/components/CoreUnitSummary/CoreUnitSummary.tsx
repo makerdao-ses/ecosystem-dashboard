@@ -9,7 +9,7 @@ import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
 import { buildQueryString } from '../../../core/utils/urls';
-import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs';
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import BreadCrumbMobile from '../Pagination/BreadcrumbMobile';
 import InsidePagination from '../Pagination/InsidePagination';
 import TitleNavigationCuAbout from '../TitleNavigationCuAbout/TitleNavigationCuAbout';

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Breadcrumbs } from '@ses/components/Breadcrumbs/Breadcrumbs';
+import Breadcrumbs from '@ses/components/Breadcrumbs/Breadcrumbs';
 import BreadcrumbMobile from '@ses/components/Pagination/BreadcrumbMobile';
 import InsidePagination from '@ses/components/Pagination/InsidePagination';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
