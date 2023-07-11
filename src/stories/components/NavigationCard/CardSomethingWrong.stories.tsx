@@ -19,8 +19,6 @@ const variantsArgs = [
   },
 ];
 
-// export const [[Expense, CardExpenseDarkMode]] = createThemeModeVariants(CardSomethingWrong, variantsArgs);
-
 export const [[Card, CardDark]] = createThemeModeVariants(CardSomethingWrong, variantsArgs);
 
 Card.parameters = {
