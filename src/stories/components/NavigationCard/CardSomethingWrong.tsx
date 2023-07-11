@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SES_DASHBOARD, TYPE_FORM } from '../../../core/utils/const';
@@ -8,12 +9,20 @@ import InformationCard from './InformationCard';
 
 interface Props {
   width?: string;
+
+  title?: string;
+  linkText?: string;
 }
 
-const CardSomethingWrong = ({ width }: Props) => {
+const CardSomethingWrong = ({
+  width,
+
+  title = 'Is this your core unit?',
+  linkText = 'Join SES discord #dashboard-reporting channel',
+}: Props) => {
   const { isLight } = useThemeContext();
   return (
-    <InformationCard
+    <StyledInformationCard
       title="Something Wrong on this Page?"
       width={width}
       fontWeight={600}
@@ -22,26 +31,16 @@ const CardSomethingWrong = ({ width }: Props) => {
       padding="16px 16px 24px 16px"
     >
       <TypographyDescription marginBottom={'16px'} isLight={isLight}>
-        Is this your core unit?
+        {title}
       </TypographyDescription>
       <TypographyDescription marginBottom={'16px'} isLight={isLight}>
         We are still collecting all the relevant information.
       </TypographyDescription>
-      <TypographyDescription marginBottom={'12px'} isLight={isLight}>
+      <StyledTypographyDescription marginBottom={'14px'} isLight={isLight}>
         If you see something that needs updating, don't hesitate to contact us.
-      </TypographyDescription>
-      <CustomLink
+      </StyledTypographyDescription>
+      <StyledLink
         href={SES_DASHBOARD}
-        style={{
-          flexWrap: 'wrap',
-          color: '#447AFB',
-          letterSpacing: '0.3px',
-          lineHeight: '19px',
-          marginBottom: '16px',
-          marginLeft: '0px',
-          whiteSpace: 'break-spaces',
-          display: 'inline-block',
-        }}
         fontSize={16}
         fontWeight={500}
         iconWidth={10}
@@ -49,17 +48,10 @@ const CardSomethingWrong = ({ width }: Props) => {
         marginLeft="7px"
         fontFamily="Inter, sans-serif"
       >
-        Join SES discord #dashboard-reporting channel
-      </CustomLink>
+        {linkText}
+      </StyledLink>
       <br />
-      <CustomLink
-        style={{
-          color: '#447AFB',
-          letterSpacing: '0.3px',
-          lineHeight: '19px',
-          marginBottom: '16px',
-          marginLeft: '0px',
-        }}
+      <CustomLinkTypeForm
         href={TYPE_FORM}
         iconWidth={10}
         iconHeight={10}
@@ -69,8 +61,8 @@ const CardSomethingWrong = ({ width }: Props) => {
         fontFamily="Inter, sans-serif"
       >
         Or fill out this Typeform
-      </CustomLink>
-    </InformationCard>
+      </CustomLinkTypeForm>
+    </StyledInformationCard>
   );
 };
 
@@ -89,3 +81,43 @@ const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => 
   color: isLight ? '#546978 ' : '#9FAFB9',
   marginBottom: marginBottom || '0px',
 }));
+
+const StyledInformationCard = styled(InformationCard)({
+  width: '100%',
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    width: 383,
+    minHeight: 212,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    width: 405,
+  },
+});
+
+const StyledLink = styled(CustomLink)({
+  flexWrap: 'wrap',
+  color: '#447AFB',
+  letterSpacing: 'revert',
+  lineHeight: '18px',
+  marginBottom: '12px',
+  marginLeft: '0px',
+  whiteSpace: 'break-spaces',
+  display: 'inline-block',
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    paddingRight: 0,
+  },
+});
+
+const StyledTypographyDescription = styled(TypographyDescription)({
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginBottom: 16,
+  },
+});
+
+const CustomLinkTypeForm = styled(CustomLink)({
+  color: '#447AFB',
+  letterSpacing: 'revert',
+  lineHeight: '18px',
+
+  marginLeft: '0px',
+});
