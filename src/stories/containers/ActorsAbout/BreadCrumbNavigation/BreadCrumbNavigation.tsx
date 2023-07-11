@@ -64,7 +64,7 @@ const BreadCrumbNavigation: React.FC<Props> = ({
           page={itemActual}
           onClickLeft={onClickLeft}
           onClickRight={onClickRight}
-          descriptionText={descriptionTextPagination}
+          descriptionText={descriptionTextPagination || ''}
         />
       </WrapperContainerDesk>
 
