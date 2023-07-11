@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 import React from 'react';
 import AccountsSnapshot from './AccountsSnapshot';
+import AccountsSnapshotSkeleton from './AccountsSnapshotSkeleton';
 import useAccountsSnapshotTab from './components/useAccountsSnapshotTab';
 import type { DateTime } from 'luxon';
 
@@ -12,15 +13,16 @@ interface AccountsSnapshotTabContainerProps {
 
 const AccountsSnapshotTabContainer: React.FC<AccountsSnapshotTabContainerProps> = ({
   snapshotOwner,
-  // this parameter is no used till the API is completed
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   currentMonth,
   ownerId,
 }) => {
-  const { isLoading, snapshot } = useAccountsSnapshotTab(ownerId);
+  const { isLoading, snapshot } = useAccountsSnapshotTab(ownerId, currentMonth);
 
   return isLoading ? (
-    // TODO: implement a fancy loading state
+    <AccountsSnapshotSkeleton />
+  ) : snapshot ? (
+    <AccountsSnapshot snapshot={snapshot} snapshotOwner={snapshotOwner} />
+  ) : (
     <Box
       sx={{
         textAlign: 'center',
@@ -28,22 +30,8 @@ const AccountsSnapshotTabContainer: React.FC<AccountsSnapshotTabContainerProps> 
         mb: 5,
       }}
     >
-      loading...
+      There is no snapshot data for this month
     </Box>
-  ) : (
-    <AccountsSnapshot
-      snapshot={
-        snapshot ?? {
-          id: '1',
-          start: null,
-          end: null,
-          ownerType: 'CoreUnit',
-          ownerId: '1',
-          snapshotAccount: [],
-        }
-      }
-      snapshotOwner={snapshotOwner}
-    />
   );
 };
 
