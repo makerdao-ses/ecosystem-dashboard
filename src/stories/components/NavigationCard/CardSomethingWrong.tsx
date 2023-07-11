@@ -9,21 +9,20 @@ import InformationCard from './InformationCard';
 
 interface Props {
   width?: string;
-  className?: string;
+
   title?: string;
   linkText?: string;
 }
 
 const CardSomethingWrong = ({
   width,
-  className,
+
   title = 'Is this your core unit?',
   linkText = 'Join SES discord #dashboard-reporting channel',
 }: Props) => {
   const { isLight } = useThemeContext();
   return (
     <StyledInformationCard
-      className={className}
       title="Something Wrong on this Page?"
       width={width}
       fontWeight={600}
