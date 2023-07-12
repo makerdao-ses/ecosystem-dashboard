@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import React from 'react';
 import AccountsSnapshot from './AccountsSnapshot';
 import AccountsSnapshotSkeleton from './AccountsSnapshotSkeleton';
-import useAccountsSnapshotTab from './components/useAccountsSnapshotTab';
+import useAccountsSnapshotTab from './useAccountsSnapshotTab';
 import type { DateTime } from 'luxon';
 
 interface AccountsSnapshotTabContainerProps {
