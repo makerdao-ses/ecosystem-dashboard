@@ -1,5 +1,6 @@
 import React from 'react';
-import { Breadcrumbs } from './Breadcrumbs';
+
+import Breadcrumbs from './Breadcrumbs';
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {

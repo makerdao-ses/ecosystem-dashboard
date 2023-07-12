@@ -9,17 +9,16 @@ import type { EcosystemActor } from '@ses/core/models/dto/teamsDTO';
 interface Props {
   hiddenTextDescription: boolean;
   actorAbout: EcosystemActor;
-  showDescription: boolean;
 }
 
-export const ActorTitleWithDescription: React.FC<Props> = ({ hiddenTextDescription, actorAbout, showDescription }) => {
+export const ActorTitleWithDescription: React.FC<Props> = ({ hiddenTextDescription, actorAbout }) => {
   const { isLight } = useThemeContext();
 
   const isPhone = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   return (
     <ContainerTitle hiddenTextDescription={hiddenTextDescription}>
       <ActorTitleAbout actorAbout={actorAbout} hiddenTextDescription={hiddenTextDescription} />
-      {showDescription && actorAbout?.sentenceDescription && (
+      {hiddenTextDescription && (
         <SummaryDescription hiddenTextDescription={isPhone || hiddenTextDescription}>
           <TypographyDescription isLight={isLight}>{actorAbout?.sentenceDescription || ''}</TypographyDescription>
         </SummaryDescription>
@@ -33,36 +32,32 @@ export default ActorTitleWithDescription;
 const ContainerTitle = styled.div<{ hiddenTextDescription: boolean }>(({ hiddenTextDescription }) => ({
   display: 'flex',
   flexDirection: 'column',
-  width: '100%',
+
   height: 'fit-content',
   transition: 'all .3s ease',
   paddingTop: '8px',
 
-  [lightTheme.breakpoints.down('table_375')]: {
-    maxHeight: hiddenTextDescription ? 138 : 200,
-    overflow: 'hidden',
-    paddingLeft: '16px',
-    paddingRight: '16px',
-  },
   [lightTheme.breakpoints.up('table_375')]: {
-    minHeight: hiddenTextDescription ? 138 : 200,
+    minHeight: 'fit-content',
     overflow: 'hidden',
+    width: '100%',
     paddingLeft: 16,
     paddingRight: 16,
     paddingTop: 0,
   },
-
   [lightTheme.breakpoints.up('table_834')]: {
     minHeight: hiddenTextDescription ? 'fit-content' : 64,
     paddingLeft: 32,
     paddingRight: 32,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    maxWidth: 1130,
     maxHeight: hiddenTextDescription ? 138 : 200,
+
+    marginLeft: 'auto',
+    marginRight: 'auto',
     paddingLeft: 0,
     paddingRight: 0,
-    margin: '0 auto',
+    maxWidth: 1130,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     maxWidth: 1184,

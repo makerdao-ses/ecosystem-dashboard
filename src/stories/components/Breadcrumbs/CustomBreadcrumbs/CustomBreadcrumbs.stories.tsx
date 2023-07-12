@@ -1,6 +1,5 @@
 import { siteRoutes } from '@ses/config/routes';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-// import CustomBreadCrumbs from './CustomBreadcrumbs';
 import CustomBreadcrumbs from './CustomBreadcrumbs';
 import type { ComponentMeta } from '@storybook/react';
 

@@ -3,12 +3,13 @@ import Link from 'next/link';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { BreadcrumbSeparator } from '../svg/breadcrumb-separator';
-
+export type NavigationBreadCrumb = {
+  label: string | JSX.Element;
+  url: string;
+  style?: React.CSSProperties;
+};
 interface BreadcrumbsProps {
-  items: {
-    label: string | JSX.Element;
-    url: string;
-  }[];
+  items: NavigationBreadCrumb[];
   height?: number;
   width?: number;
   paddingBreadcrumbs?: string;
@@ -19,7 +20,7 @@ interface BreadcrumbsProps {
   className?: string;
 }
 
-export const Breadcrumbs = (props: BreadcrumbsProps) => {
+const Breadcrumbs = (props: BreadcrumbsProps) => {
   const { isLight } = useThemeContext();
   return (
     <Container
@@ -59,6 +60,7 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
   );
 };
 
+export default Breadcrumbs;
 const Container = styled.div<{
   padding?: string;
   borderRadius?: string;

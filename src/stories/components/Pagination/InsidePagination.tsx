@@ -10,15 +10,24 @@ interface Props {
   page: number;
   onClickRight?: () => void;
   onClickLeft?: () => void;
+  descriptionText?: string;
+  className?: string;
 }
 
-const InsidePagination = ({ page, count, onClickLeft, onClickRight }: Props) => {
+const InsidePagination = ({
+  page,
+  count,
+  onClickLeft,
+  onClickRight,
+  className,
+  descriptionText = 'Core Units',
+}: Props) => {
   const { isLight } = useThemeContext();
   return (
-    <Container>
+    <Container className={className}>
       <PaginationLabel>
         <StyleActualCoreUnit isLight={isLight}>{`${page}`}</StyleActualCoreUnit>
-        <StyleTextCoreUnit isLight={isLight}>{` of ${count} Core Units`} </StyleTextCoreUnit>
+        <StyleTextCoreUnit isLight={isLight}>{` of ${count} ${descriptionText}`} </StyleTextCoreUnit>
       </PaginationLabel>
       <Arrows>
         <ArrowLeft

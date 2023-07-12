@@ -281,17 +281,11 @@ const ContainerCategoryConditional = styled.div({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
-  justifyContent: 'space-between',
-
   width: '100%',
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-  },
 
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
 
