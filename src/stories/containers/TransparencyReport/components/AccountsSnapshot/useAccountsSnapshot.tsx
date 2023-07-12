@@ -1,4 +1,5 @@
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { DateTime } from 'luxon';
 import { useMemo, useState } from 'react';
 import { buildExpensesComparisonRows } from './utils/expenseComparisonUtils';
@@ -7,10 +8,12 @@ import type { Snapshots, Token } from '@ses/core/models/dto/snapshotAccountDTO';
 
 const useAccountsSnapshot = (snapshot: Snapshots) => {
   const { isLight } = useThemeContext();
+  const [isEnabled] = useFlagsActive();
 
   // TODO: the `setSelectedTo` is not used yet, but it will be used to filter the data
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedToken, setSelectedToken] = useState<Token>('DAI');
+  const enableCurrencyPicker = isEnabled('FEATURE_ACCOUNT_SNAPSHOT_CURRENCY_PICKER');
 
   const [includeOffChain, setIncludeOffChain] = useState<boolean>(false);
   const toggleIncludeOffChain = () => setIncludeOffChain(!includeOffChain);
@@ -97,6 +100,7 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
 
   return {
     isLight,
+    enableCurrencyPicker,
     includeOffChain,
     toggleIncludeOffChain,
     startDate,

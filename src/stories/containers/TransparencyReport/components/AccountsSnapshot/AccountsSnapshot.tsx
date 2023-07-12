@@ -13,6 +13,7 @@ interface AccountsSnapshotProps {
 
 const AccountsSnapshot: React.FC<AccountsSnapshotProps> = ({ snapshot, snapshotOwner }) => {
   const {
+    enableCurrencyPicker,
     expensesComparisonRows,
     includeOffChain,
     toggleIncludeOffChain,
@@ -30,6 +31,7 @@ const AccountsSnapshot: React.FC<AccountsSnapshotProps> = ({ snapshot, snapshotO
   return (
     <Wrapper>
       <FundingOverview
+        enableCurrencyPicker={enableCurrencyPicker}
         snapshotOwner={snapshotOwner}
         startDate={startDate}
         endDate={endDate}

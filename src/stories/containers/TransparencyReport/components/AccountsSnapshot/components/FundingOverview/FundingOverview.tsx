@@ -10,6 +10,7 @@ import TransactionHistory from '../TransactionHistory/TransactionHistory';
 import type { SnapshotAccountBalance, SnapshotAccountTransaction } from '@ses/core/models/dto/snapshotAccountDTO';
 
 interface FundingOverviewProps {
+  enableCurrencyPicker?: boolean;
   snapshotOwner?: string;
   startDate?: string;
   endDate?: string;
@@ -21,6 +22,7 @@ interface FundingOverviewProps {
 }
 
 const FundingOverview: React.FC<FundingOverviewProps> = ({
+  enableCurrencyPicker = false,
   snapshotOwner,
   startDate,
   endDate,
@@ -37,7 +39,7 @@ const FundingOverview: React.FC<FundingOverviewProps> = ({
         } over its entire lifetime${startDate ? `, since ${DateTime.fromISO(startDate).toFormat('LLLL yyyy')}` : ''}.`}
         tooltip={'pending...'}
       />
-      <CurrencyPicker />
+      {enableCurrencyPicker && <CurrencyPicker />}
     </HeaderContainer>
 
     <CardsContainer>

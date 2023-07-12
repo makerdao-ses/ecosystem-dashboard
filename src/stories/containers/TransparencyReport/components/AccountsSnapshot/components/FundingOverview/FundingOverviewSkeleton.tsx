@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { BaseSkeleton } from '../BaseSkeleton/BaseSkeleton';
@@ -9,6 +10,8 @@ import TransactionHistorySkeleton from '../TransactionHistory/TransactionHistory
 
 const FundingOverviewSkeleton: React.FC = () => {
   const { isLight } = useThemeContext();
+  const [isEnabled] = useFlagsActive();
+  const enableCurrencyPicker = isEnabled('FEATURE_ACCOUNT_SNAPSHOT_CURRENCY_PICKER');
 
   return (
     <Container>
@@ -22,7 +25,7 @@ const FundingOverviewSkeleton: React.FC = () => {
           </SubtitleContainer>
         </TitleWrapper>
 
-        <CurrencyPicker isLight={isLight} />
+        {enableCurrencyPicker && <CurrencyPicker isLight={isLight} />}
       </HeaderContainer>
 
       <CardsContainer>
