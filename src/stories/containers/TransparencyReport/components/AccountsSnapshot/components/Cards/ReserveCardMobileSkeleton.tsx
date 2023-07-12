@@ -70,8 +70,10 @@ const Card = styled.div<WithIsLight>(({ isLight }) => ({
   gap: 29,
   padding: '16px 24px 24px',
 
-  backgroundColor: isLight ? '#FFFFFF' : 'red',
-  boxShadow: isLight ? '0px 4px 6px 0px rgba(195, 195, 195, 0.25)' : 'red',
+  backgroundColor: isLight ? '#FFFFFF' : '#10191F',
+  boxShadow: isLight
+    ? '0px 4px 6px 0px rgba(195, 195, 195, 0.25)'
+    : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
 }));
 
 const TitleSkeleton = styled(BaseSkeleton)({

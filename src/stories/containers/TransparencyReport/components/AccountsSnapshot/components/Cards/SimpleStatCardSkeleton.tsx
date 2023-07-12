@@ -40,11 +40,11 @@ const SimpleStatCardSkeleton: React.FC<SimpleStatCardSkeletonProps> = ({ withEqu
 export default SimpleStatCardSkeleton;
 
 const Card = styled.div<WithIsLight & { withEquals: boolean }>(({ isLight, withEquals }) => ({
-  background: isLight ? '#fff' : 'red',
+  background: isLight ? '#fff' : '#10191F',
   borderRadius: 6,
   boxShadow: isLight
     ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
-    : '0px 1px 3px 0px red, 0px 20px 40px 0px red',
+    : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
   padding: withEquals ? '8px 16px 16px 16.5px' : '8px 34.5px 16px 16px',
 
   [lightTheme.breakpoints.up('table_834')]: {

@@ -10,7 +10,7 @@ interface NumberWithSignCardSkeletonProps {
 
 const NumberWithSignCardSkeleton: React.FC<NumberWithSignCardSkeletonProps> = ({ sign }) => {
   const { isLight } = useThemeContext();
-  const fill = isLight ? '#ECF1F3' : 'red';
+  const fill = isLight ? '#ECF1F3' : '#31424E';
 
   return (
     <Container>

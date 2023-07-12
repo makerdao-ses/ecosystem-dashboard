@@ -33,9 +33,11 @@ const Card = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'row-reverse',
   width: '100%',
-  background: isLight ? '#fff' : 'red',
+  background: isLight ? '#fff' : '#10191F',
   borderRadius: 6,
-  boxShadow: isLight ? '0px 4px 6px 0px rgba(195, 195, 195, 0.25)' : '0px 1px 3px 0px red',
+  boxShadow: isLight
+    ? '0px 4px 6px 0px rgba(195, 195, 195, 0.25)'
+    : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
   padding: '24px 16px 26px',
   gap: 37,
 
@@ -46,7 +48,7 @@ const Card = styled.div<WithIsLight>(({ isLight }) => ({
     minWidth: 390,
     boxShadow: isLight
       ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
-      : '0px 1px 3px 0px red',
+      : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {

@@ -9,132 +9,140 @@ const ComparisonTableSkeleton: React.FC = () => {
   const { isLight } = useThemeContext();
 
   return (
-    <Table isLight={isLight}>
-      <thead>
-        <tr>
-          <ReportedHeaderTH rowSpan={2} colSpan={2}>
-            <ReportedHeaderSkeleton isLight={isLight} />
-          </ReportedHeaderTH>
-          <NetHeaderTH colSpan={4}>
-            <NetHeaderSkeleton isLight={isLight} />
-          </NetHeaderTH>
-        </tr>
-        <tr>
-          <IconHeaderTH>
-            <ItemWithIconContainer>
-              <OnChainHeaderSkeleton isLight={isLight} />
-              <IconSkeleton isLight={isLight} variant="circular" />
-            </ItemWithIconContainer>
-          </IconHeaderTH>
-          <DifferenceHeaderTH>
-            <DifferenceHeaderSkeleton isLight={isLight} />
-          </DifferenceHeaderTH>
-          <IconHeaderTH>
-            <ItemWithIconContainer>
-              <OffChainHeaderSkeleton isLight={isLight} />
-              <IconSkeleton isLight={isLight} variant="circular" />
-            </ItemWithIconContainer>
-          </IconHeaderTH>
-          <DifferenceHeaderTH>
-            <DifferenceHeaderSkeleton isLight={isLight} />
-          </DifferenceHeaderTH>
-        </tr>
-      </thead>
-      <tbody>
-        <CurrentMonthRow isLight={isLight}>
-          <Col1>
-            <MonthLabelSkeleton isLight={isLight} />
-          </Col1>
-          <Col2>
-            <BigNumberValueSkeleton isLight={isLight} />
-          </Col2>
-          <Col3>
-            <BigNumberValueSkeleton isLight={isLight} />
-          </Col3>
-          <Col4>
-            <DifferenceValueSmallSkeleton isLight={isLight} />
-          </Col4>
-          <Col5>
-            <BigNumberValueSkeleton isLight={isLight} />
-          </Col5>
-          <Col6>
-            <DifferenceValueSmallSkeleton isLight={isLight} />
-          </Col6>
-        </CurrentMonthRow>
-        <tr>
-          <Col1>
-            <MonthLabelSkeleton isLight={isLight} />
-          </Col1>
-          <Col2>
-            <BigNumberValueSkeleton isLight={isLight} />
-          </Col2>
-          <Col3>
-            <BigNumberValueSkeleton isLight={isLight} />
-          </Col3>
-          <Col4>
-            <DifferenceValueLargeSkeleton isLight={isLight} />
-          </Col4>
-          <Col5>
-            <BigNumberValueSkeleton isLight={isLight} />
-          </Col5>
-          <Col6>
-            <DifferenceValueSmallSkeleton isLight={isLight} />
-          </Col6>
-        </tr>
-        <tr>
-          <Col1>
-            <MonthLabelSkeleton isLight={isLight} />
-          </Col1>
-          <Col2>
-            <BigNumberValueSkeleton isLight={isLight} />
-          </Col2>
-          <Col3>
-            <BigNumberValueSkeleton isLight={isLight} />
-          </Col3>
-          <Col4>
-            <DifferenceValueLargeSkeleton isLight={isLight} />
-          </Col4>
-          <Col5>
-            <BigNumberValueSkeleton isLight={isLight} />
-          </Col5>
-          <Col6>
-            <DifferenceValueLargeSkeleton isLight={isLight} />
-          </Col6>
-        </tr>
-        <tr>
-          <Col1>
-            <MonthLabelSkeleton isLight={isLight} />
-          </Col1>
-          <Col2>
-            <BigNumberValueSkeleton isLight={isLight} />
-          </Col2>
-          <Col3>
-            <BigNumberValueSkeleton isLight={isLight} />
-          </Col3>
-          <Col4>
-            <DifferenceValueSmallSkeleton isLight={isLight} />
-          </Col4>
-          <Col5>
-            <BigNumberValueSkeleton isLight={isLight} />
-          </Col5>
-          <Col6>
-            <DifferenceValueLargeSkeleton isLight={isLight} />
-          </Col6>
-        </tr>
-      </tbody>
-    </Table>
+    <Shadow isLight={isLight}>
+      <Table isLight={isLight}>
+        <thead>
+          <tr>
+            <ReportedHeaderTH rowSpan={2} colSpan={2}>
+              <ReportedHeaderSkeleton isLight={isLight} />
+            </ReportedHeaderTH>
+            <NetHeaderTH colSpan={4}>
+              <NetHeaderSkeleton isLight={isLight} />
+            </NetHeaderTH>
+          </tr>
+          <tr>
+            <IconHeaderTH>
+              <ItemWithIconContainer>
+                <OnChainHeaderSkeleton isLight={isLight} />
+                <IconSkeleton isLight={isLight} variant="circular" />
+              </ItemWithIconContainer>
+            </IconHeaderTH>
+            <DifferenceHeaderTH>
+              <DifferenceHeaderSkeleton isLight={isLight} />
+            </DifferenceHeaderTH>
+            <IconHeaderTH>
+              <ItemWithIconContainer>
+                <OffChainHeaderSkeleton isLight={isLight} />
+                <IconSkeleton isLight={isLight} variant="circular" />
+              </ItemWithIconContainer>
+            </IconHeaderTH>
+            <DifferenceHeaderTH>
+              <DifferenceHeaderSkeleton isLight={isLight} />
+            </DifferenceHeaderTH>
+          </tr>
+        </thead>
+        <tbody>
+          <CurrentMonthRow isLight={isLight}>
+            <Col1>
+              <MonthLabelSkeleton isLight={isLight} />
+            </Col1>
+            <Col2>
+              <BigNumberValueSkeleton isLight={isLight} />
+            </Col2>
+            <Col3>
+              <BigNumberValueSkeleton isLight={isLight} />
+            </Col3>
+            <Col4>
+              <DifferenceValueSmallSkeleton isLight={isLight} />
+            </Col4>
+            <Col5>
+              <BigNumberValueSkeleton isLight={isLight} />
+            </Col5>
+            <Col6>
+              <DifferenceValueSmallSkeleton isLight={isLight} />
+            </Col6>
+          </CurrentMonthRow>
+          <tr>
+            <Col1>
+              <MonthLabelSkeleton isLight={isLight} />
+            </Col1>
+            <Col2>
+              <BigNumberValueSkeleton isLight={isLight} />
+            </Col2>
+            <Col3>
+              <BigNumberValueSkeleton isLight={isLight} />
+            </Col3>
+            <Col4>
+              <DifferenceValueLargeSkeleton isLight={isLight} />
+            </Col4>
+            <Col5>
+              <BigNumberValueSkeleton isLight={isLight} />
+            </Col5>
+            <Col6>
+              <DifferenceValueSmallSkeleton isLight={isLight} />
+            </Col6>
+          </tr>
+          <tr>
+            <Col1>
+              <MonthLabelSkeleton isLight={isLight} />
+            </Col1>
+            <Col2>
+              <BigNumberValueSkeleton isLight={isLight} />
+            </Col2>
+            <Col3>
+              <BigNumberValueSkeleton isLight={isLight} />
+            </Col3>
+            <Col4>
+              <DifferenceValueLargeSkeleton isLight={isLight} />
+            </Col4>
+            <Col5>
+              <BigNumberValueSkeleton isLight={isLight} />
+            </Col5>
+            <Col6>
+              <DifferenceValueLargeSkeleton isLight={isLight} />
+            </Col6>
+          </tr>
+          <tr>
+            <Col1>
+              <MonthLabelSkeleton isLight={isLight} />
+            </Col1>
+            <Col2>
+              <BigNumberValueSkeleton isLight={isLight} />
+            </Col2>
+            <Col3>
+              <BigNumberValueSkeleton isLight={isLight} />
+            </Col3>
+            <Col4>
+              <DifferenceValueSmallSkeleton isLight={isLight} />
+            </Col4>
+            <Col5>
+              <BigNumberValueSkeleton isLight={isLight} />
+            </Col5>
+            <Col6>
+              <DifferenceValueLargeSkeleton isLight={isLight} />
+            </Col6>
+          </tr>
+        </tbody>
+      </Table>
+    </Shadow>
   );
 };
 
 export default ComparisonTableSkeleton;
 
+const Shadow = styled.div<WithIsLight>(({ isLight }) => ({
+  filter: isLight
+    ? 'drop-shadow(0px 1px 3px rgba(190, 190, 190, 0.25)) drop-shadow(0px 20px 40px rgba(219, 227, 237, 0.40))'
+    : 'none',
+}));
+
 const Table = styled.table<WithIsLight>(({ isLight }) => ({
   marginTop: 32,
   borderRadius: 6,
-  backgroundColor: isLight ? '#ffffff' : 'red',
+  backgroundColor: isLight ? '#ffffff' : '#10191F',
   boxShadow: isLight
     ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px -40px rgba(219, 227, 237, 0.40)'
-    : '0px 1px 3px 0px red, 0px 20px 40px -40px red',
+    : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
   width: '100%',
   borderCollapse: 'collapse',
   borderSpacing: 0,
@@ -246,7 +254,7 @@ const DifferenceHeaderSkeleton = styled(BaseSkeleton)({
 });
 
 const CurrentMonthRow = styled.tr<WithIsLight>(({ isLight }) => ({
-  background: isLight ? 'rgba(236, 239, 249, 0.30)' : 'red',
+  background: isLight ? 'rgba(236, 239, 249, 0.30)' : 'rgba(48, 54, 60, 0.20)',
 }));
 
 const MonthLabelSkeleton = styled(BaseSkeleton)({
