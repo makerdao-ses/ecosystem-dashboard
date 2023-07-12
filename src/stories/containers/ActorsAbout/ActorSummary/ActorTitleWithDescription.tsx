@@ -16,7 +16,6 @@ export const ActorTitleWithDescription: React.FC<Props> = ({ showTextDescription
   const { isLight } = useThemeContext();
 
   const isPhone = useMediaQuery(lightTheme.breakpoints.down('table_834'));
-
   return (
     <ContainerTitle>
       <ActorTitleAbout
@@ -26,7 +25,9 @@ export const ActorTitleWithDescription: React.FC<Props> = ({ showTextDescription
       />
       {showTextDescription && actorAbout?.sentenceDescription !== '' && (
         <SummaryDescription hiddenTextDescription={isPhone || showTextDescription}>
-          <TypographyDescription isLight={isLight}>{actorAbout?.sentenceDescription || ''}</TypographyDescription>
+          <TypographyDescription isLight={isLight} cutTextTooLong={actorAbout.paragraphDescription.length > 1300}>
+            {actorAbout?.sentenceDescription || ''}
+          </TypographyDescription>
         </SummaryDescription>
       )}
     </ContainerTitle>
@@ -87,7 +88,8 @@ const SummaryDescription = styled.div<{ hiddenTextDescription: boolean }>(({ hid
 
 const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
   isLight: boolean;
-}>(({ isLight }) => ({
+  cutTextTooLong?: boolean;
+}>(({ isLight, cutTextTooLong = 'false' }) => ({
   fontSize: '16px',
   lineHeight: '22px',
   color: isLight ? '#231536' : '#E2D8EE',
@@ -105,5 +107,11 @@ const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => 
     fontWeight: 400,
     fontSize: '12px',
     lineHeight: '18px',
+    whiteSpace: 'normal',
   },
+  ...(cutTextTooLong && {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  }),
 }));
