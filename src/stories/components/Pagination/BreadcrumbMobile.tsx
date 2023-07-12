@@ -20,9 +20,24 @@ interface Props {
     url: string;
     style?: React.CSSProperties;
   }[];
+  className?: string;
+  marginRightSeparator?: string;
+  arrowWidth?: number;
+  arrowHeight?: number;
 }
 
-const BreadcrumbMobile = ({ title, count = 0, page = 0, onClickLeft, onClickRight, items = [] }: Props) => {
+const BreadcrumbMobile = ({
+  title,
+  count = 0,
+  page = 0,
+  onClickLeft,
+  onClickRight,
+  items = [],
+  className,
+  marginRightSeparator = '4px',
+  arrowHeight,
+  arrowWidth,
+}: Props) => {
   const { isLight } = useThemeContext();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -36,7 +51,7 @@ const BreadcrumbMobile = ({ title, count = 0, page = 0, onClickLeft, onClickRigh
   };
 
   return (
-    <Container isLight={isLight}>
+    <Container isLight={isLight} className={className}>
       <div
         style={{
           display: 'flex',
@@ -138,7 +153,13 @@ const BreadcrumbMobile = ({ title, count = 0, page = 0, onClickLeft, onClickRigh
             </MenuItem>
           ))}
         </Menu>
-        <BreadcrumbSeparator style={{ marginRight: '4px' }} width={5} height={10} fill="#D1DEE6" fillDark="#9FAFB9" />
+        <BreadcrumbSeparator
+          style={{ marginRight: marginRightSeparator }}
+          width={5}
+          height={10}
+          fill="#D1DEE6"
+          fillDark="#9FAFB9"
+        />
         <StyleTitle isLight={isLight}>{title}</StyleTitle>
       </div>
       <RightPart>
@@ -147,10 +168,10 @@ const BreadcrumbMobile = ({ title, count = 0, page = 0, onClickLeft, onClickRigh
           <StyleTextCoreUnit isLight={isLight}>{`of ${count}`} </StyleTextCoreUnit>
         </PaginationLabel>
         <Arrows>
-          <ContainerArrowClick onClick={onClickLeft}>
+          <ContainerArrowClick onClick={onClickLeft} width={arrowWidth} height={arrowHeight}>
             <ArrowMobileLeft width={6} height={10} fill={page !== 1 ? undefined : '#d1dee6'} disabled={page === 1} />
           </ContainerArrowClick>
-          <ContainerArrowClick onClick={onClickRight}>
+          <ContainerArrowClick onClick={onClickRight} width={arrowWidth} height={arrowHeight}>
             <ArrowMobileRight
               width={5}
               height={10}
@@ -234,14 +255,14 @@ const StyleTitle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'i
   })
 );
 
-const ContainerArrowClick = styled.div({
-  width: 20,
-  height: 20,
+const ContainerArrowClick = styled.div<{ width?: number; height?: number }>(({ height = 20, width = 20 }) => ({
+  width,
+  height,
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-});
+}));
 const ItemMenu = styled.a({
   textDecoration: 'none',
 });
