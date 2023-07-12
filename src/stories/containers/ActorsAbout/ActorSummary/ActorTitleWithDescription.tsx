@@ -7,19 +7,25 @@ import ActorTitleAbout from './ActorTitleAbout';
 import type { EcosystemActor } from '@ses/core/models/dto/teamsDTO';
 
 interface Props {
-  hiddenTextDescription: boolean;
+  showTextDescription: boolean;
   actorAbout: EcosystemActor;
+  cutTextTooLong?: boolean;
 }
 
-export const ActorTitleWithDescription: React.FC<Props> = ({ hiddenTextDescription, actorAbout }) => {
+export const ActorTitleWithDescription: React.FC<Props> = ({ showTextDescription, actorAbout, cutTextTooLong }) => {
   const { isLight } = useThemeContext();
 
   const isPhone = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+
   return (
-    <ContainerTitle hiddenTextDescription={hiddenTextDescription}>
-      <ActorTitleAbout actorAbout={actorAbout} hiddenTextDescription={hiddenTextDescription} />
-      {hiddenTextDescription && (
-        <SummaryDescription hiddenTextDescription={isPhone || hiddenTextDescription}>
+    <ContainerTitle>
+      <ActorTitleAbout
+        actorAbout={actorAbout}
+        showTextDescription={showTextDescription}
+        cutTextTooLong={cutTextTooLong}
+      />
+      {showTextDescription && actorAbout?.sentenceDescription !== '' && (
+        <SummaryDescription hiddenTextDescription={isPhone || showTextDescription}>
           <TypographyDescription isLight={isLight}>{actorAbout?.sentenceDescription || ''}</TypographyDescription>
         </SummaryDescription>
       )}
@@ -29,7 +35,7 @@ export const ActorTitleWithDescription: React.FC<Props> = ({ hiddenTextDescripti
 
 export default ActorTitleWithDescription;
 
-const ContainerTitle = styled.div<{ hiddenTextDescription: boolean }>(({ hiddenTextDescription }) => ({
+const ContainerTitle = styled.div({
   display: 'flex',
   flexDirection: 'column',
 
@@ -46,13 +52,10 @@ const ContainerTitle = styled.div<{ hiddenTextDescription: boolean }>(({ hiddenT
     paddingTop: 0,
   },
   [lightTheme.breakpoints.up('table_834')]: {
-    minHeight: hiddenTextDescription ? 'fit-content' : 64,
     paddingLeft: 32,
     paddingRight: 32,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    maxHeight: hiddenTextDescription ? 138 : 200,
-
     marginLeft: 'auto',
     marginRight: 'auto',
     paddingLeft: 0,
@@ -62,20 +65,18 @@ const ContainerTitle = styled.div<{ hiddenTextDescription: boolean }>(({ hiddenT
   [lightTheme.breakpoints.up('desktop_1280')]: {
     maxWidth: 1184,
     margin: '0 auto',
-    maxHeight: hiddenTextDescription ? 138 : 200,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     margin: '0 auto',
     paddingLeft: 0,
     paddingRight: 0,
     maxWidth: 1312,
-    maxHeight: hiddenTextDescription ? 138 : 200,
   },
-}));
+});
 
 const SummaryDescription = styled.div<{ hiddenTextDescription: boolean }>(({ hiddenTextDescription }) => ({
   opacity: hiddenTextDescription ? 1 : 0,
-  height: hiddenTextDescription ? 'auto' : 0,
+  height: hiddenTextDescription ? 'fit-content' : 0,
   transition: 'all 0.3s ease',
   overflow: 'hidden',
   marginLeft: 4,
