@@ -49,7 +49,7 @@ const variantsArgs = [
         website: '#',
       })
       .build(),
-    hiddenTextDescription: true,
+    showTextDescription: true,
     showDescription: true,
   },
 ];

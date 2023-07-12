@@ -2,8 +2,7 @@ import styled from '@emotion/styled';
 import { Typography, useMediaQuery } from '@mui/material';
 
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
-
-import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
+import { SocialMediaComponentStyled } from '@ses/containers/Actors/components/ActorItem/ActorItem';
 import ScopeChip from '@ses/containers/Actors/components/ScopeChip/ScopeChip';
 import { ActorsLinkType, getLinksFromRecognizedActors } from '@ses/containers/Actors/utils/utils';
 
@@ -19,10 +18,11 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   actorAbout: EcosystemActor;
-  hiddenTextDescription?: boolean;
+  showTextDescription?: boolean;
+  cutTextTooLong?: boolean;
 }
 
-export const ActorTitleAbout = ({ actorAbout, hiddenTextDescription }: Props) => {
+export const ActorTitleAbout = ({ actorAbout, showTextDescription, cutTextTooLong }: Props) => {
   const { isLight } = useThemeContext();
   const phoneDimensions = useMediaQuery(lightTheme.breakpoints.down('table_834'));
 
@@ -54,7 +54,11 @@ export const ActorTitleAbout = ({ actorAbout, hiddenTextDescription }: Props) =>
           <ContainerTitle>
             <ContainerSeparateData>
               <ResponsiveTitle>
-                {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
+                {actorAbout?.name && (
+                  <TypographyTitle isLight={isLight} cutTextTooLong={cutTextTooLong}>
+                    {actorAbout?.name}
+                  </TypographyTitle>
+                )}
                 <TypographySES isLight={isLight}>{pascalCaseToNormalString(actorAbout?.category[0])}</TypographySES>
               </ResponsiveTitle>
             </ContainerSeparateData>
@@ -62,16 +66,17 @@ export const ActorTitleAbout = ({ actorAbout, hiddenTextDescription }: Props) =>
         </WrapperShowDesk>
 
         <ContainerCategoryConditional>
-          {(!phoneDimensions || hiddenTextDescription) && (
+          {(!phoneDimensions || showTextDescription) && (
             <CategoryContainer>
               {actorAbout?.scopes?.map((item, index) => (
                 <ScopeChip status={item.name as ActorScopeEnum} code={item.code} key={index} />
               ))}
             </CategoryContainer>
           )}
-          {phoneDimensions && hiddenTextDescription && (
+          {phoneDimensions && showTextDescription && (
             <ContainerLinks>
-              <SocialMediaComponent
+              <SocialMediaComponentStyled
+                isLight={isLight}
                 links={getLinksFromRecognizedActors(actorAbout, ActorsLinkType) || []}
                 fill="#708390"
                 fillDark="#ADAFD4"
@@ -82,7 +87,8 @@ export const ActorTitleAbout = ({ actorAbout, hiddenTextDescription }: Props) =>
       </ContainerColum>
       {!phoneDimensions && (
         <ContainerLinks>
-          <SocialMediaComponent
+          <SocialMediaComponentStyled
+            isLight={isLight}
             links={getLinksFromRecognizedActors(actorAbout, ActorsLinkType) || []}
             fill="#708390"
             fillDark="#ADAFD4"
@@ -118,36 +124,54 @@ const ContainerTitle = styled.div({
   },
 });
 
-const TypographyTitle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
-  ({ isLight }) => ({
-    [lightTheme.breakpoints.down('table_375')]: {
-      fontWeight: 700,
-      fontSize: '16px',
-      lineHeight: '19px',
-      marginLeft: '4px',
-      marginRight: '0px',
-    },
-    [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-      fontFamily: 'Inter, sans-serif',
-      fontStyle: 'normal',
-      fontWeight: 700,
-      fontSize: '16px',
-      lineHeight: '19px',
-      marginLeft: '12px',
-      marginRight: '0px',
-      marginTop: 4,
-    },
-    [lightTheme.breakpoints.up('table_834')]: {
-      fontStyle: 'normal',
-      fontWeight: 600,
-      fontSize: '24px',
-      letterSpacing: '0.4px',
-      color: isLight ? '#231536' : '#E2D8EE',
-      marginRight: '4px',
-      fontFamily: 'Inter, sans-serif',
-    },
-  })
-);
+const TypographyTitle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
+  isLight: boolean;
+  cutTextTooLong?: boolean;
+}>(({ isLight, cutTextTooLong }) => ({
+  [lightTheme.breakpoints.down('table_375')]: {
+    fontWeight: 700,
+    fontSize: '16px',
+    lineHeight: '19px',
+    marginLeft: '4px',
+    marginRight: '0px',
+  },
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    fontFamily: 'Inter, sans-serif',
+    fontStyle: 'normal',
+    fontWeight: 700,
+    fontSize: '16px',
+    lineHeight: '19px',
+    marginLeft: '12px',
+    marginRight: '0px',
+    marginTop: 4,
+  },
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontStyle: 'normal',
+    fontWeight: 600,
+    fontSize: '24px',
+    letterSpacing: '0.4px',
+    color: isLight ? '#231536' : '#E2D8EE',
+    marginRight: '4px',
+    fontFamily: 'Inter, sans-serif',
+
+    ...(cutTextTooLong && {
+      width: 250,
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      ':hover': {
+        cursor: 'pointer',
+        whiteSpace: 'normal',
+        width: 'revert',
+        transition: 'all .5s ease',
+      },
+    }),
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    width: 'revert',
+    whiteSpace: 'normal',
+  },
+}));
 
 const TypographySES = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
@@ -226,6 +250,7 @@ const ContainerColum = styled.div({
 const CategoryContainer = styled.div({
   display: 'flex',
   flexDirection: 'row',
+  flexWrap: 'wrap',
   '> div:first-of-type': {
     marginRight: '16px',
   },
@@ -242,7 +267,7 @@ const CategoryContainer = styled.div({
       marginRight: '8px',
     },
   },
-  height: '22px',
+
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     marginTop: 4,
     '> div:first-of-type': {
@@ -253,7 +278,7 @@ const CategoryContainer = styled.div({
     },
   },
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-    marginBottom: '18px',
+    marginBottom: '16px',
     marginTop: 6,
     marginLeft: 4,
     '> div:first-of-type': {

@@ -21,6 +21,9 @@ interface Props {
   styleContainer?: React.CSSProperties;
   buttonWidth?: string;
   queryStrings: string;
+  titleCard?: string;
+  auditorMessage?: string;
+  isCoreUnit?: boolean;
 }
 
 const CardExpenses = ({
@@ -31,8 +34,14 @@ const CardExpenses = ({
   styleContainer = {},
   buttonWidth,
   queryStrings,
+  titleCard,
+  auditorMessage,
+  isCoreUnit = true,
 }: Props) => {
   const { isLight } = useThemeContext();
+  const title = titleCard ?? `View all expenses of the ${getShortCode(code)} Core Unit`;
+  const textLink = isCoreUnit ? 'Core Unit' : 'Ecosystem Actor';
+  const auditorTitle = auditorMessage ?? `The ${getShortCode(code)} Core Unit is currently working without auditor`;
   const isPhone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const isTable = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
 
@@ -55,7 +64,7 @@ const CardExpenses = ({
         }}
       >
         <TypographyDescription marginBottom={'24px'} isLight={isLight} variant="subtitle1">
-          {`View all expenses of the ${getShortCode(code)} Core Unit`}
+          {title}
         </TypographyDescription>
 
         <ContainerButton>
@@ -124,7 +133,7 @@ const CardExpenses = ({
             display: 'inline-block',
           }}
           target="_blank"
-          children={`View on-chain transfers to ${getShortCode(code)} Core Unit on makerburn.com`}
+          children={`View on-chain transfers to ${getShortCode(code)} ${textLink} on makerburn.com`}
         />
       </ContainerLinks>
 
@@ -140,9 +149,7 @@ const CardExpenses = ({
           </Auditors>
         </AuditorsContainer>
       ) : (
-        <NoAuditorsMessage isLight={isLight}>
-          The {getShortCode(code)} Core Unit is currently working without auditor
-        </NoAuditorsMessage>
+        <NoAuditorsMessage isLight={isLight}>{auditorTitle}</NoAuditorsMessage>
       )}
     </InformationCard>
   );
