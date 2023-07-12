@@ -37,9 +37,40 @@ export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
   const { permissionManager } = useAuthContext();
   const { isTimestampTrackingAccepted } = useCookiesContextTracking();
 
-  const [tabsIndex, setTabsIndex] = useState<TRANSPARENCY_IDS_ENUM>(
-    query?.view === 'auditor' ? TRANSPARENCY_IDS_ENUM.EXPENSE_REPORT : TRANSPARENCY_IDS_ENUM.ACTUALS
-  );
+  const [tabsIndex, setTabsIndex] = useState<TRANSPARENCY_IDS_ENUM>(() => {
+    // initialize quickly the correct tab to avoid tab flickering
+    const view = query?.view ?? 'default';
+    if (view === 'auditor') {
+      switch (query?.section) {
+        case TRANSPARENCY_IDS_ENUM.ACCOUNTS_SNAPSHOTS:
+          return TRANSPARENCY_IDS_ENUM.ACCOUNTS_SNAPSHOTS;
+        case TRANSPARENCY_IDS_ENUM.COMMENTS:
+          return TRANSPARENCY_IDS_ENUM.COMMENTS;
+        default:
+          return TRANSPARENCY_IDS_ENUM.EXPENSE_REPORT;
+      }
+    } else {
+      // default
+      switch (query?.section) {
+        case TRANSPARENCY_IDS_ENUM.ACTUALS:
+          return TRANSPARENCY_IDS_ENUM.ACTUALS;
+        case TRANSPARENCY_IDS_ENUM.FORECAST:
+          return TRANSPARENCY_IDS_ENUM.FORECAST;
+        case TRANSPARENCY_IDS_ENUM.MKR_VESTING:
+          return TRANSPARENCY_IDS_ENUM.MKR_VESTING;
+        case TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS:
+          return TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS;
+        case TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS:
+          return TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS;
+        case TRANSPARENCY_IDS_ENUM.ACCOUNTS_SNAPSHOTS:
+          return TRANSPARENCY_IDS_ENUM.ACCOUNTS_SNAPSHOTS;
+        case TRANSPARENCY_IDS_ENUM.COMMENTS:
+          return TRANSPARENCY_IDS_ENUM.COMMENTS;
+        default:
+          return TRANSPARENCY_IDS_ENUM.ACTUALS;
+      }
+    }
+  });
 
   const [lastVisitHandler, setLastVisitHandler] = useState<LastVisitHandler>();
 

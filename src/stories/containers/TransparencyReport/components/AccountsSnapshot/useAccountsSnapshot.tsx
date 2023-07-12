@@ -33,9 +33,9 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
       ),
     [rootAccount?.id, snapshot.snapshotAccount]
   );
-  const rootBalance = useMemo(
-    () => rootAccount?.snapshotAccountBalance?.find((balance) => balance.token === selectedToken),
-    [rootAccount?.snapshotAccountBalance, selectedToken]
+  const mainBalance = useMemo(
+    () => mainAccount?.snapshotAccountBalance?.find((balance) => balance.token === selectedToken),
+    [mainAccount?.snapshotAccountBalance, selectedToken]
   );
 
   // transaction history (MakerDAO Funding Overview section)
@@ -101,7 +101,7 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
     toggleIncludeOffChain,
     startDate,
     endDate,
-    rootBalance,
+    mainBalance,
     transactionHistory,
     cuReservesBalance,
     onChainData,
