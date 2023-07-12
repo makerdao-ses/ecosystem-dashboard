@@ -11,7 +11,7 @@ const EqualSign: React.FC<Props> = ({ height = 15, width = 24, asSkeleton = fals
   const { isLight } = useThemeContext();
   let fill = isLight ? '#ADAFD4' : '#48495F';
   if (asSkeleton) {
-    fill = isLight ? '#ECF1F3' : 'red';
+    fill = isLight ? '#ECF1F3' : '#31424E';
   }
 
   return (

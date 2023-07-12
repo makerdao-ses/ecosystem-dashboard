@@ -70,10 +70,10 @@ const BaseCard = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   borderRadius: 6,
-  background: isLight ? '#FFFFFF' : 'red',
+  background: isLight ? '#FFFFFF' : '#10191F',
   boxShadow: isLight
     ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
-    : '0px 1px 3px 0px red, 0px 20px 40px 0px red',
+    : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
 }));
 
 const Card = styled(BaseCard)({
@@ -160,7 +160,7 @@ const Divider = styled.div<WithIsLight>(({ isLight }) => ({
   marginRight: -8,
   marginTop: 20.75,
   marginBottom: 21,
-  borderTop: `1px solid ${isLight ? '#ECF1F3' : 'red'}`,
+  borderTop: `1px solid ${isLight ? '#ECF1F3' : '#31424E'}`,
 }));
 
 const OffChainLabelSkeleton = styled(BaseSkeleton)({
