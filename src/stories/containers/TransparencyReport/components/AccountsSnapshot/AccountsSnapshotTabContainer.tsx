@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 import React from 'react';
+import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import AccountsSnapshot from './AccountsSnapshot';
 import AccountsSnapshotSkeleton from './AccountsSnapshotSkeleton';
 import useAccountsSnapshotTab from './components/useAccountsSnapshotTab';
@@ -9,12 +10,14 @@ interface AccountsSnapshotTabContainerProps {
   snapshotOwner: string;
   currentMonth: DateTime;
   ownerId: string;
+  longCode: string;
 }
 
 const AccountsSnapshotTabContainer: React.FC<AccountsSnapshotTabContainerProps> = ({
   snapshotOwner,
   currentMonth,
   ownerId,
+  longCode,
 }) => {
   const { isLoading, snapshot } = useAccountsSnapshotTab(ownerId, currentMonth);
 
@@ -23,14 +26,8 @@ const AccountsSnapshotTabContainer: React.FC<AccountsSnapshotTabContainerProps> 
   ) : snapshot ? (
     <AccountsSnapshot snapshot={snapshot} snapshotOwner={snapshotOwner} />
   ) : (
-    <Box
-      sx={{
-        textAlign: 'center',
-        mt: 2,
-        mb: 5,
-      }}
-    >
-      There is no snapshot data for this month
+    <Box sx={{ mb: '64px' }}>
+      <TransparencyEmptyTable longCode={longCode} />
     </Box>
   );
 };

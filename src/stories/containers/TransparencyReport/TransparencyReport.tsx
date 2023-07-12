@@ -163,6 +163,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: T
                   snapshotOwner={`${code} Core Unit`}
                   currentMonth={currentMonth}
                   ownerId={coreUnit.id}
+                  longCode={coreUnit.code}
                 />
               )}
 
