@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 
@@ -29,11 +28,9 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor, code }) =>
   const router = useRouter();
   const { isLight } = useThemeContext();
   const [isEnabled] = useFlagsActive();
-  const table834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
-  const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
-  const LessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
-  const { queryStrings } = useActorAbout(router.query);
-  console.log({ router });
+
+  const { queryStrings, phone, LessPhone, table834 } = useActorAbout(router.query);
+
   return (
     <PageWrapper isLight={isLight}>
       <ActorSummary actors={actors} cutTextTooLong={actor.name.length > 20} />
