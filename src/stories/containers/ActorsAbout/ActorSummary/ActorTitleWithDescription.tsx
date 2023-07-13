@@ -14,7 +14,6 @@ interface Props {
 
 export const ActorTitleWithDescription: React.FC<Props> = ({ showTextDescription, actorAbout, cutTextTooLong }) => {
   const { isLight } = useThemeContext();
-
   const isPhone = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   return (
     <ContainerTitle>
@@ -25,7 +24,7 @@ export const ActorTitleWithDescription: React.FC<Props> = ({ showTextDescription
       />
       {showTextDescription && actorAbout?.sentenceDescription !== '' && (
         <SummaryDescription hiddenTextDescription={isPhone || showTextDescription}>
-          <TypographyDescription isLight={isLight} cutTextTooLong={actorAbout.paragraphDescription.length > 1300}>
+          <TypographyDescription isLight={isLight} cutTextTooLong={actorAbout.sentenceDescription?.length > 500}>
             {actorAbout?.sentenceDescription || ''}
           </TypographyDescription>
         </SummaryDescription>
