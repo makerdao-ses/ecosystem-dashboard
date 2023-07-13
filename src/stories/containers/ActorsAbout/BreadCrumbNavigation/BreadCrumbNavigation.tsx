@@ -6,7 +6,6 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import type { NavigationBreadCrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   totalElements: number;
@@ -38,7 +37,7 @@ const BreadCrumbNavigation: React.FC<Props> = ({
   const { isLight } = useThemeContext();
   return (
     <>
-      <WrapperContainerDesk isLight={isLight}>
+      <WrapperContainerDesk>
         <StyledBreadcrumbs
           items={[
             {
@@ -156,7 +155,7 @@ const StyledInsidePagination = styled(InsidePagination)({
   },
 });
 
-const WrapperContainerDesk = styled.div<WithIsLight>(({ isLight }) => ({
+const WrapperContainerDesk = styled.div({
   display: 'none',
   [lightTheme.breakpoints.up('table_834')]: {
     display: 'flex',
@@ -166,7 +165,7 @@ const WrapperContainerDesk = styled.div<WithIsLight>(({ isLight }) => ({
     paddingLeft: 32,
     paddingRight: 32,
     marginBottom: 16,
-    borderBottom: isLight ? '2px solid rgba(95, 196, 185, 0.1)' : 'none',
+    borderBottom: '2px solid rgba(95, 196, 185, 0.1)',
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     paddingLeft: 48,
@@ -176,7 +175,7 @@ const WrapperContainerDesk = styled.div<WithIsLight>(({ isLight }) => ({
     paddingLeft: 32,
     paddingRight: 32,
   },
-}));
+});
 
 const WrapperContainerMobile = styled.div({
   display: 'none',

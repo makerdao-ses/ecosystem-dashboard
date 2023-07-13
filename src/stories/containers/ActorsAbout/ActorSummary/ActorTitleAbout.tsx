@@ -43,7 +43,9 @@ export const ActorTitleAbout = ({ actorAbout, showTextDescription, cutTextTooLon
             <ContainerSeparateData>
               <ResponsiveTitle>
                 {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
-                <TypographySES isLight={isLight}>{pascalCaseToNormalString(actorAbout?.category[0])}</TypographySES>
+                <TypographyCategory isLight={isLight}>
+                  {pascalCaseToNormalString(actorAbout?.category[0] || '')}
+                </TypographyCategory>
               </ResponsiveTitle>
             </ContainerSeparateData>
           </ContainerTitle>
@@ -59,7 +61,9 @@ export const ActorTitleAbout = ({ actorAbout, showTextDescription, cutTextTooLon
                     {actorAbout?.name}
                   </TypographyTitle>
                 )}
-                <TypographySES isLight={isLight}>{pascalCaseToNormalString(actorAbout?.category[0])}</TypographySES>
+                <TypographyCategory isLight={isLight}>
+                  {pascalCaseToNormalString(actorAbout?.category[0])}
+                </TypographyCategory>
               </ResponsiveTitle>
             </ContainerSeparateData>
           </ContainerTitle>
@@ -128,6 +132,7 @@ const TypographyTitle = styled(Typography, { shouldForwardProp: (prop) => prop !
   isLight: boolean;
   cutTextTooLong?: boolean;
 }>(({ isLight, cutTextTooLong }) => ({
+  color: isLight ? '#231536' : '#E2D8EE',
   [lightTheme.breakpoints.down('table_375')]: {
     fontWeight: 700,
     fontSize: '16px',
@@ -150,7 +155,6 @@ const TypographyTitle = styled(Typography, { shouldForwardProp: (prop) => prop !
     fontWeight: 600,
     fontSize: '24px',
     letterSpacing: '0.4px',
-    color: isLight ? '#231536' : '#E2D8EE',
     marginRight: '4px',
     fontFamily: 'Inter, sans-serif',
 
@@ -173,7 +177,7 @@ const TypographyTitle = styled(Typography, { shouldForwardProp: (prop) => prop !
   },
 }));
 
-const TypographySES = styled.div<WithIsLight>(({ isLight }) => ({
+const TypographyCategory = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'end',
@@ -188,7 +192,7 @@ const TypographySES = styled.div<WithIsLight>(({ isLight }) => ({
   marginLeft: 12,
   padding: '4px 0px',
   borderBottom: `2px solid ${isLight ? '#708390' : '#787A9B'}`,
-  color: isLight ? '#708390' : 'red',
+  color: '#708390',
   [lightTheme.breakpoints.up('table_834')]: {
     marginBottom: 8,
     marginTop: 6,

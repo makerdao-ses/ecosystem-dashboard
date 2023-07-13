@@ -23,7 +23,7 @@ const ActorItem: React.FC<Props> = ({ actor }) => {
   const { isLight } = useThemeContext();
 
   const ActorAboutLink: React.FC<PropsWithChildren> = ({ children }) => (
-    <Link href={siteRoutes.ecosystemActorAbout(actor.code)} legacyBehavior passHref style={{ border: '2px solid red' }}>
+    <Link href={siteRoutes.ecosystemActorAbout(actor.code)} legacyBehavior passHref>
       <a>{children}</a>
     </Link>
   );

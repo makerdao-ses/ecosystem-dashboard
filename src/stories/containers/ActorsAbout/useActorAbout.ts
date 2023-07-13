@@ -3,17 +3,14 @@ import { getArrayParam } from '@ses/core/utils/filters';
 import { buildQueryString } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import { useMemo } from 'react';
-import type { NextRouter } from 'next/router';
+import type { ParsedUrlQuery } from 'querystring';
 
-interface Props {
-  router: NextRouter;
-}
-
-const useActorAboutAbout = ({ router }: Props) => {
+const useActorAboutAbout = (query: ParsedUrlQuery) => {
   const table834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const LessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
-  const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
+  // This is for the filter of Actors List
+  const filteredCategories = useMemo(() => getArrayParam('filteredCategories', query), [query]);
   const queryStrings = useMemo(
     () =>
       buildQueryString({
