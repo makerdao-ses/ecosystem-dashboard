@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import { LinkButton } from '@ses/components/LinkButton/LinkButton';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
+import { MAKER_BURN_LINK } from '@ses/core/utils/const';
+import { getShortCode } from '@ses/core/utils/string';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import lightTheme from '../../../../../../styles/theme/light';
-import { useThemeContext } from '../../../../../core/context/ThemeContext';
-import { ButtonType } from '../../../../../core/enums/buttonTypeEnum';
-import { MAKER_BURN_LINK } from '../../../../../core/utils/const';
-import { getShortCode } from '../../../../../core/utils/string';
 
 interface Props {
   breakdown?: boolean;
