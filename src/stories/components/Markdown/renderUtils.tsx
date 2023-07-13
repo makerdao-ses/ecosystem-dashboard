@@ -87,6 +87,37 @@ export const customRenderer = {
       </ResponsiveCode>
     );
   },
+  heading(text: string, level: number) {
+    switch (level) {
+      case 1:
+        return (
+          <h1
+            style={{
+              color: '#231536',
+              fontSize: 20,
+              fontWeight: 600,
+              letterSpacing: '0.4px',
+            }}
+          >
+            {text}
+          </h1>
+        );
+      case 2:
+        return (
+          <h2
+            style={{
+              color: '#231536',
+              fontSize: 16,
+              fontWeight: 700,
+            }}
+          >
+            {text}
+          </h2>
+        );
+      default:
+        return <h3>{text}</h3>;
+    }
+  },
 };
 
 export const customRendererDark = {
@@ -172,6 +203,37 @@ export const customRendererDark = {
         {text}
       </ResponsiveCode>
     );
+  },
+  heading(text: string, level: number) {
+    switch (level) {
+      case 1:
+        return (
+          <h1
+            style={{
+              color: '#D2D4EF',
+              fontSize: 20,
+              fontWeight: 600,
+              letterSpacing: '0.4px',
+            }}
+          >
+            {text}
+          </h1>
+        );
+      case 2:
+        return (
+          <h2
+            style={{
+              color: '#D2D4EF',
+              fontSize: 16,
+              fontWeight: 700,
+            }}
+          >
+            {text}
+          </h2>
+        );
+      default:
+        return <h3>{text}</h3>;
+    }
   },
 };
 
