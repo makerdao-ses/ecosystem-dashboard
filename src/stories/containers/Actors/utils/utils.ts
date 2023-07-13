@@ -89,3 +89,16 @@ export const filterDataActors = ({
       }) ?? [],
   };
 };
+
+export const defaultSocials = {
+  twitter: '#',
+  forumProfile: '#',
+  forumPlatform: '#',
+  youtube: '#',
+  votingPortal: '#',
+  forumTag: '#',
+  github: '#',
+  discord: '#',
+  website: '#',
+  linkedIn: '#',
+};

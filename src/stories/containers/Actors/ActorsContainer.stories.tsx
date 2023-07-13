@@ -2,21 +2,10 @@ import { EcosystemActorBuilder } from '@ses/core/businessLogic/builders/actors/a
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AppLayout from '../AppLayout/AppLayout';
 import ActorsContainer from './ActorsContainer';
+import { defaultSocials } from './utils/utils';
 import type { EcosystemActor } from '@ses/core/models/dto/teamsDTO';
 import type { ComponentMeta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
-const defaultSocials = {
-  twitter: '#',
-  forumProfile: '#',
-  forumPlatform: '#',
-  youtube: '#',
-  votingPortal: '#',
-  forumTag: '#',
-  github: '#',
-  discord: '#',
-  website: '#',
-  linkedIn: '#',
-};
 export default {
   title: 'Pages/Actors',
   component: ActorsContainer,
