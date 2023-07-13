@@ -17,6 +17,7 @@ interface Props {
   isTitlePresent?: boolean;
   style?: React.CSSProperties;
   styleContainer?: React.CSSProperties;
+  className?: string;
 }
 
 const InformationCard = ({
@@ -31,10 +32,11 @@ const InformationCard = ({
   isTitlePresent = true,
   style = {},
   styleContainer,
+  className,
 }: Props) => {
   const { isLight } = useThemeContext();
   return (
-    <div style={style}>
+    <div style={style} className={className}>
       {isTitlePresent && (
         <Typography
           sx={{
