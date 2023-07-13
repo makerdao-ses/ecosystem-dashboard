@@ -6,6 +6,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import ActorFilters from './components/ActorFilters/ActorFilters';
 import ActorTable from './components/ActorTable/ActorTable';
 import { useActors } from './useActors';
 import type { EcosystemActor } from '@ses/core/models/dto/teamsDTO';
@@ -17,10 +18,22 @@ interface Props {
 }
 
 const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
-  const { readMore, handleRead, showTextDesk, isLessPhone, filtersActive, columns, onSortClick } = useActors(
-    actors,
-    stories
-  );
+  const {
+    readMore,
+    handleRead,
+    showTextDesk,
+    isLessPhone,
+    filtersActive,
+    columns,
+    activeElements,
+    categoriesCount,
+    clearFilters,
+    handleChangeUrlFilterArrays,
+    handleSelectChange,
+    selectElements,
+    filteredCategories,
+    onSortClick,
+  } = useActors(actors, stories);
 
   const { isLight } = useThemeContext();
 
@@ -71,6 +84,20 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
             {!readMore ? 'Read more' : 'Read less'}
           </ReadMore>
         </ContainerReadMore>
+        <FilterContainer>
+          <ActorFilters
+            activeElements={activeElements}
+            handleResetFilter={clearFilters}
+            handleSelectChange={handleSelectChange}
+            selectElements={selectElements}
+            readMore={readMore}
+            categoriesCount={categoriesCount}
+            filteredCategories={filteredCategories}
+            onChange={(value: string[]) => {
+              handleChangeUrlFilterArrays('filteredCategories')(value);
+            }}
+          />
+        </FilterContainer>
         <ContainerList>
           <ActorTable actors={filtersActive} columns={columns} sortClick={onSortClick} />
         </ContainerList>
@@ -206,4 +233,19 @@ const ContainerReadMore = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'flex-end',
+});
+
+const FilterContainer = styled.div({
+  height: 34,
+  marginBottom: 27,
+  marginTop: -4,
+  [lightTheme.breakpoints.up('table_834')]: {
+    height: 48,
+    marginBottom: 33,
+    marginTop: -1,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginTop: 26,
+    marginBottom: 25,
+  },
 });

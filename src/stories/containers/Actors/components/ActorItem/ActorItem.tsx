@@ -1,10 +1,12 @@
 import styled from '@emotion/styled';
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
+import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
 import { siteRoutes } from '@ses/config/routes';
 import GenericDelegateCard from '@ses/containers/RecognizedDelegates/components/GenericDelegateCard';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { pascalCaseToNormalString } from '@ses/core/utils/string';
+import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import Link from 'next/link';
 import React from 'react';
@@ -30,6 +32,18 @@ const ActorItem: React.FC<Props> = ({ actor }) => {
 
   return (
     <ExtendedGenericDelegate isLight={isLight} hasScope={actor.scopes?.length > 0}>
+      <SEOHead
+        title={'MakerDAO Ecosystem Actors | Endgame Overview'}
+        description={
+          'MakerDAO Ecosystem Actors provides a centralized directory of ecosystem actors and their roles for a clear understanding of who is involved in the ecosystem'
+        }
+        image={{
+          src: toAbsoluteURL('/assets/img/social-385x200.png'),
+          width: 385,
+          height: 200,
+        }}
+        twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
+      />
       <ActorAboutLink>
         <ContainerActorType>
           <WrapperEcosystemActor>

@@ -4,8 +4,15 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import type { CuCategoryEnum } from '../../../core/enums/cuCategoryEnum';
 import type { CSSProperties } from 'react';
 
+export enum ExtendedActorsCategoryEnum {
+  ActiveEcosystemActor = 'ActiveEcosystemActor',
+  AdvisoryCouncilMember = 'AdvisoryCouncilMember',
+}
+
+export type CombinedActorsCategoryEnum = CuCategoryEnum & ExtendedActorsCategoryEnum;
+
 interface StatusChipProps {
-  category: CuCategoryEnum | string;
+  category: CombinedActorsCategoryEnum | string;
   style?: CSSProperties;
 }
 

@@ -68,3 +68,24 @@ export const getLinksFromRecognizedActors = (
 
   return result;
 };
+
+const filterCategories = (lowerCaseCategories: string[], data: EcosystemActor) =>
+  lowerCaseCategories.length === 0 || data.category?.some((x) => lowerCaseCategories.indexOf(x.toLowerCase()) > -1);
+
+export const filterDataActors = ({
+  filteredCategories = [],
+  data = [],
+}: {
+  filteredCategories?: string[];
+  data: EcosystemActor[];
+}) => {
+  const lowerCaseCategories = filteredCategories.map((x) => x.toLowerCase());
+  return {
+    filteredCategoryData:
+      data?.filter((data) => {
+        let filterResult = true;
+        filterResult = filterResult && filterCategories(lowerCaseCategories, data);
+        return filterResult;
+      }) ?? [],
+  };
+};
