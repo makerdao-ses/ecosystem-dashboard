@@ -42,5 +42,5 @@ export const getActorAbout = (teamType: TeamType, code: string) => ({
 export const fetchActorAbout = async (teamType: TeamType, code: string): Promise<EcosystemActor> => {
   const { query, filter } = getActorAbout(teamType, code);
   const res = await request<{ teams: EcosystemActor[] }>(GRAPHQL_ENDPOINT, query, filter);
-  return res.teams[0];
+  return res?.teams?.[0];
 };

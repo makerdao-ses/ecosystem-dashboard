@@ -6,14 +6,14 @@ import { API_MONTH_TO_FORMAT } from '../utils/date';
 import { useUrlAnchor } from './useUrlAnchor';
 import type { BudgetStatementDto } from '../models/dto/coreUnitDTO';
 
-type WithBudget = {
+export interface WithBudget {
   budgetStatements: BudgetStatementDto[];
-};
+}
 
-type BudgetStatementPagerOptions = {
+export interface BudgetStatementPagerOptions {
   onPrevious?: () => void;
   onNext?: () => void;
-};
+}
 
 const useBudgetStatementPager = (element: WithBudget, options?: BudgetStatementPagerOptions) => {
   const router = useRouter();

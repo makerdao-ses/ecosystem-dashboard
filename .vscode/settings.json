@@ -3,8 +3,10 @@
         "actuals",
         "Blockie",
         "Blockies",
+        "clawback",
         "deepmerge",
         "Formik",
+        "ftes",
         "gtag",
         "jhon",
         "luxon",
@@ -13,6 +15,7 @@
         "Mvvm",
         "roadmap",
         "Swiper",
+        "topup",
         "viewports"
     ],
     "editor.codeActionsOnSave": {
