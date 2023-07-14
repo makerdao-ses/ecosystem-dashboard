@@ -1,6 +1,7 @@
 import type { AuditorDto } from './coreUnitDTO';
 
-// TODO: use the previous ones
+export type TeamType = 'AlignedDelegates' | 'CoreUnit' | 'Delegates' | 'EcosystemActor' | 'System';
+
 export interface ActorSocialDto {
   [key: string]: string | undefined;
   forumProfile?: string;
