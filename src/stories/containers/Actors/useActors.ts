@@ -4,6 +4,7 @@ import { siteRoutes } from '@ses/config/routes';
 import { ActorsCategoryEnum } from '@ses/core/enums/actorsCategory';
 import { SortEnum } from '@ses/core/enums/sortEnum';
 import { getArrayParam } from '@ses/core/utils/filters';
+import { buildQueryString } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import orderBy from 'lodash/orderBy';
 import sortBy from 'lodash/sortBy';
@@ -25,6 +26,8 @@ export const useActors = (actors: EcosystemActor[], stories = false) => {
   const handleRead = () => {
     setReadMore(!readMore);
   };
+
+  const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
 
   const [sortColumn, setSortColumn] = useState<number>(-1);
   const [headersSort, setHeadersSort] = useState<SortEnum[]>([
@@ -103,7 +106,6 @@ export const useActors = (actors: EcosystemActor[], stories = false) => {
     Object.values(ActorsCategoryEnum).forEach((cat) => {
       result[cat] = actors?.filter((cu) => cu.category?.indexOf(cat) > -1).length;
     });
-    console.log('result', result);
     result.All = actors.length;
     return result;
   }, [actors]);
@@ -135,7 +137,6 @@ export const useActors = (actors: EcosystemActor[], stories = false) => {
   }, [groupByStatusDefaultSorting, sortData]);
 
   const onSortClick = (index: number) => {
-    console.log('onSortClick', index);
     const sortNeutralState = columns.map((column) =>
       column.sort ? SortEnum.Neutral : SortEnum.Disabled
     ) as SortEnum[];
@@ -188,10 +189,6 @@ export const useActors = (actors: EcosystemActor[], stories = false) => {
     [actors]
   );
 
-  const sortClick = () => {
-    console.log('implement sort');
-  };
-
   const handleSelectChange = (value: string[]) => {
     setActiveElements(value);
   };
@@ -204,7 +201,7 @@ export const useActors = (actors: EcosystemActor[], stories = false) => {
     filtersActive,
     columns,
     onSortClick,
-    sortClick,
+
     clearFilters,
     handleSelectChange,
     categoriesCount,
@@ -212,5 +209,6 @@ export const useActors = (actors: EcosystemActor[], stories = false) => {
     selectElements,
     activeElements,
     filteredCategories,
+    queryStrings,
   };
 };

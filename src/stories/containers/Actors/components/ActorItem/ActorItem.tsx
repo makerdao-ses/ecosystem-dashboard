@@ -19,13 +19,14 @@ import type { PropsWithChildren } from 'react';
 
 interface Props {
   actor: EcosystemActor;
+  queryStrings?: string;
 }
 
-const ActorItem: React.FC<Props> = ({ actor }) => {
+const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
   const { isLight } = useThemeContext();
 
   const ActorAboutLink: React.FC<PropsWithChildren> = ({ children }) => (
-    <Link href={siteRoutes.ecosystemActorAbout(actor.code)} legacyBehavior passHref>
+    <Link href={`${siteRoutes.ecosystemActorAbout(actor.code)}/${queryStrings}`} legacyBehavior passHref>
       <a>{children}</a>
     </Link>
   );

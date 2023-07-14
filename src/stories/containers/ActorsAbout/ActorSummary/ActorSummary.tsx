@@ -91,7 +91,7 @@ const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcru
         mainUrl={`${siteRoutes.ecosystemActors}/${queryStrings}`}
         labelFirstItemNavigation={{
           label: buildCULabel(),
-          url: `${siteRoutes.coreUnitAbout(code)}/${queryStrings}`,
+          url: `${siteRoutes.ecosystemActorAbout(code)}/${queryStrings}`,
         }}
         totalElements={filteredData.length}
         onClickLeft={changeCoreUnitCode(-1)}

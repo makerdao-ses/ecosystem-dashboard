@@ -10,14 +10,15 @@ interface Props {
   actors: EcosystemActor[];
   sortClick?: (index: number) => void;
   columns: ActorTableHeader[];
+  queryStrings: string;
 }
 
-const ActorTable: React.FC<Props> = ({ actors, columns, sortClick }) => (
+const ActorTable: React.FC<Props> = ({ actors, columns, sortClick, queryStrings }) => (
   <TableWrapper>
     <ContainerList>
       <ActorsHeaderTable columns={columns} sortClick={sortClick} />
       {actors?.map((actor) => (
-        <ActorItem actor={actor} key={actor.code} />
+        <ActorItem actor={actor} key={actor.code} queryStrings={queryStrings} />
       ))}
     </ContainerList>
   </TableWrapper>

@@ -33,6 +33,7 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
     selectElements,
     filteredCategories,
     onSortClick,
+    queryStrings,
   } = useActors(actors, stories);
 
   const { isLight } = useThemeContext();
@@ -99,7 +100,7 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
           />
         </FilterContainer>
         <ContainerList>
-          <ActorTable actors={filtersActive} columns={columns} sortClick={onSortClick} />
+          <ActorTable actors={filtersActive} columns={columns} sortClick={onSortClick} queryStrings={queryStrings} />
         </ContainerList>
       </Container>
     </ExtendedPageContainer>
