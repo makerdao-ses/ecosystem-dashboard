@@ -14,4 +14,5 @@ export interface FeatureFlagsInterface {
   FEATURE_TEMPORARY_ACCOUNTS_SNAPSHOT_PAGE: boolean; // disable Accounts Snapshot page
   FEATURE_ECOSYSTEM_ACTORS_ABOUT: boolean; // disable Actors About page
   FEATURE_CARD_NAVIGATION_ACTOR_ABOUT_PAGE: boolean; // disable Card Expense in Actors About Page
+  FEATURE_ACCOUNT_SNAPSHOT_CURRENCY_PICKER: boolean; // disable Currency Picker in Accounts Snapshot Page/section
 }

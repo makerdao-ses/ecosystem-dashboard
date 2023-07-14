@@ -85,11 +85,11 @@ const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => 
 const StyledInformationCard = styled(InformationCard)({
   width: '100%',
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    width: 383,
+    minWidth: 383,
     minHeight: 212,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    width: 405,
+    minWidth: 405,
   },
 });
 

@@ -5,7 +5,7 @@ import type { FeatureFlagsInterface } from '../../../feature-flags/feature-flags
 export const useFlagsActive = () => {
   const { enabledFeatures } = useContext(FeatureFlagsContext);
 
-  const isEnabled = (featureName: string) => {
+  const isEnabled = (featureName: keyof FeatureFlagsInterface) => {
     if (!Object.prototype.hasOwnProperty.call(enabledFeatures, featureName)) return false;
     return enabledFeatures[featureName as keyof FeatureFlagsInterface] === true;
   };

@@ -1,29 +1,48 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
+import { fetchActors } from '@ses/containers/Actors/api/queries';
 import ActorAboutContainer from '@ses/containers/ActorsAbout/ActorAboutContainer';
-
+import { fetchActorAbout } from '@ses/containers/ActorsAbout/api/queries';
+import { ActorContext } from '@ses/core/context/ActorContext';
 import { featureFlags } from 'feature-flags/feature-flags';
-import React from 'react';
-
+import React, { useEffect, useState } from 'react';
 import type { EcosystemActor } from '@ses/core/models/dto/teamsDTO';
-import type { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
+import type { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from 'next';
 
-const ActorAbout: NextPage = ({ actor }: InferGetServerSidePropsType<typeof getServerSideProps>) => (
-  <ActorAboutContainer actor={actor} />
-);
+const ActorAbout: NextPage = ({ actors, actor, code }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const [currentActor, setCurrentActor] = useState<EcosystemActor>(actor);
+  useEffect(() => {
+    setCurrentActor(currentActor);
+  }, [currentActor]);
+  return (
+    <ActorContext.Provider
+      value={{
+        actor,
+        actors,
+        setCurrentActor,
+      }}
+    >
+      <ActorAboutContainer actors={actors} actor={actor} code={code} />
+    </ActorContext.Provider>
+  );
+};
 
 export default ActorAbout;
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  if (!featureFlags[CURRENT_ENVIRONMENT].FEATURE_ECOSYSTEM_ACTORS_ABOUT) {
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
+  if (!featureFlags[CURRENT_ENVIRONMENT].FEATURE_ECOSYSTEM_ACTORS) {
     return {
       notFound: true,
     };
   }
-  const actor = {} as EcosystemActor;
+  const { query } = context;
+  const code = query.code as string;
+  const [actors, actor] = await Promise.all([fetchActors('EcosystemActor'), fetchActorAbout('EcosystemActor', code)]);
 
   return {
     props: {
+      actors,
       actor,
+      code,
     },
   };
 };
