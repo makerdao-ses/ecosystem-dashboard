@@ -62,9 +62,9 @@ export default {
   parameters: {
     nextRouter: {
       path: '/ecosystem-actors/[code]',
-      asPath: '/ecosystem-actors/DEWIZ-001',
+      asPath: '/ecosystem-actors/DEWIZ',
       query: {
-        code: 'DEWIZ-001',
+        code: 'DEWIZ',
       },
     },
     chromatic: {
@@ -78,7 +78,7 @@ const variantsArgs = [
   {
     actors: actorsItems,
     actor: actorsItems[0],
-    code: 'DEWIZ-001',
+    code: 'DEWIZ',
   },
 ];
 
