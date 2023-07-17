@@ -16,11 +16,11 @@ import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 import { CuTableColumnLinks } from '../CuTableColumnLinks/CuTableColumnLinks';
 import { CustomLink } from '../CustomLink/CustomLink';
 import { StatusChip } from '../StatusChip/StatusChip';
-import type { CuStatusEnum } from '../../../core/enums/cuStatusEnum';
-import type { CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
+import type { CuMipStatus } from '@ses/core/models/interfaces/types';
 
 interface Props {
-  coreUnitAbout?: CoreUnitDto;
+  coreUnitAbout?: CoreUnit;
   hiddenTextDescription?: boolean;
 }
 
@@ -30,8 +30,8 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout, hiddenTextDescription }:
   const tableDimensions = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const lessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
   if (!coreUnitAbout || coreUnitAbout.cuMip.length === 0) return null;
-  const mipStatus = getStatusMip39AcceptedOrObsolete(coreUnitAbout as CoreUnitDto);
-  const newDate = getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnitAbout as CoreUnitDto));
+  const mipStatus = getStatusMip39AcceptedOrObsolete(coreUnitAbout as CoreUnit);
+  const newDate = getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnitAbout as CoreUnit));
 
   return (
     <Container>
@@ -61,7 +61,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout, hiddenTextDescription }:
                   flexDirection: 'row',
                 }}
               >
-                {mipStatus && <StatusChip status={mipStatus as CuStatusEnum} />}
+                {mipStatus && <StatusChip status={mipStatus as CuMipStatus} />}
                 <Row>
                   {newDate && (
                     <CustomLink
@@ -110,7 +110,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout, hiddenTextDescription }:
           {(phoneDimensions || lessPhone || tableDimensions) && hiddenTextDescription && (
             <ContainerLinks>
               <CuTableColumnLinks
-                links={getLinksFromCoreUnit(coreUnitAbout as CoreUnitDto)}
+                links={getLinksFromCoreUnit(coreUnitAbout as CoreUnit)}
                 fill="#708390"
                 align="flex-start"
                 spacings={16}
@@ -123,7 +123,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout, hiddenTextDescription }:
       {!(phoneDimensions || lessPhone || tableDimensions) && (
         <ContainerLinks>
           <CuTableColumnLinks
-            links={getLinksFromCoreUnit(coreUnitAbout as CoreUnitDto)}
+            links={getLinksFromCoreUnit(coreUnitAbout as CoreUnit)}
             fill="#708390"
             spacings={16}
             fillDark="#ADAFD4"

@@ -2,15 +2,12 @@
 import _ from 'lodash';
 import { API_MONTH_TO_FORMAT } from './date';
 import { capitalizeSentence } from './string';
-import type {
-  BudgetStatementDto,
-  BudgetStatementLineItemDto,
-  BudgetStatementWalletDto,
-} from '../models/dto/coreUnitDTO';
+import type { BudgetStatement } from '../models/interfaces/budgetStatement';
+import type { BudgetStatementLineItem, BudgetStatementWallet } from '../models/interfaces/budgetStatementWallet';
 import type { DateTime } from 'luxon';
 
-export const getAllWallets = (propBudgetStatements: BudgetStatementDto[] | undefined, currentMonth: DateTime) => {
-  const dict: { [id: string]: BudgetStatementWalletDto } = {};
+export const getAllWallets = (propBudgetStatements: BudgetStatement[] | undefined, currentMonth: DateTime) => {
+  const dict: { [id: string]: BudgetStatementWallet } = {};
 
   const budgetStatement = propBudgetStatements?.find((bs) => bs.month === currentMonth.toFormat(API_MONTH_TO_FORMAT));
 
@@ -28,27 +25,27 @@ export const getAllWallets = (propBudgetStatements: BudgetStatementDto[] | undef
   return _.sortBy(Object.values(dict), 'id');
 };
 
-export const getWalletForecast = (wallet: BudgetStatementWalletDto, currentMonth: string) =>
+export const getWalletForecast = (wallet: BudgetStatementWallet, currentMonth: string) =>
   _.sumBy(
     wallet?.budgetStatementLineItem.filter((item) => item.month === currentMonth),
     (i) => i.forecast ?? 0
   );
 
-export const getWalletActual = (wallet: BudgetStatementWalletDto, currentMonth: string) =>
+export const getWalletActual = (wallet: BudgetStatementWallet, currentMonth: string) =>
   _.sumBy(
     wallet?.budgetStatementLineItem.filter((item) => item.month === currentMonth),
     (i) => i.actual ?? 0
   );
-export const getWalletPayment = (wallet: BudgetStatementWalletDto, currentMonth: string) =>
+export const getWalletPayment = (wallet: BudgetStatementWallet, currentMonth: string) =>
   _.sumBy(
     wallet?.budgetStatementLineItem.filter((item) => item.month === currentMonth),
     (i) => i.payment ?? 0
   );
 
-export const getWalletDifference = (wallet: BudgetStatementWalletDto, currentMonth: string) =>
+export const getWalletDifference = (wallet: BudgetStatementWallet, currentMonth: string) =>
   getWalletForecast(wallet, currentMonth) - getWalletActual(wallet, currentMonth);
 
-export const budgetTotalForecast = (currentBudgetStatement: BudgetStatementDto, currentMonth: string) =>
+export const budgetTotalForecast = (currentBudgetStatement: BudgetStatement, currentMonth: string) =>
   _.sumBy(currentBudgetStatement?.budgetStatementWallet, (wallet) =>
     _.sumBy(
       wallet.budgetStatementLineItem.filter((item) => item.month === currentMonth),
@@ -56,7 +53,7 @@ export const budgetTotalForecast = (currentBudgetStatement: BudgetStatementDto, 
     )
   );
 
-export const budgetTotalActual = (currentBudgetStatement: BudgetStatementDto, currentMonth: string) =>
+export const budgetTotalActual = (currentBudgetStatement: BudgetStatement, currentMonth: string) =>
   _.sumBy(currentBudgetStatement?.budgetStatementWallet, (wallet) =>
     _.sumBy(
       wallet.budgetStatementLineItem.filter((item) => item.month === currentMonth),
@@ -64,7 +61,7 @@ export const budgetTotalActual = (currentBudgetStatement: BudgetStatementDto, cu
     )
   );
 
-export const budgetTotalPayment = (currentBudgetStatement: BudgetStatementDto, currentMonth: string) =>
+export const budgetTotalPayment = (currentBudgetStatement: BudgetStatement, currentMonth: string) =>
   _.sumBy(currentBudgetStatement?.budgetStatementWallet, (wallet) =>
     _.sumBy(
       wallet.budgetStatementLineItem.filter((item) => item.month === currentMonth),
@@ -72,22 +69,20 @@ export const budgetTotalPayment = (currentBudgetStatement: BudgetStatementDto, c
     )
   );
 
-export const budgetTotalDifference = (wallet: BudgetStatementDto, currentMonth: string) =>
+export const budgetTotalDifference = (wallet: BudgetStatement, currentMonth: string) =>
   budgetTotalForecast(wallet, currentMonth) - budgetTotalActual(wallet, currentMonth);
 
-export const getGroupForecast = (group: BudgetStatementLineItemDto[], currentMonth: string) =>
+export const getGroupForecast = (group: BudgetStatementLineItem[], currentMonth: string) =>
   _.sumBy(
     group.filter((item) => item.month === currentMonth),
     (item) => item.forecast ?? 0
   );
 
-export const getGroupActual = (group: BudgetStatementLineItemDto[], currentMonth: string) =>
+export const getGroupActual = (group: BudgetStatementLineItem[], currentMonth: string) =>
   _.sumBy(
     group.filter((item) => item.month === currentMonth),
     (item) => item.actual ?? 0
   );
 
-export const currentBudgetStatementWorking = (
-  budgetStatement: BudgetStatementDto[] | undefined,
-  currentMonth: string
-) => budgetStatement?.find((x) => x.month === currentMonth) ?? null;
+export const currentBudgetStatementWorking = (budgetStatement: BudgetStatement[] | undefined, currentMonth: string) =>
+  budgetStatement?.find((x) => x.month === currentMonth) ?? null;

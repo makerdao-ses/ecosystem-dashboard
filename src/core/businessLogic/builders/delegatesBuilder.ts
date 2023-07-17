@@ -1,5 +1,6 @@
-import type { ActivityFeedDto, BudgetStatementDto } from '../../models/dto/coreUnitDTO';
 import type { DelegatesDto } from '@ses/core/models/dto/delegatesDTO';
+import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
+import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 
 export class RecognizedDelegatesBuilder {
   private readonly _delegates: DelegatesDto;
@@ -9,8 +10,8 @@ export class RecognizedDelegatesBuilder {
       id: '1',
       code: '',
       shortCode: '',
-      budgetStatements: [] as BudgetStatementDto[],
-      activityFeed: [] as ActivityFeedDto[],
+      budgetStatements: [] as BudgetStatement[],
+      activityFeed: [] as ChangeTrackingEvent[],
     } as DelegatesDto;
   }
 
@@ -29,12 +30,12 @@ export class RecognizedDelegatesBuilder {
     return this;
   }
 
-  addBudgetStatement(budgetStatement: BudgetStatementDto): RecognizedDelegatesBuilder {
+  addBudgetStatement(budgetStatement: BudgetStatement): RecognizedDelegatesBuilder {
     this._delegates.budgetStatements.push(budgetStatement);
     return this;
   }
 
-  addActivity(activity: ActivityFeedDto): RecognizedDelegatesBuilder {
+  addActivity(activity: ChangeTrackingEvent): RecognizedDelegatesBuilder {
     this._delegates.activityFeed.push(activity);
     return this;
   }

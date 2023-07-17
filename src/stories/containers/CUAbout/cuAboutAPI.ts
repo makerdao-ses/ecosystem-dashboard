@@ -1,6 +1,6 @@
 import { request, gql } from 'graphql-request';
 import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
-import type { CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
 export const GET_CU_ABOUT_BY_CODE = gql`
   query CoreUnits($filter: CoreUnitFilter) {
@@ -65,6 +65,6 @@ export const fetchCoreUnitByCode = async (shortCode: string) => {
     filter: {
       shortCode,
     },
-  })) as { coreUnits: CoreUnitDto[] };
+  })) as { coreUnits: CoreUnit[] };
   return res.coreUnits[0];
 };

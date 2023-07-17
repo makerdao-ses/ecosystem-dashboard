@@ -16,7 +16,7 @@ import { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import { AUDITOR_VIEW_STORAGE_COLLECTION_KEY } from './utils/constants';
 import type { TableItems } from './TransparencyReport';
 import type { InternalTabsProps } from '@ses/components/Tabs/Tabs';
-import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
 export enum TRANSPARENCY_IDS_ENUM {
   ACTUALS = 'actuals',
@@ -29,7 +29,7 @@ export enum TRANSPARENCY_IDS_ENUM {
   EXPENSE_REPORT = 'expense-report',
 }
 
-export const useTransparencyReport = (coreUnit: CoreUnitDto) => {
+export const useTransparencyReport = (coreUnit: CoreUnit) => {
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;

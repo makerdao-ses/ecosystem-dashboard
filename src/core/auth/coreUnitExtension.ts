@@ -1,5 +1,6 @@
 import type { UserDTO } from '../models/dto/authDTO';
-import type { CoreUnitDto } from '../models/dto/coreUnitDTO';
+import type { CoreUnit } from '../models/interfaces/coreUnit';
+import type { User } from '../models/interfaces/users';
 import type PermissionManager from './permissionManager';
 
 class CoreUnitExtension {
@@ -11,7 +12,7 @@ class CoreUnitExtension {
     this.permissionManager = permissionManager;
   }
 
-  private getCoreUnitId(coreUnit: CoreUnitDto | string): string {
+  private getCoreUnitId(coreUnit: CoreUnit | string): string {
     if (typeof coreUnit === 'string') {
       return coreUnit;
     }
@@ -19,7 +20,7 @@ class CoreUnitExtension {
     return coreUnit.id;
   }
 
-  canComment(coreUnit: CoreUnitDto | string, user?: UserDTO): boolean {
+  canComment(coreUnit: CoreUnit | string, user?: UserDTO | User): boolean {
     if (!user) {
       user = this.permissionManager.loggedUser;
     }
@@ -38,7 +39,7 @@ class CoreUnitExtension {
     ]);
   }
 
-  isAuditor(coreUnit?: CoreUnitDto, user?: UserDTO): boolean {
+  isAuditor(coreUnit?: CoreUnit, user?: UserDTO | User): boolean {
     if (!user) {
       user = this.permissionManager.loggedUser;
     }
@@ -51,7 +52,7 @@ class CoreUnitExtension {
     return !!coreUnit?.auditors?.some((auditor) => auditor.id === user?.id);
   }
 
-  isCoreUnitAdmin(coreUnit?: CoreUnitDto | string, user?: UserDTO): boolean {
+  isCoreUnitAdmin(coreUnit?: CoreUnit | string, user?: UserDTO | User): boolean {
     if (!user) {
       user = this.permissionManager.loggedUser;
     }

@@ -23,9 +23,9 @@ import { CuTableColumnLastModified } from '../../components/CuTableColumnLastMod
 import { CuTableColumnLinks } from '../../components/CuTableColumnLinks/CuTableColumnLinks';
 import { CuTableColumnSummary } from '../../components/CuTableColumnSummary/CuTableColumnSummary';
 import { CuTableColumnTeamMember } from '../../components/CuTableColumnTeamMember/CuTableColumnTeamMember';
-import type { CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
-export const renderSummary = (coreUnit: CoreUnitDto) => {
+export const renderSummary = (coreUnit: CoreUnit) => {
   if (!coreUnit) return <CuTableColumnSummary isLoading />;
 
   return (
@@ -42,7 +42,7 @@ export const renderSummary = (coreUnit: CoreUnitDto) => {
   );
 };
 
-export const renderExpenditures = (coreUnit: CoreUnitDto) => {
+export const renderExpenditures = (coreUnit: CoreUnit) => {
   if (!coreUnit) return <CuTableColumnExpenditures isLoading />;
 
   return (
@@ -61,7 +61,7 @@ export const renderExpenditures = (coreUnit: CoreUnitDto) => {
   );
 };
 
-export const renderTeamMember = (coreUnit: CoreUnitDto) => {
+export const renderTeamMember = (coreUnit: CoreUnit) => {
   if (!coreUnit) return <CuTableColumnTeamMember isLoading />;
   return (
     <TeamMemberContainer>
@@ -70,7 +70,7 @@ export const renderTeamMember = (coreUnit: CoreUnitDto) => {
   );
 };
 
-export const renderLinks = (coreUnit: CoreUnitDto) => {
+export const renderLinks = (coreUnit: CoreUnit) => {
   if (!coreUnit) return <CuTableColumnLinks isLoading />;
   return (
     <LinksContainer>
@@ -85,12 +85,12 @@ export const renderLinks = (coreUnit: CoreUnitDto) => {
   );
 };
 
-export const renderCard = (coreUnit: CoreUnitDto, key?: number) => {
-  if (!coreUnit) return <CoreUnitCard key={`card-placeholder-${key}`} coreUnit={{} as CoreUnitDto} isLoading />;
+export const renderCard = (coreUnit: CoreUnit, key?: number) => {
+  if (!coreUnit) return <CoreUnitCard key={`card-placeholder-${key}`} coreUnit={{} as CoreUnit} isLoading />;
   return <CoreUnitCard key={`card-${coreUnit.code}`} coreUnit={coreUnit} />;
 };
 
-export const renderLastModified = (coreUnit: CoreUnitDto) => {
+export const renderLastModified = (coreUnit: CoreUnit) => {
   if (!coreUnit) return <CuTableColumnLastModified date={undefined} isLoading={!coreUnit} />;
   return <CuTableColumnLastModified date={getLastMonthWithData(coreUnit)} code={getShortCode(coreUnit.shortCode)} />;
 };

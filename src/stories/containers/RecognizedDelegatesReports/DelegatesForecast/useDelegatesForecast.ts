@@ -5,15 +5,16 @@ import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
 import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date';
 import { getWalletWidthForWallets } from '../../../../core/utils/string';
-import type { BudgetStatementDto, BudgetStatementLineItemDto } from '../../../../core/models/dto/coreUnitDTO';
 import type {
   InnerTableColumn,
   InnerTableRow,
   RowType,
 } from '../../../components/AdvancedInnerTable/AdvancedInnerTable';
+import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
+import type { BudgetStatementLineItem } from '@ses/core/models/interfaces/budgetStatementWallet';
 import type { DateTime } from 'luxon';
 
-export const useDelegatesForecast = (currentMonth: DateTime, propBudgetStatements: BudgetStatementDto[]) => {
+export const useDelegatesForecast = (currentMonth: DateTime, propBudgetStatements: BudgetStatement[]) => {
   const firstMonthForecast = useMemo(() => currentMonth.plus({ month: 1 }), [currentMonth]);
   const secondMonthForecast = useMemo(() => currentMonth.plus({ month: 2 }), [currentMonth]);
   const thirdMonthForecast = useMemo(() => currentMonth.plus({ month: 3 }), [currentMonth]);
@@ -24,7 +25,7 @@ export const useDelegatesForecast = (currentMonth: DateTime, propBudgetStatement
   );
 
   const getForecastForMonthOnWalletOnBudgetStatement = (
-    budgetStatements: BudgetStatementDto[],
+    budgetStatements: BudgetStatement[],
     walletAddress: string | undefined,
     currentMonth: DateTime,
     month: DateTime
@@ -47,7 +48,7 @@ export const useDelegatesForecast = (currentMonth: DateTime, propBudgetStatement
   };
 
   const getBudgetCapForMonthOnWalletOnBudgetStatement = (
-    budgetStatements: BudgetStatementDto[],
+    budgetStatements: BudgetStatement[],
     walletAddress: string | undefined,
     currentMonth: DateTime,
     month: DateTime
@@ -71,7 +72,7 @@ export const useDelegatesForecast = (currentMonth: DateTime, propBudgetStatement
 
   const getForecastSumOfMonthsOnWalletForecast = useCallback(
     (
-      budgetStatements: BudgetStatementDto[],
+      budgetStatements: BudgetStatement[],
       walletAddress: string | undefined,
       currentMonth: DateTime,
       months: DateTime[]
@@ -91,7 +92,7 @@ export const useDelegatesForecast = (currentMonth: DateTime, propBudgetStatement
 
   const getBudgetCapSumOfMonthsOnWallet = useCallback(
     (
-      budgetStatements: BudgetStatementDto[],
+      budgetStatements: BudgetStatement[],
       walletAddress: string | undefined,
       currentMonth: DateTime,
       months: DateTime[]
@@ -109,7 +110,7 @@ export const useDelegatesForecast = (currentMonth: DateTime, propBudgetStatement
     []
   );
 
-  const getForecastSumForMonth = (budgetStatements: BudgetStatementDto[], currentMonth: DateTime, month: DateTime) => {
+  const getForecastSumForMonth = (budgetStatements: BudgetStatement[], currentMonth: DateTime, month: DateTime) => {
     const budgetStatement =
       budgetStatements?.find((x) => x.month === currentMonth.toFormat(API_MONTH_TO_FORMAT)) ?? null;
 
@@ -122,7 +123,7 @@ export const useDelegatesForecast = (currentMonth: DateTime, propBudgetStatement
   };
 
   const getForecastSumForMonthsForecast = useCallback(
-    (budgetStatements: BudgetStatementDto[], currentMonth: DateTime, months: DateTime[]) => {
+    (budgetStatements: BudgetStatement[], currentMonth: DateTime, months: DateTime[]) => {
       let result = 0;
 
       months.forEach((month) => {
@@ -135,7 +136,7 @@ export const useDelegatesForecast = (currentMonth: DateTime, propBudgetStatement
   );
 
   const getBudgetCapForMonthOnBudgetStatement = (
-    budgetStatements: BudgetStatementDto[],
+    budgetStatements: BudgetStatement[],
     currentMonth: DateTime,
     month: DateTime
   ) => {
@@ -151,7 +152,7 @@ export const useDelegatesForecast = (currentMonth: DateTime, propBudgetStatement
   };
 
   const getTotalQuarterlyBudgetCapOnBudgetStatement = useCallback(
-    (budgetStatements: BudgetStatementDto[], months: DateTime[]) => {
+    (budgetStatements: BudgetStatement[], months: DateTime[]) => {
       let result = 0;
 
       walletsForecast.forEach((wallet) => {
@@ -174,7 +175,7 @@ export const useDelegatesForecast = (currentMonth: DateTime, propBudgetStatement
   }, [propBudgetStatements, walletsForecast]);
 
   const getLineItemsForWalletOnMonth = (
-    budgetStatements: BudgetStatementDto[],
+    budgetStatements: BudgetStatement[],
     currentMonth: DateTime,
     month: DateTime,
     walletAddress: string
@@ -190,13 +191,13 @@ export const useDelegatesForecast = (currentMonth: DateTime, propBudgetStatement
     );
   };
 
-  const getLineItemForecastSumForMonth = (items: BudgetStatementLineItemDto[], month: DateTime) =>
+  const getLineItemForecastSumForMonth = (items: BudgetStatementLineItem[], month: DateTime) =>
     _.sumBy(
       items.filter((item) => item.month === month.toFormat(API_MONTH_TO_FORMAT)),
       (item) => item.forecast ?? 0
     );
 
-  const getLineItemForecastSumForMonths = (items: BudgetStatementLineItemDto[], months: DateTime[]) => {
+  const getLineItemForecastSumForMonths = (items: BudgetStatementLineItem[], months: DateTime[]) => {
     const formattedMonths = months.map((x) => x.toFormat(API_MONTH_TO_FORMAT));
     return _.sumBy(
       items.filter((item) => formattedMonths.indexOf(item.month ?? '') > -1),
@@ -204,13 +205,13 @@ export const useDelegatesForecast = (currentMonth: DateTime, propBudgetStatement
     );
   };
 
-  const getBudgetCapForMonthOnLineItem = (items: BudgetStatementLineItemDto[], month: DateTime) =>
+  const getBudgetCapForMonthOnLineItem = (items: BudgetStatementLineItem[], month: DateTime) =>
     _.sumBy(
       items.filter((item) => item.month === month.toFormat(API_MONTH_TO_FORMAT)),
       (item) => item.budgetCap ?? 0
     );
 
-  const getTotalQuarterlyBudgetCapOnLineItem = (items: BudgetStatementLineItemDto[], months: DateTime[]) => {
+  const getTotalQuarterlyBudgetCapOnLineItem = (items: BudgetStatementLineItem[], months: DateTime[]) => {
     const formattedMonths = months.map((x) => x.toFormat(API_MONTH_TO_FORMAT));
     return _.sumBy(
       items.filter((item) => formattedMonths.indexOf(item.month ?? '') > -1),
@@ -505,7 +506,7 @@ export const useDelegatesForecast = (currentMonth: DateTime, propBudgetStatement
   }, [hasGroups, firstMonthForecast, secondMonthForecast, thirdMonthForecast]);
 
   const getBreakdownItemsForGroup = useCallback(
-    (grouped: { [id: string]: BudgetStatementLineItemDto[] }, type?: RowType) => {
+    (grouped: { [id: string]: BudgetStatementLineItem[] }, type?: RowType) => {
       const result: InnerTableRow[] = [];
       const subTotal = {
         0: 'Sub-Total',

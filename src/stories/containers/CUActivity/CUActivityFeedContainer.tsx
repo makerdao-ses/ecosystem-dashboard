@@ -7,12 +7,13 @@ import ActivityTable from '../../components/CUActivityTable/ActivityTable';
 import { CoreUnitSummary } from '../../components/CoreUnitSummary/CoreUnitSummary';
 import { SEOHead } from '../../components/SEOHead/SEOHead';
 import { useCuActivity } from './useCuActivity';
-import type { ActivityFeedDto, CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
+import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
 interface CUActivityContainerProps {
-  coreUnits: CoreUnitDto[];
-  coreUnit: CoreUnitDto;
-  activities: ActivityFeedDto[];
+  coreUnits: CoreUnit[];
+  coreUnit: CoreUnit;
+  activities: ChangeTrackingEvent[];
 }
 
 const CUActivityFeedContainer: React.FC<CUActivityContainerProps> = ({ coreUnit, coreUnits, activities }) => {

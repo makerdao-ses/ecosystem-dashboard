@@ -6,18 +6,18 @@ import { CoreUnitContext } from '../../../../../src/core/context/CoreUnitContext
 import { fetchCoreUnits } from '../../../../../src/stories/components/CoreUnitSummary/CoreUnitSummaryApi';
 import { TransparencyReport } from '../../../../../src/stories/containers/TransparencyReport/TransparencyReport';
 import { CORE_UNIT_REQUEST } from '../../../../../src/stories/containers/TransparencyReport/transparencyReportAPI';
-import type { CoreUnitDto } from '../../../../../src/core/models/dto/coreUnitDTO';
 import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 import type { GetServerSidePropsContext } from 'next';
 
 interface TransparencyProps {
-  coreUnits: CoreUnitDto[];
-  cu: CoreUnitDto;
+  coreUnits: CoreUnit[];
+  cu: CoreUnit;
   expenseCategories: ExpenseCategory[];
 }
 
 const Transparency = ({ coreUnits, cu, expenseCategories }: TransparencyProps) => {
-  const [currentCoreUnit, setCurrentCoreUnit] = useState<CoreUnitDto>(cu);
+  const [currentCoreUnit, setCurrentCoreUnit] = useState<CoreUnit>(cu);
   useEffect(() => {
     setCurrentCoreUnit(cu);
   }, [cu]);

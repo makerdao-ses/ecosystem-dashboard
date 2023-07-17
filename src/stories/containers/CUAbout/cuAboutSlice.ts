@@ -1,12 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { fetchCoreUnitByCode } from './cuAboutAPI';
-import type {
-  BudgetStatementDto,
-  ContributorCommitmentDto,
-  CoreUnitDto,
-  SocialMediaChannelDto,
-} from '../../../core/models/dto/coreUnitDTO';
 import type { RootState } from '../../../core/store/store';
+import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
+import type { ContributorCommitment } from '@ses/core/models/interfaces/contributor';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
+import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedia';
 
 export enum status {
   idle = 'idle',
@@ -16,7 +14,7 @@ export enum status {
 }
 
 export interface CurrentCoreUnitAbout {
-  cuAbout: CoreUnitDto;
+  cuAbout: CoreUnit;
   statusCoreUnit: status;
   error: null;
 }
@@ -38,10 +36,10 @@ export const initialState: CurrentCoreUnitAbout = {
     category: [],
     activityFeed: [],
     cuMip: [],
-    socialMediaChannels: [] as SocialMediaChannelDto[],
-    budgetStatements: [] as BudgetStatementDto[],
-    contributorCommitment: [] as ContributorCommitmentDto[],
-  },
+    socialMediaChannels: [] as SocialMediaChannels[],
+    budgetStatements: [] as BudgetStatement[],
+    contributorCommitment: [] as ContributorCommitment[],
+  } as unknown as CoreUnit,
 };
 
 export const loadCoreUnitAbout = createAsyncThunk('CoreUnit/loadCoreUnitABout', (coreUnitId: string) =>
@@ -71,7 +69,7 @@ export const cuAboutSlice = createSlice({
   },
 });
 
-export const cuAboutSelector = (state: RootState) => state.cuAbout as unknown as CoreUnitDto;
+export const cuAboutSelector = (state: RootState) => state.cuAbout as unknown as CoreUnit;
 export const contributorCommitmentSelector = (state: RootState) => cuAboutSelector(state).contributorCommitment;
 export const { clearCoreUNit } = cuAboutSlice.actions;
 export default cuAboutSlice.reducer;

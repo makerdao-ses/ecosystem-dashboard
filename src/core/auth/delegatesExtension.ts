@@ -1,5 +1,6 @@
 import { RoleEnum } from '../enums/roleEnum';
 import type { UserDTO } from '../models/dto/authDTO';
+import type { User } from '../models/interfaces/users';
 import type PermissionManager from './permissionManager';
 
 class DelegatesExtension {
@@ -11,7 +12,7 @@ class DelegatesExtension {
     this.permissionManager = permissionManager;
   }
 
-  canComment(user?: UserDTO): boolean {
+  canComment(user?: UserDTO | User): boolean {
     if (!user) {
       user = this.permissionManager.loggedUser;
     }
@@ -27,7 +28,7 @@ class DelegatesExtension {
     ]);
   }
 
-  isDelegatesAdmin(user?: UserDTO): boolean {
+  isDelegatesAdmin(user?: UserDTO | User): boolean {
     if (!user) {
       user = this.permissionManager.loggedUser;
     }
@@ -39,7 +40,7 @@ class DelegatesExtension {
     return this.permissionManager.hasRole(RoleEnum.DelegatesAdmin);
   }
 
-  isDelegatesAuditor(user?: UserDTO): boolean {
+  isDelegatesAuditor(user?: UserDTO | User): boolean {
     if (!user) {
       user = this.permissionManager.loggedUser;
     }

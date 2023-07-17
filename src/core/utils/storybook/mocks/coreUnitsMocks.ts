@@ -7,7 +7,8 @@ import { CoreUnitsBuilder } from '@ses/core/businessLogic/builders/coreUnitsBuil
 import { CuMipBuilder } from '@ses/core/businessLogic/builders/cuMIPBuilder';
 import { UserBuilder } from '@ses/core/businessLogic/builders/userBuilder';
 import { CuCategoryEnum } from '@ses/core/enums/cuCategoryEnum';
-import { CuStatusEnum } from '@ses/core/enums/cuStatusEnum';
+import { CuMipStatus } from '@ses/core/models/interfaces/types';
+import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedia';
 
 export const SESCoreUnitMocked = new CoreUnitsBuilder()
   .withId('1')
@@ -26,7 +27,7 @@ export const SESCoreUnitMocked = new CoreUnitsBuilder()
   .addCuMip(
     new CuMipBuilder()
       .withMipTitle('MIP39c2-SP10: Core Unit Budget for Sustainable Ecosystem Scaling (SES-001)')
-      .withStatus(CuStatusEnum.Accepted, '2021-05-25')
+      .withStatus(CuMipStatus.Accepted, '2021-05-25')
       .withMipCode('MIP39')
       .withFormalSubmission('2021-05-25')
       .build()
@@ -34,7 +35,7 @@ export const SESCoreUnitMocked = new CoreUnitsBuilder()
   .addCuMip(
     new CuMipBuilder()
       .withMipTitle('MIP40c3-SP10: Core Unit Facilitator Onboarding (SES-001)')
-      .withStatus(CuStatusEnum.Accepted, '2021-05-25')
+      .withStatus(CuMipStatus.Accepted, '2021-05-25')
       .withMipCode('MIP40')
       .withFormalSubmission('2021-05-25')
       .build()
@@ -51,7 +52,7 @@ export const SESCoreUnitMocked = new CoreUnitsBuilder()
     youtube: 'https://www.youtube.com/channel/UC9c35O2H6fq8fB2CGzzP1bw/about',
     github: 'https://github.com/ses-makerdao',
     website: 'https://ses.makerdao.network',
-  })
+  } as SocialMediaChannels)
   .addBudgetStatement(
     new BudgetStatementBuilder()
       .withId('1')

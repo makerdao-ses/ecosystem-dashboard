@@ -3,31 +3,34 @@ import { useEffect, useMemo, useReducer } from 'react';
 import { getAllCommentsBudgetStatementLine } from '../businessLogic/coreUnits';
 import { useCookiesContextTracking } from '../context/CookiesContext';
 import { isActivity } from '../utils/typesHelpers';
-import type { ActivityFeedDto, BudgetStatementDto, CommentsBudgetStatementDto } from '../models/dto/coreUnitDTO';
+import type { ChangeTrackingEvent } from '../models/interfaces/activity';
+import type { BudgetStatement } from '../models/interfaces/budgetStatement';
+import type { BudgetStatementComment } from '../models/interfaces/budgetStatementComment';
 import type { LastVisitHandler } from '../utils/lastVisitHandler';
 import type { WithDate } from '../utils/typesHelpers';
 
-type CommentsLastVisitState = {
+export interface CommentsLastVisitState {
   hasNewComments: boolean;
   isFetching: boolean;
-};
-type CommentLastVisitAction = {
+}
+
+export interface CommentLastVisitAction {
   type: 'START_FETCHING' | 'SET_HAS_NEW_COMMENTS';
   hasNewComments?: boolean;
-};
+}
 
 const useBudgetStatementComments = (
-  budgetStatement: BudgetStatementDto | undefined,
+  budgetStatement: BudgetStatement | undefined,
   lastVisitHandler: LastVisitHandler | undefined,
   isCommentsTabActive: boolean
 ) => {
   const { isTimestampTrackingAccepted } = useCookiesContextTracking();
 
   const comments = useMemo(() => {
-    const comments = getAllCommentsBudgetStatementLine(budgetStatement) as (CommentsBudgetStatementDto & WithDate)[];
+    const comments = getAllCommentsBudgetStatementLine(budgetStatement) as (BudgetStatementComment & WithDate)[];
     let activities = budgetStatement?.activityFeed?.filter(
       (activity) => activity.event === 'CU_BUDGET_STATEMENT_CREATED'
-    ) as (ActivityFeedDto & WithDate)[];
+    ) as (ChangeTrackingEvent & WithDate)[];
     activities =
       activities?.map((activity) => {
         activity.date = DateTime.fromISO(activity.created_at);
@@ -36,7 +39,7 @@ const useBudgetStatementComments = (
     const result = (comments as unknown[]).concat(activities) as WithDate[];
     result.sort((a, b) => a.date.toMillis() - b.date.toMillis());
 
-    return result as unknown as (CommentsBudgetStatementDto | ActivityFeedDto)[];
+    return result as unknown as (BudgetStatementComment | ChangeTrackingEvent)[];
   }, [budgetStatement]);
 
   const numbersComments = useMemo(() => comments.length, [comments]);

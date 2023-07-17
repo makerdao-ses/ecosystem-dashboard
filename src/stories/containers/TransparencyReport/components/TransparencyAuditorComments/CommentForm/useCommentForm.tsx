@@ -1,4 +1,5 @@
 import { useMediaQuery } from '@mui/material';
+import { BudgetStatus } from '@ses/core/models/interfaces/types';
 import request from 'graphql-request';
 import { useEffect, useMemo, useState } from 'react';
 import lightTheme from '../../../../../../../styles/theme/light';
@@ -7,10 +8,10 @@ import { useAuthContext } from '../../../../../../core/context/AuthContext';
 import { useCommentActivityContext } from '../../../../../../core/context/CommentActivityContext';
 import { useCoreUnitContext } from '../../../../../../core/context/CoreUnitContext';
 import { useThemeContext } from '../../../../../../core/context/ThemeContext';
-import { BudgetStatus } from '../../../../../../core/models/dto/coreUnitDTO';
 import { triggerToast } from '../../../../../../core/utils/notifications';
 import { CREATE_BUDGET_STATEMENT_COMMENT } from './auditorComentingAPI';
-import type { CommentsBudgetStatementDto, CoreUnitDto } from '../../../../../../core/models/dto/coreUnitDTO';
+import type { BudgetStatementComment } from '@ses/core/models/interfaces/budgetStatementComment';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
 const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: string) => {
   const { isLight } = useThemeContext();
@@ -113,7 +114,7 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
 
     try {
       setIsSubmitting(true);
-      const newCommentResult = await request<{ budgetStatementCommentCreate: CommentsBudgetStatementDto[] }>(
+      const newCommentResult = await request<{ budgetStatementCommentCreate: BudgetStatementComment[] }>(
         GRAPHQL_ENDPOINT,
         query,
         input,
@@ -133,8 +134,8 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
         }
         return bs;
       });
-      const updatedCoreUnit: CoreUnitDto = {
-        ...(currentCoreUnit || ({} as CoreUnitDto)),
+      const updatedCoreUnit: CoreUnit = {
+        ...(currentCoreUnit || ({} as CoreUnit)),
         budgetStatements: [...(updatedBudgetStatement || [])],
       };
 

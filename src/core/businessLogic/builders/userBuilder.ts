@@ -1,8 +1,9 @@
 import { RoleEnum } from '../../enums/roleEnum';
-import type { UserDTO, UserRole } from '../../models/dto/authDTO';
+import type { UserRole } from '@ses/core/models/interfaces/roles';
+import type { User } from '@ses/core/models/interfaces/users';
 
 export class UserBuilder {
-  private readonly _user: UserDTO;
+  private readonly _user: User;
   private static idCounter = 0;
 
   constructor() {
@@ -12,7 +13,7 @@ export class UserBuilder {
       name: 'jhon',
       username: 'jhon',
       roles: [],
-    } as UserDTO;
+    } as User;
   }
 
   private static nextId(): string {
@@ -30,7 +31,7 @@ export class UserBuilder {
   }
 
   withName(name: string): UserBuilder {
-    this._user.name = name;
+    (this._user as unknown as { name: string }).name = name;
     return this;
   }
 
@@ -64,7 +65,7 @@ export class UserBuilder {
     return this.addRole(role);
   }
 
-  build(): UserDTO {
+  build(): User {
     return this._user;
   }
 }

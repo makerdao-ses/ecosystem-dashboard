@@ -4,13 +4,13 @@ import { HeadCustomTable } from './HeadCustomTable/HeadCustomTable';
 import { TablePlaceholder } from './TablePlaceholder';
 import ListCoreUnit from './list-core-unit/list-core-unit';
 import type { SortEnum } from '../../../core/enums/sortEnum';
-import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 import type { CSSProperties } from 'react';
 
 export interface CustomTableColumn {
   justifyContent?: string;
   header?: string;
-  cellRender?: (data: CoreUnitDto) => JSX.Element;
+  cellRender?: (data: CoreUnit) => JSX.Element;
   headerAlign?: 'flex-start' | 'center' | 'flex-end';
   isCardHeader?: boolean;
   isCardFooter?: boolean;
@@ -25,7 +25,7 @@ export interface CustomTableColumn {
 }
 
 export interface CustomTableRow {
-  value: CoreUnitDto;
+  value: CoreUnit;
   key: string;
 }
 

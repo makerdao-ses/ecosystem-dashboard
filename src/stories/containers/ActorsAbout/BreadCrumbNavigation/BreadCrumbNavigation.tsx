@@ -6,19 +6,21 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import type { NavigationBreadCrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
+import type { NextRouter } from 'next/router';
 
 interface Props {
   totalElements: number;
   navigationPageTitle?: string;
   mainUrl: string;
   labelFirstItemNavigation: NavigationBreadCrumb;
-  trailingAddress?: NavigationBreadCrumb[];
+  trailingAddress?: string[];
   itemActual: number;
   onClickLeft?: () => void;
   onClickRight?: () => void;
   breadcrumbTitleMobile?: string;
   hasStyleMobileItem: boolean;
   descriptionTextPagination?: string;
+  router: NextRouter;
 }
 
 const BreadCrumbNavigation: React.FC<Props> = ({
@@ -33,6 +35,7 @@ const BreadCrumbNavigation: React.FC<Props> = ({
   breadcrumbTitleMobile,
   hasStyleMobileItem,
   descriptionTextPagination,
+  router,
 }) => {
   const { isLight } = useThemeContext();
   return (
@@ -53,8 +56,8 @@ const BreadCrumbNavigation: React.FC<Props> = ({
               url: labelFirstItemNavigation.url,
             },
             ...trailingAddress.map((adr) => ({
-              label: adr.label,
-              url: adr.url,
+              label: adr,
+              url: router.asPath,
             })),
           ]}
         />
@@ -74,9 +77,9 @@ const BreadCrumbNavigation: React.FC<Props> = ({
           arrowWidth={16}
           items={[
             ...trailingAddress.map((adr) => ({
-              style: breadcrumbTitleMobile === adr.label ? { color: isLight ? '#25273D' : '#D2D4EF' } : undefined,
-              label: adr.label,
-              url: adr.url,
+              style: breadcrumbTitleMobile === adr ? { color: isLight ? '#25273D' : '#D2D4EF' } : undefined,
+              label: adr,
+              url: router.asPath,
             })),
             {
               style: hasStyleMobileItem ? { color: isLight ? '#25273D' : '#D2D4EF' } : undefined,

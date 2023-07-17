@@ -4,16 +4,16 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getCurrentOrLastMonthWithData, getLastMonthWithActualOrForecast } from '../businessLogic/coreUnits';
 import { API_MONTH_TO_FORMAT } from '../utils/date';
 import { useUrlAnchor } from './useUrlAnchor';
-import type { BudgetStatementDto } from '../models/dto/coreUnitDTO';
+import type { BudgetStatement } from '../models/interfaces/budgetStatement';
 
-type WithBudget = {
-  budgetStatements: BudgetStatementDto[];
-};
+export interface WithBudget {
+  budgetStatements: BudgetStatement[];
+}
 
-type BudgetStatementPagerOptions = {
+export interface BudgetStatementPagerOptions {
   onPrevious?: () => void;
   onNext?: () => void;
-};
+}
 
 const useBudgetStatementPager = (element: WithBudget, options?: BudgetStatementPagerOptions) => {
   const router = useRouter();
@@ -21,7 +21,7 @@ const useBudgetStatementPager = (element: WithBudget, options?: BudgetStatementP
   const anchor = useUrlAnchor();
   const [currentMonth, setCurrentMonth] = useState(DateTime.local());
 
-  const prepareWalletsName = (budgetStatement?: BudgetStatementDto) => {
+  const prepareWalletsName = (budgetStatement?: BudgetStatement) => {
     const walletNames = new Map<string, number>();
     budgetStatement?.budgetStatementWallet?.forEach((wallet) => {
       const amount = walletNames.get(wallet.name.toLowerCase().trim()) ?? 0;
@@ -40,7 +40,7 @@ const useBudgetStatementPager = (element: WithBudget, options?: BudgetStatementP
     () =>
       prepareWalletsName(
         element?.budgetStatements?.find(
-          (bs: BudgetStatementDto) => bs.month === currentMonth.toFormat(API_MONTH_TO_FORMAT)
+          (bs: BudgetStatement) => bs.month === currentMonth.toFormat(API_MONTH_TO_FORMAT)
         )
       ),
     [element, currentMonth]

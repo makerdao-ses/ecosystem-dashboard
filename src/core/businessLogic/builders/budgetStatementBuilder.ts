@@ -2,27 +2,27 @@ import { BudgetStatus } from '../../models/dto/coreUnitDTO';
 import { CommentBuilder } from './commentBuilder';
 import { UserBuilder } from './userBuilder';
 import type {
-  BudgetStatementDto,
-  BudgetStatementFteDto,
-  BudgetStatementWalletDto,
-  CommentsBudgetStatementDto,
-  BudgetStatementMKRVestDto,
-} from '../../models/dto/coreUnitDTO';
+  BudgetStatement,
+  BudgetStatementFTEs,
+  BudgetStatementMKRVest,
+} from '@ses/core/models/interfaces/budgetStatement';
+import type { BudgetStatementComment } from '@ses/core/models/interfaces/budgetStatementComment';
+import type { BudgetStatementWallet } from '@ses/core/models/interfaces/budgetStatementWallet';
 
 export class BudgetStatementBuilder {
-  private readonly _budgetStatement: BudgetStatementDto;
+  private readonly _budgetStatement: BudgetStatement;
 
   constructor() {
     this._budgetStatement = {
       id: '',
       month: '',
-      budgetStatementFTEs: [] as BudgetStatementFteDto[],
-      budgetStatementWallet: [] as BudgetStatementWalletDto[],
-      budgetStatementMKRVest: [] as BudgetStatementMKRVestDto[],
-      comments: [] as CommentsBudgetStatementDto[],
+      budgetStatementFTEs: [] as BudgetStatementFTEs[],
+      budgetStatementWallet: [] as BudgetStatementWallet[],
+      budgetStatementMKRVest: [] as BudgetStatementMKRVest[],
+      comments: [] as BudgetStatementComment[],
       status: BudgetStatus.Draft,
       publicationUrl: '',
-    } as BudgetStatementDto;
+    } as BudgetStatement;
   }
 
   withId(id: string): BudgetStatementBuilder {
@@ -40,18 +40,18 @@ export class BudgetStatementBuilder {
     return this;
   }
 
-  addBudgetStatementFTE(budgetStatementFTE: BudgetStatementFteDto): BudgetStatementBuilder {
+  addBudgetStatementFTE(budgetStatementFTE: BudgetStatementFTEs): BudgetStatementBuilder {
     this._budgetStatement.budgetStatementFTEs.push(budgetStatementFTE);
     return this;
   }
 
-  addBudgetStatementWallet(budgetStatementWallet: BudgetStatementWalletDto): BudgetStatementBuilder {
+  addBudgetStatementWallet(budgetStatementWallet: BudgetStatementWallet): BudgetStatementBuilder {
     this._budgetStatement.budgetStatementWallet.push(budgetStatementWallet);
     return this;
   }
 
   addBudgetStatementMKRVest(
-    budgetStatementMKRVest: BudgetStatementMKRVestDto | BudgetStatementMKRVestDto[]
+    budgetStatementMKRVest: BudgetStatementMKRVest | BudgetStatementMKRVest[]
   ): BudgetStatementBuilder {
     if (Array.isArray(budgetStatementMKRVest)) {
       this._budgetStatement.budgetStatementMKRVest?.push(...budgetStatementMKRVest);
@@ -61,7 +61,7 @@ export class BudgetStatementBuilder {
     return this;
   }
 
-  addComment(comment: CommentsBudgetStatementDto) {
+  addComment(comment: BudgetStatementComment) {
     this._budgetStatement.comments.push(comment);
     return this;
   }
@@ -75,7 +75,7 @@ export class BudgetStatementBuilder {
     return this.addComment(comment.build());
   }
 
-  build(): BudgetStatementDto {
+  build(): BudgetStatement {
     return this._budgetStatement;
   }
 }

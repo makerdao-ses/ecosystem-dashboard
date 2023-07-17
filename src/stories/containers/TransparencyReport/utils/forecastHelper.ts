@@ -2,13 +2,14 @@ import { ExpenditureLevel } from '@ses/core/enums/expenditureLevelEnum';
 import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import _ from 'lodash';
+import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type {
-  BudgetStatementDto,
-  BudgetStatementLineItemDto,
-  BudgetStatementWalletDto,
-  SourceDto,
-} from '@ses/core/models/dto/coreUnitDTO';
+  BudgetStatementLineItem,
+  BudgetStatementWallet,
+  Source,
+} from '@ses/core/models/interfaces/budgetStatementWallet';
 import type { DateTime } from 'luxon';
+
 const COLORS_BAR = {
   COLOR_GREEN: '#B6EDE7',
   COLOR_GREEN_DARK: '#06554C',
@@ -142,24 +143,24 @@ export const getPercentFullBar = (forecast: number, budgetCap: number): number =
   return percent;
 };
 
-export const getTransferRequestSource = (wallet: BudgetStatementWalletDto): SourceDto => {
+export const getTransferRequestSource = (wallet: BudgetStatementWallet): Source => {
   const resultDefault = {
     code: '',
     url: '',
     title: '',
-  } as SourceDto;
+  } as Source;
   const firstElementWithData = wallet?.budgetStatementTransferRequest?.find((item) => item.target.source);
   if (!firstElementWithData) return resultDefault;
   return firstElementWithData.target.source;
 };
-export const getWalletMonthlyBudgetForeCast = (wallet: BudgetStatementWalletDto, month: string) => {
+export const getWalletMonthlyBudgetForeCast = (wallet: BudgetStatementWallet, month: string) => {
   const itemsSum = wallet.budgetStatementLineItem.filter((item) => item.month === month);
   if (itemsSum.length === 0) return 'N/A';
   return _.sumBy(itemsSum, (i) => i.budgetCap ?? 0);
 };
 
 export const getForecastForMonthOnWalletOnBudgetStatementOrNA = (
-  budgetStatements: BudgetStatementDto[],
+  budgetStatements: BudgetStatement[],
   walletAddress: string | undefined,
   currentMonth: DateTime,
   month: DateTime
@@ -200,7 +201,7 @@ export const sumAllMonths = (values: (number | string)[]) => {
 };
 
 export const getForecastSumOfMonthsOnWalletForeCast = (
-  budgetStatements: BudgetStatementDto[],
+  budgetStatements: BudgetStatement[],
   walletAddress: string | undefined,
   currentMonth: DateTime,
   months: DateTime[]
@@ -230,7 +231,7 @@ export const getForecastSumOfMonthsOnWalletForeCast = (
 };
 
 export const getBudgetCapForMonthOnBudgetStatementForeCast = (
-  budgetStatements: BudgetStatementDto[],
+  budgetStatements: BudgetStatement[],
   currentMonth: DateTime,
   month: DateTime
 ) => {
@@ -254,7 +255,7 @@ export const getBudgetCapForMonthOnBudgetStatementForeCast = (
 };
 
 export const getBudgetCapForMonthOnWalletOnBudgetStatementForeCast = (
-  budgetStatements: BudgetStatementDto[],
+  budgetStatements: BudgetStatement[],
   walletAddress: string | undefined,
   currentMonth: DateTime,
   month: DateTime
@@ -282,7 +283,7 @@ export const getBudgetCapForMonthOnWalletOnBudgetStatementForeCast = (
 };
 
 export const getBudgetCapForMonthOnLineItemForeCast = (
-  items: BudgetStatementLineItemDto[],
+  items: BudgetStatementLineItem[],
   month: DateTime
 ): number | string => {
   let countNumber = 0;

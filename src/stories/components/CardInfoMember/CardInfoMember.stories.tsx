@@ -2,7 +2,7 @@ import React from 'react';
 import { CommitmentJob } from '../../../core/enums/commitmentJobEnum';
 import CardInfoMember from './CardInfoMember';
 import type { CuJobEnum } from '../../../core/enums/cuJobEnum';
-import type { ContributorCommitmentDto } from '../../../core/models/dto/coreUnitDTO';
+import type { ContributorCommitment } from '@ses/core/models/interfaces/contributor';
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
@@ -30,7 +30,7 @@ AllData.args = {
         facilitatorImage: '',
       },
     ],
-  } as ContributorCommitmentDto,
+  } as ContributorCommitment,
 };
 
 export const Default = Template.bind({});
@@ -48,5 +48,5 @@ Default.args = {
         email: 'juan@ses.makerdao.network',
       },
     ],
-  } as ContributorCommitmentDto,
+  } as ContributorCommitment,
 };

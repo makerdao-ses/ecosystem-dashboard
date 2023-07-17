@@ -25,6 +25,7 @@ export interface Scope {
 export interface EcosystemActor {
   id: string;
   code: string;
+  shortCode: string;
   name: string;
   type: string;
   sentenceDescription: string;

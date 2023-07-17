@@ -2,13 +2,14 @@ import React from 'react';
 import { fetchCoreUnits } from '../../../src/stories/components/CoreUnitSummary/CoreUnitSummaryApi';
 import CUActivityContainer from '../../../src/stories/containers/CUActivity/CUActivityFeedContainer';
 import { fetchCoreUnitActivityFeedData } from '../../../src/stories/containers/CUActivity/cuActivityAPI';
-import type { ActivityFeedDto, CoreUnitDto } from '../../../src/core/models/dto/coreUnitDTO';
+import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 import type { NextPage, GetServerSideProps, GetServerSidePropsContext } from 'next';
 
 interface CUActivityProps {
-  coreUnits: CoreUnitDto[];
-  coreUnit: CoreUnitDto;
-  activities: ActivityFeedDto[];
+  coreUnits: CoreUnit[];
+  coreUnit: CoreUnit;
+  activities: ChangeTrackingEvent[];
 }
 
 const CoreUnitActivityPage: NextPage<CUActivityProps> = ({ coreUnit, coreUnits, activities }) => (

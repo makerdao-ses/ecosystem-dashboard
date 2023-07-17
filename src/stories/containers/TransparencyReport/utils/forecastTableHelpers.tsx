@@ -21,15 +21,12 @@ import {
   sumAllMonths,
 } from './forecastHelper';
 import type { InnerTableColumn, InnerTableRow, RowType } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
-import type {
-  BudgetStatementDto,
-  BudgetStatementLineItemDto,
-  BudgetStatementWalletDto,
-} from '@ses/core/models/dto/coreUnitDTO';
+import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
+import type { BudgetStatementLineItem, BudgetStatementWallet } from '@ses/core/models/interfaces/budgetStatementWallet';
 import type { DateTime } from 'luxon';
 
 export const getForecastBreakdownColumns = (
-  wallet: BudgetStatementWalletDto,
+  wallet: BudgetStatementWallet,
   firstMonth: DateTime,
   secondMonth: DateTime,
   thirdMonth: DateTime
@@ -81,7 +78,7 @@ export const getForecastBreakdownColumns = (
 };
 
 export const getBreakdownItemsForGroup = (
-  lineItems: BudgetStatementLineItemDto[],
+  lineItems: BudgetStatementLineItem[],
   breakdownColumns: InnerTableColumn[],
   currentMonth: DateTime,
   firstMonth: DateTime,
@@ -214,8 +211,8 @@ export const getBreakdownItemsForGroup = (
 };
 
 export const getBreakdownItemsForWallet = (
-  budgetStatements: BudgetStatementDto[] | undefined,
-  wallet: BudgetStatementWalletDto,
+  budgetStatements: BudgetStatement[] | undefined,
+  wallet: BudgetStatementWallet,
   breakdownColumns: InnerTableColumn[],
   currentMonth: DateTime,
   firstMonth: DateTime,

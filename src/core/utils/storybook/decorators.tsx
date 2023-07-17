@@ -4,12 +4,12 @@ import { AuthContext } from '@ses/core/context/AuthContext';
 import { CoreUnitContext } from '@ses/core/context/CoreUnitContext';
 import { ThemeProvider } from '@ses/core/context/ThemeContext';
 import type { CoreUnitContextValues } from '@ses/core/context/CoreUnitContext';
-import type { UserDTO } from '@ses/core/models/dto/authDTO';
-import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
+import type { User } from '@ses/core/models/interfaces/users';
 import type { Story } from '@storybook/react';
 import type { PropsWithChildren } from 'react';
 
-export const withUserLoggedIn = (user: UserDTO) => (Story: Story) =>
+export const withUserLoggedIn = (user: User) => (Story: Story) =>
   (
     <AuthContext.Provider
       value={{
@@ -22,7 +22,7 @@ export const withUserLoggedIn = (user: UserDTO) => (Story: Story) =>
     </AuthContext.Provider>
   );
 
-export const withCoreUnitContext = (CuOrStory: Story | CoreUnitDto) => {
+export const withCoreUnitContext = (CuOrStory: Story | CoreUnit) => {
   if (typeof CuOrStory === 'function') {
     // it is a Story
     return (

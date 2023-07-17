@@ -128,6 +128,9 @@ const dictionary = [
   'Zoenix',
   'Phoeull',
   'Certora',
+  'repo',
+  'topup',
+  'clawback',
 ];
 
 module.exports = dictionary;

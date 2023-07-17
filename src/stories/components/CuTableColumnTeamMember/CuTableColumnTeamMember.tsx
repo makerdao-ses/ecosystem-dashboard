@@ -7,10 +7,10 @@ import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 import { Title } from '../CuTableColumnExpenditures/CuTableColumnExpenditures';
 import { CustomPopover } from '../CustomPopover/CustomPopover';
 import { ColumnTeamMemberSkeleton } from './CuTableColumnTeamMemberSkeleton';
-import type { ContributorCommitmentDto } from '../../../core/models/dto/coreUnitDTO';
+import type { ContributorCommitment } from '@ses/core/models/interfaces/contributor';
 
 interface CuTableColumnTeamMemberProps {
-  members?: ContributorCommitmentDto[];
+  members?: ContributorCommitment[];
   fte?: number;
   isLoading?: boolean;
 }

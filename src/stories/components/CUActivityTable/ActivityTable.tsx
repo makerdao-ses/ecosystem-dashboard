@@ -15,7 +15,8 @@ import ArrowDown from '../svg/arrow-down';
 import ArrowUp from '../svg/arrow-up';
 import { ActivityPlaceholder } from './ActivityTablePlaceholder';
 import CUActivityItem from './CUActivityItem';
-import type { ActivityFeedDto, CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
+import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
 export interface ActivityTableHeader {
   header: string;
@@ -26,8 +27,8 @@ export interface ActivityTableHeader {
 }
 
 export interface Activity {
-  activityFeed: ActivityFeedDto;
-  coreUnit?: CoreUnitDto;
+  activityFeed: ChangeTrackingEvent;
+  coreUnit?: CoreUnit;
   isNew?: boolean;
 }
 

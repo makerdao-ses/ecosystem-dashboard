@@ -1,14 +1,15 @@
+import { BudgetStatus } from '@ses/core/models/interfaces/types';
+import { getCommentVerb } from '@ses/core/utils/string';
+import { isActivity } from '@ses/core/utils/typesHelpers';
 import React, { useMemo } from 'react';
-import { BudgetStatus } from '../../../../../core/models/dto/coreUnitDTO';
-import { getCommentVerb } from '../../../../../core/utils/string';
-import { isActivity } from '../../../../../core/utils/typesHelpers';
 import AuditorCommentCard from './AuditorCommentCard';
 import CUNewExpenseReport from './CUNewExpenseReport';
-import type { ActivityFeedDto, CommentsBudgetStatementDto } from '../../../../../core/models/dto/coreUnitDTO';
 import type { CommentMode } from './AuditorCommentsContainer/AuditorCommentsContainer';
+import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
+import type { BudgetStatementComment } from '@ses/core/models/interfaces/budgetStatementComment';
 
 export type AuditorCommentListProps = {
-  comments: (CommentsBudgetStatementDto | ActivityFeedDto)[];
+  comments: (BudgetStatementComment | ChangeTrackingEvent)[];
   mode?: CommentMode;
 };
 
@@ -20,11 +21,11 @@ const AuditorCommentList: React.FC<AuditorCommentListProps> = ({ comments, mode 
           return <CUNewExpenseReport key={comment.id} description={comment.description} date={comment.created_at} />;
         } else {
           let hasStatusChange = (comments.length === 1 || index === 0) && comment.status !== BudgetStatus.Draft;
-          let previousComment: CommentsBudgetStatementDto | undefined;
+          let previousComment: BudgetStatementComment | undefined;
           let jIndex = index - 1;
           while (jIndex >= 0) {
             if (!isActivity(comments[jIndex])) {
-              previousComment = comments[jIndex] as CommentsBudgetStatementDto;
+              previousComment = comments[jIndex] as BudgetStatementComment;
               break;
             }
             jIndex--;

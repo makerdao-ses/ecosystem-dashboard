@@ -1,7 +1,9 @@
+import { CuMipStatus } from '@ses/core/models/interfaces/types';
 import React from 'react';
-import { CuStatusEnum } from '../../../core/enums/cuStatusEnum';
 import TitleNavigationCuAbout from './TitleNavigationCuAbout';
-import type { CoreUnitDto, CuMipDto, SocialMediaChannelDto } from '../../../core/models/dto/coreUnitDTO';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
+import type { CuMip } from '@ses/core/models/interfaces/cuMip';
+import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedia';
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
@@ -31,7 +33,7 @@ Default.args = {
         twitter: '',
         youtube: 'https://www.youtube.com/channel/UC9c35O2H6fq8fB2CGzzP1bw/about',
       },
-    ] as SocialMediaChannelDto[],
+    ] as SocialMediaChannels[],
     cuMip: [
       {
         mipCode: 'MIP-1',
@@ -41,10 +43,10 @@ Default.args = {
         rfc: '2019-06-11',
         obsolete: '2019-06-11',
         mipUrl: 'https://makerdao.com/',
-        mipStatus: CuStatusEnum.Accepted,
+        mipStatus: CuMipStatus.Accepted,
       },
-    ] as CuMipDto[],
-  } as CoreUnitDto,
+    ] as CuMip[],
+  } as CoreUnit,
 };
 
 DataWith.args = {
@@ -66,7 +68,7 @@ DataWith.args = {
         twitter: '',
         youtube: 'https://www.youtube.com/channel/UC9c35O2H6fq8fB2CGzzP1bw/about',
       },
-    ] as SocialMediaChannelDto[],
+    ] as SocialMediaChannels[],
     cuMip: [
       {
         mipCode: 'MIP-1',
@@ -76,8 +78,8 @@ DataWith.args = {
         rfc: '2021-06-11',
         obsolete: '2022-06-11',
         mipUrl: 'https://makerdao.com/',
-        mipStatus: CuStatusEnum.Obsolete,
+        mipStatus: CuMipStatus.Obsolete,
       },
-    ] as CuMipDto[],
-  } as CoreUnitDto,
+    ] as CuMip[],
+  } as CoreUnit,
 };

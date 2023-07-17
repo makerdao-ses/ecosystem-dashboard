@@ -8,6 +8,7 @@ export class EcosystemActorBuilder {
     this._ecosystemActor = {
       id: '',
       code: '',
+      shortCode: '',
       paragraphDescription: '',
       sentenceDescription: '',
       auditors: [] as AuditorDto[],
@@ -22,6 +23,11 @@ export class EcosystemActorBuilder {
 
   withId(id: string): EcosystemActorBuilder {
     this._ecosystemActor.id = id;
+    return this;
+  }
+
+  withShortCode(shortCode: string): EcosystemActorBuilder {
+    this._ecosystemActor.shortCode = shortCode;
     return this;
   }
 

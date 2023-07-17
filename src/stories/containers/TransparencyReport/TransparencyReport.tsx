@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import Tabs from '@ses/components/Tabs/Tabs';
+import BudgetStatementPager from '@ses/components/TransparencyReporting/BudgetStatementPager/BudgetStatementPager';
 import { siteRoutes } from '@ses/config/routes';
 import { ModalCategoriesProvider } from '@ses/core/context/CategoryModalContext';
 import React from 'react';
@@ -13,11 +14,9 @@ import { BudgetStatus } from '../../../core/models/dto/coreUnitDTO';
 import { toAbsoluteURL } from '../../../core/utils/urls';
 import { CoreUnitSummary } from '../../components/CoreUnitSummary/CoreUnitSummary';
 import { CustomLink } from '../../components/CustomLink/CustomLink';
-import { CustomPager } from '../../components/CustomPager/CustomPager';
 import { SEOHead } from '../../components/SEOHead/SEOHead';
 import AccountsSnapshotTabContainer from './components/AccountsSnapshot/AccountsSnapshotTabContainer';
 import ExpenseReport from './components/ExpenseReport/ExpenseReport';
-import ExpenseReportStatusIndicator from './components/ExpenseReportStatusIndicator/ExpenseReportStatusIndicator';
 import { TransparencyActuals } from './components/TransparencyActuals/TransparencyActuals';
 
 import { TransparencyAudit } from './components/TransparencyAudit/TransparencyAudit';
@@ -26,12 +25,12 @@ import { TransparencyForecast } from './components/TransparencyForecast/Transpar
 import { TransparencyMkrVesting } from './components/TransparencyMkrVesting/TransparencyMkrVesting';
 import { TransparencyTransferRequest } from './components/TransparencyTransferRequest/TransparencyTransferRequest';
 import { TRANSPARENCY_IDS_ENUM, useTransparencyReport } from './useTransparencyReport';
-import type { CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
 import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
 interface TransparencyReportProps {
-  coreUnits: CoreUnitDto[];
-  coreUnit: CoreUnitDto;
+  coreUnits: CoreUnit[];
+  coreUnit: CoreUnit;
   expenseCategories: ExpenseCategory[];
 }
 export type TableItems = {
@@ -77,29 +76,17 @@ export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: T
       <PageContainer hasImageBackground={true}>
         <PageSeparator>
           <Container>
-            <PagerBar className="no-select" ref={transparencyTableRef}>
-              <PagerBarLeft>
-                <CustomPager
-                  label={currentMonth.toFormat('MMM yyyy').toUpperCase()}
-                  onPrev={handlePreviousMonth}
-                  onNext={handleNextMonth}
-                  hasNext={hasNextMonth()}
-                  hasPrevious={hasPreviousMonth()}
-                />
-                <ExpenseReportStatusIndicator
-                  budgetStatus={currentBudgetStatement?.status || BudgetStatus.Draft}
-                  showCTA={showExpenseReportStatusCTA}
-                />
-              </PagerBarLeft>
-
-              <Spacer />
-              {lastUpdateForBudgetStatement && (
-                <LastUpdate>
-                  <Since isLight={isLight}>Last Update</Since>
-                  <SinceDate>{lastUpdateForBudgetStatement.setZone('UTC').toFormat('dd-LLL-y HH:mm ZZZZ')}</SinceDate>
-                </LastUpdate>
-              )}
-            </PagerBar>
+            <BudgetStatementPager
+              currentMonth={currentMonth}
+              handleNext={handleNextMonth}
+              handlePrevious={handlePreviousMonth}
+              hasNext={hasNextMonth()}
+              hasPrevious={hasPreviousMonth()}
+              budgetStatus={currentBudgetStatement?.status || BudgetStatus.Draft}
+              showExpenseReportStatusCTA={showExpenseReportStatusCTA}
+              lastUpdate={lastUpdateForBudgetStatement}
+              ref={transparencyTableRef}
+            />
 
             <TabsContainer>
               <Tabs
@@ -296,68 +283,6 @@ const Paragraph = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     fontSize: '16px',
   },
 }));
-
-const PagerBar = styled.div({
-  display: 'flex',
-  alignItems: 'flex-start',
-  flex: 1,
-  '@media (min-width: 834px)': {
-    alignItems: 'center',
-    height: '34px',
-  },
-});
-
-const PagerBarLeft = styled.div({
-  display: 'flex',
-  alignItems: 'flex-start',
-  flexDirection: 'column',
-
-  [lightTheme.breakpoints.up('table_834')]: {
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-});
-
-const LastUpdate = styled.div({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-end',
-  fontFamily: 'Inter, sans-serif',
-});
-
-const Since = styled.div<{ isLight: boolean }>(({ isLight = true }) => ({
-  color: isLight ? '#231536' : '#D2D4EF',
-  fontSize: '11px',
-  lineHeight: '15px',
-  fontFamily: 'Inter, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 600,
-  letterSpacing: '1px',
-  textTransform: 'uppercase',
-  '@media (min-width: 834px)': {
-    fontSize: '12px',
-  },
-}));
-
-const SinceDate = styled.div({
-  color: '#708390',
-  fontFamily: 'Inter, sans-serif',
-  fontSize: '11px',
-  fontWeight: 600,
-  letterSpacing: '1px',
-  lineHeight: '15px',
-  textTransform: 'uppercase',
-  marginTop: '2px',
-  textAlign: 'right',
-  '@media (min-width: 834px)': {
-    fontSize: '12px',
-    marginTop: '4px',
-  },
-});
-
-const Spacer = styled.div({
-  flex: '1',
-});
 
 const TabsContainer = styled.div({
   margin: '32px 0 16px',

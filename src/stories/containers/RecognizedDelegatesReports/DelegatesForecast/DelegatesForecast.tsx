@@ -5,13 +5,12 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { useDelegatesForecast } from './useDelegatesForecast';
-
-import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
+import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { DateTime } from 'luxon';
 
 interface Props {
   currentMonth: DateTime;
-  budgetStatement: BudgetStatementDto[];
+  budgetStatement: BudgetStatement[];
 }
 
 const DelegatesForecast: React.FC<Props> = ({ currentMonth, budgetStatement }) => {

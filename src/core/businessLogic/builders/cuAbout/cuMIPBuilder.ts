@@ -1,9 +1,9 @@
 import { setCuMipStatusModifiedDate } from '../../coreUnits';
-import type { CuStatusEnum } from '../../../enums/cuStatusEnum';
-import type { CuMipDto } from '../../../models/dto/coreUnitDTO';
+import type { CuMip } from '@ses/core/models/interfaces/cuMip';
+import type { CuMipStatus } from '@ses/core/models/interfaces/types';
 
 export class CuMipAboutBuilder {
-  private readonly _cuMip: CuMipDto;
+  private readonly _cuMip: CuMip;
 
   constructor() {
     this._cuMip = {
@@ -16,20 +16,22 @@ export class CuMipAboutBuilder {
       accepted: '',
       rejected: '',
       obsolete: '',
-      mipStatus: '' as CuStatusEnum,
+      mipStatus: '' as CuMipStatus,
       mipUrl: '',
+      mip39: [],
       mip40: [],
       mip41: [],
-    } as CuMipDto;
+      mipReplaces: [],
+    } as CuMip;
   }
 
-  withStatus(status: CuStatusEnum, date: string): CuMipAboutBuilder {
+  withStatus(status: CuMipStatus, date: string): CuMipAboutBuilder {
     this._cuMip.mipStatus = status;
     setCuMipStatusModifiedDate(this._cuMip, status, date);
     return this;
   }
 
-  build(): CuMipDto {
+  build(): CuMip {
     return this._cuMip;
   }
 }
