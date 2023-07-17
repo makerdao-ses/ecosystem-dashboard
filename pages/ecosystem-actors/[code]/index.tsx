@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react';
 import type { EcosystemActor } from '@ses/core/models/dto/teamsDTO';
 import type { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from 'next';
 
-const ActorAbout: NextPage = ({ actors, actor, code }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const ActorAbout: NextPage = ({ actors, actor }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [currentActor, setCurrentActor] = useState<EcosystemActor>(actor);
   useEffect(() => {
     setCurrentActor(currentActor);
@@ -22,7 +22,7 @@ const ActorAbout: NextPage = ({ actors, actor, code }: InferGetServerSidePropsTy
         setCurrentActor,
       }}
     >
-      <ActorAboutContainer actors={actors} actor={actor} code={code} />
+      <ActorAboutContainer actors={actors} actor={actor} />
     </ActorContext.Provider>
   );
 };
@@ -43,7 +43,6 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     props: {
       actors,
       actor,
-      code,
     },
   };
 };

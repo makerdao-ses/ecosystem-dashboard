@@ -10,7 +10,6 @@ import { getMarkdownInformation } from '@ses/core/businessLogic/coreUnitAbout';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
-import { getShortCode } from '@ses/core/utils/string';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import { useRouter } from 'next/router';
@@ -24,10 +23,9 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 interface Props {
   actors: EcosystemActor[];
   actor: EcosystemActor;
-  code: string;
 }
 
-export const ActorAboutContainer: React.FC<Props> = ({ actors, actor, code }) => {
+export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
   const router = useRouter();
   const { isLight } = useThemeContext();
   const [isEnabled] = useFlagsActive();
@@ -45,7 +43,7 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor, code }) =>
           height: 200,
         }}
         twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
-        canonicalURL={siteRoutes.ecosystemActorAbout(code)}
+        canonicalURL={siteRoutes.ecosystemActorAbout(actor.shortCode)}
       />
       <ActorSummary actors={actors} cutTextTooLong={actor.name.length > 20} />
       <Container>
@@ -79,8 +77,8 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor, code }) =>
                     queryStrings={queryStrings}
                     code={actor.code}
                     auditors={actor.auditors}
-                    titleCard={`View all expenses of the ${getShortCode(code)} Ecosystem Actor`}
-                    auditorMessage={`The ${getShortCode(code)} Ecosystem Actor is currently working without auditor`}
+                    titleCard={`View all expenses of the ${actor.shortCode} Ecosystem Actor`}
+                    auditorMessage={`The ${actor.shortCode} Ecosystem Actor is currently working without auditor`}
                   />
                 </ContainerCard>
               )}

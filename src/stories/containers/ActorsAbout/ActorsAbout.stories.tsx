@@ -78,7 +78,7 @@ const variantsArgs = [
   {
     actors: actorsItems,
     actor: actorsItems[0],
-    code: 'DEWIZ-001',
+    code: 'DEWIZ',
   },
 ];
 
