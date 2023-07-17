@@ -30,7 +30,7 @@ const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcru
   // This is for the filter in the page of list actors about
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
 
-  const actorAbout = data?.find((actor) => actor.code === code) || ({} as EcosystemActor);
+  const actorAbout = data?.find((actor) => actor.shortCode === code) || ({} as EcosystemActor);
 
   const buildCULabel = () => (!_.isEmpty(actorAbout) ? `${actorAbout?.name}` : '');
 
@@ -64,7 +64,7 @@ const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcru
     return filteredCategoryData;
   }, [data, filteredCategories]);
 
-  const page = useMemo(() => filteredData?.findIndex((item) => item.code === code) + 1, [code, filteredData]);
+  const page = useMemo(() => filteredData?.findIndex((item) => item.shortCode === code) + 1, [code, filteredData]);
 
   const queryStrings = buildQueryString({
     ...router.query,
@@ -74,10 +74,10 @@ const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcru
 
   const changeCoreUnitCode = useCallback(
     (direct: -1 | 1) => () => {
-      const index = filteredData?.findIndex((item) => item.code === code);
+      const index = filteredData?.findIndex((item) => item.shortCode === code);
       const newIndex = index + direct;
       if (newIndex >= 0 && newIndex < filteredData?.length) {
-        router.push(`${router.route.replace('[code]', filteredData[newIndex].code)}${queryStrings}`);
+        router.push(`${router.route.replace('[code]', filteredData[newIndex].shortCode)}${queryStrings}`);
       }
     },
     [code, filteredData, queryStrings, router]
