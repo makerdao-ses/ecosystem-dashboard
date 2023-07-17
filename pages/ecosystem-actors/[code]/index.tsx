@@ -22,7 +22,7 @@ const ActorAbout: NextPage = ({ actors, actor, code }: InferGetServerSidePropsTy
         setCurrentActor,
       }}
     >
-      <ActorAboutContainer actors={actors} actor={actor} code={code} />
+      <ActorAboutContainer actors={actors} actor={actor} shortCode={code} />
     </ActorContext.Provider>
   );
 };
