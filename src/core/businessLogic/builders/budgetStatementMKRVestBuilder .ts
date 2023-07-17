@@ -1,15 +1,21 @@
-import type { BudgetStatementMKRVestDto } from '@ses/core/models/dto/coreUnitDTO';
+import type { BudgetStatementMKRVest } from '@ses/core/models/interfaces/budgetStatement';
 
 export class BudgetStatementMKRVestBuilder {
-  private readonly _budgetStatementMKRVest: BudgetStatementMKRVestDto;
+  private readonly _budgetStatementMKRVest: BudgetStatementMKRVest;
 
   constructor() {
     this._budgetStatementMKRVest = {
+      id: '0',
       mkrAmount: 0,
       mkrAmountOld: 0,
       vestingDate: '',
       comments: '',
     };
+  }
+
+  withId(id: string): BudgetStatementMKRVestBuilder {
+    this._budgetStatementMKRVest.id = id;
+    return this;
   }
 
   withMKRAmount(mkrAmount: number): BudgetStatementMKRVestBuilder {
@@ -32,7 +38,7 @@ export class BudgetStatementMKRVestBuilder {
     return this;
   }
 
-  build(): BudgetStatementMKRVestDto {
+  build(): BudgetStatementMKRVest {
     return this._budgetStatementMKRVest;
   }
 }

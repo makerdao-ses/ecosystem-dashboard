@@ -15,13 +15,13 @@ import {
 } from '../../utils/budgetStatementsUtils';
 import { ACTUALS_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
 import type { InnerTableColumn, InnerTableRow } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
-import type { BudgetStatementDto, BudgetStatementWalletDto } from '@ses/core/models/dto/coreUnitDTO';
-
+import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
+import type { BudgetStatementWallet } from '@ses/core/models/interfaces/budgetStatementWallet';
 import type { DateTime } from 'luxon';
 
 export const useTransparencyActuals = (
   propsCurrentMonth: DateTime,
-  budgetStatements: BudgetStatementDto[] | undefined
+  budgetStatements: BudgetStatement[] | undefined
 ) => {
   const { handleOpenModal } = useCategoriesModalContext();
   const currentMonth = useMemo(() => propsCurrentMonth.toFormat(API_MONTH_TO_FORMAT), [propsCurrentMonth]);
@@ -31,8 +31,8 @@ export const useTransparencyActuals = (
     ? query[ACTUALS_BREAKDOWN_QUERY_PARAM][0]
     : query[ACTUALS_BREAKDOWN_QUERY_PARAM];
 
-  const wallets: BudgetStatementWalletDto[] = useMemo(() => {
-    const dict: { [id: string]: BudgetStatementWalletDto } = {};
+  const wallets: BudgetStatementWallet[] = useMemo(() => {
+    const dict: { [id: string]: BudgetStatementWallet } = {};
 
     const budgetStatement = budgetStatements?.find(
       (bs) => bs.month === propsCurrentMonth.toFormat(API_MONTH_TO_FORMAT)

@@ -4,7 +4,7 @@ import { BudgetStatus } from '@ses/core/models/dto/coreUnitDTO';
 import { withCoreUnitContext } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AuditorCommentCard from './AuditorCommentCard';
-import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 import type { ComponentMeta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
@@ -17,7 +17,7 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-  decorators: [withCoreUnitContext({ shortCode: 'SES' } as CoreUnitDto)],
+  decorators: [withCoreUnitContext({ shortCode: 'SES' } as CoreUnit)],
   argTypes: {
     status: {
       defaultValue: BudgetStatus.Draft,

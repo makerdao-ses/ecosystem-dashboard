@@ -1,15 +1,15 @@
 import { getStatusMip39AcceptedOrObsolete } from '../businessLogic/coreUnits';
-import type { CoreUnitDto } from '../models/dto/coreUnitDTO';
+import type { CoreUnit } from '../models/interfaces/coreUnit';
 import type { ParsedUrlQuery } from 'querystring';
 
-const filterStatus = (lowerCaseStatuses: string[], data: CoreUnitDto) =>
+const filterStatus = (lowerCaseStatuses: string[], data: CoreUnit) =>
   lowerCaseStatuses.length === 0 ||
   lowerCaseStatuses.indexOf(getStatusMip39AcceptedOrObsolete(data)?.toLowerCase() ?? 'non-present') > -1;
 
-const filterCategories = (lowerCaseCategories: string[], data: CoreUnitDto) =>
+const filterCategories = (lowerCaseCategories: string[], data: CoreUnit) =>
   lowerCaseCategories.length === 0 || data.category?.some((x) => lowerCaseCategories.indexOf(x.toLowerCase()) > -1);
 
-const filterByNameAndCode = (searchText: string, data: CoreUnitDto) =>
+const filterByNameAndCode = (searchText: string, data: CoreUnit) =>
   searchText.trim().length === 0 ||
   data.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1 ||
   data.code.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
@@ -23,7 +23,7 @@ export const filterData = ({
   filteredStatuses?: string[];
   filteredCategories?: string[];
   searchText?: string;
-  data: CoreUnitDto[];
+  data: CoreUnit[];
 }) => {
   const lowerCaseStatuses = filteredStatuses.map((x) => x.toLowerCase());
   const lowerCaseCategories = filteredCategories.map((x) => x.toLowerCase());

@@ -1,7 +1,7 @@
+import { BudgetStatus } from '@ses/core/models/interfaces/types';
 import { withCoreUnitContext } from '@ses/core/utils/storybook/decorators';
 import { CommentBuilder } from '../../../../../../core/businessLogic/builders/commentBuilder';
 import { UserBuilder } from '../../../../../../core/businessLogic/builders/userBuilder';
-import { BudgetStatus } from '../../../../../../core/models/dto/coreUnitDTO';
 import { createThemeModeVariants } from '../../../../../../core/utils/storybook/factories';
 import AuditorCommentsContainer from './AuditorCommentsContainer';
 import type { ComponentMeta } from '@storybook/react';

@@ -1,13 +1,11 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
-
 import { fetchRecognizedDelegatesBudgetStatements } from '@ses/containers/RecognizedDelegatesReports/RecognizedDelegatesReportAPI';
 import RecognizedDelegatesReportContainer from '@ses/containers/RecognizedDelegatesReports/RecognizedDelegatesReportContainer';
 import { CoreUnitContext } from '@ses/core/context/CoreUnitContext';
 import { featureFlags } from 'feature-flags/feature-flags';
 import React, { useEffect, useState } from 'react';
-import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
 import type { DelegatesDto } from '@ses/core/models/dto/delegatesDTO';
-
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 import type { NextPage } from 'next';
 
 type RecognizedDelegatesReportProps = {
@@ -24,8 +22,8 @@ const RecognizedDelegatesReport: NextPage<RecognizedDelegatesReportProps> = ({ d
     // make the delegates accessible from the comments components
     <CoreUnitContext.Provider
       value={{
-        currentCoreUnit: currentDelegatesReport as CoreUnitDto,
-        setCurrentCoreUnit: setCurrentDelegatesReport,
+        currentCoreUnit: currentDelegatesReport as unknown as CoreUnit,
+        setCurrentCoreUnit: setCurrentDelegatesReport as unknown as (cu: CoreUnit) => void,
       }}
     >
       <RecognizedDelegatesReportContainer delegates={currentDelegatesReport} />

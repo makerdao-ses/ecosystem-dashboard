@@ -1,4 +1,4 @@
-import { BudgetStatus } from '../../../../../core/models/dto/coreUnitDTO';
+import { BudgetStatus } from '@ses/core/models/interfaces/types';
 import { createThemeModeVariants } from '../../../../../core/utils/storybook/factories';
 import GenericCommentCard from './GenericCommentCard';
 import type { ComponentMeta } from '@storybook/react';

@@ -1,7 +1,7 @@
-import type { BudgetStatementWalletTransferRequestDto, SourceDto } from '@ses/core/models/dto/coreUnitDTO';
+import type { BudgetStatementTransferRequest, Source } from '@ses/core/models/interfaces/budgetStatementWallet';
 
 export class BudgetStatementWalletTransferRequestBuilder {
-  private readonly _budgetStatementWalletTransferRequest: BudgetStatementWalletTransferRequestDto;
+  private readonly _budgetStatementWalletTransferRequest: BudgetStatementTransferRequest;
 
   constructor() {
     this._budgetStatementWalletTransferRequest = {
@@ -18,7 +18,7 @@ export class BudgetStatementWalletTransferRequestBuilder {
         },
       },
       walletBalanceTimeStamp: '',
-    };
+    } as BudgetStatementTransferRequest;
   }
 
   withRequestAmount(requestAmount: number): BudgetStatementWalletTransferRequestBuilder {
@@ -47,7 +47,7 @@ export class BudgetStatementWalletTransferRequestBuilder {
   }
 
   withTargetSource(code: string, url: string, title: string): BudgetStatementWalletTransferRequestBuilder {
-    const source: SourceDto = {
+    const source: Source = {
       code,
       url,
       title,
@@ -61,7 +61,7 @@ export class BudgetStatementWalletTransferRequestBuilder {
     return this;
   }
 
-  build(): BudgetStatementWalletTransferRequestDto {
+  build(): BudgetStatementTransferRequest {
     return this._budgetStatementWalletTransferRequest;
   }
 }

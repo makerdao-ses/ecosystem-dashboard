@@ -1,21 +1,21 @@
 import styled from '@emotion/styled';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
+import { CustomLink } from '@ses/components/CustomLink/CustomLink';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { MAKER_BURN_LINK } from '@ses/core/utils/const';
+import { getShortCode } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import { useThemeContext } from '../../../../../core/context/ThemeContext';
-import { MAKER_BURN_LINK } from '../../../../../core/utils/const';
-import { getShortCode } from '../../../../../core/utils/string';
-import { AdvancedInnerTable } from '../../../../components/AdvancedInnerTable/AdvancedInnerTable';
-import { CustomLink } from '../../../../components/CustomLink/CustomLink';
 import { Title } from '../../TransparencyReport';
 import { LinkDescription } from '../TransparencyActuals/TransparencyActuals';
 import { useTransparencyTransferRequest } from './useTransparencyTransferRequest';
-import type { BudgetStatementDto } from '../../../../../core/models/dto/coreUnitDTO';
+import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { DateTime } from 'luxon';
 
 interface Props {
   currentMonth: DateTime;
-  budgetStatements: BudgetStatementDto[];
+  budgetStatements: BudgetStatement[];
   code: string;
   longCode: string;
 }

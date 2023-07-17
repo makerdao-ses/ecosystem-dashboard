@@ -1,28 +1,26 @@
+import { useAuthContext } from '@ses/core/context/AuthContext';
+import { useCoreUnitContext } from '@ses/core/context/CoreUnitContext';
+import { BudgetStatus } from '@ses/core/models/interfaces/types';
+import { isActivity } from '@ses/core/utils/typesHelpers';
 import { useState, useEffect, useMemo } from 'react';
-import { useAuthContext } from '../../../../../../core/context/AuthContext';
-import { useCoreUnitContext } from '../../../../../../core/context/CoreUnitContext';
-import { BudgetStatus } from '../../../../../../core/models/dto/coreUnitDTO';
-import { isActivity } from '../../../../../../core/utils/typesHelpers';
-import type { UserDTO } from '../../../../../../core/models/dto/authDTO';
-import type {
-  ActivityFeedDto,
-  BudgetStatementDto,
-  CommentsBudgetStatementDto,
-} from '../../../../../../core/models/dto/coreUnitDTO';
 import type { CommentMode } from './AuditorCommentsContainer';
+import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
+import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
+import type { BudgetStatementComment } from '@ses/core/models/interfaces/budgetStatementComment';
+import type { BaseUser } from '@ses/core/models/interfaces/users';
 
 const useCommentsContainer = (
-  comments: (CommentsBudgetStatementDto | ActivityFeedDto)[],
-  budgetStatement?: BudgetStatementDto,
+  comments: (BudgetStatementComment | ChangeTrackingEvent)[],
+  budgetStatement?: BudgetStatement,
   mode: CommentMode = 'CoreUnits'
 ) => {
   const { permissionManager } = useAuthContext();
   const { currentCoreUnit } = useCoreUnitContext();
-  const [cuParticipants, setCuParticipants] = useState<UserDTO[]>([]);
-  const [auditors, setAuditors] = useState<UserDTO[]>([]);
+  const [cuParticipants, setCuParticipants] = useState<BaseUser[]>([]);
+  const [auditors, setAuditors] = useState<BaseUser[]>([]);
 
   useEffect(() => {
-    const cu = new Map<string, UserDTO>();
+    const cu = new Map<string, BaseUser>();
 
     for (const comment of comments) {
       if (!isActivity(comment)) {
@@ -35,7 +33,7 @@ const useCommentsContainer = (
       }
     }
     setCuParticipants(Array.from(cu.values()));
-    setAuditors((currentCoreUnit?.auditors || []) as UserDTO[]);
+    setAuditors((currentCoreUnit?.auditors || []) as BaseUser[]);
   }, [comments, currentCoreUnit]);
 
   const canComment = useMemo(() => {

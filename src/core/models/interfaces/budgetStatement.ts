@@ -5,15 +5,15 @@ import type { BudgetStatementWallet } from './budgetStatementWallet';
 import type { BudgetStatus } from './types';
 
 export interface BudgetStatementFTEs {
-  id: string;
-  budgetStatementId: string;
+  id?: string;
+  budgetStatementId?: string;
   month: string;
   ftes: number;
 }
 
 export interface BudgetStatementMKRVest {
   id: string;
-  budgetStatementId: string;
+  budgetStatementId?: string;
   vestingDate: string;
   mkrAmount: number;
   mkrAmountOld: number;
@@ -28,6 +28,7 @@ export interface BudgetStatement {
   status: BudgetStatus;
   ownerCode: string;
   mkrProgramLength: number;
+  publicationUrl: string;
   activityFeed: ChangeTrackingEvent[];
   auditReport: AuditReport[];
   budgetStatementFTEs: BudgetStatementFTEs[];

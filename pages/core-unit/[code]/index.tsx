@@ -4,7 +4,7 @@ import { CoreUnitContext } from '../../../src/core/context/CoreUnitContext';
 import { fetchCoreUnits } from '../../../src/stories/components/CoreUnitSummary/CoreUnitSummaryApi';
 import CuAboutContainer from '../../../src/stories/containers/CUAbout/CuAboutContainer';
 import { fetchCoreUnitByCode } from '../../../src/stories/containers/CUAbout/cuAboutAPI';
-import type { CoreUnitDto } from '../../../src/core/models/dto/coreUnitDTO';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 import type { NextPage, GetServerSideProps, InferGetServerSidePropsType, GetServerSidePropsContext } from 'next';
 
 const CoreUnitAboutPage: NextPage = ({
@@ -12,7 +12,7 @@ const CoreUnitAboutPage: NextPage = ({
   coreUnits,
   cuAbout,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const [currentCoreUnit, setCurrentCoreUnit] = useState<CoreUnitDto>(cuAbout);
+  const [currentCoreUnit, setCurrentCoreUnit] = useState<CoreUnit>(cuAbout);
   useEffect(() => {
     setCurrentCoreUnit(cuAbout);
   }, [cuAbout]);
@@ -25,7 +25,7 @@ const CoreUnitAboutPage: NextPage = ({
         coreUnits,
       }}
     >
-      <CuAboutContainer code={code} coreUnits={coreUnits} cuAbout={cuAbout as CoreUnitDto} />
+      <CuAboutContainer code={code} coreUnits={coreUnits} cuAbout={cuAbout as CoreUnit} />
     </CoreUnitContext.Provider>
   );
 };

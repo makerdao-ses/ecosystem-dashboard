@@ -5,13 +5,13 @@ import Link from 'next/link';
 import React from 'react';
 import CardItemCoreUnitMobile from '../CardItemCoreUnitMobile/CardItemCoreUnitMobile';
 import type { CustomTableColumn } from '../CustomTable2';
-import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
 interface Props {
   queryStrings?: string;
   isLoading?: boolean;
   columns: CustomTableColumn[];
-  cu: CoreUnitDto;
+  cu: CoreUnit;
 }
 
 export const ItemCoreUnit = ({ queryStrings, isLoading, columns, cu }: Props) => {

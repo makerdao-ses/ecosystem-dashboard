@@ -19,18 +19,16 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
 import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date';
 import { getWalletWidthForWallets } from '../../../../core/utils/string';
-import type { BudgetStatementDto, BudgetStatementLineItemDto } from '../../../../core/models/dto/coreUnitDTO';
 import type {
   InnerTableColumn,
   InnerTableRow,
   RowType,
 } from '../../../components/AdvancedInnerTable/AdvancedInnerTable';
+import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
+import type { BudgetStatementLineItem } from '@ses/core/models/interfaces/budgetStatementWallet';
 import type { DateTime } from 'luxon';
 
-export const useDelegatesActuals = (
-  propsCurrentMonth: DateTime,
-  budgetStatements: BudgetStatementDto[] | undefined
-) => {
+export const useDelegatesActuals = (propsCurrentMonth: DateTime, budgetStatements: BudgetStatement[] | undefined) => {
   const currentMonth = useMemo(() => propsCurrentMonth.toFormat(API_MONTH_TO_FORMAT), [propsCurrentMonth]);
   const anchor = useUrlAnchor();
 
@@ -45,13 +43,12 @@ export const useDelegatesActuals = (
   );
   const breakdownTabsActuals = useMemo(() => walletsActuals.map((wallet) => wallet.name), [walletsActuals]);
   const getGroupDifference = useCallback(
-    (group: BudgetStatementLineItemDto[]) =>
-      getGroupForecast(group, currentMonth) - getGroupActual(group, currentMonth),
+    (group: BudgetStatementLineItem[]) => getGroupForecast(group, currentMonth) - getGroupActual(group, currentMonth),
     [currentMonth]
   );
 
   const getCommentsFromCategory = useCallback(
-    (group: BudgetStatementLineItemDto[]) =>
+    (group: BudgetStatementLineItem[]) =>
       group
         .filter((item) => item.month === currentMonth && item.comments !== undefined)
         .reduce((current, next) => `${current} ${next.comments !== '' ? next.comments : ''}`, ''),
@@ -59,7 +56,7 @@ export const useDelegatesActuals = (
   );
 
   const getGroupPayment = useCallback(
-    (group: BudgetStatementLineItemDto[]) =>
+    (group: BudgetStatementLineItem[]) =>
       _.sumBy(
         group.filter((item) => item.month === currentMonth),
         (item) => item.payment ?? 0
@@ -275,7 +272,7 @@ export const useDelegatesActuals = (
   }, [hasGroups]);
 
   const getBreakdownItems = useCallback(
-    (items: BudgetStatementLineItemDto[], type?: RowType) => {
+    (items: BudgetStatementLineItem[], type?: RowType) => {
       const result: InnerTableRow[] = [];
       const grouped = _.groupBy(items, (item) => item.group);
 
@@ -344,7 +341,7 @@ export const useDelegatesActuals = (
   );
 
   const getLineItemsSubtotal = useCallback(
-    (items: BudgetStatementLineItemDto[], title: string) =>
+    (items: BudgetStatementLineItem[], title: string) =>
       items?.reduce(
         (prv, curr) =>
           curr.month === currentBudgetStatement?.month

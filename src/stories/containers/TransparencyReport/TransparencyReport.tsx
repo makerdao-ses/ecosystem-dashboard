@@ -25,12 +25,12 @@ import { TransparencyForecast } from './components/TransparencyForecast/Transpar
 import { TransparencyMkrVesting } from './components/TransparencyMkrVesting/TransparencyMkrVesting';
 import { TransparencyTransferRequest } from './components/TransparencyTransferRequest/TransparencyTransferRequest';
 import { TRANSPARENCY_IDS_ENUM, useTransparencyReport } from './useTransparencyReport';
-import type { CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
 import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
 interface TransparencyReportProps {
-  coreUnits: CoreUnitDto[];
-  coreUnit: CoreUnitDto;
+  coreUnits: CoreUnit[];
+  coreUnit: CoreUnit;
   expenseCategories: ExpenseCategory[];
 }
 export type TableItems = {

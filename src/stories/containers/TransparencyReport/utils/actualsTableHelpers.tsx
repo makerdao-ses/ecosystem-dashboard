@@ -17,7 +17,7 @@ import {
   reduceLineItemsToTotals,
 } from './budgetStatementsUtils';
 import type { InnerTableColumn, InnerTableRow, RowType } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
-import type { BudgetStatementLineItemDto, BudgetStatementWalletDto } from '@ses/core/models/dto/coreUnitDTO';
+import type { BudgetStatementLineItem, BudgetStatementWallet } from '@ses/core/models/interfaces/budgetStatementWallet';
 
 export const filterRowsByNonZeroValue = (rows: InnerTableRow[]): InnerTableRow[] =>
   rows.filter((row) =>
@@ -31,7 +31,7 @@ export const filterRowsByNonZeroValue = (rows: InnerTableRow[]): InnerTableRow[]
   );
 
 export const getActualsBreakdownItems = (
-  items: BudgetStatementLineItemDto[],
+  items: BudgetStatementLineItem[],
   month: string,
   breakdownColumns: InnerTableColumn[],
   type?: RowType
@@ -108,7 +108,7 @@ export const getActualsBreakdownItems = (
   return result;
 };
 
-export const getActualsBreakdownColumns = (wallet: BudgetStatementWalletDto, handleOpenModal: () => void) => {
+export const getActualsBreakdownColumns = (wallet: BudgetStatementWallet, handleOpenModal: () => void) => {
   const hasGroups = hasWalletGroups(wallet);
 
   return [
@@ -155,7 +155,7 @@ export const getActualsBreakdownColumns = (wallet: BudgetStatementWalletDto, han
 };
 
 export const getActualsBreakdownItemsForWallet = (
-  wallet: BudgetStatementWalletDto,
+  wallet: BudgetStatementWallet,
   breakdownColumns: InnerTableColumn[],
   month: string
 ) => {

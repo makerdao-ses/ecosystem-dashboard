@@ -9,10 +9,10 @@ import { getColorJobPosition } from '../../../core/utils/colors';
 import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 import { CuTableColumnLinks } from '../CuTableColumnLinks/CuTableColumnLinks';
 import { CustomPopover } from '../CustomPopover/CustomPopover';
-import type { ContributorCommitmentDto } from '../../../core/models/dto/coreUnitDTO';
+import type { ContributorCommitment } from '@ses/core/models/interfaces/contributor';
 
 interface Props {
-  contributorCommitment: ContributorCommitmentDto;
+  contributorCommitment: ContributorCommitment;
 }
 
 const CardInfoMember = ({ contributorCommitment }: Props) => {

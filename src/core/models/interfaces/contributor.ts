@@ -1,3 +1,5 @@
+import type { CuJobEnum } from '@ses/core/enums/cuJobEnum';
+
 export type Commitment = 'FullTime' | 'PartTime' | 'Variable' | 'Inactive';
 
 export interface Contributor {
@@ -19,7 +21,7 @@ export interface ContributorCommitment {
   commitment: Commitment;
   cuCode: string;
   contributor: Contributor[];
-  jobTitle: string;
+  jobTitle: CuJobEnum;
 }
 
 export interface CuGithubContribution {

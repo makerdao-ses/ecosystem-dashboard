@@ -11,10 +11,10 @@ import { useTransparencyMkrVesting } from '../TransparencyMkrVesting/useTranspar
 import { useTransparencyTransferRequest } from '../TransparencyTransferRequest/useTransparencyTransferRequest';
 import ExpenseSection from './components/ExpenseSection/ExpenseSection';
 import type { InternalTabsProps } from '@ses/components/Tabs/Tabs';
-import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
+import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { DateTime } from 'luxon';
 
-const useExpenseReport = (currentMonth: DateTime, budgetStatements?: BudgetStatementDto[]) => {
+const useExpenseReport = (currentMonth: DateTime, budgetStatements?: BudgetStatement[]) => {
   const { isLight } = useThemeContext();
   const query = useRouter().query;
 

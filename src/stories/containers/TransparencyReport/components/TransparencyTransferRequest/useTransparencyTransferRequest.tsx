@@ -5,15 +5,15 @@ import { useCallback, useMemo } from 'react';
 import { RenderNumberWithIcon, renderWallet, TotalTargetBalance } from '../../transparencyReportUtils';
 import { useTransparencyForecast } from '../TransparencyForecast/useTransparencyForecast';
 import type { InnerTableColumn, InnerTableRow } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
+import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type {
-  BudgetStatementDto,
-  BudgetStatementWalletDto,
-  BudgetStatementWalletTransferRequestDto,
-} from '@ses/core/models/dto/coreUnitDTO';
+  BudgetStatementTransferRequest,
+  BudgetStatementWallet,
+} from '@ses/core/models/interfaces/budgetStatementWallet';
 
 export const useTransparencyTransferRequest = (
   currentMonth: DateTime,
-  budgetStatements: BudgetStatementDto[] | undefined
+  budgetStatements: BudgetStatement[] | undefined
 ) => {
   const { wallets } = useTransparencyForecast(currentMonth, budgetStatements);
 
@@ -94,9 +94,9 @@ export const useTransparencyTransferRequest = (
     return result;
   }, [currentMonth, budgetStatements]);
 
-  const getTransferRequestTargetBalanceColumn = useCallback((wallet: BudgetStatementWalletDto) => {
-    const targetWithTimeSpan: Pick<BudgetStatementWalletTransferRequestDto, 'target' | 'walletBalanceTimeStamp'> =
-      {} as BudgetStatementWalletTransferRequestDto;
+  const getTransferRequestTargetBalanceColumn = useCallback((wallet: BudgetStatementWallet) => {
+    const targetWithTimeSpan: Pick<BudgetStatementTransferRequest, 'target' | 'walletBalanceTimeStamp'> =
+      {} as BudgetStatementTransferRequest;
 
     const lastIndex = (wallet.budgetStatementTransferRequest ?? []).length - 1;
     if (wallet.budgetStatementTransferRequest && wallet.budgetStatementTransferRequest.length > 0) {
@@ -126,8 +126,8 @@ export const useTransparencyTransferRequest = (
     let result = 0;
     if (!wallets) return result;
 
-    wallets.forEach((wallet: BudgetStatementWalletDto) => {
-      wallet.budgetStatementTransferRequest?.forEach((item: BudgetStatementWalletTransferRequestDto) => {
+    wallets.forEach((wallet: BudgetStatementWallet) => {
+      wallet.budgetStatementTransferRequest?.forEach((item: BudgetStatementTransferRequest) => {
         result += item.target.amount || 0;
       });
     });
@@ -167,7 +167,7 @@ export const useTransparencyTransferRequest = (
   const mainTableItems: InnerTableRow[] = useMemo(() => {
     const result: InnerTableRow[] = [];
 
-    wallets.forEach((wallet: BudgetStatementWalletDto) => {
+    wallets.forEach((wallet) => {
       const { target } = getTransferRequestTargetBalanceColumn(wallet);
       result.push({
         type: 'normal',

@@ -1,4 +1,4 @@
-import type { Role } from './roles';
+import type { UserRole } from './roles';
 
 export interface BaseUser {
   id: string;
@@ -7,7 +7,7 @@ export interface BaseUser {
 
 export interface User extends BaseUser {
   active: boolean;
-  roles: Role[];
+  roles: UserRole[];
 }
 
 export type Auditor = Pick<User, 'id' | 'username'>;

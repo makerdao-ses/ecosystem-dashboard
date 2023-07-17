@@ -1,5 +1,23 @@
-export type ResourceType = 'AlignedDelegates' | 'CoreUnit' | 'Delegates' | 'EcosystemActor' | 'System';
+export enum ResourceType {
+  AlignedDelegates = 'AlignedDelegates',
+  CoreUnit = 'CoreUnit',
+  Delegates = 'Delegates',
+  EcosystemActor = 'EcosystemActor',
+  System = 'System',
+}
 
-export type BudgetStatus = 'Draft' | 'Review' | 'Escalated' | 'Final';
+export enum BudgetStatus {
+  Draft = 'Draft',
+  Review = 'Review',
+  Escalated = 'Escalated',
+  Final = 'Final',
+}
 
-export type CuMipStatus = 'RFC' | 'Formal' | 'Submission' | 'Accepted' | 'Rejected' | 'Obsolete' | 'Withdrawn';
+export enum CuMipStatus {
+  RFC = 'RFC',
+  FormalSubmission = 'Formal Submission',
+  Accepted = 'Accepted',
+  Rejected = 'Rejected',
+  Obsolete = 'Obsolete',
+  Withdrawn = 'Withdrawn',
+}

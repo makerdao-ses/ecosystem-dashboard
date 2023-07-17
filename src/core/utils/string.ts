@@ -2,7 +2,8 @@ import { PermissionsEnum } from '../enums/permissionsEnum';
 import { RoleEnum } from '../enums/roleEnum';
 import { BudgetStatus } from '../models/dto/coreUnitDTO';
 import type { UserDTO, UserRole } from '../models/dto/authDTO';
-import type { BudgetStatementWalletDto, CommentsBudgetStatementDto } from '../models/dto/coreUnitDTO';
+import type { BudgetStatementComment } from '../models/interfaces/budgetStatementComment';
+import type { BudgetStatementWallet } from '../models/interfaces/budgetStatementWallet';
 
 export const getTwoInitials = (name: string) => {
   const [, w1, w2] = /(\w+)[^a-zA-Z]*(\w*)?/.exec(name) ?? [];
@@ -45,7 +46,7 @@ export const getShortCode = (code: string) => {
   return parts[0];
 };
 
-export const getWalletWidthForWallets = (wallets: BudgetStatementWalletDto[]) => {
+export const getWalletWidthForWallets = (wallets: BudgetStatementWallet[]) => {
   for (const wallet of wallets) {
     if (wallet.name.length > 25) {
       return '230px';
@@ -101,10 +102,7 @@ export const convertRoles = (role: RoleEnum) => {
   }
 };
 
-export const getCommentVerb = (
-  comment: CommentsBudgetStatementDto,
-  previousComment?: CommentsBudgetStatementDto
-): string => {
+export const getCommentVerb = (comment: BudgetStatementComment, previousComment?: BudgetStatementComment): string => {
   if (!previousComment) {
     // is the first comment
     switch (comment.status) {

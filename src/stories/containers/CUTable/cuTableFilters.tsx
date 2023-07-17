@@ -2,11 +2,11 @@ import { stringify } from 'querystring';
 import styled from '@emotion/styled';
 import { Divider } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
+import { CuMipStatus } from '@ses/core/models/interfaces/types';
 import { useRouter } from 'next/router';
 import React, { useCallback, useMemo, useRef } from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CuCategoryEnum } from '../../../core/enums/cuCategoryEnum';
-import { CuStatusEnum } from '../../../core/enums/cuStatusEnum';
 import { SortEnum } from '../../../core/enums/sortEnum';
 import { useDebounce } from '../../../core/hooks/useDebounce';
 import { CategoryChip } from '../../components/CategoryChip/CategoryChip';
@@ -35,7 +35,7 @@ interface FilterProps {
   onSortReset?: () => void;
 }
 
-const statuses = Object.values(CuStatusEnum) as string[];
+const statuses = Object.values(CuMipStatus) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];
 
 export const Filters = (props: FilterProps) => {
@@ -111,7 +111,7 @@ export const Filters = (props: FilterProps) => {
             }}
             items={statuses.map((stat) => ({
               id: stat,
-              content: <StatusChip status={stat as CuStatusEnum} />,
+              content: <StatusChip status={stat as CuMipStatus} />,
               count: props.statusCount[stat],
             }))}
             width={118}

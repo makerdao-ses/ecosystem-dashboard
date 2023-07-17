@@ -1,14 +1,15 @@
+import { CuMipStatus } from '@ses/core/models/interfaces/types';
 import sortBy from 'lodash/sortBy';
 import { useMemo, useCallback } from 'react';
 import { getRelateMipObjectFromCoreUnit } from '../../../core/businessLogic/coreUnitAbout';
-import { CuStatusEnum } from '../../../core/enums/cuStatusEnum';
 import { getArrayParam, getStringParam } from '../../../core/utils/filters';
 import { buildQueryString } from '../../../core/utils/urls';
-import type { CoreUnitDto, CuMipDto } from '../../../core/models/dto/coreUnitDTO';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
+import type { CuMip } from '@ses/core/models/interfaces/cuMip';
 import type { NextRouter } from 'next/router';
 
 interface Props {
-  cuAbout: CoreUnitDto;
+  cuAbout: CoreUnit;
   code: string;
   router: NextRouter;
   setShowThreeMIPs: (value: boolean) => void;
@@ -24,18 +25,18 @@ export const useCuAbout = ({ cuAbout, code, router, setShowThreeMIPs, showThreeM
     setShowThreeMIPs(!showThreeMIPs);
   };
   const relateMipsOrder = useMemo(() => {
-    const buildNewArray = cuAbout.cuMip.map((mip: CuMipDto) => getRelateMipObjectFromCoreUnit(mip));
+    const buildNewArray = cuAbout.cuMip.map((mip: CuMip) => getRelateMipObjectFromCoreUnit(mip));
     const order = sortBy(buildNewArray, ['orderBy', 'dateMip']).reverse();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const countNumberAccepted = order.filter((mip: any) => mip.mipStatus === CuStatusEnum.Accepted);
+    const countNumberAccepted = order.filter((mip: any) => mip.mipStatus === CuMipStatus.Accepted);
     const resultArrayThreeElements = showThreeMIPs ? order.slice(0, countNumberAccepted.length) : order;
     return resultArrayThreeElements;
   }, [cuAbout.cuMip, showThreeMIPs]);
 
   const hasMipsNotAccepted = useMemo(() => {
-    const buildNewArray = cuAbout.cuMip.map((mip: CuMipDto) => getRelateMipObjectFromCoreUnit(mip));
+    const buildNewArray = cuAbout.cuMip.map((mip: CuMip) => getRelateMipObjectFromCoreUnit(mip));
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return buildNewArray.some((mip: any) => mip.mipStatus !== CuStatusEnum.Accepted);
+    return buildNewArray.some((mip: any) => mip.mipStatus !== CuMipStatus.Accepted);
   }, [cuAbout.cuMip]);
 
   const queryStrings = useMemo(

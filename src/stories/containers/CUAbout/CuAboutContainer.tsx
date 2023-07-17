@@ -19,11 +19,13 @@ import RelateMips from '../../components/RelateMips/RelateMips';
 import { SEOHead } from '../../components/SEOHead/SEOHead';
 import TeamMember from '../../components/TeamMember/TeamMember';
 import { useCuAbout } from './useCuAbout';
-import type { ContributorCommitmentDto, CoreUnitDto, CuMipDto } from '../../../core/models/dto/coreUnitDTO';
+import type { ContributorCommitment } from '@ses/core/models/interfaces/contributor';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
+import type { CuMip } from '@ses/core/models/interfaces/cuMip';
 
 interface Props {
-  coreUnits: CoreUnitDto[];
-  cuAbout: CoreUnitDto;
+  coreUnits: CoreUnit[];
+  cuAbout: CoreUnit;
   code: string;
 }
 
@@ -80,7 +82,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
                 <ContactInfoTitle isLight={isLight}>Contact Information</ContactInfoTitle>
                 <ContainerCards>
                   {cuAbout &&
-                    cuAbout.contributorCommitment?.map((contributor: ContributorCommitmentDto, index: number) => (
+                    cuAbout.contributorCommitment?.map((contributor: ContributorCommitment, index: number) => (
                       <CardInfoContainer key={index}>
                         <CardInfoMember contributorCommitment={contributor} />
                       </CardInfoContainer>
@@ -99,7 +101,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
               <RelateMipCards>
                 {relateMipsOrder.map((mip: unknown, index: number) => (
                   <RelateMipCard key={index}>
-                    <RelateMips relateMips={mip as CuMipDto} />
+                    <RelateMips relateMips={mip as CuMip} />
                   </RelateMipCard>
                 ))}
                 {cuAbout?.cuMip?.length === 0 && (

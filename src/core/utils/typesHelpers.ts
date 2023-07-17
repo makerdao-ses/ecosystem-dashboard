@@ -1,4 +1,5 @@
-import type { ActivityFeedDto, CommentsBudgetStatementDto } from '../models/dto/coreUnitDTO';
+import type { ChangeTrackingEvent } from '../models/interfaces/activity';
+import type { BudgetStatementComment } from '../models/interfaces/budgetStatementComment';
 import type { DateTime } from 'luxon';
 
 export type WithDate = {
@@ -16,8 +17,8 @@ export interface CookiesInterface {
   themeModeCookie: string;
 }
 
-export function isActivity(activity: CommentsBudgetStatementDto | ActivityFeedDto): activity is ActivityFeedDto {
-  return (activity as ActivityFeedDto).event !== undefined;
+export function isActivity(activity: BudgetStatementComment | ChangeTrackingEvent): activity is ChangeTrackingEvent {
+  return (activity as ChangeTrackingEvent).event !== undefined;
 }
 
 export type PopoverPaperType = {

@@ -6,10 +6,10 @@ import { Download } from '../../../../components/svg/download';
 import { TransparencyEmptyAudit } from '../Placeholders/TransparencyEmptyAudit';
 import { useTransparencyAudit } from './useTransparencyAudit';
 import type { AuditStatusEnum } from '../../../../../core/enums/auditStatusEnum';
-import type { BudgetStatementDto } from '../../../../../core/models/dto/coreUnitDTO';
+import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 
 interface TransparencyAuditProps {
-  budgetStatement?: BudgetStatementDto;
+  budgetStatement?: BudgetStatement;
 }
 
 export const TransparencyAudit = (props: TransparencyAuditProps) => {

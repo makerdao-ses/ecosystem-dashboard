@@ -30,11 +30,11 @@ import { CuTableColumnLinks } from '../CuTableColumnLinks/CuTableColumnLinks';
 import { CuTableColumnSummary } from '../CuTableColumnSummary/CuTableColumnSummary';
 import { CuTableColumnTeamMember } from '../CuTableColumnTeamMember/CuTableColumnTeamMember';
 import { CategoriesSkeleton } from './CategoriesSkeleton';
-import type { CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface CoreUnitCardProps {
-  coreUnit: CoreUnitDto;
+  coreUnit: CoreUnit;
   isLoading?: boolean;
 }
 

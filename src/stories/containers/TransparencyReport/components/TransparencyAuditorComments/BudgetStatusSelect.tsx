@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
+import { BudgetStatus } from '@ses/core/models/interfaces/types';
 import React, { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import { useThemeContext } from '../../../../../core/context/ThemeContext';
-import { BudgetStatus } from '../../../../../core/models/dto/coreUnitDTO';
 import ExpenseReportStatus from '../ExpenseReportStatus/ExpenseReportStatus';
 
 export type BudgetStatusSelectProps = {

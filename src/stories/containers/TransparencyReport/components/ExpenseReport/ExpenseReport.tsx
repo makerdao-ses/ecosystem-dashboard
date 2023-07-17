@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
-
 import CategoryModalComponent from '@ses/components/BasicModal/CategoryModalComponent';
 import Container from '@ses/components/Container/Container';
 import { CustomLink } from '@ses/components/CustomLink/CustomLink';
@@ -20,14 +19,13 @@ import MkrVestingTotalFTE from '../TransparencyMkrVesting/MkrVestingTotalFTE';
 import ExpenseSection from './components/ExpenseSection/ExpenseSection';
 import SectionTitle from './components/SectionTitle/SectionTitle';
 import useExpenseReport from './useExpenseReport';
-import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
-
+import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { DateTime } from 'luxon';
 
 interface ExpenseReportProps {
   currentMonth: DateTime;
-  budgetStatements?: BudgetStatementDto[];
+  budgetStatements?: BudgetStatement[];
   code: string;
   longCode: string;
 }

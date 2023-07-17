@@ -1,5 +1,5 @@
+import { CuMipStatus } from '@ses/core/models/interfaces/types';
 import React from 'react';
-import { CuStatusEnum } from '../../../core/enums/cuStatusEnum';
 import { StatusChip } from './StatusChip';
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
@@ -12,10 +12,10 @@ const Template: ComponentStory<typeof StatusChip> = (args) => <StatusChip {...ar
 
 export const Default = Template.bind({});
 Default.args = {
-  status: CuStatusEnum.Accepted,
+  status: CuMipStatus.Accepted,
 };
 
 export const FormalSubmission = Template.bind({});
 FormalSubmission.args = {
-  status: CuStatusEnum.FormalSubmission,
+  status: CuMipStatus.FormalSubmission,
 };

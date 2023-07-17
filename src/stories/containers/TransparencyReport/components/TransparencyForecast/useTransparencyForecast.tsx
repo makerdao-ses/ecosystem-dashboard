@@ -28,17 +28,18 @@ import { getBreakdownItemsForWallet, getForecastBreakdownColumns } from '../../u
 import HeaderWithIcon from '../HeaderWithIcon/HeaderWithIcon';
 import ProgressiveIndicator from './ProgresiveIndicator';
 import type { InnerTableColumn, InnerTableRow } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
-import type { BudgetStatementDto, BudgetStatementWalletDto } from '@ses/core/models/dto/coreUnitDTO';
+import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
+import type { BudgetStatementWallet } from '@ses/core/models/interfaces/budgetStatementWallet';
 import type { DateTime } from 'luxon';
 
-export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements: BudgetStatementDto[] | undefined) => {
+export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements: BudgetStatement[] | undefined) => {
   const firstMonth = useMemo(() => currentMonth.plus({ month: 1 }), [currentMonth]);
   const secondMonth = useMemo(() => currentMonth.plus({ month: 2 }), [currentMonth]);
   const thirdMonth = useMemo(() => currentMonth.plus({ month: 3 }), [currentMonth]);
   const [thirdIndex, setThirdIndex] = useState(0);
 
-  const wallets: BudgetStatementWalletDto[] = useMemo(() => {
-    const dict: { [id: string]: BudgetStatementWalletDto } = {};
+  const wallets: BudgetStatementWallet[] = useMemo(() => {
+    const dict: { [id: string]: BudgetStatementWallet } = {};
 
     const budgetStatement = budgetStatements?.find((bs) => bs.month === currentMonth.toFormat(API_MONTH_TO_FORMAT));
 

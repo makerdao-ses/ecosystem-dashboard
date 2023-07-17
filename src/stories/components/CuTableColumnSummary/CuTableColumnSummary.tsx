@@ -13,12 +13,12 @@ import { CustomLink } from '../CustomLink/CustomLink';
 import { CustomPopover } from '../CustomPopover/CustomPopover';
 import { StatusChip } from '../StatusChip/StatusChip';
 import { ColumnSummarySkeleton } from './CuTableColumnSummarySkeleton';
-import type { CuStatusEnum } from '../../../core/enums/cuStatusEnum';
+import type { CuMipStatus } from '@ses/core/models/interfaces/types';
 
 interface CuTableColumnSummaryProps {
   title?: string;
   imageUrl?: string;
-  status?: CuStatusEnum;
+  status?: CuMipStatus;
   statusModified?: Date | null;
   onClick?: () => void;
   mipUrl?: string;

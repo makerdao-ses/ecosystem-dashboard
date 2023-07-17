@@ -7,14 +7,16 @@ import CommentForm from '../CommentForm/CommentForm';
 import NoComments from '../NoComments';
 import ParticipantRoles from '../ParticipantRoles';
 import useCommentsContainer from './useCommentsContainer';
-import type { ActivityFeedDto, BudgetStatementDto, CommentsBudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
+import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
+import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
+import type { BudgetStatementComment } from '@ses/core/models/interfaces/budgetStatementComment';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export type CommentMode = 'CoreUnits' | 'Delegates';
 
 export type AuditorCommentsContainerProps = {
-  comments: (CommentsBudgetStatementDto | ActivityFeedDto)[];
-  budgetStatement?: BudgetStatementDto;
+  comments: (BudgetStatementComment | ChangeTrackingEvent)[];
+  budgetStatement?: BudgetStatement;
   mode?: CommentMode;
 };
 

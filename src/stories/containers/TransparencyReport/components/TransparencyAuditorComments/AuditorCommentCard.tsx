@@ -1,19 +1,19 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
+import { customRenderer, customRendererDark } from '@ses/components/Markdown/renderUtils';
+import { useCoreUnitContext } from '@ses/core/context/CoreUnitContext';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
 import Markdown from 'marked-react';
 import React, { useMemo } from 'react';
-import lightTheme from '../../../../../../styles/theme/light';
-import { useCoreUnitContext } from '../../../../../core/context/CoreUnitContext';
-import { useThemeContext } from '../../../../../core/context/ThemeContext';
-import { customRenderer, customRendererDark } from '../../../../components/Markdown/renderUtils';
 import ExpenseReportStatus from '../ExpenseReportStatus/ExpenseReportStatus';
 import GenericCommentCard from './GenericCommentCard';
-import type { CommentsBudgetStatementDto } from '../../../../../core/models/dto/coreUnitDTO';
 import type { CommentMode } from './AuditorCommentsContainer/AuditorCommentsContainer';
+import type { BudgetStatementComment } from '@ses/core/models/interfaces/budgetStatementComment';
 
 export type AuditorCommentCardProps = {
-  comment: CommentsBudgetStatementDto;
+  comment: BudgetStatementComment;
   hasStatusChange: boolean;
   verb: string;
   mode?: CommentMode;
