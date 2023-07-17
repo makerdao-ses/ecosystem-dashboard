@@ -9,9 +9,9 @@ export default {
   parameters: {
     nextRouter: {
       path: '/ecosystem-actors/[code]',
-      asPath: '/ecosystem-actors/PH-001',
+      asPath: '/ecosystem-actors/PH',
       query: {
-        code: 'PH-001',
+        code: 'PH',
       },
     },
     chromatic: {
