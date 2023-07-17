@@ -23,10 +23,9 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 interface Props {
   actors: EcosystemActor[];
   actor: EcosystemActor;
-  shortCode: string;
 }
 
-export const ActorAboutContainer: React.FC<Props> = ({ actors, actor, shortCode }) => {
+export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
   const router = useRouter();
   const { isLight } = useThemeContext();
   const [isEnabled] = useFlagsActive();
@@ -44,7 +43,7 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor, shortCode 
           height: 200,
         }}
         twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
-        canonicalURL={siteRoutes.ecosystemActorAbout(shortCode)}
+        canonicalURL={siteRoutes.ecosystemActorAbout(actor.shortCode)}
       />
       <ActorSummary actors={actors} cutTextTooLong={actor.name.length > 20} />
       <Container>
@@ -78,8 +77,8 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor, shortCode 
                     queryStrings={queryStrings}
                     code={actor.code}
                     auditors={actor.auditors}
-                    titleCard={`View all expenses of the ${shortCode} Ecosystem Actor`}
-                    auditorMessage={`The ${shortCode} Ecosystem Actor is currently working without auditor`}
+                    titleCard={`View all expenses of the ${actor.shortCode} Ecosystem Actor`}
+                    auditorMessage={`The ${actor.shortCode} Ecosystem Actor is currently working without auditor`}
                   />
                 </ContainerCard>
               )}
