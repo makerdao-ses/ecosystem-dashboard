@@ -157,6 +157,7 @@ const ContainerCardSomethingWrongDesk = styled.div({
   display: 'none',
   [lightTheme.breakpoints.up('desktop_1194')]: {
     display: 'flex',
+    marginTop: 100,
     width: '39.61%',
   },
 });
