@@ -9,9 +9,9 @@ export default {
   parameters: {
     nextRouter: {
       path: '/ecosystem-actors/[code]',
-      asPath: '/ecosystem-actors/PH-001',
+      asPath: '/ecosystem-actors/PH',
       query: {
-        code: 'PH-001',
+        code: 'PH',
       },
     },
     chromatic: {
@@ -24,6 +24,7 @@ const variantsArgs = [
     actorAbout: new EcosystemActorBuilder()
       .withId('23')
       .withCode('PH-001')
+      .withShortCode('PH')
       .withName('Phoenix Labs')
       .withType('EcosystemActor')
       .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
