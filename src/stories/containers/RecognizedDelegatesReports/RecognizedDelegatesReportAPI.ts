@@ -1,7 +1,7 @@
 import { GRAPHQL_ENDPOINT } from '@ses/config/endpoints';
 import request, { gql } from 'graphql-request';
-import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
 import type { DelegatesDto } from '@ses/core/models/dto/delegatesDTO';
+import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 
 const RECOGNIZED_DELEGATES_BUDGET_STATEMENTS_QUERY = () => ({
   query: gql`
@@ -72,7 +72,7 @@ const RECOGNIZED_DELEGATES_BUDGET_STATEMENTS_QUERY = () => ({
 export const fetchRecognizedDelegatesBudgetStatements = async (): Promise<DelegatesDto> => {
   const { query, filter } = RECOGNIZED_DELEGATES_BUDGET_STATEMENTS_QUERY();
 
-  const response = await request<{ budgetStatements: BudgetStatementDto[] }>(GRAPHQL_ENDPOINT, query, filter);
+  const response = await request<{ budgetStatements: BudgetStatement[] }>(GRAPHQL_ENDPOINT, query, filter);
   const delegates = {
     shortCode: 'DEL',
     code: 'Delegates',

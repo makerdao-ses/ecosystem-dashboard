@@ -9,25 +9,22 @@ import { DateTime } from 'luxon';
 import { CommitmentJob } from '../enums/commitmentJobEnum';
 import { CuJobEnum } from '../enums/cuJobEnum';
 import { SortEnum } from '../enums/sortEnum';
-import { BudgetStatus } from '../models/dto/coreUnitDTO';
+import { BudgetStatus } from '../models/interfaces/types';
 import type { CuCommentDto } from '../models/dto/commentsDTO';
+import type { ChangeTrackingEvent } from '../models/interfaces/activity';
+import type { AuditReport } from '../models/interfaces/auditReport';
 import type {
-  ActivityFeedDto,
-  AuditorDto,
-  AuditReportDto,
-  BudgetStatementDto,
-  BudgetStatementFteDto,
-  BudgetStatementMKRVestDto,
-  BudgetStatementWalletDto,
-  CommentsBudgetStatementDto,
-  ContributorCommitmentDto,
-  ContributorDto,
-  CoreUnitDto,
-  CuMipDto,
-  LastActivityDto,
-  SocialMediaChannelDto,
-  BudgetStatementLineItemDto,
-} from '../models/dto/coreUnitDTO';
+  BudgetStatement,
+  BudgetStatementFTEs,
+  BudgetStatementMKRVest,
+} from '../models/interfaces/budgetStatement';
+import type { BudgetStatementComment } from '../models/interfaces/budgetStatementComment';
+import type { BudgetStatementLineItem, BudgetStatementWallet } from '../models/interfaces/budgetStatementWallet';
+import type { Contributor, ContributorCommitment } from '../models/interfaces/contributor';
+import type { CoreUnit as CoreUnitInterface } from '../models/interfaces/coreUnit';
+import type { CuMip } from '../models/interfaces/cuMip';
+import type { SocialMediaChannels } from '../models/interfaces/socialMedia';
+import type { Auditor } from '../models/interfaces/users';
 
 export const CURRENT_MONTH = DateTime.now().toFormat('y-MM-dd');
 export const CURRENT_MINUS_1_MONTH = DateTime.now().set({ day: 1 }).minus({ month: 1 }).toFormat('y-MM-dd');
@@ -41,7 +38,7 @@ export const MARKDOWN_PARAGRAPH_DESCRIPTION =
 export const MARKDOWN_PARAGRAPH_IMAGE =
   'https://gateway-proxy-bee-9-0.gateway.ethswarm.org/bzz/6b6b084402b6cccb9e892ff2563a7b836259103e02a0cac59057a14d3ac9f0ef';
 
-export const CONTRIBUTOR_COMMITMENT_ONE: ContributorCommitmentDto = {
+export const CONTRIBUTOR_COMMITMENT_ONE = {
   id: 'ESE-001',
   jobTitle: 'Lead Developer' as CuJobEnum,
   commitment: CommitmentJob.Fulltime,
@@ -56,9 +53,10 @@ export const CONTRIBUTOR_COMMITMENT_ONE: ContributorCommitmentDto = {
       facilitatorImage: '',
       forumHandle: 'Petru_Catana',
     },
-  ] as ContributorDto[],
-};
-export const CONTRIBUTOR_COMMITMENT_TWO: ContributorCommitmentDto = {
+  ] as Contributor[],
+} as ContributorCommitment;
+
+export const CONTRIBUTOR_COMMITMENT_TWO = {
   id: 'ESE-001',
   jobTitle: 'Data Analyst' as CuJobEnum,
   startDate: CURRENT_MINUS_1_MONTH,
@@ -73,8 +71,8 @@ export const CONTRIBUTOR_COMMITMENT_TWO: ContributorCommitmentDto = {
       facilitatorImage: '',
       forumHandle: '_Jack',
     },
-  ] as ContributorDto[],
-};
+  ] as Contributor[],
+} as ContributorCommitment;
 
 export const COMMENTS_EXAMPLE: CuCommentDto[] = [
   {
@@ -138,7 +136,7 @@ export const COMMENTS_EXAMPLE: CuCommentDto[] = [
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const UsersFakeData: any[] = [];
 
-export const CoreUnit: CoreUnitDto = {
+export const CoreUnit = {
   id: '1',
   shortCode: 'SES',
   code: 'SES-001',
@@ -151,15 +149,15 @@ export const CoreUnit: CoreUnitDto = {
   paragraphImage: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/diagram.png',
   category: ['Technical', 'Business', 'Operational', 'Finance'],
   legacyBudgetStatementUrl: '',
-  auditors: [] as AuditorDto[],
-  cuMip: [] as CuMipDto[],
-  activityFeed: [] as ActivityFeedDto[],
+  auditors: [] as Auditor[],
+  cuMip: [] as CuMip[],
+  activityFeed: [] as ChangeTrackingEvent[],
   lastActivity: {
     id: '3',
     created_at: '2023-02-02T09:56:16.349Z',
     event: 'this is one event',
     description: 'event test',
-  } as LastActivityDto,
+  } as ChangeTrackingEvent,
   socialMediaChannels: [
     {
       website: 'https://ses.makerdao.network',
@@ -170,21 +168,21 @@ export const CoreUnit: CoreUnitDto = {
       youtube: 'https://www.youtube.com/channel/UC9c35O2H6fq8fB2CGzzP1bw',
       linkedIn: 'https://www.linkedin.com/company/makerdao-ses/',
     },
-  ] as SocialMediaChannelDto[],
+  ] as SocialMediaChannels[],
   budgetStatements: [
     {
       id: '',
       month: '2022-11-01',
       status: BudgetStatus.Escalated,
       publicationUrl: '',
-      activityFeed: [] as ActivityFeedDto[],
-      comments: [] as CommentsBudgetStatementDto[],
+      activityFeed: [] as ChangeTrackingEvent[],
+      comments: [] as BudgetStatementComment[],
       budgetStatementFTEs: [
         {
           month: '2/2/2034',
           ftes: 7.5,
         },
-      ] as BudgetStatementFteDto[],
+      ] as BudgetStatementFTEs[],
       budgetStatementWallet: [
         {
           budgetStatementLineItem: [
@@ -201,7 +199,7 @@ export const CoreUnit: CoreUnitDto = {
               month: '2022-12-01',
               actual: 1654,
             },
-          ] as BudgetStatementLineItemDto[],
+          ] as BudgetStatementLineItem[],
         },
         {
           budgetStatementLineItem: [
@@ -222,7 +220,7 @@ export const CoreUnit: CoreUnitDto = {
               month: '2022-11-01',
               actual: 654,
             },
-          ] as BudgetStatementLineItemDto[],
+          ] as BudgetStatementLineItem[],
         },
         {
           budgetStatementLineItem: [
@@ -239,13 +237,13 @@ export const CoreUnit: CoreUnitDto = {
               month: '2022-10-01',
               actual: 10000,
             },
-          ] as BudgetStatementLineItemDto[],
+          ] as BudgetStatementLineItem[],
         },
-      ] as BudgetStatementWalletDto[],
-      budgetStatementMKRVest: [] as BudgetStatementMKRVestDto[],
-      auditReport: [] as AuditReportDto[],
+      ] as BudgetStatementWallet[],
+      budgetStatementMKRVest: [] as BudgetStatementMKRVest[],
+      auditReport: [] as AuditReport[],
     },
-  ] as BudgetStatementDto[],
+  ] as BudgetStatement[],
   contributorCommitment: [
     {
       id: '34',
@@ -259,7 +257,7 @@ export const CoreUnit: CoreUnitDto = {
           name: 'Juan',
           facilitatorImage: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/users/juan.gif',
         },
-      ] as ContributorDto[],
+      ] as Contributor[],
     },
     {
       id: '35',
@@ -273,10 +271,10 @@ export const CoreUnit: CoreUnitDto = {
           name: 'Juan',
           facilitatorImage: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/users/wouter.jpg',
         },
-      ] as ContributorDto[],
+      ] as Contributor[],
     },
-  ] as ContributorCommitmentDto[],
-};
+  ] as ContributorCommitment[],
+} as CoreUnitInterface;
 
 export const columns = [
   {

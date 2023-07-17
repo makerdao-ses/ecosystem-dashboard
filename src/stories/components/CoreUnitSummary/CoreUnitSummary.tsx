@@ -13,10 +13,10 @@ import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import BreadCrumbMobile from '../Pagination/BreadcrumbMobile';
 import InsidePagination from '../Pagination/InsidePagination';
 import TitleNavigationCuAbout from '../TitleNavigationCuAbout/TitleNavigationCuAbout';
-import type { CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
 interface CoreUnitSummaryProps {
-  coreUnits: CoreUnitDto[];
+  coreUnits: CoreUnit[];
   trailingAddress?: string[];
   breadcrumbTitle?: string;
   showDescription?: boolean;
@@ -67,7 +67,7 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
 
   const filteredData = useMemo(() => {
     const { filteredData: filtered } = filterData({
-      data: data as CoreUnitDto[],
+      data: data as CoreUnit[],
       filteredStatuses,
       filteredCategories,
       searchText,

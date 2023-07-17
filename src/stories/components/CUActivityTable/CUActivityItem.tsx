@@ -35,14 +35,14 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
       goToComments = true;
     }
 
-    const month = DateTime.fromFormat(activity.activityFeed.params.month, 'y-M').toFormat('LLLy');
+    const month = DateTime.fromFormat(activity.activityFeed.params?.month ?? '', 'y-M').toFormat('LLLy');
     let url = '';
     if (activity.activityFeed.event.startsWith('DELEGATES')) {
       // it is a delegate
       url = `${siteRoutes.recognizedDelegateReport}?viewMonth=${month}`;
     } else {
       // it is a core unit
-      url = `${siteRoutes.coreUnitReports(activityCode?.shortCode)}?viewMonth=${month}`;
+      url = `${siteRoutes.coreUnitReports(activityCode?.shortCode ?? '')}?viewMonth=${month}`;
     }
 
     if (goToComments) {

@@ -1,14 +1,11 @@
+import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
 import _ from 'lodash';
 import { useMemo } from 'react';
-import { API_MONTH_TO_FORMAT } from '../../../../../core/utils/date';
-import type { BudgetStatementDto } from '../../../../../core/models/dto/coreUnitDTO';
-import type { InnerTableColumn, InnerTableRow } from '../../../../components/AdvancedInnerTable/AdvancedInnerTable';
+import type { InnerTableColumn, InnerTableRow } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
+import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { DateTime } from 'luxon';
 
-export const useTransparencyMkrVesting = (
-  currentMonth: DateTime,
-  budgetStatements: BudgetStatementDto[] | undefined
-) => {
+export const useTransparencyMkrVesting = (currentMonth: DateTime, budgetStatements: BudgetStatement[] | undefined) => {
   const currentBudgetStatement = useMemo(
     () => budgetStatements?.find((bs) => bs.month === currentMonth.toFormat(API_MONTH_TO_FORMAT)),
     [currentMonth, budgetStatements]

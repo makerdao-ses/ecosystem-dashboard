@@ -1,16 +1,14 @@
 import type { CuCategoryEnum } from '../../enums/cuCategoryEnum';
-import type {
-  ActivityFeedDto,
-  AuditorDto,
-  BudgetStatementDto,
-  ContributorCommitmentDto,
-  CoreUnitDto,
-  CuMipDto,
-  SocialMediaChannelDto,
-} from '../../models/dto/coreUnitDTO';
+import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
+import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
+import type { ContributorCommitment } from '@ses/core/models/interfaces/contributor';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
+import type { CuMip } from '@ses/core/models/interfaces/cuMip';
+import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedia';
+import type { Auditor } from '@ses/core/models/interfaces/users';
 
 export class CoreUnitsBuilder {
-  private readonly _coreUnit: CoreUnitDto;
+  private readonly _coreUnit: CoreUnit;
 
   constructor() {
     this._coreUnit = {
@@ -24,13 +22,13 @@ export class CoreUnitsBuilder {
       paragraphDescription: '',
       paragraphImage: '',
       category: [] as string[],
-      auditors: [] as AuditorDto[],
-      budgetStatements: [] as BudgetStatementDto[],
-      socialMediaChannels: [] as SocialMediaChannelDto[],
-      cuMip: [] as CuMipDto[],
-      contributorCommitment: [] as ContributorCommitmentDto[],
-      activityFeed: [] as ActivityFeedDto[],
-    } as CoreUnitDto;
+      auditors: [] as Auditor[],
+      budgetStatements: [] as BudgetStatement[],
+      socialMediaChannels: [] as SocialMediaChannels[],
+      cuMip: [] as CuMip[],
+      contributorCommitment: [] as ContributorCommitment[],
+      activityFeed: [] as ChangeTrackingEvent[],
+    } as CoreUnit;
   }
 
   withId(id: string): CoreUnitsBuilder {
@@ -83,7 +81,7 @@ export class CoreUnitsBuilder {
     return this;
   }
 
-  addAuditors(auditors: AuditorDto | AuditorDto[]): CoreUnitsBuilder {
+  addAuditors(auditors: Auditor | Auditor[]): CoreUnitsBuilder {
     if (Array.isArray(auditors)) {
       this._coreUnit.auditors = this._coreUnit.auditors.concat(auditors);
     } else {
@@ -92,32 +90,32 @@ export class CoreUnitsBuilder {
     return this;
   }
 
-  addBudgetStatement(budgetStatement: BudgetStatementDto): CoreUnitsBuilder {
+  addBudgetStatement(budgetStatement: BudgetStatement): CoreUnitsBuilder {
     this._coreUnit.budgetStatements.push(budgetStatement);
     return this;
   }
 
-  addSocialMediaChannel(socialMediaChannel: SocialMediaChannelDto): CoreUnitsBuilder {
+  addSocialMediaChannel(socialMediaChannel: SocialMediaChannels): CoreUnitsBuilder {
     this._coreUnit.socialMediaChannels.push(socialMediaChannel);
     return this;
   }
 
-  addCuMip(cuMip: CuMipDto): CoreUnitsBuilder {
+  addCuMip(cuMip: CuMip): CoreUnitsBuilder {
     this._coreUnit.cuMip.push(cuMip);
     return this;
   }
 
-  addContributorCommitment(contributorCommitment: ContributorCommitmentDto): CoreUnitsBuilder {
+  addContributorCommitment(contributorCommitment: ContributorCommitment): CoreUnitsBuilder {
     this._coreUnit.contributorCommitment.push(contributorCommitment);
     return this;
   }
 
-  addActivity(activity: ActivityFeedDto): CoreUnitsBuilder {
+  addActivity(activity: ChangeTrackingEvent): CoreUnitsBuilder {
     this._coreUnit.activityFeed.push(activity);
     return this;
   }
 
-  build(): CoreUnitDto {
+  build(): CoreUnit {
     return this._coreUnit;
   }
 }

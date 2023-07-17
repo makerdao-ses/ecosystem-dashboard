@@ -1,5 +1,6 @@
 import { useMediaQuery } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
+import { CuMipStatus } from '@ses/core/models/interfaces/types';
 import { enablePageOverflow } from '@ses/core/utils/dom';
 import lightTheme from '@ses/styles/theme/light';
 import request from 'graphql-request';
@@ -17,15 +18,14 @@ import {
   getStatusMip39AcceptedOrObsolete,
 } from '../../../core/businessLogic/coreUnits';
 import { CuCategoryEnum } from '../../../core/enums/cuCategoryEnum';
-import { CuStatusEnum } from '../../../core/enums/cuStatusEnum';
 import { SortEnum } from '../../../core/enums/sortEnum';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
 import { sortAlphaNum } from '../../../core/utils/sort';
 import { buildQueryString } from '../../../core/utils/urls';
 import { renderExpenditures, renderLastModified, renderLinks, renderSummary, renderTeamMember } from './CuTableRenders';
 import { GETCoreUnits } from './cuTableAPI';
-import type { CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
 import type { CustomTableColumn, CustomTableRow } from '../../components/CustomTable/CustomTable2';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
 export const useCoreUnitsTable = () => {
   const router = useRouter();
@@ -42,7 +42,7 @@ export const useCoreUnitsTable = () => {
 
   const data = useMemo(
     // remove "DEL" Core Unit as it is the Recognized Delegates and it shouldn't be displayed in the CU list
-    () => res?.coreUnits?.filter((coreUnit: CoreUnitDto) => coreUnit.shortCode.toLocaleLowerCase() !== 'del') ?? null,
+    () => res?.coreUnits?.filter((coreUnit: CoreUnit) => coreUnit.shortCode.toLocaleLowerCase() !== 'del') ?? null,
     [res]
   );
   const status = !data && !error ? 'loading' : data ? 'success' : 'idle';
@@ -85,7 +85,7 @@ export const useCoreUnitsTable = () => {
 
   const statusCount = useMemo(() => {
     const result: { [id: string]: number } = {};
-    Object.values(CuStatusEnum).forEach((cat) => {
+    Object.values(CuMipStatus).forEach((cat) => {
       result[cat] = statusesFiltered?.filter((cu) => getStatusMip39AcceptedOrObsolete(cu) === cat).length;
     });
     result.All = statusesFiltered.length;
@@ -115,21 +115,21 @@ export const useCoreUnitsTable = () => {
   );
 
   const onClickRow = useCallback(
-    (cu: CoreUnitDto) => {
+    (cu: CoreUnit) => {
       router.push(`/core-unit/${cu.shortCode}${queryStrings}`);
     },
     [queryStrings, router]
   );
 
   const onClickFinances = useCallback(
-    (cu: CoreUnitDto) => {
+    (cu: CoreUnit) => {
       router.push(`/core-unit/${cu.shortCode}/finances/reports${queryStrings}`);
     },
     [queryStrings, router]
   );
 
   const onClickLastModified = useCallback(
-    (cu: CoreUnitDto) => {
+    (cu: CoreUnit) => {
       router.push(`/core-unit/${cu.shortCode}/activity-feed${queryStrings}`);
     },
     [queryStrings, router]
@@ -184,13 +184,13 @@ export const useCoreUnitsTable = () => {
   ];
 
   const sortData = useMemo(() => {
-    const sortDataFunction = (items: CoreUnitDto[]) => {
+    const sortDataFunction = (items: CoreUnit[]) => {
       if (headersSort[sortColumn] === SortEnum.Disabled) return items;
 
       const multiplier = headersSort[sortColumn] === SortEnum.Asc ? 1 : -1;
       // Give number much bigger than assigned in giveWeightByStatus
       const multiplierStatus = 45;
-      const statusSort = (a: CoreUnitDto, b: CoreUnitDto) => {
+      const statusSort = (a: CoreUnit, b: CoreUnit) => {
         const aCoreUnit = {
           ...a,
           status: giveWeightByStatus(getStatusMip39AcceptedOrObsolete(a)),
@@ -204,11 +204,11 @@ export const useCoreUnitsTable = () => {
           (aCoreUnit.status - bCoreUnit.status) * multiplierStatus
         );
       };
-      const expendituresSort = (a: CoreUnitDto, b: CoreUnitDto) =>
+      const expendituresSort = (a: CoreUnit, b: CoreUnit) =>
         (getExpenditureValueFromCoreUnit(a) - getExpenditureValueFromCoreUnit(b)) * multiplier;
-      const teamMembersSort = (a: CoreUnitDto, b: CoreUnitDto) =>
+      const teamMembersSort = (a: CoreUnit, b: CoreUnit) =>
         (getFTEsFromCoreUnit(a) - getFTEsFromCoreUnit(b)) * multiplier;
-      const lastModifiedSort = (a: CoreUnitDto, b: CoreUnitDto) => {
+      const lastModifiedSort = (a: CoreUnit, b: CoreUnit) => {
         if (multiplier === 1) {
           return (
             ((getLastMonthWithData(a)?.toMillis() ?? DateTime.fromJSDate(new Date()).toMillis()) -
@@ -224,16 +224,16 @@ export const useCoreUnitsTable = () => {
     return sortDataFunction;
   }, [headersSort, sortColumn]);
 
-  const giveWeightByStatus = (status: CuStatusEnum) =>
-    status === CuStatusEnum.Accepted
+  const giveWeightByStatus = (status: CuMipStatus) =>
+    status === CuMipStatus.Accepted
       ? 5
-      : status === CuStatusEnum.FormalSubmission
+      : status === CuMipStatus.FormalSubmission
       ? 4
-      : status === CuStatusEnum.RFC
+      : status === CuMipStatus.RFC
       ? 3
-      : status === CuStatusEnum.Obsolete
+      : status === CuMipStatus.Obsolete
       ? 2
-      : status === CuStatusEnum.Rejected
+      : status === CuMipStatus.Rejected
       ? 1
       : 0;
 
@@ -246,8 +246,8 @@ export const useCoreUnitsTable = () => {
     [filteredData]
   );
 
-  const groupByStatusDefaultSorting: CoreUnitDto[] = useMemo(() => {
-    let resultArray: CoreUnitDto[] = [];
+  const groupByStatusDefaultSorting: CoreUnit[] = useMemo(() => {
+    let resultArray: CoreUnit[] = [];
     const groupCoreUnitByStatus = groupBy(dataWithStatus, 'status');
     Object.values(groupCoreUnitByStatus).map((arrayValues) => {
       const alphabeticallyOrder = orderBy(arrayValues, 'name');
@@ -259,7 +259,7 @@ export const useCoreUnitsTable = () => {
 
   const tableItems: CustomTableRow[] = useMemo(() => {
     const sortedData = sortData(groupByStatusDefaultSorting);
-    return sortedData?.map((x: CoreUnitDto) => ({
+    return sortedData?.map((x: CoreUnit) => ({
       value: x,
       key: x.code,
     }));

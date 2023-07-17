@@ -1,7 +1,7 @@
+import { BudgetStatus } from '@ses/core/models/interfaces/types';
 import { withCoreUnitContext, withUserLoggedIn } from '@ses/core/utils/storybook/decorators';
 import { CoreUnitsBuilder } from '../../../../../../core/businessLogic/builders/coreUnitsBuilder';
 import { UserBuilder } from '../../../../../../core/businessLogic/builders/userBuilder';
-import { BudgetStatus } from '../../../../../../core/models/dto/coreUnitDTO';
 import { createThemeModeVariants } from '../../../../../../core/utils/storybook/factories';
 import CommentForm from './CommentForm';
 import type { ComponentMeta } from '@storybook/react';

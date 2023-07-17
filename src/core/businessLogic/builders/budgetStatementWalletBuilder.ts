@@ -1,20 +1,20 @@
 import type {
-  BudgetStatementLineItemDto,
-  BudgetStatementWalletDto,
-  BudgetStatementWalletTransferRequestDto,
-} from '../../models/dto/coreUnitDTO';
+  BudgetStatementLineItem,
+  BudgetStatementTransferRequest,
+  BudgetStatementWallet,
+} from '@ses/core/models/interfaces/budgetStatementWallet';
 
 export class BudgetStatementWalletBuilder {
-  private readonly _wallet: BudgetStatementWalletDto;
+  private readonly _wallet: BudgetStatementWallet;
 
   constructor() {
     this._wallet = {
       name: '',
       address: '',
       currentBalance: 0,
-      budgetStatementLineItem: [] as BudgetStatementLineItemDto[],
-      budgetStatementTransferRequest: [] as BudgetStatementWalletTransferRequestDto[],
-    } as BudgetStatementWalletDto;
+      budgetStatementLineItem: [] as BudgetStatementLineItem[],
+      budgetStatementTransferRequest: [] as BudgetStatementTransferRequest[],
+    } as BudgetStatementWallet;
   }
 
   withLineItems(actualArray: number[], month: string) {
@@ -28,7 +28,7 @@ export class BudgetStatementWalletBuilder {
   }
 
   addBudgetStatementLineItem(
-    lineItem: BudgetStatementLineItemDto | BudgetStatementLineItemDto[]
+    lineItem: BudgetStatementLineItem | BudgetStatementLineItem[]
   ): BudgetStatementWalletBuilder {
     if (Array.isArray(lineItem)) {
       this._wallet.budgetStatementLineItem.push(...lineItem);
@@ -39,7 +39,7 @@ export class BudgetStatementWalletBuilder {
   }
 
   addBudgetStatementTransferRequest(
-    transferRequest: BudgetStatementWalletTransferRequestDto | BudgetStatementWalletTransferRequestDto[]
+    transferRequest: BudgetStatementTransferRequest | BudgetStatementTransferRequest[]
   ): BudgetStatementWalletBuilder {
     if (Array.isArray(transferRequest)) {
       this._wallet.budgetStatementTransferRequest?.push(...transferRequest);

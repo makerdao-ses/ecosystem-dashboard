@@ -13,13 +13,12 @@ import { Title } from '../../TransparencyReport';
 import { ACTUALS_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import { useTransparencyActuals } from './useTransparencyActuals';
-import type { BudgetStatementDto } from '@ses/core/models/dto/coreUnitDTO';
-
+import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { DateTime } from 'luxon';
 
 interface Props {
   currentMonth: DateTime;
-  budgetStatements?: BudgetStatementDto[];
+  budgetStatements?: BudgetStatement[];
   code: string;
   longCode: string;
 }

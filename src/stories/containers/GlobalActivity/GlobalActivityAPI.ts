@@ -1,6 +1,7 @@
 import { request, gql } from 'graphql-request';
 import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
-import type { ActivityFeedDto, CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
+import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
 export const getGlobalActivityFeedQuery = () => ({
   query: gql`
@@ -27,8 +28,8 @@ export const getGlobalActivityFeedQuery = () => ({
 });
 
 interface GlobalActivityFeedResponse {
-  coreUnits: Partial<CoreUnitDto>[];
-  activityFeed: ActivityFeedDto[];
+  coreUnits: Partial<CoreUnit>[];
+  activityFeed: ChangeTrackingEvent[];
 }
 
 export const fetchGlobalActivityFeedData = async (): Promise<GlobalActivityFeedResponse> => {

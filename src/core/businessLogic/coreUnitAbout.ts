@@ -1,22 +1,23 @@
 import { CommitmentJob } from '../enums/commitmentJobEnum';
-import { CuStatusEnum } from '../enums/cuStatusEnum';
 import { LinkTypeEnum } from '../enums/linkTypeEnum';
+import { CuMipStatus } from '../models/interfaces/types';
 import { getCuMipStatusModifiedDate } from './coreUnits';
 import type { LinkModel } from '../../stories/components/CuTableColumnLinks/CuTableColumnLinks';
-import type { ContributorCommitmentDto, CuMipDto } from '../models/dto/coreUnitDTO';
+import type { ContributorCommitment } from '../models/interfaces/contributor';
+import type { CuMip } from '../models/interfaces/cuMip';
 
-export const getMipsStatus = (mip: CuMipDto) => {
+export const getMipsStatus = (mip: CuMip) => {
   if (!mip) return undefined;
   switch (mip.mipStatus) {
-    case CuStatusEnum.Accepted:
+    case CuMipStatus.Accepted:
       return mip.accepted;
-    case CuStatusEnum.FormalSubmission:
+    case CuMipStatus.FormalSubmission:
       return mip.formalSubmission;
-    case CuStatusEnum.Rejected:
+    case CuMipStatus.Rejected:
       return mip.rejected;
-    case CuStatusEnum.RFC:
+    case CuMipStatus.RFC:
       return mip.rfc;
-    case CuStatusEnum.Obsolete:
+    case CuMipStatus.Obsolete:
       return mip.obsolete;
     default:
       return undefined;
@@ -25,7 +26,7 @@ export const getMipsStatus = (mip: CuMipDto) => {
 
 export const getMarkdownInformation = (text: string | undefined) => text || '';
 
-export const getLinksFromContributor = (contributor: ContributorCommitmentDto) => {
+export const getLinksFromContributor = (contributor: ContributorCommitment) => {
   const links: LinkModel[] = [];
   if (!contributor) return links;
   if (contributor && contributor.contributor.length === 0) return links;
@@ -56,7 +57,7 @@ export const getLinksFromContributor = (contributor: ContributorCommitmentDto) =
   }
   return links;
 };
-export const getRelateMipObjectFromCoreUnit = (cu: CuMipDto) => {
+export const getRelateMipObjectFromCoreUnit = (cu: CuMip) => {
   const dateMip = getCuMipStatusModifiedDate(cu, cu.mipStatus);
   return {
     ...cu,
@@ -65,9 +66,9 @@ export const getRelateMipObjectFromCoreUnit = (cu: CuMipDto) => {
     dateMip,
     mipUrl: cu.mipUrl,
     orderBy:
-      cu.mipStatus === CuStatusEnum.Accepted
+      cu.mipStatus === CuMipStatus.Accepted
         ? 2
-        : cu.mipStatus === CuStatusEnum.FormalSubmission || cu.mipStatus === CuStatusEnum.RFC
+        : cu.mipStatus === CuMipStatus.FormalSubmission || cu.mipStatus === CuMipStatus.RFC
         ? 1
         : 0,
   } as unknown;

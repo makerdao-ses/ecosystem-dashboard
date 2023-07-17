@@ -9,18 +9,18 @@ import { getMipTitle } from '../../../core/utils/string';
 import { CustomLink } from '../CustomLink/CustomLink';
 import { StatusChip } from '../StatusChip/StatusChip';
 import ExternalLinkArrow from '../svg/external-link-arrow';
-import type { CuStatusEnum } from '../../../core/enums/cuStatusEnum';
-import type { CuMipDto } from '../../../core/models/dto/coreUnitDTO';
+import type { CuMip } from '@ses/core/models/interfaces/cuMip';
+import type { CuMipStatus } from '@ses/core/models/interfaces/types';
 
 export type RelateMipType = {
-  status: CuStatusEnum;
+  status: CuMipStatus;
   statusModified: Date;
   mipTitle?: string;
   href: string;
 };
 
 interface Props {
-  relateMips: CuMipDto;
+  relateMips: CuMip;
 }
 
 const RelateMips = ({ relateMips }: Props) => {
@@ -33,7 +33,7 @@ const RelateMips = ({ relateMips }: Props) => {
   return (
     <Content isLight={isLight}>
       <Row>
-        {mipStatus && <StatusChip status={mipStatus as CuStatusEnum} />}
+        {mipStatus && <StatusChip status={mipStatus as CuMipStatus} />}
         {newDate && (
           <SinceDate isLight={isLight}>Since {DateTime.fromJSDate(newDate).toFormat('dd-MM-yyyy')}</SinceDate>
         )}

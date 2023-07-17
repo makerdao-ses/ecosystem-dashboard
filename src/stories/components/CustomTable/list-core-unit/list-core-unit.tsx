@@ -1,7 +1,7 @@
 import React from 'react';
 import ItemCoreUnit from '../ItemCoreUnit/ItemCoreUnit';
 import type { CustomTableColumn, CustomTableRow } from '../CustomTable2';
-import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
 interface Props {
   rows?: CustomTableRow[];
@@ -18,7 +18,7 @@ const ListCoreUnit = ({ rows, isLoading, columns, queryStrings }: Props) => (
         isLoading={isLoading}
         columns={columns}
         queryStrings={queryStrings}
-        cu={row?.value as CoreUnitDto}
+        cu={row?.value as CoreUnit}
       />
     ))}
   </>

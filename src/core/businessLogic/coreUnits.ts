@@ -1,42 +1,36 @@
 import _ from 'lodash';
 import { DateTime, Interval } from 'luxon';
-import { CuStatusEnum } from '../enums/cuStatusEnum';
 import { LinkTypeEnum } from '../enums/linkTypeEnum';
 import { BudgetStatus } from '../models/dto/coreUnitDTO';
+import { CuMipStatus } from '../models/interfaces/types';
 import { API_MONTH_FROM_FORMAT, API_MONTH_TO_FORMAT } from '../utils/date';
 import type { LinkModel } from '../../stories/components/CuTableColumnLinks/CuTableColumnLinks';
 import type { CustomChartItemModel } from '../models/customChartItemModel';
-import type {
-  BudgetStatementDto,
-  CommentsBudgetStatementDto,
-  CoreUnitDto,
-  CuMipDto,
-  Mip40BudgetPeriodDto,
-  Mip40Dto,
-  Mip40WalletDto,
-  BudgetStatementFteDto,
-  ActivityFeedDto,
-} from '../models/dto/coreUnitDTO';
+import type { ChangeTrackingEvent } from '../models/interfaces/activity';
+import type { BudgetStatement, BudgetStatementFTEs } from '../models/interfaces/budgetStatement';
+import type { BudgetStatementComment } from '../models/interfaces/budgetStatementComment';
+import type { CoreUnit } from '../models/interfaces/coreUnit';
+import type { CuMip, Mip40, Mip40BudgetPeriod, Mip40Wallet } from '../models/interfaces/cuMip';
 
-export const setCuMipStatusModifiedDate = (mip: CuMipDto, status: CuStatusEnum, date: string) => {
+export const setCuMipStatusModifiedDate = (mip: CuMip, status: CuMipStatus, date: string) => {
   let index = status.toLowerCase();
 
-  if (status === CuStatusEnum.FormalSubmission) index = 'formalSubmission';
+  if (status === CuMipStatus.FormalSubmission) index = 'formalSubmission';
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   mip[index] = date;
 };
 
-export const getCuMipStatusModifiedDate = (mip: CuMipDto, status: CuStatusEnum) => {
+export const getCuMipStatusModifiedDate = (mip: CuMip, status: CuMipStatus) => {
   if (!mip) return '';
   let index = status.toLowerCase();
-  if (status === CuStatusEnum.FormalSubmission) index = 'formalSubmission';
+  if (status === CuMipStatus.FormalSubmission) index = 'formalSubmission';
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return mip[index];
 };
 
-export const getLatestMip39FromCoreUnit = (cu?: CoreUnitDto | null) => {
+export const getLatestMip39FromCoreUnit = (cu?: CoreUnit | null) => {
   if (!cu) return null;
   const mip39s = cu.cuMip?.filter((mip) => mip.mipCode?.indexOf('MIP39') > -1) ?? [];
   if (mip39s.length === 0) return null;
@@ -44,13 +38,13 @@ export const getLatestMip39FromCoreUnit = (cu?: CoreUnitDto | null) => {
   return mip39s[mip39s.length - 1];
 };
 
-export const getStatusMip39AcceptedOrObsolete = (cu?: CoreUnitDto | null): CuStatusEnum => {
+export const getStatusMip39AcceptedOrObsolete = (cu?: CoreUnit | null): CuMipStatus => {
   const lastMip39 = getLatestMip39FromCoreUnit(cu);
   const mipCode = lastMip39?.mipCode;
-  const mipStatus = lastMip39?.mipStatus || CuStatusEnum.Accepted;
-  return mipCode?.includes('MIP39c3') && mipStatus === 'Accepted' ? CuStatusEnum.Obsolete : mipStatus;
+  const mipStatus = lastMip39?.mipStatus || CuMipStatus.Accepted;
+  return mipCode?.includes('MIP39c3') && mipStatus === 'Accepted' ? CuMipStatus.Obsolete : mipStatus;
 };
-export const getSubmissionDateFromCuMip = (mip: CuMipDto | null) => {
+export const getSubmissionDateFromCuMip = (mip: CuMip | null) => {
   if (!mip) return null;
 
   try {
@@ -65,7 +59,7 @@ export const getSubmissionDateFromCuMip = (mip: CuMipDto | null) => {
   }
 };
 
-export const getLinksFromCoreUnit = (cu: CoreUnitDto) => {
+export const getLinksFromCoreUnit = (cu: CoreUnit) => {
   const result = [] as LinkModel[];
   if (!cu.socialMediaChannels) return result;
   if (cu.socialMediaChannels.length === 0) return result;
@@ -118,13 +112,13 @@ export const getLinksFromCoreUnit = (cu: CoreUnitDto) => {
   return result;
 };
 
-const getLatestBudgetStatementWithFTE = (budgetStatements: BudgetStatementDto[]): BudgetStatementFteDto | null => {
+const getLatestBudgetStatementWithFTE = (budgetStatements: BudgetStatement[]): BudgetStatementFTEs | null => {
   if (!budgetStatements || budgetStatements.length === 0) return null;
-  const filtered = budgetStatements.filter((bs: BudgetStatementDto) => bs.budgetStatementFTEs.length > 0);
-  const arrayItemsFts: BudgetStatementFteDto[] = [];
+  const filtered = budgetStatements.filter((bs: BudgetStatement) => bs.budgetStatementFTEs.length > 0);
+  const arrayItemsFts: BudgetStatementFTEs[] = [];
 
-  filtered.forEach((item: BudgetStatementDto) => {
-    item.budgetStatementFTEs.forEach((budgetStatementFTEs: BudgetStatementFteDto) => {
+  filtered.forEach((item: BudgetStatement) => {
+    item.budgetStatementFTEs.forEach((budgetStatementFTEs: BudgetStatementFTEs) => {
       arrayItemsFts.push({
         ftes: budgetStatementFTEs.ftes,
         month: budgetStatementFTEs.month,
@@ -136,16 +130,16 @@ const getLatestBudgetStatementWithFTE = (budgetStatements: BudgetStatementDto[])
   return orderBudget.length > 0 ? orderBudget[orderBudget.length - 1] : null;
 };
 
-export const getFTEsFromCoreUnit = (cu: CoreUnitDto) => {
+export const getFTEsFromCoreUnit = (cu: CoreUnit) => {
   if (cu.budgetStatements?.length === 0) return 0;
 
-  return getLatestBudgetStatementWithFTE(cu.budgetStatements as BudgetStatementDto[])?.ftes ?? 0;
+  return getLatestBudgetStatementWithFTE(cu.budgetStatements as BudgetStatement[])?.ftes ?? 0;
 };
 
-export const getFacilitatorsFromCoreUnit = (cu: CoreUnitDto) =>
+export const getFacilitatorsFromCoreUnit = (cu: CoreUnit) =>
   cu?.contributorCommitment?.filter((cc) => cc.jobTitle === 'Facilitator');
 
-const checkDateOnPeriod = (period: Mip40BudgetPeriodDto, date: DateTime) => {
+const checkDateOnPeriod = (period: Mip40BudgetPeriod, date: DateTime) => {
   if (!period) return false;
   const start = DateTime.fromFormat(period.budgetPeriodStart, 'y-MM-dd');
   const end = DateTime.fromFormat(period.budgetPeriodEnd, 'y-MM-dd');
@@ -154,8 +148,8 @@ const checkDateOnPeriod = (period: Mip40BudgetPeriodDto, date: DateTime) => {
   return interval.contains(date);
 };
 
-const findMip40 = (cu: CoreUnitDto, date: DateTime): Mip40Dto | null => {
-  const cuMips = cu.cuMip?.filter((mip) => mip.mipStatus === CuStatusEnum.Accepted || CuStatusEnum.Obsolete) ?? [];
+const findMip40 = (cu: CoreUnit, date: DateTime): Mip40 | null => {
+  const cuMips = cu.cuMip?.filter((mip) => mip.mipStatus === CuMipStatus.Accepted || CuMipStatus.Obsolete) ?? [];
 
   for (const mip of cuMips) {
     for (const mip40 of mip.mip40.filter((mip) => !mip.mkrOnly)) {
@@ -170,9 +164,9 @@ const findMip40 = (cu: CoreUnitDto, date: DateTime): Mip40Dto | null => {
   return null;
 };
 
-const sumLineItems = (wallet: Mip40WalletDto) => wallet.mip40BudgetLineItem.reduce((p, c) => (c.budgetCap ?? 0) + p, 0);
+const sumLineItems = (wallet: Mip40Wallet) => wallet.mip40BudgetLineItem.reduce((p, c) => (c.budgetCap ?? 0) + p, 0);
 
-export const getBudgetCapsFromCoreUnit = (cu: CoreUnitDto) => {
+export const getBudgetCapsFromCoreUnit = (cu: CoreUnit) => {
   const result: number[] = [];
   if (cu.cuMip.length === 0) return result;
 
@@ -189,7 +183,7 @@ export const getBudgetCapsFromCoreUnit = (cu: CoreUnitDto) => {
   return result;
 };
 
-const sumAllLineItemsFromBudgetStatement = (budgetStatement: BudgetStatementDto, month: DateTime) => {
+const sumAllLineItemsFromBudgetStatement = (budgetStatement: BudgetStatement, month: DateTime) => {
   let result = 0;
 
   budgetStatement?.budgetStatementWallet.forEach((wallet) => {
@@ -203,7 +197,7 @@ const sumAllLineItemsFromBudgetStatement = (budgetStatement: BudgetStatementDto,
   return result;
 };
 
-export const getExpenditureValueFromCoreUnit = (cu: CoreUnitDto) => {
+export const getExpenditureValueFromCoreUnit = (cu: CoreUnit) => {
   let result = 0;
   if (cu.budgetStatements.length === 0) return result;
 
@@ -217,7 +211,7 @@ export const getExpenditureValueFromCoreUnit = (cu: CoreUnitDto) => {
   return result;
 };
 
-export const getExpenditureAmountFromCoreUnit = (cu: CoreUnitDto) => {
+export const getExpenditureAmountFromCoreUnit = (cu: CoreUnit) => {
   let result = 0;
   if (cu.budgetStatements.length === 0) return result;
 
@@ -231,7 +225,7 @@ export const getExpenditureAmountFromCoreUnit = (cu: CoreUnitDto) => {
   return result;
 };
 
-export const getPercentFromCoreUnit = (cu: CoreUnitDto) => {
+export const getPercentFromCoreUnit = (cu: CoreUnit) => {
   const value = getExpenditureValueFromCoreUnit(cu);
   const budgetCap = _.sum(getBudgetCapsFromCoreUnit(cu));
 
@@ -241,7 +235,7 @@ export const getPercentFromCoreUnit = (cu: CoreUnitDto) => {
   return (value / budgetCap) * 100;
 };
 
-export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDto) => {
+export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnit) => {
   const result = [] as CustomChartItemModel[];
   if (cu.budgetStatements.length === 0) return new Array(3).fill({ value: 0 });
 
@@ -258,7 +252,7 @@ export const getLast3ExpenditureValuesFromCoreUnit = (cu: CoreUnitDto) => {
   return result;
 };
 
-export const getCurrentOrLastMonthWithData = (budgetStatements: BudgetStatementDto[]) => {
+export const getCurrentOrLastMonthWithData = (budgetStatements: BudgetStatement[]) => {
   const currentMonth = DateTime.now().startOf('month');
 
   const orderedStatements = _.sortBy(budgetStatements, (bs) => bs.month).reverse();
@@ -280,7 +274,7 @@ export const getCurrentOrLastMonthWithData = (budgetStatements: BudgetStatementD
   return currentMonth;
 };
 
-export const getLastMonthWithActualOrForecast = (budgetStatements: BudgetStatementDto[], ascending?: boolean) => {
+export const getLastMonthWithActualOrForecast = (budgetStatements: BudgetStatement[], ascending?: boolean) => {
   // The budget statements should be provided in a descending date order but
   // it's better to order it client side to avoid future issues
   const orderedStatements = ascending
@@ -300,7 +294,7 @@ export const getLastMonthWithActualOrForecast = (budgetStatements: BudgetStateme
   return DateTime.now();
 };
 
-export const getLastMonthWithData = (cu: CoreUnitDto) => {
+export const getLastMonthWithData = (cu: CoreUnit) => {
   if (cu.lastActivity?.created_at) {
     return DateTime.fromISO(cu.lastActivity?.created_at);
   }
@@ -309,7 +303,7 @@ export const getLastMonthWithData = (cu: CoreUnitDto) => {
 };
 
 export const getLastUpdateForBudgetStatement = (
-  element: { activityFeed: ActivityFeedDto[] },
+  element: { activityFeed: ChangeTrackingEvent[] },
   budgetStatementId: string
 ) => {
   const activityFeed = element.activityFeed?.filter(
@@ -323,7 +317,7 @@ export const getLastUpdateForBudgetStatement = (
   return DateTime.fromISO(activityFeed[0].created_at);
 };
 
-export const getLast3MonthsWithData = (budgetStatements: BudgetStatementDto[]) => {
+export const getLast3MonthsWithData = (budgetStatements: BudgetStatement[]) => {
   // The budget statements should be provided in a descending date order but
   // it's better to order it client side to avoid future issues
   const orderedStatements = _.sortBy(budgetStatements, (bs) => bs.month).reverse();
@@ -343,18 +337,18 @@ export const getLast3MonthsWithData = (budgetStatements: BudgetStatementDto[]) =
   return [DateTime.now(), DateTime.now().minus({ months: 1 }), DateTime.now().minus({ months: 2 })].reverse();
 };
 
-export const getLast3MonthsWithDataFormatted = (cu: CoreUnitDto) => {
+export const getLast3MonthsWithDataFormatted = (cu: CoreUnit) => {
   const dates = getLast3MonthsWithData(cu.budgetStatements);
   return dates.map((date) => date.toString());
 };
 
-export const getMipUrlFromCoreUnit = (cu: CoreUnitDto) => {
+export const getMipUrlFromCoreUnit = (cu: CoreUnit) => {
   if (cu?.cuMip.length === 0) return '';
   return cu?.cuMip[0].mipUrl ?? '';
 };
 
-export const getAllCommentsBudgetStatementLine = (budgetStatement?: BudgetStatementDto) => {
-  const commentsWithDate = [] as (CommentsBudgetStatementDto & { date: DateTime })[];
+export const getAllCommentsBudgetStatementLine = (budgetStatement?: BudgetStatement) => {
+  const commentsWithDate = [] as (BudgetStatementComment & { date: DateTime })[];
 
   if (!budgetStatement?.comments?.length) return commentsWithDate;
   budgetStatement.comments.forEach((comment) => {
@@ -386,5 +380,5 @@ export const getAllCommentsBudgetStatementLine = (budgetStatement?: BudgetStatem
     return comment;
   });
 
-  return comments.flat() as CommentsBudgetStatementDto[];
+  return comments.flat() as BudgetStatementComment[];
 };

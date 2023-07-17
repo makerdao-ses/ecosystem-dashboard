@@ -1,9 +1,9 @@
-import { BudgetStatus } from '../../models/dto/coreUnitDTO';
-import type { UserDTO } from '../../models/dto/authDTO';
-import type { CommentsBudgetStatementDto } from '../../models/dto/coreUnitDTO';
+import { BudgetStatus } from '@ses/core/models/interfaces/types';
+import type { BudgetStatementComment } from '@ses/core/models/interfaces/budgetStatementComment';
+import type { User } from '@ses/core/models/interfaces/users';
 
 export class CommentBuilder {
-  private readonly _comment: CommentsBudgetStatementDto;
+  private readonly _comment: BudgetStatementComment;
   private static idCounter = 0;
 
   constructor() {
@@ -14,7 +14,7 @@ export class CommentBuilder {
       comment: '',
       author: {},
       status: BudgetStatus.Draft,
-    } as CommentsBudgetStatementDto;
+    } as BudgetStatementComment;
   }
 
   withId(id: string): CommentBuilder {
@@ -37,7 +37,7 @@ export class CommentBuilder {
     return this;
   }
 
-  withAuthor(author: UserDTO): CommentBuilder {
+  withAuthor(author: User): CommentBuilder {
     this._comment.author = author;
     return this;
   }
@@ -47,7 +47,7 @@ export class CommentBuilder {
     return this;
   }
 
-  build(): CommentsBudgetStatementDto {
+  build(): BudgetStatementComment {
     return this._comment;
   }
 }

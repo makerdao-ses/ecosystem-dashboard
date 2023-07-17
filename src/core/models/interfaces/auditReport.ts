@@ -1,9 +1,9 @@
-export type AuditStatus = 'Approved' | 'ApprovedWithComments' | 'NeedActionsBeforeApproval' | 'Escalated';
+import type { AuditStatusEnum } from '@ses/core/enums/auditStatusEnum';
 
 export interface AuditReport {
   id: string;
   budgetStatementId: string;
-  auditStatus: AuditStatus;
+  auditStatus: AuditStatusEnum;
   reportUrl: string;
   timestamp: string;
 }

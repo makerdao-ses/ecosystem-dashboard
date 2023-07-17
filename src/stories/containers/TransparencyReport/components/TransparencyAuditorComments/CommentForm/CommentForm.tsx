@@ -5,8 +5,8 @@ import { CustomButton } from '../../../../../components/CustomButton/CustomButto
 import BudgetStatusSelect from '../BudgetStatusSelect';
 import GenericCommentCard from '../GenericCommentCard';
 import useCommentForm from './useCommentForm';
-import type { BudgetStatus } from '../../../../../../core/models/dto/coreUnitDTO';
 import type { CommentMode } from '../AuditorCommentsContainer/AuditorCommentsContainer';
+import type { BudgetStatus } from '@ses/core/models/interfaces/types';
 
 export type CommentFormProps = {
   currentBudgetStatus: BudgetStatus;

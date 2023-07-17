@@ -1,10 +1,10 @@
 import { useContext, createContext } from 'react';
-import type { CoreUnitDto } from '../models/dto/coreUnitDTO';
+import type { CoreUnit } from '../models/interfaces/coreUnit';
 
 export type CoreUnitContextValues = {
-  coreUnits?: CoreUnitDto[];
-  currentCoreUnit?: CoreUnitDto;
-  setCurrentCoreUnit: (coreUnit: CoreUnitDto) => void;
+  coreUnits?: CoreUnit[];
+  currentCoreUnit?: CoreUnit;
+  setCurrentCoreUnit: (coreUnit: CoreUnit) => void;
 };
 
 export const CoreUnitContext = createContext<CoreUnitContextValues>({

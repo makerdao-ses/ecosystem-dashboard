@@ -16,12 +16,13 @@ import Filter from '../../components/svg/filter';
 import { Paragraph, Title } from '../CUActivity/CUActivityFeedContainer';
 import { ButtonFilter, SmallSeparator } from '../CUTable/cuTableFilters';
 import { useGlobalActivity } from './useGlobalActivity';
-import type { ActivityFeedDto, CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
 import type { SelectItemProps } from '../../components/CustomMultiSelect/CustomMultiSelect';
+import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
 interface Props {
-  coreUnits: CoreUnitDto[];
-  activityFeed: ActivityFeedDto[];
+  coreUnits: CoreUnit[];
+  activityFeed: ChangeTrackingEvent[];
 }
 
 const GlobalActivityFeedContainer: React.FC<Props> = ({ coreUnits, activityFeed }) => {

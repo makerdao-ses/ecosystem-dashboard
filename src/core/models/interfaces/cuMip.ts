@@ -65,7 +65,7 @@ export interface MipReplaces {
 }
 
 export interface CuMip {
-  id: string;
+  id?: string;
   mipCode: string;
   cuId: string;
   rfc: string;
@@ -76,9 +76,9 @@ export interface CuMip {
   mipStatus: CuMipStatus;
   mipUrl: string;
   mipTitle: string;
-  forumUrl: string;
+  forumUrl?: string;
   mip39: Mip39[];
   mip40: Mip40[];
   mip41: Mip41[];
-  mipReplaces: MipReplaces[];
+  mipReplaces?: MipReplaces[];
 }

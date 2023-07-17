@@ -1,19 +1,19 @@
 export interface BudgetStatementLineItem {
-  id: string;
-  budgetStatementWalletId: string;
-  month: string;
-  position: number;
-  group: string;
-  budgetCategory: string;
-  forecast: number;
+  id?: string;
+  budgetStatementWalletId?: string;
+  month?: string;
+  position?: number;
+  group?: string;
+  budgetCategory?: string;
+  forecast?: number;
   actual: number;
-  comments: string;
-  canonicalBudgetCategory: string;
-  headcountExpense: boolean;
-  budgetCap: number;
-  payment: number;
-  budgetId: string;
-  currency: string;
+  comments?: string;
+  canonicalBudgetCategory?: string;
+  headcountExpense?: boolean;
+  budgetCap?: number;
+  payment?: number;
+  budgetId?: string;
+  currency?: string;
 }
 
 export interface BudgetStatementPayment {
@@ -44,7 +44,7 @@ export interface BudgetStatementTransferRequest {
   budgetStatementPaymentId: string;
   requestAmount: number;
   walletBalance: number;
-  walletBalanceTimestamp: string;
+  walletBalanceTimeStamp: string;
   target: Target;
 }
 

@@ -4,11 +4,12 @@ import { DateTime } from 'luxon';
 import { useMemo, useRef, useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { SortEnum } from '../../../core/enums/sortEnum';
-import type { ActivityFeedDto, CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
 import type { Activity, ActivityTableHeader } from '../../components/CUActivityTable/ActivityTable';
 import type { MultiSelectItem } from '../../components/CustomMultiSelect/CustomMultiSelect';
+import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
+import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
-export const useGlobalActivity = (coreUnits: CoreUnitDto[], activityFeed: ActivityFeedDto[]) => {
+export const useGlobalActivity = (coreUnits: CoreUnit[], activityFeed: ChangeTrackingEvent[]) => {
   const [searchText, setSearchText] = useState('');
   const [activeElements, setActiveElements] = useState<string[]>([]);
   const [filtersVisible, setFiltersVisible] = useState(false);
@@ -72,7 +73,7 @@ export const useGlobalActivity = (coreUnits: CoreUnitDto[], activityFeed: Activi
   );
 
   const coreUnitsMap = useMemo(() => {
-    const map = new Map<string, CoreUnitDto>();
+    const map = new Map<string, CoreUnit>();
     coreUnits.forEach((cu) => map.set(cu.shortCode, cu));
     return map;
   }, [coreUnits]);
@@ -85,7 +86,7 @@ export const useGlobalActivity = (coreUnits: CoreUnitDto[], activityFeed: Activi
             (activity) =>
               ({
                 activityFeed: activity,
-                coreUnit: coreUnitsMap.get(getCorrectCodeFromActivity(activity).shortCode),
+                coreUnit: coreUnitsMap.get(getCorrectCodeFromActivity(activity).shortCode ?? ''),
               } as Activity)
           )
           .filter(

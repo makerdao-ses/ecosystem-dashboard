@@ -1,12 +1,13 @@
-import type { ActivityFeedDto, BudgetStatementDto } from './coreUnitDTO';
+import type { ChangeTrackingEvent } from '../interfaces/activity';
+import type { BudgetStatement } from '../interfaces/budgetStatement';
 import type { ExpenseDto } from './expensesDTO';
 
 export interface DelegatesDto {
   id: string;
   shortCode: string;
   code: string;
-  budgetStatements: BudgetStatementDto[];
-  activityFeed: ActivityFeedDto[];
+  budgetStatements: BudgetStatement[];
+  activityFeed: ChangeTrackingEvent[];
 }
 
 export interface DelegateSocialDto {

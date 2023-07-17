@@ -1,7 +1,7 @@
-import type { ActivityFeedDto } from '@ses/core/models/dto/coreUnitDTO';
+import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
 
 export class ActivityBuilder {
-  private readonly _activity: ActivityFeedDto;
+  private readonly _activity: ChangeTrackingEvent;
   private static idCounter = 0;
 
   constructor() {
@@ -11,7 +11,7 @@ export class ActivityBuilder {
       event: '',
       params: {},
       description: '',
-    } as ActivityFeedDto;
+    } as ChangeTrackingEvent;
   }
 
   withId(id: string): ActivityBuilder {
@@ -39,7 +39,7 @@ export class ActivityBuilder {
     return this;
   }
 
-  build(): ActivityFeedDto {
+  build(): ChangeTrackingEvent {
     return this._activity;
   }
 }
