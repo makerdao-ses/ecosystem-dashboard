@@ -34,7 +34,7 @@ export const getActorAbout = (teamType: TeamType, code: string) => ({
   filter: {
     filter: {
       type: teamType,
-      code,
+      shortCode: code,
     },
   },
 });

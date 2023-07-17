@@ -12,6 +12,7 @@ const actorsItems = [
   new EcosystemActorBuilder()
     .withId('43')
     .withCode('DEWIZ-001')
+    .withShortCode('DEWIZ')
     .withName('Powerhouse Inc.')
     .withType('EcosystemActor')
     .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
@@ -61,9 +62,9 @@ export default {
   parameters: {
     nextRouter: {
       path: '/ecosystem-actors/[code]',
-      asPath: '/ecosystem-actors/DEWIZ-001',
+      asPath: '/ecosystem-actors/DEWIZ',
       query: {
-        code: 'DEWIZ-001',
+        code: 'DEWIZ',
       },
     },
     chromatic: {
