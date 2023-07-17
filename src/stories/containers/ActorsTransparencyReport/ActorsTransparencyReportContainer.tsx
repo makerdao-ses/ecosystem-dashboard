@@ -43,7 +43,7 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
         // TODO: generalize the actor type to avoid types errors
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         actors={actors as any}
-        trailingAddress={['Expense Reports']}
+        trailingAddress={['Expense Report']}
         breadcrumbTitle="Expense Reports"
         cutTextTooLong={actor.name.length > 20}
       />

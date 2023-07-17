@@ -19,7 +19,12 @@ interface ActorSummaryProps {
   cutTextTooLong?: boolean;
 }
 
-const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcrumbTitle, cutTextTooLong }) => {
+const ActorSummary: React.FC<ActorSummaryProps> = ({
+  actors: data = [],
+  breadcrumbTitle,
+  cutTextTooLong,
+  trailingAddress = [],
+}) => {
   const { isLight } = useThemeContext();
 
   const [showTextDescription, setShowTextDescription] = useState(true);
@@ -98,6 +103,8 @@ const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcru
         onClickRight={changeCoreUnitCode(1)}
         breadcrumbTitleMobile={buildCULabel()}
         hasStyleMobileItem={[buildCULabel(), undefined].includes(breadcrumbTitle)}
+        trailingAddress={trailingAddress}
+        router={router}
       />
 
       <ActorTitleWithDescription
