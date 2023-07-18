@@ -332,6 +332,8 @@ const HeadingResponsiveH1 = styled.h1({
   fontSize: 16,
   fontWeight: 700,
   lineHeight: 'normal',
+  marginTop: 32,
+  marginBottom: 0,
   [lightTheme.breakpoints.up('table_834')]: {
     fontSize: 20,
     fontWeight: 600,
@@ -343,6 +345,8 @@ const HeadingResponsiveH2 = styled.h2({
   fontSize: 14,
   fontWeight: 700,
   lineHeight: 'normal',
+  marginBottom: 0,
+  marginTop: 32,
   [lightTheme.breakpoints.up('table_834')]: {
     fontSize: 16,
     fontWeight: 600,
@@ -353,6 +357,8 @@ const HeadingResponsiveH3 = styled.h3({
   fontSize: 14,
   fontWeight: 700,
   lineHeight: 'normal',
+  marginBottom: 0,
+  marginTop: 32,
   [lightTheme.breakpoints.up('table_834')]: {
     fontSize: 16,
     fontWeight: 600,
