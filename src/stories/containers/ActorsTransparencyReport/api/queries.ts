@@ -2,7 +2,7 @@ import { GRAPHQL_ENDPOINT } from '@ses/config/endpoints';
 import request, { gql } from 'graphql-request';
 import type { Team } from '@ses/core/models/interfaces/team';
 
-export const getEcosystemActor = (code: string) => ({
+export const getEcosystemActor = (shortCode: string) => ({
   query: gql`
     query teams($filter: TeamFilter) {
       teams(filter: $filter) {
@@ -110,13 +110,13 @@ export const getEcosystemActor = (code: string) => ({
   filter: {
     filter: {
       type: 'EcosystemActor',
-      code,
+      shortCode,
     },
   },
 });
 
-export const fetchEcosystemActor = async (code: string): Promise<Team> => {
-  const { query, filter } = getEcosystemActor(code);
+export const fetchEcosystemActor = async (shortCode: string): Promise<Team> => {
+  const { query, filter } = getEcosystemActor(shortCode);
   const res = await request<{ teams: Team[] }>(GRAPHQL_ENDPOINT, query, filter);
   return res?.teams?.[0];
 };

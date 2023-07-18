@@ -3,17 +3,18 @@ import { useMemo } from 'react';
 import useSWRImmutable from 'swr/immutable';
 import { accountsSnapshotQuery } from './api/queries';
 import type { Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';
+import type { ResourceType } from '@ses/core/models/interfaces/types';
 import type { DateTime } from 'luxon';
 
-const useAccountsSnapshotTab = (ownerId: string, currentMonth: DateTime) => {
+const useAccountsSnapshotTab = (ownerId: string, currentMonth: DateTime, resource: ResourceType) => {
   const { query, filter } = useMemo(
     () =>
       accountsSnapshotQuery({
-        ownerType: 'CoreUnit',
+        ownerType: resource,
         ownerId,
         period: currentMonth?.toFormat('yyyy/MM'),
       }),
-    [ownerId, currentMonth]
+    [resource, ownerId, currentMonth]
   );
 
   const { data: response, error: errorFetchingUser } = useSWRImmutable<{ snapshots: Snapshots[] }>(
