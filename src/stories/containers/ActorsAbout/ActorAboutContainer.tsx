@@ -119,11 +119,10 @@ const ContainerResponsive = styled.div({
 });
 
 const ContainerScroll = styled.div({
-  position: 'sticky',
-  top: 320,
   [lightTheme.breakpoints.up('desktop_1194')]: {
+    position: 'sticky',
+    height: 'fit-content',
     top: 322,
-    marginTop: 100,
   },
 });
 
@@ -158,6 +157,7 @@ const ContainerCardSomethingWrongDesk = styled.div({
   display: 'none',
   [lightTheme.breakpoints.up('desktop_1194')]: {
     display: 'flex',
+    marginTop: 100,
     width: '39.61%',
   },
 });

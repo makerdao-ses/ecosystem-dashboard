@@ -220,7 +220,7 @@ export const customRendererDark = {
               color: '#D2D4EF',
             }}
           >
-            {text}
+            <strong>{text}</strong>
           </HeadingResponsiveH1>
         );
       case 2:
@@ -230,17 +230,17 @@ export const customRendererDark = {
               color: '#D2D4EF',
             }}
           >
-            {text}
+            <strong>{text}</strong>
           </HeadingResponsiveH2>
         );
       case 3:
         return (
           <HeadingResponsiveH3
             style={{
-              color: '#231536',
+              color: '#D2D4EF',
             }}
           >
-            {text}
+            <strong>{text}</strong>
           </HeadingResponsiveH3>
         );
       default:
