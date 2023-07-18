@@ -303,7 +303,7 @@ export const getLastMonthWithData = (cu: CoreUnit) => {
 };
 
 export const getLastUpdateForBudgetStatement = (element: WithActivityFeed, budgetStatementId: string) => {
-  const activityFeed = element.activityFeed?.filter(
+  const activityFeed = element?.activityFeed?.filter(
     (af) => Number(af.params.budgetStatementId) === Number(budgetStatementId)
   );
 

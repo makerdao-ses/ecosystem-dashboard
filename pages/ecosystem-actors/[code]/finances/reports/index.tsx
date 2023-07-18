@@ -26,7 +26,7 @@ const EcosystemActorsTransparencyReportingPage: NextPage = ({
         setCurrentActor,
       }}
     >
-      <ActorsTransparencyReportContainer actor={currentActor} actors={actors} expenseCategories={expenseCategories} />
+      <ActorsTransparencyReportContainer actor={actor} actors={actors} expenseCategories={expenseCategories} />
     </ActorContext.Provider>
   );
 };
