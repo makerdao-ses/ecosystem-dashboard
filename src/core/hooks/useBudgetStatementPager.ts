@@ -5,17 +5,14 @@ import { getCurrentOrLastMonthWithData, getLastMonthWithActualOrForecast } from 
 import { API_MONTH_TO_FORMAT } from '../utils/date';
 import { useUrlAnchor } from './useUrlAnchor';
 import type { BudgetStatement } from '../models/interfaces/budgetStatement';
-
-export interface WithBudget {
-  budgetStatements: BudgetStatement[];
-}
+import type { WithBudgetStatement } from '../models/interfaces/generics';
 
 export interface BudgetStatementPagerOptions {
   onPrevious?: () => void;
   onNext?: () => void;
 }
 
-const useBudgetStatementPager = (element: WithBudget, options?: BudgetStatementPagerOptions) => {
+const useBudgetStatementPager = (element: WithBudgetStatement, options?: BudgetStatementPagerOptions) => {
   const router = useRouter();
   const viewMonthStr = router.query.viewMonth;
   const anchor = useUrlAnchor();

@@ -3,20 +3,38 @@ import { useMediaQuery } from '@mui/material';
 import { LinkButton } from '@ses/components/LinkButton/LinkButton';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
+import { ResourceType } from '@ses/core/models/interfaces/types';
 import { MAKER_BURN_LINK } from '@ses/core/utils/const';
 import { getShortCode } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 
-interface Props {
+interface TransparencyEmptyTableProps {
   breakdown?: boolean;
   longCode: string;
-  isDelegate?: boolean;
+  resource?: ResourceType;
 }
 
-export const TransparencyEmptyTable = ({ breakdown = false, longCode, isDelegate = false }: Props) => {
+export const TransparencyEmptyTable: React.FC<TransparencyEmptyTableProps> = ({
+  breakdown = false,
+  longCode,
+  resource = ResourceType.CoreUnit,
+}) => {
   const { isLight } = useThemeContext();
   const isTable = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+
+  let title: string;
+  switch (resource) {
+    case ResourceType.Delegates:
+      title = 'No data reported by the Delegates Administrator';
+      break;
+    case ResourceType.EcosystemActor:
+      title = `No data reported by ${getShortCode(longCode)} Ecosystem Actor`;
+      break;
+    default:
+      // handle as a core unit
+      title = `No data reported by ${getShortCode(longCode)} Core Unit`;
+  }
 
   return (
     <>
@@ -274,16 +292,16 @@ export const TransparencyEmptyTable = ({ breakdown = false, longCode, isDelegate
           </Container>
         )}
         <ContainerIndications>
-          <Title>{`No data reported by ${
-            isDelegate ? 'the Delegates Administrator' : `${getShortCode(longCode)} Core Unit`
-          }`}</Title>
+          <Title>{title}</Title>
 
           <Description>View on-chain transfers on makerburn.com </Description>
 
           <ContainerButton>
             <LinkButton
               href={
-                isDelegate ? 'https://makerburn.com/#/expenses/core-units/DELEGATES' : `${MAKER_BURN_LINK}/${longCode}`
+                resource === ResourceType.Delegates
+                  ? 'https://makerburn.com/#/expenses/core-units/DELEGATES'
+                  : `${MAKER_BURN_LINK}/${longCode}`
               }
               label="Go to Makerburn"
               styleText={{
@@ -431,15 +449,15 @@ export const TransparencyEmptyTable = ({ breakdown = false, longCode, isDelegate
           </Container>
         )}
         <ContainerIndications>
-          <TitleMobile>{`No data reported by ${
-            isDelegate ? 'the Delegates Administrator' : `${getShortCode(longCode)} Core Unit`
-          }`}</TitleMobile>
+          <TitleMobile>{title}</TitleMobile>
 
           <Description>View on-chain transfers on makerburn.com </Description>
           <ContainerButton>
             <LinkButton
               href={
-                isDelegate ? 'https://makerburn.com/#/expenses/core-units/DELEGATES' : `${MAKER_BURN_LINK}/${longCode}`
+                resource === ResourceType.Delegates
+                  ? 'https://makerburn.com/#/expenses/core-units/DELEGATES'
+                  : `${MAKER_BURN_LINK}/${longCode}`
               }
               label="Go to Makerburn"
               styleText={{

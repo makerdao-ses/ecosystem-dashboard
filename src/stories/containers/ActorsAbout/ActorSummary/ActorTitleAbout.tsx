@@ -1,18 +1,14 @@
 import styled from '@emotion/styled';
 import { Typography, useMediaQuery } from '@mui/material';
-
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import { SocialMediaComponentStyled } from '@ses/containers/Actors/components/ActorItem/ActorItem';
 import ScopeChip from '@ses/containers/Actors/components/ScopeChip/ScopeChip';
 import { ActorsLinkType, getLinksFromRecognizedActors } from '@ses/containers/Actors/utils/utils';
-
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { pascalCaseToNormalString } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
-
 import React from 'react';
 import type { ActorScopeEnum } from '@ses/core/enums/actorScopeEnum';
-
 import type { EcosystemActor } from '@ses/core/models/dto/teamsDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -44,7 +40,7 @@ export const ActorTitleAbout = ({ actorAbout, showTextDescription, cutTextTooLon
               <ResponsiveTitle>
                 {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
                 <TypographyCategory isLight={isLight}>
-                  {pascalCaseToNormalString(actorAbout?.category[0] || '')}
+                  {pascalCaseToNormalString(actorAbout?.category?.[0] || '')}
                 </TypographyCategory>
               </ResponsiveTitle>
             </ContainerSeparateData>
@@ -62,7 +58,7 @@ export const ActorTitleAbout = ({ actorAbout, showTextDescription, cutTextTooLon
                   </TypographyTitle>
                 )}
                 <TypographyCategory isLight={isLight}>
-                  {pascalCaseToNormalString(actorAbout?.category[0])}
+                  {pascalCaseToNormalString(actorAbout?.category?.[0] || '')}
                 </TypographyCategory>
               </ResponsiveTitle>
             </ContainerSeparateData>

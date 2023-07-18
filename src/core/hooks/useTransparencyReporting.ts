@@ -7,9 +7,9 @@ import { budgetStatementCommentsCollectionId } from '../utils/collectionsIds';
 import { LastVisitHandler } from '../utils/lastVisitHandler';
 import useBudgetStatementComments from './useBudgetStatementComments';
 import useBudgetStatementPager from './useBudgetStatementPager';
-import type { CoreUnitDto } from '../models/dto/coreUnitDTO';
+import type { CoreUnit } from '../models/interfaces/coreUnit';
+import type { WithActivityFeed, WithBudgetStatement } from '../models/interfaces/generics';
 import type { Team } from '../models/interfaces/team';
-import type { WithBudget } from './useBudgetStatementPager';
 
 interface TransparencyReportingOptions<TabIds extends string> {
   commentTabId?: TabIds;
@@ -17,7 +17,7 @@ interface TransparencyReportingOptions<TabIds extends string> {
 }
 
 const useTransparencyReporting = <TabIds extends string>(
-  transparencyElement: Team | CoreUnitDto,
+  transparencyElement: Team | CoreUnit,
   options: TransparencyReportingOptions<TabIds> = {}
 ) => {
   const router = useRouter();
@@ -41,8 +41,7 @@ const useTransparencyReporting = <TabIds extends string>(
 
   // data and functions to navigate between budget statements
   const { currentMonth, currentBudgetStatement, handleNextMonth, handlePreviousMonth, hasNextMonth, hasPreviousMonth } =
-    // TODO: improve the typing here
-    useBudgetStatementPager(transparencyElement as unknown as WithBudget, {
+    useBudgetStatementPager(transparencyElement as WithBudgetStatement, {
       onNext: onPagerChanges,
       onPrevious: onPagerChanges,
     });
@@ -58,11 +57,9 @@ const useTransparencyReporting = <TabIds extends string>(
 
   // get the budget statement last update date
   const lastUpdateForBudgetStatement = useMemo(
-    // TODO: the teams doesn't have the activity feed item
-    // so we need to research what to do in these cases
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    () => getLastUpdateForBudgetStatement(transparencyElement as any, currentBudgetStatement?.id ?? '0'),
-    [currentBudgetStatement, transparencyElement]
+    () =>
+      getLastUpdateForBudgetStatement(currentBudgetStatement as WithActivityFeed, currentBudgetStatement?.id ?? '0'),
+    [currentBudgetStatement]
   );
 
   // should we show the budget status CTA?

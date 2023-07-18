@@ -5,6 +5,7 @@ import Tabs from '@ses/components/Tabs/Tabs';
 import BudgetStatementPager from '@ses/components/TransparencyReporting/BudgetStatementPager/BudgetStatementPager';
 import { siteRoutes } from '@ses/config/routes';
 import { ModalCategoriesProvider } from '@ses/core/context/CategoryModalContext';
+import { ResourceType } from '@ses/core/models/interfaces/types';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { CommentActivityContext } from '../../../core/context/CommentActivityContext';
@@ -16,6 +17,7 @@ import { CoreUnitSummary } from '../../components/CoreUnitSummary/CoreUnitSummar
 import { CustomLink } from '../../components/CustomLink/CustomLink';
 import { SEOHead } from '../../components/SEOHead/SEOHead';
 import AccountsSnapshotTabContainer from './components/AccountsSnapshot/AccountsSnapshotTabContainer';
+import CuHeadlineText from './components/CuHeadlineText/CuHeadlineText';
 import ExpenseReport from './components/ExpenseReport/ExpenseReport';
 import { TransparencyActuals } from './components/TransparencyActuals/TransparencyActuals';
 
@@ -63,6 +65,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: T
   } = useTransparencyReport(coreUnit);
   const [isEnabled] = useFlagsActive();
 
+  const headline = <CuHeadlineText cuLongCode={longCode} />;
   return (
     <Wrapper>
       <SEOHead
@@ -112,34 +115,38 @@ export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: T
             <Container>
               {tabsIndex === TRANSPARENCY_IDS_ENUM.ACTUALS && (
                 <TransparencyActuals
-                  code={code}
                   currentMonth={currentMonth}
                   budgetStatements={coreUnit?.budgetStatements}
                   longCode={longCode}
+                  headline={headline}
+                  resource={ResourceType.CoreUnit}
                 />
               )}
               {tabsIndex === TRANSPARENCY_IDS_ENUM.FORECAST && (
                 <TransparencyForecast
                   currentMonth={currentMonth}
                   budgetStatements={coreUnit?.budgetStatements}
-                  code={code}
                   longCode={longCode}
+                  headline={headline}
+                  resource={ResourceType.CoreUnit}
                 />
               )}
               {tabsIndex === TRANSPARENCY_IDS_ENUM.MKR_VESTING && (
                 <TransparencyMkrVesting
                   currentMonth={currentMonth}
                   budgetStatements={coreUnit?.budgetStatements}
-                  code={code}
                   longCode={longCode}
+                  headline={headline}
+                  resource={ResourceType.CoreUnit}
                 />
               )}
               {tabsIndex === TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS && (
                 <TransparencyTransferRequest
                   currentMonth={currentMonth}
                   budgetStatements={coreUnit?.budgetStatements}
-                  code={code}
                   longCode={longCode}
+                  headline={headline}
+                  resource={ResourceType.CoreUnit}
                 />
               )}
               {tabsIndex === TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS && isEnabled('FEATURE_AUDIT_REPORTS') && (
@@ -151,6 +158,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: T
                   currentMonth={currentMonth}
                   ownerId={coreUnit.id}
                   longCode={coreUnit.code}
+                  resource={ResourceType.CoreUnit}
                 />
               )}
 

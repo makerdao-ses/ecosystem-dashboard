@@ -1,66 +1,45 @@
 import styled from '@emotion/styled';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
-import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { MAKER_BURN_LINK } from '@ses/core/utils/const';
-import { getShortCode } from '@ses/core/utils/string';
-import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { Title } from '../../TransparencyReport';
-import { LinkDescription } from '../TransparencyActuals/TransparencyActuals';
+import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import { useTransparencyTransferRequest } from './useTransparencyTransferRequest';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
+import type { ResourceType } from '@ses/core/models/interfaces/types';
 import type { DateTime } from 'luxon';
 
-interface Props {
+interface TransparencyTransferRequestProps {
   currentMonth: DateTime;
   budgetStatements: BudgetStatement[];
-  code: string;
   longCode: string;
+  headline: React.ReactNode;
+  resource: ResourceType;
 }
 
-export const TransparencyTransferRequest = (props: Props) => {
+export const TransparencyTransferRequest: React.FC<TransparencyTransferRequestProps> = ({
+  currentMonth,
+  budgetStatements,
+  longCode,
+  headline,
+  resource,
+}) => {
   const { isLight } = useThemeContext();
-  const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
-  const { mainTableColumns, mainTableItems } = useTransparencyTransferRequest(
-    props.currentMonth,
-    props.budgetStatements
-  );
+  const { mainTableColumns, mainTableItems } = useTransparencyTransferRequest(currentMonth, budgetStatements);
 
   return (
     <Container>
-      <LinkDescription isLight={isLight}>
-        <span> Visit makerburn.com to</span>
-        <CustomLink
-          href={`${MAKER_BURN_LINK}/${props.longCode}`}
-          style={{
-            flexWrap: 'wrap',
-            color: '#447AFB',
-            letterSpacing: '0.3px',
-            lineHeight: '18px',
-            marginBottom: isMobile ? '0px' : '32px',
-            whiteSpace: 'break-spaces',
-            display: 'inline-block',
-            marginLeft: 0,
-          }}
-          fontSize={16}
-          fontWeight={500}
-          iconWidth={10}
-          iconHeight={10}
-          marginLeft="7px"
-        >
-          {`view the ${getShortCode(props.code)} Core Unit on-chain transaction history`}
-        </CustomLink>
-      </LinkDescription>
-      <Title isLight={isLight}>{props.currentMonth.toFormat('MMM yyyy')} Totals</Title>
+      {headline}
+
+      <Title isLight={isLight}>{currentMonth.toFormat('MMM yyyy')} Totals</Title>
       <div style={{ marginTop: 32 }}>
         <AdvancedInnerTable
           columns={mainTableColumns}
           items={mainTableItems}
           style={{ marginBottom: '64px' }}
           cardsTotalPosition={'top'}
-          longCode={props.longCode}
+          longCode={longCode}
+          tablePlaceholder={<TransparencyEmptyTable longCode={longCode} resource={resource} />}
         />
       </div>
     </Container>
