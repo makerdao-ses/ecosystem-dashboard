@@ -104,8 +104,6 @@ export const customRenderer = {
           <HeadingResponsiveH2
             style={{
               color: '#231536',
-              fontSize: 16,
-              fontWeight: 700,
             }}
           >
             {text}
@@ -122,7 +120,15 @@ export const customRenderer = {
           </HeadingResponsiveH3>
         );
       default:
-        return <h3>{text}</h3>;
+        return (
+          <HeadingResponsiveH3
+            style={{
+              color: '#231536',
+            }}
+          >
+            {text}
+          </HeadingResponsiveH3>
+        );
     }
   },
 };
@@ -220,7 +226,7 @@ export const customRendererDark = {
               color: '#D2D4EF',
             }}
           >
-            <strong>{text}</strong>
+            {text}
           </HeadingResponsiveH1>
         );
       case 2:
@@ -230,7 +236,7 @@ export const customRendererDark = {
               color: '#D2D4EF',
             }}
           >
-            <strong>{text}</strong>
+            {text}
           </HeadingResponsiveH2>
         );
       case 3:
@@ -240,11 +246,19 @@ export const customRendererDark = {
               color: '#D2D4EF',
             }}
           >
-            <strong>{text}</strong>
+            {text}
           </HeadingResponsiveH3>
         );
       default:
-        return <HeadingResponsiveH2>{text}</HeadingResponsiveH2>;
+        return (
+          <HeadingResponsiveH3
+            style={{
+              color: '#D2D4EF',
+            }}
+          >
+            {text}
+          </HeadingResponsiveH3>
+        );
     }
   },
 };
@@ -325,7 +339,15 @@ const HeadingResponsiveH1 = styled.h1({
   },
 });
 
-const HeadingResponsiveH2 = styled.h2({});
+const HeadingResponsiveH2 = styled.h2({
+  fontSize: 14,
+  fontWeight: 700,
+  lineHeight: 'normal',
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: 16,
+    fontWeight: 600,
+  },
+});
 
 const HeadingResponsiveH3 = styled.h3({
   fontSize: 14,
