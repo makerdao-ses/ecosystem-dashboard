@@ -62,6 +62,7 @@ export default {
   decorators: [withoutSBPadding],
   parameters: {
     nextRouter: {
+      pathname: '/ecosystem-actors',
       path: '/ecosystem-actors/[code]',
       asPath: '/ecosystem-actors/DEWIZ',
       query: {
