@@ -191,6 +191,7 @@ const TypographyCategory = styled.div<WithIsLight>(({ isLight }) => ({
   marginTop: 1,
   marginLeft: 12,
   padding: '4px 0px',
+  width: 'fit-content',
   borderBottom: `2px solid ${isLight ? '#708390' : '#787A9B'}`,
   color: '#708390',
   [lightTheme.breakpoints.up('table_834')]: {
@@ -255,6 +256,7 @@ const CategoryContainer = styled.div({
   display: 'flex',
   flexDirection: 'row',
   flexWrap: 'wrap',
+  rowGap: 4,
   '> div:first-of-type': {
     marginRight: '16px',
   },
