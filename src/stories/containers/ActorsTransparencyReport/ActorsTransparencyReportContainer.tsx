@@ -75,7 +75,6 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
         actors={actors as any}
         trailingAddress={['Expense Report']}
         breadcrumbTitle="Expense Reports"
-        cutTextTooLong={actor.name.length > 20}
       />
       <PageContainer hasImageBackground={true}>
         <PageSeparator>

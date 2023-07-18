@@ -16,15 +16,9 @@ interface ActorSummaryProps {
   actors: EcosystemActor[];
   trailingAddress?: string[];
   breadcrumbTitle?: string;
-  cutTextTooLong?: boolean;
 }
 
-const ActorSummary: React.FC<ActorSummaryProps> = ({
-  actors: data = [],
-  breadcrumbTitle,
-  cutTextTooLong,
-  trailingAddress = [],
-}) => {
+const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcrumbTitle, trailingAddress = [] }) => {
   const { isLight } = useThemeContext();
 
   const [showTextDescription, setShowTextDescription] = useState(true);
@@ -107,11 +101,7 @@ const ActorSummary: React.FC<ActorSummaryProps> = ({
         router={router}
       />
 
-      <ActorTitleWithDescription
-        actorAbout={actorAbout}
-        showTextDescription={showTextDescription}
-        cutTextTooLong={cutTextTooLong}
-      />
+      <ActorTitleWithDescription actorAbout={actorAbout} showTextDescription={showTextDescription} />
 
       <ContainerResponsiveMobile showTextDescription={showTextDescription} isLight={isLight} />
     </MainContainer>
