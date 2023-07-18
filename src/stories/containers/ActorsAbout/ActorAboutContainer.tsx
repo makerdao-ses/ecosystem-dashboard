@@ -110,10 +110,10 @@ const ContainerResponsive = styled.div({
   width: '60.39%',
   display: 'flex',
   flexDirection: 'column',
-  marginTop: 100,
+  marginTop: 96,
   [lightTheme.breakpoints.down('desktop_1194')]: {
     width: '100%',
-    marginTop: 90,
+    marginTop: 100,
   },
 });
 
@@ -157,7 +157,7 @@ const ContainerCardSomethingWrongDesk = styled.div({
   marginTop: 90,
   [lightTheme.breakpoints.up('desktop_1194')]: {
     display: 'flex',
-    marginTop: 100,
+    marginTop: 96,
     width: '39.61%',
   },
 });
