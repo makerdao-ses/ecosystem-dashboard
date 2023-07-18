@@ -1,8 +1,11 @@
-import type { AuditorDto } from '@ses/core/models/dto/coreUnitDTO';
-import type { ActorSocialDto, EcosystemActor, Scope, TeamType } from '@ses/core/models/dto/teamsDTO';
+import { ResourceType } from '@ses/core/models/interfaces/types';
+import type { Scope } from '@ses/core/models/interfaces/scopes';
+import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedia';
+import type { Team } from '@ses/core/models/interfaces/team';
+import type { Auditor } from '@ses/core/models/interfaces/users';
 
 export class EcosystemActorBuilder {
-  private readonly _ecosystemActor: EcosystemActor;
+  private readonly _ecosystemActor: Team;
 
   constructor() {
     this._ecosystemActor = {
@@ -11,14 +14,14 @@ export class EcosystemActorBuilder {
       shortCode: '',
       paragraphDescription: '',
       sentenceDescription: '',
-      auditors: [] as AuditorDto[],
+      auditors: [] as Auditor[],
       name: '',
-      type: '',
+      type: ResourceType.EcosystemActor,
       image: '',
       category: [] as string[],
       scopes: [] as Scope[],
-      socialMediaChannels: [] as ActorSocialDto[],
-    };
+      socialMediaChannels: [] as SocialMediaChannels[],
+    } as Team;
   }
 
   withId(id: string): EcosystemActorBuilder {
@@ -41,13 +44,13 @@ export class EcosystemActorBuilder {
     return this;
   }
 
-  withSentenceDescription(description: string): EcosystemActorBuilder {
-    this._ecosystemActor.sentenceDescription = description;
+  withSentenceDescription(sentenceDescription: string): EcosystemActorBuilder {
+    this._ecosystemActor.sentenceDescription = sentenceDescription;
     return this;
   }
 
-  addAuditor(description: AuditorDto): EcosystemActorBuilder {
-    this._ecosystemActor.auditors.push(description);
+  addAuditor(auditor: Auditor): EcosystemActorBuilder {
+    this._ecosystemActor.auditors.push(auditor);
     return this;
   }
 
@@ -56,7 +59,7 @@ export class EcosystemActorBuilder {
     return this;
   }
 
-  withType(type: TeamType): EcosystemActorBuilder {
+  withType(type: ResourceType): EcosystemActorBuilder {
     this._ecosystemActor.type = type;
     return this;
   }
@@ -76,12 +79,12 @@ export class EcosystemActorBuilder {
     return this;
   }
 
-  withSocials(socialMediaChannels: ActorSocialDto): EcosystemActorBuilder {
+  withSocials(socialMediaChannels: SocialMediaChannels): EcosystemActorBuilder {
     this._ecosystemActor.socialMediaChannels.push(socialMediaChannels);
     return this;
   }
 
-  build(): EcosystemActor {
+  build(): Team {
     return this._ecosystemActor;
   }
 }

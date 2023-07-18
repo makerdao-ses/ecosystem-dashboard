@@ -1,10 +1,10 @@
 import { useContext, createContext } from 'react';
-import type { EcosystemActor } from '../models/dto/teamsDTO';
+import type { Team } from '../models/interfaces/team';
 
 export type ActorContextValues = {
-  actors?: EcosystemActor[];
-  actor?: EcosystemActor;
-  setCurrentActor: (actor: EcosystemActor) => void;
+  actors?: Team[];
+  actor?: Team;
+  setCurrentActor: (actor: Team) => void;
 };
 
 export const ActorContext = createContext<ActorContextValues>({

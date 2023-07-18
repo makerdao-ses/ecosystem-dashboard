@@ -1,6 +1,7 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import { EcosystemActorBuilder } from '@ses/core/businessLogic/builders/actors/actorsBuilder';
 import { FeatureFlagsProvider } from '@ses/core/context/FeatureFlagsProvider';
+import { ResourceType } from '@ses/core/models/interfaces/types';
 import { withoutSBPadding } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { featureFlags } from 'feature-flags/feature-flags';
@@ -14,7 +15,7 @@ const actorsItems = [
     .withCode('DEWIZ-001')
     .withShortCode('DEWIZ')
     .withName('Powerhouse Inc.')
-    .withType('EcosystemActor')
+    .withType(ResourceType.EcosystemActor)
     .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
     .addCategory('Active Ecosystem Actor')
     .withSentenceDescription(
@@ -39,7 +40,7 @@ const actorsItems = [
     .withId('23')
     .withCode('PH-001')
     .withName('Zoenix Labs')
-    .withType('EcosystemActor')
+    .withType(ResourceType.EcosystemActor)
     .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
     .addCategory('Active Ecosystem Actor')
     .addScope({

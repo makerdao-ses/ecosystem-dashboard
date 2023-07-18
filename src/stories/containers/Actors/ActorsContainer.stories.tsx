@@ -1,9 +1,10 @@
 import { EcosystemActorBuilder } from '@ses/core/businessLogic/builders/actors/actorsBuilder';
+import { ResourceType } from '@ses/core/models/interfaces/types';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AppLayout from '../AppLayout/AppLayout';
 import ActorsContainer from './ActorsContainer';
 import { defaultSocials } from './utils/utils';
-import type { EcosystemActor } from '@ses/core/models/dto/teamsDTO';
+import type { Team } from '@ses/core/models/interfaces/team';
 import type { ComponentMeta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 export default {
@@ -28,7 +29,7 @@ const variantsArgs = [
         .withId('23')
         .withCode('PH-001')
         .withName('Powerhouse Inc.')
-        .withType('EcosystemActor')
+        .withType(ResourceType.EcosystemActor)
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
         .addCategory('Active Ecosystem Actor')
         .addScope({
@@ -47,7 +48,7 @@ const variantsArgs = [
         .withId('23')
         .withCode('PH-001')
         .withName('Zoenix Labs')
-        .withType('EcosystemActor')
+        .withType(ResourceType.EcosystemActor)
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
         .addCategory('Active Ecosystem Actor')
         .addScope({
@@ -66,7 +67,7 @@ const variantsArgs = [
         .withId('23')
         .withCode('PH-001')
         .withName('PPhoenix Labs')
-        .withType('EcosystemActor')
+        .withType(ResourceType.EcosystemActor)
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
         .addCategory('Active Ecosystem Actor')
         .addScope({
@@ -85,7 +86,7 @@ const variantsArgs = [
         .withId('23')
         .withCode('PH-001')
         .withName('ZPhoenix Labs')
-        .withType('EcosystemActor')
+        .withType(ResourceType.EcosystemActor)
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
         .addCategory('Active Ecosystem Actor')
         .addScope({
@@ -104,7 +105,7 @@ const variantsArgs = [
         .withId('23')
         .withCode('PH-001')
         .withName('Phoenix Labs')
-        .withType('EcosystemActor')
+        .withType(ResourceType.EcosystemActor)
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
         .addCategory('Active Ecosystem Actor')
         .addScope({
@@ -123,7 +124,7 @@ const variantsArgs = [
         .withId('23')
         .withCode('PH-001')
         .withName('Phoeull Up')
-        .withType('EcosystemActor')
+        .withType(ResourceType.EcosystemActor)
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
         .addCategory('Scope Facilitators')
         .withSocials(defaultSocials)
@@ -132,7 +133,7 @@ const variantsArgs = [
         .withId('23')
         .withCode('PH-001')
         .withName('BA Labs')
-        .withType('EcosystemActor')
+        .withType(ResourceType.EcosystemActor)
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
         .addCategory('Active Ecosystem Actor')
         .addScope({
@@ -151,7 +152,7 @@ const variantsArgs = [
         .withId('23')
         .withCode('PH-001')
         .withName('ChainSecurity')
-        .withType('EcosystemActor')
+        .withType(ResourceType.EcosystemActor)
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
         .addCategory('Active Ecosystem Actor')
         .addScope({
@@ -170,7 +171,7 @@ const variantsArgs = [
         .withId('23')
         .withCode('PH-001')
         .withName('Certora')
-        .withType('EcosystemActor')
+        .withType(ResourceType.EcosystemActor)
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
         .addCategory('Active Ecosystem Actor')
         .addScope({
@@ -185,11 +186,11 @@ const variantsArgs = [
         })
         .withSocials(defaultSocials)
         .build(),
-    ] as EcosystemActor[],
+    ] as Team[],
     stories: true,
   },
   {
-    actors: [] as EcosystemActor[],
+    actors: [] as Team[],
     stories: false,
   },
 ];
