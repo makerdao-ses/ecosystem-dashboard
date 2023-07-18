@@ -183,8 +183,10 @@ export default ActorMdViewPage;
 const ViewerContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  textAlign: 'justify',
   boxSizing: 'border-box',
+  [lightTheme.breakpoints.up('table_834')]: {
+    textAlign: 'justify',
+  },
 });
 
 const TypographyStyleDescription = styled.p<{ isLight: boolean }>(({ isLight }) => ({
