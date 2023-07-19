@@ -15,90 +15,97 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 interface Props {
   actorAbout: Team;
   showTextDescription?: boolean;
-  cutTextTooLong?: boolean;
 }
 
-export const ActorTitleAbout = ({ actorAbout, showTextDescription, cutTextTooLong }: Props) => {
+export const ActorTitleAbout = ({ actorAbout, showTextDescription }: Props) => {
   const { isLight } = useThemeContext();
+  const isTable = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const phoneDimensions = useMediaQuery(lightTheme.breakpoints.down('table_834'));
 
   return (
     <Container>
-      <CircleContainer>
-        <CircleAvatar
-          width={phoneDimensions ? '32px' : '68px'}
-          height={phoneDimensions ? '32px' : '68px'}
-          name={actorAbout?.name || 'Ecosystem Actors'}
-          image={actorAbout?.image}
-          style={{
-            filter: 'drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))',
-          }}
-        />
-        <WrapperShowOnlyMobile>
-          <ContainerTitle>
-            <ContainerSeparateData>
-              <ResponsiveTitle>
-                {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
-                <TypographyCategory isLight={isLight}>
-                  {pascalCaseToNormalString(actorAbout?.category?.[0] || '')}
-                </TypographyCategory>
-              </ResponsiveTitle>
-            </ContainerSeparateData>
-          </ContainerTitle>
-        </WrapperShowOnlyMobile>
-      </CircleContainer>
-      <ContainerColum>
-        <WrapperShowDesk>
-          <ContainerTitle>
-            <ContainerSeparateData>
-              <ResponsiveTitle>
-                {actorAbout?.name && (
-                  <TypographyTitle isLight={isLight} cutTextTooLong={cutTextTooLong}>
-                    {actorAbout?.name}
-                  </TypographyTitle>
-                )}
-                <TypographyCategory isLight={isLight}>
-                  {pascalCaseToNormalString(actorAbout?.category?.[0] || '')}
-                </TypographyCategory>
-              </ResponsiveTitle>
-            </ContainerSeparateData>
-          </ContainerTitle>
-        </WrapperShowDesk>
-
-        <ContainerCategoryConditional>
-          {(!phoneDimensions || showTextDescription) && (
-            <CategoryContainer>
-              {actorAbout?.scopes?.map((item, index) => (
-                <ScopeChip status={item.name as ActorScopeEnum} code={item.code} key={index} />
-              ))}
-            </CategoryContainer>
-          )}
-          {phoneDimensions && showTextDescription && (
-            <ContainerLinks>
-              <SocialMediaComponentStyled
-                isLight={isLight}
-                links={getLinksFromRecognizedActors(actorAbout, ActorsLinkType) || []}
-                fill="#708390"
-                fillDark="#ADAFD4"
-              />
-            </ContainerLinks>
-          )}
-        </ContainerCategoryConditional>
-      </ContainerColum>
-      {!phoneDimensions && (
-        <ContainerLinks>
-          <SocialMediaComponentStyled
-            isLight={isLight}
-            links={getLinksFromRecognizedActors(actorAbout, ActorsLinkType) || []}
-            fill="#708390"
-            fillDark="#ADAFD4"
+      <ContainerForAvatarLinks>
+        <CircleContainer>
+          <CircleAvatar
+            width={phoneDimensions ? '32px' : '68px'}
+            height={phoneDimensions ? '32px' : '68px'}
+            name={actorAbout?.name || 'Ecosystem Actors'}
+            image={actorAbout?.image}
+            style={{
+              filter: 'drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))',
+            }}
           />
-        </ContainerLinks>
-      )}
+          <WrapperShowOnlyMobile>
+            <ContainerTitle>
+              <ContainerSeparateData>
+                <ResponsiveTitle>
+                  {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
+                  <TypographyCategory isLight={isLight}>
+                    {pascalCaseToNormalString(actorAbout?.category[0] || '')}
+                  </TypographyCategory>
+                </ResponsiveTitle>
+              </ContainerSeparateData>
+            </ContainerTitle>
+          </WrapperShowOnlyMobile>
+        </CircleContainer>
+        <ContainerColum>
+          <WrapperShowDesk>
+            <ContainerTitle>
+              <ContainerSeparateData>
+                <ResponsiveTitle>
+                  {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
+                  <TypographyCategory isLight={isLight}>
+                    {pascalCaseToNormalString(actorAbout?.category[0])}
+                  </TypographyCategory>
+                </ResponsiveTitle>
+              </ContainerSeparateData>
+            </ContainerTitle>
+          </WrapperShowDesk>
+
+          <ContainerCategoryConditional>
+            {(!phoneDimensions || showTextDescription) && (
+              <CategoryContainer>
+                {actorAbout?.scopes?.map((item, index) => (
+                  <ScopeChip status={item.name as ActorScopeEnum} code={item.code} key={index} />
+                ))}
+              </CategoryContainer>
+            )}
+            {phoneDimensions && !isTable && showTextDescription && (
+              <ContainerLinks>
+                <SocialMediaComponentStyled
+                  isLight={isLight}
+                  links={getLinksFromRecognizedActors(actorAbout, ActorsLinkType) || []}
+                  fill="#708390"
+                  fillDark="#ADAFD4"
+                />
+              </ContainerLinks>
+            )}
+            {isTable && showTextDescription && (
+              <ContainerLinks>
+                <SocialMediaComponentStyled
+                  isLight={isLight}
+                  links={getLinksFromRecognizedActors(actorAbout, ActorsLinkType) || []}
+                  fill="#708390"
+                  fillDark="#ADAFD4"
+                />
+              </ContainerLinks>
+            )}
+          </ContainerCategoryConditional>
+        </ContainerColum>
+        {!phoneDimensions && !isTable && (
+          <ContainerLinks>
+            <SocialMediaComponentStyled
+              isLight={isLight}
+              links={getLinksFromRecognizedActors(actorAbout, ActorsLinkType) || []}
+              fill="#708390"
+              fillDark="#ADAFD4"
+            />
+          </ContainerLinks>
+        )}
+      </ContainerForAvatarLinks>
     </Container>
   );
 };
-
 export default ActorTitleAbout;
 
 const Container = styled.div({
@@ -126,8 +133,7 @@ const ContainerTitle = styled.div({
 
 const TypographyTitle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
   isLight: boolean;
-  cutTextTooLong?: boolean;
-}>(({ isLight, cutTextTooLong }) => ({
+}>(({ isLight }) => ({
   color: isLight ? '#231536' : '#E2D8EE',
   [lightTheme.breakpoints.down('table_375')]: {
     fontWeight: 700,
@@ -153,19 +159,6 @@ const TypographyTitle = styled(Typography, { shouldForwardProp: (prop) => prop !
     letterSpacing: '0.4px',
     marginRight: '4px',
     fontFamily: 'Inter, sans-serif',
-
-    ...(cutTextTooLong && {
-      width: 250,
-      whiteSpace: 'nowrap',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      ':hover': {
-        cursor: 'pointer',
-        whiteSpace: 'normal',
-        width: 'revert',
-        transition: 'all .5s ease',
-      },
-    }),
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     width: 'revert',
@@ -223,11 +216,13 @@ const ContainerLinks = styled.div({
     marginLeft: 4,
   },
   [lightTheme.breakpoints.up('table_834')]: {
-    width: '272px',
     marginRight: 0,
-    marginTop: 6,
+    marginTop: 0,
     alignItems: 'flex-start',
     height: 'fit-content',
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginTop: 6,
   },
 });
 
@@ -309,10 +304,11 @@ const ContainerCategoryConditional = styled.div({
   flexDirection: 'column',
   alignItems: 'flex-start',
   width: '100%',
-
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    rowGap: 10,
   },
 });
 
@@ -364,5 +360,16 @@ const WrapperShowDesk = styled.div({
   display: 'none',
   [lightTheme.breakpoints.up('table_834')]: {
     display: 'flex',
+  },
+});
+
+const ContainerForAvatarLinks = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

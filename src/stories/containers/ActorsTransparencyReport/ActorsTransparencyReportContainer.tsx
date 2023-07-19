@@ -69,12 +69,7 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
         twitterCard={actor.image ? 'summary' : 'summary_large_image'}
         canonicalURL={siteRoutes.ecosystemActorReports(actor.code)}
       />
-      <ActorSummary
-        actors={actors}
-        trailingAddress={['Expense Report']}
-        breadcrumbTitle="Expense Reports"
-        cutTextTooLong={actor.name.length > 20}
-      />
+      <ActorSummary actors={actors} trailingAddress={['Expense Report']} breadcrumbTitle="Expense Reports" />
       <PageContainer hasImageBackground={true}>
         <PageSeparator>
           <Container>
