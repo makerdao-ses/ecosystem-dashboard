@@ -42,10 +42,9 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
           width: 385,
           height: 200,
         }}
-        twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
         canonicalURL={siteRoutes.ecosystemActorAbout(actor.shortCode)}
       />
-      <ActorSummary actors={actors} cutTextTooLong={actor.name.length > 20} />
+      <ActorSummary actors={actors} />
       <Container>
         <ContainerAllData>
           <ContainerResponsive>
@@ -107,14 +106,13 @@ const PageWrapper = styled(PageContainer)<WithIsLight>(({ isLight }) => ({
 const MarkdownContainer = styled.div();
 
 const ContainerResponsive = styled.div({
-  marginTop: 100,
-
   width: '60.39%',
   display: 'flex',
   flexDirection: 'column',
-
+  marginTop: 96,
   [lightTheme.breakpoints.down('desktop_1194')]: {
     width: '100%',
+    marginTop: 100,
   },
 });
 
@@ -155,9 +153,10 @@ const WrapperCardSomethingWrongMobile = styled.div({
 
 const ContainerCardSomethingWrongDesk = styled.div({
   display: 'none',
+  marginTop: 90,
   [lightTheme.breakpoints.up('desktop_1194')]: {
     display: 'flex',
-    marginTop: 100,
+    marginTop: 96,
     width: '39.61%',
   },
 });
