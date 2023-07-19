@@ -28,7 +28,7 @@ import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO'
 import type { Team } from '@ses/core/models/interfaces/team';
 
 interface ActorsTransparencyReportContainerProps {
-  actors: Partial<Team>[];
+  actors: Team[];
   actor: Team;
   expenseCategories: ExpenseCategory[];
 }
@@ -69,13 +69,7 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
         twitterCard={actor.image ? 'summary' : 'summary_large_image'}
         canonicalURL={siteRoutes.ecosystemActorReports(actor.code)}
       />
-      <ActorSummary
-        // TODO: modify the type of actors to be Team[]
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        actors={actors as any}
-        trailingAddress={['Expense Report']}
-        breadcrumbTitle="Expense Reports"
-      />
+      <ActorSummary actors={actors} trailingAddress={['Expense Report']} breadcrumbTitle="Expense Reports" />
       <PageContainer hasImageBackground={true}>
         <PageSeparator>
           <Container>

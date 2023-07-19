@@ -9,11 +9,11 @@ import { pascalCaseToNormalString } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import type { ActorScopeEnum } from '@ses/core/enums/actorScopeEnum';
-import type { EcosystemActor } from '@ses/core/models/dto/teamsDTO';
+import type { Team } from '@ses/core/models/interfaces/team';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  actorAbout: EcosystemActor;
+  actorAbout: Team;
   showTextDescription?: boolean;
 }
 

@@ -4,9 +4,9 @@ import lightTheme from '@ses/styles/theme/light';
 import orderBy from 'lodash/orderBy';
 import { useMemo, useState } from 'react';
 import type { ActorTableHeader } from './components/ActorHeader/ActorsHeaderTable';
-import type { EcosystemActor } from '@ses/core/models/dto/teamsDTO';
+import type { Team } from '@ses/core/models/interfaces/team';
 
-export const useActors = (actors: EcosystemActor[], stories = false) => {
+export const useActors = (actors: Team[], stories = false) => {
   const isLessPhone = useMediaQuery(lightTheme.breakpoints.down(376));
   const [readMore, setReadMore] = useState<boolean>(stories);
   const showTextDesk = readMore;
@@ -72,21 +72,20 @@ export const useActors = (actors: EcosystemActor[], stories = false) => {
     },
   ];
 
-  const groupByStatusDefaultSorting: EcosystemActor[] = useMemo(() => {
+  const groupByStatusDefaultSorting: Team[] = useMemo(() => {
     const resultMoment = orderBy(actors, 'name');
 
     return resultMoment;
   }, [actors]);
   const sortData = useMemo(() => {
-    const sortDataFunction = (items: EcosystemActor[]) => {
+    const sortDataFunction = (items: Team[]) => {
       if (headersSort[sortColumn] === SortEnum.Disabled) return items;
 
       const multiplier = headersSort[sortColumn] === SortEnum.Asc ? 1 : -1;
 
-      const name = (a: EcosystemActor, b: EcosystemActor) => a.name.localeCompare(b.name) * multiplier;
-      const role = (a: EcosystemActor, b: EcosystemActor) => a.category[0].localeCompare(b.category[0]) * multiplier;
-      const scope = (a: EcosystemActor, b: EcosystemActor) =>
-        a.scopes[0].name.localeCompare(b.scopes[0].name) * multiplier;
+      const name = (a: Team, b: Team) => a.name.localeCompare(b.name) * multiplier;
+      const role = (a: Team, b: Team) => a.category[0].localeCompare(b.category[0]) * multiplier;
+      const scope = (a: Team, b: Team) => a.scopes[0].name.localeCompare(b.scopes[0].name) * multiplier;
 
       const sortAlg = [name, role, scope, () => 0];
       return [...items].sort(sortAlg[sortColumn]);
@@ -94,9 +93,9 @@ export const useActors = (actors: EcosystemActor[], stories = false) => {
     return sortDataFunction;
   }, [headersSort, sortColumn]);
 
-  const tableItems: EcosystemActor[] = useMemo(() => {
+  const tableItems: Team[] = useMemo(() => {
     const sortedData = sortData(groupByStatusDefaultSorting);
-    return sortedData?.map((x: EcosystemActor) => ({
+    return sortedData?.map((x: Team) => ({
       ...x,
       value: x,
       key: x.code,
@@ -104,7 +103,6 @@ export const useActors = (actors: EcosystemActor[], stories = false) => {
   }, [groupByStatusDefaultSorting, sortData]);
 
   const onSortClick = (index: number) => {
-    console.log('onSortClick', index);
     const sortNeutralState = columns.map((column) =>
       column.sort ? SortEnum.Neutral : SortEnum.Disabled
     ) as SortEnum[];
