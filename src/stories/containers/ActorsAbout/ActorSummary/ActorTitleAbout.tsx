@@ -41,7 +41,7 @@ export const ActorTitleAbout = ({ actorAbout, showTextDescription }: Props) => {
                 <ResponsiveTitle>
                   {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
                   <TypographyCategory isLight={isLight}>
-                    {pascalCaseToNormalString(actorAbout?.category[0] || '')}
+                    {pascalCaseToNormalString(actorAbout.category?.[0] ?? '')}
                   </TypographyCategory>
                 </ResponsiveTitle>
               </ContainerSeparateData>
@@ -55,7 +55,7 @@ export const ActorTitleAbout = ({ actorAbout, showTextDescription }: Props) => {
                 <ResponsiveTitle>
                   {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
                   <TypographyCategory isLight={isLight}>
-                    {pascalCaseToNormalString(actorAbout?.category[0])}
+                    {pascalCaseToNormalString(actorAbout.category?.[0] ?? '')}
                   </TypographyCategory>
                 </ResponsiveTitle>
               </ContainerSeparateData>
