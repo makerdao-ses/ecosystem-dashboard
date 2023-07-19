@@ -42,7 +42,6 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
           width: 385,
           height: 200,
         }}
-        twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
         canonicalURL={siteRoutes.ecosystemActorAbout(actor.shortCode)}
       />
       <ActorSummary actors={actors} />

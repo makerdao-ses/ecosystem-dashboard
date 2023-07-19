@@ -1,6 +1,9 @@
+import { fetchActors } from '@ses/containers/Actors/api/queries';
 import { BASE_URL, siteRoutes } from '../../config/routes';
 import { fetchCoreUnits } from '../../stories/containers/CUTable/cuTableAPI';
+import { ResourceType } from '../models/interfaces/types';
 import type { CoreUnitDto } from '../models/dto/coreUnitDTO';
+import type { Team } from '../models/interfaces/team';
 
 export class SitemapBuilder {
   private getXMLForRoute(url: string, lastMod?: string, changeFreq?: string): string {
@@ -47,6 +50,12 @@ export class SitemapBuilder {
     return cuRoutes;
   }
 
+  private resolveSingleActorRoutes(actor: Team): string[] {
+    const actorRoutes: string[] = [];
+    actorRoutes.push(this.getXMLForRoute(`${BASE_URL}${siteRoutes.ecosystemActorAbout(actor.shortCode)}`));
+    return actorRoutes;
+  }
+
   async resolveCuRoutes(): Promise<string[]> {
     const cuRoutes: string[] = [];
     const coreUnits = (await fetchCoreUnits()) as CoreUnitDto[];
@@ -57,8 +66,19 @@ export class SitemapBuilder {
     return cuRoutes;
   }
 
+  async resolveActorsRoutes(): Promise<string[]> {
+    const actorRoutes: string[] = [];
+    const actors = (await fetchActors(ResourceType.EcosystemActor)) as Team[];
+    for (const cu of actors) {
+      actorRoutes.push(...this.resolveSingleActorRoutes(cu));
+    }
+
+    return actorRoutes;
+  }
+
   async build(): Promise<string> {
     const cuRoutes = await this.resolveCuRoutes();
+    const actors = await this.resolveActorsRoutes();
 
     return `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -69,6 +89,8 @@ export class SitemapBuilder {
       ${this.resolveGlobalActivityRoute()}
       ${this.resolveActorsRouter()}
       ${cuRoutes.join('')}
+      ${actors.join('')}
+
     </urlset>
     `;
   }
