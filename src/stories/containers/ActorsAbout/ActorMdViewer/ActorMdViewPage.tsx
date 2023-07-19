@@ -183,7 +183,6 @@ export default ActorMdViewPage;
 const ViewerContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  textAlign: 'justify',
   boxSizing: 'border-box',
 });
 
@@ -201,6 +200,9 @@ const TypographyStyleDescription = styled.p<{ isLight: boolean }>(({ isLight }) 
     fontWeight: 700,
     fontSize: '16px',
     lineHeight: '19px',
+    minWidth: 213,
+    maxWidth: '100%',
+    marginRight: 10,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     marginBottom: '16px',
