@@ -4,6 +4,7 @@ import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import AccountsSnapshot from './AccountsSnapshot';
 import AccountsSnapshotSkeleton from './AccountsSnapshotSkeleton';
 import useAccountsSnapshotTab from './useAccountsSnapshotTab';
+import type { ResourceType } from '@ses/core/models/interfaces/types';
 import type { DateTime } from 'luxon';
 
 interface AccountsSnapshotTabContainerProps {
@@ -11,6 +12,7 @@ interface AccountsSnapshotTabContainerProps {
   currentMonth: DateTime;
   ownerId: string;
   longCode: string;
+  resource: ResourceType;
 }
 
 const AccountsSnapshotTabContainer: React.FC<AccountsSnapshotTabContainerProps> = ({
@@ -18,8 +20,9 @@ const AccountsSnapshotTabContainer: React.FC<AccountsSnapshotTabContainerProps> 
   currentMonth,
   ownerId,
   longCode,
+  resource,
 }) => {
-  const { isLoading, snapshot } = useAccountsSnapshotTab(ownerId, currentMonth);
+  const { isLoading, snapshot } = useAccountsSnapshotTab(ownerId, currentMonth, resource);
 
   return isLoading ? (
     <AccountsSnapshotSkeleton />
@@ -27,7 +30,7 @@ const AccountsSnapshotTabContainer: React.FC<AccountsSnapshotTabContainerProps> 
     <AccountsSnapshot snapshot={snapshot} snapshotOwner={snapshotOwner} />
   ) : (
     <Box sx={{ mb: '64px' }}>
-      <TransparencyEmptyTable longCode={longCode} />
+      <TransparencyEmptyTable longCode={longCode} resource={resource} />
     </Box>
   );
 };

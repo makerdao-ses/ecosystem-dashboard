@@ -6,11 +6,11 @@ import { CuMipStatus } from '../models/interfaces/types';
 import { API_MONTH_FROM_FORMAT, API_MONTH_TO_FORMAT } from '../utils/date';
 import type { LinkModel } from '../../stories/components/CuTableColumnLinks/CuTableColumnLinks';
 import type { CustomChartItemModel } from '../models/customChartItemModel';
-import type { ChangeTrackingEvent } from '../models/interfaces/activity';
 import type { BudgetStatement, BudgetStatementFTEs } from '../models/interfaces/budgetStatement';
 import type { BudgetStatementComment } from '../models/interfaces/budgetStatementComment';
 import type { CoreUnit } from '../models/interfaces/coreUnit';
 import type { CuMip, Mip40, Mip40BudgetPeriod, Mip40Wallet } from '../models/interfaces/cuMip';
+import type { WithActivityFeed } from '../models/interfaces/generics';
 
 export const setCuMipStatusModifiedDate = (mip: CuMip, status: CuMipStatus, date: string) => {
   let index = status.toLowerCase();
@@ -302,11 +302,8 @@ export const getLastMonthWithData = (cu: CoreUnit) => {
   return undefined;
 };
 
-export const getLastUpdateForBudgetStatement = (
-  element: { activityFeed: ChangeTrackingEvent[] },
-  budgetStatementId: string
-) => {
-  const activityFeed = element.activityFeed?.filter(
+export const getLastUpdateForBudgetStatement = (element: WithActivityFeed, budgetStatementId: string) => {
+  const activityFeed = element?.activityFeed?.filter(
     (af) => Number(af.params.budgetStatementId) === Number(budgetStatementId)
   );
 

@@ -14,9 +14,9 @@ import { useCallback, useMemo, useState } from 'react';
 import { filterDataActors } from './utils/utils';
 import type { ActorTableHeader } from './components/ActorHeader/ActorsHeaderTable';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
-import type { EcosystemActor } from '@ses/core/models/dto/teamsDTO';
+import type { Team } from '@ses/core/models/interfaces/team';
 
-export const useActors = (actors: EcosystemActor[], stories = false) => {
+export const useActors = (actors: Team[], stories = false) => {
   const router = useRouter();
   const isLessPhone = useMediaQuery(lightTheme.breakpoints.down(376));
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
@@ -95,8 +95,10 @@ export const useActors = (actors: EcosystemActor[], stories = false) => {
     [actors, filteredCategories]
   );
 
-  const groupByStatusDefaultSorting: EcosystemActor[] = useMemo(() => {
+  const groupByStatusDefaultSorting: Team[] = useMemo(() => {
     const resultMoment = orderBy(filteredCategoryData, 'name');
+    // const groupByStatusDefaultSorting: Team[] = useMemo(() => {
+    // const resultMoment = orderBy(filteredCategoryData, 'name');
 
     return resultMoment;
   }, [filteredCategoryData]);
@@ -111,15 +113,14 @@ export const useActors = (actors: EcosystemActor[], stories = false) => {
   }, [actors]);
 
   const sortData = useMemo(() => {
-    const sortDataFunction = (items: EcosystemActor[]) => {
+    const sortDataFunction = (items: Team[]) => {
       if (headersSort[sortColumn] === SortEnum.Disabled) return items;
 
       const multiplier = headersSort[sortColumn] === SortEnum.Asc ? 1 : -1;
 
-      const name = (a: EcosystemActor, b: EcosystemActor) => a.name.localeCompare(b.name) * multiplier;
-      const role = (a: EcosystemActor, b: EcosystemActor) => a.category[0].localeCompare(b.category[0]) * multiplier;
-      const scope = (a: EcosystemActor, b: EcosystemActor) =>
-        a.scopes[0].name.localeCompare(b.scopes[0].name) * multiplier;
+      const name = (a: Team, b: Team) => a.name.localeCompare(b.name) * multiplier;
+      const role = (a: Team, b: Team) => a.category[0].localeCompare(b.category[0]) * multiplier;
+      const scope = (a: Team, b: Team) => a.scopes[0].name.localeCompare(b.scopes[0].name) * multiplier;
 
       const sortAlg = [name, role, scope, () => 0];
       return [...items].sort(sortAlg[sortColumn]);
@@ -127,9 +128,9 @@ export const useActors = (actors: EcosystemActor[], stories = false) => {
     return sortDataFunction;
   }, [headersSort, sortColumn]);
 
-  const tableItems: EcosystemActor[] = useMemo(() => {
+  const tableItems: Team[] = useMemo(() => {
     const sortedData = sortData(groupByStatusDefaultSorting);
-    return sortedData?.map((x: EcosystemActor) => ({
+    return sortedData?.map((x: Team) => ({
       ...x,
       value: x,
       key: x.code,

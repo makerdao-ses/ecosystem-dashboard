@@ -13,13 +13,13 @@ import React from 'react';
 import { ActorsLinkType, getLinksFromRecognizedActors } from '../../utils/utils';
 import ScopeChip from '../ScopeChip/ScopeChip';
 import type { ActorScopeEnum } from '@ses/core/enums/actorScopeEnum';
-import type { EcosystemActor } from '@ses/core/models/dto/teamsDTO';
+import type { Team } from '@ses/core/models/interfaces/team';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { PropsWithChildren } from 'react';
 
 interface Props {
-  actor: EcosystemActor;
   queryStrings?: string;
+  actor: Team;
 }
 
 const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {

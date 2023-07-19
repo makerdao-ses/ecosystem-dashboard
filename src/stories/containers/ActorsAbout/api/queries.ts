@@ -1,14 +1,16 @@
 import { GRAPHQL_ENDPOINT } from '@ses/config/endpoints';
 import request, { gql } from 'graphql-request';
-import type { TeamType, EcosystemActor } from '@ses/core/models/dto/teamsDTO';
+import type { Team } from '@ses/core/models/interfaces/team';
+import type { ResourceType } from '@ses/core/models/interfaces/types';
 
-export const getActorAbout = (teamType: TeamType, code: string) => ({
+export const getActorAbout = (teamType: ResourceType, code: string) => ({
   query: gql`
     query teams($filter: TeamFilter) {
       teams(filter: $filter) {
         id
         image
         code
+        shortCode
         name
         type
         paragraphDescription
@@ -39,8 +41,8 @@ export const getActorAbout = (teamType: TeamType, code: string) => ({
   },
 });
 
-export const fetchActorAbout = async (teamType: TeamType, code: string): Promise<EcosystemActor> => {
+export const fetchActorAbout = async (teamType: ResourceType, code: string): Promise<Team> => {
   const { query, filter } = getActorAbout(teamType, code);
-  const res = await request<{ teams: EcosystemActor[] }>(GRAPHQL_ENDPOINT, query, filter);
+  const res = await request<{ teams: Team[] }>(GRAPHQL_ENDPOINT, query, filter);
   return res?.teams?.[0];
 };

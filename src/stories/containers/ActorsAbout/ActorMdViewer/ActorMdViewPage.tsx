@@ -183,8 +183,10 @@ export default ActorMdViewPage;
 const ViewerContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  textAlign: 'justify',
   boxSizing: 'border-box',
+  [lightTheme.breakpoints.up('table_834')]: {
+    textAlign: 'justify',
+  },
 });
 
 const TypographyStyleDescription = styled.p<{ isLight: boolean }>(({ isLight }) => ({
@@ -202,9 +204,6 @@ const TypographyStyleDescription = styled.p<{ isLight: boolean }>(({ isLight }) 
     fontSize: '16px',
     lineHeight: '19px',
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginBottom: '16px',
-  },
 }));
 
 const ContainerResponsive = styled.div({
@@ -212,15 +211,12 @@ const ContainerResponsive = styled.div({
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
-  marginBottom: '16px',
 });
 
 const ContainerCard = styled.div({
   marginBottom: '32px',
   float: 'right',
   width: 383,
-  // display: 'flex',
-  // flexDirection: 'column',
   marginLeft: '68px',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     marginLeft: '16px',

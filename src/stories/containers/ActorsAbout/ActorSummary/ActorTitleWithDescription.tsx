@@ -4,24 +4,20 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import ActorTitleAbout from './ActorTitleAbout';
-import type { EcosystemActor } from '@ses/core/models/dto/teamsDTO';
+import type { Team } from '@ses/core/models/interfaces/team';
 
 interface Props {
   showTextDescription: boolean;
-  actorAbout: EcosystemActor;
+  actorAbout: Team;
   cutTextTooLong?: boolean;
 }
 
-export const ActorTitleWithDescription: React.FC<Props> = ({ showTextDescription, actorAbout, cutTextTooLong }) => {
+export const ActorTitleWithDescription: React.FC<Props> = ({ showTextDescription, actorAbout }) => {
   const { isLight } = useThemeContext();
   const isPhone = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   return (
     <ContainerTitle>
-      <ActorTitleAbout
-        actorAbout={actorAbout}
-        showTextDescription={showTextDescription}
-        cutTextTooLong={cutTextTooLong}
-      />
+      <ActorTitleAbout actorAbout={actorAbout} showTextDescription={showTextDescription} />
       {showTextDescription && actorAbout?.sentenceDescription !== '' && (
         <SummaryDescription hiddenTextDescription={isPhone || showTextDescription}>
           <TypographyDescription isLight={isLight} cutTextTooLong={actorAbout.sentenceDescription?.length > 500}>
@@ -97,7 +93,7 @@ const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => 
   fontWeight: 400,
   marginTop: '16px',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    marginTop: '16px',
+    marginTop: '12px',
   },
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     marginTop: '8px',

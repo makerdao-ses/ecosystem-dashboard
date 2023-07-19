@@ -5,8 +5,10 @@ import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import Tabs from '@ses/components/Tabs/Tabs';
 import BudgetStatementPager from '@ses/components/TransparencyReporting/BudgetStatementPager/BudgetStatementPager';
 import { siteRoutes } from '@ses/config/routes';
+import { ModalCategoriesProvider } from '@ses/core/context/CategoryModalContext';
 import { CommentActivityContext } from '@ses/core/context/CommentActivityContext';
 import { BudgetStatus } from '@ses/core/models/dto/coreUnitDTO';
+import { ResourceType } from '@ses/core/models/interfaces/types';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
@@ -20,15 +22,22 @@ import { TransparencyForecast } from '../TransparencyReport/components/Transpare
 import { TransparencyMkrVesting } from '../TransparencyReport/components/TransparencyMkrVesting/TransparencyMkrVesting';
 import { TransparencyTransferRequest } from '../TransparencyReport/components/TransparencyTransferRequest/TransparencyTransferRequest';
 import { TRANSPARENCY_IDS_ENUM } from '../TransparencyReport/useTransparencyReport';
+import TeamHeadLine from './components/TeamHeadlineText/TeamHeadlineText';
 import useActorsTransparencyReport from './useActorsTransparencyReport';
+import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { Team } from '@ses/core/models/interfaces/team';
 
 interface ActorsTransparencyReportContainerProps {
-  actors: Partial<Team>[];
+  actors: Team[];
   actor: Team;
+  expenseCategories: ExpenseCategory[];
 }
 
-const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContainerProps> = ({ actor, actors }) => {
+const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContainerProps> = ({
+  actor,
+  actors,
+  expenseCategories,
+}) => {
   const {
     isEnabled,
     pagerRef,
@@ -50,6 +59,7 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
     comments,
   } = useActorsTransparencyReport(actor);
 
+  const headline = <TeamHeadLine teamLongCode={actor.code} />;
   return (
     <Wrapper>
       <SEOHead
@@ -59,14 +69,7 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
         twitterCard={actor.image ? 'summary' : 'summary_large_image'}
         canonicalURL={siteRoutes.ecosystemActorReports(actor.code)}
       />
-      <ActorSummary
-        // TODO: modify the type of actors to be Team[]
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        actors={actors as any}
-        trailingAddress={['Expense Report']}
-        breadcrumbTitle="Expense Reports"
-        cutTextTooLong={actor.name.length > 20}
-      />
+      <ActorSummary actors={actors} trailingAddress={['Expense Report']} breadcrumbTitle="Expense Reports" />
       <PageContainer hasImageBackground={true}>
         <PageSeparator>
           <Container>
@@ -102,75 +105,72 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
               />
             </TabsContainer>
           </Container>
-          <Container>
-            {tabsIndex === TRANSPARENCY_IDS_ENUM.ACTUALS && (
-              <TransparencyActuals
-                code={actor.shortCode}
-                currentMonth={currentMonth}
-                // TODO: modify the type of actors to be BudgetStatement[]
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                budgetStatements={actor?.budgetStatements as any}
-                longCode={actor.code}
-              />
-            )}
-            {tabsIndex === TRANSPARENCY_IDS_ENUM.FORECAST && (
-              <TransparencyForecast
-                currentMonth={currentMonth}
-                // TODO: modify the type of actors to be BudgetStatement[]
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                budgetStatements={actor?.budgetStatements as any}
-                code={actor.shortCode}
-                longCode={actor.code}
-              />
-            )}
-            {tabsIndex === TRANSPARENCY_IDS_ENUM.MKR_VESTING && (
-              <TransparencyMkrVesting
-                currentMonth={currentMonth}
-                // TODO: modify the type of actors to be BudgetStatement[]
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                budgetStatements={actor?.budgetStatements as any}
-                code={actor.shortCode}
-                longCode={actor.code}
-              />
-            )}
-            {tabsIndex === TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS && (
-              <TransparencyTransferRequest
-                currentMonth={currentMonth}
-                // TODO: modify the type of actors to be BudgetStatement[]
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                budgetStatements={actor?.budgetStatements as any}
-                code={actor.shortCode}
-                longCode={actor.code}
-              />
-            )}
-            {tabsIndex === TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS && isEnabled('FEATURE_AUDIT_REPORTS') && (
-              <TransparencyAudit budgetStatement={currentBudgetStatement} />
-            )}
-            {tabsIndex === TRANSPARENCY_IDS_ENUM.ACCOUNTS_SNAPSHOTS && isEnabled('FEATURE_ACCOUNTS_SNAPSHOT') && (
-              <AccountsSnapshotTabContainer
-                snapshotOwner={`${actor.shortCode} Ecosystem Actor`}
-                currentMonth={currentMonth}
-                ownerId={actor.id}
-                longCode={actor.code}
-              />
-            )}
-            {tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS && (
-              <CommentActivityContext.Provider value={{ lastVisitHandler }}>
-                <AuditorCommentsContainer budgetStatement={currentBudgetStatement} comments={comments} />
-              </CommentActivityContext.Provider>
-            )}
-          </Container>
+          <ModalCategoriesProvider expenseCategories={expenseCategories}>
+            <Container>
+              {tabsIndex === TRANSPARENCY_IDS_ENUM.ACTUALS && (
+                <TransparencyActuals
+                  currentMonth={currentMonth}
+                  budgetStatements={actor?.budgetStatements}
+                  longCode={actor.code}
+                  headline={headline}
+                  resource={ResourceType.EcosystemActor}
+                />
+              )}
+              {tabsIndex === TRANSPARENCY_IDS_ENUM.FORECAST && (
+                <TransparencyForecast
+                  currentMonth={currentMonth}
+                  budgetStatements={actor?.budgetStatements}
+                  longCode={actor.code}
+                  headline={headline}
+                  resource={ResourceType.EcosystemActor}
+                />
+              )}
+              {tabsIndex === TRANSPARENCY_IDS_ENUM.MKR_VESTING && (
+                <TransparencyMkrVesting
+                  currentMonth={currentMonth}
+                  budgetStatements={actor?.budgetStatements}
+                  longCode={actor.code}
+                  headline={headline}
+                  resource={ResourceType.EcosystemActor}
+                />
+              )}
+              {tabsIndex === TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS && (
+                <TransparencyTransferRequest
+                  currentMonth={currentMonth}
+                  budgetStatements={actor?.budgetStatements}
+                  longCode={actor.code}
+                  headline={headline}
+                  resource={ResourceType.EcosystemActor}
+                />
+              )}
+              {tabsIndex === TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS && isEnabled('FEATURE_AUDIT_REPORTS') && (
+                <TransparencyAudit budgetStatement={currentBudgetStatement} />
+              )}
+              {tabsIndex === TRANSPARENCY_IDS_ENUM.ACCOUNTS_SNAPSHOTS && isEnabled('FEATURE_ACCOUNTS_SNAPSHOT') && (
+                <AccountsSnapshotTabContainer
+                  snapshotOwner={`${actor.shortCode} Ecosystem Actor`}
+                  currentMonth={currentMonth}
+                  ownerId={actor.id}
+                  longCode={actor.code}
+                  resource={ResourceType.EcosystemActor}
+                />
+              )}
+              {tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS && (
+                <CommentActivityContext.Provider value={{ lastVisitHandler }}>
+                  <AuditorCommentsContainer budgetStatement={currentBudgetStatement} comments={comments} />
+                </CommentActivityContext.Provider>
+              )}
+            </Container>
 
-          {tabsIndex === TRANSPARENCY_IDS_ENUM.EXPENSE_REPORT && (
-            <ExpenseReport
-              code={actor.shortCode}
-              currentMonth={currentMonth}
-              // TODO: modify the type of actors to be BudgetStatement[]
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              budgetStatements={actor?.budgetStatements as any}
-              longCode={actor.code}
-            />
-          )}
+            {tabsIndex === TRANSPARENCY_IDS_ENUM.EXPENSE_REPORT && (
+              <ExpenseReport
+                code={actor.shortCode}
+                currentMonth={currentMonth}
+                budgetStatements={actor?.budgetStatements}
+                longCode={actor.code}
+              />
+            )}
+          </ModalCategoriesProvider>
         </PageSeparator>
       </PageContainer>
     </Wrapper>

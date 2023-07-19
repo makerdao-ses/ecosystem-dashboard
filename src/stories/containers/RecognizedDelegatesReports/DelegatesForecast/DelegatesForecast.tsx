@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import { TransparencyEmptyTable } from '@ses/containers/TransparencyReport/components/Placeholders/TransparencyEmptyTable';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { ResourceType } from '@ses/core/models/interfaces/types';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { useDelegatesForecast } from './useDelegatesForecast';
@@ -26,7 +27,7 @@ const DelegatesForecast: React.FC<Props> = ({ currentMonth, budgetStatement }) =
         style={{ marginBottom: '64px' }}
         cardsTotalPosition="top"
         longCode="DEL"
-        tablePlaceholder={<TransparencyEmptyTable breakdown longCode="DEL" isDelegate />}
+        tablePlaceholder={<TransparencyEmptyTable breakdown longCode="DEL" resource={ResourceType.Delegates} />}
       />
       {mainTableItemsForecast.length > 0 && (
         <TitleBreakdown isLight={isLight}>{currentMonth.toFormat('MMM yyyy')} Breakdown</TitleBreakdown>
@@ -38,7 +39,7 @@ const DelegatesForecast: React.FC<Props> = ({ currentMonth, budgetStatement }) =
           items={breakdownItemsForecast}
           longCode="DEL"
           style={{ marginBottom: '64px' }}
-          tablePlaceholder={<TransparencyEmptyTable breakdown longCode="DEL" isDelegate />}
+          tablePlaceholder={<TransparencyEmptyTable breakdown longCode="DEL" resource={ResourceType.Delegates} />}
         />
       )}
     </Container>

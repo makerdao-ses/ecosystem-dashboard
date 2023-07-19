@@ -1,12 +1,8 @@
 import styled from '@emotion/styled';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import CategoryModalComponent from '@ses/components/BasicModal/CategoryModalComponent';
-import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import Tabs from '@ses/components/Tabs/Tabs';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { MAKER_BURN_LINK } from '@ses/core/utils/const';
-import { getShortCode } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { Title } from '../../TransparencyReport';
@@ -14,19 +10,25 @@ import { ACTUALS_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import { useTransparencyActuals } from './useTransparencyActuals';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
+import type { ResourceType } from '@ses/core/models/interfaces/types';
 import type { DateTime } from 'luxon';
 
-interface Props {
+interface TransparencyActualsProps {
   currentMonth: DateTime;
   budgetStatements?: BudgetStatement[];
-  code: string;
   longCode: string;
+  headline: React.ReactNode;
+  resource: ResourceType;
 }
 
-export const TransparencyActuals = (props: Props) => {
+export const TransparencyActuals: React.FC<TransparencyActualsProps> = ({
+  currentMonth,
+  budgetStatements,
+  longCode,
+  headline,
+  resource,
+}) => {
   const { isLight } = useThemeContext();
-  const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
-
   const {
     headerIds,
     breakdownTitleRef,
@@ -35,48 +37,28 @@ export const TransparencyActuals = (props: Props) => {
     mainTableColumns,
     mainTableItems,
     breakdownTabs,
-  } = useTransparencyActuals(props.currentMonth, props.budgetStatements);
+  } = useTransparencyActuals(currentMonth, budgetStatements);
 
   return (
     <Container>
-      <LinkDescription isLight={isLight}>
-        <span> Visit makerburn.com to</span>
-        <CustomLink
-          href={`${MAKER_BURN_LINK}/${props.longCode}`}
-          style={{
-            color: '#447AFB',
-            letterSpacing: '0.3px',
-            lineHeight: '18px',
-            marginBottom: isMobile ? '0px' : '32px',
-            marginLeft: 0,
-            whiteSpace: 'break-spaces',
-            display: 'inline-block',
-          }}
-          fontSize={16}
-          fontWeight={500}
-          iconWidth={10}
-          iconHeight={10}
-          marginLeft="7px"
-        >
-          {`view the ${getShortCode(props.code)} Core Unit on-chain transaction history`}
-        </CustomLink>
-      </LinkDescription>
-      <Title isLight={isLight}>{props.currentMonth.toFormat('MMM yyyy')} Totals</Title>
+      {headline}
+
+      <Title isLight={isLight}>{currentMonth.toFormat('MMM yyyy')} Totals</Title>
       <AdvancedInnerTable
         columns={mainTableColumns}
         items={mainTableItems}
         style={{ marginBottom: '64px' }}
         cardsTotalPosition="top"
-        longCode={props.longCode}
+        longCode={longCode}
         tablePlaceholder={
           <div style={{ marginBottom: 64 }}>
-            <TransparencyEmptyTable longCode={props.longCode} />
+            <TransparencyEmptyTable longCode={longCode} resource={resource} />
           </div>
         }
       />
       {mainTableItems.length > 0 && (
         <Title isLight={isLight} ref={breakdownTitleRef}>
-          {props.currentMonth.toFormat('MMM yyyy')} Breakdown
+          {currentMonth.toFormat('MMM yyyy')} Breakdown
         </Title>
       )}
 
@@ -95,12 +77,12 @@ export const TransparencyActuals = (props: Props) => {
           <AdvancedInnerTable
             columns={breakdownColumnsForActiveTab}
             items={breakdownItemsForActiveTab}
-            longCode={props.longCode}
+            longCode={longCode}
             style={{ marginBottom: 64 }}
             cardSpacingSize="small"
             tablePlaceholder={
               <div style={{ marginBottom: 64 }}>
-                <TransparencyEmptyTable breakdown longCode={props.longCode} />
+                <TransparencyEmptyTable breakdown longCode={longCode} resource={resource} />
               </div>
             }
           />
@@ -116,6 +98,7 @@ const Container = styled.div({
   flexDirection: 'column',
 });
 
+// TODO: delete this
 export const LinkDescription = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',

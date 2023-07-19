@@ -2,7 +2,9 @@ import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import { fetchActors } from '@ses/containers/Actors/api/queries';
 import ActorsTransparencyReportContainer from '@ses/containers/ActorsTransparencyReport/ActorsTransparencyReportContainer';
 import { fetchEcosystemActor } from '@ses/containers/ActorsTransparencyReport/api/queries';
+import { fetchExpenseCategories } from '@ses/containers/FinancesOverview/api/queries';
 import { ActorContext } from '@ses/core/context/ActorContext';
+import { ResourceType } from '@ses/core/models/interfaces/types';
 import { featureFlags } from 'feature-flags/feature-flags';
 import React, { useEffect, useState } from 'react';
 import type { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from 'next';
@@ -10,6 +12,7 @@ import type { GetServerSideProps, GetServerSidePropsContext, InferGetServerSideP
 const EcosystemActorsTransparencyReportingPage: NextPage = ({
   actor,
   actors,
+  expenseCategories,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [currentActor, setCurrentActor] = useState(actor);
   useEffect(() => {
@@ -24,7 +27,7 @@ const EcosystemActorsTransparencyReportingPage: NextPage = ({
         setCurrentActor,
       }}
     >
-      <ActorsTransparencyReportContainer actor={currentActor} actors={actors} />
+      <ActorsTransparencyReportContainer actor={actor} actors={actors} expenseCategories={expenseCategories} />
     </ActorContext.Provider>
   );
 };
@@ -40,7 +43,11 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
 
   const { query } = context;
   const code = query.code as string;
-  const [actors, actor] = await Promise.all([fetchActors('EcosystemActor'), fetchEcosystemActor(code)]);
+  const [actors, actor, expenseCategories] = await Promise.all([
+    fetchActors(ResourceType.EcosystemActor),
+    fetchEcosystemActor(code),
+    fetchExpenseCategories(),
+  ]);
 
   if (!actor) {
     return {
@@ -52,6 +59,7 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     props: {
       actor,
       actors,
+      expenseCategories,
     },
   };
 };
