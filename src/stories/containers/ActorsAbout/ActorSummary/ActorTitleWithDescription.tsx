@@ -47,7 +47,6 @@ const ContainerTitle = styled.div({
   [lightTheme.breakpoints.up('table_834')]: {
     paddingLeft: 32,
     paddingRight: 32,
-    paddingTop: '8px',
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     marginLeft: 'auto',
