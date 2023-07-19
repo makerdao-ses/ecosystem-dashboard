@@ -5,19 +5,20 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { MAKER_BURN_LINK } from '@ses/core/utils/const';
-import { getShortCode } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 
 interface TransparencyEmptyTableProps {
   breakdown?: boolean;
   longCode: string;
+  shortCode: string;
   resource?: ResourceType;
 }
 
 export const TransparencyEmptyTable: React.FC<TransparencyEmptyTableProps> = ({
   breakdown = false,
   longCode,
+  shortCode,
   resource = ResourceType.CoreUnit,
 }) => {
   const { isLight } = useThemeContext();
@@ -29,11 +30,11 @@ export const TransparencyEmptyTable: React.FC<TransparencyEmptyTableProps> = ({
       title = 'No data reported by the Delegates Administrator';
       break;
     case ResourceType.EcosystemActor:
-      title = `No data reported by ${getShortCode(longCode)} Ecosystem Actor`;
+      title = `No data reported by ${shortCode} Ecosystem Actor`;
       break;
     default:
       // handle as a core unit
-      title = `No data reported by ${getShortCode(longCode)} Core Unit`;
+      title = `No data reported by ${shortCode} Core Unit`;
   }
 
   return (
