@@ -25,6 +25,7 @@ interface Props {
   subTitle?: string;
   showButton?: boolean;
   code: string;
+  shortCode: string;
   auditors: AuditorDto[];
   queryStrings: string;
 }
@@ -36,6 +37,7 @@ const MdViewerPage = ({
   showButton = false,
   queryStrings,
   code,
+  shortCode,
   auditors,
 }: Props) => {
   const { isLight } = useThemeContext();
@@ -101,6 +103,7 @@ const MdViewerPage = ({
             <CardExpenses
               queryStrings={queryStrings}
               code={code}
+              shortCode={shortCode}
               auditors={auditors}
               buttonWidth="139.5px"
               isTitlePresent={false}
@@ -122,6 +125,7 @@ const MdViewerPage = ({
             }}
             queryStrings={queryStrings}
             code={code}
+            shortCode={shortCode}
             auditors={auditors}
             isTitlePresent={false}
             buttonWidth="139.5px"

@@ -10,6 +10,7 @@ interface Props {
   showButton?: boolean;
   queryStrings: string;
   code: string;
+  shortCode: string;
   auditors: AuditorDto[];
   subTitle?: string;
 }
@@ -21,6 +22,7 @@ const ActorMdViewer = ({
   showButton,
   queryStrings,
   code,
+  shortCode,
   auditors,
   subTitle,
 }: Props) => (
@@ -30,6 +32,7 @@ const ActorMdViewer = ({
     showButton={showButton}
     queryStrings={queryStrings}
     code={code}
+    shortCode={shortCode}
     auditors={auditors}
     subTitle={subTitle}
   />

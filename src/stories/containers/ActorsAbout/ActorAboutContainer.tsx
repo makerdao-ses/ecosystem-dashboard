@@ -52,6 +52,7 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
               <ActorMdViewer
                 subTitle={`${actor.name}: Who we are`}
                 code={actor.code}
+                shortCode={actor.shortCode}
                 auditors={actor.auditors}
                 showButton={table834 || phone || LessPhone}
                 sentenceDescription={getMarkdownInformation(actor.sentenceDescription)}
