@@ -76,6 +76,7 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
                     isCoreUnit={false}
                     queryStrings={queryStrings}
                     code={actor.code}
+                    shortCode={actor.shortCode}
                     auditors={actor.auditors}
                     titleCard={`View all expenses of the ${actor.shortCode} Ecosystem Actor`}
                     auditorMessage={`The ${actor.shortCode} Ecosystem Actor is currently working without auditor`}

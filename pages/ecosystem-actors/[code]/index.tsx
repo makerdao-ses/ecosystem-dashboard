@@ -43,6 +43,12 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     fetchActorAbout(ResourceType.EcosystemActor, code),
   ]);
 
+  if (!actor) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     props: {
       actors,

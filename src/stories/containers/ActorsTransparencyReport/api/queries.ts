@@ -89,21 +89,6 @@ export const getEcosystemActor = (shortCode: string) => ({
             comments
           }
         }
-        # TODO: add the equivalent to these fields
-        #lastActivity {
-        #  id
-        #  created_at
-        #  event
-        #  params
-        #  description
-        #}
-        #activityFeed {
-        #  id
-        #  created_at
-        #  event
-        #  params
-        #  description
-        #}
       }
     }
   `,

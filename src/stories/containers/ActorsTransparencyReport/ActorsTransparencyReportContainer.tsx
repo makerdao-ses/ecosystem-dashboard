@@ -71,7 +71,7 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
       />
       <ActorSummary
         actors={actors}
-        trailingAddress={['Expense Report']}
+        trailingAddress={['Expense Reports']}
         breadcrumbTitle="Expense Reports"
         cutTextTooLong={actor.name.length > 20}
       />
