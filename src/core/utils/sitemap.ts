@@ -3,7 +3,7 @@ import { BASE_URL, siteRoutes } from '../../config/routes';
 import { fetchCoreUnits } from '../../stories/containers/CUTable/cuTableAPI';
 import { ResourceType } from '../models/interfaces/types';
 import type { CoreUnitDto } from '../models/dto/coreUnitDTO';
-import type { EcosystemActor } from '../models/dto/teamsDTO';
+import type { Team } from '../models/interfaces/team';
 
 export class SitemapBuilder {
   private getXMLForRoute(url: string, lastMod?: string, changeFreq?: string): string {
@@ -50,7 +50,7 @@ export class SitemapBuilder {
     return cuRoutes;
   }
 
-  private resolveSingleActorRoutes(actor: EcosystemActor): string[] {
+  private resolveSingleActorRoutes(actor: Team): string[] {
     const actorRoutes: string[] = [];
     actorRoutes.push(this.getXMLForRoute(`${BASE_URL}${siteRoutes.ecosystemActorAbout(actor.shortCode)}`));
     return actorRoutes;
@@ -68,7 +68,7 @@ export class SitemapBuilder {
 
   async resolveActorsRoutes(): Promise<string[]> {
     const actorRoutes: string[] = [];
-    const actors = (await fetchActors(ResourceType.EcosystemActor)) as EcosystemActor[];
+    const actors = (await fetchActors(ResourceType.EcosystemActor)) as Team[];
     for (const cu of actors) {
       actorRoutes.push(...this.resolveSingleActorRoutes(cu));
     }
