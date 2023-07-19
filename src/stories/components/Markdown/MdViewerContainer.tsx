@@ -8,6 +8,7 @@ interface Props {
   showButton?: boolean;
   queryStrings: string;
   code: string;
+  shortCode: string;
   auditors: AuditorDto[];
 }
 
@@ -18,6 +19,7 @@ const MdViewerContainer = ({
   showButton,
   queryStrings,
   code,
+  shortCode,
   auditors,
 }: Props) => {
   const convertImg = paragraphImage ? `![Image](${paragraphImage})` : null;
@@ -29,6 +31,7 @@ const MdViewerContainer = ({
       showButton={showButton}
       queryStrings={queryStrings}
       code={code}
+      shortCode={shortCode}
       auditors={auditors}
     />
   );

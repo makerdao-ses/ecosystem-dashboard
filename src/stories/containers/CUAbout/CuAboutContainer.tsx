@@ -65,6 +65,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
             <MarkdownContainer>
               <MdViewerContainer
                 code={cuAbout.code}
+                shortCode={cuAbout.shortCode}
                 auditors={cuAbout.auditors}
                 showButton={table834 || phone || LessPhone}
                 sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)}
@@ -149,7 +150,12 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
               {isEnabled('FEATURE_CARD_NAVIGATION') && (
                 <ContainerScroll>
                   <ContainerCard>
-                    <CardExpenses queryStrings={queryStrings} code={cuAbout.code} auditors={cuAbout.auditors} />
+                    <CardExpenses
+                      queryStrings={queryStrings}
+                      code={cuAbout.code}
+                      shortCode={cuAbout.shortCode}
+                      auditors={cuAbout.auditors}
+                    />
                   </ContainerCard>
                   {!(table834 || phone || LessPhone) && (
                     <ContainerCard>

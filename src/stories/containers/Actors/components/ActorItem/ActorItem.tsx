@@ -63,16 +63,16 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
 
           <TypeSection>
             <WrapperType isLight={isLight}>Role</WrapperType>
-            <ActorTitle isLight={isLight}>{pascalCaseToNormalString(actor.category[0])}</ActorTitle>
+            <ActorTitle isLight={isLight}>{pascalCaseToNormalString(actor.category?.[0] ?? '')}</ActorTitle>
           </TypeSection>
         </ContainerActorType>
       </ActorAboutLink>
       <Line isLight={isLight} />
-      <WrapperScopeLinks alignEnd={actor?.scopes.length === 0}>
-        {actor.scopes?.length > 0 && (
+      <WrapperScopeLinks alignEnd={actor?.scopes?.length === 0}>
+        {actor?.scopes?.length > 0 && (
           <ActorAboutLink>
             <ScopeSection>
-              {actor.scopes?.map((item, index) => (
+              {actor?.scopes?.map((item, index) => (
                 <ScopeChip status={item.name as ActorScopeEnum} code={item.code} key={index} />
               ))}
             </ScopeSection>
@@ -80,7 +80,7 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
         )}
 
         <SocialIconsSection>
-          {actor.socialMediaChannels && (
+          {actor?.socialMediaChannels && (
             <LinkContainer>
               <SocialMediaComponentStyled
                 isLight={isLight}

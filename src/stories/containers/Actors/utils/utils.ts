@@ -22,11 +22,11 @@ export const ActorsLinkType: Record<string, LinkTypeEnum> = {
 export const getLinksFromRecognizedActors = (actor: Team, linkTypeMap?: Record<string, LinkTypeEnum>): LinkModel[] => {
   let delegateLinkTypeMap: Record<string, LinkTypeEnum> = {};
   const result = [] as LinkModel[];
-  if (!actor.socialMediaChannels) {
+  if (!actor) {
     return result;
   }
 
-  const sm = actor.socialMediaChannels[0];
+  const sm = actor.socialMediaChannels[0] || [];
   if (!linkTypeMap) {
     delegateLinkTypeMap = {
       forumTag: LinkTypeEnum.Forum,

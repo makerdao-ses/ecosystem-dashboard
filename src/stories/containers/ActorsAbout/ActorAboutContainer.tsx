@@ -52,6 +52,7 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
               <ActorMdViewer
                 subTitle={`${actor.name}: Who we are`}
                 code={actor.code}
+                shortCode={actor.shortCode}
                 auditors={actor.auditors}
                 showButton={table834 || phone || LessPhone}
                 sentenceDescription={getMarkdownInformation(actor.sentenceDescription)}
@@ -75,6 +76,7 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
                     isCoreUnit={false}
                     queryStrings={queryStrings}
                     code={actor.code}
+                    shortCode={actor.shortCode}
                     auditors={actor.auditors}
                     titleCard={`View all expenses of the ${actor.shortCode} Ecosystem Actor`}
                     auditorMessage={`The ${actor.shortCode} Ecosystem Actor is currently working without auditor`}

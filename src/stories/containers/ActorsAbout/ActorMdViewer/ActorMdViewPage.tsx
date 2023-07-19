@@ -26,6 +26,7 @@ interface Props {
   subTitle?: string;
   showButton?: boolean;
   code: string;
+  shortCode: string;
   auditors: AuditorDto[];
   queryStrings: string;
 }
@@ -37,6 +38,7 @@ const ActorMdViewPage = ({
   showButton = false,
   queryStrings,
   code,
+  shortCode,
   auditors,
 }: Props) => {
   const { isLight } = useThemeContext();
@@ -106,6 +108,7 @@ const ActorMdViewPage = ({
               isCoreUnit={false}
               queryStrings={queryStrings}
               code={code}
+              shortCode={shortCode}
               auditors={auditors}
               buttonWidth="139.5px"
               isTitlePresent={false}
@@ -133,6 +136,7 @@ const ActorMdViewPage = ({
                 }}
                 queryStrings={queryStrings}
                 code={code}
+                shortCode={shortCode}
                 auditors={auditors}
                 isTitlePresent={false}
                 buttonWidth="139.5px"
@@ -184,9 +188,7 @@ const ViewerContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
   boxSizing: 'border-box',
-  [lightTheme.breakpoints.up('table_834')]: {
-    textAlign: 'justify',
-  },
+  textAlign: 'justify',
 });
 
 const TypographyStyleDescription = styled.p<{ isLight: boolean }>(({ isLight }) => ({
@@ -203,6 +205,10 @@ const TypographyStyleDescription = styled.p<{ isLight: boolean }>(({ isLight }) 
     fontWeight: 700,
     fontSize: '16px',
     lineHeight: '19px',
+    minWidth: 213,
+    maxWidth: '100%',
+    marginRight: 10,
+    textAlign: 'start',
   },
 }));
 
