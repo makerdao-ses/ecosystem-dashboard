@@ -306,6 +306,7 @@ const ContainerCategoryConditional = styled.div({
     flexDirection: 'row',
     justifyContent: 'space-between',
     flexWrap: 'wrap',
+    rowGap: 10,
   },
 });
 
