@@ -93,7 +93,7 @@ const BreadCrumbNavigation: React.FC<Props> = ({
                   {navigationPageTitle} <Value isLight={isLight}>({totalElements})</Value>
                 </span>
               ),
-              url: labelFirstItemNavigation.url,
+              url: mainUrl,
             },
           ]}
           title={breadcrumbTitleMobile || (labelFirstItemNavigation.label as string)}
