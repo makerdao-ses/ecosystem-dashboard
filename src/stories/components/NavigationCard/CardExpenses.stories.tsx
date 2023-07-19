@@ -17,6 +17,7 @@ export default {
 const variantsArgs = [
   {
     code: 'SES',
+    shortCode: 'SES',
     queryStrings: '',
     isTitlePresent: false,
     auditors: [
