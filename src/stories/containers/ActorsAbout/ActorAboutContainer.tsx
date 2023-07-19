@@ -17,12 +17,12 @@ import React from 'react';
 import ActorMdViewer from './ActorMdViewer/ActorMdViewer';
 import ActorSummary from './ActorSummary/ActorSummary';
 import useActorAbout from './useActorAbout';
-import type { EcosystemActor } from '@ses/core/models/dto/teamsDTO';
+import type { Team } from '@ses/core/models/interfaces/team';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  actors: EcosystemActor[];
-  actor: EcosystemActor;
+  actors: Team[];
+  actor: Team;
 }
 
 export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {

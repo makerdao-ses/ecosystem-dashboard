@@ -1,6 +1,8 @@
 import { EcosystemActorBuilder } from '@ses/core/businessLogic/builders/actors/actorsBuilder';
+import { ResourceType } from '@ses/core/models/interfaces/types';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import ActorItem from './ActorItem';
+import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedia';
 import type { ComponentMeta } from '@storybook/react';
 
 export default {
@@ -18,7 +20,7 @@ const variantsArgs = [
       .withId('23')
       .withCode('PH-001')
       .withName('Powerhouse Inc.')
-      .withType('EcosystemActor')
+      .withType(ResourceType.EcosystemActor)
       .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
       .addCategory('Active Ecosystem Actor')
       .addScope({
@@ -42,7 +44,7 @@ const variantsArgs = [
         discord: '#',
         website: '#',
         linkedIn: '#',
-      })
+      } as SocialMediaChannels)
       .build(),
   },
 ];

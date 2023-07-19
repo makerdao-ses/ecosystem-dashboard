@@ -1,6 +1,7 @@
 import { LinkTypeEnum } from '@ses/core/enums/linkTypeEnum';
 import type { LinkModel } from '@ses/components/CuTableColumnLinks/CuTableColumnLinks';
-import type { ActorSocialDto, EcosystemActor } from '@ses/core/models/dto/teamsDTO';
+import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedia';
+import type { Team } from '@ses/core/models/interfaces/team';
 
 export const ScopeChipText = (scope: string) => {
   if (!scope) return '';
@@ -18,17 +19,14 @@ export const ActorsLinkType: Record<string, LinkTypeEnum> = {
   youtube: LinkTypeEnum.Youtube,
 };
 
-export const getLinksFromRecognizedActors = (
-  actor: EcosystemActor,
-  linkTypeMap?: Record<string, LinkTypeEnum>
-): LinkModel[] => {
+export const getLinksFromRecognizedActors = (actor: Team, linkTypeMap?: Record<string, LinkTypeEnum>): LinkModel[] => {
   let delegateLinkTypeMap: Record<string, LinkTypeEnum> = {};
   const result = [] as LinkModel[];
   if (!actor.socialMediaChannels) {
     return result;
   }
 
-  const sm = actor.socialMediaChannels[0] as ActorSocialDto;
+  const sm = actor.socialMediaChannels[0];
   if (!linkTypeMap) {
     delegateLinkTypeMap = {
       forumTag: LinkTypeEnum.Forum,
@@ -57,9 +55,9 @@ export const getLinksFromRecognizedActors = (
   };
 
   for (const [property, linkType] of Object.entries(delegateLinkTypeMap)) {
-    if (sm[property]) {
+    if (sm[property as keyof SocialMediaChannels]) {
       result.push({
-        href: sm[property] || '',
+        href: sm[property as keyof SocialMediaChannels] || '',
         linkType,
         toolTipDescription: descriptionOfTooltip[property],
       });
@@ -69,7 +67,7 @@ export const getLinksFromRecognizedActors = (
   return result;
 };
 
-const filterCategories = (lowerCaseCategories: string[], data: EcosystemActor) =>
+const filterCategories = (lowerCaseCategories: string[], data: Team) =>
   lowerCaseCategories.length === 0 || data.category?.some((x) => lowerCaseCategories.indexOf(x.toLowerCase()) > -1);
 
 export const filterDataActors = ({
@@ -77,7 +75,7 @@ export const filterDataActors = ({
   data = [],
 }: {
   filteredCategories?: string[];
-  data: EcosystemActor[];
+  data: Team[];
 }) => {
   const lowerCaseCategories = filteredCategories.map((x) => x.toLowerCase());
   return {
@@ -101,4 +99,4 @@ export const defaultSocials = {
   discord: '#',
   website: '#',
   linkedIn: '#',
-};
+} as SocialMediaChannels;

@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { Typography, useMediaQuery } from '@mui/material';
+import { siteRoutes } from '@ses/config/routes';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
@@ -68,26 +69,28 @@ const CardExpenses = ({
         </TypographyDescription>
 
         <ContainerButton>
-          <LinkButton
-            href={`/core-unit/${getShortCode(code)}/activity-feed${queryStrings}`}
-            buttonType={ButtonType.Secondary}
-            widthText="100%"
-            label="Activity Feed"
-            style={{
-              textAlign: 'center',
-              borderRadius: '22px',
-              height: ' 34px',
-              fontFamily: 'Inter, sans serif',
-              fontStyle: 'normal',
-              fontWeight: 500,
-              fontSize: '14px',
-              lineHeight: '18px',
-              width: buttonWidth,
-              marginRight: '12px',
-              flexGrow: 1,
-              padding: isPhone || isTable ? '8px 25.75px' : '8px 43.25px',
-            }}
-          />
+          {isCoreUnit && (
+            <LinkButton
+              href={`/core-unit/${getShortCode(code)}/activity-feed${queryStrings}`}
+              buttonType={ButtonType.Secondary}
+              widthText="100%"
+              label="Activity Feed"
+              style={{
+                textAlign: 'center',
+                borderRadius: '22px',
+                height: ' 34px',
+                fontFamily: 'Inter, sans serif',
+                fontStyle: 'normal',
+                fontWeight: 500,
+                fontSize: '14px',
+                lineHeight: '18px',
+                width: buttonWidth,
+                marginRight: '12px',
+                flexGrow: 1,
+                padding: isPhone || isTable ? '8px 25.75px' : '8px 43.25px',
+              }}
+            />
+          )}
           <LinkButton
             buttonType={ButtonType.Primary}
             widthText="100%"
@@ -103,11 +106,16 @@ const CardExpenses = ({
               lineHeight: '18px',
               letterSpacing: '0px',
               width: buttonWidth,
-              marginLeft: '12px',
+              // TODO: let this as `marginLeft: 12` when the Activity feed for ecosystem actor is implemented
+              marginLeft: isCoreUnit ? 12 : 0,
               flexGrow: 1,
               padding: isPhone || isTable ? '8px 12.75px' : '8px 30.25px',
             }}
-            href={`/core-unit/${getShortCode(code)}/finances/reports${queryStrings}`}
+            href={`${
+              isCoreUnit
+                ? siteRoutes.coreUnitReports(getShortCode(code))
+                : siteRoutes.ecosystemActorReports(getShortCode(code))
+            }${queryStrings}`}
           />
         </ContainerButton>
       </div>

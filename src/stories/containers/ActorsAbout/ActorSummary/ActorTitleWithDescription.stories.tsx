@@ -1,6 +1,8 @@
 import { EcosystemActorBuilder } from '@ses/core/businessLogic/builders/actors/actorsBuilder';
+import { ResourceType } from '@ses/core/models/interfaces/types';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import ActorTitleWithDescription from './ActorTitleWithDescription';
+import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedia';
 import type { ComponentMeta } from '@storybook/react';
 
 export default {
@@ -26,7 +28,7 @@ const variantsArgs = [
       .withCode('PH-001')
       .withShortCode('PH')
       .withName('Phoenix Labs')
-      .withType('EcosystemActor')
+      .withType(ResourceType.EcosystemActor)
       .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
       .addCategory('Active Ecosystem Actor')
       .withSentenceDescription(
@@ -44,11 +46,10 @@ const variantsArgs = [
       })
       .withSocials({
         twitter: '#',
-
         github: '#',
         discord: '#',
         website: '#',
-      })
+      } as SocialMediaChannels)
       .build(),
     showTextDescription: true,
     showDescription: true,

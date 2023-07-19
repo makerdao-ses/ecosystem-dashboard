@@ -4,11 +4,11 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import ActorTitleAbout from './ActorTitleAbout';
-import type { EcosystemActor } from '@ses/core/models/dto/teamsDTO';
+import type { Team } from '@ses/core/models/interfaces/team';
 
 interface Props {
   showTextDescription: boolean;
-  actorAbout: EcosystemActor;
+  actorAbout: Team;
   cutTextTooLong?: boolean;
 }
 
