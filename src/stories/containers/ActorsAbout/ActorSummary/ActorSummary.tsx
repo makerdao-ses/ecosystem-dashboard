@@ -95,7 +95,7 @@ const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcru
         totalElements={filteredData.length}
         onClickLeft={changeCoreUnitCode(-1)}
         onClickRight={changeCoreUnitCode(1)}
-        breadcrumbTitleMobile={buildCULabel()}
+        breadcrumbTitleMobile={breadcrumbTitle}
         hasStyleMobileItem={[buildCULabel(), undefined].includes(breadcrumbTitle)}
         trailingAddress={trailingAddress}
         router={router}
