@@ -4,6 +4,7 @@ import ActorsTransparencyReportContainer from '@ses/containers/ActorsTransparenc
 import { fetchEcosystemActor } from '@ses/containers/ActorsTransparencyReport/api/queries';
 import { fetchExpenseCategories } from '@ses/containers/FinancesOverview/api/queries';
 import { ActorContext } from '@ses/core/context/ActorContext';
+import { ResourceType } from '@ses/core/models/interfaces/types';
 import { featureFlags } from 'feature-flags/feature-flags';
 import React, { useEffect, useState } from 'react';
 import type { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from 'next';
@@ -43,7 +44,7 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
   const { query } = context;
   const code = query.code as string;
   const [actors, actor, expenseCategories] = await Promise.all([
-    fetchActors('EcosystemActor'),
+    fetchActors(ResourceType.EcosystemActor),
     fetchEcosystemActor(code),
     fetchExpenseCategories(),
   ]);

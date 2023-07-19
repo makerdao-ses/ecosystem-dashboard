@@ -3,13 +3,14 @@ import { fetchActors } from '@ses/containers/Actors/api/queries';
 import ActorAboutContainer from '@ses/containers/ActorsAbout/ActorAboutContainer';
 import { fetchActorAbout } from '@ses/containers/ActorsAbout/api/queries';
 import { ActorContext } from '@ses/core/context/ActorContext';
+import { ResourceType } from '@ses/core/models/interfaces/types';
 import { featureFlags } from 'feature-flags/feature-flags';
 import React, { useEffect, useState } from 'react';
-import type { EcosystemActor } from '@ses/core/models/dto/teamsDTO';
+import type { Team } from '@ses/core/models/interfaces/team';
 import type { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from 'next';
 
 const ActorAbout: NextPage = ({ actors, actor }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const [currentActor, setCurrentActor] = useState<EcosystemActor>(actor);
+  const [currentActor, setCurrentActor] = useState<Team>(actor);
   useEffect(() => {
     setCurrentActor(currentActor);
   }, [currentActor]);
@@ -37,7 +38,10 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
   }
   const { query } = context;
   const code = query.code as string;
-  const [actors, actor] = await Promise.all([fetchActors('EcosystemActor'), fetchActorAbout('EcosystemActor', code)]);
+  const [actors, actor] = await Promise.all([
+    fetchActors(ResourceType.EcosystemActor),
+    fetchActorAbout(ResourceType.EcosystemActor, code),
+  ]);
 
   return {
     props: {

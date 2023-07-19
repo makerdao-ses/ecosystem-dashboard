@@ -4,10 +4,10 @@ import React from 'react';
 import ActorsHeaderTable from '../ActorHeader/ActorsHeaderTable';
 import ActorItem from '../ActorItem/ActorItem';
 import type { ActorTableHeader } from '../ActorHeader/ActorsHeaderTable';
-import type { EcosystemActor } from '@ses/core/models/dto/teamsDTO';
+import type { Team } from '@ses/core/models/interfaces/team';
 
 interface Props {
-  actors: EcosystemActor[];
+  actors: Team[];
   sortClick?: (index: number) => void;
   columns: ActorTableHeader[];
 }

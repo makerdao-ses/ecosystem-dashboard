@@ -10,10 +10,10 @@ import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import BreadCrumbNavigation from '../BreadCrumbNavigation/BreadCrumbNavigation';
 import ActorTitleWithDescription from './ActorTitleWithDescription';
-import type { EcosystemActor } from '@ses/core/models/dto/teamsDTO';
+import type { Team } from '@ses/core/models/interfaces/team';
 
 interface ActorSummaryProps {
-  actors: EcosystemActor[];
+  actors: Team[];
   trailingAddress?: string[];
   breadcrumbTitle?: string;
   cutTextTooLong?: boolean;
@@ -35,7 +35,7 @@ const ActorSummary: React.FC<ActorSummaryProps> = ({
   // This is for the filter in the page of list actors about
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
 
-  const actorAbout = data?.find((actor) => actor.shortCode === code) || ({} as EcosystemActor);
+  const actorAbout = data?.find((actor) => actor.shortCode === code) || ({} as Team);
 
   const buildCULabel = () => (!_.isEmpty(actorAbout) ? `${actorAbout?.name}` : '');
 
@@ -62,7 +62,7 @@ const ActorSummary: React.FC<ActorSummaryProps> = ({
 
   const filteredData = useMemo(() => {
     const { filteredCategoryData } = filterDataActors({
-      data: data as EcosystemActor[],
+      data: data as Team[],
       filteredCategories,
     });
 
