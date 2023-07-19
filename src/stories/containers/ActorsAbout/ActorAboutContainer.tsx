@@ -10,6 +10,7 @@ import { getMarkdownInformation } from '@ses/core/businessLogic/coreUnitAbout';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
+import { ResourceType } from '@ses/core/models/interfaces/types';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import { useRouter } from 'next/router';
@@ -53,6 +54,7 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
                 subTitle={`${actor.name}: Who we are`}
                 code={actor.code}
                 shortCode={actor.shortCode}
+                actorName={actor.name}
                 auditors={actor.auditors}
                 showButton={table834 || phone || LessPhone}
                 sentenceDescription={getMarkdownInformation(actor.sentenceDescription)}
@@ -73,13 +75,14 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
               {isEnabled('FEATURE_CARD_NAVIGATION_ACTOR_ABOUT_PAGE') && (
                 <ContainerCard>
                   <CardExpenses
-                    isCoreUnit={false}
+                    resource={ResourceType.EcosystemActor}
                     queryStrings={queryStrings}
                     code={actor.code}
                     shortCode={actor.shortCode}
                     auditors={actor.auditors}
-                    titleCard={`View all expenses of the ${actor.shortCode} Ecosystem Actor`}
-                    auditorMessage={`The ${actor.shortCode} Ecosystem Actor is currently working without auditor`}
+                    titleCard={`View all expenses of the ${actor.name} Ecosystem Actor`}
+                    auditorMessage={`The ${actor.name} is working without auditor`}
+                    makerburnCustomMessage={`View on-chain transfers to ${actor.name} on makerburn.com`}
                   />
                 </ContainerCard>
               )}

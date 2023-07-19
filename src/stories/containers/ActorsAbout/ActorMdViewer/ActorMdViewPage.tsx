@@ -7,7 +7,7 @@ import CardSomethingWrong from '@ses/components/NavigationCard/CardSomethingWron
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
-import { getShortCode } from '@ses/core/utils/string';
+import { ResourceType } from '@ses/core/models/interfaces/types';
 import lightTheme from '@ses/styles/theme/light';
 import Markdown from 'marked-react';
 import React from 'react';
@@ -27,6 +27,7 @@ interface Props {
   showButton?: boolean;
   code: string;
   shortCode: string;
+  actorName: string;
   auditors: AuditorDto[];
   queryStrings: string;
 }
@@ -38,6 +39,7 @@ const ActorMdViewPage = ({
   showButton = false,
   queryStrings,
   code,
+  actorName,
   shortCode,
   auditors,
 }: Props) => {
@@ -105,7 +107,7 @@ const ActorMdViewPage = ({
             }}
           >
             <CardExpenses
-              isCoreUnit={false}
+              resource={ResourceType.EcosystemActor}
               queryStrings={queryStrings}
               code={code}
               shortCode={shortCode}
@@ -119,8 +121,9 @@ const ActorMdViewPage = ({
                 minHeight: '190px',
                 overflowY: 'hidden',
               }}
-              titleCard={`View all expenses of the ${getShortCode(code)} Ecosystem Actor`}
-              auditorMessage={`The ${getShortCode(code)} Ecosystem Actor is currently working without auditor`}
+              titleCard={`View all expenses of the ${actorName} Ecosystem Actor`}
+              auditorMessage={`The ${actorName} is working without auditor`}
+              makerburnCustomMessage={`View on-chain transfers to ${actorName} on makerburn.com`}
             />
           </Popover>
         </ContainerResponsive>
@@ -130,7 +133,7 @@ const ActorMdViewPage = ({
           <div>
             {isEnabled('FEATURE_CARD_NAVIGATION_ACTOR_ABOUT_PAGE') && (
               <CardExpenses
-                isCoreUnit={false}
+                resource={ResourceType.EcosystemActor}
                 styleContainer={{
                   minHeight: '190px',
                 }}
@@ -147,8 +150,9 @@ const ActorMdViewPage = ({
                   marginBottom: 16,
                   marginTop: 32,
                 }}
-                titleCard={`View all expenses of the ${getShortCode(code)} Ecosystem Actor`}
-                auditorMessage={`The ${getShortCode(code)} Ecosystem Actor is currently working without auditor`}
+                titleCard={`View all expenses of the ${actorName} Ecosystem Actor`}
+                auditorMessage={`The ${actorName} is working without auditor`}
+                makerburnCustomMessage={`View on-chain transfers to ${actorName} on makerburn.com`}
               />
             )}
             {!isTable834 && (
