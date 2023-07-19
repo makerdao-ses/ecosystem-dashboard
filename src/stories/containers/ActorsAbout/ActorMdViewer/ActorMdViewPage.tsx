@@ -26,6 +26,7 @@ interface Props {
   subTitle?: string;
   showButton?: boolean;
   code: string;
+  shortCode: string;
   auditors: AuditorDto[];
   queryStrings: string;
 }
@@ -37,6 +38,7 @@ const ActorMdViewPage = ({
   showButton = false,
   queryStrings,
   code,
+  shortCode,
   auditors,
 }: Props) => {
   const { isLight } = useThemeContext();
@@ -106,6 +108,7 @@ const ActorMdViewPage = ({
               isCoreUnit={false}
               queryStrings={queryStrings}
               code={code}
+              shortCode={shortCode}
               auditors={auditors}
               buttonWidth="139.5px"
               isTitlePresent={false}
@@ -133,6 +136,7 @@ const ActorMdViewPage = ({
                 }}
                 queryStrings={queryStrings}
                 code={code}
+                shortCode={shortCode}
                 auditors={auditors}
                 isTitlePresent={false}
                 buttonWidth="139.5px"

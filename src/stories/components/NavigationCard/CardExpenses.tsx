@@ -6,7 +6,6 @@ import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/buttonTypeEnum';
 import { MAKER_BURN_LINK } from '../../../core/utils/const';
-import { getShortCode } from '../../../core/utils/string';
 import { DividerStyle } from '../../containers/CUAbout/CuAboutContainer';
 import InlineUser from '../../containers/TransparencyReport/components/InlineUser/InlineUser';
 import { CustomLink } from '../CustomLink/CustomLink';
@@ -16,6 +15,7 @@ import type { AuditorDto } from '../../../core/models/dto/coreUnitDTO';
 
 interface Props {
   code: string;
+  shortCode: string;
   auditors?: AuditorDto[];
   isTitlePresent?: boolean;
   style?: React.CSSProperties;
@@ -29,6 +29,7 @@ interface Props {
 
 const CardExpenses = ({
   code,
+  shortCode,
   auditors,
   isTitlePresent = true,
   style = {},
@@ -40,9 +41,9 @@ const CardExpenses = ({
   isCoreUnit = true,
 }: Props) => {
   const { isLight } = useThemeContext();
-  const title = titleCard ?? `View all expenses of the ${getShortCode(code)} Core Unit`;
+  const title = titleCard ?? `View all expenses of the ${shortCode} Core Unit`;
   const textLink = isCoreUnit ? 'Core Unit' : 'Ecosystem Actor';
-  const auditorTitle = auditorMessage ?? `The ${getShortCode(code)} Core Unit is currently working without auditor`;
+  const auditorTitle = auditorMessage ?? `The ${shortCode} Core Unit is currently working without auditor`;
   const isPhone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const isTable = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
 
@@ -71,7 +72,7 @@ const CardExpenses = ({
         <ContainerButton>
           {isCoreUnit && (
             <LinkButton
-              href={`/core-unit/${getShortCode(code)}/activity-feed${queryStrings}`}
+              href={`/core-unit/${shortCode}/activity-feed${queryStrings}`}
               buttonType={ButtonType.Secondary}
               widthText="100%"
               label="Activity Feed"
@@ -112,9 +113,7 @@ const CardExpenses = ({
               padding: isPhone || isTable ? '8px 12.75px' : '8px 30.25px',
             }}
             href={`${
-              isCoreUnit
-                ? siteRoutes.coreUnitReports(getShortCode(code))
-                : siteRoutes.ecosystemActorReports(getShortCode(code))
+              isCoreUnit ? siteRoutes.coreUnitReports(shortCode) : siteRoutes.ecosystemActorReports(shortCode)
             }${queryStrings}`}
           />
         </ContainerButton>
@@ -141,7 +140,7 @@ const CardExpenses = ({
             display: 'inline-block',
           }}
           target="_blank"
-          children={`View on-chain transfers to ${getShortCode(code)} ${textLink} on makerburn.com`}
+          children={`View on-chain transfers to ${shortCode} ${textLink} on makerburn.com`}
         />
       </ContainerLinks>
 
