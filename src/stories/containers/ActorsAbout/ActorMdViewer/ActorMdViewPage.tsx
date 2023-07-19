@@ -184,9 +184,7 @@ const ViewerContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
   boxSizing: 'border-box',
-  [lightTheme.breakpoints.up('table_834')]: {
-    textAlign: 'justify',
-  },
+  textAlign: 'justify',
 });
 
 const TypographyStyleDescription = styled.p<{ isLight: boolean }>(({ isLight }) => ({
@@ -206,6 +204,7 @@ const TypographyStyleDescription = styled.p<{ isLight: boolean }>(({ isLight }) 
     minWidth: 213,
     maxWidth: '100%',
     marginRight: 10,
+    textAlign: 'start',
   },
 }));
 
