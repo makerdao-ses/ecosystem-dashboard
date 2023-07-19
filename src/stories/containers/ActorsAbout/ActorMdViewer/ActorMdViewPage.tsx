@@ -188,7 +188,6 @@ const ViewerContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
   boxSizing: 'border-box',
-  textAlign: 'justify',
 });
 
 const TypographyStyleDescription = styled.p<{ isLight: boolean }>(({ isLight }) => ({

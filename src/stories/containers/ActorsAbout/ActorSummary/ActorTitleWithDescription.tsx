@@ -38,13 +38,12 @@ const ContainerTitle = styled.div({
   height: 'fit-content',
   transition: 'all .3s ease',
   paddingTop: '8px',
-
+  paddingLeft: 16,
+  paddingRight: 16,
   [lightTheme.breakpoints.up('table_375')]: {
     minHeight: 'fit-content',
     overflow: 'hidden',
     width: '100%',
-    paddingLeft: 16,
-    paddingRight: 16,
     paddingTop: 0,
   },
   [lightTheme.breakpoints.up('table_834')]: {
