@@ -198,6 +198,7 @@ const TypographyStyleDescription = styled.p<{ isLight: boolean }>(({ isLight }) 
   lineHeight: isLight ? '19px' : '24px',
   color: isLight ? '#231536' : ' #D2D4EF',
   margin: '0px',
+  marginRight: 10,
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
     fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
