@@ -30,6 +30,10 @@ export const getAllActors = (teamType: ResourceType) => ({
           code
           name
         }
+        auditors {
+          id
+          username
+        }
       }
     }
   `,

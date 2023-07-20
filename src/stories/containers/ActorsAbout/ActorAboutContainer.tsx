@@ -37,7 +37,7 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
     <PageWrapper isLight={isLight}>
       <SEOHead
         title={`About ${actor.name} Ecosystem Actor at MakerDAO`}
-        description={` Learn about the ${actor.name} Ecosystem Actor at MakerDAO: their mandate, scope, vision, strategy, and more.`}
+        description={`Learn about the ${actor.name} Ecosystem Actor at MakerDAO: their mandate, scope, vision, strategy, and more.`}
         image={{
           src: toAbsoluteURL('/assets/img/social-385x200.png'),
           width: 385,
