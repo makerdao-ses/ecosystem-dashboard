@@ -23,9 +23,11 @@ const ActorItem: React.FC<Props> = ({ actor }) => {
   const { isLight } = useThemeContext();
 
   const ActorAboutLink: React.FC<PropsWithChildren> = ({ children }) => (
-    <Link href={siteRoutes.ecosystemActorAbout(actor.shortCode)} legacyBehavior passHref>
-      <a>{children}</a>
-    </Link>
+    <ContainerLinkColum>
+      <Link href={siteRoutes.ecosystemActorAbout(actor.shortCode)} legacyBehavior passHref>
+        <LinkColum>{children}</LinkColum>
+      </Link>
+    </ContainerLinkColum>
   );
 
   return (
@@ -52,7 +54,11 @@ const ActorItem: React.FC<Props> = ({ actor }) => {
           </TypeSection>
         </ContainerActorType>
       </ActorAboutLink>
-      <Line isLight={isLight} />
+      <Link href={siteRoutes.ecosystemActorAbout(actor.shortCode)} legacyBehavior passHref>
+        <LineLink>
+          <Line isLight={isLight} />
+        </LineLink>
+      </Link>
       <WrapperScopeLinks alignEnd={actor?.scopes?.length === 0}>
         {actor?.scopes?.length > 0 && (
           <ActorAboutLink>
@@ -102,23 +108,20 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight & { hasS
     },
 
     [lightTheme.breakpoints.up('table_834')]: {
-      padding: '8px 16px',
+      padding: 0,
       flexDirection: 'column',
       maxHeight: 'revert',
-      height: 129,
       minHeight: 'revert',
     },
     [lightTheme.breakpoints.up('desktop_1194')]: {
       height: 82,
       flexDirection: 'row',
-      padding: '16px',
-      alignItems: 'center',
+      padding: 0,
       justifyContent: 'space-between',
+      alignItems: 'center',
     },
     [lightTheme.breakpoints.up('desktop_1440')]: {
       flexDirection: 'row',
-      gap: 59,
-      height: 82,
       maxWidth: 1312,
       alignItems: 'center',
     },
@@ -128,9 +131,19 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight & { hasS
 const ContainerActorType = styled.div({
   display: 'flex',
   flexDirection: 'column',
+
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row',
+    flex: 1,
     justifyContent: 'space-between',
+
+    paddingTop: 8,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    flexDirection: 'row',
+    flex: 1,
+    paddingTop: 'revert',
+    justifyContent: 'revert',
   },
 });
 const EcosystemActorText = styled.div<WithIsLight>(({ isLight }) => ({
@@ -168,6 +181,15 @@ const ActorAvatar = styled.div({
     gap: 16,
     marginBottom: 0,
     width: 343,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 16,
+    marginBottom: 0,
+    width: 343,
+    height: 82,
   },
 });
 
@@ -229,8 +251,10 @@ const Line = styled.div<WithIsLight>(({ isLight }) => ({
   marginTop: 22,
   marginBottom: 16,
   [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: 16,
-    marginBottom: 12,
+    marginTop: 14,
+    marginBottom: 14,
+    marginRight: 16,
+    marginLeft: 16,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     display: 'none',
@@ -267,10 +291,21 @@ const CircleAvatarExtended = styled(CircleAvatar)<WithIsLight>(({ isLight }) => 
 const WrapperScopeLinks = styled.div<{ alignEnd: boolean }>(({ alignEnd }) => ({
   display: 'flex',
   flexDirection: 'column',
+
   justifyContent: alignEnd ? 'flex-end' : 'space-between',
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row',
     alignItems: 'center',
+    paddingBottom: 4,
+    flex: 1,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    minHeight: 82,
+    paddingBottom: 'revert',
+
+    flex: 1,
   },
 }));
 
@@ -287,18 +322,21 @@ const ScopeSection = styled.div({
   [lightTheme.breakpoints.up('desktop_1194')]: {
     flexDirection: 'column',
     alignItems: 'flex-start',
-    width: 150,
+
+    flex: 1,
+
+    height: 82,
     gap: 4,
-    marginRight: 52,
+
+    marginLeft: 12,
     marginBottom: 0,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginRight: 70,
+    marginLeft: 20,
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: 220,
-    marginRight: 58,
+    marginLeft: 26,
     flexDirection: 'column',
     gap: 4,
   },
@@ -307,19 +345,22 @@ const ScopeSection = styled.div({
 const SocialIconsSection = styled.div({
   display: 'flex',
   position: 'relative',
-
   flexDirection: 'row',
   justifyContent: 'center',
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: -6,
+    paddingRight: 16,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     flexDirection: 'row',
-    width: 320,
+
+    width: 'fit-content',
     marginTop: -1,
+
     justifyContent: 'flex-end',
+    paddingRight: 16,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     flexDirection: 'row',
@@ -335,3 +376,32 @@ export const SocialMediaComponentStyled = styled(SocialMediaComponent)<WithIsLig
     },
   },
 }));
+
+const ContainerLinkColum = styled.div({
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'flex',
+    flexDirection: 'row',
+
+    flex: 1,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    display: 'flex',
+    flex: 1,
+  },
+});
+
+const LinkColum = styled.a({
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'flex',
+    paddingLeft: 16,
+    paddingRight: 16,
+    flex: 1,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    display: 'flex',
+    padding: 16,
+    flex: 1,
+  },
+});
+
+const LineLink = styled.a({});
