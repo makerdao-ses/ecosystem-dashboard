@@ -45,10 +45,6 @@ const ActorFilters: React.FC<Props> = ({
         width={144}
         popupContainerWidth={250}
         listItemWidth={218}
-        // width={161}
-        // width={118}
-
-        // listItemWidth={216}
         items={categories.map((cat) => ({
           id: cat,
           content: <CategoryChip category={cat as ActorsCategoryEnum} />,
