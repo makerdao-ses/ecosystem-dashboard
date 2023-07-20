@@ -85,7 +85,9 @@ const useTransparencyReportingTabs = ({
           },
         ]
       : []),
-    ...(isEnabled('FEATURE_TRANSPARENCY_COMMENTS') ? [commentTab] : []),
+    ...(isEnabled('FEATURE_TRANSPARENCY_COMMENTS') && isEnabled('FEATURE_ECOSYSTEM_ACTOR_COMMENTS')
+      ? [commentTab]
+      : []),
   ];
 
   // tabs to shown when the tabs is collapsed/compressed
@@ -95,7 +97,7 @@ const useTransparencyReportingTabs = ({
       id: TRANSPARENCY_IDS_ENUM.EXPENSE_REPORT,
     },
     ...(isEnabled('FEATURE_ACCOUNTS_SNAPSHOT') ? [accountsSnapshotTab] : []),
-    commentTab,
+    ...(isEnabled('FEATURE_ECOSYSTEM_ACTOR_COMMENTS') ? [commentTab] : []),
   ];
 
   const onTabChange = useCallback(
