@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { CategoryChip } from '@ses/components/CategoryChip/CategoryChip';
 import { CustomMultiSelect } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import ResetButton from '@ses/components/ResetButton/ResetButton';
-import { ActorsCategoryEnum } from '@ses/core/enums/actorsCategory';
+import { TeamCategory } from '@ses/core/models/interfaces/types';
 import React from 'react';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
   categoriesCount: { [id: string]: number };
   onChange?: (items: string[]) => void;
 }
-const categories = Object.values(ActorsCategoryEnum) as string[];
+const categories = Object.values(TeamCategory) as string[];
 const ActorFilters: React.FC<Props> = ({
   handleResetFilter,
   readMore,
@@ -47,7 +47,7 @@ const ActorFilters: React.FC<Props> = ({
         listItemWidth={218}
         items={categories.map((cat) => ({
           id: cat,
-          content: <CategoryChip category={cat as ActorsCategoryEnum} />,
+          content: <CategoryChip category={cat as TeamCategory} />,
           count: categoriesCount[cat],
         }))}
         onChange={onChange}

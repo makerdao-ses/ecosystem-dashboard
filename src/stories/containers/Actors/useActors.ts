@@ -1,8 +1,8 @@
 import { stringify } from 'querystring';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { siteRoutes } from '@ses/config/routes';
-import { ActorsCategoryEnum } from '@ses/core/enums/actorsCategory';
 import { SortEnum } from '@ses/core/enums/sortEnum';
+import { TeamCategory } from '@ses/core/models/interfaces/types';
 import { getArrayParam } from '@ses/core/utils/filters';
 import { buildQueryString } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
@@ -97,15 +97,13 @@ export const useActors = (actors: Team[], stories = false) => {
 
   const groupByStatusDefaultSorting: Team[] = useMemo(() => {
     const resultMoment = orderBy(filteredCategoryData, 'name');
-    // const groupByStatusDefaultSorting: Team[] = useMemo(() => {
-    // const resultMoment = orderBy(filteredCategoryData, 'name');
 
     return resultMoment;
   }, [filteredCategoryData]);
 
   const categoriesCount = useMemo(() => {
     const result: { [id: string]: number } = {};
-    Object.values(ActorsCategoryEnum).forEach((cat) => {
+    Object.values(TeamCategory).forEach((cat) => {
       result[cat] = actors?.filter((cu) => cu.category?.indexOf(cat) > -1).length;
     });
     result.All = actors.length;

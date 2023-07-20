@@ -1,23 +1,22 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import type { CuCategoryEnum } from '../../../core/enums/cuCategoryEnum';
+import type { TeamCategory } from '@ses/core/models/interfaces/types';
 import type { CSSProperties } from 'react';
 
-export enum ExtendedActorsCategoryEnum {
-  ActiveEcosystemActor = 'ActiveEcosystemActor',
-  AdvisoryCouncilMember = 'AdvisoryCouncilMember',
+interface ColorsChip {
+  color: string;
+  background: string;
+  colorDark: string;
+  backgroundDark: string;
 }
 
-export type CombinedActorsCategoryEnum = CuCategoryEnum & ExtendedActorsCategoryEnum;
-
 interface StatusChipProps {
-  category: CombinedActorsCategoryEnum | string;
+  category: TeamCategory | string;
   style?: CSSProperties;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const colors: { [id: string]: any } = {
+const colors: { [id: string]: ColorsChip } = {
   All: {
     color: '#5D48FF',
     background: '#F7F5FF',
