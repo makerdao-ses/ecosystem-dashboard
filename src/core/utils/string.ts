@@ -38,6 +38,9 @@ export const formatNumber = (number: number) =>
     minimumFractionDigits: 2,
   });
 
+/**
+ * @deprecated The method should not be used, use shortCode directly instead
+ */
 export const getShortCode = (code: string) => {
   if (!code) return '';
   const parts = code.split('-');

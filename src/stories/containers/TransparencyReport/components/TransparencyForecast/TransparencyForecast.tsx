@@ -16,6 +16,7 @@ interface TransparencyForecastProps {
   currentMonth: DateTime;
   budgetStatements: BudgetStatement[];
   longCode: string;
+  shortCode: string;
   headline: React.ReactNode;
   resource: ResourceType;
 }
@@ -24,6 +25,7 @@ export const TransparencyForecast: React.FC<TransparencyForecastProps> = ({
   currentMonth,
   budgetStatements,
   longCode,
+  shortCode,
   headline,
   resource,
 }) => {
@@ -50,6 +52,9 @@ export const TransparencyForecast: React.FC<TransparencyForecastProps> = ({
         items={mainTableItems}
         style={{ marginBottom: '64px' }}
         cardsTotalPosition={'top'}
+        tablePlaceholder={
+          <TransparencyEmptyTable breakdown longCode={longCode} shortCode={shortCode} resource={resource} />
+        }
       />
       {!!mainTableItems?.length && (
         <Title isLight={isLight} marginBottom={24} ref={breakdownTitleRef}>
@@ -74,7 +79,9 @@ export const TransparencyForecast: React.FC<TransparencyForecastProps> = ({
             columns={breakdownColumnsForActiveTab}
             items={breakdownItems}
             cardSpacingSize="small"
-            tablePlaceholder={<TransparencyEmptyTable breakdown longCode={longCode} resource={resource} />}
+            tablePlaceholder={
+              <TransparencyEmptyTable breakdown longCode={longCode} shortCode={shortCode} resource={resource} />
+            }
           />
         </BreakdownTableWrapper>
       )}

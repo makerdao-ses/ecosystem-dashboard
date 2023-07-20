@@ -13,6 +13,7 @@ interface TransparencyTransferRequestProps {
   currentMonth: DateTime;
   budgetStatements: BudgetStatement[];
   longCode: string;
+  shortCode: string;
   headline: React.ReactNode;
   resource: ResourceType;
 }
@@ -21,6 +22,7 @@ export const TransparencyTransferRequest: React.FC<TransparencyTransferRequestPr
   currentMonth,
   budgetStatements,
   longCode,
+  shortCode,
   headline,
   resource,
 }) => {
@@ -39,7 +41,7 @@ export const TransparencyTransferRequest: React.FC<TransparencyTransferRequestPr
           style={{ marginBottom: '64px' }}
           cardsTotalPosition={'top'}
           longCode={longCode}
-          tablePlaceholder={<TransparencyEmptyTable longCode={longCode} resource={resource} />}
+          tablePlaceholder={<TransparencyEmptyTable longCode={longCode} shortCode={shortCode} resource={resource} />}
         />
       </div>
     </Container>

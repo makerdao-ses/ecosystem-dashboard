@@ -247,7 +247,7 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
       </CardsWrapper>
     </>
   ) : (
-    tablePlaceholder ?? <TransparencyEmptyTable longCode={longCode} />
+    tablePlaceholder ?? <TransparencyEmptyTable longCode={longCode} shortCode={longCode} />
   );
 };
 

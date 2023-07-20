@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Typography, useMediaQuery } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
+import { ResourceType } from '@ses/core/models/interfaces/types';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
@@ -16,6 +17,7 @@ import type { AuditorDto } from '../../../core/models/dto/coreUnitDTO';
 interface Props {
   code: string;
   shortCode: string;
+  resource?: ResourceType;
   auditors?: AuditorDto[];
   isTitlePresent?: boolean;
   style?: React.CSSProperties;
@@ -24,12 +26,13 @@ interface Props {
   queryStrings: string;
   titleCard?: string;
   auditorMessage?: string;
-  isCoreUnit?: boolean;
+  makerburnCustomMessage?: string;
 }
 
 const CardExpenses = ({
   code,
   shortCode,
+  resource = ResourceType.CoreUnit,
   auditors,
   isTitlePresent = true,
   style = {},
@@ -38,11 +41,11 @@ const CardExpenses = ({
   queryStrings,
   titleCard,
   auditorMessage,
-  isCoreUnit = true,
+  makerburnCustomMessage,
 }: Props) => {
   const { isLight } = useThemeContext();
   const title = titleCard ?? `View all expenses of the ${shortCode} Core Unit`;
-  const textLink = isCoreUnit ? 'Core Unit' : 'Ecosystem Actor';
+  const textLink = resource === ResourceType.CoreUnit ? 'Core Unit' : 'Ecosystem Actor';
   const auditorTitle = auditorMessage ?? `The ${shortCode} Core Unit is currently working without auditor`;
   const isPhone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const isTable = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
@@ -70,7 +73,7 @@ const CardExpenses = ({
         </TypographyDescription>
 
         <ContainerButton>
-          {isCoreUnit && (
+          {resource === ResourceType.CoreUnit && (
             <LinkButton
               href={`/core-unit/${shortCode}/activity-feed${queryStrings}`}
               buttonType={ButtonType.Secondary}
@@ -108,12 +111,14 @@ const CardExpenses = ({
               letterSpacing: '0px',
               width: buttonWidth,
               // TODO: let this as `marginLeft: 12` when the Activity feed for ecosystem actor is implemented
-              marginLeft: isCoreUnit ? 12 : 0,
+              marginLeft: resource === ResourceType.CoreUnit ? 12 : 0,
               flexGrow: 1,
               padding: isPhone || isTable ? '8px 12.75px' : '8px 30.25px',
             }}
             href={`${
-              isCoreUnit ? siteRoutes.coreUnitReports(shortCode) : siteRoutes.ecosystemActorReports(shortCode)
+              resource === ResourceType.CoreUnit
+                ? siteRoutes.coreUnitReports(shortCode)
+                : siteRoutes.ecosystemActorReports(shortCode)
             }${queryStrings}`}
           />
         </ContainerButton>
@@ -140,7 +145,7 @@ const CardExpenses = ({
             display: 'inline-block',
           }}
           target="_blank"
-          children={`View on-chain transfers to ${shortCode} ${textLink} on makerburn.com`}
+          children={makerburnCustomMessage ?? `View on-chain transfers to ${shortCode} ${textLink} on makerburn.com`}
         />
       </ContainerLinks>
 
