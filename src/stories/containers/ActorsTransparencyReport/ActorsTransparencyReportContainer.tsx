@@ -59,7 +59,7 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
     comments,
   } = useActorsTransparencyReport(actor);
 
-  const headline = <TeamHeadLine teamLongCode={actor.code} />;
+  const headline = <TeamHeadLine teamLongCode={actor.code} teamShortCode={actor.shortCode} />;
   return (
     <Wrapper>
       <SEOHead
@@ -112,6 +112,7 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
                   currentMonth={currentMonth}
                   budgetStatements={actor?.budgetStatements}
                   longCode={actor.code}
+                  shortCode={actor.shortCode}
                   headline={headline}
                   resource={ResourceType.EcosystemActor}
                 />
@@ -121,6 +122,7 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
                   currentMonth={currentMonth}
                   budgetStatements={actor?.budgetStatements}
                   longCode={actor.code}
+                  shortCode={actor.shortCode}
                   headline={headline}
                   resource={ResourceType.EcosystemActor}
                 />
@@ -130,6 +132,7 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
                   currentMonth={currentMonth}
                   budgetStatements={actor?.budgetStatements}
                   longCode={actor.code}
+                  shortCode={actor.shortCode}
                   headline={headline}
                   resource={ResourceType.EcosystemActor}
                 />
@@ -139,6 +142,7 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
                   currentMonth={currentMonth}
                   budgetStatements={actor?.budgetStatements}
                   longCode={actor.code}
+                  shortCode={actor.shortCode}
                   headline={headline}
                   resource={ResourceType.EcosystemActor}
                 />
@@ -152,6 +156,7 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
                   currentMonth={currentMonth}
                   ownerId={actor.id}
                   longCode={actor.code}
+                  shortCode={actor.shortCode}
                   resource={ResourceType.EcosystemActor}
                 />
               )}
@@ -168,6 +173,7 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
                 currentMonth={currentMonth}
                 budgetStatements={actor?.budgetStatements}
                 longCode={actor.code}
+                resource={ResourceType.EcosystemActor}
               />
             )}
           </ModalCategoriesProvider>

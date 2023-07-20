@@ -3,16 +3,16 @@ import { useMediaQuery } from '@mui/material';
 import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { MAKER_BURN_LINK } from '@ses/core/utils/const';
-import { getShortCode } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface TeamHeadlineTextProps {
   teamLongCode: string;
+  teamShortCode: string;
 }
 
-const TeamHeadLine: React.FC<TeamHeadlineTextProps> = ({ teamLongCode }) => {
+const TeamHeadLine: React.FC<TeamHeadlineTextProps> = ({ teamLongCode, teamShortCode }) => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
 
@@ -36,7 +36,7 @@ const TeamHeadLine: React.FC<TeamHeadlineTextProps> = ({ teamLongCode }) => {
         iconHeight={10}
         marginLeft="7px"
       >
-        {`view the ${getShortCode(teamLongCode)} Ecosystem Actor on-chain transaction history`}
+        {`view the ${teamShortCode} Ecosystem Actor on-chain transaction history`}
       </CustomLink>
     </LinkDescription>
   );

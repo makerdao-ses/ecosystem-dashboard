@@ -12,6 +12,7 @@ interface AccountsSnapshotTabContainerProps {
   currentMonth: DateTime;
   ownerId: string;
   longCode: string;
+  shortCode: string;
   resource: ResourceType;
 }
 
@@ -20,6 +21,7 @@ const AccountsSnapshotTabContainer: React.FC<AccountsSnapshotTabContainerProps> 
   currentMonth,
   ownerId,
   longCode,
+  shortCode,
   resource,
 }) => {
   const { isLoading, snapshot } = useAccountsSnapshotTab(ownerId, currentMonth, resource);
@@ -30,7 +32,7 @@ const AccountsSnapshotTabContainer: React.FC<AccountsSnapshotTabContainerProps> 
     <AccountsSnapshot snapshot={snapshot} snapshotOwner={snapshotOwner} />
   ) : (
     <Box sx={{ mb: '64px' }}>
-      <TransparencyEmptyTable longCode={longCode} resource={resource} />
+      <TransparencyEmptyTable longCode={longCode} shortCode={shortCode} resource={resource} />
     </Box>
   );
 };

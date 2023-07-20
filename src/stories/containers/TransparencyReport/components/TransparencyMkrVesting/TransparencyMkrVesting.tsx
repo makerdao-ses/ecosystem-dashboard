@@ -15,6 +15,7 @@ interface TransparencyMkrVestingProps {
   currentMonth: DateTime;
   budgetStatements: BudgetStatement[];
   longCode: string;
+  shortCode: string;
   headline: React.ReactNode;
   resource: ResourceType;
 }
@@ -23,6 +24,7 @@ export const TransparencyMkrVesting: React.FC<TransparencyMkrVestingProps> = ({
   currentMonth,
   budgetStatements,
   longCode,
+  shortCode,
   headline,
   resource,
 }) => {
@@ -42,7 +44,7 @@ export const TransparencyMkrVesting: React.FC<TransparencyMkrVestingProps> = ({
         columns={mainTableColumns}
         items={mainTableItems}
         longCode={longCode}
-        tablePlaceholder={<TransparencyEmptyTable longCode={longCode} resource={resource} />}
+        tablePlaceholder={<TransparencyEmptyTable longCode={longCode} shortCode={shortCode} resource={resource} />}
       />
       {mainTableItems.length > 0 && (
         <MkrInfoContainer>
