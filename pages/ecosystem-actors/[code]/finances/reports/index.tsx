@@ -3,7 +3,7 @@ import { fetchActors } from '@ses/containers/Actors/api/queries';
 import ActorsTransparencyReportContainer from '@ses/containers/ActorsTransparencyReport/ActorsTransparencyReportContainer';
 import { fetchEcosystemActor } from '@ses/containers/ActorsTransparencyReport/api/queries';
 import { fetchExpenseCategories } from '@ses/containers/FinancesOverview/api/queries';
-import { ActorContext } from '@ses/core/context/ActorContext';
+import { TeamContext } from '@ses/core/context/TeamContext';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { featureFlags } from 'feature-flags/feature-flags';
 import React, { useEffect, useState } from 'react';
@@ -16,19 +16,20 @@ const EcosystemActorsTransparencyReportingPage: NextPage = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [currentActor, setCurrentActor] = useState(actor);
   useEffect(() => {
-    setCurrentActor(currentActor);
-  }, [currentActor]);
+    setCurrentActor(actor);
+  }, [actor]);
 
   return (
-    <ActorContext.Provider
+    // make the actors accessible from the comments
+    <TeamContext.Provider
       value={{
-        actor,
-        actors,
-        setCurrentActor,
+        currentTeam: currentActor,
+        teams: actors,
+        setCurrentTeam: setCurrentActor,
       }}
     >
-      <ActorsTransparencyReportContainer actor={actor} actors={actors} expenseCategories={expenseCategories} />
-    </ActorContext.Provider>
+      <ActorsTransparencyReportContainer actor={currentActor} actors={actors} expenseCategories={expenseCategories} />
+    </TeamContext.Provider>
   );
 };
 

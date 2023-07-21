@@ -1,15 +1,15 @@
+import { CommentBuilder } from '@ses/core/businessLogic/builders/commentBuilder';
+import { UserBuilder } from '@ses/core/businessLogic/builders/userBuilder';
 import { BudgetStatus } from '@ses/core/models/interfaces/types';
-import { withCoreUnitContext } from '@ses/core/utils/storybook/decorators';
-import { CommentBuilder } from '../../../../../../core/businessLogic/builders/commentBuilder';
-import { UserBuilder } from '../../../../../../core/businessLogic/builders/userBuilder';
-import { createThemeModeVariants } from '../../../../../../core/utils/storybook/factories';
+import { withTeamContext } from '@ses/core/utils/storybook/decorators';
+import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AuditorCommentsContainer from './AuditorCommentsContainer';
 import type { ComponentMeta } from '@storybook/react';
 
 export default {
   title: 'Components/AuditorComments/AuditorCommentsContainer',
   component: AuditorCommentsContainer,
-  decorators: [withCoreUnitContext],
+  decorators: [withTeamContext],
 } as ComponentMeta<typeof AuditorCommentsContainer>;
 
 const args = [

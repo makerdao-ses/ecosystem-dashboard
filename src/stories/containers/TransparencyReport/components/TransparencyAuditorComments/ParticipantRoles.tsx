@@ -1,20 +1,27 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { ResourceType } from '@ses/core/models/interfaces/types';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import InlineUser from '../InlineUser/InlineUser';
-import type { CommentMode } from './AuditorCommentsContainer/AuditorCommentsContainer';
 import type { BaseUser } from '@ses/core/models/interfaces/users';
 
 export type ParticipantRolesProps = {
-  coreUnitCode: string;
+  teamShortCode: string;
   cu: BaseUser[];
   auditors: BaseUser[];
-  mode?: CommentMode;
+  resource: ResourceType;
 };
 
-const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ coreUnitCode, cu, auditors, mode = 'CoreUnits' }) => {
+const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ teamShortCode, cu, auditors, resource }) => {
   const { isLight } = useThemeContext();
+
+  const roleName =
+    resource === ResourceType.CoreUnit
+      ? `${teamShortCode} Core Unit`
+      : resource === ResourceType.Delegates
+      ? 'Delegates Administrators'
+      : `${teamShortCode} Ecosystem Actor`;
 
   return (
     <ParticipantContainer>
@@ -22,9 +29,7 @@ const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ coreUnitCode, cu, a
       <Card isLight={isLight}>
         {cu.length > 0 && (
           <RoleSection>
-            <RoleName isLight={isLight}>
-              {mode === 'CoreUnits' ? `${coreUnitCode} Core Unit` : 'Delegates Administrators'}
-            </RoleName>
+            <RoleName isLight={isLight}>{roleName}</RoleName>
             {cu.map((author) => (
               <UserWrapper key={author.id}>
                 <InlineUser username={author.username} />
@@ -44,8 +49,10 @@ const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ coreUnitCode, cu, a
           </RoleSection>
         ) : (
           <EmptyState isLight={isLight}>
-            {mode === 'CoreUnits' ? ` The ${coreUnitCode}  Core Unit` : 'Recognized Delegate'} is currently working
-            without an auditor
+            {resource === ResourceType.Delegates
+              ? 'Recognized Delegate'
+              : ` The ${teamShortCode} ${resource === ResourceType.CoreUnit ? 'Core Unit' : 'Ecosystem Actor'}`}{' '}
+            is currently working without an auditor
           </EmptyState>
         )}
       </Card>

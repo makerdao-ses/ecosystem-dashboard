@@ -7,6 +7,7 @@ import Tabs from '@ses/components/Tabs/Tabs';
 import { siteRoutes } from '@ses/config/routes';
 import { CommentActivityContext } from '@ses/core/context/CommentActivityContext';
 import { BudgetStatus } from '@ses/core/models/dto/coreUnitDTO';
+import { ResourceType } from '@ses/core/models/interfaces/types';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
@@ -101,7 +102,11 @@ const RecognizedDelegatesReportContainer: React.FC<RecognizedDelegatesProps> = (
         )}
         {selectedTab === DELEGATES_REPORT_IDS_ENUM.COMMENTS && (
           <CommentActivityContext.Provider value={{ lastVisitHandler }}>
-            <AuditorCommentsContainer budgetStatement={currentBudgetStatement} comments={comments} mode={'Delegates'} />
+            <AuditorCommentsContainer
+              budgetStatement={currentBudgetStatement}
+              comments={comments}
+              resource={ResourceType.Delegates}
+            />
           </CommentActivityContext.Provider>
         )}
 

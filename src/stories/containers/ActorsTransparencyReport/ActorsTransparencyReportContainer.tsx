@@ -160,9 +160,13 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
                   resource={ResourceType.EcosystemActor}
                 />
               )}
-              {tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS && isEnabled('FEATURE_ECOSYSTEM_ACTOR_COMMENTS') && (
+              {tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS && (
                 <CommentActivityContext.Provider value={{ lastVisitHandler }}>
-                  <AuditorCommentsContainer budgetStatement={currentBudgetStatement} comments={comments} />
+                  <AuditorCommentsContainer
+                    budgetStatement={currentBudgetStatement}
+                    comments={comments}
+                    resource={ResourceType.EcosystemActor}
+                  />
                 </CommentActivityContext.Provider>
               )}
             </Container>

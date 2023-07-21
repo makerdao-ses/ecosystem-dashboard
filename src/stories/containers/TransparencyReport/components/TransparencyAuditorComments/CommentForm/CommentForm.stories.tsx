@@ -1,9 +1,10 @@
+import { CoreUnitsBuilder } from '@ses/core/businessLogic/builders/coreUnitsBuilder';
+import { UserBuilder } from '@ses/core/businessLogic/builders/userBuilder';
 import { BudgetStatus } from '@ses/core/models/interfaces/types';
-import { withCoreUnitContext, withUserLoggedIn } from '@ses/core/utils/storybook/decorators';
-import { CoreUnitsBuilder } from '../../../../../../core/businessLogic/builders/coreUnitsBuilder';
-import { UserBuilder } from '../../../../../../core/businessLogic/builders/userBuilder';
-import { createThemeModeVariants } from '../../../../../../core/utils/storybook/factories';
+import { withTeamContext, withUserLoggedIn } from '@ses/core/utils/storybook/decorators';
+import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import CommentForm from './CommentForm';
+import type { Team } from '@ses/core/models/interfaces/team';
 import type { ComponentMeta } from '@storybook/react';
 
 const MockedAuditor = new UserBuilder().addCoreUnitAuditorRole().build();
@@ -13,7 +14,7 @@ export default {
   component: CommentForm,
   decorators: [
     withUserLoggedIn(MockedAuditor),
-    withCoreUnitContext(new CoreUnitsBuilder().withShortCode('EXA').addAuditors(MockedAuditor).build()),
+    withTeamContext(new CoreUnitsBuilder().withShortCode('EXA').addAuditors(MockedAuditor).build() as unknown as Team),
   ],
 } as ComponentMeta<typeof CommentForm>;
 
