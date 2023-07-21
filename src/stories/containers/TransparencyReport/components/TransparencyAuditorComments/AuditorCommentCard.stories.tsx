@@ -1,6 +1,7 @@
 import { CommentBuilder } from '@ses/core/businessLogic/builders/commentBuilder';
 import { UserBuilder } from '@ses/core/businessLogic/builders/userBuilder';
 import { BudgetStatus } from '@ses/core/models/dto/coreUnitDTO';
+import { ResourceType } from '@ses/core/models/interfaces/types';
 import { withTeamContext } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AuditorCommentCard from './AuditorCommentCard';
@@ -42,6 +43,7 @@ const variantsArgs = [
       .withAuthor(new UserBuilder().addCoreUnitFacilitatorRole().withUsername('wkampmann').build())
       .withTimestamp('2022-10-17T12:32:00.000Z')
       .build(),
+    resource: ResourceType.CoreUnit,
   },
   {
     comment: new CommentBuilder()
@@ -52,6 +54,7 @@ const variantsArgs = [
       )
       .withTimestamp('2022-10-17T12:32:00.000Z')
       .build(),
+    resource: ResourceType.CoreUnit,
   },
 ];
 

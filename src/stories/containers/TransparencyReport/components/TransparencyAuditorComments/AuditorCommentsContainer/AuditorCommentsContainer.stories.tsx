@@ -1,6 +1,6 @@
 import { CommentBuilder } from '@ses/core/businessLogic/builders/commentBuilder';
 import { UserBuilder } from '@ses/core/businessLogic/builders/userBuilder';
-import { BudgetStatus } from '@ses/core/models/interfaces/types';
+import { BudgetStatus, ResourceType } from '@ses/core/models/interfaces/types';
 import { withTeamContext } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AuditorCommentsContainer from './AuditorCommentsContainer';
@@ -28,6 +28,7 @@ const args = [
         .withAuthor(new UserBuilder().withUsername('story2').addCoreUnitAuditorRole().build())
         .build(),
     ],
+    resource: ResourceType.CoreUnit,
   },
 ];
 export const [[WithComments, DarkModeWithComments]] = createThemeModeVariants(AuditorCommentsContainer, args);
@@ -35,5 +36,6 @@ export const [[WithComments, DarkModeWithComments]] = createThemeModeVariants(Au
 export const [[EmptyLight, EmptyDark]] = createThemeModeVariants(AuditorCommentsContainer, [
   {
     comments: [],
+    resource: ResourceType.CoreUnit,
   },
 ]);
