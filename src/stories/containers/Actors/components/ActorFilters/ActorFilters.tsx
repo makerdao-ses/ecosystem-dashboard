@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
+import { CategoryChip } from '@ses/components/CategoryChip/CategoryChip';
 import { CustomMultiSelect } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import ResetButton from '@ses/components/ResetButton/ResetButton';
+import { TeamCategory } from '@ses/core/models/interfaces/types';
 import React from 'react';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 interface Props {
@@ -9,42 +11,46 @@ interface Props {
   handleSelectChange: (value: string[]) => void;
   handleResetFilter: () => void;
   readMore: boolean;
+  filteredCategories: string[];
+  categoriesCount: { [id: string]: number };
+  onChange?: (items: string[]) => void;
 }
+const categories = Object.values(TeamCategory) as string[];
 const ActorFilters: React.FC<Props> = ({
-  selectElements,
-  activeElements,
-  handleSelectChange,
   handleResetFilter,
   readMore,
+  filteredCategories,
+  categoriesCount,
+  onChange,
 }) => (
   <FiltersContainer>
     <Reset>
       <ResetButton
         onClick={handleResetFilter}
-        disabled={activeElements.length <= 0}
+        disabled={filteredCategories.length <= 0}
         hasIcon={false}
         label="Reset filters"
       />
     </Reset>
     <FilterActorsContainer readMore={readMore}>
-      <CustomMultiSelect
+      <CustomMultiSelectStyled
         positionRight={true}
         label="Actor Role"
-        activeItems={activeElements}
-        items={selectElements}
-        width={144}
-        onChange={(value: string[]) => {
-          handleSelectChange(value);
-        }}
-        withAll
-        popupContainerWidth={343}
-        listItemWidth={311}
+        activeItems={filteredCategories}
         customAll={{
-          content: 'All Actors',
-          id: 'all',
-          params: { isAll: true },
-          count: 0,
+          id: 'All',
+          content: <CategoryChip category={'All'} />,
+          count: categoriesCount.All,
         }}
+        width={144}
+        popupContainerWidth={250}
+        listItemWidth={218}
+        items={categories.map((cat) => ({
+          id: cat,
+          content: <CategoryChip category={cat as TeamCategory} />,
+          count: categoriesCount[cat],
+        }))}
+        onChange={onChange}
       />
     </FilterActorsContainer>
   </FiltersContainer>
@@ -55,7 +61,7 @@ export default ActorFilters;
 const FiltersContainer = styled.div({
   display: 'grid',
   gap: '32px',
-  marginBottom: '32px',
+
   gridTemplateColumns: 'auto auto',
   gridTemplateRows: 'auto',
   placeItems: 'space-between',
@@ -92,3 +98,7 @@ const FilterActorsContainer = styled.div<{ readMore?: boolean }>(({ readMore }) 
     marginRight: 0,
   },
 }));
+
+const CustomMultiSelectStyled = styled(CustomMultiSelect)({
+  right: 0,
+});

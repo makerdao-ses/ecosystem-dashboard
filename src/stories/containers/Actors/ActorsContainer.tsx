@@ -6,6 +6,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import ActorFilters from './components/ActorFilters/ActorFilters';
 import ActorTable from './components/ActorTable/ActorTable';
 import { useActors } from './useActors';
 import type { Team } from '@ses/core/models/interfaces/team';
@@ -17,10 +18,23 @@ interface Props {
 }
 
 const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
-  const { readMore, handleRead, showTextDesk, isLessPhone, filtersActive, columns, onSortClick } = useActors(
-    actors,
-    stories
-  );
+  const {
+    readMore,
+    handleRead,
+    showTextDesk,
+    isLessPhone,
+    filtersActive,
+    columns,
+    activeElements,
+    categoriesCount,
+    clearFilters,
+    handleChangeUrlFilterArrays,
+    handleSelectChange,
+    selectElements,
+    filteredCategories,
+    onSortClick,
+    queryStrings,
+  } = useActors(actors, stories);
 
   const { isLight } = useThemeContext();
 
@@ -71,8 +85,22 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
             {!readMore ? 'Read more' : 'Read less'}
           </ReadMore>
         </ContainerReadMore>
+        <FilterContainer>
+          <ActorFilters
+            activeElements={activeElements}
+            handleResetFilter={clearFilters}
+            handleSelectChange={handleSelectChange}
+            selectElements={selectElements}
+            readMore={readMore}
+            categoriesCount={categoriesCount}
+            filteredCategories={filteredCategories}
+            onChange={(value: string[]) => {
+              handleChangeUrlFilterArrays('filteredCategories')(value);
+            }}
+          />
+        </FilterContainer>
         <ContainerList>
-          <ActorTable actors={filtersActive} columns={columns} sortClick={onSortClick} />
+          <ActorTable actors={filtersActive} columns={columns} sortClick={onSortClick} queryStrings={queryStrings} />
         </ContainerList>
       </Container>
     </ExtendedPageContainer>
@@ -142,7 +170,6 @@ const ContainerText = styled.div({
 
 const ContainerList = styled.div({
   marginBottom: 64,
-  // TODO:Remove this margin when add filter
   marginTop: -2,
   [lightTheme.breakpoints.up('table_834')]: {
     marginTop: 1,
@@ -190,10 +217,20 @@ const ReadMore = styled.div<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontSize: 14,
   fontWeight: 600,
-  marginBottom: 32,
+
   cursor: 'pointer',
   color: isLight ? '#231536' : '#D2D4EF',
+  marginBottom: 32,
   [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 6,
+    marginBottom: 30,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    marginTop: 16,
+    marginBottom: 28,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    marginTop: 6,
     marginBottom: 30,
   },
   ':hover': {
@@ -206,4 +243,15 @@ const ContainerReadMore = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'flex-end',
+});
+
+const FilterContainer = styled.div({
+  height: 34,
+  marginBottom: 27,
+  marginTop: -4,
+  [lightTheme.breakpoints.up('table_834')]: {
+    height: 48,
+    marginBottom: 26,
+    marginTop: -1,
+  },
 });

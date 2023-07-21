@@ -45,6 +45,7 @@ interface CustomMultiSelectProps {
   listItemWidth?: number;
   withSearch?: boolean;
   positionRight?: boolean;
+  className?: string;
 }
 
 const defaultItemRender = (props: SelectItemProps) => <SelectItem {...props} />;
@@ -54,6 +55,7 @@ export const CustomMultiSelect = ({
   activeItems = [],
   customItemRender = defaultItemRender,
   positionRight = false,
+  className,
   ...props
 }: CustomMultiSelectProps) => {
   const { isLight } = useThemeContext();
@@ -137,7 +139,12 @@ export const CustomMultiSelect = ({
         </IconWrapper>
       </SelectContainer>
       {popupVisible && (
-        <PopupContainer width={props.popupContainerWidth ?? 212} isLight={isLight} positionRight={positionRight}>
+        <PopupContainer
+          width={props.popupContainerWidth ?? 212}
+          isLight={isLight}
+          positionRight={positionRight}
+          className={className}
+        >
           {props.withSearch && (
             <SearchInput
               placeholder="Search"
