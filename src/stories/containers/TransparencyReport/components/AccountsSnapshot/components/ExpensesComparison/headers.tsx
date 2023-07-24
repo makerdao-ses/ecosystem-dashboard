@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
+import SESTooltip from '@ses/components/SESTooltip/SESTooltip';
 import Information from '@ses/components/svg/information';
 import lightTheme from '@ses/styles/theme/light';
 import type { RowProps } from '@ses/components/AdvanceTable/types';
@@ -15,12 +16,27 @@ const HeaderWithIcon = styled.div({
   },
 });
 
+const InfoWrapper = styled.div({
+  display: 'flex',
+  cursor: 'pointer',
+});
+
 const NetExpenseTransactions = () => {
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
 
   return (
     <HeaderWithIcon>
-      Net {isMobile ? 'Exp' : 'Expense'} transactions <Information />
+      Net {isMobile ? 'Exp' : 'Expense'} transactions
+      <SESTooltip
+        content={
+          'On-chain view offers valuable insights into on-chain dynamics, but excludes external (off-chain) transactions.'
+        }
+        placement="bottom-start"
+      >
+        <InfoWrapper>
+          <Information />
+        </InfoWrapper>
+      </SESTooltip>
     </HeaderWithIcon>
   );
 };
@@ -82,7 +98,17 @@ export const EXPENSES_COMPARISON_TABLE_HEADER = [
       {
         value: (
           <HeaderWithIcon>
-            On-Chain Only <Information />
+            On-Chain Only
+            <SESTooltip
+              content={
+                'On-chain view offers valuable insights into on-chain dynamics, but excludes external (off-chain) transactions.'
+              }
+              placement="bottom-start"
+            >
+              <InfoWrapper>
+                <Information />
+              </InfoWrapper>
+            </SESTooltip>
           </HeaderWithIcon>
         ),
         alignment: 'right',
@@ -109,7 +135,15 @@ export const EXPENSES_COMPARISON_TABLE_HEADER = [
       {
         value: (
           <HeaderWithIcon>
-            Including off-chain <Information />
+            Including off-chain
+            <SESTooltip
+              content={'Enhance financial tracking and expense analysis by including off-chain transactions.'}
+              placement="bottom-start"
+            >
+              <InfoWrapper>
+                <Information />
+              </InfoWrapper>
+            </SESTooltip>
           </HeaderWithIcon>
         ),
         alignment: 'right',

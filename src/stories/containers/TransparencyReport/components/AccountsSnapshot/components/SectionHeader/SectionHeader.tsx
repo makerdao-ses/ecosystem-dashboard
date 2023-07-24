@@ -1,8 +1,7 @@
 import styled from '@emotion/styled';
-import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
+import SESTooltip from '@ses/components/SESTooltip/SESTooltip';
 import Information from '@ses/components/svg/information';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { toKebabCase } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -10,7 +9,7 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 interface SectionHeaderProps {
   title: string;
   subtitle: string;
-  tooltip?: string;
+  tooltip?: React.ReactNode;
   isSubsection?: boolean;
 }
 
@@ -24,11 +23,11 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, tooltip,
           {title}
         </Title>
         {tooltip && (
-          <CustomPopover id={toKebabCase(title)} title={tooltip}>
+          <SESTooltip content={tooltip} placement="bottom-start">
             <IconWrapper>
               <Information />
             </IconWrapper>
-          </CustomPopover>
+          </SESTooltip>
         )}
       </TitleWrapper>
       <Subtitle isLight={isLight}>{subtitle}</Subtitle>

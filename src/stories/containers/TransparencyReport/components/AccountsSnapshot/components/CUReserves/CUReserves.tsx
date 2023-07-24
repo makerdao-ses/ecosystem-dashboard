@@ -39,7 +39,11 @@ const CUReserves: React.FC<CUReservesProps> = ({
         <SectionHeader
           title="Total Core Unit Reserves"
           subtitle={`On-chain and off-chain reserves accessible${snapshotOwner ? ` to the ${snapshotOwner}` : ''}.`}
-          tooltip={'pending...'}
+          tooltip={
+            'Explore on and off-chain balances in DAI and other currencies, identify the flow of funds and track the \
+             total inflow from the Maker Protocol to internal operational wallets, as well as the outflow to external \
+             wallets (e.g., Payment Processor) wallets.'
+          }
         />
         {!!offChainData?.length && (
           <CheckContainer isLight={isLight}>
@@ -82,7 +86,11 @@ const CUReserves: React.FC<CUReservesProps> = ({
         <SectionHeader
           title="On Chain Reserves"
           subtitle={`Unspent on-chain reserves${snapshotOwner ? ` to the ${snapshotOwner}` : ''}.`}
-          tooltip={'pending...'}
+          tooltip={
+            <>
+              Track and analyze the movement of <br /> on-chain assets.
+            </>
+          }
           isSubsection
         />
 
@@ -98,7 +106,12 @@ const CUReserves: React.FC<CUReservesProps> = ({
           <SectionHeader
             title="Off Chain Reserves"
             subtitle={`Unspent off-chain reserves${snapshotOwner ? ` to the ${snapshotOwner}` : ''}.`}
-            tooltip={'pending...'}
+            tooltip={
+              <>
+                Discover essential details about the <br />
+                off-chain balances.
+              </>
+            }
             isSubsection
           />
 

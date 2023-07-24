@@ -37,7 +37,10 @@ const FundingOverview: React.FC<FundingOverviewProps> = ({
         subtitle={`Totals funds made available ${
           snapshotOwner ? `to the ${snapshotOwner}` : ''
         } over its entire lifetime${startDate ? `, since ${DateTime.fromISO(startDate).toFormat('LLLL yyyy')}` : ''}.`}
-        tooltip={'pending...'}
+        tooltip={
+          'Monitor funds made available to Core Units, track spending, returns, and reserves, differentiate internal/external \
+          transactions, and gain insights into changes in MakerDAO’s Lifetime Balances.'
+        }
       />
       {enableCurrencyPicker && <CurrencyPicker />}
     </HeaderContainer>

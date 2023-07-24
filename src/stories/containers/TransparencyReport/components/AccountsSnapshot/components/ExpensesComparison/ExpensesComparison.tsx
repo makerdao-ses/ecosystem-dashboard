@@ -20,7 +20,10 @@ const ExpensesComparison: React.FC<ExpensesComparisonProps> = ({ rows, hasOffCha
       <SectionHeader
         title="Reported Expenses Comparison"
         subtitle={'Reported actuals compared to expense and revenue transactions.'}
-        tooltip={'pending...'}
+        tooltip={
+          'Understand the differences between reported and net transactions. Easily spot variations \
+          and improve financial tracking for comprehensive expense  and revenue analysis.'
+        }
       />
 
       <TableWrapper>
