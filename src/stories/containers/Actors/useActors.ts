@@ -191,7 +191,6 @@ export const useActors = (actors: Team[], stories = false) => {
   const handleSelectChange = (value: string[]) => {
     setActiveElements(value);
   };
-
   return {
     handleRead,
     readMore,
