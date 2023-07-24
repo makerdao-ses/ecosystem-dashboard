@@ -1,13 +1,14 @@
 import { fetchExpenseCategories } from '@ses/containers/FinancesOverview/api/queries';
+import { TeamContext } from '@ses/core/context/TeamContext';
 import request from 'graphql-request';
 import React, { useState, useEffect } from 'react';
 import { GRAPHQL_ENDPOINT } from '../../../../../src/config/endpoints';
-import { CoreUnitContext } from '../../../../../src/core/context/CoreUnitContext';
 import { fetchCoreUnits } from '../../../../../src/stories/components/CoreUnitSummary/CoreUnitSummaryApi';
 import { TransparencyReport } from '../../../../../src/stories/containers/TransparencyReport/TransparencyReport';
 import { CORE_UNIT_REQUEST } from '../../../../../src/stories/containers/TransparencyReport/transparencyReportAPI';
 import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
+import type { Team } from '@ses/core/models/interfaces/team';
 import type { GetServerSidePropsContext } from 'next';
 
 interface TransparencyProps {
@@ -23,15 +24,15 @@ const Transparency = ({ coreUnits, cu, expenseCategories }: TransparencyProps) =
   }, [cu]);
 
   return (
-    <CoreUnitContext.Provider
+    <TeamContext.Provider
       value={{
-        currentCoreUnit,
-        setCurrentCoreUnit,
-        coreUnits,
+        teams: coreUnits as unknown as Team[],
+        currentTeam: currentCoreUnit as unknown as Team,
+        setCurrentTeam: setCurrentCoreUnit as unknown as (cu: Team) => void,
       }}
     >
       <TransparencyReport coreUnits={coreUnits} coreUnit={currentCoreUnit} expenseCategories={expenseCategories} />
-    </CoreUnitContext.Provider>
+    </TeamContext.Provider>
   );
 };
 

@@ -1,22 +1,22 @@
 import { useMediaQuery } from '@mui/material';
-import { BudgetStatus } from '@ses/core/models/interfaces/types';
+import { GRAPHQL_ENDPOINT } from '@ses/config/endpoints';
+import { useAuthContext } from '@ses/core/context/AuthContext';
+import { useCommentActivityContext } from '@ses/core/context/CommentActivityContext';
+import { useTeamContext } from '@ses/core/context/TeamContext';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { BudgetStatus, ResourceType } from '@ses/core/models/interfaces/types';
+import { triggerToast } from '@ses/core/utils/notifications';
+import lightTheme from '@ses/styles/theme/light';
 import request from 'graphql-request';
 import { useEffect, useMemo, useState } from 'react';
-import lightTheme from '../../../../../../../styles/theme/light';
-import { GRAPHQL_ENDPOINT } from '../../../../../../config/endpoints';
-import { useAuthContext } from '../../../../../../core/context/AuthContext';
-import { useCommentActivityContext } from '../../../../../../core/context/CommentActivityContext';
-import { useCoreUnitContext } from '../../../../../../core/context/CoreUnitContext';
-import { useThemeContext } from '../../../../../../core/context/ThemeContext';
-import { triggerToast } from '../../../../../../core/utils/notifications';
 import { CREATE_BUDGET_STATEMENT_COMMENT } from './auditorComentingAPI';
 import type { BudgetStatementComment } from '@ses/core/models/interfaces/budgetStatementComment';
-import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
+import type { Team } from '@ses/core/models/interfaces/team';
 
-const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: string) => {
+const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: string, resource: ResourceType) => {
   const { isLight } = useThemeContext();
   const { permissionManager, authToken } = useAuthContext();
-  const { currentCoreUnit, setCurrentCoreUnit } = useCoreUnitContext();
+  const { currentTeam, setCurrentTeam } = useTeamContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [submitLabel, setSubmitLabel] = useState<string>('Submit Comment');
@@ -33,8 +33,8 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
 
   // set the available statuses for the authenticated user in the current CU
   useEffect(() => {
-    const hasAuditor = !!currentCoreUnit?.auditors?.length;
-    const isAuditor = permissionManager.coreUnit.isAuditor(currentCoreUnit);
+    const hasAuditor = !!currentTeam?.auditors?.length;
+    const isAuditor = permissionManager.team.isAuditor(currentTeam);
 
     switch (currentBudgetStatus) {
       case BudgetStatus.Draft:
@@ -79,11 +79,11 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
         // just can comment
         setAvailableStatuses([currentBudgetStatus]);
     }
-  }, [permissionManager, currentBudgetStatus, currentCoreUnit]);
+  }, [permissionManager, currentBudgetStatus, currentTeam]);
 
   // update the right submit button label for each status combination
   useEffect(() => {
-    const isAuditor = permissionManager.coreUnit.isAuditor(currentCoreUnit);
+    const isAuditor = permissionManager.team.isAuditor(currentTeam);
 
     if (selectedStatus === currentBudgetStatus) {
       setSubmitLabel('Submit Comment');
@@ -96,7 +96,7 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
     } else if (selectedStatus === BudgetStatus.Final) {
       setSubmitLabel(isAuditor ? 'Approve' : 'Mark as Final');
     }
-  }, [selectedStatus, currentBudgetStatus, permissionManager, currentCoreUnit]);
+  }, [selectedStatus, currentBudgetStatus, permissionManager, currentTeam]);
 
   const handleChangeVariant = (value: BudgetStatus) => {
     setSelectedStatus(value);
@@ -124,7 +124,7 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
       );
 
       const newComment = newCommentResult.budgetStatementCommentCreate[0];
-      const updatedBudgetStatement = currentCoreUnit?.budgetStatements?.map((bs) => {
+      const updatedBudgetStatement = currentTeam?.budgetStatements?.map((bs) => {
         if (bs.id === newComment.budgetStatementId) {
           return {
             ...bs,
@@ -134,15 +134,15 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
         }
         return bs;
       });
-      const updatedCoreUnit: CoreUnit = {
-        ...(currentCoreUnit || ({} as CoreUnit)),
+      const updatedCoreUnit: Team = {
+        ...(currentTeam || ({} as Team)),
         budgetStatements: [...(updatedBudgetStatement || [])],
       };
 
       // prevent the new comment being marked as unvisited
       await lastVisitHandler?.visit();
 
-      setCurrentCoreUnit(updatedCoreUnit);
+      setCurrentTeam(updatedCoreUnit);
       setTextareaValue('');
     } catch (err) {
       triggerToast({
@@ -155,11 +155,12 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
   };
 
   const roleString = useMemo(() => {
-    if (currentCoreUnit?.auditors?.some((auditor) => auditor.id === permissionManager.loggedUser?.id)) {
+    if (currentTeam?.auditors?.some((auditor) => auditor.id === permissionManager.loggedUser?.id)) {
       return 'Auditor';
     }
-    return `${currentCoreUnit?.shortCode} Core Unit`;
-  }, [currentCoreUnit, permissionManager]);
+
+    return `${currentTeam?.shortCode} ${resource === ResourceType.CoreUnit ? 'Core Unit' : 'Ecosystem Actor'}`;
+  }, [currentTeam?.auditors, currentTeam?.shortCode, permissionManager.loggedUser?.id, resource]);
 
   return {
     isLight,

@@ -169,7 +169,11 @@ export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: T
 
               {tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS && (
                 <CommentActivityContext.Provider value={{ lastVisitHandler }}>
-                  <AuditorCommentsContainer budgetStatement={currentBudgetStatement} comments={comments} />
+                  <AuditorCommentsContainer
+                    budgetStatement={currentBudgetStatement}
+                    comments={comments}
+                    resource={ResourceType.CoreUnit}
+                  />
                 </CommentActivityContext.Provider>
               )}
             </Container>

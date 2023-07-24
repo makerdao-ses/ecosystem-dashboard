@@ -1,32 +1,32 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import { customRenderer, customRendererDark } from '@ses/components/Markdown/renderUtils';
-import { useCoreUnitContext } from '@ses/core/context/CoreUnitContext';
+import { useTeamContext } from '@ses/core/context/TeamContext';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { ResourceType } from '@ses/core/models/interfaces/types';
 import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
 import Markdown from 'marked-react';
 import React, { useMemo } from 'react';
 import ExpenseReportStatus from '../ExpenseReportStatus/ExpenseReportStatus';
 import GenericCommentCard from './GenericCommentCard';
-import type { CommentMode } from './AuditorCommentsContainer/AuditorCommentsContainer';
 import type { BudgetStatementComment } from '@ses/core/models/interfaces/budgetStatementComment';
 
 export type AuditorCommentCardProps = {
   comment: BudgetStatementComment;
   hasStatusChange: boolean;
   verb: string;
-  mode?: CommentMode;
+  resource: ResourceType;
 };
 
 const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({
   comment,
   hasStatusChange,
   verb = 'wrote',
-  mode = 'CoreUnits',
+  resource,
 }) => {
   const { isLight } = useThemeContext();
-  const { currentCoreUnit } = useCoreUnitContext();
+  const { currentTeam } = useTeamContext();
   const isTablet = useMediaQuery(lightTheme.breakpoints.down('table_834'));
 
   const formattedTimestamp = useMemo(
@@ -35,14 +35,19 @@ const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({
   );
 
   const roleString = useMemo(() => {
-    if (mode === 'Delegates') {
+    if (resource === ResourceType.Delegates) {
       return 'Delegates Administrator';
-    }
-    if (currentCoreUnit?.auditors?.some((auditor) => auditor.id === comment.author.id)) {
+    } else if (currentTeam?.auditors?.some((auditor) => auditor.id === comment.author.id)) {
       return 'Auditor';
     }
-    return `${currentCoreUnit?.shortCode} Core Unit`;
-  }, [comment, currentCoreUnit, mode]);
+
+    if (resource === ResourceType.CoreUnit) {
+      return `${currentTeam?.shortCode} Core Unit`;
+    }
+
+    // Ecosystem actor are the defaults
+    return `${currentTeam?.shortCode} Ecosystem Actor`;
+  }, [comment, currentTeam, resource]);
 
   return (
     <GenericCommentCard variant={comment.status}>

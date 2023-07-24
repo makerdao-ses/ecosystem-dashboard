@@ -1,3 +1,4 @@
+import { ResourceType } from '@ses/core/models/interfaces/types';
 import React from 'react';
 import { UserBuilder } from '../../../../../core/businessLogic/builders/userBuilder';
 import { createThemeModeVariants } from '../../../../../core/utils/storybook/factories';
@@ -18,9 +19,10 @@ export default {
 
 export const [[Empty, EmptyDarkMode]] = createThemeModeVariants(ParticipantRoles, [
   {
-    coreUnitCode: 'EXA',
+    teamShortCode: 'EXA',
     auditors: [],
     cu: [],
+    resource: ResourceType.CoreUnit,
   },
 ]);
 
@@ -36,24 +38,27 @@ const facilitators = [
 
 export const [[WithFacilitatorsOnly, WithFacilitatorsOnlyDarkMode]] = createThemeModeVariants(ParticipantRoles, [
   {
-    coreUnitCode: 'EXA',
+    teamShortCode: 'EXA',
     auditors: [],
     cu: facilitators,
+    resource: ResourceType.CoreUnit,
   },
 ]);
 
 export const [[WithAuditorsOnly, WithAuditorsOnlyDarkMode]] = createThemeModeVariants(ParticipantRoles, [
   {
-    coreUnitCode: 'EXA',
+    teamShortCode: 'EXA',
     auditors,
     cu: [],
+    resource: ResourceType.CoreUnit,
   },
 ]);
 
 export const [[WithAll, WithAllDarkMode]] = createThemeModeVariants(ParticipantRoles, [
   {
-    coreUnitCode: 'EXA',
+    teamShortCode: 'EXA',
     auditors,
     cu: facilitators,
+    resource: ResourceType.CoreUnit,
   },
 ]);

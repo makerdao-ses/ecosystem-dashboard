@@ -1,15 +1,15 @@
-import { BudgetStatus } from '@ses/core/models/interfaces/types';
-import { withCoreUnitContext } from '@ses/core/utils/storybook/decorators';
-import { CommentBuilder } from '../../../../../../core/businessLogic/builders/commentBuilder';
-import { UserBuilder } from '../../../../../../core/businessLogic/builders/userBuilder';
-import { createThemeModeVariants } from '../../../../../../core/utils/storybook/factories';
+import { CommentBuilder } from '@ses/core/businessLogic/builders/commentBuilder';
+import { UserBuilder } from '@ses/core/businessLogic/builders/userBuilder';
+import { BudgetStatus, ResourceType } from '@ses/core/models/interfaces/types';
+import { withTeamContext } from '@ses/core/utils/storybook/decorators';
+import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AuditorCommentsContainer from './AuditorCommentsContainer';
 import type { ComponentMeta } from '@storybook/react';
 
 export default {
   title: 'Components/AuditorComments/AuditorCommentsContainer',
   component: AuditorCommentsContainer,
-  decorators: [withCoreUnitContext],
+  decorators: [withTeamContext],
 } as ComponentMeta<typeof AuditorCommentsContainer>;
 
 const args = [
@@ -28,6 +28,7 @@ const args = [
         .withAuthor(new UserBuilder().withUsername('story2').addCoreUnitAuditorRole().build())
         .build(),
     ],
+    resource: ResourceType.CoreUnit,
   },
 ];
 export const [[WithComments, DarkModeWithComments]] = createThemeModeVariants(AuditorCommentsContainer, args);
@@ -35,5 +36,6 @@ export const [[WithComments, DarkModeWithComments]] = createThemeModeVariants(Au
 export const [[EmptyLight, EmptyDark]] = createThemeModeVariants(AuditorCommentsContainer, [
   {
     comments: [],
+    resource: ResourceType.CoreUnit,
   },
 ]);

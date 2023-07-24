@@ -1,11 +1,11 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import { fetchRecognizedDelegatesBudgetStatements } from '@ses/containers/RecognizedDelegatesReports/RecognizedDelegatesReportAPI';
 import RecognizedDelegatesReportContainer from '@ses/containers/RecognizedDelegatesReports/RecognizedDelegatesReportContainer';
-import { CoreUnitContext } from '@ses/core/context/CoreUnitContext';
+import { TeamContext } from '@ses/core/context/TeamContext';
 import { featureFlags } from 'feature-flags/feature-flags';
 import React, { useEffect, useState } from 'react';
 import type { DelegatesDto } from '@ses/core/models/dto/delegatesDTO';
-import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
+import type { Team } from '@ses/core/models/interfaces/team';
 import type { NextPage } from 'next';
 
 type RecognizedDelegatesReportProps = {
@@ -20,14 +20,14 @@ const RecognizedDelegatesReport: NextPage<RecognizedDelegatesReportProps> = ({ d
 
   return (
     // make the delegates accessible from the comments components
-    <CoreUnitContext.Provider
+    <TeamContext.Provider
       value={{
-        currentCoreUnit: currentDelegatesReport as unknown as CoreUnit,
-        setCurrentCoreUnit: setCurrentDelegatesReport as unknown as (cu: CoreUnit) => void,
+        currentTeam: currentDelegatesReport as unknown as Team,
+        setCurrentTeam: setCurrentDelegatesReport as unknown as (cu: Team) => void,
       }}
     >
       <RecognizedDelegatesReportContainer delegates={currentDelegatesReport} />
-    </CoreUnitContext.Provider>
+    </TeamContext.Provider>
   );
 };
 
