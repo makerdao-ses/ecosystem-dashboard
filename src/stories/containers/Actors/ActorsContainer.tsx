@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
+import { TablePlaceholder } from '@ses/components/CustomTable/TablePlaceholder';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
@@ -85,6 +86,7 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
             {!readMore ? 'Read more' : 'Read less'}
           </ReadMore>
         </ContainerReadMore>
+
         <FilterContainer>
           <ActorFilters
             activeElements={activeElements}
@@ -99,9 +101,14 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
             }}
           />
         </FilterContainer>
-        <ContainerList>
-          <ActorTable actors={filtersActive} columns={columns} sortClick={onSortClick} queryStrings={queryStrings} />
-        </ContainerList>
+
+        {filtersActive.length > 0 ? (
+          <ContainerList>
+            <ActorTable actors={filtersActive} columns={columns} sortClick={onSortClick} queryStrings={queryStrings} />
+          </ContainerList>
+        ) : (
+          <TablePlaceholder description="There are no ecosystem actors available for this filter." />
+        )}
       </Container>
     </ExtendedPageContainer>
   );
