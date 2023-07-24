@@ -1,8 +1,12 @@
+import { useMediaQuery } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import useMobileDetector from '@ses/core/hooks/useMobileDetector';
+import lightTheme from '@ses/styles/theme/light';
 import classNames from 'classnames';
 import merge from 'deepmerge';
 import React, { useMemo } from 'react';
+import ModalBottomSheet from './ModalBottomSheet';
 import type { TooltipProps } from '@mui/material';
 
 export interface SESTooltipProps extends Omit<TooltipProps, 'title'> {
@@ -10,6 +14,7 @@ export interface SESTooltipProps extends Omit<TooltipProps, 'title'> {
   enableClickListener?: boolean;
   borderColor?: React.CSSProperties['color'];
   fallbackPlacements?: TooltipProps['placement'][];
+  showAsModalBottomSheet?: boolean;
 }
 
 const SESTooltip: React.FC<SESTooltipProps> = ({
@@ -19,9 +24,12 @@ const SESTooltip: React.FC<SESTooltipProps> = ({
   borderColor: borderColorProp,
   className,
   fallbackPlacements,
+  showAsModalBottomSheet = false,
   ...props
 }) => {
   const { isLight } = useThemeContext();
+  const isMobileResolution = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const isMobileDevice = !!useMobileDetector()?.mobile();
   const borderColor = borderColorProp || (isLight === false ? '#231536' : '#D4D9E1');
 
   const [controlledOpen, setControlledOpen] = React.useState(props.open ?? enableClickListener ? false : undefined);
@@ -66,6 +74,22 @@ const SESTooltip: React.FC<SESTooltipProps> = ({
     ]
   );
 
+  if (showAsModalBottomSheet && isMobileResolution && isMobileDevice) {
+    // show modal bottom sheet instead of tooltip
+    return (
+      <ModalBottomSheet
+        content={content}
+        open={!!controlledOpen}
+        handleOpen={() => setControlledOpen(true)}
+        handleClose={() => setControlledOpen(false)}
+      >
+        {React.cloneElement(children as React.ReactElement, {
+          onClick: () => setControlledOpen((prev) => !prev),
+        })}
+      </ModalBottomSheet>
+    );
+  }
+
   const finalProps = merge(defaultProps, props);
   return (
     <Tooltip title={content} {...finalProps}>
@@ -96,7 +120,7 @@ const arrowProps = (borderColor: React.CSSProperties['color'], isLight = true) =
 const tooltipProps = (borderColor: React.CSSProperties['color'], isLight = true) => ({
   sx: {
     display: 'flex',
-    padding: '8px 16px',
+    padding: '16px',
     alignItems: 'center',
     gap: 8,
 
@@ -106,7 +130,6 @@ const tooltipProps = (borderColor: React.CSSProperties['color'], isLight = true)
     border: `1px solid ${borderColor}`,
 
     fontSize: 14,
-    fontFamily: 'FT Base',
     fontStyle: 'normal',
     fontWeight: 400,
     lineHeight: 'normal',

@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { tooltipClasses } from '@mui/material/Tooltip';
+import { withThemeContext } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import React from 'react';
 import SESTooltip from './SESTooltip';
@@ -23,6 +24,7 @@ const ALIGNMENTS = [
 export default {
   title: 'Components/General/SESTooltip',
   component: SESTooltip,
+  decorators: [withThemeContext(true, false)],
   parameters: {
     chromatic: { disableSnapshot: true },
   },
@@ -33,6 +35,10 @@ export default {
         options: ALIGNMENTS,
       },
       defaultValue: 'bottom-start',
+    },
+    arrow: {
+      type: 'boolean',
+      defaultValue: false,
     },
   },
 } as ComponentMeta<typeof SESTooltip>;
@@ -151,6 +157,16 @@ DelayedClose.args = {
 export const NonInteractive = getCustomBtnTemplate('Non-interactive').bind({});
 NonInteractive.args = {
   disableInteractive: true,
+};
+
+/**
+ * The tooltip can be set to be opened as a modal bottom sheet on mobile devices by setting the
+ * showAsModalBottomSheet prop to true. This prop is ignored on tablet or desktop devices even if it
+ * has mobile resolutions.
+ */
+export const ModalBottomSheet = getCustomBtnTemplate('Open as Modal Bottom (real mobile only)').bind({});
+ModalBottomSheet.args = {
+  showAsModalBottomSheet: true,
 };
 
 export const [[withArrowLight, withArrowDark]] = createThemeModeVariants(getCustomBtnTemplate('With Arrow'), [

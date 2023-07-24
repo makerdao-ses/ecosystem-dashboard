@@ -127,6 +127,9 @@ const ArrowUp = {
   horizontal: 'left',
 };
 
+/**
+ * @deprecated use `SESTooltip` instead
+ */
 export const CustomPopover = ({
   leaveOnChildrenMouseOut = false,
   popoverStyle,
