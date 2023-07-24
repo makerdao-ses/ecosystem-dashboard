@@ -1,3 +1,4 @@
+import type { ChangeTrackingEvent } from './activity';
 import type { BudgetStatement } from './budgetStatement';
 import type { ContributorCommitment, CuGithubContribution } from './contributor';
 import type { Scope } from './scopes';
@@ -23,6 +24,7 @@ export interface Team {
   sentenceDescription: string;
   paragraphDescription: string;
   paragraphImage: string;
+  lastActivity: ChangeTrackingEvent;
   legacyBudgetStatementUrl: string;
   budgetId: string;
   type: ResourceType;

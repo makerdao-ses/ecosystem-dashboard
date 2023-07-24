@@ -11,6 +11,7 @@ import type { BudgetStatementComment } from '../models/interfaces/budgetStatemen
 import type { CoreUnit } from '../models/interfaces/coreUnit';
 import type { CuMip, Mip40, Mip40BudgetPeriod, Mip40Wallet } from '../models/interfaces/cuMip';
 import type { WithActivityFeed } from '../models/interfaces/generics';
+import type { Team } from '../models/interfaces/team';
 
 export const setCuMipStatusModifiedDate = (mip: CuMip, status: CuMipStatus, date: string) => {
   let index = status.toLowerCase();
@@ -294,7 +295,7 @@ export const getLastMonthWithActualOrForecast = (budgetStatements: BudgetStateme
   return DateTime.now();
 };
 
-export const getLastMonthWithData = (cu: CoreUnit) => {
+export const getLastMonthWithData = (cu: CoreUnit | Team) => {
   if (cu.lastActivity?.created_at) {
     return DateTime.fromISO(cu.lastActivity?.created_at);
   }

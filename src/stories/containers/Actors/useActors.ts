@@ -10,7 +10,6 @@ import orderBy from 'lodash/orderBy';
 import sortBy from 'lodash/sortBy';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo, useState } from 'react';
-
 import { filterDataActors } from './utils/utils';
 import type { ActorTableHeader } from './components/ActorHeader/ActorsHeaderTable';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
@@ -44,7 +43,7 @@ export const useActors = (actors: Team[], stories = false) => {
       styles: {
         boxSizing: 'border-box',
         [lightTheme.breakpoints.up('desktop_1194')]: {
-          minWidth: 359,
+          minWidth: 228,
           paddingLeft: 16,
         },
       },
@@ -54,12 +53,12 @@ export const useActors = (actors: Team[], stories = false) => {
     {
       header: 'Role',
       styles: {
-        width: 232,
+        width: 182,
         [lightTheme.breakpoints.up('desktop_1280')]: {
           paddingLeft: 18,
         },
         [lightTheme.breakpoints.up('desktop_1440')]: {
-          paddingLeft: 60,
+          paddingLeft: 120,
         },
       },
       sortReverse: true,
@@ -70,11 +69,12 @@ export const useActors = (actors: Team[], stories = false) => {
       sort: headersSort[2],
       styles: {
         width: 232,
+        paddingLeft: 28,
         [lightTheme.breakpoints.up('desktop_1280')]: {
-          paddingLeft: 36,
+          paddingLeft: 56,
         },
         [lightTheme.breakpoints.up('desktop_1440')]: {
-          paddingLeft: 52,
+          paddingLeft: 189,
           justifyContent: 'center',
         },
       },
@@ -82,8 +82,22 @@ export const useActors = (actors: Team[], stories = false) => {
     },
     {
       header: 'Last Modified',
-      sort: SortEnum.Neutral,
-      hidden: true,
+      sort: headersSort[3],
+      styles: {
+        width: 173,
+        [lightTheme.breakpoints.up('desktop_1194')]: {
+          marginLeft: -32,
+        },
+        [lightTheme.breakpoints.up('desktop_1280')]: {
+          // paddingLeft: 36,
+          marginLeft: 10,
+        },
+        [lightTheme.breakpoints.up('desktop_1440')]: {
+          // paddingLeft: 52,
+          marginLeft: 105,
+          justifyContent: 'center',
+        },
+      },
     },
   ];
   const { filteredCategoryData } = useMemo(
