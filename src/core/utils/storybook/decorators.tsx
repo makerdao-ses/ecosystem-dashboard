@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import PermissionManager from '@ses/core/auth/permissionManager';
 import { AuthContext } from '@ses/core/context/AuthContext';
-import { CoreUnitContext } from '@ses/core/context/CoreUnitContext';
+import { TeamContext } from '@ses/core/context/TeamContext';
 import { ThemeProvider } from '@ses/core/context/ThemeContext';
-import type { CoreUnitContextValues } from '@ses/core/context/CoreUnitContext';
-import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
+import type { TeamContextValues } from '@ses/core/context/TeamContext';
+import type { Team } from '@ses/core/models/interfaces/team';
 import type { User } from '@ses/core/models/interfaces/users';
 import type { Story } from '@storybook/react';
 import type { PropsWithChildren } from 'react';
@@ -22,32 +22,32 @@ export const withUserLoggedIn = (user: User) => (Story: Story) =>
     </AuthContext.Provider>
   );
 
-export const withCoreUnitContext = (CuOrStory: Story | CoreUnit) => {
+export const withTeamContext = (CuOrStory: Story | Team) => {
   if (typeof CuOrStory === 'function') {
     // it is a Story
     return (
-      <CoreUnitContext.Provider
+      <TeamContext.Provider
         value={
           {
-            currentCoreUnit: { shortCode: 'EXA' },
-          } as CoreUnitContextValues
+            currentTeam: { shortCode: 'EXA' },
+          } as TeamContextValues
         }
       >
         <CuOrStory />
-      </CoreUnitContext.Provider>
+      </TeamContext.Provider>
     );
   } else {
-    // it is a Core Unit instance
+    // it is a Team instance
     return (Story: Story) => (
-      <CoreUnitContext.Provider
+      <TeamContext.Provider
         value={
           {
-            currentCoreUnit: CuOrStory,
-          } as CoreUnitContextValues
+            currentTeam: CuOrStory as unknown as Team,
+          } as TeamContextValues
         }
       >
         <Story />
-      </CoreUnitContext.Provider>
+      </TeamContext.Provider>
     );
   }
 };

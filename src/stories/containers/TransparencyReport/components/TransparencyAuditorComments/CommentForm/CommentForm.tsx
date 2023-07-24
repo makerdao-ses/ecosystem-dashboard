@@ -1,20 +1,20 @@
 import styled from '@emotion/styled';
+import { CustomButton } from '@ses/components/CustomButton/CustomButton';
+import { ResourceType } from '@ses/core/models/interfaces/types';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import lightTheme from '../../../../../../../styles/theme/light';
-import { CustomButton } from '../../../../../components/CustomButton/CustomButton';
 import BudgetStatusSelect from '../BudgetStatusSelect';
 import GenericCommentCard from '../GenericCommentCard';
 import useCommentForm from './useCommentForm';
-import type { CommentMode } from '../AuditorCommentsContainer/AuditorCommentsContainer';
 import type { BudgetStatus } from '@ses/core/models/interfaces/types';
 
 export type CommentFormProps = {
   currentBudgetStatus: BudgetStatus;
   budgetStatementId: string;
-  mode?: CommentMode;
+  resource: ResourceType;
 };
 
-const CommentForm: React.FC<CommentFormProps> = ({ currentBudgetStatus, budgetStatementId, mode = 'CoreUnits' }) => {
+const CommentForm: React.FC<CommentFormProps> = ({ currentBudgetStatus, budgetStatementId, resource }) => {
   const {
     isLight,
     isMobile,
@@ -29,7 +29,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ currentBudgetStatus, budgetSt
     handleChangeVariant,
     handleChangeTextarea,
     handleSubmit,
-  } = useCommentForm(currentBudgetStatus, budgetStatementId);
+  } = useCommentForm(currentBudgetStatus, budgetStatementId, resource);
 
   return (
     <GenericCommentCard variant={selectedStatus}>
@@ -43,7 +43,10 @@ const CommentForm: React.FC<CommentFormProps> = ({ currentBudgetStatus, budgetSt
         </Select>
         <User>
           <Username isLight={isLight}>{username}</Username>
-          <UserRole isLight={isLight}>({mode === 'CoreUnits' ? roleString : 'Delegates Administrator'})</UserRole>
+          <UserRole isLight={isLight}>
+            {/* TODO: check this role string */}(
+            {resource === ResourceType.Delegates ? 'Delegates Administrator' : roleString})
+          </UserRole>
         </User>
       </CommentHeader>
       <FormContainer>

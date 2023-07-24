@@ -4,6 +4,7 @@ import CategoryModalComponent from '@ses/components/BasicModal/CategoryModalComp
 import Container from '@ses/components/Container/Container';
 import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import Tabs from '@ses/components/Tabs/Tabs';
+import { ResourceType } from '@ses/core/models/interfaces/types';
 import { MAKER_BURN_LINK } from '@ses/core/utils/const';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
@@ -28,9 +29,10 @@ interface ExpenseReportProps {
   budgetStatements?: BudgetStatement[];
   code: string;
   longCode: string;
+  resource: ResourceType;
 }
 
-const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetStatements, code, longCode }) => {
+const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetStatements, code, longCode, resource }) => {
   const {
     isLight,
     L2SectionInner,
@@ -60,7 +62,9 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
             iconHeight={10}
             marginLeft="7px"
           >
-            {`${code} Core Unit on-chain transaction history`}
+            {`${code} ${
+              resource === ResourceType.CoreUnit ? 'Core Unit' : 'Ecosystem Actor'
+            } on-chain transaction history`}
           </ActualViewOnChainLink>
 
           <BudgetDateTitle isLight={isLight}>{currentMonth.toFormat('MMMM yyyy')} Expense Report</BudgetDateTitle>
@@ -74,6 +78,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
           items={actualsData.mainTableItems}
           cardsTotalPosition="top"
           longCode={longCode}
+          tablePlaceholder={<TransparencyEmptyTable longCode={longCode} shortCode={code} resource={resource} />}
         />
 
         {actualsData.mainTableItems?.length > 0 && (
@@ -103,7 +108,9 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
                   items={actualsData.breakdownItemsForActiveTab}
                   longCode={longCode}
                   cardSpacingSize="small"
-                  tablePlaceholder={<TransparencyEmptyTable breakdown longCode={longCode} />}
+                  tablePlaceholder={
+                    <TransparencyEmptyTable breakdown longCode={longCode} shortCode={code} resource={resource} />
+                  }
                 />
               </BreakdownTableWrapper>
             ) : (
@@ -123,7 +130,12 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
                         cardSpacingSize="small"
                         tablePlaceholder={
                           <div style={{ marginTop: 16 }}>
-                            <TransparencyEmptyTable breakdown longCode={longCode} />
+                            <TransparencyEmptyTable
+                              breakdown
+                              longCode={longCode}
+                              shortCode={code}
+                              resource={resource}
+                            />
                           </div>
                         }
                       />
@@ -145,6 +157,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
           items={forecastData.mainTableItems}
           style={{ marginBottom: 32 }}
           cardsTotalPosition={'top'}
+          tablePlaceholder={<TransparencyEmptyTable longCode={longCode} shortCode={code} resource={resource} />}
         />
 
         {forecastData.mainTableItems?.length > 0 && (
@@ -174,7 +187,9 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
                   columns={forecastData.breakdownColumnsForActiveTab}
                   items={forecastData.breakdownItems}
                   cardSpacingSize="small"
-                  tablePlaceholder={<TransparencyEmptyTable breakdown longCode={longCode} />}
+                  tablePlaceholder={
+                    <TransparencyEmptyTable breakdown longCode={longCode} shortCode={code} resource={resource} />
+                  }
                 />
               </BreakdownTableWrapper>
             ) : (
@@ -194,7 +209,12 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
                         cardSpacingSize="small"
                         tablePlaceholder={
                           <div style={{ marginTop: 16 }}>
-                            <TransparencyEmptyTable breakdown longCode={longCode} />
+                            <TransparencyEmptyTable
+                              breakdown
+                              longCode={longCode}
+                              shortCode={code}
+                              resource={resource}
+                            />
                           </div>
                         }
                       />
@@ -215,6 +235,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
           columns={mkrVestingData.mainTableColumns}
           items={mkrVestingData.mainTableItems}
           longCode={longCode}
+          tablePlaceholder={<TransparencyEmptyTable longCode={longCode} shortCode={code} resource={resource} />}
         />
 
         {mkrVestingData.mainTableItems?.length > 0 && (
@@ -231,6 +252,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
           items={transferRequestsData.mainTableItems}
           cardsTotalPosition={'top'}
           longCode={longCode}
+          tablePlaceholder={<TransparencyEmptyTable longCode={longCode} shortCode={code} resource={resource} />}
         />
       </ExpenseSection>
     </ExpenseReportWrapper>

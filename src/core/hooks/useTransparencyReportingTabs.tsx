@@ -95,7 +95,7 @@ const useTransparencyReportingTabs = ({
       id: TRANSPARENCY_IDS_ENUM.EXPENSE_REPORT,
     },
     ...(isEnabled('FEATURE_ACCOUNTS_SNAPSHOT') ? [accountsSnapshotTab] : []),
-    commentTab,
+    ...(isEnabled('FEATURE_TRANSPARENCY_COMMENTS') ? [commentTab] : []),
   ];
 
   const onTabChange = useCallback(

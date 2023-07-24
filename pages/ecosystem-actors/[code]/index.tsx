@@ -2,7 +2,7 @@ import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import { fetchActors } from '@ses/containers/Actors/api/queries';
 import ActorAboutContainer from '@ses/containers/ActorsAbout/ActorAboutContainer';
 import { fetchActorAbout } from '@ses/containers/ActorsAbout/api/queries';
-import { ActorContext } from '@ses/core/context/ActorContext';
+import { TeamContext } from '@ses/core/context/TeamContext';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { featureFlags } from 'feature-flags/feature-flags';
 import React, { useEffect, useState } from 'react';
@@ -12,19 +12,19 @@ import type { GetServerSideProps, GetServerSidePropsContext, InferGetServerSideP
 const ActorAbout: NextPage = ({ actors, actor }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [currentActor, setCurrentActor] = useState<Team>(actor);
   useEffect(() => {
-    setCurrentActor(currentActor);
-  }, [currentActor]);
+    setCurrentActor(actor);
+  }, [actor]);
 
   return (
-    <ActorContext.Provider
+    <TeamContext.Provider
       value={{
-        actor,
-        actors,
-        setCurrentActor,
+        currentTeam: currentActor,
+        teams: actors,
+        setCurrentTeam: setCurrentActor,
       }}
     >
       <ActorAboutContainer actors={actors} actor={actor} />
-    </ActorContext.Provider>
+    </TeamContext.Provider>
   );
 };
 

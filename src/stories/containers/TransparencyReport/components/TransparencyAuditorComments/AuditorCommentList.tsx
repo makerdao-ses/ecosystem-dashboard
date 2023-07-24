@@ -4,16 +4,16 @@ import { isActivity } from '@ses/core/utils/typesHelpers';
 import React, { useMemo } from 'react';
 import AuditorCommentCard from './AuditorCommentCard';
 import CUNewExpenseReport from './CUNewExpenseReport';
-import type { CommentMode } from './AuditorCommentsContainer/AuditorCommentsContainer';
 import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
 import type { BudgetStatementComment } from '@ses/core/models/interfaces/budgetStatementComment';
+import type { ResourceType } from '@ses/core/models/interfaces/types';
 
 export type AuditorCommentListProps = {
   comments: (BudgetStatementComment | ChangeTrackingEvent)[];
-  mode?: CommentMode;
+  resource: ResourceType;
 };
 
-const AuditorCommentList: React.FC<AuditorCommentListProps> = ({ comments, mode = 'CoreUnits' }) => {
+const AuditorCommentList: React.FC<AuditorCommentListProps> = ({ comments, resource }) => {
   const memorizedComments = useMemo(
     () =>
       comments.map((comment, index) => {
@@ -42,12 +42,12 @@ const AuditorCommentList: React.FC<AuditorCommentListProps> = ({ comments, mode 
               comment={comment}
               hasStatusChange={hasStatusChange}
               verb={getCommentVerb(comment, previousComment)}
-              mode={mode}
+              resource={resource}
             />
           );
         }
       }),
-    [comments, mode]
+    [comments, resource]
   );
 
   return <div>{memorizedComments}</div>;

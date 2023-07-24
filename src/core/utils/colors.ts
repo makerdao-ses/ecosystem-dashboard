@@ -200,8 +200,8 @@ export const getScopeColor = (
       return {
         color: '#5D48FF',
         background: '#F7F5FF',
-        darkColor: '#5D48FF',
-        darkBackground: '#432CFF33',
+        darkColor: '#6C40AA',
+        darkBackground: 'rgba(84, 38, 255, 0.20)',
       };
     case ActorScopeEnum.ProtocolScope:
       return {
@@ -223,6 +223,13 @@ export const getScopeColor = (
         background: '#EEFAFC',
         darkColor: '#00B5D3',
         darkBackground: '#42E8FF33',
+      };
+    case ActorScopeEnum.AccessibilityScope:
+      return {
+        color: '#635696',
+        background: '#F7F4FF',
+        darkColor: '#FF4085',
+        darkBackground: 'rgba(255, 70, 114, 0.20)',
       };
     default:
       return {

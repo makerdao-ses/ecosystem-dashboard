@@ -1,10 +1,11 @@
 import { CommentBuilder } from '@ses/core/businessLogic/builders/commentBuilder';
 import { UserBuilder } from '@ses/core/businessLogic/builders/userBuilder';
 import { BudgetStatus } from '@ses/core/models/dto/coreUnitDTO';
-import { withCoreUnitContext } from '@ses/core/utils/storybook/decorators';
+import { ResourceType } from '@ses/core/models/interfaces/types';
+import { withTeamContext } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AuditorCommentCard from './AuditorCommentCard';
-import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
+import type { Team } from '@ses/core/models/interfaces/team';
 import type { ComponentMeta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
@@ -17,7 +18,7 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-  decorators: [withCoreUnitContext({ shortCode: 'SES' } as CoreUnit)],
+  decorators: [withTeamContext({ shortCode: 'SES' } as Team)],
   argTypes: {
     status: {
       defaultValue: BudgetStatus.Draft,
@@ -42,6 +43,7 @@ const variantsArgs = [
       .withAuthor(new UserBuilder().addCoreUnitFacilitatorRole().withUsername('wkampmann').build())
       .withTimestamp('2022-10-17T12:32:00.000Z')
       .build(),
+    resource: ResourceType.CoreUnit,
   },
   {
     comment: new CommentBuilder()
@@ -52,6 +54,7 @@ const variantsArgs = [
       )
       .withTimestamp('2022-10-17T12:32:00.000Z')
       .build(),
+    resource: ResourceType.CoreUnit,
   },
 ];
 

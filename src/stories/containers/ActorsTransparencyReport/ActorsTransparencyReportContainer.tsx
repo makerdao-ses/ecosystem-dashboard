@@ -59,15 +59,15 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
     comments,
   } = useActorsTransparencyReport(actor);
 
-  const headline = <TeamHeadLine teamLongCode={actor.code} />;
+  const headline = <TeamHeadLine teamLongCode={actor.code} teamShortCode={actor.shortCode} />;
   return (
     <Wrapper>
       <SEOHead
-        title={`${actor.name} Core Unit | Finances`}
-        description={`Learn about the ${actor.name} Core Unit at MakerDAO: their finances, expense reports, and more.`}
+        title={`${actor.name} Ecosystem Actor | Finances`}
+        description={`Learn about the ${actor.name} Ecosystem Actor at MakerDAO: their mandate, scope, vision, strategy, and more.`}
         image={actor.image || toAbsoluteURL('/assets/img/social-1200x630.png')}
         twitterCard={actor.image ? 'summary' : 'summary_large_image'}
-        canonicalURL={siteRoutes.ecosystemActorReports(actor.code)}
+        canonicalURL={siteRoutes.ecosystemActorReports(actor.shortCode)}
       />
       <ActorSummary actors={actors} trailingAddress={['Expense Reports']} breadcrumbTitle="Expense Reports" />
       <PageContainer hasImageBackground={true}>
@@ -112,6 +112,7 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
                   currentMonth={currentMonth}
                   budgetStatements={actor?.budgetStatements}
                   longCode={actor.code}
+                  shortCode={actor.shortCode}
                   headline={headline}
                   resource={ResourceType.EcosystemActor}
                 />
@@ -121,6 +122,7 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
                   currentMonth={currentMonth}
                   budgetStatements={actor?.budgetStatements}
                   longCode={actor.code}
+                  shortCode={actor.shortCode}
                   headline={headline}
                   resource={ResourceType.EcosystemActor}
                 />
@@ -130,6 +132,7 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
                   currentMonth={currentMonth}
                   budgetStatements={actor?.budgetStatements}
                   longCode={actor.code}
+                  shortCode={actor.shortCode}
                   headline={headline}
                   resource={ResourceType.EcosystemActor}
                 />
@@ -139,6 +142,7 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
                   currentMonth={currentMonth}
                   budgetStatements={actor?.budgetStatements}
                   longCode={actor.code}
+                  shortCode={actor.shortCode}
                   headline={headline}
                   resource={ResourceType.EcosystemActor}
                 />
@@ -152,12 +156,17 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
                   currentMonth={currentMonth}
                   ownerId={actor.id}
                   longCode={actor.code}
+                  shortCode={actor.shortCode}
                   resource={ResourceType.EcosystemActor}
                 />
               )}
               {tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS && (
                 <CommentActivityContext.Provider value={{ lastVisitHandler }}>
-                  <AuditorCommentsContainer budgetStatement={currentBudgetStatement} comments={comments} />
+                  <AuditorCommentsContainer
+                    budgetStatement={currentBudgetStatement}
+                    comments={comments}
+                    resource={ResourceType.EcosystemActor}
+                  />
                 </CommentActivityContext.Provider>
               )}
             </Container>
@@ -168,6 +177,7 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
                 currentMonth={currentMonth}
                 budgetStatements={actor?.budgetStatements}
                 longCode={actor.code}
+                resource={ResourceType.EcosystemActor}
               />
             )}
           </ModalCategoriesProvider>

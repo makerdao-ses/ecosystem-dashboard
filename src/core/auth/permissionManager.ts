@@ -2,6 +2,7 @@ import { PermissionsEnum } from '../enums/permissionsEnum';
 import { RoleEnum } from '../enums/roleEnum';
 import CoreUnitExtension from './coreUnitExtension';
 import DelegatesExtension from './delegatesExtension';
+import TeamExtension from './teamExtension';
 import type { UserDTO, UserRole as DeprecatedUserRole } from '../models/dto/authDTO';
 import type { UserRole } from '../models/interfaces/roles';
 import type { User } from '../models/interfaces/users';
@@ -10,14 +11,22 @@ class PermissionManager {
   loggedUser?: UserDTO | User;
   token?: string;
 
+  /**
+   * @deprecated use team extension instead
+   */
   coreUnit: CoreUnitExtension;
+  /**
+   * @deprecated use team extension instead
+   */
   delegates: DelegatesExtension;
+  team: TeamExtension;
 
   constructor(loggedUser?: UserDTO | User, token?: string) {
     this.loggedUser = loggedUser;
     this.token = token;
     this.coreUnit = new CoreUnitExtension(this);
     this.delegates = new DelegatesExtension(this);
+    this.team = new TeamExtension(this);
   }
 
   setLoggedUser(loggedUser?: UserDTO | User): void {

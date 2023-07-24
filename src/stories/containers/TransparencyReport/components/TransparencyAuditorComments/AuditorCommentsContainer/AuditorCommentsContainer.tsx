@@ -10,26 +10,21 @@ import useCommentsContainer from './useCommentsContainer';
 import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { BudgetStatementComment } from '@ses/core/models/interfaces/budgetStatementComment';
+import type { ResourceType } from '@ses/core/models/interfaces/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
-
-export type CommentMode = 'CoreUnits' | 'Delegates';
 
 export type AuditorCommentsContainerProps = {
   comments: (BudgetStatementComment | ChangeTrackingEvent)[];
   budgetStatement?: BudgetStatement;
-  mode?: CommentMode;
+  resource: ResourceType;
 };
 
-const AuditorCommentsContainer: React.FC<AuditorCommentsContainerProps> = ({
-  budgetStatement,
-  comments,
-  mode = 'CoreUnits',
-}) => {
+const AuditorCommentsContainer: React.FC<AuditorCommentsContainerProps> = ({ budgetStatement, comments, resource }) => {
   const { isLight } = useThemeContext();
   const { cuParticipants, auditors, canComment, currentBudgetStatus, coreUnitCode } = useCommentsContainer(
     comments,
-    budgetStatement,
-    mode
+    resource,
+    budgetStatement
   );
 
   return (
@@ -39,19 +34,19 @@ const AuditorCommentsContainer: React.FC<AuditorCommentsContainerProps> = ({
           <NoComments />
         ) : (
           <>
-            <AuditorCommentList comments={comments} mode={mode} />
+            <AuditorCommentList comments={comments} resource={resource} />
             {canComment && (
               <CommentForm
                 currentBudgetStatus={currentBudgetStatus}
                 budgetStatementId={budgetStatement?.id?.toString() || ''}
-                mode={mode}
+                resource={resource}
               />
             )}
           </>
         )}
       </CommentsContainer>
       <ParticipantsColumn isLight={isLight}>
-        <ParticipantRoles cu={cuParticipants} auditors={auditors} coreUnitCode={coreUnitCode} mode={mode} />
+        <ParticipantRoles cu={cuParticipants} auditors={auditors} teamShortCode={coreUnitCode} resource={resource} />
       </ParticipantsColumn>
     </Container>
   );

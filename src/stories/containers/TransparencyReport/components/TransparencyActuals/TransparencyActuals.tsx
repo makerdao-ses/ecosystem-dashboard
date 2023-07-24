@@ -17,6 +17,7 @@ interface TransparencyActualsProps {
   currentMonth: DateTime;
   budgetStatements?: BudgetStatement[];
   longCode: string;
+  shortCode: string;
   headline: React.ReactNode;
   resource: ResourceType;
 }
@@ -25,6 +26,7 @@ export const TransparencyActuals: React.FC<TransparencyActualsProps> = ({
   currentMonth,
   budgetStatements,
   longCode,
+  shortCode,
   headline,
   resource,
 }) => {
@@ -52,7 +54,7 @@ export const TransparencyActuals: React.FC<TransparencyActualsProps> = ({
         longCode={longCode}
         tablePlaceholder={
           <div style={{ marginBottom: 64 }}>
-            <TransparencyEmptyTable longCode={longCode} resource={resource} />
+            <TransparencyEmptyTable longCode={longCode} shortCode={shortCode} resource={resource} />
           </div>
         }
       />
@@ -82,7 +84,7 @@ export const TransparencyActuals: React.FC<TransparencyActualsProps> = ({
             cardSpacingSize="small"
             tablePlaceholder={
               <div style={{ marginBottom: 64 }}>
-                <TransparencyEmptyTable breakdown longCode={longCode} resource={resource} />
+                <TransparencyEmptyTable breakdown longCode={longCode} shortCode={shortCode} resource={resource} />
               </div>
             }
           />

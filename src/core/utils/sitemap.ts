@@ -37,7 +37,7 @@ export class SitemapBuilder {
     return this.getXMLForRoute(`${BASE_URL}${siteRoutes.globalActivityFeed}`);
   }
 
-  resolveActorsRouter(): string {
+  resolveActorsOverviewRoute(): string {
     return this.getXMLForRoute(`${BASE_URL}${siteRoutes.ecosystemActors}`);
   }
 
@@ -53,6 +53,7 @@ export class SitemapBuilder {
   private resolveSingleActorRoutes(actor: Team): string[] {
     const actorRoutes: string[] = [];
     actorRoutes.push(this.getXMLForRoute(`${BASE_URL}${siteRoutes.ecosystemActorAbout(actor.shortCode)}`));
+    actorRoutes.push(this.getXMLForRoute(`${BASE_URL}${siteRoutes.ecosystemActorReports(actor.shortCode)}`));
     return actorRoutes;
   }
 
@@ -87,7 +88,7 @@ export class SitemapBuilder {
       ${this.resolveDelegatesReportsRoute()}
       ${this.resolveCoreUnitsHomeRoute()}
       ${this.resolveGlobalActivityRoute()}
-      ${this.resolveActorsRouter()}
+      ${this.resolveActorsOverviewRoute()}
       ${cuRoutes.join('')}
       ${actors.join('')}
 

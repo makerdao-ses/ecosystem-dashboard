@@ -5,7 +5,13 @@ import PlaceholderImgDark from '../../../../public/assets/img/table-placeholder-
 import PlaceholderImg from '../../../../public/assets/img/table-placeholder.png';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 
-export const TablePlaceholder = () => {
+interface Props {
+  description?: string;
+}
+
+export const TablePlaceholder: React.FC<Props> = ({
+  description = 'There are no core units available with this combination of filters.',
+}) => {
   const { isLight } = useThemeContext();
   return (
     <Container isLight={isLight}>
@@ -13,7 +19,7 @@ export const TablePlaceholder = () => {
         <Image src={isLight ? PlaceholderImg : PlaceholderImgDark} alt="There are no elements" layout="fill" />
       </ImageWrapper>
       <Title isLight={isLight}>No Results Found</Title>
-      <Description isLight={isLight}>There are no core units available with this combination of filters.</Description>
+      <Description isLight={isLight}>{description}</Description>
     </Container>
   );
 };

@@ -1,10 +1,11 @@
+import { TeamContext } from '@ses/core/context/TeamContext';
 import isEmpty from 'lodash/isEmpty';
 import React, { useState, useEffect } from 'react';
-import { CoreUnitContext } from '../../../src/core/context/CoreUnitContext';
 import { fetchCoreUnits } from '../../../src/stories/components/CoreUnitSummary/CoreUnitSummaryApi';
 import CuAboutContainer from '../../../src/stories/containers/CUAbout/CuAboutContainer';
 import { fetchCoreUnitByCode } from '../../../src/stories/containers/CUAbout/cuAboutAPI';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
+import type { Team } from '@ses/core/models/interfaces/team';
 import type { NextPage, GetServerSideProps, InferGetServerSidePropsType, GetServerSidePropsContext } from 'next';
 
 const CoreUnitAboutPage: NextPage = ({
@@ -18,15 +19,15 @@ const CoreUnitAboutPage: NextPage = ({
   }, [cuAbout]);
 
   return (
-    <CoreUnitContext.Provider
+    <TeamContext.Provider
       value={{
-        currentCoreUnit,
-        setCurrentCoreUnit,
-        coreUnits,
+        teams: coreUnits as unknown as Team[],
+        currentTeam: currentCoreUnit as unknown as Team,
+        setCurrentTeam: setCurrentCoreUnit as unknown as (cu: Team) => void,
       }}
     >
       <CuAboutContainer code={code} coreUnits={coreUnits} cuAbout={cuAbout as CoreUnit} />
-    </CoreUnitContext.Provider>
+    </TeamContext.Provider>
   );
 };
 

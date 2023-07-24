@@ -118,6 +118,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: T
                   currentMonth={currentMonth}
                   budgetStatements={coreUnit?.budgetStatements}
                   longCode={longCode}
+                  shortCode={coreUnit.shortCode}
                   headline={headline}
                   resource={ResourceType.CoreUnit}
                 />
@@ -127,6 +128,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: T
                   currentMonth={currentMonth}
                   budgetStatements={coreUnit?.budgetStatements}
                   longCode={longCode}
+                  shortCode={coreUnit.shortCode}
                   headline={headline}
                   resource={ResourceType.CoreUnit}
                 />
@@ -136,6 +138,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: T
                   currentMonth={currentMonth}
                   budgetStatements={coreUnit?.budgetStatements}
                   longCode={longCode}
+                  shortCode={coreUnit.shortCode}
                   headline={headline}
                   resource={ResourceType.CoreUnit}
                 />
@@ -145,6 +148,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: T
                   currentMonth={currentMonth}
                   budgetStatements={coreUnit?.budgetStatements}
                   longCode={longCode}
+                  shortCode={coreUnit.shortCode}
                   headline={headline}
                   resource={ResourceType.CoreUnit}
                 />
@@ -158,23 +162,29 @@ export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: T
                   currentMonth={currentMonth}
                   ownerId={coreUnit.id}
                   longCode={coreUnit.code}
+                  shortCode={coreUnit.shortCode}
                   resource={ResourceType.CoreUnit}
                 />
               )}
 
               {tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS && (
                 <CommentActivityContext.Provider value={{ lastVisitHandler }}>
-                  <AuditorCommentsContainer budgetStatement={currentBudgetStatement} comments={comments} />
+                  <AuditorCommentsContainer
+                    budgetStatement={currentBudgetStatement}
+                    comments={comments}
+                    resource={ResourceType.CoreUnit}
+                  />
                 </CommentActivityContext.Provider>
               )}
             </Container>
 
             {tabsIndex === TRANSPARENCY_IDS_ENUM.EXPENSE_REPORT && (
               <ExpenseReport
-                code={code}
+                code={coreUnit.shortCode}
                 currentMonth={currentMonth}
                 budgetStatements={coreUnit?.budgetStatements}
                 longCode={longCode}
+                resource={ResourceType.CoreUnit}
               />
             )}
 
