@@ -35,3 +35,9 @@ export enum TeamCategory {
   Legal = 'Legal',
   AdvisoryCouncilMember = 'AdvisoryCouncilMember',
 }
+
+export enum ActorCategory {
+  AdvisoryCouncilMember = 'AdvisoryCouncilMember',
+  ActiveEcosystemActor = 'ActiveEcosystemActor',
+  ScopeFacilitator = 'ScopeFacilitator',
+}

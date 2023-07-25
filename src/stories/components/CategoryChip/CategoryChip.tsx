@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { pascalCaseToNormalString } from '@ses/core/utils/string';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import type { TeamCategory } from '@ses/core/models/interfaces/types';
@@ -14,6 +15,7 @@ interface ColorsChip {
 interface StatusChipProps {
   category: TeamCategory | string;
   style?: CSSProperties;
+  hasPascalCaseToNormalString?: boolean;
 }
 
 const colors: { [id: string]: ColorsChip } = {
@@ -77,6 +79,18 @@ const colors: { [id: string]: ColorsChip } = {
     colorDark: '#FF78F2',
     backgroundDark: '#54697826',
   },
+  ActiveEcosystemActor: {
+    color: '#546978',
+    background: 'rgba(246, 245, 255, 0.5)',
+    colorDark: '#7D8FAA',
+    backgroundDark: '#615eff26',
+  },
+  AdvisoryCouncilMember: {
+    color: '#447AFB',
+    background: 'rgba(247, 255, 245, 0.52)',
+    colorDark: '#34AAFF',
+    backgroundDark: '#4992ff26',
+  },
   Default: {
     color: '#546978',
     background: 'rgba(246, 245, 255, 0.5)',
@@ -98,7 +112,7 @@ export const CategoryChip = (props: StatusChipProps) => {
         ...props.style,
       }}
     >
-      {props.category}
+      {props.hasPascalCaseToNormalString ? pascalCaseToNormalString(props.category) : props.category}
     </Chip>
   );
 };
