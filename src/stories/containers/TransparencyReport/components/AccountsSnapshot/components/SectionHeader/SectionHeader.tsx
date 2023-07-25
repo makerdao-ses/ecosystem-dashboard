@@ -8,7 +8,7 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface SectionHeaderProps {
   title: string;
-  subtitle: string;
+  subtitle: React.ReactNode;
   tooltip?: React.ReactNode;
   isSubsection?: boolean;
 }

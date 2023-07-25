@@ -34,9 +34,19 @@ const FundingOverview: React.FC<FundingOverviewProps> = ({
     <HeaderContainer>
       <SectionHeader
         title="MakerDAO Funding Overview"
-        subtitle={`Totals funds made available ${
-          snapshotOwner ? `to the ${snapshotOwner}` : ''
-        } over its entire lifetime${startDate ? `, since ${DateTime.fromISO(startDate).toFormat('LLLL yyyy')}` : ''}.`}
+        subtitle={
+          <>
+            Totals funds made available {snapshotOwner ? `to the ${snapshotOwner}` : ''} over its entire lifetime
+            {startDate ? (
+              <>
+                , since <b>{DateTime.fromISO(startDate).toFormat('LLLL yyyy')}</b>
+              </>
+            ) : (
+              ''
+            )}
+            .
+          </>
+        }
         tooltip={
           'Monitor funds made available to Core Units, track spending, returns, and reserves, differentiate internal/external \
           transactions, and gain insights into changes in MakerDAO’s Lifetime Balances.'
@@ -61,7 +71,7 @@ const FundingOverview: React.FC<FundingOverviewProps> = ({
         leftText="Extra Funds Made Available"
         rightValue={balance?.inflow}
         rightValueColor="green"
-        rightText="Funds Returned via DSSBlow"
+        rightText="Funds Returned"
       />
       <SimpleStatCard
         date={endDate}
