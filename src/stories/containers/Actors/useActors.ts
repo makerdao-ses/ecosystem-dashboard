@@ -8,10 +8,10 @@ import { buildQueryString } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import orderBy from 'lodash/orderBy';
 import sortBy from 'lodash/sortBy';
+import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo, useState } from 'react';
-
-import { filterDataActors } from './utils/utils';
+import { filterDataActors, getActorLastMonthWithData } from './utils/utils';
 import type { ActorTableHeader } from './components/ActorHeader/ActorsHeaderTable';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { Team } from '@ses/core/models/interfaces/team';
@@ -44,7 +44,7 @@ export const useActors = (actors: Team[], stories = false) => {
       styles: {
         boxSizing: 'border-box',
         [lightTheme.breakpoints.up('desktop_1194')]: {
-          minWidth: 359,
+          minWidth: 228,
           paddingLeft: 16,
         },
       },
@@ -54,12 +54,12 @@ export const useActors = (actors: Team[], stories = false) => {
     {
       header: 'Role',
       styles: {
-        width: 232,
+        width: 182,
         [lightTheme.breakpoints.up('desktop_1280')]: {
           paddingLeft: 18,
         },
         [lightTheme.breakpoints.up('desktop_1440')]: {
-          paddingLeft: 60,
+          paddingLeft: 120,
         },
       },
       sortReverse: true,
@@ -70,11 +70,12 @@ export const useActors = (actors: Team[], stories = false) => {
       sort: headersSort[2],
       styles: {
         width: 232,
+        paddingLeft: 28,
         [lightTheme.breakpoints.up('desktop_1280')]: {
-          paddingLeft: 36,
+          paddingLeft: 56,
         },
         [lightTheme.breakpoints.up('desktop_1440')]: {
-          paddingLeft: 52,
+          paddingLeft: 189,
           justifyContent: 'center',
         },
       },
@@ -82,8 +83,21 @@ export const useActors = (actors: Team[], stories = false) => {
     },
     {
       header: 'Last Modified',
-      sort: SortEnum.Neutral,
-      hidden: true,
+      sort: headersSort[3],
+      styles: {
+        width: 173,
+        [lightTheme.breakpoints.up('desktop_1194')]: {
+          marginLeft: -32,
+        },
+        [lightTheme.breakpoints.up('desktop_1280')]: {
+          marginLeft: 10,
+        },
+        [lightTheme.breakpoints.up('desktop_1440')]: {
+          marginLeft: 105,
+          justifyContent: 'center',
+        },
+      },
+      sortReverse: true,
     },
   ];
   const { filteredCategoryData } = useMemo(
@@ -119,8 +133,21 @@ export const useActors = (actors: Team[], stories = false) => {
       const name = (a: Team, b: Team) => a.name.localeCompare(b.name) * multiplier;
       const role = (a: Team, b: Team) => a.category[0].localeCompare(b.category[0]) * multiplier;
       const scope = (a: Team, b: Team) => a.scopes[0].name.localeCompare(b.scopes[0].name) * multiplier;
+      const lastModified = (a: Team, b: Team) => {
+        if (multiplier === 1) {
+          return (
+            ((getActorLastMonthWithData(a)?.toMillis() ?? DateTime.fromJSDate(new Date()).toMillis()) -
+              (getActorLastMonthWithData(b)?.toMillis() ?? DateTime.fromJSDate(new Date()).toMillis())) *
+            multiplier
+          );
+        }
+        return (
+          ((getActorLastMonthWithData(a)?.toMillis() ?? 0) - (getActorLastMonthWithData(b)?.toMillis() ?? 0)) *
+          multiplier
+        );
+      };
 
-      const sortAlg = [name, role, scope, () => 0];
+      const sortAlg = [name, role, scope, lastModified, () => 0];
       return [...items].sort(sortAlg[sortColumn]);
     };
     return sortDataFunction;
@@ -136,6 +163,7 @@ export const useActors = (actors: Team[], stories = false) => {
   }, [groupByStatusDefaultSorting, sortData]);
 
   const onSortClick = (index: number) => {
+    console.log('onSortClick', index);
     const sortNeutralState = columns.map((column) =>
       column.sort ? SortEnum.Neutral : SortEnum.Disabled
     ) as SortEnum[];
@@ -199,7 +227,6 @@ export const useActors = (actors: Team[], stories = false) => {
     filtersActive,
     columns,
     onSortClick,
-
     clearFilters,
     handleSelectChange,
     categoriesCount,

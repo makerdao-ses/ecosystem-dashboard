@@ -1,4 +1,5 @@
 import { ResourceType } from '@ses/core/models/interfaces/types';
+import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
 import type { Scope } from '@ses/core/models/interfaces/scopes';
 import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedia';
 import type { Team } from '@ses/core/models/interfaces/team';
@@ -14,6 +15,7 @@ export class EcosystemActorBuilder {
       shortCode: '',
       paragraphDescription: '',
       sentenceDescription: '',
+      lastActivity: {} as ChangeTrackingEvent,
       auditors: [] as Auditor[],
       name: '',
       type: ResourceType.EcosystemActor,
@@ -46,6 +48,11 @@ export class EcosystemActorBuilder {
 
   withSentenceDescription(sentenceDescription: string): EcosystemActorBuilder {
     this._ecosystemActor.sentenceDescription = sentenceDescription;
+    return this;
+  }
+
+  withLastActivity(lastActivity: ChangeTrackingEvent): EcosystemActorBuilder {
+    this._ecosystemActor.lastActivity = lastActivity;
     return this;
   }
 

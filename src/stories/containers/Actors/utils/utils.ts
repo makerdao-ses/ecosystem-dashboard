@@ -1,4 +1,5 @@
 import { LinkTypeEnum } from '@ses/core/enums/linkTypeEnum';
+import { DateTime } from 'luxon';
 import type { LinkModel } from '@ses/components/CuTableColumnLinks/CuTableColumnLinks';
 import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedia';
 import type { Team } from '@ses/core/models/interfaces/team';
@@ -100,3 +101,10 @@ export const defaultSocials = {
   website: '#',
   linkedIn: '#',
 } as SocialMediaChannels;
+export const getActorLastMonthWithData = (actor: Team) => {
+  if (actor.lastActivity?.created_at) {
+    return DateTime.fromISO(actor.lastActivity?.created_at);
+  }
+
+  return undefined;
+};
