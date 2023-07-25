@@ -5,6 +5,7 @@ import ResetButton from '@ses/components/ResetButton/ResetButton';
 import { ActorCategory } from '@ses/core/models/interfaces/types';
 import React from 'react';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
+import type { TeamCategory } from '@ses/core/models/interfaces/types';
 interface Props {
   selectElements: MultiSelectItem[];
   activeElements: string[];
@@ -48,7 +49,7 @@ const ActorFilters: React.FC<Props> = ({
         listItemWidth={218}
         items={categories.map((cat) => ({
           id: cat,
-          content: <CategoryChip category={cat} hasPascalCaseToNormalString />,
+          content: <CategoryChip category={cat as TeamCategory} hasPascalCaseToNormalString />,
           count: categoriesCount[cat],
         }))}
         onChange={onChange}
