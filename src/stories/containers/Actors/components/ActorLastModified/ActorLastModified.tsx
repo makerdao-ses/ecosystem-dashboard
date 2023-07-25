@@ -37,28 +37,24 @@ export const ActorLastModified = ({ date, code, now = DateTime.now(), href }: Pr
     <>
       {date ? (
         <Link href={`${href}/${code}${queryStrings}`} passHref>
-          <ContainerNoData isLight={isLight}>
-            <LastModifiedText isLight={isLight}>{textDescription}</LastModifiedText>
-            <DifferenceLabel isLight={isLight}>
-              {capitalizeSentence(
-                date?.toRelative({
-                  base: now,
-                  unit: 'days',
-                }) ?? ''
-              )}
-            </DifferenceLabel>
-          </ContainerNoData>
+          <a>
+            <ContainerNoData isLight={isLight}>
+              <LastModifiedText isLight={isLight}>{textDescription}</LastModifiedText>
+              <DifferenceLabel isLight={isLight}>
+                {capitalizeSentence(
+                  date?.toRelative({
+                    base: now,
+                    unit: 'days',
+                  }) ?? ''
+                )}
+              </DifferenceLabel>
+            </ContainerNoData>
+          </a>
         </Link>
       ) : (
         <ContainerNoData isLight={isLight}>
           <LastModifiedText isLight={isLight}>{textDescription}</LastModifiedText>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}
-          >
+          <ContainerLink>
             <CustomLink
               style={{
                 fontWeight: 500,
@@ -73,7 +69,7 @@ export const ActorLastModified = ({ date, code, now = DateTime.now(), href }: Pr
             >
               Submit Now
             </CustomLink>
-          </div>
+          </ContainerLink>
         </ContainerNoData>
       )}
     </>
@@ -124,3 +120,9 @@ const LastModifiedText = styled.div<WithIsLight>(({ isLight }) => ({
     letterSpacing: 'revert',
   },
 }));
+
+const ContainerLink = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+});
