@@ -2,9 +2,10 @@ import styled from '@emotion/styled';
 import { CategoryChip } from '@ses/components/CategoryChip/CategoryChip';
 import { CustomMultiSelect } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import ResetButton from '@ses/components/ResetButton/ResetButton';
-import { TeamCategory } from '@ses/core/models/interfaces/types';
+import { ActorCategory } from '@ses/core/models/interfaces/types';
 import React from 'react';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
+import type { TeamCategory } from '@ses/core/models/interfaces/types';
 interface Props {
   selectElements: MultiSelectItem[];
   activeElements: string[];
@@ -15,7 +16,7 @@ interface Props {
   categoriesCount: { [id: string]: number };
   onChange?: (items: string[]) => void;
 }
-const categories = Object.values(TeamCategory) as string[];
+const categories = Object.values(ActorCategory) as string[];
 const ActorFilters: React.FC<Props> = ({
   handleResetFilter,
   readMore,
@@ -34,6 +35,7 @@ const ActorFilters: React.FC<Props> = ({
     </Reset>
     <FilterActorsContainer readMore={readMore}>
       <CustomMultiSelectStyled
+        popupContainerHeight={180}
         positionRight={true}
         label="Actor Role"
         activeItems={filteredCategories}
@@ -47,7 +49,7 @@ const ActorFilters: React.FC<Props> = ({
         listItemWidth={218}
         items={categories.map((cat) => ({
           id: cat,
-          content: <CategoryChip category={cat as TeamCategory} />,
+          content: <CategoryChip category={cat as TeamCategory} hasPascalCaseToNormalString />,
           count: categoriesCount[cat],
         }))}
         onChange={onChange}
