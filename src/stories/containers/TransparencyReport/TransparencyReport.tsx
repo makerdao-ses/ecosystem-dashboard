@@ -45,7 +45,8 @@ export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: T
   const {
     tabItems,
     code,
-    transparencyTableRef,
+    longCode,
+    pagerRef,
     currentMonth,
     handlePreviousMonth,
     handleNextMonth,
@@ -54,7 +55,6 @@ export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: T
     currentBudgetStatement,
     tabsIndex,
     lastUpdateForBudgetStatement,
-    longCode,
     comments,
     showExpenseReportStatusCTA,
     lastVisitHandler,
@@ -88,7 +88,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: T
               budgetStatus={currentBudgetStatement?.status || BudgetStatus.Draft}
               showExpenseReportStatusCTA={showExpenseReportStatusCTA}
               lastUpdate={lastUpdateForBudgetStatement}
-              ref={transparencyTableRef}
+              ref={pagerRef}
             />
 
             <TabsContainer>

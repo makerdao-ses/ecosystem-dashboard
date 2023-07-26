@@ -56,6 +56,7 @@ const useTransparencyReportingTabs = ({
 
   // tabs to shown when the tabs is expanded
   const tabItems: TableItems[] = [
+    ...(isEnabled('FEATURE_ACCOUNTS_SNAPSHOT') ? [accountsSnapshotTab] : []),
     {
       item: 'Actuals',
       id: TRANSPARENCY_IDS_ENUM.ACTUALS,
@@ -76,7 +77,6 @@ const useTransparencyReportingTabs = ({
       item: 'Transfer Requests',
       id: TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS,
     },
-    ...(isEnabled('FEATURE_ACCOUNTS_SNAPSHOT') ? [accountsSnapshotTab] : []),
     ...(isEnabled('FEATURE_AUDIT_REPORTS')
       ? [
           {
@@ -90,11 +90,11 @@ const useTransparencyReportingTabs = ({
 
   // tabs to shown when the tabs is collapsed/compressed
   const compressedTabItems: TableItems[] = [
+    ...(isEnabled('FEATURE_ACCOUNTS_SNAPSHOT') ? [accountsSnapshotTab] : []),
     {
       item: 'Expense Report',
       id: TRANSPARENCY_IDS_ENUM.EXPENSE_REPORT,
     },
-    ...(isEnabled('FEATURE_ACCOUNTS_SNAPSHOT') ? [accountsSnapshotTab] : []),
     ...(isEnabled('FEATURE_TRANSPARENCY_COMMENTS') ? [commentTab] : []),
   ];
 

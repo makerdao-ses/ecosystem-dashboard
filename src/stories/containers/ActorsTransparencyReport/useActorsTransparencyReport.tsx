@@ -18,10 +18,12 @@ const useActorsTransparencyReport = (actor: Team) => {
       switch (query?.section) {
         case TRANSPARENCY_IDS_ENUM.ACCOUNTS_SNAPSHOTS:
           return TRANSPARENCY_IDS_ENUM.ACCOUNTS_SNAPSHOTS;
+        case TRANSPARENCY_IDS_ENUM.EXPENSE_REPORT:
+          return TRANSPARENCY_IDS_ENUM.EXPENSE_REPORT;
         case TRANSPARENCY_IDS_ENUM.COMMENTS:
           return TRANSPARENCY_IDS_ENUM.COMMENTS;
         default:
-          return TRANSPARENCY_IDS_ENUM.EXPENSE_REPORT;
+          return TRANSPARENCY_IDS_ENUM.ACCOUNTS_SNAPSHOTS;
       }
     } else {
       // default
@@ -41,7 +43,7 @@ const useActorsTransparencyReport = (actor: Team) => {
         case TRANSPARENCY_IDS_ENUM.COMMENTS:
           return TRANSPARENCY_IDS_ENUM.COMMENTS;
         default:
-          return TRANSPARENCY_IDS_ENUM.ACTUALS;
+          return TRANSPARENCY_IDS_ENUM.ACCOUNTS_SNAPSHOTS;
       }
     }
   }, [query?.section, query?.view]);
