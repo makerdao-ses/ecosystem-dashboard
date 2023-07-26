@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { alpha } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
@@ -84,13 +85,13 @@ const GroupItemContainer = styled.div<WithIsLight>(({ isLight }) => ({
   padding: '16px 16px 24px',
   borderRadius: 6,
   overflow: 'hidden',
-  background: isLight ? '#F5F6FB' : '#26313F',
+  background: isLight ? alpha('#ECEFF9', 0.5) : '#26313F',
   boxShadow: isLight
     ? '0px 4px 6px rgba(196, 196, 196, 0.25)'
     : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
 
   [lightTheme.breakpoints.up('table_834')]: {
-    background: isLight ? '#F5F6FB' : '#283341',
+    background: isLight ? alpha('#ECEFF9', 0.5) : '#283341',
     flexDirection: 'row',
     padding: '16px 32px 16px 16px',
     borderRadius: 0,
@@ -98,10 +99,6 @@ const GroupItemContainer = styled.div<WithIsLight>(({ isLight }) => ({
 
     '&:hover': {
       background: isLight ? '#F6F8F9' : '#1F2931',
-    },
-
-    '&:not(:first-of-type)': {
-      borderTop: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
     },
   },
 

@@ -16,12 +16,15 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 interface ReserveCardProps {
   account: UIReservesData;
   currency?: Token;
+
+  // intended to be use in the stories
+  defaultExpanded?: boolean;
 }
 
-const ReserveCard: React.FC<ReserveCardProps> = ({ account, currency = 'DAI' }) => {
+const ReserveCard: React.FC<ReserveCardProps> = ({ account, currency = 'DAI', defaultExpanded = false }) => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
-  const [expanded, setExpanded] = React.useState<boolean>(false);
+  const [expanded, setExpanded] = React.useState<boolean>(defaultExpanded);
 
   const isGroup = account.accountType === 'group';
   const initialBalance = account.snapshotAccountBalance?.[0]?.initialBalance ?? 0;
@@ -53,7 +56,7 @@ const ReserveCard: React.FC<ReserveCardProps> = ({ account, currency = 'DAI' }) 
   );
 
   return (
-    <Accordion onChange={() => hasTransactions && setExpanded(!expanded)}>
+    <Accordion expanded={expanded} onChange={() => hasTransactions && setExpanded(!expanded)}>
       <Card isLight={isLight} hasTransactions={hasTransactions}>
         <NameContainer>
           {isGroup ? (

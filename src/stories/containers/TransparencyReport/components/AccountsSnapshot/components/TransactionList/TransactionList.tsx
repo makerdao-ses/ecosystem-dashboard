@@ -35,7 +35,7 @@ const TransactionList: React.FC<TransactionListProps> = ({ items, highlightPosit
         {!items?.length && <EmptyList isLight={isLight}>No transactions this month</EmptyList>}
         {items?.map((item: SnapshotAccountTransaction | SnapshotAccount) =>
           isSnapshotAccount(item) ? (
-            <GroupContainer key={item.id}>
+            <GroupContainer isLight={isLight} key={item.id}>
               <GroupItem
                 name={item.accountLabel}
                 address={item.accountAddress}
@@ -113,15 +113,19 @@ const TransactionCard = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const GroupContainer = styled.div({
+const GroupContainer = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
 
   [lightTheme.breakpoints.up('table_834')]: {
     gap: 0,
+
+    '&:not(:first-of-type)': {
+      borderTop: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
+    },
   },
-});
+}));
 
 const EmptyList = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
