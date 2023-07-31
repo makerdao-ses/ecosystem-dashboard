@@ -27,7 +27,7 @@ export const ActorLastModified = ({ date, code, now = DateTime.now(), href }: Pr
   const textDescription = !date
     ? !isDesk
       ? 'Last Modified'
-      : 'No data'
+      : 'No Data'
     : isDesk
     ? date?.toFormat('dd-MMM-yyyy')?.toUpperCase()
     : 'Last Modified';
@@ -39,7 +39,9 @@ export const ActorLastModified = ({ date, code, now = DateTime.now(), href }: Pr
         <Link href={`${href}/${code}${queryStrings}`} passHref>
           <a>
             <ContainerNoData isLight={isLight}>
-              <LastModifiedText isLight={isLight}>{textDescription}</LastModifiedText>
+              <LastModifiedText isLight={isLight} hasUppercase={!isDesk}>
+                {textDescription}
+              </LastModifiedText>
               <DifferenceLabel isLight={isLight}>
                 {capitalizeSentence(
                   date?.toRelative({
@@ -53,14 +55,17 @@ export const ActorLastModified = ({ date, code, now = DateTime.now(), href }: Pr
         </Link>
       ) : (
         <ContainerNoData isLight={isLight}>
-          <LastModifiedText isLight={isLight}>{textDescription}</LastModifiedText>
+          <LastModifiedTextNoData isLight={isLight} hasUppercase={!isDesk}>
+            {textDescription}
+          </LastModifiedTextNoData>
           <ContainerLink>
             <CustomLink
               style={{
                 fontWeight: 500,
                 marginLeft: 0,
-                lineHeight: '16px',
+                lineHeight: '18px',
                 padding: 0,
+                letterSpacing: '0px',
               }}
               iconHeight={10}
               iconWidth={10}
@@ -92,6 +97,7 @@ const ContainerNoData = styled.div<WithIsLight>(({ isLight }) => ({
   alignItems: 'center',
   padding: '7px 16px 8px 16px',
   borderRadius: 6,
+
   backgroundColor: isLight ? '#F5F6FB' : '#9FAFB9',
   [lightTheme.breakpoints.up('table_834')]: {
     padding: '4px 16px',
@@ -105,24 +111,32 @@ const ContainerNoData = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const LastModifiedText = styled.div<WithIsLight>(({ isLight }) => ({
+const LastModifiedText = styled.div<WithIsLight & { hasUppercase?: boolean }>(({ isLight, hasUppercase }) => ({
   fontFamily: 'Inter, sans-serif',
   fontSize: 12,
   fontStyle: 'normal',
   fontWeight: 600,
-  lineHeight: 'normal',
+  lineHeight: '14.52px',
   letterSpacing: '1px',
-  textTransform: 'uppercase',
+  textTransform: hasUppercase ? 'uppercase' : 'none',
   color: isLight ? '#708390' : '#9FAFB9',
   alignItems: 'center',
+  marginTop: 2,
   [lightTheme.breakpoints.up('desktop_1194')]: {
     fontWeight: 'normal',
+    fontSize: 11,
     letterSpacing: 'revert',
+    marginTop: 0,
   },
 }));
+
+const LastModifiedTextNoData = styled(LastModifiedText)({
+  marginTop: 3,
+});
 
 const ContainerLink = styled.div({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
+  marginRight: 4,
 });

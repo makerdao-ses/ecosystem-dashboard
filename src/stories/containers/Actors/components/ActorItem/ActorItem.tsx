@@ -1,12 +1,10 @@
 import styled from '@emotion/styled';
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
-import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
 import { siteRoutes } from '@ses/config/routes';
 import GenericDelegateCard from '@ses/containers/RecognizedDelegates/components/GenericDelegateCard';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { pascalCaseToNormalString } from '@ses/core/utils/string';
-import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import Link from 'next/link';
 import React from 'react';
@@ -35,18 +33,6 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
 
   return (
     <ExtendedGenericDelegate isLight={isLight} hasScope={actor.scopes?.length > 0}>
-      <SEOHead
-        title={'MakerDAO Ecosystem Actors | Endgame Overview'}
-        description={
-          'MakerDAO Ecosystem Actors provides a centralized directory of ecosystem actors and their roles for a clear understanding of who is involved in the ecosystem'
-        }
-        image={{
-          src: toAbsoluteURL('/assets/img/social-385x200.png'),
-          width: 385,
-          height: 200,
-        }}
-        twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
-      />
       <ActorAboutLink>
         <ContainerActorType>
           <WrapperEcosystemActor>
@@ -149,6 +135,7 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight & { hasS
     flexDirection: 'column',
     maxHeight: 'revert',
     minHeight: 'revert',
+    height: 161,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     height: 82,
@@ -210,8 +197,7 @@ const ActorAvatar = styled.div({
   gap: 16,
   paddingLeft: 16,
   paddingTop: 16,
-  marginBottom: 14,
-
+  paddingBottom: 16,
   [lightTheme.breakpoints.up('table_834')]: {
     display: 'flex',
     flexDirection: 'row',
@@ -220,6 +206,7 @@ const ActorAvatar = styled.div({
     paddingTop: 8,
     paddingLeft: 0,
     marginBottom: 0,
+    paddingBottom: 0,
     width: 343,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
@@ -295,13 +282,12 @@ const WrapperType = styled.div<WithIsLight>(({ isLight }) => ({
 }));
 const Line = styled.div<WithIsLight>(({ isLight }) => ({
   borderBottom: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
-  marginTop: 16,
   marginBottom: 16,
   marginRight: 16,
   marginLeft: 16,
   [lightTheme.breakpoints.up('table_834')]: {
     marginTop: 14,
-    marginBottom: 12,
+    marginBottom: 4,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     display: 'none',
@@ -313,23 +299,25 @@ const ActorTitle = styled.div<WithIsLight>(({ isLight }) => ({
   fontStyle: 'normal',
   fontWeight: 700,
   fontSize: 12,
-  lineHeight: '17px',
+  lineHeight: '14px',
   color: '#708390',
   borderRadius: 3,
   width: 'fit-content',
   paddingTop: 4,
-  paddingBottom: 2,
   marginLeft: 16,
+  height: 23,
   borderBottom: `2px solid ${isLight ? '#708390' : '#787A9B'}`,
   [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: 14,
+    marginTop: 16,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     marginTop: -1,
     marginLeft: 6,
   },
+
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginTop: 1,
+    marginTop: 2,
+    marginLeft: 6,
   },
 }));
 
@@ -347,7 +335,6 @@ const WrapperScopeLinks = styled.div<{ alignEnd: boolean }>(({ alignEnd }) => ({
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingBottom: 4,
     flex: 1,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
@@ -367,7 +354,7 @@ const ScopeSection = styled.div({
   marginBottom: 8,
   [lightTheme.breakpoints.up('table_834')]: {
     alignItems: 'flex-start',
-    marginBottom: 8,
+    marginBottom: 0,
     gap: 10,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
@@ -398,7 +385,7 @@ const SocialIconsSection = styled.div({
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: -6,
+    marginTop: -2,
     paddingRight: 16,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
@@ -504,6 +491,7 @@ const WrapperCategoryScopeMobile = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
+  marginBottom: 15,
   [lightTheme.breakpoints.up('table_834')]: {
     display: 'none',
   },
@@ -520,6 +508,8 @@ const ContainerScopeMobile = styled.div({
   display: 'flex',
   flexDirection: 'column',
   gap: 4,
+  justifyContent: 'flex-end',
+  alignItems: 'end',
   paddingRight: 16,
 });
 const WrapperHiddenOnlyMobileCategory = styled.div({
@@ -540,6 +530,8 @@ const WrapperHiddenOnlyMobileScope = styled.div({
   display: 'none',
   [lightTheme.breakpoints.up('table_834')]: {
     display: 'flex',
+
+    alignItems: 'center',
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     display: 'flex',

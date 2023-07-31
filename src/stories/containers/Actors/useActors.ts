@@ -55,11 +55,12 @@ export const useActors = (actors: Team[], stories = false) => {
       header: 'Role',
       styles: {
         width: 182,
+        paddingLeft: 4,
         [lightTheme.breakpoints.up('desktop_1280')]: {
           paddingLeft: 18,
         },
         [lightTheme.breakpoints.up('desktop_1440')]: {
-          paddingLeft: 120,
+          paddingLeft: 122,
         },
       },
       sortReverse: true,
@@ -75,7 +76,7 @@ export const useActors = (actors: Team[], stories = false) => {
           paddingLeft: 56,
         },
         [lightTheme.breakpoints.up('desktop_1440')]: {
-          paddingLeft: 189,
+          paddingLeft: 186,
           justifyContent: 'center',
         },
       },
@@ -90,10 +91,10 @@ export const useActors = (actors: Team[], stories = false) => {
           marginLeft: -32,
         },
         [lightTheme.breakpoints.up('desktop_1280')]: {
-          marginLeft: 10,
+          marginLeft: 12,
         },
         [lightTheme.breakpoints.up('desktop_1440')]: {
-          marginLeft: 105,
+          marginLeft: 108,
           justifyContent: 'center',
         },
       },

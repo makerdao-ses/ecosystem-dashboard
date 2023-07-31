@@ -28,77 +28,11 @@ const variantsArgs = [
       new EcosystemActorBuilder()
         .withId('23')
         .withCode('PH-001')
-        .withName('Powerhouse Inc.')
+        .withName('Powerhouse Inc. ')
         .withType(ResourceType.EcosystemActor)
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
-        .addCategory('Active Ecosystem Actor')
-        .addScope({
-          id: '1',
-          code: 'SUP',
-          name: 'Support Scope',
-        })
-        .addScope({
-          id: '3',
-          code: 'STA',
-          name: 'Stability Scope',
-        })
-        .withSocials(defaultSocials)
-        .build(),
-      new EcosystemActorBuilder()
-        .withId('23')
-        .withCode('PH-001')
-        .withName('Zoenix Labs')
-        .withType(ResourceType.EcosystemActor)
-        .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
-        .addCategory('Active Ecosystem Actor')
-        .addScope({
-          id: '1',
-          code: 'SUP',
-          name: 'Support Scope',
-        })
-        .addScope({
-          id: '3',
-          code: 'STA',
-          name: 'Stability Scope',
-        })
-        .withSocials(defaultSocials)
-        .build(),
-      new EcosystemActorBuilder()
-        .withId('23')
-        .withCode('PH-001')
-        .withName('PPhoenix Labs')
-        .withType(ResourceType.EcosystemActor)
-        .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
-        .addCategory('Active Ecosystem Actor')
-        .addScope({
-          id: '1',
-          code: 'SUP',
-          name: 'Support Scope',
-        })
-        .addScope({
-          id: '3',
-          code: 'STA',
-          name: 'Stability Scope',
-        })
-        .withSocials(defaultSocials)
-        .build(),
-      new EcosystemActorBuilder()
-        .withId('23')
-        .withCode('PH-001')
-        .withName('ZPhoenix Labs')
-        .withType(ResourceType.EcosystemActor)
-        .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
-        .addCategory('Active Ecosystem Actor')
-        .addScope({
-          id: '1',
-          code: 'SUP',
-          name: 'Support Scope',
-        })
-        .addScope({
-          id: '3',
-          code: 'STA',
-          name: 'Stability Scope',
-        })
+        .addCategory('Scope Facilitator')
+
         .withSocials(defaultSocials)
         .build(),
       new EcosystemActorBuilder()
@@ -113,21 +47,115 @@ const variantsArgs = [
           code: 'SUP',
           name: 'Support Scope',
         })
+        .withLastActivity({
+          created_at: '2023-07-12T09:08:34.123',
+          description: '',
+          event: '',
+          params: {},
+          id: '45',
+        })
+
+        .withSocials(defaultSocials)
+        .build(),
+      new EcosystemActorBuilder()
+        .withId('23')
+        .withCode('PH-001')
+        .withName('Viridian Protector Advisory Company')
+        .withType(ResourceType.EcosystemActor)
+        .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
+        .addCategory('Scope Facilitator')
+        .addScope({
+          id: '1',
+          code: 'GOV',
+          name: 'Governance Scope',
+        })
         .addScope({
           id: '3',
-          code: 'STA',
-          name: 'Stability Scope',
+          code: 'ACC',
+          name: 'Accessibility Scope',
+        })
+        .withLastActivity({
+          created_at: '2023-07-12T09:08:34.123',
+          description: '',
+          event: '',
+          params: {},
+          id: '45',
         })
         .withSocials(defaultSocials)
         .build(),
       new EcosystemActorBuilder()
         .withId('23')
         .withCode('PH-001')
-        .withName('Phoeull Up')
+        .withName('Dewiz')
+        .withType(ResourceType.EcosystemActor)
+        .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
+        .addCategory('Advisory Council Member')
+        .addScope({
+          id: '1',
+          code: 'SUP',
+          name: 'Support Scope',
+        })
+        .addScope({
+          id: '3',
+          code: 'STA',
+          name: 'Stability Scope',
+        })
+        .withLastActivity({
+          created_at: '2023-07-12T09:08:34.123',
+          description: '',
+          event: '',
+          params: {},
+          id: '45',
+        })
+        .withSocials(defaultSocials)
+        .build(),
+      new EcosystemActorBuilder()
+        .withId('23')
+        .withCode('PH-001')
+        .withName('Sidestream')
+        .withType(ResourceType.EcosystemActor)
+        .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
+        .addCategory('Active Ecosystem Actor')
+        .addScope({
+          id: '1',
+          code: 'SUP',
+          name: 'Support Scope',
+        })
+        .addScope({
+          id: '3',
+          code: 'PRO',
+          name: 'Protocol Scope',
+        })
+        .withLastActivity({
+          created_at: '2023-07-12T09:08:34.123',
+          description: '',
+          event: '',
+          params: {},
+          id: '45',
+        })
+        .withSocials(defaultSocials)
+        .build(),
+      new EcosystemActorBuilder()
+        .withId('23')
+        .withCode('PH-001')
+        .withName('Pull Up')
         .withType(ResourceType.EcosystemActor)
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
         .addCategory('Scope Facilitators')
         .withSocials(defaultSocials)
+        .addScope({
+          id: '1',
+          code: 'GOV',
+          name: 'Governance Scope',
+        })
+        .withLastActivity({
+          created_at: '2023-07-12T09:08:34.123',
+          description: '',
+          event: '',
+          params: {},
+          id: '45',
+        })
+
         .build(),
       new EcosystemActorBuilder()
         .withId('23')
@@ -146,6 +174,13 @@ const variantsArgs = [
           code: 'STA',
           name: 'Stability Scope',
         })
+        .withLastActivity({
+          created_at: '2023-07-12T09:08:34.123',
+          description: '',
+          event: '',
+          params: {},
+          id: '45',
+        })
         .withSocials(defaultSocials)
         .build(),
       new EcosystemActorBuilder()
@@ -154,18 +189,21 @@ const variantsArgs = [
         .withName('ChainSecurity')
         .withType(ResourceType.EcosystemActor)
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
-        .addCategory('Active Ecosystem Actor')
+        .addCategory('Advisory Council Member')
         .addScope({
           id: '1',
           code: 'SUP',
           name: 'Support Scope',
         })
-        .addScope({
-          id: '3',
-          code: 'STA',
-          name: 'Stability Scope',
-        })
+
         .withSocials(defaultSocials)
+        .withLastActivity({
+          created_at: '2023-07-12T09:08:34.123',
+          description: '',
+          event: '',
+          params: {},
+          id: '45',
+        })
         .build(),
       new EcosystemActorBuilder()
         .withId('23')
@@ -173,7 +211,7 @@ const variantsArgs = [
         .withName('Certora')
         .withType(ResourceType.EcosystemActor)
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
-        .addCategory('Active Ecosystem Actor')
+        .addCategory('Scope Facilitator')
         .addScope({
           id: '1',
           code: 'SUP',
@@ -182,7 +220,7 @@ const variantsArgs = [
         .addScope({
           id: '3',
           code: 'STA',
-          name: 'Stability Scope',
+          name: 'Accessibility Scope',
         })
         .withSocials(defaultSocials)
         .build(),
@@ -195,7 +233,7 @@ const variantsArgs = [
   },
 ];
 
-export const [[LightMode, DarkMode], [LightModeMobile, DarkModeMobile]] = createThemeModeVariants(
+export const [[LightMode, DarkMode]] = createThemeModeVariants(
   (props) => (
     <AppLayout>
       <ActorsContainer {...props} />
@@ -215,7 +253,7 @@ LightMode.parameters = {
     component: {
       0: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20187:244239&mode=design&t=c3Fqcr4H2ZhqQ4uv-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20207:261115&mode=design&t=wRmSRg2ehkFZ7VM6-4',
         options: {
           ...optionStyles,
           componentStyle: {
@@ -225,7 +263,7 @@ LightMode.parameters = {
       },
       834: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20187:229765&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20191:258133&mode=design&t=wRmSRg2ehkFZ7VM6-4',
         options: {
           style: {
             top: -16,
@@ -238,7 +276,7 @@ LightMode.parameters = {
       },
       1194: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20187:230493&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21280:239563&mode=design&t=QsP3Vsvwutj2T5IZ-4',
         options: {
           style: {
             top: -16,
@@ -251,7 +289,7 @@ LightMode.parameters = {
       },
       1280: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20187:230150&mode=design&t=c3Fqcr4H2ZhqQ4uv-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21280:240416&mode=design&t=QsP3Vsvwutj2T5IZ-4',
         options: {
           style: {
             top: -16,
@@ -264,7 +302,7 @@ LightMode.parameters = {
       },
       1440: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20187:234480&mode=design&t=c3Fqcr4H2ZhqQ4uv-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21280:242292&mode=design&t=QsP3Vsvwutj2T5IZ-4',
         options: {
           style: {
             top: -16,
@@ -277,7 +315,7 @@ LightMode.parameters = {
       },
       1920: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20187:229451&mode=design&t=c3Fqcr4H2ZhqQ4uv-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21280:243304&mode=design&t=QsP3Vsvwutj2T5IZ-4',
         options: {
           style: {
             top: -16,
@@ -290,29 +328,4 @@ LightMode.parameters = {
       },
     },
   } as FigmaParams,
-};
-
-LightModeMobile.parameters = {
-  chromatic: {
-    viewports: [375],
-  },
-  figma: {
-    component: {
-      0: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20802:265996&mode=design&t=BFZUaHoGzRars0yc-4',
-        options: {
-          ...optionStyles,
-          componentStyle: {
-            width: 375,
-          },
-        },
-      },
-    },
-  } as FigmaParams,
-};
-DarkModeMobile.parameters = {
-  chromatic: {
-    viewports: [375],
-  },
 };

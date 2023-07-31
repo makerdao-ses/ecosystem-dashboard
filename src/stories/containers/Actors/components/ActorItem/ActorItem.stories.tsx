@@ -54,20 +54,48 @@ const variantsArgs = [
       } as SocialMediaChannels)
       .build(),
   },
+  {
+    actor: new EcosystemActorBuilder()
+      .withId('23')
+      .withCode('PH-001')
+      .withName('Phoenix Labs')
+      .withType(ResourceType.EcosystemActor)
+      .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
+      .addCategory('Scope Facilitator')
+      .addScope({
+        id: '1',
+        code: 'SUP',
+        name: 'Support Scope',
+      })
+      .addScope({
+        id: '3',
+        code: 'ACC',
+        name: 'Accessibility Scope',
+      })
+      .withSocials({
+        twitter: '#',
+        github: '#',
+        discord: '#',
+      } as SocialMediaChannels)
+      .build(),
+  },
 ];
 
-export const [[Actors, ActorsDark]] = createThemeModeVariants(ActorItem, variantsArgs);
+export const [[Actors, ActorsDark], [ActorsNoData, ActorsNoDataDark]] = createThemeModeVariants(
+  ActorItem,
+  variantsArgs
+);
 
 Actors.parameters = {
   figma: {
     component: {
       375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20207:261117&mode=design&t=3WaZTE08lp61YpB7-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20207:261117&mode=design&t=wRmSRg2ehkFZ7VM6-4',
         options: {
           style: {
             left: -40,
-            top: -22,
+            top: -20,
           },
           componentStyle: {
             width: 343,
@@ -116,6 +144,77 @@ Actors.parameters = {
       1440: {
         component:
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21280:242349&mode=design&t=lb9naPStBM41CUSA-4',
+        options: {
+          style: {
+            left: -3,
+            top: -2,
+          },
+          componentStyle: {
+            width: 1312,
+          },
+        },
+      },
+    },
+  },
+};
+ActorsNoData.parameters = {
+  figma: {
+    component: {
+      375: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20802:265431&mode=design&t=I60yJeKsDvkkmRMX-4',
+        options: {
+          style: {
+            left: -40,
+            top: -20,
+          },
+          componentStyle: {
+            width: 343,
+          },
+        },
+      },
+      834: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21280:239020&mode=design&t=I60yJeKsDvkkmRMX-4',
+        options: {
+          style: {
+            left: -12,
+            top: -8,
+          },
+          componentStyle: {
+            width: 770,
+          },
+        },
+      },
+      1194: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20191:256836&mode=design&t=I60yJeKsDvkkmRMX-4',
+        options: {
+          style: {
+            left: -3,
+            top: -3,
+          },
+          componentStyle: {
+            width: 1130,
+          },
+        },
+      },
+      1280: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21280:240505&mode=design&t=I60yJeKsDvkkmRMX-4',
+        options: {
+          style: {
+            left: -3,
+            top: -3,
+          },
+          componentStyle: {
+            width: 1184,
+          },
+        },
+      },
+      1440: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21280:242382&mode=design&t=I60yJeKsDvkkmRMX-4',
         options: {
           style: {
             left: -3,
