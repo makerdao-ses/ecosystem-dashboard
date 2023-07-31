@@ -14,7 +14,7 @@ export const hasWalletGroups = (wallet: BudgetStatementWallet) =>
 
 export const hasGroupExpenses = (wallet: BudgetStatementWallet, group: string, month: string, isHeadcount = true) =>
   wallet.budgetStatementLineItem
-    ?.filter((item) => item.headcountExpense === isHeadcount && (item.group === group || (!item.group && !group)))
+    ?.filter((item) => !!item.headcountExpense === isHeadcount && (item.group === group || (!item.group && !group)))
     .some((x) => (x.actual || x.forecast) && x.month === month);
 
 export const getGroupActual = (group: BudgetStatementLineItem[], month: string) =>
