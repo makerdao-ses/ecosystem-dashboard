@@ -114,7 +114,7 @@ const LastModifiedText = styled.div<WithIsLight & { hasUppercase?: boolean }>(({
   lineHeight: '14.52px',
   letterSpacing: '1px',
   textTransform: hasUppercase ? 'uppercase' : 'none',
-  color: isLight ? '#708390' : '#708390',
+  color: isLight ? '#434358' : '#708390',
   alignItems: 'center',
   marginTop: 2,
   [lightTheme.breakpoints.up('desktop_1194')]: {

@@ -138,10 +138,6 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight & { hasS
     maxHeight: 'revert',
     minHeight: 'revert',
     height: 161,
-
-    ':hover': {
-      background: isLight ? '#ECF1F3' : '#1E2C37',
-    },
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     height: 82,
@@ -149,6 +145,9 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight & { hasS
     padding: 0,
     justifyContent: 'space-between',
     alignItems: 'center',
+    ':hover': {
+      background: isLight ? '#ECF1F3' : '#1E2C37',
+    },
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     flexDirection: 'row',
