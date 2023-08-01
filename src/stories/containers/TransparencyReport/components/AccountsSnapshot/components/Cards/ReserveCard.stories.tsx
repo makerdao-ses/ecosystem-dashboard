@@ -155,13 +155,13 @@ WithSingularLightMode.parameters = {
   figma: {
     component: {
       0: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=18675%3A210832',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=18698:216049',
         options: {
           componentStyle: {
             width: 343,
           },
           style: {
-            top: 0,
+            top: -20,
             left: -40,
           },
         },
@@ -171,6 +171,42 @@ WithSingularLightMode.parameters = {
         options: {
           componentStyle: {
             width: 770,
+          },
+          style: {
+            top: -20,
+            left: -40,
+          },
+        },
+      },
+      1194: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19866:244466',
+        options: {
+          componentStyle: {
+            width: 1130,
+          },
+          style: {
+            top: -20,
+            left: -40,
+          },
+        },
+      },
+      1280: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19865:238757',
+        options: {
+          componentStyle: {
+            width: 1184,
+          },
+          style: {
+            top: -20,
+            left: -40,
+          },
+        },
+      },
+      1440: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20719:254463',
+        options: {
+          componentStyle: {
+            width: 1312,
           },
           style: {
             top: -20,

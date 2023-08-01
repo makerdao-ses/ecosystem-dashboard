@@ -220,7 +220,7 @@ const InitialBalance = styled.div({
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
     padding: 16,
-    width: '16.4%',
+    width: '16.8%',
   },
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
@@ -228,7 +228,7 @@ const InitialBalance = styled.div({
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: '17.3%',
+    width: '17.9%',
   },
 });
 
@@ -302,12 +302,20 @@ const Inflow = styled.div<WithIsLight>(({ isLight }) => ({
   [lightTheme.breakpoints.up('desktop_1280')]: {
     minWidth: 'calc(17.2% - 32px)',
   },
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    minWidth: 'calc(18% - 32px)',
+  },
 }));
 
-const Outflow = styled(Inflow)({});
+const Outflow = styled(Inflow)({
+  [lightTheme.breakpoints.down('table_834')]: {
+    marginTop: 7,
+  },
+});
 
 const NewBalance = styled(InitialBalance)({
-  marginTop: 8,
+  marginTop: 7,
 
   [lightTheme.breakpoints.up('table_834')]: {
     padding: 2,
@@ -345,7 +353,6 @@ const ArrowContainer = styled.div({
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: 106,
     marginLeft: 32,
   },
 });
