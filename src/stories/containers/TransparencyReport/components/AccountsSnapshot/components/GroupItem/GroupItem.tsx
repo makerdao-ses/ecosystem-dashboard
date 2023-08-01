@@ -82,7 +82,7 @@ export default GroupItem;
 const GroupItemContainer = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
-  padding: '16px 16px 24px',
+  padding: '20px 16px 24px',
   borderRadius: 6,
   overflow: 'hidden',
   background: isLight ? alpha('#ECEFF9', 0.5) : '#26313F',
@@ -93,7 +93,7 @@ const GroupItemContainer = styled.div<WithIsLight>(({ isLight }) => ({
   [lightTheme.breakpoints.up('table_834')]: {
     background: isLight ? alpha('#ECEFF9', 0.5) : '#283341',
     flexDirection: 'row',
-    padding: '16px 32px 16px 16px',
+    padding: '20px 32px 16px 16px',
     borderRadius: 0,
     boxShadow: 'none',
 
@@ -103,15 +103,15 @@ const GroupItemContainer = styled.div<WithIsLight>(({ isLight }) => ({
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    padding: '16px 56px 16px 16px',
+    padding: '19px 56px 16px 16px',
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    padding: '16px 64px 16px 20px',
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    padding: '19px 64px 16px 16px',
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    padding: '16px 80px 16px 20px',
+    padding: '19px 80px 16px 16px',
   },
 }));
 
@@ -120,7 +120,7 @@ const WalletContainer = styled.div({
 
   [lightTheme.breakpoints.up('table_834')]: {
     marginBottom: 0,
-    width: 'calc(204px + 17%)',
+    width: 'calc(205px + 16.1%)',
 
     '& > div': {
       marginTop: 0,
@@ -128,7 +128,11 @@ const WalletContainer = styled.div({
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    width: 'calc(295px + 16%)',
+    width: 'calc(295px + 16.4%)',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    width: 'calc(295px + 16.7%)',
   },
 });
 
@@ -213,6 +217,11 @@ const Currency = styled.span<WithIsLight>(({ isLight }) => ({
   letterSpacing: 1,
   textTransform: 'uppercase',
   color: isLight ? '#9FAFB9' : '#9FAFB9',
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    fontSize: 14,
+    lineHeight: '17px',
+  },
 }));
 
 const Inflow = styled.div({
@@ -226,11 +235,19 @@ const Inflow = styled.div({
     flexDirection: 'column',
     justifyContent: 'normal',
     gap: 8,
-    minWidth: '18%',
+    minWidth: '19.2%',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    width: '19.9%',
   },
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    width: '21.5%',
+    width: '20.6%',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    width: '22.5%',
   },
 });
 

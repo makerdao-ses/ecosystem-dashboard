@@ -118,6 +118,18 @@ const GroupContainer = styled.div<WithIsLight>(({ isLight }) => ({
   flexDirection: 'column',
   gap: 8,
 
+  [lightTheme.breakpoints.down('table_834')]: {
+    '&:not(:first-of-type)::before': {
+      display: 'block',
+      content: '""',
+      width: 'calc(100% + 16px)',
+      marginLeft: -8,
+      height: 1,
+      background: isLight ? '#D4D9E1' : '#405361',
+      marginBottom: -1,
+    },
+  },
+
   [lightTheme.breakpoints.up('table_834')]: {
     gap: 0,
 

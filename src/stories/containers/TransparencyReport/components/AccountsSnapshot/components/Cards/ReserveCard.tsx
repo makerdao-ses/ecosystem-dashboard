@@ -308,11 +308,7 @@ const Inflow = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const Outflow = styled(Inflow)({
-  [lightTheme.breakpoints.down('table_834')]: {
-    marginTop: 7,
-  },
-});
+const Outflow = styled(Inflow)({});
 
 const NewBalance = styled(InitialBalance)({
   marginTop: 7,

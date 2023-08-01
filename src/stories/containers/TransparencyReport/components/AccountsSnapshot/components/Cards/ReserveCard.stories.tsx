@@ -217,3 +217,70 @@ WithSingularLightMode.parameters = {
     },
   } as FigmaParams,
 };
+
+WithGroupLightMode.parameters = {
+  figma: {
+    component: {
+      0: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=18698:215790',
+        options: {
+          componentStyle: {
+            width: 343,
+          },
+          style: {
+            top: -20,
+            left: -40,
+          },
+        },
+      },
+      834: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19867:248234',
+        options: {
+          componentStyle: {
+            width: 770,
+          },
+          style: {
+            top: -20,
+            left: -40,
+          },
+        },
+      },
+      1194: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19866:244404',
+        options: {
+          componentStyle: {
+            width: 1130,
+          },
+          style: {
+            top: -20,
+            left: -40,
+          },
+        },
+      },
+      1280: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19865:238695',
+        options: {
+          componentStyle: {
+            width: 1184,
+          },
+          style: {
+            top: -20,
+            left: -40,
+          },
+        },
+      },
+      1440: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20719:254401',
+        options: {
+          componentStyle: {
+            width: 1312,
+          },
+          style: {
+            top: -20,
+            left: -40,
+          },
+        },
+      },
+    },
+  } as FigmaParams,
+};
