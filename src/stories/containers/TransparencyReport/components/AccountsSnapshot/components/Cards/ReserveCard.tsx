@@ -16,12 +16,15 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 interface ReserveCardProps {
   account: UIReservesData;
   currency?: Token;
+
+  // intended to be use in the stories
+  defaultExpanded?: boolean;
 }
 
-const ReserveCard: React.FC<ReserveCardProps> = ({ account, currency = 'DAI' }) => {
+const ReserveCard: React.FC<ReserveCardProps> = ({ account, currency = 'DAI', defaultExpanded = false }) => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
-  const [expanded, setExpanded] = React.useState<boolean>(false);
+  const [expanded, setExpanded] = React.useState<boolean>(defaultExpanded);
 
   const isGroup = account.accountType === 'group';
   const initialBalance = account.snapshotAccountBalance?.[0]?.initialBalance ?? 0;
@@ -53,7 +56,7 @@ const ReserveCard: React.FC<ReserveCardProps> = ({ account, currency = 'DAI' }) 
   );
 
   return (
-    <Accordion onChange={() => hasTransactions && setExpanded(!expanded)}>
+    <Accordion expanded={expanded} onChange={() => hasTransactions && setExpanded(!expanded)}>
       <Card isLight={isLight} hasTransactions={hasTransactions}>
         <NameContainer>
           {isGroup ? (
@@ -217,7 +220,7 @@ const InitialBalance = styled.div({
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
     padding: 16,
-    width: '16.4%',
+    width: '16.8%',
   },
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
@@ -225,7 +228,7 @@ const InitialBalance = styled.div({
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: '17.3%',
+    width: '17.9%',
   },
 });
 
@@ -299,12 +302,16 @@ const Inflow = styled.div<WithIsLight>(({ isLight }) => ({
   [lightTheme.breakpoints.up('desktop_1280')]: {
     minWidth: 'calc(17.2% - 32px)',
   },
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    minWidth: 'calc(18% - 32px)',
+  },
 }));
 
 const Outflow = styled(Inflow)({});
 
 const NewBalance = styled(InitialBalance)({
-  marginTop: 8,
+  marginTop: 7,
 
   [lightTheme.breakpoints.up('table_834')]: {
     padding: 2,
@@ -342,7 +349,6 @@ const ArrowContainer = styled.div({
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: 106,
     marginLeft: 32,
   },
 });

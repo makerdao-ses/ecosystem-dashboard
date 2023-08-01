@@ -31,6 +31,11 @@ export class SnapshotAccountTransactionBuilder {
     return this;
   }
 
+  withTxLabel(txLabel: string): SnapshotAccountTransactionBuilder {
+    this._snapshotAccountTransaction.txLabel = txLabel;
+    return this;
+  }
+
   withToken(token: Token): SnapshotAccountTransactionBuilder {
     this._snapshotAccountTransaction.token = token;
     return this;

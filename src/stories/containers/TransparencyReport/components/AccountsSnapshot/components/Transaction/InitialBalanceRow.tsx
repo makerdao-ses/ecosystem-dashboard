@@ -30,7 +30,7 @@ const Wrapper = styled.div<WithIsLight>(({ isLight }) => ({
   alignItems: 'flex-end',
   justifyContent: 'center',
   gap: 8,
-  padding: '16px 32px 13px 20px',
+  padding: '21px 32px 13px 20px',
 
   [lightTheme.breakpoints.up('table_834')]: {
     display: 'flex',
