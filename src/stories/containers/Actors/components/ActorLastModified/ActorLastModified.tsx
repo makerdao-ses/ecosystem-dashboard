@@ -4,12 +4,9 @@ import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import { SUBMIT_EXPENSES_URL } from '@ses/config/externalUrls';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { capitalizeSentence } from '@ses/core/utils/string';
-import { buildQueryString } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useMemo } from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
@@ -20,9 +17,9 @@ interface Props {
   href: string;
 }
 
-export const ActorLastModified = ({ date, code, now = DateTime.now(), href }: Props) => {
+export const ActorLastModified = ({ date, now = DateTime.now(), href }: Props) => {
   const { isLight } = useThemeContext();
-  const router = useRouter();
+
   const isDesk = useMediaQuery(lightTheme.breakpoints.up('desktop_1194'));
   const textDescription = !date
     ? !isDesk
@@ -32,11 +29,10 @@ export const ActorLastModified = ({ date, code, now = DateTime.now(), href }: Pr
     ? date?.toFormat('dd-MMM-yyyy')?.toUpperCase()
     : 'Last Modified';
 
-  const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
   return (
     <>
       {date ? (
-        <Link href={`${href}/${code}${queryStrings}`} passHref>
+        <Link href={href} passHref legacyBehavior>
           <a>
             <ContainerNoData isLight={isLight}>
               <LastModifiedText isLight={isLight} hasUppercase={!isDesk}>
@@ -87,7 +83,7 @@ const DifferenceLabel = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontWeight: 600,
   fontSize: '14px',
   lineHeight: 'normal',
-  color: isLight ? '#231536' : '#EDEFFF',
+  color: isLight ? '#231536' : '#D2D4EF',
 }));
 
 const ContainerNoData = styled.div<WithIsLight>(({ isLight }) => ({
@@ -97,8 +93,7 @@ const ContainerNoData = styled.div<WithIsLight>(({ isLight }) => ({
   alignItems: 'center',
   padding: '7px 16px 8px 16px',
   borderRadius: 6,
-
-  backgroundColor: isLight ? '#F5F6FB' : '#9FAFB9',
+  backgroundColor: isLight ? '#F5F6FB' : '#25273D',
   [lightTheme.breakpoints.up('table_834')]: {
     padding: '4px 16px',
   },
@@ -119,7 +114,7 @@ const LastModifiedText = styled.div<WithIsLight & { hasUppercase?: boolean }>(({
   lineHeight: '14.52px',
   letterSpacing: '1px',
   textTransform: hasUppercase ? 'uppercase' : 'none',
-  color: isLight ? '#708390' : '#9FAFB9',
+  color: isLight ? '#708390' : '#708390',
   alignItems: 'center',
   marginTop: 2,
   [lightTheme.breakpoints.up('desktop_1194')]: {

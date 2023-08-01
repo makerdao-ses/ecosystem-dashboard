@@ -86,7 +86,10 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
             </ActorAboutLink>
 
             <ContainerLastModifiedDesk>
-              <ActorLastModified date={getActorLastMonthWithData(actor)} href="#" />
+              <ActorLastModified
+                date={getActorLastMonthWithData(actor)}
+                href={`${siteRoutes.ecosystemActorReports(actor.shortCode)}`}
+              />
             </ContainerLastModifiedDesk>
           </ContainerScopeLastModified>
           <ActorAboutLink>
@@ -107,7 +110,10 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
         </SocialIconsSection>
       </WrapperScopeLinks>
       <ContainerLastModifiedMobileTable>
-        <ActorLastModified date={getActorLastMonthWithData(actor)} href="#" />
+        <ActorLastModified
+          date={getActorLastMonthWithData(actor)}
+          href={`${siteRoutes.ecosystemActorReports(actor.shortCode)}`}
+        />
       </ContainerLastModifiedMobileTable>
     </ExtendedGenericDelegate>
   );
