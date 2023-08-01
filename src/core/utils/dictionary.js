@@ -131,6 +131,9 @@ const dictionary = [
   'repo',
   'topup',
   'clawback',
+  'Dewiz',
+  'Sidestream',
+  'Viridian',
 ];
 
 module.exports = dictionary;

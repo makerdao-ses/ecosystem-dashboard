@@ -258,7 +258,10 @@ const FilterContainer = styled.div({
   marginTop: -4,
   [lightTheme.breakpoints.up('table_834')]: {
     height: 48,
-    marginBottom: 26,
+    marginBottom: 34,
     marginTop: -1,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginBottom: 26,
   },
 });

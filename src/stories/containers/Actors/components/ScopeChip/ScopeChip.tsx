@@ -39,6 +39,7 @@ const Chip = styled.div({
   borderRadius: '6px',
   padding: '4px 8px',
   gap: 2,
+  width: 'fit-content',
 });
 
 const Code = styled.div({

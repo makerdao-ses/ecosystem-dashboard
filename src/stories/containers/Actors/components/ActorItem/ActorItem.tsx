@@ -1,16 +1,15 @@
 import styled from '@emotion/styled';
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
-import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
 import { siteRoutes } from '@ses/config/routes';
 import GenericDelegateCard from '@ses/containers/RecognizedDelegates/components/GenericDelegateCard';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { pascalCaseToNormalString } from '@ses/core/utils/string';
-import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import Link from 'next/link';
 import React from 'react';
-import { ActorsLinkType, getLinksFromRecognizedActors } from '../../utils/utils';
+import { ActorsLinkType, getActorLastMonthWithData, getLinksFromRecognizedActors } from '../../utils/utils';
+import ActorLastModified from '../ActorLastModified/ActorLastModified';
 import ScopeChip from '../ScopeChip/ScopeChip';
 import type { ActorScopeEnum } from '@ses/core/enums/actorScopeEnum';
 import type { Team } from '@ses/core/models/interfaces/team';
@@ -24,27 +23,16 @@ interface Props {
 
 const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
   const { isLight } = useThemeContext();
-
   const ActorAboutLink: React.FC<PropsWithChildren> = ({ children }) => (
-    <Link href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`} legacyBehavior passHref>
-      <a>{children}</a>
-    </Link>
+    <ContainerLinkColum>
+      <Link href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`} legacyBehavior passHref>
+        <LinkColum>{children}</LinkColum>
+      </Link>
+    </ContainerLinkColum>
   );
 
   return (
     <ExtendedGenericDelegate isLight={isLight} hasScope={actor.scopes?.length > 0}>
-      <SEOHead
-        title={'MakerDAO Ecosystem Actors | Endgame Overview'}
-        description={
-          'MakerDAO Ecosystem Actors provides a centralized directory of ecosystem actors and their roles for a clear understanding of who is involved in the ecosystem'
-        }
-        image={{
-          src: toAbsoluteURL('/assets/img/social-385x200.png'),
-          width: 385,
-          height: 200,
-        }}
-        twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
-      />
       <ActorAboutLink>
         <ContainerActorType>
           <WrapperEcosystemActor>
@@ -63,22 +51,51 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
 
           <TypeSection>
             <WrapperType isLight={isLight}>Role</WrapperType>
-            <ActorTitle isLight={isLight}>{pascalCaseToNormalString(actor.category?.[0] ?? '')}</ActorTitle>
+            <WrapperHiddenOnlyMobileCategory>
+              <ActorTitle isLight={isLight}>{pascalCaseToNormalString(actor.category?.[0] ?? '')}</ActorTitle>
+            </WrapperHiddenOnlyMobileCategory>
           </TypeSection>
+          <WrapperCategoryScopeMobile>
+            <WrapperCategoryScopeMobileInside>
+              <ActorTitle isLight={isLight}>{pascalCaseToNormalString(actor.category?.[0] ?? '')}</ActorTitle>
+            </WrapperCategoryScopeMobileInside>
+            {actor.scopes?.length > 0 && (
+              <ContainerScopeMobile>
+                {actor.scopes?.map((item, index) => (
+                  <ScopeChip status={item.name as ActorScopeEnum} code={item.code} key={index} />
+                ))}
+              </ContainerScopeMobile>
+            )}
+          </WrapperCategoryScopeMobile>
         </ContainerActorType>
       </ActorAboutLink>
-      <Line isLight={isLight} />
+      <Link href={siteRoutes.ecosystemActorAbout(actor.shortCode)} legacyBehavior passHref>
+        <LineLink>
+          <Line isLight={isLight} />
+        </LineLink>
+      </Link>
       <WrapperScopeLinks alignEnd={actor?.scopes?.length === 0}>
-        {actor?.scopes?.length > 0 && (
-          <ActorAboutLink>
-            <ScopeSection>
-              {actor?.scopes?.map((item, index) => (
-                <ScopeChip status={item.name as ActorScopeEnum} code={item.code} key={index} />
-              ))}
-            </ScopeSection>
-          </ActorAboutLink>
-        )}
+        <WrapperHiddenOnlyMobileScope>
+          <ContainerScopeLastModified>
+            <ActorAboutLink>
+              <ScopeSection>
+                {actor?.scopes?.map((item, index) => (
+                  <ScopeChip status={item.name as ActorScopeEnum} code={item.code} key={index} />
+                ))}
+              </ScopeSection>
+            </ActorAboutLink>
 
+            <ContainerLastModifiedDesk>
+              <ActorLastModified
+                date={getActorLastMonthWithData(actor)}
+                href={`${siteRoutes.ecosystemActorReports(actor.shortCode)}`}
+              />
+            </ContainerLastModifiedDesk>
+          </ContainerScopeLastModified>
+          <ActorAboutLink>
+            <LinkSpace />
+          </ActorAboutLink>
+        </WrapperHiddenOnlyMobileScope>
         <SocialIconsSection>
           {actor?.socialMediaChannels && (
             <LinkContainer>
@@ -92,76 +109,85 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
           )}
         </SocialIconsSection>
       </WrapperScopeLinks>
+      <ContainerLastModifiedMobileTable>
+        <ActorLastModified
+          date={getActorLastMonthWithData(actor)}
+          href={`${siteRoutes.ecosystemActorReports(actor.shortCode)}`}
+        />
+      </ContainerLastModifiedMobileTable>
     </ExtendedGenericDelegate>
   );
 };
 
 export default ActorItem;
 
-const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight & { hasScope: boolean }>(
-  ({ isLight, hasScope }) => ({
-    background: isLight ? '#FFFFFF' : '#10191F',
-    boxShadow: isLight
-      ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-      : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight & { hasScope?: boolean }>(({ isLight }) => ({
+  background: isLight ? '#FFFFFF' : '#10191F',
+  boxShadow: isLight
+    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+    : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
 
-    padding: '16px',
-    display: 'flex',
+  display: 'flex',
+  flexDirection: 'column',
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+
+  ':hover': {
+    background: isLight ? '#ECF1F3' : '#1E2C37',
+  },
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    padding: 0,
     flexDirection: 'column',
-    fontFamily: 'Inter, sans-serif',
-    fontStyle: 'normal',
-    minHeight: hasScope ? '214px' : '183px',
-
-    ':hover': {
-      background: isLight ? '#ECF1F3' : '#1E2C37',
-    },
-
-    [lightTheme.breakpoints.up('table_834')]: {
-      padding: '8px 16px',
-      flexDirection: 'column',
-      maxHeight: 'revert',
-      height: 129,
-      minHeight: 'revert',
-    },
-    [lightTheme.breakpoints.up('desktop_1194')]: {
-      height: 82,
-      flexDirection: 'row',
-      padding: '16px',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-    },
-    [lightTheme.breakpoints.up('desktop_1440')]: {
-      flexDirection: 'row',
-      gap: 59,
-      height: 82,
-      maxWidth: 1312,
-      alignItems: 'center',
-    },
-  })
-);
+    maxHeight: 'revert',
+    minHeight: 'revert',
+    height: 161,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    height: 82,
+    flexDirection: 'row',
+    padding: 0,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    flexDirection: 'row',
+    maxWidth: 1312,
+    alignItems: 'center',
+  },
+}));
 
 const ContainerActorType = styled.div({
   display: 'flex',
   flexDirection: 'column',
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row',
+    flex: 1,
     justifyContent: 'space-between',
+    paddingTop: 8,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    flexDirection: 'row',
+
+    flex: 1,
+    paddingTop: 'revert',
+    justifyContent: 'revert',
   },
 });
 const EcosystemActorText = styled.div<WithIsLight>(({ isLight }) => ({
-  display: 'flex',
-  fontFamily: 'Inter, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 400,
-  fontSize: 14,
-  lineHeight: '17px',
-  color: isLight ? '#9FAFB9' : '#D2D4EF',
-  marginBottom: 7,
+  display: 'none',
   [lightTheme.breakpoints.down('table_834')]: {
     display: 'none',
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    display: 'none',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    marginBottom: 0,
+    display: 'flex',
+    fontFamily: 'Inter, sans-serif',
+    fontStyle: 'normal',
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '17px',
+    color: isLight ? '#9FAFB9' : '#D2D4EF',
   },
 }));
 
@@ -175,14 +201,33 @@ const ActorAvatar = styled.div({
   flexDirection: 'row',
   alignItems: 'center',
   gap: 16,
-  marginBottom: 22,
+  paddingLeft: 16,
+  paddingTop: 16,
+  paddingBottom: 16,
   [lightTheme.breakpoints.up('table_834')]: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     gap: 16,
+    paddingTop: 8,
+    paddingLeft: 0,
     marginBottom: 0,
+    paddingBottom: 0,
     width: 343,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 16,
+    marginBottom: 0,
+    width: 210,
+
+    height: 82,
+    paddingTop: 0,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    width: 292,
   },
 });
 
@@ -214,10 +259,12 @@ const TypeSection = styled.div({
     alignItems: 'center',
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    paddingLeft: 18,
+    paddingLeft: 16,
   },
+
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    paddingLeft: 60,
+    paddingLeft: 0,
+
     flexDirection: 'row',
   },
 });
@@ -231,7 +278,7 @@ const WrapperType = styled.div<WithIsLight>(({ isLight }) => ({
     fontWeight: 400,
     fontSize: 14,
     color: isLight ? '#9FAFB9' : '#9FAFB9',
-    marginBottom: 4,
+
     lineHeight: '17px',
     alignItems: 'end',
   },
@@ -241,11 +288,12 @@ const WrapperType = styled.div<WithIsLight>(({ isLight }) => ({
 }));
 const Line = styled.div<WithIsLight>(({ isLight }) => ({
   borderBottom: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
-  marginTop: 22,
   marginBottom: 16,
+  marginRight: 16,
+  marginLeft: 16,
   [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: 16,
-    marginBottom: 12,
+    marginTop: 14,
+    marginBottom: 4,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     display: 'none',
@@ -257,35 +305,50 @@ const ActorTitle = styled.div<WithIsLight>(({ isLight }) => ({
   fontStyle: 'normal',
   fontWeight: 700,
   fontSize: 12,
-  lineHeight: '17px',
+  lineHeight: '14px',
   color: '#708390',
   borderRadius: 3,
   width: 'fit-content',
   paddingTop: 4,
-  paddingBottom: 2,
+  marginLeft: 16,
+  height: 23,
   borderBottom: `2px solid ${isLight ? '#708390' : '#787A9B'}`,
   [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: 10,
+    marginTop: 16,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     marginTop: -1,
+    marginLeft: 6,
   },
+
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginTop: 1,
+    marginTop: 2,
+    marginLeft: 6,
   },
 }));
 
 const CircleAvatarExtended = styled(CircleAvatar)<WithIsLight>(({ isLight }) => ({
   boxShadow: isLight ? '2px 4px 7px rgba(26, 171, 155, 0.25)' : '2px 4px 7px rgba(26, 171, 155, 0.25)',
+  minWidth: 32,
+  minHeight: 32,
 }));
 
 const WrapperScopeLinks = styled.div<{ alignEnd: boolean }>(({ alignEnd }) => ({
   display: 'flex',
   flexDirection: 'column',
+
   justifyContent: alignEnd ? 'flex-end' : 'space-between',
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row',
     alignItems: 'center',
+    flex: 1,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    minHeight: 82,
+    paddingBottom: 'revert',
+    flex: 1.5,
   },
 }));
 
@@ -295,25 +358,26 @@ const ScopeSection = styled.div({
   gap: 8,
   justifyContent: 'center',
   marginBottom: 8,
-
   [lightTheme.breakpoints.up('table_834')]: {
     alignItems: 'flex-start',
+    marginBottom: 0,
+    gap: 10,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     flexDirection: 'column',
     alignItems: 'flex-start',
-    width: 150,
+    minWidth: 150,
+    height: 82,
     gap: 4,
-    marginRight: 52,
     marginBottom: 0,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginRight: 70,
+    marginLeft: 6,
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: 220,
-    marginRight: 58,
+    minWidth: 150,
+    marginLeft: 0,
     flexDirection: 'column',
     gap: 4,
   },
@@ -322,19 +386,22 @@ const ScopeSection = styled.div({
 const SocialIconsSection = styled.div({
   display: 'flex',
   position: 'relative',
-
   flexDirection: 'row',
   justifyContent: 'center',
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: -6,
+    marginTop: -2,
+    paddingRight: 16,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     flexDirection: 'row',
-    width: 320,
+
+    width: 'fit-content',
     marginTop: -1,
+
     justifyContent: 'flex-end',
+    paddingRight: 16,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     flexDirection: 'row',
@@ -350,3 +417,138 @@ export const SocialMediaComponentStyled = styled(SocialMediaComponent)<WithIsLig
     },
   },
 }));
+
+const ContainerLinkColum = styled.div({
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'flex',
+    flexDirection: 'row',
+
+    flex: 1,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    display: 'flex',
+    flex: 1,
+  },
+});
+
+const LinkColum = styled.a({
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'flex',
+    paddingLeft: 16,
+    paddingRight: 16,
+    flex: 1,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    display: 'flex',
+    padding: 16,
+    flex: 1,
+  },
+});
+
+const LineLink = styled.a({});
+
+const ContainerLastModifiedDesk = styled.div({
+  display: 'none',
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    marginTop: -1,
+    marginLeft: -22,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    display: 'flex',
+    marginLeft: -14,
+  },
+});
+
+const ContainerScopeLastModified = styled.div({
+  marginTop: 0,
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    display: 'flex',
+
+    flexDirection: 'row',
+    gap: 32,
+    marginLeft: -30,
+    marginTop: -1,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    gap: 38,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    gap: 40,
+    marginLeft: 42,
+    paddingTop: 2,
+  },
+});
+
+const ContainerLastModifiedMobileTable = styled.div({
+  width: '100%',
+  marginTop: 16,
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 10,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    display: 'none',
+  },
+});
+
+const WrapperCategoryScopeMobile = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  marginBottom: 15,
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'none',
+  },
+});
+
+const WrapperCategoryScopeMobileInside = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
+
+const ContainerScopeMobile = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 4,
+  justifyContent: 'flex-end',
+  alignItems: 'end',
+  paddingRight: 16,
+});
+const WrapperHiddenOnlyMobileCategory = styled.div({
+  display: 'none',
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'flex',
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    marginRight: 12,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    marginRight: 0,
+    marginLeft: 36,
+  },
+});
+
+const WrapperHiddenOnlyMobileScope = styled.div({
+  display: 'none',
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'flex',
+
+    alignItems: 'center',
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    display: 'flex',
+    flex: 1,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    paddingLeft: 0,
+  },
+});
+
+const LinkSpace = styled.div({
+  display: 'flex',
+  flex: 1,
+});

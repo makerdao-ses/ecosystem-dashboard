@@ -13,6 +13,13 @@ export const getAllActors = (teamType: ResourceType) => ({
         shortCode
         name
         type
+        lastActivity {
+          created_at
+          description
+          event
+          id
+          params
+        }
         paragraphDescription
         sentenceDescription
         category
