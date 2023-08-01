@@ -132,16 +132,16 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight & { hasS
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
 
-  ':hover': {
-    background: isLight ? '#ECF1F3' : '#1E2C37',
-  },
-
   [lightTheme.breakpoints.up('table_834')]: {
     padding: 0,
     flexDirection: 'column',
     maxHeight: 'revert',
     minHeight: 'revert',
     height: 161,
+
+    ':hover': {
+      background: isLight ? '#ECF1F3' : '#1E2C37',
+    },
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     height: 82,
