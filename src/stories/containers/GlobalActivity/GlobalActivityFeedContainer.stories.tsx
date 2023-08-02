@@ -49,7 +49,7 @@ const variantsArgs = [
         .withDescription('Increase Headcount Expense Forecast Lorem Ipsum test some text.')
         .withParams({
           coreUnit: {
-            shortCode: 'SES',
+            shortCode: 'CES',
           },
           month: '2022-09',
         })
@@ -70,10 +70,16 @@ const variantsArgs = [
         .withImage('https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/logo.png')
         .withShortCode('SES')
         .withName('Sustainable Ecosystem Scaling')
+
         .build(),
       new CoreUnitsBuilder()
         .withImage('https://makerdao-ses.github.io/ecosystem-dashboard/core-units/dux-001/dux_logo.png')
         .withShortCode('DUX')
+        .withName('Development & UX')
+        .build(),
+      new CoreUnitsBuilder()
+        .withImage('https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ces-001/ces_logo.png')
+        .withShortCode('CES')
         .withName('Development & UX')
         .build(),
     ],

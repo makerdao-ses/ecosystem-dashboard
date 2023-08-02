@@ -64,7 +64,7 @@ const GlobalActivityFeedContainer: React.FC<Props> = ({ teams, activityFeed }) =
             </Reset>
             <CoreUnitsSelect filtersVisible={filtersVisible}>
               <CustomMultiSelect
-                label="Core Unit"
+                label="Team"
                 activeItems={activeElements}
                 items={selectElements}
                 width={138}
@@ -75,7 +75,7 @@ const GlobalActivityFeedContainer: React.FC<Props> = ({ teams, activityFeed }) =
                 popupContainerWidth={360}
                 listItemWidth={330}
                 customAll={{
-                  content: 'All Core Units',
+                  content: 'All Teams',
                   id: 'all',
                   params: { isAll: true },
                   count: 0,
