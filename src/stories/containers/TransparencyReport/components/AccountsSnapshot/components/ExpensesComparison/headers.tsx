@@ -32,6 +32,8 @@ const NetExpenseTransactions = () => {
           'On-chain view offers valuable insights into on-chain dynamics, but excludes external (off-chain) transactions.'
         }
         placement="bottom-start"
+        enterTouchDelay={0}
+        leaveTouchDelay={15000}
       >
         <InfoWrapper>
           <Information />
@@ -104,6 +106,8 @@ export const EXPENSES_COMPARISON_TABLE_HEADER = [
                 'On-chain view offers valuable insights into on-chain dynamics, but excludes external (off-chain) transactions.'
               }
               placement="bottom-start"
+              enterTouchDelay={0}
+              leaveTouchDelay={15000}
             >
               <InfoWrapper>
                 <Information />
@@ -139,6 +143,8 @@ export const EXPENSES_COMPARISON_TABLE_HEADER = [
             <SESTooltip
               content={'Enhance financial tracking and expense analysis by including off-chain transactions.'}
               placement="bottom-start"
+              enterTouchDelay={0}
+              leaveTouchDelay={15000}
             >
               <InfoWrapper>
                 <Information />

@@ -24,7 +24,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, tooltip,
         </Title>
         {tooltip && (
           <TooltipWrapper>
-            <SESTooltip content={tooltip} placement="bottom-start">
+            <SESTooltip content={tooltip} placement="bottom-start" enterTouchDelay={0} leaveTouchDelay={15000}>
               <IconWrapper>
                 <Information />
               </IconWrapper>
