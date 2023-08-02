@@ -36,7 +36,7 @@ const globalActivityTableArgs = {
           month: '2023-01',
         },
       },
-      coreUnit: {
+      team: {
         name: 'Sustainable Ecosystem Scaling',
         shortCode: 'SES',
         image: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/logo.png',
@@ -57,7 +57,7 @@ const globalActivityTableArgs = {
           month: '2023-01',
         },
       },
-      coreUnit: {
+      team: {
         name: 'Collateral Engineering Services',
         shortCode: 'CES',
         image: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ces-001/ces_logo.png',
@@ -66,7 +66,7 @@ const globalActivityTableArgs = {
   ],
   columns: [
     {
-      header: 'Core Unit',
+      header: 'Teams',
       styles: {
         minWidth: 360,
         paddingLeft: 32,
@@ -100,7 +100,7 @@ const args = [
     ...globalActivityTableArgs,
     activityFeed: globalActivityTableArgs.activityFeed.map((activity) => ({
       ...activity,
-      coreUnit: null,
+      team: null,
     })),
     columns: [
       {

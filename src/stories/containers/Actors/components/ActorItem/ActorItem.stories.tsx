@@ -12,6 +12,7 @@ export default {
     chromatic: {
       viewports: [375, 834, 1194, 1440],
     },
+    date: new Date('2023-07-12T09:08:34.123'),
   },
 } as ComponentMeta<typeof ActorItem>;
 const variantsArgs = [

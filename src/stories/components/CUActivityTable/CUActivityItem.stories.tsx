@@ -33,7 +33,7 @@ const args = [
           month: '2023-01',
         },
       },
-      coreUnit: {
+      team: {
         name: 'Sustainable Ecosystem Scaling',
         shortCode: 'SES',
         image: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/logo.png',

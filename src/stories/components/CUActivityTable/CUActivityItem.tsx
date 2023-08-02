@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { siteRoutes } from '@ses/config/routes';
+import { ResourceType } from '@ses/core/models/interfaces/types';
 import { DateTime } from 'luxon';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -9,20 +10,21 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/buttonTypeEnum';
 import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 import { CustomButton } from '../CustomButton/CustomButton';
-import { getCorrectCodeFromActivity } from './utils/helpers';
+import { getCorrectCodeFromActivity, getResourceType } from './utils/helpers';
 import type { Activity } from './ActivityTable';
 
 interface CUActivityItemProps {
   activity: Activity;
   isNew: boolean;
 }
+
 export default function CUActivityItem({ activity, isNew }: CUActivityItemProps) {
   const activityCode = getCorrectCodeFromActivity(activity.activityFeed);
 
   const { isLight } = useThemeContext();
   const router = useRouter();
-  const isDelegate = useMemo(() => activity.activityFeed.event.startsWith('DELEGATES_BUDGET_STATEMENT'), [activity]);
-  const isGlobal = !!activity.coreUnit || isDelegate;
+  const resourceType = getResourceType(activity.activityFeed);
+  const isGlobal = !!activity.team || resourceType === ResourceType.Delegates;
 
   const dayDiffNow = useMemo(
     () => Math.abs(Math.ceil(DateTime.fromISO(activity.activityFeed.created_at).diffNow('days').days)),
@@ -31,26 +33,35 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
 
   const detailsUrl = useMemo(() => {
     let goToComments = false;
-    if (['CU_BUDGET_STATEMENT_COMMENT', 'DELEGATES_BUDGET_STATEMENT_COMMENT'].includes(activity.activityFeed.event)) {
+    if (
+      ['CU_BUDGET_STATEMENT_COMMENT', 'DELEGATES_BUDGET_STATEMENT_COMMENT', 'TEAM_BUDGET_STATEMENT_COMMENT'].includes(
+        activity.activityFeed.event
+      )
+    ) {
       goToComments = true;
     }
 
     const month = DateTime.fromFormat(activity.activityFeed.params?.month ?? '', 'y-M').toFormat('LLLy');
     let url = '';
-    if (activity.activityFeed.event.startsWith('DELEGATES')) {
+    if (resourceType === ResourceType.Delegates) {
       // it is a delegate
       url = `${siteRoutes.recognizedDelegateReport}?viewMonth=${month}`;
-    } else {
+    } else if (resourceType === ResourceType.CoreUnit) {
       // it is a core unit
       url = `${siteRoutes.coreUnitReports(activityCode?.shortCode ?? '')}?viewMonth=${month}`;
+    } else {
+      // it is an ecosystem actor
+      url = `${siteRoutes.ecosystemActorReports(activityCode?.shortCode ?? '')}?viewMonth=${month}`;
     }
 
     if (goToComments) {
       url += '&section=comments';
+    } else {
+      url += '&section=actuals';
     }
 
     return url;
-  }, [activity.activityFeed.event, activity.activityFeed.params.month, activityCode?.shortCode]);
+  }, [activity.activityFeed.event, activity.activityFeed.params?.month, activityCode?.shortCode, resourceType]);
 
   const goToDetails = () => {
     router.push(detailsUrl);
@@ -60,20 +71,9 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
     <Link href={detailsUrl} passHref>
       <ActivityItem isLight={isLight} isGlobal={isGlobal}>
         <FlexWrapper isGlobal={isGlobal}>
-          {activity.coreUnit ? (
-            <CoreUnit isGlobal={isGlobal}>
-              <CircleAvatar
-                width="32px"
-                height="32px"
-                image={activity?.coreUnit?.image}
-                name={activity?.coreUnit?.name || ''}
-              />
-              <CoreUnitCode isLight={isLight}>{activity?.coreUnit?.shortCode}</CoreUnitCode>
-              <CoreUnitName isLight={isLight}>{activity?.coreUnit?.name}</CoreUnitName>
-            </CoreUnit>
-          ) : (
-            isDelegate && (
-              <CoreUnit isGlobal={isGlobal}>
+          {isGlobal &&
+            (resourceType === ResourceType.Delegates ? (
+              <TeamData isGlobal={isGlobal}>
                 <CircleAvatar
                   width="32px"
                   height="32px"
@@ -83,9 +83,21 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
                 <CoreUnitName style={{ marginLeft: 16 }} isLight={isLight}>
                   Recognized Delegates
                 </CoreUnitName>
-              </CoreUnit>
-            )
-          )}
+              </TeamData>
+            ) : (
+              [ResourceType.CoreUnit, ResourceType.EcosystemActor].includes(resourceType) && (
+                <TeamData isGlobal={isGlobal}>
+                  <CircleAvatar
+                    width="32px"
+                    height="32px"
+                    image={activity?.team?.image}
+                    name={activity?.team?.name || ''}
+                  />
+                  <CoreUnitCode isLight={isLight}>{activity?.team?.shortCode}</CoreUnitCode>
+                  <CoreUnitName isLight={isLight}>{activity?.team?.name}</CoreUnitName>
+                </TeamData>
+              )
+            ))}
           <Timestamp isGlobal={isGlobal}>
             <UTCDate isLight={isLight} isGlobal={isGlobal}>
               {DateTime.fromISO(activity.activityFeed.created_at).setZone('UTC').toFormat('dd-LLL-y HH:mm ZZZZ')}
@@ -248,7 +260,7 @@ const ButtonContainer = styled.div<{ isGlobal: boolean }>(({ isGlobal }) => ({
   },
 }));
 
-const CoreUnit = styled.div<{ isGlobal: boolean }>(({ isGlobal }) => ({
+const TeamData = styled.div<{ isGlobal: boolean }>(({ isGlobal }) => ({
   display: 'flex',
   alignItems: 'center',
   minWidth: '327px',

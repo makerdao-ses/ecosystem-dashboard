@@ -1,3 +1,4 @@
+import { ResourceType } from '@ses/core/models/interfaces/types';
 import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
 
 export const getCorrectCodeFromActivity = (activityParams: ChangeTrackingEvent) => {
@@ -15,4 +16,16 @@ export const getCorrectCodeFromActivity = (activityParams: ChangeTrackingEvent) 
       shortCode: activityParams.params.coreUnit?.shortCode,
     };
   }
+};
+
+export const getResourceType = (changeTracking: ChangeTrackingEvent): ResourceType => {
+  if (changeTracking.params?.coreUnit) {
+    return changeTracking.params?.coreUnit?.shortCode === 'DEL' ? ResourceType.Delegates : ResourceType.CoreUnit;
+  }
+
+  if (changeTracking.params?.owner) {
+    return changeTracking.params?.owner?.type ?? ResourceType.EcosystemActor;
+  }
+
+  return ResourceType.CoreUnit;
 };
