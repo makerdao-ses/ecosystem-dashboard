@@ -28,7 +28,7 @@ export default {
 const variantsArgs = [
   {
     activityFeed: [],
-    coreUnits: [],
+    teams: [],
   },
   {
     activityFeed: [
@@ -65,7 +65,7 @@ const variantsArgs = [
         })
         .build(),
     ],
-    coreUnits: [
+    teams: [
       new CoreUnitsBuilder()
         .withImage('https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/logo.png')
         .withShortCode('SES')
