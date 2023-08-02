@@ -60,7 +60,7 @@ const Title = styled.h2<WithIsLight & { isSubsection: boolean }>(({ isLight, isS
 
 const IconWrapper = styled.div({
   width: 24,
-  height: 24,
+  height: 'fit-content',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',

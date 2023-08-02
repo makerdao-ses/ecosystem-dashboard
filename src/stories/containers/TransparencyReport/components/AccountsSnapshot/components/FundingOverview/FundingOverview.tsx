@@ -16,6 +16,7 @@ interface FundingOverviewProps {
   endDate?: string;
   balance?: SnapshotAccountBalance;
   transactionHistory: SnapshotAccountTransaction[];
+  sinceDate?: Date;
 
   // Only used for storybook
   defaultExpanded?: boolean;
@@ -26,6 +27,7 @@ const FundingOverview: React.FC<FundingOverviewProps> = ({
   snapshotOwner,
   startDate,
   endDate,
+  sinceDate,
   balance,
   transactionHistory,
   defaultExpanded = false,
@@ -37,9 +39,9 @@ const FundingOverview: React.FC<FundingOverviewProps> = ({
         subtitle={
           <>
             Totals funds made available {snapshotOwner ? `to the ${snapshotOwner}` : ''} over its entire lifetime
-            {startDate ? (
+            {sinceDate ? (
               <>
-                , since <b>{DateTime.fromISO(startDate).toFormat('LLLL yyyy')}</b>
+                , since <b>{DateTime.fromJSDate(sinceDate).toFormat('LLLL yyyy')}</b>
               </>
             ) : (
               ''

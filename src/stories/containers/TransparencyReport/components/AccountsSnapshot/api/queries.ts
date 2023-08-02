@@ -64,6 +64,19 @@ export const accountsSnapshotQuery = (filter: SnapshotFilter) => ({
   },
 });
 
+export const allAccountsSnapshotsForStartDateQuery = (filter: SnapshotFilter) => ({
+  query: gql`
+    query Snapshots($filter: SnapshotFilter) {
+      snapshots(filter: $filter) {
+        start
+      }
+    }
+  `,
+  filter: {
+    filter,
+  },
+});
+
 export const coreUnitShortCodeQuery = (id: string) => ({
   query: gql`
     query CoreUnits($filter: CoreUnitFilter) {
