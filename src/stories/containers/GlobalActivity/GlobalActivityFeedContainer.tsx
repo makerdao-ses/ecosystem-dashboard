@@ -18,14 +18,14 @@ import { ButtonFilter, SmallSeparator } from '../CUTable/cuTableFilters';
 import { useGlobalActivity } from './useGlobalActivity';
 import type { SelectItemProps } from '../../components/CustomMultiSelect/CustomMultiSelect';
 import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
-import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
+import type { Team } from '@ses/core/models/interfaces/team';
 
 interface Props {
-  coreUnits: CoreUnit[];
+  teams: Team[];
   activityFeed: ChangeTrackingEvent[];
 }
 
-const GlobalActivityFeedContainer: React.FC<Props> = ({ coreUnits, activityFeed }) => {
+const GlobalActivityFeedContainer: React.FC<Props> = ({ teams, activityFeed }) => {
   const { isLight } = useThemeContext();
   const {
     columns,
@@ -41,7 +41,7 @@ const GlobalActivityFeedContainer: React.FC<Props> = ({ coreUnits, activityFeed 
     handleSelectChange,
     filtersVisible,
     toggleFiltersVisible,
-  } = useGlobalActivity(coreUnits, activityFeed);
+  } = useGlobalActivity(teams, activityFeed);
 
   return (
     <Wrapper>

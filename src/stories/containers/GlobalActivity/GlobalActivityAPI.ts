@@ -1,7 +1,7 @@
 import { request, gql } from 'graphql-request';
 import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
 import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
-import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
+import type { Team } from '@ses/core/models/interfaces/team';
 
 export const getGlobalActivityFeedQuery = () => ({
   query: gql`
@@ -13,11 +13,12 @@ export const getGlobalActivityFeedQuery = () => ({
         id
         params
       }
-      coreUnits {
+      teams {
         id
         shortCode
         name
         image
+        type
       }
     }
   `,
@@ -28,7 +29,7 @@ export const getGlobalActivityFeedQuery = () => ({
 });
 
 interface GlobalActivityFeedResponse {
-  coreUnits: Partial<CoreUnit>[];
+  teams: Partial<Team>[];
   activityFeed: ChangeTrackingEvent[];
 }
 

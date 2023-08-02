@@ -7,9 +7,9 @@ import { SortEnum } from '../../../core/enums/sortEnum';
 import type { Activity, ActivityTableHeader } from '../../components/CUActivityTable/ActivityTable';
 import type { MultiSelectItem } from '../../components/CustomMultiSelect/CustomMultiSelect';
 import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
-import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
+import type { Team } from '@ses/core/models/interfaces/team';
 
-export const useGlobalActivity = (coreUnits: CoreUnit[], activityFeed: ChangeTrackingEvent[]) => {
+export const useGlobalActivity = (teams: Team[], activityFeed: ChangeTrackingEvent[]) => {
   const [searchText, setSearchText] = useState('');
   const [activeElements, setActiveElements] = useState<string[]>([]);
   const [filtersVisible, setFiltersVisible] = useState(false);
@@ -61,22 +61,22 @@ export const useGlobalActivity = (coreUnits: CoreUnit[], activityFeed: ChangeTra
 
   const selectElements = useMemo(
     () =>
-      sortBy(coreUnits, (cu) => cu.name).map((coreUnits) => ({
-        id: coreUnits.shortCode,
-        content: coreUnits.name,
+      sortBy(teams, (team) => team.name).map((team) => ({
+        id: team.shortCode,
+        content: team.name,
         params: {
-          url: coreUnits.image,
-          code: coreUnits.shortCode,
+          url: team.image,
+          code: team.shortCode,
         },
       })) as MultiSelectItem[],
-    [coreUnits]
+    [teams]
   );
 
-  const coreUnitsMap = useMemo(() => {
-    const map = new Map<string, CoreUnit>();
-    coreUnits.forEach((cu) => map.set(cu.shortCode, cu));
+  const teamMap = useMemo(() => {
+    const map = new Map<string, Team>();
+    teams.forEach((team) => map.set(team.shortCode, team));
     return map;
-  }, [coreUnits]);
+  }, [teams]);
 
   const extendedActivityFeed = useMemo(
     () =>
@@ -86,18 +86,18 @@ export const useGlobalActivity = (coreUnits: CoreUnit[], activityFeed: ChangeTra
             (activity) =>
               ({
                 activityFeed: activity,
-                coreUnit: coreUnitsMap.get(getCorrectCodeFromActivity(activity).shortCode ?? ''),
+                team: teamMap.get(getCorrectCodeFromActivity(activity).shortCode ?? ''),
               } as Activity)
           )
           .filter(
             (activity) =>
-              (!activeElements.length || activeElements.includes(activity.coreUnit?.shortCode || '')) &&
+              (!activeElements.length || activeElements.includes(activity.team?.shortCode || '')) &&
               (!searchText || activity.activityFeed.description.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
           ),
         // sort by:
         (activity) => DateTime.fromISO(activity.activityFeed.created_at)
       ),
-    [activeElements, activityFeed, coreUnitsMap, searchText]
+    [activeElements, activityFeed, searchText, teamMap]
   );
 
   return {
