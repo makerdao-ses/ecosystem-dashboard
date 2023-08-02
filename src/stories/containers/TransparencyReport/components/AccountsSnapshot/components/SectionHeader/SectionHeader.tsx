@@ -66,7 +66,6 @@ const TooltipWrapper = styled.div({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  marginLeft: 8,
 });
 
 const IconWrapper = styled.div({
