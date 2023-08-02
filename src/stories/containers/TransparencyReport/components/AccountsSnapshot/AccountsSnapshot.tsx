@@ -9,9 +9,10 @@ import type { Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';
 interface AccountsSnapshotProps {
   snapshot: Snapshots;
   snapshotOwner?: string;
+  sinceDate?: Date;
 }
 
-const AccountsSnapshot: React.FC<AccountsSnapshotProps> = ({ snapshot, snapshotOwner }) => {
+const AccountsSnapshot: React.FC<AccountsSnapshotProps> = ({ snapshot, snapshotOwner, sinceDate }) => {
   const {
     enableCurrencyPicker,
     expensesComparisonRows,
@@ -37,6 +38,7 @@ const AccountsSnapshot: React.FC<AccountsSnapshotProps> = ({ snapshot, snapshotO
         endDate={endDate}
         balance={mainBalance}
         transactionHistory={transactionHistory}
+        sinceDate={sinceDate}
       />
       <CUReserves
         snapshotOwner={snapshotOwner}

@@ -23,11 +23,13 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, tooltip,
           {title}
         </Title>
         {tooltip && (
-          <SESTooltip content={tooltip} placement="bottom-start">
-            <IconWrapper>
-              <Information />
-            </IconWrapper>
-          </SESTooltip>
+          <TooltipWrapper>
+            <SESTooltip content={tooltip} placement="bottom-start">
+              <IconWrapper>
+                <Information />
+              </IconWrapper>
+            </SESTooltip>
+          </TooltipWrapper>
         )}
       </TitleWrapper>
       <Subtitle isLight={isLight}>{subtitle}</Subtitle>
@@ -58,9 +60,18 @@ const Title = styled.h2<WithIsLight & { isSubsection: boolean }>(({ isLight, isS
   margin: 0,
 }));
 
-const IconWrapper = styled.div({
+const TooltipWrapper = styled.div({
   width: 24,
   height: 24,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginLeft: 4,
+});
+
+const IconWrapper = styled.div({
+  width: 'fit-content',
+  height: 'fit-content',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',

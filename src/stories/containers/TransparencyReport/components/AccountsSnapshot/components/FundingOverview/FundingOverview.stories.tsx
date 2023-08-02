@@ -18,6 +18,7 @@ const CommonArgs = {
   snapshotOwner: 'SES Core Unit',
   startDate: '2023-05-12T22:52:54.494Z',
   endDate: '2023-06-14T22:52:54.494Z',
+  sinceDate: new Date('2023-05-12T22:52:54.494Z'),
   balance: {
     initialBalance: 3685648,
     newBalance: -3743328,
