@@ -10,27 +10,13 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/buttonTypeEnum';
 import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 import { CustomButton } from '../CustomButton/CustomButton';
-import { getCorrectCodeFromActivity } from './utils/helpers';
+import { getCorrectCodeFromActivity, getResourceType } from './utils/helpers';
 import type { Activity } from './ActivityTable';
-import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
 
 interface CUActivityItemProps {
   activity: Activity;
   isNew: boolean;
 }
-
-// TODO: move to a utility file
-export const getResourceType = (changeTracking: ChangeTrackingEvent): ResourceType => {
-  if (changeTracking.params?.coreUnit) {
-    return changeTracking.params?.coreUnit?.shortCode === 'DEL' ? ResourceType.Delegates : ResourceType.CoreUnit;
-  }
-
-  if (changeTracking.params?.owner) {
-    return changeTracking.params?.owner?.type ?? ResourceType.EcosystemActor;
-  }
-
-  return ResourceType.CoreUnit;
-};
 
 export default function CUActivityItem({ activity, isNew }: CUActivityItemProps) {
   const activityCode = getCorrectCodeFromActivity(activity.activityFeed);
@@ -87,8 +73,7 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
         <FlexWrapper isGlobal={isGlobal}>
           {isGlobal &&
             (resourceType === ResourceType.Delegates ? (
-              // TODO: rename styled components to TeamXXX
-              <CoreUnit isGlobal={isGlobal}>
+              <TeamData isGlobal={isGlobal}>
                 <CircleAvatar
                   width="32px"
                   height="32px"
@@ -98,10 +83,10 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
                 <CoreUnitName style={{ marginLeft: 16 }} isLight={isLight}>
                   Recognized Delegates
                 </CoreUnitName>
-              </CoreUnit>
+              </TeamData>
             ) : (
               [ResourceType.CoreUnit, ResourceType.EcosystemActor].includes(resourceType) && (
-                <CoreUnit isGlobal={isGlobal}>
+                <TeamData isGlobal={isGlobal}>
                   <CircleAvatar
                     width="32px"
                     height="32px"
@@ -110,7 +95,7 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
                   />
                   <CoreUnitCode isLight={isLight}>{activity?.team?.shortCode}</CoreUnitCode>
                   <CoreUnitName isLight={isLight}>{activity?.team?.name}</CoreUnitName>
-                </CoreUnit>
+                </TeamData>
               )
             ))}
           <Timestamp isGlobal={isGlobal}>
@@ -275,7 +260,7 @@ const ButtonContainer = styled.div<{ isGlobal: boolean }>(({ isGlobal }) => ({
   },
 }));
 
-const CoreUnit = styled.div<{ isGlobal: boolean }>(({ isGlobal }) => ({
+const TeamData = styled.div<{ isGlobal: boolean }>(({ isGlobal }) => ({
   display: 'flex',
   alignItems: 'center',
   minWidth: '327px',
