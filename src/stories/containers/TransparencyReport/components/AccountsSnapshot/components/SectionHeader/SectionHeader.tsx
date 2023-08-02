@@ -66,10 +66,11 @@ const TooltipWrapper = styled.div({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  marginLeft: 4,
 });
 
 const IconWrapper = styled.div({
-  width: 24,
+  width: 'fit-content',
   height: 'fit-content',
   display: 'flex',
   alignItems: 'center',
