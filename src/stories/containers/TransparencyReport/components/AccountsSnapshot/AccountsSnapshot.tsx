@@ -5,14 +5,16 @@ import ExpensesComparison from './components/ExpensesComparison/ExpensesComparis
 import FundingOverview from './components/FundingOverview/FundingOverview';
 import useAccountsSnapshot from './useAccountsSnapshot';
 import type { Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';
+import type { ResourceType } from '@ses/core/models/interfaces/types';
 
 interface AccountsSnapshotProps {
   snapshot: Snapshots;
   snapshotOwner?: string;
   sinceDate?: Date;
+  resourceType?: ResourceType;
 }
 
-const AccountsSnapshot: React.FC<AccountsSnapshotProps> = ({ snapshot, snapshotOwner, sinceDate }) => {
+const AccountsSnapshot: React.FC<AccountsSnapshotProps> = ({ snapshot, snapshotOwner, sinceDate, resourceType }) => {
   const {
     enableCurrencyPicker,
     expensesComparisonRows,
@@ -39,6 +41,7 @@ const AccountsSnapshot: React.FC<AccountsSnapshotProps> = ({ snapshot, snapshotO
         balance={mainBalance}
         transactionHistory={transactionHistory}
         sinceDate={sinceDate}
+        resourceType={resourceType}
       />
       <CUReserves
         snapshotOwner={snapshotOwner}
