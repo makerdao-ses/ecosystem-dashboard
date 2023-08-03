@@ -21,11 +21,11 @@ export const ActivityPlaceholder = (props: { hasFilter: boolean; clearAction?: (
       <ImageWrapper>
         <Image src={isLight ? PlaceholderImg : PlaceholderImgDark} alt="There are no elements" layout="fill" />
       </ImageWrapper>
-      <Title isLight={isLight}>{props.hasFilter ? 'No activity found' : 'No Core Unit Activity Yet'}</Title>
+      <Title isLight={isLight}>{props.hasFilter ? 'No activity found' : 'No Teams Activity Yet'}</Title>
       <Description isLight={isLight}>
         {props.hasFilter
           ? 'There are no activities that match your search criteria'
-          : 'The activity feed for this core unit is still empty for now. Check back later to see the data once it is submitted.'}
+          : 'The activity feed for this team is still empty for now. Check back later to see the data once it is submitted.'}
       </Description>
       <ButtonsWrapper>
         {!props.hasFilter && (
@@ -38,7 +38,7 @@ export const ActivityPlaceholder = (props: { hasFilter: boolean; clearAction?: (
         )}
         <CustomButton
           style={{ minWidth: '250px' }}
-          label="View Active Core Units"
+          label="View Active Teams"
           buttonType={ButtonType.Primary}
           onClick={props.clearAction}
         />

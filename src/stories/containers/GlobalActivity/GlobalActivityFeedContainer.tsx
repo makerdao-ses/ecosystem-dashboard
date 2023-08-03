@@ -120,8 +120,8 @@ const GlobalActivityFeedContainer: React.FC<Props> = ({ teams, activityFeed }) =
           </TableWrapper>
           <Title isLight={isLight}>Additional Notes</Title>
           <Paragraph isLight={isLight}>
-            Change tracking displays all changes that have occurred regarding all Core Unit activity. Here you will be
-            able to see all previous modifications the Core Units made to its Expense Reports, FTEs, and more
+            Change tracking displays all changes that have occurred regarding all Team activity. Here you will be able
+            to see all previous modifications the Team made to its Expense Reports, FTEs, and more
           </Paragraph>
         </Container>
       </PageWrapper>

@@ -74,7 +74,7 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
           {isGlobal &&
             (resourceType === ResourceType.Delegates ? (
               <TeamData isGlobal={isGlobal}>
-                <CircleAvatar
+                <CircleAvatarExtended
                   width="32px"
                   height="32px"
                   image={'/assets/img/mk-logo.png'}
@@ -87,7 +87,7 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
             ) : (
               [ResourceType.CoreUnit, ResourceType.EcosystemActor].includes(resourceType) && (
                 <TeamData isGlobal={isGlobal}>
-                  <CircleAvatar
+                  <CircleAvatarExtended
                     width="32px"
                     height="32px"
                     image={activity?.team?.image}
@@ -313,3 +313,8 @@ const FlexWrapper = styled.div<{ isGlobal: boolean }>(({ isGlobal }) => ({
     marginBottom: 0,
   },
 }));
+
+const CircleAvatarExtended = styled(CircleAvatar)({
+  minWidth: 32,
+  minHeight: 32,
+});
