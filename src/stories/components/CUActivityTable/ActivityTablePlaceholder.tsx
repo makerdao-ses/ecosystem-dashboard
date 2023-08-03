@@ -25,7 +25,7 @@ export const ActivityPlaceholder = (props: { hasFilter: boolean; clearAction?: (
       <Description isLight={isLight}>
         {props.hasFilter
           ? 'There are no activities that match your search criteria'
-          : 'The activity feed for this core unit is still empty for now. Check back later to see the data once it is submitted.'}
+          : 'The activity feed for this team is still empty for now. Check back later to see the data once it is submitted.'}
       </Description>
       <ButtonsWrapper>
         {!props.hasFilter && (
