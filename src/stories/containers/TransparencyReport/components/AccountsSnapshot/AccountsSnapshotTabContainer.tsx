@@ -29,7 +29,7 @@ const AccountsSnapshotTabContainer: React.FC<AccountsSnapshotTabContainerProps> 
   return isLoading ? (
     <AccountsSnapshotSkeleton />
   ) : snapshot ? (
-    <AccountsSnapshot snapshot={snapshot} snapshotOwner={snapshotOwner} sinceDate={sinceDate} />
+    <AccountsSnapshot snapshot={snapshot} snapshotOwner={snapshotOwner} sinceDate={sinceDate} resourceType={resource} />
   ) : (
     <Box sx={{ mb: '64px' }}>
       <TransparencyEmptyTable longCode={longCode} shortCode={shortCode} resource={resource} />

@@ -1,6 +1,7 @@
 import { PermissionsEnum } from '../enums/permissionsEnum';
 import { RoleEnum } from '../enums/roleEnum';
 import { BudgetStatus } from '../models/dto/coreUnitDTO';
+import { ResourceType } from '../models/interfaces/types';
 import type { UserDTO, UserRole } from '../models/dto/authDTO';
 import type { BudgetStatementComment } from '../models/interfaces/budgetStatementComment';
 import type { BudgetStatementWallet } from '../models/interfaces/budgetStatementWallet';
@@ -174,11 +175,23 @@ export const formatAddressForOutputDelegateWallet = (address: string | undefined
   return `${address.slice(0, 7)}...${address.slice(address.length - 4, address.length)}`;
 };
 
-// TODO: Remove after backend is ready "budget": "makerdao/delegates/makerdao/delegates/StableNode",
 export const getNameDelegates = (format: string) => {
   if (!format) return 'No name';
   const words = format.split('/');
   const lastWord = words[words.length - 1];
   const fullName = lastWord.replace('\\', '');
   return fullName;
+};
+
+export const getResourceLabel = (resourceType?: ResourceType): string => {
+  switch (resourceType) {
+    case ResourceType.AlignedDelegates:
+      return 'Aligned Delegate';
+    case ResourceType.CoreUnit:
+      return 'Core Unit';
+    case ResourceType.Delegates:
+      return 'Delegate';
+    default:
+      return 'Ecosystem Actor';
+  }
 };
