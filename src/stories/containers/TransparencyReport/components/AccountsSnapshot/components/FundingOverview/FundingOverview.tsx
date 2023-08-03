@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { getResourceLabel } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
 import React from 'react';
@@ -8,6 +9,7 @@ import CurrencyPicker from '../CurrencyPicker/CurrencyPicker';
 import SectionHeader from '../SectionHeader/SectionHeader';
 import TransactionHistory from '../TransactionHistory/TransactionHistory';
 import type { SnapshotAccountBalance, SnapshotAccountTransaction } from '@ses/core/models/dto/snapshotAccountDTO';
+import type { ResourceType } from '@ses/core/models/interfaces/types';
 
 interface FundingOverviewProps {
   enableCurrencyPicker?: boolean;
@@ -17,6 +19,7 @@ interface FundingOverviewProps {
   balance?: SnapshotAccountBalance;
   transactionHistory: SnapshotAccountTransaction[];
   sinceDate?: Date;
+  resourceType?: ResourceType;
 
   // Only used for storybook
   defaultExpanded?: boolean;
@@ -30,6 +33,7 @@ const FundingOverview: React.FC<FundingOverviewProps> = ({
   sinceDate,
   balance,
   transactionHistory,
+  resourceType,
   defaultExpanded = false,
 }) => (
   <div>
@@ -49,10 +53,9 @@ const FundingOverview: React.FC<FundingOverviewProps> = ({
             .
           </>
         }
-        tooltip={
-          'Monitor funds made available to Core Units, track spending, returns, and reserves, differentiate internal/external \
-          transactions, and gain insights into changes in MakerDAO’s Lifetime Balances.'
-        }
+        tooltip={`Monitor funds made available to ${getResourceLabel(resourceType)}s, track spending, returns, \
+        and reserves, differentiate internal/external transactions, and gain insights into changes in MakerDAO's\
+        Lifetime Balances.`}
       />
       {enableCurrencyPicker && <CurrencyPicker />}
     </HeaderContainer>
