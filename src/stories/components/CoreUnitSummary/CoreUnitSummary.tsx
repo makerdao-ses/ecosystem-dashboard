@@ -169,7 +169,7 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
             <>
               <TitleNavigationCuAbout coreUnitAbout={cu} hiddenTextDescription={hiddenTextDescription} />
 
-              <SummaryDescription hiddenTextDescription={lessThanPhone || phone || hiddenTextDescription}>
+              <SummaryDescription>
                 <TypographyDescription isLight={isLight}>{cu?.sentenceDescription || ''}</TypographyDescription>
               </SummaryDescription>
             </>
@@ -253,12 +253,7 @@ const Wrapper = styled.div({
   },
 });
 
-const SummaryDescription = styled.div<{ hiddenTextDescription: boolean }>(({ hiddenTextDescription }) => ({
-  opacity: hiddenTextDescription ? 1 : 0,
-  height: hiddenTextDescription ? 'auto' : 0,
-  transition: 'all 0.3s ease',
-  overflow: 'hidden',
-}));
+const SummaryDescription = styled.div({});
 
 const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
   isLight: boolean;
