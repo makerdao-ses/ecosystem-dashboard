@@ -146,6 +146,7 @@ const ContainerAllData = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
+  zIndex: -1,
 });
 
 const WrapperCardSomethingWrongMobile = styled.div({
