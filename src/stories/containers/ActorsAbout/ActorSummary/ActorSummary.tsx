@@ -83,7 +83,7 @@ const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcru
   );
 
   return (
-    <MainContainer ref={ref} isLight={isLight}>
+    <MainContainer ref={ref} isLight={isLight} hiddenTextDescription={showTextDescription}>
       <BreadCrumbNavigation
         descriptionTextPagination="Ecosystem Actors"
         itemActual={page}
@@ -100,29 +100,36 @@ const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcru
         trailingAddress={trailingAddress}
         router={router}
       />
-
-      <ActorTitleWithDescription actorAbout={actorAbout} showTextDescription={showTextDescription} />
-
+      {showTextDescription && (
+        <ActorTitleWithDescription actorAbout={actorAbout} showTextDescription={showTextDescription} />
+      )}
       <ContainerResponsiveMobile showTextDescription={showTextDescription} isLight={isLight} />
     </MainContainer>
   );
 };
 
 export default ActorSummary;
-const MainContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  position: 'sticky',
-  top: 64,
-  width: '100%',
-  background: isLight ? '#FFFFFF' : '#25273D',
-  backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
-  backgroundSize: 'cover',
-  zIndex: 3,
-}));
+const MainContainer = styled.div<{ isLight: boolean; hiddenTextDescription: boolean }>(
+  ({ isLight, hiddenTextDescription }) => ({
+    position: 'sticky',
+    top: 64,
+    width: '100%',
+    background: isLight ? '#FFFFFF' : '#25273D',
+    backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
+    backgroundSize: 'cover',
+    zIndex: 3,
+    height: !hiddenTextDescription ? 74 : 'fit-content',
+
+    [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+      borderBottom: !hiddenTextDescription ? (isLight ? '1px solid #B6EDE7' : '1px solid #027265') : 'none',
+    },
+  })
+);
 
 const ContainerResponsiveMobile = styled.div<{ isLight: boolean; showTextDescription: boolean }>(
   ({ isLight, showTextDescription }) => ({
     position: 'relative',
-    borderBottom: isLight ? '1px solid #B6EDE7' : '1px solid #027265',
+    borderBottom: showTextDescription ? (isLight ? '1px solid #B6EDE7' : '1px solid #027265') : 'none',
     width: '100%',
     marginTop: showTextDescription ? '24px' : 0,
 

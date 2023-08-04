@@ -4,7 +4,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import lightTheme from '@ses/styles/theme/light';
 import _ from 'lodash';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import CustomBreadcrumbs from '../Breadcrumbs/CustomBreadcrumbs/CustomBreadcrumbs';
 import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 import { CuTableColumnLinks } from '../CuTableColumnLinks/CuTableColumnLinks';
@@ -19,18 +19,22 @@ interface Props {
     url: string;
   }[];
 }
-const scrollMargin = 20;
+
 const DelegateSummary: React.FC<Props> = ({ code = 'del', links, items }) => {
   const { isLight } = useThemeContext();
   const isUp1280 = useMediaQuery(lightTheme.breakpoints.up('table_834'));
   const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
-  const [showIcons, setShowIcons] = useState(true);
-  const [positionScroll, setPositionScroll] = useState(0);
 
-  const handleScroll = () => {
-    const position = window.pageYOffset || document.documentElement.scrollTop;
-    setPositionScroll(position);
-  };
+  const ref = useRef<HTMLDivElement>(null);
+  const [showHeader, setHeader] = useState(true);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleScroll = useCallback(
+    _.debounce(() => {
+      setHeader((ref?.current?.offsetTop ?? 0) <= 65);
+    }, 50),
+    []
+  );
   useEffect(() => {
     handleScroll();
     window.addEventListener('scroll', _.debounce(handleScroll, 50));
@@ -40,83 +44,78 @@ const DelegateSummary: React.FC<Props> = ({ code = 'del', links, items }) => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('touchmove', handleScroll);
     };
-  }, []);
+  }, [handleScroll]);
 
-  useEffect(() => {
-    if (positionScroll > scrollMargin) {
-      setShowIcons(false);
-    } else {
-      setShowIcons(true);
-    }
-  }, [positionScroll]);
   return (
-    <ContainerWithBreadcrumb isLight={isLight} showIcons={showIcons}>
+    <ContainerWithBreadcrumb isLight={isLight} ref={ref} showTextDescription={showHeader}>
       <BreadcrumbsContainer>
         <CustomBreadcrumbs isLight={isLight} items={items} />
       </BreadcrumbsContainer>
-      <Container>
-        <ContainerRow>
-          <CircleContainer>
-            <CircleAvatar
-              style={{
-                filter: isLight
-                  ? 'filter: drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))'
-                  : 'filter: drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))',
-              }}
-              width={isUp1280 ? '68px' : '32px'}
-              height={isUp1280 ? '68px' : '32px'}
-              name="mk-logo"
-              border="none"
-              image="/assets/img/mk-logo.png"
-            />
-          </CircleContainer>
-          <ContainerDescription>
-            <ContainerColumnMobile>
-              <ContainerText>
-                <Code isLight={isLight}>{code.toUpperCase()}</Code>
-                <Text isLight={isLight}>Recognized Delegates</Text>
-              </ContainerText>
-              <ContainerLink>
-                <CustomLink
-                  children="Onchain transactions"
-                  fontSize={11}
-                  fontWeight={400}
-                  href="https://makerburn.com/#/expenses/core-units/DELEGATES"
-                  style={{
-                    fontFamily: 'Inter, sans serif',
-                    color: '#447AFB',
-                    fontStyle: 'normal',
-                    marginLeft: '0px',
-                    letterSpacing: '0px',
-                  }}
-                  marginLeft="5px"
-                  withArrow
-                  iconHeight={6}
-                  iconWidth={6}
-                />
-              </ContainerLink>
-            </ContainerColumnMobile>
-            {isMobile && showIcons && (
-              <ContainerLinks>
-                <CuTableColumnLinks links={links} align="flex-start" />
-              </ContainerLinks>
-            )}
-            {!isMobile && (
-              <ContainerLinks>
-                <CuTableColumnLinks links={links} align="flex-start" />
-              </ContainerLinks>
-            )}
-          </ContainerDescription>
-        </ContainerRow>
-      </Container>
+      {showHeader && (
+        <Container>
+          <ContainerRow>
+            <CircleContainer>
+              <CircleAvatar
+                style={{
+                  filter: isLight
+                    ? 'filter: drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))'
+                    : 'filter: drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))',
+                }}
+                width={isUp1280 ? '68px' : '32px'}
+                height={isUp1280 ? '68px' : '32px'}
+                name="mk-logo"
+                border="none"
+                image="/assets/img/mk-logo.png"
+              />
+            </CircleContainer>
+            <ContainerDescription>
+              <ContainerColumnMobile>
+                <ContainerText>
+                  <Code isLight={isLight}>{code.toUpperCase()}</Code>
+                  <Text isLight={isLight}>Recognized Delegates</Text>
+                </ContainerText>
+                <ContainerLink>
+                  <CustomLink
+                    children="Onchain transactions"
+                    fontSize={11}
+                    fontWeight={400}
+                    href="https://makerburn.com/#/expenses/core-units/DELEGATES"
+                    style={{
+                      fontFamily: 'Inter, sans serif',
+                      color: '#447AFB',
+                      fontStyle: 'normal',
+                      marginLeft: '0px',
+                      letterSpacing: '0px',
+                    }}
+                    marginLeft="5px"
+                    withArrow
+                    iconHeight={6}
+                    iconWidth={6}
+                  />
+                </ContainerLink>
+              </ContainerColumnMobile>
+              {isMobile && (
+                <ContainerLinks>
+                  <CuTableColumnLinks links={links} align="flex-start" />
+                </ContainerLinks>
+              )}
+              {!isMobile && (
+                <ContainerLinks>
+                  <CuTableColumnLinks links={links} align="flex-start" />
+                </ContainerLinks>
+              )}
+            </ContainerDescription>
+          </ContainerRow>
+        </Container>
+      )}
     </ContainerWithBreadcrumb>
   );
 };
 
 export default DelegateSummary;
 
-const ContainerWithBreadcrumb = styled.div<{ isLight: boolean; showIcons?: boolean; isMobile?: boolean }>(
-  ({ isLight, showIcons }) => ({
+const ContainerWithBreadcrumb = styled.div<{ isLight: boolean; showIcons?: boolean; showTextDescription?: boolean }>(
+  ({ isLight, showTextDescription }) => ({
     position: 'sticky',
     top: 64,
     flexDirection: 'column',
@@ -126,11 +125,13 @@ const ContainerWithBreadcrumb = styled.div<{ isLight: boolean; showIcons?: boole
     backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
     backgroundSize: 'cover',
     zIndex: zIndexEnum.DELEGATE_SUMMARY,
-    borderBottom: '1px solid #B6EDE7',
-    paddingBottom: showIcons ? 16 : undefined,
+    borderBottom: `1px solid ${isLight ? '#B6EDE7' : '#027265'}`,
+
+    paddingBottom: showTextDescription ? 16 : undefined,
 
     [lightTheme.breakpoints.up('table_834')]: {
-      paddingBottom: 22,
+      paddingBottom: showTextDescription ? 22 : 0,
+      borderBottom: showTextDescription ? (isLight ? '1px solid #B6EDE7' : '1px solid #027265') : 'none',
     },
   })
 );

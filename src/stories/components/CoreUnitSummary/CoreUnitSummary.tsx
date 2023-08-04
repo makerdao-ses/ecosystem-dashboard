@@ -97,7 +97,7 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
   );
 
   return (
-    <Container ref={ref} isLight={isLight}>
+    <Container ref={ref} isLight={isLight} hiddenTextDescription={hiddenTextDescription}>
       {!(phone || lessThanPhone) && (
         <NavigationHeader className="no-select" isLight={isLight}>
           <Breadcrumbs
@@ -164,31 +164,37 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
           </div>
         </div>
       )}
-
       <Wrapper>
         <ContainerTitle hiddenTextDescription={hiddenTextDescription}>
-          <TitleNavigationCuAbout coreUnitAbout={cu} hiddenTextDescription={hiddenTextDescription} />
-          {showDescription && (
+          {hiddenTextDescription && (
+            <TitleNavigationCuAbout coreUnitAbout={cu} hiddenTextDescription={hiddenTextDescription} />
+          )}
+          {showDescription && hiddenTextDescription && (
             <SummaryDescription hiddenTextDescription={lessThanPhone || phone || hiddenTextDescription}>
               <TypographyDescription isLight={isLight}>{cu?.sentenceDescription || ''}</TypographyDescription>
             </SummaryDescription>
           )}
         </ContainerTitle>
       </Wrapper>
+
       <ContainerResponsiveMobile hiddenTextDescription={hiddenTextDescription} isLight={isLight} />
     </Container>
   );
 };
 
-const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  position: 'sticky',
-  top: 64,
-  width: '100%',
-  background: isLight ? '#FFFFFF' : '#25273D',
-  backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
-  backgroundSize: 'cover',
-  zIndex: 3,
-}));
+const Container = styled.div<{ isLight: boolean; hiddenTextDescription: boolean }>(
+  ({ isLight, hiddenTextDescription }) => ({
+    position: 'sticky',
+    top: 64,
+    width: '100%',
+    background: isLight ? '#FFFFFF' : '#25273D',
+    backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
+    backgroundSize: 'cover',
+    zIndex: 3,
+    height: !hiddenTextDescription ? 74 : 'fit-content',
+    borderBottom: !hiddenTextDescription ? (isLight ? '1px solid #B6EDE7' : '1px solid #027265') : 'none',
+  })
+);
 
 const NavigationHeader = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
@@ -303,7 +309,7 @@ const CoreUnitStyle = styled.span<{ isLight: boolean }>(({ isLight }) => ({
 const ContainerResponsiveMobile = styled.div<{ isLight: boolean; hiddenTextDescription: boolean }>(
   ({ isLight, hiddenTextDescription }) => ({
     position: 'relative',
-    borderBottom: isLight ? '1px solid #B6EDE7' : '1px solid #027265',
+    borderBottom: hiddenTextDescription ? (isLight ? '1px solid #B6EDE7' : '1px solid #027265') : 'none',
     width: '100%',
     marginTop: hiddenTextDescription ? '24px' : 0,
 
