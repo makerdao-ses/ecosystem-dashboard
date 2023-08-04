@@ -26,6 +26,7 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
   coreUnits: data = [],
   trailingAddress = [],
   breadcrumbTitle,
+  showDescription = false,
 }) => {
   const { isLight } = useThemeContext();
   const { sortData } = useCoreUnitsTable();
@@ -168,10 +169,11 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
           {hiddenTextDescription && (
             <>
               <TitleNavigationCuAbout coreUnitAbout={cu} hiddenTextDescription={hiddenTextDescription} />
-
-              <SummaryDescription>
-                <TypographyDescription isLight={isLight}>{cu?.sentenceDescription || ''}</TypographyDescription>
-              </SummaryDescription>
+              {showDescription && (
+                <SummaryDescription>
+                  <TypographyDescription isLight={isLight}>{cu?.sentenceDescription || ''}</TypographyDescription>
+                </SummaryDescription>
+              )}
             </>
           )}
         </ContainerTitle>

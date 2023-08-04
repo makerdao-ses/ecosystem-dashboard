@@ -58,7 +58,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
         canonicalURL={siteRoutes.coreUnitAbout(code)}
       />
 
-      <CoreUnitSummary coreUnits={coreUnits} />
+      <CoreUnitSummary coreUnits={coreUnits} showDescription={true} />
       <Wrapper>
         <ContainerAllData>
           <ContainerResponsive>
