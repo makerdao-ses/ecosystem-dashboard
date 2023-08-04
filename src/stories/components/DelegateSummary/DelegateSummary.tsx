@@ -47,7 +47,7 @@ const DelegateSummary: React.FC<Props> = ({ code = 'del', links, items }) => {
   }, [handleScroll]);
 
   return (
-    <ContainerWithBreadcrumb isLight={isLight} ref={ref} showTextDescription={showHeader}>
+    <ContainerWithBreadcrumb isLight={isLight} ref={ref} showHeader={showHeader}>
       <BreadcrumbsContainer>
         <CustomBreadcrumbs isLight={isLight} items={items} />
       </BreadcrumbsContainer>
@@ -114,8 +114,8 @@ const DelegateSummary: React.FC<Props> = ({ code = 'del', links, items }) => {
 
 export default DelegateSummary;
 
-const ContainerWithBreadcrumb = styled.div<{ isLight: boolean; showIcons?: boolean; showTextDescription?: boolean }>(
-  ({ isLight, showTextDescription }) => ({
+const ContainerWithBreadcrumb = styled.div<{ isLight: boolean; showIcons?: boolean; showHeader?: boolean }>(
+  ({ isLight, showHeader }) => ({
     position: 'sticky',
     top: 64,
     flexDirection: 'column',
@@ -127,11 +127,11 @@ const ContainerWithBreadcrumb = styled.div<{ isLight: boolean; showIcons?: boole
     zIndex: zIndexEnum.DELEGATE_SUMMARY,
     borderBottom: `1px solid ${isLight ? '#B6EDE7' : '#027265'}`,
 
-    paddingBottom: showTextDescription ? 16 : undefined,
+    paddingBottom: showHeader ? 16 : undefined,
 
     [lightTheme.breakpoints.up('table_834')]: {
-      paddingBottom: showTextDescription ? 22 : 0,
-      borderBottom: showTextDescription ? (isLight ? '1px solid #B6EDE7' : '1px solid #027265') : 'none',
+      paddingBottom: showHeader ? 22 : 0,
+      borderBottom: showHeader ? (isLight ? '1px solid #B6EDE7' : '1px solid #027265') : 'none',
     },
   })
 );
