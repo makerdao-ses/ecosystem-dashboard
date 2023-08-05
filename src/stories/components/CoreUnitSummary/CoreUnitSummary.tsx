@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Typography, useMediaQuery } from '@mui/material';
+import { Collapse, Typography, useMediaQuery } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
 import { useCoreUnitsTable } from '@ses/containers/CUTable/useCoreUnitsTable';
 import _ from 'lodash';
@@ -165,8 +165,8 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
         </div>
       )}
       <Wrapper>
-        <ContainerTitle hiddenTextDescription={hiddenTextDescription}>
-          {hiddenTextDescription && (
+        <Collapse in={hiddenTextDescription} timeout={600} unmountOnExit style={{ width: '100%' }}>
+          <ContainerTitle hiddenTextDescription={hiddenTextDescription}>
             <>
               <TitleNavigationCuAbout coreUnitAbout={cu} hiddenTextDescription={hiddenTextDescription} />
               {showDescription && (
@@ -175,8 +175,8 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
                 </SummaryDescription>
               )}
             </>
-          )}
-        </ContainerTitle>
+          </ContainerTitle>
+        </Collapse>
       </Wrapper>
 
       <ContainerResponsiveMobile hiddenTextDescription={hiddenTextDescription} isLight={isLight} />
@@ -193,7 +193,7 @@ const Container = styled.div<{ isLight: boolean; hiddenTextDescription: boolean 
     backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
     backgroundSize: 'cover',
     zIndex: 3,
-    height: !hiddenTextDescription ? 74 : 'fit-content',
+    // height: !hiddenTextDescription ? 74 : 'fit-content',
     borderBottom: !hiddenTextDescription ? (isLight ? '1px solid #B6EDE7' : '1px solid #027265') : 'none',
   })
 );
@@ -206,7 +206,6 @@ const NavigationHeader = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   height: '74px',
   paddingLeft: '32px',
   paddingRight: '32px',
-  marginBottom: '16px',
   background: isLight ? 'none' : 'url(/assets/img/overlay.png)',
   backgroundSize: 'cover',
 }));
@@ -217,7 +216,8 @@ const ContainerTitle = styled.div<{ hiddenTextDescription: boolean }>(({ hiddenT
   width: '100%',
   height: 'fit-content',
   transition: 'all .3s ease',
-  paddingTop: '8px',
+
+  paddingTop: 24,
 
   [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
     paddingLeft: '48px',
@@ -309,10 +309,6 @@ const ContainerResponsiveMobile = styled.div<{ isLight: boolean; hiddenTextDescr
     borderBottom: hiddenTextDescription ? (isLight ? '1px solid #B6EDE7' : '1px solid #027265') : 'none',
     width: '100%',
     marginTop: hiddenTextDescription ? '24px' : 0,
-
-    [lightTheme.breakpoints.up('table_834')]: {
-      marginTop: '24px',
-    },
 
     [lightTheme.breakpoints.between('table_375', 'table_834')]: {
       marginTop: hiddenTextDescription ? '16px' : '0px',

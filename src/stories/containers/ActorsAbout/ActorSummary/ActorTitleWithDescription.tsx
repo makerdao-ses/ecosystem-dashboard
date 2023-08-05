@@ -10,13 +10,14 @@ interface Props {
   showTextDescription: boolean;
   actorAbout: Team;
   cutTextTooLong?: boolean;
+  className?: string;
 }
 
-export const ActorTitleWithDescription: React.FC<Props> = ({ showTextDescription, actorAbout }) => {
+export const ActorTitleWithDescription: React.FC<Props> = ({ showTextDescription, actorAbout, className }) => {
   const { isLight } = useThemeContext();
   const isPhone = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   return (
-    <ContainerTitle>
+    <ContainerTitle className={className}>
       <ActorTitleAbout actorAbout={actorAbout} showTextDescription={showTextDescription} />
       {showTextDescription && actorAbout?.sentenceDescription !== '' && (
         <SummaryDescription hiddenTextDescription={isPhone || showTextDescription}>

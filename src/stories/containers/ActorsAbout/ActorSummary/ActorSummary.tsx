@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Collapse } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
 import { filterDataActors } from '@ses/containers/Actors/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
@@ -84,7 +85,7 @@ const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcru
 
   return (
     <MainContainer ref={ref} isLight={isLight} hiddenTextDescription={showTextDescription}>
-      <BreadCrumbNavigation
+      <BreadCrumbNavigationStyled
         descriptionTextPagination="Ecosystem Actors"
         itemActual={page}
         mainUrl={`${siteRoutes.ecosystemActors}/${queryStrings}`}
@@ -100,9 +101,11 @@ const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcru
         trailingAddress={trailingAddress}
         router={router}
       />
-      {showTextDescription && (
-        <ActorTitleWithDescription actorAbout={actorAbout} showTextDescription={showTextDescription} />
-      )}
+
+      <Collapse in={showTextDescription} timeout={600} unmountOnExit>
+        <ActorTitleWithDescriptionStyled actorAbout={actorAbout} showTextDescription={showTextDescription} />
+      </Collapse>
+
       <ContainerResponsiveMobile showTextDescription={showTextDescription} isLight={isLight} />
     </MainContainer>
   );
@@ -115,10 +118,11 @@ const MainContainer = styled.div<{ isLight: boolean; hiddenTextDescription: bool
     top: 64,
     width: '100%',
     background: isLight ? '#FFFFFF' : '#25273D',
+
     backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
     backgroundSize: 'cover',
+
     zIndex: 3,
-    height: !hiddenTextDescription ? 74 : 'fit-content',
 
     [lightTheme.breakpoints.between('table_375', 'table_834')]: {
       borderBottom: !hiddenTextDescription ? (isLight ? '1px solid #B6EDE7' : '1px solid #027265') : 'none',
@@ -142,3 +146,14 @@ const ContainerResponsiveMobile = styled.div<{ isLight: boolean; showTextDescrip
     },
   })
 );
+
+const BreadCrumbNavigationStyled = styled(BreadCrumbNavigation)({
+  marginBottom: 0,
+  '> div:first-of-type': {
+    marginBottom: 0,
+  },
+});
+
+const ActorTitleWithDescriptionStyled = styled(ActorTitleWithDescription)({
+  paddingTop: 16,
+});
