@@ -9,6 +9,7 @@ import { toAbsoluteURL } from '@ses/core/utils/urls';
 import React from 'react';
 import lightTheme from 'styles/theme/light';
 import CostBreakdownTable from './components/CostBreakdownTable/CostBreakdownTable';
+import EndgameIntroductionSection from './components/EndgameIntroductionSection/EndgameIntroductionSection';
 import ExpensesChart from './components/ExpensesChart/ExpensesChart';
 import NavigationButtons from './components/NavigationButtons/NavigationButtons';
 import QuarterCarousel from './components/QuarterCarousel/QuarterCarousel';
@@ -67,6 +68,10 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
         }}
         twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
       />
+      <EndgameIntroContainer>
+        <EndgameIntroductionSection />
+      </EndgameIntroContainer>
+
       <Container>
         <PageTitle isLight={isLight}>Total Reported Expenses</PageTitle>
 
@@ -117,6 +122,13 @@ export default FinancesOverviewContainer;
 const PageWrapper = styled(PageContainer)<WithIsLight>(({ isLight }) => ({
   backgroundImage: isLight ? '#FFFFFF' : 'linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 16, 32, 0.4) 100%)',
 }));
+
+const EndgameIntroContainer = styled.div({
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginTop: 32,
+    marginBottom: 64,
+  },
+});
 
 const PageTitle = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: 20,
