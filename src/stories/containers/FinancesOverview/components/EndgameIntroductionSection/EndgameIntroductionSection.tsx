@@ -50,7 +50,6 @@ const EndgameContainer = styled.div<WithIsLight>(({ isLight }) => ({
   position: 'relative',
   background: isLight ? '#F6F8F9' : '#10191F',
   overflow: 'hidden',
-  minHeight: 200,
 }));
 
 const ImageContainer = styled.div<WithIsLight>(({ isLight }) => ({

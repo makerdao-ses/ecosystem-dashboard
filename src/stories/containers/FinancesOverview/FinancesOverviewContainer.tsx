@@ -124,9 +124,14 @@ const PageWrapper = styled(PageContainer)<WithIsLight>(({ isLight }) => ({
 }));
 
 const EndgameIntroContainer = styled.div({
+  marginBottom: 40,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginBottom: 64,
+  },
+
   [lightTheme.breakpoints.up('desktop_1194')]: {
     marginTop: 32,
-    marginBottom: 64,
   },
 });
 
