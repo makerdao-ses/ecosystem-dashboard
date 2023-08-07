@@ -32,7 +32,7 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
   const { sortData } = useCoreUnitsTable();
   const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const lessThanPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
-  const [hiddenTextDescription, setHiddenTextDescription] = useState(true);
+  const [showHeader, setShowHeader] = useState(true);
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;
@@ -49,7 +49,7 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleScroll = useCallback(
     _.debounce(() => {
-      setHiddenTextDescription((ref?.current?.offsetTop ?? 0) <= 65);
+      setShowHeader((ref?.current?.offsetTop ?? 0) <= 65);
     }, 50),
     []
   );
@@ -97,7 +97,7 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
   );
 
   return (
-    <Container ref={ref} isLight={isLight} hiddenTextDescription={hiddenTextDescription}>
+    <Container ref={ref} isLight={isLight}>
       {!(phone || lessThanPhone) && (
         <NavigationHeader className="no-select" isLight={isLight}>
           <Breadcrumbs
@@ -165,10 +165,10 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
         </div>
       )}
       <Wrapper>
-        <Collapse in={hiddenTextDescription} timeout={600} unmountOnExit style={{ width: '100%' }}>
-          <ContainerTitle hiddenTextDescription={hiddenTextDescription}>
+        <Collapse in={showHeader} timeout={600} unmountOnExit style={{ width: '100%' }}>
+          <ContainerTitle>
             <>
-              <TitleNavigationCuAbout coreUnitAbout={cu} hiddenTextDescription={hiddenTextDescription} />
+              <TitleNavigationCuAbout coreUnitAbout={cu} />
               {showDescription && (
                 <SummaryDescription>
                   <TypographyDescription isLight={isLight}>{cu?.sentenceDescription || ''}</TypographyDescription>
@@ -179,23 +179,21 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
         </Collapse>
       </Wrapper>
 
-      <ContainerResponsiveMobile hiddenTextDescription={hiddenTextDescription} isLight={isLight} />
+      <ContainerResponsiveMobile showHeader={showHeader} isLight={isLight} />
     </Container>
   );
 };
 
-const Container = styled.div<{ isLight: boolean; hiddenTextDescription: boolean }>(
-  ({ isLight, hiddenTextDescription }) => ({
-    position: 'sticky',
-    top: 64,
-    width: '100%',
-    background: isLight ? '#FFFFFF' : '#25273D',
-    backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
-    backgroundSize: 'cover',
-    zIndex: 3,
-    borderBottom: !hiddenTextDescription ? (isLight ? '1px solid #B6EDE7' : '1px solid #027265') : 'none',
-  })
-);
+const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  position: 'sticky',
+  top: 64,
+  width: '100%',
+  background: isLight ? '#FFFFFF' : '#25273D',
+  backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
+  backgroundSize: 'cover',
+  zIndex: 3,
+  borderBottom: isLight ? '1px solid #B6EDE7' : '1px solid #027265',
+}));
 
 const NavigationHeader = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',
@@ -209,7 +207,7 @@ const NavigationHeader = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   backgroundSize: 'cover',
 }));
 
-const ContainerTitle = styled.div<{ hiddenTextDescription: boolean }>(({ hiddenTextDescription }) => ({
+const ContainerTitle = styled.div({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
@@ -227,20 +225,18 @@ const ContainerTitle = styled.div<{ hiddenTextDescription: boolean }>(({ hiddenT
     paddingRight: '32px',
   },
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-    maxHeight: hiddenTextDescription ? 300 : 38,
     overflow: 'hidden',
     paddingLeft: '16px',
     paddingRight: '16px',
     paddingTop: '0px',
   },
   [lightTheme.breakpoints.down('table_375')]: {
-    maxHeight: hiddenTextDescription ? 300 : 38,
     overflow: 'hidden',
     paddingLeft: '16px',
     paddingRight: '16px',
     paddingTop: '0px',
   },
-}));
+});
 
 const Wrapper = styled.div({
   display: 'flex',
@@ -302,15 +298,11 @@ const CoreUnitStyle = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   },
 }));
 
-const ContainerResponsiveMobile = styled.div<{ isLight: boolean; hiddenTextDescription: boolean }>(
-  ({ isLight, hiddenTextDescription }) => ({
-    position: 'relative',
-    borderBottom: hiddenTextDescription ? (isLight ? '1px solid #B6EDE7' : '1px solid #027265') : 'none',
-    width: '100%',
-    marginTop: hiddenTextDescription ? '24px' : 0,
-
-    [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-      marginTop: hiddenTextDescription ? '16px' : '0px',
-    },
-  })
-);
+const ContainerResponsiveMobile = styled.div<{ isLight: boolean; showHeader: boolean }>(({ showHeader }) => ({
+  position: 'relative',
+  width: '100%',
+  marginTop: showHeader ? '24px' : 0,
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    marginTop: showHeader ? '16px' : '0px',
+  },
+}));
