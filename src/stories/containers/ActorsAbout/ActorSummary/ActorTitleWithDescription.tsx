@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Typography, useMediaQuery } from '@mui/material';
+import { Typography } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
@@ -15,12 +15,11 @@ interface Props {
 
 export const ActorTitleWithDescription: React.FC<Props> = ({ showTextDescription, actorAbout, className }) => {
   const { isLight } = useThemeContext();
-  const isPhone = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   return (
     <ContainerTitle className={className}>
-      <ActorTitleAbout actorAbout={actorAbout} showTextDescription={showTextDescription} />
+      <ActorTitleAbout actorAbout={actorAbout} />
       {showTextDescription && actorAbout?.sentenceDescription !== '' && (
-        <SummaryDescription hiddenTextDescription={isPhone || showTextDescription}>
+        <SummaryDescription>
           <TypographyDescription isLight={isLight} cutTextTooLong={actorAbout.sentenceDescription?.length > 500}>
             {actorAbout?.sentenceDescription || ''}
           </TypographyDescription>
@@ -68,16 +67,12 @@ const ContainerTitle = styled.div({
   },
 });
 
-const SummaryDescription = styled.div<{ hiddenTextDescription: boolean }>(({ hiddenTextDescription }) => ({
-  opacity: hiddenTextDescription ? 1 : 0,
-  height: hiddenTextDescription ? 'fit-content' : 0,
-  transition: 'all 0.3s ease',
-  overflow: 'hidden',
+const SummaryDescription = styled.div({
   marginLeft: 4,
   [lightTheme.breakpoints.up('table_834')]: {
     marginLeft: 0,
   },
-}));
+});
 
 const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
   isLight: boolean;

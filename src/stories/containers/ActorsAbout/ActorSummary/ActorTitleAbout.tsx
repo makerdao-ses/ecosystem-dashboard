@@ -14,10 +14,9 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   actorAbout: Team;
-  showTextDescription?: boolean;
 }
 
-export const ActorTitleAbout = ({ actorAbout, showTextDescription }: Props) => {
+export const ActorTitleAbout = ({ actorAbout }: Props) => {
   const { isLight } = useThemeContext();
   const isTable = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const phoneDimensions = useMediaQuery(lightTheme.breakpoints.down('table_834'));
@@ -63,14 +62,13 @@ export const ActorTitleAbout = ({ actorAbout, showTextDescription }: Props) => {
           </WrapperShowDesk>
 
           <ContainerCategoryConditional>
-            {(!phoneDimensions || showTextDescription) && (
-              <CategoryContainer>
-                {actorAbout?.scopes?.map((item, index) => (
-                  <ScopeChip status={item.name as ActorScopeEnum} code={item.code} key={index} />
-                ))}
-              </CategoryContainer>
-            )}
-            {phoneDimensions && !isTable && showTextDescription && (
+            <CategoryContainer>
+              {actorAbout?.scopes?.map((item, index) => (
+                <ScopeChip status={item.name as ActorScopeEnum} code={item.code} key={index} />
+              ))}
+            </CategoryContainer>
+
+            {phoneDimensions && !isTable && (
               <ContainerLinks>
                 <SocialMediaComponentStyled
                   isLight={isLight}
@@ -80,7 +78,7 @@ export const ActorTitleAbout = ({ actorAbout, showTextDescription }: Props) => {
                 />
               </ContainerLinks>
             )}
-            {isTable && showTextDescription && (
+            {isTable && (
               <ContainerLinks>
                 <SocialMediaComponentStyled
                   isLight={isLight}

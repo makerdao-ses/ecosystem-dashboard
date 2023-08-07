@@ -22,7 +22,7 @@ interface ActorSummaryProps {
 const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcrumbTitle, trailingAddress = [] }) => {
   const { isLight } = useThemeContext();
 
-  const [showTextDescription, setShowTextDescription] = useState(true);
+  const [showHeader, setShowHeader] = useState(true);
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;
@@ -39,7 +39,7 @@ const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcru
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleScroll = useCallback(
     _.debounce(() => {
-      setShowTextDescription((ref?.current?.offsetTop ?? 0) <= 65);
+      setShowHeader((ref?.current?.offsetTop ?? 0) <= 65);
     }, 50),
     []
   );
@@ -84,7 +84,7 @@ const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcru
   );
 
   return (
-    <MainContainer ref={ref} isLight={isLight} hiddenTextDescription={showTextDescription}>
+    <MainContainer ref={ref} isLight={isLight}>
       <BreadCrumbNavigationStyled
         descriptionTextPagination="Ecosystem Actors"
         itemActual={page}
@@ -102,50 +102,47 @@ const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcru
         router={router}
       />
 
-      <Collapse in={showTextDescription} timeout={600} unmountOnExit>
-        <ActorTitleWithDescriptionStyled actorAbout={actorAbout} showTextDescription={showTextDescription} />
+      <Collapse in={showHeader} timeout={600} unmountOnExit>
+        <ActorTitleWithDescriptionStyled actorAbout={actorAbout} showTextDescription={true} />
       </Collapse>
 
-      <ContainerResponsiveMobile showTextDescription={showTextDescription} isLight={isLight} />
+      <ContainerResponsiveMobile showHeader={showHeader} isLight={isLight} />
     </MainContainer>
   );
 };
 
 export default ActorSummary;
-const MainContainer = styled.div<{ isLight: boolean; hiddenTextDescription: boolean }>(
-  ({ isLight, hiddenTextDescription }) => ({
-    position: 'sticky',
-    top: 64,
-    width: '100%',
-    background: isLight ? '#FFFFFF' : '#25273D',
+const MainContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  position: 'sticky',
+  top: 64,
+  width: '100%',
+  background: isLight ? '#FFFFFF' : '#25273D',
 
-    backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
-    backgroundSize: 'cover',
+  backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
+  backgroundSize: 'cover',
 
-    zIndex: 3,
+  zIndex: 3,
 
-    [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-      borderBottom: !hiddenTextDescription ? (isLight ? '1px solid #B6EDE7' : '1px solid #027265') : 'none',
-    },
-  })
-);
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    borderBottom: isLight ? '1px solid #B6EDE7' : '1px solid #027265',
+  },
+}));
 
-const ContainerResponsiveMobile = styled.div<{ isLight: boolean; showTextDescription: boolean }>(
-  ({ isLight, showTextDescription }) => ({
-    position: 'relative',
-    borderBottom: showTextDescription ? (isLight ? '1px solid #B6EDE7' : '1px solid #027265') : 'none',
-    width: '100%',
-    marginTop: showTextDescription ? '24px' : 0,
+const ContainerResponsiveMobile = styled.div<{ isLight: boolean; showHeader: boolean }>(({ isLight, showHeader }) => ({
+  position: 'relative',
+  borderBottom: showHeader ? (isLight ? '1px solid #B6EDE7' : '1px solid #027265') : 'none',
+  width: '100%',
+  marginTop: showHeader ? '24px' : 0,
 
-    [lightTheme.breakpoints.up('table_834')]: {
-      marginTop: '24px',
-    },
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: '24px',
+  },
 
-    [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-      marginTop: showTextDescription ? '16px' : '0px',
-    },
-  })
-);
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    marginTop: showHeader ? '16px' : '0px',
+    borderBottom: 'none',
+  },
+}));
 
 const BreadCrumbNavigationStyled = styled(BreadCrumbNavigation)({
   marginBottom: 0,
