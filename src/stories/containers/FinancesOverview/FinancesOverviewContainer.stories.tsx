@@ -248,9 +248,7 @@ LightMode.parameters = {
   figma: {
     component: {
       0: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19645:254108&?t=O7Qgc4Mmk1y2HDAF-4',
-
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=15491:165746',
         options: {
           componentStyle: {
             width: 343,
@@ -259,7 +257,7 @@ LightMode.parameters = {
         },
       },
       834: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13399%3A144726',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20804:267229',
         options: {
           componentStyle: {
             width: 802,
@@ -268,7 +266,7 @@ LightMode.parameters = {
         },
       },
       1194: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13399%3A144041',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=13399:144041',
         options: {
           componentStyle: {
             width: 1162,
@@ -277,7 +275,7 @@ LightMode.parameters = {
         },
       },
       1280: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13399%3A143348',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=13399:143348',
         options: {
           componentStyle: {
             width: 1248,
@@ -286,8 +284,7 @@ LightMode.parameters = {
         },
       },
       1440: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=15343:199079&t=u7vF8lSvHCDE6Xof-4',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=15343:199079',
         options: {
           componentStyle: {
             width: 1408,
@@ -296,8 +293,7 @@ LightMode.parameters = {
         },
       },
       1920: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13399:142663&t=u7vF8lSvHCDE6Xof-4',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=13399:142663',
         options: {
           componentStyle: {
             width: 1888,
