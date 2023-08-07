@@ -193,7 +193,6 @@ const Container = styled.div<{ isLight: boolean; hiddenTextDescription: boolean 
     backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
     backgroundSize: 'cover',
     zIndex: 3,
-    // height: !hiddenTextDescription ? 74 : 'fit-content',
     borderBottom: !hiddenTextDescription ? (isLight ? '1px solid #B6EDE7' : '1px solid #027265') : 'none',
   })
 );
