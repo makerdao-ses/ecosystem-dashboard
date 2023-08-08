@@ -21,10 +21,9 @@ import type { CuMipStatus } from '@ses/core/models/interfaces/types';
 
 interface Props {
   coreUnitAbout?: CoreUnit;
-  hiddenTextDescription?: boolean;
 }
 
-export const TitleNavigationCuAbout = ({ coreUnitAbout, hiddenTextDescription }: Props) => {
+export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
   const { isLight } = useThemeContext();
   const phoneDimensions = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
   const tableDimensions = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
@@ -54,60 +53,56 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout, hiddenTextDescription }:
               {coreUnitAbout.name && <TypographyTitle isLight={isLight}>{coreUnitAbout.name}</TypographyTitle>}
             </ResponsiveTitle>
 
-            {!((phoneDimensions || lessPhone) && !hiddenTextDescription) && (
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                }}
-              >
-                {mipStatus && <StatusChip status={mipStatus as CuMipStatus} />}
-                <Row>
-                  {newDate && (
-                    <CustomLink
-                      href={coreUnitAbout.cuMip[0].mipUrl || '#'}
-                      withArrow
-                      styleIcon={{
-                        marginTop: '3px',
-                      }}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        height: '22px',
-                        fontFamily: 'Inter, sans-serif',
-                        fontStyle: 'normal',
-                        fontWeight: 600,
-                        fontSize: '11px',
-                        letterSpacing: '1px',
-                        textTransform: 'uppercase',
-                        color: '#447AFB',
-                        textDecoration: 'none',
-                        marginLeft: '4px',
-                      }}
-                      children={`Since ${DateTime.fromJSDate(newDate).toFormat('d-MMM-y')}`}
-                    />
-                  )}
-                </Row>
-              </div>
-            )}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+              }}
+            >
+              {mipStatus && <StatusChip status={mipStatus as CuMipStatus} />}
+              <Row>
+                {newDate && (
+                  <CustomLink
+                    href={coreUnitAbout.cuMip[0].mipUrl || '#'}
+                    withArrow
+                    styleIcon={{
+                      marginTop: '3px',
+                    }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      height: '22px',
+                      fontFamily: 'Inter, sans-serif',
+                      fontStyle: 'normal',
+                      fontWeight: 600,
+                      fontSize: '11px',
+                      letterSpacing: '1px',
+                      textTransform: 'uppercase',
+                      color: '#447AFB',
+                      textDecoration: 'none',
+                      marginLeft: '4px',
+                    }}
+                    children={`Since ${DateTime.fromJSDate(newDate).toFormat('d-MMM-y')}`}
+                  />
+                )}
+              </Row>
+            </div>
           </ContainerSeparateData>
         </ContainerTitle>
         {(phoneDimensions || lessPhone) && (
           <div
             style={{
               width: '100%',
-              marginTop: !hiddenTextDescription ? '16px' : '0px',
             }}
           />
         )}
         <ContainerCategoryConditional>
-          {(!(phoneDimensions || lessPhone) || hiddenTextDescription) && (
-            <CategoryContainer>
-              {coreUnitAbout.category &&
-                coreUnitAbout.category.map((item) => <CategoryChip key={item} category={item} />)}
-            </CategoryContainer>
-          )}
-          {(phoneDimensions || lessPhone || tableDimensions) && hiddenTextDescription && (
+          <CategoryContainer>
+            {coreUnitAbout.category &&
+              coreUnitAbout.category.map((item) => <CategoryChip key={item} category={item} />)}
+          </CategoryContainer>
+
+          {(phoneDimensions || lessPhone || tableDimensions) && (
             <ContainerLinks>
               <CuTableColumnLinks
                 links={getLinksFromCoreUnit(coreUnitAbout as CoreUnit)}

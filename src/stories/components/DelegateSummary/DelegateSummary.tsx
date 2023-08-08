@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Collapse } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
@@ -51,7 +52,7 @@ const DelegateSummary: React.FC<Props> = ({ code = 'del', links, items }) => {
       <BreadcrumbsContainer>
         <CustomBreadcrumbs isLight={isLight} items={items} />
       </BreadcrumbsContainer>
-      {showHeader && (
+      <Collapse in={showHeader} timeout={600} unmountOnExit>
         <Container>
           <ContainerRow>
             <CircleContainer>
@@ -107,7 +108,7 @@ const DelegateSummary: React.FC<Props> = ({ code = 'del', links, items }) => {
             </ContainerDescription>
           </ContainerRow>
         </Container>
-      )}
+      </Collapse>
     </ContainerWithBreadcrumb>
   );
 };
