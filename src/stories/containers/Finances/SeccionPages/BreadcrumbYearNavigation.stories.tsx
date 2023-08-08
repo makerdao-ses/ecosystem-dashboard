@@ -29,7 +29,7 @@ const args = [
     isOpen: false,
     trailingAddress: [
       {
-        label: 'MakerDAO Finances',
+        label: 'Finances',
         url: '#',
       },
     ] as NavigationBreadCrumb[],
