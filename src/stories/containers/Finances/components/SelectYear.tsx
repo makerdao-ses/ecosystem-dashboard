@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import MenuItem from '@mui/material/MenuItem';
-// import Paper from '@mui/material/Paper/Paper';
 import Select from '@mui/material/Select';
 import { SelectChevronDown } from '@ses/components/svg/select-chevron-down';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
