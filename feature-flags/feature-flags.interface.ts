@@ -16,5 +16,6 @@ export interface FeatureFlagsInterface {
   FEATURE_ECOSYSTEM_ACTORS_TRANSPARENCY_REPORTING: boolean; // disable Transparency Reporting page for Actors
   FEATURE_CARD_NAVIGATION_ACTOR_ABOUT_PAGE: boolean; // disable Card Expense in Actors About Page
   FEATURE_ACCOUNT_SNAPSHOT_CURRENCY_PICKER: boolean; // disable Currency Picker in Accounts Snapshot Page/section
+  FEATURE_BUDGET_SUMMARY_PAGE: boolean; // disable Feature: Budget Summary + Navigation
   FEATURE_FINANCES_ENDGAME_LEARN_MORE_BTN: boolean; // disable Learn More button in Finances page (Endgame section)
 }
