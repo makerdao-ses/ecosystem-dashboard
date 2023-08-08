@@ -15,6 +15,7 @@ interface Props {
   selectedValue: string;
   isOpen: boolean;
   className?: string;
+  widthPaper?: number;
 }
 
 const SelectYear: React.FC<Props> = ({
@@ -25,6 +26,7 @@ const SelectYear: React.FC<Props> = ({
   onClose,
   onOpen,
   className,
+  widthPaper = 120,
 }: Props) => {
   const { isLight } = useThemeContext();
   return (
@@ -37,7 +39,7 @@ const SelectYear: React.FC<Props> = ({
             sx: {
               bgcolor: isLight ? 'white' : '#000A13',
               '&.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
-                width: 120,
+                width: widthPaper,
               },
             },
           },
