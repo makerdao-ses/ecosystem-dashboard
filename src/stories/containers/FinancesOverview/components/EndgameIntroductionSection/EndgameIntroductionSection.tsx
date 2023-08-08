@@ -20,6 +20,7 @@ const EndgameIntroductionSection: React.FC = () => {
         <ImageWrapper>
           <Image
             src="/assets/img/maker_endgame.png"
+            alt="Endgame"
             layout="fill"
             objectFit="cover"
             placeholder="blur"
