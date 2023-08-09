@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Collapse } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
 import { filterDataActors } from '@ses/containers/Actors/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
@@ -21,7 +22,7 @@ interface ActorSummaryProps {
 const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcrumbTitle, trailingAddress = [] }) => {
   const { isLight } = useThemeContext();
 
-  const [showTextDescription, setShowTextDescription] = useState(true);
+  const [showHeader, setShowHeader] = useState(true);
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;
@@ -38,7 +39,7 @@ const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcru
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleScroll = useCallback(
     _.debounce(() => {
-      setShowTextDescription((ref?.current?.offsetTop ?? 0) <= 65);
+      setShowHeader((ref?.current?.offsetTop ?? 0) <= 65);
     }, 50),
     []
   );
@@ -83,8 +84,8 @@ const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcru
   );
 
   return (
-    <MainContainer ref={ref} isLight={isLight} hiddenTextDescription={showTextDescription}>
-      <BreadcrumbNavigation
+    <MainContainer ref={ref} isLight={isLight}>
+      <BreadCrumbNavigationStyled
         descriptionTextPagination="Ecosystem Actors"
         itemActual={page}
         mainUrl={`${siteRoutes.ecosystemActors}/${queryStrings}`}
@@ -100,45 +101,56 @@ const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcru
         trailingAddress={trailingAddress}
         router={router}
       />
-      {showTextDescription && (
-        <ActorTitleWithDescription actorAbout={actorAbout} showTextDescription={showTextDescription} />
-      )}
-      <ContainerResponsiveMobile showTextDescription={showTextDescription} isLight={isLight} />
+
+      <Collapse in={showHeader} timeout={600} unmountOnExit>
+        <ActorTitleWithDescriptionStyled actorAbout={actorAbout} showTextDescription={true} />
+      </Collapse>
+
+      <ContainerResponsiveMobile showHeader={showHeader} isLight={isLight} />
     </MainContainer>
   );
 };
 
 export default ActorSummary;
-const MainContainer = styled.div<{ isLight: boolean; hiddenTextDescription: boolean }>(
-  ({ isLight, hiddenTextDescription }) => ({
-    position: 'sticky',
-    top: 64,
-    width: '100%',
-    background: isLight ? '#FFFFFF' : '#25273D',
-    backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
-    backgroundSize: 'cover',
-    zIndex: 3,
-    height: !hiddenTextDescription ? 74 : 'fit-content',
+const MainContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  position: 'sticky',
+  top: 64,
+  width: '100%',
+  background: isLight ? '#FFFFFF' : '#25273D',
 
-    [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-      borderBottom: !hiddenTextDescription ? (isLight ? '1px solid #B6EDE7' : '1px solid #027265') : 'none',
-    },
-  })
-);
+  backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
+  backgroundSize: 'cover',
 
-const ContainerResponsiveMobile = styled.div<{ isLight: boolean; showTextDescription: boolean }>(
-  ({ isLight, showTextDescription }) => ({
-    position: 'relative',
-    borderBottom: showTextDescription ? (isLight ? '1px solid #B6EDE7' : '1px solid #027265') : 'none',
-    width: '100%',
-    marginTop: showTextDescription ? '24px' : 0,
+  zIndex: 3,
 
-    [lightTheme.breakpoints.up('table_834')]: {
-      marginTop: '24px',
-    },
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    borderBottom: isLight ? '1px solid #B6EDE7' : '1px solid #027265',
+  },
+}));
 
-    [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-      marginTop: showTextDescription ? '16px' : '0px',
-    },
-  })
-);
+const ContainerResponsiveMobile = styled.div<{ isLight: boolean; showHeader: boolean }>(({ isLight, showHeader }) => ({
+  position: 'relative',
+  borderBottom: showHeader ? (isLight ? '1px solid #B6EDE7' : '1px solid #027265') : 'none',
+  width: '100%',
+  marginTop: showHeader ? '24px' : 0,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: '24px',
+  },
+
+  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    marginTop: showHeader ? '16px' : '0px',
+    borderBottom: 'none',
+  },
+}));
+
+const BreadCrumbNavigationStyled = styled(BreadcrumbNavigation)({
+  marginBottom: 0,
+  '> div:first-of-type': {
+    marginBottom: 0,
+  },
+});
+
+const ActorTitleWithDescriptionStyled = styled(ActorTitleWithDescription)({
+  paddingTop: 16,
+});

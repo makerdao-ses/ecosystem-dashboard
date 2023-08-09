@@ -21,6 +21,7 @@ interface Props {
   hasStyleMobileItem: boolean;
   descriptionTextPagination?: string;
   router: NextRouter;
+  className?: string;
 }
 
 const BreadcrumbNavigation: React.FC<Props> = ({
@@ -36,10 +37,11 @@ const BreadcrumbNavigation: React.FC<Props> = ({
   hasStyleMobileItem,
   descriptionTextPagination,
   router,
+  className,
 }) => {
   const { isLight } = useThemeContext();
   return (
-    <>
+    <div className={className}>
       <WrapperContainerDesk>
         <StyledBreadcrumbs
           items={[
@@ -103,7 +105,7 @@ const BreadcrumbNavigation: React.FC<Props> = ({
           page={itemActual}
         />
       </WrapperContainerMobile>
-    </>
+    </div>
   );
 };
 
