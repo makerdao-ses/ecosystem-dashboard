@@ -60,7 +60,6 @@ const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcru
       data: data as Team[],
       filteredCategories,
     });
-
     return filteredCategoryData;
   }, [data, filteredCategories]);
 
