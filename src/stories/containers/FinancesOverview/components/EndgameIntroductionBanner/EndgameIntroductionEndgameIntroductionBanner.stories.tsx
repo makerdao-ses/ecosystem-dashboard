@@ -1,12 +1,12 @@
 import { withoutSBPadding } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import EndgameIntroductionSection from './EndgameIntroductionSection';
+import EndgameIntroductionBanner from './EndgameIntroductionBanner';
 import type { ComponentMeta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
 export default {
-  title: 'Components/Finances/Endgame Introduction Section',
-  component: EndgameIntroductionSection,
+  title: 'Components/Finances/Endgame Introduction Banner',
+  component: EndgameIntroductionBanner,
   decorators: [withoutSBPadding],
   parameters: {
     chromatic: {
@@ -14,11 +14,11 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof EndgameIntroductionSection>;
+} as ComponentMeta<typeof EndgameIntroductionBanner>;
 
 const variantsArgs = [{}];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(EndgameIntroductionSection, variantsArgs);
+export const [[LightMode, DarkMode]] = createThemeModeVariants(EndgameIntroductionBanner, variantsArgs);
 
 LightMode.parameters = {
   figma: {
