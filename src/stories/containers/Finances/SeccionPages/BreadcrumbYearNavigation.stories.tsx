@@ -33,6 +33,7 @@ const args = [
   },
 ];
 export const [[LightMode, DarkMode]] = createThemeModeVariants(BreadcrumbYearNavigation, args);
+
 LightMode.parameters = {
   figma: {
     component: {
