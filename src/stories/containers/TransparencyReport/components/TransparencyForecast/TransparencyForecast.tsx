@@ -5,6 +5,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
 import { Title } from '../../TransparencyReport';
 import { FORECAST_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
+import replacePaymentTopup from '../../utils/helpers';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import { BreakdownTableWrapper } from '../TransparencyActuals/TransparencyActuals';
 import { useTransparencyForecast } from './useTransparencyForecast';
@@ -77,7 +78,7 @@ export const TransparencyForecast: React.FC<TransparencyForecastProps> = ({
           <AdvancedInnerTable
             longCode={longCode}
             columns={breakdownColumnsForActiveTab}
-            items={breakdownItems}
+            items={replacePaymentTopup(breakdownItems)}
             cardSpacingSize="small"
             tablePlaceholder={
               <TransparencyEmptyTable breakdown longCode={longCode} shortCode={shortCode} resource={resource} />
