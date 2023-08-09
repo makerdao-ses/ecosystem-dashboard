@@ -4,7 +4,7 @@ import Breadcrumb from './Breadcrumb';
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
-  title: 'Components/CUAbout/BreadCrumb',
+  title: 'Components/CUAbout/Breadcrumb',
   components: Breadcrumb,
 } as ComponentMeta<typeof Breadcrumb>;
 

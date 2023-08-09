@@ -3,13 +3,13 @@ import Link from 'next/link';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { BreadcrumbSeparator } from '../svg/breadcrumb-separator';
-export type NavigationBreadCrumb = {
+export type NavigationBreadcrumb = {
   label: string | JSX.Element;
   url: string;
   style?: React.CSSProperties;
 };
 interface BreadcrumbsProps {
-  items: NavigationBreadCrumb[];
+  items: NavigationBreadcrumb[];
   height?: number;
   width?: number;
   paddingBreadcrumbs?: string;

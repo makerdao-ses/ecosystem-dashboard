@@ -3,10 +3,10 @@ import Breadcrumbs from '@ses/components/Breadcrumbs/Breadcrumbs';
 import React from 'react';
 import SelectYear from '../SelectYear';
 import type { SelectChangeEvent } from '@mui/material/Select/Select';
-import type { NavigationBreadCrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
+import type { NavigationBreadcrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
 
 interface Props {
-  trailingAddress?: NavigationBreadCrumb[];
+  trailingAddress?: NavigationBreadcrumb[];
   years: string[];
   handleChange: (event: SelectChangeEvent<unknown>) => void;
   onOpen?: () => void;
@@ -15,7 +15,7 @@ interface Props {
   isOpen: boolean;
 }
 
-export const BreadCrumbWithYear: React.FC<Props> = ({
+const BreadcrumbWithYear: React.FC<Props> = ({
   trailingAddress = [],
   handleChange,
   isOpen,
@@ -37,6 +37,7 @@ export const BreadCrumbWithYear: React.FC<Props> = ({
   </ContainerNavigation>
 );
 
+export default BreadcrumbWithYear;
 const ContainerNavigation = styled.div({
   display: 'flex',
   flexDirection: 'row',

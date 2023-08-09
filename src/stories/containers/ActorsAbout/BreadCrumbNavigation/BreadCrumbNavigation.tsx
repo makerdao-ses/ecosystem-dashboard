@@ -5,14 +5,14 @@ import InsidePagination from '@ses/components/Pagination/InsidePagination';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import type { NavigationBreadCrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
+import type { NavigationBreadcrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
 import type { NextRouter } from 'next/router';
 
 interface Props {
   totalElements: number;
   navigationPageTitle?: string;
   mainUrl: string;
-  labelFirstItemNavigation: NavigationBreadCrumb;
+  labelFirstItemNavigation: NavigationBreadcrumb;
   trailingAddress?: string[];
   itemActual: number;
   onClickLeft?: () => void;
@@ -23,7 +23,7 @@ interface Props {
   router: NextRouter;
 }
 
-const BreadCrumbNavigation: React.FC<Props> = ({
+const BreadcrumbNavigation: React.FC<Props> = ({
   totalElements,
   mainUrl,
   navigationPageTitle = 'Ecosystem Actors',
@@ -107,7 +107,7 @@ const BreadCrumbNavigation: React.FC<Props> = ({
   );
 };
 
-export default BreadCrumbNavigation;
+export default BreadcrumbNavigation;
 
 const Value = styled.b<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',

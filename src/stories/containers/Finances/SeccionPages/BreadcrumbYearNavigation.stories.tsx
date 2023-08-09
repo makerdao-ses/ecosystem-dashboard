@@ -1,6 +1,6 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import BreadcrumbYearNavigation from './BreadcrumbYearNavigation';
-import type { NavigationBreadCrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
+import type { NavigationBreadcrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
 import type { ComponentMeta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
@@ -19,12 +19,9 @@ export default {
 const args = [
   {
     years: ['2022', '2023'],
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    handleChange: () => {},
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    onOpen: () => {},
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    onClose: () => {},
+    handleChange: () => null,
+    onOpen: () => null,
+    onClose: () => null,
     selectedValue: '2023',
     isOpen: false,
     trailingAddress: [
@@ -32,7 +29,7 @@ const args = [
         label: 'Finances',
         url: '#',
       },
-    ] as NavigationBreadCrumb[],
+    ] as NavigationBreadcrumb[],
   },
 ];
 export const [[LightMode, DarkMode]] = createThemeModeVariants(BreadcrumbYearNavigation, args);

@@ -8,7 +8,7 @@ import lightTheme from '@ses/styles/theme/light';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import BreadCrumbNavigation from '../BreadCrumbNavigation/BreadCrumbNavigation';
+import BreadcrumbNavigation from '../BreadcrumbNavigation/BreadcrumbNavigation';
 import ActorTitleWithDescription from './ActorTitleWithDescription';
 import type { Team } from '@ses/core/models/interfaces/team';
 
@@ -84,7 +84,7 @@ const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcru
 
   return (
     <MainContainer ref={ref} isLight={isLight} hiddenTextDescription={showTextDescription}>
-      <BreadCrumbNavigation
+      <BreadcrumbNavigation
         descriptionTextPagination="Ecosystem Actors"
         itemActual={page}
         mainUrl={`${siteRoutes.ecosystemActors}/${queryStrings}`}
