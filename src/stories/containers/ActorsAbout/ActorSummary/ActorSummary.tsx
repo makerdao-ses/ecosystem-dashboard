@@ -9,7 +9,7 @@ import lightTheme from '@ses/styles/theme/light';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import BreadCrumbNavigation from '../BreadCrumbNavigation/BreadCrumbNavigation';
+import BreadcrumbNavigation from '../BreadcrumbNavigation/BreadcrumbNavigation';
 import ActorTitleWithDescription from './ActorTitleWithDescription';
 import type { Team } from '@ses/core/models/interfaces/team';
 
@@ -60,7 +60,6 @@ const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcru
       data: data as Team[],
       filteredCategories,
     });
-
     return filteredCategoryData;
   }, [data, filteredCategories]);
 
@@ -85,7 +84,7 @@ const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcru
 
   return (
     <MainContainer ref={ref} isLight={isLight}>
-      <BreadCrumbNavigationStyled
+      <BreadcrumbNavigationStyled
         descriptionTextPagination="Ecosystem Actors"
         itemActual={page}
         mainUrl={`${siteRoutes.ecosystemActors}/${queryStrings}`}
@@ -144,7 +143,7 @@ const ContainerResponsiveMobile = styled.div<{ isLight: boolean; showHeader: boo
   },
 }));
 
-const BreadCrumbNavigationStyled = styled(BreadCrumbNavigation)({
+const BreadcrumbNavigationStyled = styled(BreadcrumbNavigation)({
   marginBottom: 0,
   '> div:first-of-type': {
     marginBottom: 0,

@@ -10,7 +10,7 @@ import { useThemeContext } from '../../../core/context/ThemeContext';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
 import { buildQueryString } from '../../../core/utils/urls';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
-import BreadCrumbMobile from '../Pagination/BreadcrumbMobile';
+import BreadcrumbMobile from '../Pagination/BreadcrumbMobile';
 import InsidePagination from '../Pagination/InsidePagination';
 import TitleNavigationCuAbout from '../TitleNavigationCuAbout/TitleNavigationCuAbout';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
@@ -131,7 +131,7 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
       {(phone || lessThanPhone) && (
         <div style={{ margin: '16px' }}>
           <div>
-            <BreadCrumbMobile
+            <BreadcrumbMobile
               items={[
                 ...trailingAddress.map((adr) => ({
                   style: breadcrumbTitle === adr ? { color: isLight ? '#25273D' : '#D2D4EF' } : undefined,

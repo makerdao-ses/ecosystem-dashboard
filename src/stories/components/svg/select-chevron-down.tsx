@@ -5,14 +5,26 @@ interface SelectChevronDownProps {
   height?: number;
   fill?: string;
   style?: React.CSSProperties;
+  onClick?: () => void;
+  className?: string;
 }
 
-export const SelectChevronDown = ({ width = 10, height = 6, fill = '#25273D', ...props }: SelectChevronDownProps) => (
+export const SelectChevronDown: React.FC<SelectChevronDownProps> = ({
+  width = 10,
+  height = 6,
+  fill = '#25273D',
+  onClick,
+  className,
+  ...props
+}: SelectChevronDownProps) => (
   <svg
+    className={className}
+    onClick={onClick}
     width={`${width}px`}
     height={`${height}px`}
     viewBox="0 0 10 6"
     fill={fill}
+    cursor={onClick ? 'pointer' : 'default'}
     style={props.style}
     xmlns="http://www.w3.org/2000/svg"
   >

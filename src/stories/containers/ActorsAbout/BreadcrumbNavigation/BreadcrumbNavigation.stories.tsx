@@ -1,18 +1,17 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-
-import BreadCrumbNavigation from './BreadCrumbNavigation';
-import type { NavigationBreadCrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
+import BreadcrumbNavigation from './BreadcrumbNavigation';
+import type { NavigationBreadcrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
 import type { ComponentMeta } from '@storybook/react';
 
 export default {
-  title: 'Components/Actor/BreadCrumbNavigation',
-  component: BreadCrumbNavigation,
+  title: 'Components/Actor/BreadcrumbNavigation',
+  component: BreadcrumbNavigation,
   parameters: {
     chromatic: {
       viewports: [375, 834, 1194, 1280, 1440],
     },
   },
-} as ComponentMeta<typeof BreadCrumbNavigation>;
+} as ComponentMeta<typeof BreadcrumbNavigation>;
 const variantsArgs = [
   {
     totalElements: 6,
@@ -21,8 +20,8 @@ const variantsArgs = [
     labelFirstItemNavigation: {
       label: 'Phoenix Labs',
       url: '',
-    } as NavigationBreadCrumb,
-    trailingAddress: [] as NavigationBreadCrumb[],
+    } as NavigationBreadcrumb,
+    trailingAddress: [] as NavigationBreadcrumb[],
     itemActual: 1,
 
     breadcrumbTitleMobile: '',
@@ -31,7 +30,7 @@ const variantsArgs = [
   },
 ];
 
-export const [[Actors, ActorsDark]] = createThemeModeVariants(BreadCrumbNavigation, variantsArgs);
+export const [[Actors, ActorsDark]] = createThemeModeVariants(BreadcrumbNavigation, variantsArgs);
 
 Actors.parameters = {
   figma: {
