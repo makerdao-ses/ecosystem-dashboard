@@ -9,7 +9,7 @@ import Image from 'next/image';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-const EndgameIntroductionSection: React.FC = () => {
+const EndgameIntroductionBanner: React.FC = () => {
   const { isLight } = useThemeContext();
 
   return (
@@ -31,8 +31,8 @@ const EndgameIntroductionSection: React.FC = () => {
           <Title isLight={isLight}>Endgame has arrived</Title>
           <Paragraph isLight={isLight}>
             On <Date>17-Feb-2023</Date> Maker Governance approved the{' '}
-            <ExternalLink href="#">Endgame proposal</ExternalLink>. This kicks off the biggest restructuring of MakerDAO
-            since the dissolution of the Maker Foundation in June 2021.
+            <ExternalLink href="https://vote.makerdao.com/polling/QmTmS5Nf">Endgame proposal</ExternalLink>. This kicks
+            off the biggest restructuring of MakerDAO since the dissolution of the Maker Foundation in June 2021.
           </Paragraph>
           <LearMore isLight={isLight} href="#" buttonType={ButtonType.Primary} label="Learn More" />
         </InfoContainer>
@@ -41,7 +41,7 @@ const EndgameIntroductionSection: React.FC = () => {
   );
 };
 
-export default EndgameIntroductionSection;
+export default EndgameIntroductionBanner;
 
 const EndgameContainer = styled.div<WithIsLight>(({ isLight }) => ({
   position: 'relative',
