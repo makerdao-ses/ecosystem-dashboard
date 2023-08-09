@@ -1,5 +1,5 @@
 import React from 'react';
-import BreadcrumbWithYear from '../components/BreadcrumbWithYear/BreadcrumbWithYear';
+import BreadcrumbWithYear from '../components/TTBreadcrumbWithYear/BreadcrumbWithYear';
 import type { SelectChangeEvent } from '@mui/material/Select';
 import type { NavigationBreadcrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
 
