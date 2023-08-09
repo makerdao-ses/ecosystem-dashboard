@@ -4,7 +4,6 @@ import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import { LinkButton } from '@ses/components/LinkButton/LinkButton';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
-import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import lightTheme from '@ses/styles/theme/light';
 import Image from 'next/image';
 import React from 'react';
@@ -12,7 +11,6 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 const EndgameIntroductionSection: React.FC = () => {
   const { isLight } = useThemeContext();
-  const [isEnabled] = useFlagsActive();
 
   return (
     <EndgameContainer isLight={isLight}>
@@ -35,9 +33,7 @@ const EndgameIntroductionSection: React.FC = () => {
             <ExternalLink href="#">Endgame proposal</ExternalLink>. This kicks off the biggest restructuring of MakerDAO
             since the dissolution of the Maker Foundation in June 2021.
           </Paragraph>
-          {isEnabled('FEATURE_FINANCES_ENDGAME_LEARN_MORE_BTN') && (
-            <LearMore isLight={isLight} href="#" buttonType={ButtonType.Primary} label="Learn More" />
-          )}
+          <LearMore isLight={isLight} href="#" buttonType={ButtonType.Primary} label="Learn More" />
         </InfoContainer>
       </Container>
     </EndgameContainer>
