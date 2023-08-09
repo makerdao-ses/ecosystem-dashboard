@@ -96,8 +96,10 @@ const Line = styled.div({
   },
 
   '&:nth-of-type(2), &:nth-of-type(3)': {
-    paddingTop: 8,
-    paddingBottom: 12.75,
+    padding: '8px 16px 12.75px',
+    marginLeft: -16,
+    marginRight: -16,
+    background: 'rgba(236, 239, 249, 0.30)',
   },
 });
 
