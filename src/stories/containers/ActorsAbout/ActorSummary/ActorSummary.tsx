@@ -85,7 +85,7 @@ const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcru
 
   return (
     <MainContainer ref={ref} isLight={isLight}>
-      <BreadCrumbNavigationStyled
+      <BreadcrumbNavigationStyled
         descriptionTextPagination="Ecosystem Actors"
         itemActual={page}
         mainUrl={`${siteRoutes.ecosystemActors}/${queryStrings}`}
@@ -144,7 +144,7 @@ const ContainerResponsiveMobile = styled.div<{ isLight: boolean; showHeader: boo
   },
 }));
 
-const BreadCrumbNavigationStyled = styled(BreadcrumbNavigation)({
+const BreadcrumbNavigationStyled = styled(BreadcrumbNavigation)({
   marginBottom: 0,
   '> div:first-of-type': {
     marginBottom: 0,
