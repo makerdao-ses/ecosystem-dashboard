@@ -6,7 +6,7 @@ import React from 'react';
 import BreadcrumbYearNavigation from './SeccionPages/BreadcrumbYearNavigation';
 import BreakdownChart from './SeccionPages/BreakdownChart';
 import BreakdownTable from './SeccionPages/BreakdownTable';
-import CardsNavigation from './SeccionPages/CardsNavigation';
+import CardChartOverview from './SeccionPages/CardChartOverview/CardChartOverview';
 import LatestExpenseReports from './SeccionPages/LatestExpenseReports';
 import MakerDAOExpenseMetrics from './SeccionPages/MakerDAOExpenseMetrics';
 import { useFinances } from './useFinances';
@@ -14,7 +14,21 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 const FinancesContainer = () => {
   const { isLight } = useThemeContext();
-  const { years, handleChange, handleClose, handleOpen, isOpen, value, trailingAddress } = useFinances();
+  const {
+    years,
+    handleChange,
+    handleClose,
+    handleOpen,
+    isOpen,
+    value,
+    trailingAddress,
+    filters,
+    filterSelected,
+    handleSelectFilter,
+    actuals,
+    budgetCap,
+    prediction,
+  } = useFinances();
   return (
     <PageContainer>
       <Container>
@@ -28,12 +42,21 @@ const FinancesContainer = () => {
           selectedValue={value}
         />
         <ContainerTitle isLight={isLight}>MakerDAO Finances</ContainerTitle>
+        <ContainerSections>
+          <CardChartOverview
+            filters={filters}
+            filterSelected={filterSelected}
+            handleSelectFilter={handleSelectFilter}
+            actuals={actuals}
+            budgetCap={budgetCap}
+            prediction={prediction}
+          />
 
-        <CardsNavigation />
-        <BreakdownChart />
-        <BreakdownTable />
-        <MakerDAOExpenseMetrics />
-        <LatestExpenseReports />
+          <BreakdownChart />
+          <BreakdownTable />
+          <MakerDAOExpenseMetrics />
+          <LatestExpenseReports />
+        </ContainerSections>
       </Container>
     </PageContainer>
   );
@@ -52,3 +75,5 @@ const ContainerTitle = styled.div<WithIsLight>(({ isLight }) => ({
   marginTop: 32,
   marginBottom: 64,
 }));
+
+const ContainerSections = styled.div({});
