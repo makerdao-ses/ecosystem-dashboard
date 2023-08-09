@@ -1,13 +1,11 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-
-import InformationBudgetCapOverView from '../../components/OverviewCardKeyDetailsBudget/InformationBudgetCapOverView/InformationBudgetCapOverView';
 import CardChartOverview from './CardChartOverview';
 import type { ComponentMeta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
 export default {
   title: 'Pages/NewFinances/CardChartOverview',
-  component: InformationBudgetCapOverView,
+  component: CardChartOverview,
 
   parameters: {
     chromatic: {
