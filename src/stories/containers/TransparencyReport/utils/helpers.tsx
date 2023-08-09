@@ -9,7 +9,7 @@ const replacePaymentTopup = (breakdownItems: InnerTableRow[]): InnerTableRow[] =
           ...item,
           value: {
             value: <div style={{ fontStyle: 'italic' }}>Uncategorised</div>,
-            column: item.column, // Make sure to include other necessary properties here
+            column: item.column,
           } as InnerTableCell,
         };
       } else {
