@@ -25,6 +25,7 @@ import {
   sumAllMonths,
 } from '../../utils/forecastHelper';
 import { getBreakdownItemsForWallet, getForecastBreakdownColumns } from '../../utils/forecastTableHelpers';
+import replacePaymentTopup from '../../utils/helpers';
 import HeaderWithIcon from '../HeaderWithIcon/HeaderWithIcon';
 import ProgressiveIndicator from './ProgresiveIndicator';
 import type { InnerTableColumn, InnerTableRow } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
@@ -417,14 +418,16 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
     const result: { [key: string]: InnerTableRow[] } = {};
 
     for (const wallet of wallets) {
-      result[wallet?.name] = getBreakdownItemsForWallet(
-        budgetStatements,
-        wallet,
-        allBreakdownColumns[wallet.name],
-        currentMonth,
-        firstMonth,
-        secondMonth,
-        thirdMonth
+      result[wallet?.name] = replacePaymentTopup(
+        getBreakdownItemsForWallet(
+          budgetStatements,
+          wallet,
+          allBreakdownColumns[wallet.name],
+          currentMonth,
+          firstMonth,
+          secondMonth,
+          thirdMonth
+        )
       );
     }
 

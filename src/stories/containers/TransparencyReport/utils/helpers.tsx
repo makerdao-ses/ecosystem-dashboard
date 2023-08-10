@@ -1,4 +1,4 @@
-import type { InnerTableRow, InnerTableCell } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
+import type { InnerTableRow } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 
 const replacePaymentTopup = (breakdownItems: InnerTableRow[]): InnerTableRow[] =>
   breakdownItems.map((innerRow) => ({
@@ -7,10 +7,7 @@ const replacePaymentTopup = (breakdownItems: InnerTableRow[]): InnerTableRow[] =
       if (item.value === 'payment topup') {
         return {
           ...item,
-          value: {
-            value: <div style={{ fontStyle: 'italic' }}>Uncategorised</div>,
-            column: item.column,
-          } as InnerTableCell,
+          value: <div style={{ fontStyle: 'italic' }}>Uncategorised</div>,
         };
       } else {
         return item;
