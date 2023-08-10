@@ -14,6 +14,7 @@ import {
   getWalletPayment,
 } from '../../utils/budgetStatementsUtils';
 import { ACTUALS_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
+import replacePaymentTopup from '../../utils/helpers';
 import type { InnerTableColumn, InnerTableRow } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { BudgetStatementWallet } from '@ses/core/models/interfaces/budgetStatementWallet';
@@ -269,7 +270,9 @@ export const useTransparencyActuals = (
     const result: { [key: string]: InnerTableRow[] } = {};
 
     for (const wallet of wallets) {
-      result[wallet?.name] = getActualsBreakdownItemsForWallet(wallet, allBreakdownColumns[wallet?.name], currentMonth);
+      result[wallet?.name] = replacePaymentTopup(
+        getActualsBreakdownItemsForWallet(wallet, allBreakdownColumns[wallet?.name], currentMonth)
+      );
     }
 
     return result;

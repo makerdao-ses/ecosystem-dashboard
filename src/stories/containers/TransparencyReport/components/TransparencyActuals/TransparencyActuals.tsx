@@ -7,7 +7,6 @@ import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { Title } from '../../TransparencyReport';
 import { ACTUALS_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
-import replacePaymentTopup from '../../utils/helpers';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import { useTransparencyActuals } from './useTransparencyActuals';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
@@ -79,7 +78,7 @@ export const TransparencyActuals: React.FC<TransparencyActualsProps> = ({
         <BreakdownTableWrapper>
           <AdvancedInnerTable
             columns={breakdownColumnsForActiveTab}
-            items={replacePaymentTopup(breakdownItemsForActiveTab)}
+            items={breakdownItemsForActiveTab}
             longCode={longCode}
             style={{ marginBottom: 64 }}
             cardSpacingSize="small"
