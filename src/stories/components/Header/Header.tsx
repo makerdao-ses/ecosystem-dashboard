@@ -9,6 +9,7 @@ import { featureFlags } from '../../../../feature-flags/feature-flags';
 import lightTheme from '../../../../styles/theme/light';
 import { useAuthContext } from '../../../core/context/AuthContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import GlobalActivityFeedBtn from '../MenuNavigation/ActivityFeed/GlobalActivityFeedBtn';
 import LoginButton from '../MenuNavigation/LoginButton/LoginButton';
 import MenuTheme from '../MenuNavigation/MenuTheme/MenuTheme';
 import MenuUserOptions from '../MenuNavigation/MenuUser/MenuUserOptions';
@@ -40,17 +41,12 @@ const Header: React.FC = () => {
   const activeMenuItem: MenuType = useMemo(() => {
     if (router.pathname.startsWith('/core-unit')) {
       return featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW ? menuItems.coreUnits : menuItems.finances;
-    } else if (
-      router.pathname.startsWith('/activity-feed') &&
-      featureFlags[CURRENT_ENVIRONMENT].FEATURE_GLOBAL_ACTIVITIES
-    ) {
-      return featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW
-        ? menuItems.globalActivityFeed
-        : menuItems.finances;
-    } else if (router.pathname.startsWith('/delegates')) {
+    } else if (router.pathname.startsWith(siteRoutes.recognizedDelegate)) {
       return menuItems.recognizedDelegate;
-    } else if (router.pathname.startsWith('/ecosystem-actors')) {
+    } else if (router.pathname.startsWith(siteRoutes.ecosystemActors)) {
       return menuItems.ecosystemActors;
+    } else if (router.pathname.startsWith(siteRoutes.endgame)) {
+      return menuItems.endgame;
     } else return menuItems.finances;
   }, [router.pathname]);
 
@@ -96,6 +92,7 @@ const Header: React.FC = () => {
             ) : (
               <LoginButton />
             )}
+            <GlobalActivityFeedBtn />
           </RightElementsWrapper>
         </Navigation>
       </LeftPart>
@@ -243,10 +240,8 @@ const LogoLinksWrapper = styled.div({
 
 const WrapperIcon = styled.div({
   display: 'flex',
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
-    display: 'none',
-  },
-  [lightTheme.breakpoints.down('table_375')]: {
+
+  [lightTheme.breakpoints.down('table_834')]: {
     display: 'none',
   },
 });

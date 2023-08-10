@@ -50,5 +50,5 @@ const MobileIcon = styled.div<WithIsLight>(({ isLight }) => ({
   borderRadius: '50%',
   border: `1px solid ${isLight ? '#D4D9E1' : '#31424E'}`,
   cursor: 'pointer',
-  marginRight: 16,
+  marginRight: 4,
 }));

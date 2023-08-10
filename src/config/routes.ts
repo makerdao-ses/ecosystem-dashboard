@@ -18,6 +18,7 @@ export const siteRoutes = {
   cookiesPolicy: '/cookies-policy',
   recognizedDelegateReport: '/recognized-delegates/finances/reports',
   recognizedDelegate: '/delegates',
+  endgame: '/endgame',
 
   // auth
   login: '/login',

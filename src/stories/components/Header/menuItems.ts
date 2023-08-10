@@ -9,7 +9,15 @@ export interface MenuType {
   titleMobile?: string;
 }
 
-const menuItems: { [key: string]: MenuType } = {};
+type RouteOnHeader =
+  | 'finances'
+  | 'ecosystemActors'
+  | 'coreUnits'
+  | 'recognizedDelegate'
+  | 'endgame'
+  | 'globalActivityFeed';
+
+const menuItems = {} as Record<RouteOnHeader, MenuType>;
 
 if (featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW) {
   menuItems.finances = {
@@ -42,12 +50,10 @@ if (featureFlags[CURRENT_ENVIRONMENT].FEATURE_RECOGNIZED_DELEGATES) {
   };
 }
 
-if (featureFlags[CURRENT_ENVIRONMENT].FEATURE_GLOBAL_ACTIVITIES) {
-  menuItems.globalActivityFeed = {
-    title: 'Activity Feed',
-    link: siteRoutes.globalActivityFeed,
-    marginRight: '32px',
-  };
-}
+menuItems.endgame = {
+  title: 'Endgame',
+  link: siteRoutes.endgame,
+  marginRight: '32px',
+};
 
 export default menuItems;
