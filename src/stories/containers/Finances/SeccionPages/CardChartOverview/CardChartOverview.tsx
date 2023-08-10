@@ -7,9 +7,6 @@ interface Props {
   filters: string[];
   filterSelected: string;
   handleSelectFilter: (filterSelected: string) => void;
-  actuals: number;
-  budgetCap: number;
-  prediction: number;
 }
 const CardChartOverview: React.FC<Props> = ({ filterSelected, filters, handleSelectFilter }) => {
   const { isLight } = useThemeContext();
