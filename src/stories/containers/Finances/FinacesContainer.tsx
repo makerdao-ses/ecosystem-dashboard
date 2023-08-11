@@ -76,4 +76,8 @@ const ContainerTitle = styled.div<WithIsLight>(({ isLight }) => ({
   marginBottom: 64,
 }));
 
-const ContainerSections = styled.div({});
+const ContainerSections = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 64,
+});
