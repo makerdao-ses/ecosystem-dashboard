@@ -22,13 +22,13 @@ export default IntroductoryHeadline;
 
 const Section = styled.section({
   textAlign: 'center',
-  marginBottom: 48,
+  marginBottom: 38,
 
   [lightTheme.breakpoints.up('table_834')]: {
     marginLeft: 'auto',
     marginRight: 'auto',
     maxWidth: 672,
-    marginBottom: 64,
+    marginBottom: 54,
   },
 });
 
