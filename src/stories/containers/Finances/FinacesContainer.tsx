@@ -25,6 +25,9 @@ const FinancesContainer = () => {
     filterSelected,
     handleSelectFilter,
     isLight,
+    actuals,
+    budgetCap,
+    prediction,
   } = useFinances();
   return (
     <PageContainer>
@@ -44,6 +47,9 @@ const FinancesContainer = () => {
             filters={filters}
             filterSelected={filterSelected}
             handleSelectFilter={handleSelectFilter}
+            actuals={actuals}
+            budgetCap={budgetCap}
+            prediction={prediction}
           />
 
           <BreakdownChart />
@@ -69,6 +75,7 @@ const ContainerTitle = styled.div<WithIsLight>(({ isLight }) => ({
   marginTop: 32,
   marginBottom: 64,
 }));
+
 const ContainerSections = styled.div({
   [lightTheme.breakpoints.up('desktop_1440')]: {
     display: 'flex',
