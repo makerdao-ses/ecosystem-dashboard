@@ -7,6 +7,7 @@ export interface MenuType {
   link: string;
   marginRight: string;
   titleMobile?: string;
+  mobileOnly?: boolean;
 }
 
 type RouteOnHeader =
@@ -55,5 +56,14 @@ menuItems.endgame = {
   link: siteRoutes.endgame,
   marginRight: '32px',
 };
+
+if (featureFlags[CURRENT_ENVIRONMENT].FEATURE_GLOBAL_ACTIVITIES) {
+  menuItems.globalActivityFeed = {
+    title: 'Activity Feed',
+    link: siteRoutes.globalActivityFeed,
+    marginRight: '32px',
+    mobileOnly: true,
+  };
+}
 
 export default menuItems;

@@ -43,10 +43,10 @@ const Button = styled.a<WithIsLight>(({ isLight }) => ({
   border: `1px solid ${isLight ? '#D4D9E1' : '#31424E'}`,
   borderRadius: '50%',
   cursor: 'pointer',
-  marginRight: 4,
+  marginRight: 0,
+  marginLeft: 24,
 
-  [lightTheme.breakpoints.up('table_834')]: {
-    marginRight: 0,
-    marginLeft: 24,
+  [lightTheme.breakpoints.down('table_834')]: {
+    display: 'none',
   },
 }));

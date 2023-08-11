@@ -41,6 +41,13 @@ const Header: React.FC = () => {
   const activeMenuItem: MenuType = useMemo(() => {
     if (router.pathname.startsWith('/core-unit')) {
       return featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW ? menuItems.coreUnits : menuItems.finances;
+    } else if (
+      router.pathname.startsWith(siteRoutes.globalActivityFeed) &&
+      featureFlags[CURRENT_ENVIRONMENT].FEATURE_GLOBAL_ACTIVITIES
+    ) {
+      return featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW
+        ? menuItems.globalActivityFeed
+        : menuItems.finances;
     } else if (router.pathname.startsWith(siteRoutes.recognizedDelegate)) {
       return menuItems.recognizedDelegate;
     } else if (router.pathname.startsWith(siteRoutes.ecosystemActors)) {
@@ -65,18 +72,20 @@ const Header: React.FC = () => {
         </ContainerLogoSelect>
 
         <Navigation>
-          {Object.values(menuItems).map((item) => (
-            <Link href={item.link} passHref key={item.title}>
-              <ItemMenuStyle
-                isLight={isLight}
-                style={{ marginRight: item.marginRight }}
-                href={item.link}
-                active={activeItem === item.title}
-              >
-                {item.title}
-              </ItemMenuStyle>
-            </Link>
-          ))}
+          {Object.values(menuItems)
+            .filter((item) => !item.mobileOnly)
+            .map((item) => (
+              <Link href={item.link} passHref key={item.title}>
+                <ItemMenuStyle
+                  isLight={isLight}
+                  style={{ marginRight: item.marginRight }}
+                  href={item.link}
+                  active={activeItem === item.title}
+                >
+                  {item.title}
+                </ItemMenuStyle>
+              </Link>
+            ))}
           <ItemMenuResponsive>
             <TopBarSelect selectedOption={activeItem} />
           </ItemMenuResponsive>
