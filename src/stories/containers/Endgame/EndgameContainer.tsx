@@ -19,6 +19,7 @@ const EndgameContainer: React.FC = () => (
     </BannerContainer>
 
     <Container>
+      {/* TODO: this should be removed when the remaining sections are added */}
       <div style={{ height: 800 }} />
     </Container>
   </EndgamePageContainer>
