@@ -1,8 +1,10 @@
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import type { SelectChangeEvent } from '@mui/material/Select';
 
 export const useFinances = () => {
+  const { isLight } = useThemeContext();
   const filters = ['Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain', 'Budget'];
 
   const [filterSelected, setFilterSelected] = useState<string>('Budget');
@@ -48,5 +50,6 @@ export const useFinances = () => {
     actuals,
     budgetCap,
     prediction,
+    isLight,
   };
 };

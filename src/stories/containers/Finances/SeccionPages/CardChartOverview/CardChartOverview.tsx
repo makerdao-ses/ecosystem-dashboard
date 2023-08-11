@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
+import InformationBudgetCapOverView from '../../components/OverviewCardKeyDetailsBudget/InformationBudgetCapOverView/InformationBudgetCapOverView';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
@@ -11,7 +12,14 @@ interface Props {
   budgetCap: number;
   prediction: number;
 }
-const CardChartOverview: React.FC<Props> = ({ filterSelected, filters, handleSelectFilter }) => {
+const CardChartOverview: React.FC<Props> = ({
+  filterSelected,
+  filters,
+  handleSelectFilter,
+  actuals,
+  budgetCap,
+  prediction,
+}) => {
   const { isLight } = useThemeContext();
   const handleOnclick = (item: string) => () => {
     handleSelectFilter(item);
@@ -25,6 +33,12 @@ const CardChartOverview: React.FC<Props> = ({ filterSelected, filters, handleSel
           </Item>
         ))}
       </ContainerFilters>
+      <ContainerCardChart>
+        <ContainerCardInformation>
+          <InformationBudgetCapOverView actuals={actuals} budgetCap={budgetCap} prediction={prediction} />
+        </ContainerCardInformation>
+        <Divider isLight={isLight} />
+      </ContainerCardChart>
     </Container>
   );
 };
@@ -57,4 +71,19 @@ const Item = styled.div<WithIsLight & { isSelected: boolean }>(({ isLight, isSel
   fontWeight: 500,
   lineHeight: 'normal',
   cursor: 'pointer',
+}));
+
+const ContainerCardChart = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: 64,
+  flex: 1,
+});
+
+const ContainerCardInformation = styled.div({
+  width: 300,
+});
+
+const Divider = styled.div<WithIsLight>(({ isLight }) => ({
+  borderLeft: isLight ? '1px solid #D4D9E1' : 'red',
 }));
