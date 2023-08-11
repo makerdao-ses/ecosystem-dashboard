@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import BreadcrumbYearNavigation from './SeccionPages/BreadcrumbYearNavigation';
 import BreakdownChart from './SeccionPages/BreakdownChart';
@@ -13,7 +13,6 @@ import { useFinances } from './useFinances';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 const FinancesContainer = () => {
-  const { isLight } = useThemeContext();
   const {
     years,
     handleChange,
@@ -25,9 +24,7 @@ const FinancesContainer = () => {
     filters,
     filterSelected,
     handleSelectFilter,
-    actuals,
-    budgetCap,
-    prediction,
+    isLight,
   } = useFinances();
   return (
     <PageContainer>
@@ -47,9 +44,6 @@ const FinancesContainer = () => {
             filters={filters}
             filterSelected={filterSelected}
             handleSelectFilter={handleSelectFilter}
-            actuals={actuals}
-            budgetCap={budgetCap}
-            prediction={prediction}
           />
 
           <BreakdownChart />
@@ -77,7 +71,9 @@ const ContainerTitle = styled.div<WithIsLight>(({ isLight }) => ({
 }));
 
 const ContainerSections = styled.div({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 64,
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 64,
+  },
 });

@@ -9,7 +9,7 @@ import { toAbsoluteURL } from '@ses/core/utils/urls';
 import React from 'react';
 import lightTheme from 'styles/theme/light';
 import CostBreakdownTable from './components/CostBreakdownTable/CostBreakdownTable';
-import EndgameIntroductionSection from './components/EndgameIntroductionSection/EndgameIntroductionSection';
+import EndgameIntroductionBanner from './components/EndgameIntroductionBanner/EndgameIntroductionBanner';
 import ExpensesChart from './components/ExpensesChart/ExpensesChart';
 import NavigationButtons from './components/NavigationButtons/NavigationButtons';
 import QuarterCarousel from './components/QuarterCarousel/QuarterCarousel';
@@ -54,6 +54,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
     remainingCategories,
     maxValueByCategory,
     costBreakdownTotal,
+    isEnabled,
   } = useFinancesOverview(quarterExpenses, monthlyExpenses, byBudgetBreakdownExpenses, byCategoryBreakdownExpenses);
 
   return (
@@ -68,9 +69,11 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
         }}
         twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
       />
-      <EndgameIntroContainer>
-        <EndgameIntroductionSection />
-      </EndgameIntroContainer>
+      {isEnabled('FEATURE_FINANCES_ENDGAME_BANNER_SECTION') && (
+        <EndgameIntroContainer>
+          <EndgameIntroductionBanner />
+        </EndgameIntroContainer>
+      )}
 
       <Container>
         <PageTitle isLight={isLight}>Total Reported Expenses</PageTitle>

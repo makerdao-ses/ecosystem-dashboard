@@ -4,15 +4,13 @@ import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import { LinkButton } from '@ses/components/LinkButton/LinkButton';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
-import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import lightTheme from '@ses/styles/theme/light';
 import Image from 'next/image';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-const EndgameIntroductionSection: React.FC = () => {
+const EndgameIntroductionBanner: React.FC = () => {
   const { isLight } = useThemeContext();
-  const [isEnabled] = useFlagsActive();
 
   return (
     <EndgameContainer isLight={isLight}>
@@ -20,6 +18,7 @@ const EndgameIntroductionSection: React.FC = () => {
         <ImageWrapper>
           <Image
             src="/assets/img/maker_endgame.png"
+            alt="Endgame"
             layout="fill"
             objectFit="cover"
             placeholder="blur"
@@ -32,19 +31,17 @@ const EndgameIntroductionSection: React.FC = () => {
           <Title isLight={isLight}>Endgame has arrived</Title>
           <Paragraph isLight={isLight}>
             On <Date>17-Feb-2023</Date> Maker Governance approved the{' '}
-            <ExternalLink href="#">Endgame proposal</ExternalLink>. This kicks off the biggest restructuring of MakerDAO
-            since the dissolution of the Maker Foundation in June 2021.
+            <ExternalLink href="https://vote.makerdao.com/polling/QmTmS5Nf">Endgame proposal</ExternalLink>. This kicks
+            off the biggest restructuring of MakerDAO since the dissolution of the Maker Foundation in June 2021.
           </Paragraph>
-          {isEnabled('FEATURE_FINANCES_ENDGAME_LEARN_MORE_BTN') && (
-            <LearMore isLight={isLight} href="#" buttonType={ButtonType.Primary} label="Learn More" />
-          )}
+          <LearMore isLight={isLight} href="#" buttonType={ButtonType.Primary} label="Learn More" />
         </InfoContainer>
       </Container>
     </EndgameContainer>
   );
 };
 
-export default EndgameIntroductionSection;
+export default EndgameIntroductionBanner;
 
 const EndgameContainer = styled.div<WithIsLight>(({ isLight }) => ({
   position: 'relative',

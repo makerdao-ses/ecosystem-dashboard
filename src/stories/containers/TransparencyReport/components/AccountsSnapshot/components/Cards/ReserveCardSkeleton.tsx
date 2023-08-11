@@ -227,20 +227,24 @@ const CurrencySkeleton = styled(BaseSkeleton)({
 const InflowContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  padding: '16px 10px 19.75px 10px',
+  margin: '8px 4px 8px 2px',
+  padding: '8px 10px 11.5px 8px',
   width: '16.104%',
+  borderRadius: 6,
+  background: 'rgba(236, 239, 249, 0.30)',
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    padding: '16px 0 21px 24px',
-    width: '16.77%',
+    margin: '8px 16px',
+    padding: '8px 34.5px 12.75px 8px',
+    width: '13.9%',
   },
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    width: '17.145%',
+    width: '14.4%',
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: '17.911%',
+    width: '15.4%',
   },
 });
 
@@ -277,19 +281,23 @@ const InflowValueSkeleton = styled(BaseSkeleton)({
 const OutflowContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  padding: '16px 10px 19.75px 10px',
+  margin: '8px 2px',
+  padding: '8px 13px 11.5px 8px',
+  borderRadius: 6,
+  background: 'rgba(236, 239, 249, 0.30)',
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    padding: '16px 0 21px 24px',
-    width: '16.77%',
+    margin: '8px 16px',
+    padding: '8px 34.5px 12.75px 8px',
+    width: '13.9%',
   },
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    width: '17.145%',
+    width: '14.4%',
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: '17.911%',
+    width: '15.4%',
   },
 });
 

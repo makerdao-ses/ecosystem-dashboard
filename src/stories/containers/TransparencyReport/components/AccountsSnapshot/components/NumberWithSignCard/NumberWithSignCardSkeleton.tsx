@@ -52,16 +52,8 @@ const SignContainer = styled.div({
   alignItems: 'center',
   marginRight: 4,
 
-  [lightTheme.breakpoints.up('table_834')]: {
-    marginRight: 12,
-  },
-
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginRight: 16.5,
-  },
-
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginRight: 40.5,
+    marginRight: 8,
   },
 });
 
@@ -91,9 +83,21 @@ const ValueContainer = styled.div({
   justifyContent: 'center',
   alignItems: 'center',
   width: '100%',
+  borderRadius: 6,
+  background: 'rgba(236, 239, 249, 0.30)',
+  padding: '8px 12px 11.38px',
 
   [lightTheme.breakpoints.up('table_834')]: {
     alignItems: 'flex-start',
+    padding: '8px 8px 11.38px',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    padding: '8px 8px 16px',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    padding: '10px 32.5px 16px',
   },
 });
 

@@ -38,13 +38,13 @@ const Card = styled.div<WithIsLight>(({ isLight }) => ({
   boxShadow: isLight
     ? '0px 4px 6px 0px rgba(195, 195, 195, 0.25)'
     : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
-  padding: '24px 16px 26px',
+  padding: '14px 16px 16px',
   gap: 37,
 
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'column',
     padding: 8,
-    gap: 21.75,
+    gap: 12.75,
     minWidth: 390,
     boxShadow: isLight
       ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
@@ -54,7 +54,7 @@ const Card = styled.div<WithIsLight>(({ isLight }) => ({
   [lightTheme.breakpoints.up('desktop_1194')]: {
     minWidth: 579,
     padding: 16,
-    gap: 30.75,
+    gap: 20.75,
   },
 }));
 
@@ -109,14 +109,13 @@ const ValuesContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  gap: 27.38,
+  gap: 8,
 
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row',
-    gap: 0,
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    gap: 12,
+    gap: 24,
   },
 });
