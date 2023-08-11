@@ -25,6 +25,9 @@ const FinancesContainer = () => {
     filterSelected,
     handleSelectFilter,
     isLight,
+    actuals,
+    budgetCap,
+    prediction,
   } = useFinances();
   return (
     <PageContainer>
@@ -44,6 +47,9 @@ const FinancesContainer = () => {
             filters={filters}
             filterSelected={filterSelected}
             handleSelectFilter={handleSelectFilter}
+            actuals={actuals}
+            budgetCap={budgetCap}
+            prediction={prediction}
           />
 
           <BreakdownChart />
