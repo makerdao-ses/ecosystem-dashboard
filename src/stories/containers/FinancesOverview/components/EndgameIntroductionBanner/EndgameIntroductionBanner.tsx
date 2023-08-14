@@ -9,7 +9,11 @@ import Image from 'next/image';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-const EndgameIntroductionBanner: React.FC = () => {
+interface EndgameIntroductionBannerProps {
+  isKeyChanges?: boolean;
+}
+
+const EndgameIntroductionBanner: React.FC<EndgameIntroductionBannerProps> = ({ isKeyChanges = false }) => {
   const { isLight } = useThemeContext();
 
   return (
@@ -28,13 +32,19 @@ const EndgameIntroductionBanner: React.FC = () => {
       </ImageContainer>
       <Container>
         <InfoContainer>
-          <Title isLight={isLight}>Endgame has arrived</Title>
+          <Title isLight={isLight}>{isKeyChanges ? 'Key Changes' : 'Endgame has arrived'}</Title>
           <Paragraph isLight={isLight}>
             On <Date>17-Feb-2023</Date> Maker Governance approved the{' '}
             <ExternalLink href="https://vote.makerdao.com/polling/QmTmS5Nf">Endgame proposal</ExternalLink>. This kicks
             off the biggest restructuring of MakerDAO since the dissolution of the Maker Foundation in June 2021.
           </Paragraph>
-          <LearMore isLight={isLight} href="#" buttonType={ButtonType.Primary} label="Learn More" />
+          {isKeyChanges ? (
+            <Paragraph isLight={isLight} noMargin={true}>
+              Below are some key changes that will take place as a result of the transition.{' '}
+            </Paragraph>
+          ) : (
+            <LearMore isLight={isLight} href="#" buttonType={ButtonType.Primary} label="Learn More" />
+          )}
         </InfoContainer>
       </Container>
     </EndgameContainer>
@@ -150,12 +160,12 @@ const Title = styled.h2<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const Paragraph = styled.p<WithIsLight>(({ isLight }) => ({
+const Paragraph = styled.p<WithIsLight & { noMargin?: boolean }>(({ isLight, noMargin = false }) => ({
   fontSize: 14,
   lineHeight: '22px',
   color: '#D2D4EF',
   marginBottom: 0,
-  marginTop: 14,
+  marginTop: noMargin ? 0 : 14,
 
   [lightTheme.breakpoints.up('table_834')]: {
     fontSize: 16,
@@ -163,7 +173,7 @@ const Paragraph = styled.p<WithIsLight>(({ isLight }) => ({
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
     color: isLight ? '#25273D' : '#D2D4EF',
-    marginTop: 15,
+    marginTop: noMargin ? 0 : 15,
   },
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
