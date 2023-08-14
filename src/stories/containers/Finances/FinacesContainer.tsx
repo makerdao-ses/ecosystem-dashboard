@@ -7,6 +7,7 @@ import BreadcrumbYearNavigation from './SeccionPages/BreadcrumbYearNavigation';
 import BreakdownChart from './SeccionPages/BreakdownChart';
 import BreakdownTable from './SeccionPages/BreakdownTable';
 import CardChartOverview from './SeccionPages/CardChartOverview/CardChartOverview';
+import CardsNavigation from './SeccionPages/CardsNavigation/CardsNavigation';
 import LatestExpenseReports from './SeccionPages/LatestExpenseReports';
 import MakerDAOExpenseMetrics from './SeccionPages/MakerDAOExpenseMetrics';
 import { useFinances } from './useFinances';
@@ -51,6 +52,7 @@ const FinancesContainer = () => {
             budgetCap={budgetCap}
             prediction={prediction}
           />
+          <CardsNavigation />
           <BreakdownChart />
           <BreakdownTable />
           <MakerDAOExpenseMetrics />
