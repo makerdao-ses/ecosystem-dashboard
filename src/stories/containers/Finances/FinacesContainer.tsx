@@ -51,7 +51,6 @@ const FinancesContainer = () => {
             budgetCap={budgetCap}
             prediction={prediction}
           />
-
           <BreakdownChart />
           <BreakdownTable />
           <MakerDAOExpenseMetrics />
