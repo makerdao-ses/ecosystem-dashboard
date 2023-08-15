@@ -9,7 +9,7 @@ export const useFinances = () => {
 
   const [filterSelected, setFilterSelected] = useState<string>('Budget');
   const router = useRouter();
-  const routes = ['MakerDAO Finances'];
+  const routes = ['Finances'];
   const years = ['2022', '2023'];
   const [value, setValue] = useState(years[0]);
   const [isOpen, setIsOpen] = useState(false);
