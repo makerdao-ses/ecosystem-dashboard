@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import Breadcrumbs from '@ses/components/Breadcrumbs/Breadcrumbs';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import SelectYear from '../SelectYear';
 import type { SelectChangeEvent } from '@mui/material/Select/Select';
@@ -43,8 +44,24 @@ const ContainerNavigation = styled.div({
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
+  height: 50,
+  paddingLeft: 8,
+  paddingRight: 8,
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    height: 74,
+    paddingLeft: 32,
+    paddingRight: 32,
+  },
 });
 
 const StyledBreadcrumbs = styled(Breadcrumbs)({
-  '& .crumb': { letterSpacing: 0 },
+  padding: 0,
+  // height: 50,
+  '& .crumb': {
+    letterSpacing: 0,
+    padding: 0,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    padding: '27px 0',
+  },
 });

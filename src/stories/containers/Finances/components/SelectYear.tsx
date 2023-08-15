@@ -3,6 +3,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { SelectChevronDown } from '@ses/components/svg/select-chevron-down';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import type { SelectChangeEvent } from '@mui/material/Select';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -90,7 +91,7 @@ const ContainerSelect = styled.div({
 const SelectStyled = styled(Select)<WithIsLight>(({ isLight }) => ({
   padding: 0,
   borderRadius: 22,
-  height: 48,
+  height: 34,
   width: 92,
   color: isLight ? '#231536' : '#E2D8EE',
   paddingRight: 0,
@@ -111,6 +112,9 @@ const SelectStyled = styled(Select)<WithIsLight>(({ isLight }) => ({
     '&.Mui-focused fieldset': {
       border: `1px solid ${isLight ? '#231536' : '#787A9B'}`,
     },
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    height: 48,
   },
 }));
 
