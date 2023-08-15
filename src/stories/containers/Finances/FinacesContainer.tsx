@@ -31,17 +31,16 @@ const FinancesContainer = () => {
   } = useFinances();
   return (
     <PageContainer>
-      <ContainerNavigation isLight={isLight}>
-        <BreadcrumbYearNavigation
-          trailingAddress={trailingAddress}
-          years={years}
-          isOpen={isOpen}
-          handleChange={handleChange}
-          onClose={handleClose}
-          onOpen={handleOpen}
-          selectedValue={value}
-        />
-      </ContainerNavigation>
+      <BreadcrumbYearNavigation
+        trailingAddress={trailingAddress}
+        years={years}
+        isOpen={isOpen}
+        handleChange={handleChange}
+        onClose={handleClose}
+        onOpen={handleOpen}
+        selectedValue={value}
+      />
+
       <Container>
         <ContainerTitle isLight={isLight}>MakerDAO Finances</ContainerTitle>
         <ContainerSections>
@@ -85,8 +84,8 @@ const ContainerSections = styled.div({
   },
 });
 
-const ContainerNavigation = styled.div<WithIsLight>(({ isLight }) => ({
-  paddingLeft: 32,
-  paddingRight: 32,
-  borderBottom: isLight ? '2px solid rgba(95, 196, 185, 0.1)' : 'red',
-}));
+// const ContainerNavigation = styled.div<WithIsLight>(({ isLight }) => ({
+//   paddingLeft: 32,
+//   paddingRight: 32,
+//   borderBottom: isLight ? '2px solid rgba(95, 196, 185, 0.1)' : 'red',
+// }));
