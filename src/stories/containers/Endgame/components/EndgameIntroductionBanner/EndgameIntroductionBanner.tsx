@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import { LinkButton } from '@ses/components/LinkButton/LinkButton';
+import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
 import lightTheme from '@ses/styles/theme/light';
@@ -21,17 +22,17 @@ const EndgameIntroductionBanner: React.FC<EndgameIntroductionBannerProps> = ({ i
       <ImageContainer isLight={isLight}>
         <ImageWrapper>
           <Image
-            src="/assets/img/maker_endgame.png"
+            src="/assets/img/endgame/maker_endgame.png"
             alt="Endgame"
             layout="fill"
             objectFit="cover"
             placeholder="blur"
-            blurDataURL="/assets/img/maker_endgame.png"
+            blurDataURL="/assets/img/endgame/maker_endgame.png"
           />
         </ImageWrapper>
       </ImageContainer>
       <Container>
-        <InfoContainer>
+        <InfoContainer isKeyChanges={isKeyChanges}>
           <Title isLight={isLight}>{isKeyChanges ? 'Key Changes' : 'Endgame has arrived'}</Title>
           <Paragraph isLight={isLight}>
             On <Date>17-Feb-2023</Date> Maker Governance approved the{' '}
@@ -43,7 +44,7 @@ const EndgameIntroductionBanner: React.FC<EndgameIntroductionBannerProps> = ({ i
               Below are some key changes that will take place as a result of the transition.{' '}
             </Paragraph>
           ) : (
-            <LearMore isLight={isLight} href="#" buttonType={ButtonType.Primary} label="Learn More" />
+            <LearMore isLight={isLight} href={siteRoutes.endgame} buttonType={ButtonType.Primary} label="Learn More" />
           )}
         </InfoContainer>
       </Container>
@@ -81,18 +82,18 @@ const ImageWrapper = styled.div({
   height: '100%',
 });
 
-const InfoContainer = styled.div({
+const InfoContainer = styled.div<{ isKeyChanges: boolean }>(({ isKeyChanges }) => ({
   position: 'relative',
   zIndex: 1,
-  marginTop: 145,
-  padding: '32px 16px',
+  marginTop: isKeyChanges ? 188 : 145,
+  padding: isKeyChanges ? '40px 16px' : '32px 16px',
   marginLeft: -16,
   marginRight: -16,
   textAlign: 'center',
   background: 'linear-gradient(360deg, #10131F 0%, rgba(16, 25, 31, 0.00) 100%)',
 
   [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: 133,
+    marginTop: isKeyChanges ? 169 : 133,
     marginLeft: -32,
     marginRight: 0,
     padding: 48,
@@ -117,7 +118,7 @@ const InfoContainer = styled.div({
   [lightTheme.breakpoints.up('desktop_1194')]: {
     maxWidth: '50%',
     margin: 0,
-    padding: '62px 64px 62px 0',
+    padding: isKeyChanges ? '80px 64px 80px 0' : '62px 64px 62px 0',
 
     '&::before': {
       display: 'none',
@@ -125,7 +126,7 @@ const InfoContainer = styled.div({
   },
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    padding: '54px 48px 54px 0',
+    padding: isKeyChanges ? '60px 48px 60px 0' : '54px 48px 54px 0',
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
@@ -133,9 +134,9 @@ const InfoContainer = styled.div({
   },
 
   [lightTheme.breakpoints.up('desktop_1920')]: {
-    padding: '117px 112px 117px 0',
+    padding: isKeyChanges ? '123px 112px 123px 0' : '117px 112px 117px 0',
   },
-});
+}));
 
 const Title = styled.h2<WithIsLight>(({ isLight }) => ({
   fontSize: 20,

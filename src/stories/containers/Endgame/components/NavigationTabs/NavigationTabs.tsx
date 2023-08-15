@@ -60,6 +60,12 @@ const Navigation = styled.nav<WithIsLight>(({ isLight }) => ({
   minWidth: 'fit-content',
   width: '100%',
 
+  [lightTheme.breakpoints.down('table_834')]: {
+    marginLeft: -16,
+    paddingLeft: 16,
+    paddingRight: 16,
+  },
+
   [lightTheme.breakpoints.up('table_834')]: {
     gap: 56,
   },
@@ -80,6 +86,7 @@ const Tab = styled.a<WithIsLight & { active?: boolean }>(({ isLight, active = fa
     [lightTheme.breakpoints.up('table_834')]: {
       fontSize: 16,
       lineHeight: '22px',
+      paddingBottom: 12,
     },
   };
 });
