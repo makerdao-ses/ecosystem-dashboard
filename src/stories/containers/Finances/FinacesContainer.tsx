@@ -83,9 +83,3 @@ const ContainerSections = styled.div({
     gap: 64,
   },
 });
-
-// const ContainerNavigation = styled.div<WithIsLight>(({ isLight }) => ({
-//   paddingLeft: 32,
-//   paddingRight: 32,
-//   borderBottom: isLight ? '2px solid rgba(95, 196, 185, 0.1)' : 'red',
-// }));
