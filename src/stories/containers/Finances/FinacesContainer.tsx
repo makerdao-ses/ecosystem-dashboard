@@ -31,16 +31,17 @@ const FinancesContainer = () => {
   } = useFinances();
   return (
     <PageContainer>
+      <BreadcrumbYearNavigation
+        trailingAddress={trailingAddress}
+        years={years}
+        isOpen={isOpen}
+        handleChange={handleChange}
+        onClose={handleClose}
+        onOpen={handleOpen}
+        selectedValue={value}
+      />
+
       <Container>
-        <BreadcrumbYearNavigation
-          trailingAddress={trailingAddress}
-          years={years}
-          isOpen={isOpen}
-          handleChange={handleChange}
-          onClose={handleClose}
-          onOpen={handleOpen}
-          selectedValue={value}
-        />
         <ContainerTitle isLight={isLight}>MakerDAO Finances</ContainerTitle>
         <ContainerSections>
           <CardChartOverview
