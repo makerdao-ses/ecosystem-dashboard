@@ -8,8 +8,8 @@ import { useCategoriesModalContext } from '@ses/core/context/CategoryModalContex
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import React from 'react';
 import lightTheme from 'styles/theme/light';
+import EndgameIntroductionBanner from '../Endgame/components/EndgameIntroductionBanner/EndgameIntroductionBanner';
 import CostBreakdownTable from './components/CostBreakdownTable/CostBreakdownTable';
-import EndgameIntroductionBanner from './components/EndgameIntroductionBanner/EndgameIntroductionBanner';
 import ExpensesChart from './components/ExpensesChart/ExpensesChart';
 import NavigationButtons from './components/NavigationButtons/NavigationButtons';
 import QuarterCarousel from './components/QuarterCarousel/QuarterCarousel';

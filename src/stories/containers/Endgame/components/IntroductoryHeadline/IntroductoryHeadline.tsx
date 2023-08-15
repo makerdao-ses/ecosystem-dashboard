@@ -48,10 +48,12 @@ const HeadlineSubtext = styled.p<WithIsLight>(({ isLight }) => ({
   marginBottom: 0,
   marginTop: 32,
   fontSize: 14,
+  lineHeight: '16px',
   color: isLight ? '#231536' : 'red',
 
   [lightTheme.breakpoints.up('table_834')]: {
     fontSize: 16,
     lineHeight: '22px',
+    marginTop: 27,
   },
 }));
