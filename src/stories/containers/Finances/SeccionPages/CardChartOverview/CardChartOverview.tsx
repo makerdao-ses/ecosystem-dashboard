@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
+import DoughnutChartFinances from '../../components/OverviewCardKeyDetailsBudget/DoughnutChartFinances/DoughnutChartFinances';
 import InformationBudgetCapOverView from '../../components/OverviewCardKeyDetailsBudget/InformationBudgetCapOverView/InformationBudgetCapOverView';
+import type { DoughnutSeries } from '@ses/core/models/interfaces/doughnutSeries';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
@@ -11,6 +13,7 @@ interface Props {
   actuals: number;
   budgetCap: number;
   prediction: number;
+  doughnutSeriesData: DoughnutSeries[];
 }
 const CardChartOverview: React.FC<Props> = ({
   filterSelected,
@@ -19,11 +22,13 @@ const CardChartOverview: React.FC<Props> = ({
   actuals,
   budgetCap,
   prediction,
+  doughnutSeriesData,
 }) => {
   const { isLight } = useThemeContext();
   const handleOnclick = (item: string) => () => {
     handleSelectFilter(item);
   };
+
   return (
     <Container isLight={isLight}>
       <ContainerFilters>
@@ -38,6 +43,9 @@ const CardChartOverview: React.FC<Props> = ({
           <InformationBudgetCapOverView actuals={actuals} budgetCap={budgetCap} prediction={prediction} />
         </ContainerCardInformation>
         <Divider isLight={isLight} />
+        <ContainerChat>
+          <DoughnutChartFinances doughnutSeriesData={doughnutSeriesData} />
+        </ContainerChat>
       </ContainerCardChart>
     </Container>
   );
@@ -87,3 +95,9 @@ const ContainerCardInformation = styled.div({
 const Divider = styled.div<WithIsLight>(({ isLight }) => ({
   borderLeft: isLight ? '1px solid #D4D9E1' : 'red',
 }));
+
+const ContainerChat = styled.div({
+  display: 'flex',
+  width: 430,
+  marginLeft: 130,
+});

@@ -28,6 +28,7 @@ const FinancesContainer = () => {
     actuals,
     budgetCap,
     prediction,
+    doughnutSeriesData,
   } = useFinances();
   return (
     <PageContainer>
@@ -50,6 +51,7 @@ const FinancesContainer = () => {
             actuals={actuals}
             budgetCap={budgetCap}
             prediction={prediction}
+            doughnutSeriesData={doughnutSeriesData}
           />
 
           <BreakdownChart />
