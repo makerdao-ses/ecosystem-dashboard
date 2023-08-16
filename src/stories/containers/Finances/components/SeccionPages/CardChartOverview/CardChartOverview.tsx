@@ -1,9 +1,12 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
-import DoughnutChartFinances from '../../components/OverviewCardKeyDetailsBudget/DoughnutChartFinances/DoughnutChartFinances';
-import InformationBudgetCapOverView from '../../components/OverviewCardKeyDetailsBudget/InformationBudgetCapOverView/InformationBudgetCapOverView';
+// import DoughnutChartFinances from '../../components/OverviewCardKeyDetailsBudget/DoughnutChartFinances/DoughnutChartFinances';
+// import InformationBudgetCapOverView from '../../components/OverviewCardKeyDetailsBudget/InformationBudgetCapOverView/InformationBudgetCapOverView';
+import DoughnutChartFinances from '../../OverviewCardKeyDetailsBudget/DoughnutChartFinances/DoughnutChartFinances';
+import InformationBudgetCapOverview from '../../OverviewCardKeyDetailsBudget/InformationBudgetCapOverView/InformationBudgetCapOverView';
 import type { DoughnutSeries } from '@ses/core/models/interfaces/doughnutSeries';
+// import InformationBudgetCapOverview from '../../OverviewCardKeyDetailsBudget/InformationBudgetCapOverView/InformationBudgetCapOverView';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
@@ -40,7 +43,7 @@ const CardChartOverview: React.FC<Props> = ({
       </ContainerFilters>
       <ContainerCardChart>
         <ContainerCardInformation>
-          <InformationBudgetCapOverView actuals={actuals} budgetCap={budgetCap} prediction={prediction} />
+          <InformationBudgetCapOverview actuals={actuals} budgetCap={budgetCap} prediction={prediction} />
         </ContainerCardInformation>
         <Divider isLight={isLight} />
         <ContainerChat>

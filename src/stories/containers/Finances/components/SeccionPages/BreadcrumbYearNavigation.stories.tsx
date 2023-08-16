@@ -42,11 +42,11 @@ LightMode.parameters = {
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22069:258713&mode=dev',
         options: {
           componentStyle: {
-            width: 1376,
+            width: 1440,
           },
           style: {
             top: -1,
-            left: -32,
+            left: -1,
           },
         },
       },
