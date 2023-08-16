@@ -9,19 +9,17 @@ const TokenUpgradesSection: React.FC = () => (
       title="Extending the DAI brand"
       readMore={[
         {
-          title: 'View AVCs & Delegates on the voting portal',
-          href: '#',
+          title: 'Endgame Tokenomics',
+          href: 'https://endgame.makerdao.com/tokenomics/elixir',
         },
         {
-          title: 'Overview of recognized delegates legacy budgets',
-          href: '#',
+          title: 'Dai management & Stability Scope',
+          href: 'https://powerhouse.gitbook.io/maker-alignment-artifacts/mip102c2-sp13/mip104-stability-scope',
         },
       ]}
     >
-      Due to voter apathy within MakerDAO governance and DAOs more broadly, the DAO will transition from a model of
-      recognized delegates to two groups aligned voter committees, and aligned delegates. MKR holders who are interested
-      in Maker governance can now participate in voter committees of their liking to discuss policy with the relevant
-      delegates.
+      Strategic initiatives that leverage DAI's core strengths, such as stability and decentralization, to expand its
+      presence and relevance in the wider cryptocurrency ecosystem.
     </KeyChangeCard>
     <KeyChangeCard
       from="MKR"
@@ -29,19 +27,17 @@ const TokenUpgradesSection: React.FC = () => (
       title="A better voter incentive model"
       readMore={[
         {
-          title: 'Maker Atlas & Scope Artifacts full text',
-          href: '#',
+          title: 'MKR Tokenomics',
+          href: 'https://endgame.makerdao.com/tokenomics/mkr-tokenomics',
         },
         {
-          title: 'View the legacy MIPs portal',
-          href: '#',
+          title: 'Maker Atlas & Incentivized Alignment',
+          href: 'https://powerhouse.gitbook.io/maker-alignment-artifacts/mip102c2-sp13/mip101-maker-atlas-immutable-alignment-artifact#:~:text=from%20misaligned%20competitors.-,Incentivized%20Alignment,-Incentivized%20Alignment%20is',
         },
       ]}
     >
-      Before Endgame, Maker Improvement Proposals allowed any change to Maker Governance without much restriction or
-      direction. The Endgame plan introduces the Maker Atlas which defines much better what the core business of the
-      Maker Protocol is all about. It also introduces 5 Scope Artifacts which defines how Maker should operate within
-      different operational areas.
+      The improved voter incentive model utilizes MKR and NewGovToken to encourage active participation and informed
+      decision-making within MakerDAO's governance ecosystem, enhancing decentralized governance.
     </KeyChangeCard>
   </>
 );

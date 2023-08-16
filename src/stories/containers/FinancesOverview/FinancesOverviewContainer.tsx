@@ -54,7 +54,6 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
     remainingCategories,
     maxValueByCategory,
     costBreakdownTotal,
-    isEnabled,
   } = useFinancesOverview(quarterExpenses, monthlyExpenses, byBudgetBreakdownExpenses, byCategoryBreakdownExpenses);
 
   return (
@@ -69,11 +68,9 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
         }}
         twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
       />
-      {isEnabled('FEATURE_FINANCES_ENDGAME_BANNER_SECTION') && (
-        <EndgameIntroContainer>
-          <EndgameIntroductionBanner />
-        </EndgameIntroContainer>
-      )}
+      <EndgameIntroContainer>
+        <EndgameIntroductionBanner />
+      </EndgameIntroContainer>
 
       <Container>
         <PageTitle isLight={isLight}>Total Reported Expenses</PageTitle>

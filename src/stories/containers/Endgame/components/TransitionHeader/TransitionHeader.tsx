@@ -13,7 +13,7 @@ const TransitionHeader: React.FC<TransitionHeaderProps> = ({ from, to }) => {
   const { isLight } = useThemeContext();
 
   return (
-    <HeaderContainer>
+    <HeaderContainer isLight={isLight}>
       <From isLight={isLight}>{renderItems(from, isLight)}</From>
       <To isLight={isLight}>{renderItems(to, isLight)}</To>
     </HeaderContainer>
@@ -25,7 +25,7 @@ export default TransitionHeader;
 const renderItems = (from: string | string[], isLight: boolean) => {
   if (Array.isArray(from)) {
     return (
-      <List>
+      <List isLight={isLight}>
         {from.map((item, index) => (
           <Item as={'li'} key={index} isLight={isLight}>
             {item}
@@ -38,71 +38,135 @@ const renderItems = (from: string | string[], isLight: boolean) => {
   }
 };
 
-const HeaderContainer = styled.div({
+const HeaderContainer = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
-  boxShadow: '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 5px 10px 0px rgba(219, 227, 237, 0.40)',
+  boxShadow: isLight
+    ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 5px 10px 0px rgba(219, 227, 237, 0.40)'
+    : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 5px 10px 0px rgba(7, 22, 40, 0.40)',
+  borderRadius: 6,
+  overflow: 'hidden',
 
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row',
-    borderRadius: 6,
-    background: 'rgba(236, 239, 249, 0.30)',
+    background: isLight ? 'rgba(236, 239, 249, 0.30)' : '#343442',
     boxShadow: 'none',
   },
-});
+}));
 
-const From = styled.div<WithIsLight>(() => ({
+const From = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   alignItems: 'center',
-  backgroundImage: 'url("/assets/img/endgame/arrow_mobile_light.png")',
-  backgroundSize: '100% 82px',
+  justifyContent: 'center',
+  backgroundImage: `url("/assets/img/endgame/arrow_mobile_${isLight ? 'light' : 'dark'}.png")`,
+  backgroundSize: '100% 100%',
   backgroundRepeat: 'no-repeat',
-  filter: 'drop-shadow(0px 1px 3px rgba(190, 190, 190, 0.25)) drop-shadow(0px 20px 40px rgba(219, 227, 237, 0.40))',
+  filter: isLight
+    ? 'drop-shadow(0px 1px 3px rgba(190, 190, 190, 0.25)) drop-shadow(0px 20px 40px rgba(219, 227, 237, 0.40))'
+    : 'drop-shadow(0px 1px 3px rgba(30, 23, 23, 0.25)) drop-shadow(0px 20px 40px rgba(7, 22, 40, 0.40))',
   minHeight: 82,
   paddingBottom: 18,
 
+  '& > ul': {
+    marginBottom: 23,
+  },
+
   [lightTheme.breakpoints.up('table_834')]: {
-    backgroundImage: 'url("/assets/img/endgame/arrow_desktop_light.png")',
+    backgroundImage: `url("/assets/img/endgame/arrow_desktop_${isLight ? 'light' : 'dark'}.png")`,
     backgroundSize: 'calc(100% + 15px) 100%',
     backgroundRepeat: 'no-repeat',
     minHeight: 87,
     paddingLeft: 32,
-    paddingRight: 86,
+    paddingRight: 131,
+    paddingBottom: 0,
     width: 'calc(50% + 140px)',
+    filter: 'none',
+
+    '& > ul': {
+      marginBottom: 16,
+      marginLeft: 4,
+    },
+
+    [lightTheme.breakpoints.up('desktop_1194')]: {
+      paddingRight: 75,
+      width: 'calc(50% + 89px)',
+    },
   },
 }));
 
 const To = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   alignItems: 'center',
-  marginTop: -32,
-  paddingTop: 31,
-  background: isLight ? '#F5F6FC' : 'red',
+  justifyContent: 'center',
+  marginTop: -42,
+  paddingTop: 41,
+  background: isLight ? '#F5F6FC' : '#343442',
+
+  '& > div': {
+    padding: '16px 0',
+  },
 
   [lightTheme.breakpoints.up('table_834')]: {
     width: '50%',
-    justifyContent: 'center',
+    marginTop: 0,
+    paddingTop: 0,
+    background: 'none',
+
+    '& > div': {
+      paddingRight: 20,
+    },
+
+    '& > ul': {
+      gap: 16,
+      marginLeft: -18,
+    },
+  },
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    paddingRight: 12,
   },
 }));
 
-const List = styled.ul({
+const List = styled.ul<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
   paddingLeft: 20,
-  marginLeft: 'auto',
-  marginRight: 'auto',
+  listStyle: 'none',
+  position: 'relative',
 
   '& li': {
     textAlign: 'left',
+
+    '&::before': {
+      content: '""',
+      display: 'block',
+      width: 4,
+      height: 4,
+      borderRadius: 8,
+      background: isLight ? '#708390' : '#E2D8EE',
+      position: 'absolute',
+      left: 8,
+      marginTop: 8,
+
+      [lightTheme.breakpoints.up('table_834')]: {
+        width: 5,
+        height: 5,
+        left: 5,
+      },
+    },
+
+    [lightTheme.breakpoints.up('desktop_1194')]: {
+      whiteSpace: 'nowrap',
+    },
   },
-});
+}));
 
 const Item = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 14,
   lineHeight: '18px',
   fontWeight: 500,
-  color: isLight ? '#708390' : 'red',
+  color: isLight ? '#708390' : '#E2D8EE',
   width: '100%',
   textAlign: 'center',
 

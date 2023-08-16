@@ -41,7 +41,8 @@ const Sticky = styled.div({
 });
 
 const Wrapper = styled.div<WithIsLight>(({ isLight }) => ({
-  backgroundColor: isLight ? 'white' : 'red',
+  backgroundColor: isLight ? 'white' : '#000d1ae8',
+  backdropFilter: isLight ? 'none' : 'blur(20px)',
   width: '100%',
   overflowX: 'scroll',
   msOverflowStyle: 'none',
@@ -53,7 +54,7 @@ const Wrapper = styled.div<WithIsLight>(({ isLight }) => ({
 }));
 
 const Navigation = styled.nav<WithIsLight>(({ isLight }) => ({
-  borderBottom: `1px solid ${isLight ? '#B6EDE7' : 'red'}`,
+  borderBottom: `1px solid ${isLight ? '#B6EDE7' : '#405361'}`,
   display: 'flex',
   justifyContent: 'center',
   gap: 16,
@@ -72,8 +73,8 @@ const Navigation = styled.nav<WithIsLight>(({ isLight }) => ({
 }));
 
 const Tab = styled.a<WithIsLight & { active?: boolean }>(({ isLight, active = false }) => {
-  const activeColor = isLight ? '#1AAB9B' : 'red';
-  const defaultColor = isLight ? '#708390' : 'red';
+  const activeColor = isLight ? '#1AAB9B' : '#2DC1B1';
+  const defaultColor = '#708390';
 
   return {
     fontSize: 14,
