@@ -7,7 +7,7 @@ import ReadMore from '../ReadMore';
 interface Props {
   svgImage: JSX.Element;
   title: string;
-  description: string | JSX.Element;
+  description: React.ReactNode;
   href: string;
 }
 

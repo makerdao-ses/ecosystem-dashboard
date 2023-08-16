@@ -3,11 +3,19 @@ import * as React from 'react';
 interface Props {
   width?: number;
   height?: number;
-  style?: React.CSSProperties;
+  className?: string;
 }
 
-const EndgameAtlasBudgets: React.FC<Props> = ({ height = 38, width = 54, ...props }) => (
-  <svg width={64} height={64} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+const EndgameAtlasBudgets: React.FC<Props> = ({ height = 38, width = 54, className, ...props }) => (
+  <svg
+    className={className}
+    width={64}
+    height={64}
+    viewBox="0 0 64 64"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <g clipPath="url(#clip0_22641_221349)">
       <path d="M58.3 36.947a37.491 37.491 0 01-53.021 0l26.51-26.51 26.51 26.51z" fill="#fff" />
       <mask

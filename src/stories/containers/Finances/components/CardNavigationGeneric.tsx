@@ -4,11 +4,11 @@ import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { PropsWithChildren } from 'react';
 
-interface Props {
+interface Props extends PropsWithChildren {
   className?: string;
 }
 
-const CardNavigationGeneric: React.FC<Props & PropsWithChildren> = ({ className, children }) => {
+const CardNavigationGeneric: React.FC<Props> = ({ className, children }) => {
   const { isLight } = useThemeContext();
   return (
     <ContainerCard className={className} isLight={isLight}>

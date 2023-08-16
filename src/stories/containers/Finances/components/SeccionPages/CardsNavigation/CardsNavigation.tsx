@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import EndgameAtlasBudgets from '@ses/components/svg/EndgameAtlasBudgets';
-import EndgameScopeBudgets from '@ses/components/svg/EndgameScopeBudgets';
-import MakerDAOLegacyBudgets from '@ses/components/svg/MakerDAOLegacyBudgets';
+import EndgameAtlasBudgets from '@ses/containers/Finances/components/EndgameAtlasBudgets';
 import React from 'react';
-import CardNavigationFinance from '../../components/CardNavigationFinance/CardNavigationFinance';
+import CardNavigationFinance from '../../CardNavigationFinance/CardNavigationFinance';
+import EndgameScopeBudgets from '../../EndgameScopeBudgets';
+import MakerDAOLegacyBudgets from '../../MakerDAOLegacyBudgets';
 
 const CardsNavigation: React.FC = () => (
   <ContainerCardsNavigation>

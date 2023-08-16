@@ -1,4 +1,4 @@
-import EndgameAtlasBudgets from '@ses/components/svg/EndgameAtlasBudgets';
+import EndgameAtlasBudgets from '@ses/containers/Finances/components/EndgameAtlasBudgets';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 
 import CardNavigationFinance from './CardNavigationFinance';
