@@ -122,12 +122,14 @@ const MenuItemStyled = styled(MenuItem)<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   ':hover': {
     backgroundColor: isLight ? '#EDEFFF' : 'red',
+    borderRadius: 6,
   },
 
   '&.MuiMenuItem-root.Mui-selected': {
     backgroundColor: isLight ? 'white' : '#000A13',
     ':hover': {
       backgroundColor: isLight ? '#EDEFFF' : 'red',
+      borderRadius: 6,
     },
   },
 }));

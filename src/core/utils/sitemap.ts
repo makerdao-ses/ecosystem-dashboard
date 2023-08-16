@@ -33,6 +33,10 @@ export class SitemapBuilder {
     return this.getXMLForRoute(`${BASE_URL}${siteRoutes.recognizedDelegateReport}`);
   }
 
+  resolveEndgameRoute(): string {
+    return this.getXMLForRoute(`${BASE_URL}${siteRoutes.endgame}`);
+  }
+
   resolveGlobalActivityRoute(): string {
     return this.getXMLForRoute(`${BASE_URL}${siteRoutes.globalActivityFeed}`);
   }
@@ -86,6 +90,7 @@ export class SitemapBuilder {
       ${this.resolveHomePageRoute()}
       ${this.resolveDelegatesRoute()}
       ${this.resolveDelegatesReportsRoute()}
+      ${this.resolveEndgameRoute()}
       ${this.resolveCoreUnitsHomeRoute()}
       ${this.resolveGlobalActivityRoute()}
       ${this.resolveActorsOverviewRoute()}

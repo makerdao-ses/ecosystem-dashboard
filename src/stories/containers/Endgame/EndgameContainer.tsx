@@ -3,8 +3,9 @@ import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import EndgameIntroductionBanner from '../FinancesOverview/components/EndgameIntroductionBanner/EndgameIntroductionBanner';
+import EndgameIntroductionBanner from './components/EndgameIntroductionBanner/EndgameIntroductionBanner';
 import IntroductoryHeadline from './components/IntroductoryHeadline/IntroductoryHeadline';
+import KeyChangesSections from './components/KeyChangesSections/KeyChangesSections';
 import NavigationTabs from './components/NavigationTabs/NavigationTabs';
 
 const EndgameContainer: React.FC = () => (
@@ -15,12 +16,11 @@ const EndgameContainer: React.FC = () => (
     <NavigationTabs />
 
     <BannerContainer>
-      <EndgameIntroductionBanner isKeyChanges={true} />
+      <EndgameIntroductionBanner isKeyChanges />
     </BannerContainer>
 
     <Container>
-      {/* TODO: this should be removed when the remaining sections are added */}
-      <div style={{ height: 800 }} />
+      <KeyChangesSections />
     </Container>
   </EndgamePageContainer>
 );
