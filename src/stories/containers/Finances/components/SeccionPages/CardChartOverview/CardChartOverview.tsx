@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
-import InformationBudgetCapOverview from '../../components/OverviewCardKeyDetailsBudget/InformationBudgetCapOverView/InformationBudgetCapOverView';
+import InformationBudgetCapOverview from '../../OverviewCardKeyDetailsBudget/InformationBudgetCapOverView/InformationBudgetCapOverView';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {

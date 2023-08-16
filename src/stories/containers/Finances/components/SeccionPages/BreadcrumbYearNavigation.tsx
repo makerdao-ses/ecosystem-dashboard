@@ -3,7 +3,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import BreadcrumbWithYear from '../components/BreadcrumbWithYear/BreadcrumbWithYear';
+import BreadcrumbWithYear from '../BreadcrumbWithYear/BreadcrumbWithYear';
 import type { SelectChangeEvent } from '@mui/material/Select';
 import type { NavigationBreadcrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';

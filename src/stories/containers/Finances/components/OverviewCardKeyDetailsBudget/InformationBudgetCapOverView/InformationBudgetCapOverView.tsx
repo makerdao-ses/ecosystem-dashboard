@@ -14,7 +14,7 @@ export type QuarterCardProps = {
   budgetCap: number;
 };
 
-const InformationBudgetCapOverView: React.FC<QuarterCardProps> = ({ prediction, actuals, budgetCap }) => {
+const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ prediction, actuals, budgetCap }) => {
   const { isLight } = useThemeContext();
 
   const humanizedActuals = threeDigitsPrecisionHumanization(actuals);
@@ -58,7 +58,7 @@ const InformationBudgetCapOverView: React.FC<QuarterCardProps> = ({ prediction, 
   );
 };
 
-export default InformationBudgetCapOverView;
+export default InformationBudgetCapOverview;
 
 const CardContainer = styled.div({
   width: '100%',
