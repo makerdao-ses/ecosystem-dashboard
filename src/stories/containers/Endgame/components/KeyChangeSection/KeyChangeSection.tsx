@@ -60,7 +60,7 @@ const AccordionSummary = styled(MuiAccordionSummary)<WithIsLight>(({ isLight }) 
     lineHeight: '24px',
     fontWeight: 600,
     letterSpacing: 0.4,
-    color: isLight ? '#231536' : 'red',
+    color: isLight ? '#231536' : '#D2D4EF',
 
     [lightTheme.breakpoints.up('table_834')]: {
       fontSize: 24,

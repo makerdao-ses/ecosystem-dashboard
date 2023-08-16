@@ -1,6 +1,5 @@
 import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
 import { useCallback, useMemo, useState } from 'react';
@@ -25,7 +24,6 @@ const useFinancesOverview = (
   byBudgetBreakdownExpenses: ExtendedExpense[],
   byCategoryBreakdownExpenses: ExpenseDto[]
 ) => {
-  const [isEnabled] = useFlagsActive();
   const sortedQuarters = useMemo(
     () =>
       quarterExpenses.sort((a, b) => {
@@ -263,7 +261,6 @@ const useFinancesOverview = (
     remainingCategories,
     maxValueByCategory,
     costBreakdownTotal,
-    isEnabled,
   };
 };
 

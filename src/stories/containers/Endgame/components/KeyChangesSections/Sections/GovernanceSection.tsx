@@ -5,18 +5,16 @@ const GovernanceSection: React.FC = () => (
   <>
     <KeyChangeCard
       from="Recognized Delegates"
-      // TODO: define with SES if this is a typo or intentional
-      // eslint-disable-next-line spellcheck/spell-checker
-      to={['Aligned voter commitees (AVC)', 'Aligned Delegates (AD)']}
+      to={['Aligned voter committees (AVC)', 'Aligned Delegates (AD)']}
       title="Improved voter participation"
       readMore={[
         {
           title: 'View AVCs & Delegates on the voting portal',
-          href: '#',
+          href: 'https://vote.makerdao.com/delegates',
         },
         {
           title: 'Overview of recognized delegates legacy budgets',
-          href: '#',
+          href: 'https://expenses.makerdao.network/delegates',
         },
       ]}
     >
@@ -32,11 +30,11 @@ const GovernanceSection: React.FC = () => (
       readMore={[
         {
           title: 'Maker Atlas & Scope Artifacts full text',
-          href: '#',
+          href: 'https://powerhouse.gitbook.io/maker-alignment-artifacts/',
         },
         {
           title: 'View the legacy MIPs portal',
-          href: '#',
+          href: 'https://mips.makerdao.com/',
         },
       ]}
     >
