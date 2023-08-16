@@ -3,7 +3,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import BreadcrumbWithYear from '../components/BreadcrumbWithYear/BreadcrumbWithYear';
+import BreadcrumbWithYear from '../BreadcrumbWithYear/BreadcrumbWithYear';
 import type { SelectChangeEvent } from '@mui/material/Select';
 import type { NavigationBreadcrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -46,14 +46,13 @@ const BreadcrumbYearNavigation: React.FC<Props> = ({
 export default BreadcrumbYearNavigation;
 
 const ContainerNavigation = styled.div<WithIsLight>(({ isLight }) => ({
+  paddingLeft: 32,
+  paddingRight: 32,
   position: 'sticky',
-  top: 16,
-  margin: 16,
+  top: 64,
   zIndex: zIndexEnum.BREAD_CRUMB_NAVIGATION,
-  borderRadius: 6,
-  // background: isLight ? '#FFFFFF' : '#25273D',
-  // backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
-  background: isLight ? '#ECF1F3' : 'red',
+  background: isLight ? '#FFFFFF' : '#25273D',
+  borderBottom: isLight ? '2px solid rgba(95, 196, 185, 0.1)' : 'red',
   [lightTheme.breakpoints.up('desktop_1440')]: {
     width: '100%',
     background: isLight ? '#FFFFFF' : '#25273D',

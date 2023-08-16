@@ -3,12 +3,13 @@ import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import BreadcrumbYearNavigation from './SeccionPages/BreadcrumbYearNavigation';
-import BreakdownChart from './SeccionPages/BreakdownChart';
 import BreakdownTable from './SeccionPages/BreakdownTable/BreakdownTable';
-import CardChartOverview from './SeccionPages/CardChartOverview/CardChartOverview';
-import LatestExpenseReports from './SeccionPages/LatestExpenseReports';
-import MakerDAOExpenseMetrics from './SeccionPages/MakerDAOExpenseMetrics';
+import BreadcrumbYearNavigation from './components/SeccionPages/BreadcrumbYearNavigation';
+import BreakdownChart from './components/SeccionPages/BreakdownChart';
+import CardChartOverview from './components/SeccionPages/CardChartOverview/CardChartOverview';
+import CardsNavigation from './components/SeccionPages/CardsNavigation/CardsNavigation';
+import LatestExpenseReports from './components/SeccionPages/LatestExpenseReports';
+import MakerDAOExpenseMetrics from './components/SeccionPages/MakerDAOExpenseMetrics';
 import { useFinances } from './useFinances';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -52,6 +53,7 @@ const FinancesContainer = () => {
             budgetCap={budgetCap}
             prediction={prediction}
           />
+          <CardsNavigation />
           <BreakdownChart />
           <BreakdownTable />
           <MakerDAOExpenseMetrics />
