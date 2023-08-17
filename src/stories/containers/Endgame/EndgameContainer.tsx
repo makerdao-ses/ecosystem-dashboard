@@ -7,6 +7,7 @@ import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import BudgetStructureSection from './components/BudgetStructureSection/BudgetStructureSection';
 import BudgetTransitionStatusSection from './components/BudgetTransitionStatusSection/BudgetTransitionStatusSection';
 import EndgameIntroductionBanner from './components/EndgameIntroductionBanner/EndgameIntroductionBanner';
 import IntroductoryHeadline from './components/IntroductoryHeadline/IntroductoryHeadline';
@@ -40,8 +41,13 @@ const EndgameContainer: React.FC = () => {
       </BannerContainer>
 
       <Container>
-        <KeyChangesSections />
-        <BudgetTransitionStatusSection />
+        <SectionSpacing>
+          <KeyChangesSections />
+
+          {isEnabled('FEATURE_ENDGAME_BUDGET_STRUCTURE_SECTION') && <BudgetStructureSection />}
+
+          {isEnabled('FEATURE_ENDGAME_BUDGET_TRANSITION_SECTION') && <BudgetTransitionStatusSection />}
+        </SectionSpacing>
       </Container>
     </EndgamePageContainer>
   );
@@ -70,4 +76,10 @@ const BannerContainer = styled.div({
     marginTop: 64,
     marginBottom: 64,
   },
+});
+
+const SectionSpacing = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 40,
 });
