@@ -26,8 +26,7 @@ const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData }) => {
         width: 40,
       },
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      formatter: function (params: any) {
+      formatter: function (params: DoughnutSeries) {
         const index = doughnutSeriesData.findIndex((data) => data.name === params.name);
         const itemRender = doughnutSeriesData[index];
 
