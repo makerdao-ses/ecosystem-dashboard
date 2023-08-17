@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import BarPercentRelativeToTotal from '@ses/components/BarPercentRelativeToTotal/BarPercentRelativeToTotal';
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import CopyIcon from '@ses/components/CopyIcon/CopyIcon';
 import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
@@ -9,7 +10,6 @@ import { percentageRespectTo } from '@ses/core/utils/math';
 import { formatAddressForOutputDelegateWallet } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import DelegateBarPercentTotal from './DelegateBarPercentTotal';
 import GenericDelegateCard from './GenericDelegateCard';
 import type { RecognizedDelegatesDto } from '@ses/core/models/dto/delegatesDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -55,7 +55,7 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, relativeV
             <PercentTitle isLight={isLight}>% of Total</PercentTitle>
             <PercentBarContainer>
               <ContainerBarDelegate>
-                <DelegateBarPercentTotal actuals={delegateCard.actuals} totalDai={relativeValue} />
+                <BarPercentRelativeToTotal value={delegateCard.actuals} total={relativeValue} />
               </ContainerBarDelegate>
               <PercentNumber isLight={isLight}>
                 {deleteTwoDecimalPLace(percentBarRelative.toFixed(2)) || 0}%

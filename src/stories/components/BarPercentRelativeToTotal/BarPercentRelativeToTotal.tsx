@@ -6,26 +6,31 @@ import React, { useCallback, useEffect, useState } from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface RelativeDaiBarProps {
-  totalDai: number;
-  actuals: number;
+  total: number;
+  value: number;
+  className?: string;
 }
 
-export const DelegateBarPercentTotal: React.FC<RelativeDaiBarProps> = ({ totalDai, actuals }) => {
+export const BarPercentRelativeToTotal: React.FC<RelativeDaiBarProps> = ({ className, total, value }) => {
   const { isLight } = useThemeContext();
-  const [percentDai, setPercentDai] = useState<number>(0);
+  const [percent, setPercent] = useState<number>(0);
 
   const updateBars = useCallback(() => {
-    setPercentDai((actuals * 100) / totalDai);
-  }, [actuals, totalDai]);
+    setPercent((value * 100) / total);
+  }, [total, value]);
 
   useEffect(() => {
     updateBars();
   }, [updateBars]);
 
-  return <BudgetBar isLight={isLight}>{actuals > 0 && <BarPercent isLight={isLight} width={percentDai} />}</BudgetBar>;
+  return (
+    <BudgetBar className={className} isLight={isLight}>
+      {value > 0 && <BarPercent isLight={isLight} width={percent} />}
+    </BudgetBar>
+  );
 };
 
-export default DelegateBarPercentTotal;
+export default BarPercentRelativeToTotal;
 
 const BudgetBar = styled.div<WithIsLight>(({ isLight }) => ({
   position: 'relative',
