@@ -41,16 +41,21 @@ const CardNavigationMobile: React.FC<Props> = ({ svgImage, title, totalDai, valu
         </ContainerIcon>
       </ActorAboutLink>
       <CardInformation>
-        <Total isLight={isLight}>
-          {`${formatted}`}
-          <Coin isLight={isLight}>DAI</Coin>
-        </Total>
-
+        <ActorAboutLink>
+          <Total isLight={isLight}>
+            {`${formatted}`}
+            <Coin isLight={isLight}>DAI</Coin>
+          </Total>
+        </ActorAboutLink>
         <ContainerBarPercent>
-          <ContainerBar>
-            <BarPercentRelativeToTotalStyled value={3456} total={23456} barColor={barColor} />
-          </ContainerBar>
-          <Percent>{percent}%</Percent>
+          <ActorAboutLink>
+            <ContainerBar>
+              <BarPercentRelativeToTotalStyled value={3456} total={23456} barColor={barColor} />
+            </ContainerBar>
+          </ActorAboutLink>
+          <ActorAboutLink>
+            <Percent>{percent}%</Percent>
+          </ActorAboutLink>
         </ContainerBarPercent>
       </CardInformation>
     </StyleCardNavigationGeneric>
@@ -88,7 +93,6 @@ const CardInformation = styled.div({
   justifyContent: 'space-between',
   flex: 1,
   width: '100%',
-  paddingBottom: 6,
   paddingRight: 8,
   paddingLeft: 8,
 });
@@ -135,12 +139,14 @@ const Coin = styled.span<WithIsLight>(({ isLight }) => ({
 const ContainerBarPercent = styled.div({
   display: 'flex',
   flexDirection: 'row',
+  alignItems: 'flex-start',
   gap: 4,
-  height: 17,
+  height: 25,
 });
 
 const ContainerBar = styled.div({
   width: 138,
+  height: 25,
 });
 
 const Percent = styled.div({
@@ -153,6 +159,7 @@ const Percent = styled.div({
   lineHeight: 'normal',
   textTransform: 'uppercase',
   width: 34,
+  height: 25,
 });
 
 const BarPercentRelativeToTotalStyled = styled(BarPercentRelativeToTotal)<{ barColor: string }>(({ barColor }) => ({

@@ -23,7 +23,7 @@ const args = [
     href: '#',
     totalDai: 8950775,
     valueDai: 1790155,
-    color: '#F99374',
+    barColor: '#F99374',
   },
 ];
 export const [[LightMode, DarkMode]] = createThemeModeVariants(CardNavigationMobile, args);
