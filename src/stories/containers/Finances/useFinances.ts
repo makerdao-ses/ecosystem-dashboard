@@ -2,6 +2,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import type { SelectChangeEvent } from '@mui/material/Select';
+import type { DoughnutSeries } from '@ses/core/models/interfaces/doughnutSeries';
 
 export const useFinances = () => {
   const { isLight } = useThemeContext();
@@ -35,6 +36,33 @@ export const useFinances = () => {
     label: adr,
     url: router.asPath,
   }));
+
+  const doughnutSeriesData: DoughnutSeries[] = [
+    {
+      name: 'Endgame Atlas Budgets',
+      value: 4345,
+      percent: 30,
+      actuals: 45,
+      budgetCap: 34,
+      color: '#F99374',
+    },
+    {
+      name: 'Endgame Scope Budgets',
+      value: 34627,
+      percent: 40,
+      actuals: 45,
+      budgetCap: 34,
+      color: '#447AFB',
+    },
+    {
+      name: 'MakerDAO Legacy Budgets',
+      value: 3445,
+      percent: 30,
+      actuals: 45,
+      budgetCap: 34,
+      color: '#2DC1B1',
+    },
+  ];
   return {
     years,
     value,
@@ -51,5 +79,6 @@ export const useFinances = () => {
     budgetCap,
     prediction,
     isLight,
+    doughnutSeriesData,
   };
 };
