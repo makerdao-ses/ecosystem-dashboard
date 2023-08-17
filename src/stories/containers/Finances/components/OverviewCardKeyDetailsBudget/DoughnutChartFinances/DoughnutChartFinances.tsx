@@ -115,7 +115,7 @@ const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData }) => {
             fontSize: 12,
             fontFamily: 'Inter, sans-serif',
             padding: [
-              0, // up
+              24, // up
               0, // right
               13.7, // down
               1, // left
