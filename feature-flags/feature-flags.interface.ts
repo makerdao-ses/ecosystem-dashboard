@@ -19,4 +19,6 @@ export interface FeatureFlagsInterface {
   FEATURE_BUDGET_SUMMARY_PAGE: boolean; // disable Feature: Budget Summary + Navigation
   // TODO: delete this feature flag after the second section is added
   FEATURE_ENDGAME_NAVIGATION_SECTION: boolean; // disable navigation section in the endgame page
+  FEATURE_ENDGAME_BUDGET_STRUCTURE_SECTION: boolean; // disable the budget structure section in the endgame page
+  FEATURE_ENDGAME_BUDGET_TRANSITION_SECTION: boolean; // disable the budget transition section in the endgame page
 }
