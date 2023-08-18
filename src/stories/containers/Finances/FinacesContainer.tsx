@@ -3,6 +3,7 @@ import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import OverviewCardMobile from './components/OverviewCardMobile/OverviewCardMobile';
 import BreadcrumbYearNavigation from './components/SeccionPages/BreadcrumbYearNavigation';
 import BreakdownChart from './components/SeccionPages/BreakdownChart';
 import BreakdownTable from './components/SeccionPages/BreakdownTable';
@@ -58,6 +59,9 @@ const FinancesContainer = () => {
               doughnutSeriesData={doughnutSeriesData}
             />
           </WrapperDesk>
+          <WrapperMobile>
+            <OverviewCardMobile actuals={actuals} budgetCap={budgetCap} prediction={prediction} />
+          </WrapperMobile>
           <CardsNavigation cardsNavigationInformation={cardsNavigationInformation} />
           <BreakdownChart />
           <BreakdownTable />
@@ -79,6 +83,8 @@ const ContainerTitle = styled.div<WithIsLight>(({ isLight }) => ({
   lineHeight: 'normal',
   letterSpacing: '0.4px',
   color: isLight ? '#231536' : 'red',
+  marginTop: 24,
+  marginBottom: 24,
   [lightTheme.breakpoints.up('table_834')]: {
     fontSize: 32,
     marginTop: 32,
@@ -87,9 +93,10 @@ const ContainerTitle = styled.div<WithIsLight>(({ isLight }) => ({
 }));
 
 const ContainerSections = styled.div({
+  gap: 16,
+  display: 'flex',
+  flexDirection: 'column',
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    display: 'flex',
-    flexDirection: 'column',
     gap: 64,
   },
 });
@@ -100,5 +107,14 @@ const WrapperDesk = styled.div({
     display: 'flex',
     flexDirection: 'column',
     gap: 64,
+  },
+});
+
+const WrapperMobile = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'none',
   },
 });

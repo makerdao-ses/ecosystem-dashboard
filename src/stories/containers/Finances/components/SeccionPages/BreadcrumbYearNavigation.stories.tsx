@@ -5,7 +5,7 @@ import type { ComponentMeta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
 export default {
-  title: 'Pages/NewFinances/BreadcrumbYearNavigation',
+  title: 'Components/NewFinances/Section/BreadcrumbYearNavigation',
   component: BreadcrumbYearNavigation,
 
   parameters: {

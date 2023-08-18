@@ -12,9 +12,10 @@ export type QuarterCardProps = {
   prediction: number;
   actuals: number;
   budgetCap: number;
+  className?: string;
 };
 
-const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ prediction, actuals, budgetCap }) => {
+const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ prediction, actuals, budgetCap, className }) => {
   const { isLight } = useThemeContext();
 
   const humanizedActuals = threeDigitsPrecisionHumanization(actuals);
@@ -22,7 +23,7 @@ const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ prediction, 
   const percent = threeDigitsPrecisionHumanization(percentageRespectTo(actuals, budgetCap)).value;
 
   return (
-    <CardContainer>
+    <CardContainer className={className}>
       <PredictionWrapper>
         <TotalActual isLight={isLight}>
           <PredictionNumber>{humanizedActuals.value}</PredictionNumber>
@@ -44,7 +45,7 @@ const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ prediction, 
       <DividerCardChart isLight={isLight} />
       <Percent isLight={isLight}>{percent}%</Percent>
       <BarWrapper>
-        <HorizontalBudgetBar actuals={actuals} prediction={prediction} budgetCap={budgetCap} />
+        <HorizontalBudgetBarStyled actuals={actuals} prediction={prediction} budgetCap={budgetCap} />
       </BarWrapper>
       <Legend>
         <LegendItem isLight={isLight} dotColor={isLight ? '#2DC1B1' : '#1AAB9B'}>
@@ -71,19 +72,30 @@ const PredictionWrapper = styled.div({
   alignItems: 'center',
   position: 'relative',
   justifyContent: 'center',
-  marginTop: -1,
+  marginTop: 0,
   marginLeft: -1,
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: -1,
+  },
 });
 
 const TotalActual = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   alignItems: 'center',
   width: 'fit-content',
-  marginLeft: 8,
+  marginLeft: 0,
   color: isLight ? '#231536' : '#EDEFFF',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginLeft: 8,
+  },
 }));
-const TotalBudgeCap = styled(TotalActual)({});
+const TotalBudgeCap = styled(TotalActual)({
+  marginLeft: 6,
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginLeft: 8,
+  },
+});
 
 const PredictionNumber = styled.div({
   fontWeight: 600,
@@ -122,8 +134,13 @@ const BarWrapper = styled.div({
 const Legend = styled.div({
   display: 'flex',
   justifyContent: 'space-between',
-  marginTop: 1,
   paddingLeft: 1,
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginTop: 1,
+    paddingLeft: 1,
+  },
 });
 
 const LegendItem = styled.div<WithIsLight & { dotColor: string }>(({ isLight, dotColor }) => ({
@@ -152,10 +169,10 @@ const LegendItem = styled.div<WithIsLight & { dotColor: string }>(({ isLight, do
     content: '""',
     display: 'block',
     position: 'absolute',
-    top: 'calc(50% - 0.5px)',
+    top: 'calc(50% - 4px)',
     left: 0,
-    width: 4,
-    height: 4,
+    width: 8,
+    height: 8,
     borderRadius: '50%',
     backgroundColor: dotColor,
 
@@ -168,8 +185,9 @@ const LegendItem = styled.div<WithIsLight & { dotColor: string }>(({ isLight, do
 }));
 
 const LegendLabel = styled.div({
-  marginLeft: 3.1,
-
+  marginLeft: 4,
+  fontSize: 14,
+  lineHeight: 'normal',
   [lightTheme.breakpoints.up('table_834')]: {
     marginLeft: 4,
     fontWeight: 400,
@@ -192,7 +210,7 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 400,
   lineHeight: 'normal',
   textAlign: 'center',
-  marginTop: 6,
+  marginTop: 8,
   color: isLight ? '#708390' : 'red',
   [lightTheme.breakpoints.up('desktop_1440')]: {
     marginTop: 6,
@@ -222,7 +240,15 @@ const DividerActualsBudgetCap = styled.div<WithIsLight>(({ isLight }) => ({
 }));
 
 const DividerCardChart = styled.div<WithIsLight>(({ isLight }) => ({
+  marginTop: 16,
+  marginBottom: 16,
   borderBottom: isLight ? '1px solid #D4D9E1' : 'red',
-  marginTop: 24,
-  marginBottom: 24,
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    marginTop: 24,
+    marginBottom: 24,
+  },
 }));
+
+const HorizontalBudgetBarStyled = styled(HorizontalBudgetBar)({
+  height: 16,
+});

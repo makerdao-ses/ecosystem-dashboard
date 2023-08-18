@@ -5,7 +5,7 @@ import type { ComponentMeta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
 export default {
-  title: 'Pages/NewFinances/CardChartOverview',
+  title: 'Components/NewFinances/Section/CardChartOverview',
   component: CardChartOverview,
 
   parameters: {
