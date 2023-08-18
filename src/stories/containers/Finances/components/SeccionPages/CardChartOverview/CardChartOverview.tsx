@@ -1,16 +1,21 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import DoughnutChartFinances from '../../OverviewCardKeyDetailsBudget/DoughnutChartFinances/DoughnutChartFinances';
 import InformationBudgetCapOverview from '../../OverviewCardKeyDetailsBudget/InformationBudgetCapOverView/InformationBudgetCapOverView';
+import type { FilterDoughnut } from '@ses/containers/Finances/utils/types';
+import type { DoughnutSeries } from '@ses/core/models/interfaces/doughnutSeries';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  filters: string[];
+  filters: FilterDoughnut[];
   filterSelected: string;
-  handleSelectFilter: (filterSelected: string) => void;
+  handleSelectFilter: (filterSelected: FilterDoughnut) => void;
   actuals: number;
   budgetCap: number;
   prediction: number;
+  doughnutSeriesData: DoughnutSeries[];
 }
 const CardChartOverview: React.FC<Props> = ({
   filterSelected,
@@ -19,11 +24,13 @@ const CardChartOverview: React.FC<Props> = ({
   actuals,
   budgetCap,
   prediction,
+  doughnutSeriesData,
 }) => {
   const { isLight } = useThemeContext();
-  const handleOnclick = (item: string) => () => {
+  const handleOnclick = (item: FilterDoughnut) => () => {
     handleSelectFilter(item);
   };
+
   return (
     <Container isLight={isLight}>
       <ContainerFilters>
@@ -38,6 +45,9 @@ const CardChartOverview: React.FC<Props> = ({
           <InformationBudgetCapOverview actuals={actuals} budgetCap={budgetCap} prediction={prediction} />
         </ContainerCardInformation>
         <Divider isLight={isLight} />
+        <ContainerChat>
+          <DoughnutChartFinances doughnutSeriesData={doughnutSeriesData} />
+        </ContainerChat>
       </ContainerCardChart>
     </Container>
   );
@@ -46,14 +56,19 @@ const CardChartOverview: React.FC<Props> = ({
 export default CardChartOverview;
 
 const Container = styled.div<WithIsLight>(({ isLight }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  padding: '16px 16px 48px 64px',
-  borderRadius: 6,
-  border: isLight ? '1px solid rgba(212, 217, 225, 0.25)' : 'red',
-  background: isLight ? '#FFF' : 'red',
-  boxShadow: isLight ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)' : 'red',
-  height: 311,
+  display: 'none',
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '16px 16px 48px 64px',
+    borderRadius: 6,
+    border: isLight ? '1px solid rgba(212, 217, 225, 0.25)' : 'red',
+    background: isLight ? '#FFF' : 'red',
+    boxShadow: isLight
+      ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
+      : 'red',
+    height: 311,
+  },
 }));
 
 const ContainerFilters = styled.div({
@@ -87,3 +102,9 @@ const ContainerCardInformation = styled.div({
 const Divider = styled.div<WithIsLight>(({ isLight }) => ({
   borderLeft: isLight ? '1px solid #D4D9E1' : 'red',
 }));
+
+const ContainerChat = styled.div({
+  display: 'flex',
+  width: 430,
+  marginLeft: 130,
+});

@@ -135,6 +135,8 @@ const dictionary = [
   'Sidestream',
   'Viridian',
   'fieldset',
+  'Tokenomics',
+  'Incentivized',
 ];
 
 module.exports = dictionary;

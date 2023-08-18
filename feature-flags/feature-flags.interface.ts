@@ -17,5 +17,8 @@ export interface FeatureFlagsInterface {
   FEATURE_CARD_NAVIGATION_ACTOR_ABOUT_PAGE: boolean; // disable Card Expense in Actors About Page
   FEATURE_ACCOUNT_SNAPSHOT_CURRENCY_PICKER: boolean; // disable Currency Picker in Accounts Snapshot Page/section
   FEATURE_BUDGET_SUMMARY_PAGE: boolean; // disable Feature: Budget Summary + Navigation
-  FEATURE_FINANCES_ENDGAME_BANNER_SECTION: boolean; // disable Banner section in Finances page (Endgame section)
+  // TODO: delete this feature flag after the second section is added
+  FEATURE_ENDGAME_NAVIGATION_SECTION: boolean; // disable navigation section in the endgame page
+  FEATURE_ENDGAME_BUDGET_STRUCTURE_SECTION: boolean; // disable the budget structure section in the endgame page
+  FEATURE_ENDGAME_BUDGET_TRANSITION_SECTION: boolean; // disable the budget transition section in the endgame page
 }

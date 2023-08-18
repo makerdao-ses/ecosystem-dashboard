@@ -1,30 +1,38 @@
 import styled from '@emotion/styled';
-import EndgameAtlasBudgets from '@ses/containers/Finances/components/EndgameAtlasBudgets';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import CardNavigationFinance from '../../CardNavigationFinance/CardNavigationFinance';
-import EndgameScopeBudgets from '../../EndgameScopeBudgets';
-import MakerDAOLegacyBudgets from '../../MakerDAOLegacyBudgets';
+import CardNavigationMobile from '../../CardNavigationMobile/CardNavigationMobile';
+import type { NavigationCard } from '@ses/containers/Finances/utils/types';
 
-const CardsNavigation: React.FC = () => (
+interface Props {
+  cardsNavigationInformation: NavigationCard[];
+}
+
+const CardsNavigation: React.FC<Props> = ({ cardsNavigationInformation }) => (
   <ContainerCardsNavigation>
-    <CardNavigationFinance
-      href="#"
-      svgImage={<EndgameAtlasBudgets />}
-      title="Endgame Atlas Budgets"
-      description="Finances of the core governance constructs described in the Maker Atlas."
-    />
-    <CardNavigationFinance
-      href="#"
-      svgImage={<EndgameScopeBudgets />}
-      title="Endgame Scope Budgets"
-      description="Detailed budgets of the practical DAO activities within Endgame."
-    />
-    <CardNavigationFinance
-      href="#"
-      svgImage={<MakerDAOLegacyBudgets />}
-      title="MakerDAO Legacy Budgets"
-      description="Historical records of MakerDAO expenses, prior to Endgame"
-    />
+    <WrapperDesk>
+      {cardsNavigationInformation.map((card: NavigationCard) => (
+        <CardNavigationFinance
+          href={card.href}
+          svgImage={card.svgImage}
+          title={card.title}
+          description={card.description}
+        />
+      ))}
+    </WrapperDesk>
+    <WrapperMobile>
+      {cardsNavigationInformation.map((card: NavigationCard) => (
+        <CardNavigationMobile
+          valueDai={card?.totalDai || 0}
+          totalDai={card?.totalDai || 0}
+          href={card.href}
+          svgImage={card.svgImage}
+          title={card.title}
+          barColor={card.color}
+        />
+      ))}
+    </WrapperMobile>
   </ContainerCardsNavigation>
 );
 
@@ -32,7 +40,23 @@ export default CardsNavigation;
 
 const ContainerCardsNavigation = styled.div({
   display: 'flex',
-  flexDirection: 'row',
-  gap: 32,
-  flexWrap: 'wrap',
+  flexDirection: 'column',
+});
+
+const WrapperDesk = styled.div({
+  display: 'none',
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 32,
+  },
+});
+const WrapperMobile = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'none',
+  },
 });

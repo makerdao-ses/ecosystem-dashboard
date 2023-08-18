@@ -1,27 +1,27 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import KeyChangeSection from '../../KeyChangeSection/KeyChangeSection';
 import { SectionContainer } from '../KeyChangesSections';
-import GovernanceSection from './GovernanceSection';
+import TokenUpgradesSection from './TokenUpgradesSection';
 import type { ComponentMeta } from '@storybook/react';
 
 export default {
-  title: 'Components/Endgame/Governance Section',
-  component: GovernanceSection,
+  title: 'Components/Endgame/Token Upgrades Section',
+  component: TokenUpgradesSection,
   parameters: {
     chromatic: {
       viewports: [375, 834, 1194, 1280, 1440],
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof GovernanceSection>;
+} as ComponentMeta<typeof TokenUpgradesSection>;
 
 const variantsArgs = [{}];
 
 export const [[LightMode, DarkMode]] = createThemeModeVariants(
   () => (
-    <KeyChangeSection title="Governance" expanded={true} onExpand={() => null}>
+    <KeyChangeSection title="Token upgrades" expanded={true} onExpand={() => null}>
       <SectionContainer>
-        <GovernanceSection />
+        <TokenUpgradesSection />
       </SectionContainer>
     </KeyChangeSection>
   ),

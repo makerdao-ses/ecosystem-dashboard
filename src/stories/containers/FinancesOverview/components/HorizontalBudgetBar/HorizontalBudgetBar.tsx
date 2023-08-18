@@ -8,9 +8,10 @@ export type HorizontalBudgetBarProps = {
   actuals: number;
   prediction: number;
   budgetCap: number;
+  className?: string;
 };
 
-const HorizontalBudgetBar: React.FC<HorizontalBudgetBarProps> = ({ actuals, prediction, budgetCap }) => {
+const HorizontalBudgetBar: React.FC<HorizontalBudgetBarProps> = ({ actuals, prediction, budgetCap, className }) => {
   const { isLight } = useThemeContext();
   const barRef = useRef<HTMLDivElement>(null);
   const [actualsWidth, setActualsWidth] = useState<number>(0);
@@ -34,7 +35,7 @@ const HorizontalBudgetBar: React.FC<HorizontalBudgetBarProps> = ({ actuals, pred
   }, [updateBars]);
 
   return (
-    <BarContainer isLight={isLight} ref={barRef}>
+    <BarContainer isLight={isLight} ref={barRef} className={className}>
       {prediction > 0 && <Prediction isLight={isLight} width={predictionWidth} />}
       {actuals > 0 && <Actuals isLight={isLight} width={actualsWidth} />}
       {budgetCap > 0 && <BudgetCapLine position={budgetCapPosition} />}
