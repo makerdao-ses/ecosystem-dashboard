@@ -9,7 +9,7 @@ import type { SelectChangeEvent } from '@mui/material/Select';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  years: string[];
+  items: string[];
   handleChange: (event: SelectChangeEvent<unknown>) => void;
   onOpen?: () => void;
   onClose?: () => void;
@@ -17,22 +17,30 @@ interface Props {
   isOpen: boolean;
   className?: string;
   widthPaper?: number;
+  height?: number;
+  width?: number;
+  borderRadiusPopover?: string;
 }
 
-const SelectYear: React.FC<Props> = ({
-  years,
+const SelectDropdown: React.FC<Props> = ({
+  items,
   handleChange,
   selectedValue,
   isOpen,
   onClose,
   onOpen,
   className,
+  height = 34,
+  width = 92,
   widthPaper = 120,
+  borderRadiusPopover = '6px',
 }: Props) => {
   const { isLight } = useThemeContext();
   return (
     <ContainerSelect className={className}>
       <SelectStyled
+        width={width}
+        height={height}
         isLight={isLight}
         MenuProps={{
           disableScrollLock: true,
@@ -41,6 +49,7 @@ const SelectYear: React.FC<Props> = ({
               bgcolor: isLight ? 'white' : '#000A13',
               '&.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
                 width: widthPaper,
+                borderRadius: borderRadiusPopover,
               },
             },
           },
@@ -63,15 +72,17 @@ const SelectYear: React.FC<Props> = ({
           </ContainerIcon>
         )}
       >
-        {years.map((year) => (
-          <MenuItemStyled value={year} key={year} disableTouchRipple={true} isLight={isLight}>
-            {year}
+        {items.map((items) => (
+          <MenuItemStyled value={items} key={items} disableTouchRipple={true} isLight={isLight}>
+            {items}
           </MenuItemStyled>
         ))}
       </SelectStyled>
     </ContainerSelect>
   );
 };
+
+export default SelectDropdown;
 
 const ContainerSelect = styled.div({
   '.MuiSelect-outlined': {
@@ -88,11 +99,11 @@ const ContainerSelect = styled.div({
     backgroundColor: 'red',
   },
 });
-const SelectStyled = styled(Select)<WithIsLight>(({ isLight }) => ({
+const SelectStyled = styled(Select)<WithIsLight & { width: number; height: number }>(({ isLight, height, width }) => ({
   padding: 0,
   borderRadius: 22,
-  height: 34,
-  width: 92,
+  height,
+  width,
   color: isLight ? '#231536' : '#E2D8EE',
   paddingRight: 0,
   fontFamily: 'Inter, sans-serif',
@@ -151,5 +162,3 @@ const StyledSelectChevronDown = styled(SelectChevronDown)<{ isOpen: boolean }>((
   width: 16,
   height: 16,
 }));
-
-export default SelectYear;

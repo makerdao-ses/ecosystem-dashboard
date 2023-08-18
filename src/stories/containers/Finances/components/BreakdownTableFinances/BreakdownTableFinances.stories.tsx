@@ -1,11 +1,11 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import BreakdownTable from './BreakdownTable';
+import BreakdownTableFinances from './BreakdownTableFinances';
 import type { ComponentMeta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
 export default {
-  title: 'Pages/NewFinances/BreakdownTable',
-  component: BreakdownTable,
+  title: 'Components/NewFinances/Section/BreakdownTableFinances',
+  component: BreakdownTableFinances,
 
   parameters: {
     chromatic: {
@@ -13,10 +13,23 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof BreakdownTable>;
+} as ComponentMeta<typeof BreakdownTableFinances>;
 
-const args = [{}];
-export const [[LightMode, DarkMode]] = createThemeModeVariants(BreakdownTable, args);
+const args = [
+  {
+    metrics: [],
+    activeItems: [],
+    handleSelectChange: () => null,
+    handleResetFilter: () => null,
+    periodicSelectionFilter: ['Monthly', 'Quarterly', 'Annualy'],
+    handleChange: () => null,
+    onOpen: () => null,
+    onClose: () => null,
+    selectedValue: 'Quarterly',
+    isOpen: false,
+  },
+];
+export const [[LightMode, DarkMode]] = createThemeModeVariants(BreakdownTableFinances, args);
 
 LightMode.parameters = {
   figma: {
@@ -26,7 +39,7 @@ LightMode.parameters = {
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22581:78816&mode=dev',
         options: {
           componentStyle: {
-            width: 1440,
+            width: 1312,
           },
           style: {
             top: -1,

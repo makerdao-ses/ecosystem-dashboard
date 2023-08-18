@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import Breadcrumbs from '@ses/components/Breadcrumbs/Breadcrumbs';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import SelectYear from '../SelectYear';
+import SelectDropdown from '../SelectDropdown';
 import type { SelectChangeEvent } from '@mui/material/Select/Select';
 import type { NavigationBreadcrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
 
@@ -27,9 +27,9 @@ const BreadcrumbWithYear: React.FC<Props> = ({
 }: Props) => (
   <ContainerNavigation>
     <StyledBreadcrumbs items={trailingAddress} />
-    <SelectYear
+    <SelectDropdown
       handleChange={handleChange}
-      years={years}
+      items={years}
       isOpen={isOpen}
       selectedValue={selectedValue}
       onClose={onClose}
@@ -56,7 +56,6 @@ const ContainerNavigation = styled.div({
 
 const StyledBreadcrumbs = styled(Breadcrumbs)({
   padding: 0,
-  // height: 50,
   '& .crumb': {
     letterSpacing: 0,
     padding: 0,

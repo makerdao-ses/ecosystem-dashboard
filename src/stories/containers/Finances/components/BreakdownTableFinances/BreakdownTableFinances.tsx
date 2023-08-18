@@ -2,10 +2,38 @@ import styled from '@emotion/styled';
 import SESTooltip from '@ses/components/SESTooltip/SESTooltip';
 import Information from '@ses/components/svg/information';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import FilterTable from '../FiltersTable/FilterTable';
+import type { SelectChangeEvent } from '@mui/material/Select/Select';
+import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-const BreakdownTable = () => {
+interface Props {
+  metrics: MultiSelectItem[];
+  activeItems: string[];
+  handleSelectChange: (value: string[]) => void;
+  handleResetFilter: () => void;
+  periodicSelectionFilter: string[];
+  handleChange: (event: SelectChangeEvent<unknown>) => void;
+  onOpen?: () => void;
+  onClose?: () => void;
+  selectedValue: string;
+  isOpen: boolean;
+}
+
+const BreakdownTableFinances = ({
+  activeItems,
+  handleChange,
+  handleResetFilter,
+  handleSelectChange,
+  isOpen,
+  periodicSelectionFilter,
+  metrics,
+  selectedValue,
+  onClose,
+  onOpen,
+}: Props) => {
   const { isLight } = useThemeContext();
   return (
     <Container>
@@ -26,16 +54,31 @@ const BreakdownTable = () => {
           </TooltipWrapper>
         </Tooltip>
       </TitleTooltip>
-      <div>Filtros</div>
+
+      <FilterContainer>
+        <FilterTable
+          activeItems={activeItems}
+          metrics={metrics}
+          handleSelectChange={handleSelectChange}
+          handleResetFilter={handleResetFilter}
+          handleChange={handleChange}
+          isOpen={isOpen}
+          selectedValue={selectedValue}
+          periodicSelectionFilter={periodicSelectionFilter}
+          onClose={onClose}
+          onOpen={onOpen}
+        />
+      </FilterContainer>
     </Container>
   );
 };
 
-export default BreakdownTable;
+export default BreakdownTableFinances;
 const Container = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
+  alignItems: 'flex-start',
 });
 
 const TitleTooltip = styled.div({
@@ -73,4 +116,13 @@ const IconWrapper = styled.div({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+});
+
+const FilterContainer = styled.div({
+  height: 34,
+  // marginBottom: 6,
+  [lightTheme.breakpoints.up('table_834')]: {
+    height: 48,
+    // marginBottom: 12,
+  },
 });
