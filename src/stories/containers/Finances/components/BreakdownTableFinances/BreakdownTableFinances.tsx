@@ -120,9 +120,8 @@ const IconWrapper = styled.div({
 
 const FilterContainer = styled.div({
   height: 34,
-  // marginBottom: 6,
+
   [lightTheme.breakpoints.up('table_834')]: {
     height: 48,
-    // marginBottom: 12,
   },
 });

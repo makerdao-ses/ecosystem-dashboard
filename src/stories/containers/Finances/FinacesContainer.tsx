@@ -88,8 +88,7 @@ const FinancesContainer = () => {
             onClose={handleClosePeriod}
             onOpen={handleOpenPeriod}
           />
-          {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_METRICS_SECTION') && <BreakdownChart />}
-          <MakerDAOExpenseMetrics />
+          {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_METRICS_SECTION') && <MakerDAOExpenseMetrics />}
           <LatestExpenseReports />
         </ContainerSections>
       </Container>
