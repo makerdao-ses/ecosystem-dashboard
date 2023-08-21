@@ -54,7 +54,12 @@ const ContainerNavigation = styled.div<WithIsLight>(({ isLight }) => ({
   background: isLight ? '#FFFFFF' : '#25273D',
   borderBottom: isLight ? '2px solid rgba(95, 196, 185, 0.1)' : 'red',
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    paddingLeft: 32,
-    paddingRight: 32,
+    width: '100%',
+    background: isLight ? '#FFFFFF' : '#25273D',
+    backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
+    backgroundSize: 'cover',
+    borderBottom: isLight ? '2px solid rgba(95, 196, 185, 0.1)' : 'red',
+    top: 64,
+    margin: 0,
   },
 }));

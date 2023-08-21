@@ -1,26 +1,44 @@
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
+import sortBy from 'lodash/sortBy';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import EndgameAtlasBudgets from './components/EndgameAtlasBudgets';
 import EndgameScopeBudgets from './components/EndgameScopeBudgets';
 import MakerDAOLegacyBudgets from './components/MakerDAOLegacyBudgets';
-import type { FilterDoughnut, NavigationCard } from './utils/types';
+import type { FilterDoughnut, NavigationCard, PeriodicSelectionFilter } from './utils/types';
 import type { SelectChangeEvent } from '@mui/material/Select';
+import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { DoughnutSeries } from '@ses/core/models/interfaces/doughnutSeries';
 
 export const useFinances = () => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const routes = ['Finances'];
+  const years = ['2022', '2023'];
+  const metricsFilter = useMemo(
+    () => ['Budget', 'Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain'],
+    []
+  );
+
+  const [activeElements, setActiveElements] = useState<string[]>([]);
+  const handleSelectChangeMetrics = (value: string[]) => {
+    setActiveElements(value);
+  };
+  const handleResetMetrics = () => {
+    setActiveElements([]);
+  };
+  const periodicSelectionFilter: PeriodicSelectionFilter[] = ['Monthly', 'Quarterly', 'Annualy'];
   const filters: FilterDoughnut[] = ['Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain', 'Budget'];
 
   const [filterSelected, setFilterSelected] = useState<FilterDoughnut>('Budget');
+  const [periodFilter, setPeriodFilter] = useState<PeriodicSelectionFilter>('Quarterly');
   const router = useRouter();
-  const routes = ['Finances'];
-  const years = ['2022', '2023'];
-  const [value, setValue] = useState(years[0]);
-  const [isOpen, setIsOpen] = useState(false);
+
+  const [year, setYears] = useState(years[0]);
+  const [isOpenYear, setIsOpenYear] = useState<boolean>(false);
+  const [isOpenPeriod, setIsOpenPeriod] = useState<boolean>(false);
   const actuals = 9120;
   const budgetCap = 9120;
   const prediction = 4436;
@@ -29,16 +47,32 @@ export const useFinances = () => {
     setFilterSelected(item);
   };
 
-  const handleChange = (event: SelectChangeEvent<unknown>) => {
-    setValue(event.target.value as unknown as string);
+  const handleChangeYears = (event: SelectChangeEvent<unknown>) => {
+    setYears(event.target.value as string);
   };
-
-  const handleOpen = () => {
-    setIsOpen(true);
+  const handlePeriodChange = (event: SelectChangeEvent<unknown>) => {
+    setPeriodFilter(event.target.value as PeriodicSelectionFilter);
   };
-  const handleClose = () => {
-    setIsOpen(false);
+  const handleOpenYear = () => {
+    setIsOpenYear(true);
   };
+  const handleCloseYear = () => {
+    setIsOpenYear(false);
+  };
+  const handleOpenPeriod = () => {
+    setIsOpenPeriod(true);
+  };
+  const handleClosePeriod = () => {
+    setIsOpenPeriod(false);
+  };
+  const selectMetrics = useMemo(
+    () =>
+      sortBy(metricsFilter, (item) => item).map((filter) => ({
+        id: filter,
+        content: filter,
+      })) as MultiSelectItem[],
+    [metricsFilter]
+  );
   const trailingAddress = routes.map((adr) => ({
     label: adr,
     url: router.asPath,
@@ -99,11 +133,11 @@ export const useFinances = () => {
   ];
   return {
     years,
-    value,
-    isOpen,
-    handleChange,
-    handleClose,
-    handleOpen,
+    year,
+    isOpenYear,
+    handleChangeYears,
+    handleOpenYear,
+    handleCloseYear,
     router,
     trailingAddress,
     filterSelected,
@@ -115,5 +149,15 @@ export const useFinances = () => {
     isLight,
     doughnutSeriesData,
     cardsNavigationInformation,
+    periodicSelectionFilter,
+    handlePeriodChange,
+    handleClosePeriod,
+    handleOpenPeriod,
+    periodFilter,
+    isOpenPeriod,
+    activeElements,
+    handleSelectChangeMetrics,
+    selectMetrics,
+    handleResetMetrics,
   };
 };
