@@ -36,7 +36,7 @@ const EndgameContainer: React.FC = () => {
       </Container>
       {isEnabled('FEATURE_ENDGAME_NAVIGATION_SECTION') && <NavigationTabs />}
 
-      <BannerContainer>
+      <BannerContainer id="key-changes">
         <EndgameIntroductionBanner isKeyChanges />
       </BannerContainer>
 
@@ -71,6 +71,7 @@ const EndgamePageContainer = styled(PageContainer)<WithIsLight>(({ isLight }) =>
 const BannerContainer = styled.div({
   marginTop: 48,
   marginBottom: 48,
+  scrollMarginTop: 110,
 
   [lightTheme.breakpoints.up('table_834')]: {
     marginTop: 64,

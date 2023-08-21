@@ -129,6 +129,14 @@
   font-display: swap;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   overscroll-behavior: none;
 }
@@ -144,10 +152,6 @@ body {
 a {
   color: inherit;
   text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
 }
 
 .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded {
