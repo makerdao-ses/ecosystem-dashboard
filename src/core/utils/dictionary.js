@@ -137,6 +137,7 @@ const dictionary = [
   'fieldset',
   'Tokenomics',
   'Incentivized',
+  'Annualy',
 ];
 
 module.exports = dictionary;

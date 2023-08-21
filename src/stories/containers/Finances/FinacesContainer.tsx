@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
+import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import OverviewCardMobile from './components/OverviewCardMobile/OverviewCardMobile';
@@ -15,13 +16,9 @@ import { useFinances } from './useFinances';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 const FinancesContainer = () => {
+  const [isEnabled] = useFlagsActive();
   const {
     years,
-    handleChange,
-    handleClose,
-    handleOpen,
-    isOpen,
-    value,
     trailingAddress,
     filters,
     filterSelected,
@@ -31,18 +28,33 @@ const FinancesContainer = () => {
     budgetCap,
     prediction,
     doughnutSeriesData,
+    periodicSelectionFilter,
+    handleChangeYears,
+    handleClosePeriod,
+    handleCloseYear,
+    handleOpenPeriod,
+    handleOpenYear,
+    handlePeriodChange,
+    isOpenPeriod,
+    isOpenYear,
+    periodFilter,
+    year,
     cardsNavigationInformation,
+    activeElements,
+    handleSelectChangeMetrics,
+    selectMetrics,
+    handleResetMetrics,
   } = useFinances();
   return (
     <PageContainer>
       <BreadcrumbYearNavigation
         trailingAddress={trailingAddress}
         years={years}
-        isOpen={isOpen}
-        handleChange={handleChange}
-        onClose={handleClose}
-        onOpen={handleOpen}
-        selectedValue={value}
+        isOpen={isOpenYear}
+        handleChange={handleChangeYears}
+        onClose={handleCloseYear}
+        onOpen={handleOpenYear}
+        selectedValue={year}
       />
 
       <Container>
@@ -63,9 +75,20 @@ const FinancesContainer = () => {
             <OverviewCardMobile actuals={actuals} budgetCap={budgetCap} prediction={prediction} />
           </WrapperMobile>
           <CardsNavigation cardsNavigationInformation={cardsNavigationInformation} />
-          <BreakdownChart />
-          <BreakdownTable />
-          <MakerDAOExpenseMetrics />
+          {isEnabled('FEATURE_FINANCES_BREAK_DOWN_CHART_SECTION') && <BreakdownChart />}
+          <BreakdownTable
+            activeItems={activeElements}
+            handleChange={handlePeriodChange}
+            handleResetFilter={handleResetMetrics}
+            handleSelectChange={handleSelectChangeMetrics}
+            isOpen={isOpenPeriod}
+            metrics={selectMetrics}
+            periodicSelectionFilter={periodicSelectionFilter}
+            selectedValue={periodFilter}
+            onClose={handleClosePeriod}
+            onOpen={handleOpenPeriod}
+          />
+          {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_METRICS_SECTION') && <MakerDAOExpenseMetrics />}
           <LatestExpenseReports />
         </ContainerSections>
       </Container>
