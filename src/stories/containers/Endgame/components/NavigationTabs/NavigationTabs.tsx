@@ -3,27 +3,51 @@ import Container from '@ses/components/Container/Container';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import Link from 'next/link';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useState, useEffect } from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 const NavigationTabs: React.FC = () => {
   const { isLight } = useThemeContext();
+  const router = useRouter();
+  const [asPath, setAsPath] = useState('');
+
+  useEffect(() => {
+    setAsPath(router.asPath);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    const onHashChangeStart = (url: string) => {
+      setAsPath(url);
+    };
+
+    router.events.on('hashChangeStart', onHashChangeStart);
+
+    return () => {
+      router.events.off('hashChangeStart', onHashChangeStart);
+    };
+  }, [router.events]);
 
   return (
     <Sticky>
       <Wrapper isLight={isLight}>
         <Container>
           <Navigation isLight={isLight}>
-            <Link href="#" passHref>
-              <Tab isLight={isLight} active={true}>
+            <Link href="#key-changes" passHref>
+              <Tab isLight={isLight} active={asPath === '/endgame#key-changes'}>
                 Key Changes
               </Tab>
             </Link>
-            <Link href="#" passHref>
-              <Tab isLight={isLight}>Endgame Budget Structure</Tab>
+            <Link href="#endgame-budget-structure" passHref>
+              <Tab isLight={isLight} active={asPath === '/endgame#endgame-budget-structure'}>
+                Endgame Budget Structure
+              </Tab>
             </Link>
-            <Link href="#" passHref>
-              <Tab isLight={isLight}>Budget Transition Status</Tab>
+            <Link href="#budget-transition-status" passHref>
+              <Tab isLight={isLight} active={asPath === '/endgame#budget-transition-status'}>
+                Budget Transition Status
+              </Tab>
             </Link>
           </Navigation>
         </Container>

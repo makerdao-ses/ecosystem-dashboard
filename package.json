@@ -29,6 +29,7 @@
     "formik": "^2.2.9",
     "graphql": "^16.5.0",
     "graphql-request": "^4.3.0",
+    "gsap": "3.12.2",
     "identicon.js": "^2.3.3",
     "jwt-decode": "^3.1.2",
     "luxon": "^2.4.0",
