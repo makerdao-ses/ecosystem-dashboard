@@ -67,8 +67,8 @@ const FilterTable: React.FC<Props> = ({
             handleSelectChange(value);
           }}
           withAll
-          popupContainerWidth={343}
-          listItemWidth={311}
+          popupContainerWidth={256}
+          listItemWidth={224}
           customAll={{
             content: 'All Metrics',
             id: 'all',
