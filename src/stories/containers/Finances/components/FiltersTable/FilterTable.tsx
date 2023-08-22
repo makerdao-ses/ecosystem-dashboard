@@ -3,6 +3,7 @@ import { CustomMultiSelect } from '@ses/components/CustomMultiSelect/CustomMulti
 import ResetButton from '@ses/components/ResetButton/ResetButton';
 import { Close } from '@ses/components/svg/close';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import SelectDropdown from '../SelectDropdown';
 import MetricItem from './MetricItem';
@@ -87,8 +88,6 @@ const FilterTable: React.FC<Props> = ({
           onClose={onClose}
           onOpen={onOpen}
           widthPaper={256}
-          height={48}
-          width={120}
         />
       </PeriodicSelectionFilter>
 
@@ -104,17 +103,16 @@ export default FilterTable;
 const FiltersContainer = styled.div({
   display: 'grid',
   gap: '16px',
-  gridTemplateColumns: 'auto auto',
+  gridTemplateColumns: 'auto auto auto',
   gridTemplateRows: 'auto',
   placeItems: 'space-between',
   justifyContent: 'end',
   width: 343,
   margin: '0 auto',
   gridTemplateAreas: `
-  "filterMetrics buttonFilter"
+  "filterMetrics periodicSelection buttonFilter "
   `,
   '@media (min-width: 834px)': {
-    width: 690,
     gridTemplateRows: 'auto',
     margin: 'none',
     gap: 18,
@@ -141,7 +139,6 @@ const ContainerFiltersMetric = styled.div({
 });
 const PeriodicSelectionFilter = styled.div({
   gridArea: 'periodicSelection',
-  display: 'none',
   justifyContent: 'flex-end',
   '@media (min-width: 834px)': {
     display: 'flex',
@@ -164,6 +161,12 @@ const ResponsiveButton = styled.div<WithIsLight>(({ isLight }) => ({
 }));
 
 const StyledSelectDropdown = styled(SelectDropdown)({
-  width: 120,
-  height: 40,
+  '& > div': {
+    width: 120,
+    height: 34,
+    [lightTheme.breakpoints.up('table_834')]: {
+      width: 120,
+      height: 48,
+    },
+  },
 });

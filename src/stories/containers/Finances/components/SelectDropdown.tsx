@@ -122,7 +122,7 @@ const SelectStyled = styled(Select)<WithIsLight & { width: number; height: numbe
       border: `1px solid ${isLight ? '#231536' : '#787A9B'}`,
     },
   },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [lightTheme.breakpoints.up('table_834')]: {
     height: 48,
   },
 }));
