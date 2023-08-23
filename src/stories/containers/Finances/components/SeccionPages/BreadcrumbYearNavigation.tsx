@@ -46,20 +46,31 @@ const BreadcrumbYearNavigation: React.FC<Props> = ({
 export default BreadcrumbYearNavigation;
 
 const ContainerNavigation = styled.div<WithIsLight>(({ isLight }) => ({
-  paddingLeft: 32,
-  paddingRight: 32,
+  marginRight: 16,
+  marginLeft: 16,
+  // marginLeft:16,
   position: 'sticky',
   top: 64,
+  marginTop: 16,
+  paddingLeft: 8,
+  paddingRight: 8,
+  borderRadius: 6,
+  // top: 16,
+  background: isLight ? '#ECF1F3' : 'red',
   zIndex: zIndexEnum.BREAD_CRUMB_NAVIGATION,
-  background: isLight ? '#FFFFFF' : '#25273D',
-  borderBottom: isLight ? '2px solid rgba(95, 196, 185, 0.1)' : 'red',
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginRight: 0,
+    marginLeft: 0,
+    top: 63,
+    paddingLeft: 32,
+    paddingRight: 32,
     width: '100%',
     background: isLight ? '#FFFFFF' : '#25273D',
     backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
     backgroundSize: 'cover',
     borderBottom: isLight ? '2px solid rgba(95, 196, 185, 0.1)' : 'red',
-    top: 64,
+
     margin: 0,
+    borderRadius: 0,
   },
 }));
