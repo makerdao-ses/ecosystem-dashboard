@@ -10,7 +10,7 @@ const BudgetStructureSection: React.FC = () => {
   const { isLight } = useThemeContext();
 
   return (
-    <Content>
+    <Content id="endgame-budget-structure">
       <SectionHeader
         title="Endgame Budget Structure"
         subtitle="Some simple but poignant text about what endgame budgets are about"
@@ -41,6 +41,7 @@ const Content = styled.section({
   display: 'flex',
   flexDirection: 'column',
   gap: 40,
+  scrollMarginTop: 130, // here
 });
 
 const Card = styled.div<WithIsLight>(({ isLight }) => ({

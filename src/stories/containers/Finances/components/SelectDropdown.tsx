@@ -50,6 +50,14 @@ const SelectDropdown: React.FC<Props> = ({
               '&.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
                 width: widthPaper,
                 borderRadius: borderRadiusPopover,
+                padding: '24px 16px 16px',
+                '& ul': {
+                  padding: 0,
+                },
+                '& ul > li': {
+                  padding: '12px 4px',
+                  minHeight: 40,
+                },
               },
             },
           },
@@ -88,16 +96,6 @@ const ContainerSelect = styled.div({
   '.MuiSelect-outlined': {
     paddingLeft: 16,
   },
-  '&.MuiList-root': {
-    color: 'red',
-    backgroundColor: 'red',
-  },
-  '&.MuiMenu-paper': {
-    backgroundColor: 'red',
-  },
-  '.Mui-selected': {
-    backgroundColor: 'red',
-  },
 });
 const SelectStyled = styled(Select)<WithIsLight & { width: number; height: number }>(({ isLight, height, width }) => ({
   padding: 0,
@@ -124,17 +122,24 @@ const SelectStyled = styled(Select)<WithIsLight & { width: number; height: numbe
       border: `1px solid ${isLight ? '#231536' : '#787A9B'}`,
     },
   },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [lightTheme.breakpoints.up('table_834')]: {
     height: 48,
   },
 }));
 
 const MenuItemStyled = styled(MenuItem)<WithIsLight>(({ isLight }) => ({
-  marginRight: 6,
-  marginLeft: 6,
-  padding: '4px 12px',
+  fontSize: 14,
+  lineHeight: 'normal',
   backgroundColor: isLight ? 'white' : '#000A13',
+
   color: isLight ? '#231536' : '#D2D4EF',
+
+  '& ul > li': {
+    margin: 0,
+    padding: 0,
+    fontSize: 14,
+  },
+
   ':hover': {
     backgroundColor: isLight ? '#EDEFFF' : 'red',
     borderRadius: 6,

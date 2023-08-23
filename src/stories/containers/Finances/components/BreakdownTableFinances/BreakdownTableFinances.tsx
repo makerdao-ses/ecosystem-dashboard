@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import SESTooltip from '@ses/components/SESTooltip/SESTooltip';
 import Information from '@ses/components/svg/information';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
@@ -35,23 +36,24 @@ const BreakdownTableFinances = ({
   onOpen,
 }: Props) => {
   const { isLight } = useThemeContext();
+  const phoneLess = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+
   return (
     <Container>
       <TitleTooltip>
-        <Title isLight={isLight}>Breakdown Table</Title>
+        <Title isLight={isLight}>{`${phoneLess ? 'MakerDAO Budget' : 'Breakdown Table'}`}</Title>
+
         <Tooltip>
-          <TooltipWrapper>
-            <SESTooltip
-              content={'Description is missing'}
-              placement="bottom-start"
-              enterTouchDelay={0}
-              leaveTouchDelay={15000}
-            >
-              <IconWrapper>
-                <Information />
-              </IconWrapper>
-            </SESTooltip>
-          </TooltipWrapper>
+          <SESTooltip
+            content={'Description is missing'}
+            placement="bottom-start"
+            enterTouchDelay={0}
+            leaveTouchDelay={15000}
+          >
+            <IconWrapper>
+              <Information />
+            </IconWrapper>
+          </SESTooltip>
         </Tooltip>
       </TitleTooltip>
 
@@ -76,46 +78,50 @@ const BreakdownTableFinances = ({
 export default BreakdownTableFinances;
 const Container = styled.div({
   display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  alignItems: 'flex-start',
+  flexDirection: 'column',
+  gap: 26,
+  [lightTheme.breakpoints.up('table_834')]: {
+    gap: 24,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+  },
 });
 
 const TitleTooltip = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  alignItems: 'flex-end',
-  gap: 6,
+  alignItems: 'center',
+  gap: 12,
+  height: 24,
+  [lightTheme.breakpoints.up('table_834')]: {
+    gap: 10,
+  },
 });
 
 const Title = styled.div<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : 'red',
   fontFamily: 'Inter, sans-serif',
-  fontSize: 24,
+  fontSize: 20,
   fontStyle: 'normal',
   fontWeight: 600,
   lineHeight: 'normal',
-  letterSpacing: '0.4px',
-}));
-const Tooltip = styled.div({
-  height: 24,
-  width: 24,
-});
+  letterSpacing: '0.5px',
 
-const TooltipWrapper = styled.div({
-  width: 24,
-  height: 24,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-});
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: 24,
+    letterSpacing: '0.4px',
+  },
+}));
+const Tooltip = styled.div({});
 
 const IconWrapper = styled.div({
-  width: 'fit-content',
-  height: 'fit-content',
   display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+
+  paddingTop: 2,
+  [lightTheme.breakpoints.up('table_834')]: {
+    paddingTop: 8,
+  },
 });
 
 const FilterContainer = styled.div({

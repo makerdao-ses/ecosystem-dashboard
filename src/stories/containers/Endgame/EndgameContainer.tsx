@@ -1,3 +1,4 @@
+/* eslint-disable spellcheck/spell-checker */
 import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
@@ -6,7 +7,12 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
-import React from 'react';
+
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+// import { useRouter } from 'next/router';
+import React /* , { useEffect } */ from 'react';
+
 import BudgetStructureSection from './components/BudgetStructureSection/BudgetStructureSection';
 import BudgetTransitionStatusSection from './components/BudgetTransitionStatusSection/BudgetTransitionStatusSection';
 import EndgameIntroductionBanner from './components/EndgameIntroductionBanner/EndgameIntroductionBanner';
@@ -15,9 +21,31 @@ import KeyChangesSections from './components/KeyChangesSections/KeyChangesSectio
 import NavigationTabs from './components/NavigationTabs/NavigationTabs';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
+gsap.registerPlugin(ScrollTrigger);
+
 const EndgameContainer: React.FC = () => {
   const { isLight } = useThemeContext();
   const [isEnabled] = useFlagsActive();
+
+  /* useEffect(() => {
+    ScrollTrigger.create({
+      id: 'st',
+      trigger: 'body',
+      start: 'top top',
+      end: 'bottom bottom',
+      onUpdate: self => {
+        console.log('progress:', self.progress.toFixed(3), 'direction:', self.direction, 'velocity', self.getVelocity());
+      },
+      markers: true,
+    });
+
+    return () => {
+      const st = ScrollTrigger.getById('st');
+      if (st) {
+        st.kill();
+      }
+    };
+  }, []); */
 
   return (
     <EndgamePageContainer isLight={isLight}>
@@ -36,7 +64,7 @@ const EndgameContainer: React.FC = () => {
       </Container>
       {isEnabled('FEATURE_ENDGAME_NAVIGATION_SECTION') && <NavigationTabs />}
 
-      <BannerContainer>
+      <BannerContainer id="key-changes">
         <EndgameIntroductionBanner isKeyChanges />
       </BannerContainer>
 
@@ -71,6 +99,7 @@ const EndgamePageContainer = styled(PageContainer)<WithIsLight>(({ isLight }) =>
 const BannerContainer = styled.div({
   marginTop: 48,
   marginBottom: 48,
+  scrollMarginTop: 110,
 
   [lightTheme.breakpoints.up('table_834')]: {
     marginTop: 64,

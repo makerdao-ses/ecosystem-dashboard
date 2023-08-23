@@ -29,7 +29,7 @@ export const useFinances = () => {
   const handleResetMetrics = () => {
     setActiveElements([]);
   };
-  const periodicSelectionFilter: PeriodicSelectionFilter[] = ['Monthly', 'Quarterly', 'Annualy'];
+  const periodicSelectionFilter: PeriodicSelectionFilter[] = ['Monthly', 'Quarterly', 'Annually'];
   const filters: FilterDoughnut[] = ['Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain', 'Budget'];
 
   const [filterSelected, setFilterSelected] = useState<FilterDoughnut>('Budget');

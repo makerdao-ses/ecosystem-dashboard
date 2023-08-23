@@ -1,5 +1,8 @@
+/* eslint-disable spellcheck/spell-checker */
 import styled from '@emotion/styled';
 import lightTheme from '@ses/styles/theme/light';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import React from 'react';
 import KeyChangeSection from '../KeyChangeSection/KeyChangeSection';
 import KeyChangesBudgetTransitionStatusSection from '../KeyChangesBudgetTransitionStatusSection/KeyChangesBudgetTransitionStatusSection';
@@ -8,13 +11,19 @@ import OperationsSection from './Sections/OperationsSection';
 import TokenUpgradesSection from './Sections/TokenUpgradesSection';
 import { KeyChangesSectionsEnum } from './SectionsEnum';
 
+gsap.registerPlugin(ScrollTrigger);
+
 const KeyChangesSections: React.FC = () => {
   const [activeSection, setActiveSection] = React.useState<KeyChangesSectionsEnum | undefined>(
     KeyChangesSectionsEnum.GOVERNANCE
   );
 
-  const handleExpand = (section: KeyChangesSectionsEnum) => () =>
+  const handleExpand = (section: KeyChangesSectionsEnum) => () => {
     setActiveSection(activeSection === section ? undefined : section);
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 1000);
+  };
 
   return (
     <KeyChangesSectionsContainer>

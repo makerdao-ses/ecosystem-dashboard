@@ -45,12 +45,10 @@ const ContainerNavigation = styled.div({
   justifyContent: 'space-between',
   alignItems: 'center',
   height: 50,
-  paddingLeft: 8,
-  paddingRight: 8,
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [lightTheme.breakpoints.up('table_834')]: {
     height: 74,
-    paddingLeft: 32,
-    paddingRight: 32,
+    paddingLeft: 0,
+    paddingRight: 0,
   },
 });
 
@@ -59,6 +57,10 @@ const StyledBreadcrumbs = styled(Breadcrumbs)({
   '& .crumb': {
     letterSpacing: 0,
     padding: 0,
+    fontSize: 11,
+    [lightTheme.breakpoints.up('table_834')]: {
+      fontSize: 16,
+    },
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     padding: '27px 0',
