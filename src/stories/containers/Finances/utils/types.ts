@@ -18,4 +18,4 @@ export interface DoughnutSeries {
   color: string;
 }
 
-export type PeriodicSelectionFilter = 'Monthly' | 'Quarterly' | 'Annualy';
+export type PeriodicSelectionFilter = 'Monthly' | 'Quarterly' | 'Annually';

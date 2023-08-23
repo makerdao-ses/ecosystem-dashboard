@@ -9,7 +9,7 @@ export default {
 
   parameters: {
     chromatic: {
-      viewports: [1440],
+      viewports: [375, 834, 1194, 1280, 1440],
       pauseAnimationAtEnd: true,
     },
   },
@@ -34,12 +34,78 @@ export const [[LightMode, DarkMode]] = createThemeModeVariants(BreakdownTableFin
 LightMode.parameters = {
   figma: {
     component: {
+      375: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22820:192777&mode=design&t=NJ7Cakxx5a5IPq73-4',
+        options: {
+          componentStyle: {
+            width: 343,
+          },
+          style: {
+            top: 0,
+            left: 1,
+          },
+        },
+      },
+      834: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22977:247213&mode=dev',
+        options: {
+          componentStyle: {
+            width: 770,
+          },
+          style: {
+            top: -1,
+
+            left: -1,
+          },
+        },
+      },
+      1194: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22944:241186&mode=dev',
+        options: {
+          componentStyle: {
+            width: 1130,
+          },
+          style: {
+            top: -1,
+            left: -1,
+          },
+        },
+      },
+      1280: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22935:213863&mode=dev',
+        options: {
+          componentStyle: {
+            width: 1184,
+          },
+          style: {
+            top: -1,
+            left: -1,
+          },
+        },
+      },
       1440: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22581:78816&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22935:200125&mode=dev',
         options: {
           componentStyle: {
             width: 1312,
+          },
+          style: {
+            top: -1,
+            left: -1,
+          },
+        },
+      },
+      1920: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22935:204425&mode=dev',
+        options: {
+          componentStyle: {
+            width: 1792,
           },
           style: {
             top: -1,
