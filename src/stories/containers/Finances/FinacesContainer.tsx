@@ -126,7 +126,7 @@ const ContainerSections = styled.div({
 
 const WrapperDesk = styled.div({
   display: 'none',
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [lightTheme.breakpoints.up('table_834')]: {
     display: 'flex',
     flexDirection: 'column',
     gap: 64,

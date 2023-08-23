@@ -81,9 +81,62 @@ export const [[LightMode, DarkMode], [Mobile, MobileDark]] = createThemeModeVari
 LightMode.parameters = {
   figma: {
     component: {
+      834: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22977:247036&mode=dev',
+        options: {
+          componentStyle: {
+            width: 770,
+          },
+          style: {
+            top: -20,
+            left: -40,
+          },
+        },
+      },
+      1194: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22944:241009&mode=dev',
+        options: {
+          componentStyle: {
+            width: 1130,
+          },
+          style: {
+            top: -20,
+            left: -40,
+          },
+        },
+      },
+
+      1280: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22935:213686&mode=dev',
+        options: {
+          componentStyle: {
+            width: 1184,
+          },
+          style: {
+            top: -20,
+            left: -40,
+          },
+        },
+      },
       1440: {
         component:
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22641:221346&mode=dev',
+        options: {
+          componentStyle: {
+            width: 1312,
+          },
+          style: {
+            top: -20,
+            left: -40,
+          },
+        },
+      },
+      1920: {
+        component:
+          'https:///www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22935:204248&mode=dev',
         options: {
           componentStyle: {
             width: 1312,

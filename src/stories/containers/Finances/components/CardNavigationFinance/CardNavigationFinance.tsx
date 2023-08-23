@@ -26,6 +26,18 @@ const StyleCardNavigationGeneric = styled(CardNavigationGeneric)({
   flexDirection: 'column',
   alignItems: 'center',
   width: '100%',
+  [lightTheme.breakpoints.up('table_834')]: {
+    padding: '16px 8px 24px',
+    width: 246,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    padding: '16px 32px 24px',
+    width: 355.33,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    width: 373.33,
+  },
+
   [lightTheme.breakpoints.up('desktop_1440')]: {
     width: 416,
   },
